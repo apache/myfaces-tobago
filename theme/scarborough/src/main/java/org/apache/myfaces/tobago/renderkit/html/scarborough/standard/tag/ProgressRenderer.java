@@ -83,7 +83,7 @@ public class ProgressRenderer extends LayoutableRendererBase {
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement(HtmlConstants.SPAN, component);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.TITLE, title, null);
 
     writer.startElement(HtmlConstants.IMG, null);

@@ -29,9 +29,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -52,12 +52,12 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement(HtmlConstants.FIELDSET, component);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
 
     if (label != null || labelString != null) {
       writer.startElement(HtmlConstants.LEGEND, component);
-      writer.writeComponentClass();
+      writer.writeClassAttribute();
 
       writer.startElement(HtmlConstants.B, null);
       writer.writeText("", null);
@@ -75,7 +75,7 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
       }
     }
     writer.startElement(HtmlConstants.DIV, component);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE_INNER);
   }
 

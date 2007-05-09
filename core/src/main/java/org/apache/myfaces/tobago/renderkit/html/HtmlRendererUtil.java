@@ -42,7 +42,6 @@ import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBaseWrapper;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.OptimizedResponseWriter;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -552,7 +551,7 @@ public final class HtmlRendererUtil {
   }
 
   public static void renderSelectItems(UIInput component, List<SelectItem> items, Object[] values,
-      TobagoResponseWriter writer, FacesContext facesContext) throws IOException {
+      OptimizedResponseWriter writer, FacesContext facesContext) throws IOException {
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("value = '" + values + "'");
@@ -560,7 +559,7 @@ public final class HtmlRendererUtil {
     for (SelectItem item : items) {
       if (item instanceof SelectItemGroup) {
         writer.startElement(HtmlConstants.OPTGROUP, null);
-        writer.writeAttribute(HtmlAttributes.LABEL, item.getLabel(), null);
+        writer.writeAttribute(HtmlAttributes.LABEL, item.getLabel(), true);
         SelectItem[] selectItems = ((SelectItemGroup) item).getSelectItems();
         renderSelectItems(component, Arrays.asList(selectItems), values, writer, facesContext);
         writer.endElement(HtmlConstants.OPTGROUP);
@@ -569,11 +568,11 @@ public final class HtmlRendererUtil {
         final Object itemValue = item.getValue();
         String formattedValue
             = RenderUtil.getFormattedValue(facesContext, component, itemValue);
-        writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, null);
+        writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
         if (RenderUtil.contains(values, item.getValue())) {
-          writer.writeAttribute(HtmlAttributes.SELECTED, HtmlAttributes.SELECTED, null);
+          writer.writeAttribute(HtmlAttributes.SELECTED, true);
         }
-        writer.writeText(item.getLabel(), null);
+        writer.writeText(item.getLabel());
         writer.endElement(HtmlConstants.OPTION);
       }
     }

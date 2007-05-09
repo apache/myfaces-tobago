@@ -27,12 +27,12 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -85,7 +85,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     writer.writeAttribute(HtmlAttributes.DISABLED,
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
     writer.writeAttribute(HtmlAttributes.SIZE, 2, null); // should be greater 1
     if (!ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {

@@ -113,7 +113,7 @@ public class TreeRenderer extends LayoutableRendererBase {
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement(HtmlConstants.DIV, tree);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
 
     writer.startElement(HtmlConstants.INPUT, tree);
@@ -145,7 +145,7 @@ public class TreeRenderer extends LayoutableRendererBase {
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
     writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     writer.startElement(HtmlConstants.TR, null);
     writer.startElement(HtmlConstants.TD, null);
     writer.writeIdAttribute(clientId + "-cont");

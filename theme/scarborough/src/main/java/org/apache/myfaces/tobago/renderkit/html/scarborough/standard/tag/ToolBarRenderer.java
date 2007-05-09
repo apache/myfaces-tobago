@@ -92,7 +92,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
 
       writer.startElement(HtmlConstants.DIV, toolbar);
       writer.writeIdAttribute(toolbar.getClientId(facesContext));
-      writer.writeComponentClass();
+      writer.writeClassAttribute();
       writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
       writer.startElement(HtmlConstants.DIV, toolbar);
       boolean right = false;

@@ -29,8 +29,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -40,8 +40,8 @@ import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
@@ -88,7 +88,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.startElement(HtmlConstants.INPUT, component);
       writer.writeAttribute(HtmlAttributes.TYPE, "checkbox", null);
 
-      writer.writeComponentClass();
+      writer.writeClassAttribute();
       writer.writeAttribute(HtmlAttributes.CHECKED,
           RenderUtil.contains(values, item.getValue()));
       writer.writeNameAttribute(id);

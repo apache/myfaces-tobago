@@ -40,11 +40,11 @@ public class SeparatorRenderer extends LayoutableRendererBase {
       UIComponent component) throws IOException {
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement(HtmlConstants.DIV, component);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.STYLE, null, TobagoConstants.ATTR_STYLE);
     if (component.getFacet(FACET_LABEL) != null) {
       writer.startElement(HtmlConstants.TABLE, component);
-      writer.writeComponentClass();
+      writer.writeClassAttribute();
 
       writer.writeAttribute(HtmlAttributes.WIDTH, "100%", false);
       writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
@@ -54,7 +54,7 @@ public class SeparatorRenderer extends LayoutableRendererBase {
       writer.startElement(HtmlConstants.TD, component);
       writer.writeAttribute(HtmlAttributes.CLASS, "tobago-separator-start-default", false);
       writer.startElement(HtmlConstants.HR , component);
-      writer.writeComponentClass();
+      writer.writeClassAttribute();
       writer.endElement(HtmlConstants.HR);
       writer.endElement(HtmlConstants.TD);
 
@@ -67,7 +67,7 @@ public class SeparatorRenderer extends LayoutableRendererBase {
 
       writer.startElement(HtmlConstants.TD, component);
       writer.startElement(HtmlConstants.HR , component);
-      writer.writeComponentClass();
+      writer.writeClassAttribute();
       writer.endElement(HtmlConstants.HR);
       writer.endElement(HtmlConstants.TD);
 
@@ -85,7 +85,7 @@ public class SeparatorRenderer extends LayoutableRendererBase {
       */
     } else {
       writer.startElement(HtmlConstants.HR , component);
-      writer.writeComponentClass();
+      writer.writeClassAttribute();
       writer.endElement(HtmlConstants.HR);
     }
     writer.endElement(HtmlConstants.DIV);

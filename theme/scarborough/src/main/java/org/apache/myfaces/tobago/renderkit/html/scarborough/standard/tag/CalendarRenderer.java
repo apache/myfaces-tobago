@@ -32,9 +32,9 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.CalendarModel;
 import org.apache.myfaces.tobago.model.DateModel;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -96,7 +96,7 @@ public class CalendarRenderer extends LayoutableRendererBase {
 
     writer.startElement(HtmlConstants.TABLE, component);
     writer.writeIdAttribute(id);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, "3", null);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);

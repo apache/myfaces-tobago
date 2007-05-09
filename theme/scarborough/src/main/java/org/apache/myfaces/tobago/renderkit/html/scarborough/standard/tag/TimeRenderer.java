@@ -124,7 +124,7 @@ public class TimeRenderer extends InputRendererBase {
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement(HtmlConstants.DIV, input);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
 
     writer.startElement(HtmlConstants.DIV, input);
     writer.writeAttribute(HtmlAttributes.ID, idPrefix + "borderDiv", null);

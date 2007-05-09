@@ -29,13 +29,13 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIInput;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
@@ -66,7 +66,7 @@ public class TextAreaRenderer extends InputRendererBase {
     writer.writeAttribute(HtmlAttributes.DISABLED,
         ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED));
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     if (onchange != null) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
     }

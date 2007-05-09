@@ -84,7 +84,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
 
     writer.startElement(HtmlConstants.TABLE, component);
     writer.writeIdAttribute(id);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
     //writer.writeAttribute("border","1",false);
 

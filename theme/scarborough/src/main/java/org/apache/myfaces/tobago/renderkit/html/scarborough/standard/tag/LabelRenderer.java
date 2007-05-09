@@ -92,17 +92,17 @@ public class LabelRenderer extends LayoutableRendererBase {
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement(HtmlConstants.DIV, output);
-    writer.writeComponentClass();    
+    writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
     writer.startElement(HtmlConstants.A, output);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     writer.startElement(HtmlConstants.LABEL, output);
     String clientId = output.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
     if (forValue != null) {
       writer.writeAttribute(HtmlAttributes.FOR, forValue, null);
     }
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     if (width != null) {
       writer.writeAttribute(HtmlAttributes.STYLE, "width: " + width + "px;", null);
     }

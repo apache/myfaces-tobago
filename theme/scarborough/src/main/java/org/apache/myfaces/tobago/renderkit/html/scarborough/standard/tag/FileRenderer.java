@@ -32,8 +32,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -116,7 +116,7 @@ public class FileRenderer extends InputRendererBase {
 
     writer.startElement(HtmlConstants.INPUT, component);
     writer.writeAttribute(HtmlAttributes.TYPE, "file", null);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     if (!ClientProperties.getInstance(facesContext).getUserAgent().isMozilla()) {
       writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
     }

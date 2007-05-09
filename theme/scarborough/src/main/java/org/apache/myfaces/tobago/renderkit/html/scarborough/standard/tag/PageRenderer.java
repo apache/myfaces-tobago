@@ -295,7 +295,7 @@ public class PageRenderer extends PageRendererBase {
 //    writer.writeAttribute("onunload", "Tobago.onexit();", null);
     //this ist for ie to prevent scrollbars where none are needed
     writer.writeAttribute(HtmlAttributes.SCROLL, "auto", null);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
 
     StringBuilder images = new StringBuilder();

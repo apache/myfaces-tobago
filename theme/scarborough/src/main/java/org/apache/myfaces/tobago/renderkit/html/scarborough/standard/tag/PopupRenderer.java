@@ -86,7 +86,7 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
     if (component.isModal()) {
       writer.startElement(HtmlConstants.DIV, component);
       writer.writeIdAttribute(clientId);
-      writer.writeComponentClass();
+      writer.writeClassAttribute();
       writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.popupBlink('" + clientId + "')", null);
       if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
         String bgImage = ResourceManagerUtil.getImageWithPath(facesContext, "image/popupBg.png");

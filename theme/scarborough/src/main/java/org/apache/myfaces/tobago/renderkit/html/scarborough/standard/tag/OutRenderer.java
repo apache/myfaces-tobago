@@ -28,8 +28,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -56,7 +56,7 @@ public class OutRenderer extends LayoutableRendererBase {
       writer.startElement(HtmlConstants.SPAN, component);
       writer.writeIdAttribute(id);
       writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
-      writer.writeComponentClass();
+      writer.writeClassAttribute();
       writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
     }
     if (escape) {

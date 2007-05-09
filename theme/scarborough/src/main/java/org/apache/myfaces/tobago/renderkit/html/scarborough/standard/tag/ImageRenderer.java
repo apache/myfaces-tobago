@@ -33,9 +33,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UICommand;
@@ -109,7 +109,7 @@ public class ImageRenderer extends LayoutableRendererBase {
     writer.writeAttribute(HtmlAttributes.BORDER, border, null);
     writer.writeAttribute(HtmlAttributes.HEIGHT, null, ATTR_HEIGHT);
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     writer.endElement(HtmlConstants.IMG);
   }
 

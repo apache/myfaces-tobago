@@ -129,7 +129,7 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
      String clientId = component.getClientId(facesContext);
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement(HtmlConstants.DIV, component);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
       writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\")");

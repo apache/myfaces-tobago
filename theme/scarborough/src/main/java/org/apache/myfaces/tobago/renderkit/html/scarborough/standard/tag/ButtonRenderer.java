@@ -34,10 +34,10 @@ import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -71,7 +71,7 @@ public class ButtonRenderer extends CommandRendererBase {
       writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), null);
     }
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     writer.writeText("", null); // force closing the start tag
 
 //  image

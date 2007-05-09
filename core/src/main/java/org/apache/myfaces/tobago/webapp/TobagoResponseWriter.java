@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.webapp;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -279,13 +279,50 @@ public class TobagoResponseWriter extends ResponseWriter implements OptimizedRes
 
   public void writeAttribute(final String name, final Object value, final String property)
       throws IOException {
-    writeAttribute(name, value, property, true);
+    if (!startStillOpen) {
+      final String trace = getCallingClassStackTraceElementString();
+      final String error = "Cannot write attribute when start-tag not open. "
+          + "name = '" + name + "'"
+          + "value = '" + value + "'"
+          + "property = '" + property + "' "
+          + trace.substring(trace.indexOf('('));
+      LOG.error(error);
+      throw new IllegalStateException(error);
+    }
+
+    final String attribute = findValue(value, property);
+    if (attribute != null) {
+      writer.write(' ');
+      writer.write(name);
+      writer.write("=\"");
+      if (xml) {
+        writer.write(XmlUtils.escape(attribute));
+      } else {
+        helper.writeAttributeValue(attribute);
+      }
+      writer.write('\"');
+    }
   }
 
-  public void writeAttribute(final String name, final Object value, final boolean escape)
-      throws IOException {
-    writeAttribute(name, value.toString(), escape);
+  private String getCallingClassStackTraceElementString() {
+    final StackTraceElement[] stackTrace = new Exception().getStackTrace();
+    int i = 1;
+    while (stackTrace[i].getClassName().equals(this.getClass().getName())) {
+      i++;
+    }
+    return stackTrace[i].toString();
   }
+
+  public void writeClassAttribute(StyleClasses styleClasses) throws IOException {
+    writeAttribute(HtmlAttributes.CLASS, styleClasses.toString(), false);
+  }
+
+  public void writeURIAttribute(final String s, final Object obj, final String s1)
+      throws IOException {
+    LOG.error("Not implemented yet!");
+  }
+
+// interface OptimizedResponseWriter //////////////////////////////////////////////////////////////////////////////////
 
   public void writeAttribute(final String name, final String value, final boolean escape)
       throws IOException {
@@ -306,7 +343,7 @@ public class TobagoResponseWriter extends ResponseWriter implements OptimizedRes
       if (xml) {
         writer.write(XmlUtils.escape(value));
       } else {
-        if (escape && HtmlWriterUtil.attributeValueMustEscaped(name)) {
+        if (escape) {
           helper.writeAttributeValue(value);
         } else {
           writer.write(value);
@@ -316,77 +353,14 @@ public class TobagoResponseWriter extends ResponseWriter implements OptimizedRes
     }
   }
 
-  public void writeAttribute(final String name, final Object value,
-                             final String property, final boolean escape)
-      throws IOException {
-    if (!startStillOpen) {
-      final String trace = getCallingClassStackTraceElementString();
-      final String error = "Cannot write attribute when start-tag not open. "
-          + "name = '" + name + "'"
-          + "value = '" + value + "'"
-          + "property = '" + property + "' "
-          + trace.substring(trace.indexOf('('));
-      LOG.error(error);
-      throw new IllegalStateException(error);
-    }
-
-    final String attribute = findValue(value, property);
-    if (attribute != null) {
-      writer.write(' ');
-      writer.write(name);
-      writer.write("=\"");
-      if (xml) {
-        writer.write(XmlUtils.escape(attribute));
-      } else {
-        if (escape && HtmlWriterUtil.attributeValueMustEscaped(name)) {
-          helper.writeAttributeValue(attribute);
-        } else {
-          writer.write(attribute);
-        }
-      }
-      writer.write('\"');
-    }
-  }
-
-  private String getCallingClassStackTraceElementString() {
-    final StackTraceElement[] stackTrace = new Exception().getStackTrace();
-    int i = 1;
-    while (stackTrace[i].getClassName().equals(this.getClass().getName())) {
-      i++;
-    }
-    return stackTrace[i].toString();
-  }
-
-  public void writeClassAttribute(StyleClasses styleClasses) throws IOException {
-    writeAttribute(HtmlAttributes.CLASS, styleClasses.toString(), false);
-  }
-
-  public void writeComponentClass() throws IOException {
-    writeAttribute(HtmlAttributes.CLASS, null, ATTR_STYLE_CLASS);
-  }
-
-  public void writeURIAttribute(final String s, final Object obj, final String s1)
-      throws IOException {
-    LOG.error("Not implemented yet!");
-  }
-
-// interface OptimizedResponseWriter //////////////////////////////////////////////////////////////////////////////////
-
-  public void writeAttribute(final String name, final String string) throws IOException {
-    // todo: optimize
-    writeAttribute(name, string, true);
-  }
-
   public void writeAttribute(final String name, final boolean on) throws IOException {
     if (on) {
-      // boolean attributes don't need escaped
       writeAttribute(name, name, false);
     }
   }
 
   public void writeAttribute(final String name, final int number) throws IOException {
-      // integer attributes don't need escaped
-      writeAttribute(name, number, false);
+      writeAttribute(name, Integer.toString(number), false);
   }
 
   public void writeIdAttribute(final String id) throws IOException {
@@ -402,7 +376,7 @@ public class TobagoResponseWriter extends ResponseWriter implements OptimizedRes
   }
 
   public void writeClassAttribute() throws IOException {
-    writeComponentClass();
+    writeAttribute(HtmlAttributes.CLASS, (String)component.getAttributes().get(ATTR_STYLE_CLASS), false);
   }
 
   public void writeStyleAttribute(String style) throws IOException {
@@ -410,7 +384,7 @@ public class TobagoResponseWriter extends ResponseWriter implements OptimizedRes
   }
 
   public void writeStyleAttribute() throws IOException {
-    writeAttribute(HtmlAttributes.STYLE, component.getAttributes().get(TobagoConstants.ATTR_STYLE), false);
+    writeAttribute(HtmlAttributes.STYLE, (String)component.getAttributes().get(ATTR_STYLE), false);
   }
 
   public void writeText(String text) throws IOException {
@@ -426,5 +400,4 @@ public class TobagoResponseWriter extends ResponseWriter implements OptimizedRes
     write("\n// -->\n");
     endElement(HtmlConstants.SCRIPT);
   }
-
 }

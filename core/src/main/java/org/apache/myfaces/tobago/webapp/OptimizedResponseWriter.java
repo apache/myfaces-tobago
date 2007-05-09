@@ -9,9 +9,13 @@ import java.io.IOException;
  */
 public interface OptimizedResponseWriter {
 
+  // same as in ResponseWriter
+
   void startElement(String name, UIComponent component) throws IOException;
 
   void endElement(String name) throws IOException;
+
+  // others (not from ResponseWriter)
 
   /**
    * Writes a string attribute. The renderer may set escape=false to switch of escaping of the string,

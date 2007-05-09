@@ -67,7 +67,7 @@ public class TreeListboxRenderer extends TreeOldRenderer{
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement(HtmlConstants.DIV, tree);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
 
     StringBuilder value = new StringBuilder(";");

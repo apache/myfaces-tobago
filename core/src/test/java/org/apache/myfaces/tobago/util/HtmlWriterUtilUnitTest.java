@@ -101,16 +101,4 @@ public class HtmlWriterUtilUnitTest extends TestCase {
       // could not occur with CharArrayWriter
     }
   }
-
-  public void testAttributeValueMustEscaped() {
-    assertTrue(HtmlWriterUtil.attributeValueMustEscaped(null));
-    assertTrue(HtmlWriterUtil.attributeValueMustEscaped("i"));
-    assertTrue(HtmlWriterUtil.attributeValueMustEscaped("na"));
-    assertTrue(HtmlWriterUtil.attributeValueMustEscaped("cl"));
-    assertFalse(HtmlWriterUtil.attributeValueMustEscaped("id"));
-    assertFalse(HtmlWriterUtil.attributeValueMustEscaped("name"));
-    assertFalse(HtmlWriterUtil.attributeValueMustEscaped("class"));
-    assertTrue(HtmlWriterUtil.attributeValueMustEscaped("classs"));
-    assertTrue(HtmlWriterUtil.attributeValueMustEscaped("dadfadfsadf"));
-  }
 }

@@ -70,7 +70,7 @@ public class LinkRenderer extends CommandRendererBase {
         writer.writeAttribute(HtmlAttributes.TARGET, helper.getTarget(), null);
       }
     }
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);

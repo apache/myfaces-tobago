@@ -34,9 +34,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_TOOL_BAR;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -67,12 +67,12 @@ public class BoxRenderer extends BoxRendererBase {
     TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     writer.startElement(HtmlConstants.FIELDSET, component);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.STYLE, null, getAttrStyleKey());
 
     if (label != null || labelString != null) {
       writer.startElement(HtmlConstants.LEGEND, component);
-      writer.writeComponentClass();
+      writer.writeClassAttribute();
 
       writer.writeText("", null);
       if (label != null) {
@@ -108,7 +108,7 @@ public class BoxRenderer extends BoxRendererBase {
       }
     }
     writer.startElement(HtmlConstants.DIV, component);
-    writer.writeComponentClass();
+    writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.STYLE, contentStyle, null);
 
   }
