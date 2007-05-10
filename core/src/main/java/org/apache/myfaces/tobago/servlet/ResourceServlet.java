@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.servlet;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.util.MimeTypeUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletConfig;
@@ -87,22 +88,12 @@ public class ResourceServlet extends HttpServlet {
       response.setHeader("Cache-Control", "max-age=" + expires);
       response.setDateHeader("Expires", new Date().getTime() + (expires * 1000));
     }
-    // todo: maybe support more extensions (configurable?)
-    if (requestURI.endsWith(".gif")) {
-      response.setContentType("image/gif");
-    } else if (requestURI.endsWith(".png")) {
-      response.setContentType("image/png");
-    } else if (requestURI.endsWith(".jpg")) {
-      response.setContentType("image/jpeg");
-    } else if (requestURI.endsWith(".js")) {
-      response.setContentType("text/javascript");
-    } else if (requestURI.endsWith(".css")) {
-      response.setContentType("text/css");
-    } else if (requestURI.endsWith(".ico")) {
-      response.setContentType("image/vnd.microsoft.icon");
+    String contentType = MimeTypeUtils.getMimeTypeForFile(requestURI);
+    if (contentType != null) {
+      response.setContentType(contentType);
     } else {
       LOG.warn("Unsupported file extension, will be ignored for security "
-          + "reasons. resource='" + resource + "'");
+          + "reasons; resource='" + resource + "'");
       response.setStatus(HttpServletResponse.SC_FORBIDDEN);
     }
     InputStream inputStream = null;

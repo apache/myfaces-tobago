@@ -47,6 +47,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.ResponseUtils;
+import org.apache.myfaces.tobago.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.application.Application;
@@ -207,11 +208,16 @@ public class PageRenderer extends PageRendererBase {
       } else {
         icon = ResourceManagerUtil.getImageWithPath(facesContext, icon);
       }
-      // For non-ICO files perhaps generate something like this:
-      //   <link rel="icon" type="image/png" href="/favicon.png">
+
       writer.startElement(HtmlConstants.LINK, null);
-      writer.writeAttribute(HtmlAttributes.REL, "shortcut icon", null);
-      writer.writeAttribute(HtmlAttributes.HREF, icon, null);
+      if (icon.endsWith(".ico")) {
+        writer.writeAttribute(HtmlAttributes.REL, "shortcut icon", null);
+        writer.writeAttribute(HtmlAttributes.HREF, icon, null);
+      } else {
+        writer.writeAttribute(HtmlAttributes.REL, "icon", null);
+        writer.writeAttribute(HtmlAttributes.TYPE, MimeTypeUtils.getMimeTypeForFile(icon), null);        
+        writer.writeAttribute(HtmlAttributes.HREF, icon, null);
+      }
       writer.endElement(HtmlConstants.LINK);
     }
 

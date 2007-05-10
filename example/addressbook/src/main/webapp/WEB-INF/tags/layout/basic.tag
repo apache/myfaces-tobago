@@ -24,7 +24,7 @@
 <f:view locale="#{controller.language}">
   <tc:loadBundle basename="resource" var="bundle"/>
 
-  <tc:page label="${title}" state="#{layout}" width="#{layout.width}" height="#{layout.height}" id="page">
+  <tc:page applicationIcon="image/org/tango-project/tango-icon-theme/16x16/mimetypes/x-office-address-book.png" label="${title}" state="#{layout}" width="#{layout.width}" height="#{layout.height}" id="page">
     <f:facet name="menuBar">
       <tc:menuBar>
         <tc:form>
