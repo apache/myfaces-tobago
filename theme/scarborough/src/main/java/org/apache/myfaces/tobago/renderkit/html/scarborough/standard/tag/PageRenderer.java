@@ -214,6 +214,7 @@ public class PageRenderer extends PageRendererBase {
         writer.writeAttribute(HtmlAttributes.REL, "shortcut icon", null);
         writer.writeAttribute(HtmlAttributes.HREF, icon, null);
       } else {
+        // XXX IE only supports ICO files for favicons
         writer.writeAttribute(HtmlAttributes.REL, "icon", null);
         writer.writeAttribute(HtmlAttributes.TYPE, MimeTypeUtils.getMimeTypeForFile(icon), null);        
         writer.writeAttribute(HtmlAttributes.HREF, icon, null);

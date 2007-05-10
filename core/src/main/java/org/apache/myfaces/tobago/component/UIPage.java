@@ -32,7 +32,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.model.PageState;
 import org.apache.myfaces.tobago.model.PageStateImpl;
 import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
-import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
