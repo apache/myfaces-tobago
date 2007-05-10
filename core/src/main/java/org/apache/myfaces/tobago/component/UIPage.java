@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_APPLICATION_ICON;
 import org.apache.commons.collections.KeyValue;
 import org.apache.commons.collections.list.SetUniqueList;
 import org.apache.commons.collections.set.ListOrderedSet;
@@ -31,6 +32,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.model.PageState;
 import org.apache.myfaces.tobago.model.PageStateImpl;
 import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -88,6 +90,8 @@ public class UIPage extends UIForm {
   private Integer width;
 
   private Integer height;
+
+  private String applicationIcon;
 
   @SuppressWarnings({"unchecked"})
   public UIPage() {
@@ -403,6 +407,21 @@ public class UIPage extends UIForm {
     this.height = height;
   }
 
+  public String getApplicationIcon() {
+    if (applicationIcon != null) {
+      return applicationIcon;
+    }
+    ValueBinding vb = getValueBinding(ATTR_APPLICATION_ICON);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return null;
+    }
+  }
+
+  public void setApplicationIcon(String applicationIcon) {
+    this.applicationIcon = applicationIcon;
+  }
 
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;

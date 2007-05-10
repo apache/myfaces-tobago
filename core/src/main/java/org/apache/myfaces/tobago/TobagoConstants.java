@@ -168,6 +168,7 @@ public final class TobagoConstants {
   public static final String ATTR_WIDTH = "width";
   public static final String ATTR_WIDTH_LIST = "widthList";
   public static final String ATTR_WIDTH_LIST_STRING = "widthListString";
+  public static final String ATTR_APPLICATION_ICON = "applicationIcon";
 
   public static final String FACET_ACTION = "action";
   public static final String FACET_CONFIRMATION = "confirmation";

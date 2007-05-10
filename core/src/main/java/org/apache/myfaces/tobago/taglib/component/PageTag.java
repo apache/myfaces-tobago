@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_APPLICATION_ICON;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DOCTYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOCUS_ID;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
@@ -27,6 +28,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
@@ -50,6 +52,8 @@ public class PageTag extends TobagoBodyTag
   private String width;
 
   private String height;
+
+  private String applicationIcon;
 
   public int doEndTag() throws JspException {
     UIPage page = (UIPage) getComponentInstance();
@@ -78,6 +82,7 @@ public class PageTag extends TobagoBodyTag
     label = null;
     width = null;
     height = null;
+    applicationIcon = null;
   }
 
   protected void setProperties(UIComponent component) {
@@ -89,6 +94,7 @@ public class PageTag extends TobagoBodyTag
     ComponentUtil.setValueBinding(component, ATTR_STATE, state);
     ComponentUtil.setIntegerSizeProperty(component, ATTR_WIDTH, width);
     ComponentUtil.setIntegerSizeProperty(component, ATTR_HEIGHT, height);
+    ComponentUtil.setStringProperty(component, ATTR_APPLICATION_ICON, applicationIcon);
   }
 
   public void setDoctype(String doctype) {
@@ -133,6 +139,14 @@ public class PageTag extends TobagoBodyTag
 
   public void setHeight(String height) {
     this.height = height;
+  }
+
+  public void setApplicationIcon(String icon) {
+    applicationIcon = icon;
+  }
+
+  public String getApplicationIcon() {
+    return applicationIcon;
   }
 }
 

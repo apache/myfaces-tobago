@@ -98,6 +98,8 @@ public class ResourceServlet extends HttpServlet {
       response.setContentType("text/javascript");
     } else if (requestURI.endsWith(".css")) {
       response.setContentType("text/css");
+    } else if (requestURI.endsWith(".ico")) {
+      response.setContentType("image/vnd.microsoft.icon");
     } else {
       LOG.warn("Unsupported file extension, will be ignored for security "
           + "reasons. resource='" + resource + "'");

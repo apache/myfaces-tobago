@@ -49,28 +49,35 @@ import org.apache.myfaces.tobago.taglib.decl.HasState;
 public interface PageTagDeclaration extends TobagoBodyTagDeclaration, HasLabel, HasId, HasDimension, HasBinding,
     HasState {
   /**
-   * values for doctype :
-   * 'strict'   : HTML 4.01 Strict DTD
-   * 'loose'    : HTML 4.01 Transitional DTD
-   * 'frameset' : HTML 4.01 Frameset DTD
-   * all other values are ignored and no DOCTYPE is set.
-   * default value is 'loose'
-   *
-   * @param doctype
+   * Possible values for doctype are:
+   * <dl>
+   * <dt>strict</dt><dd>HTML 4.01 Strict DTD</dd>
+   * <dt>loose</dt><dd>HTML 4.01 Transitional DTD</dd>
+   * <dt>frameset</dt><dd>HTML 4.01 Frameset DTD</dd>
+   * </dl>
+   * All other values are ignored and no DOCTYPE is set.
+   * The default value is 'loose'.
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "loose")
   void setDoctype(String doctype);
 
   /**
-   * Contains the id of the component witch should have the focus after
+   * Contains the id of the component wich should have the focus after
    * loading the page.
    * Set to emtpy string for disabling setting of focus.
    * Default (null) enables the "auto focus" feature.
-   *
-   * @param focusId
    */
   @TagAttribute
   @UIComponentTagAttribute()
   void setFocusId(String focusId);
+
+  /**
+   * Absolute URL to an image or image name to lookup in tobago resource path
+   * representing the application. In HTML it is used as a favicon.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setApplicationIcon(String icon);
+
 }

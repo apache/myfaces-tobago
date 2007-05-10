@@ -198,6 +198,22 @@ public class PageRenderer extends PageRendererBase {
         }
       }
     }
+    String icon = page.getApplicationIcon();
+    if (icon != null) {
+      // XXX unify with image renderer
+      if (icon.startsWith("HTTP:") || icon.startsWith("FTP:")
+          || icon.startsWith("/")) {
+        // absolute Path to image : nothing to do
+      } else {
+        icon = ResourceManagerUtil.getImageWithPath(facesContext, icon);
+      }
+      // For non-ICO files perhaps generate something like this:
+      //   <link rel="icon" type="image/png" href="/favicon.png">
+      writer.startElement(HtmlConstants.LINK, null);
+      writer.writeAttribute(HtmlAttributes.REL, "shortcut icon", null);
+      writer.writeAttribute(HtmlAttributes.HREF, icon, null);
+      writer.endElement(HtmlConstants.LINK);
+    }
 
     // style sniplets
     Set<String> styleBlocks = page.getStyleBlocks();
