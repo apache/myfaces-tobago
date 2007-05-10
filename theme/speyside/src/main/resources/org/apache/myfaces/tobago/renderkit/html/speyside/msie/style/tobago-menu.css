@@ -18,7 +18,7 @@
 .tobago-menuBar-separator  {
   width: 100%;
   position: relative;
-  top: 0px;
-  left: 0px;
+  top: -4px;
+  left: -2px;
 }
 
