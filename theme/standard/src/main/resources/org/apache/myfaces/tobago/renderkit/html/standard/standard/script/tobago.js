@@ -51,12 +51,12 @@ var Tobago = {
 
   // -------- Constants -------------------------------------------------------
 
-   /**
-    * Component separator constant
-    */
+  /**
+   * Component separator constant
+   */
   COMPONENT_SEP: ":",
 
-   /**
+  /**
     * Tobagos subComponent separator constant
     */
   SUB_COMPONENT_SEP: "::",
@@ -72,25 +72,25 @@ var Tobago = {
 
   // -------- Variables -------------------------------------------------------
 
-   /**
-    * the html body object of current page.
-    * set via init fuction (onload attribute of body)
-    */
+  /**
+   * the html body object of current page.
+   * set via init fuction (onload attribute of body)
+   */
   page: null,
 
-   /**
+  /**
     * The html form object of current page.
     * set via init fuction (onload attribute of body)
     */
   form: null,
 
-   /**
+  /**
     * The hidden html input object for submitted actionId.
     * set via init fuction (onload attribute of body)
     */
   action: null,
 
-   /**
+  /**
     * The id ot the element which should became the focus after loading.
     * Set via renderer if requested.
     */
@@ -177,25 +177,25 @@ var Tobago = {
     }
   },
 
-   /**
+  /**
     * Object to store already loaded scriptfiles.
     * to prevent multiple loading via ajax requests.
     */
   registeredScripts: {},
 
-   /**
+  /**
     * Array to queue ScriptLoaders.
     */
   scriptLoaders: new Array(),
 
   ajaxComponents: {},
 
-   /**
+  /**
     * Flag indicating that the page is complete loaded.
     */
   pageIsComplete: false,
 
-   /**
+  /**
     * Flag indicating that currently a scriptLoader is running.
     */
   scriptLoadingActive: false,
@@ -206,7 +206,7 @@ var Tobago = {
 
 
   /**
-   * Tobagos central init function.
+   * Tobago's central init function.
    * Called via onload attribure of body tag
    */
   init: function(pageId) {
@@ -278,8 +278,8 @@ var Tobago = {
       } else {
         // todo: not needed for IE 7
         img.src = Tobago.pngFixBlankImage;
-        img.runtimeStyle.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" +
-                                       Tobago.OVERLAY_BACKGROUND + "',sizingMethod='scale')";
+        img.runtimeStyle.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
+            + Tobago.OVERLAY_BACKGROUND + "',sizingMethod='scale')";
       }
       overlay.appendChild(img);
     }
@@ -295,9 +295,8 @@ var Tobago = {
       table.border = 1;
       table.cellPadding = 0;
       table.cellSpacing = 0;
-      table.style.width = "100%";
-      table.style.height = "100%";
-
+      table.style.width = Tobago.page.clientWidth;
+      table.style.height = Tobago.page.clientHeight;
       var row = table.insertRow(0);
       var cell = row.insertCell(0);
       cell.align = "center";
@@ -400,7 +399,6 @@ var Tobago = {
         delete obj;
       }
     }
-
   },
 
   destroyJsObject: function(obj) {
@@ -414,15 +412,14 @@ var Tobago = {
     }
   },
 
-   /**
-    * return true if page loading is complete.
-    */
+  /**
+   * return true if page loading is complete.
+   */
   isPageComplete: function(){
     return this.pageIsComplete;
   },
 
-
-   /**
+  /**
     * Submitting the page with specified actionId.
     */
   submitAction: function(actionId, transition, target) {
@@ -513,9 +510,9 @@ var Tobago = {
     Tobago.reloadTimer[id] = setTimeout(func, time);
   },
 
-   /**
-    * Submit the page with specified actionId and position data for popup.
-    */
+  /**
+   * Submit the page with specified actionId and position data for popup.
+   */
   openPickerPopup: function(event, actionId, hiddenId) {
     var hidden = this.element(hiddenId);
     if (hidden) {
@@ -534,22 +531,21 @@ var Tobago = {
     }
   },
 
-
-   /**
-    * Reset the form element.
-    */
+  /**
+   * Reset the form element.
+   */
   resetForm: function() {
     this.form.reset();
   },
 
-   /**
+  /**
     * Load a specified url into client
     */
   navigateToUrl: function(toUrl) {
     document.location.href = toUrl;
   },
 
-   /**
+  /**
     * Register a script file to prevent multiple loadings via ajax.
     */
   registerScript: function(scriptId) {
@@ -557,14 +553,14 @@ var Tobago = {
     this.registeredScripts[this.genScriptId(scriptId)] = true;
   },
 
-   /**
+  /**
     * Check i a script is already registered.
     */
   hasScript: function(scriptId) {
     return this.registeredScripts[this.genScriptId(scriptId)];
   },
 
-   /**
+  /**
     * Generate a id usable as javascript name.
     */
   genScriptId: function(script) {
@@ -572,7 +568,7 @@ var Tobago = {
     return script.replace(this.scriptIdRegExp, '_');
   },
 
-   /**
+  /**
     * Check if a style file is already loaded, to prevent multiple loadings
     * from ajax requests.
     */
@@ -591,9 +587,9 @@ var Tobago = {
     return false;
   },
 
-   /**
-    * Ensure that a style file is loaded.
-    */
+  /**
+   * Ensure that a style file is loaded.
+   */
   ensureStyleFile: function(name) {
     if (!this.styleFileLoaded(name)) {
       var style = document.createElement('link');
@@ -605,7 +601,7 @@ var Tobago = {
     }
   },
 
-   /**
+  /**
     * Ensure that a array of style files are loaded.
     */
   ensureStyleFiles: function(names) {
@@ -614,9 +610,9 @@ var Tobago = {
     }
   },
 
-   /**
-    * Register all already loaded script files.
-    */
+  /**
+   * Register all already loaded script files.
+   */
   registerCurrentScripts: function() {
     var children = document.getElementsByTagName('head')[0].childNodes;
     for (var i = 0; i < children.length; i++) {
@@ -627,7 +623,7 @@ var Tobago = {
     }
   },
 
-   /**
+  /**
     * Add a scriptLoader to the queue or start it direct.
     */
   addScriptLoader: function(scriptLoader) {
@@ -641,7 +637,7 @@ var Tobago = {
     }
   },
 
-   /**
+  /**
     * Start script loaders from queue
     */
   startScriptLoaders: function() {
@@ -707,7 +703,7 @@ var Tobago = {
     }
   },
 
-   /**
+  /**
     * Mouseover function for images.
     */
   imageMouseover: function(id) {
@@ -720,7 +716,7 @@ var Tobago = {
     }
   },
 
-   /**
+  /**
     * Mouseout function for images.
     */
   imageMouseout: function(id) {
@@ -733,15 +729,15 @@ var Tobago = {
     }
   },
 
-   /**
-    * Mouseover function for toolbar buttons.
-    */
+  /**
+   * Mouseover function for toolbar buttons.
+   */
   toolbarMousesover: function(element, className, imageId) {
     this.addCssClass(element, className);
     this.imageMouseover(imageId);
   },
 
-   /**
+  /**
     * Mouseout function for toolbar buttons.
     */
   toolbarMousesout: function(element, className, imageId) {
@@ -749,7 +745,7 @@ var Tobago = {
     this.imageMouseout(imageId);
   },
 
-   /**
+  /**
     * Focus function for toolbar buttons.
     *  IE only.
     */
@@ -763,9 +759,9 @@ var Tobago = {
 
 
 // -------- SelectOne functions ----------------------------------------------------
-    // TODO move SelectOne function in Tobago.SelectOne object
+   // TODO move SelectOne function in Tobago.SelectOne object
 
-   /**
+  /**
     * Onchange function for SelectOneListbox.
     */
   selectOneListboxChange: function(element) {
@@ -774,7 +770,7 @@ var Tobago = {
     }
   },
 
-   /**
+  /**
     * Onclick function for SelectOneListbox.
     */
   selectOneListboxClick: function(element) {
@@ -784,7 +780,7 @@ var Tobago = {
     element.oldValue = element.selectedIndex;
   },
 
-   /**
+  /**
     * Init function for SelectOneradio.
     */
   selectOneRadioInit: function(name) {
@@ -794,7 +790,7 @@ var Tobago = {
     }
   },
 
-   /**
+  /**
     * Onclick function for SelectOneradio.
     */
   selectOneRadioClick: function(element, name) {
@@ -814,7 +810,7 @@ var Tobago = {
 // -------- Popup functions ---------------------------------------------------
     // TODO move popup functions in Tobago.Popup object
 
-   /**
+  /**
     * Setup popup size
     */
   setupPopup: function(id, left, top) {
@@ -823,6 +819,13 @@ var Tobago = {
     if (hidden && hidden.type == "hidden") {
       hidden.parentNode.removeChild(hidden);
     }
+
+    // extend background into scrollable area
+    var background = this.element(id);
+    background.style.width = document.body.scrollWidth + 'px';
+    background.style.height = document.body.scrollHeight + 'px';
+    this.popupResizeStub = function() {Tobago.doResizePopupBackground(id);}
+    Tobago.addEventListener(window, "resize", this.popupResizeStub);
 
     var contentId = id + Tobago.SUB_COMPONENT_SEP + "content";
     var div = this.element(contentId);
@@ -871,16 +874,22 @@ var Tobago = {
       if (iframe) {
         Tobago.removeCssClass(iframe, "tobago-popup-none");
       }
-
-      //  } else {
-      //    alert("popup div mit id '" + id + "' nicht gefunden!");
     }
-
   },
 
-   /**
-    * Make popup blink
-    */
+  popupResizeStub: null,
+
+  doResizePopupBackground: function(id) {
+    var background = Tobago.element(id);
+    if (background) {
+      background.style.width = document.body.scrollWidth + 'px';
+      background.style.height = document.body.scrollHeight + 'px';
+    }
+  },
+
+  /**
+   * Make popup blink
+   */
   popupBlink: function(id) {
     LOG.debug("popupId ist " + id);
     Tobago.addCssClass(id, "tobago-popup-blink");
@@ -934,6 +943,9 @@ var Tobago = {
     hidden.type = "hidden";
     hidden.value = "closed";
     Tobago.form.appendChild(hidden);
+
+    Tobago.removeEventListener(window, "resize", Tobago.popupResizeStub);
+    Tobago.popupResizeStub = null;
   },
 
   openPopupWithAction: function(popupId, actionId) {
@@ -954,7 +966,6 @@ var Tobago = {
       LOG.debug('add element' + div.id);
       Tobago.form.appendChild(div);
     }
-
 
     Tobago.addAjaxComponent(popupId, div.id);
     Tobago.reloadComponent(popupId, actionId, {createOverlay: false});
@@ -986,7 +997,7 @@ var Tobago = {
     }
   },
 
-   /**
+  /**
     * Sets the focus to the requested element or to the first possible if
     * no element explecit requested.
     */
@@ -1023,9 +1034,9 @@ var Tobago = {
   },
 
 
-   /**
-    * check if a component type is valid to recieve the focus
-    */
+  /**
+   * check if a component type is valid to recieve the focus
+   */
   isFocusType: function(type) {
     if ( type == 'text'
         || type == 'textarea'
@@ -1059,7 +1070,7 @@ var Tobago = {
     return false;
   },
 
-   /**
+  /**
     * Create a html input element with given type, name and value.
     */
   createInput: function(type, name, value) {
@@ -1076,7 +1087,7 @@ var Tobago = {
     return input;
   },
 
-   /**
+  /**
     * Add a cssClass name to the className property of a htmlElement
     */
   addCssClass: function(element, className) {
@@ -1084,7 +1095,7 @@ var Tobago = {
     element.className = element.className + " " + className;
   },
 
-   /**
+  /**
     * remove a cssClass name from the className property of a htmlElement
     */
   removeCssClass: function(element, className) {
@@ -1098,8 +1109,7 @@ var Tobago = {
     element.className = classes;
   },
 
-
-   /**
+  /**
     * Clear the selection.
     */
   clearSelection: function() {
@@ -1110,8 +1120,8 @@ var Tobago = {
     }
   },
 
-   /**
-    * Returns the computedStyle of a html element
+  /**
+    * Returns the computedStyle of an HTML element
     */
   getRuntimeStyle: function(element) {
     if (element.runtimeStyle) { // IE
@@ -1121,10 +1131,10 @@ var Tobago = {
     }
   },
 
-   /**
+  /**
     * Return anchestor with given type.
     */
-    // TODO what if no anchestor found?
+  // TODO what if no anchestor found?
   findAnchestorWithTagName: function(element, tagName) {
     element = this.element(element);
     while (element.parentNode && (!element.tagName ||
@@ -1134,7 +1144,7 @@ var Tobago = {
   },
 
 
-   /**
+  /**
     * Create an overlay with same dimension and wait cursor over an htmlElement.
     */
   createOverlay: function(element) {
@@ -1148,8 +1158,8 @@ var Tobago = {
     overlay.style.position = "absolute";
     overlay.style.top = "0px";
     overlay.style.left = "0px";
-    overlay.style.width = element.clientWidth + 'px';
-    overlay.style.height = element.clientHeight + 'px';
+    overlay.style.width = element.scrollWidth + 'px';
+    overlay.style.height = element.scrollHeight + 'px';
     overlay.style.cursor = "wait";
     // TODO: better z-index strategy
     overlay.style.zIndex = 10000;
@@ -1170,7 +1180,7 @@ var Tobago = {
     return element;
   },
 
-   /**
+  /**
     * Set the width of a htmlElement via style
     */
   setElementWidth: function(id, width) {
@@ -1180,7 +1190,7 @@ var Tobago = {
     }
   },
 
-   /**
+  /**
     * Add a eventListener to a htmlElement
     */
   addEventListener: function(element, event, myFunction) {
@@ -1192,7 +1202,7 @@ var Tobago = {
     }
   },
 
-   /**
+  /**
     * Remove a eventListener from a htmlElement
     */
   removeEventListener: function(element, event, myFunction) {
@@ -1276,7 +1286,7 @@ var Tobago = {
   },
 
 
-   /**
+  /**
     * Stop event bubbling
     */
   stopEventPropagation: function(event) {
@@ -1290,7 +1300,7 @@ var Tobago = {
     }
   },
 
-   /**
+  /**
     * Return the absolute top value, related to the body element, for a htmlElement.
     */
   getAbsoluteTop: function(element) {
@@ -1309,7 +1319,7 @@ var Tobago = {
   },
 
 
-   /**
+  /**
     * Return the absolute left, related to the body element, value for a htmlElement.
     */
   getAbsoluteLeft: function(element) {
@@ -1327,7 +1337,7 @@ var Tobago = {
     return left;
   },
 
-   /**
+  /**
     * Return the scroll-x value of the body element.
     */
   getBrowserInnerLeft: function() {
@@ -1340,7 +1350,7 @@ var Tobago = {
     return innerLeft;
   },
 
-   /**
+  /**
     * Return the scroll-y value of the body element.
     */
   getBrowserInnerTop: function() {
@@ -1353,7 +1363,7 @@ var Tobago = {
     return innerTop;
   },
 
-   /**
+  /**
     * Return the client inner width.
     */
   getBrowserInnerWidth: function() {
@@ -1369,7 +1379,7 @@ var Tobago = {
     return innerWidth;
   },
 
-   /**
+  /**
     * Return the client inner height.
     */
   getBrowserInnerHeight: function() {
@@ -1395,7 +1405,7 @@ var Tobago = {
 
   },
 
-   /**
+  /**
     * Returns a html element.
     * valid input types are:
     * 'string'      : returns the result of document.getElementById()
