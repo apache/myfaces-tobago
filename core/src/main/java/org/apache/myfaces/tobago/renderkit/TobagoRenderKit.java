@@ -21,16 +21,16 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
+import javax.faces.FactoryFinder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseStream;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
+import javax.faces.render.RenderKitFactory;
 import javax.faces.render.Renderer;
 import javax.faces.render.ResponseStateManager;
-import javax.faces.render.RenderKitFactory;
-import javax.faces.FactoryFinder;
 import java.io.OutputStream;
 import java.io.Writer;
 
@@ -101,7 +101,7 @@ public class TobagoRenderKit extends RenderKit {
           + " Using text/html", new Exception());
     }
 
-    return new TobagoResponseWriter(writer, contentType, characterEncoding);
+    return new TobagoResponseWriterImpl(writer, contentType, characterEncoding);
   }
 
 

@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -111,8 +111,8 @@ public class FileRenderer extends InputRendererBase {
     UIInput component = (UIInput) uiComponent;
     String clientId = component.getClientId(facesContext);
 
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer
+        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     writer.startElement(HtmlConstants.INPUT, component);
     writer.writeAttribute(HtmlAttributes.TYPE, "file", null);

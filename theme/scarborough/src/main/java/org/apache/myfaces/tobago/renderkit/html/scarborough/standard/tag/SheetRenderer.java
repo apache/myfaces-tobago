@@ -86,7 +86,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.StringUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
@@ -129,8 +129,8 @@ public class SheetRenderer extends LayoutableRendererBase
     final String sheetId = data.getClientId(facesContext);
     HtmlStyleMap sheetStyle = (HtmlStyleMap) data.getAttributes().get(ATTR_STYLE);
 
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer
+        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     // Outher sheet div
     writer.startElement(HtmlConstants.DIV, null);
@@ -179,8 +179,8 @@ public class SheetRenderer extends LayoutableRendererBase
   }
 
   private void renderSheet(FacesContext facesContext, UIData data) throws IOException {
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer
+        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
     ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
     UIViewRoot viewRoot = facesContext.getViewRoot();
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
@@ -738,7 +738,7 @@ public class SheetRenderer extends LayoutableRendererBase
     String image = ResourceManagerUtil.getImageWithPath(facesContext,
         "image/sheet" + command.getToken() + (disabled ? "Disabled" : "") + ".gif");
 
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
     writer.startElement(HtmlConstants.IMG, null);
     writer.writeIdAttribute(data.getClientId(facesContext)
         + SUBCOMPONENT_SEP + "pagingPages" + SUBCOMPONENT_SEP + command.getToken());
@@ -756,7 +756,7 @@ public class SheetRenderer extends LayoutableRendererBase
   }
 
   private void renderColumnHeader(FacesContext facesContext,
-      TobagoResponseWriter writer, UIData component,
+      TobagoResponseWriterImpl writer, UIData component,
       int columnCount, UIColumn column, String ascending, String descending,
       String image1x1, int sortMarkerWidth) throws IOException {
     String sheetId = component.getClientId(facesContext);
@@ -866,7 +866,7 @@ public class SheetRenderer extends LayoutableRendererBase
 
 
   protected void renderColumnSelectorHeader(FacesContext facesContext,
-      TobagoResponseWriter writer, UIData component, UIColumn column)
+      TobagoResponseWriterImpl writer, UIData component, UIColumn column)
       throws IOException {
     UIPanel menu = (UIPanel) column.getFacet(FACET_MENUPOPUP);
     if (menu == null) {
@@ -950,7 +950,7 @@ public class SheetRenderer extends LayoutableRendererBase
   }
 
   private void writeDirectPagingLinks(
-      TobagoResponseWriter writer, FacesContext facesContext, Application application, UIData data)
+      TobagoResponseWriterImpl writer, FacesContext facesContext, Application application, UIData data)
       throws IOException {
     UICommand pagerCommand = (UICommand) data.getFacet(FACET_PAGER_PAGE);
     if (pagerCommand == null) {
@@ -1057,7 +1057,7 @@ public class SheetRenderer extends LayoutableRendererBase
     return link;
   }
 
-  private void writeLinkElement(TobagoResponseWriter writer, String str, String skip,
+  private void writeLinkElement(TobagoResponseWriterImpl writer, String str, String skip,
       String id, String hrefPostfix, boolean makeLink)
       throws IOException {
     String type = makeLink ? HtmlConstants.A : HtmlConstants.SPAN;

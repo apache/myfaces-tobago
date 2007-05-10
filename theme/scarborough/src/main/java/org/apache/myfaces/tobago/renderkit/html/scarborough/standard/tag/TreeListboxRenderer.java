@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -64,8 +64,8 @@ public class TreeListboxRenderer extends TreeOldRenderer{
     if (LOG.isDebugEnabled()) {
       page.getOnloadScripts().add("tbgTreeStates('" + clientId + "')");
     }
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer
+        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
     writer.startElement(HtmlConstants.DIV, tree);
     writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);

@@ -42,7 +42,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
@@ -63,7 +63,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
     HtmlRendererUtil.prepareInnerStyle(component);
 
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE);
 
@@ -87,7 +87,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
   }
 
   private void encodeBeginInner(FacesContext facesContext,
-      TobagoResponseWriter writer, UIComponent component) throws IOException {
+      TobagoResponseWriterImpl writer, UIComponent component) throws IOException {
     renderBoxHeader(facesContext, writer, component);
 
 
@@ -107,7 +107,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
 
   protected void renderBoxHeader(FacesContext facesContext,
-      TobagoResponseWriter writer, UIComponent component) throws IOException {
+      TobagoResponseWriterImpl writer, UIComponent component) throws IOException {
 
     writer.startElement(HtmlConstants.DIV, component);
     StyleClasses headerClasses = new StyleClasses();
@@ -148,7 +148,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
   }
 
   protected void renderToolbar(FacesContext facesContext,
-                               TobagoResponseWriter writer, UIPanel toolbar) throws IOException {
+                               TobagoResponseWriterImpl writer, UIPanel toolbar) throws IOException {
     final Map attributes = toolbar.getAttributes();
     String className = "tobago-box-header-toolbar-div";
     if (ToolBarTag.LABEL_OFF.equals(attributes.get(ATTR_LABEL_POSITION))) {
@@ -169,8 +169,8 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
   public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
     AjaxUtils.checkParamValidity(facesContext, component, UIPanel.class);
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer
+        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     encodeBeginInner(facesContext, writer, component);
     component.encodeChildren(facesContext);

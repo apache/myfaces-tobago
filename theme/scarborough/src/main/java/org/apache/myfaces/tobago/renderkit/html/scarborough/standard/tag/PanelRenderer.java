@@ -40,7 +40,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
@@ -127,7 +127,7 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
      String clientId = component.getClientId(facesContext);
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);

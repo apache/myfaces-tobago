@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.webapp.OptimizedResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -45,7 +45,7 @@ public class BoxRenderer extends BoxRendererBase {
     UIComponent label = component.getFacet(FACET_LABEL);
     String labelString = (String) component.getAttributes().get(ATTR_LABEL);
 
-    OptimizedResponseWriter writer = HtmlRendererUtil.getOptimizedResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     // TODO: move fix style attributes to style.css (border, padding, align, etc)
 

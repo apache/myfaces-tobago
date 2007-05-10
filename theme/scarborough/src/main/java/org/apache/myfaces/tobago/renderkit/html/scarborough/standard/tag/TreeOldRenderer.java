@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -109,7 +109,7 @@ public class TreeOldRenderer extends LayoutableRendererBase {
     String clientId = tree.getClientId(facesContext);
     UITreeOldNode root = tree.getRoot();
 
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     writer.startElement(HtmlConstants.DIV, tree);
     writer.writeClassAttribute();
@@ -244,7 +244,7 @@ public class TreeOldRenderer extends LayoutableRendererBase {
   }
 
   protected String getNodesAsJavascript(FacesContext facesContext, UITreeOldNode root) throws IOException {
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
     StringWriter stringWriter = new StringWriter();
     facesContext.setResponseWriter(writer.cloneWithWriter(stringWriter));
     RenderUtil.encode(facesContext, root);

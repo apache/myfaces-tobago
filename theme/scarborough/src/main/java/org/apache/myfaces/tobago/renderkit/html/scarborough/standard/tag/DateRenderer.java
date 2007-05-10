@@ -26,11 +26,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.DateFormatUtils;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -68,7 +68,7 @@ public class DateRenderer extends InRenderer {
       String pattern = DateFormatUtils.findPattern(converter);
 
       if (pattern != null) {
-        TobagoResponseWriter writer = (TobagoResponseWriter)
+        TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl)
             facesContext.getResponseWriter();
         String id = component.getClientId(facesContext);
         writer.startElement(HtmlConstants.INPUT, component);

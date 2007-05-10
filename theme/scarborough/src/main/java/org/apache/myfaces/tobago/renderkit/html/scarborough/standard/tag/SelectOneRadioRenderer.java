@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -78,8 +78,8 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
     boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
     String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer
+        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     if (!inline) {
       writer.startElement(HtmlConstants.TABLE, component);

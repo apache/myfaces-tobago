@@ -58,7 +58,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -82,8 +82,8 @@ public class ToolBarRenderer extends LayoutableRendererBase {
       UIComponent uiComponent) throws IOException {
     UIPanel toolbar = (UIPanel) uiComponent;
 
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer
+        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
     boolean suppressContainer = ComponentUtil.getBooleanAttribute(toolbar,
         ATTR_SUPPPRESS_TOOLBAR_CONTAINER);
 
@@ -142,7 +142,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
   }
 
   private void renderToolbarCommand(FacesContext facesContext,
-      final UICommand command, TobagoResponseWriter writer, boolean boxFacet,
+      final UICommand command, TobagoResponseWriterImpl writer, boolean boxFacet,
       boolean addExtraHoverClass)
       throws IOException {
     if (command instanceof UISelectBooleanCommand) {
@@ -165,7 +165,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
   }
 
   private void renderSelectOne(FacesContext facesContext, UICommand command,
-      TobagoResponseWriter writer, boolean boxFacet, boolean addExtraHoverClass)
+      TobagoResponseWriterImpl writer, boolean boxFacet, boolean addExtraHoverClass)
       throws IOException {
 
     String onclick = createOnClick(facesContext, command);
@@ -234,7 +234,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
   }
 
   private void renderSelectBoolean(FacesContext facesContext, UICommand command,
-      TobagoResponseWriter writer, boolean boxFacet, boolean addExtraHoverClass)
+      TobagoResponseWriterImpl writer, boolean boxFacet, boolean addExtraHoverClass)
       throws IOException {
 
     UIComponent checkbox = command.getFacet(FACET_ITEMS);
@@ -257,7 +257,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
   }
 
   private void renderToolbarButton(
-      FacesContext facesContext, final UICommand command, TobagoResponseWriter writer, boolean boxFacet,
+      FacesContext facesContext, final UICommand command, TobagoResponseWriterImpl writer, boolean boxFacet,
       boolean addExtraHoverClass, boolean selected, String onClick)
       throws IOException {
     if (!command.isRendered()) {
@@ -473,7 +473,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
   }
 
   private void renderAnchorBegin(FacesContext facesContext,
-      TobagoResponseWriter writer, final UICommand command,
+      TobagoResponseWriterImpl writer, final UICommand command,
       final LabelWithAccessKey label, final boolean disabled)
       throws IOException {
     writer.startElement(HtmlConstants.A, command);
@@ -496,7 +496,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
   }
 
   private void renderPopupTd(FacesContext facesContext,
-      TobagoResponseWriter writer, UIComponent command, UIComponent popupMenu,
+      TobagoResponseWriterImpl writer, UIComponent command, UIComponent popupMenu,
       boolean labelBottom)
       throws IOException {
     writer.startElement(HtmlConstants.TD, null);

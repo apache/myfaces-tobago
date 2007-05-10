@@ -24,9 +24,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -40,7 +40,7 @@ public class HiddenRenderer extends InputRendererBase {
     final String clientId = component.getClientId(facesContext);
     final String value = ComponentUtil.currentValue(component);
 
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     writer.startElement(HtmlConstants.INPUT, component);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);

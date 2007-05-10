@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.DateFormatUtils;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -121,8 +121,8 @@ public class TimeRenderer extends InputRendererBase {
 
     String id = input.getClientId(facesContext);
     final String idPrefix = id + SUBCOMPONENT_SEP;
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer
+        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
     writer.startElement(HtmlConstants.DIV, input);
     writer.writeClassAttribute();
 
@@ -201,14 +201,14 @@ public class TimeRenderer extends InputRendererBase {
     writer.endElement(HtmlConstants.DIV);
   }
 
-  private void writeInputSeparator(TobagoResponseWriter writer, String sep) throws IOException {
+  private void writeInputSeparator(TobagoResponseWriterImpl writer, String sep) throws IOException {
     writer.startElement(HtmlConstants.SPAN, null);
     writer.writeClassAttribute("tobago-time-sep");
     writer.writeText(sep, null);
     writer.endElement(HtmlConstants.SPAN);
   }
 
-  private void writeInput(TobagoResponseWriter writer, String id, String hour, boolean hourMode)
+  private void writeInput(TobagoResponseWriterImpl writer, String id, String hour, boolean hourMode)
       throws IOException {
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "text", false);

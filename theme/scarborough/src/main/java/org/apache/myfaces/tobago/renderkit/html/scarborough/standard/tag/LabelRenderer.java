@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.LayoutUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -89,7 +89,7 @@ public class LabelRenderer extends LayoutableRendererBase {
     String forValue = ComponentUtil.findClientIdFor(output, facesContext);
 
     createClassAttribute(component);
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     writer.startElement(HtmlConstants.DIV, output);
     writer.writeClassAttribute();

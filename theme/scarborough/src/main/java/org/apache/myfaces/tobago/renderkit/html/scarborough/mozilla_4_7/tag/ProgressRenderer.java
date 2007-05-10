@@ -28,13 +28,12 @@ import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.util.LayoutUtil;
-import org.apache.myfaces.tobago.webapp.OptimizedResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
-import javax.swing.BoundedRangeModel;
-import javax.swing.DefaultBoundedRangeModel;
+import javax.swing.*;
 import java.io.IOException;
 
 public class ProgressRenderer extends LayoutableRendererBase {
@@ -52,7 +51,7 @@ public class ProgressRenderer extends LayoutableRendererBase {
       model = new DefaultBoundedRangeModel(4, 1, 0, 10);
     }
 
-    OptimizedResponseWriter writer = (OptimizedResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
 
     String value1 = Integer.toString(model.getValue());
     String value2 = Integer.toString(model.getMaximum() - model.getValue());

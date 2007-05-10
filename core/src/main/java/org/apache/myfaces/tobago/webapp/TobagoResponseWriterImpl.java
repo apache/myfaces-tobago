@@ -37,9 +37,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
-public class TobagoResponseWriter extends ResponseWriter implements OptimizedResponseWriter {
+public class TobagoResponseWriterImpl extends ResponseWriter implements TobagoResponseWriter {
 
-  private static final Log LOG = LogFactory.getLog(TobagoResponseWriter.class);
+  private static final Log LOG = LogFactory.getLog(TobagoResponseWriterImpl.class);
 
   private static final Set<String> EMPTY_TAG = new HashSet<String>(Arrays.asList(
       HtmlConstants.BR,
@@ -72,9 +72,9 @@ public class TobagoResponseWriter extends ResponseWriter implements OptimizedRes
 
   private HtmlWriterUtil helper;
 
-  public TobagoResponseWriter(final Writer writer, final String contentType,
+  public TobagoResponseWriterImpl(final Writer writer, final String contentType,
                               final String characterEncoding) {
-//    LOG.info("new TobagoResponseWriter!");
+//    LOG.info("new TobagoResponseWriterImpl!");
 //    final StackTraceElement[] stackTrace = new Exception().getStackTrace();
 //    for (int i = 1; i < stackTrace.length && i < 5; i++) {
 //      LOG.info("  " + stackTrace[i].toString());
@@ -273,7 +273,7 @@ public class TobagoResponseWriter extends ResponseWriter implements OptimizedRes
   }
 
   public ResponseWriter cloneWithWriter(final Writer originalWriter) {
-    return new TobagoResponseWriter(
+    return new TobagoResponseWriterImpl(
         originalWriter, getContentType(), getCharacterEncoding());
   }
 
@@ -302,7 +302,7 @@ public class TobagoResponseWriter extends ResponseWriter implements OptimizedRes
     LOG.error("Not implemented yet!");
   }
 
-// interface OptimizedResponseWriter //////////////////////////////////////////////////////////////////////////////////
+// interface TobagoResponseWriter //////////////////////////////////////////////////////////////////////////////////
 
   public void writeAttribute(final String name, final String value, final boolean escape)
       throws IOException {

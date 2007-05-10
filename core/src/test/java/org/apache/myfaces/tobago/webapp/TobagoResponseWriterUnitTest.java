@@ -25,12 +25,12 @@ import java.io.StringWriter;
 public class TobagoResponseWriterUnitTest extends TestCase {
 
   private StringWriter stringWriter;
-  private TobagoResponseWriter writer;
+  private TobagoResponseWriterImpl writer;
 
   protected void setUp() throws Exception {
     super.setUp();
     stringWriter = new StringWriter();
-    writer = new TobagoResponseWriter(stringWriter, "", "UTF-8");
+    writer = new TobagoResponseWriterImpl(stringWriter, "", "UTF-8");
   }
 
   public void testDocument() throws IOException {
@@ -96,7 +96,7 @@ public class TobagoResponseWriterUnitTest extends TestCase {
   }
 
   public void testNonUtf8() throws IOException {
-    TobagoResponseWriter writer1 = new TobagoResponseWriter(stringWriter, "", "ISO-8859-1");
+    TobagoResponseWriterImpl writer1 = new TobagoResponseWriterImpl(stringWriter, "", "ISO-8859-1");
     writer1.startElement("input", null);
     writer1.writeAttribute("value", "Gutschein über 100 €.", null);
     writer1.writeAttribute("readonly", true);

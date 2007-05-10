@@ -41,7 +41,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBaseWrapper;
 import org.apache.myfaces.tobago.util.LayoutUtil;
-import org.apache.myfaces.tobago.webapp.OptimizedResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -78,7 +78,7 @@ public final class HtmlRendererUtil {
         LOG.warn("page focusId = \"" + page.getFocusId() + "\" ignoring new value \""
             + id + "\"");
       } else {
-        OptimizedResponseWriter writer = HtmlRendererUtil.getOptimizedResponseWriter(facesContext);
+        TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
         writer.writeJavascript("Tobago.focusId = '" + id + "';");
       }
     }
@@ -429,7 +429,7 @@ public final class HtmlRendererUtil {
     classes.addMarkupClass(component, rendererName);
   }
 
-  public static void addImageSources(FacesContext facesContext, OptimizedResponseWriter writer, String src, String id)
+  public static void addImageSources(FacesContext facesContext, TobagoResponseWriter writer, String src, String id)
       throws IOException {
     StringBuilder buffer = new StringBuilder();
     buffer.append("new Tobago.Image('");
@@ -454,14 +454,14 @@ public final class HtmlRendererUtil {
     }
   }
 
-  public static OptimizedResponseWriter getOptimizedResponseWriter(FacesContext facesContext) {
+  public static TobagoResponseWriter getTobagoResponseWriter(FacesContext facesContext) {
 
     ResponseWriter writer = facesContext.getResponseWriter();
-    if (writer instanceof OptimizedResponseWriter) {
-      return (OptimizedResponseWriter) writer;
+    if (writer instanceof TobagoResponseWriter) {
+      return (TobagoResponseWriter) writer;
     } else {
-      // todo: return new OptimizedResponseWriterWrapper(writer);
-      throw new UnsupportedOperationException("No OptimizedResponseWriterWrapper implemented found!");
+      // todo: return new TobagoResponseWriterWrapper(writer);
+      throw new UnsupportedOperationException("No TobagoResponseWriterWrapper implementation found!");
     }
   }
 
@@ -496,7 +496,7 @@ public final class HtmlRendererUtil {
   public static void writeScriptLoader(
       FacesContext facesContext, String[] scripts, String[] afterLoadCmds)
       throws IOException {
-    OptimizedResponseWriter writer = HtmlRendererUtil.getOptimizedResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     String allScripts = "[]";
     if (scripts != null) {
@@ -524,7 +524,7 @@ public final class HtmlRendererUtil {
 
   public static void writeStyleLoader(
       FacesContext facesContext, String[] styles) throws IOException {
-    OptimizedResponseWriter writer = HtmlRendererUtil.getOptimizedResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     StringBuilder builder = new StringBuilder();
     builder.append("Tobago.ensureStyleFiles(\n    ");
@@ -551,7 +551,7 @@ public final class HtmlRendererUtil {
   }
 
   public static void renderSelectItems(UIInput component, List<SelectItem> items, Object[] values,
-      OptimizedResponseWriter writer, FacesContext facesContext) throws IOException {
+      TobagoResponseWriter writer, FacesContext facesContext) throws IOException {
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("value = '" + values + "'");

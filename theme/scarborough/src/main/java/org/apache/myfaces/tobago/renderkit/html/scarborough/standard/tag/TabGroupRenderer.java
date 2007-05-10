@@ -27,12 +27,12 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_INDEX;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_INDEX;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -46,22 +46,22 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import java.io.IOException;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
 public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRenderer {
 
@@ -120,8 +120,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     }
 
 
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer
+        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
@@ -212,7 +212,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
   }
 
   private void renderTabGroupView(
-      FacesContext facesContext, TobagoResponseWriter writer, UITabGroup component,
+      FacesContext facesContext, TobagoResponseWriterImpl writer, UITabGroup component,
       int virtualTab, HtmlStyleMap oStyle, String switchType, String image1x1)
       throws IOException {
     writer.startElement(HtmlConstants.TABLE, null);
@@ -339,7 +339,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.endElement(HtmlConstants.TABLE);
   }
 
-  protected void encodeContent(TobagoResponseWriter writer,
+  protected void encodeContent(TobagoResponseWriterImpl writer,
       FacesContext facesContext, UIPanelBase activeTab) throws IOException {
 
     HtmlStyleMap bodyStyle = (HtmlStyleMap)
@@ -358,7 +358,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     AjaxUtils.checkParamValidity(context, component, UITabGroup.class);
 
     renderTabGroupView(context,
-        (TobagoResponseWriter) context.getResponseWriter(),
+        (TobagoResponseWriterImpl) context.getResponseWriter(),
         (UITabGroup) component,
         ensureRenderedActiveIndex(context, (UITabGroup) component),
         (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE),

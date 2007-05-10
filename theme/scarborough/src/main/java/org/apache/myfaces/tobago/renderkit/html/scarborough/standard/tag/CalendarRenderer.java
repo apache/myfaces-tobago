@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -92,7 +92,7 @@ public class CalendarRenderer extends LayoutableRendererBase {
 
     // rendering:
 
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     writer.startElement(HtmlConstants.TABLE, component);
     writer.writeIdAttribute(id);
@@ -235,12 +235,12 @@ public class CalendarRenderer extends LayoutableRendererBase {
     HtmlRendererUtil.writeScriptLoader(facesContext, SCRIPTS, cmd);
   }
   
-  private void writeInputHidden(TobagoResponseWriter writer,
+  private void writeInputHidden(TobagoResponseWriterImpl writer,
        String id, Object value) throws IOException {
     writeInputHidden(writer, null, id, value);
    }
 
-  private void writeInputHidden(TobagoResponseWriter writer, String name,
+  private void writeInputHidden(TobagoResponseWriterImpl writer, String name,
       String id, Object value) throws IOException {
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);

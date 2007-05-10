@@ -51,7 +51,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -85,8 +85,8 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       clientId = component.getParent().getClientId(facesContext);
     } else {
       clientId = component.getClientId(facesContext);
-      TobagoResponseWriter writer
-          = (TobagoResponseWriter) facesContext.getResponseWriter();
+      TobagoResponseWriterImpl writer
+          = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
       writer.startElement(HtmlConstants.DIV, component);
       writer.writeIdAttribute(clientId);
@@ -125,7 +125,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
   }
 
   private void renderTopLevelItems(FacesContext facesContext,
-      TobagoResponseWriter writer, UIComponent component) throws IOException {
+      TobagoResponseWriterImpl writer, UIComponent component) throws IOException {
     String bac = "green;";
     for (Object o : component.getChildren()) {
       if (o instanceof UIMenu) {
@@ -230,8 +230,8 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       throws IOException {
     ResponseWriter savedWriter = facesContext.getResponseWriter();
     StringWriter stringWriter = new StringWriter();
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) savedWriter.cloneWithWriter(stringWriter);
+    TobagoResponseWriterImpl writer
+        = (TobagoResponseWriterImpl) savedWriter.cloneWithWriter(stringWriter);
     facesContext.setResponseWriter(writer);
 
     writeMenuEntry(facesContext, writer, uiPanel);
@@ -242,7 +242,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     return "new Tobago.Menu.Item('" + prepareForScript(stringWriter.toString()) + "', null)";
   }
 
-  private void writeMenuEntry(FacesContext facesContext, TobagoResponseWriter writer,
+  private void writeMenuEntry(FacesContext facesContext, TobagoResponseWriterImpl writer,
       UIPanel uiPanel) throws IOException {
     final boolean disabled
         = ComponentUtil.getBooleanAttribute(uiPanel, ATTR_DISABLED);
@@ -303,7 +303,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     }
   }
 
-  private void addImage(TobagoResponseWriter writer, FacesContext facesContext,
+  private void addImage(TobagoResponseWriterImpl writer, FacesContext facesContext,
                         String image, boolean disabled) throws IOException {
     if (image != null) {
       String disabledImage = null;
@@ -469,8 +469,8 @@ public class MenuBarRenderer extends LayoutableRendererBase {
 
     ResponseWriter savedWriter = facesContext.getResponseWriter();
     StringWriter stringWriter = new StringWriter();
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) savedWriter.cloneWithWriter(stringWriter);
+    TobagoResponseWriterImpl writer
+        = (TobagoResponseWriterImpl) savedWriter.cloneWithWriter(stringWriter);
     facesContext.setResponseWriter(writer);
 
     addImage(writer, facesContext, image, disabled);

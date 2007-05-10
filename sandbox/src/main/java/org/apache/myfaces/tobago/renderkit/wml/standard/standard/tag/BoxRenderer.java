@@ -41,8 +41,8 @@ public class BoxRenderer extends BoxRendererBase {
 
     //UIPanel panel = (UIPanel) component;
 
-    //TobagoResponseWriter writer
-      //  = (TobagoResponseWriter) facesContext.getResponseWriter();
+    //TobagoResponseWriterImpl writer
+      //  = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     //BodyContentHandler bodyContentHandler = (BodyContentHandler)
     //    panel.getAttributes().get(ATTR_BODY_CONTENT);

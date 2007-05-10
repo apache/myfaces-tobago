@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -54,8 +54,8 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
     List<SelectItem> items = ComponentUtil.getItemsToRender(component);
 
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer
+        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     Object[] values = component.getSelectedValues();
     if (LOG.isDebugEnabled()) {

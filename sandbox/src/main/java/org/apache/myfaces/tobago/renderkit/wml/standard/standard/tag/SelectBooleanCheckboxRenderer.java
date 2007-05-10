@@ -25,9 +25,9 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -38,8 +38,8 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
 
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer
+        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     boolean value = ComponentUtil.getBooleanAttribute(component, ATTR_VALUE);
 

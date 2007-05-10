@@ -22,18 +22,17 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_GLOBAL_ONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DETAIL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_SUMMARY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -64,7 +63,7 @@ public class MessagesRenderer extends MessageRendererBase {
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
 
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("facesContect is " + facesContext.getClass().getName());

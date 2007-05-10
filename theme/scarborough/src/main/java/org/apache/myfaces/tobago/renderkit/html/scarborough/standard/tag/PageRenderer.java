@@ -47,7 +47,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.ResponseUtils;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
@@ -108,7 +108,7 @@ public class PageRenderer extends PageRendererBase {
 
     HtmlRendererUtil.prepareRender(facesContext, page);
 
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     // replace responseWriter and render page content
     StringWriter content = new StringWriter();

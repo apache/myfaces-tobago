@@ -34,8 +34,8 @@ import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.webapp.OptimizedResponseWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -59,7 +59,7 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
   public void encodeBegin(
       FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
     UIPopup component = (UIPopup) uiComponent;
     final String clientId = component.getClientId(facesContext);
     final String contentDivId = clientId + CONTENT_ID_POSTFIX;
@@ -114,7 +114,7 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
-    OptimizedResponseWriter writer = (OptimizedResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     UIPopup component = (UIPopup) uiComponent;
     final String clientId = component.getClientId(facesContext);
 

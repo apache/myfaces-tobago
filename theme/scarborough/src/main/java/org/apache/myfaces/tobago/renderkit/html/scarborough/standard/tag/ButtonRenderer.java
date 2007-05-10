@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -57,7 +57,7 @@ public class ButtonRenderer extends CommandRendererBase {
     CommandRendererHelper helper
         = new CommandRendererHelper(facesContext, (UICommand) component, CommandRendererHelper.Tag.BUTTON);
 
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     LabelWithAccessKey label = new LabelWithAccessKey(component);
 

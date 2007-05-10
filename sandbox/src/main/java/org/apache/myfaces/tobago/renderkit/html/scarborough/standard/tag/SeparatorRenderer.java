@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -38,7 +38,7 @@ public class SeparatorRenderer extends LayoutableRendererBase {
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.STYLE, null, TobagoConstants.ATTR_STYLE);

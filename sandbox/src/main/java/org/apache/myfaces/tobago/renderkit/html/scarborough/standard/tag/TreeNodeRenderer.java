@@ -45,7 +45,7 @@ import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.IMG;
 import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.SPAN;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -120,7 +120,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     mixedModel.onEncodeBegin();
 
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     TreeState treeState = root.getState();
     String treeId = root.getClientId(facesContext);
@@ -211,7 +211,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     LOG.debug(builder + "<div name=" + label + ">");
   }
 
-  private void encodeExpandedHidden(TobagoResponseWriter writer, UITreeNode node, String clientId, boolean expanded)
+  private void encodeExpandedHidden(TobagoResponseWriterImpl writer, UITreeNode node, String clientId, boolean expanded)
       throws IOException {
     writer.startElement(HtmlConstants.INPUT, node);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
@@ -222,7 +222,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
   }
 
   private void encodeMenuIcon(
-      FacesContext facesContext, TobagoResponseWriter writer, String treeId, String id, boolean expanded)
+      FacesContext facesContext, TobagoResponseWriterImpl writer, String treeId, String id, boolean expanded)
       throws IOException {
     String menuOpen = ResourceManagerUtil.getImageWithPath(facesContext, "image/treeMenuOpen.gif");
     String menuClose = ResourceManagerUtil.getImageWithPath(facesContext, "image/treeMenuClose.gif");
@@ -239,7 +239,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
   }
 
   private void encodeIndent(
-      FacesContext facesContext, TobagoResponseWriter writer, boolean menuMode, List<Boolean> junctions)
+      FacesContext facesContext, TobagoResponseWriterImpl writer, boolean menuMode, List<Boolean> junctions)
       throws IOException {
 
     String blank = ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif");
@@ -258,7 +258,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
   }
 
   private void encodeTreeJunction(
-      FacesContext facesContext, TobagoResponseWriter writer, String id, String treeId,
+      FacesContext facesContext, TobagoResponseWriterImpl writer, String id, String treeId,
       boolean showJunctions, boolean showRootJunction, boolean showRoot,
       boolean expanded, boolean isFolder, int depth, boolean hasNextSibling) throws IOException {
     if (!(!showJunctions
@@ -294,7 +294,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
   }
 
   private void encodeTreeIcons(
-      FacesContext facesContext, TobagoResponseWriter writer, String id, String treeId,
+      FacesContext facesContext, TobagoResponseWriterImpl writer, String id, String treeId,
       boolean showIcons, boolean expanded, boolean isFolder)
       throws IOException {
 
@@ -342,7 +342,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
 
   private void encodeLabel(
-      TobagoResponseWriter writer, CommandRendererHelper helper, UITreeNode node, boolean marked, String treeId)
+      TobagoResponseWriterImpl writer, CommandRendererHelper helper, UITreeNode node, boolean marked, String treeId)
       throws IOException {
 
     if (helper.isDisabled()) {
@@ -387,7 +387,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     String id = node.getClientId(facesContext);
 
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     if (isFolder) {
       writer.endElement(DIV);

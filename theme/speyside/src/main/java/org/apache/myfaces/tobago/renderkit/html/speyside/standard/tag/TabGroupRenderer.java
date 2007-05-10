@@ -27,11 +27,11 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import org.apache.myfaces.tobago.component.UIPanelBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -42,7 +42,7 @@ public class TabGroupRenderer extends
 
   private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
 
-  protected void encodeContent(TobagoResponseWriter writer,
+  protected void encodeContent(TobagoResponseWriterImpl writer,
       FacesContext facesContext, UIPanelBase activeTab) throws IOException {
 
     HtmlStyleMap bodyStyle = (HtmlStyleMap)

@@ -24,15 +24,15 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.msie.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_SUMMARY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DETAIL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_SUMMARY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -77,7 +77,7 @@ public class MessageRenderer extends MessageRendererBase {
 
     Iterator iterator = facesContext.getMessages(clientId);
 
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     boolean showSummary = ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_SUMMARY);
     boolean showDetail = ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_DETAIL);

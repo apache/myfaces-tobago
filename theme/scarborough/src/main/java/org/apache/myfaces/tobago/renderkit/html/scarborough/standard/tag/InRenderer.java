@@ -40,8 +40,8 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.webapp.OptimizedResponseWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -78,7 +78,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     }
 
     String id = component.getClientId(facesContext);
-    OptimizedResponseWriter writer = (OptimizedResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
     writer.startElement(HtmlConstants.INPUT, component);
     writer.writeAttribute(HtmlAttributes.TYPE, type, false);
     writer.writeNameAttribute(id);
@@ -197,8 +197,8 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
       return;
     }
 
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) context.getResponseWriter();
+    TobagoResponseWriterImpl writer
+        = (TobagoResponseWriterImpl) context.getResponseWriter();
     int maxSuggestedCount = 25; //input.getMaxSuggestedItems()!=null
 //        ? input.getMaxSuggestedItems().intValue()
 //        : DEFAULT_MAX_SUGGESTED_ITEMS;

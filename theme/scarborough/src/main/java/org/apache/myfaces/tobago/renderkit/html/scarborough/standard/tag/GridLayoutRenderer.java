@@ -55,7 +55,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.util.LayoutUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -243,7 +243,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     List columnWidths =  (List) attributes.get(ATTR_WIDTH_LIST);
 
 
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
     writer.startElement(HtmlConstants.TABLE, layout);
     writer.writeAttribute(HtmlAttributes.BORDER, null, ATTR_BORDER);
     writer.writeClassAttribute();

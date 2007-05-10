@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -46,8 +46,8 @@ public class PageRenderer extends PageRendererBase {
 
     UIPage page = (UIPage) component;
 
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer
+        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     // reset responseWriter and render page
     facesContext.setResponseWriter(writer);

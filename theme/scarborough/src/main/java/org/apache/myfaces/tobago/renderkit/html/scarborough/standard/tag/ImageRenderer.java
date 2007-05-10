@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -54,7 +54,7 @@ public class ImageRenderer extends LayoutableRendererBase {
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
 
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     UIGraphic graphic = (UIGraphic) component;
     final String value = graphic.getUrl();
