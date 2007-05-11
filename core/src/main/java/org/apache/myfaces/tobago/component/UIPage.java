@@ -428,14 +428,16 @@ public class UIPage extends UIForm {
     this.width = (Integer) values[1];
     this.height = (Integer) values[2];
     this.focusId = (String) values[3];
+    this.applicationIcon = (String) values[4];
   }
 
   public Object saveState(FacesContext context) {
-    Object[] values = new Object[4];
+    Object[] values = new Object[5];
     values[0] = super.saveState(context);
     values[1] = width;
     values[2] = height;
     values[3] = focusId;
+    values[4] = applicationIcon;
     return values;
   }
 }
