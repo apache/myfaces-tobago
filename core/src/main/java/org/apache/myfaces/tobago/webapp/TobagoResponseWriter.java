@@ -42,22 +42,18 @@ public interface TobagoResponseWriter {
   void writeComment(Object obj) throws IOException;
 
   /**
-   * @deprecated should not directly called via this interface.
+   * @deprecated Should not directly called via this interface. There is be a special method which might be better.
    */
   @Deprecated
   void writeAttribute(String name, Object value, final String property) throws IOException;
 
   /**
-   * @deprecated should not directly called via this interface.
+   * @deprecated Should not directly called via this interface. There is be a special method which might be better.
    */
   @Deprecated
   void writeText(Object text, String property) throws IOException;
 
-  /**
-   * @deprecated should not directly called via this interface.
-   */
-  @Deprecated
-  public abstract void flush() throws IOException;
+  void flush() throws IOException;
 
   // others (not from ResponseWriter)
 
