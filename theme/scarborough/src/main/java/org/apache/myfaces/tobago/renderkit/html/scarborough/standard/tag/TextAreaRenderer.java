@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -51,9 +51,7 @@ public class TextAreaRenderer extends InputRendererBase {
     String clientId = input.getClientId(facesContext);
     String onchange = HtmlUtils.generateOnchange(input, facesContext);
 
-    TobagoResponseWriterImpl writer
-        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
-
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.TEXTAREA, input);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);

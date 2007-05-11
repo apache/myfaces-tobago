@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectOne;
@@ -51,7 +51,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
   }
 
   public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
-    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     UISelectOne component = (UISelectOne) uiComponent;
     List<SelectItem> items = ComponentUtil.getSelectItems(component);
 

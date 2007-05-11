@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -54,7 +54,7 @@ public class LinkRenderer extends CommandRendererBase {
     CommandRendererHelper helper
         = new CommandRendererHelper(facesContext, (UICommand) component, CommandRendererHelper.Tag.ANCHOR);
     String href = helper.getHref();
-    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     LabelWithAccessKey label = new LabelWithAccessKey(component);
 

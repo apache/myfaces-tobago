@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.webapp;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+
 import javax.faces.component.UIComponent;
 import java.io.IOException;
 
@@ -34,6 +36,28 @@ public interface TobagoResponseWriter {
   void startElement(String name, UIComponent component) throws IOException;
 
   void endElement(String name) throws IOException;
+
+  void write(String string) throws IOException;
+
+  void writeComment(Object obj) throws IOException;
+
+  /**
+   * @deprecated should not directly called via this interface.
+   */
+  @Deprecated
+  void writeAttribute(String name, Object value, final String property) throws IOException;
+
+  /**
+   * @deprecated should not directly called via this interface.
+   */
+  @Deprecated
+  void writeText(Object text, String property) throws IOException;
+
+  /**
+   * @deprecated should not directly called via this interface.
+   */
+  @Deprecated
+  public abstract void flush() throws IOException;
 
   // others (not from ResponseWriter)
 
@@ -54,6 +78,11 @@ public interface TobagoResponseWriter {
   void writeAttribute(String name, int number) throws IOException;
 
   /**
+   * Writes a propery as attribute. The value will be escaped.
+   */
+  void writeAttributeFromComponent(String name, String property) throws IOException;
+
+  /**
    * Write the id attribute. The value will not escaped.
    */
   void writeIdAttribute(String id) throws IOException;
@@ -67,6 +96,11 @@ public interface TobagoResponseWriter {
    * Write the class attribute. The value will not escaped.
    */
   void writeClassAttribute(String cssClass) throws IOException;
+
+  /**
+   * Write the class attribute. The value will not escaped.
+   */
+  void writeClassAttribute(StyleClasses cssClass) throws IOException;
 
   /**
    * Write the class attribute. The value will not escaped.
@@ -85,5 +119,9 @@ public interface TobagoResponseWriter {
 
   void writeJavascript(String script) throws IOException;
 
+  /**
+   * Write text content. The text will be escaped.
+   */
   void writeText(String text) throws IOException;
+
 }

@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.DateFormatUtils;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -68,13 +68,12 @@ public class DateRenderer extends InRenderer {
       String pattern = DateFormatUtils.findPattern(converter);
 
       if (pattern != null) {
-        TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl)
-            facesContext.getResponseWriter();
+        TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
         String id = component.getClientId(facesContext);
         writer.startElement(HtmlConstants.INPUT, component);
-        writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+        writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
         writer.writeIdAttribute(id + ":converterPattern");
-        writer.writeAttribute(HtmlAttributes.VALUE, pattern, null);
+        writer.writeAttribute(HtmlAttributes.VALUE, pattern, false);
         writer.endElement(HtmlConstants.INPUT);
       } else {
         LOG.warn("Can't find the pattern for the converter! "

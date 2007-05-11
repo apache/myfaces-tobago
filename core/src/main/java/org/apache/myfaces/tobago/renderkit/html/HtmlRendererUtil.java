@@ -127,18 +127,18 @@ public final class HtmlRendererUtil {
     return null;
   }
 
-  public static void writeLabelWithAccessKey(ResponseWriter writer, LabelWithAccessKey label)
+  public static void writeLabelWithAccessKey(TobagoResponseWriter writer, LabelWithAccessKey label)
       throws IOException {
     int pos = label.getPos();
     String text = label.getText();
     if (pos == -1) {
-      writer.writeText(text, null);
+      writer.writeText(text);
     } else {
-      writer.writeText(text.substring(0, pos), null);
+      writer.writeText(text.substring(0, pos));
       writer.startElement(HtmlConstants.U, null);
-      writer.writeText(text.charAt(pos), null);
+      writer.writeText(Character.toString(text.charAt(pos)));
       writer.endElement(HtmlConstants.U);
-      writer.writeText(text.substring(pos + 1), null);
+      writer.writeText(text.substring(pos + 1));
     }
   }
 

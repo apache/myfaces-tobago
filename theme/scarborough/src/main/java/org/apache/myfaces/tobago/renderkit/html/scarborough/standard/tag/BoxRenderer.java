@@ -38,7 +38,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
@@ -64,21 +64,20 @@ public class BoxRenderer extends BoxRendererBase {
       HtmlRendererUtil.replaceStyleAttribute(component, getAttrStyleKey(), "padding-bottom", 0);
     }
 
-    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlConstants.FIELDSET, component);
     writer.writeClassAttribute();
-    writer.writeAttribute(HtmlAttributes.STYLE, null, getAttrStyleKey());
+    writer.writeAttributeFromComponent(HtmlAttributes.STYLE, getAttrStyleKey());
 
     if (label != null || labelString != null) {
       writer.startElement(HtmlConstants.LEGEND, component);
       writer.writeClassAttribute();
 
-      writer.writeText("", null);
       if (label != null) {
         RenderUtil.encode(facesContext, label);
       } else {
-        writer.writeText(labelString, null);
+        writer.writeText(labelString);
       }
       writer.endElement(HtmlConstants.LEGEND);
     }
@@ -109,8 +108,7 @@ public class BoxRenderer extends BoxRendererBase {
     }
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeClassAttribute();
-    writer.writeAttribute(HtmlAttributes.STYLE, contentStyle, null);
-
+    writer.writeStyleAttribute(contentStyle);
   }
 
   public void encodeEnd(FacesContext facesContext,

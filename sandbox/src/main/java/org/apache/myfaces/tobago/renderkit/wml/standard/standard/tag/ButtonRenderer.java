@@ -32,7 +32,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -50,8 +51,7 @@ public class ButtonRenderer extends LayoutableRendererBase {
     UICommand command = (UICommand) component;
     UIPage page = ComponentUtil.findPage(facesContext, command);
 
-    TobagoResponseWriterImpl writer
-        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
      // TODO
     //String action = (String) command.getAttributes().get(ATTR_ACTION);
 
@@ -65,15 +65,15 @@ public class ButtonRenderer extends LayoutableRendererBase {
 
 
       writer.startElement("anchor", command);
-      writer.writeText(label, null);
+      writer.writeText(label);
 
       writer.startElement("go", command);
       //writer.writeAttribute("href", action, null);
 
       for (KeyValue postField : page.getPostfields()) {
         writer.startElement("postfield", command);
-        writer.writeAttribute("name", postField.getKey(), null);
-        writer.writeAttribute("value", postField.getValue(), null);
+        writer.writeAttribute("name", "" + postField.getKey(), false);
+        writer.writeAttribute("value", "" + postField.getValue(), true);
         writer.endElement("postfield");
       }
       writer.endElement("go");
@@ -83,4 +83,3 @@ public class ButtonRenderer extends LayoutableRendererBase {
     }
   }
 }
-

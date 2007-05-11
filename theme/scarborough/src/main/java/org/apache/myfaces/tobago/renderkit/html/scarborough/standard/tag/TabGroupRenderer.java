@@ -54,7 +54,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -120,9 +120,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     }
 
 
-    TobagoResponseWriterImpl writer
-        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
-
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
     writer.writeAttribute(HtmlAttributes.VALUE, Integer.toString(activeIndex), null);
@@ -212,7 +210,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
   }
 
   private void renderTabGroupView(
-      FacesContext facesContext, TobagoResponseWriterImpl writer, UITabGroup component,
+      FacesContext facesContext, TobagoResponseWriter writer, UITabGroup component,
       int virtualTab, HtmlStyleMap oStyle, String switchType, String image1x1)
       throws IOException {
     writer.startElement(HtmlConstants.TABLE, null);
@@ -339,8 +337,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.endElement(HtmlConstants.TABLE);
   }
 
-  protected void encodeContent(TobagoResponseWriterImpl writer,
-      FacesContext facesContext, UIPanelBase activeTab) throws IOException {
+  protected void encodeContent(TobagoResponseWriter writer, FacesContext facesContext, UIPanelBase activeTab)
+      throws IOException {
 
     HtmlStyleMap bodyStyle = (HtmlStyleMap)
         activeTab.getParent().getAttributes().get(ATTR_STYLE_BODY);
@@ -358,7 +356,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     AjaxUtils.checkParamValidity(context, component, UITabGroup.class);
 
     renderTabGroupView(context,
-        (TobagoResponseWriterImpl) context.getResponseWriter(),
+        (TobagoResponseWriter) context.getResponseWriter(),
         (UITabGroup) component,
         ensureRenderedActiveIndex(context, (UITabGroup) component),
         (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE),

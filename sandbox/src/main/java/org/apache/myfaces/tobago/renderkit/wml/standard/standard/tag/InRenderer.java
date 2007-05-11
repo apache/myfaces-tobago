@@ -29,7 +29,8 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -40,8 +41,7 @@ public class InRenderer extends LayoutableRendererBase {
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
 
-    TobagoResponseWriterImpl writer
-        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     String clientId = component.getClientId(facesContext);
 
@@ -62,10 +62,10 @@ public class InRenderer extends LayoutableRendererBase {
         component, ATTR_PASSWORD) ? "password" : "text";
 
     writer.startElement("input", component);
-    writer.writeAttribute("name", clientId, null);
-    writer.writeAttribute("id", clientId, null);
-    writer.writeAttribute("value", currentValue, null);
-    writer.writeAttribute("type", type, null);
+    writer.writeNameAttribute(clientId);
+    writer.writeIdAttribute(clientId);
+    writer.writeAttribute("value", currentValue, true);
+    writer.writeAttribute("type", type, false);
     writer.endElement("input");
 
 

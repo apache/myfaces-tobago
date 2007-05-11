@@ -41,7 +41,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -197,8 +196,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
       return;
     }
 
-    TobagoResponseWriterImpl writer
-        = (TobagoResponseWriterImpl) context.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(context);
     int maxSuggestedCount = 25; //input.getMaxSuggestedItems()!=null
 //        ? input.getMaxSuggestedItems().intValue()
 //        : DEFAULT_MAX_SUGGESTED_ITEMS;

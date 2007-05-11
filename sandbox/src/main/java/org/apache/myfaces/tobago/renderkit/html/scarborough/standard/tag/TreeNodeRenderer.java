@@ -43,8 +43,10 @@ import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.A;
 import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.DIV;
 import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.IMG;
 import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.SPAN;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.NamingContainer;
@@ -120,7 +122,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     mixedModel.onEncodeBegin();
 
-    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
+//    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     TreeState treeState = root.getState();
     String treeId = root.getClientId(facesContext);
@@ -173,7 +176,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     } else {
       widthString = "100%";
     }
-    writer.writeAttribute("style", widthString, null);
+    writer.writeStyleAttribute(widthString);
 
     if (isFolder) {
       encodeExpandedHidden(writer, node, id, expanded);
@@ -198,7 +201,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       String contentStyle = "display: " + (expanded ? "block" : "none") + ";";
       writer.startElement(DIV, null);
       writer.writeIdAttribute(id + "-cont");
-      writer.writeAttribute("style", contentStyle, null);
+      writer.writeStyleAttribute(contentStyle);
     }
 
     String label = (String) node.getAttributes().get(ATTR_LABEL);
@@ -211,18 +214,18 @@ public class TreeNodeRenderer extends CommandRendererBase {
     LOG.debug(builder + "<div name=" + label + ">");
   }
 
-  private void encodeExpandedHidden(TobagoResponseWriterImpl writer, UITreeNode node, String clientId, boolean expanded)
+  private void encodeExpandedHidden(TobagoResponseWriter writer, UITreeNode node, String clientId, boolean expanded)
       throws IOException {
     writer.startElement(HtmlConstants.INPUT, node);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeNameAttribute(clientId + "-expanded");
     writer.writeIdAttribute(clientId + "-expanded");
-    writer.writeAttribute(HtmlAttributes.VALUE, expanded, null);
+    writer.writeAttribute(HtmlAttributes.VALUE, Boolean.toString(expanded), false);
     writer.endElement(HtmlConstants.INPUT);
   }
 
   private void encodeMenuIcon(
-      FacesContext facesContext, TobagoResponseWriterImpl writer, String treeId, String id, boolean expanded)
+      FacesContext facesContext, TobagoResponseWriter writer, String treeId, String id, boolean expanded)
       throws IOException {
     String menuOpen = ResourceManagerUtil.getImageWithPath(facesContext, "image/treeMenuOpen.gif");
     String menuClose = ResourceManagerUtil.getImageWithPath(facesContext, "image/treeMenuClose.gif");
@@ -232,14 +235,14 @@ public class TreeNodeRenderer extends CommandRendererBase {
     writer.startElement(IMG, null);
     writer.writeClassAttribute("tobago-tree-menu-icon");
     writer.writeIdAttribute(id + "-menuIcon");
-    writer.writeAttribute("src", src, null);
-    writer.writeAttribute("onclick", onclick, null);
-    writer.writeAttribute("alt", "", null);
+    writer.writeAttribute("src", src, true); // xxx is escaping required?
+    writer.writeAttribute("onclick", onclick, true); // xxx is escaping required?
+    writer.writeAttribute("alt", "", false);
     writer.endElement(IMG);
   }
 
   private void encodeIndent(
-      FacesContext facesContext, TobagoResponseWriterImpl writer, boolean menuMode, List<Boolean> junctions)
+      FacesContext facesContext, TobagoResponseWriter writer, boolean menuMode, List<Boolean> junctions)
       throws IOException {
 
     String blank = ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif");
@@ -249,16 +252,16 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.startElement(IMG, null);
       writer.writeClassAttribute("tree-junction");
       if (junction && !menuMode) {
-        writer.writeAttribute("src", perpendicular, null);
+        writer.writeAttribute("src", perpendicular, true);// xxx is escaping required?
       } else {
-        writer.writeAttribute("src", blank, null);
+        writer.writeAttribute("src", blank, true);// xxx is escaping required?
       }
       writer.endElement(IMG);
     }
   }
 
   private void encodeTreeJunction(
-      FacesContext facesContext, TobagoResponseWriterImpl writer, String id, String treeId,
+      FacesContext facesContext, TobagoResponseWriter writer, String id, String treeId,
       boolean showJunctions, boolean showRootJunction, boolean showRoot,
       boolean expanded, boolean isFolder, int depth, boolean hasNextSibling) throws IOException {
     if (!(!showJunctions
@@ -280,11 +283,11 @@ public class TreeNodeRenderer extends CommandRendererBase {
       );
 
       String src = ResourceManagerUtil.getImageWithPath(facesContext, "image/" + gif);
-      writer.writeAttribute("src", src, null);
+      writer.writeAttribute("src", src, true);// xxx is escaping required
       if (isFolder) {
-        writer.writeAttribute("onclick", createOnclickForToggle(facesContext, treeId), null);
+        writer.writeAttribute("onclick", createOnclickForToggle(facesContext, treeId), true);// xxx is escaping required
       }
-      writer.writeAttribute("alt", "", null);
+      writer.writeAttribute("alt", "", false);
 //    } else if (( !this.hideRoot && depth >0 ) || (this.hideRoot && depth > 1)) {
 //      str += '<img class="tree-junction" id="' + this.id
 //          + '-junction" src="' + this.treeResources.getImage("blank.gif")
@@ -294,7 +297,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
   }
 
   private void encodeTreeIcons(
-      FacesContext facesContext, TobagoResponseWriterImpl writer, String id, String treeId,
+      FacesContext facesContext, TobagoResponseWriter writer, String id, String treeId,
       boolean showIcons, boolean expanded, boolean isFolder)
       throws IOException {
 
@@ -308,11 +311,11 @@ public class TreeNodeRenderer extends CommandRendererBase {
           : "new.gif";
 
       String src = ResourceManagerUtil.getImageWithPath(facesContext, "image/" + gif);
-      writer.writeAttribute("src", src, null);
+      writer.writeAttribute("src", src, true);// xxx is escaping required
       if (isFolder) {
-        writer.writeAttribute("onclick", createOnclickForToggle(facesContext, treeId), null);
+        writer.writeAttribute("onclick", createOnclickForToggle(facesContext, treeId), true);// xxx is escaping required
       }
-      writer.writeAttribute("alt", "", null);
+      writer.writeAttribute("alt", "", false);
       writer.endElement(IMG);
     }
   }
@@ -342,16 +345,16 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
 
   private void encodeLabel(
-      TobagoResponseWriterImpl writer, CommandRendererHelper helper, UITreeNode node, boolean marked, String treeId)
+      TobagoResponseWriter writer, CommandRendererHelper helper, UITreeNode node, boolean marked, String treeId)
       throws IOException {
 
     if (helper.isDisabled()) {
       writer.startElement(SPAN, null);
     } else {
       writer.startElement(A, null);
-      writer.writeAttribute(HtmlAttributes.HREF, helper.getHref(), null);
-      writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), null);
-      writer.writeAttribute(HtmlAttributes.ONFOCUS, "storeMarker(this.parentNode, '" + treeId + "')", null);
+      writer.writeAttribute(HtmlAttributes.HREF, helper.getHref(), true);
+      writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true);// xxx is escaping required?
+      writer.writeAttribute(HtmlAttributes.ONFOCUS, "storeMarker(this.parentNode, '" + treeId + "')", false);
     }
     if (marked) {
       StyleClasses classes = new StyleClasses();
@@ -361,13 +364,13 @@ public class TreeNodeRenderer extends CommandRendererBase {
     String tip = (String) node.getAttributes().get(ATTR_TIP);
     if (tip != null) {
 //XXX is needed?      tip = StringEscapeUtils.escapeJavaScript(tip);
-      writer.writeAttribute(HtmlAttributes.TITLE, tip, null);
+      writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     }
     String label = (String) node.getAttributes().get(ATTR_LABEL);
     if (label == null) {
       LOG.warn("label == null");
     }
-    writer.writeText(label, null);
+    writer.writeText(label);
     if (helper.isDisabled()) {
       writer.endElement(SPAN);
     } else {

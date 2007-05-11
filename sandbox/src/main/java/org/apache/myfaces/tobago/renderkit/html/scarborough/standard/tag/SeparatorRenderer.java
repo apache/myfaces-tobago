@@ -17,13 +17,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.TobagoConstants;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -38,10 +38,10 @@ public class SeparatorRenderer extends LayoutableRendererBase {
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
-    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeClassAttribute();
-    writer.writeAttribute(HtmlAttributes.STYLE, null, TobagoConstants.ATTR_STYLE);
+    writer.writeStyleAttribute();
     if (component.getFacet(FACET_LABEL) != null) {
       writer.startElement(HtmlConstants.TABLE, component);
       writer.writeClassAttribute();
@@ -62,7 +62,7 @@ public class SeparatorRenderer extends LayoutableRendererBase {
       writer.writeAttribute(HtmlAttributes.STYLE, "width: 1px", false);
       writer.writeAttribute(HtmlAttributes.CLASS, "tobago-separator-label-default", false);
       UILabel label = (UILabel) component.getFacet(FACET_LABEL);
-      writer.writeText(label.getValue(), null);
+      writer.writeText("" + label.getValue());
       writer.endElement(HtmlConstants.TD);
 
       writer.startElement(HtmlConstants.TD, component);

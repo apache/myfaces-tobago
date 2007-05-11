@@ -27,7 +27,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -38,24 +40,23 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
 
-    TobagoResponseWriterImpl writer
-        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     boolean value = ComponentUtil.getBooleanAttribute(component, ATTR_VALUE);
 
-    writer.startElement("select", component);
-    writer.writeAttribute("name", component.getClientId(facesContext), null);
-    writer.writeAttribute("id", component.getClientId(facesContext), null);
+    writer.startElement(HtmlConstants.SELECT, component);
+    writer.writeNameAttribute(component.getClientId(facesContext));
+    writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeAttribute("multiple", true);
-    writer.startElement("option", null);
-    writer.writeAttribute("value", value ? "on" : "off", null);
+    writer.startElement(HtmlConstants.OPTION, null);
+    writer.writeAttribute("value", value ? "on" : "off", false);
 
     UIComponent label = component.getFacet(FACET_LABEL);
     if (label != null) {
       RenderUtil.encode(facesContext, label);
     }
 
-    writer.endElement("option");
-    writer.endElement("select");
+    writer.endElement(HtmlConstants.OPTION);
+    writer.endElement(HtmlConstants.SELECT);
   }
 }

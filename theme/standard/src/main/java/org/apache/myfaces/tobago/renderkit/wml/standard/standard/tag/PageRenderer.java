@@ -46,8 +46,7 @@ public class PageRenderer extends PageRendererBase {
 
     UIPage page = (UIPage) component;
 
-    TobagoResponseWriterImpl writer
-        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
+    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
 
     // reset responseWriter and render page
     facesContext.setResponseWriter(writer);

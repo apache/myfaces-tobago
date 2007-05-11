@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -42,7 +42,7 @@ public class TabGroupRenderer extends
 
   private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
 
-  protected void encodeContent(TobagoResponseWriterImpl writer,
+  protected void encodeContent(TobagoResponseWriter writer,
       FacesContext facesContext, UIPanelBase activeTab) throws IOException {
 
     HtmlStyleMap bodyStyle = (HtmlStyleMap)

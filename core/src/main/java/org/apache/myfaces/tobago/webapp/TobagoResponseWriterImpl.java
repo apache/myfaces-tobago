@@ -293,10 +293,6 @@ public class TobagoResponseWriterImpl extends ResponseWriter implements TobagoRe
     return stackTrace[i].toString();
   }
 
-  public void writeClassAttribute(StyleClasses styleClasses) throws IOException {
-    writeAttribute(HtmlAttributes.CLASS, styleClasses.toString(), false);
-  }
-
   public void writeURIAttribute(final String s, final Object obj, final String s1)
       throws IOException {
     LOG.error("Not implemented yet!");
@@ -343,6 +339,11 @@ public class TobagoResponseWriterImpl extends ResponseWriter implements TobagoRe
       writeAttribute(name, Integer.toString(number), false);
   }
 
+
+  public void writeAttributeFromComponent(String name, String property) throws IOException {
+    writeAttribute(name, null, property);
+  }
+
   public void writeIdAttribute(final String id) throws IOException {
     writeAttribute(HtmlAttributes.ID, id, false);
   }
@@ -353,6 +354,10 @@ public class TobagoResponseWriterImpl extends ResponseWriter implements TobagoRe
 
   public void writeClassAttribute(final String cssClass) throws IOException {
     writeAttribute(HtmlAttributes.CLASS, cssClass, false);
+  }
+
+  public void writeClassAttribute(StyleClasses styleClasses) throws IOException {
+    writeAttribute(HtmlAttributes.CLASS, styleClasses.toString(), false);
   }
 
   public void writeClassAttribute() throws IOException {

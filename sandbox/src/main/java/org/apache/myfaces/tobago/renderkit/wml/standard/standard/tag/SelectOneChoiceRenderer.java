@@ -28,7 +28,8 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectOne;
@@ -46,8 +47,7 @@ public class SelectOneChoiceRenderer extends LayoutableRendererBase {
     UISelectOne selectOne = (UISelectOne) component;
     UIPage page = ComponentUtil.findPage(facesContext, selectOne);
 
-    TobagoResponseWriterImpl writer
-        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     String clientId = selectOne.getClientId(facesContext);
 
@@ -58,27 +58,26 @@ public class SelectOneChoiceRenderer extends LayoutableRendererBase {
     ValueHolder label
         = (ValueHolder) selectOne.getFacet(FACET_LABEL);
     if (label != null) {
-      writer.writeText(label, null);
+      writer.writeText(label.toString());
     }
     List<SelectItem> items = ComponentUtil.getSelectItems(selectOne);
     String value = ComponentUtil.currentValue(selectOne);
 
     writer.startElement("select", selectOne);
-    writer.writeAttribute("name", clientId, null);
-    writer.writeAttribute("id", clientId, null);
-    writer.writeAttribute("value", value, null);
-    writer.writeAttribute("multiple", false, null);
+    writer.writeNameAttribute(clientId);
+    writer.writeIdAttribute(clientId);
+    writer.writeAttribute("value", value, true);
+    writer.writeAttribute("multiple", Boolean.FALSE.toString(), false);
 
     for (SelectItem item : items) {
       writer.startElement("option", selectOne);
       String formattedValue
           = RenderUtil.getFormattedValue(facesContext, component, item.getValue());
-      writer.writeAttribute("value", formattedValue, null);
-      writer.writeText(item.getLabel(), null);
+      writer.writeAttribute("value", formattedValue, true);
+      writer.writeText(item.getLabel());
       writer.endElement("option");
     }
     writer.endElement("select");
   }
 
 }
-

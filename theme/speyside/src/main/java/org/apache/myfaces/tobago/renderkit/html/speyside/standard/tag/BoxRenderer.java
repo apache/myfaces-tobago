@@ -42,12 +42,11 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Map;
 
@@ -63,8 +62,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
     HtmlRendererUtil.prepareInnerStyle(component);
 
-    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
-
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE);
 
     if (style != null) {
@@ -87,7 +85,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
   }
 
   private void encodeBeginInner(FacesContext facesContext,
-      TobagoResponseWriterImpl writer, UIComponent component) throws IOException {
+      TobagoResponseWriter writer, UIComponent component) throws IOException {
     renderBoxHeader(facesContext, writer, component);
 
 
@@ -102,12 +100,12 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     contentInnerClasses.addClass("box", "content-inner");
     contentInnerClasses.addMarkupClass(component, "box", "content-inner");
     writer.writeClassAttribute(contentInnerClasses);
-    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE_INNER);
+    writer.writeAttributeFromComponent(HtmlAttributes.STYLE, ATTR_STYLE_INNER);
   }
 
 
   protected void renderBoxHeader(FacesContext facesContext,
-      TobagoResponseWriterImpl writer, UIComponent component) throws IOException {
+      TobagoResponseWriter writer, UIComponent component) throws IOException {
 
     writer.startElement(HtmlConstants.DIV, component);
     StyleClasses headerClasses = new StyleClasses();
@@ -122,7 +120,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     if (label != null) {
       RenderUtil.encode(facesContext, label);
     } else if (labelString != null) {
-      writer.writeText(labelString, null);
+      writer.writeText(labelString);
     }
     writer.endElement(HtmlConstants.SPAN);
 
@@ -135,20 +133,20 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
-    ResponseWriter writer = facesContext.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     encodeEndInner(writer);
 
     writer.endElement(HtmlConstants.DIV);
   }
 
-  private void encodeEndInner(ResponseWriter writer) throws IOException {
+  private void encodeEndInner(TobagoResponseWriter writer) throws IOException {
     writer.endElement(HtmlConstants.DIV);
     writer.endElement(HtmlConstants.DIV);
   }
 
-  protected void renderToolbar(FacesContext facesContext,
-                               TobagoResponseWriterImpl writer, UIPanel toolbar) throws IOException {
+  protected void renderToolbar(
+      FacesContext facesContext, TobagoResponseWriter writer, UIPanel toolbar) throws IOException {
     final Map attributes = toolbar.getAttributes();
     String className = "tobago-box-header-toolbar-div";
     if (ToolBarTag.LABEL_OFF.equals(attributes.get(ATTR_LABEL_POSITION))) {
@@ -169,8 +167,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
   public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
     AjaxUtils.checkParamValidity(facesContext, component, UIPanel.class);
-    TobagoResponseWriterImpl writer
-        = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     encodeBeginInner(facesContext, writer, component);
     component.encodeChildren(facesContext);

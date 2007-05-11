@@ -27,17 +27,16 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_GLOBAL_ONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DETAIL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_SUMMARY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -63,7 +62,7 @@ public class MessagesRenderer extends MessageRendererBase {
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
 
-    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("facesContect is " + facesContext.getClass().getName());
@@ -71,7 +70,7 @@ public class MessagesRenderer extends MessageRendererBase {
     if (facesContext.getMessages().hasNext()) { // in ie empty span gets a height
       writer.startElement(HtmlConstants.SPAN, component);
       writer.writeClassAttribute("tobago-validation-message");
-      writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+      writer.writeStyleAttribute();
 
       // with id
       String focusId = null;
@@ -101,7 +100,7 @@ public class MessagesRenderer extends MessageRendererBase {
   }
 
   private void encodeMessagesForId(FacesContext facesContext,
-      ResponseWriter writer, String clientId, boolean showSummary, boolean showDetail) throws IOException {
+      TobagoResponseWriter writer, String clientId, boolean showSummary, boolean showDetail) throws IOException {
     Iterator iterator = facesContext.getMessages(clientId);
     while (iterator.hasNext()) {
       FacesMessage message = (FacesMessage) iterator.next();
@@ -112,7 +111,7 @@ public class MessagesRenderer extends MessageRendererBase {
     }
   }
 
-  private void encodeMessage(ResponseWriter writer, FacesMessage message,
+  private void encodeMessage(TobagoResponseWriter writer, FacesMessage message,
       String clientId, boolean showSummary, boolean showDetail)
       throws IOException {
 
@@ -120,7 +119,7 @@ public class MessagesRenderer extends MessageRendererBase {
     String detail = message.getDetail();
     writer.startElement(HtmlConstants.LABEL, null);
     if (clientId != null) {
-      writer.writeAttribute(HtmlAttributes.FOR, clientId, null);
+      writer.writeAttribute(HtmlAttributes.FOR, clientId, false);
     }
     writer.writeAttribute(HtmlAttributes.TITLE, detail, null);
     boolean writeEmptyText = true;

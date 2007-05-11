@@ -47,7 +47,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.ResponseUtils;
-import org.apache.myfaces.tobago.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.application.Application;
@@ -198,28 +197,6 @@ public class PageRenderer extends PageRendererBase {
           writer.endElement(HtmlConstants.LINK);
         }
       }
-    }
-    String icon = page.getApplicationIcon();
-    if (icon != null) {
-      // XXX unify with image renderer
-      if (icon.startsWith("HTTP:") || icon.startsWith("FTP:")
-          || icon.startsWith("/")) {
-        // absolute Path to image : nothing to do
-      } else {
-        icon = ResourceManagerUtil.getImageWithPath(facesContext, icon);
-      }
-
-      writer.startElement(HtmlConstants.LINK, null);
-      if (icon.endsWith(".ico")) {
-        writer.writeAttribute(HtmlAttributes.REL, "shortcut icon", null);
-        writer.writeAttribute(HtmlAttributes.HREF, icon, null);
-      } else {
-        // XXX IE only supports ICO files for favicons
-        writer.writeAttribute(HtmlAttributes.REL, "icon", null);
-        writer.writeAttribute(HtmlAttributes.TYPE, MimeTypeUtils.getMimeTypeForFile(icon), null);        
-        writer.writeAttribute(HtmlAttributes.HREF, icon, null);
-      }
-      writer.endElement(HtmlConstants.LINK);
     }
 
     // style sniplets
