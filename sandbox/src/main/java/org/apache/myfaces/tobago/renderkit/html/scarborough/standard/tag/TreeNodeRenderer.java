@@ -252,9 +252,9 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.startElement(IMG, null);
       writer.writeClassAttribute("tree-junction");
       if (junction && !menuMode) {
-        writer.writeAttribute("src", perpendicular, true);// xxx is escaping required?
+        writer.writeAttribute("src", perpendicular, true); // xxx is escaping required?
       } else {
-        writer.writeAttribute("src", blank, true);// xxx is escaping required?
+        writer.writeAttribute("src", blank, true); // xxx is escaping required?
       }
       writer.endElement(IMG);
     }
@@ -283,9 +283,9 @@ public class TreeNodeRenderer extends CommandRendererBase {
       );
 
       String src = ResourceManagerUtil.getImageWithPath(facesContext, "image/" + gif);
-      writer.writeAttribute("src", src, true);// xxx is escaping required
+      writer.writeAttribute("src", src, true); // xxx is escaping required
       if (isFolder) {
-        writer.writeAttribute("onclick", createOnclickForToggle(facesContext, treeId), true);// xxx is escaping required
+        writer.writeAttribute("onclick", createOnclickForToggle(facesContext, treeId), true); // xxx is escaping required
       }
       writer.writeAttribute("alt", "", false);
 //    } else if (( !this.hideRoot && depth >0 ) || (this.hideRoot && depth > 1)) {
@@ -311,9 +311,9 @@ public class TreeNodeRenderer extends CommandRendererBase {
           : "new.gif";
 
       String src = ResourceManagerUtil.getImageWithPath(facesContext, "image/" + gif);
-      writer.writeAttribute("src", src, true);// xxx is escaping required
+      writer.writeAttribute("src", src, true); // xxx is escaping required
       if (isFolder) {
-        writer.writeAttribute("onclick", createOnclickForToggle(facesContext, treeId), true);// xxx is escaping required
+        writer.writeAttribute("onclick", createOnclickForToggle(facesContext, treeId), true); // xxx is escaping required
       }
       writer.writeAttribute("alt", "", false);
       writer.endElement(IMG);
@@ -353,7 +353,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     } else {
       writer.startElement(A, null);
       writer.writeAttribute(HtmlAttributes.HREF, helper.getHref(), true);
-      writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true);// xxx is escaping required?
+      writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true); // xxx is escaping required?
       writer.writeAttribute(HtmlAttributes.ONFOCUS, "storeMarker(this.parentNode, '" + treeId + "')", false);
     }
     if (marked) {
