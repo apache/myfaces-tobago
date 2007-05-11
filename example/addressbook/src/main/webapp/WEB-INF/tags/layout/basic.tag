@@ -71,7 +71,7 @@
     </tc:cell>
 
     <tc:popup id="about" width="300px" height="220px" left="200px" top="200px">
-      <tc:box>
+      <tc:box label="About">
         <f:facet name="layout">
           <tc:gridLayout rows="150px;*;fixed" columns="150px;*"/>
         </f:facet>
@@ -82,7 +82,7 @@
             <tc:gridLayout rows="fixed;fixed;fixed;*"/>
           </f:facet>
 
-          <tc:out value="Addressbook Demo"/>
+          <tc:out markup="strong" value="Addressbook Demo"/>
           <tc:cell/>
           <tc:out value="Version 1.0"/>
           <tc:cell/>
