@@ -32,9 +32,19 @@
       <tc:gridLayout columns="${labelWidth};*"/>
     </f:facet>
     <tc:label value="${label}" for="@auto" tip="${tip}"/>
-    <tc:selectManyListbox value="${value}" required="${required}"
-        readonly="${readonly}" disabled="${disabled}" >
-      <ui:insert/>
-    </tc:selectManyListbox>
+    <c:choose>
+	    <c:when test="${empty id}">
+        <tc:selectManyListbox value="${value}" required="${required}"
+               readonly="${readonly}" disabled="${disabled}" >
+          <ui:insert/>
+        </tc:selectManyListbox>
+      </c:when>
+	    <c:when test="${not empty id}">
+        <tc:selectManyListbox id="${id}" value="${value}" required="${required}"
+               readonly="${readonly}" disabled="${disabled}" >
+          <ui:insert/>
+        </tc:selectManyListbox>
+      </c:when>
+    </c:choose>
   </tc:panel>
 </ui:composition>

@@ -32,9 +32,19 @@
       <tc:gridLayout columns="${labelWidth};*"/>
     </f:facet>
     <tc:label value="${label}" for="@auto" tip="${tip}"/>
-    <tc:textarea value="${value}" required="${required}"
-        readonly="${readonly}" disabled="${disabled}">
-      <ui:insert/>
-    </tc:textarea>
+    <c:choose>
+	    <c:when test="${empty id}">
+        <tc:textarea value="${value}" required="${required}"
+               readonly="${readonly}" disabled="${disabled}" >
+          <ui:insert/>
+        </tc:textarea>
+      </c:when>
+	    <c:when test="${not empty id}">
+        <tc:textarea id="${id}" value="${value}" required="${required}"
+               readonly="${readonly}" disabled="${disabled}" >
+          <ui:insert/>
+        </tc:textarea>
+      </c:when>
+    </c:choose>   
   </tc:panel>
 </ui:composition>

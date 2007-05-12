@@ -23,10 +23,12 @@
         xmlns:tx="http://myfaces.apache.org/tobago/facelet-extension">
   <tc:page height="200" width="300" label="Tobago Hello World Faclets">
     <f:facet name="layout">
-      <tc:gridLayout/>
+      <tc:gridLayout rows="fixed;fixed;fixed;1*"/>
     </f:facet>
     <tc:out value="Hello World!"/>
+    <tx:date id="test" label="Label"/>
     <ui:debug hotkey="m"/>
     <tc:button label="Go on" action="next" />
+    <tc:cell/>
   </tc:page>
 </f:view>

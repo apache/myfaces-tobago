@@ -32,9 +32,19 @@
       <tc:gridLayout columns="${labelWidth};*"/>
     </f:facet>
     <tc:label value="${label}" for="@auto" tip="${tip}"/>
-    <tc:selectBooleanCheckbox value="${value}" 
-        readonly="${readonly}" disabled="${disabled}">
-      <ui:insert/>
-    </tc:selectBooleanCheckbox>
+     <c:choose>
+	    <c:when test="${empty id}">
+        <tc:selectBooleanCheckbox value="${value}"
+               readonly="${readonly}" disabled="${disabled}" >
+          <ui:insert/>
+        </tc:selectBooleanCheckbox>
+      </c:when>
+	    <c:when test="${not empty id}">
+        <tc:selectBooleanCheckbox id="${id}" value="${value}"
+               readonly="${readonly}" disabled="${disabled}" >
+          <ui:insert/>
+        </tc:selectBooleanCheckbox>
+      </c:when>
+    </c:choose>   
   </tc:panel>
 </ui:composition>

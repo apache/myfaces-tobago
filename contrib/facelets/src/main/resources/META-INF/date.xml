@@ -31,12 +31,25 @@
       <tc:gridLayout columns="${labelWidth};*;fixed"/>
     </f:facet>
     <tc:label value="${label}" for="@auto" tip="${tip}"/>
-    <tc:date value="${value}" required="${required}"
-        readonly="${readonly}" disabled="${disabled}">
-      <ui:insert/>
-    </tc:date>
-    <tc:form>
-      <tc:datePicker for="@auto" />
-    </tc:form>
+    <c:choose>
+	    <c:when test="${empty id}">
+	      <tc:date value="${value}" required="${required}"
+                 readonly="${readonly}" disabled="${disabled}">
+          <ui:insert/>
+        </tc:date>
+        <tc:form>
+          <tc:datePicker for="@auto" />
+        </tc:form>
+      </c:when>
+	    <c:when test="${not empty id}">
+	      <tc:date id="${id}" value="${value}" required="${required}"
+                 readonly="${readonly}" disabled="${disabled}">
+          <ui:insert/>
+        </tc:date>
+        <tc:form>
+          <tc:datePicker for="@auto" />
+        </tc:form>
+      </c:when>
+    </c:choose>
   </tc:panel>
 </ui:composition>

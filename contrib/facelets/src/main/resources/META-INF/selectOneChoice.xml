@@ -32,9 +32,19 @@
       <tc:gridLayout columns="${labelWidth};*"/>
     </f:facet>
     <tc:label value="${label}" for="@auto" tip="${tip}"/>
-    <tc:selectOneChoice value="${value}" required="${required}"
-        readonly="${readonly}" disabled="${disabled}">
-      <ui:insert/>
-    </tc:selectOneChoice>
+    <c:choose>
+	    <c:when test="${empty id}">
+        <tc:selectOneChoice value="${value}" required="${required}"
+               readonly="${readonly}" disabled="${disabled}" >
+          <ui:insert/>
+        </tc:selectOneChoice>
+      </c:when>
+	    <c:when test="${not empty id}">
+        <tc:selectOneChoice id="${id}" value="${value}" required="${required}"
+               readonly="${readonly}" disabled="${disabled}" >
+          <ui:insert/>
+        </tc:selectOneChoice>
+      </c:when>
+    </c:choose>   
   </tc:panel>
 </ui:composition>
