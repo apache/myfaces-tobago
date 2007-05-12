@@ -139,7 +139,7 @@ public class PageRenderer extends PageRendererBase {
     }
 
     // reset responseWriter and render page
-    facesContext.setResponseWriter((ResponseWriter)writer);
+    facesContext.setResponseWriter((ResponseWriter) writer);
 
     ResponseUtils.ensureNoCacheHeader(facesContext.getExternalContext());
 
