@@ -42,6 +42,7 @@ import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBaseWrapper;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterWrapper;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -460,8 +461,7 @@ public final class HtmlRendererUtil {
     if (writer instanceof TobagoResponseWriter) {
       return (TobagoResponseWriter) writer;
     } else {
-      // todo: return new TobagoResponseWriterWrapper(writer);
-      throw new UnsupportedOperationException("No TobagoResponseWriterWrapper implementation found!");
+      return new TobagoResponseWriterWrapper(writer);
     }
   }
 

@@ -24,8 +24,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.util.HtmlWriterUtil;
 import org.apache.myfaces.tobago.util.XmlUtils;
 
@@ -38,7 +36,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
-public class TobagoResponseWriterImpl extends ResponseWriter implements TobagoResponseWriter {
+public class TobagoResponseWriterImpl extends TobagoResponseWriter {
 
   private static final Log LOG = LogFactory.getLog(TobagoResponseWriterImpl.class);
 
@@ -330,37 +328,6 @@ public class TobagoResponseWriterImpl extends ResponseWriter implements TobagoRe
     }
   }
 
-  public void writeAttribute(final String name, final boolean on) throws IOException {
-    if (on) {
-      writeAttribute(name, name, false);
-    }
-  }
-
-  public void writeAttribute(final String name, final int number) throws IOException {
-      writeAttribute(name, Integer.toString(number), false);
-  }
-
-
-  public void writeAttributeFromComponent(String name, String property) throws IOException {
-    writeAttribute(name, null, property);
-  }
-
-  public void writeIdAttribute(final String id) throws IOException {
-    writeAttribute(HtmlAttributes.ID, id, false);
-  }
-
-  public void writeNameAttribute(final String name) throws IOException {
-    writeAttribute(HtmlAttributes.NAME, name, false);
-  }
-
-  public void writeClassAttribute(final String cssClass) throws IOException {
-    writeAttribute(HtmlAttributes.CLASS, cssClass, false);
-  }
-
-  public void writeClassAttribute(StyleClasses styleClasses) throws IOException {
-    writeAttribute(HtmlAttributes.CLASS, styleClasses.toString(), false);
-  }
-
   public void writeClassAttribute() throws IOException {
     Object clazz = component.getAttributes().get(ATTR_STYLE_CLASS);
     if (clazz != null) {
@@ -368,39 +335,10 @@ public class TobagoResponseWriterImpl extends ResponseWriter implements TobagoRe
     }
   }
 
-  public void writeStyleAttribute(HtmlStyleMap style) throws IOException {
-    if (style != null) {
-      writeAttribute(HtmlAttributes.STYLE, style.toString(), false);
-    }
-  }
-
-  public void writeStyleAttribute(String style) throws IOException {
-    writeAttribute(HtmlAttributes.STYLE, style, false);
-  }
-
   public void writeStyleAttribute() throws IOException {
     Object style = component.getAttributes().get(ATTR_STYLE);
     if (style != null) {
       writeAttribute(HtmlAttributes.STYLE, style.toString(), false);
     }
-  }
-
-  public void writeText(String text) throws IOException {
-    // xxx optimize
-    writeText(text, null);
-  }
-
-   public void writeTextFromComponent(String property) throws IOException {
-    // xxx optimize
-    writeText(null, property);
-  }
-
-  public void writeJavascript(String script) throws IOException {
-    startElement(HtmlConstants.SCRIPT, null);
-    writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
-    write("\n<!--\n");
-    write(script);
-    write("\n// -->\n");
-    endElement(HtmlConstants.SCRIPT);
   }
 }

@@ -19,6 +19,8 @@ package org.apache.myfaces.tobago.webapp;
 
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
@@ -32,32 +34,32 @@ import java.io.Writer;
  * User: lofwyr
  * Date: 08.05.2007 13:51:43
  */
-public interface TobagoResponseWriter {
+public abstract class TobagoResponseWriter extends ResponseWriter {
 
   // same as in ResponseWriter
 
-  void startElement(String name, UIComponent component) throws IOException;
+  public abstract void startElement(String name, UIComponent component) throws IOException;
 
-  void endElement(String name) throws IOException;
+  public abstract void endElement(String name) throws IOException;
 
-  void write(String string) throws IOException;
+  public abstract void write(String string) throws IOException;
 
-  void writeComment(Object obj) throws IOException;
+  public abstract void writeComment(Object comment) throws IOException;
 
-  ResponseWriter cloneWithWriter(Writer content);
+  public abstract ResponseWriter cloneWithWriter(Writer writer);
   /**
    * @deprecated Should not directly called via this interface. There is be a special method which might be better.
    */
   @Deprecated
-  void writeAttribute(String name, Object value, final String property) throws IOException;
+  public abstract void writeAttribute(String name, Object value, final String property) throws IOException;
 
   /**
    * @deprecated Should not directly called via this interface. There is be a special method which might be better.
    */
   @Deprecated
-  void writeText(Object text, String property) throws IOException;
+  public abstract void writeText(Object text, String property) throws IOException;
 
-  void flush() throws IOException;
+  public abstract void flush() throws IOException;
 
   // others (not from ResponseWriter)
 
@@ -65,73 +67,106 @@ public interface TobagoResponseWriter {
    * Writes a string attribute. The renderer may set escape=false to switch of escaping of the string,
    * if it is not necessary.
    */
-  void writeAttribute(String name, String string, boolean escape) throws IOException;
+  public abstract void writeAttribute(String name, String string, boolean escape) throws IOException;
 
   /**
    * Writes a boolean attribute. The value will not escaped.
    */
-  void writeAttribute(String name, boolean on) throws IOException;
+  public void writeAttribute(String name, boolean on) throws IOException {
+    if (on) {
+      writeAttribute(name, name, false);
+    }
+  }
 
   /**
    * Writes a integer attribute. The value will not escaped.
    */
-  void writeAttribute(String name, int number) throws IOException;
+  public void writeAttribute(String name, int number) throws IOException {
+    writeAttribute(name, Integer.toString(number), false);
+  }
 
   /**
    * Writes a propery as attribute. The value will be escaped.
    */
-  void writeAttributeFromComponent(String name, String property) throws IOException;
+  public void writeAttributeFromComponent(String name, String property) throws IOException {
+    writeAttribute(name, null, property);
+  }
 
   /**
    * Write the id attribute. The value will not escaped.
    */
-  void writeIdAttribute(String id) throws IOException;
+  public void writeIdAttribute(String id) throws IOException {
+    writeAttribute(HtmlAttributes.ID, id, false);
+  }
 
   /**
    * Write the name attribute. The value will not escaped.
    */
-  void writeNameAttribute(String name) throws IOException;
+  public void writeNameAttribute(String name) throws IOException {
+    writeAttribute(HtmlAttributes.NAME, name, false);
+  }
 
   /**
    * Write the class attribute. The value will not escaped.
    */
-  void writeClassAttribute(String cssClass) throws IOException;
+  public void writeClassAttribute(String cssClass) throws IOException {
+    writeAttribute(HtmlAttributes.CLASS, cssClass, false);
+  }
 
   /**
    * Write the class attribute. The value will not escaped.
    */
-  void writeClassAttribute(StyleClasses cssClass) throws IOException;
+  public void writeClassAttribute(StyleClasses styleClasses) throws IOException {
+     writeAttribute(HtmlAttributes.CLASS, styleClasses.toString(), false);
+  }
 
   /**
    * Write the class attribute. The value will not escaped.
    */
-  void writeClassAttribute() throws IOException;
+  public abstract void writeClassAttribute() throws IOException;
 
   /**
    * Write the style attribute. The value will not escaped.
    */
-  void writeStyleAttribute(HtmlStyleMap style) throws IOException;
+  public void writeStyleAttribute(HtmlStyleMap style) throws IOException {
+    if (style != null) {
+      writeAttribute(HtmlAttributes.STYLE, style.toString(), false);
+    }
+  }
 
   /**
    * Write the style attribute. The value will not escaped.
    */
-  void writeStyleAttribute(String style) throws IOException;
+  public void writeStyleAttribute(String style) throws IOException {
+    writeAttribute(HtmlAttributes.STYLE, style, false);
+  }
 
   /**
    * Write the style attribute. The value will not escaped.
    */
-  void writeStyleAttribute() throws IOException;
+  public abstract void writeStyleAttribute() throws IOException;
 
-  void writeJavascript(String script) throws IOException;
+  public void writeJavascript(String script) throws IOException {
+    startElement(HtmlConstants.SCRIPT, null);
+    writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
+    write("\n<!--\n");
+    write(script);
+    write("\n// -->\n");
+    endElement(HtmlConstants.SCRIPT);
+  }
 
   /**
    * Write text content. The text will be escaped.
    */
-  void writeText(String text) throws IOException;
+  public void writeText(String text) throws IOException {
+    writeText(text, null);
+  }
 
   /**
    * Writes a propery as text. The text will be escaped.
    */
-  void writeTextFromComponent(String property) throws IOException;
+  public void writeTextFromComponent(String property) throws IOException {
+    writeText(null, property);
+  }
 
 }
