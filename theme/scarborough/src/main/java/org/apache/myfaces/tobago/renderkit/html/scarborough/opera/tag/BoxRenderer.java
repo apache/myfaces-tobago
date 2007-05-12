@@ -23,7 +23,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.opera.tag;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_INNER;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.context.ClientProperties;
@@ -32,7 +31,7 @@ import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -49,22 +48,22 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
     String labelString
         = (String) component.getAttributes().get(ATTR_LABEL);
 
-    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlConstants.FIELDSET, component);
     writer.writeClassAttribute();
-    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+    writer.writeStyleAttribute();
 
     if (label != null || labelString != null) {
       writer.startElement(HtmlConstants.LEGEND, component);
       writer.writeClassAttribute();
 
       writer.startElement(HtmlConstants.B, null);
-      writer.writeText("", null);
+      writer.writeText("");
       if (label != null) {
         RenderUtil.encode(facesContext, label);
       } else {
-        writer.writeText(labelString, null);
+        writer.writeText(labelString);
       }
       writer.endElement(HtmlConstants.B);
       writer.endElement(HtmlConstants.LEGEND);

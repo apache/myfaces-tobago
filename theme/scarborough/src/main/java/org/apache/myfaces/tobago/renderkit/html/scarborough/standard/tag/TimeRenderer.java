@@ -126,7 +126,7 @@ public class TimeRenderer extends InputRendererBase {
     writer.writeClassAttribute();
 
     writer.startElement(HtmlConstants.DIV, input);
-    writer.writeAttribute(HtmlAttributes.ID, idPrefix + "borderDiv", null);
+    writer.writeAttribute(HtmlAttributes.ID, idPrefix + "borderDiv", false);
     writer.writeClassAttribute("tobago-time-borderDiv"
         + (hasSeconds ? " tobago-time-borderDiv-seconds" : ""));
 
@@ -180,7 +180,7 @@ public class TimeRenderer extends InputRendererBase {
     writer.startElement(HtmlConstants.INPUT, input);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeIdAttribute(id + ":converterPattern");
-    writer.writeAttribute(HtmlAttributes.VALUE, converterPattern, null);
+    writer.writeAttribute(HtmlAttributes.VALUE, converterPattern, true);
     writer.endElement(HtmlConstants.INPUT);
 
     writer.startElement(HtmlConstants.INPUT, input);

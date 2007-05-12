@@ -122,7 +122,6 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     mixedModel.onEncodeBegin();
 
-//    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     TreeState treeState = root.getState();
@@ -176,7 +175,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     } else {
       widthString = "100%";
     }
-    writer.writeStyleAttribute(widthString);
+    writer.writeAttribute("style", widthString, null);
 
     if (isFolder) {
       encodeExpandedHidden(writer, node, id, expanded);
@@ -390,7 +389,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     String id = node.getClientId(facesContext);
 
-    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     if (isFolder) {
       writer.endElement(DIV);

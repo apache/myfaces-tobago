@@ -47,7 +47,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.ResponseUtils;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
@@ -108,7 +108,7 @@ public class PageRenderer extends PageRendererBase {
 
     HtmlRendererUtil.prepareRender(facesContext, page);
 
-    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     // replace responseWriter and render page content
     StringWriter content = new StringWriter();
@@ -139,7 +139,7 @@ public class PageRenderer extends PageRendererBase {
     }
 
     // reset responseWriter and render page
-    facesContext.setResponseWriter(writer);
+    facesContext.setResponseWriter((ResponseWriter)writer);
 
     ResponseUtils.ensureNoCacheHeader(facesContext.getExternalContext());
 
@@ -164,7 +164,7 @@ public class PageRenderer extends PageRendererBase {
 
     if (doctype != null) {
       writer.write(doctype);
-      writer.write('\n');
+      writer.write("\n");
     }
 
     writer.startElement(HtmlConstants.HTML, null);
@@ -181,7 +181,7 @@ public class PageRenderer extends PageRendererBase {
 //    writer.endElement(HtmlConstants.META);
     // title
     writer.startElement(HtmlConstants.TITLE, null);
-    writer.writeText(title != null ? title : "", null);
+    writer.writeText(title != null ? title : "");
     writer.endElement(HtmlConstants.TITLE);
 
     // style files
@@ -190,10 +190,10 @@ public class PageRenderer extends PageRendererBase {
       for (String styleString : styles) {
         if (styleString.length() > 0) {
           writer.startElement(HtmlConstants.LINK, null);
-          writer.writeAttribute(HtmlAttributes.REL, "stylesheet", null);
-          writer.writeAttribute(HtmlAttributes.HREF, styleString, null);
-          writer.writeAttribute(HtmlAttributes.MEDIA, "screen", null);
-          writer.writeAttribute(HtmlAttributes.TYPE, "text/css", null);
+          writer.writeAttribute(HtmlAttributes.REL, "stylesheet", false);
+          writer.writeAttribute(HtmlAttributes.HREF, styleString, false);
+          writer.writeAttribute(HtmlAttributes.MEDIA, "screen", false);
+          writer.writeAttribute(HtmlAttributes.TYPE, "text/css", false);
           writer.endElement(HtmlConstants.LINK);
         }
       }
@@ -291,10 +291,10 @@ public class PageRenderer extends PageRendererBase {
     String defaultActionId = page.getDefaultActionId() != null ? page.getDefaultActionId() : "";
     writer.endElement(HtmlConstants.HEAD);
     writer.startElement(HtmlConstants.BODY, page);
-    writer.writeAttribute(HtmlAttributes.ONLOAD, "Tobago.init('" + clientId + "');", null);
+    writer.writeAttribute(HtmlAttributes.ONLOAD, "Tobago.init('" + clientId + "');", false);
 //    writer.writeAttribute("onunload", "Tobago.onexit();", null);
     //this ist for ie to prevent scrollbars where none are needed
-    writer.writeAttribute(HtmlAttributes.SCROLL, "auto", null);
+    writer.writeAttribute(HtmlAttributes.SCROLL, "auto", false);
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
 
@@ -324,28 +324,28 @@ public class PageRenderer extends PageRendererBase {
     writer.startElement(HtmlConstants.FORM, page);
     writer.writeNameAttribute(
         clientId + SUBCOMPONENT_SEP + "form");
-    writer.writeAttribute(HtmlAttributes.ACTION, formAction, null);
+    writer.writeAttribute(HtmlAttributes.ACTION, formAction, true);
     writer.writeIdAttribute(page.getFormId(facesContext));
-    writer.writeAttribute(HtmlAttributes.METHOD, getMethod(page), null);
-    writer.writeAttribute(HtmlAttributes.ENCTYPE, null, ATTR_ENCTYPE);
+    writer.writeAttribute(HtmlAttributes.METHOD, getMethod(page), false);
+    writer.writeAttributeFromComponent(HtmlAttributes.ENCTYPE, ATTR_ENCTYPE);
     // TODO: enable configuration of  'accept-charset'
-    writer.writeAttribute(HtmlAttributes.ACCEPT_CHARSET, FORM_ACCEPT_CHARSET, null);
+    writer.writeAttribute(HtmlAttributes.ACCEPT_CHARSET, FORM_ACCEPT_CHARSET, false);
 
     writer.startElement(HtmlConstants.INPUT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeNameAttribute(
         clientId + SUBCOMPONENT_SEP + "form-action");
     writer.writeIdAttribute(
         clientId + SUBCOMPONENT_SEP + "form-action");
-    writer.writeAttribute(HtmlAttributes.VALUE, defaultActionId, null);
+    writer.writeAttribute(HtmlAttributes.VALUE, defaultActionId, true);
     writer.endElement(HtmlConstants.INPUT);
 
     if (debugMode) {
       writer.startElement(HtmlConstants.INPUT, null);
-      writer.writeAttribute(HtmlAttributes.VALUE, clientLogSeverity, null);
-      writer.writeAttribute(HtmlAttributes.ID, clientId + SUBCOMPONENT_SEP + "clientSeverity", null);
-      writer.writeAttribute(HtmlAttributes.NAME, clientId + SUBCOMPONENT_SEP + "clientSeverity", null);
-      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+      writer.writeAttribute(HtmlAttributes.VALUE, clientLogSeverity);
+      writer.writeAttribute(HtmlAttributes.ID, clientId + SUBCOMPONENT_SEP + "clientSeverity", false);
+      writer.writeAttribute(HtmlAttributes.NAME, clientId + SUBCOMPONENT_SEP + "clientSeverity", false);
+      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
       writer.endElement(HtmlConstants.INPUT);
     }
 
@@ -453,7 +453,7 @@ public class PageRenderer extends PageRendererBase {
     }
   }
 
-  private void addScripts(ResponseWriter writer, FacesContext facesContext,
+  private void addScripts(TobagoResponseWriter writer, FacesContext facesContext,
       String script) throws IOException {
     List<String> scripts;
     final String ucScript = script.toUpperCase(Locale.ENGLISH);
@@ -467,8 +467,8 @@ public class PageRenderer extends PageRendererBase {
     for (String scriptString : scripts) {
       if (scriptString.length() > 0) {
         writer.startElement(HtmlConstants.SCRIPT, null);
-        writer.writeAttribute(HtmlAttributes.SRC, scriptString, null);
-        writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", null);
+        writer.writeAttribute(HtmlAttributes.SRC, scriptString, true);
+        writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
         writer.endElement(HtmlConstants.SCRIPT);
       }
     }

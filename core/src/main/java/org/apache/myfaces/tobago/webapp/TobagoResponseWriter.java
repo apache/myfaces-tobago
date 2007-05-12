@@ -18,9 +18,12 @@ package org.apache.myfaces.tobago.webapp;
  */
 
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.ResponseWriter;
 import java.io.IOException;
+import java.io.Writer;
 
 /**
  * This provides an alternative ResponseWriter interfaces, which allows optimizations.
@@ -41,6 +44,7 @@ public interface TobagoResponseWriter {
 
   void writeComment(Object obj) throws IOException;
 
+  ResponseWriter cloneWithWriter(Writer content);
   /**
    * @deprecated Should not directly called via this interface. There is be a special method which might be better.
    */
@@ -106,6 +110,11 @@ public interface TobagoResponseWriter {
   /**
    * Write the style attribute. The value will not escaped.
    */
+  void writeStyleAttribute(HtmlStyleMap style) throws IOException;
+
+  /**
+   * Write the style attribute. The value will not escaped.
+   */
   void writeStyleAttribute(String style) throws IOException;
 
   /**
@@ -119,5 +128,10 @@ public interface TobagoResponseWriter {
    * Write text content. The text will be escaped.
    */
   void writeText(String text) throws IOException;
+
+  /**
+   * Writes a propery as text. The text will be escaped.
+   */
+  void writeTextFromComponent(String property) throws IOException;
 
 }

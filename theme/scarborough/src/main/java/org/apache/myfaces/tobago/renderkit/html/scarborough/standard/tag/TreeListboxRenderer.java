@@ -24,7 +24,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UITreeListbox;
@@ -67,7 +66,7 @@ public class TreeListboxRenderer extends TreeOldRenderer{
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.DIV, tree);
     writer.writeClassAttribute();
-    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+    writer.writeStyleAttribute();
 
     StringBuilder value = new StringBuilder(";");
     List<UITreeOldNode> expandPath = tree.getExpandPath();
@@ -77,10 +76,10 @@ public class TreeListboxRenderer extends TreeOldRenderer{
     }
 
     writer.startElement(HtmlConstants.INPUT, tree);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.VALUE, value, null);
+    writer.writeAttribute(HtmlAttributes.VALUE, value.toString(), true);
     writer.endElement(HtmlConstants.INPUT);
 
 
@@ -91,10 +90,10 @@ public class TreeListboxRenderer extends TreeOldRenderer{
       value.append(";");
     }
     writer.startElement(HtmlConstants.INPUT, tree);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeNameAttribute(clientId + UITreeListbox.SELECT_STATE);
     writer.writeIdAttribute(clientId + UITreeListbox.SELECT_STATE);
-    writer.writeAttribute(HtmlAttributes.VALUE, value, null);
+    writer.writeAttribute(HtmlAttributes.VALUE, value.toString(), true);
     writer.endElement(HtmlConstants.INPUT);
 
     String scriptText = createJavascript(facesContext, clientId, root);

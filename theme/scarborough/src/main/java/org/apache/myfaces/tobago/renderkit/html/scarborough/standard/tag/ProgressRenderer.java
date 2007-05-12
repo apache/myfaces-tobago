@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -85,17 +86,17 @@ public class ProgressRenderer extends LayoutableRendererBase {
 
     writer.startElement(HtmlConstants.SPAN, component);
     writer.writeClassAttribute();
-    writer.writeAttribute(HtmlAttributes.TITLE, title, null);
+    writer.writeAttribute(HtmlAttributes.TITLE, title, true);
 
     writer.startElement(HtmlConstants.IMG, null);
     StyleClasses color1Classes = new StyleClasses();
     color1Classes.addClass("progress", "color1");
     color1Classes.addMarkupClass(component, "progress", "color1");
     writer.writeClassAttribute(color1Classes);
-    writer.writeAttribute(HtmlAttributes.SRC, image, null);
-    writer.writeAttribute(HtmlAttributes.ALT, title, null);
-    writer.writeAttribute(HtmlAttributes.WIDTH, width1, null);
-    writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
+    writer.writeAttribute(HtmlAttributes.SRC, image, false);
+    writer.writeAttribute(HtmlAttributes.ALT, title, true);
+    writer.writeAttribute(HtmlAttributes.WIDTH, width1, false);
+    writer.writeAttribute(HtmlAttributes.BORDER, 0);
     writer.endElement(HtmlConstants.IMG);
 
     writer.startElement(HtmlConstants.IMG, null);
@@ -103,10 +104,10 @@ public class ProgressRenderer extends LayoutableRendererBase {
     color2Classes.addClass("progress", "color2");
     color2Classes.addMarkupClass(component, "progress", "color2");
     writer.writeClassAttribute(color2Classes);
-    writer.writeAttribute(HtmlAttributes.SRC, image, null);
-    writer.writeAttribute(HtmlAttributes.ALT, title, null);
-    writer.writeAttribute(HtmlAttributes.WIDTH, width2, null);
-    writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
+    writer.writeAttribute(HtmlAttributes.SRC, image, false);
+    writer.writeAttribute(HtmlAttributes.ALT, title, true);
+    writer.writeAttribute(HtmlAttributes.WIDTH, width2, false);
+    writer.writeAttribute(HtmlAttributes.BORDER, 0);
     writer.endElement(HtmlConstants.IMG);
 
     writer.endElement(HtmlConstants.SPAN);

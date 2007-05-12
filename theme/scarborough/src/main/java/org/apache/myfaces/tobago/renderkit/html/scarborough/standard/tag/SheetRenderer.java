@@ -134,7 +134,7 @@ public class SheetRenderer extends LayoutableRendererBase
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + "_outer_div");
     writer.writeClassAttribute("tobago-sheet-outer-div");
-    writer.writeAttribute(HtmlAttributes.STYLE, sheetStyle, null);
+    writer.writeStyleAttribute(sheetStyle);
 
     renderSheet(facesContext, data);
 
@@ -221,20 +221,20 @@ public class SheetRenderer extends LayoutableRendererBase
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeIdAttribute(sheetId + WIDTHS_POSTFIX);
     writer.writeNameAttribute(sheetId + WIDTHS_POSTFIX);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
-    writer.writeAttribute(HtmlAttributes.VALUE, "", null);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+    writer.writeAttribute(HtmlAttributes.VALUE, "", false);
     writer.endElement(HtmlConstants.INPUT);
 
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeIdAttribute(sheetId + SCROLL_POSTFIX);
     writer.writeNameAttribute(sheetId + SCROLL_POSTFIX);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     Integer[] scrollPosition = data.getScrollPosition();
     if (scrollPosition != null) {
       String scroll = scrollPosition[0] + ";" + scrollPosition[1];
-      writer.writeAttribute(HtmlAttributes.VALUE, scroll, null);
+      writer.writeAttribute(HtmlAttributes.VALUE, scroll, false);
     } else {
-      writer.writeAttribute(HtmlAttributes.VALUE, "", null);
+      writer.writeAttribute(HtmlAttributes.VALUE, "", false);
     }
     writer.endElement(HtmlConstants.INPUT);
 
@@ -242,8 +242,8 @@ public class SheetRenderer extends LayoutableRendererBase
       writer.startElement(HtmlConstants.INPUT, null);
       writer.writeIdAttribute(sheetId + SELECTED_POSTFIX);
       writer.writeNameAttribute(sheetId + SELECTED_POSTFIX);
-      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
-      writer.writeAttribute(HtmlAttributes.VALUE, selectedRows, null);
+      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+      writer.writeAttribute(HtmlAttributes.VALUE, selectedRows, true);
       writer.endElement(HtmlConstants.INPUT);
     }
 
@@ -256,7 +256,7 @@ public class SheetRenderer extends LayoutableRendererBase
       writer.writeClassAttribute("tobago-sheet-header-div");
       HtmlStyleMap headerStyle = (HtmlStyleMap) attributes.get(ATTR_STYLE_HEADER);
       if (headerStyle != null) {
-        writer.writeAttribute(HtmlAttributes.STYLE, headerStyle, null);
+        writer.writeStyleAttribute(headerStyle);
       }
 
       int columnCount = 0;
@@ -269,11 +269,11 @@ public class SheetRenderer extends LayoutableRendererBase
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeIdAttribute(sheetId + "_header_box_filler");
       writer.writeClassAttribute("tobago-sheet-header-box");
-      writer.writeAttribute(HtmlAttributes.STYLE, "width: 0px", null);
+      writer.writeAttribute(HtmlAttributes.STYLE, "width: 0px", false);
 
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeClassAttribute("tobago-sheet-header");
-      writer.writeText("", null);
+      writer.flush();
       writer.write("&nbsp;");
       writer.endElement(HtmlConstants.DIV);
 
@@ -288,7 +288,7 @@ public class SheetRenderer extends LayoutableRendererBase
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + "_data_div");
     writer.writeClassAttribute("tobago-sheet-body-div ");
-    writer.writeAttribute(HtmlAttributes.STYLE, bodyStyle.toString() + (showHeader?"":" padding-top: 0px;"), null);
+    writer.writeAttribute(HtmlAttributes.STYLE, bodyStyle.toString() + (showHeader?"":" padding-top: 0px;"), false);
     Integer space = HtmlRendererUtil.getStyleAttributeIntValue(bodyStyle, "width");
     HtmlStyleMap sheetBodyStyle = (HtmlStyleMap) bodyStyle.clone();
     //String sheetBodyStyle;
@@ -305,17 +305,17 @@ public class SheetRenderer extends LayoutableRendererBase
 
 
     writer.startElement(HtmlConstants.TABLE, null);
-    writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
-    writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
-    writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
+    writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
+    writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
+    writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
     writer.writeClassAttribute("tobago-sheet-body-table");
-    writer.writeAttribute(HtmlAttributes.STYLE, sheetBodyStyle, null);
+    writer.writeStyleAttribute(sheetBodyStyle);
 
     if (columnWidths != null) {
       writer.startElement(HtmlConstants.COLGROUP, null);
       for (Integer columnWidth : columnWidths) {
         writer.startElement(HtmlConstants.COL, null);
-        writer.writeAttribute(HtmlAttributes.WIDTH, columnWidth, null);
+        writer.writeAttribute(HtmlAttributes.WIDTH, columnWidth);
         writer.endElement(HtmlConstants.COL);
       }
       writer.endElement(HtmlConstants.COLGROUP);
@@ -349,7 +349,7 @@ public class SheetRenderer extends LayoutableRendererBase
       writer.startElement(HtmlConstants.TR, null);
       writer.writeClassAttribute(rowClass);
       writer.writeIdAttribute(sheetId + "_data_tr_" + rowIndex);
-      writer.writeText("", null);
+      writer.flush();
 
 
       int columnIndex = -1;
@@ -370,27 +370,26 @@ public class SheetRenderer extends LayoutableRendererBase
         writer.writeClassAttribute(tdClass.toString());
         final String align = (String) column.getAttributes().get(ATTR_ALIGN);
         if (align != null) {
-          writer.writeAttribute(HtmlAttributes.STYLE, HtmlRendererUtil.toStyleString("text-align", align) , null);
+          writer.writeStyleAttribute(HtmlRendererUtil.toStyleString("text-align", align));
         }
         writer.startElement(HtmlConstants.DIV, null);
         writer.writeIdAttribute(
             sheetId + "_data_row_" + visibleIndex + "_column" + columnIndex);
         writer.writeClassAttribute("tobago-sheet-cell-outer");
-        writer.writeAttribute(HtmlAttributes.STYLE,
-            HtmlRendererUtil.toStyleString("width", columnWidths.get(columnIndex)), null);
+        writer.writeStyleAttribute(HtmlRendererUtil.toStyleString("width", columnWidths.get(columnIndex)));
 
         writer.startElement(HtmlConstants.DIV, null);
         writer.writeClassAttribute("tobago-sheet-cell-inner");
-        writer.writeText("", null);
+        writer.flush();
 
         if (column instanceof UIColumnSelector) {
           final boolean disabled
               = ComponentUtil.getBooleanAttribute(column, ATTR_DISABLED);
           writer.startElement(HtmlConstants.IMG, null);
           if (disabled) {
-            writer.writeAttribute(HtmlAttributes.SRC, selectorDisabled, null);
+            writer.writeAttribute(HtmlAttributes.SRC, selectorDisabled, false);
           } else {
-            writer.writeAttribute(HtmlAttributes.SRC, unchecked, null);
+            writer.writeAttribute(HtmlAttributes.SRC, unchecked, false);
           }
           writer.writeIdAttribute(sheetId + "_data_row_selector_" + rowIndex);
           writer.writeClassAttribute("tobago-sheet-column-selector");
@@ -415,8 +414,8 @@ public class SheetRenderer extends LayoutableRendererBase
       writer.writeIdAttribute(
           sheetId + "_data_row_" + visibleIndex + "_column_filler");
       writer.writeClassAttribute("tobago-sheet-cell-outer");
-      writer.writeAttribute(HtmlAttributes.STYLE, "width: 0px;", null);
-      writer.writeText("", null);
+      writer.writeStyleAttribute("width: 0px;");
+      writer.flush();
       writer.write("&nbsp;");
 
       writer.endElement(HtmlConstants.DIV);
@@ -453,7 +452,7 @@ public class SheetRenderer extends LayoutableRendererBase
 
       writer.startElement(HtmlConstants.DIV, data);
       writer.writeClassAttribute("tobago-sheet-footer");
-      writer.writeAttribute(HtmlAttributes.STYLE, footerStyle, null);
+      writer.writeStyleAttribute(footerStyle);
 
 
       if (isValidPagingValue(showRowRange)) {
@@ -470,11 +469,11 @@ public class SheetRenderer extends LayoutableRendererBase
 
         writer.startElement(HtmlConstants.SPAN, null);
         writer.writeAttribute(HtmlAttributes.ONCLICK, "tobagoSheetEditPagingRow(this, '"
-            + pagerCommandId + "', '" + pagingOnClick + "')", null);
+            + pagerCommandId + "', '" + pagingOnClick + "')", true);
         writer.writeClassAttribute(className);
         writer.writeAttribute(HtmlAttributes.TITLE, ResourceManagerUtil.getPropertyNotNull(
-            facesContext, "tobago", "sheetPagingInfoRowPagingTip"), null);
-        writer.writeText("", null);
+            facesContext, "tobago", "sheetPagingInfoRowPagingTip"), true);
+        writer.writeText("");
         writer.write(createSheetPagingInfo(data, facesContext,
             pagerCommandId, true));
         writer.endElement(HtmlConstants.SPAN);
@@ -510,7 +509,7 @@ public class SheetRenderer extends LayoutableRendererBase
         writer.startElement(HtmlConstants.SPAN, null);
         writer.writeClassAttribute(className);
         writer.writeIdAttribute(sheetId + SUBCOMPONENT_SEP + "pagingPages");
-        writer.writeText("", null);
+        writer.writeText("");
 
         boolean atBeginning = data.isAtBeginning();
         link(facesContext, application, atBeginning, PageAction.FIRST, data);
@@ -518,10 +517,10 @@ public class SheetRenderer extends LayoutableRendererBase
         writer.startElement(HtmlConstants.SPAN, null);
         writer.writeClassAttribute("tobago-sheet-paging-pages-text");
         writer.writeAttribute(HtmlAttributes.ONCLICK, "tobagoSheetEditPagingRow(this, '"
-            + pagerCommandId + "', '" + pagingOnClick + "')", null);
+            + pagerCommandId + "', '" + pagingOnClick + "')", true);
         writer.writeAttribute(HtmlAttributes.TITLE, ResourceManagerUtil.getPropertyNotNull(
-            facesContext, "tobago", "sheetPagingInfoPagePagingTip"), null);
-        writer.writeText("", null);
+            facesContext, "tobago", "sheetPagingInfoPagePagingTip"), true);
+        writer.writeText("");
         writer.write(createSheetPagingInfo(
             data, facesContext, pagerCommandId, false));
         writer.endElement(HtmlConstants.SPAN);
@@ -741,13 +740,13 @@ public class SheetRenderer extends LayoutableRendererBase
         + SUBCOMPONENT_SEP + "pagingPages" + SUBCOMPONENT_SEP + command.getToken());
     writer.writeClassAttribute("tobago-sheet-footer-pager-button"
         + (disabled ? " tobago-sheet-footer-pager-button-disabled" : ""));
-    writer.writeAttribute(HtmlAttributes.SRC, image, null);
-    writer.writeAttribute(HtmlAttributes.TITLE, tip, null);
+    writer.writeAttribute(HtmlAttributes.SRC, image, false);
+    writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     if (!disabled) {
       CommandRendererHelper helper = new CommandRendererHelper(facesContext, link);
       String onClick = helper.getOnclick();
-      writer.writeAttribute(HtmlAttributes.ONCLICK, onClick, null);
+      writer.writeAttribute(HtmlAttributes.ONCLICK, onClick, true);
     }
     writer.endElement(HtmlConstants.IMG);
   }
@@ -765,7 +764,7 @@ public class SheetRenderer extends LayoutableRendererBase
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + "_header_box_" + columnCount);
     writer.writeClassAttribute("tobago-sheet-header-box");
-    writer.writeAttribute(HtmlAttributes.STYLE, divWidth, null);
+    writer.writeAttribute(HtmlAttributes.STYLE, divWidth, false);
     String tip = (String) column.getAttributes().get(ATTR_TIP);
     if (tip == null) {
       tip = "";
@@ -790,7 +789,7 @@ public class SheetRenderer extends LayoutableRendererBase
       }
 
       String onclick = "Tobago.submitAction('" + sortCommand.getClientId(facesContext) + "')";
-      writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, null);
+      writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, false);
 
       if (StringUtils.isNotEmpty(tip)) {
         tip +=  " - ";
@@ -813,7 +812,7 @@ public class SheetRenderer extends LayoutableRendererBase
 // ############################################
 // ############################################
 
-    writer.writeAttribute(HtmlAttributes.TITLE, tip, null);
+    writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
 
     String align = (String) column.getAttributes().get(ATTR_ALIGN);
 
@@ -821,7 +820,7 @@ public class SheetRenderer extends LayoutableRendererBase
     writer.writeIdAttribute(sheetId + "_header_outer_" + columnCount);
     writer.writeClassAttribute("tobago-sheet-header" + sorterClass);
     if (align != null) {
-      writer.writeAttribute(HtmlAttributes.STYLE, "text-align: " + align + ";", null);
+      writer.writeStyleAttribute("text-align: " + align + ";");
     }
 
     String resizerClass;
@@ -837,6 +836,7 @@ public class SheetRenderer extends LayoutableRendererBase
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + "_header_resizer_" + columnCount);
     writer.writeClassAttribute(resizerClass);
+    writer.flush();
     writer.write("&nbsp;");
     writer.endElement(HtmlConstants.DIV);
 
@@ -845,12 +845,12 @@ public class SheetRenderer extends LayoutableRendererBase
     if (sorterImage != null) {
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeClassAttribute("tobago-sheet-header-sort-div");
-      writer.writeAttribute(HtmlAttributes.TITLE, sortTitle, null);
+      writer.writeAttribute(HtmlAttributes.TITLE, sortTitle, true);
 
       writer.startElement(HtmlConstants.IMG, null);
-      writer.writeAttribute(HtmlAttributes.SRC, sorterImage, null);
-      writer.writeAttribute(HtmlAttributes.ALT, "", null);
-      writer.writeAttribute(HtmlAttributes.TITLE, sortTitle, null);
+      writer.writeAttribute(HtmlAttributes.SRC, sorterImage, false);
+      writer.writeAttribute(HtmlAttributes.ALT, "", false);
+      writer.writeAttribute(HtmlAttributes.TITLE, sortTitle, true);
       writer.endElement(HtmlConstants.IMG);
 
       writer.endElement(HtmlConstants.DIV);
@@ -932,16 +932,16 @@ public class SheetRenderer extends LayoutableRendererBase
       if (column.getId().equals(sheetState.getSortedColumnId())
           && "right".equals(align)) {
         writer.startElement(HtmlConstants.IMG, null);
-        writer.writeAttribute(HtmlAttributes.SRC, image1x1, null);
-        writer.writeAttribute(HtmlAttributes.ALT, "", null);
-        writer.writeAttribute(HtmlAttributes.WIDTH, Integer.toString(sortMarkerWidth), null);
-        writer.writeAttribute(HtmlAttributes.HEIGHT, "1", null);
+        writer.writeAttribute(HtmlAttributes.SRC, image1x1, false);
+        writer.writeAttribute(HtmlAttributes.ALT, "", false);
+        writer.writeAttribute(HtmlAttributes.WIDTH, sortMarkerWidth);
+        writer.writeAttribute(HtmlAttributes.HEIGHT, 1);
         writer.endElement(HtmlConstants.IMG);
       }
     } else {
       writer.startElement(HtmlConstants.IMG, null);
-      writer.writeAttribute(HtmlAttributes.SRC, image1x1, null);
-      writer.writeAttribute(HtmlAttributes.ALT, "", null);
+      writer.writeAttribute(HtmlAttributes.SRC, image1x1, false);
+      writer.writeAttribute(HtmlAttributes.ALT, "", false);
       writer.endElement(HtmlConstants.IMG);
     }
   }
@@ -1065,7 +1065,7 @@ public class SheetRenderer extends LayoutableRendererBase
       writer.writeAttribute(HtmlAttributes.HREF, "javascript: tobagoSheetSetPagerPage('"
           + id + "', '" + skip + hrefPostfix, null);
     }
-    writer.writeText("", null);
+    writer.flush();
     writer.write(str);
     writer.endElement(type);
   }

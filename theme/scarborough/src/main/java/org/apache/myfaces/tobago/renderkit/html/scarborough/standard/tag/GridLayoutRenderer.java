@@ -245,12 +245,12 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.TABLE, layout);
-    writer.writeAttribute(HtmlAttributes.BORDER, null, ATTR_BORDER);
+    writer.writeAttributeFromComponent(HtmlAttributes.BORDER, ATTR_BORDER);
     writer.writeClassAttribute();
-    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
-    writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
-    writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
-    writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
+    writer.writeStyleAttribute();
+    writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
+    writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
+    writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
 
     if (columnWidths != null) {
       writer.startElement(HtmlConstants.COLGROUP, null);
@@ -259,7 +259,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         if (cellWidth != LayoutInfo.HIDE) {
           cellWidth += getCellPadding(facesContext, layout, i);
           writer.startElement(HtmlConstants.COL, null);
-          writer.writeAttribute(HtmlAttributes.WIDTH, Integer.toString(cellWidth), null);
+          writer.writeAttribute(HtmlAttributes.WIDTH, cellWidth);
           writer.endElement(HtmlConstants.COL);
         }
       }
@@ -338,15 +338,15 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
             writer.startElement(HtmlConstants.TD, null);
             writer.writeClassAttribute("tobago-gridLayout-cell-td");
-            writer.writeAttribute(HtmlAttributes.STYLE, cellStyle, null);
+            writer.writeAttribute(HtmlAttributes.STYLE, cellStyle, false);
             if (spanX > 1) {
-              writer.writeAttribute(HtmlAttributes.COLSPAN, Integer.toString(spanX), null);
+              writer.writeAttribute(HtmlAttributes.COLSPAN, spanX);
             }
             if (spanY > 1) {
-              writer.writeAttribute(HtmlAttributes.ROWSPAN, Integer.toString(spanY), null);
+              writer.writeAttribute(HtmlAttributes.ROWSPAN, spanY);
             }
 
-            writer.writeText("", null);
+            writer.flush();
 
             if (ComponentUtil.getAttribute(layout, ATTR_CELLSPACING) != null) {
               cellStyle += " padding: " + getCellSpacing(facesContext, layout) + "px;";
@@ -354,7 +354,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
             writer.startElement(HtmlConstants.DIV, null);
             writer.writeClassAttribute(classes);
-            writer.writeAttribute(HtmlAttributes.STYLE, cellStyle, null);
+            writer.writeAttribute(HtmlAttributes.STYLE, cellStyle, false);
             writer.flush();
             RenderUtil.encode(facesContext, cell);
 

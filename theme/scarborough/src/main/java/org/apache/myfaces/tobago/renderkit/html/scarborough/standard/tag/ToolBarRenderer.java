@@ -31,7 +31,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP_TYPE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
@@ -91,7 +90,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
       writer.startElement(HtmlConstants.DIV, toolbar);
       writer.writeIdAttribute(toolbar.getClientId(facesContext));
       writer.writeClassAttribute();
-      writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+      writer.writeStyleAttribute();
       writer.startElement(HtmlConstants.DIV, toolbar);
       boolean right = false;
       if (toolbar instanceof UIToolBar) {
@@ -168,7 +167,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
 
     String onclick = createOnClick(facesContext, command);
 
-    List<SelectItem> items; 
+    List<SelectItem> items;
 
     UIMenuSelectOne radio = (UIMenuSelectOne) command.getFacet(FACET_ITEMS);
     if (radio == null) {
@@ -308,10 +307,10 @@ public class ToolBarRenderer extends LayoutableRendererBase {
       writer.writeAttribute(HtmlAttributes.ONCLICK, onClick, null);
     }
     writer.startElement(HtmlConstants.TABLE, null);
-    writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
-    writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
-    writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
-    writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
+    writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
+    writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
+    writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
+    writer.writeAttribute(HtmlAttributes.BORDER, 0);
     writer.writeClassAttribute(tableClasses);
     writer.startElement(HtmlConstants.TR, null);
 
@@ -322,8 +321,8 @@ public class ToolBarRenderer extends LayoutableRendererBase {
           iconName != null ? iconName : "image/1x1.gif", graphicId);
 
       writer.startElement(HtmlConstants.TD, command);
-      writer.writeAttribute(HtmlAttributes.ALIGN, "center", null);
-      writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+      writer.writeAttribute(HtmlAttributes.ALIGN, "center", false);
+      writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
 
       boolean render1pxImage = (iconName == null
           && (!ToolBarTag.LABEL_BOTTOM.equals(labelPosition)
@@ -333,7 +332,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
             && label.getText() != null)
            || popupMenu != null)
           && !render1pxImage) {
-        writer.writeAttribute(HtmlAttributes.STYLE, "padding-right: 3px;", null);
+        writer.writeStyleAttribute("padding-right: 3px;");
         // TODO: make this '3px' configurable
       }
 
@@ -345,13 +344,13 @@ public class ToolBarRenderer extends LayoutableRendererBase {
       }
       writer.startElement(HtmlConstants.IMG, command);
       writer.writeIdAttribute(graphicId);
-      writer.writeAttribute(HtmlAttributes.SRC, image, null);
-      writer.writeAttribute(HtmlAttributes.ALT, "", null);
-      writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
-      writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
+      writer.writeAttribute(HtmlAttributes.SRC, image, false);
+      writer.writeAttribute(HtmlAttributes.ALT, "", false);
+      writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
+      writer.writeAttribute(HtmlAttributes.BORDER, 0);
       writer.writeClassAttribute(className);
       if (render1pxImage) {
-        writer.writeAttribute(HtmlAttributes.STYLE, "width: 1px;", null);
+        writer.writeStyleAttribute("width: 1px;");
       }
 
       writer.endElement(HtmlConstants.IMG);
@@ -375,9 +374,9 @@ public class ToolBarRenderer extends LayoutableRendererBase {
     if (!ToolBarTag.LABEL_OFF.equals(labelPosition)) {
       writer.startElement(HtmlConstants.TD, null);
       writer.writeClassAttribute("tobago-toolbar-label-td");
-      writer.writeAttribute(HtmlAttributes.ALIGN, "center", null);
+      writer.writeAttribute(HtmlAttributes.ALIGN, "center", false);
       if (popupMenu != null) {
-        writer.writeAttribute(HtmlAttributes.STYLE, "padding-right: 3px;", null);
+        writer.writeAttribute(HtmlAttributes.STYLE, "padding-right: 3px;", false);
         // TODO: make this '3px' configurable
       }
       if (label.getText() != null) {
@@ -476,10 +475,10 @@ public class ToolBarRenderer extends LayoutableRendererBase {
       throws IOException {
     writer.startElement(HtmlConstants.A, command);
     writer.writeClassAttribute("tobago-toolBar-button-link" + (disabled ? "tobago-toolBar-button-link-disabled" : ""));
-    writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+    writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
     if (!disabled) {
-      writer.writeAttribute(HtmlAttributes.HREF, "#", null);
-      writer.writeAttribute(HtmlAttributes.ONFOCUS, "Tobago.toolbarFocus(this, event)", null);
+      writer.writeAttribute(HtmlAttributes.HREF, "#", false);
+      writer.writeAttribute(HtmlAttributes.ONFOCUS, "Tobago.toolbarFocus(this, event)", false);
       if (label.getAccessKey() != null) {
         if (LOG.isInfoEnabled()
                 && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
@@ -499,7 +498,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
       throws IOException {
     writer.startElement(HtmlConstants.TD, null);
     if (labelBottom) {
-      writer.writeAttribute(HtmlAttributes.ROWSPAN, "2", null);
+      writer.writeAttribute(HtmlAttributes.ROWSPAN, 2);
     }
 
     if (popupMenu != null) {
@@ -510,7 +509,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
           command.getClientId(facesContext) + SUBCOMPONENT_SEP + "popup");
       writer.writeClassAttribute("tobago-toolBar-button-menu");
       writer.startElement(HtmlConstants.IMG, null);
-      writer.writeAttribute(HtmlAttributes.SRC, backgroundImage, null);
+      writer.writeAttribute(HtmlAttributes.SRC, backgroundImage, false);
       writer.writeClassAttribute("tobago-toolBar-button-menu-background-image");
       writer.endElement(HtmlConstants.IMG);
       writer.endElement(HtmlConstants.DIV);

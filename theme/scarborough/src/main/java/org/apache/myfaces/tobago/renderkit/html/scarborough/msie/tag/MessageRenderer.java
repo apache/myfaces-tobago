@@ -26,13 +26,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DETAIL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_SUMMARY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -77,7 +77,7 @@ public class MessageRenderer extends MessageRendererBase {
 
     Iterator iterator = facesContext.getMessages(clientId);
 
-    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     boolean showSummary = ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_SUMMARY);
     boolean showDetail = ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_DETAIL);
@@ -86,7 +86,7 @@ public class MessageRenderer extends MessageRendererBase {
 
       writer.startElement(HtmlConstants.SPAN, component);
       writer.writeClassAttribute("tobago-validation-message");
-      writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+      writer.writeStyleAttribute();
 
       while (iterator.hasNext()) {
         FacesMessage message = (FacesMessage) iterator.next();
@@ -96,24 +96,24 @@ public class MessageRenderer extends MessageRendererBase {
         String detail = message.getDetail();
 
         writer.startElement(HtmlConstants.LABEL, null);
-        writer.writeAttribute(HtmlAttributes.FOR, clientId, null);
-        writer.writeAttribute(HtmlAttributes.TITLE, detail, null);
+        writer.writeAttribute(HtmlAttributes.FOR, clientId, false);
+        writer.writeAttribute(HtmlAttributes.TITLE, detail, true);
         boolean writeEmptyText = true;
         if (summary != null && showSummary) {
-          writer.writeText(summary, null);
+          writer.writeText(summary);
           writeEmptyText = false;
           if (detail != null && showDetail) {
-            writer.writeText(" ", null);
+            writer.writeText(" ");
           }
         }
         if (detail != null && showDetail) {
-          writer.writeText(detail, null);
+          writer.writeText(detail);
           writeEmptyText = false;
         }
         if (writeEmptyText) {
-          writer.writeText("", null);
+          writer.writeText("");
         }
-        writer.writeText(message.getSummary(), null);
+        writer.writeText(message.getSummary());
         writer.endElement(HtmlConstants.LABEL);
 
         writer.startElement(HtmlConstants.BR, null);
@@ -124,9 +124,9 @@ public class MessageRenderer extends MessageRendererBase {
     } else {
       writer.startElement(HtmlConstants.IMG, null);
       String image = ResourceManagerUtil.getImageWithPath(facesContext, "image/1x1.gif");
-      writer.writeAttribute(HtmlAttributes.SRC, image, null);
-      writer.writeAttribute(HtmlAttributes.ALT, "", null);
-      writer.writeAttribute(HtmlAttributes.STYLE, "border: 0px; height: 1px; width: 1px;", null);
+      writer.writeAttribute(HtmlAttributes.SRC, image, false);
+      writer.writeAttribute(HtmlAttributes.ALT, "", false);
+      writer.writeStyleAttribute("border: 0px; height: 1px; width: 1px;");
       writer.endElement(HtmlConstants.IMG);
     }
   }

@@ -94,9 +94,9 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
     writer.writeStyleAttribute();
     writer.writeClassAttribute();
-    writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, null);
+    writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
     if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, null);
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     Object[] values = component.getSelectedValues();
     if (LOG.isDebugEnabled()) {

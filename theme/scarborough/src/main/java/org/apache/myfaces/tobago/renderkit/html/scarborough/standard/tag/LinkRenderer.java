@@ -62,18 +62,18 @@ public class LinkRenderer extends CommandRendererBase {
       writer.startElement(HtmlConstants.SPAN, component);
     } else {
       writer.startElement(HtmlConstants.A, component);
-      writer.writeAttribute(HtmlAttributes.HREF, href, null);
+      writer.writeAttribute(HtmlAttributes.HREF, href, true);
       if (helper.getOnclick() != null) {
-        writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), null);
+        writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true);
       }
       if (helper.getTarget() != null) {
-        writer.writeAttribute(HtmlAttributes.TARGET, helper.getTarget(), null);
+        writer.writeAttribute(HtmlAttributes.TARGET, helper.getTarget(), true);
       }
     }
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+    writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
 
     writer.flush();
 
@@ -86,16 +86,16 @@ public class LinkRenderer extends CommandRendererBase {
         image = ResourceManagerUtil.getImageWithPath(facesContext, image);
       }
       writer.startElement(HtmlConstants.IMG, null);
-      writer.writeAttribute(HtmlAttributes.SRC, image, null);
-      writer.writeAttribute(HtmlAttributes.ALT, "", null);
-      writer.writeAttribute(HtmlAttributes.BORDER, "0", null); // TODO: is border=0 setting via style possible?
+      writer.writeAttribute(HtmlAttributes.SRC, image, true);
+      writer.writeAttribute(HtmlAttributes.ALT, "", false);
+      writer.writeAttribute(HtmlAttributes.BORDER, 0); // TODO: is border=0 setting via style possible?
       writer.endElement(HtmlConstants.IMG);
     }
 
 //  label
     if (label.getText() != null) {
       if (image != null) {
-        writer.writeText(" ", null); // separator: e.g. &nbsp;
+        writer.write(" "); // separator: e.g. &nbsp;
       }
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
     }

@@ -26,7 +26,6 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -115,16 +114,16 @@ public class FileRenderer extends InputRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlConstants.INPUT, component);
-    writer.writeAttribute(HtmlAttributes.TYPE, "file", null);
+    writer.writeAttribute(HtmlAttributes.TYPE, "file", false);
     writer.writeClassAttribute();
     if (!ClientProperties.getInstance(facesContext).getUserAgent().isMozilla()) {
-      writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+      writer.writeStyleAttribute();
     }
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.READONLY,
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
-    writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+    writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
     writer.endElement(HtmlConstants.INPUT);
 
   }

@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -57,7 +57,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     boolean disabled = ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
     Integer min = ComponentUtil.getIntAttribute(component, "min");
     Integer max = ComponentUtil.getIntAttribute(component, "max");
-    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
 
     HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE);
@@ -85,7 +85,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     writer.startElement(HtmlConstants.TABLE, component);
     writer.writeIdAttribute(id);
     writer.writeClassAttribute();
-    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+    writer.writeStyleAttribute();
     //writer.writeAttribute("border","1",false);
 
     StyleClasses styleClasses = new StyleClasses();
@@ -203,7 +203,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
   }
 
   private void writeSliderJavaScript(FacesContext context, UIComponent component,
-      TobagoResponseWriterImpl writer) throws IOException {
+      TobagoResponseWriter writer) throws IOException {
     String trackId = getIdForSliderTrack(context, component);
     String handleId = getIdForSliderHandle(context, component);
     String inputId = getIdForInputField(context, component);

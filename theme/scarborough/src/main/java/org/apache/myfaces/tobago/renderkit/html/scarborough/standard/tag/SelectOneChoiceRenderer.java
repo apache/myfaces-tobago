@@ -26,7 +26,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
@@ -69,14 +68,14 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     writer.writeNameAttribute(component.getClientId(facesContext));
     writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+    writer.writeStyleAttribute();
     writer.writeClassAttribute();
     if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, null);
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     String onchange = HtmlUtils.generateOnchange(component, facesContext);
     if (onchange != null) {
-      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
+      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, true);
     }
     Object[] values = {component.getValue()};
 

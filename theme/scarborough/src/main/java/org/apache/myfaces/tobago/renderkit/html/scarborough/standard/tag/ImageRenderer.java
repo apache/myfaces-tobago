@@ -28,7 +28,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BORDER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -95,20 +94,20 @@ public class ImageRenderer extends LayoutableRendererBase {
     writer.writeIdAttribute(clientId);
     if (ComponentUtil.isHoverEnabled(graphic) && !isDisabled(graphic)) {
       writer.writeAttribute(HtmlAttributes.ONMOUSEOVER,
-          "Tobago.imageMouseover('" + clientId + "')", null);
+          "Tobago.imageMouseover('" + clientId + "')", false);
       writer.writeAttribute(HtmlAttributes.ONMOUSEOUT,
-          "Tobago.imageMouseout('" + clientId + "')", null);
+          "Tobago.imageMouseout('" + clientId + "')", false);
     }
     if (src != null) {
-      writer.writeAttribute(HtmlAttributes.SRC, src, null);
+      writer.writeAttribute(HtmlAttributes.SRC, src, true);
     }
-    writer.writeAttribute(HtmlAttributes.ALT, alt, null);
+    writer.writeAttribute(HtmlAttributes.ALT, alt, true);
     if (tip != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, tip, null);
+      writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     }
-    writer.writeAttribute(HtmlAttributes.BORDER, border, null);
-    writer.writeAttribute(HtmlAttributes.HEIGHT, null, ATTR_HEIGHT);
-    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+    writer.writeAttribute(HtmlAttributes.BORDER, border, false);
+    writer.writeAttributeFromComponent(HtmlAttributes.HEIGHT, ATTR_HEIGHT);
+    writer.writeStyleAttribute();
     writer.writeClassAttribute();
     writer.endElement(HtmlConstants.IMG);
   }

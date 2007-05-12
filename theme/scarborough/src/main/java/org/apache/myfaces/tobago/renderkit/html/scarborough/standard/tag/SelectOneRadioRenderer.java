@@ -27,7 +27,6 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
@@ -83,13 +82,13 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     if (!inline) {
       writer.startElement(HtmlConstants.TABLE, component);
       //writer.writeComponentClass();
-      writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
-      writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
-      writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
-      writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
-      writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+      writer.writeAttribute(HtmlAttributes.BORDER, 0);
+      writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
+      writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
+      writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
+      writer.writeStyleAttribute();
       if (title != null) {
-        writer.writeAttribute(HtmlAttributes.TITLE, title, null);
+        writer.writeAttribute(HtmlAttributes.TITLE, title, true);
       }
     }
 
@@ -106,22 +105,22 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
           + NamingContainer.SEPARATOR_CHAR + item.getValue().toString();
       clientIds.add(id);
       writer.startElement(HtmlConstants.INPUT, component);
-      writer.writeAttribute(HtmlAttributes.TYPE, "radio", null);
+      writer.writeAttribute(HtmlAttributes.TYPE, "radio", false);
       writer.writeClassAttribute();
       if (item.getValue().equals(value)) {
-        writer.writeAttribute(HtmlAttributes.CHECKED, "checked", null);
+        writer.writeAttribute(HtmlAttributes.CHECKED, "checked", false);
       }
       writer.writeNameAttribute(clientId);
 
       writer.writeIdAttribute(id);
       String formattedValue
           = RenderUtil.getFormattedValue(facesContext, component, item.getValue());
-      writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, null);
+      writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
       writer.writeAttribute(HtmlAttributes.DISABLED,
           ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
-      writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+      writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
       if (!ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {
-        writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneRadioClick(this, '" + clientId + "')", null);
+        writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneRadioClick(this, '" + clientId + "')", false);
       }
       writer.endElement(HtmlConstants.INPUT);
 
@@ -137,8 +136,8 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         // FIXME: see outcommented part
         writer.startElement(HtmlConstants.LABEL, null);
         writer.writeClassAttribute("tobago-label-default");
-        writer.writeAttribute(HtmlAttributes.FOR, id, null);
-        writer.writeText(item.getLabel(), null);
+        writer.writeAttribute(HtmlAttributes.FOR, id, false);
+        writer.writeText(item.getLabel());
         writer.endElement(HtmlConstants.LABEL);
 //        Application application = tobagoContext.getApplication();
 //        UIOutput label = (UIOutput)

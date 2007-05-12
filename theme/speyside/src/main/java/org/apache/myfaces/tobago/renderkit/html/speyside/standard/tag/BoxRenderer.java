@@ -77,7 +77,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
     if (style != null) {
-      writer.writeAttribute(HtmlAttributes.STYLE, style, null);
+      writer.writeStyleAttribute(style);
     }
     writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\")");
 

@@ -86,11 +86,11 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
     if (label != null && !inline) {
 
       writer.startElement(HtmlConstants.TABLE, component);
-      writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
-      writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
-      writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
-      writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
-      writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+      writer.writeAttribute(HtmlAttributes.BORDER, 0);
+      writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
+      writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
+      writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
+      writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
 
       writer.startElement(HtmlConstants.TR, null);
       writer.startElement(HtmlConstants.TD, null);
@@ -100,14 +100,14 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
     boolean checked = "true".equals(currentValue);
 
     writer.startElement(HtmlConstants.INPUT, component);
-    writer.writeAttribute(HtmlAttributes.TYPE, "checkbox", null);
-    writer.writeAttribute(HtmlAttributes.VALUE, "true", null);
+    writer.writeAttribute(HtmlAttributes.TYPE, "checkbox", false);
+    writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
     writer.writeAttribute(HtmlAttributes.CHECKED, checked);
     if (ComponentUtil.getBooleanAttribute(component, ATTR_READONLY)) {
       if (checked) {
-        writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=true", null);
+        writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=true", false);
       } else {
-        writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=false", null);
+        writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=false", false);
       }
     }
     writer.writeNameAttribute(component.getClientId(facesContext));
@@ -117,14 +117,14 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
     String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
     if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, null);
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     writer.endElement(HtmlConstants.INPUT);
 
     if (label != null && !inline) {
       writer.endElement(HtmlConstants.TD);
       writer.startElement(HtmlConstants.TD, null);
-      writer.writeText("", null);
+      writer.flush();
     }
 
     if (label != null) {

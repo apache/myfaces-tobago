@@ -44,10 +44,10 @@ public class HiddenRenderer extends InputRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlConstants.INPUT, component);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.VALUE, value != null ? value : "", null);
+    writer.writeAttribute(HtmlAttributes.VALUE, value != null ? value : "", true);
     writer.endElement(HtmlConstants.INPUT);
   }
 

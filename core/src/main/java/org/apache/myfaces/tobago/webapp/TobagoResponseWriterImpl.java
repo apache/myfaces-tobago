@@ -25,6 +25,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.util.HtmlWriterUtil;
 import org.apache.myfaces.tobago.util.XmlUtils;
 
@@ -367,6 +368,12 @@ public class TobagoResponseWriterImpl extends ResponseWriter implements TobagoRe
     }
   }
 
+  public void writeStyleAttribute(HtmlStyleMap style) throws IOException {
+    if (style != null) {
+      writeAttribute(HtmlAttributes.STYLE, style.toString(), false);
+    }
+  }
+
   public void writeStyleAttribute(String style) throws IOException {
     writeAttribute(HtmlAttributes.STYLE, style, false);
   }
@@ -381,6 +388,11 @@ public class TobagoResponseWriterImpl extends ResponseWriter implements TobagoRe
   public void writeText(String text) throws IOException {
     // xxx optimize
     writeText(text, null);
+  }
+
+   public void writeTextFromComponent(String property) throws IOException {
+    // xxx optimize
+    writeText(null, property);
   }
 
   public void writeJavascript(String script) throws IOException {

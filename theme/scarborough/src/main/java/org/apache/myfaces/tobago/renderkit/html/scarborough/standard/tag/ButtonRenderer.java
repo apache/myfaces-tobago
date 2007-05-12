@@ -61,17 +61,17 @@ public class ButtonRenderer extends CommandRendererBase {
     LabelWithAccessKey label = new LabelWithAccessKey(component);
 
     writer.startElement(HtmlConstants.BUTTON, component);
-    writer.writeAttribute(HtmlAttributes.TYPE, buttonType, null);
+    writer.writeAttribute(HtmlAttributes.TYPE, buttonType, false);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+    writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
     writer.writeAttribute(HtmlAttributes.DISABLED, helper.isDisabled());
     if (helper.getOnclick() != null) {
-      writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), null);
+      writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true);
     }
     writer.writeStyleAttribute();
     writer.writeClassAttribute();
-    writer.writeText("", null); // force closing the start tag
+    writer.flush(); // force closing the start tag
 
 //  image
     String imageName = (String) component.getAttributes().get(ATTR_IMAGE);
@@ -90,15 +90,15 @@ public class ButtonRenderer extends CommandRendererBase {
         }
       }
       writer.startElement(HtmlConstants.IMG, null);
-      writer.writeAttribute(HtmlAttributes.SRC, image, null);
-      writer.writeAttribute(HtmlAttributes.ALT, "", null);
+      writer.writeAttribute(HtmlAttributes.SRC, image, true);
+      writer.writeAttribute(HtmlAttributes.ALT, "", false);
       writer.endElement(HtmlConstants.IMG);
     }
 
 //  label
     if (label.getText() != null) {
       if (imageName != null) {
-        writer.writeText(" ", null); // separator: e.g. &nbsp;
+        writer.writeText(" "); // separator: e.g. &nbsp;
       }
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
     }

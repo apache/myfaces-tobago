@@ -94,7 +94,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       if (ComponentUtil.getBooleanAttribute(component, ATTR_PAGE_MENU)) {
         styleClasses.addClass("menuBar", "page-facet"); // XXX not a standard compliant name
       } else {
-        writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+        writer.writeStyleAttribute();
       }
       writer.writeClassAttribute(styleClasses);
 /*
@@ -106,7 +106,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       renderTopLevelItems(facesContext, writer, component);
 
       writer.endElement(HtmlConstants.SPAN);
-      
+
 */
       writer.endElement(HtmlConstants.DIV);
     }
@@ -130,7 +130,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     for (Object o : component.getChildren()) {
       if (o instanceof UIMenu) {
         writer.startElement(HtmlConstants.SPAN, null);
-        writer.writeAttribute(HtmlAttributes.STYLE, "position: relative; background: " + bac + ";", null);
+        writer.writeAttribute(HtmlAttributes.STYLE, "position: relative; background: " + bac + ";", false);
         writeMenuEntry(facesContext, writer, (UIMenu) o);
         writer.endElement(HtmlConstants.SPAN);
         bac = "lime";
@@ -265,11 +265,11 @@ public class MenuBarRenderer extends LayoutableRendererBase {
 
     writer.startElement(HtmlConstants.A, null);
     writer.writeClassAttribute(spanClass);
-    writer.writeAttribute(HtmlAttributes.HREF, "#", null);
-    writer.writeAttribute(HtmlAttributes.ONFOCUS, "tobagoMenuFocus(event)", null);
-    writer.writeAttribute(HtmlAttributes.ONBLUR, "tobagoMenuBlur(event)", null);
-    writer.writeAttribute(HtmlAttributes.ONKEYDOWN, "tobagoMenuKeyDown(event)", null);
-    writer.writeAttribute(HtmlAttributes.ONKEYPRESS, "tobagoMenuKeyPress(event)", null);
+    writer.writeAttribute(HtmlAttributes.HREF, "#", false);
+    writer.writeAttribute(HtmlAttributes.ONFOCUS, "tobagoMenuFocus(event)", false);
+    writer.writeAttribute(HtmlAttributes.ONBLUR, "tobagoMenuBlur(event)", false);
+    writer.writeAttribute(HtmlAttributes.ONKEYDOWN, "tobagoMenuKeyDown(event)", false);
+    writer.writeAttribute(HtmlAttributes.ONKEYPRESS, "tobagoMenuKeyPress(event)", false);
     if (label.getText() != null) {
       if (label.getAccessKey() != null) {
         if (LOG.isInfoEnabled()
@@ -320,7 +320,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     }
     writer.startElement(HtmlConstants.IMG, null);
     writer.writeClassAttribute("tobago-menu-item-image");
-    writer.writeAttribute(HtmlAttributes.SRC, image, null);
+    writer.writeAttribute(HtmlAttributes.SRC, image, false);
     writer.endElement(HtmlConstants.IMG);
   }
   private int addMenuEntrys(StringBuilder sb, String var,
@@ -487,11 +487,11 @@ public class MenuBarRenderer extends LayoutableRendererBase {
         addAcceleratorKey(facesContext, command, label.getAccessKey());
       }
     }
-    writer.writeAttribute(HtmlAttributes.HREF, "#", null);
-    writer.writeAttribute(HtmlAttributes.ONFOCUS, "tobagoMenuFocus(event)", null);
-    writer.writeAttribute(HtmlAttributes.ONBLUR, "tobagoMenuBlur(event)", null);
-    writer.writeAttribute(HtmlAttributes.ONKEYDOWN, "tobagoMenuKeyDown(event)", null);
-    writer.writeAttribute(HtmlAttributes.ONKEYPRESS, "tobagoMenuKeyPress(event)", null);
+    writer.writeAttribute(HtmlAttributes.HREF, "#", false);
+    writer.writeAttribute(HtmlAttributes.ONFOCUS, "tobagoMenuFocus(event)", false);
+    writer.writeAttribute(HtmlAttributes.ONBLUR, "tobagoMenuBlur(event)", false);
+    writer.writeAttribute(HtmlAttributes.ONKEYDOWN, "tobagoMenuKeyDown(event)", false);
+    writer.writeAttribute(HtmlAttributes.ONKEYPRESS, "tobagoMenuKeyPress(event)", false);
     if (label.getText() != null) {
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
     }

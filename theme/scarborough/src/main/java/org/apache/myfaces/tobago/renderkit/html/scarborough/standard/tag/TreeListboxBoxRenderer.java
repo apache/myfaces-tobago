@@ -21,7 +21,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_NAME;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.UITreeListbox;
@@ -63,7 +62,7 @@ public class TreeListboxBoxRenderer extends LayoutableRendererBase {
 
     String treeId = tree.getClientId(facesContext);
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
-    
+
     final boolean siblingMode
         = "siblingLeafOnly".equals(tree.getAttributes().get(ATTR_SELECTABLE));
 
@@ -73,8 +72,8 @@ public class TreeListboxBoxRenderer extends LayoutableRendererBase {
     writer.startElement(HtmlConstants.SELECT, component);
     writer.writeIdAttribute(listboxId);
     writer.writeClassAttribute(className);
-    writer.writeAttribute(HtmlAttributes.STYLE , null, ATTR_STYLE);
-    writer.writeAttribute(HtmlAttributes.SIZE, "2", null);
+    writer.writeStyleAttribute();
+    writer.writeAttribute(HtmlAttributes.SIZE, 2);
     if (siblingMode) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, onChange, null);
     } else {
@@ -91,15 +90,15 @@ public class TreeListboxBoxRenderer extends LayoutableRendererBase {
 
       writer.startElement(HtmlConstants.OPTION, treeNode);
 //      writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgTreeListboxClick(this, '" + treeId + "')", null);
-      writer.writeAttribute(HtmlAttributes.VALUE, Integer.toString(i), null);
+      writer.writeAttribute(HtmlAttributes.VALUE, i);
       if (treeNode.equals(tree.getSelectedNode(level))
           || tree.isSelectedNode(node)) {
         writer.writeAttribute(HtmlAttributes.SELECTED, true);
       }
-      writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+      writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
       writer.writeText(treeNode.getAttributes().get(ATTR_NAME), null);
       if (node.getChildCount() > 0) {
-        writer.writeText(" \u2192", null);
+        writer.writeText(" \u2192");
       }
       writer.endElement(HtmlConstants.OPTION);
     }

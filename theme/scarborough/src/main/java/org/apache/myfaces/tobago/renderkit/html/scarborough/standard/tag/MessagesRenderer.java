@@ -121,21 +121,21 @@ public class MessagesRenderer extends MessageRendererBase {
     if (clientId != null) {
       writer.writeAttribute(HtmlAttributes.FOR, clientId, false);
     }
-    writer.writeAttribute(HtmlAttributes.TITLE, detail, null);
+    writer.writeAttribute(HtmlAttributes.TITLE, detail, true);
     boolean writeEmptyText = true;
     if (summary != null && showSummary) {
-      writer.writeText(summary, null);
+      writer.writeText(summary);
       writeEmptyText = false;
       if (detail != null && showDetail) {
-        writer.writeText(" ", null);
+        writer.writeText(" ");
       }
     }
     if (detail != null && showDetail) {
       writeEmptyText = false;
-      writer.writeText(detail, null);
+      writer.writeText(detail);
     }
     if (writeEmptyText) {
-      writer.writeText("", null);
+      writer.writeText("");
     }
     writer.endElement(HtmlConstants.LABEL);
     writer.startElement(HtmlConstants.BR, null);

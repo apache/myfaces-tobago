@@ -30,11 +30,11 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
@@ -113,28 +113,28 @@ public class TreeOldRenderer extends LayoutableRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.DIV, tree);
     writer.writeClassAttribute();
-    writer.writeAttribute(HtmlAttributes.STYLE, null, TobagoConstants.ATTR_STYLE);
+    writer.writeStyleAttribute();
 
     writer.startElement(HtmlConstants.INPUT, tree);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.VALUE, ";", null);
+    writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
     writer.endElement(HtmlConstants.INPUT);
 
     writer.startElement(HtmlConstants.INPUT, tree);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeNameAttribute(clientId + UITreeOld.MARKER);
     writer.writeIdAttribute(clientId + UITreeOld.MARKER);
-    writer.writeAttribute(HtmlAttributes.VALUE, "", null);
+    writer.writeAttribute(HtmlAttributes.VALUE, "", false);
     writer.endElement(HtmlConstants.INPUT);
 
     if (isSelectable(tree)) {
       writer.startElement(HtmlConstants.INPUT, tree);
-      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
       writer.writeNameAttribute(clientId + UITreeOld.SELECT_STATE);
       writer.writeIdAttribute(clientId + UITreeOld.SELECT_STATE);
-      writer.writeAttribute(HtmlAttributes.VALUE, ";", null);
+      writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
       writer.endElement(HtmlConstants.INPUT);
     }
 
@@ -157,10 +157,10 @@ public class TreeOldRenderer extends LayoutableRendererBase {
 
 //    writer.startElement(HtmlConstants.DIV, null);
     writer.startElement(HtmlConstants.TABLE, tree);
-    writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", null);
-    writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
-    writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
-    writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
+    writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
+    writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
+    writer.writeAttribute(HtmlAttributes.BORDER, 0);
+    writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
     writer.writeClassAttribute();
     writer.startElement(HtmlConstants.TR, null);
     writer.startElement(HtmlConstants.TD, null);
@@ -244,7 +244,7 @@ public class TreeOldRenderer extends LayoutableRendererBase {
   }
 
   protected String getNodesAsJavascript(FacesContext facesContext, UITreeOldNode root) throws IOException {
-    TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) facesContext.getResponseWriter();
+    ResponseWriter writer = facesContext.getResponseWriter();
     StringWriter stringWriter = new StringWriter();
     facesContext.setResponseWriter(writer.cloneWithWriter(stringWriter));
     RenderUtil.encode(facesContext, root);

@@ -27,7 +27,6 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
@@ -84,13 +83,13 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.DISABLED,
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
-    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+    writer.writeStyleAttribute();
     writer.writeClassAttribute();
-    writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
-    writer.writeAttribute(HtmlAttributes.SIZE, 2, null); // should be greater 1
+    writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
+    writer.writeAttribute(HtmlAttributes.SIZE, 2); // should be greater 1
     if (!ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {
-      writer.writeAttribute(HtmlAttributes.ONCHANGE, "Tobago.selectOneListboxChange(this)", null);
-      writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneListboxClick(this)", null);
+      writer.writeAttribute(HtmlAttributes.ONCHANGE, "Tobago.selectOneListboxChange(this)", false);
+      writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneListboxClick(this)", false);
     }
 
     Object[] values = {component.getValue()};

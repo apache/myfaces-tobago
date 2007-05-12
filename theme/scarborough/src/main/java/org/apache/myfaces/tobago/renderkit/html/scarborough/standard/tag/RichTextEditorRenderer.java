@@ -30,7 +30,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE_PREVIEW;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
@@ -116,7 +115,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeClassAttribute(containerClasses);
-    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+    writer.writeStyleAttribute();
     // class, stly.width, style.height
 
     UIComponent toolbar = component.getFacet(FACET_TOOL_BAR);
@@ -137,17 +136,17 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
     if (previewState) {
       writer.startElement(HtmlConstants.INPUT, component);
-      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
       writer.writeNameAttribute(clientId);
-      writer.writeAttribute(HtmlAttributes.VALUE, content, null);
+      writer.writeAttribute(HtmlAttributes.VALUE, content, true);
       writer.endElement(HtmlConstants.INPUT);
 
       writer.startElement(HtmlConstants.DIV, component);
       writer.writeClassAttribute(bodyClasses);
       writer.writeIdAttribute(clientId);
 
-      writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE_BODY);
-      writer.writeText("", null);
+      writer.writeStyleAttribute();
+      writer.writeText("");
       writer.write(RichTextEditorRenderer.contentToHtml(content));
 
       writer.endElement(HtmlConstants.DIV);
@@ -163,7 +162,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
       }
 
       if (content != null) {
-        writer.writeText(content, null);
+        writer.writeText(content);
       }
 
       writer.endElement(HtmlConstants.TEXTAREA);

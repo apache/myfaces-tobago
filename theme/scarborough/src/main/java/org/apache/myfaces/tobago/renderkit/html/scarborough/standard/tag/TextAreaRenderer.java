@@ -25,7 +25,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
@@ -57,13 +56,13 @@ public class TextAreaRenderer extends InputRendererBase {
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.ROWS, null, ATTR_ROWS);
     if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, null);
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     writer.writeAttribute(HtmlAttributes.READONLY,
         ComponentUtil.getBooleanAttribute(input, ATTR_READONLY));
     writer.writeAttribute(HtmlAttributes.DISABLED,
         ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED));
-    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+    writer.writeStyleAttribute();
     writer.writeClassAttribute();
     if (onchange != null) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);

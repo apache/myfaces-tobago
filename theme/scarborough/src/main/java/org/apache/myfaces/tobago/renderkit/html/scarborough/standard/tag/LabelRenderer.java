@@ -25,7 +25,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -93,20 +92,20 @@ public class LabelRenderer extends LayoutableRendererBase {
 
     writer.startElement(HtmlConstants.DIV, output);
     writer.writeClassAttribute();
-    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+    writer.writeStyleAttribute();
     writer.startElement(HtmlConstants.A, output);
     writer.writeClassAttribute();
     writer.startElement(HtmlConstants.LABEL, output);
     String clientId = output.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
     if (forValue != null) {
-      writer.writeAttribute(HtmlAttributes.FOR, forValue, null);
+      writer.writeAttribute(HtmlAttributes.FOR, forValue, false);
     }
     writer.writeClassAttribute();
     if (width != null) {
-      writer.writeAttribute(HtmlAttributes.STYLE, "width: " + width + "px;", null);
+      writer.writeAttribute(HtmlAttributes.STYLE, "width: " + width + "px;", false);
     }
-    writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+    writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
     
     if (label.getText() != null) {
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);

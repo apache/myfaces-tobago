@@ -92,15 +92,15 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
         String bgImage = ResourceManagerUtil.getImageWithPath(facesContext, "image/popupBg.png");
         writer.writeAttribute(HtmlAttributes.STYLE, "background: none; "
             + "filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
-          + bgImage + "', sizingMethod='scale');", null);
+          + bgImage + "', sizingMethod='scale');", false);
       }
       writer.endElement(HtmlConstants.DIV);
       if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
         writer.startElement(HtmlConstants.IFRAME, component);
         writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + HtmlConstants.IFRAME);
         writer.writeClassAttribute("tobago-popup-iframe tobago-popup-none");
-        writer.writeAttribute(HtmlAttributes.STYLE, contentStyle.toString(), null);
-        writer.writeAttribute(HtmlAttributes.SRC, "javascript:false;", null);
+        writer.writeAttribute(HtmlAttributes.STYLE, contentStyle.toString(), false);
+        writer.writeAttribute(HtmlAttributes.SRC, "javascript:false;", false);
         writer.endElement(HtmlConstants.IFRAME);
       }
     }
@@ -109,12 +109,12 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
     writer.writeClassAttribute("tobago-popup-content tobago-popup-none");
 
 
-    writer.writeAttribute(HtmlAttributes.STYLE, contentStyle.toString(), null);
+    writer.writeAttribute(HtmlAttributes.STYLE, contentStyle.toString(), false);
   }
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     UIPopup component = (UIPopup) uiComponent;
     final String clientId = component.getClientId(facesContext);
 

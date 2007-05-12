@@ -26,7 +26,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DETAIL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_SUMMARY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -82,7 +81,7 @@ public class MessageRenderer extends MessageRendererBase {
 
     writer.startElement(HtmlConstants.SPAN, component);
     writer.writeClassAttribute("tobago-validation-message");
-    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+    writer.writeStyleAttribute();
 
     while (iterator.hasNext()) {
       FacesMessage message = (FacesMessage) iterator.next();
@@ -92,22 +91,22 @@ public class MessageRenderer extends MessageRendererBase {
       String detail = message.getDetail();
 
       writer.startElement(HtmlConstants.LABEL, null);
-      writer.writeAttribute(HtmlAttributes.FOR, clientId, null);
-      writer.writeAttribute(HtmlAttributes.TITLE, detail, null);
+      writer.writeAttribute(HtmlAttributes.FOR, clientId, false);
+      writer.writeAttribute(HtmlAttributes.TITLE, detail, true);
       boolean writeEmptyText = true;
       if (summary != null && showSummary) {
-        writer.writeText(summary, null);
+        writer.writeText(summary);
         writeEmptyText = false;
         if (detail != null && showDetail) {
-          writer.writeText(" ", null);
+          writer.writeText(" ");
         }
       }
       if (detail != null && showDetail) {
-        writer.writeText(detail, null);
+        writer.writeText(detail);
         writeEmptyText = false;
       }
       if (writeEmptyText) {
-        writer.writeText("", null);
+        writer.writeText("");
       }
       writer.endElement(HtmlConstants.LABEL);
 

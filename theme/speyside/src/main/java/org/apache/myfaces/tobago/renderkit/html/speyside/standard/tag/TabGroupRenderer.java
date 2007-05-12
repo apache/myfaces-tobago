@@ -27,7 +27,6 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import org.apache.myfaces.tobago.component.UIPanelBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
@@ -50,13 +49,13 @@ public class TabGroupRenderer extends
     writer.startElement(HtmlConstants.TR, null);
     writer.startElement(HtmlConstants.TD, null);
     if (bodyStyle != null) {
-      writer.writeAttribute(HtmlAttributes.STYLE, bodyStyle, null);
+      writer.writeStyleAttribute(bodyStyle);
     }
 
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute("tobago-tab-shadow");
     if (bodyStyle != null) {
-      writer.writeAttribute(HtmlAttributes.STYLE, bodyStyle, null);
+      writer.writeStyleAttribute(bodyStyle);
     }
 
     writer.startElement(HtmlConstants.DIV, null);
@@ -64,11 +63,10 @@ public class TabGroupRenderer extends
 
     Integer height = HtmlRendererUtil.getStyleAttributeIntValue(bodyStyle, "height");
     if (height != null) {
-      writer.writeAttribute(HtmlAttributes.STYLE,
-          MessageFormat.format("height: {0}px; overflow: auto;", height - 1), null);
+      writer.writeStyleAttribute(MessageFormat.format("height: {0}px; overflow: auto;", height - 1));
     }
 
-    writer.writeText("", null);
+    writer.flush();
     RenderUtil.encodeChildren(facesContext, activeTab);
 
     writer.endElement(HtmlConstants.DIV);

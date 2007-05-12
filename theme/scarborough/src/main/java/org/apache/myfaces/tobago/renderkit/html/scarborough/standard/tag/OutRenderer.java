@@ -24,7 +24,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CREATE_SPAN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
@@ -56,15 +55,15 @@ public class OutRenderer extends LayoutableRendererBase {
       String id = component.getClientId(facesContext);
       writer.startElement(HtmlConstants.SPAN, component);
       writer.writeIdAttribute(id);
-      writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+      writer.writeStyleAttribute();
       writer.writeClassAttribute();
-      writer.writeAttribute(HtmlAttributes.TITLE, null, ATTR_TIP);
+      writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
     }
     if (escape) {
       StringTokenizer tokenizer = new StringTokenizer(text, "\n\r");
       while (tokenizer.hasMoreTokens()) {
         String token = tokenizer.nextToken();
-        writer.writeText(token, null);
+        writer.writeText(token);
         if (tokenizer.hasMoreTokens()) {
           writer.startElement(HtmlConstants.BR, null);
           writer.endElement(HtmlConstants.BR);

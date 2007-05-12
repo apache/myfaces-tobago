@@ -77,7 +77,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     }
 
     String id = component.getClientId(facesContext);
-    TobagoResponseWriter writer = (TobagoResponseWriter) facesContext.getResponseWriter();
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.INPUT, component);
     writer.writeAttribute(HtmlAttributes.TYPE, type, false);
     writer.writeNameAttribute(id);
@@ -106,7 +106,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     writer.writeAttribute(HtmlAttributes.DISABLED,
         ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
     writer.writeStyleAttribute();
-    
+
     if (currentValue != null && currentValue.length() > 0
         && ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {
       StyleClasses styleClasses = StyleClasses.ensureStyleClasses(component);
