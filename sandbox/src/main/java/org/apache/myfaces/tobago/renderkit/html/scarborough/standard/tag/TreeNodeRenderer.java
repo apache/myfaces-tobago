@@ -47,7 +47,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -175,7 +174,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     } else {
       widthString = "100%";
     }
-    writer.writeAttribute("style", widthString, null);
+    writer.writeStyleAttribute(widthString);
 
     if (isFolder) {
       encodeExpandedHidden(writer, node, id, expanded);
@@ -284,7 +283,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
       String src = ResourceManagerUtil.getImageWithPath(facesContext, "image/" + gif);
       writer.writeAttribute("src", src, true); // xxx is escaping required
       if (isFolder) {
-        writer.writeAttribute("onclick", createOnclickForToggle(facesContext, treeId), true); // xxx is escaping required
+        writer.writeAttribute("onclick",
+            createOnclickForToggle(facesContext, treeId), true); // xxx is escaping required
       }
       writer.writeAttribute("alt", "", false);
 //    } else if (( !this.hideRoot && depth >0 ) || (this.hideRoot && depth > 1)) {
@@ -312,7 +312,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
       String src = ResourceManagerUtil.getImageWithPath(facesContext, "image/" + gif);
       writer.writeAttribute("src", src, true); // xxx is escaping required
       if (isFolder) {
-        writer.writeAttribute("onclick", createOnclickForToggle(facesContext, treeId), true); // xxx is escaping required
+        writer.writeAttribute("onclick",
+            createOnclickForToggle(facesContext, treeId), true); // xxx is escaping required
       }
       writer.writeAttribute("alt", "", false);
       writer.endElement(IMG);
