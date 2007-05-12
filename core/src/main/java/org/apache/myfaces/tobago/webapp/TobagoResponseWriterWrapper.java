@@ -59,7 +59,7 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
 
   @Deprecated
   public void writeAttribute(String name, Object value, String property) throws IOException {
-    responseWriter.writeAttribute(name, value,property);
+    responseWriter.writeAttribute(name, value, property);
   }
 
   @Deprecated
@@ -76,7 +76,7 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
   }
 
   public void writeClassAttribute() throws IOException {
-    responseWriter.writeAttribute(HtmlAttributes.CLASS, null,ATTR_STYLE_CLASS);
+    responseWriter.writeAttribute(HtmlAttributes.CLASS, null, ATTR_STYLE_CLASS);
   }
 
   public void writeStyleAttribute() throws IOException {
