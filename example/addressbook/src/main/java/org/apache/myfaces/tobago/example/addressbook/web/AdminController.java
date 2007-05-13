@@ -40,7 +40,7 @@ public class AdminController {
     return OUTCOME_ADMIN;
   }
 
-  public boolean updateMemory() {
+  public boolean getUpdateMemory() {
     MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();
     MemoryUsage memory = memoryBean.getHeapMemoryUsage();
     memoryUsage = new DefaultBoundedRangeModel(Long.valueOf(memory.getUsed()/1024).intValue(),
@@ -59,14 +59,14 @@ public class AdminController {
 
   public BoundedRangeModel getMemory() {
     if (memoryUsage == null) {
-      updateMemory();
+      getUpdateMemory();
     }
     return memoryUsage;
   }
 
   public String getState() {
     if (memoryUsage == null) {
-      updateMemory();
+      getUpdateMemory();
     }
     return state;
   }
