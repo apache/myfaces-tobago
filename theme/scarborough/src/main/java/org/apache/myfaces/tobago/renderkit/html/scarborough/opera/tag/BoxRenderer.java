@@ -23,14 +23,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.opera.tag;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_INNER;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -42,7 +41,7 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
   public void encodeBegin(FacesContext facesContext,
       UIComponent component) throws IOException {
 
-    HtmlRendererUtil.prepareInnerStyle(component);
+    HtmlStyleMap innerStyle = HtmlRendererUtil.prepareInnerStyle(component);
 
     UIComponent label = component.getFacet(FACET_LABEL);
     String labelString
@@ -75,7 +74,7 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
     }
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeClassAttribute();
-    writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE_INNER);
+    writer.writeStyleAttribute(innerStyle);
   }
 
   public int getPaddingWidth(FacesContext facesContext, UIComponent component) {

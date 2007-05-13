@@ -29,7 +29,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_INNER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
@@ -94,19 +93,19 @@ public final class HtmlRendererUtil {
     }
   }
 
-  public static void prepareInnerStyle(UIComponent component) {
-    String innerStyle = "";
+  public static HtmlStyleMap prepareInnerStyle(UIComponent component) {
+    HtmlStyleMap htmlStyleMap = new HtmlStyleMap();
     Integer innerSpaceInteger = (Integer)
         component.getAttributes().get(ATTR_INNER_WIDTH);
     if (innerSpaceInteger != null && innerSpaceInteger != -1) {
-      innerStyle = "width: " + innerSpaceInteger + "px;";
+      htmlStyleMap.put("width", innerSpaceInteger);
     }
     innerSpaceInteger = (Integer)
         component.getAttributes().get(ATTR_INNER_HEIGHT);
     if (innerSpaceInteger != null && innerSpaceInteger != -1) {
-      innerStyle += " height: " + innerSpaceInteger + "px;";
+      htmlStyleMap.put("height", innerSpaceInteger);
     }
-    component.getAttributes().put(ATTR_STYLE_INNER, innerStyle);
+    return htmlStyleMap;
   }
 
 

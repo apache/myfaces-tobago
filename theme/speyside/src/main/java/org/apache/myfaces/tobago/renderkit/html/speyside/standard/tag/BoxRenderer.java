@@ -28,7 +28,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_INNER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_TOOL_BAR;
@@ -36,7 +35,6 @@ import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
@@ -60,7 +58,6 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    HtmlRendererUtil.prepareInnerStyle(component);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE);
@@ -86,6 +83,8 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
   private void encodeBeginInner(FacesContext facesContext,
       TobagoResponseWriter writer, UIComponent component) throws IOException {
+    HtmlStyleMap innerStyle = HtmlRendererUtil.prepareInnerStyle(component);
+
     renderBoxHeader(facesContext, writer, component);
 
 
@@ -100,7 +99,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     contentInnerClasses.addClass("box", "content-inner");
     contentInnerClasses.addMarkupClass(component, "box", "content-inner");
     writer.writeClassAttribute(contentInnerClasses);
-    writer.writeAttributeFromComponent(HtmlAttributes.STYLE, ATTR_STYLE_INNER);
+    writer.writeStyleAttribute(innerStyle);
   }
 
 

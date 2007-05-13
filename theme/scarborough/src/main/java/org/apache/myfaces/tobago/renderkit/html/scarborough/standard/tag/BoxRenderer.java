@@ -27,7 +27,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_INNER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_TOOL_BAR;
@@ -37,6 +36,7 @@ import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -52,7 +52,7 @@ public class BoxRenderer extends BoxRendererBase {
   public void encodeBegin(
       FacesContext facesContext, UIComponent component) throws IOException {
 
-    HtmlRendererUtil.prepareInnerStyle(component);
+    HtmlStyleMap innerStyle = HtmlRendererUtil.prepareInnerStyle(component);
 
     UIComponent label = component.getFacet(FACET_LABEL);
     String labelString
@@ -82,8 +82,6 @@ public class BoxRenderer extends BoxRendererBase {
       writer.endElement(HtmlConstants.LEGEND);
     }
 
-    String contentStyle = (String)
-        component.getAttributes().get(ATTR_STYLE_INNER);
     if (toolbar != null) {
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeClassAttribute("tobago-box-toolbar-div");
@@ -102,13 +100,12 @@ public class BoxRenderer extends BoxRendererBase {
       writer.endElement(HtmlConstants.DIV);
       writer.endElement(HtmlConstants.DIV);
       if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
-        contentStyle
-            = HtmlRendererUtil.replaceStyleAttribute(contentStyle, "top", "-10px");
+        innerStyle.put("top", -10);
       }
     }
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeClassAttribute();
-    writer.writeStyleAttribute(contentStyle);
+    writer.writeStyleAttribute(innerStyle);
   }
 
   public void encodeEnd(FacesContext facesContext,

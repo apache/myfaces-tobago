@@ -234,7 +234,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-    writer.writeStyleAttribute(ATTR_STYLE_HEADER);
+    HtmlStyleMap headerStyle = (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE_HEADER);
+    writer.writeStyleAttribute(headerStyle);
 
     writer.startElement(HtmlConstants.TR, null);
     writer.writeAttribute(HtmlAttributes.VALIGN, "bottom", false);
