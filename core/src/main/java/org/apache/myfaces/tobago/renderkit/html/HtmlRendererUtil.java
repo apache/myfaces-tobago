@@ -464,7 +464,7 @@ public final class HtmlRendererUtil {
     }
   }
 
-  /** @deprecated use OptiizedScriptLoader */
+  /** @deprecated use TobagoResponseWriter.writeJavascript() */
   @Deprecated
   public static void writeJavascript(ResponseWriter writer, String script) throws IOException {
     startJavascript(writer);
@@ -472,7 +472,7 @@ public final class HtmlRendererUtil {
     endJavascript(writer);
   }
 
-  /** @deprecated use OptiizedScriptLoader */
+  /** @deprecated use TobagoResponseWriter.writeJavascript() */
   @Deprecated
   public static void startJavascript(ResponseWriter writer) throws IOException {
     writer.startElement(HtmlConstants.SCRIPT, null);
@@ -480,7 +480,7 @@ public final class HtmlRendererUtil {
     writer.write("\n<!--\n");
   }
 
-  /** @deprecated use OptiizedScriptLoader */
+  /** @deprecated use TobagoResponseWriter.writeJavascript() */
   @Deprecated
   public static void endJavascript(ResponseWriter writer) throws IOException {
     writer.write("\n// -->\n");
