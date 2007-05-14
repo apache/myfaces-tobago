@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
@@ -44,7 +42,6 @@ import java.util.Map;
 
 public class InputNumberSliderRenderer extends LayoutableRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(InputNumberSliderRenderer.class);
   private static final String SLIDER_WIDTH_PERCENT = "sliderWidthPercent";
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
@@ -94,10 +91,13 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     writer.startElement(HtmlConstants.TR, null);
     writer.startElement(HtmlConstants.TD, null);
     writer.writeClassAttribute(styleClasses);
-    writer.writeAttribute(HtmlAttributes.STYLE, HtmlRendererUtil.toStyleString("width", sliderWidth / 2), null);
+
+    HtmlStyleMap widthStyle = new HtmlStyleMap();
+    widthStyle.put("width", sliderWidth / 2);
+    writer.writeStyleAttribute(widthStyle);
     writer.startElement(HtmlConstants.SPAN, null);
     writer.writeClassAttribute(styleClasses);
-    writer.writeText(min, null);
+    writer.write(Integer.toString(min));
     writer.endElement(HtmlConstants.SPAN);
 
     styleClasses = new StyleClasses();
@@ -106,11 +106,10 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     writer.endElement(HtmlConstants.TD);
     writer.startElement(HtmlConstants.TD, null);
     writer.writeClassAttribute(styleClasses);
-    writer.writeAttribute(HtmlAttributes.STYLE,
-        HtmlRendererUtil.toStyleString("width", sliderWidth / 2), null);
+    writer.writeStyleAttribute(widthStyle);
     writer.startElement(HtmlConstants.SPAN, null);
     writer.writeClassAttribute(styleClasses);
-    writer.writeText(max, null);
+    writer.write(Integer.toString(max));
     writer.endElement(HtmlConstants.SPAN);
     writer.endElement(HtmlConstants.TD);
 
@@ -121,13 +120,13 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
 
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeClassAttribute("tobago-in-default");
-    writer.writeAttribute(HtmlAttributes.STYLE,
-        HtmlRendererUtil.toStyleString("width", inputWidth), null);
+    widthStyle.put("width", inputWidth);
+    writer.writeStyleAttribute(widthStyle);
     String inputIdAndName = getIdForInputField(facesContext, component);
     writer.writeNameAttribute(inputIdAndName);
     writer.writeIdAttribute(inputIdAndName);
     if (currentValue != null) {
-      writer.writeAttribute(HtmlAttributes.VALUE, currentValue, null);
+      writer.writeAttribute(HtmlAttributes.VALUE, currentValue, false);
     }
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
@@ -138,19 +137,19 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     writer.endElement(HtmlConstants.TR);
     writer.startElement(HtmlConstants.TR, null);
     writer.startElement(HtmlConstants.TD, null);
-    writer.writeAttribute("colspan", "2", false);
+    writer.writeAttribute("colspan", 2);
 
     //track
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute("tobago-inputNumberSlider-slider-default");
-    writer.writeAttribute(HtmlAttributes.ID, getIdForSliderTrack(facesContext, component), null);
+    writer.writeIdAttribute(getIdForSliderTrack(facesContext, component));
 
     // handle
     writer.startElement(HtmlConstants.DIV, null);
-    writer.writeAttribute(HtmlAttributes.ID, getIdForSliderHandle(facesContext, component), null);
-    writer.writeAttribute(HtmlAttributes.STYLE, "position:relative; top:-6px; width:12px; height:6px", null);
+    writer.writeIdAttribute(getIdForSliderHandle(facesContext, component));
+    writer.writeStyleAttribute("position:relative; top:-6px; width:12px; height:6px");
     writer.startElement(HtmlConstants.IMG, null);
-    writer.writeAttribute(HtmlAttributes.SRC, getAbsoluteImagePath(facesContext, "image/sliderTriangle.gif"), null);
+    writer.writeAttribute(HtmlAttributes.SRC, getAbsoluteImagePath(facesContext, "image/sliderTriangle.gif"), true);
     writer.endElement(HtmlConstants.IMG);
     writer.endElement(HtmlConstants.DIV);
     writer.endElement(HtmlConstants.DIV);
