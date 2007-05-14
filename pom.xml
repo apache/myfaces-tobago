@@ -36,7 +36,7 @@
   </issueManagement>
   <ciManagement>
     <system>continuum</system>
-    <url>http://myfaces.zones.apache.org:8080/continuum</url>
+    <url>http://myfaces.zones.apache.org:8081/continuum</url>
     <notifiers>
       <notifier>
         <type>mail</type>
