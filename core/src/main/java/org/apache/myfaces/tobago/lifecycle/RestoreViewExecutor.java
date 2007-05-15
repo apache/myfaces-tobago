@@ -23,6 +23,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.FacesException;
 import javax.faces.application.Application;
@@ -75,6 +76,7 @@ class RestoreViewExecutor implements PhaseExecutor {
 
     if(facesContext.getViewRoot() != null) {
       facesContext.getViewRoot().setLocale(facesContext.getExternalContext().getRequestLocale());
+      ComponentUtil.resetPage(facesContext);
       recursivelyHandleComponentReferencesAndSetValid(facesContext, facesContext.getViewRoot());
       return false;
     }
@@ -112,6 +114,7 @@ class RestoreViewExecutor implements PhaseExecutor {
     }
 
     facesContext.setViewRoot(viewRoot);
+    ComponentUtil.resetPage(facesContext);
 
     if (facesContext.getExternalContext().getRequestParameterMap().isEmpty()) {
       // no POST or query parameters --> set render response flag

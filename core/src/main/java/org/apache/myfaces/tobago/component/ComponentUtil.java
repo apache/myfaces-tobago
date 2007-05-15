@@ -140,6 +140,12 @@ public class ComponentUtil {
     return false;
   }
 
+  public static void resetPage(FacesContext context) {
+    javax.faces.component.UIViewRoot view = context.getViewRoot();
+    if (view != null) {
+      view.getAttributes().remove(UIPage.COMPONENT_TYPE);
+    }
+  }
   public static UIPage findPage(FacesContext context, UIComponent component) {
     javax.faces.component.UIViewRoot view = context.getViewRoot();
     if (view != null) {
