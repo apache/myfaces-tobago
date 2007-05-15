@@ -490,6 +490,7 @@ public class UIData extends javax.faces.component.UIData
       state.setSelectedRows((List<Integer>) attributes.get(ATTR_SELECTED_LIST_STRING));
       state.setColumnWidths((String) attributes.get(ATTR_WIDTH_LIST_STRING));
       state.setScrollPosition((Integer[]) attributes.get(ATTR_SCROLL_POSITION));
+      attributes.remove(ATTR_SELECTED_LIST_STRING);
       attributes.remove(ATTR_SCROLL_POSITION);
     }
   }
