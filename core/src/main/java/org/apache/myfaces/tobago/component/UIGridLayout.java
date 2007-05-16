@@ -69,14 +69,14 @@ public class UIGridLayout extends UILayout {
 
   public LayoutTokens getRowLayout() {
     if (rowLayout==null) {
-      rowLayout = LayoutTokens.parse(rows);
+      rowLayout = LayoutTokens.parse(getRows());
     }
     return rowLayout;
   }
 
   public LayoutTokens getColumnLayout() {
     if (columnLayout==null) {
-      columnLayout = LayoutTokens.parse(columns);
+      columnLayout = LayoutTokens.parse(getColumns());
     }
     return columnLayout;
   }
