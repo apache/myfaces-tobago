@@ -40,6 +40,14 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   public abstract void startElement(String name, UIComponent component) throws IOException;
 
+  /**
+   * @deprecated Use {@link #startElement(String, UIComponent) startElement(name, null)} instead.
+   */
+  @Deprecated
+  public void startElement(String name) throws IOException {
+    startElement(name, null);
+  }
+
   public abstract void endElement(String name) throws IOException;
 
   public abstract void write(String string) throws IOException;
