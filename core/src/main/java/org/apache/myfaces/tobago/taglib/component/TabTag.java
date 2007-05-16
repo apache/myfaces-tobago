@@ -22,7 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.component.UITab;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.tagext.BodyTag;
@@ -32,22 +32,29 @@ public class TabTag extends TobagoBodyTag
   private static final Log LOG = LogFactory.getLog(TabTag.class);
   private String label;
   private String tip;
+  private String markup;
 
 
   public String getComponentType() {
-    return UIPanel.COMPONENT_TYPE;
+    return UITab.COMPONENT_TYPE;
   }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
+    ComponentUtil.setMarkup(component, markup);
   }
 
   public void release() {
     super.release();
     label = null;
     tip = null;
+    markup = null;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 
   public String getLabel() {

@@ -26,10 +26,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import org.apache.myfaces.tobago.component.UIPanelBase;
+import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.context.FacesContext;
@@ -42,7 +44,7 @@ public class TabGroupRenderer extends
   private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
 
   protected void encodeContent(TobagoResponseWriter writer,
-      FacesContext facesContext, UIPanelBase activeTab) throws IOException {
+      FacesContext facesContext, UITab activeTab) throws IOException {
 
     HtmlStyleMap bodyStyle = (HtmlStyleMap)
         activeTab.getParent().getAttributes().get(ATTR_STYLE_BODY);
@@ -59,7 +61,10 @@ public class TabGroupRenderer extends
     }
 
     writer.startElement(HtmlConstants.DIV, null);
-    writer.writeClassAttribute("tobago-tab-content");
+    StyleClasses classes = new StyleClasses();
+    classes.addClass("tab", "content");
+    classes.addMarkupClass(activeTab, "tab", "content");
+    writer.writeClassAttribute(classes);
 
     Integer height = HtmlRendererUtil.getStyleAttributeIntValue(bodyStyle, "height");
     if (height != null) {

@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 /*
  * Created by IntelliJ IDEA.
@@ -35,8 +36,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
  */
 @Tag(name = "tab")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIPanel",
+    uiComponent = "org.apache.myfaces.tobago.component.UITab",
     rendererType = "Tab")
 public interface TabTagDeclaration extends TobagoBodyTagDeclaration, HasIdBindingAndRendered, HasLabelAndAccessKey,
-    HasTip {
+    HasTip, HasMarkup {
 }

@@ -39,6 +39,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPanelBase;
 import org.apache.myfaces.tobago.component.UITabGroup;
+import org.apache.myfaces.tobago.component.UITab;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_CLIENT;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_PAGE;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_TAB;
@@ -53,6 +54,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -201,12 +203,12 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     }
     ValueBinding vb = tabGroup.getValueBinding(ATTR_SELECTED_INDEX);
     if (vb != null) {
-      vb.setValue(context, index);
+      vb.setValue(context, closestRenderedTabIndex);
     } else {
-      tabGroup.setSelectedIndex(index);
+      tabGroup.setSelectedIndex(closestRenderedTabIndex);
     }
-    tabGroup.setSelectedIndex(index);
-    return index;
+    tabGroup.setSelectedIndex(closestRenderedTabIndex);
+    return closestRenderedTabIndex;
   }
 
   private void renderTabGroupView(
@@ -220,9 +222,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
     final String clientId = component.getClientId(facesContext);
     writer.writeIdAttribute(clientId + '.' + virtualTab);
-    if (oStyle != null) {
-      writer.writeAttribute(HtmlAttributes.STYLE, oStyle.toString(), false);
-    }
+    writer.writeStyleAttribute(oStyle);
+
 
     writer.startElement(HtmlConstants.TR, null);
     writer.writeAttribute(HtmlAttributes.VALIGN, "bottom", false);
@@ -240,11 +241,11 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.startElement(HtmlConstants.TR, null);
     writer.writeAttribute(HtmlAttributes.VALIGN, "bottom", false);
 
-    UIPanelBase activeTab = null;
+    UITab activeTab = null;
 
     int index = 0;
     for (UIComponent tab: (List<UIComponent>) component.getChildren()) {
-      if (tab instanceof UIPanelBase) {
+      if (tab instanceof UITab) {
         if (tab.isRendered()) {
           String onclick;
           if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
@@ -263,17 +264,18 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
 
           LabelWithAccessKey label = new LabelWithAccessKey(tab);
 
-          String outerClass;
-          String innerClass;
+          StyleClasses outerClass = new StyleClasses();
+          StyleClasses innerClass = new StyleClasses();
           if (virtualTab == index) {
-            outerClass = "tobago-tab-selected-outer";
-            innerClass = "tobago-tab-selected-inner";
-            activeTab = (UIPanelBase) tab;
+            outerClass.addClass("tab", "selected-outer");
+            innerClass.addClass("tab", "selected-inner");
+            activeTab = (UITab) tab;
           } else {
-            outerClass = "tobago-tab-unselected-outer";
-            innerClass = "tobago-tab-unselected-inner";
+            outerClass.addClass("tab", "unselected-outer");
+            innerClass.addClass("tab", "unselected-inner");
           }
-
+          outerClass.addMarkupClass(tab, "tab", "outer");
+          innerClass.addMarkupClass(tab, "tab", "outer");
           writer.startElement(HtmlConstants.TD, tab);
           writer.writeIdAttribute(tab.getClientId(facesContext));
           writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
@@ -338,14 +340,17 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.endElement(HtmlConstants.TABLE);
   }
 
-  protected void encodeContent(TobagoResponseWriter writer, FacesContext facesContext, UIPanelBase activeTab)
+  protected void encodeContent(TobagoResponseWriter writer, FacesContext facesContext, UITab activeTab)
       throws IOException {
 
     HtmlStyleMap bodyStyle = (HtmlStyleMap)
         activeTab.getParent().getAttributes().get(ATTR_STYLE_BODY);
     writer.startElement(HtmlConstants.TR, null);
     writer.startElement(HtmlConstants.TD, null);
-    writer.writeClassAttribute("tobago-tab-content");
+    StyleClasses classes = new StyleClasses();
+    classes.addClass("tab", "content");
+    classes.addMarkupClass(activeTab, "tab", "content");
+    writer.writeClassAttribute(classes);
     writer.writeStyleAttribute(bodyStyle);
     writer.flush();
     RenderUtil.encodeChildren(facesContext, activeTab);
