@@ -83,7 +83,7 @@ public class LinkRenderer extends CommandRendererBase {
       if (image.startsWith("HTTP:") || image.startsWith("FTP:") || image.startsWith("/")) {
         // absolute Path to image : nothing to do
       } else {
-        image = ResourceManagerUtil.getImageWithPath(facesContext, image);
+        image = ResourceManagerUtil.getImageWithPath(facesContext, image, helper);
       }
       writer.startElement(HtmlConstants.IMG, null);
       writer.writeAttribute(HtmlAttributes.SRC, image, true);

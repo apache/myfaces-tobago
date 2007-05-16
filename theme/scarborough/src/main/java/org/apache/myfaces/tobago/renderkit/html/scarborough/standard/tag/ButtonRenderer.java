@@ -82,12 +82,7 @@ public class ButtonRenderer extends CommandRendererBase {
         image = imageName;
         // absolute Path to image : nothing to do
       } else {
-        if (helper.isDisabled()) {
-          image = ResourceManagerUtil.getDisabledImageWithPath(facesContext, imageName);
-        }
-        if (image == null) {
-          image = ResourceManagerUtil.getImageWithPath(facesContext, imageName);
-        }
+        image = ResourceManagerUtil.getImageWithPath(facesContext, imageName, helper);
       }
       writer.startElement(HtmlConstants.IMG, null);
       writer.writeAttribute(HtmlAttributes.SRC, image, true);

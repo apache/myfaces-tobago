@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
+
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
@@ -126,5 +128,16 @@ public class ResourceManagerUtil {
     String name = image.substring(0, dotIndex);
     String postfix = image.substring(dotIndex);
     return getImageWithPath(facesContext, name + "Disabled" + postfix, true);
+  }
+
+  public static String getImageWithPath(FacesContext facesContext, String image, CommandRendererHelper helper) {
+    String imageWithPath = null;
+    if (helper.isDisabled()) {
+      imageWithPath = getDisabledImageWithPath(facesContext, image);
+    }
+    if (imageWithPath == null) {
+      imageWithPath = getImageWithPath(facesContext, image);
+    }
+    return imageWithPath;
   }
 }
