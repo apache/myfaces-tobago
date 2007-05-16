@@ -21,7 +21,7 @@
 
 <f:view>
 
-  <tc:page label="Tag Viewer" id="page"
+  <tc:page applicationIcon="icon/favicon.ico" label="Tag Viewer" id="page"
            width="1000px" height="500px">
     <f:facet name="layout">
       <tc:gridLayout columns="*;*;2*" margin="5px"/>

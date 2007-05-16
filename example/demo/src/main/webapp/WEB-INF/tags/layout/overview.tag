@@ -19,7 +19,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <f:view locale="#{clientConfigController.locale}">
   <tc:loadBundle basename="overview" var="overviewBundle"/>
-  <tc:page label="#{overviewBundle.pageTitle}" id="page" width="800px" height="600px">
+  <tc:page applicationIcon="icon/favicon.ico" label="#{overviewBundle.pageTitle}" id="page" width="800px" height="600px">
 
     <jsp:include page="/menu.jsp" />
     <%--f:facet name="backButtonDetector">

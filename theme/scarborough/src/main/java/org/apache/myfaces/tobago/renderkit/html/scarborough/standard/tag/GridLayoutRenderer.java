@@ -100,7 +100,9 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           + " for all " + rows.size() + " rows of "
           + layout.getClientId(facesContext) + " !");
     }
-    layoutTokens.ensureSize(rows.size(), new RelativeLayoutToken(1)); //new FixedLayoutToken() );
+    layoutTokens.ensureSize(rows.size(), new RelativeLayoutToken(1));
+    // TODO alternative? rows.size() == 1 ? new RelativeLayoutToken(1) : new FixedLayoutToken()
+    //new FixedLayoutToken() );
     //String[] layoutTokens
     //    = LayoutInfo.createLayoutTokens(rowLayout, rows.size(),
     //        minimum ? "minimum" : "fixed");
