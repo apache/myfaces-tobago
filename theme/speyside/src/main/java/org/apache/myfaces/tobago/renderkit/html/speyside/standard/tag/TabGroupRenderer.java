@@ -25,7 +25,6 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
-import org.apache.myfaces.tobago.component.UIPanelBase;
 import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
