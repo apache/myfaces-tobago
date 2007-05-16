@@ -129,10 +129,13 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         height += getMaxHeight(facesContext, rows.get(i), true);
       } else {
         if (!minimum && LOG.isWarnEnabled()) {
-          LOG.warn("Unable to calculate Height for token '" + token
-              + "'! using " + (minimum ? "'minimum'" : "'fixed'") + " , component:"
-              + component.getClientId(facesContext) + " is "
-              + component.getRendererType());
+          if (layout.getRows() != null) {
+            // TODO: this is only an error if the token was explicitly set by application
+            LOG.warn("Unable to calculate Height for token '" + token
+                + "'! using " + (minimum ? "'minimum'" : "'fixed'") + " , component:"
+                + component.getClientId(facesContext) + " is "
+                + component.getRendererType());
+          }
         }
         height += getMaxHeight(facesContext, rows.get(i), minimum);
       }
@@ -437,9 +440,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   }
 
   private int getWidthSpacingSum(UIGridLayout component,
-      FacesContext facesContext) {
-    int spacingSum
-        = getSpacingSum(component, facesContext, component.getColumnCount());
+      FacesContext facesContext, int renderedColumnCount) {
+    int spacingSum = getSpacingSum(component, facesContext, renderedColumnCount);
     spacingSum += getComponentExtraWidth(facesContext, component);
     return spacingSum;
   }
@@ -478,7 +480,6 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         value = minimum;
         needVerticalScroolbar = true;
       }
-      value -= getHeightSpacingSum(layout, facesContext);
       layoutHeight(Integer.valueOf(value), layout, facesContext);
     }
 
@@ -486,8 +487,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     Integer innerWidth =
           (Integer) attributes.get(ATTR_INNER_WIDTH);
     if (innerWidth != null && innerWidth.intValue() != -1) {
-      int value
-          = innerWidth.intValue() - getWidthSpacingSum(layout, facesContext);
+      int value = innerWidth.intValue();
       if (needVerticalScroolbar) {
         value -= getConfiguredValue(facesContext, component, "scrollbarWidth");
         HtmlRendererUtil.replaceStyleAttribute(layout, "width", value);
@@ -498,9 +498,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   }
 
   private int getHeightSpacingSum(UIGridLayout layout,
-      FacesContext facesContext) {
-    int spacingSum
-        = getSpacingSum(layout, facesContext, layout.ensureRows().size());
+      FacesContext facesContext, int renderedRowCount) {
+    int spacingSum = getSpacingSum(layout, facesContext, renderedRowCount);
     spacingSum += getComponentExtraHeight(facesContext, layout);
     return spacingSum;
   }
@@ -516,10 +515,11 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     //LayoutInfo.createLayoutTokens((String)
         //layout.getAttributes().get(ATTR_COLUMNS), columnCount);
 
+    int renderedColumnCount = 0;
     if (!rows.isEmpty()) {
       UIGridLayout.Row row = rows.get(0);
       final List cells = row.getElements();
-
+      renderedColumnCount = cells.size();
       for (int i = 0; i < cells.size(); i++) {
         Object cell = cells.get(i);
         boolean hidden = false;
@@ -531,11 +531,12 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         }
         if (hidden) {
           layoutTokens.set(i, new HideLayoutToken());
+          renderedColumnCount--;
         }
       }
     }
 
-
+    innerWidth -= getWidthSpacingSum(layout, facesContext, renderedColumnCount);
     LayoutInfo layoutInfo =
         new LayoutInfo(columnCount, innerWidth.intValue(), layoutTokens,
             layout.isIgnoreFree());
@@ -565,6 +566,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         (String) layout.getAttributes().get(ATTR_ROWS),
         rows.size(), rows.size() == 1 ? "1*" : "fixed");*/
 
+    int renderedRowCount = rows.size();
     for (int i = 0; i < rows.size(); i++) {
       boolean hidden = true;
       UIGridLayout.Row row = rows.get(i);
@@ -575,9 +577,11 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       row.setHidden(hidden);
       if (hidden) {
         layoutTokens.set(i, new HideLayoutToken());
+        renderedRowCount --;
       }
     }
 
+    innerHeight -= getHeightSpacingSum(layout, facesContext, renderedRowCount);
 
     LayoutInfo layoutInfo =
         new LayoutInfo(rows.size(), innerHeight.intValue(), layoutTokens);

@@ -296,9 +296,6 @@ public class LayoutInfo {
       if (layoutTokens.get(i) instanceof HideLayoutToken) {
         update(0, i);
         spaces[i] = HIDE;
-        if (i != 0) {
-          spaceLeft += padding;
-        }
         if (LOG.isDebugEnabled()) {
           LOG.debug("set column " + i + " from " + layoutTokens.get(i)
               + " to hide ");
