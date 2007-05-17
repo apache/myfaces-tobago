@@ -49,4 +49,4 @@ fi
 
 
 echo "Building tobago site."
-mvn -Pall-modules site-deploy --batch-mode
+mvn -Pall-modules install site-deploy --batch-mode
