@@ -579,7 +579,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       row.setHidden(hidden);
       if (hidden) {
         layoutTokens.set(i, new HideLayoutToken());
-        renderedRowCount --;
+        renderedRowCount--;
       }
     }
 
