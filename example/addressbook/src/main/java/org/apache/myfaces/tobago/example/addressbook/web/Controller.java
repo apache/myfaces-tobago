@@ -109,7 +109,7 @@ public class Controller {
 
   public void setAddressDao(AddressDao addressDao) throws AddressDaoException {
     this.addressDao = addressDao;
-    currentAddressList = addressDao.findAddresses();
+    currentAddressList = addressDao.findAddresses(searchCriterion);
   }
 
   public void sheetSorter(ActionEvent event) throws AddressDaoException {
@@ -118,11 +118,12 @@ public class Controller {
       UIColumn column = (UIColumn) sortEvent.getColumn();
 
       SheetState sheetState = sortEvent.getSheet().getSheetState(FacesContext.getCurrentInstance());
-      currentAddressList = addressDao.findAddresses(column.getId(), sheetState.isAscending());
+      currentAddressList = addressDao.findAddresses(searchCriterion, column.getId(), sheetState.isAscending());
     }
   }
 
   public String search() throws AddressDaoException {
+    currentAddressList = addressDao.findAddresses(searchCriterion);
     return OUTCOME_LIST;
   }
 
@@ -172,7 +173,7 @@ public class Controller {
       addressDao.removeAddress(address);
     }
     selectedAddresses.resetSelected();
-    currentAddressList = addressDao.findAddresses();
+    currentAddressList = addressDao.findAddresses(searchCriterion);
     return OUTCOME_LIST;
   }
 
@@ -180,12 +181,12 @@ public class Controller {
     LOG.debug("action: storeAddress");
     currentAddress = addressDao.updateAddress(currentAddress);
     selectedAddresses.resetSelected();
-    currentAddressList = addressDao.findAddresses();
+    currentAddressList = addressDao.findAddresses(searchCriterion);
     return OUTCOME_LIST;
   }
 
   public String cancel() throws AddressDaoException {
-    currentAddressList = addressDao.findAddresses();
+    currentAddressList = addressDao.findAddresses(searchCriterion);
     return OUTCOME_LIST;
   }
 

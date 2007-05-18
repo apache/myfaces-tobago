@@ -28,9 +28,9 @@ public interface AddressDao {
 
   Address updateAddress(Address address) throws AddressDaoException;
 
-  List<Address> findAddresses() throws AddressDaoException;
+  List<Address> findAddresses(String filter) throws AddressDaoException;
 
-  List<Address> findAddresses(String column, boolean order) throws AddressDaoException;
+  List<Address> findAddresses(String filter, String column, boolean order) throws AddressDaoException;
 
   void removeAddress(Address address) throws AddressDaoException;
 

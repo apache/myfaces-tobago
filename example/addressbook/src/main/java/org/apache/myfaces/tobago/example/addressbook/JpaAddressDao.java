@@ -45,19 +45,35 @@ public class JpaAddressDao extends JpaDaoSupport implements AddressDao {
     return address;
   }
 
-  public List<Address> findAddresses() throws AddressDaoException {
-    return getJpaTemplate().find("select a from Address a");
+  public List<Address> findAddresses(String filter) throws AddressDaoException {
+    return findAddresses(filter, null, true);
   }
 
-  public List<Address> findAddresses(String column, boolean order) throws AddressDaoException {
-    return getJpaTemplate().find("select a from Address a order by a." + column + (order?" desc":" asc"));
+  public List<Address> findAddresses(String filter, String column, boolean order) throws AddressDaoException {
+    StringBuilder builder = new StringBuilder();
+    builder.append("select a from Address a");
+    if (filter != null) {
+      if (filter.indexOf('_') == -1 && filter.indexOf('%') == -1) {
+        filter = "%" + filter + "%";
+      }
+      builder.append(" where a.firstName like '");
+      builder.append(filter);
+      builder.append("' or a.lastName like '");
+      builder.append(filter);
+      builder.append("'");
+    }
+    if (column != null) {
+      builder.append(" order by a.");
+      builder.append(column);
+      builder.append(order ? " desc" : " asc");
+    }
+    return getJpaTemplate().find(builder.toString());
   }
 
-  public  void removeAddress(Address address) throws AddressDaoException {
+  public void removeAddress(Address address) throws AddressDaoException {
     address = getAddress(address.getId());
     getJpaTemplate().remove(address);
   }
-
 
   public Address getAddress(Integer id) {
     return getJpaTemplate().find(Address.class, id);
