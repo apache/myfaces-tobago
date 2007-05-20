@@ -27,8 +27,7 @@ Release Checklist
 
   * Post a note on the list and ask for problems with the release candidate.
 
-  * Remove or disable all snapshot dependencies in the poms or site.xml
-  (tomcat-maven-plugin and tobago-site-skin)
+  * Remove or disable all snapshot dependencies in the site.xml (tobago-site-skin)
 
   * You need to add your GPG keys in {{https://svn.apache.org/repos/asf/myfaces/maven/trunk/KEYS}} before a release.
 
