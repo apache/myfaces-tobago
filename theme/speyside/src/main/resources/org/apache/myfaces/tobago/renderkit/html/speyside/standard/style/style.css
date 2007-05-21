@@ -483,7 +483,8 @@ label.tobago-label-error {
 /* text -------------------------------------------------------------------- */
 
 .tobago-out-default  {
-  font: 12px arial, helvetica, sans-serif;
+  font-family: arial, helvetica, sans-serif;
+  font-size: 12px;
 }
 
 /* textArea ---------------------------------------------------------------- */
