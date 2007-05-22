@@ -26,8 +26,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 10.02.2006
  * Time: 19:02:13
  */
@@ -44,14 +42,23 @@ public class UIFileInput extends javax.faces.component.UIInput {
 
   public void validate(FacesContext facesContext) {
     if (isRequired()) {
-      FileItem file = (FileItem) getSubmittedValue();
-      if (file == null || file.getName().length() == 0) {
-        FacesMessage facesMessage = MessageFactory.createFacesMessage(
-            facesContext, REQUIRED_MESSAGE_ID, FacesMessage.SEVERITY_ERROR);
-        facesContext.addMessage(getClientId(facesContext), facesMessage);
+      if (getSubmittedValue() instanceof FileItem) {
+        FileItem file = (FileItem) getSubmittedValue();
+        if (file == null || file.getName().length() == 0) {
+          addErrorMessage(facesContext);
+          setValid(false);
+        }
+      } else {
+        addErrorMessage(facesContext);
         setValid(false);
       }
     }
     super.validate(facesContext);
+  }
+
+  private void addErrorMessage(FacesContext facesContext) {
+    FacesMessage facesMessage = MessageFactory.createFacesMessage(
+        facesContext, REQUIRED_MESSAGE_ID, FacesMessage.SEVERITY_ERROR);
+    facesContext.addMessage(getClientId(facesContext), facesMessage);
   }
 }
