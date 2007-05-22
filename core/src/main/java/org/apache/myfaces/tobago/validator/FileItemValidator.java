@@ -31,8 +31,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Oct 30, 2006
  * Time: 9:59:13 PM
  */
@@ -52,7 +50,6 @@ public class FileItemValidator implements Validator, StateHolder {
   public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
     if (value != null && component instanceof UIFileInput) {
       FileItem file = (FileItem) value;
-      
       if (maxSize != null && file.getSize() > maxSize) {
         // TODO better error text i18n
         Object[] args = {maxSize,  component.getId()};
@@ -60,7 +57,8 @@ public class FileItemValidator implements Validator, StateHolder {
             DoubleRangeValidator.MAXIMUM_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, args);
         throw new ValidatorException(facesMessage);
       }
-      if (contentType != null
+      // Check only a valid file
+      if (file.getSize() > 0 && contentType != null
           && !ContentType.valueOf(contentType).match(ContentType.valueOf(file.getContentType()))) {
         // TODO i18n
         String text = "ContentType " + file.getContentType() + " not expected.";
