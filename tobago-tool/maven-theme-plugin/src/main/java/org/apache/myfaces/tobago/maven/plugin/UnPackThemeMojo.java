@@ -110,10 +110,10 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
         workDirectory.mkdirs();
       }
       Artifact artifact = (Artifact) artifacts.next();
-       getLog().debug("Expanding theme "+ artifact);
+      getLog().debug("Expanding theme "+ artifact);
 
       if (Artifact.SCOPE_COMPILE.equals(artifact.getScope())
-          && "jar".equals(artifact.getType())&& findThemeDescriptor(artifact.getFile())) {
+          && "jar".equals(artifact.getType()) && findThemeDescriptor(artifact.getFile())) {
 
         String name = artifact.getFile().getName();
         getLog().debug("Expanding theme "+ name);

@@ -80,13 +80,13 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   }
 
   public int getFixedWidth(FacesContext facesContext, UIComponent component) {
-     int width = calculateLayoutWidth(facesContext, component, false);
+    int width = calculateLayoutWidth(facesContext, component, false);
 
-     LayoutInformationProvider containerRenderer =
+    LayoutInformationProvider containerRenderer =
          ComponentUtil.getRenderer(facesContext, component);
-     width += containerRenderer.getPaddingWidth(facesContext, component);
-     return width;
-   }
+    width += containerRenderer.getPaddingWidth(facesContext, component);
+    return width;
+  }
 
   private int calculateLayoutHeight(
       FacesContext facesContext, UIComponent component, boolean minimum) {
