@@ -151,7 +151,7 @@
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/sandbox</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/sandbox</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/trunk/sandbox</url>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/sandbox</url>
   </scm>
 
   <dependencies>

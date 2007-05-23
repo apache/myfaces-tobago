@@ -45,7 +45,7 @@
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/foreach</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/foreach</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/trunk/example/foreach</url>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/example/foreach</url>
   </scm>
 
   <dependencies>

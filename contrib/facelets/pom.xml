@@ -29,7 +29,7 @@
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/contrib/facelets</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/contrib/facelets</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/trunk/contrib/facelets</url>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/contrib/facelets</url>
   </scm>
 
   <build>

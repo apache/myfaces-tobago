@@ -28,7 +28,7 @@
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/contrib</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/contrib</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/trunk/contrib</url>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/contrib</url>
   </scm>
   <modules>
     <module>facelets</module>

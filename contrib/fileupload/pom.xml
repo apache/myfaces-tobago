@@ -11,7 +11,7 @@
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/contrib/fileupload</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/contrib/fileupload</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/trunk/contrib/fileupload</url>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/contrib/fileupload</url>
   </scm>
   <dependencies>
     <dependency>

@@ -29,7 +29,7 @@
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/theme/charlotteville</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/theme/charlotteville</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/trunk/theme/charlotteville</url>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/theme/charlotteville</url>
   </scm>
 
   <dependencies>

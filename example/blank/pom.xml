@@ -43,7 +43,7 @@
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/blank</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/blank</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/trunk/example/blank</url>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/example/blank</url>
   </scm>
   
   <dependencies>
