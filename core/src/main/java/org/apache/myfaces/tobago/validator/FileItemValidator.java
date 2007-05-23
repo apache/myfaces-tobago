@@ -60,7 +60,8 @@ public class FileItemValidator implements Validator, StateHolder {
             DoubleRangeValidator.MAXIMUM_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, args);
         throw new ValidatorException(facesMessage);
       }
-      if (contentType != null
+      // Check only a valid file
+      if (file.getSize() > 0 && contentType != null
           && !ContentType.valueOf(contentType).match(ContentType.valueOf(file.getContentType()))) {
         // TODO i18n
         String text = "ContentType " + file.getContentType() + " not expected.";
