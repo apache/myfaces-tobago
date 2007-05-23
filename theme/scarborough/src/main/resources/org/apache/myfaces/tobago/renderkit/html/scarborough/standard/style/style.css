@@ -320,6 +320,10 @@ td.tobago-calendar-day-selected {
   background-color: #bbccdd;
 }
 
+/*.tobago-selectOneListbox-error {
+	border: 1px solid #ff0000;
+}*/
+
 /* treeListbox */
 .tobago-treeListbox-default {
   font-family: arial, helvetica, sans-serif;
@@ -340,6 +344,10 @@ td.tobago-calendar-day-selected {
   font-family: arial, helvetica, sans-serif;
   background: transparent;
 }
+
+/*.tobago-selectManyCheckbox-error {
+	border: 1px solid #ff0000;
+}*/
 
 /* file -------------------------------------------------------------------- */
 
@@ -529,6 +537,12 @@ label.tobago-label-inline {
 
 .tobago-popup-none {
   display: none;
+}
+
+.tobago-popup-parent {
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 /* selectOneRadio ---------------------------------------------------------- */
