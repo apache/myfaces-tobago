@@ -37,46 +37,40 @@
 
           <tc:tabGroup id="tabMarsOuterForm" state="#{demo.tabState1}" >
             <tc:tab label="#{overviewBundle.tabPlanet}">
-              <tc:panel >
-                <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
-                <tc:cell />
-                <tx:in value="#{demo.solar.planets[0].diameter}"
-                    label="#{overviewBundle.solarPlanetDiameter}" />
-                <tx:in value="#{demo.solar.planets[0].mass}"
-                    label="#{overviewBundle.solarPlanetMass}" />
-                <tc:cell />
-              </tc:panel>
+              <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
+              <tc:cell />
+              <tx:in value="#{demo.solar.planets[0].diameter}"
+                  label="#{overviewBundle.solarPlanetDiameter}" />
+              <tx:in value="#{demo.solar.planets[0].mass}"
+                  label="#{overviewBundle.solarPlanetMass}" />
+              <tc:cell />
             </tc:tab>
             <tc:tab label="#{overviewBundle.tabInsolar}">
-              <tc:panel >
-                <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
-                <tc:cell />
-                <tx:in value="#{demo.solar.planets[0].sunDistance}"
-                   label="#{overviewBundle.solarPlanetSunDistance}" />
-                <tx:in value="#{demo.solar.planets[0].timeOfCirculation}"
-                   label="#{overviewBundle.solarPlanetTimeOfCirculation}" />
-                <tc:cell />
-              </tc:panel>
+              <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
+              <tc:cell />
+              <tx:in value="#{demo.solar.planets[0].sunDistance}"
+                 label="#{overviewBundle.solarPlanetSunDistance}" />
+              <tx:in value="#{demo.solar.planets[0].timeOfCirculation}"
+                 label="#{overviewBundle.solarPlanetTimeOfCirculation}" />
+              <tc:cell />
             </tc:tab>
             <tc:tab label="#{overviewBundle.tabMoons}">
-              <tc:panel>
-                <f:facet name="layout"><tc:gridLayout  /></f:facet>
-                <tc:sheet value="#{demo.solar.planets[0].moons}"
-                  columns="2*;1*;2*;2*" var="moon">
-                  <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
-                    <tc:out value="#{moon.name}" id="t_name" />
-                  </tc:column>
-                  <tc:column label="#{overviewBundle.solarArrayNumber}" id="number" sortable="false" align="center" >
-                    <tc:out value="#{moon.number}" id="t_number"/>
-                  </tc:column>
-                  <tc:column label="#{overviewBundle.solarArrayDistance}" sortable="true" align="right" >
-                    <tc:out value="#{moon.distance}" id="t_distance" />
-                  </tc:column>
-                  <tc:column label="#{overviewBundle.solarArrayPeriod}" sortable="true" align="right" >
-                    <tc:out value="#{moon.period}" id="t_period" />
-                  </tc:column>
-                </tc:sheet>
-              </tc:panel>
+              <f:facet name="layout"><tc:gridLayout  /></f:facet>
+              <tc:sheet value="#{demo.solar.planets[0].moons}"
+                columns="2*;1*;2*;2*" var="moon">
+                <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
+                  <tc:out value="#{moon.name}" id="t_name" />
+                </tc:column>
+                <tc:column label="#{overviewBundle.solarArrayNumber}" id="number" sortable="false" align="center" >
+                  <tc:out value="#{moon.number}" id="t_number"/>
+                </tc:column>
+                <tc:column label="#{overviewBundle.solarArrayDistance}" sortable="true" align="right" >
+                  <tc:out value="#{moon.distance}" id="t_distance" />
+                </tc:column>
+                <tc:column label="#{overviewBundle.solarArrayPeriod}" sortable="true" align="right" >
+                  <tc:out value="#{moon.period}" id="t_period" />
+                </tc:column>
+              </tc:sheet>
             </tc:tab>
           </tc:tabGroup>
 
@@ -90,46 +84,40 @@
                 binding="#{demo.tabChangeListener}" />
 
             <tc:tab label="#{overviewBundle.tabPlanet}">
-              <tc:panel >
-                <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
-                <tc:cell />
-                <tx:in value="#{demo.solar.planets[0].diameter}"
-                    label="#{overviewBundle.solarPlanetDiameter}" />
-                <tx:in value="#{demo.solar.planets[0].mass}"
-                    label="#{overviewBundle.solarPlanetMass}" />
-                <tc:cell />
-              </tc:panel>
+              <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
+              <tc:cell />
+              <tx:in value="#{demo.solar.planets[0].diameter}"
+                  label="#{overviewBundle.solarPlanetDiameter}" />
+              <tx:in value="#{demo.solar.planets[0].mass}"
+                  label="#{overviewBundle.solarPlanetMass}" />
+              <tc:cell />
             </tc:tab>
             <tc:tab label="#{overviewBundle.tabInsolar}">
-              <tc:panel >
-                <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
-                <tc:cell />
-                <tx:in value="#{demo.solar.planets[0].sunDistance}"
-                   label="#{overviewBundle.solarPlanetSunDistance}" />
-                <tx:in value="#{demo.solar.planets[0].timeOfCirculation}"
-                   label="#{overviewBundle.solarPlanetTimeOfCirculation}" />
-                <tc:cell />
-              </tc:panel>
+              <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
+              <tc:cell />
+              <tx:in value="#{demo.solar.planets[0].sunDistance}"
+                 label="#{overviewBundle.solarPlanetSunDistance}" />
+              <tx:in value="#{demo.solar.planets[0].timeOfCirculation}"
+                 label="#{overviewBundle.solarPlanetTimeOfCirculation}" />
+              <tc:cell />
             </tc:tab>
             <tc:tab label="#{overviewBundle.tabMoons}">
-              <tc:panel>
-                <f:facet name="layout"><tc:gridLayout /></f:facet>
-                <tc:sheet value="#{demo.solar.planets[0].moons}"
-                  columns="2*;1*;2*;2*" var="moon">
-                  <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
-                    <tc:out value="#{moon.name}" id="t_name" />
-                  </tc:column>
-                  <tc:column label="#{overviewBundle.solarArrayNumber}" id="number" sortable="false" align="center" >
-                    <tc:out value="#{moon.number}" id="t_number"/>
-                  </tc:column>
-                  <tc:column label="#{overviewBundle.solarArrayDistance}" sortable="true" align="right" >
-                    <tc:out value="#{moon.distance}" id="t_distance" />
-                  </tc:column>
-                  <tc:column label="#{overviewBundle.solarArrayPeriod}" sortable="true" align="right" >
-                    <tc:out value="#{moon.period}" id="t_period" />
-                  </tc:column>
-                </tc:sheet>
-              </tc:panel>
+              <f:facet name="layout"><tc:gridLayout /></f:facet>
+              <tc:sheet value="#{demo.solar.planets[0].moons}"
+                columns="2*;1*;2*;2*" var="moon">
+                <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
+                  <tc:out value="#{moon.name}" id="t_name" />
+                </tc:column>
+                <tc:column label="#{overviewBundle.solarArrayNumber}" id="number" sortable="false" align="center" >
+                  <tc:out value="#{moon.number}" id="t_number"/>
+                </tc:column>
+                <tc:column label="#{overviewBundle.solarArrayDistance}" sortable="true" align="right" >
+                  <tc:out value="#{moon.distance}" id="t_distance" />
+                </tc:column>
+                <tc:column label="#{overviewBundle.solarArrayPeriod}" sortable="true" align="right" >
+                  <tc:out value="#{moon.period}" id="t_period" />
+                </tc:column>
+              </tc:sheet>
             </tc:tab>
           </tc:tabGroup>
 
