@@ -81,6 +81,7 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
+import javax.faces.render.Renderer;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import java.util.ArrayList;
@@ -464,8 +465,13 @@ public class ComponentUtil {
       RenderKitFactory rkFactory = (RenderKitFactory)
           FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
       RenderKit renderKit = rkFactory.getRenderKit(facesContext, facesContext.getViewRoot().getRenderKitId());
-      renderer = (LayoutableRendererBase) renderKit.getRenderer(family, rendererType);
-      requestMap.put(RENDER_KEY_PREFIX + rendererType, renderer);
+      Renderer myRenderer = renderKit.getRenderer(family, rendererType);
+      if (myRenderer instanceof LayoutableRendererBase) {
+        requestMap.put(RENDER_KEY_PREFIX + rendererType, myRenderer);
+        renderer = (LayoutableRendererBase) myRenderer;
+      } else {
+        return null;
+      }
     }
     return renderer;
   }
