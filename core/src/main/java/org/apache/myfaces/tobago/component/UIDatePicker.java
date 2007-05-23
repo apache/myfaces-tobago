@@ -205,6 +205,7 @@ public class UIDatePicker extends UICommand implements OnComponentCreated {
 
     UIComponent buttonPanel = ComponentUtil.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);
+    buttonPanel.setId("buttonPanel");
     layout = ComponentUtil.createComponent(
         facesContext, UIGridLayout.COMPONENT_TYPE, RENDERER_TYPE_GRID_LAYOUT);
     buttonPanel.getFacets().put(FACET_LAYOUT, layout);
