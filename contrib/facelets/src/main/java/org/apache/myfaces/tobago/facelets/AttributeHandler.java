@@ -59,21 +59,25 @@ public final class AttributeHandler extends TagHandler {
       String nameValue = name.getValue(ctx);
       if ("rendered".equals(nameValue)) {
         // TODO expression
-        parent.setRendered(value.getBoolean(ctx));
-      } else if (TobagoConstants.ATTR_RENDERED_PARTIALLY.equals(nameValue)
-          && parent instanceof UICommand) {
+        if (value.isLiteral()) {
+          parent.setRendered(value.getBoolean(ctx));
+        } else {
+          ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(ctx, Object.class));
+        }
+      } else if (TobagoConstants.ATTR_RENDERED_PARTIALLY.equals(nameValue) && parent instanceof UICommand) {
         // TODO test expression
         ComponentUtil.setRenderedPartially((UICommand) parent, value.getValue());
-      } else if (parent instanceof EditableValueHolder
-          && "validator".equals(nameValue)) {
+      } else if (TobagoConstants.ATTR_STYLE_CLASS.equals(nameValue)) {
+        // TODO test expression
+        ComponentUtil.setStyleClasses(parent, value.getValue());
+      } else if (parent instanceof EditableValueHolder && TobagoConstants.ATTR_VALIDATOR.equals(nameValue)) {
         MethodExpression methodExpression = value.getMethodExpression(ctx, null, VALIDATOR);
         ((EditableValueHolder) parent).setValidator(new LegacyMethodBinding(methodExpression));
       } else if (!parent.getAttributes().containsKey(nameValue)) {
         if (value.isLiteral()) {
           parent.getAttributes().put(nameValue, value.getValue());
         } else {
-          ELAdaptor.setExpression(parent, nameValue, value
-              .getValueExpression(ctx, Object.class));
+          ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(ctx, Object.class));
         }
       }
     }
