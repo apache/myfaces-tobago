@@ -50,10 +50,12 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE_RADIO;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.RangeParser;
 import org.apache.myfaces.tobago.context.TransientStateHolder;
 
@@ -347,14 +349,30 @@ public class ComponentUtil {
     }
   }
 
- public static void setRenderedPartially(org.apache.myfaces.tobago.component.UICommand command,
-     String renderers) {
-   if (renderers != null) {
-     if (UIComponentTag.isValueReference(renderers)) {
-       command.setValueBinding(ATTR_RENDERED_PARTIALLY, createValueBinding(renderers));
-     } else {
-       String [] components  = renderers.split(",");
-       command.setRenderedPartially(components);
+  public static void setRenderedPartially(org.apache.myfaces.tobago.component.UICommand command,
+      String renderers) {
+    if (renderers != null) {
+      if (UIComponentTag.isValueReference(renderers)) {
+        command.setValueBinding(ATTR_RENDERED_PARTIALLY, createValueBinding(renderers));
+      } else {
+        String [] components  = renderers.split(",");
+        command.setRenderedPartially(components);
+      }
+    }
+  }
+
+  public static void setStyleClasses(UIComponent component, String styleClasses) {
+    if (styleClasses != null) {
+      if (UIComponentTag.isValueReference(styleClasses)) {
+        component.setValueBinding(ATTR_STYLE_CLASS, createValueBinding(styleClasses));
+      } else {
+        String [] classes  = styleClasses.split("[,  ]");
+        if (classes.length > 0) {
+          StyleClasses styles = StyleClasses.ensureStyleClasses(component);
+          for (String clazz: classes) {
+            styles.addFullQualifiedClass(clazz);
+          }
+        }
       }
     }
   }

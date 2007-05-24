@@ -34,8 +34,6 @@ import javax.faces.el.ValueBinding;
 import javax.faces.context.FacesContext;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Oct 14, 2006
  * Time: 1:47:13 PM
  */
@@ -106,11 +104,15 @@ public class AttributeTag  extends TagSupport {
         throw new JspException("Can not get ValueBinding for attribute name " + name);
       }
     }
-    if (component instanceof EditableValueHolder && attributeName.equals("validator")) {
+    if (component instanceof EditableValueHolder
+        && TobagoConstants.ATTR_VALIDATOR.equals(attributeName)) {
       ComponentUtil.setValidator((EditableValueHolder) component, value);
-    } else if (component instanceof ValueHolder && attributeName.equals("converter")) {
+    } else if (component instanceof ValueHolder
+        && TobagoConstants.ATTR_CONVERTER.equals(attributeName)) {
       ComponentUtil.setConverter((ValueHolder) component, value);
-    } else if (attributeName.equals(TobagoConstants.ATTR_RENDERED_PARTIALLY)
+    } else if (TobagoConstants.ATTR_STYLE_CLASS.equals(attributeName)) {
+      ComponentUtil.setStyleClasses(component, value);
+    } else if (TobagoConstants.ATTR_RENDERED_PARTIALLY.equals(attributeName)
         && component instanceof UICommand) {
       ComponentUtil.setRenderedPartially((UICommand) component, value);
     } else if (UIComponentTag.isValueReference(value)) {
