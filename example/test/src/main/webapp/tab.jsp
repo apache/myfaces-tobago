@@ -19,20 +19,20 @@
           </f:facet>
 
           <tc:tabGroup id="tabs" switchType="reloadTab"
-            selectedIndex="#{bbg.selectedIndex0}">
+            selectedIndex="#{controller.selectedIndex0}">
 
             <tc:tabChangeListener
               type="org.apache.myfaces.tobago.example.test.SimpleTabChangeListener"
-              binding="#{bbg.tabChangeListener}" />
+              binding="#{controller.tabChangeListener}" />
 
             <tc:tab label="#{overviewBundle.ekawTabLastYear}" rendered="true">
 
               <tc:tabGroup id="tabLastYear" switchType="reloadTab"
-                selectedIndex="#{bbg.selectedIndex1}" >
+                selectedIndex="#{controller.selectedIndex1}" >
 
                 <tc:tabChangeListener
                   type="org.apache.myfaces.tobago.example.testSimpleTabChangeListener"
-                  binding="#{bbg.tabChangeListener}" />
+                  binding="#{controller.tabChangeListener}" />
 
                 <tc:tab label="#{overviewBundle.ekawTabEkLetztesJahr}">
                 </tc:tab>
@@ -48,11 +48,11 @@
             <tc:tab label="#{overviewBundle.ekawTabCurrentYear}">
 
               <tc:tabGroup id="tabCurrentYear" switchType="reloadTab"
-                selectedIndex="#{bbg.selectedIndex2}">
+                selectedIndex="#{controller.selectedIndex2}">
 
                 <tc:tabChangeListener
                   type="org.apache.myfaces.tobago.example.test.SimpleTabChangeListener"
-                  binding="#{bbg.tabChangeListener}" />
+                  binding="#{controller.tabChangeListener}" />
 
                 <tc:tab label="#{overviewBundle.ekawTabEkLaufendenesJahr}">
                 </tc:tab>

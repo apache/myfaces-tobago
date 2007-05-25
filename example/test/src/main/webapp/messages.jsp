@@ -20,24 +20,26 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <f:view>
-  <tc:page >
-    <tc:panel id="panel">
+  <tc:page id="page" width="400">
+    <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout margin="10px" rows="fixed;fixed;1*" columns="fixed;fixed;*"/>
+        <tc:gridLayout margin="10px" rows="fixed;fixed;fixed;fixed;*"/>
       </f:facet>
-        <tc:selectOneChoice value="#{controller.value}" >
-          <f:selectItem itemValue="Audi" itemLabel="Audi"/>
-          <f:selectItem itemValue="Mercedes" itemLabel="Mercedes"/>
-          <f:facet name="click" >
-            <tc:command>
-              <tc:attribute name="renderedPartially" value="::panel"/>
-            </tc:command>
-          </f:facet>
-        </tc:selectOneChoice>
-        <tc:in value="#{controller.value}" readonly="true" />
-        <tc:cell/>
-        <tc:messages/>
-        <tc:cell/>
+
+      <tx:date id="validityStart"
+               value="#{controller.validityStart}"
+               label="Begin" readonly="true">
+        <f:convertDateTime pattern="dd.MM.yyyy"/>
+      </tx:date>
+      <tx:date id="validityEnd"
+               value="#{controller.validityEnd}"
+               required="true"
+               label="End">
+        <f:convertDateTime pattern="dd.MM.yyyy"/>
+      </tx:date>
+      <tc:message for="validityEnd"/>
+      <tc:button label="Check dates" action="#{controller.checkDates}"/>
+      <tc:cell/>
     </tc:panel>
   </tc:page>
 </f:view>

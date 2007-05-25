@@ -18,13 +18,14 @@ package org.apache.myfaces.tobago.example.test;
  */
 
 
-/*
- *
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.event.TabChangeListener;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import java.util.Calendar;
+import java.util.Date;
 
 public class SessionController {
 
@@ -40,7 +41,23 @@ public class SessionController {
 
   private String value;
 
+  private Date validityStart;
+  private Date validityEnd;
+
   public SessionController() {
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(2002, 0, 1);
+    validityStart = calendar.getTime();
+  }
+
+  public String checkDates() {
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    if (validityEnd.before(validityStart)) {
+      String message = "End date before start date.";
+      facesContext.addMessage("page:validityEnd",
+          new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message));
+    }
+    return "messages";
   }
 
   public String getValue() {
@@ -50,8 +67,6 @@ public class SessionController {
   public void setValue(String value) {
     this.value = value;
   }
-
-
 
   public TabChangeListener getTabChangeListener() {
     LOG.info("getTabChangeListener " + tabChangeListener);
@@ -85,5 +100,21 @@ public class SessionController {
 
   public void setSelectedIndex2(Integer selectedIndex2) {
     this.selectedIndex2 = selectedIndex2;
+  }
+
+  public Date getValidityStart() {
+    return validityStart;
+  }
+
+  public void setValidityStart(Date validityStart) {
+    this.validityStart = validityStart;
+  }
+
+  public Date getValidityEnd() {
+    return validityEnd;
+  }
+
+  public void setValidityEnd(Date validityEnd) {
+    this.validityEnd = validityEnd;
   }
 }
