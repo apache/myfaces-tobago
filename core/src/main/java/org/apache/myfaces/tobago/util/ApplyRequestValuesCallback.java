@@ -1,14 +1,5 @@
 package org.apache.myfaces.tobago.util;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
-
-import javax.faces.context.FacesContext;
-import javax.faces.component.UIComponent;
-import javax.faces.FacesException;
-import java.io.IOException;
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -25,6 +16,17 @@ import java.io.IOException;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
+
+import javax.faces.context.FacesContext;
+import javax.faces.component.UIComponent;
+import javax.faces.FacesException;
+import java.io.IOException;
 
 public class ApplyRequestValuesCallback implements Callback {
 
