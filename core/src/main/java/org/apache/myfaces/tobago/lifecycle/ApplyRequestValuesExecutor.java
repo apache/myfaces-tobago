@@ -23,14 +23,16 @@ import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIViewRoot;
+import org.apache.myfaces.tobago.util.ApplyRequestValuesCallback;
+import org.apache.myfaces.tobago.util.Callback;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIData;
-import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
@@ -38,10 +40,19 @@ import java.util.ArrayList;
  * Apply request values phase (JSF Spec 2.2.2)
  */
 class ApplyRequestValuesExecutor implements PhaseExecutor {
+
+  @SuppressWarnings({"UnusedDeclaration"})
   private static final Log LOG = LogFactory.getLog(ApplyRequestValuesExecutor.class);
 
+  private Callback callback;
+
+
+  public ApplyRequestValuesExecutor() {
+    callback = new ApplyRequestValuesCallback();
+  }
+
   public boolean execute(FacesContext facesContext) {
-    ArrayList<UIComponent> ajaxComponents
+    Map<String, UIComponent> ajaxComponents
         = AjaxUtils.parseAndStoreComponents(facesContext);
     if (ajaxComponents != null) {
       // first decode the page
@@ -51,46 +62,13 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
 
       // decode the action if actioncomponent not inside one of the ajaxcomponets
       // otherwise it is decoded there
-      String actionId = page.getActionId();
-      UIComponent actionComponent = null;
-      if (actionId != null) {
-        actionComponent = page.findComponent(actionId);
-      }
-
-      if (actionComponent != null) {
-        boolean decodeNeeded = true;
-        UIData sheet = null;
-
-        for (UIComponent ajaxComponent : ajaxComponents) {
-          UIComponent component = actionComponent;
-          while (component != null) {
-            if (component == ajaxComponent) {
-              decodeNeeded = false;
-              break;
-            } else {
-              component = component.getParent();
-              if (component instanceof UIData) {
-                sheet = (UIData) component;
-              }
-            }
-          }
-          if (!decodeNeeded) {
-            break;
-          }
-        }        
-        if (decodeNeeded) {
-          if (sheet == null) {
-            actionComponent.processDecodes(facesContext);
-          } else {
-            // action component is inside UIData, we need to proccess this component!
-            sheet.processDecodes(facesContext);
-          }
-        }
-      }
+      decodeActionComponent(facesContext, page, ajaxComponents);
 
       // and all ajax components
-      for (UIComponent ajaxComponent : ajaxComponents) {
-        ajaxComponent.processDecodes(facesContext);
+      for (String ajaxComponentId : ajaxComponents.keySet()) {
+        UIComponent ajaxComponent = ajaxComponents.get(ajaxComponentId);
+        // TODO: invokeOnComponent()
+        ComponentUtil.invokeOnComponent(facesContext, ajaxComponentId, ajaxComponent, callback);
       }
 
       UIViewRoot viewRoot = ((UIViewRoot) facesContext.getViewRoot());
@@ -100,6 +78,28 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
       facesContext.getViewRoot().processDecodes(facesContext);
     }
     return false;
+  }
+
+  private void decodeActionComponent(FacesContext facesContext, UIPage page, Map<String, UIComponent> ajaxComponents) {
+    String actionId = page.getActionId();
+    UIComponent actionComponent = null;
+    if (actionId != null) {
+      actionComponent = facesContext.getViewRoot().findComponent(actionId);
+    }
+    if (actionComponent == null) {
+      return;
+    }
+    for (UIComponent ajaxComponent : ajaxComponents.values()) {
+      UIComponent component = actionComponent;
+      while (component != null) {
+        if (component == ajaxComponent) {
+          return;
+        }
+        component = component.getParent();
+      }
+    }
+    // TODO: invokeOnComponent()
+    ComponentUtil.invokeOnComponent(facesContext, actionId, actionComponent, callback);
   }
 
   public PhaseId getPhase() {

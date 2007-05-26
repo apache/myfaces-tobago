@@ -25,6 +25,8 @@ import org.apache.commons.logging.LogFactory;
 
 import org.apache.myfaces.tobago.util.RequestUtils;
 import org.apache.myfaces.tobago.util.ResponseUtils;
+import org.apache.myfaces.tobago.util.EncodeAjaxCallback;
+import org.apache.myfaces.tobago.util.Callback;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
@@ -57,6 +59,12 @@ public class AjaxResponseRenderer {
   public static final String CODE_NOT_MODIFIED = "<status code=\"304\"/>";
   public static final String CODE_RELOAD_REQUIRED = "<status code=\"309\"/>";
 
+  private Callback callback;
+
+
+  public AjaxResponseRenderer() {
+    callback = new EncodeAjaxCallback();
+  }
 
   public void renderResponse(FacesContext facesContext) throws IOException {
     final UIViewRoot viewRoot = facesContext.getViewRoot();
@@ -94,23 +102,32 @@ public class AjaxResponseRenderer {
       writeResponseReload(facesContext, renderKit);
     } else {
       List<StringWriter> responseParts = new ArrayList<StringWriter>();
-      List<UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(facesContext);
+      Map<String, UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(facesContext);
 
-      for (int i = 0; i < 1; i++) {  // TODO render multiple components
-        StringWriter content = new StringWriter();
-        responseParts.add(content);
-        ResponseWriter contentWriter = renderKit.createResponseWriter(content, null, null);
-        facesContext.setResponseWriter(contentWriter);
-        AjaxComponent ajaxComponent = ((AjaxComponent) ajaxComponents.get(i));
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("write ajax response for " + ajaxComponent);
-        }
-        ajaxComponent.encodeAjax(facesContext);
+      for (String clientId : ajaxComponents.keySet()) {
+        AjaxComponent component = ((AjaxComponent) ajaxComponents.get(clientId));
+        responseParts.add(renderComponent(facesContext, renderKit, clientId, component));
+        break;  // TODO render multiple components
       }
 
       String state = saveState(facesContext, renderKit);
       writeResponse(facesContext, renderKit, responseParts, state);
     }
+  }
+
+  private StringWriter renderComponent(FacesContext facesContext, RenderKit renderKit, String clientId, AjaxComponent component)
+      throws IOException {
+    StringWriter content = new StringWriter();
+    ResponseWriter contentWriter = renderKit.createResponseWriter(content, null, null);
+    facesContext.setResponseWriter(contentWriter);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("write ajax response for " + component);
+    }
+
+    // TODO: invokeOnComponent()
+    ComponentUtil.invokeOnComponent(facesContext, clientId, (UIComponent) component, callback);
+
+    return content;
   }
 
   private void writeResponse(FacesContext facesContext, RenderKit renderKit,
@@ -159,7 +176,7 @@ public class AjaxResponseRenderer {
     ExternalContext externalContext = facesContext.getExternalContext();
     RequestUtils.ensureEncoding(externalContext);
     ResponseUtils.ensureNoCacheHeader(externalContext);
-    UIComponent page = ComponentUtil.findPage(facesContext, AjaxUtils.getAjaxComponents(facesContext).get(0));
+    UIComponent page = ComponentUtil.findPage(facesContext);
     String charset = (String) page.getAttributes().get(ATTR_CHARSET);
     ResponseUtils.ensureContentTypeHeader(facesContext, charset);
     StringBuilder buffer = new StringBuilder(responseCode);

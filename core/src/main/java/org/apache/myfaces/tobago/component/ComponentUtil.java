@@ -57,6 +57,7 @@ import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.RangeParser;
+import org.apache.myfaces.tobago.util.Callback;
 import org.apache.myfaces.tobago.context.TransientStateHolder;
 
 import javax.faces.FactoryFinder;
@@ -92,6 +93,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Collections;
 
 public class ComponentUtil {
 
@@ -1187,5 +1189,62 @@ public class ComponentUtil {
       }
     }
     return from.findComponent(relativeId);
+  }
+
+  public static void invokeOnComponent(FacesContext facesContext, String clientId, UIComponent component, Callback callback) {
+    List<UIComponent> list = new ArrayList<UIComponent>();
+    while (component != null) {
+      list.add(component);
+      component = component.getParent();
+    }
+    Collections.reverse(list);
+    invokeOrPrepare(facesContext, list, clientId, callback);
+  }
+
+  private static void invokeOrPrepare(FacesContext facesContext, List<UIComponent> list, String clientId, Callback callback) {
+    if (list.size() == 1) {
+      callback.execute(facesContext, list.get(0));
+    } else if (list.get(0) instanceof UIData) {
+      prepareOnUIData(facesContext, list, clientId, callback);
+    } else {
+      prepareOnUIComponent(facesContext, list, clientId, callback);
+    }
+  }
+
+  private static void prepareOnUIComponent(FacesContext facesContext, List<UIComponent> list, String clientId, Callback callback) {
+    list.remove(0);
+    invokeOrPrepare(facesContext, list, clientId, callback);
+  }
+
+  private static void prepareOnUIData(FacesContext facesContext, List<UIComponent> list, String clientId, Callback callback) {
+    UIComponent currentComponent = list.remove(0);
+    if (! (currentComponent instanceof UIData)) {
+      throw new IllegalStateException(currentComponent.getClass().getName());
+    }
+
+    // we may need setRowIndex on UIData
+    javax.faces.component.UIData uiData = (javax.faces.component.UIData) currentComponent;
+    int oldRowIndex = uiData.getRowIndex();
+    String sheetId = uiData.getClientId(facesContext);
+    String idRemainder = clientId.substring(sheetId.length());
+    LOG.info("idRemainder = \"" + idRemainder + "\"");
+    if (idRemainder.matches("^:\\d+:.*")) {
+      idRemainder = idRemainder.substring(1);
+      int idx = idRemainder.indexOf(":");
+      try {
+        int rowIndex = Integer.parseInt(idRemainder.substring(0, idx));
+        LOG.info("set rowIndex = \"" + rowIndex + "\"");
+        uiData.setRowIndex(rowIndex);
+      } catch (NumberFormatException e) {
+        LOG.error("idRemainder = \"" + idRemainder + "\"" , e);
+      }
+    } else {
+      LOG.info("no match for \"^:\\d+:.*\"");
+    }
+
+    invokeOrPrepare(facesContext, list, clientId, callback);
+
+    // we should reset rowIndex on UIData
+    uiData.setRowIndex(oldRowIndex);
   }
 }

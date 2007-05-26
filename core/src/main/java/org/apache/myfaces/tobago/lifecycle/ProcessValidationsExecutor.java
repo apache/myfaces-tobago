@@ -21,22 +21,35 @@ import static javax.faces.event.PhaseId.PROCESS_VALIDATIONS;
 
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.UIViewRoot;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.util.Callback;
+import org.apache.myfaces.tobago.util.ProcessValidationsCallback;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
-import java.util.List;
+import java.util.Map;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
  * Process validations phase (JSF Spec 2.2.3)
  */
 class ProcessValidationsExecutor implements PhaseExecutor {
+
+  private Callback callback;
+
+  public ProcessValidationsExecutor() {
+    this.callback = new ProcessValidationsCallback();
+  }
+
   public boolean execute(FacesContext facesContext) {
-    List<UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(facesContext);
+    Map<String,UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(facesContext);
     if (ajaxComponents != null) {
-      for (UIComponent ajaxComponent : ajaxComponents) {
-        ajaxComponent.processValidators(facesContext);
+      for (String ajaxComponentId : ajaxComponents.keySet()) {
+        UIComponent ajaxComponent = ajaxComponents.get(ajaxComponentId);
+        // TODO: invokeOnComponent()
+        ComponentUtil.invokeOnComponent(facesContext, ajaxComponentId, ajaxComponent, callback);
+//        ajaxComponent.processValidators(facesContext);
       }
       UIViewRoot viewRoot = ((UIViewRoot) facesContext.getViewRoot());
       viewRoot.broadcastEventsForPhase(facesContext, PROCESS_VALIDATIONS);

@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /*
  * Created by IntelliJ IDEA.
@@ -133,13 +134,13 @@ public class AjaxUtils {
     }
   }
 
-  public static ArrayList<UIComponent> parseAndStoreComponents(FacesContext facesContext) {
+  public static Map<String, UIComponent> parseAndStoreComponents(FacesContext facesContext) {
     Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
     String ajaxComponentIds = (String) parameterMap.get(AjaxPhaseListener.AJAX_COMPONENT_ID);
     if (ajaxComponentIds != null) {
       LOG.info("ajaxComponentIds = \"" + ajaxComponentIds + "\"");
       StringTokenizer tokenizer = new StringTokenizer(ajaxComponentIds, ",");
-      ArrayList<UIComponent> ajaxComponents = new ArrayList<UIComponent>(tokenizer.countTokens());
+      Map<String, UIComponent> ajaxComponents = new HashMap<String, UIComponent>(tokenizer.countTokens());
       //noinspection unchecked
       facesContext.getExternalContext().getRequestMap().put(AJAX_COMPONENTS, ajaxComponents);
       javax.faces.component.UIViewRoot viewRoot = facesContext.getViewRoot();
@@ -147,8 +148,8 @@ public class AjaxUtils {
         String ajaxId = tokenizer.nextToken();
         UIComponent ajaxComponent = viewRoot.findComponent(ajaxId);
         if (ajaxComponent != null) {
-          LOG.info("ajaxComponent = \"" + ajaxComponent + "\"");
-          ajaxComponents.add(ajaxComponent);
+          LOG.info("ajaxComponent for \"" + ajaxId + "\" = \"" + ajaxComponent + "\"");
+          ajaxComponents.put(ajaxId, ajaxComponent);
         }
       }
       return ajaxComponents;
@@ -156,9 +157,9 @@ public class AjaxUtils {
     return null;
   }
 
-  public static List<UIComponent> getAjaxComponents(FacesContext facesContext) {
+  public static Map<String, UIComponent> getAjaxComponents(FacesContext facesContext) {
     //noinspection unchecked
-    return (List<UIComponent>)
+    return (Map<String, UIComponent>)
         facesContext.getExternalContext().getRequestMap().get(AJAX_COMPONENTS);
   }
 
@@ -167,9 +168,9 @@ public class AjaxUtils {
   }
 
   public static void ensureDecoded(FacesContext facesContext, UIComponent component) {
-    List<UIComponent> ajaxComponents = getAjaxComponents(facesContext);
+    Map<String, UIComponent> ajaxComponents = getAjaxComponents(facesContext);
     if (ajaxComponents != null) {
-      for (UIComponent uiComponent : ajaxComponents) {
+      for (UIComponent uiComponent : ajaxComponents.values()) {
         UIComponent currentComponent = component;
         while (currentComponent != null) {
           if (component == uiComponent) {
