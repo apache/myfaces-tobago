@@ -115,8 +115,8 @@ public class AjaxResponseRenderer {
     }
   }
 
-  private StringWriter renderComponent(FacesContext facesContext, RenderKit renderKit, String clientId, AjaxComponent component)
-      throws IOException {
+  private StringWriter renderComponent(FacesContext facesContext, RenderKit renderKit, String clientId,
+      AjaxComponent component) throws IOException {
     StringWriter content = new StringWriter();
     ResponseWriter contentWriter = renderKit.createResponseWriter(content, null, null);
     facesContext.setResponseWriter(contentWriter);

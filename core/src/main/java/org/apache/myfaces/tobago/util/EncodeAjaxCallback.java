@@ -29,7 +29,7 @@ public class EncodeAjaxCallback implements Callback {
 
   public void execute(FacesContext facesContext, UIComponent component) {
     try {
-      ((AjaxComponent)component).encodeAjax(facesContext);
+      ((AjaxComponent) component).encodeAjax(facesContext);
     } catch (IOException e) {
       throw new FacesException(e);
     }

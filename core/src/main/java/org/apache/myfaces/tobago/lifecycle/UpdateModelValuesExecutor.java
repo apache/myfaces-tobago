@@ -44,7 +44,7 @@ class UpdateModelValuesExecutor implements PhaseExecutor {
   }
 
   public boolean execute(FacesContext facesContext) {
-    Map<String,UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(facesContext);
+    Map<String, UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(facesContext);
     if (ajaxComponents != null) {
       for (String ajaxComponentId : ajaxComponents.keySet()) {
         UIComponent ajaxComponent = ajaxComponents.get(ajaxComponentId);

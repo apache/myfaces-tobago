@@ -21,17 +21,14 @@ package org.apache.myfaces.tobago.util;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
-
 import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
-import javax.faces.FacesException;
-import java.io.IOException;
 
 public class ApplyRequestValuesCallback implements Callback {
 
-  private final Log LOG = LogFactory.getLog(ApplyRequestValuesCallback.class);
+  private static final Log LOG = LogFactory.getLog(ApplyRequestValuesCallback.class);
+
   public void execute(FacesContext facesContext, UIComponent component) {
-      component.processDecodes(facesContext);
+    component.processDecodes(facesContext);
   }
 }

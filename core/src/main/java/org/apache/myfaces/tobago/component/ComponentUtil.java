@@ -1191,7 +1191,8 @@ public class ComponentUtil {
     return from.findComponent(relativeId);
   }
 
-  public static void invokeOnComponent(FacesContext facesContext, String clientId, UIComponent component, Callback callback) {
+  public static void invokeOnComponent(FacesContext facesContext, String clientId, UIComponent component,
+      Callback callback) {
     List<UIComponent> list = new ArrayList<UIComponent>();
     while (component != null) {
       list.add(component);
@@ -1201,7 +1202,8 @@ public class ComponentUtil {
     invokeOrPrepare(facesContext, list, clientId, callback);
   }
 
-  private static void invokeOrPrepare(FacesContext facesContext, List<UIComponent> list, String clientId, Callback callback) {
+  private static void invokeOrPrepare(FacesContext facesContext, List<UIComponent> list, String clientId,
+      Callback callback) {
     if (list.size() == 1) {
       callback.execute(facesContext, list.get(0));
     } else if (list.get(0) instanceof UIData) {
@@ -1211,14 +1213,16 @@ public class ComponentUtil {
     }
   }
 
-  private static void prepareOnUIComponent(FacesContext facesContext, List<UIComponent> list, String clientId, Callback callback) {
+  private static void prepareOnUIComponent(FacesContext facesContext, List<UIComponent> list, String clientId,
+      Callback callback) {
     list.remove(0);
     invokeOrPrepare(facesContext, list, clientId, callback);
   }
 
-  private static void prepareOnUIData(FacesContext facesContext, List<UIComponent> list, String clientId, Callback callback) {
+  private static void prepareOnUIData(FacesContext facesContext, List<UIComponent> list, String clientId,
+      Callback callback) {
     UIComponent currentComponent = list.remove(0);
-    if (! (currentComponent instanceof UIData)) {
+    if (!(currentComponent instanceof UIData)) {
       throw new IllegalStateException(currentComponent.getClass().getName());
     }
 
