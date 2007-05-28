@@ -48,12 +48,15 @@ Release Checklist
     cd checkout-of-release\
     mvn deploy -Prelease,jdk14retro --no-plugin-updates -Dnon-default-modules -Djava14.home=${java14.jre}
 
-  * Create and sign the assemblies.\
+  * Create the assemblies.\
     cd tobago-assembly\
     mvn -Pgenerate-assembly clean assembly:assembly\
     cd ../example/tobago-example-assembly\
     mvn -Pgenerate-assembly clean assembly:assembly\
 
+  * Sign the assemblies.
+
+  * Upload the assemblies to the Apache Software Foundation Distribution Directory.
 
   * Update the download site after the distribution is on the apache mirrors available.
 
