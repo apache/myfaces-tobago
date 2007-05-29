@@ -227,7 +227,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       throws IOException {
     String menuOpen = ResourceManagerUtil.getImageWithPath(facesContext, "image/treeMenuOpen.gif");
     String menuClose = ResourceManagerUtil.getImageWithPath(facesContext, "image/treeMenuClose.gif");
-    String onclick = "new_tobagoTreeNodeToggle(this.parentNode, '" + treeId + "', null, null, '"
+    String onclick = "tobagoTreeNodeToggle(this.parentNode, '" + treeId + "', null, null, '"
         + menuOpen + "', '" + menuClose + "')";
     String src = expanded ? menuOpen : menuClose;
     writer.startElement(IMG, null);
@@ -321,12 +321,10 @@ public class TreeNodeRenderer extends CommandRendererBase {
   }
 
   private String createOnclickForToggle(FacesContext facesContext, String treeId) {
-    return "new_tobagoTreeNodeToggle(this.parentNode, '" + treeId + "', '"
+    return "tobagoTreeNodeToggle(this.parentNode, '" + treeId + "', '"
           + ResourceManagerUtil.getImageWithPath(facesContext, "image/openfoldericon.gif") + "', '"
           + ResourceManagerUtil.getImageWithPath(facesContext, "image/foldericon.gif") + "', null, null)";
   }
-
-
 
 /*
   if (this.isFolder) {
@@ -343,7 +341,6 @@ public class TreeNodeRenderer extends CommandRendererBase {
   }
 */
 
-
   private void encodeLabel(
       TobagoResponseWriter writer, CommandRendererHelper helper, UITreeNode node, boolean marked, String treeId)
       throws IOException {
@@ -354,7 +351,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.startElement(A, null);
       writer.writeAttribute(HtmlAttributes.HREF, helper.getHref(), true);
       writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true); // xxx is escaping required?
-      writer.writeAttribute(HtmlAttributes.ONFOCUS, "storeMarker(this.parentNode, '" + treeId + "')", false);
+      writer.writeAttribute(HtmlAttributes.ONFOCUS, "Tobago.Tree.storeMarker(this.parentNode, '" + treeId + "')", false);
     }
     if (marked) {
       StyleClasses classes = new StyleClasses();
@@ -410,118 +407,3 @@ public class TreeNodeRenderer extends CommandRendererBase {
   }
 
 }
-/*
-
-TreeNode.prototype.toString = function (depth, last) {
-    if (!depth) depth = 0;
-
-    var str = '';
-    if (! this.hideRoot || depth > 0) {
-      str += '<div id="' + this.id + '" class="' + this.cssClass + '" '
-          + 'style="width: ' + this.width + ';">';
-      if (this.mode == "menu") {
-        if (this.isFolder) {
-          // FIXME: change the icons when klick on the icon
-          str += '<img class="tobago-tree-menu-icon" id="' + this.id + '-menuIcon"'
-              + 'src="' + (this.expanded ? this.treeResources.getImage("treeMenuOpen.gif")
-              : this.treeResources.getImage("treeMenuClose.gif")) + ' " '
-              + 'onclick="toggle(this.parentNode, \'' + this.treeHiddenId
-              + '\', null, null, \'' + this.treeResources.getImage("treeMenuOpen.gif")
-              + '\', \'' + this.treeResources.getImage("treeMenuClose.gif")
-              + '\')"'
-              + ' alt="">';
-        }
-      }
-      str += this.indent(depth, last);
-      if (!(   this.hideJunctions
-            || this.hideRootJunction && depth == 0
-            || this.hideRootJunction && this.hideRoot && depth == 1)) {
-        str += '<img class="tree-junction" id="' + this.id
-            + '-junction" src="' + (this.expanded
-              ? ((depth == 0)
-                ? this.treeResources.getImage("Rminus.gif")
-                : (last)
-                  ? this.treeResources.getImage("Lminus.gif")
-                  : this.treeResources.getImage("Tminus.gif"))
-              : ((depth == 0)
-                ? this.treeResources.getImage("Rplus.gif")
-                : (last)
-                  ? this.treeResources.getImage(this.isFolder ? "Lplus.gif" : "L.gif")
-                  : this.treeResources.getImage(this.isFolder ? "Tplus.gif" : "T.gif"))
-              )
-            + '" onclick="toggle(this.parentNode, \'' + this.treeHiddenId
-            + '\', \'' + this.treeResources.getImage("openfoldericon.gif")
-            + '\', \'' + this.treeResources.getImage("foldericon.gif")
-            + '\')"'
-            + ' alt="">';
-      } else if (( !this.hideRoot && depth >0 ) || (this.hideRoot && depth > 1)) {
-        str += '<img class="tree-junction" id="' + this.id
-            + '-junction" src="' + this.treeResources.getImage("blank.gif")
-            + '" alt="">';
-      }
-      if (! this.hideIcons) {
-        if (this.isFolder) {
-          str += '<img class="tree-icon" id="' + this.id + '-icon" '
-              + 'src="' + (this.expanded ? this.openIcon : this.icon) + ' " '
-              + 'onclick="toggle(this.parentNode, \'' + this.treeHiddenId
-              + '\', \'' + this.treeResources.getImage("openfoldericon.gif")
-              + '\', \'' + this.treeResources.getImage("foldericon.gif")
-              + '\')"'
-              + ' alt="">';
-        } else {
-          str += '<img class="tree-icon" id="' + this.id
-              + '-icon" src="' + this.treeResources.getImage("new.gif") + '" alt="">';
-        }
-      }
-      if (this.selectable) {
-        var markIcon = '';
-        var markIconOnClickFunction = '';
-        if (this.selectable.match(/LeafOnly$/) && this.isFolder) {
-          markIcon = this.treeResources.getImage("1x1.gif");
-        } else {
-          if (this.selected) {
-            markIcon = this.treeResources.getImage("checked" + (this.disabled ? "Disabled" : "") + ".gif");
-          } else {
-            markIcon = this.treeResources.getImage("unchecked" + (this.disabled ? "Disabled" : "") + ".gif");
-          }
-          if (!this.disabled) {
-            markIconOnClickFunction
-                = 'onclick="toggleSelect(this.parentNode, \'' + this.treeHiddenId
-                + '\', \'' + this.treeResources.getImage("unchecked.gif")
-                + '\', \'' + this.treeResources.getImage("checked.gif")
-                + '\')"';
-          }
-        }
-
-        str += '<img class="tree-icon" id="' + this.id
-            + '-markIcon" src="' + markIcon + '" ' + markIconOnClickFunction + ' alt="">';
-      }
-      str += '<a class="' + this.cssClassLabel + '"';
-      if (this.tip) {
-        str += ' title="' + this.tip + '"';
-      }
-      if (!this.disabled) {
-        str += ' href="' + Tobago.EMPTY_HREF +  '"'
-            + ' onclick="Tobago.Tree.onClick(this)"'
-            + ' ondblclick="Tobago.Tree.onDblClick(this)"'
-            + ' onfocus="' + this.onfocus + '"';
-      }
-      str += '>'
-          + this.label + '</a>';
-      str += '</div>';
-    }
-    if (this.isFolder) {
-      str += '<div id="' + this.id
-          + '-cont" style="display: '
-          + (this.expanded ? 'block' : 'none') + ';">';
-      for (var i=0; i<this.childNodes.length; ++i) {
-        var lastChild = i+1 == this.childNodes.length;
-        var n = this.childNodes[i];
-        str += n.toString(depth+1, lastChild);
-      }
-      str += '</div>';
-    }
-
-    return str;
-  };
-*/

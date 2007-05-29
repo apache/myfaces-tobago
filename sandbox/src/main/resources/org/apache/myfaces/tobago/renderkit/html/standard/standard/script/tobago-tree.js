@@ -63,3 +63,12 @@ Tobago.Tree.updateMarker = function(node, add) {
     }
   }
 }
+
+Tobago.Tree.storeMarker = function(node, treeHiddenId) {
+  var markerHidden = document.getElementById(treeHiddenId + '-marker');
+  if (markerHidden) {
+    Tobago.Tree.updateMarker(markerHidden.value, false);
+    markerHidden.value = node.id;
+  }
+  Tobago.Tree.updateMarker(node.id, true);
+}

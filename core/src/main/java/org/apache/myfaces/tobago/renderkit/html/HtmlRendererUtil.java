@@ -37,9 +37,9 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBaseWrapper;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriterWrapper;
@@ -496,8 +496,7 @@ public final class HtmlRendererUtil {
     writeScriptLoader(facesContext, new String[]{script}, null);
   }
 
-  public static void writeScriptLoader(
-      FacesContext facesContext, String[] scripts, String[] afterLoadCmds)
+  public static void writeScriptLoader(FacesContext facesContext, String[] scripts, String[] afterLoadCmds)
       throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
@@ -509,15 +508,21 @@ public final class HtmlRendererUtil {
     StringBuilder script = new StringBuilder();
     script.append("new Tobago.ScriptLoader(\n    ");
     script.append(allScripts);
+
     if (afterLoadCmds != null && afterLoadCmds.length > 0) {
       script.append(", \n");
-      for (int i = 0; i < afterLoadCmds.length; i++) {
-        String cmd = StringUtils.replace(afterLoadCmds[i], "\\", "\\\\");
-        cmd = StringUtils.replace(cmd, "\"", "\\\"");
-        script.append(i == 0 ? "          " : "        + ");
-        script.append("\"");
-        script.append(cmd);
-        script.append("\"\n");
+      boolean first = true;
+      for (String afterLoadCmd : afterLoadCmds) {
+        String[] splittedStrings = StringUtils.split(afterLoadCmd, '\n'); // split on <CR> to have nicer JS
+        for (String splitted : splittedStrings) {
+          String cmd = StringUtils.replace(splitted, "\\", "\\\\");
+          cmd = StringUtils.replace(cmd, "\"", "\\\"");
+          script.append(first ? "          " : "        + ");
+          script.append("\"");
+          script.append(cmd);
+          script.append("\"\n");
+          first = false;
+        }
       }
     }
     script.append(");");

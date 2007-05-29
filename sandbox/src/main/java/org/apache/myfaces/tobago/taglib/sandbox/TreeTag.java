@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.taglib.component.TobagoTag;
 
-import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 
 public class TreeTag extends TobagoTag implements TreeTagDeclaration {
@@ -46,8 +45,6 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
   private String selectable;
 
   private String required;
-
-  private String actionListener;
 
   private String mode;
 
@@ -71,7 +68,6 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
     ComponentUtil.setStringProperty(component, ATTR_SELECTABLE, selectable);
 
     ComponentUtil.setBooleanProperty(component, ATTR_REQUIRED, required);
-    ComponentUtil.setActionListener((ActionSource) component, actionListener);
     ComponentUtil.setStringProperty(component, ATTR_MODE, mode);
   }
 
@@ -86,7 +82,6 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
     showRootJunction = null;
     selectable = null;
     required = null;
-    actionListener = null;
     mode = null;
   }
 
@@ -108,13 +103,6 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
 
   public String getShowIcons() {
     return showIcons;
-  }
-
-  public void setActionListener(String actionListener) {
-    this.actionListener = actionListener;
-  }
-  public String getActionListener() {
-    return actionListener;
   }
 
   public void setShowIcons(String showIcons) {

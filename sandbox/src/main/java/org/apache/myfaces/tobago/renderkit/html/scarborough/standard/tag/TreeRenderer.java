@@ -25,7 +25,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
-import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
@@ -42,7 +41,6 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
-import java.util.StringTokenizer;
 
 public class TreeRenderer extends LayoutableRendererBase {
 
@@ -102,6 +100,11 @@ public class TreeRenderer extends LayoutableRendererBase {
   }
 
   @Override
+  public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
+    // will be rendered in encodeEnd()
+  }
+
+  @Override
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
 
@@ -139,50 +142,21 @@ public class TreeRenderer extends LayoutableRendererBase {
       writer.endElement(HtmlConstants.INPUT);
     }
 
-//    writer.startElement(HtmlConstants.DIV, null);
-    writer.startElement(HtmlConstants.TABLE, tree);
-    writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
-    writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
-    writer.writeAttribute(HtmlAttributes.BORDER, 0);
-    writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-    writer.writeClassAttribute();
-    writer.startElement(HtmlConstants.TR, null);
-    writer.startElement(HtmlConstants.TD, null);
-    writer.writeIdAttribute(clientId + "-cont");
-    writer.writeComment("placeholder for treecontent");
-    writer.endElement(HtmlConstants.TD);
-    writer.endElement(HtmlConstants.TR);
-    writer.endElement(HtmlConstants.TABLE);
-//    writer.endElement(HtmlConstants.DIV);
+    String scriptTexts = createJavascript(facesContext);
 
-    String[] scriptTexts = createJavascript(facesContext, clientId, root);
-
-    String[] scripts = {"script/tobago-tree.js"};
+    String treeScript = "script/tobago-tree.js";
+    // todo: this may be removed, it is twice on the page 1. in the header 2. in the ScriptLoader
     List<String> scriptFiles = ComponentUtil.findPage(facesContext, tree).getScriptFiles();
-    for (String script : scripts) {
-      scriptFiles.add(script);
-    }
+    scriptFiles.add(treeScript);
 
-    if (!TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
-
-      StringBuilder script = new StringBuilder();
-      for (String scriptText : scriptTexts) {
-        script.append(scriptText);
-        script.append('\n');
-      }
-      writer.writeJavascript(script.toString());
-    } else {
-      HtmlRendererUtil.writeScriptLoader(facesContext, scripts, scriptTexts);
-    }
+    HtmlRendererUtil.writeScriptLoader(facesContext, new String[]{treeScript}, new String[]{scriptTexts});
 
     RenderUtil.encode(facesContext, root);
 
     writer.endElement(HtmlConstants.DIV);
   }
 
-  private String[] createJavascript(FacesContext facesContext, String clientId,
-                                  UITreeNode root)
-  throws IOException {
+  private String createJavascript(FacesContext facesContext) throws IOException {
     StringBuilder sb = new StringBuilder();
 
     sb.append("{\n");
@@ -192,8 +166,7 @@ public class TreeRenderer extends LayoutableRendererBase {
       sb.append("  treeResourcesHelp[\"");
       sb.append(images);
       sb.append("\"] = \"");
-      sb.append(ResourceManagerUtil.getImageWithPath(facesContext,
-          "image/" + images));
+      sb.append(ResourceManagerUtil.getImageWithPath(facesContext, "image/" + images));
       sb.append("\";\n");
     }
     sb.append(" \n  treeResourcesHelp.getImage = function (name) {\n");
@@ -206,32 +179,8 @@ public class TreeRenderer extends LayoutableRendererBase {
     sb.append("\";\n");
     sb.append("    }\n");
     sb.append("  };\n \n");
-
-    sb.append("/* disabled!!! \n");
-
-//    sb.append(getNodesAsJavascript(facesContext, root));
-
-    sb.append("  var treeDiv = document.getElementById('");
-    sb.append(clientId);
-    sb.append("-cont');\n");
-    sb.append("  treeDiv.innerHTML = ");
-    String rootNode = createJavascriptVariable(root.getClientId(facesContext));
-    sb.append(rootNode);
-    sb.append(".toString(0, true);\n  ");
-
-    sb.append(rootNode);
-    sb.append(".initSelection();\n");
-
-    sb.append("disabled!!! */");
-
     sb.append("}");
-//    return sb.toString();
-    StringTokenizer tokenizer = new StringTokenizer(sb.toString(), "\n");
-    String[] strings = new String[tokenizer.countTokens()];
-    for (int i = 0; i < strings.length; i++) {
-      strings[i] = tokenizer.nextToken();
-    }
-    return strings;
+    return sb.toString();
   }
 
   protected String getNodesAsJavascript(FacesContext facesContext, UITreeNode root) throws IOException {

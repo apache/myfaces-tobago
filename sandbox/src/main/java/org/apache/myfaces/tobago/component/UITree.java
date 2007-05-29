@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MODE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ICONS;
@@ -26,32 +24,26 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_JUNCTIONS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT_JUNCTION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
-import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
+import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.util.MessageFactory;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.component.ActionSource;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ActionListener;
-import javax.faces.event.FacesEvent;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
-public class UITree extends UIInput implements NamingContainer, ActionSource {
-
-  private static final Log LOG = LogFactory.getLog(UITree.class);
+public class UITree extends UIInput implements NamingContainer {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Tree";
   public static final String MESSAGE_NOT_LEAF = "tobago.tree.MESSAGE_NOT_LEAF";
@@ -65,20 +57,6 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   public static final String FACET_TREE_NODE_COMMAND = "treeNodeCommand";
   public static final String PARAMETER_TREE_NODE_ID = "treeNodeId";
 
-  public static final String COMMAND_PREFIX = "command";
-
-  public static final String COMMAND_NEW = "new";
-  public static final String COMMAND_DELETE = "delete";
-  public static final String COMMAND_EDIT = "edit";
-  public static final String COMMAND_CUT = "cut";
-  public static final String COMMAND_COPY = "copy";
-  public static final String COMMAND_PASTE = "paste";
-  public static final String COMMAND_MOVE_UP = "moveUp";
-  public static final String COMMAND_MOVE_DOWN = "moveDown";
-
-  private Command[] treeCommands;
-
-  private MethodBinding actionListenerBinding;
   private TreeState treeState;
 
   private boolean showJunctions = true;
@@ -92,40 +70,6 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   private String mode;
   private MixedTreeModel model;
-
-  public UITree() {
-    treeCommands = new Command[]{
-      new Command(COMMAND_NEW),
-      new Command(COMMAND_DELETE),
-      new Command(COMMAND_EDIT),
-      new Command(COMMAND_CUT),
-      new Command(COMMAND_COPY),
-      new Command(COMMAND_PASTE),
-      new Command(COMMAND_MOVE_UP),
-      new Command(COMMAND_MOVE_DOWN),
-    };
-  }
-
-// ---------------------------- interface ActionSource
-
-  public void broadcast(FacesEvent event) throws AbortProcessingException {
-    super.broadcast(event);
-
-    MethodBinding binding = getActionListener();
-
-    if (binding != null) {
-      FacesContext context = getFacesContext();
-      binding.invoke(context, new Object[] {event});
-    }
-  }
-
-  public MethodBinding getAction() {
-    return null;
-  }
-
-  public void setAction(MethodBinding methodBinding) {
-
-  }
 
   public String getMode() {
     if (mode != null) {
@@ -143,46 +87,19 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
     this.mode = mode;
   }
 
-  public MethodBinding getActionListener() {
-    return actionListenerBinding;
-  }
-
-  public void setActionListener(MethodBinding actionListener) {
-    this.actionListenerBinding = actionListener;
-  }
-
-  public void addActionListener(ActionListener actionListener) {
-    addFacesListener(actionListener);
-  }
-
-  public ActionListener[] getActionListeners() {
-    return (ActionListener[]) getFacesListeners(ActionListener.class);
-  }
-
-  public void removeActionListener(ActionListener actionListener) {
-    removeFacesListener(actionListener);
-  }
-
   public UITreeNode getRoot() {
     // find the UITreeNode in the childen.
-    for (Iterator i = getChildren().iterator(); i.hasNext();) {
-      UIComponent child = (UIComponent) i.next();
+    for (UIComponent child : (List<UIComponent>)getChildren()) {
       if (child instanceof UITreeNode) {
         return (UITreeNode) child;
       }
     }
-    // in a new UITree isn't a root
     return null;
-  }
-
-  public void encodeChildren(FacesContext context)
-      throws IOException {
-//     will be called from end.jsp
   }
 
   public void encodeEnd(FacesContext context) throws IOException {
     model = new MixedTreeModel();
-    
+
     buildModel();
     super.encodeEnd(context);
   }
@@ -204,11 +121,11 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   public boolean isSelectableTree() {
     final Object selectable
-        = ComponentUtil.getAttribute(this , ATTR_SELECTABLE);
+        = ComponentUtil.getAttribute(this, ATTR_SELECTABLE);
     return selectable != null
         && (selectable.equals("multi") || selectable.equals("multiLeafOnly")
-            || selectable.equals("single") || selectable.equals("singleLeafOnly")
-            || selectable.equals("sibling") || selectable.equals("siblingLeafOnly"));
+        || selectable.equals("single") || selectable.equals("singleLeafOnly")
+        || selectable.equals("sibling") || selectable.equals("siblingLeafOnly"));
   }
 
   public void processDecodes(FacesContext facesContext) {
@@ -271,7 +188,7 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
         }
       }
     }
-  }      
+  }
 
   public void updateModel(FacesContext facesContext) {
     // nothig to update for tree's
@@ -279,53 +196,47 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
   }
 
   public Object saveState(FacesContext context) {
-    Object[] state = new Object[7];
+    Object[] state = new Object[6];
     state[0] = super.saveState(context);
-    state[1] = saveAttachedState(context, actionListenerBinding);
-    state[2] = showJunctionsSet ? showJunctions : null;
-    state[3] = showIconsSet ? showIcons : null;
-    state[4] = showRootSet ? showRoot : null;
-    state[5] = showRootJunctionSet ? showRootJunction : null;
-    state[6] = mode;
+    state[1] = showJunctionsSet ? showJunctions : null;
+    state[2] = showIconsSet ? showIcons : null;
+    state[3] = showRootSet ? showRoot : null;
+    state[4] = showRootJunctionSet ? showRootJunction : null;
+    state[5] = mode;
     return state;
   }
 
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
-    actionListenerBinding = (MethodBinding) restoreAttachedState(context, values[1]);
-    if (values[2] != null) {
-      showJunctions = (Boolean) values[2];
+    if (values[1] != null) {
+      showJunctions = (Boolean) values[1];
       showJunctionsSet = true;
     }
-    if (values[3] != null) {
-      showIcons = (Boolean) values[3];
+    if (values[2] != null) {
+      showIcons = (Boolean) values[2];
       showIconsSet = true;
     }
-    if (values[4] != null) {
-      showRoot = (Boolean) values[4];
+    if (values[3] != null) {
+      showRoot = (Boolean) values[3];
       showRootSet = true;
     }
-    if (values[5] != null) {
-      showRootJunction = (Boolean) values[5];
+    if (values[4] != null) {
+      showRootJunction = (Boolean) values[4];
       showRootJunctionSet = true;
     }
-    mode = (String) values[6];
-  }
-
-  public Command[] getCommands() {
-    return treeCommands;
+    mode = (String) values[5];
   }
 
   public TreeState getState() {
     if (treeState != null) {
-        return treeState;
+      return treeState;
     }
     ValueBinding valueBinding = getValueBinding(ATTR_STATE);
     if (valueBinding != null) {
-        return (TreeState) valueBinding.getValue(getFacesContext());
+      return (TreeState) valueBinding.getValue(getFacesContext());
     } else {
-        return null;
+      return null;
     }
   }
 
@@ -335,13 +246,13 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   public boolean isShowJunctions() {
     if (showJunctionsSet) {
-        return (showJunctions);
+      return (showJunctions);
     }
     ValueBinding vb = getValueBinding(ATTR_SHOW_JUNCTIONS);
     if (vb != null) {
-        return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
+      return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
-        return (this.showJunctions);
+      return (this.showJunctions);
     }
   }
 
@@ -352,13 +263,13 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   public boolean isShowIcons() {
     if (showIconsSet) {
-        return (showIcons);
+      return (showIcons);
     }
     ValueBinding vb = getValueBinding(ATTR_SHOW_ICONS);
     if (vb != null) {
-        return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
+      return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
-        return (this.showIcons);
+      return (this.showIcons);
     }
   }
 
@@ -369,13 +280,13 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   public boolean isShowRoot() {
     if (showRootSet) {
-        return (showRoot);
+      return (showRoot);
     }
     ValueBinding vb = getValueBinding(ATTR_SHOW_ROOT);
     if (vb != null) {
-        return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
+      return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
-        return (this.showRoot);
+      return (this.showRoot);
     }
   }
 
@@ -386,13 +297,13 @@ public class UITree extends UIInput implements NamingContainer, ActionSource {
 
   public boolean isShowRootJunction() {
     if (showRootJunctionSet) {
-        return (showRootJunction);
+      return (showRootJunction);
     }
     ValueBinding vb = getValueBinding(ATTR_SHOW_ROOT_JUNCTION);
     if (vb != null) {
-        return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
+      return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
-        return (this.showRootJunction);
+      return (this.showRootJunction);
     }
   }
 
