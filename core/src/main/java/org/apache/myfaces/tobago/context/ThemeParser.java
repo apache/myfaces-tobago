@@ -51,6 +51,7 @@ class ThemeParser {
     digester.setValidating(false);
     digester.addCallMethod("tobago-theme/name", "setName", 0);
     digester.addCallMethod("tobago-theme/deprecated-name", "setDeprecatedName", 0);
+    digester.addCallMethod("tobago-theme/display-name", "setDisplayName", 0);
     digester.addCallMethod("tobago-theme/resource-path", "setResourcePath", 0);
     digester.addCallMethod("tobago-theme/fallback", "setFallbackName", 0);
     digester.addObjectCreate("tobago-theme/renderers", RenderersConfigImpl.class);
@@ -74,6 +75,10 @@ class ThemeParser {
       digester.parse(inputStream);
       if (LOG.isInfoEnabled()) {
         LOG.info("Found theme: '" + theme.getName() + "'");
+      }
+      if (theme.getDisplayName() == null) {
+        LOG.warn("No display name set for theme: '" + theme.getName() + "'");
+        theme.setDisplayName(theme.getName());
       }
       return theme;
     } finally {

@@ -23,8 +23,6 @@ package org.apache.myfaces.tobago.example.addressbook.web;
  */
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.WordUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UIColumn;
@@ -45,9 +43,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -100,7 +98,7 @@ public class Controller {
     themes.add(0, tobagoConfig.getDefaultTheme());
     themeItems = new ArrayList<SelectItem>();
     for (Theme theme : themes) {
-      themeItems.add(new SelectItem(theme, StringUtils.capitalize(theme.getDisplayName())));
+      themeItems.add(new SelectItem(theme, theme.getDisplayName()));
     }
 
     ClientProperties client = ClientProperties.getInstance(facesContext);
@@ -320,15 +318,9 @@ public class Controller {
     return theme;
   }
 
-  @Deprecated
-  public String getThemeName() {
-    return WordUtils.capitalize(theme.getDisplayName());
-  }
-
   public void setTheme(Theme theme) {
     this.theme = theme;
   }
-
 
   public boolean isSimple() {
     return simple;

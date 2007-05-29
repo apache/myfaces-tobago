@@ -20,10 +20,10 @@ package org.apache.myfaces.tobago.context;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.io.Serializable;
+import java.util.List;
 
 class ThemeImpl implements Theme, Serializable {
 
@@ -32,6 +32,8 @@ class ThemeImpl implements Theme, Serializable {
   private static final Log LOG = LogFactory.getLog(ThemeImpl.class);
 
   private String name;
+
+  private String displayName;
 
   private String deprecatedName;
 
@@ -49,12 +51,16 @@ class ThemeImpl implements Theme, Serializable {
     return name;
   }
 
-  public String getDisplayName() {
-    return name; // FIXME
-  }
-
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getDisplayName() {
+    return displayName;
+  }
+
+  public void setDisplayName(String displayName) {
+    this.displayName = displayName;
   }
 
   public String getDeprecatedName() {

@@ -19,6 +19,7 @@
 
 <tobago-theme>
   <name>speyside</name>
+  <display-name>Speyside</display-name>
   <deprecated-name>org.apache.myfaces.tobago.context.SpeysideTheme</deprecated-name>
   <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
   <fallback>scarborough</fallback>
