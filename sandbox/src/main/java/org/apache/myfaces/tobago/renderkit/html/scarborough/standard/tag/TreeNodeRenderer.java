@@ -351,7 +351,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.startElement(A, null);
       writer.writeAttribute(HtmlAttributes.HREF, helper.getHref(), true);
       writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true); // xxx is escaping required?
-      writer.writeAttribute(HtmlAttributes.ONFOCUS, "Tobago.Tree.storeMarker(this.parentNode, '" + treeId + "')", false);
+      writer.writeAttribute(
+          HtmlAttributes.ONFOCUS, "Tobago.Tree.storeMarker(this.parentNode, '" + treeId + "')", false);
     }
     if (marked) {
       StyleClasses classes = new StyleClasses();
