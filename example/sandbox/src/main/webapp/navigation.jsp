@@ -37,6 +37,8 @@
 
     <tc:link link="tree-editor.jsp" label="tree-editor.jsp" target="View"/>
 
+    <tc:link link="tree-ajax.jsp" label="tree-ajax.jsp" target="View"/>
+
     <tc:link link="inputSlider.jsp" label="inputSlider.jsp" target="View"/>
 
     <tc:link link="tomahawk.jsp" label="tomahawk.jsp" target="View"/>
