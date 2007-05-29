@@ -34,8 +34,11 @@
 <!-- deprecated -->
 <!ELEMENT load-theme-resources-from-classpath (#PCDATA)>
 
+<!-- deprecated -->
 <!ELEMENT mapping-rule (request-uri, forward-uri, attribute*)>
+<!-- deprecated -->
 <!ELEMENT request-uri (#PCDATA)>
+<!-- deprecated -->
 <!ELEMENT forward-uri (#PCDATA)>
 
 <!ELEMENT attribute (key, value)>
