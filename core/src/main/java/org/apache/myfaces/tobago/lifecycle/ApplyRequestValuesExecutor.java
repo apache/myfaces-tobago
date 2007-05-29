@@ -65,10 +65,10 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
       decodeActionComponent(facesContext, page, ajaxComponents);
 
       // and all ajax components
-      for (String ajaxComponentId : ajaxComponents.keySet()) {
-        UIComponent ajaxComponent = ajaxComponents.get(ajaxComponentId);
+      for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
+        UIComponent ajaxComponent = entry.getValue();
         // TODO: invokeOnComponent()
-        ComponentUtil.invokeOnComponent(facesContext, ajaxComponentId, ajaxComponent, callback);
+        ComponentUtil.invokeOnComponent(facesContext, entry.getKey(), ajaxComponent, callback);
       }
 
       UIViewRoot viewRoot = ((UIViewRoot) facesContext.getViewRoot());

@@ -104,9 +104,9 @@ public class AjaxResponseRenderer {
       List<StringWriter> responseParts = new ArrayList<StringWriter>();
       Map<String, UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(facesContext);
 
-      for (String clientId : ajaxComponents.keySet()) {
-        AjaxComponent component = ((AjaxComponent) ajaxComponents.get(clientId));
-        responseParts.add(renderComponent(facesContext, renderKit, clientId, component));
+      for (Map.Entry<String,UIComponent> entry : ajaxComponents.entrySet()) {
+        AjaxComponent component = (AjaxComponent) entry.getValue();
+        responseParts.add(renderComponent(facesContext, renderKit, entry.getKey(), component));
         break;  // TODO render multiple components
       }
 
