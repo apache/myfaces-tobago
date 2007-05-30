@@ -241,7 +241,7 @@
             <link>http://jakarta.apache.org/commons/fileupload/apidocs</link>
             <link>http://jakarta.apache.org/commons/digester/commons-digester-${commons-digester.version}/docs/api/</link>
             <link>http://jakarta.apache.org/commons/io/api-${common-io.version}/</link>
-            <link>http://jakarta.apache.org/commons/logging/commons-logging-${commons-logging.version}/docs/apidocs/</link>
+            <link>http://jakarta.apache.org/commons/logging/commons-logging-${commons-logging.version}/apidocs/</link>
             <link>http://www.junit.org/junit/javadoc/</link>
             <link>http://logging.apache.org/log4j/docs/api/</link>
           </links>
@@ -333,11 +333,17 @@
         </configuration>
       </plugin>
 
+      <!-- TODO test dashboard plugin
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>dashboard-maven-plugin</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </plugin> --> 
 
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>1.0.0</version>
+        <version>1.1</version>
         <configuration>
           <threshold>Low</threshold>
         </configuration>
