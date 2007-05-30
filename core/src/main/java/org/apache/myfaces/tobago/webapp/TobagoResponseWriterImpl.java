@@ -188,7 +188,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
       throws IOException {
     closeOpenTag();
     if (xml) {
-      writer.write(XmlUtils.escape(text.toString()).toCharArray(), offset, length);
+      writer.write(XmlUtils.escape(String.valueOf(text)).toCharArray(), offset, length);
 // FIXME: not nice:     XmlUtils.escape(text.toString()).toCharArray()
     } else {
       helper.writeText(text, offset, length);

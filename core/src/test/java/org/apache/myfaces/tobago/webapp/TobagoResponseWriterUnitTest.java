@@ -104,4 +104,10 @@ public class TobagoResponseWriterUnitTest extends TestCase {
     writer1.close();
     assertEquals("<input value=\"Gutschein &uuml;ber 100 &euro;.\" readonly=\"readonly\"\n>", stringWriter.toString());
   }
+
+  public void testCharArray() throws IOException {
+    TobagoResponseWriterImpl writer = new TobagoResponseWriterImpl(stringWriter, "text/xml", "ISO-8859-1");
+    writer.writeText("123".toCharArray(), 0, 3);
+    assertEquals("123", stringWriter.toString());
+  }
 }
