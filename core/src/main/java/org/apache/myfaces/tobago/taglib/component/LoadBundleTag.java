@@ -36,8 +36,9 @@ import java.util.Map;
 @Tag(name = "loadBundle", bodyContent = BodyContent.EMPTY)
 public class LoadBundleTag extends TagSupport {
 
-  private String basename;
+  private static final long serialVersionUID = 4949984721486410191L;
 
+  private String basename;
   private String var;
 
   public int doStartTag() throws JspException {

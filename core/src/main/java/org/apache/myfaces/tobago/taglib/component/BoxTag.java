@@ -26,7 +26,7 @@ import javax.faces.component.UIComponent;
 /**
  * Renders a panel with border and title.
  */
-
+// Some Weblogic versions need explicit 'implements' for BodyTag
 public class BoxTag extends TobagoBodyTag
     implements BodyTag, BoxTagDeclaration {
 

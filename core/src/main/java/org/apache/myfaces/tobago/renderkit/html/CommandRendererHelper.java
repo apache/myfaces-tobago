@@ -41,6 +41,7 @@ import javax.faces.component.UICommand;
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
 import java.util.List;
+import java.util.Arrays;
 import java.net.URLDecoder;
 
 /**
@@ -112,7 +113,7 @@ public class CommandRendererHelper {
                 + HtmlRendererUtil.getComponentId(facesContext, command, componentId[0]) + "','" + clientId + "', {});";
           }
         } else {
-          LOG.error("more than one parially rendered component is currently not supported " + componentId);
+          LOG.error("more than one parially rendered component is currently not supported " + Arrays.toString(componentId));
           onclick = "Tobago.submitAction('" + clientId + "', " + transition + ");";
         }
 

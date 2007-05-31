@@ -41,6 +41,9 @@ import javax.faces.component.ActionSource;
  */
 @Tag(name = "popupReference", bodyContent = BodyContent.EMPTY)
 public class PopupReferenceTag extends TagSupport {
+
+  private static final long serialVersionUID = -8444689365088370011L;
+
   private String forComponent;
 
   /**

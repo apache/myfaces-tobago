@@ -24,8 +24,9 @@ import javax.faces.event.ActionEvent;
 
 public class PageActionEvent extends ActionEvent {
 
-  private PageAction action;
+  private static final long serialVersionUID = 3364193750247386220L;
 
+  private PageAction action;
   private int value;
 
   public PageActionEvent(UIData component, PageAction action) {
@@ -45,8 +46,8 @@ public class PageActionEvent extends ActionEvent {
   }
 
   /**
-   * Returns the value for action types {@link PageAction.TO_ROW}
-   * and {@link PageAction.TO_PAGE}. 
+   * Returns the value for action types {@link PageAction#TO_ROW}
+   * and {@link PageAction#TO_PAGE}.
    */
   public int getValue() {
     return value;

@@ -562,7 +562,7 @@ public final class HtmlRendererUtil {
       TobagoResponseWriter writer, FacesContext facesContext) throws IOException {
 
     if (LOG.isDebugEnabled()) {
-      LOG.debug("value = '" + values + "'");
+      LOG.debug("value = '" + Arrays.toString(values) + "'");
     }
     for (SelectItem item : items) {
       if (item instanceof SelectItemGroup) {

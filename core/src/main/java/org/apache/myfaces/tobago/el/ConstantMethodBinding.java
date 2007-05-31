@@ -29,6 +29,8 @@ import java.io.Serializable;
 public class ConstantMethodBinding
     extends MethodBinding implements Serializable {
 
+  private static final long serialVersionUID = 5019857148558549340L;
+
   private String outcome;
 
   public ConstantMethodBinding(String outcome) {

@@ -34,7 +34,7 @@ import javax.servlet.jsp.tagext.BodyTag;
  * $Id$
  */
 
-
+// Some Weblogic versions need explicit 'implements' for BodyTag
 public class CellTag extends TobagoBodyTag implements BodyTag, CellTagDeclaration {
 
   private static final Log LOG = LogFactory.getLog(CellTag.class);

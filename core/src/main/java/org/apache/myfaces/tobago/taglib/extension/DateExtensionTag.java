@@ -70,6 +70,8 @@ public class DateExtensionTag extends BodyTagSupport
     HasConverter, IsReadonly, IsDisabled, HasOnchange,
     IsRequired, HasTip, HasLabel, HasLabelWidth, IsFocus, IsInline {
 
+  private static final long serialVersionUID = 2044784791513107420L;
+
   private String binding;
   private String converter;
   private String validator;
@@ -84,9 +86,8 @@ public class DateExtensionTag extends BodyTagSupport
   private String valueChangeListener;
   private String inline;
   private String onchange;
+
   private String labelWidth;
-
-
   private LabelExtensionTag labelTag;
   private DateTag dateTag;
 

@@ -45,14 +45,16 @@ import javax.faces.convert.Converter;
 @Tag(name = "converter", bodyContent = BodyContent.EMPTY)
 public class ConverterTag extends TagSupport {
 
+  private static final long serialVersionUID = 8565994799165107984L;
 
   /**
-   * <p>The converterId of the {@link javax.faces.convert.Converter}</p>
+   * The converterId of the {@link javax.faces.convert.Converter}
    */
   private String converterId;
   private String binding;
+
   /**
-   * The converterId of a registered Converter.
+   * The converterId of a registered converter.
    * @param converterId  A valid converterId
    */
   @TagAttribute()
@@ -61,7 +63,7 @@ public class ConverterTag extends TagSupport {
   }
 
   /**
-   * The value binding expression to a Converter.
+   * The value binding expression to a converter.
    * @param binding A valid binding
    */
   @TagAttribute
@@ -69,14 +71,12 @@ public class ConverterTag extends TagSupport {
     this.binding = binding;
   }
 
-
-
   /**
-   * <p>Create a new instance of the specified {@link javax.faces.convert.Converter}
+   * Create a new instance of the specified {@link javax.faces.convert.Converter}
    * class, and register it with the {@link javax.faces.component.UIComponent} instance associated
    * with our most immediately surrounding {@link javax.faces.webapp.UIComponentTag} instance, if
    * the {@link javax.faces.component.UIComponent} instance was created by this execution of the
-   * containing JSP page.</p>
+   * containing JSP page.
    *
    * @throws javax.servlet.jsp.JspException if a JSP error occurs
    */

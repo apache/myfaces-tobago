@@ -45,14 +45,18 @@ import javax.faces.context.FacesContext;
 @Tag(name = "attribute", bodyContent = BodyContent.EMPTY)
 public class AttributeTag  extends TagSupport {
 
+  private static final long serialVersionUID = 6231531736083277631L;
+
   /**
    * <p>The name of the attribute</p>
    */
   private String name;
+
   /**
    * <p>The value of the attribute</p>
    */
   private String value;
+
   /**
    * The name of a attribute.
    * @param name  A attribute name

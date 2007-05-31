@@ -22,17 +22,19 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.util.Comparator;
+import java.io.Serializable;
 
 /**
  * Created: Mon Apr 15 15:56:44 2002
  */
 
-public class BeanComparator extends ComparatorBase {
+public class BeanComparator extends ComparatorBase implements Serializable {
+
+  private static final long serialVersionUID = -7450094725566090886L;
 
   private static final Log LOG = LogFactory.getLog(BeanComparator.class);
 
   private String property;
-
 
   public BeanComparator(String property) {
     this.property = property;

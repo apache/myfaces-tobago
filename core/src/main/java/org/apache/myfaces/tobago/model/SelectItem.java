@@ -26,6 +26,8 @@ import org.apache.myfaces.tobago.component.UISelectItem;
  */
 public class SelectItem extends javax.faces.model.SelectItem {
 
+  private static final long serialVersionUID = 2582455665060354639L;
+
   private String image;
 
   public SelectItem() {

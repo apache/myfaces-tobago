@@ -558,8 +558,9 @@ public class ResourceManagerImpl implements ResourceManager {
 
   private static class Cache extends HashMap {
 
-    private int found;
+    private static final long serialVersionUID = -5328037453899370428L;
 
+    private int found;
     private int miss;
 
     public Object get(Object key) {

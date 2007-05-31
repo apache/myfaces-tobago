@@ -34,6 +34,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTag;
 import java.util.List;
 
+// Some Weblogic versions need explicit 'implements' for BodyTag
 public class PageTag extends TobagoBodyTag
     implements BodyTag, PageTagDeclaration {
 

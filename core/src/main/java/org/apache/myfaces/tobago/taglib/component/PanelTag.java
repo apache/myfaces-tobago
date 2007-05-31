@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import javax.servlet.jsp.tagext.BodyTag;
 import javax.faces.component.UIComponent;
 
+// Some Weblogic versions need explicit 'implements' for BodyTag
 public class PanelTag extends TobagoBodyTag
     implements BodyTag, PanelTagDeclaration {
 

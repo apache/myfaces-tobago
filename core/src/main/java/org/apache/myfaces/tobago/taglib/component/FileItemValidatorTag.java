@@ -38,6 +38,9 @@ import javax.servlet.jsp.JspException;
  */
 @Tag(name = "validateFileItem")
 public class FileItemValidatorTag extends ValidatorTag {
+
+  private static final long serialVersionUID = -1461244883146997440L;
+
   private String maxSize;
   private String contentType;
 

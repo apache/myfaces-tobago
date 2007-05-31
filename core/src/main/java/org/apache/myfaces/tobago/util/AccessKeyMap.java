@@ -31,7 +31,7 @@ public class AccessKeyMap {
   private static final String REQUEST_MAP_KEY = "accessKeysRequestMapKey";
 
   private HashSet set;
-  private String dublicated = "";
+  private StringBuilder duplicated = new StringBuilder();
 
 
   public static AccessKeyMap getInstance(FacesContext facesContext) {
@@ -52,19 +52,19 @@ public class AccessKeyMap {
     return set;
   }
 
-  private String getDublicated() {
-    return dublicated;
+  private String getDuplicated() {
+    return duplicated.toString();
   }
 
   private void addDublicated(char key) {
-    dublicated = dublicated + key;
+    duplicated = duplicated.append(key);
   }
 
   public static boolean addAccessKey(FacesContext facesContext, Character key) {
-    key = new Character(key.toString().toLowerCase(Locale.ENGLISH).charAt(0));
+    key = key.toString().toLowerCase(Locale.ENGLISH).charAt(0);
     final AccessKeyMap instance = getInstance(facesContext);
     if (instance.getSet().contains(key)) {
-      instance.addDublicated(key.charValue());
+      instance.addDublicated(key);
       return false;
     } else {
       instance.getSet().add(key);
@@ -72,17 +72,16 @@ public class AccessKeyMap {
     }
   }
 
-
   public static String getDublicatedKeys(FacesContext facesContext) {
-    return getInstance(facesContext).getDublicated();
+    return getInstance(facesContext).getDuplicated();
   }
 
   public static String getUnusedKeys(FacesContext facesContext) {
     HashSet set = getInstance(facesContext).getSet();
     StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < KEYS.length; i++) {
-      if (!set.contains(new Character(KEYS[i]))) {
-        sb.append(KEYS[i]);
+    for (char key : KEYS) {
+      if (!set.contains(Character.valueOf(key))) {
+        sb.append(key);
       }
     }
     return sb.toString();

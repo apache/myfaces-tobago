@@ -27,9 +27,13 @@ import java.io.Serializable;
  * Time: 5:44:04 PM
  */
 public class TransientStateHolder implements StateHolder, Serializable {
+
   private static final long serialVersionUID = -5260593843885016768L;
+
   private transient Object object;
 
+  public TransientStateHolder() {
+  }
 
   public TransientStateHolder(Object object) {
     this.object = object;
@@ -56,7 +60,6 @@ public class TransientStateHolder implements StateHolder, Serializable {
     // do nothing
   }
 
-
   public boolean isTransient() {
     return true;
   }
@@ -64,4 +67,5 @@ public class TransientStateHolder implements StateHolder, Serializable {
   public void setTransient(boolean newTransientValue) {
      // do nothing
   }
+
 }

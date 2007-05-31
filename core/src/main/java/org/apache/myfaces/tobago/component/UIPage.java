@@ -159,9 +159,11 @@ public class UIPage extends UIForm {
     UIComponent command = null;
     try {
       command = findComponent(currentActionId);
-    } catch (Exception e) {/* ignore */}
+    } catch (Exception e) {
+      // ignore
+    }
 
-    // TODO: remove this if block if prooved this never happens anymore
+    // TODO: remove this if block if prooven this never happens anymore
     if (command == null
         && currentActionId != null && currentActionId.matches(".*:\\d+:.*")) {
       // If currentActionId component was inside a sheet the id contains the
@@ -172,7 +174,9 @@ public class UIPage extends UIForm {
       try {
         command = findComponent(currentActionId);
         LOG.info("command = \"" + command + "\"", new Exception());
-      } catch (Exception e) {/* ignore */}
+      } catch (Exception e) {
+        // ignore
+      }
     }
 
     if (LOG.isTraceEnabled()) {

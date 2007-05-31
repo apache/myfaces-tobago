@@ -25,7 +25,9 @@ import javax.faces.event.PhaseId;
 
 public class SortActionEvent extends ActionEvent {
 
-  private UIColumn column;
+  private static final long serialVersionUID = 4906962574581815720L;
+
+  private transient UIColumn column;
 
   public SortActionEvent(UIData sheet, UIColumn column) {
     super(sheet);

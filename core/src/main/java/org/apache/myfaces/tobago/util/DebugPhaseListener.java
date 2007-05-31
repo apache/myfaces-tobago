@@ -93,7 +93,7 @@ public class DebugPhaseListener implements PhaseListener {
         if (LOG.isTraceEnabled() && PhaseId.RESTORE_VIEW == phaseId) {
           // this is before restoreView
             Map params = externalContext.getRequestParameterMap();
-            for (Object key : params.keySet()) {
+            for (Object key : params.entrySet()) {
               LOG.trace("Param : \"" + key + "\" = \"" + params.get(key) + "\"");
             }
         }

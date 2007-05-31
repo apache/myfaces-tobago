@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.model;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.Enumeration;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -83,9 +82,8 @@ public class TreeState {
 
   /** Expands all parents which contains selected children. */
   public void expandSelection() {
-    for (Iterator i = selection.iterator(); i.hasNext();) {
-      DefaultMutableTreeNode selected = (DefaultMutableTreeNode) i.next();
-      expandTo(selected);
+    for (DefaultMutableTreeNode treeNode : selection) {
+      expandTo(treeNode);
     }
   }
 

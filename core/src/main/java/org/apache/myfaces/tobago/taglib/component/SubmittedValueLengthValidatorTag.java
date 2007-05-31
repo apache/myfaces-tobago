@@ -38,13 +38,16 @@ import javax.servlet.jsp.JspException;
  */
 @Tag(name="validateSubmittedValueLength")
 public class SubmittedValueLengthValidatorTag extends ValidatorTag {
+
+  private static final long serialVersionUID = 6777040780038715924L;
+
   private String minimum;
   private String maximum;
-
 
   public String getMinimum() {
     return minimum;
   }
+  
   @TagAttribute()
   public void setMinimum(String minimum) {
     this.minimum = minimum;

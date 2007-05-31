@@ -39,6 +39,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 //    @BodyContentDescription(contentType="javascript")
 public class ScriptTag extends BodyTagSupport {
 
+  private static final long serialVersionUID = 3253751129824779272L;
+
   private String file;
   private String onload;
   private String onunload;

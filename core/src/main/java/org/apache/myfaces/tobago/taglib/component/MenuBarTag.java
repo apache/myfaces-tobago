@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import javax.faces.component.UIPanel;
 import javax.servlet.jsp.tagext.BodyTag;
 
-
+// Some Weblogic versions need explicit 'implements' for BodyTag
 public class MenuBarTag extends TobagoBodyTag
     implements BodyTag, MenuBarTagDeclaration {
 

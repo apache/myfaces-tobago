@@ -28,13 +28,22 @@ import javax.faces.event.FacesListener;
  */
 public class TabChangeEvent extends FacesEvent {
 
-  private Object oldState;
-  private Object newState;
+  private static final long serialVersionUID = 422186716954088729L;
 
+  private Integer oldTabIndex;
+  private Integer newTabIndex;
+
+  public TabChangeEvent(UIComponent uiComponent, Integer oldTabIndex, Integer newTabIndex) {
+    super(uiComponent);
+    this.oldTabIndex = oldTabIndex;
+    this.newTabIndex = newTabIndex;
+  }
+
+  @Deprecated
   public TabChangeEvent(UIComponent uiComponent, Object oldState, Object newState) {
     super(uiComponent);
-    this.oldState = oldState;
-    this.newState = newState;
+    setOldState(oldState);
+    setNewState(newState);
   }
 
   public boolean isAppropriateListener(FacesListener facesListener) {
@@ -48,32 +57,30 @@ public class TabChangeEvent extends FacesEvent {
   }
 
   public int getOldTabIndex() {
-    if (oldState instanceof Integer) {
-      return ((Integer) oldState);
-    }
-    return -1;
+    return oldTabIndex;
   }
 
   public int getNewTabIndex() {
-    if (newState instanceof Integer) {
-      return ((Integer) newState);
-    }
-    return -1;
+    return newTabIndex;
   }
 
+  @Deprecated
   public Object getOldState() {
-    return oldState;
+    return oldTabIndex;
   }
 
-  public void setOldState(Object oldState) {
-    this.oldState = oldState;
+  @Deprecated
+  public void setOldState(Object oldTabIndex) {
+    this.oldTabIndex = oldTabIndex instanceof Integer ? (Integer) oldTabIndex : -1;
   }
 
+  @Deprecated
   public Object getNewState() {
-    return newState;
+    return newTabIndex;
   }
 
-  public void setNewState(Object newState) {
-    this.newState = newState;
+  @Deprecated
+  public void setNewState(Object newTabIndex) {
+    this.newTabIndex = newTabIndex instanceof Integer ? (Integer) newTabIndex : -1;
   }
 }

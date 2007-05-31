@@ -37,6 +37,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @BodyContentDescription(contentType = "css")
 public class StyleTag extends BodyTagSupport implements HasId {
 
+  private static final long serialVersionUID = -2201525304632479403L;
+
   private String style;
 
   public int doEndTag() throws JspException {

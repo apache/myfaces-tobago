@@ -39,6 +39,8 @@ import java.util.Iterator;
 @Deprecated
 public class TemplateServlet extends HttpServlet {
 
+  private static final long serialVersionUID = -646440036923109210L;
+
   private static final Log LOG = LogFactory.getLog(TemplateServlet.class);
 
   public void service(

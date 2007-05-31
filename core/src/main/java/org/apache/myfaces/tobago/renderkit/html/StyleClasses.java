@@ -26,14 +26,15 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.context.Theme;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 
 /*
@@ -42,12 +43,14 @@ import java.util.Map;
 
 public class StyleClasses implements Serializable {
 
+  private static final long serialVersionUID = 3738052927067803517L;
+
   private static final Log LOG = LogFactory.getLog(StyleClasses.class);
 
   public static final char SEPERATOR = '-';
   public static final String PREFIX = "tobago" + SEPERATOR;
-  public static final String MARKUP = SEPERATOR + "markup" + SEPERATOR;
 
+  public static final String MARKUP = SEPERATOR + "markup" + SEPERATOR;
   private ListOrderedSet classes;
 
   public StyleClasses() {
@@ -232,7 +235,7 @@ public class StyleClasses implements Serializable {
     private String aspect;
 
     Aspect() {
-      aspect = '-' + name().toLowerCase();
+      aspect = '-' + name().toLowerCase(Locale.ENGLISH);
     }
 
     @Override

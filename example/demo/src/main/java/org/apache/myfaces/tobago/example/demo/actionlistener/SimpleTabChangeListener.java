@@ -38,7 +38,7 @@ public class SimpleTabChangeListener implements TabChangeListener {
 
   public void processTabChange(TabChangeEvent tabChangeEvent) {
     LOG.error("TabState has Changed: from tabIndex " + tabChangeEvent.getOldState()
-        + " to tabIndex " + tabChangeEvent.getNewState()+ " " + this);
+        + " to tabIndex " + tabChangeEvent.getNewTabIndex()+ " " + this);
 
   }
 }

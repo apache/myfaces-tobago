@@ -27,13 +27,15 @@ import org.apache.myfaces.tobago.component.UITab;
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.tagext.BodyTag;
 
+// Some Weblogic versions need explicit 'implements' for BodyTag
 public class TabTag extends TobagoBodyTag
     implements BodyTag, TabTagDeclaration {
+
   private static final Log LOG = LogFactory.getLog(TabTag.class);
+
   private String label;
   private String tip;
   private String markup;
-
 
   public String getComponentType() {
     return UITab.COMPONENT_TYPE;

@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.component.UIPopup;
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.tagext.BodyTag;
 
+// Some Weblogic versions need explicit 'implements' for BodyTag
 public class PopupTag extends TobagoBodyTag
     implements BodyTag, PopupTagDeclaration {
   private String width;

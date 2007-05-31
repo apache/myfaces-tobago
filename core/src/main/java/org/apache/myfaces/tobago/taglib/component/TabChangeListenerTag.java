@@ -41,13 +41,17 @@ import javax.servlet.jsp.tagext.TagSupport;
 @Tag(name = "tabChangeListener", bodyContent = BodyContent.EMPTY)
 public class TabChangeListenerTag extends TagSupport {
 
+  private static final long serialVersionUID = -419199086962377873L;
+
   private static final Log LOG = LogFactory.getLog(TabChangeListenerTag.class);
+
   /**
    * <p>The fully qualified class name of the {@link TabChangeListener}
    * instance to be created.</p>
    */
   private String type;
   private String binding;
+
   /**
    * Fully qualified Java class name of a TabChangeListener to be
    * created and registered.

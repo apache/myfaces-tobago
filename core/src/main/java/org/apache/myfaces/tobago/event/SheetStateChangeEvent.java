@@ -28,6 +28,8 @@ import javax.faces.event.FacesListener;
  */
 public class SheetStateChangeEvent extends FacesEvent {
 
+  private static final long serialVersionUID = 2875570768774425451L;
+
   public SheetStateChangeEvent(UIComponent uiComponent) {
     super(uiComponent);
   }

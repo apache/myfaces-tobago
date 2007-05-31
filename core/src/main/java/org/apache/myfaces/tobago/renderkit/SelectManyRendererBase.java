@@ -48,7 +48,7 @@ public class SelectManyRendererBase extends LayoutableRendererBase {
         facesContext.getExternalContext().getRequestParameterValuesMap().get(uiSelectMany.getClientId(facesContext));
       if (LOG.isDebugEnabled()) {
         LOG.debug("decode: key='" + component.getClientId(facesContext)
-            + "' value='" + newValues + "'");
+            + "' value='" + Arrays.toString(newValues) + "'");
         LOG.debug("size ... '" + (newValues != null ? newValues.length : -1) + "'");
         if (newValues != null) {
           for (String newValue : newValues) {

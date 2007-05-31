@@ -63,13 +63,23 @@ public class BundleMapWrapper implements Map {
     if (null == key) {
       return null;
     }
-    String value = ResourceManagerUtil.getPropertyNotNull(
+    return ResourceManagerUtil.getPropertyNotNull(
         FacesContext.getCurrentInstance(), basename, key.toString());
-    return value;
   }
 
   public int hashCode() {
     return basename.hashCode();
+  }
+
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    BundleMapWrapper that = (BundleMapWrapper) o;
+    return basename.equals(that.basename);
   }
 
   public boolean isEmpty() {
@@ -100,4 +110,3 @@ public class BundleMapWrapper implements Map {
     throw new UnsupportedOperationException();
   }
 }
-
