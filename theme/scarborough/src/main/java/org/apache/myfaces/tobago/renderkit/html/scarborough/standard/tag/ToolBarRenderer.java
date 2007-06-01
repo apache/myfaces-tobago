@@ -96,6 +96,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
       if (toolbar instanceof UIToolBar) {
         right = UIToolBar.ORIENTATION_RIGHT.equals(((UIToolBar) toolbar).getOrientation());
       }
+      // TODO use StyleClasses
       writer.writeClassAttribute("tobago-toolbar-div-inner" + (right ? " tobago-toolbar-orientation-right" : ""));
 
     }
@@ -329,8 +330,8 @@ public class ToolBarRenderer extends LayoutableRendererBase {
           && label.getText() != null));
 
       if (((!ToolBarTag.LABEL_OFF.equals(labelPosition)
-            && label.getText() != null)
-           || popupMenu != null)
+          && label.getText() != null)
+          || popupMenu != null)
           && !render1pxImage) {
         writer.writeStyleAttribute("padding-right: 3px;");
         // TODO: make this '3px' configurable
@@ -413,7 +414,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
   }
 
   private String getImage(FacesContext facesContext, String name,
-                          String iconSize, boolean disabled, boolean selected) {
+      String iconSize, boolean disabled, boolean selected) {
     if (name == null) {
       return ResourceManagerUtil.getImageWithPath(facesContext, "image/1x1.gif");
     }
@@ -438,7 +439,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
           viewRoot, key + "SelectedDisabled" + size + ext, true);
       if (image == null) {
         image = resourceManager.getImage(
-                viewRoot, key + "SelectedDisabled" + ext, true);
+            viewRoot, key + "SelectedDisabled" + ext, true);
       }
     }
     if (image == null && disabled) {
@@ -474,20 +475,21 @@ public class ToolBarRenderer extends LayoutableRendererBase {
       final LabelWithAccessKey label, final boolean disabled)
       throws IOException {
     writer.startElement(HtmlConstants.A, command);
-    writer.writeClassAttribute("tobago-toolBar-button-link" + (disabled ? "tobago-toolBar-button-link-disabled" : ""));
+    // TODO use StyleClasses
+    writer.writeClassAttribute("tobago-toolBar-button-link" + (disabled ? " tobago-toolBar-button-link-disabled" : ""));
     writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
     if (!disabled) {
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);
       writer.writeAttribute(HtmlAttributes.ONFOCUS, "Tobago.toolbarFocus(this, event)", false);
       if (label.getAccessKey() != null) {
         if (LOG.isInfoEnabled()
-                && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
+            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
           LOG.info("dublicated accessKey : " + label.getAccessKey());
         }
         String id = command.getClientId(facesContext) + SUBCOMPONENT_SEP + "link";
         writer.writeIdAttribute(id);
-      HtmlRendererUtil.addClickAcceleratorKey(
-          facesContext, id, label.getAccessKey());
+        HtmlRendererUtil.addClickAcceleratorKey(
+            facesContext, id, label.getAccessKey());
       }
     }
   }
