@@ -34,7 +34,6 @@ import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -44,7 +43,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.validator.LengthValidator;
@@ -117,13 +115,13 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     if (renderAjaxSuggest) {
       writer.writeAttribute(HtmlAttributes.AUTOCOMPLETE, "off", false);
     }
-    if (component instanceof UIInput) {
+    /*if (component instanceof UIInput) {
       String onchange = HtmlUtils.generateOnchange((UIInput) component, facesContext);
       if (onchange != null) {
         // TODO: create and use utility method to write attributes without quoting
-  //      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
+    //      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
       }
-    }
+    } */
     writer.endElement(HtmlConstants.INPUT);
 
     checkForCommandFacet(component, facesContext, writer);

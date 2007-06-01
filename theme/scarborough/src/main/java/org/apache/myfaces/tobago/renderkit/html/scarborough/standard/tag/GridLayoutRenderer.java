@@ -450,16 +450,14 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
   private int getCellSpacing(FacesContext facesContext, UIComponent component) {
     String cellspacing = (String) component.getAttributes().get(ATTR_CELLSPACING);
-    if (cellspacing instanceof String) {
-      try {
-        return Integer.parseInt(cellspacing);
-      } catch (NumberFormatException e) {
-        if (LOG.isWarnEnabled()) {
-          LOG.warn("Illegal value for cellspacing : " + cellspacing
-              + " using default");
-        }
-        // ignore and return defaut value
+    try {
+      return Integer.parseInt(cellspacing);
+    } catch (NumberFormatException e) {
+      if (LOG.isWarnEnabled()) {
+        LOG.warn("Illegal value for cellspacing : " + cellspacing
+            + " using default");
       }
+      // ignore and return defaut value
     }
     return getConfiguredValue(facesContext,  component, "cellSpacing");
   }

@@ -41,6 +41,7 @@ import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
@@ -57,7 +58,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
     Object[] values = component.getSelectedValues();
     if (LOG.isDebugEnabled()) {
-      LOG.debug("values = '" + values + "'");
+      LOG.debug("values = '" + Arrays.toString(values) + "'");
     }
     String id = component.getClientId(facesContext);
 

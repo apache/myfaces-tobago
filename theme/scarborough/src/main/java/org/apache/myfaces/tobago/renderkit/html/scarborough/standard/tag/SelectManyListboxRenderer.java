@@ -39,6 +39,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.List;
+import java.util.Arrays;
 
 public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
@@ -100,7 +101,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     }
     Object[] values = component.getSelectedValues();
     if (LOG.isDebugEnabled()) {
-      LOG.debug("values = '" + values + "'");
+      LOG.debug("values = '" + Arrays.toString(values) + "'");
     }
     HtmlRendererUtil.renderSelectItems(component, items, values, writer, facesContext);
 
