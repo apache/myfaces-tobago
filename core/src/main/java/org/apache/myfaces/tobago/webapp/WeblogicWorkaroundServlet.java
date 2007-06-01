@@ -33,7 +33,8 @@ import javax.servlet.http.HttpServlet;
  * Servlet.init() but, JSF assume it does it before.
  * Maybe weblogic doesn't call ContextListeners from *.jar!
  *
- * @see <a href="http://forum.java.sun.com/thread.jsp?forum=427&thread=499690">WLS8.1 & JSF 1.0 Final: "Faces Servlet" failed to preload</a>
+ * @see <a href="http://forum.java.sun.com/thread.jsp?forum=427&thread=499690">
+ * WLS8.1 & JSF 1.0 Final: "Faces Servlet" failed to preload</a>
  */
 public class WeblogicWorkaroundServlet extends HttpServlet {
 
