@@ -988,7 +988,9 @@ public class ComponentUtil {
    */
   @Deprecated
   public static void setConverter(UIComponent component, String converterId) {
-    setConverter((ValueHolder) component, converterId);
+    if (component instanceof ValueHolder) {
+      setConverter((ValueHolder) component, converterId);
+    }
   }
 
   public static void setConverter(ValueHolder valueHolder, String converterId) {
@@ -1015,7 +1017,9 @@ public class ComponentUtil {
    */
   @Deprecated
   public static void setAction(UIComponent component, String type, String action) {
-    setAction((UICommand) component, type, action);
+    if (component instanceof UICommand) {
+      setAction((UICommand) component, type, action);
+    }
   }
   
   public static void setAction(UICommand component, String type, String action) {
@@ -1023,7 +1027,7 @@ public class ComponentUtil {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final Application application = facesContext.getApplication();
     if (type != null && UIComponentTag.isValueReference(type)) {
-         commandType = (String) application.createValueBinding(type).getValue(facesContext);
+      commandType = (String) application.createValueBinding(type).getValue(facesContext);
     } else {
       commandType = type;
     }
@@ -1058,7 +1062,9 @@ public class ComponentUtil {
    */
   @Deprecated
   public static void setSuggestMethodBinding(UIComponent component, String suggestMethod) {
-    setSuggestMethodBinding((UIInput) component, suggestMethod);
+    if (component instanceof UIInput) {
+      setSuggestMethodBinding((UIInput) component, suggestMethod);
+    }
   }
   public static void setSuggestMethodBinding(UIInput component, String suggestMethod) {
     if (suggestMethod != null) {
