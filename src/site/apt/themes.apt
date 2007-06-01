@@ -41,28 +41,3 @@ Theme Handling
       []
       You can see an example in {{{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/demo/}tobago-example-demo}}
 
- []
- Note:
-   The <<<tobago-theme-\<name\>-\<version\>-THEME.jar>>> is no longer needed.
-   You only need the <<<tobago-theme-\<name\>-\<version\>.jar>>>.
-   So you may have to remove some tags in the POM if you are using Maven 2:
-
-+------------------------------------------+
-   <classifier>THEME</classifier>
-   <scope>provided</scope>
-+------------------------------------------+
-
-   Additionally the <<<\<resource-dir\>>>> in the <<<tobago-config.xml>>> has changed from
-
-+------------------------------------------+
-   <resource-dir>tobago</resource-dir>
-+------------------------------------------+
-
-   to:
-
-+------------------------------------------+
-   <resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>
-+------------------------------------------+
-
- The tag is no longer needed, because it will automatically detected
- from the theme descriptor tobago-theme.xml.
