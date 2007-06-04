@@ -102,6 +102,9 @@ class ResourceLocator {
           InputStream inputStream = servletContext.getResourceAsStream(childPath);
           try {
             addProperties(inputStream, resources, childPath, true);
+          } catch (RuntimeException e) {
+            LOG.error("childPath = \"" + childPath + "\" ", e);
+            throw e;
           } finally{
             IOUtils.closeQuietly(inputStream);
           }
