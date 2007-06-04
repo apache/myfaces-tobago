@@ -32,6 +32,7 @@ legend.tobago-separator-default, .tobago-separator-label-default {
   font: bold 12px arial, helvetica, sans-serif;
   padding-left: 5px;
   padding-right: 5px;
+  white-space: nowrap;
 }
 
 .tobago-separator-start-default {
