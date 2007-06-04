@@ -366,7 +366,7 @@ div.tobago-box-default {
   float: left;
 }
 
-.tobago-box-header-toolbar-div{
+.tobago-box-header-toolbar-div {
   position: absolute;
   top: -2px;
   bottom: -2px;
@@ -636,7 +636,7 @@ label.tobago-label-error {
 }
 
 /* treeListbox -------------------------------------------------------------- */
-.tobago-treeListbox-default  {
+.tobago-treeListbox-default {
   font: 12px arial, helvetica, sans-serif;
   color: #000000;
 }
@@ -652,18 +652,16 @@ label.tobago-label-error {
 */
 
 /* Toolbar ----------------------------------------------------------------- */
-.tobago-toolBar-default  {
+.tobago-toolBar-default {
   border: 1px solid #000000;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
 }
 
-
 .tobago-toolBar-div-inner {
 /*  margin-left: -1px;*/
   padding: 0px;
 }
-
 
 .tobago-toolbar-button {
   font: bold 12px arial, helvetica, sans-serif;
