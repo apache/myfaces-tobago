@@ -203,7 +203,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
   private boolean columnIsRendered(List<UIGridLayout.Row> rows, int column) {
     for (UIGridLayout.Row row : rows) {
-      Object object = row.getElements().get(column); 
+      Object object = row.getElements().get(column);
       if (object instanceof UIComponent) {
         if (object instanceof UICell) {
           UICell cell = (UICell) object;
@@ -450,14 +450,16 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
   private int getCellSpacing(FacesContext facesContext, UIComponent component) {
     String cellspacing = (String) component.getAttributes().get(ATTR_CELLSPACING);
-    try {
-      return Integer.parseInt(cellspacing);
-    } catch (NumberFormatException e) {
-      if (LOG.isWarnEnabled()) {
-        LOG.warn("Illegal value for cellspacing : " + cellspacing
-            + " using default");
+    if (cellspacing instanceof String) {
+      try {
+        return Integer.parseInt(cellspacing);
+      } catch (NumberFormatException e) {
+        if (LOG.isWarnEnabled()) {
+          LOG.warn("Illegal value for cellspacing : " + cellspacing
+              + " using default");
+        }
+        // ignore and return defaut value
       }
-      // ignore and return defaut value
     }
     return getConfiguredValue(facesContext,  component, "cellSpacing");
   }
