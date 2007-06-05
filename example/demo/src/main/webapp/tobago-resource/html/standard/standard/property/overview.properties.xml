@@ -335,7 +335,7 @@
   <entry key="themesText1">&lt;b&gt;Theme configuration&lt;/b&gt; &lt;br /&gt;&lt;br
     /&gt;
     In Tobago it's easy to give an application a well designed look. You can use
-    prepared themes like speyside oder scarborough, just to name two.
+    prepared themes like speyside or scarborough, just to name two.
     The only thing you have to do is configure them at the right place. This is
     done in the tobago-config.xml by defining a default theme.</entry>
 
