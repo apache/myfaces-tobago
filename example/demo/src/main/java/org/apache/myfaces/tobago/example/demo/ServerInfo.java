@@ -43,6 +43,14 @@ public class ServerInfo {
       Properties properties = new Properties();
       properties.load(pom);
       version = properties.getProperty("version");
+
+      /*
+      This should work, too. But the default ImplementationEntries in MANIFEST.MF are missing
+      See:
+      https://issues.apache.org/jira/browse/TOBAGO-417
+      Package tobagoPackage = Package.getPackage("org.apache.myfaces.tobago.component");
+      version = tobagoPackage.getImplementationVersion();
+      */
     } catch (IOException e) {
       LOG.warn("No version info found.", e);
     } finally {
