@@ -69,43 +69,23 @@
             <artifactId>retrotranslator-maven-plugin</artifactId>
             <executions>
               <execution>
-                <id>retrotranslate</id>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <artifactId>maven-jar-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>create-jdk14retro-jar</id>
-                <goals><goal>jar</goal></goals>
+                <goals>
+                  <goal>translate-project</goal>
+                </goals>
                 <configuration>
-                  <classesDirectory>${project.build.directory}/classes-retro</classesDirectory>
                   <classifier>jdk14retro</classifier>
-                  <archive>
-                    <manifestEntries>
-                      <Extension-Name>${project.artifactId}-jdk14retro</Extension-Name>
-                      <Specification-Vendor>${project.organization.name}</Specification-Vendor>
-                      <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
-                      <Implementation-Title>${project.description}</Implementation-Title>
-                      <Implementation-Version>${project.version}</Implementation-Version>
-                      <Revision>${scm.revision}</Revision>
-                    </manifestEntries>
-                   </archive>
+                  <attach>true</attach>
+                  <verify>true</verify>
+                  <verifyClasspath>
+                     <element>${java14.home}/lib/rt.jar</element>
+                  </verifyClasspath>
                 </configuration>
               </execution>
             </executions>
           </plugin>
         </plugins>
       </build>
-       <dependencies>
-        <dependency>
-          <groupId>sun.jdk</groupId>
-          <artifactId>rt</artifactId>
-          <version>1.4.0</version>
-          <scope>system</scope>
-          <systemPath>${java14.home}/lib/rt.jar</systemPath>
-        </dependency>
+      <dependencies>
         <dependency>
           <groupId>net.sf.retrotranslator</groupId>
           <artifactId>retrotranslator-runtime</artifactId>

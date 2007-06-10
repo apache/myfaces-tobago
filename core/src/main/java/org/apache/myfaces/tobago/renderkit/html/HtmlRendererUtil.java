@@ -161,9 +161,9 @@ public final class HtmlRendererUtil {
   public static void addClickAcceleratorKey(
       FacesContext facesContext, String clientId, char key, String modifier)
       throws IOException {
-    StringBuilder buffer
+    String str
         = createOnclickAcceleratorKeyJsStatement(clientId, key, modifier);
-    writeScriptLoader(facesContext, null, new String[]{buffer.toString()});
+    writeScriptLoader(facesContext, null, new String[]{str});
   }
 
   public static void addAcceleratorKey(
@@ -174,17 +174,17 @@ public final class HtmlRendererUtil {
   public static void addAcceleratorKey(
       FacesContext facesContext, String func, char key, String modifier)
       throws IOException {
-    StringBuilder buffer = createAcceleratorKeyJsStatement(func, key, modifier);
-    writeScriptLoader(facesContext, null, new String[]{buffer.toString()});
+    String str = createAcceleratorKeyJsStatement(func, key, modifier);
+    writeScriptLoader(facesContext, null, new String[]{str});
   }
 
-  public static StringBuilder createOnclickAcceleratorKeyJsStatement(
+  public static String createOnclickAcceleratorKeyJsStatement(
       String clientId, char key, String modifier) {
     String func = "Tobago.clickOnElement('" + clientId + "');";
     return createAcceleratorKeyJsStatement(func, key, modifier);
   }
 
-  public static StringBuilder createAcceleratorKeyJsStatement(
+  public static String createAcceleratorKeyJsStatement(
       String func, char key, String modifier) {
     StringBuilder buffer = new StringBuilder();
     buffer.append("new Tobago.AcceleratorKey(function() {");
@@ -199,7 +199,7 @@ public final class HtmlRendererUtil {
       buffer.append(modifier);
     }
     buffer.append("\");");
-    return buffer;
+    return buffer.toString();
   }
 
   public static String getLayoutSpaceStyle(UIComponent component) {

@@ -20,8 +20,8 @@ tobago-theme-richmond.jar
 
 don't need a JDK 1.4 version, because they don't contain any classes.
 
-Addtionally add the retrotranslator-runtime-1.0.8.jar from
-http://www.ibiblio.org/maven2/net/sf/retrotranslator/retrotranslator-runtime/
+Addtionally add the retrotranslator-runtime-1.2.1.jar from
+http://repo1.maven.org/maven2/net/sf/retrotranslator/retrotranslator-runtime/
 to the WEB-INF/lib directory of your WAR.
 
 NOTE: The JDK 1.4 version is work in progress.

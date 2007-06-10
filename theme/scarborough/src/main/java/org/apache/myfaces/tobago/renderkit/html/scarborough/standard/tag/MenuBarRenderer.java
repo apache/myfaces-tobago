@@ -294,7 +294,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       List<String> keys
           = (List<String>) component.getAttributes().get(MENU_ACCELERATOR_KEYS);
       String jsStatement = HtmlRendererUtil.createOnclickAcceleratorKeyJsStatement(
-          clientId, accessKey, null).toString();
+          clientId, accessKey, null);
       keys.add(jsStatement);
     } else {
       LOG.warn("Can't find menu root component!");

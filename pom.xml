@@ -477,7 +477,7 @@
         <artifactId>retrotranslator-runtime</artifactId>
         <optional>true</optional>
         <scope>provided</scope>
-        <version>1.0.8</version>
+        <version>1.2.1</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -562,24 +562,7 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>retrotranslator-maven-plugin</artifactId>
-          <version>1.0-alpha-1</version>
-          <executions>
-            <execution>
-              <id>retrotranslate</id>
-              <goals>
-                <goal>translate</goal>
-              </goals>
-              <configuration>
-                <verbose>true</verbose>
-                <includes>
-                  <include>
-                    <directory>${project.build.directory}/classes</directory>
-                  </include>
-                </includes>
-                <destdir>${project.build.directory}/classes-retro</destdir>
-              </configuration>
-            </execution>
-          </executions>
+          <version>1.0-alpha-2</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
