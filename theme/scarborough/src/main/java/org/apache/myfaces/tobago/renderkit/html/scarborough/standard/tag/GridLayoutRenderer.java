@@ -450,7 +450,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
   private int getCellSpacing(FacesContext facesContext, UIComponent component) {
     String cellspacing = (String) component.getAttributes().get(ATTR_CELLSPACING);
-    if (cellspacing instanceof String) {
+    if (cellspacing != null) {
       try {
         return Integer.parseInt(cellspacing);
       } catch (NumberFormatException e) {
