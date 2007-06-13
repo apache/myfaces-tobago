@@ -207,7 +207,6 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     } else {
       tabGroup.setSelectedIndex(closestRenderedTabIndex);
     }
-    tabGroup.setSelectedIndex(closestRenderedTabIndex);
     return closestRenderedTabIndex;
   }
 
