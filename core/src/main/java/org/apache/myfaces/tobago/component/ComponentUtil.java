@@ -1158,10 +1158,19 @@ public class ComponentUtil {
       Object markups = vb.getValue(facesContext);
       if (markups instanceof String[]) {
         return (String[]) markups;
+      } else if (markups instanceof String) {
+        String[] strings = ((String) markups).split("[, ]");
+        List<String> result = new ArrayList<String>(strings.length);
+        for (String string : strings) {
+          if (string.trim().length() != 0) {
+            result.add(string.trim());
+          }
+        }
+        return (String[]) result.toArray(new String[result.size()]);
       } else if (markups == null) {
         return new String[0];
       } else {
-        return new String[]{(String) markups};
+        return new String[]{(String) markups.toString()};
       }
     }
 
@@ -1257,4 +1266,4 @@ public class ComponentUtil {
     // we should reset rowIndex on UIData
     uiData.setRowIndex(oldRowIndex);
   }
-}
+    }
