@@ -192,7 +192,7 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
 
   public void broadcast(FacesEvent facesEvent) throws AbortProcessingException {
     super.broadcast(facesEvent);
-    if (facesEvent instanceof TabChangeEvent) {
+    if (facesEvent instanceof TabChangeEvent && facesEvent.getComponent() == this) {
       Integer index = ((TabChangeEvent) facesEvent).getNewTabIndex();
       ValueBinding vb = getValueBinding(ATTR_SELECTED_INDEX);
       if (vb !=null) {
