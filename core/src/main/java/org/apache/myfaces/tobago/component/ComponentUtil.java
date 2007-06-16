@@ -236,9 +236,8 @@ public class ComponentUtil {
     return collect;
   }
 
+  @SuppressWarnings(value = "unchecked")
   private static void findSubForms(List<UIForm> collect, UIComponent component) {
-    //noinspection unchecked
-    @SuppressWarnings(value = "unchecked")
     Iterator<UIComponent> kids = component.getFacetsAndChildren();
     while (kids.hasNext()) {
       UIComponent child = kids.next();

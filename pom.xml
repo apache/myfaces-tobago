@@ -355,12 +355,13 @@
       </plugin>
 
       <!-- http://jira.codehaus.org/browse/MJNCSS-4
-        javancss has problems with annotations
+           JavaNCSS still has problems with annotations for local variables -->
       <plugin>
 	      <groupId>org.codehaus.mojo</groupId>
 	      <artifactId>javancss-maven-plugin</artifactId>
 		    <version>2.0-beta-2</version>
-      </plugin>-->
+      </plugin>
+
       <!--plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>rat-maven-plugin</artifactId>
