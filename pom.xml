@@ -202,9 +202,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
-        <configuration>
-          <aggregate>true</aggregate>
-        </configuration>
       </plugin>
 
       <plugin>
@@ -362,10 +359,10 @@
 		    <version>2.0-beta-2</version>
       </plugin>
 
-      <!--plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>rat-maven-plugin</artifactId>
-      </plugin-->
+      </plugin>
 
     </plugins>
 
@@ -593,7 +590,7 @@
         <plugin>
           <groupId>org.mortbay.jetty</groupId>
           <artifactId>maven-jetty-plugin</artifactId>
-          <version>6.1.3</version>
+          <version>6.1.4rc1</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
