@@ -36,7 +36,9 @@
   <body>
     <menu name="Tobago">
       <item name="Introduction" href="http://myfaces.apache.org/tobago/index.html"/>
+      <item name="Download" href="http://myfaces.apache.org/tobago/download.html"/>
       <item name="Demo" href="http://myfaces.apache.org/tobago/demo.html"/>
+      <item name="Mailing Lists" href="mail-lists.html" />
     </menu>
 
     ${parentProject}
