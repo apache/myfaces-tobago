@@ -25,6 +25,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
@@ -62,24 +63,27 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     }
     String id = component.getClientId(facesContext);
 
+    boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
     String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
-
-    writer.startElement(HtmlConstants.TABLE, component);
-    //writer.writeComponentClass();
-    writer.writeAttribute(HtmlAttributes.BORDER, 0);
-    writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
-    writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
-    writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-    writer.writeStyleAttribute();
-    if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    if (!inline) {
+      writer.startElement(HtmlConstants.TABLE, component);
+      // TODO writer.writeComponentClass();
+      writer.writeAttribute(HtmlAttributes.BORDER, 0);
+      writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
+      writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
+      writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
+      writer.writeStyleAttribute();
+      if (title != null) {
+        writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+      }
     }
-    List clientIds = new ArrayList();
+    List<String> clientIds = new ArrayList<String>();
     for (SelectItem item : items) {
 
-      writer.startElement(HtmlConstants.TR, null);
-      writer.startElement(HtmlConstants.TD, null);
-
+      if (!inline) {
+        writer.startElement(HtmlConstants.TR, null);
+        writer.startElement(HtmlConstants.TD, null);
+      }
       String itemId = id
           + NamingContainer.SEPARATOR_CHAR + NamingContainer.SEPARATOR_CHAR
           + item.getValue().toString();
@@ -104,9 +108,10 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       }
       if (item.getLabel() != null) {
 
-        writer.endElement(HtmlConstants.TD);
-        writer.startElement(HtmlConstants.TD, null);
-
+        if (!inline) {
+          writer.endElement(HtmlConstants.TD);
+          writer.startElement(HtmlConstants.TD, null);
+        }
         // FIXME: use created UIOutput Label
         // FIXME: see outcommented part
         writer.startElement(HtmlConstants.LABEL, null);
@@ -124,12 +129,14 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 //
 //        RenderUtil.encode(label);
       }
-
-      writer.endElement(HtmlConstants.TD);
-      writer.endElement(HtmlConstants.TR);
-
+      if (!inline) {
+        writer.endElement(HtmlConstants.TD);
+        writer.endElement(HtmlConstants.TR);
+      }
     }
-    writer.endElement(HtmlConstants.TABLE);
+    if (!inline) {
+      writer.endElement(HtmlConstants.TABLE);
+    }
     checkForCommandFacet(component, clientIds, facesContext, writer);
   }
 

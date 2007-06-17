@@ -81,7 +81,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
     if (!inline) {
       writer.startElement(HtmlConstants.TABLE, component);
-      //writer.writeComponentClass();
+      // TODO writer.writeComponentClass();
       writer.writeAttribute(HtmlAttributes.BORDER, 0);
       writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
       writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
@@ -93,7 +93,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     }
 
     Object value = component.getValue();
-    List clientIds = new ArrayList();
+    List<String> clientIds = new ArrayList<String>();
     for (SelectItem item : items) {
 
       if (!inline) {
