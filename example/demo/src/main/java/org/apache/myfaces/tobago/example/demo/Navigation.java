@@ -17,20 +17,20 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.model.TreeState;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.example.demo.jsp.JspFormatter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.example.demo.jsp.JspFormatter;
+import org.apache.myfaces.tobago.model.TreeState;
 
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.faces.context.FacesContext;
 import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.tree.DefaultMutableTreeNode;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.IOException;
 import java.util.Enumeration;
 
 /*
@@ -88,7 +88,9 @@ public class Navigation {
     tree.add(reference);
 
     state = new TreeState();
-    state.expand(tree, 2);
+    state.expand(tree, 1);
+    state.expand(overview, 1);
+    state.expand(bestPractice, 1);
     state.setMarker(overview);
   }
 
