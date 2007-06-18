@@ -56,7 +56,7 @@ public class SheetConfig {
 
   public SheetConfig() {
     sheetFirst = 0;
-    sheetRows = 7;
+    sheetRows = 10;
     sheetDirectLinkCount = 5;
     sheetDirectLinkCountItems = createSheetItems(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15});
     sheetShowHeader = true;

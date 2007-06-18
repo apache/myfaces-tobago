@@ -23,19 +23,18 @@
   <jsp:body>
     <tc:box label="Input">
       <f:facet name="layout">
-        <tc:gridLayout columns="300px;1*"
-                       rows="fixed;fixed;fixed;fixed;fixed;150px;100px;*"/>
+        <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;2*;3*;2*;2*;2*;2*;2*"/>
       </f:facet>
+
+      <tc:in value="Some Text without Label"/>
+
       <%-- code-sniplet-start id="in" --%>
       <tx:in label="Input" value="Some Text"/>
       <%-- code-sniplet-end id="in" --%>
-      <tc:cell/>
 
       <tx:in label="Read Only" readonly="true" value="Some Text"/>
-      <tc:cell/>
 
       <tx:in label="Disabled" disabled="true" value="Some Text"/>
-      <tc:cell/>
 
       <tc:panel>
         <f:facet name="layout">
@@ -44,22 +43,35 @@
         <tc:label value="Short Label"/>
         <tc:in value="Some Text"/>
       </tc:panel>
-      <tc:cell/>
 
       <tx:in label="Input (focus)" focus="true" value="Some Text"/>
-      <tc:cell/>
+
+      <tx:in label="Password" password="true" value="Asterics"/>
+
+      <tc:textarea value="Some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, ..."/>
 
       <%-- code-sniplet-start id="textarea" --%>
-      <tx:textarea label="Enter your Text:"
-                   value="My new text goes here..."/>
+      <tx:textarea label="Text Area"
+                   value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
       <%-- code-sniplet-end id="textarea" --%>
-      <tc:cell/>
+
+      <tx:textarea label="Read Only"
+                   readonly="true"
+                   value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
+
+      <tx:textarea label="Disabled"
+                   disabled="true"
+                   value="Some text, some text, some text, some text, some text, some text, some text, some text, some text, some text, ..."/>
 
       <tx:textarea label="Area (focus)" focus="true"
                    value="Some Text"/>
-      <tc:cell/>
 
-      <tc:cell spanX="2"/>
+      <tc:panel>
+        <tc:out value="An input field is "/>
+        <tc:in value="here" inline="true"/>
+        <tc:out value=" inside of a floating text."/>
+      </tc:panel>
+
     </tc:box>
   </jsp:body>
 </layout:overview>
