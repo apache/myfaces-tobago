@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -23,17 +23,13 @@ import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-/*
- * Created by IntelliJ IDEA.
- * User: bommel
- * Date: Sep 19, 2006
- */
 public class SeparatorRenderer extends LayoutableRendererBase {
 
   public void encodeEnd(FacesContext facesContext,
@@ -52,7 +48,9 @@ public class SeparatorRenderer extends LayoutableRendererBase {
       writer.startElement(HtmlConstants.TR, component);
 
       writer.startElement(HtmlConstants.TD, component);
-      writer.writeAttribute(HtmlAttributes.CLASS, "tobago-separator-start-default", false);
+      StyleClasses startClass = new StyleClasses();
+      startClass.addAspectClass("separator", "start", StyleClasses.Aspect.DEFAULT);
+      writer.writeClassAttribute(startClass);
       writer.startElement(HtmlConstants.HR , component);
       writer.writeClassAttribute();
       writer.endElement(HtmlConstants.HR);
@@ -60,7 +58,9 @@ public class SeparatorRenderer extends LayoutableRendererBase {
 
       writer.startElement(HtmlConstants.TD, component);
       writer.writeAttribute(HtmlAttributes.STYLE, "width: 1px", false);
-      writer.writeAttribute(HtmlAttributes.CLASS, "tobago-separator-label-default", false);
+      StyleClasses labelClass = new StyleClasses();
+      labelClass.addAspectClass("separator", "label", StyleClasses.Aspect.DEFAULT);
+      writer.writeClassAttribute(labelClass);
       UILabel label = (UILabel) component.getFacet(FACET_LABEL);
       writer.writeText("" + label.getValue());
       writer.endElement(HtmlConstants.TD);

@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.sandbox;
+package org.apache.myfaces.tobago.taglib.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,22 +17,14 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.apt.annotation.Facet;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
-/*
- * Created by IntelliJ IDEA.
- * User: bommel
- * Date: Oct 3, 2006
- * Time: 11:52:52 AM
- */
 /**
  * Renders a separator.
  */
-
 @Tag(name = "separator")
 @UIComponentTag(rendererType = "Separator",
     uiComponent = "org.apache.myfaces.tobago.component.UISeparator",

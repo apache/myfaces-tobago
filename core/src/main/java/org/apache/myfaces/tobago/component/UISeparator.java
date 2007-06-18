@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.sandbox;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,20 +17,14 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UISeparator;
-import org.apache.myfaces.tobago.taglib.component.TobagoTag;
+import javax.faces.component.UIComponentBase;
 
-/*
-* Created by IntelliJ IDEA.
-* User: bommel
-* Date: Sep 18, 2006
-* Time: 8:02:34 PM
-*/
+public class UISeparator extends UIComponentBase {
 
-public class SeparatorTag  extends TobagoTag implements SeparatorTagDeclaration {
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Separator";
+  public static final String COMPONENT_FAMILY = "org.apache.myfaces.tobago.Separator";
 
-   public String getComponentType() {
-    return UISeparator.COMPONENT_TYPE;
+  public String getFamily() {
+    return COMPONENT_FAMILY;
   }
-
 }

@@ -15,12 +15,6 @@
  * limitations under the License.
 --%>
 
-<%--
-  User: bommel
-  Date: Nov 20, 2006
-  Time: 9:29:45 AM
---%>
-<%@ taglib uri="http://myfaces.apache.org/tobago/sandbox" prefix="tcs" %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
@@ -38,11 +32,11 @@
       </f:facet>
 
       <tc:cell spanX="2">
-        <tcs:separator>
+        <tc:separator>
           <f:facet name="label">
             <tc:label value="Separator with Label"/>
           </f:facet>
-        </tcs:separator>
+        </tc:separator>
       </tc:cell>
 
       <tc:panel>
@@ -50,7 +44,7 @@
           <tc:gridLayout rows="*;fixed;2*"/>
         </f:facet>
         <tc:textarea/>
-        <tcs:separator/>
+        <tc:separator/>
         <tc:textarea/>
       </tc:panel>
 
@@ -59,11 +53,11 @@
           <tc:gridLayout rows="2*;fixed;*"/>
         </f:facet>
         <tc:textarea/>
-        <tcs:separator>
+        <tc:separator>
           <f:facet name="label">
             <tc:label value="Separator with Label"/>
           </f:facet>
-        </tcs:separator>
+        </tc:separator>
         <tc:textarea/>
       </tc:panel>
 

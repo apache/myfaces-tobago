@@ -15,37 +15,6 @@
  * limitations under the License.
  */
 
-/* separator ------------------------------------------------------------------- */
-
-div.tobago-separator-default {
-  overflow: hidden;
-}
-
-fieldset.tobago-separator-default  {
-  border-left: 0px;
-  border-bottom: 0px;
-  border-right: 0px;
-  border-top: 1px solid #333;
-}
-
-legend.tobago-separator-default, .tobago-separator-label-default {
-  font: bold 12px arial, helvetica, sans-serif;
-  padding-left: 5px;
-  padding-right: 5px;
-  white-space: nowrap;
-}
-
-.tobago-separator-start-default {
-  width: 20px;
-}
-
-hr.tobago-separator-default {
-  border-top: 1px solid #E2E2E2;
-  border-right: 1px solid #E2E2E2;
-  border-bottom: 1px solid #000000;
-  border-left: 1px solid #E2E2E2;
-}
-
 /* number Slider --------------------------------------------------------------- */
 
 .tobago-inputNumberSlider-default {
