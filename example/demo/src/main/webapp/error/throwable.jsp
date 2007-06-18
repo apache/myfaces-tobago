@@ -47,7 +47,9 @@
       </f:facet>
 
       <tc:messages />
-      <tc:out value="#{exceptionText}" escape="false"/>
+      <tc:cell scrollbars="auto">
+        <tc:out value="#{exceptionText}" escape="false"/>
+      </tc:cell>
     </tc:box>
   </jsp:body>
 </layout:overview>
