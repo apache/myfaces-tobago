@@ -21,21 +21,31 @@
 
 <layout:overview>
   <jsp:body>
-    <tc:panel>
+    <tc:box label="#{overviewBundle.basic}">
       <%--
       <f:facet name="reload">
         <tc:reload frequency="5000" />
       </f:facet>
       --%>
       <f:facet name="layout">
-        <tc:gridLayout border="0" rows="20px;fixed;1*;20px;fixed;1*;20px;fixed" />
+        <tc:gridLayout border="0" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed" />
       </f:facet>
 
-  <%-- row --%>
+      <%-- row --%>
+      <tc:separator>
+        <f:facet name="label">
+          <tc:label value="#{overviewBundle.basic_sampleInputTitle}"/>
+        </f:facet>
+      </tc:separator>
+
+      <%-- row --%>
+      <tc:messages />
+
+      <%-- row --%>
       <tc:out escape="false" value="#{overviewBundle.basic_text_input}" />
 
-  <%-- row --%>
-      <tc:box label="#{overviewBundle.basic_sampleInputTitle}">
+      <%-- row --%>
+      <tc:panel>
         <f:facet name="layout">
           <tc:gridLayout columns="1*;1*" border="0" />
         </f:facet>
@@ -58,16 +68,20 @@
 
         <tx:textarea value="#{overviewController.basicArea}"
           label="#{overviewBundle.basic_textareaLabel}" />
-      </tc:box>
+      </tc:panel>
 
-  <%-- row --%>
-      <tc:cell />
+      <%-- row --%>
+      <tc:separator>
+        <f:facet name="label">
+          <tc:label value="#{overviewBundle.basic_sampleSelectTitle}"/>
+        </f:facet>
+      </tc:separator>
 
-  <%-- row --%>
+      <%-- row --%>
       <tc:out escape="false" value="#{overviewBundle.basic_text_select}" />
 
-  <%-- row --%>
-      <tc:box label="#{overviewBundle.basic_sampleSelectTitle}">
+      <%-- row --%>
+      <tc:panel>
         <f:facet name="layout">
           <tc:gridLayout columns="1*;1*"  border="0"/>
         </f:facet>
@@ -92,15 +106,20 @@
             <f:selectItems value="#{overviewController.items}" />
           </tc:selectOneChoice>
         </tc:panel>
-      </tc:box>
-  <%-- row --%>
-      <tc:cell />
+      </tc:panel>
 
-  <%-- row --%>
+      <%-- row --%>
+      <tc:separator>
+        <f:facet name="label">
+          <tc:label value="#{overviewBundle.basic_sampleLinkTitle}"/>
+        </f:facet>
+      </tc:separator>
+
+      <%-- row --%>
       <tc:out escape="false" value="#{overviewBundle.basic_text_action}" />
 
-  <%-- row --%>
-      <tc:box label="#{overviewBundle.basic_sampleLinkTitle}">
+      <%-- row --%>
+      <tc:panel>
         <f:facet name="layout">
           <tc:gridLayout columns="120px;*;120px;*;120px" border="0"/>
         </f:facet>
@@ -119,7 +138,8 @@
           <tx:in value="#{overviewController.lastAction}" readonly="true"
             label="#{overviewBundle.basic_lastActionLabel}" />
         </tc:cell>
-      </tc:box>
-    </tc:panel>
+      </tc:panel>
+
+    </tc:box>
   </jsp:body>
 </layout:overview>
