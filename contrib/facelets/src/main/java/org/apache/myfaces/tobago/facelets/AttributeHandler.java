@@ -35,6 +35,7 @@ import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.SupportsMarkup;
 
 public final class AttributeHandler extends TagHandler {
   private static final Class [] VALIDATOR = new Class[] {FacesContext.class, UIComponent.class, Object.class};
@@ -70,6 +71,9 @@ public final class AttributeHandler extends TagHandler {
       } else if (TobagoConstants.ATTR_STYLE_CLASS.equals(nameValue)) {
         // TODO test expression
         ComponentUtil.setStyleClasses(parent, value.getValue());
+      } else if (TobagoConstants.ATTR_MARKUP.equals(nameValue) && parent instanceof SupportsMarkup) {
+        // TODO test expression
+        ComponentUtil.setMarkup(parent, value.getValue());
       } else if (parent instanceof EditableValueHolder && TobagoConstants.ATTR_VALIDATOR.equals(nameValue)) {
         MethodExpression methodExpression = value.getMethodExpression(ctx, null, VALIDATOR);
         ((EditableValueHolder) parent).setValidator(new LegacyMethodBinding(methodExpression));
