@@ -29,7 +29,7 @@
     <homepage rdf:resource="http://myfaces.apache.org/tobago" />
     <asfext:pmc rdf:resource="http://myfaces.apache.org" />
     <shortdesc>Set of user interface components based on JSF.</shortdesc>
-    <description>The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF and run on MyFaces.</description>
+    <description>The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF.</description>
     <bug-database rdf:resource="http://issues.apache.org/jira/browse/TOBAGO" />
     <mailing-list rdf:resource="http://myfaces.apache.org/mail-lists.html" />
     <download-page rdf:resource="http://myfaces.apache.org/download.html" />
