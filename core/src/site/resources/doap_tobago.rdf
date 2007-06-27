@@ -45,7 +45,7 @@
     <repository>
       <SVNRepository>
         <location rdf:resource="http://svn.apache.org/repos/asf/myfaces/tobago"/>
-        <browse rdf:resource="http://svn.apache.org/viewcvs.cgi/myfaces/tobago"/>
+        <browse rdf:resource="http://svn.apache.org/viewvc/myfaces/tobago"/>
       </SVNRepository>
     </repository>
     <maintainer>
