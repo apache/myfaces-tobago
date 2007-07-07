@@ -106,14 +106,14 @@ public class  Sorter extends MethodBinding {
             }
 
           } else {
-            LOG.error("No sortable component found!");
-            removeSortableAttribute(column);
+            LOG.error("No sorting performed. Value is not instanceof List or Object[]!");
+            unsetSortableAttribute(column);
             return null;
           }
         } catch (Exception e) {
           LOG.error("Error while extracting sortMethod :" + e.getMessage(), e);
           if (column != null) {
-            removeSortableAttribute(column);
+            unsetSortableAttribute(column);
           }
           return null;
         }
@@ -141,9 +141,9 @@ public class  Sorter extends MethodBinding {
     return expressionString.matches("^#\\{(\\w+(\\.\\w)*)\\}$");
   }
 
-  private void removeSortableAttribute(UIColumn uiColumn) {
+  private void unsetSortableAttribute(UIColumn uiColumn) {
     LOG.warn("removing attribute sortable from column " + uiColumn.getId());
-    uiColumn.getAttributes().remove(ATTR_SORTABLE);
+    uiColumn.getAttributes().put(ATTR_SORTABLE, Boolean.FALSE);
   }
 
   private UIComponent getFirstSortableChild(List children) {
