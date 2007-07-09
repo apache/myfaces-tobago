@@ -113,11 +113,9 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.writeNameAttribute(clientId);
 
       writer.writeIdAttribute(id);
-      String formattedValue
-          = RenderUtil.getFormattedValue(facesContext, component, item.getValue());
+      String formattedValue = RenderUtil.getFormattedValue(facesContext, component, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
-      writer.writeAttribute(HtmlAttributes.DISABLED,
-          ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
+      writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
       writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
       if (!ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {
         writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneRadioClick(this, '" + clientId + "')", false);
@@ -130,6 +128,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         if (!inline) {
           writer.endElement(HtmlConstants.TD);
           writer.startElement(HtmlConstants.TD, null);
+          writer.writeStyleAttribute("width: 100%;"); // todo: make more nice with a layout-manager!
         }
 
         // FIXME: use created UIOutput Label

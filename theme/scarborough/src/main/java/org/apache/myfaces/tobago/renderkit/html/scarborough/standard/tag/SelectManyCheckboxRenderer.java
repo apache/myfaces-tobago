@@ -41,8 +41,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Arrays;
+import java.util.List;
 
 public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
@@ -111,6 +111,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
         if (!inline) {
           writer.endElement(HtmlConstants.TD);
           writer.startElement(HtmlConstants.TD, null);
+          writer.writeStyleAttribute("width: 100%;"); // todo: make more nice with a layout-manager!
         }
         // FIXME: use created UIOutput Label
         // FIXME: see outcommented part
