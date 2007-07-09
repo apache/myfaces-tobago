@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
@@ -177,12 +178,16 @@ public abstract class LayoutableRendererBase
               + "}";
       writer.writeJavascript(script);
     } else {
+      UIComponent facetComponent = facetEntry.getValue();
+      String facetAction = (String) facetComponent.getAttributes().get(ATTR_ONCLICK);
+      if (facetAction == null) {
+        facetAction = "Tobago.submitAction('" + facetComponent.getClientId(facesContext) + "')";
+      }
       String script =
           "var element = Tobago.element(\"" + clientId  + "\");\n"
               + "if (element) {\n"
-              + "   Tobago.addEventListener(element, \"" + facetEntry.getKey() + "\", function(){Tobago.submitAction('"
-              + facetEntry.getValue().getClientId(facesContext) + "')});\n"
-              + "}";
+              + "   Tobago.addEventListener(element, \"" + facetEntry.getKey() + "\", function(){"
+              + facetAction + "});\n}";
       writer.writeJavascript(script);
     }
   }
