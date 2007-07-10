@@ -24,7 +24,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
@@ -34,6 +33,7 @@ import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
@@ -115,7 +115,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.writeIdAttribute(id);
       String formattedValue = RenderUtil.getFormattedValue(facesContext, component, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
-      writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
+      writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled());
       writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
       if (!ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {
         writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneRadioClick(this, '" + clientId + "')", false);
@@ -123,7 +123,6 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.endElement(HtmlConstants.INPUT);
 
       if (item.getLabel() != null) {
-
 
         if (!inline) {
           writer.endElement(HtmlConstants.TD);
@@ -134,7 +133,13 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         // FIXME: use created UIOutput Label
         // FIXME: see outcommented part
         writer.startElement(HtmlConstants.LABEL, null);
-        writer.writeClassAttribute("tobago-label-default");
+        // todo: use label component with a "light" markup
+        StyleClasses styleClasses = new StyleClasses();
+        styleClasses.addAspectClass("label", StyleClasses.Aspect.DEFAULT);
+        if (item.isDisabled()) {
+          styleClasses.addAspectClass("label", StyleClasses.Aspect.DISABLED);
+        }
+        writer.writeClassAttribute(styleClasses);
         writer.writeAttribute(HtmlAttributes.FOR, id, false);
         writer.writeText(item.getLabel());
         writer.endElement(HtmlConstants.LABEL);
