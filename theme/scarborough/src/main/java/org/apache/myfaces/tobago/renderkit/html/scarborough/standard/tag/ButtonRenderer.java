@@ -126,7 +126,6 @@ public class ButtonRenderer extends CommandRendererBase {
     return defaultCommand ? "submit" : "button";
   }
 
-
   public int getFixedWidth(FacesContext facesContext, UIComponent component) {
     int width = 0;
     String imageName = (String) component.getAttributes().get(ATTR_IMAGE);
@@ -136,7 +135,7 @@ public class ButtonRenderer extends CommandRendererBase {
     LabelWithAccessKey label = new LabelWithAccessKey(component);
 
     if (label.getText() != null) {
-      width += label.getText().length()*getConfiguredValue(facesContext, component, "fontWidth");
+      width += calculateStringWidth(facesContext, component, label.getText());
     }
     int padding = getConfiguredValue(facesContext, component, "paddingWidth");
     width += 2 * padding;
@@ -147,4 +146,25 @@ public class ButtonRenderer extends CommandRendererBase {
     return width;
 
   }
+
+  private int calculateStringWidth(FacesContext facesContext, UIComponent component, String text) {
+    int width = 0;
+    int defaultCharWidth = getConfiguredValue(facesContext, component, "fontWidth");
+
+    String fontWidths = ResourceManagerUtil.getProperty(facesContext, "tobago", "tobago.font.widths");
+
+    for (char c : text.toCharArray()) {
+      int charWidth;
+      if (c >= 32 && c < 128) {
+        int begin = (c - 32) * 2;
+        charWidth = Integer.parseInt(fontWidths.substring(begin, begin + 2), 16);
+      } else {
+        charWidth = defaultCharWidth;
+      }
+      width += charWidth;
+    }
+
+    return width;
+  }
+
 }

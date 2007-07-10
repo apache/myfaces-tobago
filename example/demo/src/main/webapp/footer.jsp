@@ -1,11 +1,3 @@
-<%@ page import="org.apache.myfaces.tobago.example.reference.SimpleBean" %>
-<%@ page import="org.apache.myfaces.tobago.model.TreeState" %>
-<%@ page import="javax.faces.application.FacesMessage" %>
-<%@ page import="javax.faces.context.FacesContext" %>
-<%@ page import="javax.swing.tree.DefaultMutableTreeNode" %>
-<%@ page import="java.io.PrintWriter" %>
-<%@ page import="java.io.StringWriter" %>
-<%@ page import="java.util.Date" %>
 <%--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -28,7 +20,7 @@
 
   <tc:panel>
     <f:facet name="layout">
-      <tc:gridLayout columns="70px;70px;130px;1*" rows="15px;fixed"/>
+      <tc:gridLayout columns="fixed;fixed;fixed;*" rows="15px;fixed"/>
     </f:facet>
 
     <tc:cell spanX="4">
