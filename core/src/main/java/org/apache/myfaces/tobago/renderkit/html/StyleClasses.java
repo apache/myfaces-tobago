@@ -49,8 +49,8 @@ public class StyleClasses implements Serializable {
 
   public static final char SEPERATOR = '-';
   public static final String PREFIX = "tobago" + SEPERATOR;
-
   public static final String MARKUP = SEPERATOR + "markup" + SEPERATOR;
+
   private ListOrderedSet classes;
 
   public StyleClasses() {
@@ -81,25 +81,54 @@ public class StyleClasses implements Serializable {
     classes.add(clazz);
   }
 
+  @Deprecated
+  public void removeFullQualifiedClass(String clazz) {
+    classes.remove(clazz);
+  }
+
   public void addClass(String renderer, String sub) {
+    classes.add(nameOfClass(renderer, sub));
+  }
+
+  public void removeClass(String renderer, String sub) {
+    classes.remove(nameOfClass(renderer, sub));
+  }
+
+  private String nameOfClass(String renderer, String sub) {
     StringBuilder builder = new StringBuilder();
     builder.append(PREFIX);
     builder.append(renderer);
     builder.append(SEPERATOR);
     builder.append(sub);
-    classes.add(builder.toString());
+    return builder.toString();
   }
 
   public void addMarkupClass(String renderer, String markup) {
+    classes.add(nameOfMarkupClass(renderer, markup));
+  }
+
+  public void removeMarkupClass(String renderer, String markup) {
+    classes.remove(nameOfMarkupClass(renderer, markup));
+  }
+
+  private String nameOfMarkupClass(String renderer, String markup) {
     StringBuilder builder = new StringBuilder();
     builder.append(PREFIX);
     builder.append(renderer);
     builder.append(MARKUP);
     builder.append(markup);
-    classes.add(builder.toString());
+    return builder.toString();
   }
 
   public void addMarkupClass(String renderer, String sub, String markup) {
+    classes.add(nameOfMarkupClass(renderer, sub, markup));
+  }
+
+  public void removeMarkupClass(String renderer, String sub, String markup) {
+    classes.remove(nameOfMarkupClass(renderer, sub, markup));
+  }
+
+  private String nameOfMarkupClass(String renderer, String sub, String markup) {
     StringBuilder builder = new StringBuilder();
     builder.append(PREFIX);
     builder.append(renderer);
@@ -107,7 +136,7 @@ public class StyleClasses implements Serializable {
     builder.append(sub);
     builder.append(MARKUP);
     builder.append(markup);
-    classes.add(builder.toString());
+    return builder.toString();
   }
 
   public void addMarkupClass(UIComponent component, String rendererName) {
@@ -139,29 +168,38 @@ public class StyleClasses implements Serializable {
   }
 
   public void addAspectClass(String renderer, Aspect aspect) {
-    StringBuilder builder = new StringBuilder();
-    builder.append(PREFIX);
-    builder.append(renderer);
-    builder.append(aspect);
-    classes.add(builder.toString());
+    classes.add(nameOfAspectClass(renderer, aspect));
   }
 
   public void removeAspectClass(String renderer, Aspect aspect) {
+    classes.remove(nameOfAspectClass(renderer, aspect));
+  }
+
+  private String nameOfAspectClass(String renderer, Aspect aspect) {
     StringBuilder builder = new StringBuilder();
     builder.append(PREFIX);
     builder.append(renderer);
     builder.append(aspect);
-    classes.remove(builder.toString());
+    return builder.toString();
   }
 
+
   public void addAspectClass(String renderer, String sub, Aspect aspect) {
+    classes.add(nameOfAspectClass(renderer, sub, aspect));
+  }
+
+  public void removeAspectClass(String renderer, String sub, Aspect aspect) {
+    classes.remove(nameOfAspectClass(renderer, sub, aspect));
+  }
+
+  private String nameOfAspectClass(String renderer, String sub, Aspect aspect) {
     StringBuilder builder = new StringBuilder();
     builder.append(PREFIX);
     builder.append(renderer);
     builder.append(SEPERATOR);
     builder.append(sub);
     builder.append(aspect);
-    classes.add(builder.toString());
+    return builder.toString();
   }
 
   public void addClasses(StyleClasses styleClasses) {
