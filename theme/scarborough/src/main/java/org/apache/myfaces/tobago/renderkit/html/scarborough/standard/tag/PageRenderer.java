@@ -46,8 +46,8 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
-import org.apache.myfaces.tobago.util.ResponseUtils;
 import org.apache.myfaces.tobago.util.MimeTypeUtils;
+import org.apache.myfaces.tobago.util.ResponseUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
@@ -67,6 +67,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class PageRenderer extends PageRendererBase {
+
   private static final Log LOG = LogFactory.getLog(PageRenderer.class);
 
 //      values for doctype :
@@ -193,7 +194,7 @@ public class PageRenderer extends PageRendererBase {
           writer.startElement(HtmlConstants.LINK, null);
           writer.writeAttribute(HtmlAttributes.REL, "stylesheet", false);
           writer.writeAttribute(HtmlAttributes.HREF, styleString, false);
-          writer.writeAttribute(HtmlAttributes.MEDIA, "screen", false);
+//          writer.writeAttribute(HtmlAttributes.MEDIA, "screen", false);
           writer.writeAttribute(HtmlAttributes.TYPE, "text/css", false);
           writer.endElement(HtmlConstants.LINK);
         }
