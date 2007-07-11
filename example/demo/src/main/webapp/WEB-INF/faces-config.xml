@@ -304,6 +304,10 @@
       <to-view-id>/reference/popup.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
+      <from-outcome>reference/progress</from-outcome>
+      <to-view-id>/reference/progress.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
       <from-outcome>reference/select</from-outcome>
       <to-view-id>/reference/select.jsp</to-view-id>
     </navigation-case>

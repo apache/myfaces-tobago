@@ -19,7 +19,7 @@
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 <%-- Progress --%>
 
-<layout:screenshot>
+<layout:overview>
   <f:subview id="progress">
     <jsp:body>
       <tc:panel>
@@ -42,4 +42,4 @@
 
     </jsp:body>
   </f:subview>
-</layout:screenshot>
+</layout:overview>
