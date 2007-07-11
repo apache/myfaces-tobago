@@ -24,22 +24,10 @@
     <tc:box>
       <f:facet name="layout">
         <tc:gridLayout
-            rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;45px;45px;fixed;fixed;fixed;200px;200px;fixed;*"/>
+            rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;45px;45px;fixed;fixed;fixed;200px;200px;fixed;fixed;fixed;fixed;fixed;*;fixed"/>
       </f:facet>
 
       <tc:messages/>
-
-      <tc:selectOneRadio>
-        <tc:selectItem itemValue="sun" itemLabel="Sun" />
-        <tc:selectItem itemValue="moon" itemLabel="Moon" />
-        <tc:selectItem itemValue="stars" itemLabel="Stars" itemDisabled="true" />
-      </tc:selectOneRadio>
-
-      <tc:selectManyCheckbox>
-        <tc:selectItem itemValue="sun" itemLabel="Sun" />
-        <tc:selectItem itemValue="moon" itemLabel="Moon" />
-        <tc:selectItem itemValue="stars" itemLabel="Stars" itemDisabled="true" />
-      </tc:selectManyCheckbox>
 
       <%-- code-sniplet-start id="selectBooleanCheckbox" --%>
       <tc:selectBooleanCheckbox label="_Letter"/>
@@ -125,9 +113,45 @@
       </tx:selectOneListbox>
       <%-- code-sniplet-end id="selectOneListbox" --%>
 
-      <tc:button label="submit" action="submit"/>
+      <tc:separator >
+        <f:facet name="label">
+          <tc:label value="Layout"/>
+        </f:facet>
+      </tc:separator>
+
+      <tc:selectOneRadio>
+        <tc:selectItem itemValue="sun" itemLabel="Sun" />
+        <tc:selectItem itemValue="moon" itemLabel="Moon" />
+        <tc:selectItem itemValue="stars" itemLabel="Stars" itemDisabled="true" />
+      </tc:selectOneRadio>
+
+      <tc:selectOneRadio inline="true">
+        <tc:selectItem itemValue="sun" itemLabel="Sun" />
+        <tc:selectItem itemValue="moon" itemLabel="Moon" />
+        <tc:selectItem itemValue="stars" itemLabel="Stars" itemDisabled="true" />
+      </tc:selectOneRadio>
+
+      <tc:selectManyCheckbox>
+        <tc:selectItem itemValue="sun" itemLabel="Sun" />
+        <tc:selectItem itemValue="moon" itemLabel="Moon" />
+        <tc:selectItem itemValue="stars" itemLabel="Stars" itemDisabled="true" />
+      </tc:selectManyCheckbox>
+
+      <tc:selectManyCheckbox inline="true">
+        <tc:selectItem itemValue="sun" itemLabel="Sun" />
+        <tc:selectItem itemValue="moon" itemLabel="Moon" />
+        <tc:selectItem itemValue="stars" itemLabel="Stars" itemDisabled="true" />
+      </tc:selectManyCheckbox>
 
       <tc:cell/>
+
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="*;fixed"   />
+        </f:facet>
+        <tc:cell/>
+        <tc:button action="submit" label="Submit" />
+      </tc:panel>
 
     </tc:box>
 

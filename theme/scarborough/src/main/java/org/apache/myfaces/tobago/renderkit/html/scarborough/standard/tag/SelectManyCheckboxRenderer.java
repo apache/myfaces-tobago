@@ -145,10 +145,12 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    List<SelectItem> items
-        = ComponentUtil.getItemsToRender((UISelectMany) component);
-    return items.size() * super.getFixedHeight(facesContext, component);
+    int heightPerRow = super.getFixedHeight(facesContext, component);
+    if (ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
+      return heightPerRow;
+    } else {
+      List<SelectItem> items = ComponentUtil.getItemsToRender((UISelectMany) component);
+      return items.size() * heightPerRow;
+    }
   }
-
 }
-
