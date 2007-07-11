@@ -23,7 +23,7 @@
   <jsp:body>
     <tc:box label="Command Controls">
       <f:facet name="layout">
-        <tc:gridLayout columns="100px;100px;100px;100px;*" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
+        <tc:gridLayout columns="100px;100px;100px;100px;*" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
       </f:facet>
 
       <%-- standard --%>
@@ -105,6 +105,14 @@
       <%-- dynamic widths --%>
 
       <tc:cell spanX="5">
+        <tc:separator >
+          <f:facet name="label">
+            <tc:label value="Layout"/>
+          </f:facet>
+        </tc:separator>
+      </tc:cell>
+
+      <tc:cell spanX="5">
         <tc:panel>
           <f:facet name="layout">
             <tc:gridLayout rows="fixed" columns="fixed;fixed;fixed;*"/>
@@ -124,6 +132,18 @@
           </f:facet>
 
           <tc:button label="The goal of Tobago is to provide the community with a well designed set of user interface components." />
+          <tc:cell/>
+
+        </tc:panel>
+      </tc:cell>
+      <tc:cell spanX="5">
+        <tc:panel>
+          <f:facet name="layout">
+            <tc:gridLayout rows="45px" columns="100px;100px;*"/>
+          </f:facet>
+
+          <tc:button label="This is a button with a long text." />
+          <tc:button image="image/next.gif" label="This is a button with a long text." />
           <tc:cell/>
 
         </tc:panel>
