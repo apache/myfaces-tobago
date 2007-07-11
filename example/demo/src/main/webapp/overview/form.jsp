@@ -68,7 +68,7 @@
 
         <tc:panel>
           <f:facet name="layout">
-            <tc:gridLayout columns="*;150px" rows="fixed;*"  />
+            <tc:gridLayout columns="*;fixed" rows="fixed;*"  />
           </f:facet>
 
           <tc:cell/>
