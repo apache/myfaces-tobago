@@ -102,19 +102,14 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class SheetRenderer extends LayoutableRendererBase
-    implements SheetRendererWorkaround, AjaxRenderer {
+public class SheetRenderer extends LayoutableRendererBase implements SheetRendererWorkaround, AjaxRenderer {
 
   private static final Log LOG = LogFactory.getLog(SheetRenderer.class);
 
-  public static final String WIDTHS_POSTFIX
-      = SUBCOMPONENT_SEP + "widths";
+  public static final String WIDTHS_POSTFIX = SUBCOMPONENT_SEP + "widths";
+  public static final String SCROLL_POSTFIX = SUBCOMPONENT_SEP + "scrollPosition";
+  public static final String SELECTED_POSTFIX = SUBCOMPONENT_SEP + "selected";
 
-  public static final String SCROLL_POSTFIX
-      = SUBCOMPONENT_SEP + "scrollPosition";
-
-  public static final String SELECTED_POSTFIX
-      = SUBCOMPONENT_SEP + "selected";
   private static final Integer HEIGHT_0 = 0;
 
   public void encodeEnd(FacesContext facesContext,
@@ -140,16 +135,12 @@ public class SheetRenderer extends LayoutableRendererBase
 
     writer.endElement(HtmlConstants.DIV);
 
-    ResourceManager resourceManager
-        = ResourceManagerFactory.getResourceManager(facesContext);
+    ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
     UIViewRoot viewRoot = facesContext.getViewRoot();
-    String contextPath
-        = facesContext.getExternalContext().getRequestContextPath();
+    String contextPath = facesContext.getExternalContext().getRequestContextPath();
 
-    String unchecked = contextPath
-        + resourceManager.getImage(viewRoot, "image/sheetUnchecked.gif");
-    String checked = contextPath
-        + resourceManager.getImage(viewRoot, "image/sheetChecked.gif");
+    String unchecked = contextPath + resourceManager.getImage(viewRoot, "image/sheetUnchecked.gif");
+    String checked = contextPath + resourceManager.getImage(viewRoot, "image/sheetChecked.gif");
     boolean ajaxEnabled = TobagoConfig.getInstance(facesContext).isAjaxEnabled();
 
     final String[] styles = new String[]{"style/tobago-sheet.css"};
@@ -183,16 +174,11 @@ public class SheetRenderer extends LayoutableRendererBase
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
     String sheetId = data.getClientId(facesContext);
 
-    String image1x1 = contextPath + resourceManager
-        .getImage(viewRoot, "image/1x1.gif");
-    String ascending = contextPath + resourceManager
-        .getImage(viewRoot, "image/ascending.gif");
-    String descending = contextPath + resourceManager
-        .getImage(viewRoot, "image/descending.gif");
-    String selectorDisabled = contextPath + resourceManager
-        .getImage(viewRoot, "image/sheetUncheckedDisabled.gif");
-    String unchecked = contextPath + resourceManager
-        .getImage(viewRoot, "image/sheetUnchecked.gif");
+    String image1x1 = contextPath + resourceManager.getImage(viewRoot, "image/1x1.gif");
+    String ascending = contextPath + resourceManager.getImage(viewRoot, "image/ascending.gif");
+    String descending = contextPath + resourceManager.getImage(viewRoot, "image/descending.gif");
+    String selectorDisabled = contextPath + resourceManager.getImage(viewRoot, "image/sheetUncheckedDisabled.gif");
+    String unchecked = contextPath + resourceManager.getImage(viewRoot, "image/sheetUnchecked.gif");
 
     Map attributes = data.getAttributes();
     HtmlStyleMap sheetStyle = (HtmlStyleMap) attributes.get(ATTR_STYLE);
@@ -1095,5 +1081,27 @@ public class SheetRenderer extends LayoutableRendererBase
     }
   }
 
-}
+  @Override
+  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
 
+    // todo: why this will be called?
+    if (component == null) {
+      return 0;
+    }
+
+    UIData data = (UIData) component;
+
+//    int headerHeight = getConfiguredValue(facesContext, component, "headerHeight");
+//    int footerHeight = getConfiguredValue(facesContext, component, "footerHeight");
+    int headerHeight = getHeaderHeight(facesContext, component);
+    int footerHeight = getFooterHeight(facesContext, component);
+
+    int rowHeight = getConfiguredValue(facesContext, component, "rowHeight");
+
+    int rows = data.getRows();
+
+    LOG.info(headerHeight + " " + footerHeight + " " + rowHeight + " " + rows);
+
+    return headerHeight + rows * rowHeight + footerHeight + 2; // XXX hotfix: + 1
+  }
+}

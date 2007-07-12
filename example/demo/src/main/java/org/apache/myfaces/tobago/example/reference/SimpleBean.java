@@ -20,9 +20,11 @@ package org.apache.myfaces.tobago.example.reference;
 public class SimpleBean {
 
   private String name;
+  private String value;
 
-  public SimpleBean(String name) {
+  public SimpleBean(String name, String value) {
     this.name = name;
+    this.value = value;
   }
 
   public String getName() {
@@ -31,5 +33,13 @@ public class SimpleBean {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
   }
 }

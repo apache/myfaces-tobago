@@ -21,10 +21,10 @@
   System.out.println("1" + session.getAttribute("simpleList"));
   if (simpleList == null) {
     simpleList = new SimpleBean[]{
-        new SimpleBean("One"),
-        new SimpleBean("Two"),
-        new SimpleBean("Three"),
-        new SimpleBean("Four")};
+        new SimpleBean("1", "One"),
+        new SimpleBean("2", "Two"),
+        new SimpleBean("3", "Three"),
+        new SimpleBean("4", "Four")};
   }
   session.setAttribute("simpleList", simpleList);
   System.out.println("2" + session.getAttribute("simpleList"));
@@ -38,19 +38,40 @@
     <jsp:body>
       <tc:box label="Sheet">
         <f:facet name="layout">
-          <tc:gridLayout rows="fixed;*;fixed"/>
+          <tc:gridLayout rows="fixed;*;fixed;fixed;fixed"/>
         </f:facet>
 
         <tc:messages/>
 
-        <tc:sheet value="#{simpleList}" columns="*;*" var="bean">
+        <tc:sheet value="#{simpleList}" columns="fixed;*" var="bean">
           <tc:columnSelector />
           <tc:column label="Number">
-            <tc:in value="#{bean.name}" required="true"/>
+            <tc:in value="#{bean.value}" required="true"/>
           </tc:column>
         </tc:sheet>
 
-        <tc:button label="submit"/>
+        <tc:separator >
+          <f:facet name="label">
+            <tc:label value="Layout: Sheet with 'fixed' height"/>
+          </f:facet>
+        </tc:separator>
+
+        <tc:sheet value="#{simpleList}" columns="*;*" var="bean" rows="5">
+          <tc:column label="Cipher">
+            <tc:out value="#{bean.name}"/>
+          </tc:column>
+          <tc:column label="Name">
+            <tc:out value="#{bean.value}"/>
+          </tc:column>
+        </tc:sheet>
+
+        <tc:panel>
+          <f:facet name="layout">
+            <tc:gridLayout columns="*;fixed"   />
+          </f:facet>
+          <tc:cell/>
+          <tc:button action="submit" label="Submit" />
+        </tc:panel>
 
       </tc:box>
 
