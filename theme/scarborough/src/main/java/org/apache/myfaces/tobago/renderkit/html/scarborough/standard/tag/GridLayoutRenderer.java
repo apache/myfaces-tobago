@@ -542,7 +542,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
     innerWidth -= getWidthSpacingSum(layout, facesContext, renderedColumnCount);
     LayoutInfo layoutInfo =
-        new LayoutInfo(columnCount, innerWidth.intValue(), layoutTokens,
+        new LayoutInfo(columnCount, innerWidth.intValue(), layoutTokens, layout.getClientId(facesContext),
             layout.isIgnoreFree());
 
     parseFixedWidth(layoutInfo, layout, facesContext);
@@ -587,8 +587,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
     innerHeight -= getHeightSpacingSum(layout, facesContext, renderedRowCount);
 
-    LayoutInfo layoutInfo =
-        new LayoutInfo(rows.size(), innerHeight.intValue(), layoutTokens);
+    LayoutInfo layoutInfo
+        = new LayoutInfo(rows.size(), innerHeight.intValue(), layoutTokens, layout.getClientId(facesContext));
 
     if (!layoutTokens.isEmpty()) {
       parseFixedHeight(layoutInfo, layout, facesContext);

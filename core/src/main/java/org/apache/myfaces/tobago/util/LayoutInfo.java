@@ -17,15 +17,15 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.myfaces.tobago.component.LayoutTokens;
-import org.apache.myfaces.tobago.component.RelativeLayoutToken;
-import org.apache.myfaces.tobago.component.PixelLayoutToken;
-import org.apache.myfaces.tobago.component.LayoutToken;
-import org.apache.myfaces.tobago.component.PercentLayoutToken;
 import org.apache.myfaces.tobago.component.HideLayoutToken;
+import org.apache.myfaces.tobago.component.LayoutToken;
+import org.apache.myfaces.tobago.component.LayoutTokens;
+import org.apache.myfaces.tobago.component.PercentLayoutToken;
+import org.apache.myfaces.tobago.component.PixelLayoutToken;
+import org.apache.myfaces.tobago.component.RelativeLayoutToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,24 +33,27 @@ import java.util.StringTokenizer;
 
 public class LayoutInfo {
 
-  private static final int FREE = -1;
   private static final Log LOG = LogFactory.getLog(LayoutInfo.class);
+
+  private static final int FREE = -1;
   public static final int HIDE = -2;
 
   private int cellsLeft;
   private int spaceLeft;
   private int[] spaces;
   private LayoutTokens layoutTokens;
+  private String clientIdForLogging;
 
-  public LayoutInfo(int cellCount, int space, LayoutTokens layoutTokens) {
-    this(cellCount, space, layoutTokens, false);
+  public LayoutInfo(int cellCount, int space, LayoutTokens layoutTokens, String clientIdForLogging) {
+    this(cellCount, space, layoutTokens, clientIdForLogging, false);
   }
 
-  public LayoutInfo(int cellCount, int space, LayoutTokens layoutTokens, boolean ignoreMismatch) {
+  public LayoutInfo(int cellCount, int space, LayoutTokens layoutTokens, String clientIdForLogging, boolean ignoreMismatch) {
 
     this.cellsLeft = cellCount;
     this.spaceLeft = space;
     this.layoutTokens = layoutTokens;
+    this.clientIdForLogging = clientIdForLogging;
     /*if (layoutTokens.length == cellCount) {
       this.layoutTokens = layoutTokens;
     } else */
@@ -59,7 +62,8 @@ public class LayoutInfo {
         LOG.warn("More tokens (" + layoutTokens.getSize()
             + ") for layout than cells (" + cellCount + ") found! Ignoring"
             + " redundant tokens. Token string was: "
-            + layoutTokens);
+            + layoutTokens
+            + " clientId='" + clientIdForLogging + "'");
       }
 
       layoutTokens.shrinkSizeTo(cellCount);
@@ -67,7 +71,8 @@ public class LayoutInfo {
       if (!ignoreMismatch && LOG.isWarnEnabled() && (cellCount - layoutTokens.getSize()) != 0) {
         LOG.warn("More cells (" + cellCount + ") than tokens (" + layoutTokens.getSize()
             + ") for layout found! Setting missing tokens to '1*'."
-            + " Token string was: " + layoutTokens);
+            + " Token string was: " + layoutTokens
+            + " clientId='" + clientIdForLogging + "'");
       }
       layoutTokens.ensureSize(cellCount, new RelativeLayoutToken(1));
       //this.layoutTokens = new String[cellCount];
@@ -96,11 +101,12 @@ public class LayoutInfo {
   public void update(int space, int index, boolean force) {
     if (space > spaceLeft) {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("More space (" + space + ") needed than available (" + spaceLeft + ")!");
+        LOG.debug("More space (" + space + ") needed than available (" + spaceLeft + ")!"
+            + " clientId='" + clientIdForLogging + "'");
       }
       if (!force) {
         if (LOG.isDebugEnabled()) {
-          LOG.debug("Cutting to fit.");
+          LOG.debug("Cutting to fit. " + " clientId='" + clientIdForLogging + "'");
         }
         if (spaceLeft < 0) {
           space = 0;
@@ -117,13 +123,15 @@ public class LayoutInfo {
       if (spaceLeft < 1 && columnsLeft()) {
         if (LOG.isWarnEnabled()) {
           LOG.warn("There are columns left but no more space! cellsLeft="
-              + cellsLeft + ", tokens=" + layoutTokens);
-          LOG.warn("calculated spaces = " + tokensToString(spaces));
+              + cellsLeft + ", tokens=" + layoutTokens
+              + " clientId='" + clientIdForLogging + "'");
+          LOG.warn("calculated spaces = " + tokensToString(spaces)
+              + " clientId='" + clientIdForLogging + "'");
         }
       }
     } else {
       LOG.warn("More space to assign (" + space + "px) but no more columns!"
-          + " More layout tokens than column tags?");
+          + " More layout tokens than column tags?" + " clientId='" + clientIdForLogging + "'");
     }
   }
 
@@ -137,7 +145,7 @@ public class LayoutInfo {
       if (isFree(i)) {
         if (LOG.isWarnEnabled()) {
           LOG.warn("Illegal layout token pattern \"" + layoutTokens.get(i)
-              + "\" ignored, set to 0px !");
+              + "\" ignored, set to 0px !"+ " clientId='" + clientIdForLogging + "'");
         }
         spaces[i] = 0;
       }
@@ -149,8 +157,7 @@ public class LayoutInfo {
     return createLayoutTokens(columnLayout, count, "1*");
   }
 
-  public static String[] createLayoutTokens(String columnLayout, int count,
-      String defaultToken) {
+  public static String[] createLayoutTokens(String columnLayout, int count, String defaultToken) {
     String[] tokens;
     if (columnLayout != null) {
       List<String>  list = new ArrayList<String>();
@@ -236,8 +243,8 @@ public class LayoutInfo {
   public void handleSpaceLeft() {
     if (spaceLeft > 0) {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("spread spaceLeft (" + spaceLeft + "px) to columns");
-        LOG.debug("spaces before spread :" + arrayAsString(spaces));
+        LOG.debug("spread spaceLeft (" + spaceLeft + "px) to columns" + " clientId='" + clientIdForLogging + "'");
+        LOG.debug("spaces before spread :" + arrayAsString(spaces) + " clientId='" + clientIdForLogging + "'");
       }
 
      for (int i = 0; i < layoutTokens.getSize(); i++) {
@@ -262,10 +269,10 @@ public class LayoutInfo {
       }
     }
     if (spaceLeft > 0 && LOG.isWarnEnabled()) {
-      LOG.warn("Space left after spreading : " + spaceLeft + "px!");
+      LOG.warn("Space left after spreading : " + spaceLeft + "px!" + " clientId='" + clientIdForLogging + "'");
     }
     if (LOG.isDebugEnabled()) {
-      LOG.debug("spaces after spread  :" + arrayAsString(spaces));
+      LOG.debug("spaces after spread  :" + arrayAsString(spaces) + " clientId='" + clientIdForLogging + "'");
     }
   }
   //TODO replace with Arrays.asList ..
@@ -298,7 +305,7 @@ public class LayoutInfo {
         spaces[i] = HIDE;
         if (LOG.isDebugEnabled()) {
           LOG.debug("set column " + i + " from " + layoutTokens.get(i)
-              + " to hide ");
+              + " to hide " + " clientId='" + clientIdForLogging + "'");
         }
       }
     }
@@ -312,7 +319,7 @@ public class LayoutInfo {
         update(w, i, true);
         if (LOG.isDebugEnabled()) {
           LOG.debug("set column " + i + " from " + token
-              + " to with " + w);
+              + " to with " + w + " clientId='" + clientIdForLogging + "'");
         }
       }
     }
@@ -329,7 +336,7 @@ public class LayoutInfo {
           update(w, i);
           if (LOG.isDebugEnabled()) {
             LOG.debug("set column " + i + " from " + token
-                + " to with " + w);
+                + " to with " + w + " clientId='" + clientIdForLogging + "'");
           }
         }
       }
@@ -358,13 +365,13 @@ public class LayoutInfo {
               update(0, i);
               if (LOG.isDebugEnabled()) {
                 LOG.debug("set column " + i + " from " + token
-                    + " to with " + w + " == 0px");
+                    + " to with " + w + " == 0px" + " clientId='" + clientIdForLogging + "'");
               }
             } else {
               update(Math.round(w), i);
               if (LOG.isDebugEnabled()) {
                 LOG.debug("set column " + i + " from " + token
-                    + " to with " + w + " == " + Math.round(w) + "px");
+                    + " to with " + w + " == " + Math.round(w) + "px" + " clientId='" + clientIdForLogging + "'");
               }
             }
           }
