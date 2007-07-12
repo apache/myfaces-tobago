@@ -97,8 +97,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
     if (layoutTokens == null && !minimum && LOG.isDebugEnabled()) {
       LOG.debug("No rowLayout found using " + (minimum ? "'minimum'" : "'fixed'")
-          + " for all " + rows.size() + " rows of "
-          + layout.getClientId(facesContext) + " !");
+          + " for all " + rows.size() + " rows."
+          + " (clientId='" + layout.getClientId(facesContext) + "')");
     }
     layoutTokens.ensureSize(rows.size(), new RelativeLayoutToken(1));
     // TODO alternative? rows.size() == 1 ? new RelativeLayoutToken(1) : new FixedLayoutToken()
@@ -110,7 +110,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     if (rows.size() != layoutTokens.getSize()) {
       LOG.warn("Unbalanced layout: rows.size()=" + rows.size()
           + " != layoutTokens.length=" + layoutTokens.getSize()
-          + " rowLayout='" + layoutTokens + "'");
+          + " rowLayout='" + layoutTokens + "'"
+          + " (clientId='" + layout.getClientId(facesContext) + "')");
     }
     int size = Math.min(rows.size(), layoutTokens.getSize());
 
@@ -168,7 +169,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     if (row.getColumns() != layoutTokens.getSize()) {
       LOG.warn("Unbalanced layout: rows.size()=" + rows.size()
           + " != layoutTokens.length=" + layoutTokens.getSize()
-          + " columnLayout='" + layoutTokens + "'");
+          + " columnLayout='" + layoutTokens + "'"
+          + " (clientId='" + layout.getClientId(facesContext) + "')");
     }
     int size = Math.min(rows.size(), layoutTokens.getSize());
 
