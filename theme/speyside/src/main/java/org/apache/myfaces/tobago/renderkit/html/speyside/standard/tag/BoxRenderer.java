@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 
 /*
  * Created 07.02.2003 16:00:00.
- * : $
+ * $Id: $
  */
 
 import org.apache.commons.logging.Log;
@@ -57,7 +57,6 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
   }
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE);
