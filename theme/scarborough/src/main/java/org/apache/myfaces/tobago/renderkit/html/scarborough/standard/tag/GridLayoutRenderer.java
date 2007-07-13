@@ -833,12 +833,22 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       }
       if(marginRight > 0) {
         style.put("margin-right", marginRight);
+        Integer width = style.getInt("width");
+        if (width != null) {
+          width -= marginRight;
+          style.put("width", width);
+        }
       }
       if(marginBottom > 0) {
         style.put("margin-bottom", marginBottom);
       }
       if(marginLeft > 0) {
         style.put("margin-left", marginLeft);
+        Integer width = style.getInt("width");
+        if (width != null) {
+          width -= marginLeft;
+          style.put("width", width);
+        }
       }
 
       //layout.getAttributes().put(ATTR_LAYOUT_TABLE_STYLE, style);
