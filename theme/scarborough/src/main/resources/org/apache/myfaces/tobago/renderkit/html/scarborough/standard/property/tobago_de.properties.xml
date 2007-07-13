@@ -105,6 +105,6 @@
 <entry key="javax.faces.validator.LengthValidator.MINIMUM">Minimal "{0}" Zeichen erlaubt!</entry>
 <entry key="javax.faces.validator.LengthValidator.MINIMUM_detail">Der eingegebene Wert ist kürzer als das zulässige Minimum von {0} Zeichen!</entry>
 
-  <entry key="tobago.ajax.response.error">Server Error: Fehler beim Bearbeiten der Anfrage. Möglicherweise ein Session Timeout!</entry>
+  <entry key="tobago.ajax.response.error">Server Error: Fehler beim Bearbeiten der Anfrage. Eventuell ein Session Timeout!</entry>
 
 </properties>
