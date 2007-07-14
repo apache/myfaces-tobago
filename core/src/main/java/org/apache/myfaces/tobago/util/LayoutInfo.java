@@ -48,7 +48,8 @@ public class LayoutInfo {
     this(cellCount, space, layoutTokens, clientIdForLogging, false);
   }
 
-  public LayoutInfo(int cellCount, int space, LayoutTokens layoutTokens, String clientIdForLogging, boolean ignoreMismatch) {
+  public LayoutInfo(int cellCount, int space, LayoutTokens layoutTokens,
+      String clientIdForLogging, boolean ignoreMismatch) {
 
     this.cellsLeft = cellCount;
     this.spaceLeft = space;
