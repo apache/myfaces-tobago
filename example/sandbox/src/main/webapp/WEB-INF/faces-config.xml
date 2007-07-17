@@ -35,10 +35,5 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
-  <managed-bean>
-    <managed-bean-name>tomahawk</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.sandbox.Tomahawk</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
 
 </faces-config>

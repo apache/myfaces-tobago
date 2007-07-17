@@ -19,7 +19,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <f:view>
-  <tc:page width="400" height="300">
+  <tc:page >
     <tc:panel>
       <f:facet name="layout">
         <tc:gridLayout margin="10px" rows="1*;fixed;1*" />
@@ -45,12 +45,14 @@
 
         <tc:panel>
           <f:facet name="layout">
-            <tc:gridLayout margin="10px" columns="5*;1*" />
+            <tc:gridLayout margin="10px" columns="100px;1*;100px;1*;100px" />
           </f:facet>
 
-          <tc:cell />
+          <tc:in />
           <tc:button id="test" action="#{test.layout}" label="Search"  />
-
+          <tc:in />
+          <tc:button label="suppe" />
+          <tc:in />
         </tc:panel>
 
       </tc:box>

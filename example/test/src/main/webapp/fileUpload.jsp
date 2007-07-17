@@ -19,25 +19,26 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <f:view>
-  <tc:page width="600" height="300">
-    <f:facet name="layout">
-      <tc:gridLayout/>
-    </f:facet>
+  <tc:page width="600" height="400">
+     <f:facet name="layout">
+        <tc:gridLayout columns="*" rows="*"/>
+      </f:facet>
     <tc:box label="File upload">
+    <%--tc:panel--%>
       <f:facet name="layout">
-        <tc:gridLayout columns="150px;440px"/>
+        <tc:gridLayout  rows="20px;208px;20px"  columns="150px;440px"/>
       </f:facet>
       <tc:out value="Hello World"/>
       <tc:file value="#{test.file}" required="true" >
         <tc:validateFileItem contentType="text/*" />
         <tc:validateFileItem maxSize="299" />
       </tc:file>
-      <tc:messages/>
-      <tc:cell/>
+      <%--tc:messages/--%>
+      <tc:cell spanX="2"/>
       <tc:cell spanX="2">
         <tc:panel>
           <f:facet name="layout">
-            <tc:gridLayout columns="*;fixed;*"/>
+            <tc:gridLayout columns="*;fixed;*" rows="20px"/>
           </f:facet>
           <tc:cell />
           <tc:button label="Submit" defaultCommand="true" />
@@ -45,5 +46,6 @@
         </tc:panel>
       </tc:cell>
     </tc:box>
+    <%--/tc:panel--%>
   </tc:page>
 </f:view>
