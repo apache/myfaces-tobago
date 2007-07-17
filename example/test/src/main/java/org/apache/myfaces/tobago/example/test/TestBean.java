@@ -23,8 +23,11 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.component.UIColumn;
 import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UIMenu;
+import org.apache.myfaces.tobago.component.UIMenuCommand;
 
 import javax.faces.component.UIOutput;
+import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.faces.el.MethodBinding;
@@ -42,8 +45,6 @@ import java.util.Date;
 import java.io.IOException;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 18.02.2006
  * Time: 11:08:45
  */
@@ -67,6 +68,33 @@ public class TestBean {
   private String value;
   private Date date;
   private Date date1;
+  private UIMenu fileMenu;
+
+
+  public UIPanel getFileMenu() {
+    if (fileMenu == null) {
+      FacesContext context = FacesContext.getCurrentInstance();
+
+      fileMenu = (UIMenu) context.getApplication().createComponent(UIMenu.COMPONENT_TYPE);
+
+      fileMenu.getAttributes().put("label", "File");
+    }
+    if (fileMenu.getChildCount() == 0) {
+      for(int i = 0; i < 5; i++) {
+        addMenuCommand(fileMenu);
+      }
+    }
+
+    return fileMenu;
+
+  }
+
+  private void addMenuCommand(UIMenu fileMenu) {
+    UIMenuCommand command = (UIMenuCommand) FacesContext.getCurrentInstance().getApplication().createComponent(UIMenuCommand.COMPONENT_TYPE);
+    command.getAttributes().put("label", "test"+fileMenu.getChildCount());
+    // TODO setAction
+    fileMenu.getChildren().add(command);
+  }
 
   public String layout() {
     this.date1 = date;
