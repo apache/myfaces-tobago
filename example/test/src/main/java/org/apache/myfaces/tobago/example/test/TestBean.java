@@ -90,7 +90,8 @@ public class TestBean {
   }
 
   private void addMenuCommand(UIMenu fileMenu) {
-    UIMenuCommand command = (UIMenuCommand) FacesContext.getCurrentInstance().getApplication().createComponent(UIMenuCommand.COMPONENT_TYPE);
+    UIMenuCommand command = (UIMenuCommand)
+        FacesContext.getCurrentInstance().getApplication().createComponent(UIMenuCommand.COMPONENT_TYPE);
     command.getAttributes().put("label", "test"+fileMenu.getChildCount());
     // TODO setAction
     fileMenu.getChildren().add(command);
