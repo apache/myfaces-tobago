@@ -1104,4 +1104,10 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
 
     return headerHeight + rows * rowHeight + footerHeight + 2; // XXX hotfix: + 1
   }
+
+  public void encodeChildren(FacesContext context,
+                               UIComponent component)
+            throws IOException {
+    // DO Nothing
+  }
 }

@@ -570,6 +570,8 @@
             <source>1.5</source>
             <target>1.5</target>
             <encoding>UTF-8</encoding>
+            <showWarnings>true</showWarnings>
+          <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>-->
           </configuration>
         </plugin>
         <plugin>
@@ -590,7 +592,7 @@
         <plugin>
           <groupId>org.mortbay.jetty</groupId>
           <artifactId>maven-jetty-plugin</artifactId>
-          <version>6.1.4rc1</version>
+          <version>${jetty.version}</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
@@ -783,7 +785,10 @@
 
   <properties>
     <myfaces.version>1.1.5</myfaces.version>
+    <myfaces12.version>1.2.0</myfaces12.version>
     <sunjsf.version>1.1_02</sunjsf.version>
+    <sunjsf12.version>1.2_04-p02</sunjsf12.version>    
+    <jetty.version>6.1.4</jetty.version>
     <common-io.version>1.1</common-io.version>
     <common-lang.version>2.1</common-lang.version>
     <commons-logging.version>1.1</commons-logging.version>
