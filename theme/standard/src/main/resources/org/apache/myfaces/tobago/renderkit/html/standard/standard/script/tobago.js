@@ -265,11 +265,6 @@ var Tobago = {
   makeOverlaySemitransparent: function() {
     var overlay = Tobago.element(Tobago.page.id + "-overlay");
     if (overlay) {
-      if (navigator.appName.indexOf("Explorer") != -1) {  // IE
-        Tobago.addEventListener(window, "scroll", Tobago.doOverlayScroll);
-      } else {
-        overlay.style.position = "fixed";
-      }
       var img = document.createElement("IMG");
       img.style.width = overlay.clientWidth;
       img.style.height = overlay.clientHeight;
@@ -357,7 +352,7 @@ var Tobago = {
     }
     this.jsObjects.length = 0;
     delete this.jsObjects;
-    
+
     delete this.page;
     delete this.form;
     delete this.action;
@@ -423,7 +418,7 @@ var Tobago = {
     * Submitting the page with specified actionId.
     */
   submitAction: function(actionId, transition, target) {
-    if (typeof transition == "undefined") {
+    if (transition === undefined) {
       transition = true;
     }
     LOG.info("transition =" + transition);
@@ -948,7 +943,7 @@ var Tobago = {
     Tobago.popupResizeStub = null;
   },
 
-  openPopupWithAction: function(popupId, actionId) {
+  openPopupWithAction: function(popupId, actionId, options) {
     var div = Tobago.element(popupId);
     if (div) {
       LOG.warn("something is wrong, doing full reload");
@@ -968,7 +963,11 @@ var Tobago = {
     }
 
     Tobago.addAjaxComponent(popupId, div.id);
-    Tobago.reloadComponent(popupId, actionId, {createOverlay: false});
+    var newOptions = {createOverlay: false}
+    if (options) {
+      Tobago.extend(newOptions, options);
+    }
+    Tobago.reloadComponent(popupId, actionId, options);
   },
 
 // -------- Util functions ----------------------------------------------------
@@ -1857,6 +1856,7 @@ Tobago.Updater = {
 
   showFailureMessage: function() {
     //alert('uh oh, it looks like the network is down. Try again shortly');
+    LOG.info("ajax request failed!");
   }
 };
 
