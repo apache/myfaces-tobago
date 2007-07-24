@@ -32,7 +32,7 @@ public final class TobagoConstants {
   public static final String ATTR_BORDER = "border";
   public static final String ATTR_CHARSET = "charset";
   public static final String ATTR_CALENDAR_DATE_INPUT_ID = "CalendarDateInputId";
-  public static final String ATTR_CELLSPACING = "layoutCellspacing";
+  public static final String ATTR_CELLSPACING = "cellspacing";
   public static final String ATTR_CLASSES_BLOCKS = "cssClassesBlocks";
   public static final String ATTR_CLIENT_PROPERTIES = "clientProperties";
   public static final String ATTR_COLUMNS = "columns";
