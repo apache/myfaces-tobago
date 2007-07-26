@@ -22,7 +22,6 @@ import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TextHandler;
 import com.sun.facelets.tag.TagHandler;
 import com.sun.facelets.tag.TagException;
-import com.sun.facelets.tag.jsf.ComponentSupport;
 import com.sun.facelets.FaceletContext;
 
 import javax.faces.component.UIComponent;
