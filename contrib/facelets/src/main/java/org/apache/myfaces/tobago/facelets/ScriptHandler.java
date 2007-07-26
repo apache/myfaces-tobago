@@ -57,31 +57,29 @@ public class ScriptHandler extends TagHandler {
       throws IOException, FacesException, ELException {
 
     if (parent instanceof UIPage) {
-      if (ComponentSupport.isNew(parent)) {
-        UIPage page = (UIPage) parent;
-        if (file != null) {
-          page.getScriptFiles().add(file.getValue(faceletContext));
-        }
-        if (onload != null) {
-          page.getOnloadScripts().add(onload.getValue(faceletContext));
-        }
-        if (onunload != null) {
-          page.getOnunloadScripts().add(onunload.getValue(faceletContext));
-        }
-        if (onexit != null) {
-          page.getOnexitScripts().add(onexit.getValue(faceletContext));
-        }
-        StringBuffer buffer = new StringBuffer();
-        Iterator iter = findNextByType(TextHandler.class);
-        while (iter.hasNext()) {
-          TextHandler text = (TextHandler) iter.next();
-          buffer.append(text.getText(faceletContext));
-        }
-        String content = buffer.toString().trim();
+      UIPage page = (UIPage) parent;
+      if (file != null) {
+        page.getScriptFiles().add(file.getValue(faceletContext));
+      }
+      if (onload != null) {
+        page.getOnloadScripts().add(onload.getValue(faceletContext));
+      }
+      if (onunload != null) {
+        page.getOnunloadScripts().add(onunload.getValue(faceletContext));
+      }
+      if (onexit != null) {
+        page.getOnexitScripts().add(onexit.getValue(faceletContext));
+      }
+      StringBuffer buffer = new StringBuffer();
+      Iterator iter = findNextByType(TextHandler.class);
+      while (iter.hasNext()) {
+        TextHandler text = (TextHandler) iter.next();
+        buffer.append(text.getText(faceletContext));
+      }
+      String content = buffer.toString().trim();
 
-        if (content.length() > 0) {
-          page.getScriptBlocks().add(content);
-        }
+      if (content.length() > 0) {
+        page.getScriptBlocks().add(content);
       }
     } else {
       throw new TagException(tag, "Parent is not of type UIPage, type is: " + parent);

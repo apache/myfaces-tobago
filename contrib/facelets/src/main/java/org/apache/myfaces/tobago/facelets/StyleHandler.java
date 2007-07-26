@@ -51,22 +51,20 @@ public class StyleHandler extends TagHandler {
       throws IOException, FacesException, ELException {
 
     if (parent instanceof UIPage) {
-      if (ComponentSupport.isNew(parent)) {
-        UIPage page = (UIPage) parent;
-        if (style != null) {
-          page.getStyleFiles().add(style.getValue(faceletContext));
-        }
-        StringBuffer buffer = new StringBuffer();
-        Iterator iter = findNextByType(TextHandler.class);
-        while (iter.hasNext()) {
-          TextHandler text = (TextHandler) iter.next();
-          buffer.append(text.getText(faceletContext));
-        }
-        String content = buffer.toString().trim();
+      UIPage page = (UIPage) parent;
+      if (style != null) {
+        page.getStyleFiles().add(style.getValue(faceletContext));
+      }
+      StringBuffer buffer = new StringBuffer();
+      Iterator iter = findNextByType(TextHandler.class);
+      while (iter.hasNext()) {
+        TextHandler text = (TextHandler) iter.next();
+        buffer.append(text.getText(faceletContext));
+      }
+      String content = buffer.toString().trim();
 
-        if (content.length() > 0) {
-          page.getStyleBlocks().add(content);
-        }
+      if (content.length() > 0) {
+        page.getStyleBlocks().add(content);
       }
     } else {
       throw new TagException(tag, "Parent is not of type UIPage, type is: " + parent);
