@@ -223,7 +223,7 @@ public class AjaxResponseRenderer {
       httpServletResponse.addHeader("Transfer-Encoding", "chunked");
       PrintWriter responseWriter = httpServletResponse.getWriter();
       // buf.delete(buf.indexOf("<"), buf.indexOf(">")+1);
-      responseWriter.print(content);
+      responseWriter.print(buffer.toString());
       responseWriter.flush();
       responseWriter.close();
     }
