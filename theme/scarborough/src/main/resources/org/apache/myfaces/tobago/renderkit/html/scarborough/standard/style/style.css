@@ -1018,6 +1018,10 @@ a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:activ
 }
 */
 
+.tobago-tab-disabled {
+   color: #778899;
+}
+
 .tobago-toolBar-button-label {
   padding-left: 5px;
 }

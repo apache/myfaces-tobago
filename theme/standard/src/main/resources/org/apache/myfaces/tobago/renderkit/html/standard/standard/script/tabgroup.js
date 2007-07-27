@@ -85,8 +85,10 @@ Tobago.TabGroup.prototype.setUp = function() {
 
 Tobago.TabGroup.prototype.reload = function(event) {
   LOG.debug("Reload ");
-    if (event) {
-      var element = Tobago.element(event);
+  if (event) {
+    var element = Tobago.element(event);
+    //LOG.debug(element.className);
+    if (element.className && element.className.indexOf("tobago-tab-link") != -1) {
       var aId = Tobago.findAnchestorWithTagName(element, 'span').id;
       this.activeIndex = aId.substring(aId.lastIndexOf(Tobago.SUB_COMPONENT_SEP) + Tobago.SUB_COMPONENT_SEP.length);
       LOG.debug("Request tab with index " + this.activeIndex);
@@ -106,9 +108,10 @@ Tobago.TabGroup.prototype.reload = function(event) {
       } else {
         Tobago.submitAction(this.tabGroupId);
       }
-    } else {
-      LOG.info("No reload Event");
     }
+  } else {
+    LOG.info("No reload Event");
+  }
 
 };
 

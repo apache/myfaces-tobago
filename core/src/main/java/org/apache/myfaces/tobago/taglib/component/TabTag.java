@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITab;
 
@@ -36,6 +37,7 @@ public class TabTag extends TobagoBodyTag
   private String label;
   private String tip;
   private String markup;
+  private String disabled;
 
   public String getComponentType() {
     return UITab.COMPONENT_TYPE;
@@ -46,6 +48,7 @@ public class TabTag extends TobagoBodyTag
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
     ComponentUtil.setMarkup(component, markup);
+    ComponentUtil.setBooleanProperty(component, ATTR_DISABLED, disabled);
   }
 
   public void release() {
@@ -53,6 +56,7 @@ public class TabTag extends TobagoBodyTag
     label = null;
     tip = null;
     markup = null;
+    disabled = null;
   }
 
   public void setMarkup(String markup) {
@@ -92,6 +96,14 @@ public class TabTag extends TobagoBodyTag
 
   public void setTip(String tip) {
     this.tip = tip;
+  }
+
+  public String getDisabled() {
+    return disabled;
+  }
+
+  public void setDisabled(String disabled) {
+    this.disabled = disabled;
   }
 }
 

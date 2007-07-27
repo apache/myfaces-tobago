@@ -95,6 +95,10 @@ img.tobago-progress-color2 {
   color: #660000;
 }
 
+.tobago-tab-disabled {
+  color: #808080;
+}
+
 div.tobago-tab-selected-outer {
   border-color: #000000;
   padding: 2px 0.2em 1px 0.2em;
@@ -105,7 +109,7 @@ div.tobago-tab-selected-outer {
 }
 
 div.tobago-tab-selected-inner {
-  font: bold 12px arial, helvetica, sans-serif;
+  font: 12px arial, helvetica, sans-serif;
   color: #660000;
 }
 
@@ -117,7 +121,7 @@ div.tobago-tab-unselected-outer {
 }
 
 div.tobago-tab-unselected-inner {
-  font: bold 12px arial, helvetica, sans-serif;
+  font: 12px arial, helvetica, sans-serif;
   color: #660000;
 }
 
@@ -570,6 +574,19 @@ label.tobago-label-error {
 .tobago-selectOneChoice-error  {
   border: 1px solid #FF0000;
 }
+
+/* selectOneRadio --------------------------------------------------------- */
+
+.tobago-selectOneRadio-default  {
+  border: 1px;
+  font: 12px arial, helvetica, sans-serif;
+  color: #000000;
+}
+
+.tobago-selectOneRadio-error  {
+  border: 1px solid #FF0000;
+}
+
 
 /* selectManyListbox ------------------------------------------------------- */
 

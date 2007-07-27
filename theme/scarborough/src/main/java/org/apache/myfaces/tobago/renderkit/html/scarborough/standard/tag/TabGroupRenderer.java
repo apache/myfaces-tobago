@@ -243,8 +243,9 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     UITab activeTab = null;
 
     int index = 0;
-    for (UIComponent tab: (List<UIComponent>) component.getChildren()) {
-      if (tab instanceof UITab) {
+    for (UIComponent child: (List<UIComponent>) component.getChildren()) {
+      if (child instanceof UITab) {
+        UITab tab = (UITab) children;
         if (tab.isRendered()) {
           String onclick;
           if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
@@ -286,11 +287,16 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
           writer.writeClassAttribute(innerClass);
 
           writer.startElement(HtmlConstants.SPAN, null);
-          writer.writeClassAttribute("tobago-tab-link");
           String tabId = clientId + "." + virtualTab + SUBCOMPONENT_SEP + index;
           writer.writeIdAttribute(tabId);
-          if (onclick != null) {
-            writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, true);
+
+          if (tab.isDisabled()) {
+            writer.writeClassAttribute("tobago-tab-disabled");
+          } else {
+            writer.writeClassAttribute("tobago-tab-link");
+            if (onclick != null) {
+              writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, true);
+            }
           }
           if (label.getText() != null) {
             HtmlRendererUtil.writeLabelWithAccessKey(writer, label);

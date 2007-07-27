@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.component;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 
 import javax.faces.el.ValueBinding;
 import javax.faces.context.FacesContext;
@@ -34,6 +35,7 @@ public class UITab extends UIPanel {
 
   private String label;
   private String tip;
+  private Boolean disabled;
 
   public String getTip() {
     if (tip != null) {
@@ -67,11 +69,28 @@ public class UITab extends UIPanel {
     this.label = label;
   }
 
+  public boolean isDisabled() {
+    if (disabled != null) {
+      return disabled;
+    }
+    ValueBinding vb = getValueBinding(ATTR_DISABLED);
+    if (vb != null) {
+      return Boolean.TRUE.equals(vb.getValue(getFacesContext()));
+    } else {
+      return false;
+    }
+  }
+
+  public void setDisabled(boolean disabled) {
+    this.disabled = disabled;
+  }
+
   public Object saveState(FacesContext context) {
-    Object[] state = new Object[3];
+    Object[] state = new Object[4];
     state[0] = super.saveState(context);
     state[1] = tip;
     state[2] = label;
+    state[3] = disabled;
     return state;
   }
 
@@ -80,5 +99,6 @@ public class UITab extends UIPanel {
     super.restoreState(context, values[0]);
     tip = (String) values[1];
     label = (String) values[2];
+    disabled = (Boolean) values[3];
   }
 }
