@@ -64,13 +64,13 @@ import javax.faces.el.ValueBinding;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Arrays;
 
 public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRenderer {
 
   private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
 
-  public static final String ACTIVE_INDEX_POSTFIX
-      = SUBCOMPONENT_SEP + "activeIndex";
+  public static final String ACTIVE_INDEX_POSTFIX = SUBCOMPONENT_SEP + "activeIndex";
 
   public void decode(FacesContext facesContext, UIComponent component) {
     if (ComponentUtil.isOutputOnly(component)) {
@@ -114,9 +114,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
         "script/tab.js",
         "script/tabgroup.js"
     };
-    for (String script : scripts) {
-      page.getScriptFiles().add(script);
-    }
+    page.getScriptFiles().addAll(Arrays.asList(scripts));
+
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
       HtmlRendererUtil.writeScriptLoader(facesContext, scripts, new String[0]);
     }
@@ -245,7 +244,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     int index = 0;
     for (UIComponent child: (List<UIComponent>) component.getChildren()) {
       if (child instanceof UITab) {
-        UITab tab = (UITab) children;
+        UITab tab = (UITab) child;
         if (tab.isRendered()) {
           String onclick;
           if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
