@@ -221,7 +221,8 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.3</version>
+        <!-- 2.3 requires maven 2.0.6 -->
+        <version>2.2</version>
         <configuration>
           <aggregate>true</aggregate>
           <linksource>true</linksource>
@@ -303,6 +304,9 @@
         <artifactId>clirr-maven-plugin</artifactId>
         <configuration>
           <minSeverity>info</minSeverity>
+          <excludes>
+            <exclude>org/apache/myfaces/tobago/example/**</exclude>
+          </excludes>
         </configuration>
       </plugin>
 
