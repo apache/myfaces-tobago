@@ -221,7 +221,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.2</version>
+        <version>2.3</version>
         <configuration>
           <aggregate>true</aggregate>
           <linksource>true</linksource>
@@ -298,13 +298,13 @@
       </plugin>
 -->
 
-      <!--<plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>clirr-maven-plugin</artifactId>
         <configuration>
           <minSeverity>info</minSeverity>
         </configuration>
-      </plugin>-->
+      </plugin>
 
       <!-- pmd has problems with annotations -->
       <plugin>
@@ -611,14 +611,14 @@
           </configuration>
         </plugin>
 
-        <!--<plugin>
+        <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>clirr-maven-plugin</artifactId>
           <configuration>
             <failOnError>false</failOnError>
             <minSeverity>info</minSeverity>
           </configuration>
-        </plugin>-->
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
@@ -788,7 +788,7 @@
     <myfaces12.version>1.2.0</myfaces12.version>
     <sunjsf.version>1.1_02</sunjsf.version>
     <sunjsf12.version>1.2_04-p02</sunjsf12.version>    
-    <jetty.version>6.1.4</jetty.version>
+    <jetty.version>6.1.5</jetty.version>
     <common-io.version>1.1</common-io.version>
     <common-lang.version>2.1</common-lang.version>
     <commons-logging.version>1.1</commons-logging.version>
