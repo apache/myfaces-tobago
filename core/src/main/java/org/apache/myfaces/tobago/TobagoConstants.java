@@ -229,6 +229,8 @@ public final class TobagoConstants {
   public static final String TOBAGO_COMPONENT_CREATED = "org.apache.myfaces.tobago.CREATION_MARKER";
   public static final String ATTR_POPUP_CLOSE = "popupClose";
 
+  public static final String CHAR_NON_BEAKING_SPACE = "\u00a0";
+
   private TobagoConstants() {
     // to prevent instantiation
   }

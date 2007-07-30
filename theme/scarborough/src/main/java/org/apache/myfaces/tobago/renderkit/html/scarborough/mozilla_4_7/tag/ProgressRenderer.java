@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -82,13 +83,13 @@ public class ProgressRenderer extends LayoutableRendererBase {
     writer.startElement(HtmlConstants.TD, null);
     writer.writeStyleAttribute("background-color: #aabbcc;");
     writer.writeAttribute(HtmlAttributes.WIDTH, width1, false);
-    writer.writeText("\u00a0"); // non braking space
+    writer.writeText(TobagoConstants.CHAR_NON_BEAKING_SPACE);
     writer.endElement(HtmlConstants.TD);
 
     writer.startElement(HtmlConstants.TD, null);
     writer.writeStyleAttribute("background-color: #ddeeff;");
     writer.writeAttribute(HtmlAttributes.WIDTH, width2, false);
-    writer.writeText("\u00a0"); // non braking space
+    writer.writeText(TobagoConstants.CHAR_NON_BEAKING_SPACE);
     writer.endElement(HtmlConstants.TD);
 
     writer.endElement(HtmlConstants.TR);

@@ -25,6 +25,8 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -62,7 +64,11 @@ public class SeparatorRenderer extends LayoutableRendererBase {
       labelClass.addAspectClass("separator", "label", StyleClasses.Aspect.DEFAULT);
       writer.writeClassAttribute(labelClass);
       UILabel label = (UILabel) component.getFacet(FACET_LABEL);
-      writer.writeText("" + label.getValue());
+      String text = String.valueOf(label.getValue());
+      if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
+        text = text.replace(" ", TobagoConstants.CHAR_NON_BEAKING_SPACE);
+      }
+      writer.writeText(text);
       writer.endElement(HtmlConstants.TD);
 
       writer.startElement(HtmlConstants.TD, component);
