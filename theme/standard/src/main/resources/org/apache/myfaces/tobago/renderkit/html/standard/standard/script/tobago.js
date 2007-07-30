@@ -114,6 +114,8 @@ var Tobago = {
 
   eventListeners: new Array(),
 
+  browser: undefined,
+
   acceleratorKeys: {
     set: function(keyAccelerator) {
       var key = keyAccelerator.modifier + keyAccelerator.key;
@@ -1153,6 +1155,20 @@ var Tobago = {
       LOG.debug("replace position " + position + " with relative");
       element.style.position = "relative";
     }
+    if (this.getBrowser().type == "msie" && this.getBrowser().version < 7) {
+      var iframe = document.createElement("IFRAME");
+      iframe.id = element.id + "-iframe-overlay";
+      iframe.style.backgroundColor = "red";
+      iframe.style.filter='progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0)';
+      iframe.style.zIndex = 9999;
+      iframe.frameBorder = "0";
+      iframe.style.position = "absolute";
+      iframe.style.top = "0px";
+      iframe.style.left = "0px";
+      iframe.style.width = element.scrollWidth + 'px';
+      iframe.style.height = element.scrollHeight + 'px';
+      element.appendChild(iframe);
+    }
     var overlay = document.createElement('div');
     overlay.id = element.id + "-overlay";
     overlay.style.position = "absolute";
@@ -1174,6 +1190,10 @@ var Tobago = {
     var overlay = document.getElementById(element.id + "-overlay");
     if (overlay && overlay.parentNode == element) {
       element.removeChild(overlay);
+      var iframe = document.getElementById(element.id + "-iframe-overlay");
+      if (iframe) {
+        element.removeChild(iframe);
+      }
     } else {
       LOG.warn("Can't find Overlay : \"" + element.id + "-overlay" + "\"");
     }
@@ -1448,7 +1468,24 @@ var Tobago = {
   },
 
   loadPngFix: function() {
+  },
+
+  getBrowser: function() {
+    if (!this.browser) {
+      var agent = navigator.userAgent.toLowerCase();
+      if (agent.indexOf("msie 7") != -1) {
+        this.browser = {"type": "msie", 'version': 7};
+      } else if (agent.indexOf("msie") != -1) {
+        this.browser = {"type": "msie", 'version': -1};
+      } else if (agent.indexOf('gecko') != -1) {
+        this.browser = {"type": "mozilla", 'version': -1};
+      } else {
+        this.browser = {"type": "unknown", 'version': -1};
+      }
+    }
+    return this.browser;
   }
+
 };
 
 
