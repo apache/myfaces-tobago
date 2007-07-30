@@ -38,14 +38,14 @@ import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
 
 /**
  *
- * <code>
+ * <pre>
  * columns/rows ::= LAYOUT
  * LAYOUT       ::= TOKEN [";" TOKEN]+
  * TOKEN        ::= FIXED | PIXEL | PROPORTIONAL
  * FIXED        ::= "fixed"
  * PIXEL        ::= NUMBER "px"
  * PROPORTIONAL ::= [NUMBER] "*"
- * </code>
+ * </pre>
 
  <table border="1">
    <tr>
@@ -58,7 +58,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
      <td rowspan="2">FIXED</td>
      <td>any combination of FIXED or PIXEL but no PROPORTIONAL</td>
      <td>okay</td>
-     <td/>
+     <td></td>
    </tr>
    <tr>
      <!--<td>FIXED</td>-->
@@ -70,33 +70,31 @@ import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
      <td rowspan="2">PIXEL</td>
      <td>any combination of FIXED or PIXEL but no PROPORTIONAL</td>
      <td>potentially wrong</td>
-     <td>The values depends on each other, the programmer has to keep consitency manually.</td>
+     <td>The values depend on each other, the programmer has to keep consitency manually.</td>
    </tr>
    <tr>
      <!--<td>PIXEL</td>-->
      <td>any combination with at least one PROPORTIONAL 
      <td>okay</td>
-     <td/>
+     <td></td>
    </tr>
    <tr>
      <td rowspan="2">PROPORTIONAL</td>
      <td>any combination of FIXED or PIXEL but no PROPORTIONAL</td>
      <td>potentially wrong</td>
-     <td>No automatical matching:<br/>  
-       a) to less space: scrollbar<br/>  
+     <td>No automatical matching:<br />  
+       a) to less space: scrollbar<br />  
        b) to much space: elements will be speaded.</td>
    </tr>
    <tr>
      <!--<td>PROPORTIONAL</td>-->
      <td>any combination with at least one PROPORTIONAL 
-     </td>
      <td>okay</td>
-     <td/>
+     <td></td>
    </tr>
  </table>
 
  */
-
 @Tag(name = "gridLayout", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIGridLayout",
