@@ -64,13 +64,13 @@ import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
      <!--<td>FIXED</td>-->
      <td>any combination with at least one PROPORTIONAL 
      <td>wrong</td>
-     <td>LayoutManager can't compute the fixed value.</td>
+     <td>LayoutManager cannot compute the fixed value.</td>
    </tr>
    <tr>
      <td rowspan="2">PIXEL</td>
      <td>any combination of FIXED or PIXEL but no PROPORTIONAL</td>
      <td>potentially wrong</td>
-     <td>The values depend on each other, the programmer has to keep consitency manually.</td>
+     <td>The values depend on each other, the programmer has to keep consistency manually.</td>
    </tr>
    <tr>
      <!--<td>PIXEL</td>-->
@@ -83,8 +83,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
      <td>any combination of FIXED or PIXEL but no PROPORTIONAL</td>
      <td>potentially wrong</td>
      <td>No automatical matching:<br />  
-       a) to less space: scrollbar<br />  
-       b) to much space: elements will be speaded.</td>
+       a) too little space: scrollbar<br />  
+       b) too much space: elements will be spreaded.</td>
    </tr>
    <tr>
      <!--<td>PROPORTIONAL</td>-->
