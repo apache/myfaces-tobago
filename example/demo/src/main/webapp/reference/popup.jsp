@@ -24,7 +24,7 @@
   <jsp:body>
     <tc:box label="Popups">
       <f:facet name="layout">
-        <tc:gridLayout columns="100px;*" rows="fixed;*;*"/>
+        <tc:gridLayout columns="100px;*" rows="fixed;fixed;fixed;fixed;*"/>
       </f:facet>
 
       <tc:button label="Open">
@@ -75,6 +75,28 @@
 
       <tc:cell/>
       <tc:out value="here is the text >>#{reference.text}<<"/>
+
+      <tc:button label="Open here">
+        <f:facet name="popup">
+          <tc:popup width="150" height="100" left="220" top="260">
+            <tc:box label="Text input">
+              <f:facet name="layout">
+                <tc:gridLayout rows="*;fixed"/>
+              </f:facet>
+
+              <tc:textarea value="This popup position is hardcoded!"/>
+              <tc:button label="Ok">
+                <tc:attribute name="popupClose" value="afterSubmit"/>
+              </tc:button>
+
+            </tc:box>
+          </tc:popup>
+        </f:facet>
+      </tc:button>
+      <tc:cell/>
+
+      <tc:cell/>
+      <tc:cell/>
 
     </tc:box>
   </jsp:body>
