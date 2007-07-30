@@ -21,10 +21,11 @@
   System.out.println("1" + session.getAttribute("simpleList"));
   if (simpleList == null) {
     simpleList = new SimpleBean[]{
-        new SimpleBean("1", "One"),
-        new SimpleBean("2", "Two"),
-        new SimpleBean("3", "Three"),
-        new SimpleBean("4", "Four")};
+        new SimpleBean(1, "One"),
+        new SimpleBean(2, "Two"),
+        new SimpleBean(3, "Three"),
+        new SimpleBean(4, "Four"),
+        new SimpleBean(5000000, "Five Million")};
   }
   session.setAttribute("simpleList", simpleList);
   System.out.println("2" + session.getAttribute("simpleList"));
@@ -56,12 +57,17 @@
           </f:facet>
         </tc:separator>
 
-        <tc:sheet value="#{simpleList}" columns="*;*" var="bean" rows="5">
+        <tc:sheet value="#{simpleList}" columns="*;*;*" var="bean" rows="5">
           <tc:column label="Cipher">
-            <tc:out value="#{bean.name}"/>
+            <tc:out value="#{bean.number}"/>
           </tc:column>
           <tc:column label="Name">
             <tc:out value="#{bean.value}"/>
+          </tc:column>
+          <tc:column label="Date">
+            <tc:in value="#{bean.date}">
+              <f:convertDateTime dateStyle="medium" type="date"/>
+            </tc:in>
           </tc:column>
         </tc:sheet>
 

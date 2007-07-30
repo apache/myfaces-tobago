@@ -1,5 +1,7 @@
 package org.apache.myfaces.tobago.example.reference;
 
+import java.util.Date;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,20 +21,22 @@ package org.apache.myfaces.tobago.example.reference;
 
 public class SimpleBean {
 
-  private String name;
+  private int number;
   private String value;
+  private Date date;
 
-  public SimpleBean(String name, String value) {
-    this.name = name;
+  public SimpleBean(int number, String value) {
+    this.number = number;
     this.value = value;
+    this.date = new Date();
   }
 
-  public String getName() {
-    return name;
+  public int getNumber() {
+    return number;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setNumber(int number) {
+    this.number = number;
   }
 
   public String getValue() {
@@ -41,5 +45,13 @@ public class SimpleBean {
 
   public void setValue(String value) {
     this.value = value;
+  }
+
+  public Date getDate() {
+    return date;
+  }
+
+  public void setDate(Date date) {
+    this.date = date;
   }
 }
