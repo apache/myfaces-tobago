@@ -817,11 +817,12 @@ var Tobago = {
 
     // extend background into scrollable area
     var background = this.element(id);
-    background.style.width = document.body.scrollWidth + 'px';
-    background.style.height = document.body.scrollHeight + 'px';
-    this.popupResizeStub = function() {Tobago.doResizePopupBackground(id);}
-    Tobago.addEventListener(window, "resize", this.popupResizeStub);
-
+    if (background) {
+      background.style.width = document.body.scrollWidth + 'px';
+      background.style.height = document.body.scrollHeight + 'px';
+      this.popupResizeStub = function() {Tobago.doResizePopupBackground(id);}
+      Tobago.addEventListener(window, "resize", this.popupResizeStub);
+    }
     var contentId = id + Tobago.SUB_COMPONENT_SEP + "content";
     var div = this.element(contentId);
     if (div) {
