@@ -36,35 +36,36 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HOVER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDERED_PARTIALLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE_EXTERN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_NAVIGATE;
 import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_RESET;
 import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_SCRIPT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDERED_PARTIALLY;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE_RADIO;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
+import org.apache.myfaces.tobago.context.TransientStateHolder;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
-import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.PopupActionListener;
+import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.util.RangeParser;
 import org.apache.myfaces.tobago.util.Callback;
-import org.apache.myfaces.tobago.context.TransientStateHolder;
+import org.apache.myfaces.tobago.util.RangeParser;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.ActionSource;
 import javax.faces.component.EditableValueHolder;
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
@@ -73,7 +74,6 @@ import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
 import javax.faces.component.ValueHolder;
-import javax.faces.component.NamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.el.MethodBinding;
@@ -89,11 +89,11 @@ import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Collections;
 
 public class ComponentUtil {
 
@@ -844,13 +844,14 @@ public class ComponentUtil {
   }
 
   public static UIComponent createUISelectBooleanFacet(FacesContext facesContext, UICommand command) {
-    UIComponent checkbox = null;
-    final ValueBinding valueBinding = command.getValueBinding(ATTR_VALUE);
+    UIComponent checkbox
+        = createComponent(facesContext, UISelectBoolean.COMPONENT_TYPE, RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX);
+    command.getFacets().put(FACET_ITEMS, checkbox);
+    ValueBinding valueBinding = command.getValueBinding(ATTR_VALUE);
     if (valueBinding != null) {
-      checkbox = createComponent(facesContext, UISelectBoolean.COMPONENT_TYPE,
-          RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX);
-      command.getFacets().put(FACET_ITEMS, checkbox);
       checkbox.setValueBinding(ATTR_VALUE, valueBinding);
+    } else {
+      checkbox.getAttributes().put(ATTR_VALUE, command.getAttributes().get(ATTR_VALUE));
     }
     return checkbox;
   }
