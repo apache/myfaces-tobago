@@ -1,7 +1,5 @@
 package org.apache.myfaces.tobago.example.reference;
 
-import java.util.Date;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -18,6 +16,8 @@ import java.util.Date;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import java.util.Date;
 
 public class SimpleBean {
 
