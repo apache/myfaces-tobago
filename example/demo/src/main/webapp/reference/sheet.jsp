@@ -65,9 +65,9 @@
             <tc:out value="#{bean.value}"/>
           </tc:column>
           <tc:column label="Date">
-            <tc:in value="#{bean.date}">
+            <tc:out value="#{bean.date}">
               <f:convertDateTime dateStyle="medium" type="date"/>
-            </tc:in>
+            </tc:out>
           </tc:column>
         </tc:sheet>
 
