@@ -40,6 +40,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 /**
  * Renders a link element.
+ * 
  */
 @Tag(name = "link", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @BodyContentDescription(anyTagOf = "facestag")

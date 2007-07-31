@@ -47,12 +47,12 @@ public interface TreeOldTagDeclaration extends TobagoTagDeclaration,
    * Flag indicating whether or not this component should be render selectable items.
    * Possible values are:
    * <ul>
-   * <li><strong>multi</strong> : a multisection tree is rendered
-   * <li><strong>single</strong> : a singlesection tree is rendered
+   * <li><strong>multi</strong> : a multisection tree is rendered</li>
+   * <li><strong>single</strong> : a singlesection tree is rendered</li>
    * <li><strong>multiLeafOnly</strong> : a multisection tree is rendered,
-   * only Leaf's are selectable
+   * only Leaf's are selectable</li>
    * <li><strong>singleLeafOnly</strong> : a singlesection tree is rendered,
-   * only Leaf's are selectable
+   * only Leaf's are selectable</li>
    * </ul>
    * For any other value or if this attribute is omited the items are not selectable.
    */
@@ -87,10 +87,10 @@ public interface TreeOldTagDeclaration extends TobagoTagDeclaration,
   void setShowRoot(String showRoot);
 
   /**
-   * Bean property reference to fetch the disabled state for the treeNode's.<br>
-   * Example:<br>
+   * Bean property reference to fetch the disabled state for the treeNode's.<br />
+   * Example:<br />
    *   a disabledReference="userObject.disabled" try's to invoke
-   *   <code>&lt;UITreeNode>.getUserObject().getDisabled()<code> to fetch the state.
+   *   <code>&lt;UITreeNode>.getUserObject().getDisabled()</code> to fetch the state.
    */
   @TagAttribute
   @UIComponentTagAttribute()

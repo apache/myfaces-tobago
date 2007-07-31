@@ -30,9 +30,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
  * Time: 17:14:12
  */
 /*
- * Renders a menu bar.<br>
+ * Renders a menu bar.<br />
  * Add menu bar as facet name="menuBar" to page tag or use it anywhere
- * on page.<br>
+ * on page.<br />
  */
 @Tag(name = "menuBar")
 @BodyContentDescription(

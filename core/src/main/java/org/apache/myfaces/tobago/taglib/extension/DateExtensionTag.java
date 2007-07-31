@@ -48,7 +48,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 /**
  * Renders a date input field with a date picker and a label.
- * <br>
+ * <br />
  * Short syntax of:
  *
  * <pre>

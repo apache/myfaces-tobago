@@ -32,12 +32,12 @@ import org.apache.myfaces.tobago.component.UIToolBar;
  */
 
 /**
- * <p/>
- * Renders a toolbar.<p>
+ * <p />
+ * Renders a toolbar.<p />
  * Allowed subcomponents are subtypes of UICommand i.e.
  * <code>'button'</code> and <code>'link'</code> tags.
  * These are rendered by ToolbarRenderer, so the result has
- * no difference.<p>
+ * no difference.<p />
  * To add an dropdown menu to a button add a facet <code>'menupopup'</code>
  * containing a
  * <a href="../tobago/menu.html"><code>&lt;tc:menu></code></a>

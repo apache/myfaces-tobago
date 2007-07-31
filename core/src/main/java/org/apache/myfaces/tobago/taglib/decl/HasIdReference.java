@@ -25,10 +25,10 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface HasIdReference {
   /**
-   * Bean property reference to fetch the id for the treeNode's.<br>
-   * Example:<br>
+   * Bean property reference to fetch the id for the treeNode's.<br />
+   * Example:<br />
    *   a idReference="userObject.id" try's to invoke
-   *   <code>&lt;UITreeNode>.getUserObject().getId()<code> to fetch the id.
+   *   <code>&lt;UITreeNode>.getUserObject().getId()</code> to fetch the id.
    *
    */
   @TagAttribute @UIComponentTagAttribute()

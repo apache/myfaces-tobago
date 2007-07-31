@@ -52,11 +52,11 @@ public interface TreeListboxTagDeclaration extends TobagoTagDeclaration, HasIdBi
    * Flag indicating whether or not this component should be render selectable items.
    * Possible values are:
    * <ul>
-   * <li><strong>single</strong> : a singleselection tree is rendered
+   * <li><strong>single</strong> : a singleselection tree is rendered</li>
    * <li><strong>singleLeafOnly</strong> : a singleselection tree is rendered,
-   * only Leaf's are selectable
+   * only Leaf's are selectable</li>
    * <li><strong>siblingLeafOnly</strong> : a multiselection tree is rendered,
-   * where only sibling Leaf's are selectable
+   * where only sibling Leaf's are selectable</li>
    * </ul>
    */
   @TagAttribute

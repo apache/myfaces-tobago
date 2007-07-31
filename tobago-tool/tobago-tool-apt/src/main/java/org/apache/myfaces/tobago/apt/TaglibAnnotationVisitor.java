@@ -243,24 +243,23 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
 
     Deprecated deprecatedAnnotation = decl.getAnnotation(Deprecated.class);
     if (deprecatedAnnotation != null) {
-      description.append("<p>**** Deprecated. Will be removed in a future version **** </p>");
+      description.append("<p>**** @deprecated. Will be removed in a future version **** </p>");
     }
     if (deprecated) {
       Tag annotationTag = decl.getAnnotation(Tag.class);
-      description.append("<p>**** Deprecated. Will be removed in a future version. Use ");
+      description.append("<p>**** @deprecated. Will be removed in a future version. Use ");
       description.append(annotationTag.name());
       description.append(" instead. **** </p>");
     }
 
     Preliminary preliminary = decl.getAnnotation(Preliminary.class);
     if (preliminary != null) {
-      description.append("</p>**** Preliminary. Maybe subject to changed in a future version");
+      description.append("<p>**** Preliminary. Maybe subject to changed in a future version");
       if (preliminary.value().length() > 0) {
         description.append(": ");
         description.append(preliminary.value());
-        description.append(" ");
       }
-      description.append("**** </p>");
+      description.append(" **** </p>");
     }
     String comment = decl.getDocComment();
     if (comment != null) {
@@ -271,9 +270,9 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
       }
       comment = comment.trim();
       if (comment.length() > 0) {
-        description.append("<p>");
+        //description.append("<p>");
         description.append(comment);
-        description.append("</p>");
+        //description.append("</p>");
       }
 
     }

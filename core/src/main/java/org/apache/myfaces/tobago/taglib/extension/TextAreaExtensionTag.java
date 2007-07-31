@@ -40,7 +40,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Renders a multiline text input control with a label.
- * <br>
+ * <br />
  * Short syntax of:
  *
  * <pre>

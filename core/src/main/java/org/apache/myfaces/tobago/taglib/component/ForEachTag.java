@@ -37,10 +37,10 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
- * Replacement for the JSTL <c:foreach> tag. <br>
+ * Replacement for the JSTL &lt;c:foreach> tag. <br />
  * This tags iterates over the body content without setting up an exported
  * scope variable, but replaces all occurrence's of <code>var</code> in
- * <code>TobagoTag's ValueBinding</code> attributes.<br>
+ * <code>TobagoTag's ValueBinding</code> attributes.<br />
  * All non TobagoTags are treated as they are, no
  * replacement is done, and so no ability to use the <code>var</code> in el.
  */

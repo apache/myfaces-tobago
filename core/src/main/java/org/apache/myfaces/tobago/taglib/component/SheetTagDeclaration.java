@@ -47,7 +47,7 @@ import org.apache.myfaces.tobago.component.UIData;
 public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered {
   /**
    * LayoutConstraints for column layout.
-   * Semicolon separated list of layout tokens ('<x>*', '<x>px' or '<x>%').
+   * Semicolon separated list of layout tokens ('&lt;x>*', '&lt;x>px' or '&lt;x>%').
    */
   @TagAttribute(required = true)
   @UIComponentTagAttribute()
@@ -121,7 +121,7 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
 
   /**
    * Flag indicating whether or not this sheet should reserve space for
-   * vertical toolbar when calculating column width's.<br>
+   * vertical toolbar when calculating column width's.<br />
    * Possible values are: <pre>
    *      'auto'  : sheet try to estimate the need of scrollbar,
    *                this is the default.
@@ -175,7 +175,7 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
   /**
    * Flag indicating whether or not the sheet should be selectable <br />
    * Valid values are <strong>none</strong>, <strong>single</strong>,
-   * and <strong>multi</strong>.<br/>
+   * and <strong>multi</strong>.<br />
    * The <strong>default</strong> is <code>multi</code>.
    */
   @TagAttribute

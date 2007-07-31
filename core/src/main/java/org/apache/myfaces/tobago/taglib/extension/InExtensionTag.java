@@ -42,7 +42,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Renders a text input field with a label.
- * <br>
+ * <br />
  * Short syntax of:
  *
  * <pre>
