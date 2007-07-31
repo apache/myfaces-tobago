@@ -1,6 +1,6 @@
 /**
- * <h2>Tobago Framework Component Tag Library -
- * (C) Copyright 2005-2007 The Apache Software Foundation</h2>
+ * <b>Tobago Framework Component Tag Library -
+ * (C) Copyright 2005-2007 The Apache Software Foundation</b>
  *
  */
 @org.apache.myfaces.tobago.apt.annotation.Taglib(

@@ -40,7 +40,7 @@ import org.apache.myfaces.tobago.component.UIToolBar;
  * no difference.<p />
  * To add an dropdown menu to a button add a facet <code>'menupopup'</code>
  * containing a
- * <a href="../tobago/menu.html"><code>&lt;tc:menu></code></a>
+ * <a href="menu.html"><code>&lt;tc:menu></code></a>
  * tag to the button. Label's and Image's on those menu tag's are ignored
  * and replaced by the renderer.
  * <pre>
