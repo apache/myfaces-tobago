@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
  */
 
 /**
- *
+ * Renders a GridLayout.
  * <pre>
  * columns/rows ::= LAYOUT
  * LAYOUT       ::= TOKEN [";" TOKEN]+
@@ -55,45 +55,45 @@ import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
      <th>Remarks</th>
    </tr>
    <tr>
-     <td rowspan="2">FIXED</td>
+     <td>FIXED</td>
      <td>any combination of FIXED or PIXEL but no PROPORTIONAL</td>
      <td>okay</td>
-     <td></td>
+     <td>-</td>
    </tr>
    <tr>
-     <!--<td>FIXED</td>-->
-     <td>any combination with at least one PROPORTIONAL 
+     <td>FIXED</td>
+     <td>any combination with at least one PROPORTIONAL</td>
      <td>wrong</td>
      <td>LayoutManager cannot compute the fixed value.</td>
    </tr>
    <tr>
-     <td rowspan="2">PIXEL</td>
+     <td>PIXEL</td>
      <td>any combination of FIXED or PIXEL but no PROPORTIONAL</td>
      <td>potentially wrong</td>
      <td>The values depend on each other, the programmer has to keep consistency manually.</td>
    </tr>
    <tr>
-     <!--<td>PIXEL</td>-->
-     <td>any combination with at least one PROPORTIONAL 
+     <td>PIXEL</td>
+     <td>any combination with at least one PROPORTIONAL</td>
      <td>okay</td>
-     <td></td>
+     <td>-</td>
    </tr>
    <tr>
-     <td rowspan="2">PROPORTIONAL</td>
+     <td>PROPORTIONAL</td>
      <td>any combination of FIXED or PIXEL but no PROPORTIONAL</td>
      <td>potentially wrong</td>
-     <td>No automatical matching:<br />  
-       a) too little space: scrollbar<br />  
-       b) too much space: elements will be spreaded.</td>
+     <td>No automatical matching:<ol><li>too little space: scrollbar</li>
+       <li>too much space: elements will be spreaded.</li></ol></td>
    </tr>
    <tr>
-     <!--<td>PROPORTIONAL</td>-->
-     <td>any combination with at least one PROPORTIONAL 
+     <td>PROPORTIONAL</td>
+     <td>any combination with at least one PROPORTIONAL</td>
      <td>okay</td>
-     <td></td>
+     <td>-</td>
    </tr>
  </table>
 
+ 
  */
 @Tag(name = "gridLayout", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
