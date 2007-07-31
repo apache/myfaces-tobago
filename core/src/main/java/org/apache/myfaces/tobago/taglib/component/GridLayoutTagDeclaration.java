@@ -82,8 +82,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
      <td>PROPORTIONAL</td>
      <td>any combination of FIXED or PIXEL but no PROPORTIONAL</td>
      <td>potentially wrong</td>
-     <td>No automatical matching:<ol><li>too little space: scrollbar</li>
-       <li>too much space: elements will be spreaded.</li></ol></td>
+     <td>No automatical matching:<ul><li>too little space: scrollbar</li>
+       <li>too much space: elements will be spreaded.</li></ul></td>
    </tr>
    <tr>
      <td>PROPORTIONAL</td>
