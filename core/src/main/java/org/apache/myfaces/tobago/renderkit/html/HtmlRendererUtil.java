@@ -115,7 +115,7 @@ public final class HtmlRendererUtil {
     String rendererName = getRendererName(facesContext, component);
     if (rendererName != null) {
       StyleClasses classes = StyleClasses.ensureStyleClasses(component);
-      classes.updateClassAttribute(component, rendererName);
+      classes.updateClassAttributeAndMarkup(component, rendererName);
     }
   }
 

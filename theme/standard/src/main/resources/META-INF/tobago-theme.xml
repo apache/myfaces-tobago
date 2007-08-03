@@ -38,6 +38,12 @@
       </supported-markup>
     </renderer>
     <renderer>
+      <name>Label</name>
+      <supported-markup>
+        <markup>number</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
       <name>TreeNode</name>
       <supported-markup>
         <markup>strong</markup>

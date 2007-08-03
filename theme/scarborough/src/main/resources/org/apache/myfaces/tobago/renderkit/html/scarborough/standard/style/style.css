@@ -436,6 +436,16 @@ div.tobago-box-default {
 
 /* label ------------------------------------------------------------------- */
 
+div.tobago-label-markup-number {
+  text-align: right;
+}
+
+a.tobago-label-markup-number {
+  padding-left: 0px;
+  padding-right: 8px;
+  
+}
+
 div.tobago-label-default {
 
 }

@@ -54,7 +54,10 @@ public class LabelRenderer extends LayoutableRendererBase {
     String name = getRendererName(rendererType);
 
     UIComponent parent = findParent(component);
-    StyleClasses.ensureStyleClasses(component).updateClassAttribute(parent, name);
+    StyleClasses styleClasses = StyleClasses.ensureStyleClasses(component);
+    styleClasses.updateClassAttribute(parent, name);
+    styleClasses.addMarkupClass(component, name);
+
   }
 
   private UIComponent findParent(UIComponent component) {
@@ -102,9 +105,9 @@ public class LabelRenderer extends LayoutableRendererBase {
       writer.writeAttribute(HtmlAttributes.FOR, forValue, false);
     }
     writer.writeClassAttribute();
-    if (width != null) {
-      writer.writeAttribute(HtmlAttributes.STYLE, "width: " + width + "px;", false);
-    }
+    //if (width != null) {
+    //  writer.writeAttribute(HtmlAttributes.STYLE, "width: " + width + "px;", false);
+    //}
     writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
     
     if (label.getText() != null) {

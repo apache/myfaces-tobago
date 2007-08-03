@@ -152,7 +152,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     // div class (css)
     StyleClasses styleClasses = StyleClasses.ensureStyleClasses(node);
-    styleClasses.updateClassAttribute(node, "treeNode");
+    styleClasses.updateClassAttributeAndMarkup(node, "treeNode");
     if ("menu".equals(root.getMode())) {
       styleClasses.addClass("treeNode", "menu");
       if (marked) {

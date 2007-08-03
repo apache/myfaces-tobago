@@ -221,6 +221,11 @@ public class StyleClasses implements Serializable {
     }
   }
 
+  public void updateClassAttributeAndMarkup(UIComponent component, String rendererName) {
+    updateClassAttribute(component, rendererName);
+    addMarkupClass(component, rendererName);
+  }
+
   public void updateClassAttribute(UIComponent component, String rendererName) {
     // first remove old tobago-<rendererName>-<type> classes from class-attribute
     removeTobagoClasses(rendererName);
@@ -244,8 +249,6 @@ public class StyleClasses implements Serializable {
         addAspectClass(rendererName, Aspect.REQUIRED);
       }
     }
-
-    addMarkupClass(component, rendererName);
   }
 
   @Override
