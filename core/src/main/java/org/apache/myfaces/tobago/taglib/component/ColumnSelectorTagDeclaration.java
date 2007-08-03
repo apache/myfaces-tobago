@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
  */
 
 /**
- * Renders a column with checkboxes to mark selected row's.
+ * Renders a column with checkboxes to mark selected rows.
  */
 @Tag(name = "columnSelector", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
