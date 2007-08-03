@@ -24,7 +24,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -35,7 +34,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
-import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -79,13 +77,6 @@ public class LabelRenderer extends LayoutableRendererBase {
 
     UIOutput output = (UIOutput) component;
 
-    Integer width = LayoutUtil.getLayoutWidth(output);
-    if (width == null
-        && !(ComponentUtil.getBooleanAttribute(findParent(component), ATTR_INLINE)
-             || ComponentUtil.getBooleanAttribute(component, ATTR_INLINE))) {
-      width = Integer.valueOf(getConfiguredValue(facesContext, component, "labelWidth"));      
-    }
-
     LabelWithAccessKey label = new LabelWithAccessKey(component);
 
     String forValue = ComponentUtil.findClientIdFor(output, facesContext);
@@ -105,9 +96,7 @@ public class LabelRenderer extends LayoutableRendererBase {
       writer.writeAttribute(HtmlAttributes.FOR, forValue, false);
     }
     writer.writeClassAttribute();
-    //if (width != null) {
-    //  writer.writeAttribute(HtmlAttributes.STYLE, "width: " + width + "px;", false);
-    //}
+
     writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
     
     if (label.getText() != null) {
@@ -121,8 +110,7 @@ public class LabelRenderer extends LayoutableRendererBase {
           && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
         LOG.info("dublicated accessKey : " + label.getAccessKey());
       }      
-      HtmlRendererUtil.addClickAcceleratorKey(
-          facesContext, clientId, label.getAccessKey());
+      HtmlRendererUtil.addClickAcceleratorKey(facesContext, clientId, label.getAccessKey());
     }
     writer.endElement(HtmlConstants.DIV);
   }
