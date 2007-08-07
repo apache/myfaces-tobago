@@ -31,6 +31,8 @@ public class LabelTag extends BeanTag implements LabelTagDeclaration {
 
   private String forComponent;
   private String tip;
+  private String markup;
+
 
   @Override
   public String getComponentType() {
@@ -46,6 +48,7 @@ public class LabelTag extends BeanTag implements LabelTagDeclaration {
     super.release();
     tip = null;
     forComponent = null;
+    markup = null;
   }
 
   public void setFor(String forComponent) {
@@ -57,6 +60,7 @@ public class LabelTag extends BeanTag implements LabelTagDeclaration {
     super.setProperties(component);
     ComponentUtil.setStringProperty(component, ATTR_FOR, forComponent);
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
+    ComponentUtil.setMarkup(component, markup);
   }
 
   public String getAccessKey() {
@@ -84,6 +88,14 @@ public class LabelTag extends BeanTag implements LabelTagDeclaration {
 
   public void setTip(String tip) {
     this.tip = tip;
+  }
+
+  public String getMarkup() {
+    return markup;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 }
 
