@@ -24,8 +24,10 @@ import org.apache.myfaces.tobago.event.TabChangeListener;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class SessionController {
 
@@ -43,6 +45,31 @@ public class SessionController {
 
   private Date validityStart;
   private Date validityEnd;
+
+  private boolean suppressProcessing;
+
+  private List<Row> suppressProcessingList = Arrays.asList(new Row(), new Row());
+
+  public static class Row {
+    private boolean suppressProcessing;
+    private String input;
+
+    public boolean isSuppressProcessing() {
+      return suppressProcessing;
+    }
+
+    public void setSuppressProcessing(boolean suppressProcessing) {
+      this.suppressProcessing = suppressProcessing;
+    }
+
+    public String getInput() {
+      return input;
+    }
+
+    public void setInput(String input) {
+      this.input = input;
+    }
+  }
 
   public SessionController() {
     Calendar calendar = Calendar.getInstance();
@@ -116,5 +143,21 @@ public class SessionController {
 
   public void setValidityEnd(Date validityEnd) {
     this.validityEnd = validityEnd;
+  }
+
+  public boolean isSuppressProcessing() {
+    return suppressProcessing;
+  }
+
+  public void setSuppressProcessing(boolean suppressProcessing) {
+    this.suppressProcessing = suppressProcessing;
+  }
+
+  public List<Row> getSuppressProcessingList() {
+    return suppressProcessingList;
+  }
+
+  public void setSuppressProcessingList(List<Row> suppressProcessingList) {
+    this.suppressProcessingList = suppressProcessingList;
   }
 }
