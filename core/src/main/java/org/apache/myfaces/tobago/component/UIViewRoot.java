@@ -19,12 +19,15 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerImpl;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
+import javax.faces.FacesException;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
@@ -37,6 +40,8 @@ import java.util.Locale;
  * Time: 5:19:31 PM
  */
 public class UIViewRoot extends javax.faces.component.UIViewRoot {
+
+  private static final Log LOG = LogFactory.getLog(UIViewRoot.class);
 
   private ResourceManagerImpl.CacheKey rendererCacheKey;
 
@@ -126,12 +131,26 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
         UIComponent source = event.getComponent();
         try {
           source.broadcast(event);
-        } catch (AbortProcessingException e) {
-          // abort event processing
-          // Page 3-30 of JSF 1.1 spec: "Throw an AbortProcessingException, to tell the JSF implementation
-          //  that no further broadcast of this event, or any further events, should take place."
-          abort = true;
-          break;
+        } catch (FacesException e) {
+          Throwable fe = e;
+          while (fe != null) {
+            if (fe instanceof AbortProcessingException) {
+              if (LOG.isTraceEnabled()) {
+                LOG.trace("AbortProcessingException catched!");
+              }
+              // abort event processing
+              // Page 3-30 of JSF 1.1 spec: "Throw an AbortProcessingException, to tell the JSF implementation
+              //  that no further broadcast of this event, or any further events, should take place."
+              abort = true;
+              break;
+            }
+            fe = fe.getCause();
+          }
+          if (!abort) {
+            throw e;
+          } else {
+            break;
+          }
         } finally {
 
           try {

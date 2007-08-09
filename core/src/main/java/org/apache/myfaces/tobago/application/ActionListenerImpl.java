@@ -35,6 +35,7 @@ import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
+import javax.faces.FacesException;
 
 public class ActionListenerImpl implements ActionListener {
 
@@ -52,6 +53,15 @@ public class ActionListenerImpl implements ActionListener {
     try {
       base.processAction(event);
     } catch (Throwable e) {
+      if (e instanceof FacesException) {
+        Throwable fe = e;
+        while (fe != null) {
+          if (fe instanceof AbortProcessingException) {
+            throw (FacesException)e;
+          }
+          fe = fe.getCause();
+        }
+      }
       LOG.error("Processing failed. Forwarding to error page. errorOutcome="
           + errorOutcome, e.getCause());
       FacesContext facesContext = FacesContext.getCurrentInstance();
