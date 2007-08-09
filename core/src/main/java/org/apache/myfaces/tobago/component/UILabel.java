@@ -20,10 +20,12 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import java.io.IOException;
 
 public class UILabel extends UIOutput implements SupportsMarkup {
@@ -33,17 +35,38 @@ public class UILabel extends UIOutput implements SupportsMarkup {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Label";
 
   private String[] markup;
+  private String tip;
 
-   public void restoreState(FacesContext context, Object state) {
+
+  public String getTip() {
+    if (tip != null) {
+      return tip;
+    }
+    ValueBinding vb = getValueBinding(ATTR_TIP);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return null;
+    }
+  }
+
+  public void setTip(String tip) {
+    this.tip = tip;
+  }
+
+
+  public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
     markup = (String[]) values[1];
+    tip = (String) values[2];
   }
 
   public Object saveState(FacesContext context) {
-    Object[] values = new Object[2];
+    Object[] values = new Object[3];
     values[0] = super.saveState(context);
     values[1] = markup;
+    values[2] = tip;
     return values;
   }
 
@@ -74,8 +97,6 @@ public class UILabel extends UIOutput implements SupportsMarkup {
         }
       }
     }
-
     super.encodeBegin(facesContext);
   }
-
 }

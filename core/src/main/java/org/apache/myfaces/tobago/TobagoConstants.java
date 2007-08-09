@@ -202,6 +202,7 @@ public final class TobagoConstants {
   public static final String RENDERER_TYPE_CALENDAR = "Calendar";
   public static final String RENDERER_TYPE_DATE = "Date";
   public static final String RENDERER_TYPE_DEFAULT_LAYOUT = "DefaultLayout";
+  public static final String RENDERER_TYPE_FILE = "File";
   public static final String RENDERER_TYPE_GRID_LAYOUT = "GridLayout";
   public static final String RENDERER_TYPE_HIDDEN = "Hidden";
   public static final String RENDERER_TYPE_IN = "In";
@@ -214,9 +215,13 @@ public final class TobagoConstants {
   public static final String RENDERER_TYPE_PANEL = "Panel";
   public static final String RENDERER_TYPE_POPUP = "Popup";
   public static final String RENDERER_TYPE_DATE_PICKER = "DatePicker";
+  public static final String RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX = "SelectBooleanCheckbox";
+  public static final String RENDERER_TYPE_SELECT_MANY_CHECKBOX = "SelectManyCheckbox";
+  public static final String RENDERER_TYPE_SELECT_MANY_LISTBOX = "SelectManyListbox";
   public static final String RENDERER_TYPE_SELECT_ONE_CHOICE = "SelectOneChoice";
   public static final String RENDERER_TYPE_SELECT_ONE_RADIO = "SelectOneRadio";
-  public static final String RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX = "SelectBooleanCheckbox";
+  public static final String RENDERER_TYPE_SELECT_ONE_LISTBOX = "SelectOneListbox";  
+  public static final String RENDERER_TYPE_TEXT_AREA = "TextArea";
   public static final String RENDERER_TYPE_TIME = "Time";
   public static final String RENDERER_TYPE_TOOL_BAR = "ToolBar";
   public static final String RENDERER_TYPE_TREE_NODE = "TreeNode";
