@@ -57,7 +57,7 @@ public class ActionListenerImpl implements ActionListener {
         Throwable fe = e;
         while (fe != null) {
           if (fe instanceof AbortProcessingException) {
-            throw (FacesException)e;
+            throw (FacesException) e;
           }
           fe = fe.getCause();
         }
