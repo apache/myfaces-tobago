@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.component.UIInput;
  * Date: Aug 8, 2007
  * Time: 5:49:07 PM
  */
-public class TextAreaExtensionHandler extends TobagoExtensionHandler {
+public class TextAreaExtensionHandler extends TobagoLabelExtensionHandler {
 
   public TextAreaExtensionHandler(ComponentConfig config) {
     super(config);

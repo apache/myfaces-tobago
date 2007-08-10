@@ -18,16 +18,15 @@ package org.apache.myfaces.tobago.facelets.extension;
  */
 
 import com.sun.facelets.tag.jsf.ComponentConfig;
-import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.UISelectOne;
 
 /*
- * Date: Aug 9, 2007
- * Time: 8:38:28 PM
+ * Date: Aug 10, 2007
+ * Time: 10:18:54 PM
  */
-public class SelectOneChoiceExtensionHandler extends TobagoLabelExtensionHandler {
+public class MenuRadioExtensionHandler extends TobagoMenuExtensionHandler {
 
-  public SelectOneChoiceExtensionHandler(ComponentConfig config) {
+  public MenuRadioExtensionHandler(ComponentConfig config) {
     super(config);
   }
 
@@ -35,7 +34,4 @@ public class SelectOneChoiceExtensionHandler extends TobagoLabelExtensionHandler
     return UISelectOne.COMPONENT_TYPE;
   }
 
-  protected String getSubRendererType() {
-    return TobagoConstants.RENDERER_TYPE_SELECT_ONE_CHOICE;
-  }
 }

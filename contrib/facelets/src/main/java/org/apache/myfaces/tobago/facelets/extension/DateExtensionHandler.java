@@ -32,7 +32,7 @@ import javax.faces.component.UIViewRoot;
  * Date: Aug 8, 2007
  * Time: 5:47:26 PM
  */
-public class DateExtensionHandler extends TobagoExtensionHandler {
+public class DateExtensionHandler extends TobagoLabelExtensionHandler {
 
   public DateExtensionHandler(ComponentConfig config) {
     super(config);
@@ -47,7 +47,7 @@ public class DateExtensionHandler extends TobagoExtensionHandler {
   }
 
   protected void onComponentPopulated(FaceletContext faceletContext, UIComponent panel, UIComponent parent) {
-    if (panel.getChildCount()==2) {
+    if (panel.getChildCount() == 2) {
       Application application = faceletContext.getFacesContext().getApplication();
       UIDatePicker picker = (UIDatePicker) application.createComponent(UIDatePicker.COMPONENT_TYPE);
       picker.setRendererType(TobagoConstants.RENDERER_TYPE_DATE_PICKER);

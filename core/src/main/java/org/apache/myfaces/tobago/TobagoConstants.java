@@ -62,6 +62,7 @@ public final class TobagoConstants {
   public static final String ATTR_HOVER = "hover";
   public static final String ATTR_I18N = "i18n";
   public static final String ATTR_ICON_SIZE = "iconSize";
+  public static final String ATTR_ID = "id";
   @Deprecated
   public static final String ATTR_ID_REFERENCE = "idReference";
   public static final String ATTR_IMMEDIATE = "immediate";
