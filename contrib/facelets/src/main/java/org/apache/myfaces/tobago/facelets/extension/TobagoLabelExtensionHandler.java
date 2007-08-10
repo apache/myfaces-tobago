@@ -41,12 +41,12 @@ import java.io.IOException;
  * Date: Jul 31, 2007
  * Time: 6:14:34 PM
  */
-public abstract class TobagoExtensionHandler extends ComponentHandler {
+public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   private TagAttribute labelWidthAttribute;
   private TagAttribute tipAttribute;
   private TagAttribute labelAttribute;
 
-  public TobagoExtensionHandler(ComponentConfig config) {
+  public TobagoLabelExtensionHandler(ComponentConfig config) {
     super(config);
     labelWidthAttribute = getAttribute("labelWidth");
     tipAttribute = getAttribute(TobagoConstants.ATTR_TIP);
@@ -62,7 +62,7 @@ public abstract class TobagoExtensionHandler extends ComponentHandler {
   }
 
   protected void applyNextHandler(FaceletContext ctx, UIComponent panel)
-            throws IOException, FacesException, ELException {
+      throws IOException, FacesException, ELException {
     nextHandler.apply(ctx, (UIComponent) panel.getChildren().get(1));
   }
 
@@ -117,7 +117,7 @@ public abstract class TobagoExtensionHandler extends ComponentHandler {
   protected MetaRuleset createMetaRuleset(Class aClass) {
     MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
     if (UIPanel.class.isAssignableFrom(aClass)) {
-      for (TagAttribute attr: tag.getAttributes().getAll()) {
+      for (TagAttribute attr : tag.getAttributes().getAll()) {
         if (!attr.getLocalName().equals("rendered")) {
           metaRuleset.ignore(attr.getLocalName());
         }

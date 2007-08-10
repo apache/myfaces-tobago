@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.component.UISelectMany;
  * Date: Aug 9, 2007
  * Time: 8:37:36 PM
  */
-public class SelectManyListboxExtensionHandler extends TobagoExtensionHandler {
+public class SelectManyListboxExtensionHandler extends TobagoLabelExtensionHandler {
 
   public SelectManyListboxExtensionHandler(ComponentConfig config) {
     super(config);

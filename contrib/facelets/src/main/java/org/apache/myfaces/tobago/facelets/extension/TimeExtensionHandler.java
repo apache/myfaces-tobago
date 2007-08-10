@@ -19,23 +19,23 @@ package org.apache.myfaces.tobago.facelets.extension;
 
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.component.UISelectOne;
+import org.apache.myfaces.tobago.component.UIFileInput;
 
 /*
- * Date: Aug 9, 2007
- * Time: 8:39:46 PM
+ * Date: Aug 10, 2007
+ * Time: 9:37:32 PM
  */
-public class SelectOneListboxExtensionHandler extends TobagoLabelExtensionHandler {
+public class TimeExtensionHandler extends TobagoLabelExtensionHandler {
 
-  public SelectOneListboxExtensionHandler(ComponentConfig config) {
+  public TimeExtensionHandler(ComponentConfig config) {
     super(config);
   }
 
   protected String getSubComponentType() {
-    return UISelectOne.COMPONENT_TYPE;
+    return UIFileInput.COMPONENT_TYPE;
   }
 
   protected String getSubRendererType() {
-    return TobagoConstants.RENDERER_TYPE_SELECT_ONE_LISTBOX;
+    return TobagoConstants.RENDERER_TYPE_TIME;
   }
 }

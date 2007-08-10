@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.component.UISelectBoolean;
  * Date: Aug 9, 2007
  * Time: 8:36:38 PM
  */
-public class SelectBooleanCheckboxExtensionHandler extends TobagoExtensionHandler {
+public class SelectBooleanCheckboxExtensionHandler extends TobagoLabelExtensionHandler {
 
   public SelectBooleanCheckboxExtensionHandler(ComponentConfig config) {
     super(config);

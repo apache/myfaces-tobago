@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.component.UIFileInput;
  * Date: Aug 8, 2007
  * Time: 5:45:16 PM
  */
-public class FileExtensionHandler extends TobagoExtensionHandler {
+public class FileExtensionHandler extends TobagoLabelExtensionHandler {
 
   public FileExtensionHandler(ComponentConfig config) {
     super(config);
