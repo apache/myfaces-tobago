@@ -17,7 +17,6 @@
 -->
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jstl/core"
       xmlns:tc="http://myfaces.apache.org/tobago/component">
