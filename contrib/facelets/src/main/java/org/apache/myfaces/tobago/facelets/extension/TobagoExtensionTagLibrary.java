@@ -32,13 +32,13 @@ public class TobagoExtensionTagLibrary extends AbstractTagLibrary {
     addComponent("in", "org.apache.myfaces.tobago.Panel", "Panel", InExtensionHandler.class);
     addComponent("file", "org.apache.myfaces.tobago.Panel", "Panel", FileExtensionHandler.class);
     addComponent("date", "org.apache.myfaces.tobago.Panel", "Panel", DateExtensionHandler.class);
-    addComponent("selectBooleanCheckbox", "org.apache.myfaces.tobago.Panel", "Panel", SelectBooleanCheckboxExtensionHandler.class);
-    addComponent("selectManyListbox", "org.apache.myfaces.tobago.Panel", "Panel", SelectManyListboxExtensionHandler.class);
-    addComponent("selectOneChoice", "org.apache.myfaces.tobago.Panel", "Panel", SelectOneChoiceExtensionHandler.class);
-    addComponent("selectOneListbox", "org.apache.myfaces.tobago.Panel", "Panel", SelectOneListboxExtensionHandler.class);
-
-
+    addComponent("selectBooleanCheckbox", "org.apache.myfaces.tobago.Panel", "Panel",
+        SelectBooleanCheckboxExtensionHandler.class);
+    addComponent("selectManyListbox", "org.apache.myfaces.tobago.Panel", "Panel",
+        SelectManyListboxExtensionHandler.class);
+    addComponent("selectOneChoice", "org.apache.myfaces.tobago.Panel", "Panel",
+        SelectOneChoiceExtensionHandler.class);
+    addComponent("selectOneListbox", "org.apache.myfaces.tobago.Panel", "Panel",
+        SelectOneListboxExtensionHandler.class);
   }
-
-
 }
