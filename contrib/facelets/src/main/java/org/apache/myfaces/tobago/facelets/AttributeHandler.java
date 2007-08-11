@@ -81,13 +81,13 @@ public final class AttributeHandler extends TagHandler {
         MethodExpression action = getActionMethodExpression(faceletContext, ComponentUtil.ACTION_ARGS, String.class);
         if (action != null) {
           // TODO jsf 1.2
-          ((ActionSource)parent).setAction(new LegacyMethodBinding(action));
+          ((ActionSource) parent).setAction(new LegacyMethodBinding(action));
         }
       } else if (parent instanceof ActionSource && TobagoConstants.ATTR_ACTION_LISTENER.equals(nameValue)) {
         MethodExpression action = getActionMethodExpression(faceletContext, ComponentUtil.ACTION_LISTENER_ARGS, null);
         if (action != null) {
           // TODO jsf 1.2
-          ((ActionSource)parent).setActionListener(new LegacyMethodBinding(action));
+          ((ActionSource) parent).setActionListener(new LegacyMethodBinding(action));
         }
       } else if (!parent.getAttributes().containsKey(nameValue)) {
         if (value.isLiteral()) {
@@ -102,7 +102,7 @@ public final class AttributeHandler extends TagHandler {
   private MethodExpression getActionMethodExpression(FaceletContext faceletContext, Class [] args, Class returnType) {
     if (value.getValue().startsWith("$")) {
       Object obj = value.getValueExpression(faceletContext, String.class).getValue(faceletContext);
-      if (obj != null && obj instanceof String && ((String)obj).length() > 0) {
+      if (obj != null && obj instanceof String && ((String) obj).length() > 0) {
         TagAttribute attribute = new TagAttribute(value.getLocation(), value.getNamespace(),
             value.getLocalName(), value.getQName(), (String) obj);
         return attribute.getMethodExpression(faceletContext, returnType, args);
