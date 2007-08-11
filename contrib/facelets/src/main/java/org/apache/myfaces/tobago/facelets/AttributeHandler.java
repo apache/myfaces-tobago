@@ -20,9 +20,9 @@ package org.apache.myfaces.tobago.facelets;
 import javax.el.ELException;
 import javax.el.MethodExpression;
 import javax.faces.FacesException;
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 import javax.faces.component.EditableValueHolder;
+import javax.faces.component.ActionSource;
 
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.el.ELAdaptor;
@@ -38,7 +38,6 @@ import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 
 public final class AttributeHandler extends TagHandler {
-  private static final Class [] VALIDATOR = new Class[] {FacesContext.class, UIComponent.class, Object.class};
 
   private final TagAttribute name;
 
@@ -46,24 +45,24 @@ public final class AttributeHandler extends TagHandler {
 
   public AttributeHandler(TagConfig config) {
     super(config);
-    this.name = getRequiredAttribute("name");
-    this.value = getRequiredAttribute("value");
+    this.name = getRequiredAttribute(TobagoConstants.ATTR_NAME);
+    this.value = getRequiredAttribute(TobagoConstants.ATTR_VALUE);
   }
 
-  public void apply(FaceletContext ctx, UIComponent parent)
+  public void apply(FaceletContext faceletContext, UIComponent parent)
       throws FacesException, ELException {
     if (parent == null) {
       throw new TagException(tag, "Parent UIComponent was null");
     }
 
     if (ComponentSupport.isNew(parent)) {
-      String nameValue = name.getValue(ctx);
-      if ("rendered".equals(nameValue)) {
+      String nameValue = name.getValue(faceletContext);
+      if (TobagoConstants.ATTR_RENDERED.equals(nameValue)) {
         // TODO expression
         if (value.isLiteral()) {
-          parent.setRendered(value.getBoolean(ctx));
+          parent.setRendered(value.getBoolean(faceletContext));
         } else {
-          ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(ctx, Object.class));
+          ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(faceletContext, Object.class));
         }
       } else if (TobagoConstants.ATTR_RENDERED_PARTIALLY.equals(nameValue) && parent instanceof UICommand) {
         // TODO test expression
@@ -75,15 +74,42 @@ public final class AttributeHandler extends TagHandler {
         // TODO test expression
         ComponentUtil.setMarkup(parent, value.getValue());
       } else if (parent instanceof EditableValueHolder && TobagoConstants.ATTR_VALIDATOR.equals(nameValue)) {
-        MethodExpression methodExpression = value.getMethodExpression(ctx, null, VALIDATOR);
+        MethodExpression methodExpression =
+            value.getMethodExpression(faceletContext, null, ComponentUtil.VALIDATOR_ARGS);
         ((EditableValueHolder) parent).setValidator(new LegacyMethodBinding(methodExpression));
+      } else if (parent instanceof ActionSource && TobagoConstants.ATTR_ACTION.equals(nameValue)) {
+        MethodExpression action = getActionMethodExpression(faceletContext, ComponentUtil.ACTION_ARGS, String.class);
+        if (action != null) {
+          // TODO jsf 1.2
+          ((ActionSource)parent).setAction(new LegacyMethodBinding(action));
+        }
+      } else if (parent instanceof ActionSource && TobagoConstants.ATTR_ACTION_LISTENER.equals(nameValue)) {
+        MethodExpression action = getActionMethodExpression(faceletContext, ComponentUtil.ACTION_LISTENER_ARGS, null);
+        if (action != null) {
+          // TODO jsf 1.2
+          ((ActionSource)parent).setActionListener(new LegacyMethodBinding(action));
+        }
       } else if (!parent.getAttributes().containsKey(nameValue)) {
         if (value.isLiteral()) {
           parent.getAttributes().put(nameValue, value.getValue());
         } else {
-          ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(ctx, Object.class));
+          ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(faceletContext, Object.class));
         }
       }
     }
+  }
+
+  private MethodExpression getActionMethodExpression(FaceletContext faceletContext, Class [] args, Class returnType) {
+    if (value.getValue().startsWith("$")) {
+      Object obj = value.getValueExpression(faceletContext, String.class).getValue(faceletContext);
+      if (obj != null && obj instanceof String && ((String)obj).length() > 0) {
+        TagAttribute attribute = new TagAttribute(value.getLocation(), value.getNamespace(),
+            value.getLocalName(), value.getQName(), (String) obj);
+        return attribute.getMethodExpression(faceletContext, returnType, args);
+      }
+    } else {
+      return value.getMethodExpression(faceletContext, returnType, args);
+    }
+    return null;
   }
 }

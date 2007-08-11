@@ -22,6 +22,7 @@ public final class TobagoConstants {
   public static final String SUBCOMPONENT_SEP = "::";
 
 //  public static final String ATTR_ACCESS_KEY = "accessKey";
+  public static final String ATTR_ACTION = "action";
   public static final String ATTR_ACTION_ONCLICK = "onclick";
   public static final String ATTR_ACTION_LINK = "link";
   public static final String ATTR_ACTION_LISTENER = "actionListener";

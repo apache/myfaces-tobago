@@ -31,6 +31,7 @@ import javax.faces.component.UIComponent;
 import java.io.IOException;
 
 import org.apache.myfaces.tobago.event.PopupActionListener;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 /*
  * User: bommel
@@ -43,7 +44,7 @@ public class PopupReferenceHandler extends TagHandler {
 
   public PopupReferenceHandler(TagConfig config) {
     super(config);
-    forComponent = getAttribute("for");
+    forComponent = getAttribute(TobagoConstants.ATTR_FOR);
   }
 
   public void apply(FaceletContext faceletContext, UIComponent parent)

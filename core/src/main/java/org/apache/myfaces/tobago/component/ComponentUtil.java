@@ -101,11 +101,11 @@ public class ComponentUtil {
 
   private static final String RENDER_KEY_PREFIX
       = "org.apache.myfaces.tobago.component.ComponentUtil.RendererKeyPrefix_";
-
-  private static final Class[] ACTION_LISTENER_ARGS = {ActionEvent.class};
-  private static final Class[] VALUE_CHANGE_LISTENER_ARGS = {ValueChangeEvent.class};
-  private static final Class[] VALIDATOR_ARGS =
-      {FacesContext.class, UIComponent.class, Object.class};
+  
+  public static final Class[] ACTION_ARGS = {};
+  public static final Class[] ACTION_LISTENER_ARGS = {ActionEvent.class};
+  public static final Class[] VALUE_CHANGE_LISTENER_ARGS = {ValueChangeEvent.class};
+  public static final Class[] VALIDATOR_ARGS = {FacesContext.class, UIComponent.class, Object.class};
 
   private ComponentUtil() {
   }
