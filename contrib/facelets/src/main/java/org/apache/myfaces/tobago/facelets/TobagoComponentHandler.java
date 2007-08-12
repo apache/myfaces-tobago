@@ -48,7 +48,7 @@ public class TobagoComponentHandler extends ComponentHandler {
       metaRuleset.addRule(SortActionSourceRule.INSTANCE);
     }
     if (UIPage.class.isAssignableFrom(aClass)) {
-      metaRuleset.addRule(UIPageRule.INSTANCE);
+      metaRuleset.addRule(PageRule.INSTANCE);
     }
     if (TabChangeSource.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(TabChangeSourceRule.INSTANCE);

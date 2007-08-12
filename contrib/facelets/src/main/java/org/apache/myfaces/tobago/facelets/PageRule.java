@@ -25,6 +25,7 @@ import com.sun.facelets.FaceletContext;
 import com.sun.facelets.el.LegacyValueBinding;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 
@@ -33,36 +34,31 @@ import javax.faces.component.UIComponent;
  * Date: Jan 2, 2007
  * Time: 3:35:58 PM
  */
-public class UIPageRule extends MetaRule {
-  public static final UIPageRule INSTANCE = new UIPageRule();
+public class PageRule extends MetaRule {
+  public static final PageRule INSTANCE = new PageRule();
 
   public Metadata applyRule(String name, TagAttribute attribute,
       MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(UIPage.class)) {
-      if (!attribute.isLiteral()) {
-        Class type = metadataTarget.getPropertyType(name);
-        if (type == null) {
-          type = Object.class;
+      if (attribute.isLiteral()) {
+        if (TobagoConstants.ATTR_WIDTH.equals(name)) {
+          return new PageWidthMapper(attribute);
         }
-        return new UIPageDimensionExpression(name, type, attribute);
-      } else {
-        if ("width".equals(name)) {
-          return new UIPageWidthMapper(attribute);
-        }
-        if ("height".equals(name)) {
-          return new UIPageHeightMapper(attribute);
+        if (TobagoConstants.ATTR_HEIGHT.equals(name)) {
+          return new PageHeightMapper(attribute);
         }
       }
     }
     return null;
   }
 
-  static final class UIPageDimensionExpression extends Metadata {
+  // TODO remove this
+  static final class PageDimensionExpression extends Metadata {
     private final String name;
     private final TagAttribute attr;
     private final Class type;
 
-    public UIPageDimensionExpression(String name, Class type, TagAttribute attr) {
+    PageDimensionExpression(String name, Class type, TagAttribute attr) {
       this.name = name;
       this.attr = attr;
       this.type = type;
@@ -73,10 +69,10 @@ public class UIPageRule extends MetaRule {
     }
   }
 
-  static final class UIPageWidthMapper extends Metadata {
+  static final class PageWidthMapper extends Metadata {
     private final TagAttribute attribute;
 
-    public UIPageWidthMapper(TagAttribute attribute) {
+    PageWidthMapper(TagAttribute attribute) {
       this.attribute = attribute;
     }
 
@@ -86,10 +82,10 @@ public class UIPageRule extends MetaRule {
     }
   }
 
-  static final class UIPageHeightMapper extends Metadata {
+  static final class PageHeightMapper extends Metadata {
     private final TagAttribute attribute;
 
-    public UIPageHeightMapper(TagAttribute attribute) {
+    PageHeightMapper(TagAttribute attribute) {
       this.attribute = attribute;
     }
 
