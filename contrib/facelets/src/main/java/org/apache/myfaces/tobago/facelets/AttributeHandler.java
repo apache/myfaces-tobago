@@ -80,8 +80,10 @@ public final class AttributeHandler extends TagHandler {
           // TODO jsf 1.2
           ((EditableValueHolder) parent).setValidator(new LegacyMethodBinding(methodExpression));
         }
-      } else if (parent instanceof EditableValueHolder && TobagoConstants.ATTR_VALUE_CHANGE_LISTENER.equals(nameValue)) {
-        MethodExpression methodExpression =  getMethodExpression(faceletContext, null, ComponentUtil.VALUE_CHANGE_LISTENER_ARGS);
+      } else if (parent instanceof EditableValueHolder 
+          && TobagoConstants.ATTR_VALUE_CHANGE_LISTENER.equals(nameValue)) {
+        MethodExpression methodExpression =
+            getMethodExpression(faceletContext, null, ComponentUtil.VALUE_CHANGE_LISTENER_ARGS);
         if (methodExpression != null) {
           // TODO jsf 1.2
           ((EditableValueHolder) parent).setValueChangeListener(new LegacyMethodBinding(methodExpression));
