@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.facelets;
 
 import javax.el.ELException;
 import javax.el.MethodExpression;
+import javax.el.ExpressionFactory;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.EditableValueHolder;
@@ -74,17 +75,25 @@ public final class AttributeHandler extends TagHandler {
         // TODO test expression
         ComponentUtil.setMarkup(parent, value.getValue());
       } else if (parent instanceof EditableValueHolder && TobagoConstants.ATTR_VALIDATOR.equals(nameValue)) {
-        MethodExpression methodExpression =
-            value.getMethodExpression(faceletContext, null, ComponentUtil.VALIDATOR_ARGS);
-        ((EditableValueHolder) parent).setValidator(new LegacyMethodBinding(methodExpression));
+        MethodExpression methodExpression =  getActionMethodExpression(faceletContext, null, ComponentUtil.VALIDATOR_ARGS);
+        if (methodExpression != null) {
+          // TODO jsf 1.2
+          ((EditableValueHolder) parent).setValidator(new LegacyMethodBinding(methodExpression));
+        }
+      } else if (parent instanceof EditableValueHolder && TobagoConstants.ATTR_VALUE_CHANGE_LISTENER.equals(nameValue)) {
+        MethodExpression methodExpression =  getActionMethodExpression(faceletContext, null, ComponentUtil.VALUE_CHANGE_LISTENER_ARGS);
+        if (methodExpression != null) {
+          // TODO jsf 1.2
+          ((EditableValueHolder) parent).setValueChangeListener(new LegacyMethodBinding(methodExpression));
+        }
       } else if (parent instanceof ActionSource && TobagoConstants.ATTR_ACTION.equals(nameValue)) {
-        MethodExpression action = getActionMethodExpression(faceletContext, ComponentUtil.ACTION_ARGS, String.class);
+        MethodExpression action = getActionMethodExpression(faceletContext, String.class, ComponentUtil.ACTION_ARGS);
         if (action != null) {
           // TODO jsf 1.2
           ((ActionSource) parent).setAction(new LegacyMethodBinding(action));
         }
       } else if (parent instanceof ActionSource && TobagoConstants.ATTR_ACTION_LISTENER.equals(nameValue)) {
-        MethodExpression action = getActionMethodExpression(faceletContext, ComponentUtil.ACTION_LISTENER_ARGS, null);
+        MethodExpression action = getActionMethodExpression(faceletContext, null, ComponentUtil.ACTION_LISTENER_ARGS);
         if (action != null) {
           // TODO jsf 1.2
           ((ActionSource) parent).setActionListener(new LegacyMethodBinding(action));
@@ -99,13 +108,15 @@ public final class AttributeHandler extends TagHandler {
     }
   }
 
-  private MethodExpression getActionMethodExpression(FaceletContext faceletContext, Class [] args, Class returnType) {
+  private MethodExpression getActionMethodExpression(FaceletContext faceletContext, Class returnType, Class[] args) {
+    // in a composition we get the method expression may be from a value expression
+    // the method expression can be empty
+    // in this case return nothing
     if (value.getValue().startsWith("$")) {
       Object obj = value.getValueExpression(faceletContext, String.class).getValue(faceletContext);
       if (obj != null && obj instanceof String && ((String) obj).length() > 0) {
-        TagAttribute attribute = new TagAttribute(value.getLocation(), value.getNamespace(),
-            value.getLocalName(), value.getQName(), (String) obj);
-        return attribute.getMethodExpression(faceletContext, returnType, args);
+        ExpressionFactory expressionFactory = faceletContext.getExpressionFactory();
+        return expressionFactory.createMethodExpression(faceletContext, (String) obj, returnType, args);
       }
     } else {
       return value.getMethodExpression(faceletContext, returnType, args);

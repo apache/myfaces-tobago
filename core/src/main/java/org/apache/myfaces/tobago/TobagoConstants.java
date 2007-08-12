@@ -164,6 +164,7 @@ public final class TobagoConstants {
   public static final String ATTR_TRANSITION = "transition";
   public static final String ATTR_TYPE = "type";
   public static final String ATTR_VALUE = "value";
+  public static final String ATTR_VALUE_CHANGE_LISTENER = "valueChangeListener";
   public static final String ATTR_VAR = "var";
   public static final String ATTR_UNIT = "unit";
   public static final String ATTR_UPDATE = "update";
