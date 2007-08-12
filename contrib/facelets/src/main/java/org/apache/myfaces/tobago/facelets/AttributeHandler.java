@@ -109,7 +109,7 @@ public final class AttributeHandler extends TagHandler {
   }
 
   private MethodExpression getMethodExpression(FaceletContext faceletContext, Class returnType, Class[] args) {
-    // in a composition we get may be the method expression from a value expression
+    // in a composition may be we get the method expression from a value expression
     // the method expression can be empty
     // in this case return nothing
     if (value.getValue().startsWith("$")) {
