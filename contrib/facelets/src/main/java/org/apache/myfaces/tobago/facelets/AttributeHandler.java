@@ -75,25 +75,25 @@ public final class AttributeHandler extends TagHandler {
         // TODO test expression
         ComponentUtil.setMarkup(parent, value.getValue());
       } else if (parent instanceof EditableValueHolder && TobagoConstants.ATTR_VALIDATOR.equals(nameValue)) {
-        MethodExpression methodExpression =  getActionMethodExpression(faceletContext, null, ComponentUtil.VALIDATOR_ARGS);
+        MethodExpression methodExpression =  getMethodExpression(faceletContext, null, ComponentUtil.VALIDATOR_ARGS);
         if (methodExpression != null) {
           // TODO jsf 1.2
           ((EditableValueHolder) parent).setValidator(new LegacyMethodBinding(methodExpression));
         }
       } else if (parent instanceof EditableValueHolder && TobagoConstants.ATTR_VALUE_CHANGE_LISTENER.equals(nameValue)) {
-        MethodExpression methodExpression =  getActionMethodExpression(faceletContext, null, ComponentUtil.VALUE_CHANGE_LISTENER_ARGS);
+        MethodExpression methodExpression =  getMethodExpression(faceletContext, null, ComponentUtil.VALUE_CHANGE_LISTENER_ARGS);
         if (methodExpression != null) {
           // TODO jsf 1.2
           ((EditableValueHolder) parent).setValueChangeListener(new LegacyMethodBinding(methodExpression));
         }
       } else if (parent instanceof ActionSource && TobagoConstants.ATTR_ACTION.equals(nameValue)) {
-        MethodExpression action = getActionMethodExpression(faceletContext, String.class, ComponentUtil.ACTION_ARGS);
+        MethodExpression action = getMethodExpression(faceletContext, String.class, ComponentUtil.ACTION_ARGS);
         if (action != null) {
           // TODO jsf 1.2
           ((ActionSource) parent).setAction(new LegacyMethodBinding(action));
         }
       } else if (parent instanceof ActionSource && TobagoConstants.ATTR_ACTION_LISTENER.equals(nameValue)) {
-        MethodExpression action = getActionMethodExpression(faceletContext, null, ComponentUtil.ACTION_LISTENER_ARGS);
+        MethodExpression action = getMethodExpression(faceletContext, null, ComponentUtil.ACTION_LISTENER_ARGS);
         if (action != null) {
           // TODO jsf 1.2
           ((ActionSource) parent).setActionListener(new LegacyMethodBinding(action));
@@ -108,8 +108,8 @@ public final class AttributeHandler extends TagHandler {
     }
   }
 
-  private MethodExpression getActionMethodExpression(FaceletContext faceletContext, Class returnType, Class[] args) {
-    // in a composition we get the method expression may be from a value expression
+  private MethodExpression getMethodExpression(FaceletContext faceletContext, Class returnType, Class[] args) {
+    // in a composition we get may be the method expression from a value expression
     // the method expression can be empty
     // in this case return nothing
     if (value.getValue().startsWith("$")) {
