@@ -325,7 +325,8 @@
     </profile>
   </profiles>
   <properties>
-    <openjpa.version>0.9.6-incubating</openjpa.version>
-    <spring.version>2.0.5</spring.version>
+    <!-- please look at the persistence.xml if updating to 1.0.0 -->
+    <openjpa.version>0.9.7-incubating</openjpa.version>
+    <spring.version>2.0.6</spring.version>
   </properties>
 </project>
