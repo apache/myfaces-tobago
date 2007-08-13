@@ -75,8 +75,15 @@ public class LayoutTokens {
   }
 
   public static LayoutTokens parse(String tokens) {
+    return parse(tokens, null);
+  }
+
+
+
+  public static LayoutTokens parse(String tokens, LayoutToken defaultToken) {
     LayoutTokens layoutTokens = new LayoutTokens();
     if (tokens == null) {
+      layoutTokens.addToken(defaultToken);
       return layoutTokens;
     }
     StringTokenizer tokenizer = new StringTokenizer(tokens, ";");

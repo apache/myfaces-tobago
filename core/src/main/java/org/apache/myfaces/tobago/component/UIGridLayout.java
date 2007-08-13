@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
@@ -149,7 +148,7 @@ public class UIGridLayout extends UILayout {
     if (vb != null) {
       return (String) vb.getValue(getFacesContext());
     } else {
-      return rows;
+      return "1*";
     }
   }
 
@@ -161,7 +160,7 @@ public class UIGridLayout extends UILayout {
     if (vb != null) {
       return (String) vb.getValue(getFacesContext());
     } else {
-      return columns;
+      return "1*";
     }
   }
 
@@ -283,15 +282,7 @@ public class UIGridLayout extends UILayout {
   }
 
   public int getColumnCount() {
-    String columns =
-        ComponentUtil.getStringAttribute(this, ATTR_COLUMNS);
-    int columnCount;
-    if (columns != null) {
-      columnCount = 1 + StringUtils.countMatches(columns, ";");
-    } else {
-      columnCount = 1;
-    }
-    return columnCount;
+    return getColumnLayout().getSize();
   }
 
   public List<Row> ensureRows() {

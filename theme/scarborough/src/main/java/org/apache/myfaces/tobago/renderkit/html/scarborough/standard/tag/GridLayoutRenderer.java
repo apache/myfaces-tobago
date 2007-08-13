@@ -100,19 +100,20 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           + " for all " + rows.size() + " rows."
           + " (clientId='" + layout.getClientId(facesContext) + "')");
     }
-    layoutTokens.ensureSize(rows.size(), new RelativeLayoutToken(1));
+    if (rows.size() != layoutTokens.getSize()) {
+      LOG.warn("Unbalanced layout: rows.size()=" + rows.size()
+          + " != layoutTokens.length=" + layoutTokens.getSize()
+          + " rowLayout='" + layoutTokens + "'"
+          + " (clientId='" + layout.getClientId(facesContext) + "')");
+      layoutTokens.ensureSize(rows.size(), new RelativeLayoutToken(1));
+    }
     // TODO alternative? rows.size() == 1 ? new RelativeLayoutToken(1) : new FixedLayoutToken()
     //new FixedLayoutToken() );
     //String[] layoutTokens
     //    = LayoutInfo.createLayoutTokens(rowLayout, rows.size(),
     //        minimum ? "minimum" : "fixed");
 
-    if (rows.size() != layoutTokens.getSize()) {
-      LOG.warn("Unbalanced layout: rows.size()=" + rows.size()
-          + " != layoutTokens.length=" + layoutTokens.getSize()
-          + " rowLayout='" + layoutTokens + "'"
-          + " (clientId='" + layout.getClientId(facesContext) + "')");
-    }
+
     int size = Math.min(rows.size(), layoutTokens.getSize());
 
     int height = 0;
@@ -162,16 +163,15 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           + " for all " + rows.size() + " rows of "
           + layout.getClientId(facesContext) + " !");
     }
-    //String[] layoutTokens
-    //    = LayoutInfo.createLayoutTokens(columnLayout, row.getColumns(),
-    layoutTokens.ensureSize(row.getColumns(), new FixedLayoutToken());
 
     if (row.getColumns() != layoutTokens.getSize()) {
       LOG.warn("Unbalanced layout: rows.size()=" + rows.size()
           + " != layoutTokens.length=" + layoutTokens.getSize()
           + " columnLayout='" + layoutTokens + "'"
           + " (clientId='" + layout.getClientId(facesContext) + "')");
+      layoutTokens.ensureSize(row.getColumns(), new FixedLayoutToken());
     }
+
     int size = Math.min(rows.size(), layoutTokens.getSize());
 
     int width = 0;
@@ -512,10 +512,11 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       FacesContext facesContext) {
 
     final List<UIGridLayout.Row> rows = layout.ensureRows();
-    final int columnCount = layout.getColumnCount();
+    //final int columnCount = layout.getColumnCount();
 
     final LayoutTokens layoutTokens = layout.getColumnLayout();
-    layoutTokens.ensureSize(columnCount, new RelativeLayoutToken(1));
+    //layoutTokens.ensureSize(columnCount, new RelativeLayoutToken(1));
+
     //LayoutInfo.createLayoutTokens((String)
         //layout.getAttributes().get(ATTR_COLUMNS), columnCount);
 
@@ -542,7 +543,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
     innerWidth -= getWidthSpacingSum(layout, facesContext, renderedColumnCount);
     LayoutInfo layoutInfo =
-        new LayoutInfo(columnCount, innerWidth.intValue(), layoutTokens, layout.getClientId(facesContext),
+        new LayoutInfo(layoutTokens.getSize(), innerWidth.intValue(), layoutTokens, layout.getClientId(facesContext),
             layout.isIgnoreFree());
 
     parseFixedWidth(layoutInfo, layout, facesContext);
