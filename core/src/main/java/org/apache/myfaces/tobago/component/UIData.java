@@ -24,6 +24,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FIRST;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_LIST_STRING;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DIRECT_LINKS;
@@ -79,7 +80,8 @@ public class UIData extends javax.faces.component.UIData
   public static final String SINGLE = "single";
   public static final String MULTI = "multi";
   public static final int DEFAULT_DIRECT_LINK_COUNT = 9;
-  public static final String ROW_IDX_REGEX = "^\\d+" + SEPARATOR_CHAR + ".*";  
+  public static final int DEFAULT_ROW_COUNT = 100;
+  public static final String ROW_IDX_REGEX = "^\\d+" + SEPARATOR_CHAR + ".*";
   private static final String DEFAULT_SELECTABLE = MULTI;
 
   private MethodBinding stateChangeListener;
@@ -92,6 +94,7 @@ public class UIData extends javax.faces.component.UIData
   private String showDirectLinks;
   private String columns;
   private Integer directLinkCount;
+  private Integer rows;
 
   private String selectable;
 
@@ -498,7 +501,7 @@ public class UIData extends javax.faces.component.UIData
 
 
   public Object saveState(FacesContext context) {
-    Object[] saveState = new Object[11];
+    Object[] saveState = new Object[12];
     saveState[0] = super.saveState(context);
     saveState[1] = sheetState;
     saveState[2] = saveAttachedState(context, sortActionListener);
@@ -510,6 +513,7 @@ public class UIData extends javax.faces.component.UIData
     saveState[8] = directLinkCount;
     saveState[9] = selectable;
     saveState[10] = columns;
+    saveState[11] = rows;
     return saveState;
   }
 
@@ -526,6 +530,7 @@ public class UIData extends javax.faces.component.UIData
     directLinkCount = (Integer) values[8];
     selectable = (String) values[9];
     columns = (String) values[10];
+    rows = (Integer) values[11];
   }
 
 
@@ -640,6 +645,22 @@ public class UIData extends javax.faces.component.UIData
     return widthList;
   }
 
+  public int getRows() {
+    if (rows != null) {
+      return rows;
+    }
+    ValueBinding vb = getValueBinding(ATTR_ROWS);
+    if (vb != null) {
+      return (Integer) vb.getValue(getFacesContext());
+    } else {
+      return DEFAULT_ROW_COUNT;
+    }
+  }
+
+  public void setRows(int rows) {
+    this.rows = rows;
+  }
+
   public boolean isShowHeader() {
     if (showHeader != null) {
       return showHeader;
@@ -659,15 +680,18 @@ public class UIData extends javax.faces.component.UIData
   public void encodeAjax(FacesContext facesContext) throws IOException {
     setupState(facesContext);
     prepareDimensions(facesContext);
-    // in encodeBegin of superclass is some logic which clears the DataModel
-    // this must here also done.
-    // in RI and myfaces this could done via setValue(null)
-    ValueBinding binding = getValueBinding("value");
-    if (binding != null) {
-      setValue(null);
-    } else {
-      setValue(getValue());
-    }
+    // TODO neets more testing!!!
+    //if (!facesContext.getRenderResponse() && !ComponentUtil.hasErrorMessages(facesContext)) {
+      // in encodeBegin of superclass is some logic which clears the DataModel
+      // this must here also done.
+      // in RI and myfaces this could done via setValue(null)
+      ValueBinding binding = getValueBinding("value");
+      if (binding != null) {
+        setValue(null);
+      } else {
+        setValue(getValue());
+      }
+    //}
     AjaxUtils.encodeAjaxComponent(facesContext, this);
   }
 
