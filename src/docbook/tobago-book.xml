@@ -49,7 +49,7 @@
       <title>Participation</title>
 
       <para>Tobago is a constantly maturing project with rich potential to
-      fill a unique niche in the MyFaces family – feel free to sign up on the
+      fill a unique niche in the MyFaces family — feel free to sign up on the
       MyFaces mailing lists or sign-up to the JIRA and participate in the
       process. Additionally, you can also check out the MyFaces project
       website to find out about future releases.</para>
@@ -184,12 +184,9 @@
 
       <para>A basic Tobago page looks like this:</para>
 
-      <programlisting>&lt;%@ taglib uri="http://java.sun.com/jsf/core" 
-    prefix="f" %&gt;
-&lt;%@ taglib uri="http://myfaces.apache.org/tobago/component"  
-    prefix="tc" %&gt;
-&lt;%@ taglib uri="http://myfaces.apache.org/tobago/extension" 
-    prefix="tx" %&gt;
+      <programlisting>&lt;%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %&gt;
+&lt;%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %&gt;
+&lt;%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %&gt;
 &lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
 &lt;f:view&gt;
   &lt;tc:page&gt;
@@ -695,8 +692,7 @@
   &lt;tf:in ... /&gt;
   &lt;tf:in rendered="#{! controller.simple}" ... /&gt;
   &lt;tf:textarea ... /&gt;
-&lt;/tc:panel&gt;
-</programlisting>
+&lt;/tc:panel&gt;</programlisting>
 
     <para>The grid consists of one column and four rows. The first three rows
     use a fixed height which is implied by the theme and contained controls.
@@ -740,7 +736,7 @@
     a new web application with. The remaining themes Charlotteville and
     Richmond are mainly variations of Speyside.</para>
 
-    <informaltable frame="none">
+    <informaltable frame="none" colsep="0" rowsep="0">
       <tgroup cols="2">
         <tbody>
           <row>
@@ -1051,11 +1047,11 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
       values are interpreted as pixels. <xref linkend="table-rendererbase"/> specifies some of the
       recognized keys.</para>
 
-      <table frame="none" id="table-rendererbase">
+      <table frame="bottom" id="table-rendererbase" colsep="0" rowsep="0">
         <title>Recognized keys for RendererBase</title>
         <tgroup cols="2">
           <thead>
-            <row>
+            <row rowsep="1">
               <entry>Key</entry>
               <entry>Description</entry>
             </row>
