@@ -82,21 +82,21 @@
     jars, which were generated with Retrotranslator.</para>
 
     <para>A Tobago application is a standard web application and needs a web
-    application descriptor (WEB-INF/web.xml). As a JSF application the web.xml
-    file has to include a servlet definition for the FacesServlet and a
+    application descriptor (<literal>WEB-INF/web.xml</literal>). As a JSF application the <literal>web.xml</literal>
+    file has to include a servlet definition for the <literal>FacesServlet</literal> and a
     corresponding servlet mapping. During development it is convenient to
     serve the resources for Tobago like images, scripts, and style sheets
-    directly out of the theme jars. To accomplish this, the web.xml file needs
-    to contain the definition for the Tobago ResourceServlet and the
+    directly out of the theme jars. To accomplish this, the <literal>web.xml</literal> file needs
+    to contain the definition for the Tobago <literal>ResourceServlet</literal> and the
     corresponding servlet mapping. For a production environment it is advised
     to extract the theme resources and let the servlet container or web server
     serve these resources directly — see <xref linkend="sec-advanced-assembly"/>.</para>
 
     <para>The JSF specific configuration for Tobago is contained in the
-    faces-config.xml file inside the Tobago core jar. To make the
-    configuration available for JSF the tobago-core.jar has to be placed into
+    <literal>faces-config.xml</literal> file inside the Tobago core jar. To make the
+    configuration available for JSF the <literal>tobago-core.jar</literal> has to be placed into
     the web application. The Tobago specific configuration is defined in the
-    WEB-INF/tobago-config.xml file. A minimal configuration should at least
+    <literal>WEB-INF/tobago-config.xml</literal> file. A minimal configuration should at least
     specify the default theme for the Tobago application.</para>
 
     <programlisting>&lt;tobago-config&gt;
@@ -110,7 +110,7 @@
     application. Some themes depend on each other, for example to be able to
     use the Speyside theme the Scarborough theme and Standard theme have to be
     included as well. These dependencies are defined in the
-    META-INF/tobago-theme.xml files inside the theme jars.</para>
+    <literal>META-INF/tobago-theme.xml</literal> files inside the theme jars.</para>
 
     <para>Tobago depends on several Jakarta Commons libraries:</para>
 
@@ -204,14 +204,14 @@
 
       <para>The Tobago project leverages Maven for all build management and
       Maven is the easiest way to build a web application with Tobago. The
-      project descriptor (pom.xml) or project object model (POM) of Tobago
+      project descriptor (<literal>pom.xml</literal>) or project object model (POM) of Tobago
       defines all necessary dependencies and the Maven repository server and
       its mirrors provide the appropriate jars. For more information on Maven
       see the Maven web site and the book "Better builds with Maven."</para>
 
       <para>The POM for the blank example specifies the packaging of the
-      project as "war". The dependencies for the web application are managed
-      by the &lt;dependencies&gt; element in the POM Maven automatically takes
+      project as <literal>"war"</literal>. The dependencies for the web application are managed
+      by the <literal>&lt;dependencies&gt;</literal> element in the POM Maven automatically takes
       care of the dependencies through its transitivity mechanism. The POM
       comprises all necessary information needed to compile and package a web
       application archive. Use the following command in the shell:</para>
@@ -230,7 +230,7 @@
       <para>a Jetty server is started via Maven and the WAR is deployed on
       this servlet container. The server listens on the port 8080 and the web
       application can accessed under the URL
-      http://localhost:8080/tobago-example-blank/.</para>
+      <literal>http://localhost:8080/tobago-example-blank/</literal>.</para>
     </sect2>
   </sect1>
 
@@ -240,7 +240,8 @@
     <para>Tobago makes use of the extensibility of JSF to achieve its
     decoupling from the rendering tier. It provides its own tag library,
     components and render kit. Besides the JSP tag library, an alternative
-    rendering technology called Facelets can be used, too. The contrib folder
+    rendering technology called Facelets can be used, too. The
+    <emphasis>contrib</emphasis> folder
     in the Tobago repository contains the support library to use Facelets
     instead of JSP.</para>
 
@@ -281,10 +282,10 @@
         <title>Input Control</title>
 
         <para>A single line input control can be rendered with the
-        &lt;tc:in&gt; tag. The extended version can be accessed with
-        &lt;tx:in&gt;. In general the extension library, which is usually
+        <literal>&lt;tc:in&gt;</literal> tag. The extended version can be accessed with
+        <literal>&lt;tx:in&gt;</literal>. In general the extension library, which is usually
         referenced by the tx prefix, provides convenience variants of
-        controls. For the &lt;tc:in&gt; control the extended version
+        controls. For the <literal>&lt;tc:in&gt;</literal> control the extended version
         &lt;tx:in&gt; contains boilerplate code for rendering labels. For form
         like input views nearly every input control has a corresponding label.
         The label is connected to the input control. If the label is clicked
@@ -296,28 +297,28 @@
     required="false" readonly="false"
     disabled="false" rendered="true" /&gt;</programlisting>
 
-        <para>The label attribute determines the textual description for the
+        <para>The <literal>label</literal> attribute determines the textual description for the
         control. It is laid out with a grid layout manager. The theme
         specifies the default label width, but it can be overwritten with the
-        labelWidth attribute. If the label contains an underscore character
+        <literal>labelWidth</literal> attribute. If the label contains an underscore character
         the following character will become an access key. This is visualized
         by underlining the access key character. If the access key is pressed
         together with the ALT key the corresponding input field gains focus.
-        The value attribute contains the content of the input control. The
-        required attribute controls validation and allows the theme to render
+        The <literal>value</literal> attribute contains the content of the input control. The
+        <literal>required</literal> attribute controls validation and allows the theme to render
         a special marker for required input. The required feature is rendered
         as a small box with a check mark inside the input field to inform the
         user to enter information into this field. Read-only controls do not
         allow the user to modify the value of the input control. A disabled
         control cannot gain focus, the label is rendered in a fashion to
         highlight the disabled nature of the input control and the user cannot
-        copy content from the input control. The rendered attribute manages if
+        copy content from the input control. The <literal>rendered</literal> attribute manages if
         the control is rendered at all. If the control is not rendered the
         layout manager can distribute the resulting space to other controls.
-        For password fields the respective attribute can be set to true. If a
+        For password fields the respective attribute can be set to <literal>true</literal>. If a
         page contains multiple input controls the first control will be
         focused by default. This behavior can be overwritten by setting the
-        focus attribute of an input control to true.</para>
+        <literal>focus</literal> attribute of an input control to <literal>true</literal>.</para>
 
         <para><figure id="fig-editor">
             <title>Address editor</title>
@@ -330,7 +331,7 @@
         <title>Commands</title>
 
         <para>Tobago supports different ways to use commands. The basic
-        versions are &lt;tc:button&gt; and &lt;tc:link&gt;; others include
+        versions are <literal>&lt;tc:button&gt;</literal> and <literal>&lt;tc:link&gt;</literal>; others include
         toolbars and menus, which are described in later sections.</para>
 
         <programlisting>&lt;tc:button label="Delete" action="#{controller.delete}" 
@@ -340,15 +341,15 @@
   &lt;/f:facet&gt;
 &lt;/tc:button&gt;</programlisting>
 
-        <para>The label attribute defines the text on the button. The action
+        <para>The <literal>label</literal> attribute defines the text on the button. The <literal>action</literal>
         attribute points to a method which is executed if the button is
-        pressed. By means of the image attribute the button can be decorated
+        pressed. By means of the <literal>image</literal> attribute the button can be decorated
         with an icon. The image can be placed relatively to the root of the
         web application or the resource manager can be used to locate the
-        image — see <xref linkend="sec-resource-management"/>. The &lt;tc:button&gt;
+        image — see <xref linkend="sec-resource-management"/>. The <literal>&lt;tc:button&gt;</literal>
         control supports the confirmation facet, which generates a message
         dialog. Only if the confirmation question is answered with OK, the
-        action is executed. If the defaultCommand attribute is set to true the
+        action is executed. If the <literal>defaultCommand</literal> attribute is set to true the
         button will be activated as soon as the enter key is pressed.</para>
 
         <para>Tobago includes a double request prevention mechanism. After a
@@ -356,15 +357,15 @@
         duplicate clicks. If the server request takes longer than expected a
         transitioning effect is shown. First the page is faded out and later a
         progress animation is presented. To turn this effect off the
-        transition attribute can be set to false.</para>
+        <literal>transition</literal> attribute can be set to <literal>false</literal>.</para>
 
-        <para>A generic &lt;tc:command&gt; control can be used for event
-        facets for select controls like &lt;tc:selectBooleanCheckbox&gt;,
-        &lt;tc:selectOneRadio&gt;, &lt;tc:selectManyCheckbox&gt;, and
-        &lt;tc:selectOneChoice&gt;. This is how the theme changing in the
+        <para>A generic <literal>&lt;tc:command&gt;</literal> control can be used for event
+        facets for select controls like <literal>&lt;tc:selectBooleanCheckbox&gt;</literal>,
+        <literal>&lt;tc:selectOneRadio&gt;</literal>, <literal>&lt;tc:selectManyCheckbox&gt;</literal>, and
+        <literal>&lt;tc:selectOneChoice&gt;</literal>. This is how the theme changing in the
         footer of the address book example is realized. If a new theme is
         selected, a change event is triggered, the page is submitted, and the
-        action of the &lt;tc:command&gt; inside change facet is called:</para>
+        action of the <literal>&lt;tc:command&gt;</literal> inside the <literal>change</literal> facet is called:</para>
 
         <programlisting>&lt;tx:selectOneChoice label="#{bundle.footerTheme}" value="#{controller.theme}"&gt;
   &lt;f:selectItems value="#{controller.themeItems}" /&gt;
@@ -382,7 +383,7 @@
     <sect2>
       <title>Sheet Control</title>
 
-      <para>The &lt;tc:sheet&gt; component allows to display tabular data. The
+      <para>The <literal>&lt;tc:sheet&gt;</literal> component allows to display tabular data. The
       address book uses it to provide an overview of all stored
       addresses.</para>
 
@@ -407,10 +408,10 @@
 &lt;/tc:sheet&gt;</programlisting>
 
       <para>The value attribute links to a list model in the controller
-      providing the data for the sheet. The &lt;tc:sheet&gt; contains three
-      &lt;tc:column&gt; tags which describe the columns of the sheet. The
-      label of the column is rendered as a header cell. The var attribute
-      inside &lt;tc:sheet&gt; defines a local variable address, which refers
+      providing the data for the sheet. The <literal>&lt;tc:sheet&gt;</literal> contains three
+      <literal>&lt;tc:column&gt;</literal> tags which describe the columns of the sheet. The
+      label of the column is rendered as a header cell. The <literal>var</literal> attribute
+      inside <literal>&lt;tc:sheet&gt;</literal> defines a local variable <literal>address</literal>, which refers
       to a row in the data model and can be used in the definition of the
       columns.</para>
 
@@ -420,26 +421,26 @@
           <graphic fileref="resources/list.png" />
         </figure></para>
 
-      <para>In the example, each column uses a &lt;tc:out&gt; tag to render
+      <para>In the example, each column uses a <literal>&lt;tc:out&gt;</literal> tag to render
       the data for the sheet cell by accessing the appropriate property of the
-      row object. Instead of &lt;tc:out&gt; arbitrary input controls can be
-      used like &lt;tc:in&gt;, &lt;tc:selectBooleanCheckbox&gt;, or
-      &lt;tc:selectOneChoice&gt;.</para>
+      row object. Instead of <literal>&lt;tc:out&gt;</literal> arbitrary input controls can be
+      used like <literal>&lt;tc:in&gt;</literal>, <literal>&lt;tc:selectBooleanCheckbox&gt;</literal>, or
+      <literal>&lt;tc:selectOneChoice&gt;</literal>.</para>
 
       <para>The various attributes of the sheet which start with 'show'
-      configure the navigational elements of the sheet – showDirectLinks for
+      configure the navigational elements of the sheet — <literal>showDirectLinks</literal> for
       example allows the user to directly jump to the desired page of the
       sheet.</para>
 
-      <para>The state attribute refers to a SheetState object. Tobago binds
+      <para>The <literal>state</literal> attribute refers to a <literal>SheetState</literal> object. Tobago binds
       information about the state of the sheet to this object — like which
       rows are selected. This allows the developer to react on the selection
       inside the business logic. In the address book example there is a
       toolbar above the sheet. The toolbar contains a delete action among
       others. This delete action is dependent on the selected rows in the
-      sheet. The attribute selectable of the sheet controls the selection mode
-      for the sheet. Possible values are none, single, and multi. The default
-      value is multi and allows multiple rows to be selected. The following
+      sheet. The attribute <literal>selectable</literal> of the sheet controls the selection mode
+      for the sheet. Possible values are <literal>none</literal>, <literal>single</literal>, and <literal>multi</literal>. The default
+      value is <literal>multi</literal> and allows multiple rows to be selected. The following
       code fragment show the method bound to the delete button and describes
       how to access the selected rows:</para>
 
@@ -459,23 +460,23 @@
   return OUTCOME_LIST;
 }</programlisting>
 
-      <para>The sortable attribute of the &lt;tc:column&gt; activates sorting
+      <para>The <literal>sortable</literal> attribute of the <literal>&lt;tc:column&gt;</literal> activates sorting
       for the related column. If the data for the sheet is a List or an array
-      the data can be sorted implicitly. The sortActionListener attribute
+      the data can be sorted implicitly. The <literal>sortActionListener</literal> attribute
       allows implementation of sorting in the business logic. The respective
       method binding has to point to a public action listener method which
-      takes an ActionEvent as a parameter and returns void. The method will
-      receive a SortActionEvent, which denotes the column triggering the sort
+      takes an <literal>ActionEvent</literal> as a parameter and returns <literal>void</literal>. The method will
+      receive a <literal>SortActionEvent</literal>, which denotes the column triggering the sort
       event. However, information about the sort direction is contained in the
-      SheetState.</para>
+      <literal>SheetState</literal>.</para>
     </sect2>
 
     <sect2>
       <title>Tab Group Control</title>
 
-      <para>The &lt;tc:tabGroup&gt; control renders different content on the
+      <para>The <literal>&lt;tc:tabGroup&gt;</literal> control renders different content on the
       same area of the view via tab panels. The switching behavior of the
-      panels can be controlled with the switchType attribute. The panels can
+      panels can be controlled with the <literal>switchType</literal> attribute. The panels can
       be switched on the client or the server. If the switching is performed
       on the server, Tobago can be instructed to only partially exchange the
       content of the page making use of Ajax. If the switching is done on the
@@ -500,7 +501,7 @@
       <para>In the example application, two of the tab panels are only
       rendered if a certain condition is met in the controller. These
       particular tab panels are only rendered if the application is in the
-      expert mode.</para>
+      <emphasis>expert</emphasis> mode.</para>
     </sect2>
 
     <sect2>
@@ -508,18 +509,18 @@
 
       <para>To mimic the appearance of a desktop application it is common to
       place a menu bar at the top of the page. This can be done with the
-      &lt;tc:menuBar&gt; tag inside the menuBar facet of the &lt;tc:page&gt;.
-      A menu bar can contain &lt;tc:menu&gt; tags, which can be nested to
+      <literal>&lt;tc:menuBar&gt;</literal> tag inside the <literal>menuBar</literal> facet of the <literal>&lt;tc:page&gt;</literal>.
+      A menu bar can contain <literal>&lt;tc:menu&gt;</literal> tags, which can be nested to
       produce sub menus. Actions can be bound with method bindings to
-      &lt;tc:menuItem&gt; tags. A menu item can be disabled and can
+      <literal>&lt;tc:menuItem&gt;</literal> tags. A menu item can be disabled and can
       encapsulate icons. An underscore in the label marks the following
       character as an access key, which can be activated together with the ALT
       key.</para>
 
       <para>In the address book example the settings menu contains single
-      selections created by &lt;tx:menuRadio&gt; to choose the current theme
+      selections created by <literal>&lt;tx:menuRadio&gt;</literal> to choose the current theme
       and language. Additionally it demonstrates how to use a check box menu
-      item &lt;tc:menuCheckbox&gt; to change the mode of the
+      item <literal>&lt;tc:menuCheckbox&gt;</literal> to change the mode of the
       application.</para>
 
       <programlisting>&lt;tc:menuBar id="menuBar"&gt;
@@ -550,10 +551,10 @@
     <sect2>
       <title>Tool Bar Control</title>
 
-      <para>The &lt;tc:toolBar&gt; tag renders a group of buttons. The tool
+      <para>The <literal>&lt;tc:toolBar&gt;</literal> tag renders a group of buttons. The tool
       bar can be configured to render a textual description of the action or
       an icon in different standard sizes. The buttons are created with the
-      &lt;tc:toolBarCommand&gt; tag, which is a slightly limited version of
+      <literal>&lt;tc:toolBarCommand&gt;</literal> tag, which is a slightly limited version of
       the standard button tag.</para>
 
       <programlisting>&lt;tc:toolBar iconSize="big"&gt;
@@ -567,10 +568,10 @@
       <para>In the address book example the first toolbar button navigates to
       the address list. If the address list is already the current view the
       button is disabled. There is a naming convention to provide disabled
-      versions for image resources by adding an additional Disabled before the
+      versions for image resources by adding an additional <literal>Disabled</literal> before the
       file extension. The disabled version has to reside in the same folder as
       the original image. In the example the resource manager can find a black
-      and white icon x-office-address-bookDisabled.png as a disabled version
+      and white icon <literal>x-office-address-bookDisabled.png</literal> as a disabled version
       of the normal address book icon.</para>
     </sect2>
 
@@ -580,8 +581,8 @@
       <para>A popup is a small modal dialog, which is displayed in the context
       of the current page. A general use case for a popup is entering new data
       and confirming or canceling the new data. Popups can be activated by
-      adding a popup facet to commands. Alternatively a popup can be activated
-      programmatically by setting the rendered attribute to true. In this way
+      adding a <literal>popup</literal> facet to commands. Alternatively a popup can be activated
+      programmatically by setting the <literal>rendered</literal> attribute to <literal>true</literal>. In this way
       you can use a popup as a message box.</para>
 
       <para>In the address book example the displayed columns for the address
@@ -610,19 +611,20 @@
   &lt;/f:facet&gt;
 &lt;/tc:button&gt;</programlisting>
 
-      <para>The typical semantics of the confirmation and cancel button can be
-      controlled via a &lt;tc:attribute&gt; with the name popupClose. This
-      attribute can have two different values: afterSubmit or immediate. Both
-      buttons close the popup, but only the afterSubmit variant stores the
+      <para>The typical semantics of the <emphasis>confirmation</emphasis>
+        and <emphasis>cancel</emphasis> button can be
+      controlled via a <literal>&lt;tc:attribute&gt;</literal> with the name <literal>popupClose</literal>. This
+      attribute can have two different values: <literal>afterSubmit</literal> or <literal>immediate</literal>. Both
+      buttons close the popup, but only the <literal>afterSubmit</literal> variant stores the
       entered data into the model.</para>
     </sect2>
 
     <sect2>
       <title>File Upload</title>
 
-      <para>A file select control can be created with &lt;tc:file&gt;. The
-      uploaded file is stored inside a FileItem object bound to the value
-      attribute. The class FileItem is provided by commons-fileupload.</para>
+      <para>A file select control can be created with <literal>&lt;tc:file&gt;</literal>. The
+      uploaded file is stored inside a <literal>FileItem</literal> object bound to the value
+      attribute. The class <literal>FileItem</literal> is provided by <literal>commons-fileupload</literal>.</para>
 
       <para>The address book allows the user to store photographs associated
       with the contacts. The user can click on an empty image placeholder to
@@ -633,22 +635,22 @@
   &lt;tc:validateFileItem contentType="image/*"/&gt;
 &lt;/tc:file&gt;</programlisting>
 
-      <para>With the validator &lt;tc:validateFileItem&gt; the content type or
+      <para>With the validator <literal>&lt;tc:validateFileItem&gt;</literal> the content type or
       maximum size of the uploaded file can be restricted. For security
       reasons the style of an HTML file select control (input field of type
-      file) can only be customized in a very limited way. Therefore the input
+      <literal>file</literal>) can only be customized in a very limited way. Therefore the input
       control for the file name and the upload button may not optimally fit to
       the theme.</para>
 
       <para>To handle multipart form data requests from the browser either the
-      TobagoMultipartFormdataFilter servlet filter has to be configured in the
-      web.xml or the tobago-fileupload.jar has to be added to the classpath.
+      <literal>TobagoMultipartFormdataFilter</literal> servlet filter has to be configured in the
+      <literal>web.xml</literal> or the <literal>tobago-fileupload.jar</literal> has to be added to the classpath.
       The address book demo uses the latter approach, which is based on a
-      FacesContextFactory defined in the included faces-config.xml of the jar.
+      <literal>FacesContextFactory</literal> defined in the included <literal>faces-config.xml</literal> of the jar.
       The context factory can be configured with two different
-      &lt;env-entry&gt; tags in the web.xml to control maximum upload limit
+      <literal>&lt;env-entry&gt;</literal> tags in the <literal>web.xml</literal> to control maximum upload limit
       and the directory for uploaded files. See the Javadoc of
-      FileUploadFacesContextFactoryImpl for more information.</para>
+      <literal>FileUploadFacesContextFactoryImpl</literal> for more information.</para>
     </sect2>
   </sect1>
 
@@ -658,18 +660,18 @@
     <para>The placement of components on a page is done with the help of a
     layout manager. The functionality of a layout manager is similar to those
     found in Swing. The standard layout manager for Tobago is
-    &lt;tc:gridLayout&gt;. It can be bound to a container tag with a layout
+    <literal>&lt;tc:gridLayout&gt;</literal>. It can be bound to a container tag with a layout
     facet.</para>
 
     <para>The grid layout manager divides the area of the page into a
-    rectangular grid. This grid can be controlled with the rows and columns
-    attributes of the &lt;tc:gridLayout&gt; tag. The syntax is similar to the
+    rectangular grid. This grid can be controlled with the <literal>rows</literal> and <literal>columns</literal>
+    attributes of the <literal>&lt;tc:gridLayout&gt;</literal> tag. The syntax is similar to the
     multi-length notation known from HTML and consists of a semicolon
     separated list of layout tokens.</para>
 
     <para>A layout token may be an absolute length in pixels like 100px, a
     percentage length like 50%, a relative length like 2* or * as a shorthand
-    for 1*, or the value fixed. Relative lengths are served by layout manager
+    for 1*, or the value <literal>fixed</literal>. Relative lengths are served by layout manager
     from the remaining available space, which is distributed proportionally
     based on the number before the *.</para>
 
@@ -677,12 +679,12 @@
     following layout tokens 2*;*;100px, it first claims 100px for the third
     column and distributes the remaining 300 pixels in the ratio 2:1, ending
     up in 200 pixel for the first column and 100 pixels for the second column.
-    The layout token fixed instructs the layout manager to take the required
-    pixel size of the contained control. A &lt;tx:in&gt; control normally has
-    a fixed height. To place multiple &lt;tx:in&gt; controls one below the
+    The layout token <literal>fixed</literal> instructs the layout manager to take the required
+    pixel size of the contained control. A <literal>&lt;tx:in&gt;</literal> control normally has
+    a fixed height. To place multiple <literal>&lt;tx:in&gt;</literal> controls one below the
     other without superfluous spacing the layout manager can be instructed
-    with fixed layout tokens to use exactly the required vertical space for a
-    &lt;tx:in&gt;. For a more concrete example see the following code fragment
+    with <literal>fixed</literal> layout tokens to use exactly the required vertical space for a
+    <literal>&lt;tx:in&gt;</literal>. For a more concrete example see the following code fragment
     based on the editor view of the address book:</para>
 
     <programlisting>&lt;tc:panel&gt;
@@ -705,15 +707,15 @@
     enough space.</para>
 
     <para>Since the layout manager is targeted specifically at JSF it can
-    flexibly react on the rendered attribute of components. If the address
+    flexibly react on the <literal>rendered</literal> attribute of components. If the address
     book application is in simple mode some of the components are not
     rendered. The layout manager automatically distributes the newly available
     space to the remaining dynamic components, which are laid out with
     relative or percentage lengths.</para>
 
     <para>If a control should utilize multiple adjacent grid cells, it can be
-    wrapped with a &lt;tc:cell&gt; tag. With the spanX and spanY attributes of
-    a &lt;tc:cell&gt; control the layout manager can be instructed to make the
+    wrapped with a <literal>&lt;tc:cell&gt;</literal> tag. With the <literal>spanX</literal> and <literal>spanY</literal> attributes of
+    a <literal>&lt;tc:cell&gt;</literal> control the layout manager can be instructed to make the
     contained control span multiple cells in X and Y direction.</para>
 
     <para><figure id="fig-editor-simple">
@@ -730,7 +732,7 @@
     Additionally, the look of a page is controlled by the selected theme. A
     theme defines the colors, dimensions, behavior, and graphics of controls.
     Tobago comes with a selection of themes. These are Scarborough, Speyside,
-    Charlotteville, and Richmond – named after settlements on Tobago.
+    Charlotteville, and Richmond — named after settlements on Tobago.
     Scarborough is the basic theme which tries to directly rely on the
     standard features of HTML. Speyside is the main theme, where most
     development focus is targeted at. You will want to use this theme to start
@@ -739,6 +741,8 @@
 
     <informaltable frame="none" colsep="0" rowsep="0">
       <tgroup cols="2">
+        <colspec colname="c1" colwidth="1*"/>
+        <colspec colname="c2" colwidth="1*"/>        
         <tbody>
           <row>
             <entry><para><figure id="fig-theme-speyside">
@@ -776,8 +780,8 @@
     feel of an application to their preferences. The address book example
     demonstrates how to make the theme selectable by the user. A select box
     displays the available themes, which are configured in the
-    tobago-config.xml file, and a button triggers an action in the controller
-    to set the theme in the Tobago ClientProperties object:</para>
+    <literal>tobago-config.xml</literal> file, and a button triggers an action in the controller
+    to set the theme in the Tobago <literal>ClientProperties</literal> object:</para>
 
     <programlisting>public String themeChanged() {
   FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -816,10 +820,10 @@
       the use of special characters in string resources. The evaluation of the
       theme in inclusion order can be used to support different corporate
       wordings. If each client has its own theme string resources for the
-      different themes can arrange the words in different ways – for example:
+      different themes can arrange the words in different ways — for example:
       email, e-mail, or eMail.</para>
 
-      <para>In the tobago-config.xml file, additional paths can be specified
+      <para>In the <literal>tobago-config.xml</literal> file, additional paths can be specified
       for inclusion by the resource manager. In this way you can add your own
       resources or even overwrite or extend existing resources. But changing
       existing themes this way may result in compatibility issues when
@@ -838,7 +842,7 @@
 
       <programlisting>&lt;content-type&gt;/&lt;theme&gt;/&lt;browser&gt;/&lt;directory&gt;/&lt;resource-name&gt;(_&lt;locale&gt;)?.&lt;extension&gt;</programlisting>
 
-      <para>Currently only html is supported as a content type, although the
+      <para>Currently only <literal>html</literal> is supported as a content type, although the
       sandbox contains the beginnings for WML support. For the address book
       example there are two variants of an empty portrait with instructions
       how to upload a real portrait.</para>
@@ -848,24 +852,24 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
 
       <para>The first image is the default image with instructions in English.
       In the second image the instructions are localized in German. The first
-      standard in the path denotes the fallback theme and the second standard
-      represents the fallback browser. The directory part in the pattern
-      stands for an arbitrary sub-path – in this example for the folder
-      image.</para>
+      <literal>standard</literal> in the path denotes the fallback theme and the second <literal>standard</literal>
+      represents the fallback browser. The <literal>directory</literal> part in the pattern
+      stands for an arbitrary sub-path — in this example for the folder
+      <literal>image</literal>.</para>
     </sect2>
 
     <sect2>
       <title>Adding Markup</title>
 
-      <para>Several controls like &lt;tc:in&gt;, &lt;tc:panel&gt;, or
-      &lt;tc:column&gt; support the markup attribute. It allows the developer
+      <para>Several controls like <literal>&lt;tc:in&gt;</literal>, <literal>&lt;tc:panel&gt;</literal>, or
+      <literal>&lt;tc:column&gt;</literal> support the markup attribute. It allows the developer
       to apply logical styles to a control. Which markup values are supported
-      is defined per theme in the theme-config.xml file. If a theme does not
+      is defined per theme in the <literal>theme-config.xml</literal> file. If a theme does not
       define supported markup for a renderer, it inherits the markup from the
-      fallback theme. The Standard theme defines number for &lt;tc:in&gt; and
-      &lt;tc:out&gt;, and strong and deleted for &lt;tc:out&gt;.The markup
-      number is usually used to format numbers right aligned, strong is used
-      to emphasize content, and deleted marks text as no longer available
+      fallback theme. The Standard theme defines <literal>number</literal> for <literal>&lt;tc:in&gt;</literal> and
+      <literal>&lt;tc:out&gt;</literal>, and <literal>strong</literal> and <literal>deleted</literal> for <literal>&lt;tc:out&gt;</literal>. The markup
+      <literal>number</literal> is usually used to format numbers right aligned, <literal>strong</literal> is used
+      to emphasize content, and <literal>deleted</literal> marks text as no longer available
       normally by crossing it out. The visual representation of markup is up
       to the theme and therefore it will fit to the overall look and feel of
       the theme.</para>
@@ -895,7 +899,7 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
       CSS style classes into the generated HTML for the marked control. The
       theme has to provide the styling information. The style class name
       results from the following naming rule "tobago-" +
-      rendererName.toLower() + "-markup-" + markupName:</para>
+      <literal>rendererName.toLower()</literal> + "-markup-" + <literal>markupName</literal>:</para>
 
       <programlisting>.tobago-column-markup-new {
   background-color: yellow;
@@ -905,8 +909,8 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
       yellow background.</para>
 
       <para>The address book example uses a different way to add markup. In
-      this case three markup values – ok, warn, and error – are defined for
-      the &lt;tc:progress&gt; control directly in the tobago-config.xml file.
+      this case three markup values — <literal>ok</literal>, <literal>warn</literal>, and <literal>error</literal> — are defined for
+      the <literal>&lt;tc:progress&gt;</literal> control directly in the <literal>tobago-config.xml</literal> file.
       The administration area contains a progress bar to visualize the memory
       utilization of the virtual machine. Depending on the percentage value of
       the memory usage the business logic assigns different markup values for
@@ -919,9 +923,9 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
         </figure></para>
 
       <para>The resource directory contains style sheets for visualizing the
-      markup values as different background colors – green for ok, yellow for
-      warn, and red for error. The Speyside theme for example is extended by
-      the html/speyside/standard/style/style.css file.</para>
+      markup values as different background colors — green for <literal>ok</literal>, yellow for
+      <literal>warn</literal>, and red for <literal>error</literal>. The Speyside theme for example is extended by
+      the <literal>html/speyside/standard/style/style.css</literal> file.</para>
     </sect2>
   </sect1>
 
@@ -957,31 +961,31 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
 
       <para>We are starting with the user interface component of the control
       and will name it:
-      org.apache.myfaces.tobago.component.UIInputNumberSlider. Like all JSF
+      <literal>org.apache.myfaces.tobago.component.UIInputNumberSlider</literal>. Like all JSF
       components, Tobago components must extend
-      javax.faces.component.UIComponent. Because we want to create an input
-      component we can extend javax.faces.component.UIInput which is a (non
-      direct) subclass of javax.faces.component.UIComponent. The class UIInput
+      <literal>javax.faces.component.UIComponent</literal>. Because we want to create an input
+      component we can extend <literal>javax.faces.component.UIInput</literal> which is a (non
+      direct) subclass of <literal>javax.faces.component.UIComponent</literal>. The class <literal>UIInput</literal>
       is already an implementation of
-      javax.faces.component.EditableValueHolder which saves us a lot of
+      <literal>javax.faces.component.EditableValueHolder</literal> which saves us a lot of
       work.</para>
 
       <para>The JSF runtime environment needs the component type as an
       identifier for creating instances of components. Tobago components need
       to store this information in the component itself in the constant
-      COMPONENT_TYPE. This constant is processed by the Tobago annotation
-      visitor that is used in the build process to create the faces-config.xml
+      <literal>COMPONENT_TYPE</literal>. This constant is processed by the Tobago annotation
+      visitor that is used in the build process to create the <literal>faces-config.xml</literal>
       file.</para>
 
       <para>We also implement some additional properties into our component:
-      min, max, readonly and disabled. The property min specifies the smallest
-      and the property max the largest number that can be entered. With the
-      property readonly set the user cannot modify the value of the slider.
-      The same is true for the property disabled. But in this case the
+      <literal>min</literal>, <literal>max</literal>, <literal>readonly</literal> and <literal>disabled</literal>. The property <literal>min</literal> specifies the smallest
+      and the property <literal>max</literal> the largest number that can be entered. With the
+      property <literal>readonly</literal> set the user cannot modify the value of the slider.
+      The same is true for the property <literal>disabled</literal>. But in this case the
       complete control appears deactivated. All properties should be value
       binding enabled which makes their getters a little bit more complicated.
       To ensure that our component state is saved between requests we have to
-      override the state holder methods of UIInput.</para>
+      override the state holder methods of <literal>UIInput</literal>.</para>
 
       <para>The following code shows some parts of our component class:</para>
 
@@ -1028,29 +1032,31 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
       the view technology and is preferred for Tobago components.</para>
 
       <para>A renderer in JSF must be a subclass of type
-      javax.faces.render.Renderer. For Tobago components this is different:
+      <literal>javax.faces.render.Renderer</literal>. For Tobago components this is different:
       their renderers must also implement the interface
-      org.apache.myfaces.tobago.renderkit.LayoutInformationProvider to get the
+      <literal>org.apache.myfaces.tobago.renderkit.LayoutInformationProvider</literal> to get the
       renderer to work with the Tobago layout management. With this interface
       Tobago renderers provide the layout manager with certain information
       about the sizing of the component that is rendered. The required methods
       have a default implementation in the class
-      org.apache.myfaces.tobago.renderkit.RendererBase which uses properties
+      <literal>org.apache.myfaces.tobago.renderkit.RendererBase</literal> which uses properties
       that are provided by the theme configuration of the used theme
-      (tobago-theme-config.properties). We name our renderer
-      InputNumberSliderRenderer and extend from RendererBase. Following the
+      (<literal>tobago-theme-config.properties</literal>). We name our renderer
+      <literal>InputNumberSliderRenderer</literal> and extend from <literal>RendererBase</literal>. Following the
       Tobago naming convention the renderer must end with "Renderer".</para>
 
-      <para>When using the RendererBase the theme configuration is a good
+      <para>When using the <literal>RendererBase</literal> the theme configuration is a good
       place to provide the information needed for the layout. The
       implementation searches the configuration for properties with the
-      following pattern: renderer name without "Renderer" + "." + key. All
+      following pattern: <literal>renderer name without "Renderer"</literal> + "." + <literal>key</literal>. All
       values are interpreted as pixels. <xref linkend="table-rendererbase"/> specifies some of the
       recognized keys.</para>
 
-      <table frame="bottom" id="table-rendererbase" colsep="0" rowsep="0">
+      <table frame="none" id="table-rendererbase" colsep="0" rowsep="0">
         <title>Recognized keys for RendererBase</title>
         <tgroup cols="2">
+          <colspec colname="c1" colwidth="18pc"/>
+          <colspec colname="c2" colwidth="18pc"/>
           <thead>
             <row rowsep="1">
               <entry>Key</entry>
@@ -1059,18 +1065,18 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
           </thead>
           <tbody>
             <row>
-              <entry>fixedWidth, fixedHeight</entry>
+              <entry><literal>fixedWidth</literal>, <literal>fixedHeight</literal></entry>
               <entry><para>This is the preferred and normal size of a
       control. It is used if the value fixed is specified within the layout
       properties of a layout manager.</para></entry>
             </row>
             <row>
-              <entry>paddingWidth, paddingHeight</entry>
+              <entry><literal>paddingWidth</literal>, <literal>paddingHeight</literal></entry>
               <entry>The padding attributes add empty space
       between the control and its surroundings.</entry>
             </row>
             <row>
-              <entry>headerHeight</entry>
+              <entry><literal>headerHeight</literal></entry>
               <entry>Some controls like the &lt;tc:box&gt; control use this
       property to specify extra space for their header.</entry>
             </row>
@@ -1078,18 +1084,18 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
         </tgroup>
       </table>
 
-      <para>If RendererBase does not find a value for a renderer it searches
-      for default properties: "Tobago ." + key. We could (but will not)
+      <para>If <literal>RendererBase</literal> does not find a value for a renderer it searches
+      for default properties: "Tobago." + <literal>key</literal>. We could (but will not)
       specify a width padding of five pixels for our control by adding the
-      property InputNumberSlider.paddingWidth=5 in the theme configuration of
+      property <literal>InputNumberSlider.paddingWidth=5</literal> in the theme configuration of
       the sandbox theme. Please note that the ressource location mechanism as
       described in <xref linkend="sec-resource-management"/> is used to find a
       property.</para>
 
-      <para>The Tobago theme configuration is not only used by RendererBase,
+      <para>The Tobago theme configuration is not only used by <literal>RendererBase</literal>,
       but properties of own renderers can be specified there. For example we
       define the percentage of the width of the slider of our control in the
-      tobago-theme-config.xml: InputNumberSlider.sliderWidthPercent=66. This
+      <literal>tobago-theme-config.xml</literal>: <literal>InputNumberSlider.sliderWidthPercent=66</literal>. This
       means the slider gets 66 percent of the width of our control and the
       input field 34 percent. The value can be accessed in the renderer with
       the following line of code:</para>
@@ -1099,25 +1105,25 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
 
       <para>The Tobago theming mechanism locates renderers by their location
       in the package structure. Normally all Tobago renderers are located
-      under the root package org.apache.myfaces.tobago.renderkit. Below this,
+      under the root package <literal>org.apache.myfaces.tobago.renderkit</literal>. Below this,
       the location depends on the output technology, the theme and
       browser.</para>
 
-      <para>We use the sub package html.sandbox.standard.tag because we are
-      writing an HTML control for the sandbox theme. Package standard means
+      <para>We use the sub package <literal>html.sandbox.standard.tag</literal> because we are
+      writing an HTML control for the sandbox theme. Package <literal>standard</literal> means
       that all browsers (Mozilla, Internet Explorer etc.) will be served by
-      this renderer. The last package tag is obligatory for historical
+      this renderer. The last package <literal>tag</literal> is obligatory for historical
       reasons.</para>
 
       <para>The code for encoding/decoding in the renderer is quite long so
       only some interesting fragments are shown in code snippet. All encoding
-      is done in the method encodeEnd. First the properties of the component
+      is done in the method <literal>encodeEnd</literal>. First the properties of the component
       are retrieved. Then the response writer is used to generate the HTML
       input field of our control. The response writer for Tobago components is
-      the org.apache.myfaces.tobago.webapp.TobagoResponseWriter which is
+      the <literal>org.apache.myfaces.tobago.webapp.TobagoResponseWriter</literal> which is
       created by the Tobago render kit. It provides the component developer
       with additional convenience methods and handles escaping. The decoding
-      is done in the method decode and retrieves the value of the input field
+      is done in the method <literal>decode</literal> and retrieves the value of the input field
       back from the HTTP request.</para>
 
       <programlisting>package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
@@ -1188,27 +1194,27 @@ int width = style.getInt("width");</programlisting>
       <para>All JSF implementations must support JSP as page description
       language for JSF pages. This is also standard for writing Tobago pages.
       A different view technology that does not depend on JSP is also
-      available – Facelets. To allow an author to use our control we need to
-      define a JSP tag – a custom action. This is done by writing one class
+      available — Facelets. To allow an author to use our control we need to
+      define a JSP tag — a custom action. This is done by writing one class
       and one interface: the tag class itself and a tag declaration interface
       which is Tobago specific.</para>
 
       <para>We start with the tag class. All JSP custom actions in JSF that
       correspond to a UI component in the component tree must either subclass
-      javax.faces.webapp.UIComponentTag or
-      javax.faces.webapp.UIComponentBodyTag depending on whether they need
+      <literal>javax.faces.webapp.UIComponentTag</literal> or
+      <literal>javax.faces.webapp.UIComponentBodyTag</literal> depending on whether they need
       support for body content functionality or not. Our action has no body
-      content so we want to subclass UIComponentTag. Again there is an
+      content so we want to subclass <literal>UIComponentTag</literal>. Again there is an
       opportunity to save some effort if we extend from
-      org.apache.myfaces.tobago.taglib.component.TobagoTag which extends from
-      UIComponentTag. This class already implements the handling for the
-      properties readonly and disabled.</para>
+      <literal>org.apache.myfaces.tobago.taglib.component.TobagoTag</literal> which extends from
+      <literal>UIComponentTag</literal>. This class already implements the handling for the
+      properties <literal>readonly</literal> and <literal>disabled</literal>.</para>
 
       <para>Our tag is named
-      org.apache.myfaces.tobago.taglib.sandbox.InputNumberSliderTag and
-      consists of four new properties (min, max, value and
-      valueChangeListener) with their getter/setters, an implementation of
-      getComponentType, a release method and a setProperties method.</para>
+      <literal>org.apache.myfaces.tobago.taglib.sandbox.InputNumberSliderTag</literal> and
+      consists of four new properties (<literal>min</literal>, <literal>max</literal>, <literal>value</literal> and
+      <literal>valueChangeListener</literal>) with their getter/setters, an implementation of
+      <literal>getComponentType</literal>, a <literal>release</literal> method and a <literal>setProperties</literal> method.</para>
 
       <para>Tag classes in Tobago are dumb gateways between the view
       technology (JSP) and the render independent UI component. No output
@@ -1219,30 +1225,30 @@ int width = style.getInt("width");</programlisting>
 
       <para>Next thing is the declaration of the tag. Therefore it implements
       an interface
-      org.apache.myfaces.tobago.taglib.sandbox.InputNumberSliderTagDeclaration.
+      <literal>org.apache.myfaces.tobago.taglib.sandbox.InputNumberSliderTagDeclaration</literal>.
       This interface describes our tag and its attributes with annotations.
       Tobago's build process uses this declaration to generate a
-      faces-config.xml and a tag library description (TLD) for our component
+      <literal>faces-config.xml</literal> and a tag library description (TLD) for our component
       with the help of the annotation processing tool (apt). The interface is
-      annotated with a @Tag annotation with a name attribute. The specified
+      annotated with a <literal>@Tag</literal> annotation with a name attribute. The specified
       value "numberSlider" is the name of the JSP tag. The next annotation
-      @UIComponentTag makes it clear that the tag belongs to a component with
-      an associated renderer. The attributes rendererType and uiComponent
+      <literal>@UIComponentTag</literal> makes it clear that the tag belongs to a component with
+      an associated renderer. The attributes <literal>rendererType</literal> and <literal>uiComponent</literal>
       specify the type of the renderer and the class of the UI component.
       Please note that the Tobago render kit will add the suffix "Renderer" to
       the renderer type to find a matching renderer class.</para>
 
       <para>After the interface, the properties that are defined for the tag
       are annotated. By convention, the setter of the property is used. The
-      @TagAttribute annotation describes a property that is part of the JSP
-      tag. The @UIComponentTagAttribute annotation specifies a component
+      <literal>@TagAttribute</literal> annotation describes a property that is part of the JSP
+      tag. The <literal>@UIComponentTagAttribute</literal> annotation specifies a component
       property. Our properties appear in both the tag and the component. With
-      the additional annotation attribute type we define the type of the
+      the additional annotation attribute <literal>type</literal> we define the type of the
       properties.</para>
 
       <para>Tobago has many predefined tag attribute declarations. We make use
-      of them by extending the needed interfaces like IsReadonly or
-      HasValue:</para>
+      of them by extending the needed interfaces like <literal>IsReadonly</literal> or
+      <literal>HasValue</literal>:</para>
 
       <programlisting>@Tag(name = "numberSlider")
 @UIComponentTag(rendererType = "InputNumberSlider",
@@ -1268,11 +1274,11 @@ public interface InputNumberSliderTagDeclaration extends
 
       <para>After performing all four steps that are needed to create a Tobago
       control (UI component, renderer, tag and tag declaration) we are ready
-      to build. This is done with a simple mvn install in the sandbox
-      directory; the classes are compiled, the faces-config.xml and the tag
+      to build. This is done with a simple mvn install in the <emphasis>sandbox</emphasis>
+      directory; the classes are compiled, the <literal>faces-config.xml</literal> and the tag
       library description is generated, everything is packaged and stored in
       the target directory. Depending on the Tobago version the package is
-      called something like tobago-sandbox-1.0.x.jar. When this jar file is
+      called something like <literal>tobago-sandbox-i.j.k.jar</literal>. When this jar file is
       put into the classpath of a web application, the control can be used on
       a JSP page. It is important to switch to the Sandbox theme in the Tobago
       configuration.</para>
@@ -1292,7 +1298,7 @@ public interface InputNumberSliderTagDeclaration extends
       <para>We have not talked about the HTML layout of the control. There is
       a significant amount of work required for layouts when creating new
       Tobago controls, particularly with regard to browser compatibility and
-      using Ajax. Additionally – there is also individual coding for every new
+      using Ajax. Additionally — there is also individual coding for every new
       control. Everything covered so far deals with aspects that are common to
       all Tobago component development.</para>
 
@@ -1311,9 +1317,9 @@ public interface InputNumberSliderTagDeclaration extends
     specification. The later way has a small drawback because the name
     attribute for an HTML input control normally cannot be controlled via JSF
     or Tobago. For form based authentication the servlet specification
-    requires the input fields of a login dialog to have the names j_username
-    and j_password, respectively. Since we cannot influence the names of
-    &lt;tc:in&gt; controls directly we have to resort to a hack. We
+    requires the input fields of a login dialog to have the names <literal>j_username</literal>
+    and <literal>j_password</literal>, respectively. Since we cannot influence the names of
+    <literal>&lt;tc:in&gt;</literal> controls directly we have to resort to a hack. We
     subsequently change the rendered field names with JavaScript inside the
     browser.</para>
 
@@ -1334,34 +1340,34 @@ public interface InputNumberSliderTagDeclaration extends
   }
 &lt;/tc:script&gt;</programlisting>
 
-    <para>The onload attribute instructs Tobago to execute the passed
+    <para>The <literal>onload</literal> attribute instructs Tobago to execute the passed
     JavaScript function after the HTML page was loaded.</para>
 
-    <para>Tobago provides a contribution package tobago-security to secure
+    <para>Tobago provides a contribution package <literal>tobago-security</literal> to secure
     method bindings with annotations. Currently it is not sufficient to
     include the jar in the classpath, since the order in which the
-    faces-config.xml files from libraries in the classpath are evaluated is
-    depending on the JSF implementation. The faces-config.xml file of
-    tobago-security defines alternatives for command components with security
+    <literal>faces-config.xml</literal> files from libraries in the classpath are evaluated is
+    depending on the JSF implementation. The <literal>faces-config.xml</literal> file of
+    <literal>tobago-security</literal> defines alternatives for command components with security
     handling. The easiest way is to copy the component redefinitions into the
-    faces-config.xml file of the web application.</para>
+    <literal>faces-config.xml</literal> file of the web application.</para>
 
-    <para>With the tobago-security package a method can be marked with
-    @RolesAllowed to designate the necessary roles for a business
+    <para>With the <literal>tobago-security</literal> package a method can be marked with
+    <literal>@RolesAllowed</literal> to designate the necessary roles for a business
     functionality. The method binding will only be evaluated if the user has
-    the appropriate role. Likewise the class can be marked with @RolesAllowed
-    to secure all methods. In the address book example the Admin toolbar
-    button points to a method in the AdminController. This method is annotated
-    with the required role admin:</para>
+    the appropriate role. Likewise the class can be marked with <literal>@RolesAllowed</literal>
+    to secure all methods. In the address book example the <emphasis>Admin</emphasis> toolbar
+    button points to a method in the <literal>AdminController</literal>. This method is annotated
+    with the required role <emphasis>admin</emphasis>:</para>
 
     <programlisting>@RolesAllowed("admin")
 public String admin() {
   return OUTCOME_ADMIN;
 }</programlisting>
 
-    <para>If the user of the application has not the role admin the button is
+    <para>If the user of the application has not the role <emphasis>admin</emphasis> the button is
     disabled and the method binding will not be evaluated. Additionally the
-    annotations @DenyAll and @PermitAll are supported. These security
+    annotations <literal>@DenyAll</literal> and <literal>@PermitAll</literal> are supported. These security
     annotations are part of the Common Annotations specification
     (JSR250.)</para>
   </sect1>
@@ -1369,16 +1375,16 @@ public String admin() {
   <sect1>
     <title>Virtual Forms</title>
 
-    <para>The &lt;tc:page&gt; tag acts as a global form. Therefore, for simple
+    <para>The <literal>&lt;tc:page&gt;</literal> tag acts as a global form. Therefore, for simple
     pages without control dependencies no explicit form has to be used. The
-    &lt;tc:form&gt; control allows nesting of forms and creates dependencies
+    <literal>&lt;tc:form&gt;</literal> control allows nesting of forms and creates dependencies
     between controls.</para>
 
     <para>If a form is submitted only the contained model references are
-    updated, other values are temporarily stored. With &lt;tc:form&gt; partial
+    updated, other values are temporarily stored. With <literal>&lt;tc:form&gt;</literal> partial
     validation can be realized, because validation is limited to controls
-    inside a &lt;tc:form&gt;. As a result sub forms provide an alternative to
-    immediate for input controls. In the address book example changes to the
+    inside a <literal>&lt;tc:form&gt;</literal>. As a result sub forms provide an alternative to
+    <literal>immediate</literal> for input controls. In the address book example changes to the
     theme and the language are isolated to sub forms to avoid conflicts with
     validations elsewhere on the page:</para>
 
@@ -1396,16 +1402,16 @@ public String admin() {
     <title>Partial Rendering</title>
 
     <para>To avoid the reloading of complete pages, Tobago has a
-    renderedPartially attribute to update only parts of the page. For
-    &lt;tc:tabGroup&gt; controls this can be achieved by configuring the
-    switching type to reloadTab. Tobago also supports a more generic way to
-    update container controls like &lt;tc:panel&gt;, &lt;tc:box&gt;,
-    &lt;tc:popup&gt;, or &lt;tc:sheet&gt; using &lt;tc:attribute&gt; with the
-    name renderedPartially and a value with a comma separated list of
+    <literal>renderedPartially</literal> attribute to update only parts of the page. For
+    <literal>&lt;tc:tabGroup&gt;</literal> controls this can be achieved by configuring the
+    switching type to <literal>reloadTab</literal>. Tobago also supports a more generic way to
+    update container controls like <literal>&lt;tc:panel&gt;</literal>, <literal>&lt;tc:box&gt;</literal>,
+    <literal>&lt;tc:popup&gt;</literal>, or <literal>&lt;tc:sheet&gt;</literal> using <literal>&lt;tc:attribute&gt;</literal> with the
+    name <literal>renderedPartially</literal> and a value with a comma separated list of
     identifier paths of the respective containers. An identifier path is a
     colon separated list of ids of nested naming containers. An absolute path
     of ids has to begin with a colon character followed by the id of the
-    &lt;tc:page&gt; control. If the path does not start with a colon it is a
+    <literal>&lt;tc:page&gt;</literal> control. If the path does not start with a colon it is a
     relative path from the current naming container. By using multiple colon
     characters at the beginning of the path parent naming containers can be
     accessed. The action of the command has to return null as an outcome,
@@ -1431,14 +1437,14 @@ public String admin() {
 &lt;/tc:page&gt;</programlisting>
 
     <para>Instead of reloading the whole page, only the surrounding container
-    &lt;tc:box&gt; of the &lt;tx:in&gt; control is updated, if the value of
+    <literal>&lt;tc:box&gt;</literal> of the <literal>&lt;tx:in&gt;</literal> control is updated, if the value of
     the checkbox changes. The absolute id path of the box, which should be
-    updated, is set as renderedPartially attribute of the command.</para>
+    updated, is set as <literal>renderedPartially</literal> attribute of the command.</para>
 
-    <para>Additionally, &lt;tc:panel&gt; controls can be reloaded on a regular
+    <para>Additionally, <literal>&lt;tc:panel&gt;</literal> controls can be reloaded on a regular
     basis to be able to display changes over time. To accomplish this, the
-    panel has to be provided with a reload facet. This facet has to contain a
-    &lt;tc:reload&gt; tag to specify the frequency for the reload in
+    panel has to be provided with a <literal>reload</literal> facet. This facet has to contain a
+    <literal>&lt;tc:reload&gt;</literal> tag to specify the frequency for the reload in
     milliseconds.</para>
 
     <programlisting>&lt;tc:panel&gt;
@@ -1460,7 +1466,7 @@ public String admin() {
     Generally streaming static resources poses a slight overhead, but using
     the servlet also provides a simple way to define HTTP expire headers for
     the static resources. The expiration period can be specified in seconds as
-    an init-param for the servlet.</para>
+    an <literal>init-param</literal> for the servlet.</para>
 
     <programlisting>&lt;servlet&gt;
   &lt;servlet-name&gt;ResourceServlet&lt;/servlet-name&gt;
