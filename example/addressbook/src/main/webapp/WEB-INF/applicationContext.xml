@@ -39,7 +39,7 @@
     </property>
     <property name="persistenceUnitName" value="addressBook"/>
     <property name="loadTimeWeaver">
-      <bean class="org.apache.myfaces.tobago.example.addressbook.OpenJpaLoadTimeWeaver"/>
+      <bean class="org.springframework.instrument.classloading.SimpleLoadTimeWeaver"/>
     </property>
   </bean>
 
