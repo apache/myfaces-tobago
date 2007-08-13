@@ -15,6 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
+<!-- XXX check rendering of ulink with content and markup; replace footnotes and literal when appropiate -->
 <!DOCTYPE article PUBLIC
     "-//OASIS//DTD DocBook XML V4.5//EN"
     "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
@@ -51,7 +52,8 @@
 
       <para>Tobago is a constantly maturing project with rich potential to
       fill a unique niche in the MyFaces family — feel free to sign up on the
-      MyFaces mailing lists or sign-up to the JIRA and participate in the
+      MyFaces mailing lists<footnote><para>See <ulink url="http://myfaces.apache.org/tobago/mail-lists.html"/></para></footnote>
+      or sign up to the JIRA<footnote><para>See <ulink url="http://issues.apache.org/jira/browse/TOBAGO"/></para></footnote> and participate in the
       process. Additionally, you can also check out the MyFaces project
       website to find out about future releases.</para>
     </sect2>
@@ -207,7 +209,8 @@
       project descriptor (<literal>pom.xml</literal>) or project object model (POM) of Tobago
       defines all necessary dependencies and the Maven repository server and
       its mirrors provide the appropriate jars. For more information on Maven
-      see the Maven web site and the book "Better builds with Maven."</para>
+      see the Maven web site<footnote><para>See <ulink url="http://maven.apache.org/"/></para></footnote>
+      and the book <citetitle>Better builds with Maven</citetitle><footnote><para>See <ulink url="http://www.devzuz.com/web/guest/products/resources#BBWM"/></para></footnote>.</para>
 
       <para>The POM for the blank example specifies the packaging of the
       project as <literal>"war"</literal>. The dependencies for the web application are managed
@@ -303,7 +306,7 @@
         <literal>labelWidth</literal> attribute. If the label contains an underscore character
         the following character will become an access key. This is visualized
         by underlining the access key character. If the access key is pressed
-        together with the ALT key the corresponding input field gains focus.
+        together with the <keycap>Alt</keycap> key the corresponding input field gains focus.
         The <literal>value</literal> attribute contains the content of the input control. The
         <literal>required</literal> attribute controls validation and allows the theme to render
         a special marker for required input. The required feature is rendered
@@ -350,7 +353,7 @@
         control supports the confirmation facet, which generates a message
         dialog. Only if the confirmation question is answered with OK, the
         action is executed. If the <literal>defaultCommand</literal> attribute is set to true the
-        button will be activated as soon as the enter key is pressed.</para>
+        button will be activated as soon as the <keycap>Enter</keycap> key is pressed.</para>
 
         <para>Tobago includes a double request prevention mechanism. After a
         button or link is clicked in the client, the page is blocked to avoid
@@ -514,8 +517,7 @@
       produce sub menus. Actions can be bound with method bindings to
       <literal>&lt;tc:menuItem&gt;</literal> tags. A menu item can be disabled and can
       encapsulate icons. An underscore in the label marks the following
-      character as an access key, which can be activated together with the ALT
-      key.</para>
+      character as an access key, which can be activated together with the <keycap>Alt</keycap> key.</para>
 
       <para>In the address book example the settings menu contains single
       selections created by <literal>&lt;tx:menuRadio&gt;</literal> to choose the current theme
@@ -666,7 +668,7 @@
     <para>The grid layout manager divides the area of the page into a
     rectangular grid. This grid can be controlled with the <literal>rows</literal> and <literal>columns</literal>
     attributes of the <literal>&lt;tc:gridLayout&gt;</literal> tag. The syntax is similar to the
-    multi-length notation known from HTML and consists of a semicolon
+    multi-length notation known from HTML<footnote><para>See <ulink url="http://www.w3.org/TR/html401/types.html#type-multi-length"/></para></footnote> and consists of a semicolon
     separated list of layout tokens.</para>
 
     <para>A layout token may be an absolute length in pixels like 100px, a
@@ -961,13 +963,13 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
 
       <para>We are starting with the user interface component of the control
       and will name it:
-      <literal>org.apache.myfaces.tobago.component.UIInputNumberSlider</literal>. Like all JSF
+      <literal>UIInputNumberSlider</literal><footnote><para>See <ulink url="http://svn.apache.org/viewvc/myfaces/tobago/trunk/sandbox/src/main/java/org/apache/myfaces/tobago/component/UIInputNumberSlider.java?view=markup"/></para></footnote>. Like all JSF
       components, Tobago components must extend
-      <literal>javax.faces.component.UIComponent</literal>. Because we want to create an input
-      component we can extend <literal>javax.faces.component.UIInput</literal> which is a (non
-      direct) subclass of <literal>javax.faces.component.UIComponent</literal>. The class <literal>UIInput</literal>
+      <literal>UIComponent</literal><footnote><para>See <ulink url="http://java.sun.com/javaee/javaserverfaces/1.1_01/docs/api/javax/faces/component/UIComponent.html"/></para></footnote>. Because we want to create an input
+      component we can extend <literal>UIInput</literal><footnote><para>See <ulink url="http://java.sun.com/javaee/javaserverfaces/1.1_01/docs/api/javax/faces/component/UIInput.html"/></para></footnote> which is a (non
+      direct) subclass of <literal>UIComponent</literal>. The class <literal>UIInput</literal>
       is already an implementation of
-      <literal>javax.faces.component.EditableValueHolder</literal> which saves us a lot of
+      <literal>EditableValueHolder</literal><footnote><para>See <ulink url="http://java.sun.com/javaee/javaserverfaces/1.1_01/docs/api/javax/faces/component/EditableValueHolder.html"/></para></footnote> which saves us a lot of
       work.</para>
 
       <para>The JSF runtime environment needs the component type as an
@@ -1032,14 +1034,14 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
       the view technology and is preferred for Tobago components.</para>
 
       <para>A renderer in JSF must be a subclass of type
-      <literal>javax.faces.render.Renderer</literal>. For Tobago components this is different:
+      <literal>Renderer</literal><footnote><para>See <ulink url="http://java.sun.com/javaee/javaserverfaces/1.1_01/docs/api/javax/faces/render/Renderer.html"/></para></footnote>. For Tobago components this is different:
       their renderers must also implement the interface
-      <literal>org.apache.myfaces.tobago.renderkit.LayoutInformationProvider</literal> to get the
+      <literal>LayoutInformationProvider</literal><footnote><para>See <ulink url="http://myfaces.apache.org/tobago/apidocs/org/apache/myfaces/tobago/renderkit/LayoutInformationProvider.html"/></para></footnote> to get the
       renderer to work with the Tobago layout management. With this interface
       Tobago renderers provide the layout manager with certain information
       about the sizing of the component that is rendered. The required methods
       have a default implementation in the class
-      <literal>org.apache.myfaces.tobago.renderkit.RendererBase</literal> which uses properties
+      <literal>RendererBase</literal><footnote><para>See <ulink url="http://myfaces.apache.org/tobago/apidocs/org/apache/myfaces/tobago/renderkit/RendererBase.html"/></para></footnote> which uses properties
       that are provided by the theme configuration of the used theme
       (<literal>tobago-theme-config.properties</literal>). We name our renderer
       <literal>InputNumberSliderRenderer</literal> and extend from <literal>RendererBase</literal>. Following the
@@ -1120,7 +1122,7 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
       is done in the method <literal>encodeEnd</literal>. First the properties of the component
       are retrieved. Then the response writer is used to generate the HTML
       input field of our control. The response writer for Tobago components is
-      the <literal>org.apache.myfaces.tobago.webapp.TobagoResponseWriter</literal> which is
+      the <literal>TobagoResponseWriter</literal><footnote><para>See <ulink url="http://myfaces.apache.org/tobago/apidocs/org/apache/myfaces/tobago/webapp/TobagoResponseWriter.html"/></para></footnote> which is
       created by the Tobago render kit. It provides the component developer
       with additional convenience methods and handles escaping. The decoding
       is done in the method <literal>decode</literal> and retrieves the value of the input field
@@ -1201,17 +1203,17 @@ int width = style.getInt("width");</programlisting>
 
       <para>We start with the tag class. All JSP custom actions in JSF that
       correspond to a UI component in the component tree must either subclass
-      <literal>javax.faces.webapp.UIComponentTag</literal> or
-      <literal>javax.faces.webapp.UIComponentBodyTag</literal> depending on whether they need
+      <literal>UIComponentTag</literal><footnote><para>See <ulink url="http://java.sun.com/javaee/javaserverfaces/1.1_01/docs/api/javax/faces/webapp/UIComponentTag.html"/></para></footnote> or
+      <literal>UIComponentBodyTag</literal><footnote><para>See <ulink url="http://java.sun.com/javaee/javaserverfaces/1.1_01/docs/api/javax/faces/webapp/UIComponentBodyTag.html"/></para></footnote> depending on whether they need
       support for body content functionality or not. Our action has no body
       content so we want to subclass <literal>UIComponentTag</literal>. Again there is an
       opportunity to save some effort if we extend from
-      <literal>org.apache.myfaces.tobago.taglib.component.TobagoTag</literal> which extends from
+      <literal>TobagoTag</literal><footnote><para>See <ulink url="http://myfaces.apache.org/tobago/apidocs/org/apache/myfaces/tobago/taglib/component/TobagoTag.html"/></para></footnote> which extends from
       <literal>UIComponentTag</literal>. This class already implements the handling for the
       properties <literal>readonly</literal> and <literal>disabled</literal>.</para>
 
       <para>Our tag is named
-      <literal>org.apache.myfaces.tobago.taglib.sandbox.InputNumberSliderTag</literal> and
+      <literal>InputNumberSliderTag</literal><footnote><para>See <ulink url="http://svn.apache.org/viewvc/myfaces/tobago/trunk/sandbox/src/main/java/org/apache/myfaces/tobago/taglib/sandbox/InputNumberSliderTag.java?view=markup"/></para></footnote> and
       consists of four new properties (<literal>min</literal>, <literal>max</literal>, <literal>value</literal> and
       <literal>valueChangeListener</literal>) with their getter/setters, an implementation of
       <literal>getComponentType</literal>, a <literal>release</literal> method and a <literal>setProperties</literal> method.</para>
@@ -1225,7 +1227,7 @@ int width = style.getInt("width");</programlisting>
 
       <para>Next thing is the declaration of the tag. Therefore it implements
       an interface
-      <literal>org.apache.myfaces.tobago.taglib.sandbox.InputNumberSliderTagDeclaration</literal>.
+      <literal>InputNumberSliderTagDeclaration</literal><footnote><para>See <ulink url="http://svn.apache.org/viewvc/myfaces/tobago/trunk/sandbox/src/main/java/org/apache/myfaces/tobago/taglib/sandbox/InputNumberSliderTagDeclaration.java?view=markup"/></para></footnote>.
       This interface describes our tag and its attributes with annotations.
       Tobago's build process uses this declaration to generate a
       <literal>faces-config.xml</literal> and a tag library description (TLD) for our component
