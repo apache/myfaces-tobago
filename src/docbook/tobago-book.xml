@@ -15,8 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-"http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<!DOCTYPE article PUBLIC
+    "-//OASIS//DTD DocBook XML V4.5//EN"
+    "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <article lang="en-US">
   <title>Leveraging Apache Tobago</title>
 
@@ -68,12 +69,12 @@
     links to the example archive, which contains a precompiled web application
     archive (WAR) for the blank example and the demo. The source for the blank
     example can be obtained from the Subversion repository. Checking out the
-    blank example for Tobago 1.0.11 is achieved by entering the following
+    blank example for Tobago is achieved by entering the following
     command in the shell:</para>
 
     <programlisting>svn checkout \
-  http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.11/example/blank/ \
-  blank-1.0.11</programlisting>
+  http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/blank/ \
+  blank</programlisting>
 
     <para>For building the blank example Java 5 and Maven 2 (at least 2.0.3)
     are needed. Running Tobago applications in a Java 1.4 environment is
@@ -932,8 +933,8 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
     out:</para>
 
     <programlisting>svn checkout \ 
-    http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.11/sandbox \
-    sandbox-1.0.11</programlisting>
+    http://svn.apache.org/repos/asf/myfaces/tobago/trunk/sandbox \
+    sandbox</programlisting>
 
     <para>Alternatively if you have checked out the complete Tobago source
     tree you can find the sandbox directory right under the root directory. In
@@ -1271,7 +1272,7 @@ public interface InputNumberSliderTagDeclaration extends
       directory; the classes are compiled, the faces-config.xml and the tag
       library description is generated, everything is packaged and stored in
       the target directory. Depending on the Tobago version the package is
-      called something like tobago-sandbox-1.0.11.jar. When this jar file is
+      called something like tobago-sandbox-1.0.x.jar. When this jar file is
       put into the classpath of a web application, the control can be used on
       a JSP page. It is important to switch to the Sandbox theme in the Tobago
       configuration.</para>
