@@ -259,7 +259,7 @@
         <artifactId>maven-project-info-reports-plugin</artifactId>
       </plugin>
 
-      <plugin>
+      <!--plugin>
         <inherited>false</inherited>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-changes-plugin</artifactId>
@@ -274,7 +274,7 @@
             </reports>
           </reportSet>
         </reportSets>
-      </plugin>
+      </plugin-->
 
       <plugin>
         <inherited>false</inherited>
@@ -506,7 +506,7 @@
     <url>http://www.apache.org/</url>
   </organization>
 
-  <repositories>
+  <!--repositories>
     <repository>
       <releases>
         <enabled>false</enabled>
@@ -517,7 +517,7 @@
       <id>apache.snapshots</id>
       <url>http://people.apache.org/repo/m2-snapshot-repository</url>
     </repository>
-  </repositories>
+  </repositories>-->
   <build>
     <defaultGoal>install</defaultGoal>
     <plugins>
