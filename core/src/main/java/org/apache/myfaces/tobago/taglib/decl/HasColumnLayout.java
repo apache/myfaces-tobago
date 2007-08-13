@@ -30,6 +30,6 @@ public interface HasColumnLayout {
    * Semicolon separated list of layout tokens ('*', '&lt;x>*', '&lt;x>px' or '&lt;x>%').
    * Where '*' is equvalent to '1*'.
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute @UIComponentTagAttribute(defaultValue  = "1*")
   void setColumns(String columns);
 }

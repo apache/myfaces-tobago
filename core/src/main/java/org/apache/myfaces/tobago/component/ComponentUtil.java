@@ -110,6 +110,17 @@ public class ComponentUtil {
   private ComponentUtil() {
   }
 
+
+  public static boolean hasErrorMessages(FacesContext context) {
+    for (Iterator iter = context.getMessages(); iter.hasNext();) {
+      FacesMessage message = (FacesMessage) iter.next();
+      if (FacesMessage.SEVERITY_ERROR.compareTo(message.getSeverity()) <= 0) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public static boolean containsPopupActionListener(UICommand command) {
     ActionListener [] actionListeners = command.getActionListeners();
     for(ActionListener actionListener: actionListeners) {
@@ -1166,11 +1177,11 @@ public class ComponentUtil {
             result.add(string.trim());
           }
         }
-        return (String[]) result.toArray(new String[result.size()]);
+        return result.toArray(new String[result.size()]);
       } else if (markups == null) {
         return new String[0];
       } else {
-        return new String[]{(String) markups.toString()};
+        return new String[]{markups.toString()};
       }
     }
 
@@ -1266,4 +1277,4 @@ public class ComponentUtil {
     // we should reset rowIndex on UIData
     uiData.setRowIndex(oldRowIndex);
   }
-    }
+}

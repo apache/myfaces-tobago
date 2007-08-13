@@ -34,6 +34,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
@@ -46,6 +47,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriterWrapper;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.component.NamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
@@ -589,7 +591,14 @@ public final class HtmlRendererUtil {
   public static String getComponentId(FacesContext context, UIComponent component, String componentId) {
     UIComponent partiallyComponent = ComponentUtil.findComponent(component, componentId);
     if (partiallyComponent != null) {
-      return partiallyComponent.getClientId(context);
+      String clientId = partiallyComponent.getClientId(context);
+      if (partiallyComponent instanceof UIData)  {
+        int rowIndex = ((UIData)partiallyComponent).getRowIndex();
+        if (rowIndex >= 0 && clientId.endsWith(Integer.toString(rowIndex))) {
+          return clientId.substring(0, clientId.lastIndexOf(NamingContainer.SEPARATOR_CHAR));
+        }
+      }
+      return clientId;
     }
     // TODO log error message if no component founc
     return null;

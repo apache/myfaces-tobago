@@ -30,6 +30,6 @@ public interface HasRowLayout {
    * Semicolon separated list of layout tokens ('&lt;x>*', '&lt;x>px', '&lt;x>%' or 'fixed').
    *
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute @UIComponentTagAttribute(defaultValue = "1*")
   void setRows(String rows);
 }
