@@ -593,7 +593,7 @@ public final class HtmlRendererUtil {
     if (partiallyComponent != null) {
       String clientId = partiallyComponent.getClientId(context);
       if (partiallyComponent instanceof UIData)  {
-        int rowIndex = ((UIData)partiallyComponent).getRowIndex();
+        int rowIndex = ((UIData) partiallyComponent).getRowIndex();
         if (rowIndex >= 0 && clientId.endsWith(Integer.toString(rowIndex))) {
           return clientId.substring(0, clientId.lastIndexOf(NamingContainer.SEPARATOR_CHAR));
         }
