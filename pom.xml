@@ -783,6 +783,7 @@
         <module>example</module>
       </modules>
     </profile>
+    <!-- END SNIPPET: release-profile -->
     <profile>
       <id>mojodocbook</id>
       <build>
@@ -909,7 +910,6 @@
       </build>
     </profile>
   </profiles>
-  <!-- END SNIPPET: release-profile --> 
 
   <properties>
     <myfaces.version>1.1.5</myfaces.version>
