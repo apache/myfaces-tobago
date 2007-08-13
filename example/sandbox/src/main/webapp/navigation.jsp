@@ -21,8 +21,7 @@
 
   <tc:loadBundle basename="demo" var="bundle"/>
 
-  <tc:page label="Screenshot" id="page"
-           width="200px" height="800px">
+  <tc:page label="Sandbox Menu" id="page" width="200px" height="800px">
     <f:facet name="layout">
       <tc:gridLayout margin="5px" rows="fixed;fixed;fixed;fixed;fixed;fixed;*"/>
     </f:facet>
