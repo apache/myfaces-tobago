@@ -1047,11 +1047,11 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
       <para>When using the RendererBase the theme configuration is a good
       place to provide the information needed for the layout. The
       implementation searches the configuration for properties with the
-      following pattern: render name without "Renderer" + "." + key. All
-      values are interpreted as pixels. Table XXX specifies some of the
+      following pattern: renderer name without "Renderer" + "." + key. All
+      values are interpreted as pixels. <xref linkend="table-rendererbase"/> specifies some of the
       recognized keys.</para>
 
-      <table frame="none">
+      <table frame="none" id="table-rendererbase">
         <title>Recognized keys for RendererBase</title>
         <tgroup cols="2">
           <thead>
