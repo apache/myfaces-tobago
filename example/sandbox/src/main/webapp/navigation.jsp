@@ -24,7 +24,7 @@
   <tc:page label="Screenshot" id="page"
            width="200px" height="800px">
     <f:facet name="layout">
-      <tc:gridLayout margin="5px" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
+      <tc:gridLayout margin="5px" rows="fixed;fixed;fixed;fixed;fixed;fixed;*"/>
     </f:facet>
 
     <tc:link link="separator.jsp" label="separator.jsp" target="View"/>
@@ -40,8 +40,6 @@
     <tc:link link="tree-ajax.jsp" label="tree-ajax.jsp" target="View"/>
 
     <tc:link link="inputSlider.jsp" label="inputSlider.jsp" target="View"/>
-
-    <tc:link link="tomahawk.jsp" label="tomahawk.jsp" target="View"/>
 
     <tc:cell/>
   </tc:page>
