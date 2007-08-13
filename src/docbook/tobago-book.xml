@@ -1131,7 +1131,7 @@ public class InputNumberSliderRenderer extends RendererBase {
     boolean disabled
         = ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
     TobagoResponseWriter writer
-        = (TobagoResponseWriter)facesContext.getResponseWriter();
+        = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     ...
     writer.startElement(HtmlConstants.INPUT);
     String inputIdAndName = getIdForInputField(facesContext, component);
