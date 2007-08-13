@@ -809,7 +809,7 @@
                 <phase>install</phase>
                 <configuration>
                   <tasks>
-                    <mkdir dir="${project.build.directory}/site/docbook/resources"></mkdir>
+                    <mkdir dir="${project.build.directory}/site/docbook/resources"/>
                     <copy verbose="true" todir="${project.build.directory}/site/docbook/resources">
                       <fileset dir="${project.build.directory}/site/docbook">
                         <include name="*.png"/>
@@ -859,7 +859,7 @@
                 </goals>
                 <configuration>
                   <tasks>
-                    <copy todir="${basedir}/target/staging/images/resources">
+                    <copy todir="${project.build.directory}/staging/images/resources">
                       <fileset dir="${basedir}/src/docbook/resources"/>
                     </copy>
                   </tasks>
@@ -890,7 +890,7 @@
             <configuration>
               <sourceDirectory>${basedir}/src/docbook</sourceDirectory>
               <imagesDirectory>${basedir}/src/docbook/resources</imagesDirectory>
-              <sourceDocumentName>tobago-book.xml</sourceDocumentName>
+              <sourceDocumentName>tobago-tutorial.xml</sourceDocumentName>
               <formats>
                 <format>
                   <formatName>pdf</formatName>
