@@ -87,11 +87,14 @@ public class UITree extends UIInput implements NamingContainer {
     this.mode = mode;
   }
 
-  public UITreeNode getRoot() {
+  public UIComponent getRoot() {
     // find the UITreeNode in the childen.
     for (UIComponent child : (List<UIComponent>) getChildren()) {
       if (child instanceof UITreeNode) {
-        return (UITreeNode) child;
+        return child;
+      }
+      if (child instanceof UITreeNodeData) {
+        return child;
       }
     }
     return null;

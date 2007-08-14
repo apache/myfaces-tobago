@@ -105,13 +105,12 @@ public class TreeRenderer extends LayoutableRendererBase {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent component) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
     UITree tree = (UITree) component;
 
     String clientId = tree.getClientId(facesContext);
-    UITreeNode root = tree.getRoot();
+    UIComponent root = tree.getRoot();
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 

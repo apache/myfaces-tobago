@@ -140,60 +140,67 @@ public class TreeNodeRenderer extends CommandRendererBase {
     boolean showRootJunction = root.isShowRootJunction();
     boolean showRoot = root.isShowRoot();
     int depth = mixedModel.getDepth();
+    boolean isRoot = mixedModel.isRoot();
     boolean hasNextSibling = mixedModel.hasCurrentNodeNextSibling();
     List<Boolean> junctions = mixedModel.getJunctions();
 
+    if (! showRoot && junctions.size() > 0) {
+      junctions.remove(0);
+    }
+
     CommandRendererHelper helper = new CommandRendererHelper(facesContext, node);
 
-    writer.startElement(DIV, null);
+    if (showRoot || ! isRoot) {
+      writer.startElement(DIV, null);
 
-    // div id
-    writer.writeIdAttribute(id);
+      // div id
+      writer.writeIdAttribute(id);
 
-    // div class (css)
-    StyleClasses styleClasses = StyleClasses.ensureStyleClasses(node);
-    styleClasses.updateClassAttributeAndMarkup(node, "treeNode");
-    if ("menu".equals(root.getMode())) {
-      styleClasses.addClass("treeNode", "menu");
-      if (marked) {
-        styleClasses.addClass("treeNode", "marker");
+      // div class (css)
+      StyleClasses styleClasses = StyleClasses.ensureStyleClasses(node);
+      styleClasses.updateClassAttributeAndMarkup(node, "treeNode");
+      if ("menu".equals(root.getMode())) {
+        styleClasses.addClass("treeNode", "menu");
+        if (marked) {
+          styleClasses.addClass("treeNode", "marker");
+        }
       }
+      styleClasses.addMarkupClass(node, "treeNode");
+      writer.writeClassAttribute(styleClasses);
+
+      // div style (width)
+      Integer width = null;
+      HtmlStyleMap style = (HtmlStyleMap) root.getAttributes().get(ATTR_STYLE);
+      if (style != null) {
+        width = style.getInt("width");
+      }
+      String widthString;
+      if (width != null) {
+        widthString = "width: " + Integer.toString(width - 4); // fixme: 4
+      } else {
+        widthString = "100%";
+      }
+      writer.writeStyleAttribute(widthString);
+
+      if (isFolder) {
+        encodeExpandedHidden(writer, node, id, expanded);
+      }
+
+      if (isFolder && menuMode) {
+        encodeMenuIcon(facesContext, writer, treeId, id, expanded);
+      }
+
+      encodeIndent(facesContext, writer, menuMode, junctions);
+
+      encodeTreeJunction(facesContext, writer, id, treeId, showJunctions, showRootJunction, showRoot, expanded,
+          isFolder, depth, hasNextSibling);
+
+      encodeTreeIcons(facesContext, writer, id, treeId, showIcons, expanded, isFolder);
+
+      encodeLabel(writer, helper, node, marked, treeId);
+
+      writer.endElement(DIV);
     }
-    styleClasses.addMarkupClass(node, "treeNode");
-    writer.writeClassAttribute(styleClasses);
-
-    // div style (width)
-    Integer width = null;
-    HtmlStyleMap style = (HtmlStyleMap) root.getAttributes().get(ATTR_STYLE);
-    if (style != null) {
-      width = style.getInt("width");
-    }
-    String widthString;
-    if (width != null) {
-      widthString = "width: " + Integer.toString(width - 4); // fixme: 4
-    } else {
-      widthString = "100%";
-    }
-    writer.writeStyleAttribute(widthString);
-
-    if (isFolder) {
-      encodeExpandedHidden(writer, node, id, expanded);
-    }
-
-    if (isFolder && menuMode) {
-      encodeMenuIcon(facesContext, writer, treeId, id, expanded);
-    }
-
-    encodeIndent(facesContext, writer, menuMode, junctions);
-
-    encodeTreeJunction(facesContext, writer, id, treeId, showJunctions, showRootJunction, showRoot, expanded, isFolder,
-        depth, hasNextSibling);
-
-    encodeTreeIcons(facesContext, writer, id, treeId, showIcons, expanded, isFolder);
-
-    encodeLabel(writer, helper, node, marked, treeId);
-
-    writer.endElement(DIV);
 
     if (isFolder) {
       String contentStyle = "display: " + (expanded ? "block" : "none") + ";";

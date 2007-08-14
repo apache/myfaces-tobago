@@ -23,9 +23,9 @@
   <tc:loadBundle basename="demo" var="bundle"/>
 
   <tc:page label="Sandbox - Tree" id="page"
-           width="500px" height="800px">
+           width="500px" height="1000px">
     <f:facet name="layout">
-      <tc:gridLayout margin="10px" rows="600px;*"/>
+      <tc:gridLayout margin="10px" rows="*;*;*"/>
     </f:facet>
 
     <tcs:tree state="#{controller.state}" id="menu"
@@ -58,7 +58,35 @@
       </tcs:treeNode>
     </tcs:tree>
 
-    <tc:cell/>
+    <tcs:tree state="#{controller.state}" mode="menu">
+      <tcs:treeNodeData value="#{controller.tree}" var="node" id="data">
+        <tcs:treeNode label="#{node.userObject.name}"
+                      id="template"
+                      expanded="#{node.userObject.expanded}"
+                      markup="#{node.userObject.markup}"
+                      tip="#{node.userObject.tip}"
+                      action="#{node.userObject.action}"
+                      disabled="#{node.userObject.disabled}"
+                      value="#{node}"/>
+      </tcs:treeNodeData>
+    </tcs:tree>
+
+    <tcs:tree state="#{controller.state}" mode="menu">
+      <tcs:treeNode label="Root" expanded="true">
+        <tcs:treeNode label="2 Action 1" />
+        <tcs:treeNode label="3 Action 2" />
+        <tcs:treeNode label="4 Action 3" >
+          <tcs:treeNode label="4.1 On Click 1" onclick="alert('On Click 1');" />
+          <tcs:treeNode label="4.2 On Click 2" onclick="alert('On Click 2');" >
+            <tcs:treeNode label="4.2.1 On Click 3" onclick="alert('On Click 3');" />
+          </tcs:treeNode>
+        </tcs:treeNode>
+        <tcs:treeNode label="5 Link" link="http://myfaces.apache.org/tobago/" tip="Subnode Link"/>
+        <tcs:treeNode label="6 Target" target="Target Window"/>
+      </tcs:treeNode>
+    </tcs:tree>
+
+    <tc:cell />
 
   </tc:page>
 </f:view>

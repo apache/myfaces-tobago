@@ -17,21 +17,24 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.component.UITreeNodeData;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.util.Stack;
-import java.util.List;
-import java.util.Collections;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 /**
  * User: lofwyr
  * Date: 23.04.2007 16:10:22
  */
 public class MixedTreeModel {
+
+  private static final Log LOG = LogFactory.getLog(MixedTreeModel.class);
 
   private DefaultMutableTreeNode root;
   private DefaultMutableTreeNode current;
@@ -41,10 +44,14 @@ public class MixedTreeModel {
   private Stack<Boolean> junctions = new Stack<Boolean>();
 
   public void beginBuildNode(UITreeNode node) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug(node.getAttributes().get(ATTR_LABEL));
+    }
     if (!isInData) {
       DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(node.getAttributes().get(ATTR_LABEL));
       if (root == null) {
         root = newNode;
+        current = root;
       } else {
         current.add(newNode);
         current = newNode;
@@ -53,12 +60,18 @@ public class MixedTreeModel {
   }
 
   public void endBuildNode(UITreeNode node) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug(node.getAttributes().get(ATTR_LABEL));
+    }
     if (!isInData) {
       current = (DefaultMutableTreeNode) current.getParent();
     }
   }
 
   public void beginBuildNodeData(UITreeNodeData data) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("var=" + data.getVar());
+    }
     current = new DefaultMutableTreeNode(data.getValue());
     if (root == null) {
       root = current;
@@ -69,20 +82,26 @@ public class MixedTreeModel {
   }
 
   public void endBuildNodeData(UITreeNodeData data) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("var=" + data.getVar());
+    }
     current = (DefaultMutableTreeNode) current.getParent();
     isInData = false;
   }
 
   public void onEncodeBegin() {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("current=" + current);
+    }
     if (current == null) {
       current = root;
     } else {
       current = (DefaultMutableTreeNode) current.getChildAt(nextChildIndex);
-      if (!isInData && current.getUserObject() instanceof DefaultMutableTreeNode) {
-        isInData = true;
-        dataRoot = current;
-        current = (DefaultMutableTreeNode) current.getUserObject();
-      }
+    }
+    if (!isInData && current.getUserObject() instanceof DefaultMutableTreeNode) {
+      isInData = true;
+      dataRoot = current;
+      current = (DefaultMutableTreeNode) current.getUserObject();
     }
     nextChildIndex = 0;
 
@@ -90,6 +109,9 @@ public class MixedTreeModel {
   }
 
   public void onEncodeEnd() {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("current=" + current);
+    }
     if (isInData && current.isRoot()) {
       current = dataRoot;
       isInData = false;
@@ -107,24 +129,32 @@ public class MixedTreeModel {
   }
 
   public boolean hasCurrentNodeNextSibling() {
+    boolean result;
     if (isInData && current.isRoot()) {
-      return dataRoot.getNextSibling() != null;
+      result = dataRoot.getNextSibling() != null;
     } else {
-      return current.getNextSibling() != null;
+      result = current.getNextSibling() != null;
     }
+    return result;
   }
 
   public boolean isFolder() {
-    return current.getChildCount() > 0;
+    boolean folder = current.getChildCount() > 0;
+    return folder;
   }
 
   public int getDepth() {
-    return junctions.size();
+    int depth = junctions.size();
+    return depth;
+  }
+
+  public boolean isRoot() {
+    return junctions.size() < 2;
   }
 
   public List<Boolean> getJunctions() {
     Boolean top = junctions.pop();
-    List<Boolean> result = Collections.unmodifiableList(new ArrayList<Boolean>(junctions));
+    List<Boolean> result = new ArrayList<Boolean>(junctions);
     junctions.push(top);
     return result;
   }
