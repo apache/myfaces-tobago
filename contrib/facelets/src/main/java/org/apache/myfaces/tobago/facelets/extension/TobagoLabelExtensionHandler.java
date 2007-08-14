@@ -74,6 +74,9 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
       if (date != null) {
         panel.getChildren().add(date);
       }
+    } else {
+      UIComponent input  = (UIComponent) panel.getChildren().get(1);
+      nextHandler.apply(ctx, input);
     }
   }
 
