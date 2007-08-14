@@ -63,7 +63,18 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
 
   protected void applyNextHandler(FaceletContext ctx, UIComponent panel)
       throws IOException, FacesException, ELException {
-    nextHandler.apply(ctx, (UIComponent) panel.getChildren().get(1));
+    if (ComponentSupport.isNew(panel)) {
+      UIComponent input  = (UIComponent) panel.getChildren().remove(1);
+      nextHandler.apply(ctx, input);
+      UIComponent date = null;
+      if (panel.getChildCount() > 1) {
+        date = (UIComponent) panel.getChildren().get(1);
+      }
+      panel.getChildren().add(input);
+      if (date != null) {
+        panel.getChildren().add(date);
+      }
+    }
   }
 
   protected void onComponentCreated(FaceletContext faceletContext, UIComponent panel, UIComponent parent) {
@@ -91,6 +102,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     UILabel label = (UILabel) application.createComponent(UILabel.COMPONENT_TYPE);
     label.setRendererType(TobagoConstants.RENDERER_TYPE_LABEL);
     label.setId(root.createUniqueId());
+    label.getAttributes().put(TobagoConstants.ATTR_FOR, "@auto");
     if (tipAttribute != null) {
       label.setTip(tipAttribute.getValue(faceletContext));
     }
