@@ -61,4 +61,8 @@
 		<tag-name>menuRadio</tag-name>
 		<source>menuRadio.xml</source>
 	</tag>
+  <tag>
+		<tag-name>menuCheckbox</tag-name>
+		<source>menuCheckbox.xml</source>
+	</tag>
 </facelet-taglib>

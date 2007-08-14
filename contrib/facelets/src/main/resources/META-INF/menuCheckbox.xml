@@ -28,9 +28,9 @@
     <tc:attribute name="action" value="${action}" />
     <tc:attribute name="actionListener" value="${actionListener}" />
     <f:facet name="items">
-      <tc:selectOneRadio value="${value}" >
+      <tc:selectBooleanCheckbox value="${value}" >
         <ui:insert/>
-      </tc:selectOneRadio>
+      </tc:selectBooleanCheckbox>
     </f:facet>
   </tc:menuItem>
 </ui:composition>
