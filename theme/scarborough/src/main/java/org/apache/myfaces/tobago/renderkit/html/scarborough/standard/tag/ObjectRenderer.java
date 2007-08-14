@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SRC;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -34,7 +34,8 @@ public class ObjectRenderer extends LayoutableRendererBase {
       throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.IFRAME, component);
-    writer.writeAttributeFromComponent(HtmlAttributes.SRC, ATTR_TARGET);
+    writer.writeIdAttribute(component.getClientId(facesContext));
+    writer.writeAttributeFromComponent(HtmlAttributes.SRC, ATTR_SRC);
     writer.writeClassAttribute();
     writer.writeStyleAttribute();
 
@@ -42,8 +43,8 @@ public class ObjectRenderer extends LayoutableRendererBase {
         facesContext, "tobago", "browser.noframe.message.prefix");
     writer.writeText(noframes + " ");
     writer.startElement(HtmlConstants.A, component);
-    writer.writeAttributeFromComponent(HtmlAttributes.HREF, ATTR_TARGET);
-    writer.writeTextFromComponent(ATTR_TARGET);
+    writer.writeAttributeFromComponent(HtmlAttributes.HREF, ATTR_SRC);
+    writer.writeTextFromComponent(ATTR_SRC);
     writer.endElement(HtmlConstants.A);
     noframes = ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "browser.noframe.message.postfix");
