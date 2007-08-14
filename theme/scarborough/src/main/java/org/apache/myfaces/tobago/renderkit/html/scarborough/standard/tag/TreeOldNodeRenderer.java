@@ -17,30 +17,30 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UITreeOldNode;
-import org.apache.myfaces.tobago.component.UITreeOld;
-import org.apache.myfaces.tobago.model.TreeState;
-import org.apache.myfaces.tobago.TobagoConstants;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UITreeOld;
+import org.apache.myfaces.tobago.component.UITreeOldNode;
+import org.apache.myfaces.tobago.model.TreeState;
+import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.component.UIComponent;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UICommand;
-import javax.faces.component.UIParameter;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
+import javax.faces.component.UIParameter;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.util.Map;
 import java.io.IOException;
+import java.util.Map;
 
 @Deprecated
 public class TreeOldNodeRenderer extends LayoutableRendererBase {
@@ -284,12 +284,15 @@ public class TreeOldNodeRenderer extends LayoutableRendererBase {
       writer.writeText(",treeResourcesHelp", null);
       writer.writeText(",", null);
 
-      // action (not implemented)
+      // action (obsolete)
       writer.writeText("null", null);
       writer.writeText(",", null);
 
-      // onclick (not implemented)
-      writer.writeText("null", null);
+      // onclick (treeNodeCommand)
+      String treeNodeCommandClientId = root.getClientId(facesContext);
+      String treeNodeCommandJsClientId = TreeOldRenderer.createJavascriptVariable(treeNodeCommandClientId);
+
+      writer.writeText(treeNodeCommandJsClientId + "_treeNodeCommand", null);
       writer.writeText(",", null);
 
       // parent

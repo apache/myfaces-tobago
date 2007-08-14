@@ -26,12 +26,14 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
+import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -171,7 +173,7 @@ public class TreeOldRenderer extends LayoutableRendererBase {
     writer.endElement(HtmlConstants.TABLE);
 //    writer.endElement(HtmlConstants.DIV);
 
-    String[] scriptTexts = createJavascript(facesContext, clientId, root);
+    String[] scriptTexts = createJavascript(facesContext, clientId, tree, root);
 
     String[] scripts = {"script/tree.js"};
     List<String> scriptFiles = ComponentUtil.findPage(tree).getScriptFiles();
@@ -194,7 +196,7 @@ public class TreeOldRenderer extends LayoutableRendererBase {
   }
 
   private String[] createJavascript(FacesContext facesContext, String clientId,
-                                  UITreeOldNode root)
+      UITreeOld tree, UITreeOldNode root)
   throws IOException {
     StringBuilder sb = new StringBuilder();
 
@@ -220,6 +222,8 @@ public class TreeOldRenderer extends LayoutableRendererBase {
     sb.append("    }\n");
     sb.append("  };\n \n");
 
+    sb.append(getTreeNodeCommandVar(facesContext, tree));
+    
     sb.append(getNodesAsJavascript(facesContext, root));
 
     sb.append("  var treeDiv = document.getElementById('");
@@ -241,6 +245,29 @@ public class TreeOldRenderer extends LayoutableRendererBase {
       strings[i] = tokenizer.nextToken();
     }
     return strings;
+  }
+
+  private String getTreeNodeCommandVar(FacesContext facesContext, UITreeOld tree) {
+    String clientId = tree.getClientId(facesContext);
+    String jsClientId = TreeOldRenderer.createJavascriptVariable(clientId);
+
+    String treeNodeCommandVar = "  var " + jsClientId + "_treeNodeCommand = ";
+    UICommand treeNodeCommand = (UICommand) tree.getFacet(UITreeOld.FACET_TREE_NODE_COMMAND);
+    if (treeNodeCommand != null) {
+      CommandRendererHelper helper = new CommandRendererHelper(facesContext,
+          treeNodeCommand);
+      if (helper.getOnclick() != null) {
+        String onclick = helper.getOnclick();
+        String treeNodeCommandClientId = treeNodeCommand.getClientId(facesContext);
+        onclick = onclick.replaceAll("'" + treeNodeCommandClientId + "'", "this.id");
+        treeNodeCommandVar += "\"" + onclick + "\";\n";
+      } else {
+        treeNodeCommandVar += "null;\n";
+      }
+    } else {
+      treeNodeCommandVar += "null;\n";
+    }
+    return treeNodeCommandVar;
   }
 
   protected String getNodesAsJavascript(FacesContext facesContext, UITreeOldNode root) throws IOException {

@@ -547,7 +547,7 @@ TreeOldNode.prototype.doOnClick = function() {
     eval(this.onclick);
   } else {
     if (this.mutable) {
-      // nothing to do, storeMarker is already don in onFocus()
+      // nothing to do, storeMarker is already done in onFocus()
 //      storeMarker(Tobago.element(this.id), this.treeHiddenId);
     } else if (this.selectable) {
       toggleSelect(Tobago.element(this.id),
@@ -555,7 +555,8 @@ TreeOldNode.prototype.doOnClick = function() {
           this.treeResources.getImage("unchecked.gif"),
           this.treeResources.getImage("checked.gif"));
     } else {
-      Tobago.submitAction(this.id);
+      // nothing to do, onclick has already done it
+//      Tobago.submitAction(this.id);
     }
 
   }
