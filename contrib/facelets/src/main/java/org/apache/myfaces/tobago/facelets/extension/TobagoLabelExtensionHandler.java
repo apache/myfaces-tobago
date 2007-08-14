@@ -64,6 +64,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   protected void applyNextHandler(FaceletContext ctx, UIComponent panel)
       throws IOException, FacesException, ELException {
     if (ComponentSupport.isNew(panel)) {
+      // ensure that input has no parent (isNew)
       UIComponent input  = (UIComponent) panel.getChildren().remove(1);
       nextHandler.apply(ctx, input);
       UIComponent date = null;
