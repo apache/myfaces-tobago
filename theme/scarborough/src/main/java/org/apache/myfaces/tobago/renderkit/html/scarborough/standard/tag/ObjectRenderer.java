@@ -35,6 +35,7 @@ public class ObjectRenderer extends LayoutableRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.IFRAME, component);
     writer.writeIdAttribute(component.getClientId(facesContext));
+    writer.writeNameAttribute(component.getClientId(facesContext));
     writer.writeAttributeFromComponent(HtmlAttributes.SRC, ATTR_SRC);
     writer.writeClassAttribute();
     writer.writeStyleAttribute();
