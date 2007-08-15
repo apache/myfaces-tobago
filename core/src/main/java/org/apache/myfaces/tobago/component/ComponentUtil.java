@@ -398,6 +398,8 @@ public class ComponentUtil {
           String [] markups  = markup.split(",");
           ((SupportsMarkup) markupComponent).setMarkup(markups);
         }
+      } else {
+        LOG.error("Component did not support Markup " + markupComponent.getClass().getName());
       }
     }
   }

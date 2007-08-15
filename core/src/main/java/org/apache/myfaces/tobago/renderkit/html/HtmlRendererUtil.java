@@ -600,7 +600,7 @@ public final class HtmlRendererUtil {
       }
       return clientId;
     }
-    // TODO log error message if no component founc
+    LOG.error("No Component found for id " + componentId);
     return null;
   }
 

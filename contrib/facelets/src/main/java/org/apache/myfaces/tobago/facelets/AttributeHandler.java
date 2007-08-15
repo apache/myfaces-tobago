@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.facelets;
 import javax.el.ELException;
 import javax.el.MethodExpression;
 import javax.el.ExpressionFactory;
+import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.EditableValueHolder;
@@ -37,8 +38,11 @@ import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public final class AttributeHandler extends TagHandler {
+  private static final Log LOG = LogFactory.getLog(AttributeHandler.class);
 
   private final TagAttribute name;
 
@@ -59,21 +63,28 @@ public final class AttributeHandler extends TagHandler {
     if (ComponentSupport.isNew(parent)) {
       String nameValue = name.getValue(faceletContext);
       if (TobagoConstants.ATTR_RENDERED.equals(nameValue)) {
-        // TODO expression
         if (value.isLiteral()) {
           parent.setRendered(value.getBoolean(faceletContext));
         } else {
           ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(faceletContext, Object.class));
         }
       } else if (TobagoConstants.ATTR_RENDERED_PARTIALLY.equals(nameValue) && parent instanceof UICommand) {
-        // TODO test expression
+        // TODO expression
         ComponentUtil.setRenderedPartially((UICommand) parent, value.getValue());
       } else if (TobagoConstants.ATTR_STYLE_CLASS.equals(nameValue)) {
-        // TODO test expression
+        // TODO expression
         ComponentUtil.setStyleClasses(parent, value.getValue());
-      } else if (TobagoConstants.ATTR_MARKUP.equals(nameValue) && parent instanceof SupportsMarkup) {
-        // TODO test expression
-        ComponentUtil.setMarkup(parent, value.getValue());
+      } else if (TobagoConstants.ATTR_MARKUP.equals(nameValue)) {
+        if (parent instanceof SupportsMarkup) {
+          if (value.isLiteral()) {
+            ComponentUtil.setMarkup(parent, value.getValue());
+          } else {
+            ValueExpression expression = value.getValueExpression(faceletContext, Object.class);
+            ELAdaptor.setExpression(parent, nameValue, expression);
+          }
+        } else {
+          LOG.error("Component is not instanceof SupportsMarkup. Instance is: " + parent.getClass().getName());
+        }
       } else if (parent instanceof EditableValueHolder && TobagoConstants.ATTR_VALIDATOR.equals(nameValue)) {
         MethodExpression methodExpression =  getMethodExpression(faceletContext, null, ComponentUtil.VALIDATOR_ARGS);
         if (methodExpression != null) {

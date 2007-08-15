@@ -126,7 +126,7 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
   }
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-     String clientId = component.getClientId(facesContext);
+    String clientId = component.getClientId(facesContext);
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeClassAttribute();
