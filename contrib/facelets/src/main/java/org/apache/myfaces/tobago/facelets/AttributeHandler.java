@@ -22,9 +22,6 @@ import javax.el.MethodExpression;
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
 import javax.el.PropertyNotFoundException;
-import javax.el.MethodInfo;
-import javax.el.ELContext;
-import javax.el.MethodNotFoundException;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.EditableValueHolder;
@@ -46,10 +43,6 @@ import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.Externalizable;
-import java.io.ObjectOutput;
-import java.io.IOException;
-import java.io.ObjectInput;
 
 public final class AttributeHandler extends TagHandler {
   private static final Log LOG = LogFactory.getLog(AttributeHandler.class);
