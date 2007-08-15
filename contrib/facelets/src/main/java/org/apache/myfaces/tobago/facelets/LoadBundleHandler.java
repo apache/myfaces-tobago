@@ -49,7 +49,12 @@ public class LoadBundleHandler extends TagHandler {
 
   public void apply(FaceletContext faceletContext, UIComponent parent)
       throws IOException, FacesException, ELException {
-    String name = basename.getValue(faceletContext);
+    String name;
+    if (basename.isLiteral()) {
+      name = basename.getValue(faceletContext);
+    } else {
+      name = (String) basename.getValueExpression(faceletContext, String.class).getValue(faceletContext);
+    }
     BundleMapWrapper map = new BundleMapWrapper(name);
     FacesContext facesContext = faceletContext.getFacesContext();
     // TODO find a better way
