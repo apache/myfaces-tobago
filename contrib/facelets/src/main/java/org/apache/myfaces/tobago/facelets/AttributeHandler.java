@@ -21,6 +21,10 @@ import javax.el.ELException;
 import javax.el.MethodExpression;
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
+import javax.el.PropertyNotFoundException;
+import javax.el.MethodInfo;
+import javax.el.ELContext;
+import javax.el.MethodNotFoundException;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.EditableValueHolder;
@@ -29,6 +33,7 @@ import javax.faces.component.ActionSource;
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.el.ELAdaptor;
 import com.sun.facelets.el.LegacyMethodBinding;
+import com.sun.facelets.el.TagMethodExpression;
 import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagException;
@@ -40,6 +45,11 @@ import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.io.Externalizable;
+import java.io.ObjectOutput;
+import java.io.IOException;
+import java.io.ObjectInput;
 
 public final class AttributeHandler extends TagHandler {
   private static final Log LOG = LogFactory.getLog(AttributeHandler.class);
@@ -126,10 +136,20 @@ public final class AttributeHandler extends TagHandler {
     // the method expression can be empty
     // in this case return nothing
     if (value.getValue().startsWith("$")) {
-      Object obj = value.getValueExpression(faceletContext, String.class).getValue(faceletContext);
-      if (obj != null && obj instanceof String && ((String) obj).length() > 0) {
+      try {
+        Object obj = value.getValueExpression(faceletContext, String.class).getValue(faceletContext);
+        if (obj != null && obj instanceof String && ((String) obj).length() > 0) {
+          ExpressionFactory expressionFactory = faceletContext.getExpressionFactory();
+          return expressionFactory.createMethodExpression(faceletContext, (String) obj, returnType, args);
+        }
+      } catch (PropertyNotFoundException e) {
+        // ignore asume
         ExpressionFactory expressionFactory = faceletContext.getExpressionFactory();
-        return expressionFactory.createMethodExpression(faceletContext, (String) obj, returnType, args);
+        String myValue = value.getValue().replaceAll("(\\$\\{)|(\\})", "");
+        ValueExpression expression = faceletContext.getVariableMapper().resolveVariable(myValue);
+
+        return new TagMethodExpression(value, expressionFactory.createMethodExpression(faceletContext,
+                    expression.getExpressionString(), returnType, args));
       }
     } else {
       return value.getMethodExpression(faceletContext, returnType, args);
