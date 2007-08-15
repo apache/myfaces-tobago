@@ -48,7 +48,13 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
 
   protected void applyNextHandler(FaceletContext faceletContext, UIComponent menuCommand)
       throws IOException, FacesException, ELException {
-    nextHandler.apply(faceletContext, menuCommand.getFacet(TobagoConstants.FACET_ITEMS));
+    if (ComponentSupport.isNew(menuCommand)) {
+      UIComponent component = (UIComponent) menuCommand.getFacets().remove(TobagoConstants.FACET_ITEMS);
+      nextHandler.apply(faceletContext, component);
+      menuCommand.getFacets().put(TobagoConstants.FACET_ITEMS, component);
+    } else {
+      nextHandler.apply(faceletContext, menuCommand.getFacet(TobagoConstants.FACET_ITEMS));
+    }
   }
 
   protected void onComponentCreated(FaceletContext faceletContext, UIComponent menuCommand, UIComponent parent) {
