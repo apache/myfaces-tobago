@@ -89,12 +89,12 @@ public final class AttributeHandler extends TagHandler {
           LOG.error("Component is not instanceof SupportsMarkup. Instance is: " + parent.getClass().getName());
         }
       } else if (parent instanceof EditableValueHolder && TobagoConstants.ATTR_VALIDATOR.equals(nameValue)) {
-        MethodExpression methodExpression =  getMethodExpression(faceletContext, null, ComponentUtil.VALIDATOR_ARGS);
+        MethodExpression methodExpression = getMethodExpression(faceletContext, null, ComponentUtil.VALIDATOR_ARGS);
         if (methodExpression != null) {
           // TODO jsf 1.2
           ((EditableValueHolder) parent).setValidator(new LegacyMethodBinding(methodExpression));
         }
-      } else if (parent instanceof EditableValueHolder 
+      } else if (parent instanceof EditableValueHolder
           && TobagoConstants.ATTR_VALUE_CHANGE_LISTENER.equals(nameValue)) {
         MethodExpression methodExpression =
             getMethodExpression(faceletContext, null, ComponentUtil.VALUE_CHANGE_LISTENER_ARGS);
@@ -142,7 +142,7 @@ public final class AttributeHandler extends TagHandler {
         ValueExpression expression = faceletContext.getVariableMapper().resolveVariable(myValue);
 
         return new TagMethodExpression(value, expressionFactory.createMethodExpression(faceletContext,
-                    expression.getExpressionString(), returnType, args));
+            expression.getExpressionString(), returnType, args));
       }
     } else {
       return value.getMethodExpression(faceletContext, returnType, args);
