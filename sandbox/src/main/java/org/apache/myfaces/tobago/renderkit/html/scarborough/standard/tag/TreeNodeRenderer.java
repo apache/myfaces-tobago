@@ -144,13 +144,13 @@ public class TreeNodeRenderer extends CommandRendererBase {
     boolean hasNextSibling = mixedModel.hasCurrentNodeNextSibling();
     List<Boolean> junctions = mixedModel.getJunctions();
 
-    if (! showRoot && junctions.size() > 0) {
+    if (!showRoot && junctions.size() > 0) {
       junctions.remove(0);
     }
 
     CommandRendererHelper helper = new CommandRendererHelper(facesContext, node);
 
-    if (showRoot || ! isRoot) {
+    if (showRoot || !isRoot) {
       writer.startElement(DIV, null);
 
       // div id
