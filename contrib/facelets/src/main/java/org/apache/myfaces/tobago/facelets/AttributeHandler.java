@@ -21,7 +21,6 @@ import javax.el.ELException;
 import javax.el.MethodExpression;
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
-import javax.el.PropertyNotFoundException;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.EditableValueHolder;
@@ -125,22 +124,14 @@ public final class AttributeHandler extends TagHandler {
   }
 
   private MethodExpression getMethodExpression(FaceletContext faceletContext, Class returnType, Class[] args) {
-    // in a composition may be we get the method expression from a value expression
-    // the method expression can be empty
+    // in a composition may be we get the method expression string from the current variable mapper
+    // the expression can be empty
     // in this case return nothing
-    if (value.getValue().startsWith("$")) {
-      try {
-        Object obj = value.getValueExpression(faceletContext, String.class).getValue(faceletContext);
-        if (obj != null && obj instanceof String && ((String) obj).length() > 0) {
-          ExpressionFactory expressionFactory = faceletContext.getExpressionFactory();
-          return expressionFactory.createMethodExpression(faceletContext, (String) obj, returnType, args);
-        }
-      } catch (PropertyNotFoundException e) {
-        // ignore asume
+    if (value.getValue().startsWith("${")) {
+      String myValue = value.getValue().replaceAll("(\\$\\{)|(\\})", "");
+      ValueExpression expression = faceletContext.getVariableMapper().resolveVariable(myValue);
+      if (expression != null) {
         ExpressionFactory expressionFactory = faceletContext.getExpressionFactory();
-        String myValue = value.getValue().replaceAll("(\\$\\{)|(\\})", "");
-        ValueExpression expression = faceletContext.getVariableMapper().resolveVariable(myValue);
-
         return new TagMethodExpression(value, expressionFactory.createMethodExpression(faceletContext,
             expression.getExpressionString(), returnType, args));
       }
