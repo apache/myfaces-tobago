@@ -23,12 +23,12 @@
     <version>1.0.12-SNAPSHOT</version>
   </parent>
   <packaging>pom</packaging>
-  <name>Tobago Contrib</name>
-  <artifactId>tobago-contrib</artifactId>
+  <name>Tobago Extension</name>
+  <artifactId>tobago-extension</artifactId>
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/contrib</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/contrib</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/contrib</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/extension</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/extension</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/extension</url>
   </scm>
   <modules>
     <module>facelets</module>

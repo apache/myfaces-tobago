@@ -19,7 +19,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
-    <artifactId>tobago-contrib</artifactId>
+    <artifactId>tobago-extension</artifactId>
     <version>1.0.12-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-facelets</artifactId>
@@ -27,9 +27,9 @@
   <name>Tobago Facelets</name>
   <description>Tobago-facelets contains the facelets TagHandler for the tobago components and the facelets variant(tf) for the tobago extension taglib.</description>
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/contrib/facelets</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/contrib/facelets</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/contrib/facelets</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/extension/facelets</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/extension/facelets</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/extension/facelets</url>
   </scm>
 
   <build>

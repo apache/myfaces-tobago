@@ -663,7 +663,7 @@
       <id>all-modules</id>
       <modules>
         <module>example</module>
-        <module>contrib</module>
+        <module>extension</module>
         <module>tobago-assembly</module>
         <module>sandbox</module>
       </modules>
@@ -671,7 +671,7 @@
     <profile>
       <id>generate-assembly</id>
       <modules>
-        <module>contrib</module>
+        <module>extension</module>
         <module>example</module>
         <module>tobago-assembly</module>
       </modules>
@@ -779,7 +779,7 @@
         </plugins>
       </build>
       <modules>
-        <module>contrib</module>
+        <module>extension</module>
         <module>example</module>
       </modules>
     </profile>
