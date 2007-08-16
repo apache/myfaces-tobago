@@ -168,7 +168,7 @@
               </execution>
 
               <execution>
-                <id>copy-contrib</id>
+                <id>copy-extension</id>
                 <phase>package</phase>
                 <goals>
                   <goal>copy</goal>
@@ -200,7 +200,7 @@
                     </artifactItem>
 
                   </artifactItems>
-                  <outputDirectory>${project.build.directory}/contrib
+                  <outputDirectory>${project.build.directory}/extension
                   </outputDirectory>
                 </configuration>
               </execution>
