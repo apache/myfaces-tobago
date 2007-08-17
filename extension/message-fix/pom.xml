@@ -39,6 +39,12 @@
       <artifactId>myfaces-api</artifactId>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.apache.shale</groupId>
+      <artifactId>shale-test</artifactId>
+      <version>1.0.4</version>
+      <scope>test</scope>      
+    </dependency>
   </dependencies>
   <profiles>
     <profile>
@@ -94,5 +100,4 @@
       </build>
     </profile>
   </profiles>
-
 </project>

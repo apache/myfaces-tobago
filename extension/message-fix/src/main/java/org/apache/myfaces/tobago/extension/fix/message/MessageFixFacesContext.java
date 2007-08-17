@@ -43,7 +43,7 @@ public class MessageFixFacesContext extends FacesContext {
   private FacesMessage.Severity maximumSeverity;
   private boolean released = false;
 
-  public MessageFixFacesContext(FacesContext facesContext) {
+  MessageFixFacesContext(FacesContext facesContext) {
     this.facesContext = facesContext;
   }
 
