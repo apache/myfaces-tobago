@@ -78,7 +78,7 @@
   http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/blank/ \
   blank</programlisting>
 
-    <para>For building the blank example Java 5 and Maven 2 (at least 2.0.3)
+    <para>For building the blank example Java 5 and Maven 2 (at least 2.0.6)
     are needed. Running Tobago applications in a Java 1.4 environment is
     supported, too. The Tobago distribution contains bytecode transformed
     jars, which were generated with Retrotranslator.</para>
@@ -244,7 +244,7 @@
     decoupling from the rendering tier. It provides its own tag library,
     components and render kit. Besides the JSP tag library, an alternative
     rendering technology called Facelets can be used, too. The
-    <emphasis>contrib</emphasis> folder
+    <emphasis>extension</emphasis> folder
     in the Tobago repository contains the support library to use Facelets
     instead of JSP.</para>
 
@@ -1343,7 +1343,7 @@ public interface InputNumberSliderTagDeclaration extends
     <para>The <literal>onload</literal> attribute instructs Tobago to execute the passed
     JavaScript function after the HTML page was loaded.</para>
 
-    <para>Tobago provides a contribution package <literal>tobago-security</literal> to secure
+    <para>Tobago provides a extension package <literal>tobago-security</literal> to secure
     method bindings with annotations. Currently it is not sufficient to
     include the jar in the classpath, since the order in which the
     <filename>faces-config.xml</filename> files from libraries in the classpath are evaluated is
