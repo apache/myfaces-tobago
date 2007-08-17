@@ -23,7 +23,7 @@
     <version>1.0.12-SNAPSHOT</version>
   </parent>
   <packaging>pom</packaging>
-  <name>Tobago Extension</name>
+  <name>Tobago Extensions</name>
   <artifactId>tobago-extension</artifactId>
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/extension</connection>
