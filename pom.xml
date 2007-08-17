@@ -917,26 +917,32 @@
             <artifactId>docbkx-maven-plugin</artifactId>
             <executions>
               <execution>
+                <id>build-pdf-doc</id>
+                <phase>process-resources</phase>
+                <goals><goal>generate-pdf</goal></goals>
+                <configuration>
+                  <sourceDirectory>${docbook.source}</sourceDirectory>
+                  <targetDirectory>${docbook.target}</targetDirectory>
+                  <includes>tobago-tutorial.xml</includes>
+                  <imgSrcPath>${docbook.source}/</imgSrcPath>
+                </configuration>
+              </execution>
+              <execution>
                 <id>build-chunked-doc</id>
                 <phase>process-resources</phase>
                 <goals>
                   <goal>generate-html</goal>
                 </goals>
                 <configuration>
-                  <sourceDirectory>
-                    ${docbook.source}
-                  </sourceDirectory>
-                  <targetDirectory>
-                    ${docbook.target}
-                  </targetDirectory>
+                  <sourceDirectory>${docbook.source}</sourceDirectory>
+                  <targetDirectory>${docbook.target}</targetDirectory>
                   <includes>tobago-tutorial.xml</includes>
                   <chunkedOutput>true</chunkedOutput>
                   <chunkQuietly>false</chunkQuietly>
                   <postProcess>
                     <mkdir dir="${docbook.target}/resources"/>
                     <copy todir="${docbook.target}/resources">
-                      <fileset
-                          dir="${docbook.source}/resources">
+                      <fileset dir="${docbook.source}/resources">
                         <include name="*.png"/>
                       </fileset>
                     </copy>
