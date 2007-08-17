@@ -90,14 +90,13 @@ public class MessageFixFacesContext extends FacesContext {
       clientIdsWithMessages = new LinkedHashMap<String, List<FacesMessage>>();
     }
     messages.add(message);
-    if (clientId != null) {
-      if (!clientIdsWithMessages.containsKey(clientId)) {
-        List<FacesMessage> facesMessages = new ArrayList<FacesMessage>();
-        facesMessages.add(message);
-        clientIdsWithMessages.put(clientId, facesMessages);
-      } else {
-        clientIdsWithMessages.get(clientId).add(message);
-      }
+
+    if (!clientIdsWithMessages.containsKey(clientId)) {
+      List<FacesMessage> facesMessages = new ArrayList<FacesMessage>();
+      facesMessages.add(message);
+      clientIdsWithMessages.put(clientId, facesMessages);
+    } else {
+      clientIdsWithMessages.get(clientId).add(message);
     }
     FacesMessage.Severity severity = message.getSeverity();
     if (severity != null) {
