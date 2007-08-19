@@ -119,11 +119,13 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     int height = 0;
     height += getMarginAsInt(layout.getMarginTop());
     height += getMarginAsInt(layout.getMarginBottom());
+    boolean first = true;
     for (int i = 0; i < size; i++) {
       if (!rowIsRendered(rows.get(i))) {
         continue;
       }
-      height += getCellPadding(facesContext, layout,  i);
+      height += getCellPadding(facesContext, layout,  first);
+      first = false;
       LayoutToken token = layoutTokens.get(i);
       if (token instanceof PixelLayoutToken) {
         height += ((PixelLayoutToken) token).getPixel();
@@ -177,11 +179,13 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     int width = 0;
     width += getMarginAsInt(layout.getMarginLeft());
     width += getMarginAsInt(layout.getMarginRight());
+    boolean first = true;
     for (int i = 0; i < size; i++) {
       if (!columnIsRendered(rows,  i)) {
         continue;
       }
-      width += getCellPadding(facesContext, layout,  i);
+      width += getCellPadding(facesContext, layout,  first);
+      first = false;
       LayoutToken token = layoutTokens.get(i);
       if (token instanceof PixelLayoutToken) {
         width += ((PixelLayoutToken) token).getPixel();
@@ -259,12 +263,14 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
 
+    boolean first = true;
     if (columnWidths != null) {
       writer.startElement(HtmlConstants.COLGROUP, null);
       for (int i = 0; i < columnWidths.size(); i++) {
         int cellWidth = ((Integer) columnWidths.get(i)).intValue();
         if (cellWidth != LayoutInfo.HIDE) {
-          cellWidth += getCellPadding(facesContext, layout, i);
+          cellWidth += getCellPadding(facesContext, layout, first);
+          first = false;
           writer.startElement(HtmlConstants.COL, null);
           writer.writeAttribute(HtmlAttributes.WIDTH, cellWidth);
           writer.endElement(HtmlConstants.COL);
@@ -275,12 +281,14 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
 
     List<UIGridLayout.Row> rows = layout.ensureRows();
+    boolean firstRenderedRow = true;
     for (int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
       UIGridLayout.Row row = rows.get(rowIndex);
       if (!row.isHidden()) {
         writer.startElement(HtmlConstants.TR, null);
 
         List cells = row.getElements();
+        boolean firstRenderedColum = true;
         for (int columnIndex = 0; columnIndex < cells.size(); columnIndex++) {
           boolean hide = false;
 
@@ -308,10 +316,10 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
             int spanX = UIGridLayout.getSpanX(cell);
             int spanY = UIGridLayout.getSpanY(cell);
             StyleClasses classes = StyleClasses.ensureStyleClassesCopy(layout);
-            if (rowIndex == 0) {
+            if (firstRenderedRow) {
               classes.addClass("gridLayout", "first-row"); // XXX not a standard compliant name
             }
-            if (columnIndex == 0) {
+            if (firstRenderedColum) {
               classes.addClass("gridLayout", "first-column"); // XXX not a standard compliant name
             }
 
@@ -321,7 +329,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
               for (int i = columnIndex;
                    i < columnIndex + spanX && i < columnWidths.size(); i++) {
                 cellWidth += ((Integer) columnWidths.get(i)).intValue()
-                    + getCellPadding(facesContext, layout, i);
+                    + getCellPadding(facesContext, layout, firstRenderedColum);
               }
             }
 
@@ -336,7 +344,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
               // ignore
             } // ignore, use 0
 
-            int topPadding = getCellPadding(facesContext, layout, rowIndex);
+            int topPadding = getCellPadding(facesContext, layout, firstRenderedRow);
             String cellStyle =
                 (cellWidth != -1 ? "width: " + cellWidth + "px;" : "")
                 + (cellHeight != -1 ? " height: " + (cellHeight + topPadding) + "px;" : "");
@@ -367,10 +375,13 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
             writer.endElement(HtmlConstants.DIV);
             writer.endElement(HtmlConstants.TD);
+
+            firstRenderedColum = false;
           }
         }
 
         writer.endElement(HtmlConstants.TR);
+        firstRenderedRow = false;
       }
     }
     writer.endElement(HtmlConstants.TABLE);
@@ -407,8 +418,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   }
 
   private int getCellPadding(
-      FacesContext facesContext, UIComponent component, int i) {
-    return i == 0 ? 0 : getCellSpacing(facesContext, component);
+      FacesContext facesContext, UIComponent component, boolean first) {
+    return first ? 0 : getCellSpacing(facesContext, component);
   }
 
   private int getBorder(UIComponent component) {
