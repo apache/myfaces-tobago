@@ -42,7 +42,7 @@
                 showRoot="true"
           >
         <tcs:treeNode label="Root" id="root" expanded="true">
-          <tcs:treeNodeData value="#{controller.tree}" var="node" id="data">
+          <tcs:treeData value="#{controller.tree}" var="node" id="data">
             <tcs:treeNode label="#{node.userObject.name}"
                           id="template"
                           expanded="#{node.userObject.expanded}"
@@ -51,7 +51,7 @@
                           action="#{node.userObject.action}"
                           disabled="#{node.userObject.disabled}"
                           value="#{node}"/>
-          </tcs:treeNodeData>
+          </tcs:treeData>
           <tcs:treeNode label="2 Action 1" action="#{controller.action1}" id="action1"/>
           <tcs:treeNode label="3 Action 2" action="#{controller.action2}" id="action2"/>
           <tcs:treeNode label="4 Action 3" action="#{controller.action3}" id="action3">

@@ -93,7 +93,7 @@ public class UITree extends UIInput implements NamingContainer {
       if (child instanceof UITreeNode) {
         return child;
       }
-      if (child instanceof UITreeNodeData) {
+      if (child instanceof UITreeData) {
         return child;
       }
     }

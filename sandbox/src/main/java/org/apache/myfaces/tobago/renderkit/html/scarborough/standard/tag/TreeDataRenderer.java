@@ -23,7 +23,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class TreeNodeDataRenderer extends LayoutableRendererBase {
+public class TreeDataRenderer extends LayoutableRendererBase {
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {

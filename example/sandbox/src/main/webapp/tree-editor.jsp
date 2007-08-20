@@ -38,12 +38,12 @@
       fixme: The helping-node "Root" is required in the moment, has to be removed!
       -->
       <tcs:treeNode label="Root">
-        <tcs:treeNodeData value="#{controller.tree}" var="node" id="data">
+        <tcs:treeData value="#{controller.tree}" var="node" id="data">
           <tcs:treeNode label="#{node.userObject.name}" id="template"
                         markup="#{node.userObject.markup}"
                         tip="#{node.userObject.tip}"
                         action="#{node.userObject.action}" value="#{node}"/>
-        </tcs:treeNodeData>
+        </tcs:treeData>
       </tcs:treeNode>
     </tcs:tree>
 

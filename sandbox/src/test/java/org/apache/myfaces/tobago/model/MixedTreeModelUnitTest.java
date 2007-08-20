@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.model;
  */
 
 import junit.framework.TestCase;
+import org.apache.myfaces.tobago.component.UITreeData;
 import org.apache.myfaces.tobago.component.UITreeNode;
-import org.apache.myfaces.tobago.component.UITreeNodeData;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -68,7 +68,7 @@ public class MixedTreeModelUnitTest extends TestCase {
     tree.add(new DefaultMutableTreeNode());
     tree.add(new DefaultMutableTreeNode());
 
-    UITreeNodeData data = new UITreeNodeData();
+    UITreeData data = new UITreeData();
     data.setValue(tree);
     UITreeNode node = new UITreeNode();
 
@@ -92,7 +92,7 @@ public class MixedTreeModelUnitTest extends TestCase {
     tree.add(new DefaultMutableTreeNode());
     tree.add(new DefaultMutableTreeNode());
 
-    UITreeNodeData data = new UITreeNodeData();
+    UITreeData data = new UITreeData();
     data.setValue(tree);
     UITreeNode node = new UITreeNode();
 

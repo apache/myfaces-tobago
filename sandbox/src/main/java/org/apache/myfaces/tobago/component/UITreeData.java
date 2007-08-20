@@ -20,8 +20,8 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.model.TreeModel;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
+import org.apache.myfaces.tobago.model.TreeModel;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.context.FacesContext;
@@ -32,12 +32,12 @@ import javax.faces.event.PhaseId;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 
-public class UITreeNodeData extends javax.faces.component.UIInput
+public class UITreeData extends javax.faces.component.UIInput
     implements NamingContainer, TreeModelBuilder {
 
-  private static final Log LOG = LogFactory.getLog(UITreeNodeData.class);
+  private static final Log LOG = LogFactory.getLog(UITreeData.class);
 
-  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TreeNodeData";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TreeData";
 
   private String var;
 
@@ -258,7 +258,7 @@ public class UITreeNodeData extends javax.faces.component.UIInput
     private String pathIndex;
 
     FacesEventWrapper(FacesEvent facesEvent, String pathIndex,
-        UITreeNodeData redirectComponent) {
+        UITreeData redirectComponent) {
       super(redirectComponent);
       wrappedFacesEvent = facesEvent;
       this.pathIndex = pathIndex;
