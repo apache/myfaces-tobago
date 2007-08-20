@@ -113,7 +113,7 @@ public class Controller {
     return new SimpleDateFormat("hh:MM:ss").format(new Date());
   }
 
-  public DefaultMutableTreeNode getTree() {
+  public  DefaultMutableTreeNode getTree() {
     return tree;
   }
 
