@@ -22,6 +22,8 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.model.TreeState;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Controller {
 
@@ -105,6 +107,10 @@ public class Controller {
       // todo: print a warning or use root?
     }
     return null;
+  }
+
+  public String getCurrentTime() {
+    return new SimpleDateFormat("hh:MM:ss").format(new Date());
   }
 
   public DefaultMutableTreeNode getTree() {
