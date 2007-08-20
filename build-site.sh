@@ -52,4 +52,4 @@ echo "Building tobago site."
 mvn -Pall-modules clean
 mvn -N -Pmojodocbook,docbook-profile --batch-mode
 mvn -Pall-modules install javancss:report jxr:jxr jxr:test-jxr clirr:clirr -Daggregate=false --batch-mode
-mvn -Pall-modules site-deploy -Daggregate=true --batch-mode
+mvn -Pall-modules site-deploy --batch-mode
