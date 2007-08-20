@@ -24,7 +24,7 @@
       <class>org.apache.myfaces.tobago.example.addressbook.Picture</class>
       <!-- QueryCompilationCache must be disabled for the 0.9.7-incubating version.
         See https://issues.apache.org/jira/browse/OPENJPA-256
-        May be can removed if the 1.0.0 version is released
+        May be removed if the 1.0.0 version has been released
       -->
       <properties>
         <property name="openjpa.QueryCompilationCache" value="false"/>
