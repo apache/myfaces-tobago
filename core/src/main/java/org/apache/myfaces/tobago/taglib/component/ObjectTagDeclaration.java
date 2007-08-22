@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.taglib.decl.HasId;
 
 /*
  * Created by IntelliJ IDEA.
@@ -33,7 +34,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 @UIComponentTag(
     uiComponent = "javax.faces.component.UIOutput",
     rendererType = "Object", isComponentAlreadyDefined = true)
-public interface ObjectTagDeclaration extends TobagoTagDeclaration {
+public interface ObjectTagDeclaration extends TobagoTagDeclaration, HasId {
   /**
    * URI to object source
    */

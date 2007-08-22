@@ -44,8 +44,10 @@ public class ObjectRenderer extends LayoutableRendererBase {
         facesContext, "tobago", "browser.noframe.message.prefix");
     writer.writeText(noframes + " ");
     writer.startElement(HtmlConstants.A, component);
-    writer.writeAttributeFromComponent(HtmlAttributes.HREF, ATTR_SRC);
-    writer.writeTextFromComponent(ATTR_SRC);
+    if (component.getAttributes().get(ATTR_SRC) != null) {
+      writer.writeAttributeFromComponent(HtmlAttributes.HREF, ATTR_SRC);
+      writer.writeTextFromComponent(ATTR_SRC);
+    }
     writer.endElement(HtmlConstants.A);
     noframes = ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "browser.noframe.message.postfix");
