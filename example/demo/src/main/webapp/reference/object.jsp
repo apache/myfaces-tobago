@@ -26,7 +26,7 @@
       <f:facet name="layout">
         <tc:gridLayout columns="*" rows="fixed;*"/>
       </f:facet>
-      <tc:link label="Show"
+      <tc:link label="Show Trinidad and Tobago"
          link="http://maps.google.com/maps?f=q&hl=en&q=Tobago+Trinidad+and+Tobago&ie=UTF8&cd=1&geocode=0,11.219535,-60.669460&t=h&om=1&s=AARTsJqqwZcE2iAOIG6P8y5bl0cr1jRrAA&ll=11.257541,-60.652771&spn=0.117851,0.145912&z=12&iwloc=addr&output=embed" target="page:map"/>
       <tc:object id="map" />
     </tc:box>
