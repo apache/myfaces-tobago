@@ -96,7 +96,7 @@ public class TreeListboxRenderer extends TreeOldRenderer{
     writer.writeAttribute(HtmlAttributes.VALUE, value.toString(), true);
     writer.endElement(HtmlConstants.INPUT);
 
-    String scriptText = createJavascript(facesContext, clientId, root);
+    String scriptText = createJavascript(facesContext, clientId, tree, root);
 
     String[] scripts = {"script/tree.js"};
     List<String> scriptFiles = ComponentUtil.findPage(facesContext, tree).getScriptFiles();
@@ -114,7 +114,7 @@ public class TreeListboxRenderer extends TreeOldRenderer{
   }
 
   private String  createJavascript(FacesContext facesContext, String clientId,
-                                   UITreeOldNode root) throws IOException {
+                                    UITreeListbox tree, UITreeOldNode root) throws IOException {
 
     StringBuilder sb = new StringBuilder();
     sb.append("{\n");
@@ -126,6 +126,7 @@ public class TreeListboxRenderer extends TreeOldRenderer{
     sb.append("\";\n");
     sb.append("  };;\n");
 
+    sb.append(getTreeNodeCommandVar(facesContext, tree));
     sb.append(getNodesAsJavascript(facesContext, root));
 
     sb.append("  var hidden =   document.getElementById('");

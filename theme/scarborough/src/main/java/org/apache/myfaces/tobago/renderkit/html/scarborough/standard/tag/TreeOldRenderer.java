@@ -247,7 +247,7 @@ public class TreeOldRenderer extends LayoutableRendererBase {
     return strings;
   }
 
-  private String getTreeNodeCommandVar(FacesContext facesContext, UITreeOld tree) {
+  protected String getTreeNodeCommandVar(FacesContext facesContext, UIComponent tree) {
     String clientId = tree.getClientId(facesContext);
     String jsClientId = TreeOldRenderer.createJavascriptVariable(clientId);
 
