@@ -330,6 +330,9 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
                    i < columnIndex + spanX && i < columnWidths.size(); i++) {
                 cellWidth += ((Integer) columnWidths.get(i)).intValue()
                     + getCellPadding(facesContext, layout, firstRenderedColum);
+                if (firstRenderedColum) {
+                  firstRenderedColum = false;
+                }
               }
             }
 
