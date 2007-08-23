@@ -87,6 +87,9 @@ Tobago.TabGroup.prototype.reload = function(event) {
   LOG.debug("Reload ");
   if (event) {
     var element = Tobago.element(event);
+    if (!element.id) {
+      element = element.parentElement;
+    }
     //LOG.debug(element.className);
     if (element.className && element.className.indexOf("tobago-tab-link") != -1) {
       var aId = Tobago.findAnchestorWithTagName(element, 'span').id;
