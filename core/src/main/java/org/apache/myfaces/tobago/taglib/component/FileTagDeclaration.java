@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
@@ -49,7 +50,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     rendererType = "File")
 public interface FileTagDeclaration
     extends BeanTagDeclaration, HasValidator, HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, IsDisabled,
-    HasLabelAndAccessKey, HasTip, IsReadonly, IsRequired {
+    HasLabelAndAccessKey, HasTip, IsReadonly, IsRequired, HasTabIndex {
 
   /**
    * Value binding expression pointing to a

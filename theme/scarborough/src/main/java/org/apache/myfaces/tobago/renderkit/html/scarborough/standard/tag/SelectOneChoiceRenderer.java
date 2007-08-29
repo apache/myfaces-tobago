@@ -27,6 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UISelectOne;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -35,7 +36,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
@@ -49,45 +49,53 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     return true;
   }
 
-  public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+    if (!(component instanceof UISelectOne)) {
+      LOG.error("Wrong type: Need " + UISelectOne.class.getName() + ", but was " + component.getClass().getName());
+      return;
+    }
+
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
-    UISelectOne component = (UISelectOne) uiComponent;
-    List<SelectItem> items = ComponentUtil.getSelectItems(component);
+    UISelectOne selectOne = (UISelectOne) component;
+    List<SelectItem> items = ComponentUtil.getSelectItems(selectOne);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("items.size() = '" + items.size() + "'");
     }
 
-    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
+    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, selectOne);
 
     boolean disabled = items.size() == 0
-        || ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)
-        || ComponentUtil.getBooleanAttribute(component, ATTR_READONLY);
+        || ComponentUtil.getBooleanAttribute(selectOne, ATTR_DISABLED)
+        || ComponentUtil.getBooleanAttribute(selectOne, ATTR_READONLY);
 
-    writer.startElement(HtmlConstants.SELECT, component);
-    writer.writeNameAttribute(component.getClientId(facesContext));
-    writer.writeIdAttribute(component.getClientId(facesContext));
+    writer.startElement(HtmlConstants.SELECT, selectOne);
+    writer.writeNameAttribute(selectOne.getClientId(facesContext));
+    writer.writeIdAttribute(selectOne.getClientId(facesContext));
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
+    Integer tabIndex = selectOne.getTabIndex();
+    if (tabIndex != null) {
+      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+    }
     writer.writeStyleAttribute();
     writer.writeClassAttribute();
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
-    String onchange = HtmlUtils.generateOnchange(component, facesContext);
+    String onchange = HtmlUtils.generateOnchange(selectOne, facesContext);
     if (onchange != null) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, true);
     }
-    Object[] values = {component.getValue()};
+    Object[] values = {selectOne.getValue()};
 
-    HtmlRendererUtil.renderSelectItems(component, items, values, writer, facesContext);
+    HtmlRendererUtil.renderSelectItems(selectOne, items, values, writer, facesContext);
 
     writer.endElement(HtmlConstants.SELECT);
-    super.encodeEnd(facesContext, component);
-    checkForCommandFacet(component, facesContext, writer);
+    super.encodeEnd(facesContext, selectOne);
+    checkForCommandFacet(selectOne, facesContext, writer);
   }
 
   public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
     return 0;
   }
 }
-

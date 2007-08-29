@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
@@ -91,16 +92,18 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
 
   private String mode;
 
+  private Integer tabIndex;
+
   public UITreeOld() {
     treeCommands = new UITreeOld.Command[]{
-      new UITreeOld.Command(COMMAND_NEW),
-      new UITreeOld.Command(COMMAND_DELETE),
-      new UITreeOld.Command(COMMAND_EDIT),
-      new UITreeOld.Command(COMMAND_CUT),
-      new UITreeOld.Command(COMMAND_COPY),
-      new UITreeOld.Command(COMMAND_PASTE),
-      new UITreeOld.Command(COMMAND_MOVE_UP),
-      new UITreeOld.Command(COMMAND_MOVE_DOWN),
+        new UITreeOld.Command(COMMAND_NEW),
+        new UITreeOld.Command(COMMAND_DELETE),
+        new UITreeOld.Command(COMMAND_EDIT),
+        new UITreeOld.Command(COMMAND_CUT),
+        new UITreeOld.Command(COMMAND_COPY),
+        new UITreeOld.Command(COMMAND_PASTE),
+        new UITreeOld.Command(COMMAND_MOVE_UP),
+        new UITreeOld.Command(COMMAND_MOVE_DOWN),
     };
   }
 
@@ -113,7 +116,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
 
     if (binding != null) {
       FacesContext context = getFacesContext();
-      binding.invoke(context, new Object[] {event});
+      binding.invoke(context, new Object[]{event});
     }
   }
 
@@ -171,6 +174,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     }
     super.encodeBegin(facesContext);
   }
+
   // TODO move this to renderkit
   public void createDefaultToolbar(FacesContext facesContext) {
 
@@ -275,11 +279,11 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
 
   public boolean isSelectableTree() {
     final Object selectable
-        = ComponentUtil.getAttribute(this , TobagoConstants.ATTR_SELECTABLE);
+        = ComponentUtil.getAttribute(this, TobagoConstants.ATTR_SELECTABLE);
     return selectable != null
         && (selectable.equals("multi") || selectable.equals("multiLeafOnly")
-            || selectable.equals("single") || selectable.equals("singleLeafOnly")
-            || selectable.equals("sibling") || selectable.equals("siblingLeafOnly"));
+        || selectable.equals("single") || selectable.equals("singleLeafOnly")
+        || selectable.equals("sibling") || selectable.equals("siblingLeafOnly"));
   }
 
   public void processDecodes(FacesContext facesContext) {
@@ -287,7 +291,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     if (!isRendered()) {
       return;
     }
-    
+
     if (ComponentUtil.isOutputOnly(this)) {
       setValid(true);
     } else {
@@ -352,7 +356,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
   }
 
   public Object saveState(FacesContext context) {
-    Object[] state = new Object[7];
+    Object[] state = new Object[8];
     state[0] = super.saveState(context);
     state[1] = saveAttachedState(context, actionListenerBinding);
     state[2] = showJunctionsSet ? showJunctions : null;
@@ -360,6 +364,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     state[4] = showRootSet ? showRoot : null;
     state[5] = showRootJunctionSet ? showRootJunction : null;
     state[6] = mode;
+    state[7] = tabIndex;
     return state;
   }
 
@@ -384,6 +389,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
       showRootJunctionSet = true;
     }
     mode = (String) values[6];
+    tabIndex = (Integer) values[7];
   }
 
   public UITreeOld.Command[] getCommands() {
@@ -392,7 +398,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
 
   public TreeState getState() {
     if (treeState != null) {
-        return treeState;
+      return treeState;
     }
     ValueBinding valueBinding = getValueBinding(TobagoConstants.ATTR_STATE);
     if (valueBinding != null) {
@@ -404,8 +410,8 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
       }
       return state;
     } else {
-        treeState = new TreeState();
-        return treeState;
+      treeState = new TreeState();
+      return treeState;
     }
   }
 
@@ -415,13 +421,13 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
 
   public boolean isShowJunctions() {
     if (showJunctionsSet) {
-        return (showJunctions);
+      return (showJunctions);
     }
     ValueBinding vb = getValueBinding(TobagoConstants.ATTR_SHOW_JUNCTIONS);
     if (vb != null) {
-        return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
+      return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
-        return (this.showJunctions);
+      return (this.showJunctions);
     }
   }
 
@@ -432,13 +438,13 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
 
   public boolean isShowIcons() {
     if (showIconsSet) {
-        return (showIcons);
+      return (showIcons);
     }
     ValueBinding vb = getValueBinding(TobagoConstants.ATTR_SHOW_ICONS);
     if (vb != null) {
-        return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
+      return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
-        return (this.showIcons);
+      return (this.showIcons);
     }
   }
 
@@ -449,13 +455,13 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
 
   public boolean isShowRoot() {
     if (showRootSet) {
-        return (showRoot);
+      return (showRoot);
     }
     ValueBinding vb = getValueBinding(TobagoConstants.ATTR_SHOW_ROOT);
     if (vb != null) {
-        return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
+      return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
-        return (this.showRoot);
+      return (this.showRoot);
     }
   }
 
@@ -466,13 +472,13 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
 
   public boolean isShowRootJunction() {
     if (showRootJunctionSet) {
-        return (showRootJunction);
+      return (showRootJunction);
     }
     ValueBinding vb = getValueBinding(TobagoConstants.ATTR_SHOW_ROOT_JUNCTION);
     if (vb != null) {
-        return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
+      return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
-        return (this.showRootJunction);
+      return (this.showRootJunction);
     }
   }
 
@@ -491,5 +497,21 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     public String getCommand() {
       return command;
     }
+  }
+
+  public Integer getTabIndex() {
+    if (tabIndex != null) {
+      return tabIndex;
+    }
+    ValueBinding vb = getValueBinding(ATTR_TAB_INDEX);
+    if (vb != null) {
+      return (Integer) vb.getValue(getFacesContext());
+    } else {
+      return null;
+    }
+  }
+
+  public void setTabIndex(Integer tabIndex) {
+    this.tabIndex = tabIndex;
   }
 }

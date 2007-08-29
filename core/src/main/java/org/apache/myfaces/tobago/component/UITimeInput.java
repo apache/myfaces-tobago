@@ -17,11 +17,14 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
+
+import javax.faces.application.Application;
+import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
 import static javax.faces.convert.DateTimeConverter.CONVERTER_ID;
-import javax.faces.application.Application;
-import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import java.util.TimeZone;
 
 /*
@@ -33,6 +36,8 @@ import java.util.TimeZone;
 public class UITimeInput extends javax.faces.component.UIInput {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TimeInput";
+
+  private Integer tabIndex;
 
   public Converter getConverter() {
     Converter converter = super.getConverter();
@@ -47,5 +52,34 @@ public class UITimeInput extends javax.faces.component.UIInput {
       setConverter(dateTimeConverter);
     }
     return converter;
+  }
+
+  public void restoreState(FacesContext context, Object state) {
+    Object[] values = (Object[]) state;
+    super.restoreState(context, values[0]);
+    tabIndex = (Integer) values[1];
+  }
+
+  public Object saveState(FacesContext context) {
+    Object[] values = new Object[2];
+    values[0] = super.saveState(context);
+    values[1] = tabIndex;
+    return values;
+  }
+
+  public Integer getTabIndex() {
+    if (tabIndex != null) {
+      return tabIndex;
+    }
+    ValueBinding vb = getValueBinding(ATTR_TAB_INDEX);
+    if (vb != null) {
+      return (Integer)vb.getValue(getFacesContext());
+    } else {
+      return null;
+    }
+  }
+
+  public void setTabIndex(Integer tabIndex) {
+    this.tabIndex = tabIndex;
   }
 }

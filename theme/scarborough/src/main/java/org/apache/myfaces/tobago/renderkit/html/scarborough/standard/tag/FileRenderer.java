@@ -29,6 +29,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIFileInput;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -39,7 +40,6 @@ import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -67,11 +67,16 @@ public class FileRenderer extends InputRendererBase {
   }
 
   public void decode(FacesContext facesContext, UIComponent component) {
+    if (!(component instanceof UIFileInput)) {
+      LOG.error("Wrong type: Need " + UIFileInput.class.getName() + ", but was " + component.getClass().getName());
+      return;
+    }
+
     if (ComponentUtil.isOutputOnly(component)) {
       return;
     }
 
-    UIInput input = (UIInput) component;
+    UIFileInput input = (UIFileInput) component;
 
     TobagoMultipartFormdataRequest request = null;
     Object requestObject = facesContext.getExternalContext().getRequest();
@@ -104,16 +109,18 @@ public class FileRenderer extends InputRendererBase {
     }
   }
 
-  public void encodeEnd(
-      FacesContext facesContext,
-      UIComponent uiComponent) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+    if (!(component instanceof UIFileInput)) {
+      LOG.error("Wrong type: Need " + UIFileInput.class.getName() + ", but was " + component.getClass().getName());
+      return;
+    }
 
-    UIInput component = (UIInput) uiComponent;
-    String clientId = component.getClientId(facesContext);
+    UIFileInput input = (UIFileInput) component;
+    String clientId = input.getClientId(facesContext);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlConstants.INPUT, component);
+    writer.startElement(HtmlConstants.INPUT, input);
     writer.writeAttribute(HtmlAttributes.TYPE, "file", false);
     writer.writeClassAttribute();
     if (!ClientProperties.getInstance(facesContext).getUserAgent().isMozilla()) {
@@ -121,11 +128,13 @@ public class FileRenderer extends InputRendererBase {
     }
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.READONLY,
-        ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
+    writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED));
+    Integer tabIndex = input.getTabIndex();
+    if (tabIndex != null) {
+      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+    }
     writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
     writer.endElement(HtmlConstants.INPUT);
-
   }
 }
 

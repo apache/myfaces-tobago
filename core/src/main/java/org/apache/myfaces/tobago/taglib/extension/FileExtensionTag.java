@@ -17,15 +17,15 @@ package org.apache.myfaces.tobago.taglib.extension;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.component.FileTag;
 import org.apache.myfaces.tobago.taglib.component.InputTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
 import javax.servlet.jsp.JspException;
@@ -66,6 +66,7 @@ public class FileExtensionTag extends BodyTagSupport
   private String onchange;
   private String labelWidth;
   private String required;
+  private String tabIndex;
 
   private LabelExtensionTag labelTag;
   private FileTag fileTag;
@@ -116,6 +117,9 @@ public class FileExtensionTag extends BodyTagSupport
     if (required != null) {
       fileTag.setRequired(required);
     }
+    if (tabIndex != null) {
+      fileTag.setTabIndex(tabIndex);
+    }
     fileTag.setParent(labelTag);
     fileTag.doStartTag();
 
@@ -143,6 +147,7 @@ public class FileExtensionTag extends BodyTagSupport
     rendered = null;
     valueChangeListener = null;
     required = null;
+    tabIndex = null;
     fileTag = null;
     labelTag = null;
   }
@@ -189,5 +194,9 @@ public class FileExtensionTag extends BodyTagSupport
 
   public void setRequired(String required) {
     this.required = required;
+  }
+
+  public void setTabIndex(String tabIndex) {
+    this.tabIndex = tabIndex;
   }
 }

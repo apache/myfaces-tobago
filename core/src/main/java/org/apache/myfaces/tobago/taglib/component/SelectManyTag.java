@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UISelectMany;
 
-import javax.faces.component.UISelectMany;
 import javax.faces.component.UIComponent;
 
 /**

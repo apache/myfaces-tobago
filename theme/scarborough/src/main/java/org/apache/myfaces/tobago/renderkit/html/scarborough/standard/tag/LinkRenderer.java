@@ -28,7 +28,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UILinkCommand;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -49,25 +49,33 @@ public class LinkRenderer extends CommandRendererBase {
   private static final Log LOG = LogFactory.getLog(LinkRenderer.class);
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+    if (!(component instanceof UILinkCommand)) {
+      LOG.error("Wrong type: Need " + UILinkCommand.class.getName() + ", but was " + component.getClass().getName());
+      return;
+    }
 
-    String clientId = component.getClientId(facesContext);
-    CommandRendererHelper helper
-        = new CommandRendererHelper(facesContext, (UICommand) component, CommandRendererHelper.Tag.ANCHOR);
+    UILinkCommand command = (UILinkCommand) component;
+    String clientId = command.getClientId(facesContext);
+    CommandRendererHelper helper = new CommandRendererHelper(facesContext, command, CommandRendererHelper.Tag.ANCHOR);
     String href = helper.getHref();
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    LabelWithAccessKey label = new LabelWithAccessKey(component);
+    LabelWithAccessKey label = new LabelWithAccessKey(command);
 
     if (helper.isDisabled()) {
-      writer.startElement(HtmlConstants.SPAN, component);
+      writer.startElement(HtmlConstants.SPAN, command);
     } else {
-      writer.startElement(HtmlConstants.A, component);
+      writer.startElement(HtmlConstants.A, command);
       writer.writeAttribute(HtmlAttributes.HREF, href, true);
       if (helper.getOnclick() != null) {
         writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true);
       }
       if (helper.getTarget() != null) {
         writer.writeAttribute(HtmlAttributes.TARGET, helper.getTarget(), true);
+      }
+      Integer tabIndex = command.getTabIndex();
+      if (tabIndex != null) {
+        writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
     }
     writer.writeClassAttribute();
@@ -78,7 +86,7 @@ public class LinkRenderer extends CommandRendererBase {
     writer.flush();
 
 //  image
-    String image = (String) component.getAttributes().get(ATTR_IMAGE);
+    String image = (String) command.getAttributes().get(ATTR_IMAGE);
     if (image != null) {
       if (image.startsWith("HTTP:") || image.startsWith("FTP:") || image.startsWith("/")) {
         // absolute Path to image : nothing to do
@@ -112,6 +120,11 @@ public class LinkRenderer extends CommandRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
+    if (!(component instanceof UILinkCommand)) {
+      LOG.error("Wrong type: Need " + UILinkCommand.class.getName() + ", but was " + component.getClass().getName());
+      return;
+    }
+
     ResponseWriter writer = facesContext.getResponseWriter();
     if (ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
       writer.endElement(HtmlConstants.SPAN);

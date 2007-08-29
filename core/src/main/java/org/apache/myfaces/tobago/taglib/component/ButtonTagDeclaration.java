@@ -18,20 +18,21 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasImage;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
+import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
+import org.apache.myfaces.tobago.taglib.decl.HasTarget;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDefaultCommand;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
-import org.apache.myfaces.tobago.taglib.decl.HasTarget;
-import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 /*
  * Created by IntelliJ IDEA.
@@ -53,6 +54,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
         @Facet(name="popup", description = "Contains a UIPopup instance.")})
 public interface ButtonTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
-    IsDisabled, HasCommandType,
-    IsDefaultCommand, HasDeprecatedWidth, HasTip, IsInline, HasTarget, HasMarkup {
+    IsDisabled, HasCommandType, IsDefaultCommand, HasDeprecatedWidth, HasTip, 
+    IsInline, HasTarget, HasMarkup, HasTabIndex {
 }

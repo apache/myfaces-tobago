@@ -309,7 +309,7 @@ public class TreeOldNodeRenderer extends LayoutableRendererBase {
 
       // open folder icon (not implemented)
       writer.writeText("null", null);
-      writer.writeText(", '", null);
+      writer.writeText(",'", null);
 
       // width
       Integer width = null;
@@ -322,8 +322,16 @@ public class TreeOldNodeRenderer extends LayoutableRendererBase {
       } else {
         writer.writeText("100%", null);
       }
+      writer.writeText("',", null);
 
-      writer.writeText("');\n", null);
+      // tabIndex
+      if (root.getTabIndex() != null) {
+        writer.writeText(root.getTabIndex(), null);
+      } else {
+        writer.writeText("null", null);
+      }
+
+      writer.writeText(");\n", null);
 
 /*
       if (jsParentClientId != null) { // if not the root node

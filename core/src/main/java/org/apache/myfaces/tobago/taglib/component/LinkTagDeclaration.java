@@ -18,18 +18,19 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasImage;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
+import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasTarget;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
-import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 /*
  * Created by IntelliJ IDEA.
@@ -49,7 +50,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
     rendererType = "Link",
     facets = {@Facet(name="confirmation", description = "Contains a UIOutput instance with the confirmation message.")})
 public interface LinkTagDeclaration extends AbstractCommandTagDeclaration,
-    HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled,
-    IsInline, HasCommandType,
-    HasTarget, HasTip, HasImage, HasMarkup {
+    HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, IsInline, 
+    HasCommandType, HasTarget, HasTip, HasImage, HasMarkup, HasTabIndex {
 }

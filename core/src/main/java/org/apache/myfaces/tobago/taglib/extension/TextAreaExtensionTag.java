@@ -17,23 +17,24 @@ package org.apache.myfaces.tobago.taglib.extension;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.component.TextAreaTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
+import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
-import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
-import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -60,8 +61,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.TextAreaTag")
 public class TextAreaExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasIdBindingAndRendered,
-    HasConverter, HasValidator, IsReadonly, IsDisabled, HasMarkup,
-    IsRequired, HasTip, HasLabel, HasLabelWidth, IsFocus, HasOnchange {
+    HasConverter, HasValidator, IsReadonly, IsDisabled, HasMarkup, IsRequired, 
+    HasTip, HasLabel, HasLabelWidth, IsFocus, HasOnchange, HasTabIndex {
 
   private String binding;
   private String converter;
@@ -78,6 +79,7 @@ public class TextAreaExtensionTag extends BodyTagSupport
   private String onchange;
   private String markup;
   private String labelWidth;
+  private String tabIndex;
 
   private LabelExtensionTag labelTag;
   private TextAreaTag textAreaTag;
@@ -87,6 +89,7 @@ public class TextAreaExtensionTag extends BodyTagSupport
 
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
+    labelTag.setRows("*");
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -140,6 +143,9 @@ public class TextAreaExtensionTag extends BodyTagSupport
     if (markup != null) {
       textAreaTag.setMarkup(markup);
     }
+    if (tabIndex != null) {
+      textAreaTag.setTabIndex(tabIndex);
+    }
     textAreaTag.setParent(labelTag);
     textAreaTag.doStartTag();
 
@@ -171,6 +177,7 @@ public class TextAreaExtensionTag extends BodyTagSupport
     onchange = null;
     markup = null;
     valueChangeListener = null;
+    tabIndex = null;
     textAreaTag = null;
     labelTag = null;
   }
@@ -230,7 +237,12 @@ public class TextAreaExtensionTag extends BodyTagSupport
   public void setTip(String tip) {
     this.tip = tip;
   }
+  
   public void setLabelWidth(String labelWidth) {
     this.labelWidth = labelWidth;
+  }
+
+  public void setTabIndex(String tabIndex) {
+    this.tabIndex = tabIndex;
   }
 }

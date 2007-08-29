@@ -17,25 +17,26 @@ package org.apache.myfaces.tobago.taglib.extension;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.component.InTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
+import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasSuggestMethod;
+import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsPassword;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
-import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
-import org.apache.myfaces.tobago.taglib.decl.HasSuggestMethod;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
-import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -62,8 +63,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.InTag")
 public class InExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled, HasOnchange, HasMarkup,
-    IsRequired, HasTip, HasLabel, HasLabelWidth, IsPassword, IsFocus, HasSuggestMethod {
+    HasConverter, IsReadonly, IsDisabled, HasOnchange, HasMarkup, IsRequired, 
+    HasTip, HasLabel, HasLabelWidth, IsPassword, IsFocus, HasSuggestMethod, HasTabIndex {
 
   private String binding;
   private String converter;
@@ -82,6 +83,7 @@ public class InExtensionTag extends BodyTagSupport
   private String suggestMethod;
   private String markup;
   private String labelWidth;
+  private String tabIndex;
 
   private LabelExtensionTag labelTag;
   private InTag inTag;
@@ -151,6 +153,9 @@ public class InExtensionTag extends BodyTagSupport
     if (markup != null) {
       inTag.setMarkup(markup);
     }
+    if (tabIndex != null) {
+      inTag.setTabIndex(tabIndex);
+    }
     inTag.setParent(labelTag);
     inTag.doStartTag();
 
@@ -184,6 +189,7 @@ public class InExtensionTag extends BodyTagSupport
     onchange = null;
     suggestMethod = null;
     markup = null;
+    tabIndex = null;
     inTag = null;
     labelTag = null;
   }
@@ -253,5 +259,9 @@ public class InExtensionTag extends BodyTagSupport
 
   public void setLabelWidth(String labelWidth) {
     this.labelWidth = labelWidth;
+  }
+
+  public void setTabIndex(String tabIndex) {
+    this.tabIndex = tabIndex;
   }
 }

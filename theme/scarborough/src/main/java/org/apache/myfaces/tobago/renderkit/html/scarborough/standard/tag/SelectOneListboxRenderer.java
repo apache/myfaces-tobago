@@ -29,6 +29,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UISelectOne;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -36,7 +37,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
@@ -71,34 +71,42 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     return fixedHeight;
   }
 
-  public void encodeEnd(FacesContext facesContext, UIComponent input) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+    if (!(component instanceof UISelectOne)) {
+      LOG.error("Wrong type: Need " + UISelectOne.class.getName() + ", but was " + component.getClass().getName());
+      return;
+    }
+
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    UISelectOne component = (UISelectOne) input;
-    List<SelectItem> items = ComponentUtil.getSelectItems(component);
+    UISelectOne selectOne = (UISelectOne) component;
+    List<SelectItem> items = ComponentUtil.getSelectItems(selectOne);
 
-    writer.startElement(HtmlConstants.SELECT, component);
-    String clientId = component.getClientId(facesContext);
+    writer.startElement(HtmlConstants.SELECT, selectOne);
+    String clientId = selectOne.getClientId(facesContext);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.DISABLED,
-        ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
+    writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtil.getBooleanAttribute(selectOne, ATTR_DISABLED));
+    Integer tabIndex = selectOne.getTabIndex();
+    if (tabIndex != null) {
+      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+    }
     writer.writeStyleAttribute();
     writer.writeClassAttribute();
     writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
     writer.writeAttribute(HtmlAttributes.SIZE, 2); // should be greater 1
-    if (!ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {
+    if (!ComponentUtil.getBooleanAttribute(selectOne, ATTR_REQUIRED)) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, "Tobago.selectOneListboxChange(this)", false);
       writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneListboxClick(this)", false);
     }
 
-    Object[] values = {component.getValue()};
+    Object[] values = {selectOne.getValue()};
 
-    HtmlRendererUtil.renderSelectItems(component, items, values, writer, facesContext);
+    HtmlRendererUtil.renderSelectItems(selectOne, items, values, writer, facesContext);
 
     writer.endElement(HtmlConstants.SELECT);
-    super.encodeEnd(facesContext, component);
-    checkForCommandFacet(component, facesContext, writer);
+    super.encodeEnd(facesContext, selectOne);
+    checkForCommandFacet(selectOne, facesContext, writer);
   }
 
 

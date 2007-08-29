@@ -17,12 +17,13 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITreeOld;
-import org.apache.myfaces.tobago.TobagoConstants;
 
-import javax.faces.component.UIComponent;
 import javax.faces.component.ActionSource;
+import javax.faces.component.UIComponent;
 
 @Deprecated
 public class TreeOldTag extends TobagoTag implements TreeOldTagDeclaration {
@@ -49,6 +50,8 @@ public class TreeOldTag extends TobagoTag implements TreeOldTagDeclaration {
 
   private String mode;
 
+  private String tabIndex;
+  
   public String getComponentType() {
     return UITreeOld.COMPONENT_TYPE;
   }
@@ -78,6 +81,7 @@ public class TreeOldTag extends TobagoTag implements TreeOldTagDeclaration {
     ComponentUtil.setActionListener((ActionSource) component, actionListener);
     ComponentUtil.setStringProperty(component, TobagoConstants.ATTR_MODE, mode);
     ComponentUtil.setStringProperty(component, TobagoConstants.ATTR_TIP_REFERENCE, tipReference);
+    ComponentUtil.setIntegerProperty(component, ATTR_TAB_INDEX, tabIndex);
   }
 
   public void release() {
@@ -96,6 +100,7 @@ public class TreeOldTag extends TobagoTag implements TreeOldTagDeclaration {
     required = null;
     actionListener = null;
     mode = null;
+    tabIndex = null;
   }
 
   public String getValue() {
@@ -211,5 +216,13 @@ public class TreeOldTag extends TobagoTag implements TreeOldTagDeclaration {
 
   public void setTipReference(String tipReference) {
     this.tipReference = tipReference;
+  }
+
+  public String getTabIndex() {
+    return tabIndex;
+  }
+
+  public void setTabIndex(String tabIndex) {
+    this.tabIndex = tabIndex;
   }
 }

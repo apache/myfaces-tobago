@@ -28,6 +28,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UISelectOne;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -39,7 +40,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectItems;
-import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
@@ -50,17 +50,20 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
   private static final Log LOG = LogFactory.getLog(SelectOneRadioRenderer.class);
 
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent uiComponent) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+    if (!(component instanceof UISelectOne)) {
+      LOG.error("Wrong type: Need " + UISelectOne.class.getName() + ", but was " + component.getClass().getName());
+      return;
+    }
 
-    UISelectOne component = (UISelectOne) uiComponent;
-    String clientId = component.getClientId(facesContext);
+    UISelectOne selectOne = (UISelectOne) component;
+    String clientId = selectOne.getClientId(facesContext);
 
-    ComponentUtil.findPage(facesContext, component)
+    ComponentUtil.findPage(facesContext, selectOne)
         .getOnloadScripts().add("Tobago.selectOneRadioInit('" + clientId + "')");
 
     if (LOG.isDebugEnabled()) {
-      for (Object o : component.getChildren()) {
+      for (Object o : selectOne.getChildren()) {
         LOG.debug("ITEMS " + o);
         if (o instanceof UISelectItems) {
           UISelectItems uiitems = (UISelectItems) o;
@@ -73,14 +76,14 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       }
     }
 
-    List<SelectItem> items = ComponentUtil.getItemsToRender(component);
+    List<SelectItem> items = ComponentUtil.getItemsToRender(selectOne);
 
-    boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
-    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
+    boolean inline = ComponentUtil.getBooleanAttribute(selectOne, ATTR_INLINE);
+    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, selectOne);
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     if (!inline) {
-      writer.startElement(HtmlConstants.TABLE, component);
+      writer.startElement(HtmlConstants.TABLE, selectOne);
       // TODO writer.writeComponentClass();
       writer.writeAttribute(HtmlAttributes.BORDER, 0);
       writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
@@ -92,7 +95,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       }
     }
 
-    Object value = component.getValue();
+    Object value = selectOne.getValue();
     List<String> clientIds = new ArrayList<String>();
     for (SelectItem item : items) {
 
@@ -104,7 +107,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       String id = clientId + NamingContainer.SEPARATOR_CHAR
           + NamingContainer.SEPARATOR_CHAR + item.getValue().toString();
       clientIds.add(id);
-      writer.startElement(HtmlConstants.INPUT, component);
+      writer.startElement(HtmlConstants.INPUT, selectOne);
       writer.writeAttribute(HtmlAttributes.TYPE, "radio", false);
       writer.writeClassAttribute();
       if (item.getValue().equals(value)) {
@@ -113,11 +116,15 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.writeNameAttribute(clientId);
 
       writer.writeIdAttribute(id);
-      String formattedValue = RenderUtil.getFormattedValue(facesContext, component, item.getValue());
+      String formattedValue = RenderUtil.getFormattedValue(facesContext, selectOne, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
       writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled());
+      Integer tabIndex = selectOne.getTabIndex();
+      if (tabIndex != null) {
+        writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+      }
       writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
-      if (!ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {
+      if (!ComponentUtil.getBooleanAttribute(selectOne, ATTR_REQUIRED)) {
         writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneRadioClick(this, '" + clientId + "')", false);
       }
       writer.endElement(HtmlConstants.INPUT);
@@ -163,7 +170,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.endElement(HtmlConstants.TABLE);
     }
 
-    checkForCommandFacet(component, clientIds, facesContext, writer);
+    checkForCommandFacet(selectOne, clientIds, facesContext, writer);
 
   }
 

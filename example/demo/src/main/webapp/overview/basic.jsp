@@ -47,26 +47,26 @@
       <%-- row --%>
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="1*;1*" border="0" />
+          <tc:gridLayout columns="*;*" border="0" />
         </f:facet>
 
         <tc:panel>
           <f:facet name="layout">
-            <tc:gridLayout />
+            <tc:gridLayout rows="fixed;fixed;fixed" />
           </f:facet>
-          <tx:in value="#{overviewController.basicInput}" required="true"
+          <tx:in value="#{overviewController.basicInput}" required="true" tabIndex="1"
               label="#{overviewBundle.basic_textboxLabel}" tip="test"
               suggestMethod="#{overviewController.getInputSuggestItems}" />
-          <tx:date value="#{overviewController.basicDate}"
+          <tx:date value="#{overviewController.basicDate}" tabIndex="3"
               label="#{overviewBundle.basic_dateLabel}" required="true" >
             <f:convertDateTime pattern="dd/MM/yyyy" />
             <tc:validateSubmittedValueLength maximum="10"/>
           </tx:date>
-          <tx:time label="#{overviewBundle.basic_timeLabel}"
+          <tx:time label="#{overviewBundle.basic_timeLabel}" tabIndex="4"
               value="#{overviewController.basicTime}" />
         </tc:panel>
 
-        <tx:textarea value="#{overviewController.basicArea}"
+        <tx:textarea value="#{overviewController.basicArea}" tabIndex="2"
           label="#{overviewBundle.basic_textareaLabel}" />
       </tc:panel>
 
@@ -83,7 +83,7 @@
       <%-- row --%>
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="1*;1*"  border="0"/>
+          <tc:gridLayout columns="*;*"  border="0"/>
         </f:facet>
         <tc:selectOneRadio value="#{overviewController.radioValue}"
                            id="rg0" converter="salutationId">
@@ -121,7 +121,7 @@
       <%-- row --%>
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="120px;*;120px;*;120px" border="0"/>
+          <tc:gridLayout columns="120px;*;120px;*;120px" rows="fixed;fixed" border="0"/>
         </f:facet>
         <tc:link id="link" action="overview/basic"
             actionListener="#{overviewController.click}"
@@ -134,6 +134,7 @@
         <tc:button id="button" action="overview/basic"
             actionListener="#{overviewController.click}"
             label="#{overviewBundle.basic_buttonAction}" />
+
         <tc:cell spanX="5">
           <tx:in value="#{overviewController.lastAction}" readonly="true"
             label="#{overviewBundle.basic_lastActionLabel}" />

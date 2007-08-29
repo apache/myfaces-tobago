@@ -19,12 +19,13 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
@@ -41,6 +42,7 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
   private Boolean password;
   private String[] markup;
   private javax.faces.el.MethodBinding suggestMethod;
+  private Integer tabIndex;
 
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
@@ -50,16 +52,18 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
     password = (Boolean) values[3];
     markup = (String[]) values[4];
     disabled = (Boolean) values[5];
+    tabIndex = (Integer) values[6];
   }
 
   public Object saveState(FacesContext context) {
-    Object[] values = new Object[6];
+    Object[] values = new Object[7];
     values[0] = super.saveState(context);
     values[1] = saveAttachedState(context, suggestMethod);
     values[2] = readonly;
     values[3] = password;
     values[4] = markup;
     values[5] = disabled;
+    values[6] = tabIndex;
     return values;
   }
 
@@ -133,6 +137,21 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
     this.suggestMethod = suggestMethod;
   }
 
+  public Integer getTabIndex() {
+    if (tabIndex != null) {
+      return tabIndex;
+    }
+    ValueBinding vb = getValueBinding(ATTR_TAB_INDEX);
+    if (vb != null) {
+      return (Integer)vb.getValue(getFacesContext());
+    } else {
+      return null;
+    }
+  }
+
+  public void setTabIndex(Integer tabIndex) {
+    this.tabIndex = tabIndex;
+  }
 
   // TODO can this removed?
   public void updateModel(FacesContext facesContext) {
@@ -160,4 +179,5 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
       AjaxUtils.processAjaxOnChildren(facesContext, this);
     }
   }
+
 }

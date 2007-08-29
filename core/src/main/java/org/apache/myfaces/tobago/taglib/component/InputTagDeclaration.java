@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
@@ -28,6 +29,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
  * $Id: $
  */
 public interface InputTagDeclaration extends BeanTagDeclaration, HasValidator,
-    HasOnchange, HasValue, HasValueChangeListener {
+    HasOnchange, HasValue, HasValueChangeListener, HasTabIndex {
 
 }

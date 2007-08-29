@@ -305,7 +305,7 @@ function TreeOldNode(label, tip, id, mode, isFolder,
     hideRoot, treeHiddenId, selectable, mutable,
     formId, selected, marked,
     expanded, required, disabled, treeResources,
-    action, onclick, parent, icon, openIcon, width) {
+    action, onclick, parent, icon, openIcon, width, tabIndex) {
   this.label = label;
   this.tip = tip;
   this.id = id;
@@ -333,6 +333,8 @@ function TreeOldNode(label, tip, id, mode, isFolder,
   this.openIcon = openIcon
       || treeResources.getImage("openfoldericon.gif");
   this.width = width;
+  this.tabIndex = tabIndex;
+  
   this.childNodes = [];
   this.onfocus = "storeMarker(this.parentNode, '" + treeHiddenId + "')";
 
@@ -453,6 +455,9 @@ TreeOldNode.prototype.toString = function (depth, last) {
         str += ' title="' + this.tip + '"';
       }
       if (!this.disabled) {
+        if (this.tabIndex != null) {
+          str += ' tabindex="' + this.tabIndex + "'";
+        }
         str += ' href="' + Tobago.EMPTY_HREF +  '"'
             + ' onclick="Tobago.TreeOld.onClick(this)"'
             + ' ondblclick="Tobago.TreeOld.onDblClick(this)"'

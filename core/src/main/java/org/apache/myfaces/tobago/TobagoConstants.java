@@ -80,6 +80,7 @@ public final class TobagoConstants {
   public static final String ATTR_MARGIN_LEFT = "marginLeft";
   public static final String ATTR_MARGIN_RIGHT = "marginRight";
   public static final String ATTR_MARGIN_TOP = "marginTop";
+  public static final String ATTR_MARKED = "marked";
   public static final String ATTR_MODAL = "modal";
   public static final String ATTR_LAYOUT_ORDER = "layoutOrder";
   //public static final String ATTR_LAYOUT_TABLE_STYLE = "layoutTableStyle";
@@ -173,6 +174,7 @@ public final class TobagoConstants {
   public static final String ATTR_WIDTH_LIST_STRING = "widthListString";
   public static final String ATTR_APPLICATION_ICON = "applicationIcon";
   public static final String ATTR_VALIDATOR = "validator";
+  public static final String ATTR_TAB_INDEX = "tabIndex";
 
   public static final String FACET_ACTION = "action";
   public static final String FACET_CONFIRMATION = "confirmation";

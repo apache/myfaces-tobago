@@ -22,10 +22,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -34,15 +37,19 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class TextAreaRenderer extends InputRendererBase {
 
+  private static final Log LOG = LogFactory.getLog(TextAreaRenderer.class);
+
   @Override
-  public void encodeEnd(FacesContext facesContext,
-        UIComponent component) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+    if (!(component instanceof UIInput)) {
+      LOG.error("Wrong type: Need " + UIInput.class.getName() + ", but was " + component.getClass().getName());
+      return;
+    }
 
     UIInput input = (UIInput) component;
     String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
@@ -62,6 +69,10 @@ public class TextAreaRenderer extends InputRendererBase {
         ComponentUtil.getBooleanAttribute(input, ATTR_READONLY));
     writer.writeAttribute(HtmlAttributes.DISABLED,
         ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED));
+    Integer tabIndex = input.getTabIndex();
+    if (tabIndex != null) {
+      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+    }
     writer.writeStyleAttribute();
     writer.writeClassAttribute();
     if (onchange != null) {

@@ -73,5 +73,6 @@ public final class HtmlAttributes {
   public static final String CLASS = "class";
   public static final String MAXLENGTH = "maxlength";
   public static final String LABEL = "label";
+  public static final String TABINDEX = "tabindex";
 }
 

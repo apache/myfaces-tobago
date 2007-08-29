@@ -50,10 +50,9 @@ import java.util.Map;
  * Date: 30.05.2006
  * Time: 19:22:40
  */
-public class UIDatePicker extends UICommand implements OnComponentCreated {
+public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
 
-  public static final String COMPONENT_TYPE =
-      "org.apache.myfaces.tobago.DatePicker";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.DatePicker";
 
   private String forComponent;
 

@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOCUS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCHANGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
@@ -35,6 +36,7 @@ public abstract class InputTag extends BeanTag implements InputTagDeclaration {
   private String tip;
   private String validator;
   private String valueChangeListener;
+  private String tabIndex;
 
   public void release() {
     super.release();
@@ -43,6 +45,7 @@ public abstract class InputTag extends BeanTag implements InputTagDeclaration {
     tip = null;
     validator = null;
     valueChangeListener = null;
+    tabIndex = null;
   }
 
   protected void setProperties(UIComponent component) {
@@ -50,6 +53,7 @@ public abstract class InputTag extends BeanTag implements InputTagDeclaration {
     ComponentUtil.setStringProperty(component, ATTR_ONCHANGE, onchange);
     ComponentUtil.setBooleanProperty(component, ATTR_FOCUS, focus);
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
+    ComponentUtil.setIntegerProperty(component, ATTR_TAB_INDEX, tabIndex);
     if (component instanceof EditableValueHolder) {
       EditableValueHolder editableValueHolder = (EditableValueHolder) component;
       ComponentUtil.setValidator(editableValueHolder, validator);
@@ -114,6 +118,14 @@ public abstract class InputTag extends BeanTag implements InputTagDeclaration {
 
   public void setValueChangeListener(String valueChangeListener) {
     this.valueChangeListener = valueChangeListener;
+  }
+
+  public String getTabIndex() {
+    return tabIndex;
+  }
+
+  public void setTabIndex(String tabIndex) {
+    this.tabIndex = tabIndex;
   }
 }
 

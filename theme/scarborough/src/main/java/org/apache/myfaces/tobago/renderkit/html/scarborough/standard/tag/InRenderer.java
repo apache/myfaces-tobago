@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -41,7 +42,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
@@ -55,28 +55,27 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
   private static final Log LOG = LogFactory.getLog(InRenderer.class);
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent component)
-        throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+    if (!(component instanceof UIInput)) {
+      LOG.error("Wrong type: Need " + UIInput.class.getName() + ", but was " + component.getClass().getName());
+      return;
+    }
+    UIInput input = (UIInput) component;
 
-    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
+    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, input);
 
-    String currentValue = getCurrentValue(facesContext, component);
+    String currentValue = getCurrentValue(facesContext, input);
     if (LOG.isDebugEnabled()) {
       LOG.debug("currentValue = '" + currentValue + "'");
     }
-    String type = ComponentUtil.getBooleanAttribute(component,
+    String type = ComponentUtil.getBooleanAttribute(input,
         ATTR_PASSWORD) ? "password" : "text";
 
     // Todo: check for valid binding
-    boolean renderAjaxSuggest = false;
-    if (component instanceof org.apache.myfaces.tobago.component.UIInput) {
-      renderAjaxSuggest =
-          ((org.apache.myfaces.tobago.component.UIInput) component).getSuggestMethod() != null;
-    }
-
-    String id = component.getClientId(facesContext);
+    boolean renderAjaxSuggest = input.getSuggestMethod() != null;
+    String id = input.getClientId(facesContext);
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlConstants.INPUT, component);
+    writer.startElement(HtmlConstants.INPUT, input);
     writer.writeAttribute(HtmlAttributes.TYPE, type, false);
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
@@ -87,28 +86,27 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     int maxLength = 0;
-    if (component instanceof EditableValueHolder) {
-      EditableValueHolder editableValueHolder = (EditableValueHolder) component;
-      for (Validator validator : editableValueHolder.getValidators()) {
-        if (validator instanceof LengthValidator) {
-          LengthValidator lengthValidator = (LengthValidator) validator;
-          maxLength = lengthValidator.getMaximum();
-        }
+    for (Validator validator : input.getValidators()) {
+      if (validator instanceof LengthValidator) {
+        LengthValidator lengthValidator = (LengthValidator) validator;
+        maxLength = lengthValidator.getMaximum();
       }
     }
     if (maxLength > 0) {
       writer.writeAttribute(HtmlAttributes.MAXLENGTH, maxLength);
     }
-    writer.writeAttribute(HtmlAttributes.READONLY,
-        ComponentUtil.getBooleanAttribute(component, ATTR_READONLY));
-    writer.writeAttribute(HtmlAttributes.DISABLED,
-        ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
+    writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtil.getBooleanAttribute(input, ATTR_READONLY));
+    writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED));
+    Integer tabIndex = input.getTabIndex();
+    if (tabIndex != null) {
+      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+    }
     writer.writeStyleAttribute();
 
     if (currentValue != null && currentValue.length() > 0
-        && ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {
-      StyleClasses styleClasses = StyleClasses.ensureStyleClasses(component);
-      String rendererName = HtmlRendererUtil.getRendererName(facesContext, component);
+        && ComponentUtil.getBooleanAttribute(input, ATTR_REQUIRED)) {
+      StyleClasses styleClasses = StyleClasses.ensureStyleClasses(input);
+      String rendererName = HtmlRendererUtil.getRendererName(facesContext, input);
       styleClasses.removeAspectClass(rendererName, StyleClasses.Aspect.REQUIRED);
     }
     writer.writeClassAttribute();
@@ -124,26 +122,26 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     } */
     writer.endElement(HtmlConstants.INPUT);
 
-    checkForCommandFacet(component, facesContext, writer);
+    checkForCommandFacet(input, facesContext, writer);
 
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_REQUIRED)) {
-      String rendererName = HtmlRendererUtil.getRendererName(facesContext, component);
+    if (ComponentUtil.getBooleanAttribute(input, ATTR_REQUIRED)) {
+      String rendererName = HtmlRendererUtil.getRendererName(facesContext, input);
       final String[] cmds = {
-         "new Tobago.In(\"" + id + "\", true ,\"" + StyleClasses.PREFIX + rendererName + "\"  );"
+          "new Tobago.In(\"" + id + "\", true ,\"" + StyleClasses.PREFIX + rendererName + "\"  );"
       };
 
       HtmlRendererUtil.writeScriptLoader(facesContext, null, cmds);
     }
 
     // focus
-    HtmlRendererUtil.renderFocusId(facesContext, component);
+    HtmlRendererUtil.renderFocusId(facesContext, input);
 
     // input suggest
     if (renderAjaxSuggest) {
 
       String popupId = id + SUBCOMPONENT_SEP + "ajaxPopup";
 
-      final UIPage page = ComponentUtil.findPage(facesContext, component);
+      final UIPage page = ComponentUtil.findPage(facesContext, input);
       page.getScriptFiles().add("script/effects.js");
       page.getScriptFiles().add("script/dragdrop.js");
       page.getScriptFiles().add("script/controls.js");
@@ -177,13 +175,15 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
 
   }
 
-  public void encodeAjax(FacesContext context, UIComponent uiComponent) throws IOException {
-    AjaxUtils.checkParamValidity(context, uiComponent,
-        org.apache.myfaces.tobago.component.UIInput.class);
+  public void encodeAjax(FacesContext context, UIComponent component) throws IOException {
+    if (!(component instanceof UIInput)) {
+      LOG.error("Wrong type: Need " + UIInput.class.getName() + ", but was " + component.getClass().getName());
+      return;
+    }
 
+    AjaxUtils.checkParamValidity(context, component, UIInput.class);
 
-    org.apache.myfaces.tobago.component.UIInput input =
-        (org.apache.myfaces.tobago.component.UIInput) uiComponent;
+    UIInput input = (UIInput) component;
 
     MethodBinding mb;
     Object o = input.getSuggestMethod();
@@ -200,7 +200,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
 //        : DEFAULT_MAX_SUGGESTED_ITEMS;
 
     List suggesteds = (List) mb.invoke(context, new Object[]{
-        AjaxPhaseListener.getValueForComponent(context, uiComponent)});
+        AjaxPhaseListener.getValueForComponent(context, component)});
 
     writer.startElement(HtmlConstants.UL, null);
     int suggestedCount = 0;
@@ -216,4 +216,3 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     context.responseComplete();
   }
 }
-

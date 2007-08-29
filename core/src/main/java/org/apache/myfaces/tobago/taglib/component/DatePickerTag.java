@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 
@@ -33,30 +34,40 @@ import javax.faces.component.UIComponent;
 public class DatePickerTag extends AbstractCommandTag implements DatePickerTagDeclaration {
 
   private String forComponent;
+  private String tabIndex;
 
   @Override
   public String getComponentType() {
     return UIDatePicker.COMPONENT_TYPE;
   }
 
-  public String getFor() {
-    return forComponent;
-  }
-
   @Override
   public void release() {
     super.release();
     forComponent = null;
-  }
-
-  public void setFor(String forComponent) {
-    this.forComponent = forComponent;
+    tabIndex = null;
   }
 
   @Override
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     ComponentUtil.setStringProperty(component, ATTR_FOR, forComponent);
+    ComponentUtil.setIntegerProperty(component, ATTR_TAB_INDEX, tabIndex);
   }
 
+  public String getFor() {
+    return forComponent;
+  }
+
+  public void setFor(String forComponent) {
+    this.forComponent = forComponent;
+  }
+
+  public String getTabIndex() {
+    return tabIndex;
+  }
+
+  public void setTabIndex(String tabIndex) {
+    this.tabIndex = tabIndex;
+  }
 }

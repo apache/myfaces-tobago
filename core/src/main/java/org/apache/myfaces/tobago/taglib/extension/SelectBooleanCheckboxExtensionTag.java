@@ -17,21 +17,22 @@ package org.apache.myfaces.tobago.taglib.extension;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
-import org.apache.myfaces.tobago.taglib.decl.HasLabel;
-import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
-import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
-import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
-import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasTip;
-import org.apache.myfaces.tobago.taglib.decl.HasValidator;
-import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
-import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.component.SelectBooleanCheckboxTag;
 import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
+import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
+import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
+import org.apache.myfaces.tobago.taglib.decl.HasTip;
+import org.apache.myfaces.tobago.taglib.decl.HasValidator;
+import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
+import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -49,7 +50,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.SelectBooleanCheckboxTag")
 public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements TobagoTagDeclaration,
     HasValidator, HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabel,
-    HasBooleanValue, HasLabelWidth, IsDisabled, HasTip, IsReadonly, HasMarkup {
+    HasBooleanValue, HasLabelWidth, IsDisabled, HasTip, IsReadonly, HasMarkup, HasTabIndex {
 
   private String value;
   private String valueChangeListener;
@@ -64,6 +65,7 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
   private String validator;
   private String labelWidth;
   private String markup;
+  private String tabIndex;
 
   private LabelExtensionTag labelTag;
   private SelectBooleanCheckboxTag selectBooleanCheckboxTag;
@@ -134,6 +136,9 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     if (markup != null) {
       selectBooleanCheckboxTag.setMarkup(markup);
     }
+    if (tabIndex != null) {
+      selectBooleanCheckboxTag.setTabIndex(tabIndex);
+    }
     selectBooleanCheckboxTag.setParent(labelTag);
     selectBooleanCheckboxTag.doStartTag();
 
@@ -163,6 +168,7 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     value = null;
     valueChangeListener = null;
     markup = null;
+    tabIndex = null;
   }
 
   public void setValue(String value) {
@@ -218,4 +224,7 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     this.markup = markup;
   }
 
+  public void setTabIndex(String tabIndex) {
+    this.tabIndex = tabIndex;
+  }
 }

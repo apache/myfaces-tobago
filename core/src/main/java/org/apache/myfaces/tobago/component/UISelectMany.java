@@ -19,8 +19,10 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
 
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import java.io.IOException;
 
 /*
@@ -35,17 +37,20 @@ public class UISelectMany extends javax.faces.component.UISelectMany implements 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SelectMany";
 
   private String[] markup;
+  private Integer tabIndex;
 
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
     markup = (String[]) values[1];
+    tabIndex = (Integer) values[2];
   }
 
   public Object saveState(FacesContext context) {
-    Object[] values = new Object[2];
+    Object[] values = new Object[3];
     values[0] = super.saveState(context);
     values[1] = markup;
+    values[2] = tabIndex;
     return values;
   }
 
@@ -66,4 +71,21 @@ public class UISelectMany extends javax.faces.component.UISelectMany implements 
     UILayout.getLayout(this).layoutBegin(facesContext, this);
     super.encodeBegin(facesContext);
   }
+
+  public Integer getTabIndex() {
+    if (tabIndex != null) {
+      return tabIndex;
+    }
+    ValueBinding vb = getValueBinding(ATTR_TAB_INDEX);
+    if (vb != null) {
+      return (Integer)vb.getValue(getFacesContext());
+    } else {
+      return null;
+    }
+  }
+
+  public void setTabIndex(Integer tabIndex) {
+    this.tabIndex = tabIndex;
+  }
+
 }

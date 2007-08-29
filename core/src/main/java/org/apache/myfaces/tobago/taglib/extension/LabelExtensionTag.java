@@ -17,14 +17,14 @@ package org.apache.myfaces.tobago.taglib.extension;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.Tag;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.component.GridLayoutTag;
 import org.apache.myfaces.tobago.taglib.component.LabelTag;
 import org.apache.myfaces.tobago.taglib.component.PanelTag;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 
 import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
@@ -39,6 +39,7 @@ public class LabelExtensionTag extends BodyTagSupport
   private String tip;
   private String rendered;
   private String columns = "fixed;*";
+  private String rows = "fixed";
 
   private PanelTag panelTag;
 
@@ -62,6 +63,7 @@ public class LabelExtensionTag extends BodyTagSupport
     GridLayoutTag gridLayoutTag = new GridLayoutTag();
     gridLayoutTag.setPageContext(pageContext);
     gridLayoutTag.setColumns(columns);
+    gridLayoutTag.setRows(rows);
     gridLayoutTag.setParent(facetTag);
     gridLayoutTag.doStartTag();
     gridLayoutTag.doEndTag();
@@ -97,6 +99,7 @@ public class LabelExtensionTag extends BodyTagSupport
     tip = null;
     rendered = null;
     columns = "fixed;*";
+    rows = "fixed";
     panelTag = null;
   }
 
@@ -114,5 +117,9 @@ public class LabelExtensionTag extends BodyTagSupport
 
   void setColumns(String columns) {
     this.columns = columns;
+  }
+
+  public void setRows(String rows) {
+    this.rows = rows;
   }
 }

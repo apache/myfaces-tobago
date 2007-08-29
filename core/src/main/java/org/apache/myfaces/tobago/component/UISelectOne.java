@@ -17,10 +17,12 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
 import org.apache.myfaces.tobago.util.MessageFactory;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import java.io.IOException;
 
 /*
@@ -34,20 +36,22 @@ public class UISelectOne extends javax.faces.component.UISelectOne implements Su
   public static final String MESSAGE_VALUE_REQUIRED = "tobago.SelectOne.MESSAGE_VALUE_REQUIRED";
 
   private String[] markup;
+  private Integer tabIndex;
 
   public void restoreState(FacesContext context, Object state) {
-     Object[] values = (Object[]) state;
-     super.restoreState(context, values[0]);
-     markup = (String[]) values[1];
-   }
+    Object[] values = (Object[]) state;
+    super.restoreState(context, values[0]);
+    markup = (String[]) values[1];
+    tabIndex = (Integer) values[2];
+  }
 
-   public Object saveState(FacesContext context) {
-     Object[] values = new Object[2];
-     values[0] = super.saveState(context);
-     values[1] = markup;
-     return values;
-   }
-
+  public Object saveState(FacesContext context) {
+    Object[] values = new Object[3];
+    values[0] = super.saveState(context);
+    values[1] = markup;
+    values[2] = tabIndex;
+    return values;
+  }
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
     // TODO change this should be renamed to DimensionUtils.prepare!!!
@@ -78,6 +82,22 @@ public class UISelectOne extends javax.faces.component.UISelectOne implements Su
 
   public void setMarkup(String[] markup) {
     this.markup = markup;
+  }
+
+  public Integer getTabIndex() {
+    if (tabIndex != null) {
+      return tabIndex;
+    }
+    ValueBinding vb = getValueBinding(ATTR_TAB_INDEX);
+    if (vb != null) {
+      return (Integer)vb.getValue(getFacesContext());
+    } else {
+      return null;
+    }
+  }
+
+  public void setTabIndex(Integer tabIndex) {
+    this.tabIndex = tabIndex;
   }
 
 }

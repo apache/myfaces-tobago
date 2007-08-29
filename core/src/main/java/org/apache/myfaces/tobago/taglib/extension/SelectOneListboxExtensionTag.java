@@ -17,24 +17,25 @@ package org.apache.myfaces.tobago.taglib.extension;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.component.SelectOneListboxTag;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedHeight;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -53,7 +54,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class SelectOneListboxExtensionTag
     extends BodyTagSupport implements HasId, HasValue, HasValueChangeListener, IsDisabled,
     HasLabel, HasLabelWidth, IsReadonly, HasOnchange, IsRendered,
-    HasBinding, HasDeprecatedHeight, HasTip , IsRequired, HasConverter, HasValidator {
+    HasBinding, HasDeprecatedHeight, HasTip , IsRequired, HasConverter, HasValidator, HasTabIndex {
   private String required;
   private String value;
   private String valueChangeListener;
@@ -69,6 +70,7 @@ public class SelectOneListboxExtensionTag
   private String converter;
   private String validator;
   private String labelWidth;
+  private String tabIndex;
 
   private LabelExtensionTag labelTag;
   private SelectOneListboxTag selectOneListboxTag;
@@ -78,6 +80,7 @@ public class SelectOneListboxExtensionTag
 
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
+    labelTag.setRows("*");
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -131,6 +134,9 @@ public class SelectOneListboxExtensionTag
     if (required != null) {
       selectOneListboxTag.setRequired(required);
     }
+    if (tabIndex != null) {
+      selectOneListboxTag.setTabIndex(tabIndex);
+    }
     selectOneListboxTag.setParent(labelTag);
     selectOneListboxTag.doStartTag();
 
@@ -162,6 +168,7 @@ public class SelectOneListboxExtensionTag
     tip = null;
     value = null;
     valueChangeListener = null;
+    tabIndex = null;
     selectOneListboxTag = null;
     labelTag = null;
   }
@@ -202,7 +209,6 @@ public class SelectOneListboxExtensionTag
     this.height = height;
   }
 
-
   public void setValidator(String validator) {
     this.validator = validator;
   }
@@ -225,5 +231,9 @@ public class SelectOneListboxExtensionTag
 
   public void setLabelWidth(String labelWidth) {
     this.labelWidth = labelWidth;
+  }
+
+  public void setTabIndex(String tabIndex) {
+    this.tabIndex = tabIndex;
   }
 }

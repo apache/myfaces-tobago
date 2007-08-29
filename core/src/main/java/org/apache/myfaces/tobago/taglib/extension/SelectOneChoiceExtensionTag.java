@@ -17,24 +17,25 @@ package org.apache.myfaces.tobago.taglib.extension;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.component.SelectOneChoiceTag;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -49,7 +50,7 @@ public class SelectOneChoiceExtensionTag
     extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled,
     IsReadonly, HasOnchange, IsInline, HasLabel, HasLabelWidth, IsRequired,
-    IsRendered, HasBinding, HasTip , HasValidator, HasConverter {
+    IsRendered, HasBinding, HasTip , HasValidator, HasConverter, HasTabIndex {
 
   private String required;
   private String value;
@@ -65,6 +66,7 @@ public class SelectOneChoiceExtensionTag
   private String validator;
   private String converter;
   private String labelWidth;
+  private String tabIndex;
 
   private LabelExtensionTag labelTag;
   private SelectOneChoiceTag selectOneChoiceTag;
@@ -125,6 +127,9 @@ public class SelectOneChoiceExtensionTag
     if (required != null) {
       selectOneChoiceTag.setRequired(required);
     }
+    if (tabIndex != null) {
+      selectOneChoiceTag.setTabIndex(tabIndex);
+    }
     selectOneChoiceTag.setParent(labelTag);
     selectOneChoiceTag.doStartTag();
 
@@ -155,6 +160,7 @@ public class SelectOneChoiceExtensionTag
     tip = null;
     value = null;
     valueChangeListener = null;
+    tabIndex = null;
     selectOneChoiceTag = null;
     labelTag = null;
   }
@@ -215,4 +221,7 @@ public class SelectOneChoiceExtensionTag
     this.labelWidth = labelWidth;
   }
 
+  public void setTabIndex(String tabIndex) {
+    this.tabIndex = tabIndex;
+  }
 }

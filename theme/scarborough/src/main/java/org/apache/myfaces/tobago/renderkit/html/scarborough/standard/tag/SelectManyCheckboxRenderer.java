@@ -26,6 +26,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UISelectMany;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -36,7 +37,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
@@ -48,25 +48,28 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
   private static final Log LOG = LogFactory.getLog(SelectManyCheckboxRenderer.class);
 
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent uiComponent) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+    if (!(component instanceof UISelectMany)) {
+      LOG.error("Wrong type: Need " + UISelectMany.class.getName() + ", but was " + component.getClass().getName());
+      return;
+    }
 
-    UISelectMany component = (UISelectMany) uiComponent;
+    UISelectMany selectMany = (UISelectMany) component;
 
-    List<SelectItem> items = ComponentUtil.getItemsToRender(component);
+    List<SelectItem> items = ComponentUtil.getItemsToRender(selectMany);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    Object[] values = component.getSelectedValues();
+    Object[] values = selectMany.getSelectedValues();
     if (LOG.isDebugEnabled()) {
       LOG.debug("values = '" + Arrays.toString(values) + "'");
     }
-    String id = component.getClientId(facesContext);
+    String id = selectMany.getClientId(facesContext);
 
-    boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
-    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
+    boolean inline = ComponentUtil.getBooleanAttribute(selectMany, ATTR_INLINE);
+    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, selectMany);
     if (!inline) {
-      writer.startElement(HtmlConstants.TABLE, component);
+      writer.startElement(HtmlConstants.TABLE, selectMany);
       // TODO writer.writeComponentClass();
       writer.writeAttribute(HtmlAttributes.BORDER, 0);
       writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
@@ -88,16 +91,20 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
           + NamingContainer.SEPARATOR_CHAR + NamingContainer.SEPARATOR_CHAR
           + item.getValue().toString();
       clientIds.add(itemId);
-      writer.startElement(HtmlConstants.INPUT, component);
+      writer.startElement(HtmlConstants.INPUT, selectMany);
       writer.writeAttribute(HtmlAttributes.TYPE, "checkbox", false);
 
       writer.writeClassAttribute();
       writer.writeAttribute(HtmlAttributes.CHECKED, RenderUtil.contains(values, item.getValue()));
       writer.writeNameAttribute(id);
       writer.writeIdAttribute(itemId);
-      String formattedValue = RenderUtil.getFormattedValue(facesContext, component, item.getValue());
+      String formattedValue = RenderUtil.getFormattedValue(facesContext, selectMany, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
       writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled());
+      Integer tabIndex = selectMany.getTabIndex();
+      if (tabIndex != null) {
+        writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+      }
       writer.endElement(HtmlConstants.INPUT);
 
       if (LOG.isDebugEnabled()) {
@@ -141,15 +148,22 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     if (!inline) {
       writer.endElement(HtmlConstants.TABLE);
     }
-    checkForCommandFacet(component, clientIds, facesContext, writer);
+    checkForCommandFacet(selectMany, clientIds, facesContext, writer);
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    int heightPerRow = super.getFixedHeight(facesContext, component);
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
+    if (!(component instanceof UISelectMany)) {
+      LOG.error("Wrong type: Need " + UISelectMany.class.getName() + ", but was " + component.getClass().getName());
+      return 100;
+    }
+
+    UISelectMany selectMany = (UISelectMany) component;
+
+    int heightPerRow = super.getFixedHeight(facesContext, selectMany);
+    if (ComponentUtil.getBooleanAttribute(selectMany, ATTR_INLINE)) {
       return heightPerRow;
     } else {
-      List<SelectItem> items = ComponentUtil.getItemsToRender((UISelectMany) component);
+      List<SelectItem> items = ComponentUtil.getItemsToRender(selectMany);
       return items.size() * heightPerRow;
     }
   }

@@ -22,6 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -40,6 +41,7 @@ public class LinkTag extends AbstractCommandTag
   private String tip;
   private String defaultCommand;
   private String markup;
+  private String tabIndex;
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
@@ -49,6 +51,7 @@ public class LinkTag extends AbstractCommandTag
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
     ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
     ComponentUtil.setMarkup(component, markup);
+    ComponentUtil.setIntegerProperty(component, ATTR_TAB_INDEX, tabIndex);
   }
 
   public String getComponentType() {
@@ -63,6 +66,7 @@ public class LinkTag extends AbstractCommandTag
     tip = null;
     defaultCommand = null;
     markup = null;
+    tabIndex = null;
   }
 
   public String getTarget() {
@@ -118,5 +122,9 @@ public class LinkTag extends AbstractCommandTag
 
   public void setMarkup(String markup) {
     this.markup = markup;
+  }
+
+  public void setTabIndex(String tabIndex) {
+    this.tabIndex = tabIndex;
   }
 }

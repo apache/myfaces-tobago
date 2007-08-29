@@ -29,7 +29,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UIButtonCommand;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -50,22 +50,31 @@ public class ButtonRenderer extends CommandRendererBase {
   private static final Log LOG = LogFactory.getLog(ButtonRenderer.class);
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    String clientId = component.getClientId(facesContext);
-    String buttonType = createButtonType(component);
+    if (!(component instanceof UIButtonCommand)) {
+      LOG.error("Wrong type: Need " + UIButtonCommand.class.getName() + ", but was " + component.getClass().getName());
+      return;
+    }
+    
+    UIButtonCommand command = (UIButtonCommand) component;
+    String clientId = command.getClientId(facesContext);
+    String buttonType = createButtonType(command);
 
-    CommandRendererHelper helper
-        = new CommandRendererHelper(facesContext, (UICommand) component, CommandRendererHelper.Tag.BUTTON);
+    CommandRendererHelper helper = new CommandRendererHelper(facesContext, command, CommandRendererHelper.Tag.BUTTON);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    LabelWithAccessKey label = new LabelWithAccessKey(component);
+    LabelWithAccessKey label = new LabelWithAccessKey(command);
 
-    writer.startElement(HtmlConstants.BUTTON, component);
+    writer.startElement(HtmlConstants.BUTTON, command);
     writer.writeAttribute(HtmlAttributes.TYPE, buttonType, false);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
     writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
     writer.writeAttribute(HtmlAttributes.DISABLED, helper.isDisabled());
+    Integer tabIndex = command.getTabIndex();
+    if (tabIndex != null) {
+      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+    }
     if (helper.getOnclick() != null) {
       writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true);
     }
@@ -74,7 +83,7 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.flush(); // force closing the start tag
 
 //  image
-    String imageName = (String) component.getAttributes().get(ATTR_IMAGE);
+    String imageName = (String) command.getAttributes().get(ATTR_IMAGE);
     if (imageName != null) {
       String image = null;
       if (imageName.startsWith("HTTP:") || imageName.startsWith("FTP:")
@@ -109,7 +118,7 @@ public class ButtonRenderer extends CommandRendererBase {
           facesContext, clientId, label.getAccessKey());
     }
     if ("submit".equals(buttonType)) {
-      boolean transition = ComponentUtil.getBooleanAttribute(component, ATTR_TRANSITION);
+      boolean transition = ComponentUtil.getBooleanAttribute(command, ATTR_TRANSITION);
       HtmlRendererUtil.setDefaultTransition(facesContext, transition);
     }
 

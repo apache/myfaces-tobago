@@ -18,20 +18,21 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
-import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 /*
  * Created: Aug 5, 2005 5:18:50 PM
@@ -57,6 +58,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 public interface SelectBooleanCheckboxTagDeclaration extends BeanTagDeclaration, HasValidator,
     HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabelAndAccessKey, HasBooleanValue, IsDisabled,
-    IsInline, HasTip, IsReadonly, HasMarkup /*, IsRequired */ {
+    IsInline, HasTip, IsReadonly, HasMarkup, HasTabIndex /*, IsRequired */ {
 
 }

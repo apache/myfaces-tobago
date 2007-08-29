@@ -17,25 +17,26 @@ package org.apache.myfaces.tobago.taglib.extension;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
-import org.apache.myfaces.tobago.taglib.component.DateTag;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.component.DatePickerTag;
+import org.apache.myfaces.tobago.taglib.component.DateTag;
 import org.apache.myfaces.tobago.taglib.component.FormTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
+import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
-import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -67,8 +68,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.DateTag")
 public class DateExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled, HasOnchange,
-    IsRequired, HasTip, HasLabel, HasLabelWidth, IsFocus, IsInline {
+    HasConverter, IsReadonly, IsDisabled, HasOnchange, IsRequired, HasTip, 
+    HasLabel, HasLabelWidth, IsFocus, IsInline, HasTabIndex {
 
   private static final long serialVersionUID = 2044784791513107420L;
 
@@ -86,6 +87,7 @@ public class DateExtensionTag extends BodyTagSupport
   private String valueChangeListener;
   private String inline;
   private String onchange;
+  private String tabIndex;
 
   private String labelWidth;
   private LabelExtensionTag labelTag;
@@ -151,6 +153,9 @@ public class DateExtensionTag extends BodyTagSupport
     if (required != null) {
       dateTag.setRequired(required);
     }
+    if (tabIndex != null) {
+      dateTag.setTabIndex(tabIndex);
+    }
     dateTag.setParent(labelTag);
     dateTag.doStartTag();
 
@@ -168,6 +173,9 @@ public class DateExtensionTag extends BodyTagSupport
     DatePickerTag datePicker = new DatePickerTag();
     datePicker.setPageContext(pageContext);
     datePicker.setFor("@auto");
+    if (tabIndex != null) {
+      datePicker.setTabIndex(tabIndex);
+    }    
     datePicker.setParent(formTag);
     datePicker.doStartTag();
     datePicker.doEndTag();
@@ -195,6 +203,7 @@ public class DateExtensionTag extends BodyTagSupport
     value = null;
     valueChangeListener = null;
     onchange = null;
+    tabIndex = null;
     labelTag = null;
     dateTag = null;
   }
@@ -256,5 +265,9 @@ public class DateExtensionTag extends BodyTagSupport
 
   public void setLabelWidth(String labelWidth) {
     this.labelWidth = labelWidth;
+  }
+
+  public void setTabIndex(String tabIndex) {
+    this.tabIndex = tabIndex;
   }
 }

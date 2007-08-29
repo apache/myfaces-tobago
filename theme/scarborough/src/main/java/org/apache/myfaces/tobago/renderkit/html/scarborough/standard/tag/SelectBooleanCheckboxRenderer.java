@@ -29,6 +29,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UISelectBoolean;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -38,7 +39,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
-import javax.faces.component.UISelectBoolean;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
@@ -61,8 +61,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
       LOG.debug("new value = '" + newValue + "'");
     }
 
-//    input.setSubmittedValue("true".equals(newValue) ? Boolean.TRUE : Boolean.FALSE);
-    input.setSubmittedValue("true".equals(newValue) ? "true": "false");
+    input.setSubmittedValue("true".equals(newValue) ? "true" : "false");
   }
 
 //  public Object getConvertedValue(
@@ -71,21 +70,25 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
 //
 //      return Boolean.valueOf((String)submittedValue);
 //  }
-//
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent uiComponent) throws IOException {
 
-    UISelectBoolean component = (UISelectBoolean) uiComponent;
+  //
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+    if (!(component instanceof UISelectBoolean)) {
+      LOG.error("Wrong type: Need " + UISelectBoolean.class.getName() + ", but was " + component.getClass().getName());
+      return;
+    }
+
+    UISelectBoolean selectBoolean = (UISelectBoolean) component;
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    UIComponent label = ComponentUtil.provideLabel(facesContext, component);
+    UIComponent label = ComponentUtil.provideLabel(facesContext, selectBoolean);
 
-    boolean inline = ComponentUtil.getBooleanAttribute(component, ATTR_INLINE);
+    boolean inline = ComponentUtil.getBooleanAttribute(selectBoolean, ATTR_INLINE);
 
     if (label != null && !inline) {
 
-      writer.startElement(HtmlConstants.TABLE, component);
+      writer.startElement(HtmlConstants.TABLE, selectBoolean);
       writer.writeAttribute(HtmlAttributes.BORDER, 0);
       writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
       writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
@@ -96,26 +99,30 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
       writer.startElement(HtmlConstants.TD, null);
     }
 
-    String currentValue = getCurrentValue(facesContext, component);
+    String currentValue = getCurrentValue(facesContext, selectBoolean);
     boolean checked = "true".equals(currentValue);
 
-    writer.startElement(HtmlConstants.INPUT, component);
+    writer.startElement(HtmlConstants.INPUT, selectBoolean);
     writer.writeAttribute(HtmlAttributes.TYPE, "checkbox", false);
     writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
     writer.writeAttribute(HtmlAttributes.CHECKED, checked);
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_READONLY)) {
+    if (ComponentUtil.getBooleanAttribute(selectBoolean, ATTR_READONLY)) {
       if (checked) {
         writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=true", false);
       } else {
         writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=false", false);
       }
     }
-    writer.writeNameAttribute(component.getClientId(facesContext));
+    writer.writeNameAttribute(selectBoolean.getClientId(facesContext));
     writer.writeClassAttribute();
-    writer.writeIdAttribute(component.getClientId(facesContext));
+    writer.writeIdAttribute(selectBoolean.getClientId(facesContext));
     writer.writeAttribute(HtmlAttributes.DISABLED,
-        ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
-    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
+        ComponentUtil.getBooleanAttribute(selectBoolean, ATTR_DISABLED));
+    Integer tabIndex = selectBoolean.getTabIndex();
+    if (tabIndex != null) {
+      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+    }
+    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, selectBoolean);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
@@ -136,7 +143,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
       writer.endElement(HtmlConstants.TR);
       writer.endElement(HtmlConstants.TABLE);
     }
-    checkForCommandFacet(component, facesContext, writer);
+    checkForCommandFacet(selectBoolean, facesContext, writer);
   }
 }
 

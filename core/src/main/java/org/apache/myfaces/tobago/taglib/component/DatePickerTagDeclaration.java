@@ -21,6 +21,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_DATE_PICKE
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasFor;
+import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 
 /*
  * Created by IntelliJ IDEA.
@@ -39,5 +40,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasFor;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIDatePicker",
     rendererType = RENDERER_TYPE_DATE_PICKER)
-public interface DatePickerTagDeclaration  extends TobagoTagDeclaration, HasFor {
+public interface DatePickerTagDeclaration  extends TobagoTagDeclaration, HasFor,
+    HasTabIndex {
 }

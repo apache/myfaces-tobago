@@ -30,6 +30,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_CALENDAR_FORC
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UITimeInput;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -39,12 +40,12 @@ import org.apache.myfaces.tobago.util.DateFormatUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -57,14 +58,15 @@ public class TimeRenderer extends InputRendererBase {
         "script/dateConverter.js"
     };
 
-  public void encodeEnd(FacesContext facesContext,
-        UIComponent component) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+    if (!(component instanceof UITimeInput)) {
+      LOG.error("Wrong type: Need " + UITimeInput.class.getName() + ", but was " + component.getClass().getName());
+      return;
+    }
 
     UIPage page = ComponentUtil.findPage(facesContext, component);
-    for (String script : SCRIPTS) {
-      page.getScriptFiles().add(script);
-    }
-    UIInput input = (UIInput) component;
+    page.getScriptFiles().addAll(Arrays.asList(SCRIPTS));
+    UITimeInput input = (UITimeInput) component;
 
     // TODO title??
     /*
@@ -130,12 +132,13 @@ public class TimeRenderer extends InputRendererBase {
     writer.writeClassAttribute("tobago-time-borderDiv"
         + (hasSeconds ? " tobago-time-borderDiv-seconds" : ""));
 
-    writeInput(writer, idPrefix + "hour", hour, true);
+    Integer tabIndex = input.getTabIndex();
+    writeInput(writer, idPrefix + "hour", tabIndex, hour, true);
     writeInputSeparator(writer, ":");
-    writeInput(writer, idPrefix + "minute", minute, false);
+    writeInput(writer, idPrefix + "minute", tabIndex, minute, false);
     if (hasSeconds) {
       writeInputSeparator(writer, ":");
-      writeInput(writer, idPrefix + "second", second, false);
+      writeInput(writer, idPrefix + "second", tabIndex, second, false);
     }
 
     writer.endElement(HtmlConstants.DIV);
@@ -207,11 +210,14 @@ public class TimeRenderer extends InputRendererBase {
     writer.endElement(HtmlConstants.SPAN);
   }
 
-  private void writeInput(TobagoResponseWriter writer, String id, String hour, boolean hourMode)
+  private void writeInput(TobagoResponseWriter writer, String id, Integer tabIndex, String hour, boolean hourMode)
       throws IOException {
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "text", false);
     writer.writeIdAttribute(id);
+    if (tabIndex != null) {
+      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+    }
     writer.writeClassAttribute("tobago-time-input");
     writer.writeAttribute(HtmlAttributes.ONFOCUS, "tbgTimerInputFocus(this, " + hourMode + ")", false);
     writer.writeAttribute(HtmlAttributes.ONBLUR, "tbgTimerInputBlur(this)", false);

@@ -27,6 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UISelectMany;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -34,12 +35,11 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.List;
 import java.util.Arrays;
+import java.util.List;
 
 public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
@@ -74,39 +74,45 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     return fixedHeight;
   }
 
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent uiComponent) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+    if (!(component instanceof UISelectMany)) {
+      LOG.error("Wrong type: Need " + UISelectMany.class.getName() + ", but was " + component.getClass().getName());
+      return;
+    }
 
-    UISelectMany component = (UISelectMany) uiComponent;
+    UISelectMany selectMany = (UISelectMany) component;
 
-    List<SelectItem> items = ComponentUtil.getSelectItems(component);
+    List<SelectItem> items = ComponentUtil.getSelectItems(selectMany);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("items.size() = '" + items.size() + "'");
     }
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
-    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
-    writer.startElement(HtmlConstants.SELECT, component);
-    String clientId = component.getClientId(facesContext);
+    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, selectMany);
+    writer.startElement(HtmlConstants.SELECT, selectMany);
+    String clientId = selectMany.getClientId(facesContext);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.DISABLED,
-        ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED));
+    writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtil.getBooleanAttribute(selectMany, ATTR_DISABLED));
+    Integer tabIndex = selectMany.getTabIndex();
+    if (tabIndex != null) {
+      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+    }
     writer.writeStyleAttribute();
     writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
-    Object[] values = component.getSelectedValues();
+    Object[] values = selectMany.getSelectedValues();
     if (LOG.isDebugEnabled()) {
       LOG.debug("values = '" + Arrays.toString(values) + "'");
     }
-    HtmlRendererUtil.renderSelectItems(component, items, values, writer, facesContext);
+    HtmlRendererUtil.renderSelectItems(selectMany, items, values, writer, facesContext);
 
     writer.endElement(HtmlConstants.SELECT);
-    checkForCommandFacet(component, facesContext, writer);
+    checkForCommandFacet(selectMany, facesContext, writer);
   }
 
 }
