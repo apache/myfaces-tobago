@@ -221,6 +221,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         if (component.isRendered()) {
           return true;
         }
+        // XXX ????
       } else if (UIGridLayout.USED.equals(object)) {
         return true;
       }
@@ -300,14 +301,15 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
             Object object = cells.get(columnIndex);
             if (object.toString().equals(UIGridLayout.USED)) {
+              firstRenderedColum = false;
               continue; // ignore the markers UIGridLayout.Used
-            }
-            if (object.equals(UIGridLayout.FREE)) {
+            } else if (object.equals(UIGridLayout.FREE)) {
               if (LOG.isWarnEnabled() && !layout.isIgnoreFree()) {
                 LOG.warn("There are free blocks in the layout: id='"
                     + layout.getClientId(facesContext)
                     + "'");
               }
+              firstRenderedColum = false;
               continue;
             }
             UIComponent cell = (UIComponent) object;
