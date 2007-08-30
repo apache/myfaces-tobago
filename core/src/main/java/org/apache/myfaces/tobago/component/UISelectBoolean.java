@@ -67,7 +67,7 @@ public class UISelectBoolean extends javax.faces.component.UISelectBoolean imple
     }
     ValueBinding vb = getValueBinding(ATTR_TAB_INDEX);
     if (vb != null) {
-      return (Integer)vb.getValue(getFacesContext());
+      return (Integer) vb.getValue(getFacesContext());
     } else {
       return null;
     }

@@ -90,7 +90,7 @@ public class UISelectOne extends javax.faces.component.UISelectOne implements Su
     }
     ValueBinding vb = getValueBinding(ATTR_TAB_INDEX);
     if (vb != null) {
-      return (Integer)vb.getValue(getFacesContext());
+      return (Integer) vb.getValue(getFacesContext());
     } else {
       return null;
     }
