@@ -356,6 +356,32 @@ function TreeOldNode(label, tip, id, mode, isFolder,
 	}
 }
 
+TreeOldNode.prototype.setScrollPosition = function() {
+  var treeDiv = Tobago.element(this.treeHiddenId + '-div');
+  if (treeDiv) {
+    var scrollHidden = Tobago.element(this.treeHiddenId + '-scrollPosition');
+    if (scrollHidden) {
+      var sep = scrollHidden.value.indexOf(";");
+      if (sep != -1) {
+        var scrollLeft = scrollHidden.value.substr(0, sep);
+        var scrollTop = scrollHidden.value.substr(sep + 1);
+        treeDiv.scrollLeft = scrollLeft;
+        treeDiv.scrollTop = scrollTop;
+      }
+    }
+  }
+}
+
+TreeOldNode.prototype.doScroll = function(event) {
+  var treeDiv = Tobago.element(this.treeHiddenId + '-div');
+  if (treeDiv) {
+    var scrollHidden = Tobago.element(this.treeHiddenId + '-scrollPosition');
+    if (scrollHidden) {
+      scrollHidden.value = treeDiv.scrollLeft + ";" + treeDiv.scrollTop;
+    }
+  }
+}
+
 TreeOldNode.prototype.toString = function (depth, last) {
     if (!depth) depth = 0;
 

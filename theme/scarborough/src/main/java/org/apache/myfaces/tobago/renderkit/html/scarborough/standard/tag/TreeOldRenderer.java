@@ -40,6 +40,7 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 @Deprecated
@@ -75,9 +76,10 @@ public class TreeOldRenderer extends LayoutableRendererBase {
     if (ComponentUtil.isOutputOnly(component)) {
       return;
     }
-
     UITreeOld tree = (UITreeOld) component;
+    String treeId = tree.getClientId(facesContext);
     TreeState state = tree.getState();
+    final Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
 
     if (state != null) {
       if ("TreeOld".equals(tree.getRendererType())) {
@@ -88,6 +90,14 @@ public class TreeOldRenderer extends LayoutableRendererBase {
       }
       if (ComponentUtil.getBooleanAttribute(tree, TobagoConstants.ATTR_MUTABLE)) {
         state.setMarker(null);
+      }
+      // scroll position
+      String value = (String) requestParameterMap.get(treeId + UITreeOld.SCROLL_POSITION);
+      if (value != null) {
+        Integer[] scrollPosition = TreeState.parseScrollPosition(value);
+        if (scrollPosition != null) {
+          state.setScrollPosition(scrollPosition);
+        }
       }
     }
     tree.setValid(true);
@@ -111,9 +121,12 @@ public class TreeOldRenderer extends LayoutableRendererBase {
 
     String clientId = tree.getClientId(facesContext);
     UITreeOldNode root = tree.getRoot();
+    TreeState state = tree.getState();
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.DIV, tree);
+    writer.writeNameAttribute(clientId + UITreeOld.TREE_DIV);
+    writer.writeIdAttribute(clientId + UITreeOld.TREE_DIV);
     writer.writeClassAttribute();
     writer.writeStyleAttribute();
 
@@ -139,6 +152,19 @@ public class TreeOldRenderer extends LayoutableRendererBase {
       writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
       writer.endElement(HtmlConstants.INPUT);
     }
+
+    writer.startElement(HtmlConstants.INPUT, tree);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+    writer.writeNameAttribute(clientId + UITreeOld.SCROLL_POSITION);
+    writer.writeIdAttribute(clientId + UITreeOld.SCROLL_POSITION);
+    Integer[] scrollPosition = state.getScrollPosition();
+    if (scrollPosition != null) {
+      String scroll = scrollPosition[0] + ";" + scrollPosition[1];
+      writer.writeAttribute(HtmlAttributes.VALUE, scroll, false);
+    } else {
+      writer.writeAttribute(HtmlAttributes.VALUE, "", false);
+    }
+    writer.endElement(HtmlConstants.INPUT);
 
     if (ComponentUtil.getBooleanAttribute(tree, TobagoConstants.ATTR_MUTABLE)) {
 
@@ -235,7 +261,16 @@ public class TreeOldRenderer extends LayoutableRendererBase {
     sb.append(".toString(0, true);\n  ");
 
     sb.append(rootNode);
-    sb.append(".initSelection();\n");
+    sb.append(".initSelection();\n  ");
+    
+    sb.append(rootNode);
+    sb.append(".setScrollPosition();\n");
+
+    sb.append("  Tobago.addBindEventListener(Tobago.element('");
+    sb.append(clientId);
+    sb.append("-div'), 'scroll', ");
+    sb.append(rootNode);
+    sb.append(", 'doScroll');\n");
 
     sb.append("}");
 //    return sb.toString();

@@ -18,6 +18,9 @@ package org.apache.myfaces.tobago.model;
  */
 
 import javax.swing.tree.DefaultMutableTreeNode;
+
+import org.apache.commons.lang.StringUtils;
+
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,6 +40,7 @@ public class TreeState {
   private DefaultMutableTreeNode marker;
   private DefaultMutableTreeNode lastMarker;
   private String lastCommand;
+  private Integer[] scrollPosition;
 
   public TreeState() {
     selection = new HashSet<DefaultMutableTreeNode>();
@@ -148,5 +152,30 @@ public class TreeState {
   public void setSelection(Set<DefaultMutableTreeNode> selection) {
     this.selection = selection;
   }
+
+  public Integer[] getScrollPosition() {
+    return scrollPosition;
+  }
+
+  public void setScrollPosition(Integer[] scrollPosition) {
+    this.scrollPosition = scrollPosition;
+  }
+  
+  public static Integer[] parseScrollPosition(String value) {
+    Integer[] position = null;
+    if (!StringUtils.isBlank(value)) {
+      int sep = value.indexOf(";");
+      if (sep == -1) {
+        throw new NumberFormatException(value);
+      }
+      int left = Integer.parseInt(value.substring(0, sep));
+      int top = Integer.parseInt(value.substring(sep + 1));
+      position = new Integer[2];
+      position[0] = left;
+      position[1] = top;
+    }
+    return position;
+  }
+  
 }
 

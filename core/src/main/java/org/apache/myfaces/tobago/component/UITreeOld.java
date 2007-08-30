@@ -57,10 +57,12 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
   public static final String MESSAGE_NOT_LEAF = "tobago.tree.MESSAGE_NOT_LEAF";
 
   public static final String SEP = "-";
-
+  // TODO should moved to renderer
+  public static final String TREE_DIV = SEP + "div";
   public static final String TREE_STATE = SEP + "treeState";
   public static final String SELECT_STATE = SEP + "selectState";
   public static final String MARKER = SEP + "marker";
+  public static final String SCROLL_POSITION = SEP + "scrollPosition";
 
   public static final String FACET_TREE_NODE_COMMAND = "treeNodeCommand";
   public static final String PARAMETER_TREE_NODE_ID = "treeNodeId";
