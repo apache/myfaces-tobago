@@ -78,10 +78,12 @@ public class UISelectMany extends javax.faces.component.UISelectMany implements 
     }
     ValueBinding vb = getValueBinding(ATTR_TAB_INDEX);
     if (vb != null) {
-      return (Integer) vb.getValue(getFacesContext());
-    } else {
-      return null;
+      Number number = (Number) vb.getValue(getFacesContext());
+      if (number != null) {
+        return Integer.valueOf(number.intValue());
+      }
     }
+    return null;
   }
 
   public void setTabIndex(Integer tabIndex) {
