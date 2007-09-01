@@ -1041,13 +1041,13 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
       Tobago renderers provide the layout manager with certain information
       about the sizing of the component that is rendered. The required methods
       have a default implementation in the class
-      <classname>RendererBase</classname><footnote><para>See <ulink url="http://myfaces.apache.org/tobago/apidocs/org/apache/myfaces/tobago/renderkit/RendererBase.html"/></para></footnote> which uses properties
+      <classname>LayoutableRendererBase</classname><footnote><para>See <ulink url="http://myfaces.apache.org/tobago/apidocs/org/apache/myfaces/tobago/renderkit/LayoutableRendererBase.html"/></para></footnote> which uses properties
       that are provided by the theme configuration of the used theme
       (<filename>tobago-theme-config.properties</filename>). We name our renderer
-      <classname>InputNumberSliderRenderer</classname> and extend from <classname>RendererBase</classname>. Following the
+      <classname>InputNumberSliderRenderer</classname> and extend from <classname>LayoutableRendererBase</classname>. Following the
       Tobago naming convention the renderer must end with "Renderer".</para>
 
-      <para>When using the <classname>RendererBase</classname> the theme configuration is a good
+      <para>When using the <classname>LayoutableRendererBase</classname> the theme configuration is a good
       place to provide the information needed for the layout. The
       implementation searches the configuration for properties with the
       following pattern: <literal>renderer name without "Renderer"</literal> + "." + <literal>key</literal>. All
@@ -1055,7 +1055,7 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
       recognized keys.</para>
 
       <table frame="none" id="table-rendererbase" colsep="0" rowsep="0">
-        <title>Recognized keys for RendererBase</title>
+        <title>Recognized keys for LayoutableRendererBase</title>
         <tgroup cols="2">
           <colspec colname="c1" colwidth="18pc"/>
           <colspec colname="c2" colwidth="18pc"/>
@@ -1086,7 +1086,7 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
         </tgroup>
       </table>
 
-      <para>If <classname>RendererBase</classname> does not find a value for a renderer it searches
+      <para>If <classname>LayoutableRendererBase</classname> does not find a value for a renderer it searches
       for default properties: "Tobago." + <literal>key</literal>. We could (but will not)
       specify a width padding of five pixels for our control by adding the
       property <literal>InputNumberSlider.paddingWidth=5</literal> in the theme configuration of
