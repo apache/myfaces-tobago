@@ -1131,7 +1131,7 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
       <example><title>Renderer for the slider bar control</title>
       <programlisting>package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
 
-public class InputNumberSliderRenderer extends RendererBase {
+public class InputNumberSliderRenderer extends LayoutableRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
