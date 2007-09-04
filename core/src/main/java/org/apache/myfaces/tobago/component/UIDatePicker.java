@@ -215,7 +215,7 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
 
     final UICommand okButton =
         (UICommand) ComponentUtil.createComponent(facesContext,
-            org.apache.myfaces.tobago.component.UICommand.COMPONENT_TYPE,
+            org.apache.myfaces.tobago.component.UIButtonCommand.COMPONENT_TYPE,
             RENDERER_TYPE_BUTTON);
     buttonPanel.getChildren().add(okButton);
     okButton.setId("ok" + DatePickerController.CLOSE_POPUP);
@@ -225,7 +225,7 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
 
     final UICommand cancelButton =
         (UICommand) ComponentUtil.createComponent(facesContext,
-            org.apache.myfaces.tobago.component.UICommand.COMPONENT_TYPE,
+            org.apache.myfaces.tobago.component.UIButtonCommand.COMPONENT_TYPE,
             RENDERER_TYPE_BUTTON);
     buttonPanel.getChildren().add(cancelButton);
     attributes = cancelButton.getAttributes();
