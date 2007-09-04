@@ -42,7 +42,7 @@ import org.springframework.instrument.classloading.SimpleLoadTimeWeaver;
  *  &lt;bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"&rt;
  *  ...
  *    &lt;property name="loadTimeWeaver"&rt;
- *        &lt;bean class="oorg.apache.myfaces.tobago.example.addressbook.OpenJpaLoadTimeWeaver"/&rt;
+ *        &lt;bean class="org.apache.myfaces.tobago.example.addressbook.OpenJpaLoadTimeWeaver"/&rt;
  *    &lt;/property&rt;
  *    &lt;/bean&rt;
  * </code>
