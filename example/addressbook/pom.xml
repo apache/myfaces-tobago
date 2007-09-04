@@ -122,12 +122,6 @@
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/addressbook</developerConnection>
     <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/example/addressbook</url>
   </scm>
-  <repositories>
-    <repository>
-      <id>apache-incubating</id>
-      <url>http://people.apache.org/repo/m2-incubating-repository</url>
-    </repository>
-  </repositories>
   <dependencies>
    <!-- <dependency>
       <groupId>org.apache.openjpa</groupId>
@@ -227,7 +221,7 @@
     <dependency>
       <groupId>org.apache.derby</groupId>
       <artifactId>derby</artifactId>
-      <version>10.2.2.0</version>
+      <version>10.3.1.4</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
@@ -325,8 +319,7 @@
     </profile>
   </profiles>
   <properties>
-    <!-- please look at the persistence.xml if updating to 1.0.0 -->
-    <openjpa.version>0.9.7-incubating</openjpa.version>
+    <openjpa.version>1.0.0</openjpa.version>
     <spring.version>2.0.6</spring.version>
   </properties>
 </project>
