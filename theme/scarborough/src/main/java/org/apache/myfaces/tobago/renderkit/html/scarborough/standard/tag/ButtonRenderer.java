@@ -40,6 +40,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
+import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -50,12 +51,12 @@ public class ButtonRenderer extends CommandRendererBase {
   private static final Log LOG = LogFactory.getLog(ButtonRenderer.class);
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!(component instanceof UIButtonCommand)) {
-      LOG.error("Wrong type: Need " + UIButtonCommand.class.getName() + ", but was " + component.getClass().getName());
+    if (!(component instanceof UICommand)) {
+      LOG.error("Wrong type: Need " + UICommand.class.getName() + ", but was " + component.getClass().getName());
       return;
     }
     
-    UIButtonCommand command = (UIButtonCommand) component;
+    UICommand command = (UICommand) component;
     String clientId = command.getClientId(facesContext);
     String buttonType = createButtonType(command);
 
@@ -71,7 +72,10 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.writeIdAttribute(clientId);
     writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
     writer.writeAttribute(HtmlAttributes.DISABLED, helper.isDisabled());
-    Integer tabIndex = command.getTabIndex();
+    Integer tabIndex = null;
+    if (command instanceof UIButtonCommand) {
+      tabIndex = ((UIButtonCommand) command).getTabIndex();
+    }
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
@@ -126,6 +130,9 @@ public class ButtonRenderer extends CommandRendererBase {
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
+    if (!(component instanceof UICommand)) {
+      return;
+    }    
     ResponseWriter writer = facesContext.getResponseWriter();
     writer.endElement(HtmlConstants.BUTTON);
   }

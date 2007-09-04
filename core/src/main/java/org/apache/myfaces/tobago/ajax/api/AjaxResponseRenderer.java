@@ -50,6 +50,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Iterator;
+import java.util.EmptyStackException;
 
 public class AjaxResponseRenderer {
 
@@ -124,8 +125,13 @@ public class AjaxResponseRenderer {
       LOG.debug("write ajax response for " + component);
     }
 
-    // TODO: invokeOnComponent()
-    ComponentUtil.invokeOnComponent(facesContext, clientId, (UIComponent) component, callback);
+    try {
+      // TODO: invokeOnComponent()
+      ComponentUtil.invokeOnComponent(facesContext, clientId, (UIComponent) component, callback);
+    } catch (EmptyStackException e) {
+      LOG.error(" content = \"" + content.getBuffer().toString() + "\"");
+      throw e;
+    }
 
     return content;
   }

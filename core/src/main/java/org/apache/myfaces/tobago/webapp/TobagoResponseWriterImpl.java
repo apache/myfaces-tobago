@@ -35,6 +35,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
+import java.util.EmptyStackException;
 
 public class TobagoResponseWriterImpl extends TobagoResponseWriter {
 
@@ -229,7 +230,13 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
       LOG.debug("end Element: " + name);
     }
 
-    final String top = stack.pop();
+    String top = "";
+    try {
+      top = stack.pop();
+    } catch (EmptyStackException e) {
+      LOG.error("Failed to close element \"" + name + "\"!");
+      throw e;
+    }
     if (!top.equals(name)) {
       final String trace = getCallingClassStackTraceElementString();
       LOG.error("Element end with name='" + name + "' doesn't "
