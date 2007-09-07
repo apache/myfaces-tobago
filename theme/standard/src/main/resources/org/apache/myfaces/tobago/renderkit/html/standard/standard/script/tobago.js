@@ -1802,6 +1802,7 @@ Tobago.Updater = {
         // no update needed, do nothing
         LOG.debug("skip update");
         receiver.skipUpdate = true;
+        Tobago.replaceJsfState(response.substring(Tobago.Updater.CODE_NOT_MODIFIED.length));
       } else if (response.substring(0, Tobago.Updater.CODE_SUCCESS.length) == Tobago.Updater.CODE_SUCCESS) {
         // update content
         LOG.debug("update content");
