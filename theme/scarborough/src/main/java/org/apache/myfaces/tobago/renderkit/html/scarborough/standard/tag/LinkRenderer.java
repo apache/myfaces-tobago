@@ -28,6 +28,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UILinkCommand;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
@@ -49,12 +50,12 @@ public class LinkRenderer extends CommandRendererBase {
   private static final Log LOG = LogFactory.getLog(LinkRenderer.class);
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!(component instanceof UILinkCommand)) {
-      LOG.error("Wrong type: Need " + UILinkCommand.class.getName() + ", but was " + component.getClass().getName());
+    if (!(component instanceof UICommand)) {
+      LOG.error("Wrong type: Need " + UICommand.class.getName() + ", but was " + component.getClass().getName());
       return;
     }
 
-    UILinkCommand command = (UILinkCommand) component;
+    UICommand command = (UICommand) component;
     String clientId = command.getClientId(facesContext);
     CommandRendererHelper helper = new CommandRendererHelper(facesContext, command, CommandRendererHelper.Tag.ANCHOR);
     String href = helper.getHref();
@@ -73,7 +74,10 @@ public class LinkRenderer extends CommandRendererBase {
       if (helper.getTarget() != null) {
         writer.writeAttribute(HtmlAttributes.TARGET, helper.getTarget(), true);
       }
-      Integer tabIndex = command.getTabIndex();
+      Integer tabIndex = null;
+      if (command instanceof UILinkCommand) {
+        tabIndex = ((UILinkCommand) command).getTabIndex();
+      }
       if (tabIndex != null) {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
@@ -120,8 +124,8 @@ public class LinkRenderer extends CommandRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
-    if (!(component instanceof UILinkCommand)) {
-      LOG.error("Wrong type: Need " + UILinkCommand.class.getName() + ", but was " + component.getClass().getName());
+    if (!(component instanceof UICommand)) {
+      LOG.error("Wrong type: Need " + UICommand.class.getName() + ", but was " + component.getClass().getName());
       return;
     }
 
