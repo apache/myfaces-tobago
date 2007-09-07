@@ -45,19 +45,19 @@ public class MessageFixFacesContext extends FacesContext {
 
   MessageFixFacesContext(FacesContext facesContext) {
     this.facesContext = facesContext;
+    FacesContext.setCurrentInstance(this);
   }
 
   public Iterator getMessages() {
-    if (released) {
-      throw new IllegalStateException("FacesContext already released");
+    checkReleased();
+    if (messages == null || messages.isEmpty()) {
+      return Collections.EMPTY_LIST.iterator();
     }
-    return (messages != null) ? messages.iterator() : Collections.EMPTY_LIST.iterator();
+    return messages.iterator();
   }
 
   public Iterator getMessages(String clientId) {
-    if (released) {
-      throw new IllegalStateException("FacesContext already released");
-    }
+    checkReleased();
     if (messages == null || messages.isEmpty()) {
       return Collections.EMPTY_LIST.iterator();
     }
@@ -68,9 +68,7 @@ public class MessageFixFacesContext extends FacesContext {
   }
 
   public Iterator getClientIdsWithMessages() {
-    if (released) {
-      throw new IllegalStateException("FacesContext already released");
-    }
+    checkReleased();
     if (messages == null || messages.isEmpty()) {
       return Collections.EMPTY_LIST.iterator();
     }
@@ -78,9 +76,7 @@ public class MessageFixFacesContext extends FacesContext {
   }
 
   public void addMessage(String clientId, FacesMessage message) {
-    if (released) {
-      throw new IllegalStateException("FacesContext already released");
-    }
+    checkReleased();
     if (message == null) {
       throw new NullPointerException("message");
     }
@@ -171,4 +167,11 @@ public class MessageFixFacesContext extends FacesContext {
   public void responseComplete() {
     facesContext.responseComplete();
   }
+
+  private void checkReleased() {
+    if (released) {
+      throw new IllegalStateException("FacesContext already released");
+    }
+  }
+
 }
