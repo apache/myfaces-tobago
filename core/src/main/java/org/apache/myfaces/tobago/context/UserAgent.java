@@ -40,6 +40,8 @@ public class UserAgent implements Serializable {
 
   public static final UserAgent MSIE_6_0 = new UserAgent("msie", "6_0");
 
+  public static final UserAgent MSIE_7_O = new UserAgent("msie", "7_0");
+
   public static final UserAgent MSIE_5_0_MAC = new UserAgent("msie", "5_0_mac");
 
   public static final UserAgent MSIE_6_0_MAC = new UserAgent("msie", "6_0_mac");
@@ -132,6 +134,8 @@ public class UserAgent implements Serializable {
         } else {
           return MSIE_6_0;
         }
+      } else if (header.indexOf("msie 7.0") > -1) {
+        return MSIE_7_O;
       } else {
         return MSIE;
       }
@@ -178,6 +182,8 @@ public class UserAgent implements Serializable {
         return MSIE_6_0;
       } else if (id.equals("msie_6_0_mac")) {
         return MSIE_6_0_MAC;
+      } else if (id.equals("msie_7_0")) {
+        return MSIE_7_O;
       } else {
         return MSIE;
       }
