@@ -549,7 +549,7 @@ public class PageRenderer extends PageRendererBase {
     return method == null ? "post" : method;
   }
 
-  private String generateDoctype(UIPage page) {
+  protected String generateDoctype(UIPage page) {
     String doctype = (String) page.getAttributes().get(ATTR_DOCTYPE);
     String type = null;
     if (doctype == null || "loose".equals(doctype)) {
