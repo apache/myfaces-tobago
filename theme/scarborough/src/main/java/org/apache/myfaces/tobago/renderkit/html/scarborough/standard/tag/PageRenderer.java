@@ -35,6 +35,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_ACTION;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.FORM_ACCEPT_CHARSET;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
@@ -283,8 +285,16 @@ public class PageRenderer extends PageRendererBase {
       UIComponent command = component.getFacet(FACET_ACTION);
       if (command != null && command.isRendered()) {
         int duration = ComponentUtil.getIntAttribute(command, ATTR_DELAY, 100);
-        page.getOnloadScripts().add("setTimeout(\"Tobago.submitAction('"
-            + command.getClientId(facesContext) + "')\", " + duration + ");\n");
+        boolean transition = ComponentUtil.getBooleanAttribute(command, ATTR_TRANSITION);
+        String target = ComponentUtil.getStringAttribute(command, ATTR_TARGET);
+        String action;
+        if (target != null) {
+          action = "Tobago.submitAction('" + command.getClientId(facesContext) + "', " 
+                  + transition + ", '" + target + "' )";
+        } else {
+          action = "Tobago.submitAction('"+ command.getClientId(facesContext) + "', " + transition + " )";
+        }
+        page.getOnloadScripts().add("setTimeout(\"" + action  + "\", " + duration + ");\n");
       }
     }
     StringBuilder script = new StringBuilder();
