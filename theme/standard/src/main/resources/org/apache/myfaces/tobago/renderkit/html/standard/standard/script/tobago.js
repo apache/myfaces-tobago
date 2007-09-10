@@ -1844,8 +1844,11 @@ Tobago.Updater = {
       }
       var onComplete = requestOptions.onComplete;
       requestOptions.onComplete = function(transport, json) {
-        Tobago.Transport.requestComplete();
         onComplete(transport, json);
+        // scripts included in response are executed via setTimeout(..., 10)
+        // because of replaceJsfState() is in this scripts the next request
+        // must delayed more than that.
+        setTimeout(Tobago.bind(Tobago.Transport, "requestComplete"), 15);
       };
       var oldAction = Tobago.action.value;
       Tobago.action.value = actionId;
