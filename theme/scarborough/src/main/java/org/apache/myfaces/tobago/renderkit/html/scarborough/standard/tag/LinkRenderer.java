@@ -97,10 +97,11 @@ public class LinkRenderer extends CommandRendererBase {
       } else {
         image = ResourceManagerUtil.getImageWithPath(facesContext, image, helper);
       }
-      writer.startElement(HtmlConstants.IMG, null);
+      writer.startElement(HtmlConstants.IMG, command);
       writer.writeAttribute(HtmlAttributes.SRC, image, true);
       writer.writeAttribute(HtmlAttributes.ALT, "", false);
       writer.writeAttribute(HtmlAttributes.BORDER, 0); // TODO: is border=0 setting via style possible?
+      writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
       writer.endElement(HtmlConstants.IMG);
     }
 
