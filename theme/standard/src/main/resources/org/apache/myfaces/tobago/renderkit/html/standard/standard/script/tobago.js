@@ -1850,14 +1850,15 @@ Tobago.Updater = {
         // must delayed more than that.
         setTimeout(Tobago.bind(Tobago.Transport, "requestComplete"), 15);
       };
-      var oldAction = Tobago.action.value;
-      Tobago.action.value = actionId;
       var url = Tobago.form.action;
-      requestOptions.parameters = "affectedAjaxComponent=" + ajaxComponentId
-          + '&' + Form.serialize(Tobago.form);
 
       //    LOG.debug("request url = " + url);
       var queued = Tobago.Transport.request(function() {
+        var oldAction = Tobago.action.value;
+        Tobago.action.value = actionId;
+        requestOptions.parameters = "affectedAjaxComponent=" + ajaxComponentId
+            + '&' + Form.serialize(Tobago.form);
+        Tobago.action.value = oldAction;
         new Ajax.Updater(container, url, requestOptions);
       }, false, actionId);
       if (!queued) {
@@ -1866,7 +1867,6 @@ Tobago.Updater = {
           requestOptions.onFailure();
         }
       }
-      Tobago.action.value = oldAction;
     } else {
       LOG.info("No Ajax transport found! Doing full page reload.");
       Tobago.submitAction(actionId);
