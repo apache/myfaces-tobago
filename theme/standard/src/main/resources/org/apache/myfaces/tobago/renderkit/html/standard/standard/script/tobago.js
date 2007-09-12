@@ -614,7 +614,7 @@ var Tobago = {
     var children = document.getElementsByTagName('head')[0].childNodes;
     for (var i = 0; i < children.length; i++) {
       var child = children[i];
-      if (child.nodeType == 1 && child.tagName.toUpperCase() == "SCRIPT"){
+      if (child.nodeType == 1 && child.tagName.toUpperCase() == "SCRIPT" && typeof child.src == "string"){
         Tobago.registerScript(child.src);
       }
     }
