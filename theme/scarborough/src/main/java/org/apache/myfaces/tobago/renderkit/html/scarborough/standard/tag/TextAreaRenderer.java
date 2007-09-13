@@ -92,6 +92,8 @@ public class TextAreaRenderer extends InputRendererBase {
     }
     writer.endElement(HtmlConstants.TEXTAREA);
 
+    checkForCommandFacet(input, facesContext, writer);
+
     // focus
     HtmlRendererUtil.renderFocusId(facesContext, component);
   }
