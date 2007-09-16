@@ -57,6 +57,10 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
 
   protected abstract String getSubRendererType();
 
+  protected String getRows() {
+    return "fixed";
+  }
+
   protected String getColumns(String first) {
     return first + ";*";
   }
@@ -125,6 +129,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     } else {
       gridLayout.setColumns(getColumns("fixed"));
     }
+    gridLayout.setRows(getRows());
 
     gridLayout.setId(root.createUniqueId());
     panel.getFacets().put(TobagoConstants.FACET_LAYOUT, gridLayout);

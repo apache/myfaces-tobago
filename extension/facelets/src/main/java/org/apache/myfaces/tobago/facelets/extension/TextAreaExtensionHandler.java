@@ -38,4 +38,8 @@ public class TextAreaExtensionHandler extends TobagoLabelExtensionHandler {
   protected String getSubRendererType() {
     return TobagoConstants.RENDERER_TYPE_TEXT_AREA;
   }
+
+  protected String getRows() {
+    return "1*";
+  }
 }

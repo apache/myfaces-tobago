@@ -38,4 +38,8 @@ public class SelectManyListboxExtensionHandler extends TobagoLabelExtensionHandl
   protected String getSubRendererType() {
     return TobagoConstants.RENDERER_TYPE_SELECT_MANY_LISTBOX;
   }
+
+  protected String getRows() {
+    return "1*";
+  }
 }
