@@ -24,7 +24,6 @@ import org.apache.commons.fileupload.FileItem;
 
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-import javax.faces.validator.DoubleRangeValidator;
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -43,6 +42,8 @@ import javax.faces.application.FacesMessage;
 @org.apache.myfaces.tobago.apt.annotation.Validator(id = FileItemValidator.VALIDATOR_ID)
 public class FileItemValidator implements Validator, StateHolder {
   public static final String VALIDATOR_ID = "org.apache.myfaces.tobago.FileItem";
+  public static final String SIZE_LIMIT_MESSAGE_ID = "org.apache.myfaces.tobago.FileItemValidator.SIZE_LIMIT";
+  public static final String CONTENT_TYPE_MESSAGE_ID = "org.apache.myfaces.tobago.FileItemValidator.CONTENT_TYPE";
   private Integer maxSize;
   private String contentType;
   private boolean transientValue;
@@ -51,18 +52,18 @@ public class FileItemValidator implements Validator, StateHolder {
     if (value != null && component instanceof UIFileInput) {
       FileItem file = (FileItem) value;
       if (maxSize != null && file.getSize() > maxSize) {
-        // TODO better error text i18n
         Object[] args = {maxSize,  component.getId()};
         FacesMessage facesMessage = MessageFactory.createFacesMessage(context,
-            DoubleRangeValidator.MAXIMUM_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, args);
+            SIZE_LIMIT_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, args);
         throw new ValidatorException(facesMessage);
       }
       // Check only a valid file
       if (file.getSize() > 0 && contentType != null
           && !ContentType.valueOf(contentType).match(ContentType.valueOf(file.getContentType()))) {
-        // TODO i18n
-        String text = "ContentType " + file.getContentType() + " not expected.";
-        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, text, text);
+        ContentType expectedContentType = ContentType.valueOf(contentType);
+        Object [] args = {expectedContentType, component.getId()};
+        FacesMessage facesMessage = MessageFactory.createFacesMessage(context,
+            CONTENT_TYPE_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, args);
         throw new ValidatorException(facesMessage);
       }
     }

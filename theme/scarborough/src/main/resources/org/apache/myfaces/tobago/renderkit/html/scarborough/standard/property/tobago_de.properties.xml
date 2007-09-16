@@ -22,89 +22,93 @@
 
 <properties>
 
- <!-- Client Configuration -->
-<entry key="configTitle">Konfiguration des Clients des Tobago-Frameworks</entry>
-<entry key="configTheme">Design</entry>
-<entry key="configThemeText">Welches Design soll verwendet werden?</entry>
-<entry key="configDebugMode">Soll der _Debugmodus aktiviert werden?</entry>
-<entry key="configLocale">Sprache</entry>
-<entry key="configLocaleText">Welche Sprache/Region soll verwendet werden?</entry>
-<entry key="configContentType">Inhaltstyp</entry>
-<entry key="configContentTypeText">Welcher Inhaltstyp (Content-Type) soll verwendet werden?</entry>
-<entry key="configSubmit">Ändern</entry>
-<entry key="configButtonText">Einstellungen</entry>
-<entry key="configCachecoverage">Cache Abdeckung</entry>
+  <!-- Client Configuration -->
+  <entry key="configTitle">Konfiguration des Clients des Tobago-Frameworks</entry>
+  <entry key="configTheme">Design</entry>
+  <entry key="configThemeText">Welches Design soll verwendet werden?</entry>
+  <entry key="configDebugMode">Soll der _Debugmodus aktiviert werden?</entry>
+  <entry key="configLocale">Sprache</entry>
+  <entry key="configLocaleText">Welche Sprache/Region soll verwendet werden?</entry>
+  <entry key="configContentType">Inhaltstyp</entry>
+  <entry key="configContentTypeText">Welcher Inhaltstyp (Content-Type) soll verwendet werden?</entry>
+  <entry key="configSubmit">Ändern</entry>
+  <entry key="configButtonText">Einstellungen</entry>
+  <entry key="configCachecoverage">Cache Abdeckung</entry>
 
-<!-- Sheet -->
-<entry key="sheetFirst">erste Seite</entry>
-<entry key="sheetPrev">vorherige Seite</entry>
-<entry key="sheetNext">nächste Seite</entry>
-<entry key="sheetLast">letzte Seite</entry>
-<entry key="sheetTipSorting">nach dieser Spalte sortieren</entry>
-<entry key="sheetAscending">aufsteigend sortiert</entry>
-<entry key="sheetDescending">absteigend sortiert</entry>
-<entry key="sheetPagingInfoRows">Zeilen &lt;span id="{3}"&gt;{0}&lt;/span&gt; bis {1} von {2}</entry>
-<entry key="sheetPagingInfoSingleRow">Zeilen &lt;span id="{3}">{0}&lt;/span> von {2}</entry>
-<entry key="sheetPagingInfoEmptyRow">Keine Zeilen verf&amp;uuml;gbar</entry>
-<entry key="sheetPagingInfoRowPagingTip">Hier klicken, zum Eingeben der ersten anzuzeigenden Zeile.</entry>
-<entry key="sheetPagingInfoPages">Seite &lt;span id="{3}">{0}&lt;/span&gt; von {1}</entry>
-<entry key="sheetPagingInfoSinglePage">Seite &lt;span id="{3}"&gt;{0}&lt;/span&gt; von {1}</entry>
-<entry key="sheetPagingInfoEmptyPage"></entry>
-<entry key="sheetPagingInfoPagePagingTip">Hier klicken, zum Eingeben der anzuzeigenden Seite.</entry>
-<entry key="sheetMenuToggleselect">Markierung umkehren</entry>
-<entry key="sheetMenuUnselect">Markierungen löschen</entry>
-<entry key="sheetMenuSelect">Alles markieren</entry>
+  <!-- Sheet -->
+  <entry key="sheetFirst">erste Seite</entry>
+  <entry key="sheetPrev">vorherige Seite</entry>
+  <entry key="sheetNext">nächste Seite</entry>
+  <entry key="sheetLast">letzte Seite</entry>
+  <entry key="sheetTipSorting">nach dieser Spalte sortieren</entry>
+  <entry key="sheetAscending">aufsteigend sortiert</entry>
+  <entry key="sheetDescending">absteigend sortiert</entry>
+  <entry key="sheetPagingInfoRows">Zeilen &lt;span id="{3}"&gt;{0}&lt;/span&gt; bis {1} von {2}</entry>
+  <entry key="sheetPagingInfoSingleRow">Zeilen &lt;span id="{3}">{0}&lt;/span> von {2}</entry>
+  <entry key="sheetPagingInfoEmptyRow">Keine Zeilen verf&amp;uuml;gbar</entry>
+  <entry key="sheetPagingInfoRowPagingTip">Hier klicken, zum Eingeben der ersten anzuzeigenden Zeile.</entry>
+  <entry key="sheetPagingInfoPages">Seite &lt;span id="{3}">{0}&lt;/span&gt; von {1}</entry>
+  <entry key="sheetPagingInfoSinglePage">Seite &lt;span id="{3}"&gt;{0}&lt;/span&gt; von {1}</entry>
+  <entry key="sheetPagingInfoEmptyPage"></entry>
+  <entry key="sheetPagingInfoPagePagingTip">Hier klicken, zum Eingeben der anzuzeigenden Seite.</entry>
+  <entry key="sheetMenuToggleselect">Markierung umkehren</entry>
+  <entry key="sheetMenuUnselect">Markierungen löschen</entry>
+  <entry key="sheetMenuSelect">Alles markieren</entry>
 
-<!-- Tree -->
-<entry key="treeNew">Neu</entry>
-<entry key="treeDelete">Löschen</entry>
-<entry key="treeEdit">Bearbeiten</entry>
-<entry key="treeCut">Ausschneiden</entry>
-<entry key="treeCopy">Kopieren</entry>
-<entry key="treePaste">Einfügen</entry>
-<entry key="treeMoveUp">Nach oben verschieben</entry>
-<entry key="treeMoveDown">Nach unten verschieben</entry>
-<entry key="treeNodeNew">Neuer Knoten</entry>
+  <!-- Tree -->
+  <entry key="treeNew">Neu</entry>
+  <entry key="treeDelete">Löschen</entry>
+  <entry key="treeEdit">Bearbeiten</entry>
+  <entry key="treeCut">Ausschneiden</entry>
+  <entry key="treeCopy">Kopieren</entry>
+  <entry key="treePaste">Einfügen</entry>
+  <entry key="treeMoveUp">Nach oben verschieben</entry>
+  <entry key="treeMoveDown">Nach unten verschieben</entry>
+  <entry key="treeNodeNew">Neuer Knoten</entry>
 
-<!-- datePicker -->
-<entry key="datePickerTitle">Datumsauswahl</entry>
-<entry key="datePickerOk">OK</entry>
-<entry key="datePickerCancel">Abbrechen</entry>
+  <!-- datePicker -->
+  <entry key="datePickerTitle">Datumsauswahl</entry>
+  <entry key="datePickerOk">OK</entry>
+  <entry key="datePickerCancel">Abbrechen</entry>
 
-<!-- requiredvalidator -->
-<entry key="tobago.requiredvalidator.message.empty.summary">Pflichtfeld</entry>
-<entry key="tobago.requiredvalidator.message.empty.detail">Feld benötigt eine Eingabe!</entry>
+  <!-- requiredvalidator -->
+  <entry key="tobago.requiredvalidator.message.empty.summary">Pflichtfeld</entry>
+  <entry key="tobago.requiredvalidator.message.empty.detail">Feld benötigt eine Eingabe!</entry>
 
-<!-- longrangevalidator -->
-<entry key="tobago.longrangevalidator.message.range.summary">Bereichsüberschreitung.</entry>
-<entry key="tobago.longrangevalidator.message.range.detail">Wert muss zwischen {0} und {1} liegen.</entry>
-<entry key="tobago.longrangevalidator.message.type.summary">Falscher Typ.</entry>
-<entry key="tobago.longrangevalidator.message.type.detail">Wert hat den falschen Typ.</entry>
-<entry key="tobago.message.number_conversion_error.summary">Zahl kann nicht konvertiert werden.</entry>
-<entry key="tobago.message.number_conversion_error.detail">''{0}'' kann nicht zum Typ {1} umgewandelt werden.</entry>
-<entry key="tobago.message.conversion_error.summary">Konvertierung nicht möglich.</entry>
-<entry key="tobago.message.conversion_error.detail">''{0}'' kann nicht zum Typ {1} umgewandelt werden.</entry>
-<entry key="tobago.tree.MESSAGE_NOT_LEAF">Es dürfen nur Endknoten ausgewählt werden.</entry>
-<entry key="tobago.SelectOne.MESSAGE_VALUE_REQUIRED">Eine Auswahl wird benötigt!</entry>
-
-
-<!-- richtexteditor -->
-<entry key="tobago.richtexteditor.edit.label">Bearbeiten</entry>
-<entry key="tobago.richtexteditor.edit.title">Zum Editor umschalten.</entry>
-<entry key="tobago.richtexteditor.preview.label">Vorschau</entry>
-<entry key="tobago.richtexteditor.preview.title">Zur Vorschau umschalten.</entry>
-
-<!-- copyright -->
-<entry key="atanion">atanion GmbH</entry>
-<entry key="atanionPoweredBy">Copyright 2002-2005 The Apache Software Foundation</entry>
+  <!-- longrangevalidator -->
+  <entry key="tobago.longrangevalidator.message.range.summary">Bereichsüberschreitung.</entry>
+  <entry key="tobago.longrangevalidator.message.range.detail">Wert muss zwischen {0} und {1} liegen.</entry>
+  <entry key="tobago.longrangevalidator.message.type.summary">Falscher Typ.</entry>
+  <entry key="tobago.longrangevalidator.message.type.detail">Wert hat den falschen Typ.</entry>
+  <entry key="tobago.message.number_conversion_error.summary">Zahl kann nicht konvertiert werden.</entry>
+  <entry key="tobago.message.number_conversion_error.detail">''{0}'' kann nicht zum Typ {1} umgewandelt werden.</entry>
+  <entry key="tobago.message.conversion_error.summary">Konvertierung nicht möglich.</entry>
+  <entry key="tobago.message.conversion_error.detail">''{0}'' kann nicht zum Typ {1} umgewandelt werden.</entry>
+  <entry key="tobago.tree.MESSAGE_NOT_LEAF">Es dürfen nur Endknoten ausgewählt werden.</entry>
+  <entry key="tobago.SelectOne.MESSAGE_VALUE_REQUIRED">Eine Auswahl wird benötigt!</entry>
 
 
-<!-- jsf messages -->
-<entry key="javax.faces.validator.LengthValidator.MAXIMUM">Maximal "{0}" Zeichen erlaubt!</entry>
-<entry key="javax.faces.validator.LengthValidator.MAXIMUM_detail">Der eingegebene Wert ist länger als das zulässige Maximum von {0} Zeichen!</entry>
-<entry key="javax.faces.validator.LengthValidator.MINIMUM">Minimal "{0}" Zeichen erlaubt!</entry>
-<entry key="javax.faces.validator.LengthValidator.MINIMUM_detail">Der eingegebene Wert ist kürzer als das zulässige Minimum von {0} Zeichen!</entry>
+  <!-- richtexteditor -->
+  <entry key="tobago.richtexteditor.edit.label">Bearbeiten</entry>
+  <entry key="tobago.richtexteditor.edit.title">Zum Editor umschalten.</entry>
+  <entry key="tobago.richtexteditor.preview.label">Vorschau</entry>
+  <entry key="tobago.richtexteditor.preview.title">Zur Vorschau umschalten.</entry>
+
+  <!-- copyright -->
+  <entry key="atanion">atanion GmbH</entry>
+  <entry key="atanionPoweredBy">Copyright 2002-2005 The Apache Software Foundation</entry>
+
+
+  <!-- jsf messages -->
+  <entry key="javax.faces.validator.LengthValidator.MAXIMUM">Maximal "{0}" Zeichen erlaubt!</entry>
+  <entry key="javax.faces.validator.LengthValidator.MAXIMUM_detail">Der eingegebene Wert ist länger als das zulässige Maximum von {0} Zeichen!</entry>
+  <entry key="javax.faces.validator.LengthValidator.MINIMUM">Minimal "{0}" Zeichen erlaubt!</entry>
+  <entry key="javax.faces.validator.LengthValidator.MINIMUM_detail">Der eingegebene Wert ist kürzer als das zulässige Minimum von {0} Zeichen!</entry>
 
   <entry key="tobago.ajax.response.error">Server Error: Fehler beim Bearbeiten der Anfrage. Eventuell ein Session Timeout!</entry>
+  <entry key="org.apache.myfaces.tobago.FileItemValidator.CONTENT_TYPE">Dateityp Fehler</entry>
+  <entry key="org.apache.myfaces.tobago.FileItemValidator.CONTENT_TYPE_detail">Die hochgeladene Datei ist nicht vom Typ "{0}".</entry>
+  <entry key="org.apache.myfaces.tobago.FileItemValidator.SIZE_LIMIT">Dateigröße Fehler</entry>
+  <entry key="org.apache.myfaces.tobago.FileItemValidator.SIZE_LIMIT_detail">Die Größe der hochgeladenen Datei darf nicht größer als {1} Bytes sein.</entry>
 
 </properties>
