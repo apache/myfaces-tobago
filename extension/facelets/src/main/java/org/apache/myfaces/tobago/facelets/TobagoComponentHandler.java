@@ -17,22 +17,22 @@ package org.apache.myfaces.tobago.facelets;
  * limitations under the License.
  */
 
-import com.sun.facelets.tag.jsf.ComponentHandler;
-import com.sun.facelets.tag.jsf.ComponentConfig;
-import com.sun.facelets.tag.MetaRuleset;
 import com.sun.facelets.FaceletContext;
+import com.sun.facelets.tag.MetaRuleset;
+import com.sun.facelets.tag.jsf.ComponentConfig;
+import com.sun.facelets.tag.jsf.ComponentHandler;
+import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_COMPONENT_CREATED;
+import org.apache.myfaces.tobago.component.OnComponentCreated;
+import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.TabChangeSource;
-import org.apache.myfaces.tobago.event.SheetStateChangeSource;
-import org.apache.myfaces.tobago.component.OnComponentCreated;
-import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
-import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_COMPONENT_CREATED;
 
 import javax.faces.component.UIComponent;
 
 /*
- * User: bommel
  * Date: 15.04.2006
  * Time: 13:31:39
  */
@@ -58,6 +58,9 @@ public class TobagoComponentHandler extends ComponentHandler {
     }
     if (SupportsMarkup.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SupportsMarkupRule.INSTANCE);
+    }
+    if (UIInput.class.isAssignableFrom(aClass)) {
+      metaRuleset.addRule(SuggestMethodRule.INSTANCE);
     }
     return metaRuleset;
   }
