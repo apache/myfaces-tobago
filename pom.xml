@@ -202,6 +202,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
+        <version>2.1</version>
       </plugin>
 
       <plugin>
@@ -229,6 +230,7 @@
           <quiet>true</quiet>
           <verbose>false</verbose>
           <source>1.5</source>
+          <charset>UTF-8</charset>
           <links>
             <link>http://java.sun.com/j2se/1.5.0/docs/api</link>
             <link>http://java.sun.com/j2ee/1.4/docs/api</link>
@@ -352,6 +354,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>jdepend-maven-plugin</artifactId>
+        <version>2.0-beta-1</version>
       </plugin>
 
       <!-- http://jira.codehaus.org/browse/MJNCSS-4
