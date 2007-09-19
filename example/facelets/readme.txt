@@ -16,7 +16,7 @@ and install the missing artifact with
  mvn install:install-file -Dfile=el-ri.jar -DgroupId=com.sun.el \
  -DartifactId=el-ri -Dversion=1.0 -Dpackaging=jar
 
-Please build the tobago-facelets.jar in contrib/facelets.
+Please build the tobago-facelets.jar in extension/facelets.
 This arifact requires the tobago-core-sources.jar artifact.
 The tobago-core-sources.jar is generated with the profile
 attach-source in core (mvn -P attach-source) or
