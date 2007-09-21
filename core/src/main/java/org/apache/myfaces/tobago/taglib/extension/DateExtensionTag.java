@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
 import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
@@ -69,7 +70,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class DateExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasOnchange, IsRequired, HasTip, 
-    HasLabel, HasLabelWidth, IsFocus, IsInline, HasTabIndex {
+    HasLabel, HasMarkup, HasLabelWidth, IsFocus, IsInline, HasTabIndex {
 
   private static final long serialVersionUID = 2044784791513107420L;
 
@@ -88,6 +89,7 @@ public class DateExtensionTag extends BodyTagSupport
   private String inline;
   private String onchange;
   private String tabIndex;
+  private String markup;
 
   private String labelWidth;
   private LabelExtensionTag labelTag;
@@ -153,6 +155,9 @@ public class DateExtensionTag extends BodyTagSupport
     if (required != null) {
       dateTag.setRequired(required);
     }
+    if (markup != null) {
+      dateTag.setMarkup(markup);
+    }
     if (tabIndex != null) {
       dateTag.setTabIndex(tabIndex);
     }
@@ -203,6 +208,7 @@ public class DateExtensionTag extends BodyTagSupport
     value = null;
     valueChangeListener = null;
     onchange = null;
+    markup = null;
     tabIndex = null;
     labelTag = null;
     dateTag = null;
@@ -265,6 +271,10 @@ public class DateExtensionTag extends BodyTagSupport
 
   public void setLabelWidth(String labelWidth) {
     this.labelWidth = labelWidth;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 
   public void setTabIndex(String tabIndex) {
