@@ -45,7 +45,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * Renders a text input field with a label.
  * <br />
  * Short syntax of:
- *
+ * <p/>
  * <pre>
  * &lt;tc:panel>
  *   &lt;f:facet name="layout">
@@ -126,12 +126,12 @@ public class InExtensionTag extends BodyTagSupport
     if (validator != null) {
       inTag.setValidator(validator);
     }
-     if (onchange != null) {
+    if (onchange != null) {
       inTag.setOnchange(onchange);
     }
     if (suggestMethod != null) {
-     inTag.setSuggestMethod(suggestMethod);
-   }
+      inTag.setSuggestMethod(suggestMethod);
+    }
     if (disabled != null) {
       inTag.setDisabled(disabled);
     }
@@ -237,6 +237,7 @@ public class InExtensionTag extends BodyTagSupport
   public void setValidator(String validator) {
     this.validator = validator;
   }
+
   public void setPassword(String password) {
     this.password = password;
   }
