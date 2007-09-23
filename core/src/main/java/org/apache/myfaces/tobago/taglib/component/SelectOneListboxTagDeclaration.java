@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 /*
  * Created: Aug 5, 2005 6:08:24 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 /**
  * Render a single selection option listbox.

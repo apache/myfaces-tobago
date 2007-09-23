@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.taglib.component.TextInputTagDeclaration;
 /*
  * Created: Aug 5, 2005 4:58:19 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 /**
  * Renders a text editor.

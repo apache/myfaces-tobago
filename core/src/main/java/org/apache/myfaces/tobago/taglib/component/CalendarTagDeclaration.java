@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 /*
  * Created: Aug 6, 2005 3:24:33 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 /**
  * Renders a calendar.

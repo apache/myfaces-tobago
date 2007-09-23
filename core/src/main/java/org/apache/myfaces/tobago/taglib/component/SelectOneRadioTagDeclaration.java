@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 /*
  * Created: Aug 5, 2005 6:11:03 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 /**
  *  Render a set of radiobuttons.

@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 /*
  * Created: Aug 5, 2005 3:48:09 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 
 /**

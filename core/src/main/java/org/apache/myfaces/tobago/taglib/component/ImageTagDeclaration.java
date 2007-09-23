@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 /*
  * Created: Aug 6, 2005 3:19:55 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 /**
  *  Renders a Image.

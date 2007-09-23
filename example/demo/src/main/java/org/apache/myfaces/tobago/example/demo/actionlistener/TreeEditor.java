@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.example.demo.actionlistener;
 
 /*
  * Created 27.05.2003 13:37:22.
- * $Id: TreeEditor.java 1270 2005-08-08 20:21:38 +0200 (Mo, 08 Aug 2005) lofwyr $
+ * $Id$
  */
 
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;

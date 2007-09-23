@@ -37,7 +37,7 @@ import java.util.zip.ZipEntry;
  * Created by IntelliJ IDEA.
  * User: bommel
  *
- * @version $Id:  $
+ * @version $Id$
  * @goal resources
  * @phase process-resources
  * @requiresDependencyResolution compile

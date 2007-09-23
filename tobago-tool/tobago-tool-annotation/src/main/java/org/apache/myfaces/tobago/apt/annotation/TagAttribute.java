@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
 /*
  * Created: Mar 8, 2005 5:37:08 PM
  * User: bommel
- * $Id: TagAttribute.java,v 1.1 2005/03/22 20:30:52 bommel Exp $
+ * $Id$
  */
 @Retention(value = RetentionPolicy.SOURCE)
 @Target(value = ElementType.METHOD)

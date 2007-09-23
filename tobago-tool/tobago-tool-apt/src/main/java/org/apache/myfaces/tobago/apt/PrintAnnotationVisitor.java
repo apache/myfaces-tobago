@@ -34,7 +34,7 @@ import org.apache.commons.logging.LogFactory;
 /*
  * Created: Mar 22, 2005 8:10:05 PM
  * User: bommel
- * $Id: PrintAnnotationVisitor.java,v 1.1 2005/03/22 20:30:52 bommel Exp $
+ * $Id$
  */
 public class PrintAnnotationVisitor extends AnnotationDeclarationVisitorCollector {
   private static final Log LOG = LogFactory.getLog(PrintAnnotationVisitor.class);

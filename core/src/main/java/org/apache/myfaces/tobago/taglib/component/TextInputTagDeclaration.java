@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.taglib.component;
 /*
  * Created: Aug 5, 2005 4:47:53 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 
 public interface TextInputTagDeclaration extends InputTagDeclaration {

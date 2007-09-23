@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 /*
  * Created: Aug 5, 2005 5:54:37 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 
 /**

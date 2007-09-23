@@ -46,7 +46,7 @@ import java.io.Writer;
 /*
  * Created: Apr 27, 2005 4:45:44 PM
  * User: bommel
- * $Id: TobagoAnnotationVisitor.java,v 1.4 2005/05/25 15:44:34 bommel Exp $
+ * $Id$
  */
 public class TobagoAnnotationVisitor extends TaglibAnnotationVisitor {
 

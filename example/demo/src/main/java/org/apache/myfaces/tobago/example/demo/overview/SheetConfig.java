@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.example.demo.overview;
 
 /*
  * Created 19.01.2005 21:49:41.
- * $Id:  $
+ * $Id$
  */
 
 

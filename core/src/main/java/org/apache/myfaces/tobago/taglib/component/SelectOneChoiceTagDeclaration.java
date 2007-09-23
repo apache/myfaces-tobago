@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 /*
  * Created: Aug 5, 2005 6:05:28 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 
 /**

@@ -24,7 +24,7 @@ import java.lang.annotation.ElementType;
 
 /*
  * Created 05.03.2005 16:13:42.
- * $Id: UIComponentTagAttribute.java,v 1.4 2005/05/11 15:20:34 bommel Exp $
+ * $Id$
  */
 
 @Retention(value = RetentionPolicy.SOURCE)

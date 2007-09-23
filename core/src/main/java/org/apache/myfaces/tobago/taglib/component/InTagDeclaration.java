@@ -38,7 +38,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 /*
  * Created: Aug 5, 2005 4:53:25 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 /**
  * Renders a text input field.

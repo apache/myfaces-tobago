@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 
 /*
  * Created 07.02.2003 16:00:00.
- * $Id: $
+ * $Id$
  */
 
 import org.apache.commons.logging.Log;

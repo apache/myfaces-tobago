@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
 /*
- * $Id: MenuSelectOneTag.java 390886 2006-04-02 19:32:32Z bommel $
+ * $Id$
  */
 
 /**

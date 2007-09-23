@@ -67,6 +67,7 @@
           <execution>
             <id>tobago-facelet-taglib</id>
             <goals><goal>execute</goal></goals>
+            <phase>compile</phase>
             <configuration>
               <excludes>
                 <exclude>org/apache/myfaces/tobago/*</exclude>
@@ -100,6 +101,7 @@
           <execution>
             <id>tobago-facelet-taglib</id>
             <goals><goal>execute</goal></goals>
+            <phase>compile</phase>
             <configuration>
               <excludes>
                 <exclude>org/apache/myfaces/tobago/*</exclude>

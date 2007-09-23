@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.example.addressbook.web;
 
 /*
  * Created 03.12.2004 00:08:01.
- * $Id: AddressConverter.java,v 1.1.1.1 2004/12/15 12:51:35 lofwyr Exp $
+ * $Id$
  */
 
 import org.apache.commons.logging.Log;

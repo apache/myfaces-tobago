@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.example.addressbook;
 
 /*
  * Created 29.11.2004 17:36:20.
- * $Id: Controller.java,v 1.2 2005/08/10 11:57:55 lofwyr Exp $
+ * $Id$
  */
 
 import java.util.List;

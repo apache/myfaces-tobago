@@ -25,7 +25,7 @@ import java.lang.annotation.ElementType;
 /*
  * Created: Aug 5, 2005 3:11:18 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 
 @Retention(value = RetentionPolicy.SOURCE)

@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 /*
  * Created: Aug 5, 2005 5:18:50 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 /**
  * Renders a checkbox.

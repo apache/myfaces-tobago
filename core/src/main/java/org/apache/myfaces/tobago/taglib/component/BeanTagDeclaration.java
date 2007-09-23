@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.taglib.component;
 /**
  * Created: Aug 5, 2005 3:30:35 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 public interface BeanTagDeclaration extends TobagoTagDeclaration {
 

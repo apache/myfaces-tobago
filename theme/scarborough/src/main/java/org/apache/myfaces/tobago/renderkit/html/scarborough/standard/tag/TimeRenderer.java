@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 /*
  * Created 07.02.2003 16:00:00.
- * $Id: InRenderer.java 1361 2005-08-15 11:46:20 +0200 (Mon, 15 Aug 2005) lofwyr $
+ * $Id$
  */
 
 import org.apache.commons.logging.Log;

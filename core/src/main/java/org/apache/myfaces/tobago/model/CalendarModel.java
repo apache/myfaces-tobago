@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.model;
 
 /*
  * Created: Nov 20, 2002 10:05:10 PM
- * $Id: CalendarModel.java,v 1.1.1.1 2004/04/15 18:41:00 idus Exp $
+ * $Id$
  */
 
 

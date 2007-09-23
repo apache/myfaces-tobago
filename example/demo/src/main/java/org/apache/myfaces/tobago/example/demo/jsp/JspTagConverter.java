@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.example.demo.jsp;
 
 /*
  * Created on: 02.09.2002, 23:37:54
- * $Id: JspTagConverter.java,v 1.1.1.1 2004/04/15 18:41:00 idus Exp $
+ * $Id$
  */
 
 import org.apache.commons.logging.Log;

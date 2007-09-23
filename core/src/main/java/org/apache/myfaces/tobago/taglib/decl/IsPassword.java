@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 /*
  * Created: Okt 9, 2005
  * User: lofwyr
- * $Id: IsRequired.java 1343 2005-08-12 13:51:16Z lofwyr $
+ * $Id$
  */
 public interface IsPassword {
 

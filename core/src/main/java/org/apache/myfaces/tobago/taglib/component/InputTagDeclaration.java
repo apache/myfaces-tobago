@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 /*
  * Created: Aug 5, 2005 4:18:38 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 public interface InputTagDeclaration extends BeanTagDeclaration, HasValidator,
     HasOnchange, HasValue, HasValueChangeListener, HasTabIndex {

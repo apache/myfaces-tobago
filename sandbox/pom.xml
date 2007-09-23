@@ -60,6 +60,7 @@
           <execution>
             <id>tobago-tlds</id>
             <goals><goal>execute</goal></goals>
+            <phase>compile</phase>
             <configuration>
               <targetFiles>
                 <targetFile>org/apache/myfaces/tobago/taglib/sandbox/tobago-sandbox.tld</targetFile>

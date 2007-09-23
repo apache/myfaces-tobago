@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 /*
  * Created: Aug 5, 2005 5:58:55 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 /**
  * Render a multi selection option listbox.

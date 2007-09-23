@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /**
- * $Id:  $
+ * $Id$
  */
 public interface HasSuggestMethod {
 

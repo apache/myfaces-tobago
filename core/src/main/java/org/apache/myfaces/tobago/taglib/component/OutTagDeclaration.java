@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 /*
  * Created: Aug 5, 2005 3:32:40 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 
 /**

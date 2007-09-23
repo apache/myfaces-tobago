@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 /*
  * Created: Aug 5, 2005 5:03:15 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 /**
  * Renders a date input field.

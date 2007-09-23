@@ -31,7 +31,7 @@ import java.util.Set;
 /*
  * Created: Mar 22, 2005 8:12:24 PM
  * User: bommel
- * $Id: AnnotationDeclarationVisitorCollector.java,v 1.3 2005/04/20 18:39:06 bommel Exp $
+ * $Id$
  */
 public class AnnotationDeclarationVisitorCollector extends SimpleDeclarationVisitor {
 

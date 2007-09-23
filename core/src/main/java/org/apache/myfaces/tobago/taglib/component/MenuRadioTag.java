@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 /*
- * $Id: MenuSelectOneTag.java 390886 2006-04-02 19:32:32Z bommel $
+ * $Id$
  */
 
 public class MenuRadioTag extends SelectOneCommandTag

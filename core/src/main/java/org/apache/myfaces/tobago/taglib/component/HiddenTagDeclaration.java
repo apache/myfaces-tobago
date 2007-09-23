@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 /*
  * Created: Aug 5, 2005 4:08:32 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 /**
  * Renders a 'hidden' input element.

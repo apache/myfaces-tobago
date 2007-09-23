@@ -30,7 +30,7 @@ import java.util.Set;
 /*
  * Created: Apr 27, 2005 4:37:16 PM
  * User: bommel
- * $Id: TobagoAnnotationProcessor.java,v 1.1 2005/05/11 15:20:34 bommel Exp $
+ * $Id$
  */
 public class TobagoAnnotationProcessor implements AnnotationProcessor {
 

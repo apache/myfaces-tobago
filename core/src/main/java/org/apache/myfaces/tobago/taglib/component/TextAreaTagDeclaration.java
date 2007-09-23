@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 /*
  * Created: Aug 5, 2005 5:00:41 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 
 /**

@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 /*
  * Created: Aug 5, 2005 5:22:44 PM
  * User: bommel
- * $Id: $
+ * $Id$
  */
 
 public interface SelectManyTagDeclaration extends InputTagDeclaration, HasMarkup {
