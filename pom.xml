@@ -419,7 +419,7 @@
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>4.1</version>
+        <version>4.4</version>
         <scope>test</scope>
       </dependency>
       <dependency>
@@ -561,6 +561,11 @@
               </manifestSections>
             </archive>
           </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.cargo</groupId>
+          <artifactId>cargo-maven2-plugin</artifactId>
+          <version>0.3.1</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
