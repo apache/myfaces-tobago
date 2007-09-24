@@ -65,7 +65,7 @@ public class MessagesRenderer extends MessageRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     if (LOG.isDebugEnabled()) {
-      LOG.debug("facesContect is " + facesContext.getClass().getName());
+      LOG.debug("facesContext is " + facesContext.getClass().getName());
     }
     if (facesContext.getMessages().hasNext()) { // in ie empty span gets a height
       writer.startElement(HtmlConstants.SPAN, component);
