@@ -17,16 +17,28 @@
  * limitations under the License.
 -->
 
-<!DOCTYPE tobago-config PUBLIC
-    "-//The Apache Software Foundation//DTD Tobago Config 1.0//EN" "tobago-config_1_0.dtd">
+<f:view xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:tc="http://myfaces.apache.org/tobago/component"
+	xmlns:tx="http://myfaces.apache.org/tobago/extension">
 
-<tobago-config>
+	<tc:page label="Binding - Request">
+		<f:facet name="layout">
+			<tc:gridLayout rows="fixed;fixed;*" columns="*" />
+		</f:facet>
 
-  <theme-config>
-    <default-theme>speyside</default-theme>
-  </theme-config>
+			<tc:selectOneChoice value="#{bindingRequestBean.selectOne}"
+				binding="#{bindingRequestBean.uiSelectOne}"
+				valueChangeListener="#{bindingRequestBean.processValueChange}">
+				<f:selectItems value="#{bindingRequestBean.items}" />
 
-  <resource-dir>tobago-resource</resource-dir>
-  <resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>
-  <ajax-enabled>true</ajax-enabled>
-</tobago-config>
+				<f:facet name="change">
+					<tc:command actionListener="#{bindingRequestBean.actionListener}" />
+				</f:facet>
+			</tc:selectOneChoice>
+
+			<tc:button label="Reload" action="reload" />
+			<tc:cell />
+	</tc:page>
+</f:view>

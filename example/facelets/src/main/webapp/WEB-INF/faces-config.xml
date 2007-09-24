@@ -43,6 +43,12 @@
   </managed-bean>
 
   <managed-bean>
+    <managed-bean-name>bindingRequestBean</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.facelets.BindingRequestBean</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
     <managed-bean-name>messageBackingBean</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.facelets.MessageBackingBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
