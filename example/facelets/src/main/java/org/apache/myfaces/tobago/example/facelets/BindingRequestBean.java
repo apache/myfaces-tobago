@@ -34,22 +34,18 @@ public class BindingRequestBean {
   private SelectItem [] items = {new SelectItem("Test1", "Test1"), new SelectItem("Test2", "Test2")};
 
   public String getSelectOne() {
-    System.err.println("getSelectOne " +selectOne);
     return selectOne;
   }
 
   public void setSelectOne(String selectOne) {
-    System.err.println("setSelectOne " +selectOne);
     this.selectOne = selectOne;
   }
 
   public UISelectOne getUiSelectOne() {
-    System.err.println("getUISelectOne " + uiSelectOne);
     return uiSelectOne;
   }
 
   public void setUiSelectOne(UISelectOne uiSelectOne) {
-    System.err.println("setUISelectOne " +uiSelectOne);
     this.uiSelectOne = uiSelectOne;
   }
 
@@ -62,11 +58,8 @@ public class BindingRequestBean {
   }
 
   public void processValueChange(ValueChangeEvent e) {
-    System.err.println("processValueChange " + e);
   }
 
   public void actionListener(ActionEvent e) {
-    System.err.println("actionListener " + e);
-
   }
 }
