@@ -587,7 +587,7 @@ TreeOldNode.prototype.doOnClick = function() {
           this.treeResources.getImage("checked.gif"));
     } else {
       // nothing to do, onclick has already done it
-//      Tobago.submitAction(this.id);
+      Tobago.submitAction(this.id);
     }
 
   }
