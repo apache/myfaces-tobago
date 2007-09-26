@@ -33,12 +33,14 @@ import org.apache.myfaces.tobago.component.UIButtonCommand;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -151,7 +153,7 @@ public class ButtonRenderer extends CommandRendererBase {
     LabelWithAccessKey label = new LabelWithAccessKey(component);
 
     if (label.getText() != null) {
-      width += calculateStringWidth(facesContext, component, label.getText());
+      width += RenderUtil.calculateStringWidth(facesContext, component, label.getText());
     }
     int padding = getConfiguredValue(facesContext, component, "paddingWidth");
     width += 2 * padding;
@@ -161,26 +163,6 @@ public class ButtonRenderer extends CommandRendererBase {
 
     return width;
 
-  }
-
-  private int calculateStringWidth(FacesContext facesContext, UIComponent component, String text) {
-    int width = 0;
-    int defaultCharWidth = getConfiguredValue(facesContext, component, "fontWidth");
-
-    String fontWidths = ResourceManagerUtil.getProperty(facesContext, "tobago", "tobago.font.widths");
-
-    for (char c : text.toCharArray()) {
-      int charWidth;
-      if (c >= 32 && c < 128) {
-        int begin = (c - 32) * 2;
-        charWidth = Integer.parseInt(fontWidths.substring(begin, begin + 2), 16);
-      } else {
-        charWidth = defaultCharWidth;
-      }
-      width += charWidth;
-    }
-
-    return width;
   }
 
 }
