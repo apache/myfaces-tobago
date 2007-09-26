@@ -17,28 +17,28 @@ package org.apache.myfaces.tobago.facelets.extension;
  * limitations under the License.
  */
 
-import com.sun.facelets.tag.jsf.ComponentHandler;
-import com.sun.facelets.tag.jsf.ComponentConfig;
-import com.sun.facelets.tag.jsf.ComponentSupport;
+import com.sun.facelets.FaceletContext;
 import com.sun.facelets.tag.MetaRuleset;
 import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.FaceletContext;
+import com.sun.facelets.tag.jsf.ComponentConfig;
+import com.sun.facelets.tag.jsf.ComponentHandler;
+import com.sun.facelets.tag.jsf.ComponentSupport;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.UIMenuCommand;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
+import javax.el.ELException;
 import javax.faces.FacesException;
 import javax.faces.application.Application;
-import javax.el.ELException;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import java.io.IOException;
-
-import org.apache.myfaces.tobago.component.UIMenuCommand;
-import org.apache.myfaces.tobago.TobagoConstants;
 
 /*
  * Date: Aug 10, 2007
  * Time: 9:40:24 PM
  */
 public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
+
 
   public TobagoMenuExtensionHandler(ComponentConfig config) {
     super(config);
@@ -74,7 +74,9 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
       metaRuleset.ignore(TobagoConstants.ATTR_VALUE);
       return metaRuleset;
     } else {
-      for (TagAttribute attr : tag.getAttributes().getAll()) {
+      TagAttribute [] attrs = tag.getAttributes().getAll();
+      for (int i = 0; i < attrs.length; i++) {
+        TagAttribute attr = attrs[i];
         if (!(attr.getLocalName().equals(TobagoConstants.ATTR_CONVERTER)
             || attr.getLocalName().equals(TobagoConstants.ATTR_VALUE))) {
           metaRuleset.ignore(attr.getLocalName());
