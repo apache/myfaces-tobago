@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.renderkit.html;
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
@@ -104,20 +105,11 @@ public class StyleClasses implements Serializable {
   }
 
   public void addMarkupClass(String renderer, String markup) {
-    classes.add(nameOfMarkupClass(renderer, markup));
+    addMarkupClass(renderer, null, markup);
   }
 
   public void removeMarkupClass(String renderer, String markup) {
-    classes.remove(nameOfMarkupClass(renderer, markup));
-  }
-
-  private String nameOfMarkupClass(String renderer, String markup) {
-    StringBuilder builder = new StringBuilder();
-    builder.append(PREFIX);
-    builder.append(renderer);
-    builder.append(MARKUP);
-    builder.append(markup);
-    return builder.toString();
+    removeMarkupClass(renderer, null, markup);
   }
 
   public void addMarkupClass(String renderer, String sub, String markup) {
@@ -132,36 +124,30 @@ public class StyleClasses implements Serializable {
     StringBuilder builder = new StringBuilder();
     builder.append(PREFIX);
     builder.append(renderer);
-    builder.append(SEPERATOR);
-    builder.append(sub);
+    if (sub != null) {
+      builder.append(SEPERATOR);
+      builder.append(sub);
+    }
     builder.append(MARKUP);
     builder.append(markup);
     return builder.toString();
   }
 
   public void addMarkupClass(UIComponent component, String rendererName) {
-    if (component instanceof SupportsMarkup) {
-      String[] markups = ((SupportsMarkup) component).getMarkup();
-      for (String markup: markups) {
-        Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
-        if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
-          addMarkupClass(rendererName, markup);
-        } else {
-          LOG.warn("Unknown markup='" + markup + "'");
-        }
-      }
-    }
+    addMarkupClass(component, rendererName, null);
   }
 
   public void addMarkupClass(UIComponent component, String rendererName, String sub) {
     if (component instanceof SupportsMarkup) {
       String[] markups = ((SupportsMarkup) component).getMarkup();
       for (String markup: markups) {
-        Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
-        if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
-          addMarkupClass(rendererName, sub, markup);
-        } else {
-          LOG.warn("Unknown markup='" + markup + "'");
+        if (!StringUtils.isBlank(markup)) {
+          Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
+          if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
+            addMarkupClass(rendererName, sub, markup);
+          } else if (!"none".equals(markup)) {
+            LOG.warn("Unknown markup='" + markup + "'");
+          }
         }
       }
     }
