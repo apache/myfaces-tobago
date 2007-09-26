@@ -1,6 +1,6 @@
 Building
 --------
-You need Maven2 (at least 2.0.3) and Java 5 to build Tobago.
+You need Maven2 (at least 2.0.6) and Java 5 to build Tobago.
 
 In the main directory you can use
 
