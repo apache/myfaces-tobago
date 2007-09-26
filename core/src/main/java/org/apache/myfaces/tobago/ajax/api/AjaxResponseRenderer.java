@@ -43,6 +43,9 @@ import javax.faces.render.RenderKit;
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
 import javax.servlet.http.HttpServletResponse;
+import javax.naming.InitialContext;
+import javax.naming.Context;
+import javax.naming.NamingException;
 import java.io.StringWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -61,10 +64,19 @@ public class AjaxResponseRenderer {
   public static final String CODE_RELOAD_REQUIRED = "<status code=\"309\"/>";
 
   private Callback callback;
-
+  private String contentType;
 
   public AjaxResponseRenderer() {
     callback = new EncodeAjaxCallback();
+    try {
+      InitialContext ic = new InitialContext();
+      Context ctx = (Context) ic.lookup("java:comp/env");
+      contentType = (String) ctx.lookup("tobago.ajax.contentType");
+    } catch (NamingException e) { /*ignore*/ }
+    
+    if (StringUtils.isBlank(contentType)) {
+      contentType = "text/html";
+    }
   }
 
   public void renderResponse(FacesContext facesContext) throws IOException {
@@ -176,6 +188,21 @@ public class AjaxResponseRenderer {
     return jsfState.toString();
   }
 
+  private static void ensureContentTypeHeader(FacesContext facesContext, String charset, String contentType) {
+    // TODO PortletRequest
+    if (facesContext.getExternalContext().getResponse() instanceof HttpServletResponse) {
+      HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+
+      StringBuilder sb = new StringBuilder(contentType);
+      if (charset == null) {
+        charset = "UTF-8";
+      }
+      sb.append("; charset=");
+      sb.append(charset);
+      response.setContentType(sb.toString());
+    }
+  }
+
   private void writeResponse(FacesContext facesContext, RenderKit renderKit,
                              String responseCode, List<StringWriter> responseParts, String jsfState)
       throws IOException {
@@ -184,7 +211,7 @@ public class AjaxResponseRenderer {
     ResponseUtils.ensureNoCacheHeader(externalContext);
     UIComponent page = ComponentUtil.findPage(facesContext);
     String charset = (String) page.getAttributes().get(ATTR_CHARSET);
-    ResponseUtils.ensureContentTypeHeader(facesContext, charset);
+    ensureContentTypeHeader(facesContext, charset, contentType);
     StringBuilder buffer = new StringBuilder(responseCode);
 
     // add parts to response
