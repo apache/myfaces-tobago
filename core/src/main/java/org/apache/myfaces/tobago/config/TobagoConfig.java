@@ -50,6 +50,7 @@ public class TobagoConfig {
     supportedThemeNames = new ArrayList<String>();
     supportedThemes = new ArrayList<Theme>();
     resourceDirs = new ArrayList<String>();
+    ajaxEnabled = true;
   }
 
   public void addMappingRule(MappingRule mappingRule) {
