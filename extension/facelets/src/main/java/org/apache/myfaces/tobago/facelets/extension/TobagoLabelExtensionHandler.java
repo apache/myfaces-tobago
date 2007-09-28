@@ -140,9 +140,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   protected MetaRuleset createMetaRuleset(Class aClass) {
     MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
     if (UIPanel.class.isAssignableFrom(aClass)) {
-      TagAttribute [] attrs = tag.getAttributes().getAll();
-      for (int i = 0; i < attrs.length; i++) {
-        TagAttribute attr = attrs[i];
+      for (TagAttribute attr : tag.getAttributes().getAll()) {
         if (!attr.getLocalName().equals("rendered")) {
           metaRuleset.ignore(attr.getLocalName());
         }

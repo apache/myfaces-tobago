@@ -21,7 +21,7 @@ import com.sun.facelets.FaceletContext;
 import com.sun.facelets.tag.MetaRuleset;
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentHandler;
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_COMPONENT_CREATED;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIInput;
@@ -67,8 +67,8 @@ public class TobagoComponentHandler extends ComponentHandler {
   protected void onComponentCreated(FaceletContext context, UIComponent component,
       UIComponent parent) {
     if (component instanceof OnComponentCreated
-        && component.getAttributes().get(TobagoConstants.TOBAGO_COMPONENT_CREATED) == null) {
-      component.getAttributes().put(TobagoConstants.TOBAGO_COMPONENT_CREATED, Boolean.TRUE);
+        && component.getAttributes().get(TOBAGO_COMPONENT_CREATED) == null) {
+      component.getAttributes().put(TOBAGO_COMPONENT_CREATED, Boolean.TRUE);
       ((OnComponentCreated) component).onComponentCreated();
     }
   }
