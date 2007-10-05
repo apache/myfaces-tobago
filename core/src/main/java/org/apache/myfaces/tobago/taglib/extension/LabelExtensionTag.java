@@ -39,7 +39,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class LabelExtensionTag extends BodyTagSupport
     implements HasValue, HasTip {
 
-  private final Log LOG = LogFactory.getLog(LabelExtensionTag.class);
+  private static final Log LOG = LogFactory.getLog(LabelExtensionTag.class);
   
   public static final String DEFAULT_COLUMNS = "fixed;*";
 
