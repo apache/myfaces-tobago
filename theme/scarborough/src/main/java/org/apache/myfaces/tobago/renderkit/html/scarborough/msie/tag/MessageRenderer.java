@@ -51,7 +51,7 @@ public class MessageRenderer extends MessageRendererBase {
     }
     String clientId = null;
     if (component instanceof UIMessage) {
-      clientId = ((UIMessage) component).getFor();
+      clientId = ComponentUtil.findClientIdFor(component, facesContext);
     }
     int count = 0;
     for (Iterator i = facesContext.getMessages(clientId); i.hasNext();) {
@@ -62,7 +62,7 @@ public class MessageRenderer extends MessageRendererBase {
     }
 
     if (count != 0) {
-      return count * 20; // FIXME: depends on theme
+      return count * getConfiguredValue(facesContext, component, "messageHeight");
     } else {
       return 1;
     }
@@ -113,7 +113,6 @@ public class MessageRenderer extends MessageRendererBase {
         if (writeEmptyText) {
           writer.writeText("");
         }
-        writer.writeText(message.getSummary());
         writer.endElement(HtmlConstants.LABEL);
 
         writer.startElement(HtmlConstants.BR, null);
