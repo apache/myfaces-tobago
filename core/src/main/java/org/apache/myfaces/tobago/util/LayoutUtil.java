@@ -40,10 +40,15 @@ import javax.faces.context.FacesContext;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
+import java.util.regex.Pattern;
 
 public final class LayoutUtil {
 
   private static final Log LOG = LogFactory.getLog(LayoutUtil.class);
+
+  private static final Pattern TOKEN_PATTERN
+      = Pattern.compile("^(\\d*px|\\d*\\*|\\d*%|fixed)$");
 
   private LayoutUtil() {
     // to prevent instantiation
@@ -263,5 +268,15 @@ public final class LayoutUtil {
     return dimension;
   }
 
+  public static boolean checkTokens(String columns) {
+    StringTokenizer st = new StringTokenizer(columns, ";");
+    while (st.hasMoreTokens()) {
+      String token = st.nextToken();
+      if (!TOKEN_PATTERN.matcher(token).matches()) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
 

@@ -17,6 +17,9 @@ package org.apache.myfaces.tobago.taglib.extension;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
@@ -25,6 +28,7 @@ import org.apache.myfaces.tobago.taglib.component.LabelTag;
 import org.apache.myfaces.tobago.taglib.component.PanelTag;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
@@ -35,16 +39,22 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class LabelExtensionTag extends BodyTagSupport
     implements HasValue, HasTip {
 
+  private final Log LOG = LogFactory.getLog(LabelExtensionTag.class);
+  
+  public static final String DEFAULT_COLUMNS = "fixed;*";
+
   private String value;
   private String tip;
   private String rendered;
-  private String columns = "fixed;*";
+  private String columns = DEFAULT_COLUMNS;
   private String rows = "fixed";
 
   private PanelTag panelTag;
 
   @Override
   public int doStartTag() throws JspException {
+
+    checkValidColums();
 
     panelTag = new PanelTag();
     panelTag.setPageContext(pageContext);
@@ -84,6 +94,13 @@ public class LabelExtensionTag extends BodyTagSupport
     labelTag.doEndTag();
 
     return super.doStartTag();
+  }
+
+  private void checkValidColums() {
+    if (!LayoutUtil.checkTokens(columns)) {
+      LOG.warn("Illegal value for columns = \"" + columns + "\" replacing with default: \"" + DEFAULT_COLUMNS + "\"");
+      columns = DEFAULT_COLUMNS;
+    }
   }
 
   @Override
