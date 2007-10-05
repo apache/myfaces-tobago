@@ -54,7 +54,7 @@ public class MessageRenderer extends MessageRendererBase {
       clientId = ComponentUtil.findClientIdFor(component, facesContext);
     }
     int count = 0;
-    for (Iterator i = facesContext.getMessages(clientId); i.hasNext();) {
+    for (Iterator i = facesContext.getMessages(clientId); i.hasNext(); i.next()) {
       count++;
     }
     if (LOG.isDebugEnabled()) {
