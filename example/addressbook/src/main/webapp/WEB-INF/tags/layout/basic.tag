@@ -15,6 +15,8 @@
  * limitations under the License.
 --%>
 
+<%@ tag pageEncoding="UTF-8" %>
+
 <%@ attribute name="title" %>
 
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
