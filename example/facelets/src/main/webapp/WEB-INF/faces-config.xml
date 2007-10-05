@@ -68,6 +68,13 @@
   </navigation-rule>
 
   <navigation-rule>
+    <navigation-case>
+      <from-outcome>reload</from-outcome>
+      <to-view-id>/binding.xml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
     <from-view-id>/helloWorldNext.xml</from-view-id>
     <navigation-case>
       <from-outcome>back</from-outcome>
