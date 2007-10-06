@@ -132,7 +132,7 @@ public class LabelExtensionTag extends BodyTagSupport
     }
   }
 
-  public void setRows(String rows) {
+  void setRows(String rows) {
     this.rows = rows;
   }
 }
