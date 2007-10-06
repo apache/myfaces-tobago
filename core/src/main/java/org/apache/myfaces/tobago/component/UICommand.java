@@ -22,6 +22,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDERED_PARTIALLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -32,13 +34,16 @@ import java.io.IOException;
 import java.util.Iterator;
 
 /*
- * User: weber
  * Date: Apr 4, 2005
  * Time: 5:02:10 PM
+ * $Id$
  */
 public class UICommand extends javax.faces.component.UICommand {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Command";
+
+  private static final Log LOG = LogFactory.getLog(UICommand.class);
+  private static final String [] RENDERED_PARTIALLY_DEFAULT = {};
 
   private Boolean defaultCommand;
   private Boolean disabled;
@@ -68,10 +73,18 @@ public class UICommand extends javax.faces.component.UICommand {
     }
     ValueBinding vb = getValueBinding(ATTR_RENDERED_PARTIALLY);
     if (vb != null) {
-      return (String[]) vb.getValue(getFacesContext());
-    } else {
-      return new String[0];
+      Object value = vb.getValue(getFacesContext());
+      if (value != null) {
+        if (value instanceof String[]) {
+          return (String[]) value;
+        } else if (value instanceof String) {
+          return ((String) value).split(",");
+        } else {
+          LOG.error("Ignoring RenderedPartially value binding. Unknown instance " + value.getClass().getName());
+        }
+      }
     }
+    return RENDERED_PARTIALLY_DEFAULT;
   }
 
   public void setRenderedPartially(String renderedPartially) {
