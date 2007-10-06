@@ -54,8 +54,6 @@ public class LabelExtensionTag extends BodyTagSupport
   @Override
   public int doStartTag() throws JspException {
 
-    checkValidColums();
-
     panelTag = new PanelTag();
     panelTag.setPageContext(pageContext);
     panelTag.setParent(getParent());
@@ -96,13 +94,6 @@ public class LabelExtensionTag extends BodyTagSupport
     return super.doStartTag();
   }
 
-  private void checkValidColums() {
-    if (!LayoutUtil.checkTokens(columns)) {
-      LOG.warn("Illegal value for columns = \"" + columns + "\" replacing with default: \"" + DEFAULT_COLUMNS + "\"");
-      columns = DEFAULT_COLUMNS;
-    }
-  }
-
   @Override
   public int doEndTag() throws JspException {
     panelTag.doEndTag();
@@ -115,7 +106,7 @@ public class LabelExtensionTag extends BodyTagSupport
     value = null;
     tip = null;
     rendered = null;
-    columns = "fixed;*";
+    columns = DEFAULT_COLUMNS;
     rows = "fixed";
     panelTag = null;
   }
@@ -133,7 +124,12 @@ public class LabelExtensionTag extends BodyTagSupport
   }
 
   void setColumns(String columns) {
-    this.columns = columns;
+    if (!LayoutUtil.checkTokens(columns)) {
+      LOG.warn("Illegal value for columns = \"" + columns + "\" replacing with default: \"" + DEFAULT_COLUMNS + "\"");
+      this.columns = DEFAULT_COLUMNS;
+    } else {
+      this.columns = columns;
+    }
   }
 
   public void setRows(String rows) {
