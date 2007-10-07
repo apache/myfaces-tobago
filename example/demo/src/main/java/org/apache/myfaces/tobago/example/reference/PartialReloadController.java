@@ -1,4 +1,5 @@
 package org.apache.myfaces.tobago.example.reference;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -27,7 +28,7 @@ import java.util.Date;
 
 public class PartialReloadController {
 
-  private final Log LOG = LogFactory.getLog(PartialReloadController.class);
+  private static final Log LOG = LogFactory.getLog(PartialReloadController.class);
 
   private String navigateAction;
 
