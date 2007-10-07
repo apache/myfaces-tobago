@@ -1,13 +1,4 @@
 package org.apache.myfaces.tobago.example.reference;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import org.apache.myfaces.tobago.example.demo.Navigation;
-
-import javax.faces.context.FacesContext;
-import javax.faces.el.VariableResolver;
-import java.util.Date;
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -24,6 +15,15 @@ import java.util.Date;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import org.apache.myfaces.tobago.example.demo.Navigation;
+
+import javax.faces.context.FacesContext;
+import javax.faces.el.VariableResolver;
+import java.util.Date;
 
 public class PartialReloadController {
 
