@@ -271,7 +271,7 @@ public class UIPage extends UIForm {
             pageState.setClientWidth(width);
             pageState.setClientHeight(height);
           }
-          facesContext.getExternalContext().getRequestMap().put("tobago-page-clientDimension-with", width);
+          facesContext.getExternalContext().getRequestMap().put("tobago-page-clientDimension-width", width);
           facesContext.getExternalContext().getRequestMap().put("tobago-page-clientDimension-height", height);
         }
     } catch (Exception e) {
@@ -374,7 +374,7 @@ public class UIPage extends UIForm {
     } else {
       Integer requestWidth =
           (Integer) FacesContext.getCurrentInstance().getExternalContext().
-              getRequestMap().get("tobago-page-clientDimension-with");
+              getRequestMap().get("tobago-page-clientDimension-width");
       if (requestWidth != null) {
         return requestWidth;
       } else {
