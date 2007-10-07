@@ -274,6 +274,12 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
+  <managed-bean>
+    <managed-bean-name>partialReloadController</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.reference.PartialReloadController</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+
   <navigation-rule>
     <navigation-case>
       <from-outcome>reference/intro</from-outcome>
@@ -334,6 +340,10 @@
     <navigation-case>
       <from-outcome>reference/upload</from-outcome>
       <to-view-id>/reference/upload.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>reference/partial</from-outcome>
+      <to-view-id>/reference/partial.jsp</to-view-id>
     </navigation-case>
   </navigation-rule>
 

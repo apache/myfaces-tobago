@@ -28,6 +28,7 @@
              id="nav"
              nameReference="userObject.title"
              idReference="userObject.id"
+             tipReference="userObject.title"
              state="#{navigation.state}"
              showIcons="false"
              showJunctions="false"
