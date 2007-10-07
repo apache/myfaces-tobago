@@ -987,7 +987,8 @@
     <myfaces.version>1.1.5</myfaces.version>
     <myfaces12.version>1.2.0</myfaces12.version>
     <sunjsf.version>1.1_02</sunjsf.version>
-    <sunjsf12.version>1.2_04-p02</sunjsf12.version>    
+    <sunjsf12.version>1.2_04-p02</sunjsf12.version>
+    <facelets.version>1.1.14</facelets.version>
     <jetty.version>6.1.5</jetty.version>
     <common-io.version>1.1</common-io.version>
     <common-lang.version>2.1</common-lang.version>
