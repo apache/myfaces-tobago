@@ -74,7 +74,9 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
       metaRuleset.ignore(TobagoConstants.ATTR_VALUE);
       return metaRuleset;
     } else {
-      for (TagAttribute attr : tag.getAttributes().getAll()) {
+      TagAttribute [] attrs = tag.getAttributes().getAll();
+      for (int i = 0; i < attrs.length; i++) {
+        TagAttribute attr = attrs[i];
         if (!(attr.getLocalName().equals(TobagoConstants.ATTR_CONVERTER)
             || attr.getLocalName().equals(TobagoConstants.ATTR_VALUE))) {
           metaRuleset.ignore(attr.getLocalName());

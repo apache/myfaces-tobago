@@ -132,7 +132,9 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
 
   private boolean checkForAlreadyCreated(UIComponent panel, String uid) {
     if (panel.getChildCount() > 0) {
-      for (UIComponent child:(List<UIComponent>) panel.getChildren()) {
+      List list = panel.getChildren();
+      for (int i = 0; i < list.size(); i++) {
+        UIComponent child = (UIComponent) list.get(i);
         if (uid.equals(child.getId())) {
           return true;
         }
@@ -159,7 +161,9 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   protected MetaRuleset createMetaRuleset(Class aClass) {
     MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
     if (UIPanel.class.isAssignableFrom(aClass)) {
-      for (TagAttribute attr : tag.getAttributes().getAll()) {
+      TagAttribute [] attrs = tag.getAttributes().getAll();
+      for (int i = 0; i < attrs.length; i++) {
+        TagAttribute attr = attrs[i];
         if (!attr.getLocalName().equals("rendered")) {
           metaRuleset.ignore(attr.getLocalName());
         }
