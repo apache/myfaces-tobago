@@ -805,7 +805,7 @@
       theme with the used browser and locale. If the resource is not found,
       the fallback locale is used to continue the search. After all fallback
       locales are examined the fallback for the browser is used and the
-      locales a searched again. After all fallback browsers are searched the
+      locales are searched again. After all fallback browsers are searched the
       fallback for the theme is used and the search starts again with the
       locales until all fallback themes are processed. The result is cached
       for later reuse.</para>
