@@ -26,11 +26,11 @@ import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIGridLayout;
+import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.component.UIInput;
-import org.apache.myfaces.tobago.facelets.SupportsMarkupRule;
 import org.apache.myfaces.tobago.facelets.SuggestMethodRule;
+import org.apache.myfaces.tobago.facelets.SupportsMarkupRule;
 
 import javax.el.ELException;
 import javax.faces.FacesException;
@@ -38,6 +38,7 @@ import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import java.io.IOException;
+import java.util.List;
 
 /*
  * Date: Jul 31, 2007
@@ -95,10 +96,13 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     addGridLayout(faceletContext, panel, root);
 
     addLabel(faceletContext, panel, root);
+    String uid = root.createUniqueId();
+    if (checkForAlreadyCreated(panel, uid)) {
+      return;
+    }
 
     UIComponent input = application.createComponent(getSubComponentType());
     input.setRendererType(getSubRendererType());
-    String uid = root.createUniqueId();
     input.setId(uid);
 
     setAttributes(faceletContext, input);
@@ -108,10 +112,14 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
 
 
   private void addLabel(FaceletContext faceletContext, UIComponent panel, UIViewRoot root) {
+    String uid = root.createUniqueId();
+    if (checkForAlreadyCreated(panel, uid)) {
+      return;
+    }
     Application application = faceletContext.getFacesContext().getApplication();
     UILabel label = (UILabel) application.createComponent(UILabel.COMPONENT_TYPE);
     label.setRendererType(TobagoConstants.RENDERER_TYPE_LABEL);
-    label.setId(root.createUniqueId());
+    label.setId(uid);
     label.getAttributes().put(TobagoConstants.ATTR_FOR, "@auto");
     if (tipAttribute != null) {
       label.setTip(tipAttribute.getValue(faceletContext));
@@ -120,6 +128,17 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
       label.setValue(labelAttribute.getValue(faceletContext));
     }
     panel.getChildren().add(label);
+  }
+
+  private boolean checkForAlreadyCreated(UIComponent panel, String uid) {
+    if (panel.getChildCount() > 0) {
+      for (UIComponent child:(List<UIComponent>) panel.getChildren()) {
+        if (uid.equals(child.getId())) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   private void addGridLayout(FaceletContext faceletContext, UIComponent panel, UIViewRoot root) {
