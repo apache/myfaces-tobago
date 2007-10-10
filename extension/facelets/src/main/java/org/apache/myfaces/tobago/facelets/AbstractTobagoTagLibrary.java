@@ -18,6 +18,8 @@ package org.apache.myfaces.tobago.facelets;
  */
 
 import com.sun.facelets.tag.AbstractTagLibrary;
+import org.apache.myfaces.tobago.validator.FileItemValidator;
+import org.apache.myfaces.tobago.validator.SubmittedValueLengthValidator;
 
 /*
  * User: bommel
@@ -35,6 +37,8 @@ public class AbstractTobagoTagLibrary  extends AbstractTagLibrary {
     addTagHandler("converter", ConverterHandler.class);
     addTagHandler("script", ScriptHandler.class);
     addTagHandler("style", StyleHandler.class);
+    addValidator("validateFileItem", FileItemValidator.VALIDATOR_ID);
+    addValidator("validateSubmittedValueLength", SubmittedValueLengthValidator.VALIDATOR_ID);   
   }
 
 }
