@@ -26,4 +26,5 @@ to the WEB-INF/lib directory of your WAR.
 
 NOTE: The JDK 1.4 version is work in progress.
 
-The extension directory contains the tobago-facelets.jar and a retrotranslated facelets.jar.
+The extension directory contains the tobago-facelets.jar.
+The tobago-facelets.jar is JDK 1.4 compatible.

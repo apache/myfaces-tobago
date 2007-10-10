@@ -183,12 +183,6 @@
                     </artifactItem>
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago-facelets</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>jdk14retro</classifier>
-                    </artifactItem>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-fileupload</artifactId>
                       <version>${project.version}</version>
                     </artifactItem>
