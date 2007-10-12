@@ -24,6 +24,7 @@ import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIInput;
@@ -31,6 +32,8 @@ import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.facelets.SuggestMethodRule;
 import org.apache.myfaces.tobago.facelets.SupportsMarkupRule;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.el.ELException;
 import javax.faces.FacesException;
@@ -45,6 +48,8 @@ import java.util.List;
  * Time: 6:14:34 PM
  */
 public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
+  private static final Log LOG = LogFactory.getLog(TobagoLabelExtensionHandler.class);
+  private static final String DEFAULT_COLUMNS = "fixed;*";
   private TagAttribute labelWidthAttribute;
   private TagAttribute tipAttribute;
   private TagAttribute labelAttribute;
@@ -148,7 +153,12 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     UIGridLayout gridLayout = (UIGridLayout) application.createComponent(UIGridLayout.COMPONENT_TYPE);
     gridLayout.setRendererType(TobagoConstants.RENDERER_TYPE_GRID_LAYOUT);
     if (labelWidthAttribute != null) {
-      gridLayout.setColumns(getColumns(labelWidthAttribute.getValue(faceletContext)));
+      String columns = getColumns(labelWidthAttribute.getValue(faceletContext));
+      if (!LayoutUtil.checkTokens(columns)) {
+        LOG.warn("Illegal value for columns = \"" + columns + "\" replacing with default: \"" + DEFAULT_COLUMNS + "\"");
+        columns = DEFAULT_COLUMNS;
+      }
+      gridLayout.setColumns(columns);
     } else {
       gridLayout.setColumns(getColumns("fixed"));
     }
