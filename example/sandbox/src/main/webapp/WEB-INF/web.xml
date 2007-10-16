@@ -22,7 +22,7 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
     version="2.4">
 
-  <display-name>Blank Tobago Application</display-name>
+  <display-name>Tobago Sandbox Application</display-name>
 
   <filter>
     <filter-name>multipartFormdataFilter</filter-name>
@@ -32,8 +32,6 @@
     <filter-name>multipartFormdataFilter</filter-name>
     <url-pattern>/faces/*</url-pattern>
   </filter-mapping>
-
-
 
 <!--  workaround (e.g. for Oracle AS 10.1.2.0.0)-->
   <listener>
