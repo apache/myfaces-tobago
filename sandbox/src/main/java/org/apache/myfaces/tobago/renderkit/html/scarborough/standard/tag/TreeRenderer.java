@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -76,16 +75,6 @@ public class TreeRenderer extends LayoutableRendererBase {
     }
 
     UITree tree = (UITree) component;
-    TreeState state = tree.getState();
-
-    if (state != null) {
-      if ("Tree".equals(tree.getRendererType())) {
-        state.clearExpandState();
-      }
-      if (isSelectable(tree)) {
-        state.clearSelection();
-      }
-    }
     tree.setValid(true);
   }
 

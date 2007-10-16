@@ -25,7 +25,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_EXPANDED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
@@ -34,8 +33,8 @@ import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
-import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -51,7 +50,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.util.List;
@@ -72,7 +70,6 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     UITreeNode node = (UITreeNode) component;
     UITree tree = node.findTree();
-    TreeState state = tree.getState();
     String treeId = tree.getClientId(facesContext);
     String nodeStateId = node.nodeStateId(facesContext);
     Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
@@ -80,24 +77,16 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     // expand state
     boolean expanded = Boolean.parseBoolean((String) requestParameterMap.get(id + "-expanded"));
+    node.setExpanded(expanded);
 
-//    String expandState = (String) requestParameterMap.get(treeId);
-//    String searchString = ";" + nodeStateId + ";";
-//    if (StringUtils.contains(expandState, searchString)) {
-//    if (expanded) {
-//      state.addExpandState((DefaultMutableTreeNode) node.getValue());
-      ValueBinding binding = node.getValueBinding(ATTR_EXPANDED);
-      if (binding != null) {
-        binding.setValue(facesContext, expanded);
-      }
-//    }
-
+    // select
     String searchString;
     if (TreeRenderer.isSelectable(tree)) { // selection
       String selected = (String) requestParameterMap.get(treeId + UITree.SELECT_STATE);
       searchString = ";" + nodeStateId + ";";
       if (StringUtils.contains(selected, searchString)) {
-        state.addSelection((DefaultMutableTreeNode) node.getValue());
+        // TODO: add selection to Component
+        //state.addSelection((DefaultMutableTreeNode) node.getValue());
       }
     }
 
@@ -105,10 +94,9 @@ public class TreeNodeRenderer extends CommandRendererBase {
     String marked = (String) requestParameterMap.get(treeId + UITree.MARKER);
     if (marked != null) {
       searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeStateId;
-
-      if (marked.equals(searchString)) {
-        state.setMarker((DefaultMutableTreeNode) node.getValue());
-      }
+      node.setMarked(marked.equals(searchString));
+    } else {
+      LOG.warn("This log message is help clarifying the occurence of this else case.");
     }
   }
 
@@ -123,16 +111,15 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    TreeState treeState = root.getState();
     String treeId = root.getClientId(facesContext);
 
     DefaultMutableTreeNode modelNode = (DefaultMutableTreeNode) node.getValue();
 
     boolean isFolder = mixedModel.isFolder();
 
-    boolean marked = treeState.isMarked(modelNode);
+    boolean marked = node.isMarked();
     String id = node.getClientId(facesContext);
-    boolean expanded = ComponentUtil.getBooleanAttribute(node, ATTR_EXPANDED);
+    boolean expanded = node.isExpanded();
     boolean menuMode = root.getMode().equals("menu");
 
     boolean showIcons = root.isShowIcons();
@@ -143,6 +130,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     boolean isRoot = mixedModel.isRoot();
     boolean hasNextSibling = mixedModel.hasCurrentNodeNextSibling();
     List<Boolean> junctions = mixedModel.getJunctions();
+    String image = ComponentUtil.getStringAttribute(node, "image");
 
     if (!showRoot && junctions.size() > 0) {
       junctions.remove(0);
@@ -193,11 +181,16 @@ public class TreeNodeRenderer extends CommandRendererBase {
       encodeIndent(facesContext, writer, menuMode, junctions);
 
       encodeTreeJunction(facesContext, writer, id, treeId, showJunctions, showRootJunction, showRoot, expanded,
-          isFolder, depth, hasNextSibling);
+          isFolder, depth, hasNextSibling, image);
 
-      encodeTreeIcons(facesContext, writer, id, treeId, showIcons, expanded, isFolder);
+      encodeTreeIcons(facesContext, writer, id, treeId, showIcons, expanded, isFolder, image);
 
       encodeLabel(writer, helper, node, marked, treeId);
+
+      UIComponent facet = node.getFacet("addendum");
+      if (facet != null) {
+        RenderUtil.encode(facesContext, facet);
+      }
 
       writer.endElement(DIV);
     }
@@ -268,7 +261,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
   private void encodeTreeJunction(
       FacesContext facesContext, TobagoResponseWriter writer, String id, String treeId,
       boolean showJunctions, boolean showRootJunction, boolean showRoot,
-      boolean expanded, boolean isFolder, int depth, boolean hasNextSibling) throws IOException {
+      boolean expanded, boolean isFolder, int depth, boolean hasNextSibling, String image) throws IOException {
     if (!(!showJunctions
         || !showRootJunction && depth == 0
         || !showRootJunction && !showRoot && depth == 1)) {
@@ -290,8 +283,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       String src = ResourceManagerUtil.getImageWithPath(facesContext, "image/" + gif);
       writer.writeAttribute("src", src, true); // xxx is escaping required
       if (isFolder) {
-        writer.writeAttribute("onclick",
-            createOnclickForToggle(facesContext, treeId), true); // xxx is escaping required
+        writer.writeAttribute("onclick", createOnclickForToggle(facesContext, treeId, image), true); // xxx is escaping required
       }
       writer.writeAttribute("alt", "", false);
 //    } else if (( !this.hideRoot && depth >0 ) || (this.hideRoot && depth > 1)) {
@@ -304,7 +296,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
   private void encodeTreeIcons(
       FacesContext facesContext, TobagoResponseWriter writer, String id, String treeId,
-      boolean showIcons, boolean expanded, boolean isFolder)
+      boolean showIcons, boolean expanded, boolean isFolder, String image)
       throws IOException {
 
     if (showIcons) {
@@ -312,25 +304,29 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.writeClassAttribute("tree-icon");
       writer.writeIdAttribute(id + "-icon");
 
-      String gif = isFolder
-          ? (expanded ? "openfoldericon.gif" : "foldericon.gif")
-          : "new.gif";
-
-      String src = ResourceManagerUtil.getImageWithPath(facesContext, "image/" + gif);
+      if (image == null) {
+        image = "image/" + (isFolder ? (expanded ? "openfoldericon.gif" : "foldericon.gif") : "new.gif");
+      }
+      String src = ResourceManagerUtil.getImageWithPath(facesContext, image);
       writer.writeAttribute("src", src, true); // xxx is escaping required
       if (isFolder) {
         writer.writeAttribute("onclick",
-            createOnclickForToggle(facesContext, treeId), true); // xxx is escaping required
+            createOnclickForToggle(facesContext, treeId, image), true); // xxx is escaping required
       }
       writer.writeAttribute("alt", "", false);
       writer.endElement(IMG);
     }
   }
 
-  private String createOnclickForToggle(FacesContext facesContext, String treeId) {
+  private String createOnclickForToggle(FacesContext facesContext, String treeId, String image) {
+    String openImage = image;
+      if (image == null) {
+        openImage = "image/openfoldericon.gif";
+        image = "image/foldericon.gif";
+      }
     return "tobagoTreeNodeToggle(this.parentNode, '" + treeId + "', '"
-          + ResourceManagerUtil.getImageWithPath(facesContext, "image/openfoldericon.gif") + "', '"
-          + ResourceManagerUtil.getImageWithPath(facesContext, "image/foldericon.gif") + "', null, null)";
+          + ResourceManagerUtil.getImageWithPath(facesContext, openImage) + "', '"
+          + ResourceManagerUtil.getImageWithPath(facesContext, image) + "', null, null)";
   }
 
 /*

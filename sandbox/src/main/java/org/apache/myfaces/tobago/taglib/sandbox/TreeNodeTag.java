@@ -18,8 +18,10 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_EXPANDED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITreeNode;
@@ -34,6 +36,8 @@ public class TreeNodeTag extends AbstractCommandTag implements TreeNodeTagDeclar
   private String tip;
   private String target;
   private String expanded;
+  private String marked;
+  private String image;
 
   @Override
   public String getComponentType() {
@@ -49,6 +53,8 @@ public class TreeNodeTag extends AbstractCommandTag implements TreeNodeTagDeclar
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
     ComponentUtil.setStringProperty(component, ATTR_TARGET, target);
     ComponentUtil.setBooleanProperty(component, ATTR_EXPANDED, expanded);
+    ComponentUtil.setBooleanProperty(component, ATTR_MARKED, marked);
+    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
   }
 
   @Override
@@ -59,6 +65,8 @@ public class TreeNodeTag extends AbstractCommandTag implements TreeNodeTagDeclar
     tip = null;
     target = null;
     expanded = null;
+    marked = null;
+    image = null;
   }
 
   public String getValue() {
@@ -91,5 +99,21 @@ public class TreeNodeTag extends AbstractCommandTag implements TreeNodeTagDeclar
 
   public void setExpanded(String expanded) {
     this.expanded = expanded;
+  }
+
+  public String getMarked() {
+    return marked;
+  }
+
+  public void setMarked(String marked) {
+    this.marked = marked;
+  }
+
+  public String getImage() {
+    return image;
+  }
+
+  public void setImage(String image) {
+    this.image = image;
   }
 }

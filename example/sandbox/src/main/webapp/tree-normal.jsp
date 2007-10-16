@@ -28,7 +28,8 @@
       <tc:gridLayout margin="10px" rows="600px;*"/>
     </f:facet>
 
-    <tcs:tree state="#{controller.state}" id="tree"
+    <%--state="#{controller.state}" --%>
+    <tcs:tree id="tree"
         showIcons="true"
         showJunctions="true"
         showRootJunction="true"
@@ -43,9 +44,14 @@
                         tip="#{node.userObject.tip}"
                         action="#{node.userObject.action}"
                         disabled="#{node.userObject.disabled}"
-                        value="#{node}"/>
+                        value="#{node}"
+                        image="feather.png"/>
         </tcs:treeData>
-        <tcs:treeNode label="2 Action 1" action="#{controller.action1}" id="action1"/>
+        <tcs:treeNode label="2 Action 1" action="#{controller.action1}" id="action1">
+          <f:facet name="addendum">
+            <tc:out value="(Addendum)" />
+          </f:facet>
+        </tcs:treeNode>
         <tcs:treeNode label="3 Action 2" action="#{controller.action2}" id="action2"/>
         <tcs:treeNode label="4 Action 3" action="#{controller.action3}" id="action3">
           <tcs:treeNode label="4.1 On Click 1" onclick="alert('On Click 1');" id="click1"/>

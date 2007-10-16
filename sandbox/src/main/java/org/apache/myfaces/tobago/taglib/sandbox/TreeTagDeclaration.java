@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasState;
 import org.apache.myfaces.tobago.taglib.decl.HasTreeNodeValue;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
@@ -39,7 +38,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     uiComponent = "org.apache.myfaces.tobago.component.UITree",
     rendererType = "Tree")
 public interface TreeTagDeclaration 
-    extends TobagoTagDeclaration, HasIdBindingAndRendered, HasTreeNodeValue, HasState, IsRequired {
+    extends TobagoTagDeclaration, HasIdBindingAndRendered, HasTreeNodeValue, IsRequired {
 
   /**
    * Flag indicating whether or not this component should be render selectable items.

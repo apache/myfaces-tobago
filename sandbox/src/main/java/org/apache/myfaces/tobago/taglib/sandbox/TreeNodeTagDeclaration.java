@@ -18,12 +18,14 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.component.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasImage;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasTarget;
@@ -39,10 +41,12 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 @BodyContentDescription(anyTagOf = "<tcs:treeNode>* <tcs:treeData>*")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeNode",
-    rendererType = "TreeNode")
+    rendererType = "TreeNode",
+    facets = {
+      @Facet(name="addendum", description = "Displays an additional component to a node.")})
 public interface TreeNodeTagDeclaration
     extends HasIdBindingAndRendered, HasLabel, HasValue, HasMarkup, AbstractCommandTagDeclaration, HasTip, HasTarget,
-    IsDisabled {
+    HasImage, IsDisabled {
 
   /**
    * Flag indicating if the subnodes are to be displayed.
@@ -50,4 +54,11 @@ public interface TreeNodeTagDeclaration
   @TagAttribute(type = String.class)
   @UIComponentTagAttribute(type = "java.lang.Boolean")
   void setExpanded(String expanded);
+
+  /**
+   * Flag indicating if the node is marked, and should be displayed in a special way.
+   */
+  @TagAttribute(type = String.class)
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  void setMarked(String marked);
 }

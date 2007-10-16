@@ -23,10 +23,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ICONS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_JUNCTIONS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT_JUNCTION;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
-import org.apache.myfaces.tobago.model.TreeState;
-import org.apache.myfaces.tobago.util.MessageFactory;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.NamingContainer;
@@ -36,12 +33,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 public class UITree extends UIInput implements NamingContainer {
 
@@ -56,8 +51,6 @@ public class UITree extends UIInput implements NamingContainer {
 
   public static final String FACET_TREE_NODE_COMMAND = "treeNodeCommand";
   public static final String PARAMETER_TREE_NODE_ID = "treeNodeId";
-
-  private TreeState treeState;
 
   private boolean showJunctions = true;
   private boolean showJunctionsSet = false;
@@ -152,6 +145,9 @@ public class UITree extends UIInput implements NamingContainer {
   }
 
   public void validate(FacesContext context) {
+
+// todo: validate must be written new, without TreeState
+/*
     if (isRequired() && getState().getSelection().size() == 0) {
       setValid(false);
       FacesMessage facesMessage = MessageFactory.createFacesMessage(context,
@@ -173,7 +169,7 @@ public class UITree extends UIInput implements NamingContainer {
         }
       }
     }
-
+*/
 //  call all validators
     if (getValidators() != null) {
       for (Validator validator : getValidators()) {
@@ -229,22 +225,6 @@ public class UITree extends UIInput implements NamingContainer {
       showRootJunctionSet = true;
     }
     mode = (String) values[5];
-  }
-
-  public TreeState getState() {
-    if (treeState != null) {
-      return treeState;
-    }
-    ValueBinding valueBinding = getValueBinding(ATTR_STATE);
-    if (valueBinding != null) {
-      return (TreeState) valueBinding.getValue(getFacesContext());
-    } else {
-      return null;
-    }
-  }
-
-  public void setState(TreeState state) {
-    this.treeState = state;
   }
 
   public boolean isShowJunctions() {

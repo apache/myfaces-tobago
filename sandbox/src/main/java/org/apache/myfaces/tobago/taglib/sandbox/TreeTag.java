@@ -24,7 +24,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ICONS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_JUNCTIONS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT_JUNCTION;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
@@ -35,7 +34,6 @@ import javax.faces.component.UIComponent;
 public class TreeTag extends TobagoTag implements TreeTagDeclaration {
 
   private String value;
-  private String state;
 
   private String showJunctions;
   private String showIcons;
@@ -58,7 +56,6 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
     super.setProperties(component);
 
     ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
-    ComponentUtil.setValueBinding(component, ATTR_STATE, state);
 
     ComponentUtil.setBooleanProperty(component, ATTR_SHOW_JUNCTIONS, showJunctions);
     ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ICONS, showIcons);
@@ -75,7 +72,6 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
   public void release() {
     super.release();
     value = null;
-    state = null;
     showJunctions = null;
     showIcons = null;
     showRoot = null;
@@ -91,14 +87,6 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
 
   public void setValue(String value) {
     this.value = value;
-  }
-
-  public String getState() {
-    return state;
-  }
-
-  public void setState(String state) {
-    this.state = state;
   }
 
   public String getShowIcons() {

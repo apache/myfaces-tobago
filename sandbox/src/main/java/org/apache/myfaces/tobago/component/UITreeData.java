@@ -31,6 +31,8 @@ import javax.faces.event.FacesListener;
 import javax.faces.event.PhaseId;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UITreeData extends javax.faces.component.UIInput
     implements NamingContainer, TreeModelBuilder {
@@ -57,6 +59,8 @@ public class UITreeData extends javax.faces.component.UIInput
 //    super.processDecodes(facesContext);
 //  }
 
+  // Holds for each node the states of the child components of this UITreeData.
+  private Map<String, Object> pathStates = new HashMap<String, Object>();
 
   @Override
   public void processDecodes(FacesContext facesContext) {
@@ -87,11 +91,17 @@ public class UITreeData extends javax.faces.component.UIInput
       return; // nothing to do, if already set.
     }
 
-    // reset the client id (see spec 3.1.6)
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+
     UITreeNode template = getTemplateComponent();
+    pathStates.put(this.pathIndex, template.saveState(facesContext));
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("save   " + this.pathIndex + " ex=" + template.isExpanded());
+    }
+
+    // reset the client id (see spec 3.1.6)
     template.setId(template.getId());
 
-    FacesContext facesContext = FacesContext.getCurrentInstance();
     this.pathIndex = pathIndex;
     if (pathIndex != null) {
       currentNode = treeModel.getNode(pathIndex);
@@ -100,11 +110,20 @@ public class UITreeData extends javax.faces.component.UIInput
       currentNodeId = pathIndex;
       currentParentNodeId = treeModel.getParentPathIndex(pathIndex);
     } else {
-      facesContext.getExternalContext().getRequestMap().remove(var);
+      FacesContext.getCurrentInstance().getExternalContext().getRequestMap().remove(var);
       currentNode = null;
       currentNodeId = null;
       currentParentNodeId = null;
     }
+
+    Object state = pathStates.get(this.pathIndex);
+    if (state != null) {
+      template.restoreState(facesContext, state);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("restore " + this.pathIndex + " ex=" + template.isExpanded());
+      }
+    }
+
   }
 
   public void buildBegin(MixedTreeModel model) {
@@ -127,8 +146,7 @@ public class UITreeData extends javax.faces.component.UIInput
   }
 
   @Override
-  public void encodeChildren(FacesContext context)
-      throws IOException {
+  public void encodeChildren(FacesContext context) throws IOException {
   }
 
   @Override
@@ -303,5 +321,4 @@ public class UITreeData extends javax.faces.component.UIInput
       return pathIndex;
     }
   }
-
 }
