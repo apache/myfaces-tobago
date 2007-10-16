@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
  * Date: 11.02.2006 13:28:14
  */
 @Tag(name = "tree")
-@BodyContentDescription(anyTagOf = "<tcs:treeNode>")
+@BodyContentDescription(anyTagOf = "<tcs:treeNode>|<tcs:treeData>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITree",
     rendererType = "Tree")
