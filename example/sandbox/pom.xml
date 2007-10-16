@@ -37,6 +37,38 @@
           <url>http://localhost:8080/manager</url>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.myfaces.tobago</groupId>
+        <artifactId>maven-apt-plugin</artifactId>
+        <version>${project.version}</version>
+        <executions>
+          <execution>
+            <id>tobago-facelet-sandbox-taglib</id>
+            <goals><goal>execute</goal></goals>
+            <phase>validate</phase>
+            <configuration>
+              <excludes>
+                <exclude>org/apache/myfaces/tobago/*</exclude>
+              </excludes>
+              <includes>
+                <include>org/apache/myfaces/tobago/taglib/component/*</include>
+                <include>org/apache/myfaces/tobago/taglib/decl/*</include>
+              </includes>
+              <aptSourceRoots>
+                <aptSourceRoot>${project.build.directory}/tobago-core-sources</aptSourceRoot>
+              </aptSourceRoots>
+              <targetFiles>
+                <targetFile>tobago-sandbox.taglib.xml</targetFile>
+              </targetFiles>
+              <resourceTargetPath>META-INF</resourceTargetPath>
+              <generated>target/generated-sources</generated>
+              <factory>org.apache.myfaces.tobago.apt.FaceletAnnotationProcessorFactory</factory>
+              <nocompile>true</nocompile>
+              <encoding>UTF-8</encoding>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 

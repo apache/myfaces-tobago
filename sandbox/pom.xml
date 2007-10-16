@@ -207,6 +207,11 @@
       <scope>provided</scope>
       <optional>true</optional>
     </dependency>
+    <dependency>
+      <groupId>com.sun.facelets</groupId>
+      <artifactId>jsf-facelets</artifactId>
+      <version>${facelets.version}</version>
+    </dependency>
 
   </dependencies>
 
@@ -332,7 +337,7 @@
                   <attach>true</attach>
                   <verify>true</verify>
                   <verifyClasspath>
-                     <element>${java14.home}/lib/rt.jar</element>
+                     <element>/System/Library/Frameworks/JavaVM.framework/Versions/1.4/Classes/classes.jar</element>
                   </verifyClasspath>
                 </configuration>
               </execution>
