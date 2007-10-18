@@ -27,7 +27,9 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
@@ -95,19 +97,32 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
           + bgImage + "', sizingMethod='scale');", false);
       }
       writer.endElement(HtmlConstants.DIV);
-      if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
-        writer.startElement(HtmlConstants.IFRAME, component);
-        writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + HtmlConstants.IFRAME);
-        writer.writeClassAttribute("tobago-popup-iframe tobago-popup-none");
-        writer.writeAttribute(HtmlAttributes.STYLE, contentStyle.toString(), false);
-        writer.writeAttribute(HtmlAttributes.SRC, "javascript:false;", false);
-        writer.endElement(HtmlConstants.IFRAME);
+    }
+    if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
+      writer.startElement(HtmlConstants.IFRAME, component);
+      writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + HtmlConstants.IFRAME);
+      writer.writeClassAttribute("tobago-popup-iframe tobago-popup-none");
+      UIPage page = ComponentUtil.findPage(facesContext);
+      final StringBuilder frameSize = new StringBuilder();
+      if (component.isModal()) {
+        // full client area
+        frameSize.append("width: ");
+        frameSize.append(page.getWidth());
+        frameSize.append("; ");
+        frameSize.append("height: ");
+        frameSize.append(page.getHeight());
+        frameSize.append("; ");
+      } else {
+        frameSize.append(contentStyle); // size of the popup
       }
+      writer.writeAttribute(HtmlAttributes.STYLE, frameSize.toString(), false);
+      writer.writeAttribute(HtmlAttributes.SRC, "javascript:false;", false);
+      writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
+      writer.endElement(HtmlConstants.IFRAME);
     }
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeIdAttribute(contentDivId);
     writer.writeClassAttribute("tobago-popup-content tobago-popup-none");
-
 
     writer.writeAttribute(HtmlAttributes.STYLE, contentStyle.toString(), false);
   }
@@ -121,7 +136,7 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
     writer.endElement(HtmlConstants.DIV);
 
     String setupScript = "Tobago.setupPopup('" + clientId + "', '"
-        + component.getLeft() + "', '" + component.getTop() + "');";
+        + component.getLeft() + "', '" + component.getTop() + "', " + component.isModal() + ");";
     writer.writeJavascript(setupScript);
   }
 
