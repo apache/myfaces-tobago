@@ -24,7 +24,7 @@
   <jsp:body>
     <tc:box label="Popups">
       <f:facet name="layout">
-        <tc:gridLayout columns="100px;*" rows="fixed;fixed;fixed;fixed;*"/>
+        <tc:gridLayout columns="100px;*" rows="fixed;fixed;fixed;fixed;*;fixed;*"/>
       </f:facet>
 
       <tc:button label="Open">
@@ -70,7 +70,35 @@
         </tc:menu>
       </tc:menuBar>
 
-      <tc:cell/>
+      <tc:button label="Open modeless">
+        <f:facet name="popup">
+          <tc:popup width="300" height="270" id="popup2" modal="false">
+            <tc:box label="Text input">
+              <f:facet name="layout">
+                <tc:gridLayout rows="fixed;*;fixed"/>
+              </f:facet>
+
+              <tx:in label="Field" required="true"/>
+              <tc:cell/>
+              <tc:panel>
+                <f:facet name="layout">
+                  <tc:gridLayout columns="*;fixed;fixed"/>
+                </f:facet>
+                <tc:cell/>
+                <tc:button label="Cancel">
+                  <tc:attribute name="popupClose" value="immediate"/>
+                </tc:button>
+                <tc:button label="Ok">
+                  <tc:attribute name="popupClose" value="afterSubmit"/>
+                </tc:button>
+              </tc:panel>
+
+            </tc:box>
+          </tc:popup>
+        </f:facet>
+      </tc:button>
+
+
       <tc:out value="here is the boolean >>#{reference.bool}<<"/>
 
       <tc:cell/>
@@ -94,6 +122,12 @@
         </f:facet>
       </tc:button>
       <tc:cell/>
+
+      <tc:cell/>
+      <tc:cell/>
+      
+      <tc:cell/>
+      <tx:selectOneChoice label="Select"/>
 
       <tc:cell/>
       <tc:cell/>

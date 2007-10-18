@@ -810,7 +810,7 @@ var Tobago = {
   /**
     * Setup popup size
     */
-  setupPopup: function(id, left, top) {
+  setupPopup: function(id, left, top, modal) {
 //  alert("tobagoSetupPopup('" + id + "', '" + left + "', '"+ top + "')");
     var hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + "hidden");
     if (hidden && hidden.type == "hidden") {
@@ -820,8 +820,8 @@ var Tobago = {
     // extend background into scrollable area
     var background = this.element(id);
     if (background) {
-      background.style.width = document.body.scrollWidth + 'px';
-      background.style.height = document.body.scrollHeight + 'px';
+      background.style.width = Math.max(document.body.scrollWidth, document.body.clientWidth) + 'px';
+      background.style.height = Math.max(document.body.scrollHeight, document.body.clientHeight) + 'px';
       this.popupResizeStub = function() {Tobago.doResizePopupBackground(id);}
       Tobago.addEventListener(window, "resize", this.popupResizeStub);
     }
@@ -863,7 +863,7 @@ var Tobago = {
 
       var iframeId = id + Tobago.SUB_COMPONENT_SEP + "iframe";
       var iframe = this.element(iframeId);
-      if (iframe) {
+      if (iframe && !modal) {
         iframe.style.left = div.style.left;
         iframe.style.top = div.style.top;
       }
@@ -880,8 +880,8 @@ var Tobago = {
   doResizePopupBackground: function(id) {
     var background = Tobago.element(id);
     if (background) {
-      background.style.width = document.body.scrollWidth + 'px';
-      background.style.height = document.body.scrollHeight + 'px';
+      background.style.width = Math.max(document.body.scrollWidth, document.body.clientWidth) + 'px';
+      background.style.height = Math.max(document.body.scrollHeight, document.body.clientHeight) + 'px';
     }
   },
 
