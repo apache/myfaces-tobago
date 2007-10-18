@@ -24,7 +24,7 @@
   <jsp:body>
     <tc:box label="Popups">
       <f:facet name="layout">
-        <tc:gridLayout columns="100px;*" rows="fixed;fixed;fixed;fixed;*;fixed;*"/>
+        <tc:gridLayout columns="130px;*" rows="fixed;fixed;fixed;fixed;*;fixed;*"/>
       </f:facet>
 
       <tc:button label="Open">
