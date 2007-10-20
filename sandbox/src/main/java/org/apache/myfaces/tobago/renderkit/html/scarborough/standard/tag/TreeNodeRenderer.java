@@ -283,7 +283,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
       String src = ResourceManagerUtil.getImageWithPath(facesContext, "image/" + gif);
       writer.writeAttribute("src", src, true); // xxx is escaping required
       if (isFolder) {
-        writer.writeAttribute("onclick", createOnclickForToggle(facesContext, treeId, image), true); // xxx is escaping required
+        // xxx is escaping required
+        writer.writeAttribute("onclick", createOnclickForToggle(facesContext, treeId, image), true);
       }
       writer.writeAttribute("alt", "", false);
 //    } else if (( !this.hideRoot && depth >0 ) || (this.hideRoot && depth > 1)) {
