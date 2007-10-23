@@ -24,6 +24,26 @@
 
   <display-name>Tobago Sandbox Application</display-name>
 
+  <context-param>
+    <param-name>facelets.DEVELOPMENT</param-name>
+    <param-value>true</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>facelets.SKIP_COMMENTS</param-name>
+    <param-value>true</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>facelets.VIEW_MAPPINGS</param-name>
+    <param-value>*.xml</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+    <param-value>.xml</param-value>
+  </context-param>
+
   <filter>
     <filter-name>multipartFormdataFilter</filter-name>
     <filter-class>org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataFilter</filter-class>

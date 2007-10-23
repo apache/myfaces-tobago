@@ -14,36 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
+
+<%@ taglib uri="http://myfaces.apache.org/tobago/sandbox" prefix="tcs" %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
 <f:view>
-
   <tc:loadBundle basename="demo" var="bundle"/>
 
-  <tc:page label="Sandbox Menu" id="page" width="200px" height="800px">
+  <tc:page label="Sandbox - Wizard" id="page"
+           width="500px" height="800px">
     <f:facet name="layout">
-      <tc:gridLayout margin="5px" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
+      <tc:gridLayout margin="10px" rows="600px;*"/>
     </f:facet>
 
-    <tc:link link="separator.jsp" label="separator.jsp" target="View"/>
-
-    <tc:link link="tree-normal.jsp" label="tree-normal.jsp" target="View"/>
-
-    <tc:link link="tree-select.jsp" label="tree-select.jsp" target="View"/>
-
-    <tc:link link="tree-menu.jsp" label="tree-menu.jsp" target="View"/>
-
-    <tc:link link="tree-editor.jsp" label="tree-editor.jsp" target="View"/>
-
-    <tc:link link="tree-ajax.jsp" label="tree-ajax.jsp" target="View"/>
-
-    <tc:link link="inputSlider.jsp" label="inputSlider.jsp" target="View"/>
-
-    <tc:link link="wizard.jsp" label="wizard.jsp" target="View"/>
-
-    <tc:link link="wizard.xml" label="wizard.xml" target="View"/>
+    <tcs:wizard controller="#{controller.wizard}"/>
 
     <tc:cell/>
+
   </tc:page>
 </f:view>

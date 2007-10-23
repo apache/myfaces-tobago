@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.example.sandbox;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.model.TreeState;
+import org.apache.myfaces.tobago.model.Wizard;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.text.SimpleDateFormat;
@@ -36,6 +37,8 @@ public class Controller {
   private TreeState state;
 
   private int sliderValue;
+
+  private Wizard wizard;
 
   public Controller() {
     // tree
@@ -72,6 +75,10 @@ public class Controller {
     state.addExpandState(temp);
     state.addSelection(temp2);
     state.setMarker(music);
+
+    // wizard
+
+    wizard = new SampleWizard();
   }
 
   public String action1() {
@@ -113,7 +120,7 @@ public class Controller {
     return new SimpleDateFormat("hh:MM:ss").format(new Date());
   }
 
-  public  DefaultMutableTreeNode getTree() {
+  public DefaultMutableTreeNode getTree() {
     return tree;
   }
 
@@ -139,7 +146,11 @@ public class Controller {
   }
 
   public String sliderSubmit() {
-    LOG.info("Slider: "+sliderValue);
+    LOG.info("Slider: " + sliderValue);
     return null;
+  }
+
+  public Wizard getWizard() {
+    return wizard;
   }
 }

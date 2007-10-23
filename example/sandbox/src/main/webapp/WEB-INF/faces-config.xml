@@ -24,6 +24,9 @@
 <faces-config>
 
   <application>
+    <view-handler>
+      com.sun.facelets.FaceletViewHandler
+    </view-handler>
     <locale-config>
       <default-locale>en</default-locale>
     </locale-config>
@@ -35,5 +38,20 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
+  <navigation-rule>
+    <from-view-id>/wizard.jsp</from-view-id>
+    <navigation-case>
+      <from-outcome>wizard</from-outcome>
+      <to-view-id>/wizard.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/wizard.xml</from-view-id>
+    <navigation-case>
+      <from-outcome>wizard</from-outcome>
+      <to-view-id>/wizard.xml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
 
 </faces-config>

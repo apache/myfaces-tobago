@@ -156,6 +156,11 @@
        <version>1.0</version>
        <scope>compile</scope>
      </dependency>-->
+    <dependency>
+      <groupId>com.sun.el</groupId>
+      <artifactId>el-ri</artifactId>
+      <version>1.0</version>
+    </dependency>
      <dependency>
        <groupId>taglibs</groupId>
        <artifactId>standard</artifactId>
