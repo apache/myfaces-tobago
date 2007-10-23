@@ -181,9 +181,16 @@ public class WizardTag extends TobagoTag implements WizardTagDeclaration {
   }
 
   @Override
+  public int doEndTag() throws JspException {
+    panelTag.doEndTag();
+    return super.doEndTag();
+  }
+
+  @Override
   public void release() {
     super.release();
     controller = null;
+    panelTag = null;
   }
 
   public String getController() {
