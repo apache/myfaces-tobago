@@ -49,7 +49,7 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
    * LayoutConstraints for column layout.
    * Semicolon separated list of layout tokens ('&lt;x>*', '&lt;x>px' or '&lt;x>%').
    */
-  @TagAttribute(required = true)
+  @TagAttribute
   @UIComponentTagAttribute()
   void setColumns(String columns);
 

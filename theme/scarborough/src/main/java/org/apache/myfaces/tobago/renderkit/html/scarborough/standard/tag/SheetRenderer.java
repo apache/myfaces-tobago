@@ -201,7 +201,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     List<Integer> columnWidths = data.getWidthList();
 
     String selectedRows = StringUtil.toString(getSelectedRows(data, state));
-    List<UIColumn> columnList = data.getRendererdColumns();
+    List<UIColumn> renderedColumnList = data.getRenderedColumns();
 
 
     writer.startElement(HtmlConstants.INPUT, null);
@@ -247,7 +247,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
 
       int columnCount = 0;
       final int sortMarkerWidth = getAscendingMarkerWidth(facesContext, data);
-      for (UIColumn column : columnList) {
+      for (UIColumn column : renderedColumnList) {
         renderColumnHeader(facesContext, writer, data, columnCount, column,
             ascending, descending, image1x1, sortMarkerWidth);
         columnCount++;
@@ -339,7 +339,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
 
 
       int columnIndex = -1;
-      for (UIColumn column : data.getRendererdColumns()) {
+      for (UIColumn column : renderedColumnList) {
         columnIndex++;
 
         StyleClasses tdClass = new StyleClasses();
@@ -739,16 +739,16 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
 
   private void renderColumnHeader(FacesContext facesContext,
       TobagoResponseWriter writer, UIData component,
-      int columnCount, UIColumn column, String ascending, String descending,
+      int columnIndex, UIColumn column, String ascending, String descending,
       String image1x1, int sortMarkerWidth) throws IOException {
     String sheetId = component.getClientId(facesContext);
     Application application = facesContext.getApplication();
 
     List columnWidths = (List) component.getAttributes().get(ATTR_WIDTH_LIST);
-    String divWidth = "width: " + columnWidths.get(columnCount) + "px;";
+    String divWidth = "width: " + columnWidths.get(columnIndex) + "px;";
 
     writer.startElement(HtmlConstants.DIV, null);
-    writer.writeIdAttribute(sheetId + "_header_box_" + columnCount);
+    writer.writeIdAttribute(sheetId + "_header_box_" + columnIndex);
     writer.writeClassAttribute("tobago-sheet-header-box");
     writer.writeAttribute(HtmlAttributes.STYLE, divWidth, false);
     String tip = (String) column.getAttributes().get(ATTR_TIP);
@@ -803,8 +803,12 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     String align = (String) column.getAttributes().get(ATTR_ALIGN);
 
     writer.startElement(HtmlConstants.DIV, null);
-    writer.writeIdAttribute(sheetId + "_header_outer_" + columnCount);
-    writer.writeClassAttribute("tobago-sheet-header" + sorterClass);
+    writer.writeIdAttribute(sheetId + "_header_outer_" + columnIndex);
+    //if (columnIndex == 0) {
+    //  writer.writeClassAttribute("tobago-sheet-header"+ sorterClass + " tobago-sheet-header-first-column");
+    //} else {
+      writer.writeClassAttribute("tobago-sheet-header" + sorterClass);
+    //}
     if (align != null) {
       writer.writeStyleAttribute("text-align: " + align + ";");
     }
@@ -820,7 +824,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     writer.endElement(HtmlConstants.DIV);
 
     writer.startElement(HtmlConstants.DIV, null);
-    writer.writeIdAttribute(sheetId + "_header_resizer_" + columnCount);
+    writer.writeIdAttribute(sheetId + "_header_resizer_" + columnIndex);
     writer.writeClassAttribute(resizerClass);
     writer.flush();
     writer.write("&nbsp;");
