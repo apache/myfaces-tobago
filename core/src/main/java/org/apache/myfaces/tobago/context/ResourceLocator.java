@@ -25,15 +25,18 @@ import org.xml.sax.SAXException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import java.util.Set;
-import java.util.Properties;
-import java.util.Enumeration;
-import java.util.zip.ZipInputStream;
-import java.util.zip.ZipEntry;
-import java.io.InputStream;
+import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.Enumeration;
+import java.util.Properties;
+import java.util.Set;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 /**
  * This class helps to locate all resources of the ResourceManager.
@@ -48,6 +51,7 @@ class ResourceLocator {
   private ServletContext servletContext;
   private ResourceManagerImpl resourceManager;
   private ThemeBuilder themeBuilder;
+  private static final String META_INF_TOBAGO_THEME_XML = "META-INF/tobago-theme.xml";
 
   public ResourceLocator(
       ServletContext servletContext, ResourceManagerImpl resourceManager,
@@ -59,6 +63,7 @@ class ResourceLocator {
 
   public void locate()
       throws ServletException {
+    // TODO should the resourcedir used from tobago-config.xml?
     locateResourcesInWar(servletContext, resourceManager, "/");
     locateResourcesFromClasspath(resourceManager);
   }
@@ -76,6 +81,7 @@ class ResourceLocator {
     }
     Set<String> resourcePaths = servletContext.getResourcePaths(path);
     if (resourcePaths == null || resourcePaths.isEmpty()) {
+      // TOOD should be info
       LOG.error("ResourcePath empty! Please check the tobago-config.xml file!"
             + " path='" + path + "'");
       return;
@@ -122,7 +128,7 @@ class ResourceLocator {
     try {
       LOG.info("Loading tobago-theme.xml");
       ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-      Enumeration<URL> urls = classLoader.getResources("META-INF/tobago-theme.xml");
+      Enumeration<URL> urls = classLoader.getResources(META_INF_TOBAGO_THEME_XML);
 
       while (urls.hasMoreElements()) {
         URL themeUrl = urls.nextElement();
@@ -136,10 +142,10 @@ class ResourceLocator {
         // weblogic uses zip
         // IBM WebSphere uses wsjar
         if ("jar".equals(protocol) || "zip".equals(protocol) || "wsjar".equals(protocol)) {
-          addResources(classLoader, resources, themeUrl, protocol, prefix);
+          addResources(resources, themeUrl, prefix);
         } else {
           LOG.warn("Unknown protocol '" + themeUrl + "'");
-          addResources(classLoader, resources,  themeUrl, protocol, prefix);
+          addResources(resources,  themeUrl, prefix);
         }
       }
     } catch (IOException e) {
@@ -157,56 +163,96 @@ class ResourceLocator {
     }
   }
 
-  private void addResources(ClassLoader classLoader, ResourceManagerImpl resources, URL themeUrl, String protocol,
+  private void addResources(ResourceManagerImpl resources, URL themeUrl,
       String prefix) throws IOException, ServletException {
-    LOG.info("themeUrl = '" + themeUrl + "'");
-    String fileName = themeUrl.toString().substring(
-        protocol.length() + 1, themeUrl.toString().indexOf("!"));
-    URL jarFile;
-    try {
-      jarFile = new URL(fileName);
-    } catch (MalformedURLException e) {
-      // workaround for weblogic on windows
-      jarFile = new URL("file:" + fileName);
+    String fileName = themeUrl.toString();
+    int index = fileName.indexOf("!");
+    if (index != -1) {
+      fileName = themeUrl.toString().substring(themeUrl.getProtocol().length() + 1, fileName.indexOf("!"));
     }
-    InputStream stream = null;
-    ZipInputStream zipStream = null;
-    try {
-      stream = jarFile.openStream();
-      zipStream = new ZipInputStream(stream);
-      while (zipStream.available() > 0) {
-        ZipEntry nextEntry = zipStream.getNextEntry();
-        if (nextEntry == null || nextEntry.isDirectory()) {
-          continue;
-        }
-        String name = "/" + nextEntry.getName();
-        if (name.startsWith(prefix)) {
-          if (name.endsWith(".class")) {
-            // ignore the class files
-          } else if (name.endsWith(".properties")) {
-            LOG.info("** " + name.substring(1));
-            InputStream inputStream = classLoader.getResourceAsStream(name.substring(1));
-            try {
-              addProperties(inputStream, resources, name, false);
-            } finally{
-              IOUtils.closeQuietly(inputStream);
-            }
-          } else if (name.endsWith(".properties.xml")) {
-            LOG.info("** " + name.substring(1));
-            InputStream inputStream = classLoader.getResourceAsStream(name.substring(1));
-            try {
-              addProperties(inputStream, resources, name, true);
-            } finally{
-              IOUtils.closeQuietly(inputStream);
-            }
-          } else {
-            resources.add(name);
+
+    if (fileName.endsWith(META_INF_TOBAGO_THEME_XML)) {
+      try {
+        URI uri = themeUrl.toURI();
+        File tobagoThemeXml = new File(uri);
+        File directoryFile = tobagoThemeXml.getParentFile().getParentFile();
+        String resourcePath = "";
+        resolveTheme(resources, directoryFile, resourcePath, prefix, false);
+      } catch (URISyntaxException e) {
+        LOG.error("", e);
+      }
+    } else {
+      URL jarFile;
+      try {
+        jarFile = new URL(fileName);
+      } catch (MalformedURLException e) {
+      // workaround for weblogic on windows
+        jarFile = new URL("file:" + fileName);
+      }
+      InputStream stream = null;
+      ZipInputStream zipStream = null;
+      try {
+        stream = jarFile.openStream();
+        zipStream = new ZipInputStream(stream);
+        while (zipStream.available() > 0) {
+          ZipEntry nextEntry = zipStream.getNextEntry();
+          if (nextEntry == null || nextEntry.isDirectory()) {
+            continue;
+          }
+          String name = "/" + nextEntry.getName();
+          if (name.startsWith(prefix)) {
+            addResource(resources, name);
           }
         }
+      } finally {
+        IOUtils.closeQuietly(stream);
+        IOUtils.closeQuietly(zipStream);
+     }
+    }
+  }
+
+  private void resolveTheme(ResourceManagerImpl resources, File directoryFile,
+      String resourcePath, String prefix, boolean inResourcePath) throws ServletException {
+    File[] files = directoryFile.listFiles();
+    for (File file: files) {
+      if (file.isDirectory()) {
+        String currentResourcePath = resourcePath + File.separator  + file.getName();
+        if (!inResourcePath && currentResourcePath.startsWith(prefix)) {
+          inResourcePath = true;
+        }
+        resolveTheme(resources, file, currentResourcePath, prefix, inResourcePath);
+      } else {
+        LOG.info(resourcePath + File.separator + file.getName());
+        if (inResourcePath) {
+          addResource(resources, resourcePath + File.separator + file.getName());
+        }
       }
-    } finally {
-      IOUtils.closeQuietly(stream);
-      IOUtils.closeQuietly(zipStream);
+    }
+  }
+
+  private void addResource(ResourceManagerImpl resources, String name)
+      throws ServletException {
+
+    if (name.endsWith(".class")) {
+        // ignore the class files
+    } else if (name.endsWith(".properties")) {
+      LOG.info("** " + name.substring(1));
+      InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(name.substring(1));
+      try {
+        addProperties(inputStream, resources, name, false);
+      } finally{
+        IOUtils.closeQuietly(inputStream);
+      }
+    } else if (name.endsWith(".properties.xml")) {
+      LOG.info("** " + name.substring(1));
+      InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(name.substring(1));
+      try {
+        addProperties(inputStream, resources, name, true);
+      } finally{
+        IOUtils.closeQuietly(inputStream);
+      }
+    } else {
+      resources.add(name);
     }
   }
 
