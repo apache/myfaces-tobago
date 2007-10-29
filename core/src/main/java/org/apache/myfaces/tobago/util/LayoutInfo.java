@@ -154,10 +154,6 @@ public class LayoutInfo {
   }
 
 
-  public static String[] createLayoutTokens(String columnLayout, int count) {
-    return createLayoutTokens(columnLayout, count, "1*");
-  }
-
   public static String[] createLayoutTokens(String columnLayout, int count, String defaultToken) {
     String[] tokens;
     if (columnLayout != null) {
@@ -218,6 +214,10 @@ public class LayoutInfo {
   }
 
   public int getSpaceForColumn(int column) {
+    if (column >= spaces.length) {
+      LOG.error("spaces length " + spaces.length + " column " + column);
+      return 0;
+    }
     return spaces[column];
   }
 
@@ -299,61 +299,9 @@ public class LayoutInfo {
   }
 
 
-  public void parseHides(int padding) {
-    for (int i = 0; i < layoutTokens.getSize(); i++) {
-      if (layoutTokens.get(i) instanceof HideLayoutToken) {
-        update(0, i);
-        spaces[i] = HIDE;
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("set column " + i + " from " + layoutTokens.get(i)
-              + " to hide " + " clientId='" + clientIdForLogging + "'");
-        }
-      }
-    }
-  }
-
-  public void parsePixels() {
-    for (int i = 0; i < layoutTokens.getSize(); i++) {
-      LayoutToken token = layoutTokens.get(i);
-      if (token instanceof PixelLayoutToken) {
-        int w = ((PixelLayoutToken) token).getPixel();
-        update(w, i, true);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("set column " + i + " from " + token
-              + " to with " + w + " clientId='" + clientIdForLogging + "'");
-        }
-      }
-    }
-  }
-
-
-  public void parsePercent(double innerWidth) {
+  private void parsePortions(int portions) {
     if (columnsLeft()) {
-      for (int i = 0; i < layoutTokens.getSize(); i++) {
-        LayoutToken token = layoutTokens.get(i);
-        if (isFree(i) && token instanceof PercentLayoutToken) {
-          int percent = ((PercentLayoutToken) token).getPercent();
-          int w = (int) (innerWidth / 100 * percent);
-          update(w, i);
-          if (LOG.isDebugEnabled()) {
-            LOG.debug("set column " + i + " from " + token
-                + " to with " + w + " clientId='" + clientIdForLogging + "'");
-          }
-        }
-      }
-    }
-  }
 
-  public void parsePortions() {
-    if (columnsLeft()) {
-      //   1. count portions
-      int portions = 0;
-      for (int i = 0; i < layoutTokens.getSize(); i++) {
-        LayoutToken token = layoutTokens.get(i);
-        if (isFree(i) && token instanceof RelativeLayoutToken) {
-          portions += ((RelativeLayoutToken) token).getFactor();
-        }
-      }
       //  2. calc and set portion
       if (portions > 0) {
         int widthForPortions = getSpaceLeft();
@@ -418,10 +366,36 @@ public class LayoutInfo {
   public void parseColumnLayout(double space, int padding) {
 
     if (hasLayoutTokens()) {
-      parseHides(padding);
-      parsePixels();
-      parsePercent(space);
-      parsePortions();
+      int portions = 0;
+      for (int i = 0; i < layoutTokens.getSize(); i++) {
+        LayoutToken token = layoutTokens.get(i);
+        if (token instanceof HideLayoutToken) {
+          update(0, i);
+          spaces[i] = HIDE;
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("set column " + i + " from " + layoutTokens.get(i)
+                + " to hide " + " clientId='" + clientIdForLogging + "'");
+          }
+        } else if (token instanceof PixelLayoutToken) {
+          int w = ((PixelLayoutToken) token).getPixel();
+          update(w, i, true);
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("set column " + i + " from " + token
+                + " to with " + w + " clientId='" + clientIdForLogging + "'");
+          }
+        } else if (token instanceof RelativeLayoutToken) {
+          portions += ((RelativeLayoutToken) token).getFactor();
+        } else if (token instanceof PercentLayoutToken) {
+          int percent = ((PercentLayoutToken) token).getPercent();
+          int w = (int) (space / 100 * percent);
+          update(w, i);
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("set column " + i + " from " + token
+                + " to with " + w + " clientId='" + clientIdForLogging + "'");
+          }
+        }
+      }
+      parsePortions(portions);
 //      parseAsterisks();
       handleSpaceLeft();
     }
