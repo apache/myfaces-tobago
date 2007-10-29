@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.component;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
@@ -37,6 +38,7 @@ public class UIColumn extends javax.faces.component.UIColumn implements Supports
   private String align;
   private String label;
   private String[] markup;
+  private String width;
 
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
@@ -45,15 +47,17 @@ public class UIColumn extends javax.faces.component.UIColumn implements Supports
     sortable = (Boolean) values[2];
     label = (String) values[3];
     markup = (String[]) values[4];
+    width = (String) values[5];
   }
 
   public Object saveState(FacesContext context) {
-    Object[] values = new Object[5];
+    Object[] values = new Object[6];
     values[0] = super.saveState(context);
     values[1] = align;
     values[2] = sortable;
     values[3] = label;
     values[4] = markup;
+    values[5] = width;
     return values;
   }
 
@@ -114,6 +118,22 @@ public class UIColumn extends javax.faces.component.UIColumn implements Supports
 
   public void setLabel(String label) {
     this.label = label;
+  }
+
+  public String getWidth() {
+    if (width != null) {
+      return width;
+    }
+    ValueBinding vb = getValueBinding(ATTR_WIDTH);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    } else {
+      return RelativeLayoutToken.DEFAULT_TOKEN_STRING;
+    }
+  }
+
+  public void setWidth(String width) {
+    this.width = width;
   }
 
 }

@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
+import org.apache.myfaces.tobago.taglib.decl.HasWidth;
 
 /*
  * Created by IntelliJ IDEA.
@@ -39,7 +40,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 @Tag(name = "column")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIColumn")
-public interface ColumnTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasLabel, HasTip {
+    //rendererType = "Column")
+public interface ColumnTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasLabel, HasTip,
+    HasWidth {
   /**
    * Alignment of this column.
    */

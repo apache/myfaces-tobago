@@ -61,7 +61,7 @@ public class LayoutTokens {
     }
   }
 
-  private void addToken(LayoutToken token) {
+  public void addToken(LayoutToken token) {
     tokens.add(token);
   }
 
@@ -96,26 +96,35 @@ public class LayoutTokens {
   }
 
   private static void parseToken(String token, LayoutTokens layoutTokens) {
+    LayoutToken layoutToken = parseToken(token);
+    if (layoutToken != null) {
+      layoutTokens.addToken(layoutToken);
+    }
+
+  }
+
+  public static LayoutToken parseToken(String token) {
     try {
     // TODO optimize me
       if ("*".equals(token)) {
-        layoutTokens.addToken(new RelativeLayoutToken(1));
+        return RelativeLayoutToken.DEFAULT_INSTANCE;
       } else if (token.equals("fixed")) {
-        layoutTokens.addToken(new FixedLayoutToken());
+        return FixedLayoutToken.INSTANCE;
       } else if (token.equals("minimum")) {
-        layoutTokens.addToken(new MinimumLayoutToken());
+        return new MinimumLayoutToken();
       } else if (token.matches("\\d+px")) {
-        layoutTokens.addToken(new PixelLayoutToken(Integer.parseInt(token.replaceAll("\\D", ""))));
+        return new PixelLayoutToken(Integer.parseInt(token.replaceAll("\\D", "")));
       } else if (token.matches("^\\d+\\%")) {
-        layoutTokens.addToken(new PercentLayoutToken(Integer.parseInt(token.replaceAll("\\D", ""))));
+        return new PercentLayoutToken(Integer.parseInt(token.replaceAll("\\D", "")));
       } else if (token.matches("^\\d+\\*")) {
-        layoutTokens.addToken(new RelativeLayoutToken(Integer.parseInt(token.replaceAll("\\D", ""))));
+        return new RelativeLayoutToken(Integer.parseInt(token.replaceAll("\\D", "")));
       } else {
         LOG.error("Unknown layout token " + token + " ignoring");
       }
     } catch (NumberFormatException e) {
       LOG.error("Error parsing layout token " + token, e);
     }
+    return null;
   }
 
   public String toString() {

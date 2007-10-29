@@ -98,6 +98,8 @@ public class UIData extends javax.faces.component.UIData
 
   private String selectable;
 
+  private transient LayoutTokens columnLayout;
+
   public void encodeBegin(FacesContext facesContext) throws IOException {
     UILayout.prepareDimension(facesContext, this);
     SheetState state = getSheetState(facesContext);
@@ -242,9 +244,19 @@ public class UIData extends javax.faces.component.UIData
     }
   }
 
+  public LayoutTokens getColumnLayout() {
+    if (columnLayout==null) {
+      String columns = getColumns();
+      if (columns != null) {
+        columnLayout = LayoutTokens.parse(columns);
+      }
+    }
+    return columnLayout;
+  }
+
   private void ensureColumnWidthList(FacesContext facesContext, SheetState state) {
     List<Integer> currentWidthList = null;
-    List<UIColumn> columns = getRendererdColumns();
+    List<UIColumn> rendererdColumns = getRenderedColumns();
 
     final Map attributes = getAttributes();
     String widthListString = null;
@@ -253,35 +265,42 @@ public class UIData extends javax.faces.component.UIData
       widthListString = state.getColumnWidths();
     }
     if (widthListString == null) {
-      widthListString =
-          (String) attributes.get(ATTR_WIDTH_LIST_STRING);
+      widthListString = (String) attributes.get(ATTR_WIDTH_LIST_STRING);
     }
 
     if (widthListString != null) {
       currentWidthList = StringUtil.parseIntegerList(widthListString);
     }
-    if (currentWidthList != null && currentWidthList.size() != columns.size()) {
+    if (currentWidthList != null && currentWidthList.size() != rendererdColumns.size()) {
       currentWidthList = null;
     }
 
 
     if (currentWidthList == null) {
-      String columnLayout =
-          (String) attributes.get(ATTR_COLUMNS);
+      LayoutTokens tokens = getColumnLayout();
       List<UIColumn> allColumns = getAllColumns();
-
-      if (columnLayout == null && allColumns.size() > 0) {
-        StringBuilder sb = new StringBuilder();
-        for (UIColumn allColumn : allColumns) {
-          sb.append("1*;");
-        }
-        columnLayout = sb.deleteCharAt(sb.lastIndexOf(";")).toString();
-        if (LOG.isWarnEnabled()) {
-          LOG.warn(
-              "No columns found! Using created layout tokens: " + columnLayout);
+      LayoutTokens newTokens = new LayoutTokens();
+      if (allColumns.size() > 0) {
+        for (int i = 0; i < allColumns.size(); i++) {
+          UIColumn column = allColumns.get(i);
+          if (column.isRendered())  {
+            if (tokens == null) {
+              if (column instanceof org.apache.myfaces.tobago.component.UIColumn) {
+                newTokens.addToken(LayoutTokens.parseToken(((org.apache.myfaces.tobago.component.UIColumn)column).getWidth()));
+              } else {
+                newTokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
+              }
+            } else {
+              if (i < tokens.getSize()) {
+                newTokens.addToken(tokens.get(i));
+              } else {
+                newTokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
+              }
+            }
+          }
         }
       }
-      String[] layoutTokens
+      /*String[] layoutTokens
           = LayoutInfo.createLayoutTokens(columnLayout, allColumns.size(), "1*");
       if (layoutTokens.length != allColumns.size()) {
         LOG.warn("Count of columnLayout tokens in '" + columnLayout
@@ -289,11 +308,11 @@ public class UIData extends javax.faces.component.UIData
             + "Using default token '1*' for all columns");
         layoutTokens
             = LayoutInfo.createLayoutTokens(null, allColumns.size(), "1*");
-      }
+      } */
 
       // here we have layoutTokens for all columns
       // now remove tokens for unrendered columns
-      boolean changed = false;
+      /*boolean changed = false;
       for (int i = 0; i < layoutTokens.length; i++) {
         if (!allColumns.get(i).isRendered()) {
           layoutTokens[i] = null;
@@ -310,7 +329,7 @@ public class UIData extends javax.faces.component.UIData
             j++;
           }
         }
-      }
+      } */
 
 
 
@@ -321,17 +340,16 @@ public class UIData extends javax.faces.component.UIData
       if (renderer.needVerticalScrollbar(facesContext, this)) {
         space -= renderer.getScrollbarWidth(facesContext, this);
       }
-      LayoutInfo layoutInfo = new LayoutInfo(getRendererdColumns().size(),
-          space, LayoutTokens.parse(layoutTokens), this.getClientId(facesContext), false);
-      parseFixedWidth(facesContext, layoutInfo);
+      LayoutInfo layoutInfo = new LayoutInfo(newTokens.getSize(), space, newTokens, getClientId(facesContext), false);
+      parseFixedWidth(facesContext, layoutInfo, rendererdColumns);
       layoutInfo.parseColumnLayout(space);
       currentWidthList = layoutInfo.getSpaceList();
     }
 
     if (currentWidthList != null) {
-      if (columns.size() != currentWidthList.size()) {
+      if (rendererdColumns.size() != currentWidthList.size()) {
         LOG.warn("widthList.size() = " + currentWidthList.size()
-            + " != columns.size() = " + columns.size() + "  widthList : "
+            + " != columns.size() = " + rendererdColumns.size() + "  widthList : "
             + LayoutInfo.listToTokenString(currentWidthList));
       } else {
         this.widthList = currentWidthList;
@@ -339,16 +357,15 @@ public class UIData extends javax.faces.component.UIData
     }
   }
 
-  private void parseFixedWidth(FacesContext facesContext, LayoutInfo layoutInfo) {
+  private void parseFixedWidth(FacesContext facesContext, LayoutInfo layoutInfo, List<UIColumn> rendereredColumns) {
     LayoutTokens tokens = layoutInfo.getLayoutTokens();
     for (int i = 0; i < tokens.getSize(); i++) {
       LayoutToken token = tokens.get(i);
       if (token  instanceof FixedLayoutToken) {
         int width = 0;
-        final List<UIColumn> columns = getRendererdColumns();
-        if (!columns.isEmpty()) {
-          if (i < columns.size()) {
-            UIColumn column = columns.get(i);
+        if (!rendereredColumns.isEmpty()) {
+          if (i < rendereredColumns.size()) {
+            UIColumn column = rendereredColumns.get(i);
             if (column instanceof UIColumnSelector) {
                 LayoutInformationProvider renderer
                     = ComponentUtil.getRenderer(facesContext, column);
@@ -386,7 +403,7 @@ public class UIData extends javax.faces.component.UIData
 
     List<Integer> columnWidths = getWidthList();
     int i = 0;
-    for (UIColumn column : getRendererdColumns()) {
+    for (UIColumn column : getRenderedColumns()) {
       if (i < columnWidths.size()) {
         Integer width = columnWidths.get(i);
         if (!(column instanceof UIColumnSelector)) {
@@ -544,7 +561,7 @@ public class UIData extends javax.faces.component.UIData
     return columns;
   }
 
-  public List<UIColumn> getRendererdColumns() {
+  public List<UIColumn> getRenderedColumns() {
     List<UIColumn> columns = new ArrayList<UIColumn>();
     for (UIComponent kid : (List<UIComponent>) getChildren()) {
       if (kid instanceof UIColumn && kid.isRendered()) {

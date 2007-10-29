@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.component;
  * Time: 7:16:18 PM
  */
 public final class FixedLayoutToken extends LayoutToken {
+  public static final FixedLayoutToken INSTANCE = new FixedLayoutToken();
   public String toString() {
     return "fixed";
   }
