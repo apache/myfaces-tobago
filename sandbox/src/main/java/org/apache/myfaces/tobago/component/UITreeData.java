@@ -53,6 +53,10 @@ public class UITreeData extends javax.faces.component.UIInput
 
   private String pathIndex;
 
+  // XXX hack: fix this if there is a Listener
+  private Object marker;
+
+
 //  @Override public void processDecodes(FacesContext facesContext) {
 //    LOG.info("processDecodes for nodes");
 //    LOG.warn("todo"); // todo
@@ -71,7 +75,14 @@ public class UITreeData extends javax.faces.component.UIInput
 
     for (String pathIndex : treeModel.getPathIndexList()) {
       setPathIndex(pathIndex);
-      getTemplateComponent().processDecodes(facesContext);
+      UITreeNode node = getTemplateComponent();
+      node.processDecodes(facesContext);
+
+      // XXX hack: fix this if there is a Listener
+      if (node.isMarked()) {
+        marker = node.getValue();
+      }
+
       setPathIndex(null);
     }
   }
@@ -320,5 +331,10 @@ public class UITreeData extends javax.faces.component.UIInput
     public String getPathIndex() {
       return pathIndex;
     }
+  }
+
+  // XXX hack: fix this if there is a Listener
+  public Object getMarker() {
+    return marker;
   }
 }
