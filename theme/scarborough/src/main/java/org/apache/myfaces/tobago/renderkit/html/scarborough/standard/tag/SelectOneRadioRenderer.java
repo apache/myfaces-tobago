@@ -27,6 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UISelectOne;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
@@ -95,6 +96,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       }
     }
 
+    boolean disabled = ComponentUtil.getBooleanAttribute(selectOne, ATTR_DISABLED);
     Object value = selectOne.getValue();
     List<String> clientIds = new ArrayList<String>();
     for (SelectItem item : items) {
@@ -118,7 +120,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.writeIdAttribute(id);
       String formattedValue = RenderUtil.getFormattedValue(facesContext, selectOne, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
-      writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled());
+      writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled() || disabled);
       Integer tabIndex = selectOne.getTabIndex();
       if (tabIndex != null) {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
@@ -143,7 +145,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         // todo: use label component with a "light" markup
         StyleClasses styleClasses = new StyleClasses();
         styleClasses.addAspectClass("label", StyleClasses.Aspect.DEFAULT);
-        if (item.isDisabled()) {
+        if (item.isDisabled() || disabled) {
           styleClasses.addAspectClass("label", StyleClasses.Aspect.DISABLED);
         }
         writer.writeClassAttribute(styleClasses);
