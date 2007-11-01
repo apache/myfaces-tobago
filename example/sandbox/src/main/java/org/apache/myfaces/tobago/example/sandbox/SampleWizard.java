@@ -31,7 +31,7 @@ public class SampleWizard extends AbstractWizard {
 
   private static final Log LOG = LogFactory.getLog(SampleWizard.class);
 
-  List<BeanItem> items = new ArrayList<BeanItem>();
+  private List<BeanItem> items = new ArrayList<BeanItem>();
 
   public String finish() {
     return null;
@@ -66,6 +66,7 @@ public class SampleWizard extends AbstractWizard {
         items.add(new BeanItem("in", "Ort", null));
         items.add(new BeanItem("in", "Land", null));
         break;
+      default:
     }
 
     return super.next();
