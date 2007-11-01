@@ -286,7 +286,8 @@ public class UIData extends javax.faces.component.UIData
           if (column.isRendered())  {
             if (tokens == null) {
               if (column instanceof org.apache.myfaces.tobago.component.UIColumn) {
-                newTokens.addToken(LayoutTokens.parseToken(((org.apache.myfaces.tobago.component.UIColumn)column).getWidth()));
+                newTokens.addToken(
+                    LayoutTokens.parseToken(((org.apache.myfaces.tobago.component.UIColumn) column).getWidth()));
               } else {
                 newTokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
               }
