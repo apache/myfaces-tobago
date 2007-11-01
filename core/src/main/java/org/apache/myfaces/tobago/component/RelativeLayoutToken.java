@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.component;
  * Time: 1:34:11 PM
  */
 public class RelativeLayoutToken extends LayoutToken {
-  public static String DEFAULT_TOKEN_STRING = "1*";
-  public static RelativeLayoutToken DEFAULT_INSTANCE = new RelativeLayoutToken(1);
+  public static final String DEFAULT_TOKEN_STRING = "1*";
+  public static final RelativeLayoutToken DEFAULT_INSTANCE = new RelativeLayoutToken(1);
   private int factor = 1;
 
   public RelativeLayoutToken(int factor) {
