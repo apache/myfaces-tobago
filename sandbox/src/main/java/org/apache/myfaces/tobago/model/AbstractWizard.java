@@ -24,7 +24,7 @@ public abstract class AbstractWizard implements Wizard {
 
   private static final Log LOG = LogFactory.getLog(AbstractWizard.class);
 
-  protected int index = 0;
+  private int index = 0;
 
   public String start() {
     index = 0;
