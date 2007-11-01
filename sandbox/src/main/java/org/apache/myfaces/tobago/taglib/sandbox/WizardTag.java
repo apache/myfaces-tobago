@@ -88,94 +88,80 @@ public class WizardTag extends TobagoTag implements WizardTagDeclaration {
 
     facetTag.doEndTag();
 
-    {
-      CellTag cell = new CellTag();
-      cell.setPageContext(pageContext);
-      cell.setParent(panelTag);
-      cell.setSpanX("5");
-      cell.doStartTag();
+    CellTag cell = new CellTag();
+    cell.setPageContext(pageContext);
+    cell.setParent(panelTag);
+    cell.setSpanX("5");
+    cell.doStartTag();
 
-      {
-        Object bean = VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), "controller");
-        int index = 0;
-        try {
-          Wizard wizard = (Wizard) PropertyUtils.getProperty(bean, "wizard");
-          index = wizard.getIndex();
-        } catch (Exception e) {
-          LOG.error("", e);
-        }
-
-        if (index < 2) {
-          IncludeTag content = new IncludeTag();
-          content.setPageContext(pageContext);
-          content.setParent(cell);
-          content.setValue("snip-" + index + ".jsp");
-          content.doStartTag();
-          content.doEndTag();
-        } else {
-          PanelTag content = new PanelTag();
-          content.setPageContext(pageContext);
-          content.setParent(cell);
-          content.setBinding(controller.replace("}", ".currentComponent}"));
-          content.doStartTag();
-          content.doEndTag();
-        }
-      }
-
-      cell.doEndTag();
+    Object bean = VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), "controller");
+    int index = 0;
+    try {
+      Wizard wizard = (Wizard) PropertyUtils.getProperty(bean, "wizard");
+      index = wizard.getIndex();
+    } catch (Exception e) {
+      LOG.error("", e);
     }
 
-    {
-      CellTag spacer = new CellTag();
-      spacer.setPageContext(pageContext);
-      spacer.setParent(panelTag);
-      spacer.doStartTag();
-      spacer.doEndTag();
+    if (index < 2) {
+      IncludeTag content = new IncludeTag();
+      content.setPageContext(pageContext);
+      content.setParent(cell);
+      content.setValue("snip-" + index + ".jsp");
+      content.doStartTag();
+      content.doEndTag();
+    } else {
+      PanelTag content = new PanelTag();
+      content.setPageContext(pageContext);
+      content.setParent(cell);
+      content.setBinding(controller.replace("}", ".currentComponent}"));
+      content.doStartTag();
+      content.doEndTag();
     }
 
-    {
-      ButtonTag start = new ButtonTag();
-      start.setPageContext(pageContext);
-      start.setParent(panelTag);
-      start.setLabel("Start");
-      start.setAction(controller.replace("}", ".start}"));
-      start.setDisabled(controller.replace("}", ".startAvailable}").replace("#{", "#{!"));
-      start.doStartTag();
-      start.doEndTag();
-    }
+    cell.doEndTag();
 
-    {
-      ButtonTag previous = new ButtonTag();
-      previous.setPageContext(pageContext);
-      previous.setParent(panelTag);
-      previous.setLabel("Previous");
-      previous.setAction(controller.replace("}", ".previous}"));
-      previous.setDisabled(controller.replace("}", ".previousAvailable}").replace("#{", "#{!"));
-      previous.doStartTag();
-      previous.doEndTag();
-    }
+    CellTag spacer = new CellTag();
+    spacer.setPageContext(pageContext);
+    spacer.setParent(panelTag);
+    spacer.doStartTag();
+    spacer.doEndTag();
 
-    {
-      ButtonTag next = new ButtonTag();
-      next.setPageContext(pageContext);
-      next.setParent(panelTag);
-      next.setLabel("Next");
-      next.setAction(controller.replace("}", ".next}"));
-      next.setDisabled(controller.replace("}", ".nextAvailable}").replace("#{", "#{!"));
-      next.doStartTag();
-      next.doEndTag();
-    }
+    ButtonTag start = new ButtonTag();
+    start.setPageContext(pageContext);
+    start.setParent(panelTag);
+    start.setLabel("Start");
+    start.setAction(controller.replace("}", ".start}"));
+    start.setDisabled(controller.replace("}", ".startAvailable}").replace("#{", "#{!"));
+    start.doStartTag();
+    start.doEndTag();
 
-    {
-      ButtonTag finish = new ButtonTag();
-      finish.setPageContext(pageContext);
-      finish.setParent(panelTag);
-      finish.setLabel("Finish");
-      finish.setAction(controller.replace("}", ".finish}"));
-      finish.setDisabled(controller.replace("}", ".finishAvailable}").replace("#{", "#{!"));
-      finish.doStartTag();
-      finish.doEndTag();
-    }
+    ButtonTag previous = new ButtonTag();
+    previous.setPageContext(pageContext);
+    previous.setParent(panelTag);
+    previous.setLabel("Previous");
+    previous.setAction(controller.replace("}", ".previous}"));
+    previous.setDisabled(controller.replace("}", ".previousAvailable}").replace("#{", "#{!"));
+    previous.doStartTag();
+    previous.doEndTag();
+
+    ButtonTag next = new ButtonTag();
+    next.setPageContext(pageContext);
+    next.setParent(panelTag);
+    next.setLabel("Next");
+    next.setAction(controller.replace("}", ".next}"));
+    next.setDisabled(controller.replace("}", ".nextAvailable}").replace("#{", "#{!"));
+    next.doStartTag();
+    next.doEndTag();
+
+    ButtonTag finish = new ButtonTag();
+    finish.setPageContext(pageContext);
+    finish.setParent(panelTag);
+    finish.setLabel("Finish");
+    finish.setAction(controller.replace("}", ".finish}"));
+    finish.setDisabled(controller.replace("}", ".finishAvailable}").replace("#{", "#{!"));
+    finish.doStartTag();
+    finish.doEndTag();
 
     return super.doStartTag();
   }
