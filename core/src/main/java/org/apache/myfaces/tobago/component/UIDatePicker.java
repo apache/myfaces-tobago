@@ -17,7 +17,23 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CALENDAR_DATE_INPUT_ID;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_RESET;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER_POPUP;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BOX;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BUTTON;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_CALENDAR;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_GRID_LAYOUT;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_HIDDEN;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_IMAGE;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_PANEL;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_POPUP;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TIME;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.DatePickerController;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
