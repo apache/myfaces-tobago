@@ -26,7 +26,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UILinkCommand;
@@ -85,8 +84,7 @@ public class LinkRenderer extends CommandRendererBase {
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);
-    writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
-
+    HtmlRendererUtil.renderTip(command, writer);
     writer.flush();
 
 //  image
@@ -101,7 +99,7 @@ public class LinkRenderer extends CommandRendererBase {
       writer.writeAttribute(HtmlAttributes.SRC, image, true);
       writer.writeAttribute(HtmlAttributes.ALT, "", false);
       writer.writeAttribute(HtmlAttributes.BORDER, 0); // TODO: is border=0 setting via style possible?
-      writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
+      HtmlRendererUtil.renderTip(command, writer);
       writer.endElement(HtmlConstants.IMG);
     }
 

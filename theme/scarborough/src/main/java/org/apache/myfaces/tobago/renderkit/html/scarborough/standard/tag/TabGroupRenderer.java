@@ -31,7 +31,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_INDEX;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
@@ -277,7 +276,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
           innerClass.addMarkupClass(tab, "tab", "outer");
           writer.startElement(HtmlConstants.TD, tab);
           writer.writeIdAttribute(tab.getClientId(facesContext));
-          writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
+          HtmlRendererUtil.renderTip(tab, writer);
 
           writer.startElement(HtmlConstants.DIV, null);
           writer.writeClassAttribute(outerClass);

@@ -28,7 +28,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BORDER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
@@ -85,9 +84,6 @@ public class ImageRenderer extends LayoutableRendererBase {
     if (alt == null) {
       alt = "";
     }
-    String tip = (String) graphic.getAttributes().get(ATTR_TIP);
-
-
 
     writer.startElement(HtmlConstants.IMG, graphic);
     final String clientId = graphic.getClientId(facesContext);
@@ -102,9 +98,7 @@ public class ImageRenderer extends LayoutableRendererBase {
       writer.writeAttribute(HtmlAttributes.SRC, src, true);
     }
     writer.writeAttribute(HtmlAttributes.ALT, alt, true);
-    if (tip != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
-    }
+    HtmlRendererUtil.renderTip(graphic, writer);
     writer.writeAttribute(HtmlAttributes.BORDER, border, false);
     writer.writeAttributeFromComponent(HtmlAttributes.HEIGHT, ATTR_HEIGHT);
     writer.writeStyleAttribute();

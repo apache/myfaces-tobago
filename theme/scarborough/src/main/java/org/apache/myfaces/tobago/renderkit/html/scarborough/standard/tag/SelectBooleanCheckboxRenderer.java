@@ -27,7 +27,6 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UISelectBoolean;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
@@ -93,7 +92,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
       writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
       writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
       writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-      writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
+      HtmlRendererUtil.renderTip(component, writer);
 
       writer.startElement(HtmlConstants.TR, null);
       writer.startElement(HtmlConstants.TD, null);

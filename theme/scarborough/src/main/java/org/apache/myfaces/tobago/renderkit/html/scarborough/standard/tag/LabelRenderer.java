@@ -24,7 +24,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -97,8 +96,8 @@ public class LabelRenderer extends LayoutableRendererBase {
     }
     writer.writeClassAttribute();
 
-    writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
-    
+    HtmlRendererUtil.renderTip(output, writer);
+
     if (label.getText() != null) {
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
     }

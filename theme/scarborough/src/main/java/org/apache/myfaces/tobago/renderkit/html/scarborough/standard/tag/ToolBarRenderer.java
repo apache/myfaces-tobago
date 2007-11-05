@@ -323,7 +323,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
 
       writer.startElement(HtmlConstants.TD, command);
       writer.writeAttribute(HtmlAttributes.ALIGN, "center", false);
-      writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
+      HtmlRendererUtil.renderTip(command, writer);
 
       boolean render1pxImage = (iconName == null
           && (!ToolBarTag.LABEL_BOTTOM.equals(labelPosition)
@@ -347,7 +347,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
       writer.writeIdAttribute(graphicId);
       writer.writeAttribute(HtmlAttributes.SRC, image, false);
       writer.writeAttribute(HtmlAttributes.ALT, "", false);
-      writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
+      HtmlRendererUtil.renderTip(command, writer);
       writer.writeAttribute(HtmlAttributes.BORDER, 0);
       writer.writeClassAttribute(className);
       if (render1pxImage) {
@@ -477,7 +477,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
     writer.startElement(HtmlConstants.A, command);
     // TODO use StyleClasses
     writer.writeClassAttribute("tobago-toolBar-button-link" + (disabled ? " tobago-toolBar-button-link-disabled" : ""));
-    writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
+    HtmlRendererUtil.renderTip(command, writer);
     if (!disabled) {
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);
       writer.writeAttribute(HtmlAttributes.ONFOCUS, "Tobago.toolbarFocus(this, event)", false);

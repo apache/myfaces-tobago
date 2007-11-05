@@ -26,7 +26,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UISelectOne;
@@ -125,7 +124,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       if (tabIndex != null) {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
-      writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
+      HtmlRendererUtil.renderTip(selectOne, writer);
       if (!ComponentUtil.getBooleanAttribute(selectOne, ATTR_REQUIRED)) {
         writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneRadioClick(this, '" + clientId + "')", false);
       }

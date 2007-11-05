@@ -26,7 +26,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIButtonCommand;
@@ -71,7 +70,7 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.writeAttribute(HtmlAttributes.TYPE, buttonType, false);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
+    HtmlRendererUtil.renderTip(command, writer);
     writer.writeAttribute(HtmlAttributes.DISABLED, helper.isDisabled());
     Integer tabIndex = null;
     if (command instanceof UIButtonCommand) {

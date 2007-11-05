@@ -21,7 +21,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_NAME;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeListboxBox;
@@ -95,7 +94,7 @@ public class TreeListboxBoxRenderer extends LayoutableRendererBase {
           || tree.isSelectedNode(node)) {
         writer.writeAttribute(HtmlAttributes.SELECTED, true);
       }
-      writer.writeAttributeFromComponent(HtmlAttributes.TITLE, ATTR_TIP);
+      HtmlRendererUtil.renderTip(treeNode, writer);
       writer.writeText(treeNode.getAttributes().get(ATTR_NAME), null);
       if (node.getChildCount() > 0) {
         writer.writeText(" \u2192");

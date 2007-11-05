@@ -545,10 +545,10 @@ public final class HtmlRendererUtil {
 
   public static String getTitleFromTipAndMessages(FacesContext facesContext, UIComponent component) {
     String messages = ComponentUtil.getFacesMessageAsString(facesContext, component);
-    return HtmlRendererUtil.addTip(messages, (String) component.getAttributes().get(ATTR_TIP));
+    return HtmlRendererUtil.addTip(messages, component.getAttributes().get(ATTR_TIP));
   }
 
-  public static String addTip(String title, String tip) {
+  public static String addTip(String title, Object tip) {
     if (tip != null) {
       if (title != null && title.length() > 0) {
         title += " :: ";
@@ -622,4 +622,10 @@ public final class HtmlRendererUtil {
     return buf.toString();
   }
 
+  public static void renderTip(UIComponent component, TobagoResponseWriter writer ) throws IOException {
+     Object objTip = component.getAttributes().get(ATTR_TIP);
+    if (objTip != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, String.valueOf(objTip), true);
+    }
+  }
 }

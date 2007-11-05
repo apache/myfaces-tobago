@@ -63,7 +63,7 @@ public class ProgressRenderer extends LayoutableRendererBase {
     String value1 = Integer.toString(model.getValue());
     String value2 = Integer.toString(model.getMaximum() - model.getValue());
 
-    String title = (String) component.getAttributes().get(ATTR_TIP);
+    Object title = component.getAttributes().get(ATTR_TIP);
     if (title == null) {
       title = Integer.toString(100 * model.getValue()
           / (model.getMaximum() - model.getMinimum())) + " %";
@@ -85,7 +85,7 @@ public class ProgressRenderer extends LayoutableRendererBase {
 
     writer.startElement(HtmlConstants.SPAN, component);
     writer.writeClassAttribute();
-    writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+    writer.writeAttribute(HtmlAttributes.TITLE, String.valueOf(title), true);
 
     writer.startElement(HtmlConstants.IMG, null);
     StyleClasses color1Classes = new StyleClasses();
@@ -93,7 +93,7 @@ public class ProgressRenderer extends LayoutableRendererBase {
     color1Classes.addMarkupClass(component, "progress", "color1");
     writer.writeClassAttribute(color1Classes);
     writer.writeAttribute(HtmlAttributes.SRC, image, false);
-    writer.writeAttribute(HtmlAttributes.ALT, title, true);
+    writer.writeAttribute(HtmlAttributes.ALT, String.valueOf(title), true);
     writer.writeAttribute(HtmlAttributes.WIDTH, width1, false);
     writer.writeAttribute(HtmlAttributes.BORDER, 0);
     writer.endElement(HtmlConstants.IMG);
@@ -104,7 +104,7 @@ public class ProgressRenderer extends LayoutableRendererBase {
     color2Classes.addMarkupClass(component, "progress", "color2");
     writer.writeClassAttribute(color2Classes);
     writer.writeAttribute(HtmlAttributes.SRC, image, false);
-    writer.writeAttribute(HtmlAttributes.ALT, title, true);
+    writer.writeAttribute(HtmlAttributes.ALT, String.valueOf(title), true);
     writer.writeAttribute(HtmlAttributes.WIDTH, width2, false);
     writer.writeAttribute(HtmlAttributes.BORDER, 0);
     writer.endElement(HtmlConstants.IMG);

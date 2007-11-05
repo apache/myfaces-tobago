@@ -27,8 +27,8 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.ConverterException;
 import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
 import java.io.IOException;
 
 public class RenderUtil {
