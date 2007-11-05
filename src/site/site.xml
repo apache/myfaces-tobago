@@ -42,6 +42,8 @@
       <item name="Tomahawk" href="http://myfaces.apache.org/tomahawk"/>
       <item name="Sandbox" href="http://myfaces.apache.org/sandbox"/>
       <item name="Tobago" href="http://myfaces.apache.org/tobago"/>
+      <item name="Trinidad" href="http://myfaces.apache.org/trinidad/index.html"/>
+      <item name="Orchestra" href="http://myfaces.apache.org/orchestra/index.html"/>
     </links>
 
     <menu name="Tobago">
