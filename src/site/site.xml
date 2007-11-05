@@ -60,10 +60,17 @@
       <item name="API Documentation" href="http://myfaces.apache.org/tobago/documentation.html" />
       <item name="Release Checklist" href="http://myfaces.apache.org/tobago/release-checklist.html" />
     </menu>
-    
+
     ${parentProject}
     ${modules}
     ${reports}
+
+
+    <menu name="Foundation">
+      <item name="ASF" href="http://apache.org/" />
+      <item name="Sponsorship" href="http://www.apache.org/foundation/sponsorship.html" />
+      <item name="Thanks" href="http://www.apache.org/foundation/thanks.html" />
+    </menu>
 
   </body>
 </project>

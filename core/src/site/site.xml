@@ -45,5 +45,12 @@
     ${modules}
     ${reports}
 
+
+    <menu name="Foundation">
+      <item name="ASF" href="http://apache.org/" />
+      <item name="Sponsorship" href="http://www.apache.org/foundation/sponsorship.html" />
+      <item name="Thanks" href="http://www.apache.org/foundation/thanks.html" />
+    </menu>
+
   </body>
 </project>
