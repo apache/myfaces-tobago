@@ -622,8 +622,8 @@ public final class HtmlRendererUtil {
     return buf.toString();
   }
 
-  public static void renderTip(UIComponent component, TobagoResponseWriter writer ) throws IOException {
-     Object objTip = component.getAttributes().get(ATTR_TIP);
+  public static void renderTip(UIComponent component, TobagoResponseWriter writer) throws IOException {
+    Object objTip = component.getAttributes().get(ATTR_TIP);
     if (objTip != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, String.valueOf(objTip), true);
     }
