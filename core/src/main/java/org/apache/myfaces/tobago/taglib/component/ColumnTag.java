@@ -40,6 +40,10 @@ public class ColumnTag extends TobagoTag
     return UIColumn.COMPONENT_TYPE;
   }
 
+  public String getRendererType() {
+    return null;
+  }
+
   public void release() {
     super.release();
     sortable = null;
