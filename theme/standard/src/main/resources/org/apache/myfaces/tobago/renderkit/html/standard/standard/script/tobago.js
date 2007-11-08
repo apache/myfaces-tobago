@@ -1163,6 +1163,7 @@ var Tobago = {
       iframe.style.zIndex = 9999;
       iframe.frameBorder = "0";
       iframe.style.position = "absolute";
+      iframe.src = "javascript:false";
       iframe.style.top = "0px";
       iframe.style.left = "0px";
       iframe.style.width = element.scrollWidth + 'px';
