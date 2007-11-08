@@ -71,7 +71,7 @@ public class ResourceServlet extends HttpServlet {
       try {
         expires = new Long(expiresString);
       } catch (NumberFormatException e) {
-        LOG.error("Catched: " + e.getMessage(), e);
+        LOG.error("Caught: " + e.getMessage(), e);
       }
     }
   }

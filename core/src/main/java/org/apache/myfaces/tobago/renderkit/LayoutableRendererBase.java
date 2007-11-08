@@ -129,7 +129,7 @@ public abstract class LayoutableRendererBase
       try {
         intSpace = Integer.parseInt(space.replaceAll("\\D", ""));
       } catch (NumberFormatException e) {
-        LOG.error("Catched: " + e.getMessage(), e);
+        LOG.error("Caught: " + e.getMessage(), e);
       }
     }
     if (intSpace == -1) {

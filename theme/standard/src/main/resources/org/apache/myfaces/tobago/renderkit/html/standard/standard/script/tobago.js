@@ -1596,7 +1596,7 @@ Tobago.AcceleratorKey = function(func, key, modifier) {
   }
   this.modifier = modifier;
   if (document.all && (modifier == "alt" || modifier == "ctrl")) {
-    // keys with modifier 'alt' and 'ctrl' are not catched in IE
+    // keys with modifier 'alt' and 'ctrl' are not caught in IE
     // so special code needed
     if (modifier == "alt") {
       // can't make document.createElement("span").accesskey = key working

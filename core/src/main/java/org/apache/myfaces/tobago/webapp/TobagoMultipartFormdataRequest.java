@@ -106,7 +106,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
               // TODO: enable configuration of  'accept-charset'
               values = new String[] {item.getString(FORM_ACCEPT_CHARSET)};
             } catch (UnsupportedEncodingException e) {
-              LOG.error("Catched: " + e.getMessage(), e);
+              LOG.error("Caught: " + e.getMessage(), e);
               values = new String[] {item.getString()};
             }
             parameters.put(key, values);
@@ -121,7 +121,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
               // TODO: enable configuration of  'accept-charset'
               values[i] = item.getString(FORM_ACCEPT_CHARSET);
             } catch (UnsupportedEncodingException e) {
-              LOG.error("Catched: " + e.getMessage(), e);
+              LOG.error("Caught: " + e.getMessage(), e);
               values[i] = item.getString();
             }
             parameters.put(key, values);

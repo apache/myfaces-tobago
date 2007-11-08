@@ -140,7 +140,7 @@ public class DatePickerController extends MethodBinding {
       try {
         defaultValue = Integer.parseInt(st.nextToken());
       } catch (NumberFormatException e) {
-        LOG.error("Catched: " + e.getMessage(), e);
+        LOG.error("Caught: " + e.getMessage(), e);
       }
     }
     return defaultValue;

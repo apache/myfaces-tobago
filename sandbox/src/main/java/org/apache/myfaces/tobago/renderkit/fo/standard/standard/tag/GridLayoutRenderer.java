@@ -54,10 +54,10 @@ public class GridLayoutRenderer extends FoRendererBase
 
       layoutBegin(facesContext, component);
     } catch (RuntimeException e) {
-      LOG.error("catched RuntimeException :", e);
+      LOG.error("caught RuntimeException :", e);
       throw e;
     } catch (Throwable e) {
-      LOG.error("catched Throwable :", e);
+      LOG.error("caught Throwable :", e);
       throw new RuntimeException(e);
     }
 
@@ -75,10 +75,10 @@ public class GridLayoutRenderer extends FoRendererBase
       layoutEnd(facesContext, component);
 
     } catch (RuntimeException e) {
-      LOG.error("catched " + e + " :" + e.getMessage(), e);
+      LOG.error("caught " + e + " :" + e.getMessage(), e);
       throw e;
     } catch (Throwable e) {
-      LOG.error("catched Throwable :", e);
+      LOG.error("caught Throwable :", e);
       throw new RuntimeException(e);
     }
     if (LOG.isDebugEnabled()) {

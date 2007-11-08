@@ -136,7 +136,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
           while (fe != null) {
             if (fe instanceof AbortProcessingException) {
               if (LOG.isTraceEnabled()) {
-                LOG.trace("AbortProcessingException catched!");
+                LOG.trace("AbortProcessingException caught!");
               }
               // abort event processing
               // Page 3-30 of JSF 1.1 spec: "Throw an AbortProcessingException, to tell the JSF implementation
