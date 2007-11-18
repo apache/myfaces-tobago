@@ -20,14 +20,24 @@ package org.apache.myfaces.tobago.example.test;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.event.TabChangeListener;
+import org.apache.myfaces.tobago.model.SelectItem;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class SessionController {
 
@@ -42,6 +52,8 @@ public class SessionController {
   private Integer selectedIndex2;
 
   private String value;
+
+  private Date date;
 
   private Date validityStart;
   private Date validityEnd;
@@ -68,6 +80,43 @@ public class SessionController {
 
     public void setInput(String input) {
       this.input = input;
+    }
+  }
+
+  public Date getDate() {
+    return date;
+  }
+
+  public void setDate(Date date) {
+    this.date = date;
+  }
+
+  public SelectItem[] getDateItems() {
+    SelectItem[] items = new SelectItem[2];
+    DateFormat format = DateFormat.getDateInstance(SimpleDateFormat.SHORT, Locale.GERMANY);
+    format.setTimeZone(TimeZone.getTimeZone("GMT"));
+    try {
+      Date date = format.parse("12.10.2009");
+      items[0] = new SelectItem(date);
+      date = format.parse("13.10.2009");
+      items[1] = new SelectItem(date);
+    } catch (ParseException e) {
+      LOG.error("", e);
+    }
+    return items;
+  }
+
+  public void actionListener(ActionEvent e) {
+    UIComponent component = e.getComponent();
+    for (UIComponent child : (List<UIComponent>)component.getChildren()) {
+      if (child instanceof UIParameter) {
+        LOG.error(((UIParameter) child).getValue());
+      }
+    }
+    while ((component = component.getParent()) != null) {
+      if (component instanceof UIData) {
+        LOG.error(((UIData)component).getRowIndex());
+      }
     }
   }
 
