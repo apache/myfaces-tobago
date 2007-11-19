@@ -17,14 +17,15 @@ package org.apache.myfaces.tobago.facelets;
  * limitations under the License.
  */
 
-import com.sun.facelets.tag.MetaRule;
-import com.sun.facelets.tag.Metadata;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.MetadataTarget;
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.el.LegacyMethodBinding;
+import com.sun.facelets.tag.MetaRule;
+import com.sun.facelets.tag.Metadata;
+import com.sun.facelets.tag.MetadataTarget;
+import com.sun.facelets.tag.TagAttribute;
 import org.apache.myfaces.tobago.event.SortActionSource;
-import org.apache.myfaces.tobago.event.SortActionEvent;
+
+import javax.faces.event.ActionEvent;
 
 /*
  * User: bommel
