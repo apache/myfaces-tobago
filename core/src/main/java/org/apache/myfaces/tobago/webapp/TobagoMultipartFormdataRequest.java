@@ -17,9 +17,10 @@ package org.apache.myfaces.tobago.webapp;
  * limitations under the License.
  */
 
-import org.apache.commons.fileupload.DiskFileUpload;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.FORM_ACCEPT_CHARSET;
@@ -27,14 +28,14 @@ import static org.apache.myfaces.tobago.TobagoConstants.FORM_ACCEPT_CHARSET;
 import javax.faces.FacesException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Locale;
+import java.util.Map;
 
 public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 
@@ -61,22 +62,29 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
   }
 
   private void init(HttpServletRequest request, String repositoryPath, long maxSize) {
-    String contentType = request.getContentType();
-    if (contentType == null
-        || !contentType.toLowerCase(Locale.ENGLISH).startsWith("multipart/form-data")) {
+    if (!ServletFileUpload.isMultipartContent(request)) {
       String errorText = "contentType is not multipart/form-data but '"
-          + contentType + "'";
+          + request.getContentType() + "'";
       LOG.error(errorText);
       throw new FacesException(errorText);
     } else {
       parameters = new HashMap();
       fileItems = new HashMap();
-      DiskFileUpload fileUpload = new DiskFileUpload();
-      fileUpload.setSizeMax(maxSize);
-      fileUpload.setRepositoryPath(repositoryPath);
-      List itemList;
+      DiskFileItemFactory factory = new DiskFileItemFactory();
+
+      factory.setRepository(new File(repositoryPath));
+
+      ServletFileUpload upload = new ServletFileUpload(factory);
+
+      upload.setSizeMax(maxSize);
+
+      if (upload.getHeaderEncoding() != null) {
+        // TODO: enable configuration of  'accept-charset'
+        upload.setHeaderEncoding(FORM_ACCEPT_CHARSET);
+      }
+      List<FileItem> itemList;
       try {
-        itemList = fileUpload.parseRequest(request);
+        itemList = (List<FileItem>) upload.parseRequest(request);
       } catch (FileUploadException e) {
         //LOG.error(e);
         throw new FacesException(e);
@@ -84,9 +92,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
       if (LOG.isDebugEnabled()) {
         LOG.debug("parametercount = " + itemList.size());
       }
-      Iterator items = itemList.iterator();
-      while (items.hasNext()) {
-        FileItem item = (FileItem) items.next();
+      for (FileItem item : itemList) {
         String key = item.getFieldName();
         if (LOG.isDebugEnabled()) {
           String value = item.getString();
@@ -95,7 +101,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
           }
           LOG.debug(
               "Parameter : '" + key + "'='" + value + "' isFormField="
-              + item.isFormField() + " contentType='" + item.getContentType() + "'");
+                  + item.isFormField() + " contentType='" + item.getContentType() + "'");
 
         }
         if (item.isFormField()) {
@@ -104,10 +110,10 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
             String[] values;
             try {
               // TODO: enable configuration of  'accept-charset'
-              values = new String[] {item.getString(FORM_ACCEPT_CHARSET)};
+              values = new String[]{item.getString(FORM_ACCEPT_CHARSET)};
             } catch (UnsupportedEncodingException e) {
               LOG.error("Caught: " + e.getMessage(), e);
-              values = new String[] {item.getString()};
+              values = new String[]{item.getString()};
             }
             parameters.put(key, values);
           } else if (inStock instanceof String[]) { // double (or more) parameter
@@ -128,7 +134,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
           } else {
             LOG.error(
                 "Program error. Unsupported class: "
-                + inStock.getClass().getName());
+                    + inStock.getClass().getName());
           }
         } else {
           fileItems.put(key, item);

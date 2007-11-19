@@ -40,6 +40,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
   private MockHttpSession httpSession = null;
 
   private byte[] body;
+  private String method;
 
 // --------------------------------------------------------------- constructors
 
@@ -87,7 +88,11 @@ public class MockHttpServletRequest implements HttpServletRequest {
   }
 
   public String getMethod() {
-    return null;
+    return method;
+  }
+
+  public void setMethod(String method) {
+    this.method = method;
   }
 
   public String getPathInfo() {

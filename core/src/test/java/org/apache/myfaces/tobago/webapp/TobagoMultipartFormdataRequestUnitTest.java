@@ -70,6 +70,7 @@ public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
 
     MockHttpServletRequest mockRequest
         = new MockHttpServletRequest(body.getBytes("UTF-8"));
+    mockRequest.setMethod("post");
 
     request = new TobagoMultipartFormdataRequest(mockRequest, System.getProperty("java.io.tmpdir"), 1024 * 1024);
   }
