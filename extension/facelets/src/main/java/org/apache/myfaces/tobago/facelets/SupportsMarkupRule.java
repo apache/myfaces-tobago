@@ -22,10 +22,14 @@ import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.MetadataTarget;
 import com.sun.facelets.tag.MetaRule;
 import com.sun.facelets.FaceletContext;
+import com.sun.facelets.el.LegacyValueBinding;
+import com.sun.facelets.el.ELAdaptor;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
+import javax.el.ValueExpression;
 
 /*
  * User: bommel
@@ -38,7 +42,7 @@ public class SupportsMarkupRule extends MetaRule {
   public Metadata applyRule(String name, TagAttribute attribute,
       MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(SupportsMarkup.class)) {
-      if ("markup".equals(name)) {
+      if (TobagoConstants.ATTR_MARKUP.equals(name)) {
         return new SupportsMarkupMapper(attribute);
       }
     }
@@ -54,7 +58,12 @@ public class SupportsMarkupRule extends MetaRule {
     }
 
     public void applyMetadata(FaceletContext ctx, Object instance) {
-      ComponentUtil.setMarkup((UIComponent) instance, attribute.getValue());
+      if (attribute.isLiteral()) {
+        ComponentUtil.setMarkup((UIComponent) instance, attribute.getValue());
+      } else {
+        ValueExpression expression = attribute.getValueExpression(ctx, Object.class);
+        ELAdaptor.setExpression((UIComponent) instance, TobagoConstants.ATTR_MARKUP, expression);
+      }
     }
   }
 }
