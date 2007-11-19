@@ -18,13 +18,15 @@ package org.apache.myfaces.tobago.facelets.extension;
  */
 
 import com.sun.facelets.FaceletContext;
+import com.sun.facelets.el.ELAdaptor;
 import com.sun.facelets.tag.MetaRuleset;
 import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIInput;
@@ -32,10 +34,10 @@ import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.facelets.SuggestMethodRule;
 import org.apache.myfaces.tobago.facelets.SupportsMarkupRule;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import javax.el.ELException;
+import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
@@ -127,10 +129,20 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     label.setId(uid);
     label.getAttributes().put(TobagoConstants.ATTR_FOR, "@auto");
     if (tipAttribute != null) {
-      label.setTip(tipAttribute.getValue(faceletContext));
+      if (tipAttribute.isLiteral()) {
+        label.setTip(tipAttribute.getValue(faceletContext));
+      } else {
+        ValueExpression expression = tipAttribute.getValueExpression(faceletContext, String.class);
+        ELAdaptor.setExpression(label, TobagoConstants.ATTR_TIP, expression);
+      }
     }
     if (labelAttribute != null) {
-      label.setValue(labelAttribute.getValue(faceletContext));
+      if (labelAttribute.isLiteral()) {
+        label.setValue(labelAttribute.getValue(faceletContext));
+      } else {
+        ValueExpression expression = labelAttribute.getValueExpression(faceletContext, String.class);
+        ELAdaptor.setExpression(label, TobagoConstants.ATTR_LABEL, expression); 
+      }
     }
     panel.getChildren().add(label);
   }
