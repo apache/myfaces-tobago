@@ -33,8 +33,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIData;
+import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
@@ -45,9 +46,9 @@ import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriterWrapper;
 
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
-import javax.faces.component.NamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
@@ -570,17 +571,34 @@ public final class HtmlRendererUtil {
       if (item instanceof SelectItemGroup) {
         writer.startElement(HtmlConstants.OPTGROUP, null);
         writer.writeAttribute(HtmlAttributes.LABEL, item.getLabel(), true);
+        if (item.isDisabled()) {
+          writer.writeAttribute(HtmlAttributes.DISABLED, true);
+        }
         SelectItem[] selectItems = ((SelectItemGroup) item).getSelectItems();
         renderSelectItems(component, Arrays.asList(selectItems), values, writer, facesContext);
         writer.endElement(HtmlConstants.OPTGROUP);
       } else {
         writer.startElement(HtmlConstants.OPTION, null);
         final Object itemValue = item.getValue();
-        String formattedValue
-            = RenderUtil.getFormattedValue(facesContext, component, itemValue);
+        String formattedValue = RenderUtil.getFormattedValue(facesContext, component, itemValue);
         writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
+        if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
+          String image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
+          if (image != null) {
+            String imagePath = ResourceManagerUtil.getImageWithPath(facesContext, image);
+            writer.writeStyleAttribute("background-image=url('" + imagePath+ "')");
+          }
+        }
+        if (item instanceof SupportsMarkup) {
+          StyleClasses optionStyle = new StyleClasses();
+          optionStyle.addMarkupClass((SupportsMarkup) item, getRendererName(facesContext, component), "option"  );
+          writer.writeClassAttribute(optionStyle);
+        }
         if (RenderUtil.contains(values, item.getValue())) {
           writer.writeAttribute(HtmlAttributes.SELECTED, true);
+        }
+        if (item.isDisabled()) {
+          writer.writeAttribute(HtmlAttributes.DISABLED, true);
         }
         writer.writeText(item.getLabel());
         writer.endElement(HtmlConstants.OPTION);

@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 /*
  * Created by IntelliJ IDEA.
@@ -39,7 +40,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
  */
 @Tag(name = "selectItem", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UISelectItem")
-public interface SelectItemTagDeclaration extends TobagoTagDeclaration, HasBinding, HasId {
+public interface SelectItemTagDeclaration extends TobagoTagDeclaration, HasBinding, HasId, HasMarkup {
   /**
    * Flag indicating whether the option created
    * by this component is disabled.

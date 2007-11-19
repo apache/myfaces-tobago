@@ -20,17 +20,45 @@ package org.apache.myfaces.tobago.component;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 
 import javax.faces.el.ValueBinding;
+import javax.faces.context.FacesContext;
 
 /*
  * User: weber
  * Date: Apr 11, 2005
  * Time: 11:15:35 AM
  */
-public class UISelectItem extends javax.faces.component.UISelectItem {
+public class UISelectItem extends javax.faces.component.UISelectItem implements SupportsMarkup {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SelectItem";
 
   private String itemImage;
+  private String[] markup;
+
+  public void restoreState(FacesContext context, Object state) {
+    Object[] values = (Object[]) state;
+    super.restoreState(context, values[0]);
+    itemImage = (String) values[1];
+    markup = (String[]) values[2];
+  }
+
+  public Object saveState(FacesContext context) {
+    Object[] values = new Object[3];
+    values[0] = super.saveState(context);
+    values[1] = itemImage;
+    values[2] = markup;
+    return values;
+  }
+
+  public String[] getMarkup() {
+    if (markup != null) {
+      return markup;
+    }
+    return ComponentUtil.getMarkupBinding(getFacesContext(), this);
+  }
+
+  public void setMarkup(String[] markup) {
+    this.markup = markup;
+  }
 
   public void setImage(String image) {
     setItemImage(image);

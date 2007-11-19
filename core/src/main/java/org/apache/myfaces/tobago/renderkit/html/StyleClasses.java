@@ -139,15 +139,18 @@ public class StyleClasses implements Serializable {
 
   public void addMarkupClass(UIComponent component, String rendererName, String sub) {
     if (component instanceof SupportsMarkup) {
-      String[] markups = ((SupportsMarkup) component).getMarkup();
-      for (String markup: markups) {
-        if (!StringUtils.isBlank(markup)) {
-          Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
-          if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
-            addMarkupClass(rendererName, sub, markup);
-          } else if (!"none".equals(markup)) {
-            LOG.warn("Unknown markup='" + markup + "'");
-          }
+      addMarkupClass((SupportsMarkup)component, rendererName, sub);
+    }
+  }
+
+  public void addMarkupClass(SupportsMarkup supportsMarkup, String rendererName, String sub) {
+    for (String markup: supportsMarkup.getMarkup()) {
+      if (!StringUtils.isBlank(markup)) {
+        Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
+        if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
+          addMarkupClass(rendererName, sub, markup);
+        } else if (!"none".equals(markup)) {
+          LOG.warn("Unknown markup='" + markup + "'");
         }
       }
     }

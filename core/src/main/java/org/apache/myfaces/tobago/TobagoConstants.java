@@ -71,6 +71,12 @@ public final class TobagoConstants {
   public static final String ATTR_INLINE = "inline";
   public static final String ATTR_INNER_HEIGHT = "innerHeight";
   public static final String ATTR_INNER_WIDTH = "innerWidth";
+  public static final String ATTR_ITEM_DESCRIPTION = "itemDescription";
+  public static final String ATTR_ITEM_DISABLED = "itemDisabled";
+  public static final String ATTR_ITEM_LABEL = "itemLabel";
+  public static final String ATTR_ITEM_IMAGE = "itemImage";
+  public static final String ATTR_ITEM_VALUE = "itemValue";
+
   public static final String ATTR_LABEL = "label";
   public static final String ATTR_LABEL_POSITION = "labelPosition";
 //  public static final String ATTR_LABEL_WITH_ACCESS_KEY = "labelWithAccessKey";
@@ -114,6 +120,7 @@ public final class TobagoConstants {
   public static final String ATTR_PREFORMATED = "preformated";
   public static final String ATTR_READONLY = "readonly";
   public static final String ATTR_REFERENCE = "reference";
+  public static final String ATTR_RELATIVE = "relative";
   public static final String ATTR_RENDERED = "rendered";
   public static final String ATTR_RENDERER_TYPE = "rendererType";
   public static final String ATTR_RENDER_AS = "renderAs";

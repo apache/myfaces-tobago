@@ -17,6 +17,11 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ITEM_DESCRIPTION;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ITEM_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ITEM_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ITEM_IMAGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ITEM_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -32,6 +37,7 @@ public class SelectItemTag extends TobagoTag implements SelectItemTagDeclaration
   private String itemValue;
   private String value;
   private String itemImage;
+  private String markup;
 
 
   public String getComponentType() {
@@ -44,12 +50,14 @@ public class SelectItemTag extends TobagoTag implements SelectItemTagDeclaration
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, "itemDescription", itemDescription);
-    ComponentUtil.setBooleanProperty(component, "itemDisabled", itemDisabled);
-    ComponentUtil.setStringProperty(component, "itemLabel", itemLabel);
-    ComponentUtil.setStringProperty(component, "itemValue", itemValue);
+    ComponentUtil.setStringProperty(component, ATTR_ITEM_DESCRIPTION, itemDescription);
+    ComponentUtil.setBooleanProperty(component, ATTR_ITEM_DISABLED, itemDisabled);
+    ComponentUtil.setStringProperty(component, ATTR_ITEM_LABEL, itemLabel);
+    ComponentUtil.setStringProperty(component, ATTR_ITEM_VALUE, itemValue);
     ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
+    ComponentUtil.setStringProperty(component, ATTR_ITEM_IMAGE, itemImage);
     ComponentUtil.setStringProperty(component, ATTR_IMAGE, itemImage);
+    ComponentUtil.setMarkup(component, markup);
   }
 
   public void release() {
@@ -60,6 +68,7 @@ public class SelectItemTag extends TobagoTag implements SelectItemTagDeclaration
     itemValue = null;
     value = null;
     itemImage = null;
+    markup = null;
   }
 
   public String getItemDescription() {
@@ -108,5 +117,13 @@ public class SelectItemTag extends TobagoTag implements SelectItemTagDeclaration
 
   public void setItemImage(String itemImage) {
     this.itemImage = itemImage;
+  }
+
+  public String getMarkup() {
+    return markup;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 }
