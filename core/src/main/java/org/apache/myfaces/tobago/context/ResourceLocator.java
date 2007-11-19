@@ -81,8 +81,7 @@ class ResourceLocator {
     }
     Set<String> resourcePaths = servletContext.getResourcePaths(path);
     if (resourcePaths == null || resourcePaths.isEmpty()) {
-      // TOOD should be info
-      LOG.error("ResourcePath empty! Please check the tobago-config.xml file!"
+      LOG.info("ResourcePath empty! Please check the tobago-config.xml file!"
             + " path='" + path + "'");
       return;
     }
