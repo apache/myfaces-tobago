@@ -143,7 +143,7 @@ public class PageRenderer extends PageRendererBase {
     }
 
     // reset responseWriter and render page
-    facesContext.setResponseWriter((ResponseWriter) writer);
+    facesContext.setResponseWriter(writer);
 
     ResponseUtils.ensureNoCacheHeader(facesContext.getExternalContext());
 
@@ -173,9 +173,12 @@ public class PageRenderer extends PageRendererBase {
 
     writer.startElement(HtmlConstants.HTML, null);
     writer.startElement(HtmlConstants.HEAD, null);
+    final boolean debugMode =
+            ClientProperties.getInstance(facesContext.getViewRoot()).isDebugMode();
 
+    //if (debugMode) {
     writer.writeJavascript("var TbgHeadStart = new Date();");
-
+    //}
     // meta
     // TODO duplicate; see PageTag.doStartTag()
 //    writer.startElement(HtmlConstants.META, null);
@@ -249,9 +252,7 @@ public class PageRenderer extends PageRendererBase {
 
     int clientLogSeverity = 2;
     boolean hideClientLogging = true;
-    final boolean debugMode =
-        ClientProperties.getInstance(facesContext.getViewRoot()).isDebugMode();
-//        true; hideClientLogging = false;
+    //        true; hideClientLogging = false;
     if (debugMode) {
       String severity = (String) facesContext.getExternalContext().getRequestMap().get(CLIENT_DEBUG_SEVERITY);
       LOG.info("get " + CLIENT_DEBUG_SEVERITY + " = " + severity);
@@ -354,7 +355,9 @@ public class PageRenderer extends PageRendererBase {
       final String[] jsCommand = new String[]{"new LOG.LogArea({hide: " + hideClientLogging + "});"};
       HtmlRendererUtil.writeScriptLoader(facesContext, jsFiles, jsCommand);
     }
+    //if (debugMode)  {
     writer.writeJavascript("TbgTimer.startBody = new Date();");
+    //}
 
     writer.startElement(HtmlConstants.FORM, page);
     writer.writeNameAttribute(
@@ -362,7 +365,12 @@ public class PageRenderer extends PageRendererBase {
     writer.writeAttribute(HtmlAttributes.ACTION, formAction, true);
     writer.writeIdAttribute(page.getFormId(facesContext));
     writer.writeAttribute(HtmlAttributes.METHOD, getMethod(page), false);
-    writer.writeAttributeFromComponent(HtmlAttributes.ENCTYPE, ATTR_ENCTYPE);
+    String enctype = (String) facesContext.getExternalContext().getRequestMap().get(UIPage.ENCTYPE_KEY);
+    if (enctype != null) {
+      writer.writeAttribute(HtmlAttributes.ENCTYPE, enctype, false); 
+    } else {
+      writer.writeAttributeFromComponent(HtmlAttributes.ENCTYPE, ATTR_ENCTYPE);
+    }
     // TODO: enable configuration of  'accept-charset'
     writer.writeAttribute(HtmlAttributes.ACCEPT_CHARSET, FORM_ACCEPT_CHARSET, false);
 
@@ -444,7 +452,9 @@ public class PageRenderer extends PageRendererBase {
           logMessages.toArray(new String[logMessages.size()]));
     }
 
+    //if (debugMode) {
     writer.writeJavascript("TbgTimer.endBody = new Date();");
+    //}
     writer.endElement(HtmlConstants.BODY);
     writer.endElement(HtmlConstants.HTML);
 
