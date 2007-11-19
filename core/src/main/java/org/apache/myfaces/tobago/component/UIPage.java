@@ -51,6 +51,7 @@ public class UIPage extends UIForm {
   private static final Log LOG = LogFactory.getLog(UIPage.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Page";
+  public static final String ENCTYPE_KEY = UIPanel.class.getName() + ".enctype";
 
   public static final String DEFAULT_STYLE = "style/style.css";
 
