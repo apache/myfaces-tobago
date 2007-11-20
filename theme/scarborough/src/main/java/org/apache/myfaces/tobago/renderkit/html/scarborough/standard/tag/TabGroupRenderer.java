@@ -35,10 +35,11 @@ import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPanelBase;
-import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.component.UITab;
+import org.apache.myfaces.tobago.component.UITabGroup;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_CLIENT;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_PAGE;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_TAB;
@@ -61,9 +62,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Arrays;
 
 public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRenderer {
 
@@ -272,8 +273,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
             outerClass.addClass("tab", "unselected-outer");
             innerClass.addClass("tab", "unselected-inner");
           }
-          outerClass.addMarkupClass(tab, "tab", "outer");
-          innerClass.addMarkupClass(tab, "tab", "outer");
+          outerClass.addMarkupClass((SupportsMarkup) tab, "tab", "outer");
+          innerClass.addMarkupClass((SupportsMarkup) tab, "tab", "outer");
           writer.startElement(HtmlConstants.TD, tab);
           writer.writeIdAttribute(tab.getClientId(facesContext));
           HtmlRendererUtil.renderTip(tab, writer);
@@ -352,7 +353,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.startElement(HtmlConstants.TD, null);
     StyleClasses classes = new StyleClasses();
     classes.addClass("tab", "content");
-    classes.addMarkupClass(activeTab, "tab", "content");
+    classes.addMarkupClass((SupportsMarkup) activeTab, "tab", "content");
     writer.writeClassAttribute(classes);
     writer.writeStyleAttribute(bodyStyle);
     writer.flush();
