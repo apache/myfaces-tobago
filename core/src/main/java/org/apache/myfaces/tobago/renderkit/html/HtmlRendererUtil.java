@@ -586,12 +586,12 @@ public final class HtmlRendererUtil {
           String image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
           if (image != null) {
             String imagePath = ResourceManagerUtil.getImageWithPath(facesContext, image);
-            writer.writeStyleAttribute("background-image=url('" + imagePath+ "')");
+            writer.writeStyleAttribute("background-image=url('" + imagePath + "')");
           }
         }
         if (item instanceof SupportsMarkup) {
           StyleClasses optionStyle = new StyleClasses();
-          optionStyle.addMarkupClass((SupportsMarkup) item, getRendererName(facesContext, component), "option"  );
+          optionStyle.addMarkupClass((SupportsMarkup) item, getRendererName(facesContext, component), "option");
           writer.writeClassAttribute(optionStyle);
         }
         if (RenderUtil.contains(values, item.getValue())) {
