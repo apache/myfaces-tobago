@@ -139,7 +139,7 @@ public class StyleClasses implements Serializable {
 
   public void addMarkupClass(UIComponent component, String rendererName, String sub) {
     if (component instanceof SupportsMarkup) {
-      addMarkupClass((SupportsMarkup)component, rendererName, sub);
+      addMarkupClass((SupportsMarkup) component, rendererName, sub);
     }
   }
 
