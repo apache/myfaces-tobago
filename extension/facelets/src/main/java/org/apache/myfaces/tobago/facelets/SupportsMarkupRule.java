@@ -22,7 +22,6 @@ import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.MetadataTarget;
 import com.sun.facelets.tag.MetaRule;
 import com.sun.facelets.FaceletContext;
-import com.sun.facelets.el.LegacyValueBinding;
 import com.sun.facelets.el.ELAdaptor;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
