@@ -108,14 +108,14 @@ public class SessionController {
 
   public void actionListener(ActionEvent e) {
     UIComponent component = e.getComponent();
-    for (UIComponent child : (List<UIComponent>)component.getChildren()) {
+    for (UIComponent child : (List<UIComponent>) component.getChildren()) {
       if (child instanceof UIParameter) {
         LOG.error(((UIParameter) child).getValue());
       }
     }
     while ((component = component.getParent()) != null) {
       if (component instanceof UIData) {
-        LOG.error(((UIData)component).getRowIndex());
+        LOG.error(((UIData) component).getRowIndex());
       }
     }
   }
