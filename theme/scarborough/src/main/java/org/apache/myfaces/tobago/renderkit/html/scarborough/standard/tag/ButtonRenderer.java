@@ -99,7 +99,7 @@ public class ButtonRenderer extends CommandRendererBase {
       }
       writer.startElement(HtmlConstants.IMG, null);
       writer.writeAttribute(HtmlAttributes.SRC, image, true);
-      writer.writeAttribute(HtmlAttributes.ALT, "", false);
+      HtmlRendererUtil.renderImageTip(component, writer);
       writer.endElement(HtmlConstants.IMG);
     }
 

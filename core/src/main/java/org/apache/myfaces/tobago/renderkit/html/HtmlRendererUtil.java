@@ -646,4 +646,13 @@ public final class HtmlRendererUtil {
       writer.writeAttribute(HtmlAttributes.TITLE, String.valueOf(objTip), true);
     }
   }
+
+  public static void renderImageTip(UIComponent component, TobagoResponseWriter writer) throws IOException {
+    Object objTip = component.getAttributes().get(ATTR_TIP);
+    if (objTip != null) {
+      writer.writeAttribute(HtmlAttributes.ALT, String.valueOf(objTip), true);
+    } else {
+      writer.writeAttribute(HtmlAttributes.ALT, "", false);
+    }
+  }
 }
