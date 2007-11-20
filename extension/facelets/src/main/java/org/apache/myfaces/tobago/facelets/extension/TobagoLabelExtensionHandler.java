@@ -141,7 +141,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
         label.setValue(labelAttribute.getValue(faceletContext));
       } else {
         ValueExpression expression = labelAttribute.getValueExpression(faceletContext, String.class);
-        ELAdaptor.setExpression(label, TobagoConstants.ATTR_LABEL, expression); 
+        ELAdaptor.setExpression(label, TobagoConstants.ATTR_VALUE, expression);
       }
     }
     panel.getChildren().add(label);
