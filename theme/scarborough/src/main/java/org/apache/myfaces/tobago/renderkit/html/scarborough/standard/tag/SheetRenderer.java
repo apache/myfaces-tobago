@@ -154,7 +154,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     }
     UICommand clickAction = null;
     UICommand dblClickAction = null;
-    for (UIComponent child : (List<UIComponent>)data.getChildren()) {
+    for (UIComponent child : (List<UIComponent>) data.getChildren()) {
       if (child instanceof UIColumnEvent) {
         UIColumnEvent columnEvent = (UIColumnEvent) child;
         UIComponent selectionChild = (UIComponent) child.getChildren().get(0);
