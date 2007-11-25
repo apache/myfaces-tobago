@@ -36,7 +36,13 @@ public class ObjectRenderer extends LayoutableRendererBase {
     writer.startElement(HtmlConstants.IFRAME, component);
     writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeNameAttribute(component.getClientId(facesContext));
-    writer.writeAttributeFromComponent(HtmlAttributes.SRC, ATTR_SRC);
+    Object src = component.getAttributes().get(ATTR_SRC);
+    if (src != null) {
+      writer.writeAttribute(HtmlAttributes.SRC, String.valueOf(src), true);
+    } else {
+      //writer.writeAttribute(HtmlAttributes.SRC, "javascript:false;", false);
+      writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getBlankPage(facesContext), false);
+    }
     writer.writeClassAttribute();
     writer.writeStyleAttribute();
 

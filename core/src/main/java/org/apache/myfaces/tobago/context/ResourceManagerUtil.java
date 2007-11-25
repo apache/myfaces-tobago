@@ -57,6 +57,11 @@ public class ResourceManagerUtil {
         .getImage(facesContext.getViewRoot(), name);
   }
 
+  public static String getBlankPage(FacesContext context) {
+    return  context.getExternalContext().getRequestContextPath()
+        + "/org/apache/myfaces/tobago/renderkit/html/standard/blank.html";
+  }
+
   /**
    * Searchs for an image and return it with the context path
    */
