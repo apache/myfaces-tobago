@@ -49,6 +49,7 @@ public final class TobagoConstants {
   public static final String ATTR_ENCTYPE = "enctype";
   public static final String ATTR_ESCAPE = "escape";
   public static final String ATTR_EXPANDED = "expanded";
+  public static final String ATTR_EVENT = "event";
   public static final String ATTR_FIRST = "first";
   public static final String ATTR_FREQUENCY = "frequency";
   public static final String ATTR_FOCUS = "focus";

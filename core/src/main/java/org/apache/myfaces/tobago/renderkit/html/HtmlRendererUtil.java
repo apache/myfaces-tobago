@@ -655,4 +655,26 @@ public final class HtmlRendererUtil {
       writer.writeAttribute(HtmlAttributes.ALT, "", false);
     }
   }
+
+  public static String getJavascriptString(String str) {
+    if (str != null) {
+      return "\"" + str + "\"" ;
+    }
+    return null;
+  }
+
+  public static String getJavascriptArray(String[] list) {
+    StringBuilder strBuilder = new StringBuilder();
+    strBuilder.append("[");
+    for (int i = 0; i < list.length; i++) {
+      if (i != 0) {
+        strBuilder.append(",");
+      }
+      strBuilder.append("\"");
+      strBuilder.append(list[i]);
+      strBuilder.append("\"");
+    }
+    strBuilder.append("]");
+    return strBuilder.toString();
+  }
 }

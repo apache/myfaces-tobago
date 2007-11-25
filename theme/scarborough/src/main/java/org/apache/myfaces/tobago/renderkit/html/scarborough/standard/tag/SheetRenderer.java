@@ -70,6 +70,7 @@ import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIReload;
+import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
@@ -151,9 +152,31 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       UIReload update = (UIReload) facetReload;
       frequency = update.getFrequency();
     }
+    UICommand clickAction = null;
+    UICommand dblClickAction = null;
+    for (UIComponent child : (List<UIComponent>)data.getChildren()) {
+      if (child instanceof UIColumnEvent) {
+        UIColumnEvent columnEvent = (UIColumnEvent) child;
+        UIComponent selectionChild = (UIComponent) child.getChildren().get(0);
+        if (selectionChild != null && selectionChild instanceof UICommand && selectionChild.isRendered()) {
+          UICommand action = (UICommand) selectionChild;
+          if ("click".equals(columnEvent.getEvent())) {
+            clickAction = action;
+          }
+          if ("dblclick".equals(columnEvent.getEvent())) {
+            dblClickAction = action;
+          }
+        }
+      }
+    }
     final String[] cmds = {
         "new Tobago.Sheet(\"" + sheetId + "\", " + ajaxEnabled
-            + ", \"" + checked + "\", \"" + unchecked + "\", \"" + data.getSelectable() + "\", "+ frequency + ");"
+            + ", \"" + checked + "\", \"" + unchecked + "\", \"" + data.getSelectable() + "\", "+ frequency
+            + ",  " + (clickAction!=null?HtmlRendererUtil.getJavascriptString(clickAction.getId()):null)
+            + ",  " + (clickAction!=null?HtmlRendererUtil.getJavascriptArray(clickAction.getRenderedPartially()):null)
+            + ",  " + (dblClickAction!=null?HtmlRendererUtil.getJavascriptString(dblClickAction.getId()):null) + ",  "
+            + (dblClickAction!=null?HtmlRendererUtil.getJavascriptArray(dblClickAction.getRenderedPartially()):null)
+            + ");"
     };
     UIPage page = ComponentUtil.findPage(facesContext, data);
     page.getStyleFiles().add(styles[0]);

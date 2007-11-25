@@ -40,7 +40,8 @@ Tobago.Sheets = {
 
 };
 
-Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage, selectable, autoReload) {
+Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage, selectable, autoReload,
+                        clickActionId, clickReloadComponentId, dblClickActionId, dblClickReloadComponentId) {
   this.startTime = new Date();
   this.id = sheetId;
   Tobago.Sheets.put(this);
@@ -49,6 +50,10 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage, selec
   this.uncheckedImage = uncheckedImage;
   this.selectable = selectable;
   this.autoReload = autoReload;
+  this.clickActionId = clickActionId;
+  this.clickReloadComponentId = clickReloadComponentId;
+  this.dblClickActionId = dblClickActionId;
+  this.dblClickReloadComponentId = dblClickReloadComponentId;
 
   this.resizerId = undefined;
   this.oldX      = 0;
@@ -444,6 +449,9 @@ Tobago.Sheet.prototype.addSelectionListener = function() {
       while (row) {
         //       LOG.debug("rowId = " + row.id + "   next i=" + i);
         Tobago.addBindEventListener(row, "click", this, "doSelection");
+        if (this.dblClickActionId) {
+          Tobago.addBindEventListener(row, "dblclick", this, "doDblClick");
+        }
         row = Tobago.element(this.id + "_data_tr_" + i++ );
       }
       //LOG.debug("preSelected rows = " + Tobago.element(sheetId + "::selected").value);
@@ -467,7 +475,8 @@ Tobago.Sheet.prototype.doSelection = function(event) {
     //LOG.debug("event.ctrlKey = " + event.ctrlKey);
     //LOG.debug("event.shiftKey = " + event.shiftKey);
     //LOG.debug("srcElement = " + srcElement.tagName);
-
+    //LOG.debug("Actionid " + this.clickActionId);
+    //LOG.debug("ID " + this.id);
     if (! Tobago.isInputElement(srcElement.tagName)) {
 
       Tobago.clearSelection();
@@ -495,6 +504,55 @@ Tobago.Sheet.prototype.doSelection = function(event) {
       }
       this.updateSelectionView();
       //LOG.debug("selected rows = " + hidden.value);
+      if (this.clickActionId) {
+        var action = this.id + ":" + rowIndex + ":" + this.clickActionId;
+        //LOG.debug("Action " + action);
+        if (this.clickReloadComponentId && this.clickReloadComponentId.length > 0) {
+          Tobago.reloadComponent(this.clickReloadComponentId[0], action)
+        } else {
+          Tobago.submitAction(action, true, null);
+        }
+      }
+    }
+  };
+
+Tobago.Sheet.prototype.doDblClick = function(event) {
+    if (! event) {
+      event = window.event;
+    }
+
+    var srcElement;
+    if (event.target) {
+      // W3C DOM level 2
+      srcElement = event.target;
+    } else {
+      // IE
+      srcElement = event.srcElement;
+    }
+
+    //LOG.debug("event.ctrlKey = " + event.ctrlKey);
+    //LOG.debug("event.shiftKey = " + event.shiftKey);
+    //LOG.debug("srcElement = " + srcElement.tagName);
+    //LOG.debug("Actionid " + this.clickActionId);
+    //LOG.debug("ID " + this.id);
+    if (! Tobago.isInputElement(srcElement.tagName)) {
+      var dataRow = Tobago.element(event);
+      while (dataRow.id.search(new RegExp("_data_tr_\\d+$")) == -1) {
+        dataRow = dataRow.parentNode;
+      }
+      var rowId = dataRow.id;
+      //LOG.debug("rowId = " + rowId);
+      var rowIndex = rowId.substring(rowId.lastIndexOf("_data_tr_") + 9);
+      //LOG.debug("selected rows = " + hidden.value);
+      if (this.dblClickActionId) {
+        var action = this.id + ":" + rowIndex + ":" + this.dblClickActionId;
+        //LOG.debug("dblAction " + action);
+        if (this.dblClickReloadComponentId && this.dblClickReloadComponentId.length > 0) {
+          Tobago.reloadComponent(this.dblClickReloadComponentId[0], action)
+        } else {
+          Tobago.submitAction(action, true, null);
+        }
+      }
     }
   };
 

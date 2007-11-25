@@ -301,36 +301,6 @@ public class UIData extends javax.faces.component.UIData
           }
         }
       }
-      /*String[] layoutTokens
-          = LayoutInfo.createLayoutTokens(columnLayout, allColumns.size(), "1*");
-      if (layoutTokens.length != allColumns.size()) {
-        LOG.warn("Count of columnLayout tokens in '" + columnLayout
-            + "' != count of columns (" + allColumns.size() + ")! "
-            + "Using default token '1*' for all columns");
-        layoutTokens
-            = LayoutInfo.createLayoutTokens(null, allColumns.size(), "1*");
-      } */
-
-      // here we have layoutTokens for all columns
-      // now remove tokens for unrendered columns
-      /*boolean changed = false;
-      for (int i = 0; i < layoutTokens.length; i++) {
-        if (!allColumns.get(i).isRendered()) {
-          layoutTokens[i] = null;
-          changed = true;
-        }
-      }
-      if (changed) {
-        String[] allTokens = layoutTokens;
-        layoutTokens = new String[columns.size()];
-        int j = 0;
-        for (String allToken : allTokens) {
-          if (allToken != null) {
-            layoutTokens[j] = allToken;
-            j++;
-          }
-        }
-      } */
 
 
 
@@ -555,7 +525,7 @@ public class UIData extends javax.faces.component.UIData
   public List<UIColumn> getAllColumns() {
     List<UIColumn> columns = new ArrayList<UIColumn>();
     for (UIComponent kid : (List<UIComponent>) getChildren()) {
-      if (kid instanceof UIColumn) {
+      if (kid instanceof UIColumn && !(kid instanceof UIColumnEvent)) {
         columns.add((UIColumn) kid);
       }
     }
@@ -565,7 +535,7 @@ public class UIData extends javax.faces.component.UIData
   public List<UIColumn> getRenderedColumns() {
     List<UIColumn> columns = new ArrayList<UIColumn>();
     for (UIComponent kid : (List<UIComponent>) getChildren()) {
-      if (kid instanceof UIColumn && kid.isRendered()) {
+      if (kid instanceof UIColumn && kid.isRendered() && !(kid instanceof UIColumnEvent)) {
         columns.add((UIColumn) kid);
       }
     }
