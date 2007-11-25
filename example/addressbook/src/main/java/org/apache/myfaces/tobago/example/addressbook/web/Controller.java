@@ -87,7 +87,7 @@ public class Controller {
   private boolean renderLastName = true;
   private boolean renderDayOfBirth;
 
-  @Resource( name = "addressDao")
+  @Resource(name = "addressDao")
   private AddressDao addressDao;
 
   private FileItem uploadedFile;
@@ -318,7 +318,7 @@ public class Controller {
     return countries;
   }
 
-  @Resource( name = "countries")
+  @Resource(name = "countries")
   public void setCountries(Countries countries) {
     this.countries = countries;
   }
