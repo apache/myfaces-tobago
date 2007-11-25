@@ -658,7 +658,7 @@ public final class HtmlRendererUtil {
 
   public static String getJavascriptString(String str) {
     if (str != null) {
-      return "\"" + str + "\"" ;
+      return "\"" + str + "\"";
     }
     return null;
   }
