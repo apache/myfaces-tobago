@@ -17,11 +17,16 @@ package org.apache.myfaces.tobago.example.addressbook.web;
  * limitations under the License.
  */
 
+import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Scope;
+
 import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Collections;
 
+@Component("countries")
+@Scope(value = "session")
 public class Countries extends ArrayList<SelectItem> {
 
   public void init(Locale language) {

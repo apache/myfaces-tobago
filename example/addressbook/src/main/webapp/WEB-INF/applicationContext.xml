@@ -19,11 +19,18 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://www.springframework.org/schema/tx
-                           http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/tx
+           http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+  <context:annotation-config/>
+
+  <context:component-scan base-package="org.apache.myfaces.tobago.example.addressbook" />
 
   <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
   
@@ -53,10 +60,6 @@
     <property name="dataSource" ref="dataSource"/>
   </bean>
 
-  <bean id="addressDao" class="org.apache.myfaces.tobago.example.addressbook.JpaAddressDao">
-    <property name="entityManagerFactory" ref="entityManagerFactory"/>
-  </bean>
-
-  <tx:annotation-driven />  
-
+  <tx:annotation-driven />
+  
 </beans>

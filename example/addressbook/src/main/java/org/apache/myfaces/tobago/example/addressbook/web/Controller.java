@@ -35,7 +35,11 @@ import org.apache.myfaces.tobago.example.addressbook.AddressDao;
 import org.apache.myfaces.tobago.example.addressbook.AddressDaoException;
 import org.apache.myfaces.tobago.example.addressbook.Picture;
 import org.apache.myfaces.tobago.model.SheetState;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -51,6 +55,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
+@Component("controller")
+@Scope(value = "session")
 public class Controller {
 
   private static final Log LOG = LogFactory.getLog(Controller.class);
@@ -81,15 +87,22 @@ public class Controller {
   private boolean renderLastName = true;
   private boolean renderDayOfBirth;
 
+  @Resource( name = "addressDao")
   private AddressDao addressDao;
 
   private FileItem uploadedFile;
   private boolean renderFileUploadPopup;
 
   public Controller() {
+
+  }
+
+  @PostConstruct
+  public void init() throws AddressDaoException {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     Application application = facesContext.getApplication();
     language = application.getDefaultLocale();
+    countries.init(language);
     facesContext.getExternalContext().getSession(true);
     initLanguages();
 
@@ -103,11 +116,11 @@ public class Controller {
 
     ClientProperties client = ClientProperties.getInstance(facesContext);
     theme = client.getTheme();
+    currentAddressList = addressDao.findAddresses(searchCriterion);
   }
 
   public void setAddressDao(AddressDao addressDao) throws AddressDaoException {
     this.addressDao = addressDao;
-    currentAddressList = addressDao.findAddresses(searchCriterion);
   }
 
   public void sheetSorter(ActionEvent event) throws AddressDaoException {
@@ -305,9 +318,9 @@ public class Controller {
     return countries;
   }
 
+  @Resource( name = "countries")
   public void setCountries(Countries countries) {
     this.countries = countries;
-    countries.init(language);
   }
 
   public List<SelectItem> getThemeItems() {

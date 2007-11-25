@@ -27,6 +27,8 @@ import org.apache.myfaces.tobago.example.addressbook.Log4jUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Scope;
 
 import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
@@ -45,6 +47,9 @@ import java.io.FileInputStream;
  * Date: 12.04.2007
  * Time: 22:39:05
  */
+
+@Component("logging")
+@Scope(value = "session")
 public class LoggingController {
 
   private static final Log LOG = LogFactory.getLog(LoggingController.class);

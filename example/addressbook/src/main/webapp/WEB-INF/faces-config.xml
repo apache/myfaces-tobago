@@ -62,38 +62,6 @@
   </lifecycle>
 
   <managed-bean>
-    <managed-bean-name>controller</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.addressbook.web.Controller</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-    <managed-property>
-      <property-name>addressDao</property-name>
-      <value>#{addressDao}</value>
-    </managed-property>
-    <managed-property>
-      <property-name>countries</property-name>
-      <value>#{countries}</value>
-    </managed-property>
-  </managed-bean>
-
-  <managed-bean>
-    <managed-bean-name>admin</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.addressbook.web.AdminController</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
-      <managed-bean-name>logging</managed-bean-name>
-      <managed-bean-class>org.apache.myfaces.tobago.example.addressbook.web.LoggingController</managed-bean-class>
-      <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
-    <managed-bean-name>countries</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.addressbook.web.Countries</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
     <managed-bean-name>layout</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.addressbook.web.Layout</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>

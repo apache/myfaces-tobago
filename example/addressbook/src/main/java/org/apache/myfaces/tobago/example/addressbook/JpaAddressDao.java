@@ -17,38 +17,47 @@ package org.apache.myfaces.tobago.example.addressbook;
  * limitations under the License.
  */
 
-import org.springframework.orm.jpa.support.JpaDaoSupport;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.stereotype.Repository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 
 @Repository
 @Transactional()
-public class JpaAddressDao extends JpaDaoSupport implements AddressDao {
+@Service("addressDao")
+public class JpaAddressDao implements AddressDao {
 
   private static final Log LOG = LogFactory.getLog(JpaAddressDao.class);
 
+  @PersistenceContext(unitName = "addressBook")
+  private EntityManager entityManager;
+
   public Address updateAddress(Address address) throws AddressDaoException {
     if (address.getId() == null) {
-      getJpaTemplate().persist(address);
+      entityManager.persist(address);
     } else {
       Picture picture = address.getPicture();
       if (picture != null && picture.getId() == null) {
-        getJpaTemplate().persist(picture);
+        entityManager.persist(picture);
       }
-      getJpaTemplate().merge(address);
+      entityManager.merge(address);
     }
     return address;
   }
-
+  @Transactional(readOnly = true)
   public List<Address> findAddresses(String filter) throws AddressDaoException {
     return findAddresses(filter, null, true);
   }
 
+  @Transactional(readOnly = true)
+  @SuppressWarnings("unchecked")
   public List<Address> findAddresses(String filter, String column, boolean order) throws AddressDaoException {
     StringBuilder builder = new StringBuilder();
     builder.append("select a from Address a");
@@ -67,15 +76,16 @@ public class JpaAddressDao extends JpaDaoSupport implements AddressDao {
       builder.append(column);
       builder.append(order ? " desc" : " asc");
     }
-    return getJpaTemplate().find(builder.toString());
+    Query query = entityManager.createQuery(builder.toString());
+    return query.getResultList();
   }
 
   public void removeAddress(Address address) throws AddressDaoException {
     address = getAddress(address.getId());
-    getJpaTemplate().remove(address);
+    entityManager.remove(address);
   }
-
+  @Transactional(readOnly = true)
   public Address getAddress(Integer id) {
-    return getJpaTemplate().find(Address.class, id);
+    return entityManager.find(Address.class, id);
   }
 }

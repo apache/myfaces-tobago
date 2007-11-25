@@ -17,6 +17,9 @@ package org.apache.myfaces.tobago.example.addressbook.web;
  * limitations under the License.
  */
 
+import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Scope;
+
 import javax.swing.DefaultBoundedRangeModel;
 import javax.swing.BoundedRangeModel;
 import javax.annotation.security.RolesAllowed;
@@ -28,6 +31,8 @@ import java.lang.management.MemoryUsage;
  * Date: Mar 28, 2007
  * Time: 11:20:53 PM
  */
+@Component("admin")
+@Scope(value = "session")
 public class AdminController {
 
   private static final String OUTCOME_ADMIN = "admin";
