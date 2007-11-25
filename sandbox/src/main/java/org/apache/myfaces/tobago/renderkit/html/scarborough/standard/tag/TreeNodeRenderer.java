@@ -363,10 +363,10 @@ public class TreeNodeRenderer extends CommandRendererBase {
       classes.addClass("treeNode", "marker");
       writer.writeClassAttribute(classes);
     }
-    String tip = (String) node.getAttributes().get(ATTR_TIP);
-    if (tip != null) {
+    Object objTip = node.getAttributes().get(ATTR_TIP);
+    if (objTip != null) {
 //XXX is needed?      tip = StringEscapeUtils.escapeJavaScript(tip);
-      writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
+      writer.writeAttribute(HtmlAttributes.TITLE, String.valueOf(objTip), true);
     }
     String label = (String) node.getAttributes().get(ATTR_LABEL);
     if (label == null) {
