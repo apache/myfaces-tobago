@@ -45,7 +45,7 @@ public class ProgressRenderer extends LayoutableRendererBase {
        
   public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
-     UIProgress component = (UIProgress) uiComponent;
+    UIProgress component = (UIProgress) uiComponent;
 
     BoundedRangeModel model = (BoundedRangeModel) component.getValue();
 

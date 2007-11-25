@@ -33,6 +33,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_TOOL_BAR;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -90,13 +91,17 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     writer.startElement(HtmlConstants.DIV, component);
     StyleClasses contentClasses = new StyleClasses();
     contentClasses.addClass("box", "content");
-    contentClasses.addMarkupClass(component, "box", "content");
+    if (component instanceof SupportsMarkup) {
+      contentClasses.addMarkupClass((SupportsMarkup) component, "box", "content");
+    }
     writer.writeClassAttribute(contentClasses);
 
     writer.startElement(HtmlConstants.DIV, component);
     StyleClasses contentInnerClasses = new StyleClasses();
     contentInnerClasses.addClass("box", "content-inner");
-    contentInnerClasses.addMarkupClass(component, "box", "content-inner");
+    if (component instanceof SupportsMarkup) {
+      contentInnerClasses.addMarkupClass((SupportsMarkup) component, "box", "content-inner");
+    }
     writer.writeClassAttribute(contentInnerClasses);
     writer.writeStyleAttribute(innerStyle);
   }
@@ -108,7 +113,9 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     writer.startElement(HtmlConstants.DIV, component);
     StyleClasses headerClasses = new StyleClasses();
     headerClasses.addClass("box", "header");
-    headerClasses.addMarkupClass(component, "box", "header");
+    if (component instanceof SupportsMarkup) {
+      headerClasses.addMarkupClass((SupportsMarkup) component, "box", "header");
+    }
     writer.writeClassAttribute(headerClasses);
     UIComponent label = component.getFacet(FACET_LABEL);
     writer.startElement(HtmlConstants.SPAN, null);

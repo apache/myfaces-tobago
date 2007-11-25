@@ -25,7 +25,6 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -63,7 +62,7 @@ public class TabGroupRenderer extends
     writer.startElement(HtmlConstants.DIV, null);
     StyleClasses classes = new StyleClasses();
     classes.addClass("tab", "content");
-    classes.addMarkupClass((SupportsMarkup) activeTab, "tab", "content");
+    classes.addMarkupClass(activeTab, "tab", "content");
     writer.writeClassAttribute(classes);
 
     Integer height = HtmlRendererUtil.getStyleAttributeIntValue(bodyStyle, "height");

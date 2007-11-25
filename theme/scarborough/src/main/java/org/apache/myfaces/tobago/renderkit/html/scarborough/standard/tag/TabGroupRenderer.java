@@ -35,7 +35,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPanelBase;
 import org.apache.myfaces.tobago.component.UITab;
@@ -273,8 +272,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
             outerClass.addClass("tab", "unselected-outer");
             innerClass.addClass("tab", "unselected-inner");
           }
-          outerClass.addMarkupClass((SupportsMarkup) tab, "tab", "outer");
-          innerClass.addMarkupClass((SupportsMarkup) tab, "tab", "outer");
+          outerClass.addMarkupClass(tab, "tab", "outer");
+          innerClass.addMarkupClass(tab, "tab", "outer");
           writer.startElement(HtmlConstants.TD, tab);
           writer.writeIdAttribute(tab.getClientId(facesContext));
           HtmlRendererUtil.renderTip(tab, writer);
@@ -353,7 +352,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.startElement(HtmlConstants.TD, null);
     StyleClasses classes = new StyleClasses();
     classes.addClass("tab", "content");
-    classes.addMarkupClass((SupportsMarkup) activeTab, "tab", "content");
+    classes.addMarkupClass(activeTab, "tab", "content");
     writer.writeClassAttribute(classes);
     writer.writeStyleAttribute(bodyStyle);
     writer.flush();
