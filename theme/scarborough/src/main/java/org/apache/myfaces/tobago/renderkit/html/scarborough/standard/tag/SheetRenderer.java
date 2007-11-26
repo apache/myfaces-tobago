@@ -131,8 +131,26 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     writer.writeIdAttribute(sheetId + "_outer_div");
     writer.writeClassAttribute("tobago-sheet-outer-div");
     writer.writeStyleAttribute(sheetStyle);
+    UICommand clickAction = null;
+    UICommand dblClickAction = null;
+    for (UIComponent child : (List<UIComponent>) data.getChildren()) {
+      if (child instanceof UIColumnEvent) {
+        UIColumnEvent columnEvent = (UIColumnEvent) child;
+        UIComponent selectionChild = (UIComponent) child.getChildren().get(0);
+        if (selectionChild != null && selectionChild instanceof UICommand && selectionChild.isRendered()) {
+          UICommand action = (UICommand) selectionChild;
+          if ("click".equals(columnEvent.getEvent())) {
+            clickAction = action;
+          }
+          if ("dblclick".equals(columnEvent.getEvent())) {
+            dblClickAction = action;
+          }
+        }
+      }
+    }
 
-    renderSheet(facesContext, data);
+
+    renderSheet(facesContext, data, (clickAction != null || dblClickAction != null));
 
     writer.endElement(HtmlConstants.DIV);
 
@@ -151,23 +169,6 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
       UIReload update = (UIReload) facetReload;
       frequency = update.getFrequency();
-    }
-    UICommand clickAction = null;
-    UICommand dblClickAction = null;
-    for (UIComponent child : (List<UIComponent>) data.getChildren()) {
-      if (child instanceof UIColumnEvent) {
-        UIColumnEvent columnEvent = (UIColumnEvent) child;
-        UIComponent selectionChild = (UIComponent) child.getChildren().get(0);
-        if (selectionChild != null && selectionChild instanceof UICommand && selectionChild.isRendered()) {
-          UICommand action = (UICommand) selectionChild;
-          if ("click".equals(columnEvent.getEvent())) {
-            clickAction = action;
-          }
-          if ("dblclick".equals(columnEvent.getEvent())) {
-            dblClickAction = action;
-          }
-        }
-      }
     }
     final String[] cmds = {
         "new Tobago.Sheet(\"" + sheetId + "\", " + ajaxEnabled
@@ -190,7 +191,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     }
   }
 
-  private void renderSheet(FacesContext facesContext, UIData data) throws IOException {
+  private void renderSheet(FacesContext facesContext, UIData data, boolean hasClickAction) throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
     UIViewRoot viewRoot = facesContext.getViewRoot();
@@ -370,6 +371,9 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
         tdClass.addMarkupClass(column, "column");
         if (columnIndex == 0) {
           tdClass.addClass("sheet", "cell-first-column"); // XXX not a standard compliant name
+        }
+        if (hasClickAction) {
+          tdClass.addClass("sheet", "cell-clickable");
         }
         StyleClasses cellClass = StyleClasses.ensureStyleClasses(column);
         tdClass.addClasses(cellClass);
@@ -1102,7 +1106,25 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       }
     }
     if (update) {
-      renderSheet(facesContext, (UIData) component);
+      // TODO find a better way
+      UICommand clickAction = null;
+      UICommand dblClickAction = null;
+      for (UIComponent child : (List<UIComponent>) component.getChildren()) {
+        if (child instanceof UIColumnEvent) {
+          UIColumnEvent columnEvent = (UIColumnEvent) child;
+          UIComponent selectionChild = (UIComponent) child.getChildren().get(0);
+          if (selectionChild != null && selectionChild instanceof UICommand && selectionChild.isRendered()) {
+            UICommand action = (UICommand) selectionChild;
+            if ("click".equals(columnEvent.getEvent())) {
+              clickAction = action;
+            }
+            if ("dblclick".equals(columnEvent.getEvent())) {
+              dblClickAction = action;
+            }
+          }
+        }
+      }
+      renderSheet(facesContext, (UIData) component, (clickAction != null || dblClickAction != null));
     } else {
       facesContext.getResponseWriter().write(AjaxResponseRenderer.CODE_NOT_MODIFIED);
     }

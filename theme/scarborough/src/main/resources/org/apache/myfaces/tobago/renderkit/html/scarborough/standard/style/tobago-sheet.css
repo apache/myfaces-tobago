@@ -121,6 +121,10 @@
   vertical-align: top;
 }
 
+.tobago-sheet-cell-clickable {
+   cursor: pointer;
+}
+
 .tobago-sheet-cell-outer {
   overflow: hidden;
 }
