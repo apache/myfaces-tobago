@@ -21,105 +21,102 @@ import javax.faces.event.ActionEvent;
 
 public interface Wizard {
 
-    /*
-     * Constants
-     */
+  /*
+  * Constants
+  */
 
-    static final String BACKWARD_NAVIGATION_STRATEGY_DELETE = "delete";
+  String BACKWARD_NAVIGATION_STRATEGY_DELETE = "delete";
 
-    static final String BACKWARD_NAVIGATION_STRATEGY_REPLACE = "replace";
+  String BACKWARD_NAVIGATION_STRATEGY_REPLACE = "replace";
 
-    static final String BACKWARD_NAVIGATION_STRATEGY_NOTALLOWED = "notallowed";
+  String BACKWARD_NAVIGATION_STRATEGY_NOTALLOWED = "notallowed";
 
-    /*
-     * Methods
-     */
+  /*
+  * Methods
+  */
 
-    /**
-     * 
-     * @return A boolean value stating if the content of the wizard is dynamic or a "static" content should be use
-     */
-    boolean isDynamicContent();
+  /**
+   * @return A boolean value stating if the content of the wizard is dynamic or a "static" content should be use
+   */
+  boolean isDynamicContent();
 
-    /**
-     * 
-     * @return The source-path or Url to the static content to be included
-     */
-    String getStaticContentSource();
+  /**
+   * @return The source-path or Url to the static content to be included
+   */
+  String getStaticContentSource();
 
-    void setDynamicContent();
+  void setDynamicContent();
 
-    void setStaticContent(String staticContentSource);
+  void setStaticContent(String staticContentSource);
 
-    /**
-     * Return the index of the actual wizard view.
-     * 
-     * @return The index of the actual wizard view 
-     */
-    int getIndex();
+  /**
+   * Return the index of the actual wizard view.
+   *
+   * @return The index of the actual wizard view
+   */
+  int getIndex();
 
-    /**
-     * 
-     * @return The size (number) of views in the wizard
-     */
-    int getSize();
+  /**
+   * @return The size (number) of views in the wizard
+   */
+  int getSize();
 
-    /**
-     * Sets the number (size) of views of the wizard.
-     * The size should be set only once, e.g. during initialization.
-     * 
-     * @param size The number of views of the wizard
-     */
-    void setSize(int size);
+  /**
+   * Sets the number (size) of views of the wizard.
+   * The size should be set only once, e.g. during initialization.
+   *
+   * @param size The number of views of the wizard
+   */
+  void setSize(int size);
 
-    String initialize();
+  String initialize();
 
-    //    DynamicBean doInitialization();
+  //    DynamicBean doInitialization();
 
-    boolean isStarted();
+  boolean isStarted();
 
-    String next();
+  String next();
 
-    //    void doNext();
+  //    void doNext();
 
-    boolean isNextAvailable();
+  boolean isNextAvailable();
 
-    String previous();
+  String previous();
 
-    //    void doPrevious(DynamicBean currentBean);
+  //    void doPrevious(DynamicBean currentBean);
 
-    boolean isPreviousAvailable();
+  boolean isPreviousAvailable();
 
-    boolean isPreviousRendered();
+  boolean isPreviousRendered();
 
-    /**
-     * Modificator, if backward navigation actions are immediate.
-     * The modifactor should be set only once, e.g. during initialization.
-     * 
-     * @return If backward navigation actions are immediate
-     */
-    boolean isBackwardNavigationImmediate();
+  /**
+   * Modificator, if backward navigation actions are immediate.
+   * The modifactor should be set only once, e.g. during initialization.
+   *
+   * @return If backward navigation actions are immediate
+   */
+  boolean isBackwardNavigationImmediate();
 
-    void setPreparedForFinishing();
+  void setPreparedForFinishing();
 
-    String finish();
+  String finish();
 
-    //    void doFinish();
+  //    void doFinish();
 
-    boolean isFinishAvailable();
+  boolean isFinishAvailable();
 
-    String cancel();
+  String cancel();
 
-    //    void doCancel();
+  //    void doCancel();
 
-    void gotoClicked(ActionEvent actionEvent);
+  void gotoClicked(ActionEvent actionEvent);
 
-    String gotoStep();
+  String gotoStep();
 
-    void makeContentDecision(int indexToShow);
+  void makeContentDecision(int indexToShow);
 
-    String getDefaultOutcome();
+  String getDefaultOutcome();
 
-    //        void setBackwardNavigationStrategy(String strategy);
+  //        void setBackwardNavigationStrategy(String strategy);
 
 }
