@@ -24,10 +24,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 
-/*
- * User: bommel
- * Date: 24.11.2007
- * Time: 22:56:49
+/**
+ * @since 1.0.13
  */
 
 @Tag(name = "columnEvent")

@@ -23,9 +23,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.faces.component.UIColumn;
 
-/* User: bommel
- * Date: 24.11.2007
- * Time: 23:00:04
+/**
+ * @since 1.0.13
  */
 public class UIColumnEvent extends UIColumn {
   

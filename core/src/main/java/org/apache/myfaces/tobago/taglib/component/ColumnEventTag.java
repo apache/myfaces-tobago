@@ -23,10 +23,10 @@ import org.apache.myfaces.tobago.component.UIColumnEvent;
 
 import javax.faces.component.UIComponent;
 
-/*
- * Date: 24.11.2007
- * Time: 22:46:14
+/**
+ * @since 1.0.13
  */
+
 public class ColumnEventTag extends TobagoTag implements ColumnEventTagDeclaration {
   public String getComponentType() {
     return UIColumnEvent.COMPONENT_TYPE;
