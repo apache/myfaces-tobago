@@ -10,4 +10,16 @@
     <tag-name>bean</tag-name>
     <source>bean.xml</source>
   </tag>
+  <tag>
+    <tag-name>wizard-goto</tag-name>
+    <source>wizard-goto.xml</source>
+  </tag>
+  <tag>
+    <tag-name>wizard-navigation</tag-name>
+    <source>wizard-navigation.xml</source>
+  </tag>
+  <tag>
+    <tag-name>dynamic-content</tag-name>
+    <source>dynamic-content.xml</source>
+  </tag>
 </facelet-taglib>

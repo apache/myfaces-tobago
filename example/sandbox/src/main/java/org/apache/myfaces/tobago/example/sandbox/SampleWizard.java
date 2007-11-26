@@ -33,10 +33,6 @@ public class SampleWizard extends AbstractWizard {
 
   private List<BeanItem> items = new ArrayList<BeanItem>();
 
-  public String finish() {
-    return null;
-  }
-
   public UIPanel getCurrentComponent() {
 
     UIOutput out = new UIOutput();
@@ -49,7 +45,7 @@ public class SampleWizard extends AbstractWizard {
   }
 
   @Override
-  public String next() {
+  public boolean doNext() {
 
     LOG.info("items: " + items);
     items.clear();
@@ -68,12 +64,29 @@ public class SampleWizard extends AbstractWizard {
         break;
       default:
     }
-
-    return super.next();
+    return true;
   }
 
-  public List<BeanItem> getItems() {
-    return items;
+  public boolean doInitialization() {
+    return true;
   }
 
+  public boolean doPrevious() {
+    return true;
+  }
+
+  public boolean doFinish() {
+    return true;
+  }
+
+  public boolean doCancel() {
+    return true;
+  }
+
+  public boolean doGotoStep(int indexToShow) {
+    return true;
+  }
+
+  public void makeContentDecision(int indexToShow) {
+  }
 }

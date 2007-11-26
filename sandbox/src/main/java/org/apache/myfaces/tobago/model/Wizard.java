@@ -17,37 +17,109 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UIPanel;
-
-import java.util.List;
+import javax.faces.event.ActionEvent;
 
 public interface Wizard {
 
-  String start();
+    /*
+     * Constants
+     */
 
-  boolean isStartAvailable();
+    static final String BACKWARD_NAVIGATION_STRATEGY_DELETE = "delete";
 
-  String next();
+    static final String BACKWARD_NAVIGATION_STRATEGY_REPLACE = "replace";
 
-  boolean isNextAvailable();
+    static final String BACKWARD_NAVIGATION_STRATEGY_NOTALLOWED = "notallowed";
 
-  String previous();
+    /*
+     * Methods
+     */
 
-  boolean isPreviousAvailable();
+    /**
+     * 
+     * @return A boolean value stating if the content of the wizard is dynamic or a "static" content should be use
+     */
+    boolean isDynamicContent();
 
-  String finish();
+    /**
+     * 
+     * @return The source-path or Url to the static content to be included
+     */
+    String getStaticContentSource();
 
-  boolean isFinishAvailable();
+    void setDynamicContent();
 
-  UIPanel getCurrentComponent();
+    void setStaticContent(String staticContentSource);
 
-  List<BeanItem> getItems();
+    /**
+     * Return the index of the actual wizard view.
+     * 
+     * @return The index of the actual wizard view 
+     */
+    int getIndex();
 
-  int getIndex();
+    /**
+     * 
+     * @return The size (number) of views in the wizard
+     */
+    int getSize();
 
-  /**
-   *
-   * @return The number of pages in the wizard or null if this information is unavailable.
-   */
-  Integer getSize();
+    /**
+     * Sets the number (size) of views of the wizard.
+     * The size should be set only once, e.g. during initialization.
+     * 
+     * @param size The number of views of the wizard
+     */
+    void setSize(int size);
+
+    String initialize();
+
+    //    DynamicBean doInitialization();
+
+    boolean isStarted();
+
+    String next();
+
+    //    void doNext();
+
+    boolean isNextAvailable();
+
+    String previous();
+
+    //    void doPrevious(DynamicBean currentBean);
+
+    boolean isPreviousAvailable();
+
+    boolean isPreviousRendered();
+
+    /**
+     * Modificator, if backward navigation actions are immediate.
+     * The modifactor should be set only once, e.g. during initialization.
+     * 
+     * @return If backward navigation actions are immediate
+     */
+    boolean isBackwardNavigationImmediate();
+
+    void setPreparedForFinishing();
+
+    String finish();
+
+    //    void doFinish();
+
+    boolean isFinishAvailable();
+
+    String cancel();
+
+    //    void doCancel();
+
+    void gotoClicked(ActionEvent actionEvent);
+
+    String gotoStep();
+
+    void makeContentDecision(int indexToShow);
+
+    String getDefaultOutcome();
+
+    //        void setBackwardNavigationStrategy(String strategy);
+
 }
