@@ -49,7 +49,7 @@ import java.io.FileInputStream;
  */
 
 @Component("logging")
-@Scope(value = "session")
+@Scope("session")
 public class LoggingController {
 
   private static final Log LOG = LogFactory.getLog(LoggingController.class);

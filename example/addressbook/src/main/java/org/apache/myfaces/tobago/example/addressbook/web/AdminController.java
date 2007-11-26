@@ -32,7 +32,7 @@ import java.lang.management.MemoryUsage;
  * Time: 11:20:53 PM
  */
 @Component("admin")
-@Scope(value = "session")
+@Scope("session")
 public class AdminController {
 
   private static final String OUTCOME_ADMIN = "admin";

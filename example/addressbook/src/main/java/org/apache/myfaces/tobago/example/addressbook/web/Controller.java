@@ -56,7 +56,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Component("controller")
-@Scope(value = "session")
+@Scope("session")
 public class Controller {
 
   private static final Log LOG = LogFactory.getLog(Controller.class);
@@ -92,10 +92,6 @@ public class Controller {
 
   private FileItem uploadedFile;
   private boolean renderFileUploadPopup;
-
-  public Controller() {
-
-  }
 
   @PostConstruct
   public void init() throws AddressDaoException {
