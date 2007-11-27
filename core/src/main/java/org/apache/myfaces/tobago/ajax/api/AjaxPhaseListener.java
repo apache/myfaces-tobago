@@ -42,7 +42,7 @@ import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;;
+import java.io.PrintWriter;
 import java.util.Map;
 
 /**
