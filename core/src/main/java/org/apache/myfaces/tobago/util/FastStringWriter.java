@@ -36,7 +36,7 @@ public class FastStringWriter extends Writer {
     stringBuilder.append((char) c);
   }
 
-  public void write(char cbuf[], int off, int len) {
+  public void write(char[] cbuf, int off, int len) {
     stringBuilder.append(cbuf, off, len);
   }
 
@@ -61,6 +61,6 @@ public class FastStringWriter extends Writer {
   }
 
   public StringBuilder getBuilder() {
-	  return stringBuilder;
+    return stringBuilder;
   }
 }
