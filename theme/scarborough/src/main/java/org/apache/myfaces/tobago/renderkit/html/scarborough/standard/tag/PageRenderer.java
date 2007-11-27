@@ -31,12 +31,12 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ENCTYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_METHOD;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PAGE_MENU;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_ACTION;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.FORM_ACCEPT_CHARSET;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
@@ -48,6 +48,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
+import org.apache.myfaces.tobago.util.FastStringWriter;
 import org.apache.myfaces.tobago.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.util.ResponseUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -60,7 +61,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -115,7 +115,7 @@ public class PageRenderer extends PageRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     // replace responseWriter and render page content
-    StringWriter content = new StringWriter();
+    FastStringWriter content = new FastStringWriter(1024*10);
     ResponseWriter contentWriter = writer.cloneWithWriter(content);
     facesContext.setResponseWriter(contentWriter);
 
@@ -131,7 +131,7 @@ public class PageRenderer extends PageRendererBase {
 //    RenderUtil.encodeChildren(facesContext, page);
 
 // render popups into buffer
-    StringWriter popups = new StringWriter();
+    FastStringWriter popups = new FastStringWriter();
     contentWriter = writer.cloneWithWriter(popups);
     facesContext.setResponseWriter(contentWriter);
 

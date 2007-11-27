@@ -24,6 +24,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.util.RequestUtils;
 import org.apache.myfaces.tobago.util.ResponseUtils;
+import org.apache.myfaces.tobago.util.FastStringWriter;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 
@@ -41,8 +42,7 @@ import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import java.io.PrintWriter;;
 import java.util.Map;
 
 /**
@@ -103,7 +103,7 @@ public class AjaxPhaseListener implements PhaseListener {
         RequestUtils.ensureEncoding(externalContext);
         ResponseUtils.ensureNoCacheHeader(externalContext);
         final UIViewRoot viewRoot = facesContext.getViewRoot();
-        StringWriter content = new StringWriter();
+        FastStringWriter content = new FastStringWriter(1024*10);
         RenderKitFactory renderFactory = (RenderKitFactory)
             FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
         RenderKit renderKit = renderFactory.getRenderKit(
@@ -113,9 +113,7 @@ public class AjaxPhaseListener implements PhaseListener {
 
         AjaxUtils.processAjax(facesContext, viewRoot);
 
-
-
-        StringWriter jsfState = new StringWriter();
+        FastStringWriter jsfState = new FastStringWriter();
         ResponseWriter jsfStateWriter = contentWriter.cloneWithWriter(jsfState);
         facesContext.setResponseWriter(jsfStateWriter);
 

@@ -17,43 +17,41 @@ package org.apache.myfaces.tobago.ajax.api;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.FACES_MESSAGES_KEY;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.apache.myfaces.tobago.util.RequestUtils;
-import org.apache.myfaces.tobago.util.ResponseUtils;
-import org.apache.myfaces.tobago.util.EncodeAjaxCallback;
-import org.apache.myfaces.tobago.util.Callback;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CHARSET;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.FACES_MESSAGES_KEY;
+import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.util.Callback;
+import org.apache.myfaces.tobago.util.EncodeAjaxCallback;
+import org.apache.myfaces.tobago.util.FastStringWriter;
+import org.apache.myfaces.tobago.util.RequestUtils;
+import org.apache.myfaces.tobago.util.ResponseUtils;
 
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.context.ExternalContext;
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.UIComponent;
-import javax.faces.render.RenderKitFactory;
-import javax.faces.render.RenderKit;
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
-import javax.servlet.http.HttpServletResponse;
-import javax.naming.InitialContext;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.render.RenderKit;
+import javax.faces.render.RenderKitFactory;
 import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import java.io.StringWriter;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Iterator;
 import java.util.EmptyStackException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class AjaxResponseRenderer {
 
@@ -114,7 +112,7 @@ public class AjaxResponseRenderer {
       }
       writeResponseReload(facesContext, renderKit);
     } else {
-      List<StringWriter> responseParts = new ArrayList<StringWriter>();
+      List<FastStringWriter> responseParts = new ArrayList<FastStringWriter>();
       Map<String, UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(facesContext);
 
       for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
@@ -128,9 +126,9 @@ public class AjaxResponseRenderer {
     }
   }
 
-  private StringWriter renderComponent(FacesContext facesContext, RenderKit renderKit, String clientId,
+  private FastStringWriter renderComponent(FacesContext facesContext, RenderKit renderKit, String clientId,
       AjaxComponent component) throws IOException {
-    StringWriter content = new StringWriter();
+    FastStringWriter content = new FastStringWriter();
     ResponseWriter contentWriter = renderKit.createResponseWriter(content, null, null);
     facesContext.setResponseWriter(contentWriter);
     if (LOG.isDebugEnabled()) {
@@ -141,7 +139,7 @@ public class AjaxResponseRenderer {
       // TODO: invokeOnComponent()
       ComponentUtil.invokeOnComponent(facesContext, clientId, (UIComponent) component, callback);
     } catch (EmptyStackException e) {
-      LOG.error(" content = \"" + content.getBuffer().toString() + "\"");
+      LOG.error(" content = \"" + content.toString() + "\"");
       throw e;
     }
 
@@ -149,20 +147,20 @@ public class AjaxResponseRenderer {
   }
 
   private void writeResponse(FacesContext facesContext, RenderKit renderKit,
-                             List<StringWriter> parts, String state)
+                             List<FastStringWriter> parts, String state)
       throws IOException {
     writeResponse(facesContext, renderKit, CODE_SUCCESS, parts, state);
   }
 
   private void writeResponseReload(FacesContext facesContext, RenderKit renderKit)
       throws IOException {
-    writeResponse(facesContext, renderKit, CODE_RELOAD_REQUIRED, new ArrayList<StringWriter>(0), "");
+    writeResponse(facesContext, renderKit, CODE_RELOAD_REQUIRED, new ArrayList<FastStringWriter>(0), "");
   }
 
 
-  private StringWriter writeState(FacesContext facesContext, RenderKit renderKit, String state)
+  private FastStringWriter writeState(FacesContext facesContext, RenderKit renderKit, String state)
       throws IOException {
-    StringWriter jsfState = new StringWriter();
+    FastStringWriter jsfState = new FastStringWriter();
     ResponseWriter stateWriter = renderKit.createResponseWriter(jsfState, null, null);
     facesContext.setResponseWriter(stateWriter);
     stateWriter.startElement(HtmlConstants.SCRIPT, null);
@@ -177,7 +175,7 @@ public class AjaxResponseRenderer {
 
   private String saveState(FacesContext facesContext, RenderKit renderKit)
       throws IOException {
-    StringWriter jsfState = new StringWriter();
+    FastStringWriter jsfState = new FastStringWriter();
     ResponseWriter stateWriter = renderKit.createResponseWriter(jsfState, null, null);
     facesContext.setResponseWriter(stateWriter);
 
@@ -204,7 +202,7 @@ public class AjaxResponseRenderer {
   }
 
   private void writeResponse(FacesContext facesContext, RenderKit renderKit,
-                             String responseCode, List<StringWriter> responseParts, String jsfState)
+                             String responseCode, List<FastStringWriter> responseParts, String jsfState)
       throws IOException {
     ExternalContext externalContext = facesContext.getExternalContext();
     RequestUtils.ensureEncoding(externalContext);
@@ -220,18 +218,18 @@ public class AjaxResponseRenderer {
     StringBuilder buffer = new StringBuilder(responseCode);
 
     // add parts to response
-    for (StringWriter part : responseParts) {
+    for (FastStringWriter part : responseParts) {
       // TODO surround by javascript parsable tokens
-
+      String partStr = part.toString();
       // FIXME:
-      if (part.toString().startsWith(CODE_NOT_MODIFIED)
-          && buffer.toString().equals(responseCode)) {
+      if (partStr.startsWith(CODE_NOT_MODIFIED)
+          && partStr.equals(responseCode)) {
         // remove resopnseCode from buffer
         buffer.setLength(0);
       }
       // /FIXME:
 
-      buffer.append(part.toString());
+      buffer.append(partStr);
     }
 
     // add jsfState to response

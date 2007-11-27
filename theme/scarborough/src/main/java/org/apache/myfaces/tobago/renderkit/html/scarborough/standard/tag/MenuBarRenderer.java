@@ -50,6 +50,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
+import org.apache.myfaces.tobago.util.FastStringWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UICommand;
@@ -62,7 +63,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -227,7 +227,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
   private String createMenuEntry(FacesContext facesContext, UIPanel uiPanel)
       throws IOException {
     ResponseWriter savedWriter = facesContext.getResponseWriter();
-    StringWriter stringWriter = new StringWriter();
+    FastStringWriter stringWriter = new FastStringWriter();
     ResponseWriter newWriter = savedWriter.cloneWithWriter(stringWriter);
     facesContext.setResponseWriter(newWriter);
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
@@ -466,7 +466,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
         + (disabled ? "disabled" : "enabled");
 
     ResponseWriter savedWriter = facesContext.getResponseWriter();
-    StringWriter stringWriter = new StringWriter();
+    FastStringWriter stringWriter = new FastStringWriter();
     ResponseWriter newWriter = savedWriter.cloneWithWriter(stringWriter);
     facesContext.setResponseWriter(newWriter);
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
