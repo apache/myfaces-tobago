@@ -193,8 +193,8 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
   /**
    * Method binding representing a stateChangeListener method that will be
    * notified when the state was changed by the user.
-   * The expression must evaluate to a public method that takes an
-   * StateChangeEvent parameter, with a return type of void.
+   * The expression must evaluate to a public method that takes a
+   * SheetStateChangeEvent parameter, with a return type of void.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding",
