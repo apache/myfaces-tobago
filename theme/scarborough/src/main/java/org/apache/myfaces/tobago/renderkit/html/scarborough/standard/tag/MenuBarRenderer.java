@@ -425,10 +425,9 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     String onClickPostfix = onclick != null ? "') ; " + onclick : "";
     for (SelectItem item : items) {
       final String labelText = item.getLabel();
-      label.setAccessKey(null);
+      label.reset();
       if (labelText != null) {
         if (labelText.indexOf(LabelWithAccessKey.INDICATOR) > -1) {
-          label.setText(null);
           label.setup(labelText);
         } else {
           label.setText(labelText);

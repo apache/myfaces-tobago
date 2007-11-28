@@ -80,6 +80,12 @@ public final class LabelWithAccessKey {
     }
   }
 
+  public void reset() {
+    text = null;
+    accessKey = null;
+    pos = -1;
+  }
+
   public String getText() {
     return text;
   }
