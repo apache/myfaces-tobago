@@ -43,7 +43,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class ButtonRenderer extends CommandRendererBase {
@@ -55,10 +54,17 @@ public class ButtonRenderer extends CommandRendererBase {
       LOG.error("Wrong type: Need " + UICommand.class.getName() + ", but was " + component.getClass().getName());
       return;
     }
-    
+
+
+  }
+
+  public void encodeEnd(FacesContext facesContext,
+      UIComponent component) throws IOException {
+    if (!(component instanceof UICommand)) {
+      return;
+    }
     UICommand command = (UICommand) component;
     String clientId = command.getClientId(facesContext);
-    String buttonType = createButtonType(command);
 
     CommandRendererHelper helper = new CommandRendererHelper(facesContext, command, CommandRendererHelper.Tag.BUTTON);
 
@@ -67,7 +73,7 @@ public class ButtonRenderer extends CommandRendererBase {
     LabelWithAccessKey label = new LabelWithAccessKey(command);
 
     writer.startElement(HtmlConstants.BUTTON, command);
-    writer.writeAttribute(HtmlAttributes.TYPE, buttonType, false);
+    writer.writeAttribute(HtmlAttributes.TYPE, createButtonType(command), false);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
     HtmlRendererUtil.renderTip(command, writer);
@@ -86,12 +92,12 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.writeClassAttribute();
     writer.flush(); // force closing the start tag
 
-//  image
+
     String imageName = (String) command.getAttributes().get(ATTR_IMAGE);
     if (imageName != null) {
       String image = null;
       if (imageName.startsWith("HTTP:") || imageName.startsWith("FTP:")
-                || imageName.startsWith("/")) {
+          || imageName.startsWith("/")) {
         image = imageName;
         // absolute Path to image : nothing to do
       } else {
@@ -103,7 +109,6 @@ public class ButtonRenderer extends CommandRendererBase {
       writer.endElement(HtmlConstants.IMG);
     }
 
-//  label
     if (label.getText() != null) {
       if (imageName != null) {
         writer.writeText(" "); // separator: e.g. &nbsp;
@@ -111,30 +116,21 @@ public class ButtonRenderer extends CommandRendererBase {
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
     }
 
-// AcceleratorKey
 
+    writer.endElement(HtmlConstants.BUTTON);
     if (label.getAccessKey() != null) {
       if (LOG.isInfoEnabled()
           && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-        LOG.info("dublicated accessKey : " + label.getAccessKey());
+        LOG.info("duplicated accessKey : " + label.getAccessKey());
       }
       HtmlRendererUtil.addClickAcceleratorKey(
-          facesContext, clientId, label.getAccessKey());
+          facesContext, command.getClientId(facesContext), label.getAccessKey());
     }
-    if ("submit".equals(buttonType)) {
+
+    if (ComponentUtil.getBooleanAttribute(component, ATTR_DEFAULT_COMMAND)) {
       boolean transition = ComponentUtil.getBooleanAttribute(command, ATTR_TRANSITION);
       HtmlRendererUtil.setDefaultTransition(facesContext, transition);
     }
-
-  }
-
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent component) throws IOException {
-    if (!(component instanceof UICommand)) {
-      return;
-    }    
-    ResponseWriter writer = facesContext.getResponseWriter();
-    writer.endElement(HtmlConstants.BUTTON);
   }
 
   private String createButtonType(UIComponent component) {
@@ -155,12 +151,11 @@ public class ButtonRenderer extends CommandRendererBase {
     }
     int padding = getConfiguredValue(facesContext, component, "paddingWidth");
     width += 2 * padding;
-    if (imageName != null && label.getText() != null){
+    if (imageName != null && label.getText() != null) {
       width += padding;
     }
 
     return width;
-
   }
 
 }
