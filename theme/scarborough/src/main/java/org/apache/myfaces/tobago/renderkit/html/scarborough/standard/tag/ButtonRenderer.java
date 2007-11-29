@@ -54,8 +54,6 @@ public class ButtonRenderer extends CommandRendererBase {
       LOG.error("Wrong type: Need " + UICommand.class.getName() + ", but was " + component.getClass().getName());
       return;
     }
-
-
   }
 
   public void encodeEnd(FacesContext facesContext,
@@ -95,7 +93,7 @@ public class ButtonRenderer extends CommandRendererBase {
 
     String imageName = (String) command.getAttributes().get(ATTR_IMAGE);
     if (imageName != null) {
-      String image = null;
+      String image;
       if (imageName.startsWith("HTTP:") || imageName.startsWith("FTP:")
           || imageName.startsWith("/")) {
         image = imageName;
@@ -130,6 +128,9 @@ public class ButtonRenderer extends CommandRendererBase {
     if (ComponentUtil.getBooleanAttribute(component, ATTR_DEFAULT_COMMAND)) {
       boolean transition = ComponentUtil.getBooleanAttribute(command, ATTR_TRANSITION);
       HtmlRendererUtil.setDefaultTransition(facesContext, transition);
+
+      HtmlRendererUtil.writeScriptLoader(facesContext, null, new String[]{
+          "Tobago.setDefaultAction('" + command.getClientId(facesContext) + "')"});      
     }
   }
 

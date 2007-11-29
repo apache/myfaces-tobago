@@ -1483,8 +1483,14 @@ var Tobago = {
       }
     }
     return this.browser;
-  }
+  },
 
+  setDefaultAction: function(defaultActionId) {
+    var field = Tobago.element(Tobago.page.id + Tobago.SUB_COMPONENT_SEP + "form-action");
+    if (field) {
+      field.value = defaultActionId;
+    }
+  }
 };
 
 
