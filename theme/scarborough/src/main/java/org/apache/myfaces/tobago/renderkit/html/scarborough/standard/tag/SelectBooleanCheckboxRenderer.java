@@ -106,6 +106,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
     writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
     writer.writeAttribute(HtmlAttributes.CHECKED, checked);
     if (ComponentUtil.getBooleanAttribute(selectBoolean, ATTR_READONLY)) {
+      writer.writeAttribute(HtmlAttributes.READONLY, true);
       if (checked) {
         writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=true", false);
       } else {

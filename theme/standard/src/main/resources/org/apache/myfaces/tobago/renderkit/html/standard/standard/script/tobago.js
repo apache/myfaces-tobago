@@ -1018,7 +1018,7 @@ var Tobago = {
           for (var j = 0 ; j < form.elements.length ; j++) {
             var element = form.elements[j];
             if (element != null) {
-              if (!element.disabled && this.isFocusType(element.type)){
+              if (!element.disabled && !element.readOnly && this.isFocusType(element.type)){
                 try { // focus() on not visible elements breaks IE
                   element.focus();
                   break foriLoop;
