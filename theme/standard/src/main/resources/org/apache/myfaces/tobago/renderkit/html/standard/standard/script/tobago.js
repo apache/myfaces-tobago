@@ -57,7 +57,7 @@ var Tobago = {
   COMPONENT_SEP: ":",
 
   /**
-    * Tobagos subComponent separator constant
+    * Tobago's subComponent separator constant
     */
   SUB_COMPONENT_SEP: "::",
 
@@ -120,7 +120,7 @@ var Tobago = {
     set: function(keyAccelerator) {
       var key = keyAccelerator.modifier + keyAccelerator.key;
       if (this[key]) {
-        LOG.warn("Ignoring dublicate key: " + keyAccelerator.modifier + "-" + keyAccelerator.key + " with function :" + keyAccelerator.func.valueOf());
+        LOG.warn("Ignoring duplicate key: " + keyAccelerator.modifier + "-" + keyAccelerator.key + " with function :" + keyAccelerator.func.valueOf());
       } else {
 //        LOG.debug("add accelerator for " + keyAccelerator.modifier + "-" + keyAccelerator.key);
         this[key] = keyAccelerator;
@@ -180,8 +180,8 @@ var Tobago = {
   },
 
   /**
-    * Object to store already loaded scriptfiles.
-    * to prevent multiple loading via ajax requests.
+    * Object to store already loaded script files
+    * to prevent multiple loading via Ajax requests.
     */
   registeredScripts: {},
 
@@ -193,7 +193,7 @@ var Tobago = {
   ajaxComponents: {},
 
   /**
-    * Flag indicating that the page is complete loaded.
+    * Flag indicating that the page is completly loaded.
     */
   pageIsComplete: false,
 
@@ -209,7 +209,7 @@ var Tobago = {
 
   /**
    * Tobago's central init function.
-   * Called via onload attribure of body tag
+   * Called via onload attribute of body tag
    */
   init: function(pageId) {
 //    new LOG.LogArea({hide: false});
@@ -536,14 +536,14 @@ var Tobago = {
   },
 
   /**
-    * Load a specified url into client
+    * Load a specified URL into client
     */
   navigateToUrl: function(toUrl) {
     document.location.href = toUrl;
   },
 
   /**
-    * Register a script file to prevent multiple loadings via ajax.
+    * Register a script file to prevent multiple loadings via Ajax.
     */
   registerScript: function(scriptId) {
     LOG.info("register :" + scriptId);
@@ -551,14 +551,14 @@ var Tobago = {
   },
 
   /**
-    * Check i a script is already registered.
+    * Check if a script is already registered.
     */
   hasScript: function(scriptId) {
     return this.registeredScripts[this.genScriptId(scriptId)];
   },
 
   /**
-    * Generate a id usable as javascript name.
+    * Generate an id usable as javascript name.
     */
   genScriptId: function(script) {
     script = script.substring(script.indexOf("/html/"));
@@ -567,7 +567,7 @@ var Tobago = {
 
   /**
     * Check if a style file is already loaded, to prevent multiple loadings
-    * from ajax requests.
+    * from Ajax requests.
     */
   styleFileLoaded: function(name) {
     var children = document.getElementsByTagName('head')[0].childNodes;
@@ -599,7 +599,7 @@ var Tobago = {
   },
 
   /**
-    * Ensure that a array of style files are loaded.
+    * Ensure that an array of style files is loaded.
     */
   ensureStyleFiles: function(names) {
     for (var i = 0; i < names.length; i++) {
@@ -621,7 +621,7 @@ var Tobago = {
   },
 
   /**
-    * Add a scriptLoader to the queue or start it direct.
+    * Add a scriptLoader to the queue or start it directly.
     */
   addScriptLoader: function(scriptLoader) {
     if (! this.pageIsComplete || this.scriptLoadingActive) {
@@ -692,10 +692,10 @@ var Tobago = {
         }
         container.reloadWithAction(actionId, options);
       } else {
-        LOG.warn("Illegal Container for reload:" + (typeof container));
+        LOG.warn("Illegal container for reload:" + (typeof container));
       }
     } else {
-      LOG.warn("Can't find container for '" + id + "'! skip reload!");
+      LOG.warn("Cannot find container for '" + id + "'! Skipping reload!");
       LOG.debugAjaxComponents();
     }
   },
@@ -805,7 +805,7 @@ var Tobago = {
   },
 
 // -------- Popup functions ---------------------------------------------------
-    // TODO move popup functions in Tobago.Popup object
+    // TODO move popup functions into Tobago.Popup object
 
   /**
     * Setup popup size
@@ -896,7 +896,6 @@ var Tobago = {
 
   /**
    * remove a popup without request
-   *
    */
   closePopup: function(element) {
     var div;
@@ -932,7 +931,7 @@ var Tobago = {
         div.parentNode.removeChild(div);
       }
     } else {
-      LOG.error("Can't close popup ");
+      LOG.error("Cannot close popup ");
     }
 
     var hidden = document.createElement("input");
@@ -1001,7 +1000,7 @@ var Tobago = {
 
   /**
     * Sets the focus to the requested element or to the first possible if
-    * no element explecit requested.
+    * no element is explicitly requested.
     */
   setFocus: function() {
     var focusElement = this.element(this.focusId);
@@ -1030,7 +1029,7 @@ var Tobago = {
         }
       }
     } else if (this.focusId.length > 0) {
-      LOG.warn("Can't find component to set focus : \"" + this.focusId + "\"");
+      LOG.warn("Cannot find component to set focus : \"" + this.focusId + "\"");
     }
 
   },
@@ -1073,7 +1072,7 @@ var Tobago = {
   },
 
   /**
-    * Create a html input element with given type, name and value.
+    * Create a HTML input element with given type, name and value.
     */
   createInput: function(type, name, value) {
     var input = document.createElement("INPUT");
@@ -1090,7 +1089,7 @@ var Tobago = {
   },
 
   /**
-    * Add a cssClass name to the className property of a htmlElement
+    * Add a CSS class name to the className property of an HTML element
     */
   addCssClass: function(element, className) {
     element = Tobago.element(element);
@@ -1098,7 +1097,7 @@ var Tobago = {
   },
 
   /**
-    * remove a cssClass name from the className property of a htmlElement
+    * remove a CSS class name from the className property of an HTML element
     */
   removeCssClass: function(element, className) {
     element = Tobago.element(element);
@@ -1134,9 +1133,9 @@ var Tobago = {
   },
 
   /**
-    * Return anchestor with given type.
+    * Return ancestor with given type.
     */
-  // TODO what if no anchestor found?
+  // TODO what if no ancestor found? XXX rename anchestor -> ancestor
   findAnchestorWithTagName: function(element, tagName) {
     element = this.element(element);
     while (element.parentNode && (!element.tagName ||
@@ -1147,7 +1146,7 @@ var Tobago = {
 
 
   /**
-    * Create an overlay with same dimension and wait cursor over an htmlElement.
+    * Create an overlay with same dimension and wait cursor over an HTML element.
     */
   createOverlay: function(element) {
     var position = Tobago.getRuntimeStyle(element).position;
@@ -1202,7 +1201,7 @@ var Tobago = {
   },
 
   /**
-    * Set the width of a htmlElement via style
+    * Set the width of an HTML element via style
     */
   setElementWidth: function(id, width) {
     var element = this.element(id);
@@ -1212,7 +1211,7 @@ var Tobago = {
   },
 
   /**
-    * Add a eventListener to a htmlElement
+    * Add an event listener to an HTML element
     */
   addEventListener: function(element, event, myFunction) {
     var el = new Tobago.EventListener(element, event, myFunction);
@@ -1224,7 +1223,7 @@ var Tobago = {
   },
 
   /**
-    * Remove a eventListener from a htmlElement
+    * Remove an event listener from an HTML element
     */
   removeEventListener: function(element, event, myFunction) {
     if (!event && !myFunction && element.element && element.event && element.func) {
@@ -1300,7 +1299,7 @@ var Tobago = {
 
   /**
    * Adds a function which binds the named function 'func' of the object 'object'
-   * as eventListener to a element.
+   * as eventListener to an element.
    */
   addBindEventListener: function(element, event, object, func) {
     this.addEventListener(element, event, this.bindAsEventListener(object, func));
@@ -1322,7 +1321,7 @@ var Tobago = {
   },
 
   /**
-    * Return the absolute top value, related to the body element, for a htmlElement.
+    * Returns the absolute top value, related to the body element, for an HTML element.
     */
   getAbsoluteTop: function(element) {
     var top = 0;
@@ -1341,7 +1340,7 @@ var Tobago = {
 
 
   /**
-    * Return the absolute left, related to the body element, value for a htmlElement.
+    * Returns the absolute left, related to the body element, value for an HTML element.
     */
   getAbsoluteLeft: function(element) {
     var left = 0;
@@ -1359,7 +1358,7 @@ var Tobago = {
   },
 
   /**
-    * Return the scroll-x value of the body element.
+    * Returns the scroll-x value of the body element.
     */
   getBrowserInnerLeft: function() {
     var innerLeft;
@@ -1372,7 +1371,7 @@ var Tobago = {
   },
 
   /**
-    * Return the scroll-y value of the body element.
+    * Returns the scroll-y value of the body element.
     */
   getBrowserInnerTop: function() {
     var innerTop;
@@ -1385,7 +1384,7 @@ var Tobago = {
   },
 
   /**
-    * Return the client inner width.
+    * Returns the client inner width.
     */
   getBrowserInnerWidth: function() {
     var innerWidth;
@@ -1401,7 +1400,7 @@ var Tobago = {
   },
 
   /**
-    * Return the client inner height.
+    * Returns the client inner height.
     */
   getBrowserInnerHeight: function() {
     var innerHeight;
@@ -1420,14 +1419,13 @@ var Tobago = {
     var text = ta.value;
     var marked = text.substring(ta.selectionStart, ta.selectionEnd);
     LOG.debug("text = " + marked);
-    LOG.debug("von = " + ta.selectionStart + " bis =" + ta.selectionEnd);
+    LOG.debug("start = " + ta.selectionStart + " end =" + ta.selectionEnd);
     ta.selectionStart--;
     ta.focus();
-
   },
 
   /**
-    * Returns a html element.
+    * Returns an HTML element.
     * valid input types are:
     * 'string'      : returns the result of document.getElementById()
     * 'Event'       : returns the currentTarget/srcElement property
@@ -1439,16 +1437,16 @@ var Tobago = {
 
     try {
       if (typeof arg == 'string') {
-//        LOG.debug("arg ist string ");
+//        LOG.debug("arg is string ");
         return document.getElementById(arg);
       } else if (typeof arg.currentTarget == 'object') {
-//        LOG.debug("arg ist dom event ");
+//        LOG.debug("arg is DOM event ");
         return arg.currentTarget;
       } else if (typeof arg.srcElement == 'object') {
-//        LOG.debug("arg ist IE event ");
-          return arg.srcElement;  // IE don't support currentTarget, hope src target helps
+//        LOG.debug("arg is IE event ");
+          return arg.srcElement;  // IE doesn't support currentTarget, hope src target helps
       } else if (typeof arg.tagName == 'string') {
-//        LOG.debug("arg ist html element ");
+//        LOG.debug("arg is HTML element ");
         return arg;
       }
 
@@ -1456,7 +1454,7 @@ var Tobago = {
       return undefined;
     }
     if (! (typeof arg == 'undefined')) {
-    LOG.error("arg ist unbekannt : " + typeof arg + " : " + arg);
+    LOG.error("arg is unknown: " + typeof arg + " : " + arg);
     }
     return undefined;
   },
@@ -1598,18 +1596,18 @@ Tobago.AcceleratorKey = function(func, key, modifier) {
   this.modifier = modifier;
   if (document.all && (modifier == "alt" || modifier == "ctrl")) {
     // keys with modifier 'alt' and 'ctrl' are not caught in IE
-    // so special code needed
+    // so special code is needed
     if (modifier == "alt") {
       // can't make document.createElement("span").accesskey = key working
-      // so need to create a element via innerHTML
+      // so need to create an element via innerHTML
       var span = document.createElement("span");
       document.body.appendChild(span);
-      var aPrefix = "<A href=\"javascript:;\" tabindex=\"-1\" accesskey=\"";
+      var aPrefix = "<a href=\"javascript:;\" tabindex=\"-1\" accesskey=\"";
       var aPostfix = "\" onclick=\"return false;\" ></a>";
       span.innerHTML = aPrefix + key.toLowerCase() + aPostfix;
       span.firstChild.attachEvent("onfocus", function(event) {func(event);});
     } else {
-      LOG.warn("Can't observe key event for "  + modifier + "-" + key);
+      LOG.warn("Cannot observe key event for "  + modifier + "-" + key);
     }
   } else {
     Tobago.acceleratorKeys.set(this);
@@ -1624,7 +1622,7 @@ Tobago.ScriptLoader = function(names, doAfter) {
   this.ensureScript = function(src) {
     this.actualScript = src;
     if (!Tobago.hasScript(this.actualScript)) {
-      LOG.debug("Lade script " + src);
+      LOG.debug("Load script " + src);
       this.scriptElement = document.createElement('script');
       this.scriptElement.type = "text/javascript";
       this.scriptElement.src = src;
@@ -1848,7 +1846,7 @@ Tobago.Updater = {
         onComplete(transport, json);
         // scripts included in response are executed via setTimeout(..., 10)
         // because of replaceJsfState() is in this scripts the next request
-        // must delayed more than that.
+        // must be delayed more than that.
         setTimeout(Tobago.bind(Tobago.Transport, "requestComplete"), 15);
       };
       var url = Tobago.form.action;
@@ -1898,26 +1896,25 @@ Tobago.Updater = {
   },
 
   showFailureMessage: function() {
-    //alert('uh oh, it looks like the network is down. Try again shortly');
-    LOG.info("ajax request failed!");
+    LOG.info("Ajax request failed!");
   }
 };
 
 
 
 
-// Register global responders that will occur on all AJAX requests
+// Register global responders that will occur on all Ajax requests
 Ajax.Responders.register({
   onCreate: function(request) {
     request['timeoutId'] = window.setTimeout(
         function() {
-          // If we have hit the timeout and the AJAX request is active, abort it and let the user know
+          // If we have hit the timeout and the Ajax request is active, abort it and let the user know
           if (Tobago.Updater.callInProgress(request.transport)) {
             //LOG.error("timeout " + request.transport.status);
             request.transport.abort();
             Tobago.Transport.requestComplete();
             Tobago.Updater.showFailureMessage();
-            // Run the onFailure method if we set one up when creating the AJAX object
+            // Run the onFailure method if we set one up when creating the Ajax object
             if (request.options['onFailure']) {
               request.options['onFailure'](request.transport, request.json);
             }
