@@ -719,7 +719,8 @@ function tbgTreeListboxChange(element, hiddenId) {
       selectState.value = ";";
       tobagoTreeListboxSetup(actualNode, idPrefix, level + 1, hiddenId);
     } else {
-      tbgClearExpandStatesRecursiv(parentNode, expandState);
+      tbgUnexpandNodeRecursive(actualNode);
+      tbgSetExpand(parentNode);
       actualNode.selected = true;
       selectState.value = ";" + nodeStateId(actualNode) + ";";
 
