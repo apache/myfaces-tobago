@@ -71,8 +71,9 @@ public class FileUploadFacesContextFactoryImpl extends FacesContextFactory {
     if (LOG.isDebugEnabled()) {
       LOG.debug("Wrap FacesContext for file upload");
     }
+    InitialContext ic = null;
     try {
-      InitialContext ic = new InitialContext();
+      ic = new InitialContext();
       Context ctx = (Context) ic.lookup("java:comp/env");
 
       try {
@@ -99,7 +100,15 @@ public class FileUploadFacesContextFactoryImpl extends FacesContextFactory {
         // ignore
       }
     } catch (NamingException e) {
-      //ignore no naming available 
+      // ignore no naming available
+    } finally {
+      if (ic != null) {
+        try {
+          ic.close();
+        } catch (NamingException e) {
+          // ignore
+        }
+      }
     }
     LOG.info("Configure uploadMaxFileSize for "+ getClass().getName() + " to "+ this.maxSize);
     LOG.info("Configure uploadRepositryPath for "+ getClass().getName() + " to "+ this.repositoryPath);
