@@ -88,6 +88,7 @@ import javax.faces.render.Renderer;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -582,9 +583,7 @@ public class ComponentUtil {
           list.add((SelectItem) value);
         } else if (value instanceof SelectItem[]) {
           SelectItem[] items = (SelectItem[]) value;
-          for (SelectItem item : items) {
-            list.add(item);
-          }
+          list.addAll(Arrays.asList(items));
         } else if (value instanceof Collection) {
           for (Object o : ((Collection) value)) {
             list.add((SelectItem) o);
@@ -1189,6 +1188,16 @@ public class ComponentUtil {
 
     return new String[0];
   }
+
+  /**
+   * colonCount == 0: fully relative
+   * colonCount == 1: absolute (still normal findComponent syntax)
+   * colonCount > 1: for each extra colon after 1, go up a naming container
+   * (to the view root, if naming containers run out)
+   *
+   * @param
+   * @param
+   */
 
   public static UIComponent findComponent(UIComponent from, String relativeId) {
     int idLength = relativeId.length();
