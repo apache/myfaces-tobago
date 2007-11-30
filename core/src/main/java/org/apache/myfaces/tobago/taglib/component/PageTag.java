@@ -57,11 +57,12 @@ public class PageTag extends TobagoBodyTag
     UIPage page = (UIPage) getComponentInstance();
     // TODO is this required?
     // clear popups;
+    int result = super.doEndTag();
     page.getPopups().clear();
 
     // reseting doctype and charset
     doctype = "loose";
-    return super.doEndTag();
+    return result;
   }
 
   public String getComponentType() {
