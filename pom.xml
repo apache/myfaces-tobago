@@ -51,7 +51,7 @@
   </ciManagement>
   <mailingLists>
     <mailingList>
-      <name>Myfaces User List</name>
+      <name>Myfaces User List (use [Tobago] prefix)</name>
       <subscribe>users-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>users-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>do not post to users@myfaces.apache.org unless subscribed</post>
@@ -59,10 +59,11 @@
       <otherArchives>
         <otherArchive>http://www.mail-archive.com/users@myfaces.apache.org/</otherArchive>
         <otherArchive>http://www.nabble.com/MyFaces---Users-f181.html</otherArchive>
+        <otherArchive>http://users.myfaces.markmail.org/</otherArchive>
       </otherArchives>
     </mailingList>
     <mailingList>
-      <name>Myfaces Developer List</name>
+      <name>Myfaces Developer List (use [Tobago] prefix)</name>
       <subscribe>dev-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>dev-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>do not post to dev@myfaces.apache.org unless subscribed</post>
@@ -70,6 +71,7 @@
       <otherArchives>
         <otherArchive>http://www.mail-archive.com/dev@myfaces.apache.org/</otherArchive>
         <otherArchive>http://www.nabble.com/My-Faces---Dev-f182.html</otherArchive>
+        <otherArchive>http://dev.myfaces.markmail.org/</otherArchive>
       </otherArchives>
     </mailingList>
     <mailingList>
@@ -78,6 +80,19 @@
       <unsubscribe>commits-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>do not post</post>
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-commits</archive>
+      <otherArchives>
+        <otherArchive>http://commits.myfaces.markmail.org/</otherArchive>
+      </otherArchives>
+    </mailingList>
+    <mailingList>
+      <name>Myfaces Notifications List</name>
+      <subscribe>notifications-subscribe@myfaces.apache.org</subscribe>
+      <unsubscribe>notifications-unsubscribe@myfaces.apache.org</unsubscribe>
+      <post>do not post</post>
+      <archive>http://mail-archives.apache.org/mod_mbox/myfaces-notifications</archive>
+      <otherArchives>
+        <otherArchive>http://notifications.myfaces.markmail.org/</otherArchive>
+      </otherArchives>
     </mailingList>
     <mailingList>
       <name>Myfaces Announcements List</name>
@@ -86,90 +101,13 @@
       <post>do not post</post>
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-announce</archive>
     </mailingList>
+    <mailingList>
+      <name>Myfaces Private (PMC) List</name>
+      <subscribe>only for MyFaces PMC members</subscribe>
+      <unsubscribe>private-unsubscribe@myfaces.apache.org</unsubscribe>
+      <post>do not post unless you need to contact PMC on issues not meant for public</post>
+    </mailingList>
   </mailingLists>
-  <developers>
-    <developer>
-      <id>idus</id>
-      <name>Arvid Hülsebus</name>
-      <email>idus@krelon.com</email>
-      <organization>atanion GmbH, Germany</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>bommel</id>
-      <name>Bernd Bohmann</name>
-      <email>bernd.bohmann@atanion.com</email>
-      <organization>atanion GmbH, Germany</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>pleff</id>
-      <name>Detlef Bartetzko</name>
-      <email>detlef.bartetzko@atanion.com</email>
-      <organization>atanion GmbH, Germany</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>mmarinschek</id>
-      <name>Martin Marinschek</name>
-      <organization>Irian, Austria</organization>
-      <email>martin.marinschek@gmail.com</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>matzew</id>
-      <name>Matthias Wessendorf</name>
-      <organization>Oracle Deutschland GmbH, Germany</organization>
-      <email>matzew@apache.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>-8</timezone>
-    </developer>
-    <developer>
-      <id>hennes</id>
-      <name>Philippe Hennes</name>
-      <email>philippe.hennes@philstar.de</email>
-      <organization>OpenKnowledge GmbH, Germany</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>lofwyr</id>
-      <name>Udo Schnurpfeil</name>
-      <email>udo@schnurpfeil.de</email>
-      <organization>atanion GmbH, Germany</organization>
-      <roles>
-        <role>Lead</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-    <developer>
-      <id>weber</id>
-      <name>Volker Weber</name>
-      <email>asf@weber-oldenburg.de</email>
-      <organization>inexso GmbH, Germany</organization>
-      <organizationUrl>http://www.inexso.de</organizationUrl>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <timezone>+1</timezone>
-    </developer>
-  </developers>
 
   <reporting>
     <excludeDefaults>true</excludeDefaults>
@@ -250,13 +188,13 @@
         </configuration>
       </plugin>
 
-      <!--plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-report-plugin</artifactId>
         <configuration>
           <aggregate>true</aggregate>
         </configuration>
-      </plugin-->
+      </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -321,7 +259,7 @@
         <configuration>
           <rulesets>
             <ruleset>/rulesets/basic.xml</ruleset>
-            <ruleset>/rulesets/unusedcode.xml</ruleset>
+            <ruleset>/rulesets/unusedcode.xml</ruleset>   f
             <ruleset>/rulesets/imports.xml</ruleset>
             <ruleset>/rulesets/design.xml</ruleset>
             <ruleset>/rulesets/optimizations.xml</ruleset>
