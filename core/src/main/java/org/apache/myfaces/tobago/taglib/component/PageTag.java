@@ -27,12 +27,10 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.UIPopup;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTag;
-import java.util.List;
 
 // Some Weblogic versions need explicit 'implements' for BodyTag
 public class PageTag extends TobagoBodyTag
@@ -57,16 +55,13 @@ public class PageTag extends TobagoBodyTag
 
   public int doEndTag() throws JspException {
     UIPage page = (UIPage) getComponentInstance();
-    List<UIPopup> popups = page.getPopups();
-    int result = super.doEndTag();
-
+    // TODO is this required?
     // clear popups;
-    popups.clear();
+    page.getPopups().clear();
 
     // reseting doctype and charset
     doctype = "loose";
-    //charset = null;
-    return result;
+    return super.doEndTag();
   }
 
   public String getComponentType() {

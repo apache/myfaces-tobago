@@ -17,13 +17,12 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_APPLICATION_ICON;
 import org.apache.commons.collections.KeyValue;
 import org.apache.commons.collections.list.SetUniqueList;
 import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_APPLICATION_ICON;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOCUS_ID;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
@@ -45,6 +44,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.TreeSet;
 
 public class UIPage extends UIForm {
 
@@ -85,7 +85,7 @@ public class UIPage extends UIForm {
 
   private Set<String> onsubmitScripts;
 
-  private List<UIPopup> popups;
+  private Set<UIPopup> popups;
 
   private Integer width;
 
@@ -104,7 +104,7 @@ public class UIPage extends UIForm {
     onunloadScripts = new ListOrderedSet();
     onexitScripts = new ListOrderedSet();
     onsubmitScripts = new ListOrderedSet();
-    popups = new ArrayList<UIPopup>();
+    popups = new TreeSet<UIPopup>();
   }
 
   @Override
@@ -361,7 +361,7 @@ public class UIPage extends UIForm {
     return onsubmitScripts;
   }
 
-  public List<UIPopup> getPopups() {
+  public Set<UIPopup> getPopups() {
     return popups;
   }
 

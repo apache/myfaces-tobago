@@ -40,6 +40,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
@@ -137,8 +138,7 @@ public class PageRenderer extends PageRendererBase {
 
     // write popup components
     // beware of ConcurrentModificationException in cascating popups!
-    for (int i = 0; i < page.getPopups().size(); i++) {
-      UIComponent popup = page.getPopups().get(i);
+    for (UIPopup popup: page.getPopups()) {
       RenderUtil.encode(facesContext, popup);
     }
 
