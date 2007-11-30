@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
@@ -58,7 +59,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class SelectManyListboxExtensionTag extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled, HasDeprecatedHeight, IsInline,
     HasLabel, HasLabelWidth, IsRendered, HasBinding, HasTip, HasConverter, HasValidator, HasOnchange, 
-    IsReadonly, HasMarkup, IsRequired, HasTabIndex {
+    IsReadonly, HasMarkup, IsFocus, IsRequired, HasTabIndex {
 
   private String required;
   private String value;
@@ -77,6 +78,7 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
   private String labelWidth;
   private String markup;
   private String tabIndex;
+  private String focus;
 
   private LabelExtensionTag labelTag;
   private SelectManyListboxTag selectManyListboxTag;
@@ -133,7 +135,10 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
       selectManyListboxTag.setDisabled(disabled);
     }
     if (inline != null) {
-      selectManyListboxTag.setFocus(inline);
+      selectManyListboxTag.setInline(inline);
+    }
+    if (focus != null) {
+      selectManyListboxTag.setFocus(focus);
     }
     if (id != null) {
       selectManyListboxTag.setId(id);
@@ -188,6 +193,7 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
     tabIndex = null;
     selectManyListboxTag = null;
     labelTag = null;
+    focus = null;
   }
 
   public void setRequired(String required) {
@@ -256,5 +262,9 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
 
   public void setTabIndex(String tabIndex) {
     this.tabIndex = tabIndex;
+  }
+
+  public void setFocus(String focus) {
+    this.focus = focus;
   }
 }

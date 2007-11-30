@@ -33,13 +33,13 @@ import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
+//import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Oct 7, 2006
  * Time: 9:13:21 AM
  */
@@ -50,7 +50,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.SelectBooleanCheckboxTag")
 public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements TobagoTagDeclaration,
     HasValidator, HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabel,
-    HasBooleanValue, HasLabelWidth, IsDisabled, HasTip, IsReadonly, HasMarkup, HasTabIndex {
+    HasBooleanValue, HasLabelWidth, IsDisabled, HasTip, IsReadonly, HasMarkup, HasTabIndex, //IsRequired
+    IsFocus {
 
   private String value;
   private String valueChangeListener;
@@ -66,6 +67,8 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
   private String labelWidth;
   private String markup;
   private String tabIndex;
+  //private String required;
+  private String focus;
 
   private LabelExtensionTag labelTag;
   private SelectBooleanCheckboxTag selectBooleanCheckboxTag;
@@ -129,8 +132,16 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
       selectBooleanCheckboxTag.setReadonly(readonly);
     }
 
+    if (focus != null) {
+      selectBooleanCheckboxTag.setFocus(focus);
+    }
+
     //if (required != null) {
     //  selectBooleanCheckboxTag.setRequired(required);
+    //}
+    // TODO item Label
+    //if (itemLabel != null) {
+    //  selectOneRadioTag.setLabel(itemLabel);
     //}
 
     if (markup != null) {
@@ -169,6 +180,10 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     valueChangeListener = null;
     markup = null;
     tabIndex = null;
+    focus = null;
+    //required = null;
+    selectBooleanCheckboxTag = null;
+    labelTag = null;
   }
 
   public void setValue(String value) {
@@ -194,7 +209,6 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
   public void setLabel(String label) {
     this.label = label;
   }
-
 
   public void setValidator(String validator) {
     this.validator = validator;
@@ -227,4 +241,12 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
   public void setTabIndex(String tabIndex) {
     this.tabIndex = tabIndex;
   }
+
+  public void setFocus(String focus) {
+    this.focus = focus;
+  }
+
+  //public void setRequired(String required) {
+  //  this.required = required;
+  //}
 }

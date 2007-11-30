@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
@@ -40,12 +41,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-/*
- * Created by IntelliJ IDEA.
- * User: bommel
- * Date: 17.12.2005
- * Time: 08:24:21
- */
 /**
  * Render a single selection option listbox.
  */
@@ -54,7 +49,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class SelectOneListboxExtensionTag
     extends BodyTagSupport implements HasId, HasValue, HasValueChangeListener, IsDisabled,
     HasLabel, HasLabelWidth, IsReadonly, HasOnchange, IsRendered,
-    HasBinding, HasDeprecatedHeight, HasTip , IsRequired, HasConverter, HasValidator, HasTabIndex {
+    HasBinding, HasDeprecatedHeight, IsFocus, HasTip , IsRequired, HasConverter, HasValidator, HasTabIndex {
   private String required;
   private String value;
   private String valueChangeListener;
@@ -71,6 +66,7 @@ public class SelectOneListboxExtensionTag
   private String validator;
   private String labelWidth;
   private String tabIndex;
+  private String focus;
 
   private LabelExtensionTag labelTag;
   private SelectOneListboxTag selectOneListboxTag;
@@ -120,7 +116,10 @@ public class SelectOneListboxExtensionTag
       selectOneListboxTag.setDisabled(disabled);
     }
     if (inline != null) {
-      selectOneListboxTag.setFocus(inline);
+      selectOneListboxTag.setInline(inline);
+    }
+    if (focus != null) {
+      selectOneListboxTag.setFocus(focus);
     }
     if (id != null) {
       selectOneListboxTag.setId(id);
@@ -171,6 +170,7 @@ public class SelectOneListboxExtensionTag
     tabIndex = null;
     selectOneListboxTag = null;
     labelTag = null;
+    focus = null;
   }
 
   public void setRequired(String required) {
@@ -235,5 +235,9 @@ public class SelectOneListboxExtensionTag
 
   public void setTabIndex(String tabIndex) {
     this.tabIndex = tabIndex;
+  }
+
+  public void setFocus(String focus) {
+    this.focus = focus;
   }
 }

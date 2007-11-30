@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
@@ -50,7 +51,7 @@ public class SelectOneChoiceExtensionTag
     extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled,
     IsReadonly, HasOnchange, IsInline, HasLabel, HasLabelWidth, IsRequired,
-    IsRendered, HasBinding, HasTip , HasValidator, HasConverter, HasTabIndex {
+    IsRendered, IsFocus, HasBinding, HasTip , HasValidator, HasConverter, HasTabIndex {
 
   private String required;
   private String value;
@@ -67,6 +68,7 @@ public class SelectOneChoiceExtensionTag
   private String converter;
   private String labelWidth;
   private String tabIndex;
+  private String focus;
 
   private LabelExtensionTag labelTag;
   private SelectOneChoiceTag selectOneChoiceTag;
@@ -116,7 +118,10 @@ public class SelectOneChoiceExtensionTag
     }
 
     if (inline != null) {
-      selectOneChoiceTag.setFocus(inline);
+      selectOneChoiceTag.setInline(inline);
+    }
+    if (focus != null) {
+      selectOneChoiceTag.setFocus(focus);
     }
     if (id != null) {
       selectOneChoiceTag.setId(id);
@@ -163,6 +168,7 @@ public class SelectOneChoiceExtensionTag
     tabIndex = null;
     selectOneChoiceTag = null;
     labelTag = null;
+    focus = null;
   }
 
   public void setRequired(String required) {
@@ -223,5 +229,9 @@ public class SelectOneChoiceExtensionTag
 
   public void setTabIndex(String tabIndex) {
     this.tabIndex = tabIndex;
+  }
+
+  public void setFocus(String focus) {
+    this.focus = focus;
   }
 }
