@@ -44,7 +44,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
-import java.util.TreeSet;
 
 public class UIPage extends UIForm {
 
@@ -104,7 +103,7 @@ public class UIPage extends UIForm {
     onunloadScripts = new ListOrderedSet();
     onexitScripts = new ListOrderedSet();
     onsubmitScripts = new ListOrderedSet();
-    popups = new TreeSet<UIPopup>();
+    popups = new ListOrderedSet();
   }
 
   @Override
