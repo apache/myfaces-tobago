@@ -44,6 +44,8 @@ public class TobagoExtensionTagLibrary extends AbstractTagLibrary {
         SelectManyListboxExtensionHandler.class);
     addComponent("selectOneChoice", "org.apache.myfaces.tobago.Panel", "Panel",
         SelectOneChoiceExtensionHandler.class);
+    addComponent("selectOneRadio", "org.apache.myfaces.tobago.Panel", "Panel",
+        SelectOneRadioExtensionHandler.class);
     addComponent("selectOneListbox", "org.apache.myfaces.tobago.Panel", "Panel",
         SelectOneListboxExtensionHandler.class);
   }

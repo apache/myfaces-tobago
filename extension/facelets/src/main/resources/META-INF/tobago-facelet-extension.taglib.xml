@@ -54,6 +54,10 @@
 		<source>selectOneListbox.xml</source>
 	</tag>
   <tag>
+		<tag-name>selectOneRadio</tag-name>
+		<source>selectOneRadio.xml</source>
+	</tag>
+  <tag>
 		<tag-name>selectManyListbox</tag-name>
 		<source>selectManyListbox.xml</source>
 	</tag>
