@@ -40,27 +40,34 @@ public abstract class AbstractWizard implements Wizard {
 
   private int size;
 
+  // XXX remove (use: "private Integer size" instead)
   private boolean sizeSet;
 
-  private boolean started;
+  // XXX remove
+//  private boolean started;
 
   private boolean preparedForFinishing;
 
   private boolean backNavImmediate = true; // default, if not set otherwise
 
-  private boolean dynamicContent;
+//  private boolean dynamicContent;
 
-  private String staticContentSource = null;
+//  private String staticContentSource = null;
 
   private int requestedIndex;
 
   private WizardBackwardNavigationStrategy backNavStrategy = WizardBackwardNavigationStrategy.NOT_ALLOWED;
 
-  public boolean isStartable() {
+/*  protected AbstractWizard() {
+    initialize();
+  }
+*/
+/*  public boolean isStartable() {
     return true;
   }
-
-  public final String initialize() {
+*/
+  // XXX is this needed?
+/*  public final String initialize() {
     if (LOG.isDebugEnabled()) {
       LOG.debug("initialize");
     }
@@ -71,7 +78,7 @@ public abstract class AbstractWizard implements Wizard {
       if (success) {
         started = true;
         dynamicContent = true;
-        index++;
+//        index++;
 
         if (!sizeSet) {
           size++;
@@ -83,6 +90,7 @@ public abstract class AbstractWizard implements Wizard {
     }
     return getDefaultOutcome();
   }
+*/
 
   /**
    * <p>
@@ -94,8 +102,8 @@ public abstract class AbstractWizard implements Wizard {
    * @return true if the method completed sucessfully, false if not
    */
 
-  public abstract boolean doInitialization();
-
+//  public abstract boolean doInitialization();
+/*
   public final boolean isStartAvailable() {
     return (!started);
   }
@@ -103,7 +111,7 @@ public abstract class AbstractWizard implements Wizard {
   public boolean isStarted() {
     return started;
   }
-
+*/
   public final String next() {
     LOG.debug("next");
 
@@ -117,7 +125,7 @@ public abstract class AbstractWizard implements Wizard {
 
     }
 
-    makeContentDecision(index);
+//    makeContentDecision(index);
 
     return getDefaultOutcome();
   }
@@ -133,12 +141,18 @@ public abstract class AbstractWizard implements Wizard {
    */
   public abstract boolean doNext();
 
+  // XXX simplify
+  public void next(ActionEvent event) {
+    next();
+  }
+
   /*
   * (non-Javadoc)
   * @see org.apache.myfaces.tobago.model.Wizard#isNextAvailable()
   */
   public final boolean isNextAvailable() {
-    return (started && !preparedForFinishing);
+//    return (started && !preparedForFinishing);
+    return !preparedForFinishing;
   }
 
   public final String previous() {
@@ -150,9 +164,11 @@ public abstract class AbstractWizard implements Wizard {
       if (index > 0) {
         index--;
       }
+/*
       if (index == 0) {
         started = false;
       }
+*/
       if (preparedForFinishing) {
         preparedForFinishing = false;
       }
@@ -168,7 +184,7 @@ public abstract class AbstractWizard implements Wizard {
       }
     }
 
-    makeContentDecision(index);
+//    makeContentDecision(index);
 
     return getDefaultOutcome();
   }
@@ -189,7 +205,7 @@ public abstract class AbstractWizard implements Wizard {
   public abstract boolean doPrevious();
 
   public final boolean isPreviousAvailable() {
-    return getIndex() > 1 ? true : false;
+    return getIndex() > 0;
   }
 
   public boolean isPreviousRendered() {
@@ -215,7 +231,7 @@ public abstract class AbstractWizard implements Wizard {
 
     boolean success = doFinish();
     if (!success) {
-      makeContentDecision(index);
+//      makeContentDecision(index);
       return getDefaultOutcome();
     }
 
@@ -235,7 +251,7 @@ public abstract class AbstractWizard implements Wizard {
   public abstract boolean doFinish();
 
   public final boolean isFinishAvailable() {
-    return (started && preparedForFinishing);
+    return preparedForFinishing;
   }
 
   public final String cancel() {
@@ -244,7 +260,7 @@ public abstract class AbstractWizard implements Wizard {
     }
     boolean success = doCancel();
     if (!success) {
-      makeContentDecision(index);
+//      makeContentDecision(index);
       return getDefaultOutcome();
     }
     reset();
@@ -288,7 +304,7 @@ public abstract class AbstractWizard implements Wizard {
       }
     }
 
-    makeContentDecision(index);
+//    makeContentDecision(index);
     // reset requestIndex
     requestedIndex = 0;
     return getDefaultOutcome();
@@ -334,7 +350,7 @@ public abstract class AbstractWizard implements Wizard {
   public final void resetSize(int size) {
     this.size = size;
   }
-
+/*
   public final boolean isDynamicContent() {
     return dynamicContent;
   }
@@ -354,14 +370,14 @@ public abstract class AbstractWizard implements Wizard {
   }
 
   public abstract void makeContentDecision(int indexToShow);
-
+*/
   /*
   * Helper method to reset all attributes
   */
   protected void reset() {
-    dynamicContent = true;
-    staticContentSource = null;
-    started = false;
+//    dynamicContent = true;
+//    staticContentSource = null;
+//    started = false;
     preparedForFinishing = false;
     requestedIndex = 0;
     index = 0;

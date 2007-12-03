@@ -17,47 +17,37 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  * limitations under the License.
  */
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIWizard;
+import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.model.Wizard;
 import org.apache.myfaces.tobago.taglib.component.ButtonTag;
 import org.apache.myfaces.tobago.taglib.component.CellTag;
 import org.apache.myfaces.tobago.taglib.component.GridLayoutTag;
-import org.apache.myfaces.tobago.taglib.component.IncludeTag;
 import org.apache.myfaces.tobago.taglib.component.PanelTag;
-import org.apache.myfaces.tobago.taglib.component.TobagoTag;
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.BodyTagSupport;
 
-public class WizardTag extends TobagoTag implements WizardTagDeclaration {
+@Tag(name = "wizard")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.sandbox.WizardTag")
+public class WizardTag extends BodyTagSupport {
 
   private static final Log LOG = LogFactory.getLog(WizardTag.class);
 
   private String controller;
 
+  private String next;
+  private String previous;
+
   private PanelTag panelTag;
 
-  @Override
-  public String getComponentType() {
-    return UIWizard.COMPONENT_TYPE;
-  }
-
-  @Override
-  protected void setProperties(UIComponent component) {
-    super.setProperties(component);
-
-    // xxx
-    //ComponentUtil.setStringProperty(component, ATTR_CONTROLLER, controller);
-    ComponentUtil.setStringProperty(component, "controller", controller);
-  }
+  private CellTag cellTag;
 
   @Override
   public int doStartTag() throws JspException {
@@ -80,7 +70,8 @@ public class WizardTag extends TobagoTag implements WizardTagDeclaration {
 
     GridLayoutTag gridLayoutTag = new GridLayoutTag();
     gridLayoutTag.setPageContext(pageContext);
-    gridLayoutTag.setColumns("*;fixed;fixed;fixed;fixed");
+//    gridLayoutTag.setColumns("*;fixed;fixed;fixed;fixed");
+    gridLayoutTag.setColumns("*;fixed;fixed;fixed");
     gridLayoutTag.setRows("*;fixed");
     gridLayoutTag.setParent(facetTag);
     gridLayoutTag.doStartTag();
@@ -88,12 +79,13 @@ public class WizardTag extends TobagoTag implements WizardTagDeclaration {
 
     facetTag.doEndTag();
 
-    CellTag cell = new CellTag();
-    cell.setPageContext(pageContext);
-    cell.setParent(panelTag);
-    cell.setSpanX("5");
-    cell.doStartTag();
+    cellTag = new CellTag();
+    cellTag.setPageContext(pageContext);
+    cellTag.setParent(panelTag);
+    cellTag.setSpanX("5");
+    cellTag.doStartTag();
 
+/*
     Object bean = VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), "controller");
     int index = 0;
     try {
@@ -106,20 +98,26 @@ public class WizardTag extends TobagoTag implements WizardTagDeclaration {
     if (index < 2) {
       IncludeTag content = new IncludeTag();
       content.setPageContext(pageContext);
-      content.setParent(cell);
+      content.setParent(cellTag);
       content.setValue("snip-" + index + ".jsp");
       content.doStartTag();
       content.doEndTag();
     } else {
       PanelTag content = new PanelTag();
       content.setPageContext(pageContext);
-      content.setParent(cell);
+      content.setParent(cellTag);
       content.setBinding(controller.replace("}", ".currentComponent}"));
       content.doStartTag();
       content.doEndTag();
     }
+*/
+    return super.doStartTag();
+  }
 
-    cell.doEndTag();
+  @Override
+  public int doEndTag() throws JspException {
+
+    cellTag.doEndTag();
 
     CellTag spacer = new CellTag();
     spacer.setPageContext(pageContext);
@@ -127,6 +125,17 @@ public class WizardTag extends TobagoTag implements WizardTagDeclaration {
     spacer.doStartTag();
     spacer.doEndTag();
 
+/*
+    WizardControllerTag controllerTag = new WizardControllerTag();
+    controllerTag.setPageContext(pageContext);
+    controllerTag.setParent(panelTag);
+    controllerTag.setController(controller);
+    controllerTag.doStartTag();
+    controllerTag.doEndTag();
+*/
+
+    // XXX remove start? using process train instead
+/*
     ButtonTag start = new ButtonTag();
     start.setPageContext(pageContext);
     start.setParent(panelTag);
@@ -135,24 +144,37 @@ public class WizardTag extends TobagoTag implements WizardTagDeclaration {
     start.setDisabled(controller.replace("}", ".startAvailable}").replace("#{", "#{!"));
     start.doStartTag();
     start.doEndTag();
+*/
 
-    ButtonTag previous = new ButtonTag();
-    previous.setPageContext(pageContext);
-    previous.setParent(panelTag);
-    previous.setLabel("Previous");
-    previous.setAction(controller.replace("}", ".previous}"));
-    previous.setDisabled(controller.replace("}", ".previousAvailable}").replace("#{", "#{!"));
-    previous.doStartTag();
-    previous.doEndTag();
+    ButtonTag previousTag = new ButtonTag();
+    previousTag.setPageContext(pageContext);
+    previousTag.setParent(panelTag);
+    previousTag.setLabel("Previous");
+//    previous.setAction(controller.replace("}", ".previous}"));
+    if (previous != null) {
+      previousTag.setAction(previous);
+      previousTag.setActionListener(controller.replace("}", ".previous}"));
+    } else {
+      previousTag.setAction(controller.replace("}", ".previous}"));
+    }
+    previousTag.setDisabled(controller.replace("}", ".previousAvailable}").replace("#{", "#{!"));
+    previousTag.doStartTag();
+    previousTag.doEndTag();
 
-    ButtonTag next = new ButtonTag();
-    next.setPageContext(pageContext);
-    next.setParent(panelTag);
-    next.setLabel("Next");
-    next.setAction(controller.replace("}", ".next}"));
-    next.setDisabled(controller.replace("}", ".nextAvailable}").replace("#{", "#{!"));
-    next.doStartTag();
-    next.doEndTag();
+    ButtonTag nextTag = new ButtonTag();
+    nextTag.setPageContext(pageContext);
+    nextTag.setParent(panelTag);
+    nextTag.setLabel("Next");
+//    nextTag.setAction(controller.replace("}", ".next}"));
+    if (next != null) {
+      nextTag.setAction(next);
+      nextTag.setActionListener(controller.replace("}", ".next}"));
+    } else {
+      nextTag.setAction(controller.replace("}", ".next}"));
+    }
+    nextTag.setDisabled(controller.replace("}", ".nextAvailable}").replace("#{", "#{!"));
+    nextTag.doStartTag();
+    nextTag.doEndTag();
 
     ButtonTag finish = new ButtonTag();
     finish.setPageContext(pageContext);
@@ -163,12 +185,8 @@ public class WizardTag extends TobagoTag implements WizardTagDeclaration {
     finish.doStartTag();
     finish.doEndTag();
 
-    return super.doStartTag();
-  }
-
-  @Override
-  public int doEndTag() throws JspException {
     panelTag.doEndTag();
+
     return super.doEndTag();
   }
 
@@ -176,14 +194,27 @@ public class WizardTag extends TobagoTag implements WizardTagDeclaration {
   public void release() {
     super.release();
     controller = null;
+    next = null;
+    previous = null;
     panelTag = null;
+    cellTag = null;
   }
 
-  public String getController() {
-    return controller;
-  }
-
+  @TagAttribute(required = true, type = Wizard.class)
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.Wizard")
   public void setController(String controller) {
     this.controller = controller;
+  }
+
+  @TagAttribute
+  @UIComponentTagAttribute
+  public void setNext(String next) {
+    this.next = next;
+  }
+
+  @TagAttribute
+  @UIComponentTagAttribute
+  public void setPreviousNext(String previous) {
+    this.previous = previous;
   }
 }

@@ -40,6 +40,8 @@ public class Controller {
 
   private Wizard wizard;
 
+  private String filterType;
+
   public Controller() {
     // tree
     tree = new DefaultMutableTreeNode(new Node("1 Category"));
@@ -94,6 +96,15 @@ public class Controller {
   public String action3() {
     LOG.info("action 3");
     return null;
+  }
+
+  public String createFilter() {
+    if (filterType.equals("fileInto")) {
+      return "fileIntoCondition";
+    } else if (filterType.equals("forward")) {
+      return "forwardCondition";
+    }
+    throw new RuntimeException("no filter");
   }
 
   public String createNode() {
@@ -152,5 +163,13 @@ public class Controller {
 
   public Wizard getWizard() {
     return wizard;
+  }
+
+  public String getFilterType() {
+    return filterType;
+  }
+
+  public void setFilterType(String filterType) {
+    this.filterType = filterType;
   }
 }

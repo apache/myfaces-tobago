@@ -38,16 +38,16 @@ public interface Wizard {
   /**
    * @return A boolean value stating if the content of the wizard is dynamic or a "static" content should be use
    */
-  boolean isDynamicContent();
+//  boolean isDynamicContent();
 
   /**
    * @return The source-path or Url to the static content to be included
    */
-  String getStaticContentSource();
+//  String getStaticContentSource();
 
-  void setDynamicContent();
+//  void setDynamicContent();
 
-  void setStaticContent(String staticContentSource);
+//  void setStaticContent(String staticContentSource);
 
   /**
    * Return the index of the actual wizard view.
@@ -69,11 +69,11 @@ public interface Wizard {
    */
   void setSize(int size);
 
-  String initialize();
+//  String initialize();
 
   //    DynamicBean doInitialization();
 
-  boolean isStarted();
+//  boolean isStarted();
 
   String next();
 
@@ -113,7 +113,7 @@ public interface Wizard {
 
   String gotoStep();
 
-  void makeContentDecision(int indexToShow);
+//  void makeContentDecision(int indexToShow);
 
   String getDefaultOutcome();
 

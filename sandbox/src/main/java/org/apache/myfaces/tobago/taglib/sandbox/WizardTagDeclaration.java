@@ -17,11 +17,7 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.*;
 import org.apache.myfaces.tobago.model.Wizard;
 import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -29,7 +25,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 /**
  * Renders a fexible Wizard.
  */
-@Tag(name = "wizard")
+@Tag(name = "wizardController")
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIWizard",
@@ -37,7 +33,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 public interface WizardTagDeclaration
     extends TobagoTagDeclaration, HasIdBindingAndRendered {
 
-  @TagAttribute(required = true, type= Wizard.class)
+  @TagAttribute(required = true, type = Wizard.class)
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.Wizard")
   void setController(String controller);
 }

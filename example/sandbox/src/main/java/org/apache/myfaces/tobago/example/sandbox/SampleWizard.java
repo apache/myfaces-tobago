@@ -33,6 +33,10 @@ public class SampleWizard extends AbstractWizard {
 
   private List<BeanItem> items = new ArrayList<BeanItem>();
 
+  public SampleWizard() {
+    setDefaultOutcome("wizard");
+  }
+
   public UIPanel getCurrentComponent() {
 
     UIOutput out = new UIOutput();
@@ -67,10 +71,6 @@ public class SampleWizard extends AbstractWizard {
     return true;
   }
 
-  public boolean doInitialization() {
-    return true;
-  }
-
   public boolean doPrevious() {
     return true;
   }
@@ -87,6 +87,8 @@ public class SampleWizard extends AbstractWizard {
     return true;
   }
 
+/*
   public void makeContentDecision(int indexToShow) {
   }
+*/
 }

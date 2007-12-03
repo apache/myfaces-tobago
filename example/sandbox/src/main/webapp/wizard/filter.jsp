@@ -28,10 +28,13 @@
       <tc:gridLayout margin="10px" rows="600px;*"/>
     </f:facet>
 
-    <tcs:wizard controller="#{controller.wizard}">
+    <tcs:wizard controller="#{controller.wizard}" next="#{controller.createFilter}">
 
-      <tc:include value="snip-#{controller.wizard.index}.jsp" />
-      
+      <tc:selectOneRadio value="#{controller.filterType}">
+        <tc:selectItem itemLabel="File Into" itemValue="fileInto" />
+        <tc:selectItem itemLabel="Forward" itemValue="forward" />
+      </tc:selectOneRadio>
+
     </tcs:wizard>
 
     <tc:cell/>

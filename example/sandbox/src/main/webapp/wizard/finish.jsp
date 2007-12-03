@@ -28,10 +28,10 @@
       <tc:gridLayout margin="10px" rows="600px;*"/>
     </f:facet>
 
-    <tcs:wizard controller="#{controller.wizard}">
+    <tcs:wizard controller="#{controller.wizard}" previous="#{controller.createFilter}">
 
-      <tc:include value="snip-#{controller.wizard.index}.jsp" />
-      
+      <tc:out value="Click finish to aktivate"/>
+
     </tcs:wizard>
 
     <tc:cell/>

@@ -29,9 +29,31 @@
     </f:facet>
 
     <tcs:wizard controller="#{controller.wizard}">
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout rows="fixed;fixed" />
+        </f:facet>
 
-      <tc:include value="snip-#{controller.wizard.index}.jsp" />
-      
+        <tc:out value="file into condition"/>
+
+        <tc:panel>
+          <f:facet name="layout">
+            <tc:gridLayout columns="1*;1*;1*" />
+          </f:facet>
+
+          <tc:selectOneChoice>
+            <f:selectItems />
+          </tc:selectOneChoice>
+
+          <tc:selectOneChoice>
+            <f:selectItems />
+          </tc:selectOneChoice>
+
+          <tc:in required="true" />
+
+        </tc:panel>
+
+      </tc:panel>
     </tcs:wizard>
 
     <tc:cell/>

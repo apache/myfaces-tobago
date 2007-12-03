@@ -28,11 +28,7 @@
       <tc:gridLayout margin="10px" rows="600px;*"/>
     </f:facet>
 
-    <tcs:wizard controller="#{controller.wizard}">
-
-      <tc:include value="snip-#{controller.wizard.index}.jsp" />
-      
-    </tcs:wizard>
+    <tcs:wizard controller="#{controller.wizard}"/>
 
     <tc:cell/>
 
