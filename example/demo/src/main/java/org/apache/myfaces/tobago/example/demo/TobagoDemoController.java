@@ -32,23 +32,24 @@ import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.example.demo.model.solar.Solar;
 import org.apache.myfaces.tobago.example.demo.model.solar.SolarObject;
+import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
+import javax.servlet.http.HttpSession;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
-import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.io.IOException;
 
 public class TobagoDemoController {
 
@@ -108,7 +109,7 @@ public class TobagoDemoController {
 
   private Object tabState2;
 
-  private Object sheetState;
+  private SheetState sheetState;
 
   private String toolbarIconSize;
 
@@ -491,11 +492,11 @@ public class TobagoDemoController {
     this.tabState2 = tabState2;
   }
 
-  public Object getSheetState() {
+  public SheetState getSheetState() {
     return sheetState;
   }
 
-  public void setSheetState(Object sheetState) {
+  public void setSheetState(SheetState sheetState) {
     this.sheetState = sheetState;
   }
 
