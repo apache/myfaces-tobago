@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	* Licensed to the Apache Software Foundation (ASF) under one or more
+	* contributor license agreements.  See the NOTICE file distributed with
+	* this work for additional information regarding copyright ownership.
+	* The ASF licenses this file to You under the Apache License, Version 2.0
+	* (the "License"); you may not use this file except in compliance with
+	* the License.  You may obtain a copy of the License at
+	*
+	*      http://www.apache.org/licenses/LICENSE-2.0
+	*
+	* Unless required by applicable law or agreed to in writing, software
+	* distributed under the License is distributed on an "AS IS" BASIS,
+	* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	* See the License for the specific language governing permissions and
+	* limitations under the License.
+-->
+
+<ui:composition xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:tfs="http://myfaces.apache.org/tobago/facelet-sandbox">
+	
+	<c:if test="${empty showContent}">
+		<c:set var="showContent" value="true" />
+	</c:if>
+	<c:set var="replaceContent" value="true" />
+	<c:if test="${empty contentDetailSource}" >
+		<c:set var="replaceContent" value="false" />
+	</c:if>
+	
+	<c:if test="${empty showNavigation}">
+		<c:set var="showNavigation" value="true" />
+	</c:if>
+	<c:set var="replaceNavigation" value="true" />
+	<c:if test="${empty navigationDetailSource}" >
+		<c:set var="replaceNavigation" value="false" />
+	</c:if>
+	
+	<!-- detail view area -->
+	<tc:panel>
+		<f:facet name="layout">
+			<tc:gridLayout rows="*;fixed" />
+		</f:facet>
+		
+		<!-- content area -->
+		<c:choose>
+			<c:when test="${showContent}">
+				<!-- content -->
+				<ui:include src="${contentDetailSource}" />
+			</c:when>
+			<c:otherwise>
+				<tc:cell />
+			</c:otherwise>
+		</c:choose>
+		
+		<!-- navigation area -->
+		<c:choose>
+			<c:when test="${showNavigation}">
+				<c:choose>
+					<c:when test="${replaceNavigation}">
+						<ui:include src="${navigationDetailSource}" />
+					</c:when>
+					<c:otherwise>
+						<!-- default navigation -->
+						<tc:panel>
+							<f:facet name="layout">
+								<tc:gridLayout columns="*;fixed" />
+							</f:facet>
+							
+							<tc:cell />
+							<tc:button action="${controller.saveItem}"
+								label="Sichern"
+								tip="Datensatz sichern" />
+							<tc:button action="${controller.cancelItem}"
+								label="Abbrechen"
+								tip="Bearbeitung abbrechen" />
+						</tc:panel>
+					</c:otherwise>
+				</c:choose>
+			</c:when>
+			<c:otherwise>
+				<tc:cell />
+			</c:otherwise>
+		</c:choose>
+				
+	</tc:panel>
+
+	
+</ui:composition>

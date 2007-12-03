@@ -22,4 +22,16 @@
     <tag-name>dynamic-content</tag-name>
     <source>dynamic-content.xml</source>
   </tag>
+  <tag>
+    <tag-name>crud</tag-name>
+    <source>crud.xml</source>
+  </tag>
+  <tag>
+    <tag-name>crud-master</tag-name>
+    <source>crud-master.xml</source>
+  </tag>
+   <tag>
+    <tag-name>crud-detail</tag-name>
+    <source>crud-detail.xml</source>
+  </tag>
 </facelet-taglib>
