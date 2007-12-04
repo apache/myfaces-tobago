@@ -49,50 +49,50 @@ public class FoViewHandlerImpl extends ViewHandlerImpl {
   }
 
   public void renderView(FacesContext facesContext, UIViewRoot viewRoot)
-       throws IOException, FacesException {
-     String requestUri = viewRoot.getViewId();
+      throws IOException, FacesException {
+    String requestUri = viewRoot.getViewId();
 
-     String contentType
-         = ClientProperties.getInstance(viewRoot).getContentType();
-     if (LOG.isDebugEnabled()) {
-       LOG.debug("contentType = '" + contentType + "'");
-     }
-     if (contentType.indexOf("fo") == -1) {
-       // standard
-       super.renderView(facesContext, viewRoot);
-     } else {
-       try {
-       // TODO PortletResponse ??
-         if (facesContext.getExternalContext().getResponse() instanceof TobagoResponse) {
-           ((TobagoResponse) facesContext.getExternalContext().getResponse()).setBuffering();
-           // own dispatch
-           HttpServletRequest request = (HttpServletRequest)
-               facesContext.getExternalContext().getRequest();
-           HttpServletResponse response = (HttpServletResponse)
-               facesContext.getExternalContext().getResponse();
-           RequestDispatcher requestDispatcher
-               = request.getRequestDispatcher(requestUri);
-           requestDispatcher.include(request, response);
-           response.setContentType("application/pdf");
-           String buffer =
-               ((TobagoResponse) facesContext.getExternalContext().getResponse()).getBufferedString();
-           ServletResponse servletResponse = (ServletResponse)
-               facesContext.getExternalContext().getResponse();
-           if (LOG.isDebugEnabled()) {
-             LOG.debug("fo buffer: " + buffer);
-           }
-           FopConverter.fo2Pdf(servletResponse, buffer);
-         }
-       } catch (ServletException e) {
-         IOException ex = new IOException();
-         ex.initCause(e);
-         throw ex;
-       }
-     }
-     if (LOG.isDebugEnabled()) {
-       LOG.debug("VIEW");
-       LOG.debug(ComponentUtil.toString(facesContext.getViewRoot(), 0));
-     }
-   }
+    String contentType
+        = ClientProperties.getInstance(viewRoot).getContentType();
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("contentType = '" + contentType + "'");
+    }
+    if (contentType.indexOf("fo") == -1) {
+      // standard
+      super.renderView(facesContext, viewRoot);
+    } else {
+      try {
+        // TODO PortletResponse ??
+        if (facesContext.getExternalContext().getResponse() instanceof TobagoResponse) {
+          ((TobagoResponse) facesContext.getExternalContext().getResponse()).setBuffering();
+          // own dispatch
+          HttpServletRequest request = (HttpServletRequest)
+              facesContext.getExternalContext().getRequest();
+          HttpServletResponse response = (HttpServletResponse)
+              facesContext.getExternalContext().getResponse();
+          RequestDispatcher requestDispatcher
+              = request.getRequestDispatcher(requestUri);
+          requestDispatcher.include(request, response);
+          response.setContentType("application/pdf");
+          String buffer =
+              ((TobagoResponse) facesContext.getExternalContext().getResponse()).getBufferedString();
+          ServletResponse servletResponse = (ServletResponse)
+              facesContext.getExternalContext().getResponse();
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("fo buffer: " + buffer);
+          }
+          FopConverter.fo2Pdf(servletResponse, buffer);
+        }
+      } catch (ServletException e) {
+        IOException ex = new IOException();
+        ex.initCause(e);
+        throw ex;
+      }
+    }
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("VIEW");
+      LOG.debug(ComponentUtil.toString(facesContext.getViewRoot(), 0));
+    }
+  }
 
 }

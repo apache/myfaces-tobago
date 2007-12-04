@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.taglib.component.TextInputTagDeclaration;
 // TODO: switched off @Tag(name="richTextEditor")
 public interface RichTextEditorTagDeclaration extends TextInputTagDeclaration,
     HasIdBindingAndRendered, HasValue, HasLabelAndAccessKey, HasDeprecatedWidth {
-  @TagAttribute @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
   void setStatePreview(String statePreview);
 }

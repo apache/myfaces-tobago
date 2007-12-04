@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
 /**
  * Renders a tree view.
- *
+ * <p/>
  * Date: 11.02.2006 13:28:14
  */
 @Tag(name = "tree")
@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITree",
     rendererType = "Tree")
-public interface TreeTagDeclaration 
+public interface TreeTagDeclaration
     extends TobagoTagDeclaration, HasIdBindingAndRendered, HasTreeNodeValue, IsRequired {
 
   /**
@@ -77,13 +77,13 @@ public interface TreeTagDeclaration
   @UIComponentTagAttribute(type = "java.lang.Boolean",
       defaultValue = "false")
   void setShowRoot(String showRoot);
-  
+
   /**
    * Display option: Normal tree or menu.
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "tree",
-  allowedValues = {"tree", "menu"})
+      allowedValues = {"tree", "menu"})
   void setMode(String mode);
 
 }

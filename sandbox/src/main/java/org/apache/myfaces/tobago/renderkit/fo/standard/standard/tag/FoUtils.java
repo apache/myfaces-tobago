@@ -59,6 +59,7 @@ public class FoUtils {
     writer.writeAttribute("text-align", "start", null);
     writeEndTextBlock(writer, text);
   }
+
   public static void writeTextBlockAlignLeft(ResponseWriter writer,
       UIComponent component, String text) throws IOException {
     writeStartTextBlock(writer, component);
@@ -75,10 +76,11 @@ public class FoUtils {
 
 
   }
+
   private static void writeEndTextBlock(ResponseWriter writer,
       String text) throws IOException {
     writer.writeText(text, null);
     writer.endElement("fo:block");
   }
-  
+
 }

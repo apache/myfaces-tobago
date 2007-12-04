@@ -116,11 +116,11 @@ public class UITreeNode extends UICommand implements SupportsMarkup, TreeModelBu
     markup = (String[]) values[1];
     marked = (Boolean) values[2];
     expanded = (Boolean) values[3];
-   }
+  }
 
   @Override
   public Object saveState(FacesContext context) {
-    Object[] values  = new Object[4];
+    Object[] values = new Object[4];
     values[0] = super.saveState(context);
     values[1] = markup;
     values[2] = marked;

@@ -52,11 +52,11 @@ public class ButtonRenderer extends LayoutableRendererBase {
     UIPage page = ComponentUtil.findPage(facesContext, command);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
-     // TODO
+    // TODO
     //String action = (String) command.getAttributes().get(ATTR_ACTION);
 
-    if (command.getAttributes().get(ATTR_ACTION_LINK)==null
-        &&command.getAttributes().get(ATTR_ACTION_ONCLICK)==null) {
+    if (command.getAttributes().get(ATTR_ACTION_LINK) == null
+        && command.getAttributes().get(ATTR_ACTION_ONCLICK) == null) {
       ValueHolder labelComponent
           = (ValueHolder) command.getFacet(FACET_LABEL);
       String label = (String) labelComponent.getValue();

@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
  */
 
 //import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BODY_CONTENT;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -30,14 +31,15 @@ public class PanelRenderer extends FoRendererBase {
   public boolean getRendersChildren() {
     return true;
   }
+
   public void encodeBegin(FacesContext facesContext,
-       UIComponent uiComponent) throws IOException {
+      UIComponent uiComponent) throws IOException {
     Layout.putLayout(uiComponent, Layout.getLayout(uiComponent.getParent()));
     super.encodeBegin(facesContext, uiComponent);
   }
 
   public void encodeEnd(FacesContext facesContext,
-       UIComponent uiComponent) throws IOException {
+      UIComponent uiComponent) throws IOException {
 
   }
 }

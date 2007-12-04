@@ -29,6 +29,7 @@ import java.util.Map;
 import java.util.Collections;
 
 // todo: make more general (e.g. support other trees)
+
 // todo: Should be the model for the whole tree, (also for tc:treeNode on the JSP)
 public class TreeModel {
 

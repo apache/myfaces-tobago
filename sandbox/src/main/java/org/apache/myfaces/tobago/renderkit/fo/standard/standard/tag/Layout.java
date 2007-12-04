@@ -36,6 +36,7 @@ public class Layout {
   private int width;
   private int height;
   private int orientation = NONE_ORIENTATION;
+
   public Layout(int x, int y, int width, int height) {
     this.x = x;
     this.y = y;
@@ -58,9 +59,11 @@ public class Layout {
   public Layout getParent() {
     return parent;
   }
+
   public static String getMM(int value) {
-    return DecimalFormat.getNumberInstance(Locale.US).format(value/10.0)+"mm";
+    return DecimalFormat.getNumberInstance(Locale.US).format(value / 10.0) + "mm";
   }
+
   public void setParent(Layout parent) {
     this.parent = parent;
   }
@@ -68,18 +71,23 @@ public class Layout {
   public int getX() {
     return x;
   }
+
   public String getXMM() {
     return getMM(getX());
   }
+
   public String getYMM() {
     return getMM(getX());
   }
+
   public String getHeightMM() {
     return getMM(getHeight());
   }
+
   public String getWidthMM() {
     return getMM(getWidth());
   }
+
   public void setX(int x) {
     this.x = x;
   }
@@ -107,29 +115,32 @@ public class Layout {
   public void setHeight(int height) {
     this.height = height;
   }
+
   public void addMargin(int top, int bottom, int left, int right) {
-    if (!(orientation==TOP_ORIENTATION)) {
-      x +=left;
-      width -=(left+right);
+    if (!(orientation == TOP_ORIENTATION)) {
+      x += left;
+      width -= (left + right);
     }
-    if (!(orientation==LEFT_ORIENTATION)) {
-      height -=(top+bottom);
-      y +=top;
+    if (!(orientation == LEFT_ORIENTATION)) {
+      height -= (top + bottom);
+      y += top;
     }
 
   }
+
   public boolean hasParent() {
     return parent != null;
   }
 
   public Layout createWithMargin(int top, int bottom, int left, int right) {
-    return new Layout(getX()+left, getY()+top, getWidth()-(left+right), getHeight()-(top+bottom));
+    return new Layout(getX() + left, getY() + top, getWidth() - (left + right), getHeight() - (top + bottom));
   }
 
   public String toInnerString() {
     return
-    "[x=" + x + ",y=" + y + ",width=" + width + ",height=" + height + "]";
+        "[x=" + x + ",y=" + y + ",width=" + width + ",height=" + height + "]";
   }
+
   public StringBuilder append(StringBuilder builder) {
     if (hasParent()) {
       getParent().append(builder);
@@ -139,18 +150,23 @@ public class Layout {
 
     return builder;
   }
+
   public String toString() {
     return append(new StringBuilder()).toString();
   }
+
   public static void putLayout(UIComponent component, Layout layout) {
     component.getAttributes().put("fo:layout", layout);
   }
+
   public static void setInLayout(UIComponent component, boolean layout) {
     component.getAttributes().put("fo:layoutMode", "LayoutMode");
   }
+
   public static boolean isInLayout(UIComponent component) {
     return component.getAttributes().containsKey("fo:layoutMode");
   }
+
   public static Layout getLayout(UIComponent component) {
     return (Layout) component.getAttributes().get("fo:layout");
   }

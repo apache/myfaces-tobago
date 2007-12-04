@@ -56,7 +56,6 @@ public class UITreeData extends javax.faces.component.UIInput
   // XXX hack: fix this if there is a Listener
   private Object marker;
 
-
 //  @Override public void processDecodes(FacesContext facesContext) {
 //    LOG.info("processDecodes for nodes");
 //    LOG.warn("todo"); // todo

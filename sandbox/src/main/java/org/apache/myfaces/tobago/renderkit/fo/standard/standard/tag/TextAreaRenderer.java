@@ -37,28 +37,29 @@ public class TextAreaRenderer extends InputRendererBase {
   public boolean getRendersChildren() {
     return false;
   }
+
   public void encodeEnd(FacesContext facesContext,
-        UIComponent component) throws IOException {
-      String text = ComponentUtil.currentValue(component);
-      if (text == null) {
-        text = "";
-      }
-      Layout layout = Layout.getLayout(component.getParent());
-      //layout.addMargin(200, 0, 0, 0);
-
-      ResponseWriter writer = facesContext.getResponseWriter();
-     if (!Layout.isInLayout(component)) {
-        FoUtils.startBlockContainer(writer, component);
-        FoUtils.layoutBlockContainer(writer, FoUtils.DEFAULT_HEIGHT, layout.getWidth(), layout.getX(), layout.getY());
-      }
-      FoUtils.writeTextBlockAlignLeft(writer, component, "TextArea");
-      if (!Layout.isInLayout(component)) {
-        FoUtils.endBlockContainer(writer);
-      }
-      if (!Layout.isInLayout(component)) {
-        layout.addMargin(200, 0, 0, 0);
-      }
-
+      UIComponent component) throws IOException {
+    String text = ComponentUtil.currentValue(component);
+    if (text == null) {
+      text = "";
     }
+    Layout layout = Layout.getLayout(component.getParent());
+    //layout.addMargin(200, 0, 0, 0);
+
+    ResponseWriter writer = facesContext.getResponseWriter();
+    if (!Layout.isInLayout(component)) {
+      FoUtils.startBlockContainer(writer, component);
+      FoUtils.layoutBlockContainer(writer, FoUtils.DEFAULT_HEIGHT, layout.getWidth(), layout.getX(), layout.getY());
+    }
+    FoUtils.writeTextBlockAlignLeft(writer, component, "TextArea");
+    if (!Layout.isInLayout(component)) {
+      FoUtils.endBlockContainer(writer);
+    }
+    if (!Layout.isInLayout(component)) {
+      layout.addMargin(200, 0, 0, 0);
+    }
+
+  }
 
 }

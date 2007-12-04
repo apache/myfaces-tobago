@@ -86,7 +86,7 @@ public class GridLayoutRenderer extends FoRendererBase
     }
   }
 
-  public void layoutBegin(FacesContext facesContext, UIComponent component)  {
+  public void layoutBegin(FacesContext facesContext, UIComponent component) {
   }
 
   private void layoutEnd(FacesContext facesContext, UIComponent component) {
@@ -96,8 +96,8 @@ public class GridLayoutRenderer extends FoRendererBase
           + component.getParent().getClientId(facesContext));
     }
     layout.setOrientation(Layout.TOP_ORIENTATION);
-    if (component.getAttributes().get("columns")!=null) {
-       layout.setOrientation(Layout.LEFT_ORIENTATION);
+    if (component.getAttributes().get("columns") != null) {
+      layout.setOrientation(Layout.LEFT_ORIENTATION);
     }
     Layout.putLayout(component, layout);
     LOG.error(layout);
@@ -110,41 +110,41 @@ public class GridLayoutRenderer extends FoRendererBase
     ResponseWriter writer = facesContext.getResponseWriter();
     LOG.error("parent is " + component.getParent() + "|"
         + component.getParent().getClientId(facesContext) + " component is "
-        + component + "|"+component.getClientId(facesContext));
+        + component + "|" + component.getClientId(facesContext));
     if (children.size() > 0) {
-      int incrementX = layout.getWidth()/children.size();
-      int incrementY = layout.getHeight()/children.size();
+      int incrementX = layout.getWidth() / children.size();
+      int incrementY = layout.getHeight() / children.size();
       int height = layout.getHeight();
       int width = layout.getWidth();
       int x = layout.getX();
       int y = layout.getY();
 
-    for (int i = 0; i < children.size(); i++) {
-      LOG.error("i = " + i + " size = " + children.size());
+      for (int i = 0; i < children.size(); i++) {
+        LOG.error("i = " + i + " size = " + children.size());
 
-      UIComponent cell = (UIComponent) children.get(i);
-      //LOG.error(cell+ " | "+cell.getClientId(facesContext));
-      if (!(cell instanceof UIMessages || cell instanceof UIGridLayout)) {
-      try {
-        FoUtils.startBlockContainer(writer, component);
-        if (layout.getOrientation() == Layout.TOP_ORIENTATION) {
+        UIComponent cell = (UIComponent) children.get(i);
+        //LOG.error(cell+ " | "+cell.getClientId(facesContext));
+        if (!(cell instanceof UIMessages || cell instanceof UIGridLayout)) {
+          try {
+            FoUtils.startBlockContainer(writer, component);
+            if (layout.getOrientation() == Layout.TOP_ORIENTATION) {
 
-          FoUtils.layoutBlockContainer(writer, incrementY,
-              width, x, y+incrementY*i);
-        } else {
-          FoUtils.layoutBlockContainer(writer, height,
-              incrementY, x+incrementX*i, y);
+              FoUtils.layoutBlockContainer(writer, incrementY,
+                  width, x, y + incrementY * i);
+            } else {
+              FoUtils.layoutBlockContainer(writer, height,
+                  incrementY, x + incrementX * i, y);
+            }
+            Layout.setInLayout(cell, true);
+
+            encodeSuppe(facesContext, cell);
+
+            FoUtils.endBlockContainer(writer);
+          } catch (IOException e) {
+            LOG.error("", e);
+          }
         }
-        Layout.setInLayout(cell, true);
-        
-        encodeSuppe(facesContext, cell);
-
-        FoUtils.endBlockContainer(writer);
-      } catch (IOException e) {
-        LOG.error("", e);
       }
-      }
-    }
     }
 
   }

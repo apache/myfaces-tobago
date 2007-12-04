@@ -350,27 +350,28 @@ public abstract class AbstractWizard implements Wizard {
   public final void resetSize(int size) {
     this.size = size;
   }
-/*
-  public final boolean isDynamicContent() {
-    return dynamicContent;
-  }
 
-  public final void setDynamicContent() {
-    this.dynamicContent = true;
-    this.staticContentSource = null;
-  }
+  /*
+    public final boolean isDynamicContent() {
+      return dynamicContent;
+    }
 
-  public final void setStaticContent(String staticContentSource) {
-    this.dynamicContent = false;
-    this.staticContentSource = staticContentSource;
-  }
+    public final void setDynamicContent() {
+      this.dynamicContent = true;
+      this.staticContentSource = null;
+    }
 
-  public final String getStaticContentSource() {
-    return staticContentSource;
-  }
+    public final void setStaticContent(String staticContentSource) {
+      this.dynamicContent = false;
+      this.staticContentSource = staticContentSource;
+    }
 
-  public abstract void makeContentDecision(int indexToShow);
-*/
+    public final String getStaticContentSource() {
+      return staticContentSource;
+    }
+
+    public abstract void makeContentDecision(int indexToShow);
+  */
   /*
   * Helper method to reset all attributes
   */

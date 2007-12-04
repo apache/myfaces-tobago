@@ -45,10 +45,10 @@ public class BoxRenderer extends FoRendererBase {
     int width = layout.getWidth();
     int x = 0;
     int y = 0;
-    int boxHeight = height+padding*2+borderWidth;
-    int height2 = layout.getHeight()-boxHeight;
-    int width2 =  layout.getWidth();
-    int x2= 0;
+    int boxHeight = height + padding * 2 + borderWidth;
+    int height2 = layout.getHeight() - boxHeight;
+    int width2 = layout.getWidth();
+    int x2 = 0;
     int y2 = boxHeight;
 
 
@@ -73,10 +73,7 @@ public class BoxRenderer extends FoRendererBase {
     Layout.putLayout(component, layout);
 
 
-
   }
-
-
 
 
   public void encodeEnd(FacesContext facesContext,

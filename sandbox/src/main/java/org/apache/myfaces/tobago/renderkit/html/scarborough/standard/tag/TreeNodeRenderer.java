@@ -271,13 +271,13 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
       String gif = expanded
           ? (depth == 0
-            ? "Rminus.gif"
-            : (hasNextSibling ? "Tminus.gif" : "Lminus.gif"))
+          ? "Rminus.gif"
+          : (hasNextSibling ? "Tminus.gif" : "Lminus.gif"))
           : ((depth == 0)
-            ? "Rplus.gif"
-            : (hasNextSibling)
-              ? (isFolder ? "Tplus.gif" : "T.gif")
-              : (isFolder ? "Lplus.gif" : "L.gif")
+          ? "Rplus.gif"
+          : (hasNextSibling)
+          ? (isFolder ? "Tplus.gif" : "T.gif")
+          : (isFolder ? "Lplus.gif" : "L.gif")
       );
 
       String src = ResourceManagerUtil.getImageWithPath(facesContext, "image/" + gif);
@@ -321,13 +321,13 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
   private String createOnclickForToggle(FacesContext facesContext, String treeId, String image) {
     String openImage = image;
-      if (image == null) {
-        openImage = "image/openfoldericon.gif";
-        image = "image/foldericon.gif";
-      }
+    if (image == null) {
+      openImage = "image/openfoldericon.gif";
+      image = "image/foldericon.gif";
+    }
     return "tobagoTreeNodeToggle(this.parentNode, '" + treeId + "', '"
-          + ResourceManagerUtil.getImageWithPath(facesContext, openImage) + "', '"
-          + ResourceManagerUtil.getImageWithPath(facesContext, image) + "', null, null)";
+        + ResourceManagerUtil.getImageWithPath(facesContext, openImage) + "', '"
+        + ResourceManagerUtil.getImageWithPath(facesContext, image) + "', null, null)";
   }
 
 /*

@@ -39,9 +39,8 @@ public class InRenderer extends InputRendererBase {
   private static final Log LOG = LogFactory.getLog(InRenderer.class);
 
 
-
   public void encodeEnd(FacesContext facesContext,
-        UIComponent component) throws IOException {
+      UIComponent component) throws IOException {
     UIComponent label = component.getFacet(FACET_LABEL);
 
     ResponseWriter writer = facesContext.getResponseWriter();
@@ -53,7 +52,7 @@ public class InRenderer extends InputRendererBase {
       if (!Layout.isInLayout(component)) {
         FoUtils.startBlockContainer(writer, component);
         FoUtils.layoutBlockContainer(writer, FoUtils.DEFAULT_HEIGHT,
-            layout.getWidth()/2, layout.getX(), layout.getY());
+            layout.getWidth() / 2, layout.getX(), layout.getY());
       }
       RenderUtil.encode(facesContext, label);
       if (!Layout.isInLayout(component)) {
@@ -68,8 +67,8 @@ public class InRenderer extends InputRendererBase {
     }
     if (!Layout.isInLayout(component)) {
       FoUtils.startBlockContainer(writer, component);
-      FoUtils.layoutBlockContainer(writer, FoUtils.DEFAULT_HEIGHT, 
-          layout.getWidth()/2, layout.getX()+layout.getWidth()/2, layout.getY());
+      FoUtils.layoutBlockContainer(writer, FoUtils.DEFAULT_HEIGHT,
+          layout.getWidth() / 2, layout.getX() + layout.getWidth() / 2, layout.getY());
     }
     FoUtils.writeTextBlockAlignLeft(writer, component, "TextBox");
     if (!Layout.isInLayout(component)) {
@@ -78,7 +77,7 @@ public class InRenderer extends InputRendererBase {
     if (!Layout.isInLayout(component)) {
       layout.addMargin(200, 0, 0, 0);
     }
-    }
+  }
 
   public boolean getRendersChildren() {
     return false;

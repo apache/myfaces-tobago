@@ -43,7 +43,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
     uiComponent = "org.apache.myfaces.tobago.component.UITreeNode",
     rendererType = "TreeNode",
     facets = {
-      @Facet(name="addendum", description = "Displays an additional component to a node.")})
+    @Facet(name = "addendum", description = "Displays an additional component to a node.")})
 public interface TreeNodeTagDeclaration
     extends HasIdBindingAndRendered, HasLabel, HasValue, HasMarkup, AbstractCommandTagDeclaration, HasTip, HasTarget,
     HasImage, IsDisabled {

@@ -45,7 +45,7 @@ public class PageRenderer extends PageRendererBase {
   private static final String MASTER_NAME = "master-name";
 
   public void encodeChildren(FacesContext facesContext, UIComponent component)
-       throws IOException {
+      throws IOException {
     LOG.error("Encode Children");
     super.encodeChildren(facesContext, component);
   }
@@ -58,7 +58,7 @@ public class PageRenderer extends PageRendererBase {
     UIPage page = (UIPage) component;
     Layout layout = new Layout(2100, 2970);
     int margin = 60;
-    Layout in = layout.createWithMargin(margin*2, margin*2, margin, margin);
+    Layout in = layout.createWithMargin(margin * 2, margin * 2, margin, margin);
     in.setParent(layout);
 
 
@@ -104,7 +104,6 @@ public class PageRenderer extends PageRendererBase {
 
     writer.flush();
   }
-
 
 
 }
