@@ -27,8 +27,6 @@ import java.util.Collection;
 import java.util.Set;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 30.03.2006
  * Time: 19:19:14
  */

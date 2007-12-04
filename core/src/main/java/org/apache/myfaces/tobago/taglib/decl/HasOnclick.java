@@ -21,17 +21,17 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 19.04.2006
  * Time: 11:40:11
  */
 public interface HasOnclick {
   /**
    * Script to be invoked when clicked
+   *
    * @param onclick
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
   void setOnclick(String onclick);
 
 }

@@ -25,7 +25,7 @@ import javax.faces.el.EvaluationException;
 import javax.faces.el.VariableResolver;
 
 /**
- * @deprecated use UserWrapper as managed bean in request scope instead. 
+ * @deprecated use UserWrapper as managed bean in request scope instead.
  */
 @Deprecated
 public class UserVariableResolverImpl extends VariableResolver {

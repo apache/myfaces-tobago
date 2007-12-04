@@ -87,9 +87,11 @@ public abstract class LayoutableRendererBase
   public int getFixedWidth(FacesContext facesContext, UIComponent component) {
     return getFixedSpace(facesContext, component, true);
   }
+
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     return getFixedSpace(facesContext, component, false);
   }
+
   public int getFixedSpace(FacesContext facesContext, UIComponent component, boolean width) {
 
     int fixedSpace = 0;
@@ -119,7 +121,7 @@ public abstract class LayoutableRendererBase
   }
 
   private int getFixedSpace(FacesContext facesContext, UIComponent component,
-                            String attr, String attrFixed) {
+      String attr, String attrFixed) {
     int intSpace = -1;
     String space = null;
     if (component != null) {
@@ -141,13 +143,13 @@ public abstract class LayoutableRendererBase
 
   protected void checkForCommandFacet(UIComponent component, FacesContext facesContext, TobagoResponseWriter writer)
       throws IOException {
-    checkForCommandFacet(component, Arrays.asList(component.getClientId(facesContext)) , facesContext, writer);
+    checkForCommandFacet(component, Arrays.asList(component.getClientId(facesContext)), facesContext, writer);
   }
 
   protected void checkForCommandFacet(UIComponent component, List<String> clientIds, FacesContext facesContext,
       TobagoResponseWriter writer) throws IOException {
     Map<String, UIComponent> facets = component.getFacets();
-    for (Map.Entry<String, UIComponent> entry: facets.entrySet()) {
+    for (Map.Entry<String, UIComponent> entry : facets.entrySet()) {
       if (entry.getValue() instanceof UICommand) {
         addCommandFacet(clientIds, entry, facesContext, writer);
       }
@@ -158,7 +160,7 @@ public abstract class LayoutableRendererBase
   private void addCommandFacet(List<String> clientIds, Map.Entry<String, UIComponent> facetEntry,
       FacesContext facesContext, TobagoResponseWriter writer) throws
       IOException {
-    for (String clientId: clientIds) {
+    for (String clientId : clientIds) {
       writeScriptForClientId(clientId, facetEntry, facesContext, writer);
     }
   }
@@ -168,13 +170,13 @@ public abstract class LayoutableRendererBase
     if (facetEntry.getValue() instanceof UICommand
         && ((UICommand) facetEntry.getValue()).getRenderedPartially().length > 0) {
       String script =
-          "var element = Tobago.element(\"" + clientId  + "\");\n"
+          "var element = Tobago.element(\"" + clientId + "\");\n"
               + "if (element) {\n"
               + "   Tobago.addEventListener(element, \"" + facetEntry.getKey()
               + "\", function(){Tobago.reloadComponent('"
-              + HtmlRendererUtil.getComponentId(facesContext, facetEntry.getValue(), 
+              + HtmlRendererUtil.getComponentId(facesContext, facetEntry.getValue(),
               ((UICommand) facetEntry.getValue()).getRenderedPartially()[0]) + "','"
-              + facetEntry.getValue().getClientId(facesContext)  + "', {})});\n"
+              + facetEntry.getValue().getClientId(facesContext) + "', {})});\n"
               + "}";
       writer.writeJavascript(script);
     } else {
@@ -184,7 +186,7 @@ public abstract class LayoutableRendererBase
         facetAction = "Tobago.submitAction('" + facetComponent.getClientId(facesContext) + "')";
       }
       String script =
-          "var element = Tobago.element(\"" + clientId  + "\");\n"
+          "var element = Tobago.element(\"" + clientId + "\");\n"
               + "if (element) {\n"
               + "   Tobago.addEventListener(element, \"" + facetEntry.getKey() + "\", function(){"
               + facetAction + "});\n}";

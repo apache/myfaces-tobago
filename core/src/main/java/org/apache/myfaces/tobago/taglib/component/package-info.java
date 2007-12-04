@@ -6,8 +6,7 @@
 @org.apache.myfaces.tobago.apt.annotation.Taglib(
     shortName = "tc", uri = "http://myfaces.apache.org/tobago/component",
     listener = "org.apache.myfaces.tobago.webapp.TobagoServletContextListener",
-    fileName = "tobago.tld", displayName = "Tobago Components")
-package org.apache.myfaces.tobago.taglib.component;
+    fileName = "tobago.tld", displayName = "Tobago Components") package org.apache.myfaces.tobago.taglib.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more

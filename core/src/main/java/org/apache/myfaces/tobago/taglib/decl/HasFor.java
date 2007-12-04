@@ -25,8 +25,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface HasFor {
   /**
-   *  Id of the component, this is related to. 
+   * Id of the component, this is related to.
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
   void setFor(String forComponent);
 }

@@ -18,8 +18,6 @@ package org.apache.myfaces.tobago.util;
  */
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Oct 30, 2006
  * Time: 10:26:27 PM
  */
@@ -56,7 +54,7 @@ public class ContentType {
   }
 
   public String toString() {
-    return primaryType+"/"+subType;
+    return primaryType + "/" + subType;
   }
 
   public static ContentType valueOf(String s) {

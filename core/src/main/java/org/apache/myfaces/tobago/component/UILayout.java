@@ -41,7 +41,6 @@ public abstract class UILayout extends UIComponentBase {
   }
 
 
-
   public static void prepareDimension(FacesContext facesContext, UIComponent component) {
 //    LOG.info("prepareDimension for " + component.getClientId(facesContext) + " is " + component.getRendererType());
     setInnerWidth(facesContext, component);
@@ -49,7 +48,7 @@ public abstract class UILayout extends UIComponentBase {
   }
 
   private static void setInnerWidth(FacesContext facesContext, UIComponent component) {
-    Integer  layoutWidth = LayoutUtil.getLayoutWidth(component);
+    Integer layoutWidth = LayoutUtil.getLayoutWidth(component);
     if (layoutWidth != null) {
       int space = layoutWidth.intValue();
       int innerSpace = LayoutUtil.getInnerSpace(facesContext, component, space, true);
@@ -58,7 +57,7 @@ public abstract class UILayout extends UIComponentBase {
   }
 
   private static void setInnerHeight(FacesContext facesContext, UIComponent component) {
-    Integer  layoutHeight = LayoutUtil.getLayoutHeight(component);
+    Integer layoutHeight = LayoutUtil.getLayoutHeight(component);
     if (layoutHeight != null) {
       int space = layoutHeight.intValue();
       int innerSpace = LayoutUtil.getInnerSpace(facesContext, component, space, false);

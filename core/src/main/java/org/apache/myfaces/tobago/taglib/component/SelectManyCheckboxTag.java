@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import javax.faces.component.UIComponent;
 
 
-
 public class SelectManyCheckboxTag extends SelectManyTag implements SelectManyCheckboxTagDeclaration {
 
   private String renderRange;

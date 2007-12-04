@@ -27,8 +27,6 @@ import javax.persistence.GenerationType;
 import java.io.Serializable;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Feb 19, 2007
  * Time: 7:45:33 PM
  */

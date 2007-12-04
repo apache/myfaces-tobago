@@ -25,8 +25,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 31.03.2006
  * Time: 22:36:59
  */
@@ -40,5 +38,5 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneCommand",
     rendererType = "MenuCommand")
 public interface ToolBarSelectOneTagDeclaration extends TobagoTagDeclaration, AbstractCommandTagDeclaration,
-    HasIdBindingAndRendered, IsDisabled, HasCommandType, HasValue{
+    HasIdBindingAndRendered, IsDisabled, HasCommandType, HasValue {
 }

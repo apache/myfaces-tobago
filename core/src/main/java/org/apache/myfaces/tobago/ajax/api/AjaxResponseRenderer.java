@@ -71,7 +71,7 @@ public class AjaxResponseRenderer {
       Context ctx = (Context) ic.lookup("java:comp/env");
       contentType = (String) ctx.lookup("tobago.ajax.contentType");
     } catch (NamingException e) { /*ignore*/ }
-    
+
     if (StringUtils.isBlank(contentType)) {
       contentType = "text/html";
     }
@@ -147,7 +147,7 @@ public class AjaxResponseRenderer {
   }
 
   private void writeResponse(FacesContext facesContext, RenderKit renderKit,
-                             List<FastStringWriter> parts, String state)
+      List<FastStringWriter> parts, String state)
       throws IOException {
     writeResponse(facesContext, renderKit, CODE_SUCCESS, parts, state);
   }
@@ -202,7 +202,7 @@ public class AjaxResponseRenderer {
   }
 
   private void writeResponse(FacesContext facesContext, RenderKit renderKit,
-                             String responseCode, List<FastStringWriter> responseParts, String jsfState)
+      String responseCode, List<FastStringWriter> responseParts, String jsfState)
       throws IOException {
     ExternalContext externalContext = facesContext.getExternalContext();
     RequestUtils.ensureEncoding(externalContext);

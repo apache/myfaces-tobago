@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
     uiComponent = "org.apache.myfaces.tobago.component.UIProgress",
     rendererType = "Progress",
     facets = {@Facet(
-        name="complete",
+        name = "complete",
         description =
             "Contains an instance of UICommand (tc:command). The action is invoked if the full progress has reached")})
 public interface ProgressTagDeclaration extends BeanTagDeclaration, HasIdBindingAndRendered, HasTip, HasMarkup {
@@ -48,6 +48,6 @@ public interface ProgressTagDeclaration extends BeanTagDeclaration, HasIdBinding
    * The current value of this component.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = { "javax.swing.BoundedRangeModel" })
+  @UIComponentTagAttribute(type = {"javax.swing.BoundedRangeModel"})
   void setValue(String value);
 }

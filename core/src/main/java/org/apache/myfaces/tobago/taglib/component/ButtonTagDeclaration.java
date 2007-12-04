@@ -35,8 +35,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 10.02.2006
  * Time: 22:00:03
  */
@@ -50,10 +48,10 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
     uiComponent = "org.apache.myfaces.tobago.component.UIButtonCommand",
     rendererType = "Button",
     facets = {
-        @Facet(name="confirmation", description = "Contains a UIOutput instance with the confirmation message."),
-        @Facet(name="popup", description = "Contains a UIPopup instance.")})
+    @Facet(name = "confirmation", description = "Contains a UIOutput instance with the confirmation message."),
+    @Facet(name = "popup", description = "Contains a UIPopup instance.")})
 public interface ButtonTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
-    IsDisabled, HasCommandType, IsDefaultCommand, HasDeprecatedWidth, HasTip, 
+    IsDisabled, HasCommandType, IsDefaultCommand, HasDeprecatedWidth, HasTip,
     IsInline, HasTarget, HasMarkup, HasTabIndex {
 }

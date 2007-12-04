@@ -25,14 +25,12 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.UIToolBar;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 11.02.2006
  * Time: 14:07:05
  */
 
 /**
- * <p />
+ * <p/>
  * Renders a toolbar.<p />
  * Allowed subcomponents are subtypes of UICommand i.e.
  * <code>'button'</code> and <code>'link'</code> tags.

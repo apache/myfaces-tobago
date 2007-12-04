@@ -23,12 +23,10 @@ import org.apache.myfaces.tobago.component.UICommand;
 import javax.faces.component.UIComponent;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 05.08.2006
  * Time: 11:59:21
  */
-public class CommandTag  extends AbstractCommandTag implements CommandTagDeclaration {
+public class CommandTag extends AbstractCommandTag implements CommandTagDeclaration {
   private String renderedPartially;
 
   public void release() {

@@ -27,8 +27,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 10.04.2006
  * Time: 20:29:42
  */

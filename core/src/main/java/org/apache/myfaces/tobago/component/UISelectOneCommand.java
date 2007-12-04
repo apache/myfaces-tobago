@@ -18,12 +18,10 @@ package org.apache.myfaces.tobago.component;
  */
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 31.03.2006
  * Time: 20:58:31
  */
 public class UISelectOneCommand extends UICommand {
 
-   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SelectOneCommand";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SelectOneCommand";
 }

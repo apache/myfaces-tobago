@@ -26,8 +26,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 31.03.2006
  * Time: 22:07:57
  */

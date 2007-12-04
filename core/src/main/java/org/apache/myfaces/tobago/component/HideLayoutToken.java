@@ -17,9 +17,7 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-/**
- * Created by IntelliJ IDEA.
- * User: bommel
+/*
  * Date: May 2, 2007
  * Time: 7:17:34 PM
  */

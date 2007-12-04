@@ -25,10 +25,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface HasBorder {
   /**
-   *
-   *  Border size of this component.
-   *
+   * Border size of this component.
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
   void setBorder(String border);
 }

@@ -21,8 +21,6 @@ import javax.faces.context.FacesContext;
 
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 10.02.2006
  * Time: 19:13:51
  */
@@ -39,7 +37,7 @@ public class UIHiddenInput extends javax.faces.component.UIInput {
   }
 
   public Object saveState(FacesContext context) {
-    Object[] values  = new Object[2];
+    Object[] values = new Object[2];
     values[0] = super.saveState(context);
     values[1] = inline;
     return values;

@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 @Deprecated
 public interface HasDeprecatedHeight {
   /**
-   *  The height for this component.
+   * The height for this component.
    */
   @TagAttribute
   @UIComponentTagAttribute()

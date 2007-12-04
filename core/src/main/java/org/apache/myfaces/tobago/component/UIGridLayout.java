@@ -67,14 +67,14 @@ public class UIGridLayout extends UILayout {
   private List<Row> layoutRows;
 
   public LayoutTokens getRowLayout() {
-    if (rowLayout==null) {
+    if (rowLayout == null) {
       rowLayout = LayoutTokens.parse(getRows());
     }
     return rowLayout;
   }
 
   public LayoutTokens getColumnLayout() {
-    if (columnLayout==null) {
+    if (columnLayout == null) {
       columnLayout = LayoutTokens.parse(getColumns());
     }
     return columnLayout;
@@ -251,7 +251,7 @@ public class UIGridLayout extends UILayout {
     marginTop = (String) values[6];
     marginBottom = (String) values[7];
     border = (String) values[8];
-    cellspacing = (String) values[9];   
+    cellspacing = (String) values[9];
   }
 
   @Override
@@ -430,7 +430,7 @@ public class UIGridLayout extends UILayout {
   public static class Marker implements Serializable {
     private static final long serialVersionUID = 2505999420762504893L;
     private final String name;
-    private boolean rendered;    
+    private boolean rendered;
 
     private Marker(String name) {
       this.name = name;

@@ -24,8 +24,6 @@ import javax.faces.application.ApplicationFactory;
 import javax.faces.application.Application;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 19.07.2006
  * Time: 15:42:14
  */

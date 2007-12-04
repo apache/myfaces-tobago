@@ -26,8 +26,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface HasTabChangeListenerType {
   /**
    * Fully qualified Java class name of a TabChangeListener to be
-   *  created and registered.
+   * created and registered.
    */
-  @TagAttribute @UIComponentTagAttribute(type = { "java.util.List", "java.util.Map", "java.lang.Object[]" })
+  @TagAttribute
+  @UIComponentTagAttribute(type = {"java.util.List", "java.util.Map", "java.lang.Object[]"})
   void setType(String type);
 }

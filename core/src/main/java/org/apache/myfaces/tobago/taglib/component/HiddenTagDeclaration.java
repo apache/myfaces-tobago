@@ -33,7 +33,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasValidator;
  */
 /**
  * Renders a 'hidden' input element.
- * 
  */
 @Tag(name = "hidden")
 @UIComponentTag(

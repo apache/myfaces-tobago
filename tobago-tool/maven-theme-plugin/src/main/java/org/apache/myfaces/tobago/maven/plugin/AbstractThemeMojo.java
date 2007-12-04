@@ -23,9 +23,7 @@ import org.codehaus.plexus.util.DirectoryScanner;
 
 import java.io.File;
 
-/**
- * Created by IntelliJ IDEA.
- * User: bommel
+/*
  * Date: 23.10.2005
  * Time: 16:37:04
  */

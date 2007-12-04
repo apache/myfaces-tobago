@@ -25,11 +25,10 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface HasRowLayout {
   /**
-   *
    * LayoutConstraints for column layout.
    * Semicolon separated list of layout tokens ('&lt;x>*', '&lt;x>px', '&lt;x>%' or 'fixed').
-   *
    */
-  @TagAttribute @UIComponentTagAttribute(defaultValue = "1*")
+  @TagAttribute
+  @UIComponentTagAttribute(defaultValue = "1*")
   void setRows(String rows);
 }

@@ -29,6 +29,7 @@ public interface IsInline {
   /**
    * Flag indicating this component should rendered as an inline element.
    */
-  @TagAttribute @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
   void setInline(String inline);
 }

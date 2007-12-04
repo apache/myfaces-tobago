@@ -33,23 +33,20 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 11.02.2006
  * Time: 13:16:47
  */
 
 /**
  * Renders a link element.
- * 
  */
 @Tag(name = "link", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UILinkCommand",
     rendererType = "Link",
-    facets = {@Facet(name="confirmation", description = "Contains a UIOutput instance with the confirmation message.")})
+    facets = {@Facet(name = "confirmation", description = "Contains a UIOutput instance with the confirmation message.")})
 public interface LinkTagDeclaration extends AbstractCommandTagDeclaration,
-    HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, IsInline, 
+    HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, IsInline,
     HasCommandType, HasTarget, HasTip, HasImage, HasMarkup, HasTabIndex {
 }

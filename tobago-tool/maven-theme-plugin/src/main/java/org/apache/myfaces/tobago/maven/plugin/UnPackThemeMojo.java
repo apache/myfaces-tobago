@@ -35,8 +35,6 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipEntry;
 
 /**
- * Created by IntelliJ IDEA.
- * User: bommel
  *
  * @version $Id$
  * @goal resources

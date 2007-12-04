@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @Tag(name = "time")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITimeInput",
-    rendererType =RENDERER_TYPE_TIME)
+    rendererType = RENDERER_TYPE_TIME)
 public interface TimeTagDeclaration
     extends InputTagDeclaration, HasIdBindingAndRendered,
     IsReadonly, IsDisabled, IsInline, HasLabelAndAccessKey, HasTip, IsRequired {

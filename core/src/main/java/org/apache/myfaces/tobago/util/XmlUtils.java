@@ -137,10 +137,10 @@ public class XmlUtils {
     public InputSource resolveEntity(String publicId, String systemId)
         throws SAXException {
       String dtd = "<!ELEMENT properties (comment?, entry*)>"
-              + "<!ATTLIST properties version CDATA #FIXED '1.0'>"
-              + "<!ELEMENT comment (#PCDATA)>"
-              + "<!ELEMENT entry (#PCDATA)>"
-              + "<!ATTLIST entry key CDATA #REQUIRED>";
+          + "<!ATTLIST properties version CDATA #FIXED '1.0'>"
+          + "<!ELEMENT comment (#PCDATA)>"
+          + "<!ELEMENT entry (#PCDATA)>"
+          + "<!ATTLIST entry key CDATA #REQUIRED>";
       InputSource inputSource = new InputSource(new StringReader(dtd));
       inputSource.setSystemId("http://java.sun.com/dtd/properties.dtd");
       return inputSource;

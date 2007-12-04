@@ -28,8 +28,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 08.04.2006
  * Time: 14:53:06
  */
@@ -48,6 +46,7 @@ public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindi
   /**
    * Deprecated! Use 'switchType' instead.
    * Flag indicating that tab switching is done by server request.
+   *
    * @deprecated
    */
   @TagAttribute
@@ -57,11 +56,11 @@ public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindi
 
   /**
    * Flag indicating how tab switching should be done.
-   *
+   * <p/>
    * Possible values are:
-   *   "client"     : Tab switching id done on client, no server Request. This is default.
-   *   "reloadPage" : Tab switching id done by server request. Full page is reloaded.
-   *   "reloadTab"  : Tab switching id done by server request. Only the Tab is reloaded.
+   * "client"     : Tab switching id done on client, no server Request. This is default.
+   * "reloadPage" : Tab switching id done by server request. Full page is reloaded.
+   * "reloadTab"  : Tab switching id done by server request. Only the Tab is reloaded.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.String",
@@ -71,16 +70,14 @@ public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindi
   void setSwitchType(String switchType);
 
   /**
-   *
    * <strong>ValueBindingExpression</strong> pointing to a Integer to save the
    * component's selected Tab.
-   *
    */
-  @TagAttribute @UIComponentTagAttribute(type = "java.lang.Integer")
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer")
   void setSelectedIndex(String selectedIndex);
 
   /**
-   *
    * <strong>ValueBindingExpression</strong> pointing to a Integer to save the
    * component's selected Tab.
    */

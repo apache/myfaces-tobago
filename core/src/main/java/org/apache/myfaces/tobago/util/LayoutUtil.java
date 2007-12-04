@@ -67,7 +67,7 @@ public final class LayoutUtil {
     if (innerSpace == null) {
       int space = -1;
 
-      Integer  spaceInteger;
+      Integer spaceInteger;
       if (width) {
         spaceInteger = getLayoutWidth(component);
       } else {
@@ -145,6 +145,7 @@ public final class LayoutUtil {
   public static Integer getLayoutWidth(UIComponent component) {
     return getLayoutSpace(component, ATTR_WIDTH, ATTR_LAYOUT_WIDTH);
   }
+
   //TODO Change this to DimensionUtils.getHeight?
   public static Integer getLayoutHeight(UIComponent component) {
     return getLayoutSpace(component, ATTR_HEIGHT, ATTR_LAYOUT_HEIGHT);

@@ -65,8 +65,6 @@ import java.util.Map;
 import java.util.Locale;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Sep 25, 2006
  * Time: 9:31:09 PM
  */

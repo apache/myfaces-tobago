@@ -25,8 +25,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface HasTip {
   /**
-   *  Text value to display as tooltip.
+   * Text value to display as tooltip.
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
   void setTip(String tip);
 }

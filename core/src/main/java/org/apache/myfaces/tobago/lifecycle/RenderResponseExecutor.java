@@ -29,7 +29,7 @@ import java.io.IOException;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
- *
+ * <p/>
  * render response phase (JSF Spec 2.2.6)
  */
 class RenderResponseExecutor implements PhaseExecutor {

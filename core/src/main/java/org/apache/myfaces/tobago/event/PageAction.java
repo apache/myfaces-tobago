@@ -22,32 +22,32 @@ public enum PageAction {
   /**
    * First page is requested
    */
-  FIRST ("First"),
+  FIRST("First"),
 
   /**
    * Next page is requested
    */
-  NEXT ("Next"),
+  NEXT("Next"),
 
   /**
    * Previous page is requested
    */
-  PREV ("Prev"),
+  PREV("Prev"),
 
   /**
    * Last page is requested
    */
-  LAST ("Last"),
+  LAST("Last"),
 
   /**
    * A specified row is requested
    */
-  TO_ROW ("ToRow"),
+  TO_ROW("ToRow"),
 
   /**
    * A specified page is requested
    */
-  TO_PAGE ("ToPage");
+  TO_PAGE("ToPage");
 
   private String token;
 

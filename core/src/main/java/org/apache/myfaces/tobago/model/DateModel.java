@@ -69,7 +69,7 @@ public class DateModel {
   public Calendar getCalendar(Locale locale) {
     Calendar calendar = locale != null
         ? Calendar.getInstance(locale) : Calendar.getInstance();
-    calendar.set(year, month-1, day);
+    calendar.set(year, month - 1, day);
     return calendar;
   }
 

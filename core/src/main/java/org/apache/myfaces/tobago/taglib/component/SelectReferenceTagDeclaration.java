@@ -25,8 +25,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 31.03.2006
  * Time: 22:02:37
  */

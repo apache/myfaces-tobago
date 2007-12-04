@@ -87,12 +87,12 @@ public class TobagoConfigParser {
     digester.addCallMethod("tobago-config/ajax-enabled", "setAjaxEnabled", 0);
     digester.addObjectCreate("tobago-config/renderers", RenderersConfigImpl.class);
     digester.addSetNext("tobago-config/renderers", "setRenderersConfig");
-    digester.addObjectCreate("tobago-config/renderers/renderer",  RendererConfig.class);
+    digester.addObjectCreate("tobago-config/renderers/renderer", RendererConfig.class);
     digester.addSetNext("tobago-config/renderers/renderer", "addRenderer");
     digester.addCallMethod("tobago-config/renderers/renderer/name", "setName", 0);
-    digester.addObjectCreate("tobago-config/renderers/renderer/supported-markup",  MarkupConfig.class);
+    digester.addObjectCreate("tobago-config/renderers/renderer/supported-markup", MarkupConfig.class);
     digester.addSetNext("tobago-config/renderers/renderer/supported-markup", "setMarkupConfig");
-    digester.addCallMethod("tobago-config/renderers/renderer/supported-markup/markup", "addMarkup" , 0);
+    digester.addCallMethod("tobago-config/renderers/renderer/supported-markup/markup", "addMarkup", 0);
 
     return digester;
   }
@@ -109,8 +109,8 @@ public class TobagoConfigParser {
       if (input != null) {
         digester.parse(input);
       } else {
-          throw new FacesException(
-              "No config file found: '" + configPath + "'. Tobago can't run without configuration.");
+        throw new FacesException(
+            "No config file found: '" + configPath + "'. Tobago can't run without configuration.");
       }
     } finally {
       IOUtils.closeQuietly(input);
@@ -132,7 +132,7 @@ public class TobagoConfigParser {
     } else {
       LOG.warn(
           "unable to retrieve local DTD '" + TOBAGO_CONFIG_DTD
-          + "'; trying external URL");
+              + "'; trying external URL");
     }
   }
 

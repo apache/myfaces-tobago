@@ -45,8 +45,6 @@ import javax.faces.event.FacesEvent;
 import java.util.Map;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 30.05.2006
  * Time: 19:22:40
  */
@@ -200,7 +198,6 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
     cell.setId("cell2");
     timePanel.getChildren().add(cell);
 
-    
 
     UIComponent buttonPanel = ComponentUtil.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);

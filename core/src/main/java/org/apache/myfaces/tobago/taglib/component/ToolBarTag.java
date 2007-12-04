@@ -70,7 +70,7 @@ public class ToolBarTag extends PanelTag
     this.iconSize = iconSize;
   }
 
-    public void setOrientation(String orientation) {
-        this.orientation = orientation;
-    }
+  public void setOrientation(String orientation) {
+    this.orientation = orientation;
+  }
 }

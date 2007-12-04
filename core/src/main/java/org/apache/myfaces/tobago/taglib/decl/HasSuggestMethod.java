@@ -27,12 +27,10 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface HasSuggestMethod {
 
   /**
-   *
-   * 
    * @param suggestMethod
    */
-   @TagAttribute
-   @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding", expression = DynamicExpression.METHOD_BINDING)
-   void setSuggestMethod(String suggestMethod);
+  @TagAttribute
+  @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding", expression = DynamicExpression.METHOD_BINDING)
+  void setSuggestMethod(String suggestMethod);
 
 }

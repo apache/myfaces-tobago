@@ -23,8 +23,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Feb 17, 2007
  * Time: 8:51:48 AM
  */

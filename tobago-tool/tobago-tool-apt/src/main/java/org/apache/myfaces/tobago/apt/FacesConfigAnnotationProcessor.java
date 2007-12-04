@@ -30,8 +30,6 @@ import java.util.Set;
 
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Sep 25, 2006
  * Time: 9:26:19 PM
  */

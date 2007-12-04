@@ -25,10 +25,11 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface HasId {
   /**
-   *  The component identifier for this component.
-   *  This value must be unique within the closest
-   *  parent component that is a naming container.
+   * The component identifier for this component.
+   * This value must be unique within the closest
+   * parent component that is a naming container.
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
   void setId(String id);
 }

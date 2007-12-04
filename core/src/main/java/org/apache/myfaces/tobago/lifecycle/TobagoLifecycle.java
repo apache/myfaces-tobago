@@ -54,7 +54,7 @@ public class TobagoLifecycle extends Lifecycle {
 
   public TobagoLifecycle() {
     // hide from public access
-    lifecycleExecutors = new PhaseExecutor[] {
+    lifecycleExecutors = new PhaseExecutor[]{
         new RestoreViewExecutor(),
         new ApplyRequestValuesExecutor(),
         new ProcessValidationsExecutor(),
@@ -76,7 +76,7 @@ public class TobagoLifecycle extends Lifecycle {
   }
 
   private boolean executePhase(FacesContext facesContext, PhaseExecutor executor,
-                               PhaseListenerManager phaseListenerMgr)
+      PhaseListenerManager phaseListenerMgr)
       throws FacesException {
 
     boolean skipFurtherProcessing = false;
@@ -91,15 +91,15 @@ public class TobagoLifecycle extends Lifecycle {
     try {
       phaseListenerMgr.informPhaseListenersBefore(executor.getPhase());
 
-      if(isResponseComplete(facesContext, executor.getPhase(), true)) {
+      if (isResponseComplete(facesContext, executor.getPhase(), true)) {
         // have to return right away
         return true;
       }
-      if(shouldRenderResponse(facesContext, executor.getPhase(), true)) {
+      if (shouldRenderResponse(facesContext, executor.getPhase(), true)) {
         skipFurtherProcessing = true;
       }
 
-      if(executor.execute(facesContext)) {
+      if (executor.execute(facesContext)) {
         return true;
       }
     } finally {
@@ -122,7 +122,7 @@ public class TobagoLifecycle extends Lifecycle {
 
   public void render(FacesContext facesContext) throws FacesException {
     // if the response is complete we should not be invoking the phase listeners
-    if(isResponseComplete(facesContext, renderExecutor.getPhase(), true)) {
+    if (isResponseComplete(facesContext, renderExecutor.getPhase(), true)) {
       return;
     }
     if (LOG.isTraceEnabled()) {
@@ -134,7 +134,7 @@ public class TobagoLifecycle extends Lifecycle {
     try {
       phaseListenerMgr.informPhaseListenersBefore(renderExecutor.getPhase());
       // also possible that one of the listeners completed the response
-      if(isResponseComplete(facesContext, renderExecutor.getPhase(), true)) {
+      if (isResponseComplete(facesContext, renderExecutor.getPhase(), true)) {
         return;
       }
 

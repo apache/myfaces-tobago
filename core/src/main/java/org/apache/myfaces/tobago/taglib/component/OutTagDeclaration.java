@@ -52,7 +52,7 @@ public interface OutTagDeclaration extends
    * This flag is set to "true" by default.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = { "java.lang.Boolean" }, defaultValue = "true")
+  @UIComponentTagAttribute(type = {"java.lang.Boolean"}, defaultValue = "true")
   void setEscape(String escape);
 
   /**
@@ -60,6 +60,6 @@ public interface OutTagDeclaration extends
    * Possible values are 'none', 'strong' and 'deleted'
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none", allowedValues = { "none", "strong", "deleted" })
+  @UIComponentTagAttribute(defaultValue = "none", allowedValues = {"none", "strong", "deleted"})
   void setMarkup(String markup);
 }

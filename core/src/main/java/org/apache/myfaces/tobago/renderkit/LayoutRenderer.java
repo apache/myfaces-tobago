@@ -50,9 +50,9 @@ public abstract class LayoutRenderer extends LayoutableRendererBase {
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     int height = 0;
 
-    if (LOG.isInfoEnabled() &&  component.getChildCount() > 1) {
+    if (LOG.isInfoEnabled() && component.getChildCount() > 1) {
       LOG.info("Can't calculate fixedHeight! "
-                 + "using estimation by contained components. ");
+          + "using estimation by contained components. ");
     }
     height += LayoutUtil.calculateFixedHeightForChildren(facesContext, component);
 

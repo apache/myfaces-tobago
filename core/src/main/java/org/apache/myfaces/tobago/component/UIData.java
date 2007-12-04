@@ -245,7 +245,7 @@ public class UIData extends javax.faces.component.UIData
   }
 
   public LayoutTokens getColumnLayout() {
-    if (columnLayout==null) {
+    if (columnLayout == null) {
       String columns = getColumns();
       if (columns != null) {
         columnLayout = LayoutTokens.parse(columns);
@@ -283,7 +283,7 @@ public class UIData extends javax.faces.component.UIData
       if (allColumns.size() > 0) {
         for (int i = 0; i < allColumns.size(); i++) {
           UIColumn column = allColumns.get(i);
-          if (column.isRendered())  {
+          if (column.isRendered()) {
             if (tokens == null) {
               if (column instanceof org.apache.myfaces.tobago.component.UIColumn) {
                 newTokens.addToken(
@@ -301,7 +301,6 @@ public class UIData extends javax.faces.component.UIData
           }
         }
       }
-
 
 
       int space = LayoutUtil.getInnerSpace(facesContext, this, true);
@@ -332,14 +331,14 @@ public class UIData extends javax.faces.component.UIData
     LayoutTokens tokens = layoutInfo.getLayoutTokens();
     for (int i = 0; i < tokens.getSize(); i++) {
       LayoutToken token = tokens.get(i);
-      if (token  instanceof FixedLayoutToken) {
+      if (token instanceof FixedLayoutToken) {
         int width = 0;
         if (!rendereredColumns.isEmpty()) {
           if (i < rendereredColumns.size()) {
             UIColumn column = rendereredColumns.get(i);
             if (column instanceof UIColumnSelector) {
-                LayoutInformationProvider renderer
-                    = ComponentUtil.getRenderer(facesContext, column);
+              LayoutInformationProvider renderer
+                  = ComponentUtil.getRenderer(facesContext, column);
               if (renderer == null) {
                 LOG.warn("can't find renderer for " + column.getClass().getName());
                 renderer = ComponentUtil.getRenderer(facesContext, UIPanel.COMPONENT_FAMILY, RENDERER_TYPE_OUT);
@@ -385,7 +384,7 @@ public class UIData extends javax.faces.component.UIData
             child.getAttributes().put(
                 ATTR_LAYOUT_WIDTH, width - cellPaddingWidth);
             child.getAttributes().remove(ATTR_INNER_WIDTH);
-           } else {
+          } else {
             LOG.warn("More or less than 1 child in column! "
                 + "Can't set width for column " + i + " to " + width);
           }
@@ -446,7 +445,7 @@ public class UIData extends javax.faces.component.UIData
 
   public boolean isAtEnd() {
     if (!hasRowCount()) {
-      setRowIndex(getFirst()+getRows()+1);
+      setRowIndex(getFirst() + getRows() + 1);
       return !isRowAvailable();
     } else {
       return getFirst() >= getLastPageIndex();
@@ -485,7 +484,6 @@ public class UIData extends javax.faces.component.UIData
       attributes.remove(ATTR_SCROLL_POSITION);
     }
   }
-
 
 
   public Object saveState(FacesContext context) {
@@ -596,7 +594,7 @@ public class UIData extends javax.faces.component.UIData
   private void invokeMethodBinding(MethodBinding methodBinding, FacesEvent event) {
     if (methodBinding != null && event != null) {
       try {
-        Object[] objects = new Object [] {event};
+        Object[] objects = new Object[]{event};
         methodBinding.invoke(getFacesContext(), objects);
       } catch (EvaluationException e) {
         Throwable cause = e.getCause();
@@ -614,7 +612,7 @@ public class UIData extends javax.faces.component.UIData
   }
 
   public SheetStateChangeListener[] getStateChangeListeners() {
-    return  (SheetStateChangeListener[]) getFacesListeners(SheetStateChangeListener.class);
+    return (SheetStateChangeListener[]) getFacesListeners(SheetStateChangeListener.class);
   }
 
   public void removeStateChangeListener(SheetStateChangeListener listener) {
@@ -670,15 +668,15 @@ public class UIData extends javax.faces.component.UIData
     prepareDimensions(facesContext);
     // TODO neets more testing!!!
     //if (!facesContext.getRenderResponse() && !ComponentUtil.hasErrorMessages(facesContext)) {
-      // in encodeBegin of superclass is some logic which clears the DataModel
-      // this must here also done.
-      // in RI and myfaces this could done via setValue(null)
-      ValueBinding binding = getValueBinding("value");
-      if (binding != null) {
-        setValue(null);
-      } else {
-        setValue(getValue());
-      }
+    // in encodeBegin of superclass is some logic which clears the DataModel
+    // this must here also done.
+    // in RI and myfaces this could done via setValue(null)
+    ValueBinding binding = getValueBinding("value");
+    if (binding != null) {
+      setValue(null);
+    } else {
+      setValue(getValue());
+    }
     //}
     AjaxUtils.encodeAjaxComponent(facesContext, this);
   }

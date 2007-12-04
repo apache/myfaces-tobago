@@ -21,17 +21,17 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 19.04.2006
  * Time: 11:41:03
  */
 public interface HasLink {
   /**
    * Link to an arbitrary URL
+   *
    * @param link
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
   void setLink(String link);
 
 }

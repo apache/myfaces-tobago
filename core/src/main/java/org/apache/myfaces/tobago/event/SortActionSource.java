@@ -18,8 +18,6 @@ package org.apache.myfaces.tobago.event;
  */
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 14.04.2006
  * Time: 10:42:38
  */

@@ -146,7 +146,7 @@ public class LayoutInfo {
       if (isFree(i)) {
         if (LOG.isWarnEnabled()) {
           LOG.warn("Illegal layout token pattern \"" + layoutTokens.get(i)
-              + "\" ignored, set to 0px !"+ " clientId='" + clientIdForLogging + "'");
+              + "\" ignored, set to 0px !" + " clientId='" + clientIdForLogging + "'");
         }
         spaces[i] = 0;
       }
@@ -157,7 +157,7 @@ public class LayoutInfo {
   public static String[] createLayoutTokens(String columnLayout, int count, String defaultToken) {
     String[] tokens;
     if (columnLayout != null) {
-      List<String>  list = new ArrayList<String>();
+      List<String> list = new ArrayList<String>();
       StringTokenizer tokenizer = new StringTokenizer(columnLayout, ";");
       while (tokenizer.hasMoreTokens()) {
         String token = tokenizer.nextToken().trim();
@@ -248,7 +248,7 @@ public class LayoutInfo {
         LOG.debug("spaces before spread :" + arrayAsString(spaces) + " clientId='" + clientIdForLogging + "'");
       }
 
-     for (int i = 0; i < layoutTokens.getSize(); i++) {
+      for (int i = 0; i < layoutTokens.getSize(); i++) {
         if (layoutTokens.get(i) instanceof RelativeLayoutToken) {
           addSpace(spaceLeft, i);
           break;
@@ -276,6 +276,7 @@ public class LayoutInfo {
       LOG.debug("spaces after spread  :" + arrayAsString(spaces) + " clientId='" + clientIdForLogging + "'");
     }
   }
+
   //TODO replace with Arrays.asList ..
   private String arrayAsString(int[] currentSpaces) {
     StringBuilder sb = new StringBuilder("[");

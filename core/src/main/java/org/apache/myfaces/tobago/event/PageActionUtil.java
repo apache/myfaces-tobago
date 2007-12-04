@@ -21,8 +21,6 @@ import java.util.Map;
 import java.util.HashMap;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 24.04.2006
  * Time: 21:13:06
  */

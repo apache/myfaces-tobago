@@ -50,8 +50,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 30.03.2006
  * Time: 19:26:18
  */

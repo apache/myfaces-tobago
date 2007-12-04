@@ -20,7 +20,10 @@ package org.apache.myfaces.tobago.model;
 public interface PageState {
 
   int getClientWidth();
+
   void setClientWidth(int width);
+
   int getClientHeight();
+
   void setClientHeight(int height);
 }

@@ -27,8 +27,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.HasTarget;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 31.03.2006
  * Time: 21:14:17
  */
@@ -40,5 +38,5 @@ import org.apache.myfaces.tobago.taglib.decl.HasTarget;
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuCommand",
     rendererType = "MenuCommand")
 public interface MenuCommandTagDeclaration extends TobagoTagDeclaration, AbstractCommandTagDeclaration,
-    HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled,  HasCommandType, HasImage, HasTarget {
+    HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, HasCommandType, HasImage, HasTarget {
 }

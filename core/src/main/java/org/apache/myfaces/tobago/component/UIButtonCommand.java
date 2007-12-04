@@ -23,8 +23,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Feb 17, 2007
  * Time: 8:53:17 AM
  */
@@ -73,7 +71,7 @@ public class UIButtonCommand extends UICommand implements SupportsMarkup {
         return Integer.valueOf(number.intValue());
       }
     }
-    return null;  
+    return null;
   }
 
   public void setTabIndex(Integer tabIndex) {

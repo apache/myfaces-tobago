@@ -40,8 +40,10 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+
 /**
  * Render a set of radiobuttons.
+ *
  * @since 1.0.13
  */
 
@@ -137,7 +139,7 @@ public class SelectOneRadioExtensionTag extends BodyTagSupport
     if (renderRange != null) {
       selectOneRadioTag.setRenderRange(renderRange);
     }
-    
+
     selectOneRadioTag.setParent(labelTag);
     selectOneRadioTag.doStartTag();
 

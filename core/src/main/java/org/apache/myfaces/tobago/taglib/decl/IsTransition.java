@@ -24,6 +24,7 @@ public interface IsTransition {
   /**
    * Specify, if the command calls an JSF-Action.
    * Useful to switch off the Double-Submit-Check and Waiting-Behavior.
+   *
    * @param transition Indicates the transition.
    */
   @TagAttribute

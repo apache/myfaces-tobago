@@ -47,9 +47,10 @@ public interface LabelTagDeclaration extends BeanTagDeclaration, HasIdBindingAnd
     HasLabelWithAccessKey, HasFor, IsInline, HasDeprecatedWidth, HasTip, HasMarkup {
 
   /**
-   *   Text value to display as label. Overwritten by 'labelWithAccessKey'
+   * Text value to display as label. Overwritten by 'labelWithAccessKey'
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
   void setValue(String value);
 
 }

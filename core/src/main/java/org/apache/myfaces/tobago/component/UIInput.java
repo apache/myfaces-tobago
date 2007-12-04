@@ -95,20 +95,20 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
   }
 
   public boolean isDisabled() {
-      if (disabled != null) {
-        return disabled;
-      }
-      ValueBinding vb = getValueBinding(ATTR_DISABLED);
-      if (vb != null) {
-        return (Boolean.TRUE.equals(vb.getValue(getFacesContext())));
-      } else {
-        return false;
-      }
+    if (disabled != null) {
+      return disabled;
     }
+    ValueBinding vb = getValueBinding(ATTR_DISABLED);
+    if (vb != null) {
+      return (Boolean.TRUE.equals(vb.getValue(getFacesContext())));
+    } else {
+      return false;
+    }
+  }
 
-    public void setDisabled(boolean disabled) {
-      this.disabled = disabled;
-    }
+  public void setDisabled(boolean disabled) {
+    this.disabled = disabled;
+  }
 
 
   public boolean isPassword() {

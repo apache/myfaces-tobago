@@ -29,13 +29,15 @@ interface PhaseExecutor {
    * Executes a phase of the JavaServer(tm) Faces lifecycle, like UpdateModelValues.
    * The <code>execute</code> method is called by the lifecylce implementation's private
    * <code>executePhase</code>.
-   * @param facesContext The <code>FacesContext</code> for the current request we are processing 
+   *
+   * @param facesContext The <code>FacesContext</code> for the current request we are processing
    * @return <code>true</code> if execution should be stopped
    */
   boolean execute(FacesContext facesContext);
 
   /**
-   * Returns the <code>PhaseId</code> for which the implemented executor is invoked 
+   * Returns the <code>PhaseId</code> for which the implemented executor is invoked
+   *
    * @return
    */
   PhaseId getPhase();

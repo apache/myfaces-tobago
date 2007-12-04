@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-@org.apache.myfaces.tobago.apt.annotation.Converter(id=DurationConverter.CONVERTER_ID)
+@org.apache.myfaces.tobago.apt.annotation.Converter(id = DurationConverter.CONVERTER_ID)
 public class DurationConverter implements Converter {
 
   private static final Log LOG = LogFactory.getLog(DurationConverter.class);

@@ -42,12 +42,12 @@ public class MessageFactory {
       = new HashMap<Locale, ResourceBundle>();
 
   public static FacesMessage createFacesMessage(FacesContext facesContext,
-      String key, FacesMessage.Severity severity,  Object[] args) {
+      String key, FacesMessage.Severity severity, Object[] args) {
     return createFacesMessage(facesContext, "tobago", key, severity, args);
   }
 
   public static FacesMessage createFacesMessage(FacesContext facesContext,
-        String key, FacesMessage.Severity severity) {
+      String key, FacesMessage.Severity severity) {
     return createFacesMessage(facesContext, key, severity, new Object[0]);
   }
 

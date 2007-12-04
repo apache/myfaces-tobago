@@ -40,7 +40,7 @@ public class LabelExtensionTag extends BodyTagSupport
     implements HasValue, HasTip {
 
   private static final Log LOG = LogFactory.getLog(LabelExtensionTag.class);
-  
+
   public static final String DEFAULT_COLUMNS = "fixed;*";
 
   private String value;

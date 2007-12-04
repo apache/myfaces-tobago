@@ -60,7 +60,7 @@ public class TextAreaTag extends TextInputTag
     this.rows = rows;
   }
 
-   public String getMarkup() {
+  public String getMarkup() {
     return markup;
   }
 

@@ -72,7 +72,7 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
     this.immediate = immediate;
   }
 
-   public boolean isImmediate() {
+  public boolean isImmediate() {
     if (immediate != null) {
       return immediate;
     }
@@ -85,7 +85,7 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
   }
 
   public void queueEvent(FacesEvent event) {
-    if (this == event.getSource()) {      
+    if (this == event.getSource()) {
       if (isImmediate()) {
         event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
       } else {
@@ -120,7 +120,7 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
       UIComponent kid = (UIComponent) o;
       if (kid instanceof UIPanelBase) {
         //if (kid.isRendered()) {
-          tabs.add((UIPanelBase) kid);
+        tabs.add((UIPanelBase) kid);
         //}
       } else {
         LOG.error("Invalid component in UITabGroup: " + kid);
@@ -195,7 +195,7 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
     if (facesEvent instanceof TabChangeEvent && facesEvent.getComponent() == this) {
       Integer index = ((TabChangeEvent) facesEvent).getNewTabIndex();
       ValueBinding vb = getValueBinding(ATTR_SELECTED_INDEX);
-      if (vb !=null) {
+      if (vb != null) {
         vb.setValue(getFacesContext(), index);
       } else {
         setSelectedIndex(index);
@@ -272,7 +272,7 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
   }
 
   public int getSelectedIndex() {
-    if (selectedIndex!=null) {
+    if (selectedIndex != null) {
       return selectedIndex;
     }
     ValueBinding vb = getValueBinding(ATTR_SELECTED_INDEX);
@@ -312,7 +312,7 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
         || SWITCH_TYPE_RELOAD_PAGE.equals(value)
         || SWITCH_TYPE_RELOAD_TAB.equals(value)) {
       return value;
-    } else if (value == null){
+    } else if (value == null) {
       // return default
       return SWITCH_TYPE_CLIENT;
     } else {
@@ -338,7 +338,7 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
         LOG.error("Invalid component in UITabGroup: " + component);
       }
     }
-    LOG.error("Found no component with index: "+ index + " childCount: " + getChildCount());
+    LOG.error("Found no component with index: " + index + " childCount: " + getChildCount());
     return null;
   }
 

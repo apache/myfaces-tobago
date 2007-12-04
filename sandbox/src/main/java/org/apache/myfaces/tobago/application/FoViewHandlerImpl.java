@@ -35,8 +35,6 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Nov 7, 2006
  * Time: 9:09:52 PM
  */

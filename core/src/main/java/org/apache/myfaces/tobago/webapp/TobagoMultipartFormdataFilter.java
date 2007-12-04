@@ -36,36 +36,33 @@ import java.util.Locale;
 /**
  * This filter handles multipart request. It must be enabled in the web.xml of your web application.
  * Usage:
- *
+ * <p/>
  * <p><blockquote><pre>
-  &lt;filter&gt;
-    &lt;filter-name&gt;multipartFormdataFilter&lt;/filter-name&gt;
-    &lt;filter-class&gt;org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataFilter&lt;/filter-class&gt;
-    &lt;init-param&gt;
-      &lt;description&gt;Set the size limit for uploaded files. Default value is 1 MB.
-        Format: 10 = 10 bytes
-        10k = 10 KB
-        10m = 10 MB
-        1g = 1 GB
-      &lt;/description&gt;
-      &lt;param-name&gt;uploadMaxFileSize&lt;/param-name&gt;
-      &lt;param-value&gt;20m&lt;/param-value&gt;
-    &lt;/init-param&gt;
-    &lt;init-param&gt;
-      &lt;description&gt;Set the upload repository path for uploaded files.
-             Default value is java.io.tmpdir.&lt;/description&gt;
-      &lt;param-name&gt;uploadRepositoryPath&lt;/param-name&gt;
-      &lt;param-value&gt;/tmp&lt;/param-value&gt;
-    &lt;/init-param&gt;
-  &lt;/filter&gt;
-  &lt;filter-mapping&gt;
-    &lt;filter-name&gt;multipartFormdataFilter&lt;/filter-name&gt;
-    &lt;url-pattern&gt;/faces/*&lt;/url-pattern&gt;
-  &lt;/filter-mapping&gt;
- </pre></blockquote><p>
-
- *
- *
+ * &lt;filter&gt;
+ * &lt;filter-name&gt;multipartFormdataFilter&lt;/filter-name&gt;
+ * &lt;filter-class&gt;org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataFilter&lt;/filter-class&gt;
+ * &lt;init-param&gt;
+ * &lt;description&gt;Set the size limit for uploaded files. Default value is 1 MB.
+ * Format: 10 = 10 bytes
+ * 10k = 10 KB
+ * 10m = 10 MB
+ * 1g = 1 GB
+ * &lt;/description&gt;
+ * &lt;param-name&gt;uploadMaxFileSize&lt;/param-name&gt;
+ * &lt;param-value&gt;20m&lt;/param-value&gt;
+ * &lt;/init-param&gt;
+ * &lt;init-param&gt;
+ * &lt;description&gt;Set the upload repository path for uploaded files.
+ * Default value is java.io.tmpdir.&lt;/description&gt;
+ * &lt;param-name&gt;uploadRepositoryPath&lt;/param-name&gt;
+ * &lt;param-value&gt;/tmp&lt;/param-value&gt;
+ * &lt;/init-param&gt;
+ * &lt;/filter&gt;
+ * &lt;filter-mapping&gt;
+ * &lt;filter-name&gt;multipartFormdataFilter&lt;/filter-name&gt;
+ * &lt;url-pattern&gt;/faces/*&lt;/url-pattern&gt;
+ * &lt;/filter-mapping&gt;
+ * </pre></blockquote><p>
  */
 public class TobagoMultipartFormdataFilter implements Filter {
 
@@ -87,11 +84,11 @@ public class TobagoMultipartFormdataFilter implements Filter {
       }
     }
 
-    LOG.info("Configure uploadRepositryPath for "+ getClass().getName() + " to "+ this.repositoryPath);
+    LOG.info("Configure uploadRepositryPath for " + getClass().getName() + " to " + this.repositoryPath);
 
     maxSize = TobagoMultipartFormdataRequest.getMaxSize(filterConfig.getInitParameter("uploadMaxFileSize"));
 
-    LOG.info("Configure uploadMaxFileSize for "+ getClass().getName() + " to "+ this.maxSize);
+    LOG.info("Configure uploadMaxFileSize for " + getClass().getName() + " to " + this.maxSize);
 
   }
 

@@ -38,8 +38,6 @@ import java.lang.reflect.AnnotatedElement;
 import java.lang.annotation.Annotation;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 19.07.2006
  * Time: 16:11:43
  */

@@ -31,8 +31,6 @@ import javax.faces.component.UIComponent;
 import java.util.Map;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 24.04.2006
  * Time: 22:02:49
  */
@@ -40,6 +38,7 @@ import java.util.Map;
 //TODO move this back in the decode or SheetCommandRenderer
 public class SheetUtils {
   private static final Log LOG = LogFactory.getLog(SheetUtils.class);
+
   public static void decode(FacesContext facesContext, UIComponent component) {
     String actionId = ComponentUtil.findPage(facesContext, component).getActionId();
     String clientId = component.getClientId(facesContext);
@@ -62,7 +61,7 @@ public class SheetUtils {
       }
       PageActionEvent event = new PageActionEvent((UIData) component.getParent(), action);
 
-      switch(action) {
+      switch (action) {
         case TO_PAGE:
         case TO_ROW:
           Map map = facesContext.getExternalContext().getRequestParameterMap();

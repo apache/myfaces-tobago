@@ -25,8 +25,6 @@ import org.apache.myfaces.tobago.component.UIReload;
 import javax.faces.component.UIComponent;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 28.05.2006
  * Time: 22:23:07
  */

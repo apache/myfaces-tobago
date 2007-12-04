@@ -27,8 +27,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface IsReadonly {
   /**
-   *  Flag indicating that this component will prohibit changes by the user. 
+   * Flag indicating that this component will prohibit changes by the user.
    */
-  @TagAttribute @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
   void setReadonly(String readonly);
 }

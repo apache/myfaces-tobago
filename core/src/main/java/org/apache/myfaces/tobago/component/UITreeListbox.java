@@ -58,7 +58,6 @@ public class UITreeListbox extends UITreeOld implements LayoutProvider {
   private List<UITreeListboxBox> boxes;
 
 
-
   protected String nodeStateId(FacesContext facesContext, UITreeOldNode node) {
     // this must do the same as nodeStateId() in tree.js
     String clientId = node.getClientId(facesContext);
@@ -79,7 +78,7 @@ public class UITreeListbox extends UITreeOld implements LayoutProvider {
 
   @SuppressWarnings(value = "unchecked")
   private void fixSelectionType() {
-    final Map  attributes = getAttributes();
+    final Map attributes = getAttributes();
     Object selectable = attributes.get(ATTR_SELECTABLE);
     if ("single".equals(selectable)
         || "singleLeafOnly".equals(selectable)
@@ -169,7 +168,7 @@ public class UITreeListbox extends UITreeOld implements LayoutProvider {
   }
 
   private boolean createExpandPath(DefaultMutableTreeNode node,
-                                   Set<DefaultMutableTreeNode> expandState) {
+      Set<DefaultMutableTreeNode> expandState) {
     if (expandState.contains(node)) {
       expandPath.add(findUITreeNode(getRoot(), node));
       for (int i = 0; i < node.getChildCount(); i++) {

@@ -46,7 +46,7 @@ import java.util.List;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
- *
+ * <p/>
  * Restore view phase (JSF Spec 2.2.1)
  */
 class RestoreViewExecutor implements PhaseExecutor {
@@ -74,7 +74,7 @@ class RestoreViewExecutor implements PhaseExecutor {
       return true;
     }
 
-    if(facesContext.getViewRoot() != null) {
+    if (facesContext.getViewRoot() != null) {
       facesContext.getViewRoot().setLocale(facesContext.getExternalContext().getRequestLocale());
       ComponentUtil.resetPage(facesContext);
       recursivelyHandleComponentReferencesAndSetValid(facesContext, facesContext.getViewRoot());
@@ -86,7 +86,7 @@ class RestoreViewExecutor implements PhaseExecutor {
 
     if (viewId == null) {
 
-      if(externalContext.getRequestServletPath() == null) {
+      if (externalContext.getRequestServletPath() == null) {
         return true;
       }
 
@@ -172,18 +172,15 @@ class RestoreViewExecutor implements PhaseExecutor {
     return viewId;
   }
 
-
-
   // next two methods are taken from 'org.apache.myfaces.shared.util.RestoreStateUtils'
 
   public static void recursivelyHandleComponentReferencesAndSetValid(FacesContext facesContext,
-                                                                     UIComponent parent)
-  {
+      UIComponent parent) {
     boolean forceHandle = false;
 
     Method handleBindingsMethod = getBindingMethod(parent);
 
-    if(handleBindingsMethod!=null && !forceHandle) {
+    if (handleBindingsMethod != null && !forceHandle) {
       try {
         handleBindingsMethod.invoke(parent, new Object[]{});
       } catch (Throwable th) {
@@ -208,7 +205,8 @@ class RestoreViewExecutor implements PhaseExecutor {
     }
   }
 
-  /**This is all a hack to work around a spec-bug which will be fixed in JSF2.0
+  /**
+   * This is all a hack to work around a spec-bug which will be fixed in JSF2.0
    *
    * @param parent
    * @return true if this component is bindingAware (e.g. aliasBean)

@@ -33,8 +33,6 @@ import javax.faces.FacesException;
 import java.util.Locale;
 
 /**
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Apr 21, 2007
  * Time: 8:04:25 PM
  */
@@ -56,10 +54,10 @@ public class RendererBase extends Renderer {
     if (LOG.isDebugEnabled()) {
       LOG.debug("rendererType = '" + rendererType + "'");
     }
-   /* if ("javax.faces.Text".equals(rendererType)) { // TODO: find a better way
-      name = RENDERER_TYPE_OUT;
-    } else {*/
-      name = rendererType;
+    /* if ("javax.faces.Text".equals(rendererType)) { // TODO: find a better way
+    name = RENDERER_TYPE_OUT;
+  } else {*/
+    name = rendererType;
     /*}
     if (name.startsWith("javax.faces.")) { // FIXME: this is a hotfix from jsf1.0beta to jsf1.0fr
       LOG.warn("patching renderer from " + name);
@@ -93,7 +91,7 @@ public class RendererBase extends Renderer {
     String currentValue = null;
     Object currentObj = getValue(component);
     if (currentObj != null) {
-      currentValue   = RenderUtil.getFormattedValue(facesContext, component, currentObj);
+      currentValue = RenderUtil.getFormattedValue(facesContext, component, currentObj);
     }
     return currentValue;
   }

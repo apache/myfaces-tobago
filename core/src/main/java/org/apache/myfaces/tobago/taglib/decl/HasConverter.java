@@ -36,6 +36,7 @@ public interface HasConverter {
    * The value can either be a static value (ID case only)
    * or an EL expression.
    */
-  @TagAttribute @UIComponentTagAttribute(expression = DynamicExpression.NONE)
+  @TagAttribute
+  @UIComponentTagAttribute(expression = DynamicExpression.NONE)
   void setConverter(String converter);
 }

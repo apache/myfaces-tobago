@@ -28,8 +28,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.component.UIData;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 08.04.2006
  * Time: 15:30:50
  */
@@ -42,7 +40,7 @@ import org.apache.myfaces.tobago.component.UIData;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIData",
     rendererType = "Sheet",
-    facets = {@Facet(name="reload", description = "Contains an instance of UIReload")})
+    facets = {@Facet(name = "reload", description = "Contains an instance of UIReload")})
 
 public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered {
   /**
@@ -198,7 +196,7 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding",
-       expression = DynamicExpression.METHOD_BINDING)
+      expression = DynamicExpression.METHOD_BINDING)
   void setStateChangeListener(String stateChangeListener);
 
   /**
@@ -215,7 +213,7 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding",
-       expression = DynamicExpression.METHOD_BINDING)
+      expression = DynamicExpression.METHOD_BINDING)
   void setSortActionListener(String sortActionListener);
 
 }

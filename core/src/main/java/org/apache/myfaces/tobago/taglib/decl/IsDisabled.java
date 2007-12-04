@@ -27,9 +27,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface IsDisabled {
   /**
-   *  Flag indicating that this element is disabled.
+   * Flag indicating that this element is disabled.
    */
   @TagAttribute(type = String.class)
   @UIComponentTagAttribute(type = "java.lang.Boolean")
-   void setDisabled(String disabled);
+  void setDisabled(String disabled);
 }

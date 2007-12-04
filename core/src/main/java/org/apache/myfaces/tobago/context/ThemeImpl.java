@@ -119,7 +119,7 @@ class ThemeImpl implements Theme, Serializable {
       renderersConfig = new RenderersConfigImpl();
     }
     if (!renderersConfig.isMerged()) {
-      ThemeImpl fallback  = getFallback();
+      ThemeImpl fallback = getFallback();
       if (fallback != null) {
         fallback.resolveRendererConfig(rendererConfigFromTobagoConfig);
         RenderersConfigImpl fallbackRenderersConfig = fallback.getRenderersConfigImpl();
@@ -135,7 +135,7 @@ class ThemeImpl implements Theme, Serializable {
       }
       renderersConfig.setMerged(true);
       if (LOG.isDebugEnabled()) {
-        LOG.debug(getName() + " " +renderersConfig);
+        LOG.debug(getName() + " " + renderersConfig);
       }
     }
   }

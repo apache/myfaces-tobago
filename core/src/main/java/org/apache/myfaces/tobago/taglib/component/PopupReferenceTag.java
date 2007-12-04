@@ -29,8 +29,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.ActionSource;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Jan 3, 2007
  * Time: 10:42:11 PM
  */
@@ -75,7 +73,7 @@ public class PopupReferenceTag extends TagSupport {
     }
     if (!(component instanceof ActionSource)) {
       // TODO Message resource i18n
-      throw new JspException("Component "+ component.getClass().getName() + " is not instanceof ActionSource");
+      throw new JspException("Component " + component.getClass().getName() + " is not instanceof ActionSource");
     }
     ActionSource actionSource = (ActionSource) component;
     actionSource.addActionListener(new PopupActionListener(forComponent));

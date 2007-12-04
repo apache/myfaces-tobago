@@ -43,7 +43,7 @@ public class UICommand extends javax.faces.component.UICommand {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Command";
 
   private static final Log LOG = LogFactory.getLog(UICommand.class);
-  private static final String [] RENDERED_PARTIALLY_DEFAULT = {};
+  private static final String[] RENDERED_PARTIALLY_DEFAULT = {};
 
   private Boolean defaultCommand;
   private Boolean disabled;

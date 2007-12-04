@@ -26,5 +26,6 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
  */
 public interface HasStateBinding {
 
-  @TagAttribute void setStateBinding(String stateBinding);
+  @TagAttribute
+  void setStateBinding(String stateBinding);
 }

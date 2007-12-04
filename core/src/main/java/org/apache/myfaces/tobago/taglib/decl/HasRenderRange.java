@@ -25,8 +25,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface HasRenderRange {
   /**
-   *  Range of items to render.
+   * Range of items to render.
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
   void setRenderRange(String renderRange);
 }

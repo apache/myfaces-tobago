@@ -126,7 +126,7 @@ public final class HtmlRendererUtil {
     final String rendererType = component.getRendererType();
     //final String family = component.getFamily();
     if (rendererType != null//&& !"facelets".equals(family)
-       ) {
+        ) {
       LayoutableRendererBase layoutableRendererBase = ComponentUtil.getRenderer(facesContext, component);
       if (layoutableRendererBase != null) {
         return layoutableRendererBase.getRendererName(rendererType);
@@ -471,7 +471,9 @@ public final class HtmlRendererUtil {
     }
   }
 
-  /** @deprecated use TobagoResponseWriter.writeJavascript() */
+  /**
+   * @deprecated use TobagoResponseWriter.writeJavascript()
+   */
   @Deprecated
   public static void writeJavascript(ResponseWriter writer, String script) throws IOException {
     startJavascript(writer);
@@ -479,7 +481,9 @@ public final class HtmlRendererUtil {
     endJavascript(writer);
   }
 
-  /** @deprecated use TobagoResponseWriter.writeJavascript() */
+  /**
+   * @deprecated use TobagoResponseWriter.writeJavascript()
+   */
   @Deprecated
   public static void startJavascript(ResponseWriter writer) throws IOException {
     writer.startElement(HtmlConstants.SCRIPT, null);
@@ -487,7 +491,9 @@ public final class HtmlRendererUtil {
     writer.write("\n<!--\n");
   }
 
-  /** @deprecated use TobagoResponseWriter.writeJavascript() */
+  /**
+   * @deprecated use TobagoResponseWriter.writeJavascript()
+   */
   @Deprecated
   public static void endJavascript(ResponseWriter writer) throws IOException {
     writer.write("\n// -->\n");
@@ -610,7 +616,7 @@ public final class HtmlRendererUtil {
     UIComponent partiallyComponent = ComponentUtil.findComponent(component, componentId);
     if (partiallyComponent != null) {
       String clientId = partiallyComponent.getClientId(context);
-      if (partiallyComponent instanceof UIData)  {
+      if (partiallyComponent instanceof UIData) {
         int rowIndex = ((UIData) partiallyComponent).getRowIndex();
         if (rowIndex >= 0 && clientId.endsWith(Integer.toString(rowIndex))) {
           return clientId.substring(0, clientId.lastIndexOf(NamingContainer.SEPARATOR_CHAR));

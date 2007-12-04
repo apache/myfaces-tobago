@@ -26,8 +26,6 @@ import javax.faces.validator.Validator;
 import javax.servlet.jsp.JspException;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Oct 17, 2006
  * Time: 12:35:01 AM
  */
@@ -36,7 +34,7 @@ import javax.servlet.jsp.JspException;
  * Register an SubmittedValueLengthValidator instance on the UIComponent
  * associated with the closest parent UIComponent custom action.
  */
-@Tag(name="validateSubmittedValueLength")
+@Tag(name = "validateSubmittedValueLength")
 public class SubmittedValueLengthValidatorTag extends ValidatorTag {
 
   private static final long serialVersionUID = 6777040780038715924L;
@@ -47,7 +45,7 @@ public class SubmittedValueLengthValidatorTag extends ValidatorTag {
   public String getMinimum() {
     return minimum;
   }
-  
+
   @TagAttribute()
   public void setMinimum(String minimum) {
     this.minimum = minimum;
@@ -56,6 +54,7 @@ public class SubmittedValueLengthValidatorTag extends ValidatorTag {
   public String getMaximum() {
     return maximum;
   }
+
   @TagAttribute()
   public void setMaximum(String maximum) {
     this.maximum = maximum;
@@ -67,14 +66,14 @@ public class SubmittedValueLengthValidatorTag extends ValidatorTag {
     if (minimum != null) {
       try {
         validator.setMinimum(Integer.parseInt(minimum));
-      } catch(NumberFormatException e) {
+      } catch (NumberFormatException e) {
         // ignore
       }
     }
     if (maximum != null) {
       try {
         validator.setMaximum(Integer.parseInt(maximum));
-      } catch(NumberFormatException e) {
+      } catch (NumberFormatException e) {
         // ignore
       }
     }

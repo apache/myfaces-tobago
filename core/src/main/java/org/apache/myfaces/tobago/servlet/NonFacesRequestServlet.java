@@ -67,7 +67,7 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
     String outcome = invokeApplication(facesContext);
 
     if (facesContext.getResponseComplete()) {
-        return;
+      return;
     }
     if (LOG.isDebugEnabled()) {
       LOG.debug("outcome = '" + outcome + "'");
@@ -79,8 +79,10 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
 
   public abstract String invokeApplication(FacesContext facesContext);
 
-  /** will be called to initilize the first ViewRoot,
-   * may be overwritten by extended classes */
+  /**
+   * will be called to initilize the first ViewRoot,
+   * may be overwritten by extended classes
+   */
   public String getFromViewId() {
     return "";
   }

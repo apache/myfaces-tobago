@@ -30,19 +30,23 @@ public interface HasLabelWithAccessKey {
    * Deprecated! Use 'label' instead.
    * Text value to display as label.
    * If text contains an underscore the next character overwrites 'accesskey'.
+   *
    * @deprecated
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
   @Deprecated
   void setLabelWithAccessKey(String key);
 
 
   /**
    * Deprecated! Has not longer any function.
+   *
    * @deprecated
    */
 //  @TagAttribute @UIComponentTagAttribute(type = String.class)
-  @TagAttribute @UIComponentTagAttribute(type = { "java.lang.String", "java.lang.Character" })
+  @TagAttribute
+  @UIComponentTagAttribute(type = {"java.lang.String", "java.lang.Character"})
   @Deprecated
   void setAccessKey(String key);
 }

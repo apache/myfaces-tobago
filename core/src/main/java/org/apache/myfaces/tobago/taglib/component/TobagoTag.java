@@ -176,7 +176,7 @@ public abstract class TobagoTag extends UIComponentTag
     if (component instanceof OnComponentCreated
         && component.getAttributes().get(TOBAGO_COMPONENT_CREATED) == null) {
       component.getAttributes().put(TOBAGO_COMPONENT_CREATED, Boolean.TRUE);
-        ((OnComponentCreated) component).onComponentCreated();
+      ((OnComponentCreated) component).onComponentCreated();
     }
     return super.doEndTag();
   }

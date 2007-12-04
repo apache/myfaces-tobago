@@ -46,11 +46,11 @@ public class UIPanel extends UIPanelBase implements SupportsMarkup {
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
     markup = (String[]) values[1];
-   }
+  }
 
   @Override
   public Object saveState(FacesContext context) {
-    Object[] values  = new Object[2];
+    Object[] values = new Object[2];
     values[0] = super.saveState(context);
     values[1] = markup;
     return values;

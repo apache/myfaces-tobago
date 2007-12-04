@@ -49,7 +49,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class SelectOneListboxExtensionTag
     extends BodyTagSupport implements HasId, HasValue, HasValueChangeListener, IsDisabled,
     HasLabel, HasLabelWidth, IsReadonly, HasOnchange, IsRendered,
-    HasBinding, HasDeprecatedHeight, IsFocus, HasTip , IsRequired, HasConverter, HasValidator, HasTabIndex {
+    HasBinding, HasDeprecatedHeight, IsFocus, HasTip, IsRequired, HasConverter, HasValidator, HasTabIndex {
   private String required;
   private String value;
   private String valueChangeListener;

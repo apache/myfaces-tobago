@@ -28,8 +28,6 @@ import javax.faces.el.ValueBinding;
 import java.util.TimeZone;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 10.02.2006
  * Time: 20:50:49
  */

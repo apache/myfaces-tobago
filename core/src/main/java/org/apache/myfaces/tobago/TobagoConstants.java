@@ -21,7 +21,7 @@ public final class TobagoConstants {
 
   public static final String SUBCOMPONENT_SEP = "::";
 
-//  public static final String ATTR_ACCESS_KEY = "accessKey";
+  //  public static final String ATTR_ACCESS_KEY = "accessKey";
   public static final String ATTR_ACTION = "action";
   public static final String ATTR_ACTION_ONCLICK = "onclick";
   public static final String ATTR_ACTION_LINK = "link";
@@ -80,7 +80,7 @@ public final class TobagoConstants {
 
   public static final String ATTR_LABEL = "label";
   public static final String ATTR_LABEL_POSITION = "labelPosition";
-//  public static final String ATTR_LABEL_WITH_ACCESS_KEY = "labelWithAccessKey";
+  //  public static final String ATTR_LABEL_WITH_ACCESS_KEY = "labelWithAccessKey";
   public static final String ATTR_LAYOUT_HEIGHT = "layoutHeight";
   public static final String ATTR_MARGIN = "margin";
   public static final String ATTR_MARGIN_BOTTOM = "marginBottom";
@@ -135,7 +135,7 @@ public final class TobagoConstants {
   public static final String ATTR_SCROLLBARS = "scrollbars";
   public static final String ATTR_SELECTED_INDEX = "selectedIndex";
   public static final String ATTR_SELECTED_LIST_STRING = "selectedListString";
-//  public static final String ATTR_SERVER_SIDE_TABS = "serverSideTab";
+  //  public static final String ATTR_SERVER_SIDE_TABS = "serverSideTab";
   public static final String ATTR_SORTABLE = "sortable";
   public static final String ATTR_CREATE_SPAN = "createSpan";
   public static final String ATTR_SELECTABLE = "selectable";
@@ -159,7 +159,7 @@ public final class TobagoConstants {
   public static final String ATTR_STYLE_CLASS = "styleClass";
   public static final String ATTR_STYLE_HEADER = "style_header";
   public static final String ATTR_STYLE_INNER = "style_inner";
-  public static final String ATTR_STYLE_FILES  = "styleFiles";
+  public static final String ATTR_STYLE_FILES = "styleFiles";
   public static final String ATTR_SUPPPRESS_TOOLBAR_CONTAINER = "suppressToolbarContainer";
   public static final String ATTR_SWITCH_TYPE = "switchType";
   public static final String ATTR_TARGET = "target";
@@ -200,7 +200,7 @@ public final class TobagoConstants {
   public static final String FACET_PICKER_POPUP = "pickerPopup";
   public static final String FACET_POPUP = "popup";
   public static final String FACET_RELOAD = "reload";
-  public static final String FACET_TOOL_BAR= "toolBar";
+  public static final String FACET_TOOL_BAR = "toolBar";
   public static final String FACET_TOOL_BAR_COMMAND = "toolBarCommand";
 
   // Command types
@@ -233,7 +233,7 @@ public final class TobagoConstants {
   public static final String RENDERER_TYPE_SELECT_MANY_LISTBOX = "SelectManyListbox";
   public static final String RENDERER_TYPE_SELECT_ONE_CHOICE = "SelectOneChoice";
   public static final String RENDERER_TYPE_SELECT_ONE_RADIO = "SelectOneRadio";
-  public static final String RENDERER_TYPE_SELECT_ONE_LISTBOX = "SelectOneListbox";  
+  public static final String RENDERER_TYPE_SELECT_ONE_LISTBOX = "SelectOneListbox";
   public static final String RENDERER_TYPE_TEXT_AREA = "TextArea";
   public static final String RENDERER_TYPE_TIME = "Time";
   public static final String RENDERER_TYPE_TOOL_BAR = "ToolBar";

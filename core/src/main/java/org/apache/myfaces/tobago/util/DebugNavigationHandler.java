@@ -24,8 +24,6 @@ import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Nov 12, 2006
  * Time: 10:32:39 AM
  */

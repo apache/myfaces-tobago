@@ -23,6 +23,7 @@ package org.apache.myfaces.tobago.component;
  */
 public final class FixedLayoutToken extends LayoutToken {
   public static final FixedLayoutToken INSTANCE = new FixedLayoutToken();
+
   public String toString() {
     return "fixed";
   }

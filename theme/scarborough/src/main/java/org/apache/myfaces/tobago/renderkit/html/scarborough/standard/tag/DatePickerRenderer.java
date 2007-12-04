@@ -46,8 +46,6 @@ import java.io.IOException;
 import java.util.Map;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 30.05.2006
  * Time: 22:21:17
  */

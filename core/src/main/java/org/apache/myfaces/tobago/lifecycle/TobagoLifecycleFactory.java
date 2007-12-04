@@ -29,7 +29,7 @@ public class TobagoLifecycleFactory extends LifecycleFactory {
   private static final Log LOG = LogFactory.getLog(TobagoLifecycleFactory.class);
 
   private LifecycleFactory factory;
-  private TobagoLifecycle  defaultLifecycle;
+  private TobagoLifecycle defaultLifecycle;
 
   public TobagoLifecycleFactory(LifecycleFactory factory) {
     this.factory = factory;
@@ -48,7 +48,7 @@ public class TobagoLifecycleFactory extends LifecycleFactory {
       return defaultLifecycle;
     } else {
       LOG.info("getLifecycle(\"" + lifecycleId + "\")  -> other Lifecycle");
-      return  factory.getLifecycle(lifecycleId);
+      return factory.getLifecycle(lifecycleId);
     }
   }
 

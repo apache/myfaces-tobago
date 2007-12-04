@@ -64,7 +64,7 @@ public class ButtonTag extends AbstractCommandTag
     ComponentUtil.setIntegerProperty(component, ATTR_TAB_INDEX, tabIndex);
   }
 
-   public String getComponentType() {
+  public String getComponentType() {
     return UIButtonCommand.COMPONENT_TYPE;
   }
 

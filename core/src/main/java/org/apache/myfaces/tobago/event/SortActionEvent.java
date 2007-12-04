@@ -45,7 +45,7 @@ public class SortActionEvent extends ActionEvent {
   }
 
   /**
-   * Convenience method to get the UIData Component. 
+   * Convenience method to get the UIData Component.
    */
   public UIData getSheet() {
     return (UIData) getComponent();

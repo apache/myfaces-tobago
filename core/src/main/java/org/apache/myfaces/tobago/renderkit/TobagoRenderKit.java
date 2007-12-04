@@ -67,7 +67,7 @@ public class TobagoRenderKit extends RenderKit {
 
     if (renderer == null) {
       RenderKitFactory rkFactory = (RenderKitFactory)
-      FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+          FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
       RenderKit renderKit = rkFactory.getRenderKit(facesContext, RenderKitFactory.HTML_BASIC_RENDER_KIT);
       renderer = renderKit.getRenderer(family, rendererType);
       if (renderer != null) {
@@ -104,7 +104,6 @@ public class TobagoRenderKit extends RenderKit {
     return new TobagoResponseWriterImpl(writer, contentType, characterEncoding);
   }
 
-
 // ///////////////////////////////////////////// TODO
 
   @Override
@@ -118,7 +117,7 @@ public class TobagoRenderKit extends RenderKit {
     }
     LOG.error(
         "This method isn't implemented yet, and should not be called: "
-        + new Exception().getStackTrace()[0].getMethodName()); //FIXME jsf1.0
+            + new Exception().getStackTrace()[0].getMethodName()); //FIXME jsf1.0
   }
 
   @Override
@@ -130,7 +129,7 @@ public class TobagoRenderKit extends RenderKit {
   public ResponseStream createResponseStream(OutputStream outputstream) {
     LOG.error(
         "This method isn't implemented yet, and should not be called: "
-        + new Exception().getStackTrace()[0].getMethodName()); //FIXME jsfbeta
+            + new Exception().getStackTrace()[0].getMethodName()); //FIXME jsfbeta
     return null;
   }
 }

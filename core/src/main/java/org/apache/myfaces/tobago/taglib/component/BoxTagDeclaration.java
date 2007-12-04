@@ -34,8 +34,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabel;
     uiComponent = "org.apache.myfaces.tobago.component.UIBox",
     rendererType = "Box",
     facets = {
-    @Facet(name="toolBar", description = "Contains an instance of UIToolBar"),
-    @Facet(name="layout", description = "Contains an instance of UILayout")})
+    @Facet(name = "toolBar", description = "Contains an instance of UIToolBar"),
+    @Facet(name = "layout", description = "Contains an instance of UILayout")})
 
 public interface BoxTagDeclaration extends TobagoBodyTagDeclaration,
     HasIdBindingAndRendered, HasDeprecatedDimension, HasLabel {

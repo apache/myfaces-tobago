@@ -30,8 +30,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasMargins;
 import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 14.03.2006
  * Time: 16:58:13
  */
@@ -46,54 +44,52 @@ import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
  * PIXEL        ::= NUMBER "px"
  * PROPORTIONAL ::= [NUMBER] "*"
  * </pre>
-
- <table border="1">
-   <tr>
-     <th>Parent</th>
-     <th>Child</th>
-     <th>Okay?</th>
-     <th>Remarks</th>
-   </tr>
-   <tr>
-     <td>FIXED</td>
-     <td>any combination of FIXED or PIXEL but no PROPORTIONAL</td>
-     <td>okay</td>
-     <td>-</td>
-   </tr>
-   <tr>
-     <td>FIXED</td>
-     <td>any combination with at least one PROPORTIONAL</td>
-     <td>wrong</td>
-     <td>LayoutManager cannot compute the fixed value.</td>
-   </tr>
-   <tr>
-     <td>PIXEL</td>
-     <td>any combination of FIXED or PIXEL but no PROPORTIONAL</td>
-     <td>potentially wrong</td>
-     <td>The values depend on each other, the programmer has to keep consistency manually.</td>
-   </tr>
-   <tr>
-     <td>PIXEL</td>
-     <td>any combination with at least one PROPORTIONAL</td>
-     <td>okay</td>
-     <td>-</td>
-   </tr>
-   <tr>
-     <td>PROPORTIONAL</td>
-     <td>any combination of FIXED or PIXEL but no PROPORTIONAL</td>
-     <td>potentially wrong</td>
-     <td>No automatical matching:<ul><li>too little space: scrollbar</li>
-       <li>too much space: elements will be spreaded.</li></ul></td>
-   </tr>
-   <tr>
-     <td>PROPORTIONAL</td>
-     <td>any combination with at least one PROPORTIONAL</td>
-     <td>okay</td>
-     <td>-</td>
-   </tr>
- </table>
-
- 
+ * <p/>
+ * <table border="1">
+ * <tr>
+ * <th>Parent</th>
+ * <th>Child</th>
+ * <th>Okay?</th>
+ * <th>Remarks</th>
+ * </tr>
+ * <tr>
+ * <td>FIXED</td>
+ * <td>any combination of FIXED or PIXEL but no PROPORTIONAL</td>
+ * <td>okay</td>
+ * <td>-</td>
+ * </tr>
+ * <tr>
+ * <td>FIXED</td>
+ * <td>any combination with at least one PROPORTIONAL</td>
+ * <td>wrong</td>
+ * <td>LayoutManager cannot compute the fixed value.</td>
+ * </tr>
+ * <tr>
+ * <td>PIXEL</td>
+ * <td>any combination of FIXED or PIXEL but no PROPORTIONAL</td>
+ * <td>potentially wrong</td>
+ * <td>The values depend on each other, the programmer has to keep consistency manually.</td>
+ * </tr>
+ * <tr>
+ * <td>PIXEL</td>
+ * <td>any combination with at least one PROPORTIONAL</td>
+ * <td>okay</td>
+ * <td>-</td>
+ * </tr>
+ * <tr>
+ * <td>PROPORTIONAL</td>
+ * <td>any combination of FIXED or PIXEL but no PROPORTIONAL</td>
+ * <td>potentially wrong</td>
+ * <td>No automatical matching:<ul><li>too little space: scrollbar</li>
+ * <li>too much space: elements will be spreaded.</li></ul></td>
+ * </tr>
+ * <tr>
+ * <td>PROPORTIONAL</td>
+ * <td>any combination with at least one PROPORTIONAL</td>
+ * <td>okay</td>
+ * <td>-</td>
+ * </tr>
+ * </table>
  */
 @Tag(name = "gridLayout", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(

@@ -22,6 +22,6 @@ package org.apache.myfaces.tobago.taglib.decl;
  * User: bommel
  * $Id$
  */
-public interface HasDimension extends HasWidth, HasHeight{
+public interface HasDimension extends HasWidth, HasHeight {
 
 }

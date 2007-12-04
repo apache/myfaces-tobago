@@ -57,7 +57,7 @@ public class ClearValidatorsActionListener implements ActionListener {
     }
 
     // FIXME: finding mechanism??? JSF ???
-   
+
     for (StringTokenizer tokenizer
         = new StringTokenizer(clearValidatorsFieldIds, ",");
          tokenizer.hasMoreTokens();) {

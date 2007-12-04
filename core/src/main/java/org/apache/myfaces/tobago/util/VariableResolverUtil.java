@@ -38,6 +38,7 @@ public class VariableResolverUtil {
    * Useful for cleaning up e.g. a session or application variable
    * to save memory without the knowledge of the scope.
    * Also useful to enforce a new creation of a managed-bean.
+   *
    * @param context
    * @param variable
    */

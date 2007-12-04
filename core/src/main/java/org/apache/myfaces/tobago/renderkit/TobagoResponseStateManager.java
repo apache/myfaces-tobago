@@ -30,8 +30,6 @@ import java.util.Map;
 import java.io.IOException;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 21.05.2006
  * Time: 10:59:19
  */

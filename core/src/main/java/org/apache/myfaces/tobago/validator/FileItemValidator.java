@@ -52,7 +52,7 @@ public class FileItemValidator implements Validator, StateHolder {
     if (value != null && component instanceof UIFileInput) {
       FileItem file = (FileItem) value;
       if (maxSize != null && file.getSize() > maxSize) {
-        Object[] args = {maxSize,  component.getId()};
+        Object[] args = {maxSize, component.getId()};
         FacesMessage facesMessage = MessageFactory.createFacesMessage(context,
             SIZE_LIMIT_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, args);
         throw new ValidatorException(facesMessage);
@@ -61,7 +61,7 @@ public class FileItemValidator implements Validator, StateHolder {
       if (file.getSize() > 0 && contentType != null
           && !ContentType.valueOf(contentType).match(ContentType.valueOf(file.getContentType()))) {
         ContentType expectedContentType = ContentType.valueOf(contentType);
-        Object [] args = {expectedContentType, component.getId()};
+        Object[] args = {expectedContentType, component.getId()};
         FacesMessage facesMessage = MessageFactory.createFacesMessage(context,
             CONTENT_TYPE_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, args);
         throw new ValidatorException(facesMessage);

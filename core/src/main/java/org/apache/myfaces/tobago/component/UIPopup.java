@@ -69,7 +69,7 @@ public class UIPopup extends UIPanelBase implements NamingContainer, AjaxCompone
 
   public boolean isRendered() {
     ValueBinding valueBinding = getValueBinding("rendered");
-    if (valueBinding!= null) {
+    if (valueBinding != null) {
       return (Boolean) valueBinding.getValue(getFacesContext());
     } else {
       return isActivated() || isRedisplay();
@@ -110,10 +110,10 @@ public class UIPopup extends UIPanelBase implements NamingContainer, AjaxCompone
         childOrFacet.processValidators(context);
       }
       //TODO: check if validation has faild and reset rendered if needed
-     if (context.getRenderResponse()) {
+      if (context.getRenderResponse()) {
         setActivated(true);
       }
-    }   
+    }
   }
 
   public void processUpdates(FacesContext context) {

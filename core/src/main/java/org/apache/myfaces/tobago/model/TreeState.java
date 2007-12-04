@@ -84,7 +84,9 @@ public class TreeState {
     }
   }
 
-  /** Expands all parents which contains selected children. */
+  /**
+   * Expands all parents which contains selected children.
+   */
   public void expandSelection() {
     for (DefaultMutableTreeNode treeNode : selection) {
       expandTo(treeNode);
@@ -92,7 +94,7 @@ public class TreeState {
   }
 
   public void expandTo(DefaultMutableTreeNode node) {
-    node = (DefaultMutableTreeNode) node.getParent(); 
+    node = (DefaultMutableTreeNode) node.getParent();
     while (node != null) {
       if (!expandState.contains(node)) {
         expandState.add(node);
@@ -160,7 +162,7 @@ public class TreeState {
   public void setScrollPosition(Integer[] scrollPosition) {
     this.scrollPosition = scrollPosition;
   }
-  
+
   public static Integer[] parseScrollPosition(String value) {
     Integer[] position = null;
     if (!StringUtils.isBlank(value)) {
@@ -176,6 +178,6 @@ public class TreeState {
     }
     return position;
   }
-  
+
 }
 

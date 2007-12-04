@@ -47,7 +47,7 @@ import java.util.Date;
  *   &lt;servlet-name&gt;ResourceServlet&lt;/servlet-name&gt;
  *   &lt;url-pattern&gt;/org/apache/myfaces/tobago/renderkit/*&lt;/url-pattern&gt;
  * &lt;/servlet-mapping&gt;
- *</pre><p>
+ * </pre><p>
  *
  * @since 1.0.7
  *        <p/>

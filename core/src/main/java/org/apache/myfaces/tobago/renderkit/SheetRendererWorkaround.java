@@ -23,7 +23,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 // FIXME: this is only a workaround to separate the theme from the core
-/** @deprecated */
+/**
+ * @deprecated
+ */
 public interface SheetRendererWorkaround {
 
   boolean needVerticalScrollbar(FacesContext facesContext, UIData data);

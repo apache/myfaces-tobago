@@ -44,8 +44,6 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 16.12.2005
  * Time: 19:12:33
  */
@@ -58,7 +56,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.SelectManyListboxTag")
 public class SelectManyListboxExtensionTag extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled, HasDeprecatedHeight, IsInline,
-    HasLabel, HasLabelWidth, IsRendered, HasBinding, HasTip, HasConverter, HasValidator, HasOnchange, 
+    HasLabel, HasLabelWidth, IsRendered, HasBinding, HasTip, HasConverter, HasValidator, HasOnchange,
     IsReadonly, HasMarkup, IsFocus, IsRequired, HasTabIndex {
 
   private String required;
@@ -116,7 +114,7 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
     if (value != null) {
       selectManyListboxTag.setValue(value);
     }
-     if (valueChangeListener != null) {
+    if (valueChangeListener != null) {
       selectManyListboxTag.setValueChangeListener(valueChangeListener);
     }
     if (binding != null) {

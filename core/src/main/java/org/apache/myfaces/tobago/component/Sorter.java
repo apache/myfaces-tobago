@@ -48,7 +48,7 @@ import java.util.List;
  * Date: Mar 7, 2005
  * Time: 4:01:27 PM
  */
-public class  Sorter extends MethodBinding {
+public class Sorter extends MethodBinding {
 
   private static final Log LOG = LogFactory.getLog(Sorter.class);
 
@@ -118,20 +118,20 @@ public class  Sorter extends MethodBinding {
           return null;
         }
 
-          // TODO: locale / comparator parameter?
-          // don't compare numbers with Collator.getInstance() comparator
+        // TODO: locale / comparator parameter?
+        // don't compare numbers with Collator.getInstance() comparator
 //        Comparator comparator = Collator.getInstance();
 //          comparator = new RowComparator(ascending, method);
 
-          if (value instanceof List) {
-            Collections.sort((List) value, actualComparator);
-          } else { // value is instanceof Object[]
-            Arrays.sort((Object[]) value, actualComparator);
-          }
+        if (value instanceof List) {
+          Collections.sort((List) value, actualComparator);
+        } else { // value is instanceof Object[]
+          Arrays.sort((Object[]) value, actualComparator);
+        }
 
       } else {  // DataModel?, ResultSet, Result or Object
         LOG.warn("Sorting not supported for type "
-                   + (value != null ? value.getClass().toString() : "null"));
+            + (value != null ? value.getClass().toString() : "null"));
       }
     }
     return null;
@@ -152,12 +152,12 @@ public class  Sorter extends MethodBinding {
     for (Iterator iter = children.iterator(); iter.hasNext();) {
       child = (UIComponent) iter.next();
       if (child instanceof UICommand
-        || child instanceof javax.faces.component.UIPanel) {
+          || child instanceof javax.faces.component.UIPanel) {
         child = getFirstSortableChild(child.getChildren());
       }
       if (child instanceof UISelectMany
-        || child instanceof UISelectOne
-        || child instanceof UISelectBoolean) {
+          || child instanceof UISelectOne
+          || child instanceof UISelectBoolean) {
         continue;
       } else if (child instanceof UIInput
           && TobagoConstants.RENDERER_TYPE_HIDDEN.equals(child.getRendererType())) {

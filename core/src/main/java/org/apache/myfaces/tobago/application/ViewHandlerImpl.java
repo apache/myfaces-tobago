@@ -94,7 +94,7 @@ public class ViewHandlerImpl extends ViewHandler {
 
   public void renderView(FacesContext facesContext, UIViewRoot viewRoot)
       throws IOException, FacesException {
-      // standard
+    // standard
     base.renderView(facesContext, viewRoot);
 
     if (LOG.isDebugEnabled()) {

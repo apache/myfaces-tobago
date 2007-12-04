@@ -70,7 +70,6 @@ public class TabChangeListenerTag extends TagSupport {
   }
 
 
-
   /**
    * <p>Create a new instance of the specified {@link TabChangeListener}
    * class, and register it with the {@link javax.faces.component.UIComponent} instance associated
@@ -101,7 +100,7 @@ public class TabChangeListenerTag extends TagSupport {
     }
     if (!(component instanceof TabChangeSource)) {
       // TODO Message resource i18n
-      throw new JspException("Component "+ component.getClass().getName() + " is not instanceof TabChangeSource");
+      throw new JspException("Component " + component.getClass().getName() + " is not instanceof TabChangeSource");
     }
     TabChangeSource changeSource = (TabChangeSource) component;
 

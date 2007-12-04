@@ -24,11 +24,12 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class encapsulates the logic used to call PhaseListeners.  It was 
+ * This class encapsulates the logic used to call PhaseListeners.  It was
  * needed because of issue 9 of the JSF 1.2 spec.  See section 11.3 for more
  * details.
  */
@@ -45,7 +46,9 @@ class PhaseListenerManager {
   // an exception should not have its afterPhase called
   private Map<PhaseId, boolean[]> listenerSuccessMap = new HashMap<PhaseId, boolean[]>();
 
-  /** Creates a new instance of PhaseListenerManager */
+  /**
+   * Creates a new instance of PhaseListenerManager
+   */
   PhaseListenerManager(Lifecycle lifecycle, FacesContext facesContext, PhaseListener[] phaseListeners) {
     this.lifecycle = lifecycle;
     this.facesContext = facesContext;
@@ -80,7 +83,7 @@ class PhaseListenerManager {
   void informPhaseListenersAfter(PhaseId phaseId) {
     boolean[] beforePhaseSuccess = listenerSuccessMap.get(phaseId);
 
-    for (int i = phaseListeners.length - 1; i >= 0; i--)  {
+    for (int i = phaseListeners.length - 1; i >= 0; i--) {
       PhaseListener phaseListener = phaseListeners[i];
       if (isListenerForThisPhase(phaseListener, phaseId)
           && beforePhaseSuccess[i]) {

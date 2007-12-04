@@ -22,28 +22,27 @@ import javax.servlet.jsp.tagext.TagExtraInfo;
 import javax.servlet.jsp.tagext.ValidationMessage;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 19.04.2006
  * Time: 10:56:39
  */
 public class CommandTagExtraInfo extends TagExtraInfo {
   private static final ValidationMessage[] EMPTY_MESSAGE = new ValidationMessage[0];
+
   public ValidationMessage[] validate(TagData data) {
     Object action = data.getAttribute("action");
     Object onclick = data.getAttribute("onclick");
     Object link = data.getAttribute("link");
 
     if (link != null && !(action == null && onclick == null)) {
-        return generateValidationMessages(data);
+      return generateValidationMessages(data);
     }
     return EMPTY_MESSAGE;
   }
 
   private ValidationMessage[] generateValidationMessages(TagData data) {
     ValidationMessage[] messages = new ValidationMessage[1];
-        messages [0] = new ValidationMessage(data.getId(),
-            "Only one Attribute of action, onclick and link is allowed");
+    messages[0] = new ValidationMessage(data.getId(),
+        "Only one Attribute of action, onclick and link is allowed");
     return messages;
   }
 }

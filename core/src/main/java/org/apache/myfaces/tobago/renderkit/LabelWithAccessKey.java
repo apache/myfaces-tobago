@@ -57,12 +57,12 @@ public final class LabelWithAccessKey {
           + "label='" + label + "'.");
       text = label.substring(0, label.length() - 1);
       pos = -1;
-    } else if (label.charAt(index+1) == INDICATOR) {
+    } else if (label.charAt(index + 1) == INDICATOR) {
       escapedIndicatorCount++;
-      findIndicator(label, index+2, escapedIndicatorCount);
+      findIndicator(label, index + 2, escapedIndicatorCount);
     } else {
       text = label.substring(0, index)
-            + label.substring(index + 1);
+          + label.substring(index + 1);
       accessKey = text.charAt(index);
       pos = index - escapedIndicatorCount;
     }

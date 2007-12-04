@@ -104,7 +104,7 @@ public class ComponentUtil {
 
   private static final String RENDER_KEY_PREFIX
       = "org.apache.myfaces.tobago.component.ComponentUtil.RendererKeyPrefix_";
-  
+
   public static final Class[] ACTION_ARGS = {};
   public static final Class[] ACTION_LISTENER_ARGS = {ActionEvent.class};
   public static final Class[] VALUE_CHANGE_LISTENER_ARGS = {ValueChangeEvent.class};
@@ -125,8 +125,8 @@ public class ComponentUtil {
   }
 
   public static boolean containsPopupActionListener(UICommand command) {
-    ActionListener [] actionListeners = command.getActionListeners();
-    for(ActionListener actionListener: actionListeners) {
+    ActionListener[] actionListeners = command.getActionListeners();
+    for (ActionListener actionListener : actionListeners) {
       if (actionListener instanceof PopupActionListener) {
         return true;
       }
@@ -165,6 +165,7 @@ public class ComponentUtil {
       view.getAttributes().remove(UIPage.COMPONENT_TYPE);
     }
   }
+
   @SuppressWarnings(value = "unchecked")
   public static UIPage findPage(FacesContext context, UIComponent component) {
     javax.faces.component.UIViewRoot view = context.getViewRoot();
@@ -180,6 +181,7 @@ public class ComponentUtil {
       return findPage(component);
     }
   }
+
   public static UIPage findPage(UIComponent component) {
     while (component != null) {
       if (component instanceof UIPage) {
@@ -194,10 +196,12 @@ public class ComponentUtil {
     UIPage uiPage = ComponentUtil.findPage(component);
     uiPage.getStyleFiles().addAll(Arrays.asList(styles));
   }
+
   public static void addScripts(UIComponent component, String[] scripts) {
     UIPage uiPage = ComponentUtil.findPage(component);
     uiPage.getScriptFiles().addAll(Arrays.asList(scripts));
   }
+
   public static void addOnloadCommands(UIComponent component, String[] cmds) {
     UIPage uiPage = ComponentUtil.findPage(component);
     uiPage.getOnloadScripts().addAll(Arrays.asList(cmds));
@@ -316,7 +320,7 @@ public class ComponentUtil {
 
   public static boolean isError(UIComponent component) {
     if (component instanceof UIInput) {
-       return isError((UIInput) component);
+      return isError((UIInput) component);
     }
     return false;
   }
@@ -328,7 +332,7 @@ public class ComponentUtil {
 
   public static boolean mayValidate(UIComponent component) {
     return !isOutputOnly(component)
-            && ComponentUtil.isInActiveForm(component);
+        && ComponentUtil.isInActiveForm(component);
   }
 
   public static boolean mayUpdateModel(UIComponent component) {
@@ -365,7 +369,7 @@ public class ComponentUtil {
       if (UIComponentTag.isValueReference(renderers)) {
         command.setValueBinding(ATTR_RENDERED_PARTIALLY, createValueBinding(renderers));
       } else {
-        String [] components  = renderers.split(",");
+        String[] components = renderers.split(",");
         command.setRenderedPartially(components);
       }
     }
@@ -376,10 +380,10 @@ public class ComponentUtil {
       if (UIComponentTag.isValueReference(styleClasses)) {
         component.setValueBinding(ATTR_STYLE_CLASS, createValueBinding(styleClasses));
       } else {
-        String [] classes  = styleClasses.split("[,  ]");
+        String[] classes = styleClasses.split("[,  ]");
         if (classes.length > 0) {
           StyleClasses styles = StyleClasses.ensureStyleClasses(component);
-          for (String clazz: classes) {
+          for (String clazz : classes) {
             styles.addFullQualifiedClass(clazz);
           }
         }
@@ -393,7 +397,7 @@ public class ComponentUtil {
         if (UIComponentTag.isValueReference(markup)) {
           markupComponent.setValueBinding(ATTR_MARKUP, createValueBinding(markup));
         } else {
-          String [] markups  = markup.split(",");
+          String[] markups = markup.split(",");
           ((SupportsMarkup) markupComponent).setMarkup(markups);
         }
       } else {
@@ -440,9 +444,9 @@ public class ComponentUtil {
   }
 
   /**
-   * @deprecated please use the  method {@link #getCharacterAttribute(javax.faces.component.UIComponent, String)}
    * @param component
    * @param name
+   * @deprecated please use the  method {@link #getCharacterAttribute(javax.faces.component.UIComponent, String)}
    */
   @Deprecated
   public static Character getCharakterAttribute(UIComponent component, String name) {
@@ -638,7 +642,7 @@ public class ComponentUtil {
       }
       Map facets = component.getFacets();
       if (facets.size() > 0) {
-        for (Map.Entry<String, UIComponent> entry: (Set<Map.Entry<String, UIComponent>>) facets.entrySet()) {
+        for (Map.Entry<String, UIComponent> entry : (Set<Map.Entry<String, UIComponent>>) facets.entrySet()) {
           UIComponent facet = entry.getValue();
           result.append('\n');
           result.append(spaces(offset + 1));
@@ -740,7 +744,7 @@ public class ComponentUtil {
   }
 
   public static String removePx(String value) {
-    if (value!=null&&value.endsWith("px")) {
+    if (value != null && value.endsWith("px")) {
       value = value.substring(0, value.length() - 2);
     }
     return value;
@@ -757,7 +761,7 @@ public class ComponentUtil {
     }
   }
 
-   public static void setBooleanProperty(UIComponent component,
+  public static void setBooleanProperty(UIComponent component,
       String name, String value) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
@@ -778,11 +782,13 @@ public class ComponentUtil {
       }
     }
   }
+
   public static void setValueForValueBinding(String name, Object value) {
     FacesContext context = FacesContext.getCurrentInstance();
     ValueBinding valueBinding = context.getApplication().createValueBinding(name);
     valueBinding.setValue(context, value);
   }
+
   public static ValueBinding createValueBinding(String value) {
     return FacesContext.getCurrentInstance().getApplication()
         .createValueBinding(value);
@@ -891,7 +897,7 @@ public class ComponentUtil {
   public static String getComponentId(FacesContext facesContext, UIComponent component) {
     String id = component.getId();
     //if (id == null) {
-      // XXX What is this?
+    // XXX What is this?
     //  id = component.getClientId(facesContext).substring(id.lastIndexOf('_'));
     //}
     return id;
@@ -904,7 +910,7 @@ public class ComponentUtil {
     if (label == null) {
       final Map attributes = component.getAttributes();
       Object labelText = component.getValueBinding(ATTR_LABEL);
-      if (labelText ==null) {
+      if (labelText == null) {
         labelText = attributes.get(ATTR_LABEL);
       }
 
@@ -941,7 +947,7 @@ public class ComponentUtil {
       debug((UIComponent)it.next());
     }
   } */
-  
+
 
   public static List<SelectItem> getItemsToRender(javax.faces.component.UISelectOne component) {
     return getItems(component);
@@ -980,6 +986,7 @@ public class ComponentUtil {
     }
     return items;
   }
+
   public static void setValidator(EditableValueHolder editableValueHolder, String validator) {
     if (validator != null && editableValueHolder.getValidator() == null) {
       if (UIComponentTag.isValueReference(validator)) {
@@ -991,9 +998,9 @@ public class ComponentUtil {
   }
 
   /**
-   * @deprecated please use the typesave method {@link #setConverter(javax.faces.component.ValueHolder, String)}
    * @param component
    * @param converterId
+   * @deprecated please use the typesave method {@link #setConverter(javax.faces.component.ValueHolder, String)}
    */
   @Deprecated
   public static void setConverter(UIComponent component, String converterId) {
@@ -1019,10 +1026,10 @@ public class ComponentUtil {
   }
 
   /**
-   * @deprecated please use the typesave method {@link #setAction(javax.faces.component.UICommand, String, String)}
    * @param component
    * @param type
    * @param action
+   * @deprecated please use the typesave method {@link #setAction(javax.faces.component.UICommand, String, String)}
    */
   @Deprecated
   public static void setAction(UIComponent component, String type, String action) {
@@ -1030,7 +1037,7 @@ public class ComponentUtil {
       setAction((UICommand) component, type, action);
     }
   }
-  
+
   public static void setAction(UICommand component, String type, String action) {
     String commandType;
     final FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -1042,8 +1049,8 @@ public class ComponentUtil {
     }
     if (commandType != null
         && (commandType.equals(COMMAND_TYPE_NAVIGATE)
-          || commandType.equals(COMMAND_TYPE_RESET)
-          || commandType.equals(COMMAND_TYPE_SCRIPT))) {
+        || commandType.equals(COMMAND_TYPE_RESET)
+        || commandType.equals(COMMAND_TYPE_SCRIPT))) {
       if (commandType.equals(COMMAND_TYPE_NAVIGATE)) {
         setStringProperty(component, ATTR_ACTION_LINK, action);
       } else if (commandType.equals(COMMAND_TYPE_SCRIPT)) {
@@ -1065,9 +1072,9 @@ public class ComponentUtil {
   }
 
   /**
-   * @deprecated please use the typesave method {@link #setSuggestMethodBinding(UIInput, String)}
    * @param component
    * @param suggestMethod
+   * @deprecated please use the typesave method {@link #setSuggestMethodBinding(UIInput, String)}
    */
   @Deprecated
   public static void setSuggestMethodBinding(UIComponent component, String suggestMethod) {
@@ -1075,11 +1082,12 @@ public class ComponentUtil {
       setSuggestMethodBinding((UIInput) component, suggestMethod);
     }
   }
+
   public static void setSuggestMethodBinding(UIInput component, String suggestMethod) {
     if (suggestMethod != null) {
       if (UIComponentTag.isValueReference(suggestMethod)) {
         final MethodBinding methodBinding = FacesContext.getCurrentInstance().getApplication()
-            .createMethodBinding(suggestMethod, new Class[] {String.class});
+            .createMethodBinding(suggestMethod, new Class[]{String.class});
         component.setSuggestMethod(methodBinding);
       } else {
         throw new IllegalArgumentException(
@@ -1087,7 +1095,7 @@ public class ComponentUtil {
       }
     }
   }
-  
+
   public static void setActionListener(ActionSource command, String actionListener) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final Application application = facesContext.getApplication();
@@ -1104,19 +1112,19 @@ public class ComponentUtil {
   }
 
   public static void setValueChangeListener(EditableValueHolder valueHolder, String valueChangeListener) {
-     final FacesContext facesContext = FacesContext.getCurrentInstance();
-     final Application application = facesContext.getApplication();
-     if (valueChangeListener != null) {
-       if (UIComponentTag.isValueReference(valueChangeListener)) {
-         MethodBinding binding
-             = application.createMethodBinding(valueChangeListener, VALUE_CHANGE_LISTENER_ARGS);
-         valueHolder.setValueChangeListener(binding);
-       } else {
-         throw new IllegalArgumentException(
-             "Must be a valueReference (valueChangeListener): " + valueChangeListener);
-       }
-     }
-   }
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final Application application = facesContext.getApplication();
+    if (valueChangeListener != null) {
+      if (UIComponentTag.isValueReference(valueChangeListener)) {
+        MethodBinding binding
+            = application.createMethodBinding(valueChangeListener, VALUE_CHANGE_LISTENER_ARGS);
+        valueHolder.setValueChangeListener(binding);
+      } else {
+        throw new IllegalArgumentException(
+            "Must be a valueReference (valueChangeListener): " + valueChangeListener);
+      }
+    }
+  }
 
 
   public static void setSortActionListener(UIData data, String actionListener) {
@@ -1160,7 +1168,6 @@ public class ComponentUtil {
   }
 
 
-
   public static String[] getMarkupBinding(FacesContext facesContext, SupportsMarkup component) {
     ValueBinding vb = ((UIComponent) component).getValueBinding(ATTR_MARKUP);
     if (vb != null) {
@@ -1191,7 +1198,6 @@ public class ComponentUtil {
    * colonCount == 1: absolute (still normal findComponent syntax)
    * colonCount > 1: for each extra colon after 1, go up a naming container
    * (to the view root, if naming containers run out)
-   *
    */
 
   public static UIComponent findComponent(UIComponent from, String relativeId) {
@@ -1293,7 +1299,7 @@ public class ComponentUtil {
         LOG.info("set rowIndex = \"" + rowIndex + "\"");
         uiData.setRowIndex(rowIndex);
       } catch (NumberFormatException e) {
-        LOG.error("idRemainder = \"" + idRemainder + "\"" , e);
+        LOG.error("idRemainder = \"" + idRemainder + "\"", e);
       }
     } else {
       LOG.info("no match for \"^:\\d+:.*\"");

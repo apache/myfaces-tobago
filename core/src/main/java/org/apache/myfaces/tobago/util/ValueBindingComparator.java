@@ -106,12 +106,11 @@ public class ValueBindingComparator extends ComparatorBase {
   // implementation of java.util.Comparator interface
 
   /**
-   *
    * @param param1 <description>
    * @param param2 <description>
    * @return <description>
    */
-  public int compare(Object param1, Object param2){
+  public int compare(Object param1, Object param2) {
     Object obj1;
     Object obj2;
     try {

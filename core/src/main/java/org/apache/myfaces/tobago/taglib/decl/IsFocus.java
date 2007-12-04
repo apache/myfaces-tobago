@@ -29,6 +29,7 @@ public interface IsFocus {
   /**
    * Flag indicating this component should recieve the focus.
    */
-  @TagAttribute @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
   void setFocus(String focus);
 }

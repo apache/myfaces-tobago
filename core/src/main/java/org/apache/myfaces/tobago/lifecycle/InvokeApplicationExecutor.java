@@ -22,7 +22,7 @@ import javax.faces.event.PhaseId;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
- *
+ * <p/>
  * Invoke application phase (JSF Spec 2.2.5)
  */
 class InvokeApplicationExecutor implements PhaseExecutor {

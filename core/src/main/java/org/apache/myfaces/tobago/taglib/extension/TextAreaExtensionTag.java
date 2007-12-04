@@ -43,7 +43,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * Renders a multiline text input control with a label.
  * <br />
  * Short syntax of:
- *
+ * <p/>
  * <pre>
  * &lt;tc:panel>
  *   &lt;f:facet name="layout">
@@ -61,7 +61,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.TextAreaTag")
 public class TextAreaExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasIdBindingAndRendered,
-    HasConverter, HasValidator, IsReadonly, IsDisabled, HasMarkup, IsRequired, 
+    HasConverter, HasValidator, IsReadonly, IsDisabled, HasMarkup, IsRequired,
     HasTip, HasLabel, HasLabelWidth, IsFocus, HasOnchange, HasTabIndex {
 
   private String binding;
@@ -122,7 +122,7 @@ public class TextAreaExtensionTag extends BodyTagSupport
     if (validator != null) {
       textAreaTag.setValidator(validator);
     }
-     if (onchange != null) {
+    if (onchange != null) {
       textAreaTag.setOnchange(onchange);
     }
     if (disabled != null) {
@@ -237,7 +237,7 @@ public class TextAreaExtensionTag extends BodyTagSupport
   public void setTip(String tip) {
     this.tip = tip;
   }
-  
+
   public void setLabelWidth(String labelWidth) {
     this.labelWidth = labelWidth;
   }

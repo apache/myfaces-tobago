@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.component.UIMenuSeparator;
 import javax.faces.component.UIComponent;
 
 
-
 public class MenuSeparatorTag extends TobagoTag
     implements MenuSeparatorTagDeclaration {
 

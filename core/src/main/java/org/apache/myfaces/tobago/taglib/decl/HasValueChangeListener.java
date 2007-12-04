@@ -22,8 +22,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 18.04.2006
  * Time: 11:39:26
  */
@@ -33,6 +31,7 @@ public interface HasValueChangeListener {
    * that will be notified when a new value has been set for this input component.
    * The expression must evaluate to a public method that takes a ValueChangeEvent
    * parameter, with a return type of void.
+   *
    * @param valueChangeListener
    */
   @TagAttribute

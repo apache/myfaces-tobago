@@ -25,8 +25,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 30.03.2006
  * Time: 21:37:36
  */

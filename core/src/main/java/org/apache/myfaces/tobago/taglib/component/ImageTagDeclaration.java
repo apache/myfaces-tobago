@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
  * $Id$
  */
 /**
- *  Renders a Image.
+ * Renders a Image.
  */
 @Tag(name = "image", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
@@ -43,18 +43,14 @@ public interface ImageTagDeclaration extends TobagoTagDeclaration,
     HasIdBindingAndRendered, HasBorder, HasDimension, HasTip {
 
   /**
-   *
    * Absolute url to an image or image name to lookup in tobago resource path
-   *
    */
   @TagAttribute(required = true)
   @UIComponentTagAttribute()
   void setValue(String value);
 
   /**
-   *
-   *  Alternate textual description of the image rendered by this component.
-   *
+   * Alternate textual description of the image rendered by this component.
    */
   @TagAttribute
   @UIComponentTagAttribute()

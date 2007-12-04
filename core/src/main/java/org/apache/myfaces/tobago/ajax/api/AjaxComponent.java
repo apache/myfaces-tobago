@@ -21,8 +21,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 /**
- *  !! copy of sandbox org.apache.myfaces.custom.ajax.api.AjaxComponent !!
- *
+ * !! copy of sandbox org.apache.myfaces.custom.ajax.api.AjaxComponent !!
  */
 public interface AjaxComponent {
   void encodeAjax(FacesContext context) throws IOException;

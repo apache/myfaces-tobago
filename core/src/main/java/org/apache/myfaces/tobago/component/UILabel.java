@@ -88,7 +88,7 @@ public class UILabel extends UIOutput implements SupportsMarkup {
       LOG.debug("for = '" + forComponent + "'");
     }
     if ("@auto".equals(forComponent)) {
-      for(Object object : getParent().getChildren()) {
+      for (Object object : getParent().getChildren()) {
         UIComponent child = (UIComponent) object;
         if (child instanceof javax.faces.component.UIInput) {
           forComponent = child.getId();

@@ -28,8 +28,6 @@ import javax.faces.component.EditableValueHolder;
 import javax.faces.application.FacesMessage;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Oct 16, 2006
  * Time: 11:58:47 PM
  */
@@ -88,7 +86,7 @@ public class SubmittedValueLengthValidator extends LengthValidator {
       }
       if (minimum != null && submittedValue.length() < minimum) {
         Object[] args = {minimum, uiComponent.getId()};
-        FacesMessage facesMessage = 
+        FacesMessage facesMessage =
             MessageFactory.createFacesMessage(facesContext, MINIMUM_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, args);
         throw new ValidatorException(facesMessage);
       }

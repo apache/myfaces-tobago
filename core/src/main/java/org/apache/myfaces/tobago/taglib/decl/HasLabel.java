@@ -30,6 +30,7 @@ public interface HasLabel {
    * Text value to display as label.
    * If text contains an underscore the next character is used as accesskey.
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
   void setLabel(String label);
 }

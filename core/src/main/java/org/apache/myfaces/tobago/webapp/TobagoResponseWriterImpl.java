@@ -73,7 +73,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
   private HtmlWriterUtil helper;
 
   public TobagoResponseWriterImpl(final Writer writer, final String contentType,
-                              final String characterEncoding) {
+      final String characterEncoding) {
 //    LOG.info("new TobagoResponseWriterImpl!");
 //    final StackTraceElement[] stackTrace = new Exception().getStackTrace();
 //    for (int i = 1; i < stackTrace.length && i < 5; i++) {

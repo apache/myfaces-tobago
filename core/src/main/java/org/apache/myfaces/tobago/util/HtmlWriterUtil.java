@@ -189,18 +189,18 @@ public final class HtmlWriterUtil {
 
     try {
       switch (name.charAt(0)) {
-        case 'i' : // 'id'
+        case 'i': // 'id'
           if (name.length() == 2 && name.charAt(1) == 'd') {
             return false;
           }
           break;
-        case 'n' : // 'name'
+        case 'n': // 'name'
           if (name.length() == 4 && name.charAt(1) == 'a' && name.charAt(2) == 'm'
               && name.charAt(3) == 'e') {
             return false;
           }
           break;
-        case 'c' : // 'class'
+        case 'c': // 'class'
           if (name.length() == 5 && name.charAt(1) == 'l' && name.charAt(2) == 'a'
               && name.charAt(3) == 's' && name.charAt(4) == 's') {
             return false;

@@ -26,8 +26,6 @@ import javax.faces.component.UIComponent;
 
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 30.05.2006
  * Time: 19:11:07
  */

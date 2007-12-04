@@ -37,11 +37,11 @@ public class UIProgress extends javax.faces.component.UIOutput implements Suppor
     super.restoreState(context, values[0]);
     markup = (String[]) values[1];
     tip = (String) values[2];
-   }
+  }
 
   @Override
   public Object saveState(FacesContext context) {
-    Object[] values  = new Object[3];
+    Object[] values = new Object[3];
     values[0] = super.saveState(context);
     values[1] = markup;
     values[2] = tip;

@@ -43,8 +43,6 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 19.12.2005
  * Time: 20:13:26
  */
@@ -52,7 +50,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * Renders a date input field with a date picker and a label.
  * <br />
  * Short syntax of:
- *
+ * <p/>
  * <pre>
  * &lt;tc:panel>
  *   &lt;f:facet name="layout">
@@ -69,7 +67,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.DateTag")
 public class DateExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled, HasOnchange, IsRequired, HasTip, 
+    HasConverter, IsReadonly, IsDisabled, HasOnchange, IsRequired, HasTip,
     HasLabel, HasMarkup, HasLabelWidth, IsFocus, IsInline, HasTabIndex {
 
   private static final long serialVersionUID = 2044784791513107420L;
@@ -180,7 +178,7 @@ public class DateExtensionTag extends BodyTagSupport
     datePicker.setFor("@auto");
     if (tabIndex != null) {
       datePicker.setTabIndex(tabIndex);
-    }    
+    }
     datePicker.setParent(formTag);
     datePicker.doStartTag();
     datePicker.doEndTag();
@@ -249,6 +247,7 @@ public class DateExtensionTag extends BodyTagSupport
   public void setValidator(String validator) {
     this.validator = validator;
   }
+
   public void setInline(String inline) {
     this.inline = inline;
   }

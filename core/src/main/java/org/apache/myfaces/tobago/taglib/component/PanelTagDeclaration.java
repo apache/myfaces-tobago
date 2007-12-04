@@ -26,8 +26,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 11.02.2006
  * Time: 13:54:04
  */
@@ -40,8 +38,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
     uiComponent = "org.apache.myfaces.tobago.component.UIPanel",
     rendererType = "Panel",
     facets = {
-    @Facet(name="reload", description = "Contains an instance of UIReload"),
-    @Facet(name="layout", description = "Contains an instance of UILayout")})
+    @Facet(name = "reload", description = "Contains an instance of UIReload"),
+    @Facet(name = "layout", description = "Contains an instance of UILayout")})
 public interface PanelTagDeclaration extends TobagoBodyTagDeclaration,
     HasIdBindingAndRendered, HasDeprecatedDimension {
 
@@ -52,5 +50,5 @@ public interface PanelTagDeclaration extends TobagoBodyTagDeclaration,
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "none")
   void setMarkup(String markup);
-  
+
 }

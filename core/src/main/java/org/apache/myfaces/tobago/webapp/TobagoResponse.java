@@ -37,7 +37,7 @@ public class TobagoResponse extends HttpServletResponseWrapper {
   private static final Log LOG = LogFactory.getLog(TobagoResponse.class);
 
   private PrintWriter printWriter = null;
-  private StringWriter  bufferedWriter = null;
+  private StringWriter bufferedWriter = null;
 
 
   public TobagoResponse(HttpServletResponse base) {
@@ -50,14 +50,16 @@ public class TobagoResponse extends HttpServletResponseWrapper {
       printWriter = new PrintWriter(bufferedWriter);
     }
   }
+
   public String getBufferedString() {
-    if (bufferedWriter !=null) {
+    if (bufferedWriter != null) {
       printWriter.flush();
       return bufferedWriter.toString();
     } else {
       return "";
     }
   }
+
   public ServletOutputStream getOutputStream() throws IOException {
     LOG.debug("***** getOutputStream() from " + new Exception().getStackTrace()[1]);
     return getResponse().getOutputStream();

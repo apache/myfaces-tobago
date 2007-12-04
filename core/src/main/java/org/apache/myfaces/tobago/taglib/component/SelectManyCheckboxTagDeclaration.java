@@ -40,7 +40,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
  * Render a group of checkboxes.
  */
 @Tag(name = "selectManyCheckbox")
-@BodyContentDescription(anyTagOf= "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
+@BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectMany",
     rendererType = "SelectManyCheckbox")

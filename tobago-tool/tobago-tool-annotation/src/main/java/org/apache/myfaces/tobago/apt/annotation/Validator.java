@@ -23,8 +23,6 @@ import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Oct 6, 2006
  * Time: 9:35:39 PM
  */

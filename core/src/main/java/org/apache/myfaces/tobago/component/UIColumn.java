@@ -27,8 +27,6 @@ import javax.faces.el.ValueBinding;
 
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 18.04.2006
  * Time: 21:50:29
  */

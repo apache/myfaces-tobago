@@ -51,7 +51,6 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
   private Map fileItems;
 
 
-
   public TobagoMultipartFormdataRequest(HttpServletRequest request) {
     this(request, System.getProperty("java.io.tmpdir"), ONE_MB);
   }
@@ -189,7 +188,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
         return Long.parseLong(number.trim()) * factor;
       } catch (NumberFormatException e) {
         LOG.error("Given max file size for "
-            + TobagoMultipartFormdataRequest.class.getName() + " " +param + " couldn't parsed to a number");
+            + TobagoMultipartFormdataRequest.class.getName() + " " + param + " couldn't parsed to a number");
       }
     }
     return ONE_MB;

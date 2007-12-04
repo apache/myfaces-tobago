@@ -48,8 +48,8 @@ public abstract class TobagoBodyTag extends TobagoTag implements TobagoBodyTagDe
     if (LOG.isWarnEnabled()) {
       UIComponent component = getComponentInstance();
       if (component != null && component.getRendersChildren() && !isBodyContentEmpty()) {
-        LOG.warn("BodyContent should be empty. Component with id "+ component.getId()
-            + " class "+component.getClass().getName() +" content "+ bodyContent.getString()
+        LOG.warn("BodyContent should be empty. Component with id " + component.getId()
+            + " class " + component.getClass().getName() + " content " + bodyContent.getString()
             + "  Please use the f:verbatim tag for nested content!");
       }
     }

@@ -25,8 +25,6 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.AbortProcessingException;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Nov 12, 2006
  * Time: 10:44:02 AM
  */

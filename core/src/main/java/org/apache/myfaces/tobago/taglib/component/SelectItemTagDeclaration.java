@@ -27,8 +27,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 02.04.2006
  * Time: 16:20:59
  */
@@ -46,7 +44,7 @@ public interface SelectItemTagDeclaration extends TobagoTagDeclaration, HasBindi
    * by this component is disabled.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = { "java.lang.Boolean" }, defaultValue = "false")
+  @UIComponentTagAttribute(type = {"java.lang.Boolean"}, defaultValue = "false")
   void setItemDescription(String itemDescription);
 
   /**
@@ -54,7 +52,7 @@ public interface SelectItemTagDeclaration extends TobagoTagDeclaration, HasBindi
    * by this component is disabled.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = { "java.lang.Boolean" }, defaultValue = "false")
+  @UIComponentTagAttribute(type = {"java.lang.Boolean"}, defaultValue = "false")
   void setItemDisabled(String itemDisabled);
 
   /**

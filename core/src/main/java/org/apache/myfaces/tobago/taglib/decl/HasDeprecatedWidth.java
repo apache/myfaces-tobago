@@ -26,10 +26,10 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 @Deprecated
 public interface HasDeprecatedWidth {
   /**
-   *  The width for this component.
+   * The width for this component.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  @Deprecated    
+  @Deprecated
   void setWidth(String width);
 }

@@ -20,13 +20,12 @@ package org.apache.myfaces.tobago.component;
 import javax.faces.context.FacesContext;
 
 
-
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
- * Date: 10.02.2006
- * Time: 21:20:10
- */
+* Created by IntelliJ IDEA.
+* User: bommel
+* Date: 10.02.2006
+* Time: 21:20:10
+*/
 public class UICell extends UIPanelBase {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Cell";
@@ -68,7 +67,7 @@ public class UICell extends UIPanelBase {
   }
 
   public Object saveState(FacesContext context) {
-    Object[] values  = new Object[4];
+    Object[] values = new Object[4];
     values[0] = super.saveState(context);
     values[1] = spanX;
     values[2] = spanY;

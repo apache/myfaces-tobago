@@ -45,7 +45,7 @@ public class SelectManyRendererBase extends LayoutableRendererBase {
       UISelectMany uiSelectMany = (UISelectMany) component;
 
       String[] newValues = (String[])
-        facesContext.getExternalContext().getRequestParameterValuesMap().get(uiSelectMany.getClientId(facesContext));
+          facesContext.getExternalContext().getRequestParameterValuesMap().get(uiSelectMany.getClientId(facesContext));
       if (LOG.isDebugEnabled()) {
         LOG.debug("decode: key='" + component.getClientId(facesContext)
             + "' value='" + Arrays.toString(newValues) + "'");
@@ -148,7 +148,7 @@ public class SelectManyRendererBase extends LayoutableRendererBase {
       // ...but have no idea of expected type
       // --> so let's convert it to an Object array
       int len = submittedValue.length;
-      Object [] convertedValues = (Object []) Array.newInstance(
+      Object[] convertedValues = (Object[]) Array.newInstance(
           arrayComponentType == null ? Object.class : arrayComponentType, len);
       for (int i = 0; i < len; i++) {
         convertedValues[i]

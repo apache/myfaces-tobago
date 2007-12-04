@@ -30,5 +30,5 @@ public class TextInputTag extends InputTag implements TextInputTagDeclaration {
     return UIInput.COMPONENT_TYPE;
   }
 
- 
+
 }

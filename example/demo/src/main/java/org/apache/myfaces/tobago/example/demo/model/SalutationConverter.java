@@ -23,8 +23,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 01.08.2006
  * Time: 20:04:26
  */

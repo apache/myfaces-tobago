@@ -25,10 +25,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface HasMargin {
   /**
-   *
    * Margin between container component and layouted children.
-   *
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
   void setMargin(String margin);
 }

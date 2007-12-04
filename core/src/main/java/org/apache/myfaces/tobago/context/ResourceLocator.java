@@ -82,7 +82,7 @@ class ResourceLocator {
     Set<String> resourcePaths = servletContext.getResourcePaths(path);
     if (resourcePaths == null || resourcePaths.isEmpty()) {
       LOG.info("ResourcePath empty! Please check the tobago-config.xml file!"
-            + " path='" + path + "'");
+          + " path='" + path + "'");
       return;
     }
     for (String childPath : resourcePaths) {
@@ -100,7 +100,7 @@ class ResourceLocator {
           InputStream inputStream = servletContext.getResourceAsStream(childPath);
           try {
             addProperties(inputStream, resources, childPath, false);
-          } finally{
+          } finally {
             IOUtils.closeQuietly(inputStream);
           }
         } else if (childPath.endsWith(".properties.xml")) {
@@ -110,7 +110,7 @@ class ResourceLocator {
           } catch (RuntimeException e) {
             LOG.error("childPath = \"" + childPath + "\" ", e);
             throw e;
-          } finally{
+          } finally {
             IOUtils.closeQuietly(inputStream);
           }
         } else {
@@ -144,7 +144,7 @@ class ResourceLocator {
           addResources(resources, themeUrl, prefix);
         } else {
           LOG.warn("Unknown protocol '" + themeUrl + "'");
-          addResources(resources,  themeUrl, prefix);
+          addResources(resources, themeUrl, prefix);
         }
       }
     } catch (IOException e) {
@@ -185,7 +185,7 @@ class ResourceLocator {
       try {
         jarFile = new URL(fileName);
       } catch (MalformedURLException e) {
-      // workaround for weblogic on windows
+        // workaround for weblogic on windows
         jarFile = new URL("file:" + fileName);
       }
       InputStream stream = null;
@@ -206,16 +206,16 @@ class ResourceLocator {
       } finally {
         IOUtils.closeQuietly(stream);
         IOUtils.closeQuietly(zipStream);
-     }
+      }
     }
   }
 
   private void resolveTheme(ResourceManagerImpl resources, File directoryFile,
       String resourcePath, String prefix, boolean inResourcePath) throws ServletException {
     File[] files = directoryFile.listFiles();
-    for (File file: files) {
+    for (File file : files) {
       if (file.isDirectory()) {
-        String currentResourcePath = resourcePath + File.separator  + file.getName();
+        String currentResourcePath = resourcePath + File.separator + file.getName();
         if (!inResourcePath && currentResourcePath.startsWith(prefix)) {
           inResourcePath = true;
         }
@@ -233,13 +233,13 @@ class ResourceLocator {
       throws ServletException {
 
     if (name.endsWith(".class")) {
-        // ignore the class files
+      // ignore the class files
     } else if (name.endsWith(".properties")) {
       LOG.info("** " + name.substring(1));
       InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(name.substring(1));
       try {
         addProperties(inputStream, resources, name, false);
-      } finally{
+      } finally {
         IOUtils.closeQuietly(inputStream);
       }
     } else if (name.endsWith(".properties.xml")) {
@@ -247,7 +247,7 @@ class ResourceLocator {
       InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(name.substring(1));
       try {
         addProperties(inputStream, resources, name, true);
-      } finally{
+      } finally {
         IOUtils.closeQuietly(inputStream);
       }
     } else {

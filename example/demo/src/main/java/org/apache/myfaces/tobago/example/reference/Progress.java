@@ -21,8 +21,6 @@ import javax.swing.DefaultBoundedRangeModel;
 import javax.swing.BoundedRangeModel;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Dec 18, 2006
  * Time: 7:54:19 PM
  */

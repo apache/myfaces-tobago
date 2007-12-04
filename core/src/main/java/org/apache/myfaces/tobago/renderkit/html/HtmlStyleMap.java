@@ -24,8 +24,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Nov 24, 2006
  * Time: 10:07:33 PM
  */
@@ -59,7 +57,7 @@ public class HtmlStyleMap extends HashMap<String, Object> {
 
   public String toString() {
     StringBuilder buf = new StringBuilder();
-    for(Map.Entry<String, Object> style :entrySet()) {
+    for (Map.Entry<String, Object> style : entrySet()) {
       buf.append(style.getKey());
       buf.append(":");
       buf.append(style.getValue());

@@ -28,8 +28,6 @@ import javax.faces.context.FacesContext;
 import java.io.Serializable;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Dec 23, 2006
  * Time: 10:59:53 AM
  */
@@ -45,14 +43,14 @@ public class PopupActionListener implements ActionListener, Serializable {
   public PopupActionListener(String popupId) {
     this.popupId = popupId;
     if (LOG.isDebugEnabled()) {
-      LOG.debug("Add ActionListener: "+  popupId);
+      LOG.debug("Add ActionListener: " + popupId);
     }
   }
 
   public PopupActionListener(UIPopup popup) {
-    this.popupId = ":"+popup.getClientId(FacesContext.getCurrentInstance());
+    this.popupId = ":" + popup.getClientId(FacesContext.getCurrentInstance());
     if (LOG.isDebugEnabled()) {
-      LOG.debug("Add ActionListener: "+popupId);
+      LOG.debug("Add ActionListener: " + popupId);
     }
   }
 
@@ -66,7 +64,7 @@ public class PopupActionListener implements ActionListener, Serializable {
       }
       popup.setActivated(true);
     } else {
-      LOG.error("Found no popup for " +popupId);
+      LOG.error("Found no popup for " + popupId);
     }
   }
 

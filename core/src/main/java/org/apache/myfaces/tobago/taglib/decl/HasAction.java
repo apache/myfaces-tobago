@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
  */
 public interface HasAction {
   /**
-   *
    * Action to invoke when clicked.
    * This must be a MethodBinding or a String representing the application action to invoke when
    * this component is activated by the user.
@@ -34,7 +33,6 @@ public interface HasAction {
    * and returns a String (the logical outcome) which is passed to the
    * NavigationHandler for this application.
    * The String is directly passed to the Navigationhandler.
-   *
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding", expression = DynamicExpression.METHOD_BINDING)

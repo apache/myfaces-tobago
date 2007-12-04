@@ -32,14 +32,13 @@ import java.util.Iterator;
 import java.text.MessageFormat;
 
 /*
- * Created by IntelliJ IDEA.
- * User: weber
  * Date: Dec 6, 2005
  * Time: 7:50:25 PM
  */
 public class DebugPhaseListener implements PhaseListener {
   private static final Log LOG = LogFactory.getLog(DebugPhaseListener.class);
   private static final String KEY = DebugPhaseListener.class.getName() + "_ID_";
+
   public void afterPhase(PhaseEvent phaseEvent) {
     if (LOG.isInfoEnabled()) {
       Date end = new Date();
@@ -74,8 +73,8 @@ public class DebugPhaseListener implements PhaseListener {
           LOG.info(MessageFormat.format("Faces message found."
               + "\n  Component: {0} \n  Severity : {1}"
               + "\n  Summary  : {2} \n  Detail   : {3}",
-          new Object[] {clientId, msg.getSeverity(),
-            msg.getSummary(), msg.getDetail()}));
+              new Object[]{clientId, msg.getSeverity(),
+                  msg.getSummary(), msg.getDetail()}));
         }
       }
     }
@@ -92,10 +91,10 @@ public class DebugPhaseListener implements PhaseListener {
 
         if (LOG.isTraceEnabled() && PhaseId.RESTORE_VIEW == phaseId) {
           // this is before restoreView
-            Map params = externalContext.getRequestParameterMap();
-            for (Object key : params.keySet()) {
-              LOG.trace("Param : \"" + key + "\" = \"" + params.get(key) + "\"");
-            }
+          Map params = externalContext.getRequestParameterMap();
+          for (Object key : params.keySet()) {
+            LOG.trace("Param : \"" + key + "\" = \"" + params.get(key) + "\"");
+          }
         }
 
         start = new Date();

@@ -22,8 +22,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 05.08.2006
  * Time: 12:01:32
  */
@@ -35,13 +33,13 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
 @Tag(name = "command", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UICommand",
     rendererType = "Command")
-public interface CommandTagDeclaration  extends AbstractCommandTagDeclaration, HasId {
+public interface CommandTagDeclaration extends AbstractCommandTagDeclaration, HasId {
 
   /**
    * Indicate the partially rendered Components in a case of a submit.
 
-  @TagAttribute
-  @UIComponentTagAttribute()
-  void setRenderedPartially(String componentIds);   */
+   @TagAttribute
+   @UIComponentTagAttribute()
+   void setRenderedPartially(String componentIds);   */
 
 }

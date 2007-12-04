@@ -24,8 +24,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasFor;
 import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 30.05.2006
  * Time: 19:17:28
  */
@@ -34,12 +32,12 @@ import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
  * Renders a date picker.
  * The component needs a DateFormat Pattern from a converter. The converter
  * should be an instance of DateTimeConverter and return a valid pattern from
- * the method getPattern() 
+ * the method getPattern()
  */
 @Tag(name = "datePicker")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIDatePicker",
     rendererType = RENDERER_TYPE_DATE_PICKER)
-public interface DatePickerTagDeclaration  extends TobagoTagDeclaration, HasFor,
+public interface DatePickerTagDeclaration extends TobagoTagDeclaration, HasFor,
     HasTabIndex {
 }

@@ -33,8 +33,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Oct 13, 2006
  * Time: 6:01:59 PM
  */
@@ -55,7 +53,8 @@ public class ConverterTag extends TagSupport {
 
   /**
    * The converterId of a registered converter.
-   * @param converterId  A valid converterId
+   *
+   * @param converterId A valid converterId
    */
   @TagAttribute()
   public void setConverterId(String converterId) {
@@ -64,6 +63,7 @@ public class ConverterTag extends TagSupport {
 
   /**
    * The value binding expression to a converter.
+   *
    * @param binding A valid binding
    */
   @TagAttribute
@@ -101,7 +101,7 @@ public class ConverterTag extends TagSupport {
     }
     if (!(component instanceof ValueHolder)) {
       // TODO Message resource i18n
-      throw new JspException("Component "+ component.getClass().getName() + " is not instanceof ValueHolder");
+      throw new JspException("Component " + component.getClass().getName() + " is not instanceof ValueHolder");
     }
     ValueHolder valueHolder = (ValueHolder) component;
 

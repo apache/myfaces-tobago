@@ -32,6 +32,7 @@ public class PercentLayoutToken extends LayoutToken {
   public int getPercent() {
     return percent;
   }
+
   public String toString() {
     return percent + "%";
   }

@@ -28,8 +28,6 @@ import java.util.Collections;
 import java.util.Set;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Sep 25, 2006
  * Time: 9:29:33 PM
  */

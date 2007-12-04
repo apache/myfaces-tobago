@@ -45,7 +45,7 @@ public class ConstantMethodBinding
     return outcome;
   }
 
-  public Class getType(FacesContext facesContext){
+  public Class getType(FacesContext facesContext) {
     return String.class;
   }
 

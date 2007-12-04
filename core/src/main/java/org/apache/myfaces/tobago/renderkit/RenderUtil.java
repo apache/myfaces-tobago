@@ -88,7 +88,6 @@ public class RenderUtil {
   }
 
 
-
   public static String addMenuCheckToggle(String clientId, String onClick) {
     if (onClick != null) {
       onClick = " ; " + onClick;
@@ -102,12 +101,12 @@ public class RenderUtil {
   }
 
   public static String getFormattedValue(
-      FacesContext facesContext, UIComponent component){
+      FacesContext facesContext, UIComponent component) {
     Object value = null;
     if (component instanceof ValueHolder) {
       value = ((ValueHolder) component).getLocalValue();
       if (value == null) {
-        value =  ((ValueHolder) component).getValue();
+        value = ((ValueHolder) component).getValue();
       }
     }
     return getFormattedValue(facesContext, component, value);

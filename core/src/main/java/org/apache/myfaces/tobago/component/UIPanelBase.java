@@ -39,13 +39,13 @@ public class UIPanelBase extends javax.faces.component.UIPanel
   }
 
   public void encodeChildren(FacesContext facesContext) throws IOException {
-   if (isRendered()) {
-     UILayout.getLayout(this).encodeChildrenOfComponent(facesContext, this);
-   }
+    if (isRendered()) {
+      UILayout.getLayout(this).encodeChildrenOfComponent(facesContext, this);
+    }
   }
 
   public void encodeAjax(FacesContext facesContext) throws IOException {
-    AjaxUtils.encodeAjaxComponent(facesContext, this);    
+    AjaxUtils.encodeAjaxComponent(facesContext, this);
   }
 
   public void processAjax(FacesContext facesContext) throws IOException {

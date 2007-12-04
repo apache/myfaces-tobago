@@ -22,8 +22,6 @@ import java.util.HashSet;
 import java.io.Serializable;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Sep 24, 2006
  * Time: 10:09:35 PM
  */

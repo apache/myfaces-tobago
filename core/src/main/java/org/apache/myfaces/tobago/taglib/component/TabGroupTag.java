@@ -79,7 +79,7 @@ public class TabGroupTag extends TobagoTag
   public void setSwitchType(String switchType) {
     this.switchType = switchType;
   }
-  
+
   public void setImmediate(String immediate) {
     this.immediate = immediate;
   }

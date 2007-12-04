@@ -26,9 +26,9 @@ import org.apache.myfaces.tobago.component.UISeparator;
 * Time: 8:02:34 PM
 */
 
-public class SeparatorTag  extends TobagoTag implements SeparatorTagDeclaration {
+public class SeparatorTag extends TobagoTag implements SeparatorTagDeclaration {
 
-   public String getComponentType() {
+  public String getComponentType() {
     return UISeparator.COMPONENT_TYPE;
   }
 

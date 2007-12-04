@@ -26,8 +26,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 31.03.2006
  * Time: 21:49:41
  */
@@ -37,11 +35,11 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
  */
 @Tag(name = "menu")
 @BodyContentDescription(
-    anyClassOf = { "org.apache.myfaces.tobago.taglib.component.MenuTag",
+    anyClassOf = {"org.apache.myfaces.tobago.taglib.component.MenuTag",
         "org.apache.myfaces.tobago.taglib.component.MenuCommandTag",
         "org.apache.myfaces.tobago.taglib.component.MenuSelectBooleanTag",
         "org.apache.myfaces.tobago.taglib.component.MenuSelectOneTag",
-        "org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag" })
+        "org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag"})
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenu")
 public interface MenuTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasLabelAndAccessKey,

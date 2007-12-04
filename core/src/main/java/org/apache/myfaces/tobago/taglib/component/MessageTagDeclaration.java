@@ -47,7 +47,7 @@ public interface MessageTagDeclaration extends TobagoTagDeclaration, HasIdBindin
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   void setShowDetail(String showDetail);
 
-   /**
+  /**
    * Flag indicating whether the summary should be included
    * The default is "true".
    */

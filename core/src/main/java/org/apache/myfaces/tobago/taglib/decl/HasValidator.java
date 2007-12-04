@@ -22,8 +22,6 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 13.12.2005
  * Time: 20:10:50
  */
@@ -38,8 +36,8 @@ public interface HasValidator {
    * and Object parameters, and returning void, that validates
    * the component's local value.
    */
-   @TagAttribute
-   @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding",
-       expression = DynamicExpression.METHOD_BINDING)
-   void setValidator(String validator);
+  @TagAttribute
+  @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding",
+      expression = DynamicExpression.METHOD_BINDING)
+  void setValidator(String validator);
 }

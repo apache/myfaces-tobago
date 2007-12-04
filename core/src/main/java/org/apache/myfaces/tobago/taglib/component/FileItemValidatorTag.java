@@ -26,8 +26,6 @@ import javax.faces.validator.Validator;
 import javax.servlet.jsp.JspException;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Oct 30, 2006
  * Time: 11:07:35 PM
  */

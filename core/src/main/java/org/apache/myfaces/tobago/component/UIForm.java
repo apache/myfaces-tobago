@@ -29,7 +29,7 @@ public class UIForm extends javax.faces.component.UIForm {
   private static final Log LOG = LogFactory.getLog(UIForm.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Form";
-  public static final String SUBMITTED_MARKER = COMPONENT_TYPE+".InSubmitted";
+  public static final String SUBMITTED_MARKER = COMPONENT_TYPE + ".InSubmitted";
 
   public void processDecodes(FacesContext facesContext) {
 

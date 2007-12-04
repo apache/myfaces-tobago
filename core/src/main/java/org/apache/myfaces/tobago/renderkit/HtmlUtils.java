@@ -45,7 +45,7 @@ public class HtmlUtils {
       String appendValue) {
     Object attribute = component.getAttributes().get(name);
     return attribute != null
-        ? attribute.toString() + " " + appendValue : appendValue;    
+        ? attribute.toString() + " " + appendValue : appendValue;
   }
 
   public static String generateOnchange(UIInput component,

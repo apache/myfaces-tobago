@@ -27,7 +27,7 @@ import javax.faces.component.UIColumn;
  * @since 1.0.13
  */
 public class UIColumnEvent extends UIColumn {
-  
+
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.ColumnEvent";
 
   private String event;

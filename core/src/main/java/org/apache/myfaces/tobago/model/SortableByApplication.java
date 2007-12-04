@@ -25,5 +25,5 @@ package org.apache.myfaces.tobago.model;
 public interface SortableByApplication {
 
   void sortBy(String sortMethod);
-  
+
 }

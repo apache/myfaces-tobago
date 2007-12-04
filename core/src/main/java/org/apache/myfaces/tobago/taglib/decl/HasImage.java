@@ -25,10 +25,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface HasImage {
   /**
-   *
-   *  Url to an image to display.
-   *
+   * Url to an image to display.
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
   void setImage(String image);
 }

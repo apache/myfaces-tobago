@@ -58,6 +58,6 @@ public interface FileTagDeclaration
    * uploaded file.
    */
   @TagAttribute()
-  @UIComponentTagAttribute(type = { "org.apache.commons.fileupload.FileItem" })
+  @UIComponentTagAttribute(type = {"org.apache.commons.fileupload.FileItem"})
   void setValue(String value);
 }

@@ -32,8 +32,6 @@ import javax.servlet.jsp.JspException;
 import javax.faces.webapp.FacetTag;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 09.05.2006
  * Time: 00:00:49
  */
@@ -86,7 +84,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
     if (disabled != null) {
       menuCommandTag.setDisabled(disabled);
     }
-    if (binding !=null) {
+    if (binding != null) {
       menuCommandTag.setBinding(binding);
     }
     if (label != null) {
@@ -116,7 +114,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
     return super.doStartTag();
   }
 
-   @Override
+  @Override
   public int doEndTag() throws JspException {
     selectBooleanCheckbox.doEndTag();
     facetTag.doEndTag();

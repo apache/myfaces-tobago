@@ -24,6 +24,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import java.util.Locale;
+
 @org.apache.myfaces.tobago.apt.annotation.Converter(forClass = "java.util.Locale")
 public class LocaleConverter implements Converter {
 

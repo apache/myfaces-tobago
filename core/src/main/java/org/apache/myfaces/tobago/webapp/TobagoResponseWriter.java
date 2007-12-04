@@ -30,7 +30,7 @@ import java.io.Writer;
 /**
  * This provides an alternative ResponseWriter interfaces, which allows optimizations.
  * E. g. some attributes needed to to be escaped.
- *
+ * <p/>
  * User: lofwyr
  * Date: 08.05.2007 13:51:43
  */
@@ -55,6 +55,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   public abstract void writeComment(Object comment) throws IOException;
 
   public abstract ResponseWriter cloneWithWriter(Writer writer);
+
   /**
    * @deprecated Should not directly called via this interface. There is be a special method which might be better.
    */
@@ -125,7 +126,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    * Write the class attribute. The value will not escaped.
    */
   public void writeClassAttribute(StyleClasses styleClasses) throws IOException {
-     writeAttribute(HtmlAttributes.CLASS, styleClasses.toString(), false);
+    writeAttribute(HtmlAttributes.CLASS, styleClasses.toString(), false);
   }
 
   /**

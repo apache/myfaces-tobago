@@ -22,8 +22,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 30.03.2006
  * Time: 19:33:04
  */

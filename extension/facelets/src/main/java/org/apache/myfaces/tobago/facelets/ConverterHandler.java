@@ -35,8 +35,6 @@ import javax.el.ValueExpression;
 import java.io.IOException;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Oct 13, 2006
  * Time: 6:17:49 PM
  */

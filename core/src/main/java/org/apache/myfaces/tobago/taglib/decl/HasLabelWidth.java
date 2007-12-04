@@ -21,17 +21,15 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Jan 15, 2007
  * Time: 4:49:14 PM
  */
 public interface HasLabelWidth {
- /**
-  *  The width for the label component. Default: 'fixed'.
-  *  This value is used in the gridLayouts columns attribute.
-  *  See gridLayout tag for valid values.
-  */
+  /**
+   * The width for the label component. Default: 'fixed'.
+   * This value is used in the gridLayouts columns attribute.
+   * See gridLayout tag for valid values.
+   */
   @TagAttribute
   @UIComponentTagAttribute()
   void setLabelWidth(String width);

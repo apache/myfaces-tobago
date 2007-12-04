@@ -18,8 +18,6 @@ package org.apache.myfaces.tobago.renderkit.html;
  */
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Sep 23, 2006
  * Time: 10:01:48 AM
  */

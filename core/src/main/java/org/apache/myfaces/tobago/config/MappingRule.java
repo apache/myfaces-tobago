@@ -20,7 +20,9 @@ package org.apache.myfaces.tobago.config;
 import java.util.ArrayList;
 import java.util.List;
 
-/** @deprecated please use other template mechanism, like JSP-Tag Files or any other */
+/**
+ * @deprecated please use other template mechanism, like JSP-Tag Files or any other
+ */
 @Deprecated
 public class MappingRule {
 

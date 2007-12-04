@@ -37,14 +37,14 @@ import org.apache.myfaces.tobago.taglib.decl.HasConverter;
  * $Id$
  */
 /**
- *  Render a set of radiobuttons.
+ * Render a set of radiobuttons.
  */
 @Tag(name = "selectOneRadio")
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOne",
     rendererType = "SelectOneRadio",
-facets = {
+    facets = {
     @Facet(name = "click",
         description =
             "This facet can contain a UICommand that is invoked in case of a click event from the component"),

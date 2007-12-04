@@ -31,8 +31,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasTreeNodeValue;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 06.04.2006
  * Time: 22:32:57
  */

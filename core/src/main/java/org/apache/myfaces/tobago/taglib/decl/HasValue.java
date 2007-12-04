@@ -26,10 +26,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  * $Id$
  */
 public interface HasValue {
-  
+
   /**
-   *  The current value of this component.
-   *
+   * The current value of this component.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Object")

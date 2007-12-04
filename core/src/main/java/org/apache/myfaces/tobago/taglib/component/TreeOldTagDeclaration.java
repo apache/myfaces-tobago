@@ -41,7 +41,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     uiComponent = "org.apache.myfaces.tobago.component.UITreeOld",
     rendererType = "TreeOld")
 public interface TreeOldTagDeclaration extends TobagoTagDeclaration,
-    HasIdBindingAndRendered, HasTreeNodeValue, HasState, HasIdReference, 
+    HasIdBindingAndRendered, HasTreeNodeValue, HasState, HasIdReference,
     HasActionListener, HasNameReference, IsRequired, HasTabIndex {
 
   /**
@@ -90,8 +90,8 @@ public interface TreeOldTagDeclaration extends TobagoTagDeclaration,
   /**
    * Bean property reference to fetch the disabled state for the treeNode's.<br />
    * Example:<br />
-   *   a disabledReference="userObject.disabled" try's to invoke
-   *   <code>&lt;UITreeNode>.getUserObject().getDisabled()</code> to fetch the state.
+   * a disabledReference="userObject.disabled" try's to invoke
+   * <code>&lt;UITreeNode>.getUserObject().getDisabled()</code> to fetch the state.
    */
   @TagAttribute
   @UIComponentTagAttribute()
@@ -102,7 +102,7 @@ public interface TreeOldTagDeclaration extends TobagoTagDeclaration,
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "tree",
-  allowedValues = {"tree", "menu"})
+      allowedValues = {"tree", "menu"})
   void setMode(String mode);
 
 

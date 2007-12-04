@@ -25,8 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 03.07.2006
  * Time: 21:19:38
  */

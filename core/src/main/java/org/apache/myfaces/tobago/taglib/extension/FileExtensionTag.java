@@ -33,9 +33,9 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Renders a file input field with a label.
- *
+ * <p/>
  * Short syntax of:
- *
+ * <p/>
  * <pre>
  * &lt;tc:panel>
  *   &lt;f:facet name="layout">

@@ -24,8 +24,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 10.02.2006
  * Time: 22:20:01
  */
@@ -38,14 +36,14 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UICell",
     rendererType = "Panel")
-public interface CellTagDeclaration extends TobagoBodyTagDeclaration, 
+public interface CellTagDeclaration extends TobagoBodyTagDeclaration,
     HasIdBindingAndRendered {
 
   /**
    * Count of layout column's to span over.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = { "java.lang.Integer" },
+  @UIComponentTagAttribute(type = {"java.lang.Integer"},
       defaultValue = "1")
   void setSpanX(String spanX);
 
@@ -53,7 +51,7 @@ public interface CellTagDeclaration extends TobagoBodyTagDeclaration,
    * Count of layout row's to span over.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = { "java.lang.Integer" },
+  @UIComponentTagAttribute(type = {"java.lang.Integer"},
       defaultValue = "1")
   void setSpanY(String spanY);
 

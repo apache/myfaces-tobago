@@ -78,11 +78,10 @@ public class LoadBundleTag extends TagSupport {
   public String getVar() {
     return var;
   }
+
   /**
-   *
    * Name of a session-scope attribute under which the bundle data
    * will be exposed.
-   *
    */
   @TagAttribute(required = true)
   public void setVar(String var) {

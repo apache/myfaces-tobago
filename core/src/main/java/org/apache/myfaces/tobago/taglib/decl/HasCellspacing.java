@@ -25,10 +25,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface HasCellspacing {
   /**
-   *  
-   * Spacing between component and layout cell's   
-   *
+   * Spacing between component and layout cell's
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
   void setCellspacing(String cellspacing);
 }

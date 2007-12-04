@@ -32,12 +32,6 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.HashMap;
 
-/*
- * Created by IntelliJ IDEA.
- * User: weber
- * Date: 12.10.2005
- * Time: 13:11:05
- */
 public class AjaxUtils {
 
   private static final Log LOG = LogFactory.getLog(AjaxUtils.class);
@@ -59,8 +53,6 @@ public class AjaxUtils {
           + compClass.getName() + " as it should be");
     }
   }
-
-
 
 
   public static void encodeAjaxComponent(FacesContext facesContext, UIComponent component) throws IOException {
@@ -87,7 +79,7 @@ public class AjaxUtils {
   }
 
   public static void processActiveAjaxComponent(FacesContext facesContext,
-                                                UIComponent component)
+      UIComponent component)
       throws IOException {
 
     if (component instanceof AjaxComponent) {

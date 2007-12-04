@@ -51,7 +51,7 @@ public class TreeOldTag extends TobagoTag implements TreeOldTagDeclaration {
   private String mode;
 
   private String tabIndex;
-  
+
   public String getComponentType() {
     return UITreeOld.COMPONENT_TYPE;
   }
@@ -126,6 +126,7 @@ public class TreeOldTag extends TobagoTag implements TreeOldTagDeclaration {
   public void setActionListener(String actionListener) {
     this.actionListener = actionListener;
   }
+
   public String getActionListener() {
     return actionListener;
   }

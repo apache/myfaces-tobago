@@ -87,7 +87,7 @@ public class DatePickerController extends MethodBinding {
           int popupTop = ComponentUtil.getIntAttribute(
               popup, ATTR_TOP, -1);
 
-          final Map<String, String>  attributes = popup.getAttributes();
+          final Map<String, String> attributes = popup.getAttributes();
           if (popupWidth == -1) {
             popupWidth = ThemeConfig.getValue(
                 facesContext, popup, "CalendarPopupWidth");

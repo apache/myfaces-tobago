@@ -21,8 +21,6 @@ import java.io.Serializable;
 import java.util.Locale;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Sep 25, 2006
  * Time: 10:54:19 AM
  */

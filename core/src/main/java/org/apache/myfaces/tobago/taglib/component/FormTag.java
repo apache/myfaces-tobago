@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.component.UIForm;
 import javax.servlet.jsp.tagext.BodyTag;
 
 // Some Weblogic versions need explicit 'implements' for BodyTag
-public class FormTag extends TobagoBodyTag implements BodyTag,  FormTagDeclaration {
+public class FormTag extends TobagoBodyTag implements BodyTag, FormTagDeclaration {
 
   public String getComponentType() {
     return UIForm.COMPONENT_TYPE;

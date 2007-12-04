@@ -44,11 +44,11 @@ public class UIOutput extends javax.faces.component.UIOutput implements Supports
     markup = (String[]) values[2];
     tip = (String) values[3];
     createSpan = (Boolean) values[4];
-   }
+  }
 
   @Override
   public Object saveState(FacesContext context) {
-    Object[] values  = new Object[5];
+    Object[] values = new Object[5];
     values[0] = super.saveState(context);
     values[1] = escape;
     values[2] = markup;

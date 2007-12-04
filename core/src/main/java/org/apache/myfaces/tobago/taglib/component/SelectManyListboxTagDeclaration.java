@@ -44,7 +44,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     rendererType = "SelectManyListbox")
 
 public interface SelectManyListboxTagDeclaration
-    extends SelectManyTagDeclaration, HasId, IsDisabled, 
+    extends SelectManyTagDeclaration, HasId, IsDisabled,
     HasDeprecatedHeight, IsInline, HasLabelAndAccessKey, IsRendered, HasBinding, HasTip, IsReadonly, IsRequired {
 
 }

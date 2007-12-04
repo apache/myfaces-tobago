@@ -33,15 +33,12 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 09.05.2006
  * Time: 17:41:39
  */
 
 /**
  * Renders a submenu with select one items (like a radio button).
- *
  */
 
 @Tag(name = "menuRadio", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")

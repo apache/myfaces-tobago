@@ -43,7 +43,7 @@ import javax.faces.context.FacesContext;
  * associated with the closest parent UIComponent custom action.
  */
 @Tag(name = "attribute", bodyContent = BodyContent.EMPTY)
-public class AttributeTag  extends TagSupport {
+public class AttributeTag extends TagSupport {
 
   private static final long serialVersionUID = 6231531736083277631L;
 
@@ -59,7 +59,8 @@ public class AttributeTag  extends TagSupport {
 
   /**
    * The name of a attribute.
-   * @param name  A attribute name
+   *
+   * @param name A attribute name
    */
   @TagAttribute(required = true)
   public void setName(String name) {
@@ -68,6 +69,7 @@ public class AttributeTag  extends TagSupport {
 
   /**
    * The value of a attribute
+   *
    * @param value A attribute value
    */
   @TagAttribute(required = true)
@@ -104,7 +106,7 @@ public class AttributeTag  extends TagSupport {
       if (valueBinding != null) {
         attributeName = (String) valueBinding.getValue(FacesContext.getCurrentInstance());
       } else {
-         // TODO Message resource i18n
+        // TODO Message resource i18n
         throw new JspException("Can not get ValueBinding for attribute name " + name);
       }
     }
@@ -124,7 +126,7 @@ public class AttributeTag  extends TagSupport {
       if (valueBinding != null) {
         component.setValueBinding(name, valueBinding);
       } else {
-         // TODO Message resource i18n
+        // TODO Message resource i18n
         throw new JspException("Can not get ValueBinding for attribute value " + value);
       }
     } else {

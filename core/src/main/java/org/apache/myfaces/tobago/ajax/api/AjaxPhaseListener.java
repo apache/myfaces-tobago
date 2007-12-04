@@ -46,9 +46,7 @@ import java.io.PrintWriter;
 import java.util.Map;
 
 /**
- *
- *  !! adapted copy of sandbox org.apache.myfaces.custom.ajax.api.AjaxPhaseListener !!
- *
+ * !! adapted copy of sandbox org.apache.myfaces.custom.ajax.api.AjaxPhaseListener !!
  */
 public class AjaxPhaseListener implements PhaseListener {
   private static final Log LOG = LogFactory.getLog(AjaxPhaseListener.class);
@@ -103,7 +101,7 @@ public class AjaxPhaseListener implements PhaseListener {
         RequestUtils.ensureEncoding(externalContext);
         ResponseUtils.ensureNoCacheHeader(externalContext);
         final UIViewRoot viewRoot = facesContext.getViewRoot();
-        FastStringWriter content = new FastStringWriter(1024*10);
+        FastStringWriter content = new FastStringWriter(1024 * 10);
         RenderKitFactory renderFactory = (RenderKitFactory)
             FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
         RenderKit renderKit = renderFactory.getRenderKit(

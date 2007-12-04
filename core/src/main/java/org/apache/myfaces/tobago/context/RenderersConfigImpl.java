@@ -47,7 +47,7 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
     this.merged = merged;
   }
 
-  public Collection<RendererConfig>  getRendererConfigs() {
+  public Collection<RendererConfig> getRendererConfigs() {
     return renderer.values();
   }
 
@@ -63,13 +63,13 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
 
   public boolean isMarkupSupported(String rendererName, String markup) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("calling isMarkupSupported " + rendererName + " " +markup);
+      LOG.debug("calling isMarkupSupported " + rendererName + " " + markup);
     }
     RendererConfig rendererConfig = renderer.get(rendererName);
     if (rendererConfig != null) {
       return rendererConfig.contains(markup);
     } else {
-      LOG.error("Calling isMarkupSupported " + rendererName + " " +markup + " but no configuration found.");
+      LOG.error("Calling isMarkupSupported " + rendererName + " " + markup + " but no configuration found.");
       return false;
     }
   }

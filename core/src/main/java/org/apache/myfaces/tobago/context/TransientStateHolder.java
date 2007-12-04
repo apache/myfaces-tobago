@@ -40,7 +40,7 @@ public class TransientStateHolder implements StateHolder, Serializable {
   }
 
   public Object saveState(FacesContext context) {
-     // do nothing
+    // do nothing
     return null;
   }
 
@@ -65,7 +65,7 @@ public class TransientStateHolder implements StateHolder, Serializable {
   }
 
   public void setTransient(boolean newTransientValue) {
-     // do nothing
+    // do nothing
   }
 
 }

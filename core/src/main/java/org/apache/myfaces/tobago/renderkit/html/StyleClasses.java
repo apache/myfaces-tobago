@@ -140,7 +140,7 @@ public class StyleClasses implements Serializable {
   }
 
   public void addMarkupClass(SupportsMarkup supportsMarkup, String rendererName, String sub) {
-    for (String markup: supportsMarkup.getMarkup()) {
+    for (String markup : supportsMarkup.getMarkup()) {
       if (!StringUtils.isBlank(markup)) {
         Theme theme = ClientProperties.getInstance(FacesContext.getCurrentInstance().getViewRoot()).getTheme();
         if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {

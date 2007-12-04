@@ -25,31 +25,30 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface HasMargins {
   /**
-   *
    * Top margin between container component and layouted children.
-   *
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
   void setMarginTop(String margin);
+
   /**
-   *
    * Right margin between container component and layouted children.
-   *
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
   void setMarginRight(String margin);
+
   /**
-   *  
    * Bottom margin between container component and layouted children.
-   *
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
   void setMarginBottom(String margin);
+
   /**
-   *
-   * Left margin between container component and layouted children.    
-   *
+   * Left margin between container component and layouted children.
    */
-  @TagAttribute @UIComponentTagAttribute()
+  @TagAttribute
+  @UIComponentTagAttribute()
   void setMarginLeft(String margin);
 }

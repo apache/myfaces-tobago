@@ -18,6 +18,6 @@ package org.apache.myfaces.tobago.taglib.decl;
  */
 
 @Deprecated
-public interface HasDeprecatedDimension extends HasDeprecatedWidth, HasDeprecatedHeight{
+public interface HasDeprecatedDimension extends HasDeprecatedWidth, HasDeprecatedHeight {
 
 }

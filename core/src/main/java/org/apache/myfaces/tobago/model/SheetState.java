@@ -35,7 +35,7 @@ public class SheetState implements Serializable {
   public static final String SEPARATOR = ",";
 
   private int first = -1;
-  private String  sortedColumnId;
+  private String sortedColumnId;
   private boolean ascending;
   private String columnWidths;
   private List<Integer> selectedRows;
@@ -44,7 +44,6 @@ public class SheetState implements Serializable {
   public SheetState() {
     resetSelected();
   }
-
 
 
   public void resetSelected() {

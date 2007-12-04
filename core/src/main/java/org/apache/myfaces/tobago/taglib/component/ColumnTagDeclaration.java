@@ -27,8 +27,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasWidth;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: 20.02.2006
  * Time: 22:10:07
  */
@@ -40,7 +38,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasWidth;
 @Tag(name = "column")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIColumn")
-    //rendererType = "Column")
+//rendererType = "Column")
 public interface ColumnTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasLabel, HasTip,
     HasWidth {
   /**
@@ -56,7 +54,7 @@ public interface ColumnTagDeclaration extends TobagoTagDeclaration, HasIdBinding
    * <code>java.util.List</code> or <code>Object[]</code>.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = { "java.lang.Boolean" },
+  @UIComponentTagAttribute(type = {"java.lang.Boolean"},
       defaultValue = "false")
   void setSortable(String sortable);
 

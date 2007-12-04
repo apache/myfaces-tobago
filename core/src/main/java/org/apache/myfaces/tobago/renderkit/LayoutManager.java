@@ -31,9 +31,9 @@ import javax.faces.context.FacesContext;
  */
 public interface LayoutManager {
 
- /**
-  * @deprecated
-  */
+  /**
+   * @deprecated
+   */
   void layoutBegin(FacesContext facesContext, UIComponent component);
 
 }

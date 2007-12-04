@@ -58,7 +58,7 @@ public class ResourceManagerUtil {
   }
 
   public static String getBlankPage(FacesContext context) {
-    return  context.getExternalContext().getRequestContextPath()
+    return context.getExternalContext().getRequestContextPath()
         + "/org/apache/myfaces/tobago/renderkit/html/standard/blank.html";
   }
 

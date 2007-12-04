@@ -39,17 +39,11 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-/*
- * Created by IntelliJ IDEA.
- * User: bommel
- * Date: 18.12.2005
- * Time: 23:25:21
- */
 /**
  * Renders a time input field with a label.
  * <br />
  * Short syntax of:
- *
+ * <p/>
  * <pre>
  * &lt;tc:panel>
  *   &lt;f:facet name="layout">
@@ -66,7 +60,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.TimeTag")
 public class TimeExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled, HasOnchange, IsRequired, HasTip, 
+    HasConverter, IsReadonly, IsDisabled, HasOnchange, IsRequired, HasTip,
     HasLabel, HasLabelWidth, IsFocus, IsInline, HasTabIndex {
 
   private String binding;
@@ -126,7 +120,7 @@ public class TimeExtensionTag extends BodyTagSupport
     if (validator != null) {
       timeTag.setValidator(validator);
     }
-     if (onchange != null) {
+    if (onchange != null) {
       timeTag.setOnchange(onchange);
     }
     if (disabled != null) {
@@ -241,7 +235,7 @@ public class TimeExtensionTag extends BodyTagSupport
   public void setTip(String tip) {
     this.tip = tip;
   }
-  
+
   public void setLabelWidth(String labelWidth) {
     this.labelWidth = labelWidth;
   }

@@ -35,7 +35,7 @@ public class FacesContextFactoryWrapper extends FacesContextFactory {
 
   public FacesContext getFacesContext(Object context, Object request, Object response, Lifecycle lifecycle)
       throws FacesException {
-   return facesContextFactory.getFacesContext(context, request, response, lifecycle);
+    return facesContextFactory.getFacesContext(context, request, response, lifecycle);
   }
 
   public final FacesContextFactory getFacesContextFactory() {

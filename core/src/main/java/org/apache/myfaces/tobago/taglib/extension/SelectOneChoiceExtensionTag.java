@@ -51,7 +51,7 @@ public class SelectOneChoiceExtensionTag
     extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled,
     IsReadonly, HasOnchange, IsInline, HasLabel, HasLabelWidth, IsRequired,
-    IsRendered, IsFocus, HasBinding, HasTip , HasValidator, HasConverter, HasTabIndex {
+    IsRendered, IsFocus, HasBinding, HasTip, HasValidator, HasConverter, HasTabIndex {
 
   private String required;
   private String value;

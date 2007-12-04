@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import javax.faces.component.UIComponent;
 
 
-
 public class ToolBarSelectBooleanTag extends SelectBooleanCommandTag
     implements ToolBarSelectBooleanTagDeclaration {
 

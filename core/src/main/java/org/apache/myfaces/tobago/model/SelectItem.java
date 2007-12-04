@@ -62,12 +62,12 @@ public class SelectItem extends javax.faces.model.SelectItem implements Supports
   }
 
   public SelectItem(Object value, String label, String description,
-                    boolean disabled, String image) {
+      boolean disabled, String image) {
     this(value, label, description, disabled, image, null);
   }
 
   public SelectItem(Object value, String label, String description,
-                    boolean disabled, String image, String[] markup) {
+      boolean disabled, String image, String[] markup) {
     super(value, label, description, disabled);
     this.image = image;
     this.markup = markup;

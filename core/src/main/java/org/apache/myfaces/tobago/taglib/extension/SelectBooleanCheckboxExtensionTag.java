@@ -105,7 +105,7 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     if (value != null) {
       selectBooleanCheckboxTag.setValue(value);
     }
-     if (valueChangeListener != null) {
+    if (valueChangeListener != null) {
       selectBooleanCheckboxTag.setValueChangeListener(valueChangeListener);
     }
     if (binding != null) {

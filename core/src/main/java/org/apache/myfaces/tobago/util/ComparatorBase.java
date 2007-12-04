@@ -37,6 +37,7 @@ public abstract class ComparatorBase implements Comparator {
     this.comparator = comparator;
     this.reverse = reverse;
   }
+
   protected ComparatorBase(boolean reverse) {
     this.reverse = reverse;
   }

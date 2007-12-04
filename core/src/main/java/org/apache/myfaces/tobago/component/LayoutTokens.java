@@ -50,7 +50,7 @@ public class LayoutTokens {
   }
 
   public void shrinkSizeTo(int size) {
-    for (int i = getSize()-1; i >= size; i--) {
+    for (int i = getSize() - 1; i >= size; i--) {
       tokens.remove(i);
     }
   }
@@ -65,10 +65,10 @@ public class LayoutTokens {
     tokens.add(token);
   }
 
-  public static LayoutTokens parse(String[]  tokens) {
+  public static LayoutTokens parse(String[] tokens) {
     LayoutTokens layoutTokens = new LayoutTokens();
 
-    for (String token: tokens) {
+    for (String token : tokens) {
       parseToken(token, layoutTokens);
     }
     return layoutTokens;
@@ -77,7 +77,6 @@ public class LayoutTokens {
   public static LayoutTokens parse(String tokens) {
     return parse(tokens, null);
   }
-
 
 
   public static LayoutTokens parse(String tokens, LayoutToken defaultToken) {
@@ -105,7 +104,7 @@ public class LayoutTokens {
 
   public static LayoutToken parseToken(String token) {
     try {
-    // TODO optimize me
+      // TODO optimize me
       if ("*".equals(token)) {
         return RelativeLayoutToken.DEFAULT_INSTANCE;
       } else if (token.equals("fixed")) {
@@ -129,7 +128,7 @@ public class LayoutTokens {
 
   public String toString() {
     StringBuilder str = new StringBuilder();
-    for (LayoutToken token: tokens) {
+    for (LayoutToken token : tokens) {
       str.append(token);
       str.append(";");
     }

@@ -24,8 +24,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
 /*
- * Created by IntelliJ IDEA.
- * User: bommel
  * Date: Oct 21, 2006
  * Time: 10:39:25 AM
  */
