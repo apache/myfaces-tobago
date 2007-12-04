@@ -45,7 +45,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UILinkCommand",
     rendererType = "Link",
-    facets = {@Facet(name = "confirmation", description = "Contains a UIOutput instance with the confirmation message.")})
+    facets = {@Facet(name = "confirmation",
+        description = "Contains a UIOutput instance with the confirmation message.")})
 public interface LinkTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, IsInline,
     HasCommandType, HasTarget, HasTip, HasImage, HasMarkup, HasTabIndex {
