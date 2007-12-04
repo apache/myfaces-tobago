@@ -62,6 +62,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Locale;
 
 /*
  * Created by IntelliJ IDEA.
@@ -201,7 +202,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         writer =
             getEnv().getFiler().createTextFile(Filer.Location.SOURCE_TREE, "", new File(targetFacesConfigFile), null);
 
-        StringWriter facesConfig = new StringWriter();
+        StringWriter facesConfig = new StringWriter(1024);
         Format format = Format.getPrettyFormat();
         format.setLineSeparator(SEPARATOR);
         XMLOutputter out = new XMLOutputter(format);
@@ -371,7 +372,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
     if (componentAttribute != null) {
       String simpleName = d.getSimpleName();
       if (simpleName.startsWith("set")) {
-        String attributeStr = simpleName.substring(3, 4).toLowerCase() + simpleName.substring(4);
+        String attributeStr = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
         String methodStr;
         if (componentAttribute.type().length == 1
             && (componentAttribute.type()[0].equals(Boolean.class.getName())

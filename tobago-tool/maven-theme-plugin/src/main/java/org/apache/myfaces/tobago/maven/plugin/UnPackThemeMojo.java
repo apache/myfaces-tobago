@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.io.FileInputStream;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipEntry;
 
@@ -150,7 +151,7 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
 
   private void unpack(File file, File location)
       throws MojoExecutionException, NoSuchArchiverException {
-    String archiveExt = FileUtils.getExtension(file.getAbsolutePath()).toLowerCase();
+    String archiveExt = FileUtils.getExtension(file.getAbsolutePath()).toLowerCase(Locale.ENGLISH);
     try {
       UnArchiver unArchiver = archiverManager.getUnArchiver(archiveExt);
       unArchiver.setSourceFile(file);

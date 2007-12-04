@@ -42,6 +42,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Locale;
 
 /*
  * Created: Apr 27, 2005 4:45:44 PM
@@ -138,7 +139,7 @@ public class TobagoAnnotationVisitor extends TaglibAnnotationVisitor {
       String simpleName = d.getSimpleName();
       if (simpleName.startsWith("set")) {
         Element attribute = document.createElement("attribute");
-        addLeafTextElement(simpleName.substring(3, 4).toLowerCase()
+        addLeafTextElement(simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH)
             + simpleName.substring(4), "name", attribute, document);
         addLeafTextElement(Boolean.toString(tagAttribute.required()), "required", attribute, document);
         addLeafTextElement(Boolean.toString(tagAttribute.rtexprvalue()), "rtexprvalue", attribute, document);

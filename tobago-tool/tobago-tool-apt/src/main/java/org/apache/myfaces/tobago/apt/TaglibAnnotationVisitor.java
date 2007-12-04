@@ -52,6 +52,7 @@ import java.io.Writer;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Locale;
 
 /*
  * Created: Mar 22, 2005 8:18:35 PM
@@ -377,7 +378,7 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
       String simpleName = d.getSimpleName();
       if (simpleName.startsWith("set")) {
         Element attribute = document.createElement("attribute");
-        String attributeStr = simpleName.substring(3, 4).toLowerCase() + simpleName.substring(4);
+        String attributeStr = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
         checkAttributeDuplicates(attributeStr);
         addLeafTextElement(attributeStr, "name", attribute, document);
 
