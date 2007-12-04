@@ -59,6 +59,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.Callback;
 import org.apache.myfaces.tobago.util.RangeParser;
+import org.apache.myfaces.tobago.util.TobagoCallback;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
@@ -80,6 +81,7 @@ import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
+import javax.faces.event.PhaseId;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.render.RenderKit;
@@ -558,7 +560,7 @@ public class ComponentUtil {
                 (org.apache.myfaces.tobago.component.UISelectItem) kid));
           } else {
             list.add(new SelectItem(item.getItemValue() == null ? "" : item.getItemValue(),
-                item.getItemLabel(),
+                item.getItemLabel() != null ? item.getItemLabel() : item.getItemValue().toString(),
                 item.getItemDescription()));
           }
         } else if (value instanceof SelectItem) {
@@ -1195,8 +1197,6 @@ public class ComponentUtil {
    * colonCount > 1: for each extra colon after 1, go up a naming container
    * (to the view root, if naming containers run out)
    *
-   * @param
-   * @param
    */
 
   public static UIComponent findComponent(UIComponent from, String relativeId) {
@@ -1245,9 +1245,28 @@ public class ComponentUtil {
       callback.execute(facesContext, list.get(0));
     } else if (list.get(0) instanceof UIData) {
       prepareOnUIData(facesContext, list, clientId, callback);
+    } else if (list.get(0) instanceof UIForm) {
+      prepareOnUIForm(facesContext, list, clientId, callback);
     } else {
       prepareOnUIComponent(facesContext, list, clientId, callback);
     }
+  }
+
+  private static void prepareOnUIForm(FacesContext facesContext, List<UIComponent> list, String clientId, Callback callback) {
+    UIComponent currentComponent = list.remove(0);
+    if (!(currentComponent instanceof UIForm)) {
+      throw new IllegalStateException(currentComponent.getClass().getName());
+    }
+    // TODO is this needed?
+    if (callback instanceof TobagoCallback) {
+      if (PhaseId.APPLY_REQUEST_VALUES.equals(((TobagoCallback) callback).getPhaseId())) {
+        currentComponent.decode(facesContext);
+      }
+    }
+    UIForm uiForm = (UIForm) currentComponent;
+    facesContext.getExternalContext().getRequestMap().put(UIForm.SUBMITTED_MARKER, Boolean.valueOf(uiForm.isSubmitted()));
+    invokeOrPrepare(facesContext, list, clientId, callback);
+
   }
 
   private static void prepareOnUIComponent(FacesContext facesContext, List<UIComponent> list, String clientId,

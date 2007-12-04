@@ -18,12 +18,23 @@ package org.apache.myfaces.tobago.util;
  */
 
 
+import org.apache.myfaces.tobago.component.UIForm;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+
 import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 
 public class UpdateModelValuesCallback implements Callback {
 
   public void execute(FacesContext facesContext, UIComponent component) {
+    if (facesContext.getExternalContext().getRequestMap().get(UIForm.SUBMITTED_MARKER) == null ||
+        ((Boolean) facesContext.getExternalContext().getRequestMap().get(UIForm.SUBMITTED_MARKER))) {
       component.processUpdates(facesContext);
+    } else {
+      // if we're not the submitted form, only process subforms.
+      for (UIForm subForm : ComponentUtil.findSubForms(component)) {
+        subForm.processUpdates(facesContext);
+      }
+    }
   }
 }

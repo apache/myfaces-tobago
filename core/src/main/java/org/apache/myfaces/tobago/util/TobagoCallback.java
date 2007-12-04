@@ -17,24 +17,8 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 
-public class ApplyRequestValuesCallback implements TobagoCallback {
-
-  @SuppressWarnings({"UnusedDeclaration"})
-  private static final Log LOG = LogFactory.getLog(ApplyRequestValuesCallback.class);
-
-  public void execute(FacesContext facesContext, UIComponent component) {
-    component.processDecodes(facesContext);
-  }
-
-  public PhaseId getPhaseId() {
-    return PhaseId.APPLY_REQUEST_VALUES;
-  }
+public interface TobagoCallback extends Callback {
+  PhaseId getPhaseId();
 }
