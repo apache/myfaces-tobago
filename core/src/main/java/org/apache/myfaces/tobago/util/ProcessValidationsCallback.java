@@ -27,8 +27,8 @@ import javax.faces.component.UIComponent;
 public class ProcessValidationsCallback implements Callback {
 
   public void execute(FacesContext facesContext, UIComponent component) {
-    if (facesContext.getExternalContext().getRequestMap().get(UIForm.SUBMITTED_MARKER)==null||
-      ((Boolean) facesContext.getExternalContext().getRequestMap().get(UIForm.SUBMITTED_MARKER))) {
+    if (facesContext.getExternalContext().getRequestMap().get(UIForm.SUBMITTED_MARKER) == null
+        || ((Boolean) facesContext.getExternalContext().getRequestMap().get(UIForm.SUBMITTED_MARKER))) {
       component.processValidators(facesContext);
     } else {
       // if we're not the submitted form, only process subforms.
