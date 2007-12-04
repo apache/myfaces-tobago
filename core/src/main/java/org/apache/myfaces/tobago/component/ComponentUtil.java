@@ -165,6 +165,7 @@ public class ComponentUtil {
       view.getAttributes().remove(UIPage.COMPONENT_TYPE);
     }
   }
+  @SuppressWarnings(value = "unchecked")
   public static UIPage findPage(FacesContext context, UIComponent component) {
     javax.faces.component.UIViewRoot view = context.getViewRoot();
     if (view != null) {
@@ -191,21 +192,15 @@ public class ComponentUtil {
 
   public static void addStyles(UIComponent component, String[] styles) {
     UIPage uiPage = ComponentUtil.findPage(component);
-    for (String style : styles) {
-      uiPage.getStyleFiles().add(style);
-    }
+    uiPage.getStyleFiles().addAll(Arrays.asList(styles));
   }
   public static void addScripts(UIComponent component, String[] scripts) {
     UIPage uiPage = ComponentUtil.findPage(component);
-    for (String script : scripts) {
-      uiPage.getScriptFiles().add(script);
-    }
+    uiPage.getScriptFiles().addAll(Arrays.asList(scripts));
   }
   public static void addOnloadCommands(UIComponent component, String[] cmds) {
     UIPage uiPage = ComponentUtil.findPage(component);
-    for (String cmd : cmds) {
-      uiPage.getOnloadScripts().add(cmd);
-    }
+    uiPage.getOnloadScripts().addAll(Arrays.asList(cmds));
   }
 
   public static UIPage findPage(FacesContext facesContext) {
@@ -462,7 +457,7 @@ public class ComponentUtil {
       return ((Character) character);
     } else if (character instanceof String) {
       String asString = ((String) character);
-      return asString.length() > 0 ? Character.valueOf(asString.charAt(0)) : null;
+      return asString.length() > 0 ? asString.charAt(0) : null;
     } else {
       LOG.warn("Unknown type '" + character.getClass().getName()
           + "' for integer attribute: " + name + " comp: " + component);
@@ -1252,7 +1247,9 @@ public class ComponentUtil {
     }
   }
 
-  private static void prepareOnUIForm(FacesContext facesContext, List<UIComponent> list, String clientId, Callback callback) {
+  @SuppressWarnings(value = "unchecked")
+  private static void prepareOnUIForm(FacesContext facesContext, List<UIComponent> list, String clientId,
+      Callback callback) {
     UIComponent currentComponent = list.remove(0);
     if (!(currentComponent instanceof UIForm)) {
       throw new IllegalStateException(currentComponent.getClass().getName());
@@ -1264,7 +1261,7 @@ public class ComponentUtil {
       }
     }
     UIForm uiForm = (UIForm) currentComponent;
-    facesContext.getExternalContext().getRequestMap().put(UIForm.SUBMITTED_MARKER, Boolean.valueOf(uiForm.isSubmitted()));
+    facesContext.getExternalContext().getRequestMap().put(UIForm.SUBMITTED_MARKER, uiForm.isSubmitted());
     invokeOrPrepare(facesContext, list, clientId, callback);
 
   }
