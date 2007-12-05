@@ -931,6 +931,24 @@
         <docbook.version>1.67.2</docbook.version>
       </properties>
     </profile>
+
+    <!--name of the runtime classes file-->
+    <profile>
+      <activation>
+        <os><family>!mac</family></os>
+      </activation>
+      <properties>
+        <java.classes.jar>lib/rt.jar</java.classes.jar>
+      </properties>
+    </profile>
+    <profile>
+      <activation>
+        <os><family>mac</family></os>
+      </activation>
+      <properties>
+        <java.classes.jar>../Classes/classes.jar</java.classes.jar>
+      </properties>
+    </profile>
   </profiles>
 
   <repositories>

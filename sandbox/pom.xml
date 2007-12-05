@@ -349,7 +349,7 @@
                   <attach>true</attach>
                   <verify>true</verify>
                   <verifyClasspath>
-                     <element>${java14.home}/lib/rt.jar</element>
+                    <element>${java14.home}/${java.classes.jar}</element>
 <!--
 for macosx
                      <element>/System/Library/Frameworks/JavaVM.framework/Versions/1.4/Classes/classes.jar</element>
