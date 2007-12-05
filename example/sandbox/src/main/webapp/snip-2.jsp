@@ -19,22 +19,4 @@
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
-<f:view>
-  <tc:loadBundle basename="demo" var="bundle"/>
-
-  <tc:page label="Sandbox - Wizard" id="page"
-           width="500px" height="800px">
-    <f:facet name="layout">
-      <tc:gridLayout margin="10px" rows="600px;*"/>
-    </f:facet>
-
-    <tcs:wizard controller="#{controller.wizard}" next="wizard">
-
-      <tc:include value="snip-#{controller.wizard.index}.jsp" />
-      
-    </tcs:wizard>
-
-    <tc:cell/>
-
-  </tc:page>
-</f:view>
+<tc:out value="3rd Page" />

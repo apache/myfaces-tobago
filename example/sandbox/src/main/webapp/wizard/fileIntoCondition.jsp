@@ -22,41 +22,33 @@
 <f:view>
   <tc:loadBundle basename="demo" var="bundle"/>
 
-  <tc:page label="Sandbox - Wizard" id="page"
-           width="500px" height="800px">
+  <tc:page label="Sandbox - Wizard" id="page" width="500px" height="300px">
     <f:facet name="layout">
-      <tc:gridLayout margin="10px" rows="600px;*"/>
+      <tc:gridLayout margin="10px"/>
     </f:facet>
 
-    <tcs:wizard controller="#{controller.wizard}">
+    <tcs:wizard controller="#{controller.wizard}" title="File Into Condition" outcome="fileIntoCondition" next="next">
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="fixed;fixed" />
+          <tc:gridLayout rows="fixed;fixed;fixed;fixed;*"/>
         </f:facet>
 
         <tc:out value="file into condition"/>
 
-        <tc:panel>
-          <f:facet name="layout">
-            <tc:gridLayout columns="1*;1*;1*" />
-          </f:facet>
+        <tc:selectOneChoice>
+          <f:selectItems/>
+        </tc:selectOneChoice>
 
-          <tc:selectOneChoice>
-            <f:selectItems />
-          </tc:selectOneChoice>
+        <tc:selectOneChoice>
+          <f:selectItems/>
+        </tc:selectOneChoice>
 
-          <tc:selectOneChoice>
-            <f:selectItems />
-          </tc:selectOneChoice>
+        <tc:in/>
 
-          <tc:in required="true" />
-
-        </tc:panel>
+        <tc:cell/>
 
       </tc:panel>
     </tcs:wizard>
-
-    <tc:cell/>
 
   </tc:page>
 </f:view>

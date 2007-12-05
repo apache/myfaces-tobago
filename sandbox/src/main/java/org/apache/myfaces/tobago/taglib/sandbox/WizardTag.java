@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  * limitations under the License.
  */
 
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
@@ -24,15 +25,21 @@ import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.model.AbstractWizard;
 import org.apache.myfaces.tobago.model.Wizard;
+import org.apache.myfaces.tobago.taglib.component.AttributeTag;
 import org.apache.myfaces.tobago.taglib.component.ButtonTag;
 import org.apache.myfaces.tobago.taglib.component.CellTag;
 import org.apache.myfaces.tobago.taglib.component.GridLayoutTag;
+import org.apache.myfaces.tobago.taglib.component.OutTag;
 import org.apache.myfaces.tobago.taglib.component.PanelTag;
+import org.apache.myfaces.tobago.util.VariableResolverUtil;
 
+import javax.faces.context.FacesContext;
 import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import java.util.List;
 
 @Tag(name = "wizard")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.sandbox.WizardTag")
@@ -43,11 +50,10 @@ public class WizardTag extends BodyTagSupport {
   private String controller;
 
   private String next;
-  private String previous;
+  private String outcome;
+  private String title;
 
   private PanelTag panelTag;
-
-  private CellTag cellTag;
 
   @Override
   public int doStartTag() throws JspException {
@@ -70,60 +76,108 @@ public class WizardTag extends BodyTagSupport {
 
     GridLayoutTag gridLayoutTag = new GridLayoutTag();
     gridLayoutTag.setPageContext(pageContext);
-//    gridLayoutTag.setColumns("*;fixed;fixed;fixed;fixed");
-    gridLayoutTag.setColumns("*;fixed;fixed;fixed");
-    gridLayoutTag.setRows("*;fixed");
+    gridLayoutTag.setRows("fixed;*;fixed");
     gridLayoutTag.setParent(facetTag);
     gridLayoutTag.doStartTag();
     gridLayoutTag.doEndTag();
 
     facetTag.doEndTag();
 
-    cellTag = new CellTag();
-    cellTag.setPageContext(pageContext);
-    cellTag.setParent(panelTag);
-    cellTag.setSpanX("5");
-    cellTag.doStartTag();
+    processTrain();
 
-/*
-    Object bean = VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), "controller");
-    int index = 0;
+    return super.doStartTag();
+  }
+
+  private void processTrain() throws JspException {
+
+    List<AbstractWizard.Info> course = null;
     try {
+      Object bean = VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), "controller");
       Wizard wizard = (Wizard) PropertyUtils.getProperty(bean, "wizard");
-      index = wizard.getIndex();
+      wizard.registerOutcome(outcome, title);
+      course = wizard.getCourse();
     } catch (Exception e) {
       LOG.error("", e);
     }
 
-    if (index < 2) {
-      IncludeTag content = new IncludeTag();
-      content.setPageContext(pageContext);
-      content.setParent(cellTag);
-      content.setValue("snip-" + index + ".jsp");
-      content.doStartTag();
-      content.doEndTag();
-    } else {
-      PanelTag content = new PanelTag();
-      content.setPageContext(pageContext);
-      content.setParent(cellTag);
-      content.setBinding(controller.replace("}", ".currentComponent}"));
-      content.doStartTag();
-      content.doEndTag();
+    PanelTag p = new PanelTag();
+    p.setPageContext(pageContext);
+    p.setParent(panelTag);
+    p.doStartTag();
+
+    FacetTag facetTag = new FacetTag();
+    facetTag.setPageContext(pageContext);
+    facetTag.setName(FACET_LAYOUT);
+    facetTag.setParent(panelTag);
+    facetTag.doStartTag();
+
+    GridLayoutTag gridLayoutTag = new GridLayoutTag();
+    gridLayoutTag.setPageContext(pageContext);
+//    gridLayoutTag.setColumns("*");
+    StringBuilder columns = new StringBuilder();
+    for (AbstractWizard.Info info : course) {
+      columns.append("fixed;");
     }
-*/
-    return super.doStartTag();
+    gridLayoutTag.setColumns(columns + "*");
+    gridLayoutTag.setParent(facetTag);
+    gridLayoutTag.doStartTag();
+    gridLayoutTag.doEndTag();
+
+    facetTag.doEndTag();
+
+    for (AbstractWizard.Info info : course) {
+      ButtonTag button = new ButtonTag();
+      button.setPageContext(pageContext);
+      button.setParent(p);
+      button.setAction(info.getOutcome());
+      button.setActionListener(controller.replace("}", ".gotoStep}"));
+      button.setLabel(info.getTitle());
+      button.doStartTag();
+
+      AttributeTag step = new AttributeTag();
+      step.setPageContext(pageContext);
+      step.setParent(button);
+      step.setName("step");
+      step.setValue("" + info.getIndex());
+      step.doStartTag();
+      step.doEndTag();
+
+      button.doEndTag();
+    }
+    OutTag spacer = new OutTag();
+    spacer.setPageContext(pageContext);
+    spacer.setParent(p);
+    spacer.setValue(controller.replace("}", ".index}"));
+    spacer.doStartTag();
+    spacer.doEndTag();
+
+    p.doEndTag();
   }
 
   @Override
   public int doEndTag() throws JspException {
 
-    cellTag.doEndTag();
+    PanelTag p = new PanelTag();
+    p.setPageContext(pageContext);
+    p.setParent(panelTag);
+    p.doStartTag();
 
-    CellTag spacer = new CellTag();
-    spacer.setPageContext(pageContext);
-    spacer.setParent(panelTag);
-    spacer.doStartTag();
-    spacer.doEndTag();
+    FacetTag facetTag = new FacetTag();
+    facetTag.setPageContext(pageContext);
+    facetTag.setName(FACET_LAYOUT);
+    facetTag.setParent(panelTag);
+    facetTag.doStartTag();
+
+    GridLayoutTag gridLayoutTag = new GridLayoutTag();
+    gridLayoutTag.setPageContext(pageContext);
+    gridLayoutTag.setColumns("*;fixed;fixed;fixed");
+    gridLayoutTag.setParent(facetTag);
+    gridLayoutTag.doStartTag();
+    gridLayoutTag.doEndTag();
+
+    facetTag.doEndTag();
+
+    cell(panelTag);
 
 /*
     WizardControllerTag controllerTag = new WizardControllerTag();
@@ -134,29 +188,11 @@ public class WizardTag extends BodyTagSupport {
     controllerTag.doEndTag();
 */
 
-    // XXX remove start? using process train instead
-/*
-    ButtonTag start = new ButtonTag();
-    start.setPageContext(pageContext);
-    start.setParent(panelTag);
-    start.setLabel("Start");
-    start.setAction(controller.replace("}", ".start}"));
-    start.setDisabled(controller.replace("}", ".startAvailable}").replace("#{", "#{!"));
-    start.doStartTag();
-    start.doEndTag();
-*/
-
     ButtonTag previousTag = new ButtonTag();
     previousTag.setPageContext(pageContext);
     previousTag.setParent(panelTag);
     previousTag.setLabel("Previous");
-//    previous.setAction(controller.replace("}", ".previous}"));
-    if (previous != null) {
-      previousTag.setAction(previous);
-      previousTag.setActionListener(controller.replace("}", ".previous}"));
-    } else {
-      previousTag.setAction(controller.replace("}", ".previous}"));
-    }
+    previousTag.setAction(controller.replace("}", ".previous}"));
     previousTag.setDisabled(controller.replace("}", ".previousAvailable}").replace("#{", "#{!"));
     previousTag.doStartTag();
     previousTag.doEndTag();
@@ -165,13 +201,8 @@ public class WizardTag extends BodyTagSupport {
     nextTag.setPageContext(pageContext);
     nextTag.setParent(panelTag);
     nextTag.setLabel("Next");
-//    nextTag.setAction(controller.replace("}", ".next}"));
-    if (next != null) {
-      nextTag.setAction(next);
-      nextTag.setActionListener(controller.replace("}", ".next}"));
-    } else {
-      nextTag.setAction(controller.replace("}", ".next}"));
-    }
+    nextTag.setAction(next);
+    nextTag.setActionListener(controller.replace("}", ".next}"));
     nextTag.setDisabled(controller.replace("}", ".nextAvailable}").replace("#{", "#{!"));
     nextTag.doStartTag();
     nextTag.doEndTag();
@@ -185,9 +216,19 @@ public class WizardTag extends BodyTagSupport {
     finish.doStartTag();
     finish.doEndTag();
 
+    p.doEndTag();
+
     panelTag.doEndTag();
 
     return super.doEndTag();
+  }
+
+  private void cell(javax.servlet.jsp.tagext.Tag tag) throws JspException {
+    CellTag spacer = new CellTag();
+    spacer.setPageContext(pageContext);
+    spacer.setParent(tag);
+    spacer.doStartTag();
+    spacer.doEndTag();
   }
 
   @Override
@@ -195,9 +236,9 @@ public class WizardTag extends BodyTagSupport {
     super.release();
     controller = null;
     next = null;
-    previous = null;
+    outcome = null;
+    title = null;
     panelTag = null;
-    cellTag = null;
   }
 
   @TagAttribute(required = true, type = Wizard.class)
@@ -214,7 +255,14 @@ public class WizardTag extends BodyTagSupport {
 
   @TagAttribute
   @UIComponentTagAttribute
-  public void setPreviousNext(String previous) {
-    this.previous = previous;
+  public void setOutcome(String outcome) {
+    this.outcome = outcome;
   }
+
+  @TagAttribute
+  @UIComponentTagAttribute
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
 }

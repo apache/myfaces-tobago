@@ -99,9 +99,9 @@ public class Controller {
   }
 
   public String createFilter() {
-    if (filterType.equals("fileInto")) {
+    if ("fileInto".equals(filterType)) {
       return "fileIntoCondition";
-    } else if (filterType.equals("forward")) {
+    } else if ("forward".equals(filterType)) {
       return "forwardCondition";
     }
     throw new RuntimeException("no filter");

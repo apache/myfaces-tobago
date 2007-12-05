@@ -25,6 +25,8 @@ import org.apache.myfaces.tobago.component.UICommand;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class AbstractWizard implements Wizard {
 
@@ -58,10 +60,12 @@ public abstract class AbstractWizard implements Wizard {
 
   private WizardBackwardNavigationStrategy backNavStrategy = WizardBackwardNavigationStrategy.NOT_ALLOWED;
 
-/*  protected AbstractWizard() {
-    initialize();
+  private List<Info> course;
+
+  protected AbstractWizard() {
+    reset();
   }
-*/
+
 /*  public boolean isStartable() {
     return true;
   }
@@ -146,6 +150,11 @@ public abstract class AbstractWizard implements Wizard {
     next();
   }
 
+  public void gotoStep(ActionEvent event) {
+    int step = Integer.parseInt((String) (event.getComponent().getAttributes().get("step")));
+    index = step;
+  }
+
   /*
   * (non-Javadoc)
   * @see org.apache.myfaces.tobago.model.Wizard#isNextAvailable()
@@ -186,7 +195,8 @@ public abstract class AbstractWizard implements Wizard {
 
 //    makeContentDecision(index);
 
-    return getDefaultOutcome();
+    return course.get(index).getOutcome();
+    //return getDefaultOutcome();
   }
 
   /**
@@ -385,6 +395,7 @@ public abstract class AbstractWizard implements Wizard {
     if (!sizeSet) {
       size = 0;
     }
+  course = new ArrayList<Info>();
   }
 
   public final String getDefaultOutcome() {
@@ -433,6 +444,67 @@ public abstract class AbstractWizard implements Wizard {
       this.backNavStrategy = WizardBackwardNavigationStrategy.NOT_ALLOWED;
       LOG.error("WizardBackwardNavigationStrategy is not correctly initialized! Setting strategy to "
           + backNavStrategy.getName(), e);
+    }
+  }
+
+  private String viewId;
+
+  // todo
+  public String getViewId() {
+    viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+    return viewId;  //To change body of implemented methods use File | Settings | File Templates.
+  }
+
+  public List<Info> getCourse() {
+    return course;
+  }
+
+  public void registerOutcome(String outcome, String title) {
+
+    if (index == course.size()) { // this is a new page
+      course.add(new Info(outcome, title, index));
+    } else if (index < course.size()) {
+      course.set(index, new Info(outcome, title, index));
+    } else {
+      throw new IllegalStateException("Index too large for course: index=" + index + " course.size()=" + course.size());
+    }
+    LOG.info("course: " + course);
+  }
+
+  // XXX
+  public static class Info {
+    private String outcome;
+    private String title;
+    private int index;
+
+    public Info(String outcome, String title, int index) {
+      this.outcome = outcome;
+      this.title = title;
+      this.index = index;
+    }
+
+    public String getOutcome() {
+      return outcome;
+    }
+
+    public void setOutcome(String outcome) {
+      this.outcome = outcome;
+    }
+
+    public String getTitle() {
+      return title;
+    }
+
+    public void setTitle(String title) {
+      this.title = title;
+    }
+
+    public int getIndex() {
+      return index;
+    }
+
+    public void setIndex(int index) {
+      this.index = index;
     }
   }
 

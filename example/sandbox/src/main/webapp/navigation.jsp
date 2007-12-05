@@ -23,7 +23,7 @@
 
   <tc:page label="Sandbox Menu" id="page" width="200px" height="800px">
     <f:facet name="layout">
-      <tc:gridLayout margin="5px" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
+      <tc:gridLayout margin="5px" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
     </f:facet>
 
     <tc:link link="separator.jsp" label="separator.jsp" target="View"/>
@@ -41,6 +41,8 @@
     <tc:link link="inputSlider.jsp" label="inputSlider.jsp" target="View"/>
 
     <tc:link link="wizard.jsp" label="wizard.jsp" target="View"/>
+
+    <tc:link link="wizard/filter.jsp" label="wizard/filter.jsp" target="View"/>
 
     <tc:link link="wizard.xml" label="wizard.xml" target="View"/>
 

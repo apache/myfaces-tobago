@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.model;
  */
 
 import javax.faces.event.ActionEvent;
+import java.util.List;
 
 public interface Wizard {
 
@@ -119,4 +120,9 @@ public interface Wizard {
 
   //        void setBackwardNavigationStrategy(String strategy);
 
+  String getViewId();
+
+  List<AbstractWizard.Info> getCourse();
+
+  void registerOutcome(String outcome, String title);
 }

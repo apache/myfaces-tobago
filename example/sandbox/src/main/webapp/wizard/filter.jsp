@@ -23,12 +23,12 @@
   <tc:loadBundle basename="demo" var="bundle"/>
 
   <tc:page label="Sandbox - Wizard" id="page"
-           width="500px" height="800px">
+           width="500px" height="300px">
     <f:facet name="layout">
-      <tc:gridLayout margin="10px" rows="600px;*"/>
+      <tc:gridLayout margin="10px" />
     </f:facet>
 
-    <tcs:wizard controller="#{controller.wizard}" next="#{controller.createFilter}">
+    <tcs:wizard controller="#{controller.wizard}" title="New Filter" outcome="filter" next="#{controller.createFilter}">
 
       <tc:selectOneRadio value="#{controller.filterType}">
         <tc:selectItem itemLabel="File Into" itemValue="fileInto" />
@@ -36,8 +36,6 @@
       </tc:selectOneRadio>
 
     </tcs:wizard>
-
-    <tc:cell/>
 
   </tc:page>
 </f:view>

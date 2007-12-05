@@ -55,6 +55,26 @@
   </navigation-rule>
 
   <navigation-rule>
+    <from-view-id>/wizard/*</from-view-id>
+    <navigation-case>
+      <from-outcome>fileIntoCondition</from-outcome>
+      <to-view-id>/wizard/fileIntoCondition.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>forwardCondition</from-outcome>
+      <to-view-id>/wizard/forwardCondition.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>finish</from-outcome>
+      <to-view-id>/wizard/finish.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>filter</from-outcome>
+      <to-view-id>/wizard/filter.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
     <from-view-id>/wizard/filter.jsp</from-view-id>
     <navigation-case>
       <from-outcome>fileIntoCondition</from-outcome>
@@ -72,10 +92,12 @@
       <from-outcome>next</from-outcome>
       <to-view-id>/wizard/finish.jsp</to-view-id>
     </navigation-case>
+<!--
     <navigation-case>
       <from-outcome>previous</from-outcome>
       <to-view-id>/wizard/filter.jsp</to-view-id>
     </navigation-case>
+-->
   </navigation-rule>
 
   <navigation-rule>
@@ -84,14 +106,17 @@
       <from-outcome>next</from-outcome>
       <to-view-id>/wizard/finish.jsp</to-view-id>
     </navigation-case>
+<!--
     <navigation-case>
       <from-outcome>previous</from-outcome>
       <to-view-id>/wizard/filter.jsp</to-view-id>
     </navigation-case>
+-->
   </navigation-rule>
 
   <navigation-rule>
     <from-view-id>/wizard/finish.jsp</from-view-id>
+<!--
     <navigation-case>
       <from-outcome>forwardCondition</from-outcome>
       <to-view-id>/wizard/fileIntoCondition.jsp</to-view-id>
@@ -100,6 +125,7 @@
       <from-outcome>forwardCondition</from-outcome>
       <to-view-id>/wizard/forwardCondition.jsp</to-view-id>
     </navigation-case>
+-->
   </navigation-rule>
 
 </faces-config>

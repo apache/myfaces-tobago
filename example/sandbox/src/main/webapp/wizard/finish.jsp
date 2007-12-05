@@ -23,18 +23,16 @@
   <tc:loadBundle basename="demo" var="bundle"/>
 
   <tc:page label="Sandbox - Wizard" id="page"
-           width="500px" height="800px">
+           width="500px" height="300px">
     <f:facet name="layout">
-      <tc:gridLayout margin="10px" rows="600px;*"/>
+      <tc:gridLayout margin="10px" />
     </f:facet>
 
-    <tcs:wizard controller="#{controller.wizard}" previous="#{controller.createFilter}">
+    <tcs:wizard controller="#{controller.wizard}" title="Finish" outcome="finish">
 
-      <tc:out value="Click finish to aktivate"/>
+      <tc:out value="Click finish for activation."/>
 
     </tcs:wizard>
-
-    <tc:cell/>
 
   </tc:page>
 </f:view>

@@ -23,14 +23,16 @@
   <tc:loadBundle basename="demo" var="bundle"/>
 
   <tc:page label="Sandbox - Wizard" id="page"
-           width="500px" height="800px">
+           width="500px" height="300px">
     <f:facet name="layout">
-      <tc:gridLayout margin="10px" rows="600px;*"/>
+      <tc:gridLayout margin="10px" />
     </f:facet>
 
-    <tcs:wizard controller="#{controller.wizard}"/>
+    <tcs:wizard controller="#{controller.wizard}" title="Forward Condition" outcome="forwardCondition" next="next">
 
-    <tc:cell/>
+      <tc:out value="Forward Condition" />
+
+    </tcs:wizard>
 
   </tc:page>
 </f:view>
