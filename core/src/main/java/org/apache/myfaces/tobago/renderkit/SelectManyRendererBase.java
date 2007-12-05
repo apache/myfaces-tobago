@@ -161,12 +161,12 @@ public class SelectManyRendererBase extends LayoutableRendererBase {
       // Curious case: According to specs we should assume, that the element type
       // of this List is java.lang.String. But there is a Converter set for this
       // component. Because the user must know what he is doing, we will convert the values.
-      int len = submittedValue.length;
-      List lst = new ArrayList(len);
-      for (int i = 0; i < len; i++) {
-        lst.add(converter.getAsObject(facesContext, component, submittedValue[i]));
+      int length = submittedValue.length;
+      List<Object> list = new ArrayList<Object>(length);
+      for (int i = 0; i < length; i++) {
+        list.add(converter.getAsObject(facesContext, component, submittedValue[i]));
       }
-      return lst;
+      return list;
     }
 
     if (arrayComponentType == null) {
@@ -174,7 +174,7 @@ public class SelectManyRendererBase extends LayoutableRendererBase {
     }
 
     if (arrayComponentType.isPrimitive()) {
-      //primitive array
+      // primitive array
       int len = submittedValue.length;
       Object convertedValues = Array.newInstance(arrayComponentType, len);
       for (int i = 0; i < len; i++) {
@@ -183,15 +183,14 @@ public class SelectManyRendererBase extends LayoutableRendererBase {
       }
       return convertedValues;
     } else {
-      //Object array
-      int len = submittedValue.length;
-      ArrayList convertedValues = new ArrayList(len);
-      for (int i = 0; i < len; i++) {
+      // Object array
+      int length = submittedValue.length;
+      List<Object> convertedValues = new ArrayList<Object>(length);
+      for (int i = 0; i < length; i++) {
         convertedValues.add(i, converter.getAsObject(facesContext, component, submittedValue[i]));
       }
-      return convertedValues.toArray((Object[]) Array.newInstance(arrayComponentType, len));
+      return convertedValues.toArray((Object[]) Array.newInstance(arrayComponentType, length));
     }
   }
+
 }
-
-

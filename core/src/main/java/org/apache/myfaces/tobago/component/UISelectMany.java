@@ -24,6 +24,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import java.io.IOException;
+import java.util.List;
 
 /*
  * User: weber
@@ -38,6 +39,16 @@ public class UISelectMany extends javax.faces.component.UISelectMany implements 
 
   private String[] markup;
   private Integer tabIndex;
+
+  public Object[] getSelectedValues() {
+    Object value = getValue();
+    if (value instanceof List) {
+      List list = (List) value;
+      return list.toArray();
+    } else {
+      return (Object[]) value;
+    }
+  }
 
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
@@ -64,7 +75,6 @@ public class UISelectMany extends javax.faces.component.UISelectMany implements 
   public void setMarkup(String[] markup) {
     this.markup = markup;
   }
-
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
     // TODO change this should be renamed to DimensionUtils.prepare!!!
