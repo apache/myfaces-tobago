@@ -382,6 +382,24 @@
       </build>
     </profile>
     <profile>
+      <id>rt.jar</id>
+      <activation>
+        <os><family>!mac</family></os>
+      </activation>
+      <properties>
+        <java.classes.jar>lib/rt.jar</java.classes.jar>
+      </properties>
+    </profile>
+    <profile>
+      <id>classes.jar</id>
+      <activation>
+        <os><family>mac</family></os>
+      </activation>
+      <properties>
+        <java.classes.jar>../Classes/classes.jar</java.classes.jar>
+      </properties>
+    </profile>
+    <profile>
       <id>jdk14retro</id>
       <build>
         <plugins>
