@@ -39,6 +39,7 @@ public class DebugPhaseListener implements PhaseListener {
   private static final Log LOG = LogFactory.getLog(DebugPhaseListener.class);
   private static final String KEY = DebugPhaseListener.class.getName() + "_ID_";
 
+  @SuppressWarnings("unchecked")
   public void afterPhase(PhaseEvent phaseEvent) {
     if (LOG.isInfoEnabled()) {
       Date end = new Date();
@@ -73,13 +74,13 @@ public class DebugPhaseListener implements PhaseListener {
           LOG.info(MessageFormat.format("Faces message found."
               + "\n  Component: {0} \n  Severity : {1}"
               + "\n  Summary  : {2} \n  Detail   : {3}",
-              new Object[]{clientId, msg.getSeverity(),
-                  msg.getSummary(), msg.getDetail()}));
+              new Object[]{clientId, msg.getSeverity(), msg.getSummary(), msg.getDetail()}));
         }
       }
     }
   }
 
+  @SuppressWarnings("unchecked")
   public void beforePhase(PhaseEvent phaseEvent) {
     if (LOG.isInfoEnabled()) {
       Date start = null;

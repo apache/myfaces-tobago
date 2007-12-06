@@ -80,6 +80,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
 //      LOG.info("  " + stackTrace[i].toString());
 //    }
     this.writer = writer;
+    this.component = null;
     this.stack = new Stack<String>();
     this.contentType = contentType;
     this.characterEncoding
