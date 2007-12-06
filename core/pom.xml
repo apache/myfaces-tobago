@@ -381,6 +381,7 @@
         </plugins>
       </build>
     </profile>
+<!--
     <profile>
       <id>rt.jar</id>
       <activation>
@@ -399,6 +400,7 @@
         <java.classes.jar>../Classes/classes.jar</java.classes.jar>
       </properties>
     </profile>
+-->
     <profile>
       <id>jdk14retro</id>
       <build>
