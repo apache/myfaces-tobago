@@ -92,7 +92,7 @@ public class UIPage extends UIForm {
 
   private String applicationIcon;
 
-  @SuppressWarnings({"unchecked"})
+  @SuppressWarnings("unchecked")
   public UIPage() {
     scriptFiles = SetUniqueList.decorate(new ArrayList());
     scriptBlocks = new ListOrderedSet();
@@ -254,7 +254,7 @@ public class UIPage extends UIForm {
     decodePageState(facesContext, state);
   }
 
-  @SuppressWarnings({"unchecked"})
+  @SuppressWarnings("unchecked")
   private void decodePageState(FacesContext facesContext, PageState pageState) {
     String name;
     String value = null;
@@ -327,7 +327,7 @@ public class UIPage extends UIForm {
     this.defaultActionId = defaultActionId;
   }
 
-  @SuppressWarnings({"unchecked"})
+  @SuppressWarnings("unchecked")
   public List<String> getScriptFiles() {
     return scriptFiles;
   }
