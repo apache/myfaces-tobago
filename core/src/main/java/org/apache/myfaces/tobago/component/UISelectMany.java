@@ -33,6 +33,7 @@ import java.util.List;
  */
 public class UISelectMany extends javax.faces.component.UISelectMany implements SupportsMarkup {
 
+  @SuppressWarnings("UnusedDeclaration")
   private static final Log LOG = LogFactory.getLog(UISelectMany.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SelectMany";
