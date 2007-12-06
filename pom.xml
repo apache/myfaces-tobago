@@ -934,6 +934,7 @@
 
     <!--name of the runtime classes file-->
     <profile>
+      <id>rt.jar</id>
       <activation>
         <os><family>!mac</family></os>
       </activation>
@@ -942,6 +943,7 @@
       </properties>
     </profile>
     <profile>
+      <id>classes.jar</id>
       <activation>
         <os><family>mac</family></os>
       </activation>
