@@ -27,7 +27,7 @@ import javax.faces.event.PhaseId;
 
 public class ApplyRequestValuesCallback implements TobagoCallback {
 
-  @SuppressWarnings({"UnusedDeclaration"})
+  @SuppressWarnings("UnusedDeclaration")
   private static final Log LOG = LogFactory.getLog(ApplyRequestValuesCallback.class);
 
   public void execute(FacesContext facesContext, UIComponent component) {
