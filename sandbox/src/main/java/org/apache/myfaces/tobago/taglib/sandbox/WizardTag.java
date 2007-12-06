@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.model.AbstractWizard;
+import org.apache.myfaces.tobago.model.AbstractWizardController;
 import org.apache.myfaces.tobago.model.Wizard;
 import org.apache.myfaces.tobago.taglib.component.AttributeTag;
 import org.apache.myfaces.tobago.taglib.component.ButtonTag;
@@ -90,7 +90,7 @@ public class WizardTag extends BodyTagSupport {
 
   private void processTrain() throws JspException {
 
-    List<AbstractWizard.Info> course = null;
+    List<AbstractWizardController.Info> course = null;
     try {
       Object bean = VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), "controller");
       Wizard wizard = (Wizard) PropertyUtils.getProperty(bean, "wizard");
@@ -115,7 +115,7 @@ public class WizardTag extends BodyTagSupport {
     gridLayoutTag.setPageContext(pageContext);
 //    gridLayoutTag.setColumns("*");
     StringBuilder columns = new StringBuilder();
-    for (AbstractWizard.Info info : course) {
+    for (AbstractWizardController.Info info : course) {
       columns.append("fixed;");
     }
     gridLayoutTag.setColumns(columns + "*");
@@ -125,7 +125,7 @@ public class WizardTag extends BodyTagSupport {
 
     facetTag.doEndTag();
 
-    for (AbstractWizard.Info info : course) {
+    for (AbstractWizardController.Info info : course) {
       ButtonTag button = new ButtonTag();
       button.setPageContext(pageContext);
       button.setParent(p);

@@ -23,8 +23,8 @@ import java.util.List;
 public interface Wizard {
 
   /*
-  * Constants
-  */
+   * Constants
+   */
 
   String BACKWARD_NAVIGATION_STRATEGY_DELETE = "delete";
 
@@ -33,22 +33,8 @@ public interface Wizard {
   String BACKWARD_NAVIGATION_STRATEGY_NOTALLOWED = "notallowed";
 
   /*
-  * Methods
-  */
-
-  /**
-   * @return A boolean value stating if the content of the wizard is dynamic or a "static" content should be use
+   * Methods
    */
-//  boolean isDynamicContent();
-
-  /**
-   * @return The source-path or Url to the static content to be included
-   */
-//  String getStaticContentSource();
-
-//  void setDynamicContent();
-
-//  void setStaticContent(String staticContentSource);
 
   /**
    * Return the index of the actual wizard view.
@@ -63,66 +49,112 @@ public interface Wizard {
   int getSize();
 
   /**
-   * Sets the number (size) of views of the wizard.
-   * The size should be set only once, e.g. during initialization.
+   * Sets the number (size) of views of the wizard. The size should be set only
+   * once, e.g. during initialization.
    *
-   * @param size The number of views of the wizard
+   * @param size
+   *          The number of views of the wizard
    */
   void setSize(int size);
 
-//  String initialize();
-
-  //    DynamicBean doInitialization();
-
-//  boolean isStarted();
-
+  /**
+   * Managed bean (controller) method to execute to show the next view of the
+   * wizard.
+   *
+   * @return The outcome after the method was executed
+   */
   String next();
 
-  //    void doNext();
-
+  /**
+   * Indicates if the action next is available.
+   *
+   * @return True if the action next is available otherwise false
+   */
   boolean isNextAvailable();
 
+  /**
+   * Managed bean (controller) method to execute to show the previous view of
+   * the wizard.
+   *
+   * @return The outcome after the method was executed
+   */
   String previous();
 
-  //    void doPrevious(DynamicBean currentBean);
-
+  /**
+   * Indicates if the action previous is available.
+   *
+   * @return True if the action previous is available otherwise false
+   */
   boolean isPreviousAvailable();
 
+  /**
+   * Indicates if the component which invokes the previous action is rendered
+   *
+   * @return True if the component is renderer otherwise false
+   */
   boolean isPreviousRendered();
 
   /**
-   * Modificator, if backward navigation actions are immediate.
-   * The modifactor should be set only once, e.g. during initialization.
+   * Modificator, if backward navigation actions are immediate. The modifactor
+   * should be set only once, e.g. during initialization.
    *
    * @return If backward navigation actions are immediate
    */
   boolean isBackwardNavigationImmediate();
 
+  /**
+   * Sets an indicator for the wizard to state that the wizard is prepared for
+   * finishing.
+   */
   void setPreparedForFinishing();
 
+  /**
+   * Managed bean (controller) method to execute to quit (save and exit) the
+   * wizard.
+   *
+   * @return The outcome after the method was executed
+   */
   String finish();
 
-  //    void doFinish();
-
+  /**
+   * Indicates if the action finish is available.
+   *
+   * @return True if the action finish is available otherwise false
+   */
   boolean isFinishAvailable();
 
+  /**
+   * Managed bean (controller) method to execute to quit (not save and exit) the
+   * wizard.
+   *
+   * @return The outcome after the method was executed
+   */
   String cancel();
 
-  //    void doCancel();
-
+  /**
+   * Managed bean (controller) method which is called, when an action to
+   * navigate between the wizards views is exectued. The method parameter
+   * contains information about the component which was used to navigate.
+   *
+   * @param actionEvent
+   */
   void gotoClicked(ActionEvent actionEvent);
 
+  /**
+   * Managed bean (controller) method to execute to navigate between the wizards
+   * views.
+   *
+   * @return The outcome after the method was executed
+   */
   String gotoStep();
-
-//  void makeContentDecision(int indexToShow);
 
   String getDefaultOutcome();
 
-  //        void setBackwardNavigationStrategy(String strategy);
+  // void setBackwardNavigationStrategy(String strategy);
 
   String getViewId();
 
-  List<AbstractWizard.Info> getCourse();
+  List<AbstractWizardController.Info> getCourse();
 
   void registerOutcome(String outcome, String title);
 }

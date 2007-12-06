@@ -21,13 +21,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UIOutput;
 import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.model.AbstractWizard;
+import org.apache.myfaces.tobago.model.AbstractWizardController;
 import org.apache.myfaces.tobago.model.BeanItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SampleWizard extends AbstractWizard {
+public class SampleWizard extends AbstractWizardController {
 
   private static final Log LOG = LogFactory.getLog(SampleWizard.class);
 

@@ -26,50 +26,50 @@
 		<c:set var="replaceGoto" value="false" />
 	</c:if>	
 	
-	<!-- replace goto -->
-	
-	<c:if test="${replaceGoto}">
-		<ui:include src="${gotoSource}" />
-	</c:if>
-	
-	<!-- default goto -->
-
-	<c:if test="${!replaceGoto}">
-		<!-- layout information -->
-		<c:set var="colums" value="" />
-		<c:forEach var="index" begin="1" end="${controller.size}" step="1">
-			<c:if test="${index ne 1}">
-				<c:set var="colums" value="${colums};fixed" />
-			</c:if>
-			<c:set var="colums" value="${colums};fixed" />
-		</c:forEach>
-		<c:set var="colums" value="${colums};*" />
+	<c:choose>
+		<!-- replace goto -->
+		<c:when test="${replaceGoto}">
+			<ui:include src="${gotoSource}" />
+		</c:when>
+		<!-- default goto -->
+		<c:otherwise>
 		
-		<!-- navigation -->
-		<tc:panel>
-			<f:facet name="layout">
-				<tc:gridLayout rows="fixed" columns="${colums}" />
-			</f:facet>
-		
+			<!-- layout information -->
+			<c:set var="colums" value="" />
 			<c:forEach var="index" begin="1" end="${controller.size}" step="1">
 				<c:if test="${index ne 1}">
-					<tc:out value=">>" />
+					<c:set var="colums" value="${colums};fixed" />
 				</c:if>
-				<c:set var="isButtonDisabled" value="false" />
-				<c:if test="${(i gt controller.index) or (controller.backwardNavigationStrategy eq 'notallowed')}">
-					<c:set var="isButtonDisabled" value="true" />
-				</c:if>
-				<tc:button action="${controller.gotoStep}"
-					actionListener="${controller.gotoClicked}"
-					disabled="${isButtonDisabled}"
-					immediate="${controller.backwardNavigationImmediate}"
-					label="${index}"
-					id="wizard-goto-${index}" />
+				<c:set var="colums" value="${colums};fixed" />
 			</c:forEach>
-		
-			<tc:cell />
-		
-		</tc:panel>
-	</c:if>
+			<c:set var="colums" value="${colums};*" />
+			
+			<!-- navigation -->
+			<tc:panel>
+				<f:facet name="layout">
+					<tc:gridLayout rows="fixed" columns="${colums}" />
+				</f:facet>
+			
+				<c:forEach var="index" begin="1" end="${controller.size}" step="1">
+					<c:if test="${index ne 1}">
+						<tc:out value=">>" />
+					</c:if>
+					<c:set var="isButtonDisabled" value="false" />
+					<c:if test="${(i gt controller.index) or (controller.backwardNavigationStrategy eq 'notallowed')}">
+						<c:set var="isButtonDisabled" value="true" />
+					</c:if>
+					<tc:button action="${controller.gotoStep}"
+						actionListener="${controller.gotoClicked}"
+						disabled="${isButtonDisabled}"
+						immediate="${controller.backwardNavigationImmediate}"
+						label="${index}"
+						id="wizard-goto-${index}" />
+				</c:forEach>
+			
+				<tc:cell />
+			
+			</tc:panel>
+		</c:otherwise>
+	</c:choose>
 
 </ui:composition>

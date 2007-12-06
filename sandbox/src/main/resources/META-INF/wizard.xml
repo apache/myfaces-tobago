@@ -24,13 +24,10 @@
 
 	<tc:panel>
 		<f:facet name="layout">
-			<tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;*" />
+			<tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;*" />
 		</f:facet>
 
 		<!-- default settings -->
-		<c:if test="${empty canDoPrevious}">
-			<c:set var="canDoPrevious" value="true" />
-		</c:if>
 		<c:if test="${empty isGotoRendered}">
 			<c:set var="isGotoRendered" value="true" />
 		</c:if>
@@ -51,45 +48,38 @@
 		<c:if test="${empty navigationSource}">
 			<c:set var="replaceNavigation" value="false" />
 		</c:if>
-		<c:if test="${empty showMessages}">
-			<c:set var="showMessages" value="false" />
-		</c:if>
 
 
 		<!-- goto -->
-		<c:if test="${isGotoRendered}">
-			<tfs:wizard-goto controller="${controller}" gotoSource="${gotoSource}" />
-		</c:if>
-		<!-- placeholder for layout -->
-		<c:if test="${!isGotoRendered}">
-			<tc:cell />
-		</c:if>
+		<c:choose>
+			<c:when test="${isGotoRendered}">
+				<tfs:wizard-goto controller="${controller}" gotoSource="${gotoSource}" />
+			</c:when>
+			<!-- placeholder for layout -->
+			<c:otherwise>
+				<tc:cell />
+			</c:otherwise>
+		</c:choose>
 
 		<tc:separator rendered="${isGotoSeparatorRendered}" />
-		
-		<!-- messages -->
-		<c:if test="${showMessages}">
-			<tc:messages />
-		</c:if>
-		<c:if test="${!showMessages}">
-			<tc:cell />
-		</c:if>
 
 		<!-- content -->
-		<tfs:dynamic-content controller="${controller}" defaultDynamicContentSource="${defaultDynamicContentSource}" />
+		<ui:insert />
 
 		<tc:separator rendered="${isNavigationSeparatorRendered}" />
 
 		<!-- navigation -->
-		<c:if test="${isNavigationRendered}">
-			<tfs:wizard-navigation controller="${controller}"
-				isPreviousRendered="${isPreviousRendered}"
-				navigationSource="${navigationSource}" />
-		</c:if>
-		<!-- placeholder for layout -->
-		<c:if test="${!isNavigationRendered}">
-			<tc:cell />
-		</c:if>
+		<c:choose>
+			<c:when test="${isNavigationRendered}">
+				<tfs:wizard-navigation controller="${controller}"
+					isPreviousRendered="${isPreviousRendered}"
+					navigationSource="${navigationSource}" />
+			</c:when>
+			<!-- placeholder for layout -->
+			<c:otherwise>
+				<tc:cell />
+			</c:otherwise>
+		</c:choose>
 
 		<!-- layout -->
 		<tc:cell />

@@ -30,40 +30,41 @@
 		<c:set var="isPreviousRendered" value="true" />
 	</c:if>
 	
-	<!-- replace navigation -->
-	<c:if test="${replaceNavigation}" >
-		<ui:include src="${navigationSource}" />
-	</c:if>
-	
-	<!-- default navigation -->
-
-	<c:if test="${!replaceNavigation}" >
-		<tc:panel>
-			<f:facet name="layout">
-				<tc:gridLayout columns="*;fixed;fixed;fixed;fixed" />
-			</f:facet>
+	<c:choose>
+		<!-- replace navigation -->
+		<c:when test="${replaceNavigation}" >
+			<ui:include src="${navigationSource}" />
+		</c:when>
+		
+		<!-- default navigation -->
+		<c:otherwise>
+			<tc:panel>
+				<f:facet name="layout">
+					<tc:gridLayout columns="*;fixed;fixed;fixed;fixed" />
+				</f:facet>
+				
+				<c:if test="${!controller.previousAvailable or (controller.backwardNavigationStrategy eq 'notallowed')}" >
+					<c:set var="previousDisabled" value="true" />
+				</c:if>
 			
-			<c:if test="${!controller.previousAvailable or (controller.backwardNavigationStrategy eq 'notallowed')}" >
-				<c:set var="previousDisabled" value="true" />
-			</c:if>
-		
-			<tc:cell />
-			<tc:button action="${controller.previous}"
-				rendered="${isPreviousRendered}"
-				disabled="${previousDisabled}" 
-				immediate="${controller.backwardNavigationImmediate}"
-				label="Previous" />
-			<tc:button action="${controller.next}"
-				disabled="${!controller.nextAvailable}"
-				label="Next" />
-			<tc:button action="${controller.finish}"
-				disabled="${!controller.finishAvailable}"
-				label="Finish" />
-			<tc:button action="${controller.cancel}"
-				label="Cancel"
-				immediate="true" />
-		
-		</tc:panel>
-	</c:if>
+				<tc:cell />
+				<tc:button action="${controller.previous}"
+					rendered="${isPreviousRendered}"
+					disabled="${previousDisabled}" 
+					immediate="${controller.backwardNavigationImmediate}"
+					label="Previous" />
+				<tc:button action="${controller.next}"
+					disabled="${!controller.nextAvailable}"
+					label="Next" />
+				<tc:button action="${controller.finish}"
+					disabled="${!controller.finishAvailable}"
+					label="Finish" />
+				<tc:button action="${controller.cancel}"
+					label="Cancel"
+					immediate="true" />
+			
+			</tc:panel>
+		</c:otherwise>
+	</c:choose>
 
 </ui:composition>
