@@ -15,7 +15,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces</groupId>
@@ -27,7 +28,9 @@
   <packaging>pom</packaging>
   <name>Apache Tobago</name>
   <version>1.0.13-SNAPSHOT</version>
-  <description>The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF and run on MyFaces.</description>
+  <description>The goal of Tobago is to provide the community with a well designed set of user interface components
+    based on JSF and run on MyFaces.
+  </description>
   <prerequisites>
     <maven>2.0.6</maven>
   </prerequisites>
@@ -150,8 +153,12 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
-          <configLocation>http://svn.apache.org/repos/asf/myfaces/maven/trunk/build-tools/src/main/resources/org/apache/myfaces/tobago/checkstyle.xml</configLocation>
-          <headerLocation>http://svn.apache.org/repos/asf/myfaces/maven/trunk/build-tools/src/main/resources/org/apache/myfaces/tobago/checkstyle-header.txt</headerLocation>
+          <configLocation>
+            http://svn.apache.org/repos/asf/myfaces/maven/trunk/build-tools/src/main/resources/org/apache/myfaces/tobago/checkstyle.xml
+          </configLocation>
+          <headerLocation>
+            http://svn.apache.org/repos/asf/myfaces/maven/trunk/build-tools/src/main/resources/org/apache/myfaces/tobago/checkstyle-header.txt
+          </headerLocation>
           <xrefLocation>xref</xrefLocation>
           <excludes>**/package-info.java</excludes>
           <sourceEncoding>utf-8</sourceEncoding>
@@ -179,7 +186,8 @@
             <link>http://jakarta.apache.org/commons/collections/api-${commons-collection.version}/</link>
             <link>http://jakarta.apache.org/commons/lang/api-${common-lang.version}/</link>
             <link>http://jakarta.apache.org/commons/fileupload/apidocs</link>
-            <link>http://jakarta.apache.org/commons/digester/commons-digester-${commons-digester.version}/docs/api/</link>
+            <link>http://jakarta.apache.org/commons/digester/commons-digester-${commons-digester.version}/docs/api/
+            </link>
             <link>http://jakarta.apache.org/commons/io/api-${common-io.version}/</link>
             <link>http://jakarta.apache.org/commons/logging/commons-logging-${commons-logging.version}/apidocs/</link>
             <link>http://www.junit.org/junit/javadoc/</link>
@@ -227,19 +235,19 @@
         </configuration>
       </plugin>
 
-<!--
-      <plugin>
-        <inherited>false</inherited>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-doap-plugin</artifactId>
-        <configuration>
-          <category>web-framework</category>
-          <language>Java</language>
-          <shortdesc>Set of user interface components based on JSF.</shortdesc>
-          <pmc>http://myfaces.apache.org</pmc>
-        </configuration>
-      </plugin>
--->
+      <!--
+            <plugin>
+              <inherited>false</inherited>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-doap-plugin</artifactId>
+              <configuration>
+                <category>web-framework</category>
+                <language>Java</language>
+                <shortdesc>Set of user interface components based on JSF.</shortdesc>
+                <pmc>http://myfaces.apache.org</pmc>
+              </configuration>
+            </plugin>
+      -->
 
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -259,7 +267,8 @@
         <configuration>
           <rulesets>
             <ruleset>/rulesets/basic.xml</ruleset>
-            <ruleset>/rulesets/unusedcode.xml</ruleset>   f
+            <ruleset>/rulesets/unusedcode.xml</ruleset>
+            f
             <ruleset>/rulesets/imports.xml</ruleset>
             <ruleset>/rulesets/design.xml</ruleset>
             <ruleset>/rulesets/optimizations.xml</ruleset>
@@ -301,9 +310,9 @@
       <!-- http://jira.codehaus.org/browse/MJNCSS-4
            JavaNCSS still has problems with annotations for local variables -->
       <plugin>
-	      <groupId>org.codehaus.mojo</groupId>
-	      <artifactId>javancss-maven-plugin</artifactId>
-		    <version>2.0-beta-2</version>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>javancss-maven-plugin</artifactId>
+        <version>2.0-beta-2</version>
       </plugin>
 
       <plugin>
@@ -531,13 +540,13 @@
             <target>1.5</target>
             <encoding>UTF-8</encoding>
             <showWarnings>true</showWarnings>
-          <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>-->
+            <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>-->
           </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-idea-plugin</artifactId>
-	        <configuration>
+          <configuration>
             <jdkName>1.5</jdkName>
             <linkModules>true</linkModules>
             <downloadSources>true</downloadSources>
@@ -729,7 +738,9 @@
               <execution>
                 <phase>validate</phase>
                 <id>getting-scm.revision</id>
-                <goals><goal>update</goal></goals>
+                <goals>
+                  <goal>update</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>
@@ -754,7 +765,7 @@
                 <phase>package</phase>
                 <configuration>
                   <tasks>
-                    <mkdir dir="${project.build.directory}/site/docbook" />
+                    <mkdir dir="${project.build.directory}/site/docbook"/>
                   </tasks>
                 </configuration>
                 <goals>
@@ -766,10 +777,10 @@
                 <phase>install</phase>
                 <configuration>
                   <tasks>
-                    <mkdir dir="${project.build.directory}/site/docbook/resources" />
+                    <mkdir dir="${project.build.directory}/site/docbook/resources"/>
                     <copy verbose="true" todir="${project.build.directory}/site/docbook/resources">
                       <fileset dir="${project.build.directory}/site/docbook">
-                        <include name="*.png" />
+                        <include name="*.png"/>
                       </fileset>
                     </copy>
                   </tasks>
@@ -817,7 +828,7 @@
                 <configuration>
                   <tasks>
                     <copy todir="${project.build.directory}/staging/images/resources">
-                      <fileset dir="${basedir}/src/docbook/resources" />
+                      <fileset dir="${basedir}/src/docbook/resources"/>
                     </copy>
                   </tasks>
                 </configuration>
@@ -877,7 +888,9 @@
               <execution>
                 <id>build-pdf-doc</id>
                 <phase>process-resources</phase>
-                <goals><goal>generate-pdf</goal></goals>
+                <goals>
+                  <goal>generate-pdf</goal>
+                </goals>
                 <configuration>
                   <sourceDirectory>${docbook.source}</sourceDirectory>
                   <targetDirectory>${docbook.target}</targetDirectory>
@@ -897,10 +910,10 @@
                   <chunkedOutput>true</chunkedOutput>
                   <chunkQuietly>false</chunkQuietly>
                   <postProcess>
-                    <mkdir dir="${docbook.target}/resources" />
+                    <mkdir dir="${docbook.target}/resources"/>
                     <copy todir="${docbook.target}/resources">
                       <fileset dir="${docbook.source}/resources">
-                        <include name="*.png" />
+                        <include name="*.png"/>
                       </fileset>
                     </copy>
                   </postProcess>
@@ -936,7 +949,9 @@
     <profile>
       <id>rt.jar</id>
       <activation>
-        <os><family>!mac</family></os>
+        <os>
+          <family>!mac</family>
+        </os>
       </activation>
       <properties>
         <java.classes.jar>lib/rt.jar</java.classes.jar>
@@ -945,7 +960,9 @@
     <profile>
       <id>classes.jar</id>
       <activation>
-        <os><family>mac</family></os>
+        <os>
+          <family>mac</family>
+        </os>
       </activation>
       <properties>
         <java.classes.jar>../Classes/classes.jar</java.classes.jar>
@@ -954,12 +971,12 @@
   </profiles>
 
   <repositories>
-	  <repository>
+    <repository>
       <!-- apache snapshot repository should be disabled -->
       <id>apache.snapshots</id>
       <name>Apache Snapshot Repository</name>
-	    <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-	    <releases>
+      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+      <releases>
         <enabled>false</enabled>
       </releases>
       <snapshots>
