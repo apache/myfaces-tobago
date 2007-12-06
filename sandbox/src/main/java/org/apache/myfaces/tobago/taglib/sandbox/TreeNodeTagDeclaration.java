@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 /**
  * Creates a tree node.
  */
-@SuppressWarnings({"ALL"})
+@SuppressWarnings("ALL")
 @Tag(name = "treeNode")
 @BodyContentDescription(anyTagOf = "<tcs:treeNode>* <tcs:treeData>*")
 @UIComponentTag(
