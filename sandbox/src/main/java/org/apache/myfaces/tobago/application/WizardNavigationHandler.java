@@ -29,6 +29,7 @@ import javax.faces.context.FacesContext;
 
 public class WizardNavigationHandler extends NavigationHandler {
 
+  @SuppressWarnings("UnusedDeclaration")
   private static final Log LOG = LogFactory.getLog(DebugNavigationHandler.class);
 
   private NavigationHandler base;
@@ -52,7 +53,5 @@ public class WizardNavigationHandler extends NavigationHandler {
     } else {
       base.handleNavigation(facesContext, fromAction, outcome);
     }
-
-
   }
 }
