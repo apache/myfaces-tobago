@@ -266,7 +266,6 @@
           <rulesets>
             <ruleset>/rulesets/basic.xml</ruleset>
             <ruleset>/rulesets/unusedcode.xml</ruleset>
-            f
             <ruleset>/rulesets/imports.xml</ruleset>
             <ruleset>/rulesets/design.xml</ruleset>
             <ruleset>/rulesets/optimizations.xml</ruleset>
