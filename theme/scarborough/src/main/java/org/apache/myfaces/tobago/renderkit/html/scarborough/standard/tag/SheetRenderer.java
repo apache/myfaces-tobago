@@ -174,9 +174,9 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
         "new Tobago.Sheet(\"" + sheetId + "\", " + ajaxEnabled
             + ", \"" + checked + "\", \"" + unchecked + "\", \"" + data.getSelectable() + "\", "+ frequency
             + ",  " + (clickAction!=null?HtmlRendererUtil.getJavascriptString(clickAction.getId()):null)
-            + ",  " + (clickAction!=null?HtmlRendererUtil.getJavascriptArray(clickAction.getRenderedPartially()):null)
-            + ",  " + (dblClickAction!=null?HtmlRendererUtil.getJavascriptString(dblClickAction.getId()):null) + ",  "
-            + (dblClickAction!=null?HtmlRendererUtil.getJavascriptArray(dblClickAction.getRenderedPartially()):null)
+            + ",  " + HtmlRendererUtil.getRenderedPartiallyJavascriptArray(facesContext, clickAction)
+            + ",  " + (dblClickAction!=null?HtmlRendererUtil.getJavascriptString(dblClickAction.getId()):null)
+            + ",  " + HtmlRendererUtil.getRenderedPartiallyJavascriptArray(facesContext, dblClickAction)
             + ");"
     };
     UIPage page = ComponentUtil.findPage(facesContext, data);

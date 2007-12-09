@@ -34,6 +34,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -667,6 +668,25 @@ public final class HtmlRendererUtil {
       return "\"" + str + "\"";
     }
     return null;
+  }
+
+  public static String getRenderedPartiallyJavascriptArray(FacesContext facesContext, UICommand command) {
+    if (command == null) {
+      return null;
+    }
+    String[] list = command.getRenderedPartially();
+    StringBuilder strBuilder = new StringBuilder();
+    strBuilder.append("[");
+    for (int i = 0; i < list.length; i++) {
+      if (i != 0) {
+        strBuilder.append(",");
+      }
+      strBuilder.append("\"");
+      strBuilder.append(HtmlRendererUtil.getComponentId(facesContext, command, list[i]));
+      strBuilder.append("\"");
+    }
+    strBuilder.append("]");
+    return strBuilder.toString();
   }
 
   public static String getJavascriptArray(String[] list) {
