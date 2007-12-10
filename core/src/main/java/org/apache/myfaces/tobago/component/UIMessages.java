@@ -190,7 +190,9 @@ public class UIMessages extends javax.faces.component.UIMessages {
   }
 
   public String getFor() {
-    if (forValue != null) return forValue;
+    if (forValue != null) {
+      return forValue;
+    }
     ValueBinding vb = getValueBinding("for");
     if (vb != null) {
       return (String) vb.getValue(getFacesContext());
