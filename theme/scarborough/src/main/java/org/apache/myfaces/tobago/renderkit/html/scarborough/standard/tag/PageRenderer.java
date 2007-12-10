@@ -138,7 +138,10 @@ public class PageRenderer extends PageRendererBase {
 
     // write popup components
     // beware of ConcurrentModificationException in cascating popups!
-    for (UIPopup popup: page.getPopups()) {
+    // no foreach
+    UIPopup[] popupArray = (UIPopup[]) page.getPopups().toArray();
+    for (int i = 0; i < popupArray.length; i++) {
+      UIComponent popup = popupArray[i];
       RenderUtil.encode(facesContext, popup);
     }
 
