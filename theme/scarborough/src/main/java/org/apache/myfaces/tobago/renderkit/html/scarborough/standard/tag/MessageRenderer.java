@@ -40,6 +40,10 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Iterator;
 
+/**
+ * @deprecated Please use MessagesRenderer with maxNumber="1"
+ */
+@Deprecated
 public class MessageRenderer extends MessageRendererBase {
 
   private static final Log LOG = LogFactory.getLog(MessageRenderer.class);

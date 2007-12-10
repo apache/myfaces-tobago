@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasFor;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -32,7 +32,10 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /**
  * Renders error/validation message.
+ *
+ * @deprecated Please use MessagesTag tc:messages with maxNumber="1"
  */
+@Deprecated
 @Tag(name = "message", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
     uiComponent = "javax.faces.component.UIMessage",

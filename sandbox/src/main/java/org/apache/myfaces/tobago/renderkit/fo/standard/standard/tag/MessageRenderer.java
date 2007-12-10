@@ -27,6 +27,10 @@ import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
  * User: bommel
  * $Id:MessageRenderer.java 472227 2006-11-07 21:05:00 +0100 (Tue, 07 Nov 2006) bommel $
  */
+/**
+ * @deprecated Please use MessagesRenderer with maxNumber="1"
+ */
+@Deprecated
 public class MessageRenderer extends MessageRendererBase {
   private static final Log LOG = LogFactory.getLog(MessageRenderer.class);
 

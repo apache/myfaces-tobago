@@ -18,14 +18,17 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_SUMMARY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DETAIL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_SUMMARY;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIMessage;
 
-
+/**
+ * @deprecated Please use MessagesRenderer with maxNumber="1"
+ */
+@Deprecated
 public class MessageTag extends TobagoTag
     implements MessageTagDeclaration {
 
