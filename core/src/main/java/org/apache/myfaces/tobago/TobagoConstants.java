@@ -95,11 +95,14 @@ public final class TobagoConstants {
   public static final String ATTR_LEFT = "left";
   public static final String ATTR_MARKUP = "markup";
   public static final String ATTR_MAX = "max";
+  public static final String ATTR_MAX_SEVERITY = "maxSeverity";
+  public static final String ATTR_MAX_NUMBER = "maxNumber";
   public static final String ATTR_MENU_POPUP = "menuPopup";
   public static final String ATTR_MENU_POPUP_TYPE = "menuPopupType";
   public static final String ATTR_COMMAND_TYPE = "menuType";
   public static final String ATTR_METHOD = "method";
   public static final String ATTR_MIN = "min";
+  public static final String ATTR_MIN_SEVERITY = "minSeverity";
   public static final String ATTR_MINIMUM_SIZE = "minimunSize";
   public static final String ATTR_MODE = "mode";
   public static final String ATTR_MUTABLE = "mutable";
@@ -110,6 +113,7 @@ public final class TobagoConstants {
   public static final String ATTR_NUMBER_STYLE = "numberStyle";
   public static final String ATTR_ONCHANGE = "onchange";
   public static final String ATTR_ONCLICK = "onclick";
+  public static final String ATTR_ORDER_BY = "orderBy";
   public static final String ATTR_ORIENTATION = "orientation";
   public static final String ATTR_PAGE_MENU = "pageMenu";
   public static final String ATTR_PASSWORD = "password";

@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.UIMessages;
 import org.apache.myfaces.tobago.taglib.decl.HasFor;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
@@ -35,8 +36,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
  */
 @Tag(name = "messages", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
-    uiComponent = "javax.faces.component.UIMessages",
-    rendererType = "Messages", isComponentAlreadyDefined = true)
+    uiComponent = "org.apache.myfaces.tobago.component.UIMessages",
+    rendererType = "Messages")
 
 public interface MessagesTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasFor {
 
@@ -64,4 +65,40 @@ public interface MessagesTagDeclaration extends TobagoTagDeclaration, HasIdBindi
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
   void setShowSummary(String showSummary);
+
+   /**
+   * Sets the mininum severity to be shown. E. g. "warn" shows only "warn", "error" and "fatal".
+   * The default is "info".
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "javax.faces.application.FacesMessage.Severity", defaultValue = "info")
+  void setMinSeverity(String minSeverity);
+
+   /**
+   * Sets the maximum severity to be shown. E. g. "warn" shows only "warn" and "info".
+    * When setting this attribute you usually shoud take care, that you have a second message tag to show the
+    * higher severity levels.
+   * The default is "fatal".
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "javax.faces.application.FacesMessage.Severity", defaultValue = "fatal")
+  void setMaxSeverity(String maxSeverity);
+
+   /**
+   * Sets the maximum number of messages to show.
+   * The default is 2147483647 (more or less unlimited).
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "2147483647")
+  void setMaxNumber(String maxNumber);
+
+   /**
+   * Sets the order of the messages.
+   * The default "occurence".
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(
+          allowedValues = {UIMessages.OrderBy.OCCURENCE_STRING, UIMessages.OrderBy.SEVERITY_STRING},
+          defaultValue = UIMessages.OrderBy.OCCURENCE_STRING)
+  void setOrderBy(String orderBy);
 }

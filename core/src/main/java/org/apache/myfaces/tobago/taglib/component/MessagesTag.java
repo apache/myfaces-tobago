@@ -19,12 +19,17 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_GLOBAL_ONLY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_SUMMARY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MAX_NUMBER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MAX_SEVERITY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MIN_SEVERITY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ORDER_BY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DETAIL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_SUMMARY;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIMessages;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIMessages;
+import javax.faces.webapp.UIComponentTag;
 
 
 public class MessagesTag extends TobagoTag
@@ -33,8 +38,11 @@ public class MessagesTag extends TobagoTag
   private String forComponent;
   private String showSummary;
   private String showDetail;
-
   private String globalOnly;
+  private String minSeverity;
+  private String maxSeverity;
+  private String maxNumber;
+  private String orderBy;
 
   public String getComponentType() {
     return UIMessages.COMPONENT_TYPE;
@@ -46,13 +54,33 @@ public class MessagesTag extends TobagoTag
     ComponentUtil.setBooleanProperty(component, ATTR_GLOBAL_ONLY, globalOnly);
     ComponentUtil.setBooleanProperty(component, ATTR_SHOW_SUMMARY, showSummary);
     ComponentUtil.setBooleanProperty(component, ATTR_SHOW_DETAIL, showDetail);
+    ComponentUtil.setStringProperty(component, ATTR_MIN_SEVERITY, minSeverity);
+    ComponentUtil.setStringProperty(component, ATTR_MAX_SEVERITY, maxSeverity);
+    ComponentUtil.setStringProperty(component, ATTR_MAX_NUMBER, maxNumber);
+    setOrderByProperty(component, ATTR_ORDER_BY, orderBy);
   }
+
+  private void setOrderByProperty(UIComponent component, String name, String value) {
+    if (value != null) {
+      if (UIComponentTag.isValueReference(value)) {
+        component.setValueBinding(name, ComponentUtil.createValueBinding(value));
+      } else {
+        component.getAttributes().put(name, UIMessages.OrderBy.parse(value));
+      }
+    }
+  }
+
+
 
   public void release() {
     super.release();
     forComponent = null;
     showSummary = null;
     showDetail = null;
+    minSeverity = null;
+    maxSeverity = null;
+    maxNumber = null;
+    orderBy = null;
   }
 
   public String getFor() {
@@ -73,5 +101,21 @@ public class MessagesTag extends TobagoTag
 
   public void setShowDetail(String showDetail) {
     this.showDetail = showDetail;
+  }
+
+  public void setMinSeverity(String minSeverity) {
+    this.minSeverity = minSeverity;
+  }
+
+  public void setMaxSeverity(String maxSeverity) {
+    this.maxSeverity = maxSeverity;
+  }
+
+  public void setMaxNumber(String maxNumber) {
+    this.maxNumber = maxNumber;
+  }
+
+  public void setOrderBy(String orderBy) {
+    this.orderBy = orderBy;
   }
 }

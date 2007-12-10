@@ -257,6 +257,10 @@ td.tobago-calendar-day-selected {
   white-space: nowrap;
 }
 
+.tobago-messages-markup-info {
+  color: black;
+}
+
 /* ----------------------------------------------------------------------------
  * New Tobago Style definitions:
  * Syntax: .tobago-<elementname>-<attribute>

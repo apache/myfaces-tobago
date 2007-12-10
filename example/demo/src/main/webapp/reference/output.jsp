@@ -23,14 +23,18 @@
 
 <%
   FacesContext facesContext = FacesContext.getCurrentInstance();
-  facesContext.addMessage(null, new FacesMessage("Example of a message."));
+  facesContext.addMessage("message1", new FacesMessage(FacesMessage.SEVERITY_INFO, "Info message.", "Example of an info message."));
+  facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warn message.", "Example of a warn message."));
+  facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error message.", "Example of an error message."));
+  facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Fatal message.", "Example of a fatal message."));
+  facesContext.addMessage(null, new FacesMessage("Message without a severity.", "Example of a message without a severity."));
 %>
 
 <layout:overview>
   <jsp:body>
     <tc:box label="Output Controls">
       <f:facet name="layout">
-        <tc:gridLayout columns="150px;*" rows="fixed;300px;fixed;90px;*"/>
+        <tc:gridLayout columns="150px;*" rows="fixed;300px;fixed;fixed;90px;*" border="1"/>
       </f:facet>
 
       <%-- code-sniplet-start id="label" --%>
@@ -47,8 +51,12 @@
       </tc:cell>
 
       <%-- code-sniplet-start id="messages" --%>
-      <tc:messages/>
+      <tc:messages />
       <%-- code-sniplet-end id="messages" --%>
+      <tc:cell/>
+
+      <%--<tc:messages maxNumber="2"/>--%>
+      <tc:cell/>
       <tc:cell/>
 
       <%-- code-sniplet-start id="image" --%>
