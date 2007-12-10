@@ -1006,7 +1006,7 @@
     <common-io.version>1.1</common-io.version>
     <common-lang.version>2.1</common-lang.version>
     <commons-logging.version>1.1</commons-logging.version>
-    <commons-digester.version>1.7</commons-digester.version>
+    <commons-digester.version>1.8</commons-digester.version>
     <commons-collection.version>3.1</commons-collection.version>
   </properties>
 </project>
