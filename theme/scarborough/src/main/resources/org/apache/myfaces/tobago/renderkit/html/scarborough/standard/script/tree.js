@@ -388,11 +388,13 @@ TreeOldNode.prototype.toString = function (depth, last) {
     var str = '';
     if (! this.hideRoot || depth > 0) {
       var treeItemClasses = "tree-item";
+      var nodeWidth = "";  // given px width should only applyed in menu mode
       if (this.mode == "menu") {
         treeItemClasses += " tree-menu-item"
+        nodeWidth = 'style="width: ' + this.width + ';"';
       }
       str += '<div id="' + this.id + '" class="' + treeItemClasses + '" '
-          + 'style="width: ' + this.width + ';">';// fixme null pointer
+          + nodeWidth + '>';
       if (this.mode == "menu") {
         if (this.isFolder) {
           // FIXME: change the icons when klick on the icon
