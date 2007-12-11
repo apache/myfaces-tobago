@@ -22,16 +22,13 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UIOutput;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.model.AbstractWizardController;
-import org.apache.myfaces.tobago.model.BeanItem;
-
-import java.util.ArrayList;
-import java.util.List;
+//import org.apache.myfaces.tobago.model.BeanItem;
 
 public class SampleWizard extends AbstractWizardController {
 
   private static final Log LOG = LogFactory.getLog(SampleWizard.class);
 
-  private List<BeanItem> items = new ArrayList<BeanItem>();
+//  private List<BeanItem> items = new ArrayList<BeanItem>();
 
   public SampleWizard() {
     setDefaultOutcome("wizard");
@@ -51,7 +48,7 @@ public class SampleWizard extends AbstractWizardController {
   @Override
   public boolean doNext() {
 
-    LOG.info("items: " + items);
+/*    LOG.info("items: " + items);
     items.clear();
 
     switch (getIndex()) {
@@ -68,7 +65,7 @@ public class SampleWizard extends AbstractWizardController {
         break;
       default:
     }
-    return true;
+*/    return true;
   }
 
   public boolean doPrevious() {

@@ -30,7 +30,8 @@ import java.util.List;
 
 public abstract class AbstractWizardController implements Wizard {
 
-  private static final Log LOG = LogFactory.getLog(AbstractWizardController.class);
+  private static final Log LOG = LogFactory
+      .getLog(AbstractWizardController.class);
 
   private static final String WIZARD_FINISH_OUTCOME = "wizard-finish";
 
@@ -45,16 +46,9 @@ public abstract class AbstractWizardController implements Wizard {
   // XXX remove (use: "private Integer size" instead)
   private boolean sizeSet;
 
-  // XXX remove
-  // private boolean started;
-
   private boolean preparedForFinishing;
 
   private boolean backNavImmediate = true; // default, if not set otherwise
-
-  // private boolean dynamicContent;
-
-  // private String staticContentSource = null;
 
   private int requestedIndex;
 
@@ -64,42 +58,16 @@ public abstract class AbstractWizardController implements Wizard {
 
   private List<Info> course;
 
+  /* Constructor */
+
   protected AbstractWizardController() {
     reset();
   }
 
-  /*
-   * public boolean isStartable() { return true; }
-   */
-  // XXX is this needed?
-  /*
-   * public final String initialize() { if (LOG.isDebugEnabled()) {
-   * LOG.debug("initialize"); } if (!started) { reset();
-   * 
-   * boolean success = doInitialization(); if (success) { started = true;
-   * dynamicContent = true; // index++;
-   * 
-   * if (!sizeSet) { size++; } }
-   * 
-   * makeContentDecision(index); } return getDefaultOutcome(); }
-   */
+  /* Methods */
 
   /**
-   * <p>
-   * Hook for the implementation of business logic, after invoking the action
-   * {@link org.apache.myfaces.tobago.model.AbstractWizardController#initialize()}. If the execution of the business
-   * logic completed successfully, the method has to return <i>true</i>.
-   * Otherwise the method has to return <i>false</i>.
-   * </p>
-   * 
-   * @return true if the method completed sucessfully, false if not
-   */
-
-  // public abstract boolean doInitialization();
-  /*
-   * public final boolean isStartAvailable() { return (!started); }
-   * 
-   * public boolean isStarted() { return started; }
+   * @see Wizard#next()
    */
   public final String next() {
     LOG.debug("next");
@@ -116,54 +84,60 @@ public abstract class AbstractWizardController implements Wizard {
 
     // makeContentDecision(index);
 
-    return getDefaultOutcome();
+    // return getDefaultOutcome();
+
+    return getOutcome(index);
   }
 
   /**
    * <p>
    * Hook for the implementation of business logic, after invoking the action
-   * {@link org.apache.myfaces.tobago.model.AbstractWizardController#next()}. If the execution of the business logic
-   * completed successfully, the method has to return <i>true</i>. Otherwise
-   * the method has to return <i>false</i>.
+   * {@link org.apache.myfaces.tobago.model.AbstractWizardController#next()}.
+   * If the execution of the business logic completed successfully, the method
+   * has to return <i>true</i>. Otherwise the method has to return <i>false</i>.
    * </p>
    * 
    * @return true if the method completed sucessfully, false if not
    */
-  public abstract boolean doNext();
+  protected abstract boolean doNext();
 
   // XXX simplify
   public void next(ActionEvent event) {
     next();
   }
 
+  // TODO : javadoc
   public void gotoStep(ActionEvent event) {
     int step = Integer.parseInt((String) (event.getComponent().getAttributes()
         .get("step")));
     index = step;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see org.apache.myfaces.tobago.model.Wizard#isNextAvailable()
+  /**
+   * @see Wizard#isNextAvailable()
    */
   public final boolean isNextAvailable() {
     // return (started && !preparedForFinishing);
     return !preparedForFinishing;
   }
 
+  /**
+   * @see Wizard#previous()
+   */
   public final String previous() {
     LOG.debug("previous");
 
     boolean success = doPrevious();
     if (success) {
 
-      if (index > 0) {
+      if (index > 1) {
         index--;
       }
-      /*
-       * if (index == 0) { started = false; }
-       */
+
+      // if (index == 0) {
+      // started = false;
+      // }
+
       if (preparedForFinishing) {
         preparedForFinishing = false;
       }
@@ -181,16 +155,16 @@ public abstract class AbstractWizardController implements Wizard {
 
     // makeContentDecision(index);
 
-    return course.get(index).getOutcome();
+    return getOutcome(index);
     // return getDefaultOutcome();
   }
 
   /**
    * <p>
    * Hook for the implementation of business logic, after invoking the action
-   * {@link org.apache.myfaces.tobago.model.AbstractWizardController#previous()}. If the execution of the business logic
-   * completed successfully, the method has to return <i>true</i>. Otherwise
-   * the method has to return <i>false</i>.
+   * {@link org.apache.myfaces.tobago.model.AbstractWizardController#previous()}.
+   * If the execution of the business logic completed successfully, the method
+   * has to return <i>true</i>. Otherwise the method has to return <i>false</i>.
    * </p>
    * <p>
    * <b>Note: </b>Even if the action which triggerd the execution of the
@@ -200,28 +174,49 @@ public abstract class AbstractWizardController implements Wizard {
    * 
    * @return true if the method completed sucessfully, false if not
    */
-  public abstract boolean doPrevious();
+  protected abstract boolean doPrevious();
 
+  /**
+   * @see Wizard#isPreviousAvailable()
+   */
   public final boolean isPreviousAvailable() {
     return getIndex() > 0;
   }
 
+  /**
+   * @see Wizard#isPreviousRendered()
+   */
   public boolean isPreviousRendered() {
     return true;
   }
 
+  /**
+   * @see Wizard#isBackwardNavigationImmediate()
+   */
   public boolean isBackwardNavigationImmediate() {
     return backNavImmediate;
   }
 
+  /**
+   * Sets the indicator for immediate backward navigation.
+   * 
+   * @param immediate
+   *          True if backward navigation is immediate, otherwise false
+   */
   public void setBackwardNavigationImmediate(boolean immediate) {
     this.backNavImmediate = immediate;
   }
 
+  /**
+   * @see Wizard#setPreparedForFinishing()
+   */
   public final void setPreparedForFinishing() {
     this.preparedForFinishing = true;
   }
 
+  /**
+   * @see Wizard#finish()
+   */
   public final String finish() {
     if (LOG.isDebugEnabled()) {
       LOG.debug("finish");
@@ -240,19 +235,25 @@ public abstract class AbstractWizardController implements Wizard {
   /**
    * <p>
    * Hook for the implementation of business logic, after invoking the action
-   * {@link org.apache.myfaces.tobago.model.AbstractWizardController#finish()}. If the execution of the business logic
-   * completed successfully, the method has to return <i>true</i>. Otherwise
-   * the method has to return <i>false</i>.
+   * {@link org.apache.myfaces.tobago.model.AbstractWizardController#finish()}.
+   * If the execution of the business logic completed successfully, the method
+   * has to return <i>true</i>. Otherwise the method has to return <i>false</i>.
    * </p>
    * 
    * @return true if the method completed sucessfully, false if not
    */
-  public abstract boolean doFinish();
+  protected abstract boolean doFinish();
 
+  /**
+   * @see Wizard#isFinishAvailable()
+   */
   public final boolean isFinishAvailable() {
     return preparedForFinishing;
   }
 
+  /**
+   * @see Wizard#cancel()
+   */
   public final String cancel() {
     if (LOG.isDebugEnabled()) {
       LOG.debug("cancel");
@@ -266,8 +267,21 @@ public abstract class AbstractWizardController implements Wizard {
     return WIZARD_CANCEL_OUTCOME;
   }
 
-  public abstract boolean doCancel();
+  /**
+   * <p>
+   * Hook for the implementation of business logic, after invoking the action
+   * {@link org.apache.myfaces.tobago.model.AbstractWizardController#cancel()}.
+   * If the execution of the business logic completed successfully, the method
+   * has to return <i>true</i>. Otherwise the method has to return <i>false</i>.
+   * </p>
+   * 
+   * @return true if the method completed sucessfully, false if not
+   */
+  protected abstract boolean doCancel();
 
+  /**
+   * @see Wizard#gotoClicked(ActionEvent)
+   */
   public final void gotoClicked(ActionEvent actionEvent) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("gotoClicked");
@@ -286,6 +300,9 @@ public abstract class AbstractWizardController implements Wizard {
     }
   }
 
+  /**
+   * @see Wizard#gotoStep()
+   */
   public final String gotoStep() {
     LOG.debug("gotoStep: " + requestedIndex);
 
@@ -308,15 +325,16 @@ public abstract class AbstractWizardController implements Wizard {
     // makeContentDecision(index);
     // reset requestIndex
     requestedIndex = 0;
-    return getDefaultOutcome();
+    // return getDefaultOutcome();
+    return getOutcome(index);
   }
 
   /**
    * <p>
    * Hook for the implementation of business logic, after invoking the action
-   * {@link org.apache.myfaces.tobago.model.AbstractWizardController#gotoStep()}. If the execution of the business logic
-   * completed successfully, the method has to return <i>true</i>. Otherwise
-   * the method has to return <i>false</i>.
+   * {@link org.apache.myfaces.tobago.model.AbstractWizardController#gotoStep()}.
+   * If the execution of the business logic completed successfully, the method
+   * has to return <i>true</i>. Otherwise the method has to return <i>false</i>.
    * </p>
    * <p>
    * <b>Note: </b>Even if the action which triggerd the execution of the
@@ -328,54 +346,67 @@ public abstract class AbstractWizardController implements Wizard {
    *          The view index to show next
    * @return true if the method completed sucessfully, false if not
    */
-  public abstract boolean doGotoStep(int indexToShow);
+  protected abstract boolean doGotoStep(int indexToShow);
 
+  /**
+   * @see Wizard#getIndex()
+   */
   public final int getIndex() {
     return index;
   }
 
+  /**
+   * Returns an indicator to distinguish if the number (size) of the wizard
+   * views is known or is configured.
+   * 
+   * @return True if the size of the wizards views is set otherwise false
+   */
   public final boolean isSizeSet() {
     return sizeSet;
   }
 
-  public final void setSize(int size) {
-    if (!sizeSet) {
-      sizeSet = true;
-      this.size = size;
-    } else {
-      LOG.error("Size for wizard is already set and can not be changed!");
-    }
-  }
-
+  /**
+   * @see Wizard#getSize()
+   */
   public final int getSize() {
     return size;
   }
 
-  public final void resetSize(int size) {
-    this.size = size;
+  /**
+   * @see Wizard#setSize(int)
+   */
+  public final void setSize(int size) {
+    setSize(size, true);
   }
 
-  /*
-   * public final boolean isDynamicContent() { return dynamicContent; }
+  /**
+   * Sets the size (number) of the wizards views and a flag indicating that the
+   * set/configured size has to be reset.
    * 
-   * public final void setDynamicContent() { this.dynamicContent = true;
-   * this.staticContentSource = null; }
-   * 
-   * public final void setStaticContent(String staticContentSource) {
-   * this.dynamicContent = false; this.staticContentSource =
-   * staticContentSource; }
-   * 
-   * public final String getStaticContentSource() { return staticContentSource; }
-   * 
-   * public abstract void makeContentDecision(int indexToShow);
+   * @param size
+   *          The number of the wizards views
+   * @param reset
+   *          Flag indication if the already size set, has to be reset
    */
-  /*
-   * Helper method to reset all attributes
+  public final void setSize(int size, boolean reset) {
+    if (reset) {
+      sizeSet = true;
+    }
+    this.size = size;
+    // } else {
+    // LOG.error("Size for wizard is already set and can not be changed!");
+    // }
+    // this.size = size;
+  }
+
+  // public final void resetSize(int size) {
+  // this.size = size;
+  // }
+
+  /**
+   * Helper method to reset attributes
    */
   protected void reset() {
-    // dynamicContent = true;
-    // staticContentSource = null;
-    // started = false;
     preparedForFinishing = false;
     requestedIndex = 0;
     index = 0;
@@ -385,10 +416,20 @@ public abstract class AbstractWizardController implements Wizard {
     course = new ArrayList<Info>();
   }
 
+  /**
+   * @see Wizard#getDefaultOutcome()
+   */
   public final String getDefaultOutcome() {
     return defaultOutcome;
   }
 
+  /**
+   * Sets the outcome after the wizard stand actions where executed, which will
+   * not leave the wizards view Id (except in case of errors).
+   * 
+   * @param defaultOutcome
+   *          The outcome of the wizards standard actions
+   */
   public final void setDefaultOutcome(String defaultOutcome) {
     this.defaultOutcome = defaultOutcome;
   }
@@ -420,7 +461,8 @@ public abstract class AbstractWizardController implements Wizard {
    * </p>
    * <p>
    * <b>Note: </b>If the parameter value is not known by the wizard the backward
-   * navigation strategy {@link org.apache.myfaces.tobago.model.WizardBackwardNavigationStrategy#NOT_ALLOWED}
+   * navigation strategy
+   * {@link org.apache.myfaces.tobago.model.WizardBackwardNavigationStrategy#NOT_ALLOWED}
    * will be applied.
    * </p>
    * 
@@ -447,10 +489,16 @@ public abstract class AbstractWizardController implements Wizard {
     // | File Templates.
   }
 
+  /**
+   * @see Wizard#getCourse()
+   */
   public List<Info> getCourse() {
     return course;
   }
 
+  /**
+   * @see Wizard#registerOutcome(String, String)
+   */
   public void registerOutcome(String outcome, String title) {
 
     if (index == course.size()) { // this is a new page
@@ -462,6 +510,26 @@ public abstract class AbstractWizardController implements Wizard {
           + index + " course.size()=" + course.size());
     }
     LOG.info("course: " + course);
+  }
+
+  public void registerOutcome(String outcome, String title, int index) {
+
+    if (index == course.size()) { // this is a new page
+      course.add(new Info(outcome, title, index));
+    } else {
+      registerOutcome(outcome, title);
+    }
+  }
+
+  /**
+   * Returns the outcome for the requested wizard view
+   * 
+   * @param forIndex
+   *          The index of the requested wizard view
+   * @return The outcome for the view index
+   */
+  public final String getOutcome(int forIndex) {
+    return course.get(index).getOutcome();
   }
 
   // XXX

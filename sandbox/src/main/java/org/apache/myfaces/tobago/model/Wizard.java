@@ -38,7 +38,7 @@ public interface Wizard {
 
   /**
    * Return the index of the actual wizard view.
-   *
+   * 
    * @return The index of the actual wizard view
    */
   int getIndex();
@@ -51,7 +51,7 @@ public interface Wizard {
   /**
    * Sets the number (size) of views of the wizard. The size should be set only
    * once, e.g. during initialization.
-   *
+   * 
    * @param size
    *          The number of views of the wizard
    */
@@ -60,14 +60,14 @@ public interface Wizard {
   /**
    * Managed bean (controller) method to execute to show the next view of the
    * wizard.
-   *
+   * 
    * @return The outcome after the method was executed
    */
   String next();
 
   /**
    * Indicates if the action next is available.
-   *
+   * 
    * @return True if the action next is available otherwise false
    */
   boolean isNextAvailable();
@@ -75,29 +75,29 @@ public interface Wizard {
   /**
    * Managed bean (controller) method to execute to show the previous view of
    * the wizard.
-   *
+   * 
    * @return The outcome after the method was executed
    */
   String previous();
 
   /**
    * Indicates if the action previous is available.
-   *
+   * 
    * @return True if the action previous is available otherwise false
    */
   boolean isPreviousAvailable();
 
   /**
    * Indicates if the component which invokes the previous action is rendered
-   *
+   * 
    * @return True if the component is renderer otherwise false
    */
   boolean isPreviousRendered();
 
   /**
-   * Modificator, if backward navigation actions are immediate. The modifactor
+   * Indicator, if backward navigation actions are immediate. The indicator
    * should be set only once, e.g. during initialization.
-   *
+   * 
    * @return If backward navigation actions are immediate
    */
   boolean isBackwardNavigationImmediate();
@@ -111,14 +111,14 @@ public interface Wizard {
   /**
    * Managed bean (controller) method to execute to quit (save and exit) the
    * wizard.
-   *
+   * 
    * @return The outcome after the method was executed
    */
   String finish();
 
   /**
    * Indicates if the action finish is available.
-   *
+   * 
    * @return True if the action finish is available otherwise false
    */
   boolean isFinishAvailable();
@@ -126,7 +126,7 @@ public interface Wizard {
   /**
    * Managed bean (controller) method to execute to quit (not save and exit) the
    * wizard.
-   *
+   * 
    * @return The outcome after the method was executed
    */
   String cancel();
@@ -135,7 +135,7 @@ public interface Wizard {
    * Managed bean (controller) method which is called, when an action to
    * navigate between the wizards views is exectued. The method parameter
    * contains information about the component which was used to navigate.
-   *
+   * 
    * @param actionEvent
    */
   void gotoClicked(ActionEvent actionEvent);
@@ -143,14 +143,27 @@ public interface Wizard {
   /**
    * Managed bean (controller) method to execute to navigate between the wizards
    * views.
-   *
+   * 
    * @return The outcome after the method was executed
    */
   String gotoStep();
 
+  /**
+   * Returns the outcome after the wizard stand actions where executed, which
+   * will not leave the wizards view Id (except in case of errors).
+   * 
+   * @return The outcome after the wizard actions where executed, except actions
+   *         which leave the view (viewId) where the wizard is shown
+   */
   String getDefaultOutcome();
 
-  // void setBackwardNavigationStrategy(String strategy);
+  /**
+   * Sets the strategy to use for backward navigation
+   * 
+   * @param strategy
+   *          The strategy to use for backward navigation
+   */
+  void setBackwardNavigationStrategy(String strategy);
 
   String getViewId();
 
