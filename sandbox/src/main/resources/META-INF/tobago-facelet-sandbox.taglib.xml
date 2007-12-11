@@ -7,10 +7,6 @@
     <source>wizard.xml</source>
   </tag>
   <tag>
-    <tag-name>bean</tag-name>
-    <source>bean.xml</source>
-  </tag>
-  <tag>
     <tag-name>wizard-goto</tag-name>
     <source>wizard-goto.xml</source>
   </tag>
@@ -19,19 +15,15 @@
     <source>wizard-navigation.xml</source>
   </tag>
   <tag>
-    <tag-name>dynamic-content</tag-name>
-    <source>dynamic-content.xml</source>
-  </tag>
-  <tag>
     <tag-name>crud</tag-name>
     <source>crud.xml</source>
   </tag>
   <tag>
-    <tag-name>crud-master</tag-name>
-    <source>crud-master.xml</source>
+    <tag-name>crud-master-navigation</tag-name>
+    <source>crud-master-navigation.xml</source>
   </tag>
    <tag>
-    <tag-name>crud-detail</tag-name>
-    <source>crud-detail.xml</source>
+    <tag-name>crud-detail-navigation</tag-name>
+    <source>crud-detail-navigation.xml</source>
   </tag>
 </facelet-taglib>

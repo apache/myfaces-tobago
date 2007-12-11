@@ -16,26 +16,24 @@
 	* limitations under the License.
 -->
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:c="http://java.sun.com/jstl/core"
+<ui:composition xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:tc="http://myfaces.apache.org/tobago/component">
-
+	
+	<!-- detail navigation area -->
 	<tc:panel>
 		<f:facet name="layout">
-			<tc:gridLayout />
+			<tc:gridLayout columns="*;fixed;fixed" />
 		</f:facet>
-
-		<!-- content -->
-		<c:set var="isDynamicContent"
-			value="${controller.dynamicContent}" />
-		<c:if test="${isDynamicContent}">
-			<ui:include src="${defaultDynamicContentSource}" />
-		</c:if>
-		<c:if test="${!isDynamicContent}">
-			<ui:include src="${controller.staticContentSource}" />
-		</c:if>
-
+		<tc:cell />
+		<tc:button action="${controller.saveItem}"
+			label="Sichern"
+			tip="Datensatz sichern" />
+		<tc:button action="${controller.cancelItem}"
+			label="Abbrechen"
+			tip="Bearbeitung abbrechen" />
 	</tc:panel>
 
+	
 </ui:composition>
