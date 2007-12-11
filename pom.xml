@@ -9,7 +9,7 @@
   <artifactId>tobago</artifactId>
   <packaging>pom</packaging>
   <name>Apache Tobago</name>
-  <version>1.0.13</version>
+  <version>1.0.14-SNAPSHOT</version>
   <description>The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF and run on MyFaces.</description>
   <prerequisites>
     <maven>2.0.6</maven>
@@ -439,9 +439,9 @@
 
   <scm>
 
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.13</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.13</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.0.13</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk</url>
 
   </scm>
 
