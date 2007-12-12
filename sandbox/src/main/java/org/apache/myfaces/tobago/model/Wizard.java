@@ -165,9 +165,7 @@ public interface Wizard {
    */
   void setBackwardNavigationStrategy(String strategy);
 
-  String getViewId();
-
-  List<AbstractWizardController.Info> getCourse();
+  List<WizardStep> getCourse();
 
   void registerOutcome(String outcome, String title);
 }

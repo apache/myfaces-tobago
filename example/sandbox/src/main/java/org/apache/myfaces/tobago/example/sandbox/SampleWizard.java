@@ -21,10 +21,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UIOutput;
 import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.model.AbstractWizardController;
+import org.apache.myfaces.tobago.model.AbstractWizard;
 //import org.apache.myfaces.tobago.model.BeanItem;
 
-public class SampleWizard extends AbstractWizardController {
+public class SampleWizard extends AbstractWizard {
 
   private static final Log LOG = LogFactory.getLog(SampleWizard.class);
 

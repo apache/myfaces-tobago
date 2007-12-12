@@ -16,14 +16,39 @@ package org.apache.myfaces.tobago.model;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+public class WizardStep {
 
-import org.apache.myfaces.tobago.component.UIPanel;
+  private String outcome;
+  private String title;
+  private int index;
 
-public interface UIWizard {
+  public WizardStep(String outcome, String title, int index) {
+    this.outcome = outcome;
+    this.title = title;
+    this.index = index;
+  }
 
-  /**
-   * @return the current UIPanel with the (dynamic) UIComponents as chlidren
-   */
-  UIPanel getCurrentComponent();
+  public String getOutcome() {
+    return outcome;
+  }
 
+  public void setOutcome(String outcome) {
+    this.outcome = outcome;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public int getIndex() {
+    return index;
+  }
+
+  public void setIndex(int index) {
+    this.index = index;
+  }
 }
