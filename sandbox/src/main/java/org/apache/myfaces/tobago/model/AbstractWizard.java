@@ -17,13 +17,11 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.UICommand;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIParameter;
 import javax.faces.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +63,8 @@ public abstract class AbstractWizard implements Wizard {
 
   /**
    * @see Wizard#next()
+   * 
+   * @return The outcome after the method was executed
    */
   public final String next() {
     LOG.debug("next");
@@ -79,17 +79,13 @@ public abstract class AbstractWizard implements Wizard {
 
     }
 
-    // makeContentDecision(index);
-
-    // return getDefaultOutcome();
-
-    return getOutcome();
+    return getWizardStep(index).getOutcome();
   }
 
   /**
    * <p>
    * Hook for the implementation of business logic, after invoking the action
-   * {@link AbstractWizard#next()}.
+   * {@link org.apache.myfaces.tobago.model.AbstractWizardController#next()}.
    * If the execution of the business logic completed successfully, the method
    * has to return <i>true</i>. Otherwise the method has to return <i>false</i>.
    * </p>
@@ -103,22 +99,55 @@ public abstract class AbstractWizard implements Wizard {
     next();
   }
 
-  // TODO : javadoc
-  public void gotoStep(ActionEvent event) {
-    int step = Integer.parseInt((String) (event.getComponent().getAttributes().get("step")));
-    index = step;
+  /**
+   * @see Wizard#gotoStep(ActionEvent)
+   * 
+   * @param actionEvent
+   */
+  @SuppressWarnings("unchecked")
+  public void gotoStep(ActionEvent actionEvent) {
+    int step = -1;
+    try {
+      /* Default to get information about the requested index */
+      step = Integer.parseInt((String) (actionEvent.getComponent()
+          .getAttributes().get("step")));
+
+    } catch (RuntimeException lvException) {
+      LOG.warn("Unable to find attribute 'step'.", lvException);
+    }
+
+    if (step == -1) {
+      /* Try other way to get information about the requested index */
+      List<UIComponent> children = actionEvent.getComponent().getChildren();
+      for (UIComponent component : children) {
+        if (component instanceof UIParameter) {
+          UIParameter param = (UIParameter) component;
+          if (param.getName().equals("step")) {
+            step = (Byte) param.getValue();
+            break;
+          }
+        }
+        throw new RuntimeException("Didn't find step index.");
+      }
+    }
+
+    // index = step;
+    requestedIndex = step;
   }
 
   /**
    * @see Wizard#isNextAvailable()
+   * 
+   * @return True if the action next is available otherwise false
    */
   public final boolean isNextAvailable() {
-    // return (started && !preparedForFinishing);
     return !preparedForFinishing;
   }
 
   /**
    * @see Wizard#previous()
+   * 
+   * @return The outcome after the method was executed
    */
   public final String previous() {
     LOG.debug("previous");
@@ -126,39 +155,40 @@ public abstract class AbstractWizard implements Wizard {
     boolean success = doPrevious();
     if (success) {
 
-      if (index > 1) {
+      if (index > 0) {
         index--;
       }
-
-      // if (index == 0) {
-      // started = false;
-      // }
 
       if (preparedForFinishing) {
         preparedForFinishing = false;
       }
 
-      switch (backNavStrategy) {
-      case DELETE:
-        if (!sizeSet) {
-          size = index;
-        }
-        break;
-      default:
-        break;
-      }
+      applyBackwardNavigationStrategy();
+
     }
 
-    // makeContentDecision(index);
+    return getWizardStep(index).getOutcome();
+  }
 
-    return getOutcome();
-    // return getDefaultOutcome();
+  /**
+   * Applies backward navigation strategy principles
+   */
+  protected void applyBackwardNavigationStrategy() {
+    switch (backNavStrategy) {
+    case DELETE:
+      if (!sizeSet) {
+        size = index;
+      }
+      /* remove all wizard steps after the actual index */
+      course.subList(index + 1, course.size()).clear();
+      break;
+    }
   }
 
   /**
    * <p>
    * Hook for the implementation of business logic, after invoking the action
-   * {@link AbstractWizard#previous()}.
+   * {@link org.apache.myfaces.tobago.model.AbstractWizardController#previous()}.
    * If the execution of the business logic completed successfully, the method
    * has to return <i>true</i>. Otherwise the method has to return <i>false</i>.
    * </p>
@@ -174,6 +204,8 @@ public abstract class AbstractWizard implements Wizard {
 
   /**
    * @see Wizard#isPreviousAvailable()
+   * 
+   * @return True if the action previous is available otherwise false
    */
   public final boolean isPreviousAvailable() {
     return getIndex() > 0;
@@ -181,6 +213,8 @@ public abstract class AbstractWizard implements Wizard {
 
   /**
    * @see Wizard#isPreviousRendered()
+   * 
+   * @return True if the component is renderer otherwise false
    */
   public boolean isPreviousRendered() {
     return true;
@@ -188,6 +222,8 @@ public abstract class AbstractWizard implements Wizard {
 
   /**
    * @see Wizard#isBackwardNavigationImmediate()
+   * 
+   * @return True if backward navigation actions are immediate otherwise false
    */
   public boolean isBackwardNavigationImmediate() {
     return backNavImmediate;
@@ -196,8 +232,7 @@ public abstract class AbstractWizard implements Wizard {
   /**
    * Sets the indicator for immediate backward navigation.
    * 
-   * @param immediate
-   *          True if backward navigation is immediate, otherwise false
+   * @param immediate True if backward navigation is immediate, otherwise false
    */
   public void setBackwardNavigationImmediate(boolean immediate) {
     this.backNavImmediate = immediate;
@@ -212,6 +247,8 @@ public abstract class AbstractWizard implements Wizard {
 
   /**
    * @see Wizard#finish()
+   * 
+   * @return The outcome after the method was executed
    */
   public final String finish() {
     if (LOG.isDebugEnabled()) {
@@ -231,17 +268,19 @@ public abstract class AbstractWizard implements Wizard {
   /**
    * <p>
    * Hook for the implementation of business logic, after invoking the action
-   * {@link AbstractWizard#finish()}.
+   * {@link org.apache.myfaces.tobago.model.AbstractWizardController#finish()}.
    * If the execution of the business logic completed successfully, the method
    * has to return <i>true</i>. Otherwise the method has to return <i>false</i>.
    * </p>
    * 
-   * @return true if the method completed sucessfully, false if not
+   * @return True if the method completed sucessfully, false if not
    */
   protected abstract boolean doFinish();
 
   /**
    * @see Wizard#isFinishAvailable()
+   * 
+   * @return True if the action finish is available otherwise false
    */
   public final boolean isFinishAvailable() {
     return preparedForFinishing;
@@ -249,6 +288,8 @@ public abstract class AbstractWizard implements Wizard {
 
   /**
    * @see Wizard#cancel()
+   * 
+   * @return The outcome after the method was executed
    */
   public final String cancel() {
     if (LOG.isDebugEnabled()) {
@@ -266,7 +307,7 @@ public abstract class AbstractWizard implements Wizard {
   /**
    * <p>
    * Hook for the implementation of business logic, after invoking the action
-   * {@link AbstractWizard#cancel()}.
+   * {@link org.apache.myfaces.tobago.model.AbstractWizardController#cancel()}.
    * If the execution of the business logic completed successfully, the method
    * has to return <i>true</i>. Otherwise the method has to return <i>false</i>.
    * </p>
@@ -275,29 +316,31 @@ public abstract class AbstractWizard implements Wizard {
    */
   protected abstract boolean doCancel();
 
-  /**
-   * @see Wizard#gotoClicked(ActionEvent)
-   */
-  public final void gotoClicked(ActionEvent actionEvent) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("gotoClicked");
-    }
-    UICommand command = (UICommand) actionEvent.getComponent();
-    String id = command.getId();
-    String stepIndex = StringUtils.difference("wizard-goto-", id);
-    try {
-      LOG.info("Goto step " + stepIndex);
-      requestedIndex = Integer.valueOf(stepIndex);
-    } catch (NumberFormatException lvException) {
-      FacesContext.getCurrentInstance().addMessage(
-          "",
-          new FacesMessage(FacesMessage.SEVERITY_ERROR, null,
-              "Step index unknown: " + stepIndex));
-    }
-  }
+  // /**
+  // * @see Wizard#gotoClicked(ActionEvent)
+  // */
+  // public final void gotoClicked(ActionEvent actionEvent) {
+  // if (LOG.isDebugEnabled()) {
+  // LOG.debug("gotoClicked");
+  // }
+  // UICommand command = (UICommand) actionEvent.getComponent();
+  // String id = command.getId();
+  // String stepIndex = StringUtils.difference("wizard-goto-", id);
+  // try {
+  // LOG.info("Goto step " + stepIndex);
+  // requestedIndex = Integer.valueOf(stepIndex);
+  // } catch (NumberFormatException lvException) {
+  // FacesContext.getCurrentInstance().addMessage(
+  // "",
+  // new FacesMessage(FacesMessage.SEVERITY_ERROR, null,
+  // "Step index unknown: " + stepIndex));
+  // }
+  // }
 
   /**
    * @see Wizard#gotoStep()
+   * 
+   * @return The outcome after the method was executed
    */
   public final String gotoStep() {
     LOG.debug("gotoStep: " + requestedIndex);
@@ -307,28 +350,28 @@ public abstract class AbstractWizard implements Wizard {
       preparedForFinishing = false;
       index = requestedIndex;
 
-      switch (backNavStrategy) {
-      case DELETE:
-        if (!isSizeSet()) {
-          size = index;
-        }
-        break;
-      default:
-        break;
-      }
+      applyBackwardNavigationStrategy();
+
+      // switch (backNavStrategy) {
+      // case DELETE:
+      // if (!isSizeSet()) {
+      // size = index;
+      // }
+      // break;
+      // }
     }
 
     // makeContentDecision(index);
     // reset requestIndex
-    requestedIndex = 0;
+    requestedIndex = -1;
     // return getDefaultOutcome();
-    return getOutcome();
+    return getWizardStep(index).getOutcome();
   }
 
   /**
    * <p>
    * Hook for the implementation of business logic, after invoking the action
-   * {@link AbstractWizard#gotoStep()}.
+   * {@link org.apache.myfaces.tobago.model.AbstractWizardController#gotoStep()}.
    * If the execution of the business logic completed successfully, the method
    * has to return <i>true</i>. Otherwise the method has to return <i>false</i>.
    * </p>
@@ -338,8 +381,7 @@ public abstract class AbstractWizard implements Wizard {
    * the business logic returned <i>false</i>.
    * </p>
    * 
-   * @param indexToShow
-   *          The view index to show next
+   * @param indexToShow The view index to show next
    * @return true if the method completed sucessfully, false if not
    */
   protected abstract boolean doGotoStep(int indexToShow);
@@ -363,6 +405,8 @@ public abstract class AbstractWizard implements Wizard {
 
   /**
    * @see Wizard#getSize()
+   * 
+   * @return The size (number) of views in the wizard
    */
   public final int getSize() {
     return size;
@@ -379,10 +423,8 @@ public abstract class AbstractWizard implements Wizard {
    * Sets the size (number) of the wizards views and a flag indicating that the
    * set/configured size has to be reset.
    * 
-   * @param size
-   *          The number of the wizards views
-   * @param reset
-   *          Flag indication if the already size set, has to be reset
+   * @param size The number of the wizards views
+   * @param reset Flag indication if the already size set, has to be reset
    */
   public final void setSize(int size, boolean reset) {
     if (reset) {
@@ -404,7 +446,7 @@ public abstract class AbstractWizard implements Wizard {
    */
   protected void reset() {
     preparedForFinishing = false;
-    requestedIndex = 0;
+    requestedIndex = -1;
     index = 0;
     if (!sizeSet) {
       size = 0;
@@ -413,7 +455,11 @@ public abstract class AbstractWizard implements Wizard {
   }
 
   /**
-   * @see Wizard#getDefaultOutcome()
+   * Returns the outcome after the wizard stand actions where executed, which
+   * will not leave the wizards view Id (except in case of errors).
+   * 
+   * @return The outcome after the wizard actions where executed, except actions
+   *         which leave the view (viewId) where the wizard is shown
    */
   public final String getDefaultOutcome() {
     return defaultOutcome;
@@ -423,8 +469,7 @@ public abstract class AbstractWizard implements Wizard {
    * Sets the outcome after the wizard stand actions where executed, which will
    * not leave the wizards view Id (except in case of errors).
    * 
-   * @param defaultOutcome
-   *          The outcome of the wizards standard actions
+   * @param defaultOutcome The outcome of the wizards standard actions
    */
   public final void setDefaultOutcome(String defaultOutcome) {
     this.defaultOutcome = defaultOutcome;
@@ -462,8 +507,7 @@ public abstract class AbstractWizard implements Wizard {
    * will be applied.
    * </p>
    * 
-   * @param strategy
-   *          The strategy to use for backward navigation
+   * @param strategy The strategy to use for backward navigation
    */
   public final void setBackwardNavigationStrategy(String strategy) {
     try {
@@ -486,14 +530,45 @@ public abstract class AbstractWizard implements Wizard {
   }
 
   /**
-   * @see Wizard#registerOutcome(String, String)
+   * Registers a wizard step at the actual wizard index.
+   * 
+   * @param outcome The outcome of the wizard step
+   * @param title The title of the wizard step
    */
-  public void registerOutcome(String outcome, String title) {
+  public void registerWizardStep(String outcome, String title) {
+    registerWizardStep(index, outcome, title);
+    // if (index == course.size()) { // this is a new page
+    // course.add(createWizardStep(outcome, title));
+    // } else if (index < course.size()) {
+    // course.set(index, createWizardStep(outcome, title));
+    // } else {
+    // throw new IllegalStateException("Index too large for course: index="
+    // + index + " course.size()=" + course.size());
+    // }
+    // LOG.info("course: " + course);
+  }
+
+  /**
+   * Creates a new {@link WizardStep} instance.
+   * 
+   * @param index The index of the wizard step
+   * @param outcome The outcome for the wizard step
+   * @param title The title of the wizard step
+   * @return A {@link WizardStep} instance
+   */
+  protected WizardStep createWizardStep(int index, String outcome, String title) {
+    return new WizardStep(index, outcome, title);
+  }
+
+  /**
+   * @see Wizard#registerWizardStep(int, String, String)
+   */
+  public final void registerWizardStep(int index, String outcome, String title) {
 
     if (index == course.size()) { // this is a new page
-      course.add(createWizardStep(outcome, title));
-    } else if (index < course.size()) {
-      course.set(index, createWizardStep(outcome, title));
+      course.add(createWizardStep(index, outcome, title));
+    } else if (index < course.size()) { // a page at the index already exists
+      course.set(index, createWizardStep(index, outcome, title)); // replace
     } else {
       throw new IllegalStateException("Index too large for course: index="
           + index + " course.size()=" + course.size());
@@ -501,26 +576,33 @@ public abstract class AbstractWizard implements Wizard {
     LOG.info("course: " + course);
   }
 
-  protected WizardStep createWizardStep(String outcome, String title) {
-    return new WizardStep(outcome, title, index);
-  }
+  // /**
+  // * Returns the outcome for the requested wizard view
+  // *
+  // * @return The outcome for the view index
+  // */
+  // private String getOutcome() {
+  // return course.get(index).getOutcome();
+  // }
 
-  public void registerOutcome(String outcome, String title, int index) {
-
-    if (index == course.size()) { // this is a new page
-      course.add(new WizardStep(outcome, title, index));
-    } else {
-      registerOutcome(outcome, title);
-    }
-  }
+  // /**
+  // * Returns the outcome for the requested wizard view
+  // *
+  // * @param forIndex The index of the requested wizard view
+  // * @return The outcome for the view index
+  // */
+  // public final String getOutcome(int forIndex) {
+  // return course.get(forIndex).getOutcome();
+  // }
 
   /**
-   * Returns the outcome for the requested wizard view
+   * Returns the registered {@link WizardStep} at the specified index
    * 
-   * @return The outcome for the view index
+   * @param forIndex The index of the requested wizard view
+   * @return The registered {@link WizardStep} instance at the specified index
    */
-  private String getOutcome() {
-    return course.get(index).getOutcome();
+  public final WizardStep getWizardStep(int forIndex) {
+    return course.get(forIndex);
   }
 
 }

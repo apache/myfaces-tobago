@@ -17,10 +17,8 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  * limitations under the License.
  */
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -61,11 +59,9 @@ public class WizardTag extends BodyTagSupport {
     panelTag = new PanelTag();
     panelTag.setPageContext(pageContext);
     panelTag.setParent(getParent());
-/* todo
-    if (rendered != null) {
-      panelTag.setRendered(rendered);
-    }
-*/
+    /*
+     * todo if (rendered != null) { panelTag.setRendered(rendered); }
+     */
     panelTag.doStartTag();
 
     FacetTag facetTag = new FacetTag();
@@ -92,9 +88,10 @@ public class WizardTag extends BodyTagSupport {
 
     List<WizardStep> course = null;
     try {
-      Object bean = VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), "controller");
+      Object bean = VariableResolverUtil.resolveVariable(FacesContext
+          .getCurrentInstance(), "controller");
       Wizard wizard = (Wizard) PropertyUtils.getProperty(bean, "wizard");
-      wizard.registerOutcome(outcome, title);
+      wizard.registerWizardStep(wizard.getIndex(), outcome, title);
       course = wizard.getCourse();
     } catch (Exception e) {
       LOG.error("", e);
@@ -113,7 +110,7 @@ public class WizardTag extends BodyTagSupport {
 
     GridLayoutTag gridLayoutTag = new GridLayoutTag();
     gridLayoutTag.setPageContext(pageContext);
-//    gridLayoutTag.setColumns("*");
+    // gridLayoutTag.setColumns("*");
     StringBuilder columns = new StringBuilder();
     for (WizardStep info : course) {
       columns.append("fixed;");
@@ -179,21 +176,21 @@ public class WizardTag extends BodyTagSupport {
 
     cell(panelTag);
 
-/*
-    WizardControllerTag controllerTag = new WizardControllerTag();
-    controllerTag.setPageContext(pageContext);
-    controllerTag.setParent(panelTag);
-    controllerTag.setController(controller);
-    controllerTag.doStartTag();
-    controllerTag.doEndTag();
-*/
+    /*
+     * WizardControllerTag controllerTag = new WizardControllerTag();
+     * controllerTag.setPageContext(pageContext);
+     * controllerTag.setParent(panelTag);
+     * controllerTag.setController(controller); controllerTag.doStartTag();
+     * controllerTag.doEndTag();
+     */
 
     ButtonTag previousTag = new ButtonTag();
     previousTag.setPageContext(pageContext);
     previousTag.setParent(panelTag);
     previousTag.setLabel("Previous");
     previousTag.setAction(controller.replace("}", ".previous}"));
-    previousTag.setDisabled(controller.replace("}", ".previousAvailable}").replace("#{", "#{!"));
+    previousTag.setDisabled(controller.replace("}", ".previousAvailable}")
+        .replace("#{", "#{!"));
     previousTag.doStartTag();
     previousTag.doEndTag();
 
@@ -203,7 +200,8 @@ public class WizardTag extends BodyTagSupport {
     nextTag.setLabel("Next");
     nextTag.setAction(next);
     nextTag.setActionListener(controller.replace("}", ".next}"));
-    nextTag.setDisabled(controller.replace("}", ".nextAvailable}").replace("#{", "#{!"));
+    nextTag.setDisabled(controller.replace("}", ".nextAvailable}").replace(
+        "#{", "#{!"));
     nextTag.doStartTag();
     nextTag.doEndTag();
 
@@ -212,7 +210,8 @@ public class WizardTag extends BodyTagSupport {
     finish.setParent(panelTag);
     finish.setLabel("Finish");
     finish.setAction(controller.replace("}", ".finish}"));
-    finish.setDisabled(controller.replace("}", ".finishAvailable}").replace("#{", "#{!"));
+    finish.setDisabled(controller.replace("}", ".finishAvailable}").replace(
+        "#{", "#{!"));
     finish.doStartTag();
     finish.doEndTag();
 

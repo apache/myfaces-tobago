@@ -43,7 +43,7 @@
 					<tc:gridLayout columns="*;fixed;fixed;fixed;fixed" />
 				</f:facet>
 				
-				<c:if test="${!controller.previousAvailable or (controller.backwardNavigationStrategy eq 'notallowed')}" >
+				<c:if test="${!controller.previousAvailable or (controller.backwardNavigationStrategy == 'notallowed')}" >
 					<c:set var="previousDisabled" value="true" />
 				</c:if>
 			

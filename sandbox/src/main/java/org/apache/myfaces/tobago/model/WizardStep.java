@@ -16,16 +16,34 @@ package org.apache.myfaces.tobago.model;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/**
+ * This class stores information about one view (or step) in a wizard.
+ */
 public class WizardStep {
 
   private String outcome;
   private String title;
   private int index;
 
-  public WizardStep(String outcome, String title, int index) {
+  /**
+   * Create a new {@link WizardStep} instance, with information about an
+   * specific view.
+   * 
+   * @param index The index of the view
+   * @param outcome The outcome of the view
+   * @param title The title of the view
+   */
+  public WizardStep(int index, String outcome, String title) {
+    this.index = index;
     this.outcome = outcome;
     this.title = title;
-    this.index = index;
+  }
+
+  @Override
+  public String toString() {
+    return "Index: " + index + ", title '" + title + "', outcome '" + outcome
+        + "'";
   }
 
   public String getOutcome() {

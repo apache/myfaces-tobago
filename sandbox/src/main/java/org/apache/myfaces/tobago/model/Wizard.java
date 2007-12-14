@@ -52,8 +52,7 @@ public interface Wizard {
    * Sets the number (size) of views of the wizard. The size should be set only
    * once, e.g. during initialization.
    * 
-   * @param size
-   *          The number of views of the wizard
+   * @param size The number of views of the wizard
    */
   void setSize(int size);
 
@@ -98,7 +97,7 @@ public interface Wizard {
    * Indicator, if backward navigation actions are immediate. The indicator
    * should be set only once, e.g. during initialization.
    * 
-   * @return If backward navigation actions are immediate
+   * @return True if backward navigation actions are immediate otherwise false
    */
   boolean isBackwardNavigationImmediate();
 
@@ -138,7 +137,7 @@ public interface Wizard {
    * 
    * @param actionEvent
    */
-  void gotoClicked(ActionEvent actionEvent);
+  void gotoStep(ActionEvent actionEvent);
 
   /**
    * Managed bean (controller) method to execute to navigate between the wizards
@@ -149,23 +148,26 @@ public interface Wizard {
   String gotoStep();
 
   /**
-   * Returns the outcome after the wizard stand actions where executed, which
-   * will not leave the wizards view Id (except in case of errors).
-   * 
-   * @return The outcome after the wizard actions where executed, except actions
-   *         which leave the view (viewId) where the wizard is shown
-   */
-  String getDefaultOutcome();
-
-  /**
    * Sets the strategy to use for backward navigation
    * 
-   * @param strategy
-   *          The strategy to use for backward navigation
+   * @param strategy The strategy to use for backward navigation
    */
   void setBackwardNavigationStrategy(String strategy);
 
+  /**
+   * Returns the course (progression) of {@link WizardStep}s. The progression
+   * is stored in the order of the wizard steps where added to the list.
+   * 
+   * @return The List of {@link WizardStep}s
+   */
   List<WizardStep> getCourse();
 
-  void registerOutcome(String outcome, String title);
+  /**
+   * Registers a wizard step.
+   * 
+   * @param index The index of the wizard step
+   * @param outcome The outcome of the wizard step
+   * @param title The title of the wizard step
+   */
+  void registerWizardStep(int index, String outcome, String title);
 }
