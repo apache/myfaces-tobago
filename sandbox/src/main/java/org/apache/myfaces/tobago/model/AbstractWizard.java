@@ -182,6 +182,8 @@ public abstract class AbstractWizard implements Wizard {
       /* remove all wizard steps after the actual index */
       course.subList(index + 1, course.size()).clear();
       break;
+    default:
+      // do nothing
     }
   }
 
