@@ -24,18 +24,27 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.TobagoConstants;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_INDEX;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UIMenu;
+import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPanelBase;
 import org.apache.myfaces.tobago.component.UITab;
@@ -43,6 +52,7 @@ import org.apache.myfaces.tobago.component.UITabGroup;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_CLIENT;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_PAGE;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_TAB;
+import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
@@ -55,10 +65,13 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
+import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import java.io.IOException;
@@ -239,6 +252,30 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.startElement(HtmlConstants.TR, null);
     writer.writeAttribute(HtmlAttributes.VALIGN, "bottom", false);
 
+    Application application = facesContext.getApplication();
+
+    // tool bar
+
+    UICommand scrollLeft = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+    scrollLeft.setRendererType(null);
+    scrollLeft.getAttributes().put(ATTR_LABEL, "<");
+    UICommand scrollRight = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+    scrollRight.setRendererType(null);
+    scrollRight.getAttributes().put(ATTR_LABEL, ">");
+    UICommand commandList = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+    commandList.setRendererType(null);
+    UIMenu menu = (UIMenu) application.createComponent(UIMenu.COMPONENT_TYPE);
+    menu.setRendererType(null);
+    commandList.getFacets().put("menupopup", menu);
+//    commandList.getAttributes().put(ATTR_LABEL, "Direct Link");
+    UIToolBar toolBar = (UIToolBar) application.createComponent(UIToolBar.COMPONENT_TYPE);
+    toolBar.setRendererType("ToolBar");
+    toolBar.setTransient(true);
+    toolBar.getChildren().add(scrollLeft);
+    toolBar.getChildren().add(scrollRight);
+    toolBar.getChildren().add(commandList);
+    component.getFacets().put(TobagoConstants.FACET_TOOL_BAR, toolBar);
+
     UITab activeTab = null;
 
     int index = 0;
@@ -315,9 +352,23 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
           writer.endElement(HtmlConstants.DIV);
           writer.endElement(HtmlConstants.DIV);
           writer.endElement(HtmlConstants.TD);
+
+          // tool bar
+          UIMenuCommand menuItem = (UIMenuCommand) application.createComponent(UIMenuCommand.COMPONENT_TYPE);
+          menuItem.setRendererType("MenuCommand");
+          menuItem.getAttributes().put(ATTR_ONCLICK, onclick);
+          menuItem.getAttributes().put(ATTR_LABEL, tab.getAttributes().get(ATTR_LABEL));
+          menu.getChildren().add(menuItem);
+
         }
       }
       index++;
+    }
+
+    if (toolBar != null) { // todo: configurable later
+      writer.startElement(HtmlConstants.TD, null);
+      renderToolbar(facesContext, writer, toolBar);
+      writer.endElement(HtmlConstants.TD);
     }
 
     writer.startElement(HtmlConstants.TD, null);
@@ -342,6 +393,28 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     encodeContent(writer, facesContext, activeTab);
 
     writer.endElement(HtmlConstants.TABLE);
+  }
+
+  // todo: this is quite the same as in ButtonRenderer
+  private void renderToolbar(
+      FacesContext facesContext, TobagoResponseWriter writer, UIPanel toolbar) throws IOException {
+    final Map attributes = toolbar.getAttributes();
+
+    String className = "tobago-box-header-toolbar-div";
+    if (ToolBarTag.LABEL_OFF.equals(attributes.get(ATTR_LABEL_POSITION))) {
+      className += " tobago-box-header-toolbar-label_off";
+    }
+    writer.startElement(HtmlConstants.DIV, null);
+    writer.writeClassAttribute(className);
+    attributes.put(ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
+    if (ToolBarTag.LABEL_BOTTOM.equals(attributes.get(ATTR_LABEL_POSITION))) {
+      attributes.put(ATTR_LABEL_POSITION, ToolBarTag.LABEL_RIGHT);
+    }
+    if (ToolBarTag.ICON_BIG.equals(attributes.get(ATTR_ICON_SIZE))) {
+      attributes.put(ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
+    }
+    RenderUtil.encode(facesContext, toolbar);
+    writer.endElement(HtmlConstants.DIV);
   }
 
   protected void encodeContent(TobagoResponseWriter writer, FacesContext facesContext, UITab activeTab)

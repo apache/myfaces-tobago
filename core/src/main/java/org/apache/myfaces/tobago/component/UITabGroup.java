@@ -26,9 +26,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_INDEX;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SWITCH_TYPE;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource;
-import org.apache.myfaces.tobago.event.TabChangeEvent;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
