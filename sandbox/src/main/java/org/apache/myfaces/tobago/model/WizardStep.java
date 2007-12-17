@@ -23,7 +23,9 @@ package org.apache.myfaces.tobago.model;
 public class WizardStep {
 
   private String outcome;
+
   private String title;
+
   private int index;
 
   /**
@@ -39,7 +41,7 @@ public class WizardStep {
     this.outcome = outcome;
     this.title = title;
   }
-
+  
   @Override
   public String toString() {
     return "Index: " + index + ", title '" + title + "', outcome '" + outcome
