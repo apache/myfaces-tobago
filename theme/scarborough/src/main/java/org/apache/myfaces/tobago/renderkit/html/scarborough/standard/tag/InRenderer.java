@@ -200,7 +200,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
 //        : DEFAULT_MAX_SUGGESTED_ITEMS;
 
     List suggesteds
-        = (List) mb.invoke(context, new Object[]{(String)input.getSubmittedValue()});
+        = (List) mb.invoke(context, new Object[]{(String) input.getSubmittedValue()});
 
     StringBuilder sb = new StringBuilder();
     sb.append("return  {items: [");
