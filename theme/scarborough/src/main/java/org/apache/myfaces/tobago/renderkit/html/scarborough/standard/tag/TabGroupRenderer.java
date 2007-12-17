@@ -34,6 +34,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPanelBase;
@@ -361,7 +362,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.endElement(HtmlConstants.TR);
   }
 
-  public void encodeAjax(FacesContext context, UIComponent component) throws IOException {
+  public int encodeAjax(FacesContext context, UIComponent component) throws IOException {
     AjaxUtils.checkParamValidity(context, component, UITabGroup.class);
 
     renderTabGroupView(context,
@@ -371,7 +372,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
         (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE),
         SWITCH_TYPE_RELOAD_TAB,
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"));
-    context.responseComplete();
+    return CODE_SUCCESS;
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent uiComponent) {

@@ -245,11 +245,11 @@ public class PageRenderer extends PageRendererBase {
     // script files
     List<String> scriptFiles = page.getScriptFiles();
     // prototype.js and tobago.js needs to be first!
-    addScripts(writer, facesContext, "script/prototype.js");
+    addScripts(writer, facesContext, "script/dojo/dojo/dojo.js");
     addScripts(writer, facesContext, "script/tobago.js");
     addScripts(writer, facesContext, "script/theme-config.js");
     // remove  prototype.js and tobago.js from list to prevent dublicated rendering of script tags
-    scriptFiles.remove("script/prototype.js");
+    scriptFiles.remove("script/dojo/dojo/dojo.js");
     scriptFiles.remove("script/tobago.js");
     scriptFiles.remove("script/theme-config.js");
 
@@ -269,8 +269,6 @@ public class PageRenderer extends PageRendererBase {
         } catch (NumberFormatException e) {/* ignore; use default*/ }
         hideClientLogging = !severity.contains("show");
       }
-      scriptFiles.add("script/effects.js");
-      scriptFiles.add("script/dragdrop.js");
       scriptFiles.add("script/logging.js");
     }
 
@@ -351,8 +349,6 @@ public class PageRenderer extends PageRendererBase {
 
     if (debugMode) {
       final String[] jsFiles = new String[]{
-          "script/effects.js",
-          "script/dragdrop.js",
           "script/logging.js"
       };
       final String[] jsCommand = new String[]{"new LOG.LogArea({hide: " + hideClientLogging + "});"};

@@ -24,6 +24,7 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
@@ -170,7 +171,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     writer.endElement(HtmlConstants.DIV);
   }
 
-  public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
+  public int encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
     AjaxUtils.checkParamValidity(facesContext, component, UIPanel.class);
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
@@ -178,6 +179,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     component.encodeChildren(facesContext);
     encodeEndInner(writer);
     facesContext.responseComplete();
+    return CODE_SUCCESS;
   }
 }
 

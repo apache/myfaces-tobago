@@ -24,14 +24,11 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_ERROR;
+import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIPage;
@@ -53,6 +50,17 @@ import java.util.List;
 
 public class InRenderer extends InputRendererBase implements AjaxRenderer {
   private static final Log LOG = LogFactory.getLog(InRenderer.class);
+
+  @Override
+  public void decode(FacesContext facesContext, UIComponent component) {
+    super.decode(facesContext, component);
+    String clientId = component.getClientId(facesContext);
+    UIPage page = ComponentUtil.findPage(component);
+    if (clientId.equals(page.getActionId())) {
+      // this is a inputSuggest request -> render response
+      facesContext.renderResponse();
+    }
+  }
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
@@ -110,9 +118,6 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
       styleClasses.removeAspectClass(rendererName, StyleClasses.Aspect.REQUIRED);
     }
     writer.writeClassAttribute();
-    if (renderAjaxSuggest) {
-      writer.writeAttribute(HtmlAttributes.AUTOCOMPLETE, "off", false);
-    }
     /*if (component instanceof UIInput) {
       String onchange = HtmlUtils.generateOnchange((UIInput) component, facesContext);
       if (onchange != null) {
@@ -124,8 +129,9 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
 
     checkForCommandFacet(input, facesContext, writer);
 
-    if (ComponentUtil.getBooleanAttribute(input, ATTR_REQUIRED)) {
-      String rendererName = HtmlRendererUtil.getRendererName(facesContext, input);
+    boolean required = ComponentUtil.getBooleanAttribute(input, ATTR_REQUIRED);
+    String rendererName = HtmlRendererUtil.getRendererName(facesContext, input);
+    if (required && !renderAjaxSuggest) {
       final String[] cmds = {
           "new Tobago.In(\"" + id + "\", true ,\"" + StyleClasses.PREFIX + rendererName + "\"  );"
       };
@@ -138,47 +144,41 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
 
     // input suggest
     if (renderAjaxSuggest) {
-
-      String popupId = id + SUBCOMPONENT_SEP + "ajaxPopup";
-
-      final UIPage page = ComponentUtil.findPage(facesContext, input);
-      page.getScriptFiles().add("script/effects.js");
-      page.getScriptFiles().add("script/dragdrop.js");
-      page.getScriptFiles().add("script/controls.js");
-      page.getScriptFiles().add("script/inputSuggest.js");
-
-      writer.startElement(HtmlConstants.DIV, null);
-      writer.writeClassAttribute("tobago-in-suggest-popup");
-      writer.writeStyleAttribute("display: none;");
-      writer.writeIdAttribute(popupId);
-      writer.endElement(HtmlConstants.DIV);
-
+   
       final String[] scripts = new String[]{
-          "script/effects.js",
-          "script/dragdrop.js",
-          "script/controls.js",
           "script/inputSuggest.js"
       };
 
-      final String[] cmds = {
-          "new Tobago.Autocompleter(",
-          "    '" + id + "',",
-          "    '" + page.getClientId(facesContext) + "',",
-          "    { method:       'post',",
-          "      asynchronous: true,",
-          "      parameters: ''",
-          "    });"
+      final String[] styles = new String[]{
+          "style/dojo.css"
       };
 
+      final UIPage page = ComponentUtil.findPage(facesContext, input);
+      for (String file : scripts) {
+        page.getScriptFiles().add(file);
+      }
+      for (String file : styles) {
+        page.getStyleFiles().add(file);
+      }
+
+      final String[] cmds = {
+          "new Tobago.AutocompleterAjax(",
+          "    '" + id + "',",
+          "    '" + required + "',",
+          "    '" + StyleClasses.PREFIX + rendererName + "',",
+          "    { });"
+      };
+
+      HtmlRendererUtil.writeStyleLoader(facesContext, styles);
       HtmlRendererUtil.writeScriptLoader(facesContext, scripts, cmds);
     }
 
   }
 
-  public void encodeAjax(FacesContext context, UIComponent component) throws IOException {
+  public int encodeAjax(FacesContext context, UIComponent component) throws IOException {
     if (!(component instanceof UIInput)) {
       LOG.error("Wrong type: Need " + UIInput.class.getName() + ", but was " + component.getClass().getName());
-      return;
+      return CODE_ERROR;
     }
 
     AjaxUtils.checkParamValidity(context, component, UIInput.class);
@@ -191,7 +191,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
       mb = (MethodBinding) o;
     } else {
       // should never occur
-      return;
+      return CODE_ERROR;
     }
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(context);
@@ -199,20 +199,26 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
 //        ? input.getMaxSuggestedItems().intValue()
 //        : DEFAULT_MAX_SUGGESTED_ITEMS;
 
-    List suggesteds = (List) mb.invoke(context, new Object[]{
-        AjaxPhaseListener.getValueForComponent(context, component)});
+    List suggesteds
+        = (List) mb.invoke(context, new Object[]{(String)input.getSubmittedValue()});
 
-    writer.startElement(HtmlConstants.UL, null);
+    StringBuilder sb = new StringBuilder();
+    sb.append("return  {items: [");
+
     int suggestedCount = 0;
     for (Iterator i = suggesteds.iterator(); i.hasNext(); suggestedCount++) {
       if (suggestedCount > maxSuggestedCount) {
         break;
       }
-      writer.startElement(HtmlConstants.LI, null);
-      writer.writeText(i.next(), null);
-      writer.endElement(HtmlConstants.LI);
+      if (suggestedCount > 0) {
+        sb.append(", ");
+      }
+      sb.append("{label: \"");
+      sb.append(AjaxUtils.encodeJavascriptString(i.next().toString()));
+      sb.append("\"}");
     }
-    writer.endElement(HtmlConstants.UL);
-    context.responseComplete();
+    sb.append("]};");
+    writer.writeJavascript(sb.toString());
+    return CODE_SUCCESS;
   }
 }

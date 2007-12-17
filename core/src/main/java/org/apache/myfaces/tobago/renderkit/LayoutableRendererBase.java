@@ -174,8 +174,8 @@ public abstract class LayoutableRendererBase
               + "if (element) {\n"
               + "   Tobago.addEventListener(element, \"" + facetEntry.getKey()
               + "\", function(){Tobago.reloadComponent('"
-              + HtmlRendererUtil.getComponentId(facesContext, facetEntry.getValue(),
-              ((UICommand) facetEntry.getValue()).getRenderedPartially()[0]) + "','"
+              + HtmlRendererUtil.getComponentIds(facesContext, facetEntry.getValue(),
+              ((UICommand) facetEntry.getValue()).getRenderedPartially()) + "','"
               + facetEntry.getValue().getClientId(facesContext) + "', {})});\n"
               + "}";
       writer.writeJavascript(script);

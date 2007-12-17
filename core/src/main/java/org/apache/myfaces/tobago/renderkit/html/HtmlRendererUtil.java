@@ -613,6 +613,22 @@ public final class HtmlRendererUtil {
     }
   }
 
+  public static String getComponentIds(FacesContext context, UIComponent component, String[] componentId) {
+    StringBuilder sb = new StringBuilder();
+    for (String id : componentId) {
+      if (!StringUtils.isBlank(id)) {
+        if (sb.length() > 0) {
+          sb.append(",");
+        }
+        String clientId = getComponentId(context, component, id);
+        if (clientId != null) {
+          sb.append(clientId);
+        }
+      }
+    }
+    return sb.toString();
+  }
+
   public static String getComponentId(FacesContext context, UIComponent component, String componentId) {
     UIComponent partiallyComponent = ComponentUtil.findComponent(component, componentId);
     if (partiallyComponent != null) {

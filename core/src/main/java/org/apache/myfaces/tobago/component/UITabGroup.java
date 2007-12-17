@@ -266,9 +266,9 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
     immediate = (Boolean) values[5];
   }
 
-  public void encodeAjax(FacesContext facesContext) throws IOException {
+  public int encodeAjax(FacesContext facesContext) throws IOException {
     setRenderedIndex(getSelectedIndex());
-    AjaxUtils.encodeAjaxComponent(facesContext, this);
+    return AjaxUtils.encodeAjaxComponent(facesContext, this);
   }
 
   public int getSelectedIndex() {

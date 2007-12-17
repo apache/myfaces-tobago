@@ -38,16 +38,12 @@ Tobago.TabGroup = function(tabGroupId, activeIndex, size) {
   //    this.options.onComplete = this.onComplete.bind(this);
 
   this.options = {
-      method: 'post',
-      asynchronous: true,
-      parameters: '',
-      evalScripts: true,
-      onComplete: Tobago.bind(this, "onComplete")
   };
 
   LOG.debug("onComplete = " + this.options.onComplete);
 
   this.setUp();
+  Tobago.addAjaxComponent(this.tabGroupId, this);
 };
 
 Tobago.TabGroup.prototype.setUp = function() {
@@ -76,14 +72,14 @@ Tobago.TabGroup.prototype.setUp = function() {
 //      };
 
 //      Tobago.addEventListener(anchor, "click", onClick);
-        Tobago.addBindEventListener(anchor, "click", this, "reload");
+        Tobago.addBindEventListener(anchor, "click", this, "reloadWithAction");
       }
     }
 
 
 };
 
-Tobago.TabGroup.prototype.reload = function(event) {
+Tobago.TabGroup.prototype.reloadWithAction = function(event) {
   LOG.debug("Reload ");
   if (event) {
     var element = Tobago.element(event);
@@ -106,8 +102,8 @@ Tobago.TabGroup.prototype.reload = function(event) {
       }
       if (Tobago.Updater.hasTransport()) {
         this.removeRelatedAcceleratorKeys(aId.substring(0, aId.lastIndexOf(Tobago.SUB_COMPONENT_SEP) + Tobago.SUB_COMPONENT_SEP.length));
-        var container = Tobago.element(this.tabGroupId);
-        Tobago.Updater.update(container, Tobago.page, this.tabGroupId, this.tabGroupId, this.options);
+        Tobago.createOverlay(Tobago.element(this.tabGroupId));
+        Tobago.Updater.update(this.tabGroupId, this.tabGroupId, this.options);
       } else {
         Tobago.submitAction(this.tabGroupId);
       }
@@ -129,9 +125,23 @@ Tobago.TabGroup.prototype.removeRelatedAcceleratorKeys = function(idPrefix) {
     }
 };
 
-Tobago.TabGroup.prototype.onComplete = function(request) {
-    LOG.debug("tabgroup loaded : ");
-    this.activeTabId = Tobago.element(this.tabGroupId).firstChild.id;
-    LOG.debug("activeTabId : " + this.activeTabId);
-    this.setUp();
+Tobago.TabGroup.prototype.doUpdate = function(data) {
+    if (data.responseCode == Tobago.Updater.CODE_SUCCESS) {
+      var container = Tobago.element(this.tabGroupId);
+      container.innerHTML = data.html;
+      try {
+        data.script();
+      } catch (e) {
+        LOG.error(e);
+      }
+      LOG.debug("tabgroup loaded : ");
+      this.activeTabId = Tobago.element(this.tabGroupId).firstChild.id;
+      LOG.debug("activeTabId : " + this.activeTabId);
+      this.setUp();
+    } else {
+      Tobago.deleteOverlay(Tobago.element(Tobago.ajaxComponents[data.ajaxId]));
+      if (data.responseCode == Tobago.Updater.CODE_ERROR) {
+        LOG.warn("ERROR when updating " + data.ajaxId);
+      }
+    }    
 };

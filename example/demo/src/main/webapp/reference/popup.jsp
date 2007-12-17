@@ -54,6 +54,7 @@
                 </tc:button>
                 <tc:button label="Ok">
                   <tc:attribute name="popupClose" value="afterSubmit"/>
+                  <tc:attribute name="renderedPartially" value=":page:values"/>
                 </tc:button>
               </tc:panel>
 
@@ -101,9 +102,6 @@
 
       <tc:out value="here is the boolean >>#{reference.bool}<<"/>
 
-      <tc:cell/>
-      <tc:out value="here is the text >>#{reference.text}<<"/>
-
       <tc:button label="Open here">
         <f:facet name="popup">
           <tc:popup width="150" height="100" left="220" top="260">
@@ -125,7 +123,7 @@
 
       <tc:cell/>
       <tc:cell/>
-      
+
       <tc:cell/>
       <tx:selectOneChoice label="Select"/>
 

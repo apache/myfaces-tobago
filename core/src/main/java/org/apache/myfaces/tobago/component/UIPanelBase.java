@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.component;
  */
 
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
-import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 
 import javax.faces.context.FacesContext;
@@ -44,18 +43,8 @@ public class UIPanelBase extends javax.faces.component.UIPanel
     }
   }
 
-  public void encodeAjax(FacesContext facesContext) throws IOException {
-    AjaxUtils.encodeAjaxComponent(facesContext, this);
+  public int encodeAjax(FacesContext facesContext) throws IOException {
+    return AjaxUtils.encodeAjaxComponent(facesContext, this);
   }
 
-  public void processAjax(FacesContext facesContext) throws IOException {
-    final String ajaxId = (String) facesContext.getExternalContext()
-        .getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
-
-    if (ajaxId.equals(getClientId(facesContext))) {
-      AjaxUtils.processActiveAjaxComponent(facesContext, this);
-    } else {
-      AjaxUtils.processAjaxOnChildren(facesContext, this);
-    }
-  }
 }

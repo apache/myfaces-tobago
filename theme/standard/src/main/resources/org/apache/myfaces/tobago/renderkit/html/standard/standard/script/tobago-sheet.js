@@ -69,18 +69,10 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage, selec
   this.headerWidthsId = this.id + Tobago.SUB_COMPONENT_SEP + "widths"
   this.scrollPositionId = this.id + Tobago.SUB_COMPONENT_SEP + "scrollPosition";
 
-  if (this.ajaxEnabled) {
-    Tobago.ajaxComponents[this.id] = this;
-     // option are onyl used for ajax request
-    this.options = {
-      method: 'post',
-      asynchronous: true,
-      onComplete: Tobago.bind(this, "onComplete"),
-      parameters: '',
-      evalScripts: true,
-      onFailure: Tobago.bind(this, "onFailure")
-    };
-  }
+  Tobago.addAjaxComponent(this.id, this);
+  // option are onyl used for ajax request
+  this.options = {
+  };
 
   this.ppPrefix
       = Tobago.SUB_COMPONENT_SEP + "pagingPages" + Tobago.SUB_COMPONENT_SEP;
@@ -197,7 +189,7 @@ Tobago.Sheet.prototype.setupRowPaging = function() {
   };
 
 Tobago.Sheet.prototype.doSort = function(event) {
-    var element = Event.element(event);
+    var element = Tobago.element(event);
     while (element && !element.sorterId) {
       element = element.parentNode;
     }
@@ -207,7 +199,7 @@ Tobago.Sheet.prototype.doSort = function(event) {
   };
 
 Tobago.Sheet.prototype.doPagingDirect = function(event) {
-    var element = Event.element(event);
+    var element = Tobago.element(event);
     var action = this.id + Tobago.COMPONENT_SEP + "ToPage";
 
     var page = element.id.lastIndexOf('_');
@@ -222,7 +214,7 @@ Tobago.Sheet.prototype.doPagingDirect = function(event) {
   };
 
 Tobago.Sheet.prototype.doPaging = function(event) {
-    var element = Event.element(event);
+    var element = Tobago.element(event);
     var action = "unset";
     if (element.id.match(this.firstRegExp)){
       action = this.id + Tobago.COMPONENT_SEP +"First";
@@ -238,10 +230,33 @@ Tobago.Sheet.prototype.doPaging = function(event) {
 
 Tobago.Sheet.prototype.reloadWithAction = function(action, options) {
     LOG.debug("reload sheet with action \"" + action + "\"");
-    var divElement = Tobago.element(this.outerDivId);
     var reloadOptions = Tobago.extend({}, this.options);
     reloadOptions = Tobago.extend(reloadOptions, options);
-    Tobago.Updater.update(divElement, null, action, this.id, reloadOptions);
+    Tobago.createOverlay(Tobago.element(this.outerDivId));
+    Tobago.Updater.update(action, this.id, reloadOptions);
+  };
+
+Tobago.Sheet.prototype.doUpdate = function(data) {
+    if (data.responseCode == Tobago.Updater.CODE_SUCCESS) {
+      var divElement = Tobago.element(this.outerDivId);
+      divElement.innerHTML = data.html;
+      try {
+        data.script();
+      } catch (e) {
+        LOG.error(e);
+      }
+      this.setup();
+    } else if (data.responseCode == Tobago.Updater.CODE_NOT_MODIFIED) {
+      LOG.debug("code = notModified");
+      Tobago.deleteOverlay(Tobago.element(this.outerDivId));
+      this.initReload();
+    } else if (data.responseCode == Tobago.Updater.CODE_ERROR) {
+      LOG.info("code = error");
+      Tobago.deleteOverlay(Tobago.element(this.outerDivId));
+      this.initReload();
+    } else {
+      LOG.error("illegal response state code = " + data.responseCode);
+    }
   };
 
 Tobago.Sheet.prototype.insertTarget = function(event, actionId) {
@@ -277,7 +292,7 @@ Tobago.Sheet.prototype.insertTarget = function(event, actionId) {
   };
 
 Tobago.Sheet.prototype.delayedHideInput = function(event) {
-    var element = Event.element(event);
+    var element = Tobago.element(event);
     if (element) {
       this.textInput = element;
       setTimeout(Tobago.bind(this, "hideInput"), 100);
@@ -293,7 +308,7 @@ Tobago.Sheet.prototype.hideInput = function() {
   };
 
 Tobago.Sheet.prototype.doKeyEvent = function(event) {
-    var input = Event.element(event);
+    var input = Tobago.element(event);
     if (input) {
 
       var keyCode;
@@ -313,16 +328,6 @@ Tobago.Sheet.prototype.doKeyEvent = function(event) {
       }
     }
   };
-
-Tobago.Sheet.prototype.onComplete = function(transport) {
-    //LOG.debug("sheet reloaded : " + transport.responseText.substr(0,20));
-    this.setup();
-  };
-
-Tobago.Sheet.prototype.onFailure = function() {
-  Tobago.deleteOverlay(Tobago.element(this.outerDivId));
-  this.initReload();
-};
 
 Tobago.Sheet.prototype.setupResizer = function() {
     var i = 0;

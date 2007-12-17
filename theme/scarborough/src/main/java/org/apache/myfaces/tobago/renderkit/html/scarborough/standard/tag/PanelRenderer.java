@@ -27,10 +27,10 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_RELOAD;
-import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
-import org.apache.myfaces.tobago.ajax.api.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
+import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_NOT_MODIFIED;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
@@ -132,21 +132,21 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
-      writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\")");
+     // writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\")");
       Integer frequency = null;
       UIComponent facetReload = component.getFacet(FACET_RELOAD);
       if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
         UIReload update = (UIReload) facetReload;
         frequency = update.getFrequency();
       }
-      if (frequency != null && frequency > 0) {
-
-        final String[] cmds = {
-           "new Tobago.Panel(\"" + clientId + "\", " + true + ", "+ frequency + ");"
-        };
-
-        HtmlRendererUtil.writeScriptLoader(facesContext, null, cmds);
+      if (frequency == null) {
+        frequency = 0;
       }
+      final String[] cmds = {
+         "new Tobago.Panel(\"" + clientId + "\", " + true + ", "+ frequency + ");"
+      };
+
+      HtmlRendererUtil.writeScriptLoader(facesContext, null, cmds);
     }
   }
 
@@ -156,23 +156,21 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
     writer.endElement(HtmlConstants.DIV);
   }
 
-  public void encodeAjax(FacesContext facesContext, UIComponent component)
+  public int encodeAjax(FacesContext facesContext, UIComponent component)
       throws IOException {
     AjaxUtils.checkParamValidity(facesContext, component, UIPanel.class);
     boolean update = true;
-    final String ajaxId = (String) facesContext.getExternalContext()
-        .getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
-    if (ajaxId.equals(component.getClientId(facesContext))) {
-      if (component.getFacet(FACET_RELOAD) != null && component.getFacet(FACET_RELOAD) instanceof UIReload
-          && component.getFacet(FACET_RELOAD).isRendered()) {
-        UIReload reload = (UIReload) component.getFacet(FACET_RELOAD);
-        update = reload.getUpdate();
-      }
+    if (component.getFacet(FACET_RELOAD) != null
+        && component.getFacet(FACET_RELOAD) instanceof UIReload
+        && component.getFacet(FACET_RELOAD).isRendered()) {
+      UIReload reload = (UIReload) component.getFacet(FACET_RELOAD);
+      update = reload.getUpdate();
     }
     if (update) {
       component.encodeChildren(facesContext);
+      return CODE_SUCCESS;
     } else {
-      facesContext.getResponseWriter().write(AjaxResponseRenderer.CODE_NOT_MODIFIED);
+      return CODE_NOT_MODIFIED;
     }
   }
 

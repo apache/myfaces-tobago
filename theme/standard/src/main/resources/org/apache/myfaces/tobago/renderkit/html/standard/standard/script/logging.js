@@ -16,8 +16,7 @@
  */
 
 
-var LOG = new Object();
-Object.extend(LOG, {
+var LOG = {
   IdBase: "TbgLog",
   messages: new Array(),
   appenders: new Array(),
@@ -71,12 +70,11 @@ Object.extend(LOG, {
   },
 
   bindOnWindow: function() {
-    window.onerror = this.windowError.bind(this);
-  },
-
-  windowError: function(msg, url, line){
-    var message = "Error in (" + (url || window.location) + ") on line "+ line +" with message (" + msg + ")";
-    this.error(message);
+    window.onerror = function(msg, url, line) {
+      var message = "Error: \"" + msg + "\" ON " + (url || window.location) + " line: "+ line +"";
+      LOG.error(message);
+      return false;
+    }
   },
 
   listScriptFiles: function() {
@@ -113,19 +111,21 @@ Object.extend(LOG, {
        }
     }
   }
-});
+};
 
-//LOG.bindOnWindow();
+LOG.bindOnWindow();
 
 
-LOG.LogArea = Class.create();
-LOG.LogArea.prototype = Object.extend(Draggable.prototype, {
-  initialize: function() {
-    var options = Object.extend({
+LOG.LogArea = function(options) {
+  this.initialize(options);
+};
+
+LOG.LogArea.prototype.initialize = function() {
+    var options = Tobago.extend({
       handle: false,
-      starteffect: Prototype.emptyFunction,
-      reverteffect: Prototype.emptyFunction,
-      endeffect: Prototype.emptyFunction,
+      starteffect: function() {},
+      reverteffect: function() {},
+      endeffect: function() {},
       zindex: 1000,
       revert: false,
       snap: false,   // false, or xy or [x,y] or function(x,y){ return [x,y] }
@@ -249,64 +249,48 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype, {
 
     this.handle       = options.handle ? Tobago.element(options.handle) : this.element;
 
-    Element.makePositioned(this.element); // fix IE
-
-    this.delta    = this.currentDelta();
-
     this.dragging     = false;
 
-    this.eventMouseDown = this.initDrag.bindAsEventListener(this);
+    Tobago.addBindEventListener(this.severitySelector, "change", this, "changeSeverity");
+    Tobago.addBindEventListener(this.severitySelector, "click", Tobago, "stopEventPropagation");
+    Tobago.addBindEventListener(this.severitySelector, "mousedown", Tobago, "stopEventPropagation");
+    Tobago.addBindEventListener(this.clearButton, "click", this, "clearList");
+    Tobago.addBindEventListener(this.clearButton, "mousedown", Tobago, "stopEventPropagation");
+    Tobago.addBindEventListener(this.oldButton, "click", this, "getOld");
+    Tobago.addBindEventListener(this.oldButton, "mousedown", Tobago, "stopEventPropagation");
+    Tobago.addBindEventListener(this.hideButton, "click", this, "doHide");
+    Tobago.addBindEventListener(this.hideButton, "mousedown", Tobago, "stopEventPropagation");
 
-    this.eventChangeSeverity = this.changeSeverity.bindAsEventListener(this);
-    this.eventClear     = this.clearList.bindAsEventListener(this);
-    this.eventOld      = this.getOld.bindAsEventListener(this);
-    this.eventHide      = this.hide.bindAsEventListener(this);
-    this.eventStopEvent  = this.stopEvent.bindAsEventListener(this);
+    // Todo: make box dragable without prototype
+//    Draggables.register(this);
 
-
-    Event.observe(this.dragHandleTop, "mousedown", this.eventMouseDown);
-    Event.observe(this.dragHandleRight, "mousedown", this.eventMouseDown);
-    Event.observe(this.dragHandleBottom, "mousedown", this.eventMouseDown);
-    Event.observe(this.dragHandleLeft, "mousedown", this.eventMouseDown);
-
-    Event.observe(this.severitySelector, "change", this.eventChangeSeverity);
-    Event.observe(this.severitySelector, "click", this.eventStopEvent);
-    Event.observe(this.severitySelector, "mousedown", this.eventStopEvent);
-    Event.observe(this.clearButton, "click", this.eventClear);
-    Event.observe(this.clearButton, "mousedown", this.eventStopEvent);
-    Event.observe(this.oldButton, "click", this.eventOld);
-    Event.observe(this.oldButton, "mousedown", this.eventStopEvent);
-    Event.observe(this.hideButton, "click", this.eventHide);
-    Event.observe(this.hideButton, "mousedown", this.eventStopEvent);
-
-    Draggables.register(this);
 
     this.body = document.getElementsByTagName("body")[0];
     this.body.tbgLogArea = this;
 
     if (this.options.hide) {
 //      this.element.style.display = 'none';
-      this.hide();
+      this.doHide();
     } else {
-      this.show();  
+      this.show();
     }
     this.body.appendChild(this.element);
     LOG.addAppender(this);
-  },
+};
 
-  show: function() {
+LOG.LogArea.prototype.show = function() {
     this.element.style.display = '';
     this.hide = "show";
     this.setupHidden();
-  },
+};
 
-  hide: function() {
+LOG.LogArea.prototype.doHide = function() {
     this.element.style.display = 'none';
     this.hide = "hide";
     this.setupHidden();
-  },
+};
 
-  setUpLogDiv: function(element, top, right, width, height, border, background) {
+LOG.LogArea.prototype.setUpLogDiv = function(element, top, right, width, height, border, background) {
     element.style.position = "absolute";
     element.style.MozBoxSizing = "border-box";
     if (right != null) element.style.right = right;
@@ -315,16 +299,16 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype, {
     if (width != null) element.style.width = width;
     if (border != null) element.style.border = border;
     if (background != null) element.style.background = background;
-  },
+};
 
-  setUpHandleDiv: function(element, top, left, bottom, right, width, height, border, background, cursor) {
+LOG.LogArea.prototype.setUpHandleDiv = function(element, top, left, bottom, right, width, height, border, background, cursor) {
     this.setUpLogDiv(element, top, right, width, height, border, background);
     if (left != null) element.style.left = left;
     if (bottom != null) element.style.bottom = bottom;
     if (cursor != null) element.style.cursor = cursor;
-  },
+};
 
-  createButtonElement: function() {
+LOG.LogArea.prototype.createButtonElement = function() {
     var button = document.createElement("BUTTON");
     button.style.width = "20px";
     button.style.height = "20px";
@@ -333,39 +317,38 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype, {
     button.style.paddingLeft = "0px";
     button.style.paddingRight = "0px";
     return button;
-  },
+};
 
-  changeSeverity: function() {
+LOG.LogArea.prototype.changeSeverity = function() {
     this.setupHidden();
-  },
+};
 
-  setupHidden: function() {
+LOG.LogArea.prototype.setupHidden = function() {
     var hidden = Tobago.element(Tobago.page.id + Tobago.SUB_COMPONENT_SEP + "clientSeverity");
     if (hidden) {
       hidden.value = this.severitySelector.value + ";" + this.hide;
     }
-  },
+};
 
-
-  clearList: function() {
+LOG.LogArea.prototype.clearList = function() {
     this.logList.innerHTML = "";
-  },
+};
 
-  getOld: function() {
+LOG.LogArea.prototype.getOld = function() {
     for (var i = 0 ; i < LOG.messages.length; i++) {
       this.append(LOG.messages[i]);
     }
-  },
+};
 
-  stopEvent: function(event) {
-    Event.stop(event);
-  },
+LOG.LogArea.prototype.stopEvent = function(event) {
+    Tobago.stopEventPropagation(event);
+};
 
-  scrollToBottom: function() {
+LOG.LogArea.prototype.scrollToBottom = function() {
     this.scrollElement.scrollTop = this.scrollElement.scrollHeight;
-  },
+};
 
-  append: function(message) {
+LOG.LogArea.prototype.append = function(message) {
     if (typeof(message.type) == "number" && !this.logFor(message.type)) {
       return;
     }
@@ -383,28 +366,24 @@ LOG.LogArea.prototype = Object.extend(Draggable.prototype, {
     this.logList.appendChild(listElement);
 
     this.scrollToBottom();
-  },
+};
 
-  logFor: function(severity) {
-    //this.append(severity + ":::" + typeof severity);
+LOG.LogArea.prototype.logFor = function(severity) {
     if (this.severitySelector.value) {
-    //    this.append("::::::" + this.severitySelector.value + "--" + typeof this.severitySelector.value
-    //                + "--" + typeof (this.severitySelector.value - 0));
-        return (severity >= (this.severitySelector.value - 0));
+        //noinspection PointlessArithmeticExpressionJS
+      return (severity >= (this.severitySelector.value - 0));
     }
-    return (severity >= (this.options.severity -0));
-  }
-});
+    //noinspection PointlessArithmeticExpressionJS
+  return (severity >= (this.options.severity -0));
+};
 
-LOG.LogMessage = Class.create();
-LOG.LogMessage.prototype = {
-    initialize: function(type, message) {
-      this.type = type;
-      this.message = message;
-      this.time = new Date();
-    },
+LOG.LogMessage = function(type, message) {
+    this.type = type;
+    this.message = message;
+    this.time = new Date();
+};
 
-    displayOn: function(type) {
-      return this.type <= type;
-    }
-}
+LOG.LogMessage.prototype.displayOn = function(type) {
+  return this.type <= type;
+};
+

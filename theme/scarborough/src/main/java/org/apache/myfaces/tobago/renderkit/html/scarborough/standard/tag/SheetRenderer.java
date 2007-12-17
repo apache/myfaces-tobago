@@ -25,6 +25,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
@@ -56,21 +57,21 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
+import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_NOT_MODIFIED;
+import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
+import static org.apache.myfaces.tobago.component.UIData.ATTR_SCROLL_POSITION;
+import static org.apache.myfaces.tobago.component.UIData.NONE;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
-import org.apache.myfaces.tobago.ajax.api.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIData;
-import static org.apache.myfaces.tobago.component.UIData.ATTR_SCROLL_POSITION;
-import static org.apache.myfaces.tobago.component.UIData.NONE;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIReload;
-import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
@@ -1091,20 +1092,16 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     return getConfiguredValue(facesContext, data, "contentBorder");
   }
 
-  public void encodeAjax(FacesContext facesContext, UIComponent component)
+  public int encodeAjax(FacesContext facesContext, UIComponent component)
       throws IOException {
     AjaxUtils.checkParamValidity(facesContext, component, UIData.class);
     boolean update = true;
-    final String ajaxId = (String) facesContext.getExternalContext()
-        .getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
-    if (ajaxId.equals(component.getClientId(facesContext))) {
-      if (component.getFacet(FACET_RELOAD) != null && component.getFacet(FACET_RELOAD) instanceof UIReload
-          && component.getFacet(FACET_RELOAD).isRendered()
-          && ajaxId.equals(ComponentUtil.findPage(facesContext, component).getActionId())) {
-        UIReload reload = (UIReload) component.getFacet(FACET_RELOAD);
+    if (component.getFacet(FACET_RELOAD) != null
+        && component.getFacet(FACET_RELOAD) instanceof UIReload
+        && component.getFacet(FACET_RELOAD).isRendered()) {
+      UIReload reload = (UIReload) component.getFacet(FACET_RELOAD);
         update = reload.getUpdate();
       }
-    }
     if (update) {
       // TODO find a better way
       UICommand clickAction = null;
@@ -1125,8 +1122,9 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
         }
       }
       renderSheet(facesContext, (UIData) component, (clickAction != null || dblClickAction != null));
+      return CODE_SUCCESS;
     } else {
-      facesContext.getResponseWriter().write(AjaxResponseRenderer.CODE_NOT_MODIFIED);
+      return CODE_NOT_MODIFIED;
     }
   }
 

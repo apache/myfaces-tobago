@@ -24,7 +24,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
-import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 
 import javax.faces.context.FacesContext;
@@ -168,18 +167,8 @@ public class UIInput extends javax.faces.component.UIInput implements AjaxCompon
     super.encodeBegin(facesContext);
   }
 
-  public void encodeAjax(FacesContext facesContext) throws IOException {
-    AjaxUtils.encodeAjaxComponent(facesContext, this);
-  }
-
-  public void processAjax(FacesContext facesContext) throws IOException {
-    final String ajaxId = (String) facesContext.getExternalContext().
-        getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
-    if (ajaxId.equals(getClientId(facesContext))) {
-      encodeAjax(facesContext);
-    } else {
-      AjaxUtils.processAjaxOnChildren(facesContext, this);
-    }
+  public int encodeAjax(FacesContext facesContext) throws IOException {
+    return AjaxUtils.encodeAjaxComponent(facesContext, this);
   }
 
 }

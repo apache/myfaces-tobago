@@ -20,7 +20,7 @@
 
 <layout:overview>
   <jsp:body>
-    <tc:panel id="both">
+    <tc:panel id="parent">
       <f:facet name="layout">
         <tc:gridLayout rows="20px;300px;*;fixed"/>
       </f:facet>
@@ -45,7 +45,8 @@
           <li> Click on 'Reload Right' button to reload the right panel.</li>
           <li> Or select a option from the selectOneChoise control:
             <ul>
-              <li>Select 'Reload both' to reload both panels</li>
+              <li>Select 'Reload parent' to reload both panels parent container</li>
+              <li>Select 'Reload both' to reload both panels in one request</li>
               <li>Select 'Goto prev' to navigate to previous page</li>
               <li>Select 'Goto next' to navigate to next page</li>
             </ul>
@@ -55,7 +56,7 @@
 
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="fixed;1*;140px;1*;fixed"/>
+          <tc:gridLayout columns="fixed;1*;fixed;1*;140px;1*;fixed"/>
         </f:facet>
         <tc:button label="Reload left"
                    tip="Reload left side box"
@@ -63,13 +64,20 @@
           <tc:attribute value="page:left" name="renderedPartially"/>
         </tc:button>
         <tc:panel/>
-        <tc:selectOneChoice value="#{partialReloadController.navigateAction}">
+        <tc:button label="Reload both"
+                   tip="Reload both boxes"
+                   action="#{partialReloadController.bothAction}">
+          <tc:attribute value=":page:left,:page:right" name="renderedPartially"/>
+        </tc:button>
+        <tc:panel/>
+        <tc:selectOneChoice id="navSelect" value="#{partialReloadController.navigateAction}">
           <f:facet name="change">
             <tc:command action="#{partialReloadController.navigateAction}">
-              <tc:attribute value="page:both" name="renderedPartially"/>
+              <tc:attribute value="" name="renderedPartially"/>
             </tc:command>
           </f:facet>
           <f:selectItem itemLabel="Select action" itemValue=""/>
+          <f:selectItem itemLabel="Reload parent" itemValue="parent"/>
           <f:selectItem itemLabel="Reload both" itemValue="both"/>
           <f:selectItem itemLabel="Goto prev" itemValue="prev"/>
           <f:selectItem itemLabel="Goto next" itemValue="next"/>

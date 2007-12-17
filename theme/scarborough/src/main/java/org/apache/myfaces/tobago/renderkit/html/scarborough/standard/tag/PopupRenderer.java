@@ -26,10 +26,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
+import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
@@ -45,6 +46,7 @@ import java.io.IOException;
 
 public class PopupRenderer extends LayoutableRendererBase implements AjaxRenderer {
 
+  @SuppressWarnings({"UnusedDeclaration"})
   private static final Log LOG = LogFactory.getLog(PopupRenderer.class);
 
   public static final String CONTENT_ID_POSTFIX = SUBCOMPONENT_SEP + "content";
@@ -140,12 +142,12 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
     writer.writeJavascript(setupScript);
   }
 
-  public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
+  public int encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
     AjaxUtils.checkParamValidity(facesContext, component, UIPopup.class);
 
     RenderUtil.encode(facesContext, component);
 
-    facesContext.responseComplete();
+    return CODE_SUCCESS;
   }
 }
 

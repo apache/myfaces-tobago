@@ -27,11 +27,18 @@ import java.io.IOException;
 
 public class EncodeAjaxCallback implements Callback {
 
+  private int responseCode;
+
   public void execute(FacesContext facesContext, UIComponent component) {
+    responseCode = 0;
     try {
-      ((AjaxComponent) component).encodeAjax(facesContext);
+      responseCode = ((AjaxComponent) component).encodeAjax(facesContext);
     } catch (IOException e) {
       throw new FacesException(e);
     }
+  }
+
+  public int getResponseCode() {
+    return responseCode;
   }
 }

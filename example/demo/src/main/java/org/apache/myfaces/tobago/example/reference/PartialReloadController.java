@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.example.reference;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.example.demo.Navigation;
 
 import javax.faces.context.FacesContext;
@@ -44,14 +45,36 @@ public class PartialReloadController {
     return logAndNavigate(null);
   }
 
+  public String bothAction() {
+    synchronized (this) {
+      try {
+        wait(6000);
+      } catch (InterruptedException e) {
+        //
+      }
+    }
+    return logAndNavigate(null);
+  }
+
   public String navigateAction() {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     VariableResolver resolver = facesContext.getApplication().getVariableResolver();
     Navigation navigation = (Navigation) resolver.resolveVariable(facesContext, "navigation");
+
+    // in case of both the select controll is not proccessed during lifecycle
+    // we need to get the value from the request params
+    navigateAction = (String) facesContext.getExternalContext().getRequestParameterMap().get("page:navSelect");
+
     LOG.info("navigateAction = \"" + navigateAction + "\"");
     if (navigateAction == null) {
       return logAndNavigate(null);
+    } else if ("parent".equals(navigateAction)) {
+      navigateAction = null;
+      AjaxUtils.addAjaxComponent(facesContext, "page:parent");
+      return logAndNavigate(null);
     } else if ("both".equals(navigateAction)) {
+      AjaxUtils.addAjaxComponent(facesContext, "page:left");
+      AjaxUtils.addAjaxComponent(facesContext, "page:right");
       navigateAction = null;
       return logAndNavigate(null);
     } else if ("prev".equals(navigateAction)) {

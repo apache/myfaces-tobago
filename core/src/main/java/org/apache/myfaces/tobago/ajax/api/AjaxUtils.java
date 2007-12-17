@@ -17,10 +17,15 @@ package org.apache.myfaces.tobago.ajax.api;
  * limitations under the License.
  */
 
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIViewRoot;
+import org.apache.myfaces.tobago.component.UIPage;
+import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_ERROR;
+import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -55,78 +60,25 @@ public class AjaxUtils {
   }
 
 
-  public static void encodeAjaxComponent(FacesContext facesContext, UIComponent component) throws IOException {
+
+
+  public static int encodeAjaxComponent(FacesContext facesContext, UIComponent component) throws IOException {
     if (facesContext == null) {
       throw new NullPointerException("facesContext");
     }
     if (!component.isRendered()) {
-      return;
+      return CODE_SUCCESS;
     }
     Renderer renderer = ComponentUtil.getRenderer(facesContext, component);
     if (renderer != null && renderer instanceof AjaxRenderer) {
-      ((AjaxRenderer) renderer).encodeAjax(facesContext, component);
+      return ((AjaxRenderer) renderer).encodeAjax(facesContext, component);
     }
-  }
-
-
-  public static void processAjax(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    if (component instanceof AjaxComponent) {
-      ((AjaxComponent) component).processAjax(facesContext);
-    } else {
-      processAjaxOnChildren(facesContext, component);
-    }
-  }
-
-  public static void processActiveAjaxComponent(FacesContext facesContext,
-      UIComponent component)
-      throws IOException {
-
-    if (component instanceof AjaxComponent) {
-      final UIViewRoot viewRoot = (UIViewRoot) facesContext.getViewRoot();
-
-      // TODO: handle phaseListeners ??
-
-      if (!facesContext.getRenderResponse()) {
-        component.processValidators(facesContext);
-        viewRoot.broadcastEventsForPhase(facesContext, PhaseId.PROCESS_VALIDATIONS);
-      } else if (LOG.isDebugEnabled()) {
-        LOG.debug("Skipping validate");
-      }
-
-      if (!facesContext.getRenderResponse()) {
-        component.processUpdates(facesContext);
-        viewRoot.broadcastEventsForPhase(facesContext, PhaseId.UPDATE_MODEL_VALUES);
-      } else if (LOG.isDebugEnabled()) {
-        LOG.debug("Skipping updates");
-      }
-
-      if (!facesContext.getRenderResponse()) {
-        viewRoot.processApplication(facesContext);
-      } else if (LOG.isDebugEnabled()) {
-        LOG.debug("Skipping application");
-      }
-
-      ((AjaxComponent) component).encodeAjax(facesContext);
-    } else {
-      LOG.error("Can't process non AjaxComponent : \""
-          + component.getClientId(facesContext) + "\" = "
-          + component.getClass().getName());
-    }
-  }
-
-  public static void processAjaxOnChildren(FacesContext facesContext,
-      UIComponent component) throws IOException {
-
-    final Iterator<UIComponent> facetsAndChildren = component.getFacetsAndChildren();
-    while (facetsAndChildren.hasNext() && !facesContext.getResponseComplete()) {
-      AjaxUtils.processAjax(facesContext, facetsAndChildren.next());
-    }
+    return CODE_ERROR;
   }
 
   public static Map<String, UIComponent> parseAndStoreComponents(FacesContext facesContext) {
     Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
-    String ajaxComponentIds = (String) parameterMap.get(AjaxPhaseListener.AJAX_COMPONENT_ID);
+    String ajaxComponentIds = (String) parameterMap.get("tobago::partialIds");
     if (ajaxComponentIds != null) {
       LOG.info("ajaxComponentIds = \"" + ajaxComponentIds + "\"");
       StringTokenizer tokenizer = new StringTokenizer(ajaxComponentIds, ",");
@@ -153,6 +105,29 @@ public class AjaxUtils {
         facesContext.getExternalContext().getRequestMap().get(AJAX_COMPONENTS);
   }
 
+  public static boolean isAjaxRequest(FacesContext facesContext) {
+    return facesContext.getExternalContext().getRequestMap().containsKey(AJAX_COMPONENTS);
+  }
+
+  public static void removeAjaxComponent(FacesContext facesContext, String clientId) {
+    getAjaxComponents(facesContext).remove(clientId);
+  }
+
+  public static void addAjaxComponent(FacesContext facesContext, String clientId) {
+    addAjaxComponent(facesContext, facesContext.getViewRoot().findComponent(clientId));
+  }
+
+  public static void addAjaxComponent(FacesContext facesContext, UIComponent component) {
+    if (component instanceof AjaxComponent) {
+      getAjaxComponents(facesContext).put(component.getClientId(facesContext), component);
+    } else {
+      LOG.warn("Ignore non AjaxComponent : \""
+          + (component != null ? component.getClientId(facesContext) : "null")
+          + "\" = " + (component != null ? component.getClass().getName() : "null"));
+    }
+  }
+
+
   public static void ensureDecoded(FacesContext facesContext, String clientId) {
     ensureDecoded(facesContext, facesContext.getViewRoot().findComponent(clientId));
   }
@@ -171,5 +146,9 @@ public class AjaxUtils {
       }
       component.processDecodes(facesContext);
     }
+  }
+
+  public static String encodeJavascriptString(String value) {
+    return StringUtils.replace(StringUtils.replace(StringUtils.replace(value, "\\","\\\\"), "\n", "\\n"), "\"", "\\\"");
   }
 }

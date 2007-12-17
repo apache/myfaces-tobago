@@ -21,12 +21,11 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CHARSET;
+import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_RELOAD_REQUIRED;
+import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.FACES_MESSAGES_KEY;
 import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.util.Callback;
 import org.apache.myfaces.tobago.util.EncodeAjaxCallback;
 import org.apache.myfaces.tobago.util.FastStringWriter;
 import org.apache.myfaces.tobago.util.RequestUtils;
@@ -57,11 +56,7 @@ public class AjaxResponseRenderer {
 
   private static final Log LOG = LogFactory.getLog(AjaxResponseRenderer.class);
 
-  public static final String CODE_SUCCESS = "<status code=\"200\"/>";
-  public static final String CODE_NOT_MODIFIED = "<status code=\"304\"/>";
-  public static final String CODE_RELOAD_REQUIRED = "<status code=\"309\"/>";
-
-  private Callback callback;
+  private EncodeAjaxCallback callback;
   private String contentType;
 
   public AjaxResponseRenderer() {
@@ -73,7 +68,7 @@ public class AjaxResponseRenderer {
     } catch (NamingException e) { /*ignore*/ }
 
     if (StringUtils.isBlank(contentType)) {
-      contentType = "text/html";
+      contentType = "application/json";
     }
   }
 
@@ -110,23 +105,22 @@ public class AjaxResponseRenderer {
         //noinspection unchecked
         sessionMap.put(FACES_MESSAGES_KEY, messageHolders);
       }
-      writeResponseReload(facesContext, renderKit);
+      writeResponseReload(facesContext);
     } else {
-      List<FastStringWriter> responseParts = new ArrayList<FastStringWriter>();
+      List<AjaxResponse> responseParts = new ArrayList<AjaxResponse>();
       Map<String, UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(facesContext);
 
       for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
         AjaxComponent component = (AjaxComponent) entry.getValue();
         responseParts.add(renderComponent(facesContext, renderKit, entry.getKey(), component));
-        break;  // TODO render multiple components
       }
 
       String state = saveState(facesContext, renderKit);
-      writeResponse(facesContext, renderKit, responseParts, state);
+      writeResponse(facesContext, responseParts, state);
     }
   }
 
-  private FastStringWriter renderComponent(FacesContext facesContext, RenderKit renderKit, String clientId,
+  private AjaxResponse renderComponent(FacesContext facesContext, RenderKit renderKit, String clientId,
       AjaxComponent component) throws IOException {
     FastStringWriter content = new FastStringWriter();
     ResponseWriter contentWriter = renderKit.createResponseWriter(content, null, null);
@@ -143,34 +137,14 @@ public class AjaxResponseRenderer {
       throw e;
     }
 
-    return content;
+    return new AjaxResponse(clientId, callback.getResponseCode(), content.toString());
   }
 
-  private void writeResponse(FacesContext facesContext, RenderKit renderKit,
-      List<FastStringWriter> parts, String state)
+  private void writeResponseReload(FacesContext facesContext)
       throws IOException {
-    writeResponse(facesContext, renderKit, CODE_SUCCESS, parts, state);
-  }
-
-  private void writeResponseReload(FacesContext facesContext, RenderKit renderKit)
-      throws IOException {
-    writeResponse(facesContext, renderKit, CODE_RELOAD_REQUIRED, new ArrayList<FastStringWriter>(0), "");
-  }
-
-
-  private FastStringWriter writeState(FacesContext facesContext, RenderKit renderKit, String state)
-      throws IOException {
-    FastStringWriter jsfState = new FastStringWriter();
-    ResponseWriter stateWriter = renderKit.createResponseWriter(jsfState, null, null);
-    facesContext.setResponseWriter(stateWriter);
-    stateWriter.startElement(HtmlConstants.SCRIPT, null);
-    stateWriter.writeAttribute(HtmlAttributes.TYPE, "text/javascript", null);
-    stateWriter.flush();
-    stateWriter.write("Tobago.replaceJsfState(\"");
-    stateWriter.write(encodeState(state));
-    stateWriter.write("\");");
-    stateWriter.endElement(HtmlConstants.SCRIPT);
-    return jsfState;
+    ArrayList<AjaxResponse> responseParts = new ArrayList<AjaxResponse>();
+    responseParts.add(new AjaxResponse("", CODE_RELOAD_REQUIRED, ""));
+    writeResponse(facesContext, responseParts, "");
   }
 
   private String saveState(FacesContext facesContext, RenderKit renderKit)
@@ -201,8 +175,8 @@ public class AjaxResponseRenderer {
     }
   }
 
-  private void writeResponse(FacesContext facesContext, RenderKit renderKit,
-      String responseCode, List<FastStringWriter> responseParts, String jsfState)
+  private void writeResponse(FacesContext facesContext,
+                             List<AjaxResponse> responseParts, String jsfState)
       throws IOException {
     ExternalContext externalContext = facesContext.getExternalContext();
     RequestUtils.ensureEncoding(externalContext);
@@ -215,58 +189,52 @@ public class AjaxResponseRenderer {
       charset = "UTF-8";
     }
     ensureContentTypeHeader(facesContext, charset, contentType);
-    StringBuilder buffer = new StringBuilder(responseCode);
 
-    // add parts to response
-    for (FastStringWriter part : responseParts) {
-      // TODO surround by javascript parsable tokens
-      String partStr = part.toString();
-      // FIXME:
-      if (partStr.startsWith(CODE_NOT_MODIFIED)
-          && partStr.equals(responseCode)) {
-        // remove resopnseCode from buffer
-        buffer.setLength(0);
+    boolean reloadRequired = false;
+
+    for (AjaxResponse response : responseParts) {
+      if (response.getResponseCode() == CODE_RELOAD_REQUIRED) {
+        reloadRequired = true;
+        break;
       }
-      // /FIXME:
-
-      buffer.append(partStr);
     }
 
-    // add jsfState to response
-    if (jsfState.length() > 0) {
-      // in case of inputSuggest jsfState.lenght is 0
-      // inputSuggest is a special case, because the form is not included in request.
-      // TODO surround by javascript parsable token
-      buffer.append(writeState(facesContext, renderKit, jsfState));
+    StringBuilder buffer = new StringBuilder();
+
+    buffer.append("{\n  tobagoAjaxResponse: true,\n");
+    buffer.append("  responseCode: ");
+    buffer.append(reloadRequired ? CODE_RELOAD_REQUIRED : CODE_SUCCESS);
+    buffer.append(",\n");
+    buffer.append("  jsfState: \"");
+    buffer.append(AjaxUtils.encodeJavascriptString(jsfState));
+    buffer.append("\"");
+
+    int i = 0;
+    // add parts to response
+    for (AjaxResponse part : responseParts) {
+      buffer.append(",\n");
+      buffer.append("  ajaxPart_").append(i++);
+      buffer.append(": ");
+      buffer.append(part.toJson());
     }
+
+    buffer.append("\n}\n");
 
     if (LOG.isTraceEnabled()) {
-      LOG.trace("\nresponse follows ##############################################################\n"
+      LOG.trace("\nresponse follows # #############################################################\n"
           + buffer
           + "\nend response    ##############################################################");
     }
 
-    String content = buffer.toString();
-
-    // TODO optimize me!!
-    buffer.insert(0, Integer.toHexString(content.getBytes("UTF-8").length) + "\r\n");
-    buffer.append("\r\n" + 0 + "\r\n\r\n");
 
     //TODO: fix this to work in PortletRequest as well
     if (externalContext.getResponse() instanceof HttpServletResponse) {
       final HttpServletResponse httpServletResponse
           = (HttpServletResponse) externalContext.getResponse();
-      httpServletResponse.addHeader("Transfer-Encoding", "chunked");
       PrintWriter responseWriter = httpServletResponse.getWriter();
-      // buf.delete(buf.indexOf("<"), buf.indexOf(">")+1);
       responseWriter.print(buffer.toString());
       responseWriter.flush();
       responseWriter.close();
     }
-  }
-
-  private String encodeState(String state) {
-    state = StringUtils.replace(state, "\"", "\\\"");
-    return StringUtils.replace(state, "\n", "");
   }
 }

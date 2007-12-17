@@ -247,8 +247,9 @@ public class UIPopup extends UIPanelBase implements NamingContainer, AjaxCompone
     activated = false;
   }
 
-  public void encodeAjax(FacesContext facesContext) throws IOException {
-    super.encodeAjax(facesContext);
+  public int encodeAjax(FacesContext facesContext) throws IOException {
+    int responseCode = super.encodeAjax(facesContext);
     activated = false;
+    return responseCode;
   }
 }

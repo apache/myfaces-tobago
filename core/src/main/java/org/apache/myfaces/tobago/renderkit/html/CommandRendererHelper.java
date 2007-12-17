@@ -19,30 +19,22 @@ package org.apache.myfaces.tobago.renderkit.html;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_CLOSE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_POPUP;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_CONFIRMATION;
+import static org.apache.myfaces.tobago.TobagoConstants.*;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.event.PopupActionListener;
 
-import javax.faces.context.FacesContext;
-import javax.faces.component.UIComponent;
-import javax.faces.component.ValueHolder;
-import javax.faces.component.UIParameter;
-import javax.faces.component.UICommand;
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
-import java.util.List;
-import java.util.Arrays;
+import javax.faces.component.UICommand;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIParameter;
+import javax.faces.component.ValueHolder;
+import javax.faces.context.FacesContext;
 import java.net.URLDecoder;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * User: lofwyr
@@ -100,23 +92,21 @@ public class CommandRendererHelper {
       } else if (command instanceof org.apache.myfaces.tobago.component.UICommand
           && ((org.apache.myfaces.tobago.component.UICommand) command).getRenderedPartially().length > 0) {
 
-        String[] componentId = ((org.apache.myfaces.tobago.component.UICommand) command).getRenderedPartially();
+        String[] componentIds = ((org.apache.myfaces.tobago.component.UICommand) command).getRenderedPartially();
 
-        if (componentId != null && componentId.length == 1) {
           // TODO find a better way
           boolean popupAction = ComponentUtil.containsPopupActionListener(command);
           if (popupAction) {
+            if (componentIds.length != 1) {
+              LOG.warn("more than one parially rendered component is not supported for popup! using first one: "
+              + Arrays.toString(componentIds));
+            }
             onclick = "Tobago.openPopupWithAction('"
-                + HtmlRendererUtil.getComponentId(facesContext, command, componentId[0]) + "', '" + clientId + "')";
+                + HtmlRendererUtil.getComponentId(facesContext, command, componentIds[0]) + "', '" + clientId + "')";
           } else {
             onclick = "Tobago.reloadComponent('"
-                + HtmlRendererUtil.getComponentId(facesContext, command, componentId[0]) + "','" + clientId + "', {});";
+                + HtmlRendererUtil.getComponentIds(facesContext, command, componentIds) + "','" + clientId + "', {});";
           }
-        } else {
-          LOG.error("more than one parially rendered component is currently not supported "
-              + Arrays.toString(componentId));
-          onclick = "Tobago.submitAction('" + clientId + "', " + transition + ");";
-        }
 
       } else if (defaultCommand) {
         ComponentUtil.findPage(facesContext, command).setDefaultActionId(clientId);
