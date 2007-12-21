@@ -357,7 +357,10 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
           UIMenuCommand menuItem = (UIMenuCommand) application.createComponent(UIMenuCommand.COMPONENT_TYPE);
           menuItem.setRendererType("MenuCommand");
           menuItem.getAttributes().put(ATTR_ONCLICK, onclick);
-          menuItem.getAttributes().put(ATTR_LABEL, tab.getAttributes().get(ATTR_LABEL));
+          Object label2 = tab.getAttributes().get(ATTR_LABEL);
+          if (label2 != null) {
+            menuItem.getAttributes().put(ATTR_LABEL, label2);
+          }
           menu.getChildren().add(menuItem);
 
         }
