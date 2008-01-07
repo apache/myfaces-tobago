@@ -140,4 +140,14 @@ public class DatePickerRenderer extends LinkRenderer {
       timePanel.setRendered(false);
     }
   }
+  
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+    UIDatePicker link = (UIDatePicker) component;
+    UIDateInput dateInput = (UIDateInput) link.getForComponent();
+    if (dateInput != null) {
+      super.encodeEnd(facesContext, component);
+    } else {
+      LOG.error("No required UIDateInput component found.");
+    }
+  }
 }
