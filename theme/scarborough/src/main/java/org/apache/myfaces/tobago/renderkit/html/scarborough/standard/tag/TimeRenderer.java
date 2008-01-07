@@ -28,6 +28,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CALENDAR_DATE_INPUT
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_CALENDAR_FORCE_TIME;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UITimeInput;
@@ -36,6 +37,7 @@ import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.DateFormatUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -68,24 +70,7 @@ public class TimeRenderer extends InputRendererBase {
     page.getScriptFiles().addAll(Arrays.asList(SCRIPTS));
     UITimeInput input = (UITimeInput) component;
 
-    // TODO title??
-    /*
-    Iterator messages = facesContext.getMessages(
-        input.getClientId(facesContext));
-    StringBuilder stringBuffer = new StringBuilder();
-    while (messages.hasNext()) {
-      FacesMessage message = (FacesMessage) messages.next();
-      stringBuffer.append(message.getDetail());
-    }
-
-    String title = null;
-    if (stringBuffer.length() > 0) {
-      title = stringBuffer.toString();
-    }
-
-    title =
-        HtmlRendererUtil.addTip(title, (String) input.getAttributes().get(ATTR_TIP));*/
-
+    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, input);
     String currentValue = getCurrentValue(facesContext, input);
     if (LOG.isDebugEnabled()) {
       LOG.debug("currentValue = '" + currentValue + "'");
@@ -132,13 +117,13 @@ public class TimeRenderer extends InputRendererBase {
     writer.writeClassAttribute("tobago-time-borderDiv"
         + (hasSeconds ? " tobago-time-borderDiv-seconds" : ""));
 
-    Integer tabIndex = input.getTabIndex();
-    writeInput(writer, idPrefix + "hour", tabIndex, hour, true);
+
+    writeInput(writer, input, idPrefix + "hour", hour, true, title);
     writeInputSeparator(writer, ":");
-    writeInput(writer, idPrefix + "minute", tabIndex, minute, false);
+    writeInput(writer, input, idPrefix + "minute", minute, false, title);
     if (hasSeconds) {
       writeInputSeparator(writer, ":");
-      writeInput(writer, idPrefix + "second", tabIndex, second, false);
+      writeInput(writer, input, idPrefix + "second", second, false, title);
     }
 
     writer.endElement(HtmlConstants.DIV);
@@ -148,13 +133,14 @@ public class TimeRenderer extends InputRendererBase {
     HtmlRendererUtil.addImageSources(facesContext, writer, imageSrc, imageId);
     writer.startElement(HtmlConstants.IMG, null);
     writer.writeIdAttribute(imageId);
-    writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgIncTime(this)", false);
     writer.writeClassAttribute("tobago-time-inc-image"
         + (hasSeconds ? " tobago-time-image-seconds" : ""));
     writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getImageWithPath(facesContext, imageSrc), true);
     writer.writeAttribute(HtmlAttributes.ALT, "", false); // TODO: tip
 
-    if (!ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED)) {
+    if (!(ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED)
+        || ComponentUtil.getBooleanAttribute(input, ATTR_READONLY))) {
+      writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgIncTime(this)", false);
       writer.writeAttribute(HtmlAttributes.ONMOUSEOVER,
           "Tobago.imageMouseover('" + imageId + "')", null);
       writer.writeAttribute(HtmlAttributes.ONMOUSEOUT,
@@ -167,12 +153,13 @@ public class TimeRenderer extends InputRendererBase {
     HtmlRendererUtil.addImageSources(facesContext, writer, imageSrc, imageId);
     writer.startElement(HtmlConstants.IMG, null);
     writer.writeIdAttribute(imageId);
-    writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgDecTime(this)", false);
     writer.writeClassAttribute("tobago-time-dec-image"
         + (hasSeconds ? " tobago-time-image-seconds" : ""));
     writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getImageWithPath(facesContext, imageSrc), true);
     writer.writeAttribute(HtmlAttributes.ALT, "", false); // TODO: tip
-    if (!ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED)) {
+    if (!(ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED)
+        || ComponentUtil.getBooleanAttribute(input, ATTR_READONLY))) {
+      writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgDecTime(this)", false);
       writer.writeAttribute(HtmlAttributes.ONMOUSEOVER,
           "Tobago.imageMouseover('" + imageId + "')", null);
       writer.writeAttribute(HtmlAttributes.ONMOUSEOUT,
@@ -210,18 +197,29 @@ public class TimeRenderer extends InputRendererBase {
     writer.endElement(HtmlConstants.SPAN);
   }
 
-  private void writeInput(TobagoResponseWriter writer, String id, Integer tabIndex, String hour, boolean hourMode)
-      throws IOException {
+  private void writeInput(TobagoResponseWriter writer, UITimeInput input, String id, String hour, boolean hourMode,
+      String title) throws IOException {
+    Integer tabIndex = input.getTabIndex();
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "text", false);
     writer.writeIdAttribute(id);
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    writer.writeClassAttribute("tobago-time-input");
-    writer.writeAttribute(HtmlAttributes.ONFOCUS, "tbgTimerInputFocus(this, " + hourMode + ")", false);
-    writer.writeAttribute(HtmlAttributes.ONBLUR, "tbgTimerInputBlur(this)", false);
-    writer.writeAttribute(HtmlAttributes.ONKEYUP, "tbgTimerKeyUp(this, event)", false);
+    writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+
+    StyleClasses styleClasses = new StyleClasses();
+    //styleClasses.updateClassAttributeAndMarkup(input, "time");
+    styleClasses.addClass("time", "input");
+    writer.writeClassAttribute(styleClasses);
+    writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtil.getBooleanAttribute(input, ATTR_READONLY));
+    writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED));
+    if (!(ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED)
+        || ComponentUtil.getBooleanAttribute(input, ATTR_READONLY))) {
+      writer.writeAttribute(HtmlAttributes.ONFOCUS, "tbgTimerInputFocus(this, " + hourMode + ")", false);
+      writer.writeAttribute(HtmlAttributes.ONBLUR, "tbgTimerInputBlur(this)", false);
+      writer.writeAttribute(HtmlAttributes.ONKEYUP, "tbgTimerKeyUp(this, event)", false);
+    }
     writer.writeAttribute(HtmlAttributes.VALUE, hour, true);
     writer.endElement(HtmlConstants.INPUT);
   }
