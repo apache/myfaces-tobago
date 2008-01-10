@@ -33,7 +33,7 @@
       <tc:toolBarCommand action="#{controller.deleteNode}" label="Delete"/>
     </tc:toolBar>
 
-    <tcs:tree state="#{controller.state}" id="tree">
+    <tcs:tree id="tree">
       <!--
       fixme: The helping-node "Root" is required in the moment, has to be removed!
       -->

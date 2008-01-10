@@ -28,7 +28,7 @@
       <tc:gridLayout margin="10px" rows="*;*;*"/>
     </f:facet>
 
-    <tcs:tree state="#{controller.state}" id="menu"
+    <tcs:tree id="menu"
               showIcons="false"
               showJunctions="false"
               showRootJunction="false"
@@ -58,7 +58,7 @@
       </tcs:treeNode>
     </tcs:tree>
 
-    <tcs:tree state="#{controller.state}" mode="menu">
+    <tcs:tree mode="menu">
       <tcs:treeData value="#{controller.tree}" var="node" id="data">
         <tcs:treeNode label="#{node.userObject.name}"
                       id="template"
@@ -71,7 +71,7 @@
       </tcs:treeData>
     </tcs:tree>
 
-    <tcs:tree state="#{controller.state}" mode="menu">
+    <tcs:tree mode="menu">
       <tcs:treeNode label="Root" expanded="true">
         <tcs:treeNode label="2 Action 1" />
         <tcs:treeNode label="3 Action 2" />

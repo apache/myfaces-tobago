@@ -28,7 +28,7 @@
       <tc:gridLayout margin="10px" rows="300px;*"/>
     </f:facet>
 
-    <tcs:tree state="#{controller.state}" id="sel"
+    <tcs:tree id="sel"
               showIcons="true"
               showJunctions="true"
               showRootJunction="true"
