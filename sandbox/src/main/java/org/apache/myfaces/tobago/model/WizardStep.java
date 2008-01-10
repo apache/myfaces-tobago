@@ -44,8 +44,7 @@ public class WizardStep {
   
   @Override
   public String toString() {
-    return "Index: " + index + ", title '" + title + "', outcome '" + outcome
-        + "'";
+    return "Index: " + index + ", title '" + title + "', outcome '" + outcome + "'";
   }
 
   public String getOutcome() {
