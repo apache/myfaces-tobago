@@ -47,7 +47,10 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOne",
     rendererType = "SelectOneChoice",
-    allowedChildComponenents = "javax.faces.SelectItem javax.faces.SelectItems",
+    allowedChildComponenents = {
+        "javax.faces.SelectItem",
+        "javax.faces.SelectItems"
+        },
     facets = {
     @Facet(name = "click",
         description =

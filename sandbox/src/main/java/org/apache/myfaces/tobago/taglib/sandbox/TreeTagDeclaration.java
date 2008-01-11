@@ -26,6 +26,8 @@ import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasTreeNodeValue;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.myfaces.tobago.component.UITreeData;
 
 /**
  * Renders a tree view.
@@ -37,9 +39,11 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITree",
     rendererType = "Tree",
-    allowedChildComponenents = "org.apache.myfaces.tobago.TreeNode " +
-        "org.apache.myfaces.tobago.TreeData")
-public interface TreeTagDeclaration 
+    allowedChildComponenents = {
+        UITreeNode.COMPONENT_TYPE,
+        UITreeData.COMPONENT_TYPE
+        })
+public interface TreeTagDeclaration
     extends TobagoTagDeclaration, HasIdBindingAndRendered, HasTreeNodeValue, IsRequired {
 
   /**

@@ -22,6 +22,11 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.component.UIMenu;
+import org.apache.myfaces.tobago.component.UIMenuCommand;
+import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
+import org.apache.myfaces.tobago.component.UIMenuSelectOne;
+import org.apache.myfaces.tobago.component.UIMenuSeparator;
 
 /*
  * Date: 14.03.2006
@@ -43,10 +48,12 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @UIComponentTag(
     uiComponent = "javax.faces.component.UIPanel",
     rendererType = "MenuBar", isComponentAlreadyDefined = false, // changed to false 
-    allowedChildComponenents = "org.apache.myfaces.tobago.Menu " +
-    		"org.apache.myfaces.tobago.MenuCommand " +
-    		"org.apache.myfaces.tobago.SelectBooleanCommand " +
-    		"org.apache.myfaces.tobago.MenuSelectOne " +
-    		"org.apache.myfaces.tobago.MenuSeparator")
+    allowedChildComponenents = {
+        UIMenu.COMPONENT_TYPE,
+        UIMenuCommand.COMPONENT_TYPE,
+        UISelectBooleanCommand.COMPONENT_TYPE,
+        UIMenuSelectOne.COMPONENT_TYPE,
+        UIMenuSeparator.COMPONENT_TYPE
+        })
 public interface MenuBarTagDeclaration extends TobagoBodyTagDeclaration, HasIdBindingAndRendered, HasDeprecatedWidth {
 }

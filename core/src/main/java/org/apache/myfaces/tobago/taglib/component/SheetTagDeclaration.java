@@ -42,7 +42,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIData",
     rendererType = "Sheet",
-    allowedChildComponenents = "javax.faces.Column org.apache.myfaces.tobago.ColumnSelector",
+    allowedChildComponenents = {
+        "javax.faces.Column",
+        "org.apache.myfaces.tobago.ColumnSelector"},
     facets = {@Facet(name="reload", description = "Contains an instance of UIReload",
                      allowedChildComponenents = "org.apache.myfaces.tobago.Reload")})
 

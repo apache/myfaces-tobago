@@ -32,6 +32,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasTarget;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.myfaces.tobago.component.UITreeData;
 
 /**
  * Creates a tree node.
@@ -42,8 +44,10 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeNode",
     rendererType = "TreeNode",
-    allowedChildComponenents = "org.apache.myfaces.tobago.TreeNode " +
-    		"org.apache.myfaces.tobago.TreeData",
+    allowedChildComponenents = {
+        UITreeNode.COMPONENT_TYPE,
+        UITreeData.COMPONENT_TYPE
+        },
     facets = {
       @Facet(name = "addendum", description = "Displays an additional component to a node.")})
 public interface TreeNodeTagDeclaration

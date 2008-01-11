@@ -24,6 +24,11 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasImage;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.component.UIMenu;
+import org.apache.myfaces.tobago.component.UIMenuCommand;
+import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
+import org.apache.myfaces.tobago.component.UIMenuSelectOne;
+import org.apache.myfaces.tobago.component.UIMenuSeparator;
 
 /*
  * Date: 31.03.2006
@@ -42,11 +47,12 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
         "org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag"})
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenu",
-    allowedChildComponenents = "org.apache.myfaces.tobago.Menu " +
-        "org.apache.myfaces.tobago.MenuCommand " +
-        "org.apache.myfaces.tobago.SelectBooleanCommand " +
-        "org.apache.myfaces.tobago.MenuSelectOne " +
-        "org.apache.myfaces.tobago.MenuSeparator")
+    allowedChildComponenents = {
+        UIMenu.COMPONENT_TYPE,
+        UIMenuCommand.COMPONENT_TYPE,
+        UISelectBooleanCommand.COMPONENT_TYPE,
+        UIMenuSelectOne.COMPONENT_TYPE,
+        UIMenuSeparator.COMPONENT_TYPE})
 public interface MenuTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasLabelAndAccessKey,
     IsDisabled, HasImage {
 }

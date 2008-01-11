@@ -44,7 +44,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectMany",
     rendererType = "SelectManyCheckbox",
-    allowedChildComponenents = "javax.faces.SelectItem javax.faces.SelectItems")
+    allowedChildComponenents = {
+        "javax.faces.SelectItem",
+        "javax.faces.SelectItems"})
 public interface SelectManyCheckboxTagDeclaration extends
     SelectManyTagDeclaration, IsDisabled, HasId,
     IsInline, HasRenderRange, IsRendered, IsRequired, HasBinding, IsReadonly, HasConverter {

@@ -37,7 +37,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
     rendererType = "MenuCommand",
-    allowedChildComponenents = "javax.faces.SelectItem javax.faces.SelectItems")
+    allowedChildComponenents = {
+        "javax.faces.SelectItem",
+        "javax.faces.SelectItems"})
 public interface MenuCheckboxTagDeclaration extends TobagoTagDeclaration, AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, IsDisabled, HasCommandType, HasBooleanValue,
     HasLabelAndAccessKey {
