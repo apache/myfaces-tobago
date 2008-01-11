@@ -17,20 +17,20 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.Tag;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CONVERTER;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CONVERTER;
 
-import javax.servlet.jsp.tagext.TagSupport;
-import javax.servlet.jsp.JspException;
-import javax.faces.webapp.UIComponentTag;
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
-import javax.faces.el.ValueBinding;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.el.ValueBinding;
+import javax.faces.webapp.UIComponentTag;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.TagSupport;
 
 /*
  * Date: Oct 13, 2006

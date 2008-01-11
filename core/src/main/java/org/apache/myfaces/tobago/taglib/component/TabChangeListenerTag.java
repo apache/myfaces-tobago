@@ -17,15 +17,15 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.event.TabChangeListener;
-import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.event.TabChangeListenerValueBindingDelegate;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.event.TabChangeSource;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

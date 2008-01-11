@@ -17,11 +17,11 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
-import javax.faces.component.UISelectItems;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UISelectItems;
 
 /*
  * User: bommel

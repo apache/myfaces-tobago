@@ -17,12 +17,12 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.validator.SubmittedValueLengthValidator;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.validator.SubmittedValueLengthValidator;
 
-import javax.faces.webapp.ValidatorTag;
 import javax.faces.validator.Validator;
+import javax.faces.webapp.ValidatorTag;
 import javax.servlet.jsp.JspException;
 
 /*

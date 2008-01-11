@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.component.ComponentUtil;
-
 import org.apache.myfaces.tobago.component.UISelectBoolean;
 
 import javax.faces.component.UIComponent;

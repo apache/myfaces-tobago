@@ -25,8 +25,8 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_DATE;
-import org.apache.myfaces.tobago.component.UIDateInput;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIDateInput;
 
 import javax.faces.component.UIComponent;
 

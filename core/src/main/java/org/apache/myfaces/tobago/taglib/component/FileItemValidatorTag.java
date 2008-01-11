@@ -21,8 +21,8 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.validator.FileItemValidator;
 
-import javax.faces.webapp.ValidatorTag;
 import javax.faces.validator.Validator;
+import javax.faces.webapp.ValidatorTag;
 import javax.servlet.jsp.JspException;
 
 /*

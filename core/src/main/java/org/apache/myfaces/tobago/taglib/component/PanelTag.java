@@ -23,11 +23,11 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 
-import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIPanel;
 
-import javax.servlet.jsp.tagext.BodyTag;
 import javax.faces.component.UIComponent;
+import javax.servlet.jsp.tagext.BodyTag;
 
 // Some Weblogic versions need explicit 'implements' for BodyTag
 public class PanelTag extends TobagoBodyTag

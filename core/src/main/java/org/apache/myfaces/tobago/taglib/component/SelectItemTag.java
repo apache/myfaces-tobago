@@ -17,12 +17,12 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ITEM_DESCRIPTION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ITEM_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ITEM_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ITEM_IMAGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ITEM_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ITEM_VALUE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UISelectItem;

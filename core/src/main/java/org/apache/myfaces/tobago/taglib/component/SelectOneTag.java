@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.taglib.component;
  * $Id$
  */
 
-import org.apache.myfaces.tobago.component.UISelectOne;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UISelectOne;
 
 import javax.faces.component.UIComponent;
 

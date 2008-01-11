@@ -21,8 +21,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TYPE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICommand;
 

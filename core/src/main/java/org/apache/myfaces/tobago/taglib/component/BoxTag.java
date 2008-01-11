@@ -20,8 +20,8 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIBox;
 
-import javax.servlet.jsp.tagext.BodyTag;
 import javax.faces.component.UIComponent;
+import javax.servlet.jsp.tagext.BodyTag;
 
 /**
  * Renders a panel with border and title.
