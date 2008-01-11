@@ -36,7 +36,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasTarget;
 @Tag(name = "menuItem", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuCommand",
-    rendererType = "MenuCommand")
+    rendererType = "MenuCommand",
+    allowedChildComponenents = "NONE")
 public interface MenuCommandTagDeclaration extends TobagoTagDeclaration, AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, HasCommandType, HasImage, HasTarget {
 }

@@ -25,11 +25,14 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface HasState {
   /**
+   *
    * <strong>ValueBindingExpression</strong> pointing to a object to save the
    * component's state.
+   *
    */
   // TODO is Object right
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Object")
+  @TagAttribute @UIComponentTagAttribute(
+          type = "java.lang.Object",
+          valueExpression = "REQUIRED")
   void setState(String state);
 }

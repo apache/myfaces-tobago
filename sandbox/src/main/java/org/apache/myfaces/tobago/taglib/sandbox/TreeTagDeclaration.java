@@ -36,8 +36,10 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @BodyContentDescription(anyTagOf = "<tcs:treeNode>|<tcs:treeData>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITree",
-    rendererType = "Tree")
-public interface TreeTagDeclaration
+    rendererType = "Tree",
+    allowedChildComponenents = "org.apache.myfaces.tobago.TreeNode " +
+        "org.apache.myfaces.tobago.TreeData")
+public interface TreeTagDeclaration 
     extends TobagoTagDeclaration, HasIdBindingAndRendered, HasTreeNodeValue, IsRequired {
 
   /**
@@ -77,13 +79,13 @@ public interface TreeTagDeclaration
   @UIComponentTagAttribute(type = "java.lang.Boolean",
       defaultValue = "false")
   void setShowRoot(String showRoot);
-
+  
   /**
    * Display option: Normal tree or menu.
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "tree",
-      allowedValues = {"tree", "menu"})
+  allowedValues = {"tree", "menu"})
   void setMode(String mode);
 
 }

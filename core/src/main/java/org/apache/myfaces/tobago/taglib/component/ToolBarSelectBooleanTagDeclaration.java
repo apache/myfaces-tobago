@@ -38,7 +38,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 @Tag(name = "toolBarCheck", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
-    rendererType = "MenuCommand")
+    rendererType = "MenuCommand",
+    allowedChildComponenents = "NONE")
 public interface ToolBarSelectBooleanTagDeclaration extends TobagoTagDeclaration, AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey,
     HasCommandType, HasImage, IsDisabled, HasBooleanValue,

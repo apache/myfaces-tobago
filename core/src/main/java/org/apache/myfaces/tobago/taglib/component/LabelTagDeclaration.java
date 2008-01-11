@@ -42,7 +42,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 @Tag(name = "label", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UILabel",
-    rendererType = "Label")
+    rendererType = "Label",
+    allowedChildComponenents = "NONE")
 public interface LabelTagDeclaration extends BeanTagDeclaration, HasIdBindingAndRendered,
     HasLabelWithAccessKey, HasFor, IsInline, HasDeprecatedWidth, HasTip, HasMarkup {
 

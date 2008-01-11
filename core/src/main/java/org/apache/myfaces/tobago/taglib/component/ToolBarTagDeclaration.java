@@ -59,7 +59,10 @@ import org.apache.myfaces.tobago.component.UIToolBar;
 @BodyContentDescription(anyTagOf = "(<tc:toolBarCommand>|<tc:toolBarSelectBoolean>|<tc:toolBarSelectOne>)* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBar",
-    rendererType = "ToolBar")
+    rendererType = "ToolBar",
+    allowedChildComponenents = "org.apache.myfaces.tobago.SelectOneCommand " +
+    		"org.apache.myfaces.tobago.SelectBooleanCommand " +
+    		"org.apache.myfaces.tobago.Command")
 public interface ToolBarTagDeclaration extends PanelTagDeclaration {
   /**
    * Position of the button label, possible values are: right, bottom, off.

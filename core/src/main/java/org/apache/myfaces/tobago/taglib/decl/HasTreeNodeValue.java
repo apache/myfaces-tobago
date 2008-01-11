@@ -32,6 +32,8 @@ public interface HasTreeNodeValue {
    * A javax.swing.tree.TreeNode object to use as rootNode in the tree.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "javax.swing.tree.TreeNode")
+  @UIComponentTagAttribute(
+          type = "javax.swing.tree.TreeNode",
+          valueExpression = "REQUIRED")
   void setValue(String value);
 }

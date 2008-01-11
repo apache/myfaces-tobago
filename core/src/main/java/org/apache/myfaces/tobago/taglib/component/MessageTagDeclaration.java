@@ -39,7 +39,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @Tag(name = "message", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
     uiComponent = "javax.faces.component.UIMessage",
-    rendererType = "Message", isComponentAlreadyDefined = true)
+    rendererType = "Message", isComponentAlreadyDefined = false,
+    allowedChildComponenents = "NONE")
 public interface MessageTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasFor {
 
   /**

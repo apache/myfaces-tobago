@@ -37,7 +37,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
  * action.
  */
 @Tag(name = "selectItem", bodyContent = BodyContent.EMPTY)
-@UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UISelectItem")
+@UIComponentTag(
+        uiComponent = "org.apache.myfaces.tobago.component.UISelectItem",
+        allowedChildComponenents = "NONE")
 public interface SelectItemTagDeclaration extends TobagoTagDeclaration, HasBinding, HasId, HasMarkup {
   /**
    * Flag indicating whether the option created

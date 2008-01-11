@@ -36,7 +36,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
     tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneCommand",
-    rendererType = "MenuCommand")
+    rendererType = "MenuCommand",
+    allowedChildComponenents = "NONE")
 public interface ToolBarSelectOneTagDeclaration extends TobagoTagDeclaration, AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, IsDisabled, HasCommandType, HasValue {
 }

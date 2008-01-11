@@ -43,6 +43,8 @@ public @interface UIComponentTagAttribute {
   String defaultValue() default "";
 
   String displayName() default "";
+  
+  String valueExpression() default "ALLOWED";
 
   /**
    * Specifies whether this property should be visible

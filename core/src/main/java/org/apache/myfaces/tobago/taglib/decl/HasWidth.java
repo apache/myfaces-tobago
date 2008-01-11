@@ -25,11 +25,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface HasWidth {
   /**
-   * The width for this component.
-   * This value is used in the gridLayouts columns attribute.
-   * See gridLayout tag for valid values.
+   *  The width for this component.
    */
-  @TagAttribute
-  @UIComponentTagAttribute()
+  @TagAttribute @UIComponentTagAttribute(type = "java.lang.Integer")
   void setWidth(String width);
 }

@@ -47,13 +47,16 @@ import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBoolean",
     rendererType = "SelectBooleanCheckbox",
+    allowedChildComponenents = "NONE",
     facets = {
-    @Facet(name = "click",
-        description =
-            "This facet can contain a UICommand that is invoked in case of a click event from the component"),
-    @Facet(name = "change",
-        description =
-            "This facet can contain a UICommand that is invoked in case of a change event from the component")
+        @Facet(name = "click",
+            description =
+                "This facet can contain a UICommand that is invoked in case of a click event from the component",
+            allowedChildComponenents = "org.apache.myfaces.tobago.Command"),
+        @Facet(name = "change",
+            description =
+                "This facet can contain a UICommand that is invoked in case of a change event from the component",
+                allowedChildComponenents = "org.apache.myfaces.tobago.Command")
         })
 
 public interface SelectBooleanCheckboxTagDeclaration extends BeanTagDeclaration, HasValidator,

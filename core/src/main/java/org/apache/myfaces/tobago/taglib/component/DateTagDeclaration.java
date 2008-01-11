@@ -42,7 +42,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 @Tag(name = "date")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIDateInput",
-    rendererType = RENDERER_TYPE_DATE)
+    rendererType = RENDERER_TYPE_DATE,
+    allowedChildComponenents = "NONE")
 public interface DateTagDeclaration
     extends InputTagDeclaration, HasIdBindingAndRendered, IsReadonly,
     IsDisabled, HasConverter, IsInline, IsFocus, HasLabelAndAccessKey,

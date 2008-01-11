@@ -28,6 +28,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.component.UIData;
 
 /*
+ * Created by IntelliJ IDEA.
+ * User: bommel
  * Date: 08.04.2006
  * Time: 15:30:50
  */
@@ -40,7 +42,9 @@ import org.apache.myfaces.tobago.component.UIData;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIData",
     rendererType = "Sheet",
-    facets = {@Facet(name = "reload", description = "Contains an instance of UIReload")})
+    allowedChildComponenents = "javax.faces.Column org.apache.myfaces.tobago.ColumnSelector",
+    facets = {@Facet(name="reload", description = "Contains an instance of UIReload",
+                     allowedChildComponenents = "org.apache.myfaces.tobago.Reload")})
 
 public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered {
   /**
@@ -97,7 +101,8 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {"java.lang.Object[]", "java.util.List", "javax.servlet.jsp.jstl.sql.Result",
-      "java.sql.ResultSet", "java.lang.Object", "javax.faces.model.DataModel"})
+      "java.sql.ResultSet", "java.lang.Object", "javax.faces.model.DataModel"},
+      valueExpression = "REQUIRED")
   void setValue(String value);
 
   /**
@@ -185,18 +190,18 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
    * Sheet state saving object.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.SheetState")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.SheetState", valueExpression = "REQUIRED")
   void setState(String state);
 
   /**
    * Method binding representing a stateChangeListener method that will be
    * notified when the state was changed by the user.
-   * The expression must evaluate to a public method that takes a
-   * SheetStateChangeEvent parameter, with a return type of void.
+    * The expression must evaluate to a public method that takes a
+    * SheetStateChangeEvent parameter, with a return type of void.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding",
-      expression = DynamicExpression.METHOD_BINDING)
+       expression = DynamicExpression.METHOD_BINDING, valueExpression = "REQUIRED")
   void setStateChangeListener(String stateChangeListener);
 
   /**
@@ -213,7 +218,7 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding",
-      expression = DynamicExpression.METHOD_BINDING)
+       expression = DynamicExpression.METHOD_BINDING, valueExpression = "REQUIRED")
   void setSortActionListener(String sortActionListener);
 
 }

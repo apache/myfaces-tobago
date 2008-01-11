@@ -40,9 +40,12 @@ import org.apache.myfaces.tobago.taglib.decl.HasState;
     uiComponent = "org.apache.myfaces.tobago.component.UIPage",
     rendererType = "Page",
     facets =
-        {@Facet(name = "action", description = "Contains an instance of UICommand (tc:command) for an auto-action"),
-        @Facet(name = "menuBar", description = "Menubar"),
-        @Facet(name = "layout", description = "Contains an instance of UILayout")})
+        { @Facet(name = "action", description ="Contains an instance of UICommand (tc:command) for an auto-action",
+                allowedChildComponenents = "org.apache.myfaces.tobago.Command"),
+        @Facet(name = "menuBar", description = "Menubar",
+                allowedChildComponenents = "javax.faces.component.UIPanel"), //fake
+        @Facet(name="layout", description = "Contains an instance of UILayout",
+                allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 
 public interface PageTagDeclaration extends TobagoBodyTagDeclaration, HasLabel, HasId, HasDimension, HasBinding,
     HasState {

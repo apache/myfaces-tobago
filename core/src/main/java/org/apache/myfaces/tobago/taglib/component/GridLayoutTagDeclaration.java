@@ -94,7 +94,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
 @Tag(name = "gridLayout", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIGridLayout",
-    rendererType = "GridLayout")
+    rendererType = "GridLayout",
+    allowedChildComponenents = "NONE")
 public interface GridLayoutTagDeclaration extends TobagoTagDeclaration, HasId, HasBorder, HasCellspacing, HasMargin,
     HasMargins, HasColumnLayout, HasRowLayout, HasBinding {
 }

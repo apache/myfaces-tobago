@@ -32,7 +32,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
  */
 @Tag(name = "command", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UICommand",
-    rendererType = "Command")
+    rendererType = "Command",
+    allowedChildComponenents = "NONE")
 public interface CommandTagDeclaration extends AbstractCommandTagDeclaration, HasId {
 
   /**

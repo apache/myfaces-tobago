@@ -42,8 +42,10 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeNode",
     rendererType = "TreeNode",
+    allowedChildComponenents = "org.apache.myfaces.tobago.TreeNode " +
+    		"org.apache.myfaces.tobago.TreeData",
     facets = {
-    @Facet(name = "addendum", description = "Displays an additional component to a node.")})
+      @Facet(name = "addendum", description = "Displays an additional component to a node.")})
 public interface TreeNodeTagDeclaration
     extends HasIdBindingAndRendered, HasLabel, HasValue, HasMarkup, AbstractCommandTagDeclaration, HasTip, HasTarget,
     HasImage, IsDisabled {
@@ -52,13 +54,13 @@ public interface TreeNodeTagDeclaration
    * Flag indicating if the subnodes are to be displayed.
    */
   @TagAttribute(type = String.class)
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
   void setExpanded(String expanded);
 
   /**
    * Flag indicating if the node is marked, and should be displayed in a special way.
    */
   @TagAttribute(type = String.class)
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   void setMarked(String marked);
 }

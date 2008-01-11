@@ -28,7 +28,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @Tag(name = "separator")
 @UIComponentTag(rendererType = "Separator",
     uiComponent = "org.apache.myfaces.tobago.component.UISeparator",
-    facets = {@Facet(name = "label", description = "This facet contains a UILabel")})
+    allowedChildComponenents = "NONE",
+    facets = { @Facet(name = "label", description = "This facet contains a UILabel",
+                      allowedChildComponenents = "org.apache.myfaces.tobago.Label") })
 
 public interface SeparatorTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered {
 }

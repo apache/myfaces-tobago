@@ -37,7 +37,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 @Tag(name = "hidden")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIHiddenInput",
-    rendererType = "Hidden")
+    rendererType = "Hidden",
+    allowedChildComponenents = "NONE")
 public interface HiddenTagDeclaration extends BeanTagDeclaration, HasId, HasBinding, HasValue, HasConverter,
     HasValidator {
 

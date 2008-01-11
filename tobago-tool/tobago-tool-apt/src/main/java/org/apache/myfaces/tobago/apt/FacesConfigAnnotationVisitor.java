@@ -25,15 +25,13 @@ import com.sun.mirror.declaration.MethodDeclaration;
 import com.sun.mirror.declaration.PackageDeclaration;
 import com.sun.mirror.declaration.TypeDeclaration;
 import com.sun.mirror.type.InterfaceType;
-
-import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
+import org.apache.commons.io.IOUtils;
+import org.apache.myfaces.tobago.apt.annotation.Converter;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.Converter;
 import org.apache.myfaces.tobago.apt.annotation.Validator;
-import org.apache.commons.io.IOUtils;
 import org.codehaus.plexus.util.FileUtils;
 import org.jdom.Comment;
 import org.jdom.DocType;
@@ -52,17 +50,17 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
-import java.io.Writer;
-import java.io.StringReader;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Locale;
+import java.util.Map;
 
 /*
  * Date: Sep 25, 2006
@@ -90,10 +88,11 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
   private static final String PROPERTY_NAME = "property-name";
   private static final String PROPERTY_CLASS = "property-class";
   private static final String PROPERTY_EXTENSION = "property-extension";
-  private static final String ALLOWS_VALUE_BINDING = "allows-value-binding"; //UIComponentTagAttribute.expression()
+  private static final String VALUE_EXPRESSION = "value-expression"; //UIComponentTagAttribute.valueExpression()
   private static final String PROPERTY_VALUES = "property-values"; //UIComponentTagAttribute.allowedValues()
   private static final String READONLY = "read-only";
   private static final String REQUIRED = "required"; //UITagAttribute.required()
+  private static final String DEFAULT_VALUE = "default-value";
   private static final String ATTRIBUTE = "attribute";
   private static final String ATTRIBUTE_NAME = "attribute-name";
   private static final String ATTRIBUTE_CLASS = "attribute-class";
@@ -218,7 +217,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
                 + "<!ELEMENT hidden (#PCDATA)>\n"
                 + "<!ELEMENT preferred (#PCDATA)>\n"
                 + "<!ELEMENT read-only (#PCDATA)>\n"
-                + "<!ELEMENT allows-value-binding (#PCDATA)>\n"
+                + "<!ELEMENT value-expression (#PCDATA)>\n"
                 + "<!ELEMENT property-values (#PCDATA)>\n"
                 + "<!ELEMENT required (#PCDATA)>\n"
                 + "]");
@@ -384,13 +383,18 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
           Element property = new Element(PROPERTY, namespace);
           Element propertyName = new Element(PROPERTY_NAME, namespace);
           Element propertyClass = new Element(PROPERTY_CLASS, namespace);
+          Element defaultValue = new Element(DEFAULT_VALUE, namespace);
+          
           propertyName.setText(attributeStr);
           addClass(componentAttribute, propertyClass);
-
+          defaultValue.setText(componentAttribute.defaultValue());
+          
           addDescription(d, property, namespace);
-
+          
           property.addContent(propertyName);
           property.addContent(propertyClass);
+          property.addContent(defaultValue);
+          
           property.addContent(createPropertyOrAttributeExtension(PROPERTY_EXTENSION, d, componentAttribute, namespace));
           properties.add(property);
         } catch (NoSuchMethodException e) {
@@ -398,14 +402,18 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
           Element attribute = new Element(ATTRIBUTE, namespace);
           Element attributeName = new Element(ATTRIBUTE_NAME, namespace);
           Element attributeClass = new Element(ATTRIBUTE_CLASS, namespace);
+          Element defaultValue = new Element(DEFAULT_VALUE, namespace);
 
           attributeName.setText(attributeStr);
           addClass(componentAttribute, attributeClass);
+          defaultValue.setText(componentAttribute.defaultValue());
 
           addDescription(d, attribute, namespace);
-
+          
           attribute.addContent(attributeName);
           attribute.addContent(attributeClass);
+          attribute.addContent(defaultValue);
+          
           attribute.addContent(createPropertyOrAttributeExtension(ATTRIBUTE_EXTENSION, d,
               componentAttribute, namespace));
 
@@ -445,10 +453,13 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
   private Element createPropertyOrAttributeExtension(String extensionType, MethodDeclaration methodDeclaration,
       UIComponentTagAttribute uiComponentTagAttribute, Namespace namespace) throws IllegalArgumentException {
     Element extensionElement = new Element(extensionType, namespace);
-    Element allowsValueBinding = new Element(ALLOWS_VALUE_BINDING, namespace);
-    DynamicExpression dynamicExpression = uiComponentTagAttribute.expression();
-    allowsValueBinding.setText((dynamicExpression == DynamicExpression.VALUE_BINDING) ? "true" : "false");
-    extensionElement.addContent(allowsValueBinding);
+//    Element allowsValueBinding = new Element(ALLOWS_VALUE_BINDING, namespace);
+//    DynamicExpression dynamicExpression = uiComponentTagAttribute.expression();
+//    allowsValueBinding.setText((dynamicExpression == DynamicExpression.VALUE_BINDING) ? "true" : "false");
+//    extensionElement.addContent(allowsValueBinding);
+    Element valueExpression = new Element(VALUE_EXPRESSION, namespace);
+    valueExpression.setText(uiComponentTagAttribute.valueExpression());
+    extensionElement.addContent(valueExpression);
     String[] allowedValues = uiComponentTagAttribute.allowedValues();
     if (allowedValues.length > 0) {
       Element propertyValues = new Element(PROPERTY_VALUES, namespace);
@@ -526,10 +537,20 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
       Element facetName = new Element(FACET_NAME, namespace);
       facetName.setText(facet.name());
       facetElement.addContent(facetName);
+      Element facetExtension = new Element(FACET_EXTENSION, namespace);
+      Element elementAllowedChildComponents = new Element(ALLOWED_CHILD_COMPONENTS, namespace);
+      String[] allowedChildComponents = facet.allowedChildComponenents();
+      String allowedComponentTypes = "";
+      for (String componentType : allowedChildComponents) {
+        allowedComponentTypes += componentType + " ";
+      }
+      elementAllowedChildComponents.setText(allowedComponentTypes);
+      facetExtension.addContent(elementAllowedChildComponents);
+      facetElement.addContent(facetExtension);
       element.addContent(facetElement);
     }
   }
-
+  
   protected void addElement(ClassDeclaration decl, List<Element> components, Namespace namespace) throws IOException {
     UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
     if (componentTag != null && !componentTag.isComponentAlreadyDefined()) {

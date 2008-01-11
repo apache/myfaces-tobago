@@ -41,7 +41,12 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
         "org.apache.myfaces.tobago.taglib.component.MenuSelectOneTag",
         "org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag"})
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIMenu")
+    uiComponent = "org.apache.myfaces.tobago.component.UIMenu",
+    allowedChildComponenents = "org.apache.myfaces.tobago.Menu " +
+        "org.apache.myfaces.tobago.MenuCommand " +
+        "org.apache.myfaces.tobago.SelectBooleanCommand " +
+        "org.apache.myfaces.tobago.MenuSelectOne " +
+        "org.apache.myfaces.tobago.MenuSeparator")
 public interface MenuTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasLabelAndAccessKey,
     IsDisabled, HasImage {
 }

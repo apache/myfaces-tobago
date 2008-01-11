@@ -47,7 +47,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @Tag(name = "file")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIFileInput",
-    rendererType = "File")
+    rendererType = "File",
+    allowedChildComponenents = "NONE")
 public interface FileTagDeclaration
     extends BeanTagDeclaration, HasValidator, HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, IsDisabled,
     HasLabelAndAccessKey, HasTip, IsReadonly, IsRequired, HasTabIndex {
@@ -58,6 +59,6 @@ public interface FileTagDeclaration
    * uploaded file.
    */
   @TagAttribute()
-  @UIComponentTagAttribute(type = {"org.apache.commons.fileupload.FileItem"})
+  @UIComponentTagAttribute(type = { "org.apache.commons.fileupload.FileItem" }, valueExpression = "REQUIRED")
   void setValue(String value);
 }

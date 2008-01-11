@@ -47,9 +47,12 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIButtonCommand",
     rendererType = "Button",
+    allowedChildComponenents = "NONE",
     facets = {
-    @Facet(name = "confirmation", description = "Contains a UIOutput instance with the confirmation message."),
-    @Facet(name = "popup", description = "Contains a UIPopup instance.")})
+        @Facet(name="confirmation", description = "Contains a UIOutput instance with the confirmation message.",
+                allowedChildComponenents = "org.apache.myfaces.tobago.Output"),
+        @Facet(name="popup", description = "Contains a UIPopup instance.",
+                allowedChildComponenents = "org.apache.myfaces.tobago.Popup")})
 public interface ButtonTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
     IsDisabled, HasCommandType, IsDefaultCommand, HasDeprecatedWidth, HasTip,

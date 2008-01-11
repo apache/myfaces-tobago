@@ -33,7 +33,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
  */
 @Tag(name = "menuSeparator", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIMenuSeparator")
+    uiComponent = "org.apache.myfaces.tobago.component.UIMenuSeparator",
+    allowedChildComponenents = "NONE")
 
 public interface MenuSeparatorTagDeclaration extends TobagoTagDeclaration, IsRendered, HasBinding {
 }
