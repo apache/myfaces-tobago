@@ -151,7 +151,7 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
     //int popupHeight = ThemeConfig.getValue(facesContext, link, "CalendarPopupHeight");
     //attributes.put(ATTR_HEIGHT, String.valueOf(popupHeight));
     final UIComponent box = ComponentUtil.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_BOX);
+        facesContext, UIBox.COMPONENT_TYPE, RENDERER_TYPE_BOX);
     popup.getChildren().add(box);
     box.setId("box");
     // TODO: set string resources in renderer
