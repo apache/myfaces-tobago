@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -16,7 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
@@ -57,6 +55,11 @@
   </repositories>
 
   <dependencies>
+     <!--dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-fileupload</artifactId>
+      <version>${project.version}</version>
+    </dependency-->
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-scarborough</artifactId>
@@ -93,12 +96,21 @@
       <groupId>javax.el</groupId>
       <artifactId>el-api</artifactId>
       <version>1.0</version>
+      <!-- in the case of Servlet 2.5 / JSP 2.1
+                 e. g. Tomcat 6 the scope should be "provided"
+            <scope>provided</scope>
+       -->
     </dependency>
     <dependency>
       <groupId>com.sun.el</groupId>
       <artifactId>el-ri</artifactId>
       <version>1.0</version>
     </dependency>
+    <!--dependency>
+      <groupId>el-impl</groupId>
+      <artifactId>el-impl</artifactId>
+      <version>1.0</version>
+    </dependency-->
     <dependency>
       <groupId>com.sun.facelets</groupId>
       <artifactId>jsf-facelets</artifactId>
