@@ -17,7 +17,7 @@
 
 set -e
 #set -x
-tobago_repo="http://svn.apache.org/repos/asf/myfaces/tobago/trunk"
+tobago_repo="http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x"
 
 usage()
 {
@@ -36,7 +36,7 @@ then
   exit 1
 fi
 
-root="$NIGHTLY_ROOT"
+root="$NIGHTLY_ROOT/tobago-1.0.x"
 
 mkdir -p $root
 
