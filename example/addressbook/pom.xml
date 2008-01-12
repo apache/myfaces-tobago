@@ -322,6 +322,6 @@
   </profiles>
   <properties>
     <openjpa.version>1.0.1</openjpa.version>
-    <spring.version>2.5</spring.version>
+    <spring.version>2.5.1</spring.version>
   </properties>
 </project>
