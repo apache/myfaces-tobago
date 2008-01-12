@@ -69,21 +69,41 @@ public class TobagoConfig {
   }
 
   public void resolveThemes() {
-
-    defaultTheme = availableTheme.get(defaultThemeName);
-    checkThemeIsAvailable(defaultThemeName, defaultTheme);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("name = '" + defaultThemeName + "'");
-      LOG.debug("defaultTheme = '" + defaultTheme + "'");
-    }
-
-    for (String name : supportedThemeNames) {
-      Theme theme = availableTheme.get(name);
-      checkThemeIsAvailable(name, theme);
-      supportedThemes.add(theme);
+    if (defaultThemeName != null) {
+      defaultTheme = availableTheme.get(defaultThemeName);
+      checkThemeIsAvailable(defaultThemeName, defaultTheme);
       if (LOG.isDebugEnabled()) {
-        LOG.debug("name = '" + name + "'");
-        LOG.debug("supportedThemes.last() = '" + supportedThemes.get(supportedThemes.size() - 1) + "'");
+        LOG.debug("name = '" + defaultThemeName + "'");
+        LOG.debug("defaultTheme = '" + defaultTheme + "'");
+      }
+    } else {
+      int deep = 1;
+      for (Map.Entry<String, Theme> entry: availableTheme.entrySet()) {
+        Theme theme = entry.getValue();
+        if (theme.getFallbackList().size() > deep) {
+          defaultTheme = theme;
+          deep = theme.getFallbackList().size();
+        }
+      }
+      if (defaultTheme == null) {
+        String error = "Did not found any theme! "
+          + "Please ensure you have a tobago-theme.xml file in your "
+          + "theme jar. Please add a theme jar to your WEB-INF/lib";
+        LOG.error(error);
+        throw new RuntimeException(error);
+      } else {
+        LOG.info("Using default Theme " + defaultTheme.getName());
+      }
+    }
+    if (!supportedThemeNames.isEmpty()) {
+      for (String name : supportedThemeNames) {
+        Theme theme = availableTheme.get(name);
+        checkThemeIsAvailable(name, theme);
+        supportedThemes.add(theme);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("name = '" + name + "'");
+          LOG.debug("supportedThemes.last() = '" + supportedThemes.get(supportedThemes.size() - 1) + "'");
+        }
       }
     }
   }

@@ -109,8 +109,7 @@ public class TobagoConfigParser {
       if (input != null) {
         digester.parse(input);
       } else {
-        throw new FacesException(
-            "No config file found: '" + configPath + "'. Tobago can't run without configuration.");
+        LOG.warn("No config file found: '" + configPath + "'. Tobago runs with a default configuration.");
       }
     } finally {
       IOUtils.closeQuietly(input);
