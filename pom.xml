@@ -998,6 +998,16 @@
     </repository>
   </repositories>
 
+  <contributors>
+    <contributor>
+      <name>Helmut Swaczinna</name>
+      <email>swaczinna@wlp-systems.de</email>
+      <organization>WLP Systems GmbH</organization>
+      <organizationUrl>www.wlp-systems.de</organizationUrl>
+      <timezone>GMT+1</timezone>
+    </contributor>
+  </contributors>
+
   <properties>
     <myfaces.version>1.1.5</myfaces.version>
     <myfaces12.version>1.2.0</myfaces12.version>
