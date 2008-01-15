@@ -510,7 +510,7 @@ var Tobago = {
   /**
    * Submit the page with specified actionId and position data for popup.
    */
-  openPickerPopup: function(event, actionId, hiddenId) {
+  openPickerPopup: function(event, actionId, hiddenId, popupId) {
     var hidden = this.element(hiddenId);
     if (hidden) {
       // calculate position of command and size of window
@@ -520,8 +520,6 @@ var Tobago = {
       }
     }
     if (Tobago.Updater.hasTransport()) {
-      var idPrefix = hiddenId.substring(0, hiddenId.indexOf("Dimension"));
-      var popupId = idPrefix + "popup";
       Tobago.openPopupWithAction(popupId, actionId);
     } else {
       this.submitAction(actionId);

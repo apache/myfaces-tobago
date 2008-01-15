@@ -70,20 +70,18 @@ public class DatePickerRenderer extends LinkRenderer {
         link.setDisabled(dateInput.isReadonly() || dateInput.isDisabled());
       }
     }
-    String idPrefix = dateInput.getId() + "_picker";
     Map<String, Object>  attributes = link.getAttributes();
     link.setActionListener(datePickerController);
     attributes.put(ATTR_LAYOUT_WIDTH, getConfiguredValue(facesContext, component, "pickerWidth"));
     UIComponent hidden = (UIComponent) link.getChildren().get(0);
-    hidden.setId(idPrefix + "Dimension");
-    attributes.put(ATTR_ACTION_ONCLICK, "Tobago.openPickerPopup(event, '"
-        + link.getClientId(facesContext) + "', '"
-        + hidden.getClientId(facesContext) + "')");
-
     UIPopup popup = (UIPopup) link.getFacets().get(FACET_PICKER_POPUP);
 
+    attributes.put(ATTR_ACTION_ONCLICK, "Tobago.openPickerPopup(event, '"
+        + link.getClientId(facesContext) + "', '"
+        + hidden.getClientId(facesContext) + "', '"
+        + popup.getClientId(facesContext) +"')");
+
     attributes = popup.getAttributes();
-    popup.setId(idPrefix + "popup");
 
     attributes.put(ATTR_WIDTH, String.valueOf(
            ThemeConfig.getValue(facesContext, link, "CalendarPopupWidth")));
@@ -113,8 +111,6 @@ public class DatePickerRenderer extends LinkRenderer {
 
     applyConverterPattern(popup, converterPattern);
 
-    UIComponent image = (UIComponent) link.getChildren().get(1);
-    image.setId(idPrefix + "image");
     if (popup != null) {
       UIPage page = ComponentUtil.findPage(facesContext, link);
       page.getPopups().add(popup);

@@ -135,13 +135,15 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
     UIHiddenInput hidden =
         (UIHiddenInput) ComponentUtil.createComponent(facesContext,
             UIHiddenInput.COMPONENT_TYPE, RENDERER_TYPE_HIDDEN);
+    hidden.setId(facesContext.getViewRoot().createUniqueId());
     link.getChildren().add(hidden);
 
     // create popup
     final UIPopup popup =
         (UIPopup) ComponentUtil.createComponent(facesContext, UIPopup.COMPONENT_TYPE,
             RENDERER_TYPE_POPUP);
-    //popup.setId(link.getId() + "popup");
+
+    popup.setId(facesContext.getViewRoot().createUniqueId());
     link.getFacets().put(FACET_PICKER_POPUP, popup);
 
     popup.setRendered(false);
@@ -234,6 +236,7 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
     UIGraphic image = (UIGraphic) ComponentUtil.createComponent(
         facesContext, UIGraphic.COMPONENT_TYPE, RENDERER_TYPE_IMAGE);
     image.setRendered(true);
+    image.setId(facesContext.getViewRoot().createUniqueId());
     image.setValue("image/date.gif");
     image.getAttributes().put(ATTR_ALT, ""); //TODO: i18n
     StyleClasses.ensureStyleClasses(image).addFullQualifiedClass("tobago-input-picker"); // XXX not a standard name
