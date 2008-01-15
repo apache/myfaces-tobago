@@ -1004,7 +1004,7 @@
       <email>swaczinna@wlp-systems.de</email>
       <organization>WLP Systems GmbH</organization>
       <organizationUrl>www.wlp-systems.de</organizationUrl>
-      <timezone>GMT+1</timezone>
+      <timezone>+1</timezone>
     </contributor>
   </contributors>
 
