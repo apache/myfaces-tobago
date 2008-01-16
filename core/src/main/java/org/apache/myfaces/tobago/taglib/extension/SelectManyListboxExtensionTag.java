@@ -49,7 +49,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 
 /**
- * Render a group of checkboxes.
+ * Renders a multi selection option listbox with a label.
  */
 
 @Tag(name = "selectManyListbox")
