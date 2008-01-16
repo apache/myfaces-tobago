@@ -1343,7 +1343,7 @@ public interface InputNumberSliderTagDeclaration extends
     <para>The <literal>onload</literal> attribute instructs Tobago to execute the passed
     JavaScript function after the HTML page was loaded.</para>
 
-    <para>Tobago provides a extension package <literal>tobago-security</literal> to secure
+    <para>Tobago provides an extension package <literal>tobago-security</literal> to secure
     method bindings with annotations. Currently it is not sufficient to
     include the jar in the classpath, since the order in which the
     <filename>faces-config.xml</filename> files from libraries in the classpath are evaluated is
