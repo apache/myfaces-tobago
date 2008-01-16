@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /**
  * Renders a layout cell.
- * A panel with ability to span over more than one layout cells.
+ * A panel with the ability to span over more than one layout cell.
  */
 @Tag(name = "cell")
 @UIComponentTag(
@@ -40,7 +40,7 @@ public interface CellTagDeclaration extends TobagoBodyTagDeclaration,
     HasIdBindingAndRendered {
 
   /**
-   * Count of layout column's to span over.
+   * Count of layout columns to span over.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {"java.lang.Integer"},
@@ -48,7 +48,7 @@ public interface CellTagDeclaration extends TobagoBodyTagDeclaration,
   void setSpanX(String spanX);
 
   /**
-   * Count of layout row's to span over.
+   * Count of layout rows to span over.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {"java.lang.Integer"},
@@ -57,9 +57,11 @@ public interface CellTagDeclaration extends TobagoBodyTagDeclaration,
 
   /**
    * possible values are:
-   * 'false' : no scrollbars should rendered
-   * 'true'  : scrollbars should always rendered
-   * 'auto'  : scrollbars should rendered when needed
+   * <ul>
+   * <li>'false' : no scrollbars should be rendered</li>
+   * <li>'true'  : scrollbars should always be rendered</li>
+   * <li>'auto'  : scrollbars should be rendered when needed</li>
+   * </ul>
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "false",
