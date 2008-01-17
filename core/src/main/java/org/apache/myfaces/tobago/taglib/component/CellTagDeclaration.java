@@ -29,8 +29,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
  */
 
 /**
- * Renders a layout cell.
- * A panel with the ability to span over more than one layout cell.
+ * Renders a panel-like layout element with the ability to span over more than
+ * one layout cell. A cell may only contain one child.
  */
 @Tag(name = "cell")
 @UIComponentTag(
