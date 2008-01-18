@@ -19,9 +19,7 @@ package org.apache.myfaces.tobago.application;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CLIENT_PROPERTIES;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.util.RequestUtils;
 
 import javax.faces.FacesException;
@@ -34,8 +32,6 @@ import java.util.Locale;
 public class ViewHandlerImpl extends ViewHandler {
 
   private static final Log LOG = LogFactory.getLog(ViewHandlerImpl.class);
-
-  public static final String PAGE_ID = "tobago::page-id";
 
   private ViewHandler base;
 
@@ -70,18 +66,7 @@ public class ViewHandlerImpl extends ViewHandler {
       tobagoViewRoot.setRenderKitId(viewRoot.getRenderKitId());
       viewRoot = tobagoViewRoot;
     }
-    ensureClientProperties(facesContext, viewRoot);
-
     return viewRoot;
-  }
-
-  private void ensureClientProperties(FacesContext facesContext,
-      UIViewRoot viewRoot) {
-    if (viewRoot != null) {
-      ClientProperties clientProperties
-          = ClientProperties.getInstance(facesContext);
-      viewRoot.getAttributes().put(ATTR_CLIENT_PROPERTIES, clientProperties);
-    }
   }
 
   public String getActionURL(FacesContext facesContext, String viewId) {
@@ -111,7 +96,6 @@ public class ViewHandlerImpl extends ViewHandler {
     // TODO: maybe find a way to make this unneeded
     RequestUtils.ensureEncoding(facesContext.getExternalContext());
     UIViewRoot viewRoot = base.restoreView(facesContext, viewId);
-    ensureClientProperties(facesContext, viewRoot);
     return viewRoot;
   }
 

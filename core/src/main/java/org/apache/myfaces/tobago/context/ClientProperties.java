@@ -116,14 +116,19 @@ public class ClientProperties implements Serializable {
   }
 
   public static ClientProperties getInstance(UIViewRoot viewRoot) {
-
-    ClientProperties instance = (ClientProperties)
-        viewRoot.getAttributes().get(ATTR_CLIENT_PROPERTIES);
-    if (instance == null) {
-      LOG.error("No ClientProperties instance found creating new one");
+    if (viewRoot == null) {
+      LOG.error("No ViewRoot found creating new ClientProperties.");
       return getInstance(FacesContext.getCurrentInstance());
     }
-    return instance;
+    ClientProperties clientProperties = (ClientProperties)
+        viewRoot.getAttributes().get(ATTR_CLIENT_PROPERTIES);
+    if (clientProperties == null) {
+      LOG.info("No ClientProperties instance found creating new one");
+      clientProperties = getInstance(FacesContext.getCurrentInstance());
+      viewRoot.getAttributes().put(ATTR_CLIENT_PROPERTIES, clientProperties);
+      return clientProperties;
+    }
+    return clientProperties;
   }
 
   public static ClientProperties getInstance(FacesContext facesContext) {

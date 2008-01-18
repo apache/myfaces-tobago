@@ -45,9 +45,8 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
 
   private ResourceManagerImpl.CacheKey rendererCacheKey;
 
-  private ClientProperties clientProperties;
-
   public static final int ANY_PHASE_ORDINAL = PhaseId.ANY_PHASE.getOrdinal();
+
   private List events = null;
 
 
@@ -57,15 +56,6 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
    */
   public UIViewRoot() {
     super();
-    updateRendererCachePrefix();
-  }
-
-  public ClientProperties getClientProperties() {
-    return clientProperties;
-  }
-
-  public void setClientProperties(ClientProperties clientProperties) {
-    this.clientProperties = clientProperties;
     updateRendererCachePrefix();
   }
 
@@ -80,9 +70,9 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
 
 
   public void updateRendererCachePrefix() {
+    ClientProperties clientProperties = ClientProperties.getInstance(this);
     rendererCacheKey = ResourceManagerImpl.getRendererCacheKey(
         clientProperties != null ? clientProperties.getId() : "null", getLocale());
-//    LOG.info("updateRendererCachePrefix :" + rendererCachePrefix);
   }
 
   public void broadcastEventsForPhase(FacesContext context, PhaseId phaseId) {

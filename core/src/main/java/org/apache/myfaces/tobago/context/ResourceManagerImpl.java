@@ -23,6 +23,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -118,7 +119,15 @@ public class ResourceManagerImpl implements ResourceManager {
       key = ((org.apache.myfaces.tobago.component.UIViewRoot) viewRoot).getRendererCacheKey();
     } else {
       String clientPropertyId = ClientProperties.getInstance(viewRoot).getId();
-      Locale locale = viewRoot.getLocale();
+      Locale locale;
+      if (viewRoot != null) {
+        locale = viewRoot.getLocale();
+      } else {
+        LOG.error("No ViewRoot available calculate Locale for CacheKey.");
+        locale =
+            FacesContext.getCurrentInstance().getApplication().getViewHandler()
+                .calculateLocale(FacesContext.getCurrentInstance());
+      }
       key = new CacheKey(clientPropertyId, locale);
     }
     return key;
@@ -174,7 +183,6 @@ public class ResourceManagerImpl implements ResourceManager {
       boolean reverseOrder, boolean single, boolean returnKey,
       String key, boolean returnStrings, boolean ignoreMissing) {
     List matches = new ArrayList();
-
     StringTokenizer tokenizer = new StringTokenizer(clientProperties, "/");
     String contentType = tokenizer.nextToken();
     Theme theme = tobagoConfig.getTheme(tokenizer.nextToken());
