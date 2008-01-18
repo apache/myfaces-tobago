@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource;
 
+import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
@@ -38,11 +39,13 @@ import javax.faces.el.ValueBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
+import javax.faces.event.ActionListener;
+import javax.faces.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComponent {
+public class UITabGroup extends UIPanelBase implements TabChangeSource, ActionSource, AjaxComponent {
 
   private static final Log LOG = LogFactory.getLog(UITabGroup.class);
 
@@ -53,6 +56,8 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
   private String switchType;
   private Boolean immediate;
   private MethodBinding tabChangeListener = null;
+  private MethodBinding action = null;
+  private MethodBinding actionListener = null;
 
   public static final String SWITCH_TYPE_CLIENT = "client";
   public static final String SWITCH_TYPE_RELOAD_PAGE = "reloadPage";
@@ -213,7 +218,25 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
           }
         }
       }
-      getFacesContext().renderResponse();
+       MethodBinding actionListenerBinding = getActionListener();
+      if (actionListenerBinding != null) {
+        try {
+          actionListenerBinding.invoke(getFacesContext(), new Object[]{facesEvent});
+        } catch (EvaluationException e) {
+          Throwable cause = e.getCause();
+          if (cause != null && cause instanceof AbortProcessingException) {
+            throw (AbortProcessingException) cause;
+          } else {
+            throw e;
+          }
+        }
+      }
+
+      ActionListener defaultActionListener
+          = getFacesContext().getApplication().getActionListener();
+      if (defaultActionListener != null) {
+        defaultActionListener.processAction((ActionEvent) facesEvent);
+      }
     }
   }
 
@@ -246,13 +269,15 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
   }
 
   public Object saveState(FacesContext context) {
-    Object[] state = new Object[6];
+    Object[] state = new Object[8];
     state[0] = super.saveState(context);
     state[1] = renderedIndex;
     state[2] = selectedIndex;
     state[3] = saveAttachedState(context, tabChangeListener);
-    state[4] = switchType;
-    state[5] = immediate;
+    state[4] = saveAttachedState(context, action);
+    state[5] = saveAttachedState(context, actionListener);
+    state[6] = switchType;
+    state[7] = immediate;
     return state;
   }
 
@@ -262,8 +287,10 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
     renderedIndex = (Integer) values[1];
     selectedIndex = (Integer) values[2];
     tabChangeListener = (MethodBinding) restoreAttachedState(context, values[3]);
-    switchType = (String) values[4];
-    immediate = (Boolean) values[5];
+    action = (MethodBinding)restoreAttachedState(context, values[4]);
+    actionListener = (MethodBinding)restoreAttachedState(context, values[5]);
+    switchType = (String) values[6];
+    immediate = (Boolean) values[7];
   }
 
   public int encodeAjax(FacesContext facesContext) throws IOException {
@@ -344,5 +371,33 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
 
   private UIPanelBase getRenderedTab() {
     return getTab(getRenderedIndex());
+  }
+
+  public void setAction(MethodBinding action) {
+    this.action = action;
+  }
+
+  public MethodBinding getAction() {
+    return action;
+  }
+
+  public void setActionListener(MethodBinding actionListener) {
+    this.actionListener = actionListener;
+  }
+
+  public MethodBinding getActionListener() {
+    return actionListener;
+  }
+
+  public void addActionListener(ActionListener listener) {
+    addFacesListener(listener);
+  }
+
+  public ActionListener[] getActionListeners() {
+    return (ActionListener[]) getFacesListeners(ActionListener.class);
+  }
+
+  public void removeActionListener(ActionListener listener) {
+    removeFacesListener(listener);
   }
 }
