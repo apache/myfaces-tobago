@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import javax.faces.webapp.FacetTag;
+import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
@@ -124,7 +125,7 @@ public class LabelExtensionTag extends BodyTagSupport
   }
 
   void setColumns(String columns) {
-    if (!LayoutUtil.checkTokens(columns)) {
+    if (!(UIComponentTag.isValueReference(columns) || LayoutUtil.checkTokens(columns))) {
       LOG.warn("Illegal value for columns = \"" + columns + "\" replacing with default: \"" + DEFAULT_COLUMNS + "\"");
       this.columns = DEFAULT_COLUMNS;
     } else {
