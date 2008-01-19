@@ -18,9 +18,11 @@ package org.apache.myfaces.tobago.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
+import org.apache.myfaces.tobago.util.MessageFactory;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
+import javax.faces.application.FacesMessage;
 
 /*
  * Date: Jan 30, 2007
@@ -75,5 +77,17 @@ public class UISelectBoolean extends javax.faces.component.UISelectBoolean imple
 
   public void setTabIndex(Integer tabIndex) {
     this.tabIndex = tabIndex;
+  }
+
+  protected void validateValue(FacesContext context, Object convertedValue) {
+    if (isRequired() && convertedValue instanceof Boolean && !((Boolean) convertedValue)) {
+      FacesMessage facesMessage = MessageFactory.createFacesMessage(context,
+          REQUIRED_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, new Object[]{getId()});
+      context.addMessage(getClientId(context), facesMessage);
+      setValid(false);
+      return;
+    }
+    super.validateValue(context, convertedValue);
+
   }
 }
