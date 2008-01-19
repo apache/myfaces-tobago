@@ -32,37 +32,30 @@ Tobago.AutocompleterAjax = function(elementId, required, cssPrefix, options) {
   
   this.store = new Tobago.AutocompleterAjaxStore(this);
 
+  var input = Tobago.element(elementId);
+  var className = input.className;
+  var width = input.style.width;
+  var height = input.style.height.replace(/\D/g, "");
   var combo = new dijit.form.ComboBox({
       name: elementId,
       autocomplete: false,
       store: this.store,
       searchAttr: "label", 
       hasDownArrow: false
-    }, Tobago.element(elementId));
-
-
-
-  var input = Tobago.element(elementId);
-  var table = Tobago.findAnchestorWithTagName(input, "TABLE");
-
-  var classes = table.className.split(" ");                      
-  for (var i = 0; i < classes.length; i++) {
-    var className = classes[i];
-    if (className.indexOf(cssPrefix + "-") == 0) {
-      Tobago.removeCssClass(table.id, className);
-      Tobago.addCssClass(input.id, className);
-    }
-  } 
-
-
-  var width = table.style.width.replace(/\D/g, ""); 
-  width = width; 
-  var height = table.style.height.replace(/\D/g, "");
-  height = height; 
-  width = width + "px";
-  height = height + "px";
+    }, input);
+  var table = Tobago.element("widget_" + elementId);
+  combo.staticClass = table.className.replace("dijitTextBox", className);
+  table.className = combo.staticClass + " dijitTextBox";
+  table.style.width = width;
+  table.style.height = height + "px";
+  input = Tobago.element(elementId);
+  input.className = className;
   input.style.width = width;
-  input.style.height = height;
+  input.style.height = (height - 2) + "px";
+
+  var vdiv = input.parentNode.nextSibling.firstChild;
+  vdiv.style.width = "1px;";
+
 
   if (this.required) {
     this.setup();
