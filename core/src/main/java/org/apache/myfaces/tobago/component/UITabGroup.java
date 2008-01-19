@@ -373,30 +373,52 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, ActionSo
     return getTab(getRenderedIndex());
   }
 
+  /**
+   * @since 1.1.0
+   * @param action
+   */
   public void setAction(MethodBinding action) {
     this.action = action;
   }
 
+  /**
+   * @since 1.1.0
+   */
   public MethodBinding getAction() {
     return action;
   }
 
+  /**
+   * @since 1.1.0
+   */
   public void setActionListener(MethodBinding actionListener) {
     this.actionListener = actionListener;
   }
 
+  /**
+   * @since 1.1.0
+   */
   public MethodBinding getActionListener() {
     return actionListener;
   }
 
+  /**
+   * @since 1.1.0
+   */
   public void addActionListener(ActionListener listener) {
     addFacesListener(listener);
   }
 
+  /**
+   * @since 1.1.0
+   */
   public ActionListener[] getActionListeners() {
     return (ActionListener[]) getFacesListeners(ActionListener.class);
   }
 
+  /**
+   * @since 1.1.0
+   */
   public void removeActionListener(ActionListener listener) {
     removeFacesListener(listener);
   }

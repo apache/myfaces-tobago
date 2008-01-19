@@ -28,6 +28,7 @@ import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_CLIENT;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_PAGE;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.ActionSource;
 
 public class TabGroupTag extends TobagoTag
     implements TabGroupTagDeclaration {
@@ -37,6 +38,8 @@ public class TabGroupTag extends TobagoTag
   private String selectedIndex;
   private String switchType;
   private String immediate;
+  private String action;
+  private String actionListener;
   private String state;
 
   @Override
@@ -51,6 +54,10 @@ public class TabGroupTag extends TobagoTag
     ComponentUtil.setIntegerProperty(component, ATTR_SELECTED_INDEX, state);
     ComponentUtil.setStringProperty(component, ATTR_SWITCH_TYPE, switchType);
     ComponentUtil.setBooleanProperty(component, ATTR_IMMEDIATE, immediate);
+    if (component instanceof ActionSource) {
+      ComponentUtil.setActionListener((ActionSource) component, actionListener);
+      ComponentUtil.setAction((ActionSource) component, action);
+    }
   }
 
   @Override
@@ -59,6 +66,8 @@ public class TabGroupTag extends TobagoTag
     state = null;
     switchType = null;
     immediate = null;
+    action = null;
+    actionListener = null;
     selectedIndex = null;
   }
 
@@ -82,6 +91,14 @@ public class TabGroupTag extends TobagoTag
 
   public void setImmediate(String immediate) {
     this.immediate = immediate;
+  }
+
+  public void setAction(String action) {
+    this.action = action;
+  }
+
+  public void setActionListener(String actionListener) {
+    this.actionListener = actionListener;
   }
 }
 
