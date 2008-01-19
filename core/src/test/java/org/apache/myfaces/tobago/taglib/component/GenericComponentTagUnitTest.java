@@ -30,6 +30,9 @@ import org.apache.myfaces.tobago.mock.servlet.MockHttpServletRequest;
 import org.apache.myfaces.tobago.mock.servlet.MockHttpServletResponse;
 import org.apache.myfaces.tobago.mock.servlet.MockPageContext;
 import org.apache.myfaces.tobago.mock.servlet.MockServletContext;
+import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.context.RenderersConfig;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
@@ -50,6 +53,10 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.List;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Collections;
 
 import net.sf.maventaglib.checker.Tld;
 
@@ -72,7 +79,16 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
     tldPaths[0] = "META-INF/org/apache/myfaces/tobago/taglib/component/tobago.tld";
     super.setUp();
 
-    ServletContext servletContext = new MockServletContext();
+    MockServletContext servletContext = new MockServletContext();
+    TobagoConfig tobagoConfig = new TobagoConfig();
+    Theme theme = new MockTheme("default", Collections.EMPTY_LIST);
+    Theme theme1 = new MockTheme("one", Arrays.asList(theme));
+    Map<String, Theme> availableThemes = new HashMap<String, Theme>();
+    availableThemes.put(theme.getName(), theme);
+    availableThemes.put(theme1.getName(), theme1);
+    tobagoConfig.setAvailableThemes(availableThemes);
+    tobagoConfig.resolveThemes();
+    servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
     HttpServletRequest request = new MockHttpServletRequest();
     HttpServletResponse response = new MockHttpServletResponse();
     pageContext = new MockPageContext(request);
@@ -156,6 +172,35 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
 
       assertTrue(ComponentUtil.getBooleanAttribute(command, ATTR_DISABLED));
       assertFalse(ComponentUtil.getBooleanAttribute(command, ATTR_HEIGHT));
+    }
+  }
+  private static class MockTheme implements Theme {
+    private String name;
+    private List<Theme> fallbackThemeList;
+
+    private MockTheme(String name, List<Theme> fallbackThemeList) {
+      this.name = name;
+      this.fallbackThemeList = fallbackThemeList;
+    }
+
+    public String getName() {
+      return name;
+    }
+
+    public List<Theme> getFallbackList() {
+      return fallbackThemeList;
+    }
+
+    public String getDisplayName() {
+      return "";
+    }
+
+    public String getResourcePath() {
+      return null;
+    }
+
+    public RenderersConfig getRenderersConfig() {
+      return null;
     }
   }
 }

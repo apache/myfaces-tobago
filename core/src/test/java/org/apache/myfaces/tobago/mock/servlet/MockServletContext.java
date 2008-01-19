@@ -26,15 +26,18 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.Set;
+import java.util.Map;
+import java.util.HashMap;
 
 public class MockServletContext implements ServletContext {
+  private Map attributes = new HashMap();
 
   public Set getResourcePaths(String reference) {
     return null;
   }
 
   public Object getAttribute(String s) {
-    return null;
+    return attributes.get(s);
   }
 
   public Enumeration getAttributeNames() {
@@ -122,5 +125,6 @@ public class MockServletContext implements ServletContext {
   }
 
   public void setAttribute(String s, Object o) {
+    attributes.put(s, o);
   }
 }
