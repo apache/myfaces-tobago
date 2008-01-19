@@ -77,7 +77,7 @@ public class TobagoConfig {
         LOG.debug("defaultTheme = '" + defaultTheme + "'");
       }
     } else {
-      int deep = 1;
+      int deep = 0;
       for (Map.Entry<String, Theme> entry: availableTheme.entrySet()) {
         Theme theme = entry.getValue();
         if (theme.getFallbackList().size() > deep) {
