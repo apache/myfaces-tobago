@@ -166,7 +166,7 @@ public class ComponentUtil {
     }
   }
 
-  @SuppressWarnings(value = "unchecked")
+  @SuppressWarnings("unchecked")
   public static UIPage findPage(FacesContext context, UIComponent component) {
     javax.faces.component.UIViewRoot view = context.getViewRoot();
     if (view != null) {
@@ -249,7 +249,7 @@ public class ComponentUtil {
     return collect;
   }
 
-  @SuppressWarnings(value = "unchecked")
+  @SuppressWarnings("unchecked")
   private static void findSubForms(List<UIForm> collect, UIComponent component) {
     Iterator<UIComponent> kids = component.getFacetsAndChildren();
     while (kids.hasNext()) {
@@ -1059,16 +1059,22 @@ public class ComponentUtil {
         LOG.warn("Type reset is not supported");
       }
     } else {
-      if (action != null) {
-        if (UIComponentTag.isValueReference(action)) {
-          MethodBinding binding = application.createMethodBinding(action, null);
-          component.setAction(binding);
-        } else {
-          component.setAction(new ConstantMethodBinding(action));
-        }
-      }
+      setAction(component, action);
     }
 
+  }
+
+  public static void setAction(ActionSource component, String action) {
+    if (action != null) {
+      if (UIComponentTag.isValueReference(action)) {
+        final FacesContext facesContext = FacesContext.getCurrentInstance();
+        final Application application = facesContext.getApplication();
+        MethodBinding binding = application.createMethodBinding(action, null);
+        component.setAction(binding);
+      } else {
+        component.setAction(new ConstantMethodBinding(action));
+      }
+    }
   }
 
   /**
@@ -1253,7 +1259,7 @@ public class ComponentUtil {
     }
   }
 
-  @SuppressWarnings(value = "unchecked")
+  @SuppressWarnings("unchecked")
   private static void prepareOnUIForm(FacesContext facesContext, List<UIComponent> list, String clientId,
       Callback callback) {
     UIComponent currentComponent = list.remove(0);
