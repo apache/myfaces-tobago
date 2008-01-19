@@ -287,8 +287,8 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, ActionSo
     renderedIndex = (Integer) values[1];
     selectedIndex = (Integer) values[2];
     tabChangeListener = (MethodBinding) restoreAttachedState(context, values[3]);
-    action = (MethodBinding)restoreAttachedState(context, values[4]);
-    actionListener = (MethodBinding)restoreAttachedState(context, values[5]);
+    action = (MethodBinding) restoreAttachedState(context, values[4]);
+    actionListener = (MethodBinding) restoreAttachedState(context, values[5]);
     switchType = (String) values[6];
     immediate = (Boolean) values[7];
   }
