@@ -50,6 +50,18 @@ public class UISelectBoolean extends javax.faces.component.UISelectBoolean imple
     return values;
   }
 
+  public boolean isSelected() {
+    Object value = getSubmittedValue();
+    if (value == null) {
+      value = getValue();
+    }
+    if (value instanceof Boolean) {
+      return ((Boolean) value);
+    } else {
+      return value != null && Boolean.valueOf(value.toString());
+    }
+  }
+
   public String[] getMarkup() {
     if (markup != null) {
       return markup;
