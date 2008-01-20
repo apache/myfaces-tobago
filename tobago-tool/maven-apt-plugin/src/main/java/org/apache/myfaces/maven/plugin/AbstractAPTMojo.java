@@ -17,38 +17,45 @@ package org.apache.myfaces.maven.plugin;
  * limitations under the License.
  */
 
+import org.apache.maven.artifact.DependencyResolutionRequiredException;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.compiler.CompilerException;
+import org.codehaus.plexus.compiler.javac.Commandline;
+import org.codehaus.plexus.compiler.util.scan.SourceInclusionScanner;
+import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.util.Os;
+import org.codehaus.plexus.util.StringUtils;
+import org.codehaus.plexus.util.cli.CommandLineException;
+import org.codehaus.plexus.util.cli.CommandLineUtils;
+import org.codehaus.plexus.util.cli.DefaultConsumer;
+
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.ArrayList;
-
-import org.apache.maven.project.MavenProject;
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.artifact.DependencyResolutionRequiredException;
-import org.codehaus.plexus.compiler.util.scan.SourceInclusionScanner;
-import org.codehaus.plexus.compiler.javac.Commandline;
-import org.codehaus.plexus.util.cli.DefaultConsumer;
-import org.codehaus.plexus.util.cli.CommandLineException;
-import org.codehaus.plexus.util.cli.CommandLineUtils;
-import org.codehaus.plexus.util.Os;
-import org.codehaus.plexus.util.StringUtils;
-import org.codehaus.plexus.util.FileUtils;
 
 /**
  * @author <a href="mailto:jubu@volny.cz">Juraj Burian</a>
- * @version $Id:$
+ * @version $Id$
  */
 public abstract class AbstractAPTMojo extends AbstractMojo
 {
+
+    /**
+     * LINE_SEPARATOR.
+     */
+    protected static final String LINE_SEPARATOR = System.getProperty( "line.separator" );
     /**
      * PATH_SEPARATOR.
      */
@@ -415,21 +422,52 @@ public abstract class AbstractAPTMojo extends AbstractMojo
             }
             else
             {
+                File toolsJar = new File( System.getProperty( "java.home" ), "../lib/tools.jar" );
                 // we need to have tools.jar in lasspath
                 // due to bug in Apt compiler, system classpath must be modified but in future:
                 // TODO try separate ClassLoader (see Plexus compiler api)
                 if ( !isClasspathModified )
                 {
-                    URL toolsJar = new File( System.getProperty( "java.home" ),
-                        "../lib/tools.jar" ).toURL();
-                    Method m = URLClassLoader.class.getDeclaredMethod( "addURL",
-                          new Class[] { URL.class } );
-                    m.setAccessible( true );
-                    m.invoke( this.getClass().getClassLoader()
-                        .getSystemClassLoader(), new Object[] { toolsJar } );
-                    isClasspathModified = true;
+                    if ( toolsJar.exists() )
+                    {
+                         try
+                         {
+                             Method m = URLClassLoader.class.getDeclaredMethod( "addURL",
+                                     new Class[] { URL.class } );
+                             m.setAccessible( true );
+                             m.invoke( this.getClass().getClassLoader()
+                                      .getSystemClassLoader(), new Object[] { toolsJar.toURL() } );
+                             isClasspathModified = true;
+                          }
+                          catch ( MalformedURLException e )
+                          {
+                              String message = "Could not convert the file reference to tools.jar to a URL, path to tools.jar: '" + toolsJar.getAbsolutePath() + "'.";
+                              getLog().error( message );
+                              throw new CompilerException( message );
+                          }
+                    }
+               }
+               Class c;
+
+               try
+               {
+                   c = this.getClass().forName( APT_ENTRY_POINT );
+                   if ( getLog().isDebugEnabled() )
+                   {
+                       getLog().debug( "Apt class loaded" );
+                   }
+               }
+               catch ( ClassNotFoundException e )
+               {
+                   String message = "Unable to locate the apt Compiler in:" + LINE_SEPARATOR
+                             + "  " + toolsJar + LINE_SEPARATOR
+                             + "Please ensure you are using JDK 1.5 or above and" + LINE_SEPARATOR
+                             + "not a JRE (the " + APT_ENTRY_POINT + " class is required)." + LINE_SEPARATOR
+                             + "In most cases you can change the location of your Java" + LINE_SEPARATOR
+                             + "installation by setting the JAVA_HOME environment variable.";
+                   getLog().error( message );
+                   throw new CompilerException( message );
                 }
-                Class c = this.getClass().forName( APT_ENTRY_POINT ); // getAptCompilerClass();
                 Object compiler = c.newInstance();
                 if ( getLog().isDebugEnabled() )
                 {
