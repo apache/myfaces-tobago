@@ -44,6 +44,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  * @author <a href="mailto:jubu@volny.cz">Juraj Burian</a>
@@ -224,6 +226,26 @@ public abstract class AbstractAPTMojo extends AbstractMojo
      */
     private boolean force;
 
+    /**
+     * Initial size, in megabytes, of the memory allocation pool, ex. "64", "64m"
+     * if fork is set to true.
+     *
+     * @parameter
+     * @since 1.0.15
+     */
+    private String maxmemory;
+
+    /**
+     * Sets the maximum size, in megabytes, of the memory allocation pool, ex. "128", "128m"
+     * if fork is set to true.
+     *
+     * @parameter
+     * @since 1.0.15
+     */
+    private String minmemory;
+;
+
+
 
     /**
      * The maven project.
@@ -398,6 +420,9 @@ public abstract class AbstractAPTMojo extends AbstractMojo
                 cmd.setWorkingDirectory( workingDir.getAbsolutePath() );
                 cmd.setExecutable( getAptPath() );
 
+                addMemoryArg( cmd, "-Xmx", maxmemory );
+
+                addMemoryArg( cmd, "-Xms", minmemory );
                 if ( getLog().isDebugEnabled() )
                 {
                     getLog().debug( "Invoking apt with cmd " + Commandline.toString( cmd.getShellCommandline() ) );
@@ -770,6 +795,78 @@ public abstract class AbstractAPTMojo extends AbstractMojo
          cmd.createArgument().setValue( arg );
         //cmd.add( arg );
     }
+
+   /**
+    * Method that adds/sets the java memory parameters in the command line execution.
+    *
+    * @param cmd    the command line execution object where the argument will be added
+    * @param arg    the argument parameter name
+    * @param memory the JVM memory value to be set
+    */
+    private void addMemoryArg( Commandline cmd, String arg, String memory )
+    {
+        if ( StringUtils.isNotEmpty( memory ) )
+        {
+            try
+            {
+                cmd.createArgument().setValue( "-J" + arg + parseJavadocMemory( memory ) );
+            }
+            catch ( IllegalArgumentException e )
+            {
+                getLog().error( "Malformed memory pattern for '" + arg + memory + "'. Ignore this option." );
+            }
+        }
+    }
+
+   /**
+    * Copy from org.apache.maven.plugin.javadoc.JavadocUtil#parseJavadocMemory(String)
+    */
+    private String parseJavadocMemory( String memory )
+        throws IllegalArgumentException
+    {
+        if ( StringUtils.isEmpty( memory ) )
+        {
+            throw new IllegalArgumentException( "The memory could not be null." );
+        }
+
+        Pattern p = Pattern.compile( "^\\s*(\\d+)\\s*?\\s*$" );
+        Matcher m = p.matcher( memory );
+        if ( m.matches() )
+        {
+            return m.group( 1 ) + "m";
+        }
+
+        p = Pattern.compile( "^\\s*(\\d+)\\s*k(b)?\\s*$", Pattern.CASE_INSENSITIVE );
+        m = p.matcher( memory );
+        if ( m.matches() )
+        {
+            return m.group( 1 ) + "k";
+        }
+
+        p = Pattern.compile( "^\\s*(\\d+)\\s*m(b)?\\s*$", Pattern.CASE_INSENSITIVE );
+        m = p.matcher( memory );
+        if ( m.matches() )
+        {
+            return m.group( 1 ) + "m";
+        }
+
+        p = Pattern.compile( "^\\s*(\\d+)\\s*g(b)?\\s*$", Pattern.CASE_INSENSITIVE );
+        m = p.matcher( memory );
+        if ( m.matches() )
+        {
+            return ( Integer.parseInt( m.group( 1 ) ) * 1024 ) + "m";
+        }
+
+        p = Pattern.compile( "^\\s*(\\d+)\\s*t(b)?\\s*$", Pattern.CASE_INSENSITIVE );
+        m = p.matcher( memory );
+        if ( m.matches() )
+        {
+            return ( Integer.parseInt( m.group( 1 ) ) * 1024 * 1024 ) + "m";
+        }
+
+        throw new IllegalArgumentException( "Could convert not to a memory size: " + memory );
+   }
+
 
   /**
    *
