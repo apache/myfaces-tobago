@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>3</version>
+    <version>5</version>
   </parent>
   <groupId>org.apache.myfaces.tobago</groupId>
   <artifactId>tobago</artifactId>
@@ -1012,7 +1012,7 @@
     <myfaces.version>1.1.5</myfaces.version>
     <myfaces12.version>1.2.0</myfaces12.version>
     <sunjsf.version>1.1_02</sunjsf.version>
-    <sunjsf12.version>1.2_04-p02</sunjsf12.version>
+    <sunjsf12.version>1.2_07</sunjsf12.version>
     <facelets.version>1.1.14</facelets.version>
     <jetty.version>6.1.7</jetty.version>
     <common-io.version>1.1</common-io.version>
