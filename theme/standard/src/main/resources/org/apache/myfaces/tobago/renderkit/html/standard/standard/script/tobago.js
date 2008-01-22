@@ -160,6 +160,12 @@ var Tobago = {
     },
 
     remove: function(keyAccelerator) {
+      if (keyAccelerator.ieHelperElementId != null) {
+        var ieHelperElement = document.getElementById(keyAccelerator.ieHelperElementId);
+        if (ieHelperElement != null) {
+          ieHelperElement.parentNode.removeChild(ieHelperElement);
+        }
+      }
       var key = keyAccelerator.modifier + keyAccelerator.key;
       if (this[key]) {
 //        LOG.debug("delete accelerator for " + keyAccelerator.modifier + "-" + keyAccelerator.key);
@@ -1616,12 +1622,14 @@ Tobago.AcceleratorKey = function(func, key, modifier) {
     if (modifier == "alt") {
       // can't make document.createElement("span").accesskey = key working
       // so need to create an element via innerHTML
+      this.ieHelperElementId = "ieHelperElement_" + modifier + key;
       var span = document.createElement("span");
       document.body.appendChild(span);
-      var aPrefix = "<a href=\"javascript:;\" tabindex=\"-1\" accesskey=\"";
+      var aPrefix = "<a id=\"" + this.ieHelperElementId + "\" href=\"javascript:;\" tabindex=\"-1\" accesskey=\"";
       var aPostfix = "\" onclick=\"return false;\" ></a>";
       span.innerHTML = aPrefix + key.toLowerCase() + aPostfix;
       span.firstChild.attachEvent("onfocus", function(event) {func(event);});
+      Tobago.acceleratorKeys.set(this);
     } else {
       LOG.warn("Cannot observe key event for "  + modifier + "-" + key);
     }
