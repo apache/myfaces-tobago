@@ -228,11 +228,11 @@
   <navigation-rule>
     <from-view-id>/best-practice/error.jsp</from-view-id>
     <navigation-case>
-      <from-action>404</from-action>
+      <from-outcome>404</from-outcome>
       <to-view-id>/best-practice/not-existing-page.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
-      <from-action>syntax</from-action>
+      <from-outcome>syntax</from-outcome>
       <to-view-id>/best-practice/error-in-syntax.jsp</to-view-id>
     </navigation-case>
   </navigation-rule>
