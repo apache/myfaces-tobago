@@ -28,9 +28,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_RELOAD;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
-import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_NOT_MODIFIED;
+import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
@@ -129,8 +129,10 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
     String clientId = component.getClientId(facesContext);
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.DIV, component);
+    HtmlRendererUtil.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
+    HtmlRendererUtil.renderDojoDndSource(component, writer, clientId);
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
      // writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\")");
       Integer frequency = null;

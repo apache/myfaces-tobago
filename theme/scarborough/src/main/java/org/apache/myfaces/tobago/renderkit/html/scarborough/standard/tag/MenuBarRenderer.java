@@ -88,6 +88,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
 
       writer.startElement(HtmlConstants.DIV, component);
       writer.writeIdAttribute(clientId);
+      HtmlRendererUtil.renderDojoDndItem(component, writer, true);
       StyleClasses styleClasses = StyleClasses.ensureStyleClasses(component);
       if (ComponentUtil.getBooleanAttribute(component, ATTR_PAGE_MENU)) {
         styleClasses.addClass("menuBar", "page-facet"); // XXX not a standard compliant name
@@ -95,6 +96,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
         writer.writeStyleAttribute();
       }
       writer.writeClassAttribute(styleClasses);
+      
 /*
 
       writer.startElement(HtmlConstants.SPAN);
@@ -106,6 +108,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       writer.endElement(HtmlConstants.SPAN);
 
 */
+      HtmlRendererUtil.renderDojoDndSource(component, writer, clientId);
       writer.endElement(HtmlConstants.DIV);
     }
     attributes.put(MENU_ACCELERATOR_KEYS, new ArrayList<String>());

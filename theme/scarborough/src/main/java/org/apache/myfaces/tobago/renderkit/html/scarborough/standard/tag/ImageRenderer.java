@@ -102,8 +102,11 @@ public class ImageRenderer extends LayoutableRendererBase {
     writer.writeAttribute(HtmlAttributes.BORDER, border, false);
     writer.writeAttributeFromComponent(HtmlAttributes.HEIGHT, ATTR_HEIGHT);
     writer.writeStyleAttribute();
+    HtmlRendererUtil.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     writer.endElement(HtmlConstants.IMG);
+
+    HtmlRendererUtil.renderDojoDndSource(component, writer, clientId);
   }
 
   private String createSrc(String src, String ext) {

@@ -719,4 +719,79 @@ public final class HtmlRendererUtil {
     strBuilder.append("]");
     return strBuilder.toString();
   }
+  
+  public static void renderDojoDndSource(UIComponent component, TobagoResponseWriter writer, String clientId) throws IOException {
+    Object objDojoType = component.getAttributes().get("dojoType");
+    if (null != objDojoType && (objDojoType.equals("dojo.dnd.Source") || objDojoType.equals("dojo.dnd.Target"))) {
+      ComponentUtil.addOnloadCommands(component, createDojoDndType(component, clientId, String.valueOf(objDojoType)));
+    }
+  }
+  
+  public static void renderDojoDndItem(UIComponent component, TobagoResponseWriter writer, boolean addStyle) throws IOException {
+    Object objDndType = component.getAttributes().get("dndType");
+    if (objDndType != null) {
+      writer.writeAttribute("dndType", String.valueOf(objDndType), false);
+    } 
+    Object objDndData = component.getAttributes().get("dndData");
+    if (objDndData != null) {
+      writer.writeAttribute("dndData", String.valueOf(objDndData), false);
+    }     
+    if (addStyle && (null != objDndType || null != objDndData)) {
+      ComponentUtil.setStyleClasses(component, "dojoDndItem");
+    }
+  }
+
+  public static String[] createDojoDndType(UIComponent component, String clientId, String dojoType){
+    StringBuilder strBuilder = new StringBuilder();
+    strBuilder.append("new " + dojoType + "('" + clientId + "'");
+    StringBuilder parameter = new StringBuilder();
+    
+    Object objHorizontal = component.getAttributes().get("horizontal");
+    if(objHorizontal != null){
+      parameter.append("horizontal: " + String.valueOf(objHorizontal) + ",");
+    }
+    Object objCopyOnly = component.getAttributes().get("copyOnly");
+    if(objCopyOnly != null){
+      parameter.append("copyOnly: " + String.valueOf(objCopyOnly) + ",");
+    }
+    Object objSkipForm = component.getAttributes().get("skipForm");
+    if(objSkipForm != null){
+      parameter.append("skipForm: " + String.valueOf(objSkipForm) + ",");
+    }
+    Object objWithHandles = component.getAttributes().get("withHandles");
+    if(objWithHandles != null){
+      parameter.append("withHandles: " + String.valueOf(objWithHandles) + ",");
+    }
+    Object objAccept = component.getAttributes().get("accept");
+    if(objAccept != null){
+      String accept = null;
+      if(objAccept instanceof String[]){
+        String[] allowed = (String[])objAccept;
+        if (allowed.length > 1) {
+          accept = "'" + allowed[0] + "'";
+          for (int i=1; i < allowed.length; i++) {
+            accept += ",'" + allowed[i] + "'";
+          }
+        }
+      } else {
+        accept = (String)objAccept;
+      }
+      parameter.append("accept: [" + accept + "],");
+    }
+    Object objSingular = component.getAttributes().get("singular");
+    if(objSingular != null){
+      parameter.append("singular: " + String.valueOf(objSingular) + ",");
+    }
+    Object objCreator = component.getAttributes().get("creator");
+    if(objCreator != null){
+      parameter.append("creator: " + String.valueOf(objCreator) + ",");
+    }
+    if(parameter.length() > 0){
+      parameter.deleteCharAt(parameter.lastIndexOf(","));
+      strBuilder.append(",{" + parameter + "}");
+    }
+    strBuilder.append(");");
+    String[] cmd = {strBuilder.toString()}; 
+    return cmd;
+  }
 }

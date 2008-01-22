@@ -81,6 +81,7 @@ public class LinkRenderer extends CommandRendererBase {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
     }
+    HtmlRendererUtil.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);

@@ -24,11 +24,14 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_ERROR;
 import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIPage;
@@ -117,6 +120,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
       String rendererName = HtmlRendererUtil.getRendererName(facesContext, input);
       styleClasses.removeAspectClass(rendererName, StyleClasses.Aspect.REQUIRED);
     }
+    HtmlRendererUtil.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     /*if (component instanceof UIInput) {
       String onchange = HtmlUtils.generateOnchange((UIInput) component, facesContext);

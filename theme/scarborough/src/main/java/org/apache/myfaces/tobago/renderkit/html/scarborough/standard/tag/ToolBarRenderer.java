@@ -88,9 +88,12 @@ public class ToolBarRenderer extends LayoutableRendererBase {
       setToolBarHeight(facesContext, uiComponent);
 
       writer.startElement(HtmlConstants.DIV, toolbar);
-      writer.writeIdAttribute(toolbar.getClientId(facesContext));
+      String clientId = toolbar.getClientId(facesContext);
+      writer.writeIdAttribute(clientId);
+      HtmlRendererUtil.renderDojoDndItem(toolbar, writer, true);
       writer.writeClassAttribute();
       writer.writeStyleAttribute();
+      HtmlRendererUtil.renderDojoDndSource(toolbar, writer, clientId);
       writer.startElement(HtmlConstants.DIV, toolbar);
       boolean right = false;
       if (toolbar instanceof UIToolBar) {

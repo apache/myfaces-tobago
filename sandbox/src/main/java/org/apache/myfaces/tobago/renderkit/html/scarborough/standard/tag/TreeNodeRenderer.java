@@ -143,6 +143,9 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
       // div id
       writer.writeIdAttribute(id);
+      if (!isFolder) {
+        HtmlRendererUtil.renderDojoDndItem(node, writer, true);
+      }
 
       // div class (css)
       StyleClasses styleClasses = StyleClasses.ensureStyleClasses(node);
@@ -164,7 +167,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       }
       String widthString;
       if (width != null) {
-        widthString = "width: " + Integer.toString(width - 4); // fixme: 4
+        widthString = "width: " + Integer.toString(width - 22); // fixme: 4 + 18 for scrollbar
       } else {
         widthString = "100%";
       }
@@ -175,7 +178,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       }
 
       if (isFolder && menuMode) {
-        encodeMenuIcon(facesContext, writer, treeId, id, expanded);
+        encodeMenuIcon(facesContext, writer, treeId, id, expanded, node);
       }
 
       encodeIndent(facesContext, writer, menuMode, junctions);
@@ -223,12 +226,17 @@ public class TreeNodeRenderer extends CommandRendererBase {
   }
 
   private void encodeMenuIcon(
-      FacesContext facesContext, TobagoResponseWriter writer, String treeId, String id, boolean expanded)
+      FacesContext facesContext, TobagoResponseWriter writer, String treeId, String id, boolean expanded,
+      UIComponent node)
       throws IOException {
     String menuOpen = ResourceManagerUtil.getImageWithPath(facesContext, "image/treeMenuOpen.gif");
     String menuClose = ResourceManagerUtil.getImageWithPath(facesContext, "image/treeMenuClose.gif");
     String onclick = "tobagoTreeNodeToggle(this.parentNode, '" + treeId + "', null, null, '"
         + menuOpen + "', '" + menuClose + "')";
+    Object objOnclick = node.getAttributes().get("onclick");
+    if (null != objOnclick) {
+      onclick += ";" + objOnclick;
+    }
     String src = expanded ? menuOpen : menuClose;
     writer.startElement(IMG, null);
     writer.writeClassAttribute("tobago-tree-menu-icon");
@@ -371,6 +379,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     String label = (String) node.getAttributes().get(ATTR_LABEL);
     if (label == null) {
       LOG.warn("label == null");
+      label = "label";
     }
     writer.writeText(label);
     if (helper.isDisabled()) {

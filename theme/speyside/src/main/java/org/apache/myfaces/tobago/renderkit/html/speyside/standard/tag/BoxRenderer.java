@@ -24,7 +24,6 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
@@ -32,7 +31,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_TOOL_BAR;
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
+import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
@@ -53,7 +54,9 @@ import java.util.Map;
 public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
   private static final Log LOG = LogFactory.getLog(BoxRenderer.class);
-
+  public static final String CONTENT_INNER = SUBCOMPONENT_SEP + "content-inner";
+  public static final String HEADER = SUBCOMPONENT_SEP + "header";
+  
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     return super.getFixedHeight(facesContext, component);
   }
@@ -72,13 +75,14 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
     String clientId = component.getClientId(facesContext);
     writer.startElement(HtmlConstants.DIV, component);
+    HtmlRendererUtil.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
     if (style != null) {
       writer.writeStyleAttribute(style);
     }
     writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\")");
-
+    
     encodeBeginInner(facesContext, writer, component);
   }
 
@@ -98,13 +102,17 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     writer.writeClassAttribute(contentClasses);
 
     writer.startElement(HtmlConstants.DIV, component);
+    String id = component.getClientId(facesContext) + CONTENT_INNER; 
+    writer.writeIdAttribute(id);
     StyleClasses contentInnerClasses = new StyleClasses();
     contentInnerClasses.addClass("box", "content-inner");
+    contentInnerClasses.addFullQualifiedClass("dojoDndItem");
     if (component instanceof SupportsMarkup) {
       contentInnerClasses.addMarkupClass((SupportsMarkup) component, "box", "content-inner");
     }
     writer.writeClassAttribute(contentInnerClasses);
     writer.writeStyleAttribute(innerStyle);
+    HtmlRendererUtil.renderDojoDndSource(component, writer, id);
   }
 
 
@@ -118,6 +126,8 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
       headerClasses.addMarkupClass((SupportsMarkup) component, "box", "header");
     }
     writer.writeClassAttribute(headerClasses);
+    String id = component.getClientId(facesContext) + HEADER;
+    writer.writeIdAttribute(id);
     UIComponent label = component.getFacet(FACET_LABEL);
     writer.startElement(HtmlConstants.SPAN, null);
     writer.writeClassAttribute("tobago-box-header-label");
@@ -140,9 +150,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
-
     encodeEndInner(writer);
-
     writer.endElement(HtmlConstants.DIV);
   }
 

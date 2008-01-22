@@ -87,6 +87,7 @@ public class ButtonRenderer extends CommandRendererBase {
       writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true);
     }
     writer.writeStyleAttribute();
+    HtmlRendererUtil.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     writer.flush(); // force closing the start tag
 

@@ -82,14 +82,15 @@ public class LabelRenderer extends LayoutableRendererBase {
 
     createClassAttribute(component);
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
-
+    
+    String clientId = output.getClientId(facesContext);
     writer.startElement(HtmlConstants.DIV, output);
+    HtmlRendererUtil.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     writer.writeStyleAttribute();
     writer.startElement(HtmlConstants.A, output);
     writer.writeClassAttribute();
     writer.startElement(HtmlConstants.LABEL, output);
-    String clientId = output.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
     if (forValue != null) {
       writer.writeAttribute(HtmlAttributes.FOR, forValue, false);

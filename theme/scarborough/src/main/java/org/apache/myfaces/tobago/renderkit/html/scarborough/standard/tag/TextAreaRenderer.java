@@ -73,6 +73,7 @@ public class TextAreaRenderer extends InputRendererBase {
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
+    HtmlRendererUtil.renderDojoDndItem(component, writer, true);
     writer.writeStyleAttribute();
     writer.writeClassAttribute();
     if (onchange != null) {

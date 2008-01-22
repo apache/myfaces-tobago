@@ -358,6 +358,8 @@ public class PageRenderer extends PageRendererBase {
     writer.writeJavascript("TbgTimer.startBody = new Date();");
     //}
 
+    HtmlRendererUtil.renderDojoDndSource(component, writer, clientId);
+    
     writer.startElement(HtmlConstants.FORM, page);
     writer.writeNameAttribute(
         clientId + SUBCOMPONENT_SEP + "form");

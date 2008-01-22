@@ -165,6 +165,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
 
           writer.startElement(HtmlConstants.DIV, null);
           writer.writeIdAttribute(clientId);
+          HtmlRendererUtil.renderDojoDndItem(component, writer, false);
+          writer.writeClassAttribute("dojoDndItem");
           renderTabGroupView(facesContext, writer, component, virtualTab,
               (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE),
               switchType, image1x1);
@@ -235,7 +237,6 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.writeIdAttribute(clientId + '.' + virtualTab);
     writer.writeStyleAttribute(oStyle);
 
-
     writer.startElement(HtmlConstants.TR, null);
     writer.writeAttribute(HtmlAttributes.VALIGN, "bottom", false);
 
@@ -257,18 +258,23 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     // tool bar
 
     UICommand scrollLeft = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+    scrollLeft.setId(facesContext.getViewRoot().createUniqueId());
     scrollLeft.setRendererType(null);
     scrollLeft.getAttributes().put(ATTR_LABEL, "<");
     UICommand scrollRight = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+    scrollRight.setId(facesContext.getViewRoot().createUniqueId());
     scrollRight.setRendererType(null);
     scrollRight.getAttributes().put(ATTR_LABEL, ">");
     UICommand commandList = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+    commandList.setId(facesContext.getViewRoot().createUniqueId());
     commandList.setRendererType(null);
     UIMenu menu = (UIMenu) application.createComponent(UIMenu.COMPONENT_TYPE);
+    menu.setId(facesContext.getViewRoot().createUniqueId());
     menu.setRendererType(null);
     commandList.getFacets().put("menupopup", menu);
 //    commandList.getAttributes().put(ATTR_LABEL, "Direct Link");
     UIToolBar toolBar = (UIToolBar) application.createComponent(UIToolBar.COMPONENT_TYPE);
+    toolBar.setId(facesContext.getViewRoot().createUniqueId());
     toolBar.setRendererType("ToolBar");
     toolBar.setTransient(true);
     toolBar.getChildren().add(scrollLeft);
@@ -355,6 +361,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
 
           // tool bar
           UIMenuCommand menuItem = (UIMenuCommand) application.createComponent(UIMenuCommand.COMPONENT_TYPE);
+          menuItem.setId(facesContext.getViewRoot().createUniqueId());
           menuItem.setRendererType("MenuCommand");
           if (onclick != null) {
             menuItem.getAttributes().put(ATTR_ONCLICK, onclick);

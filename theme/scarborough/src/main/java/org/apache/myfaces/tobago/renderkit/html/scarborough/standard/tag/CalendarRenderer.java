@@ -96,6 +96,7 @@ public class CalendarRenderer extends LayoutableRendererBase {
 
     writer.startElement(HtmlConstants.TABLE, component);
     writer.writeIdAttribute(id);
+    HtmlRendererUtil.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, 3);

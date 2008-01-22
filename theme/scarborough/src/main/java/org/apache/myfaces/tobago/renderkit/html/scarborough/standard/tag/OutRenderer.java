@@ -54,6 +54,7 @@ public class OutRenderer extends LayoutableRendererBase {
       writer.startElement(HtmlConstants.SPAN, component);
       writer.writeIdAttribute(id);
       writer.writeStyleAttribute();
+      HtmlRendererUtil.renderDojoDndItem(component, writer, true);
       writer.writeClassAttribute();
       HtmlRendererUtil.renderTip(component, writer);
     }
