@@ -40,20 +40,6 @@ public class RendererBase extends Renderer {
 
   private static final Log LOG = LogFactory.getLog(LayoutableRendererBase.class);
 
-/*
-  public void buildViewBegin(FacesContext facesContext, UIComponent component) {
-
-  }
-
-  public void buildViewEnd(FacesContext facesContext, UIComponent component) {
-
-  }
-
-  public void layout(FacesContext facesContext, UIComponent component) {
-
-  }
-*/
-
   public void decode(FacesContext facesContext, UIComponent component) {
     // nothing to do
 
