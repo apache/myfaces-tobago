@@ -119,7 +119,7 @@ Tobago.TabGroup.prototype.reload = function(event) {
 };
 
 Tobago.TabGroup.prototype.removeRelatedAcceleratorKeys = function(idPrefix) {
-    var regex = new RegExp("Tobago.clickOnElement\\(\"" + idPrefix);
+    var regex = new RegExp("Tobago.clickOnElement\\([\"']" + idPrefix);
     for (var name in Tobago.acceleratorKeys) {
       if (typeof Tobago.acceleratorKeys[name] == 'object'
           && typeof Tobago.acceleratorKeys[name].func == 'function'
