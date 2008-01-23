@@ -17,19 +17,19 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 
-import javax.faces.render.Renderer;
-import javax.faces.context.FacesContext;
+import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.ValueHolder;
+import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
-import javax.faces.FacesException;
+import javax.faces.render.Renderer;
 import java.util.Locale;
 
 /**
@@ -37,7 +37,22 @@ import java.util.Locale;
  * Time: 8:04:25 PM
  */
 public class RendererBase extends Renderer {
-  protected static final Log LOG = LogFactory.getLog(LayoutableRendererBase.class);
+
+  private static final Log LOG = LogFactory.getLog(LayoutableRendererBase.class);
+
+/*
+  public void buildViewBegin(FacesContext facesContext, UIComponent component) {
+
+  }
+
+  public void buildViewEnd(FacesContext facesContext, UIComponent component) {
+
+  }
+
+  public void layout(FacesContext facesContext, UIComponent component) {
+
+  }
+*/
 
   public void decode(FacesContext facesContext, UIComponent component) {
     // nothing to do

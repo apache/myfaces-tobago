@@ -17,8 +17,10 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -30,7 +32,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.awt.Dimension;
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,6 +41,8 @@ import java.util.Map;
 
 public abstract class LayoutableRendererBase
     extends RendererBase implements LayoutInformationProvider {
+
+  private static final Log LOG = LogFactory.getLog(LayoutableRendererBase.class);
 
   public int getHeaderHeight(
       FacesContext facesContext, UIComponent component) {
