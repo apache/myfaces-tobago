@@ -18,11 +18,16 @@
 -->
 
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-    version="2.4">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+         version="2.4">
 
   <display-name>Tobago Demo Application</display-name>
+
+  <context-param>
+    <param-name>com.sun.faces.validateXml</param-name>
+    <param-value>true</param-value>
+  </context-param>
 
   <filter>
     <filter-name>multipartFormdataFilter</filter-name>
@@ -48,7 +53,7 @@
     <url-pattern>/faces/*</url-pattern>
   </filter-mapping>
 
-<!--  workaround (e.g. for Oracle AS 10.1.2.0.0)-->
+  <!--  workaround (e.g. for Oracle AS 10.1.2.0.0)-->
   <listener>
     <listener-class>org.apache.myfaces.tobago.webapp.TobagoServletContextListener</listener-class>
   </listener>
@@ -58,13 +63,13 @@
   </listener-->
 
   <!-- servlet -->
-<!-- no longer needed since Weblogic 8.1 SP 3
-  <servlet>
-    <servlet-name>WeblogicWorkaroundServlet</servlet-name>
-    <servlet-class>org.apache.myfaces.tobago.webapp.WeblogicWorkaroundServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
--->
+  <!-- no longer needed since Weblogic 8.1 SP 3
+    <servlet>
+      <servlet-name>WeblogicWorkaroundServlet</servlet-name>
+      <servlet-class>org.apache.myfaces.tobago.webapp.WeblogicWorkaroundServlet</servlet-class>
+      <load-on-startup>1</load-on-startup>
+    </servlet>
+  -->
 
   <servlet>
     <servlet-name>FacesServlet</servlet-name>
