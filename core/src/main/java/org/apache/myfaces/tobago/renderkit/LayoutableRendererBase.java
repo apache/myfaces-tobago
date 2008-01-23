@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.awt.*;
+import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -125,7 +125,7 @@ public abstract class LayoutableRendererBase
   }
 
   private int getFixedSpace(FacesContext facesContext, UIComponent component,
-      String attr, String attrFixed) {
+                            String attr, String attrFixed) {
     int intSpace = -1;
     String space = null;
     if (component != null) {
@@ -151,7 +151,7 @@ public abstract class LayoutableRendererBase
   }
 
   protected void checkForCommandFacet(UIComponent component, List<String> clientIds, FacesContext facesContext,
-      TobagoResponseWriter writer) throws IOException {
+                                      TobagoResponseWriter writer) throws IOException {
     Map<String, UIComponent> facets = component.getFacets();
     for (Map.Entry<String, UIComponent> entry : facets.entrySet()) {
       if (entry.getValue() instanceof UICommand) {
@@ -162,7 +162,7 @@ public abstract class LayoutableRendererBase
 
   // TODO create HtmlRendererBase
   private void addCommandFacet(List<String> clientIds, Map.Entry<String, UIComponent> facetEntry,
-      FacesContext facesContext, TobagoResponseWriter writer) throws
+                               FacesContext facesContext, TobagoResponseWriter writer) throws
       IOException {
     for (String clientId : clientIds) {
       writeScriptForClientId(clientId, facetEntry, facesContext, writer);
@@ -170,7 +170,7 @@ public abstract class LayoutableRendererBase
   }
 
   private void writeScriptForClientId(String clientId, Map.Entry<String, UIComponent> facetEntry,
-      FacesContext facesContext, TobagoResponseWriter writer) throws IOException {
+                                      FacesContext facesContext, TobagoResponseWriter writer) throws IOException {
     if (facetEntry.getValue() instanceof UICommand
         && ((UICommand) facetEntry.getValue()).getRenderedPartially().length > 0) {
       String script =
