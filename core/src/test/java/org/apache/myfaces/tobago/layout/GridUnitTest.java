@@ -198,31 +198,18 @@ public class GridUnitTest extends TestCase {
         + "└─┴─┴─┴─┴─┘\n", grid.toString());
 
     grid.add(new ComponentCell(null), 1, 2);
-    System.out.println(grid);
     grid.add(new ComponentCell(null), 1, 3);
-    System.out.println(grid);
     grid.add(new ComponentCell(null), 1, 1);
-    System.out.println(grid);
     grid.add(new ComponentCell(null), 2, 1);
-    System.out.println(grid);
     grid.add(new ComponentCell(null), 3, 1);
-    System.out.println(grid);
     grid.add(new ComponentCell(null), 1, 1);
-    System.out.println(grid);
     grid.add(new ComponentCell(null), 1, 1);
-    System.out.println(grid);
     grid.add(new ComponentCell(null), 1, 3);
-    System.out.println(grid);
     grid.add(new ComponentCell(null), 1, 1);
-    System.out.println(grid);
     grid.add(new ComponentCell(null), 3, 1);
-    System.out.println(grid);
     grid.add(new ComponentCell(null), 1, 2);
-    System.out.println(grid);
     grid.add(new ComponentCell(null), 2, 1);
-    System.out.println(grid);
     grid.add(new ComponentCell(null), 1, 1);
-    System.out.println(grid);
     assertEquals(5, grid.getColumnCount());
     assertEquals(5, grid.getRowCount());
     assertEquals(""
@@ -237,55 +224,5 @@ public class GridUnitTest extends TestCase {
         + "┣━┿━╈━╉─╂─┨\n"
         + "┃█│➞┃█┃⬇┃⬇┃\n"
         + "┗━┷━┻━┻━┻━┛\n", grid.toString());
-    for (int j = 0; j < 5; j++) {
-      for (int i = 0; i < 5; i++) {
-        Cell cell = grid.get(i, j);
-        switch (j * 5 + i) {
-          case 0:
-          case 1:
-          case 2:
-          case 3:
-          case 7:
-          case 10:
-          case 12:
-          case 13:
-          case 14:
-          case 15:
-          case 19:
-          case 20:
-          case 22:
-            assertTrue(cell instanceof ComponentCell);
-            break;
-          case 4:
-          case 5:
-          case 6:
-          case 8:
-          case 9:
-          case 11:
-          case 16:
-          case 17:
-          case 18:
-          case 21:
-          case 23:
-          case 24:
-            assertTrue("i=" + i + " j=" + j, cell instanceof SpanCell);
-            break;
-          default:
-            fail();
-        }
-      }
-    }
-//  ┏━┳━┳━┳━┯━┓
-//  ┃█┃█┃█┃█│↖┃
-//  ┠─╂─╊━╇━┿━┫
-//  ┃↖┃↖┃█│↖│↖┃
-//  ┣━╉─╊━╈━╈━┫
-//  ┃█┃↖┃█┃█┃█┃
-//  ┣━╇━╇━╉─╊━┫
-//  ┃█│↖│↖┃↖┃█┃
-//  ┣━┿━╈━╉─╂─┨
-//  ┃█│↖┃█┃↖┃↖┃
-//  ┗━┷━┻━┻━┻━┛
-
   }
 }

@@ -122,6 +122,20 @@ public class Grid {
     return errorIndexes.contains(j * grid.getColumnCount() + i);
   }
 
+  /**
+   * Prints the state of the grid as an Unicode shape like this:
+   * ┏━┳━┳━┳━┯━┓
+   * ┃█┃█┃█┃█│➞┃
+   * ┠─╂─╊━╇━┿━┫
+   * ┃⬇┃⬇┃█│➞│➞┃
+   * ┣━╉─╊━╈━╈━┫
+   * ┃█┃⬇┃█┃█┃█┃
+   * ┣━╇━╇━╉─╊━┩
+   * ┃█│➞│➞┃⬇┃◌│
+   * ┡━┿━┿━╉─╂─┤
+   * │◌│◌│◌┃⬇┃◌│
+   * └─┴─┴─┺━┹─┘
+   */
   @Override
   public String toString() {
 
