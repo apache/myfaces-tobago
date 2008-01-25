@@ -37,6 +37,8 @@ import javax.faces.el.MethodBinding;
 import javax.faces.el.MethodNotFoundException;
 import javax.faces.el.ValueBinding;
 import javax.faces.model.DataModel;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -123,12 +125,52 @@ public class Sorter extends MethodBinding {
 //        Comparator comparator = Collator.getInstance();
 //          comparator = new RowComparator(ascending, method);
 
+        // memorize selected rows
+        List<Object> selectedDataRows = null;
+        if (sheetState.getSelectedRows() != null && sheetState.getSelectedRows().size() > 0) {
+          selectedDataRows = new ArrayList<Object>(sheetState.getSelectedRows().size());
+          Object dataRow; 
+          for (Integer index : sheetState.getSelectedRows()) {
+            if (value instanceof List) {
+              dataRow = ((List) value).get(index);
+            } else {
+              dataRow = ((Object[]) value)[index];
+            }
+            selectedDataRows.add(dataRow);
+          }
+        }
+        
+        // do sorting
         if (value instanceof List) {
           Collections.sort((List) value, actualComparator);
         } else { // value is instanceof Object[]
           Arrays.sort((Object[]) value, actualComparator);
         }
 
+        // restore selected rows
+        if (selectedDataRows != null) {
+          sheetState.getSelectedRows().clear();
+          for (Object dataRow : selectedDataRows) {
+            int index = -1;
+            if (value instanceof List) {
+              for (int i = 0; i < ((List) value).size() && index < 0; i++) {
+                if (dataRow == ((List) value).get(i)) {
+                  index = i;
+                }
+              }
+            } else {
+              for (int i = 0; i < ((Object[]) value).length && index < 0; i++) {
+                if (dataRow == ((Object[]) value)[i]) {
+                  index = i;
+                }
+              }
+            }
+            if (index >= 0) {
+              sheetState.getSelectedRows().add(index);
+            }
+          }
+        }
+        
       } else {  // DataModel?, ResultSet, Result or Object
         LOG.warn("Sorting not supported for type "
             + (value != null ? value.getClass().toString() : "null"));
