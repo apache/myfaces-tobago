@@ -136,7 +136,7 @@ public class Grid {
           builder.append("┌");
         }
       } else {
-        Cell c = grid.get(i-1, 0);
+        Cell c = grid.get(i - 1, 0);
         Cell d = grid.get(i, 0);
         if (c == null && d == null) {
           builder.append("┬");
@@ -174,7 +174,7 @@ public class Grid {
       if (j != 0) {
         for (int i = 0; i < grid.getColumnCount(); i++) {
           if (i == 0) {
-            Cell b = grid.get(0, j-1);
+            Cell b = grid.get(0, j - 1);
             Cell d = grid.get(0, j);
             if (b == null && d == null) {
               builder.append("├");
@@ -192,16 +192,16 @@ public class Grid {
               }
             }
           } else {
-            Cell a = grid.get(i-1, j-1);
-            Cell b = grid.get(i, j-1);
-            Cell c = grid.get(i-1, j);
+            Cell a = grid.get(i - 1, j - 1);
+            Cell b = grid.get(i, j - 1);
+            Cell c = grid.get(i - 1, j);
             Cell d = grid.get(i, j);
 //            a│b
 //            ─┼─
 //            c│d
-            if (connected (a, b)) {
-              if (connected (c, d)) {
-                if (connected (a, c)) {
+            if (connected(a, b)) {
+              if (connected(c, d)) {
+                if (connected(a, c)) {
                   builder.append("┼");
                 } else {
                   builder.append("┿");
@@ -210,17 +210,23 @@ public class Grid {
                 builder.append("╈");
               }
             } else {
-              if (connected (c, d)) {
-                builder.append("╇");
+              if (connected(c, d)) {
+                if (connected(a, c)) {
+                  builder.append("╄");
+                } else if (connected(b, d)) {
+                  builder.append("╃");
+                } else {
+                  builder.append("╇");
+                }
               } else {
-                if (connected (a, c)) {
-                  if (connected (b, d)) {
+                if (connected(a, c)) {
+                  if (connected(b, d)) {
                     builder.append("╂");
                   } else {
                     builder.append("╊");
                   }
                 } else {
-                  if (connected (b, d)) {
+                  if (connected(b, d)) {
                     builder.append("╉");
                   } else {
                     builder.append("╋");
@@ -229,15 +235,15 @@ public class Grid {
               }
             }
           }
-          Cell a = grid.get(i, j-1);
+          Cell a = grid.get(i, j - 1);
           Cell c = grid.get(i, j);
-          if (connected(a,c)) {
+          if (connected(a, c)) {
             builder.append("─");
           } else {
             builder.append("━");
           }
         }
-        Cell a = grid.get(grid.getColumnCount() - 1, j-1);
+        Cell a = grid.get(grid.getColumnCount() - 1, j - 1);
         Cell c = grid.get(grid.getColumnCount() - 1, j);
         if (a == null && c == null) {
           builder.append("┤");
@@ -266,7 +272,7 @@ public class Grid {
             builder.append("│");
           }
         } else {
-          Cell c = grid.get(i-1, j);
+          Cell c = grid.get(i - 1, j);
           Cell d = grid.get(i, j);
           if (connected(c, d)) {
             builder.append("│");
@@ -283,9 +289,9 @@ public class Grid {
             if (j == 0) {
               builder.append("➞");
             } else {
-              Cell a = grid.get(i, j-1);
+              Cell a = grid.get(i, j - 1);
               Cell c = grid.get(i, j);
-              if (connected(a,c)) {
+              if (connected(a, c)) {
                 builder.append("⬇");
               } else {
                 builder.append("➞");
@@ -313,8 +319,8 @@ public class Grid {
           builder.append("└");
         }
       } else {
-        Cell a = grid.get(i-1, grid.getRowCount()-1);
-        Cell b = grid.get(i, grid.getRowCount()-1);
+        Cell a = grid.get(i - 1, grid.getRowCount() - 1);
+        Cell b = grid.get(i, grid.getRowCount() - 1);
         if (a == null && b == null) {
           builder.append("┴");
         } else {
