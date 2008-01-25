@@ -51,16 +51,16 @@ public class Grid {
     boolean error = false;
 
     if (columnSpan + columnCursor > grid.getColumnCount()) {
-      LOG.warn("The columnSpan is to large for the actual position in the grid. Will be fixed. " +
-          "columnSpan=" + columnSpan + " columnCursor=" + columnCursor + " columnCount=" + grid.getColumnCount() + " ");
+      LOG.warn("The columnSpan is to large for the actual position in the grid. Will be fixed. "
+          + "columnSpan=" + columnSpan + " columnCursor=" + columnCursor + " columnCount=" + grid.getColumnCount());
       columnSpan = grid.getColumnCount() - columnCursor;
       error = true;
     }
 
     for (int i = 1; i < columnSpan; i++) {
       if (grid.get(i + columnCursor, rowCursor) != null) {
-        LOG.warn("The columnSpan is to large for the actual position in the grid. Will be fixed. " +
-            "columnSpan=" + columnSpan + " columnCursor=" + columnCursor + " columnCount=" + grid.getColumnCount() + " ");
+        LOG.warn("The columnSpan is to large for the actual position in the grid. Will be fixed. "
+            + "columnSpan=" + columnSpan + " columnCursor=" + columnCursor + " columnCount=" + grid.getColumnCount());
         columnSpan = i - 1;
         error = true;
       }
