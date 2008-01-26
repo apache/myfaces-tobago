@@ -60,6 +60,9 @@ public class ResourceServlet extends HttpServlet {
 
   private static final Log LOG = LogFactory.getLog(ResourceServlet.class);
 
+  public static final String DOJO_RESOURCE_PREFIX
+      = "org/apache/myfaces/tobago/renderkit/html/standard/standard/script/dojo/";
+
   private Long expires;
 
   public void init(ServletConfig servletConfig) throws ServletException {
@@ -85,6 +88,10 @@ public class ResourceServlet extends HttpServlet {
 
     String resource = requestURI.substring(
         request.getContextPath().length() + 1); // todo: make it "stable"
+    if (resource.startsWith(DOJO_RESOURCE_PREFIX)) {
+      // Todo : dojo version
+      resource = "dojo-release-1.0.1/" + resource.substring(DOJO_RESOURCE_PREFIX.length());
+    }
 
     if (expires != null) {
       response.setHeader("Cache-Control", "max-age=" + expires);
