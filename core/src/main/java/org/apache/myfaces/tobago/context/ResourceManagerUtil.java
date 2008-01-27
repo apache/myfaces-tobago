@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.context;
  */
 
 import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
-import org.apache.myfaces.tobago.servlet.ResourceServlet;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -95,13 +94,12 @@ public class ResourceManagerUtil {
   public static List<String> getScripts(FacesContext facesContext, String name) {
     UIViewRoot viewRoot = facesContext.getViewRoot();
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    String[] scripts;
-    if (name.startsWith("script/dojo/")) {
-      scripts = new String[] {"/" + ResourceServlet.DOJO_RESOURCE_PREFIX + name.substring("script/dojo/".length())};      
-    } else {
-      scripts = ResourceManagerFactory.getResourceManager(facesContext)
+    //if (name.startsWith("script/dojo/")) {
+    //  scripts = new String[] {"/" + ResourceServlet.DOJO_RESOURCE_PREFIX + name.substring("script/dojo/".length())};
+    //} else {
+    String[] scripts = ResourceManagerFactory.getResourceManager(facesContext)
         .getScripts(viewRoot, name);
-    }
+    //}
     return addContextPath(scripts, contextPath);
   }
 
