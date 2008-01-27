@@ -88,10 +88,10 @@ public class ResourceServlet extends HttpServlet {
 
     String resource = requestURI.substring(
         request.getContextPath().length() + 1); // todo: make it "stable"
-    if (resource.startsWith(DOJO_RESOURCE_PREFIX)) {
-      // Todo : dojo version
-      resource = "dojo-release-1.0.1/" + resource.substring(DOJO_RESOURCE_PREFIX.length());
-    }
+    //if (resource.startsWith(DOJO_RESOURCE_PREFIX)) {
+    //  // Todo : dojo version
+    //  resource = "dojo-release-1.0.1/" + resource.substring(DOJO_RESOURCE_PREFIX.length());
+    //}
 
     if (expires != null) {
       response.setHeader("Cache-Control", "max-age=" + expires);
