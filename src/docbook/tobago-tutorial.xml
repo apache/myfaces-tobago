@@ -101,7 +101,7 @@
     <filename>WEB-INF/tobago-config.xml</filename> file. A minimal configuration should at least
     specify the default theme for the Tobago application.</para>
 
-    <programlisting>&lt;tobago-config&gt;
+    <programlisting role="XML">&lt;tobago-config&gt;
   &lt;theme-config&gt;
     &lt;default-theme&gt;speyside&lt;/default-theme&gt;
   &lt;/theme-config&gt;
@@ -187,7 +187,7 @@
 
       <para>A basic Tobago page looks like this:</para>
 
-      <programlisting>&lt;%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %&gt;
+      <programlisting role="XML">&lt;%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %&gt;
 &lt;%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %&gt;
 &lt;%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %&gt;
 &lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;
@@ -263,7 +263,8 @@
 
     <para>Tobago also contains a deprecated tree control. The API of this tree
     control does not really fit to the other controls. But the sandbox already
-    contains a preliminary version of the future tree control.</para>
+    contains a version of the future tree control, which will be introduced
+    in Tobago 1.1.</para>
 
     <sect2>
       <title>Basic Controls</title>
@@ -294,7 +295,7 @@
         The label is connected to the input control. If the label is clicked
         the input control gains focus.</para>
 
-        <programlisting>&lt;tx:in
+        <programlisting role="XML">&lt;tx:in
     label="#{bundle.name}"
     value="#{address.name}"
     required="false" readonly="false"
@@ -337,7 +338,7 @@
         versions are <literal>&lt;tc:button&gt;</literal> and <literal>&lt;tc:link&gt;</literal>; others include
         toolbars and menus, which are described in later sections.</para>
 
-        <programlisting>&lt;tc:button label="Delete" action="#{controller.delete}" 
+        <programlisting role="XML">&lt;tc:button label="Delete" action="#{controller.delete}"
     image="image/delete.png" defaultCommand="false"&gt;
   &lt;f:facet name="confirmation"&gt;
     &lt;tc:out value="Do you want to delete it?" /&gt;
@@ -370,7 +371,7 @@
         selected, a change event is triggered, the page is submitted, and the
         action of the <literal>&lt;tc:command&gt;</literal> inside the <literal>change</literal> facet is called:</para>
 
-        <programlisting>&lt;tx:selectOneChoice label="#{bundle.footerTheme}" value="#{controller.theme}"&gt;
+        <programlisting role="XML">&lt;tx:selectOneChoice label="#{bundle.footerTheme}" value="#{controller.theme}"&gt;
   &lt;f:selectItems value="#{controller.themeItems}" /&gt;
   &lt;f:facet name="change"&gt;
     &lt;tc:command action="#{controller.themeChanged}"/&gt;
@@ -390,7 +391,7 @@
       address book uses it to provide an overview of all stored
       addresses.</para>
 
-      <programlisting>&lt;tc:sheet columns="1*;1*;1*" value="#{controller.currentAddressList}"
+      <programlisting role="XML">&lt;tc:sheet columns="1*;1*;1*" value="#{controller.currentAddressList}"
     var="address" state="#{controller.selectedAddresses}"
     sortActionListener="#{controller.sheetSorter}" rows="25"
     showRowRange="left" showPageRange="right" showDirectLinks="center"&gt;
@@ -447,7 +448,7 @@
       code fragment show the method bound to the delete button and describes
       how to access the selected rows:</para>
 
-      <programlisting>public String deleteAddresses() throws AddressDaoException {
+      <programlisting role="JAVA">public String deleteAddresses() throws AddressDaoException {
   List&lt;Integer&gt; selection = selectedAddresses.getSelectedRows();
   if (selection.size() &lt; 1) {
     FacesMessage error 
@@ -487,7 +488,7 @@
       rendering information of all tab panels has to be transferred to the
       client at once.</para>
 
-      <programlisting>&lt;tc:tabGroup switchType="reloadTab" immediate="true"&gt;
+      <programlisting role="XML">&lt;tc:tabGroup switchType="reloadTab" immediate="true"&gt;
   &lt;tc:tab label="#{bundle.editorTabPersonal}"&gt;
     &lt;jsp:include page="tab/personal.jsp"/&gt;
   &lt;/tc:tab&gt;
@@ -525,7 +526,7 @@
       item <literal>&lt;tc:menuCheckbox&gt;</literal> to change the mode of the
       application.</para>
 
-      <programlisting>&lt;tc:menuBar id="menuBar"&gt;
+      <programlisting role="XML">&lt;tc:menuBar id="menuBar"&gt;
   &lt;tc:menu label="_File"&gt;
     &lt;tc:menuItem label="_New" action="#{controller.createAddress}" image
         ="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png"/&gt;
@@ -559,7 +560,7 @@
       <literal>&lt;tc:toolBarCommand&gt;</literal> tag, which is a slightly limited version of
       the standard button tag.</para>
 
-      <programlisting>&lt;tc:toolBar iconSize="big"&gt;
+      <programlisting role="XML">&lt;tc:toolBar iconSize="big"&gt;
   &lt;tc:toolBarCommand label="#{bundle.toolbarAddressList}" 
       action="#{controller.search}" immediate="true" image=
  "image/org/tango-project/tango-icon-theme/32x32/mimetypes/x-office-address-book.png"
@@ -591,7 +592,7 @@
       list can be controlled via a popup. This popup is bound to a button in
       the toolbar for the sheet.</para>
 
-      <programlisting>&lt;tc:button label="Open Popup"&gt;
+      <programlisting role="XML">&lt;tc:button label="Open Popup"&gt;
   &lt;f:facet name="popup"&gt;
     &lt;tc:popup width="300" height="270"&gt;
       &lt;tc:box label="Popup Title"&gt;
@@ -633,7 +634,7 @@
       open a popup with the file select control which is created by the
       following code fragment:</para>
 
-      <programlisting>&lt;tc:file value="#{controller.uploadedFile}" required="true"&gt;
+      <programlisting role="XML">&lt;tc:file value="#{controller.uploadedFile}" required="true"&gt;
   &lt;tc:validateFileItem contentType="image/*"/&gt;
 &lt;/tc:file&gt;</programlisting>
 
@@ -673,7 +674,7 @@
 
     <para>A layout token may be an absolute length in pixels like 100px, a
     percentage length like 50%, a relative length like 2* or * as a shorthand
-    for 1*, or the value <literal>fixed</literal>. Relative lengths are served by layout manager
+    for 1*, or the value <literal>fixed</literal>. Relative lengths are served by the layout manager
     from the remaining available space, which is distributed proportionally
     based on the number before the *.</para>
 
@@ -689,7 +690,7 @@
     <literal>&lt;tx:in&gt;</literal>. For a more concrete example see the following code fragment
     based on the editor view of the address book:</para>
 
-    <programlisting>&lt;tc:panel&gt;
+    <programlisting role="XML">&lt;tc:panel&gt;
   &lt;f:facet name="layout"&gt;
     &lt;tc:gridLayout columns="*" rows="fixed;fixed;fixed;*"/&gt;
   &lt;/f:facet&gt;
@@ -785,7 +786,7 @@
     <filename>tobago-config.xml</filename> file, and a button triggers an action in the controller
     to set the theme in the Tobago <classname>ClientProperties</classname> object:</para>
 
-    <programlisting>public String themeChanged() {
+    <programlisting role="JAVA">public String themeChanged() {
   FacesContext facesContext = FacesContext.getCurrentInstance();
   ClientProperties client 
       = ClientProperties.getInstance(facesContext);
@@ -832,7 +833,7 @@
       switching to a newer version of Tobago, since the theme files are not
       stable yet and do not count as an official external API.</para>
 
-      <programlisting>&lt;tobago-config&gt;
+      <programlisting role="XML">&lt;tobago-config&gt;
   &lt;theme-config&gt;
     &lt;default-theme&gt;speyside&lt;/default-theme&gt;
   &lt;/theme-config&gt;
@@ -880,7 +881,7 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
       you want to extend and specify the selected theme as fallback theme. The
       Example theme extends Speyside and adds markup for columns.</para>
 
-      <programlisting>&lt;tobago-theme&gt;
+      <programlisting role="XML">&lt;tobago-theme&gt;
   &lt;name&gt;example&lt;/name&gt;
   &lt;deprecated-name&gt;
     org.apache.myfaces.tobago.context.ExampleTheme
@@ -991,7 +992,7 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
 
       <para>The following code shows some parts of our component class:</para>
 
-      <programlisting>public class UIInputNumberSlider extends javax.faces.component.UIInput {
+      <programlisting role="JAVA">public class UIInputNumberSlider extends javax.faces.component.UIInput {
 
   public static final String COMPONENT_TYPE
       = "org.apache.myfaces.tobago.InputNumberSlider";
@@ -1090,7 +1091,7 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
       for default properties: "Tobago." + <literal>key</literal>. We could (but will not)
       specify a width padding of five pixels for our control by adding the
       property <literal>InputNumberSlider.paddingWidth=5</literal> in the theme configuration of
-      the sandbox theme. Please note that the ressource location mechanism as
+      the sandbox theme. Please note that the resource location mechanism as
       described in <xref linkend="sec-resource-management"/> is used to find a
       property.</para>
 
@@ -1102,7 +1103,7 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
       input field 34 percent. The value can be accessed in the renderer with
       the following line of code:</para>
 
-      <para><programlisting>int sliderWidthPercent
+      <para><programlisting role="JAVA">int sliderWidthPercent
     = ThemeConfig.getValue(facesContext, component, "sliderWidthPercent");</programlisting></para>
 
       <para>The Tobago theming mechanism locates renderers by their location
@@ -1129,7 +1130,7 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
       back from the HTTP request.</para>
 
       <example><title>Renderer for the slider bar control</title>
-      <programlisting>package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
+      <programlisting role="JAVA">package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
 
 public class InputNumberSliderRenderer extends LayoutableRendererBase {
 
@@ -1185,7 +1186,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
       account when creating HTML elements. The following source snippet
       demonstrates the usage of the style map.</para>
 
-      <programlisting>HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get("style");
+      <programlisting role="JAVA">HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get("style");
 int width = style.getInt("width");</programlisting>
     </sect2>
 
@@ -1252,7 +1253,7 @@ int width = style.getInt("width");</programlisting>
       <classname>HasValue</classname>:</para>
 
     <example><title>Tag declaration for the slider bar tag</title>
-      <programlisting>@Tag(name = "numberSlider")
+      <programlisting role="JAVA">@Tag(name = "numberSlider")
 @UIComponentTag(rendererType = "InputNumberSlider",
     uiComponent = "org.apache.myfaces.tobago.component.UIInputNumberSlider")
 public interface InputNumberSliderTagDeclaration extends
@@ -1283,7 +1284,7 @@ public interface InputNumberSliderTagDeclaration extends
       a JSP page. It is important to switch to the Sandbox theme in the Tobago
       configuration.</para>
 
-      <programlisting>&lt;%@ taglib uri="http://myfaces.apache.org/tobago/sandbox" prefix="tcs" %&gt;
+      <programlisting role="XML">&lt;%@ taglib uri="http://myfaces.apache.org/tobago/sandbox" prefix="tcs" %&gt;
 &lt;%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %&gt;
 &lt;f:view&gt;
   ...
@@ -1323,7 +1324,7 @@ public interface InputNumberSliderTagDeclaration extends
     subsequently change the rendered field names with JavaScript inside the
     browser.</para>
 
-    <programlisting>&lt;tx:in id="j_username" label="Username"/&gt;
+    <programlisting role="XML">&lt;tx:in id="j_username" label="Username"/&gt;
 &lt;tx:in id="j_password" password="true" label="Password"/&gt;
 
 ...
@@ -1360,7 +1361,7 @@ public interface InputNumberSliderTagDeclaration extends
     button points to a method in the <classname>AdminController</classname>. This method is annotated
     with the required role <emphasis>admin</emphasis>:</para>
 
-    <programlisting>@RolesAllowed("admin")
+    <programlisting role="JAVA">@RolesAllowed("admin")
 public String admin() {
   return OUTCOME_ADMIN;
 }</programlisting>
@@ -1388,7 +1389,7 @@ public String admin() {
     theme and the language are isolated to sub forms to avoid conflicts with
     validations elsewhere on the page:</para>
 
-    <programlisting>&lt;tc:form&gt;
+    <programlisting role="XML">&lt;tc:form&gt;
   &lt;tx:selectOneChoice label="Theme" value="#{controller.theme}"&gt;
   &lt;f:selectItems value="#{controller.themeItems}" /&gt;
     &lt;f:facet name="change"&gt;
@@ -1421,7 +1422,7 @@ public String admin() {
     <para>The following code fragment shows a simple example where an input
     control is enabled depending on the state of a checkbox.</para>
 
-    <programlisting>&lt;tc:page id="page"&gt;
+    <programlisting role="XML">&lt;tc:page id="page"&gt;
   &lt;tc:box label="Container" id="box"&gt;
     &lt;tx:selectBooleanCheckbox label="Enable" 
         value="#{controller.miscEnabled}"&gt;
@@ -1447,7 +1448,7 @@ public String admin() {
     <literal>&lt;tc:reload&gt;</literal> tag to specify the frequency for the reload in
     milliseconds.</para>
 
-    <programlisting>&lt;tc:panel&gt;
+    <programlisting role="XML">&lt;tc:panel&gt;
   &lt;f:facet name="reload"&gt;
     <emphasis role="bold">&lt;tc:reload frequency="5000"/&gt;</emphasis>
   &lt;/f:facet&gt;
@@ -1468,7 +1469,7 @@ public String admin() {
     the static resources. The expiration period can be specified in seconds as
     an <literal>init-param</literal> for the servlet.</para>
 
-    <programlisting>&lt;servlet&gt;
+    <programlisting role="XML">&lt;servlet&gt;
   &lt;servlet-name&gt;ResourceServlet&lt;/servlet-name&gt;
   &lt;servlet-class&gt;
      org.apache.myfaces.tobago.servlet.ResourceServlet&lt;/servlet-class&gt;
@@ -1510,7 +1511,7 @@ public String admin() {
     follow. With MyFaces focusing on fulfilling the JSF specification 1.2
     Tobago will aim for JSF 1.2 compatibility as well. Another goal is to
     attain a form of integration with other component sets like Tomahawk.
-    Currently it is not possible to add such controls to a Tobago application,
+    Currently adding such controls to a Tobago application works only limited,
     partly because there is no way to add the necessary layout and theming
     information for external controls.</para>
   </sect1>
