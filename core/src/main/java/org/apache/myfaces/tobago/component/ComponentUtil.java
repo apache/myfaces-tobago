@@ -24,6 +24,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
@@ -109,10 +110,10 @@ public class ComponentUtil {
   public static final Class[] ACTION_LISTENER_ARGS = {ActionEvent.class};
   public static final Class[] VALUE_CHANGE_LISTENER_ARGS = {ValueChangeEvent.class};
   public static final Class[] VALIDATOR_ARGS = {FacesContext.class, UIComponent.class, Object.class};
+  private static final String LIST_SEPARATOR_CHARS = ", ";
 
   private ComponentUtil() {
   }
-
 
   public static boolean hasErrorMessages(FacesContext context) {
     for (Iterator iter = context.getMessages(); iter.hasNext();) {
@@ -369,7 +370,7 @@ public class ComponentUtil {
       if (UIComponentTag.isValueReference(renderers)) {
         command.setValueBinding(ATTR_RENDERED_PARTIALLY, createValueBinding(renderers));
       } else {
-        String[] components = renderers.split(",");
+        String[] components = splitList(renderers);
         command.setRenderedPartially(components);
       }
     }
@@ -380,7 +381,7 @@ public class ComponentUtil {
       if (UIComponentTag.isValueReference(styleClasses)) {
         component.setValueBinding(ATTR_STYLE_CLASS, createValueBinding(styleClasses));
       } else {
-        String[] classes = styleClasses.split("[,  ]");
+        String[] classes = splitList(styleClasses);
         if (classes.length > 0) {
           StyleClasses styles = StyleClasses.ensureStyleClasses(component);
           for (String clazz : classes) {
@@ -397,7 +398,7 @@ public class ComponentUtil {
         if (UIComponentTag.isValueReference(markup)) {
           markupComponent.setValueBinding(ATTR_MARKUP, createValueBinding(markup));
         } else {
-          String[] markups = markup.split(",");
+          String[] markups = splitList(markup);
           ((SupportsMarkup) markupComponent).setMarkup(markups);
         }
       } else {
@@ -1316,4 +1317,9 @@ public class ComponentUtil {
     // we should reset rowIndex on UIData
     uiData.setRowIndex(oldRowIndex);
   }
+
+  static String[] splitList(String renderers) {
+    return StringUtils.split(renderers, LIST_SEPARATOR_CHARS);
+  }
+
 }
