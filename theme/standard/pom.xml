@@ -47,14 +47,14 @@
                   <artifactId>dojo</artifactId>
                   <version>1.0.1</version>
                   <type>zip</type>
-                  <excludes>dojo/tests/**/*.*,**/*.txt</excludes>
+                  <excludes>dojo/tests/**/*,**/*.txt</excludes>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.dojotoolkit</groupId>
                   <artifactId>dijit</artifactId>
                   <version>1.0.1</version>
                   <type>zip</type>
-                  <excludes>dijit/tests/**/*.*,dijit/bench/**/*.*,dijit/demos/**/*.*,dijit/themes/**/*.*</excludes>
+                  <excludes>dijit/tests/**/*,dijit/bench/**/*,dijit/demos/**/*,dijit/themes/**/*</excludes>
                 </artifactItem>
               </artifactItems>
               <outputDirectory>
