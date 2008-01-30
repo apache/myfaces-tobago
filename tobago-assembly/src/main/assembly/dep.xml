@@ -80,5 +80,12 @@
         <include>*.jar</include>
       </includes>
     </fileSet>
+    <fileSet>
+      <directory>target/sandbox</directory>
+      <outputDirectory>sandbox</outputDirectory>
+      <includes>
+        <include>*.jar</include>
+      </includes>
+    </fileSet>
   </fileSets>
 </assembly>

@@ -121,6 +121,27 @@
               </execution>
 
               <execution>
+                <id>copy-sandbox</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>copy</goal>
+                </goals>
+                <configuration>
+                  <artifactItems>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-sandbox</artifactId>
+                      <version>${project.version}</version>
+                    </artifactItem>
+                  </artifactItems>
+                  <outputDirectory>${project.build.directory}/sandbox
+                  </outputDirectory>
+                  <unpackMarkersDirectory>${project.build.directory}/sandbox
+                  </unpackMarkersDirectory>
+                </configuration>
+              </execution>
+
+              <execution>
                 <id>copy-tlddoc</id>
                 <phase>package</phase>
                 <goals>
