@@ -152,7 +152,7 @@
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.2</version>
         <configuration>
-          <aggregate>true</aggregate>
+          <!--aggregate>true</aggregate-->
           <linksource>true</linksource>
           <breakiterator>true</breakiterator>
           <quiet>true</quiet>
