@@ -639,6 +639,7 @@
         <module>extension</module>
         <module>example</module>
         <module>tobago-assembly</module>
+        <module>sandbox</module>
       </modules>
     </profile>
     <profile>
