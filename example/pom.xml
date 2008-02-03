@@ -92,6 +92,7 @@
         <module>facelets</module>
         <module>tobago-example-assembly</module>
         <module>tobago-theme-example</module>
+        <module>seam</module>
       </modules>
     </profile>
      <profile>
