@@ -58,11 +58,9 @@ function initMenuComponents(divId, pageId, popup) {
       menubar.removeChild(menubar.firstChild);
     }
     menubar.appendChild(htmlElement);
-    var subitems = createSubmenus(menubar.menu);
-    body.appendChild(subitems);
-    
 
-    
+    createSubmenus(menubar.menu, body);
+
     initMenuItems(menubar.menu);
     setItemWidth(menubar.menu);
     setItemPositions(menubar.menu);
@@ -76,9 +74,16 @@ function initMenuComponents(divId, pageId, popup) {
   }
 }
 
-function createSubmenus(menu) {                   
-  var htmlElement = document.createElement('div');
-  htmlElement.className = "tobago-menuBar-submenuroot";
+function createSubmenus(menu, body) {
+  var id = menu.id + Tobago.SUB_COMPONENT_SEP + "submenuroot";
+  var htmlElement = Tobago.element(id);
+  if (!htmlElement) {
+    htmlElement = document.createElement('div');
+    htmlElement.className = "tobago-menuBar-submenuroot";
+    htmlElement.id = id;
+    body.appendChild(htmlElement);
+  }
+
   htmlElement.innerHTML = menu.toHtml(true);
   return htmlElement;
 }
