@@ -213,6 +213,17 @@
                       <version>${project.version}</version>
                       <classifier>jdk14retro</classifier>
                     </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-message-fix</artifactId>
+                      <version>${project.version}</version>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-message-fix</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>jdk14retro</classifier>
+                    </artifactItem>
 
                   </artifactItems>
                   <outputDirectory>${project.build.directory}/extension
@@ -264,6 +275,25 @@
                       <version>${project.version}</version>
                       <classifier>sources</classifier>
                     </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-facelets</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>sources</classifier>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-fileupload</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>sources</classifier>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-message-fix</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>sources</classifier>
+                    </artifactItem>
+
                   </artifactItems>
                   <outputDirectory>${project.build.directory}/src
                   </outputDirectory>
