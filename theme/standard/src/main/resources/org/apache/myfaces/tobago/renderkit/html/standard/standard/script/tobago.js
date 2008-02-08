@@ -1022,21 +1022,33 @@ var Tobago = {
         LOG.warn("Exception when setting focus on : \"" + this.focusId + "\"");
       }
     } else if (typeof this.focusId == "undefined") {
+      var lowestTabIndex = 32768; // HTML max tab index value + 1
+      var candidate = null;
       foriLoop: for (var i = 0 ; i < document.forms.length ; i++) {
         var form = document.forms[i];
         if (form != null){
           for (var j = 0 ; j < form.elements.length ; j++) {
             var element = form.elements[j];
             if (element != null) {
-              if (!element.disabled && !element.readOnly && this.isFocusType(element.type)){
-                try { // focus() on not visible elements breaks IE
-                  element.focus();
-                  break foriLoop;
-                } catch(ex) { }
+              if (!element.disabled && !element.readOnly
+                  && this.isFocusType(element.type)) {
+                if (lowestTabIndex > element.tabIndex) {
+                  lowestTabIndex = element.tabIndex;
+                  candidate = element;
+                  if (lowestTabIndex == 1) {
+                    break foriLoop;
+                  }
+                }
               }
             }
           }
         }
+      }
+      if (candidate != null) {
+        try {
+          // focus() on not visible elements breaks IE
+          candidate.focus();
+        } catch(ex) { }
       }
     } else if (this.focusId.length > 0) {
       LOG.warn("Cannot find component to set focus : \"" + this.focusId + "\"");
