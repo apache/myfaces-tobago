@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
+import java.io.OutputStream;
 
 /**
  * <p><pre>
@@ -41,6 +41,12 @@ import java.util.Date;
  *            Default is no expires header.&lt;/description&gt;
  *     &lt;param-name&gt;expires&lt;/param-name&gt;
  *     &lt;param-value&gt;14400&lt;/param-value&gt;
+ *   &lt;/init-param&gt;
+ *   &lt;init-param&gt;
+ *     &lt;description&gt;The value for the copy buffer size.
+ *            Default is 4096.&lt;/description&gt;
+ *     &lt;param-name&gt;bufferSize&lt;/param-name&gt;
+ *     &lt;param-value&gt;4096&lt;/param-value&gt;
  *   &lt;/init-param&gt;
  * &lt;/servlet&gt;
  * &lt;servlet-mapping&gt;
@@ -60,19 +66,25 @@ public class ResourceServlet extends HttpServlet {
 
   private static final Log LOG = LogFactory.getLog(ResourceServlet.class);
 
-  public static final String DOJO_RESOURCE_PREFIX
-      = "org/apache/myfaces/tobago/renderkit/html/standard/standard/script/dojo/";
-
   private Long expires;
+  private int bufferSize;
 
   public void init(ServletConfig servletConfig) throws ServletException {
     super.init(servletConfig);
     String expiresString = servletConfig.getInitParameter("expires");
-
     expires = null;
     if (expiresString != null) {
       try {
-        expires = new Long(expiresString);
+        expires = new Long(expiresString) * 1000;
+      } catch (NumberFormatException e) {
+        LOG.error("Caught: " + e.getMessage(), e);
+      }
+    }
+    String bufferSizeString = servletConfig.getInitParameter("bufferSize");
+    bufferSize = 1024 * 4;
+    if (bufferSizeString != null) {
+      try {
+        bufferSize = Integer.parseInt(bufferSizeString);
       } catch (NumberFormatException e) {
         LOG.error("Caught: " + e.getMessage(), e);
       }
@@ -80,7 +92,7 @@ public class ResourceServlet extends HttpServlet {
   }
 
   @Override
-  protected void service(
+  protected void doGet(
       HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
@@ -88,21 +100,18 @@ public class ResourceServlet extends HttpServlet {
 
     String resource = requestURI.substring(
         request.getContextPath().length() + 1); // todo: make it "stable"
-    //if (resource.startsWith(DOJO_RESOURCE_PREFIX)) {
-    //  // Todo : dojo version
-    //  resource = "dojo-release-1.0.1/" + resource.substring(DOJO_RESOURCE_PREFIX.length());
-    //}
 
     if (expires != null) {
-      response.setHeader("Cache-Control", "max-age=" + expires);
-      response.setDateHeader("Expires", new Date().getTime() + (expires * 1000));
+      response.setDateHeader("Last-Modified", 0);
+      response.setHeader("Cache-Control", "Public");
+      response.setDateHeader("Expires", System.currentTimeMillis() + expires);
     }
     String contentType = MimeTypeUtils.getMimeTypeForFile(requestURI);
     if (contentType != null) {
       response.setContentType(contentType);
     } else {
-      LOG.warn("Unsupported file extension, will be ignored for security "
-          + "reasons; resource='" + resource + "'");
+      LOG.warn("Unsupported file extension, will be ignored for security reasons; resource='"
+          + resource + "'");
       response.setStatus(HttpServletResponse.SC_FORBIDDEN);
     }
     InputStream inputStream = null;
@@ -110,12 +119,30 @@ public class ResourceServlet extends HttpServlet {
       ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
       inputStream = classLoader.getResourceAsStream(resource);
       if (inputStream != null) {
-        IOUtils.copy(inputStream, response.getOutputStream());
+        OutputStream outputStream = response.getOutputStream();
+        copy(inputStream, outputStream);
       } else {
         LOG.warn("Resource '" + resource + "' not found!");
       }
     } finally {
       IOUtils.closeQuietly(inputStream);
+    }
+  }
+
+  @Override
+  protected long getLastModified(HttpServletRequest request) {
+    if (expires != null) {
+      return 0;
+    } else {
+      return super.getLastModified(request);
+    }
+  }
+
+  private void copy(InputStream inputStream, OutputStream outputStream) throws IOException {
+    byte[] buffer = new byte[bufferSize];
+    int count;
+    while (-1 != (count = inputStream.read(buffer))) {
+      outputStream.write(buffer, 0, count);
     }
   }
 }
