@@ -1014,7 +1014,6 @@ var Tobago = {
     */
   setFocus: function() {
     var focusElement = this.element(this.focusId);
-
     if (focusElement) {
       try { // focus() on not visible elements breaks IE
         focusElement.focus();
@@ -1024,6 +1023,7 @@ var Tobago = {
     } else if (typeof this.focusId == "undefined") {
       var lowestTabIndex = 32768; // HTML max tab index value + 1
       var candidate = null;
+      var candidateWithTabIndexZero = null;
       foriLoop: for (var i = 0 ; i < document.forms.length ; i++) {
         var form = document.forms[i];
         if (form != null){
@@ -1032,12 +1032,16 @@ var Tobago = {
             if (element != null) {
               if (!element.disabled && !element.readOnly
                   && this.isFocusType(element.type)) {
-                if (lowestTabIndex > element.tabIndex) {
+                if (lowestTabIndex > element.tabIndex && element.tabIndex > 0) {
                   lowestTabIndex = element.tabIndex;
                   candidate = element;
                   if (lowestTabIndex == 1) {
+                    // optimization: stop on first field with lowest possible tab index 1
                     break foriLoop;
                   }
+                }
+                if (candidateWithTabIndexZero == null && element.tabIndex == 0) {
+                  candidateWithTabIndexZero = element;
                 }
               }
             }
@@ -1048,6 +1052,11 @@ var Tobago = {
         try {
           // focus() on not visible elements breaks IE
           candidate.focus();
+        } catch(ex) { }
+      } else if (candidateWithTabIndexZero != null) {
+        try {
+          // focus() on not visible elements breaks IE
+          candidateWithTabIndexZero.focus();
         } catch(ex) { }
       }
     } else if (this.focusId.length > 0) {
