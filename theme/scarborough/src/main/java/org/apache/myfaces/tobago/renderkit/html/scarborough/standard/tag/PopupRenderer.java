@@ -39,6 +39,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -69,6 +70,10 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
     final String contentDivId = clientId + CONTENT_ID_POSTFIX;
     //final String left = component.getLeft();
     //final String top = component.getTop();
+    Integer zIndex = (Integer) component.getAttributes().get(TobagoConstants.ATTR_ZINDEX);
+    if (zIndex == null) {
+      zIndex = 0;
+    }
 
     final StringBuilder contentStyle = new StringBuilder();
     if (component.getWidth() != null) {
@@ -81,6 +86,9 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
       contentStyle.append(component.getHeight());
       contentStyle.append("; ");
     }
+    contentStyle.append("z-index: ");
+    contentStyle.append(zIndex + 3);
+    contentStyle.append("; ");
     //contentStyle.append("left: ");
     //contentStyle.append(left);
     //contentStyle.append("; ");
@@ -90,6 +98,7 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
     if (component.isModal()) {
       writer.startElement(HtmlConstants.DIV, component);
       writer.writeIdAttribute(clientId);
+      writer.writeStyleAttribute("z-index: " + (zIndex + 1) + ";");
       writer.writeClassAttribute();
       writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.popupBlink('" + clientId + "')", null);
       if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
@@ -104,6 +113,7 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
       writer.startElement(HtmlConstants.IFRAME, component);
       writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + HtmlConstants.IFRAME);
       writer.writeClassAttribute("tobago-popup-iframe tobago-popup-none");
+      writer.writeStyleAttribute("z-index: " + (zIndex + 2) + ";");      
       UIPage page = ComponentUtil.findPage(facesContext);
       final StringBuilder frameSize = new StringBuilder();
       if (component.isModal()) {

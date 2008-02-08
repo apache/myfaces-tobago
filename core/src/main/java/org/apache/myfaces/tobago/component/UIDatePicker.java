@@ -37,6 +37,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TIME;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.DatePickerController;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
@@ -151,6 +152,8 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
     } else {
       popup.setId(facesContext.getViewRoot().createUniqueId());
     }
+    popup.getAttributes().put(TobagoConstants.ATTR_ZINDEX, 10);
+      
     link.getFacets().put(FACET_PICKER_POPUP, popup);
 
     popup.setRendered(false);
