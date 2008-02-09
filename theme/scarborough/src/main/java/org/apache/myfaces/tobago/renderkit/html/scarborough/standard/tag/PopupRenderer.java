@@ -116,7 +116,7 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
         frameSize.append(contentStyle); // size of the popup
       }
       writer.writeAttribute(HtmlAttributes.STYLE, frameSize.toString(), false);
-      writer.writeAttribute(HtmlAttributes.SRC, "javascript:false;", false);
+      writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getBlankPage(facesContext), false);
       writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
       writer.endElement(HtmlConstants.IFRAME);
     }
