@@ -243,7 +243,6 @@ public abstract class AbstractAPTMojo extends AbstractMojo
      * @since 1.0.15
      */
     private String minmemory;
-;
 
 
 
