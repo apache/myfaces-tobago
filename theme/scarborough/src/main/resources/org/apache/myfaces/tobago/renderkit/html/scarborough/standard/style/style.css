@@ -510,7 +510,6 @@ label.tobago-label-inline {
 /* popup-------------------------------------------------------------- */
 
 .tobago-popup-default {
-  z-index: 1;
   cursor: wait;
   width: 100%;
   height: 100%;
@@ -528,7 +527,6 @@ label.tobago-label-inline {
 }
 
 .tobago-popup-iframe {
-  z-index: 2;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -538,7 +536,6 @@ label.tobago-label-inline {
 }
 
 .tobago-popup-content {
-  z-index: 3;
   border-width: 0px;
   background: #bbccdd;
   position: absolute;

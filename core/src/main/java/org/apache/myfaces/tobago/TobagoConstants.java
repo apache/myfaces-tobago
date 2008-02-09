@@ -187,7 +187,8 @@ public final class TobagoConstants {
   public static final String ATTR_APPLICATION_ICON = "applicationIcon";
   public static final String ATTR_VALIDATOR = "validator";
   public static final String ATTR_TAB_INDEX = "tabIndex";
-
+  public static final String ATTR_ZINDEX = "zIndex";
+  
   public static final String FACET_ACTION = "action";
   public static final String FACET_CONFIRMATION = "confirmation";
   public static final String FACET_LABEL = "label";
