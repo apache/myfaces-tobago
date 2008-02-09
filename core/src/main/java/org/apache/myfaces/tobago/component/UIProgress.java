@@ -28,6 +28,9 @@ import javax.faces.context.FacesContext;
  * Time: 8:07:24 PM
  */
 public class UIProgress extends javax.faces.component.UIOutput implements SupportsMarkup {
+
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Progress";
+  
   private String[] markup;
   private String tip;
 
