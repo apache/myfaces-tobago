@@ -40,7 +40,6 @@ public class ObjectRenderer extends LayoutableRendererBase {
     if (src != null) {
       writer.writeAttribute(HtmlAttributes.SRC, String.valueOf(src), true);
     } else {
-      //writer.writeAttribute(HtmlAttributes.SRC, "javascript:false;", false);
       writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getBlankPage(facesContext), false);
     }
     writer.writeClassAttribute();
