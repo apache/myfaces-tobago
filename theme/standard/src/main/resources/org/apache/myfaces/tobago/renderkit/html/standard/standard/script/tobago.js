@@ -883,6 +883,49 @@ var Tobago = {
         Tobago.removeCssClass(iframe, "tobago-popup-none");
       }
     }
+    
+    // disable all elements on page not initially disabled
+    hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + "disabledElements");
+    if (hidden == null) {
+      hidden = document.createElement("input");
+      hidden.id = id + Tobago.SUB_COMPONENT_SEP + "disabledElements";
+      hidden.name = id;
+      hidden.type = "hidden";
+      document.forms[0].appendChild(hidden);
+    }
+    hidden.value = ",";
+    var firstPopupElement = null;
+    for (var i = 0; i < document.forms[0].elements.length; i++) {
+      var element = document.forms[0].elements[i];
+      if (element.type != "hidden" && !element.disabled) {
+        if (element.id.indexOf(id) != 0) {
+          element.disabled = true;
+          hidden.value += element.id + ",";
+        } else {
+          if (firstPopupElement == null && element.focus) {
+            firstPopupElement = element;
+          }
+        }
+      }
+    }
+    for (var i = 0; i < document.anchors.length; i++) {
+      var element = document.anchors[i];
+      if (!element.disabled) {
+        if (element.id.indexOf(id) != 0) {
+          element.disabled = true;
+          hidden.value += element.id + ",";
+        } else {
+          if (firstPopupElement == null && element.focus) {
+            firstPopupElement = element;
+          }
+        }
+      }
+    }
+    // set focus on first element in popup
+    if (firstPopupElement != null) {
+      firstPopupElement.focus();
+    }
+
   },
 
   popupResizeStub: null,
@@ -953,6 +996,23 @@ var Tobago = {
 
     Tobago.removeEventListener(window, "resize", Tobago.popupResizeStub);
     Tobago.popupResizeStub = null;
+
+    // enable all elements on page not initially disabled
+    hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + "disabledElements");
+    if (hidden != null && hidden.value != "") {
+      for (var i = 0; i < document.forms[0].elements.length; i++) {
+        var element = document.forms[0].elements[i];
+        if (hidden.value.indexOf("," + element.id + ",") >= 0) {
+          element.disabled = false;
+        }
+      }
+      for (var i = 0; i < document.anchors.length; i++) {
+        var element = document.anchors[i];
+        if (hidden.value.indexOf("," + element.id + ",") >= 0) {
+          element.disabled = false;
+        }
+      }
+    }
   },
 
   openPopupWithAction: function(popupId, actionId, options) {
@@ -1486,13 +1546,13 @@ var Tobago = {
       return undefined;
     }
     if (! (typeof arg == 'undefined')) {
-    LOG.error("arg is unknown: " + typeof arg + " : " + arg);
+      LOG.error("arg is unknown: " + typeof arg + " : " + arg);
     }
     return undefined;
   },
 
   extend: function(target, source) {
-    for (property in source) {
+    for (var property in source) {
       target[property] = source[property];
     }
     return target;
