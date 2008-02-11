@@ -768,6 +768,7 @@
       <modules>
         <module>extension</module>
         <module>example</module>
+        <module>sandbox</module>
       </modules>
     </profile>
     <!-- END SNIPPET: release-profile -->
