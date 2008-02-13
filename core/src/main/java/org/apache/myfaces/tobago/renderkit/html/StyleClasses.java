@@ -95,6 +95,10 @@ public class StyleClasses implements Serializable {
     classes.remove(nameOfClass(renderer, sub));
   }
 
+  public boolean isEmpty() {
+    return classes.isEmpty();
+  }
+
   private String nameOfClass(String renderer, String sub) {
     StringBuilder builder = new StringBuilder();
     builder.append(PREFIX);

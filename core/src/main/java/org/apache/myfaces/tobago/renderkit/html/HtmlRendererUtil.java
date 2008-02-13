@@ -599,7 +599,9 @@ public final class HtmlRendererUtil {
         if (item instanceof SupportsMarkup) {
           StyleClasses optionStyle = new StyleClasses();
           optionStyle.addMarkupClass((SupportsMarkup) item, getRendererName(facesContext, component), "option");
-          writer.writeClassAttribute(optionStyle);
+          if (!optionStyle.isEmpty()) {
+            writer.writeClassAttribute(optionStyle);
+          }
         }
         if (RenderUtil.contains(values, item.getValue())) {
           writer.writeAttribute(HtmlAttributes.SELECTED, true);
