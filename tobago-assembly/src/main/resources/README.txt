@@ -28,3 +28,6 @@ NOTE: The JDK 1.4 version is work in progress.
 
 The extension directory contains the tobago-facelets.jar.
 The tobago-facelets.jar is JDK 1.4 compatible.
+
+Warning: The tobago-sandbox.jar contains unstable components.
+Everything is subject to change without prior notice.

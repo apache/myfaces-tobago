@@ -1,3 +1,15 @@
+/**
+ * <b>Tobago Framework Sandbox Tag Library -
+ * (C) Copyright 2002-2008 The Apache Software Foundation</b>
+ *
+ * <b>Warning: The sandbox tag library contains unstable components.
+ * Everything is subject to change without prior notice.</b>
+ */
+@org.apache.myfaces.tobago.apt.annotation.Taglib(
+    shortName = "tcs",
+    uri = "http://myfaces.apache.org/tobago/sandbox",
+    fileName = "tobago-sandbox.tld", displayName = "Tobago Sandbox") package org.apache.myfaces.tobago.taglib.sandbox;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -14,13 +26,3 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-/**
- * <h2><Tobago Framework Sandbox Tag Library -
- * (C) Copyright 2002-2007 The Apache Software Foundation</h2>
- */
-@org.apache.myfaces.tobago.apt.annotation.Taglib(
-    shortName = "tcs",
-    uri = "http://myfaces.apache.org/tobago/sandbox",
-    fileName = "tobago-sandbox.tld", displayName = "Tobago Sandbox")
-package org.apache.myfaces.tobago.taglib.sandbox;
