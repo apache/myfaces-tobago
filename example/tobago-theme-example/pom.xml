@@ -37,5 +37,10 @@
       <artifactId>tobago-theme-speyside</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.myfaces.core</groupId>
+      <artifactId>myfaces-api</artifactId>
+      <scope>provided</scope>
+    </dependency>    
   </dependencies>
 </project>

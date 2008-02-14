@@ -18,3 +18,15 @@
 .tobago-column-markup-new {
   background-color: yellow;
 }
+
+.tobago-in-markup-changeaware {
+  border: 1px solid red;
+}
+
+.example-changed {
+  background-color: red;
+}
+
+.tobago-in-markup-blink {
+  background-color: yellow;
+}
