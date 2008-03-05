@@ -17,10 +17,10 @@ package org.apache.myfaces.tobago.webapp;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
@@ -178,4 +178,21 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
     writeText(null, property);
   }
 
+  public String getContentTypeWithCharSet() {
+    String contentType = getContentType();
+    if (contentType == null) {
+      contentType = "text/html";
+    }
+    String characterEncoding = getCharacterEncoding();
+    if (characterEncoding == null) {
+      characterEncoding = "UTF-8";
+    }
+
+    StringBuilder builder = new StringBuilder();
+    builder.append(contentType);
+    builder.append("; charset=");
+    builder.append(characterEncoding);
+    return builder.toString();
+
+  }
 }
