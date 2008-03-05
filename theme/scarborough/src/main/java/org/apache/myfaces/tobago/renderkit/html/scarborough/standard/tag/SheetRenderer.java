@@ -61,6 +61,7 @@ import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIData;
@@ -70,7 +71,6 @@ import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIReload;
-import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
@@ -133,6 +133,8 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     writer.writeStyleAttribute(sheetStyle);
     UICommand clickAction = null;
     UICommand dblClickAction = null;
+    int columnSelectorIndex = -1;
+    int i = 0;
     for (UIComponent child : (List<UIComponent>) data.getChildren()) {
       if (child instanceof UIColumnEvent) {
         UIColumnEvent columnEvent = (UIColumnEvent) child;
@@ -146,9 +148,11 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
             dblClickAction = action;
           }
         }
+      } else if (child instanceof UIColumnSelector) {
+        columnSelectorIndex = i;
       }
+      i++;
     }
-
 
     renderSheet(facesContext, data, (clickAction != null || dblClickAction != null));
 
@@ -172,7 +176,8 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     }
     final String[] cmds = {
         "new Tobago.Sheet(\"" + sheetId + "\", " + ajaxEnabled
-            + ", \"" + checked + "\", \"" + unchecked + "\", \"" + data.getSelectable() + "\", "+ frequency
+            + ", \"" + checked + "\", \"" + unchecked + "\", \"" + data.getSelectable()
+            + "\", " + columnSelectorIndex + ", "+ frequency
             + ",  " + (clickAction!=null?HtmlRendererUtil.getJavascriptString(clickAction.getId()):null)
             + ",  " + HtmlRendererUtil.getRenderedPartiallyJavascriptArray(facesContext, clickAction)
             + ",  " + (dblClickAction!=null?HtmlRendererUtil.getJavascriptString(dblClickAction.getId()):null)
