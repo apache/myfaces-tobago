@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.layout;
+package org.apache.myfaces.tobago.layout.grid;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,23 +17,22 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
+import junit.framework.TestCase;
+
 /**
  * User: lofwyr
- * Date: 24.01.2008 16:01:18
+ * Date: 25.01.2008 17:05:52
  */
-public class ComponentCell implements Cell {
+public class GridArrayUnitTest extends TestCase {
 
-  private LayoutComponent component;
+  public void test() {
 
-  public ComponentCell(LayoutComponent component) {
-    this.component = component;
-  }
-
-  public LayoutComponent getComponent() {
-    return component;
-  }
-
-  public Cell getMasterCell() {
-    return this;
+    GridArray gridArray = new GridArray(1, 1);
+    gridArray.get(0,0);
+    assertEquals (1, gridArray.getRowCount());
+    gridArray.get(0,1);
+    assertEquals (1, gridArray.getRowCount());
+    gridArray.set(0,1, null);
+    assertEquals (2, gridArray.getRowCount());
   }
 }

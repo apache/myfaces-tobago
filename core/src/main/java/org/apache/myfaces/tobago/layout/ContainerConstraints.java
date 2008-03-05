@@ -19,12 +19,8 @@ package org.apache.myfaces.tobago.layout;
 
 /**
  * User: lofwyr
- * Date: 23.01.2008 20:10:36
+ * Date: 14.02.2008 11:47:07
  */
-public interface LayoutComponent {
-
-  ComponentConstraints getComponentConstraints(String name);
-
-  void setComponentConstraints(String name, ComponentConstraints constraints);
+public interface ContainerConstraints {
 
 }

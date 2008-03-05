@@ -1,4 +1,6 @@
-package org.apache.myfaces.tobago.layout;
+package org.apache.myfaces.tobago.layout.grid;
+
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -19,11 +21,21 @@ package org.apache.myfaces.tobago.layout;
 
 /**
  * User: lofwyr
- * Date: 24.01.2008 15:56:47
+ * Date: 24.01.2008 16:01:18
  */
-public interface Cell {
+public class ComponentCell implements Cell {
 
-  LayoutComponent getComponent();
+  private LayoutComponent component;
 
-  Cell getMasterCell();
+  public ComponentCell(LayoutComponent component) {
+    this.component = component;
+  }
+
+  public LayoutComponent getComponent() {
+    return component;
+  }
+
+  public Cell getMasterCell() {
+    return this;
+  }
 }

@@ -17,22 +17,23 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
-
 /**
  * User: lofwyr
- * Date: 25.01.2008 17:05:52
+ * Date: 23.01.2008 20:21:08
  */
-public class GridArrayUnitTest extends TestCase {
+public class PixelMeasure implements Measure {
 
-  public void test() {
+  private int value;
 
-    GridArray gridArray = new GridArray(1, 1);
-    gridArray.get(0,0);
-    assertEquals (1, gridArray.getRowCount());
-    gridArray.get(0,1);
-    assertEquals (1, gridArray.getRowCount());
-    gridArray.set(0,1, null);
-    assertEquals (2, gridArray.getRowCount());
+  public PixelMeasure(int value) {
+    this.value = value;
+  }
+
+  public int getValue() {
+    return value;
+  }
+
+  public void setValue(int value) {
+    this.value = value;
   }
 }

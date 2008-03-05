@@ -25,8 +25,9 @@ import java.util.List;
  */
 public interface LayoutContainer extends LayoutComponent {
 
-  Dimension getBeginInset();
-  Dimension getEndInset();
+  ContainerConstraints getContainerConstraints(String name);
+
+  void setContainerConstraints(String name, ContainerConstraints component);
 
   List<LayoutComponent> getComponents();
 }

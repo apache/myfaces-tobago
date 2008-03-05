@@ -1,4 +1,6 @@
-package org.apache.myfaces.tobago.layout;
+package org.apache.myfaces.tobago.layout.grid;
+
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -19,21 +21,11 @@ package org.apache.myfaces.tobago.layout;
 
 /**
  * User: lofwyr
- * Date: 24.01.2008 16:03:47
+ * Date: 24.01.2008 15:56:47
  */
-public class SpanCell implements Cell {
+public interface Cell {
 
-  private ComponentCell masterCell;
+  LayoutComponent getComponent();
 
-  public SpanCell(ComponentCell masterCell) {
-    this.masterCell = masterCell;
-  }
-
-  public LayoutComponent getComponent() {
-    return masterCell.getComponent();
-  }
-
-  public ComponentCell getMasterCell() {
-    return masterCell;
-  }
+  Cell getMasterCell();
 }

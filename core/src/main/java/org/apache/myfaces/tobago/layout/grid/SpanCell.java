@@ -1,4 +1,6 @@
-package org.apache.myfaces.tobago.layout;
+package org.apache.myfaces.tobago.layout.grid;
+
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,37 +19,23 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.LayoutTokens;
-
-import java.util.List;
-
 /**
  * User: lofwyr
- * Date: 24.01.2008 13:36:21
+ * Date: 24.01.2008 16:03:47
  */
-public class GridLayoutManager implements LayoutManager {
+public class SpanCell implements Cell {
 
-  private Grid grid;
+  private ComponentCell masterCell;
 
-  private LayoutTokens rowTokens;
-  private LayoutTokens columnTokens;
-
-  public GridLayoutManager(String rowsString, String columnsString) {
-
-    rowTokens = LayoutTokens.parse(rowsString);
-    columnTokens = LayoutTokens.parse(columnsString);
-
-    grid = new Grid(columnTokens.getSize(), rowTokens.getSize());
+  public SpanCell(ComponentCell masterCell) {
+    this.masterCell = masterCell;
   }
 
-  public void layout(LayoutContainer container) {
+  public LayoutComponent getComponent() {
+    return masterCell.getComponent();
+  }
 
-    List<LayoutComponent> components = container.getComponents();
-
-    for (LayoutComponent component : components) {
-      grid.add(new ComponentCell(component), 1, 1);
-    }
-
-    
+  public ComponentCell getMasterCell() {
+    return masterCell;
   }
 }

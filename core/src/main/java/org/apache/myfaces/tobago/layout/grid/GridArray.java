@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.layout;
+package org.apache.myfaces.tobago.layout.grid;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -21,6 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Helper class to manager the rectangular data of the Grid.
+ *
+ * @see Grid
+ *
  * User: lofwyr
  * Date: 25.01.2008
  */
