@@ -1198,7 +1198,7 @@ var Tobago = {
       classes = classes.replace(re, " ");
     }
     classes = classes.replace(/  /g, " ");
-    element.className = classes;
+      element.className = classes;
   },
 
   /**

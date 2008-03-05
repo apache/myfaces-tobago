@@ -25,7 +25,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
@@ -57,17 +56,17 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_NOT_MODIFIED;
 import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
-import static org.apache.myfaces.tobago.component.UIData.ATTR_SCROLL_POSITION;
-import static org.apache.myfaces.tobago.component.UIData.NONE;
-import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIData;
+import static org.apache.myfaces.tobago.component.UIData.ATTR_SCROLL_POSITION;
+import static org.apache.myfaces.tobago.component.UIData.NONE;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIPage;
@@ -134,6 +133,8 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     writer.writeStyleAttribute(sheetStyle);
     UICommand clickAction = null;
     UICommand dblClickAction = null;
+    int columnSelectorIndex = -1;
+    int i = 0;
     for (UIComponent child : (List<UIComponent>) data.getChildren()) {
       if (child instanceof UIColumnEvent) {
         UIColumnEvent columnEvent = (UIColumnEvent) child;
@@ -147,9 +148,11 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
             dblClickAction = action;
           }
         }
+      } else if (child instanceof UIColumnSelector) {
+        columnSelectorIndex = i;
       }
+      i++;
     }
-
 
     renderSheet(facesContext, data, (clickAction != null || dblClickAction != null));
 
@@ -173,7 +176,8 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     }
     final String[] cmds = {
         "new Tobago.Sheet(\"" + sheetId + "\", " + ajaxEnabled
-            + ", \"" + checked + "\", \"" + unchecked + "\", \"" + data.getSelectable() + "\", "+ frequency
+            + ", \"" + checked + "\", \"" + unchecked + "\", \"" + data.getSelectable()
+            + "\", " + columnSelectorIndex + ", "+ frequency
             + ",  " + (clickAction!=null?HtmlRendererUtil.getJavascriptString(clickAction.getId()):null)
             + ",  " + HtmlRendererUtil.getRenderedPartiallyJavascriptArray(facesContext, clickAction)
             + ",  " + (dblClickAction!=null?HtmlRendererUtil.getJavascriptString(dblClickAction.getId()):null)
