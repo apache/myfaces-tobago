@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.ClientProperties;
-
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
@@ -40,24 +38,11 @@ public class ResponseUtils {
     }
   }
 
-  public static void ensureContentTypeHeader(FacesContext facesContext, String charset) {
+  public static void ensureContentTypeHeader(FacesContext facesContext, String contentType) {
     // TODO PortletRequest
     if (facesContext.getExternalContext().getResponse() instanceof HttpServletResponse) {
       HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-      response.setContentType(generateContentType(facesContext, charset));
+      response.setContentType(contentType);
     }
-  }
-
-  private static String generateContentType(FacesContext facesContext, String charset) {
-    StringBuilder sb = new StringBuilder("text/");
-    ClientProperties clientProperties
-        = ClientProperties.getInstance(facesContext.getViewRoot());
-    sb.append(clientProperties.getContentType());
-    if (charset == null) {
-      charset = "UTF-8";
-    }
-    sb.append("; charset=");
-    sb.append(charset);
-    return sb.toString();
   }
 }

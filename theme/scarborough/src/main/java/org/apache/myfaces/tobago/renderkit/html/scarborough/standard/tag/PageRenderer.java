@@ -24,7 +24,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CHARSET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DELAY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DOCTYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ENCTYPE;
@@ -162,8 +161,8 @@ public class PageRenderer extends PageRendererBase {
     String viewId = facesContext.getViewRoot().getViewId();
     String formAction = viewHandler.getActionURL(facesContext, viewId);
     formAction = facesContext.getExternalContext().encodeActionURL(formAction);
-    String charset = (String) page.getAttributes().get(ATTR_CHARSET);
-    ResponseUtils.ensureContentTypeHeader(facesContext, charset);
+    String contentType = writer.getContentTypeWithCharSet();
+    ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
 
     String title = (String) page.getAttributes().get(ATTR_LABEL);
 
@@ -182,13 +181,14 @@ public class PageRenderer extends PageRendererBase {
     //if (debugMode) {
     writer.writeJavascript("var TbgHeadStart = new Date();");
     //}
+
     // meta
-    // TODO duplicate; see PageTag.doStartTag()
-//    writer.startElement(HtmlConstants.META, null);
-//    writer.writeAttribute("http-equiv", "Content-Type", null);
-//    writer.writeAttribute(
-//        "content", generateContentType(facesContext, charset), null);
-//    writer.endElement(HtmlConstants.META);
+    // this is needed, because websphere 6.0? ignores the setting of the content type on the response
+    writer.startElement(HtmlConstants.META, null);
+    writer.writeAttribute("http-equiv", "Content-Type", false);
+    writer.writeAttribute("content", contentType, false);
+    writer.endElement(HtmlConstants.META);
+
     // title
     writer.startElement(HtmlConstants.TITLE, null);
     writer.writeText(title != null ? title : "");
