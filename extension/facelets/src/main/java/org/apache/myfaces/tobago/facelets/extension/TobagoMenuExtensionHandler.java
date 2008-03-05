@@ -63,6 +63,7 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
     UIViewRoot root = ComponentSupport.getViewRoot(faceletContext, parent);
     UIComponent component = application.createComponent(getSubComponentType());
     component.setId(root.createUniqueId());
+    component.setRendererType(null);
     setAttributes(faceletContext, component);
     menuCommand.getFacets().put(TobagoConstants.FACET_ITEMS, component);
   }
