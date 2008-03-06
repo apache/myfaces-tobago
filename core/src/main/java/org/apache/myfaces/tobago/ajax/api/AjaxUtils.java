@@ -106,7 +106,10 @@ public class AjaxUtils {
   }
 
   public static void removeAjaxComponent(FacesContext facesContext, String clientId) {
-    getAjaxComponents(facesContext).remove(clientId);
+    Map<String, UIComponent> ajaxComponents = getAjaxComponents(facesContext);
+    if (ajaxComponents != null) {
+      ajaxComponents.remove(clientId);
+    }
   }
 
   public static void addAjaxComponent(FacesContext facesContext, String clientId) {
@@ -115,7 +118,10 @@ public class AjaxUtils {
 
   public static void addAjaxComponent(FacesContext facesContext, UIComponent component) {
     if (component instanceof AjaxComponent) {
-      getAjaxComponents(facesContext).put(component.getClientId(facesContext), component);
+      Map<String, UIComponent> ajaxComponents = getAjaxComponents(facesContext);
+      if (ajaxComponents != null) {
+        ajaxComponents.put(component.getClientId(facesContext), component);
+      }
     } else {
       LOG.warn("Ignore non AjaxComponent : \""
           + (component != null ? component.getClientId(facesContext) : "null")
