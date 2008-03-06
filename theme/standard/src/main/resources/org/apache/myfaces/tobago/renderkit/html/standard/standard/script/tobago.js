@@ -1662,6 +1662,7 @@ Tobago.Panel.prototype.doUpdate = function(data, ioArgs) {
     Tobago.deleteOverlay(Tobago.element(this.id));
     if (data.responseCode == Tobago.Updater.CODE_ERROR) {
       LOG.warn("ERROR when updating " + data.ajaxId);
+//      alert("panel:" + data.ajaxId + " :: " + data.responseCode);
     }
   }
   this.setup();
@@ -1675,12 +1676,16 @@ Tobago.Panel.prototype.initReload = function() {
 
 Tobago.Panel.prototype.reloadWithAction = function(action, options) {
   //LOG.debug("reload panel with action \"" + action + "\"");
-  var element = Tobago.element(this.id);
-  element.skipUpdate = false;
-  Tobago.createOverlay(element);
+  this.prepareReload();
   var reloadOptions = Tobago.extend({}, this.options);
   reloadOptions = Tobago.extend(reloadOptions, options);
   Tobago.Updater.update(action, this.id, reloadOptions);
+};
+
+Tobago.Panel.prototype.prepareReload = function() {
+  var element = Tobago.element(this.id);
+  element.skipUpdate = false;
+  Tobago.createOverlay(element);
 };
 
 Tobago.EventListener = function(element, event, func) {
@@ -1928,7 +1933,7 @@ Tobago.Updater = {
   update: function(actionId, ajaxComponentIds, options) {
 
 //    LOG.show();
-    LOG.debug("Updater.update");
+    LOG.debug("Updater.update(\"" + actionId + "\", \"" + ajaxComponentIds + "\")");
 
     if (Tobago.Transport.hasTransport()) {
 //    LOG.info("hasTransport");
@@ -1950,8 +1955,12 @@ Tobago.Updater = {
         for (var i = 0; i < ids.length; i++) {
           var id = ids[i];
           var container = Tobago.ajaxComponents[id];
-          if (container && typeof container.reloadWithAction != "function") {
-            Tobago.createOverlay(container);
+          if (container) {
+            if (typeof container.prepareReload == "function") {
+              container.prepareReload();
+            } else {
+              Tobago.createOverlay(container);
+            }
           }
         }
       }
@@ -2018,6 +2027,7 @@ Tobago.Updater = {
       Tobago.deleteOverlay(Tobago.element(Tobago.ajaxComponents[data.ajaxId]));
       if (data.responseCode == Tobago.Updater.CODE_ERROR) {
         LOG.warn("ERROR when updating " + data.ajaxId);
+//        alert(data.ajaxId + " :: " + data.responseCode);
       }
     }
   },
@@ -2040,6 +2050,7 @@ Tobago.Updater = {
       if (!data.tobagoAjaxResponse) {
         // unknown response do full page reload
         LOG.warn("initiating full reload");
+//        alert("wait");
         Tobago.Transport.requestComplete();
         Tobago.submitAction(Tobago.page.id);
         return data;
@@ -2047,6 +2058,7 @@ Tobago.Updater = {
         // update required do full page reload
         Tobago.replaceJsfState(data.jsfState);
         LOG.info("full reload requested");
+//        alert("wait responseCode = " + data.responseCode);
         Tobago.Transport.requestComplete();
         Tobago.submitAction(Tobago.page.id);
         return data;
