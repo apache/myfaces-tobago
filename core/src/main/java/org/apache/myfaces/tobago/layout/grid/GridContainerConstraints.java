@@ -1,9 +1,5 @@
 package org.apache.myfaces.tobago.layout.grid;
 
-import org.apache.myfaces.tobago.layout.ContainerConstraints;
-import org.apache.myfaces.tobago.layout.Dimension;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -21,17 +17,20 @@ import org.apache.myfaces.tobago.layout.LayoutContainer;
  * limitations under the License.
  */
 
-/**
- * User: lofwyr
+import org.apache.myfaces.tobago.layout.ContainerConstraints;
+import org.apache.myfaces.tobago.layout.Dimension;
+import org.apache.myfaces.tobago.layout.LayoutContainer;
+
+/*
  * Date: 14.02.2008
  */
 public class GridContainerConstraints implements ContainerConstraints {
 
   public static final String NAME = "grid";
 
-  private Dimension beginInset;// TODO = new Dimension();
+  private Dimension beginInset; // TODO = new Dimension();
 
-  private Dimension endInset;// TODO = new Dimension();
+  private Dimension endInset; // TODO = new Dimension();
 
   /**
    * Convenience method to get the correct layout constraints from the component.

@@ -23,8 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * User: lofwyr
+/*
  * Date: 24.01.2008 16:31:58
  */
 public class Grid {

@@ -25,7 +25,6 @@ import java.util.List;
  *
  * @see Grid
  *
- * User: lofwyr
  * Date: 25.01.2008
  */
 public class GridArray {

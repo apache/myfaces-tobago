@@ -17,8 +17,7 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-/**
- * User: lofwyr
+/*
  * Date: 23.01.2008 20:21:08
  */
 public class PixelMeasure implements Measure {

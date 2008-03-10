@@ -1,9 +1,5 @@
 package org.apache.myfaces.tobago.layout.grid;
 
-import org.apache.myfaces.tobago.layout.ComponentConstraints;
-import org.apache.myfaces.tobago.layout.Dimension;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -21,7 +17,11 @@ import org.apache.myfaces.tobago.layout.LayoutComponent;
  * limitations under the License.
  */
 
-/**
+import org.apache.myfaces.tobago.layout.ComponentConstraints;
+import org.apache.myfaces.tobago.layout.Dimension;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
+
+/*
  * User: lofwyr
  * Date: 13.02.2008 20:47:28
  */
@@ -33,11 +33,11 @@ public class GridComponentConstraints implements ComponentConstraints {
 
   private int rowSpan = 1;
 
-  private Dimension minimumSize;// TODO = new Dimension();
+  private Dimension minimumSize; // TODO = new Dimension();
 
-  private Dimension preferedSize;// TODO = new Dimension();
+  private Dimension preferedSize; // TODO = new Dimension();
 
-  private Dimension maximumSize;// TODO = new Dimension();
+  private Dimension maximumSize; // TODO = new Dimension();
 
   /**
    * Convenience method to get the correct layout constraints from the component.

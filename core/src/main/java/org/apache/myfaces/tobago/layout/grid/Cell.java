@@ -1,7 +1,5 @@
 package org.apache.myfaces.tobago.layout.grid;
 
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,8 +17,10 @@ import org.apache.myfaces.tobago.layout.LayoutComponent;
  * limitations under the License.
  */
 
-/**
- * User: lofwyr
+import org.apache.myfaces.tobago.layout.LayoutComponent;
+
+
+/*
  * Date: 24.01.2008 15:56:47
  */
 public interface Cell {

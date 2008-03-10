@@ -26,8 +26,7 @@ import org.apache.myfaces.tobago.layout.LayoutManager;
 
 import java.util.List;
 
-/**
- * User: lofwyr
+/*
  * Date: 24.01.2008 13:36:21
  */
 public class GridLayoutManager implements LayoutManager {
