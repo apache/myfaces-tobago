@@ -37,21 +37,8 @@ public class FormRenderer extends RendererBase {
     UIPage page = ComponentUtil.findPage(facesContext, form);
     String actionId = page.getActionId();
     String clientId = form.getClientId(facesContext);
-    String notFor = null;
-    if (form instanceof org.apache.myfaces.tobago.component.UIForm) {
-      notFor = ((org.apache.myfaces.tobago.component.UIForm)form).getNotFor();
-    }
-    System.err.println("Action Id " + actionId + " " + clientId + " " + notFor);
-    if (actionId != null ) {
-      if (notFor == null) {
-        System.err.println("setting form " + clientId);
-        form.setSubmitted(actionId.startsWith(clientId));
-      } else {
-          System.err.println("for reverse unsetting form " + clientId);
-          form.setSubmitted(!actionId.endsWith(notFor));
-
-      }
-
+    if (actionId != null && actionId.startsWith(clientId)) {
+      form.setSubmitted(true);
     }
     super.decode(facesContext, form);
   }
