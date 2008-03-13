@@ -163,7 +163,8 @@ public class TagUtils {
   public static void setActionMethodBinding(UIComponent component, String value, Class[] args) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
-        MethodBinding methodBinding = FacesContext.getCurrentInstance().getApplication().createMethodBinding(value, args);
+        MethodBinding methodBinding =
+            FacesContext.getCurrentInstance().getApplication().createMethodBinding(value, args);
         ((ActionSource) component).setAction(methodBinding);
       } else {
         ((ActionSource) component).setAction(new ConstantMethodBinding(value));
