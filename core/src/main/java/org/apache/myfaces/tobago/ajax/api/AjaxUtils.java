@@ -152,6 +152,7 @@ public class AjaxUtils {
   public static String encodeJavascriptString(String value) {
     String result = StringUtils.replace(value, "\\", "\\\\");
     result = StringUtils.replace(result, "\n", "\\n");
+    result = StringUtils.replace(result, "\r", "\\r");
     return StringUtils.replace(result, "\"", "\\\"");
   }
 }
