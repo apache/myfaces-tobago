@@ -40,9 +40,10 @@ public class ClassUtils {
   }
 
   public static boolean isPrimitive(String qualifiedClassName) {
-    return ("int".equals(qualifiedClassName) || "boolean".equals(qualifiedClassName) || "long".equals(qualifiedClassName) ||
-        "char".equals(qualifiedClassName) || "float".equals(qualifiedClassName) || "double".equals(qualifiedClassName) ||
-        "short".equals(qualifiedClassName) || "byte".equals(qualifiedClassName));
+    return ("int".equals(qualifiedClassName) || "boolean".equals(qualifiedClassName)
+        || "long".equals(qualifiedClassName) || "char".equals(qualifiedClassName)
+        || "float".equals(qualifiedClassName) || "double".equals(qualifiedClassName)
+        || "short".equals(qualifiedClassName) || "byte".equals(qualifiedClassName));
 
   }
 }

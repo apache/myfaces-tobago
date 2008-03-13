@@ -23,10 +23,8 @@ import com.sun.mirror.declaration.AnnotationTypeDeclaration;
 import com.sun.mirror.declaration.Declaration;
 import com.sun.mirror.util.DeclarationVisitors;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.util.Set;
 import java.util.Collection;
-import java.io.IOException;
 
 
 public class CreateComponentAnnotationProcessor implements AnnotationProcessor {
@@ -44,7 +42,6 @@ public class CreateComponentAnnotationProcessor implements AnnotationProcessor {
     CreateComponentAnnotationVisitor visitor = new CreateComponentAnnotationVisitor(env);
 
     for (AnnotationTypeDeclaration atd : atds) {
-       System.err.println("Collecting annotation " + atd);
       env.getMessager().printNotice("Collecting annotation "+atd);
       Collection<Declaration> decls = env.getDeclarationsAnnotatedWith(atd);
       for (Declaration decl : decls) {
