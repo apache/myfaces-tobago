@@ -351,7 +351,8 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
   }
 
   protected void addRendererElement(TypeDeclaration decl, UIComponentTag componentTag,
-      Class uiComponentClass, List<Element> renderer, Namespace namespace) throws IOException, NoSuchFieldException, IllegalAccessException {
+      Class uiComponentClass, List<Element> renderer, Namespace namespace)
+      throws IOException, NoSuchFieldException, IllegalAccessException {
     String rendererType = componentTag.rendererType();
     if (rendererType != null && rendererType.length() > 0) {
       Field componentField = uiComponentClass.getField("COMPONENT_FAMILY");
