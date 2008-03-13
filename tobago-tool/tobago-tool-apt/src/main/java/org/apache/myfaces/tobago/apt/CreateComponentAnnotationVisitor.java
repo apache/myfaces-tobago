@@ -84,8 +84,6 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     for (InterfaceDeclaration decl : getCollectedInterfaceDeclarations()) {
       if (decl.getAnnotation(UIComponentTag.class) != null) {
         createRenderer(decl);
-        System.err.println(decl);
-        System.err.println(decl.getAnnotation(Tag.class));
         if (decl.getAnnotation(Tag.class) != null) {
           createTag(decl);
         }
@@ -145,7 +143,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
           }
         }
       } catch (ClassNotFoundException e) {
-        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        e.printStackTrace();
       }
       if (componentInfo.hasMarkup()) {
         componentInfo.addInterface("org.apache.myfaces.tobago.component.SupportsMarkup");
