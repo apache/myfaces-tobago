@@ -36,6 +36,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 @Tag(name = "tab")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITab",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanel",
+    namingContainer = true,
     rendererType = "Tab")
 public interface TabTagDeclaration extends TobagoBodyTagDeclaration, HasIdBindingAndRendered, HasLabelAndAccessKey,
     HasTip, HasMarkup, IsDisabled {

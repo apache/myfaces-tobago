@@ -25,6 +25,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TYPE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -46,17 +47,17 @@ public abstract class AbstractCommandTag extends TobagoTag implements AbstractCo
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     UICommand command = (UICommand) component;
-    ComponentUtil.setBooleanProperty(component, ATTR_DISABLED, disabled);
-    ComponentUtil.setStringProperty(component, ATTR_TYPE, type);
+    TagUtils.setBooleanProperty(component, ATTR_DISABLED, disabled);
+    TagUtils.setStringProperty(component, ATTR_TYPE, type);
 //   ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
-    ComponentUtil.setBooleanProperty(component, ATTR_IMMEDIATE, immediate);
+    TagUtils.setBooleanProperty(component, ATTR_IMMEDIATE, immediate);
     if (component instanceof UICommand) {
       ComponentUtil.setAction((UICommand) component, type, action);
     }
-    ComponentUtil.setStringProperty(component, ATTR_ACTION_LINK, link);
-    ComponentUtil.setStringProperty(component, ATTR_ACTION_ONCLICK, onclick);
+    TagUtils.setStringProperty(component, ATTR_ACTION_LINK, link);
+    TagUtils.setStringProperty(component, ATTR_ACTION_ONCLICK, onclick);
     ComponentUtil.setActionListener(command, actionListener);
-    ComponentUtil.setBooleanProperty(component, ATTR_TRANSITION, transition);
+    TagUtils.setBooleanProperty(component, ATTR_TRANSITION, transition);
   }
 
   public void release() {

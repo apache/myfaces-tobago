@@ -32,6 +32,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VAR;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIData;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -55,7 +56,6 @@ public class SheetTag extends TobagoTag implements SheetTagDeclaration {
   private String selectable;
 
   public String getComponentType() {
-    // TODO: implement uidata with overridden processUpdates to store state
     return UIData.COMPONENT_TYPE;
   }
 
@@ -81,21 +81,21 @@ public class SheetTag extends TobagoTag implements SheetTagDeclaration {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     UIData data = (UIData) component;
-    ComponentUtil.setStringProperty(data, ATTR_SHOW_ROW_RANGE, showRowRange);
-    ComponentUtil.setStringProperty(data, ATTR_SHOW_PAGE_RANGE, showPageRange);
-    ComponentUtil.setStringProperty(data, ATTR_SHOW_DIRECT_LINKS, showDirectLinks);
-    ComponentUtil.setIntegerProperty(data, ATTR_DIRECT_LINK_COUNT, directLinkCount);
-    ComponentUtil.setBooleanProperty(data, ATTR_SHOW_HEADER, showHeader);
-    ComponentUtil.setIntegerProperty(data, ATTR_FIRST, first);
-    ComponentUtil.setIntegerProperty(data, ATTR_ROWS, rows);
-    ComponentUtil.setStringProperty(data, ATTR_COLUMNS, columns);
-    ComponentUtil.setStringProperty(data, ATTR_VALUE, value);
-    ComponentUtil.setStringProperty(data, ATTR_FORCE_VERTICAL_SCROLLBAR, forceVerticalScrollbar);
-    ComponentUtil.setStringProperty(data, ATTR_VAR, var);
+    TagUtils.setStringProperty(data, ATTR_SHOW_ROW_RANGE, showRowRange);
+    TagUtils.setStringProperty(data, ATTR_SHOW_PAGE_RANGE, showPageRange);
+    TagUtils.setStringProperty(data, ATTR_SHOW_DIRECT_LINKS, showDirectLinks);
+    TagUtils.setIntegerProperty(data, ATTR_DIRECT_LINK_COUNT, directLinkCount);
+    TagUtils.setBooleanProperty(data, ATTR_SHOW_HEADER, showHeader);
+    TagUtils.setIntegerProperty(data, ATTR_FIRST, first);
+    TagUtils.setIntegerProperty(data, ATTR_ROWS, rows);
+    TagUtils.setStringProperty(data, ATTR_COLUMNS, columns);
+    TagUtils.setStringProperty(data, ATTR_VALUE, value);
+    TagUtils.setStringProperty(data, ATTR_FORCE_VERTICAL_SCROLLBAR, forceVerticalScrollbar);
+    TagUtils.setStringProperty(data, ATTR_VAR, var);
     ComponentUtil.setValueBinding(component, ATTR_STATE, state);
     ComponentUtil.setStateChangeListener(data, stateChangeListener);
     ComponentUtil.setSortActionListener(data, sortActionListener);
-    ComponentUtil.setStringProperty(data, ATTR_SELECTABLE, selectable);
+    TagUtils.setStringProperty(data, ATTR_SELECTABLE, selectable);
   }
 
   public String getColumns() {

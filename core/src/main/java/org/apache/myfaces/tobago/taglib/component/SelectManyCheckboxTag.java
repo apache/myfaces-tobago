@@ -18,18 +18,20 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
-
+/**
+ * Render a group of checkboxes.
+ */
 public class SelectManyCheckboxTag extends SelectManyTag implements SelectManyCheckboxTagDeclaration {
 
   private String renderRange;
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_RENDER_RANGE, renderRange);
+    TagUtils.setStringProperty(component, ATTR_RENDER_RANGE, renderRange);
   }
 
   public void release() {

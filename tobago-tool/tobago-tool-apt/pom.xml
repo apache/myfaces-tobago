@@ -68,6 +68,11 @@
       <version>1.0.5</version>
     </dependency>
     <dependency>
+      <groupId>org.antlr</groupId>
+      <artifactId>stringtemplate</artifactId>
+      <version>3.0</version>
+    </dependency>
+    <dependency>
       <groupId>jdom</groupId>
       <artifactId>jdom</artifactId>
       <version>1.0</version>

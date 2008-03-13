@@ -35,7 +35,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
 @Tag(name = "menuCheckbox", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
+    uiComponent = "org.apache.myfaces.tobago.component.UIMenuCheckbox",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
     rendererType = "MenuCommand",
     allowedChildComponenents = {
         "javax.faces.SelectItem",

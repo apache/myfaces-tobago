@@ -28,7 +28,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.UIInputBase;
+import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -46,12 +47,12 @@ public class TextAreaRenderer extends InputRendererBase {
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!(component instanceof UIInput)) {
-      LOG.error("Wrong type: Need " + UIInput.class.getName() + ", but was " + component.getClass().getName());
+    if (!(component instanceof UITextarea)) {
+      LOG.error("Wrong type: Need " + UITextarea.class.getName() + ", but was " + component.getClass().getName());
       return;
     }
 
-    UIInput input = (UIInput) component;
+    UIInputBase input = (UIInputBase) component;
     String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
 
     String clientId = input.getClientId(facesContext);

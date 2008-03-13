@@ -33,8 +33,9 @@ import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_ERROR;
 import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.UIInputBase;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -67,11 +68,11 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!(component instanceof UIInput)) {
-      LOG.error("Wrong type: Need " + UIInput.class.getName() + ", but was " + component.getClass().getName());
+    if (!(component instanceof UIInputBase)) {
+      LOG.error("Wrong type: Need " + UIInputBase.class.getName() + ", but was " + component.getClass().getName());
       return;
     }
-    UIInput input = (UIInput) component;
+    UIInputBase input = (UIInputBase) component;
 
     String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, input);
 
@@ -122,8 +123,8 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     }
     HtmlRendererUtil.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
-    /*if (component instanceof UIInput) {
-      String onchange = HtmlUtils.generateOnchange((UIInput) component, facesContext);
+    /*if (component instanceof UIInputBase) {
+      String onchange = HtmlUtils.generateOnchange((UIInputBase) component, facesContext);
       if (onchange != null) {
         // TODO: create and use utility method to write attributes without quoting
     //      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);

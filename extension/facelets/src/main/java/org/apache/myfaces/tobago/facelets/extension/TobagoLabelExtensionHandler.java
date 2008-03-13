@@ -29,9 +29,10 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIGridLayout;
-import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.facelets.SuggestMethodRule;
 import org.apache.myfaces.tobago.facelets.SupportsMarkupRule;
 import org.apache.myfaces.tobago.util.LayoutUtil;
@@ -199,7 +200,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     if (SupportsMarkup.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SupportsMarkupRule.INSTANCE);
     }
-    if (UIInput.class.isAssignableFrom(aClass)) {
+    if (InputSuggest.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SuggestMethodRule.INSTANCE);
     }
     return metaRuleset;

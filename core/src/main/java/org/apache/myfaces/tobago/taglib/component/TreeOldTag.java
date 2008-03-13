@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITreeOld;
@@ -59,29 +60,29 @@ public class TreeOldTag extends TobagoTag implements TreeOldTagDeclaration {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    ComponentUtil.setStringProperty(component, TobagoConstants.ATTR_VALUE, value);
+    TagUtils.setStringProperty(component, TobagoConstants.ATTR_VALUE, value);
     ComponentUtil.setValueBinding(component, TobagoConstants.ATTR_STATE, state);
 
-    ComponentUtil.setBooleanProperty(component,
+    TagUtils.setBooleanProperty(component,
         TobagoConstants.ATTR_SHOW_JUNCTIONS, showJunctions);
-    ComponentUtil.setBooleanProperty(component, TobagoConstants.ATTR_SHOW_ICONS, showIcons);
-    ComponentUtil.setBooleanProperty(component, TobagoConstants.ATTR_SHOW_ROOT, showRoot);
-    ComponentUtil.setBooleanProperty(component,
+    TagUtils.setBooleanProperty(component, TobagoConstants.ATTR_SHOW_ICONS, showIcons);
+    TagUtils.setBooleanProperty(component, TobagoConstants.ATTR_SHOW_ROOT, showRoot);
+    TagUtils.setBooleanProperty(component,
         TobagoConstants.ATTR_SHOW_ROOT_JUNCTION, showRootJunction);
 
-    ComponentUtil.setStringProperty(component, TobagoConstants.ATTR_SELECTABLE, selectable);
-    ComponentUtil.setBooleanProperty(component, TobagoConstants.ATTR_MUTABLE, mutable);
+    TagUtils.setStringProperty(component, TobagoConstants.ATTR_SELECTABLE, selectable);
+    TagUtils.setBooleanProperty(component, TobagoConstants.ATTR_MUTABLE, mutable);
 
-    ComponentUtil.setStringProperty(component, TobagoConstants.ATTR_ID_REFERENCE, idReference);
-    ComponentUtil.setStringProperty(component,
+    TagUtils.setStringProperty(component, TobagoConstants.ATTR_ID_REFERENCE, idReference);
+    TagUtils.setStringProperty(component,
         TobagoConstants.ATTR_NAME_REFERENCE, nameReference);
-    ComponentUtil.setStringProperty(component,
+    TagUtils.setStringProperty(component,
         TobagoConstants.ATTR_DISABLED_REFERENCE, disabledReference);
-    ComponentUtil.setBooleanProperty(component, TobagoConstants.ATTR_REQUIRED, required);
+    TagUtils.setBooleanProperty(component, TobagoConstants.ATTR_REQUIRED, required);
     ComponentUtil.setActionListener((ActionSource) component, actionListener);
-    ComponentUtil.setStringProperty(component, TobagoConstants.ATTR_MODE, mode);
-    ComponentUtil.setStringProperty(component, TobagoConstants.ATTR_TIP_REFERENCE, tipReference);
-    ComponentUtil.setIntegerProperty(component, ATTR_TAB_INDEX, tabIndex);
+    TagUtils.setStringProperty(component, TobagoConstants.ATTR_MODE, mode);
+    TagUtils.setStringProperty(component, TobagoConstants.ATTR_TIP_REFERENCE, tipReference);
+    TagUtils.setIntegerProperty(component, ATTR_TAB_INDEX, tabIndex);
   }
 
   public void release() {

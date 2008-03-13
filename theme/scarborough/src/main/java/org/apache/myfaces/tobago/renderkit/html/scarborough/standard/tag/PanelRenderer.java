@@ -167,7 +167,7 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
         && component.getFacet(FACET_RELOAD) instanceof UIReload
         && component.getFacet(FACET_RELOAD).isRendered()) {
       UIReload reload = (UIReload) component.getFacet(FACET_RELOAD);
-      update = reload.getUpdate();
+      update = reload.isUpdate();
     }
     if (update) {
       component.encodeChildren(facesContext);

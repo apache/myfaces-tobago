@@ -19,9 +19,9 @@ package org.apache.myfaces.tobago.taglib.sandbox;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIWizard;
 import org.apache.myfaces.tobago.taglib.component.TobagoBodyTag;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -42,7 +42,7 @@ public class WizardControllerTag extends TobagoBodyTag implements WizardTagDecla
 
     // xxx
     //ComponentUtil.setStringProperty(component, ATTR_CONTROLLER, controller);
-    ComponentUtil.setStringProperty(component, "controller", controller);
+    TagUtils.setStringProperty(component, "controller", controller);
   }
 
   @Override

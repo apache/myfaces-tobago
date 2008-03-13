@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -29,7 +30,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasSuggestMethod;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsPassword;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
@@ -47,12 +47,19 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIInput",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIInputBase",
     rendererType = "In",
-    allowedChildComponenents = "NONE")
+    allowedChildComponenents = "NONE",
+    isAjaxEnabled = true,
+    facets = {
+    @Facet(name = "change",
+        description =
+            "This facet can contain a UICommand that is invoked in a case of a change event from the component")
+        })
 public interface InTagDeclaration
     extends TextInputTagDeclaration, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasDeprecatedWidth,
-    IsInline, IsFocus, IsRequired, HasTip, HasLabelAndAccessKey,
+    IsInline, IsRequired, HasTip, HasLabelAndAccessKey,
     IsPassword, HasSuggestMethod {
 
   /**
@@ -60,6 +67,6 @@ public interface InTagDeclaration
    * Possible value is 'none'. But this can be overridden in the theme.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none")
+  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
   void setMarkup(String markup);
 }

@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIHiddenInput;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -27,7 +27,7 @@ public class HiddenTag extends InputTag implements HiddenTagDeclaration {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setBooleanProperty(component, ATTR_INLINE, "true");
+    TagUtils.setBooleanProperty(component, ATTR_INLINE, "true");
   }
 
   public String getComponentType() {

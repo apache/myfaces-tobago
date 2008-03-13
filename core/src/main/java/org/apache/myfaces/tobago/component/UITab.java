@@ -17,19 +17,20 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 
-import javax.faces.el.ValueBinding;
+import javax.faces.component.NamingContainer;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 
 /*
  * Date: Mar 22, 2007
  * Time: 10:51:16 PM
  */
 
-public class UITab extends UIPanel {
+public class UITab extends UIPanel implements NamingContainer {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Tab";
 

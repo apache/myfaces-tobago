@@ -35,6 +35,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 @Tag(name = "columnSelector", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIColumnSelector",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIColumn",
+    componentType = "org.apache.myfaces.tobago.ColumnSelector",
     rendererType = "ColumnSelector",
     allowedChildComponenents = "NONE")
 public interface ColumnSelectorTagDeclaration extends TobagoTagDeclaration, IsDisabled, IsRendered, HasBinding {

@@ -1,0 +1,100 @@
+group tags;
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+tag(tagInfo) ::= <<
+package <tagInfo.packageName>;
+
+import javax.faces.component.UIComponent;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+<tagInfo.imports:import(); separator="\n">
+
+public class <tagInfo.className> extends <tagInfo.superClassName> {
+  private static final Log LOG = LogFactory.getLog(<tagInfo.className>.class);
+  <tagInfo.properties:field(); separator="\n">
+
+  @Override
+  public String getComponentType() {
+    return <tagInfo.componentClassName>.COMPONENT_TYPE;
+  }
+
+  public String getRendererType() {
+  <if(tagInfo.rendererName)>
+  return "<tagInfo.rendererName>";
+  <else>
+  return null;
+  <endif>
+  }
+
+  @Override
+  protected void setProperties(UIComponent component) {
+    super.setProperties(component);
+    <tagInfo.properties:setProperty(); separator="\n">
+  }
+
+  <tagInfo.properties:property(); separator="\n">
+
+  @Override  
+  public void release() {
+    super.release();
+    <tagInfo.properties:release(); separator="\n">
+  }
+}
+>>
+
+import() ::= <<
+import <it>;
+>>
+
+release() ::= <<
+<it.propertyName> = null;
+>>
+
+setProperty() ::= <<
+<if(it.methodBinding)>
+TagUtils.set<it.upperCamelCaseName><it.shortType>(component, <it.propertyName>,
+new Class[] { <first(it.methodSignature):{ n | <n>.class }><rest(it.methodSignature):{ n | , <n>.class}>} );
+<else>
+<if(it.deprecated)>
+if (<it.propertyName> != null) {
+  LOG.warn("The <it.name> attribute is deprecated.");
+}
+
+<endif>
+TagUtils.set<it.shortType>Property(component, "<it.name>", <it.propertyName>);
+<endif>
+>>
+
+property() ::= <<
+public String get<it.upperCamelCaseName>() {
+  return <it.propertyName>;
+}
+
+public void set<it.upperCamelCaseName>(String <it.propertyName>) {
+  this.<it.propertyName> = <it.propertyName>;
+}
+
+>>
+
+field() ::= <<
+private String <it.propertyName>;
+>>
+
+

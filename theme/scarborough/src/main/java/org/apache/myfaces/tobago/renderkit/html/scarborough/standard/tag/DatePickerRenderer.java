@@ -83,11 +83,10 @@ public class DatePickerRenderer extends LinkRenderer {
 
     attributes = popup.getAttributes();
 
-    attributes.put(ATTR_WIDTH, String.valueOf(
-           ThemeConfig.getValue(facesContext, link, "CalendarPopupWidth")));
+    attributes.put(ATTR_WIDTH, ThemeConfig.getValue(facesContext, link, "CalendarPopupWidth"));
     int popupHeight = ThemeConfig.getValue(facesContext, link, "CalendarPopupHeight");
     attributes.put(ATTR_POPUP_RESET, Boolean.TRUE);
-    attributes.put(ATTR_HEIGHT, String.valueOf(popupHeight));
+    attributes.put(ATTR_HEIGHT, popupHeight);
     Converter converter = getConverter(facesContext, dateInput);
     String converterPattern = "yyyy-MM-dd"; // from calendar.js  initCalendarParse
     if (converter instanceof DateTimeConverter) {
@@ -129,7 +128,7 @@ public class DatePickerRenderer extends LinkRenderer {
         UIComponent time = timePanel.findComponent("time");
         int popupHeight = ComponentUtil.getIntAttribute(popup, ATTR_HEIGHT);
         popupHeight += ThemeConfig.getValue(FacesContext.getCurrentInstance(), time, "fixedHeight");
-        popup.getAttributes().put(ATTR_HEIGHT, String.valueOf(popupHeight));
+        popup.getAttributes().put(ATTR_HEIGHT, popupHeight);
         time.getAttributes().put(ATTR_POPUP_CALENDAR_FORCE_TIME, true);
       }
     } else {

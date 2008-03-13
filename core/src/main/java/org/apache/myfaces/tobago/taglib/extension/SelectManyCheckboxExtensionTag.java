@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasRenderRange;
-import org.apache.myfaces.tobago.taglib.component.SelectManyCheckboxTag;
+import org.apache.myfaces.tobago.internal.taglib.SelectManyCheckboxTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 

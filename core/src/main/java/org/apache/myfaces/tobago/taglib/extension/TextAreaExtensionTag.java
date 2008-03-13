@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.taglib.extension;
 
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.taglib.component.TextAreaTag;
+import org.apache.myfaces.tobago.internal.taglib.TextareaTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
@@ -82,7 +82,7 @@ public class TextAreaExtensionTag extends BodyTagSupport
   private String tabIndex;
 
   private LabelExtensionTag labelTag;
-  private TextAreaTag textAreaTag;
+  private TextareaTag textAreaTag;
 
   @Override
   public int doStartTag() throws JspException {
@@ -105,7 +105,7 @@ public class TextAreaExtensionTag extends BodyTagSupport
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 
-    textAreaTag = new TextAreaTag();
+    textAreaTag = new TextareaTag();
     textAreaTag.setPageContext(pageContext);
     if (value != null) {
       textAreaTag.setValue(value);

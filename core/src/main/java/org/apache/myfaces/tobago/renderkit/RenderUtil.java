@@ -69,9 +69,9 @@ public class RenderUtil {
       if (LOG.isDebugEnabled()) {
         LOG.debug("rendering " + component.getRendererType() + " " + component);
       }
-
-      LayoutRenderer layoutRenderer = (LayoutRenderer)
-          ComponentUtil.getRenderer(facesContext, UILayout.getLayout(component));
+      UILayout layout = UILayout.getLayout(component);
+      LayoutRenderer layoutRenderer =
+          ComponentUtil.getLayoutRenderer(facesContext, layout.getFamily(), layout.getRendererType());
       layoutRenderer.prepareRender(facesContext, component);
 
       component.encodeBegin(facesContext);

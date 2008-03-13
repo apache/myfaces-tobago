@@ -59,6 +59,8 @@ import org.apache.myfaces.tobago.component.UIToolBar;
 @BodyContentDescription(anyTagOf = "(<tc:toolBarCommand>|<tc:toolBarSelectBoolean>|<tc:toolBarSelectOne>)* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBar",
+    uiComponentBaseClass = "javax.faces.component.UIPanel",
+    generate = false,
     rendererType = "ToolBar",
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.SelectOneCommand",

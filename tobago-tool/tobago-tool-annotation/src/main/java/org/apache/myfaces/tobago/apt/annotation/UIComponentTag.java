@@ -35,27 +35,44 @@ public @interface UIComponentTag {
 
   String uiComponent();
 
+  String uiComponentBaseClass() default "javax.faces.component.UIComponentBase";
+
+  String componentType() default "";
+
+  String componentFamily() default "";
+
   String rendererType() default "";
 
   String displayName() default "";
 
+  boolean isLayout() default false;
+
+  boolean isAjaxEnabled() default false;
+
+  boolean namingContainer() default false;
+
   Facet[] facets() default {};
+
+  boolean generate() default true;
 
   boolean isComponentAlreadyDefined() default false;
 
   /**
    * Array of supported component-types that explictly enumerates the
    * set of allowd component children for this component. Other possible values are: ALL...
+   * @return
    */
   String [] allowedChildComponenents() default { "ALL" };
 
   /**
    * Specifies the category of a component palette.
+   * @return
    */
   Category category() default Category.GENERAL;
 
   /**
    * Specifies whether this component should be available on a component palette.
+   * @return
    */
   boolean isHidden() default false;
 

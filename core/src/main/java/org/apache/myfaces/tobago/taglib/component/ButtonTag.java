@@ -32,6 +32,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIButtonCommand;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -55,13 +56,13 @@ public class ButtonTag extends AbstractCommandTag
   @Override
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
-    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
-    ComponentUtil.setStringProperty(component, ATTR_TARGET, target);
-    ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
+    TagUtils.setStringProperty(component, ATTR_LABEL, label);
+    TagUtils.setStringProperty(component, ATTR_IMAGE, image);
+    TagUtils.setStringProperty(component, ATTR_TIP, tip);
+    TagUtils.setStringProperty(component, ATTR_TARGET, target);
+    TagUtils.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
     ComponentUtil.setMarkup(component, markup);
-    ComponentUtil.setIntegerProperty(component, ATTR_TAB_INDEX, tabIndex);
+    TagUtils.setIntegerProperty(component, ATTR_TAB_INDEX, tabIndex);
   }
 
   public String getComponentType() {

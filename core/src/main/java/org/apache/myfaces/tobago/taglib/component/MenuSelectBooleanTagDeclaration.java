@@ -37,6 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 @Tag(name = "menucheck", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
+    generate = false,
     rendererType = "MenuCommand",
     allowedChildComponenents = "NONE")
 @Deprecated

@@ -521,7 +521,8 @@ public class ToolBarRenderer extends LayoutableRendererBase {
       popupMenu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
       popupMenu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "ToolBarButton");
       popupMenu.setRendererType(RENDERER_TYPE_MENUBAR);
-      popupMenu.getAttributes().remove(ATTR_LABEL);
+      //popupMenu.getAttributes().remove(ATTR_LABEL);
+      //popupMenu.getAttributes().remove();
       popupMenu.getAttributes().put(ATTR_IMAGE, "image/toolbarButtonMenu.gif");
       RenderUtil.encode(facesContext, popupMenu);
     }

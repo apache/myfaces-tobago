@@ -27,6 +27,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
@@ -83,14 +84,14 @@ public class PageTag extends TobagoBodyTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_METHOD, method);
-    ComponentUtil.setStringProperty(component, ATTR_DOCTYPE, doctype);
-    ComponentUtil.setStringProperty(component, ATTR_FOCUS_ID, focusId);
-    ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
+    TagUtils.setStringProperty(component, ATTR_METHOD, method);
+    TagUtils.setStringProperty(component, ATTR_DOCTYPE, doctype);
+    TagUtils.setStringProperty(component, ATTR_FOCUS_ID, focusId);
+    TagUtils.setStringProperty(component, ATTR_LABEL, label);
     ComponentUtil.setValueBinding(component, ATTR_STATE, state);
     ComponentUtil.setIntegerSizeProperty(component, ATTR_WIDTH, width);
     ComponentUtil.setIntegerSizeProperty(component, ATTR_HEIGHT, height);
-    ComponentUtil.setStringProperty(component, ATTR_APPLICATION_ICON, applicationIcon);
+    TagUtils.setStringProperty(component, ATTR_APPLICATION_ICON, applicationIcon);
   }
 
   public void setDoctype(String doctype) {

@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.taglib.sandbox;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInputNumberSlider;
 import org.apache.myfaces.tobago.taglib.component.TobagoTag;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -66,9 +67,9 @@ public class InputNumberSliderTag extends TobagoTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setIntegerProperty(component, "min", min);
-    ComponentUtil.setIntegerProperty(component, "max", max);
-    ComponentUtil.setStringProperty(component, "value", value);
+    TagUtils.setIntegerProperty(component, "min", min);
+    TagUtils.setIntegerProperty(component, "max", max);
+    TagUtils.setStringProperty(component, "value", value);
     if (component instanceof EditableValueHolder) {
       EditableValueHolder editableValueHolder = (EditableValueHolder) component;
       ComponentUtil.setValueChangeListener(editableValueHolder, valueChangeListener);

@@ -46,7 +46,7 @@ public interface HasLabelWithAccessKey {
    */
 //  @TagAttribute @UIComponentTagAttribute(type = String.class)
   @TagAttribute
-  @UIComponentTagAttribute(type = {"java.lang.String", "java.lang.Character"})
+  @UIComponentTagAttribute(type = {"java.lang.Character"})
   @Deprecated
   void setAccessKey(String key);
 }

@@ -38,7 +38,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasState;
 @Tag(name = "page")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPage",
-    rendererType = "Page",
+    rendererType = "Page", generate = false,
     facets =
         { @Facet(name = "action", description ="Contains an instance of UICommand (tc:command) for an auto-action",
                 allowedChildComponenents = "org.apache.myfaces.tobago.Command"),

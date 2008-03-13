@@ -44,6 +44,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UILinkCommand",
+    uiComponentBaseClass ="org.apache.myfaces.tobago.component.UICommand",
     rendererType = "Link",
     allowedChildComponenents = "NONE",
     facets = {@Facet(name="confirmation", description = "Contains a UIOutput instance with the confirmation message.",

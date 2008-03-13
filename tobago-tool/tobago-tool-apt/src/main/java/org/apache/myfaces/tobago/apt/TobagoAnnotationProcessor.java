@@ -29,7 +29,6 @@ import java.util.Set;
 
 /*
  * Created: Apr 27, 2005 4:37:16 PM
- * User: bommel
  * $Id$
  */
 public class TobagoAnnotationProcessor implements AnnotationProcessor {

@@ -23,8 +23,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -49,9 +49,9 @@ public class SelectBooleanCommandTag extends AbstractCommandTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     component.setRendererType(RENDERER_TYPE_MENUCOMMAND);
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
-    ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
+    TagUtils.setStringProperty(component, ATTR_VALUE, value);
+    TagUtils.setStringProperty(component, ATTR_LABEL, label);
+    TagUtils.setStringProperty(component, ATTR_TIP, tip);
   }
 
   public void release() {

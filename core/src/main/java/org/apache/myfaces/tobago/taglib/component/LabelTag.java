@@ -23,6 +23,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UILabel;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -58,8 +59,8 @@ public class LabelTag extends BeanTag implements LabelTagDeclaration {
   @Override
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_FOR, forComponent);
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
+    TagUtils.setStringProperty(component, ATTR_FOR, forComponent);
+    TagUtils.setStringProperty(component, ATTR_TIP, tip);
     ComponentUtil.setMarkup(component, markup);
   }
 

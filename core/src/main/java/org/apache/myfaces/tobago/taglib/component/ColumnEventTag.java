@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_EVENT;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIColumnEvent;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -41,7 +41,7 @@ public class ColumnEventTag extends TobagoTag implements ColumnEventTagDeclarati
   @Override
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_EVENT, event);
+    TagUtils.setStringProperty(component, ATTR_EVENT, event);
   }
 
   @Override

@@ -26,6 +26,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.taglib.component.AbstractCommandTag;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -48,13 +49,13 @@ public class TreeNodeTag extends AbstractCommandTag implements TreeNodeTagDeclar
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
+    TagUtils.setStringProperty(component, ATTR_VALUE, value);
     ComponentUtil.setMarkup(component, markup);
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
-    ComponentUtil.setStringProperty(component, ATTR_TARGET, target);
-    ComponentUtil.setBooleanProperty(component, ATTR_EXPANDED, expanded);
-    ComponentUtil.setBooleanProperty(component, ATTR_MARKED, marked);
-    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
+    TagUtils.setStringProperty(component, ATTR_TIP, tip);
+    TagUtils.setStringProperty(component, ATTR_TARGET, target);
+    TagUtils.setBooleanProperty(component, ATTR_EXPANDED, expanded);
+    TagUtils.setBooleanProperty(component, ATTR_MARKED, marked);
+    TagUtils.setStringProperty(component, ATTR_IMAGE, image);
   }
 
   @Override

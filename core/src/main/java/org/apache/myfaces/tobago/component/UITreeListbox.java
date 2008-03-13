@@ -76,7 +76,7 @@ public class UITreeListbox extends UITreeOld implements LayoutProvider {
     createUIBoxes(facesContext);
   }
 
-  @SuppressWarnings(value = "unchecked")
+  @SuppressWarnings("unchecked")
   private void fixSelectionType() {
     final Map attributes = getAttributes();
     Object selectable = attributes.get(ATTR_SELECTABLE);

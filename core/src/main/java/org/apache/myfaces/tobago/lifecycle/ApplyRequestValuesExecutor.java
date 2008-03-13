@@ -41,7 +41,7 @@ import java.util.Map;
  */
 class ApplyRequestValuesExecutor implements PhaseExecutor {
 
-  @SuppressWarnings({"UnusedDeclaration"})
+  @SuppressWarnings("UnusedDeclaration")
   private static final Log LOG = LogFactory.getLog(ApplyRequestValuesExecutor.class);
 
   private Callback callback;

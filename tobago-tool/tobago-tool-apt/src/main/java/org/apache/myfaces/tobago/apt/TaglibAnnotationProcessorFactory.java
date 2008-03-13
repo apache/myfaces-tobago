@@ -29,15 +29,15 @@ import java.util.Set;
 
 /*
  * Created: Mar 5, 2005 12:39:32 PM
- * User: bommel
  * $Id$
  */
 public class TaglibAnnotationProcessorFactory implements AnnotationProcessorFactory {
 
   private static final Collection<String> SUPPORTED_ANNOTATIONS
-      = Collections.unmodifiableCollection(Arrays.asList("org.apache.myfaces.tobago.apt.annotation.Tag",
-          "org.apache.myfaces.tobago.apt.annotation.TagAttribute",
-          "org.apache.myfaces.tobago.apt.annotation.Taglib"));
+      = Collections.unmodifiableCollection(Arrays.asList(
+      "org.apache.myfaces.tobago.apt.annotation.Tag",
+      "org.apache.myfaces.tobago.apt.annotation.TagAttribute",
+      "org.apache.myfaces.tobago.apt.annotation.Taglib"));
 
   private static final Collection<String> SUPPORTED_OPTIONS = Collections.emptySet();
 

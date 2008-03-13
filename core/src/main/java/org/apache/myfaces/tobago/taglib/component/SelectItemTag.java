@@ -26,6 +26,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ITEM_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UISelectItem;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -50,13 +51,13 @@ public class SelectItemTag extends TobagoTag implements SelectItemTagDeclaration
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_ITEM_DESCRIPTION, itemDescription);
-    ComponentUtil.setBooleanProperty(component, ATTR_ITEM_DISABLED, itemDisabled);
-    ComponentUtil.setStringProperty(component, ATTR_ITEM_LABEL, itemLabel);
-    ComponentUtil.setStringProperty(component, ATTR_ITEM_VALUE, itemValue);
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
-    ComponentUtil.setStringProperty(component, ATTR_ITEM_IMAGE, itemImage);
-    ComponentUtil.setStringProperty(component, ATTR_IMAGE, itemImage);
+    TagUtils.setStringProperty(component, ATTR_ITEM_DESCRIPTION, itemDescription);
+    TagUtils.setBooleanProperty(component, ATTR_ITEM_DISABLED, itemDisabled);
+    TagUtils.setStringProperty(component, ATTR_ITEM_LABEL, itemLabel);
+    TagUtils.setStringProperty(component, ATTR_ITEM_VALUE, itemValue);
+    TagUtils.setStringProperty(component, ATTR_VALUE, value);
+    TagUtils.setStringProperty(component, ATTR_ITEM_IMAGE, itemImage);
+    TagUtils.setStringProperty(component, ATTR_IMAGE, itemImage);
     ComponentUtil.setMarkup(component, markup);
   }
 

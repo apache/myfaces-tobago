@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.UIFileInput;
+import org.apache.myfaces.tobago.component.AbstractFileInput;
 
 import javax.servlet.jsp.JspException;
 
@@ -37,6 +37,6 @@ public class FileTag extends InputTag implements FileTagDeclaration {
   }
 
   public String getComponentType() {
-    return UIFileInput.COMPONENT_TYPE;
+    return AbstractFileInput.COMPONENT_TYPE;
   }
 }

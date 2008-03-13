@@ -23,8 +23,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SCROLLBARS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SPAN_X;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SPAN_Y;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_PANEL;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICell;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.tagext.BodyTag;
@@ -57,9 +57,9 @@ public class CellTag extends TobagoBodyTag implements BodyTag, CellTagDeclaratio
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    ComponentUtil.setIntegerProperty(component, ATTR_SPAN_X, spanX);
-    ComponentUtil.setIntegerProperty(component, ATTR_SPAN_Y, spanY);
-    ComponentUtil.setStringProperty(component, ATTR_SCROLLBARS, scrollbars);
+    TagUtils.setIntegerProperty(component, ATTR_SPAN_X, spanX);
+    TagUtils.setIntegerProperty(component, ATTR_SPAN_Y, spanY);
+    TagUtils.setStringProperty(component, ATTR_SCROLLBARS, scrollbars);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("spanX=" + spanX + " spanY=" + spanY);

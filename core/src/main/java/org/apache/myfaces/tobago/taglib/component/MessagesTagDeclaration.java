@@ -37,6 +37,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @Tag(name = "messages", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMessages",
+    uiComponentBaseClass = "javax.faces.component.UIMessages",
+    generate = false,
     rendererType = "Messages",
     allowedChildComponenents = "NONE")
 
@@ -98,7 +100,7 @@ public interface MessagesTagDeclaration extends TobagoTagDeclaration, HasIdBindi
    * The default "occurence".
    */
   @TagAttribute
-  @UIComponentTagAttribute(
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.component.UIMessages.OrderBy",
           allowedValues = {UIMessages.OrderBy.OCCURENCE_STRING, UIMessages.OrderBy.SEVERITY_STRING},
           defaultValue = UIMessages.OrderBy.OCCURENCE_STRING)
   void setOrderBy(String orderBy);

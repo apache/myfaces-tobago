@@ -37,6 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasValue;
 @Tag(name = "hidden")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIHiddenInput",
+    uiComponentBaseClass = "javax.faces.component.UIInput",
     rendererType = "Hidden",
     allowedChildComponenents = "NONE")
 public interface HiddenTagDeclaration extends BeanTagDeclaration, HasId, HasBinding, HasValue, HasConverter,

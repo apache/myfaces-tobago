@@ -26,6 +26,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIOutput;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -49,11 +50,11 @@ public class OutTag extends BeanTag implements OutTagDeclaration {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setBooleanProperty(component, ATTR_ESCAPE, escape);
+    TagUtils.setBooleanProperty(component, ATTR_ESCAPE, escape);
     // TODO ???? SPAN ?
     //ComponentUtil.setBooleanProperty(component, ATTR_CREATE_SPAN, "true");
     ComponentUtil.setMarkup(component, markup);
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
+    TagUtils.setStringProperty(component, ATTR_TIP, tip);
   }
 
   public String getEscape() {
@@ -70,6 +71,10 @@ public class OutTag extends BeanTag implements OutTagDeclaration {
 
   public void setMarkup(String markup) {
     this.markup = markup;
+  }
+
+
+  public void setCreateSpan(String createSpan) {
   }
 
   public String getTip() {

@@ -22,10 +22,10 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeListenerValueBindingDelegate;
 import org.apache.myfaces.tobago.event.TabChangeSource;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -107,7 +107,7 @@ public class TabChangeListenerTag extends TagSupport {
     TabChangeListener handler = null;
     ValueBinding valueBinding = null;
     if (binding != null && UIComponentTag.isValueReference(binding)) {
-      valueBinding = ComponentUtil.createValueBinding(binding);
+      valueBinding = TagUtils.createValueBinding(binding);
       if (valueBinding != null) {
         Object obj = valueBinding.getValue(FacesContext.getCurrentInstance());
         if (obj != null && obj instanceof TabChangeListener) {

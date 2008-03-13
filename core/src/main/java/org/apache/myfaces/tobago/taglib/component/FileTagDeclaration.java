@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
@@ -47,6 +48,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @Tag(name = "file")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIFileInput",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractFileInput",
     rendererType = "File",
     allowedChildComponenents = "NONE")
 public interface FileTagDeclaration
@@ -59,6 +61,7 @@ public interface FileTagDeclaration
    * uploaded file.
    */
   @TagAttribute()
-  @UIComponentTagAttribute(type = { "org.apache.commons.fileupload.FileItem" }, valueExpression = "REQUIRED")
+  @UIComponentTagAttribute(type = { "org.apache.commons.fileupload.FileItem" },
+      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setValue(String value);
 }

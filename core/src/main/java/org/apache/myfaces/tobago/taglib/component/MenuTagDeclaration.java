@@ -47,6 +47,7 @@ import org.apache.myfaces.tobago.component.UIMenuSeparator;
         "org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag"})
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenu",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanelBase",
     allowedChildComponenents = {
         UIMenu.COMPONENT_TYPE,
         UIMenuCommand.COMPONENT_TYPE,

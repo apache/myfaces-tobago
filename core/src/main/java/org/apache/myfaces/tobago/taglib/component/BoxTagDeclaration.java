@@ -32,7 +32,10 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 @Tag(name = "box")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIBox",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanel",
+    componentType = "org.apache.myfaces.tobago.Box",
     rendererType = "Box",
+    isAjaxEnabled = true,
     facets = {
     @Facet(name="toolBar", description = "Contains an instance of UIToolBar",
             allowedChildComponenents = "org.apache.myfaces.tobago.ToolBar"),
@@ -48,6 +51,6 @@ public interface BoxTagDeclaration extends TobagoBodyTagDeclaration,
    * Possible value is 'none'. But this can be overridden in the theme.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none")
+  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
   void setMarkup(String markup);
 }

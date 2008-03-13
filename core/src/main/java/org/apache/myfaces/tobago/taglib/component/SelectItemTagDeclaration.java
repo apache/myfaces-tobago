@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
@@ -38,8 +39,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
  */
 @Tag(name = "selectItem", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
-        uiComponent = "org.apache.myfaces.tobago.component.UISelectItem",
-        allowedChildComponenents = "NONE")
+    uiComponent = "org.apache.myfaces.tobago.component.UISelectItem",
+    uiComponentBaseClass = "javax.faces.component.UISelectItem",
+    allowedChildComponenents = "NONE")
 public interface SelectItemTagDeclaration extends TobagoTagDeclaration, HasBinding, HasId, HasMarkup {
   /**
    * Flag indicating whether the option created
@@ -76,7 +78,8 @@ public interface SelectItemTagDeclaration extends TobagoTagDeclaration, HasBindi
    * the information for this option.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "javax.faces.model.SelectItem")
+  @UIComponentTagAttribute(type = "javax.faces.model.SelectItem", 
+      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setValue(String value);
 
   /**

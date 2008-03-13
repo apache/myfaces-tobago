@@ -23,7 +23,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BUTTON;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -40,9 +40,9 @@ public class ToolBarCommandTag extends AbstractCommandTag
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     component.setRendererType(RENDERER_TYPE_BUTTON);
-    ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
-    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
+    TagUtils.setStringProperty(component, ATTR_LABEL, label);
+    TagUtils.setStringProperty(component, ATTR_IMAGE, image);
+    TagUtils.setStringProperty(component, ATTR_TIP, tip);
   }
 
   public void release() {

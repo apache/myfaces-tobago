@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.jsp.JspException;
@@ -51,13 +52,13 @@ public class StyleTag extends BodyTagSupport implements HasId {
     }
 
     if (style != null) {
-      page.getStyleFiles().add(ComponentUtil.getValueFromEl(style));
+      page.getStyleFiles().add(TagUtils.getValueFromEl(style));
     }
 
     if (bodyContent != null) {
       String classes = bodyContent.getString();
       bodyContent.clearBody();
-      page.getStyleBlocks().add(ComponentUtil.getValueFromEl(classes));
+      page.getStyleBlocks().add(TagUtils.getValueFromEl(classes));
     }
 
     return EVAL_PAGE;

@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
@@ -108,7 +109,7 @@ public class ConverterTag extends TagSupport {
     Converter converter = null;
 
     if (binding != null && UIComponentTag.isValueReference(binding)) {
-      ValueBinding valueBinding = ComponentUtil.createValueBinding(binding);
+      ValueBinding valueBinding = TagUtils.createValueBinding(binding);
       if (valueBinding != null) {
         Object obj = valueBinding.getValue(FacesContext.getCurrentInstance());
         if (obj != null && obj instanceof Converter) {
@@ -121,7 +122,7 @@ public class ConverterTag extends TagSupport {
       String localConverterId;
       // evaluate any VB expression that we were passed
       if (UIComponentTag.isValueReference(converterId)) {
-        ValueBinding typeValueBinding = ComponentUtil.createValueBinding(converterId);
+        ValueBinding typeValueBinding = TagUtils.createValueBinding(converterId);
         localConverterId = (String) typeValueBinding.getValue(FacesContext.getCurrentInstance());
       } else {
         localConverterId = converterId;
@@ -133,7 +134,7 @@ public class ConverterTag extends TagSupport {
     }
     if (converter != null) {
       if (UIComponentTag.isValueReference(binding)) {
-        component.setValueBinding(ATTR_CONVERTER, ComponentUtil.createValueBinding(binding));
+        component.setValueBinding(ATTR_CONVERTER, TagUtils.createValueBinding(binding));
       } else {
         valueHolder.setConverter(converter);
       }

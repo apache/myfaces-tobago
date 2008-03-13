@@ -75,7 +75,7 @@ public class UIReload extends UIComponentBase {
     this.update = update;
   }
 
-  public boolean getUpdate() {
+  public boolean isUpdate() {
     if (update != null) {
       return update;
     }

@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -43,7 +44,10 @@ import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
 @BodyContentDescription(anyTagOf = "(<tc:tab>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITabGroup",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanelBase",
+    generate = false,
     rendererType = "TabGroup",
+    isAjaxEnabled = true,
     allowedChildComponenents = "org.apache.myfaces.tobago.Tab")
 
 public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasDeprecatedDimension,
@@ -79,7 +83,8 @@ public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindi
    * component's selected Tab.
    *
    */
-  @TagAttribute @UIComponentTagAttribute(type = "java.lang.Integer", valueExpression= "REQUIRED")
+  @TagAttribute @UIComponentTagAttribute(type = "java.lang.Integer",
+      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setSelectedIndex(String selectedIndex);
 
   /**

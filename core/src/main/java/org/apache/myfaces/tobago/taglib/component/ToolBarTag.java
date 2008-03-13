@@ -20,8 +20,8 @@ package org.apache.myfaces.tobago.taglib.component;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ORIENTATION;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIToolBar;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -51,9 +51,9 @@ public class ToolBarTag extends PanelTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_LABEL_POSITION, labelPosition);
-    ComponentUtil.setStringProperty(component, ATTR_ICON_SIZE, iconSize);
-    ComponentUtil.setStringProperty(component, ATTR_ORIENTATION, orientation);
+    TagUtils.setStringProperty(component, ATTR_LABEL_POSITION, labelPosition);
+    TagUtils.setStringProperty(component, ATTR_ICON_SIZE, iconSize);
+    TagUtils.setStringProperty(component, ATTR_ORIENTATION, orientation);
   }
 
   public void release() {

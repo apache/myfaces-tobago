@@ -25,6 +25,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIProgress;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -41,7 +42,7 @@ public class ProgressTag extends BeanTag implements ProgressTagDeclaration {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     ComponentUtil.setMarkup(component, markup);
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
+    TagUtils.setStringProperty(component, ATTR_TIP, tip);
   }
 
   public void release() {

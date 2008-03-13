@@ -27,6 +27,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface HasTabIndex {
 
   @TagAttribute
-  @UIComponentTagAttribute()
+  @UIComponentTagAttribute(type = "java.lang.Integer")
   void setTabIndex(String tabIndex);
 }

@@ -26,6 +26,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP_REFERENCE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITreeListbox;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -46,13 +47,13 @@ public class TreeListboxTag extends TobagoTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
+    TagUtils.setStringProperty(component, ATTR_VALUE, value);
     ComponentUtil.setValueBinding(component, ATTR_STATE, state);
-    ComponentUtil.setStringProperty(component, ATTR_ID_REFERENCE, idReference);
-    ComponentUtil.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference);
-    ComponentUtil.setStringProperty(component, ATTR_SELECTABLE, selectable);
-    ComponentUtil.setBooleanProperty(component, ATTR_REQUIRED, required);
-    ComponentUtil.setStringProperty(component, ATTR_TIP_REFERENCE, tipReference);
+    TagUtils.setStringProperty(component, ATTR_ID_REFERENCE, idReference);
+    TagUtils.setStringProperty(component, ATTR_NAME_REFERENCE, nameReference);
+    TagUtils.setStringProperty(component, ATTR_SELECTABLE, selectable);
+    TagUtils.setBooleanProperty(component, ATTR_REQUIRED, required);
+    TagUtils.setStringProperty(component, ATTR_TIP_REFERENCE, tipReference);
 
   }
 

@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.taglib.extension;
 
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.taglib.component.SelectOneListboxTag;
+import org.apache.myfaces.tobago.internal.taglib.SelectOneListboxTag;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedHeight;

@@ -26,7 +26,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.UIInputBase;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -55,9 +56,9 @@ public class InTag extends TextInputTag implements InTagDeclaration {
       LOG.warn("the label attribute is deprecated in t:in, please use tx:in instead.");
     }
 
-    ComponentUtil.setBooleanProperty(component, ATTR_PASSWORD, password);
-    if (component instanceof UIInput) {
-      ComponentUtil.setSuggestMethodBinding((UIInput) component, suggestMethod);
+    TagUtils.setBooleanProperty(component, ATTR_PASSWORD, password);
+    if (component instanceof UIInputBase) {
+      ComponentUtil.setSuggestMethodBinding((UIInputBase) component, suggestMethod);
     }
     ComponentUtil.setMarkup(component, markup);
   }

@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 
 /*
- * User: bommel
  * Date: 02.04.2006
  * Time: 16:11:02
  */
@@ -36,6 +35,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 @Tag(name = "popup")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPopup",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanelBase",
+    generate = false,
+    isAjaxEnabled = true,
     rendererType = "Popup")
 public interface PopupTagDeclaration extends TobagoBodyTagDeclaration, HasId, IsRendered, HasDimension {
 

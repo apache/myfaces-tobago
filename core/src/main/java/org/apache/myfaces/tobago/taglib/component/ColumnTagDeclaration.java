@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
-import org.apache.myfaces.tobago.taglib.decl.HasWidth;
 
 /*
  * Date: 20.02.2006
@@ -37,10 +36,11 @@ import org.apache.myfaces.tobago.taglib.decl.HasWidth;
  */
 @Tag(name = "column")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIColumn")
+    uiComponent = "org.apache.myfaces.tobago.component.UIColumn",
+    uiComponentBaseClass = "javax.faces.component.UIColumn",
+    componentType = "org.apache.myfaces.tobago.Column")
 //rendererType = "Column")
-public interface ColumnTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasLabel, HasTip,
-    HasWidth {
+public interface ColumnTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasLabel, HasTip {
   /**
    * Alignment of this column.
    */
@@ -63,6 +63,14 @@ public interface ColumnTagDeclaration extends TobagoTagDeclaration, HasIdBinding
    * Possible value is 'none'. But this can be overridden in the theme.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none")
+  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
   void setMarkup(String markup);
+
+  /**
+   * The layout token for this column.
+   * Allowd layout tokens ('*', '&lt;x>*', '&lt;x>px' or '&lt;x>%').
+   * Where '*' is equvalent to '1*'.
+   */
+  @TagAttribute @UIComponentTagAttribute(type = "java.lang.String")
+  void setWidth(String width);
 }

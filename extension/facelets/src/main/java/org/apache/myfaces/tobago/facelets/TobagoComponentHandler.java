@@ -24,8 +24,9 @@ import com.sun.facelets.tag.jsf.ComponentHandler;
 import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.TabChangeSource;
@@ -59,7 +60,7 @@ public class TobagoComponentHandler extends ComponentHandler {
     if (SupportsMarkup.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SupportsMarkupRule.INSTANCE);
     }
-    if (UIInput.class.isAssignableFrom(aClass)) {
+    if (InputSuggest.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SuggestMethodRule.INSTANCE);
     }
     return metaRuleset;

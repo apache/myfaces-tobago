@@ -25,6 +25,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
@@ -41,8 +42,8 @@ public abstract class BeanTag extends TobagoTag implements BeanTagDeclaration {
     if (component instanceof ValueHolder) {
       ComponentUtil.setConverter((ValueHolder) component, converter);
     }
-    ComponentUtil.setBooleanProperty(component, ATTR_REQUIRED, required);
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
+    TagUtils.setBooleanProperty(component, ATTR_REQUIRED, required);
+    TagUtils.setStringProperty(component, ATTR_VALUE, value);
   }
 
   @Override

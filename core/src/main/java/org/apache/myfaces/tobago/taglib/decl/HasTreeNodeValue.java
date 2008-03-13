@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.taglib.decl;
 
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 
 /**
  * Created: Apr 9, 2005 2:51:36 PM
@@ -33,7 +34,6 @@ public interface HasTreeNodeValue {
    */
   @TagAttribute
   @UIComponentTagAttribute(
-          type = "javax.swing.tree.TreeNode",
-          valueExpression = "REQUIRED")
+          type = "javax.swing.tree.TreeNode", expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setValue(String value);
 }

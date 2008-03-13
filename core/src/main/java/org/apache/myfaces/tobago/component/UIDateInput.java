@@ -21,6 +21,6 @@ package org.apache.myfaces.tobago.component;
  * Date: 22.05.2006
  * Time: 21:00:07
  */
-public class UIDateInput extends UIInput {
+public class UIDateInput extends UIInputBase {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.DateInput";
 }

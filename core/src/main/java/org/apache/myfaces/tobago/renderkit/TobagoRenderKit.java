@@ -19,8 +19,6 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.context.ResourceManager;
-import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.FactoryFinder;
@@ -33,6 +31,8 @@ import javax.faces.render.Renderer;
 import javax.faces.render.ResponseStateManager;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.util.Map;
+import java.util.HashMap;
 
 public class TobagoRenderKit extends RenderKit {
 
@@ -40,35 +40,20 @@ public class TobagoRenderKit extends RenderKit {
 
   public static final String RENDER_KIT_ID = "tobago";
 
-  private ResourceManager resources;
+  private ResponseStateManager responseStateManager = new TobagoResponseStateManager();
 
-  private ResponseStateManager responseStateManager;
+  private RenderKit htmlBasicRenderKit;
 
-  public TobagoRenderKit() {
-    responseStateManager = new TobagoResponseStateManager();
-  }
+  private Map<Key, Renderer> renderers = new HashMap<Key, Renderer>();
 
-  // FIXME: use family
   @Override
   public Renderer getRenderer(String family, String rendererType) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("family = '" + family + "'");
     }
-    Renderer renderer = null;
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    if (!"facelets".equals(family)) {
-      if (rendererType != null) {
-        if (resources == null) {
-          resources = ResourceManagerFactory.getResourceManager(facesContext);
-        }
-        renderer = resources.getRenderer(facesContext.getViewRoot(), rendererType);
-      }
-    }
-
+    Renderer renderer = renderers.get(new Key(family, rendererType));
     if (renderer == null) {
-      RenderKitFactory rkFactory = (RenderKitFactory)
-          FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
-      RenderKit renderKit = rkFactory.getRenderKit(facesContext, RenderKitFactory.HTML_BASIC_RENDER_KIT);
+      RenderKit renderKit = getHtmlBasicRenderKit();
       renderer = renderKit.getRenderer(family, rendererType);
       if (renderer != null) {
         renderer = new RendererBaseWrapper(renderer);
@@ -81,6 +66,15 @@ public class TobagoRenderKit extends RenderKit {
     }
 
     return renderer;
+  }
+
+  private RenderKit getHtmlBasicRenderKit() {
+    if (htmlBasicRenderKit == null) {
+      RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+      htmlBasicRenderKit =
+          rkFactory.getRenderKit(FacesContext.getCurrentInstance(), RenderKitFactory.HTML_BASIC_RENDER_KIT);
+    }
+    return htmlBasicRenderKit;
   }
 
   @Override
@@ -104,20 +98,9 @@ public class TobagoRenderKit extends RenderKit {
     return new TobagoResponseWriterImpl(writer, contentType, characterEncoding);
   }
 
-// ///////////////////////////////////////////// TODO
-
   @Override
   public void addRenderer(String family, String rendererType, Renderer renderer) {
-//    synchronized(renderers) {
-//      renderers.put(family + SEP + rendererType, renderer);
-//    }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("addRenderer family='" + family
-          + "' rendererType='" + rendererType + "'");
-    }
-    LOG.error(
-        "This method isn't implemented yet, and should not be called: "
-            + new Exception().getStackTrace()[0].getMethodName()); //FIXME jsf1.0
+    renderers.put(new Key(family, rendererType), renderer);
   }
 
   @Override
@@ -126,10 +109,44 @@ public class TobagoRenderKit extends RenderKit {
   }
 
   @Override
-  public ResponseStream createResponseStream(OutputStream outputstream) {
-    LOG.error(
-        "This method isn't implemented yet, and should not be called: "
-            + new Exception().getStackTrace()[0].getMethodName()); //FIXME jsfbeta
-    return null;
+  public ResponseStream createResponseStream(OutputStream outputStream) {
+    return getHtmlBasicRenderKit().createResponseStream(outputStream);
+  }
+
+  private static final class Key {
+    private final String family;
+    private final String rendererType;
+
+    private Key(String family, String rendererType) {
+      this.family = family;
+      this.rendererType = rendererType;
+    }
+
+    public boolean equals(Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
+
+      Key key = (Key) o;
+
+      if (!family.equals(key.family)) {
+        return false;
+      }
+      if (!rendererType.equals(key.rendererType)) {
+        return false;
+      }
+
+      return true;
+    }
+
+    public int hashCode() {
+      int result;
+      result = family.hashCode();
+      result = 31 * result + rendererType.hashCode();
+      return result;
+    }
   }
 }

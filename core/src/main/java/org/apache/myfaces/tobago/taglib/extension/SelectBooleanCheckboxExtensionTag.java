@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.taglib.extension;
 
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.taglib.component.SelectBooleanCheckboxTag;
+import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
 import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;

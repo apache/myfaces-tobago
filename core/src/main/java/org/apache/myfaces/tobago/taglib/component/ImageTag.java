@@ -23,7 +23,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
@@ -45,12 +45,12 @@ public class ImageTag extends TobagoTag implements ImageTagDeclaration {
   @Override
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_ALT, alt);
-    ComponentUtil.setStringProperty(component, ATTR_BORDER, border);
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
-    ComponentUtil.setStringProperty(component, ATTR_WIDTH, width);
-    ComponentUtil.setStringProperty(component, ATTR_HEIGHT, height);
+    TagUtils.setStringProperty(component, ATTR_ALT, alt);
+    TagUtils.setStringProperty(component, ATTR_BORDER, border);
+    TagUtils.setStringProperty(component, ATTR_VALUE, value);
+    TagUtils.setStringProperty(component, ATTR_TIP, tip);
+    TagUtils.setStringProperty(component, ATTR_WIDTH, width);
+    TagUtils.setStringProperty(component, ATTR_HEIGHT, height);
   }
 
   @Override

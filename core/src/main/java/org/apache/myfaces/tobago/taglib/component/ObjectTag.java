@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SRC;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -34,7 +34,7 @@ public class ObjectTag extends TobagoTag implements ObjectTagDeclaration {
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_SRC, src);
+    TagUtils.setStringProperty(component, ATTR_SRC, src);
   }
 
 

@@ -31,9 +31,9 @@ import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
 import java.io.IOException;
 
-public class UIInput extends javax.faces.component.UIInput implements AjaxComponent, SupportsMarkup {
+public class UIInputBase extends javax.faces.component.UIInput implements AjaxComponent, SupportsMarkup, InputSuggest {
 
-  private static final Log LOG = LogFactory.getLog(UIInput.class);
+  private static final Log LOG = LogFactory.getLog(UIInputBase.class);
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Input";
 
   private Boolean readonly;

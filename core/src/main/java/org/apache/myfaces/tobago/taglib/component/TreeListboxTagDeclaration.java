@@ -43,6 +43,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     "Implement a var attribute for the tree like in the sheet (http://issues.apache.org/jira/browse/TOBAGO-18)")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeListbox",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UITreeOld",
+    generate = false,
     rendererType = "TreeListbox")
 public interface TreeListboxTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasTreeNodeValue,
     HasState, HasIdReference, HasNameReference, IsRequired {

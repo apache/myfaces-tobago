@@ -34,7 +34,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
  */
 @Tag(name = "menuRadio", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UISelectOneCommand",
+    uiComponent = "org.apache.myfaces.tobago.component.UIMenuRadio",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UISelectOneCommand",
     rendererType = "MenuCommand",
     allowedChildComponenents = "NONE")
 public interface MenuRadioTagDeclaration extends TobagoTagDeclaration, AbstractCommandTagDeclaration,

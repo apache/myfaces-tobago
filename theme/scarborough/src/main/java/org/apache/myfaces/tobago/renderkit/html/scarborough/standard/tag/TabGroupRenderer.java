@@ -283,7 +283,6 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     component.getFacets().put(TobagoConstants.FACET_TOOL_BAR, toolBar);
 
     UITab activeTab = null;
-
     int index = 0;
     for (UIComponent child: (List<UIComponent>) component.getChildren()) {
       if (child instanceof UITab) {
@@ -311,7 +310,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
           if (virtualTab == index) {
             outerClass.addClass("tab", "selected-outer");
             innerClass.addClass("tab", "selected-inner");
-            activeTab = (UITab) tab;
+            activeTab = tab;
           } else {
             outerClass.addClass("tab", "unselected-outer");
             innerClass.addClass("tab", "unselected-inner");

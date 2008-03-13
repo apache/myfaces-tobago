@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.renderkit.LayoutRenderer;
+import org.apache.myfaces.tobago.renderkit.AbstractLayoutRenderer;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 
@@ -32,7 +32,7 @@ import java.io.IOException;
  * Date: Feb 22, 2005
  * Time: 3:05:58 PM
  */
-public class DefaultLayoutRenderer extends LayoutRenderer {
+public class DefaultLayoutRenderer extends AbstractLayoutRenderer {
 
   private static final Log LOG = LogFactory.getLog(DefaultLayoutRenderer.class);
 

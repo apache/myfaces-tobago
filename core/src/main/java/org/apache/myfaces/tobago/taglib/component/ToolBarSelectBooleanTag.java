@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -31,7 +31,7 @@ public class ToolBarSelectBooleanTag extends SelectBooleanCommandTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
+    TagUtils.setStringProperty(component, ATTR_IMAGE, image);
   }
 
   public void release() {

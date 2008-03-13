@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DETAIL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_SUMMARY;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIMessage;
@@ -42,9 +42,9 @@ public class MessageTag extends TobagoTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_FOR, forComponent);
-    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_SUMMARY, showSummary);
-    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_DETAIL, showDetail);
+    TagUtils.setStringProperty(component, ATTR_FOR, forComponent);
+    TagUtils.setBooleanProperty(component, ATTR_SHOW_SUMMARY, showSummary);
+    TagUtils.setBooleanProperty(component, ATTR_SHOW_DETAIL, showDetail);
   }
 
   public void release() {

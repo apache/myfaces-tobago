@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.taglib.decl;
 
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 
 /**
  * $Id$
@@ -32,7 +33,6 @@ public interface HasState {
    */
   // TODO is Object right
   @TagAttribute @UIComponentTagAttribute(
-          type = "java.lang.Object",
-          valueExpression = "REQUIRED")
+          type = "java.lang.Object", expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setState(String state);
 }

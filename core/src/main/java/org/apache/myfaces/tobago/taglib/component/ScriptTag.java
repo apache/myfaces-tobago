@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.jsp.JspException;
@@ -58,24 +59,24 @@ public class ScriptTag extends BodyTagSupport {
     }
 
     if (file != null) {
-      page.getScriptFiles().add(ComponentUtil.getValueFromEl(file));
+      page.getScriptFiles().add(TagUtils.getValueFromEl(file));
     }
     if (onload != null) {
-      page.getOnloadScripts().add(ComponentUtil.getValueFromEl(onload));
+      page.getOnloadScripts().add(TagUtils.getValueFromEl(onload));
     }
     if (onunload != null) {
-      page.getOnunloadScripts().add(ComponentUtil.getValueFromEl(onunload));
+      page.getOnunloadScripts().add(TagUtils.getValueFromEl(onunload));
     }
     if (onexit != null) {
-      page.getOnexitScripts().add(ComponentUtil.getValueFromEl(onexit));
+      page.getOnexitScripts().add(TagUtils.getValueFromEl(onexit));
     }
     if (onsubmit != null) {
-      page.getOnsubmitScripts().add(ComponentUtil.getValueFromEl(onsubmit));
+      page.getOnsubmitScripts().add(TagUtils.getValueFromEl(onsubmit));
     }
     if (bodyContent != null) {
       String script = bodyContent.getString();
       bodyContent.clearBody();
-      page.getScriptBlocks().add(ComponentUtil.getValueFromEl(script));
+      page.getScriptBlocks().add(TagUtils.getValueFromEl(script));
     }
 
     return EVAL_PAGE;

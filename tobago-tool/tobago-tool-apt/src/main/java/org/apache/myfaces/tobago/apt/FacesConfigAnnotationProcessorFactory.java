@@ -34,11 +34,17 @@ import java.util.Set;
 public class FacesConfigAnnotationProcessorFactory implements AnnotationProcessorFactory  {
 
   private static final Collection<String> SUPPORTED_ANNOTATIONS
-      = Collections.unmodifiableCollection(Arrays.asList("org.apache.myfaces.tobago.apt.annotation.Tag",
-          "org.apache.myfaces.tobago.apt.annotation.TagAttribute", "org.apache.myfaces.tobago.apt.annotation.Taglib",
+      = Collections.unmodifiableCollection(Arrays.asList(
+          "org.apache.myfaces.tobago.apt.annotation.Tag",
+          "org.apache.myfaces.tobago.apt.annotation.TagAttribute",
+          "org.apache.myfaces.tobago.apt.annotation.Taglib",
           "org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute",
+          "org.apache.myfaces.tobago.apt.annotation.UIComponentTag",
+          "org.apache.myfaces.tobago.apt.annotation.Facet",
+          "org.apache.myfaces.tobago.apt.annotation.Preliminary",
           "org.apache.myfaces.tobago.apt.annotation.Converter", 
-          "org.apache.myfaces.tobago.apt.annotation.Validator"));
+          "org.apache.myfaces.tobago.apt.annotation.Validator"
+  ));
 
   private static final Collection<String> SUPPORTED_OPTIONS =
       Collections.unmodifiableCollection(Arrays.asList(FacesConfigAnnotationVisitor.SOURCE_FACES_CONFIG_KEY,

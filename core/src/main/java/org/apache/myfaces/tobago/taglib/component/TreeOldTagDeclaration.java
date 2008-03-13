@@ -39,6 +39,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @BodyContentDescription(anyTagOf = "<f:facet>* <f:actionListener>?")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeOld",
+    uiComponentBaseClass = "javax.faces.component.UIInput",
+    generate = false,
     rendererType = "TreeOld")
 public interface TreeOldTagDeclaration extends TobagoTagDeclaration,
     HasIdBindingAndRendered, HasTreeNodeValue, HasState, HasIdReference,

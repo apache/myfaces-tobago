@@ -113,7 +113,7 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
       writer.startElement(HtmlConstants.IFRAME, component);
       writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + HtmlConstants.IFRAME);
       writer.writeClassAttribute("tobago-popup-iframe tobago-popup-none");
-      writer.writeStyleAttribute("z-index: " + (zIndex + 2) + ";");      
+      writer.writeStyleAttribute("z-index: " + (zIndex + 2) + ";");
       UIPage page = ComponentUtil.findPage(facesContext);
       final StringBuilder frameSize = new StringBuilder();
       if (component.isModal()) {

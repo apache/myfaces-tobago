@@ -47,7 +47,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUPOPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_PAGER_PAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_PAGER_ROW;
@@ -55,6 +57,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_RELOAD;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_NOT_MODIFIED;
@@ -71,6 +74,11 @@ import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIReload;
+import org.apache.myfaces.tobago.component.UILayout;
+import org.apache.myfaces.tobago.component.LayoutTokens;
+import org.apache.myfaces.tobago.component.RelativeLayoutToken;
+import org.apache.myfaces.tobago.component.LayoutToken;
+import org.apache.myfaces.tobago.component.FixedLayoutToken;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
@@ -79,7 +87,7 @@ import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
+import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -87,6 +95,8 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.StringUtil;
+import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
@@ -103,7 +113,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class SheetRenderer extends LayoutableRendererBase implements SheetRendererWorkaround, AjaxRenderer {
+public class SheetRenderer extends LayoutableRendererBase implements AjaxRenderer {
 
   private static final Log LOG = LogFactory.getLog(SheetRenderer.class);
 
@@ -1104,7 +1114,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
         && component.getFacet(FACET_RELOAD) instanceof UIReload
         && component.getFacet(FACET_RELOAD).isRendered()) {
       UIReload reload = (UIReload) component.getFacet(FACET_RELOAD);
-        update = reload.getUpdate();
+        update = reload.isUpdate();
       }
     if (update) {
       // TODO find a better way
@@ -1161,4 +1171,157 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
             throws IOException {
     // DO Nothing
   }
+
+  public void layoutBegin(FacesContext context, UIComponent component) throws IOException {
+    UILayout.prepareDimension(context, component);
+  }
+
+  public void layoutEnd(FacesContext context, UIComponent component) throws IOException {
+    if (component instanceof UIData) {
+      UIData data = (UIData) component;
+      ensureColumnWidthList(context, data);
+      prepareDimensions(context, data);
+    }
+  }
+
+  private void ensureColumnWidthList(FacesContext facesContext, UIData data) {
+    List<Integer> currentWidthList = null;
+    List<UIColumn> rendererdColumns = data.getRenderedColumns();
+
+    final Map attributes = data.getAttributes();
+    String widthListString = null;
+    SheetState state = data.getSheetState(facesContext);
+    if (state != null) {
+      widthListString = state.getColumnWidths();
+    }
+    if (widthListString == null) {
+      widthListString = (String) attributes.get(ATTR_WIDTH_LIST_STRING);
+    }
+
+    if (widthListString != null) {
+      currentWidthList = StringUtil.parseIntegerList(widthListString);
+    }
+    if (currentWidthList != null && currentWidthList.size() != rendererdColumns.size()) {
+      currentWidthList = null;
+    }
+
+
+    if (currentWidthList == null) {
+      LayoutTokens tokens = data.getColumnLayout();
+      List<UIColumn> allColumns = data.getAllColumns();
+      LayoutTokens newTokens = new LayoutTokens();
+      if (allColumns.size() > 0) {
+        for (int i = 0; i < allColumns.size(); i++) {
+          UIColumn column = allColumns.get(i);
+          if (column.isRendered()) {
+            if (tokens == null) {
+              if (column instanceof org.apache.myfaces.tobago.component.UIColumn) {
+                newTokens.addToken(
+                    LayoutTokens.parseToken(((org.apache.myfaces.tobago.component.UIColumn) column).getWidth()));
+              } else {
+                newTokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
+              }
+            } else {
+              if (i < tokens.getSize()) {
+                newTokens.addToken(tokens.get(i));
+              } else {
+                newTokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
+              }
+            }
+          }
+        }
+      }
+
+
+      int space = LayoutUtil.getInnerSpace(facesContext, data, true);
+      space -= getContentBorder(facesContext, data);
+      if (needVerticalScrollbar(facesContext, data)) {
+        space -= getScrollbarWidth(facesContext, data);
+      }
+      LayoutInfo layoutInfo = new LayoutInfo(newTokens.getSize(), space, newTokens, data.getClientId(facesContext), false);
+      parseFixedWidth(facesContext, layoutInfo, rendererdColumns);
+      layoutInfo.parseColumnLayout(space);
+      currentWidthList = layoutInfo.getSpaceList();
+    }
+
+    if (currentWidthList != null) {
+      if (rendererdColumns.size() != currentWidthList.size()) {
+        LOG.warn("widthList.size() = " + currentWidthList.size()
+            + " != columns.size() = " + rendererdColumns.size() + "  widthList : "
+            + LayoutInfo.listToTokenString(currentWidthList));
+      } else {
+        data.setWidthList(currentWidthList);
+      }
+    }
+  }
+
+  private void parseFixedWidth(FacesContext facesContext, LayoutInfo layoutInfo, List<UIColumn> rendereredColumns) {
+    LayoutTokens tokens = layoutInfo.getLayoutTokens();
+    for (int i = 0; i < tokens.getSize(); i++) {
+      LayoutToken token = tokens.get(i);
+      if (token instanceof FixedLayoutToken) {
+        int width = 0;
+        if (!rendereredColumns.isEmpty()) {
+          if (i < rendereredColumns.size()) {
+            UIColumn column = rendereredColumns.get(i);
+            if (column instanceof UIColumnSelector) {
+              LayoutInformationProvider renderer
+                  = ComponentUtil.getRenderer(facesContext, column);
+              if (renderer == null) {
+                LOG.warn("can't find renderer for " + column.getClass().getName());
+                renderer = ComponentUtil.getRenderer(facesContext,
+                    org.apache.myfaces.tobago.component.UIPanel.COMPONENT_FAMILY, RENDERER_TYPE_OUT);
+              }
+              width = renderer.getFixedWidth(facesContext, column);
+
+            } else {
+              for (UIComponent component : (List<UIComponent>) column.getChildren()) {
+                LayoutInformationProvider renderer
+                    = ComponentUtil.getRenderer(facesContext, component);
+                width += renderer.getFixedWidth(facesContext, component);
+              }
+            }
+            layoutInfo.update(width, i);
+          } else {
+            layoutInfo.update(0, i);
+            if (LOG.isWarnEnabled()) {
+              LOG.warn("More LayoutTokens found than rows! skipping!");
+            }
+          }
+        }
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("set column " + i + " from fixed to with " + width);
+        }
+      }
+    }
+  }
+
+  private void prepareDimensions(FacesContext facesContext, UIData data) {
+     // prepare width's in column's children components
+
+     List<Integer> columnWidths = data.getWidthList();
+     int i = 0;
+     for (UIColumn column : data.getRenderedColumns()) {
+       if (i < columnWidths.size()) {
+         Integer width = columnWidths.get(i);
+         if (!(column instanceof UIColumnSelector)) {
+           if (column.getChildCount() == 1) {
+             UIComponent child = (UIComponent) column.getChildren().get(0);
+             int cellPaddingWidth = getConfiguredValue(facesContext, data, "cellPaddingWidth");
+             child.getAttributes().put(
+                 ATTR_LAYOUT_WIDTH, width - cellPaddingWidth);
+             child.getAttributes().remove(ATTR_INNER_WIDTH);
+           } else {
+             LOG.warn("More or less than 1 child in column! "
+                 + "Can't set width for column " + i + " to " + width);
+           }
+         }
+       } else {
+         LOG.warn("More columns than columnSizes! "
+             + "Can't set width for column " + i);
+       }
+       i++;
+     }
+   }
+
 }

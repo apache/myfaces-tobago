@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UISelectOneCommand;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -46,7 +46,7 @@ public class SelectOneCommandTag extends AbstractCommandTag {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     component.setRendererType(RENDERER_TYPE_MENUCOMMAND);
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
+    TagUtils.setStringProperty(component, ATTR_VALUE, value);
   }
 
   public String getValue() {

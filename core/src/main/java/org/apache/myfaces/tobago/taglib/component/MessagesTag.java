@@ -25,8 +25,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MIN_SEVERITY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ORDER_BY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DETAIL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_SUMMARY;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIMessages;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.UIComponentTag;
@@ -50,20 +50,20 @@ public class MessagesTag extends TobagoTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_FOR, forComponent);
-    ComponentUtil.setBooleanProperty(component, ATTR_GLOBAL_ONLY, globalOnly);
-    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_SUMMARY, showSummary);
-    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_DETAIL, showDetail);
-    ComponentUtil.setStringProperty(component, ATTR_MIN_SEVERITY, minSeverity);
-    ComponentUtil.setStringProperty(component, ATTR_MAX_SEVERITY, maxSeverity);
-    ComponentUtil.setStringProperty(component, ATTR_MAX_NUMBER, maxNumber);
+    TagUtils.setStringProperty(component, ATTR_FOR, forComponent);
+    TagUtils.setBooleanProperty(component, ATTR_GLOBAL_ONLY, globalOnly);
+    TagUtils.setBooleanProperty(component, ATTR_SHOW_SUMMARY, showSummary);
+    TagUtils.setBooleanProperty(component, ATTR_SHOW_DETAIL, showDetail);
+    TagUtils.setStringProperty(component, ATTR_MIN_SEVERITY, minSeverity);
+    TagUtils.setStringProperty(component, ATTR_MAX_SEVERITY, maxSeverity);
+    TagUtils.setStringProperty(component, ATTR_MAX_NUMBER, maxNumber);
     setOrderByProperty(component, ATTR_ORDER_BY, orderBy);
   }
 
   private void setOrderByProperty(UIComponent component, String name, String value) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
-        component.setValueBinding(name, ComponentUtil.createValueBinding(value));
+        component.setValueBinding(name, TagUtils.createValueBinding(value));
       } else {
         component.getAttributes().put(name, UIMessages.OrderBy.parse(value));
       }

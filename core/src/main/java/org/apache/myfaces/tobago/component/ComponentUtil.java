@@ -56,11 +56,13 @@ import org.apache.myfaces.tobago.context.TransientStateHolder;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutableRenderer;
+import org.apache.myfaces.tobago.renderkit.LayoutRenderer;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.Callback;
 import org.apache.myfaces.tobago.util.RangeParser;
 import org.apache.myfaces.tobago.util.TobagoCallback;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
@@ -320,8 +322,8 @@ public class ComponentUtil {
   }
 
   public static boolean isError(UIComponent component) {
-    if (component instanceof UIInput) {
-      return isError((UIInput) component);
+    if (component instanceof UIInputBase) {
+      return isError((UIInputBase) component);
     }
     return false;
   }
@@ -376,6 +378,20 @@ public class ComponentUtil {
     }
   }
 
+  public static ValueBinding createValueBinding(String value) {
+    return FacesContext.getCurrentInstance().getApplication().createValueBinding(value);
+  }
+
+  public static void setStringProperty(UIComponent component, String name, String value) {
+    if (value != null) {
+      if (UIComponentTag.isValueReference(value)) {
+        component.setValueBinding(name, createValueBinding(value));
+      } else {
+        component.getAttributes().put(name, value);
+      }
+    }
+  }
+
   public static void setStyleClasses(UIComponent component, String styleClasses) {
     if (styleClasses != null) {
       if (UIComponentTag.isValueReference(styleClasses)) {
@@ -413,6 +429,10 @@ public class ComponentUtil {
       value = ((ValueBinding) value).getValue(FacesContext.getCurrentInstance());
     }
     return value;
+  }
+
+  public static Object getObjectAttribute(UIComponent component, String name) {
+    return getAttribute(component, name);
   }
 
   public static String getStringAttribute(UIComponent component, String name) {
@@ -481,34 +501,57 @@ public class ComponentUtil {
   }
 
   // TODO This should not be neseccary, but UIComponentBase.getRenderer() is protected
-  public static LayoutableRendererBase getRenderer(FacesContext facesContext, UIComponent component) {
+  public static LayoutableRenderer getRenderer(FacesContext facesContext, UIComponent component) {
     return getRenderer(facesContext, component.getFamily(), component.getRendererType());
 
   }
 
-  public static LayoutableRendererBase getRenderer(FacesContext facesContext, String family, String rendererType) {
+  public static LayoutRenderer getLayoutRenderer(FacesContext facesContext, String family, String rendererType) {
     if (rendererType == null) {
       return null;
     }
 
-    LayoutableRendererBase renderer;
-
     Map requestMap = facesContext.getExternalContext().getRequestMap();
-    renderer = (LayoutableRendererBase) requestMap.get(RENDER_KEY_PREFIX + rendererType);
+    LayoutRenderer renderer = (LayoutRenderer) requestMap.get(RENDER_KEY_PREFIX + rendererType);
 
     if (renderer == null) {
-      RenderKitFactory rkFactory = (RenderKitFactory)
-          FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
-      RenderKit renderKit = rkFactory.getRenderKit(facesContext, facesContext.getViewRoot().getRenderKitId());
-      Renderer myRenderer = renderKit.getRenderer(family, rendererType);
-      if (myRenderer instanceof LayoutableRendererBase) {
+      Renderer myRenderer = getRendererInternal(facesContext, family, rendererType);
+      if (myRenderer instanceof LayoutRenderer) {
         requestMap.put(RENDER_KEY_PREFIX + rendererType, myRenderer);
-        renderer = (LayoutableRendererBase) myRenderer;
+        renderer = (LayoutRenderer) myRenderer;
       } else {
         return null;
       }
     }
     return renderer;
+  }
+
+
+  public static LayoutableRenderer getRenderer(FacesContext facesContext, String family, String rendererType) {
+    if (rendererType == null) {
+      return null;
+    }
+
+    Map requestMap = facesContext.getExternalContext().getRequestMap();
+    LayoutableRenderer renderer = (LayoutableRenderer) requestMap.get(RENDER_KEY_PREFIX + rendererType);
+
+    if (renderer == null) {
+      Renderer myRenderer = getRendererInternal(facesContext, family, rendererType);
+      if (myRenderer instanceof LayoutableRenderer) {
+        requestMap.put(RENDER_KEY_PREFIX + rendererType, myRenderer);
+        renderer = (LayoutableRenderer) myRenderer;
+      } else {
+        return null;
+      }
+    }
+    return renderer;
+  }
+
+  private static Renderer getRendererInternal(FacesContext facesContext, String family, String rendererType) {
+    RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+    RenderKit renderKit = rkFactory.getRenderKit(facesContext, facesContext.getViewRoot().getRenderKitId());
+    Renderer myRenderer = renderKit.getRenderer(family, rendererType);
+    return myRenderer;
   }
 
   public static String currentValue(UIComponent component) {
@@ -751,56 +794,10 @@ public class ComponentUtil {
     return value;
   }
 
-  public static void setIntegerProperty(UIComponent component,
-      String name, String value) {
-    if (value != null) {
-      if (UIComponentTag.isValueReference(value)) {
-        component.setValueBinding(name, createValueBinding(value));
-      } else {
-        component.getAttributes().put(name, new Integer(value));
-      }
-    }
-  }
-
-  public static void setBooleanProperty(UIComponent component,
-      String name, String value) {
-    if (value != null) {
-      if (UIComponentTag.isValueReference(value)) {
-        component.setValueBinding(name, createValueBinding(value));
-      } else {
-        component.getAttributes().put(name, Boolean.valueOf(value));
-      }
-    }
-  }
-
-  public static void setStringProperty(UIComponent component, String name,
-      String value) {
-    if (value != null) {
-      if (UIComponentTag.isValueReference(value)) {
-        component.setValueBinding(name, createValueBinding(value));
-      } else {
-        component.getAttributes().put(name, value);
-      }
-    }
-  }
-
   public static void setValueForValueBinding(String name, Object value) {
     FacesContext context = FacesContext.getCurrentInstance();
     ValueBinding valueBinding = context.getApplication().createValueBinding(name);
     valueBinding.setValue(context, value);
-  }
-
-  public static ValueBinding createValueBinding(String value) {
-    return FacesContext.getCurrentInstance().getApplication()
-        .createValueBinding(value);
-  }
-
-  public static String getValueFromEl(String script) {
-    if (UIComponentTag.isValueReference(script)) {
-      ValueBinding valueBinding = ComponentUtil.createValueBinding(script);
-      script = (String) valueBinding.getValue(FacesContext.getCurrentInstance());
-    }
-    return script;
   }
 
   public static UIComponent createComponent(String componentType, String rendererType) {
@@ -817,9 +814,9 @@ public class ComponentUtil {
 
   public static UIColumn createTextColumn(String label, String sortable, String align, String value) {
     UIComponent text = createComponent(UIOutput.COMPONENT_TYPE, RENDERER_TYPE_OUT);
-    setStringProperty(text, ATTR_VALUE, value);
-    setBooleanProperty(text, ATTR_CREATE_SPAN, "false");
-    setBooleanProperty(text, ATTR_ESCAPE, "false");
+    TagUtils.setStringProperty(text, ATTR_VALUE, value);
+    TagUtils.setBooleanProperty(text, ATTR_CREATE_SPAN, "false");
+    TagUtils.setBooleanProperty(text, ATTR_ESCAPE, "false");
     return createColumn(label, sortable, align, text);
   }
 
@@ -831,9 +828,9 @@ public class ComponentUtil {
 
   private static UIColumn createColumn(String label, String sortable, String align) {
     UIColumn column = (UIColumn) createComponent(UIColumn.COMPONENT_TYPE, null);
-    setStringProperty(column, ATTR_LABEL, label);
-    setBooleanProperty(column, ATTR_SORTABLE, sortable);
-    setStringProperty(column, ATTR_ALIGN, align);
+    TagUtils.setStringProperty(column, ATTR_LABEL, label);
+    TagUtils.setBooleanProperty(column, ATTR_SORTABLE, sortable);
+    TagUtils.setStringProperty(column, ATTR_ALIGN, align);
     return column;
   }
 
@@ -1053,9 +1050,9 @@ public class ComponentUtil {
         || commandType.equals(COMMAND_TYPE_RESET)
         || commandType.equals(COMMAND_TYPE_SCRIPT))) {
       if (commandType.equals(COMMAND_TYPE_NAVIGATE)) {
-        setStringProperty(component, ATTR_ACTION_LINK, action);
+        TagUtils.setStringProperty(component, ATTR_ACTION_LINK, action);
       } else if (commandType.equals(COMMAND_TYPE_SCRIPT)) {
-        setStringProperty(component, ATTR_ACTION_ONCLICK, action);
+        TagUtils.setStringProperty(component, ATTR_ACTION_ONCLICK, action);
       } else {
         LOG.warn("Type reset is not supported");
       }
@@ -1085,12 +1082,12 @@ public class ComponentUtil {
    */
   @Deprecated
   public static void setSuggestMethodBinding(UIComponent component, String suggestMethod) {
-    if (component instanceof UIInput) {
-      setSuggestMethodBinding((UIInput) component, suggestMethod);
+    if (component instanceof UIInputBase) {
+      setSuggestMethodBinding((UIInputBase) component, suggestMethod);
     }
   }
 
-  public static void setSuggestMethodBinding(UIInput component, String suggestMethod) {
+  public static void setSuggestMethodBinding(UIInputBase component, String suggestMethod) {
     if (suggestMethod != null) {
       if (UIComponentTag.isValueReference(suggestMethod)) {
         final MethodBinding methodBinding = FacesContext.getCurrentInstance().getApplication()
@@ -1318,7 +1315,7 @@ public class ComponentUtil {
     uiData.setRowIndex(oldRowIndex);
   }
 
-  static String[] splitList(String renderers) {
+  public static String[] splitList(String renderers) {
     return StringUtils.split(renderers, LIST_SEPARATOR_CHARS);
   }
 

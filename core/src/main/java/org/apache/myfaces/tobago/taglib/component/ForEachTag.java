@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.taglib.decl.HasVar;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
@@ -86,7 +87,7 @@ public class ForEachTag extends BodyTagSupport implements HasVar {
     if (stop == IterationHelper.ALL) {
       if (UIComponentTag.isValueReference(forEachItems)) {
         final Object items
-            = ComponentUtil.createValueBinding(this.forEachItems).getValue(facesContext);
+            = TagUtils.createValueBinding(this.forEachItems).getValue(facesContext);
         if (items instanceof List) {
           stop = ((List) items).size();
         } else if (items instanceof Object[]) {

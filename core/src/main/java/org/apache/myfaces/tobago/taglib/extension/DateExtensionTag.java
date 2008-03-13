@@ -19,9 +19,9 @@ package org.apache.myfaces.tobago.taglib.extension;
 
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.taglib.component.DatePickerTag;
-import org.apache.myfaces.tobago.taglib.component.DateTag;
-import org.apache.myfaces.tobago.taglib.component.FormTag;
+import org.apache.myfaces.tobago.internal.taglib.DatePickerTag;
+import org.apache.myfaces.tobago.internal.taglib.DateTag;
+import org.apache.myfaces.tobago.internal.taglib.FormTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;

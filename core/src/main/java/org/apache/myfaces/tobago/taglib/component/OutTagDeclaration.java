@@ -41,6 +41,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 @BodyContentDescription(anyTagOf = "f:converter|f:convertNumber|f:convertDateTime|...")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIOutput",
+    uiComponentBaseClass = "javax.faces.component.UIOutput",
     rendererType = "Out",
     allowedChildComponenents = "NONE")
 
@@ -61,6 +62,10 @@ public interface OutTagDeclaration extends
    * Possible values are 'none', 'strong' and 'deleted'
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none", allowedValues = {"none", "strong", "deleted"})
+  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]",
+      allowedValues = {"none", "strong", "deleted"})
   void setMarkup(String markup);
+  
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
+  void setCreateSpan(String createSpan);
 }

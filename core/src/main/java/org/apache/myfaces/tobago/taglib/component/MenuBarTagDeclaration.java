@@ -46,8 +46,9 @@ import org.apache.myfaces.tobago.component.UIMenuSeparator;
         "org.apache.myfaces.tobago.taglib.component.MenuSelectOneTag",
         "org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag"})
 @UIComponentTag(
-    uiComponent = "javax.faces.component.UIPanel",
-    rendererType = "MenuBar", isComponentAlreadyDefined = false, // changed to false 
+    uiComponent = "org.apache.myfaces.tobago.component.UIMenuBar",
+    uiComponentBaseClass = "javax.faces.component.UIPanel",
+    rendererType = "MenuBar", isComponentAlreadyDefined = false,
     allowedChildComponenents = {
         UIMenu.COMPONENT_TYPE,
         UIMenuCommand.COMPONENT_TYPE,

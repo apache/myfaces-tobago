@@ -153,7 +153,7 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
       popup.setId(facesContext.getViewRoot().createUniqueId());
     }
     popup.getAttributes().put(TobagoConstants.ATTR_ZINDEX, 10);
-      
+
     link.getFacets().put(FACET_PICKER_POPUP, popup);
 
     popup.setRendered(false);

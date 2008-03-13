@@ -20,8 +20,8 @@ package org.apache.myfaces.tobago.taglib.extension;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.component.AbstractCommandTagDeclaration;
-import org.apache.myfaces.tobago.taglib.component.MenuCommandTag;
-import org.apache.myfaces.tobago.taglib.component.SelectOneRadioTag;
+import org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag;
+import org.apache.myfaces.tobago.internal.taglib.MenuItemTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
@@ -49,7 +49,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
   private String rendered;
   private String value;
 
-  private MenuCommandTag menuCommandTag;
+  private MenuItemTag menuCommandTag;
   private SelectOneRadioTag selectOneRadio;
   private FacetTag facetTag;
   private String action;
@@ -66,7 +66,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
   @Override
   public int doStartTag() throws JspException {
 
-    menuCommandTag = new MenuCommandTag();
+    menuCommandTag = new MenuItemTag();
     menuCommandTag.setPageContext(pageContext);
     menuCommandTag.setParent(getParent());
 

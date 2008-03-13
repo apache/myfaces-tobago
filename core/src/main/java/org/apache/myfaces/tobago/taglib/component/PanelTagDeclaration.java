@@ -36,7 +36,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @Tag(name = "panel")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPanel",
+    generate = false,
     rendererType = "Panel",
+    isAjaxEnabled = true,
     facets = {
     @Facet(name="reload", description = "Contains an instance of UIReload",
             allowedChildComponenents = "org.apache.myfaces.tobago.Reload"),
@@ -50,7 +52,7 @@ public interface PanelTagDeclaration extends TobagoBodyTagDeclaration,
    * Possible value is 'none'. But this can be overridden in the theme.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none")
+  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
   void setMarkup(String markup);
 
 }

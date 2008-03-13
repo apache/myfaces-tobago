@@ -26,8 +26,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARGIN_LEFT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARGIN_RIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARGIN_TOP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIGridLayout;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -52,15 +52,15 @@ public class GridLayoutTag extends TobagoTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_BORDER, border);
-    ComponentUtil.setStringProperty(component, ATTR_CELLSPACING, cellspacing);
-    ComponentUtil.setStringProperty(component, ATTR_MARGIN, margin);
-    ComponentUtil.setStringProperty(component, ATTR_MARGIN_TOP, marginTop);
-    ComponentUtil.setStringProperty(component, ATTR_MARGIN_RIGHT, marginRight);
-    ComponentUtil.setStringProperty(component, ATTR_MARGIN_BOTTOM, marginBottom);
-    ComponentUtil.setStringProperty(component, ATTR_MARGIN_LEFT, marginLeft);
-    ComponentUtil.setStringProperty(component, ATTR_COLUMNS, columns);
-    ComponentUtil.setStringProperty(component, ATTR_ROWS, rows);
+    TagUtils.setStringProperty(component, ATTR_BORDER, border);
+    TagUtils.setStringProperty(component, ATTR_CELLSPACING, cellspacing);
+    TagUtils.setStringProperty(component, ATTR_MARGIN, margin);
+    TagUtils.setStringProperty(component, ATTR_MARGIN_TOP, marginTop);
+    TagUtils.setStringProperty(component, ATTR_MARGIN_RIGHT, marginRight);
+    TagUtils.setStringProperty(component, ATTR_MARGIN_BOTTOM, marginBottom);
+    TagUtils.setStringProperty(component, ATTR_MARGIN_LEFT, marginLeft);
+    TagUtils.setStringProperty(component, ATTR_COLUMNS, columns);
+    TagUtils.setStringProperty(component, ATTR_ROWS, rows);
   }
 
   public void release() {

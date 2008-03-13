@@ -22,11 +22,12 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.taglib.component.GridLayoutTag;
-import org.apache.myfaces.tobago.taglib.component.LabelTag;
-import org.apache.myfaces.tobago.taglib.component.PanelTag;
+import org.apache.myfaces.tobago.internal.taglib.GridLayoutTag;
+import org.apache.myfaces.tobago.internal.taglib.LabelTag;
+import org.apache.myfaces.tobago.internal.taglib.PanelTag;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import javax.faces.webapp.FacetTag;
@@ -37,7 +38,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name = "label")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.LabelTag")
 public class LabelExtensionTag extends BodyTagSupport
-    implements HasValue, HasTip {
+    implements HasValue, HasLabelWidth, HasTip {
 
   private static final Log LOG = LogFactory.getLog(LabelExtensionTag.class);
 
@@ -48,6 +49,7 @@ public class LabelExtensionTag extends BodyTagSupport
   private String rendered;
   private String columns = DEFAULT_COLUMNS;
   private String rows = "fixed";
+  private String labelWidth;
 
   private PanelTag panelTag;
 
@@ -67,6 +69,10 @@ public class LabelExtensionTag extends BodyTagSupport
     facetTag.setName(FACET_LAYOUT);
     facetTag.setParent(panelTag);
     facetTag.doStartTag();
+
+    if (labelWidth != null) {
+      setColumns(labelWidth + ";*");
+    }
 
     GridLayoutTag gridLayoutTag = new GridLayoutTag();
     gridLayoutTag.setPageContext(pageContext);
@@ -109,6 +115,7 @@ public class LabelExtensionTag extends BodyTagSupport
     columns = DEFAULT_COLUMNS;
     rows = "fixed";
     panelTag = null;
+    labelWidth = null;
   }
 
   public void setValue(String value) {
@@ -134,5 +141,9 @@ public class LabelExtensionTag extends BodyTagSupport
 
   void setRows(String rows) {
     this.rows = rows;
+  }
+
+  public void setLabelWidth(String labelWidth) {
+    this.labelWidth = labelWidth;
   }
 }

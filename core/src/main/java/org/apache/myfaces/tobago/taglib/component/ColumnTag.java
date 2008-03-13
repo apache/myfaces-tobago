@@ -23,6 +23,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIColumn;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -55,11 +56,11 @@ public class ColumnTag extends TobagoTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setBooleanProperty(component, ATTR_SORTABLE, sortable);
-    ComponentUtil.setStringProperty(component, ATTR_ALIGN, align);
+    TagUtils.setBooleanProperty(component, ATTR_SORTABLE, sortable);
+    TagUtils.setStringProperty(component, ATTR_ALIGN, align);
     ComponentUtil.setMarkup(component, markup);
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
-    ComponentUtil.setStringProperty(component, ATTR_WIDTH, width);
+    TagUtils.setStringProperty(component, ATTR_TIP, tip);
+    TagUtils.setStringProperty(component, ATTR_WIDTH, width);
   }
 
   public void setMarkup(String markup) {

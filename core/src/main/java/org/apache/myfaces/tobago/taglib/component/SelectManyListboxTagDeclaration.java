@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 
 /*
  * Created: Aug 5, 2005 5:58:55 PM
@@ -40,15 +41,16 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
  */
 @Tag(name = "selectManyListbox")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UISelectMany",
+    uiComponent = "org.apache.myfaces.tobago.component.UISelectManyListbox",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UISelectMany",
     rendererType = "SelectManyListbox",
     allowedChildComponenents = {
         "javax.faces.SelectItem",
         "javax.faces.SelectItems"
         })
 
-public interface SelectManyListboxTagDeclaration
-    extends SelectManyTagDeclaration, HasId, IsDisabled,
-    HasDeprecatedHeight, IsInline, HasLabelAndAccessKey, IsRendered, HasBinding, HasTip, IsReadonly, IsRequired {
+public interface SelectManyListboxTagDeclaration extends SelectManyTagDeclaration, HasId, IsDisabled,
+    HasDeprecatedHeight, IsInline, HasLabelAndAccessKey, 
+    IsRendered, HasBinding, HasTip, IsReadonly, HasConverter, IsRequired {
 
 }

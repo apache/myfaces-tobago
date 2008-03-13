@@ -27,6 +27,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UILinkCommand;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -45,13 +46,13 @@ public class LinkTag extends AbstractCommandTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_TARGET, target);
-    ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
-    ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
-    ComponentUtil.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
+    TagUtils.setStringProperty(component, ATTR_TARGET, target);
+    TagUtils.setStringProperty(component, ATTR_LABEL, label);
+    TagUtils.setStringProperty(component, ATTR_IMAGE, image);
+    TagUtils.setStringProperty(component, ATTR_TIP, tip);
+    TagUtils.setBooleanProperty(component, ATTR_DEFAULT_COMMAND, defaultCommand);
     ComponentUtil.setMarkup(component, markup);
-    ComponentUtil.setIntegerProperty(component, ATTR_TAB_INDEX, tabIndex);
+    TagUtils.setIntegerProperty(component, ATTR_TAB_INDEX, tabIndex);
   }
 
   public String getComponentType() {

@@ -22,8 +22,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LEFT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MODAL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TOP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.tagext.BodyTag;
@@ -52,11 +52,11 @@ public class PopupTag extends TobagoBodyTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_WIDTH, width);
-    ComponentUtil.setStringProperty(component, ATTR_HEIGHT, height);
-    ComponentUtil.setStringProperty(component, ATTR_LEFT, left);
-    ComponentUtil.setStringProperty(component, ATTR_TOP, top);
-    ComponentUtil.setBooleanProperty(component, ATTR_MODAL, modal);
+    TagUtils.setStringProperty(component, ATTR_WIDTH, width);
+    TagUtils.setStringProperty(component, ATTR_HEIGHT, height);
+    TagUtils.setStringProperty(component, ATTR_LEFT, left);
+    TagUtils.setStringProperty(component, ATTR_TOP, top);
+    TagUtils.setBooleanProperty(component, ATTR_MODAL, modal);
 
   }
 

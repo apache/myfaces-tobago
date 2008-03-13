@@ -40,9 +40,9 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBaseWrapper;
+import org.apache.myfaces.tobago.renderkit.LayoutableRenderer;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriterWrapper;
@@ -91,8 +91,8 @@ public final class HtmlRendererUtil {
 
   public static void prepareRender(FacesContext facesContext, UIComponent component) {
     // xxx find a better way for this question: isTobago or isLayoutable something like that.
-    LayoutableRendererBase layoutRendererBase = ComponentUtil.getRenderer(facesContext, component);
-    if (layoutRendererBase != null && !(layoutRendererBase instanceof RendererBaseWrapper)) {
+    LayoutableRenderer layoutRenderer = ComponentUtil.getRenderer(facesContext, component);
+    if (layoutRenderer != null && !(layoutRenderer instanceof RendererBaseWrapper)) {
       createCssClass(facesContext, component);
       layoutWidth(facesContext, component);
       layoutHeight(facesContext, component);
@@ -128,7 +128,7 @@ public final class HtmlRendererUtil {
     //final String family = component.getFamily();
     if (rendererType != null//&& !"facelets".equals(family)
         ) {
-      LayoutableRendererBase layoutableRendererBase = ComponentUtil.getRenderer(facesContext, component);
+      LayoutableRenderer layoutableRendererBase = ComponentUtil.getRenderer(facesContext, component);
       if (layoutableRendererBase != null) {
         return layoutableRendererBase.getRendererName(rendererType);
       }

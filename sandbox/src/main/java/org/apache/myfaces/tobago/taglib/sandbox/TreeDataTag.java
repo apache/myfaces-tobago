@@ -19,9 +19,9 @@ package org.apache.myfaces.tobago.taglib.sandbox;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VAR;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITreeData;
 import org.apache.myfaces.tobago.taglib.component.TobagoTag;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -39,8 +39,8 @@ public class TreeDataTag extends TobagoTag implements TreeDataTagDeclaration {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
-    ComponentUtil.setStringProperty(component, ATTR_VAR, var);
+    TagUtils.setStringProperty(component, ATTR_VALUE, value);
+    TagUtils.setStringProperty(component, ATTR_VAR, var);
   }
 
   @Override

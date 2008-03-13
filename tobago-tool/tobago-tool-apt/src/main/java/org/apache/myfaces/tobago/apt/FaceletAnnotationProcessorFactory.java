@@ -36,9 +36,11 @@ import java.util.Set;
 public class FaceletAnnotationProcessorFactory implements AnnotationProcessorFactory  {
 
   private static final Collection<String> SUPPORTED_ANNOTATIONS
-      = Collections.unmodifiableCollection(Arrays.asList("org.apache.myfaces.tobago.apt.annotation.Tag",
-          "org.apache.myfaces.tobago.apt.annotation.TagAttribute", "org.apache.myfaces.tobago.apt.annotation.Taglib",
-          "org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute"));
+      = Collections.unmodifiableCollection(Arrays.asList(
+      "org.apache.myfaces.tobago.apt.annotation.Tag",
+      "org.apache.myfaces.tobago.apt.annotation.TagAttribute",
+      "org.apache.myfaces.tobago.apt.annotation.Taglib",
+      "org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute"));
 
   private static final Collection<String> SUPPORTED_OPTIONS = Collections.emptyList();
 

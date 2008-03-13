@@ -20,8 +20,8 @@ package org.apache.myfaces.tobago.taglib.extension;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.component.AbstractCommandTagDeclaration;
-import org.apache.myfaces.tobago.taglib.component.MenuCommandTag;
-import org.apache.myfaces.tobago.taglib.component.SelectBooleanCheckboxTag;
+import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
+import org.apache.myfaces.tobago.internal.taglib.MenuItemTag;
 import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
@@ -47,7 +47,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
   private String rendered;
   private String value;
 
-  private MenuCommandTag menuCommandTag;
+  private MenuItemTag menuCommandTag;
   private SelectBooleanCheckboxTag selectBooleanCheckbox;
   private FacetTag facetTag;
   private String action;
@@ -63,7 +63,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
   @Override
   public int doStartTag() throws JspException {
 
-    menuCommandTag = new MenuCommandTag();
+    menuCommandTag = new MenuItemTag();
     menuCommandTag.setPageContext(pageContext);
     menuCommandTag.setParent(getParent()); // ???
     if (rendered != null) {

@@ -24,6 +24,7 @@ import com.sun.facelets.tag.Metadata;
 import com.sun.facelets.tag.MetadataTarget;
 import com.sun.facelets.tag.TagAttribute;
 import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.InputSuggest;
 
 /**
  * Date: Sep 17, 2007
@@ -35,7 +36,7 @@ public class SuggestMethodRule extends MetaRule {
 
   public Metadata applyRule(String name, TagAttribute attribute,
       MetadataTarget metadataTarget) {
-    if (metadataTarget.isTargetInstanceOf(UIInput.class)) {
+    if (metadataTarget.isTargetInstanceOf(InputSuggest.class)) {
       if ("suggestMethod".equals(name)) {
         return new SuggestMethodMapper(attribute);
       }

@@ -28,8 +28,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TITLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_COMPONENT_CREATED;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.UIComponentTag;
@@ -88,22 +88,22 @@ public abstract class TobagoTag extends UIComponentTag
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
-    ComponentUtil.setStringProperty(component, ATTR_TITLE, title);
+    TagUtils.setStringProperty(component, ATTR_LABEL, label);
+    TagUtils.setStringProperty(component, ATTR_TITLE, title);
 
-    ComponentUtil.setBooleanProperty(component, ATTR_DISABLED, disabled);
-    ComponentUtil.setBooleanProperty(component, ATTR_READONLY, readonly);
-    ComponentUtil.setBooleanProperty(component, ATTR_HIDDEN, hidden);
-    ComponentUtil.setBooleanProperty(component, ATTR_INLINE, inline);
+    TagUtils.setBooleanProperty(component, ATTR_DISABLED, disabled);
+    TagUtils.setBooleanProperty(component, ATTR_READONLY, readonly);
+    TagUtils.setBooleanProperty(component, ATTR_HIDDEN, hidden);
+    TagUtils.setBooleanProperty(component, ATTR_INLINE, inline);
 
     if (width != null) {
       LOG.warn("the width attribute is deprecated, please use a layout manager. (" + getClass().getSimpleName() + ")");
     }
-    ComponentUtil.setStringProperty(component, ATTR_WIDTH, width);
+    TagUtils.setStringProperty(component, ATTR_WIDTH, width);
     if (height != null) {
       LOG.warn("the height attribute is deprecated, please use a layout manager. (" + getClass().getSimpleName() + ")");
     }
-    ComponentUtil.setStringProperty(component, ATTR_HEIGHT, height);
+    TagUtils.setStringProperty(component, ATTR_HEIGHT, height);
   }
 
   public String getDisabled() {

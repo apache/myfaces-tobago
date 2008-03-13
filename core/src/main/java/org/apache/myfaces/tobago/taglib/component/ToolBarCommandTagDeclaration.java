@@ -36,7 +36,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
  */
 @Tag(name = "toolBarCommand", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UICommand",
+    uiComponent = "org.apache.myfaces.tobago.component.UIToolBarCommand",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UICommand",
     rendererType = "Button",
     allowedChildComponenents = "NONE")
 public interface ToolBarCommandTagDeclaration extends AbstractCommandTagDeclaration, HasIdBindingAndRendered,

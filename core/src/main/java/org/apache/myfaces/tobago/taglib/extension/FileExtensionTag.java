@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.taglib.extension;
 
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.taglib.component.FileTag;
+import org.apache.myfaces.tobago.internal.taglib.FileTag;
 import org.apache.myfaces.tobago.taglib.component.InputTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
@@ -67,6 +67,7 @@ public class FileExtensionTag extends BodyTagSupport
   private String labelWidth;
   private String required;
   private String tabIndex;
+  private String focus;
 
   private LabelExtensionTag labelTag;
   private FileTag fileTag;
@@ -120,6 +121,10 @@ public class FileExtensionTag extends BodyTagSupport
     if (tabIndex != null) {
       fileTag.setTabIndex(tabIndex);
     }
+
+    if (focus != null) {
+      //fileTag.set
+    }
     fileTag.setParent(labelTag);
     fileTag.doStartTag();
 
@@ -150,6 +155,7 @@ public class FileExtensionTag extends BodyTagSupport
     tabIndex = null;
     fileTag = null;
     labelTag = null;
+    focus = null;
   }
 
   public void setLabel(String label) {
@@ -198,5 +204,13 @@ public class FileExtensionTag extends BodyTagSupport
 
   public void setTabIndex(String tabIndex) {
     this.tabIndex = tabIndex;
+  }
+
+  public String getFocus() {
+    return focus;
+  }
+
+  public void setFocus(String focus) {
+    this.focus = focus;
   }
 }

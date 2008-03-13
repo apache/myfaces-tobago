@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.UIInputBase;
 
 /**
  * User: weber
@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.component.UIInput;
 public class TextInputTag extends InputTag implements TextInputTagDeclaration {
 
   public String getComponentType() {
-    return UIInput.COMPONENT_TYPE;
+    return UIInputBase.COMPONENT_TYPE;
   }
 
 

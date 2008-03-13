@@ -41,6 +41,4 @@ public interface LayoutInformationProvider {
   int getFixedWidth(FacesContext facesContext, UIComponent component);
 
   int getFixedHeight(FacesContext facesContext, UIComponent component);
-
-  int getFixedSpace(FacesContext facesContext, UIComponent component, boolean width);
 }

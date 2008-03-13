@@ -38,6 +38,7 @@ public interface HasValidator {
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding",
-      expression = DynamicExpression.METHOD_BINDING)
+      expression = DynamicExpression.METHOD_BINDING,
+      methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
   void setValidator(String validator);
 }

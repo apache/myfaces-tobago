@@ -25,9 +25,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_JUNCTIONS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROOT_JUNCTION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.taglib.component.TobagoTag;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -55,17 +55,17 @@ public class TreeTag extends TobagoTag implements TreeTagDeclaration {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    ComponentUtil.setStringProperty(component, ATTR_VALUE, value);
+    TagUtils.setStringProperty(component, ATTR_VALUE, value);
 
-    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_JUNCTIONS, showJunctions);
-    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ICONS, showIcons);
-    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ROOT, showRoot);
-    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_ROOT_JUNCTION, showRootJunction);
+    TagUtils.setBooleanProperty(component, ATTR_SHOW_JUNCTIONS, showJunctions);
+    TagUtils.setBooleanProperty(component, ATTR_SHOW_ICONS, showIcons);
+    TagUtils.setBooleanProperty(component, ATTR_SHOW_ROOT, showRoot);
+    TagUtils.setBooleanProperty(component, ATTR_SHOW_ROOT_JUNCTION, showRootJunction);
 
-    ComponentUtil.setStringProperty(component, ATTR_SELECTABLE, selectable);
+    TagUtils.setStringProperty(component, ATTR_SELECTABLE, selectable);
 
-    ComponentUtil.setBooleanProperty(component, ATTR_REQUIRED, required);
-    ComponentUtil.setStringProperty(component, ATTR_MODE, mode);
+    TagUtils.setBooleanProperty(component, ATTR_REQUIRED, required);
+    TagUtils.setStringProperty(component, ATTR_MODE, mode);
   }
 
   @Override

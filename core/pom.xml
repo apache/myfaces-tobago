@@ -75,9 +75,28 @@
             </configuration>
           </execution>
           <execution>
-            <id>tobago-faces-config</id>
+            <id>tobago-components</id>
             <goals><goal>execute</goal></goals>
             <phase>compile</phase>
+            <configuration>
+              <excludes>
+                <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
+                <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
+                <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
+              </excludes>
+              <resourceTargetPath>META-INF</resourceTargetPath>
+              <generated>target/generated-component</generated>
+              <factory>org.apache.myfaces.tobago.apt.CreateComponentAnnotationProcessorFactory</factory>
+              <fork>true</fork>
+              <nocompile>true</nocompile>
+              <encoding>UTF-8</encoding>
+              <force>true</force>
+            </configuration>
+          </execution>
+          <execution>
+            <id>tobago-faces-config</id>
+            <goals><goal>execute</goal></goals>
+            <phase>process-classes</phase>
             <configuration>
               <targetFiles>
                 <targetFile>target/generated-faces-config/faces-config.xml</targetFile>
@@ -85,15 +104,42 @@
               <excludes>
                 <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
                 <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
-                <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
+               <!-- <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>-->
+                <exclude>org/apache/myfaces/tobago/internal/taglib/*</exclude>
+                <exclude>org/apache/myfaces/tobago/component/*</exclude>                
               </excludes>
               <resourceTargetPath>META-INF</resourceTargetPath>
               <generated>target/generated-faces-config</generated>
               <factory>org.apache.myfaces.tobago.apt.FacesConfigAnnotationProcessorFactory</factory>
               <fork>true</fork>
-              <nocompile>true</nocompile>
+              <nocompile>false</nocompile>
               <encoding>UTF-8</encoding>
               <A>sourceFacesConfig=${basedir}/src/main/faces-config/faces-config.xml,targetFacesConfig=faces-config.xml</A>
+            </configuration>
+          </execution>
+
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <goals><goal>compile</goal></goals>
+            <configuration>
+              <includes>
+                <include>org/apache/myfaces/tobago/taglib/extension/*</include>
+                <include>org/apache/myfaces/tobago/internal/taglib/*</include>
+                <include>org/apache/myfaces/tobago/component/*</include>
+              </includes>
+              <excludes>
+              </excludes>              
             </configuration>
           </execution>
         </executions>
@@ -216,13 +262,13 @@
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
     </dependency>
-    <!--dependency>
+    <dependency>
       <groupId>org.apache.shale</groupId>
-      <artifactId>shale-test</artifactId-->
-      <!--version>1.0.4</version-->
-      <!--version>1.1.0-SNAPSHOT</version>
+      <artifactId>shale-test</artifactId>
+      <version>1.0.4</version>
+      <!--version>1.1.0-SNAPSHOT</version-->
       <scope>test</scope>
-    </dependency-->
+    </dependency>
 
   </dependencies>
 
@@ -279,7 +325,6 @@
           <plugin>
             <groupId>net.sourceforge.maven-taglib</groupId>
             <artifactId>maven-taglib-plugin</artifactId>
-            <version>2.3.1</version>
             <configuration>
               <taglib.src.dir>${project.build.directory}/generated-tld</taglib.src.dir>
               <tldDocDir>${project.build.directory}/tlddoc</tldDocDir>
@@ -300,28 +345,6 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-scm-plugin</artifactId>
-            <executions>
-              <execution>
-                <phase>validate</phase>
-                <id>getting-scm.revision</id>
-                <goals><goal>update</goal></goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>2.2</version>
-            <executions>
-              <execution>
-                <id>attach-javadoc</id>
-                <goals><goal>jar</goal></goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
             <groupId>net.sourceforge.maven-taglib</groupId>
             <artifactId>maven-taglib-plugin</artifactId>
             <configuration>
@@ -332,16 +355,6 @@
               <execution>
                 <id>attach-tlddoc</id>
                 <goals><goal>taglibdocjar</goal></goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>attach-source</id>
-                <goals><goal>jar</goal></goals>
               </execution>
             </executions>
           </plugin>

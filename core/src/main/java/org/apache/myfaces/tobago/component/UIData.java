@@ -22,8 +22,6 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FIRST;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_LIST_STRING;
@@ -33,7 +31,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_PAGE_RANGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROW_RANGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.event.PageActionEvent;
@@ -43,12 +40,7 @@ import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.model.SheetState;
-import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
-import org.apache.myfaces.tobago.util.LayoutInfo;
-import org.apache.myfaces.tobago.util.LayoutUtil;
-import org.apache.myfaces.tobago.util.StringUtil;
+import org.apache.myfaces.tobago.renderkit.LayoutableRenderer;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
@@ -59,6 +51,7 @@ import javax.faces.el.ValueBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
+import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,7 +93,11 @@ public class UIData extends javax.faces.component.UIData
   private transient LayoutTokens columnLayout;
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
-    UILayout.prepareDimension(facesContext, this);
+    Renderer renderer = getRenderer(facesContext);
+    if (renderer != null && renderer instanceof LayoutableRenderer) {
+       ((LayoutableRenderer) renderer).layoutBegin(facesContext, this);
+    }
+
     SheetState state = getSheetState(facesContext);
     if (state.getFirst() > -1 && state.getFirst() < getRowCount()) {
       ValueBinding valueBinding = getValueBinding(ATTR_FIRST);
@@ -114,8 +111,10 @@ public class UIData extends javax.faces.component.UIData
   }
 
   public void encodeEnd(FacesContext facesContext) throws IOException {
-    setupState(facesContext);
-    prepareDimensions(facesContext);
+    Renderer renderer = getRenderer(facesContext);
+    if (renderer != null && renderer instanceof LayoutableRenderer) {
+       ((LayoutableRenderer) renderer).layoutEnd(facesContext, this);
+    }
     super.encodeEnd(facesContext);
   }
 
@@ -215,11 +214,6 @@ public class UIData extends javax.faces.component.UIData
     this.directLinkCount = directLinkCount;
   }
 
-  private void setupState(FacesContext facesContext) {
-    SheetState state = getSheetState(facesContext);
-    ensureColumnWidthList(facesContext, state);
-  }
-
   public void setState(SheetState state) {
     this.sheetState = state;
   }
@@ -251,149 +245,6 @@ public class UIData extends javax.faces.component.UIData
       }
     }
     return columnLayout;
-  }
-
-  private void ensureColumnWidthList(FacesContext facesContext, SheetState state) {
-    List<Integer> currentWidthList = null;
-    List<UIColumn> rendererdColumns = getRenderedColumns();
-
-    final Map attributes = getAttributes();
-    String widthListString = null;
-
-    if (state != null) {
-      widthListString = state.getColumnWidths();
-    }
-    if (widthListString == null) {
-      widthListString = (String) attributes.get(ATTR_WIDTH_LIST_STRING);
-    }
-
-    if (widthListString != null) {
-      currentWidthList = StringUtil.parseIntegerList(widthListString);
-    }
-    if (currentWidthList != null && currentWidthList.size() != rendererdColumns.size()) {
-      currentWidthList = null;
-    }
-
-
-    if (currentWidthList == null) {
-      LayoutTokens tokens = getColumnLayout();
-      List<UIColumn> allColumns = getAllColumns();
-      LayoutTokens newTokens = new LayoutTokens();
-      if (allColumns.size() > 0) {
-        for (int i = 0; i < allColumns.size(); i++) {
-          UIColumn column = allColumns.get(i);
-          if (column.isRendered()) {
-            if (tokens == null) {
-              if (column instanceof org.apache.myfaces.tobago.component.UIColumn) {
-                newTokens.addToken(
-                    LayoutTokens.parseToken(((org.apache.myfaces.tobago.component.UIColumn) column).getWidth()));
-              } else {
-                newTokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
-              }
-            } else {
-              if (i < tokens.getSize()) {
-                newTokens.addToken(tokens.get(i));
-              } else {
-                newTokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
-              }
-            }
-          }
-        }
-      }
-
-
-      int space = LayoutUtil.getInnerSpace(facesContext, this, true);
-      SheetRendererWorkaround renderer
-          = (SheetRendererWorkaround) ComponentUtil.getRenderer(facesContext, this);
-      space -= renderer.getContentBorder(facesContext, this);
-      if (renderer.needVerticalScrollbar(facesContext, this)) {
-        space -= renderer.getScrollbarWidth(facesContext, this);
-      }
-      LayoutInfo layoutInfo = new LayoutInfo(newTokens.getSize(), space, newTokens, getClientId(facesContext), false);
-      parseFixedWidth(facesContext, layoutInfo, rendererdColumns);
-      layoutInfo.parseColumnLayout(space);
-      currentWidthList = layoutInfo.getSpaceList();
-    }
-
-    if (currentWidthList != null) {
-      if (rendererdColumns.size() != currentWidthList.size()) {
-        LOG.warn("widthList.size() = " + currentWidthList.size()
-            + " != columns.size() = " + rendererdColumns.size() + "  widthList : "
-            + LayoutInfo.listToTokenString(currentWidthList));
-      } else {
-        this.widthList = currentWidthList;
-      }
-    }
-  }
-
-  private void parseFixedWidth(FacesContext facesContext, LayoutInfo layoutInfo, List<UIColumn> rendereredColumns) {
-    LayoutTokens tokens = layoutInfo.getLayoutTokens();
-    for (int i = 0; i < tokens.getSize(); i++) {
-      LayoutToken token = tokens.get(i);
-      if (token instanceof FixedLayoutToken) {
-        int width = 0;
-        if (!rendereredColumns.isEmpty()) {
-          if (i < rendereredColumns.size()) {
-            UIColumn column = rendereredColumns.get(i);
-            if (column instanceof UIColumnSelector) {
-              LayoutInformationProvider renderer
-                  = ComponentUtil.getRenderer(facesContext, column);
-              if (renderer == null) {
-                LOG.warn("can't find renderer for " + column.getClass().getName());
-                renderer = ComponentUtil.getRenderer(facesContext, UIPanel.COMPONENT_FAMILY, RENDERER_TYPE_OUT);
-              }
-              width = renderer.getFixedWidth(facesContext, column);
-
-            } else {
-              for (UIComponent component : (List<UIComponent>) column.getChildren()) {
-                LayoutInformationProvider renderer
-                    = ComponentUtil.getRenderer(facesContext, component);
-                width += renderer.getFixedWidth(facesContext, component);
-              }
-            }
-            layoutInfo.update(width, i);
-          } else {
-            layoutInfo.update(0, i);
-            if (LOG.isWarnEnabled()) {
-              LOG.warn("More LayoutTokens found than rows! skipping!");
-            }
-          }
-        }
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("set column " + i + " from fixed to with " + width);
-        }
-      }
-    }
-  }
-
-
-  private void prepareDimensions(FacesContext facesContext) {
-    // prepare width's in column's children components
-
-    List<Integer> columnWidths = getWidthList();
-    int i = 0;
-    for (UIColumn column : getRenderedColumns()) {
-      if (i < columnWidths.size()) {
-        Integer width = columnWidths.get(i);
-        if (!(column instanceof UIColumnSelector)) {
-          if (column.getChildCount() == 1) {
-            UIComponent child = (UIComponent) column.getChildren().get(0);
-            int cellPaddingWidth = ((LayoutableRendererBase) getRenderer(facesContext))
-                .getConfiguredValue(facesContext, this, "cellPaddingWidth");
-            child.getAttributes().put(
-                ATTR_LAYOUT_WIDTH, width - cellPaddingWidth);
-            child.getAttributes().remove(ATTR_INNER_WIDTH);
-          } else {
-            LOG.warn("More or less than 1 child in column! "
-                + "Can't set width for column " + i + " to " + width);
-          }
-        }
-      } else {
-        LOG.warn("More columns than columnSizes! "
-            + "Can't set width for column " + i);
-      }
-      i++;
-    }
   }
 
   public int getLast() {
@@ -630,6 +481,10 @@ public class UIData extends javax.faces.component.UIData
     return widthList;
   }
 
+  public void setWidthList(List<Integer> widthList) {
+    this.widthList = widthList;
+  }
+
   public int getRows() {
     if (rows != null) {
       return rows;
@@ -663,8 +518,11 @@ public class UIData extends javax.faces.component.UIData
   }
 
   public int encodeAjax(FacesContext facesContext) throws IOException {
-    setupState(facesContext);
-    prepareDimensions(facesContext);
+    Renderer renderer = getRenderer(facesContext);
+    if (renderer != null && renderer instanceof LayoutableRenderer) {
+       ((LayoutableRenderer) renderer).layoutEnd(facesContext, this);
+    }
+
     // TODO neets more testing!!!
     //if (!facesContext.getRenderResponse() && !ComponentUtil.hasErrorMessages(facesContext)) {
     // in encodeBegin of superclass is some logic which clears the DataModel

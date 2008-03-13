@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
@@ -37,6 +38,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 @Tag(name = "progress")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIProgress",
+    uiComponentBaseClass = "javax.faces.component.UIOutput",
     rendererType = "Progress",
     allowedChildComponenents = "NONE",
     facets = {@Facet(
@@ -51,6 +53,7 @@ public interface ProgressTagDeclaration extends BeanTagDeclaration, HasIdBinding
    * The current value of this component.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = { "javax.swing.BoundedRangeModel" }, valueExpression = "REQUIRED")
+  @UIComponentTagAttribute(type = { "javax.swing.BoundedRangeModel" },
+      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setValue(String value);
 }

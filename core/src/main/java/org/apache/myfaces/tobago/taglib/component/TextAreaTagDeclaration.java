@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
@@ -42,12 +41,13 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
  */
 @Tag(name = "textarea")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIInput",
+    uiComponent = "org.apache.myfaces.tobago.component.UITextarea",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIInputBase",
     rendererType = "TextArea",
     allowedChildComponenents = "NONE")
 public interface TextAreaTagDeclaration extends TextInputTagDeclaration, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasDeprecatedDimension,
-    IsFocus, IsRequired, HasLabelAndAccessKey, HasTip {
+    IsRequired, HasLabelAndAccessKey, HasTip {
 
   /**
    * The row count for this component.
@@ -61,6 +61,6 @@ public interface TextAreaTagDeclaration extends TextInputTagDeclaration, HasIdBi
    * Possible value is 'none'. But this can be overridden in the theme.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none")
+  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
   void setMarkup(String markup);
 }

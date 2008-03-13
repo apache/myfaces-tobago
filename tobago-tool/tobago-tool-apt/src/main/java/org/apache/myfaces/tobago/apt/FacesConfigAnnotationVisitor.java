@@ -22,7 +22,6 @@ import com.sun.mirror.apt.Filer;
 import com.sun.mirror.declaration.ClassDeclaration;
 import com.sun.mirror.declaration.InterfaceDeclaration;
 import com.sun.mirror.declaration.MethodDeclaration;
-import com.sun.mirror.declaration.PackageDeclaration;
 import com.sun.mirror.declaration.TypeDeclaration;
 import com.sun.mirror.type.InterfaceType;
 import org.apache.commons.io.IOUtils;
@@ -107,6 +106,13 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
   private static final String VALIDATOR_ID = "validator-id";
   private static final String VALIDATOR_FOR_CLASS = "validator-for-class";
   private static final String VALIDATOR_CLASS = "validator-class";
+  private static final String RENDERER = "renderer";
+  private static final String COMPONENT_FAMILY = "component-family";
+  private static final String RENDER_KIT = "render-kit";
+  private static final String RENDER_KIT_ID = "render-kit-id";
+  private static final String RENDER_KIT_CLASS = "render-kit-class";
+  private static final String RENDERER_TYPE = "renderer-type";
+  private static final String RENDERER_CLASS = "renderer-class";
 
   public FacesConfigAnnotationVisitor(AnnotationProcessorEnvironment env) {
     super(env);
@@ -123,113 +129,121 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         targetFacesConfigFile = entry.getKey().substring(TARGET_FACES_CONFIG_KEY.length() + 3);
       }
     }
-    // TODO remove the foreach
-    for (PackageDeclaration packageDeclaration : getCollectedPackageDeclarations()) {
-      Document document;
-      Writer writer = null;
-      try {
-        String content = FileUtils.fileRead(sourceFacesConfigFile);
-        SAXBuilder builder = new SAXBuilder();
-        builder.setEntityResolver(new EntityResolver() {
-          public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
-            if ("-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN".equals(publicId)) {
-              InputStream stream = FacesConfigAnnotationVisitor.class.getResourceAsStream(
-                  "/org/apache/myfaces/tobago/dtd/web-facesconfig_1_1.dtd");
-              return new InputSource(stream);
-            }
-            return null;
+    Document document;
+    Writer writer = null;
+    try {
+      String content = FileUtils.fileRead(sourceFacesConfigFile);
+      SAXBuilder builder = new SAXBuilder();
+      builder.setEntityResolver(new EntityResolver() {
+        public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
+          if ("-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN".equals(publicId)) {
+            InputStream stream = FacesConfigAnnotationVisitor.class.getResourceAsStream(
+                "/org/apache/myfaces/tobago/dtd/web-facesconfig_1_1.dtd");
+            return new InputSource(stream);
           }
-        });
-        document = builder.build(new StringReader(content));
-
-        // Normalise line endings. For some reason, JDOM replaces \r\n inside a comment with \n.
-        normaliseLineEndings(document);
-
-        // rewrite DOM as a string to find differences, since text outside the root element is not tracked
-
-        Element rootElement = document.getRootElement();
-        Namespace namespace = rootElement.getNamespace();
-        List<Element> components = rootElement.getChildren(COMPONENT, namespace);
-
-        List<Element> newComponents = new ArrayList<Element>();
-        List<Element> newConverters = new ArrayList<Element>();
-        List<Element> newValidators = new ArrayList<Element>();
-
-        for (ClassDeclaration decl : getCollectedClassDeclarations()) {
-          if (decl.getPackage().equals(packageDeclaration)
-              && decl.getAnnotation(UIComponentTag.class) != null) {
-            addElement(decl, newComponents, namespace);
-          } else if (decl.getAnnotation(Converter.class) != null) {
-            addConverter(decl, newConverters, namespace);
-          } else if (decl.getAnnotation(Validator.class) != null) {
-            addValidator(decl, newValidators, namespace);
-          }
+          return null;
         }
+      });
+      document = builder.build(new StringReader(content));
 
-        for (InterfaceDeclaration decl : getCollectedInterfaceDeclarations()) {
-          if (decl.getPackage().equals(packageDeclaration)) {
-            addElement(decl, newComponents, namespace);
-          }
+      // Normalise line endings. For some reason, JDOM replaces \r\n inside a comment with \n.
+      normaliseLineEndings(document);
+
+      // rewrite DOM as a string to find differences, since text outside the root element is not tracked
+
+      Element rootElement = document.getRootElement();
+      Namespace namespace = rootElement.getNamespace();
+      List<Element> components = rootElement.getChildren(COMPONENT, namespace);
+
+      List<Element> newComponents = new ArrayList<Element>();
+      List<Element> newRenderer = new ArrayList<Element>();
+      List<Element> newConverters = new ArrayList<Element>();
+      List<Element> newValidators = new ArrayList<Element>();
+
+      for (ClassDeclaration decl : getCollectedClassDeclarations()) {
+        if (decl.getAnnotation(UIComponentTag.class) != null) {
+          addElement(decl, newComponents, newRenderer, namespace);
+        } else if (decl.getAnnotation(Converter.class) != null) {
+          addConverter(decl, newConverters, namespace);
+        } else if (decl.getAnnotation(Validator.class) != null) {
+          addValidator(decl, newValidators, namespace);
         }
-        List<Element> elementsToAdd = new ArrayList<Element>();
-        // sort out duplicates
-        for (Element newElement : newComponents) {
-          boolean found = containsElement(components, newElement);
-          if (!found) {
-
-            elementsToAdd.add(newElement);
-          }
-        }
-        if (!elementsToAdd.isEmpty()) {
-          // if facesconfig contains no component section add the components after factory or application
-          int lastIndex = getIndexAfter(rootElement, COMPONENT, FACTORY, APPLICATION);
-          rootElement.addContent(lastIndex, elementsToAdd);
-        }
-        if (!newConverters.isEmpty()) {
-          int lastIndex = getIndexAfter(rootElement, CONVERTER, COMPONENT, FACTORY, APPLICATION);
-          rootElement.addContent(lastIndex, newConverters);
-        }
-        if (!newValidators.isEmpty()) {
-          rootElement.addContent(newValidators);
-        }
-        document.setDocType(new DocType("faces-config",
-            "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN",
-            "http://java.sun.com/dtd/web-facesconfig_1_1.dtd"));
-
-        writer =
-            getEnv().getFiler().createTextFile(Filer.Location.SOURCE_TREE, "", new File(targetFacesConfigFile), null);
-
-        StringWriter facesConfig = new StringWriter(1024);
-        Format format = Format.getPrettyFormat();
-        format.setLineSeparator(SEPARATOR);
-        XMLOutputter out = new XMLOutputter(format);
-
-        out.output(document, facesConfig);
-        // TODO: is this replace really necessary?
-        String facesConfigStr =
-            facesConfig.toString().replaceFirst(" xmlns=\"http://java.sun.com/JSF/Configuration\"", "");
-        // TODO: Find a better way
-        facesConfigStr = facesConfigStr.replaceFirst("\"http://java.sun.com/dtd/web-facesconfig_1_1.dtd\"",
-            "\"http://java.sun.com/dtd/web-facesconfig_1_1.dtd\"[\n"
-                + "<!ELEMENT allowed-child-components (#PCDATA)>\n"
-                + "<!ELEMENT category (#PCDATA)>\n"
-                + "<!ELEMENT deprecated (#PCDATA)>\n"
-                + "<!ELEMENT hidden (#PCDATA)>\n"
-                + "<!ELEMENT preferred (#PCDATA)>\n"
-                + "<!ELEMENT read-only (#PCDATA)>\n"
-                + "<!ELEMENT value-expression (#PCDATA)>\n"
-                + "<!ELEMENT property-values (#PCDATA)>\n"
-                + "<!ELEMENT required (#PCDATA)>\n"
-                + "]");
-        writer.append(facesConfigStr);
-
-      } catch (JDOMException e) {
-        e.printStackTrace();
-      } catch (IOException e) {
-        e.printStackTrace();
-      } finally {
-        IOUtils.closeQuietly(writer);
       }
+
+      for (InterfaceDeclaration decl : getCollectedInterfaceDeclarations()) {
+        if (decl.getAnnotation(UIComponentTag.class) != null) {
+          addElement(decl, newComponents, newRenderer, namespace);
+        }
+      }
+      List<Element> elementsToAdd = new ArrayList<Element>();
+      // sort out duplicates
+      for (Element newElement : newComponents) {
+        boolean found = containsElement(components, newElement);
+        if (!found) {
+          elementsToAdd.add(newElement);
+        }
+      }
+      if (!elementsToAdd.isEmpty()) {
+        // if facesconfig contains no component section add the components after factory or application
+        int lastIndex = getIndexAfter(rootElement, COMPONENT, FACTORY, APPLICATION);
+        rootElement.addContent(lastIndex, elementsToAdd);
+      }
+      if (!newRenderer.isEmpty()) {
+        Element renderKit = new Element(RENDER_KIT, namespace);
+        Element renderKitId = new Element(RENDER_KIT_ID, namespace);
+        renderKitId.setText("tobago");
+        renderKit.addContent(renderKitId);
+        Element renderKitClass = new Element(RENDER_KIT_CLASS, namespace);
+        renderKitClass.setText("org.apache.myfaces.tobago.renderkit.TobagoRenderKit");
+        renderKit.addContent(renderKitClass);
+        renderKit.addContent(newRenderer);
+        int lastIndex = getIndexAfter(rootElement, CONVERTER, COMPONENT, FACTORY, APPLICATION);
+        rootElement.addContent(lastIndex, renderKit);
+      }
+      if (!newConverters.isEmpty()) {
+        int lastIndex = getIndexAfter(rootElement, RENDER_KIT, CONVERTER, COMPONENT, FACTORY, APPLICATION);
+        rootElement.addContent(lastIndex, newConverters);
+      }
+      if (!newValidators.isEmpty()) {
+        rootElement.addContent(newValidators);
+      }
+      document.setDocType(new DocType("faces-config",
+          "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN",
+          "http://java.sun.com/dtd/web-facesconfig_1_1.dtd"));
+
+      writer =
+          getEnv().getFiler().createTextFile(Filer.Location.SOURCE_TREE, "", new File(targetFacesConfigFile), null);
+
+      StringWriter facesConfig = new StringWriter(1024);
+      Format format = Format.getPrettyFormat();
+      format.setLineSeparator(SEPARATOR);
+      XMLOutputter out = new XMLOutputter(format);
+
+      out.output(document, facesConfig);
+      // TODO: is this replace really necessary?
+      String facesConfigStr =
+          facesConfig.toString().replaceFirst(" xmlns=\"http://java.sun.com/JSF/Configuration\"", "");
+      // TODO: Find a better way
+      facesConfigStr = facesConfigStr.replaceFirst("\"http://java.sun.com/dtd/web-facesconfig_1_1.dtd\"",
+          "\"http://java.sun.com/dtd/web-facesconfig_1_1.dtd\"[\n"
+              + "<!ELEMENT allowed-child-components (#PCDATA)>\n"
+              + "<!ELEMENT category (#PCDATA)>\n"
+              + "<!ELEMENT deprecated (#PCDATA)>\n"
+              + "<!ELEMENT hidden (#PCDATA)>\n"
+              + "<!ELEMENT preferred (#PCDATA)>\n"
+              + "<!ELEMENT read-only (#PCDATA)>\n"
+              + "<!ELEMENT value-expression (#PCDATA)>\n"
+              + "<!ELEMENT property-values (#PCDATA)>\n"
+              + "<!ELEMENT required (#PCDATA)>\n"
+              + "]");
+      writer.append(facesConfigStr);
+
+    } catch (JDOMException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      IOUtils.closeQuietly(writer);
     }
   }
 
@@ -314,7 +328,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
     return false;
   }
 
-  protected Element createElement(TypeDeclaration decl, UIComponentTag componentTag,
+  protected Element createComponentElement(TypeDeclaration decl, UIComponentTag componentTag,
       Class uiComponentClass, Namespace namespace) throws IOException, NoSuchFieldException, IllegalAccessException {
     Field componentField = uiComponentClass.getField("COMPONENT_TYPE");
     String componentType = (String) componentField.get(null);
@@ -335,6 +349,35 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
 
     return element;
   }
+
+  protected void addRendererElement(TypeDeclaration decl, UIComponentTag componentTag,
+      Class uiComponentClass, List<Element> renderer, Namespace namespace) throws IOException, NoSuchFieldException, IllegalAccessException {
+    String rendererType = componentTag.rendererType();
+    if (rendererType != null && rendererType.length() > 0) {
+      Field componentField = uiComponentClass.getField("COMPONENT_FAMILY");
+      String componentFamily = (String) componentField.get(null);
+      Element element = new Element(RENDERER, namespace);
+      String displayName = componentTag.displayName();
+      if (displayName.equals("")) {
+        displayName = uiComponentClass.getName().substring(uiComponentClass.getName().lastIndexOf(".") + 1);
+      }
+      Element elementDisplayName = new Element(DISPLAY_NAME, namespace);
+      elementDisplayName.setText(displayName);
+      element.addContent(elementDisplayName);
+      Element elementComponentFamily = new Element(COMPONENT_FAMILY, namespace);
+      elementComponentFamily.addContent(componentFamily);
+      element.addContent(elementComponentFamily);
+      Element elementType = new Element(RENDERER_TYPE, namespace);
+      elementType.setText(rendererType);
+      element.addContent(elementType);
+      Element elementClass = new Element(RENDERER_CLASS, namespace);
+      String className = "org.apache.myfaces.tobago.renderkit." + rendererType + "Renderer";
+      elementClass.setText(className);
+      element.addContent(elementClass);
+      renderer.add(element);
+    }
+  }
+
 
   private Element createElementExtension(TypeDeclaration decl, UIComponentTag uiComponentTag,
       Namespace namespace) {
@@ -384,17 +427,17 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
           Element propertyName = new Element(PROPERTY_NAME, namespace);
           Element propertyClass = new Element(PROPERTY_CLASS, namespace);
           Element defaultValue = new Element(DEFAULT_VALUE, namespace);
-          
+
           propertyName.setText(attributeStr);
           addClass(componentAttribute, propertyClass);
           defaultValue.setText(componentAttribute.defaultValue());
-          
+
           addDescription(d, property, namespace);
-          
+
           property.addContent(propertyName);
           property.addContent(propertyClass);
           property.addContent(defaultValue);
-          
+
           property.addContent(createPropertyOrAttributeExtension(PROPERTY_EXTENSION, d, componentAttribute, namespace));
           properties.add(property);
         } catch (NoSuchMethodException e) {
@@ -409,11 +452,11 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
           defaultValue.setText(componentAttribute.defaultValue());
 
           addDescription(d, attribute, namespace);
-          
+
           attribute.addContent(attributeName);
           attribute.addContent(attributeClass);
           attribute.addContent(defaultValue);
-          
+
           attribute.addContent(createPropertyOrAttributeExtension(ATTRIBUTE_EXTENSION, d,
               componentAttribute, namespace));
 
@@ -453,12 +496,8 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
   private Element createPropertyOrAttributeExtension(String extensionType, MethodDeclaration methodDeclaration,
       UIComponentTagAttribute uiComponentTagAttribute, Namespace namespace) throws IllegalArgumentException {
     Element extensionElement = new Element(extensionType, namespace);
-//    Element allowsValueBinding = new Element(ALLOWS_VALUE_BINDING, namespace);
-//    DynamicExpression dynamicExpression = uiComponentTagAttribute.expression();
-//    allowsValueBinding.setText((dynamicExpression == DynamicExpression.VALUE_BINDING) ? "true" : "false");
-//    extensionElement.addContent(allowsValueBinding);
     Element valueExpression = new Element(VALUE_EXPRESSION, namespace);
-    valueExpression.setText(uiComponentTagAttribute.valueExpression());
+    valueExpression.setText(uiComponentTagAttribute.expression().toMetaDataString());
     extensionElement.addContent(valueExpression);
     String[] allowedValues = uiComponentTagAttribute.allowedValues();
     if (allowedValues.length > 0) {
@@ -550,63 +589,69 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
       element.addContent(facetElement);
     }
   }
-  
-  protected void addElement(ClassDeclaration decl, List<Element> components, Namespace namespace) throws IOException {
+
+  protected void addElement(ClassDeclaration decl, List<Element> components, List<Element> renderer,
+      Namespace namespace) throws IOException {
     UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
-    if (componentTag != null && !componentTag.isComponentAlreadyDefined()) {
+    if (componentTag != null) {
       try {
         Class<?> uiComponentClass = Class.forName(componentTag.uiComponent());
-        Element element = createElement(decl, componentTag, uiComponentClass, namespace);
-        if (element != null) {
-          if (!containsElement(components, element)) {
-            addFacets(componentTag, namespace, element);
-            List attributes = new ArrayList();
-            List properties = new ArrayList();
-            addAttributes(decl, uiComponentClass, attributes, properties, namespace);
-            if (!attributes.isEmpty()) {
-              element.addContent(attributes);
+        if (!componentTag.isComponentAlreadyDefined()) {
+          Element element = createComponentElement(decl, componentTag, uiComponentClass, namespace);
+          if (element != null) {
+            if (!containsElement(components, element)) {
+              addFacets(componentTag, namespace, element);
+              List attributes = new ArrayList();
+              List properties = new ArrayList();
+              addAttributes(decl, uiComponentClass, attributes, properties, namespace);
+              if (!attributes.isEmpty()) {
+                element.addContent(attributes);
+              }
+              if (!properties.isEmpty()) {
+                element.addContent(properties);
+              }
+              element.addContent(createElementExtension(decl, componentTag, namespace));
+              components.add(element);
+            } else {
+              // TODO add facet and attributes
             }
-            if (!properties.isEmpty()) {
-              element.addContent(properties);
-            }
-            element.addContent(createElementExtension(decl, componentTag, namespace));
-            components.add(element);
-          } else {
-            // TODO add facet and attributes
           }
-
         }
+        addRendererElement(decl, componentTag, uiComponentClass, renderer, namespace);
       } catch (Exception e) {
         e.printStackTrace();
       }
     }
   }
 
-  protected void addElement(InterfaceDeclaration decl, List<Element> components, Namespace namespace)
-      throws IOException {
+  protected void addElement(InterfaceDeclaration decl, List<Element> components, List<Element> renderer,
+      Namespace namespace) throws IOException {
     UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
-    if (componentTag != null && !componentTag.isComponentAlreadyDefined()) {
+    if (componentTag != null) {
       try {
         Class<?> uiComponentClass = Class.forName(componentTag.uiComponent());
-        Element element = createElement(decl, componentTag, uiComponentClass, namespace);
-        if (element != null) {
-          if (!containsElement(components, element)) {
-            addFacets(componentTag, namespace, element);
-            List attributes = new ArrayList();
-            List properties = new ArrayList();
-            addAttributes(decl, uiComponentClass, properties, attributes, namespace);
-            if (!attributes.isEmpty()) {
-              element.addContent(attributes);
+        if (!componentTag.isComponentAlreadyDefined()) {
+          Element element = createComponentElement(decl, componentTag, uiComponentClass, namespace);
+          if (element != null) {
+            if (!containsElement(components, element)) {
+              addFacets(componentTag, namespace, element);
+              List attributes = new ArrayList();
+              List properties = new ArrayList();
+              addAttributes(decl, uiComponentClass, properties, attributes, namespace);
+              if (!attributes.isEmpty()) {
+                element.addContent(attributes);
+              }
+              if (!properties.isEmpty()) {
+                element.addContent(properties);
+              }
+              element.addContent(createElementExtension(decl, componentTag, namespace));
+              components.add(element);
+            } else {
+              // TODO add facet and attributes
             }
-            if (!properties.isEmpty()) {
-              element.addContent(properties);
-            }
-            element.addContent(createElementExtension(decl, componentTag, namespace));
-            components.add(element);
-          } else {
-            // TODO add facet and attributes
           }
         }
+        addRendererElement(decl, componentTag, uiComponentClass, renderer, namespace);
       } catch (Exception e) {
         e.printStackTrace();
       }

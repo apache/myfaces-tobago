@@ -350,6 +350,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
             } // ignore, use 0
 
             int topPadding = getCellPadding(facesContext, layout, firstRenderedRow);
+            System.err.println("Cellheight " + cellHeight + " topPadding "+ topPadding + " firstRendered "
+                + firstRenderedRow + " RowIndex " + rowIndex + " Column " + columnIndex);
             String cellStyle =
                 (cellWidth != -1 ? "width: " + cellWidth + "px;" : "")
                 + (cellHeight != -1 ? " height: " + (cellHeight + topPadding) + "px;" : "");
@@ -482,7 +484,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     return getConfiguredValue(facesContext,  component, "cellSpacing");
   }
 
-  private void layoutEnd(FacesContext facesContext, UIComponent component) {
+  public void layoutEnd(FacesContext facesContext, UIComponent component) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("doLayout end");
     }

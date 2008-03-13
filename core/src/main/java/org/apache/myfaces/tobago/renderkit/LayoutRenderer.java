@@ -17,53 +17,12 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.util.LayoutUtil;
-
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.component.UIComponent;
 import java.io.IOException;
 
+public interface LayoutRenderer extends LayoutInformationProvider {
+  void prepareRender(FacesContext facesContext, UIComponent component);
 
-/*
- * User: weber
- * Date: Feb 22, 2005
- * Time: 3:05:58 PM
- */
-public abstract class LayoutRenderer extends LayoutableRendererBase {
-
-  private static final Log LOG = LogFactory.getLog(LayoutRenderer.class);
-
-  public abstract void prepareRender(FacesContext facesContext, UIComponent component);
-
-
-  public void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    // use renderer of component
-    LayoutableRendererBase renderer = ComponentUtil.getRenderer(facesContext, component);
-    renderer.encodeChildren(facesContext, component);
-  }
-
-  @Override
-  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    int height = 0;
-
-    if (LOG.isInfoEnabled() && component.getChildCount() > 1) {
-      LOG.info("Can't calculate fixedHeight! "
-          + "using estimation by contained components. ");
-    }
-    height += LayoutUtil.calculateFixedHeightForChildren(facesContext, component);
-
-    LayoutInformationProvider containerRenderer =
-        ComponentUtil.getRenderer(facesContext, component);
-    if (containerRenderer != null) {
-      height += containerRenderer.getHeaderHeight(facesContext, component);
-      height += containerRenderer.getPaddingHeight(facesContext, component);
-    }
-
-    return height;
-  }
-
+  void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component) throws IOException;
 }

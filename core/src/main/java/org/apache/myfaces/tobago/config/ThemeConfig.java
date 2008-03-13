@@ -31,7 +31,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
 import java.util.Locale;
 import java.util.Map;
 
@@ -87,7 +86,7 @@ public class ThemeConfig {
       family = UIInput.COMPONENT_FAMILY;
       rendererType = RENDERER_TYPE_IN;
     }
-    Renderer renderer = ComponentUtil.getRenderer(facesContext, family, rendererType);
+    Object renderer = ComponentUtil.getRenderer(facesContext, family, rendererType);
 
     Class clazz = renderer.getClass();
     if (LOG.isDebugEnabled()) {

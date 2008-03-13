@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -102,7 +103,7 @@ public class AttributeTag extends TagSupport {
     String attributeName = name;
 
     if (UIComponentTag.isValueReference(name)) {
-      ValueBinding valueBinding = ComponentUtil.createValueBinding(name);
+      ValueBinding valueBinding = TagUtils.createValueBinding(name);
       if (valueBinding != null) {
         attributeName = (String) valueBinding.getValue(FacesContext.getCurrentInstance());
       } else {
@@ -122,7 +123,7 @@ public class AttributeTag extends TagSupport {
         && component instanceof UICommand) {
       ComponentUtil.setRenderedPartially((UICommand) component, value);
     } else if (UIComponentTag.isValueReference(value)) {
-      ValueBinding valueBinding = ComponentUtil.createValueBinding(value);
+      ValueBinding valueBinding = TagUtils.createValueBinding(value);
       if (valueBinding != null) {
         component.setValueBinding(name, valueBinding);
       } else {

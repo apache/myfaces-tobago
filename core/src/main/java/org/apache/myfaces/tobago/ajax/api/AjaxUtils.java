@@ -27,7 +27,6 @@ import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -65,7 +64,7 @@ public class AjaxUtils {
     if (!component.isRendered()) {
       return CODE_SUCCESS;
     }
-    Renderer renderer = ComponentUtil.getRenderer(facesContext, component);
+    Object renderer = ComponentUtil.getRenderer(facesContext, component);
     if (renderer != null && renderer instanceof AjaxRenderer) {
       return ((AjaxRenderer) renderer).encodeAjax(facesContext, component);
     }

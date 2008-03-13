@@ -41,7 +41,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @BodyContentDescription(anyTagOf = "<tc:column>* <tc:columnSelector>?")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIData",
-    rendererType = "Sheet",
+    generate = false, isAjaxEnabled = true,
+    rendererType = "Sheet",     
     allowedChildComponenents = {
         "javax.faces.Column",
         "org.apache.myfaces.tobago.ColumnSelector"},
@@ -104,7 +105,7 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
   @TagAttribute
   @UIComponentTagAttribute(type = {"java.lang.Object[]", "java.util.List", "javax.servlet.jsp.jstl.sql.Result",
       "java.sql.ResultSet", "java.lang.Object", "javax.faces.model.DataModel"},
-      valueExpression = "REQUIRED")
+      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setValue(String value);
 
   /**
@@ -192,7 +193,8 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
    * Sheet state saving object.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.SheetState", valueExpression = "REQUIRED")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.SheetState",
+      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setState(String state);
 
   /**
@@ -203,7 +205,8 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding",
-       expression = DynamicExpression.METHOD_BINDING, valueExpression = "REQUIRED")
+       expression = DynamicExpression.METHOD_BINDING_REQUIRED,
+       methodSignature = "javax.faces.event.ActionEvent")
   void setStateChangeListener(String stateChangeListener);
 
   /**
@@ -220,7 +223,8 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding",
-       expression = DynamicExpression.METHOD_BINDING, valueExpression = "REQUIRED")
+       expression = DynamicExpression.METHOD_BINDING_REQUIRED,
+       methodSignature = "javax.faces.event.ActionEvent")
   void setSortActionListener(String sortActionListener);
 
 }

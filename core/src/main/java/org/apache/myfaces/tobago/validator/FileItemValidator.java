@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.validator;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UIFileInput;
+import org.apache.myfaces.tobago.component.AbstractFileInput;
 import org.apache.myfaces.tobago.util.MessageFactory;
 import org.apache.myfaces.tobago.util.ContentType;
 import org.apache.commons.fileupload.FileItem;
@@ -49,7 +49,7 @@ public class FileItemValidator implements Validator, StateHolder {
   private boolean transientValue;
 
   public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-    if (value != null && component instanceof UIFileInput) {
+    if (value != null && component instanceof AbstractFileInput) {
       FileItem file = (FileItem) value;
       if (maxSize != null && file.getSize() > maxSize) {
         Object[] args = {maxSize, component.getId()};

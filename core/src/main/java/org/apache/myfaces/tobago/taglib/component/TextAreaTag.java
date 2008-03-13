@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -48,7 +49,7 @@ public class TextAreaTag extends TextInputTag
       LOG.warn("the label attribute is deprecated in t:in, please use tx:in instead.");
     }
 
-    ComponentUtil.setStringProperty(component, ATTR_ROWS, rows);
+    TagUtils.setStringProperty(component, ATTR_ROWS, rows);
     ComponentUtil.setMarkup(component, markup);
   }
 

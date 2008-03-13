@@ -24,6 +24,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITab;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.tagext.BodyTag;
@@ -45,10 +46,10 @@ public class TabTag extends TobagoBodyTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
+    TagUtils.setStringProperty(component, ATTR_LABEL, label);
+    TagUtils.setStringProperty(component, ATTR_TIP, tip);
     ComponentUtil.setMarkup(component, markup);
-    ComponentUtil.setBooleanProperty(component, ATTR_DISABLED, disabled);
+    TagUtils.setBooleanProperty(component, ATTR_DISABLED, disabled);
   }
 
   public void release() {

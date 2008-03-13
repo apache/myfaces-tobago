@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.taglib.extension;
 
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.taglib.component.TimeTag;
+import org.apache.myfaces.tobago.internal.taglib.TimeTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
@@ -114,9 +114,9 @@ public class TimeExtensionTag extends BodyTagSupport
     if (binding != null) {
       timeTag.setBinding(binding);
     }
-    if (converter != null) {
+    /*if (converter != null) {
       timeTag.setConverter(converter);
-    }
+    }*/
     if (validator != null) {
       timeTag.setValidator(validator);
     }

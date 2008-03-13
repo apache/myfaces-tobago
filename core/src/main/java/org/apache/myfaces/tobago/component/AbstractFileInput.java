@@ -19,22 +19,18 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.fileupload.FileItem;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ENCTYPE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
 import org.apache.myfaces.tobago.util.MessageFactory;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 
 /*
  * Date: 10.02.2006
  * Time: 19:02:13
  */
-public class UIFileInput extends javax.faces.component.UIInput {
+public class AbstractFileInput extends javax.faces.component.UIInput {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.FileInput";
-
-  private Integer tabIndex;
 
   public void setParent(UIComponent uiComponent) {
     super.setParent(uiComponent);
@@ -69,34 +65,4 @@ public class UIFileInput extends javax.faces.component.UIInput {
     facesContext.addMessage(getClientId(facesContext), facesMessage);
   }
 
-  public void restoreState(FacesContext context, Object state) {
-    Object[] values = (Object[]) state;
-    super.restoreState(context, values[0]);
-    tabIndex = (Integer) values[1];
-  }
-
-  public Object saveState(FacesContext context) {
-    Object[] values = new Object[2];
-    values[0] = super.saveState(context);
-    values[1] = tabIndex;
-    return values;
-  }
-
-  public Integer getTabIndex() {
-    if (tabIndex != null) {
-      return tabIndex;
-    }
-    ValueBinding vb = getValueBinding(ATTR_TAB_INDEX);
-    if (vb != null) {
-      Number number = (Number) vb.getValue(getFacesContext());
-      if (number != null) {
-        return Integer.valueOf(number.intValue());
-      }
-    }
-    return null;
-  }
-
-  public void setTabIndex(Integer tabIndex) {
-    this.tabIndex = tabIndex;
-  }
 }

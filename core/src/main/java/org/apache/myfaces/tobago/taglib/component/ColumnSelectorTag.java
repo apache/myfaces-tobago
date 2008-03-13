@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UIComponent;
 
@@ -35,7 +35,7 @@ public class ColumnSelectorTag extends TobagoTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_DISABLED, disabled);
+    TagUtils.setStringProperty(component, ATTR_DISABLED, disabled);
   }
 
   public void release() {

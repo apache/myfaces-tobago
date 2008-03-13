@@ -56,7 +56,6 @@ import java.util.Locale;
 
 /*
  * Created: Mar 22, 2005 8:18:35 PM
- * User: bommel
  */
 public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
 
@@ -170,6 +169,11 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
 
       String className =
           decl.getQualifiedName().substring(0, decl.getQualifiedName().length()-"Declaration".length());
+      if (decl.getAnnotation(UIComponentTag.class) != null) {
+        className = "org.apache.myfaces.tobago.internal.taglib."
+            + annotationTag.name().substring(0, 1).toUpperCase(Locale.ENGLISH)
+            + annotationTag.name().substring(1) + "Tag";
+      }
       //decl.getQualifiedName().replaceAll("Declaration", "");
       String msg = "Replacing: " + decl.getQualifiedName()
           + " -> " + className;

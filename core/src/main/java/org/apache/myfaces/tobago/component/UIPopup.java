@@ -39,8 +39,8 @@ public class UIPopup extends UIPanelBase implements NamingContainer, AjaxCompone
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Popup";
 
-  private String width;
-  private String height;
+  private Integer width;
+  private Integer height;
   private String left;
   private String top;
   private boolean activated;
@@ -147,43 +147,43 @@ public class UIPopup extends UIPanelBase implements NamingContainer, AjaxCompone
   public void restoreState(FacesContext context, Object savedState) {
     Object[] values = (Object[]) savedState;
     super.restoreState(context, values[0]);
-    width = (String) values[1];
-    height = (String) values[2];
+    width = (Integer) values[1];
+    height = (Integer) values[2];
     left = (String) values[3];
     top = (String) values[4];
     activated = (Boolean) values[5];
     modal = (Boolean) values[6];
   }
 
-  public String getWidth() {
+  public Integer getWidth() {
     if (width != null) {
       return width;
     }
     ValueBinding vb = getValueBinding(ATTR_WIDTH);
     if (vb != null) {
-      return (String) vb.getValue(getFacesContext());
+      return (Integer) vb.getValue(getFacesContext());
     } else {
       return null;
     }
   }
 
-  public void setWidth(String width) {
+  public void setWidth(Integer width) {
     this.width = width;
   }
 
-  public String getHeight() {
+  public Integer getHeight() {
     if (height != null) {
       return height;
     }
     ValueBinding vb = getValueBinding(ATTR_HEIGHT);
     if (vb != null) {
-      return (String) vb.getValue(getFacesContext());
+      return (Integer) vb.getValue(getFacesContext());
     } else {
       return null;
     }
   }
 
-  public void setHeight(String height) {
+  public void setHeight(Integer height) {
     this.height = height;
   }
 

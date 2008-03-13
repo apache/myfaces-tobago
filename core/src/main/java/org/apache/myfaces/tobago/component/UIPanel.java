@@ -17,6 +17,9 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.faces.context.FacesContext;
 
 /**
@@ -28,6 +31,7 @@ public class UIPanel extends UIPanelBase implements SupportsMarkup {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Panel";
 
+  public static final Log LOG = LogFactory.getLog(UIPanel.class);
   private String[] markup;
 
   public String[] getMarkup() {

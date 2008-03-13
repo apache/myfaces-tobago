@@ -40,6 +40,7 @@ import javax.faces.application.FacesMessage;
 @Validator(id = SubmittedValueLengthValidator.VALIDATOR_ID)
 public class SubmittedValueLengthValidator extends LengthValidator {
   public static final String VALIDATOR_ID = "org.apache.myfaces.tobago.SubmittedValueLength";
+
   private Integer minimum;
   private Integer maximum;
 

@@ -40,11 +40,11 @@ public @interface UIComponentTagAttribute {
   /** allow faces expression language, e.g. #{bean}  */
   DynamicExpression expression() default DynamicExpression.VALUE_BINDING;
 
+  String[] methodSignature() default { };
+
   String defaultValue() default "";
 
   String displayName() default "";
-  
-  String valueExpression() default "ALLOWED";
 
   /**
    * Specifies whether this property should be visible

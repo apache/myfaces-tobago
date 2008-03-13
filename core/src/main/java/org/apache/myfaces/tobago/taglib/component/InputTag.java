@@ -20,10 +20,12 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOCUS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCHANGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -37,6 +39,7 @@ public abstract class InputTag extends BeanTag implements InputTagDeclaration {
   private String validator;
   private String valueChangeListener;
   private String tabIndex;
+  private String immediate;
 
   public void release() {
     super.release();
@@ -46,18 +49,20 @@ public abstract class InputTag extends BeanTag implements InputTagDeclaration {
     validator = null;
     valueChangeListener = null;
     tabIndex = null;
+    immediate = null;
   }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    ComponentUtil.setStringProperty(component, ATTR_ONCHANGE, onchange);
-    ComponentUtil.setBooleanProperty(component, ATTR_FOCUS, focus);
-    ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
-    ComponentUtil.setIntegerProperty(component, ATTR_TAB_INDEX, tabIndex);
+    TagUtils.setStringProperty(component, ATTR_ONCHANGE, onchange);
+    TagUtils.setBooleanProperty(component, ATTR_FOCUS, focus);
+    TagUtils.setStringProperty(component, ATTR_TIP, tip);
+    TagUtils.setIntegerProperty(component, ATTR_TAB_INDEX, tabIndex);
     if (component instanceof EditableValueHolder) {
       EditableValueHolder editableValueHolder = (EditableValueHolder) component;
       ComponentUtil.setValidator(editableValueHolder, validator);
       ComponentUtil.setValueChangeListener(editableValueHolder, valueChangeListener);
+      TagUtils.setBooleanProperty(component, ATTR_IMMEDIATE, immediate);
     }
   }
 
@@ -126,6 +131,14 @@ public abstract class InputTag extends BeanTag implements InputTagDeclaration {
 
   public void setTabIndex(String tabIndex) {
     this.tabIndex = tabIndex;
+  }
+
+  public String getImmediate() {
+    return immediate;
+  }
+
+  public void setImmediate(String immediate) {
+    this.immediate = immediate;
   }
 }
 

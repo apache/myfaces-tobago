@@ -39,4 +39,6 @@ public @interface Tag {
 
   String deprecatedName() default "";
 
+  boolean isBodyTag() default false; 
+
 }

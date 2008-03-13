@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 
 /*
  * Created: Aug 5, 2005 6:08:24 PM
@@ -43,7 +44,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 @Tag(name = "selectOneListbox")
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UISelectOne",
+    uiComponent = "org.apache.myfaces.tobago.component.UISelectOneListbox",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UISelectOne",
     rendererType = "SelectOneListbox",
     allowedChildComponenents = {
         "javax.faces.SelectItem",
@@ -60,7 +62,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
         allowedChildComponenents = "org.apache.myfaces.tobago.Command")
         })
 public interface SelectOneListboxTagDeclaration extends SelectOneTagDeclaration, HasId, IsDisabled,
-    IsReadonly, HasLabelAndAccessKey, IsRendered, HasBinding, HasDeprecatedHeight, HasTip {
+    IsReadonly, HasLabelAndAccessKey, IsRendered, HasBinding, HasDeprecatedHeight, HasTip, HasConverter {
 
   /**
    * Flag indicating that selecting an Item representing a Value is Required.
