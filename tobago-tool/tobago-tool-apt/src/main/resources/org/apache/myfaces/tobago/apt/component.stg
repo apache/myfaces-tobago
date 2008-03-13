@@ -215,6 +215,17 @@ public void set<property.upperCamelCaseName>(Character <property.propertyName>) 
 }
 >>
 
+MethodBindingProperty(property) ::= <<
+
+public MethodBinding get<property.upperCamelCaseName>() {
+  return <property.propertyName>; 
+}
+
+public void set<property.upperCamelCaseName>(Character <property.propertyName>) {
+  this.<property.propertyName> = <property.propertyName>;
+
+>>
+
 field() ::= <<
 private <it.type> <it.propertyName>;
 >>
