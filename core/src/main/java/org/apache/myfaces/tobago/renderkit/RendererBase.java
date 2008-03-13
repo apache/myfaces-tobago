@@ -80,6 +80,14 @@ public class RendererBase extends Renderer {
     return 0;
   }
 
+  protected Object getCurrentValueAsObject(UIInput input) {
+    Object submittedValue = input.getSubmittedValue();
+    if (submittedValue != null) {
+      return submittedValue;
+    }
+    return getValue(input);
+  }
+
   protected String getCurrentValue(
       FacesContext facesContext, UIComponent component) {
 
