@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;

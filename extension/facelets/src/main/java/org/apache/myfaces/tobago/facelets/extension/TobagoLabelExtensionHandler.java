@@ -31,7 +31,6 @@ import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.facelets.SuggestMethodRule;
 import org.apache.myfaces.tobago.facelets.SupportsMarkupRule;
