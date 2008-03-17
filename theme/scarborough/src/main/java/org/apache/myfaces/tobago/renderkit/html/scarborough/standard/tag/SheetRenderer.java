@@ -1238,7 +1238,8 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       if (needVerticalScrollbar(facesContext, data)) {
         space -= getScrollbarWidth(facesContext, data);
       }
-      LayoutInfo layoutInfo = new LayoutInfo(newTokens.getSize(), space, newTokens, data.getClientId(facesContext), false);
+      LayoutInfo layoutInfo =
+          new LayoutInfo(newTokens.getSize(), space, newTokens, data.getClientId(facesContext), false);
       parseFixedWidth(facesContext, layoutInfo, rendererdColumns);
       layoutInfo.parseColumnLayout(space);
       currentWidthList = layoutInfo.getSpaceList();
