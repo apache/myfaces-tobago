@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+dojo.require("dojo.dnd.move");
 
 var LOG = {
   IdBase: "TbgLog",
@@ -26,6 +27,7 @@ var LOG = {
   WARN:  3,
   ERROR: 4,
   NONE: 100,
+  HISTORY_SIZE: 500,
 
   show: function() {
     for (var i = 0 ; i < this.appenders.length; i++) {
@@ -42,6 +44,9 @@ var LOG = {
 
   addMessage: function(msg) {
     this.messages.push(msg);
+    while (this.messages.length > this.HISTORY_SIZE) {
+      this.messages.shift();
+    }
     for (var i = 0 ; i < this.appenders.length; i++) {
       var appender = this.appenders[i];
       if (appender.append
@@ -122,14 +127,6 @@ LOG.LogArea = function(options) {
 
 LOG.LogArea.prototype.initialize = function() {
     var options = Tobago.extend({
-      handle: false,
-      starteffect: function() {},
-      reverteffect: function() {},
-      endeffect: function() {},
-      zindex: 1000,
-      revert: false,
-      snap: false,   // false, or xy or [x,y] or function(x,y){ return [x,y] }
-
       // logging
       hide: false,
       severity: LOG.DEBUG
@@ -261,8 +258,7 @@ LOG.LogArea.prototype.initialize = function() {
     Tobago.addBindEventListener(this.hideButton, "click", this, "doHide");
     Tobago.addBindEventListener(this.hideButton, "mousedown", Tobago, "stopEventPropagation");
 
-    // Todo: make box dragable without prototype
-//    Draggables.register(this);
+    new dojo.dnd.Moveable(this.element, {handle: this.dragHandleTop});
 
 
     this.body = document.getElementsByTagName("body")[0];
