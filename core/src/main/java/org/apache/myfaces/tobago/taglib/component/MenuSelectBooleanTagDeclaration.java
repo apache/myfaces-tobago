@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
 import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -34,12 +32,12 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
  * Renders a checkable menuitem.
  */
 
-@Tag(name = "menucheck", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
+/*@Tag(name = "menucheck", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
     generate = false,
     rendererType = "MenuCommand",
-    allowedChildComponenents = "NONE")
+    allowedChildComponenents = "NONE") */
 @Deprecated
 public interface MenuSelectBooleanTagDeclaration extends TobagoTagDeclaration, AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, IsDisabled, HasCommandType,
