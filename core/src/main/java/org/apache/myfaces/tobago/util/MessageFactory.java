@@ -22,12 +22,13 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.text.MessageFormat;
 
 /*
  * User: weber
@@ -56,17 +57,29 @@ public class MessageFactory {
     String summary = getMessageText(facesContext, bundle, key);
     String detail = getMessageText(facesContext, bundle, key + "_detail");
     if (args != null && args.length > 0) {
+      Locale locale = getLocale(facesContext);
       if (summary != null) {
-        MessageFormat format = new MessageFormat(summary, facesContext.getViewRoot().getLocale());
+        MessageFormat format = new MessageFormat(summary, locale);
         summary = format.format(args);
       }
 
       if (detail != null) {
-        MessageFormat format = new MessageFormat(detail, facesContext.getViewRoot().getLocale());
+        MessageFormat format = new MessageFormat(detail, locale);
         detail = format.format(args);
       }
     }
     return new FacesMessage(severity, summary != null ? summary : key, detail);
+  }
+
+  private static Locale getLocale(FacesContext facesContext) {
+    UIViewRoot root = facesContext.getViewRoot();
+    Locale locale;
+    if (root != null) {
+      locale = root.getLocale();
+    } else {
+      locale = facesContext.getApplication().getViewHandler().calculateLocale(facesContext);
+    }
+    return locale;
   }
 
   public static FacesMessage createFacesMessage(FacesContext facesContext,
@@ -79,7 +92,7 @@ public class MessageFactory {
     String message = ResourceManagerUtil.getProperty(facesContext, bundle, key);
     if (message == null || message.length() < 1) {
       try {
-        Locale locale = facesContext.getViewRoot().getLocale();
+        Locale locale = getLocale(facesContext);
         message = getFacesMessages(locale).getString(key);
       } catch (Exception e) {
         /* ignore at this point */
