@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.util.EncodeAjaxCallback;
 import org.apache.myfaces.tobago.util.FastStringWriter;
 import org.apache.myfaces.tobago.util.RequestUtils;
 import org.apache.myfaces.tobago.util.ResponseUtils;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
@@ -131,7 +132,8 @@ public class AjaxResponseRenderer {
 
     try {
       // TODO: invokeOnComponent()
-      ComponentUtil.invokeOnComponent(facesContext, clientId, (UIComponent) component, callback);
+      FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), clientId, callback);
+      //ComponentUtil.invokeOnComponent(facesContext, clientId, (UIComponent) component, callback);
     } catch (EmptyStackException e) {
       LOG.error(" content = \"" + content.toString() + "\"");
       throw e;
