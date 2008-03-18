@@ -19,8 +19,12 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 
 import javax.faces.context.FacesContext;
+import javax.faces.component.ContextCallback;
+import javax.faces.FacesException;
 import java.io.IOException;
 
 /*
@@ -29,7 +33,7 @@ import java.io.IOException;
  * Time: 3:05:19 PM
  */
 public class UIPanelBase extends javax.faces.component.UIPanel
-    implements AjaxComponent {
+    implements AjaxComponent, InvokeOnComponent {
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
     // TODO change this should be renamed to DimensionUtils.prepare!!!
@@ -47,4 +51,8 @@ public class UIPanelBase extends javax.faces.component.UIPanel
     return AjaxUtils.encodeAjaxComponent(facesContext, this);
   }
 
+  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
+     throws FacesException {
+    return FacesUtils.invokeOnComponent(context, this, clientId, callback);
+  }
 }

@@ -21,12 +21,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FIRST;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.MethodNotFoundException;
-import javax.faces.el.ValueBinding;
 
 public class Pager extends MethodBinding {
 
@@ -99,9 +99,9 @@ public class Pager extends MethodBinding {
         default:
           // can't happen
       }
-      ValueBinding valueBinding = sheet.getValueBinding(ATTR_FIRST);
-      if (valueBinding != null) {
-        valueBinding.setValue(facesContext, first);
+
+      if (FacesUtils.hasValueBindingOrValueExpression(sheet, ATTR_FIRST)) {
+        FacesUtils.setValueOfBindingOrExpression(facesContext, first, sheet, ATTR_FIRST);
       } else {
         sheet.setFirst(first);
       }

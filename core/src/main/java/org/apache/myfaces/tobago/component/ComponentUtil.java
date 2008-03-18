@@ -59,7 +59,7 @@ import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.renderkit.LayoutableRenderer;
 import org.apache.myfaces.tobago.renderkit.LayoutRenderer;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.util.Callback;
+import javax.faces.component.ContextCallback;
 import org.apache.myfaces.tobago.util.RangeParser;
 import org.apache.myfaces.tobago.util.TobagoCallback;
 import org.apache.myfaces.tobago.internal.taglib.TagUtils;
@@ -1234,56 +1234,56 @@ public class ComponentUtil {
   }
 
   public static void invokeOnComponent(FacesContext facesContext, String clientId, UIComponent component,
-      Callback callback) {
+      ContextCallback contextCallback) {
     List<UIComponent> list = new ArrayList<UIComponent>();
     while (component != null) {
       list.add(component);
       component = component.getParent();
     }
     Collections.reverse(list);
-    invokeOrPrepare(facesContext, list, clientId, callback);
+    invokeOrPrepare(facesContext, list, clientId, contextCallback);
   }
 
   private static void invokeOrPrepare(FacesContext facesContext, List<UIComponent> list, String clientId,
-      Callback callback) {
+      ContextCallback contextCallback) {
     if (list.size() == 1) {
-      callback.execute(facesContext, list.get(0));
+      contextCallback.invokeContextCallback(facesContext, list.get(0));
     } else if (list.get(0) instanceof UIData) {
-      prepareOnUIData(facesContext, list, clientId, callback);
+      prepareOnUIData(facesContext, list, clientId, contextCallback);
     } else if (list.get(0) instanceof UIForm) {
-      prepareOnUIForm(facesContext, list, clientId, callback);
+      prepareOnUIForm(facesContext, list, clientId, contextCallback);
     } else {
-      prepareOnUIComponent(facesContext, list, clientId, callback);
+      prepareOnUIComponent(facesContext, list, clientId, contextCallback);
     }
   }
 
   @SuppressWarnings("unchecked")
   private static void prepareOnUIForm(FacesContext facesContext, List<UIComponent> list, String clientId,
-      Callback callback) {
+      ContextCallback contextCallback) {
     UIComponent currentComponent = list.remove(0);
     if (!(currentComponent instanceof UIForm)) {
       throw new IllegalStateException(currentComponent.getClass().getName());
     }
     // TODO is this needed?
-    if (callback instanceof TobagoCallback) {
-      if (PhaseId.APPLY_REQUEST_VALUES.equals(((TobagoCallback) callback).getPhaseId())) {
+    if (contextCallback instanceof TobagoCallback) {
+      if (PhaseId.APPLY_REQUEST_VALUES.equals(((TobagoCallback) contextCallback).getPhaseId())) {
         currentComponent.decode(facesContext);
       }
     }
     UIForm uiForm = (UIForm) currentComponent;
     facesContext.getExternalContext().getRequestMap().put(UIForm.SUBMITTED_MARKER, uiForm.isSubmitted());
-    invokeOrPrepare(facesContext, list, clientId, callback);
+    invokeOrPrepare(facesContext, list, clientId, contextCallback);
 
   }
 
   private static void prepareOnUIComponent(FacesContext facesContext, List<UIComponent> list, String clientId,
-      Callback callback) {
+      ContextCallback contextCallback) {
     list.remove(0);
-    invokeOrPrepare(facesContext, list, clientId, callback);
+    invokeOrPrepare(facesContext, list, clientId, contextCallback);
   }
 
   private static void prepareOnUIData(FacesContext facesContext, List<UIComponent> list, String clientId,
-      Callback callback) {
+      ContextCallback contextCallback) {
     UIComponent currentComponent = list.remove(0);
     if (!(currentComponent instanceof UIData)) {
       throw new IllegalStateException(currentComponent.getClass().getName());
@@ -1309,7 +1309,7 @@ public class ComponentUtil {
       LOG.info("no match for \"^:\\d+:.*\"");
     }
 
-    invokeOrPrepare(facesContext, list, clientId, callback);
+    invokeOrPrepare(facesContext, list, clientId, contextCallback);
 
     // we should reset rowIndex on UIData
     uiData.setRowIndex(oldRowIndex);

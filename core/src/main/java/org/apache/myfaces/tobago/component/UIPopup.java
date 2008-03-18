@@ -21,6 +21,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LEFT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TOP;
@@ -28,12 +30,14 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
+import javax.faces.component.ContextCallback;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
+import javax.faces.FacesException;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class UIPopup extends UIPanelBase implements NamingContainer, AjaxComponent {
+public class UIPopup extends UIPanelBase implements NamingContainer, AjaxComponent, InvokeOnComponent {
 
   private static final Log LOG = LogFactory.getLog(UIPopup.class);
 
@@ -251,5 +255,10 @@ public class UIPopup extends UIPanelBase implements NamingContainer, AjaxCompone
     int responseCode = super.encodeAjax(facesContext);
     activated = false;
     return responseCode;
+  }
+
+  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
+      throws FacesException {
+    return FacesUtils.invokeOnComponent(context, this, clientId, callback);
   }
 }

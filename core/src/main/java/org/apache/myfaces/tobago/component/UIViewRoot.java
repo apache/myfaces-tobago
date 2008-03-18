@@ -19,10 +19,13 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerImpl;
+import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.ContextCallback;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
@@ -39,7 +42,7 @@ import java.util.Locale;
  * Date: Jun 13, 2005
  * Time: 5:19:31 PM
  */
-public class UIViewRoot extends javax.faces.component.UIViewRoot {
+public class UIViewRoot extends javax.faces.component.UIViewRoot implements InvokeOnComponent {
 
   private static final Log LOG = LogFactory.getLog(UIViewRoot.class);
 
@@ -207,5 +210,10 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
     if (context.getRenderResponse() || context.getResponseComplete()) {
       clearEvents();
     }
+  }
+
+  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
+      throws FacesException {
+    return FacesUtils.invokeOnComponent(context, this, clientId, callback);
   }
 }

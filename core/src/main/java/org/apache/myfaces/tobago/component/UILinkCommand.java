@@ -18,15 +18,19 @@ package org.apache.myfaces.tobago.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
+import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
+import javax.faces.component.ContextCallback;
+import javax.faces.FacesException;
 
 /*
  * Date: Feb 17, 2007
  * Time: 8:51:48 AM
  */
-public class UILinkCommand extends UICommand implements SupportsMarkup {
+public class UILinkCommand extends UICommand implements SupportsMarkup, InvokeOnComponent {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.LinkCommand";
 
@@ -75,6 +79,11 @@ public class UILinkCommand extends UICommand implements SupportsMarkup {
 
   public void setTabIndex(Integer tabIndex) {
     this.tabIndex = tabIndex;
+  }
+
+  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
+      throws FacesException {
+    return FacesUtils.invokeOnComponent(context, this, clientId, callback);
   }
 
 }

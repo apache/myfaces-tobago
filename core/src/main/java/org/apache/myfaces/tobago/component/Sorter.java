@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.BeanComparator;
 import org.apache.myfaces.tobago.util.ValueBindingComparator;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
@@ -84,9 +85,9 @@ public class Sorter extends MethodBinding {
             ValueBinding valueBinding = child.getValueBinding("value");
             String var = data.getVar();
 
-            if (valueBinding != null) {
-              if (isSimpleProperty(valueBinding.getExpressionString())) {
-                String expressionString = valueBinding.getExpressionString();
+            if (FacesUtils.hasValueBindingOrValueExpression(child, "value")) {
+              String expressionString = FacesUtils.getExpressionString(child, "value");
+              if (isSimpleProperty(expressionString)) {
                 if (expressionString.startsWith("#{")
                     && expressionString.endsWith("}")) {
                   expressionString =

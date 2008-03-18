@@ -31,11 +31,15 @@ import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.model.PageState;
 import org.apache.myfaces.tobago.model.PageStateImpl;
 import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
+import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.ContextCallback;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
+import javax.faces.FacesException;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
@@ -45,7 +49,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-public class UIPage extends UIForm {
+public class UIPage extends UIForm implements InvokeOnComponent {
 
   private static final Log LOG = LogFactory.getLog(UIPage.class);
 
@@ -443,5 +447,10 @@ public class UIPage extends UIForm {
     values[3] = focusId;
     values[4] = applicationIcon;
     return values;
+  }
+
+  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
+      throws FacesException {
+    return FacesUtils.invokeOnComponent(context, this, clientId, callback);
   }
 }
