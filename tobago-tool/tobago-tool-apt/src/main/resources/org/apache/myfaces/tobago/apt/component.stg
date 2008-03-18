@@ -28,7 +28,7 @@ import javax.faces.context.FacesContext;
 <componentInfo.imports:import(); separator="\n">
 
 public class <componentInfo.className>
-    extends <componentInfo.superClassName> <first(componentInfo.interfaces):{ n | implements <n> }><rest(componentInfo.interfaces):{ n | , <n> }> {
+    extends <componentInfo.superClassName> <first(componentInfo.interfaces):{ n | implements <n>}><rest(componentInfo.interfaces):{ n | , <n> }> {
 
   <if(componentInfo.componentType)>
   public static final String COMPONENT_TYPE = "<componentInfo.componentType>";
@@ -63,13 +63,22 @@ public class <componentInfo.className>
     return values;
   }
   <endif>
+  <if(componentInfo.invokeOnComponent)>
+  <invokeOnComponent()>
+  <endif>
+
 }
 >>
 
 import() ::= <<
 import <it>;
 >>
-
+invokeOnComponent() ::= <<
+public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
+    throws FacesException {
+  return FacesUtils.invokeOnComponent(context, this, clientId, callback);
+}
+>>
 
 IntegerProperty(property) ::= <<
 
