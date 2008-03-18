@@ -91,6 +91,12 @@ var Tobago = {
   action: null,
 
   /**
+   * The hidden html input object for the contextPath.
+   * set via init fuction (onload attribute of body)
+   */
+  contextPath: null,
+
+  /**
     * The hidden html input object for partial requests.
     * set via init fuction (onload attribute of body)
     */
@@ -231,6 +237,7 @@ var Tobago = {
     this.form = this.element(this.page.id + this.SUB_COMPONENT_SEP + "form");
     this.addBindEventListener(this.form, "submit", this, "onSubmit");
     this.action = this.element(this.form.id + '-action')
+    this.contextPath = this.element(this.page.id + this.SUB_COMPONENT_SEP + "context-path");
 
     this.addBindEventListener(window, "unload", this, "onUnload");
 
@@ -1254,7 +1261,7 @@ var Tobago = {
       iframe.style.zIndex = 9999;
       iframe.frameBorder = "0";
       iframe.style.position = "absolute";
-      iframe.src = "/org/apache/myfaces/tobago/renderkit/html/standard/blank.html";
+      iframe.src = Tobago.contextPath.value + "/org/apache/myfaces/tobago/renderkit/html/standard/blank.html";
       iframe.style.top = "0px";
       iframe.style.left = "0px";
       iframe.style.width = element.scrollWidth + 'px';

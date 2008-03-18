@@ -384,6 +384,15 @@ public class PageRenderer extends PageRendererBase {
     writer.writeAttribute(HtmlAttributes.VALUE, defaultActionId, true);
     writer.endElement(HtmlConstants.INPUT);
 
+    writer.startElement(HtmlConstants.INPUT, null);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+    writer.writeNameAttribute(
+        clientId + SUBCOMPONENT_SEP + "context-path");
+    writer.writeIdAttribute(
+        clientId + SUBCOMPONENT_SEP + "context-path");
+    writer.writeAttribute(HtmlAttributes.VALUE, facesContext.getExternalContext().getRequestContextPath(), true);
+    writer.endElement(HtmlConstants.INPUT);
+
     if (debugMode) {
       writer.startElement(HtmlConstants.INPUT, null);
       writer.writeAttribute(HtmlAttributes.VALUE, clientLogSeverity);
