@@ -26,9 +26,10 @@ public class GenericTagUnitTest extends GenericTestBase {
   }
 
   protected void setUp() throws Exception {
-    tldPaths = new String[2];
+    tldPaths = new String[1];
 		tldPaths[0] = "META-INF/org/apache/myfaces/tobago/taglib/component/tobago.tld";
-		tldPaths[1] = "META-INF/org/apache/myfaces/tobago/taglib/extension/tobago-extension.tld";
+    //TODO move to tobago-taglib-extension
+    //tldPaths[1] = "META-INF/org/apache/myfaces/tobago/taglib/extension/tobago-extension.tld";
     super.setUp();
   }
 
