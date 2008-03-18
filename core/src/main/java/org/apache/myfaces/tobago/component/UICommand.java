@@ -22,14 +22,18 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDERED_PARTIALLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
+import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.ContextCallback;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
+import javax.faces.FacesException;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -38,7 +42,7 @@ import java.util.Iterator;
  * Time: 5:02:10 PM
  * $Id$
  */
-public class UICommand extends javax.faces.component.UICommand {
+public class UICommand extends javax.faces.component.UICommand implements InvokeOnComponent {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Command";
 
@@ -211,5 +215,10 @@ public class UICommand extends javax.faces.component.UICommand {
         facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
       }
     }
+  }
+
+  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
+      throws FacesException {
+    return FacesUtils.invokeOnComponent(context, this, clientId, callback);
   }
 }

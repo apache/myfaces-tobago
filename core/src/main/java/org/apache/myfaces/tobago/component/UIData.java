@@ -41,9 +41,12 @@ import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutableRenderer;
+import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
+import javax.faces.component.ContextCallback;
 import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
@@ -52,13 +55,14 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.render.Renderer;
+import javax.faces.FacesException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class UIData extends javax.faces.component.UIData
-    implements SheetStateChangeSource, SortActionSource, AjaxComponent {
+    implements SheetStateChangeSource, SortActionSource, AjaxComponent, InvokeOnComponent {
 
   private static final Log LOG = LogFactory.getLog(UIData.class);
 
@@ -95,7 +99,7 @@ public class UIData extends javax.faces.component.UIData
   public void encodeBegin(FacesContext facesContext) throws IOException {
     Renderer renderer = getRenderer(facesContext);
     if (renderer != null && renderer instanceof LayoutableRenderer) {
-       ((LayoutableRenderer) renderer).layoutBegin(facesContext, this);
+      ((LayoutableRenderer) renderer).layoutBegin(facesContext, this);
     }
 
     SheetState state = getSheetState(facesContext);
@@ -113,7 +117,7 @@ public class UIData extends javax.faces.component.UIData
   public void encodeEnd(FacesContext facesContext) throws IOException {
     Renderer renderer = getRenderer(facesContext);
     if (renderer != null && renderer instanceof LayoutableRenderer) {
-       ((LayoutableRenderer) renderer).layoutEnd(facesContext, this);
+      ((LayoutableRenderer) renderer).layoutEnd(facesContext, this);
     }
     super.encodeEnd(facesContext);
   }
@@ -520,7 +524,7 @@ public class UIData extends javax.faces.component.UIData
   public int encodeAjax(FacesContext facesContext) throws IOException {
     Renderer renderer = getRenderer(facesContext);
     if (renderer != null && renderer instanceof LayoutableRenderer) {
-       ((LayoutableRenderer) renderer).layoutEnd(facesContext, this);
+      ((LayoutableRenderer) renderer).layoutEnd(facesContext, this);
     }
 
     // TODO neets more testing!!!
@@ -552,5 +556,35 @@ public class UIData extends javax.faces.component.UIData
       searchId = searchId.substring(searchId.indexOf(SEPARATOR_CHAR) + 1);
     }
     return super.findComponent(searchId);
+  }
+
+  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback) throws FacesException {
+    // we may need setRowIndex on UIData
+    int oldRowIndex = getRowIndex();
+    try {
+      String sheetId = getClientId(context);
+      String idRemainder = clientId.substring(sheetId.length());
+      LOG.info("idRemainder = \"" + idRemainder + "\"");
+      if (idRemainder.matches("^:\\d+:.*")) {
+        idRemainder = idRemainder.substring(1);
+        int idx = idRemainder.indexOf(":");
+        try {
+          int rowIndex = Integer.parseInt(idRemainder.substring(0, idx));
+          LOG.info("set rowIndex = \"" + rowIndex + "\"");
+          setRowIndex(rowIndex);
+
+        } catch (NumberFormatException e) {
+          LOG.error("idRemainder = \"" + idRemainder + "\"", e);
+        }
+      } else {
+        LOG.info("no match for \"^:\\d+:.*\"");
+      }
+
+      return FacesUtils.invokeOnComponent(context, this, clientId, callback);
+
+    } finally {
+      // we should reset rowIndex on UIData
+      setRowIndex(oldRowIndex);
+    }
   }
 }
