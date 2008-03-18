@@ -102,13 +102,19 @@
                 <id>copy-javadoc</id>
                 <phase>package</phase>
                 <goals>
-                  <goal>unpack</goal>
+                  <goal>copy</goal>
                 </goals>
                 <configuration>
                   <artifactItems>
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-core</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>javadoc</classifier>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-jsf-compat</artifactId>
                       <version>${project.version}</version>
                       <classifier>javadoc</classifier>
                     </artifactItem>
@@ -145,7 +151,7 @@
                 <id>copy-tlddoc</id>
                 <phase>package</phase>
                 <goals>
-                  <goal>unpack</goal>
+                  <goal>copy</goal>
                 </goals>
                 <configuration>
                   <artifactItems>
@@ -153,6 +159,13 @@
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-core</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>tlddoc</classifier>
+                    </artifactItem>
+
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-taglib-extension</artifactId>
                       <version>${project.version}</version>
                       <classifier>tlddoc</classifier>
                     </artifactItem>
@@ -177,6 +190,12 @@
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-core</artifactId>
+                      <version>${project.version}</version>
+                    </artifactItem>
+
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-taglib-extension</artifactId>
                       <version>${project.version}</version>
                     </artifactItem>
 
@@ -224,6 +243,17 @@
                       <version>${project.version}</version>
                       <classifier>jdk14retro</classifier>
                     </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-taglib-extension</artifactId>
+                      <version>${project.version}</version>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-taglib-extension</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>jdk14retro</classifier>
+                    </artifactItem>
 
                   </artifactItems>
                   <outputDirectory>${project.build.directory}/extension
@@ -242,6 +272,12 @@
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-core</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>sources</classifier>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-jsf-compat</artifactId>
                       <version>${project.version}</version>
                       <classifier>sources</classifier>
                     </artifactItem>
@@ -293,6 +329,12 @@
                       <version>${project.version}</version>
                       <classifier>sources</classifier>
                     </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-taglib-extension</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>sources</classifier>
+                    </artifactItem>
 
                   </artifactItems>
                   <outputDirectory>${project.build.directory}/src
@@ -311,6 +353,12 @@
                     <artifactItem>
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago-core</artifactId>
+                      <version>${project.version}</version>
+                      <classifier>jdk14retro</classifier>
+                    </artifactItem>
+                    <artifactItem>
+                      <groupId>${project.groupId}</groupId>
+                      <artifactId>tobago-jsf-compat</artifactId>
                       <version>${project.version}</version>
                       <classifier>jdk14retro</classifier>
                     </artifactItem>
