@@ -23,6 +23,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.component.UICommand;
@@ -40,7 +42,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class LayoutableRendererBase
-    extends RendererBase implements LayoutInformationProvider {
+    extends RendererBase implements LayoutableRenderer {
 
   private static final Log LOG = LogFactory.getLog(LayoutableRendererBase.class);
 
@@ -127,16 +129,19 @@ public abstract class LayoutableRendererBase
   private int getFixedSpace(FacesContext facesContext, UIComponent component,
                             String attr, String attrFixed) {
     int intSpace = -1;
-    String space = null;
+    Object space = null;
     if (component != null) {
-      space = ComponentUtil.getStringAttribute(component, attr);
+      space = ComponentUtil.getObjectAttribute(component, attr);
     }
-    if (space != null) {
+    if (space != null && space instanceof String) {
       try {
-        intSpace = Integer.parseInt(space.replaceAll("\\D", ""));
+        intSpace = Integer.parseInt(((String) space).replaceAll("\\D", ""));
       } catch (NumberFormatException e) {
         LOG.error("Caught: " + e.getMessage(), e);
       }
+    }
+    if (space != null && space instanceof Integer) {
+      intSpace = (Integer) space;
     }
     if (intSpace == -1) {
       return getConfiguredValue(facesContext, component, attrFixed);
@@ -152,6 +157,10 @@ public abstract class LayoutableRendererBase
 
   protected void checkForCommandFacet(UIComponent component, List<String> clientIds, FacesContext facesContext,
                                       TobagoResponseWriter writer) throws IOException {
+    if (ComponentUtil.getBooleanAttribute(component, ATTR_READONLY)
+        || ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
+      return;
+    }
     Map<String, UIComponent> facets = component.getFacets();
     for (Map.Entry<String, UIComponent> entry : facets.entrySet()) {
       if (entry.getValue() instanceof UICommand) {
@@ -196,5 +205,11 @@ public abstract class LayoutableRendererBase
               + facetAction + "});\n}";
       writer.writeJavascript(script);
     }
+  }
+
+  public void layoutBegin(FacesContext context, UIComponent component) throws IOException {
+  }
+
+  public void layoutEnd(FacesContext context, UIComponent component) throws IOException {
   }
 }
