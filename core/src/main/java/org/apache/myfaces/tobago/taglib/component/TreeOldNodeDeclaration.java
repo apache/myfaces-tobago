@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeOldNode",
+    generate = false,
     rendererType = "TreeOldNode")
 public interface TreeOldNodeDeclaration extends TobagoTagDeclaration,
     HasIdBindingAndRendered {
