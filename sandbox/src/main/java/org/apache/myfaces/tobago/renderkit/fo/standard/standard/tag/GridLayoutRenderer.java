@@ -89,7 +89,7 @@ public class GridLayoutRenderer extends FoRendererBase
   public void layoutBegin(FacesContext facesContext, UIComponent component) {
   }
 
-  private void layoutEnd(FacesContext facesContext, UIComponent component) {
+  public void layoutEnd(FacesContext facesContext, UIComponent component) {
     Layout layout = Layout.getLayout(component.getParent());
     if (layout == null) {
       throw new IllegalStateException("no Layout from " + component.getParent() + " "
