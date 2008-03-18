@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.apache.myfaces.tobago</groupId>
+    <artifactId>tobago-extension</artifactId>
+    <version>1.1.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>tobago-taglib-extension</artifactId>
+  <packaging>jar</packaging>
+  <name>Tobago Taglib Extension</name>
+  <description>Tobago Taglib Extension contains the tobago extension tags (tx)</description>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+          <id>unpack-sources</id>
+          <phase>generate-sources</phase>
+          <goals><goal>unpack</goal></goals>
+          <configuration>
+            <artifactItems>
+              <artifactItem>
+                <groupId>org.apache.myfaces.tobago</groupId>
+                <artifactId>tobago-core</artifactId>
+                <version>${project.version}</version>
+                <type>jar</type>
+                <classifier>sources</classifier>
+              </artifactItem>
+            </artifactItems>
+            <outputDirectory>${project.build.directory}/tobago-core-sources</outputDirectory>
+          </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.myfaces.tobago</groupId>
+        <artifactId>maven-apt-plugin</artifactId>
+        <version>${project.version}</version>
+        <executions>
+          <execution>
+            <id>tobago-tlds</id>
+            <goals><goal>execute</goal></goals>
+            <phase>compile</phase>
+            <configuration>
+              <targetFiles>
+                <targetFile>org/apache/myfaces/tobago/taglib/extension/tobago-extension.tld</targetFile>
+              </targetFiles>
+              <excludes>
+                <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
+                <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
+                <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
+              </excludes>
+              <aptSourceRoots>
+                <aptSourceRoot>${project.build.directory}/tobago-core-sources</aptSourceRoot>
+              </aptSourceRoots>
+              <resourceTargetPath>META-INF</resourceTargetPath>
+              <generated>target/generated-tld</generated>
+              <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
+              <nocompile>true</nocompile>
+              <encoding>UTF-8</encoding>
+            </configuration>
+          </execution>
+
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-tld</id>
+            <goals><goal>resources</goal></goals>
+            <phase>process-classes</phase>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+
+      <plugin>
+        <groupId>net.sourceforge.maven-taglib</groupId>
+        <artifactId>maven-taglib-plugin</artifactId>
+        <version>2.3.1</version>
+        <configuration>
+          <taglib.src.dir>${project.build.directory}/generated-tld</taglib.src.dir>
+          <tldDocDir>${project.build.directory}/site/tlddoc</tldDocDir>
+          <parseHtml>true</parseHtml>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </reporting>
+
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/extension/tobago-taglib-extension</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/extension/tobago-taglib-extension</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/extension/tobago-taglib-extension</url>
+  </scm>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-tool-apt</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-tool-annotation</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.myfaces.core</groupId>
+      <artifactId>myfaces-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jsp-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+    </dependency>
+
+  </dependencies>
+
+  <profiles>
+    <!-- Mac OS X has not a tools.jar! -->
+    <profile>
+      <id>tools.jar</id>
+      <activation>
+        <!-- needs maven 2.0.3 or higher under Mac OS X -->
+        <os><family>!mac</family></os>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>sun.jdk</groupId>
+          <artifactId>tools</artifactId>
+          <version>1.5.0</version>
+          <scope>system</scope>
+          <systemPath>${java.home}/../lib/tools.jar</systemPath>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>generate-tag-reference</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.myfaces.tobago</groupId>
+            <artifactId>maven-apt-plugin</artifactId>
+            <version>${project.version}</version>
+            <executions>
+              <execution>
+                <id>tobago-doc</id>
+                <goals><goal>execute</goal></goals>
+                <configuration>
+                  <targetFiles>
+                    <targetFile>org/apache/myfaces/tobago/taglib/extension/tobago-extension.xml</targetFile>
+                  </targetFiles>
+                  <generated>${project.build.directory}/doc</generated>
+                  <factory>org.apache.myfaces.tobago.apt.TobagoAnnotationProcessorFactory</factory>
+                  <nocompile>true</nocompile>
+                  <encoding>UTF-8</encoding>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>net.sourceforge.maven-taglib</groupId>
+            <artifactId>maven-taglib-plugin</artifactId>
+            <configuration>
+              <taglib.src.dir>${project.build.directory}/generated-tld</taglib.src.dir>
+              <tldDocDir>${project.build.directory}/tlddoc</tldDocDir>
+            </configuration>
+            <executions>
+              <execution>
+                <id>attach-tlddoc</id>
+                <goals><goal>taglibdocjar</goal></goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>generate-assembly</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>net.sourceforge.maven-taglib</groupId>
+            <artifactId>maven-taglib-plugin</artifactId>
+            <configuration>
+              <taglib.src.dir>${project.build.directory}/generated-tld</taglib.src.dir>
+              <tldDocDir>${project.build.directory}/tlddoc</tldDocDir>
+            </configuration>
+            <executions>
+              <execution>
+                <id>attach-tlddoc</id>
+                <goals><goal>taglibdocjar</goal></goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>attach-source</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-source</id>
+                <goals><goal>jar</goal></goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>jdk14retro</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>retrotranslator-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>translate-project</goal>
+                </goals>
+                <configuration>
+                  <classifier>jdk14retro</classifier>
+                  <attach>true</attach>
+                  <verify>true</verify>
+                  <verifyClasspath>
+                     <element>${java14.home}/${java.classes.jar}</element>
+                  </verifyClasspath>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+      <dependencies>
+        <dependency>
+          <groupId>net.sf.retrotranslator</groupId>
+          <artifactId>retrotranslator-runtime</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>
+</project>
