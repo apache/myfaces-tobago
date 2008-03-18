@@ -25,6 +25,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
@@ -73,7 +74,6 @@ import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -215,9 +215,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
       // resetting index to 0
       closestRenderedTabIndex = 0;
     }
-    ValueBinding vb = tabGroup.getValueBinding(ATTR_SELECTED_INDEX);
-    if (vb != null) {
-      vb.setValue(context, closestRenderedTabIndex);
+    if (FacesUtils.hasValueBindingOrValueExpression(tabGroup, ATTR_SELECTED_INDEX)) {
+      FacesUtils.setValueOfBindingOrExpression(context, closestRenderedTabIndex, tabGroup, ATTR_SELECTED_INDEX);
     } else {
       tabGroup.setSelectedIndex(closestRenderedTabIndex);
     }

@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.util.DateFormatUtils;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -61,11 +62,13 @@ public class DatePickerRenderer extends LinkRenderer {
       LOG.error("No required UIDateInput component found.");
       return;
     }
-    if (dateInput.getValueBinding(TobagoConstants.ATTR_READONLY) != null) {
-      link.setValueBinding(TobagoConstants.ATTR_DISABLED, dateInput.getValueBinding(TobagoConstants.ATTR_READONLY));
+    if (FacesUtils.hasValueBindingOrValueExpression(dateInput, TobagoConstants.ATTR_READONLY)) {
+      FacesUtils.copyValueBindingOrValueExpression(link, TobagoConstants.ATTR_DISABLED,
+          dateInput, TobagoConstants.ATTR_READONLY);
     } else {
-      if (dateInput.getValueBinding(TobagoConstants.ATTR_DISABLED) != null) {
-        link.setValueBinding(TobagoConstants.ATTR_DISABLED, dateInput.getValueBinding(TobagoConstants.ATTR_DISABLED));
+      if (FacesUtils.hasValueBindingOrValueExpression(dateInput, TobagoConstants.ATTR_DISABLED)) {
+        FacesUtils.copyValueBindingOrValueExpression(link, TobagoConstants.ATTR_DISABLED, 
+            dateInput, TobagoConstants.ATTR_DISABLED);
       } else {
         link.setDisabled(dateInput.isReadonly() || dateInput.isDisabled());
       }
