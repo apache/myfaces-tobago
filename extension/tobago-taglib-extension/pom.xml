@@ -45,6 +45,7 @@
                 <version>${project.version}</version>
                 <type>jar</type>
                 <classifier>sources</classifier>
+                <excludes>org/apache/myfaces/tobago/taglib/extension/**/*</excludes>
               </artifactItem>
             </artifactItems>
             <outputDirectory>${project.build.directory}/tobago-core-sources</outputDirectory>
