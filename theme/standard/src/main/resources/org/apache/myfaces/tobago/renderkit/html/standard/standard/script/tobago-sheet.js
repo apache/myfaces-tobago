@@ -306,6 +306,7 @@ Tobago.Sheet.prototype.doKeyEvent = function(event) {
       if (keyCode == 13) {
         if (input.value != input.nextSibling.innerHTML) {
           this.reloadWithAction(input.actionId);
+          Tobago.stopEventPropagation(event);          
         }
         else {
           this.textInput = input;
