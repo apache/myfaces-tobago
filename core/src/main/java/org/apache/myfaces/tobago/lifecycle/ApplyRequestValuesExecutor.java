@@ -24,7 +24,9 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIViewRoot;
 import org.apache.myfaces.tobago.util.ApplyRequestValuesCallback;
-import org.apache.myfaces.tobago.util.Callback;
+import org.apache.myfaces.tobago.compat.FacesUtils;
+
+import javax.faces.component.ContextCallback;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -44,11 +46,11 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
   @SuppressWarnings("UnusedDeclaration")
   private static final Log LOG = LogFactory.getLog(ApplyRequestValuesExecutor.class);
 
-  private Callback callback;
+  private ContextCallback contextCallback;
 
 
   public ApplyRequestValuesExecutor() {
-    callback = new ApplyRequestValuesCallback();
+    contextCallback = new ApplyRequestValuesCallback();
   }
 
   public boolean execute(FacesContext facesContext) {
@@ -68,7 +70,8 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
       for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
         UIComponent ajaxComponent = entry.getValue();
         // TODO: invokeOnComponent()
-        ComponentUtil.invokeOnComponent(facesContext, entry.getKey(), ajaxComponent, callback);
+        FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), entry.getKey(), contextCallback);
+        //ComponentUtil.invokeOnComponent(facesContext, entry.getKey(), ajaxComponent, contextCallback);
       }
 
       UIViewRoot viewRoot = ((UIViewRoot) facesContext.getViewRoot());
@@ -99,7 +102,9 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
       }
     }
     // TODO: invokeOnComponent()
-    ComponentUtil.invokeOnComponent(facesContext, actionId, actionComponent, callback);
+    FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), actionId, contextCallback);
+
+    //ComponentUtil.invokeOnComponent(facesContext, actionId, actionComponent, contextCallback);
   }
 
   public PhaseId getPhase() {

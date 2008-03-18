@@ -21,9 +21,10 @@ import static javax.faces.event.PhaseId.PROCESS_VALIDATIONS;
 
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.UIViewRoot;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.util.Callback;
+
+import javax.faces.component.ContextCallback;
 import org.apache.myfaces.tobago.util.ProcessValidationsCallback;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -36,10 +37,10 @@ import java.util.Map;
  */
 class ProcessValidationsExecutor implements PhaseExecutor {
 
-  private Callback callback;
+  private ContextCallback contextCallback;
 
   public ProcessValidationsExecutor() {
-    this.callback = new ProcessValidationsCallback();
+    this.contextCallback = new ProcessValidationsCallback();
   }
 
   public boolean execute(FacesContext facesContext) {
@@ -48,7 +49,9 @@ class ProcessValidationsExecutor implements PhaseExecutor {
       for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
         UIComponent ajaxComponent = entry.getValue();
         // TODO: invokeOnComponent()
-        ComponentUtil.invokeOnComponent(facesContext, entry.getKey(), ajaxComponent, callback);
+        FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), entry.getKey(), contextCallback);
+
+//        ComponentUtil.invokeOnComponent(facesContext, entry.getKey(), ajaxComponent, contextCallback);
 //        ajaxComponent.processValidators(facesContext);
       }
       UIViewRoot viewRoot = ((UIViewRoot) facesContext.getViewRoot());

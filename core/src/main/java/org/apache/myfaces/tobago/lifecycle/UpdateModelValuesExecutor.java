@@ -21,9 +21,10 @@ import static javax.faces.event.PhaseId.UPDATE_MODEL_VALUES;
 
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.UIViewRoot;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.util.Callback;
+
+import javax.faces.component.ContextCallback;
 import org.apache.myfaces.tobago.util.UpdateModelValuesCallback;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -37,10 +38,10 @@ import java.util.Map;
  */
 class UpdateModelValuesExecutor implements PhaseExecutor {
 
-  private Callback callback;
+  private ContextCallback contextCallback;
 
   public UpdateModelValuesExecutor() {
-    callback = new UpdateModelValuesCallback();
+    contextCallback = new UpdateModelValuesCallback();
   }
 
   public boolean execute(FacesContext facesContext) {
@@ -49,7 +50,8 @@ class UpdateModelValuesExecutor implements PhaseExecutor {
       for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
         UIComponent ajaxComponent = entry.getValue();
         // TODO: invokeOnComponent()
-        ComponentUtil.invokeOnComponent(facesContext, entry.getKey(), ajaxComponent, callback);
+        FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), entry.getKey(), contextCallback);
+        //ComponentUtil.invokeOnComponent(facesContext, entry.getKey(), ajaxComponent, contextCallback);
 //        ajaxComponent.processUpdates(facesContext);
       }
       UIViewRoot viewRoot = ((UIViewRoot) facesContext.getViewRoot());
