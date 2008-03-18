@@ -19,6 +19,6 @@ package org.apache.myfaces.tobago.util;
 
 import javax.faces.event.PhaseId;
 
-public interface TobagoCallback extends Callback {
+public interface TobagoCallback extends javax.faces.component.ContextCallback {
   PhaseId getPhaseId();
 }

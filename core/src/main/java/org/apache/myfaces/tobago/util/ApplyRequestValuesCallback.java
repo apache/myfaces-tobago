@@ -30,7 +30,7 @@ public class ApplyRequestValuesCallback implements TobagoCallback {
   @SuppressWarnings("UnusedDeclaration")
   private static final Log LOG = LogFactory.getLog(ApplyRequestValuesCallback.class);
 
-  public void execute(FacesContext facesContext, UIComponent component) {
+  public void invokeContextCallback(FacesContext facesContext, UIComponent component) {
     component.processDecodes(facesContext);
   }
 

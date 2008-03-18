@@ -25,11 +25,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.FacesException;
 import java.io.IOException;
 
-public class EncodeAjaxCallback implements Callback {
+public class EncodeAjaxCallback implements javax.faces.component.ContextCallback {
 
   private int responseCode;
 
-  public void execute(FacesContext facesContext, UIComponent component) {
+  public void invokeContextCallback(FacesContext facesContext, UIComponent component) {
     responseCode = 0;
     try {
       responseCode = ((AjaxComponent) component).encodeAjax(facesContext);

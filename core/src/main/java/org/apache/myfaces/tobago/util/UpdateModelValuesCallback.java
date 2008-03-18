@@ -24,9 +24,9 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 
-public class UpdateModelValuesCallback implements Callback {
+public class UpdateModelValuesCallback implements javax.faces.component.ContextCallback {
 
-  public void execute(FacesContext facesContext, UIComponent component) {
+  public void invokeContextCallback(FacesContext facesContext, UIComponent component) {
     if (facesContext.getExternalContext().getRequestMap().get(UIForm.SUBMITTED_MARKER) == null
         || ((Boolean) facesContext.getExternalContext().getRequestMap().get(UIForm.SUBMITTED_MARKER))) {
       component.processUpdates(facesContext);
