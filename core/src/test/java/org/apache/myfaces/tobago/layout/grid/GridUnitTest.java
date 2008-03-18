@@ -19,8 +19,7 @@ package org.apache.myfaces.tobago.layout.grid;
 
 import junit.framework.TestCase;
 
-/**
- * User: lofwyr
+/*
  * Date: 24.01.2008 16:31:58
  */
 public class GridUnitTest extends TestCase {

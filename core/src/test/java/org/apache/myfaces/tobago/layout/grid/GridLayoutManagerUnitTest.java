@@ -23,8 +23,7 @@ import org.apache.myfaces.tobago.layout.LayoutComponentImpl;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutContainerImpl;
 
-/**
- * User: lofwyr
+/*
  * Date: 13.02.2008
  */
 public class GridLayoutManagerUnitTest extends TestCase {
