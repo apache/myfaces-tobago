@@ -32,6 +32,10 @@
     <component-class>org.apache.myfaces.tobago.component.UIDefaultLayout</component-class>
   </component>
   <component>
+    <component-type>javax.faces.NamingContainer</component-type>
+    <component-class>org.apache.myfaces.tobago.component.UINamingContainer</component-class>
+  </component>
+  <component>
     <component-type>org.apache.myfaces.tobago.MenuSelectOne</component-type>
     <component-class>org.apache.myfaces.tobago.component.UIMenuSelectOne</component-class>
   </component>
