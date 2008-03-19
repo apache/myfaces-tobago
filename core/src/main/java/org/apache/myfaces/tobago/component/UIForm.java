@@ -19,12 +19,19 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.compat.InvokeOnComponent;
+import org.apache.myfaces.tobago.util.TobagoCallback;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.ContextCallback;
 import javax.faces.context.FacesContext;
+import javax.faces.FacesException;
+import javax.faces.event.PhaseId;
 import java.util.Iterator;
 
-public class UIForm extends javax.faces.component.UIForm {
+
+public class UIForm extends javax.faces.component.UIForm implements InvokeOnComponent {
 
   private static final Log LOG = LogFactory.getLog(UIForm.class);
 
@@ -90,5 +97,17 @@ public class UIForm extends javax.faces.component.UIForm {
         kid.processUpdates(facesContext);
       }
     }
+  }
+
+  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
+      throws FacesException {
+    // TODO is this needed?
+    if (callback instanceof TobagoCallback) {
+      if (PhaseId.APPLY_REQUEST_VALUES.equals(((TobagoCallback) callback).getPhaseId())) {
+        decode(context);
+      }
+    }
+    context.getExternalContext().getRequestMap().put(UIForm.SUBMITTED_MARKER, isSubmitted());
+    return FacesUtils.invokeOnComponent(context, this, clientId, callback);
   }
 }
