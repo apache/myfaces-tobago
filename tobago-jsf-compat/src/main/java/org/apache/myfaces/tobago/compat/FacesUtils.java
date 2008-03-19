@@ -17,6 +17,9 @@ package org.apache.myfaces.tobago.compat;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.faces.application.Application;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
@@ -27,6 +30,8 @@ import javax.el.ValueExpression;
 
 
 public class FacesUtils {
+
+  private static final Log LOG = LogFactory.getLog(FacesUtils.class);
 
   static {
     try {
@@ -66,21 +71,25 @@ public class FacesUtils {
     return false;
   }
 
-  private static boolean invokeOnComponentFacetsAndChildren(FacesContext context, UIComponent component, String clientId,
-      ContextCallback callback) {
+  private static boolean invokeOnComponentFacetsAndChildren(FacesContext context, UIComponent component,
+      String clientId, ContextCallback callback) {
     for (java.util.Iterator<UIComponent> it = component.getFacetsAndChildren(); it.hasNext();) {
       UIComponent child = it.next();
 
       if (facesVersion == 11) {
         if (child instanceof InvokeOnComponent) {
-          System.err.println("Found InvokeOnComponent with clientId " + child.getClientId(context));
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Found InvokeOnComponent with clientId " + child.getClientId(context));
+          }
           if (((InvokeOnComponent) child).invokeOnComponent(context, clientId, callback)) {
             return true;
           }
         } else {
-          System.err.println("Did not found InvokeOnComponent " + child.getClass().getName() + " "
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Did not found InvokeOnComponent " + child.getClass().getName() + " "
               + child.getClientId(context) + " "
               + child.getRendererType() + (child.getParent()!=null?child.getParent().getClass().getName():"null"));
+          }
         }
       } else {
         if (child.invokeOnComponent(context, clientId, callback)) {
@@ -99,7 +108,8 @@ public class FacesUtils {
     }
   }
 
-  public static boolean isReadonlyValueBindingOrValueExpression(FacesContext context, UIComponent component, String name) {
+  public static boolean isReadonlyValueBindingOrValueExpression(FacesContext context,
+      UIComponent component, String name) {
     if (facesVersion == 11) {
       return component.getValueBinding(name).isReadOnly(context);
     } else {
