@@ -26,6 +26,6 @@ public interface ContextCallback {
    * @param context <code>FacesContext</code> for the current request
    * @param target <code>UIComponent</code> on which the <code>UIComponent.invokeOnComponent()</code> will be called
    */
-	void invokeContextCallback(FacesContext context, UIComponent target);
+  void invokeContextCallback(FacesContext context, UIComponent target);
 }
 
