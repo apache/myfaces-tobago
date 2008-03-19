@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.apt.generate;
  * Time: 15:27:56
  */
 public class ComponentInfo extends TagInfo {
-  public boolean invokeOnComponent;
+  private boolean invokeOnComponent;
 
   public ComponentInfo(String qualifiedName, String rendererName) {
     super(qualifiedName, rendererName);
