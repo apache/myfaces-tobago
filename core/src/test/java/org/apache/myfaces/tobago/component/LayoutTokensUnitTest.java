@@ -38,4 +38,11 @@ public class LayoutTokensUnitTest extends TestCase {
     assertFalse(LayoutTokens.isNumberAndSuffix("acm", "cm"));
     assertFalse(LayoutTokens.isNumberAndSuffix("cm", "cm"));
   }
+
+  public void testParseToken() {
+    assertEquals(RelativeLayoutToken.DEFAULT_INSTANCE, LayoutTokens.parseToken("*"));
+    assertEquals(new RelativeLayoutToken(3), LayoutTokens.parseToken("3*"));
+    assertEquals(new PercentLayoutToken(33), LayoutTokens.parseToken("33%"));
+    assertEquals(new PixelLayoutToken(120), LayoutTokens.parseToken("120px"));
+  }
 }

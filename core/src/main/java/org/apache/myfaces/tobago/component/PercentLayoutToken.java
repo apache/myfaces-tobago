@@ -22,8 +22,10 @@ package org.apache.myfaces.tobago.component;
  * Time: 4:29:28 PM
  */
 public class PercentLayoutToken extends LayoutToken {
-  private int percent = 0;
 
+  static final String SUFFIX = "%";
+
+  private int percent = 0;
 
   public PercentLayoutToken(int percent) {
     this.percent = percent;
@@ -34,6 +36,27 @@ public class PercentLayoutToken extends LayoutToken {
   }
 
   public String toString() {
-    return percent + "%";
+    return percent + SUFFIX;
+  }
+
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    PercentLayoutToken that = (PercentLayoutToken) o;
+
+    if (percent != that.percent) {
+      return false;
+    }
+
+    return true;
+  }
+
+  public int hashCode() {
+    return percent;
   }
 }

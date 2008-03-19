@@ -33,10 +33,6 @@ public class LayoutTokens {
 
   private static final Log LOG = LogFactory.getLog(LayoutTokens.class);
 
-  private static final String PIXEL_TOKEN_SUFFIX = "px";
-  private static final String PERCENT_TOKEN_SUFFIX = "%";
-  private static final String RELATIVE_TOKEN_SUFFIX = "*";
-
   private List<LayoutToken> tokens = new ArrayList<LayoutToken>();
 
   public int getSize() {
@@ -114,11 +110,11 @@ public class LayoutTokens {
       } else if (token.equals("minimum")) {
         return new MinimumLayoutToken();
       } else if (isPixelToken(token)) {
-        return new PixelLayoutToken(Integer.parseInt(token.replaceAll("\\D", "")));
+        return new PixelLayoutToken(Integer.parseInt(removeSuffix(token, PixelLayoutToken.SUFFIX)));
       } else if (isPercentToken(token)) {
-        return new PercentLayoutToken(Integer.parseInt(token.replaceAll("\\D", "")));
+        return new PercentLayoutToken(Integer.parseInt(removeSuffix(token, PercentLayoutToken.SUFFIX)));
       } else if (isRelativeToken(token)) {
-        return new RelativeLayoutToken(Integer.parseInt(token.replaceAll("\\D", "")));
+        return new RelativeLayoutToken(Integer.parseInt(removeSuffix(token, RelativeLayoutToken.SUFFIX)));
       } else {
         LOG.error("Ignoring unknown layout token '" + token + "'");
       }
@@ -129,20 +125,24 @@ public class LayoutTokens {
   }
 
   static boolean isPixelToken(String token) {
-    return isNumberAndSuffix(token, PIXEL_TOKEN_SUFFIX);
+    return isNumberAndSuffix(token, PixelLayoutToken.SUFFIX);
   }
 
   static boolean isPercentToken(String token) {
-    return isNumberAndSuffix(token, PERCENT_TOKEN_SUFFIX);
+    return isNumberAndSuffix(token, PercentLayoutToken.SUFFIX);
   }
 
   static boolean isRelativeToken(String token) {
-    return isNumberAndSuffix(token, RELATIVE_TOKEN_SUFFIX);
+    return isNumberAndSuffix(token, RelativeLayoutToken.SUFFIX);
   }
 
   static boolean isNumberAndSuffix(String token, String suffix) {
     return token.endsWith(suffix)
-        && NumberUtils.isDigits(token.substring(0, token.length() - suffix.length()));
+        && NumberUtils.isDigits(removeSuffix(token, suffix));
+  }
+
+  private static String removeSuffix(String token, String suffix) {
+    return token.substring(0, token.length() - suffix.length());
   }
 
   public String toString() {

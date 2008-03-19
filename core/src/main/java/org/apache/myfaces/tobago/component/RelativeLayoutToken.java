@@ -22,20 +22,44 @@ package org.apache.myfaces.tobago.component;
  * Time: 1:34:11 PM
  */
 public class RelativeLayoutToken extends LayoutToken {
+
+  static final String SUFFIX = "*";
+
   public static final String DEFAULT_TOKEN_STRING = "1*";
   public static final RelativeLayoutToken DEFAULT_INSTANCE = new RelativeLayoutToken(1);
+
   private int factor = 1;
 
   public RelativeLayoutToken(int factor) {
     this.factor = factor;
   }
 
-
   public int getFactor() {
     return factor;
   }
 
   public String toString() {
-    return factor + "*";
+    return factor + SUFFIX;
+  }
+
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    RelativeLayoutToken that = (RelativeLayoutToken) o;
+
+    if (factor != that.factor) {
+      return false;
+    }
+
+    return true;
+  }
+
+  public int hashCode() {
+    return factor;
   }
 }
