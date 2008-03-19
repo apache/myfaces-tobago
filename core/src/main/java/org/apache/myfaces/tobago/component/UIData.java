@@ -558,7 +558,8 @@ public class UIData extends javax.faces.component.UIData
     return super.findComponent(searchId);
   }
 
-  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback) throws FacesException {
+  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
+      throws FacesException {
     // we may need setRowIndex on UIData
     int oldRowIndex = getRowIndex();
     try {
