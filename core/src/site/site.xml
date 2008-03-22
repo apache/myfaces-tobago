@@ -17,21 +17,21 @@
 -->
 
 <project name="Tobago core">
-  <bannerLeft>
-    <name>MyFaces</name>
-    <src>images/myfaces-logo.png</src>
-    <href>http://myfaces.apache.org/</href>
-  </bannerLeft>
-  <bannerRight>
+   <bannerLeft>
     <name>Tobago</name>
     <src>images/tobagoLogo.png</src>
     <href>http://myfaces.apache.org/tobago</href>
+  </bannerLeft>
+  <bannerRight>
+    <name>Apache Banner</name>
+    <src>img/banners/apache_banner.png</src>
+    <href>http://myfaces.apache.org/</href>
   </bannerRight>
   <publishDate format="dd MMM yyyy" />
   <skin>
     <groupId>org.apache.myfaces.maven</groupId>
-    <artifactId>tobago-site-skin</artifactId>
-    <version>1.0.5-SNAPSHOT</version>
+    <artifactId>myfaces-site-skin</artifactId>
+    <version>1-SNAPSHOT</version>
   </skin>
   <body>
     <menu name="Tobago">
