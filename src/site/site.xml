@@ -18,20 +18,20 @@
 
 <project name="Tobago">
   <bannerLeft>
-    <name>MyFaces</name>
-    <src>images/myfaces-logo.png</src>
-    <href>http://myfaces.apache.org/</href>
-  </bannerLeft>
-  <bannerRight>
     <name>Tobago</name>
     <src>images/tobagoLogo.png</src>
     <href>http://myfaces.apache.org/tobago</href>
+  </bannerLeft>
+  <bannerRight>
+    <name>Apache Banner</name>
+    <src>img/banners/apache_banner.png</src>
+    <href>http://myfaces.apache.org/</href>
   </bannerRight>
   <publishDate format="dd MMM yyyy" />
   <skin>
     <groupId>org.apache.myfaces.maven</groupId>
-    <artifactId>tobago-site-skin</artifactId>
-    <version>1.0.5-SNAPSHOT</version>
+    <artifactId>myfaces-site-skin</artifactId>
+    <version>1-SNAPSHOT</version>
   </skin>
   <body>
     <links>
@@ -50,6 +50,7 @@
       <item name="Introduction" href="http://myfaces.apache.org/tobago/index.html"/>
       <item name="Download" href="http://myfaces.apache.org/tobago/download.html"/>
       <item name="Demo" href="http://myfaces.apache.org/tobago/demo.html"/>
+      <item name="News" href="http://myfaces.apache.org/tobago/news.html"/>
       <item name="Mailing Lists" href="mail-lists.html" />
     </menu>
 

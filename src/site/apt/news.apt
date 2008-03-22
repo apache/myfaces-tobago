@@ -1,0 +1,60 @@
+February 18, 2008 - MyFaces Tobago 1.0.15 Released
+
+   The MyFaces Tobago component library in version 1.0.15 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312929}here}}.
+
+January 26, 2007 - MyFaces Tobago 1.0.14 Released
+
+   The MyFaces Tobago component library in version 1.0.14 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312878}here}}.
+
+January 11, 2007 -  1.0.x branch has been created
+
+   Trunk is now 1.1.0-SNAPSHOT
+
+December 18, 2007 - MyFaces Tobago 1.0.13 Released
+
+   The MyFaces Tobago component library in version 1.0.13 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312766}here}}.
+
+October 19, 2007 - MyFaces Tobago 1.0.12 Released
+
+   The MyFaces Tobago component library in version 1.0.12 has been released.
+
+   Release notes can be found
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312498}here}}.
+
+June 3, 2007 - MyFaces Tobago 1.0.11 Released
+
+   MyFaces Tobago 1.0.11 has been released. It is available from the
+   {{{download.html}download}} page, and in the central Maven repository under
+   Group ID "org.apache.myfaces.tobago".
+
+   More information on this release, including a list of resolved issues, can be
+   found on the
+   {{{http://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310273&styleName=Html&version=12312376}release notes}}.
+
+March 12, 2007 - MyFaces Tobago 1.0.10 Released
+
+   MyFaces Tobago 1.0.10 has been released.
+
+December 23, 2006 - MyFaces Tobago 1.0.9 Released
+
+   MyFaces Tobago 1.0.9 has been released.
+
+September 20, 2006 - MyFaces Tobago 1.0.8 Released
+
+   MyFaces Tobago 1.0.8 has been released.
+
+March 23, 2006 - Tobago Has Left Incubation
+
+  The goal of Tobago is to provide the community with a well designed set of user
+  interface components based on JSF and run on MyFaces.  Tobago is more than just a tag library,
+  it contains some powerful tools for layouts and themes.  For more information, please visit
+  the Tobago {{{http://myfaces.apache.org/tobago}site}}.            
