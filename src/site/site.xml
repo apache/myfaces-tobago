@@ -23,8 +23,8 @@
     <href>http://myfaces.apache.org/tobago</href>
   </bannerLeft>
   <bannerRight>
-    <name>Apache Banner</name>
-    <src>img/banners/apache_banner.png</src>
+    <name>Apache MyFaces</name>
+    <src>img/banners/MyFaces_logo.jpg</src>
     <href>http://myfaces.apache.org/</href>
   </bannerRight>
   <publishDate format="dd MMM yyyy" />
