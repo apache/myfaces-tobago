@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.math.NumberUtils;
 
 import java.util.StringTokenizer;
 import java.util.List;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
  * Time: 1:11:25 PM
  */
 public class LayoutTokens {
+
   private static final Log LOG = LogFactory.getLog(LayoutTokens.class);
 
   private List<LayoutToken> tokens = new ArrayList<LayoutToken>();
@@ -67,7 +69,6 @@ public class LayoutTokens {
 
   public static LayoutTokens parse(String[] tokens) {
     LayoutTokens layoutTokens = new LayoutTokens();
-
     for (String token : tokens) {
       parseToken(token, layoutTokens);
     }
@@ -77,7 +78,6 @@ public class LayoutTokens {
   public static LayoutTokens parse(String tokens) {
     return parse(tokens, null);
   }
-
 
   public static LayoutTokens parse(String tokens, LayoutToken defaultToken) {
     LayoutTokens layoutTokens = new LayoutTokens();
@@ -99,31 +99,50 @@ public class LayoutTokens {
     if (layoutToken != null) {
       layoutTokens.addToken(layoutToken);
     }
-
   }
 
   public static LayoutToken parseToken(String token) {
     try {
-      // TODO optimize me
       if ("*".equals(token)) {
         return RelativeLayoutToken.DEFAULT_INSTANCE;
       } else if (token.equals("fixed")) {
         return FixedLayoutToken.INSTANCE;
       } else if (token.equals("minimum")) {
         return new MinimumLayoutToken();
-      } else if (token.matches("\\d+px")) {
-        return new PixelLayoutToken(Integer.parseInt(token.replaceAll("\\D", "")));
-      } else if (token.matches("^\\d+\\%")) {
-        return new PercentLayoutToken(Integer.parseInt(token.replaceAll("\\D", "")));
-      } else if (token.matches("^\\d+\\*")) {
-        return new RelativeLayoutToken(Integer.parseInt(token.replaceAll("\\D", "")));
+      } else if (isPixelToken(token)) {
+        return new PixelLayoutToken(Integer.parseInt(removeSuffix(token, PixelLayoutToken.SUFFIX)));
+      } else if (isPercentToken(token)) {
+        return new PercentLayoutToken(Integer.parseInt(removeSuffix(token, PercentLayoutToken.SUFFIX)));
+      } else if (isRelativeToken(token)) {
+        return new RelativeLayoutToken(Integer.parseInt(removeSuffix(token, RelativeLayoutToken.SUFFIX)));
       } else {
-        LOG.error("Unknown layout token " + token + " ignoring");
+        LOG.error("Ignoring unknown layout token '" + token + "'");
       }
     } catch (NumberFormatException e) {
-      LOG.error("Error parsing layout token " + token, e);
+      LOG.error("Error parsing layout token '" + token + "'", e);
     }
     return null;
+  }
+
+  static boolean isPixelToken(String token) {
+    return isNumberAndSuffix(token, PixelLayoutToken.SUFFIX);
+  }
+
+  static boolean isPercentToken(String token) {
+    return isNumberAndSuffix(token, PercentLayoutToken.SUFFIX);
+  }
+
+  static boolean isRelativeToken(String token) {
+    return isNumberAndSuffix(token, RelativeLayoutToken.SUFFIX);
+  }
+
+  static boolean isNumberAndSuffix(String token, String suffix) {
+    return token.endsWith(suffix)
+        && NumberUtils.isDigits(removeSuffix(token, suffix));
+  }
+
+  private static String removeSuffix(String token, String suffix) {
+    return token.substring(0, token.length() - suffix.length());
   }
 
   public String toString() {
@@ -134,7 +153,6 @@ public class LayoutTokens {
     }
     return str.toString();
   }
-
 
 }
 

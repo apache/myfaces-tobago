@@ -19,8 +19,10 @@ package org.apache.myfaces.tobago.component;
 
 
 public class PixelLayoutToken extends LayoutToken {
-  private int pixel = 0;
 
+  static final String SUFFIX = "px";
+
+  private int pixel = 0;
 
   public PixelLayoutToken(int pixel) {
     this.pixel = pixel;
@@ -31,6 +33,27 @@ public class PixelLayoutToken extends LayoutToken {
   }
 
   public String toString() {
-    return pixel + "px";
+    return pixel + SUFFIX;
+  }
+
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    PixelLayoutToken that = (PixelLayoutToken) o;
+
+    if (pixel != that.pixel) {
+      return false;
+    }
+
+    return true;
+  }
+
+  public int hashCode() {
+    return pixel;
   }
 }
