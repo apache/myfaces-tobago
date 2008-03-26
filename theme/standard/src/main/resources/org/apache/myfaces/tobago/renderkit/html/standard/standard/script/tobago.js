@@ -222,6 +222,17 @@ var Tobago = {
 
   isSubmit: false,
 
+ 
+  /**
+    * The id of a initially loaded popup (not by ajax)
+    */
+  initialPopupId: null,
+  
+  /**
+    * Count of currently open popups
+    */
+  openPopups: 0,
+
   // -------- Functions -------------------------------------------------------
 
 
@@ -261,7 +272,11 @@ var Tobago = {
     Tobago.startScriptLoaders();
     TbgTimer.endScriptLoaders = new Date();
     Tobago.pageIsComplete = true;
-    Tobago.setFocus();
+    if (Tobago.initialPopupId != null) {
+      Tobago.lockPopupPage(Tobago.initialPopupId);
+    } else {
+      Tobago.setFocus();
+    }
     TbgTimer.endTotal = new Date();
     TbgTimer.log();
   },
@@ -447,6 +462,16 @@ var Tobago = {
       transition = true;
     }
     LOG.info("transition =" + transition);
+
+    if (Tobago.openPopups > 0) {
+      // enable all elements on page when this is a submit from a popup
+      // (disabled input elements are not submitted)
+      for (i = 0; i < document.forms[0].elements.length; i++) {
+        var element = document.forms[0].elements[i];
+        element.disabled = false;
+      }
+    }
+
     Tobago.Transport.request(function() {
       if (!this.isSubmit) {
         this.isSubmit = true;
@@ -891,48 +916,62 @@ var Tobago = {
       }
     }
     
-    // disable all elements on page not initially disabled
-    hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + "disabledElements");
-    if (hidden == null) {
-      hidden = document.createElement("input");
-      hidden.id = id + Tobago.SUB_COMPONENT_SEP + "disabledElements";
-      hidden.name = id;
-      hidden.type = "hidden";
-      document.forms[0].appendChild(hidden);
+    if (!Tobago.pageIsComplete) {
+      // Popup is loaded during page loading
+      Tobago.initialPopupId = id;
+    } else {
+      // Popup is loaded by ajax
+      Tobago.lockPopupPage(id); 
     }
+    Tobago.openPopups++;
+  },
+ 
+  /**
+    * Locks the parent page of a popup when it is opened
+    */
+  lockPopupPage: function(id) {
+    // disable all elements and anchors on page not initially disabled and
+    // store their ids in a hidden field
+    var hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + "disabledElements");
+    if (hidden == null) {
+     hidden = document.createElement("input");
+     hidden.id = id + Tobago.SUB_COMPONENT_SEP + "disabledElements";
+     hidden.name = id;
+     hidden.type = "hidden";
+     document.forms[0].appendChild(hidden);
+   }
     hidden.value = ",";
     var firstPopupElement = null;
-    for (var i = 0; i < document.forms[0].elements.length; i++) {
+    for (i = 0; i < document.forms[0].elements.length; i++) {
       var element = document.forms[0].elements[i];
       if (element.type != "hidden" && !element.disabled) {
         if (element.id.indexOf(id) != 0) {
-          element.disabled = true;
-          hidden.value += element.id + ",";
-        } else {
-          if (firstPopupElement == null && element.focus) {
-            firstPopupElement = element;
-          }
-        }
-      }
+         element.disabled = true;        
+         hidden.value += element.id + ",";
+       } else {
+         if (firstPopupElement == null && element.focus) {
+           firstPopupElement = element;
+         }
+       }
+     }
     }
-    for (var i = 0; i < document.anchors.length; i++) {
+    for (i = 0; i < document.anchors.length; i++) {
       var element = document.anchors[i];
       if (!element.disabled) {
         if (element.id.indexOf(id) != 0) {
-          element.disabled = true;
-          hidden.value += element.id + ",";
-        } else {
-          if (firstPopupElement == null && element.focus) {
-            firstPopupElement = element;
-          }
-        }
-      }
+         element.disabled = true;        
+         hidden.value += element.id + ",";
+       } else {
+         if (firstPopupElement == null && element.focus) {
+           firstPopupElement = element;
+         }
+       }
+     }
     }
-    // set focus on first element in popup
+    // set focus to first element in popup
     if (firstPopupElement != null) {
-      firstPopupElement.focus();
+       firstPopupElement.focus();
     }
-
   },
 
   popupResizeStub: null,
@@ -1003,23 +1042,36 @@ var Tobago = {
 
     Tobago.removeEventListener(window, "resize", Tobago.popupResizeStub);
     Tobago.popupResizeStub = null;
-
-    // enable all elements on page not initially disabled
-    hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + "disabledElements");
-    if (hidden != null && hidden.value != "") {
-      for (var i = 0; i < document.forms[0].elements.length; i++) {
-        var element = document.forms[0].elements[i];
-        if (hidden.value.indexOf("," + element.id + ",") >= 0) {
-          element.disabled = false;
-        }
-      }
-      for (var i = 0; i < document.anchors.length; i++) {
-        var element = document.anchors[i];
-        if (hidden.value.indexOf("," + element.id + ",") >= 0) {
-          element.disabled = false;
-        }
-      }
+    
+    Tobago.unlockPopupPage(id);
+    Tobago.openPopups--;
+    
+    // reset focus when last popup was closed
+    if (Tobago.openPopups == 0) {
+      Tobago.setFocus();
     }
+  },
+
+  /**
+    * Unlock the parent page of a popup when it is closed
+    */  
+  unlockPopupPage: function(id) {
+    // enable all elements and anchors on page stored in a hidden field
+    var hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + "disabledElements");
+    if (hidden != null && hidden.value != "") {
+     for (i = 0; i < document.forms[0].elements.length; i++) {
+       var element = document.forms[0].elements[i];
+       if (hidden.value.indexOf("," + element.id + ",") >= 0) {
+         element.disabled = false;
+       }
+     }
+     for (i = 0; i < document.anchors.length; i++) {
+       var element = document.anchors[i];
+       if (hidden.value.indexOf("," + element.id + ",") >= 0) {
+         element.disabled = false;
+       }
+     }
+   }
   },
 
   openPopupWithAction: function(popupId, actionId, options) {

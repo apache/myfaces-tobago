@@ -107,7 +107,7 @@ public class DatePickerRenderer extends LinkRenderer {
 
     UICommand cancelButton  = (UICommand) popup.findComponent(DatePickerController.CLOSE_POPUP);
     attributes = cancelButton.getAttributes();
-    attributes.put(ATTR_ACTION_ONCLICK, "Tobago.closePopup(this);");
+    attributes.put(ATTR_ACTION_ONCLICK, "var textBox = writeIntoField2(this);Tobago.closePopup(this);textBox.focus();");
     attributes.put(TobagoConstants.ATTR_POPUP_CLOSE, "immediate");
     //cancelButton.setActionListener(datePickerController);
 
