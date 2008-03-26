@@ -228,7 +228,7 @@ function initCalendarParse(id, textBoxId) {
 function writeIntoField2(obj) {
   var id = obj.id;
   var index = id.lastIndexOf(':');
-  writeIntoField(id.substring(0, index));
+  return writeIntoField(id.substring(0, index));
 }
 
 
@@ -261,8 +261,9 @@ function writeIntoField(id) {
   }
   var date = new Date(year, month - 1, day, hour, minute, second);
   textBox.value = formatDate(date, document.calendar.formatPattern);
-  textBox.focus();
+//  textBox.focus();
 //  alert(document.calendar.formatPattern);
+	return textBox;
 }
 
 // ------------------------------------------------------------------

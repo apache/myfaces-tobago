@@ -478,7 +478,8 @@ TreeOldNode.prototype.toString = function (depth, last) {
       if (this.marked) {
         itemStyle += " tree-item-marker";
       }
-      str += '<a class="' + itemStyle + '"';
+      str += '<a class="' + itemStyle + '"'
+          + ' id="' + this.id + '_a"';
       if (this.tip) {
         str += ' title="' + this.tip + '"';
       }
