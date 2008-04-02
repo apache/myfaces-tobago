@@ -215,8 +215,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
     LOG.debug(builder + "<div name=" + label + ">");
   }
 
-  private void encodeExpandedHidden(TobagoResponseWriter writer, AbstractUITreeNode node, String clientId, boolean expanded)
-      throws IOException {
+  private void encodeExpandedHidden(TobagoResponseWriter writer, AbstractUITreeNode node, String clientId,
+      boolean expanded) throws IOException {
     writer.startElement(HtmlConstants.INPUT, node);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeNameAttribute(clientId + "-expanded");
