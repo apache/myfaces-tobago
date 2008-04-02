@@ -87,7 +87,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     // Todo: check for valid binding
     boolean renderAjaxSuggest = false;
     if (input instanceof UIInput) {
-     renderAjaxSuggest = ((UIInput)input).getSuggestMethod() != null;
+     renderAjaxSuggest = ((UIInput) input).getSuggestMethod() != null;
     }
     String id = input.getClientId(facesContext);
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
@@ -193,7 +193,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     MethodBinding mb;
     Object o = null;
     if (input instanceof UIInput) {
-      o = ((UIInput)input).getSuggestMethod();
+      o = ((UIInput) input).getSuggestMethod();
     }
     if (o instanceof MethodBinding) {
       mb = (MethodBinding) o;
