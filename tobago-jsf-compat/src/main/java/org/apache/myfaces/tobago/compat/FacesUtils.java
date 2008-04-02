@@ -26,8 +26,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.NamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
-import javax.el.ValueExpression;
-
 
 public class FacesUtils {
 
@@ -100,11 +98,21 @@ public class FacesUtils {
     return false;
   }
 
+
+  public static Object getValueFromValueBindingOrValueExpression(FacesContext context, UIComponent component, String name) {
+    if (facesVersion == 11) {
+      return component.getValueBinding(name).getValue(context);
+    } else {
+      return FacesUtils12.getValueFromValueBindingOrValueExpression(context, component, name);
+    }
+  }
+
+
   public static boolean hasValueBindingOrValueExpression(UIComponent component, String name) {
     if (facesVersion == 11) {
       return component.getValueBinding(name) != null;
     } else {
-      return component.getValueExpression(name) != null;
+      return FacesUtils12.hasValueBindingOrValueExpression(component, name);
     }
   }
 
@@ -113,7 +121,7 @@ public class FacesUtils {
     if (facesVersion == 11) {
       return component.getValueBinding(name).isReadOnly(context);
     } else {
-      return component.getValueExpression(name).isReadOnly(context.getELContext());
+      return FacesUtils12.isReadonlyValueBindingOrValueExpression(context, component, name);
     }
   }
 
@@ -122,7 +130,7 @@ public class FacesUtils {
     if (facesVersion == 11) {
       return component.getValueBinding(name).getExpressionString();
     } else {
-      return component.getValueExpression(name).getExpressionString();
+      return FacesUtils12.getExpressionString(component, name);
     }
   }
 
@@ -134,10 +142,7 @@ public class FacesUtils {
         vb.setValue(context, value);
       }
     } else {
-      ValueExpression ve = component.getValueExpression(bindingName);
-      if (ve != null) {
-        ve.setValue(context.getELContext(), value);
-      }
+      FacesUtils12.setValueOfBindingOrExpression(context, value, component, bindingName);
     }
   }
 
@@ -149,10 +154,7 @@ public class FacesUtils {
         toComponent.setValueBinding(toName, vb);
       }
     } else {
-      ValueExpression ve = fromComponent.getValueExpression(fromName);
-      if (ve != null) {
-        toComponent.setValueExpression(toName, ve);
-      }
+      FacesUtils12.copyValueBindingOrValueExpression(fromComponent, fromName, toComponent, toName);
     }
   }
 }
