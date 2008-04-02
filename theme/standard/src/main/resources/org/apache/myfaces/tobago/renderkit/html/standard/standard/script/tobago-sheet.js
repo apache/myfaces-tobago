@@ -493,7 +493,7 @@ Tobago.Sheet.prototype.doSelection = function(event) {
 
       if ((!event.ctrlKey && !selector) || this.selectable == "single" ) {
         // clearAllSelections();
-        Tobago.element(this.selectedId).value = "";
+        Tobago.element(this.selectedId).value = ",";
       }
 
       if (event.shiftKey && this.selectable == "multi") {
@@ -614,10 +614,10 @@ Tobago.Sheet.prototype.toggleSelection = function(rowIndex) {
       var re = new RegExp("," + rowIndex + ",");
       var selected = Tobago.element(this.selectedId);
       if (selected.value.search(re) != -1) {
-        selected.value = selected.value.replace(re, "");
+        selected.value = selected.value.replace(re, ",");
       }
       else {
-        selected.value = selected.value + "," + rowIndex + ",";
+        selected.value = selected.value + rowIndex + ",";
       }
     }
   };
@@ -642,7 +642,7 @@ Tobago.Sheet.prototype.selectRange = function(dataRow) {
       if (selected.value.search(re) == -1) {
         var selector = Tobago.element(this.id + "_data_row_selector_" + i);
         if (!selector || !selector.src.match(/Disabled/)) {
-          selected.value = selected.value + "," + i + ",";
+          selected.value = selected.value + i + ",";
         }
       }
     }
@@ -832,7 +832,7 @@ Tobago.Sheet.prototype.selectAll = function() {
       if (!image || !image.src.match(/Disabled/)) {
         var re = new RegExp("," + i + ",");
         if (selected.value.search(re) == -1) {
-          selected.value = selected.value + "," + i + ",";
+          selected.value = selected.value + i + ",";
         }
       }
       row = this.getSiblingRow(row, ++i);
@@ -850,12 +850,12 @@ Tobago.Sheet.prototype.unSelectAll = function() {
         image = this.getSelectionElementForRow(row);
         if (!image || !image.src.match(/Disabled/)) {
           var re = new RegExp("," + i + ",", 'g');
-          selected.value = selected.value.replace(re, "");
+          selected.value = selected.value.replace(re, ",");
         }
         row = this.getSiblingRow(row, ++i);
       }
     } else {
-      selected.value = "";
+      selected.value = ",";
     }
     this.updateSelectionView();
   };
