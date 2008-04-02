@@ -21,8 +21,6 @@ import com.sun.facelets.tag.jsf.ComponentConfig;
 import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.UISelectOneListbox;
 
-import javax.faces.component.UISelectOne;
-
 /*
  * Date: Aug 9, 2007
  * Time: 8:39:46 PM
