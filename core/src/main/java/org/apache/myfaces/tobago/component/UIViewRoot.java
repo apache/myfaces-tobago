@@ -78,6 +78,19 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
         clientProperties != null ? clientProperties.getId() : "null", getLocale());
   }
 
+  public Object saveState(FacesContext facesContext) {
+    Object[] state = new Object[2];
+    state[0] = super.saveState(facesContext);
+    state[1] = rendererCacheKey;
+    return state;
+  }
+
+  public void restoreState(FacesContext facesContext, Object o) {
+    Object[] state = (Object[]) o;
+    super.restoreState(facesContext, state[0]);
+    rendererCacheKey = (ResourceManagerImpl.CacheKey) state[1];
+  }
+
   public void broadcastEventsForPhase(FacesContext context, PhaseId phaseId) {
     broadcastForPhase(phaseId);
     if (context.getRenderResponse() || context.getResponseComplete()) {

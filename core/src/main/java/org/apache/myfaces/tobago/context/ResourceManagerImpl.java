@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
+import java.io.Serializable;
 
 // FIXME: is this class thread-safe?
 
@@ -633,7 +634,7 @@ public class ResourceManagerImpl implements ResourceManager {
     }
   }
 
-  public static final class CacheKey {
+  public static final class CacheKey implements Serializable {
     private final String clientPropertyId;
     private final Locale locale;
     private final int hashCode;
