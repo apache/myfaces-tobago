@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.fileupload;
  */
 
 import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
+import org.apache.myfaces.tobago.util.JndiUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -27,7 +28,6 @@ import javax.faces.lifecycle.Lifecycle;
 import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
 import javax.servlet.http.HttpServletRequest;
-import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.io.File;
@@ -74,10 +74,9 @@ public class FileUploadFacesContextFactoryImpl extends FacesContextFactory {
     InitialContext ic = null;
     try {
       ic = new InitialContext();
-      Context ctx = (Context) ic.lookup("java:comp/env");
 
       try {
-        String repositoryPath = (String) ctx.lookup("uploadRepositoryPath");
+        String repositoryPath = (String) JndiUtils.getJndiProperty(ic, "uploadRepositoryPath");
         if (repositoryPath != null) {
           File file = new File(repositoryPath);
           if (!file.exists()) {
@@ -95,7 +94,8 @@ public class FileUploadFacesContextFactoryImpl extends FacesContextFactory {
       }
 
       try {
-        maxSize = TobagoMultipartFormdataRequest.getMaxSize((String) ctx.lookup("uploadMaxFileSize"));
+        maxSize =
+            TobagoMultipartFormdataRequest.getMaxSize((String) JndiUtils.getJndiProperty(ic, "uploadMaxFileSize"));
       } catch (NamingException ne) {
         // ignore
       }
