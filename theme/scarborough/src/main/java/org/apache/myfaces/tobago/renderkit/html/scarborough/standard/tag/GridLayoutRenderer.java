@@ -351,8 +351,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
             } // ignore, use 0
 
             int topPadding = getCellPadding(facesContext, layout, firstRenderedRow);
-            System.err.println("Cellheight " + cellHeight + " topPadding "+ topPadding + " firstRendered "
-                + firstRenderedRow + " RowIndex " + rowIndex + " Column " + columnIndex);
+            //("Cellheight " + cellHeight + " topPadding "+ topPadding + " firstRendered "
+            //    + firstRenderedRow + " RowIndex " + rowIndex + " Column " + columnIndex);
             String cellStyle =
                 (cellWidth != -1 ? "width: " + cellWidth + "px;" : "")
                 + (cellHeight != -1 ? " height: " + (cellHeight + topPadding) + "px;" : "");

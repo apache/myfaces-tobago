@@ -73,7 +73,8 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     if (!(component instanceof UISelectOneListbox)) {
-      LOG.error("Wrong type: Need " + UISelectOneListbox.class.getName() + ", but was " + component.getClass().getName());
+      LOG.error("Wrong type: Need " + UISelectOneListbox.class.getName() + ", but was "
+          + component.getClass().getName());
       return;
     }
 

@@ -51,7 +51,8 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     if (!(component instanceof UISelectManyCheckbox)) {
-      LOG.error("Wrong type: Need " + UISelectManyCheckbox.class.getName() + ", but was " + component.getClass().getName());
+      LOG.error("Wrong type: Need " + UISelectManyCheckbox.class.getName() + ", but was "
+          + component.getClass().getName());
       return;
     }
 
@@ -163,7 +164,8 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     if (!(component instanceof UISelectManyCheckbox)) {
-      LOG.error("Wrong type: Need " + UISelectManyCheckbox.class.getName() + ", but was " + component.getClass().getName());
+      LOG.error("Wrong type: Need " + UISelectManyCheckbox.class.getName() + ", but was "
+          + component.getClass().getName());
       return 100;
     }
 

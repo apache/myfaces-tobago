@@ -52,7 +52,8 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     if (!(component instanceof UISelectOneChoice)) {
-      LOG.error("Wrong type: Need " + UISelectOneChoice.class.getName() + ", but was " + component.getClass().getName());
+      LOG.error("Wrong type: Need " + UISelectOneChoice.class.getName() + ", but was "
+          + component.getClass().getName());
       return;
     }
 
