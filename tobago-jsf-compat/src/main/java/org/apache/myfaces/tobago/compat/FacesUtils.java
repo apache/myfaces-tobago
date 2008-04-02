@@ -99,7 +99,8 @@ public class FacesUtils {
   }
 
 
-  public static Object getValueFromValueBindingOrValueExpression(FacesContext context, UIComponent component, String name) {
+  public static Object getValueFromValueBindingOrValueExpression(FacesContext context, UIComponent component,
+      String name) {
     if (facesVersion == 11) {
       return component.getValueBinding(name).getValue(context);
     } else {

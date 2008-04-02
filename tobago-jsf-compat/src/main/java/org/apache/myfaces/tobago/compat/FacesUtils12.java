@@ -24,7 +24,8 @@ import javax.el.ValueExpression;
 
 public class FacesUtils12 {
 
-  public static Object getValueFromValueBindingOrValueExpression(FacesContext context, UIComponent component, String name) {
+  public static Object getValueFromValueBindingOrValueExpression(FacesContext context, UIComponent component,
+      String name) {
     return component.getValueExpression(name).getValue(context.getELContext());
   }
 
