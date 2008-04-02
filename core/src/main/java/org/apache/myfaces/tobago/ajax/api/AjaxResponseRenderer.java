@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.util.EncodeAjaxCallback;
 import org.apache.myfaces.tobago.util.FastStringWriter;
 import org.apache.myfaces.tobago.util.RequestUtils;
 import org.apache.myfaces.tobago.util.ResponseUtils;
+import org.apache.myfaces.tobago.util.JndiUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 
 import javax.faces.FactoryFinder;
@@ -41,7 +42,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
-import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletResponse;
@@ -64,8 +64,7 @@ public class AjaxResponseRenderer {
     callback = new EncodeAjaxCallback();
     try {
       InitialContext ic = new InitialContext();
-      Context ctx = (Context) ic.lookup("java:comp/env");
-      contentType = (String) ctx.lookup("tobago.ajax.contentType");
+      contentType = (String) JndiUtils.getJndiProperty(ic, "tobago.ajax.contentType");
     } catch (NamingException e) { /*ignore*/ }
 
     if (StringUtils.isBlank(contentType)) {
