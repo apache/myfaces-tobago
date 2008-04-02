@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasImage;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 
 /*
  * Date: 31.03.2006
@@ -41,7 +42,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
     rendererType = "MenuCommand",
     allowedChildComponenents = "NONE")
-public interface ToolBarSelectBooleanTagDeclaration extends TobagoTagDeclaration, AbstractCommandTagDeclaration,
+public interface ToolBarSelectBooleanTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey,
     HasCommandType, HasImage, IsDisabled, HasBooleanValue,
     HasTip {

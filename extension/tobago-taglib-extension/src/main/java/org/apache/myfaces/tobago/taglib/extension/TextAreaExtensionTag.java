@@ -58,7 +58,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 
 @Tag(name = "textarea")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.TextAreaTag")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.TextAreaTag")
 public class TextAreaExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasIdBindingAndRendered,
     HasConverter, HasValidator, IsReadonly, IsDisabled, HasMarkup, IsRequired,

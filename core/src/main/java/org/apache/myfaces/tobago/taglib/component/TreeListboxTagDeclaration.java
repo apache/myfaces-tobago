@@ -46,7 +46,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UITreeOld",
     generate = false,
     rendererType = "TreeListbox")
-public interface TreeListboxTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasTreeNodeValue,
+public interface TreeListboxTagDeclaration extends HasIdBindingAndRendered, HasTreeNodeValue,
     HasState, HasIdReference, HasNameReference, IsRequired {
   /**
    * Flag indicating whether or not this component should be render selectable items.

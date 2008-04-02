@@ -127,8 +127,15 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+          <encoding>UTF-8</encoding>
+          <showWarnings>true</showWarnings>
+          <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>-->
           <excludes>
-            <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
+            <exclude>org/apache/myfaces/tobago/tablib/extension/*</exclude>
+            <exclude>org/apache/myfaces/tobago/component/UITreeListbox*</exclude>
+            <exclude>org/apache/myfaces/tobago/component/UIDatePicker*</exclude>
           </excludes>
         </configuration>
         <executions>
@@ -136,10 +143,17 @@
             <id>compile</id>
             <goals><goal>compile</goal></goals>
             <configuration>
+              <source>1.5</source>
+              <target>1.5</target>
+              <encoding>UTF-8</encoding>
+              <showWarnings>true</showWarnings>
+              <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>-->              
+              <verbose>true</verbose>
               <includes>
-                <include>org/apache/myfaces/tobago/taglib/extension/*</include>
                 <include>org/apache/myfaces/tobago/internal/taglib/*</include>
                 <include>org/apache/myfaces/tobago/component/*</include>
+                <include>org/apache/myfaces/tobago/component/UITreeListbox*</include>
+                <include>org/apache/myfaces/tobago/component/UIDatePicker*</include>
               </includes>
               <excludes>
               </excludes>
@@ -164,6 +178,34 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <excludes>
+            <exclude>org/apache/myfaces/tobago/taglib/component/*Declaration.class</exclude>
+            <!--exclude>org/apache/myfaces/tobago/taglib/decl/*.class</exclude-->
+          </excludes>
+          <archive>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+            </manifest>
+            <manifestEntries>
+              <Revision>${scm.revision}</Revision>
+            </manifestEntries>
+            <manifestSections>
+              <manifestSection>
+                <name>${project.artifactId}</name>
+                <manifestEntries>
+                  <Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+                  <Implementation-Version>${project.version}</Implementation-Version>
+                </manifestEntries>
+              </manifestSection>
+            </manifestSections>
+          </archive>
+        </configuration>
       </plugin>
     </plugins>
   </build>
@@ -261,15 +303,24 @@
     <dependency>
       <groupId>org.apache.myfaces.core</groupId>
       <artifactId>myfaces-api</artifactId>
+      <!--version>${myfaces12.version}</version-->
       <scope>provided</scope>
     </dependency>
+     <!--dependency>
+      <groupId>javax.el</groupId>
+      <artifactId>el-api</artifactId>
+      <version>1.0</version>
+      <scope>provided</scope>
+    </dependency-->
     <dependency>
-      <groupId>javax.servlet</groupId>
+      <groupId>javax.servlet.jsp</groupId>
       <artifactId>jsp-api</artifactId>
+      <!--version>2.1</version-->
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
+      <!--version>2.4</version-->
     </dependency>
     <dependency>
       <groupId>org.apache.shale</groupId>

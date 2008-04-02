@@ -22,12 +22,9 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasTreeNodeValue;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-import org.apache.myfaces.tobago.component.UITreeNode;
-import org.apache.myfaces.tobago.component.UITreeData;
 
 /**
  * Renders a tree view.
@@ -38,13 +35,14 @@ import org.apache.myfaces.tobago.component.UITreeData;
 @BodyContentDescription(anyTagOf = "<tcs:treeNode>|<tcs:treeData>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITree",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITree",
     rendererType = "Tree",
     allowedChildComponenents = {
-        UITreeNode.COMPONENT_TYPE,
-        UITreeData.COMPONENT_TYPE
+        "org.apache.myfaces.tobago.TreeNode",
+        "org.apache.myfaces.tobago.TreeData"
         })
 public interface TreeTagDeclaration
-    extends TobagoTagDeclaration, HasIdBindingAndRendered, HasTreeNodeValue, IsRequired {
+    extends HasIdBindingAndRendered, HasTreeNodeValue, IsRequired {
 
   /**
    * Flag indicating whether or not this component should be render selectable items.
@@ -65,31 +63,26 @@ public interface TreeTagDeclaration
   void setSelectable(String selectable);
 
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean",
-      defaultValue = "false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   void setShowRootJunction(String showRootJunction);
 
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean",
-      defaultValue = "false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   void setShowIcons(String showIcons);
 
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean",
-      defaultValue = "false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   void setShowJunctions(String showJunctions);
 
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean",
-      defaultValue = "false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   void setShowRoot(String showRoot);
   
   /**
    * Display option: Normal tree or menu.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "tree",
-  allowedValues = {"tree", "menu"})
+  @UIComponentTagAttribute(defaultValue = "tree", allowedValues = {"tree", "menu"})
   void setMode(String mode);
 
 }

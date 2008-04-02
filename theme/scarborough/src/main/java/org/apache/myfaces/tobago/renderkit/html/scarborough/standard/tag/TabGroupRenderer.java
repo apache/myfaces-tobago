@@ -42,11 +42,11 @@ import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
-import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.UIPanelBase;
 import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.component.UITabGroup;
@@ -54,19 +54,19 @@ import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_CLIENT;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_PAGE;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_TAB;
 import org.apache.myfaces.tobago.component.UIToolBar;
+import org.apache.myfaces.tobago.component.AbstractUICommand;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -122,7 +122,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
 
     final String switchType = component.getSwitchType();
 
-    UIPage page = ComponentUtil.findPage(facesContext, component);
+    AbstractUIPage page = ComponentUtil.findPage(facesContext, component);
     final String[] scripts = new String[]{
         "script/tab.js",
         "script/tabgroup.js"
@@ -411,17 +411,17 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     final Map attributes = toolbar.getAttributes();
 
     String className = "tobago-box-header-toolbar-div";
-    if (ToolBarTag.LABEL_OFF.equals(attributes.get(ATTR_LABEL_POSITION))) {
+    if (UIToolBar.LABEL_OFF.equals(attributes.get(ATTR_LABEL_POSITION))) {
       className += " tobago-box-header-toolbar-label_off";
     }
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute(className);
     attributes.put(ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
-    if (ToolBarTag.LABEL_BOTTOM.equals(attributes.get(ATTR_LABEL_POSITION))) {
-      attributes.put(ATTR_LABEL_POSITION, ToolBarTag.LABEL_RIGHT);
+    if (UIToolBar.LABEL_BOTTOM.equals(attributes.get(ATTR_LABEL_POSITION))) {
+      attributes.put(ATTR_LABEL_POSITION, UIToolBar.LABEL_RIGHT);
     }
-    if (ToolBarTag.ICON_BIG.equals(attributes.get(ATTR_ICON_SIZE))) {
-      attributes.put(ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
+    if (UIToolBar.ICON_BIG.equals(attributes.get(ATTR_ICON_SIZE))) {
+      attributes.put(ATTR_ICON_SIZE, UIToolBar.ICON_SMALL);
     }
     RenderUtil.encode(facesContext, toolbar);
     writer.endElement(HtmlConstants.DIV);

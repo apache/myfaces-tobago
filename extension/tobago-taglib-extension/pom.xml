@@ -45,7 +45,7 @@
                 <version>${project.version}</version>
                 <type>jar</type>
                 <classifier>sources</classifier>
-                <excludes>org/apache/myfaces/tobago/taglib/extension/**/*</excludes>
+                <includes>org/apache/myfaces/tobago/taglib/decl/**/*,org/apache/myfaces/tobago/taglib/component/**/*</includes>
               </artifactItem>
             </artifactItems>
             <outputDirectory>${project.build.directory}/tobago-core-sources</outputDirectory>
@@ -151,7 +151,7 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>javax.servlet</groupId>
+      <groupId>javax.servlet.jsp</groupId>
       <artifactId>jsp-api</artifactId>
     </dependency>
     <dependency>

@@ -63,7 +63,7 @@ import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_NOT_MODIFIED;
 import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
@@ -72,13 +72,13 @@ import static org.apache.myfaces.tobago.component.UIData.ATTR_SCROLL_POSITION;
 import static org.apache.myfaces.tobago.component.UIData.NONE;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
-import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UILayout;
-import org.apache.myfaces.tobago.component.LayoutTokens;
-import org.apache.myfaces.tobago.component.RelativeLayoutToken;
-import org.apache.myfaces.tobago.component.LayoutToken;
-import org.apache.myfaces.tobago.component.FixedLayoutToken;
+import org.apache.myfaces.tobago.layout.LayoutToken;
+import org.apache.myfaces.tobago.layout.FixedLayoutToken;
+import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
@@ -86,12 +86,12 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
-import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
+import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.StringUtil;
@@ -194,7 +194,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
             + ",  " + HtmlRendererUtil.getRenderedPartiallyJavascriptArray(facesContext, dblClickAction)
             + ");"
     };
-    UIPage page = ComponentUtil.findPage(facesContext, data);
+    AbstractUIPage page = ComponentUtil.findPage(facesContext, data);
     page.getStyleFiles().add(styles[0]);
     page.getScriptFiles().add(scripts[0]);
 
@@ -239,7 +239,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     SheetState state = data.getSheetState(facesContext);
     List<Integer> columnWidths = data.getWidthList();
 
-    String selectedRows = StringUtil.toString(getSelectedRows(data, state));
+    String selectedRows = StringUtil.joinWithSurroundingSeparator(getSelectedRows(data, state));
     List<UIColumn> renderedColumnList = data.getRenderedColumns();
 
 
@@ -913,7 +913,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       String action = "Tobago.Sheets.selectAll('" + sheetId + "')";
       String label = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
           "sheetMenuSelect");
-      UICommand menuItem = createMenuItem(application, label, action);
+      UIMenuCommand menuItem = createMenuItem(application, label, action);
       menuItem.setId("menuSelectAll");
       menu.getChildren().add(menuItem);
 
@@ -941,10 +941,10 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     RenderUtil.encode(facesContext, menu);
   }
 
-  private UICommand createMenuItem(final Application application, String label,
+  private UIMenuCommand createMenuItem(final Application application, String label,
       String action) {
-    UICommand menuItem
-        = (UICommand) application.createComponent(UIMenuCommand.COMPONENT_TYPE);
+    UIMenuCommand menuItem
+        = (UIMenuCommand) application.createComponent(UIMenuCommand.COMPONENT_TYPE);
     menuItem.setRendererType(RENDERER_TYPE_MENUCOMMAND);
     menuItem.getAttributes().put(ATTR_ACTION_ONCLICK, action);
     menuItem.getAttributes().put(ATTR_LABEL, label);
@@ -1080,7 +1080,6 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     link.setRendererType(SheetPageCommandRenderer.PAGE_RENDERER_TYPE);
     link.setRendered(true);
     link.setId(command.getToken());
-//    link.getAttributes().put(ATTR_ACTION_STRING, command);
     link.getAttributes().put(ATTR_INLINE, Boolean.TRUE);
     link.getAttributes().put(ATTR_DISABLED, disabled);
     return link;

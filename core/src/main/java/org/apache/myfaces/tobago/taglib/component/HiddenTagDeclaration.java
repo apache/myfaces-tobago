@@ -40,7 +40,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasValue;
     uiComponentBaseClass = "javax.faces.component.UIInput",
     rendererType = "Hidden",
     allowedChildComponenents = "NONE")
-public interface HiddenTagDeclaration extends BeanTagDeclaration, HasId, HasBinding, HasValue, HasConverter,
+public interface HiddenTagDeclaration extends HasId, HasBinding, HasValue, HasConverter,
     HasValidator {
 
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")

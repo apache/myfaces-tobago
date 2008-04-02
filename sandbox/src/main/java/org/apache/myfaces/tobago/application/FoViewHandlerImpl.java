@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.application;
 
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.webapp.TobagoResponse;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.util.DebugUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -89,7 +89,7 @@ public class FoViewHandlerImpl extends ViewHandlerImpl {
     }
     if (LOG.isDebugEnabled()) {
       LOG.debug("VIEW");
-      LOG.debug(ComponentUtil.toString(facesContext.getViewRoot(), 0));
+      LOG.debug(DebugUtils.toString(facesContext.getViewRoot(), 0));
     }
   }
 

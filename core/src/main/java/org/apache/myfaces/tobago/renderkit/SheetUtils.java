@@ -20,8 +20,7 @@ package org.apache.myfaces.tobago.renderkit;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.event.PageActionUtil;
-import org.apache.myfaces.tobago.component.UIData;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -59,7 +58,7 @@ public class SheetUtils {
         LOG.error("Illegal value for PageAction :" + component.getId());
         return;
       }
-      PageActionEvent event = new PageActionEvent((UIData) component.getParent(), action);
+      PageActionEvent event = new PageActionEvent(component.getParent(), action);
 
       switch (action) {
         case TO_PAGE:

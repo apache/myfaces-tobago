@@ -24,7 +24,6 @@ import java.lang.annotation.ElementType;
 
 /*
  * Created: Aug 5, 2005 3:11:18 PM
- * User: bommel
  * $Id$
  */
 
@@ -47,9 +46,7 @@ public @interface UIComponentTag {
 
   boolean isLayout() default false;
 
-  boolean isAjaxEnabled() default false;
-
-  boolean namingContainer() default false;
+  String[] interfaces() default {};
 
   Facet[] facets() default {};
 

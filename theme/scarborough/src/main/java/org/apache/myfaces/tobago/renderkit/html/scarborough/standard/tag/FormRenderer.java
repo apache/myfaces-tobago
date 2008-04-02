@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
@@ -34,7 +34,7 @@ public class FormRenderer extends RendererBase {
 
   public void decode(FacesContext facesContext, UIComponent component) {
     UIForm form = (UIForm) component;
-    UIPage page = ComponentUtil.findPage(facesContext, form);
+    AbstractUIPage page = ComponentUtil.findPage(facesContext, form);
     String actionId = page.getActionId();
     String clientId = form.getClientId(facesContext);
     if (actionId != null && actionId.startsWith(clientId)) {

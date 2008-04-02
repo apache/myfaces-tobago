@@ -22,9 +22,9 @@ import com.sun.facelets.tag.MetaRuleset;
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentHandler;
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.component.OnComponentCreated;
+import org.apache.myfaces.tobago.OnComponentCreated;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;
@@ -47,7 +47,7 @@ public class TobagoComponentHandler extends ComponentHandler {
     if (SortActionSource.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SortActionSourceRule.INSTANCE);
     }
-    if (UIPage.class.isAssignableFrom(aClass)) {
+    if (AbstractUIPage.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(PageRule.INSTANCE);
     }
     if (TabChangeSource.class.isAssignableFrom(aClass)) {

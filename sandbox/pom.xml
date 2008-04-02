@@ -45,6 +45,7 @@
                 <version>${project.version}</version>
                 <type>jar</type>
                 <classifier>sources</classifier>
+                <includes>org/apache/myfaces/tobago/taglib/decl/**/*</includes>                  
               </artifactItem>
             </artifactItems>
             <outputDirectory>${project.build.directory}/tobago-core-sources</outputDirectory>
@@ -82,20 +83,45 @@
             </configuration>
           </execution>
           <execution>
-            <id>tobago-faces-config</id>
+            <id>tobago-components</id>
             <goals><goal>execute</goal></goals>
             <phase>compile</phase>
+            <configuration>
+              <excludes>
+                <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
+                <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
+                <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
+                <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
+                <exclude>org/apache/myfaces/tobago/taglib/sandbox/package-info.java</exclude>
+              </excludes>
+              <aptSourceRoots>
+                <aptSourceRoot>${project.build.directory}/tobago-core-sources</aptSourceRoot>
+              </aptSourceRoots>
+              <resourceTargetPath>META-INF</resourceTargetPath>
+              <generated>target/generated-component</generated>
+              <factory>org.apache.myfaces.tobago.apt.CreateComponentAnnotationProcessorFactory</factory>
+              <fork>true</fork>
+              <nocompile>true</nocompile>
+              <encoding>UTF-8</encoding>
+              <force>true</force>
+            </configuration>
+          </execution>
+          <execution>
+            <id>tobago-faces-config</id>
+            <goals><goal>execute</goal></goals>
+              <phase>process-classes</phase>
             <configuration>
               <targetFiles>
                 <targetFile>target/generated-faces-config/faces-config.xml</targetFile>
               </targetFiles>
               <excludes>
                 <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
-                <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
+                <exclude>org/apache/myfaces/tobago/application/*</exclude>
                 <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
                 <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
                 <exclude>org/apache/myfaces/tobago/validator/*</exclude>
                 <exclude>org/apache/myfaces/tobago/convert/*</exclude>
+                <exclude>org/apache/myfaces/tobago/taglib/sandbox/package-info.java</exclude>
               </excludes>
               <aptSourceRoots>
                 <aptSourceRoot>${project.build.directory}/tobago-core-sources</aptSourceRoot>
@@ -109,6 +135,24 @@
               <encoding>UTF-8</encoding>
               <A>sourceFacesConfig=${basedir}/src/main/faces-config/faces-config.xml,targetFacesConfig=faces-config.xml</A>
               <!--verbose>true</verbose-->
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <goals><goal>compile</goal></goals>
+            <configuration>
+              <includes>
+                <include>org/apache/myfaces/tobago/internal/taglib/*</include>
+                <include>org/apache/myfaces/tobago/component/*</include>
+              </includes>
+              <excludes>
+              </excludes>
             </configuration>
           </execution>
         </executions>
@@ -184,7 +228,7 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>javax.servlet</groupId>
+      <groupId>javax.servlet.jsp</groupId>
       <artifactId>jsp-api</artifactId>
     </dependency>
     <dependency>

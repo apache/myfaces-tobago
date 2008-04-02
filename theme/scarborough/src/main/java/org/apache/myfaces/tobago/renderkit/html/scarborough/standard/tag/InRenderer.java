@@ -32,14 +32,14 @@ import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_ERROR;
 import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIInputBase;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -51,6 +51,7 @@ import javax.faces.validator.Validator;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Arrays;
 
 public class InRenderer extends InputRendererBase implements AjaxRenderer {
   private static final Log LOG = LogFactory.getLog(InRenderer.class);
@@ -59,7 +60,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
   public void decode(FacesContext facesContext, UIComponent component) {
     super.decode(facesContext, component);
     String clientId = component.getClientId(facesContext);
-    UIPage page = ComponentUtil.findPage(component);
+    AbstractUIPage page = ComponentUtil.findPage(component);
     if (clientId.equals(page.getActionId())) {
       // this is a inputSuggest request -> render response
       facesContext.renderResponse();
@@ -84,7 +85,10 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
         ATTR_PASSWORD) ? "password" : "text";
 
     // Todo: check for valid binding
-    boolean renderAjaxSuggest = input.getSuggestMethod() != null;
+    boolean renderAjaxSuggest = false;
+    if (input instanceof UIInput) {
+     renderAjaxSuggest = ((UIInput)input).getSuggestMethod() != null;
+    }
     String id = input.getClientId(facesContext);
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.INPUT, input);
@@ -132,7 +136,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     } */
     writer.endElement(HtmlConstants.INPUT);
 
-    checkForCommandFacet(input, facesContext, writer);
+    HtmlRendererUtil.checkForCommandFacet(input, facesContext, writer);
 
     boolean required = ComponentUtil.getBooleanAttribute(input, ATTR_REQUIRED);
     String rendererName = HtmlRendererUtil.getRendererName(facesContext, input);
@@ -158,13 +162,9 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
           "style/dojo.css"
       };
 
-      final UIPage page = ComponentUtil.findPage(facesContext, input);
-      for (String file : scripts) {
-        page.getScriptFiles().add(file);
-      }
-      for (String file : styles) {
-        page.getStyleFiles().add(file);
-      }
+      final AbstractUIPage page = ComponentUtil.findPage(facesContext, input);
+      page.getScriptFiles().addAll(Arrays.asList(scripts));
+      page.getStyleFiles().addAll(Arrays.asList(styles));
 
       final String[] cmds = {
           "new Tobago.AutocompleterAjax(",
@@ -181,17 +181,20 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
   }
 
   public int encodeAjax(FacesContext context, UIComponent component) throws IOException {
-    if (!(component instanceof UIInput)) {
-      LOG.error("Wrong type: Need " + UIInput.class.getName() + ", but was " + component.getClass().getName());
+    if (!(component instanceof UIInputBase)) {
+      LOG.error("Wrong type: Need " + UIInputBase.class.getName() + ", but was " + component.getClass().getName());
       return CODE_ERROR;
     }
 
     AjaxUtils.checkParamValidity(context, component, UIInput.class);
 
-    UIInput input = (UIInput) component;
+    UIInputBase input = (UIInputBase) component;
 
     MethodBinding mb;
-    Object o = input.getSuggestMethod();
+    Object o = null;
+    if (input instanceof UIInput) {
+      o = ((UIInput)input).getSuggestMethod();
+    }
     if (o instanceof MethodBinding) {
       mb = (MethodBinding) o;
     } else {

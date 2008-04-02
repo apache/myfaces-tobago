@@ -40,22 +40,22 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_TOOL_BAR;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BOX;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIMenuSelectOne;
+import org.apache.myfaces.tobago.component.UIToolBar;
+import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.component.UISelectOneCommand;
-import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -175,11 +175,11 @@ public class ToolBarRenderer extends LayoutableRendererBase {
 
     UIMenuSelectOne radio = (UIMenuSelectOne) command.getFacet(FACET_ITEMS);
     if (radio == null) {
-      items = ComponentUtil.getSelectItems(command);
-      radio = ComponentUtil.createUIMenuSelectOneFacet(facesContext, command);
+      items = RenderUtil.getSelectItems(command);
+      radio = CreateComponentUtils.createUIMenuSelectOneFacet(facesContext, command);
       radio.setId(facesContext.getViewRoot().createUniqueId());
     } else {
-      items = ComponentUtil.getSelectItems(radio);
+      items = RenderUtil.getSelectItems(radio);
     }
 
 
@@ -195,7 +195,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
         if (labelText != null) {
           command.getAttributes().put(ATTR_LABEL, labelText);
         } else {
-          LOG.warn("Menu item has label=null. UICommand.getClientId()="
+          LOG.warn("Menu item has label=null. AbstractUICommand.getClientId()="
               + command.getClientId(facesContext));
         }
 
@@ -240,7 +240,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
 
     UIComponent checkbox = command.getFacet(FACET_ITEMS);
     if (checkbox == null) {
-      checkbox = ComponentUtil.createUISelectBooleanFacet(facesContext, command);
+      checkbox = CreateComponentUtils.createUISelectBooleanFacet(facesContext, command);
       checkbox.setId(facesContext.getViewRoot().createUniqueId());
     }
 
@@ -318,9 +318,9 @@ public class ToolBarRenderer extends LayoutableRendererBase {
     writer.writeClassAttribute(tableClasses);
     writer.startElement(HtmlConstants.TR, null);
 
-    boolean anchorOnLabel = label.getText() != null && !ToolBarTag.LABEL_OFF.equals(labelPosition);
+    boolean anchorOnLabel = label.getText() != null && !UIToolBar.LABEL_OFF.equals(labelPosition);
 
-    if (!ToolBarTag.ICON_OFF.equals(iconSize)) {
+    if (!UIToolBar.ICON_OFF.equals(iconSize)) {
       HtmlRendererUtil.addImageSources(facesContext, writer,
           iconName != null ? iconName : "image/1x1.gif", graphicId);
 
@@ -329,10 +329,10 @@ public class ToolBarRenderer extends LayoutableRendererBase {
       HtmlRendererUtil.renderTip(command, writer);
 
       boolean render1pxImage = (iconName == null
-          && (!ToolBarTag.LABEL_BOTTOM.equals(labelPosition)
+          && (!UIToolBar.LABEL_BOTTOM.equals(labelPosition)
           && label.getText() != null));
 
-      if (((!ToolBarTag.LABEL_OFF.equals(labelPosition)
+      if (((!UIToolBar.LABEL_OFF.equals(labelPosition)
           && label.getText() != null)
           || popupMenu != null)
           && !render1pxImage) {
@@ -364,8 +364,8 @@ public class ToolBarRenderer extends LayoutableRendererBase {
       writer.endElement(HtmlConstants.TD);
     }
 
-    boolean popupOn2 = ToolBarTag.LABEL_BOTTOM.equals(labelPosition)
-        && !ToolBarTag.ICON_OFF.equals(iconSize);
+    boolean popupOn2 = UIToolBar.LABEL_BOTTOM.equals(labelPosition)
+        && !UIToolBar.ICON_OFF.equals(iconSize);
     if (popupOn2) {
       if (popupMenu != null) {
         renderPopupTd(facesContext, writer, command, popupMenu,
@@ -375,7 +375,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
       writer.startElement(HtmlConstants.TR, null);
     }
 
-    if (!ToolBarTag.LABEL_OFF.equals(labelPosition)) {
+    if (!UIToolBar.LABEL_OFF.equals(labelPosition)) {
       writer.startElement(HtmlConstants.TD, null);
       writer.writeClassAttribute("tobago-toolbar-label-td");
       writer.writeAttribute(HtmlAttributes.ALIGN, "center", false);
@@ -429,9 +429,9 @@ public class ToolBarRenderer extends LayoutableRendererBase {
     String ext = name.substring(pos);
 
     String size = "";
-    if (ToolBarTag.ICON_SMALL.equals(iconSize)) {
+    if (UIToolBar.ICON_SMALL.equals(iconSize)) {
       size = "16";
-    } else if (ToolBarTag.ICON_BIG.equals(iconSize)) {
+    } else if (UIToolBar.ICON_BIG.equals(iconSize)) {
       size = "32";
     }
     String image = null;

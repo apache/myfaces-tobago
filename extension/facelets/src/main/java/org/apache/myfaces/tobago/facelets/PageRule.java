@@ -24,7 +24,7 @@ import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.el.LegacyValueBinding;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;

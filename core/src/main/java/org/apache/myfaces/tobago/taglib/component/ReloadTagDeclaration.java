@@ -38,7 +38,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
     componentType = "org.apache.myfaces.tobago.Reload",
     componentFamily = "org.apache.myfaces.tobago.Reload",
     allowedChildComponenents = "NONE")
-public interface ReloadTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered {
+public interface ReloadTagDeclaration extends HasIdBindingAndRendered {
 
 
   /**

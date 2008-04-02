@@ -24,36 +24,31 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasImage;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-import org.apache.myfaces.tobago.component.UIMenu;
-import org.apache.myfaces.tobago.component.UIMenuCommand;
-import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
-import org.apache.myfaces.tobago.component.UIMenuSelectOne;
-import org.apache.myfaces.tobago.component.UIMenuSeparator;
 
 /*
- * Date: 31.03.2006
- * Time: 21:49:41
- */
+* Date: 31.03.2006
+* Time: 21:49:41
+*/
 
 /**
  * Container component to hold submenus and items.
  */
 @Tag(name = "menu")
 @BodyContentDescription(
-    anyClassOf = {"org.apache.myfaces.tobago.taglib.component.MenuTag",
-        "org.apache.myfaces.tobago.taglib.component.MenuCommandTag",
-        "org.apache.myfaces.tobago.taglib.component.MenuSelectBooleanTag",
-        "org.apache.myfaces.tobago.taglib.component.MenuSelectOneTag",
-        "org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag"})
+    anyClassOf = {"org.apache.myfaces.tobago.internal.taglib.MenuTag",
+        "org.apache.myfaces.tobago.internal.taglib.MenuCommandTag",
+        "org.apache.myfaces.tobago.internal.taglib.MenuSelectBooleanTag",
+        "org.apache.myfaces.tobago.internal.taglib.MenuSelectOneTag",
+        "org.apache.myfaces.tobago.internal.taglib.MenuSeparatorTag"})
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenu",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanelBase",
     allowedChildComponenents = {
-        UIMenu.COMPONENT_TYPE,
-        UIMenuCommand.COMPONENT_TYPE,
-        UISelectBooleanCommand.COMPONENT_TYPE,
-        UIMenuSelectOne.COMPONENT_TYPE,
-        UIMenuSeparator.COMPONENT_TYPE})
-public interface MenuTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasLabelAndAccessKey,
+        "org.apache.myfaces.tobago.Menu",
+        "org.apache.myfaces.tobago.MenuCommand",
+        "org.apache.myfaces.tobago.SelectBooleanCommand",
+        "org.apache.myfaces.tobago.MenuSelectOne",
+        "org.apache.myfaces.tobago.MenuSeparator"})
+public interface MenuTagDeclaration extends HasIdBindingAndRendered, HasLabelAndAccessKey,
     IsDisabled, HasImage {
 }

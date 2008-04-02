@@ -42,7 +42,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
     uiComponent = "org.apache.myfaces.tobago.component.UISelectItem",
     uiComponentBaseClass = "javax.faces.component.UISelectItem",
     allowedChildComponenents = "NONE")
-public interface SelectItemTagDeclaration extends TobagoTagDeclaration, HasBinding, HasId, HasMarkup {
+public interface SelectItemTagDeclaration extends HasBinding, HasId, HasMarkup {
   /**
    * Flag indicating whether the option created
    * by this component is disabled.

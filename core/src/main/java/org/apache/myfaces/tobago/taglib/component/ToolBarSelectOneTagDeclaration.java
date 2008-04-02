@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 
 /*
  * Date: 31.03.2006
@@ -39,6 +40,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UISelectOneCommand",
     rendererType = "MenuCommand",
     allowedChildComponenents = "NONE")
-public interface ToolBarSelectOneTagDeclaration extends TobagoTagDeclaration, AbstractCommandTagDeclaration,
+public interface ToolBarSelectOneTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, IsDisabled, HasCommandType, HasValue {
 }

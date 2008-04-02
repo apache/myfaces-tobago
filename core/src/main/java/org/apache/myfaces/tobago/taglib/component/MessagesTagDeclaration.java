@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.component.UIMessages;
+import org.apache.myfaces.tobago.component.AbstractUIMessages;
 import org.apache.myfaces.tobago.taglib.decl.HasFor;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
@@ -37,12 +37,11 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @Tag(name = "messages", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMessages",
-    uiComponentBaseClass = "javax.faces.component.UIMessages",
-    generate = false,
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIMessages",
     rendererType = "Messages",
     allowedChildComponenents = "NONE")
 
-public interface MessagesTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasFor {
+public interface MessagesTagDeclaration extends HasIdBindingAndRendered, HasFor {
 
   /**
    * Flag indicating that only messages that are not associated to any
@@ -74,7 +73,8 @@ public interface MessagesTagDeclaration extends TobagoTagDeclaration, HasIdBindi
    * The default is "info".
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "javax.faces.application.FacesMessage.Severity", defaultValue = "info")
+  @UIComponentTagAttribute(type = "javax.faces.application.FacesMessage$Severity", defaultValue = "info",
+      defaultCode = "javax.faces.application.FacesMessage.SEVERITY_INFO")
   void setMinSeverity(String minSeverity);
 
    /**
@@ -84,7 +84,8 @@ public interface MessagesTagDeclaration extends TobagoTagDeclaration, HasIdBindi
    * The default is "fatal".
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "javax.faces.application.FacesMessage.Severity", defaultValue = "fatal")
+  @UIComponentTagAttribute(type = "javax.faces.application.FacesMessage$Severity", defaultValue = "fatal",
+      defaultCode = "javax.faces.application.FacesMessage.SEVERITY_FATAL")
   void setMaxSeverity(String maxSeverity);
 
    /**
@@ -100,8 +101,9 @@ public interface MessagesTagDeclaration extends TobagoTagDeclaration, HasIdBindi
    * The default "occurence".
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.component.UIMessages.OrderBy",
-          allowedValues = {UIMessages.OrderBy.OCCURENCE_STRING, UIMessages.OrderBy.SEVERITY_STRING},
-          defaultValue = UIMessages.OrderBy.OCCURENCE_STRING)
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.component.UIMessages$OrderBy",
+      allowedValues = {AbstractUIMessages.OrderBy.OCCURENCE_STRING, AbstractUIMessages.OrderBy.SEVERITY_STRING},
+      defaultValue = AbstractUIMessages.OrderBy.OCCURENCE_STRING, 
+      defaultCode = "org.apache.myfaces.tobago.component.AbstractUIMessages.OrderBy.OCCURENCE" )
   void setOrderBy(String orderBy);
 }

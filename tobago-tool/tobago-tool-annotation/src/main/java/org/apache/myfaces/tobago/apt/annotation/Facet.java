@@ -23,7 +23,6 @@ import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 
 /*
- * User: bommel
  * Date: Sep 30, 2006
  * Time: 5:49:10 PM
  */

@@ -19,7 +19,8 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -47,6 +48,17 @@ public abstract class CommandRendererBase extends LayoutableRendererBase {
       }
       component.queueEvent(new ActionEvent(component));
     }
+  }
+
+  public String getImageWithPath(FacesContext facesContext, String image, boolean disabled) {
+    String imageWithPath = null;
+    if (disabled) {
+      imageWithPath = ResourceManagerUtil.getDisabledImageWithPath(facesContext, image);
+    }
+    if (imageWithPath == null) {
+      imageWithPath = ResourceManagerUtil.getImageWithPath(facesContext, image);
+    }
+    return imageWithPath;
   }
 
 }

@@ -36,7 +36,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 @Tag(name = "label")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.LabelTag")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.LabelTag")
 public class LabelExtensionTag extends BodyTagSupport
     implements HasValue, HasLabelWidth, HasTip {
 

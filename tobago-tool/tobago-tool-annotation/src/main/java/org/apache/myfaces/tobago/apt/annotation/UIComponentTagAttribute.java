@@ -44,6 +44,8 @@ public @interface UIComponentTagAttribute {
 
   String defaultValue() default "";
 
+  String defaultCode() default "";
+
   String displayName() default "";
 
   /**

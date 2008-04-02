@@ -29,8 +29,8 @@ import javax.faces.lifecycle.Lifecycle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.util.RequestUtils;
+import org.apache.myfaces.tobago.util.DebugUtils;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
@@ -144,7 +144,7 @@ public class TobagoLifecycle extends Lifecycle {
     }
 
     if (LOG.isTraceEnabled()) {
-      LOG.trace(ComponentUtil.toString(facesContext.getViewRoot(), 0));
+      LOG.trace(DebugUtils.toString(facesContext.getViewRoot(), 0));
     }
 
     if (LOG.isTraceEnabled()) {

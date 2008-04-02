@@ -32,22 +32,23 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PAGE_MENU;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIMenuSeparator;
-import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
+import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.UISelectOneCommand;
+import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.FastStringWriter;
@@ -142,7 +143,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
   protected void addScriptsAndStyles(FacesContext facesContext,
                                      UIComponent component, final String clientId, String setupFunction,
                                      String scriptBlock) throws IOException {
-    final UIPage page = ComponentUtil.findPage(facesContext, component);
+    final AbstractUIPage page = ComponentUtil.findPage(facesContext, component);
     page.getScriptFiles().add("script/tobago-menu.js");
     page.getStyleFiles().add("style/tobago-menu.css");
     String function = setupFunction + "('" + clientId + "', '"
@@ -383,7 +384,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
 
     UIComponent checkbox = command.getFacet(FACET_ITEMS);
     if (checkbox == null) {
-      checkbox = ComponentUtil.createUISelectBooleanFacet(facesContext, command);
+      checkbox = CreateComponentUtils.createUISelectBooleanFacet(facesContext, command);
       checkbox.setId(facesContext.getViewRoot().createUniqueId());
     }
 
@@ -413,11 +414,11 @@ public class MenuBarRenderer extends LayoutableRendererBase {
 
     UISelectOne radio = (UISelectOne) command.getFacet(FACET_ITEMS);
     if (radio == null) {
-      items = ComponentUtil.getSelectItems(command);
-      radio = ComponentUtil.createUIMenuSelectOneFacet(facesContext, command);
+      items = RenderUtil.getSelectItems(command);
+      radio = CreateComponentUtils.createUIMenuSelectOneFacet(facesContext, command);
       radio.setId(facesContext.getViewRoot().createUniqueId());
     } else {
-      items = ComponentUtil.getSelectItems(radio);
+      items = RenderUtil.getSelectItems(radio);
     }
 
     Object value = radio.getValue();
@@ -436,7 +437,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
           label.setText(labelText);
         }
       } else {
-        LOG.warn("Menu item has label=null. UICommand.getClientId()="
+        LOG.warn("Menu item has label=null. AbstractUICommand.getClientId()="
             + command.getClientId(facesContext));
       }
       String formattedValue

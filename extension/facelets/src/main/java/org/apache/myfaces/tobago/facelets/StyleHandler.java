@@ -30,7 +30,7 @@ import javax.el.ELException;
 import java.io.IOException;
 import java.util.Iterator;
 
-import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
 
 /*
  * User: bommel
@@ -49,8 +49,8 @@ public class StyleHandler extends TagHandler {
   public void apply(FaceletContext faceletContext, UIComponent parent)
       throws IOException, FacesException, ELException {
 
-    if (parent instanceof UIPage) {
-      UIPage page = (UIPage) parent;
+    if (parent instanceof AbstractUIPage) {
+      AbstractUIPage page = (AbstractUIPage) parent;
       if (style != null) {
         page.getStyleFiles().add(style.getValue(faceletContext));
       }

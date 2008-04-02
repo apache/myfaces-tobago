@@ -47,7 +47,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 
 @Tag(name = "selectOneChoice")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.SelectOneChoiceTag")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectOneChoiceTag")
 public class SelectOneChoiceExtensionTag
     extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled,

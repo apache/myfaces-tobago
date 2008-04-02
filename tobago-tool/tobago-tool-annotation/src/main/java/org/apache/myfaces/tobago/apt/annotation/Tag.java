@@ -24,7 +24,6 @@ import java.lang.annotation.Target;
 
 /*
  * Created: Mar 8, 2005 5:40:59 PM
- * User: bommel
  * $Id$
  */
 @Retention(value = RetentionPolicy.SOURCE)

@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.taglib.extension;
 
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.taglib.component.AbstractCommandTagDeclaration;
+import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag;
 import org.apache.myfaces.tobago.internal.taglib.MenuItemTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
@@ -42,7 +42,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 
 @Tag(name = "menuRadio", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.MenuRadioTag")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.MenuRadioTag")
 public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabel, IsDisabled, HasValue, HasConverter {
 
@@ -62,6 +62,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
   private String immediate;
   private String transition;
   private String converter;
+  private String renderedPartially;
 
   @Override
   public int doStartTag() throws JspException {
@@ -99,6 +100,9 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
     }
     if (transition != null) {
       menuCommandTag.setTransition(transition);
+    }
+    if (renderedPartially != null) {
+      menuCommandTag.setRenderedPartially(renderedPartially);
     }
     menuCommandTag.doStartTag();
 
@@ -179,6 +183,10 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
     this.converter = converter;
   }
 
+  public void setRenderedPartially(String renderedPartially) {
+    this.renderedPartially = renderedPartially;
+  }
+
   public void release() {
     super.release();
     rendered = null;
@@ -193,6 +201,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
     immediate = null;
     transition = null;
     converter = null;
+    renderedPartially = null;
     menuCommandTag = null;
     facetTag = null;
     selectOneRadio = null;

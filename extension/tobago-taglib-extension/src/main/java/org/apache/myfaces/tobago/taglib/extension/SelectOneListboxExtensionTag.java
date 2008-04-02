@@ -45,7 +45,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * Render a single selection option listbox.
  */
 @Tag(name = "selectOneListbox")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.SelectOneListboxTag")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectOneListboxTag")
 public class SelectOneListboxExtensionTag
     extends BodyTagSupport implements HasId, HasValue, HasValueChangeListener, IsDisabled,
     HasLabel, HasLabelWidth, IsReadonly, HasOnchange, IsRendered,
@@ -56,7 +56,7 @@ public class SelectOneListboxExtensionTag
   private String disabled;
   private String readonly;
   private String onchange;
-  private String inline;
+  //private String inline;
   private String label;
   private String rendered;
   private String binding;
@@ -115,9 +115,9 @@ public class SelectOneListboxExtensionTag
     if (disabled != null) {
       selectOneListboxTag.setDisabled(disabled);
     }
-    if (inline != null) {
+    /*if (inline != null) {
       selectOneListboxTag.setInline(inline);
-    }
+    }*/
     if (focus != null) {
       selectOneListboxTag.setFocus(focus);
     }
@@ -155,7 +155,7 @@ public class SelectOneListboxExtensionTag
     binding = null;
     onchange = null;
     disabled = null;
-    inline = null;
+    //inline = null;
     labelWidth = null;
     label = null;
     height = null;
@@ -197,9 +197,9 @@ public class SelectOneListboxExtensionTag
     this.onchange = onchange;
   }
 
-  public void setInline(String inline) {
+/*  public void setInline(String inline) {
     this.inline = inline;
-  }
+  }*/
 
   public void setLabel(String label) {
     this.label = label;

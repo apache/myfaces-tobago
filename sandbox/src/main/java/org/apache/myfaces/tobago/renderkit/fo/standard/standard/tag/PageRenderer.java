@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 
 import javax.faces.component.UIComponent;
@@ -55,7 +55,7 @@ public class PageRenderer extends PageRendererBase {
   }
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    UIPage page = (UIPage) component;
+    AbstractUIPage page = (AbstractUIPage) component;
     Layout layout = new Layout(2100, 2970);
     int margin = 60;
     Layout in = layout.createWithMargin(margin * 2, margin * 2, margin, margin);

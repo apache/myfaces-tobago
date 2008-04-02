@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.example.reference;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.taglib.component.ButtonTag;
-import org.apache.myfaces.tobago.taglib.component.LinkTag;
+import org.apache.myfaces.tobago.internal.taglib.ButtonTag;
+import org.apache.myfaces.tobago.internal.taglib.LinkTag;
 import org.apache.myfaces.tobago.taglib.extension.InExtensionTag;
 
 import javax.servlet.jsp.tagext.TagSupport;

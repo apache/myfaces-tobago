@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /*
@@ -41,7 +40,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @BodyContentDescription(anyTagOf = "<tc:column>* <tc:columnSelector>?")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIData",
-    generate = false, isAjaxEnabled = true,
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIData",
+    interfaces = "org.apache.myfaces.tobago.ajax.api.AjaxComponent",
     rendererType = "Sheet",     
     allowedChildComponenents = {
         "javax.faces.Column",
@@ -49,7 +49,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
     facets = {@Facet(name="reload", description = "Contains an instance of UIReload",
                      allowedChildComponenents = "org.apache.myfaces.tobago.Reload")})
 
-public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered {
+public interface SheetTagDeclaration extends HasIdBindingAndRendered {
   /**
    * LayoutConstraints for column layout.
    * Semicolon separated list of layout tokens ('&lt;x>*', '&lt;x>px' or '&lt;x>%').
@@ -185,8 +185,8 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
    * The <strong>default</strong> is <code>multi</code>.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = UIData.MULTI,
-      allowedValues = {UIData.NONE, UIData.SINGLE, UIData.MULTI})
+  @UIComponentTagAttribute(defaultValue = "multi",
+      allowedValues = {"none", "single", "multi"})
   void setSelectable(String selectable);
 
   /**
@@ -204,7 +204,7 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
     * SheetStateChangeEvent parameter, with a return type of void.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding",
+  @UIComponentTagAttribute(type = {},
        expression = DynamicExpression.METHOD_BINDING_REQUIRED,
        methodSignature = "javax.faces.event.ActionEvent")
   void setStateChangeListener(String stateChangeListener);
@@ -222,7 +222,7 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
    * the sheet's {@link org.apache.myfaces.tobago.model.SheetState} object.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding",
+  @UIComponentTagAttribute(type = {},
        expression = DynamicExpression.METHOD_BINDING_REQUIRED,
        methodSignature = "javax.faces.event.ActionEvent")
   void setSortActionListener(String sortActionListener);

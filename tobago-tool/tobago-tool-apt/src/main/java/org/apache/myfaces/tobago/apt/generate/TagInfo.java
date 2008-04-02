@@ -26,9 +26,6 @@ public class TagInfo extends RendererInfo {
   private String componentClassName;
   private String componentType;
   private String componentFamily;
-  private boolean ajaxComponent;
-  private boolean namingContainer;
-  private boolean markup;
 
   public TagInfo(String qualifiedName, String rendererName) {
     super(qualifiedName, rendererName);
@@ -41,6 +38,7 @@ public class TagInfo extends RendererInfo {
   public int getPropertiesSize() {
     return properties.size();
   }
+
   public int getPropertiesSizePlusOne() {
     return properties.size() + 1;
   }
@@ -72,29 +70,5 @@ public class TagInfo extends RendererInfo {
     if (componentFamily != null && componentFamily.length() > 0) {
       this.componentFamily = componentFamily;
     }
-  }
-
-  public boolean isAjaxComponent() {
-    return ajaxComponent;
-  }
-
-  public void setAjaxComponent(boolean ajaxComponent) {
-    this.ajaxComponent = ajaxComponent;
-  }
-
-  public boolean isNamingContainer() {
-    return namingContainer;
-  }
-
-  public void setNamingContainer(boolean namingContainer) {
-    this.namingContainer = namingContainer;
-  }
-
-  public boolean hasMarkup() {
-    return markup;
-  }
-
-  public void setMarkup(boolean markup) {
-    this.markup = markup;
   }
 }

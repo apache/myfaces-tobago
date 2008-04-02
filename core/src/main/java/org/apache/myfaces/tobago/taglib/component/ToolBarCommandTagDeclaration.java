@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasImage;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 
 /*
  * Date: 10.04.2006
@@ -37,7 +38,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 @Tag(name = "toolBarCommand", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBarCommand",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UICommand",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUICommand",
     rendererType = "Button",
     allowedChildComponenents = "NONE")
 public interface ToolBarCommandTagDeclaration extends AbstractCommandTagDeclaration, HasIdBindingAndRendered,

@@ -36,10 +36,10 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UICell",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanelBase",
+    interfaces = "org.apache.myfaces.tobago.component.Cell",
     componentType = "org.apache.myfaces.tobago.Cell",
     rendererType = "Panel")
-public interface CellTagDeclaration extends TobagoBodyTagDeclaration,
-    HasIdBindingAndRendered {
+public interface CellTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * Count of layout columns to span over.

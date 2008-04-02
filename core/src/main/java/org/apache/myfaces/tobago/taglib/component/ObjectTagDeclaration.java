@@ -32,9 +32,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIObject",
     uiComponentBaseClass = "javax.faces.component.UIOutput",
-    rendererType = "Object", isComponentAlreadyDefined = false,
+    rendererType = "Object",
     allowedChildComponenents = "NONE")
-public interface ObjectTagDeclaration extends TobagoTagDeclaration, HasId {
+public interface ObjectTagDeclaration extends HasId {
   /**
    * URI to object source
    */

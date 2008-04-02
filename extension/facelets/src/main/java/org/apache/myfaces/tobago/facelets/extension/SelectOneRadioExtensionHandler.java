@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.facelets.extension;
 
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.component.UISelectOne;
+import org.apache.myfaces.tobago.component.UISelectOneRadio;
 
 public class SelectOneRadioExtensionHandler extends TobagoLabelExtensionHandler {
 
@@ -28,7 +28,7 @@ public class SelectOneRadioExtensionHandler extends TobagoLabelExtensionHandler 
   }
 
   protected String getSubComponentType() {
-    return UISelectOne.COMPONENT_TYPE;
+    return UISelectOneRadio.COMPONENT_TYPE;
   }
 
   protected String getSubRendererType() {

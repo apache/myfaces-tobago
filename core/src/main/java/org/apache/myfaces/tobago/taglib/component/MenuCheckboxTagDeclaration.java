@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 
 /*
  * $Id$
@@ -41,7 +42,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
     allowedChildComponenents = {
         "javax.faces.SelectItem",
         "javax.faces.SelectItems"})
-public interface MenuCheckboxTagDeclaration extends TobagoTagDeclaration, AbstractCommandTagDeclaration,
+public interface MenuCheckboxTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, IsDisabled, HasCommandType, HasBooleanValue,
     HasLabelAndAccessKey {
 }

@@ -45,8 +45,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
     rendererType = "Out",
     allowedChildComponenents = "NONE")
 
-public interface OutTagDeclaration extends
-    BeanTagDeclaration, HasIdBindingAndRendered, HasConverter, IsInline, HasTip, HasValue {
+public interface OutTagDeclaration extends HasIdBindingAndRendered, HasConverter, IsInline, HasTip, HasValue {
 
   /**
    * Flag indicating that characters that are

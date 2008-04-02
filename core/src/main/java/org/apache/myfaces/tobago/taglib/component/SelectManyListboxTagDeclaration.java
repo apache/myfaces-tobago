@@ -42,12 +42,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 @Tag(name = "selectManyListbox")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectManyListbox",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UISelectMany",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUISelectMany",
     rendererType = "SelectManyListbox",
-    allowedChildComponenents = {
-        "javax.faces.SelectItem",
-        "javax.faces.SelectItems"
-        })
+    allowedChildComponenents = {"javax.faces.SelectItem","javax.faces.SelectItems"})
 
 public interface SelectManyListboxTagDeclaration extends SelectManyTagDeclaration, HasId, IsDisabled,
     HasDeprecatedHeight, IsInline, HasLabelAndAccessKey, 

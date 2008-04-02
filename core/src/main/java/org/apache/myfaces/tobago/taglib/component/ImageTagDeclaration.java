@@ -41,8 +41,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
     uiComponentBaseClass = "javax.faces.component.UIGraphic",
     rendererType = "Image",
     allowedChildComponenents = "NONE")
-public interface ImageTagDeclaration extends TobagoTagDeclaration,
-    HasIdBindingAndRendered, HasBorder, HasDimension, HasTip {
+public interface ImageTagDeclaration extends HasIdBindingAndRendered, HasBorder, HasDimension, HasTip {
 
   /**
    * Absolute url to an image or image name to lookup in tobago resource path

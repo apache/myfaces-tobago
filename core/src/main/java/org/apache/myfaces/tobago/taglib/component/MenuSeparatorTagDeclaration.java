@@ -37,5 +37,5 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
     uiComponentBaseClass = "javax.faces.component.UIOutput",
     allowedChildComponenents = "NONE")
 
-public interface MenuSeparatorTagDeclaration extends TobagoTagDeclaration, IsRendered, HasBinding {
+public interface MenuSeparatorTagDeclaration extends IsRendered, HasBinding {
 }

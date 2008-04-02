@@ -20,12 +20,12 @@ package org.apache.myfaces.tobago.util;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.HideLayoutToken;
-import org.apache.myfaces.tobago.component.LayoutToken;
-import org.apache.myfaces.tobago.component.LayoutTokens;
-import org.apache.myfaces.tobago.component.PercentLayoutToken;
-import org.apache.myfaces.tobago.component.PixelLayoutToken;
-import org.apache.myfaces.tobago.component.RelativeLayoutToken;
+import org.apache.myfaces.tobago.layout.LayoutToken;
+import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
+import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.PercentLayoutToken;
+import org.apache.myfaces.tobago.layout.PixelLayoutToken;
+import org.apache.myfaces.tobago.layout.HideLayoutToken;
 
 import java.util.ArrayList;
 import java.util.List;

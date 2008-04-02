@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
-import org.apache.myfaces.tobago.component.UITabGroup;
+import org.apache.myfaces.tobago.component.AbstractUITabGroup;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
@@ -44,13 +44,12 @@ import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
 @BodyContentDescription(anyTagOf = "(<tc:tab>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITabGroup",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanelBase",
-    generate = false,
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITabGroup",
     rendererType = "TabGroup",
-    isAjaxEnabled = true,
+    interfaces = "org.apache.myfaces.tobago.ajax.api.AjaxComponent",
     allowedChildComponenents = "org.apache.myfaces.tobago.Tab")
 
-public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasDeprecatedDimension,
+public interface TabGroupTagDeclaration extends HasIdBindingAndRendered, HasDeprecatedDimension,
     IsImmediateCommand, HasAction, HasActionListener {
   /**
    * Deprecated! Use 'switchType' instead.
@@ -73,8 +72,8 @@ public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindi
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.String",
       allowedValues =
-          {UITabGroup.SWITCH_TYPE_CLIENT, UITabGroup.SWITCH_TYPE_RELOAD_PAGE, UITabGroup.SWITCH_TYPE_RELOAD_TAB},
-      defaultValue = UITabGroup.SWITCH_TYPE_CLIENT)
+          {AbstractUITabGroup.SWITCH_TYPE_CLIENT, AbstractUITabGroup.SWITCH_TYPE_RELOAD_PAGE, AbstractUITabGroup.SWITCH_TYPE_RELOAD_TAB},
+      defaultValue = AbstractUITabGroup.SWITCH_TYPE_CLIENT)
   void setSwitchType(String switchType);
 
   /**
@@ -83,9 +82,11 @@ public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindi
    * component's selected Tab.
    *
    */
-  @TagAttribute @UIComponentTagAttribute(type = "java.lang.Integer",
-      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
+  @TagAttribute @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")
   void setSelectedIndex(String selectedIndex);
+
+  @TagAttribute @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")
+  void setRenderedIndex(String renderedIndex);
 
   /**
    *
@@ -96,4 +97,11 @@ public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindi
   @UIComponentTagAttribute(type = "java.lang.Integer")
   @Deprecated()
   void setState(String state);
+
+  @TagAttribute  
+  @UIComponentTagAttribute(
+      type = {},
+      expression = DynamicExpression.METHOD_BINDING_REQUIRED,
+      methodSignature = "org.apache.myfaces.tobago.event.TabChangeEvent")
+  void setTabChangeListener(String listener);
 }

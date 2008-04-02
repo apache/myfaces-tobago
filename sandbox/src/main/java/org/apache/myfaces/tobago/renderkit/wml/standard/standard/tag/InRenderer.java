@@ -25,11 +25,11 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
 import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -45,7 +45,7 @@ public class InRenderer extends LayoutableRendererBase {
 
     String clientId = component.getClientId(facesContext);
 
-    UIPage uiPage = ComponentUtil.findPage(facesContext, component);
+    AbstractUIPage uiPage = ComponentUtil.findPage(facesContext, component);
 
     if (uiPage != null) {
       uiPage.getPostfields().add(new DefaultKeyValue(clientId, clientId));
@@ -56,7 +56,7 @@ public class InRenderer extends LayoutableRendererBase {
       RenderUtil.encode(facesContext, label);
     }
 
-    String currentValue = ComponentUtil.currentValue(component);
+    String currentValue = RenderUtil.currentValue(component);
 
     String type = ComponentUtil.getBooleanAttribute(
         component, ATTR_PASSWORD) ? "password" : "text";

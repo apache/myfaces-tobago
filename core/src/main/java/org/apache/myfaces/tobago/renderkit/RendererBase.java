@@ -100,9 +100,37 @@ public class RendererBase extends Renderer {
     String currentValue = null;
     Object currentObj = getValue(component);
     if (currentObj != null) {
-      currentValue = RenderUtil.getFormattedValue(facesContext, component, currentObj);
+      currentValue = getFormattedValue(facesContext, component, currentObj);
     }
     return currentValue;
+  }
+
+  protected String getFormattedValue(FacesContext context, UIComponent component, Object currentValue)
+      throws ConverterException {
+
+    if (currentValue == null) {
+      return "";
+    }
+
+    if (!(component instanceof ValueHolder)) {
+      return currentValue.toString();
+    }
+
+    Converter converter = ((ValueHolder) component).getConverter();
+
+    if (converter == null) {
+      if (currentValue instanceof String) {
+        return (String) currentValue;
+      }
+      Class converterType = currentValue.getClass();
+      converter = context.getApplication().createConverter(converterType);
+    }
+
+    if (converter == null) {
+      return currentValue.toString();
+    } else {
+      return converter.getAsString(context, component, currentValue);
+    }
   }
 
   protected Object getValue(UIComponent component) {

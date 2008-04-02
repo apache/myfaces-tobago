@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.component;
 
 import junit.framework.TestCase;
 import org.junit.Assert;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 
 public class ComponentUtilUnitTest extends TestCase {
 

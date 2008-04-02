@@ -31,8 +31,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
 @Tag(name = "columnEvent")
 @UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UIColumnEvent",
     uiComponentBaseClass = "javax.faces.component.UIColumn",
+    interfaces = "org.apache.myfaces.tobago.component.ColumnEvent",
     componentType = "org.apache.myfaces.tobago.ColumnEvent")
-public interface ColumnEventTagDeclaration extends TobagoTagDeclaration, HasId, HasBinding {
+public interface ColumnEventTagDeclaration extends HasId, HasBinding {
 
   @TagAttribute
   @UIComponentTagAttribute()

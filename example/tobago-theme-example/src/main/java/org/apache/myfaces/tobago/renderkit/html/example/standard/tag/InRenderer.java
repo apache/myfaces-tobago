@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.renderkit.html.example.standard.tag;
  */
 
 import org.apache.myfaces.tobago.component.UIInput;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

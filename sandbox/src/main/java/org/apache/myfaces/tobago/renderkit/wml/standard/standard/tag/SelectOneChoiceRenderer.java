@@ -24,11 +24,11 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
 
 import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -45,7 +45,7 @@ public class SelectOneChoiceRenderer extends LayoutableRendererBase {
       throws IOException {
 
     UISelectOne selectOne = (UISelectOne) component;
-    UIPage page = ComponentUtil.findPage(facesContext, selectOne);
+    AbstractUIPage page = ComponentUtil.findPage(facesContext, selectOne);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
@@ -60,8 +60,8 @@ public class SelectOneChoiceRenderer extends LayoutableRendererBase {
     if (label != null) {
       writer.writeText(label.toString());
     }
-    List<SelectItem> items = ComponentUtil.getSelectItems(selectOne);
-    String value = ComponentUtil.currentValue(selectOne);
+    List<SelectItem> items = RenderUtil.getSelectItems(selectOne);
+    String value = RenderUtil.currentValue(selectOne);
 
     writer.startElement("select", selectOne);
     writer.writeNameAttribute(clientId);

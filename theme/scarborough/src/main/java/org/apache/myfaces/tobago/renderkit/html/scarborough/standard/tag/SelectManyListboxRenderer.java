@@ -26,12 +26,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UISelectMany;
+import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.UISelectManyListbox;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -75,14 +76,14 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
   }
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!(component instanceof UISelectMany)) {
-      LOG.error("Wrong type: Need " + UISelectMany.class.getName() + ", but was " + component.getClass().getName());
+    if (!(component instanceof UISelectManyListbox)) {
+      LOG.error("Wrong type: Need " + UISelectManyListbox.class.getName() + ", but was " + component.getClass().getName());
       return;
     }
 
-    UISelectMany selectMany = (UISelectMany) component;
+    UISelectManyListbox selectMany = (UISelectManyListbox) component;
 
-    List<SelectItem> items = ComponentUtil.getSelectItems(selectMany);
+    List<SelectItem> items = RenderUtil.getSelectItems(selectMany);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("items.size() = '" + items.size() + "'");
@@ -112,7 +113,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     HtmlRendererUtil.renderSelectItems(selectMany, items, values, writer, facesContext);
 
     writer.endElement(HtmlConstants.SELECT);
-    checkForCommandFacet(selectMany, facesContext, writer);
+    HtmlRendererUtil.checkForCommandFacet(selectMany, facesContext, writer);
   }
 
 }

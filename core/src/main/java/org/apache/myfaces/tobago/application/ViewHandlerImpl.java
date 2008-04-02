@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.application;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.util.RequestUtils;
+import org.apache.myfaces.tobago.util.DebugUtils;
 
 import javax.faces.FacesException;
 import javax.faces.application.ViewHandler;
@@ -84,7 +84,7 @@ public class ViewHandlerImpl extends ViewHandler {
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("VIEW");
-      LOG.debug(ComponentUtil.toString(facesContext.getViewRoot(), 0));
+      LOG.debug(DebugUtils.toString(facesContext.getViewRoot(), 0));
     }
   }
 

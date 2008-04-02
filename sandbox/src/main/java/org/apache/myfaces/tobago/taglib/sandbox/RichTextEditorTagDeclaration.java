@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
-import org.apache.myfaces.tobago.taglib.component.TextInputTagDeclaration;
 
 /*
  * Created: Aug 5, 2005 4:58:19 PM
@@ -34,9 +33,10 @@ import org.apache.myfaces.tobago.taglib.component.TextInputTagDeclaration;
  * Renders a text editor.
  */
 // TODO: switched off @Tag(name="richTextEditor")
-public interface RichTextEditorTagDeclaration extends TextInputTagDeclaration,
-    HasIdBindingAndRendered, HasValue, HasLabelAndAccessKey, HasDeprecatedWidth {
+public interface RichTextEditorTagDeclaration {
+//extends TextInputTagDeclaration,
+    /*HasIdBindingAndRendered, HasValue, HasLabelAndAccessKey, HasDeprecatedWidth {
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean")
-  void setStatePreview(String statePreview);
+  void setStatePreview(String statePreview);*/
 }

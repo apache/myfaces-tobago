@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.facelets.extension;
 
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.component.UISelectMany;
+import org.apache.myfaces.tobago.component.UISelectManyListbox;
 
 /*
  * Date: Aug 9, 2007
@@ -32,7 +32,7 @@ public class SelectManyListboxExtensionHandler extends TobagoLabelExtensionHandl
   }
 
   protected String getSubComponentType() {
-    return UISelectMany.COMPONENT_TYPE;
+    return UISelectManyListbox.COMPONENT_TYPE;
   }
 
   protected String getSubRendererType() {

@@ -27,8 +27,8 @@ import org.apache.myfaces.tobago.apt.generate.ComponentPropertyInfo;
 import org.apache.myfaces.tobago.apt.generate.ComponentInfo;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.commons.io.IOUtils;
 
 import java.io.InputStream;
@@ -44,6 +44,8 @@ import java.util.Collection;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 import com.sun.mirror.apt.AnnotationProcessorEnvironment;
 import com.sun.mirror.apt.Filer;
@@ -101,11 +103,17 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
           + tag.name().substring(0, 1).toUpperCase(Locale.ENGLISH) + tag.name().substring(1) + "Tag";
       TagInfo tagInfo = new TagInfo(className, componentTag.rendererType());
       if (tag.isBodyTag()) {
-        tagInfo.setSuperClass("org.apache.myfaces.tobago.taglib.component.TobagoBodyTag");
+        tagInfo.setSuperClass("org.apache.myfaces.tobago.internal.taglib.TobagoBodyTag");
       } else {
-        tagInfo.setSuperClass("org.apache.myfaces.tobago.taglib.component.TobagoTag");
+        tagInfo.setSuperClass("org.apache.myfaces.tobago.internal.taglib.TobagoTag");
       }
       tagInfo.setComponentClassName(componentTag.uiComponent());
+      tagInfo.addImport("org.apache.commons.logging.Log");
+      tagInfo.addImport("org.apache.commons.logging.LogFactory");
+      tagInfo.addImport("javax.faces.application.Application");
+      tagInfo.addImport("javax.faces.component.UIComponent");
+      tagInfo.addImport("javax.faces.context.FacesContext");
+                        
       StringTemplate stringTemplate = tagStringTemplateGroup.getInstanceOf("tag");
       stringTemplate.setAttribute("tagInfo", tagInfo);
       tagInfo.getProperties().addAll(properties);
@@ -117,13 +125,8 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
       ComponentInfo componentInfo = new ComponentInfo(componentTag.uiComponent(), componentTag.rendererType());
       componentInfo.setSuperClass(componentTag.uiComponentBaseClass());
       componentInfo.setComponentFamily(componentTag.componentFamily());
-      componentInfo.setNamingContainer(componentTag.namingContainer());
-      componentInfo.setAjaxComponent(componentTag.isAjaxEnabled());
-      if (componentInfo.isAjaxComponent()) {
-        componentInfo.addInterface("org.apache.myfaces.tobago.ajax.api.AjaxComponent");
-      }
-      if (componentInfo.isNamingContainer()) {
-        componentInfo.addInterface("javax.faces.component.NamingContainer");
+      for (String interfaces:componentTag.interfaces()) {
+        componentInfo.addInterface(interfaces);
       }
       if (componentTag.componentType().length() > 0) {
         componentInfo.setComponentType(componentTag.componentType());
@@ -131,28 +134,23 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         componentInfo.setComponentType(componentTag.uiComponent().replace(".component.UI", "."));
       }
       try {
-        Class compenentClass = Class.forName(componentTag.uiComponentBaseClass());
+        Class componentClass = Class.forName(componentTag.uiComponentBaseClass());
         int index = 0;
         for (PropertyInfo info:properties) {
           try {
             String methodName = (info.getType().equals("java.lang.Boolean")?"is":"get") + info.getUpperCamelCaseName();
-            compenentClass.getMethod(methodName);
+            Method method = componentClass.getMethod(methodName);
+            if (Modifier.isAbstract(method.getModifiers())) {
+              addPropertyToComponent(componentInfo, info, index);
+              index++;
+            }   
           } catch (NoSuchMethodException e) {
-            ComponentPropertyInfo componentPropertyInfo =
-                (ComponentPropertyInfo) info.fill(new ComponentPropertyInfo());
-            componentPropertyInfo.setIndex(index);
-            componentInfo.getProperties().add(componentPropertyInfo);
-            if ("suggestMethod".equals(info.getName())) {
-              componentInfo.addInterface("org.apache.myfaces.tobago.component.InputSuggest");
-            }
-            if ("markup".equals(info.getName())) {
-              componentInfo.setMarkup(true);
-            }
+            addPropertyToComponent(componentInfo, info, index);
             index++;
           }
         }
         try {
-          compenentClass.getMethod("invokeOnComponent");
+          componentClass.getMethod("invokeOnComponent");
         } catch (NoSuchMethodException e) {
           componentInfo.setInvokeOnComponent(true);
           componentInfo.addImport("javax.faces.context.FacesContext");
@@ -163,16 +161,49 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         }
 
       } catch (ClassNotFoundException e) {
-        e.printStackTrace();
-      }
-      if (componentInfo.hasMarkup()) {
-        componentInfo.addInterface("org.apache.myfaces.tobago.component.SupportsMarkup");
+        List<PropertyInfo> baseClassProperties = getBaseClassProperties(componentTag.uiComponentBaseClass());
+        int index = 0;
+        for (PropertyInfo info:properties) {
+          if (!baseClassProperties.contains(info)) {
+            addPropertyToComponent(componentInfo, info, index);
+            index++;
+          }
+        }
       }
 
       componentStringTemplate.setAttribute("componentInfo", componentInfo);
       writeFile(componentInfo, componentStringTemplate);
     }
 
+  }
+
+  private List<PropertyInfo> getBaseClassProperties(String baseClass) {
+    for (InterfaceDeclaration decl: getCollectedInterfaceDeclarations()) {
+      if (decl.getAnnotation(UIComponentTag.class)!= null) {
+        if (decl.getAnnotation(UIComponentTag.class).uiComponent().equals(baseClass)
+            && decl.getAnnotation(UIComponentTag.class).generate()) {
+          List<PropertyInfo> properties = new ArrayList<PropertyInfo>();
+          addProperties(decl, properties);
+          return properties;
+        }
+      }
+    }
+    throw new IllegalStateException("No UIComponentTag found for componentClass " + baseClass);
+  }
+
+  private void addPropertyToComponent(ComponentInfo componentInfo, PropertyInfo info, int index) {
+    ComponentPropertyInfo componentPropertyInfo =
+        (ComponentPropertyInfo) info.fill(new ComponentPropertyInfo());
+    componentPropertyInfo.setIndex(index);
+    componentInfo.addImport(info.getUnmodifiedType());
+    componentInfo.addImport("javax.faces.context.FacesContext");
+    componentInfo.getProperties().add(componentPropertyInfo);
+    if ("suggestMethod".equals(info.getName())) {
+      componentInfo.addInterface("org.apache.myfaces.tobago.component.InputSuggest");
+    }
+    if ("markup".equals(info.getName())) {
+      componentInfo.addInterface("org.apache.myfaces.tobago.component.SupportsMarkup");
+    }
   }
 
   private void createRenderer(TypeDeclaration decl) {
@@ -188,14 +219,16 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
       }
       renderer.add(className);
       RendererInfo info = new RendererInfo(className, rendererType);
+      boolean ajaxEnabled =
+          Arrays.asList(componentTag.interfaces()).contains("org.apache.myfaces.tobago.ajax.api.AjaxComponent");
       if (componentTag.isLayout()) {
         info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractLayoutRendererWrapper");
-      } else if (componentTag.isAjaxEnabled()) {
+      } else if (ajaxEnabled) {
         info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractAjaxRendererBaseWrapper");
       } else {
         info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractLayoutableRendererBaseWrapper");
       }
-      if (componentTag.isAjaxEnabled()) {
+      if (ajaxEnabled) {
         info.addInterface("org.apache.myfaces.tobago.ajax.api.AjaxRenderer");
       }
       StringTemplate stringTemplate = rendererStringTemplateGroup.getInstanceOf("renderer");
@@ -220,7 +253,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
   }
 
   protected void addProperty(MethodDeclaration decl, List<PropertyInfo> properties) {
-    TagAttribute tagAttribute = decl.getAnnotation(TagAttribute.class);
+    //TagAttribute tagAttribute = decl.getAnnotation(TagAttribute.class);
     UIComponentTagAttribute uiComponentTagAttribute = decl.getAnnotation(UIComponentTagAttribute.class);
     if (uiComponentTagAttribute != null) {
       String simpleName = decl.getSimpleName();
@@ -232,12 +265,16 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         PropertyInfo propertyInfo = new PropertyInfo(attributeStr);
         propertyInfo.setAllowdValues(uiComponentTagAttribute.allowedValues());
         String type;
-        if (uiComponentTagAttribute.expression().isRequired()) {
-          if (uiComponentTagAttribute.expression().isValueExpression()) {
-            type = "javax.faces.el.ValueBinding";
+        if (uiComponentTagAttribute.expression().isMethodExpression()) {
+          type = "javax.faces.el.MethodBinding";
+        } else if (uiComponentTagAttribute.expression() == DynamicExpression.VALUE_BINDING_REQUIRED) {
+          propertyInfo.setValueExpressionRequired(true);
+          if (uiComponentTagAttribute.type().length > 1) {
+            type = "java.lang.Object";
           } else {
-            type = "javax.faces.el.MethodBinding";
+            type = uiComponentTagAttribute.type()[0];
           }
+
         } else if (uiComponentTagAttribute.type().length == 1) {
           type = uiComponentTagAttribute.type()[0];
         } else {
@@ -247,6 +284,8 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         propertyInfo.setType(type);
         propertyInfo.setDefaultValue(uiComponentTagAttribute.defaultValue().length() > 0
             ?uiComponentTagAttribute.defaultValue():null);
+         propertyInfo.setDefaultCode(uiComponentTagAttribute.defaultCode().length() > 0
+            ?uiComponentTagAttribute.defaultCode():null);
         propertyInfo.setMethodSignature(uiComponentTagAttribute.methodSignature());
         propertyInfo.setDeprecated(decl.getAnnotation(Deprecated.class) != null);
         properties.add(propertyInfo);

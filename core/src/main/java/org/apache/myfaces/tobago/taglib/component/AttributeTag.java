@@ -18,12 +18,12 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -120,8 +120,13 @@ public class AttributeTag extends TagSupport {
     } else if (TobagoConstants.ATTR_STYLE_CLASS.equals(attributeName)) {
       ComponentUtil.setStyleClasses(component, value);
     } else if (TobagoConstants.ATTR_RENDERED_PARTIALLY.equals(attributeName)
-        && component instanceof UICommand) {
-      ComponentUtil.setRenderedPartially((UICommand) component, value);
+        && component instanceof SupportsRenderedPartially) {
+      if (UIComponentTag.isValueReference(value)) {
+        component.setValueBinding(TobagoConstants.ATTR_RENDERED_PARTIALLY, ComponentUtil.createValueBinding(value));
+      } else {
+        String[] components = ComponentUtil.splitList(value);
+        ((SupportsRenderedPartially) component).setRenderedPartially(components);
+      }
     } else if (UIComponentTag.isValueReference(value)) {
       ValueBinding valueBinding = TagUtils.createValueBinding(value);
       if (valueBinding != null) {

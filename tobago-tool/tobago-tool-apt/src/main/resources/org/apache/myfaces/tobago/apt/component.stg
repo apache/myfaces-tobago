@@ -18,13 +18,27 @@ group components;
  */
 
 component(componentInfo) ::= <<
+//------------------ GENERATED CODE (do not modify!) --------------------
+
 package <componentInfo.packageName>;
 
-<if(componentInfo.properties)>
-import javax.faces.el.ValueBinding;
-import javax.faces.context.FacesContext;
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-<endif>
 <componentInfo.imports:import(); separator="\n">
 
 public class <componentInfo.className>
@@ -38,15 +52,14 @@ public class <componentInfo.className>
   public static final String COMPONENT_FAMILY = "<componentInfo.componentFamily>";
 
   <endif>
-
   <componentInfo.properties:field(); separator="\n">
 
   <if(componentInfo.componentFamily)>
   public String getFamily() {
     return COMPONENT_FAMILY;
   }
-  <endif>
 
+  <endif>
   <componentInfo.properties:{ p | <p:(p.propertyTemplate)()>}; separator="\n">
 
   <if(componentInfo.properties)>
@@ -63,6 +76,7 @@ public class <componentInfo.className>
     return values;
   }
   <endif>
+  
   <if(componentInfo.invokeOnComponent)>
   <invokeOnComponent()>
   <endif>
@@ -82,54 +96,43 @@ public boolean invokeOnComponent(FacesContext context, String clientId, ContextC
 
 IntegerProperty(property) ::= <<
 
-public Integer get<property.upperCamelCaseName>() {
+public <property.type> get<property.upperCamelCaseName>() {
   if (<property.propertyName> != null) {
     return <property.propertyName>;
   }
-  ValueBinding vb = getValueBinding("<property.name>");
+  <getValueExpression(property)>
   if (vb != null) {
-    Number number = (Number) vb.getValue(getFacesContext());
+    Number number = (Number) <getValue(property)>
     if (number != null) {
       return number.intValue();
     }
   }
-  <if(property.defaultValue)>
-  return <property.defaultValue>;
+  <if(property.defaultCode)>
+  return <property.defaultCode>;
   <else>
   return null;
   <endif>
 }
 
-public void set<property.upperCamelCaseName>(Integer <property.propertyName>) {
+public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
   this.<property.propertyName> = <property.propertyName>;
 }
 >>
 
-StringProperty(property) ::= <<
+ObjectProperty(property) ::= <<
 
-public String get<property.upperCamelCaseName>() {
+public <property.type> get<property.upperCamelCaseName>() {
   if (<property.propertyName> != null) {
     return <property.propertyName>;
   }
-  ValueBinding vb = getValueBinding("<property.name>");
+  <getValueExpression(property)>
   if (vb != null) {
-    <if(property.defaultValue)>
-    String str = (String) vb.getValue(getFacesContext());
-    if (str != null) {
-      return str;
-    }
-    <else>
-    return (String) vb.getValue(getFacesContext());
-    <endif>
+    return (<property.type>) <getValue(property)>
   }
-  <if(property.defaultValue)>
-  return "<property.defaultValue>";
-  <else>
   return null;
-  <endif>
 }
 
-public void set<property.upperCamelCaseName>(String <property.propertyName>) {
+public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
   this.<property.propertyName> = <property.propertyName>;
 }
 >>
@@ -140,9 +143,9 @@ public String[] get<property.upperCamelCaseName>() {
   if (<property.propertyName> != null) {
     return <property.propertyName>;
   }
-  ValueBinding vb = getValueBinding("<property.name>");
+  <getValueExpression(property)>
   if (vb != null) {
-    Object strArray = vb.getValue(getFacesContext());
+    Object strArray = <getValue(property)>
     if (strArray instanceof String[]) {
       return (String[]) strArray;
     } else if (strArray instanceof String) {
@@ -174,17 +177,15 @@ public boolean is<property.upperCamelCaseName>() {
   if (<property.propertyName> != null) {
     return <property.propertyName>;
   }
-  ValueBinding vb = getValueBinding("<property.name>");
+  <getValueExpression(property)>
   if (vb != null) {
-    <if(property.defaultValue)>
-    Boolean bool = (Boolean) vb.getValue(getFacesContext());
+    Boolean bool = (Boolean) <getValue(property)>
     if (bool != null) {
       return bool;
     }
-    <endif>
   }
-  <if(property.defaultValue)>
-  return <property.defaultValue>;
+  <if(property.defaultCode)>
+  return <property.defaultCode>;
   <else>
   return false;
   <endif>
@@ -195,45 +196,66 @@ public void set<property.upperCamelCaseName>(boolean <property.propertyName>) {
 }
 >>
 
-CharacterProperty(property) ::= <<
+SeverityProperty(property) ::= <<
+<NormalProperty(property)>
+>>
 
-public Character get<property.upperCamelCaseName>() {
+OrderByProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
+WizardProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
+StringProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
+CharacterProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
+MethodBindingProperty(property) ::= <<
+
+public <property.type> get<property.upperCamelCaseName>() {
+  return <property.propertyName>; 
+}
+
+public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+  this.<property.propertyName> = <property.propertyName>;
+}
+>>
+
+NormalProperty(property) ::= <<
+
+public <property.type> get<property.upperCamelCaseName>() {
   if (<property.propertyName> != null) {
     return <property.propertyName>;
   }
-  ValueBinding vb = getValueBinding("<property.name>");
+  <getValueExpression(property)>
   if (vb != null) {
-    <if(property.defaultValue)>
-    Character str = (Character) vb.getValue(getFacesContext());
-    if (str != null) {
-      return str;
+    <if(property.defaultCode)>
+    <property.type> <property.propertyName> = (<property.type>) <getValue(property)>
+    if (<property.propertyName> != null) {
+      return <property.propertyName>;
     }
     <else>
-    return (Character) vb.getValue(getFacesContext());
+    return (<property.type>) <getValue(property)>
     <endif>
   }
-  <if(property.defaultValue)>
-  return '<property.defaultValue>';
+  <if(property.defaultCode)>
+  return <property.defaultCode>;
   <else>
   return null;
   <endif>
 }
 
-public void set<property.upperCamelCaseName>(Character <property.propertyName>) {
+public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
   this.<property.propertyName> = <property.propertyName>;
 }
 >>
 
-MethodBindingProperty(property) ::= <<
-
-public MethodBinding get<property.upperCamelCaseName>() {
-  return <property.propertyName>; 
-}
-
-public void set<property.upperCamelCaseName>(Character <property.propertyName>) {
-  this.<property.propertyName> = <property.propertyName>;
-
->>
 
 field() ::= <<
 private <it.type> <it.propertyName>;
@@ -244,6 +266,14 @@ restoreStateField() ::= <<
 >>
 
 saveStateField() ::= <<
+values[<it.indexPlusOne>] = <it.propertyName>;
+>>
+
+WizardSaveStateProperty() ::= <<
+values[<it.indexPlusOne>] = <it.propertyName>;
+>>
+
+ObjectSaveStateProperty() ::= <<
 values[<it.indexPlusOne>] = <it.propertyName>;
 >>
 
@@ -267,8 +297,25 @@ CharacterSaveStateProperty() ::= <<
 values[<it.indexPlusOne>] = <it.propertyName>;
 >>
 
+SeveritySaveStateProperty() ::= <<
+values[<it.indexPlusOne>] = <it.propertyName>;
+>>
+
+OrderBySaveStateProperty() ::= <<
+values[<it.indexPlusOne>] = <it.propertyName>;
+>>
+
 MethodBindingSaveStateProperty() ::= <<
 values[<it.indexPlusOne>] = saveAttachedState(context, <it.propertyName>);
+>>
+
+
+WizardRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+>>
+
+ObjectRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
 >>
 
 IntegerRestoreStateProperty() ::= <<
@@ -291,6 +338,24 @@ CharacterRestoreStateProperty() ::= <<
 <it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
 >>
 
+SeverityRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+>>
+
+OrderByRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+>>
+
 MethodBindingRestoreStateProperty() ::= <<
 <it.propertyName> = (<it.type>) restoreAttachedState(context, values[<it.indexPlusOne>]);
+>>
+
+
+
+getValueExpression(property) ::= <<
+javax.faces.el.ValueBinding vb = getValueBinding("<property.name>");
+>>
+
+getValue(property) ::= <<
+vb.getValue(getFacesContext());
 >>

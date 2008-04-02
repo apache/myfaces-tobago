@@ -48,11 +48,11 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @Tag(name = "file")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIFileInput",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractFileInput",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIFileInput",
     rendererType = "File",
     allowedChildComponenents = "NONE")
 public interface FileTagDeclaration
-    extends BeanTagDeclaration, HasValidator, HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, IsDisabled,
+    extends HasValidator, HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, IsDisabled,
     HasLabelAndAccessKey, HasTip, IsReadonly, IsRequired, HasTabIndex {
 
   /**

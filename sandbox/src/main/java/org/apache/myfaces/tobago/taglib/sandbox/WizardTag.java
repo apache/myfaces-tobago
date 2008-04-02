@@ -28,12 +28,13 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.model.Wizard;
 import org.apache.myfaces.tobago.model.WizardStep;
 import org.apache.myfaces.tobago.taglib.component.AttributeTag;
-import org.apache.myfaces.tobago.taglib.component.ButtonTag;
-import org.apache.myfaces.tobago.taglib.component.CellTag;
-import org.apache.myfaces.tobago.taglib.component.GridLayoutTag;
-import org.apache.myfaces.tobago.taglib.component.OutTag;
-import org.apache.myfaces.tobago.taglib.component.PanelTag;
+
 import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.internal.taglib.PanelTag;
+import org.apache.myfaces.tobago.internal.taglib.GridLayoutTag;
+import org.apache.myfaces.tobago.internal.taglib.ButtonTag;
+import org.apache.myfaces.tobago.internal.taglib.OutTag;
+import org.apache.myfaces.tobago.internal.taglib.CellTag;
 
 import javax.faces.context.FacesContext;
 import javax.faces.webapp.FacetTag;

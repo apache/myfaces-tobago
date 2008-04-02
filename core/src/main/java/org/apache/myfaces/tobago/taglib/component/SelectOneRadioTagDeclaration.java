@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasRenderRange;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
-//import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
+import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 
 /*
  * Created: Aug 5, 2005 6:11:03 PM
@@ -44,7 +44,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneRadio",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UISelectOne",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUISelectOne",
     rendererType = "SelectOneRadio",
     allowedChildComponenents = {
         "javax.faces.SelectItem",
@@ -60,8 +60,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
             "This facet can contain a UICommand that is invoked in case of a change event from the component",
         allowedChildComponenents = "org.apache.myfaces.tobago.Command")
         })
-public interface SelectOneRadioTagDeclaration extends SelectOneTagDeclaration, IsDisabled, //IsReadonly,
-    HasId,
+public interface SelectOneRadioTagDeclaration extends SelectOneTagDeclaration, IsDisabled, IsReadonly, HasId,
     IsInline, HasRenderRange, IsRendered, HasBinding, HasConverter {
 
   /**

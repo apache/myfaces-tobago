@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.facelets.extension;
 
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.component.UISelectOne;
+import org.apache.myfaces.tobago.component.UISelectOneChoice;
 
 /*
  * Date: Aug 9, 2007
@@ -32,7 +32,7 @@ public class SelectOneChoiceExtensionHandler extends TobagoLabelExtensionHandler
   }
 
   protected String getSubComponentType() {
-    return UISelectOne.COMPONENT_TYPE;
+    return UISelectOneChoice.COMPONENT_TYPE;
   }
 
   protected String getSubRendererType() {

@@ -472,7 +472,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
   private void addClass(UIComponentTagAttribute componentAttribute, Element attributeClass) {
     if (componentAttribute.type().length > 1) {
       attributeClass.setText(Object.class.getName());
-    } else {
+    } else if (componentAttribute.type().length == 1) {
       String className = componentAttribute.type()[0];
       attributeClass.setText(className.equals(Boolean.class.getName()) ? "boolean" : className);
     }

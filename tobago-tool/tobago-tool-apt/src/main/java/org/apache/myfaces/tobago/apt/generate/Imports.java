@@ -37,6 +37,10 @@ public class Imports {
   public void addImport(String qualifiedName) {
     if (!ClassUtils.isSystemClass(qualifiedName) && !ClassUtils.isPrimitive(qualifiedName)) {
       if (!(packageName != null && packageName.equals(ClassUtils.getPackageName(qualifiedName)))) {
+        int index = qualifiedName.lastIndexOf('$');
+        if (index != -1) {
+          qualifiedName = qualifiedName.substring(0, index);
+        }
         if (!imports.contains(qualifiedName)) {
           imports.add(qualifiedName);
         }

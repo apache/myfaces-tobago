@@ -23,7 +23,7 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
   */
 
 import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 
 import javax.faces.component.UIComponent;

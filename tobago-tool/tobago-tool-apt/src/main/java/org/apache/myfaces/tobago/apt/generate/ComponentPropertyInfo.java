@@ -21,15 +21,15 @@ public class ComponentPropertyInfo extends PropertyInfo {
   private int index;
 
   public String getPropertyTemplate() {
-    return getShortType() + "Property";
+    return getShortTypeProperty() + "Property";
   }
 
   public String getPropertySaveStateTemplate() {
-    return getShortType() + "SaveStateProperty";
+    return getShortTypeProperty() + "SaveStateProperty";
   }
 
   public String getPropertyRestoreStateTemplate() {
-    return getShortType() + "RestoreStateProperty";
+    return getShortTypeProperty() + "RestoreStateProperty";
   }
 
   public int getIndex() {

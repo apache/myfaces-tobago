@@ -29,12 +29,11 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
 @Tag(name = "form")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIForm",
-    uiComponentBaseClass = "javax.faces.component.UIForm",
-    generate = false,
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIForm",
+    interfaces = "org.apache.myfaces.tobago.component.Form",
     rendererType = "Form",
     allowedChildComponenents = "ALL")
-public interface FormTagDeclaration extends TobagoBodyTagDeclaration,
-    HasBinding, HasId {
+public interface FormTagDeclaration extends HasBinding, HasId {
 
   /**
    *   

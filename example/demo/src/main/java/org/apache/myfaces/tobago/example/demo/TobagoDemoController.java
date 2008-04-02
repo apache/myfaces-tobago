@@ -25,8 +25,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_IN;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.UIToolBar;
+import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
@@ -34,7 +36,6 @@ import org.apache.myfaces.tobago.example.demo.model.solar.Solar;
 import org.apache.myfaces.tobago.example.demo.model.solar.SolarObject;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.model.TreeState;
-import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIColumn;
@@ -202,14 +203,14 @@ public class TobagoDemoController {
     solar = new Solar();
 
     String[] toolbarIconKeys
-        = {ToolBarTag.ICON_OFF, ToolBarTag.ICON_SMALL, ToolBarTag.ICON_BIG};
+        = {UIToolBar.ICON_OFF, UIToolBar.ICON_SMALL, UIToolBar.ICON_BIG};
     toolbarIconItems = getSelectItems(toolbarIconKeys, "demo");
-    toolbarIconSize = ToolBarTag.ICON_SMALL;
+    toolbarIconSize = UIToolBar.ICON_SMALL;
 
     String[] toolbarTextKeys =
-        {ToolBarTag.LABEL_OFF, ToolBarTag.LABEL_BOTTOM, ToolBarTag.LABEL_RIGHT};
+        {UIToolBar.LABEL_OFF, UIToolBar.LABEL_BOTTOM, UIToolBar.LABEL_RIGHT};
     toolbarTextItems = getSelectItems(toolbarTextKeys, "demo");
-    toolbarTextPosition = ToolBarTag.LABEL_BOTTOM;
+    toolbarTextPosition = UIToolBar.LABEL_BOTTOM;
   }
 
 
@@ -244,16 +245,16 @@ public class TobagoDemoController {
     List<UIColumn> columns = new ArrayList<UIColumn>(3);
 
     UIInput textbox = (UIInput)
-        ComponentUtil.createComponent(UIInput.COMPONENT_TYPE, RENDERER_TYPE_IN);
+        CreateComponentUtils.createComponent(UIInput.COMPONENT_TYPE, RENDERER_TYPE_IN);
     ComponentUtil.setStringProperty(
         textbox, ATTR_VALUE, "#{luminary.population}");
-    columns.add(ComponentUtil.createColumn(
+    columns.add(CreateComponentUtils.createColumn(
         "#{overviewBundle.solarArrayPopulation}", "true", null, textbox));
 
-    columns.add(ComponentUtil.createTextColumn(
+    columns.add(CreateComponentUtils.createTextColumn(
         "#{overviewBundle.solarArrayDistance}", "true", "right", "#{luminary.distance}"));
 
-    columns.add(ComponentUtil.createTextColumn(
+    columns.add(CreateComponentUtils.createTextColumn(
         "#{overviewBundle.solarArrayPeriod}", "true", "right", "#{luminary.period}"));
 
 

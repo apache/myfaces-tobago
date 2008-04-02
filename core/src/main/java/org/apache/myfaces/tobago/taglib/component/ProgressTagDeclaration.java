@@ -47,7 +47,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
             "Contains an instance of UICommand (tc:command). The action is invoked if the full progress has reached",
         allowedChildComponenents = "org.apache.myfaces.tobago.Command")})
         
-public interface ProgressTagDeclaration extends BeanTagDeclaration, HasIdBindingAndRendered, HasTip, HasMarkup {
+public interface ProgressTagDeclaration extends HasIdBindingAndRendered, HasTip, HasMarkup {
 
   /**
    * The current value of this component.

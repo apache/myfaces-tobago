@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UIGridLayout;
+import org.apache.myfaces.tobago.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.renderkit.LayoutManager;
 
 import javax.faces.component.UIComponent;
@@ -124,7 +125,7 @@ public class GridLayoutRenderer extends FoRendererBase
 
         UIComponent cell = (UIComponent) children.get(i);
         //LOG.error(cell+ " | "+cell.getClientId(facesContext));
-        if (!(cell instanceof UIMessages || cell instanceof UIGridLayout)) {
+        if (!(cell instanceof UIMessages || cell instanceof AbstractUIGridLayout)) {
           try {
             FoUtils.startBlockContainer(writer, component);
             if (layout.getOrientation() == Layout.TOP_ORIENTATION) {

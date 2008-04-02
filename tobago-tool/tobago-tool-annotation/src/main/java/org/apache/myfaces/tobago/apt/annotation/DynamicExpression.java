@@ -19,21 +19,22 @@ package org.apache.myfaces.tobago.apt.annotation;
 
 /*
  * Created: Apr 27, 2005 5:08:45 PM
- * User: bommel
  * $Id$
  */
 public enum DynamicExpression {
 
-  VALUE_BINDING(false, true), VALUE_BINDING_REQUIRED(true, true),
-  METHOD_BINDING(false, false), METHOD_BINDING_REQUIRED(true, false),
-  PROHIBITED(false, false);
+  VALUE_BINDING(false, true, false), VALUE_BINDING_REQUIRED(true, true, false),
+  METHOD_BINDING(false, false, true), METHOD_BINDING_REQUIRED(true, false, true),
+  PROHIBITED(false, false, false);
 
   private boolean required;
   private boolean valueExpression;
+  private boolean methodExpression;
 
-  DynamicExpression(boolean required, boolean valueExpression) {
+  DynamicExpression(boolean required, boolean valueExpression, boolean methodExpression) {
     this.required = required;
     this.valueExpression = valueExpression;
+    this.methodExpression = methodExpression;
   }
 
   public boolean isRequired() {
@@ -42,6 +43,10 @@ public enum DynamicExpression {
 
   public boolean isValueExpression() {
     return valueExpression;
+  }
+
+  public boolean isMethodExpression() {
+    return methodExpression;
   }
 
   public String toMetaDataString() {

@@ -42,6 +42,5 @@ import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
     componentType = "org.apache.myfaces.tobago.DatePicker",
     rendererType = RENDERER_TYPE_DATE_PICKER,
     allowedChildComponenents = "NONE")
-public interface DatePickerTagDeclaration extends TobagoTagDeclaration, HasFor,
-    HasTabIndex {
+public interface DatePickerTagDeclaration extends HasFor, HasTabIndex {
 }

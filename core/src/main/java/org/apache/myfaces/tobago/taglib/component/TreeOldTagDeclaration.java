@@ -42,9 +42,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     uiComponentBaseClass = "javax.faces.component.UIInput",
     generate = false,
     rendererType = "TreeOld")
-public interface TreeOldTagDeclaration extends TobagoTagDeclaration,
-    HasIdBindingAndRendered, HasTreeNodeValue, HasState, HasIdReference,
-    HasActionListener, HasNameReference, IsRequired, HasTabIndex {
+public interface TreeOldTagDeclaration extends HasIdBindingAndRendered, HasTreeNodeValue, HasState,
+    HasIdReference, HasActionListener, HasNameReference, IsRequired, HasTabIndex {
 
   /**
    * Flag indicating whether or not this component should be render selectable items.

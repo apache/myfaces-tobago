@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 
 import javax.faces.component.UIComponent;
@@ -44,7 +44,7 @@ public class PageRenderer extends PageRendererBase {
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
 
-    UIPage page = (UIPage) component;
+    AbstractUIPage page = (AbstractUIPage) component;
 
     ResponseWriter writer = facesContext.getResponseWriter();
 

@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.taglib.extension;
 
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.taglib.component.AbstractCommandTagDeclaration;
+import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
 import org.apache.myfaces.tobago.internal.taglib.MenuItemTag;
 import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
@@ -59,6 +59,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
   private String label;
   private String immediate;
   private String transition;
+  private String renderedPartially;
 
   @Override
   public int doStartTag() throws JspException {
@@ -95,6 +96,9 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
     }
     if (transition != null) {
       menuCommandTag.setTransition(transition);
+    }
+    if (renderedPartially != null) {
+      menuCommandTag.setRenderedPartially(renderedPartially);
     }
     menuCommandTag.doStartTag();
 
@@ -166,6 +170,10 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
     this.transition = transition;
   }
 
+  public void setRenderedPartially(String renderedPartially) {
+    this.renderedPartially = renderedPartially;
+  }
+
   public void release() {
     super.release();
     rendered = null;
@@ -179,9 +187,9 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
     label = null;
     immediate = null;
     transition = null;
+    renderedPartially = null;
     menuCommandTag = null;
     facetTag = null;
     selectBooleanCheckbox = null;
   }
-
 }

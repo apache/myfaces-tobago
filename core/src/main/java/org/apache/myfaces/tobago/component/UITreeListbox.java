@@ -185,7 +185,7 @@ public class UITreeListbox extends UITreeOld implements LayoutProvider {
     int depth = getRoot().getTreeNode().getDepth();
     boxes = new ArrayList<UITreeListboxBox>(depth);
     for (int i = 0; i < depth; i++) {
-      UITreeListboxBox box = (UITreeListboxBox) ComponentUtil.createComponent(
+      UITreeListboxBox box = (UITreeListboxBox) CreateComponentUtils.createComponent(
           facesContext, UITreeListboxBox.COMPONENT_TYPE,
           UITreeListboxBox.RENDERER_TYPE);
       getFacets().put(BOXES_PREFIX + i, box);
@@ -266,7 +266,7 @@ public class UITreeListbox extends UITreeOld implements LayoutProvider {
   public UILayout provideLayout() {
     UILayout layout = (UILayout) getFacet(FACET_LAYOUT_DEFAULT);
     if (layout == null) {
-      layout = (UILayout) ComponentUtil.createComponent(
+      layout = (UILayout) CreateComponentUtils.createComponent(
           UIGridLayout.COMPONENT_TYPE,
           RENDERER_TYPE_GRID_LAYOUT);
 

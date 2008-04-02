@@ -25,6 +25,9 @@ public class PropertyInfo {
   private String[] allowdValues;
   private String[] methodSignature;
   private String defaultValue;
+  private String defaultCode;
+  private boolean valueExpressionRequired;
+  private boolean literal;
   private boolean deprecated;
 
   public PropertyInfo() {
@@ -32,6 +35,24 @@ public class PropertyInfo {
 
   public PropertyInfo(String name) {
     this.name = name;
+  }
+
+  public boolean isLiteral() {
+    return literal;
+  }
+
+  public void setLiteral(boolean literal) {
+    this.literal = literal;
+  }
+
+  public String getTemplate() {
+    if (valueExpressionRequired) {
+      return "ValueExpression";
+    }
+    if (isMethodBinding()) {
+      return getUpperCamelCaseName();
+    }
+    return getShortTypeProperty();
   }
 
   public String getName() {
@@ -43,7 +64,15 @@ public class PropertyInfo {
   }
 
   public String getType() {
+    return type.replace("$", ".");
+  }
+
+  public String getUnmodifiedType() {
     return type;
+  }
+
+  public boolean isWidthOrHeight() {
+    return "width".equals(name) || "height".equals(name);
   }
 
   public void setType(String type) {
@@ -56,7 +85,16 @@ public class PropertyInfo {
 
   public String getShortType() {
     String shortType = type.substring(type.lastIndexOf('.')+1, type.length());
-    return shortType.replace("[]", "Array");
+    return shortType.replace("[]", "Array").replace("$", ".");
+  }
+
+  public String getShortTypeProperty() {
+    String type = getShortType();
+    int index = type.lastIndexOf('.');
+    if (index != -1) {
+      return type.substring(type.lastIndexOf('.')+1, type.length());
+    }
+    return type;
   }
 
   public String getUpperCamelCaseName() {
@@ -102,6 +140,31 @@ public class PropertyInfo {
     return deprecated;
   }
 
+  public String getDefaultCode() {
+    if (defaultCode == null && defaultValue != null) {
+      if (String.class.getName().equals(type)) {
+        return "\"" + defaultValue + "\"";
+      } else if (Character.class.getName().equals(type)) {
+        return "'" + defaultValue + "'";
+      } else {
+        return defaultValue;
+      }
+    }
+    return defaultCode;
+  }
+
+  public void setDefaultCode(String defaultCode) {
+    this.defaultCode = defaultCode;
+  }
+
+  public boolean isValueExpressionRequired() {
+    return valueExpressionRequired;
+  }
+
+  public void setValueExpressionRequired(boolean valueExpressionRequired) {
+    this.valueExpressionRequired = valueExpressionRequired;
+  }
+
   public PropertyInfo fill(PropertyInfo info) {
     info.setName(name);
     info.setType(type);
@@ -109,6 +172,27 @@ public class PropertyInfo {
     info.setDefaultValue(defaultValue);
     info.setDeprecated(deprecated);
     info.setMethodSignature(methodSignature);
+    info.setDefaultCode(defaultCode);
+    info.setValueExpressionRequired(valueExpressionRequired);
+    info.setLiteral(literal);
     return info;
+  }
+
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof PropertyInfo)) {
+      return false;
+    }
+
+    PropertyInfo that = (PropertyInfo) o;
+
+    return name.equals(that.name);
+
+  }
+
+  public int hashCode() {
+    return name.hashCode();
   }
 }

@@ -35,11 +35,10 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 @Tag(name = "popup")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPopup",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanelBase",
-    generate = false,
-    isAjaxEnabled = true,
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIPopup",
+    interfaces = "org.apache.myfaces.tobago.ajax.api.AjaxComponent",
     rendererType = "Popup")
-public interface PopupTagDeclaration extends TobagoBodyTagDeclaration, HasId, IsRendered, HasDimension {
+public interface PopupTagDeclaration extends HasId, IsRendered, HasDimension {
 
   @TagAttribute
   @UIComponentTagAttribute()

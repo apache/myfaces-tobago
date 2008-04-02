@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.facelets.extension;
 
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.component.AbstractFileInput;
+import org.apache.myfaces.tobago.component.UIFileInput;
 
 /*
  * Date: Aug 10, 2007
@@ -32,7 +32,7 @@ public class TimeExtensionHandler extends TobagoLabelExtensionHandler {
   }
 
   protected String getSubComponentType() {
-    return AbstractFileInput.COMPONENT_TYPE;
+    return UIFileInput.COMPONENT_TYPE;
   }
 
   protected String getSubRendererType() {

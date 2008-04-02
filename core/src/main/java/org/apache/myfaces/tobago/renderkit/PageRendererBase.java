@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.renderkit;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -30,8 +30,8 @@ public class PageRendererBase extends LayoutableRendererBase {
   private static final Log LOG = LogFactory.getLog(PageRendererBase.class);
 
   public void decode(FacesContext facesContext, UIComponent component) {
-    if (component instanceof UIPage) {
-      UIPage page = (UIPage) component;
+    if (component instanceof AbstractUIPage) {
+      AbstractUIPage page = (AbstractUIPage) component;
       String name = page.getClientId(facesContext)
           + SUBCOMPONENT_SEP + "form-action";
       String newActionId = (String) facesContext.getExternalContext()

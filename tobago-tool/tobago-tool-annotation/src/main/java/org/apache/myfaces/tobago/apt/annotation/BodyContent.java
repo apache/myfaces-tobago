@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.apt.annotation;
 
 /*
  * Created: Apr 20, 2005 5:08:01 PM
- * User: bommel
  * $Id$
  */
 public enum BodyContent {

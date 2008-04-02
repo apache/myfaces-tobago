@@ -29,10 +29,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MINIMUM_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UICell;
-import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
+import org.apache.myfaces.tobago.component.Form;
+import org.apache.myfaces.tobago.component.Cell;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
@@ -199,7 +198,7 @@ public final class LayoutUtil {
     } */
 //  also Forms are transparent for layouting
 
-    return component instanceof UIForm;
+    return component instanceof Form;
   }
 
   public static UIComponent getLayoutParent(UIComponent component) {
@@ -224,7 +223,7 @@ public final class LayoutUtil {
     } else if (ATTR_LAYOUT_HEIGHT.equals(attribute)) {
       cell.getAttributes().remove(ATTR_INNER_HEIGHT);
     }
-    if (cell instanceof UICell) {
+    if (cell instanceof Cell) {
       List<UIComponent> children = addChildren(new ArrayList<UIComponent>(), cell);
       for (UIComponent component : children) {
         maybeSetLayoutAttribute(component, attribute, value);

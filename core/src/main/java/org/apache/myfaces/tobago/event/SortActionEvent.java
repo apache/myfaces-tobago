@@ -17,9 +17,8 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UIData;
-
 import javax.faces.component.UIColumn;
+import javax.faces.component.UIComponent;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.PhaseId;
 
@@ -29,7 +28,7 @@ public class SortActionEvent extends ActionEvent {
 
   private transient UIColumn column;
 
-  public SortActionEvent(UIData sheet, UIColumn column) {
+  public SortActionEvent(UIComponent sheet, UIColumn column) {
     super(sheet);
     this.column = column;
     setPhaseId(PhaseId.INVOKE_APPLICATION);
@@ -42,12 +41,5 @@ public class SortActionEvent extends ActionEvent {
    */
   public UIColumn getColumn() {
     return column;
-  }
-
-  /**
-   * Convenience method to get the UIData Component.
-   */
-  public UIData getSheet() {
-    return (UIData) getComponent();
   }
 }

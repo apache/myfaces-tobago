@@ -34,5 +34,5 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
     facets = { @Facet(name = "label", description = "This facet contains a UILabel",
                       allowedChildComponenents = "org.apache.myfaces.tobago.Label") })
 
-public interface SeparatorTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered {
+public interface SeparatorTagDeclaration extends HasIdBindingAndRendered {
 }

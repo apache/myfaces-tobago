@@ -36,9 +36,9 @@ import com.sun.facelets.tag.TagException;
 import com.sun.facelets.tag.TagHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -70,9 +70,15 @@ public final class AttributeHandler extends TagHandler {
         } else {
           ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(faceletContext, Object.class));
         }
-      } else if (TobagoConstants.ATTR_RENDERED_PARTIALLY.equals(nameValue) && parent instanceof UICommand) {
-        // TODO expression
-        ComponentUtil.setRenderedPartially((UICommand) parent, value.getValue());
+      } else if (TobagoConstants.ATTR_RENDERED_PARTIALLY.equals(nameValue)
+          && parent instanceof SupportsRenderedPartially) {
+
+        if (value.isLiteral()) {
+          String[] components = ComponentUtil.splitList(value.getValue());
+          ((SupportsRenderedPartially) parent).setRenderedPartially(components);
+        } else {
+          ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(faceletContext, Object.class));
+        }
       } else if (TobagoConstants.ATTR_STYLE_CLASS.equals(nameValue)) {
         // TODO expression
         ComponentUtil.setStyleClasses(parent, value.getValue());

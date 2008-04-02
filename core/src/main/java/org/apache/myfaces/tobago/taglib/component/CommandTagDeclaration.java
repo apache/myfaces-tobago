@@ -20,6 +20,9 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 
 /*
  * Date: 05.08.2006
@@ -32,16 +35,11 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
  */
 @Tag(name = "command", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UICommand",
-    generate = false,
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUICommand",
     rendererType = "Command",
     allowedChildComponenents = "NONE")
-public interface CommandTagDeclaration extends AbstractCommandTagDeclaration, HasId {
+public interface CommandTagDeclaration extends AbstractCommandTagDeclaration, HasId, HasValue, IsDisabled {
 
-  /**
-   * Indicate the partially rendered Components in a case of a submit.
 
-   @TagAttribute
-   @UIComponentTagAttribute()
-   void setRenderedPartially(String componentIds);   */
 
 }

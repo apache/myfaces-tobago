@@ -60,7 +60,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 
 @Tag(name = "in")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.InTag")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.InTag")
 public class InExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasOnchange, HasMarkup, IsRequired,

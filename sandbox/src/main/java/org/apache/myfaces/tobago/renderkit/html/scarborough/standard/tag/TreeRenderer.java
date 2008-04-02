@@ -22,15 +22,14 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UITree;
-import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.AbstractUITree;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.myfaces.tobago.util.FastStringWriter;
 
@@ -74,11 +73,11 @@ public class TreeRenderer extends LayoutableRendererBase {
       return;
     }
 
-    UITree tree = (UITree) component;
+    AbstractUITree tree = (AbstractUITree) component;
     tree.setValid(true);
   }
 
-  public static boolean isSelectable(UITree tree) {
+  public static boolean isSelectable(AbstractUITree tree) {
     return tree.isSelectableTree();
   }
 
@@ -96,7 +95,7 @@ public class TreeRenderer extends LayoutableRendererBase {
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UITree tree = (UITree) component;
+    AbstractUITree tree = (AbstractUITree) component;
 
     String clientId = tree.getClientId(facesContext);
     UIComponent root = tree.getRoot();
@@ -116,16 +115,16 @@ public class TreeRenderer extends LayoutableRendererBase {
 
     writer.startElement(HtmlConstants.INPUT, tree);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-    writer.writeNameAttribute(clientId + UITree.MARKER);
-    writer.writeIdAttribute(clientId + UITree.MARKER);
+    writer.writeNameAttribute(clientId + AbstractUITree.MARKER);
+    writer.writeIdAttribute(clientId + AbstractUITree.MARKER);
     writer.writeAttribute(HtmlAttributes.VALUE, "", false);
     writer.endElement(HtmlConstants.INPUT);
 
     if (isSelectable(tree)) {
       writer.startElement(HtmlConstants.INPUT, tree);
       writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-      writer.writeNameAttribute(clientId + UITree.SELECT_STATE);
-      writer.writeIdAttribute(clientId + UITree.SELECT_STATE);
+      writer.writeNameAttribute(clientId + AbstractUITree.SELECT_STATE);
+      writer.writeIdAttribute(clientId + AbstractUITree.SELECT_STATE);
       writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
       writer.endElement(HtmlConstants.INPUT);
     }
@@ -171,7 +170,7 @@ public class TreeRenderer extends LayoutableRendererBase {
     return sb.toString();
   }
 
-  protected String getNodesAsJavascript(FacesContext facesContext, UITreeNode root) throws IOException {
+  protected String getNodesAsJavascript(FacesContext facesContext, UIComponent root) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
     FastStringWriter stringWriter = new FastStringWriter();
     facesContext.setResponseWriter(writer.cloneWithWriter(stringWriter));
@@ -180,7 +179,7 @@ public class TreeRenderer extends LayoutableRendererBase {
     return stringWriter.toString();
   }
 
-  protected String nodeStateId(FacesContext facesContext, UITreeNode node) {
+  protected String nodeStateId(FacesContext facesContext, UIComponent node) {
     // this must do the same as nodeStateId() in tree.js
     String clientId = node.getClientId(facesContext);
     int last = clientId.lastIndexOf(':') + 1;

@@ -1,0 +1,113 @@
+package org.apache.myfaces.tobago.component;
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.compat.InvokeOnComponent;
+import org.apache.myfaces.tobago.util.TobagoCallback;
+import org.apache.myfaces.tobago.util.ComponentUtil;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.ContextCallback;
+import javax.faces.context.FacesContext;
+import javax.faces.FacesException;
+import javax.faces.event.PhaseId;
+import java.util.Iterator;
+
+public class AbstractUIForm extends javax.faces.component.UIForm implements InvokeOnComponent, Form {
+
+  private static final Log LOG = LogFactory.getLog(AbstractUIForm.class);
+
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Form";
+  public static final String SUBMITTED_MARKER = COMPONENT_TYPE + ".InSubmitted";
+
+  public void processDecodes(FacesContext facesContext) {
+
+    // Process this component first
+    // to know the active actionId
+    // for the following childrend
+    decode(facesContext);
+
+    Iterator kids = getFacetsAndChildren();
+    while (kids.hasNext()) {
+      UIComponent kid = (UIComponent) kids.next();
+      kid.processDecodes(facesContext);
+    }
+  }
+
+  public void setSubmitted(boolean b) {
+    super.setSubmitted(b);
+
+    // set submitted for all subforms
+    for (AbstractUIForm subForm : ComponentUtil.findSubForms(this)) {
+      subForm.setSubmitted(b);
+    }
+  }
+
+  public void processValidators(FacesContext facesContext) {
+    // if we're not the submitted form, only process subforms.
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("processValidators for form: " + getClientId(facesContext));
+    }
+    if (!isSubmitted()) {
+      for (AbstractUIForm subForm : ComponentUtil.findSubForms(this)) {
+        subForm.processValidators(facesContext);
+      }
+    } else {
+      // Process all facets and children of this component
+      Iterator kids = getFacetsAndChildren();
+      while (kids.hasNext()) {
+        UIComponent kid = (UIComponent) kids.next();
+        kid.processValidators(facesContext);
+      }
+    }
+  }
+
+  public void processUpdates(FacesContext facesContext) {
+    // if we're not the submitted form, only process subforms.
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("processUpdates for form: " + getClientId(facesContext));
+    }
+    if (!isSubmitted()) {
+      for (AbstractUIForm subForm : ComponentUtil.findSubForms(this)) {
+        subForm.processUpdates(facesContext);
+      }
+    } else {
+      // Process all facets and children of this component
+      Iterator kids = getFacetsAndChildren();
+      while (kids.hasNext()) {
+        UIComponent kid = (UIComponent) kids.next();
+        kid.processUpdates(facesContext);
+      }
+    }
+  }
+
+  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
+      throws FacesException {
+    // TODO is this needed?
+    if (callback instanceof TobagoCallback) {
+      if (PhaseId.APPLY_REQUEST_VALUES.equals(((TobagoCallback) callback).getPhaseId())) {
+        decode(context);
+      }
+    }
+    context.getExternalContext().getRequestMap().put(AbstractUIForm.SUBMITTED_MARKER, isSubmitted());
+    return FacesUtils.invokeOnComponent(context, this, clientId, callback);
+  }
+}

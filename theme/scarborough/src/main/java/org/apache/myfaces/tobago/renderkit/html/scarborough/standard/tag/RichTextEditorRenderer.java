@@ -36,18 +36,20 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_TOOL_BAR;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TOOL_BAR;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
+import org.apache.myfaces.tobago.component.CreateComponentUtils;
+import org.apache.myfaces.tobago.component.AbstractUICommand;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.EditableValueHolder;
@@ -171,19 +173,19 @@ public class RichTextEditorRenderer extends InputRendererBase {
   }
 
   private UIComponent createToolbar(FacesContext facesContext, UIInput component) {
-    UIPanel toolbar = (UIPanel) ComponentUtil.createComponent(
+    UIPanel toolbar = (UIPanel) CreateComponentUtils.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_TOOL_BAR);
     String clientId = component.getClientId(facesContext);
 
     component.getFacets().put(FACET_TOOL_BAR, toolbar);
-    toolbar.getAttributes().put(ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
-    toolbar.getAttributes().put(ATTR_LABEL_POSITION, ToolBarTag.LABEL_OFF);
+    toolbar.getAttributes().put(ATTR_ICON_SIZE, UIToolBar.ICON_SMALL);
+    toolbar.getAttributes().put(ATTR_LABEL_POSITION, UIToolBar.LABEL_OFF);
 
-    UICommand //command = (UICommand) ComponentUtil.createComponent(
-//        facesContext, UICommand.COMPONENT_TYPE, RENDERER_TYPE_MENUCOMMAND);
+    UICommand //command = (AbstractUICommand) ComponentUtil.createComponent(
+//        facesContext, AbstractUICommand.COMPONENT_TYPE, RENDERER_TYPE_MENUCOMMAND);
 //    toolbar.getChildren().add(command);
 
-    command = (UICommand) ComponentUtil.createComponent(
+    command = (UICommand) CreateComponentUtils.createComponent(
         facesContext, UISelectBooleanCommand.COMPONENT_TYPE, RENDERER_TYPE_MENUCOMMAND);
     toolbar.getChildren().add(command);
 
@@ -199,7 +201,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
         + clientId + RichTextEditorRenderer.CHANGE_BUTTON + "')";
     command.getAttributes().put(ATTR_ACTION_ONCLICK, onClick);
 
-    command = (UICommand) ComponentUtil.createComponent(
+    command = (UICommand) CreateComponentUtils.createComponent(
         facesContext, UISelectBooleanCommand.COMPONENT_TYPE, RENDERER_TYPE_MENUCOMMAND);
     toolbar.getChildren().add(command);
     //command.getAttributes().put(ATTR_COMMAND_TYPE, ToolBarSelectBooleanTag.COMMAND_TYPE);
@@ -212,7 +214,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     command.getAttributes().put(ATTR_TIP, title);
     command.getAttributes().put(ATTR_ACTION_ONCLICK, onClick);
 
-    command = (UICommand) ComponentUtil.createComponent(
+    command = (UICommand) CreateComponentUtils.createComponent(
         facesContext, UICommand.COMPONENT_TYPE, RENDERER_TYPE_MENUCOMMAND);
     toolbar.getChildren().add(command);
     command.getAttributes().put(ATTR_IMAGE, "image/config.gif");

@@ -48,7 +48,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 
 @Tag(name = "selectOneRadio")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.SelectOneRadioTag")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag")
 public class SelectOneRadioExtensionTag extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled,
     IsReadonly, HasOnchange, IsInline, HasLabel, HasLabelWidth, IsRequired,

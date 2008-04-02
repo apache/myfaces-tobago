@@ -50,7 +50,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 @BodyContentDescription(anyTagOf = "<f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBoolean",
-    uiComponentBaseClass = "javax.faces.component.UISelectBoolean",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUISelectBoolean",
     rendererType = "SelectBooleanCheckbox",
     allowedChildComponenents = "NONE",
     facets = {
@@ -64,7 +64,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsFocus;
                 allowedChildComponenents = "org.apache.myfaces.tobago.Command")
         })
 
-public interface SelectBooleanCheckboxTagDeclaration extends BeanTagDeclaration, HasValidator,
+public interface SelectBooleanCheckboxTagDeclaration extends HasValidator,
     HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabelAndAccessKey, HasBooleanValue, IsDisabled,
     IsInline, HasTip, IsReadonly, HasMarkup, HasTabIndex, IsRequired, HasConverter, IsFocus /*, IsImmediateComponent */{
 

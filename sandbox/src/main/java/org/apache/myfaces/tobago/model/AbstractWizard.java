@@ -325,7 +325,7 @@ public abstract class AbstractWizard implements Wizard {
   // if (LOG.isDebugEnabled()) {
   // LOG.debug("gotoClicked");
   // }
-  // UICommand command = (UICommand) actionEvent.getComponent();
+  // AbstractUICommand command = (AbstractUICommand) actionEvent.getComponent();
   // String id = command.getId();
   // String stepIndex = StringUtils.difference("wizard-goto-", id);
   // try {

@@ -59,7 +59,7 @@ public class StringUtil {
     return list;
   }
 
-  public static <T> String toString(List<T> list) {
+  public static <T> String joinWithSurroundingSeparator(List<T> list) {
     StringBuilder buffer = new StringBuilder(",");
     for (T t : list) {
       buffer.append(t);

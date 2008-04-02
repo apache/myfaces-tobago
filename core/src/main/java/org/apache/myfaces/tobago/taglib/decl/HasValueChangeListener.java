@@ -36,7 +36,7 @@ public interface HasValueChangeListener {
    */
   @TagAttribute
   @UIComponentTagAttribute(
-          type = "javax.faces.el.MethodBinding", 
+          type = {},
           expression = DynamicExpression.METHOD_BINDING_REQUIRED,
           methodSignature = "javax.faces.event.ValueChangeEvent")
   void setValueChangeListener(String valueChangeListener);

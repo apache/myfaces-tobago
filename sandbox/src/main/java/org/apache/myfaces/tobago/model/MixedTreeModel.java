@@ -21,7 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import org.apache.myfaces.tobago.component.UITreeData;
-import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.myfaces.tobago.component.AbstractUITreeNode;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class MixedTreeModel {
   private boolean isInData;
   private Stack<Boolean> junctions = new Stack<Boolean>();
 
-  public void beginBuildNode(UITreeNode node) {
+  public void beginBuildNode(AbstractUITreeNode node) {
     if (LOG.isDebugEnabled()) {
       LOG.debug(node.getAttributes().get(ATTR_LABEL));
     }
@@ -59,7 +59,7 @@ public class MixedTreeModel {
     }
   }
 
-  public void endBuildNode(UITreeNode node) {
+  public void endBuildNode(AbstractUITreeNode node) {
     if (LOG.isDebugEnabled()) {
       LOG.debug(node.getAttributes().get(ATTR_LABEL));
     }

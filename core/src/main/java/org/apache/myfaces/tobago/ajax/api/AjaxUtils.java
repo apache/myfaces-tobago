@@ -21,7 +21,7 @@ package org.apache.myfaces.tobago.ajax.api;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_ERROR;
 import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 

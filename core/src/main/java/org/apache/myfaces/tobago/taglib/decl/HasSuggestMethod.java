@@ -30,7 +30,7 @@ public interface HasSuggestMethod {
    * @param suggestMethod
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "javax.faces.el.MethodBinding",
+  @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_BINDING_REQUIRED,
       methodSignature = "java.lang.String")
   void setSuggestMethod(String suggestMethod);

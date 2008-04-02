@@ -29,8 +29,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.UIDateInput;
-import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.util.DateFormatUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
@@ -114,7 +114,7 @@ public class DatePickerRenderer extends LinkRenderer {
     applyConverterPattern(popup, converterPattern);
 
     if (popup != null) {
-      UIPage page = ComponentUtil.findPage(facesContext, link);
+      AbstractUIPage page = ComponentUtil.findPage(facesContext, link);
       page.getPopups().add(popup);
     }
     if (!ComponentUtil.containsPopupActionListener(link)) {

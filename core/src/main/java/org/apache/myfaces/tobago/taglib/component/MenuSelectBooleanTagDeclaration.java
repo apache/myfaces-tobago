@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 
 /*
  * Date: 31.03.2006
@@ -39,7 +40,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
     rendererType = "MenuCommand",
     allowedChildComponenents = "NONE") */
 @Deprecated
-public interface MenuSelectBooleanTagDeclaration extends TobagoTagDeclaration, AbstractCommandTagDeclaration,
+public interface MenuSelectBooleanTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, IsDisabled, HasCommandType,
     HasBooleanValue, HasLabelAndAccessKey {
 }

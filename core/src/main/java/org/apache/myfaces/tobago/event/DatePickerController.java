@@ -24,7 +24,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LEFT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TOP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER_POPUP;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 
 import javax.faces.component.UICommand;
@@ -87,7 +87,7 @@ public class DatePickerController extends MethodBinding {
           int popupTop = ComponentUtil.getIntAttribute(
               popup, ATTR_TOP, -1);
 
-          final Map<String, String> attributes = popup.getAttributes();
+          final Map<String, Object> attributes = popup.getAttributes();
           if (popupWidth == -1) {
             popupWidth = ThemeConfig.getValue(
                 facesContext, popup, "CalendarPopupWidth");

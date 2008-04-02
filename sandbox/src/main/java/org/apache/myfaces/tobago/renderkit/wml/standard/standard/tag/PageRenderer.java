@@ -22,9 +22,9 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
  * : $
  */
 
-import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -42,7 +42,7 @@ public class PageRenderer extends PageRendererBase {
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
 
-    UIPage page = (UIPage) component;
+    AbstractUIPage page = (AbstractUIPage) component;
 
     ResponseWriter writer = facesContext.getResponseWriter();
 

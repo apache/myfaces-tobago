@@ -54,7 +54,7 @@ public class Window {
     this.top = y;
   }
 
-  public void activate(UIPage page) {
+  public void activate(AbstractUIPage page) {
     page.getScriptFiles().add("script/popup.js");
 
     FacesContext facesContext = FacesContext.getCurrentInstance();

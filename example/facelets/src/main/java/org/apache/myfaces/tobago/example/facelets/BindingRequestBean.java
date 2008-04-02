@@ -17,21 +17,46 @@ package org.apache.myfaces.tobago.example.facelets;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UISelectOne;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.model.SelectItem;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
+import javax.faces.component.UISelectOne;
 
 /**
  * Date: Sep 22, 2007
  * Time: 8:47:48 AM
  */
 public class BindingRequestBean {
+  private static final Log LOG = LogFactory.getLog(BindingRequestBean.class);
   private String selectOne;
   private UISelectOne uiSelectOne;
+  private UIPanel uiPanel;
+  private String input;
 
   private SelectItem [] items = {new SelectItem("Test1", "Test1"), new SelectItem("Test2", "Test2")};
+
+
+  public UIPanel getUiPanel() {
+    LOG.error("getUiPanel " + uiPanel);
+    return uiPanel;
+  }
+
+  public void setUiPanel(UIPanel uiPanel) {
+    LOG.error("setUiPanel " + uiPanel);
+    this.uiPanel = uiPanel;
+  }
+
+  public String getInput() {
+    return input;
+  }
+
+  public void setInput(String input) {
+    this.input = input;
+  }
 
   public String getSelectOne() {
     return selectOne;
@@ -58,8 +83,10 @@ public class BindingRequestBean {
   }
 
   public void processValueChange(ValueChangeEvent e) {
+    LOG.error(e);
   }
 
   public void actionListener(ActionEvent e) {
+    LOG.error(e);
   }
 }

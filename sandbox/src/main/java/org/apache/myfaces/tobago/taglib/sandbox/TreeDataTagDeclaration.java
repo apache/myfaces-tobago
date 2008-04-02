@@ -20,11 +20,9 @@ package org.apache.myfaces.tobago.taglib.sandbox;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasTreeNodeValue;
 import org.apache.myfaces.tobago.taglib.decl.HasVar;
-import org.apache.myfaces.tobago.component.UITreeNode;
 
 /**
  * Describes a subtree of nodes.
@@ -33,9 +31,11 @@ import org.apache.myfaces.tobago.component.UITreeNode;
 @BodyContentDescription(anyTagOf = "<tcs:treeNode>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeData",
+    uiComponentBaseClass = "javax.faces.component.UIInput",
+    generate = false,
     rendererType = "TreeData",
-    allowedChildComponenents = UITreeNode.COMPONENT_TYPE)
-public interface TreeDataTagDeclaration extends TobagoTagDeclaration,
+    allowedChildComponenents = "org.apache.myfaces.tobago.TreeNode")
+public interface TreeDataTagDeclaration extends
     HasIdBindingAndRendered, HasTreeNodeValue, HasVar {
 
 }

@@ -64,7 +64,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * </pre>
  */
 @Tag(name = "date")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.DateTag")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.DateTag")
 public class DateExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasOnchange, IsRequired, HasTip,

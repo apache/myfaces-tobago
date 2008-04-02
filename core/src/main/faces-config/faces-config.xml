@@ -44,11 +44,6 @@
     <component-class>org.apache.myfaces.tobago.component.UITreeListboxBox</component-class>
   </component>
 
- <component>
-   <component-type>org.apache.myfaces.tobago.SelectOne</component-type>
-   <component-class>org.apache.myfaces.tobago.component.UISelectOne</component-class>
- </component>
-
   <!-- use tobagos UIViewRoot -->
   <component>
     <component-type>javax.faces.ViewRoot</component-type>

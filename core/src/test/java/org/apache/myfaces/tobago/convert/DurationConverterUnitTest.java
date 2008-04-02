@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.convert;
 
 import junit.framework.TestCase;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_UNIT;
-import org.apache.myfaces.tobago.component.UIInputBase;
+import org.apache.myfaces.tobago.component.UIInput;
 
 import javax.faces.convert.Converter;
 
@@ -67,7 +67,7 @@ public class DurationConverterUnitTest extends TestCase {
   }
 
   private void format(String unit, Long aLong, String string) {
-    UIInputBase input = new UIInputBase();
+    UIInput input = new UIInput();
     String info = "Formatting numbers:"
         + " unit='" + unit + "'"
         + " long='" + aLong + "'";
@@ -80,7 +80,7 @@ public class DurationConverterUnitTest extends TestCase {
   }
 
   private void parse(String unit, Long aLong, String string) {
-    UIInputBase input = new UIInputBase();
+    UIInput input = new UIInput();
     String info = "Parsing numbers:"
         + " unit='" + unit + "'"
         + " string='" + string + "'";

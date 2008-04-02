@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 
 /*
  * $Id$
@@ -38,6 +39,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UISelectOneCommand",
     rendererType = "MenuCommand",
     allowedChildComponenents = "NONE")
-public interface MenuRadioTagDeclaration extends TobagoTagDeclaration, AbstractCommandTagDeclaration,
+public interface MenuRadioTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabel, IsDisabled, HasCommandType, HasValue {
 }

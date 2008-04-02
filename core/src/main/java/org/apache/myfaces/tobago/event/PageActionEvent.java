@@ -17,9 +17,9 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UIData;
 
 import javax.faces.event.ActionEvent;
+import javax.faces.component.UIComponent;
 
 
 public class PageActionEvent extends ActionEvent {
@@ -29,7 +29,7 @@ public class PageActionEvent extends ActionEvent {
   private PageAction action;
   private int value;
 
-  public PageActionEvent(UIData component, PageAction action) {
+  public PageActionEvent(UIComponent component, PageAction action) {
     super(component);
     this.action = action;
   }
@@ -53,10 +53,4 @@ public class PageActionEvent extends ActionEvent {
     return value;
   }
 
-  /**
-   * Convenience method to get the UIData Component.
-   */
-  public UIData getSheet() {
-    return (UIData) getComponent();
-  }
 }

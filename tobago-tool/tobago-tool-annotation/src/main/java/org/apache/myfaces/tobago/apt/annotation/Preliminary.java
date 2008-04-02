@@ -17,11 +17,18 @@ package org.apache.myfaces.tobago.apt.annotation;
  * limitations under the License.
  */
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.annotation.ElementType;
+
 /**
  * Mark the code as 'Preliminary'.
  * The interface maybe subject to changed in a future version.
  *
  */
+@Retention(value = RetentionPolicy.SOURCE)
+@Target(value = ElementType.TYPE)
 public @interface Preliminary {
   String value() default "";
 }

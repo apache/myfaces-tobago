@@ -23,7 +23,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.mozilla.tag;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

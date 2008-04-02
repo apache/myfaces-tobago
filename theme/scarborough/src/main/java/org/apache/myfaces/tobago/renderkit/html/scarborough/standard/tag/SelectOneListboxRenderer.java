@@ -27,12 +27,13 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UISelectOne;
+import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.UISelectOneListbox;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -71,15 +72,15 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
   }
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!(component instanceof UISelectOne)) {
-      LOG.error("Wrong type: Need " + UISelectOne.class.getName() + ", but was " + component.getClass().getName());
+    if (!(component instanceof UISelectOneListbox)) {
+      LOG.error("Wrong type: Need " + UISelectOneListbox.class.getName() + ", but was " + component.getClass().getName());
       return;
     }
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    UISelectOne selectOne = (UISelectOne) component;
-    List<SelectItem> items = ComponentUtil.getSelectItems(selectOne);
+    UISelectOneListbox selectOne = (UISelectOneListbox) component;
+    List<SelectItem> items = RenderUtil.getSelectItems(selectOne);
 
     writer.startElement(HtmlConstants.SELECT, selectOne);
     String clientId = selectOne.getClientId(facesContext);
@@ -105,7 +106,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
 
     writer.endElement(HtmlConstants.SELECT);
     super.encodeEnd(facesContext, selectOne);
-    checkForCommandFacet(selectOne, facesContext, writer);
+    HtmlRendererUtil.checkForCommandFacet(selectOne, facesContext, writer);
   }
 
 

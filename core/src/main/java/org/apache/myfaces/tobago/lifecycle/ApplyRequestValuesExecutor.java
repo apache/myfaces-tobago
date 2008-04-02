@@ -20,8 +20,8 @@ package org.apache.myfaces.tobago.lifecycle;
 import static javax.faces.event.PhaseId.APPLY_REQUEST_VALUES;
 
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.UIViewRoot;
 import org.apache.myfaces.tobago.util.ApplyRequestValuesCallback;
 import org.apache.myfaces.tobago.compat.FacesUtils;
@@ -58,7 +58,7 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
         = AjaxUtils.parseAndStoreComponents(facesContext);
     if (ajaxComponents != null) {
       // first decode the page
-      UIPage page = ComponentUtil.findPage(facesContext);
+      AbstractUIPage page = ComponentUtil.findPage(facesContext);
       page.decode(facesContext);
       page.markSubmittedForm(facesContext);
 
@@ -83,7 +83,7 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
     return false;
   }
 
-  private void decodeActionComponent(FacesContext facesContext, UIPage page, Map<String, UIComponent> ajaxComponents) {
+  private void decodeActionComponent(FacesContext facesContext, AbstractUIPage page, Map<String, UIComponent> ajaxComponents) {
     String actionId = page.getActionId();
     UIComponent actionComponent = null;
     if (actionId != null) {

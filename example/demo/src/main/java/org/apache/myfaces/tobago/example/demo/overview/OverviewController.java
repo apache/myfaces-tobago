@@ -20,20 +20,20 @@ package org.apache.myfaces.tobago.example.demo.overview;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UIData;
+import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.event.SortActionEvent;
-import org.apache.myfaces.tobago.example.demo.model.solar.SolarObject;
 import org.apache.myfaces.tobago.example.demo.model.Salutation;
+import org.apache.myfaces.tobago.example.demo.model.solar.SolarObject;
+import org.apache.myfaces.tobago.model.SelectItem;
 import org.apache.myfaces.tobago.model.SheetState;
-import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.model.SelectItem;
-import javax.faces.component.UIComponent;
 import javax.faces.validator.ValidatorException;
-import javax.faces.application.FacesMessage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -105,20 +105,20 @@ public class OverviewController {
     treeTabsState = 0;
     sheetConfig = new SheetConfig();
     String[] toolbarIconKeys
-        = {ToolBarTag.ICON_OFF, ToolBarTag.ICON_SMALL, ToolBarTag.ICON_BIG};
+        = {UIToolBar.ICON_OFF, UIToolBar.ICON_SMALL, UIToolBar.ICON_BIG};
     toolbarIconItems = new SelectItem[toolbarIconKeys.length];
     for (int i = 0; i < toolbarIconKeys.length; i++) {
       toolbarIconItems[i] = new SelectItem(toolbarIconKeys[i], toolbarIconKeys[i]);
     }
-    toolbarIconSize = ToolBarTag.ICON_SMALL;
+    toolbarIconSize = UIToolBar.ICON_SMALL;
 
     String[] toolbarTextKeys =
-        {ToolBarTag.LABEL_OFF, ToolBarTag.LABEL_BOTTOM, ToolBarTag.LABEL_RIGHT};
+        {UIToolBar.LABEL_OFF, UIToolBar.LABEL_BOTTOM, UIToolBar.LABEL_RIGHT};
     toolbarTextItems = new SelectItem[toolbarTextKeys.length];
     for (int i = 0; i < toolbarTextKeys.length; i++) {
       toolbarTextItems[i] = new SelectItem(toolbarTextKeys[i], toolbarTextKeys[i]);
     }
-    toolbarTextPosition = ToolBarTag.LABEL_BOTTOM;
+    toolbarTextPosition = UIToolBar.LABEL_BOTTOM;
   }
 
   private static SelectItem[] getSalutationSelectItems(ResourceManager resourceManager, String resource) {
@@ -163,7 +163,7 @@ public class OverviewController {
   public void sheetSorter(ActionEvent event) {
     if (event instanceof SortActionEvent) {
       SortActionEvent sortEvent = (SortActionEvent) event;
-      UIData sheet = sortEvent.getSheet();
+      UIData sheet = (UIData) sortEvent.getComponent();
       SheetState sheetState
           = sheet.getSheetState(FacesContext.getCurrentInstance());
       String columnId = sheetState.getSortedColumnId();

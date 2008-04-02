@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.component.AbstractUIPopup;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -47,7 +47,7 @@ public class PopupActionListener implements ActionListener, Serializable {
     }
   }
 
-  public PopupActionListener(UIPopup popup) {
+  public PopupActionListener(AbstractUIPopup popup) {
     this.popupId = ":" + popup.getClientId(FacesContext.getCurrentInstance());
     if (LOG.isDebugEnabled()) {
       LOG.debug("Add ActionListener: " + popupId);
@@ -55,7 +55,7 @@ public class PopupActionListener implements ActionListener, Serializable {
   }
 
   public void processAction(ActionEvent actionEvent) throws AbortProcessingException {
-    UIPopup popup = (UIPopup) actionEvent.getComponent().findComponent(popupId);
+    AbstractUIPopup popup = (AbstractUIPopup) actionEvent.getComponent().findComponent(popupId);
 
     if (popup != null) {
       if (LOG.isDebugEnabled()) {

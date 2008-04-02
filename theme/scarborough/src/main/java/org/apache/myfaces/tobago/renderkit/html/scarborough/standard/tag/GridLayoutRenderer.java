@@ -33,29 +33,30 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SCROLLBARS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.FixedLayoutToken;
-import org.apache.myfaces.tobago.component.HideLayoutToken;
-import org.apache.myfaces.tobago.component.LayoutToken;
-import org.apache.myfaces.tobago.component.LayoutTokens;
-import org.apache.myfaces.tobago.component.MinimumLayoutToken;
-import org.apache.myfaces.tobago.component.PixelLayoutToken;
-import org.apache.myfaces.tobago.component.RelativeLayoutToken;
+import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.layout.LayoutToken;
+import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.component.UICell;
-import org.apache.myfaces.tobago.component.UIForm;
+import org.apache.myfaces.tobago.component.AbstractUIForm;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.layout.PixelLayoutToken;
+import org.apache.myfaces.tobago.layout.MinimumLayoutToken;
+import org.apache.myfaces.tobago.layout.FixedLayoutToken;
+import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
+import org.apache.myfaces.tobago.layout.HideLayoutToken;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -91,7 +92,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   private int calculateLayoutHeight(
       FacesContext facesContext, UIComponent component, boolean minimum) {
     UIGridLayout layout = (UIGridLayout) UILayout.getLayout(component);
-    final List<UIGridLayout.Row> rows = layout.ensureRows();
+    final List<AbstractUIGridLayout.Row> rows = layout.ensureRows();
 
     LayoutTokens layoutTokens = layout.getRowLayout();
 
@@ -154,8 +155,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   public int calculateLayoutWidth(
       FacesContext facesContext, UIComponent component, boolean minimum) {
     UIGridLayout layout = (UIGridLayout) UILayout.getLayout(component);
-    final List<UIGridLayout.Row> rows = layout.ensureRows();
-    UIGridLayout.Row row = rows.get(0);
+    final List<AbstractUIGridLayout.Row> rows = layout.ensureRows();
+    AbstractUIGridLayout.Row row = rows.get(0);
 
 
     LayoutTokens layoutTokens = layout.getColumnLayout();
@@ -208,7 +209,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   }
 
   private boolean columnIsRendered(List<UIGridLayout.Row> rows, int column) {
-    for (UIGridLayout.Row row : rows) {
+    for (AbstractUIGridLayout.Row row : rows) {
       Object object = row.getElements().get(column);
       if (object instanceof UIComponent) {
         if (object instanceof UICell) {
@@ -281,10 +282,10 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     }
 
 
-    List<UIGridLayout.Row> rows = layout.ensureRows();
+    List<AbstractUIGridLayout.Row> rows = layout.ensureRows();
     boolean firstRenderedRow = true;
     for (int rowIndex = 0; rowIndex < rows.size(); rowIndex++) {
-      UIGridLayout.Row row = rows.get(rowIndex);
+      AbstractUIGridLayout.Row row = rows.get(rowIndex);
       if (!row.isHidden()) {
         writer.startElement(HtmlConstants.TR, null);
 
@@ -350,6 +351,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
             } // ignore, use 0
 
             int topPadding = getCellPadding(facesContext, layout, firstRenderedRow);
+            System.err.println("Cellheight " + cellHeight + " topPadding "+ topPadding + " firstRendered "
+                + firstRenderedRow + " RowIndex " + rowIndex + " Column " + columnIndex);
             String cellStyle =
                 (cellWidth != -1 ? "width: " + cellWidth + "px;" : "")
                 + (cellHeight != -1 ? " height: " + (cellHeight + topPadding) + "px;" : "");
@@ -527,7 +530,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   private void layoutWidth(Integer innerWidth, UIGridLayout layout,
       FacesContext facesContext) {
 
-    final List<UIGridLayout.Row> rows = layout.ensureRows();
+    final List<AbstractUIGridLayout.Row> rows = layout.ensureRows();
     //final int columnCount = layout.getColumnCount();
 
     final LayoutTokens layoutTokens = layout.getColumnLayout();
@@ -538,7 +541,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
     int renderedColumnCount = 0;
     if (!rows.isEmpty()) {
-      UIGridLayout.Row row = rows.get(0);
+      AbstractUIGridLayout.Row row = rows.get(0);
       final List cells = row.getElements();
       renderedColumnCount = cells.size();
       for (int i = 0; i < cells.size(); i++) {
@@ -580,7 +583,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   private void layoutHeight(Integer innerHeight, UIGridLayout layout,
       FacesContext facesContext) {
 
-    final List<UIGridLayout.Row> rows = layout.ensureRows();
+    final List<AbstractUIGridLayout.Row> rows = layout.ensureRows();
     LayoutTokens layoutTokens = layout.getRowLayout();
     layoutTokens.ensureSize(rows.size(), rows.size() == 1 ? new RelativeLayoutToken(1) : new FixedLayoutToken());
         /*LayoutInfo.createLayoutTokens(
@@ -590,7 +593,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     int renderedRowCount = rows.size();
     for (int i = 0; i < rows.size(); i++) {
       boolean hidden = true;
-      UIGridLayout.Row row = rows.get(i);
+      AbstractUIGridLayout.Row row = rows.get(i);
       List cells = row.getElements();
       for (Object cell : cells) {
         hidden &= isHidden(cell);
@@ -634,13 +637,13 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       LayoutToken token = layoutTokens.get(i);
       if (token instanceof FixedLayoutToken) {
         int max = 0;
-        final List<UIGridLayout.Row> rows = layout.ensureRows();
+        final List<AbstractUIGridLayout.Row> rows = layout.ensureRows();
         if (!rows.isEmpty()) {
           if (width) {
             max = getMaxWidth(facesContext, rows, i, false);
           } else {
             if (i < rows.size()) {      //
-              UIGridLayout.Row row = rows.get(i);
+              AbstractUIGridLayout.Row row = rows.get(i);
               max = getMaxHeight(facesContext, row, false);
             } else {
               layoutInfo.update(0, i);
@@ -667,13 +670,13 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       LayoutToken token = tokens.get(i);
       if (token instanceof FixedLayoutToken) {
         int max = 0;
-        final List<UIGridLayout.Row> rows = layout.ensureRows();
+        final List<AbstractUIGridLayout.Row> rows = layout.ensureRows();
         if (!rows.isEmpty()) {
           if (width) {
             max = getMaxWidth(facesContext, rows, i, false);
           } else {
             if (i < rows.size()) {      //
-              UIGridLayout.Row row = rows.get(i);
+              AbstractUIGridLayout.Row row = rows.get(i);
               max = getMaxHeight(facesContext, row, false);
             } else {
               layoutInfo.update(0, i);
@@ -722,7 +725,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   private int getMaxWidth(FacesContext facesContext, List<UIGridLayout.Row> rows, int column, boolean minimum) {
     int maxWidth = 0;
 
-    for (UIGridLayout.Row row : rows) {
+    for (AbstractUIGridLayout.Row row : rows) {
       if (column < row.getElements().size()) {
         Object object = row.getElements().get(column);
 
@@ -756,10 +759,10 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
   private void setColumnWidths(UIGridLayout layout, LayoutInfo layoutInfo,
       FacesContext facesContext) {
-    List<UIGridLayout.Row> rows = layout.ensureRows();
+    List<AbstractUIGridLayout.Row> rows = layout.ensureRows();
 
     for (Iterator iter = rows.iterator(); iter.hasNext();) {
-      UIGridLayout.Row row = (UIGridLayout.Row) iter.next();
+      AbstractUIGridLayout.Row row = (UIGridLayout.Row) iter.next();
       List cells = row.getElements();
       int columnCount = layout.getColumnCount();
       for (int i = 0; i < columnCount; i++) {
@@ -783,10 +786,10 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
   private void setColumnHeights(UIGridLayout layout, LayoutInfo layoutInfo,
       FacesContext facesContext) {
-    List<UIGridLayout.Row> rows = layout.ensureRows();
+    List<AbstractUIGridLayout.Row> rows = layout.ensureRows();
 
     for (int i = 0; i < rows.size(); i++) {
-      UIGridLayout.Row row = rows.get(i);
+      AbstractUIGridLayout.Row row = rows.get(i);
       List cells = row.getElements();
       int columnCount = layout.getColumnCount();
       for (int j = 0; j < columnCount; j++) {
@@ -807,7 +810,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           }
           cell.getAttributes().put(ATTR_LAYOUT_HEIGHT, Integer.valueOf(cellHeight));
           cell.getAttributes().remove(ATTR_INNER_HEIGHT);
-          if (cell instanceof UICell || cell instanceof UIForm) {
+          if (cell instanceof UICell || cell instanceof AbstractUIForm) {
             List children = LayoutUtil.addChildren(new ArrayList<UIComponent>(), cell);
             for (Iterator childs = children.iterator(); childs.hasNext();) {
               UIComponent component = (UIComponent) childs.next();

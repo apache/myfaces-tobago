@@ -40,7 +40,7 @@ public class UIDefaultLayout extends UILayout {
   public static synchronized UIDefaultLayout getInstance() {
     if (instance == null) {
       instance = (UIDefaultLayout)
-          ComponentUtil.createComponent(COMPONENT_TYPE, RENDERER_TYPE_DEFAULT_LAYOUT);
+          CreateComponentUtils.createComponent(COMPONENT_TYPE, RENDERER_TYPE_DEFAULT_LAYOUT);
       instance.setId("UIDefaultLayout");
     }
     return instance;

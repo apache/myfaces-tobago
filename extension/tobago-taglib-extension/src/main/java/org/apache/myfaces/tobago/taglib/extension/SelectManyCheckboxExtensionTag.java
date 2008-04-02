@@ -21,7 +21,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedHeight;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
@@ -48,9 +47,9 @@ import javax.servlet.jsp.JspException;
  * Render a group of checkboxes.
  */
 @Tag(name = "selectManyCheckbox")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.SelectManyCheckboxTag")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectManyCheckboxTag")
 public class SelectManyCheckboxExtensionTag extends BodyTagSupport
-    implements HasId, HasValue, HasValueChangeListener, IsDisabled, HasDeprecatedHeight, IsInline,
+    implements HasId, HasValue, HasValueChangeListener, IsDisabled, IsInline, //HasDeprecatedHeight,
     HasLabel, HasLabelWidth, IsRendered, HasBinding, HasTip, HasConverter, HasValidator, HasOnchange,
     IsReadonly, HasMarkup, IsFocus, IsRequired, HasTabIndex, HasRenderRange {
 
@@ -65,7 +64,7 @@ public class SelectManyCheckboxExtensionTag extends BodyTagSupport
   private String rendered;
   private String binding;
   private String tip;
-  private String height;
+  //private String height;
   private String converter;
   private String validator;
   private String labelWidth;
@@ -137,9 +136,9 @@ public class SelectManyCheckboxExtensionTag extends BodyTagSupport
     if (id != null) {
       selectManyCheckboxTag.setId(id);
     }
-    if (height != null) {
+    /*if (height != null) {
       selectManyCheckboxTag.setHeight(height);
-    }
+    }*/
     if (readonly != null) {
       selectManyCheckboxTag.setReadonly(readonly);
     }
@@ -177,7 +176,7 @@ public class SelectManyCheckboxExtensionTag extends BodyTagSupport
     inline = null;
     label = null;
     labelWidth = null;
-    height = null;
+    //height = null;
     readonly = null;
     rendered = null;
     converter = null;
@@ -226,9 +225,9 @@ public class SelectManyCheckboxExtensionTag extends BodyTagSupport
     this.label = label;
   }
 
-  public void setHeight(String height) {
+  /*public void setHeight(String height) {
     this.height = height;
-  }
+  } */
 
   public void setValidator(String validator) {
     this.validator = validator;

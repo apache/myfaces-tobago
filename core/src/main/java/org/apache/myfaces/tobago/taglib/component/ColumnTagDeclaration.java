@@ -40,7 +40,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
     uiComponentBaseClass = "javax.faces.component.UIColumn",
     componentType = "org.apache.myfaces.tobago.Column")
 //rendererType = "Column")
-public interface ColumnTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasLabel, HasTip {
+public interface ColumnTagDeclaration extends HasIdBindingAndRendered, HasLabel, HasTip {
   /**
    * Alignment of this column.
    */

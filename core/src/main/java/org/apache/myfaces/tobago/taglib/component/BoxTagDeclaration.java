@@ -34,8 +34,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabel;
     uiComponent = "org.apache.myfaces.tobago.component.UIBox",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanel",
     componentType = "org.apache.myfaces.tobago.Box",
+    interfaces = "org.apache.myfaces.tobago.ajax.api.AjaxComponent",
     rendererType = "Box",
-    isAjaxEnabled = true,
     facets = {
     @Facet(name="toolBar", description = "Contains an instance of UIToolBar",
             allowedChildComponenents = "org.apache.myfaces.tobago.ToolBar"),
@@ -43,8 +43,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabel;
             allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 
 
-public interface BoxTagDeclaration extends TobagoBodyTagDeclaration,
-    HasIdBindingAndRendered, HasDeprecatedDimension, HasLabel {
+public interface BoxTagDeclaration extends HasIdBindingAndRendered, HasDeprecatedDimension, HasLabel {
 
   /**
    * Indicate markup of this component.

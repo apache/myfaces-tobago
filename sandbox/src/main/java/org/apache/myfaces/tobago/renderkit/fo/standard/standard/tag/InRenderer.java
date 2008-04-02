@@ -20,9 +20,8 @@ package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -61,7 +60,7 @@ public class InRenderer extends InputRendererBase {
     }
 
     //in.addMargin(200, 0, 200, 0);
-    String text = ComponentUtil.currentValue(component);
+    String text = RenderUtil.currentValue(component);
     if (text == null) {
       text = "";
     }

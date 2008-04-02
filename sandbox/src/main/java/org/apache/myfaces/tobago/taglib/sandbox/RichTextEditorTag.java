@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.taglib.sandbox;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE_PREVIEW;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
-import org.apache.myfaces.tobago.taglib.component.TextInputTag;
 import org.apache.myfaces.tobago.internal.taglib.TagUtils;
+import org.apache.myfaces.tobago.internal.taglib.TobagoTag;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
@@ -28,7 +28,7 @@ import javax.servlet.jsp.JspException;
 /**
  * TODO: under construction
  */
-public class RichTextEditorTag extends TextInputTag
+public abstract class RichTextEditorTag extends TobagoTag
     implements org.apache.myfaces.tobago.taglib.sandbox.RichTextEditorTagDeclaration {
 
   private String statePreview;

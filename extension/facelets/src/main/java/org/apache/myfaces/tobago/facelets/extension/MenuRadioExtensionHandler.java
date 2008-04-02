@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.facelets.extension;
  */
 
 import com.sun.facelets.tag.jsf.ComponentConfig;
-import org.apache.myfaces.tobago.component.UISelectOne;
+import org.apache.myfaces.tobago.component.UISelectOneRadio;
 
 /*
  * Date: Aug 10, 2007
@@ -31,7 +31,7 @@ public class MenuRadioExtensionHandler extends TobagoMenuExtensionHandler {
   }
 
   protected String getSubComponentType() {
-    return UISelectOne.COMPONENT_TYPE;
+    return UISelectOneRadio.COMPONENT_TYPE;
   }
 
 }

@@ -20,26 +20,18 @@ package org.apache.myfaces.tobago.renderkit;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UICell;
-import org.apache.myfaces.tobago.component.UICommand;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.Cell;
 import org.apache.myfaces.tobago.util.LayoutUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public abstract class LayoutableRendererBase
     extends RendererBase implements LayoutableRenderer {
@@ -102,7 +94,7 @@ public abstract class LayoutableRendererBase
 
     int fixedSpace = 0;
 
-    if (component instanceof UICell) {
+    if (component instanceof Cell) {
       List children = LayoutUtil.addChildren(new ArrayList(), component);
       for (Object aChildren : children) {
         UIComponent child = (UIComponent) aChildren;
@@ -150,62 +142,7 @@ public abstract class LayoutableRendererBase
     }
   }
 
-  protected void checkForCommandFacet(UIComponent component, FacesContext facesContext, TobagoResponseWriter writer)
-      throws IOException {
-    checkForCommandFacet(component, Arrays.asList(component.getClientId(facesContext)), facesContext, writer);
-  }
 
-  protected void checkForCommandFacet(UIComponent component, List<String> clientIds, FacesContext facesContext,
-                                      TobagoResponseWriter writer) throws IOException {
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_READONLY)
-        || ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
-      return;
-    }
-    Map<String, UIComponent> facets = component.getFacets();
-    for (Map.Entry<String, UIComponent> entry : facets.entrySet()) {
-      if (entry.getValue() instanceof UICommand) {
-        addCommandFacet(clientIds, entry, facesContext, writer);
-      }
-    }
-  }
-
-  // TODO create HtmlRendererBase
-  private void addCommandFacet(List<String> clientIds, Map.Entry<String, UIComponent> facetEntry,
-                               FacesContext facesContext, TobagoResponseWriter writer) throws
-      IOException {
-    for (String clientId : clientIds) {
-      writeScriptForClientId(clientId, facetEntry, facesContext, writer);
-    }
-  }
-
-  private void writeScriptForClientId(String clientId, Map.Entry<String, UIComponent> facetEntry,
-                                      FacesContext facesContext, TobagoResponseWriter writer) throws IOException {
-    if (facetEntry.getValue() instanceof UICommand
-        && ((UICommand) facetEntry.getValue()).getRenderedPartially().length > 0) {
-      String script =
-          "var element = Tobago.element(\"" + clientId + "\");\n"
-              + "if (element) {\n"
-              + "   Tobago.addEventListener(element, \"" + facetEntry.getKey()
-              + "\", function(){Tobago.reloadComponent('"
-              + HtmlRendererUtil.getComponentIds(facesContext, facetEntry.getValue(),
-              ((UICommand) facetEntry.getValue()).getRenderedPartially()) + "','"
-              + facetEntry.getValue().getClientId(facesContext) + "', {})});\n"
-              + "}";
-      writer.writeJavascript(script);
-    } else {
-      UIComponent facetComponent = facetEntry.getValue();
-      String facetAction = (String) facetComponent.getAttributes().get(ATTR_ONCLICK);
-      if (facetAction == null) {
-        facetAction = "Tobago.submitAction('" + facetComponent.getClientId(facesContext) + "')";
-      }
-      String script =
-          "var element = Tobago.element(\"" + clientId + "\");\n"
-              + "if (element) {\n"
-              + "   Tobago.addEventListener(element, \"" + facetEntry.getKey() + "\", function(){"
-              + facetAction + "});\n}";
-      writer.writeJavascript(script);
-    }
-  }
 
   public void layoutBegin(FacesContext context, UIComponent component) throws IOException {
   }

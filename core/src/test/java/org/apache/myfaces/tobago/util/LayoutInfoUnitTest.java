@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.util;
  */
 
 import junit.framework.TestCase;
-import org.apache.myfaces.tobago.component.LayoutTokens;
+import org.apache.myfaces.tobago.layout.LayoutTokens;
 
 /*
  * Date: Mar 22, 2007

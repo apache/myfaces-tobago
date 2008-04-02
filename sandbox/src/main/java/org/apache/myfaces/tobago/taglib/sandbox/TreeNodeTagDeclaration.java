@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.taglib.component.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasImage;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
@@ -32,8 +31,13 @@ import org.apache.myfaces.tobago.taglib.decl.HasTarget;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-import org.apache.myfaces.tobago.component.UITreeNode;
-import org.apache.myfaces.tobago.component.UITreeData;
+import org.apache.myfaces.tobago.taglib.decl.HasAction;
+import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
+import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
+import org.apache.myfaces.tobago.taglib.decl.HasOnclick;
+import org.apache.myfaces.tobago.taglib.decl.HasLink;
+import org.apache.myfaces.tobago.taglib.decl.IsTransition;
+import org.apache.myfaces.tobago.taglib.decl.HasRenderedPartially;
 
 /**
  * Creates a tree node.
@@ -43,16 +47,18 @@ import org.apache.myfaces.tobago.component.UITreeData;
 @BodyContentDescription(anyTagOf = "<tcs:treeNode>* <tcs:treeData>*")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeNode",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITreeNode",
     rendererType = "TreeNode",
     allowedChildComponenents = {
-        UITreeNode.COMPONENT_TYPE,
-        UITreeData.COMPONENT_TYPE
+        "org.apache.myfaces.tobago.TreeNode",
+        "org.apache.myfaces.tobago.TreeData"
         },
     facets = {
       @Facet(name = "addendum", description = "Displays an additional component to a node.")})
 public interface TreeNodeTagDeclaration
-    extends HasIdBindingAndRendered, HasLabel, HasValue, HasMarkup, AbstractCommandTagDeclaration, HasTip, HasTarget,
-    HasImage, IsDisabled {
+    extends HasIdBindingAndRendered, HasLabel, HasValue, HasMarkup, HasAction, HasActionListener, IsImmediateCommand,
+    HasOnclick, HasLink, IsTransition, HasRenderedPartially, HasTip, HasTarget,
+    HasImage, IsDisabled  {
 
   /**
    * Flag indicating if the subnodes are to be displayed.

@@ -71,10 +71,11 @@ public class UITreeData extends javax.faces.component.UIInput
     // todo: does treeModel should be stored in the state?
     // todo: what is, when the value has been changed since last rendering?
     treeModel = new TreeModel((DefaultMutableTreeNode) getValue());
+    AbstractUITreeNode node = getTemplateComponent();
 
+    // TODO invoke decode on the children which are not instanceof UITreeNode
     for (String pathIndex : treeModel.getPathIndexList()) {
       setPathIndex(pathIndex);
-      UITreeNode node = getTemplateComponent();
       node.processDecodes(facesContext);
 
       // XXX hack: fix this if there is a Listener
@@ -95,7 +96,7 @@ public class UITreeData extends javax.faces.component.UIInput
     return pathIndex;
   }
 
-  private void setPathIndex(String pathIndex) {
+  public void setPathIndex(String pathIndex) {
 
     if (StringUtils.equals(this.pathIndex, pathIndex)) {
       return; // nothing to do, if already set.
@@ -103,7 +104,7 @@ public class UITreeData extends javax.faces.component.UIInput
 
     FacesContext facesContext = FacesContext.getCurrentInstance();
 
-    UITreeNode template = getTemplateComponent();
+    AbstractUITreeNode template = getTemplateComponent();
     pathStates.put(this.pathIndex, template.saveState(facesContext));
     if (LOG.isDebugEnabled()) {
       LOG.debug("save   " + this.pathIndex + " ex=" + template.isExpanded());
@@ -190,10 +191,10 @@ public class UITreeData extends javax.faces.component.UIInput
     // TODO: updateing the model here and *NOT* in the decode phase
   }
 
-  public UITreeNode getTemplateComponent() {
+  public AbstractUITreeNode getTemplateComponent() {
     for (Object child : getChildren()) {
-      if (child instanceof UITreeNode) {
-        return (UITreeNode) child;
+      if (child instanceof AbstractUITreeNode) {
+        return (AbstractUITreeNode) child;
       }
     }
     return null;

@@ -32,13 +32,13 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_TOOL_BAR;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
-import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.component.UIToolBar;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
@@ -90,11 +90,11 @@ public class BoxRenderer extends BoxRendererBase {
       final Map attributes = toolbar.getAttributes();
       attributes.put(
           ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
-      if (ToolBarTag.LABEL_BOTTOM.equals(attributes.get(ATTR_LABEL_POSITION))) {
-        attributes.put(ATTR_LABEL_POSITION, ToolBarTag.LABEL_RIGHT);
+      if (UIToolBar.LABEL_BOTTOM.equals(attributes.get(ATTR_LABEL_POSITION))) {
+        attributes.put(ATTR_LABEL_POSITION, UIToolBar.LABEL_RIGHT);
       }
-      if (ToolBarTag.ICON_BIG.equals(attributes.get(ATTR_ICON_SIZE))) {
-        attributes.put(ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
+      if (UIToolBar.ICON_BIG.equals(attributes.get(ATTR_ICON_SIZE))) {
+        attributes.put(ATTR_ICON_SIZE, UIToolBar.ICON_SMALL);
       }
       RenderUtil.encode(facesContext, toolbar);
       writer.endElement(HtmlConstants.DIV);

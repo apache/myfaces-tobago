@@ -25,13 +25,14 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UISelectMany;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
+import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -49,14 +50,14 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
   private static final Log LOG = LogFactory.getLog(SelectManyCheckboxRenderer.class);
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!(component instanceof UISelectMany)) {
-      LOG.error("Wrong type: Need " + UISelectMany.class.getName() + ", but was " + component.getClass().getName());
+    if (!(component instanceof UISelectManyCheckbox)) {
+      LOG.error("Wrong type: Need " + UISelectManyCheckbox.class.getName() + ", but was " + component.getClass().getName());
       return;
     }
 
-    UISelectMany selectMany = (UISelectMany) component;
+    UISelectManyCheckbox selectMany = (UISelectManyCheckbox) component;
 
-    List<SelectItem> items = ComponentUtil.getItemsToRender(selectMany);
+    List<SelectItem> items = RenderUtil.getItemsToRender(selectMany);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
@@ -95,12 +96,21 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.writeAttribute(HtmlAttributes.TYPE, "checkbox", false);
 
       writer.writeClassAttribute();
-      writer.writeAttribute(HtmlAttributes.CHECKED, RenderUtil.contains(values, item.getValue()));
+      boolean checked = RenderUtil.contains(values, item.getValue());
+      writer.writeAttribute(HtmlAttributes.CHECKED, checked);
       writer.writeNameAttribute(id);
       writer.writeIdAttribute(itemId);
       String formattedValue = RenderUtil.getFormattedValue(facesContext, selectMany, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
       writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled());
+      if (ComponentUtil.getBooleanAttribute(selectMany, ATTR_READONLY)) {
+        writer.writeAttribute(HtmlAttributes.READONLY, true);
+        if (checked) {
+          writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=true", false);
+        } else {
+          writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=false", false);
+        }
+      }
       Integer tabIndex = selectMany.getTabIndex();
       if (tabIndex != null) {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
@@ -148,22 +158,22 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     if (!inline) {
       writer.endElement(HtmlConstants.TABLE);
     }
-    checkForCommandFacet(selectMany, clientIds, facesContext, writer);
+    HtmlRendererUtil.checkForCommandFacet(selectMany, clientIds, facesContext, writer);
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    if (!(component instanceof UISelectMany)) {
-      LOG.error("Wrong type: Need " + UISelectMany.class.getName() + ", but was " + component.getClass().getName());
+    if (!(component instanceof UISelectManyCheckbox)) {
+      LOG.error("Wrong type: Need " + UISelectManyCheckbox.class.getName() + ", but was " + component.getClass().getName());
       return 100;
     }
 
-    UISelectMany selectMany = (UISelectMany) component;
+    UISelectManyCheckbox selectMany = (UISelectManyCheckbox) component;
 
     int heightPerRow = super.getFixedHeight(facesContext, selectMany);
     if (ComponentUtil.getBooleanAttribute(selectMany, ATTR_INLINE)) {
       return heightPerRow;
     } else {
-      List<SelectItem> items = ComponentUtil.getItemsToRender(selectMany);
+      List<SelectItem> items = RenderUtil.getItemsToRender(selectMany);
       return items.size() * heightPerRow;
     }
   }

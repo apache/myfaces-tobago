@@ -57,7 +57,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * </pre>
  */
 @Tag(name = "time")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.TimeTag")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.TimeTag")
 public class TimeExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasOnchange, IsRequired, HasTip,

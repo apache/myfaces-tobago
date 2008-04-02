@@ -36,16 +36,16 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @Tag(name = "panel")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPanel",
-    generate = false,
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanelBase",
     rendererType = "Panel",
-    isAjaxEnabled = true,
+    interfaces = {"org.apache.myfaces.tobago.ajax.api.AjaxComponent",
+        "org.apache.myfaces.tobago.component.SupportsMarkup"},
     facets = {
     @Facet(name="reload", description = "Contains an instance of UIReload",
             allowedChildComponenents = "org.apache.myfaces.tobago.Reload"),
     @Facet(name="layout", description = "Contains an instance of UILayout",
             allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
-public interface PanelTagDeclaration extends TobagoBodyTagDeclaration,
-    HasIdBindingAndRendered, HasDeprecatedDimension {
+public interface PanelTagDeclaration extends HasIdBindingAndRendered, HasDeprecatedDimension {
 
   /**
    * Indicate markup of this component.

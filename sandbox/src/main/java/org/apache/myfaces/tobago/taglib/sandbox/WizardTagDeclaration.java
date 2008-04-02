@@ -22,8 +22,8 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.model.Wizard;
-import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /**
@@ -33,11 +33,14 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIWizard",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanel",
+    generate = false,
     rendererType = "Wizard")
 public interface WizardTagDeclaration
-    extends TobagoTagDeclaration, HasIdBindingAndRendered {
+    extends HasIdBindingAndRendered {
 
   @TagAttribute(required = true, type = Wizard.class)
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.Wizard")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.Wizard",
+      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setController(String controller);
 }

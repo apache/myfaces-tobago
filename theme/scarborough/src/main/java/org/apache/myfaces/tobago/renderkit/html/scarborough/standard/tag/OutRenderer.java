@@ -24,10 +24,11 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CREATE_SPAN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
-import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -39,7 +40,7 @@ public class OutRenderer extends LayoutableRendererBase {
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
-    String text = ComponentUtil.currentValue(component);
+    String text = RenderUtil.currentValue(component);
     if (text == null) {
       text = "";
     }

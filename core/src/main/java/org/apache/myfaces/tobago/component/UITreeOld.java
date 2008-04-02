@@ -23,9 +23,9 @@ import org.apache.myfaces.tobago.TobagoConstants;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.TreeState;
-import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.util.MessageFactory;
 import org.apache.myfaces.tobago.util.StringUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.ActionSource;
@@ -95,6 +95,12 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
   private String mode;
 
   private Integer tabIndex;
+  private String idReference;
+  private String nameReference;
+  private Boolean mutable;
+  private String tipReference;
+  private String selectable;
+  private String disabledReference;
 
   public UITreeOld() {
     treeCommands = new UITreeOld.Command[]{
@@ -180,11 +186,11 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
   // TODO move this to renderkit
   public void createDefaultToolbar(FacesContext facesContext) {
 
-    UIComponent toolbar = ComponentUtil.createComponent(
+    UIComponent toolbar = CreateComponentUtils.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE,
         TobagoConstants.RENDERER_TYPE_TOOL_BAR);
-    toolbar.getAttributes().put(TobagoConstants.ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
-    toolbar.getAttributes().put(TobagoConstants.ATTR_LABEL_POSITION, ToolBarTag.LABEL_OFF);
+    toolbar.getAttributes().put(TobagoConstants.ATTR_ICON_SIZE, AbstractUIToolBar.ICON_SMALL);
+    toolbar.getAttributes().put(TobagoConstants.ATTR_LABEL_POSITION, AbstractUIToolBar.LABEL_OFF);
     ActionListener[] handlers = getActionListeners();
 
     if ((handlers == null || handlers.length == 0) && getActionListener() == null) {
@@ -193,7 +199,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
 
     UITreeOld.Command[] commands = getCommands();
     for (int i = 0; i < commands.length; i++) {
-      UICommand command = (UICommand) ComponentUtil.createComponent(
+      UICommand command = (UICommand) CreateComponentUtils.createComponent(
           facesContext, UICommand.COMPONENT_TYPE,
           TobagoConstants.RENDERER_TYPE_LINK);
       toolbar.getChildren().add(command);
@@ -312,7 +318,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     if (isRequired() && getState().getSelection().size() == 0) {
       setValid(false);
       FacesMessage facesMessage = MessageFactory.createFacesMessage(context,
-          UISelectOne.MESSAGE_VALUE_REQUIRED, FacesMessage.SEVERITY_ERROR);
+          AbstractUISelectOne.MESSAGE_VALUE_REQUIRED, FacesMessage.SEVERITY_ERROR);
       context.addMessage(getClientId(context), facesMessage);
     }
 
@@ -358,7 +364,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
   }
 
   public Object saveState(FacesContext context) {
-    Object[] state = new Object[8];
+    Object[] state = new Object[14];
     state[0] = super.saveState(context);
     state[1] = saveAttachedState(context, actionListenerBinding);
     state[2] = showJunctionsSet ? showJunctions : null;
@@ -367,6 +373,12 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     state[5] = showRootJunctionSet ? showRootJunction : null;
     state[6] = mode;
     state[7] = tabIndex;
+    state[8] = idReference;
+    state[9] = nameReference;
+    state[10] = mutable;
+    state[11] = tipReference;
+    state[12] = selectable;
+    state[13] = disabledReference;
     return state;
   }
 
@@ -392,6 +404,12 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     }
     mode = (String) values[6];
     tabIndex = (Integer) values[7];
+    idReference = (String) values[8];
+    nameReference = (String) values[9];
+    mutable = (Boolean) values[10];
+    tipReference = (String) values[11];
+    selectable = (String) values[12];
+    disabledReference = (String) values[13];
   }
 
   public UITreeOld.Command[] getCommands() {
@@ -487,6 +505,102 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
   public void setShowRootJunction(boolean showRootJunction) {
     this.showRootJunction = showRootJunction;
     this.showRootJunctionSet = true;
+  }
+
+  public void setIdReference(String idReference) {
+    this.idReference = idReference;
+  }
+
+  public String getIdReference() {
+     if (idReference != null) {
+       return idReference;
+     }
+     ValueBinding vb = getValueBinding(TobagoConstants.ATTR_ID_REFERENCE);
+     if (vb != null) {
+       return (String) vb.getValue(getFacesContext());
+     }
+     return null;
+   }
+
+
+  public void setNameReference(String nameReference) {
+    this.nameReference = nameReference;
+  }
+
+  public String getNameReference() {
+     if (nameReference != null) {
+       return nameReference;
+     }
+     ValueBinding vb = getValueBinding(TobagoConstants.ATTR_NAME_REFERENCE);
+     if (vb != null) {
+       return (String) vb.getValue(getFacesContext());
+     }
+     return null;
+   }
+
+
+  public void setMutable(Boolean mutable) {
+    this.mutable = mutable;
+  }
+
+  public boolean isMutable() {
+    if (mutable != null) {
+      return mutable;
+    }
+    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_MUTABLE);
+    if (vb != null) {
+      return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
+    } else {
+      return false;
+    }
+  }
+
+  public void setTipReference(String tipReference) {
+    this.tipReference = tipReference;
+  }
+
+  public String getTipReference() {
+    if (tipReference != null) {
+      return tipReference;
+    }
+    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_TIP_REFERENCE);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    }
+    return null;
+  }
+
+  public void setSelectable(String selectable) {
+    this.selectable = selectable;
+  }
+
+  public String getSelectable() {
+    if (selectable != null) {
+      return selectable;
+    }
+    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_SELECTABLE);
+    if (vb != null) {
+      String str = (String) vb.getValue(getFacesContext());
+      if (str != null) {
+        return str;
+      }
+    }
+    return "off";
+  }
+
+  public void setDisabledReference(String disabledReference) {
+    this.disabledReference = disabledReference;
+  }
+
+  public String getDisabledReference() {
+    if (disabledReference != null) {
+      return disabledReference;
+    }
+    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_DISABLED_REFERENCE);
+    if (vb != null) {
+      return (String) vb.getValue(getFacesContext());
+    }
+    return null;
   }
 
   public static class Command implements Serializable {

@@ -18,9 +18,7 @@ package org.apache.myfaces.tobago.apt.annotation;
  */
 
 /*
- * User: bommel
- * Date: Jan 19, 2007
- * Time: 12:25:53 PM
+ * $Id$
  */
 public enum Category {
   

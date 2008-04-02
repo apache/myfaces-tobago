@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.taglib.extension;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.internal.taglib.FileTag;
-import org.apache.myfaces.tobago.taglib.component.InputTagDeclaration;
+import org.apache.myfaces.tobago.taglib.decl.InputTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
@@ -50,7 +50,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 
 @Tag(name = "file")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.FileTag")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.FileTag")
 public class FileExtensionTag extends BodyTagSupport
     implements InputTagDeclaration, HasIdBindingAndRendered, IsDisabled,
     HasTip, HasLabel, HasLabelWidth, IsRequired {

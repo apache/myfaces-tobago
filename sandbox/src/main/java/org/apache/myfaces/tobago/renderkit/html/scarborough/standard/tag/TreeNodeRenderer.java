@@ -28,21 +28,21 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UITree;
-import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.AbstractUITree;
+import org.apache.myfaces.tobago.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.CommandRendererHelper;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.A;
 import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.DIV;
 import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.IMG;
 import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.SPAN;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -68,8 +68,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
       return;
     }
 
-    UITreeNode node = (UITreeNode) component;
-    UITree tree = node.findTree();
+    AbstractUITreeNode node = (AbstractUITreeNode) component;
+    AbstractUITree tree = node.findTree();
     String treeId = tree.getClientId(facesContext);
     String nodeStateId = node.nodeStateId(facesContext);
     Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
@@ -82,7 +82,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     // select
     String searchString;
     if (TreeRenderer.isSelectable(tree)) { // selection
-      String selected = (String) requestParameterMap.get(treeId + UITree.SELECT_STATE);
+      String selected = (String) requestParameterMap.get(treeId + AbstractUITree.SELECT_STATE);
       searchString = ";" + nodeStateId + ";";
       if (StringUtils.contains(selected, searchString)) {
         // TODO: add selection to Component
@@ -91,7 +91,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     }
 
     // marker
-    String marked = (String) requestParameterMap.get(treeId + UITree.MARKER);
+    String marked = (String) requestParameterMap.get(treeId + AbstractUITree.MARKER);
     if (marked != null) {
       searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeStateId;
       node.setMarked(marked.equals(searchString));
@@ -103,8 +103,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UITreeNode node = (UITreeNode) component;
-    UITree root = node.findTree();
+    AbstractUITreeNode node = (AbstractUITreeNode) component;
+    AbstractUITree root = node.findTree();
     MixedTreeModel mixedModel = root.getModel();
 
     mixedModel.onEncodeBegin();
@@ -215,7 +215,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     LOG.debug(builder + "<div name=" + label + ">");
   }
 
-  private void encodeExpandedHidden(TobagoResponseWriter writer, UITreeNode node, String clientId, boolean expanded)
+  private void encodeExpandedHidden(TobagoResponseWriter writer, AbstractUITreeNode node, String clientId, boolean expanded)
       throws IOException {
     writer.startElement(HtmlConstants.INPUT, node);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
@@ -354,7 +354,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 */
 
   private void encodeLabel(
-      TobagoResponseWriter writer, CommandRendererHelper helper, UITreeNode node, boolean marked, String treeId)
+      TobagoResponseWriter writer, CommandRendererHelper helper, AbstractUITreeNode node, boolean marked, String treeId)
       throws IOException {
 
     if (helper.isDisabled()) {
@@ -392,8 +392,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UITreeNode node = (UITreeNode) component;
-    UITree root = node.findTree();
+    AbstractUITreeNode node = (AbstractUITreeNode) component;
+    AbstractUITree root = node.findTree();
     MixedTreeModel mixedModel = root.getModel();
     boolean isFolder = mixedModel.isFolder();
 

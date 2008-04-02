@@ -28,8 +28,11 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 
 @Tag(name = "numberSlider")
-@UIComponentTag(rendererType = "InputNumberSlider",
-    uiComponent = "org.apache.myfaces.tobago.component.UIInputNumberSlider")
+@UIComponentTag(
+    uiComponent = "org.apache.myfaces.tobago.component.UIInputNumberSlider",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIInputNumberSlider",
+    rendererType = "InputNumberSlider")
+
 public interface InputNumberSliderTagDeclaration extends
     HasIdBindingAndRendered, IsReadonly, IsDisabled,
     HasValue, HasValueChangeListener {

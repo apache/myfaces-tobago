@@ -1,0 +1,381 @@
+group components;
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+component(componentInfo) ::= <<
+//------------------ GENERATED CODE (do not modify!) --------------------
+
+package <componentInfo.packageName>;
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+<componentInfo.imports:import(); separator="\n">
+
+public class <componentInfo.className>
+    extends <componentInfo.superClassName> <first(componentInfo.interfaces):{ n | implements <n>}><rest(componentInfo.interfaces):{ n | , <n> }> {
+
+  <if(componentInfo.componentType)>
+  public static final String COMPONENT_TYPE = "<componentInfo.componentType>";
+
+  <endif>
+  <if(componentInfo.componentFamily)>
+  public static final String COMPONENT_FAMILY = "<componentInfo.componentFamily>";
+
+  <endif>
+  <componentInfo.properties:field(); separator="\n">
+
+  <if(componentInfo.componentFamily)>
+  public String getFamily() {
+    return COMPONENT_FAMILY;
+  }
+
+  <endif>
+  <componentInfo.properties:{ p | <p:(p.propertyTemplate)()>}; separator="\n">
+
+  <if(componentInfo.properties)>
+  public void restoreState(FacesContext context, Object state) {
+    Object[] values = (Object[]) state;
+    super.restoreState(context, values[0]);
+    <componentInfo.properties:{ p | <p:(p.propertyRestoreStateTemplate)()>}; separator="\n">
+  }
+
+  public Object saveState(FacesContext context) {
+    Object[] values = new Object[<componentInfo.propertiesSizePlusOne>];
+    values[0] = super.saveState(context);
+    <componentInfo.properties:{ p | <p:(p.propertySaveStateTemplate)()>}; separator="\n">
+    return values;
+  }
+  <endif>
+
+  <if(componentInfo.invokeOnComponent)>
+  <invokeOnComponent()>
+  <endif>
+
+}
+>>
+
+import() ::= <<
+import <it>;
+>>
+invokeOnComponent() ::= <<
+public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
+    throws FacesException {
+  return FacesUtils.invokeOnComponent(context, this, clientId, callback);
+}
+>>
+
+IntegerProperty(property) ::= <<
+
+public <property.type> get<property.upperCamelCaseName>() {
+  if (<property.propertyName> != null) {
+    return <property.propertyName>;
+  }
+  <getValueExpression(property)>
+  if (ve != null) {
+    try {
+      Number number = (Number) <getValue(property)>
+      if (number != null) {
+        return number.intValue();
+      }
+    } catch (javax.el.ELException e) {
+		  throw new javax.faces.FacesException(e);
+	  }
+  }
+  <if(property.defaultCode)>
+  return <property.defaultCode>;
+  <else>
+  return null;
+  <endif>
+}
+
+public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+  this.<property.propertyName> = <property.propertyName>;
+}
+>>
+
+ObjectProperty(property) ::= <<
+
+public <property.type> get<property.upperCamelCaseName>() {
+  if (<property.propertyName> != null) {
+    return <property.propertyName>;
+  }
+  <getValueExpression(property)>
+  if (ve != null) {
+    try {
+      return (<property.type>) <getValue(property)>
+    } catch (javax.el.ELException e) {
+		  throw new javax.faces.FacesException(e);
+	  }
+  }
+  return null;
+}
+
+public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+  this.<property.propertyName> = <property.propertyName>;
+}
+>>
+
+StringArrayProperty(property) ::= <<
+
+public String[] get<property.upperCamelCaseName>() {
+  if (<property.propertyName> != null) {
+    return <property.propertyName>;
+  }
+  <getValueExpression(property)>
+  if (ve != null) {
+    try {
+      Object strArray = <getValue(property)>
+      if (strArray instanceof String[]) {
+        return (String[]) strArray;
+      } else if (strArray instanceof String) {
+        String[] strings = ((String) strArray).split("[, ]");
+        java.util.List\<String\> result = new java.util.ArrayList\<String\>(strings.length);
+        for (String string : strings) {
+          if (string.trim().length() != 0) {
+            result.add(string.trim());
+          }
+        }
+        return result.toArray(new String[result.size()]);
+      } else if (strArray == null) {
+        return new String[0];
+      } else {
+        return new String[]{strArray.toString()};
+      }
+    } catch (javax.el.ELException e) {
+		  throw new javax.faces.FacesException(e);
+	  }
+  }
+  return new String[0];
+}
+
+public void set<property.upperCamelCaseName>(String[] <property.propertyName>) {
+  this.<property.propertyName> = <property.propertyName>;
+}
+>>
+
+BooleanProperty(property) ::= <<
+
+public boolean is<property.upperCamelCaseName>() {
+  if (<property.propertyName> != null) {
+    return <property.propertyName>;
+  }
+  <getValueExpression(property)>
+  if (ve != null) {
+    try {
+      Boolean bool = (Boolean) <getValue(property)>
+      if (bool != null) {
+        return bool;
+      }
+    } catch (javax.el.ELException e) {
+		  throw new javax.faces.FacesException(e);
+	  }
+  }
+  <if(property.defaultCode)>
+  return <property.defaultCode>;
+  <else>
+  return false;
+  <endif>
+}
+
+public void set<property.upperCamelCaseName>(boolean <property.propertyName>) {
+  this.<property.propertyName> = <property.propertyName>;
+}
+>>
+
+SeverityProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
+OrderByProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
+WizardProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
+StringProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
+CharacterProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
+MethodBindingProperty(property) ::= <<
+
+public <property.type> get<property.upperCamelCaseName>() {
+  return <property.propertyName>;
+}
+
+public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+  this.<property.propertyName> = <property.propertyName>;
+}
+>>
+
+NormalProperty(property) ::= <<
+
+public <property.type> get<property.upperCamelCaseName>() {
+  if (<property.propertyName> != null) {
+    return <property.propertyName>;
+  }
+  <getValueExpression(property)>
+  if (ve != null) {
+    try {
+      <if(property.defaultCode)>
+      <property.type> <property.propertyName> = (<property.type>) <getValue(property)>
+      if (<property.propertyName> != null) {
+        return <property.propertyName>;
+      }
+      <else>
+      return (<property.type>) <getValue(property)>
+      <endif>
+    } catch (javax.el.ELException e) {
+		  throw new javax.faces.FacesException(e);
+	  }
+  }
+  <if(property.defaultCode)>
+  return <property.defaultCode>;
+  <else>
+  return null;
+  <endif>
+}
+
+public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+  this.<property.propertyName> = <property.propertyName>;
+}
+>>
+
+
+field() ::= <<
+private <it.type> <it.propertyName>;
+>>
+
+restoreStateField() ::= <<
+<it.propertyName> = (<it.type>) values[<i>];
+>>
+
+saveStateField() ::= <<
+values[<it.indexPlusOne>] = <it.propertyName>;
+>>
+
+WizardSaveStateProperty() ::= <<
+values[<it.indexPlusOne>] = <it.propertyName>;
+>>
+
+ObjectSaveStateProperty() ::= <<
+values[<it.indexPlusOne>] = <it.propertyName>;
+>>
+
+IntegerSaveStateProperty() ::= <<
+values[<it.indexPlusOne>] = <it.propertyName>;
+>>
+
+StringSaveStateProperty() ::= <<
+values[<it.indexPlusOne>] = <it.propertyName>;
+>>
+
+StringArraySaveStateProperty() ::= <<
+values[<it.indexPlusOne>] = <it.propertyName>;
+>>
+
+BooleanSaveStateProperty() ::= <<
+values[<it.indexPlusOne>] = <it.propertyName>;
+>>
+
+CharacterSaveStateProperty() ::= <<
+values[<it.indexPlusOne>] = <it.propertyName>;
+>>
+
+SeveritySaveStateProperty() ::= <<
+values[<it.indexPlusOne>] = <it.propertyName>;
+>>
+
+OrderBySaveStateProperty() ::= <<
+values[<it.indexPlusOne>] = <it.propertyName>;
+>>
+
+MethodBindingSaveStateProperty() ::= <<
+values[<it.indexPlusOne>] = saveAttachedState(context, <it.propertyName>);
+>>
+
+
+WizardRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+>>
+
+ObjectRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+>>
+
+IntegerRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+>>
+
+StringRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+>>
+
+StringArrayRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+>>
+
+BooleanRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+>>
+
+CharacterRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+>>
+
+SeverityRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+>>
+
+OrderByRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+>>
+
+MethodBindingRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.type>) restoreAttachedState(context, values[<it.indexPlusOne>]);
+>>
+
+
+
+getValueExpression(property) ::= <<
+javax.el.ValueExpression ve = getValueExpression("<property.name>");
+>>
+
+getValue(property) ::= <<
+ve.getValue(getFacesContext().getELContext());
+>>

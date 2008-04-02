@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
     uiComponentBaseClass = "javax.faces.component.UISelectItems",
     isComponentAlreadyDefined = false,
     allowedChildComponenents = "NONE")
-public interface SelectItemsTagDeclaration extends TobagoTagDeclaration, HasId, HasBinding {
+public interface SelectItemsTagDeclaration extends HasId, HasBinding {
 
   /**
    * Value binding expression pointing at a List or array of SelectItem instances containing

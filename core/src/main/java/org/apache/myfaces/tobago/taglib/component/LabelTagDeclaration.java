@@ -45,7 +45,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
     uiComponentBaseClass = "javax.faces.component.UIOutput",
     rendererType = "Label",
     allowedChildComponenents = "NONE")
-public interface LabelTagDeclaration extends BeanTagDeclaration, HasIdBindingAndRendered,
+public interface LabelTagDeclaration extends HasIdBindingAndRendered,
     HasLabelWithAccessKey, HasFor, IsInline, HasDeprecatedWidth, HasTip, HasMarkup {
 
   /**

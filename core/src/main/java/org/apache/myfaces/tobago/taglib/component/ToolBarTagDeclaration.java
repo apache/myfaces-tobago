@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.component.UIToolBar;
+import org.apache.myfaces.tobago.component.AbstractUIToolBar;
 
 /*
  * Date: 11.02.2006
@@ -59,8 +59,7 @@ import org.apache.myfaces.tobago.component.UIToolBar;
 @BodyContentDescription(anyTagOf = "(<tc:toolBarCommand>|<tc:toolBarSelectBoolean>|<tc:toolBarSelectOne>)* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBar",
-    uiComponentBaseClass = "javax.faces.component.UIPanel",
-    generate = false,
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIToolBar",
     rendererType = "ToolBar",
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.SelectOneCommand",
@@ -72,23 +71,23 @@ public interface ToolBarTagDeclaration extends PanelTagDeclaration {
    * If toolbar is facet of box: bottom is changed to right!
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = UIToolBar.LABEL_BOTTOM,
-      allowedValues = {UIToolBar.LABEL_BOTTOM, UIToolBar.LABEL_RIGHT, UIToolBar.LABEL_OFF})
+  @UIComponentTagAttribute(defaultValue = AbstractUIToolBar.LABEL_BOTTOM,
+      allowedValues = {AbstractUIToolBar.LABEL_BOTTOM, AbstractUIToolBar.LABEL_RIGHT, AbstractUIToolBar.LABEL_OFF})
   void setLabelPosition(String labelPosition);
 
   /**
    * Size of button images, possible values are: small, big, off.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = UIToolBar.ICON_SMALL,
-      allowedValues = {UIToolBar.ICON_SMALL, UIToolBar.ICON_BIG, UIToolBar.ICON_OFF})
+  @UIComponentTagAttribute(defaultValue = AbstractUIToolBar.ICON_SMALL,
+      allowedValues = {AbstractUIToolBar.ICON_SMALL, AbstractUIToolBar.ICON_BIG, AbstractUIToolBar.ICON_OFF})
   void setIconSize(String iconSize);
 
   /**
    * Orientation of toolbar
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = UIToolBar.ORIENTATION_LEFT,
-      allowedValues = {UIToolBar.ORIENTATION_LEFT, UIToolBar.ORIENTATION_RIGHT})
+  @UIComponentTagAttribute(defaultValue = AbstractUIToolBar.ORIENTATION_LEFT,
+      allowedValues = {AbstractUIToolBar.ORIENTATION_LEFT, AbstractUIToolBar.ORIENTATION_RIGHT})
   void setOrientation(String orientation);
 }

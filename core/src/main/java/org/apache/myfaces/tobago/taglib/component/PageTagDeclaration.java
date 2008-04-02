@@ -38,7 +38,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasState;
 @Tag(name = "page")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPage",
-    rendererType = "Page", generate = false,
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIPage",
+    rendererType = "Page",
     facets =
         { @Facet(name = "action", description ="Contains an instance of UICommand (tc:command) for an auto-action",
                 allowedChildComponenents = "org.apache.myfaces.tobago.Command"),
@@ -47,8 +48,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasState;
         @Facet(name="layout", description = "Contains an instance of UILayout",
                 allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 
-public interface PageTagDeclaration extends TobagoBodyTagDeclaration, HasLabel, HasId, HasDimension, HasBinding,
-    HasState {
+public interface PageTagDeclaration extends HasLabel, HasId, HasBinding, HasState {
   /**
    * Possible values for doctype are:
    * <dl>
@@ -80,5 +80,13 @@ public interface PageTagDeclaration extends TobagoBodyTagDeclaration, HasLabel, 
   @TagAttribute
   @UIComponentTagAttribute()
   void setApplicationIcon(String icon);
+
+  @TagAttribute
+  @UIComponentTagAttribute(type="java.lang.Integer", defaultCode = "getHeightInternal()")
+  void setHeight(String height);
+
+  @TagAttribute
+  @UIComponentTagAttribute(type="java.lang.Integer", defaultCode = "getWidthInternal()")
+  void setWidth(String width);
 
 }

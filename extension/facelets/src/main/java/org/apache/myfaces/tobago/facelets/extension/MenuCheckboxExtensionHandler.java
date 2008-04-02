@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.facelets.extension;
  */
 
 import com.sun.facelets.tag.jsf.ComponentConfig;
-import org.apache.myfaces.tobago.component.UISelectBoolean;
+import org.apache.myfaces.tobago.component.AbstractUISelectBoolean;
 
 /*
  * Date: Aug 10, 2007
@@ -31,6 +31,6 @@ public class MenuCheckboxExtensionHandler extends TobagoMenuExtensionHandler {
   }
 
   protected String getSubComponentType() {
-    return UISelectBoolean.COMPONENT_TYPE;
+    return AbstractUISelectBoolean.COMPONENT_TYPE;
   }
 }

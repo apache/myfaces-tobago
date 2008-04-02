@@ -22,11 +22,6 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.component.UIMenu;
-import org.apache.myfaces.tobago.component.UIMenuCommand;
-import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
-import org.apache.myfaces.tobago.component.UIMenuSelectOne;
-import org.apache.myfaces.tobago.component.UIMenuSeparator;
 
 /*
  * Date: 14.03.2006
@@ -40,21 +35,21 @@ import org.apache.myfaces.tobago.component.UIMenuSeparator;
 */
 @Tag(name = "menuBar")
 @BodyContentDescription(
-    anyClassOf = {"org.apache.myfaces.tobago.taglib.component.MenuTag",
-        "org.apache.myfaces.tobago.taglib.component.MenuCommandTag",
-        "org.apache.myfaces.tobago.taglib.component.MenuSelectBooleanTag",
-        "org.apache.myfaces.tobago.taglib.component.MenuSelectOneTag",
-        "org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag"})
+    anyClassOf = {"org.apache.myfaces.tobago.internal.taglib.MenuTag",
+        "org.apache.myfaces.tobago.internal.taglib.MenuCommandTag",
+        "org.apache.myfaces.tobago.internal.taglib.MenuSelectBooleanTag",
+        "org.apache.myfaces.tobago.internal.taglib.MenuSelectOneTag",
+        "org.apache.myfaces.tobago.internal.taglib.MenuSeparatorTag"})
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuBar",
     uiComponentBaseClass = "javax.faces.component.UIPanel",
     rendererType = "MenuBar", isComponentAlreadyDefined = false,
     allowedChildComponenents = {
-        UIMenu.COMPONENT_TYPE,
-        UIMenuCommand.COMPONENT_TYPE,
-        UISelectBooleanCommand.COMPONENT_TYPE,
-        UIMenuSelectOne.COMPONENT_TYPE,
-        UIMenuSeparator.COMPONENT_TYPE
+        "org.apache.myfaces.tobago.Menu",
+        "org.apache.myfaces.tobago.MenuCommand",
+        "org.apache.myfaces.tobago.SelectBooleanCommand",
+        "org.apache.myfaces.tobago.MenuSelectOne",
+        "org.apache.myfaces.tobago.MenuSeparator"
         })
-public interface MenuBarTagDeclaration extends TobagoBodyTagDeclaration, HasIdBindingAndRendered, HasDeprecatedWidth {
+public interface MenuBarTagDeclaration extends HasIdBindingAndRendered, HasDeprecatedWidth {
 }

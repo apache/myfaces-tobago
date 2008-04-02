@@ -19,13 +19,12 @@ package org.apache.myfaces.tobago.internal.taglib;
 
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;
-import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIMessages;
-import org.apache.myfaces.tobago.component.UIInputBase;
-import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.event.TabChangeSource;
+import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.AbstractUIMessages;
+import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
+import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,7 +33,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.ActionSource;
 import javax.faces.component.ValueHolder;
-import javax.faces.component.UIGraphic;
 import javax.faces.webapp.UIComponentTag;
 import javax.faces.el.ValueBinding;
 import javax.faces.el.MethodBinding;
@@ -52,20 +50,17 @@ public class TagUtils {
       if (UIComponentTag.isValueReference(value)) {
         component.setValueBinding(name, createValueBinding(value));
       } else {
-        if ((component instanceof UIPage || component instanceof UIGraphic || component instanceof UIPopup)
+        if ((component instanceof org.apache.myfaces.tobago.component.AbstractUIPage
+            || component instanceof javax.faces.component.UIGraphic
+            || component instanceof org.apache.myfaces.tobago.component.AbstractUIPopup)
             && (TobagoConstants.ATTR_WIDTH.equals(name) || TobagoConstants.ATTR_HEIGHT.equals(name))) {
-          value = removePx(value);
+          if (value.endsWith("px")) {
+            value = value.substring(0, value.length() - 2);
+          }
         }
         component.getAttributes().put(name, new Integer(value));
       }
     }
-  }
-
-  private static String removePx(String value) {
-    if (value != null && value.endsWith("px")) {
-      value = value.substring(0, value.length() - 2);
-    }
-    return value;
   }
 
   public static void setBooleanProperty(UIComponent component, String name, String value) {
@@ -135,7 +130,7 @@ public class TagUtils {
   public static void setSuggestMethodMethodBinding(UIComponent component, String value, Class[] args) {
     if (value != null && UIComponentTag.isValueReference(value)) {
       MethodBinding methodBinding = FacesContext.getCurrentInstance().getApplication().createMethodBinding(value, args);
-      ((UIInputBase) component).setSuggestMethod(methodBinding);
+      ((InputSuggest) component).setSuggestMethod(methodBinding);
     }
   }
 
@@ -172,6 +167,13 @@ public class TagUtils {
     }  
   }
 
+  public static void setTabChangeListenerMethodBinding(UIComponent component, String value, Class[] args) {
+    if (value != null && UIComponentTag.isValueReference(value)) {
+      MethodBinding methodBinding = FacesContext.getCurrentInstance().getApplication().createMethodBinding(value, args);
+      ((TabChangeSource) component).setTabChangeListener(methodBinding);
+    }
+  }
+
   public static void setStringArrayProperty(UIComponent component, String name, String value) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
@@ -203,7 +205,7 @@ public class TagUtils {
       if (UIComponentTag.isValueReference(value)) {
         component.setValueBinding(name, createValueBinding(value));
       } else {
-        component.getAttributes().put(name, UIMessages.OrderBy.parse(value));
+        component.getAttributes().put(name, AbstractUIMessages.OrderBy.parse(value));
       }
     }
   }

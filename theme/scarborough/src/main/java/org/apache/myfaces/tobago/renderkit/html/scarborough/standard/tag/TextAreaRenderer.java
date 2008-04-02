@@ -27,14 +27,14 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIInputBase;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -52,7 +52,7 @@ public class TextAreaRenderer extends InputRendererBase {
       return;
     }
 
-    UIInputBase input = (UIInputBase) component;
+    UITextarea input = (UITextarea) component;
     String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
 
     String clientId = input.getClientId(facesContext);
@@ -80,7 +80,7 @@ public class TextAreaRenderer extends InputRendererBase {
     if (onchange != null) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
     }
-    String currentValue = ComponentUtil.currentValue(input);
+    String currentValue = RenderUtil.currentValue(input);
     if (currentValue != null) {
       // this is because browsers eat the first CR+LF of <textarea>
       if (currentValue.startsWith("\r\n")) {
@@ -94,7 +94,7 @@ public class TextAreaRenderer extends InputRendererBase {
     }
     writer.endElement(HtmlConstants.TEXTAREA);
 
-    checkForCommandFacet(input, facesContext, writer);
+    HtmlRendererUtil.checkForCommandFacet(input, facesContext, writer);
 
     // focus
     HtmlRendererUtil.renderFocusId(facesContext, component);

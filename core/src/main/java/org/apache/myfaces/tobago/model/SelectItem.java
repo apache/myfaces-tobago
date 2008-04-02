@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.model;
  */
 
 import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.component.UISelectItem;
 
 /*
  * Date: Apr 5, 2005
@@ -34,13 +33,7 @@ public class SelectItem extends javax.faces.model.SelectItem implements Supports
   public SelectItem() {
     super();
   }
-
-  public SelectItem(UISelectItem component) {
-    this(component.getItemValue() == null ? "" : component.getItemValue(),
-        component.getItemLabel(), component.getItemDescription(),
-        component.isItemDisabled(), component.getItemImage(), component.getMarkup());
-  }
-
+  
   public SelectItem(Object value) {
     super(value);
   }
