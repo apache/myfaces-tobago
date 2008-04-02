@@ -33,10 +33,14 @@ public class JndiUtils {
     NamingEnumeration<Binding> ne = ctx.listBindings("java:comp/env");
     while (ne.hasMore()) {
       Binding b = ne.next();
-      //LOG.error("Property: " + b.getName());
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Property: " + b.getName());
+      }
       if (property.equals(b.getName())) {
         Object obj = b.getObject();
-        //LOG.error("Value: "+ obj);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Value: "+ obj);
+        }
         return obj;
       }
     }
