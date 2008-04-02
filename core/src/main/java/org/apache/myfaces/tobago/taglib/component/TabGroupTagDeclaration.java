@@ -71,8 +71,8 @@ public interface TabGroupTagDeclaration extends HasIdBindingAndRendered, HasDepr
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.String",
-      allowedValues =
-          {AbstractUITabGroup.SWITCH_TYPE_CLIENT, AbstractUITabGroup.SWITCH_TYPE_RELOAD_PAGE, AbstractUITabGroup.SWITCH_TYPE_RELOAD_TAB},
+      allowedValues = {AbstractUITabGroup.SWITCH_TYPE_CLIENT, AbstractUITabGroup.SWITCH_TYPE_RELOAD_PAGE,
+              AbstractUITabGroup.SWITCH_TYPE_RELOAD_TAB},
       defaultValue = AbstractUITabGroup.SWITCH_TYPE_CLIENT)
   void setSwitchType(String switchType);
 

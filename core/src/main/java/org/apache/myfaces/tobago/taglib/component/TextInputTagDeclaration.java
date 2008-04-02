@@ -1,7 +1,5 @@
 package org.apache.myfaces.tobago.taglib.component;
 
-import org.apache.myfaces.tobago.taglib.decl.InputTagDeclaration;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,9 +17,10 @@ import org.apache.myfaces.tobago.taglib.decl.InputTagDeclaration;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.taglib.decl.InputTagDeclaration;
+
 /*
  * Created: Aug 5, 2005 4:47:53 PM
- * User: bommel
  * $Id$
  */
 

@@ -34,7 +34,8 @@ import java.util.Iterator;
  * Time: 5:02:10 PM
  * $Id$
  */
-public abstract class AbstractUICommand extends javax.faces.component.UICommand implements InvokeOnComponent, SupportsRenderedPartially {
+public abstract class AbstractUICommand extends javax.faces.component.UICommand implements InvokeOnComponent, 
+    SupportsRenderedPartially {
 
   public void processDecodes(FacesContext context) {
     if (context == null) {

@@ -83,7 +83,8 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
     return false;
   }
 
-  private void decodeActionComponent(FacesContext facesContext, AbstractUIPage page, Map<String, UIComponent> ajaxComponents) {
+  private void decodeActionComponent(FacesContext facesContext, AbstractUIPage page, Map<String,
+      UIComponent> ajaxComponents) {
     String actionId = page.getActionId();
     UIComponent actionComponent = null;
     if (actionId != null) {
