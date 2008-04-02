@@ -147,6 +147,10 @@
             <id>compile</id>
             <goals><goal>compile</goal></goals>
             <configuration>
+              <source>1.5</source>
+              <target>1.5</target>
+              <encoding>UTF-8</encoding>
+              <showWarnings>true</showWarnings>
               <includes>
                 <include>org/apache/myfaces/tobago/internal/taglib/*</include>
                 <include>org/apache/myfaces/tobago/component/*</include>
