@@ -73,7 +73,7 @@ public class CreateComponentUtils {
   }
 
   public static UIComponent createUISelectBooleanFacet(FacesContext facesContext, UICommand command) {
-    UIComponent checkbox = createComponent(facesContext, AbstractUISelectBoolean.COMPONENT_TYPE,
+    UIComponent checkbox = createComponent(facesContext, UISelectBoolean.COMPONENT_TYPE,
         TobagoConstants.RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX);
     command.getFacets().put(TobagoConstants.FACET_ITEMS, checkbox);
     ValueBinding valueBinding = command.getValueBinding(TobagoConstants.ATTR_VALUE);

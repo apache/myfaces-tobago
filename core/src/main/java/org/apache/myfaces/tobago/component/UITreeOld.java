@@ -186,9 +186,10 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
   // TODO move this to renderkit
   public void createDefaultToolbar(FacesContext facesContext) {
 
-    UIComponent toolbar = CreateComponentUtils.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE,
-        TobagoConstants.RENDERER_TYPE_TOOL_BAR);
+    // TODO 
+    UIComponent component  = facesContext.getApplication().createComponent(UIPanel.COMPONENT_TYPE);
+    component.setRendererType(TobagoConstants.RENDERER_TYPE_TOOL_BAR);
+    UIComponent toolbar = component;
     toolbar.getAttributes().put(TobagoConstants.ATTR_ICON_SIZE, AbstractUIToolBar.ICON_SMALL);
     toolbar.getAttributes().put(TobagoConstants.ATTR_LABEL_POSITION, AbstractUIToolBar.LABEL_OFF);
     ActionListener[] handlers = getActionListeners();
@@ -199,9 +200,8 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
 
     UITreeOld.Command[] commands = getCommands();
     for (int i = 0; i < commands.length; i++) {
-      UICommand command = (UICommand) CreateComponentUtils.createComponent(
-          facesContext, UICommand.COMPONENT_TYPE,
-          TobagoConstants.RENDERER_TYPE_LINK);
+      UICommand command = (UICommand) facesContext.getApplication().createComponent(UICommand.COMPONENT_TYPE);
+      command.setRendererType(TobagoConstants.RENDERER_TYPE_LINK);
       toolbar.getChildren().add(command);
       command.setId(commands[i].getCommand());
 
