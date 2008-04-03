@@ -28,8 +28,12 @@ import javax.naming.NamingEnumeration;
 public class JndiUtils {
 
   private static final Log LOG = LogFactory.getLog(JndiUtils.class);
-  
+
   public static Object getJndiProperty(Context ctx, String property) throws NamingException {
+    return getJndiProperty(ctx, property, null);
+  }
+  
+  public static Object getJndiProperty(Context ctx, String property, Object defaultValue) throws NamingException {
     NamingEnumeration<Binding> ne = ctx.listBindings("java:comp/env");
     while (ne.hasMore()) {
       Binding b = ne.next();
@@ -44,6 +48,6 @@ public class JndiUtils {
         return obj;
       }
     }
-    return null;
+    return defaultValue;
   }
 }
