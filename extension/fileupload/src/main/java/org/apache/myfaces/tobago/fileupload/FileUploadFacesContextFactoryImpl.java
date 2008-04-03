@@ -94,8 +94,8 @@ public class FileUploadFacesContextFactoryImpl extends FacesContextFactory {
       }
 
       try {
-        maxSize =
-            TobagoMultipartFormdataRequest.getMaxSize((String) JndiUtils.getJndiProperty(ic, "uploadMaxFileSize", TobagoMultipartFormdataRequest.ONE_MB));
+        String size = (String) JndiUtils.getJndiProperty(ic, "uploadMaxFileSize");
+        maxSize = TobagoMultipartFormdataRequest.getMaxSize(size);
       } catch (NamingException ne) {
         // ignore
       }
