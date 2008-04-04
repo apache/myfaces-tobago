@@ -71,7 +71,7 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage, selec
   this.scrollPositionId = this.id + Tobago.SUB_COMPONENT_SEP + "scrollPosition";
 
   Tobago.addAjaxComponent(this.id, this);
-  // option are onyl used for ajax request
+  // option are only used for ajax request
   this.options = {
     // overlay is created by sheet itself, so disable this in Tobago.Transport
     createOverlay: false
