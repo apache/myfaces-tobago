@@ -55,7 +55,7 @@ public class CreateComponentUtils {
     UIColumn column = (UIColumn) createComponent(UIColumn.COMPONENT_TYPE, null);
     TagUtils.setStringProperty(column, TobagoConstants.ATTR_LABEL, label);
     TagUtils.setBooleanProperty(column, TobagoConstants.ATTR_SORTABLE, sortable);
-    TagUtils.setBooleanProperty(column, TobagoConstants.ATTR_ALIGN, align);
+    TagUtils.setStringProperty(column, TobagoConstants.ATTR_ALIGN, align);
     return column;
   }
 
