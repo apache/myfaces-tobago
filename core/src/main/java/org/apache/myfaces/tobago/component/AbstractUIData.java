@@ -365,7 +365,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
     // in RI and myfaces this could done via setValue(null)
 
     if (FacesUtils.hasValueBindingOrValueExpression(this, "value")) {
-      FacesUtils.setValueOfBindingOrExpression(facesContext, null, this, "value");
+      setValue(null);
     } else {
       setValue(getValue());
     }
