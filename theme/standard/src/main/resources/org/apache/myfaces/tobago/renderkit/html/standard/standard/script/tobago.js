@@ -222,12 +222,12 @@ var Tobago = {
 
   isSubmit: false,
 
- 
+
   /**
     * The id of a initially loaded popup (not by ajax)
     */
   initialPopupId: null,
-  
+
   /**
     * Count of currently open popups
     */
@@ -290,7 +290,7 @@ var Tobago = {
     var clientDimension = this.createInput("hidden", this.form.id + '-clientDimension');
     clientDimension.value = document.body.clientWidth + ";" + document.body.clientHeight;
     this.form.appendChild(clientDimension);
-    Tobago.onBeforeUnload();    
+    Tobago.onBeforeUnload();
   },
 
   onBeforeUnload: function() {
@@ -915,17 +915,17 @@ var Tobago = {
         Tobago.removeCssClass(iframe, "tobago-popup-none");
       }
     }
-    
+
     if (!Tobago.pageIsComplete) {
       // Popup is loaded during page loading
       Tobago.initialPopupId = id;
     } else {
       // Popup is loaded by ajax
-      Tobago.lockPopupPage(id); 
+      Tobago.lockPopupPage(id);
     }
     Tobago.openPopups++;
   },
- 
+
   /**
     * Locks the parent page of a popup when it is opened
     */
@@ -946,7 +946,7 @@ var Tobago = {
       var element = document.forms[0].elements[i];
       if (element.type != "hidden" && !element.disabled) {
         if (element.id.indexOf(id) != 0) {
-         element.disabled = true;        
+         element.disabled = true;
          hidden.value += element.id + ",";
        } else {
          if (firstPopupElement == null && element.focus) {
@@ -959,7 +959,7 @@ var Tobago = {
       var element = document.anchors[i];
       if (!element.disabled) {
         if (element.id.indexOf(id) != 0) {
-         element.disabled = true;        
+         element.disabled = true;
          hidden.value += element.id + ",";
        } else {
          if (firstPopupElement == null && element.focus) {
@@ -1042,10 +1042,10 @@ var Tobago = {
 
     Tobago.removeEventListener(window, "resize", Tobago.popupResizeStub);
     Tobago.popupResizeStub = null;
-    
+
     Tobago.unlockPopupPage(id);
     Tobago.openPopups--;
-    
+
     // reset focus when last popup was closed
     if (Tobago.openPopups == 0) {
       Tobago.setFocus();
@@ -1054,7 +1054,7 @@ var Tobago = {
 
   /**
     * Unlock the parent page of a popup when it is closed
-    */  
+    */
   unlockPopupPage: function(id) {
     // enable all elements and anchors on page stored in a hidden field
     var hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + "disabledElements");
@@ -1300,6 +1300,10 @@ var Tobago = {
     */
   createOverlay: function(element) {
     element = Tobago.element(element);
+    if (!element) {
+      LOG.warn("no element to create overlay");
+      return;
+    }
     var position = Tobago.getRuntimeStyle(element).position;
     if (position == "static") {
       LOG.debug("replace position " + position + " with relative");
@@ -1985,6 +1989,10 @@ Tobago.Updater = {
 
   CODE_ERROR: 500,
 
+  WAIT_ON_ERROR: false,
+
+  WAIT_ON_RELOAD: false,
+
   options: {
     createOverlay: true
   },
@@ -2109,7 +2117,9 @@ Tobago.Updater = {
       if (!data.tobagoAjaxResponse) {
         // unknown response do full page reload
         LOG.warn("initiating full reload");
-//        alert("wait");
+        if (Tobago.Updater.WAIT_ON_ERROR) {
+          alert("wait: initiating full reload");
+        }
         Tobago.Transport.requestComplete();
         Tobago.submitAction(Tobago.page.id);
         return data;
@@ -2117,7 +2127,9 @@ Tobago.Updater = {
         // update required do full page reload
         Tobago.replaceJsfState(data.jsfState);
         LOG.info("full reload requested");
-//        alert("wait responseCode = " + data.responseCode);
+        if (Tobago.Updater.WAIT_ON_RELOAD) {
+          alert("wait: full reload requeste: responseCode = " + data.responseCode);
+        }
         Tobago.Transport.requestComplete();
         Tobago.submitAction(Tobago.page.id);
         return data;
@@ -2160,9 +2172,9 @@ Tobago.Updater = {
     },
 
     error: function(data, ioArgs) {
-      LOG.error("Request failed : ");
+      LOG.error("Request failed : " + ioArgs.xhr.status);
       Tobago.Updater.doErrorUpdate(Tobago.parsePartialIds(ioArgs.args.requestedIds));
-      Tobago.bind(Tobago.Transport, "requestComplete");
+      Tobago.Transport.requestComplete();
       return data;
     },
 
