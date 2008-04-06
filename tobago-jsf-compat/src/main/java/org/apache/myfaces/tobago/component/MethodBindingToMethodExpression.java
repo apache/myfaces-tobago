@@ -32,7 +32,7 @@ import javax.faces.FacesException;
 public class MethodBindingToMethodExpression extends MethodExpression implements StateHolder {
   private MethodBinding methodBinding;
 
-  private boolean _transientFlag;
+  private boolean transientFlag;
 
   private transient MethodInfo methodInfo;
 
@@ -136,18 +136,18 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
   }
 
   public void setTransient(boolean transientFlag) {
-    _transientFlag = transientFlag;
+    this.transientFlag = transientFlag;
   }
 
   public boolean isTransient() {
-    return _transientFlag;
+    return transientFlag;
   }
 
   @Override
   public int hashCode() {
-    final int PRIME = 31;
+    final int prime = 31;
     int result = 1;
-    result = PRIME * result + ((methodBinding == null) ? 0 : methodBinding.hashCode());
+    result = prime * result + ((methodBinding == null) ? 0 : methodBinding.hashCode());
     return result;
   }
 
@@ -188,11 +188,9 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
   private <T> T invoke(Invoker<T> invoker) {
     try {
       return invoker.invoke();
-    }
-    catch (javax.faces.el.MethodNotFoundException e) {
+    } catch (javax.faces.el.MethodNotFoundException e) {
       throw new MethodNotFoundException(e.getMessage(), e);
-    }
-    catch (EvaluationException e) {
+    } catch (EvaluationException e) {
       throw new ELException(e.getMessage(), e);
     }
   }
