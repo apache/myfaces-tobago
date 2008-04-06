@@ -242,7 +242,8 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     throw new IllegalStateException("No UIComponentTag found for componentClass " + baseClass);
   }
 
-  private ComponentPropertyInfo addPropertyToComponent(ComponentInfo componentInfo, PropertyInfo info, int index, boolean methodExpression) {
+  private ComponentPropertyInfo addPropertyToComponent(ComponentInfo componentInfo, PropertyInfo info,
+      int index, boolean methodExpression) {
     ComponentPropertyInfo componentPropertyInfo =
         (ComponentPropertyInfo) info.fill(new ComponentPropertyInfo());
     componentPropertyInfo.setIndex(index);

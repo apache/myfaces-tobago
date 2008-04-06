@@ -272,7 +272,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
   }
 
   private void applyNamespace(Element parent, Namespace namespace) {
-    for (Element element:(List<Element>)parent.getChildren()) {
+    for (Element element:(List<Element>) parent.getChildren()) {
       element.setNamespace(namespace);
       applyNamespace(element, namespace);
     }
