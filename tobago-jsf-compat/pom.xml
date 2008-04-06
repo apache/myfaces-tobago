@@ -26,6 +26,34 @@
   <name>Tobago JSF Compatibility</name>
   <description>Tobago JSF 1.1-1.2 Compatibility Bridge</description>
   <artifactId>tobago-jsf-compat</artifactId>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+          <encoding>UTF-8</encoding>
+          <showWarnings>true</showWarnings>
+          <excludes>
+            <exclude>${jsf12.exclude}</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+       <groupId>org.apache.maven.plugins</groupId>
+       <artifactId>maven-jar-plugin</artifactId>
+       <executions>
+         <execution>
+           <goals>
+             <goal>test-jar</goal>
+           </goals>
+         </execution>
+       </executions>
+     </plugin>
+    </plugins>
+  </build>
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-jsf-compat</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/tobago-jsf-compat</developerConnection>
@@ -43,6 +71,20 @@
       <artifactId>commons-lang</artifactId>
     </dependency>
     <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>javax.servlet.jsp</groupId>
       <artifactId>jsp-api</artifactId>
       <version>2.1</version>
@@ -56,6 +98,12 @@
     </dependency>
   </dependencies>
   <profiles>
+    <profile>
+      <id>jsf-1.2</id>
+      <properties>
+        <jsf12.exclude>javax/faces/component/*</jsf12.exclude>
+      </properties>
+    </profile>
     <profile>
       <id>jdk14retro</id>
       <build>
@@ -89,4 +137,7 @@
       </dependencies>
     </profile>
   </profiles>
+  <properties>
+    <jsf12.exclude>no/excluded/package/*</jsf12.exclude>
+  </properties>
 </project>

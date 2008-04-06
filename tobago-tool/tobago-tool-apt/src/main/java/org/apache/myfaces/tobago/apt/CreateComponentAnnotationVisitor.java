@@ -44,6 +44,8 @@ import java.util.Collection;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Collections;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
@@ -65,16 +67,27 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
   private StringTemplateGroup componentStringTemplateGroup;
   private Set<String> renderer = new HashSet<String>();
   private Set<String> ignoredProperties;
+  private String jsfVersion = "1.1";
 
   public CreateComponentAnnotationVisitor(AnnotationProcessorEnvironment env) {
     super(env);
+
+    for (Map.Entry<String, String> entry : getEnv().getOptions().entrySet()) {
+      if (entry.getKey().startsWith("-Ajsf-version=")) {
+        String version = entry.getKey().substring("-Ajsf-version=".length());
+        if ("1.2".equals(version)) {
+          jsfVersion = "1.2";
+        }
+      }
+    }
     InputStream stream = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/renderer.stg");
     Reader reader = new InputStreamReader(stream);
     rendererStringTemplateGroup = new StringTemplateGroup(reader);
-    stream = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/tag.stg");
+    stream = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/tag" + jsfVersion + ".stg");
     reader = new InputStreamReader(stream);
     tagStringTemplateGroup = new StringTemplateGroup(reader);
-    stream = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/component.stg");
+    stream = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/component"
+        + jsfVersion + ".stg");
     reader = new InputStreamReader(stream);
     componentStringTemplateGroup = new StringTemplateGroup(reader);
     ignoredProperties = new HashSet<String>();
@@ -102,8 +115,8 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
       String className = "org.apache.myfaces.tobago.internal.taglib."
           + tag.name().substring(0, 1).toUpperCase(Locale.ENGLISH) + tag.name().substring(1) + "Tag";
       TagInfo tagInfo = new TagInfo(className, componentTag.rendererType());
-      if (tag.isBodyTag()) {
-        tagInfo.setSuperClass("org.apache.myfaces.tobago.internal.taglib.TobagoBodyTag");
+      if (is12()) {
+        tagInfo.setSuperClass("org.apache.myfaces.tobago.internal.taglib12.TobagoELTag");
       } else {
         tagInfo.setSuperClass("org.apache.myfaces.tobago.internal.taglib.TobagoTag");
       }
@@ -125,6 +138,10 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
       ComponentInfo componentInfo = new ComponentInfo(componentTag.uiComponent(), componentTag.rendererType());
       componentInfo.setSuperClass(componentTag.uiComponentBaseClass());
       componentInfo.setComponentFamily(componentTag.componentFamily());
+      List<String> elMethods = Collections.emptyList();
+      if (is12()) {
+        elMethods = checkForElMethods(componentInfo, componentTag.interfaces());
+      }
       for (String interfaces:componentTag.interfaces()) {
         componentInfo.addInterface(interfaces);
       }
@@ -134,24 +151,37 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         componentInfo.setComponentType(componentTag.uiComponent().replace(".component.UI", "."));
       }
       try {
-        Class componentClass = Class.forName(componentTag.uiComponentBaseClass());
+        Class componentBaseClass = Class.forName(componentTag.uiComponentBaseClass());
         int index = 0;
         for (PropertyInfo info:properties) {
+          String methodName = (info.getType().equals("java.lang.Boolean")?"is":"get") + info.getUpperCamelCaseName();
+          String possibleUnifiedElAlternative = "set" + info.getUpperCamelCaseName() + "Expression";
           try {
-            String methodName = (info.getType().equals("java.lang.Boolean")?"is":"get") + info.getUpperCamelCaseName();
-            Method method = componentClass.getMethod(methodName);
+            Method method = componentBaseClass.getMethod(methodName);
             if (Modifier.isAbstract(method.getModifiers())) {
-              addPropertyToComponent(componentInfo, info, index);
+              ComponentPropertyInfo property = addPropertyToComponent(componentInfo, info, index, false);
+              if (elMethods.contains(possibleUnifiedElAlternative)) {
+                addPropertyToComponent(componentInfo, info, index, true);
+                property.setElAlternativeAvailable(true);
+              }
               index++;
             }   
           } catch (NoSuchMethodException e) {
-            addPropertyToComponent(componentInfo, info, index);
+            ComponentPropertyInfo property = addPropertyToComponent(componentInfo, info, index, false);
+            if (elMethods.contains(possibleUnifiedElAlternative)) {
+              addPropertyToComponent(componentInfo, info, index, true);
+              property.setElAlternativeAvailable(true);
+            }
             index++;
           }
         }
-        try {
-          componentClass.getMethod("invokeOnComponent");
-        } catch (NoSuchMethodException e) {
+        boolean found = false;
+        for (Method method:componentBaseClass.getMethods()) {
+          if ("invokeOnComponent".equals(method.getName())) {
+            found = true;
+          }
+        }
+        if (!found) {
           componentInfo.setInvokeOnComponent(true);
           componentInfo.addImport("javax.faces.context.FacesContext");
           componentInfo.addImport("javax.faces.FacesException");
@@ -165,7 +195,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         int index = 0;
         for (PropertyInfo info:properties) {
           if (!baseClassProperties.contains(info)) {
-            addPropertyToComponent(componentInfo, info, index);
+            addPropertyToComponent(componentInfo, info, index, false);
             index++;
           }
         }
@@ -174,6 +204,27 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
       componentStringTemplate.setAttribute("componentInfo", componentInfo);
       writeFile(componentInfo, componentStringTemplate);
     }
+
+  }
+
+  private List<String> checkForElMethods(ComponentInfo info, String[] interfaces) {
+    List<String> elMethods = new ArrayList<String>();
+    for (String interfaceName:interfaces) {
+      try {
+        Class.forName(interfaceName);
+        Class interfaceClass2 = Class.forName(interfaceName + "2");
+        info.addInterface(interfaceClass2.getName());
+        for (Method method:interfaceClass2.getMethods()) {
+          Class[] parameter = method.getParameterTypes();
+          if (parameter.length == 1 && "javax.el.MethodExpression".equals(parameter[0].getName())) {
+            elMethods.add(method.getName());
+          }
+        }
+      } catch (ClassNotFoundException e) {
+        // ignore
+      }
+    }
+    return elMethods;
 
   }
 
@@ -191,19 +242,21 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     throw new IllegalStateException("No UIComponentTag found for componentClass " + baseClass);
   }
 
-  private void addPropertyToComponent(ComponentInfo componentInfo, PropertyInfo info, int index) {
+  private ComponentPropertyInfo addPropertyToComponent(ComponentInfo componentInfo, PropertyInfo info, int index, boolean methodExpression) {
     ComponentPropertyInfo componentPropertyInfo =
         (ComponentPropertyInfo) info.fill(new ComponentPropertyInfo());
     componentPropertyInfo.setIndex(index);
-    componentInfo.addImport(info.getUnmodifiedType());
+    if (methodExpression) {
+      componentPropertyInfo.setType("javax.el.MethodExpression");
+      componentPropertyInfo.setName(info.getName() + "Expression");
+    }
+    componentInfo.addImport(componentPropertyInfo.getUnmodifiedType());
     componentInfo.addImport("javax.faces.context.FacesContext");
     componentInfo.getProperties().add(componentPropertyInfo);
-    if ("suggestMethod".equals(info.getName())) {
-      componentInfo.addInterface("org.apache.myfaces.tobago.component.InputSuggest");
-    }
     if ("markup".equals(info.getName())) {
       componentInfo.addInterface("org.apache.myfaces.tobago.component.SupportsMarkup");
     }
+    return componentPropertyInfo;
   }
 
   private void createRenderer(TypeDeclaration decl) {
@@ -266,6 +319,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         propertyInfo.setAllowdValues(uiComponentTagAttribute.allowedValues());
         String type;
         if (uiComponentTagAttribute.expression().isMethodExpression()) {
+          propertyInfo.setMethodExpressionRequired(true);
           type = "javax.faces.el.MethodBinding";
         } else if (uiComponentTagAttribute.expression() == DynamicExpression.VALUE_BINDING_REQUIRED) {
           propertyInfo.setValueExpressionRequired(true);
@@ -276,6 +330,9 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
           }
 
         } else if (uiComponentTagAttribute.type().length == 1) {
+          if (uiComponentTagAttribute.expression() == DynamicExpression.PROHIBITED) {
+            propertyInfo.setLiteralOnly(true);
+          }
           type = uiComponentTagAttribute.type()[0];
         } else {
           throw new IllegalArgumentException("Type should be single argument "
@@ -304,5 +361,9 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     } finally {
       IOUtils.closeQuietly(writer);
     }
+  }
+
+  private boolean is12() {
+    return "1.2".equals(jsfVersion);
   }
 }

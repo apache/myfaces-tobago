@@ -34,7 +34,7 @@ public @interface TagAttribute {
   Class type() default String.class;
 
   /** allow JSP expression */
-  boolean rtexprvalue() default true;
+  boolean rtexprvalue() default false;
 
   boolean required() default false;
 

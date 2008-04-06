@@ -38,6 +38,7 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.Namespace;
+import org.jdom.Attribute;
 import org.jdom.filter.ContentFilter;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
@@ -68,6 +69,8 @@ import java.util.Map;
 public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
   public static final String SOURCE_FACES_CONFIG_KEY = "sourceFacesConfig";
   public static final String TARGET_FACES_CONFIG_KEY = "targetFacesConfig";
+
+  private String jsfVersion = "1.1";
 
   private static final String SEPARATOR = System.getProperty("line.separator");
   private static final String COMPONENT = "component";
@@ -128,6 +131,12 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
       if (entry.getKey().startsWith("-A" + TARGET_FACES_CONFIG_KEY + "=")) {
         targetFacesConfigFile = entry.getKey().substring(TARGET_FACES_CONFIG_KEY.length() + 3);
       }
+      if (entry.getKey().startsWith("-Ajsf-version=")) {
+        String version = entry.getKey().substring("-Ajsf-version=".length());
+        if ("1.2".equals(version)) {
+          jsfVersion = "1.2";
+        }
+      }
     }
     Document document;
     Writer writer = null;
@@ -152,7 +161,18 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
       // rewrite DOM as a string to find differences, since text outside the root element is not tracked
 
       Element rootElement = document.getRootElement();
+      if (is12()) {
+        rootElement.setNamespace(Namespace.getNamespace("http://java.sun.com/xml/ns/javaee"));
+        Namespace xsi = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+        rootElement.addNamespaceDeclaration(Namespace.getNamespace("xi", "http://www.w3.org/2001/XInclude"));
+        rootElement.setAttribute(new Attribute("schemaLocation",
+            "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd", xsi));
+        rootElement.setAttribute("version", "1.2");
+      }
       Namespace namespace = rootElement.getNamespace();
+      if (is12()) {
+        applyNamespace(rootElement, namespace);
+      }
       List<Element> components = rootElement.getChildren(COMPONENT, namespace);
 
       List<Element> newComponents = new ArrayList<Element>();
@@ -207,10 +227,11 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
       if (!newValidators.isEmpty()) {
         rootElement.addContent(newValidators);
       }
-      document.setDocType(new DocType("faces-config",
-          "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN",
-          "http://java.sun.com/dtd/web-facesconfig_1_1.dtd"));
-
+      if (!is12()) {
+        document.setDocType(new DocType("faces-config",
+            "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN",
+           "http://java.sun.com/dtd/web-facesconfig_1_1.dtd"));
+      }
       writer =
           getEnv().getFiler().createTextFile(Filer.Location.SOURCE_TREE, "", new File(targetFacesConfigFile), null);
 
@@ -218,25 +239,28 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
       Format format = Format.getPrettyFormat();
       format.setLineSeparator(SEPARATOR);
       XMLOutputter out = new XMLOutputter(format);
-
       out.output(document, facesConfig);
-      // TODO: is this replace really necessary?
-      String facesConfigStr =
-          facesConfig.toString().replaceFirst(" xmlns=\"http://java.sun.com/JSF/Configuration\"", "");
-      // TODO: Find a better way
-      facesConfigStr = facesConfigStr.replaceFirst("\"http://java.sun.com/dtd/web-facesconfig_1_1.dtd\"",
-          "\"http://java.sun.com/dtd/web-facesconfig_1_1.dtd\"[\n"
-              + "<!ELEMENT allowed-child-components (#PCDATA)>\n"
-              + "<!ELEMENT category (#PCDATA)>\n"
-              + "<!ELEMENT deprecated (#PCDATA)>\n"
-              + "<!ELEMENT hidden (#PCDATA)>\n"
-              + "<!ELEMENT preferred (#PCDATA)>\n"
-              + "<!ELEMENT read-only (#PCDATA)>\n"
-              + "<!ELEMENT value-expression (#PCDATA)>\n"
-              + "<!ELEMENT property-values (#PCDATA)>\n"
-              + "<!ELEMENT required (#PCDATA)>\n"
-              + "]");
-      writer.append(facesConfigStr);
+      if (!is12()) {
+        // TODO: is this replace really necessary?
+        String facesConfigStr =
+            facesConfig.toString().replaceFirst(" xmlns=\"http://java.sun.com/JSF/Configuration\"", "");
+        // TODO: Find a better way
+        facesConfigStr = facesConfigStr.replaceFirst("\"http://java.sun.com/dtd/web-facesconfig_1_1.dtd\"",
+            "\"http://java.sun.com/dtd/web-facesconfig_1_1.dtd\"[\n"
+                + "<!ELEMENT allowed-child-components (#PCDATA)>\n"
+                + "<!ELEMENT category (#PCDATA)>\n"
+                + "<!ELEMENT deprecated (#PCDATA)>\n"
+                + "<!ELEMENT hidden (#PCDATA)>\n"
+                + "<!ELEMENT preferred (#PCDATA)>\n"
+                + "<!ELEMENT read-only (#PCDATA)>\n"
+                + "<!ELEMENT value-expression (#PCDATA)>\n"
+                + "<!ELEMENT property-values (#PCDATA)>\n"
+                + "<!ELEMENT required (#PCDATA)>\n"
+                + "]");
+        writer.append(facesConfigStr);
+      } else {
+        writer.append(facesConfig.toString());
+      }
 
     } catch (JDOMException e) {
       e.printStackTrace();
@@ -244,6 +268,13 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
       e.printStackTrace();
     } finally {
       IOUtils.closeQuietly(writer);
+    }
+  }
+
+  private void applyNamespace(Element parent, Namespace namespace) {
+    for (Element element:(List<Element>)parent.getChildren()) {
+      element.setNamespace(namespace);
+      applyNamespace(element, namespace);
     }
   }
 
@@ -427,17 +458,19 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
           Element property = new Element(PROPERTY, namespace);
           Element propertyName = new Element(PROPERTY_NAME, namespace);
           Element propertyClass = new Element(PROPERTY_CLASS, namespace);
-          Element defaultValue = new Element(DEFAULT_VALUE, namespace);
 
           propertyName.setText(attributeStr);
           addClass(componentAttribute, propertyClass);
-          defaultValue.setText(componentAttribute.defaultValue());
 
           addDescription(d, property, namespace);
 
           property.addContent(propertyName);
           property.addContent(propertyClass);
-          property.addContent(defaultValue);
+          if (componentAttribute.defaultValue().length() > 0) {
+            Element defaultValue = new Element(DEFAULT_VALUE, namespace);
+            defaultValue.setText(componentAttribute.defaultValue());
+            property.addContent(defaultValue);
+          }
 
           property.addContent(createPropertyOrAttributeExtension(PROPERTY_EXTENSION, d, componentAttribute, namespace));
           properties.add(property);
@@ -446,17 +479,19 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
           Element attribute = new Element(ATTRIBUTE, namespace);
           Element attributeName = new Element(ATTRIBUTE_NAME, namespace);
           Element attributeClass = new Element(ATTRIBUTE_CLASS, namespace);
-          Element defaultValue = new Element(DEFAULT_VALUE, namespace);
 
           attributeName.setText(attributeStr);
           addClass(componentAttribute, attributeClass);
-          defaultValue.setText(componentAttribute.defaultValue());
 
           addDescription(d, attribute, namespace);
 
           attribute.addContent(attributeName);
           attribute.addContent(attributeClass);
-          attribute.addContent(defaultValue);
+          if (componentAttribute.defaultValue().length() > 0) {
+            Element defaultValue = new Element(DEFAULT_VALUE, namespace);
+            defaultValue.setText(componentAttribute.defaultValue());
+            attribute.addContent(defaultValue);
+          }
 
           attribute.addContent(createPropertyOrAttributeExtension(ATTRIBUTE_EXTENSION, d,
               componentAttribute, namespace));
@@ -474,7 +509,20 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
       attributeClass.setText(Object.class.getName());
     } else if (componentAttribute.type().length == 1) {
       String className = componentAttribute.type()[0];
-      attributeClass.setText(className.equals(Boolean.class.getName()) ? "boolean" : className);
+      if (componentAttribute.expression().isMethodExpression() && is12()) {
+        className = "javax.el.MethodExpression";
+      }
+      attributeClass.setText((className.equals(Boolean.class.getName()) && !is12()) ? "boolean" : className);
+    } else {
+      if (componentAttribute.expression().isMethodExpression()) {
+        String className = "";
+        if (is12()) {
+          className = "javax.el.MethodExpression";
+        } else {
+          className = "javax.faces.el.MethodBinding";
+        }
+        attributeClass.setText(className);
+      }
     }
   }
 
@@ -664,5 +712,9 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
       Comment c = (Comment) i.next();
       c.setText(c.getText().replaceAll("\n", SEPARATOR));
     }
+  }
+
+  private boolean is12() {
+    return "1.2".equals(jsfVersion);
   }
 }

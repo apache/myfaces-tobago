@@ -1050,6 +1050,12 @@
         </plugins>
       </build>
     </profile>
+    <profile>
+      <id>jsf-1.2</id>
+      <properties>
+        <jsf.target>1.2</jsf.target>
+      </properties>
+    </profile>
   </profiles>
 
   <repositories>

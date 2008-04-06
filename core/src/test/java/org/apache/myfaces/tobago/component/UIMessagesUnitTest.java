@@ -18,11 +18,12 @@ package org.apache.myfaces.tobago.component;
  */
 
 import junit.framework.TestCase;
-import org.apache.myfaces.tobago.mock.faces.MockFacesContext;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.util.List;
+
+import org.apache.shale.test.mock.MockFacesContext;
 
 /**
  * @author lofwyr (latest modification by $Author$)

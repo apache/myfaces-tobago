@@ -27,7 +27,8 @@ public class PropertyInfo {
   private String defaultValue;
   private String defaultCode;
   private boolean valueExpressionRequired;
-  private boolean literal;
+  private boolean methodExpressionRequired;
+  private boolean literalOnly;
   private boolean deprecated;
 
   public PropertyInfo() {
@@ -37,12 +38,12 @@ public class PropertyInfo {
     this.name = name;
   }
 
-  public boolean isLiteral() {
-    return literal;
+  public boolean isLiteralOnly() {
+    return literalOnly;
   }
 
-  public void setLiteral(boolean literal) {
-    this.literal = literal;
+  public void setLiteralOnly(boolean literalOnly) {
+    this.literalOnly = literalOnly;
   }
 
   public String getTemplate() {
@@ -165,6 +166,14 @@ public class PropertyInfo {
     this.valueExpressionRequired = valueExpressionRequired;
   }
 
+  public boolean isMethodExpressionRequired() {
+    return methodExpressionRequired;
+  }
+
+  public void setMethodExpressionRequired(boolean methodExpressionRequired) {
+    this.methodExpressionRequired = methodExpressionRequired;
+  }
+
   public PropertyInfo fill(PropertyInfo info) {
     info.setName(name);
     info.setType(type);
@@ -174,7 +183,8 @@ public class PropertyInfo {
     info.setMethodSignature(methodSignature);
     info.setDefaultCode(defaultCode);
     info.setValueExpressionRequired(valueExpressionRequired);
-    info.setLiteral(literal);
+    info.setLiteralOnly(literalOnly);
+    info.setMethodExpressionRequired(methodExpressionRequired);
     return info;
   }
 

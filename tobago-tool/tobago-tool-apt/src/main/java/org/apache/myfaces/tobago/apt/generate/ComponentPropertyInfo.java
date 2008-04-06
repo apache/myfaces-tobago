@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.apt.generate;
 
 public class ComponentPropertyInfo extends PropertyInfo {
   private int index;
+  private boolean elAlternativeAvailable;
 
   public String getPropertyTemplate() {
     return getShortTypeProperty() + "Property";
@@ -42,5 +43,13 @@ public class ComponentPropertyInfo extends PropertyInfo {
 
   public int getIndexPlusOne() {
     return index + 1;
+  }
+
+  public boolean isElAlternativeAvailable() {
+    return elAlternativeAvailable;
+  }
+
+  public void setElAlternativeAvailable(boolean elAlternativeAvailable) {
+    this.elAlternativeAvailable = elAlternativeAvailable;
   }
 }

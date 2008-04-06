@@ -29,7 +29,7 @@ public interface HasId {
    * This value must be unique within the closest
    * parent component that is a naming container.
    */
-  @TagAttribute
-  @UIComponentTagAttribute()
+  @TagAttribute(rtexprvalue = true)
+  @UIComponentTagAttribute(type = "java.lang.String")
   void setId(String id);
 }

@@ -44,6 +44,10 @@ public class MockServletContext implements ServletContext {
     return null;
   }
 
+  public String getContextPath() {
+    return "";
+  }
+
   public ServletContext getContext(String s) {
     return null;
   }

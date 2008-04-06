@@ -46,7 +46,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
     uiComponent = "org.apache.myfaces.tobago.component.UITabGroup",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITabGroup",
     rendererType = "TabGroup",
-    interfaces = "org.apache.myfaces.tobago.ajax.api.AjaxComponent",
+    interfaces = { "org.apache.myfaces.tobago.ajax.api.AjaxComponent", "javax.faces.component.ActionSource"},
     allowedChildComponenents = "org.apache.myfaces.tobago.Tab")
 
 public interface TabGroupTagDeclaration extends HasIdBindingAndRendered, HasDeprecatedDimension,

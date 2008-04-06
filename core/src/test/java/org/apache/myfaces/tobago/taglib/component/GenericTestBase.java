@@ -20,8 +20,16 @@ package org.apache.myfaces.tobago.taglib.component;
 import junit.framework.TestCase;
 
 import javax.servlet.jsp.tagext.Tag;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
+import javax.faces.context.ExternalContext;
+import javax.faces.lifecycle.Lifecycle;
+import javax.faces.FactoryFinder;
+import javax.faces.component.UIViewRoot;
+import javax.faces.application.ApplicationFactory;
+import javax.faces.application.Application;
 
 import net.sf.maventaglib.checker.Tld;
 import net.sf.maventaglib.checker.TldParser;
@@ -40,13 +48,20 @@ import org.xml.sax.InputSource;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.mock.servlet.MockPageContext;
+import org.apache.myfaces.tobago.mock.servlet.MockServletContext;
+import org.apache.myfaces.tobago.mock.servlet.MockHttpServletRequest;
+import org.apache.myfaces.tobago.mock.servlet.MockHttpServletResponse;
+import org.apache.myfaces.tobago.mock.faces.MockExternalContext;
+import org.apache.myfaces.tobago.mock.faces.MockFacesContext;
+//import org.apache.myfaces.tobago.mock.servlet.MockPageContext;
 
 public abstract class GenericTestBase extends TestCase {
   private static final Log LOG = LogFactory.getLog(GenericTestBase.class);
 
   protected Tld[] tlds;
   protected String[] tldPaths;
+   private Application application;
+  private MockFacesContext facesContext;
 
   public GenericTestBase(String name) {
     super(name);
@@ -60,6 +75,37 @@ public abstract class GenericTestBase extends TestCase {
       tlds[i] = getTld(tldPaths[i], stream);
       stream.close();
     }
+
+    MockServletContext servletContext = new MockServletContext();
+    HttpServletRequest request = new MockHttpServletRequest();
+    HttpServletResponse response = new MockHttpServletResponse();
+    //pageContext = new MockPageContext(request);
+    ExternalContext externalContext =
+        new MockExternalContext(servletContext, request, response);
+    Lifecycle lifecycle = null;
+    facesContext = new MockFacesContext(externalContext, lifecycle);
+    // Set up Faces API Objects
+    FactoryFinder.setFactory(FactoryFinder.APPLICATION_FACTORY,
+        "org.apache.myfaces.tobago.mock.faces.MockApplicationFactory");
+    FactoryFinder.setFactory(FactoryFinder.RENDER_KIT_FACTORY,
+        "org.apache.myfaces.tobago.mock.faces.MockRenderKitFactory");
+
+    ApplicationFactory applicationFactory = (ApplicationFactory)
+        FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
+    application = applicationFactory.getApplication();
+    application.addComponent("javax.faces.ViewRoot", "org.apache.myfaces.tobago.component.UIViewRoot");
+    application.addComponent("javax.faces.Command", "javax.faces.component.UICommand");
+    application.addComponent("org.apache.myfaces.tobago.Command", "org.apache.myfaces.tobago.component.UICommand");
+    application
+        .addComponent("org.apache.myfaces.tobago.LinkCommand", "org.apache.myfaces.tobago.component.UILinkCommand");
+    application
+        .addComponent("org.apache.myfaces.tobago.ButtonCommand", "org.apache.myfaces.tobago.component.UIButtonCommand");
+
+    facesContext.setApplication(application);
+    UIViewRoot root = facesContext
+        .getApplication().getViewHandler().createView(facesContext, "testViewId");
+    root.setViewId("/viewId");
+    facesContext.setViewRoot(root);
   }
 
     public void testRelease() throws IllegalAccessException,
@@ -110,7 +156,7 @@ public abstract class GenericTestBase extends TestCase {
   private void checkRelease(javax.servlet.jsp.tagext.Tag tag) throws NoSuchMethodException,
       IllegalAccessException, InvocationTargetException, IOException,
       SAXException {
-    tag.setPageContext(new MockPageContext());
+    //tag.setPageContext(new MockPageContext());
 
     HashMap initialValues = new HashMap();
     PropertyDescriptor descriptors[] =

@@ -22,20 +22,16 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.mock.faces.MockExternalContext;
-import org.apache.myfaces.tobago.mock.faces.MockFacesContext;
-import org.apache.myfaces.tobago.mock.faces.MockRenderKit;
-import org.apache.myfaces.tobago.mock.faces.MockViewTag;
-import org.apache.myfaces.tobago.mock.servlet.MockHttpServletRequest;
-import org.apache.myfaces.tobago.mock.servlet.MockHttpServletResponse;
-import org.apache.myfaces.tobago.mock.servlet.MockPageContext;
-import org.apache.myfaces.tobago.mock.servlet.MockServletContext;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.RenderersConfig;
-import org.apache.myfaces.tobago.internal.taglib.ButtonTag;
-import org.apache.myfaces.tobago.internal.taglib.LinkTag;
 import org.apache.myfaces.tobago.internal.taglib.TobagoTag;
+import org.apache.myfaces.tobago.mock.faces.MockFacesContext;
+import org.apache.myfaces.tobago.mock.faces.MockExternalContext;
+import org.apache.myfaces.tobago.mock.faces.MockRenderKit;
+import org.apache.myfaces.tobago.mock.servlet.MockServletContext;
+import org.apache.myfaces.tobago.mock.servlet.MockHttpServletRequest;
+import org.apache.myfaces.tobago.mock.servlet.MockHttpServletResponse;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
@@ -68,7 +64,7 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
 
   private Application application;
   private MockFacesContext facesContext;
-  private PageContext pageContext;
+  //private PageContext pageContext;
 
 
   public GenericComponentTagUnitTest(String name) {
@@ -93,7 +89,7 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
     servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
     HttpServletRequest request = new MockHttpServletRequest();
     HttpServletResponse response = new MockHttpServletResponse();
-    pageContext = new MockPageContext(request);
+    //pageContext = new MockPageContext(request);
     ExternalContext externalContext =
         new MockExternalContext(servletContext, request, response);
     Lifecycle lifecycle = null;
@@ -151,12 +147,12 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
   private void testComponent(Tag tag) throws JspException {
     if (tag instanceof TobagoTag) {
       TobagoTag tobagoTag = (TobagoTag) tag;
-      MockViewTag root = new MockViewTag();
-      root.setPageContext(pageContext);
-      root.setRendered("false");
-      root.doStartTag();
-      tobagoTag.setParent(root);
-      tobagoTag.setPageContext(pageContext);
+      //MockViewTag root = new MockViewTag();
+      //root.setPageContext(pageContext);
+      //root.setRendered("false");
+      //root.doStartTag();
+      //tobagoTag.setParent(root);
+      //tobagoTag.setPageContext(pageContext);
 //      tobagoTag.setRendered("true");
       //tobagoTag.setDisabled("#{peter.male}");
       //tobagoTag.setHeight("#{marry.size}");

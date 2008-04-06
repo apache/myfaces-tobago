@@ -41,7 +41,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIData",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIData",
-    interfaces = "org.apache.myfaces.tobago.ajax.api.AjaxComponent",
+    interfaces = { "org.apache.myfaces.tobago.ajax.api.AjaxComponent",
+        "org.apache.myfaces.tobago.event.SortActionSource" },
     rendererType = "Sheet",     
     allowedChildComponenents = {
         "javax.faces.Column",
@@ -114,7 +115,7 @@ public interface SheetTagDeclaration extends HasIdBindingAndRendered {
    * (i.e. also the current value of the "rowData" property) will be exposed.
    */
   @TagAttribute(required = true)
-  @UIComponentTagAttribute()
+  @UIComponentTagAttribute(expression = DynamicExpression.PROHIBITED)
   void setVar(String var);
 
   /**

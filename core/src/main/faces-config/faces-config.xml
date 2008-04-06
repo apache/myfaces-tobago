@@ -17,10 +17,6 @@
  * limitations under the License.
 -->
 
-<!DOCTYPE faces-config PUBLIC
-  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
-  "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
-
 <faces-config>
   <application>
     <default-render-kit-id>tobago</default-render-kit-id>

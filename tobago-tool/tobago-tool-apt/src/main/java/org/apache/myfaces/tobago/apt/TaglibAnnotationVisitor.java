@@ -26,6 +26,7 @@ import com.sun.mirror.declaration.MethodDeclaration;
 import com.sun.mirror.declaration.PackageDeclaration;
 import com.sun.mirror.type.InterfaceType;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
@@ -35,6 +36,7 @@ import org.apache.myfaces.tobago.apt.annotation.Taglib;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -53,6 +55,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Locale;
+import java.util.Map;
 
 /*
  * Created: Mar 22, 2005 8:18:35 PM
@@ -62,9 +65,18 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
   private Set<String> tagSet = new HashSet<String>();
   private Set<String> attributeSet = new HashSet<String>();
   private String currentTag;
+  private String jsfVersion = "1.1";
 
   public TaglibAnnotationVisitor(AnnotationProcessorEnvironment env) {
     super(env);
+    for (Map.Entry<String, String> entry : getEnv().getOptions().entrySet()) {
+      if (entry.getKey().startsWith("-Ajsf-version=")) {
+        String version = entry.getKey().substring("-Ajsf-version=".length());
+        if ("1.2".equals(version)) {
+          jsfVersion = "1.2";
+        }
+      }
+    }
   }
 
   public void process() throws Exception {
@@ -85,8 +97,21 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     Document document = parser.newDocument();
 
     Element taglib = document.createElement("taglib");
-    addLeafTextElement(taglibAnnotation.tlibVersion(), "tlib-version", taglib, document);
-    addLeafTextElement(taglibAnnotation.jspVersion(), "jsp-version", taglib, document);
+    if (is12()) {
+      taglib.setAttribute("xmlns", "http://java.sun.com/xml/ns/javaee");
+      taglib.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+      taglib.setAttribute("xsi:schemaLocation",
+        "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd");
+      taglib.setAttribute("version", "2.1");
+    }
+    if (is12()) {
+      addLeafTextElement("1.2", "tlib-version", taglib, document);
+    } else {
+      addLeafTextElement(taglibAnnotation.tlibVersion(), "tlib-version", taglib, document);
+    }
+    if (!is12()) {
+      addLeafTextElement(taglibAnnotation.jspVersion(), "jsp-version", taglib, document);
+    }
     addLeafTextElement(taglibAnnotation.shortName(), "short-name", taglib, document);
     addLeafTextElement(taglibAnnotation.uri(), "uri", taglib, document);
     String displayName = taglibAnnotation.displayName();
@@ -130,10 +155,12 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
       TransformerFactory transFactory = TransformerFactory.newInstance();
       transFactory.setAttribute("indent-number", 2);
       Transformer transformer = transFactory.newTransformer();
-      transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,
-          "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN");
-      transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,
-          "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd");
+      if (!is12()) {
+        transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC,
+            "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN");
+        transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,
+            "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd");
+      }
       transformer.setOutputProperty(OutputKeys.INDENT, "yes");
       transformer.transform(new DOMSource(document),
           new StreamResult(writer));
@@ -387,6 +414,33 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
         addLeafTextElement(attributeStr, "name", attribute, document);
 
         addLeafTextElement(Boolean.toString(tagAttribute.required()), "required", attribute, document);
+        UIComponentTagAttribute componentTagAttribute = d.getAnnotation(UIComponentTagAttribute.class);
+        if (is12() && componentTagAttribute != null && !tagAttribute.rtexprvalue()) {
+          if (componentTagAttribute.expression().isMethodExpression()) {
+            Element deferredMethod = document.createElement("deferred-method");
+            StringBuilder signature = new StringBuilder();
+            signature.append(componentTagAttribute.methodReturnType());
+            signature.append(" ");
+            signature.append(attributeStr);
+            signature.append("(");
+            signature.append(StringUtils.join(componentTagAttribute.methodSignature(), ", "));
+            signature.append(")");   
+            addLeafTextElement(signature.toString(), "method-signature", deferredMethod, document);
+            attribute.appendChild(deferredMethod);
+          } else if (componentTagAttribute.expression().isValueExpression()) {
+            Element deferredValue = document.createElement("deferred-value");
+            String type = "java.lang.Object";
+            if (componentTagAttribute.expression().isValueExpression()) {
+              if (componentTagAttribute.type().length == 1) {
+                type = componentTagAttribute.type()[0];
+              }
+            } else {
+              type = componentTagAttribute.type()[0];
+            }
+            addLeafTextElement(type, "type", deferredValue, document);
+            attribute.appendChild(deferredValue);
+          }
+        }
         addLeafTextElement(Boolean.toString(tagAttribute.rtexprvalue()), "rtexprvalue", attribute, document);
         addDescription(d, attribute, document, false);
         tagElement.appendChild(attribute);
@@ -396,4 +450,7 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     }
   }
 
+  private boolean is12() {
+    return "1.2".equals(jsfVersion);
+  }
 }

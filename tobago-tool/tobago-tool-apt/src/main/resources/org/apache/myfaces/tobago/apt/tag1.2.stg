@@ -89,6 +89,7 @@ release() ::= <<
 >>
 
 property() ::= <<
+<if(it.literalOnly)>
 public String get<it.upperCamelCaseName>() {
   return <it.propertyName>;
 }
@@ -96,16 +97,48 @@ public String get<it.upperCamelCaseName>() {
 public void set<it.upperCamelCaseName>(String <it.propertyName>) {
   this.<it.propertyName> = <it.propertyName>;
 }
+<else>
+<if(it.methodExpressionRequired)>
+public javax.el.MethodExpression get<it.upperCamelCaseName>() {
+  return <it.propertyName>;
+}
+
+public void set<it.upperCamelCaseName>(javax.el.MethodExpression <it.propertyName>) {
+  this.<it.propertyName> = <it.propertyName>;
+}
+<else>
+public javax.el.ValueExpression get<it.upperCamelCaseName>() {
+  return <it.propertyName>;
+}
+
+public void set<it.upperCamelCaseName>(javax.el.ValueExpression <it.propertyName>) {
+  this.<it.propertyName> = <it.propertyName>;
+}
+<endif>
+<endif>
+
 
 >>
 
 field() ::= <<
+<if(it.literalOnly)>
 private String <it.propertyName>;
+<else>
+  <if(it.methodExpressionRequired)>
+private javax.el.MethodExpression  <it.propertyName>;
+  <else>
+private javax.el.ValueExpression  <it.propertyName>;
+  <endif>
+<endif>
 >>
 
 ValueExpression() ::= <<
-if (<it.propertyName> != null && isValueReference(<it.propertyName>)) {
-  <createValueBinding(it)>
+if (<it.propertyName> != null) {
+  if (!<it.propertyName>.isLiteralText()) {
+    <createValueBinding(it)>
+  /*} else {
+    component.set<it.upperCamelCaseName>(<it.propertyName>.getExpressionString());*/
+  }
 }
 >>
 
@@ -115,10 +148,10 @@ String() ::= <<
 
 Severity() ::= <<
 if (<it.propertyName> != null) {
-  if (isValueReference(<it.propertyName>)) {
+  if (!<it.propertyName>.isLiteralText()) {
     <createValueBinding(it)>
   } else {
-    component.getAttributes().put("<it.name>", <it.propertyName>);
+    component.getAttributes().put("<it.name>", <it.propertyName>.getExpressionString());
   }
 }
 >>
@@ -129,146 +162,138 @@ Object() ::= <<
 
 Character() ::= <<
 if (<it.propertyName> != null) {
-  if (isValueReference(<it.propertyName>)) {
+  if (!<it.propertyName>.isLiteralText()) {
     <createValueBinding(it)>
   } else {
-    component.set<it.upperCamelCaseName>(<it.propertyName>.charAt(0));
+    component.set<it.upperCamelCaseName>(<it.propertyName>.getExpressionString().charAt(0));
   }
 }
 >>
 
 Boolean() ::= <<
 if (<it.propertyName> != null) {
-  if (isValueReference(<it.propertyName>)) {
+  if (!<it.propertyName>.isLiteralText()) {
     <createValueBinding(it)>
   } else {
-    component.set<it.upperCamelCaseName>(Boolean.valueOf(<it.propertyName>));
+    component.set<it.upperCamelCaseName>(Boolean.valueOf(<it.propertyName>.getExpressionString()));
   }
 }
 >>
 
 Integer() ::= <<
 if (<it.propertyName> != null) {
-  if (isValueReference(<it.propertyName>)) {
+  if (!<it.propertyName>.isLiteralText()) {
     <createValueBinding(it)>
   } else {
     <if(it.widthOrHeight)>
-    if (<it.propertyName>.endsWith("px")) {
-      <it.propertyName> = <it.propertyName>.substring(0, <it.propertyName>.length() - 2);
+    String <it.propertyName>Str = <it.propertyName>.getExpressionString();
+    if (<it.propertyName>Str.endsWith("px")) {
+      <it.propertyName>Str = <it.propertyName>Str.substring(0, <it.propertyName>Str.length() - 2);
     }
+    component.set<it.upperCamelCaseName>(Integer.parseInt(<it.propertyName>Str));
+    <else>
+    component.set<it.upperCamelCaseName>(Integer.parseInt(<it.propertyName>.getExpressionString()));
     <endif>
-    component.set<it.upperCamelCaseName>(Integer.parseInt(<it.propertyName>));
   }
 }
 >>
 
 OrderBy() ::= <<
 if (<it.propertyName> != null) {
-  if (isValueReference(<it.propertyName>)) {
+  if (!<it.propertyName>.isLiteralText()) {
     <createValueBinding(it)>
   } else {
-    component.set<it.upperCamelCaseName>(org.apache.myfaces.tobago.component.AbstractUIMessages.OrderBy.parse(<it.propertyName>));
+    component.set<it.upperCamelCaseName>(org.apache.myfaces.tobago.component.AbstractUIMessages.OrderBy.parse(<it.propertyName>.getExpressionString()));
   }
 }
 >>
 
 StringArray() ::= <<
 if (<it.propertyName> != null) {
-  if (isValueReference(<it.propertyName>)) {
+  if (!<it.propertyName>.isLiteralText()) {
     <createValueBinding(it)>
   } else {
-    component.set<it.upperCamelCaseName>(splitList(<it.propertyName>));
+    component.set<it.upperCamelCaseName>(splitList(<it.propertyName>.getExpressionString()));
   }
 }
 >>
 
 TabChangeListener() ::= <<
-if (<it.propertyName> != null && isValueReference(<it.propertyName>)) {
-  <createMethodBinding(it)>
-  component.set<it.template>(methodBinding);
+if (<it.propertyName> != null) {
+  component.add<it.template>(new org.apache.myfaces.tobago.event.MethodExpressionTabChangeListener(<it.propertyName>));
 }
 >>
 
 ActionListener() ::= <<
-if (<it.propertyName> != null && isValueReference(<it.propertyName>)) {
- <createMethodBinding(it)>
- component.set<it.template>(methodBinding);
+if (<it.propertyName> != null) {
+  component.add<it.template>(new javax.faces.event.MethodExpressionActionListener(<it.propertyName>));
 }
 >>
 
 ValueChangeListener() ::= <<
-if (<it.propertyName> != null && isValueReference(<it.propertyName>)) {
-  <createMethodBinding(it)>
-  component.set<it.template>(methodBinding);
+if (<it.propertyName> != null) {
+  component.add<it.template>(new javax.faces.event.MethodExpressionValueChangeListener(<it.propertyName>));
 }
 >>
 
 StateChangeListener() ::= <<
-if (<it.propertyName> != null && isValueReference(<it.propertyName>)) {
-  <createMethodBinding(it)>
-  component.set<it.template>(methodBinding);
+if (<it.propertyName> != null) {
+  component.add<it.template>(new org.apache.myfaces.tobago.event.MethodExpressionStateChangeListener(<it.propertyName>));
 }
 >>
 
 SortActionListener() ::= <<
-if (<it.propertyName> != null && isValueReference(<it.propertyName>)) {
-  <createMethodBinding(it)>
-  component.set<it.template>(methodBinding);
+if (<it.propertyName> != null) {
+  component.set<it.template>Expression(<it.propertyName>);
 }
 >>
 
 SuggestMethod() ::= <<
-if (<it.propertyName> != null && isValueReference(<it.propertyName>)) {
-  <createMethodBinding(it)>
-  component.set<it.template>(methodBinding);
+if (<it.propertyName> != null) {
+  component.set<it.template>Expression(<it.propertyName>);
 }
 >>
 
 Validator() ::= <<
-if (<it.propertyName> != null && isValueReference(<it.propertyName>)) {
-  <createMethodBinding(it)>
-  component.setValidator(methodBinding);
+if (<it.propertyName> != null) {
+  component.addValidator(new javax.faces.validator.MethodExpressionValidator(<it.propertyName>));
 }
 >>
 
 Action() ::= <<
 if (<it.propertyName> != null) {
-  if (isValueReference(<it.propertyName>)) {
-    <createMethodBinding(it)>
-    component.setAction(methodBinding);
-  } else {
-    component.setAction(new org.apache.myfaces.tobago.el.ConstantMethodBinding(<it.propertyName>));
-  }
+  component.setActionExpression(<it.propertyName>);
 }
 >>
 
 Converter() ::= <<
 if (<it.propertyName> != null) {
-  if (isValueReference(<it.propertyName>)) {
+  if (!<it.propertyName>.isLiteralText()) {
     <createValueBinding(it)>
   } else {
-    component.setConverter(context.getApplication().createConverter(<it.propertyName>));
+    component.setConverter(application.createConverter(<it.propertyName>.getExpressionString()));
   }
 }
 >>
 
 createMethodBinding(it) ::= <<
-javax.faces.el.MethodBinding methodBinding = application.createMethodBinding(<it.propertyName>,
+javax.faces.el.MethodBinding methodBinding = application.createMethodBinding(<it.propertyName>.getExpressionString(),
     new Class[] { <first(it.methodSignature):{ n | <n>.class }><rest(it.methodSignature):{ n | , <n>.class}>} );
 >>
 
 createStringProperty(it) ::= <<
 if (<it.propertyName> != null) {
-  if (isValueReference(<it.propertyName>)) {
-    <createValueBinding(it)>
-  } else {
-    component.set<it.upperCamelCaseName>(<it.propertyName>);
-  }
+  <if(it.literalOnly)>
+  component.set<it.upperCamelCaseName>(<it.propertyName>);
+  <else>
+  <createValueBinding(it)>
+  <endif>
 }
+
 >>
 
 createValueBinding(it) ::= <<
-component.setValueBinding("<it.name>", application.createValueBinding(<it.propertyName>));
+component.setValueExpression("<it.name>", <it.propertyName>);
 >>
 
 

@@ -42,6 +42,8 @@ public @interface UIComponentTagAttribute {
 
   String[] methodSignature() default { };
 
+  String methodReturnType() default "void";
+
   String defaultValue() default "";
 
   String defaultCode() default "";

@@ -235,6 +235,38 @@ CharacterProperty(property) ::= <<
 MethodBindingProperty(property) ::= <<
 
 public <property.type> get<property.upperCamelCaseName>() {
+<if(property.elAlternativeAvailable)>
+  javax.el.MethodExpression expression = get<property.upperCamelCaseName>Expression();
+  if (expression instanceof org.apache.myfaces.tobago.component.MethodBindingToMethodExpression) {
+    return ((org.apache.myfaces.tobago.component.MethodBindingToMethodExpression)expression).getMethodBinding();
+  }
+  if (expression != null) {
+     return new org.apache.myfaces.tobago.component.MethodExpressionToMethodBinding(expression);
+  }
+  return null;
+<else>
+  return <property.propertyName>;
+<endif>
+
+}
+
+public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+<if(property.elAlternativeAvailable)>
+  if (<property.propertyName> != null) {
+    set<property.upperCamelCaseName>Expression(new org.apache.myfaces.tobago.component.MethodBindingToMethodExpression(<property.propertyName>));
+  } else {
+    set<property.upperCamelCaseName>Expression(null);
+  }
+<else>
+  this.<property.propertyName> = <property.propertyName>;
+<endif>
+
+}
+>>
+
+MethodExpressionProperty(property) ::= <<
+
+public <property.type> get<property.upperCamelCaseName>() {
   return <property.propertyName>;
 }
 
@@ -278,7 +310,10 @@ public void set<property.upperCamelCaseName>(<property.type> <property.propertyN
 
 
 field() ::= <<
+<if(it.elAlternativeAvailable)>
+<else>
 private <it.type> <it.propertyName>;
+<endif>
 >>
 
 restoreStateField() ::= <<
@@ -326,6 +361,13 @@ values[<it.indexPlusOne>] = <it.propertyName>;
 >>
 
 MethodBindingSaveStateProperty() ::= <<
+<if(it.elAlternativeAvailable)>
+<else>
+values[<it.indexPlusOne>] = saveAttachedState(context, <it.propertyName>);
+<endif>
+>>
+
+MethodExpressionSaveStateProperty() ::= <<
 values[<it.indexPlusOne>] = saveAttachedState(context, <it.propertyName>);
 >>
 
@@ -367,10 +409,15 @@ OrderByRestoreStateProperty() ::= <<
 >>
 
 MethodBindingRestoreStateProperty() ::= <<
+<if(it.elAlternativeAvailable)>
+<else>
 <it.propertyName> = (<it.type>) restoreAttachedState(context, values[<it.indexPlusOne>]);
+<endif>
 >>
 
-
+MethodExpressionRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.type>) restoreAttachedState(context, values[<it.indexPlusOne>]);
+>>
 
 getValueExpression(property) ::= <<
 javax.el.ValueExpression ve = getValueExpression("<property.name>");

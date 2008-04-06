@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.mock.faces;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
@@ -135,10 +134,10 @@ public class MockRenderKit extends RenderKit {
         throw new NullPointerException();
       }
       ResponseWriter writer = context.getResponseWriter();
-      writer.startElement(HtmlConstants.INPUT, component);
+      writer.startElement("input", component);
       writer.writeAttribute("id", component.getClientId(context), null);
       writer.writeAttribute("value", null, "value");
-      writer.endElement(HtmlConstants.INPUT);
+      writer.endElement("input");
 
     }
 

@@ -26,14 +26,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.NamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
-
+@SuppressWarnings("deprecation")
 public class FacesUtils {
 
   private static final Log LOG = LogFactory.getLog(FacesUtils.class);
 
   static {
     try {
-      Application.class.getMethod("getExpressionFactory", null);
+      Application.class.getMethod("getExpressionFactory", new Class<?>[]{null});
       facesVersion = 12;
     } catch (NoSuchMethodException e) {
       facesVersion = 11;

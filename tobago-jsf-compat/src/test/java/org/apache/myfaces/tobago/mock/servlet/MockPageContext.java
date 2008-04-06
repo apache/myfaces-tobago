@@ -28,6 +28,7 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.el.ExpressionEvaluator;
 import javax.servlet.jsp.el.VariableResolver;
+import javax.el.ELContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;
@@ -155,5 +156,9 @@ public class MockPageContext extends PageContext {
 
   public VariableResolver getVariableResolver() {
     return null;
+  }
+
+  public ELContext getELContext() {
+    return null;  //To change body of implemented methods use File | Settings | File Templates.
   }
 }
