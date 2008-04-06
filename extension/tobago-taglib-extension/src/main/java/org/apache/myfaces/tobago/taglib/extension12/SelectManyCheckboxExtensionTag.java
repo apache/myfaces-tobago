@@ -363,3 +363,4 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
     this.renderRange = renderRange;
   }
 }
+
