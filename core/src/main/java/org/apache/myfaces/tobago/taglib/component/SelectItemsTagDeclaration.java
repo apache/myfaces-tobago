@@ -44,7 +44,8 @@ public interface SelectItemsTagDeclaration extends HasId, HasBinding {
    * the information for this option.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "javax.faces.model.SelectItem[]", expression = DynamicExpression.VALUE_BINDING_REQUIRED)
+  @UIComponentTagAttribute(type = "javax.faces.model.SelectItem[]",
+      expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setValue(String value);
 
 }
