@@ -149,7 +149,8 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
 
   void setColumns(javax.el.ValueExpression columns) {
     if (!(!columns.isLiteralText() || LayoutUtil.checkTokens(columns.getExpressionString()))) {
-      LOG.warn("Illegal value for columns = \"" + columns.getExpressionString() + "\" replacing with default: \"" + DEFAULT_COLUMNS + "\"");
+      LOG.warn("Illegal value for columns = \"" + columns.getExpressionString()
+          + "\" replacing with default: \"" + DEFAULT_COLUMNS + "\"");
       this.columns = createStringValueExpression(DEFAULT_COLUMNS);
     } else {
       this.columns = columns;
