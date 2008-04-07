@@ -43,3 +43,18 @@ Tobago
   []
 
   The development of Tobago started in 2002.
+
+
+News
+
+  []
+    * <<07-04-08>> - The 1.1.x trunk supports JSF 1.1 and JSF 1.2. The JSF 1.2 version can be created with the jsf-1.2 profile.
+
+    * <<18-03-08>> - Added tobago-jsf-compat and tobago-tablib-extension modules to trunk. The tobago-jsf-compat module provides some util classes for JSF 1.1 and JSF 1.2 compatibility. The tobago-taglib-extension module contains the JSF 1.1 version of the Tobago Extensions Taglib(tx).
+
+    * <<18-02-08>> - Apache MyFaces Tobago 1.0.15 released!
+
+    * <<26-01-08>> - Apache MyFaces Tobago 1.0.14 released!
+
+    * <<11-01-08>> - 1.0.x branch has been created.
+
