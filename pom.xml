@@ -191,6 +191,7 @@
             <link>http://junit.sourceforge.net/javadoc/</link>
             <link>http://logging.apache.org/log4j/docs/api/</link>
           </links>
+          <excludePackageNames>org.apache.myfaces.tobago.internal.*:org.apache.myfaces.tobago.internal.taglib12.*</excludePackageNames>
         </configuration>
       </plugin>
 
