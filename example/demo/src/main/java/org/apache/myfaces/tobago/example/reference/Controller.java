@@ -19,24 +19,13 @@ package org.apache.myfaces.tobago.example.reference;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.internal.taglib.ButtonTag;
-import org.apache.myfaces.tobago.internal.taglib.LinkTag;
-import org.apache.myfaces.tobago.taglib.extension.InExtensionTag;
-
-import javax.servlet.jsp.tagext.TagSupport;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Controller {
 
   private static final Log LOG = LogFactory.getLog(Controller.class);
-
-  private List<TagData> tags;
-
-  private List<AttributeData> attributes;
 
   private String text;
 
@@ -53,20 +42,7 @@ public class Controller {
   private int manufacturer;
 
   public Controller() {
-    tags = new ArrayList<TagData>();
-    TagData in = new TagData(InExtensionTag.class);
-    in.setName("In");
-    in.setTip("Ein In");
-    tags.add(in);
-    TagData button = new TagData(ButtonTag.class);
-    button.setName("Button");
-    button.setTip("Ein Knopf");
-    tags.add(button);
-    TagData link = new TagData(LinkTag.class);
-    link.setName("Link");
-    link.setTip("Ein Link");
-    tags.add(link);
-    attributes = new ArrayList<AttributeData>();
+
     vehicleOptionItems = new SelectItem[]{
         new SelectItem(new Integer(0), "car"),
         new SelectItem(new Integer(1), "motorbike")};
@@ -114,31 +90,9 @@ public class Controller {
     }
   }
 
-
   public void valueChanged(ValueChangeEvent event) {
     LOG.error("value Changed " + event.getComponent().getClientId(FacesContext.getCurrentInstance()));
     LOG.error("value Changed " + event.getOldValue() + " " + event.getNewValue());
-  }
-
-  public TagSupport createTag() {
-    try {
-      Class clazz = tags.get(0).getTagClass();
-      InExtensionTag tag = (InExtensionTag) clazz.newInstance();
-      tag.setValue("Hallo Tester");
-      tag.setLabel("Label");
-      return tag;
-    } catch (Exception e) {
-      LOG.error("", e); // fixme
-      throw new RuntimeException(e);
-    }
-  }
-
-  public List<TagData> getTags() {
-    return tags;
-  }
-
-  public List<AttributeData> getAttributes() {
-    return attributes;
   }
 
   public String getText() {

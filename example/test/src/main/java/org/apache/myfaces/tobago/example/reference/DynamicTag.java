@@ -30,11 +30,11 @@ public class DynamicTag extends TagSupport {
 
   public int doStartTag() throws JspException {
     // fixme: session?
-    Controller controller =
-        (Controller) VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), controllerName);
-//    Controller controller = (Controller) pageContext.getSession().getAttribute(controllerName);
+    DynamicController controller =
+        (DynamicController) VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), controllerName);
+    //DynamicController controller = (DynamicController) pageContext.getSession().getAttribute(controllerName);
     if (controller != null) {
-      //tag = controller.createTag();
+      tag = controller.createTag();
       tag.setPageContext(pageContext);
       tag.setParent(getParent());
       tag.doStartTag();
