@@ -93,7 +93,7 @@
 <!--
   <servlet-mapping>
     <servlet-name>ResourceServlet</servlet-name>
-    <url-pattern>/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/dojo/*</url-pattern>
+    <url-pattern>/org/apache/myfaces/tobago/renderkit/html/*</url-pattern>
   </servlet-mapping>
 -->
 
@@ -117,12 +117,5 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-
-  <jsp-config>
-    <taglib>
-      <taglib-uri>http://myfaces.apache.org/tobago/example/demo</taglib-uri>
-      <taglib-location>/WEB-INF/demo.tld</taglib-location>
-    </taglib>
-  </jsp-config>
 
 </web-app>
