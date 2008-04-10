@@ -54,7 +54,7 @@
         <configuration>
           <configLocation>config/maven_checks.xml</configLocation>
           <excludes>**/*.java</excludes>
-          <sourceEncoding>utf-8</sourceEncoding>
+          <sourceEncoding>${maven.compile.encoding}</sourceEncoding>
           <xrefLocation>xref</xrefLocation>
         </configuration>
       </plugin>

@@ -64,7 +64,7 @@
               <generated>target/generated-sources</generated>
               <factory>org.apache.myfaces.tobago.apt.FaceletAnnotationProcessorFactory</factory>
               <nocompile>true</nocompile>
-              <encoding>UTF-8</encoding>
+              <encoding>${maven.compile.encoding}</encoding>
             </configuration>
           </execution>
         </executions>

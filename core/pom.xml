@@ -88,7 +88,7 @@
               <generated>target/generated-tld</generated>
               <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
               <nocompile>true</nocompile>
-              <encoding>UTF-8</encoding>
+              <encoding>${maven.compile.encoding}</encoding>
               <A>jsf-version=${jsf.target}</A>
             </configuration>
           </execution>
@@ -108,7 +108,7 @@
               <factory>org.apache.myfaces.tobago.apt.CreateComponentAnnotationProcessorFactory</factory>
               <fork>true</fork>
               <nocompile>true</nocompile>
-              <encoding>UTF-8</encoding>
+              <encoding>${maven.compile.encoding}</encoding>
               <A>jsf-version=${jsf.target}</A>
               <force>true</force>
             </configuration>
@@ -135,7 +135,7 @@
               <factory>org.apache.myfaces.tobago.apt.FacesConfigAnnotationProcessorFactory</factory>
               <fork>true</fork>
               <nocompile>true</nocompile>
-              <encoding>UTF-8</encoding>
+              <encoding>${maven.compile.encoding}</encoding>
               <A>sourceFacesConfig=${basedir}/src/main/faces-config/faces-config.xml,targetFacesConfig=faces-config.xml,jsf-version=${jsf.target}</A>
             </configuration>
           </execution>
@@ -146,9 +146,9 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-          <encoding>UTF-8</encoding>
+          <source>${maven.compile.source}</source>
+          <target>${maven.compile.target}</target>
+          <encoding>${maven.compile.encoding}</encoding>
           <showWarnings>true</showWarnings>
           <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>-->
           <excludes>
@@ -163,9 +163,9 @@
             <id>compile</id>
             <goals><goal>compile</goal></goals>
             <configuration>
-              <source>1.5</source>
-              <target>1.5</target>
-              <encoding>UTF-8</encoding>
+              <source>${maven.compile.source}</source>
+              <target>${maven.compile.target}</target>
+              <encoding>${maven.compile.encoding}</encoding>
               <showWarnings>true</showWarnings>
               <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>-->              
               <includes>
@@ -420,7 +420,7 @@
                   <generated>${project.build.directory}/doc</generated>
                   <factory>org.apache.myfaces.tobago.apt.TobagoAnnotationProcessorFactory</factory>
                   <nocompile>true</nocompile>
-                  <encoding>UTF-8</encoding>
+                  <encoding>${maven.compile.encoding}</encoding>
                 </configuration>
               </execution>
             </executions>

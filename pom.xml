@@ -159,9 +159,9 @@
           </headerLocation>
           <xrefLocation>xref</xrefLocation>
           <excludes>**/package-info.java</excludes>
-          <sourceEncoding>utf-8</sourceEncoding>
+          <sourceEncoding>${maven.compile.encoding}</sourceEncoding>
           <minimumTokens>100</minimumTokens>
-          <targetJdk>1.5</targetJdk>
+          <targetJdk>${maven.compile.source}</targetJdk>
         </configuration>
       </plugin>
 
@@ -175,8 +175,8 @@
           <breakiterator>true</breakiterator>
           <quiet>true</quiet>
           <verbose>false</verbose>
-          <source>1.5</source>
-          <charset>UTF-8</charset>
+          <source>${maven.compile.source}</source>
+          <charset>${maven.compile.encoding}</charset>
           <links>
             <link>http://java.sun.com/j2se/1.5.0/docs/api</link>
             <link>http://java.sun.com/j2ee/1.4/docs/api</link>
@@ -277,9 +277,9 @@
             <exclude>**/package-info.java</exclude>
             <exclude>org/apache/myfaces/tobago/apt/annotation/*.java</exclude>
           </excludes>
-          <encoding>UTF-8</encoding>
+          <encoding>${maven.compile.encoding}</encoding>
           <linkXref>true</linkXref>
-          <targetJdk>1.5</targetJdk>
+          <targetJdk>${maven.compile.source}</targetJdk>
         </configuration>
       </plugin>
 
@@ -577,9 +577,9 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>2.0.2</version>
           <configuration>
-            <source>1.5</source>
-            <target>1.5</target>
-            <encoding>UTF-8</encoding>
+            <source>${maven.compile.source}</source>
+            <target>${maven.compile.target}</target>
+            <encoding>${maven.compile.encoding}</encoding>
             <showWarnings>true</showWarnings>
             <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>-->
           </configuration>
@@ -588,7 +588,7 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-idea-plugin</artifactId>
           <configuration>
-            <jdkName>1.5</jdkName>
+            <jdkName>${maven.compile.source}</jdkName>
             <linkModules>true</linkModules>
             <downloadSources>true</downloadSources>
             <jdkLevel>5.0</jdkLevel>
@@ -1097,5 +1097,8 @@
     <commons-logging.version>1.1</commons-logging.version>
     <commons-digester.version>1.8</commons-digester.version>
     <commons-collection.version>3.1</commons-collection.version>
+    <maven.compile.source>1.5</maven.compile.source>
+    <maven.compile.target>1.5</maven.compile.target>
+    <maven.compile.encoding>UTF-8</maven.compile.encoding>
   </properties>
 </project>

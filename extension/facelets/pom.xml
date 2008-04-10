@@ -41,7 +41,7 @@
         <configuration>
           <source>1.4</source>
           <target>1.4</target>
-          <encoding>UTF-8</encoding>
+          <encoding>${maven.compile.encoding}</encoding>
           <showWarnings>true</showWarnings>
         </configuration>
       </plugin>
@@ -130,7 +130,7 @@
               <generated>target/generated-sources</generated>
               <factory>org.apache.myfaces.tobago.apt.FaceletAnnotationProcessorFactory</factory>
               <nocompile>true</nocompile>
-              <encoding>UTF-8</encoding>
+              <encoding>${maven.compile.encoding}</encoding>
             </configuration>
           </execution>
         </executions>

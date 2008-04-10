@@ -79,7 +79,7 @@
               <generated>target/generated-tld</generated>
               <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
               <nocompile>true</nocompile>
-              <encoding>UTF-8</encoding>
+              <encoding>${maven.compile.encoding}</encoding>
             </configuration>
           </execution>
           <execution>
@@ -102,7 +102,7 @@
               <factory>org.apache.myfaces.tobago.apt.CreateComponentAnnotationProcessorFactory</factory>
               <fork>true</fork>
               <nocompile>true</nocompile>
-              <encoding>UTF-8</encoding>
+              <encoding>${maven.compile.encoding}</encoding>
               <force>true</force>
             </configuration>
           </execution>
@@ -132,7 +132,7 @@
               <!--<force>true</force>-->
               <fork>true</fork>
               <nocompile>true</nocompile>
-              <encoding>UTF-8</encoding>
+              <encoding>${maven.compile.encoding}</encoding>
               <A>sourceFacesConfig=${basedir}/src/main/faces-config/faces-config.xml,targetFacesConfig=faces-config.xml</A>
               <!--verbose>true</verbose-->
             </configuration>
@@ -147,9 +147,9 @@
             <id>compile</id>
             <goals><goal>compile</goal></goals>
             <configuration>
-              <source>1.5</source>
-              <target>1.5</target>
-              <encoding>UTF-8</encoding>
+              <source>${maven.compile.source}</source>
+              <target>${maven.compile.target}</target>
+              <encoding>${maven.compile.encoding}</encoding>
               <showWarnings>true</showWarnings>
               <includes>
                 <include>org/apache/myfaces/tobago/internal/taglib/*</include>

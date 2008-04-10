@@ -57,9 +57,9 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-          <encoding>UTF-8</encoding>
+          <source>${maven.compile.source}</source>
+          <target>${maven.compile.target}</target>
+          <encoding>${maven.compile.encoding}</encoding>
           <showWarnings>true</showWarnings>
           <excludes>
             <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
@@ -92,7 +92,7 @@
               <generated>target/generated-tld</generated>
               <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
               <nocompile>true</nocompile>
-              <encoding>UTF-8</encoding>
+              <encoding>${maven.compile.encoding}</encoding>
               <A>jsf-version=${jsf.target}</A>
             </configuration>
           </execution>
@@ -246,7 +246,7 @@
                   <generated>${project.build.directory}/doc</generated>
                   <factory>org.apache.myfaces.tobago.apt.TobagoAnnotationProcessorFactory</factory>
                   <nocompile>true</nocompile>
-                  <encoding>UTF-8</encoding>
+                  <encoding>${maven.compile.encoding}</encoding>
                 </configuration>
               </execution>
             </executions>
