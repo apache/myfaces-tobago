@@ -212,7 +212,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
   /**
    * Flag indicating that this element is disabled.
    */
-  @TagAttribute(type = String.class)
+  @TagAttribute()
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   public void setDisabled(javax.el.ValueExpression disabled) {
     this.disabled = disabled;

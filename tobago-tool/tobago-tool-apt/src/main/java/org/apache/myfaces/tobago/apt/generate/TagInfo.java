@@ -31,6 +31,10 @@ public class TagInfo extends RendererInfo {
     super(qualifiedName, rendererName);
   }
 
+  public TagInfo(String qualifiedName) {
+    super(qualifiedName);
+  }
+
   public List<PropertyInfo> getProperties() {
     return properties;
   }

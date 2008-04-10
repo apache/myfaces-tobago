@@ -37,6 +37,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -176,6 +177,10 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     checkDuplicates(annotationTag.name());
     resetAttributeDuplicateList();
     String className = decl.getQualifiedName();
+    TagGeneration tagGeneration = decl.getAnnotation(TagGeneration.class);
+    if (tagGeneration != null) {
+      className = tagGeneration.className();
+    }
     Element tag = createTag(decl, annotationTag, className, document, false);
     addAttributes(decl, tag, document);
     parent.appendChild(tag);
@@ -407,41 +412,52 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     TagAttribute tagAttribute = d.getAnnotation(TagAttribute.class);
     if (tagAttribute != null) {
       String simpleName = d.getSimpleName();
-      if (simpleName.startsWith("set")) {
+      if (simpleName.startsWith("set") || simpleName.startsWith("get")) {
         Element attribute = document.createElement("attribute");
         String attributeStr = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
+        if (tagAttribute.name().length() > 0) {
+          attributeStr = tagAttribute.name();
+        }
         checkAttributeDuplicates(attributeStr);
         addLeafTextElement(attributeStr, "name", attribute, document);
 
         addLeafTextElement(Boolean.toString(tagAttribute.required()), "required", attribute, document);
         UIComponentTagAttribute componentTagAttribute = d.getAnnotation(UIComponentTagAttribute.class);
-        if (is12() && componentTagAttribute != null && !tagAttribute.rtexprvalue()) {
-          if (componentTagAttribute.expression().isMethodExpression()) {
-            Element deferredMethod = document.createElement("deferred-method");
-            StringBuilder signature = new StringBuilder();
-            signature.append(componentTagAttribute.methodReturnType());
-            signature.append(" ");
-            signature.append(attributeStr);
-            signature.append("(");
-            signature.append(StringUtils.join(componentTagAttribute.methodSignature(), ", "));
-            signature.append(")");   
-            addLeafTextElement(signature.toString(), "method-signature", deferredMethod, document);
-            attribute.appendChild(deferredMethod);
-          } else if (componentTagAttribute.expression().isValueExpression()) {
-            Element deferredValue = document.createElement("deferred-value");
-            String type = "java.lang.Object";
-            if (componentTagAttribute.expression().isValueExpression()) {
-              if (componentTagAttribute.type().length == 1) {
+        if (is12() && !tagAttribute.rtexprvalue()) {
+          if (componentTagAttribute != null) {
+            if (componentTagAttribute.expression().isMethodExpression()) {
+              Element deferredMethod = document.createElement("deferred-method");
+              StringBuilder signature = new StringBuilder();
+              signature.append(componentTagAttribute.methodReturnType());
+              signature.append(" ");
+              signature.append(attributeStr);
+              signature.append("(");
+              signature.append(StringUtils.join(componentTagAttribute.methodSignature(), ", "));
+              signature.append(")");
+              addLeafTextElement(signature.toString(), "method-signature", deferredMethod, document);
+              attribute.appendChild(deferredMethod);
+            } else if (componentTagAttribute != null && componentTagAttribute.expression().isValueExpression()) {
+              Element deferredValue = document.createElement("deferred-value");
+              String type = "java.lang.Object";
+              if (componentTagAttribute.expression().isValueExpression()) {
+                if (componentTagAttribute.type().length == 1) {
+                  type = componentTagAttribute.type()[0];
+                }
+              } else {
                 type = componentTagAttribute.type()[0];
               }
-            } else {
-              type = componentTagAttribute.type()[0];
-            }
-            addLeafTextElement(type, "type", deferredValue, document);
+              addLeafTextElement(type, "type", deferredValue, document);
+              attribute.appendChild(deferredValue);
+            } 
+          } else {
+            Element deferredValue = document.createElement("deferred-value");
+            addLeafTextElement(tagAttribute.type(), "type", deferredValue, document);
             attribute.appendChild(deferredValue);
           }
         }
-        addLeafTextElement(Boolean.toString(tagAttribute.rtexprvalue()), "rtexprvalue", attribute, document);
+        if (tagAttribute.rtexprvalue()) {
+          addLeafTextElement(Boolean.toString(tagAttribute.rtexprvalue()), "rtexprvalue", attribute, document);
+        }
         addDescription(d, attribute, document, false);
         tagElement.appendChild(attribute);
       } else {

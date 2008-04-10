@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 
 import javax.faces.component.ActionSource;
@@ -38,19 +39,16 @@ import javax.servlet.jsp.tagext.TagSupport;
  * associated with the closest parent UIComponent.
  */
 @Tag(name = "popupReference", bodyContent = BodyContent.EMPTY)
-public class PopupReferenceTag extends TagSupport {
+@TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.PopupReferenceTag")
+public abstract class PopupReferenceTag extends TagSupport {
 
   private static final long serialVersionUID = -8444689365088370011L;
-
-  private String forComponent;
 
   /**
    * The id of a Popup.
    */
-  @TagAttribute
-  public void setFor(String popupId) {
-    this.forComponent = popupId;
-  }
+  @TagAttribute(required = true, name ="for")
+  public abstract String getForValue();
 
   public int doStartTag() throws JspException {
 
@@ -76,14 +74,8 @@ public class PopupReferenceTag extends TagSupport {
       throw new JspException("Component " + component.getClass().getName() + " is not instanceof ActionSource");
     }
     ActionSource actionSource = (ActionSource) component;
-    actionSource.addActionListener(new PopupActionListener(forComponent));
+    actionSource.addActionListener(new PopupActionListener(getForValue()));
     return (SKIP_BODY);
   }
 
-  /**
-   * <p>Release references to any acquired resources.
-   */
-  public void release() {
-    this.forComponent = null;
-  }
 }

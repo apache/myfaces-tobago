@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.validator.SubmittedValueLengthValidator;
 
 import javax.faces.validator.Validator;
@@ -35,44 +36,34 @@ import javax.servlet.jsp.JspException;
  * associated with the closest parent UIComponent custom action.
  */
 @Tag(name = "validateSubmittedValueLength")
-public class SubmittedValueLengthValidatorTag extends ValidatorTag {
+@TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.SubmittedValueLengthValidatorTag")
+public abstract class SubmittedValueLengthValidatorTag extends ValidatorTag {
 
   private static final long serialVersionUID = 6777040780038715924L;
 
-  private String minimum;
-  private String maximum;
+  public abstract boolean isMinimumSet();
 
-  public String getMinimum() {
-    return minimum;
-  }
+  @TagAttribute(name = "minimum")
+  public abstract String getMinimumValue();
 
-  @TagAttribute()
-  public void setMinimum(String minimum) {
-    this.minimum = minimum;
-  }
+  public abstract boolean isMaximumSet();
 
-  public String getMaximum() {
-    return maximum;
-  }
-
-  @TagAttribute()
-  public void setMaximum(String maximum) {
-    this.maximum = maximum;
-  }
+  @TagAttribute(name = "maximum")
+  public abstract String getMaximumValue();
 
   protected Validator createValidator() throws JspException {
     setValidatorId(SubmittedValueLengthValidator.VALIDATOR_ID);
     SubmittedValueLengthValidator validator = (SubmittedValueLengthValidator) super.createValidator();
-    if (minimum != null) {
+    if (isMinimumSet()) {
       try {
-        validator.setMinimum(Integer.parseInt(minimum));
+        validator.setMinimum(Integer.parseInt(getMinimumValue()));
       } catch (NumberFormatException e) {
         // ignore
       }
     }
-    if (maximum != null) {
+    if (isMaximumSet()) {
       try {
-        validator.setMaximum(Integer.parseInt(maximum));
+        validator.setMaximum(Integer.parseInt(getMaximumValue()));
       } catch (NumberFormatException e) {
         // ignore
       }
@@ -81,9 +72,4 @@ public class SubmittedValueLengthValidatorTag extends ValidatorTag {
   }
 
 
-  public void release() {
-    super.release();
-    minimum = null;
-    maximum = null;
-  }
 }

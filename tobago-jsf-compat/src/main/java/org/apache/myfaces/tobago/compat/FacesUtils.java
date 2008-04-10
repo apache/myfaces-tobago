@@ -19,21 +19,32 @@ package org.apache.myfaces.tobago.compat;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.event.ValueBindingTabChangeListener;
+import org.apache.myfaces.tobago.event.TabChangeSource;
 
 import javax.faces.application.Application;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.component.NamingContainer;
+import javax.faces.component.EditableValueHolder;
+import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
+import javax.faces.el.MethodBinding;
+import javax.faces.webapp.UIComponentTag;
+import javax.faces.convert.Converter;
+
 @SuppressWarnings("deprecation")
 public class FacesUtils {
 
   private static final Log LOG = LogFactory.getLog(FacesUtils.class);
 
+  public static final Class[] VALIDATOR_ARGS = {FacesContext.class, UIComponent.class, Object.class};
+
+
   static {
     try {
-      Application.class.getMethod("getExpressionFactory", new Class<?>[]{null});
+      Application.class.getMethod("getExpressionFactory");
       facesVersion = 12;
     } catch (NoSuchMethodException e) {
       facesVersion = 11;
@@ -85,8 +96,8 @@ public class FacesUtils {
         } else {
           if (LOG.isDebugEnabled()) {
             LOG.debug("Did not found InvokeOnComponent " + child.getClass().getName() + " "
-              + child.getClientId(context) + " "
-              + child.getRendererType() + (child.getParent()!=null?child.getParent().getClass().getName():"null"));
+                + child.getClientId(context) + " "
+                + child.getRendererType() + (child.getParent() != null ? child.getParent().getClass().getName() : "null"));
           }
         }
       } else {
@@ -147,6 +158,18 @@ public class FacesUtils {
     }
   }
 
+   public static void setValueOfBindingOrExpression(FacesContext context, Object value,
+      Object bindingOrExpression) {
+    if (facesVersion == 11) {
+      if (bindingOrExpression instanceof ValueBinding) {
+        ValueBinding vb = (ValueBinding) bindingOrExpression;
+        vb.setValue(context, value);
+      }
+    } else {
+      FacesUtils12.setValueOfBindingOrExpression(context, value, bindingOrExpression);
+    }
+  }
+
   public static void copyValueBindingOrValueExpression(UIComponent fromComponent, String fromName,
       UIComponent toComponent, String toName) {
     if (facesVersion == 11) {
@@ -156,6 +179,66 @@ public class FacesUtils {
       }
     } else {
       FacesUtils12.copyValueBindingOrValueExpression(fromComponent, fromName, toComponent, toName);
+    }
+  }
+
+  public static Object getValueFromBindingOrExpression(Object obj) {
+    if (facesVersion == 11) {
+      if (obj instanceof ValueBinding) {
+        return ((ValueBinding) obj).getValue(FacesContext.getCurrentInstance());
+      }
+    } else {
+      return FacesUtils12.getValueFromBindingOrExpression(obj);
+    }
+    return null;
+  }
+
+  public static void setValidator(EditableValueHolder editableValueHolder, Object validator) {
+    if (facesVersion == 11) {
+      MethodBinding methodBinding =
+          FacesContext.getCurrentInstance().getApplication().createMethodBinding(validator.toString(), VALIDATOR_ARGS);
+      editableValueHolder.setValidator(methodBinding);
+    } else {
+      FacesUtils12.setValidator(editableValueHolder, validator);
+    }
+  }
+
+  public static void setConverter(ValueHolder valueHolder, Object converterExpression) {
+    if (facesVersion == 11) {
+      if (converterExpression != null && converterExpression instanceof String) {
+        String converterExpressionStr = (String) converterExpression;
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (UIComponentTag.isValueReference(converterExpressionStr)) {
+          ValueBinding valueBinding = context.getApplication().createValueBinding(converterExpressionStr);
+          if (valueHolder instanceof UIComponent) {
+            ((UIComponent) valueHolder).setValueBinding("converter", valueBinding);
+          }
+        } else {
+          Converter converter = context.getApplication().createConverter(converterExpressionStr);
+          valueHolder.setConverter(converter);
+        }
+      }
+    } else {
+      FacesUtils12.setConverter(valueHolder, converterExpression);
+    }
+  }
+
+  public static void setBindingOrExpression(UIComponent component, String name, Object valueBindingOrExpression) {
+    if (facesVersion == 11) {
+      component.setValueBinding(name, (ValueBinding) valueBindingOrExpression);
+    } else {
+      FacesUtils12.setBindingOrExpression(component, name, valueBindingOrExpression);
+    }
+  }
+
+  public static void addBindingOrExpressionTabChangeListener(TabChangeSource source, String type, Object bindingOrExpression) {
+    System.err.println("########################################");
+    System.err.println("Found JSF Impl " + Integer.toString(facesVersion));
+    System.err.println("########################################");    
+    if (facesVersion == 11) {
+      source.addTabChangeListener(new ValueBindingTabChangeListener(type, (ValueBinding) bindingOrExpression));
+    } else {
+      FacesUtils12.addBindingOrExpressionTabChangeListener(source, type, bindingOrExpression);
     }
   }
 }

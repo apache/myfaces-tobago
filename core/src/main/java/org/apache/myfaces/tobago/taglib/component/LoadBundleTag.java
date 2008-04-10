@@ -20,10 +20,10 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.util.BundleMapWrapper;
 
 import javax.faces.context.FacesContext;
-import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.util.Map;
@@ -34,58 +34,33 @@ import java.util.Map;
  * attributes of the current request.
  */
 @Tag(name = "loadBundle", bodyContent = BodyContent.EMPTY)
-public class LoadBundleTag extends TagSupport {
+@TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.LoadBundleTag")
+public abstract class LoadBundleTag extends TagSupport {
 
   private static final long serialVersionUID = 4949984721486410191L;
-
-  private String basename;
-  private String var;
-
-  public int doStartTag() throws JspException {
-
-    String bundleBaseName;
-    FacesContext context = FacesContext.getCurrentInstance();
-    if (UIComponentTag.isValueReference(basename)) {
-      bundleBaseName = (String) context.getApplication().createValueBinding(basename).getValue(context);
-    } else {
-      bundleBaseName = basename;
-    }
-    Map toStore = new BundleMapWrapper(bundleBaseName);
-    // TODO find a better way
-    context.getExternalContext().getSessionMap().put(var, toStore);
-//        .getRequestMap().put(var, toStore);
-
-    return EVAL_BODY_INCLUDE;
-  }
-
-  public void release() {
-    basename = null;
-    var = null;
-  }
-
-  public String getBasename() {
-    return basename;
-  }
-
   /**
    * Base name of the resource bundle to be loaded.
    */
-  @TagAttribute(required = true)
-  public void setBasename(String basename) {
-    this.basename = basename;
-  }
-
-  public String getVar() {
-    return var;
-  }
+  @TagAttribute(required = true, name = "basename")
+  public abstract String getBasenameValue();
 
   /**
    * Name of a session-scope attribute under which the bundle data
    * will be exposed.
    */
-  @TagAttribute(required = true)
-  public void setVar(String var) {
-    this.var = var;
+  @TagAttribute(required = true, name = "var")
+  public abstract String getVarValue();
+
+  public int doStartTag() throws JspException {
+
+    FacesContext context = FacesContext.getCurrentInstance();
+
+    Map toStore = new BundleMapWrapper(getBasenameValue());
+    // TODO find a better way
+    context.getExternalContext().getSessionMap().put(getVarValue(), toStore);
+//        .getRequestMap().put(var, toStore);
+
+    return EVAL_BODY_INCLUDE;
   }
 
 }

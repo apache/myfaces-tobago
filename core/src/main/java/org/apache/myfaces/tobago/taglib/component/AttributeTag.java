@@ -18,18 +18,15 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 
-import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
-import javax.faces.component.ValueHolder;
-import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -44,39 +41,27 @@ import javax.servlet.jsp.tagext.TagSupport;
  * associated with the closest parent UIComponent custom action.
  */
 @Tag(name = "attribute", bodyContent = BodyContent.EMPTY)
-public class AttributeTag extends TagSupport {
+@TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.AttributeTag")
+public abstract class AttributeTag extends TagSupport {
 
-  private static final long serialVersionUID = 6231531736083277631L;
+  public abstract boolean isNameLiteral();
 
-  /**
-   * <p>The name of the attribute</p>
-   */
-  private String name;
+  public abstract Object getNameAsBindingOrExpression();
 
-  /**
-   * <p>The value of the attribute</p>
-   */
-  private String value;
+  @TagAttribute(required = true, name = "name")
+  public abstract String getNameValue();
 
-  /**
-   * The name of a attribute.
-   *
-   * @param name A attribute name
-   */
-  @TagAttribute(required = true)
-  public void setName(String name) {
-    this.name = name;
-  }
+  public abstract String getNameExpression();
 
-  /**
-   * The value of a attribute
-   *
-   * @param value A attribute value
-   */
-  @TagAttribute(required = true)
-  public void setValue(String value) {
-    this.value = value;
-  }
+
+  public abstract boolean isValueLiteral();
+
+  public abstract Object getValueAsBindingOrExpression();
+
+  @TagAttribute(required = true, name = "value")
+  public abstract String getValueValue();
+
+  public abstract String getValueExpression();
 
   /**
    * @throws javax.servlet.jsp.JspException if a JSP error occurs
@@ -100,55 +85,35 @@ public class AttributeTag extends TagSupport {
       // TODO Message resource i18n
       throw new JspException("Component Instance is null");
     }
-    String attributeName = name;
-
-    if (UIComponentTag.isValueReference(name)) {
-      ValueBinding valueBinding = TagUtils.createValueBinding(name);
-      if (valueBinding != null) {
-        attributeName = (String) valueBinding.getValue(FacesContext.getCurrentInstance());
+    String attributeName;
+    if (!isNameLiteral()) {
+      Object nameValueBindingOrValueExpression = getNameAsBindingOrExpression();
+      if (nameValueBindingOrValueExpression != null) {
+        attributeName = (String) FacesUtils.getValueFromBindingOrExpression(nameValueBindingOrValueExpression);
       } else {
         // TODO Message resource i18n
-        throw new JspException("Can not get ValueBinding for attribute name " + name);
-      }
-    }
-    if (component instanceof EditableValueHolder
-        && TobagoConstants.ATTR_VALIDATOR.equals(attributeName)) {
-      ComponentUtil.setValidator((EditableValueHolder) component, value);
-    } else if (component instanceof ValueHolder
-        && TobagoConstants.ATTR_CONVERTER.equals(attributeName)) {
-      ComponentUtil.setConverter((ValueHolder) component, value);
-    } else if (TobagoConstants.ATTR_STYLE_CLASS.equals(attributeName)) {
-      ComponentUtil.setStyleClasses(component, value);
-    } else if (TobagoConstants.ATTR_RENDERED_PARTIALLY.equals(attributeName)
-        && component instanceof SupportsRenderedPartially) {
-      if (UIComponentTag.isValueReference(value)) {
-        component.setValueBinding(TobagoConstants.ATTR_RENDERED_PARTIALLY, ComponentUtil.createValueBinding(value));
-      } else {
-        String[] components = ComponentUtil.splitList(value);
-        ((SupportsRenderedPartially) component).setRenderedPartially(components);
-      }
-    } else if (UIComponentTag.isValueReference(value)) {
-      ValueBinding valueBinding = TagUtils.createValueBinding(value);
-      if (valueBinding != null) {
-        component.setValueBinding(name, valueBinding);
-      } else {
-        // TODO Message resource i18n
-        throw new JspException("Can not get ValueBinding for attribute value " + value);
+        throw new JspException("Can not get ValueBinding for attribute name " + getNameExpression());
       }
     } else {
-      component.getAttributes().put(attributeName, value);
+      attributeName = getNameValue();
     }
-
+    if (!isValueLiteral()) {
+      Object obj = getValueAsBindingOrExpression();
+      if (obj != null) {
+        FacesUtils.setBindingOrExpression(component, attributeName, obj);
+      } else {
+        // TODO Message resource i18n
+        throw new JspException("Can not get ValueBinding for attribute value " + getValueExpression());
+      }
+    } else if (TobagoConstants.ATTR_STYLE_CLASS.equals(attributeName)) {
+      ComponentUtil.setStyleClasses(component, getValueValue());
+    } else if (TobagoConstants.ATTR_RENDERED_PARTIALLY.equals(attributeName)
+        && component instanceof SupportsRenderedPartially) {
+      String[] components = ComponentUtil.splitList(getValueValue());
+      ((SupportsRenderedPartially) component).setRenderedPartially(components);
+    } else {
+      component.getAttributes().put(attributeName, getValueValue());
+    }
     return (SKIP_BODY);
-  }
-
-
-  /**
-   * <p>Release references to any acquired resources.
-   */
-  public void release() {
-    super.release();
-    this.name = null;
-    this.value = null;
   }
 }

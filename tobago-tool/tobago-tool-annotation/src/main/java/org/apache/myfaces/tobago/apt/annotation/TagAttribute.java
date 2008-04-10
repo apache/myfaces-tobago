@@ -31,11 +31,13 @@ import java.lang.annotation.Target;
 
 public @interface TagAttribute {
   /** type of the Tag  */
-  Class type() default String.class;
+  String type() default "java.lang.String";
 
   /** allow JSP expression */
   boolean rtexprvalue() default false;
 
   boolean required() default false;
+
+  String name() default "";
 
 }

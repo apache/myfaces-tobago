@@ -20,6 +20,10 @@ package org.apache.myfaces.tobago.apt.generate;
 public class RendererInfo extends ClassInfo {
   private String rendererName;
 
+  public RendererInfo(String qualifiedName) {
+    super(qualifiedName);
+  }
+
   public RendererInfo(String qualifiedName, String rendererName) {
     super(qualifiedName);
     this.rendererName = rendererName;

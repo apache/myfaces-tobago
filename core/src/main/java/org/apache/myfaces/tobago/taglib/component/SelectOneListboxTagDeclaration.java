@@ -69,7 +69,7 @@ public interface SelectOneListboxTagDeclaration extends SelectOneTagDeclaration,
    * If an SelectItem was choosen which underling value is an empty string an
    * ValidationError occurs and a Error Message is rendered.
    */
-  @TagAttribute(type = String.class)
+  @TagAttribute()
   @UIComponentTagAttribute(type = "java.lang.Boolean")
   void setRequired(String required);
 }

@@ -29,6 +29,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
+import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.commons.io.IOUtils;
 
 import java.io.InputStream;
@@ -54,6 +56,7 @@ import com.sun.mirror.apt.Filer;
 import com.sun.mirror.declaration.InterfaceDeclaration;
 import com.sun.mirror.declaration.TypeDeclaration;
 import com.sun.mirror.declaration.MethodDeclaration;
+import com.sun.mirror.declaration.ClassDeclaration;
 import com.sun.mirror.type.InterfaceType;
 
 /*
@@ -64,6 +67,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
 
   private StringTemplateGroup rendererStringTemplateGroup;
   private StringTemplateGroup tagStringTemplateGroup;
+  private StringTemplateGroup tagAbstractStringTemplateGroup;
   private StringTemplateGroup componentStringTemplateGroup;
   private Set<String> renderer = new HashSet<String>();
   private Set<String> ignoredProperties;
@@ -86,6 +90,10 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     stream = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/tag" + jsfVersion + ".stg");
     reader = new InputStreamReader(stream);
     tagStringTemplateGroup = new StringTemplateGroup(reader);
+    stream = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/tagAbstract" + jsfVersion + ".stg");
+    reader = new InputStreamReader(stream);
+    tagAbstractStringTemplateGroup = new StringTemplateGroup(reader);
+
     stream = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/component"
         + jsfVersion + ".stg");
     reader = new InputStreamReader(stream);
@@ -104,6 +112,27 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         createTagOrComponent(decl);
       }
     }
+    for (ClassDeclaration decl : getCollectedClassDeclarations()) {
+      if (decl.getAnnotation(Tag.class) != null && decl.getAnnotation(TagGeneration.class) != null) {
+        createTag(decl);
+      }
+    }
+  }
+
+  private void createTag(ClassDeclaration decl) {
+    List<PropertyInfo> properties = new ArrayList<PropertyInfo>();
+    addPropertiesForTagOnly(decl, properties);
+    Tag tag = decl.getAnnotation(Tag.class);
+    TagGeneration tagGeneration = decl.getAnnotation(TagGeneration.class);
+
+    TagInfo tagInfo = new TagInfo(tagGeneration.className());
+    tagInfo.setSuperClass(decl.getQualifiedName());
+    StringTemplate stringTemplate = tagAbstractStringTemplateGroup.getInstanceOf("tag");
+    stringTemplate.setAttribute("tagInfo", tagInfo);
+    tagInfo.getProperties().addAll(properties);
+    tagInfo.addImport("org.apache.commons.logging.Log");
+    tagInfo.addImport("org.apache.commons.logging.LogFactory");    
+    writeFile(tagInfo, stringTemplate);    
   }
 
   private void createTagOrComponent(InterfaceDeclaration decl) {
@@ -291,6 +320,14 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     }
   }
 
+  protected void addPropertiesForTagOnly(ClassDeclaration type, List<PropertyInfo> properties) {
+    for (MethodDeclaration decl : getCollectedMethodDeclarations()) {
+      if (decl.getDeclaringType().equals(type)) {
+        addPropertyForTagOnly(decl, properties);
+      }
+    }
+  }
+
   protected void addProperties(InterfaceDeclaration type, List<PropertyInfo> properties) {
     addProperties(type.getSuperinterfaces(), properties);
     for (MethodDeclaration decl : getCollectedMethodDeclarations()) {     
@@ -311,7 +348,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     UIComponentTagAttribute uiComponentTagAttribute = decl.getAnnotation(UIComponentTagAttribute.class);
     if (uiComponentTagAttribute != null) {
       String simpleName = decl.getSimpleName();
-      if (simpleName.startsWith("set")) {
+      if (simpleName.startsWith("set") || simpleName.startsWith("get")) {
         String attributeStr = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
         if (ignoredProperties.contains(attributeStr)) {
           return;
@@ -346,6 +383,22 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
             ?uiComponentTagAttribute.defaultCode():null);
         propertyInfo.setMethodSignature(uiComponentTagAttribute.methodSignature());
         propertyInfo.setDeprecated(decl.getAnnotation(Deprecated.class) != null);
+        properties.add(propertyInfo);
+      }
+    }
+  }
+
+  protected void addPropertyForTagOnly(MethodDeclaration decl, List<PropertyInfo> properties) {
+    TagAttribute tagAttribute = decl.getAnnotation(TagAttribute.class);
+    if (tagAttribute != null) {
+      String simpleName = decl.getSimpleName();
+      if (simpleName.startsWith("set") || simpleName.startsWith("get")) {
+        String attributeStr = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
+        if (tagAttribute.name().length() > 0) {
+          attributeStr = tagAttribute.name();
+        }
+        PropertyInfo propertyInfo = new PropertyInfo(attributeStr);
+        propertyInfo.setType(tagAttribute.type());
         properties.add(propertyInfo);
       }
     }

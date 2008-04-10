@@ -35,7 +35,8 @@ public class CreateComponentAnnotationProcessorFactory implements AnnotationProc
       "org.apache.myfaces.tobago.apt.annotation.TagAttribute",
       "org.apache.myfaces.tobago.apt.annotation.UIComponentTag",
       "org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute",
-      "org.apache.myfaces.tobago.apt.annotation.Taglib"));
+      "org.apache.myfaces.tobago.apt.annotation.Taglib",
+      "org.apache.myfaces.tobago.apt.annotation.TagGeneration"));
 
   private static final Collection<String> SUPPORTED_OPTIONS =
       Collections.unmodifiableCollection(Arrays.asList("jsf-version"));

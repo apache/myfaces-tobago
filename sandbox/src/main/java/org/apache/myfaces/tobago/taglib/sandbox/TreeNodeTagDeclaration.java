@@ -63,14 +63,14 @@ public interface TreeNodeTagDeclaration
   /**
    * Flag indicating if the subnodes are to be displayed.
    */
-  @TagAttribute(type = String.class)
+  @TagAttribute()
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
   void setExpanded(String expanded);
 
   /**
    * Flag indicating if the node is marked, and should be displayed in a special way.
    */
-  @TagAttribute(type = String.class)
+  @TagAttribute()
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   void setMarked(String marked);
 }

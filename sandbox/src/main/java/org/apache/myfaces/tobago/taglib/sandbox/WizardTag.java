@@ -243,7 +243,7 @@ public class WizardTag extends BodyTagSupport {
     panelTag = null;
   }
 
-  @TagAttribute(required = true, type = Wizard.class)
+  @TagAttribute(required = true)
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.Wizard")
   public void setController(String controller) {
     this.controller = controller;

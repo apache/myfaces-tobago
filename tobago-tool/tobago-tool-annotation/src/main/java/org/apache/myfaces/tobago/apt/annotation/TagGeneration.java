@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.apt.annotation;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,19 +17,6 @@ package org.apache.myfaces.tobago.taglib.decl;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-
-/*
- * Created: Apr 9, 2005 2:47:04 PM
- * User: bommel
- * $Id$
- */
-public interface IsDisabled {
-  /**
-   * Flag indicating that this element is disabled.
-   */
-  @TagAttribute()
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
-  void setDisabled(String disabled);
+public @interface TagGeneration {
+  String className();
 }

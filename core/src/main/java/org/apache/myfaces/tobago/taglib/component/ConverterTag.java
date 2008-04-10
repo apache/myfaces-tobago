@@ -21,14 +21,13 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CONVERTER;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.internal.taglib.TagUtils;
+import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.el.ValueBinding;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -42,35 +41,10 @@ import javax.servlet.jsp.tagext.TagSupport;
  * associated with the closest parent UIComponent.
  */
 @Tag(name = "converter", bodyContent = BodyContent.EMPTY)
-public class ConverterTag extends TagSupport {
+@TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.ConverterTag")
+public abstract class ConverterTag extends TagSupport {
 
   private static final long serialVersionUID = 8565994799165107984L;
-
-  /**
-   * The converterId of the {@link javax.faces.convert.Converter}
-   */
-  private String converterId;
-  private String binding;
-
-  /**
-   * The converterId of a registered converter.
-   *
-   * @param converterId A valid converterId
-   */
-  @TagAttribute()
-  public void setConverterId(String converterId) {
-    this.converterId = converterId;
-  }
-
-  /**
-   * The value binding expression to a converter.
-   *
-   * @param binding A valid binding
-   */
-  @TagAttribute
-  public void setBinding(String binding) {
-    this.binding = binding;
-  }
 
   /**
    * Create a new instance of the specified {@link javax.faces.convert.Converter}
@@ -108,33 +82,35 @@ public class ConverterTag extends TagSupport {
 
     Converter converter = null;
 
-    if (binding != null && UIComponentTag.isValueReference(binding)) {
-      ValueBinding valueBinding = TagUtils.createValueBinding(binding);
+    if (isBindingSet() && !isBindingLiteral()) {
+      Object valueBinding = getBindingAsBindingOrExpression();
       if (valueBinding != null) {
-        Object obj = valueBinding.getValue(FacesContext.getCurrentInstance());
+        Object obj = FacesUtils.getValueFromBindingOrExpression(valueBinding);
         if (obj != null && obj instanceof Converter) {
           converter = (Converter) obj;
         }
       }
     }
 
-    if (converter == null && converterId != null) {
+    if (converter == null && isConverterIdSet()) {
       String localConverterId;
       // evaluate any VB expression that we were passed
-      if (UIComponentTag.isValueReference(converterId)) {
-        ValueBinding typeValueBinding = TagUtils.createValueBinding(converterId);
-        localConverterId = (String) typeValueBinding.getValue(FacesContext.getCurrentInstance());
+      if (!isConverterIdLiteral()) {
+        Object typeValueBinding = getConverterIdAsBindingOrExpression();
+        localConverterId = (String) FacesUtils.getValueFromBindingOrExpression(typeValueBinding);
       } else {
-        localConverterId = converterId;
+        localConverterId = getConverterIdValue();
       }
       converter = FacesContext.getCurrentInstance().getApplication().createConverter(localConverterId);
-      if (converter != null && binding != null) {
-        ComponentUtil.setValueForValueBinding(binding, converter);
+      if (converter != null && isBindingSet()) {
+        Object valueBinding = getBindingAsBindingOrExpression();
+        FacesUtils.setValueOfBindingOrExpression(FacesContext.getCurrentInstance(), converter, valueBinding);
       }
     }
     if (converter != null) {
-      if (UIComponentTag.isValueReference(binding)) {
-        component.setValueBinding(ATTR_CONVERTER, TagUtils.createValueBinding(binding));
+      if (!isBindingLiteral()) {
+        FacesUtils.
+            setValueOfBindingOrExpression(FacesContext.getCurrentInstance(), converter, component, ATTR_CONVERTER);
       } else {
         valueHolder.setConverter(converter);
       }
@@ -143,14 +119,31 @@ public class ConverterTag extends TagSupport {
     return (SKIP_BODY);
   }
 
+  /**
+   * The converterId of a registered converter.
+   *
+   */
+  @TagAttribute(name = "converterId")
+  public abstract String getConverterIdValue();
+
+  public abstract Object getConverterIdAsBindingOrExpression();
+
+  public abstract boolean isConverterIdLiteral();
+
+  public abstract boolean isConverterIdSet();
+
 
   /**
-   * <p>Release references to any acquired resources.
+   * The value binding expression to a converter.
+   *
    */
-  public void release() {
-    this.converterId = null;
-    this.binding = null;
-  }
+  @TagAttribute(name = "binding")
+  public abstract String getBindingValue();
 
+  public abstract Object getBindingAsBindingOrExpression();
+
+  public abstract boolean isBindingLiteral();
+
+  public abstract boolean isBindingSet();
 
 }

@@ -29,15 +29,17 @@ import javax.faces.el.ValueBinding;
  * Date: Jan 9, 2007
  * Time: 8:08:01 PM
  */
-public class TabChangeListenerValueBindingDelegate implements TabChangeListener, StateHolder {
-  private static final Log LOG = LogFactory.getLog(TabChangeListenerValueBindingDelegate.class);
+
+@SuppressWarnings("deprecation")
+public class ValueBindingTabChangeListener implements TabChangeListener, StateHolder {
+  private static final Log LOG = LogFactory.getLog(ValueBindingTabChangeListener.class);
   private String type;
   private ValueBinding valueBinding;
 
-  public TabChangeListenerValueBindingDelegate() {
+  public ValueBindingTabChangeListener() {
   }
 
-  public TabChangeListenerValueBindingDelegate(String type, ValueBinding valueBinding) {
+  public ValueBindingTabChangeListener(String type, ValueBinding valueBinding) {
     this.type = type;
     this.valueBinding = valueBinding;
   }

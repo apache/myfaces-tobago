@@ -322,7 +322,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   /**
    * Flag indicating that this element is disabled.
    */
-  @TagAttribute(type = String.class)
+  @TagAttribute()
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   public void setDisabled(javax.el.ValueExpression disabled) {
     this.disabled = disabled;

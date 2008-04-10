@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 public interface WizardTagDeclaration
     extends HasIdBindingAndRendered {
 
-  @TagAttribute(required = true, type = Wizard.class)
+  @TagAttribute(required = true)
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.Wizard",
       expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setController(String controller);

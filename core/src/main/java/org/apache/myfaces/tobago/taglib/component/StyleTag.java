@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
@@ -36,11 +37,19 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  */
 @Tag(name = "style", bodyContent = BodyContent.TAGDEPENDENT)
 @BodyContentDescription(contentType = "css")
-public class StyleTag extends BodyTagSupport implements HasId {
+@TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.StyleTag")
+public abstract class StyleTag extends BodyTagSupport implements HasId {
 
   private static final long serialVersionUID = -2201525304632479403L;
 
-  private String style;
+  /**
+   * Name of the stylsheet file to add to page.
+   */
+  @TagAttribute(name = "style")
+  public abstract String getStyleValue();
+
+  public abstract boolean isStyleSet();
+
 
   public int doEndTag() throws JspException {
 
@@ -51,8 +60,8 @@ public class StyleTag extends BodyTagSupport implements HasId {
           + "Check you have defined the StyleTag inside of the PageTag!");
     }
 
-    if (style != null) {
-      page.getStyleFiles().add(TagUtils.getValueFromEl(style));
+    if (isStyleSet()) {
+      page.getStyleFiles().add(TagUtils.getValueFromEl(getStyleValue()));
     }
 
     if (bodyContent != null) {
@@ -68,21 +77,6 @@ public class StyleTag extends BodyTagSupport implements HasId {
     return EVAL_BODY_BUFFERED;
   }
 
-  public void release() {
-    super.release();
-    style = null;
-  }
 
-  public String getStyle() {
-    return style;
-  }
-
-  /**
-   * Name of the stylsheet file to add to page.
-   */
-  @TagAttribute
-  public void setStyle(String style) {
-    this.style = style;
-  }
 }
 

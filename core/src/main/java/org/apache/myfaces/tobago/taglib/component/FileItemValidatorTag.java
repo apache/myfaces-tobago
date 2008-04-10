@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.validator.FileItemValidator;
 
 import javax.faces.validator.Validator;
@@ -35,53 +36,35 @@ import javax.servlet.jsp.JspException;
  * associated with the closest parent UIComponent custom action.
  */
 @Tag(name = "validateFileItem")
-public class FileItemValidatorTag extends ValidatorTag {
+@TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.FileItemValidatorTag")
+public abstract class FileItemValidatorTag extends ValidatorTag {
 
   private static final long serialVersionUID = -1461244883146997440L;
 
-  private String maxSize;
-  private String contentType;
+  @TagAttribute(name = "maxSize")
+  public abstract String getMaxSizeValue();
 
-  public String getMaxSize() {
-    return maxSize;
-  }
+  public abstract boolean isMaxSizeSet();
 
-  @TagAttribute()
-  public void setMaxSize(String maxSize) {
-    this.maxSize = maxSize;
-  }
+  @TagAttribute(name = "contentType")
+  public abstract String getContentTypeValue();
 
-  public String getContentType() {
-    return contentType;
-  }
-
-  @TagAttribute()
-  public void setContentType(String contentType) {
-    this.contentType = contentType;
-  }
+  public abstract boolean isContentTypeSet();
 
   protected Validator createValidator() throws JspException {
     setValidatorId(FileItemValidator.VALIDATOR_ID);
     FileItemValidator validator = (FileItemValidator) super.createValidator();
 
-    if (maxSize != null) {
+    if (isMaxSizeSet()) {
       try {
-        validator.setMaxSize(Integer.parseInt(maxSize));
+        validator.setMaxSize(Integer.parseInt(getMaxSizeValue()));
       } catch (NumberFormatException e) {
         // ignore
       }
     }
-    if (contentType != null) {
-      validator.setContentType(contentType);
+    if (isContentTypeSet()) {
+      validator.setContentType(getContentTypeValue());
     }
     return validator;
   }
-
-
-  public void release() {
-    super.release();
-    maxSize = null;
-    contentType = null;
-  }
-
 }
