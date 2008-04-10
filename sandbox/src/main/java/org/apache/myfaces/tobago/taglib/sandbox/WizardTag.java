@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.model.Wizard;
 import org.apache.myfaces.tobago.model.WizardStep;
-import org.apache.myfaces.tobago.taglib.component.AttributeTag;
+import org.apache.myfaces.tobago.internal.taglib.AttributeTag;
 
 import org.apache.myfaces.tobago.util.VariableResolverUtil;
 import org.apache.myfaces.tobago.internal.taglib.PanelTag;
