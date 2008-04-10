@@ -108,7 +108,8 @@ public class FacesUtils12 {
     }
   }
 
-  public static void addBindingOrExpressionTabChangeListener(TabChangeSource source, String type, Object bindingOrExpression) {
+  public static void addBindingOrExpressionTabChangeListener(TabChangeSource source, String type,
+      Object bindingOrExpression) {
     if (bindingOrExpression instanceof ValueExpression) {
       source.addTabChangeListener(new ValueExpressionTabChangeListener(type, (ValueExpression) bindingOrExpression));
     }

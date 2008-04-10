@@ -97,7 +97,8 @@ public class FacesUtils {
           if (LOG.isDebugEnabled()) {
             LOG.debug("Did not found InvokeOnComponent " + child.getClass().getName() + " "
                 + child.getClientId(context) + " "
-                + child.getRendererType() + (child.getParent() != null ? child.getParent().getClass().getName() : "null"));
+                + child.getRendererType() +
+                (child.getParent() != null ? child.getParent().getClass().getName() : "null"));
           }
         }
       } else {
@@ -231,10 +232,8 @@ public class FacesUtils {
     }
   }
 
-  public static void addBindingOrExpressionTabChangeListener(TabChangeSource source, String type, Object bindingOrExpression) {
-    System.err.println("########################################");
-    System.err.println("Found JSF Impl " + Integer.toString(facesVersion));
-    System.err.println("########################################");    
+  public static void addBindingOrExpressionTabChangeListener(TabChangeSource source, String type,
+      Object bindingOrExpression) {
     if (facesVersion == 11) {
       source.addTabChangeListener(new ValueBindingTabChangeListener(type, (ValueBinding) bindingOrExpression));
     } else {
