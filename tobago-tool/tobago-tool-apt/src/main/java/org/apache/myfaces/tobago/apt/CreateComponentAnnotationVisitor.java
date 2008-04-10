@@ -90,7 +90,8 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     stream = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/tag" + jsfVersion + ".stg");
     reader = new InputStreamReader(stream);
     tagStringTemplateGroup = new StringTemplateGroup(reader);
-    stream = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/tagAbstract" + jsfVersion + ".stg");
+    stream = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/tagAbstract"
+        + jsfVersion + ".stg");
     reader = new InputStreamReader(stream);
     tagAbstractStringTemplateGroup = new StringTemplateGroup(reader);
 
