@@ -246,9 +246,9 @@ public class FacesUtils {
       boolean descending, Comparator comparator) {
     if (facesVersion == 11) {
       ValueBinding valueBinding = child.getValueBinding("value");
-      return new ValueBindingComparator(facesContext, var, valueBinding, descending , comparator);
+      return new ValueBindingComparator(facesContext, var, valueBinding, descending, comparator);
     } else {
-      return FacesUtils12.getBindingOrExpressionComparator(facesContext, child, var, descending,comparator);
+      return FacesUtils12.getBindingOrExpressionComparator(facesContext, child, var, descending, comparator);
     }
   }
 }

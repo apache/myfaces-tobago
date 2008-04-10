@@ -41,7 +41,8 @@ public class ValueExpressionComparator extends ComparatorBase {
     this.valueExpression = valueExpression;
   }
 
-  public ValueExpressionComparator(FacesContext facesContext, String var, ValueExpression valueExpression, boolean reverse) {
+  public ValueExpressionComparator(FacesContext facesContext, String var, ValueExpression valueExpression,
+      boolean reverse) {
     super(reverse);
     this.facesContext = facesContext;
     this.var = var;
