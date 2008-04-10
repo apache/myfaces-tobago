@@ -96,9 +96,8 @@ public class FacesUtils {
         } else {
           if (LOG.isDebugEnabled()) {
             LOG.debug("Did not found InvokeOnComponent " + child.getClass().getName() + " "
-                + child.getClientId(context) + " "
-                + child.getRendererType() +
-                (child.getParent() != null ? child.getParent().getClass().getName() : "null"));
+                + child.getClientId(context) + " " + child.getRendererType()
+                + (child.getParent() != null ? child.getParent().getClass().getName() : "null"));
           }
         }
       } else {
