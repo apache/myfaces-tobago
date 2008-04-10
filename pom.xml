@@ -9,7 +9,7 @@
   <artifactId>tobago</artifactId>
   <packaging>pom</packaging>
   <name>Apache Tobago</name>
-  <version>1.0.16</version>
+  <version>1.0.16-SNAPSHOT</version>
   <description>The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF and run on MyFaces.</description>
   <prerequisites>
     <maven>2.0.6</maven>
@@ -439,9 +439,9 @@
 
   <scm>
 
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.16</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.16</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.0.16</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/branches/tobago-1.0.x/</url>
 
   </scm>
 
@@ -491,7 +491,7 @@
         <artifactId>maven-release-plugin</artifactId>
         <configuration>
           <tagBase>https://svn.apache.org/repos/asf/myfaces/tobago/tags</tagBase>
-          <preparationGoals>clean install</preparationGoals>
+          <preparationGoals>clean</preparationGoals>
         </configuration>
       </plugin>
     </plugins>
