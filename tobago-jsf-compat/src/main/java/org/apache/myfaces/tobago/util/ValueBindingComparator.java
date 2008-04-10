@@ -28,7 +28,7 @@ import java.util.Map;
 /*
  * Created: Mon Apr 15 15:56:44 2002
  */
-
+@SuppressWarnings("deprecation")
 public class ValueBindingComparator extends ComparatorBase {
 
   private static final Log LOG = LogFactory.getLog(ValueBindingComparator.class);
@@ -121,7 +121,7 @@ public class ValueBindingComparator extends ComparatorBase {
       obj2 = valueBinding.getValue(facesContext);
 
     } catch (Exception e) {
-      ValueBindingComparator.LOG.error(e.getMessage(), e);
+      LOG.error(e.getMessage(), e);
       return 0;
     }
     return super.internalCompare(obj1, obj2);

@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.event.ValueBindingTabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource;
+import org.apache.myfaces.tobago.util.ValueBindingComparator;
 
 import javax.faces.application.Application;
 import javax.faces.component.ContextCallback;
@@ -33,6 +34,7 @@ import javax.faces.el.ValueBinding;
 import javax.faces.el.MethodBinding;
 import javax.faces.webapp.UIComponentTag;
 import javax.faces.convert.Converter;
+import java.util.Comparator;
 
 @SuppressWarnings("deprecation")
 public class FacesUtils {
@@ -237,6 +239,16 @@ public class FacesUtils {
       source.addTabChangeListener(new ValueBindingTabChangeListener(type, (ValueBinding) bindingOrExpression));
     } else {
       FacesUtils12.addBindingOrExpressionTabChangeListener(source, type, bindingOrExpression);
+    }
+  }
+
+  public static Comparator getBindingOrExpressionComparator(FacesContext facesContext, UIComponent child, String var,
+      boolean descending, Comparator comparator) {
+    if (facesVersion == 11) {
+      ValueBinding valueBinding = child.getValueBinding("value");
+      return new ValueBindingComparator(facesContext, var, valueBinding, descending , comparator);
+    } else {
+      return FacesUtils12.getBindingOrExpressionComparator(facesContext, child, var, descending,comparator);
     }
   }
 }

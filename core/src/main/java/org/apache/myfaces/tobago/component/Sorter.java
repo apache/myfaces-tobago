@@ -24,7 +24,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.BeanComparator;
-import org.apache.myfaces.tobago.util.ValueBindingComparator;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 
 import javax.faces.component.UIColumn;
@@ -36,7 +35,6 @@ import javax.faces.component.UICommand;
 import javax.faces.component.UISelectOne;
 import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 import javax.faces.model.DataModel;
 
 import java.util.ArrayList;
@@ -80,7 +78,6 @@ public class Sorter {
 
         UIComponent child = getFirstSortableChild(column.getChildren());
         if (child != null) {
-          ValueBinding valueBinding = child.getValueBinding("value");
           String var = data.getVar();
 
           if (FacesUtils.hasValueBindingOrValueExpression(child, "value")) {
@@ -101,8 +98,9 @@ public class Sorter {
                 LOG.debug("Sort property is " + sortProperty);
               }
             } else {
-              actualComparator = new ValueBindingComparator(facesContext, var,
-                  valueBinding, !sheetState.isAscending(), comparator);
+
+              boolean descending = !sheetState.isAscending();
+              actualComparator = FacesUtils.getBindingOrExpressionComparator(facesContext, child, var, descending, comparator);
             }
           }
 
