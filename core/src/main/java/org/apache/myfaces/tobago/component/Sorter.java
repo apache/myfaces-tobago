@@ -100,7 +100,8 @@ public class Sorter {
             } else {
 
               boolean descending = !sheetState.isAscending();
-              actualComparator = FacesUtils.getBindingOrExpressionComparator(facesContext, child, var, descending, comparator);
+              actualComparator =
+                  FacesUtils.getBindingOrExpressionComparator(facesContext, child, var, descending, comparator);
             }
           }
 
