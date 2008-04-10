@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
-import org.apache.myfaces.tobago.model.Wizard;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /**
