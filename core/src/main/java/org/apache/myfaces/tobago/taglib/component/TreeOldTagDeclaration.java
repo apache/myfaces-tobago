@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
  * Renders a tree view.
  */
 @Deprecated
-@Tag(name = "tree")
+@Tag(name = "treeOld")
 @BodyContentDescription(anyTagOf = "<f:facet>* <f:actionListener>?")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeOld",

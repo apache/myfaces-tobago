@@ -17,9 +17,10 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
+/** @deprecated */
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeOldNode",
     generate = false,

@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.model;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import org.apache.myfaces.tobago.component.UITreeData;
+import org.apache.myfaces.tobago.component.AbstractUITreeData;
 import org.apache.myfaces.tobago.component.AbstractUITreeNode;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -68,7 +68,7 @@ public class MixedTreeModel {
     }
   }
 
-  public void beginBuildNodeData(UITreeData data) {
+  public void beginBuildNodeData(AbstractUITreeData data) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("var=" + data.getVar());
     }
@@ -81,7 +81,7 @@ public class MixedTreeModel {
     isInData = true;
   }
 
-  public void endBuildNodeData(UITreeData data) {
+  public void endBuildNodeData(AbstractUITreeData data) {
     if (LOG.isDebugEnabled()) {
       LOG.debug("var=" + data.getVar());
     }

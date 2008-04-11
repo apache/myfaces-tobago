@@ -19,22 +19,14 @@ package org.apache.myfaces.tobago.example.sandbox;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.model.Wizard;
 
-import javax.swing.tree.DefaultMutableTreeNode;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Controller {
 
   private static final Log LOG = LogFactory.getLog(Controller.class);
-
-  private static final String STRONG = "strong";
-
-  private DefaultMutableTreeNode tree;
-
-  private TreeState state;
 
   private int sliderValue;
 
@@ -43,41 +35,6 @@ public class Controller {
   private String filterType;
 
   public Controller() {
-    // tree
-    tree = new DefaultMutableTreeNode(new Node("1 Category"));
-    tree.add(new DefaultMutableTreeNode(new Node("1.1 Sports")));
-    tree.add(new DefaultMutableTreeNode(new Node("1.2 Movies")));
-    DefaultMutableTreeNode temp = new DefaultMutableTreeNode(new Node("1.3 Science"));
-    tree.add(temp);
-    DefaultMutableTreeNode music = new DefaultMutableTreeNode(new Node("1.4 Music"));
-    tree.add(music);
-    tree.add(new DefaultMutableTreeNode(new Node("1.5 Games")));
-    temp.add(new DefaultMutableTreeNode(new Node("1.3.1 Geography (strong markup)", STRONG)));
-    temp.add(new DefaultMutableTreeNode(new Node("1.3.2 Mathematics (strong markup)", STRONG)));
-    DefaultMutableTreeNode temp2 = new DefaultMutableTreeNode(new Node("1.3.3 Pictures"));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.1 Education")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.2 Family")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.3 Comercial")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.4 Summer (disabled)", true)));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.5 Winter (disabled)", true)));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.6 Red")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.7 Black")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.8 White")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.9 Good")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.10 Evil")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.11 Flower")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.12 Animal")));
-    temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.13 Personal")));
-    temp.add(temp2);
-
-    // state
-
-    state = new TreeState();
-    state.addExpandState(tree);
-    state.addExpandState(temp);
-    state.addSelection(temp2);
-    state.setMarker(music);
-
     // wizard
 
     wizard = new SampleWizard();
@@ -107,46 +64,9 @@ public class Controller {
     throw new RuntimeException("no filter");
   }
 
-  public String createNode() {
-    DefaultMutableTreeNode marker = state.getMarker();
-    if (marker != null) {
-      marker.insert(new DefaultMutableTreeNode(new Node("New Node")), 0);
-    } else {
-      // todo: print a warning or use root?
-    }
-    return null;
-  }
-
-  public String deleteNode() {
-    DefaultMutableTreeNode marker = state.getMarker();
-    if (marker != null) {
-      marker.removeFromParent();
-    } else {
-      // todo: print a warning or use root?
-    }
-    return null;
-  }
-
   public String getCurrentTime() {
     return new SimpleDateFormat("hh:MM:ss").format(new Date());
   }
-
-  public DefaultMutableTreeNode getTree() {
-    return tree;
-  }
-
-  public void setTree(DefaultMutableTreeNode tree) {
-    this.tree = tree;
-  }
-
-  public TreeState getState() {
-    return state;
-  }
-
-  public void setState(TreeState state) {
-    this.state = state;
-  }
-
 
   public int getSliderValue() {
     return sliderValue;

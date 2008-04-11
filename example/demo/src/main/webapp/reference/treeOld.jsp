@@ -15,8 +15,8 @@
  * limitations under the License.
 --%>
 
-<%@ page import="javax.swing.tree.DefaultMutableTreeNode" %>
 <%@ page import="org.apache.myfaces.tobago.model.TreeState" %>
+<%@ page import="javax.swing.tree.DefaultMutableTreeNode" %>
 
 <%
   DefaultMutableTreeNode tree;
@@ -58,7 +58,7 @@
           <%--<tc:gridLayout rows="300px;1*" />--%>
           <tc:gridLayout rows="200px;300px;1*" />
         </f:facet>
-        <tc:tree state="#{treeState}" value="#{tree}" id="screenshotTree"
+        <tc:treeOld state="#{treeState}" value="#{tree}" id="screenshotTree"
             idReference="userObject"
             nameReference="userObject"
             showIcons="true"
@@ -69,7 +69,7 @@
             mutable="false"
             />
 
-        <tc:tree state="#{treeState}" value="#{tree}"
+        <tc:treeOld state="#{treeState}" value="#{tree}"
             idReference="userObject"
             nameReference="userObject"
             showIcons="false"

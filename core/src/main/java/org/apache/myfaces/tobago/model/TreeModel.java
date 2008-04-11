@@ -22,11 +22,11 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Collections;
 
 // todo: make more general (e.g. support other trees)
 

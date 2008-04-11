@@ -22,16 +22,16 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
-import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.AbstractUITree;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.util.FastStringWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;

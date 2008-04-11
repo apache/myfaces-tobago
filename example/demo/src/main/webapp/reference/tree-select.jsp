@@ -15,7 +15,6 @@
  * limitations under the License.
 --%>
 
-<%@ taglib uri="http://myfaces.apache.org/tobago/sandbox" prefix="tcs" %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
@@ -28,28 +27,27 @@
       <tc:gridLayout margin="10px" rows="300px;*"/>
     </f:facet>
 
-    <tcs:tree id="sel"
+    <tc:tree id="sel"
               showIcons="true"
               showJunctions="true"
               showRootJunction="true"
               showRoot="true"
               selectable="single">
-      <tcs:treeNode label="Root">
-        <tcs:treeData value="#{controller.tree}" var="node">
-          <tcs:treeNode label="#{node.userObject.name}"
+      <tc:treeNode label="Root">
+        <tc:treeData value="#{treeController.tree}" var="node">
+          <tc:treeNode label="#{node.userObject.name}"
                         markup="#{node.userObject.markup}"
-                        tip="#{node.userObject.tip}"
-              />
-        </tcs:treeData>
-        <tcs:treeNode label="Sub 1"/>
-        <tcs:treeNode label="Sub 2"/>
-        <tcs:treeNode label="Sub 3">
-          <tcs:treeNode label="Sub 3.1"/>
-          <tcs:treeNode label="Sub 3.2"/>
-        </tcs:treeNode>
-        <tcs:treeNode label="Sub 4" tip="Subnode Number 4"/>
-      </tcs:treeNode>
-    </tcs:tree>
+                        tip="#{node.userObject.tip}"/>
+        </tc:treeData>
+        <tc:treeNode label="Sub 1"/>
+        <tc:treeNode label="Sub 2"/>
+        <tc:treeNode label="Sub 3">
+          <tc:treeNode label="Sub 3.1"/>
+          <tc:treeNode label="Sub 3.2"/>
+        </tc:treeNode>
+        <tc:treeNode label="Sub 4" tip="Subnode Number 4"/>
+      </tc:treeNode>
+    </tc:tree>
 
     <tc:cell/>
 

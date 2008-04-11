@@ -25,18 +25,14 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
-import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.AbstractUITree;
 import org.apache.myfaces.tobago.component.AbstractUITreeNode;
+import org.apache.myfaces.tobago.component.UITree;
+import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.A;
@@ -45,6 +41,10 @@ import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.IMG;
 import static org.apache.myfaces.tobago.renderkit.html.HtmlConstants.SPAN;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
@@ -103,8 +103,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    AbstractUITreeNode node = (AbstractUITreeNode) component;
-    AbstractUITree root = node.findTree();
+    UITreeNode node = (UITreeNode) component;
+    UITree root = (UITree) node.findTree();
     MixedTreeModel mixedModel = root.getModel();
 
     mixedModel.onEncodeBegin();
@@ -205,7 +205,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.writeStyleAttribute(contentStyle);
     }
 
-    String label = (String) node.getAttributes().get(ATTR_LABEL);
+    String label = node.getLabel();
     int level = modelNode.getLevel();
     StringBuilder builder = new StringBuilder();
     for (int i = 0; i < level; i++) {
@@ -354,7 +354,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 */
 
   private void encodeLabel(
-      TobagoResponseWriter writer, CommandRendererHelper helper, AbstractUITreeNode node, boolean marked, String treeId)
+      TobagoResponseWriter writer, CommandRendererHelper helper, UITreeNode node, boolean marked, String treeId)
       throws IOException {
 
     if (helper.isDisabled()) {
@@ -371,12 +371,12 @@ public class TreeNodeRenderer extends CommandRendererBase {
       classes.addClass("treeNode", "marker");
       writer.writeClassAttribute(classes);
     }
-    Object objTip = node.getAttributes().get(ATTR_TIP);
+    String objTip = node.getTip();
     if (objTip != null) {
 //XXX is needed?      tip = StringEscapeUtils.escapeJavaScript(tip);
       writer.writeAttribute(HtmlAttributes.TITLE, String.valueOf(objTip), true);
     }
-    String label = (String) node.getAttributes().get(ATTR_LABEL);
+    String label = node.getLabel();
     if (label == null) {
       LOG.warn("label == null");
       label = "label";
@@ -392,8 +392,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
-    AbstractUITreeNode node = (AbstractUITreeNode) component;
-    AbstractUITree root = node.findTree();
+    UITreeNode node = (UITreeNode) component;
+    UITree root = (UITree) node.findTree();
     MixedTreeModel mixedModel = root.getModel();
     boolean isFolder = mixedModel.isFolder();
 
@@ -409,7 +409,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     }
 
     if (LOG.isDebugEnabled()) {
-      String label = (String) node.getAttributes().get(ATTR_LABEL);
+      String label = node.getLabel();
       int level = mixedModel.getDepth();
       StringBuilder builder = new StringBuilder();
       for (int i = 0; i < level; i++) {

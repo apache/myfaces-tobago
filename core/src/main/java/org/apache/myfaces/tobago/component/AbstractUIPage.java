@@ -24,19 +24,19 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-import org.apache.myfaces.tobago.model.PageState;
-import org.apache.myfaces.tobago.model.PageStateImpl;
-import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
-import org.apache.myfaces.tobago.util.DebugUtils;
+import org.apache.myfaces.tobago.model.PageState;
+import org.apache.myfaces.tobago.model.PageStateImpl;
 import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.DebugUtils;
+import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.component.ContextCallback;
-import javax.faces.context.FacesContext;
 import javax.faces.FacesException;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.ContextCallback;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
@@ -151,10 +151,10 @@ public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnC
     }
 
     UIComponent command = null;
-    try {
+    try { // todo: try bock should be removed, when tested, that the warning usually not accure.
       command = findComponent(currentActionId);
     } catch (Exception e) {
-      // ignore
+      LOG.warn("Should not happen!!! currentActionId='" + currentActionId + "'");
     }
 
     // TODO: remove this if block if prooven this never happens anymore

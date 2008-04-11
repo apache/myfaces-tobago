@@ -99,6 +99,8 @@ public class Navigation {
 
   public String navigate() {
     Node selected = (Node) state.getMarker().getUserObject();
+    LOG.info("***************************************************************************************************");
+    LOG.info("outcome = '" + selected.getOutcome() + "'");
     return selected.getOutcome();
   }
 
@@ -210,6 +212,13 @@ public class Navigation {
 
     public void setId(String id) {
       this.id = id;
+    }
+
+    public String action() {
+      LOG.info("***********************************************************************************************");
+      LOG.info(outcome);
+      LOG.info("***********************************************************************************************");
+      return outcome;
     }
 
     public String getOutcome() {

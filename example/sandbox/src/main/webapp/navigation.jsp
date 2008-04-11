@@ -28,16 +28,6 @@
 
     <tc:link link="separator.jsp" label="separator.jsp" target="View"/>
 
-    <tc:link link="tree-normal.jsp" label="tree-normal.jsp" target="View"/>
-
-    <tc:link link="tree-select.jsp" label="tree-select.jsp" target="View"/>
-
-    <tc:link link="tree-menu.jsp" label="tree-menu.jsp" target="View"/>
-
-    <tc:link link="tree-editor.jsp" label="tree-editor.jsp" target="View"/>
-
-    <tc:link link="tree-ajax.jsp" label="tree-ajax.jsp" target="View"/>
-
     <tc:link link="inputSlider.jsp" label="inputSlider.jsp" target="View"/>
 
     <tc:link link="wizard.jsp" label="wizard.jsp" target="View"/>

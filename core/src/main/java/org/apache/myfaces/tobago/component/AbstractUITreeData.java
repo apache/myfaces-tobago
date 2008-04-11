@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.model.TreeModel;
 
 import javax.faces.component.NamingContainer;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
@@ -34,10 +35,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UITreeData extends javax.faces.component.UIInput
+public abstract class AbstractUITreeData extends javax.faces.component.UIInput
     implements NamingContainer, TreeModelBuilder {
 
-  private static final Log LOG = LogFactory.getLog(UITreeData.class);
+  private static final Log LOG = LogFactory.getLog(AbstractUITreeData.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TreeData";
 
@@ -209,6 +210,17 @@ public class UITreeData extends javax.faces.component.UIInput
     return clientId + NamingContainer.SEPARATOR_CHAR + pathIndex;
   }
 
+  public UIComponent findComponent(String searchId) {
+
+    assert searchId.matches("^(_\\d+)+" + SEPARATOR_CHAR + ".*")
+        : "The searchId '" + searchId + "' does not start with a tree structure";
+
+    LOG.info("*************** from " + searchId); // fixme remove this line
+    searchId = searchId.substring(searchId.indexOf(SEPARATOR_CHAR) + 1);
+    LOG.info("*************** to   " + searchId); // fixme remove this line
+    return super.findComponent(searchId);
+  }
+
   @Override
   public void queueEvent(FacesEvent event) {
     super.queueEvent(new FacesEventWrapper(event, getPathIndex(), this));
@@ -217,8 +229,7 @@ public class UITreeData extends javax.faces.component.UIInput
   @Override
   public void broadcast(FacesEvent event) throws AbortProcessingException {
     if (event instanceof FacesEventWrapper) {
-      FacesEvent originalEvent
-          = ((FacesEventWrapper) event).getWrappedFacesEvent();
+      FacesEvent originalEvent = ((FacesEventWrapper) event).getWrappedFacesEvent();
       String eventPathIndex = ((FacesEventWrapper) event).getPathIndex();
       String currentPathIndex = getPathIndex();
       setPathIndex(eventPathIndex);
@@ -286,8 +297,7 @@ public class UITreeData extends javax.faces.component.UIInput
     private FacesEvent wrappedFacesEvent;
     private String pathIndex;
 
-    FacesEventWrapper(FacesEvent facesEvent, String pathIndex,
-        UITreeData redirectComponent) {
+    FacesEventWrapper(FacesEvent facesEvent, String pathIndex, AbstractUITreeData redirectComponent) {
       super(redirectComponent);
       wrappedFacesEvent = facesEvent;
       this.pathIndex = pathIndex;

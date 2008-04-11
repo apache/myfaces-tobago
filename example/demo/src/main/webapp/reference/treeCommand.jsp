@@ -26,12 +26,12 @@
         <tc:gridLayout rows="300px;1*"/>
       </f:facet>
 
-      <tc:tree state="#{treeCommandController.state}" value="#{treeCommandController.tree}"
+      <tc:treeOld state="#{treeCommandController.state}" value="#{treeCommandController.tree}"
                idReference="userObject" nameReference="userObject" mode="menu">
         <f:facet name="treeNodeCommand">
           <tc:link action="#{treeCommandController.command}"/>
         </f:facet>
-      </tc:tree>
+      </tc:treeOld>
 
       <tc:cell/>
 

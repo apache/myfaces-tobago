@@ -15,7 +15,6 @@
  * limitations under the License.
 --%>
 
-<%@ taglib uri="http://myfaces.apache.org/tobago/sandbox" prefix="tcs" %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
@@ -29,23 +28,23 @@
     </f:facet>
 
     <tc:toolBar>
-      <tc:toolBarCommand action="#{controller.createNode}" label="New"/>
-      <tc:toolBarCommand action="#{controller.deleteNode}" label="Delete"/>
+      <tc:toolBarCommand action="#{treeController.createNode}" label="New"/>
+      <tc:toolBarCommand action="#{treeController.deleteNode}" label="Delete"/>
     </tc:toolBar>
 
-    <tcs:tree id="tree">
+    <tc:tree id="tree">
       <!--
       fixme: The helping-node "Root" is required in the moment, has to be removed!
       -->
-      <tcs:treeNode label="Root">
-        <tcs:treeData value="#{controller.tree}" var="node" id="data">
-          <tcs:treeNode label="#{node.userObject.name}" id="template"
+      <tc:treeNode label="Root">
+        <tc:treeData value="#{treeController.tree}" var="node" id="data">
+          <tc:treeNode label="#{node.userObject.name}" id="template"
                         markup="#{node.userObject.markup}"
                         tip="#{node.userObject.tip}"
                         action="#{node.userObject.action}" value="#{node}"/>
-        </tcs:treeData>
-      </tcs:treeNode>
-    </tcs:tree>
+        </tc:treeData>
+      </tc:treeNode>
+    </tc:tree>
 
     <tc:cell/>
 

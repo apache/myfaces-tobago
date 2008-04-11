@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -27,7 +28,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public abstract class AbstractUITreeNode extends AbstractUICommand implements SupportsMarkup, TreeModelBuilder {
 
   private static final Log LOG = LogFactory.getLog(AbstractUITreeNode.class);
-
 
   @Override
   public boolean getRendersChildren() {

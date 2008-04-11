@@ -62,7 +62,7 @@ public abstract class AbstractUITree extends UIInput implements NamingContainer 
       if (child instanceof AbstractUITreeNode) {
         return child;
       }
-      if (child instanceof UITreeData) {
+      if (child instanceof AbstractUITreeData) {
         return child;
       }
     }

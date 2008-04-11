@@ -1,3 +1,11 @@
+<%@ page import="org.apache.myfaces.tobago.example.reference.SimpleBean" %>
+<%@ page import="org.apache.myfaces.tobago.model.TreeState" %>
+<%@ page import="javax.faces.application.FacesMessage" %>
+<%@ page import="javax.faces.context.FacesContext" %>
+<%@ page import="javax.swing.tree.DefaultMutableTreeNode" %>
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="java.io.StringWriter" %>
+<%@ page import="java.util.Date" %>
 <%--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -23,19 +31,14 @@
       <tc:gridLayout rows="*"/>
     </f:facet>
 
-    <tc:tree value="#{navigation.tree}"
-             mode="menu"
-             id="nav"
-             nameReference="userObject.title"
-             idReference="userObject.id"
-             tipReference="userObject.title"
-             state="#{navigation.state}"
-             showIcons="false"
-             showJunctions="false"
-             showRoot="false">
-      <f:facet name="treeNodeCommand">
-        <tc:link action="#{navigation.navigate}" immediate="true"/>
-      </f:facet>
+    <tc:tree id="nav" mode="menu" showRoot="true">
+      <tc:treeData value="#{navigation.tree}" var="node" id="data">
+        <tc:treeNode label="#{node.userObject.title}"
+                     action="#{node.userObject.action}"
+                     immediate="true"
+            value="#{node}"
+            expanded="true"/>
+      </tc:treeData>
     </tc:tree>
 
   </tc:panel>
