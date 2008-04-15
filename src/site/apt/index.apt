@@ -48,6 +48,8 @@ Tobago
 News
 
   []
+    * <<16-04-08>> - Apache MyFaces Tobago 1.0.16 released!
+
     * <<11-04-08>> - The new tree was moved from the sandbox to core (only in 1.1.x which is still alpha).
                      The old one will be available for a few days as tc:treeOld, for migration.
 
