@@ -204,8 +204,6 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     String sheetId = data.getClientId(facesContext);
 
     String image1x1 = contextPath + resourceManager.getImage(viewRoot, "image/1x1.gif");
-    String ascending = contextPath + resourceManager.getImage(viewRoot, "image/ascending.gif");
-    String descending = contextPath + resourceManager.getImage(viewRoot, "image/descending.gif");
     String selectorDisabled = contextPath + resourceManager.getImage(viewRoot, "image/sheetUncheckedDisabled.gif");
     String unchecked = contextPath + resourceManager.getImage(viewRoot, "image/sheetUnchecked.gif");
 
@@ -276,9 +274,16 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
 
       int columnCount = 0;
       final int sortMarkerWidth = getAscendingMarkerWidth(facesContext, data);
+      String imageAscending = contextPath + resourceManager.getImage(viewRoot, "image/ascending.gif");
+      String imageDescending = contextPath + resourceManager.getImage(viewRoot, "image/descending.gif");
+      String img = resourceManager.getImage(viewRoot, "image/unsorted.gif", true);
+      String imageUnsorted = image1x1;
+      if (img != null) {
+        imageUnsorted = contextPath + img;
+      }
       for (UIColumn column : renderedColumnList) {
         renderColumnHeader(facesContext, writer, data, columnCount, column,
-            ascending, descending, image1x1, sortMarkerWidth);
+            imageAscending, imageDescending, imageUnsorted, image1x1, sortMarkerWidth);
         columnCount++;
       }
       writer.startElement(HtmlConstants.DIV, null);
@@ -771,7 +776,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
 
   private void renderColumnHeader(FacesContext facesContext,
       TobagoResponseWriter writer, UIData component,
-      int columnIndex, UIColumn column, String ascending, String descending,
+      int columnIndex, UIColumn column, String imageAscending, String imageDescending, String imageUnsorted,
       String image1x1, int sortMarkerWidth) throws IOException {
     String sheetId = component.getClientId(facesContext);
     Application application = facesContext.getApplication();
@@ -793,7 +798,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
 
     String sorterImage = null;
     String sorterClass = "";
-    String sortTitle = "";
+    String sortTitle = null;
     boolean sortable = ComponentUtil.getBooleanAttribute(column, ATTR_SORTABLE);
     if (sortable && !(column instanceof UIColumnSelector)) {
       UICommand sortCommand = (UICommand) column.getFacet(UIData.FACET_SORTER);
@@ -817,10 +822,10 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       SheetState sheetState = component.getSheetState(facesContext);
       if (column.getId().equals(sheetState.getSortedColumnId())) {
         if (sheetState.isAscending()) {
-          sorterImage = ascending;
+          sorterImage = imageAscending;
           sortTitle = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "sheetAscending");
         } else {
-          sorterImage = descending;
+          sorterImage = imageDescending;
           sortTitle = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "sheetDescending");
         }
       }
@@ -861,20 +866,26 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     writer.flush();
     writer.write("&nbsp;");
     writer.endElement(HtmlConstants.DIV);
-
 // ############################################
 // ############################################
-    if (sorterImage != null) {
+    if (sortable && !(column instanceof UIColumnSelector)) {
+      if (sorterImage == null && imageUnsorted != null) {
+        sorterImage = imageUnsorted;
+      }
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeClassAttribute("tobago-sheet-header-sort-div");
-      writer.writeAttribute(HtmlAttributes.TITLE, sortTitle, true);
-
-      writer.startElement(HtmlConstants.IMG, null);
-      writer.writeAttribute(HtmlAttributes.SRC, sorterImage, false);
-      writer.writeAttribute(HtmlAttributes.ALT, "", false);
-      writer.writeAttribute(HtmlAttributes.TITLE, sortTitle, true);
-      writer.endElement(HtmlConstants.IMG);
-
+      if (sortTitle != null) {
+        writer.writeAttribute(HtmlAttributes.TITLE, sortTitle, true);
+      }
+      if (sorterImage != null) {
+        writer.startElement(HtmlConstants.IMG, null);
+        writer.writeAttribute(HtmlAttributes.SRC, sorterImage, false);
+        writer.writeAttribute(HtmlAttributes.ALT, "", false);
+        if (sortTitle != null) {
+          writer.writeAttribute(HtmlAttributes.TITLE, sortTitle, true);
+        }
+        writer.endElement(HtmlConstants.IMG);
+      }
       writer.endElement(HtmlConstants.DIV);
     }
 // ############################################
@@ -949,10 +960,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
         = (String) column.getAttributes().get(ATTR_LABEL);
     if (label != null) {
       writer.writeText(label, null);
-      SheetState sheetState
-          = ((UIData) column.getParent()).getSheetState(facesContext);
-      if (column.getId().equals(sheetState.getSortedColumnId())
-          && "right".equals(align)) {
+      if (ComponentUtil.getBooleanAttribute(column, ATTR_SORTABLE) && "right".equals(align)) {
         writer.startElement(HtmlConstants.IMG, null);
         writer.writeAttribute(HtmlAttributes.SRC, image1x1, false);
         writer.writeAttribute(HtmlAttributes.ALT, "", false);
