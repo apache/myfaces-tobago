@@ -119,7 +119,6 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     boolean marked = node.isMarked();
     String id = node.getClientId(facesContext);
-    boolean expanded = node.isExpanded();
     boolean menuMode = root.getMode().equals("menu");
 
     boolean showIcons = root.isShowIcons();
@@ -128,6 +127,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     boolean showRoot = root.isShowRoot();
     int depth = mixedModel.getDepth();
     boolean isRoot = mixedModel.isRoot();
+    boolean expanded = node.isExpanded() || (isRoot && !showRoot);
     boolean hasNextSibling = mixedModel.hasCurrentNodeNextSibling();
     List<Boolean> junctions = mixedModel.getJunctions();
     String image = ComponentUtil.getStringAttribute(node, "image");
