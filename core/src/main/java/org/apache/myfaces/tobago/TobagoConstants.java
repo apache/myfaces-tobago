@@ -120,7 +120,6 @@ public final class TobagoConstants {
   public static final String ATTR_POPUP_LIST = "popupList";
   public static final String ATTR_RENDERED_PARTIALLY = "renderedPartially";
   public static final String ATTR_POPUP_RESET = "popupReset";
-  public static final String ATTR_POPUP_CALENDAR_FORCE_TIME = "popupCalendarForceTime";
   public static final String ATTR_POPUP_CALENDAR_ID = "popupCalendarId";
   public static final String ATTR_PREFORMATED = "preformated";
   public static final String ATTR_READONLY = "readonly";
