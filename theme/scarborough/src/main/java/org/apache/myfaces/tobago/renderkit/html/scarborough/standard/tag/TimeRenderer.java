@@ -26,7 +26,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CALENDAR_DATE_INPUT_ID;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_CALENDAR_FORCE_TIME;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -86,8 +85,6 @@ public class TimeRenderer extends InputRendererBase {
           converterPattern += ":ss";
         }
       }
-    } else if (ComponentUtil.getBooleanAttribute(input, ATTR_POPUP_CALENDAR_FORCE_TIME)) {
-      converterPattern += ":ss";
     }
 
     boolean hasSeconds = converterPattern.indexOf('s') > -1;

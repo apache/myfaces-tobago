@@ -24,7 +24,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER_POPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_RESET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_CALENDAR_FORCE_TIME;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 import org.apache.myfaces.tobago.component.UIPopup;
@@ -40,10 +39,13 @@ import org.apache.commons.logging.LogFactory;
 import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UICommand;
+import javax.faces.component.ValueHolder;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
+import static javax.faces.convert.DateTimeConverter.CONVERTER_ID;
 import java.io.IOException;
 import java.util.Map;
+import java.util.TimeZone;
 
 /*
  * Date: 30.05.2006
@@ -109,7 +111,7 @@ public class DatePickerRenderer extends LinkRenderer {
     attributes.put(TobagoConstants.ATTR_POPUP_CLOSE, "immediate");
     //cancelButton.setActionListener(datePickerController);
 
-    applyConverterPattern(popup, converterPattern);
+    applyConverterPattern(facesContext, popup, converterPattern);
 
     if (popup != null) {
       UIPage page = ComponentUtil.findPage(facesContext, link);
@@ -121,17 +123,23 @@ public class DatePickerRenderer extends LinkRenderer {
     super.encodeBegin(facesContext, component);
   }
 
-  private void applyConverterPattern(UIPopup popup, String converterPattern) {
+  private void applyConverterPattern(FacesContext facesContext, UIPopup popup, String converterPattern) {
     UIComponent box = (UIComponent) popup.getChildren().get(0);
     UIComponent timePanel = box.findComponent("timePanel");
     if (converterPattern != null && (converterPattern.indexOf('h') > -1 || converterPattern.indexOf('H') > -1)) {
+      UIComponent time = timePanel.findComponent("time");
+      int popupHeight = ComponentUtil.getIntAttribute(popup, ATTR_HEIGHT);
+      popupHeight += ThemeConfig.getValue(FacesContext.getCurrentInstance(), time, "fixedHeight");
+      popup.getAttributes().put(ATTR_HEIGHT, popupHeight);
+      DateTimeConverter dateTimeConverter
+             = (DateTimeConverter) facesContext.getApplication().createConverter(CONVERTER_ID);
       if (converterPattern.indexOf('s') > -1) {
-        UIComponent time = timePanel.findComponent("time");
-        int popupHeight = ComponentUtil.getIntAttribute(popup, ATTR_HEIGHT);
-        popupHeight += ThemeConfig.getValue(FacesContext.getCurrentInstance(), time, "fixedHeight");
-        popup.getAttributes().put(ATTR_HEIGHT, String.valueOf(popupHeight));
-        time.getAttributes().put(ATTR_POPUP_CALENDAR_FORCE_TIME, true);
+        dateTimeConverter.setPattern("HH:mm:ss");
+      } else {
+        dateTimeConverter.setPattern("HH:mm");
       }
+      dateTimeConverter.setTimeZone(TimeZone.getDefault());
+      ((ValueHolder) time).setConverter(dateTimeConverter);
     } else {
       timePanel.setRendered(false);
     }
