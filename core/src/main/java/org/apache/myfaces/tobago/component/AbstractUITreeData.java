@@ -215,9 +215,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
     assert searchId.matches("^(_\\d+)+" + SEPARATOR_CHAR + ".*")
         : "The searchId '" + searchId + "' does not start with a tree structure";
 
-    LOG.info("*************** from " + searchId); // fixme remove this line
     searchId = searchId.substring(searchId.indexOf(SEPARATOR_CHAR) + 1);
-    LOG.info("*************** to   " + searchId); // fixme remove this line
     return super.findComponent(searchId);
   }
 
