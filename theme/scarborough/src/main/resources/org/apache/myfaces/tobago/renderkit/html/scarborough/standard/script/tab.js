@@ -15,6 +15,48 @@
  * limitations under the License.
  */
 
+function tobago_switchTab(type, controlId, selectedIndex, size) {
+  if ('client' == type) {
+    tobago_selectTab(controlId, selectedIndex, size);
+  } else if ('reloadTab' == type) {
+    tobago_requestTab(controlId, selectedIndex);
+  }
+}
+
+function tobago_nextTab(type, controlId, size) {
+  var hidden = document.getElementById(controlId
+      + '::activeIndex' /* TabGroupRenderer.ACTIVE_INDEX_POSTFIX*/);
+  var selectedIndex = 0;
+  if (hidden) {
+    selectedIndex = hidden.value * 1;
+  }
+  for (i = selectedIndex+1; i < size; i++) {
+    var tab = document.getElementById(controlId + '.' + i);
+    if (tab) {
+      selectedIndex = i;
+      break;
+    }
+  }
+  tobago_switchTab(type, controlId, selectedIndex, size);
+}
+
+function tobago_previousTab(type, controlId, size) {
+  var hidden = document.getElementById(controlId
+      + '::activeIndex' /* TabGroupRenderer.ACTIVE_INDEX_POSTFIX*/);
+  var selectedIndex = 0;
+  if (hidden) {
+    selectedIndex = hidden.value;
+  }  
+  for (i = selectedIndex-1; i >= 0; i--) {
+    var tab = document.getElementById(controlId + '.' + i);
+    if (tab) {
+      selectedIndex = i;
+      break;
+    }
+  }
+  tobago_switchTab(type, controlId, selectedIndex, size);
+}
+
 function tobago_selectTab(controlId, selectedIndex, size) {
   var hidden = document.getElementById(controlId
       + '::activeIndex' /* TabGroupRenderer.ACTIVE_INDEX_POSTFIX*/);
@@ -34,7 +76,7 @@ function tobago_selectTab(controlId, selectedIndex, size) {
   }
 }
 
-function tobago_requestTab(controlId, selectedIndex, formId) {
+function tobago_requestTab(controlId, selectedIndex) {
 
   var hidden = document.getElementById(controlId
       + '::activeIndex' /* TabGroupRenderer.ACTIVE_INDEX_POSTFIX*/);

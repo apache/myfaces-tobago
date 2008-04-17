@@ -51,7 +51,6 @@ import org.apache.myfaces.tobago.component.UIPanelBase;
 import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.component.UITabGroup;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_CLIENT;
-import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_PAGE;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_TAB;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.config.TobagoConfig;
@@ -259,10 +258,16 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     scrollLeft.setId(facesContext.getViewRoot().createUniqueId());
     scrollLeft.setRendererType(null);
     scrollLeft.getAttributes().put(ATTR_LABEL, "<");
+    scrollLeft.getAttributes().put(ATTR_ONCLICK, "tobago_previousTab('"+ switchType + "','" + clientId + "',"
+        + component.getChildCount() + ')');
+
     UICommand scrollRight = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     scrollRight.setId(facesContext.getViewRoot().createUniqueId());
     scrollRight.setRendererType(null);
     scrollRight.getAttributes().put(ATTR_LABEL, ">");
+    scrollRight.getAttributes().put(ATTR_ONCLICK, "tobago_nextTab('"+ switchType + "','" + clientId + "',"
+         + component.getChildCount() + ')');
+
     UICommand commandList = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     commandList.setId(facesContext.getViewRoot().createUniqueId());
     commandList.setRendererType(null);
@@ -290,14 +295,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
           if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
               && SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
             onclick = null;
-          } else if (SWITCH_TYPE_RELOAD_PAGE.equals(switchType)
-              || SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
-            onclick = "tobago_requestTab('"
-                + clientId + "'," + index + ",'"
-                + ComponentUtil.findPage(facesContext, component).getFormId(facesContext) + "')";
           } else {   //  SWITCH_TYPE_CLIENT
-            onclick = "tobago_selectTab('"
-                + clientId + "'," + index + ','
+            onclick = "tobago_switchTab('"+ switchType + "','" + clientId + "'," + index + ','
                 + component.getChildCount() + ')';
           }
 
