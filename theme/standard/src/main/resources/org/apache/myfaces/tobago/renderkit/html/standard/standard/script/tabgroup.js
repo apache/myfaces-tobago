@@ -100,7 +100,7 @@ Tobago.TabGroup.prototype.reloadWithAction = function(event) {
         LOG.warn("No hidden field for tabindex Id='" + this.tabGroupId + Tobago.SUB_COMPONENT_SEP + "activeIndex" + "'");
         LOG.warn("aId = " + aId);
       }
-      if (Tobago.Updater.hasTransport()) {
+      if (Tobago.Transport.hasTransport()) {
         this.removeRelatedAcceleratorKeys(aId.substring(0, aId.lastIndexOf(Tobago.SUB_COMPONENT_SEP) + Tobago.SUB_COMPONENT_SEP.length));
         Tobago.createOverlay(Tobago.element(this.tabGroupId));
         Tobago.Updater.update(this.tabGroupId, this.tabGroupId, this.options);
