@@ -42,7 +42,7 @@ package <componentInfo.packageName>;
 <componentInfo.imports:import(); separator="\n">
 
 public class <componentInfo.className>
-    extends <componentInfo.superClassName> <first(componentInfo.interfaces):{ n | implements <n>}><rest(componentInfo.interfaces):{ n | , <n> }> {
+    extends <componentInfo.superClassName> <first(componentInfo.interfaces):{ n | implements <n>}><rest(componentInfo.interfaces):{ n |, <n>}> {
 
   <if(componentInfo.componentType)>
   public static final String COMPONENT_TYPE = "<componentInfo.componentType>";

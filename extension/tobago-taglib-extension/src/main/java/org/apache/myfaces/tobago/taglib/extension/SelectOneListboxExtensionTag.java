@@ -37,6 +37,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -49,6 +52,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class SelectOneListboxExtensionTag
     extends BodyTagSupport implements HasId, HasValue, HasValueChangeListener, IsDisabled,
     HasLabel, HasLabelWidth, IsReadonly, HasOnchange, IsRendered,
+    HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
     HasBinding, HasDeprecatedHeight, IsFocus, HasTip, IsRequired, HasConverter, HasValidator, HasTabIndex {
   private String required;
   private String value;
@@ -67,6 +71,9 @@ public class SelectOneListboxExtensionTag
   private String labelWidth;
   private String tabIndex;
   private String focus;
+  private String validatorMessage;
+  private String converterMessage;
+  private String requiredMessage;
 
   private LabelExtensionTag labelTag;
   private SelectOneListboxTag selectOneListboxTag;
@@ -136,6 +143,16 @@ public class SelectOneListboxExtensionTag
     if (tabIndex != null) {
       selectOneListboxTag.setTabIndex(tabIndex);
     }
+    if (validatorMessage != null) {
+      selectOneListboxTag.setValidatorMessage(validatorMessage);
+    }
+    if (converterMessage != null) {
+      selectOneListboxTag.setConverterMessage(converterMessage);
+    }
+    if (requiredMessage != null) {
+      selectOneListboxTag.setRequiredMessage(requiredMessage);
+    }
+
     selectOneListboxTag.setParent(labelTag);
     selectOneListboxTag.doStartTag();
 
@@ -171,6 +188,9 @@ public class SelectOneListboxExtensionTag
     selectOneListboxTag = null;
     labelTag = null;
     focus = null;
+    validatorMessage = null;
+    converterMessage = null;
+    requiredMessage = null;
   }
 
   public void setRequired(String required) {
@@ -239,5 +259,17 @@ public class SelectOneListboxExtensionTag
 
   public void setFocus(String focus) {
     this.focus = focus;
+  }
+
+  public void setValidatorMessage(String validatorMessage) {
+    this.validatorMessage = validatorMessage;
+  }
+
+  public void setConverterMessage(String converterMessage) {
+    this.converterMessage = converterMessage;
+  }
+
+  public void setRequiredMessage(String requiredMessage) {
+    this.requiredMessage = requiredMessage;
   }
 }

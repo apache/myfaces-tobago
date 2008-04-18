@@ -23,6 +23,7 @@ package org.apache.myfaces.tobago.apt.generate;
  */
 public class ComponentInfo extends TagInfo {
   private boolean invokeOnComponent;
+  private boolean messages;
 
   public ComponentInfo(String qualifiedName, String rendererName) {
     super(qualifiedName, rendererName);
@@ -34,5 +35,13 @@ public class ComponentInfo extends TagInfo {
 
   public void setInvokeOnComponent(boolean invokeOnComponent) {
     this.invokeOnComponent = invokeOnComponent;
+  }
+
+  public boolean isMessages() {
+    return messages;
+  }
+
+  public void setMessages(boolean messages) {
+    this.messages = messages;
   }
 }

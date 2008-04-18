@@ -37,6 +37,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsPassword;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -64,6 +67,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class InExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasOnchange, HasMarkup, IsRequired,
+    HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
     HasTip, HasLabel, HasLabelWidth, IsPassword, IsFocus, HasSuggestMethod, HasTabIndex {
 
   private String binding;
@@ -84,6 +88,9 @@ public class InExtensionTag extends BodyTagSupport
   private String markup;
   private String labelWidth;
   private String tabIndex;
+  private String validatorMessage;
+  private String converterMessage;
+  private String requiredMessage;
 
   private LabelExtensionTag labelTag;
   private InTag inTag;
@@ -156,6 +163,15 @@ public class InExtensionTag extends BodyTagSupport
     if (tabIndex != null) {
       inTag.setTabIndex(tabIndex);
     }
+    if (validatorMessage != null) {
+      inTag.setValidatorMessage(validatorMessage);
+    }
+    if (converterMessage != null) {
+      inTag.setConverterMessage(converterMessage);
+    }
+    if (requiredMessage != null) {
+      inTag.setRequiredMessage(requiredMessage);
+    }
     inTag.setParent(labelTag);
     inTag.doStartTag();
 
@@ -192,6 +208,9 @@ public class InExtensionTag extends BodyTagSupport
     tabIndex = null;
     inTag = null;
     labelTag = null;
+    validatorMessage = null;
+    converterMessage = null;
+    requiredMessage = null;
   }
 
   public void setMarkup(String markup) {
@@ -264,5 +283,17 @@ public class InExtensionTag extends BodyTagSupport
 
   public void setTabIndex(String tabIndex) {
     this.tabIndex = tabIndex;
+  }
+
+  public void setValidatorMessage(String validatorMessage) {
+    this.validatorMessage = validatorMessage;
+  }
+
+  public void setConverterMessage(String converterMessage) {
+    this.converterMessage = converterMessage;
+  }
+
+  public void setRequiredMessage(String requiredMessage) {
+    this.requiredMessage = requiredMessage;
   }
 }

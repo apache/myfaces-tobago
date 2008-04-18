@@ -71,6 +71,9 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression onchange;
   private javax.el.ValueExpression tabIndex;
   private javax.el.ValueExpression markup;
+  private javax.el.ValueExpression validatorMessage;
+  private javax.el.ValueExpression converterMessage;
+  private javax.el.ValueExpression requiredMessage;  
 
   private javax.el.ValueExpression labelWidth;
   private LabelExtensionTag labelTag;
@@ -143,6 +146,16 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
     if (tabIndex != null) {
       dateTag.setTabIndex(tabIndex);
     }
+    if (validatorMessage != null) {
+      dateTag.setValidatorMessage(validatorMessage);
+    }
+    if (converterMessage != null) {
+      dateTag.setConverterMessage(converterMessage);
+    }
+    if (requiredMessage != null) {
+      dateTag.setRequiredMessage(requiredMessage);
+    }
+
     dateTag.setParent(labelTag);
     dateTag.doStartTag();
 
@@ -196,6 +209,9 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
     tabIndex = null;
     labelTag = null;
     dateTag = null;
+    validatorMessage = null;
+    converterMessage = null;
+    requiredMessage = null;
   }
 
   /**
@@ -375,4 +391,32 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   public void setTabIndex(javax.el.ValueExpression tabIndex) {
     this.tabIndex = tabIndex;
   }
+
+  /**
+   * An expression that specifies the validator message
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setValidatorMessage(javax.el.ValueExpression validatorMessage) {
+    this.validatorMessage = validatorMessage;
+  }
+
+  /**
+   * An expression that specifies the converter message
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setConverterMessage(javax.el.ValueExpression converterMessage) {
+    this.converterMessage = converterMessage;
+  }
+
+  /**
+   * An expression that specifies the required message
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setRequiredMessage(javax.el.ValueExpression requiredMessage) {
+    this.requiredMessage = requiredMessage;
+  }
+
 }

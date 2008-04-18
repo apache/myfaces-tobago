@@ -61,6 +61,9 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression required;
   private javax.el.ValueExpression tabIndex;
   private javax.el.ValueExpression focus;
+  private javax.el.ValueExpression validatorMessage;
+  private javax.el.ValueExpression converterMessage;
+  private javax.el.ValueExpression requiredMessage;
 
   private LabelExtensionTag labelTag;
   private FileTag fileTag;
@@ -118,6 +121,15 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
     if (focus != null) {
       //fileTag.set
     }
+    if (validatorMessage != null) {
+      fileTag.setValidatorMessage(validatorMessage);
+    }
+    if (converterMessage != null) {
+      fileTag.setConverterMessage(converterMessage);
+    }
+    if (requiredMessage != null) {
+      fileTag.setRequiredMessage(requiredMessage);
+    }
     fileTag.setParent(labelTag);
     fileTag.doStartTag();
 
@@ -149,6 +161,9 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
     fileTag = null;
     labelTag = null;
     focus = null;
+    validatorMessage = null;
+    converterMessage = null;
+    requiredMessage = null;
   }
 
   /**
@@ -283,4 +298,32 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
   public void setFocus(javax.el.ValueExpression focus) {
     this.focus = focus;
   }
+
+  /**
+   * An expression that specifies the validator message
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setValidatorMessage(javax.el.ValueExpression validatorMessage) {
+    this.validatorMessage = validatorMessage;
+  }
+
+  /**
+   * An expression that specifies the converter message
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setConverterMessage(javax.el.ValueExpression converterMessage) {
+    this.converterMessage = converterMessage;
+  }
+
+  /**
+   * An expression that specifies the required message
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setRequiredMessage(javax.el.ValueExpression requiredMessage) {
+    this.requiredMessage = requiredMessage;
+  }
+
 }

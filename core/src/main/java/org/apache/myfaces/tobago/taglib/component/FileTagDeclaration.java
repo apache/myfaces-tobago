@@ -32,6 +32,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 
 /*
  * Created: Aug 5, 2005 5:15:50 PM
@@ -52,7 +55,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     rendererType = "File",
     allowedChildComponenents = "NONE")
 public interface FileTagDeclaration
-    extends HasValidator, HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, IsDisabled,
+    extends HasValidator, HasValidatorMessage, HasRequiredMessage, HasConverterMessage, HasOnchange,
+    HasValueChangeListener, HasIdBindingAndRendered, IsDisabled,
     HasLabelAndAccessKey, HasTip, IsReadonly, IsRequired, HasTabIndex {
 
   /**

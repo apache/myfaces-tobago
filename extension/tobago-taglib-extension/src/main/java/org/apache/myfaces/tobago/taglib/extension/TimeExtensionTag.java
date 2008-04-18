@@ -35,6 +35,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -61,6 +64,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class TimeExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasOnchange, IsRequired, HasTip,
+    HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
     HasLabel, HasLabelWidth, IsFocus, IsInline, HasTabIndex {
 
   private String binding;
@@ -79,6 +83,9 @@ public class TimeExtensionTag extends BodyTagSupport
   private String onchange;
   private String labelWidth;
   private String tabIndex;
+  private String validatorMessage;
+  private String converterMessage;
+  private String requiredMessage;
 
   private LabelExtensionTag labelTag;
   private TimeTag timeTag;
@@ -144,6 +151,16 @@ public class TimeExtensionTag extends BodyTagSupport
     if (tabIndex != null) {
       timeTag.setTabIndex(tabIndex);
     }
+    if (validatorMessage != null) {
+      timeTag.setValidatorMessage(validatorMessage);
+    }
+    if (converterMessage != null) {
+      timeTag.setConverterMessage(converterMessage);
+    }
+    if (requiredMessage != null) {
+      timeTag.setRequiredMessage(requiredMessage);
+    }
+
     timeTag.setParent(labelTag);
     timeTag.doStartTag();
 
@@ -178,6 +195,9 @@ public class TimeExtensionTag extends BodyTagSupport
     tabIndex = null;
     timeTag = null;
     labelTag = null;
+    validatorMessage = null;
+    converterMessage = null;
+    requiredMessage = null;
   }
 
   public void setValue(String value) {
@@ -242,5 +262,17 @@ public class TimeExtensionTag extends BodyTagSupport
 
   public void setTabIndex(String tabIndex) {
     this.tabIndex = tabIndex;
+  }
+
+  public void setValidatorMessage(String validatorMessage) {
+    this.validatorMessage = validatorMessage;
+  }
+
+  public void setConverterMessage(String converterMessage) {
+    this.converterMessage = converterMessage;
+  }
+
+  public void setRequiredMessage(String requiredMessage) {
+    this.requiredMessage = requiredMessage;
   }
 }

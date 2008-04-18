@@ -35,6 +35,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -62,6 +65,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class TextAreaExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasIdBindingAndRendered,
     HasConverter, HasValidator, IsReadonly, IsDisabled, HasMarkup, IsRequired,
+    HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
     HasTip, HasLabel, HasLabelWidth, IsFocus, HasOnchange, HasTabIndex {
 
   private String binding;
@@ -80,6 +84,9 @@ public class TextAreaExtensionTag extends BodyTagSupport
   private String markup;
   private String labelWidth;
   private String tabIndex;
+  private String validatorMessage;
+  private String converterMessage;
+  private String requiredMessage;
 
   private LabelExtensionTag labelTag;
   private TextareaTag textAreaTag;
@@ -146,6 +153,16 @@ public class TextAreaExtensionTag extends BodyTagSupport
     if (tabIndex != null) {
       textAreaTag.setTabIndex(tabIndex);
     }
+    if (validatorMessage != null) {
+      textAreaTag.setValidatorMessage(validatorMessage);
+    }
+    if (converterMessage != null) {
+      textAreaTag.setConverterMessage(converterMessage);
+    }
+    if (requiredMessage != null) {
+      textAreaTag.setRequiredMessage(requiredMessage);
+    }
+
     textAreaTag.setParent(labelTag);
     textAreaTag.doStartTag();
 
@@ -180,6 +197,9 @@ public class TextAreaExtensionTag extends BodyTagSupport
     tabIndex = null;
     textAreaTag = null;
     labelTag = null;
+    validatorMessage = null;
+    converterMessage = null;
+    requiredMessage = null;
   }
 
   public void setValue(String value) {
@@ -244,5 +264,17 @@ public class TextAreaExtensionTag extends BodyTagSupport
 
   public void setTabIndex(String tabIndex) {
     this.tabIndex = tabIndex;
+  }
+
+  public void setValidatorMessage(String validatorMessage) {
+    this.validatorMessage = validatorMessage;
+  }
+
+  public void setConverterMessage(String converterMessage) {
+    this.converterMessage = converterMessage;
+  }
+
+  public void setRequiredMessage(String requiredMessage) {
+    this.requiredMessage = requiredMessage;
   }
 }

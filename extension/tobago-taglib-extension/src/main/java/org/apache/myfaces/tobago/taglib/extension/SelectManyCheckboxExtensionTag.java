@@ -36,6 +36,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasRenderRange;
+import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 import org.apache.myfaces.tobago.internal.taglib.SelectManyCheckboxTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
@@ -51,6 +54,7 @@ import javax.servlet.jsp.JspException;
 public class SelectManyCheckboxExtensionTag extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled, IsInline, //HasDeprecatedHeight,
     HasLabel, HasLabelWidth, IsRendered, HasBinding, HasTip, HasConverter, HasValidator, HasOnchange,
+    HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
     IsReadonly, HasMarkup, IsFocus, IsRequired, HasTabIndex, HasRenderRange {
 
   private String required;
@@ -72,6 +76,9 @@ public class SelectManyCheckboxExtensionTag extends BodyTagSupport
   private String tabIndex;
   private String focus;
   private String renderRange;
+  private String validatorMessage;
+  private String converterMessage;
+  private String requiredMessage;
 
   private LabelExtensionTag labelTag;
   private SelectManyCheckboxTag selectManyCheckboxTag;
@@ -154,6 +161,16 @@ public class SelectManyCheckboxExtensionTag extends BodyTagSupport
     if (tabIndex != null) {
       selectManyCheckboxTag.setTabIndex(tabIndex);
     }
+    if (validatorMessage != null) {
+      selectManyCheckboxTag.setValidatorMessage(validatorMessage);
+    }
+    if (converterMessage != null) {
+      selectManyCheckboxTag.setConverterMessage(converterMessage);
+    }
+    if (requiredMessage != null) {
+      selectManyCheckboxTag.setRequiredMessage(requiredMessage);
+    }
+
     selectManyCheckboxTag.setParent(labelTag);
     selectManyCheckboxTag.doStartTag();
 
@@ -191,6 +208,9 @@ public class SelectManyCheckboxExtensionTag extends BodyTagSupport
     labelTag = null;
     focus = null;
     renderRange = null;
+    validatorMessage = null;
+    converterMessage = null;
+    requiredMessage = null;
   }
 
   public void setRequired(String required) {
@@ -268,5 +288,19 @@ public class SelectManyCheckboxExtensionTag extends BodyTagSupport
   public void setRenderRange(String renderRange) {
     this.renderRange = renderRange;
   }
+
+  public void setValidatorMessage(String validatorMessage) {
+    this.validatorMessage = validatorMessage;
+  }
+
+  public void setConverterMessage(String converterMessage) {
+    this.converterMessage = converterMessage;
+  }
+
+  public void setRequiredMessage(String requiredMessage) {
+    this.requiredMessage = requiredMessage;
+  }
+
+
 }
 

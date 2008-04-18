@@ -39,6 +39,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -57,6 +60,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class SelectManyListboxExtensionTag extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled, HasDeprecatedHeight, IsInline,
     HasLabel, HasLabelWidth, IsRendered, HasBinding, HasTip, HasConverter, HasValidator, HasOnchange,
+    HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
     IsReadonly, HasMarkup, IsFocus, IsRequired, HasTabIndex {
 
   private String required;
@@ -77,6 +81,9 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
   private String markup;
   private String tabIndex;
   private String focus;
+  private String validatorMessage;
+  private String converterMessage;
+  private String requiredMessage;
 
   private LabelExtensionTag labelTag;
   private SelectManyListboxTag selectManyListboxTag;
@@ -156,6 +163,16 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
     if (tabIndex != null) {
       selectManyListboxTag.setTabIndex(tabIndex);
     }
+    if (validatorMessage != null) {
+      selectManyListboxTag.setValidatorMessage(validatorMessage);
+    }
+    if (converterMessage != null) {
+      selectManyListboxTag.setConverterMessage(converterMessage);
+    }
+    if (requiredMessage != null) {
+      selectManyListboxTag.setRequiredMessage(requiredMessage);
+    }
+
     selectManyListboxTag.setParent(labelTag);
     selectManyListboxTag.doStartTag();
 
@@ -192,6 +209,9 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
     selectManyListboxTag = null;
     labelTag = null;
     focus = null;
+    validatorMessage = null;
+    converterMessage = null;
+    requiredMessage = null;
   }
 
   public void setRequired(String required) {
@@ -264,5 +284,17 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
 
   public void setFocus(String focus) {
     this.focus = focus;
+  }
+
+  public void setValidatorMessage(String validatorMessage) {
+    this.validatorMessage = validatorMessage;
+  }
+
+  public void setConverterMessage(String converterMessage) {
+    this.converterMessage = converterMessage;
+  }
+
+  public void setRequiredMessage(String requiredMessage) {
+    this.requiredMessage = requiredMessage;
   }
 }

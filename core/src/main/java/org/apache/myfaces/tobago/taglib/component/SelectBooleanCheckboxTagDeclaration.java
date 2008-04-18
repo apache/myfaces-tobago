@@ -36,6 +36,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.IsFocus;
+import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 //import org.apache.myfaces.tobago.taglib.decl.IsImmediateComponent;
 
 /*
@@ -66,6 +69,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 
 public interface SelectBooleanCheckboxTagDeclaration extends HasValidator,
     HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabelAndAccessKey, HasBooleanValue, IsDisabled,
-    IsInline, HasTip, IsReadonly, HasMarkup, HasTabIndex, IsRequired, HasConverter, IsFocus /*, IsImmediateComponent */{
+    IsInline, HasTip, IsReadonly, HasMarkup, HasTabIndex, IsRequired, HasConverter, IsFocus,
+    HasValidatorMessage, HasRequiredMessage, HasConverterMessage /*, IsImmediateComponent */{
 
 }

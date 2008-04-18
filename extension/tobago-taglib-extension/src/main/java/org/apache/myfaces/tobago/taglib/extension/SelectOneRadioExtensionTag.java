@@ -37,6 +37,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -52,6 +55,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class SelectOneRadioExtensionTag extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled,
     IsReadonly, HasOnchange, IsInline, HasLabel, HasLabelWidth, IsRequired,
+    HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
     IsRendered, HasBinding, HasTip, HasValidator, HasConverter, HasRenderRange, HasTabIndex {
 
   private String required;
@@ -71,6 +75,9 @@ public class SelectOneRadioExtensionTag extends BodyTagSupport
   private String tabIndex;
   private String focus;
   private String renderRange;
+  private String validatorMessage;
+  private String converterMessage;
+  private String requiredMessage;
 
   private LabelExtensionTag labelTag;
   private SelectOneRadioTag selectOneRadioTag;
@@ -139,6 +146,15 @@ public class SelectOneRadioExtensionTag extends BodyTagSupport
     if (renderRange != null) {
       selectOneRadioTag.setRenderRange(renderRange);
     }
+    if (validatorMessage != null) {
+      selectOneRadioTag.setValidatorMessage(validatorMessage);
+    }
+    if (converterMessage != null) {
+      selectOneRadioTag.setConverterMessage(converterMessage);
+    }
+    if (requiredMessage != null) {
+      selectOneRadioTag.setRequiredMessage(requiredMessage);
+    }
 
     selectOneRadioTag.setParent(labelTag);
     selectOneRadioTag.doStartTag();
@@ -175,6 +191,9 @@ public class SelectOneRadioExtensionTag extends BodyTagSupport
     labelTag = null;
     focus = null;
     renderRange = null;
+    validatorMessage = null;
+    converterMessage = null;
+    requiredMessage = null;
   }
 
   public void setRequired(String required) {
@@ -243,5 +262,17 @@ public class SelectOneRadioExtensionTag extends BodyTagSupport
 
   public void setRenderRange(String renderRange) {
     this.renderRange = renderRange;
+  }
+
+  public void setValidatorMessage(String validatorMessage) {
+    this.validatorMessage = validatorMessage;
+  }
+
+  public void setConverterMessage(String converterMessage) {
+    this.converterMessage = converterMessage;
+  }
+
+  public void setRequiredMessage(String requiredMessage) {
+    this.requiredMessage = requiredMessage;
   }
 }

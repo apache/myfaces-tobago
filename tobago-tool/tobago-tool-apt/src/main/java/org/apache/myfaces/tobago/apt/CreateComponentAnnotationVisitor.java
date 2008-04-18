@@ -287,6 +287,9 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     if ("markup".equals(info.getName())) {
       componentInfo.addInterface("org.apache.myfaces.tobago.component.SupportsMarkup");
     }
+    if ("requiredMessage".equals(info.getName())) {
+      componentInfo.setMessages(true);
+    }
     return componentPropertyInfo;
   }
 

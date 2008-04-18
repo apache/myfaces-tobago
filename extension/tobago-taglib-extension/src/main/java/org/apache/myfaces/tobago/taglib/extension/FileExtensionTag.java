@@ -19,6 +19,8 @@ package org.apache.myfaces.tobago.taglib.extension;
 
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.internal.taglib.FileTag;
 import org.apache.myfaces.tobago.taglib.decl.InputTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -68,6 +70,9 @@ public class FileExtensionTag extends BodyTagSupport
   private String required;
   private String tabIndex;
   private String focus;
+  private String validatorMessage;
+  private String converterMessage;
+  private String requiredMessage;
 
   private LabelExtensionTag labelTag;
   private FileTag fileTag;
@@ -121,6 +126,15 @@ public class FileExtensionTag extends BodyTagSupport
     if (tabIndex != null) {
       fileTag.setTabIndex(tabIndex);
     }
+    if (validatorMessage != null) {
+      fileTag.setValidatorMessage(validatorMessage);
+    }
+    if (converterMessage != null) {
+      fileTag.setConverterMessage(converterMessage);
+    }
+    if (requiredMessage != null) {
+      fileTag.setRequiredMessage(requiredMessage);
+    }
 
     if (focus != null) {
       //fileTag.set
@@ -156,6 +170,9 @@ public class FileExtensionTag extends BodyTagSupport
     fileTag = null;
     labelTag = null;
     focus = null;
+    validatorMessage = null;
+    converterMessage = null;
+    requiredMessage = null;
   }
 
   public void setLabel(String label) {
@@ -212,5 +229,17 @@ public class FileExtensionTag extends BodyTagSupport
 
   public void setFocus(String focus) {
     this.focus = focus;
+  }
+
+  public void setValidatorMessage(String validatorMessage) {
+    this.validatorMessage = validatorMessage;
+  }
+
+  public void setConverterMessage(String converterMessage) {
+    this.converterMessage = converterMessage;
+  }
+
+  public void setRequiredMessage(String requiredMessage) {
+    this.requiredMessage = requiredMessage;
   }
 }

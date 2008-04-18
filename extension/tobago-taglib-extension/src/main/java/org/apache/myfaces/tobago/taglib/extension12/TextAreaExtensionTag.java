@@ -64,6 +64,9 @@ public class TextAreaExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression markup;
   private javax.el.ValueExpression labelWidth;
   private javax.el.ValueExpression tabIndex;
+  private javax.el.ValueExpression validatorMessage;
+  private javax.el.ValueExpression converterMessage;
+  private javax.el.ValueExpression requiredMessage;
 
   private LabelExtensionTag labelTag;
   private TextareaTag textAreaTag;
@@ -130,6 +133,15 @@ public class TextAreaExtensionTag extends TobagoExtensionBodyTagSupport {
     if (tabIndex != null) {
       textAreaTag.setTabIndex(tabIndex);
     }
+    if (validatorMessage != null) {
+      textAreaTag.setValidatorMessage(validatorMessage);
+    }
+    if (converterMessage != null) {
+      textAreaTag.setConverterMessage(converterMessage);
+    }
+    if (requiredMessage != null) {
+      textAreaTag.setRequiredMessage(requiredMessage);
+    }
     textAreaTag.setParent(labelTag);
     textAreaTag.doStartTag();
 
@@ -164,6 +176,9 @@ public class TextAreaExtensionTag extends TobagoExtensionBodyTagSupport {
     tabIndex = null;
     textAreaTag = null;
     labelTag = null;
+    validatorMessage = null;
+    converterMessage = null;
+    requiredMessage = null;
   }
 
   /**
@@ -334,4 +349,32 @@ public class TextAreaExtensionTag extends TobagoExtensionBodyTagSupport {
   public void setTabIndex(javax.el.ValueExpression tabIndex) {
     this.tabIndex = tabIndex;
   }
+
+  /**
+   * An expression that specifies the validator message
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setValidatorMessage(javax.el.ValueExpression validatorMessage) {
+    this.validatorMessage = validatorMessage;
+  }
+
+  /**
+   * An expression that specifies the converter message
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setConverterMessage(javax.el.ValueExpression converterMessage) {
+    this.converterMessage = converterMessage;
+  }
+
+  /**
+   * An expression that specifies the required message
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setRequiredMessage(javax.el.ValueExpression requiredMessage) {
+    this.requiredMessage = requiredMessage;
+  }
+
 }

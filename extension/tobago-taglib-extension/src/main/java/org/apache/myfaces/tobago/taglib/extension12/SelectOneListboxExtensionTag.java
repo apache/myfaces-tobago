@@ -49,6 +49,9 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
   private javax.el.ValueExpression labelWidth;
   private javax.el.ValueExpression tabIndex;
   private javax.el.ValueExpression focus;
+  private javax.el.ValueExpression validatorMessage;
+  private javax.el.ValueExpression converterMessage;
+  private javax.el.ValueExpression requiredMessage;
 
   private LabelExtensionTag labelTag;
   private SelectOneListboxTag selectOneListboxTag;
@@ -118,6 +121,15 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
     if (tabIndex != null) {
       selectOneListboxTag.setTabIndex(tabIndex);
     }
+    if (validatorMessage != null) {
+      selectOneListboxTag.setValidatorMessage(validatorMessage);
+    }
+    if (converterMessage != null) {
+      selectOneListboxTag.setConverterMessage(converterMessage);
+    }
+    if (requiredMessage != null) {
+      selectOneListboxTag.setRequiredMessage(requiredMessage);
+    }
     selectOneListboxTag.setParent(labelTag);
     selectOneListboxTag.doStartTag();
 
@@ -153,6 +165,9 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
     selectOneListboxTag = null;
     labelTag = null;
     focus = null;
+    validatorMessage = null;
+    converterMessage = null;
+    requiredMessage = null;
   }
   /**
    * Flag indicating that a value is required.
@@ -320,4 +335,32 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
   public void setFocus(javax.el.ValueExpression focus) {
     this.focus = focus;
   }
+
+  /**
+   * An expression that specifies the validator message
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setValidatorMessage(javax.el.ValueExpression validatorMessage) {
+    this.validatorMessage = validatorMessage;
+  }
+
+  /**
+   * An expression that specifies the converter message
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setConverterMessage(javax.el.ValueExpression converterMessage) {
+    this.converterMessage = converterMessage;
+  }
+
+  /**
+   * An expression that specifies the required message
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setRequiredMessage(javax.el.ValueExpression requiredMessage) {
+    this.requiredMessage = requiredMessage;
+  }
+
 }

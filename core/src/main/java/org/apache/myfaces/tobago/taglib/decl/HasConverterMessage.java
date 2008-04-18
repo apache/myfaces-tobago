@@ -17,11 +17,16 @@ package org.apache.myfaces.tobago.taglib.decl;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/*
- * Created: Aug 5, 2005 4:18:38 PM
- * $Id$
- */
-public interface InputTagDeclaration extends HasValidator, HasOnchange, HasValue, HasValueChangeListener,
-    HasValidatorMessage, HasConverterMessage, HasRequiredMessage, HasTabIndex, IsFocus {
+
+public interface HasConverterMessage {
+
+  /**
+   * An expression that specifies the converter message
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  void setConverterMessage(String converterMessage);
 }

@@ -42,7 +42,7 @@ package <componentInfo.packageName>;
 <componentInfo.imports:import(); separator="\n">
 
 public class <componentInfo.className>
-    extends <componentInfo.superClassName> <first(componentInfo.interfaces):{ n | implements <n>}><rest(componentInfo.interfaces):{ n | , <n> }> {
+    extends <componentInfo.superClassName> <first(componentInfo.interfaces):{ n | implements <n>}><rest(componentInfo.interfaces):{ n |, <n>}> {
 
   <if(componentInfo.componentType)>
   public static final String COMPONENT_TYPE = "<componentInfo.componentType>";
@@ -76,6 +76,10 @@ public class <componentInfo.className>
     return values;
   }
   <endif>
+
+  <if(componentInfo.messages)>
+  <messages()>
+  <endif>
   
   <if(componentInfo.invokeOnComponent)>
   <invokeOnComponent()>
@@ -92,6 +96,111 @@ public boolean invokeOnComponent(FacesContext context, String clientId, ContextC
     throws FacesException {
   return FacesUtils.invokeOnComponent(context, this, clientId, callback);
 }
+>>
+
+messages() ::= <<
+protected void validateValue(FacesContext context, Object convertedValue) {
+  boolean empty = convertedValue == null
+      || (convertedValue instanceof String && ((String) convertedValue).length() == 0);
+
+  if (isRequired() && empty && getRequiredMessage() != null) {
+    String requiredMessage = getRequiredMessage();
+    context.addMessage(this.getClientId(context),
+        new javax.faces.application.FacesMessage(javax.faces.application.FacesMessage.SEVERITY_ERROR, requiredMessage, requiredMessage));
+    setValid(false);
+    return;
+  }
+  String validatorMessage = getValidatorMessage();
+  if (validatorMessage == null) {
+    super.validateValue(context, convertedValue);
+  } else {
+    for (javax.faces.validator.Validator validator : getValidators()) {
+      try {
+        validator.validate(context, this, convertedValue);
+      } catch (javax.faces.validator.ValidatorException e) {
+        setValid(false);
+        context.addMessage(getClientId(context),
+            new javax.faces.application.FacesMessage(javax.faces.application.FacesMessage.SEVERITY_ERROR, validatorMessage, validatorMessage));
+      }
+    }
+
+    javax.faces.el.MethodBinding validatorBinding = getValidator();
+    if (validatorBinding != null) {
+      try {
+        validatorBinding.invoke(context, new Object[]{context, this, convertedValue});
+      } catch (javax.faces.el.EvaluationException e) {
+        setValid(false);
+        Throwable cause = e.getCause();
+        if (cause instanceof javax.faces.validator.ValidatorException) {
+          context.addMessage(getClientId(context),
+              new javax.faces.application.FacesMessage(javax.faces.application.FacesMessage.SEVERITY_ERROR, validatorMessage, validatorMessage));
+        } else {
+          throw e;
+        }
+      }
+    }
+  }
+}
+
+protected Object getConvertedValue(FacesContext context, Object submittedValue) {
+  String converterMessage = getConverterMessage();
+  if (converterMessage == null) {
+    return super.getConvertedValue(context, submittedValue);
+  } else {
+    try {
+      javax.faces.render.Renderer renderer = getRenderer(context);
+      if (renderer != null) {
+        return renderer.getConvertedValue(context, this, submittedValue);
+      } else if (submittedValue instanceof String) {
+        javax.faces.convert.Converter converter = findUIOutputConverter(context);
+        if (converter != null) {
+          return converter.getAsObject(context, this, (String) submittedValue);
+        }
+      }
+    } catch (javax.faces.convert.ConverterException e) {
+      context.addMessage(getClientId(context),
+          new javax.faces.application.FacesMessage(javax.faces.application.FacesMessage.SEVERITY_ERROR, converterMessage, converterMessage));
+      setValid(false);
+    }
+    return submittedValue;
+  }
+}
+
+private javax.faces.convert.Converter findUIOutputConverter(FacesContext facesContext) {
+  // Attention!
+  // This code is duplicated in myfaces implementation renderkit package.
+  // If you change something here please do the same in the other class!
+
+  javax.faces.convert.Converter converter = getConverter();
+  if (converter != null) {
+    return converter;
+  }
+
+  //Try to find out by value binding
+  javax.faces.el.ValueBinding vb = getValueBinding("value");
+  if (vb == null) {
+    return null;
+  }
+
+  Class valueType = vb.getType(facesContext);
+  if (valueType == null) {
+    return null;
+  }
+
+  if (String.class.equals(valueType)) {
+    return null;    //No converter needed for String type
+  }
+  if (Object.class.equals(valueType)) {
+    return null;    //There is no converter for Object class
+  }
+
+  try {
+    return facesContext.getApplication().createConverter(valueType);
+  } catch (FacesException e) {
+    return null;
+  }
+}
+
 >>
 
 IntegerProperty(property) ::= <<

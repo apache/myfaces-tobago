@@ -53,6 +53,9 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression tabIndex;
   private javax.el.ValueExpression focus;
   private javax.el.ValueExpression renderRange;
+  private javax.el.ValueExpression validatorMessage;
+  private javax.el.ValueExpression converterMessage;
+  private javax.el.ValueExpression requiredMessage;
 
   private LabelExtensionTag labelTag;
   private SelectOneRadioTag selectOneRadioTag;
@@ -121,6 +124,15 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
     if (renderRange != null) {
       selectOneRadioTag.setRenderRange(renderRange);
     }
+    if (validatorMessage != null) {
+      selectOneRadioTag.setValidatorMessage(validatorMessage);
+    }
+    if (converterMessage != null) {
+      selectOneRadioTag.setConverterMessage(converterMessage);
+    }
+    if (requiredMessage != null) {
+      selectOneRadioTag.setRequiredMessage(requiredMessage);
+    }
 
     selectOneRadioTag.setParent(labelTag);
     selectOneRadioTag.doStartTag();
@@ -157,6 +169,9 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
     labelTag = null;
     focus = null;
     renderRange = null;
+    validatorMessage = null;
+    converterMessage = null;
+    requiredMessage = null;
   }
 
   /**
@@ -334,4 +349,32 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   public void setRenderRange(javax.el.ValueExpression renderRange) {
     this.renderRange = renderRange;
   }
+
+  /**
+   * An expression that specifies the validator message
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setValidatorMessage(javax.el.ValueExpression validatorMessage) {
+    this.validatorMessage = validatorMessage;
+  }
+
+  /**
+   * An expression that specifies the converter message
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setConverterMessage(javax.el.ValueExpression converterMessage) {
+    this.converterMessage = converterMessage;
+  }
+
+  /**
+   * An expression that specifies the required message
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setRequiredMessage(javax.el.ValueExpression requiredMessage) {
+    this.requiredMessage = requiredMessage;
+  }
+
 }

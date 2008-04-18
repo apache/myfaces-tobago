@@ -38,6 +38,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
+import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -52,6 +55,7 @@ public class SelectOneChoiceExtensionTag
     extends BodyTagSupport
     implements HasId, HasValue, HasValueChangeListener, IsDisabled,
     IsReadonly, HasOnchange, IsInline, HasLabel, HasLabelWidth, IsRequired,
+    HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
     IsRendered, IsFocus, HasBinding, HasTip, HasValidator, HasConverter, HasMarkup, HasTabIndex {
 
   private String required;
@@ -71,6 +75,9 @@ public class SelectOneChoiceExtensionTag
   private String tabIndex;
   private String focus;
   private String markup;
+  private String validatorMessage;
+  private String converterMessage;
+  private String requiredMessage;
 
   private LabelExtensionTag labelTag;
   private SelectOneChoiceTag selectOneChoiceTag;
@@ -139,6 +146,16 @@ public class SelectOneChoiceExtensionTag
     if (tabIndex != null) {
       selectOneChoiceTag.setTabIndex(tabIndex);
     }
+    if (validatorMessage != null) {
+      selectOneChoiceTag.setValidatorMessage(validatorMessage);
+    }
+    if (converterMessage != null) {
+      selectOneChoiceTag.setConverterMessage(converterMessage);
+    }
+    if (requiredMessage != null) {
+      selectOneChoiceTag.setRequiredMessage(requiredMessage);
+    }
+
     selectOneChoiceTag.setParent(labelTag);
     selectOneChoiceTag.doStartTag();
 
@@ -174,6 +191,9 @@ public class SelectOneChoiceExtensionTag
     labelTag = null;
     focus = null;
     markup = null;
+    validatorMessage = null;
+    converterMessage = null;
+    requiredMessage = null;
   }
 
   public void setRequired(String required) {
@@ -242,5 +262,17 @@ public class SelectOneChoiceExtensionTag
 
   public void setMarkup(String markup) {
     this.markup = markup;
+  }
+
+  public void setValidatorMessage(String validatorMessage) {
+    this.validatorMessage = validatorMessage;
+  }
+
+  public void setConverterMessage(String converterMessage) {
+    this.converterMessage = converterMessage;
+  }
+
+  public void setRequiredMessage(String requiredMessage) {
+    this.requiredMessage = requiredMessage;
   }
 }

@@ -38,6 +38,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -68,6 +71,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class DateExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasOnchange, IsRequired, HasTip,
+    HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
     HasLabel, HasMarkup, HasLabelWidth, IsFocus, IsInline, HasTabIndex {
 
   private static final long serialVersionUID = 2044784791513107420L;
@@ -88,6 +92,9 @@ public class DateExtensionTag extends BodyTagSupport
   private String onchange;
   private String tabIndex;
   private String markup;
+  private String validatorMessage;
+  private String converterMessage;
+  private String requiredMessage;
 
   private String labelWidth;
   private LabelExtensionTag labelTag;
@@ -159,6 +166,15 @@ public class DateExtensionTag extends BodyTagSupport
     if (tabIndex != null) {
       dateTag.setTabIndex(tabIndex);
     }
+    if (validatorMessage != null) {
+      dateTag.setValidatorMessage(validatorMessage);
+    }
+    if (converterMessage != null) {
+      dateTag.setConverterMessage(converterMessage);
+    }
+    if (requiredMessage != null) {
+      dateTag.setRequiredMessage(requiredMessage);
+    }
     dateTag.setParent(labelTag);
     dateTag.doStartTag();
 
@@ -210,6 +226,9 @@ public class DateExtensionTag extends BodyTagSupport
     tabIndex = null;
     labelTag = null;
     dateTag = null;
+    validatorMessage = null;
+    converterMessage = null;
+    requiredMessage = null;
   }
 
   public void setValue(String value) {
@@ -278,5 +297,17 @@ public class DateExtensionTag extends BodyTagSupport
 
   public void setTabIndex(String tabIndex) {
     this.tabIndex = tabIndex;
+  }
+
+  public void setValidatorMessage(String validatorMessage) {
+    this.validatorMessage = validatorMessage;
+  }
+
+  public void setConverterMessage(String converterMessage) {
+    this.converterMessage = converterMessage;
+  }
+
+  public void setRequiredMessage(String requiredMessage) {
+    this.requiredMessage = requiredMessage;
   }
 }
