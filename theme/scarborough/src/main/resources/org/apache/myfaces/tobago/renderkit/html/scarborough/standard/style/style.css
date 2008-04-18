@@ -1037,3 +1037,355 @@ a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:activ
 .tobago-toolBar-button-label {
   padding-left: 5px;
 }
+
+/* MenuBar ------------------------------------------------------------------ */
+.tobago-menuBar-default {
+  height: 24px;
+  border: 2px groove #f6faff;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  background: #bbccdd;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.tobago-menuBar-page-facet {
+  height: 27px;
+}
+
+.tobago-menuBar-item-page-facet {
+  font: inherit;
+}
+
+.tobago-menuBar-container {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  font: inherit;
+  /* top and left are set from script on the client */
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.tobago-menuBar-submenuroot {
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    overflow: visible;
+ }
+
+.tobago-menuBar-container-ToolbarButton {
+  width: 20px;
+  height: 20px;
+  display: inline;
+}
+
+.tobago-menuBar-subitem-container {
+  border: 2px groove #f6faff;
+  position: absolute;
+  padding: 0px;
+  background: #bbccdd;
+  z-index: 1000;
+  overflow: visible;
+  visibility: hidden;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+}
+
+.tobago-menu-item, .tobago-menu-item-separator {
+  visibility: inherit;
+  overflow: auto; /* this MUST be auto (is needed and overwritten in javascript ) */
+  height: 20px;
+  position: absolute;
+  padding: 0px;
+  padding-left: 5px;
+  padding-right: 0px;
+  z-index: 1000;
+  white-space: nowrap;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+}
+
+.tobago-menuBar-separator  {
+  width: 90%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.tobago-menu-item-hover {
+  background: #ccddee;
+}
+.tobago-menu-item-focus {
+  background: #ccddee;
+}
+
+
+.tobago-menuBar-item-span {
+  position: absolute;
+  top: 0px;
+  left: 20px;
+  text-decoration: none;
+}
+
+.tobago-menuBar-item-span-enabled {
+  color: #000000;
+}
+
+.tobago-menuBar-item-span-disabled {
+  color: #888888;
+}
+
+.tobago-menuBar-item-span-top {
+  left: 0px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.tobago-menuBar-item-page-top {
+  top: 2px;
+}
+
+.tobago-menu-item-image {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 20px;
+  height: 20px;
+}
+
+.tobago-menu-subitem-arrow {
+  float: right;
+  width: 20px;
+  height: 20px;
+}
+
+/* Sheet ------------------------------------------------------------------ */
+.tobago-sheet-outer-div {
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.tobago-sheet-header-div {
+  height: 20px;
+  width: 100%;
+  overflow: hidden;
+  padding: 0px 0px 0px 0px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  white-space: nowrap;
+  z-index: 2;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+
+}
+
+.tobago-sheet-header-table {
+  padding: 0px 0px 0px 0px;
+  width: 100%;
+  border: 0px solid black;
+}
+
+.tobago-sheet-header-box{
+
+	overflow: hidden;
+	position: relative;
+	vertical-align: top;
+	display: inline;
+	height: 100%;
+	padding: 0px;
+	text-overflow: ellipsis;
+
+}
+
+.tobago-sheet-header{
+	border-color: #ddeeff #6688aa #6688aa #ddeeff;
+	/*border-color: red black green yellow;*/
+	border-style: solid;
+	border-width: 1px;
+	background-color: #bbccdd;
+	height: 100%;
+	overflow: hidden;
+	padding: 0px 5px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 100%;
+  text-align: center;
+}
+
+.tobago-sheet-header-sortable {
+   cursor: pointer;
+}
+
+.tobago-sheet-header-inner {
+  text-align: center;
+	height: 100%;
+	width: 100%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.tobago-sheet-header-resize{
+	font-size: 100px;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+	right: -5px;
+	top: 0px;
+	width: 10px;
+}
+
+.tobago-sheet-header-resize-cursor{
+	cursor: e-resize;
+}
+
+.tobago-sheet-header-sort-div {
+  cursor: pointer;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+	right: 5px;
+	top: 0px;
+	width: 8px;
+}
+
+.tobago-sheet-body-div {
+  overflow: auto;
+  padding-top: 20px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background: #ebf4fd;
+}
+
+.tobago-sheet-cell-td {
+  padding-left: 0px;
+  padding-right: 0px;
+  vertical-align: top;
+}
+
+.tobago-sheet-cell-clickable {
+   cursor: pointer;
+}
+
+.tobago-sheet-cell-outer {
+  overflow: hidden;
+}
+
+.tobago-sheet-cell-inner {
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+div.tobago-sheet-cell-inner img {
+  vertical-align: top;
+}
+
+div.tobago-sheet-cell-inner span {
+  text-align: top;
+}
+
+.tobago-sheet-content-odd {
+  background: #ffffff;
+}
+
+.tobago-sheet-content-even {
+  background: #d8e9fb;
+}
+
+.tobago-sheet-row-selected {
+	background: highlight;
+	color: highlighttext;
+}
+
+.tobago-sheet-footer {
+  z-index: 1000;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  text-align: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.tobago-sheet-paging-span-left {
+  position : absolute;
+  top: 0px;
+  left: 0px;
+}
+.tobago-sheet-paging-span-center {
+
+}
+.tobago-sheet-paging-span-right {
+  position : absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.tobago-sheet-paging-input {
+  width: 30px;
+  height: 20px;
+  padding-top: 0px;
+  text-align: center;
+  vertical-align: top;
+
+}
+
+.tobago-sheet-paging-pages-span {
+  vertical-align: top;
+}
+
+.tobago-sheet-paging-pages-text {
+  cursor: pointer;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+.tobago-sheet-footer-pager-button {
+  cursor: pointer;
+  vertical-align: top;
+}
+
+.tobago-sheet-footer-pager-button-disabled {
+  cursor: auto;
+}
+
+.tobago-sheet-paging-rows-span {
+  cursor: pointer;
+  vertical-align: top;
+}
+
+.tobago-sheet-paging-links-span {
+  vertical-align: top;
+}
+
+.tobago-sheet-paging-links-link {
+  padding-left: 2px;
+  padding-right: 2px;
+  vertical-align: top;
+}
+
+a:link.tobago-sheet-paging-links-link, a:visited.tobago-sheet-paging-links-link,
+a:active.tobago-sheet-paging-links-link {
+  color: #000000;
+}
+
+.tobago-sheet-selector-menu {
+  width: 15px;
+  height:15px;
+  position: relative;
+  margin-top: 2px;
+  margin-left: -4px;
+}
+

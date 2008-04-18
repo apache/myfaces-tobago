@@ -407,3 +407,85 @@ a:link.tab, a:visited.tab, a:active.tab {
   color: #ff0000;
   font: 14px arial, helvetica, sans-serif;
 }
+
+/* MenuBar ----------------------------------------------------------------- */
+.tobago-menuBar-default {
+  border: 1px solid #FF9900;
+  background: #FFCC66;
+}
+
+.tobago-menuBar-separator   {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  border-top:1px solid #000000;
+  border-right:0px solid #000000;
+  border-bottom:0px solid #000000;
+  border-left:0px solid #000000;
+}
+
+.tobago-menuBar-page-facet {
+  background: #FFCC66;
+}
+
+.tobago-menuBar-subitem-container {
+  background: #FFCC66;
+}
+
+.tobago-menu-item-focus {
+  background: #FF9900;
+}
+
+.tobago-menu-item-hover {
+  background: #FF9900;
+}
+
+.tobago-menuBar-item-span-disabled {
+  color: #888888;
+}
+
+/* Sheet ----------------------------------------------------------------- */
+.tobago-sheet-header-div {
+  border-bottom: 1px solid #d6ebff;
+
+}
+
+.tobago-sheet-header  {
+	border-color: #d6ebff #3366CC #d6ebff #d6ebff;
+  background: #d6ebff;
+  color: #3366CC;
+  font: bold 13px arial, helvetica, sans-serif;
+}
+
+
+.tobago-sheet-body-div {
+  background: #EBEFEB;
+}
+
+.tobago-sheet-content-odd {
+  background: #EBEFEB;
+}
+
+.tobago-sheet-content-even {
+  background: #EBEFEB;
+}
+
+.tobago-sheet-row-selected {
+	background: highlight;
+	color: highlighttext;
+}
+
+
+.tobago-sheet-footer {
+  border-top: 1px dotted #3366CC;
+  background: #ffffff;
+  font: bold 11px arial, helvetica, sans-serif;
+  color: #3366CC;
+  text-decoration: none;
+}
+
+.tobago-sheet-paging-input {
+  border: 1px #3366CC solid;
+}
+

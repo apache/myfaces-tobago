@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
-.tobago-sheet-header-box {
-	height: 19px;
+.tobago-sheet-header-box{
+	border-color: #d6ebff;
+	background: #d6ebff;
+
 }

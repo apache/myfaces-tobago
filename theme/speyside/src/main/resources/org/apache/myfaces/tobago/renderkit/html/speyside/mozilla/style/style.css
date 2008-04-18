@@ -72,3 +72,8 @@ label.tobago-label-default  {
   height: 12px;
 }
 
+/* Sheet -------------------------------------------------------- */
+.tobago-sheet-header-box {
+	height: 19px;
+}
+

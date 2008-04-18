@@ -30,3 +30,11 @@
 .tobago-in-markup-blink {
   background-color: yellow;
 }
+
+.tobago-sheet-content-odd {
+  background: #ffffff;
+}
+
+.tobago-sheet-content-even {
+  background: #d8e9fb;
+}
