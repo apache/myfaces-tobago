@@ -145,13 +145,10 @@ public class MenuBarRenderer extends LayoutableRendererBase {
                                      String scriptBlock) throws IOException {
     final AbstractUIPage page = ComponentUtil.findPage(facesContext, component);
     page.getScriptFiles().add("script/tobago-menu.js");
-    page.getStyleFiles().add("style/tobago-menu.css");
     String function = setupFunction + "('" + clientId + "', '"
         + page.getClientId(facesContext) + "');";
 
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
-      HtmlRendererUtil.writeStyleLoader(
-          facesContext, new String[] {"style/tobago-menu.css"});
       StringTokenizer st = new StringTokenizer(scriptBlock, "\n");
       ArrayList<String>  lines = new ArrayList<String>();
       while (st.hasMoreTokens()) {

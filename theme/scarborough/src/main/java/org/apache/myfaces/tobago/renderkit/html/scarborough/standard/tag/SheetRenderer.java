@@ -176,7 +176,6 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     String checked = contextPath + resourceManager.getImage(viewRoot, "image/sheetChecked.gif");
     boolean ajaxEnabled = TobagoConfig.getInstance(facesContext).isAjaxEnabled();
 
-    final String[] styles = new String[]{"style/tobago-sheet.css"};
     final String[] scripts = new String[]{"script/tobago-sheet.js"};
     Integer frequency = null;
     UIComponent facetReload = data.getFacet(FACET_RELOAD);
@@ -195,13 +194,11 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
             + ");"
     };
     AbstractUIPage page = ComponentUtil.findPage(facesContext, data);
-    page.getStyleFiles().add(styles[0]);
     page.getScriptFiles().add(scripts[0]);
 
     if (!ajaxEnabled) {
       page.getOnloadScripts().add(cmds[0]);
     } else {
-      HtmlRendererUtil.writeStyleLoader(facesContext, styles);
       HtmlRendererUtil.writeScriptLoader(facesContext, scripts, cmds);
     }
   }
