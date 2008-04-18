@@ -119,12 +119,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     }
     writer.writeStyleAttribute();
 
-    if (currentValue != null && currentValue.length() > 0
-        && ComponentUtil.getBooleanAttribute(input, ATTR_REQUIRED)) {
-      StyleClasses styleClasses = StyleClasses.ensureStyleClasses(input);
-      String rendererName = HtmlRendererUtil.getRendererName(facesContext, input);
-      styleClasses.removeAspectClass(rendererName, StyleClasses.Aspect.REQUIRED);
-    }
+    applyExtraStyle(facesContext, input, currentValue);
     HtmlRendererUtil.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     /*if (component instanceof UIInputBase) {
@@ -178,6 +173,15 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
       HtmlRendererUtil.writeScriptLoader(facesContext, scripts, cmds);
     }
 
+  }
+
+  protected void applyExtraStyle(FacesContext facesContext, UIInputBase input, String currentValue) {
+    if (currentValue != null && currentValue.length() > 0
+        && ComponentUtil.getBooleanAttribute(input, ATTR_REQUIRED)) {
+      StyleClasses styleClasses = StyleClasses.ensureStyleClasses(input);
+      String rendererName = HtmlRendererUtil.getRendererName(facesContext, input);
+      styleClasses.removeAspectClass(rendererName, StyleClasses.Aspect.REQUIRED);
+    }
   }
 
   public int encodeAjax(FacesContext context, UIComponent component) throws IOException {

@@ -41,3 +41,7 @@ Example.ChangeAware.prototype.markChange = function() {
 Example.Blinker = function(id) {
   window.setTimeout("Tobago.removeCssClass('" + id + "', 'tobago-in-markup-blink')", 2000);
 };
+
+Tobago.In.prototype.setup = function() {
+ // do nothing
+};
