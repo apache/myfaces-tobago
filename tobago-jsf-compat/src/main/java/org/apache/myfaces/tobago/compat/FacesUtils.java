@@ -55,6 +55,10 @@ public class FacesUtils {
 
   private static int facesVersion;
 
+  public static  boolean isJSF12() {
+    return facesVersion == 12;
+  }
+
   public static boolean invokeOnComponent(FacesContext context, UIComponent component,
       String clientId, ContextCallback callback) {
     String thisClientId = component.getClientId(context);
