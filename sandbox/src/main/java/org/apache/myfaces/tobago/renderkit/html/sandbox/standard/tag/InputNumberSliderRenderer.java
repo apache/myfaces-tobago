@@ -61,7 +61,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     int width = -1;
     int sliderWidthPerc = 33;
     if (ThemeConfig.hasValue(facesContext, component, SLIDER_WIDTH_PERCENT)) {
-      sliderWidthPerc = ThemeConfig.getValue(facesContext, component, SLIDER_WIDTH_PERCENT);
+      sliderWidthPerc = getConfiguredValue(facesContext, component, SLIDER_WIDTH_PERCENT);
       if (sliderWidthPerc <= 25) {
         sliderWidthPerc = 25;
       }
