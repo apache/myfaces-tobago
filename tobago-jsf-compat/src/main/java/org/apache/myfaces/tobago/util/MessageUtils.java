@@ -41,7 +41,7 @@ public class MessageUtils {
   }
 
   public static FacesMessage getMessage(FacesContext facesContext, Locale locale,
-      FacesMessage.Severity severity, String messageId, Object args[]) {
+      FacesMessage.Severity severity, String messageId, Object... args) {
 
     String detail;
     ResourceBundle appBundle = getApplicationBundle(facesContext, locale);
