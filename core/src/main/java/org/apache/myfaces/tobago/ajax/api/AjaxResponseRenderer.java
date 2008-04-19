@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.util.RequestUtils;
 import org.apache.myfaces.tobago.util.ResponseUtils;
 import org.apache.myfaces.tobago.util.JndiUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.webapp.TobagoResponseJsonWriterImpl;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
@@ -123,22 +124,25 @@ public class AjaxResponseRenderer {
   private AjaxResponse renderComponent(FacesContext facesContext, RenderKit renderKit, String clientId,
       AjaxComponent component) throws IOException {
     FastStringWriter content = new FastStringWriter();
-    ResponseWriter contentWriter = renderKit.createResponseWriter(content, null, null);
+    ResponseWriter contentWriter = renderKit.createResponseWriter(content, contentType, null);
     facesContext.setResponseWriter(contentWriter);
     if (LOG.isDebugEnabled()) {
       LOG.debug("write ajax response for " + component);
     }
 
     try {
-      // TODO: invokeOnComponent()
       FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), clientId, callback);
-      //ComponentUtil.invokeOnComponent(facesContext, clientId, (UIComponent) component, callback);
     } catch (EmptyStackException e) {
       LOG.error(" content = \"" + content.toString() + "\"");
       throw e;
     }
 
-    return new AjaxResponse(clientId, callback.getResponseCode(), content.toString());
+    if (contentWriter instanceof TobagoResponseJsonWriterImpl) {
+       return new AjaxResponse(clientId, callback.getResponseCode(), content.toString(),
+           ((TobagoResponseJsonWriterImpl) contentWriter).getJavascript());
+    } else {
+      return new AjaxResponse(clientId, callback.getResponseCode(), content.toString());
+    }
   }
 
   private void writeResponseReload(FacesContext facesContext)
@@ -217,7 +221,10 @@ public class AjaxResponseRenderer {
       buffer.append("  ajaxPart_").append(i++);
       buffer.append(": ");
       buffer.append(part.toJson());
+      System.err.println("########################################");
+      System.err.println(part.toJson());
     }
+
 
     buffer.append("\n}\n");
 

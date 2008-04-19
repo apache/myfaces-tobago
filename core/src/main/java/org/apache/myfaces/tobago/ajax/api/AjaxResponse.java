@@ -55,6 +55,18 @@ public class AjaxResponse {
     }
   }
 
+  public AjaxResponse(String ajaxId, int responseCode, String html, String javaScript) {
+    this.responseCode = responseCode;
+    this.ajaxId = ajaxId;
+    if (responseCode == CODE_SUCCESS) {
+      this.html = html;
+      this.javaScript = javaScript;
+    } else {
+      this.html = "";
+      this.javaScript = "";
+    }
+  }
+
   public int getResponseCode() {
     return responseCode;
   }

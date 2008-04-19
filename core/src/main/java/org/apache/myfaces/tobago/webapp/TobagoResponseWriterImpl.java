@@ -131,6 +131,10 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
 
   @Override
   public void write(String string) throws IOException {
+    writeInternal(writer, string);
+  }
+
+  protected final void writeInternal(Writer writer, String string) throws IOException {
     closeOpenTag();
     writer.write(string);
   }
@@ -215,6 +219,10 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
 
   public void startElement(final String name, final UIComponent currentComponent)
       throws IOException {
+    startElementInternal(writer, name, currentComponent);
+  }
+
+  protected final void startElementInternal(Writer writer, String name, UIComponent currentComponent) throws IOException {
     this.component = currentComponent;
     stack.push(name);
 //    closeOpenTag();
@@ -227,6 +235,10 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
   }
 
   public void endElement(final String name) throws IOException {
+    endElementInternal(writer, name);
+  }
+
+  protected final void endElementInternal(Writer writer, String name) throws IOException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("end Element: " + name);
     }
@@ -309,6 +321,10 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
 
   public void writeAttribute(final String name, final String value, final boolean escape)
       throws IOException {
+    writeAttributeInternal(writer, name, value, escape);
+  }
+
+  protected final void writeAttributeInternal(Writer write, String name, String value, boolean escape) throws IOException {
     if (!startStillOpen) {
       String trace = getCallingClassStackTraceElementString();
       String error = "Cannot write attribute when start-tag not open. "
