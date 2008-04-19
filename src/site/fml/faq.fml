@@ -214,8 +214,8 @@
           your ~/.m2/settings.xml and add the following lines:
         </p>
         <source>
-  <mirrors>
-    <mirror>
+ <mirrors>
+   <mirror>
       <id>mirror ID</id>
       <name>Give it a name</name>
       <url>The URL of the mirror</url>
@@ -244,10 +244,18 @@
           the ones already in your local repository by adding the following to your ~/.m2/settings.xml:
         </p>
         <source>
-  <settings>
+ <settings>
     <offline/>
   </settings></source>
         <p>or use the mvn -o switch.</p>
+      </answer>
+    </faq>
+    <faq id="checkstyle">
+      <question>How do I perform a local checkstyle check?</question>
+      <answer>
+       <source>
+  mvn compile checkstyle:check
+       </source>
       </answer>
     </faq>
   </part>
