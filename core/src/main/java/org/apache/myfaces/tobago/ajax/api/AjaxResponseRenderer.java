@@ -221,8 +221,6 @@ public class AjaxResponseRenderer {
       buffer.append("  ajaxPart_").append(i++);
       buffer.append(": ");
       buffer.append(part.toJson());
-      System.err.println("########################################");
-      System.err.println(part.toJson());
     }
 
 
