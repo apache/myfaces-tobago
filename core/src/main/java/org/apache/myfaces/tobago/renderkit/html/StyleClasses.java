@@ -100,8 +100,7 @@ public class StyleClasses implements Serializable {
   }
 
   private String nameOfClass(String renderer, String sub) {
-    StringBuilder builder = new StringBuilder();
-    builder.append(PREFIX);
+    StringBuilder builder = new StringBuilder(PREFIX);
     builder.append(renderer);
     builder.append(SEPERATOR);
     builder.append(sub);
@@ -125,8 +124,7 @@ public class StyleClasses implements Serializable {
   }
 
   private String nameOfMarkupClass(String renderer, String sub, String markup) {
-    StringBuilder builder = new StringBuilder();
-    builder.append(PREFIX);
+    StringBuilder builder = new StringBuilder(PREFIX);
     builder.append(renderer);
     if (sub != null) {
       builder.append(SEPERATOR);
@@ -165,8 +163,7 @@ public class StyleClasses implements Serializable {
   }
 
   private String nameOfAspectClass(String renderer, Aspect aspect) {
-    StringBuilder builder = new StringBuilder();
-    builder.append(PREFIX);
+    StringBuilder builder = new StringBuilder(PREFIX);
     builder.append(renderer);
     builder.append(aspect);
     return builder.toString();
@@ -182,8 +179,7 @@ public class StyleClasses implements Serializable {
   }
 
   private String nameOfAspectClass(String renderer, String sub, Aspect aspect) {
-    StringBuilder builder = new StringBuilder();
-    builder.append(PREFIX);
+    StringBuilder builder = new StringBuilder(PREFIX);
     builder.append(renderer);
     builder.append(SEPERATOR);
     builder.append(sub);

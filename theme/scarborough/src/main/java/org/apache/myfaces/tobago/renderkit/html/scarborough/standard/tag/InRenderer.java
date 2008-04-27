@@ -218,7 +218,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     List suggesteds
         = (List) mb.invoke(context, new Object[]{(String) input.getSubmittedValue()});
 
-    StringBuilder sb = new StringBuilder();
+    StringBuilder sb = new StringBuilder(64);
     sb.append("return  {items: [");
 
     int suggestedCount = 0;

@@ -82,7 +82,7 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
       zIndex = 0;
     }
 
-    final StringBuilder contentStyle = new StringBuilder();
+    final StringBuilder contentStyle = new StringBuilder(32);
     if (component.getWidth() != null) {
       contentStyle.append("width: ");
       contentStyle.append(component.getWidth());
@@ -122,8 +122,8 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
       writer.writeClassAttribute("tobago-popup-iframe tobago-popup-none");
       writer.writeStyleAttribute("z-index: " + (zIndex + 2) + ";");
       UIPage page = (UIPage) ComponentUtil.findPage(facesContext);
-      final StringBuilder frameSize = new StringBuilder();
       if (component.isModal()) {
+        final StringBuilder frameSize = new StringBuilder(32);
         // full client area
         frameSize.append("width: ");
         frameSize.append(page.getWidth());
@@ -131,10 +131,11 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
         frameSize.append("height: ");
         frameSize.append(page.getHeight());
         frameSize.append("; ");
+        writer.writeAttribute(HtmlAttributes.STYLE, frameSize.toString(), false);
       } else {
-        frameSize.append(contentStyle); // size of the popup
+        writer.writeAttribute(HtmlAttributes.STYLE, contentStyle.toString(), false); // size of the popup
       }
-      writer.writeAttribute(HtmlAttributes.STYLE, frameSize.toString(), false);
+
       writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getBlankPage(facesContext), false);
       writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
       writer.endElement(HtmlConstants.IFRAME);

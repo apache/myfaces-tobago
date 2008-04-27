@@ -118,7 +118,7 @@ public class TreeListboxRenderer extends TreeOldRenderer{
   private String  createJavascript(FacesContext facesContext, String clientId,
                                     UITreeListbox tree, UITreeOldNode root) throws IOException {
 
-    StringBuilder sb = new StringBuilder();
+    StringBuilder sb = new StringBuilder(256);
     sb.append("{\n");
 
     sb.append("  var treeResourcesHelp = new Object();\n");

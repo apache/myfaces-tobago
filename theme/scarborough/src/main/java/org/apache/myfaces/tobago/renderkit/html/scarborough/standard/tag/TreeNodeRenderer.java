@@ -204,15 +204,15 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.writeIdAttribute(id + "-cont");
       writer.writeStyleAttribute(contentStyle);
     }
-
-    String label = node.getLabel();
-    int level = modelNode.getLevel();
-    StringBuilder builder = new StringBuilder();
-    for (int i = 0; i < level; i++) {
-      builder.append("    ");
-
+    if (LOG.isDebugEnabled())  {
+      String label = node.getLabel();
+      int level = modelNode.getLevel();
+      StringBuilder builder = new StringBuilder();
+      for (int i = 0; i < level; i++) {
+        builder.append("    ");
+      }
+      LOG.debug(builder + "<div name=" + label + ">");
     }
-    LOG.debug(builder + "<div name=" + label + ">");
   }
 
   private void encodeExpandedHidden(TobagoResponseWriter writer, AbstractUITreeNode node, String clientId,

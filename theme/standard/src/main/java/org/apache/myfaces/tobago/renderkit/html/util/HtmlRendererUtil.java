@@ -198,8 +198,7 @@ public final class HtmlRendererUtil {
 
   public static String createAcceleratorKeyJsStatement(
       String func, char key, String modifier) {
-    StringBuilder buffer = new StringBuilder();
-    buffer.append("new Tobago.AcceleratorKey(function() {");
+    StringBuilder buffer = new StringBuilder("new Tobago.AcceleratorKey(function() {");
     buffer.append(func);
     if (!func.endsWith(";")) {
       buffer.append(';');
@@ -447,17 +446,20 @@ public final class HtmlRendererUtil {
 
   public static void addImageSources(FacesContext facesContext, TobagoResponseWriter writer, String src, String id)
       throws IOException {
-    StringBuilder buffer = new StringBuilder();
-    buffer.append("new Tobago.Image('");
-    buffer.append(id);
-    buffer.append("','");
-    buffer.append(ResourceManagerUtil.getImageWithPath(facesContext, src, false));
-    buffer.append("','");
-    buffer.append(ResourceManagerUtil.getImageWithPath(facesContext, createSrc(src, "Disabled"), true));
-    buffer.append("','");
-    buffer.append(ResourceManagerUtil.getImageWithPath(facesContext, createSrc(src, "Hover"), true));
-    buffer.append("');");
-    writer.writeJavascript(buffer.toString());
+    writer.startJavascript();
+    writer.write("new Tobago.Image('");
+    writer.write(id);
+    writer.write("','");
+    String img = ResourceManagerUtil.getImageWithPath(facesContext, src, false);
+    writer.write(img!=null?img:"");
+    writer.write("','");
+    String disabled = ResourceManagerUtil.getImageWithPath(facesContext, createSrc(src, "Disabled"), true);
+    writer.write(disabled!=null?disabled:"");
+    writer.write("','");
+    String hover = ResourceManagerUtil.getImageWithPath(facesContext, createSrc(src, "Hover"), true);
+    writer.write(hover!=null?hover:"");
+    writer.write("');");
+    writer.endJavascript();
   }
 
   public static String createSrc(String src, String ext) {
@@ -523,7 +525,7 @@ public final class HtmlRendererUtil {
       allScripts = ResourceManagerUtil.getScriptsAsJSArray(facesContext, scripts);
     }
 
-    StringBuilder script = new StringBuilder();
+    StringBuilder script = new StringBuilder(128);
     script.append("new Tobago.ScriptLoader(\n    ");
     script.append(allScripts);
 
@@ -552,7 +554,7 @@ public final class HtmlRendererUtil {
       FacesContext facesContext, String[] styles) throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    StringBuilder builder = new StringBuilder();
+    StringBuilder builder = new StringBuilder(64);
     builder.append("Tobago.ensureStyleFiles(\n    ");
     builder.append(ResourceManagerUtil.getStylesAsJSArray(facesContext, styles));
     builder.append(");");
@@ -752,7 +754,8 @@ public final class HtmlRendererUtil {
       writer.writeAttribute("dndData", String.valueOf(objDndData), false);
     }
     if (addStyle && (null != objDndType || null != objDndData)) {
-      ComponentUtil.setStyleClasses(component, "dojoDndItem");
+      StyleClasses styles = StyleClasses.ensureStyleClasses(component);
+      styles.addFullQualifiedClass("dojoDndItem");
     }
   }
 
@@ -841,28 +844,41 @@ public final class HtmlRendererUtil {
                                       FacesContext facesContext, TobagoResponseWriter writer) throws IOException {
     if (facetEntry.getValue() instanceof UICommand
         && ((UICommand) facetEntry.getValue()).getRenderedPartially().length > 0) {
-      String script =
-          "var element = Tobago.element(\"" + clientId + "\");\n"
-              + "if (element) {\n"
-              + "   Tobago.addEventListener(element, \"" + facetEntry.getKey()
-              + "\", function(){Tobago.reloadComponent('"
-              + HtmlRendererUtil.getComponentIds(facesContext, facetEntry.getValue(),
-              ((UICommand) facetEntry.getValue()).getRenderedPartially()) + "','"
-              + facetEntry.getValue().getClientId(facesContext) + "', {})});\n"
-              + "}";
-      writer.writeJavascript(script);
+      writer.startJavascript();
+      writer.write("var element = Tobago.element(\"");
+      writer.write(clientId);
+      writer.write("\");\n");
+      writer.write("if (element) {\n");
+      writer.write("   Tobago.addEventListener(element, \"");
+      writer.write(facetEntry.getKey());
+      writer.write("\", function(){Tobago.reloadComponent('");
+      writer.write(HtmlRendererUtil.getComponentIds(facesContext, facetEntry.getValue(),
+              ((UICommand) facetEntry.getValue()).getRenderedPartially()));
+      writer.write("','");
+      writer.write(facetEntry.getValue().getClientId(facesContext)); 
+      writer.write("', {})});\n");
+      writer.write("}");
+      writer.endJavascript();
     } else {
       UIComponent facetComponent = facetEntry.getValue();
+
+      writer.startJavascript();
+      writer.write("var element = Tobago.element(\"");
+      writer.write(clientId + "\");\n");
+      writer.write("if (element) {\n");
+      writer.write("   Tobago.addEventListener(element, \"");
+      writer.write(facetEntry.getKey());
+      writer.write("\", function(){");
       String facetAction = (String) facetComponent.getAttributes().get(ATTR_ONCLICK);
-      if (facetAction == null) {
-        facetAction = "Tobago.submitAction('" + facetComponent.getClientId(facesContext) + "')";
+      if (facetAction != null) {
+        writer.write(facetAction);
+      } else {
+        writer.write("Tobago.submitAction('");
+        writer.write(facetComponent.getClientId(facesContext));
+        writer.write("')");
       }
-      String script =
-          "var element = Tobago.element(\"" + clientId + "\");\n"
-              + "if (element) {\n"
-              + "   Tobago.addEventListener(element, \"" + facetEntry.getKey() + "\", function(){"
-              + facetAction + "});\n}";
-      writer.writeJavascript(script);
+      writer.write("});\n}");
+      writer.endJavascript();
     }
   }
 }

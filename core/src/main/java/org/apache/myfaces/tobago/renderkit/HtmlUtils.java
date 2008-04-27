@@ -51,7 +51,6 @@ public class HtmlUtils {
   public static String generateOnchange(UIInput component,
       FacesContext facesContext) {
 
-    StringBuilder buffer = new StringBuilder();
     /*Validator[] validators = component.getValidators();
     for (int i = 0; i < validators.length; i++) {
       if (validators[i] instanceof LongRangeValidator) {
@@ -70,18 +69,10 @@ public class HtmlUtils {
     } */
 
     Object onchange = component.getAttributes().get(ATTR_ONCHANGE);
-    if (onchange != null) { // append the onchange attribute
-      if (buffer.length() > 0) {
-        buffer.append(" && ");
-      }
-      buffer.append(onchange);
+    if (onchange != null) {
+      return onchange.toString();
     }
-
-    if (buffer.length() > 0) { // has content ?
-      return buffer.toString();
-    } else {
-      return null;
-    }
+    return null;
   }
 
 }

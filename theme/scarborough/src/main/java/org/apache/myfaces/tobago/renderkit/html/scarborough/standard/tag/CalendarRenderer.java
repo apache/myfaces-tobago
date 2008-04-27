@@ -261,7 +261,7 @@ public class CalendarRenderer extends LayoutableRendererBase {
 
   private String getMonthNames(Locale locale) {
     SimpleDateFormat dateFormat = new SimpleDateFormat("MMMMM", locale);
-    StringBuilder buffer = new StringBuilder();
+    StringBuilder buffer = new StringBuilder(64);
     Calendar calendar = Calendar.getInstance();
     calendar.set(2000, 0, 1);
     for (int month = 0; month < 12; ++month) {

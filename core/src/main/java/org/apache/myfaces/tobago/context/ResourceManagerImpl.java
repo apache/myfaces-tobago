@@ -292,7 +292,7 @@ public class ResourceManagerImpl implements ResourceManager {
       String language, Theme theme, String browser,
       String subDir, String name, String localeSuffix, String extension,
       String key) {
-    StringBuilder searchtext = new StringBuilder();
+    StringBuilder searchtext = new StringBuilder(64);
 
     searchtext.append('/');
     searchtext.append(project);
@@ -320,7 +320,7 @@ public class ResourceManagerImpl implements ResourceManager {
 
   private String makePath(
       String name, String localeSuffix, String extension, String key) {
-    StringBuilder searchtext = new StringBuilder();
+    StringBuilder searchtext = new StringBuilder(64);
 
     searchtext.append('/');
     searchtext.append(name);

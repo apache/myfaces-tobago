@@ -196,8 +196,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
       characterEncoding = "UTF-8";
     }
 
-    StringBuilder builder = new StringBuilder();
-    builder.append(contentType);
+    StringBuilder builder = new StringBuilder(contentType);
     builder.append("; charset=");
     builder.append(characterEncoding);
     return builder.toString();

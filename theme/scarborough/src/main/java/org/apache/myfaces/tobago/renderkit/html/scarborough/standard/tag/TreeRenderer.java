@@ -149,7 +149,7 @@ public class TreeRenderer extends LayoutableRendererBase {
   }
 
   private String createJavascript(FacesContext facesContext) throws IOException {
-    StringBuilder sb = new StringBuilder();
+    StringBuilder sb = new StringBuilder(128);
 
     sb.append("{\n");
 
