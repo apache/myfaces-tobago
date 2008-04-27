@@ -32,12 +32,12 @@ public class TobagoResponseJsonWriterImpl extends TobagoResponseWriterImpl {
 
   public void endJavascript() throws IOException {
     super.endJavascript();
-    javascriptMode = true;
+    javascriptMode = false;
   }
 
   public void startJavascript() throws IOException {
     super.startJavascript();
-    javascriptMode = false;
+    javascriptMode = true;
   }
 
   @Override
