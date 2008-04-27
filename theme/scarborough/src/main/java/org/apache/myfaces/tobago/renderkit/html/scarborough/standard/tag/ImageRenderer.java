@@ -44,10 +44,13 @@ import java.io.IOException;
 import java.util.Locale;
 
 public class ImageRenderer extends LayoutableRendererBase {
-  
 
   private static final Log LOG = LogFactory.getLog(ImageRenderer.class);
 
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+    HtmlRendererUtil.renderDojoDndSource(facesContext, component);
+  }
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
@@ -106,7 +109,7 @@ public class ImageRenderer extends LayoutableRendererBase {
     writer.writeClassAttribute();
     writer.endElement(HtmlConstants.IMG);
 
-    HtmlRendererUtil.renderDojoDndSource(facesContext, component);
+
   }
 
   private String createSrc(String src, String ext) {

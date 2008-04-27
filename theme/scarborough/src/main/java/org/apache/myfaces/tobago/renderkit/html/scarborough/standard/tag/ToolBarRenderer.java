@@ -76,6 +76,11 @@ public class ToolBarRenderer extends LayoutableRendererBase {
 
   private static final Log LOG = LogFactory.getLog(ToolBarRenderer.class);
 
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+    HtmlRendererUtil.renderDojoDndSource(facesContext, component);
+  }
+
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
@@ -93,7 +98,6 @@ public class ToolBarRenderer extends LayoutableRendererBase {
       HtmlRendererUtil.renderDojoDndItem(toolbar, writer, true);
       writer.writeClassAttribute();
       writer.writeStyleAttribute();
-      HtmlRendererUtil.renderDojoDndSource(facesContext, toolbar);
       writer.startElement(HtmlConstants.DIV, toolbar);
       boolean right = false;
       if (toolbar instanceof UIToolBar) {

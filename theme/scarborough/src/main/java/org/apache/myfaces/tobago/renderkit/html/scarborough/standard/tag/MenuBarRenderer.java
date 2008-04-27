@@ -110,7 +110,6 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       writer.endElement(HtmlConstants.SPAN);
 
 */
-      HtmlRendererUtil.renderDojoDndSource(facesContext, component);
       writer.endElement(HtmlConstants.DIV);
     }
     attributes.put(MENU_ACCELERATOR_KEYS, new ArrayList<String>());
@@ -141,6 +140,10 @@ public class MenuBarRenderer extends LayoutableRendererBase {
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
     if (facesContext instanceof PageFacesContextWrapper) {
+      if (!ComponentUtil.getBooleanAttribute(component, ATTR_MENU_POPUP)) {
+        HtmlRendererUtil.renderDojoDndSource(facesContext, component);
+      }
+
       final String[] scripts = new String[]{"script/tobago-menu.js"};
 
       ((PageFacesContextWrapper) facesContext).getScriptFiles().add(scripts[0]);
@@ -180,7 +183,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
   protected String createJavascriptFunction(FacesContext facesContext,
                                        UIComponent component, String setupFunction)
       throws IOException {
-    StringBuilder sb = new StringBuilder();
+    StringBuilder sb = new StringBuilder(256);
 
     sb.append("function ");
     sb.append(setupFunction);

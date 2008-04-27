@@ -224,9 +224,8 @@ public class TreeOldRenderer extends LayoutableRendererBase {
   }
 
   private String[] createJavascript(FacesContext facesContext, String clientId,
-      UITreeOld tree, UITreeOldNode root)
-  throws IOException {
-    StringBuilder sb = new StringBuilder();
+      UITreeOld tree, UITreeOldNode root) throws IOException {
+    StringBuilder sb = new StringBuilder(128);
 
     sb.append("{\n");
 
@@ -288,7 +287,10 @@ public class TreeOldRenderer extends LayoutableRendererBase {
     String clientId = tree.getClientId(facesContext);
     String jsClientId = TreeOldRenderer.createJavascriptVariable(clientId);
 
-    String treeNodeCommandVar = "  var " + jsClientId + "_treeNodeCommand = ";
+    StringBuilder sb = new StringBuilder(64);
+    sb.append("  var ");
+    sb.append(jsClientId);
+    sb.append("_treeNodeCommand = ");
     UICommand treeNodeCommand = (UICommand) tree.getFacet(UITreeOld.FACET_TREE_NODE_COMMAND);
     if (treeNodeCommand != null) {
       CommandRendererHelper helper = new CommandRendererHelper(facesContext,
@@ -297,14 +299,16 @@ public class TreeOldRenderer extends LayoutableRendererBase {
         String onclick = helper.getOnclick();
         String treeNodeCommandClientId = treeNodeCommand.getClientId(facesContext);
         onclick = onclick.replaceAll("'" + treeNodeCommandClientId + "'", "this.id");
-        treeNodeCommandVar += "\"" + onclick + "\";\n";
+        sb.append("\"");
+        sb.append(onclick);
+        sb.append("\";\n");
       } else {
-        treeNodeCommandVar += "null;\n";
+        sb.append("null;\n");
       }
     } else {
-      treeNodeCommandVar += "null;\n";
+      sb.append("null;\n");
     }
-    return treeNodeCommandVar;
+    return sb.toString();
   }
 
   protected String getNodesAsJavascript(FacesContext facesContext, UITreeOldNode root) throws IOException {

@@ -52,6 +52,11 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
 
   private static final Log LOG = LogFactory.getLog(PanelRenderer.class);
 
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+    HtmlRendererUtil.renderDojoDndSource(facesContext, component);
+  }
+
   public boolean getRendersChildren() {
     return true;
   }
@@ -133,7 +138,6 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
     writer.writeStyleAttribute();
-    HtmlRendererUtil.renderDojoDndSource(facesContext, component);
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
      // writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\")");
       Integer frequency = null;

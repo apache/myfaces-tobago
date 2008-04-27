@@ -137,6 +137,7 @@ public class PageRenderer extends PageRendererBase {
     formAction = facesContext.getExternalContext().encodeActionURL(formAction);
     String contentType = writer.getContentTypeWithCharSet();
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
+    HtmlRendererUtil.renderDojoDndSource(facesContext, component);
 
     String title = (String) page.getAttributes().get(ATTR_LABEL);
 
@@ -337,8 +338,6 @@ public class PageRenderer extends PageRendererBase {
     writer.writeJavascript("TbgTimer.startBody = new Date();");
     //}
 
-    HtmlRendererUtil.renderDojoDndSource(facesContext, component);
-    
     writer.startElement(HtmlConstants.FORM, page);
     writer.writeNameAttribute(
         clientId + SUBCOMPONENT_SEP + "form");
