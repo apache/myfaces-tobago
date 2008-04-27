@@ -204,43 +204,37 @@ public class AjaxResponseRenderer {
       }
     }
 
-    StringBuilder buffer = new StringBuilder();
-
-    buffer.append("{\n  tobagoAjaxResponse: true,\n");
-    buffer.append("  responseCode: ");
-    buffer.append(reloadRequired ? CODE_RELOAD_REQUIRED : CODE_SUCCESS);
-    buffer.append(",\n");
-    buffer.append("  jsfState: \"");
-    buffer.append(AjaxUtils.encodeJavascriptString(jsfState));
-    buffer.append("\"");
+    PrintWriter writer = getPrintWriter(externalContext);
+    writer.write("{\n  tobagoAjaxResponse: true,\n");
+    writer.write("  responseCode: ");
+    writer.write(reloadRequired ? Integer.toString(CODE_RELOAD_REQUIRED) : Integer.toString(CODE_SUCCESS));
+    writer.write(",\n");
+    writer.write("  jsfState: \"");
+    writer.write(AjaxUtils.encodeJavascriptString(jsfState));
+    writer.write("\"");
 
     int i = 0;
     // add parts to response
     for (AjaxResponse part : responseParts) {
-      buffer.append(",\n");
-      buffer.append("  ajaxPart_").append(i++);
-      buffer.append(": ");
-      buffer.append(part.toJson());
+      writer.write(",\n");
+      writer.write("  ajaxPart_");
+      writer.write(Integer.toString(i++));
+      writer.write(": ");
+      part.writeJson(writer);
     }
 
+    writer.write("\n}\n");
+    writer.flush();
+    writer.close();
+  }
 
-    buffer.append("\n}\n");
-
-    if (LOG.isTraceEnabled()) {
-      LOG.trace("\nresponse follows # #############################################################\n"
-          + buffer
-          + "\nend response    ##############################################################");
-    }
-
-
+  private PrintWriter getPrintWriter(ExternalContext externalContext) throws IOException {
     //TODO: fix this to work in PortletRequest as well
     if (externalContext.getResponse() instanceof HttpServletResponse) {
       final HttpServletResponse httpServletResponse
           = (HttpServletResponse) externalContext.getResponse();
-      PrintWriter responseWriter = httpServletResponse.getWriter();
-      responseWriter.print(buffer.toString());
-      responseWriter.flush();
-      responseWriter.close();
+      return httpServletResponse.getWriter();
     }
+    throw new IOException("No ResponseWriter found for ExternalContext " + externalContext);
   }
 }

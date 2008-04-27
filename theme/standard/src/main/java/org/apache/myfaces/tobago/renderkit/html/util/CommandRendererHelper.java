@@ -84,6 +84,7 @@ public class CommandRendererHelper {
           href = url;
           target = ComponentUtil.getStringAttribute(command, ATTR_TARGET);
         } else {
+          // TODO target
           onclick = "Tobago.navigateToUrl('" + url + "');";
         }
       } else if (command.getAttributes().get(ATTR_ACTION_ONCLICK) != null) {
@@ -153,8 +154,7 @@ public class CommandRendererHelper {
   private String appendConfirmationScript(String onclick, UIComponent component) {
     ValueHolder confirmation = (ValueHolder) component.getFacet(FACET_CONFIRMATION);
     if (confirmation != null) {
-      StringBuilder script = new StringBuilder();
-      script.append("return confirm('");
+      StringBuilder script = new StringBuilder("return confirm('");
       script.append(confirmation.getValue());
       script.append("')");
       if (onclick != null) {

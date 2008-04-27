@@ -47,12 +47,7 @@ class ProcessValidationsExecutor implements PhaseExecutor {
     Map<String, UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(facesContext);
     if (ajaxComponents != null) {
       for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
-        UIComponent ajaxComponent = entry.getValue();
-        // TODO: invokeOnComponent()
         FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), entry.getKey(), contextCallback);
-
-//        ComponentUtil.invokeOnComponent(facesContext, entry.getKey(), ajaxComponent, contextCallback);
-//        ajaxComponent.processValidators(facesContext);
       }
       UIViewRoot viewRoot = ((UIViewRoot) facesContext.getViewRoot());
       viewRoot.broadcastEventsForPhase(facesContext, PROCESS_VALIDATIONS);

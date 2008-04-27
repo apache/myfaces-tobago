@@ -68,10 +68,7 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
 
       // and all ajax components
       for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
-        UIComponent ajaxComponent = entry.getValue();
-        // TODO: invokeOnComponent()
         FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), entry.getKey(), contextCallback);
-        //ComponentUtil.invokeOnComponent(facesContext, entry.getKey(), ajaxComponent, contextCallback);
       }
 
       UIViewRoot viewRoot = ((UIViewRoot) facesContext.getViewRoot());
@@ -102,10 +99,7 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
         component = component.getParent();
       }
     }
-    // TODO: invokeOnComponent()
     FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), actionId, contextCallback);
-
-    //ComponentUtil.invokeOnComponent(facesContext, actionId, actionComponent, contextCallback);
   }
 
   public PhaseId getPhase() {

@@ -21,6 +21,8 @@ import static org.apache.myfaces.tobago.ajax.api.AjaxUtils.encodeJavascriptStrin
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.io.Writer;
+import java.io.IOException;
 
 
 public class AjaxResponse {
@@ -73,6 +75,24 @@ public class AjaxResponse {
 
   public String getAjaxId() {
     return ajaxId;
+  }
+
+  public void writeJson(Writer writer) throws IOException {
+    writer.write("{\n    ajaxId: \"");
+    writer.write(ajaxId);
+    writer.write("\",\n");
+
+    writer.write("    responseCode: ");
+    writer.write(Integer.toString(responseCode));
+    writer.write(",\n");
+
+    writer.write("    html: \"");
+    writer.write(encodeJavascriptString(html));
+    writer.write("\",\n");
+    
+    writer.write("    script: function() {\n");
+    writer.write(javaScript);
+    writer.write("\n    }\n  }");
   }
 
   public String toJson() {
