@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.renderkit;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.webapp.TobagoResponseJsonWriterImpl;
 
 import javax.faces.FactoryFinder;
 import javax.faces.context.FacesContext;
@@ -89,12 +90,13 @@ public class TobagoRenderKit extends RenderKit {
     } else if (contentTypeList.indexOf("text/fo") > -1) {
       contentType = "text/fo";
       LOG.warn("patching content type from " + contentTypeList + " to " + contentType + "'");
+    } else if (contentTypeList.indexOf("application/json") > -1) {
+      return new TobagoResponseJsonWriterImpl(writer, "application/json", characterEncoding);
     } else {
       contentType = "text/html";
       LOG.warn("Content-Type '" + contentTypeList + "' not supported!"
           + " Using text/html", new Exception());
     }
-
     return new TobagoResponseWriterImpl(writer, contentType, characterEncoding);
   }
 
@@ -105,6 +107,7 @@ public class TobagoRenderKit extends RenderKit {
 
   @Override
   public ResponseStateManager getResponseStateManager() {
+    //return getHtmlBasicRenderKit().getResponseStateManager();
     return responseStateManager;
   }
 
