@@ -29,29 +29,6 @@
 
   <build>
     <plugins>
-      <!--<plugin>
-         <groupId>org.codehaus.mojo</groupId>
-         <artifactId>apt-maven-plugin</artifactId>
-         <version>1.0-beta-1-SNAPSHOT</version>
-         <executions>
-          <execution>
-            <id>tobago-tlds</id>
-            <goals><goal>execute</goal></goals>
-            <configuration>
-              <targetFiles>
-                <targetFile>org/apache/myfaces/tobago/taglib/component/tobago.tld</targetFile>
-                <targetFile>org/apache/myfaces/tobago/taglib/extension/tobago-extension.tld</targetFile>
-              </targetFiles>
-              <resourceTargetPath>META-INF</resourceTargetPath>
-              <generated>target/generated-tld</generated>
-              <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
-              <nocompile>true</nocompile>
-              <encoding>UTF-8</encoding>
-              <generateToBuildDir>false</generateToBuildDir>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>-->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
@@ -72,13 +49,12 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.myfaces.tobago</groupId>
-        <artifactId>maven-apt-plugin</artifactId>
-        <version>${project.version}</version>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>apt-maven-plugin</artifactId>
         <executions>
           <execution>
             <id>tobago-tlds</id>
-            <goals><goal>execute</goal></goals>
+            <goals><goal>process</goal></goals>
             <phase>compile</phase>
             <configuration>
               <targetFiles>
@@ -86,16 +62,18 @@
                 <targetFile>org/apache/myfaces/tobago/taglib/extension/tobago-extension.tld</targetFile>
               </targetFiles>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <generated>target/generated-tld</generated>
+              <outputDirectory>target/generated-tld</outputDirectory>
               <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
               <nocompile>true</nocompile>
               <encoding>${maven.compile.encoding}</encoding>
-              <A>jsf-version=${jsf.target}</A>
+              <options>
+                <option>jsf-version=${jsf.target}</option>
+              </options>
             </configuration>
           </execution>
           <execution>
             <id>tobago-components</id>
-            <goals><goal>execute</goal></goals>
+            <goals><goal>process</goal></goals>
             <phase>compile</phase>
             <configuration>
               <excludes>
@@ -105,18 +83,20 @@
                 <exclude>org/apache/myfaces/tobago/taglib/component/package-info.java</exclude>
               </excludes>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <generated>target/generated-component</generated>
+              <outputDirectory>target/generated-component</outputDirectory>
               <factory>org.apache.myfaces.tobago.apt.CreateComponentAnnotationProcessorFactory</factory>
               <fork>true</fork>
               <nocompile>true</nocompile>
               <encoding>${maven.compile.encoding}</encoding>
-              <A>jsf-version=${jsf.target}</A>
+              <options>
+                <option>jsf-version=${jsf.target}</option>
+              </options>
               <force>true</force>
             </configuration>
           </execution>
           <execution>
             <id>tobago-faces-config</id>
-            <goals><goal>execute</goal></goals>
+            <goals><goal>process</goal></goals>
             <phase>process-classes</phase>
             <configuration>
               <targetFiles>
@@ -125,19 +105,22 @@
               <excludes>
                 <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
                 <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
-               <!-- <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>-->
                 <exclude>org/apache/myfaces/tobago/internal/taglib/*</exclude>
                 <exclude>org/apache/myfaces/tobago/taglib/component/package-info.java</exclude>
                 <exclude>org/apache/myfaces/tobago/taglib/extension/package-info.java</exclude>
                 <exclude>org/apache/myfaces/tobago/component/*</exclude>
               </excludes>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <generated>target/generated-faces-config</generated>
+              <outputDirectory>target/generated-faces-config</outputDirectory>
               <factory>org.apache.myfaces.tobago.apt.FacesConfigAnnotationProcessorFactory</factory>
               <fork>true</fork>
               <nocompile>true</nocompile>
               <encoding>${maven.compile.encoding}</encoding>
-              <A>sourceFacesConfig=${basedir}/src/main/faces-config/faces-config.xml,targetFacesConfig=faces-config.xml,jsf-version=${jsf.target}</A>
+              <options>
+                <option>sourceFacesConfig=${basedir}/src/main/faces-config/faces-config.xml</option>
+                <option>targetFacesConfig=faces-config.xml</option>
+                <option>jsf-version=${jsf.target}</option>
+              </options>
             </configuration>
           </execution>
 
@@ -406,9 +389,8 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>org.apache.myfaces.tobago</groupId>
-            <artifactId>maven-apt-plugin</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>apt-maven-plugin</artifactId>
             <executions>
               <execution>
                 <id>tobago-doc</id>
@@ -506,26 +488,6 @@
         </plugins>
       </build>
     </profile>
-<!--
-    <profile>
-      <id>rt.jar</id>
-      <activation>
-        <os><family>!mac</family></os>
-      </activation>
-      <properties>
-        <java.classes.jar>lib/rt.jar</java.classes.jar>
-      </properties>
-    </profile>
-    <profile>
-      <id>classes.jar</id>
-      <activation>
-        <os><family>mac</family></os>
-      </activation>
-      <properties>
-        <java.classes.jar>../Classes/classes.jar</java.classes.jar>
-      </properties>
-    </profile>
--->
     <profile>
       <id>jdk14retro</id>
       <build>

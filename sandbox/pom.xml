@@ -54,13 +54,12 @@
         </executions>
       </plugin>
      <plugin>
-        <groupId>org.apache.myfaces.tobago</groupId>
-        <artifactId>maven-apt-plugin</artifactId>
-        <version>${project.version}</version>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>apt-maven-plugin</artifactId>
         <executions>
           <execution>
             <id>tobago-tlds</id>
-            <goals><goal>execute</goal></goals>
+            <goals><goal>process</goal></goals>
             <phase>compile</phase>
             <configuration>
               <targetFiles>
@@ -72,19 +71,22 @@
                 <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
                 <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
               </excludes>
-              <aptSourceRoots>
-                <aptSourceRoot>${project.build.directory}/tobago-core-sources</aptSourceRoot>
-              </aptSourceRoots>
+              <additionalSourceRoots>
+                <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
+              </additionalSourceRoots>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <generated>target/generated-tld</generated>
+              <outputDirectory>target/generated-tld</outputDirectory>
               <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
               <nocompile>true</nocompile>
               <encoding>${maven.compile.encoding}</encoding>
+              <options>
+                <option>jsf-version=${jsf.target}</option>
+              </options>
             </configuration>
           </execution>
           <execution>
             <id>tobago-components</id>
-            <goals><goal>execute</goal></goals>
+            <goals><goal>process</goal></goals>
             <phase>compile</phase>
             <configuration>
               <excludes>
@@ -94,21 +96,24 @@
                 <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
                 <exclude>org/apache/myfaces/tobago/taglib/sandbox/package-info.java</exclude>
               </excludes>
-              <aptSourceRoots>
-                <aptSourceRoot>${project.build.directory}/tobago-core-sources</aptSourceRoot>
-              </aptSourceRoots>
+              <additionalSourceRoots>
+                <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
+              </additionalSourceRoots>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <generated>target/generated-component</generated>
+              <outputDirectory>target/generated-component</outputDirectory>
               <factory>org.apache.myfaces.tobago.apt.CreateComponentAnnotationProcessorFactory</factory>
               <fork>true</fork>
               <nocompile>true</nocompile>
               <encoding>${maven.compile.encoding}</encoding>
               <force>true</force>
+              <options>
+                <option>jsf-version=${jsf.target}</option>
+              </options>
             </configuration>
           </execution>
           <execution>
             <id>tobago-faces-config</id>
-            <goals><goal>execute</goal></goals>
+            <goals><goal>process</goal></goals>
               <phase>process-classes</phase>
             <configuration>
               <targetFiles>
@@ -123,17 +128,21 @@
                 <exclude>org/apache/myfaces/tobago/convert/*</exclude>
                 <exclude>org/apache/myfaces/tobago/taglib/sandbox/package-info.java</exclude>
               </excludes>
-              <aptSourceRoots>
-                <aptSourceRoot>${project.build.directory}/tobago-core-sources</aptSourceRoot>
-              </aptSourceRoots>
+              <additionalSourceRoots>
+                <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
+              </additionalSourceRoots>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <generated>target/generated-faces-config</generated>
+              <outputDirectory>target/generated-faces-config</outputDirectory>
               <factory>org.apache.myfaces.tobago.apt.FacesConfigAnnotationProcessorFactory</factory>
               <!--<force>true</force>-->
               <fork>true</fork>
               <nocompile>true</nocompile>
               <encoding>${maven.compile.encoding}</encoding>
-              <A>sourceFacesConfig=${basedir}/src/main/faces-config/faces-config.xml,targetFacesConfig=faces-config.xml</A>
+              <options>
+                <option>sourceFacesConfig=${basedir}/src/main/faces-config/faces-config.xml</option>
+                <option>targetFacesConfig=faces-config.xml</option>
+                <option>jsf-version=${jsf.target}</option>
+              </options>
               <!--verbose>true</verbose-->
             </configuration>
           </execution>
@@ -366,12 +375,6 @@
                   <verify>true</verify>
                   <verifyClasspath>
                     <element>${java14.home}/${java.classes.jar}</element>
-<!--
-for macosx
-                     <element>/System/Library/Frameworks/JavaVM.framework/Versions/1.4/Classes/classes.jar</element>
-or
-                     <element>${java14.home}/../Classes/classes.jar</element>
--->
                   </verifyClasspath>
                 </configuration>
               </execution>

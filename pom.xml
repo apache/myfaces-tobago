@@ -520,6 +520,11 @@
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>apt-maven-plugin</artifactId>
+          <version>1.0-alpha-2</version>
+        </plugin>
+        <plugin>
           <artifactId>maven-remote-resources-plugin</artifactId>
           <version>1.0-alpha-6</version>
           <executions>

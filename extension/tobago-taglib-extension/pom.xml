@@ -69,13 +69,12 @@
       </plugin>
 
       <plugin>
-        <groupId>org.apache.myfaces.tobago</groupId>
-        <artifactId>maven-apt-plugin</artifactId>
-        <version>${project.version}</version>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>apt-maven-plugin</artifactId>
         <executions>
           <execution>
             <id>tobago-tlds</id>
-            <goals><goal>execute</goal></goals>
+            <goals><goal>process</goal></goals>
             <phase>compile</phase>
             <configuration>
               <targetFiles>
@@ -85,15 +84,17 @@
                 <exclude>${taglib.exclude}</exclude>
                 <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
               </excludes>
-              <aptSourceRoots>
-                <aptSourceRoot>${project.build.directory}/tobago-core-sources</aptSourceRoot>
-              </aptSourceRoots>
+              <additionalSourceRoots>
+                <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
+              </additionalSourceRoots>
               <resourceTargetPath>META-INF</resourceTargetPath>
-              <generated>target/generated-tld</generated>
+              <outputDirectory>target/generated-tld</outputDirectory>
               <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
               <nocompile>true</nocompile>
               <encoding>${maven.compile.encoding}</encoding>
-              <A>jsf-version=${jsf.target}</A>
+              <options>
+                <option>jsf-version=${jsf.target}</option>
+              </options>
             </configuration>
           </execution>
 
@@ -232,9 +233,8 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>org.apache.myfaces.tobago</groupId>
-            <artifactId>maven-apt-plugin</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>apt-maven-plugin</artifactId>
             <executions>
               <execution>
                 <id>tobago-doc</id>
@@ -243,7 +243,7 @@
                   <targetFiles>
                     <targetFile>org/apache/myfaces/tobago/taglib/extension/tobago-extension.xml</targetFile>
                   </targetFiles>
-                  <generated>${project.build.directory}/doc</generated>
+                  <outputDirectory>${project.build.directory}/doc</outputDirectory>
                   <factory>org.apache.myfaces.tobago.apt.TobagoAnnotationProcessorFactory</factory>
                   <nocompile>true</nocompile>
                   <encoding>${maven.compile.encoding}</encoding>
