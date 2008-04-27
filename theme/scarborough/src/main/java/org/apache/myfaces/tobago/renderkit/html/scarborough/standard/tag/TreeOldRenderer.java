@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.UITreeOld;
 import org.apache.myfaces.tobago.component.UITreeOldNode;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -39,7 +40,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -70,6 +70,7 @@ public class TreeOldRenderer extends LayoutableRendererBase {
       "treeMenuClose.gif",
   };
 
+  private static final String[] SCRIPTS = {"script/tree.js"};
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
@@ -101,6 +102,13 @@ public class TreeOldRenderer extends LayoutableRendererBase {
       }
     }
     tree.setValid(true);
+  }
+
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+    if (facesContext instanceof PageFacesContextWrapper) {
+      ((PageFacesContextWrapper) facesContext).getScriptFiles().add(SCRIPTS[0]);
+    }
   }
 
   public static boolean isSelectable(UITreeOld tree) {
@@ -201,12 +209,6 @@ public class TreeOldRenderer extends LayoutableRendererBase {
 
     String[] scriptTexts = createJavascript(facesContext, clientId, tree, root);
 
-    String[] scripts = {"script/tree.js"};
-    List<String> scriptFiles = ComponentUtil.findPage(tree).getScriptFiles();
-    for (String script : scripts) {
-      scriptFiles.add(script);
-    }
-
     if (!TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
       StringBuilder script = new StringBuilder();
       for (String scriptText : scriptTexts) {
@@ -215,7 +217,7 @@ public class TreeOldRenderer extends LayoutableRendererBase {
       }
       writer.writeJavascript(script.toString());
     } else {
-      HtmlRendererUtil.writeScriptLoader(facesContext, scripts, scriptTexts);
+      HtmlRendererUtil.writeScriptLoader(facesContext, SCRIPTS, scriptTexts);
     }
 
     writer.endElement(HtmlConstants.DIV);

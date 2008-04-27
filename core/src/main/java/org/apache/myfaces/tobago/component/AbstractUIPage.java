@@ -18,8 +18,6 @@ package org.apache.myfaces.tobago.component;
  */
 
 import org.apache.commons.collections.KeyValue;
-import org.apache.commons.collections.list.SetUniqueList;
-import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
@@ -43,7 +41,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.StringTokenizer;
 
 public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnComponent {
@@ -51,9 +48,6 @@ public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnC
   private static final Log LOG = LogFactory.getLog(AbstractUIPage.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Page";
-  public static final String ENCTYPE_KEY = AbstractUIPage.class.getName() + ".enctype";
-
-  public static final String DEFAULT_STYLE = "style/style.css";
 
   private static final int DEFAULT_WIDTH = 1024;
 
@@ -66,47 +60,6 @@ public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnC
   private String defaultActionId;
 
   private List<KeyValue> postfields;
-
-  private SetUniqueList scriptFiles;
-
-  private Set<String> scriptBlocks;
-
-  private Set<String> styleFiles;
-
-  private Set<String> styleBlocks;
-
-  private Set<String> onloadScripts;
-
-  private Set<String> onunloadScripts;
-
-  private Set<String> onexitScripts;
-
-  private Set<String> onsubmitScripts;
-
-  private Set<AbstractUIPopup> popups;
-
-
-  @SuppressWarnings("unchecked")
-  public AbstractUIPage() {
-    scriptFiles = SetUniqueList.decorate(new ArrayList());
-    scriptBlocks = new ListOrderedSet();
-    styleFiles = new ListOrderedSet();
-    styleFiles.add(DEFAULT_STYLE);
-    styleBlocks = new ListOrderedSet();
-    onloadScripts = new ListOrderedSet();
-    onunloadScripts = new ListOrderedSet();
-    onexitScripts = new ListOrderedSet();
-    onsubmitScripts = new ListOrderedSet();
-    popups = new ListOrderedSet();
-  }
-
-  @Override
-  public void encodeBegin(FacesContext facesContext) throws IOException {
-    // TODO change this should be renamed to DimensionUtils.prepare!!!
-    UILayout.getLayout(this).layoutBegin(facesContext, this);
-    super.encodeBegin(facesContext);
-  }
-
 
   @Override
   public void encodeChildren(FacesContext context) throws IOException {
@@ -126,8 +79,6 @@ public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnC
     checkTobagoRequest(facesContext);
 
     decode(facesContext);
-
-    clearScriptsAndPopups();
 
     markSubmittedForm(facesContext);
 
@@ -193,15 +144,6 @@ public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnC
       }
       facesContext.renderResponse();
     }
-  }
-
-  private void clearScriptsAndPopups() {
-    // clear script Set's
-    getOnloadScripts().clear();
-    getOnunloadScripts().clear();
-    getOnexitScripts().clear();
-    getScriptBlocks().clear();
-    getPopups().clear();
   }
 
   private void checkTobagoRequest(FacesContext facesContext) {
@@ -302,44 +244,6 @@ public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnC
   public void setDefaultActionId(String defaultActionId) {
     this.defaultActionId = defaultActionId;
   }
-
-  @SuppressWarnings("unchecked")
-  public List<String> getScriptFiles() {
-    return scriptFiles;
-  }
-
-  public Set<String> getScriptBlocks() {
-    return scriptBlocks;
-  }
-
-  public Set<String> getStyleFiles() {
-    return styleFiles;
-  }
-
-  public Set<String> getStyleBlocks() {
-    return styleBlocks;
-  }
-
-  public Set<String> getOnloadScripts() {
-    return onloadScripts;
-  }
-
-  public Set<String> getOnunloadScripts() {
-    return onunloadScripts;
-  }
-
-  public Set<String> getOnexitScripts() {
-    return onexitScripts;
-  }
-
-  public Set<String> getOnsubmitScripts() {
-    return onsubmitScripts;
-  }
-
-  public Set<AbstractUIPopup> getPopups() {
-    return popups;
-  }
-
 
   protected Integer getWidthInternal() {
     Integer requestWidth =

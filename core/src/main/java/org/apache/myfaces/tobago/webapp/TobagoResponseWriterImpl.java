@@ -124,6 +124,10 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
     }
   }
 
+  protected Writer getWriter() {
+    return writer;
+  }
+
   public void write(final char[] cbuf, final int off, final int len)
       throws IOException {
     writer.write(cbuf, off, len);
@@ -325,7 +329,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
     writeAttributeInternal(writer, name, value, escape);
   }
 
-  protected final void writeAttributeInternal(Writer write, String name, String value, boolean escape)
+  protected final void writeAttributeInternal(Writer writer, String name, String value, boolean escape)
       throws IOException {
     if (!startStillOpen) {
       String trace = getCallingClassStackTraceElementString();

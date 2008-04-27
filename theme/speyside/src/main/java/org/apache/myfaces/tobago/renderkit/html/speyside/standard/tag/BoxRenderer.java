@@ -112,7 +112,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     }
     writer.writeClassAttribute(contentInnerClasses);
     writer.writeStyleAttribute(innerStyle);
-    HtmlRendererUtil.renderDojoDndSource(component, writer, id);
+    HtmlRendererUtil.renderDojoDndSource(facesContext, component);
   }
 
 

@@ -22,7 +22,7 @@ import javax.faces.component.UIComponent;
 import java.io.IOException;
 
 public interface LayoutRenderer extends LayoutInformationProvider {
-  void prepareRender(FacesContext facesContext, UIComponent component);
+  void prepareRender(FacesContext facesContext, UIComponent component) throws IOException;
 
   void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component) throws IOException;
 }

@@ -41,6 +41,7 @@ import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.renderkit.LayoutableRenderer;
 import org.apache.myfaces.tobago.renderkit.LayoutRenderer;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
@@ -500,6 +501,31 @@ public class ComponentUtil {
     }
     return renderer;
   }
+
+  public static RendererBase getRendererBase(FacesContext facesContext, UIComponent component) {
+    return getRendererBase(facesContext, component.getFamily(), component.getRendererType());
+  }
+
+   public static RendererBase getRendererBase(FacesContext facesContext, String family, String rendererType) {
+    if (rendererType == null) {
+      return null;
+    }
+
+    Map requestMap = facesContext.getExternalContext().getRequestMap();
+    RendererBase renderer = (RendererBase) requestMap.get(RENDER_KEY_PREFIX + rendererType);
+
+    if (renderer == null) {
+      Renderer myRenderer = getRendererInternal(facesContext, family, rendererType);
+      if (myRenderer instanceof LayoutableRenderer) {
+        requestMap.put(RENDER_KEY_PREFIX + rendererType, myRenderer);
+        renderer = (RendererBase) myRenderer;
+      } else {
+        return null;
+      }
+    }
+    return renderer;
+  }
+
 
   private static Renderer getRendererInternal(FacesContext facesContext, String family, String rendererType) {
     RenderKitFactory rkFactory = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);

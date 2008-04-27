@@ -25,6 +25,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -44,9 +45,15 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
 
   private static final String SLIDER_WIDTH_PERCENT = "sliderWidthPercent";
 
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+    if (facesContext instanceof PageFacesContextWrapper) {
+      final String[] scripts = new String[]{"script/scriptaculous.js"};
+      ((PageFacesContextWrapper) facesContext).getScriptFiles().add(scripts[0]);
+    }
+  }
+
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    final String[] scripts = new String[]{"script/scriptaculous.js"};
-    HtmlRendererUtil.addScripts(component, scripts);
 
     String id = component.getClientId(facesContext);
     String currentValue = getCurrentValue(facesContext, component);

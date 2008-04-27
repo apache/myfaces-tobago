@@ -46,6 +46,8 @@ public @interface UIComponentTag {
 
   boolean isLayout() default false;
 
+  boolean isTransparentForLayout() default false;
+
   String[] interfaces() default {};
 
   Facet[] facets() default {};

@@ -35,14 +35,12 @@ public abstract class UILayout extends UIComponentBase {
   private static final Log LOG = LogFactory.getLog(UILayout.class);
 
   public void layoutBegin(FacesContext facesContext, UIComponent component) {
-    // prepare component to render
-    prepareDimension(facesContext, component);
+
 
   }
 
 
   public static void prepareDimension(FacesContext facesContext, UIComponent component) {
-//    LOG.info("prepareDimension for " + component.getClientId(facesContext) + " is " + component.getRendererType());
     setInnerWidth(facesContext, component);
     setInnerHeight(facesContext, component);
   }
@@ -65,11 +63,9 @@ public abstract class UILayout extends UIComponentBase {
     }
   }
 
-
   public void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component) throws IOException {
     ((LayoutRenderer) getRenderer(facesContext)).encodeChildrenOfComponent(facesContext, component);
   }
-
 
   public static UILayout getLayout(UIComponent component) {
     UILayout layout = (UILayout) component.getFacet(FACET_LAYOUT);

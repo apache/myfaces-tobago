@@ -106,7 +106,7 @@ public class ImageRenderer extends LayoutableRendererBase {
     writer.writeClassAttribute();
     writer.endElement(HtmlConstants.IMG);
 
-    HtmlRendererUtil.renderDojoDndSource(component, writer, clientId);
+    HtmlRendererUtil.renderDojoDndSource(facesContext, component);
   }
 
   private String createSrc(String src, String ext) {

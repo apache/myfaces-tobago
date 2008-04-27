@@ -17,19 +17,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeOldNode;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
@@ -42,15 +36,34 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
+import java.util.Arrays;
+
+/*
+ * Created 07.02.2003 16:00:00.
+ * $Id$
+ */
 
 public class TreeListboxRenderer extends TreeOldRenderer{
 
   private static final Log LOG = LogFactory.getLog(TreeListboxRenderer.class);
 
+  private static final String[] SCRIPTS = {"script/tree.js"};
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+    if (facesContext instanceof PageFacesContextWrapper) {
+      if (!TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
+        ((PageFacesContextWrapper) facesContext).getScriptFiles().addAll(Arrays.asList(SCRIPTS));
+      }
+      if (LOG.isDebugEnabled()) {
+        ((PageFacesContextWrapper) facesContext).getOnloadScripts().add("tbgTreeStates('"
+            + component.getClientId(facesContext) + "')");
+      }
+    }
+  }
+
   @Override
   public void encodeBegin(
       FacesContext facesContext, UIComponent component) throws IOException {
-
 
     UITreeListbox tree = (UITreeListbox) component;
     tree.createSelectionPath();
@@ -58,11 +71,6 @@ public class TreeListboxRenderer extends TreeOldRenderer{
     String clientId = tree.getClientId(facesContext);
     UITreeOldNode root = tree.getRoot();
 
-
-    AbstractUIPage page = ComponentUtil.findPage(facesContext, tree);
-    if (LOG.isDebugEnabled()) {
-      page.getOnloadScripts().add("tbgTreeStates('" + clientId + "')");
-    }
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.DIV, tree);
     writer.writeClassAttribute();
@@ -98,16 +106,10 @@ public class TreeListboxRenderer extends TreeOldRenderer{
 
     String scriptText = createJavascript(facesContext, clientId, tree, root);
 
-    String[] scripts = {"script/tree.js"};
-    List<String> scriptFiles = ComponentUtil.findPage(facesContext, tree).getScriptFiles();
-    for (String script : scripts) {
-      scriptFiles.add(script);
-    }
-
     if (!TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
       writer.writeJavascript(scriptText);
     } else {
-      HtmlRendererUtil.writeScriptLoader(facesContext, scripts,
+      HtmlRendererUtil.writeScriptLoader(facesContext, SCRIPTS,
           new String[] {scriptText.replaceAll("\n", " ")});
     }
 

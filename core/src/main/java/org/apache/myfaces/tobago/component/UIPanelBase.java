@@ -35,12 +35,6 @@ import java.io.IOException;
 public class UIPanelBase extends javax.faces.component.UIPanel
     implements AjaxComponent, InvokeOnComponent {
 
-  public void encodeBegin(FacesContext facesContext) throws IOException {
-    // TODO change this should be renamed to DimensionUtils.prepare!!!
-    UILayout.getLayout(this).layoutBegin(facesContext, this);
-    super.encodeBegin(facesContext);
-  }
-
   public void encodeChildren(FacesContext facesContext) throws IOException {
     if (isRendered()) {
       UILayout.getLayout(this).encodeChildrenOfComponent(facesContext, this);

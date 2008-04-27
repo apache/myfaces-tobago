@@ -22,19 +22,18 @@ import org.apache.myfaces.tobago.event.PopupActionListener;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER_POPUP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_RESET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.UIDateInput;
-import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.UITimeInput;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.util.DateFormatUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -54,6 +53,19 @@ import java.util.TimeZone;
  */
 public class DatePickerRenderer extends LinkRenderer {
   private static final Log LOG = LogFactory.getLog(DatePickerRenderer.class);
+
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    component.getAttributes().put(ATTR_LAYOUT_WIDTH, getConfiguredValue(facesContext, component, "pickerWidth"));
+    if (facesContext instanceof PageFacesContextWrapper) {
+      UIPopup popup = (UIPopup) component.getFacets().get(FACET_PICKER_POPUP);
+      if (popup != null) {
+        popup.getAttributes().put(ATTR_WIDTH, ThemeConfig.getValue(facesContext, component, "CalendarPopupWidth"));
+        popup.getAttributes().put(ATTR_HEIGHT, ThemeConfig.getValue(facesContext, component, "CalendarPopupHeight"));
+        ((PageFacesContextWrapper) facesContext).getPopups().add(popup);
+      }
+    }
+    super.prepareRender(facesContext, component);
+  }
 
   public void encodeBegin(FacesContext facesContext,
       UIComponent component) throws IOException {
@@ -77,7 +89,7 @@ public class DatePickerRenderer extends LinkRenderer {
     }
     Map<String, Object>  attributes = link.getAttributes();
     link.setActionListener(datePickerController);
-    attributes.put(ATTR_LAYOUT_WIDTH, getConfiguredValue(facesContext, component, "pickerWidth"));
+
     UIComponent hidden = (UIComponent) link.getChildren().get(0);
     UIPopup popup = (UIPopup) link.getFacets().get(FACET_PICKER_POPUP);
 
@@ -86,12 +98,6 @@ public class DatePickerRenderer extends LinkRenderer {
         + hidden.getClientId(facesContext) + "', '"
         + popup.getClientId(facesContext) +"')");
 
-    attributes = popup.getAttributes();
-
-    attributes.put(ATTR_WIDTH, ThemeConfig.getValue(facesContext, link, "CalendarPopupWidth"));
-    int popupHeight = ThemeConfig.getValue(facesContext, link, "CalendarPopupHeight");
-    attributes.put(ATTR_POPUP_RESET, Boolean.TRUE);
-    attributes.put(ATTR_HEIGHT, popupHeight);
     Converter converter = getConverter(facesContext, dateInput);
     String converterPattern = "yyyy-MM-dd"; // from calendar.js  initCalendarParse
     if (converter instanceof DateTimeConverter) {
@@ -105,20 +111,14 @@ public class DatePickerRenderer extends LinkRenderer {
     attributes = okButton.getAttributes();
     attributes.put(ATTR_ACTION_ONCLICK, "var textBox = writeIntoField2(this);Tobago.closePopup(this);textBox.focus();");
     attributes.put(TobagoConstants.ATTR_POPUP_CLOSE, "afterSubmit");
-   // okButton.setActionListener(datePickerController);
 
     UICommand cancelButton  = (UICommand) popup.findComponent(DatePickerController.CLOSE_POPUP);
     attributes = cancelButton.getAttributes();
     attributes.put(ATTR_ACTION_ONCLICK, "var textBox = writeIntoField2(this);Tobago.closePopup(this);textBox.focus();");
     attributes.put(TobagoConstants.ATTR_POPUP_CLOSE, "immediate");
-    //cancelButton.setActionListener(datePickerController);
 
     applyConverterPattern(facesContext, popup, converterPattern);
-
-    if (popup != null) {
-      AbstractUIPage page = ComponentUtil.findPage(facesContext, link);
-      page.getPopups().add(popup);
-    }
+    
     if (!ComponentUtil.containsPopupActionListener(link)) {
       link.addActionListener(new PopupActionListener(popup.getId()));
     }

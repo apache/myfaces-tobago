@@ -26,7 +26,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DELAY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DOCTYPE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ENCTYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_METHOD;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PAGE_MENU;
@@ -42,13 +41,13 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
-import org.apache.myfaces.tobago.util.FastStringWriter;
 import org.apache.myfaces.tobago.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.util.ResponseUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -110,39 +109,14 @@ public class PageRenderer extends PageRendererBase {
       UIComponent component) throws IOException {
     UIPage page = (UIPage) component;
 
-    HtmlRendererUtil.prepareRender(facesContext, page);
+    // invoke prepareRender
+
+    PageFacesContextWrapper pageFacesContext = new PageFacesContextWrapper(facesContext);
+    RenderUtil.prepareRendererAll(pageFacesContext, page);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    // replace responseWriter and render page content
-    FastStringWriter content = new FastStringWriter(1024*10);
-    ResponseWriter contentWriter = writer.cloneWithWriter(content);
-    facesContext.setResponseWriter(contentWriter);
 
-    UIComponent menubar = page.getFacet(FACET_MENUBAR);
-    if (menubar != null) {
-      menubar.getAttributes().put(ATTR_PAGE_MENU, Boolean.TRUE);
-      page.getOnloadScripts().add("Tobago.setElementWidth('"
-          + menubar.getClientId(facesContext) + "', Tobago.getBrowserInnerWidth())");
-      RenderUtil.encode(facesContext, menubar);
-    }
-
-    UILayout.getLayout(component).encodeChildrenOfComponent(facesContext, component);
-//    RenderUtil.encodeChildren(facesContext, page);
-
-// render popups into buffer
-    FastStringWriter popups = new FastStringWriter();
-    contentWriter = writer.cloneWithWriter(popups);
-    facesContext.setResponseWriter(contentWriter);
-
-    // write popup components
-    // beware of ConcurrentModificationException in cascating popups!
-    // no foreach
-    UIPopup[] popupArray = page.getPopups().toArray(new UIPopup[page.getPopups().size()]);
-    for (int i = 0; i < popupArray.length; i++) {
-      UIComponent popup = popupArray[i];
-      RenderUtil.encode(facesContext, popup);
-    }
 
     // reset responseWriter and render page
     facesContext.setResponseWriter(writer);
@@ -195,7 +169,7 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement(HtmlConstants.TITLE);
 
     // style files
-    for (String styleFile : page.getStyleFiles()) {
+    for (String styleFile : pageFacesContext.getStyleFiles()) {
       List<String> styles = ResourceManagerUtil.getStyles(facesContext, styleFile);
       for (String styleString : styles) {
         if (styleString.length() > 0) {
@@ -233,7 +207,7 @@ public class PageRenderer extends PageRendererBase {
     }
 
     // style sniplets
-    Set<String> styleBlocks = page.getStyleBlocks();
+    Set<String> styleBlocks = pageFacesContext.getStyleBlocks();
     if (styleBlocks.size() > 0) {
       writer.startElement(HtmlConstants.STYLE, null);
       for (String cssBlock : styleBlocks) {
@@ -243,7 +217,7 @@ public class PageRenderer extends PageRendererBase {
     }
 
     // script files
-    List<String> scriptFiles = page.getScriptFiles();
+    List<String> scriptFiles = pageFacesContext.getScriptFiles();
     // prototype.js and tobago.js needs to be first!
     addScripts(writer, facesContext, "script/dojo/dojo/dojo.js");
     addScripts(writer, facesContext, "script/tobago.js");
@@ -296,32 +270,37 @@ public class PageRenderer extends PageRendererBase {
         } else {
           action = "Tobago.submitAction('"+ command.getClientId(facesContext) + "', " + transition + " )";
         }
-        page.getOnloadScripts().add("setTimeout(\"" + action  + "\", " + duration + ");\n");
+        pageFacesContext.getOnloadScripts().add("setTimeout(\"" + action  + "\", " + duration + ");\n");
       }
     }
-    StringBuilder script = new StringBuilder();
 
+    UIComponent menubar = page.getFacet(FACET_MENUBAR);
+    if (menubar != null) {
+      pageFacesContext.getOnloadScripts().add("Tobago.setElementWidth('"
+          + menubar.getClientId(facesContext) + "', Tobago.getBrowserInnerWidth())");
+    }
+    writer.startJavascript();
     // onload script
-    writeEventFunction(script, page.getOnloadScripts(), "load", false);
+    writeEventFunction(writer, pageFacesContext.getOnloadScripts(), "load", false);
 
     // onunload script
-    writeEventFunction(script, page.getOnunloadScripts(), "unload", false);
+    writeEventFunction(writer, pageFacesContext.getOnunloadScripts(), "unload", false);
 
     // onexit script
-    writeEventFunction(script, page.getOnexitScripts(), "exit", false);
+    writeEventFunction(writer, pageFacesContext.getOnexitScripts(), "exit", false);
 
-    writeEventFunction(script, page.getOnsubmitScripts(), "submit", true);
+    writeEventFunction(writer, pageFacesContext.getOnsubmitScripts(), "submit", true);
 
    int debugCounter = 0;
-    for (String scriptBlock : page.getScriptBlocks()) {
+   for (String scriptBlock : pageFacesContext.getScriptBlocks()) {
 
       if (LOG.isDebugEnabled()) {
         LOG.debug("write scriptblock " + ++debugCounter + " :\n" + scriptBlock);
       }
-      script.append(scriptBlock);
-      script.append('\n');
+      writer.write(scriptBlock);
+      writer.write('\n');
     }
-    writer.writeJavascript(script.toString());
+    writer.endJavascript();
 
     String clientId = page.getClientId(facesContext);
 
@@ -335,17 +314,17 @@ public class PageRenderer extends PageRendererBase {
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
 
-    StringBuilder images = new StringBuilder();
-    images.append("Tobago.pngFixBlankImage = '");
-    images.append(ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif"));
-    images.append("';\n");
-    images.append("Tobago.OVERLAY_BACKGROUND = '");
-    images.append(ResourceManagerUtil.getImageWithPath(facesContext, "image/tobago-overlay-background.png"));
-    images.append("';\n");
-    images.append("Tobago.OVERLAY_WAIT = '");
-    images.append(ResourceManagerUtil.getImageWithPath(facesContext, "image/tobago-overlay-wait.gif"));
-    images.append("';\n");
-    writer.writeJavascript(images.toString());
+    writer.startJavascript();
+    writer.write("Tobago.pngFixBlankImage = '");
+    writer.write(ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif"));
+    writer.write("';\n");
+    writer.write("Tobago.OVERLAY_BACKGROUND = '");
+    writer.write(ResourceManagerUtil.getImageWithPath(facesContext, "image/tobago-overlay-background.png"));
+    writer.write("';\n");
+    writer.write("Tobago.OVERLAY_WAIT = '");
+    writer.write(ResourceManagerUtil.getImageWithPath(facesContext, "image/tobago-overlay-wait.gif"));
+    writer.write("';\n");
+    writer.endJavascript();
 
     if (debugMode) {
       final String[] jsFiles = new String[]{
@@ -358,7 +337,7 @@ public class PageRenderer extends PageRendererBase {
     writer.writeJavascript("TbgTimer.startBody = new Date();");
     //}
 
-    HtmlRendererUtil.renderDojoDndSource(component, writer, clientId);
+    HtmlRendererUtil.renderDojoDndSource(facesContext, component);
     
     writer.startElement(HtmlConstants.FORM, page);
     writer.writeNameAttribute(
@@ -366,11 +345,9 @@ public class PageRenderer extends PageRendererBase {
     writer.writeAttribute(HtmlAttributes.ACTION, formAction, true);
     writer.writeIdAttribute(page.getFormId(facesContext));
     writer.writeAttribute(HtmlAttributes.METHOD, getMethod(page), false);
-    String enctype = (String) facesContext.getExternalContext().getRequestMap().get(UIPage.ENCTYPE_KEY);
+    String enctype = pageFacesContext.getEnctype();
     if (enctype != null) {
-      writer.writeAttribute(HtmlAttributes.ENCTYPE, enctype, false); 
-    } else {
-      writer.writeAttributeFromComponent(HtmlAttributes.ENCTYPE, ATTR_ENCTYPE);
+      writer.writeAttribute(HtmlAttributes.ENCTYPE, enctype, false);
     }
     // TODO: enable configuration of  'accept-charset'
     writer.writeAttribute(HtmlAttributes.ACCEPT_CHARSET, FORM_ACCEPT_CHARSET, false);
@@ -424,19 +401,28 @@ public class PageRenderer extends PageRendererBase {
     }
 */
 
+    if (menubar != null) {
+      menubar.getAttributes().put(ATTR_PAGE_MENU, Boolean.TRUE);
+      RenderUtil.encode(facesContext, menubar);
+    }
     // write the proviously rendered page content
-    writer.write(content.toString());
+    UILayout.getLayout(component).encodeChildrenOfComponent(facesContext, component);
 
-    // write the previously rendered popups
-    writer.write(popups.toString());
+    // write popup components
+    // beware of ConcurrentModificationException in cascating popups!
+    // no foreach
+    UIPopup[] popupArray = pageFacesContext.getPopups().toArray(new UIPopup[pageFacesContext.getPopups().size()]);
+    for (int i = 0; i < popupArray.length; i++) {
+      UIComponent popup = popupArray[i];
+      RenderUtil.encode(facesContext, popup);
+    }
+
 
     writer.startElement(HtmlConstants.SPAN, null);
     writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "jsf-state-container");
     writer.flush();
     viewHandler.writeState(facesContext);
     writer.endElement(HtmlConstants.SPAN);
-
-//    facesContext.getApplication().getViewHandler().writeState(facesContext);
 
     writer.endElement(HtmlConstants.FORM);
 
@@ -476,35 +462,34 @@ public class PageRenderer extends PageRendererBase {
     }
   }
 
-  private void writeEventFunction(
-      StringBuilder script, Set<String> eventFunctions, String event, boolean returnBoolean)
-      throws IOException {
+  private void writeEventFunction(TobagoResponseWriter writer, Set<String> eventFunctions,
+      String event, boolean returnBoolean) throws IOException {
     if (!eventFunctions.isEmpty()) {
-      script.append("Tobago.applicationOn");
-      script.append(event);
-      script.append(" = function() {\n");
+      writer.write("Tobago.applicationOn");
+      writer.write(event);
+      writer.write(" = function() {\n");
       if (returnBoolean) {
-        script.append("  var result;\n");
+        writer.write("  var result;\n");
       }
       for (String function : eventFunctions) {
         if (returnBoolean) {
-          script.append("  result = ");
+          writer.write("  result = ");
         } else {
-          script.append("  ");
+          writer.write("  ");
         }
-        script.append(function);
+        writer.write(function);
         if (!function.trim().endsWith(";")) {
-          script.append(";\n");
+          writer.write(";\n");
         } else {
-          script.append("\n");
+          writer.write("\n");
         }
         if (returnBoolean) {
-          script.append("  if (typeof result == \"boolean\" && ! result) {\n");
-          script.append("    return false;\n");
-          script.append("  }\n");
+          writer.write("  if (typeof result == \"boolean\" && ! result) {\n");
+          writer.write("    return false;\n");
+          writer.write("  }\n");
         }
       }
-      script.append("\n  return true;\n}\n");
+      writer.write("\n  return true;\n}\n");
     }
   }
 

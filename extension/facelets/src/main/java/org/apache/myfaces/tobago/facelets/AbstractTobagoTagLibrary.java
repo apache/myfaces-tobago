@@ -35,8 +35,6 @@ public class AbstractTobagoTagLibrary  extends AbstractTagLibrary {
     addTagHandler("popupReference", PopupReferenceHandler.class);
     addTagHandler("loadBundle", LoadBundleHandler.class);
     addTagHandler("converter", ConverterHandler.class);
-    addTagHandler("script", ScriptHandler.class);
-    addTagHandler("style", StyleHandler.class);
     addValidator("validateFileItem", FileItemValidator.VALIDATOR_ID);
     addValidator("validateSubmittedValueLength", SubmittedValueLengthValidator.VALIDATOR_ID);   
   }

@@ -17,15 +17,10 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
-import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
-import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.jsp.JspException;
@@ -35,9 +30,9 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * Add a style tag.
  * Collected bodyContent is rendered as content into a style tag.
  */
-@Tag(name = "style", bodyContent = BodyContent.TAGDEPENDENT)
-@BodyContentDescription(contentType = "css")
-@TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.StyleTag")
+//@Tag(name = "style", bodyContent = BodyContent.TAGDEPENDENT)
+//@BodyContentDescription(contentType = "css")
+//@TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.StyleTag")
 public abstract class StyleTag extends BodyTagSupport implements HasId {
 
   private static final long serialVersionUID = -2201525304632479403L;
@@ -61,13 +56,13 @@ public abstract class StyleTag extends BodyTagSupport implements HasId {
     }
 
     if (isStyleSet()) {
-      page.getStyleFiles().add(TagUtils.getValueFromEl(getStyleValue()));
+      //page.getStyleFiles().add(TagUtils.getValueFromEl(getStyleValue()));
     }
 
     if (bodyContent != null) {
       String classes = bodyContent.getString();
       bodyContent.clearBody();
-      page.getStyleBlocks().add(TagUtils.getValueFromEl(classes));
+      //page.getStyleBlocks().add(TagUtils.getValueFromEl(classes));
     }
 
     return EVAL_PAGE;

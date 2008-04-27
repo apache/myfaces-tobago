@@ -21,7 +21,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CALENDAR_DATE_INPUT_ID;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_RESET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER_POPUP;
@@ -44,7 +43,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
-import java.util.Map;
 
 /*
  * Date: 30.05.2006
@@ -159,10 +157,6 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
 
     popup.setRendered(false);
 
-    Map<String, Object> attributes = popup.getAttributes();
-    attributes.put(ATTR_POPUP_RESET, Boolean.TRUE);
-    //int popupHeight = ThemeConfig.getValue(facesContext, link, "CalendarPopupHeight");
-    //attributes.put(ATTR_HEIGHT, String.valueOf(popupHeight));
     final UIComponent box = CreateComponentUtils.createComponent(
         facesContext, UIBox.COMPONENT_TYPE, RENDERER_TYPE_BOX);
     popup.getChildren().add(box);
@@ -175,7 +169,6 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
     box.getFacets().put(FACET_LAYOUT, layout);
     layout.setId("layout");
     layout.getAttributes().put(ATTR_ROWS, "*;fixed;fixed");
-//    layout.getAttributes().put(TobagoConstants.ATTR_BORDER, "1");
 
     final UIComponent calendar = CreateComponentUtils.createComponent(
         facesContext, javax.faces.component.UIOutput.COMPONENT_TYPE,
@@ -230,8 +223,7 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
             RENDERER_TYPE_BUTTON);
     buttonPanel.getChildren().add(okButton);
     okButton.setId("ok" + DatePickerController.CLOSE_POPUP);
-    attributes = okButton.getAttributes();
-    attributes.put(ATTR_LABEL, ResourceManagerUtil.getPropertyNotNull(
+    okButton.getAttributes().put(ATTR_LABEL, ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "datePickerOk"));
 
     final UICommand cancelButton =
@@ -239,8 +231,8 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
             org.apache.myfaces.tobago.component.UIButtonCommand.COMPONENT_TYPE,
             RENDERER_TYPE_BUTTON);
     buttonPanel.getChildren().add(cancelButton);
-    attributes = cancelButton.getAttributes();
-    attributes.put(ATTR_LABEL, ResourceManagerUtil.getPropertyNotNull(
+
+    cancelButton.getAttributes().put(ATTR_LABEL, ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "datePickerCancel"));
     cancelButton.setId(DatePickerController.CLOSE_POPUP);
 

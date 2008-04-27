@@ -93,7 +93,7 @@ public class ToolBarRenderer extends LayoutableRendererBase {
       HtmlRendererUtil.renderDojoDndItem(toolbar, writer, true);
       writer.writeClassAttribute();
       writer.writeStyleAttribute();
-      HtmlRendererUtil.renderDojoDndSource(toolbar, writer, clientId);
+      HtmlRendererUtil.renderDojoDndSource(facesContext, toolbar);
       writer.startElement(HtmlConstants.DIV, toolbar);
       boolean right = false;
       if (toolbar instanceof UIToolBar) {

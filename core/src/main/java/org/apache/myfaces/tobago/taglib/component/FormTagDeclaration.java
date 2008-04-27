@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIForm",
     interfaces = "org.apache.myfaces.tobago.component.Form",
     rendererType = "Form",
+    isTransparentForLayout = true,
     allowedChildComponenents = "ALL")
 public interface FormTagDeclaration extends HasBinding, HasId {
 

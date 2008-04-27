@@ -37,12 +37,6 @@ public abstract class UIInputBase extends javax.faces.component.UIInput implemen
     }
   }
 
-  public void encodeBegin(FacesContext facesContext) throws IOException {
-    // TODO change this should be renamed to DimensionUtils.prepare!!!
-    UILayout.getLayout(this).layoutBegin(facesContext, this);
-    super.encodeBegin(facesContext);
-  }
-
   public int encodeAjax(FacesContext facesContext) throws IOException {
     return AjaxUtils.encodeAjaxComponent(facesContext, this);
   }

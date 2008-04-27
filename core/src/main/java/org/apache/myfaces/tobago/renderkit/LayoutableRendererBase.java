@@ -22,9 +22,14 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.Cell;
 import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -32,6 +37,7 @@ import java.awt.Dimension;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public abstract class LayoutableRendererBase
     extends RendererBase implements LayoutableRenderer {
@@ -142,11 +148,123 @@ public abstract class LayoutableRendererBase
     }
   }
 
-
-
   public void layoutBegin(FacesContext context, UIComponent component) throws IOException {
   }
 
   public void layoutEnd(FacesContext context, UIComponent component) throws IOException {
+  }
+
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    
+    prepareDimension(facesContext, component);
+    final String rendererType = component.getRendererType();
+    if (rendererType != null) {
+      final String rendererName = getRendererName(rendererType);
+      StyleClasses classes = StyleClasses.ensureStyleClasses(component);
+      classes.updateClassAttributeAndMarkup(component, rendererName);
+    } else {
+      LOG.error("No renderType for " + component); 
+    }
+    layoutSpace(facesContext, component, true);
+    layoutSpace(facesContext, component, false);
+  }
+
+   void prepareDimension(FacesContext facesContext, UIComponent component) {
+//    LOG.info("prepareDimension for " + component.getClientId(facesContext) + " is " + component.getRendererType());
+    setInnerWidth(facesContext, component);
+    setInnerHeight(facesContext, component);
+  }
+
+  void setInnerWidth(FacesContext facesContext, UIComponent component) {
+    Integer layoutWidth = LayoutUtil.getLayoutWidth(component);
+    if (layoutWidth != null) {
+      int space = layoutWidth.intValue();
+      int innerSpace = LayoutUtil.getInnerSpace(facesContext, component, space, true);
+      component.getAttributes().put(ATTR_INNER_WIDTH, Integer.valueOf(innerSpace));
+    }
+  }
+
+  void setInnerHeight(FacesContext facesContext, UIComponent component) {
+    Integer layoutHeight = LayoutUtil.getLayoutHeight(component);
+    if (layoutHeight != null) {
+      int space = layoutHeight.intValue();
+      int innerSpace = LayoutUtil.getInnerSpace(facesContext, component, space, false);
+      component.getAttributes().put(ATTR_INNER_HEIGHT, Integer.valueOf(innerSpace));
+    }
+  }
+
+  private void layoutSpace(FacesContext facesContext, UIComponent component, boolean width) {
+
+    // prepare html 'style' attribute
+    Integer layoutSpace;
+    String layoutAttribute;
+    String styleAttribute;
+    if (width) {
+      layoutSpace = LayoutUtil.getLayoutWidth(component);
+      layoutAttribute = org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
+      styleAttribute = HtmlAttributes.WIDTH;
+    } else {
+      layoutSpace = LayoutUtil.getLayoutHeight(component);
+      layoutAttribute = org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
+      styleAttribute = HtmlAttributes.HEIGHT;
+    }
+    int space = -1;
+    if (layoutSpace != null) {
+      space = layoutSpace.intValue();
+    }
+    if (space == -1
+        && (!org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT.equals(component.getRendererType()))) {
+      UIComponent parent = component.getParent();
+      space = LayoutUtil.getInnerSpace(facesContext, parent, width);
+      if (space > 0 && !ComponentUtil.isFacetOf(component, parent)) {
+        component.getAttributes().put(layoutAttribute, Integer.valueOf(space));
+        if (width) {
+          component.getAttributes().remove(org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH);
+        } else {
+          component.getAttributes().remove(org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT);
+        }
+      }
+    }
+    if (space > 0) {
+      if (layoutSpace != null
+          || !ComponentUtil.getBooleanAttribute(component, org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE)) {
+        int styleSpace = space;
+          if (width) {
+            styleSpace -= getComponentExtraWidth(facesContext, component);
+          } else {
+            styleSpace -= getComponentExtraHeight(facesContext, component);
+          }
+
+        replaceStyleAttribute(component, styleAttribute, styleSpace);
+
+      }
+      UIComponent layout = component.getFacet(org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT);
+      if (layout != null) {
+        int layoutSpace2 = LayoutUtil.getInnerSpace(facesContext, component,
+            width);
+        if (layoutSpace2 > 0) {
+          layout.getAttributes().put(layoutAttribute, Integer.valueOf(layoutSpace2));
+        }
+      }
+    }
+  }
+
+  private void replaceStyleAttribute(UIComponent component, String styleAttribute, int value) {
+      HtmlStyleMap style = ensureStyleAttributeMap(component);
+      style.put(styleAttribute, value);
+    }
+
+  private HtmlStyleMap ensureStyleAttributeMap(UIComponent component) {
+    return ensureStyleAttributeMap(component, org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE);
+  }
+
+  private HtmlStyleMap ensureStyleAttributeMap(UIComponent component, String attribute) {
+    final Map attributes = component.getAttributes();
+    HtmlStyleMap style = (HtmlStyleMap) attributes.get(attribute);
+    if (style == null) {
+      style = new HtmlStyleMap();
+      attributes.put(attribute, style);
+    }
+    return style;
   }
 }

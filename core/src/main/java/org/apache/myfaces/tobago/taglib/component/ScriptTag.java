@@ -17,13 +17,9 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
-import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.jsp.JspException;
@@ -36,10 +32,10 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 /**
  * This tag add client side script to the rendered page.
  */
-@Tag(name = "script", bodyContent = BodyContent.JSP)
+//@Tag(name = "script", bodyContent = BodyContent.JSP)
 //    @Tag(name="script", bodyContent=BodyContent.TAGDEPENDENT)
 //    @BodyContentDescription(contentType="javascript")
-@TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.ScriptTag")
+//@TagGeneration(className = "org.apache.myfaces.tobago.internal.taglib.ScriptTag")
 public abstract class ScriptTag extends BodyTagSupport {
 
   private static final long serialVersionUID = 3253751129824779272L;
@@ -77,24 +73,24 @@ public abstract class ScriptTag extends BodyTagSupport {
     }
 
     if (isFileSet()) {
-      page.getScriptFiles().add(getFileValue());
+    //  page.getScriptFiles().add(getFileValue());
     }
     if (isOnloadSet()) {
-      page.getOnloadScripts().add(getOnloadValue());
+    //  page.getOnloadScripts().add(getOnloadValue());
     }
     if (isOnunloadSet())  {
-      page.getOnunloadScripts().add(TagUtils.getValueFromEl(getOnunloadValue()));
+    //  page.getOnunloadScripts().add(TagUtils.getValueFromEl(getOnunloadValue()));
     }
     if (isOnexitSet()) {
-      page.getOnexitScripts().add(TagUtils.getValueFromEl(getOnexitValue()));
+    //  page.getOnexitScripts().add(TagUtils.getValueFromEl(getOnexitValue()));
     }
     if (isOnsubmitSet()) {
-      page.getOnsubmitScripts().add(getOnsubmitValue());
+    //  page.getOnsubmitScripts().add(getOnsubmitValue());
     }
     if (bodyContent != null) {
       String script = bodyContent.getString();
       bodyContent.clearBody();
-      page.getScriptBlocks().add(TagUtils.getValueFromEl(script));
+     // page.getScriptBlocks().add(TagUtils.getValueFromEl(script));
     }
 
     return EVAL_PAGE;

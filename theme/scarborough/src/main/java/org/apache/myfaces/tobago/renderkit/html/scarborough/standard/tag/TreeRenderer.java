@@ -24,6 +24,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.AbstractUITree;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -38,7 +39,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
-import java.util.List;
 
 public class TreeRenderer extends LayoutableRendererBase {
 
@@ -65,6 +65,16 @@ public class TreeRenderer extends LayoutableRendererBase {
       "treeMenuOpen.gif",
       "treeMenuClose.gif",
   };
+
+  private static final String SCRIPT = "script/tobago-tree.js";
+
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+    if (facesContext instanceof PageFacesContextWrapper) {
+      // todo: this may be removed, it is twice on the page 1. in the header 2. in the ScriptLoader
+      ((PageFacesContextWrapper) facesContext).getScriptFiles().add(SCRIPT);
+    }
+  }
 
 
   @Override
@@ -131,12 +141,7 @@ public class TreeRenderer extends LayoutableRendererBase {
 
     String scriptTexts = createJavascript(facesContext);
 
-    String treeScript = "script/tobago-tree.js";
-    // todo: this may be removed, it is twice on the page 1. in the header 2. in the ScriptLoader
-    List<String> scriptFiles = ComponentUtil.findPage(facesContext, tree).getScriptFiles();
-    scriptFiles.add(treeScript);
-
-    HtmlRendererUtil.writeScriptLoader(facesContext, new String[]{treeScript}, new String[]{scriptTexts});
+    HtmlRendererUtil.writeScriptLoader(facesContext, new String[]{SCRIPT}, new String[]{scriptTexts});
 
     RenderUtil.encode(facesContext, root);
 

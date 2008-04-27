@@ -18,12 +18,9 @@ package org.apache.myfaces.tobago.component;
  */
 
 import org.apache.commons.fileupload.FileItem;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ENCTYPE;
 import org.apache.myfaces.tobago.util.MessageFactory;
-import org.apache.myfaces.tobago.util.ComponentUtil;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 /*
@@ -31,16 +28,6 @@ import javax.faces.context.FacesContext;
  * Time: 19:02:13
  */
 public abstract class AbstractUIFileInput extends javax.faces.component.UIInput {
-
-  public void setParent(UIComponent uiComponent) {
-    super.setParent(uiComponent);
-    AbstractUIPage form = ComponentUtil.findPage(getFacesContext(), uiComponent);
-    if (form != null) {
-      form.getAttributes().put(ATTR_ENCTYPE, "multipart/form-data");
-    } else {
-      getFacesContext().getExternalContext().getRequestMap().put(AbstractUIPage.ENCTYPE_KEY, "multipart/form-data");
-    }
-  }
 
   public void validate(FacesContext facesContext) {
     if (isRequired()) {

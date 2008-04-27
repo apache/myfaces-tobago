@@ -17,29 +17,30 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.renderkit.AbstractLayoutRenderer;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
+import org.apache.myfaces.tobago.component.UIStyle;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.component.UIComponent;
 import java.io.IOException;
 
-/*
- * User: weber
- * Date: Feb 22, 2005
- * Time: 3:05:58 PM
- */
-public class DefaultLayoutRenderer extends AbstractLayoutRenderer {
 
-  private static final Log LOG = LogFactory.getLog(DefaultLayoutRenderer.class);
+public class StyleRenderer extends RendererBase {
 
-  public void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    for (Object o : component.getChildren()) {
-      UIComponent child = (UIComponent) o;
-      RenderUtil.encode(facesContext, child);
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+    if (facesContext instanceof PageFacesContextWrapper) {
+      PageFacesContextWrapper pageFacesContext = (PageFacesContextWrapper) facesContext;
+      UIStyle styleComponent = (UIStyle) component;
+      String file = styleComponent.getFile();
+      if (file != null) {
+        pageFacesContext.getStyleFiles().add(file);
+      }
+      String style = styleComponent.getStyle();
+      if (style != null) {
+        pageFacesContext.getStyleBlocks().add(style);
+      }
     }
   }
 }

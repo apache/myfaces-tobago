@@ -72,7 +72,6 @@ import static org.apache.myfaces.tobago.component.UIData.ATTR_SCROLL_POSITION;
 import static org.apache.myfaces.tobago.component.UIData.NONE;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
-import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.layout.LayoutToken;
@@ -83,6 +82,7 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
@@ -117,11 +117,20 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 
   private static final Log LOG = LogFactory.getLog(SheetRenderer.class);
 
+  private static final String[] SCRIPTS = new String[]{"script/tobago-sheet.js"};
+
   public static final String WIDTHS_POSTFIX = SUBCOMPONENT_SEP + "widths";
   public static final String SCROLL_POSTFIX = SUBCOMPONENT_SEP + "scrollPosition";
   public static final String SELECTED_POSTFIX = SUBCOMPONENT_SEP + "selected";
 
   private static final Integer HEIGHT_0 = 0;
+
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+    if (facesContext instanceof PageFacesContextWrapper) {
+      ((PageFacesContextWrapper) facesContext).getScriptFiles().add(SCRIPTS[0]);
+    } 
+  }
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {
@@ -176,7 +185,6 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     String checked = contextPath + resourceManager.getImage(viewRoot, "image/sheetChecked.gif");
     boolean ajaxEnabled = TobagoConfig.getInstance(facesContext).isAjaxEnabled();
 
-    final String[] scripts = new String[]{"script/tobago-sheet.js"};
     Integer frequency = null;
     UIComponent facetReload = data.getFacet(FACET_RELOAD);
     if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
@@ -193,14 +201,8 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
             + ",  " + HtmlRendererUtil.getRenderedPartiallyJavascriptArray(facesContext, dblClickAction)
             + ");"
     };
-    AbstractUIPage page = ComponentUtil.findPage(facesContext, data);
-    page.getScriptFiles().add(scripts[0]);
 
-    if (!ajaxEnabled) {
-      page.getOnloadScripts().add(cmds[0]);
-    } else {
-      HtmlRendererUtil.writeScriptLoader(facesContext, scripts, cmds);
-    }
+    HtmlRendererUtil.writeScriptLoader(facesContext, SCRIPTS, cmds);
   }
 
   private void renderSheet(FacesContext facesContext, UIData data, boolean hasClickAction) throws IOException {
@@ -1329,4 +1331,12 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
      }
    }
 
+  @Override
+  public boolean getPrepareRendersChildren() {
+    return true;
+  }
+
+  @Override
+  public void prepareRendersChildren(FacesContext context, UIComponent component) {
+  }
 }

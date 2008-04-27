@@ -42,6 +42,7 @@ import org.apache.myfaces.tobago.component.UISelectOneCommand;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -109,15 +110,12 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       writer.endElement(HtmlConstants.SPAN);
 
 */
-      HtmlRendererUtil.renderDojoDndSource(component, writer, clientId);
+      HtmlRendererUtil.renderDojoDndSource(facesContext, component);
       writer.endElement(HtmlConstants.DIV);
     }
     attributes.put(MENU_ACCELERATOR_KEYS, new ArrayList<String>());
-    StringBuilder scriptBuffer = new StringBuilder();
-    String setupFunction
-        = createSetupFunction(facesContext, component, clientId, scriptBuffer);
-    addScriptsAndStyles(facesContext, component, clientId, setupFunction,
-        scriptBuffer.toString());
+
+    addScriptsAndStyles(facesContext, component, clientId);
     List<String> accKeyFunctions
         = (List<String>) attributes.remove(MENU_ACCELERATOR_KEYS);
     if (!accKeyFunctions.isEmpty()) {
@@ -140,15 +138,33 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     }
   }
 
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+    if (facesContext instanceof PageFacesContextWrapper) {
+      final String[] scripts = new String[]{"script/tobago-menu.js"};
+
+      ((PageFacesContextWrapper) facesContext).getScriptFiles().add(scripts[0]);
+      if (!TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
+        final AbstractUIPage page = ComponentUtil.findPage(facesContext, component);
+        String clientId = component.getClientId(facesContext);
+        String setupFunction = createSetupFunction(clientId);
+        String function = setupFunction + "('" + clientId + "', '"
+            + page.getClientId(facesContext) + "');";
+        String scriptBlock = createJavascriptFunction(facesContext, component, setupFunction);
+        ((PageFacesContextWrapper) facesContext).getScriptBlocks().add(scriptBlock);
+        ((PageFacesContextWrapper) facesContext).getOnloadScripts().add(function);
+      }
+    }
+  }
+
   protected void addScriptsAndStyles(FacesContext facesContext,
-                                     UIComponent component, final String clientId, String setupFunction,
-                                     String scriptBlock) throws IOException {
-    final AbstractUIPage page = ComponentUtil.findPage(facesContext, component);
-    page.getScriptFiles().add("script/tobago-menu.js");
-    String function = setupFunction + "('" + clientId + "', '"
-        + page.getClientId(facesContext) + "');";
+                                     UIComponent component, final String clientId) throws IOException {
 
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
+      final AbstractUIPage page = ComponentUtil.findPage(facesContext, component);
+      String setupFunction = createSetupFunction(clientId);
+      String function = setupFunction + "('" + clientId + "', '" + page.getClientId(facesContext) + "');";
+      String scriptBlock = createJavascriptFunction(facesContext, component, setupFunction);
       StringTokenizer st = new StringTokenizer(scriptBlock, "\n");
       ArrayList<String>  lines = new ArrayList<String>();
       while (st.hasMoreTokens()) {
@@ -158,20 +174,13 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       HtmlRendererUtil.writeScriptLoader(facesContext,
           new String[] {"script/tobago-menu.js"},
           lines.toArray(new String[lines.size()]));
-
-    } else {
-      page.getScriptBlocks().add(scriptBlock);
-      page.getOnloadScripts().add(function);
     }
   }
 
-  protected String createSetupFunction(FacesContext facesContext,
-                                       UIComponent component, final String clientId, StringBuilder sb)
+  protected String createJavascriptFunction(FacesContext facesContext,
+                                       UIComponent component, String setupFunction)
       throws IOException {
-    String setupFunction = "setupMenu"
-        +
-        clientId.replaceAll(":", "_").replaceAll("\\.", "_").replaceAll("-",
-            "_");
+    StringBuilder sb = new StringBuilder();
 
     sb.append("function ");
     sb.append(setupFunction);
@@ -209,7 +218,11 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     sb.append("  }\n");
     sb.append("  LOG.debug('Menu Total Time : ' + (new Date().getTime() - menuStart.getTime()));\n");
     sb.append("}\n");
-    return setupFunction;
+    return sb.toString();
+  }
+
+  private String createSetupFunction(String clientId) {
+    return "setupMenu" + clientId.replaceAll(":", "_").replaceAll("\\.", "_").replaceAll("-", "_");
   }
 
   private int addMenu(StringBuilder sb, String var, FacesContext facesContext,

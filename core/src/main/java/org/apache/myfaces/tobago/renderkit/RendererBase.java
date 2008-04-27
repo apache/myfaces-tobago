@@ -31,6 +31,7 @@ import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 import javax.faces.render.Renderer;
 import java.util.Locale;
+import java.io.IOException;
 
 /**
  * Date: Apr 21, 2007
@@ -48,6 +49,18 @@ public class RendererBase extends Renderer {
       LOG.warn("decode() should be overwritten! Renderer: "
           + this.getClass().getName());
     }
+  }
+
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    
+  }
+
+  public boolean getPrepareRendersChildren() {
+    return false;
+  }
+
+  public void prepareRendersChildren(FacesContext context, UIComponent component) {
+    
   }
 
   public String getRendererName(String rendererType) {

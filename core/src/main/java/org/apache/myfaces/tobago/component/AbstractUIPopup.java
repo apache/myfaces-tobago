@@ -42,7 +42,6 @@ public class AbstractUIPopup extends UIPanelBase implements NamingContainer, Aja
 
   public void setActivated(boolean activated) {
     this.activated = activated;
-    addToPage();
   }
 
   public void processDecodes(FacesContext facesContext) {
@@ -57,7 +56,6 @@ public class AbstractUIPopup extends UIPanelBase implements NamingContainer, Aja
         facesContext.renderResponse();
         throw e;
       }
-      addToPage();
     }
   }
 
@@ -116,13 +114,6 @@ public class AbstractUIPopup extends UIPanelBase implements NamingContainer, Aja
     }
   }
 
-
-  public void setParent(UIComponent uiComponent) {
-    super.setParent(uiComponent);
-    // XXX find a better way
-    addToPage();
-  }
-
   public Object saveState(FacesContext context) {
     Object[] saveState = new Object[2];
     saveState[0] = super.saveState(context);
@@ -134,14 +125,6 @@ public class AbstractUIPopup extends UIPanelBase implements NamingContainer, Aja
     Object[] values = (Object[]) savedState;
     super.restoreState(context, values[0]);
     activated = (Boolean) values[1];
-  }
-
-
-  private void addToPage() {
-    AbstractUIPage page = ComponentUtil.findPage(getFacesContext(), this);
-    if (page != null) {
-      page.getPopups().add(this);
-    }
   }
 
   public void encodeEnd(FacesContext context) throws IOException {

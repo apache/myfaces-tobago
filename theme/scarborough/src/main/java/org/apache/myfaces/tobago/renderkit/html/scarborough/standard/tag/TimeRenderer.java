@@ -29,9 +29,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.UITimeInput;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -55,9 +55,16 @@ public class TimeRenderer extends InputRendererBase {
   private static final Log LOG = LogFactory.getLog(TimeRenderer.class);
 
   private static final String[] SCRIPTS = {
-        "script/calendar.js",
-        "script/dateConverter.js"
-    };
+      "script/calendar.js",
+      "script/dateConverter.js"
+  };
+
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+    if (facesContext instanceof PageFacesContextWrapper) {
+      ((PageFacesContextWrapper) facesContext).getScriptFiles().addAll(Arrays.asList(SCRIPTS));
+    }
+  }
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     if (!(component instanceof UITimeInput)) {
@@ -65,8 +72,6 @@ public class TimeRenderer extends InputRendererBase {
       return;
     }
 
-    AbstractUIPage page = ComponentUtil.findPage(facesContext, component);
-    page.getScriptFiles().addAll(Arrays.asList(SCRIPTS));
     UITimeInput input = (UITimeInput) component;
 
     String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, input);

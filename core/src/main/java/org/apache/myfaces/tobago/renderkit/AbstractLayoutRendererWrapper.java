@@ -25,7 +25,7 @@ import java.io.IOException;
 public abstract class AbstractLayoutRendererWrapper
     extends AbstractLayoutableRendererBaseWrapper implements LayoutRenderer {
 
-  public void prepareRender(FacesContext facesContext, UIComponent component) {
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     ((LayoutRenderer) getRenderer(facesContext)).prepareRender(facesContext, component);
   }
 

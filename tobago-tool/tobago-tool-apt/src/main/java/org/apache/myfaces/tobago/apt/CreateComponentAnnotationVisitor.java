@@ -312,6 +312,8 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractLayoutRendererWrapper");
       } else if (ajaxEnabled) {
         info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractAjaxRendererBaseWrapper");
+      } else if (componentTag.isTransparentForLayout()) {
+        info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractRendererBaseWrapper");
       } else {
         info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractLayoutableRendererBaseWrapper");
       }

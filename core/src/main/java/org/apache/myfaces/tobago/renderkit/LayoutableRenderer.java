@@ -44,4 +44,6 @@ public interface LayoutableRenderer extends LayoutInformationProvider {
   void layoutBegin(FacesContext context, UIComponent component) throws IOException;
 
   void layoutEnd(FacesContext context, UIComponent component) throws IOException;
+
+  void prepareRender(FacesContext facesContext, UIComponent component) throws IOException;
 }

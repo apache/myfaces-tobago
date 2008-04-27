@@ -17,27 +17,11 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import javax.faces.context.FacesContext;
-import java.io.IOException;
-
 /*
  * User: weber
  * Date: May 31, 2005
  * Time: 7:47:11 PM
  */
 public abstract class AbstractUISelectMany extends javax.faces.component.UISelectMany implements SupportsMarkup {
-
-  @SuppressWarnings("UnusedDeclaration")
-  private static final Log LOG = LogFactory.getLog(AbstractUISelectMany.class);
-
-
-  public void encodeBegin(FacesContext facesContext) throws IOException {
-    // TODO change this should be renamed to DimensionUtils.prepare!!!
-    UILayout.getLayout(this).layoutBegin(facesContext, this);
-    super.encodeBegin(facesContext);
-  }
 
 }

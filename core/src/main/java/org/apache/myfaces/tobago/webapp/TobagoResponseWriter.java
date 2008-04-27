@@ -156,12 +156,20 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   public abstract void writeStyleAttribute() throws IOException;
 
   public void writeJavascript(String script) throws IOException {
+    startJavascript();
+    write(script);
+    endJavascript();
+  }
+
+  public void endJavascript() throws IOException {
+    write("\n// -->\n");
+    endElement(HtmlConstants.SCRIPT);
+  }
+
+  public void startJavascript() throws IOException {
     startElement(HtmlConstants.SCRIPT, null);
     writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
     write("\n<!--\n");
-    write(script);
-    write("\n// -->\n");
-    endElement(HtmlConstants.SCRIPT);
   }
 
   /**

@@ -24,9 +24,25 @@ import java.io.IOException;
 
 public class TobagoResponseJsonWriterImpl extends TobagoResponseWriterImpl {
   private Writer javascriptWriter;
+  private boolean javascriptMode;
   public TobagoResponseJsonWriterImpl(Writer writer, String contentType, String characterEncoding) {
     super(writer, contentType, characterEncoding);
     this.javascriptWriter = new FastStringWriter();
+  }
+
+  public void endJavascript() throws IOException {
+    super.endJavascript();
+    javascriptMode = true;
+  }
+
+  public void startJavascript() throws IOException {
+    super.startJavascript();
+    javascriptMode = false;
+  }
+
+  @Override
+  public void write(String string) throws IOException {
+    writeInternal(javascriptMode?javascriptWriter:getWriter(), string);
   }
 
   public void writeJavascript(String script) throws IOException {

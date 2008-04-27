@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -56,6 +57,12 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
     return true;
   }
 
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    if (facesContext instanceof PageFacesContextWrapper) {
+      ((PageFacesContextWrapper) facesContext).getPopups().add((UIPopup) component);
+    }
+    super.prepareRender(facesContext, component);
+  }
 
   public void decode(FacesContext facesContext, UIComponent component) {
     super.decode(facesContext, component);

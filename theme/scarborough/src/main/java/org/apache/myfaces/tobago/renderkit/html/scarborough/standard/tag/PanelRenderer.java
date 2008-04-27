@@ -133,7 +133,7 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
     writer.writeStyleAttribute();
-    HtmlRendererUtil.renderDojoDndSource(component, writer, clientId);
+    HtmlRendererUtil.renderDojoDndSource(facesContext, component);
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
      // writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\")");
       Integer frequency = null;

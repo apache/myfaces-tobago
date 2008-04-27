@@ -46,7 +46,6 @@ import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
-import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.UIPanelBase;
 import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.component.UITabGroup;
@@ -55,6 +54,7 @@ import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
@@ -81,6 +81,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
 
   private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
 
+  private static final String[] SCRIPTS = new String[]{"script/tab.js", "script/tabgroup.js"};
+
   public static final String ACTIVE_INDEX_POSTFIX = SUBCOMPONENT_SEP + "activeIndex";
 
   public void decode(FacesContext facesContext, UIComponent component) {
@@ -104,8 +106,14 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     }
   }
 
-  public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+    if (facesContext instanceof PageFacesContextWrapper) {
+      ((PageFacesContextWrapper) facesContext).getScriptFiles().addAll(Arrays.asList(SCRIPTS));
+    }
+  }
 
+  public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
     UITabGroup component = (UITabGroup) uiComponent;
 
@@ -120,17 +128,9 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
 
     final String switchType = component.getSwitchType();
 
-    AbstractUIPage page = ComponentUtil.findPage(facesContext, component);
-    final String[] scripts = new String[]{
-        "script/tab.js",
-        "script/tabgroup.js"
-    };
-    page.getScriptFiles().addAll(Arrays.asList(scripts));
-
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
-      HtmlRendererUtil.writeScriptLoader(facesContext, scripts, new String[0]);
+      HtmlRendererUtil.writeScriptLoader(facesContext, SCRIPTS, new String[0]);
     }
-
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.INPUT, null);

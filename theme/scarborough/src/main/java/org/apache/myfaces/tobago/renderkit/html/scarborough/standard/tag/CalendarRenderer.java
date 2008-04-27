@@ -26,9 +26,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CALENDAR_DATE_INPUT_ID;
-import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
 import org.apache.myfaces.tobago.model.CalendarModel;
 import org.apache.myfaces.tobago.model.DateModel;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
@@ -42,6 +41,7 @@ import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -49,23 +49,23 @@ import java.util.Locale;
 
 public class CalendarRenderer extends LayoutableRendererBase {
 
-
   private static final Log LOG = LogFactory.getLog(CalendarRenderer.class);
-
 
   private static final String[] SCRIPTS = {
         "script/calendar.js",
         "script/dateConverter.js"
     };
 
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+    if (facesContext instanceof PageFacesContextWrapper) {
+      ((PageFacesContextWrapper) facesContext).getScriptFiles().addAll(Arrays.asList(SCRIPTS));
+    }
+  }
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
     UIOutput output = (UIOutput) component;
-    AbstractUIPage page = ComponentUtil.findPage(facesContext, output);
-    for (String script : SCRIPTS) {
-      page.getScriptFiles().add(script);      
-    }
 
     String id = output.getClientId(facesContext);
 

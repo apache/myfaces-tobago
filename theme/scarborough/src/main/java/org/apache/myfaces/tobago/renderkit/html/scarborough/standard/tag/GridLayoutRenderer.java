@@ -242,15 +242,27 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     return false;
   }
 
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);    
+    layoutEnd(facesContext, component);
+    layoutMargins((UIGridLayout) component);
+
+  }
+
+  void prepareDimension(FacesContext facesContext, UIComponent component) {
+
+  }
+
   public void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component)
       throws IOException {
     // encode table with component's children
 
     UIGridLayout layout =  (UIGridLayout) UILayout.getLayout(component);
-    HtmlRendererUtil.prepareRender(facesContext, layout);
+    //prepareRender(facesContext, layout);
+    //HtmlRendererUtil.prepareRender(facesContext, layout);
 
-    layoutEnd(facesContext, layout);
-    layoutMargins(layout);
+    //layoutEnd(facesContext, layout);
+    //layoutMargins(layout);
 
     final Map attributes = layout.getAttributes();
     List columnWidths =  (List) attributes.get(ATTR_WIDTH_LIST);

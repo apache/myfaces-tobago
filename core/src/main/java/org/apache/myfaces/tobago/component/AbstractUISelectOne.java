@@ -21,7 +21,6 @@ import org.apache.myfaces.tobago.util.MessageFactory;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
 
 /*
  * User: weber
@@ -31,12 +30,6 @@ import java.io.IOException;
 public abstract class AbstractUISelectOne extends javax.faces.component.UISelectOne implements SupportsMarkup {
 
   public static final String MESSAGE_VALUE_REQUIRED = "tobago.SelectOne.MESSAGE_VALUE_REQUIRED";
-
-  public void encodeBegin(FacesContext facesContext) throws IOException {
-    // TODO change this should be renamed to DimensionUtils.prepare!!!
-    UILayout.getLayout(this).layoutBegin(facesContext, this);
-    super.encodeBegin(facesContext);
-  }
 
   public void validate(FacesContext facesContext) {
     if (isRequired()) {

@@ -35,6 +35,9 @@ public class RendererBaseWrapper extends LayoutableRendererBase {
     this.renderer = renderer;
   }
 
+  public void prepareRender(FacesContext facesContext, UIComponent component) {
+  }
+
   public Object getConvertedValue(FacesContext context, UIComponent component, Object submittedValue)
       throws ConverterException {
     return renderer.getConvertedValue(context, component, submittedValue);

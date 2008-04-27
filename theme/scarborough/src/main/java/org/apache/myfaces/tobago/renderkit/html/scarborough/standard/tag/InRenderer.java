@@ -42,6 +42,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -56,6 +57,19 @@ import java.util.Arrays;
 public class InRenderer extends InputRendererBase implements AjaxRenderer {
   private static final Log LOG = LogFactory.getLog(InRenderer.class);
 
+  private static final String[] SCRIPTS = new String[] {"script/inputSuggest.js"};
+
+  private static final String[] STYLES = new String[]{"style/dojo.css"};
+
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+    if (facesContext instanceof PageFacesContextWrapper) {
+      if (component instanceof UIInput && ((UIInput) component).getSuggestMethod() != null) {
+        ((PageFacesContextWrapper) facesContext).getScriptFiles().addAll(Arrays.asList(SCRIPTS));
+        ((PageFacesContextWrapper) facesContext).getStyleFiles().addAll(Arrays.asList(STYLES));
+      }
+    }
+  }
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
     super.decode(facesContext, component);
@@ -149,17 +163,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     // input suggest
     if (renderAjaxSuggest) {
    
-      final String[] scripts = new String[]{
-          "script/inputSuggest.js"
-      };
 
-      final String[] styles = new String[]{
-          "style/dojo.css"
-      };
-
-      final AbstractUIPage page = ComponentUtil.findPage(facesContext, input);
-      page.getScriptFiles().addAll(Arrays.asList(scripts));
-      page.getStyleFiles().addAll(Arrays.asList(styles));
 
       final String[] cmds = {
           "new Tobago.AutocompleterAjax(",
@@ -169,8 +173,8 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
           "    { });"
       };
 
-      HtmlRendererUtil.writeStyleLoader(facesContext, styles);
-      HtmlRendererUtil.writeScriptLoader(facesContext, scripts, cmds);
+      HtmlRendererUtil.writeStyleLoader(facesContext, STYLES);
+      HtmlRendererUtil.writeScriptLoader(facesContext, SCRIPTS, cmds);
     }
 
   }

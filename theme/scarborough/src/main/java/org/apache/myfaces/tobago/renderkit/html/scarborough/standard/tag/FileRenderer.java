@@ -30,6 +30,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIFileInput;
 import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -47,6 +48,13 @@ import java.io.IOException;
 public class FileRenderer extends InputRendererBase {
 
   private static final Log LOG = LogFactory.getLog(FileRenderer.class);
+
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+    if (facesContext instanceof PageFacesContextWrapper) {
+      ((PageFacesContextWrapper) facesContext).setEnctype("multipart/form-data");
+    }
+  }
 
   public boolean getRendersChildren() {
     return true;

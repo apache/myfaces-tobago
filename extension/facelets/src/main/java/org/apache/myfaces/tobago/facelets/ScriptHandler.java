@@ -56,18 +56,18 @@ public class ScriptHandler extends TagHandler {
       throws IOException, FacesException, ELException {
 
     if (parent instanceof UIPage) {
-      UIPage page = (UIPage) parent;
+      //UIPage page = (UIPage) parent;
       if (file != null) {
-        page.getScriptFiles().add(file.getValue(faceletContext));
+        //page.getScriptFiles().add(file.getValue(faceletContext));
       }
       if (onload != null) {
-        page.getOnloadScripts().add(onload.getValue(faceletContext));
+        //page.getOnloadScripts().add(onload.getValue(faceletContext));
       }
       if (onunload != null) {
-        page.getOnunloadScripts().add(onunload.getValue(faceletContext));
+        //page.getOnunloadScripts().add(onunload.getValue(faceletContext));
       }
       if (onexit != null) {
-        page.getOnexitScripts().add(onexit.getValue(faceletContext));
+        //page.getOnexitScripts().add(onexit.getValue(faceletContext));
       }
       StringBuffer buffer = new StringBuffer();
       Iterator iter = findNextByType(TextHandler.class);
@@ -78,7 +78,7 @@ public class ScriptHandler extends TagHandler {
       String content = buffer.toString().trim();
 
       if (content.length() > 0) {
-        page.getScriptBlocks().add(content);
+        //page.getScriptBlocks().add(content);
       }
     } else {
       throw new TagException(tag, "Parent is not of type UIPage, type is: " + parent);

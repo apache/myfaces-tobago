@@ -26,6 +26,10 @@ import java.io.IOException;
 public abstract class AbstractLayoutableRendererBaseWrapper extends AbstractRendererBaseWrapper
     implements LayoutableRenderer {
 
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    getLayoutableRenderer(facesContext).prepareRender(facesContext, component);
+  }
+
   public int getHeaderHeight(FacesContext facesContext, UIComponent component) {
     return getLayoutableRenderer(facesContext).getHeaderHeight(facesContext, component);
   }

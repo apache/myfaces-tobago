@@ -36,12 +36,12 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
 import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -730,11 +730,14 @@ public final class HtmlRendererUtil {
     return strBuilder.toString();
   }
 
-  public static void renderDojoDndSource(UIComponent component, TobagoResponseWriter writer, String clientId)
+  public static void renderDojoDndSource(FacesContext context, UIComponent component)
       throws IOException {
     Object objDojoType = component.getAttributes().get("dojoType");
     if (null != objDojoType && (objDojoType.equals("dojo.dnd.Source") || objDojoType.equals("dojo.dnd.Target"))) {
-      addOnloadCommands(component, createDojoDndType(component, clientId, String.valueOf(objDojoType)));
+      if (context instanceof PageFacesContextWrapper) {
+        ((PageFacesContextWrapper) context).getOnloadScripts().add(createDojoDndType(component,
+            component.getClientId(context), String.valueOf(objDojoType)));
+      }
     }
   }
 
@@ -753,7 +756,7 @@ public final class HtmlRendererUtil {
     }
   }
 
-  public static String[] createDojoDndType(UIComponent component, String clientId, String dojoType) {
+  private static String createDojoDndType(UIComponent component, String clientId, String dojoType) {
     StringBuilder strBuilder = new StringBuilder();
     strBuilder.append("new ").append(dojoType).append("('").append(clientId).append("'");
     StringBuilder parameter = new StringBuilder();
@@ -804,7 +807,7 @@ public final class HtmlRendererUtil {
       strBuilder.append(",{").append(parameter).append("}");
     }
     strBuilder.append(");");
-    return new String[]{strBuilder.toString()};
+    return strBuilder.toString();
   }
 
   public static void checkForCommandFacet(UIComponent component, FacesContext facesContext, TobagoResponseWriter writer)
@@ -861,20 +864,5 @@ public final class HtmlRendererUtil {
               + facetAction + "});\n}";
       writer.writeJavascript(script);
     }
-  }
-
-  public static void addStyles(UIComponent component, String[] styles) {
-    AbstractUIPage uiPage = ComponentUtil.findPage(component);
-    uiPage.getStyleFiles().addAll(Arrays.asList(styles));
-  }
-
-  public static void addScripts(UIComponent component, String[] scripts) {
-    AbstractUIPage uiPage = ComponentUtil.findPage(component);
-    uiPage.getScriptFiles().addAll(Arrays.asList(scripts));
-  }
-
-  public static void addOnloadCommands(UIComponent component, String[] cmds) {
-    AbstractUIPage uiPage = ComponentUtil.findPage(component);
-    uiPage.getOnloadScripts().addAll(Arrays.asList(cmds));
   }
 }

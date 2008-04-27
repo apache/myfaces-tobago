@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.renderkit.LayoutRenderer;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.RangeParser;
 
 import javax.faces.component.UIComponent;
@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Iterator;
 
 public class RenderUtil {
 
@@ -80,11 +81,6 @@ public class RenderUtil {
       if (LOG.isDebugEnabled()) {
         LOG.debug("rendering " + component.getRendererType() + " " + component);
       }
-      UILayout layout = UILayout.getLayout(component);
-      LayoutRenderer layoutRenderer =
-          ComponentUtil.getLayoutRenderer(facesContext, layout.getFamily(), layout.getRendererType());
-      layoutRenderer.prepareRender(facesContext, component);
-
       component.encodeBegin(facesContext);
       if (component.getRendersChildren()) {
         component.encodeChildren(facesContext);
@@ -98,7 +94,25 @@ public class RenderUtil {
     }
   }
 
+  public static void prepareRendererAll(FacesContext facesContext, UIComponent component) throws IOException {
+    RendererBase renderer = ComponentUtil.getRendererBase(facesContext,  component);
+    boolean prepareRendersChildren = false;
+    if (renderer != null) {
+      renderer.prepareRender(facesContext, component);
+      prepareRendersChildren = renderer.getPrepareRendersChildren();
+    }
+    if (prepareRendersChildren) {
+      renderer.prepareRendersChildren(facesContext, component);
+    } else {
+      Iterator it = component.getFacetsAndChildren();
+      while (it.hasNext()) {
+        UIComponent child = (UIComponent) it.next();
+        prepareRendererAll(facesContext, child);
+      }
+    }
+  }
 
+  //TODO move to HtmlRendererUtil
   public static String addMenuCheckToggle(String clientId, String onClick) {
     if (onClick != null) {
       onClick = " ; " + onClick;

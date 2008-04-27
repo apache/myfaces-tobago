@@ -37,6 +37,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -51,6 +52,15 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
   private static final Log LOG = LogFactory.getLog(SelectOneRadioRenderer.class);
 
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+    if (facesContext instanceof PageFacesContextWrapper) {
+      ((PageFacesContextWrapper) facesContext).getOnloadScripts().add("Tobago.selectOneRadioInit('"
+          + component.getClientId(facesContext) + "')");
+    }
+  }
+
+
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     if (!(component instanceof UISelectOneRadio)) {
       LOG.error("Wrong type: Need " + UISelectOneRadio.class.getName() + ", but was " + component.getClass().getName());
@@ -59,9 +69,6 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
     UISelectOneRadio selectOne = (UISelectOneRadio) component;
     String clientId = selectOne.getClientId(facesContext);
-
-    ComponentUtil.findPage(facesContext, selectOne)
-        .getOnloadScripts().add("Tobago.selectOneRadioInit('" + clientId + "')");
 
     if (LOG.isDebugEnabled()) {
       for (Object o : selectOne.getChildren()) {
