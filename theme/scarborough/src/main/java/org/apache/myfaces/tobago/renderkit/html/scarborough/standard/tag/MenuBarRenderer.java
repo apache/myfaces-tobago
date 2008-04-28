@@ -42,7 +42,7 @@ import org.apache.myfaces.tobago.component.UISelectOneCommand;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -139,14 +139,14 @@ public class MenuBarRenderer extends LayoutableRendererBase {
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
-    if (facesContext instanceof PageFacesContextWrapper) {
+    if (facesContext instanceof TobagoFacesContext) {
       if (!ComponentUtil.getBooleanAttribute(component, ATTR_MENU_POPUP)) {
         HtmlRendererUtil.renderDojoDndSource(facesContext, component);
       }
 
       final String[] scripts = new String[]{"script/tobago-menu.js"};
 
-      ((PageFacesContextWrapper) facesContext).getScriptFiles().add(scripts[0]);
+      ((TobagoFacesContext) facesContext).getScriptFiles().add(scripts[0]);
       if (!TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
         final AbstractUIPage page = ComponentUtil.findPage(facesContext, component);
         String clientId = component.getClientId(facesContext);
@@ -154,8 +154,8 @@ public class MenuBarRenderer extends LayoutableRendererBase {
         String function = setupFunction + "('" + clientId + "', '"
             + page.getClientId(facesContext) + "');";
         String scriptBlock = createJavascriptFunction(facesContext, component, setupFunction);
-        ((PageFacesContextWrapper) facesContext).getScriptBlocks().add(scriptBlock);
-        ((PageFacesContextWrapper) facesContext).getOnloadScripts().add(function);
+        ((TobagoFacesContext) facesContext).getScriptBlocks().add(scriptBlock);
+        ((TobagoFacesContext) facesContext).getOnloadScripts().add(function);
       }
     }
   }

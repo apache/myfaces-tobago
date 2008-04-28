@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.component.UITreeOld;
 import org.apache.myfaces.tobago.component.UITreeOldNode;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -106,8 +106,8 @@ public class TreeOldRenderer extends LayoutableRendererBase {
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
-    if (facesContext instanceof PageFacesContextWrapper) {
-      ((PageFacesContextWrapper) facesContext).getScriptFiles().add(SCRIPTS[0]);
+    if (facesContext instanceof TobagoFacesContext) {
+      ((TobagoFacesContext) facesContext).getScriptFiles().add(SCRIPTS[0]);
     }
   }
 

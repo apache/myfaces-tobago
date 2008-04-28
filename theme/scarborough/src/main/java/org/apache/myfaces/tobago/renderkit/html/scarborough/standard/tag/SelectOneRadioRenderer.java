@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -54,8 +54,8 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
-    if (facesContext instanceof PageFacesContextWrapper) {
-      ((PageFacesContextWrapper) facesContext).getOnloadScripts().add("Tobago.selectOneRadioInit('"
+    if (facesContext instanceof TobagoFacesContext) {
+      ((TobagoFacesContext) facesContext).getOnloadScripts().add("Tobago.selectOneRadioInit('"
           + component.getClientId(facesContext) + "')");
     }
   }

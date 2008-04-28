@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PageFacesContextWrapper extends FacesContextWrapper {
+public class TobagoFacesContext extends FacesContextWrapper {
 
   public static final String DEFAULT_STYLE = "style/style.css";
 
@@ -51,8 +51,10 @@ public class PageFacesContextWrapper extends FacesContextWrapper {
 
   private String enctype;
 
+  private boolean ajax;
 
-  public PageFacesContextWrapper(FacesContext context) {
+
+  public TobagoFacesContext(FacesContext context) {
     super(context);
     scriptFiles = SetUniqueList.decorate(new ArrayList());
     scriptBlocks = new ListOrderedSet();
@@ -64,6 +66,14 @@ public class PageFacesContextWrapper extends FacesContextWrapper {
     onexitScripts = new ListOrderedSet();
     onsubmitScripts = new ListOrderedSet();
     popups = new ListOrderedSet();
+  }
+
+  public boolean isAjax() {
+    return ajax;
+  }
+
+  public void setAjax(boolean ajax) {
+    this.ajax = ajax;
   }
 
   public String getEnctype() {

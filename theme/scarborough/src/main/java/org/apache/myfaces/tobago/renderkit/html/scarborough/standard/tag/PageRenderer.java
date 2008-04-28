@@ -41,7 +41,7 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -105,18 +105,19 @@ public class PageRenderer extends PageRendererBase {
     }
   }
 
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent component) throws IOException {
+  public void encodeEnd(FacesContext facesContextOrg, UIComponent component) throws IOException {
     UIPage page = (UIPage) component;
 
     // invoke prepareRender
-
-    PageFacesContextWrapper pageFacesContext = new PageFacesContextWrapper(facesContext);
-    RenderUtil.prepareRendererAll(pageFacesContext, page);
+    TobagoFacesContext facesContext = null;
+    if (facesContextOrg instanceof TobagoFacesContext) {
+      facesContext = (TobagoFacesContext) facesContextOrg;
+    } else {
+      facesContext = new TobagoFacesContext(facesContextOrg);
+    }
+    RenderUtil.prepareRendererAll(facesContext, page);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
-
-
 
     // reset responseWriter and render page
     facesContext.setResponseWriter(writer);
@@ -170,7 +171,7 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement(HtmlConstants.TITLE);
 
     // style files
-    for (String styleFile : pageFacesContext.getStyleFiles()) {
+    for (String styleFile : facesContext.getStyleFiles()) {
       List<String> styles = ResourceManagerUtil.getStyles(facesContext, styleFile);
       for (String styleString : styles) {
         if (styleString.length() > 0) {
@@ -208,7 +209,7 @@ public class PageRenderer extends PageRendererBase {
     }
 
     // style sniplets
-    Set<String> styleBlocks = pageFacesContext.getStyleBlocks();
+    Set<String> styleBlocks = facesContext.getStyleBlocks();
     if (styleBlocks.size() > 0) {
       writer.startElement(HtmlConstants.STYLE, null);
       for (String cssBlock : styleBlocks) {
@@ -218,7 +219,7 @@ public class PageRenderer extends PageRendererBase {
     }
 
     // script files
-    List<String> scriptFiles = pageFacesContext.getScriptFiles();
+    List<String> scriptFiles = facesContext.getScriptFiles();
     // prototype.js and tobago.js needs to be first!
     addScripts(writer, facesContext, "script/dojo/dojo/dojo.js");
     addScripts(writer, facesContext, "script/tobago.js");
@@ -271,29 +272,29 @@ public class PageRenderer extends PageRendererBase {
         } else {
           action = "Tobago.submitAction('"+ command.getClientId(facesContext) + "', " + transition + " )";
         }
-        pageFacesContext.getOnloadScripts().add("setTimeout(\"" + action  + "\", " + duration + ");\n");
+        facesContext.getOnloadScripts().add("setTimeout(\"" + action  + "\", " + duration + ");\n");
       }
     }
 
     UIComponent menubar = page.getFacet(FACET_MENUBAR);
     if (menubar != null) {
-      pageFacesContext.getOnloadScripts().add("Tobago.setElementWidth('"
+      facesContext.getOnloadScripts().add("Tobago.setElementWidth('"
           + menubar.getClientId(facesContext) + "', Tobago.getBrowserInnerWidth())");
     }
     writer.startJavascript();
     // onload script
-    writeEventFunction(writer, pageFacesContext.getOnloadScripts(), "load", false);
+    writeEventFunction(writer, facesContext.getOnloadScripts(), "load", false);
 
     // onunload script
-    writeEventFunction(writer, pageFacesContext.getOnunloadScripts(), "unload", false);
+    writeEventFunction(writer, facesContext.getOnunloadScripts(), "unload", false);
 
     // onexit script
-    writeEventFunction(writer, pageFacesContext.getOnexitScripts(), "exit", false);
+    writeEventFunction(writer, facesContext.getOnexitScripts(), "exit", false);
 
-    writeEventFunction(writer, pageFacesContext.getOnsubmitScripts(), "submit", true);
+    writeEventFunction(writer, facesContext.getOnsubmitScripts(), "submit", true);
 
    int debugCounter = 0;
-   for (String scriptBlock : pageFacesContext.getScriptBlocks()) {
+   for (String scriptBlock : facesContext.getScriptBlocks()) {
 
       if (LOG.isDebugEnabled()) {
         LOG.debug("write scriptblock " + ++debugCounter + " :\n" + scriptBlock);
@@ -344,7 +345,7 @@ public class PageRenderer extends PageRendererBase {
     writer.writeAttribute(HtmlAttributes.ACTION, formAction, true);
     writer.writeIdAttribute(page.getFormId(facesContext));
     writer.writeAttribute(HtmlAttributes.METHOD, getMethod(page), false);
-    String enctype = pageFacesContext.getEnctype();
+    String enctype = facesContext.getEnctype();
     if (enctype != null) {
       writer.writeAttribute(HtmlAttributes.ENCTYPE, enctype, false);
     }
@@ -410,7 +411,7 @@ public class PageRenderer extends PageRendererBase {
     // write popup components
     // beware of ConcurrentModificationException in cascating popups!
     // no foreach
-    UIPopup[] popupArray = pageFacesContext.getPopups().toArray(new UIPopup[pageFacesContext.getPopups().size()]);
+    UIPopup[] popupArray = facesContext.getPopups().toArray(new UIPopup[facesContext.getPopups().size()]);
     for (int i = 0; i < popupArray.length; i++) {
       UIComponent popup = popupArray[i];
       RenderUtil.encode(facesContext, popup);

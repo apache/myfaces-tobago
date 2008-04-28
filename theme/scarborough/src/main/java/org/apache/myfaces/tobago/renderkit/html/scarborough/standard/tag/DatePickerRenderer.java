@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.util.DateFormatUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -56,12 +56,12 @@ public class DatePickerRenderer extends LinkRenderer {
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     component.getAttributes().put(ATTR_LAYOUT_WIDTH, getConfiguredValue(facesContext, component, "pickerWidth"));
-    if (facesContext instanceof PageFacesContextWrapper) {
+    if (facesContext instanceof TobagoFacesContext) {
       UIPopup popup = (UIPopup) component.getFacets().get(FACET_PICKER_POPUP);
       if (popup != null) {
         popup.getAttributes().put(ATTR_WIDTH, ThemeConfig.getValue(facesContext, component, "CalendarPopupWidth"));
         popup.getAttributes().put(ATTR_HEIGHT, ThemeConfig.getValue(facesContext, component, "CalendarPopupHeight"));
-        ((PageFacesContextWrapper) facesContext).getPopups().add(popup);
+        ((TobagoFacesContext) facesContext).getPopups().add(popup);
       }
     }
     super.prepareRender(facesContext, component);

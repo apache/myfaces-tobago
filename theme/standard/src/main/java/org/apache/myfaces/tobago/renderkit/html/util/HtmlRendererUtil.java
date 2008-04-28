@@ -41,7 +41,7 @@ import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -736,8 +736,8 @@ public final class HtmlRendererUtil {
       throws IOException {
     Object objDojoType = component.getAttributes().get("dojoType");
     if (null != objDojoType && (objDojoType.equals("dojo.dnd.Source") || objDojoType.equals("dojo.dnd.Target"))) {
-      if (context instanceof PageFacesContextWrapper) {
-        ((PageFacesContextWrapper) context).getOnloadScripts().add(createDojoDndType(component,
+      if (context instanceof TobagoFacesContext) {
+        ((TobagoFacesContext) context).getOnloadScripts().add(createDojoDndType(component,
             component.getClientId(context), String.valueOf(objDojoType)));
       }
     }

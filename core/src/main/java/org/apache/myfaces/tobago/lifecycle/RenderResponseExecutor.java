@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.lifecycle;
 
 import org.apache.myfaces.tobago.ajax.api.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 
 import javax.faces.FacesException;
 import javax.faces.application.Application;
@@ -44,7 +45,9 @@ class RenderResponseExecutor implements PhaseExecutor {
   public boolean execute(FacesContext facesContext) {
     if (AjaxUtils.getAjaxComponents(facesContext) != null) {
       try {
-        ajaxResponseRenderer.renderResponse(facesContext);
+        TobagoFacesContext tobagoFacesContext = new TobagoFacesContext(facesContext);
+        tobagoFacesContext.setAjax(true);
+        ajaxResponseRenderer.renderResponse(tobagoFacesContext);
       } catch (IOException e) {
         throw new FacesException(e.getMessage(), e);
       }

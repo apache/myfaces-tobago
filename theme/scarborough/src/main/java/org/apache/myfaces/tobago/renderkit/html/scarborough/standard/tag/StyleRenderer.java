@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.component.UIStyle;
 
 import javax.faces.context.FacesContext;
@@ -30,8 +30,8 @@ public class StyleRenderer extends RendererBase {
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
-    if (facesContext instanceof PageFacesContextWrapper) {
-      PageFacesContextWrapper pageFacesContext = (PageFacesContextWrapper) facesContext;
+    if (facesContext instanceof TobagoFacesContext) {
+      TobagoFacesContext pageFacesContext = (TobagoFacesContext) facesContext;
       UIStyle styleComponent = (UIStyle) component;
       String file = styleComponent.getFile();
       if (file != null) {

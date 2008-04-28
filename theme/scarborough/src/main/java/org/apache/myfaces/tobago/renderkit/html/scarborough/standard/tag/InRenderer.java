@@ -42,7 +42,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -63,10 +63,10 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
-    if (facesContext instanceof PageFacesContextWrapper) {
+    if (facesContext instanceof TobagoFacesContext) {
       if (component instanceof UIInput && ((UIInput) component).getSuggestMethod() != null) {
-        ((PageFacesContextWrapper) facesContext).getScriptFiles().addAll(Arrays.asList(SCRIPTS));
-        ((PageFacesContextWrapper) facesContext).getStyleFiles().addAll(Arrays.asList(STYLES));
+        ((TobagoFacesContext) facesContext).getScriptFiles().addAll(Arrays.asList(SCRIPTS));
+        ((TobagoFacesContext) facesContext).getStyleFiles().addAll(Arrays.asList(STYLES));
       }
     }
   }

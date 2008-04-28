@@ -24,7 +24,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.AbstractUITree;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -70,9 +70,9 @@ public class TreeRenderer extends LayoutableRendererBase {
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
-    if (facesContext instanceof PageFacesContextWrapper) {
+    if (facesContext instanceof TobagoFacesContext) {
       // todo: this may be removed, it is twice on the page 1. in the header 2. in the ScriptLoader
-      ((PageFacesContextWrapper) facesContext).getScriptFiles().add(SCRIPT);
+      ((TobagoFacesContext) facesContext).getScriptFiles().add(SCRIPT);
     }
   }
 

@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeOldNode;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.context.PageFacesContextWrapper;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
@@ -50,12 +50,12 @@ public class TreeListboxRenderer extends TreeOldRenderer{
   private static final String[] SCRIPTS = {"script/tree.js"};
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
-    if (facesContext instanceof PageFacesContextWrapper) {
+    if (facesContext instanceof TobagoFacesContext) {
       if (!TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
-        ((PageFacesContextWrapper) facesContext).getScriptFiles().addAll(Arrays.asList(SCRIPTS));
+        ((TobagoFacesContext) facesContext).getScriptFiles().addAll(Arrays.asList(SCRIPTS));
       }
       if (LOG.isDebugEnabled()) {
-        ((PageFacesContextWrapper) facesContext).getOnloadScripts().add("tbgTreeStates('"
+        ((TobagoFacesContext) facesContext).getOnloadScripts().add("tbgTreeStates('"
             + component.getClientId(facesContext) + "')");
       }
     }
