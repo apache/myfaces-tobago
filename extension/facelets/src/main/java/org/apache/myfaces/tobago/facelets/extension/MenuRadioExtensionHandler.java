@@ -34,4 +34,8 @@ public class MenuRadioExtensionHandler extends TobagoMenuExtensionHandler {
     return UISelectOneRadio.COMPONENT_TYPE;
   }
 
+  protected String getSubRendererType() {
+    return "SelectOneRadio";
+  }
+
 }

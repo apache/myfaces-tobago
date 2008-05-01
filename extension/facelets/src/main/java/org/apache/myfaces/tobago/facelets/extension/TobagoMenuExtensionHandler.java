@@ -46,6 +46,8 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
 
   protected abstract String getSubComponentType();
 
+  protected abstract String getSubRendererType();
+
   protected void applyNextHandler(FaceletContext faceletContext, UIComponent menuCommand)
       throws IOException, FacesException, ELException {
     if (ComponentSupport.isNew(menuCommand)) {
@@ -63,7 +65,7 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
     UIViewRoot root = ComponentSupport.getViewRoot(faceletContext, parent);
     UIComponent component = application.createComponent(getSubComponentType());
     component.setId(root.createUniqueId());
-    component.setRendererType(null);
+    component.setRendererType(getSubRendererType());
     setAttributes(faceletContext, component);
     menuCommand.getFacets().put(TobagoConstants.FACET_ITEMS, component);
   }
