@@ -37,7 +37,7 @@ public class TobagoResponseStateManager extends ResponseStateManager {
   private static final Log LOG = LogFactory.getLog(TobagoResponseStateManager.class);
 
   private static final String TREE_PARAM = "jsf_tree";
-  private static final String STATE_PARAM = "jsf_state";
+  private static final String STATE_PARAM = "javax.faces.ViewState";
   private static final String VIEWID_PARAM = "jsf_viewid";
 
   public Object getTreeStructureToRestore(FacesContext facescontext, String viewId) {
@@ -78,20 +78,21 @@ public class TobagoResponseStateManager extends ResponseStateManager {
       }
     }
 
+    responseWriter.startElement(HtmlConstants.INPUT, null);
+    responseWriter.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
+    responseWriter.writeAttribute(HtmlAttributes.NAME, STATE_PARAM, null);
+    responseWriter.writeAttribute(HtmlAttributes.ID, STATE_PARAM, null);
     if (compStates != null) {
       if (compStates instanceof String) {
-        responseWriter.startElement(HtmlConstants.INPUT, null);
-        responseWriter.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
-        responseWriter.writeAttribute(HtmlAttributes.NAME, STATE_PARAM, null);
-        responseWriter.writeAttribute(HtmlAttributes.ID, STATE_PARAM, null);
         responseWriter.writeAttribute(HtmlAttributes.VALUE, compStates, null);
-        responseWriter.endElement(HtmlConstants.INPUT);
       }
     } else {
+      responseWriter.writeAttribute(HtmlAttributes.VALUE, "", null);
       if (LOG.isDebugEnabled()) {
         LOG.debug("No component states to be saved in client response!");
       }
     }
+    responseWriter.endElement(HtmlConstants.INPUT);
 
     responseWriter.startElement(HtmlConstants.INPUT, null);
     responseWriter.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
