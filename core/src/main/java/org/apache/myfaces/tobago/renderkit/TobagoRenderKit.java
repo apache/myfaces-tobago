@@ -94,8 +94,7 @@ public class TobagoRenderKit extends RenderKit {
       return new TobagoResponseJsonWriterImpl(writer, "application/json", characterEncoding);
     } else {
       contentType = "text/html";
-      LOG.warn("Content-Type '" + contentTypeList + "' not supported!"
-          + " Using text/html", new Exception());
+      LOG.warn("Content-Type '" + contentTypeList + "' not supported! Using text/html");
     }
     return new TobagoResponseWriterImpl(writer, contentType, characterEncoding);
   }
