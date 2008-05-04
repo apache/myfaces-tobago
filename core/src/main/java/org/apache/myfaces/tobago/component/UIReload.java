@@ -36,11 +36,14 @@ public class UIReload extends UIComponentBase {
 
   private Boolean update;
 
+  private Boolean immediate;
+
   public Object saveState(FacesContext context) {
-    Object[] values = new Object[3];
+    Object[] values = new Object[4];
     values[0] = super.saveState(context);
     values[1] = frequency;
     values[2] = update;
+    values[3] = immediate;
     return values;
   }
 
@@ -49,6 +52,7 @@ public class UIReload extends UIComponentBase {
     super.restoreState(context, values[0]);
     frequency = (Integer) values[1];
     update = (Boolean) values[2];
+    immediate = (Boolean) values[3];
   }
 
   public int getFrequency() {
@@ -88,6 +92,26 @@ public class UIReload extends UIComponentBase {
       return value;
     } else {
       return true;
+    }
+  }
+
+  public void setImmediate(boolean immediate) {
+    this.immediate = immediate;
+  }
+
+  public boolean isImmediate() {
+    if (immediate != null) {
+      return immediate;
+    }
+    ValueBinding vb = getValueBinding("immediate");
+    Boolean value = null;
+    if (vb != null) {
+      value = (Boolean) vb.getValue(getFacesContext());
+    }
+    if (value != null) {
+      return value;
+    } else {
+      return false;
     }
   }
 

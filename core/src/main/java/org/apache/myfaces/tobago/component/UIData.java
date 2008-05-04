@@ -34,6 +34,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROW_RANGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_RELOAD;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
@@ -60,6 +61,7 @@ import javax.faces.el.ValueBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -118,6 +120,28 @@ public class UIData extends javax.faces.component.UIData
     setupState(facesContext);
     prepareDimensions(facesContext);
     super.encodeEnd(facesContext);
+  }
+
+  public void processDecodes(FacesContext context) {
+    final String ajaxId = (String) context.getExternalContext()
+        .getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
+    if (ajaxId !=null && ajaxId.equals(getClientId(context))) {
+      if (getFacet(FACET_RELOAD) != null && getFacet(FACET_RELOAD) instanceof UIReload
+          && getFacet(FACET_RELOAD).isRendered()
+          && ((UIReload) getFacet(FACET_RELOAD)).isImmediate()
+          && ajaxId.equals(ComponentUtil.findPage(context, this).getActionId())) {
+        UIReload reload = (UIReload) getFacet(FACET_RELOAD);
+        if (!reload.getUpdate()) {
+          if (context.getExternalContext().getResponse() instanceof HttpServletResponse) {
+             ((HttpServletResponse) context.getExternalContext().getResponse())
+                 .setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+          }
+          context.responseComplete();
+          return;
+        }
+      }
+    }
+    super.processDecodes(context);
   }
 
   public String getShowRowRange() {

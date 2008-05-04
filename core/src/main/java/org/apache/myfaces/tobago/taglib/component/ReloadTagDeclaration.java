@@ -51,4 +51,14 @@ public interface ReloadTagDeclaration extends TobagoTagDeclaration, HasIdBinding
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
   void setUpdate(String update);
+
+  /**
+   * Flag indicating that
+   * the update check should be performed
+   * immediately (that is, during Apply Request Values phase) rather than
+   * waiting until Render Response phase.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  void setImmediate(String immediate);
 }

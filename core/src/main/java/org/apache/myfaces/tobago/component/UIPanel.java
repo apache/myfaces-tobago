@@ -17,7 +17,11 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_RELOAD;
+
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * User: idus
@@ -54,6 +58,28 @@ public class UIPanel extends UIPanelBase implements SupportsMarkup {
     values[0] = super.saveState(context);
     values[1] = markup;
     return values;
+  }
+
+  public void processDecodes(FacesContext context) {
+    final String ajaxId = (String) context.getExternalContext()
+        .getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
+    if (ajaxId !=null && ajaxId.equals(getClientId(context))) {
+      if (getFacet(FACET_RELOAD) != null && getFacet(FACET_RELOAD) instanceof UIReload
+          && getFacet(FACET_RELOAD).isRendered()
+          && ((UIReload) getFacet(FACET_RELOAD)).isImmediate()
+          && ajaxId.equals(ComponentUtil.findPage(context, this).getActionId())) {
+        UIReload reload = (UIReload) getFacet(FACET_RELOAD);
+        if (!reload.getUpdate()) {
+          if (context.getExternalContext().getResponse() instanceof HttpServletResponse) {
+             ((HttpServletResponse) context.getExternalContext().getResponse())
+                 .setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+          }
+          context.responseComplete();
+          return;
+        }
+      }
+    }
+    super.processDecodes(context);
   }
 
 }
