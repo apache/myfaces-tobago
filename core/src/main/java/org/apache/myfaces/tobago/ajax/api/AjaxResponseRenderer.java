@@ -221,8 +221,8 @@ public class AjaxResponseRenderer {
       // TODO surround by javascript parsable tokens
       String partStr = part.toString();
       // FIXME:
-      if (partStr.startsWith(CODE_NOT_MODIFIED)
-          && partStr.equals(responseCode)) {
+      if (partStr.startsWith(responseCode)
+          || partStr.equals(CODE_NOT_MODIFIED)) {
         // remove resopnseCode from buffer
         buffer.setLength(0);
       }
