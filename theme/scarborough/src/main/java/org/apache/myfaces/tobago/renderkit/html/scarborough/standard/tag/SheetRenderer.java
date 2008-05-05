@@ -1113,7 +1113,8 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     if (ajaxId.equals(component.getClientId(facesContext))) {
       if (component.getFacet(FACET_RELOAD) != null && component.getFacet(FACET_RELOAD) instanceof UIReload
           && component.getFacet(FACET_RELOAD).isRendered()
-          && ajaxId.equals(ComponentUtil.findPage(facesContext, component).getActionId())) {
+          && ajaxId.equals(ComponentUtil.findPage(facesContext, component).getActionId())
+          && !((UIReload) component.getFacet(FACET_RELOAD)).isImmediate()) {
         UIReload reload = (UIReload) component.getFacet(FACET_RELOAD);
         update = reload.getUpdate();
       }
@@ -1162,7 +1163,9 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
 
     int rows = data.getRows();
 
-    LOG.info(headerHeight + " " + footerHeight + " " + rowHeight + " " + rows);
+    if (LOG.isInfoEnabled()) {
+      LOG.info(headerHeight + " " + footerHeight + " " + rowHeight + " " + rows);
+    }
 
     return headerHeight + rows * rowHeight + footerHeight + 2; // XXX hotfix: + 1
   }

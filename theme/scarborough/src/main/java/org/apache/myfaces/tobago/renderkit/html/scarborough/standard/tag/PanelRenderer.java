@@ -165,7 +165,8 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
         .getRequestParameterMap().get(AjaxPhaseListener.AJAX_COMPONENT_ID);
     if (ajaxId.equals(component.getClientId(facesContext))) {
       if (component.getFacet(FACET_RELOAD) != null && component.getFacet(FACET_RELOAD) instanceof UIReload
-          && component.getFacet(FACET_RELOAD).isRendered()) {
+          && component.getFacet(FACET_RELOAD).isRendered()
+          && !((UIReload) component.getFacet(FACET_RELOAD)).isImmediate()) {
         UIReload reload = (UIReload) component.getFacet(FACET_RELOAD);
         update = reload.getUpdate();
       }
