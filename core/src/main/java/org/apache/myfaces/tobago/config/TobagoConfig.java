@@ -92,7 +92,9 @@ public class TobagoConfig {
         LOG.error(error);
         throw new RuntimeException(error);
       } else {
-        LOG.info("Using default Theme " + defaultTheme.getName());
+        if (LOG.isInfoEnabled()) {
+          LOG.info("Using default Theme " + defaultTheme.getName());
+        }
       }
     }
     if (!supportedThemeNames.isEmpty()) {

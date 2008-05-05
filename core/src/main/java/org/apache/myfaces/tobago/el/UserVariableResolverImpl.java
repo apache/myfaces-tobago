@@ -36,7 +36,9 @@ public class UserVariableResolverImpl extends VariableResolver {
   private UserWrapper userWrapper;
 
   public UserVariableResolverImpl(VariableResolver base) {
-    LOG.info("Hiding ri base implemation: " + base);
+    if (LOG.isInfoEnabled()) {
+      LOG.info("Hiding ri base implemation: " + base);
+    }
     this.base = base;
   }
 

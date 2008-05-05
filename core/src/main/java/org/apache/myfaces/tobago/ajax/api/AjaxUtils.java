@@ -75,7 +75,9 @@ public class AjaxUtils {
     Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
     String ajaxComponentIds = (String) parameterMap.get("tobago::partialIds");
     if (ajaxComponentIds != null) {
-      LOG.info("ajaxComponentIds = \"" + ajaxComponentIds + "\"");
+      if (LOG.isInfoEnabled()) {
+        LOG.info("ajaxComponentIds = \"" + ajaxComponentIds + "\"");
+      }
       StringTokenizer tokenizer = new StringTokenizer(ajaxComponentIds, ",");
       Map<String, UIComponent> ajaxComponents = new HashMap<String, UIComponent>(tokenizer.countTokens());
       //noinspection unchecked
@@ -85,7 +87,9 @@ public class AjaxUtils {
         String ajaxId = tokenizer.nextToken();
         UIComponent ajaxComponent = viewRoot.findComponent(ajaxId);
         if (ajaxComponent != null) {
-          LOG.info("ajaxComponent for \"" + ajaxId + "\" = \"" + ajaxComponent + "\"");
+          if (LOG.isInfoEnabled()) {
+            LOG.info("ajaxComponent for \"" + ajaxId + "\" = \"" + ajaxComponent + "\"");
+          }
           ajaxComponents.put(ajaxId, ajaxComponent);
         }
       }

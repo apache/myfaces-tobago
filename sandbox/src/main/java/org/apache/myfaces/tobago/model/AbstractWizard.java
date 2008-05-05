@@ -575,7 +575,9 @@ public abstract class AbstractWizard implements Wizard {
       throw new IllegalStateException("Index too large for course: index="
           + index + " course.size()=" + course.size());
     }
-    LOG.info("course: " + course);
+    if (LOG.isInfoEnabled()) {
+      LOG.info("course: " + course);
+    }
   }
 
   // /**

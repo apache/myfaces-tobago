@@ -110,8 +110,10 @@ public class FileUploadFacesContextFactoryImpl extends FacesContextFactory {
         }
       }
     }
-    LOG.info("Configure uploadMaxFileSize for "+ getClass().getName() + " to "+ this.maxSize);
-    LOG.info("Configure uploadRepositryPath for "+ getClass().getName() + " to "+ this.repositoryPath);
+    if (LOG.isInfoEnabled()) {
+      LOG.info("Configure uploadMaxFileSize for "+ getClass().getName() + " to "+ this.maxSize);
+      LOG.info("Configure uploadRepositryPath for "+ getClass().getName() + " to "+ this.repositoryPath);
+    }
   }
 
   public FacesContext getFacesContext(Object context, Object request, Object response, Lifecycle lifecycle)

@@ -83,11 +83,12 @@ public class TobagoMultipartFormdataFilter implements Filter {
       }
     }
 
-    LOG.info("Configure uploadRepositryPath for " + getClass().getName() + " to " + this.repositoryPath);
 
     maxSize = TobagoMultipartFormdataRequest.getMaxSize(filterConfig.getInitParameter("uploadMaxFileSize"));
-
-    LOG.info("Configure uploadMaxFileSize for " + getClass().getName() + " to " + this.maxSize);
+    if (LOG.isInfoEnabled()) {
+      LOG.info("Configure uploadRepositryPath for " + getClass().getName() + " to " + this.repositoryPath);
+      LOG.info("Configure uploadMaxFileSize for " + getClass().getName() + " to " + this.maxSize);
+    }
 
   }
 

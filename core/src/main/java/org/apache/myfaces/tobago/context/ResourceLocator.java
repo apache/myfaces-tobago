@@ -81,8 +81,9 @@ class ResourceLocator {
     }
     Set<String> resourcePaths = servletContext.getResourcePaths(path);
     if (resourcePaths == null || resourcePaths.isEmpty()) {
-      LOG.info("ResourcePath empty! Please check the tobago-config.xml file!"
-          + " path='" + path + "'");
+      if (LOG.isInfoEnabled()) {
+        LOG.info("ResourcePath empty! Please check the tobago-config.xml file!" + " path='" + path + "'");
+      }
       return;
     }
     for (String childPath : resourcePaths) {
@@ -125,7 +126,9 @@ class ResourceLocator {
 
     ThemeParser parser = new ThemeParser();
     try {
-      LOG.info("Loading tobago-theme.xml");
+      if (LOG.isInfoEnabled()) {
+        LOG.info("Loading tobago-theme.xml");
+      }
       ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
       Enumeration<URL> urls = classLoader.getResources(META_INF_TOBAGO_THEME_XML);
 
@@ -221,7 +224,9 @@ class ResourceLocator {
         }
         resolveTheme(resources, file, currentResourcePath, prefix, inResourcePath);
       } else {
-        LOG.info(resourcePath + File.separator + file.getName());
+        if (LOG.isInfoEnabled()) {
+          LOG.info(resourcePath + File.separator + file.getName());
+        }
         if (inResourcePath) {
           addResource(resources, resourcePath + File.separator + file.getName());
         }
@@ -235,7 +240,9 @@ class ResourceLocator {
     if (name.endsWith(".class")) {
       // ignore the class files
     } else if (name.endsWith(".properties")) {
-      LOG.info("** " + name.substring(1));
+      if (LOG.isInfoEnabled()) {
+        LOG.info("** " + name.substring(1));
+      }
       InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(name.substring(1));
       try {
         addProperties(inputStream, resources, name, false);
@@ -243,7 +250,9 @@ class ResourceLocator {
         IOUtils.closeQuietly(inputStream);
       }
     } else if (name.endsWith(".properties.xml")) {
-      LOG.info("** " + name.substring(1));
+      if (LOG.isInfoEnabled()) {
+        LOG.info("** " + name.substring(1));
+      }
       InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(name.substring(1));
       try {
         addProperties(inputStream, resources, name, true);
