@@ -24,7 +24,7 @@
     <jsp:body>
       <tc:panel>
         <f:facet name="reload">
-          <tc:reload frequency="5000" />
+          <tc:reload frequency="2000" update="#{progress.update}" />
         </f:facet>
         <f:facet name="layout">
           <tc:gridLayout rows="fixed;1*" columns="100px;1* "/>

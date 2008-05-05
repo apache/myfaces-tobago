@@ -26,13 +26,25 @@ import javax.swing.BoundedRangeModel;
  */
 public class Progress {
   private DefaultBoundedRangeModel progress = new DefaultBoundedRangeModel(0, 0, 0, 100);
+  private boolean update;
+
+  public boolean isUpdate() {
+    update = !update;
+    if (update) {
+      int value = progress.getValue();
+      if (value < progress.getMaximum()) {
+        value = value+10;
+        progress.setValue(value);
+      }
+    }
+    return update;
+  }
+
+  public void setUpdate(boolean update) {
+    this.update = update;
+  }
 
   public BoundedRangeModel getProgress() {
-    int value = progress.getValue();
-    if (value < progress.getMaximum()) {
-      value = value+10;
-      progress.setValue(value);
-    }
     return progress;
   }
 
