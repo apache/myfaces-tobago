@@ -82,7 +82,9 @@ public class UITreeNode extends UICommand implements SupportsMarkup, TreeModelBu
       value = new DefaultMutableTreeNode();
       value.setUserObject(System.identityHashCode(value));
       setValue(value);
-      LOG.info("Created temporary Node: " + value.getUserObject());
+      if (LOG.isInfoEnabled()) {
+        LOG.info("Created temporary Node: " + value.getUserObject());
+      }
     }
     return value;
   }

@@ -122,7 +122,9 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
         javax.servlet.jsp.tagext.Tag tagInstance = getTagInstance(tag);
         if (tagInstance instanceof UIComponentTag
             && (tagInstance instanceof ButtonTag || tagInstance instanceof LinkTag)) {
-          LOG.info("testing tag: " + tagInstance.getClass().getName());
+          if (LOG.isInfoEnabled()) {
+            LOG.info("testing tag: " + tagInstance.getClass().getName());
+          }
           testComponent(tagInstance);
         }
       }

@@ -1290,19 +1290,25 @@ public class ComponentUtil {
     int oldRowIndex = uiData.getRowIndex();
     String sheetId = uiData.getClientId(facesContext);
     String idRemainder = clientId.substring(sheetId.length());
-    LOG.info("idRemainder = \"" + idRemainder + "\"");
+    if (LOG.isInfoEnabled()) {
+      LOG.info("idRemainder = \"" + idRemainder + "\"");
+    }
     if (idRemainder.matches("^:\\d+:.*")) {
       idRemainder = idRemainder.substring(1);
       int idx = idRemainder.indexOf(":");
       try {
         int rowIndex = Integer.parseInt(idRemainder.substring(0, idx));
-        LOG.info("set rowIndex = \"" + rowIndex + "\"");
+        if (LOG.isInfoEnabled()) {
+          LOG.info("set rowIndex = \"" + rowIndex + "\"");
+        }
         uiData.setRowIndex(rowIndex);
       } catch (NumberFormatException e) {
         LOG.error("idRemainder = \"" + idRemainder + "\"", e);
       }
     } else {
-      LOG.info("no match for \"^:\\d+:.*\"");
+      if (LOG.isInfoEnabled()) {
+        LOG.info("no match for \"^:\\d+:.*\"");
+      }
     }
 
     invokeOrPrepare(facesContext, list, clientId, callback);

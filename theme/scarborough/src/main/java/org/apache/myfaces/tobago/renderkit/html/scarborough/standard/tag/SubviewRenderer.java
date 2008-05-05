@@ -36,7 +36,9 @@ public class SubviewRenderer extends LayoutableRendererBase {
 
   public void encodeBegin(FacesContext facesContext, UIComponent component)
       throws IOException {
-    LOG.info("SSSSSSSSSSSSSSSSSSS Subview component = " + component.getClass().getName());
+    if (LOG.isInfoEnabled()) {
+      LOG.info("SSSSSSSSSSSSSSSSSSS Subview component = " + component.getClass().getName());
+    }
     super.encodeBegin(facesContext, component);
   }
 

@@ -290,7 +290,9 @@ public abstract class AbstractWizardController implements Wizard {
     String id = command.getId();
     String stepIndex = StringUtils.difference("wizard-goto-", id);
     try {
-      LOG.info("Goto step " + stepIndex);
+      if (LOG.isInfoEnabled()) {
+        LOG.info("Goto step " + stepIndex);
+      }
       requestedIndex = Integer.valueOf(stepIndex);
     } catch (NumberFormatException lvException) {
       FacesContext.getCurrentInstance().addMessage(
@@ -509,7 +511,9 @@ public abstract class AbstractWizardController implements Wizard {
       throw new IllegalStateException("Index too large for course: index="
           + index + " course.size()=" + course.size());
     }
-    LOG.info("course: " + course);
+    if (LOG.isInfoEnabled()) {
+      LOG.info("course: " + course);
+    }
   }
 
   public void registerOutcome(String outcome, String title, int index) {

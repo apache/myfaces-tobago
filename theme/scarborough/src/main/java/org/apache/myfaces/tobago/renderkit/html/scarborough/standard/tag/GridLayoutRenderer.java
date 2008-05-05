@@ -827,7 +827,9 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
 
   public void layoutBegin(FacesContext facesContext, UIComponent component) {
-    LOG.info("############################## layoutBegin +++++++++++++++++++++++++++++++++++++++++");
+    if (LOG.isInfoEnabled()) {
+      LOG.info("############################## layoutBegin +++++++++++++++++++++++++++++++++++++++++");
+    }
     HtmlRendererUtil.layoutSpace(facesContext, component, true);
     HtmlRendererUtil.layoutSpace(facesContext, component, false);
 

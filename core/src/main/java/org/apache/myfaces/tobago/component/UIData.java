@@ -587,7 +587,9 @@ public class UIData extends javax.faces.component.UIData
         && (facesEvent instanceof SheetStateChangeEvent
         || facesEvent instanceof PageActionEvent)) {
       facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
-      LOG.info("queueEvent = \"" + facesEvent + "\"");
+      if (LOG.isInfoEnabled()) {
+        LOG.info("queueEvent = \"" + facesEvent + "\"");
+      }
       parent.queueEvent(facesEvent);
     } else {
       UIComponent source = facesEvent.getComponent();

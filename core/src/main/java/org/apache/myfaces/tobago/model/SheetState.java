@@ -114,7 +114,9 @@ public class SheetState implements Serializable {
     Integer[] position = null;
     if (!StringUtils.isBlank(value)) {
       int sep = value.indexOf(";");
-      LOG.info("value = \"" + value + "\"  sep = " + sep + "");
+      if (LOG.isInfoEnabled()) {
+        LOG.info("value = \"" + value + "\"  sep = " + sep + "");
+      }
       if (sep == -1) {
         throw new NumberFormatException(value);
       }

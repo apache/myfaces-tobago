@@ -66,16 +66,19 @@ public class ClientProperties implements Serializable {
         contentType = "wml";
       }
     }
-    LOG.info("contentType='" + contentType + "' from header "
-        + "Accept='" + accept + "'");
+    if (LOG.isInfoEnabled()) {
+      LOG.info("contentType='" + contentType + "' from header "
+          + "Accept='" + accept + "'");
+    }
 
     // user agent
     String requestUserAgent
         = (String) externalContext.getRequestHeaderMap().get("User-Agent");
     this.userAgent = UserAgent.getInstance(requestUserAgent);
-    LOG.info("userAgent='" + this.userAgent + "' from header "
-        + "'User-Agent: " + requestUserAgent + "'");
-
+    if (LOG.isInfoEnabled()) {
+      LOG.info("userAgent='" + this.userAgent + "' from header "
+          + "'User-Agent: " + requestUserAgent + "'");
+    }
     // debug mode
     // to enable the debug mode for a user, put a
     // "to-ba-go" custom locale to your browser
@@ -84,15 +87,18 @@ public class ClientProperties implements Serializable {
     if (acceptLanguage != null) {
       this.debugMode = acceptLanguage.indexOf("to-ba-go") > -1;
     }
-    LOG.info("debug-mode=" + debugMode);
-
+    if (LOG.isInfoEnabled()) {
+      LOG.info("debug-mode=" + debugMode);
+    }
     // theme
     String requestTheme
         = (String) externalContext.getRequestParameterMap().get("tobago.theme");
     TobagoConfig config = TobagoConfig.getInstance(facesContext);
     this.theme = config.getTheme(requestTheme);
-    LOG.info("theme='" + theme.getName() + "' from requestParameter "
-        + "tobago.theme='" + requestTheme + "'");
+    if (LOG.isInfoEnabled()) {
+      LOG.info("theme='" + theme.getName() + "' from requestParameter "
+          + "tobago.theme='" + requestTheme + "'");
+    }
     updateId();
   }
 

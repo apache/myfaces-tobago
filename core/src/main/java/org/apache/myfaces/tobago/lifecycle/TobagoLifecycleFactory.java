@@ -34,26 +34,36 @@ public class TobagoLifecycleFactory extends LifecycleFactory {
   public TobagoLifecycleFactory(LifecycleFactory factory) {
     this.factory = factory;
     defaultLifecycle = new TobagoLifecycle();
-    LOG.info("new TobagoLifecycleFactory");
+    if (LOG.isInfoEnabled()) {
+      LOG.info("new TobagoLifecycleFactory");
+    }
   }
 
   public void addLifecycle(String lifecycleId, Lifecycle lifecycle) {
     factory.addLifecycle(lifecycleId, lifecycle);
-    LOG.info("Lifecycle added : " + lifecycleId + " = " + lifecycle.getClass().getName() + "");
+    if (LOG.isInfoEnabled()) {
+      LOG.info("Lifecycle added : " + lifecycleId + " = " + lifecycle.getClass().getName() + "");
+    }
   }
 
   public Lifecycle getLifecycle(String lifecycleId) {
     if (LifecycleFactory.DEFAULT_LIFECYCLE.equals(lifecycleId)) {
-      LOG.info("getLifecycle(\"" + lifecycleId + "\")  -> TobagoLifecycle");
+      if (LOG.isInfoEnabled()) {
+        LOG.info("getLifecycle(\"" + lifecycleId + "\")  -> TobagoLifecycle");
+      }
       return defaultLifecycle;
     } else {
-      LOG.info("getLifecycle(\"" + lifecycleId + "\")  -> other Lifecycle");
+      if (LOG.isInfoEnabled()) {
+        LOG.info("getLifecycle(\"" + lifecycleId + "\")  -> other Lifecycle");
+      }
       return factory.getLifecycle(lifecycleId);
     }
   }
 
   public Iterator getLifecycleIds() {
-    LOG.info("getLifecycleIds()");
+    if (LOG.isInfoEnabled()) {
+      LOG.info("getLifecycleIds()");
+    }
     return factory.getLifecycleIds();
   }
 }
