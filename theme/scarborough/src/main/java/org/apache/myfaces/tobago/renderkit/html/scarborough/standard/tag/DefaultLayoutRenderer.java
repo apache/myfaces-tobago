@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.renderkit.AbstractLayoutRenderer;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 
 import javax.faces.component.UIComponent;
@@ -40,6 +41,7 @@ public class DefaultLayoutRenderer extends AbstractLayoutRenderer {
     for (Object o : component.getChildren()) {
       UIComponent child = (UIComponent) o;
       RenderUtil.encode(facesContext, child);
+      HtmlRendererUtil.removeStyleClasses(child);
     }
   }
 }

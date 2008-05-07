@@ -70,7 +70,7 @@ public class StyleClassesUnitTest extends TestCase {
     c.addAspectClass("myComponent", StyleClasses.Aspect.DISABLED);
     assertEquals("tobago-myComponent-disabled", c.toString());
     c.removeAspectClass("myComponent", StyleClasses.Aspect.DISABLED);
-    assertEquals("", c.toString());
+    assertEquals(null, c.toString());
   }
 
   public void testAddAspectClassSub() {
