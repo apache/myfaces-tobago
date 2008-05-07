@@ -45,6 +45,7 @@ public class DefaultLayoutRenderer extends LayoutRenderer {
     for (Object o : component.getChildren()) {
       UIComponent child = (UIComponent) o;
       RenderUtil.encode(facesContext, child);
+      HtmlRendererUtil.removeStyleClasses(child);
     }
   }
 }

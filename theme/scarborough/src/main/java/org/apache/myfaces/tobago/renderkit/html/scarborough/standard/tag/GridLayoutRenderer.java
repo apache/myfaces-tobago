@@ -382,6 +382,9 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
             writer.endElement(HtmlConstants.TD);
 
             firstRenderedColum = false;
+
+            HtmlRendererUtil.removeStyleClasses(cell);
+
           }
         }
 

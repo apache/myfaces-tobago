@@ -232,6 +232,10 @@ public class StyleClasses implements Serializable {
     }
   }
 
+  public boolean isEmpty() {
+    return classes.isEmpty();  
+  }
+
   @Override
   public String toString() {
     if (classes.isEmpty()) {

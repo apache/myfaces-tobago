@@ -57,6 +57,7 @@ import javax.faces.model.SelectItemGroup;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -702,5 +703,20 @@ public final class HtmlRendererUtil {
     }
     strBuilder.append("]");
     return strBuilder.toString();
+  }
+
+  public static void removeStyleClasses(UIComponent cell) {
+    Object obj = cell.getAttributes().get(org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS);
+    if (obj != null && obj instanceof StyleClasses && cell.getRendererType() != null) {
+      StyleClasses styleClasses = (StyleClasses) obj;
+      if (!styleClasses.isEmpty()) {
+        String rendererName = cell.getRendererType().substring(0, 1).toLowerCase(Locale.ENGLISH)
+            + cell.getRendererType().substring(1);
+        styleClasses.removeTobagoClasses(rendererName);
+      }
+      if (styleClasses.isEmpty()) {
+        cell.getAttributes().remove(org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS);
+      }
+    }
   }
 }

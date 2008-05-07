@@ -36,10 +36,10 @@ import javax.servlet.jsp.tagext.BodyTag;
 public class PageTag extends TobagoBodyTag
     implements BodyTag, PageTagDeclaration {
 
-  private String doctype = "loose";
+  private String doctype;
 
   // TODO move to renderkit
-  private String method = "POST";
+  private String method;
 
   private String state;
 
@@ -61,7 +61,6 @@ public class PageTag extends TobagoBodyTag
     page.getPopups().clear();
 
     // reseting doctype and charset
-    doctype = "loose";
     return result;
   }
 
@@ -71,8 +70,8 @@ public class PageTag extends TobagoBodyTag
 
   public void release() {
     super.release();
-    doctype = "loose";
-    method = "POST";
+    doctype = null;
+    method = null;
     state = null;
     focusId = null;
     label = null;
