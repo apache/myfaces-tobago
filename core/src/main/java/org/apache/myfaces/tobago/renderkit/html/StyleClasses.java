@@ -238,7 +238,10 @@ public class StyleClasses implements Serializable {
 
   @Override
   public String toString() {
-    StringBuffer buffer = new StringBuffer();
+    if (classes.isEmpty()) {
+      return null;
+    }
+    StringBuilder buffer = new StringBuilder(32);
     for (Iterator i = classes.iterator(); i.hasNext();) {
       String clazz = (String) i.next();
       buffer.append(clazz);
