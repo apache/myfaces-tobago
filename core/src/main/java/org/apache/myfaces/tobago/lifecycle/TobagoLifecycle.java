@@ -68,6 +68,11 @@ public class TobagoLifecycle extends Lifecycle {
   public void execute(FacesContext facesContext) throws FacesException {
     PhaseListenerManager phaseListenerMgr
         = new PhaseListenerManager(this, facesContext, getPhaseListeners());
+
+    // At very first ensure the requestEncoding, this MUST done before
+    // accessing request parameters, wich can occur in custom phaseListeners.
+    RequestUtils.ensureEncoding(facesContext.getExternalContext());
+    
     for (PhaseExecutor executor : lifecycleExecutors) {
       if (executePhase(facesContext, executor, phaseListenerMgr)) {
         return;
@@ -83,10 +88,6 @@ public class TobagoLifecycle extends Lifecycle {
     if (LOG.isTraceEnabled()) {
       LOG.trace("entering " + executor.getPhase() + " in " + TobagoLifecycle.class.getName());
     }
-
-    // At very first ensure the requestEncoding, this MUST done before
-    // accessing request parameters, wich can occur in custom phaseListeners.
-    RequestUtils.ensureEncoding(facesContext.getExternalContext());
 
     try {
       phaseListenerMgr.informPhaseListenersBefore(executor.getPhase());

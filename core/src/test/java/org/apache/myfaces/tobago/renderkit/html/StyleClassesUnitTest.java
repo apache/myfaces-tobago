@@ -46,7 +46,7 @@ public class StyleClassesUnitTest extends TestCase {
   public void testRemoveEmpty() {
     StyleClasses c = new StyleClasses();
     c.removeTobagoClasses("no");
-    assertEquals("", c.toString());
+    assertEquals(null, c.toString());
   }
 
   public void testAddMarkupClass() {
@@ -54,7 +54,7 @@ public class StyleClassesUnitTest extends TestCase {
     c.addMarkupClass("myComponent", "big");
     assertEquals("tobago-myComponent-markup-big", c.toString());
     c.removeMarkupClass("myComponent", "big");
-    assertEquals("", c.toString());
+    assertEquals(null, c.toString());
   }
 
   public void testAddMarkupClassSub() {
@@ -62,7 +62,7 @@ public class StyleClassesUnitTest extends TestCase {
     c.addMarkupClass("myComponent", "mySub", "big");
     assertEquals("tobago-myComponent-mySub-markup-big", c.toString());
     c.removeMarkupClass("myComponent", "mySub", "big");
-    assertEquals("", c.toString());
+    assertEquals(null, c.toString());
   }
 
   public void testAddAspectClass() {
@@ -70,7 +70,7 @@ public class StyleClassesUnitTest extends TestCase {
     c.addAspectClass("myComponent", StyleClasses.Aspect.DISABLED);
     assertEquals("tobago-myComponent-disabled", c.toString());
     c.removeAspectClass("myComponent", StyleClasses.Aspect.DISABLED);
-    assertEquals("", c.toString());
+    assertEquals(null, c.toString());
   }
 
   public void testAddAspectClassSub() {
@@ -78,7 +78,7 @@ public class StyleClassesUnitTest extends TestCase {
     c.addAspectClass("myComponent", "mySub", StyleClasses.Aspect.DISABLED);
     assertEquals("tobago-myComponent-mySub-disabled", c.toString());
     c.removeAspectClass("myComponent", "mySub", StyleClasses.Aspect.DISABLED);
-    assertEquals("", c.toString());
+    assertEquals(null, c.toString());
   }
 
 }

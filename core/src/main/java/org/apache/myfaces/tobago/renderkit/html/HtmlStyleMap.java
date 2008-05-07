@@ -56,6 +56,9 @@ public class HtmlStyleMap extends HashMap<String, Object> {
   }
 
   public String toString() {
+    if (entrySet().isEmpty()) {
+      return null;
+    }
     StringBuilder buf = new StringBuilder();
     for (Map.Entry<String, Object> style : entrySet()) {
       buf.append(style.getKey());
