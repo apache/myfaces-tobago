@@ -277,11 +277,19 @@ var Tobago = {
   },
 
   onSubmit: function() {
+    if (Tobago.applicationOnsubmit) {
+      if (!Tobago.applicationOnsubmit()) {
+        this.isSubmit = false;
+        Tobago.action.value = oldAction;
+        Tobago.form.target = oldTarget;
+        return;
+      }
+    }
     this.isSubmit = true;
     var clientDimension = this.createInput("hidden", this.form.id + '-clientDimension');
     clientDimension.value = document.body.clientWidth + ";" + document.body.clientHeight;
     this.form.appendChild(clientDimension);
-    Tobago.onBeforeUnload();    
+    Tobago.onBeforeUnload();
   },
 
   onBeforeUnload: function() {
@@ -473,14 +481,6 @@ var Tobago = {
         Tobago.action.value = actionId;
         if (target) {
           Tobago.form.target = target;
-        }
-        if (Tobago.applicationOnsubmit) {
-          if (!Tobago.applicationOnsubmit()) {
-            this.isSubmit = false;
-            Tobago.action.value = oldAction;
-            Tobago.form.target = oldTarget;
-            return;
-          }
         }
         Tobago.oldTransition = Tobago.transition;
         Tobago.transition = transition && !target;
