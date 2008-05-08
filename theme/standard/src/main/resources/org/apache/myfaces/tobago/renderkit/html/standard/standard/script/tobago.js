@@ -249,6 +249,8 @@ var Tobago = {
     this.addBindEventListener(this.form, "submit", this, "onSubmit");
     this.action = this.element(this.form.id + '-action')
     this.contextPath = this.element(this.page.id + this.SUB_COMPONENT_SEP + "context-path");
+    // AP
+//    this.actionPosition = this.element(this.page.id + this.SUB_COMPONENT_SEP + "action-position");
 
     this.addBindEventListener(window, "unload", this, "onUnload");
 
@@ -282,6 +284,14 @@ var Tobago = {
   },
 
   onSubmit: function() {
+    if (Tobago.applicationOnsubmit) {
+      if (!Tobago.applicationOnsubmit()) {
+        this.isSubmit = false;
+        Tobago.action.value = oldAction;
+        Tobago.form.target = oldTarget;
+        return;
+      }
+    }
     var hidden = Tobago.element("tobago::partialIds");
     if (hidden) {
       this.form.removeChild(hidden);
@@ -482,14 +492,6 @@ var Tobago = {
         Tobago.action.value = actionId;
         if (target) {
           Tobago.form.target = target;
-        }
-        if (Tobago.applicationOnsubmit) {
-          if (!Tobago.applicationOnsubmit()) {
-            this.isSubmit = false;
-            Tobago.action.value = oldAction;
-            Tobago.form.target = oldTarget;
-            return;
-          }
         }
         Tobago.oldTransition = Tobago.transition;
         Tobago.transition = transition && !target;
@@ -1074,6 +1076,8 @@ var Tobago = {
    }
   },
 
+// AP
+//  openPopupWithAction: function(source, popupId, actionId, options) {
   openPopupWithAction: function(popupId, actionId, options) {
     var div = Tobago.element(popupId);
     if (div) {
@@ -1082,6 +1086,12 @@ var Tobago = {
       Tobago.submitAction(actionId);
     }
 
+// AP
+//    var sourceLeft = Tobago.getAbsoluteLeft(source);
+//    var sourceTop = Tobago.getAbsoluteTop(source);
+//    alert("source='" + source + "' " + sourceLeft + "," + sourceTop);
+//    Tobago.actionPosition.value = sourceLeft + "," + sourceTop;
+//
     div = document.createElement('div');
     div.id = popupId + "parentDiv";
     div.className = "tobago-popup-parent";

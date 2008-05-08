@@ -23,7 +23,7 @@
   <jsp:body>
     <tc:box label="Command Controls">
       <f:facet name="layout">
-        <tc:gridLayout columns="100px;100px;100px;100px;*" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
+        <tc:gridLayout columns="100px;100px;100px;100px;*" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
       </f:facet>
 
       <%-- standard --%>
@@ -99,7 +99,16 @@
 
       <tc:link label="Action" action="reference/command" target="Command Target"/>
       <tc:link label="N/A"  disabled="true"/>
-      <tc:link label="Link" link="http://www.apache.org/" target="Command Target"/>
+      <tc:link label="Link" link="/index.html" target="Command Target"/>
+      <tc:cell/>
+
+      <%-- default command --%>
+
+      <tc:label value="Default Command"/>
+
+      <tc:button label="Action" action="reference/command" defaultCommand="true"/>
+      <tc:cell/>
+      <tc:cell/>
       <tc:cell/>
 
       <%-- dynamic widths --%>

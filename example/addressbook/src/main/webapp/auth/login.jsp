@@ -62,8 +62,8 @@
     <tc:cell/>
     <tc:cell spanX="3"/>
 
-    <tc:script onload="initLoginForm();">
-      function initLoginForm() {
+    <tc:script onsubmit="prepareLoginForm();">
+      function prepareLoginForm() {
         var user = document.getElementById("page:j_username");
         user.name = "j_username";
         var pass = document.getElementById("page:j_password");
