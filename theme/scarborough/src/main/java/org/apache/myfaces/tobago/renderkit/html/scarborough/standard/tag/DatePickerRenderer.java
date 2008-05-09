@@ -130,7 +130,7 @@ public class DatePickerRenderer extends LinkRenderer {
       UIComponent time = timePanel.findComponent("time");
       int popupHeight = ComponentUtil.getIntAttribute(popup, ATTR_HEIGHT);
       popupHeight += ThemeConfig.getValue(FacesContext.getCurrentInstance(), time, "fixedHeight");
-      popup.getAttributes().put(ATTR_HEIGHT, popupHeight);
+      popup.getAttributes().put(ATTR_HEIGHT, String.valueOf(popupHeight));
       DateTimeConverter dateTimeConverter
              = (DateTimeConverter) facesContext.getApplication().createConverter(CONVERTER_ID);
       if (converterPattern.indexOf('s') > -1) {
