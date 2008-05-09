@@ -63,8 +63,8 @@ public class <componentInfo.className>
   <componentInfo.properties:{ p | <p:(p.propertyTemplate)()>}; separator="\n">
 
   <if(componentInfo.properties)>
-  public void restoreState(FacesContext context, Object state) {
-    Object[] values = (Object[]) state;
+  public void restoreState(FacesContext context, Object componentState) {
+    Object[] values = (Object[]) componentState;
     super.restoreState(context, values[0]);
     <componentInfo.properties:{ p | <p:(p.propertyRestoreStateTemplate)()>}; separator="\n">
   }
