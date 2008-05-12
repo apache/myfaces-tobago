@@ -481,13 +481,13 @@ public class ToolBarRenderer extends LayoutableRendererBase {
     if (!disabled) {
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);
       writer.writeAttribute(HtmlAttributes.ONFOCUS, "Tobago.toolbarFocus(this, event)", false);
+      String id = command.getClientId(facesContext) + SUBCOMPONENT_SEP + "link";
+      writer.writeIdAttribute(id);
       if (label.getAccessKey() != null) {
         if (LOG.isInfoEnabled()
             && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
           LOG.info("dublicated accessKey : " + label.getAccessKey());
         }
-        String id = command.getClientId(facesContext) + SUBCOMPONENT_SEP + "link";
-        writer.writeIdAttribute(id);
         HtmlRendererUtil.addClickAcceleratorKey(
             facesContext, id, label.getAccessKey());
       }
