@@ -32,6 +32,11 @@ public abstract class AbstractRendererBaseWrapper extends RendererBase {
   private static final Log LOG = LogFactory.getLog(AbstractRendererBaseWrapper.class);
 
   @Override
+  public void onComponentCreated(FacesContext context, UIComponent component) {
+    getRenderer(context).onComponentCreated(context, component);
+  }
+
+  @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     getRenderer(facesContext).prepareRender(facesContext, component);
   }

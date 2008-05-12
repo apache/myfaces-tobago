@@ -1,5 +1,8 @@
 package org.apache.myfaces.tobago;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -23,5 +26,5 @@ package org.apache.myfaces.tobago;
  */
 public interface OnComponentCreated {
 
-  void onComponentCreated();
+  void onComponentCreated(FacesContext context, UIComponent component);
 }

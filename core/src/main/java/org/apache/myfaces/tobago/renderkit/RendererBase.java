@@ -194,4 +194,8 @@ public class RendererBase extends Renderer {
       return submittedValue;
     }
   }
+
+  public void onComponentCreated(FacesContext context, UIComponent component) {
+    
+  }
 }

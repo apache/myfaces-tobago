@@ -36,7 +36,7 @@ public abstract class TobagoELTag extends UIComponentELTag {
     if (component instanceof OnComponentCreated
         && component.getAttributes().get("org.apache.myfaces.tobago.CREATION_MARKER") == null) {
       component.getAttributes().put("org.apache.myfaces.tobago.CREATION_MARKER", Boolean.TRUE);
-      ((OnComponentCreated) component).onComponentCreated();
+      ((OnComponentCreated) component).onComponentCreated(getFacesContext(), getComponentInstance());
     }
     return super.doEndTag();
   }

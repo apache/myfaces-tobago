@@ -69,7 +69,7 @@ public class TobagoComponentHandler extends ComponentHandler {
     if (component instanceof OnComponentCreated
         && component.getAttributes().get(TobagoConstants.TOBAGO_COMPONENT_CREATED) == null) {
       component.getAttributes().put(TobagoConstants.TOBAGO_COMPONENT_CREATED, Boolean.TRUE);
-      ((OnComponentCreated) component).onComponentCreated();
+      ((OnComponentCreated) component).onComponentCreated(context.getFacesContext(), component);
     }
   }
 }

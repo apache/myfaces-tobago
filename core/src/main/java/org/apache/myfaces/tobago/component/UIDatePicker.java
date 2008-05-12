@@ -17,32 +17,15 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CALENDAR_DATE_INPUT_ID;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER_POPUP;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BOX;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BUTTON;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_CALENDAR;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_GRID_LAYOUT;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_HIDDEN;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_IMAGE;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_PANEL;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_POPUP;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TIME;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.event.DatePickerController;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.OnComponentCreated;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIGraphic;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
+import javax.faces.render.Renderer;
 
 /*
  * Date: 30.05.2006
@@ -120,135 +103,10 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
     super.broadcast(facesEvent);
   }
 
-  public void onComponentCreated() {
-    preparePicker(this);
+  public void onComponentCreated(FacesContext context, UIComponent component) {
+    Renderer renderer = getRenderer(getFacesContext());
+    if (renderer instanceof RendererBase) {
+      ((RendererBase) renderer).onComponentCreated(context, component);
+    }
   }
-
-  public void preparePicker(UIDatePicker link) {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-
-    if (forComponent == null) {
-      link.setFor("@auto");
-    }
-    link.setImmediate(true);
-    String linkId = link.getId();
-    UIHiddenInput hidden =
-        (UIHiddenInput) CreateComponentUtils.createComponent(facesContext,
-            UIHiddenInput.COMPONENT_TYPE, RENDERER_TYPE_HIDDEN);
-    if (linkId != null) {
-      hidden.setId(linkId + "hidden");
-    } else {
-      hidden.setId(facesContext.getViewRoot().createUniqueId());
-    }
-    link.getChildren().add(hidden);
-
-    // create popup
-    final AbstractUIPopup popup =
-        (AbstractUIPopup) CreateComponentUtils.createComponent(facesContext, UIPopup.COMPONENT_TYPE,
-            RENDERER_TYPE_POPUP);
-    if (linkId != null) {
-      popup.setId(linkId + "popup");
-    } else {
-      popup.setId(facesContext.getViewRoot().createUniqueId());
-    }
-    popup.getAttributes().put(TobagoConstants.ATTR_ZINDEX, 10);
-
-    link.getFacets().put(FACET_PICKER_POPUP, popup);
-
-    popup.setRendered(false);
-
-    final UIComponent box = CreateComponentUtils.createComponent(
-        facesContext, UIBox.COMPONENT_TYPE, RENDERER_TYPE_BOX);
-    popup.getChildren().add(box);
-    box.setId("box");
-    // TODO: set string resources in renderer
-    box.getAttributes().put(ATTR_LABEL, ResourceManagerUtil.getPropertyNotNull(
-        facesContext, "tobago", "datePickerTitle"));
-    UIComponent layout = CreateComponentUtils.createComponent(
-        facesContext, UIGridLayout.COMPONENT_TYPE, RENDERER_TYPE_GRID_LAYOUT);
-    box.getFacets().put(FACET_LAYOUT, layout);
-    layout.setId("layout");
-    layout.getAttributes().put(ATTR_ROWS, "*;fixed;fixed");
-
-    final UIComponent calendar = CreateComponentUtils.createComponent(
-        facesContext, javax.faces.component.UIOutput.COMPONENT_TYPE,
-        RENDERER_TYPE_CALENDAR);
-
-    calendar.setId("calendar");
-    box.getChildren().add(calendar);
-
-    // add time input
-    final UIComponent timePanel = CreateComponentUtils.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);
-    timePanel.setId("timePanel");
-    box.getChildren().add(timePanel);
-    layout = CreateComponentUtils.createComponent(
-        facesContext, UIGridLayout.COMPONENT_TYPE, RENDERER_TYPE_GRID_LAYOUT);
-    timePanel.getFacets().put(FACET_LAYOUT, layout);
-    layout.setId("timePanelLayout");
-    layout.getAttributes().put(ATTR_COLUMNS, "1*;fixed;1*");
-    UIComponent cell = CreateComponentUtils.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);
-    cell.setId("cell1");
-    timePanel.getChildren().add(cell);
-
-    final UIComponent time = CreateComponentUtils.createComponent(
-        facesContext,
-        UITimeInput.COMPONENT_TYPE,
-        RENDERER_TYPE_TIME);
-    timePanel.getChildren().add(time);
-    time.setId("time");
-
-    cell = CreateComponentUtils.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);
-    cell.setId("cell2");
-    timePanel.getChildren().add(cell);
-
-
-    UIComponent buttonPanel = CreateComponentUtils.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);
-    buttonPanel.setId("buttonPanel");
-    layout = CreateComponentUtils.createComponent(
-        facesContext, UIGridLayout.COMPONENT_TYPE, RENDERER_TYPE_GRID_LAYOUT);
-    layout.setId("buttonPanelLayout");
-    buttonPanel.getFacets().put(FACET_LAYOUT, layout);
-    layout.getAttributes().put(ATTR_COLUMNS, "*;*");
-//    layout.getAttributes().put(TobagoConstants.ATTR_BORDER, "1");
-
-    box.getChildren().add(buttonPanel);
-
-    final UICommand okButton =
-        (UICommand) CreateComponentUtils.createComponent(facesContext,
-            org.apache.myfaces.tobago.component.UIButtonCommand.COMPONENT_TYPE,
-            RENDERER_TYPE_BUTTON);
-    buttonPanel.getChildren().add(okButton);
-    okButton.setId("ok" + DatePickerController.CLOSE_POPUP);
-    okButton.getAttributes().put(ATTR_LABEL, ResourceManagerUtil.getPropertyNotNull(
-        facesContext, "tobago", "datePickerOk"));
-
-    final UICommand cancelButton =
-        (UICommand) CreateComponentUtils.createComponent(facesContext,
-            org.apache.myfaces.tobago.component.UIButtonCommand.COMPONENT_TYPE,
-            RENDERER_TYPE_BUTTON);
-    buttonPanel.getChildren().add(cancelButton);
-
-    cancelButton.getAttributes().put(ATTR_LABEL, ResourceManagerUtil.getPropertyNotNull(
-        facesContext, "tobago", "datePickerCancel"));
-    cancelButton.setId(DatePickerController.CLOSE_POPUP);
-
-    // create image
-    UIGraphic image = (UIGraphic) CreateComponentUtils.createComponent(
-        facesContext, UIGraphic.COMPONENT_TYPE, RENDERER_TYPE_IMAGE);
-    image.setRendered(true);
-    if (linkId != null) {
-      image.setId(linkId + "image");
-    } else {
-      image.setId(facesContext.getViewRoot().createUniqueId());
-    }
-    image.setValue("image/date.gif");
-    image.getAttributes().put(ATTR_ALT, ""); //TODO: i18n
-    StyleClasses.ensureStyleClasses(image).addFullQualifiedClass("tobago-input-picker"); // XXX not a standard name
-    link.getChildren().add(image);
-  }
-
 }
