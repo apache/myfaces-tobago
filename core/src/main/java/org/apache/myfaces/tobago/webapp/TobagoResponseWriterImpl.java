@@ -53,24 +53,24 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
       HtmlConstants.BASE,
       HtmlConstants.META));
 
-  protected Writer writer;
+  private Writer writer;
 
-  protected UIComponent component;
+  private UIComponent component;
 
-  protected boolean startStillOpen;
+  private boolean startStillOpen;
 
   private String contentType;
 
   private String characterEncoding;
 
-  protected Stack<String> stack;
+  private Stack<String> stack;
 
   /**
    * use XML instead HMTL
    */
-  protected boolean xml;
+  private boolean xml;
 
-  protected HtmlWriterUtil helper;
+  private HtmlWriterUtil helper;
 
   public TobagoResponseWriterImpl(final Writer writer, final String contentType,
       final String characterEncoding) {
@@ -92,6 +92,36 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
     }
     helper = new HtmlWriterUtil(writer, characterEncoding);
   }
+
+  protected final UIComponent getComponent() {
+    return component;
+  }
+
+  protected final void setComponent(UIComponent component) {
+    this.component = component;
+  }
+
+  protected final boolean isStartStillOpen() {
+    return startStillOpen;
+  }
+
+  protected final void setStartStillOpen(boolean startStillOpen) {
+    this.startStillOpen = startStillOpen;
+  }
+
+  protected final Stack<String> getStack() {
+    return stack;
+  }
+
+
+  public final boolean isXml() {
+    return xml;
+  }
+
+  public final HtmlWriterUtil getHelper() {
+    return helper;
+  }
+
 
   private String findValue(final Object value, final String property) {
     if (value != null) {
@@ -124,7 +154,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
     }
   }
 
-  protected Writer getWriter() {
+  protected final Writer getWriter() {
     return writer;
   }
 

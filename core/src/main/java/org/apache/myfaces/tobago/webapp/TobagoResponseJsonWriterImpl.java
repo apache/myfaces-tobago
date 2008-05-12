@@ -61,14 +61,14 @@ public class TobagoResponseJsonWriterImpl extends TobagoResponseWriterImpl {
 
   protected void startElementInternal(Writer writer, String name, UIComponent currentComponent)
       throws IOException {
-    this.component = currentComponent;
-    stack.push(name);
-    if (startStillOpen) {
+    setComponent(currentComponent);
+    getStack().push(name);
+    if (isStartStillOpen()) {
       writer.write(">");
     }
     writer.write("<");
     writer.write(name);
-    startStillOpen = true;
+    setStartStillOpen(true);
   }
 
   protected void endElementInternal(Writer writer, String name) throws IOException {
@@ -77,7 +77,7 @@ public class TobagoResponseJsonWriterImpl extends TobagoResponseWriterImpl {
     }
     String top = "";
     try {
-      top = stack.pop();
+      top = getStack().pop();
     } catch (EmptyStackException e) {
       LOG.error("Failed to close element \"" + name + "\"!");
       throw e;
@@ -90,32 +90,32 @@ public class TobagoResponseJsonWriterImpl extends TobagoResponseWriterImpl {
     }
 
     if (EMPTY_TAG.contains(name)) {
-      if (xml) {
+      if (isXml()) {
         writer.write("/>");
       } else {
         writer.write(">");
       }
     } else {
-      if (startStillOpen) {
+      if (isStartStillOpen()) {
         writer.write(">");
       }
       writer.write("</");
       writer.write(name);
       writer.write(">");
     }
-    startStillOpen = false;
+    setStartStillOpen(false);
   }
 
   protected void closeOpenTag() throws IOException {
-    if (startStillOpen) {
-      writer.write(">");
-      startStillOpen = false;
+    if (isStartStillOpen()) {
+      getWriter().write(">");
+      setStartStillOpen(false);
     }
   }
 
   protected void writeAttributeInternal(Writer writer, String name, String value, boolean escape)
       throws IOException {
-    if (!startStillOpen) {
+    if (!isStartStillOpen()) {
       String trace = getCallingClassStackTraceElementString();
       String error = "Cannot write attribute when start-tag not open. "
           + "name = '" + name + "' "
@@ -129,11 +129,11 @@ public class TobagoResponseJsonWriterImpl extends TobagoResponseWriterImpl {
       writer.write(' ');
       writer.write(name);
       writer.write("=\\\"");
-      if (xml) {
+      if (isXml()) {
         writer.write(XmlUtils.escape(value));
       } else {
         if (escape) {
-          helper.writeAttributeValue(value);
+          getHelper().writeAttributeValue(value);
         } else {
           writer.write(value);
         }
