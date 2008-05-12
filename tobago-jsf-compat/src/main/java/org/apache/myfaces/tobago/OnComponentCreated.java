@@ -1,8 +1,5 @@
 package org.apache.myfaces.tobago;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,6 +16,9 @@ import javax.faces.context.FacesContext;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 
 /*
  * Date: 09.06.2006
