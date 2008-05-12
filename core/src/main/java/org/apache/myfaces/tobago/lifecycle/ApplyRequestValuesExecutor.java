@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.UIViewRoot;
 import org.apache.myfaces.tobago.util.ApplyRequestValuesCallback;
 import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 
 import javax.faces.component.ContextCallback;
 
@@ -61,13 +62,18 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
       AbstractUIPage page = ComponentUtil.findPage(facesContext);
       page.decode(facesContext);
       page.markSubmittedForm(facesContext);
-
+      if (facesContext instanceof TobagoFacesContext) {
+        ((TobagoFacesContext) facesContext).setAjax(true);
+      }
       // decode the action if actioncomponent not inside one of the ajaxcomponets
       // otherwise it is decoded there
       decodeActionComponent(facesContext, page, ajaxComponents);
 
       // and all ajax components
       for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
+        if (facesContext instanceof TobagoFacesContext) {
+          ((TobagoFacesContext) facesContext).setAjaxComponentId(entry.getKey());
+        }
         FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), entry.getKey(), contextCallback);
       }
 

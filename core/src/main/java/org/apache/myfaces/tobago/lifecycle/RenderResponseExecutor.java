@@ -45,9 +45,10 @@ class RenderResponseExecutor implements PhaseExecutor {
   public boolean execute(FacesContext facesContext) {
     if (AjaxUtils.getAjaxComponents(facesContext) != null) {
       try {
-        TobagoFacesContext tobagoFacesContext = new TobagoFacesContext(facesContext);
-        tobagoFacesContext.setAjax(true);
-        ajaxResponseRenderer.renderResponse(tobagoFacesContext);
+        if (facesContext instanceof TobagoFacesContext) {
+          ((TobagoFacesContext) facesContext).setAjax(true);
+        }
+        ajaxResponseRenderer.renderResponse(facesContext);
       } catch (IOException e) {
         throw new FacesException(e.getMessage(), e);
       }

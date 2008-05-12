@@ -236,9 +236,9 @@ public abstract class AbstractUITabGroup extends UIPanelBase implements TabChang
     return (TabChangeListener[]) getFacesListeners(TabChangeListener.class);
   }
 
-  public int encodeAjax(FacesContext facesContext) throws IOException {
+  public void encodeAjax(FacesContext facesContext) throws IOException {
     setRenderedIndex(getSelectedIndex());
-    return AjaxUtils.encodeAjaxComponent(facesContext, this);
+    AjaxUtils.encodeAjaxComponent(facesContext, this);
   }
 
   public abstract Integer getRenderedIndex();

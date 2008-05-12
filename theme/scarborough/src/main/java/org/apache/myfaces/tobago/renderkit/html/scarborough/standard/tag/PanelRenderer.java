@@ -28,8 +28,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_RELOAD;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
-import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_NOT_MODIFIED;
-import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPanel;
@@ -120,9 +118,7 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
     return height;
   }
 
-  public void encodeChildren(FacesContext facesContext,
-      UIComponent uiComponent) throws IOException {
-
+  public void encodeChildren(FacesContext facesContext, UIComponent uiComponent) throws IOException {
     UIPanel component = (UIPanel) uiComponent;
     for (Object o : component.getChildren()) {
       UIComponent child = (UIComponent) o;
@@ -157,29 +153,14 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
     }
   }
 
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent uiComponent) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
     writer.endElement(HtmlConstants.DIV);
   }
 
-  public int encodeAjax(FacesContext facesContext, UIComponent component)
-      throws IOException {
+  public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
     AjaxUtils.checkParamValidity(facesContext, component, UIPanel.class);
-    boolean update = true;
-    if (component.getFacet(FACET_RELOAD) != null
-        && component.getFacet(FACET_RELOAD) instanceof UIReload
-        && component.getFacet(FACET_RELOAD).isRendered()) {
-      UIReload reload = (UIReload) component.getFacet(FACET_RELOAD);
-      update = reload.isUpdate();
-    }
-    if (update) {
-      component.encodeChildren(facesContext);
-      return CODE_SUCCESS;
-    } else {
-      return CODE_NOT_MODIFIED;
-    }
+    component.encodeChildren(facesContext);
   }
-
 }
 

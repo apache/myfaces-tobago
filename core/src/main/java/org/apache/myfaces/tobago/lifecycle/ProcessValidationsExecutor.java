@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.component.UIViewRoot;
 import javax.faces.component.ContextCallback;
 import org.apache.myfaces.tobago.util.ProcessValidationsCallback;
 import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -47,6 +48,9 @@ class ProcessValidationsExecutor implements PhaseExecutor {
     Map<String, UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(facesContext);
     if (ajaxComponents != null) {
       for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
+        if (facesContext instanceof TobagoFacesContext) {
+          ((TobagoFacesContext) facesContext).setAjaxComponentId(entry.getKey());
+        }
         FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), entry.getKey(), contextCallback);
       }
       UIViewRoot viewRoot = ((UIViewRoot) facesContext.getViewRoot());

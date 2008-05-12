@@ -29,8 +29,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
-import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_ERROR;
-import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
@@ -188,10 +186,10 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     }
   }
 
-  public int encodeAjax(FacesContext context, UIComponent component) throws IOException {
+  public void encodeAjax(FacesContext context, UIComponent component) throws IOException {
     if (!(component instanceof UIInputBase)) {
       LOG.error("Wrong type: Need " + UIInputBase.class.getName() + ", but was " + component.getClass().getName());
-      return CODE_ERROR;
+      return;
     }
 
     AjaxUtils.checkParamValidity(context, component, UIInput.class);
@@ -207,7 +205,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
       mb = (MethodBinding) o;
     } else {
       // should never occur
-      return CODE_ERROR;
+      return;
     }
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(context);
@@ -217,9 +215,8 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
 
     List suggesteds
         = (List) mb.invoke(context, new Object[]{(String) input.getSubmittedValue()});
-
-    StringBuilder sb = new StringBuilder(64);
-    sb.append("return  {items: [");
+    writer.startJavascript();
+    writer.write("return  {items: [");
 
     int suggestedCount = 0;
     for (Iterator i = suggesteds.iterator(); i.hasNext(); suggestedCount++) {
@@ -227,14 +224,13 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
         break;
       }
       if (suggestedCount > 0) {
-        sb.append(", ");
+        writer.write(", ");
       }
-      sb.append("{label: \"");
-      sb.append(AjaxUtils.encodeJavascriptString(i.next().toString()));
-      sb.append("\"}");
+      writer.write("{label: \"");
+      writer.write(AjaxUtils.encodeJavascriptString(i.next().toString()));
+      writer.write("\"}");
     }
-    sb.append("]};");
-    writer.writeJavascript(sb.toString());
-    return CODE_SUCCESS;
+    writer.write("]};");
+    writer.endJavascript();
   }
 }

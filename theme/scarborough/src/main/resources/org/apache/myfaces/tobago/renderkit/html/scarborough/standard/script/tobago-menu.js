@@ -22,7 +22,7 @@ function initMenuBar(divId, pageId) {
   initMenuComponents(divId, pageId, false);
 }
 function initMenuComponents(divId, pageId, popup) {
-  var menubar = document.getElementById(divId);
+  var menubar = dojo.byId(divId);
   if (menubar && menubar.menu) {
     if (! menubar.id) {
       menubar.id = Tobago.createHtmlId();
@@ -35,7 +35,7 @@ function initMenuComponents(divId, pageId, popup) {
       menubar.menu.popup = popup;
       //LOG.debug("popupType = " + popup);
     }
-    var body = document.getElementById(pageId);
+    var body = dojo.byId(pageId);
     var className = "tobago-menuBar-container";
     if (popup) {
       className += " tobago-menuBar-container-" + popup;
@@ -76,7 +76,7 @@ function initMenuComponents(divId, pageId, popup) {
 
 function createSubmenus(menu, body) {
   var id = menu.id + Tobago.SUB_COMPONENT_SEP + "submenuroot";
-  var htmlElement = Tobago.element(id);
+  var htmlElement = dojo.byId(id);
   if (!htmlElement) {
     htmlElement = document.createElement('div');
     htmlElement.className = "tobago-menuBar-submenuroot";
@@ -480,7 +480,7 @@ Tobago.Menu.Item.prototype.nextItem = function(start, offset) {
       i += offset;
     }
 
-    var j = Tobago.element(this.subItems[i].id).childNodes.length;
+    var j = dojo.byId(this.subItems[i].id).childNodes.length;
     var span = this.subItems[i].getLabelTag();
     if (span) {
       this.subItems[i].hover = true;
@@ -523,7 +523,7 @@ Tobago.Menu.Item.prototype.collapse = function() {
   };
   
 Tobago.Menu.Item.prototype.getLabelTag = function() {
-    var children = Tobago.element(this.id).childNodes;
+    var children = dojo.byId(this.id).childNodes;
     for (var k = 0; k < children.length; k++) {
       if (children[k].className.match(/tobago-menuBar-item-span/)) {
         return children[k];
@@ -546,7 +546,7 @@ Tobago.Menu.Item.prototype.getSubitemArrowImage = function() {
   
 Tobago.Menu.Item.prototype.addSubitemArrowImage = function() {
     if (this.level > 1 && this.subItems && this.subItems.length > 0) {
-      var htmlElement = Tobago.element(this.id);
+      var htmlElement = dojo.byId(this.id);
       var html = htmlElement.innerHTML;
       html += '<img class="tobago-menu-subitem-arrow" src="';
       html += this.getSubitemArrowImage() + '" />';
@@ -555,7 +555,7 @@ Tobago.Menu.Item.prototype.addSubitemArrowImage = function() {
   };
   
 Tobago.Menu.Item.prototype.setupIframe = function(subItemContainer) {
-    var subItemIframe = Tobago.element(this.subItemIframeId);
+    var subItemIframe = dojo.byId(this.subItemIframeId);
     if (subItemIframe) {
       subItemIframe.style.width = subItemContainer.scrollWidth;
       subItemIframe.style.height = subItemContainer.scrollHeight;
@@ -572,7 +572,7 @@ Tobago.Menu.Item.prototype.setMenuButton = function(button) {
 
 function adjustPopupImage(menu) {
   if (menu.subItems && menu.subItems.length > 0) {
-    var img = Tobago.element(menu.subItems[0].id).childNodes[0];
+    var img = dojo.byId(menu.subItems[0].id).childNodes[0];
     if (img) {
       img.style.top = getPopupImageTop(menu.popup);
     }
@@ -585,7 +585,7 @@ function adjustPopupImage(menu) {
 function setItemWidth(menu) {
 
   if (menu.level != 0) {
-    var htmlElement = Tobago.element(menu.id);
+    var htmlElement = dojo.byId(menu.id);
     if (htmlElement) {
 
       if (menu.level == 1) {
@@ -600,11 +600,11 @@ function setItemWidth(menu) {
           var re = new RegExp("(.*" + Tobago.SUB_COMPONENT_SEP +")\\d$");
           var childIdPrefix = menu.id.match(re)[1];
           var i = 0;
-          var childElement = document.getElementById(childIdPrefix + i++);
+          var childElement = dojo.byId(childIdPrefix + i++);
           while (childElement) {
             //LOG.debug("item " + childElement.id + "  -->" + childElement.scrollWidth) ;//+ ":::" + childElement.innerHTML);
             width = Math.max(width, childElement.scrollWidth);
-            childElement = document.getElementById(childIdPrefix + i++);
+            childElement = dojo.byId(childIdPrefix + i++);
           }
           //LOG.debug("das waren " + (i-1) + " items  ---> width wird " + width);
           width += getMenuArrowWidth();
@@ -623,7 +623,7 @@ function setItemWidth(menu) {
   for (var i = 0; i < menu.subItems.length; i++) {
     setItemWidth(menu.subItems[i]);
   }
-  var subItemContainer = Tobago.element(menu.subItemContainerId);
+  var subItemContainer = dojo.byId(menu.subItemContainerId);
   if (subItemContainer && menu.level != 0) {
     menu.subItemContainerStyleWidth
         = (menu.childWidth + getSubitemContainerBorderWidthSum()) + "px";
@@ -637,7 +637,7 @@ function setItemWidth(menu) {
     subItemContainer.style.width = "0px";
     subItemContainer.style.height = "0px";
 
-    var subItemIframe = Tobago.element(menu.subItemIframeId);
+    var subItemIframe = dojo.byId(menu.subItemIframeId);
     if (subItemIframe) {
       subItemIframe.style.width = subItemContainer.style.width;
       subItemIframe.style.height = subItemContainer.style.height;
@@ -648,7 +648,7 @@ function setItemWidth(menu) {
 function setItemPositions(menu) {
 
   if (menu.level != 0) {
-    var htmlElement = Tobago.element(menu.id);
+    var htmlElement = dojo.byId(menu.id);
     if (htmlElement) {
 
       if (menu.level == 1) {
@@ -659,15 +659,15 @@ function setItemPositions(menu) {
         }
         htmlElement.style.top = top +"px";
         htmlElement.style.height = itemHeight + "px";
-        var subItemContainer = Tobago.element(menu.subItemContainerId);
+        var subItemContainer = dojo.byId(menu.subItemContainerId);
         if (subItemContainer) {
           subItemContainer.style.top = (itemHeight + top) + "px";
         }
         var left = 0;
         if (menu.index != 0) {
           var neighbour = menu.parent.subItems[menu.index -1];
-          var left = Tobago.element(neighbour.id).style.left.replace(/\D/g,"") - 0;
-          left += Tobago.element(neighbour.id).style.width.replace(/\D/g,"") - 0;
+          var left = dojo.byId(neighbour.id).style.left.replace(/\D/g,"") - 0;
+          left += dojo.byId(neighbour.id).style.width.replace(/\D/g,"") - 0;
         }
         htmlElement.style.left = left + "px";
         if (subItemContainer) {
@@ -685,10 +685,10 @@ function setItemPositions(menu) {
         var left = 0;
         if (menu.level == 2 && menu.parent.parent.popup) {
           if (menu.parent.parent.popup == "ToolbarButton") {
-            var menubar = Tobago.element(menu.parent.parent.menubarId);
+            var menubar = dojo.byId(menu.parent.parent.menubarId);
             left = getPopupMenuWidth() - menubar.scrollWidth;
           }
-          var subItemContainer = Tobago.element(menu.parent.subItemContainerId);
+          var subItemContainer = dojo.byId(menu.parent.subItemContainerId);
           if (subItemContainer) {
             subItemContainer.style.left = left + "px";
 
@@ -698,7 +698,7 @@ function setItemPositions(menu) {
             }
           }
         }
-        var subItemContainer = Tobago.element(menu.subItemContainerId);
+        var subItemContainer = dojo.byId(menu.subItemContainerId);
         if (subItemContainer) {
           //if (menu.level == 2) {
           //  top = getItemHeight();
@@ -726,28 +726,28 @@ function setItemPositions(menu) {
 
 function setItemsVisible(menu) {
   for (var i = 0; i < menu.subItems.length; i++) {
-    Tobago.element(menu.subItems[i].id).style.visibility = 'visible';
+    dojo.byId(menu.subItems[i].id).style.visibility = 'visible';
   }
 }
 
 function initMenuItems(menu) {
-  var htmlElement = Tobago.element(menu.id);
+  var htmlElement = dojo.byId(menu.id);
   if (htmlElement) {
 
     htmlElement.menuItem = menu;
     if (menu.parent && menu.parent.menubarId
-        && Tobago.element(menu.parent.menubarId).className.match(/tobago-menuBar-page-facet/)) {
+        && dojo.byId(menu.parent.menubarId).className.match(/tobago-menuBar-page-facet/)) {
       Tobago.addCssClass(htmlElement, 'tobago-menuBar-item-page-facet');
     }
     var id = menu.id + Tobago.SUB_COMPONENT_SEP + 'items';
-    if (Tobago.element(id)) {
+    if (dojo.byId(id)) {
       menu.subItemContainerId = id;
     }
     id = menu.id + Tobago.SUB_COMPONENT_SEP + 'iframe';
-    if (Tobago.element(id)) {
+    if (dojo.byId(id)) {
       menu.subItemIframeId = id;
     }
-    var subItemIframe = Tobago.element(menu.subItemIframeId);
+    var subItemIframe = dojo.byId(menu.subItemIframeId);
     if (subItemIframe) {
       subItemIframe.style.visibility = "hidden";
       subItemIframe.style.position = "absolute";
@@ -764,10 +764,10 @@ function initMenuItems(menu) {
 
 
 function tobagoMenuSetHover(id) {
-  document.getElementById(id).menuItem.setHover();
+  dojo.byId(id).menuItem.setHover();
 }
 function tobagoMenuRemoveHover(id, mouseOut) {
-  document.getElementById(id).menuItem.removeHover(mouseOut);
+  dojo.byId(id).menuItem.removeHover(mouseOut);
 }
 
 
@@ -798,7 +798,7 @@ function getItemHeight(menu) {
       }
     }
 
-    if (Tobago.element(menu.parent.menubarId).className.match(/tobago-menuBar-page-facet/)) {
+    if (dojo.byId(menu.parent.menubarId).className.match(/tobago-menuBar-page-facet/)) {
       return 23;
     }
     else {

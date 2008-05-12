@@ -60,8 +60,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAN
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
-import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_NOT_MODIFIED;
-import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIColumnEvent;
@@ -1112,40 +1110,28 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     return getConfiguredValue(facesContext, data, "contentBorder");
   }
 
-  public int encodeAjax(FacesContext facesContext, UIComponent component)
+  public void encodeAjax(FacesContext facesContext, UIComponent component)
       throws IOException {
     AjaxUtils.checkParamValidity(facesContext, component, UIData.class);
-    boolean update = true;
-    if (component.getFacet(FACET_RELOAD) != null
-        && component.getFacet(FACET_RELOAD) instanceof UIReload
-        && component.getFacet(FACET_RELOAD).isRendered()) {
-      UIReload reload = (UIReload) component.getFacet(FACET_RELOAD);
-        update = reload.isUpdate();
-      }
-    if (update) {
-      // TODO find a better way
-      UICommand clickAction = null;
-      UICommand dblClickAction = null;
-      for (UIComponent child : (List<UIComponent>) component.getChildren()) {
-        if (child instanceof UIColumnEvent) {
-          UIColumnEvent columnEvent = (UIColumnEvent) child;
-          UIComponent selectionChild = (UIComponent) child.getChildren().get(0);
-          if (selectionChild != null && selectionChild instanceof UICommand && selectionChild.isRendered()) {
-            UICommand action = (UICommand) selectionChild;
-            if ("click".equals(columnEvent.getEvent())) {
-              clickAction = action;
-            }
-            if ("dblclick".equals(columnEvent.getEvent())) {
-              dblClickAction = action;
-            }
+    // TODO find a better way
+    UICommand clickAction = null;
+    UICommand dblClickAction = null;
+    for (UIComponent child : (List<UIComponent>) component.getChildren()) {
+      if (child instanceof UIColumnEvent) {
+        UIColumnEvent columnEvent = (UIColumnEvent) child;
+        UIComponent selectionChild = (UIComponent) child.getChildren().get(0);
+        if (selectionChild != null && selectionChild instanceof UICommand && selectionChild.isRendered()) {
+          UICommand action = (UICommand) selectionChild;
+          if ("click".equals(columnEvent.getEvent())) {
+            clickAction = action;
+          }
+          if ("dblclick".equals(columnEvent.getEvent())) {
+            dblClickAction = action;
           }
         }
       }
-      renderSheet(facesContext, (UIData) component, (clickAction != null || dblClickAction != null));
-      return CODE_SUCCESS;
-    } else {
-      return CODE_NOT_MODIFIED;
     }
+    renderSheet(facesContext, (UIData) component, (clickAction != null || dblClickAction != null));
   }
 
   @Override
@@ -1167,7 +1153,9 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 
     int rows = data.getRows();
 
-    LOG.info(headerHeight + " " + footerHeight + " " + rowHeight + " " + rows);
+    if (LOG.isInfoEnabled()) {
+      LOG.info(headerHeight + " " + footerHeight + " " + rowHeight + " " + rows);
+    }
 
     return headerHeight + rows * rowHeight + footerHeight + 2; // XXX hotfix: + 1
   }

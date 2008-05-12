@@ -525,41 +525,53 @@ public final class HtmlRendererUtil {
     if (scripts != null) {
       allScripts = ResourceManagerUtil.getScriptsAsJSArray(facesContext, scripts);
     }
-
-    StringBuilder script = new StringBuilder(128);
-    script.append("new Tobago.ScriptLoader(\n    ");
-    script.append(allScripts);
+    boolean ajax = false;
+    if (facesContext instanceof TobagoFacesContext) {
+      ajax = ((TobagoFacesContext) facesContext).isAjax();
+    }
+    writer.startJavascript();
+    writer.write("new Tobago.ScriptLoader(");
+    if (!ajax) {
+      writer.write("\n    ");
+    }
+    writer.write(allScripts);
 
     if (afterLoadCmds != null && afterLoadCmds.length > 0) {
-      script.append(", \n");
+      writer.write(", ");
+      if (!ajax) {
+        writer.write("\n");
+      }
       boolean first = true;
       for (String afterLoadCmd : afterLoadCmds) {
         String[] splittedStrings = StringUtils.split(afterLoadCmd, '\n'); // split on <CR> to have nicer JS
         for (String splitted : splittedStrings) {
+          writer.write(first ? "          " : "        + ");
+          writer.write("\"");
           String cmd = StringUtils.replace(splitted, "\\", "\\\\");
           cmd = StringUtils.replace(cmd, "\"", "\\\"");
-          script.append(first ? "          " : "        + ");
-          script.append("\"");
-          script.append(cmd);
-          script.append("\"\n");
+          writer.write(cmd);
+          writer.write("\"");
+          if (!ajax) {
+            writer.write("\n");
+          }
           first = false;
         }
       }
     }
-    script.append(");");
+    writer.write(");");
 
-    writer.writeJavascript(script.toString());
+    writer.endJavascript();
   }
 
   public static void writeStyleLoader(
       FacesContext facesContext, String[] styles) throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    StringBuilder builder = new StringBuilder(64);
-    builder.append("Tobago.ensureStyleFiles(\n    ");
-    builder.append(ResourceManagerUtil.getStylesAsJSArray(facesContext, styles));
-    builder.append(");");
-    writer.writeJavascript(builder.toString());
+    writer.startJavascript();
+    writer.write("Tobago.ensureStyleFiles(");
+    writer.write(ResourceManagerUtil.getStylesAsJSArray(facesContext, styles));
+    writer.write(");");
+    writer.endJavascript();
   }
 
   public static String getTitleFromTipAndMessages(FacesContext facesContext, UIComponent component) {

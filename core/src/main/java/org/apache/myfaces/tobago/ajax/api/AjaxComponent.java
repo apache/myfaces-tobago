@@ -22,6 +22,6 @@ import java.io.IOException;
 
 public interface AjaxComponent {
 
-  int encodeAjax(FacesContext context) throws IOException;
+  void encodeAjax(FacesContext context) throws IOException;
 
 }

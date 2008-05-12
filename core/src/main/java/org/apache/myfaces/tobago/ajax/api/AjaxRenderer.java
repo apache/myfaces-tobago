@@ -25,5 +25,5 @@ import java.io.IOException;
  * !! copy of sandbox org.apache.myfaces.custom.ajax.api.AjaxRenderer !!
  */
 public interface AjaxRenderer {
-    int encodeAjax(FacesContext context, UIComponent component) throws IOException;
+    void encodeAjax(FacesContext context, UIComponent component) throws IOException;
 }

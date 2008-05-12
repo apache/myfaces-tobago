@@ -37,8 +37,8 @@ public abstract class UIInputBase extends javax.faces.component.UIInput implemen
     }
   }
 
-  public int encodeAjax(FacesContext facesContext) throws IOException {
-    return AjaxUtils.encodeAjaxComponent(facesContext, this);
+  public void encodeAjax(FacesContext facesContext) throws IOException {
+    AjaxUtils.encodeAjaxComponent(facesContext, this);
   }
 
   public abstract Integer getTabIndex();

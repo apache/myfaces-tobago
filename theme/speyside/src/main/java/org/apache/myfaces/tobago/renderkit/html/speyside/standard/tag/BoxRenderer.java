@@ -86,7 +86,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     if (style != null) {
       writer.writeStyleAttribute(style);
     }
-    writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\")");
+    writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\");");
     
     encodeBeginInner(facesContext, writer, component);
   }
@@ -183,7 +183,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     writer.endElement(HtmlConstants.DIV);
   }
 
-  public int encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
     AjaxUtils.checkParamValidity(facesContext, component, UIPanel.class);
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
@@ -191,7 +191,6 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     component.encodeChildren(facesContext);
     encodeEndInner(writer);
     facesContext.responseComplete();
-    return CODE_SUCCESS;
   }
 }
 

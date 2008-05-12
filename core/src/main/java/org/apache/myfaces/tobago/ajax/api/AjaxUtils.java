@@ -22,8 +22,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.util.ComponentUtil;
-import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_ERROR;
-import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -57,18 +55,17 @@ public class AjaxUtils {
 
 
 
-  public static int encodeAjaxComponent(FacesContext facesContext, UIComponent component) throws IOException {
+  public static void encodeAjaxComponent(FacesContext facesContext, UIComponent component) throws IOException {
     if (facesContext == null) {
       throw new NullPointerException("facesContext");
     }
     if (!component.isRendered()) {
-      return CODE_SUCCESS;
+      return;
     }
     Object renderer = ComponentUtil.getRenderer(facesContext, component);
     if (renderer != null && renderer instanceof AjaxRenderer) {
-      return ((AjaxRenderer) renderer).encodeAjax(facesContext, component);
+      ((AjaxRenderer) renderer).encodeAjax(facesContext, component);
     }
-    return CODE_ERROR;
   }
 
   public static Map<String, UIComponent> parseAndStoreComponents(FacesContext facesContext) {

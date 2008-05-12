@@ -132,10 +132,9 @@ public class AbstractUIPopup extends UIPanelBase implements NamingContainer, Aja
     activated = false;
   }
 
-  public int encodeAjax(FacesContext facesContext) throws IOException {
-    int responseCode = super.encodeAjax(facesContext);
+  public void encodeAjax(FacesContext facesContext) throws IOException {
+    super.encodeAjax(facesContext);
     activated = false;
-    return responseCode;
   }
 
   public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)

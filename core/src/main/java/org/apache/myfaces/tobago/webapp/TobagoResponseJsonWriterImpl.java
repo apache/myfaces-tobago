@@ -18,39 +18,127 @@ package org.apache.myfaces.tobago.webapp;
  */
 
 import org.apache.myfaces.tobago.util.FastStringWriter;
+import org.apache.myfaces.tobago.util.XmlUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
+import javax.faces.component.UIComponent;
 import java.io.Writer;
 import java.io.IOException;
+import java.util.EmptyStackException;
 
 public class TobagoResponseJsonWriterImpl extends TobagoResponseWriterImpl {
+  private static final Log LOG = LogFactory.getLog(TobagoResponseWriterImpl.class);
+
   private Writer javascriptWriter;
   private boolean javascriptMode;
+
   public TobagoResponseJsonWriterImpl(Writer writer, String contentType, String characterEncoding) {
     super(writer, contentType, characterEncoding);
     this.javascriptWriter = new FastStringWriter();
   }
 
   public void endJavascript() throws IOException {
-    super.endJavascript();
     javascriptMode = false;
   }
 
   public void startJavascript() throws IOException {
-    super.startJavascript();
     javascriptMode = true;
   }
 
   @Override
   public void write(String string) throws IOException {
-    writeInternal(javascriptMode?javascriptWriter:getWriter(), string);
+    writeInternal(javascriptMode ? javascriptWriter : getWriter(), string);
   }
 
   public void writeJavascript(String script) throws IOException {
     writeInternal(javascriptWriter, script);
-    writeInternal(javascriptWriter, "\n");
   }
 
   public String getJavascript() {
     return javascriptWriter.toString();
+  }
+
+  protected void startElementInternal(Writer writer, String name, UIComponent currentComponent)
+      throws IOException {
+    this.component = currentComponent;
+    stack.push(name);
+    if (startStillOpen) {
+      writer.write(">");
+    }
+    writer.write("<");
+    writer.write(name);
+    startStillOpen = true;
+  }
+
+  protected void endElementInternal(Writer writer, String name) throws IOException {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("end Element: " + name);
+    }
+    String top = "";
+    try {
+      top = stack.pop();
+    } catch (EmptyStackException e) {
+      LOG.error("Failed to close element \"" + name + "\"!");
+      throw e;
+    }
+    if (!top.equals(name)) {
+      final String trace = getCallingClassStackTraceElementString();
+      LOG.error("Element end with name='" + name + "' doesn't "
+          + "match with top element on the stack='" + top + "' "
+          + trace.substring(trace.indexOf('(')));
+    }
+
+    if (EMPTY_TAG.contains(name)) {
+      if (xml) {
+        writer.write("/>");
+      } else {
+        writer.write(">");
+      }
+    } else {
+      if (startStillOpen) {
+        writer.write(">");
+      }
+      writer.write("</");
+      writer.write(name);
+      writer.write(">");
+    }
+    startStillOpen = false;
+  }
+
+  protected void closeOpenTag() throws IOException {
+    if (startStillOpen) {
+      writer.write(">");
+      startStillOpen = false;
+    }
+  }
+
+  protected void writeAttributeInternal(Writer writer, String name, String value, boolean escape)
+      throws IOException {
+    if (!startStillOpen) {
+      String trace = getCallingClassStackTraceElementString();
+      String error = "Cannot write attribute when start-tag not open. "
+          + "name = '" + name + "' "
+          + "value = '" + value + "' "
+          + trace.substring(trace.indexOf('('));
+      LOG.error(error);
+      throw new IllegalStateException(error);
+    }
+
+    if (value != null) {
+      writer.write(' ');
+      writer.write(name);
+      writer.write("=\\\"");
+      if (xml) {
+        writer.write(XmlUtils.escape(value));
+      } else {
+        if (escape) {
+          helper.writeAttributeValue(value);
+        } else {
+          writer.write(value);
+        }
+      }
+      writer.write("\\\"");
+    }
   }
 }

@@ -173,6 +173,42 @@
       </dependencies>
     </profile>
     <profile>
+      <id>sunjsf12</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>ri12</value>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>javax.el</groupId>
+          <artifactId>el-api</artifactId>
+          <version>1.0</version>
+          <scope>provided</scope>
+        </dependency>        
+        <dependency>
+          <groupId>javax.faces</groupId>
+          <artifactId>jsf-api</artifactId>
+          <version>${sunjsf12.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>javax.faces</groupId>
+          <artifactId>jsf-impl</artifactId>
+          <version>${sunjsf12.version}</version>
+        </dependency>
+      </dependencies>
+      <repositories>
+        <repository>
+          <id>java.net</id>
+          <name>java.net Maven 1 Repository</name>
+          <url>https://maven-repository.dev.java.net/nonav/repository</url>
+          <layout>legacy</layout>
+        </repository>
+      </repositories>
+    </profile>
+
+    <profile>
       <!--
        mvn package cargo:start -Ptomcat5x
       -->

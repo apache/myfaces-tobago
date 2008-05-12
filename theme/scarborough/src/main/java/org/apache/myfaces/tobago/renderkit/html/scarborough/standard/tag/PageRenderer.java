@@ -151,12 +151,11 @@ public class PageRenderer extends PageRendererBase {
 
     writer.startElement(HtmlConstants.HTML, null);
     writer.startElement(HtmlConstants.HEAD, null);
-    final boolean debugMode =
-            ClientProperties.getInstance(facesContext.getViewRoot()).isDebugMode();
+    final boolean debugMode = ClientProperties.getInstance(facesContext.getViewRoot()).isDebugMode();
 
-    //if (debugMode) {
-    writer.writeJavascript("var TbgHeadStart = new Date();");
-    //}
+    if (debugMode) {
+      writer.writeJavascript("var TbgHeadStart = new Date();");
+    }
 
     // meta
     // this is needed, because websphere 6.0? ignores the setting of the content type on the response
@@ -220,12 +219,20 @@ public class PageRenderer extends PageRendererBase {
 
     // script files
     List<String> scriptFiles = facesContext.getScriptFiles();
-    // prototype.js and tobago.js needs to be first!
-    addScripts(writer, facesContext, "script/dojo/dojo/dojo.js");
+    // dojo.js and tobago.js needs to be first!
+    if (debugMode) {
+      addScripts(writer, facesContext, "script/dojo/dojo/dojo.js.uncompressed.js");
+    } else {
+      addScripts(writer, facesContext, "script/dojo/dojo/dojo.js");
+    }
     addScripts(writer, facesContext, "script/tobago.js");
     addScripts(writer, facesContext, "script/theme-config.js");
-    // remove  prototype.js and tobago.js from list to prevent dublicated rendering of script tags
-    scriptFiles.remove("script/dojo/dojo/dojo.js");
+    // remove  dojo.js and tobago.js from list to prevent dublicated rendering of script tags
+    if (debugMode) {
+      scriptFiles.remove("script/dojo/dojo/dojo.js.uncompressed.js");
+    } else {
+      scriptFiles.remove("script/dojo/dojo/dojo.js");
+    }
     scriptFiles.remove("script/tobago.js");
     scriptFiles.remove("script/theme-config.js");
 
@@ -256,7 +263,11 @@ public class PageRenderer extends PageRendererBase {
     // focus id
     String focusId = page.getFocusId();
     if (focusId != null) {
-      writer.writeJavascript("Tobago.focusId = '" + focusId + "';");
+      writer.startJavascript();
+      writer.write("Tobago.focusId = '");
+      writer.write(focusId);
+      writer.write("';");
+      writer.endJavascript();
     }
 
     if (component.getFacets().containsKey(FACET_ACTION)) {
@@ -334,10 +345,8 @@ public class PageRenderer extends PageRendererBase {
       };
       final String[] jsCommand = new String[]{"new LOG.LogArea({hide: " + hideClientLogging + "});"};
       HtmlRendererUtil.writeScriptLoader(facesContext, jsFiles, jsCommand);
+       writer.writeJavascript("TbgTimer.startBody = new Date();");
     }
-    //if (debugMode)  {
-    writer.writeJavascript("TbgTimer.startBody = new Date();");
-    //}
 
     writer.startElement(HtmlConstants.FORM, page);
     writer.writeNameAttribute(
@@ -448,9 +457,9 @@ public class PageRenderer extends PageRendererBase {
           logMessages.toArray(new String[logMessages.size()]));
     }
 
-    //if (debugMode) {
-    writer.writeJavascript("TbgTimer.endBody = new Date();");
-    //}
+    if (debugMode) {
+      writer.writeJavascript("TbgTimer.endBody = new Date();");
+    }
     writer.endElement(HtmlConstants.BODY);
     writer.endElement(HtmlConstants.HTML);
 

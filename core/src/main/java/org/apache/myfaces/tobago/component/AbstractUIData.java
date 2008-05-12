@@ -19,10 +19,14 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FIRST;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_LIST_STRING;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_UPDATE;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_RELOAD;
+
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.event.PageActionEvent;
@@ -36,6 +40,8 @@ import org.apache.myfaces.tobago.renderkit.LayoutableRenderer;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
@@ -48,6 +54,7 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.render.Renderer;
 import javax.faces.FacesException;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -281,7 +288,9 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
         && (facesEvent instanceof SheetStateChangeEvent
         || facesEvent instanceof PageActionEvent)) {
       facesEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
-      LOG.info("queueEvent = \"" + facesEvent + "\"");
+      if (LOG.isInfoEnabled()) {
+        LOG.info("queueEvent = \"" + facesEvent + "\"");
+      }
       parent.queueEvent(facesEvent);
     } else {
       UIComponent source = facesEvent.getComponent();
@@ -352,7 +361,30 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
     this.widthList = widthList;
   }
 
-  public int encodeAjax(FacesContext facesContext) throws IOException {
+  public void processDecodes(FacesContext context) {
+    if (context instanceof TobagoFacesContext && ((TobagoFacesContext) context).isAjax()) {
+      final String ajaxId = ((TobagoFacesContext) context).getAjaxComponentId();
+      UIComponent reload = getFacet(FACET_RELOAD);
+      if (ajaxId != null && ajaxId.equals(getClientId(context)) && reload != null && reload.isRendered()
+          && ajaxId.equals(ComponentUtil.findPage(context, this).getActionId())) {
+        Boolean immediate = (Boolean) reload.getAttributes().get(ATTR_IMMEDIATE);
+        if (immediate != null && immediate) {
+          Boolean update = (Boolean) reload.getAttributes().get(ATTR_UPDATE);
+          if (update != null && !update) {
+            if (context.getExternalContext().getResponse() instanceof HttpServletResponse) {
+              ((HttpServletResponse) context.getExternalContext().getResponse())
+                  .setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+            }
+            context.responseComplete();
+            return;
+          }
+        }
+      }
+    }
+    super.processDecodes(context);
+  }
+
+  public void encodeAjax(FacesContext facesContext) throws IOException {
     Renderer renderer = getRenderer(facesContext);
     if (renderer != null && renderer instanceof LayoutableRenderer) {
       ((LayoutableRenderer) renderer).layoutEnd(facesContext, this);
@@ -370,7 +402,17 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
       setValue(getValue());
     }
     //}
-    return AjaxUtils.encodeAjaxComponent(facesContext, this);
+    UIComponent reload = getFacet(FACET_RELOAD);
+    if (reload != null && reload.isRendered()) {
+      Boolean immediate = (Boolean) reload.getAttributes().get(ATTR_IMMEDIATE);
+      if (immediate != null && !immediate) {
+        Boolean update = (Boolean) reload.getAttributes().get(ATTR_UPDATE);
+        if (update != null && !update) {
+          return;
+        }
+      }
+    }
+    AjaxUtils.encodeAjaxComponent(facesContext, this);
   }
 
   public Integer[] getScrollPosition() {
@@ -396,20 +438,28 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
     try {
       String sheetId = getClientId(context);
       String idRemainder = clientId.substring(sheetId.length());
-      LOG.info("idRemainder = \"" + idRemainder + "\"");
+      if (LOG.isInfoEnabled()) {
+        LOG.info("idRemainder = \"" + idRemainder + "\"");
+      }
       if (idRemainder.matches("^:\\d+:.*")) {
         idRemainder = idRemainder.substring(1);
         int idx = idRemainder.indexOf(":");
         try {
           int rowIndex = Integer.parseInt(idRemainder.substring(0, idx));
-          LOG.info("set rowIndex = \"" + rowIndex + "\"");
+          if (LOG.isInfoEnabled()) {
+            LOG.info("set rowIndex = \"" + rowIndex + "\"");
+          }
           setRowIndex(rowIndex);
 
         } catch (NumberFormatException e) {
-          LOG.error("idRemainder = \"" + idRemainder + "\"", e);
+          if (LOG.isInfoEnabled()) {
+            LOG.error("idRemainder = \"" + idRemainder + "\"", e);
+          }
         }
       } else {
-        LOG.info("no match for \"^:\\d+:.*\"");
+        if (LOG.isInfoEnabled()) {
+          LOG.info("no match for \"^:\\d+:.*\"");
+        }
       }
 
       return FacesUtils.invokeOnComponent(context, this, clientId, callback);

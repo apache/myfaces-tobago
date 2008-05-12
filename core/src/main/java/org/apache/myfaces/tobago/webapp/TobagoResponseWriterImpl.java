@@ -41,7 +41,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
 
   private static final Log LOG = LogFactory.getLog(TobagoResponseWriterImpl.class);
 
-  private static final Set<String> EMPTY_TAG = new HashSet<String>(Arrays.asList(
+  protected static final Set<String> EMPTY_TAG = new HashSet<String>(Arrays.asList(
       HtmlConstants.BR,
       HtmlConstants.AREA,
       HtmlConstants.LINK,
@@ -53,24 +53,24 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
       HtmlConstants.BASE,
       HtmlConstants.META));
 
-  private Writer writer;
+  protected Writer writer;
 
-  private UIComponent component;
+  protected UIComponent component;
 
-  private boolean startStillOpen;
+  protected boolean startStillOpen;
 
   private String contentType;
 
   private String characterEncoding;
 
-  private Stack<String> stack;
+  protected Stack<String> stack;
 
   /**
    * use XML instead HMTL
    */
-  private boolean xml;
+  protected boolean xml;
 
-  private HtmlWriterUtil helper;
+  protected HtmlWriterUtil helper;
 
   public TobagoResponseWriterImpl(final Writer writer, final String contentType,
       final String characterEncoding) {
@@ -187,7 +187,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
     }
   }
 
-  private void closeOpenTag() throws IOException {
+  protected void closeOpenTag() throws IOException {
     if (startStillOpen) {
       writer.write("\n>");
       startStillOpen = false;
@@ -226,7 +226,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
     startElementInternal(writer, name, currentComponent);
   }
 
-  protected final void startElementInternal(Writer writer, String name, UIComponent currentComponent)
+  protected void startElementInternal(Writer writer, String name, UIComponent currentComponent)
       throws IOException {
     this.component = currentComponent;
     stack.push(name);
@@ -243,7 +243,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
     endElementInternal(writer, name);
   }
 
-  protected final void endElementInternal(Writer writer, String name) throws IOException {
+  protected void endElementInternal(Writer writer, String name) throws IOException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("end Element: " + name);
     }
@@ -308,7 +308,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
     writeAttribute(name, attribute, true);
   }
 
-  private String getCallingClassStackTraceElementString() {
+  protected final String getCallingClassStackTraceElementString() {
     final StackTraceElement[] stackTrace = new Exception().getStackTrace();
     int i = 1;
     while (stackTrace[i].getClassName().equals(this.getClass().getName())) {
@@ -329,7 +329,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
     writeAttributeInternal(writer, name, value, escape);
   }
 
-  protected final void writeAttributeInternal(Writer writer, String name, String value, boolean escape)
+  protected void writeAttributeInternal(Writer writer, String name, String value, boolean escape)
       throws IOException {
     if (!startStillOpen) {
       String trace = getCallingClassStackTraceElementString();

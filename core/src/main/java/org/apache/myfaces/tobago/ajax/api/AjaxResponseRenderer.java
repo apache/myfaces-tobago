@@ -21,18 +21,16 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CHARSET;
-import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_RELOAD_REQUIRED;
-import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.FACES_MESSAGES_KEY;
 import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
 import org.apache.myfaces.tobago.util.EncodeAjaxCallback;
-import org.apache.myfaces.tobago.util.FastStringWriter;
 import org.apache.myfaces.tobago.util.RequestUtils;
 import org.apache.myfaces.tobago.util.ResponseUtils;
 import org.apache.myfaces.tobago.util.JndiUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseJsonWriterImpl;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
@@ -55,6 +53,10 @@ import java.util.List;
 import java.util.Map;
 
 public class AjaxResponseRenderer {
+  public static final int CODE_SUCCESS = 200;
+  public static final int CODE_NOT_MODIFIED = 304;
+  public static final int CODE_RELOAD_REQUIRED = 309;
+  public static final int CODE_ERROR = 500;
 
   private static final Log LOG = LogFactory.getLog(AjaxResponseRenderer.class);
 
@@ -106,63 +108,54 @@ public class AjaxResponseRenderer {
         //noinspection unchecked
         sessionMap.put(FACES_MESSAGES_KEY, messageHolders);
       }
-      writeResponseReload(facesContext);
+      writeResponse(facesContext, renderKit, true);
     } else {
-      List<AjaxResponse> responseParts = new ArrayList<AjaxResponse>();
-      Map<String, UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(facesContext);
-
-      for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
-        AjaxComponent component = (AjaxComponent) entry.getValue();
-        responseParts.add(renderComponent(facesContext, renderKit, entry.getKey(), component));
-      }
-
-      String state = saveState(facesContext, renderKit);
-      writeResponse(facesContext, responseParts, state);
+      writeResponse(facesContext, renderKit, false);
     }
   }
 
-  private AjaxResponse renderComponent(FacesContext facesContext, RenderKit renderKit, String clientId,
+  private void renderComponent(FacesContext facesContext, RenderKit renderKit, String clientId,
       AjaxComponent component) throws IOException {
-    FastStringWriter content = new FastStringWriter();
-    ResponseWriter contentWriter = renderKit.createResponseWriter(content, contentType, null);
+    PrintWriter writer = getPrintWriter(facesContext.getExternalContext());
+    ResponseWriter contentWriter = renderKit.createResponseWriter(writer, contentType, null);
     facesContext.setResponseWriter(contentWriter);
+
     if (LOG.isDebugEnabled()) {
       LOG.debug("write ajax response for " + component);
     }
+    writer.write("{\n    ajaxId: \"");
+    writer.write(clientId);
+    writer.write("\",\n");
 
+    writer.write("    responseCode: ");
+    writer.write(Integer.toString(CODE_SUCCESS));
+    writer.write(",\n");
+
+    writer.write("    html: \"");
     try {
       FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), clientId, callback);
     } catch (EmptyStackException e) {
-      LOG.error(" content = \"" + content.toString() + "\"");
+      //LOG.error(" content = \"" + content.toString() + "\"");
       throw e;
     }
 
     if (contentWriter instanceof TobagoResponseJsonWriterImpl) {
-       return new AjaxResponse(clientId, callback.getResponseCode(), content.toString(),
-           ((TobagoResponseJsonWriterImpl) contentWriter).getJavascript());
-    } else {
-      return new AjaxResponse(clientId, callback.getResponseCode(), content.toString());
+      writer.write("\",\n");
+      writer.write("    script: function() {\n");
+      writer.write(((TobagoResponseJsonWriterImpl) contentWriter).getJavascript());
+      writer.write("\n    }\n  }");
     }
   }
 
-  private void writeResponseReload(FacesContext facesContext)
+  private void saveState(FacesContext facesContext, RenderKit renderKit)
       throws IOException {
-    ArrayList<AjaxResponse> responseParts = new ArrayList<AjaxResponse>();
-    responseParts.add(new AjaxResponse("", CODE_RELOAD_REQUIRED, ""));
-    writeResponse(facesContext, responseParts, "");
-  }
-
-  private String saveState(FacesContext facesContext, RenderKit renderKit)
-      throws IOException {
-    FastStringWriter jsfState = new FastStringWriter();
-    ResponseWriter stateWriter = renderKit.createResponseWriter(jsfState, null, null);
+    ResponseWriter stateWriter =
+        renderKit.createResponseWriter(getPrintWriter(facesContext.getExternalContext()), contentType, null);
     facesContext.setResponseWriter(stateWriter);
 
     StateManager stateManager = facesContext.getApplication().getStateManager();
-    StateManager.SerializedView serializedView
-        = stateManager.saveSerializedView(facesContext);
+    StateManager.SerializedView serializedView = stateManager.saveSerializedView(facesContext);
     stateManager.writeState(facesContext, serializedView);
-    return jsfState.toString();
   }
 
   private static void ensureContentTypeHeader(FacesContext facesContext, String charset, String contentType) {
@@ -180,9 +173,8 @@ public class AjaxResponseRenderer {
     }
   }
 
-  private void writeResponse(FacesContext facesContext,
-                             List<AjaxResponse> responseParts, String jsfState)
-      throws IOException {
+  private void writeResponse(FacesContext facesContext, RenderKit renderKit, boolean reloadRequired) throws IOException {
+
     ExternalContext externalContext = facesContext.getExternalContext();
     RequestUtils.ensureEncoding(externalContext);
     ResponseUtils.ensureNoCacheHeader(externalContext);
@@ -195,32 +187,31 @@ public class AjaxResponseRenderer {
     }
     ensureContentTypeHeader(facesContext, charset, contentType);
 
-    boolean reloadRequired = false;
-
-    for (AjaxResponse response : responseParts) {
-      if (response.getResponseCode() == CODE_RELOAD_REQUIRED) {
-        reloadRequired = true;
-        break;
-      }
-    }
-
     PrintWriter writer = getPrintWriter(externalContext);
     writer.write("{\n  tobagoAjaxResponse: true,\n");
     writer.write("  responseCode: ");
     writer.write(reloadRequired ? Integer.toString(CODE_RELOAD_REQUIRED) : Integer.toString(CODE_SUCCESS));
-    writer.write(",\n");
-    writer.write("  jsfState: \"");
-    writer.write(AjaxUtils.encodeJavascriptString(jsfState));
-    writer.write("\"");
 
+    if (!reloadRequired) {
+      writer.write(",\n");
+      writer.write("  jsfState: \"");
+      saveState(facesContext, renderKit);
+      writer.write("\"");
+    }
+
+    Map<String, UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(facesContext);
     int i = 0;
-    // add parts to response
-    for (AjaxResponse part : responseParts) {
+    for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
       writer.write(",\n");
       writer.write("  ajaxPart_");
       writer.write(Integer.toString(i++));
       writer.write(": ");
-      part.writeJson(writer);
+
+      AjaxComponent component = (AjaxComponent) entry.getValue();
+      if (facesContext instanceof TobagoFacesContext) {
+        ((TobagoFacesContext) facesContext).setAjaxComponentId(entry.getKey());
+      }
+      renderComponent(facesContext, renderKit, entry.getKey(), component);
     }
 
     writer.write("\n}\n");

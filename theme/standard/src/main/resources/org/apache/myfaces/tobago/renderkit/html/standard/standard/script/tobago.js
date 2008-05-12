@@ -243,7 +243,9 @@ var Tobago = {
   init: function(pageId) {
 //    new LOG.LogArea({hide: false});
 //    LOG.show();
-    TbgTimer.startOnload = new Date();
+    if (TbgTimer.endBody) {
+      TbgTimer.startOnload = new Date();
+    }
     this.page = this.element(pageId);
     this.form = this.element(this.page.id + this.SUB_COMPONENT_SEP + "form");
     this.addBindEventListener(this.form, "submit", this, "onSubmit");
@@ -254,33 +256,45 @@ var Tobago = {
 
     this.addBindEventListener(window, "unload", this, "onUnload");
 
-    TbgTimer.startAppOnload = new Date();
+    if (TbgTimer.endBody) {
+      TbgTimer.startAppOnload = new Date();
+    }
     if (this.applicationOnload) {
       this.applicationOnload();
     }
-    TbgTimer.endAppOnload = new Date();
-
+    if (TbgTimer.endBody) {
+      TbgTimer.endAppOnload = new Date();
+    }
     this.loadPngFix();
 
     this.addBindEventListener(document, "keypress", this.acceleratorKeys, "observe");
 
     window.setTimeout(Tobago.finishPageLoading, 1);
-    TbgTimer.endOnload = new Date();
+    if (TbgTimer.endBody) {
+      TbgTimer.endOnload = new Date();
+    }
   },
 
   finishPageLoading: function() {
     Tobago.registerCurrentScripts();
-    TbgTimer.startScriptLoaders = new Date();
+    if (TbgTimer.endBody) {
+      TbgTimer.startScriptLoaders = new Date();
+    }
     Tobago.startScriptLoaders();
-    TbgTimer.endScriptLoaders = new Date();
+    if (TbgTimer.endBody) {
+      TbgTimer.endScriptLoaders = new Date();
+    }
     Tobago.pageIsComplete = true;
     if (Tobago.initialPopupId != null) {
       Tobago.lockPopupPage(Tobago.initialPopupId);
     } else {
       Tobago.setFocus();
     }
-    TbgTimer.endTotal = new Date();
-    TbgTimer.log();
+    if (TbgTimer.endBody) {
+      TbgTimer.endTotal = new Date();
+      TbgTimer.log();
+    }
+
   },
 
   onSubmit: function() {
@@ -2124,7 +2138,11 @@ Tobago.Updater = {
 
     load: function(data, ioArgs) {
 
-      if (!data.tobagoAjaxResponse) {
+      if (ioArgs.xhr.status == 304) {
+        LOG.debug("status 304");
+        //Tobago.Transport.requestComplete();
+        //return data;        
+      } else if (!data.tobagoAjaxResponse) {
         // unknown response do full page reload
         LOG.warn("initiating full reload");
         if (Tobago.Updater.WAIT_ON_ERROR) {
@@ -2171,26 +2189,46 @@ Tobago.Updater = {
       var data;
       for (var i = 0; i < requestedIds.length; i++) {
         var id = requestedIds[i];
+        LOG.debug("handleMissingResponse id = " + id) ;
         if (! doneIds[id]) {
           if (!data) {
             data = {responseCode: Tobago.Updater.CODE_NOT_MODIFIED, html: "error", script: function() {}};
           }
           data.ajaxId = id;
-          this.updateComponent(data);
+          this.updateComponent(data, ioArgs);
         }
       }
     },
 
+    handle304Response: function(ids, ioArgs) {
+      for (var i = 0; i < ids.length; i++) {
+        var id = ids[i];
+        LOG.debug("handle304Response id = " + id) ;
+        var data = {
+          ajaxId: id,
+          responseCode: Tobago.Updater.CODE_NOT_MODIFIED,
+          html: "error",
+          script: function() {}
+        };
+        this.updateComponent(data, ioArgs);
+      }
+    },
+
+
     error: function(data, ioArgs) {
       LOG.error("Request failed : " + ioArgs.xhr.status);
-      Tobago.Updater.doErrorUpdate(Tobago.parsePartialIds(ioArgs.args.requestedIds));
+      if (ioArgs.xhr.status == 304) {
+        this.handle304Response(Tobago.parsePartialIds(ioArgs.args.requestedIds))
+      } else {
+        Tobago.Updater.doErrorUpdate(Tobago.parsePartialIds(ioArgs.args.requestedIds));
+      }
       Tobago.Transport.requestComplete();
       return data;
     },
 
-    updateComponent: function(componentData) {
+    updateComponent: function(componentData, ioArgs) {
       var ajaxId = componentData.ajaxId;
-
+      LOG.info("update Component = " + ajaxId) ;
       if (componentData.responseCode == Tobago.Updater.CODE_RELOAD_REQUIRED) {
         LOG.info("nop do reload = ") ;
         // nop
@@ -2204,7 +2242,7 @@ Tobago.Updater = {
             container.doUpdate = Tobago.Updater.doUpdate;
           }
 
-          container.doUpdate(componentData);
+          container.doUpdate(componentData, ioArgs);
         } else {
           LOG.info("kein container = " + ajaxId) ;
 //          LOG.debugAjaxComponents();

@@ -26,7 +26,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
-import static org.apache.myfaces.tobago.ajax.api.AjaxResponse.CODE_SUCCESS;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPage;
@@ -155,17 +154,22 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
 
     writer.endElement(HtmlConstants.DIV);
 
-    String setupScript = "Tobago.setupPopup('" + clientId + "', '"
-        + component.getLeft() + "', '" + component.getTop() + "', " + component.isModal() + ");";
-    writer.writeJavascript(setupScript);
+    writer.startJavascript();
+    writer.write("Tobago.setupPopup('");
+    writer.write(clientId);
+    writer.write("', '");
+    writer.write(String.valueOf(component.getLeft()));
+    writer.write("', '");
+    writer.write(String.valueOf(component.getTop()));
+    writer.write("', ");
+    writer.write(String.valueOf(component.isModal()));
+    writer.write(");");
+    writer.endJavascript();
   }
 
-  public int encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
     AjaxUtils.checkParamValidity(facesContext, component, UIPopup.class);
-
     RenderUtil.encode(facesContext, component);
-
-    return CODE_SUCCESS;
   }
 }
 

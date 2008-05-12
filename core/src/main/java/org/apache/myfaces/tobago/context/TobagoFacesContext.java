@@ -51,6 +51,8 @@ public class TobagoFacesContext extends FacesContextWrapper {
 
   private String enctype;
 
+  private String ajaxComponentId;
+
   private boolean ajax;
 
 
@@ -74,6 +76,14 @@ public class TobagoFacesContext extends FacesContextWrapper {
 
   public void setAjax(boolean ajax) {
     this.ajax = ajax;
+  }
+
+  public String getAjaxComponentId() {
+    return ajaxComponentId;
+  }
+
+  public void setAjaxComponentId(String ajaxComponentId) {
+    this.ajaxComponentId = ajaxComponentId;
   }
 
   public String getEnctype() {

@@ -31,6 +31,7 @@ import org.apache.commons.logging.LogFactory;
 
 import org.apache.myfaces.tobago.util.RequestUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
@@ -66,17 +67,22 @@ public class TobagoLifecycle extends Lifecycle {
   }
 
   public void execute(FacesContext facesContext) throws FacesException {
-    PhaseListenerManager phaseListenerMgr
-        = new PhaseListenerManager(this, facesContext, getPhaseListeners());
+
+    TobagoFacesContext context = new TobagoFacesContext(facesContext);
+    PhaseListenerManager phaseListenerMgr = new PhaseListenerManager(this, context, getPhaseListeners());
+
+    // At very first ensure the requestEncoding, this MUST done before
+    // accessing request parameters, wich can occur in custom phaseListeners.
+    RequestUtils.ensureEncoding(context.getExternalContext());
+
     for (PhaseExecutor executor : lifecycleExecutors) {
-      if (executePhase(facesContext, executor, phaseListenerMgr)) {
+      if (executePhase(context, executor, phaseListenerMgr)) {
         return;
       }
     }
   }
 
-  private boolean executePhase(FacesContext facesContext, PhaseExecutor executor,
-      PhaseListenerManager phaseListenerMgr)
+  private boolean executePhase(FacesContext facesContext, PhaseExecutor executor, PhaseListenerManager phaseListenerMgr)
       throws FacesException {
 
     boolean skipFurtherProcessing = false;
@@ -84,9 +90,6 @@ public class TobagoLifecycle extends Lifecycle {
       LOG.trace("entering " + executor.getPhase() + " in " + TobagoLifecycle.class.getName());
     }
 
-    // At very first ensure the requestEncoding, this MUST done before
-    // accessing request parameters, wich can occur in custom phaseListeners.
-    RequestUtils.ensureEncoding(facesContext.getExternalContext());
 
     try {
       phaseListenerMgr.informPhaseListenersBefore(executor.getPhase());
@@ -122,6 +125,10 @@ public class TobagoLifecycle extends Lifecycle {
 
   public void render(FacesContext facesContext) throws FacesException {
     // if the response is complete we should not be invoking the phase listeners
+    if (!(facesContext instanceof TobagoFacesContext)) {
+      facesContext = new TobagoFacesContext(facesContext); 
+    }
+
     if (isResponseComplete(facesContext, renderExecutor.getPhase(), true)) {
       return;
     }
@@ -137,7 +144,6 @@ public class TobagoLifecycle extends Lifecycle {
       if (isResponseComplete(facesContext, renderExecutor.getPhase(), true)) {
         return;
       }
-
       renderExecutor.execute(facesContext);
     } finally {
       phaseListenerMgr.informPhaseListenersAfter(renderExecutor.getPhase());
