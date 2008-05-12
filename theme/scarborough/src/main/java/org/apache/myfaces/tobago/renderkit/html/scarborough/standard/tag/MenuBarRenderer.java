@@ -285,6 +285,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     writer.writeAttribute(HtmlAttributes.ONBLUR, "tobagoMenuBlur(event)", false);
     writer.writeAttribute(HtmlAttributes.ONKEYDOWN, "tobagoMenuKeyDown(event)", false);
     writer.writeAttribute(HtmlAttributes.ONKEYPRESS, "tobagoMenuKeyPress(event)", false);
+    writer.writeIdAttribute(uiPanel.getClientId(facesContext));
     if (label.getText() != null) {
       if (label.getAccessKey() != null) {
         if (LOG.isInfoEnabled()
@@ -292,7 +293,6 @@ public class MenuBarRenderer extends LayoutableRendererBase {
           LOG.info("dublicated accessKey : " + label.getAccessKey());
         }
         if (!disabled) {
-          writer.writeIdAttribute(uiPanel.getClientId(facesContext));
           addAcceleratorKey(facesContext, uiPanel, label.getAccessKey());
         }
       }
