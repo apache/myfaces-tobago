@@ -443,7 +443,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.endElement(HtmlConstants.TR);
   }
 
-  public int encodeAjax(FacesContext context, UIComponent component) throws IOException {
+  public void encodeAjax(FacesContext context, UIComponent component) throws IOException {
     AjaxUtils.checkParamValidity(context, component, UITabGroup.class);
 
     renderTabGroupView(context,
@@ -453,7 +453,6 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
         (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE),
         SWITCH_TYPE_RELOAD_TAB,
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"));
-    return CODE_SUCCESS;
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent uiComponent) {
