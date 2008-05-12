@@ -173,7 +173,8 @@ public class AjaxResponseRenderer {
     }
   }
 
-  private void writeResponse(FacesContext facesContext, RenderKit renderKit, boolean reloadRequired) throws IOException {
+  private void writeResponse(FacesContext facesContext, RenderKit renderKit, boolean reloadRequired)
+      throws IOException {
 
     ExternalContext externalContext = facesContext.getExternalContext();
     RequestUtils.ensureEncoding(externalContext);
