@@ -85,6 +85,7 @@
         user.value = name;
         var pass = document.getElementById("page:j_password");
         pass.value = name;
+        pass.focus();
       }
     </tc:script>
 
