@@ -453,7 +453,7 @@ Tobago.Sheet.prototype.adjustScrollBars = function() {
 Tobago.Sheet.prototype.addSelectionListener = function() {
     var row = Tobago.element(this.firstRowId);
     if (row) {
-      var i = this.firstRowIndex;
+      var i = 0;
       while (row) {
         //       LOG.debug("rowId = " + row.id + "   next i=" + i);
         Tobago.addBindEventListener(row, "click", this, "doSelection");
@@ -833,6 +833,7 @@ Tobago.Sheet.prototype.doScroll = function(event) {
 Tobago.Sheet.prototype.selectAll = function() {
     var row = Tobago.element(this.firstRowId);
     var i = this.firstRowIndex;
+    var j = 0;
     var selected = Tobago.element(this.selectedId);
     while (row) {
       var image = this.getSelectionElementForRow(row);
@@ -842,7 +843,8 @@ Tobago.Sheet.prototype.selectAll = function() {
           selected.value = selected.value + i + ",";
         }
       }
-      row = this.getSiblingRow(row, ++i);
+      i++;
+      row = this.getSiblingRow(row, ++j);
     }
     this.updateSelectionView();
   };
@@ -853,13 +855,15 @@ Tobago.Sheet.prototype.unSelectAll = function() {
     var image = this.getSelectionElementForRow(row);
     if (image) {
       var i = this.firstRowIndex;
+      var j = 0;
       while (row) {
         image = this.getSelectionElementForRow(row);
         if (!image || !image.src.match(/Disabled/)) {
           var re = new RegExp("," + i + ",", 'g');
           selected.value = selected.value.replace(re, ",");
         }
-        row = this.getSiblingRow(row, ++i);
+        i++;
+        row = this.getSiblingRow(row, ++j);
       }
     } else {
       selected.value = ",";
@@ -870,9 +874,11 @@ Tobago.Sheet.prototype.unSelectAll = function() {
 Tobago.Sheet.prototype.toggleAllSelections = function(sheetId) {
     var row = Tobago.element(this.firstRowId);
     var i = this.firstRowIndex;
+    var j = 0;
     while (row) {
       this.toggleSelection(i);
-      row = this.getSiblingRow(row, ++i);
+      i++;
+      row = this.getSiblingRow(row, ++j);
     }
     this.updateSelectionView();
   };
