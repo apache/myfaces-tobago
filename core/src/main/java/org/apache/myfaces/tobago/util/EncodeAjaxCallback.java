@@ -19,19 +19,42 @@ package org.apache.myfaces.tobago.util;
 
 
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 import javax.faces.FacesException;
 import java.io.IOException;
+import java.util.Iterator;
 
 public class EncodeAjaxCallback implements javax.faces.component.ContextCallback {
 
   public void invokeContextCallback(FacesContext facesContext, UIComponent component) {
     try {
+      prepareRendererAll(facesContext, component);
       ((AjaxComponent) component).encodeAjax(facesContext);
     } catch (IOException e) {
       throw new FacesException(e);
+    }
+  }
+
+
+  // TODO merge with RenderUtil.prepareRendererAll
+  public static void prepareRendererAll(FacesContext facesContext, UIComponent component) throws IOException {
+    RendererBase renderer = ComponentUtil.getRendererBase(facesContext,  component);
+    boolean prepareRendersChildren = false;
+    if (renderer != null) {
+      renderer.prepareRender(facesContext, component);
+      prepareRendersChildren = renderer.getPrepareRendersChildren();
+    }
+    if (prepareRendersChildren) {
+      renderer.prepareRendersChildren(facesContext, component);
+    } else {
+      Iterator it = component.getFacetsAndChildren();
+      while (it.hasNext()) {
+        UIComponent child = (UIComponent) it.next();
+        prepareRendererAll(facesContext, child);
+      }
     }
   }
 }
