@@ -142,13 +142,19 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     List<PropertyInfo> properties = new ArrayList<PropertyInfo>();
     addProperties(decl, properties);
     if (tag != null) {
+
       String className = "org.apache.myfaces.tobago.internal.taglib."
           + tag.name().substring(0, 1).toUpperCase(Locale.ENGLISH) + tag.name().substring(1) + "Tag";
       TagInfo tagInfo = new TagInfo(className, componentTag.rendererType());
+      tagInfo.getProperties().addAll(properties);
       if (is12()) {
         tagInfo.setSuperClass("org.apache.myfaces.tobago.internal.taglib12.TobagoELTag");
       } else {
-        tagInfo.setSuperClass("org.apache.myfaces.tobago.internal.taglib.TobagoTag");
+        if (tagInfo.getBodyContent() != null) {
+          tagInfo.setSuperClass("org.apache.myfaces.tobago.internal.taglib.TobagoBodyTag");
+        } else {
+          tagInfo.setSuperClass("org.apache.myfaces.tobago.internal.taglib.TobagoTag");
+        }
       }
       tagInfo.setComponentClassName(componentTag.uiComponent());
       tagInfo.addImport("org.apache.commons.logging.Log");
@@ -159,7 +165,6 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
                         
       StringTemplate stringTemplate = tagStringTemplateGroup.getInstanceOf("tag");
       stringTemplate.setAttribute("tagInfo", tagInfo);
-      tagInfo.getProperties().addAll(properties);
       writeFile(tagInfo, stringTemplate);
     }
 
@@ -350,7 +355,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
   }
 
   protected void addProperty(MethodDeclaration decl, List<PropertyInfo> properties) {
-    //TagAttribute tagAttribute = decl.getAnnotation(TagAttribute.class);
+    TagAttribute tagAttribute = decl.getAnnotation(TagAttribute.class);
     UIComponentTagAttribute uiComponentTagAttribute = decl.getAnnotation(UIComponentTagAttribute.class);
     if (uiComponentTagAttribute != null) {
       String simpleName = decl.getSimpleName();
@@ -361,6 +366,9 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         }
         PropertyInfo propertyInfo = new PropertyInfo(attributeStr);
         propertyInfo.setAllowdValues(uiComponentTagAttribute.allowedValues());
+        if (tagAttribute != null) {
+          propertyInfo.setBodyContent(tagAttribute.bodyContent());
+        }
         String type;
         if (uiComponentTagAttribute.expression().isMethodExpression()) {
           propertyInfo.setMethodExpressionRequired(true);

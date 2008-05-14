@@ -467,18 +467,21 @@ public class ComponentUtil {
     }
 
     Map requestMap = facesContext.getExternalContext().getRequestMap();
-    LayoutRenderer renderer = (LayoutRenderer) requestMap.get(RENDER_KEY_PREFIX + rendererType);
+    RendererBase renderer = (RendererBase) requestMap.get(RENDER_KEY_PREFIX + rendererType);
 
     if (renderer == null) {
       Renderer myRenderer = getRendererInternal(facesContext, family, rendererType);
-      if (myRenderer instanceof LayoutRenderer) {
+      if (myRenderer instanceof RendererBase) {
         requestMap.put(RENDER_KEY_PREFIX + rendererType, myRenderer);
-        renderer = (LayoutRenderer) myRenderer;
+        renderer = (RendererBase) myRenderer;
       } else {
         return null;
       }
     }
-    return renderer;
+    if (renderer instanceof LayoutRenderer) {
+      return (LayoutRenderer) renderer;
+    }
+    return null;
   }
 
 
@@ -488,18 +491,21 @@ public class ComponentUtil {
     }
 
     Map requestMap = facesContext.getExternalContext().getRequestMap();
-    LayoutableRenderer renderer = (LayoutableRenderer) requestMap.get(RENDER_KEY_PREFIX + rendererType);
+    RendererBase renderer = (RendererBase) requestMap.get(RENDER_KEY_PREFIX + rendererType);
 
     if (renderer == null) {
       Renderer myRenderer = getRendererInternal(facesContext, family, rendererType);
-      if (myRenderer instanceof LayoutableRenderer) {
+      if (myRenderer instanceof RendererBase) {
         requestMap.put(RENDER_KEY_PREFIX + rendererType, myRenderer);
-        renderer = (LayoutableRenderer) myRenderer;
+        renderer = (RendererBase) myRenderer;
       } else {
         return null;
       }
     }
-    return renderer;
+    if (renderer instanceof LayoutableRenderer) {
+      return (LayoutableRenderer) renderer;
+    }
+    return null;
   }
 
   public static RendererBase getRendererBase(FacesContext facesContext, UIComponent component) {
@@ -516,7 +522,7 @@ public class ComponentUtil {
 
     if (renderer == null) {
       Renderer myRenderer = getRendererInternal(facesContext, family, rendererType);
-      if (myRenderer instanceof LayoutableRenderer) {
+      if (myRenderer instanceof RendererBase) {
         requestMap.put(RENDER_KEY_PREFIX + rendererType, myRenderer);
         renderer = (RendererBase) myRenderer;
       } else {

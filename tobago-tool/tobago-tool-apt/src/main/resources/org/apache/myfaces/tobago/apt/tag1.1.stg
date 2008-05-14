@@ -67,9 +67,26 @@ public class <tagInfo.className> extends <tagInfo.superClassName> {
     FacesContext context = FacesContext.getCurrentInstance();
     Application application = context.getApplication();
     <tagInfo.properties:{ p | <p:(p.template)()>}; separator="\n">
+
   }
 
   <tagInfo.properties:property(); separator="\n">
+
+  <if(tagInfo.bodyContent)>
+  @Override
+  public int doEndTag() throws javax.servlet.jsp.JspException {
+    if (!isBodyContentEmpty()) {
+      String bodyContentStr = getBodyContentStr();
+      if (isValueReference(bodyContentStr)) {
+        getComponentInstance().setValueBinding("<tagInfo.bodyContent.name>", getFacesContext().getApplication().createValueBinding(bodyContentStr));
+      } else {
+        <tagInfo.componentClassName> component = (<tagInfo.componentClassName>) getComponentInstance();
+        component.set<tagInfo.bodyContent.upperCamelCaseName>(bodyContentStr);
+      }
+    }
+    return super.doEndTag();
+  }
+  <endif>
 
   @Override
   public void release() {

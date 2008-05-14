@@ -40,4 +40,6 @@ public @interface TagAttribute {
 
   String name() default "";
 
+  boolean bodyContent() default false;
+
 }

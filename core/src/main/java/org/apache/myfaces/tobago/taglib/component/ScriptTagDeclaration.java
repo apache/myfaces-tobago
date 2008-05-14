@@ -55,7 +55,7 @@ public interface ScriptTagDeclaration extends HasIdBindingAndRendered {
   @UIComponentTagAttribute()
   void setOnsubmit(String onsubmit);
 
-  @TagAttribute()
+  @TagAttribute(bodyContent = true)
   @UIComponentTagAttribute()
   void setScript(String script);
 

@@ -30,12 +30,21 @@ public class PropertyInfo {
   private boolean methodExpressionRequired;
   private boolean literalOnly;
   private boolean deprecated;
+  private boolean bodyContent;
 
   public PropertyInfo() {
   }
 
   public PropertyInfo(String name) {
     this.name = name;
+  }
+
+  public boolean isBodyContent() {
+    return bodyContent;
+  }
+
+  public void setBodyContent(boolean bodyContent) {
+    this.bodyContent = bodyContent;
   }
 
   public boolean isLiteralOnly() {

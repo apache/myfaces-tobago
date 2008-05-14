@@ -44,4 +44,21 @@ public abstract class TobagoELTag extends UIComponentELTag {
   public String[] splitList(String renderers) {
     return StringUtils.split(renderers, ", ");
   }
+
+  protected String getBodyContentStr() {
+    String content = bodyContent.getString();
+    bodyContent.clearBody();
+    return content;
+  }
+
+  protected boolean isBodyContentEmpty() {
+    if (bodyContent != null) {
+      String content = bodyContent.getString();
+      String tmp = content.replace('\n', ' ');
+      if (tmp.trim().length() > 0) { // if there are only whitespaces: drop bodyContent
+        return false;
+      }
+    }
+    return true;
+  }
 }

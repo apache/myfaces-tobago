@@ -50,7 +50,7 @@ public interface StyleTagDeclaration extends HasIdBindingAndRendered {
   /**
    * stylesheet to add to page.
    */
-  @TagAttribute()
+  @TagAttribute(bodyContent = true)
   @UIComponentTagAttribute()
   void setStyle(String style);
 

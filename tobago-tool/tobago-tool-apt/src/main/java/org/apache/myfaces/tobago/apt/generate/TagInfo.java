@@ -26,6 +26,8 @@ public class TagInfo extends RendererInfo {
   private String componentClassName;
   private String componentType;
   private String componentFamily;
+  private PropertyInfo bodyContent;
+  private boolean checkBodyContent;
 
   public TagInfo(String qualifiedName, String rendererName) {
     super(qualifiedName, rendererName);
@@ -33,6 +35,23 @@ public class TagInfo extends RendererInfo {
 
   public TagInfo(String qualifiedName) {
     super(qualifiedName);
+  }
+
+  public PropertyInfo getBodyContent() {
+    if (!checkBodyContent) {
+      checkBodyContent = true;
+      for (PropertyInfo info:properties) {
+        if (info.isBodyContent()) {
+          bodyContent = info;
+          break;
+        }
+      }
+    }
+    return bodyContent;
+  }
+
+  public void setBodyContent(PropertyInfo bodyContent) {
+    this.bodyContent = bodyContent;
   }
 
   public List<PropertyInfo> getProperties() {

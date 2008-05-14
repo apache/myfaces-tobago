@@ -43,23 +43,15 @@ public abstract class TobagoBodyTag extends TobagoTag implements BodyTag {
   public void doInitBody() throws JspException {
   }
 
-
-  public int doEndTag() throws JspException {
-    if (LOG.isWarnEnabled()) {
-      UIComponent component = getComponentInstance();
-      if (component != null && component.getRendersChildren() && !isBodyContentEmpty()) {
-        LOG.warn("BodyContent should be empty. Component with id " + component.getId()
-            + " class " + component.getClass().getName() + " content " + bodyContent.getString()
-            + "  Please use the f:verbatim tag for nested content!");
-      }
-    }
-    return super.doEndTag();
+  protected String getBodyContentStr() {
+    String content = bodyContent.getString();
+    bodyContent.clearBody();
+    return content;
   }
 
   protected boolean isBodyContentEmpty() {
     if (bodyContent != null) {
       String content = bodyContent.getString();
-      //bodyContent.clearBody();
       String tmp = content.replace('\n', ' ');
       if (tmp.trim().length() > 0) { // if there are only whitespaces: drop bodyContent
         return false;
