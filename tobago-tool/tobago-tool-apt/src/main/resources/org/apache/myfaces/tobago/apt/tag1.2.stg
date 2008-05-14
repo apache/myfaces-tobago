@@ -71,6 +71,18 @@ public class <tagInfo.className> extends <tagInfo.superClassName> {
 
   <tagInfo.properties:property(); separator="\n">
 
+  <if(tagInfo.bodyContent)>
+  @Override
+  public int doEndTag() throws javax.servlet.jsp.JspException {
+    if (!isBodyContentEmpty()) {
+      String bodyContentStr = getBodyContentStr();
+      <tagInfo.componentClassName> component = (<tagInfo.componentClassName>) getComponentInstance();
+      component.set<tagInfo.bodyContent.upperCamelCaseName>(bodyContentStr);
+    }
+    return super.doEndTag();
+  }
+  <endif>
+
   @Override
   public void release() {
     super.release();
