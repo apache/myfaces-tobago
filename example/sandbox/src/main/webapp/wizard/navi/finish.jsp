@@ -1,6 +1,4 @@
-package org.apache.myfaces.tobago.model;
-
-/*
+<%--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,46 +13,21 @@ package org.apache.myfaces.tobago.model;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+--%>
 
-/**
- * User: lofwyr
- * Date: 15.05.2008 09:33:43
- */
+<%@ taglib uri="http://myfaces.apache.org/tobago/sandbox" prefix="tcs" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
-public class WizardStep {
+<layout:wizard>
+  <jsp:body>
 
-  private String outcome;
-  private String title;
-  private int index;
+    <tcs:wizard controller="#{controller.wizard}" title="Finish" outcome="finish">
 
-  public WizardStep(String outcome, String title, int index) {
-    this.outcome = outcome;
-    this.title = title;
-    this.index = index;
-  }
+      <tc:out value="Click finish for activation."/>
 
-  public String getOutcome() {
-    return outcome;
-  }
+    </tcs:wizard>
 
-  public void setOutcome(String outcome) {
-    this.outcome = outcome;
-  }
-
-  public String getTitle() {
-    return title;
-  }
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-  public int getIndex() {
-    return index;
-  }
-
-  public void setIndex(int index) {
-    this.index = index;
-  }
-}
+  </jsp:body>
+</layout:wizard>

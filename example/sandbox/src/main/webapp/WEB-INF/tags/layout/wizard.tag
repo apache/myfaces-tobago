@@ -22,17 +22,17 @@
 <f:view>
   <tc:loadBundle basename="demo" var="bundle"/>
 
-  <tc:page label="Sandbox - Wizard" id="page"
-           width="500px" height="300px">
+  <tc:page label="Sandbox - Wizard" id="page" width="500px" height="300px">
     <f:facet name="layout">
-      <tc:gridLayout margin="10px" />
+      <tc:gridLayout margin="10px" rows="fixed;*"/>
     </f:facet>
 
-    <tcs:wizard controller="#{controller.wizard}" title="Finish" outcome="finish">
+    <tc:messages/>
+    
+    <tc:cell>
+      <jsp:doBody/>
+    </tc:cell>
 
-      <tc:out value="Click finish for activation."/>
-
-    </tcs:wizard>
 
   </tc:page>
 </f:view>

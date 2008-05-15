@@ -18,24 +18,16 @@
 <%@ taglib uri="http://myfaces.apache.org/tobago/sandbox" prefix="tcs" %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
-<f:view>
-  <tc:loadBundle basename="demo" var="bundle"/>
+<layout:wizard>
+  <jsp:body>
 
-  <tc:page label="Sandbox - Wizard" id="page"
-           width="500px" height="300px">
-    <f:facet name="layout">
-      <tc:gridLayout margin="10px" />
-    </f:facet>
+    <tcs:wizard controller="#{controller.wizard}" title="Forward Condition" outcome="forwardCondition" next="next">
 
-    <tcs:wizard controller="#{controller.wizard}" title="New Filter" outcome="filter" next="#{controller.createFilter}">
-
-      <tc:selectOneRadio value="#{controller.filterType}">
-        <tc:selectItem itemLabel="File Into" itemValue="fileInto" />
-        <tc:selectItem itemLabel="Forward" itemValue="forward" />
-      </tc:selectOneRadio>
+      <tc:out value="Forward Condition"/>
 
     </tcs:wizard>
 
-  </tc:page>
-</f:view>
+  </jsp:body>
+</layout:wizard>

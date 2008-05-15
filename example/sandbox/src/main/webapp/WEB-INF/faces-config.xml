@@ -39,10 +39,10 @@
   </managed-bean>
 
   <navigation-rule>
-    <from-view-id>/wizard.jsp</from-view-id>
+    <from-view-id>/wizard/bean/single.jsp</from-view-id>
     <navigation-case>
       <from-outcome>wizard</from-outcome>
-      <to-view-id>/wizard.jsp</to-view-id>
+      <to-view-id>/wizard/bean/single.jsp</to-view-id>
     </navigation-case>
   </navigation-rule>
 
@@ -55,75 +55,75 @@
   </navigation-rule>
 
   <navigation-rule>
-    <from-view-id>/wizard/*</from-view-id>
+    <from-view-id>/wizard/navi/*</from-view-id>
     <navigation-case>
       <from-outcome>fileIntoCondition</from-outcome>
-      <to-view-id>/wizard/fileIntoCondition.jsp</to-view-id>
+      <to-view-id>/wizard/navi/fileIntoCondition.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>forwardCondition</from-outcome>
-      <to-view-id>/wizard/forwardCondition.jsp</to-view-id>
+      <to-view-id>/wizard/navi/forwardCondition.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>finish</from-outcome>
-      <to-view-id>/wizard/finish.jsp</to-view-id>
+      <to-view-id>/wizard/navi/finish.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>filter</from-outcome>
-      <to-view-id>/wizard/filter.jsp</to-view-id>
+      <to-view-id>/wizard/navi/filter.jsp</to-view-id>
     </navigation-case>
   </navigation-rule>
 
   <navigation-rule>
-    <from-view-id>/wizard/filter.jsp</from-view-id>
+    <from-view-id>/wizard/navi/filter.jsp</from-view-id>
     <navigation-case>
       <from-outcome>fileIntoCondition</from-outcome>
-      <to-view-id>/wizard/fileIntoCondition.jsp</to-view-id>
+      <to-view-id>/wizard/navi/fileIntoCondition.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>forwardCondition</from-outcome>
-      <to-view-id>/wizard/forwardCondition.jsp</to-view-id>
+      <to-view-id>/wizard/navi/forwardCondition.jsp</to-view-id>
     </navigation-case>
   </navigation-rule>
 
   <navigation-rule>
-    <from-view-id>/wizard/fileIntoCondition.jsp</from-view-id>
+    <from-view-id>/wizard/navi/fileIntoCondition.jsp</from-view-id>
     <navigation-case>
       <from-outcome>next</from-outcome>
-      <to-view-id>/wizard/finish.jsp</to-view-id>
+      <to-view-id>/wizard/navi/finish.jsp</to-view-id>
     </navigation-case>
 <!--
     <navigation-case>
       <from-outcome>previous</from-outcome>
-      <to-view-id>/wizard/filter.jsp</to-view-id>
+      <to-view-id>/wizard/navi/filter.jsp</to-view-id>
     </navigation-case>
 -->
   </navigation-rule>
 
   <navigation-rule>
-    <from-view-id>/wizard/forwardCondition.jsp</from-view-id>
+    <from-view-id>/wizard/navi/forwardCondition.jsp</from-view-id>
     <navigation-case>
       <from-outcome>next</from-outcome>
-      <to-view-id>/wizard/finish.jsp</to-view-id>
+      <to-view-id>/wizard/navi/finish.jsp</to-view-id>
     </navigation-case>
 <!--
     <navigation-case>
       <from-outcome>previous</from-outcome>
-      <to-view-id>/wizard/filter.jsp</to-view-id>
+      <to-view-id>/wizard/navi/filter.jsp</to-view-id>
     </navigation-case>
 -->
   </navigation-rule>
 
   <navigation-rule>
-    <from-view-id>/wizard/finish.jsp</from-view-id>
+    <from-view-id>/wizard/navi/finish.jsp</from-view-id>
 <!--
     <navigation-case>
       <from-outcome>forwardCondition</from-outcome>
-      <to-view-id>/wizard/fileIntoCondition.jsp</to-view-id>
+      <to-view-id>/wizard/navi/fileIntoCondition.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>forwardCondition</from-outcome>
-      <to-view-id>/wizard/forwardCondition.jsp</to-view-id>
+      <to-view-id>/wizard/navi/forwardCondition.jsp</to-view-id>
     </navigation-case>
 -->
   </navigation-rule>
