@@ -1,3 +1,11 @@
+<%@ tag import="org.apache.myfaces.tobago.example.reference.SimpleBean" %>
+<%@ tag import="org.apache.myfaces.tobago.model.TreeState" %>
+<%@ tag import="javax.faces.application.FacesMessage" %>
+<%@ tag import="javax.faces.context.FacesContext" %>
+<%@ tag import="javax.swing.tree.DefaultMutableTreeNode" %>
+<%@ tag import="java.io.PrintWriter" %>
+<%@ tag import="java.io.StringWriter" %>
+<%@ tag import="java.util.Date" %>
 <%--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,7 +27,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <f:view locale="#{clientConfigController.locale}">
   <tc:loadBundle basename="overview" var="overviewBundle"/>
-  <tc:page applicationIcon="icon/favicon.ico" label="#{overviewBundle.pageTitle}" id="page" width="1000px" height="700px">
+  <tc:page applicationIcon="icon/favicon.ico" label="#{overviewBundle.pageTitle}" id="page" width="1000px" height="750px">
 
     <jsp:include page="/menu.jsp" />
     <%--f:facet name="backButtonDetector">

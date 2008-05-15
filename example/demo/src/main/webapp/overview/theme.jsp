@@ -23,33 +23,48 @@
   <jsp:body>
     <tc:panel>
       <f:facet name="layout">
-          <tc:gridLayout rows="120px;150px;1* " />
+          <tc:gridLayout rows="120px;1* " />
       </f:facet>
 
       <tc:out escape="false" value="#{overviewBundle.theme_text}" />
 
       <tc:box label="#{overviewBundle.theme_title}" >
         <f:facet name="layout">
-          <tc:gridLayout rows="fixed;1*;fixed" />
+          <tc:gridLayout rows="fixed;1*" />
         </f:facet>
-
-        <tx:selectOneChoice value="#{clientConfigController2.theme}"
-            label="#{overviewBundle.theme_label}">
-          <f:selectItems value="#{clientConfigController2.themeItems}" />
-        </tx:selectOneChoice>
-
-        <tc:cell/>
 
         <tc:panel>
           <f:facet name="layout">
             <tc:gridLayout columns="*;100px"   />
           </f:facet>
-          <tc:cell/>
+
+          <tx:selectOneChoice value="#{clientConfigController2.theme}"
+              label="#{overviewBundle.theme_label}">
+            <f:selectItems value="#{clientConfigController2.themeItems}" />
+          </tx:selectOneChoice>
           <tc:button action="#{clientConfigController2.submit}" label="#{overviewBundle.theme_submit}" />
         </tc:panel>
 
+        <tc:panel>
+          <f:facet name="layout">
+            <tc:gridLayout columns="*;480px;*" rows="*;320px;*" />
+          </f:facet>
+
+          <tc:cell spanX="3"/>
+
+          <tc:cell/>
+          <tc:image value="image/theme-photo.jpg"/>
+          <tc:cell/>
+
+          <tc:cell/>
+          <tc:out escape="false" value="#{overviewBundle.theme_photo}" />
+          <tc:cell/>
+
+          <tc:cell spanX="3"/>
+
+        </tc:panel>
+
       </tc:box>
-      <tc:cell />
     </tc:panel>
   </jsp:body>
 </layout:overview>
