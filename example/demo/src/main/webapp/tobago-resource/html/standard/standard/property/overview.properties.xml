@@ -351,5 +351,6 @@
             &lt;resource-dir&gt;tobago&lt;/resource-dir&gt;
 &lt;/tobago-config&gt;
 ...</entry>
+  <entry key="theme_photo">Photo of the location</entry>
 
 </properties>
