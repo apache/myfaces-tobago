@@ -18,21 +18,33 @@
 <%@ taglib uri="http://myfaces.apache.org/tobago/sandbox" prefix="tcs" %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
-<f:view>
-  <tc:loadBundle basename="demo" var="bundle"/>
+<layout:wizard>
+  <jsp:body>
 
-  <tc:page label="Sandbox - Wizard" id="page"
-           width="500px" height="300px">
-    <f:facet name="layout">
-      <tc:gridLayout margin="10px" />
-    </f:facet>
+    <tcs:wizard controller="#{controller.wizard}" title="File Into Condition" outcome="fileIntoCondition" next="next">
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout rows="fixed;fixed;fixed;fixed;*"/>
+        </f:facet>
 
-    <tcs:wizard controller="#{controller.wizard}" title="Finish" outcome="finish">
+        <tc:out value="file into condition"/>
 
-      <tc:out value="Click finish for activation."/>
+        <tc:selectOneChoice>
+          <f:selectItems/>
+        </tc:selectOneChoice>
 
+        <tc:selectOneChoice>
+          <f:selectItems/>
+        </tc:selectOneChoice>
+
+        <tc:in/>
+
+        <tc:cell/>
+
+      </tc:panel>
     </tcs:wizard>
 
-  </tc:page>
-</f:view>
+  </jsp:body>
+</layout:wizard>

@@ -1,6 +1,4 @@
-package org.apache.myfaces.tobago.model;
-
-/*
+<%--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,15 +13,24 @@ package org.apache.myfaces.tobago.model;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+--%>
 
-import org.apache.myfaces.tobago.component.UIPanel;
+<%@ taglib uri="http://myfaces.apache.org/tobago/sandbox" prefix="tcs" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
-public interface UIWizard {
+<layout:wizard>
+  <jsp:body>
 
-  /**
-   * @return the current UIPanel with the (dynamic) UIComponents as chlidren
-   */
-  UIPanel getCurrentComponent();
+    <tcs:wizard controller="#{controller.wizard}" title="New Filter" outcome="filter" next="#{controller.createFilter}">
 
-}
+      <tc:selectOneRadio value="#{controller.filterType}" required="true">
+        <tc:selectItem itemLabel="File Into" itemValue="fileInto"/>
+        <tc:selectItem itemLabel="Forward" itemValue="forward"/>
+      </tc:selectOneRadio>
+
+    </tcs:wizard>
+
+  </jsp:body>
+</layout:wizard>

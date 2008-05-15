@@ -24,31 +24,15 @@
 
   <tc:page label="Sandbox - Wizard" id="page" width="500px" height="300px">
     <f:facet name="layout">
-      <tc:gridLayout margin="10px"/>
+      <tc:gridLayout margin="10px" rows="fixed;*"/>
     </f:facet>
 
-    <tcs:wizard controller="#{controller.wizard}" title="File Into Condition" outcome="fileIntoCondition" next="next">
-      <tc:panel>
-        <f:facet name="layout">
-          <tc:gridLayout rows="fixed;fixed;fixed;fixed;*"/>
-        </f:facet>
+    <tc:messages/>
+    
+    <tc:cell>
+      <jsp:doBody/>
+    </tc:cell>
 
-        <tc:out value="file into condition"/>
-
-        <tc:selectOneChoice>
-          <f:selectItems/>
-        </tc:selectOneChoice>
-
-        <tc:selectOneChoice>
-          <f:selectItems/>
-        </tc:selectOneChoice>
-
-        <tc:in/>
-
-        <tc:cell/>
-
-      </tc:panel>
-    </tcs:wizard>
 
   </tc:page>
 </f:view>

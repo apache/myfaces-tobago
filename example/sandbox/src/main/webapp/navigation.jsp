@@ -40,9 +40,9 @@
 
     <tc:link link="inputSlider.jsp" label="inputSlider.jsp" target="View"/>
 
-    <tc:link link="wizard.jsp" label="wizard.jsp" target="View"/>
+    <tc:link link="wizard/bean/single.jsp" label="Wizard with navigation from model" target="View"/>
 
-    <tc:link link="wizard/filter.jsp" label="wizard/filter.jsp" target="View"/>
+    <tc:link link="wizard/navi/filter.jsp" label="Wizard with navigation tree" target="View"/>
 
     <tc:link link="wizard.xml" label="wizard.xml" target="View"/>
 

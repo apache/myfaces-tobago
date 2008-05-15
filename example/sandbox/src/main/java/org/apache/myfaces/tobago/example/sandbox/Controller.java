@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.model.Wizard;
+import org.apache.myfaces.tobago.model.WizardImpl;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.text.SimpleDateFormat;
@@ -80,7 +81,7 @@ public class Controller {
 
     // wizard
 
-    wizard = new SampleWizard();
+    wizard = new WizardImpl();
   }
 
   public String action1() {

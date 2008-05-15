@@ -60,10 +60,8 @@ public interface Wizard {
   /**
    * Managed bean (controller) method to execute to show the next view of the
    * wizard.
-   * 
-   * @return The outcome after the method was executed
    */
-  String next();
+  void next(ActionEvent event);
 
   /**
    * Indicates if the action next is available.
@@ -138,7 +136,7 @@ public interface Wizard {
    * 
    * @param actionEvent
    */
-  void gotoClicked(ActionEvent actionEvent);
+//  void gotoClicked(ActionEvent actionEvent);
 
   /**
    * Managed bean (controller) method to execute to navigate between the wizards
@@ -146,16 +144,7 @@ public interface Wizard {
    * 
    * @return The outcome after the method was executed
    */
-  String gotoStep();
-
-  /**
-   * Returns the outcome after the wizard stand actions where executed, which
-   * will not leave the wizards view Id (except in case of errors).
-   * 
-   * @return The outcome after the wizard actions where executed, except actions
-   *         which leave the view (viewId) where the wizard is shown
-   */
-  String getDefaultOutcome();
+//  String gotoStep();
 
   /**
    * Sets the strategy to use for backward navigation
@@ -165,9 +154,7 @@ public interface Wizard {
    */
   void setBackwardNavigationStrategy(String strategy);
 
-  String getViewId();
-
-  List<AbstractWizardController.Info> getCourse();
+  List<WizardStep> getCourse();
 
   void registerOutcome(String outcome, String title);
 }
