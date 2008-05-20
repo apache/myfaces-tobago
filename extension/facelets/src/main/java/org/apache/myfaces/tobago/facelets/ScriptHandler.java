@@ -17,71 +17,39 @@ package org.apache.myfaces.tobago.facelets;
  * limitations under the License.
  */
 
-import com.sun.facelets.tag.TagHandler;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.TextHandler;
-import com.sun.facelets.tag.TagException;
 import com.sun.facelets.FaceletContext;
+import com.sun.facelets.tag.TextHandler;
+import com.sun.facelets.tag.jsf.ComponentConfig;
+import com.sun.facelets.tag.jsf.ComponentHandler;
 
 import javax.faces.component.UIComponent;
-import javax.faces.FacesException;
-import javax.el.ELException;
-import java.io.IOException;
 import java.util.Iterator;
 
-import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIScript;
 
 /*
- * User: bommel
  * Date: Feb 3, 2007
  * Time: 8:46:45 AM
  */
-public class ScriptHandler extends TagHandler {
+public class ScriptHandler extends ComponentHandler {
 
-  private final TagAttribute file;
-  private final TagAttribute onload;
-  private final TagAttribute onunload;
-  private final TagAttribute onexit;
-
-  public ScriptHandler(TagConfig config) {
+  public ScriptHandler(ComponentConfig config) {
     super(config);
-    file = getAttribute("file");
-    onload = getAttribute("onload");
-    onunload = getAttribute("onunload");
-    onexit = getAttribute("onexit");
   }
 
-  public void apply(FaceletContext faceletContext, UIComponent parent)
-      throws IOException, FacesException, ELException {
-
-    if (parent instanceof UIPage) {
-      //UIPage page = (UIPage) parent;
-      if (file != null) {
-        //page.getScriptFiles().add(file.getValue(faceletContext));
-      }
-      if (onload != null) {
-        //page.getOnloadScripts().add(onload.getValue(faceletContext));
-      }
-      if (onunload != null) {
-        //page.getOnunloadScripts().add(onunload.getValue(faceletContext));
-      }
-      if (onexit != null) {
-        //page.getOnexitScripts().add(onexit.getValue(faceletContext));
-      }
-      StringBuffer buffer = new StringBuffer();
-      Iterator iter = findNextByType(TextHandler.class);
-      while (iter.hasNext()) {
-        TextHandler text = (TextHandler) iter.next();
-        buffer.append(text.getText(faceletContext));
-      }
-      String content = buffer.toString().trim();
-
-      if (content.length() > 0) {
-        //page.getScriptBlocks().add(content);
-      }
-    } else {
-      throw new TagException(tag, "Parent is not of type UIPage, type is: " + parent);
+  protected void onComponentCreated(FaceletContext context, UIComponent component, UIComponent parent) {
+    StringBuffer content = new StringBuffer();
+    Iterator iter = findNextByType(TextHandler.class);
+    while (iter.hasNext()) {
+      TextHandler text = (TextHandler) iter.next();
+      content.append(text.getText(context));
     }
+    if (component instanceof UIScript) {
+      ((UIScript) component).setScript(content.toString());
+    }
+
+  }
+
+  protected void applyNextHandler(FaceletContext ctx, UIComponent c) {
   }
 }

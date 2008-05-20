@@ -172,7 +172,7 @@ public class FaceletAnnotationVisitor extends AbstractAnnotationVisitor {
       Thread.currentThread().setContextClassLoader(UIComponent.class.getClassLoader());
       Class uiComponentClass = Class.forName(componentTag.uiComponent());
 
-      StringBuilder addComponent = new StringBuilder("addComponent(\"");
+      StringBuilder addComponent = new StringBuilder("addTobagoComponent(\"");
       addComponent.append(annotationTag.name());
 
       Field componentField = uiComponentClass.getField("COMPONENT_TYPE");

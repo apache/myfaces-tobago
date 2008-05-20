@@ -36,7 +36,14 @@ public class AbstractTobagoTagLibrary  extends AbstractTagLibrary {
     addTagHandler("loadBundle", LoadBundleHandler.class);
     addTagHandler("converter", ConverterHandler.class);
     addValidator("validateFileItem", FileItemValidator.VALIDATOR_ID);
-    addValidator("validateSubmittedValueLength", SubmittedValueLengthValidator.VALIDATOR_ID);   
+    addValidator("validateSubmittedValueLength", SubmittedValueLengthValidator.VALIDATOR_ID);
+    addTobagoComponent("script", "org.apache.myfaces.tobago.Script", "Script", ScriptHandler.class);
+    addTobagoComponent("style", "org.apache.myfaces.tobago.Style", "Style", StyleHandler.class);
   }
 
+  protected final void addTobagoComponent(String name, String componentType, String rendererType, Class handlerType) {
+    if (!containsTagHandler(getNamespace(), name)) {
+      addComponent(name, componentType, rendererType, handlerType);
+    }
+  }
 }

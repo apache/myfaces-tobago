@@ -17,56 +17,37 @@ package org.apache.myfaces.tobago.facelets;
  * limitations under the License.
  */
 
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.TextHandler;
-import com.sun.facelets.tag.TagHandler;
-import com.sun.facelets.tag.TagException;
 import com.sun.facelets.FaceletContext;
+import com.sun.facelets.tag.TextHandler;
+import com.sun.facelets.tag.jsf.ComponentConfig;
+import com.sun.facelets.tag.jsf.ComponentHandler;
+import org.apache.myfaces.tobago.component.UIStyle;
 
 import javax.faces.component.UIComponent;
-import javax.faces.FacesException;
-import javax.el.ELException;
-import java.io.IOException;
 import java.util.Iterator;
 
-import org.apache.myfaces.tobago.component.AbstractUIPage;
-
 /*
- * User: bommel
  * Date: Feb 3, 2007
  * Time: 9:35:18 AM
  */
-public class StyleHandler extends TagHandler {
+public class StyleHandler extends ComponentHandler {
 
-  private final TagAttribute style;
-
-  public StyleHandler(TagConfig config) {
+  public StyleHandler(ComponentConfig config) {
     super(config);
-    style = getAttribute("style");
   }
 
-  public void apply(FaceletContext faceletContext, UIComponent parent)
-      throws IOException, FacesException, ELException {
-
-    if (parent instanceof AbstractUIPage) {
-      //AbstractUIPage page = (AbstractUIPage) parent;
-      if (style != null) {
-        //page.getStyleFiles().add(style.getValue(faceletContext));
-      }
-      StringBuffer buffer = new StringBuffer();
-      Iterator iter = findNextByType(TextHandler.class);
-      while (iter.hasNext()) {
-        TextHandler text = (TextHandler) iter.next();
-        buffer.append(text.getText(faceletContext));
-      }
-      String content = buffer.toString().trim();
-
-      if (content.length() > 0) {
-        //page.getStyleBlocks().add(content);
-      }
-    } else {
-      throw new TagException(tag, "Parent is not of type UIPage, type is: " + parent);
+  protected void onComponentCreated(FaceletContext context, UIComponent component, UIComponent parent) {
+    StringBuffer content = new StringBuffer();
+    Iterator iter = findNextByType(TextHandler.class);
+    while (iter.hasNext()) {
+      TextHandler text = (TextHandler) iter.next();
+      content.append(text.getText(context));
     }
+    if (component instanceof UIStyle) {
+      ((UIStyle) component).setStyle(content.toString());
+    }
+  }
+
+  protected void applyNextHandler(FaceletContext ctx, UIComponent c) {
   }
 }
