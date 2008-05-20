@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.ajax.api;
  * limitations under the License.
  */
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CHARSET;
@@ -27,7 +26,6 @@ import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
 import org.apache.myfaces.tobago.util.EncodeAjaxCallback;
 import org.apache.myfaces.tobago.util.RequestUtils;
 import org.apache.myfaces.tobago.util.ResponseUtils;
-import org.apache.myfaces.tobago.util.JndiUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseJsonWriterImpl;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
@@ -41,8 +39,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -61,18 +57,10 @@ public class AjaxResponseRenderer {
   private static final Log LOG = LogFactory.getLog(AjaxResponseRenderer.class);
 
   private EncodeAjaxCallback callback;
-  private String contentType;
+  private String contentType = "application/json";
 
   public AjaxResponseRenderer() {
     callback = new EncodeAjaxCallback();
-    try {
-      InitialContext ic = new InitialContext();
-      contentType = (String) JndiUtils.getJndiProperty(ic, "tobago.ajax.contentType");
-    } catch (NamingException e) { /*ignore*/ }
-
-    if (StringUtils.isBlank(contentType)) {
-      contentType = "application/json";
-    }
   }
 
   public void renderResponse(FacesContext facesContext) throws IOException {
@@ -143,8 +131,9 @@ public class AjaxResponseRenderer {
       writer.write("\",\n");
       writer.write("    script: function() {\n");
       writer.write(((TobagoResponseJsonWriterImpl) contentWriter).getJavascript());
-      writer.write("\n    }\n  }");
+      writer.write("\n    }");
     }
+    writer.write("\n  }");
   }
 
   private void saveState(FacesContext facesContext, RenderKit renderKit)
