@@ -48,6 +48,8 @@ Tobago
 News
 
   []
+    * <<20-05-08>> - Apache MyFaces Tobago 1.0.17 released!
+
     * <<16-04-08>> - Apache MyFaces Tobago 1.0.16 released!
 
     * <<11-04-08>> - The new tree was moved from the sandbox to core (only in 1.1.x which is still alpha).
@@ -58,8 +60,6 @@ News
     * <<18-03-08>> - Added tobago-jsf-compat and tobago-tablib-extension modules to trunk. The tobago-jsf-compat module provides some util classes for JSF 1.1 and JSF 1.2 compatibility. The tobago-taglib-extension module contains the JSF 1.1 version of the Tobago Extensions Taglib(tx).
 
     * <<18-02-08>> - Apache MyFaces Tobago 1.0.15 released!
-
-    * <<26-01-08>> - Apache MyFaces Tobago 1.0.14 released!
 
     * <<11-01-08>> - 1.0.x branch has been created.
 
