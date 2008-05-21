@@ -54,6 +54,8 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriterWrapper;
+import org.apache.myfaces.tobago.webapp.TobagoResponseJsonWriterImpl;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -691,14 +693,22 @@ public final class HtmlRendererUtil {
   public static void renderTip(UIComponent component, TobagoResponseWriter writer) throws IOException {
     Object objTip = component.getAttributes().get(ATTR_TIP);
     if (objTip != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, String.valueOf(objTip), true);
+      String tip = String.valueOf(objTip);
+      if (writer instanceof TobagoResponseJsonWriterImpl) {
+        tip = AjaxUtils.encodeJavascriptString(tip);
+      }
+      writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     }
   }
 
   public static void renderImageTip(UIComponent component, TobagoResponseWriter writer) throws IOException {
     Object objTip = component.getAttributes().get(ATTR_TIP);
     if (objTip != null) {
-      writer.writeAttribute(HtmlAttributes.ALT, String.valueOf(objTip), true);
+      String tip = String.valueOf(objTip);
+      if (writer instanceof TobagoResponseJsonWriterImpl) {
+        tip = AjaxUtils.encodeJavascriptString(tip);
+      }
+      writer.writeAttribute(HtmlAttributes.ALT, tip, true);
     } else {
       writer.writeAttribute(HtmlAttributes.ALT, "", false);
     }
