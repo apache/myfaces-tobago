@@ -18,7 +18,7 @@
 function tobago_switchTab(type, controlId, selectedIndex, size) {
   if ('client' == type) {
     tobago_selectTab(controlId, selectedIndex, size);
-  } else if ('reloadTab' == type) {
+  } else if ('reloadPage' == type) {
     tobago_requestTab(controlId, selectedIndex);
   }
 }
