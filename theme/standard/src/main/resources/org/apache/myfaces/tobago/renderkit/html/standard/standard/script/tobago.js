@@ -765,7 +765,7 @@ var Tobago = {
     var image = this.element(id);
     if (image && this.images[id]) {
       var hover = this.images[id].hover;
-      if (hover != 'null' && hover != image.src) {
+      if (hover != '' && hover != image.src) {
         image.src = hover;
       }
     }
@@ -778,7 +778,7 @@ var Tobago = {
     var image = this.element(id);
     if (image && this.images[id]) {
       var normal = this.images[id].normal;
-      if (normal != 'null' && normal != image.src) {
+      if (normal != '' && normal != image.src) {
         image.src = normal;
       }
     }
