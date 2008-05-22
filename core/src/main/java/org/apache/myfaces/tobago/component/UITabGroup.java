@@ -41,6 +41,7 @@ import javax.faces.event.PhaseId;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collection;
 
 public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComponent {
 
@@ -146,6 +147,9 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
       }
       UIPanelBase renderedTab = getRenderedTab();
       renderedTab.processDecodes(context);
+      for (UIComponent facet : (Collection<UIComponent>) getFacets().values()) {
+        facet.processDecodes(context);
+      }
       try {
         decode(context);
       } catch (RuntimeException e) {
@@ -168,6 +172,9 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
       }
       UIPanelBase renderedTab = getRenderedTab();
       renderedTab.processValidators(context);
+      for (UIComponent facet : (Collection<UIComponent>) getFacets().values()) {
+        facet.processValidators(context);
+      }
     } else {
       super.processValidators(context);
     }
@@ -184,6 +191,9 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
       }
       UIPanelBase renderedTab = getRenderedTab();
       renderedTab.processUpdates(context);
+      for (UIComponent facet : (Collection<UIComponent>) getFacets().values()) {
+        facet.processUpdates(context);
+      }
 
     } else {
       super.processUpdates(context);
