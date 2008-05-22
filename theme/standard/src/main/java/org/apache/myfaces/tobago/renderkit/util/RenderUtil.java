@@ -95,6 +95,9 @@ public class RenderUtil {
   }
 
   public static void prepareRendererAll(FacesContext facesContext, UIComponent component) throws IOException {
+    if (!component.isRendered()) {
+      return;
+    }
     RendererBase renderer = ComponentUtil.getRendererBase(facesContext,  component);
     boolean prepareRendersChildren = false;
     if (renderer != null) {
