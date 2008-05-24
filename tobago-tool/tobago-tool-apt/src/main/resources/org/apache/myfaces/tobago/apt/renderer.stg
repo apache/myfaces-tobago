@@ -41,11 +41,11 @@ package <renderInfo.packageName>;
 
 <renderInfo.imports:import(); separator="\n">
 
-public class <renderInfo.className>
+public final class <renderInfo.className>
     extends <renderInfo.superClassName> <first(renderInfo.interfaces):{ n | implements <n> }><rest(renderInfo.interfaces):{ n | , <n> }> {
 
   @Override
-  protected String getRendererName() {
+  protected final String getRendererName() {
 	  return "<renderInfo.rendererName>";
 	}
 

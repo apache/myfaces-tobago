@@ -241,7 +241,7 @@ public class StyleClasses implements Serializable {
     if (classes.isEmpty()) {
       return null;
     }
-    StringBuilder buffer = new StringBuilder(32);
+    StringBuilder buffer = new StringBuilder(16 * classes.size());
     for (Iterator i = classes.iterator(); i.hasNext();) {
       String clazz = (String) i.next();
       buffer.append(clazz);

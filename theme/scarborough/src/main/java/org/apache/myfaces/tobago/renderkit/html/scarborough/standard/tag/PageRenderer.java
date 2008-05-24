@@ -345,7 +345,7 @@ public class PageRenderer extends PageRendererBase {
       };
       final String[] jsCommand = new String[]{"new LOG.LogArea({hide: " + hideClientLogging + "});"};
       HtmlRendererUtil.writeScriptLoader(facesContext, jsFiles, jsCommand);
-       writer.writeJavascript("TbgTimer.startBody = new Date();");
+      writer.writeJavascript("TbgTimer.startBody = new Date();");
     }
 
     writer.startElement(HtmlConstants.FORM, page);

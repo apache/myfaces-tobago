@@ -252,15 +252,28 @@ public final class LayoutUtil {
     return height;
   }
 
+  public static int getMinimumWidth(FacesContext facesContext, UIComponent component) {
+    LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, component);
+    if (renderer != null) {
+       return renderer.getMinimumWidth(facesContext, component);
+    }
+    return -1;
+  }
+
+  public static int getMinimumHeight(FacesContext facesContext, UIComponent component) {
+    LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, component);
+    if (renderer != null) {
+       return renderer.getMinimumHeight(facesContext, component);
+    }
+    return -1;
+  }
+
   public static Dimension getMinimumSize(
       FacesContext facesContext, UIComponent component) {
-    Dimension dimension
-        = (Dimension) component.getAttributes().get(ATTR_MINIMUM_SIZE);
-    if (dimension == null) {
-      LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, component);
-      if (renderer != null) {
-        dimension = renderer.getMinimumSize(facesContext, component);
-      }
+    Dimension dimension = null;
+    LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, component);
+    if (renderer != null) {
+      dimension = renderer.getMinimumSize(facesContext, component);
     }
     if (dimension == null) {
       dimension = new Dimension(-1, -1);

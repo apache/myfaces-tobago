@@ -467,12 +467,14 @@ public class ComponentUtil {
     }
 
     Map requestMap = facesContext.getExternalContext().getRequestMap();
-    RendererBase renderer = (RendererBase) requestMap.get(RENDER_KEY_PREFIX + rendererType);
+    StringBuilder key = new StringBuilder(RENDER_KEY_PREFIX);
+    key.append(rendererType);
+    RendererBase renderer = (RendererBase) requestMap.get(key.toString());
 
     if (renderer == null) {
       Renderer myRenderer = getRendererInternal(facesContext, family, rendererType);
       if (myRenderer instanceof RendererBase) {
-        requestMap.put(RENDER_KEY_PREFIX + rendererType, myRenderer);
+        requestMap.put(key.toString(), myRenderer);
         renderer = (RendererBase) myRenderer;
       } else {
         return null;
@@ -491,12 +493,14 @@ public class ComponentUtil {
     }
 
     Map requestMap = facesContext.getExternalContext().getRequestMap();
-    RendererBase renderer = (RendererBase) requestMap.get(RENDER_KEY_PREFIX + rendererType);
+    StringBuilder key = new StringBuilder(RENDER_KEY_PREFIX);
+    key.append(rendererType);
+    RendererBase renderer = (RendererBase) requestMap.get(key.toString());
 
     if (renderer == null) {
       Renderer myRenderer = getRendererInternal(facesContext, family, rendererType);
       if (myRenderer instanceof RendererBase) {
-        requestMap.put(RENDER_KEY_PREFIX + rendererType, myRenderer);
+        requestMap.put(key.toString(), myRenderer);
         renderer = (RendererBase) myRenderer;
       } else {
         return null;
@@ -518,12 +522,14 @@ public class ComponentUtil {
     }
 
     Map requestMap = facesContext.getExternalContext().getRequestMap();
-    RendererBase renderer = (RendererBase) requestMap.get(RENDER_KEY_PREFIX + rendererType);
+    StringBuilder key = new StringBuilder(RENDER_KEY_PREFIX);
+    key.append(rendererType);
+    RendererBase renderer = (RendererBase) requestMap.get(key.toString());
 
     if (renderer == null) {
       Renderer myRenderer = getRendererInternal(facesContext, family, rendererType);
       if (myRenderer instanceof RendererBase) {
-        requestMap.put(RENDER_KEY_PREFIX + rendererType, myRenderer);
+        requestMap.put(key.toString(), myRenderer);
         renderer = (RendererBase) myRenderer;
       } else {
         return null;

@@ -77,15 +77,25 @@ public abstract class LayoutableRendererBase
 
   public Dimension getMinimumSize(
       FacesContext facesContext, UIComponent component) {
-    int width = getConfiguredValue(facesContext, component, "minimumWidth");
-    if (width == -1) {
-      width = getConfiguredValue(facesContext, component, "fixedWidth");
-    }
+    int width = getMinimumWidth(facesContext, component);
+    int height = getMinimumHeight(facesContext, component);
+    return new Dimension(width, height);
+  }
+
+  public int getMinimumHeight(FacesContext facesContext, UIComponent component) {
     int height = getConfiguredValue(facesContext, component, "minimumHeight");
     if (height == -1) {
       height = getConfiguredValue(facesContext, component, "fixedHeight");
     }
-    return new Dimension(width, height);
+    return height;
+  }
+
+  public int getMinimumWidth(FacesContext facesContext, UIComponent component) {
+    int width = getConfiguredValue(facesContext, component, "minimumWidth");
+    if (width == -1) {
+      width = getConfiguredValue(facesContext, component, "fixedWidth");
+    }
+    return width;
   }
 
   public int getFixedWidth(FacesContext facesContext, UIComponent component) {

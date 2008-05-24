@@ -74,8 +74,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
 
   public void updateRendererCachePrefix() {
     ClientProperties clientProperties = ClientProperties.getInstance(this);
-    rendererCacheKey = ResourceManagerImpl.getRendererCacheKey(
-        clientProperties != null ? clientProperties.getId() : "null", getLocale());
+    rendererCacheKey = ResourceManagerImpl.getRendererCacheKey(clientProperties, getLocale());
   }
 
   public Object saveState(FacesContext facesContext) {

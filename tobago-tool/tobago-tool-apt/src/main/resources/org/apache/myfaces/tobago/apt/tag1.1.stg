@@ -42,7 +42,7 @@ package <tagInfo.packageName>;
 
 <tagInfo.imports:import(); separator="\n">
 
-public class <tagInfo.className> extends <tagInfo.superClassName> {
+public final class <tagInfo.className> extends <tagInfo.superClassName> {
   private static final Log LOG = LogFactory.getLog(<tagInfo.className>.class);
   <tagInfo.properties:field(); separator="\n">
 

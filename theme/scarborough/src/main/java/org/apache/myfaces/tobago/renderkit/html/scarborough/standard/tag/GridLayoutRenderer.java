@@ -717,7 +717,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         UIComponent component = (UIComponent) cell;
         int height = -1;
         if (minimum) {
-          height = (int) LayoutUtil.getMinimumSize(facesContext, component).getHeight();
+          height = (int) LayoutUtil.getMinimumHeight(facesContext, component);
         } else {
           LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, component);
           if (renderer != null) {
@@ -751,7 +751,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           }
           int max = -1;
           if (minimum) {
-            max = (int) LayoutUtil.getMinimumSize(facesContext, component).getWidth();
+            max = (int) LayoutUtil.getMinimumWidth(facesContext, component);
           } else {
             LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, component);
             if (renderer != null) {

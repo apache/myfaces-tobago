@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.StringTokenizer;
 import java.io.Serializable;
 
 // FIXME: is this class thread-safe?
@@ -92,7 +91,7 @@ public class ResourceManagerImpl implements ResourceManager {
       if (result == null) {
         // TODO: cache null values
         try {
-          List paths = getPaths(key.getClientPropertyId(), key.getLocale(), "", null, name.substring(0, dot),
+          List paths = getPaths(key.getClientProperties(), key.getLocale(), "", null, name.substring(0, dot),
               name.substring(dot), false, true, true, null, true, ignoreMissing);
           if (paths != null) {
             result = (String) paths.get(0);
@@ -119,7 +118,7 @@ public class ResourceManagerImpl implements ResourceManager {
     if (viewRoot instanceof org.apache.myfaces.tobago.component.UIViewRoot) {
       key = ((org.apache.myfaces.tobago.component.UIViewRoot) viewRoot).getRendererCacheKey();
     } else {
-      String clientPropertyId = ClientProperties.getInstance(viewRoot).getId();
+      ClientProperties clientProperties = ClientProperties.getInstance(viewRoot);
       Locale locale;
       if (viewRoot != null) {
         locale = viewRoot.getLocale();
@@ -129,7 +128,7 @@ public class ResourceManagerImpl implements ResourceManager {
             FacesContext.getCurrentInstance().getApplication().getViewHandler()
                 .calculateLocale(FacesContext.getCurrentInstance());
       }
-      key = new CacheKey(clientPropertyId, locale);
+      key = new CacheKey(clientProperties, locale);
     }
     return key;
   }
@@ -146,7 +145,7 @@ public class ResourceManagerImpl implements ResourceManager {
         return result;
       }
       try {
-        result = (String) getPaths(key.getClientPropertyId(), key.getLocale(), "",
+        result = (String) getPaths(key.getClientProperties(), key.getLocale(), "",
             JSP, name, "", false, true, true, null, true, false).get(0);
         jspCache.put(jspKey, result);
       } catch (Exception e) {
@@ -167,7 +166,7 @@ public class ResourceManagerImpl implements ResourceManager {
       if (result != null) {
         return result;
       }
-      List properties = getPaths(key.getClientPropertyId(), key.getLocale(), "", PROPERTY, bundle,
+      List properties = getPaths(key.getClientProperties(), key.getLocale(), "", PROPERTY, bundle,
           "", false, true, false, propertyKey, true, false);
       if (properties != null) {
         result = (String) properties.get(0);
@@ -179,15 +178,14 @@ public class ResourceManagerImpl implements ResourceManager {
     return result;
   }
 
-  private List getPaths(String clientProperties, Locale locale, String prefix,
+  private List getPaths(ClientProperties clientProperties, Locale locale, String prefix,
       String subDir, String name, String suffix,
       boolean reverseOrder, boolean single, boolean returnKey,
       String key, boolean returnStrings, boolean ignoreMissing) {
     List matches = new ArrayList();
-    StringTokenizer tokenizer = new StringTokenizer(clientProperties, "/");
-    String contentType = tokenizer.nextToken();
-    Theme theme = tobagoConfig.getTheme(tokenizer.nextToken());
-    UserAgent browser = UserAgent.getInstanceForId(tokenizer.nextToken());
+    String contentType = clientProperties.getContentType();
+    Theme theme = clientProperties.getTheme();
+    UserAgent browser = clientProperties.getUserAgent();
     List<String> locales = ClientProperties.getLocaleList(locale, false);
 
     String path;
@@ -347,7 +345,7 @@ public class ResourceManagerImpl implements ResourceManager {
       }
       try {
         name = getRendererClassName(name);
-        List<Class> classes = getPaths(key.getClientPropertyId(), key.getLocale(), "", TAG, name, "",
+        List<Class> classes = getPaths(key.getClientProperties(), key.getLocale(), "", TAG, name, "",
             false, true, true, null, false, false);
         if (classes != null && !classes.isEmpty()) {
           Class clazz = classes.get(0);
@@ -407,7 +405,7 @@ public class ResourceManagerImpl implements ResourceManager {
         return result;
       }
       try {
-        List matches = getPaths(key.getClientPropertyId(), key.getLocale(), "", type,
+        List matches = getPaths(key.getClientProperties(), key.getLocale(), "", type,
             name.substring(0, dot), name.substring(dot), true, false, true, null, true, false);
         result = (String[]) matches.toArray(new String[matches.size()]);
         miscCache.put(miscKey, result);
@@ -429,7 +427,7 @@ public class ResourceManagerImpl implements ResourceManager {
       if (result != null) {
         return result;
       }
-      List properties = getPaths(key.getClientPropertyId(), key.getLocale(), "", PROPERTY,
+      List properties = getPaths(key.getClientProperties(), key.getLocale(), "", PROPERTY,
           bundle, "", false, true, false, propertyKey, true, true);
       if (properties != null) {
         result = (String) properties.get(0);
@@ -441,8 +439,8 @@ public class ResourceManagerImpl implements ResourceManager {
     return result;
   }
 
-  public static CacheKey getRendererCacheKey(String clientPropertyId, Locale locale) {
-    return new CacheKey(clientPropertyId, locale);
+  public static CacheKey getRendererCacheKey(ClientProperties clientProperties, Locale locale) {
+    return new CacheKey(clientProperties, locale);
   }
 
 
@@ -635,12 +633,12 @@ public class ResourceManagerImpl implements ResourceManager {
   }
 
   public static final class CacheKey implements Serializable {
-    private final String clientPropertyId;
+    private final ClientProperties clientProperties;
     private final Locale locale;
     private final int hashCode;
 
-    private CacheKey(String clientPropertyId, Locale locale) {
-      this.clientPropertyId = clientPropertyId;
+    private CacheKey(ClientProperties clientProperties, Locale locale) {
+      this.clientProperties = clientProperties;
       if (locale == null) { //  FIXME: should not happen, but does.
         LOG.warn("locale == null");
         locale = Locale.getDefault();
@@ -650,7 +648,11 @@ public class ResourceManagerImpl implements ResourceManager {
     }
 
     public String getClientPropertyId() {
-      return clientPropertyId;
+      return clientProperties.getId();
+    }
+
+    public ClientProperties getClientProperties() {
+      return clientProperties;
     }
 
     public Locale getLocale() {
@@ -667,13 +669,13 @@ public class ResourceManagerImpl implements ResourceManager {
 
       CacheKey cacheKey = (CacheKey) o;
 
-      return clientPropertyId.equals(cacheKey.clientPropertyId) && locale.equals(cacheKey.locale);
+      return clientProperties.getId().equals(cacheKey.clientProperties.getId()) && locale.equals(cacheKey.locale);
 
     }
 
     private int calcHashCode() {
       int result;
-      result = clientPropertyId.hashCode();
+      result = clientProperties.getId().hashCode();
       result = 31 * result + locale.hashCode();
       return result;
     }

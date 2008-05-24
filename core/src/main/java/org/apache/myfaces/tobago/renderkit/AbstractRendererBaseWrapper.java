@@ -32,77 +32,77 @@ public abstract class AbstractRendererBaseWrapper extends RendererBase {
   private static final Log LOG = LogFactory.getLog(AbstractRendererBaseWrapper.class);
 
   @Override
-  public void onComponentCreated(FacesContext context, UIComponent component) {
+  public final void onComponentCreated(FacesContext context, UIComponent component) {
     getRenderer(context).onComponentCreated(context, component);
   }
 
   @Override
-  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+  public final void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     getRenderer(facesContext).prepareRender(facesContext, component);
   }
   @Override
-  public boolean getPrepareRendersChildren() {
+  public final boolean getPrepareRendersChildren() {
     return getRenderer(FacesContext.getCurrentInstance()).getPrepareRendersChildren();
   }
   @Override
-  public void prepareRendersChildren(FacesContext context, UIComponent component) {
+  public final void prepareRendersChildren(FacesContext context, UIComponent component) {
     getRenderer(context).prepareRendersChildren(context, component);
   }
 
-  public boolean getRendersChildren() {
+  public final boolean getRendersChildren() {
     return getRenderer(FacesContext.getCurrentInstance()).getRendersChildren();
   }
 
-  public void decode(FacesContext facesContext, UIComponent component) {
+  public final void decode(FacesContext facesContext, UIComponent component) {
     getRenderer(facesContext).decode(facesContext, component);
   }
 
-  public String getRendererName(String rendererType) {
+  public final String getRendererName(String rendererType) {
     return getRenderer(FacesContext.getCurrentInstance()).getRendererName(rendererType);
   }
 
-  public int getConfiguredValue(FacesContext facesContext, UIComponent component, String key) {
+  public final int getConfiguredValue(FacesContext facesContext, UIComponent component, String key) {
     return getRenderer(facesContext).getConfiguredValue(facesContext, component, key);
   }
 
-  protected Object getCurrentValueAsObject(UIInput input) {
+  protected final Object getCurrentValueAsObject(UIInput input) {
     return getRenderer(FacesContext.getCurrentInstance()).getCurrentValueAsObject(input);
   }
 
-  protected String getCurrentValue(FacesContext facesContext, UIComponent component) {
+  protected final String getCurrentValue(FacesContext facesContext, UIComponent component) {
     return getRenderer(facesContext).getCurrentValue(facesContext, component);
   }
 
-  protected Object getValue(UIComponent component) {
+  protected final Object getValue(UIComponent component) {
     return getRenderer(FacesContext.getCurrentInstance()).getValue(component);
   }
 
-  public Converter getConverter(FacesContext facesContext, UIComponent component) {
+  public final Converter getConverter(FacesContext facesContext, UIComponent component) {
     return getRenderer(facesContext).getConverter(facesContext, component);
   }
 
-  public Object getConvertedValue(FacesContext facesContext, UIComponent component, Object submittedValue)
+  public final Object getConvertedValue(FacesContext facesContext, UIComponent component, Object submittedValue)
       throws ConverterException {
     return getRenderer(facesContext).getConvertedValue(facesContext, component, submittedValue);
   }
 
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+  public final void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     getRenderer(facesContext).encodeBegin(facesContext, component);
   }
 
-  public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
+  public final void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
     getRenderer(facesContext).encodeChildren(facesContext, component);
   }
 
-  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+  public final void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     getRenderer(facesContext).encodeEnd(facesContext, component);
   }
 
-  public String convertClientId(FacesContext facesContext, String clientId) {
+  public final String convertClientId(FacesContext facesContext, String clientId) {
     return getRenderer(facesContext).convertClientId(facesContext, clientId);
   }
 
-  protected RendererBase getRenderer(FacesContext facesContext) {
+  protected final RendererBase getRenderer(FacesContext facesContext) {
     RendererBase renderer = (RendererBase) ResourceManagerFactory.
         getResourceManager(facesContext).getRenderer(facesContext.getViewRoot(), getRendererName());
     if (renderer == null) {

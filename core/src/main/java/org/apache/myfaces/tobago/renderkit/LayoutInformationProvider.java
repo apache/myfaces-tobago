@@ -38,6 +38,10 @@ public interface LayoutInformationProvider {
 
   Dimension getMinimumSize(FacesContext facesContext, UIComponent component);
 
+  int getMinimumWidth(FacesContext facesContext, UIComponent component);
+
+  int getMinimumHeight(FacesContext facesContext, UIComponent component);
+
   int getFixedWidth(FacesContext facesContext, UIComponent component);
 
   int getFixedHeight(FacesContext facesContext, UIComponent component);

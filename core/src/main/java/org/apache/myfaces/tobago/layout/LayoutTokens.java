@@ -29,7 +29,7 @@ import java.util.ArrayList;
  * Date: May 2, 2007
  * Time: 1:11:25 PM
  */
-public class LayoutTokens {
+public final class LayoutTokens {
 
   private static final Log LOG = LogFactory.getLog(LayoutTokens.class);
 
