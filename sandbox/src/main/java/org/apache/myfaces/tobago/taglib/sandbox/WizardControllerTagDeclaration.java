@@ -18,11 +18,11 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /**
@@ -35,8 +35,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanel",
     generate = false,
     rendererType = "Wizard")
-public interface WizardTagDeclaration
-    extends HasIdBindingAndRendered {
+public interface WizardControllerTagDeclaration extends HasIdBindingAndRendered {
 
   @TagAttribute(required = true)
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.Wizard",

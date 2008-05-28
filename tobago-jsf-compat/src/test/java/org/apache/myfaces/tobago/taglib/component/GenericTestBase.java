@@ -18,41 +18,38 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import junit.framework.TestCase;
-
-import javax.servlet.jsp.tagext.Tag;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import javax.faces.context.ExternalContext;
-import javax.faces.lifecycle.Lifecycle;
-import javax.faces.FactoryFinder;
-import javax.faces.component.UIViewRoot;
-import javax.faces.application.ApplicationFactory;
-import javax.faces.application.Application;
-
+import net.sf.maventaglib.checker.TagAttribute;
 import net.sf.maventaglib.checker.Tld;
 import net.sf.maventaglib.checker.TldParser;
-import net.sf.maventaglib.checker.TagAttribute;
-
-import java.io.InputStream;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.beans.PropertyDescriptor;
-import java.util.HashMap;
-
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.InputSource;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.mock.servlet.MockServletContext;
-import org.apache.myfaces.tobago.mock.servlet.MockHttpServletRequest;
-import org.apache.myfaces.tobago.mock.servlet.MockHttpServletResponse;
 import org.apache.myfaces.tobago.mock.faces.MockExternalContext;
 import org.apache.myfaces.tobago.mock.faces.MockFacesContext;
+import org.apache.myfaces.tobago.mock.servlet.MockHttpServletRequest;
+import org.apache.myfaces.tobago.mock.servlet.MockHttpServletResponse;
+import org.apache.myfaces.tobago.mock.servlet.MockServletContext;
+import org.w3c.dom.Document;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+import javax.faces.FactoryFinder;
+import javax.faces.application.Application;
+import javax.faces.application.ApplicationFactory;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
+import javax.faces.lifecycle.Lifecycle;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.tagext.Tag;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.beans.PropertyDescriptor;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 //import org.apache.myfaces.tobago.mock.servlet.MockPageContext;
 
 public abstract class GenericTestBase extends TestCase {
