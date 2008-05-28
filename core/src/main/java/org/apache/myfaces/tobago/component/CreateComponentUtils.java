@@ -17,7 +17,16 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE_RADIO;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CREATE_SPAN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UICommand;
@@ -26,61 +35,103 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
 public class CreateComponentUtils {
+
+  @Deprecated
   public static UIComponent createComponent(String componentType, String rendererType) {
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    return createComponent(facesContext, componentType, rendererType);
+    return createComponent(componentType, rendererType, null);
   }
 
+  public static UIComponent createComponent(String componentType, String rendererType, String clientId) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    return createComponent(facesContext, componentType, rendererType, clientId);
+  }
+
+  @Deprecated
   public static UIComponent createComponent(FacesContext facesContext, String componentType, String rendererType) {
+    return createComponent(facesContext, componentType, rendererType, null);
+  }
+
+  public static UIComponent createComponent(
+      FacesContext facesContext, String componentType, String rendererType, String clientId) {
     UIComponent component  = facesContext.getApplication().createComponent(componentType);
     component.setRendererType(rendererType);
+    component.setId(clientId);
     return component;
   }
 
+  @Deprecated
   public static UIColumn createTextColumn(String label, String sortable, String align, String value) {
-    UIComponent text = createComponent(UIOutput.COMPONENT_TYPE, TobagoConstants.RENDERER_TYPE_OUT);
-    TagUtils.setStringProperty(text, TobagoConstants.ATTR_VALUE, value);
-    TagUtils.setBooleanProperty(text, TobagoConstants.ATTR_CREATE_SPAN, "false");
-    TagUtils.setBooleanProperty(text, TobagoConstants.ATTR_ESCAPE, "false");
-    return createColumn(label, sortable, align, text);
+    return createTextColumn(label, sortable, align, value, null);
   }
 
+  public static UIColumn createTextColumn(String label, String sortable, String align, String value, String clientId) {
+    UIComponent text = createComponent(UIOutput.COMPONENT_TYPE, RENDERER_TYPE_OUT, clientId + "_t");
+    TagUtils.setStringProperty(text, ATTR_VALUE, value);
+    TagUtils.setBooleanProperty(text, ATTR_CREATE_SPAN, "false");
+    TagUtils.setBooleanProperty(text, ATTR_ESCAPE, "false");
+    return createColumn(label, sortable, align, text, clientId);
+  }
+
+  @Deprecated
   public static UIColumn createColumn(String label, String sortable, String align, UIComponent child) {
-    UIColumn column = createColumn(label, sortable, align);
+    return createColumn(label, sortable, align, child, null);
+  }
+  public static UIColumn createColumn(String label, String sortable, String align, UIComponent child, String clientId) {
+    UIColumn column = createColumn(label, sortable, align, clientId);
+    //noinspection unchecked
     column.getChildren().add(child);
     return column;
   }
 
+  @Deprecated
   public static UIColumn createColumn(String label, String sortable, String align) {
-    UIColumn column = (UIColumn) createComponent(UIColumn.COMPONENT_TYPE, null);
-    TagUtils.setStringProperty(column, TobagoConstants.ATTR_LABEL, label);
-    TagUtils.setBooleanProperty(column, TobagoConstants.ATTR_SORTABLE, sortable);
-    TagUtils.setStringProperty(column, TobagoConstants.ATTR_ALIGN, align);
+    return createColumn(label, sortable, align, (String) null);
+  }
+
+  public static UIColumn createColumn(String label, String sortable, String align, String clientId) {
+    UIColumn column = (UIColumn) createComponent(UIColumn.COMPONENT_TYPE, null, clientId);
+    TagUtils.setStringProperty(column, ATTR_LABEL, label);
+    TagUtils.setBooleanProperty(column, ATTR_SORTABLE, sortable);
+    TagUtils.setStringProperty(column, ATTR_ALIGN, align);
     return column;
   }
 
+  @Deprecated
   public static UIMenuSelectOne createUIMenuSelectOneFacet(FacesContext facesContext,
       javax.faces.component.UICommand command) {
+    return createUIMenuSelectOneFacet(facesContext, command, null);
+  }
+
+  public static UIMenuSelectOne createUIMenuSelectOneFacet(FacesContext facesContext,
+      javax.faces.component.UICommand command, String clientId) {
     UIMenuSelectOne radio = null;
-    final ValueBinding valueBinding = command.getValueBinding(TobagoConstants.ATTR_VALUE);
+    final ValueBinding valueBinding = command.getValueBinding(ATTR_VALUE);
     if (valueBinding != null) {
       radio = (UIMenuSelectOne) createComponent(facesContext, UIMenuSelectOne.COMPONENT_TYPE,
-          TobagoConstants.RENDERER_TYPE_SELECT_ONE_RADIO);
-      command.getFacets().put(org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS, radio);
-      radio.setValueBinding(org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE, valueBinding);
+          RENDERER_TYPE_SELECT_ONE_RADIO, clientId);
+      //noinspection unchecked
+      command.getFacets().put(FACET_ITEMS, radio);
+      radio.setValueBinding(ATTR_VALUE, valueBinding);
     }
     return radio;
   }
 
+  @Deprecated
   public static UIComponent createUISelectBooleanFacet(FacesContext facesContext, UICommand command) {
+    return createUISelectBooleanFacet(facesContext, command, null);
+  }
+
+  public static UIComponent createUISelectBooleanFacet(FacesContext facesContext, UICommand command, String clientId) {
     UIComponent checkbox = createComponent(facesContext, UISelectBoolean.COMPONENT_TYPE,
-        TobagoConstants.RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX);
-    command.getFacets().put(TobagoConstants.FACET_ITEMS, checkbox);
-    ValueBinding valueBinding = command.getValueBinding(TobagoConstants.ATTR_VALUE);
+        RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX, clientId);
+    //noinspection unchecked
+    command.getFacets().put(FACET_ITEMS, checkbox);
+    ValueBinding valueBinding = command.getValueBinding(ATTR_VALUE);
     if (valueBinding != null) {
-      checkbox.setValueBinding(TobagoConstants.ATTR_VALUE, valueBinding);
+      checkbox.setValueBinding(ATTR_VALUE, valueBinding);
     } else {
-      checkbox.getAttributes().put(TobagoConstants.ATTR_VALUE, command.getAttributes().get(TobagoConstants.ATTR_VALUE));
+      //noinspection unchecked
+      checkbox.getAttributes().put(ATTR_VALUE, command.getAttributes().get(ATTR_VALUE));
     }
     return checkbox;
   }
