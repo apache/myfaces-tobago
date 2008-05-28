@@ -268,7 +268,7 @@ public class UITreeListbox extends UITreeOld implements LayoutProvider {
     if (layout == null) {
       layout = (UILayout) ComponentUtil.createComponent(
           UIGridLayout.COMPONENT_TYPE,
-          RENDERER_TYPE_GRID_LAYOUT);
+          RENDERER_TYPE_GRID_LAYOUT, null);
 
       int depth = ((DefaultMutableTreeNode) getValue()).getDepth();
       final int defaultColumnCount = ThemeConfig.getValue(

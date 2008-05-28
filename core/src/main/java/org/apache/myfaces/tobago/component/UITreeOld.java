@@ -195,9 +195,8 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     for (int i = 0; i < commands.length; i++) {
       UICommand command = (UICommand) ComponentUtil.createComponent(
           facesContext, UICommand.COMPONENT_TYPE,
-          TobagoConstants.RENDERER_TYPE_LINK);
+          TobagoConstants.RENDERER_TYPE_LINK, commands[i].getCommand());
       toolbar.getChildren().add(command);
-      command.setId(commands[i].getCommand());
 
       for (ActionListener listener : getActionListeners()) {
         command.addActionListener(listener);

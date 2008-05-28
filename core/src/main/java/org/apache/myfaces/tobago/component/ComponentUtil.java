@@ -802,46 +802,98 @@ public class ComponentUtil {
     return script;
   }
 
+  /**
+   * Please use createComponent(String componentType, String rendererType, String id)
+   *
+   * @deprecated
+   */
+  @Deprecated
   public static UIComponent createComponent(String componentType, String rendererType) {
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-    return createComponent(facesContext, componentType, rendererType);
+    return createComponent(componentType, rendererType,  null);
   }
 
+  public static UIComponent createComponent(String componentType, String rendererType, String id) {
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    return createComponent(facesContext, componentType, rendererType, id);
+  }
+
+  /**
+   * Please use createComponent(FacesContext facesContext, String componentType, String rendererType, String id)
+   *
+   * @deprecated
+   */
+  @Deprecated
   public static UIComponent createComponent(FacesContext facesContext, String componentType, String rendererType) {
+    return createComponent(facesContext, componentType, rendererType, null);
+  }
+
+  public static UIComponent createComponent(
+      FacesContext facesContext, String componentType, String rendererType, String id) {
     UIComponent component
         = facesContext.getApplication().createComponent(componentType);
     component.setRendererType(rendererType);
+    component.setId(id);
     return component;
   }
 
+  /**
+  * Please use createTextColumn(String label, String sortable, String align, String value, String id)
+  *
+  * @deprecated
+  */
+ @Deprecated
   public static UIColumn createTextColumn(String label, String sortable, String align, String value) {
-    UIComponent text = createComponent(UIOutput.COMPONENT_TYPE, RENDERER_TYPE_OUT);
+    return createTextColumn(label, sortable, align, value, null);
+  }
+
+  public static UIColumn createTextColumn(String label, String sortable, String align, String value, String id) {
+    UIComponent text = createComponent(UIOutput.COMPONENT_TYPE, RENDERER_TYPE_OUT, id + "_t");
     setStringProperty(text, ATTR_VALUE, value);
     setBooleanProperty(text, ATTR_CREATE_SPAN, "false");
     setBooleanProperty(text, ATTR_ESCAPE, "false");
-    return createColumn(label, sortable, align, text);
+    return createColumn(label, sortable, align, text, id);
   }
 
+  /**
+  * Please use createColumn(String label, String sortable, String align, UIComponent child)
+  *
+  * @deprecated
+  */
+ @Deprecated
   public static UIColumn createColumn(String label, String sortable, String align, UIComponent child) {
-    UIColumn column = createColumn(label, sortable, align);
+    return createColumn(label, sortable, align, child, null);
+  }
+
+  public static UIColumn createColumn(String label, String sortable, String align, UIComponent child, String id) {
+    UIColumn column = createColumn(label, sortable, align, id);
     column.getChildren().add(child);
     return column;
   }
 
-  private static UIColumn createColumn(String label, String sortable, String align) {
-    UIColumn column = (UIColumn) createComponent(UIColumn.COMPONENT_TYPE, null);
+  private static UIColumn createColumn(String label, String sortable, String align, String id) {
+    UIColumn column = (UIColumn) createComponent(UIColumn.COMPONENT_TYPE, null, id);
     setStringProperty(column, ATTR_LABEL, label);
     setBooleanProperty(column, ATTR_SORTABLE, sortable);
     setStringProperty(column, ATTR_ALIGN, align);
     return column;
   }
 
+  /**
+  * Please use createUIMenuSelectOneFacet(FacesContext facesContext, UICommand command, String id)
+  *
+  * @deprecated
+  */
+ @Deprecated
   public static UIMenuSelectOne createUIMenuSelectOneFacet(FacesContext facesContext, UICommand command) {
+    return createUIMenuSelectOneFacet(facesContext, command, null);
+  }
+
+  public static UIMenuSelectOne createUIMenuSelectOneFacet(FacesContext facesContext, UICommand command, String id) {
     UIMenuSelectOne radio = null;
     final ValueBinding valueBinding = command.getValueBinding(ATTR_VALUE);
     if (valueBinding != null) {
       radio = (UIMenuSelectOne) createComponent(facesContext,
-          UIMenuSelectOne.COMPONENT_TYPE, RENDERER_TYPE_SELECT_ONE_RADIO);
+          UIMenuSelectOne.COMPONENT_TYPE, RENDERER_TYPE_SELECT_ONE_RADIO, id);
       command.getFacets().put(FACET_ITEMS, radio);
       radio.setValueBinding(ATTR_VALUE, valueBinding);
     }
@@ -858,9 +910,19 @@ public class ComponentUtil {
     return false;
   }
 
+  /**
+  * Please use createUISelectBooleanFacet(FacesContext facesContext, UICommand command, String id)
+  *
+  * @deprecated
+  */
+ @Deprecated
   public static UIComponent createUISelectBooleanFacet(FacesContext facesContext, UICommand command) {
+    return createUISelectBooleanFacet(facesContext, command, null);
+  }
+
+  public static UIComponent createUISelectBooleanFacet(FacesContext facesContext, UICommand command, String id) {
     UIComponent checkbox
-        = createComponent(facesContext, UISelectBoolean.COMPONENT_TYPE, RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX);
+        = createComponent(facesContext, UISelectBoolean.COMPONENT_TYPE, RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX, id);
     command.getFacets().put(FACET_ITEMS, checkbox);
     ValueBinding valueBinding = command.getValueBinding(ATTR_VALUE);
     if (valueBinding != null) {
