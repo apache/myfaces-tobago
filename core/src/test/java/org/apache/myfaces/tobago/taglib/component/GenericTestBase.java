@@ -18,29 +18,26 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import junit.framework.TestCase;
-
-import javax.servlet.jsp.tagext.Tag;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-
+import net.sf.maventaglib.checker.TagAttribute;
 import net.sf.maventaglib.checker.Tld;
 import net.sf.maventaglib.checker.TldParser;
-import net.sf.maventaglib.checker.TagAttribute;
-
-import java.io.InputStream;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.beans.PropertyDescriptor;
-import java.util.HashMap;
-
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.InputSource;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.mock.servlet.MockPageContext;
+import org.w3c.dom.Document;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+import javax.servlet.jsp.tagext.Tag;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.beans.PropertyDescriptor;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 
 public abstract class GenericTestBase extends TestCase {
   private static final Log LOG = LogFactory.getLog(GenericTestBase.class);
@@ -77,7 +74,7 @@ public abstract class GenericTestBase extends TestCase {
       IllegalAccessException, InvocationTargetException, IOException,
       SAXException, ClassNotFoundException, InstantiationException {
 
-    for (Tld tld:tlds){
+    for (Tld tld : tlds){
       for (net.sf.maventaglib.checker.Tag tag:tld.getTags()) {
         Tag tagInstance = getTagInstance(tag);
         TagAttribute[] attributes = tag.getAttributes();

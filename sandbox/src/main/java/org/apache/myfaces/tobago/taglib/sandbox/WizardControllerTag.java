@@ -17,17 +17,13 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIWizard;
 import org.apache.myfaces.tobago.taglib.component.TobagoBodyTag;
 
 import javax.faces.component.UIComponent;
 
-public class WizardControllerTag extends TobagoBodyTag implements WizardTagDeclaration {
-
-  private static final Log LOG = LogFactory.getLog(WizardTag.class);
+public class WizardControllerTag extends TobagoBodyTag implements WizardControllerTagDeclaration {
 
   private String controller;
 
