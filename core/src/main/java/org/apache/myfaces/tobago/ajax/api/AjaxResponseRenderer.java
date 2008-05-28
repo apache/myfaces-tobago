@@ -245,17 +245,11 @@ public class AjaxResponseRenderer {
           + "\nend response    ##############################################################");
     }
 
-    String content = buffer.toString();
-
-    // TODO optimize me!!
-    buffer.insert(0, Integer.toHexString(content.getBytes("UTF-8").length) + "\r\n");
-    buffer.append("\r\n" + 0 + "\r\n\r\n");
 
     //TODO: fix this to work in PortletRequest as well
     if (externalContext.getResponse() instanceof HttpServletResponse) {
       final HttpServletResponse httpServletResponse
           = (HttpServletResponse) externalContext.getResponse();
-      httpServletResponse.addHeader("Transfer-Encoding", "chunked");
       PrintWriter responseWriter = httpServletResponse.getWriter();
       // buf.delete(buf.indexOf("<"), buf.indexOf(">")+1);
       responseWriter.print(buffer.toString());
