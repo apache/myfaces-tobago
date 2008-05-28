@@ -15,7 +15,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
@@ -25,7 +26,9 @@
   <artifactId>tobago-core</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Core</name>
-  <description>Tobago-core contains the basic application components without any special rendering or layout options. The rendering itself depends on the theme.</description>
+  <description>Tobago-core contains the basic application components without any special rendering or layout options.
+    The rendering itself depends on the theme.
+  </description>
 
   <build>
     <plugins>
@@ -60,7 +63,9 @@
         <executions>
           <execution>
             <id>tobago-tlds</id>
-            <goals><goal>execute</goal></goals>
+            <goals>
+              <goal>execute</goal>
+            </goals>
             <phase>compile</phase>
             <configuration>
               <targetFiles>
@@ -76,7 +81,9 @@
           </execution>
           <execution>
             <id>tobago-faces-config</id>
-            <goals><goal>execute</goal></goals>
+            <goals>
+              <goal>execute</goal>
+            </goals>
             <phase>compile</phase>
             <configuration>
               <targetFiles>
@@ -93,7 +100,8 @@
               <fork>true</fork>
               <nocompile>true</nocompile>
               <encoding>UTF-8</encoding>
-              <A>sourceFacesConfig=${basedir}/src/main/faces-config/faces-config.xml,targetFacesConfig=faces-config.xml</A>
+              <A>sourceFacesConfig=${basedir}/src/main/faces-config/faces-config.xml,targetFacesConfig=faces-config.xml
+              </A>
             </configuration>
           </execution>
         </executions>
@@ -103,7 +111,9 @@
         <executions>
           <execution>
             <id>copy-faces-config</id>
-            <goals><goal>resources</goal></goals>
+            <goals>
+              <goal>resources</goal>
+            </goals>
             <phase>process-classes</phase>
             <configuration>
               <resources>
@@ -138,17 +148,12 @@
 
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/core</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/core</developerConnection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/core
+    </developerConnection>
     <url>http://svn.apache.org/viewvc/myfaces/tobago/branches/tobago-1.0.x/core</url>
   </scm>
 
   <dependencies>
-    <dependency>
-      <groupId>maven-taglib</groupId>
-      <artifactId>maven-taglib-plugin</artifactId>
-      <version>1.4.2</version>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
@@ -211,11 +216,16 @@
     <!--dependency>
       <groupId>org.apache.shale</groupId>
       <artifactId>shale-test</artifactId-->
-      <!--version>1.0.4</version-->
-      <!--version>1.1.0-SNAPSHOT</version>
+    <!--version>1.0.4</version-->
+    <!--version>1.1.0-SNAPSHOT</version>
       <scope>test</scope>
     </dependency-->
-
+    <dependency>
+      <groupId>maven-taglib</groupId>
+      <artifactId>maven-taglib-plugin</artifactId>
+      <version>1.4.2</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <profiles>
@@ -224,7 +234,9 @@
       <id>tools.jar</id>
       <activation>
         <!-- needs maven 2.0.3 or higher under Mac OS X -->
-        <os><family>!mac</family></os>
+        <os>
+          <family>!mac</family>
+        </os>
       </activation>
       <dependencies>
         <dependency>
@@ -247,7 +259,9 @@
             <executions>
               <execution>
                 <id>tobago-doc</id>
-                <goals><goal>execute</goal></goals>
+                <goals>
+                  <goal>execute</goal>
+                </goals>
                 <configuration>
                   <targetFiles>
                     <targetFile>org/apache/myfaces/tobago/taglib/component/tobago.xml</targetFile>
@@ -279,7 +293,9 @@
             <executions>
               <execution>
                 <id>attach-tlddoc</id>
-                <goals><goal>taglibdocjar</goal></goals>
+                <goals>
+                  <goal>taglibdocjar</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>
@@ -298,7 +314,9 @@
               <execution>
                 <phase>validate</phase>
                 <id>getting-scm.revision</id>
-                <goals><goal>update</goal></goals>
+                <goals>
+                  <goal>update</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>
@@ -309,7 +327,9 @@
             <executions>
               <execution>
                 <id>attach-javadoc</id>
-                <goals><goal>jar</goal></goals>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>
@@ -323,7 +343,9 @@
             <executions>
               <execution>
                 <id>attach-tlddoc</id>
-                <goals><goal>taglibdocjar</goal></goals>
+                <goals>
+                  <goal>taglibdocjar</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>
@@ -333,7 +355,9 @@
             <executions>
               <execution>
                 <id>attach-source</id>
-                <goals><goal>jar</goal></goals>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>
@@ -350,7 +374,9 @@
             <executions>
               <execution>
                 <id>attach-source</id>
-                <goals><goal>jar</goal></goals>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>
@@ -367,33 +393,35 @@
             <executions>
               <execution>
                 <id>attach-source</id>
-                <goals><goal>jar</goal></goals>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>
         </plugins>
       </build>
     </profile>
-<!--
-    <profile>
-      <id>rt.jar</id>
-      <activation>
-        <os><family>!mac</family></os>
-      </activation>
-      <properties>
-        <java.classes.jar>lib/rt.jar</java.classes.jar>
-      </properties>
-    </profile>
-    <profile>
-      <id>classes.jar</id>
-      <activation>
-        <os><family>mac</family></os>
-      </activation>
-      <properties>
-        <java.classes.jar>../Classes/classes.jar</java.classes.jar>
-      </properties>
-    </profile>
--->
+    <!--
+        <profile>
+          <id>rt.jar</id>
+          <activation>
+            <os><family>!mac</family></os>
+          </activation>
+          <properties>
+            <java.classes.jar>lib/rt.jar</java.classes.jar>
+          </properties>
+        </profile>
+        <profile>
+          <id>classes.jar</id>
+          <activation>
+            <os><family>mac</family></os>
+          </activation>
+          <properties>
+            <java.classes.jar>../Classes/classes.jar</java.classes.jar>
+          </properties>
+        </profile>
+    -->
     <profile>
       <id>jdk14retro</id>
       <build>
@@ -411,7 +439,7 @@
                   <attach>true</attach>
                   <verify>true</verify>
                   <verifyClasspath>
-                     <element>${java14.home}/${java.classes.jar}</element>
+                    <element>${java14.home}/${java.classes.jar}</element>
                   </verifyClasspath>
                 </configuration>
               </execution>
