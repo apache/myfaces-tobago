@@ -39,7 +39,8 @@ import org.apache.myfaces.tobago.event.DatePickerController;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.TobagoConstants;
 
-import javax.faces.component.*;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIGraphic;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import java.util.Map;
