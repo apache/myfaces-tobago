@@ -98,7 +98,6 @@
         </f:facet>
       </tc:button>
 
-
       <tc:out value="here is the boolean >>#{reference.bool}<<"/>
 
       <tc:cell/>
@@ -106,13 +105,15 @@
 
       <tc:button label="Open here">
         <f:facet name="popup">
-          <tc:popup width="150" height="100" left="220" top="260">
+          <tc:popup width="150" height="100"
+                    left="#{view.children[0].actionPosition.left.pixel + view.children[0].actionPosition.width.pixel + 5}"
+                    top="#{view.children[0].actionPosition.top.pixel}">
             <tc:box label="Text input">
               <f:facet name="layout">
                 <tc:gridLayout rows="*;fixed"/>
               </f:facet>
 
-              <tc:textarea value="This popup position is hardcoded!"/>
+              <tc:textarea value="The position of this popup should be right beside the button."/>
               <tc:button label="Ok">
                 <tc:attribute name="popupClose" value="afterSubmit"/>
               </tc:button>

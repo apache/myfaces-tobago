@@ -17,10 +17,12 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.layout.Box;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -32,14 +34,30 @@ public class PageRendererBase extends LayoutableRendererBase {
   public void decode(FacesContext facesContext, UIComponent component) {
     if (component instanceof UIPage) {
       UIPage page = (UIPage) component;
-      String name = page.getClientId(facesContext)
-          + SUBCOMPONENT_SEP + "form-action";
-      String newActionId = (String) facesContext.getExternalContext()
-          .getRequestParameterMap().get(name);
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("action = " + newActionId);
+
+      {
+        String name = page.getClientId(facesContext) + SUBCOMPONENT_SEP + "form-action";
+        String newActionId = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("action = " + newActionId);
+        }
+        page.setActionId(newActionId);
       }
-      page.setActionId(newActionId);
+
+      try {
+        String name = page.getClientId(facesContext) + SUBCOMPONENT_SEP + "action-position";
+        String actionPositionString = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
+        LOG.info("actionPosition='" + actionPositionString + "'");
+        if (StringUtils.isNotEmpty(actionPositionString)) {
+          Box actionPosition = new Box(actionPositionString);
+          page.setActionPosition(actionPosition);
+        } else {
+          page.setActionPosition(null);
+        }
+      } catch (Exception e) {
+        LOG.warn("Can't analyse parameter for action-position", e);
+      }
+
     }
   }
 }

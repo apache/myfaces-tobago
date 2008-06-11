@@ -23,6 +23,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.mozilla_4_7.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIProgress;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
@@ -31,7 +32,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -98,7 +98,7 @@ public class ProgressRenderer extends LayoutableRendererBase {
     if (model.getValue() == model.getMaximum() && facet != null
         && facet instanceof UICommand) {
       UICommand command = (UICommand) facet;
-      writer.writeJavascript("Tobago.submitAction('" + command.getClientId(facesContext) + "');");
+      writer.writeJavascript("Tobago.submitAction2(this, '" + command.getClientId(facesContext) + "', null, null);");
     }
   }
 }

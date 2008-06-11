@@ -26,23 +26,23 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_CLOSE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_POPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_CONFIRMATION;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_POPUP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.event.PopupActionListener;
 
-import javax.faces.context.FacesContext;
-import javax.faces.component.UIComponent;
-import javax.faces.component.ValueHolder;
-import javax.faces.component.UIParameter;
-import javax.faces.component.UICommand;
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
-import java.util.List;
-import java.util.Arrays;
+import javax.faces.component.UICommand;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIParameter;
+import javax.faces.component.ValueHolder;
+import javax.faces.context.FacesContext;
 import java.net.URLDecoder;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * User: lofwyr
@@ -106,16 +106,16 @@ public class CommandRendererHelper {
           // TODO find a better way
           boolean popupAction = ComponentUtil.containsPopupActionListener(command);
           if (popupAction) {
-            onclick = "Tobago.openPopupWithAction('"
-                + HtmlRendererUtil.getComponentId(facesContext, command, componentId[0]) + "', '" + clientId + "')";
+            onclick = "Tobago.openPopupWithAction2(this, '"
+                + HtmlRendererUtil.getComponentId(facesContext, command, componentId[0]) + "', '" + clientId + "', null)";
           } else {
-            onclick = "Tobago.reloadComponent('"
+            onclick = "Tobago.reloadComponent2(this, '"
                 + HtmlRendererUtil.getComponentId(facesContext, command, componentId[0]) + "','" + clientId + "', {});";
           }
         } else {
           LOG.error("more than one parially rendered component is currently not supported "
               + Arrays.toString(componentId));
-          onclick = "Tobago.submitAction('" + clientId + "', " + transition + ");";
+          onclick = "Tobago.submitAction2(this, '" + clientId + "', " + transition + ", null);";
         }
 
       } else if (defaultCommand) {
@@ -124,9 +124,9 @@ public class CommandRendererHelper {
       } else {
         String target = ComponentUtil.getStringAttribute(command, ATTR_TARGET);
         if (target == null) {
-          onclick = "Tobago.submitAction('" + clientId + "', " + transition + ");";
+          onclick = "Tobago.submitAction2(this, '" + clientId + "', " + transition + ", null);";
         } else {
-          onclick = "Tobago.submitAction('" + clientId + "', " + transition + ", '" + target + "');";
+          onclick = "Tobago.submitAction2(this, '" + clientId + "', " + transition + ", '" + target + "');";
         }
       }
 

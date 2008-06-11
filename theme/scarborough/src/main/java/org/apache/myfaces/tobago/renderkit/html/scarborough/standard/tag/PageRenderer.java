@@ -293,10 +293,11 @@ public class PageRenderer extends PageRendererBase {
         String target = ComponentUtil.getStringAttribute(command, ATTR_TARGET);
         String action;
         if (target != null) {
-          action = "Tobago.submitAction('" + command.getClientId(facesContext) + "', " 
-                  + transition + ", '" + target + "' )";
+          action = "Tobago.submitAction2(this, '" + command.getClientId(facesContext) + "', "
+              + transition + ", '" + target + "')";
         } else {
-          action = "Tobago.submitAction('"+ command.getClientId(facesContext) + "', " + transition + " )";
+          action = "Tobago.submitAction2(this, '"+ command.getClientId(facesContext) + "', "
+              + transition + ", null)";
         }
         page.getOnloadScripts().add("setTimeout(\"" + action  + "\", " + duration + ");\n");
       }
@@ -379,20 +380,22 @@ public class PageRenderer extends PageRendererBase {
 
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-    writer.writeNameAttribute(
-        clientId + SUBCOMPONENT_SEP + "form-action");
-    writer.writeIdAttribute(
-        clientId + SUBCOMPONENT_SEP + "form-action");
+    writer.writeNameAttribute(clientId + SUBCOMPONENT_SEP + "form-action");
+    writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "form-action");
     writer.writeAttribute(HtmlAttributes.VALUE, defaultActionId, true);
     writer.endElement(HtmlConstants.INPUT);
 
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-    writer.writeNameAttribute(
-        clientId + SUBCOMPONENT_SEP + "context-path");
-    writer.writeIdAttribute(
-        clientId + SUBCOMPONENT_SEP + "context-path");
+    writer.writeNameAttribute(clientId + SUBCOMPONENT_SEP + "context-path");
+    writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "context-path");
     writer.writeAttribute(HtmlAttributes.VALUE, facesContext.getExternalContext().getRequestContextPath(), true);
+    writer.endElement(HtmlConstants.INPUT);
+
+    writer.startElement(HtmlConstants.INPUT, null);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+    writer.writeNameAttribute(clientId + SUBCOMPONENT_SEP + "action-position");
+    writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "action-position");
     writer.endElement(HtmlConstants.INPUT);
 
     if (debugMode) {

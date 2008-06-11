@@ -17,14 +17,12 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.TobagoConstants;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LEFT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TOP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
+import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -34,8 +32,6 @@ import java.io.IOException;
 import java.util.Iterator;
 
 public class UIPopup extends UIPanelBase implements NamingContainer, AjaxComponent {
-
-  private static final Log LOG = LogFactory.getLog(UIPopup.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Popup";
 
@@ -161,7 +157,8 @@ public class UIPopup extends UIPanelBase implements NamingContainer, AjaxCompone
     }
     ValueBinding vb = getValueBinding(ATTR_WIDTH);
     if (vb != null) {
-      return (String) vb.getValue(getFacesContext());
+      Object value = vb.getValue(getFacesContext());
+      return value != null ? value.toString() : null;
     } else {
       return null;
     }
@@ -177,7 +174,8 @@ public class UIPopup extends UIPanelBase implements NamingContainer, AjaxCompone
     }
     ValueBinding vb = getValueBinding(ATTR_HEIGHT);
     if (vb != null) {
-      return (String) vb.getValue(getFacesContext());
+      Object value = vb.getValue(getFacesContext());
+      return value != null ? value.toString() : null;
     } else {
       return null;
     }
@@ -193,7 +191,8 @@ public class UIPopup extends UIPanelBase implements NamingContainer, AjaxCompone
     }
     ValueBinding vb = getValueBinding(ATTR_LEFT);
     if (vb != null) {
-      return (String) vb.getValue(getFacesContext());
+      Object value = vb.getValue(getFacesContext());
+      return value != null ? value.toString() : null;
     } else {
       return null;
     }
@@ -209,7 +208,8 @@ public class UIPopup extends UIPanelBase implements NamingContainer, AjaxCompone
     }
     ValueBinding vb = getValueBinding(ATTR_TOP);
     if (vb != null) {
-      return (String) vb.getValue(getFacesContext());
+      Object value = vb.getValue(getFacesContext());
+      return value != null ? value.toString() : null;
     } else {
       return null;
     }

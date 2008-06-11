@@ -114,10 +114,7 @@ public class ProgressRenderer extends LayoutableRendererBase {
     if (model.getValue() == model.getMaximum() && facet != null
         && facet instanceof UICommand) {
       UICommand command = (UICommand) facet;
-      writer.writeJavascript("Tobago.submitAction('" + command.getClientId(facesContext) + "');");
+      writer.writeJavascript("Tobago.submitAction2(this, '" + command.getClientId(facesContext) + "', null, null);");
     }
-
   }
-
 }
-

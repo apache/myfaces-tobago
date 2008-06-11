@@ -195,8 +195,8 @@ public class RichTextEditorRenderer extends InputRendererBase {
         facesContext, "tobago", "tobago.richtexteditor.edit.title");
     command.getAttributes().put(ATTR_TIP, title);
 
-    String onClick = "Tobago.submitAction('"
-        + clientId + RichTextEditorRenderer.CHANGE_BUTTON + "')";
+    String onClick = "Tobago.submitAction2(this, '" 
+        + clientId + RichTextEditorRenderer.CHANGE_BUTTON + "', null, null)";
     command.getAttributes().put(ATTR_ACTION_ONCLICK, onClick);
 
     command = (UICommand) ComponentUtil.createComponent(

@@ -28,6 +28,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import org.apache.myfaces.tobago.layout.Box;
 import org.apache.myfaces.tobago.model.PageState;
 import org.apache.myfaces.tobago.model.PageStateImpl;
 import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
@@ -63,6 +64,8 @@ public class UIPage extends UIForm {
   private String focusId;
 
   private String actionId;
+
+  private Box actionPosition;
 
   private String defaultActionId;
 
@@ -317,6 +320,14 @@ public class UIPage extends UIForm {
 
   public void setActionId(String actionId) {
     this.actionId = actionId;
+  }
+
+  public Box getActionPosition() {
+    return actionPosition;
+  }
+
+  public void setActionPosition(Box actionPosition) {
+    this.actionPosition = actionPosition;
   }
 
   public String getDefaultActionId() {

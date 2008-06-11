@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -183,7 +183,7 @@ public abstract class LayoutableRendererBase
       UIComponent facetComponent = facetEntry.getValue();
       String facetAction = (String) facetComponent.getAttributes().get(ATTR_ONCLICK);
       if (facetAction == null) {
-        facetAction = "Tobago.submitAction('" + facetComponent.getClientId(facesContext) + "')";
+        facetAction = "Tobago.submitAction2(this, '" + facetComponent.getClientId(facesContext) + "', null, null)";
       }
       String script =
           "var element = Tobago.element(\"" + clientId + "\");\n"

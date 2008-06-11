@@ -17,29 +17,28 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.event.DatePickerController;
-import org.apache.myfaces.tobago.event.PopupActionListener;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER_POPUP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_RESET;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
-import org.apache.myfaces.tobago.component.UIDatePicker;
-import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.component.UIDateInput;
-import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.config.ThemeConfig;
-import org.apache.myfaces.tobago.util.DateFormatUtils;
-import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.TobagoConstants;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_RESET;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER_POPUP;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIDateInput;
+import org.apache.myfaces.tobago.component.UIDatePicker;
+import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.config.ThemeConfig;
+import org.apache.myfaces.tobago.event.PopupActionListener;
+import org.apache.myfaces.tobago.util.DateFormatUtils;
 
-import javax.faces.context.FacesContext;
-import javax.faces.component.UIComponent;
 import javax.faces.component.UICommand;
+import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
+import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
 import static javax.faces.convert.DateTimeConverter.CONVERTER_ID;
@@ -57,7 +56,6 @@ public class DatePickerRenderer extends LinkRenderer {
   public void encodeBegin(FacesContext facesContext,
       UIComponent component) throws IOException {
     UIDatePicker link = (UIDatePicker) component;
-    DatePickerController datePickerController = new DatePickerController();
     UIDateInput dateInput = (UIDateInput) link.getForComponent();
     if (dateInput == null) {
       LOG.error("No required UIDateInput component found.");
@@ -73,7 +71,6 @@ public class DatePickerRenderer extends LinkRenderer {
       }
     }
     Map<String, Object>  attributes = link.getAttributes();
-    link.setActionListener(datePickerController);
     attributes.put(ATTR_LAYOUT_WIDTH, getConfiguredValue(facesContext, component, "pickerWidth"));
     UIComponent hidden = (UIComponent) link.getChildren().get(0);
     UIPopup popup = (UIPopup) link.getFacets().get(FACET_PICKER_POPUP);
@@ -99,13 +96,13 @@ public class DatePickerRenderer extends LinkRenderer {
       //    + converterPattern);
     }
 
-    UICommand okButton = (UICommand) popup.findComponent("ok" + DatePickerController.CLOSE_POPUP);
+    UICommand okButton = (UICommand) popup.findComponent("ok" + UIDatePicker.CLOSE_POPUP);
     attributes = okButton.getAttributes();
     attributes.put(ATTR_ACTION_ONCLICK, "var textBox = writeIntoField2(this);Tobago.closePopup(this);textBox.focus();");
     attributes.put(TobagoConstants.ATTR_POPUP_CLOSE, "afterSubmit");
    // okButton.setActionListener(datePickerController);
 
-    UICommand cancelButton  = (UICommand) popup.findComponent(DatePickerController.CLOSE_POPUP);
+    UICommand cancelButton  = (UICommand) popup.findComponent(UIDatePicker.CLOSE_POPUP);
     attributes = cancelButton.getAttributes();
     attributes.put(ATTR_ACTION_ONCLICK, "var textBox = writeIntoField2(this);Tobago.closePopup(this);textBox.focus();");
     attributes.put(TobagoConstants.ATTR_POPUP_CLOSE, "immediate");
@@ -113,10 +110,9 @@ public class DatePickerRenderer extends LinkRenderer {
 
     applyConverterPattern(facesContext, popup, converterPattern);
 
-    if (popup != null) {
-      UIPage page = ComponentUtil.findPage(facesContext, link);
-      page.getPopups().add(popup);
-    }
+    UIPage page = ComponentUtil.findPage(facesContext, link);
+    page.getPopups().add(popup);
+
     if (!ComponentUtil.containsPopupActionListener(link)) {
       link.addActionListener(new PopupActionListener(popup.getId()));
     }

@@ -107,9 +107,9 @@ Tobago.TabGroup.prototype.reload = function(event) {
       if (Tobago.Updater.hasTransport()) {
         this.removeRelatedAcceleratorKeys(aId.substring(0, aId.lastIndexOf(Tobago.SUB_COMPONENT_SEP) + Tobago.SUB_COMPONENT_SEP.length));
         var container = Tobago.element(this.tabGroupId);
-        Tobago.Updater.update(container, Tobago.page, this.tabGroupId, this.tabGroupId, this.options);
+        Tobago.Updater.update2(event.srcElement, container, Tobago.page, this.tabGroupId, this.tabGroupId, this.options);
       } else {
-        Tobago.submitAction(this.tabGroupId);
+        Tobago.submitAction2(event.srcElement, this.tabGroupId, null, null);
       }
     }
   } else {

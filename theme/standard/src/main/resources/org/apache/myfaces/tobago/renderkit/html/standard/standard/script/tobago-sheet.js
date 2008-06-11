@@ -105,7 +105,7 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage, selec
 };
 
 Tobago.Sheet.prototype.sortOnclickRegExp
-      = new RegExp("Tobago.submitAction\\(('|\")(.*?)('|\")\\)");
+      = new RegExp("Tobago.submitAction2\\(this, ('|\")(.*?)('|\"), null, null\\)");
 
 
 Tobago.Sheet.prototype.setupElements = function() {
@@ -204,7 +204,7 @@ Tobago.Sheet.prototype.doSort = function(event) {
     }
 //    LOG.debug("element.id = " + element.id);
 //    LOG.debug("sorterId = " + element.sorterId);
-    this.reloadWithAction(element.sorterId);
+    this.reloadWithAction2(event.srcElement, element.sorterId, null);
   };
 
 Tobago.Sheet.prototype.doPagingDirect = function(event) {
@@ -219,7 +219,7 @@ Tobago.Sheet.prototype.doPagingDirect = function(event) {
     hidden.name = action + Tobago.SUB_COMPONENT_SEP +  "value";
     Tobago.element(this.outerDivId).appendChild(hidden);
 
-    this.reloadWithAction(action);
+    this.reloadWithAction2(event.srcElement, action, null);
   };
 
 Tobago.Sheet.prototype.doPaging = function(event) {
@@ -234,15 +234,19 @@ Tobago.Sheet.prototype.doPaging = function(event) {
     } else if (element.id.match(this.lastRegExp)){
       action = this.id + Tobago.COMPONENT_SEP +"Last";
     }
-    this.reloadWithAction(action);
+    this.reloadWithAction2(event.srcElement, action, null);
   };
 
-Tobago.Sheet.prototype.reloadWithAction = function(action, options) {
+  Tobago.Sheet.prototype.reloadWithAction = function(action, options) {
+    this.reloadWithAction2(null, action, options);
+  };
+
+  Tobago.Sheet.prototype.reloadWithAction2 = function(source, action, options) {
     LOG.debug("reload sheet with action \"" + action + "\"");
     var divElement = Tobago.element(this.outerDivId);
     var reloadOptions = Tobago.extend({}, this.options);
     reloadOptions = Tobago.extend(reloadOptions, options);
-    Tobago.Updater.update(divElement, null, action, this.id, reloadOptions);
+    Tobago.Updater.update2(source, divElement, null, action, this.id, reloadOptions);
   };
 
 Tobago.Sheet.prototype.insertTarget = function(event, actionId) {
@@ -305,7 +309,7 @@ Tobago.Sheet.prototype.doKeyEvent = function(event) {
       }
       if (keyCode == 13) {
         if (input.value != input.nextSibling.innerHTML) {
-          this.reloadWithAction(input.actionId);
+          this.reloadWithAction(event.srcElement, input.actionId, null);
           Tobago.stopEventPropagation(event);          
         }
         else {
@@ -414,7 +418,7 @@ Tobago.Sheet.prototype.setScrollPosition = function() {
 
 Tobago.Sheet.prototype.initReload = function() {
   if (typeof this.autoReload == "number" && Tobago.element(this.contentDivId)) {
-    Tobago.addReloadTimeout(this.id, Tobago.bind2(this, "reloadWithAction", this.id), this.autoReload);
+    Tobago.addReloadTimeout(this.id, Tobago.bind2(this, "reloadWithAction2", null, this.id), this.autoReload);
   }
 };
 
@@ -509,9 +513,9 @@ Tobago.Sheet.prototype.doSelection = function(event) {
         var action = this.id + ":" + rowIndex + ":" + this.clickActionId;
         //LOG.debug("Action " + action);
         if (this.clickReloadComponentId && this.clickReloadComponentId.length > 0) {
-          Tobago.reloadComponent(this.clickReloadComponentId[0], action)
+          Tobago.reloadComponent2(srcElement, this.clickReloadComponentId[0], action, null)
         } else {
-          Tobago.submitAction(action, true, null);
+          Tobago.submitAction2(srcElement, action, true, null);
         }
       }
     }
@@ -549,9 +553,9 @@ Tobago.Sheet.prototype.doDblClick = function(event) {
         var action = this.id + ":" + rowIndex + ":" + this.dblClickActionId;
         //LOG.debug("dblAction " + action);
         if (this.dblClickReloadComponentId && this.dblClickReloadComponentId.length > 0) {
-          Tobago.reloadComponent(this.dblClickReloadComponentId[0], action)
+          Tobago.reloadComponent2(srcElement, this.dblClickReloadComponentId[0], action, null)
         } else {
-          Tobago.submitAction(action, true, null);
+          Tobago.submitAction2(srcElement, action, true, null);
         }
       }
     }

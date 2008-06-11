@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.TobagoConstants;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CALENDAR_DATE_INPUT_ID;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
@@ -35,9 +36,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_PANEL;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_POPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TIME;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.event.DatePickerController;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
@@ -52,6 +51,9 @@ import java.util.Map;
 public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.DatePicker";
+
+  public static final String OPEN_POPUP = "openPopup";
+  public static final String CLOSE_POPUP = "closePopup";
 
   private String forComponent;
 
@@ -145,7 +147,7 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
         (UIPopup) ComponentUtil.createComponent(facesContext, UIPopup.COMPONENT_TYPE,
             RENDERER_TYPE_POPUP, (linkId != null ? linkId + "popup" : viewRoot.createUniqueId()));
     popup.getAttributes().put(TobagoConstants.ATTR_ZINDEX, 10);
-      
+
     link.getFacets().put(FACET_PICKER_POPUP, popup);
 
     popup.setRendered(false);
@@ -208,7 +210,7 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
     final UICommand okButton =
         (UICommand) ComponentUtil.createComponent(facesContext,
             org.apache.myfaces.tobago.component.UIButtonCommand.COMPONENT_TYPE,
-            RENDERER_TYPE_BUTTON, "ok" + DatePickerController.CLOSE_POPUP);
+            RENDERER_TYPE_BUTTON, "ok" + CLOSE_POPUP);
     buttonPanel.getChildren().add(okButton);
     attributes = okButton.getAttributes();
     attributes.put(ATTR_LABEL, ResourceManagerUtil.getPropertyNotNull(
@@ -217,7 +219,7 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
     final UICommand cancelButton =
         (UICommand) ComponentUtil.createComponent(facesContext,
             org.apache.myfaces.tobago.component.UIButtonCommand.COMPONENT_TYPE,
-            RENDERER_TYPE_BUTTON, DatePickerController.CLOSE_POPUP);
+            RENDERER_TYPE_BUTTON, CLOSE_POPUP);
     buttonPanel.getChildren().add(cancelButton);
     attributes = cancelButton.getAttributes();
     attributes.put(ATTR_LABEL, ResourceManagerUtil.getPropertyNotNull(

@@ -811,7 +811,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
         column.getFacets().put(UIData.FACET_SORTER, sortCommand);
       }
 
-      String onclick = "Tobago.submitAction('" + sortCommand.getClientId(facesContext) + "')";
+      String onclick = "Tobago.submitAction2(this, '" + sortCommand.getClientId(facesContext) + "', null, null)";
       writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, false);
 
       if (StringUtils.isNotEmpty(tip)) {
