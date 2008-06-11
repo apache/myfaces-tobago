@@ -96,7 +96,7 @@ Tobago.AutocompleterAjax.prototype.fetchSuggestItems = function(request) {
   if (!this.request) {
     this.request = request;
     request.abort = function() {self.doUpdate({ajaxId: request.ajaxId, responseCode: Tobago.Updater.CODE_ERROR})};
-    Tobago.Updater.update(request.ajaxId, request.ajaxId, {createOverlay: false});  
+    Tobago.Updater.update(null, request.ajaxId, request.ajaxId, {createOverlay: false});
   } else {
     this.nextRequest = request;
     request = {abort: function() {}};

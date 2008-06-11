@@ -41,11 +41,11 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 public interface PopupTagDeclaration extends HasId, IsRendered, HasDimension {
 
   @TagAttribute
-  @UIComponentTagAttribute()
+  @UIComponentTagAttribute(type = "java.lang.Integer")
   void setLeft(String left);
 
   @TagAttribute
-  @UIComponentTagAttribute()
+  @UIComponentTagAttribute(type = "java.lang.Integer")
   void setTop(String top);
 
   @TagAttribute

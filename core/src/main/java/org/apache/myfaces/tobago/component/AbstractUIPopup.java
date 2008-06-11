@@ -17,26 +17,22 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 
-import javax.faces.component.NamingContainer;
-import javax.faces.component.UIComponent;
-import javax.faces.component.ContextCallback;
-import javax.faces.component.UICommand;
-import javax.faces.context.FacesContext;
 import javax.faces.FacesException;
+import javax.faces.component.ContextCallback;
+import javax.faces.component.NamingContainer;
+import javax.faces.component.UICommand;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class AbstractUIPopup extends UIPanelBase implements NamingContainer, AjaxComponent, InvokeOnComponent {
-
-  private static final Log LOG = LogFactory.getLog(AbstractUIPopup.class);
+public abstract class AbstractUIPopup extends UIPanelBase implements NamingContainer, AjaxComponent, InvokeOnComponent {
 
   private boolean activated;
 
@@ -141,4 +137,20 @@ public class AbstractUIPopup extends UIPanelBase implements NamingContainer, Aja
       throws FacesException {
     return FacesUtils.invokeOnComponent(context, this, clientId, callback);
   }
+
+  public abstract Integer getWidth();
+
+  public abstract void setWidth(Integer width);
+
+  public abstract Integer getHeight();
+
+  public abstract void setHeight(Integer height);
+
+  public abstract Integer getTop();
+
+  public abstract void setTop(Integer top);
+
+  public abstract Integer getLeft();
+
+  public abstract void setLeft(Integer left);
 }

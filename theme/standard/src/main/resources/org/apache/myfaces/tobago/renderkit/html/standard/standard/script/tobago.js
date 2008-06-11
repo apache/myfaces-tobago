@@ -251,8 +251,7 @@ var Tobago = {
     this.addBindEventListener(this.form, "submit", this, "onSubmit");
     this.action = this.element(this.form.id + '-action')
     this.contextPath = this.element(this.page.id + this.SUB_COMPONENT_SEP + "context-path");
-    // AP
-//    this.actionPosition = this.element(this.page.id + this.SUB_COMPONENT_SEP + "action-position");
+    this.actionPosition = this.element(this.page.id + this.SUB_COMPONENT_SEP + "action-position");
 
     this.addBindEventListener(window, "unload", this, "onUnload");
 
@@ -299,7 +298,8 @@ var Tobago = {
 
   onSubmit: function() {
     if (Tobago.applicationOnsubmit) {
-      if (!Tobago.applicationOnsubmit()) {
+      var result = Tobago.applicationOnsubmit();
+      if (!result) {
         this.isSubmit = false;
         Tobago.action.value = oldAction;
         Tobago.form.target = oldTarget;
@@ -481,11 +481,12 @@ var Tobago = {
   /**
     * Submitting the page with specified actionId.
     */
-  submitAction: function(actionId, transition, target) {
+  submitAction: function(source, actionId, transition, target) {
     if (transition === undefined) {
       transition = true;
     }
-    LOG.info("transition =" + transition);
+
+    Tobago.setActionPosition(source);
 
     if (Tobago.openPopups > 0) {
       // enable all elements on page when this is a submit from a popup
@@ -522,6 +523,15 @@ var Tobago = {
         }
       }
     }, true);
+  },
+
+  setActionPosition: function(source) {
+    var sourceLeft = Tobago.getAbsoluteLeft(source);
+    var sourceTop = Tobago.getAbsoluteTop(source);
+    var sourceWidth = Tobago.getWidth(source);
+    var sourceHeight = Tobago.getHeight(source);
+    Tobago.actionPosition.value = sourceLeft + "px," + sourceTop + "px," + sourceWidth + "px," + sourceHeight + "px";
+    alert("source='" + source + "' action-position=" + Tobago.actionPosition.value);
   },
 
   getJsfState: function() {
@@ -583,10 +593,11 @@ var Tobago = {
         hidden.value = hidden.value + ":" + event.clientX + "x" + event.clientY;
       }
     }
+    var source = Tobago.element(event);
     if (Tobago.Transport.hasTransport()) {
-      Tobago.openPopupWithAction(popupId, actionId);
+      Tobago.openPopupWithAction(source, popupId, actionId);
     } else {
-      this.submitAction(actionId);
+      this.submitAction(source, actionId);
     }
   },
 
@@ -730,18 +741,18 @@ var Tobago = {
     this.ajaxComponents[componentId] = containerId;
   },
 
-  reloadComponent: function(id, actionId, options) {
+  reloadComponent: function(source, id, actionId, options) {
     var container = this.ajaxComponents[id];
     if (typeof container == "string") {
       if (!actionId) {
         actionId = container;
       }
-      Tobago.Updater.update(actionId, id, options);
+      Tobago.Updater.update(source, actionId, id, options);
     } else if ((typeof container == "object") && container.tagName) {
       if (!actionId) {
         actionId = container.id;
       }
-      Tobago.Updater.update(actionId, id, options);
+      Tobago.Updater.update(source, actionId, id, options);
     } else if ((typeof container == "object") && (typeof container.reloadWithAction == "function")) {
       if (!actionId) {
         if (container.id) {
@@ -750,9 +761,9 @@ var Tobago = {
           actionId = "_tbg_no_action_";
         }
       }
-      container.reloadWithAction(actionId, options);
+      container.reloadWithAction(source, actionId, options);
     } else if (container === undefined){
-      Tobago.Updater.update(actionId, id, options);
+      Tobago.Updater.update(source, actionId, id, options);
     } else {
       LOG.warn("Illegal Container for reload:" + (typeof container));
     }
@@ -1090,22 +1101,14 @@ var Tobago = {
    }
   },
 
-// AP
-//  openPopupWithAction: function(source, popupId, actionId, options) {
-  openPopupWithAction: function(popupId, actionId, options) {
+  openPopupWithAction: function(source, popupId, actionId, options) {
     var div = Tobago.element(popupId);
     if (div) {
       LOG.warn("something is wrong, doing full reload");
 //      LOG.info("id = " + popupId + "  type = " + div.tagName + "  class = " + div.className);
-      Tobago.submitAction(actionId);
+      Tobago.submitAction(source, actionId);
     }
 
-// AP
-//    var sourceLeft = Tobago.getAbsoluteLeft(source);
-//    var sourceTop = Tobago.getAbsoluteTop(source);
-//    alert("source='" + source + "' " + sourceLeft + "," + sourceTop);
-//    Tobago.actionPosition.value = sourceLeft + "," + sourceTop;
-//
     div = document.createElement('div');
     div.id = popupId + "parentDiv";
     div.className = "tobago-popup-parent";
@@ -1122,7 +1125,7 @@ var Tobago = {
     if (options) {
       Tobago.extend(newOptions, options);
     }
-    Tobago.reloadComponent(popupId, actionId, options);
+    Tobago.reloadComponent(source, popupId, actionId, options);
   },
 
 // -------- Util functions ----------------------------------------------------
@@ -1505,7 +1508,7 @@ var Tobago = {
   getAbsoluteTop: function(element) {
     var top = 0;
     var parent = false;
-    while (element.offsetParent) {
+    while (element && element.offsetParent) {
       top += element.offsetTop;
       top -= element.scrollTop;
       if (parent && element.currentStyle) { // IE only
@@ -1517,6 +1520,28 @@ var Tobago = {
     return top;
   },
 
+  getWidth: function(element) {
+    var width = 0;
+    if (element) {
+      width = element.offsetWidth;
+      if (width === undefined) {
+        width = 0;
+      }
+    }
+    return width;
+  },
+
+  getHeight: function(element) {
+    var height = 0;
+    if (element) {
+      height = element.offsetHeight;
+      if (height === undefined) {
+        height = 0;
+      }
+    }
+    return height;
+  },
+
 
   /**
     * Returns the absolute left, related to the body element, value for an HTML element.
@@ -1524,7 +1549,7 @@ var Tobago = {
   getAbsoluteLeft: function(element) {
     var left = 0;
     var parent = false;
-    while (element.offsetParent) {
+    while (element && element.offsetParent) {
       left += element.offsetLeft;
       left -= element.scrollLeft;
       if (parent && element.currentStyle) {  // IE only
@@ -1757,16 +1782,16 @@ Tobago.Panel.prototype.doUpdate = function(data, ioArgs) {
 
 Tobago.Panel.prototype.initReload = function() {
   if (typeof this.autoReload == "number" && this.autoReload > 0) {
-    Tobago.addReloadTimeout(this.id, Tobago.bind2(this, "reloadWithAction", this.id), this.autoReload);
+    Tobago.addReloadTimeout(this.id, Tobago.bind2(this, "reloadWithAction", null, this.id), this.autoReload);
   }
 };
 
-Tobago.Panel.prototype.reloadWithAction = function(action, options) {
+Tobago.Panel.prototype.reloadWithAction = function(source, action, options) {
   //LOG.debug("reload panel with action \"" + action + "\"");
   this.prepareReload();
   var reloadOptions = Tobago.extend({}, this.options);
   reloadOptions = Tobago.extend(reloadOptions, options);
-  Tobago.Updater.update(action, this.id, reloadOptions);
+  Tobago.Updater.update(source, action, this.id, reloadOptions);
 };
 
 Tobago.Panel.prototype.prepareReload = function() {
@@ -2021,7 +2046,7 @@ Tobago.Updater = {
     createOverlay: true
   },
 
-  update: function(actionId, ajaxComponentIds, options) {
+  update: function(source, actionId, ajaxComponentIds, options) {
 
 //    LOG.show();
     LOG.debug("Updater.update(\"" + actionId + "\", \"" + ajaxComponentIds + "\")");
@@ -2030,7 +2055,8 @@ Tobago.Updater = {
 //    LOG.info("hasTransport");
 
       if (Tobago.applicationOnsubmit) {
-        if (!Tobago.applicationOnsubmit()) {
+        var result = Tobago.applicationOnsubmit();
+        if (!result) {
           return;
         }
       }
@@ -2055,6 +2081,8 @@ Tobago.Updater = {
           }
         }
       }
+
+      Tobago.setActionPosition(source);
 
       var requestObject = Tobago.extend({}, Tobago.Updater.dojoUpdateRequestBase);
       requestObject.url = Tobago.form.action;
@@ -2085,7 +2113,7 @@ Tobago.Updater = {
       }
     } else {
       LOG.info("No Ajax transport found! Doing full page reload.");
-      Tobago.submitAction(actionId);
+      Tobago.submitAction(source, actionId);
     }
   },
 
@@ -2149,7 +2177,7 @@ Tobago.Updater = {
           alert("wait: initiating full reload");
         }
         Tobago.Transport.requestComplete();
-        Tobago.submitAction(Tobago.page.id);
+        Tobago.submitAction(null, Tobago.page.id);
         return data;
       } else if (data.responseCode == Tobago.Updater.CODE_RELOAD_REQUIRED) {
         // update required do full page reload
@@ -2159,7 +2187,7 @@ Tobago.Updater = {
           alert("wait: full reload requeste: responseCode = " + data.responseCode);
         }
         Tobago.Transport.requestComplete();
-        Tobago.submitAction(Tobago.page.id);
+        Tobago.submitAction(null, Tobago.page.id);
         return data;
       }
 

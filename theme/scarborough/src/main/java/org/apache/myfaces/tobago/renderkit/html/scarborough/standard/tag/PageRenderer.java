@@ -35,7 +35,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_ACTION;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.FORM_ACCEPT_CHARSET;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
@@ -43,11 +42,12 @@ import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.util.ResponseUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -278,10 +278,10 @@ public class PageRenderer extends PageRendererBase {
         String target = ComponentUtil.getStringAttribute(command, ATTR_TARGET);
         String action;
         if (target != null) {
-          action = "Tobago.submitAction('" + command.getClientId(facesContext) + "', " 
+          action = "Tobago.submitAction(this, '" + command.getClientId(facesContext) + "', "
                   + transition + ", '" + target + "' )";
         } else {
-          action = "Tobago.submitAction('"+ command.getClientId(facesContext) + "', " + transition + " )";
+          action = "Tobago.submitAction(this, '"+ command.getClientId(facesContext) + "', " + transition + " )";
         }
         facesContext.getOnloadScripts().add("setTimeout(\"" + action  + "\", " + duration + ");\n");
       }
@@ -363,20 +363,22 @@ public class PageRenderer extends PageRendererBase {
 
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-    writer.writeNameAttribute(
-        clientId + SUBCOMPONENT_SEP + "form-action");
-    writer.writeIdAttribute(
-        clientId + SUBCOMPONENT_SEP + "form-action");
+    writer.writeNameAttribute(clientId + SUBCOMPONENT_SEP + "form-action");
+    writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "form-action");
     writer.writeAttribute(HtmlAttributes.VALUE, defaultActionId, true);
     writer.endElement(HtmlConstants.INPUT);
 
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-    writer.writeNameAttribute(
-        clientId + SUBCOMPONENT_SEP + "context-path");
-    writer.writeIdAttribute(
-        clientId + SUBCOMPONENT_SEP + "context-path");
+    writer.writeNameAttribute(clientId + SUBCOMPONENT_SEP + "context-path");
+    writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "context-path");
     writer.writeAttribute(HtmlAttributes.VALUE, facesContext.getExternalContext().getRequestContextPath(), true);
+    writer.endElement(HtmlConstants.INPUT);
+
+    writer.startElement(HtmlConstants.INPUT, null);
+    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+    writer.writeNameAttribute(clientId + SUBCOMPONENT_SEP + "action-position");
+    writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "action-position");
     writer.endElement(HtmlConstants.INPUT);
 
     if (debugMode) {

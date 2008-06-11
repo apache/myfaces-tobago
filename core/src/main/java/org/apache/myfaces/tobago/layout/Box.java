@@ -19,46 +19,66 @@ package org.apache.myfaces.tobago.layout;
 
 /**
  * User: lofwyr
- * Date: 23.01.2008 20:18:45
+ * Date: 28.05.2008 15:10:29
  */
-public class Dimension {
 
-  private Measure width;
-  private Measure height;
+public class Box {
 
-  public Dimension(Measure width, Measure height) {
-    this.width = width;
-    this.height = height;
+  private Position position;
+  private Dimension dimension;
+
+  public Box(Position position, Dimension dimension) {
+    this.position = position;
+    this.dimension = dimension;
   }
 
-  public Dimension(String string) {
+  public Box(String string) {
     int comma = string.indexOf(',');
     if (comma >= 0) { // found first comma
-      width = Measure.parse(string.substring(0, comma));
-      height = Measure.parse(string.substring(comma + 1));
-    } else {
-      throw new IllegalArgumentException("Can't parse to the dimension: '" + string + "'");
+      comma = string.indexOf(',', comma + 1);
+      if (comma >= 0) { // found second comma
+        position = new Position(string.substring(0, comma));
+        dimension = new Dimension(string.substring(comma + 1));
+        return;
+      }
     }
+    throw new IllegalArgumentException("Can't parse to a box: '" + string + "'");
+  }
+
+  public Measure getLeft() {
+    return position.getLeft();
+  }
+
+  public void setLeft(Measure left) {
+    position.setLeft(left);
+  }
+
+  public Measure getTop() {
+    return position.getTop();
+  }
+
+  public void setTop(Measure top) {
+    position.setTop(top);
   }
 
   public Measure getWidth() {
-    return width;
+    return dimension.getWidth();
   }
 
   public void setWidth(Measure width) {
-    this.width = width;
+    dimension.setWidth(width);
   }
 
   public Measure getHeight() {
-    return height;
+    return dimension.getHeight();
   }
 
   public void setHeight(Measure height) {
-    this.height = height;
+    dimension.setHeight(height);
   }
 
   @Override
   public String toString() {
-    return new StringBuilder().append(width).append(',').append(height).toString();
+    return new StringBuilder().append(position).append(',').append(dimension).toString();
   }
 }

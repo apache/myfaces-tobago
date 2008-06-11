@@ -103,9 +103,9 @@ Tobago.TabGroup.prototype.reloadWithAction = function(event) {
       if (Tobago.Transport.hasTransport()) {
         this.removeRelatedAcceleratorKeys(aId.substring(0, aId.lastIndexOf(Tobago.SUB_COMPONENT_SEP) + Tobago.SUB_COMPONENT_SEP.length));
         Tobago.createOverlay(Tobago.element(this.tabGroupId));
-        Tobago.Updater.update(this.tabGroupId, this.tabGroupId, this.options);
+        Tobago.Updater.update(event.srcElement, this.tabGroupId, this.tabGroupId, this.options);
       } else {
-        Tobago.submitAction(this.tabGroupId);
+        Tobago.submitAction(event.srcElement, this.tabGroupId);
       }
     }
   } else {

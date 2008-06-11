@@ -21,44 +21,44 @@ package org.apache.myfaces.tobago.layout;
  * User: lofwyr
  * Date: 23.01.2008 20:18:45
  */
-public class Dimension {
+public class Position {
 
-  private Measure width;
-  private Measure height;
+  private Measure left;
+  private Measure top;
 
-  public Dimension(Measure width, Measure height) {
-    this.width = width;
-    this.height = height;
+  public Position(Measure left, Measure top) {
+    this.left = left;
+    this.top = top;
   }
 
-  public Dimension(String string) {
+  public Position(String string) {
     int comma = string.indexOf(',');
     if (comma >= 0) { // found first comma
-      width = Measure.parse(string.substring(0, comma));
-      height = Measure.parse(string.substring(comma + 1));
+      left = Measure.parse(string.substring(0, comma));
+      top = Measure.parse(string.substring(comma + 1));
     } else {
-      throw new IllegalArgumentException("Can't parse to the dimension: '" + string + "'");
+      throw new IllegalArgumentException("Can't parse to the position: '" + string + "'");
     }
   }
 
-  public Measure getWidth() {
-    return width;
+  public Measure getLeft() {
+    return left;
   }
 
-  public void setWidth(Measure width) {
-    this.width = width;
+  public void setLeft(Measure left) {
+    this.left = left;
   }
 
-  public Measure getHeight() {
-    return height;
+  public Measure getTop() {
+    return top;
   }
 
-  public void setHeight(Measure height) {
-    this.height = height;
+  public void setTop(Measure top) {
+    this.top = top;
   }
 
   @Override
   public String toString() {
-    return new StringBuilder().append(width).append(',').append(height).toString();
+    return new StringBuilder().append(left).append(',').append(top).toString();
   }
 }

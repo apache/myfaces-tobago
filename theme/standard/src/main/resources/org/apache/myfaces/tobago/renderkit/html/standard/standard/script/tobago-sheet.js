@@ -99,7 +99,7 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage, selec
 };
 
 Tobago.Sheet.prototype.sortOnclickRegExp
-      = new RegExp("Tobago.submitAction\\(('|\")(.*?)('|\")\\)");
+      = new RegExp("Tobago.submitAction\\(this, ('|\")(.*?)('|\")\\)");
 
 
 Tobago.Sheet.prototype.setupElements = function() {
@@ -198,7 +198,7 @@ Tobago.Sheet.prototype.doSort = function(event) {
     }
 //    LOG.debug("element.id = " + element.id);
 //    LOG.debug("sorterId = " + element.sorterId);
-    this.reloadWithAction(element.sorterId);
+    this.reloadWithAction(event.srcElement, element.sorterId);
   };
 
 Tobago.Sheet.prototype.doPagingDirect = function(event) {
@@ -213,7 +213,7 @@ Tobago.Sheet.prototype.doPagingDirect = function(event) {
     hidden.name = action + Tobago.SUB_COMPONENT_SEP +  "value";
     Tobago.element(this.outerDivId).appendChild(hidden);
 
-    this.reloadWithAction(action);
+    this.reloadWithAction(event.srcElement, action);
   };
 
 Tobago.Sheet.prototype.doPaging = function(event) {
@@ -228,15 +228,15 @@ Tobago.Sheet.prototype.doPaging = function(event) {
     } else if (element.id.match(this.lastRegExp)){
       action = this.id + Tobago.COMPONENT_SEP +"Last";
     }
-    this.reloadWithAction(action);
+    this.reloadWithAction(event.srcElement, action);
   };
 
-Tobago.Sheet.prototype.reloadWithAction = function(action, options) {
+Tobago.Sheet.prototype.reloadWithAction = function(source, action, options) {
     LOG.debug("reload sheet with action \"" + action + "\"");
     var reloadOptions = Tobago.extend({}, this.options);
     reloadOptions = Tobago.extend(reloadOptions, options);
     Tobago.createOverlay(Tobago.element(this.outerDivId));
-    Tobago.Updater.update(action, this.id, reloadOptions);
+    Tobago.Updater.update(source, action, this.id, reloadOptions);
   };
 
 Tobago.Sheet.prototype.doUpdate = function(data) {
@@ -322,7 +322,7 @@ Tobago.Sheet.prototype.doKeyEvent = function(event) {
       }
       if (keyCode == 13) {
         if (input.value != input.nextSibling.innerHTML) {
-          this.reloadWithAction(input.actionId);
+          this.reloadWithAction(event.srcElement, input.actionId);
           Tobago.stopEventPropagation(event);          
         }
         else {
@@ -421,7 +421,7 @@ Tobago.Sheet.prototype.setScrollPosition = function() {
 
 Tobago.Sheet.prototype.initReload = function() {
   if (typeof this.autoReload == "number" && Tobago.element(this.contentDivId)) {
-    Tobago.addReloadTimeout(this.id, Tobago.bind2(this, "reloadWithAction", this.id), this.autoReload);
+    Tobago.addReloadTimeout(this.id, Tobago.bind2(this, "reloadWithAction", null, this.id), this.autoReload);
   }
 };
 
@@ -516,9 +516,9 @@ Tobago.Sheet.prototype.doSelection = function(event) {
         var action = this.id + ":" + rowIndex + ":" + this.clickActionId;
         //LOG.debug("Action " + action);
         if (this.clickReloadComponentId && this.clickReloadComponentId.length > 0) {
-          Tobago.reloadComponent(this.clickReloadComponentId[0], action)
+          Tobago.reloadComponent(srcElement, this.clickReloadComponentId[0], action)
         } else {
-          Tobago.submitAction(action, true, null);
+          Tobago.submitAction(srcElement, action, true, null);
         }
       }
     }
@@ -556,9 +556,9 @@ Tobago.Sheet.prototype.doDblClick = function(event) {
         var action = this.id + ":" + rowIndex + ":" + this.dblClickActionId;
         //LOG.debug("dblAction " + action);
         if (this.dblClickReloadComponentId && this.dblClickReloadComponentId.length > 0) {
-          Tobago.reloadComponent(this.dblClickReloadComponentId[0], action)
+          Tobago.reloadComponent(srcElement, this.dblClickReloadComponentId[0], action)
         } else {
-          Tobago.submitAction(action, true, null);
+          Tobago.submitAction(srcElement, action, true, null);
         }
       }
     }

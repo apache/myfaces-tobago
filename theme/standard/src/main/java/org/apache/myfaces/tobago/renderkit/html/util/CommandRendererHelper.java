@@ -19,11 +19,19 @@ package org.apache.myfaces.tobago.renderkit.html.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.*;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_CLOSE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_CONFIRMATION;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_POPUP;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.event.PopupActionListener;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
@@ -101,7 +109,7 @@ public class CommandRendererHelper {
               LOG.warn("more than one parially rendered component is not supported for popup! using first one: "
               + Arrays.toString(componentIds));
             }
-            onclick = "Tobago.openPopupWithAction('"
+            onclick = "Tobago.openPopupWithAction(this, '"
                 + HtmlRendererUtil.getComponentId(facesContext, command, componentIds[0]) + "', '" + clientId + "')";
           } else {
             onclick = "Tobago.reloadComponent('"
@@ -114,9 +122,9 @@ public class CommandRendererHelper {
       } else {
         String target = ComponentUtil.getStringAttribute(command, ATTR_TARGET);
         if (target == null) {
-          onclick = "Tobago.submitAction('" + clientId + "', " + transition + ");";
+          onclick = "Tobago.submitAction(this, '" + clientId + "', " + transition + ");";
         } else {
-          onclick = "Tobago.submitAction('" + clientId + "', " + transition + ", '" + target + "');";
+          onclick = "Tobago.submitAction(this, '" + clientId + "', " + transition + ", '" + target + "');";
         }
       }
 

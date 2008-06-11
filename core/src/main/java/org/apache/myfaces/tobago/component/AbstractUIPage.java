@@ -24,6 +24,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
+import org.apache.myfaces.tobago.layout.Box;
 import org.apache.myfaces.tobago.model.PageState;
 import org.apache.myfaces.tobago.model.PageStateImpl;
 import org.apache.myfaces.tobago.util.ComponentUtil;
@@ -56,6 +57,8 @@ public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnC
   private String formId;
 
   private String actionId;
+
+  private Box actionPosition;
 
   private String defaultActionId;
 
@@ -235,6 +238,14 @@ public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnC
 
   public void setActionId(String actionId) {
     this.actionId = actionId;
+  }
+
+  public Box getActionPosition() {
+    return actionPosition;
+  }
+
+  public void setActionPosition(Box actionPosition) {
+    this.actionPosition = actionPosition;
   }
 
   public String getDefaultActionId() {

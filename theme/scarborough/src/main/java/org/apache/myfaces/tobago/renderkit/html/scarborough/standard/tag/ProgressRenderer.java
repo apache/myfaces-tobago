@@ -31,8 +31,8 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -114,7 +114,7 @@ public class ProgressRenderer extends LayoutableRendererBase {
     if (model.getValue() == model.getMaximum() && facet != null
         && facet instanceof UICommand) {
       UICommand command = (UICommand) facet;
-      writer.writeJavascript("Tobago.submitAction('" + command.getClientId(facesContext) + "');");
+      writer.writeJavascript("Tobago.submitAction(this, '" + command.getClientId(facesContext) + "');");
     }
 
   }

@@ -84,5 +84,5 @@ function tobago_requestTab(controlId, selectedIndex) {
     hidden.value = selectedIndex;
   }
 
-  Tobago.submitAction(controlId);
+  Tobago.submitAction(null /*todo: source*/, controlId);
 }

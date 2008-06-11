@@ -36,19 +36,19 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_TOOL_BAR;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TOOL_BAR;
-import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.component.UICommand;
-import org.apache.myfaces.tobago.component.UIToolBar;
-import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
+import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
+import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.EditableValueHolder;
@@ -196,7 +196,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
         facesContext, "tobago", "tobago.richtexteditor.edit.title");
     command.getAttributes().put(ATTR_TIP, title);
 
-    String onClick = "Tobago.submitAction('"
+    String onClick = "Tobago.submitAction(this, '"
         + clientId + RichTextEditorRenderer.CHANGE_BUTTON + "')";
     command.getAttributes().put(ATTR_ACTION_ONCLICK, onClick);
 
