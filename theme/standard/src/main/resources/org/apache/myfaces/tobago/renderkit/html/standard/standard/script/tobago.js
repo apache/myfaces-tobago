@@ -531,7 +531,7 @@ var Tobago = {
     var sourceWidth = Tobago.getWidth(source);
     var sourceHeight = Tobago.getHeight(source);
     Tobago.actionPosition.value = sourceLeft + "px," + sourceTop + "px," + sourceWidth + "px," + sourceHeight + "px";
-    alert("source='" + source + "' action-position=" + Tobago.actionPosition.value);
+//    alert("source='" + source + "' action-position=" + Tobago.actionPosition.value);
   },
 
   getJsfState: function() {
