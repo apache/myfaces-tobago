@@ -61,15 +61,6 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
   }
 
   public String getFor() {
-    if ("@auto".equals(forComponent)) {
-      UIComponent component = getUIDateInput(getParent());
-      if (component == null && getParent() instanceof AbstractUIForm) {
-        component = getUIDateInput(getParent().getParent());
-      }
-      if (component != null) {
-        return component.getId();
-      }
-    }
     return forComponent;
   }
 

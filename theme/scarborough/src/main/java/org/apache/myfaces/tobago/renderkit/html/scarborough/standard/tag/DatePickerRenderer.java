@@ -83,7 +83,7 @@ public class DatePickerRenderer extends LinkRenderer {
   }
 
   public void preparePicker(FacesContext facesContext, UIDatePicker link) {
-      if (link.getForComponent() == null) {
+      if (link.getFor() == null) {
         link.setFor("@auto");
       }
       link.setImmediate(true);
