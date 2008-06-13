@@ -231,7 +231,7 @@ var Tobago = {
   /**
     * Count of currently open popups
     */
-  openPopups: 0,
+  openPopups: new Array(),
 
   // -------- Functions -------------------------------------------------------
 
@@ -488,7 +488,7 @@ var Tobago = {
 
     Tobago.setActionPosition(source);
 
-    if (Tobago.openPopups > 0) {
+    if (Tobago.openPopups.length > 0 ) {
       // enable all elements on page when this is a submit from a popup
       // (disabled input elements are not submitted)
       for (i = 0; i < document.forms[0].elements.length; i++) {
@@ -947,10 +947,28 @@ var Tobago = {
       // Popup is loaded during page loading
       Tobago.initialPopupId = id;
     } else {
-      // Popup is loaded by ajax
-      Tobago.lockPopupPage(id);
+      var contains = false;
+      for(var i = 0; i < Tobago.openPopups.length; i++) {
+        if (Tobago.openPopups[i] == id) {
+          contains = true;
+        }
+      }
+      if (!contains) {
+        // Popup is loaded by ajax
+        Tobago.lockPopupPage(id);
+      }
     }
-    Tobago.openPopups++;
+    var contains = false;
+    for(var i = 0; i < Tobago.openPopups.length; i++) {
+      if (Tobago.openPopups[i] == id) {
+        contains = true;
+      }
+    }
+    if (!contains) {
+      Tobago.openPopups.push(id);
+    }
+
+    //LOG.info("OpenPopupCount " + Tobago.openPopups);
   },
 
   /**
@@ -1069,12 +1087,13 @@ var Tobago = {
 
     Tobago.removeEventListener(window, "resize", Tobago.popupResizeStub);
     Tobago.popupResizeStub = null;
-
+    //LOG.info("unlockPopupPage " + id);
     Tobago.unlockPopupPage(id);
-    Tobago.openPopups--;
+    Tobago.openPopups.pop();
+    //LOG.info("OpenPopupCount " + Tobago.openPopups);
 
     // reset focus when last popup was closed
-    if (Tobago.openPopups == 0) {
+    if (Tobago.openPopups.length == 0) {
       Tobago.setFocus();
     }
   },
