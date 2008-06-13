@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.event;
  */
 
 import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -55,7 +56,7 @@ public class PopupActionListener implements ActionListener, Serializable {
   }
 
   public void processAction(ActionEvent actionEvent) throws AbortProcessingException {
-    UIPopup popup = (UIPopup) actionEvent.getComponent().findComponent(popupId);
+    UIPopup popup = (UIPopup) ComponentUtil.findComponent(actionEvent.getComponent(), popupId);
 
     if (popup != null) {
       if (LOG.isDebugEnabled()) {
