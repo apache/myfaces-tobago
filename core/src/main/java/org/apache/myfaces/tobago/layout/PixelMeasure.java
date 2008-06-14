@@ -17,22 +17,40 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /*
  * Date: 23.01.2008 20:21:08
  */
-public class PixelMeasure implements Measure {
+public class PixelMeasure extends Measure {
 
-  private int value;
+  private static final Log LOG = LogFactory.getLog(PixelMeasure.class);
 
-  public PixelMeasure(int value) {
-    this.value = value;
+  private int pixel;
+
+  public PixelMeasure(int pixel) {
+    this.pixel = pixel;
   }
 
-  public int getValue() {
-    return value;
+  public void substract(int sub) {
+    pixel -= sub;
+    if (pixel < 0) {
+      LOG.warn("Not enough space! value=" + pixel);
+      pixel = 0;
+    }
   }
 
-  public void setValue(int value) {
-    this.value = value;
+  public int getPixel() {
+    return pixel;
+  }
+
+  public void setPixel(int pixel) {
+    this.pixel = pixel;
+  }
+
+  @Override
+  public String toString() {
+    return pixel + "px";
   }
 }
