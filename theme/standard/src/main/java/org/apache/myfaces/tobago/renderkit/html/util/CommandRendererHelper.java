@@ -97,10 +97,10 @@ public class CommandRendererHelper {
         }
       } else if (command.getAttributes().get(ATTR_ACTION_ONCLICK) != null) {
         onclick = prepareOnClick(facesContext, command);
-      } else if (command instanceof org.apache.myfaces.tobago.component.UICommand
-          && ((org.apache.myfaces.tobago.component.UICommand) command).getRenderedPartially().length > 0) {
+      } else if (command instanceof org.apache.myfaces.tobago.component.AbstractUICommand
+          && ((org.apache.myfaces.tobago.component.AbstractUICommand) command).getRenderedPartially().length > 0) {
 
-        String[] componentIds = ((org.apache.myfaces.tobago.component.UICommand) command).getRenderedPartially();
+        String[] componentIds = ((org.apache.myfaces.tobago.component.AbstractUICommand) command).getRenderedPartially();
 
           // TODO find a better way
           boolean popupAction = ComponentUtil.containsPopupActionListener(command);
@@ -112,7 +112,7 @@ public class CommandRendererHelper {
             onclick = "Tobago.openPopupWithAction(this, '"
                 + HtmlRendererUtil.getComponentId(facesContext, command, componentIds[0]) + "', '" + clientId + "')";
           } else {
-            onclick = "Tobago.reloadComponent('"
+            onclick = "Tobago.reloadComponent(this, '"
                 + HtmlRendererUtil.getComponentIds(facesContext, command, componentIds) + "','" + clientId + "', {});";
           }
 
