@@ -35,18 +35,17 @@ public class PageRendererBase extends LayoutableRendererBase {
     if (component instanceof AbstractUIPage) {
       AbstractUIPage page = (AbstractUIPage) component;
 
-      {
-        String name = page.getClientId(facesContext) + SUBCOMPONENT_SEP + "form-action";
-        String newActionId = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("action = " + newActionId);
-        }
-        page.setActionId(newActionId);
+      String actionIdName = page.getClientId(facesContext) + SUBCOMPONENT_SEP + "form-action";
+      String newActionId = (String) facesContext.getExternalContext().getRequestParameterMap().get(actionIdName);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("action = " + newActionId);
       }
+      page.setActionId(newActionId);
 
       try {
-        String name = page.getClientId(facesContext) + SUBCOMPONENT_SEP + "action-position";
-        String actionPositionString = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
+        String actionPositionName = page.getClientId(facesContext) + SUBCOMPONENT_SEP + "action-position";
+        String actionPositionString = (String)
+            facesContext.getExternalContext().getRequestParameterMap().get(actionPositionName);
         LOG.info("actionPosition='" + actionPositionString + "'");
         if (StringUtils.isNotEmpty(actionPositionString)) {
           Box actionPosition = new Box(actionPositionString);
