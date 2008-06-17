@@ -874,7 +874,7 @@ public final class HtmlRendererUtil {
       writer.write("if (element) {\n");
       writer.write("   Tobago.addEventListener(element, \"");
       writer.write(facetEntry.getKey());
-      writer.write("\", function(){Tobago.reloadComponent('");
+      writer.write("\", function(){Tobago.reloadComponent(this, '");
       writer.write(HtmlRendererUtil.getComponentIds(facesContext, facetEntry.getValue(),
               ((UICommand) facetEntry.getValue()).getRenderedPartially()));
       writer.write("','");
