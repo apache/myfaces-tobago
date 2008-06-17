@@ -173,7 +173,7 @@ public abstract class LayoutableRendererBase
           "var element = Tobago.element(\"" + clientId + "\");\n"
               + "if (element) {\n"
               + "   Tobago.addEventListener(element, \"" + facetEntry.getKey()
-              + "\", function(){Tobago.reloadComponent('"
+              + "\", function(){Tobago.reloadComponent2(this, '"
               + HtmlRendererUtil.getComponentId(facesContext, facetEntry.getValue(),
               ((UICommand) facetEntry.getValue()).getRenderedPartially()[0]) + "','"
               + facetEntry.getValue().getClientId(facesContext) + "', {})});\n"
