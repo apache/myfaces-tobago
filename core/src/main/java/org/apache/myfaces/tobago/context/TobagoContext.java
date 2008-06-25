@@ -1,11 +1,5 @@
 package org.apache.myfaces.tobago.context;
 
-import org.apache.myfaces.tobago.component.AbstractUIPage;
-import org.apache.myfaces.tobago.layout.Box;
-import org.apache.myfaces.tobago.util.ComponentUtil;
-
-import javax.faces.context.FacesContext;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -23,8 +17,13 @@ import javax.faces.context.FacesContext;
  * limitations under the License.
  */
 
-/**
- * User: lofwyr
+import org.apache.myfaces.tobago.component.AbstractUIPage;
+import org.apache.myfaces.tobago.layout.Box;
+import org.apache.myfaces.tobago.util.ComponentUtil;
+
+import javax.faces.context.FacesContext;
+
+/*
  * Date: 11.06.2008 16:17:03
  */
 public class TobagoContext {
