@@ -23,21 +23,28 @@ import org.apache.commons.logging.LogFactory;
 /*
  * Date: 23.01.2008 20:21:08
  */
-public class PixelMeasure extends Measure {
+public final class PixelMeasure extends Measure {
 
   private static final Log LOG = LogFactory.getLog(PixelMeasure.class);
 
-  private int pixel;
+  private static final PixelMeasure NULL = new PixelMeasure(0);
+
+  private final int pixel;
 
   public PixelMeasure(int pixel) {
     this.pixel = pixel;
   }
 
-  public void substract(int sub) {
-    pixel -= sub;
-    if (pixel < 0) {
+  public Measure add(Measure m) {
+    return new PixelMeasure(pixel + m.getPixel());
+  }
+
+  public Measure substractNotNegative(Measure m) {
+    if (m.getPixel() > pixel) {
       LOG.warn("Not enough space! value=" + pixel);
-      pixel = 0;
+      return NULL;
+    } else {
+      return new PixelMeasure(pixel + m.getPixel());
     }
   }
 
@@ -45,12 +52,9 @@ public class PixelMeasure extends Measure {
     return pixel;
   }
 
-  public void setPixel(int pixel) {
-    this.pixel = pixel;
-  }
-
   @Override
   public String toString() {
     return pixel + "px";
   }
+
 }
