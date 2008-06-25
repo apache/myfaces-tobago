@@ -45,6 +45,20 @@ public class Box {
     throw new IllegalArgumentException("Can't parse to a box: '" + string + "'");
   }
 
+  /**
+   * Convenience method to get left + width.
+   */
+  public Measure getRight() {
+    return position.getLeft().add(dimension.getWidth());
+  }
+
+  /**
+   * Convenience method to get top + height.
+   */
+  public Measure getBottom() {
+    return position.getTop().add(dimension.getHeight());
+  }
+
   public Measure getLeft() {
     return position.getLeft();
   }
