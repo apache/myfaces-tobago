@@ -21,115 +21,149 @@
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <layout:overview>
-  <jsp:body>
-    <tc:box label="Popups">
-      <f:facet name="layout">
-        <tc:gridLayout columns="130px;*" rows="fixed;fixed;fixed;fixed;*;fixed;*"/>
-      </f:facet>
+<jsp:body>
+<tc:box label="Popups">
+<f:facet name="layout">
+  <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
+</f:facet>
 
-      <tc:button label="Open">
-        <tc:attribute name="renderedPartially" value="popup"/>
-        <f:facet name="popup">
-          <tc:popup width="300" height="270" id="popup">
-            <tc:box label="Text input">
-              <f:facet name="layout">
-                <tc:gridLayout rows="fixed;fixed;fixed;*;fixed"/>
-              </f:facet>
+<tc:menuBar>
+  <tc:menu label="Menu">
+    <tc:menuItem label="Open Popup">
+      <tc:popupReference for=":page:popup"/>
+    </tc:menuItem>
+  </tc:menu>
+</tc:menuBar>
 
-              <tc:selectBooleanCheckbox value="#{reference.bool}"/>
-              <tc:in value="#{reference.text}" required="true"/>
-              <tx:date>
-                <f:convertDateTime pattern="dd/MM/yyyy"/>
-              </tx:date>
-              <tc:cell/>
-              <tc:panel>
-                <f:facet name="layout">
-                  <tc:gridLayout columns="1*;1*;1*" margin="10"/>
-                </f:facet>
-                <tc:button label="Cancel">
-                  <tc:attribute name="popupClose" value="immediate"/>
-                </tc:button>
-                <tc:button label="Redisplay">
-                  <tc:attribute name="renderedPartially" value="popup"/>
-                </tc:button>
-                <tc:button label="Ok">
-                  <tc:attribute name="popupClose" value="afterSubmit"/>
-                  <tc:attribute name="renderedPartially" value=":page:values"/>
-                </tc:button>
-              </tc:panel>
+<tc:messages/>
 
-            </tc:box>
-          </tc:popup>
-        </f:facet>
-      </tc:button>
+<tc:panel>
+  <f:facet name="layout">
+    <tc:gridLayout columns="fixed;fixed;fixed;fixed;*"/>
+  </f:facet>
 
-      <tc:menuBar>
-        <tc:menu label="Menu">
-          <tc:menuItem label="Open Popup">
-            <tc:popupReference for=":page:popup"/>
-          </tc:menuItem>
-        </tc:menu>
-      </tc:menuBar>
+  <tc:label value="Full Reload"/>
 
-      <tc:button label="Open modeless">
-        <f:facet name="popup">
-          <tc:popup width="300" height="270" id="popup2" modal="false">
-            <tc:box label="Text input">
-              <f:facet name="layout">
-                <tc:gridLayout rows="fixed;*;fixed"/>
-              </f:facet>
+  <tc:button label="Open">
+    <f:facet name="popup">
+      <tc:popup width="300" height="270" id="modal_popup">
+        <tc:box label="Modal text input">
+          <f:facet name="layout">
+            <tc:gridLayout rows="fixed;fixed;fixed;*;fixed"/>
+          </f:facet>
 
-              <tx:in label="Field" required="true"/>
-              <tc:cell/>
-              <tc:panel>
-                <f:facet name="layout">
-                  <tc:gridLayout columns="*;fixed;fixed"/>
-                </f:facet>
-                <tc:cell/>
-                <tc:button label="Cancel">
-                  <tc:attribute name="popupClose" value="immediate"/>
-                </tc:button>
-                <tc:button label="Ok">
-                  <tc:attribute name="popupClose" value="afterSubmit"/>
-                </tc:button>
-              </tc:panel>
+          <tc:selectBooleanCheckbox value="#{reference.bool}"/>
+          <tc:in value="#{reference.text}" required="true"/>
+          <tx:date>
+            <f:convertDateTime pattern="dd/MM/yyyy"/>
+          </tx:date>
+          <tc:cell/>
+          <tc:panel>
+            <f:facet name="layout">
+              <tc:gridLayout columns="1*;1*;1*" margin="10"/>
+            </f:facet>
+            <tc:button label="Cancel">
+              <tc:attribute name="popupClose" value="immediate"/>
+            </tc:button>
+            <tc:button label="Redisplay">
+              <tc:attribute name="renderedPartially" value="popup"/>
+            </tc:button>
+            <tc:button label="Ok">
+              <tc:attribute name="popupClose" value="afterSubmit"/>
+            </tc:button>
+          </tc:panel>
 
-            </tc:box>
-          </tc:popup>
-        </f:facet>
-      </tc:button>
+        </tc:box>
+      </tc:popup>
+    </f:facet>
+  </tc:button>
 
+  <tc:button label="Open modeless">
+    <f:facet name="popup">
+      <tc:popup width="300" height="270" id="non_modal_popup" modal="false">
+        <tc:box label="Non modal text input">
+          <f:facet name="layout">
+            <tc:gridLayout rows="fixed;*;fixed"/>
+          </f:facet>
 
-      <tc:out value="here is the boolean >>#{reference.bool}<<"/>
+          <tx:in label="Field" required="true"/>
+          <tc:cell/>
+          <tc:panel>
+            <f:facet name="layout">
+              <tc:gridLayout columns="*;fixed;fixed"/>
+            </f:facet>
+            <tc:cell/>
+            <tc:button label="Cancel">
+              <tc:attribute name="popupClose" value="immediate"/>
+            </tc:button>
+            <tc:button label="Ok">
+              <tc:attribute name="popupClose" value="afterSubmit"/>
+            </tc:button>
+          </tc:panel>
 
-      <tc:button label="Open here">
-        <f:facet name="popup">
-          <tc:popup width="150" height="110" left="#{view.children[0].actionPosition.left.pixel + view.children[0].actionPosition.width.pixel + 5}" top="#{view.children[0].actionPosition.top.pixel}">
-            <tc:box label="Text input">
-              <f:facet name="layout">
-                <tc:gridLayout rows="*;fixed"/>
-              </f:facet>
+        </tc:box>
+      </tc:popup>
+    </f:facet>
+  </tc:button>
 
-              <tc:textarea value="This popup should opened right beside the button."/>
-              <tc:button label="Ok">
-                <tc:attribute name="popupClose" value="afterSubmit"/>
-              </tc:button>
+  <tc:button label="Open here">
+    <f:facet name="popup">
+      <tc:popup width="180" height="110" id="positioned_popup"
+                left="#{tobago.actionPosition.right.pixel + 5}" top="#{tobago.actionPosition.top.pixel}">
+        <tc:box label="Info">
+          <f:facet name="layout">
+            <tc:gridLayout rows="*;fixed"/>
+          </f:facet>
 
-            </tc:box>
-          </tc:popup>
-        </f:facet>
-      </tc:button>
-      <tc:cell/>
+          <tc:textarea value="This popup should opened right beside the button." readonly="true"/>
+          <tc:button label="Ok">
+            <tc:attribute name="popupClose" value="immediate"/>
+          </tc:button>
 
-      <tc:cell/>
-      <tc:cell/>
+        </tc:box>
+      </tc:popup>
+    </f:facet>
+  </tc:button>
 
-      <tc:cell/>
-      <tx:selectOneChoice label="Select"/>
+  <tc:cell />
 
-      <tc:cell/>
-      <tc:cell/>
+</tc:panel>
+<tc:panel>
+  <f:facet name="layout">
+    <tc:gridLayout columns="fixed;fixed;fixed;fixed;*"/>
+  </f:facet>
 
-    </tc:box>
-  </jsp:body>
+  <tc:label value="Partial Reload"/>
+
+  <tc:button label="Open">
+    <tc:attribute name="renderedPartially" value="modal_popup"/>
+    <tc:popupReference for="modal_popup"/>
+  </tc:button>
+
+  <tc:button label="Open modeless">
+    <tc:attribute name="renderedPartially" value="non_modal_popup"/>
+    <tc:popupReference for="non_modal_popup"/>
+  </tc:button>
+
+  <tc:button label="Open here">
+    <tc:attribute name="renderedPartially" value="positioned_popup"/>
+    <tc:popupReference for="positioned_popup"/>
+  </tc:button>
+
+  <tc:cell />
+
+</tc:panel>
+
+<tx:in readonly="true" label="The Boolean" value="#{reference.bool}"/>
+
+<tx:in readonly="true" label="The Text" value="#{reference.text}"/>
+
+<tx:in required="true" label="Required"/>
+
+<tx:selectOneChoice label="Select"/>
+
+<tc:cell/>
+
+</tc:box>
+</jsp:body>
 </layout:overview>
