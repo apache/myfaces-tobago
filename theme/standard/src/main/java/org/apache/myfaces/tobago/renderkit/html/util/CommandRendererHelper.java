@@ -29,6 +29,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_CONFIRMATION;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_POPUP;
 import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.component.AbstractUICommand;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.util.ComponentUtil;
@@ -97,10 +98,10 @@ public class CommandRendererHelper {
         }
       } else if (command.getAttributes().get(ATTR_ACTION_ONCLICK) != null) {
         onclick = prepareOnClick(facesContext, command);
-      } else if (command instanceof org.apache.myfaces.tobago.component.AbstractUICommand
-          && ((org.apache.myfaces.tobago.component.AbstractUICommand) command).getRenderedPartially().length > 0) {
+      } else if (command instanceof AbstractUICommand
+          && ((AbstractUICommand) command).getRenderedPartially().length > 0) {
 
-        String[] componentIds = ((org.apache.myfaces.tobago.component.AbstractUICommand) command).getRenderedPartially();
+        String[] componentIds = ((AbstractUICommand) command).getRenderedPartially();
 
           // TODO find a better way
           boolean popupAction = ComponentUtil.containsPopupActionListener(command);
