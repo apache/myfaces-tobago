@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.render.Renderer;
@@ -29,8 +30,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
-
-// FIXME: is this class thread-safe?
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ResourceManagerImpl implements ResourceManager {
 
@@ -38,14 +39,17 @@ public class ResourceManagerImpl implements ResourceManager {
   private static final String PROPERTY = "property";
   private static final String JSP = "jsp";
   private static final String TAG = "tag";
+  private static final Renderer NULL_CACHE_RENDERER = new RendererBase();
 
   private final HashMap<String, String> resourceList;
 
-  private final HashMap<RendererCacheKey, Renderer> rendererCache = new HashMap<RendererCacheKey, Renderer>();
-  private final HashMap<ImageCacheKey, String> imageCache = new HashMap<ImageCacheKey, String>();
-  private final HashMap<JspCacheKey, String> jspCache = new HashMap<JspCacheKey, String>();
-  private final HashMap<MiscCacheKey, String[]> miscCache = new HashMap<MiscCacheKey, String[]>();
-  private final HashMap<PropertyCacheKey, String> propertyCache = new HashMap<PropertyCacheKey, String>();
+  private final Map<RendererCacheKey, Renderer> rendererCache =
+      new ConcurrentHashMap<RendererCacheKey, Renderer>(100, 0.75f, 1);
+  private final Map<ImageCacheKey, String> imageCache = new ConcurrentHashMap<ImageCacheKey, String>(100, 0.75f, 1);
+  private final Map<JspCacheKey, String> jspCache = new ConcurrentHashMap<JspCacheKey, String>(100, 0.75f, 1);
+  private final Map<MiscCacheKey, String[]> miscCache = new ConcurrentHashMap<MiscCacheKey, String[]>(100, 0.75f, 1);
+  private final Map<PropertyCacheKey, CachedString> propertyCache =
+      new ConcurrentHashMap<PropertyCacheKey, CachedString>(100, 0.75f, 1);
 
   private TobagoConfig tobagoConfig;
 
@@ -88,27 +92,29 @@ public class ResourceManagerImpl implements ResourceManager {
 
       result = imageCache.get(imageKey);
       if (result == null) {
-        // TODO: cache null values
         try {
           List paths = getPaths(key.getClientPropertyId(), key.getLocale(), "", null, name.substring(0, dot),
               name.substring(dot), false, true, true, null, true, ignoreMissing);
           if (paths != null) {
             result = (String) paths.get(0);
+          } else {
+            result = "";
           }
-          // TODO: cache null values
-          imageCache.put(imageKey, result);
+          synchronized (imageCache) {
+            imageCache.put(imageKey, result);
+          }
         } catch (Exception e) {
           LOG.error("name = '" + name + "' clientProperties = '" + key.getClientPropertyId() + "'", e);
         }
       }
     }
 
-    if (result == null) {
+    if (result == null || result.length() == 0) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("Can't find image for \"" + name + "\"");
       }
+      return null;
     }
-
     return result;
   }
 
@@ -132,15 +138,19 @@ public class ResourceManagerImpl implements ResourceManager {
       JspCacheKey jspKey = new JspCacheKey(key, name);
 
       result = jspCache.get(jspKey);
-      if (result != null) {
-        return result;
+      if (result == null) {
+        try {
+          result = (String) getPaths(key.getClientPropertyId(), key.getLocale(), "",
+              JSP, name, "", false, true, true, null, true, false).get(0);
+          synchronized(jspCache) {
+            jspCache.put(jspKey, result);
+          }
+        } catch (Exception e) {
+          LOG.error("name = '" + name + "' clientProperties = '" + key.getClientPropertyId() + "'", e);
+        }
       }
-      try {
-        result = (String) getPaths(key.getClientPropertyId(), key.getLocale(), "",
-            JSP, name, "", false, true, true, null, true, false).get(0);
-        jspCache.put(jspKey, result);
-      } catch (Exception e) {
-        LOG.error("name = '" + name + "' clientProperties = '" + key.getClientPropertyId() + "'", e);
+      if (result != null && result.length() == 0) {
+        return null;
       }
     }
     return result;
@@ -148,25 +158,26 @@ public class ResourceManagerImpl implements ResourceManager {
 
   public String getProperty(
       UIViewRoot viewRoot, String bundle, String propertyKey) {
-    String result = null;
     if (bundle != null && propertyKey != null) {
       CacheKey key = getCacheKey(viewRoot);
 
       PropertyCacheKey propertyCacheKey = new PropertyCacheKey(key, bundle, propertyKey);
-      result = propertyCache.get(propertyCacheKey);
-      if (result != null) {
-        return result;
+      CachedString result = propertyCache.get(propertyCacheKey);
+      if (result == null) {
+        List properties = getPaths(key.getClientPropertyId(), key.getLocale(), "", PROPERTY, bundle,
+            "", false, true, false, propertyKey, true, false);
+        if (properties != null) {
+          result = new CachedString((String) properties.get(0));
+        } else {
+          result = new CachedString(null);
+        }
+        synchronized (propertyCache) {
+          propertyCache.put(propertyCacheKey, result);
+        }
       }
-      List properties = getPaths(key.getClientPropertyId(), key.getLocale(), "", PROPERTY, bundle,
-          "", false, true, false, propertyKey, true, false);
-      if (properties != null) {
-        result = (String) properties.get(0);
-      } else {
-        result = null;
-      }
-      propertyCache.put(propertyCacheKey, result);
+      return result.getValue();
     }
-    return result;
+    return null;
   }
 
   private List getPaths(String clientProperties, Locale locale, String prefix,
@@ -333,24 +344,29 @@ public class ResourceManagerImpl implements ResourceManager {
 
       RendererCacheKey rendererKey = new RendererCacheKey(key, name);
       renderer = rendererCache.get(rendererKey);
-      if (renderer != null) {
-        return renderer;
-      }
-      try {
-        name = getRendererClassName(name);
-        List<Class> classes = getPaths(key.getClientPropertyId(), key.getLocale(), "", TAG, name, "",
-            false, true, true, null, false, false);
-        if (classes != null && !classes.isEmpty()) {
-          Class clazz = classes.get(0);
-          renderer = (Renderer) clazz.newInstance();
-          rendererCache.put(rendererKey, renderer);
-        } else {
-          LOG.error("Don't find any RendererClass for " + name + ". Please check you configuration.");
+      if (renderer == null) {
+        try {
+          name = getRendererClassName(name);
+          List<Class> classes = getPaths(key.getClientPropertyId(), key.getLocale(), "", TAG, name, "",
+              false, true, true, null, false, false);
+          if (classes != null && !classes.isEmpty()) {
+            Class clazz = classes.get(0);
+            renderer = (Renderer) clazz.newInstance();
+          } else {
+            renderer = NULL_CACHE_RENDERER;
+            LOG.error("Don't find any RendererClass for " + name + ". Please check you configuration.");
+          }
+          synchronized (rendererCache) {
+            rendererCache.put(rendererKey, renderer);
+          }
+        } catch (InstantiationException e) {
+          LOG.error("name = '" + name + "' clientProperties = '" + key.getClientPropertyId() + "'", e);
+        } catch (IllegalAccessException e) {
+          LOG.error("name = '" + name + "' clientProperties = '" + key.getClientPropertyId() + "'", e);
         }
-      } catch (InstantiationException e) {
-        LOG.error("name = '" + name + "' clientProperties = '" + key.getClientPropertyId() + "'", e);
-      } catch (IllegalAccessException e) {
-        LOG.error("name = '" + name + "' clientProperties = '" + key.getClientPropertyId() + "'", e);
+        if (renderer == NULL_CACHE_RENDERER) {
+          return null;
+        }
       }
     }
     return renderer;
@@ -394,16 +410,17 @@ public class ResourceManagerImpl implements ResourceManager {
       CacheKey key = getCacheKey(viewRoot);
       MiscCacheKey miscKey = new MiscCacheKey(key, name);
       result = miscCache.get(miscKey);
-      if (result != null) {
-        return result;
-      }
-      try {
-        List matches = getPaths(key.getClientPropertyId(), key.getLocale(), "", type,
-            name.substring(0, dot), name.substring(dot), true, false, true, null, true, false);
-        result = (String[]) matches.toArray(new String[matches.size()]);
-        miscCache.put(miscKey, result);
-      } catch (Exception e) {
-        LOG.error("name = '" + name + "' clientProperties = '" + key.getClientPropertyId() + "'", e);
+      if (result == null) {
+        try {
+          List matches = getPaths(key.getClientPropertyId(), key.getLocale(), "", type,
+              name.substring(0, dot), name.substring(dot), true, false, true, null, true, false);
+          result = (String[]) matches.toArray(new String[matches.size()]);
+          synchronized (miscCache) {
+            miscCache.put(miscKey, result);
+          }
+        } catch (Exception e) {
+          LOG.error("name = '" + name + "' clientProperties = '" + key.getClientPropertyId() + "'", e);
+        }
       }
     }
     return result;
@@ -411,25 +428,26 @@ public class ResourceManagerImpl implements ResourceManager {
 
   public String getThemeProperty(UIViewRoot viewRoot,
       String bundle, String propertyKey) {
-    String result = null;
     if (bundle != null && propertyKey != null) {
       CacheKey key = getCacheKey(viewRoot);
 
       PropertyCacheKey propertyCacheKey = new PropertyCacheKey(key, bundle, propertyKey);
-      result = propertyCache.get(propertyCacheKey);
-      if (result != null) {
-        return result;
+      CachedString result = propertyCache.get(propertyCacheKey);
+      if (result == null) {
+        List properties = getPaths(key.getClientPropertyId(), key.getLocale(), "", PROPERTY,
+            bundle, "", false, true, false, propertyKey, true, true);
+        if (properties != null) {
+          result = new CachedString((String) properties.get(0));
+        } else {
+          result = new CachedString(null);
+        }
+        synchronized (propertyCache) {
+          propertyCache.put(propertyCacheKey, result);
+        }
       }
-      List properties = getPaths(key.getClientPropertyId(), key.getLocale(), "", PROPERTY,
-          bundle, "", false, true, false, propertyKey, true, true);
-      if (properties != null) {
-        result = (String) properties.get(0);
-      } else {
-        result = null;
-      }
-      propertyCache.put(propertyCacheKey, result);
+      return result.getValue();
     }
-    return result;
+    return null;
   }
 
   public static CacheKey getRendererCacheKey(String clientPropertyId, Locale locale) {
@@ -671,6 +689,39 @@ public class ResourceManagerImpl implements ResourceManager {
 
     public int hashCode() {
       return hashCode;
+    }
+  }
+
+  public static final class CachedString {
+    private String value;
+
+    public CachedString(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    public boolean equals(Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
+
+      CachedString that = (CachedString) o;
+
+      if (value != null ? !value.equals(that.value) : that.value != null) {
+        return false;
+      }
+
+      return true;
+    }
+
+    public int hashCode() {
+      return (value != null ? value.hashCode() : 0);
     }
   }
 }
