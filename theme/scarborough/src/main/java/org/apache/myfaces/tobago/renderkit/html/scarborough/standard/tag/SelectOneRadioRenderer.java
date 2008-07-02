@@ -24,20 +24,20 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -104,15 +104,9 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     }
 
     boolean disabled = ComponentUtil.getBooleanAttribute(selectOne, ATTR_DISABLED);
+    boolean readonly = ComponentUtil.getBooleanAttribute(selectOne, ATTR_READONLY);
     Object value = selectOne.getValue();
     List<String> clientIds = new ArrayList<String>();
-    String checkedId = null;
-    for (SelectItem item : items) {
-      if (item.getValue().equals(value)) {
-         checkedId = clientId + NamingContainer.SEPARATOR_CHAR + NamingContainer.SEPARATOR_CHAR
-             + item.getValue().toString();
-      }
-    }
     for (SelectItem item : items) {
       if (!inline) {
         writer.startElement(HtmlConstants.TR, null);
@@ -136,24 +130,15 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       String formattedValue = RenderUtil.getFormattedValue(facesContext, selectOne, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
       writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled() || disabled);
-      if (ComponentUtil.getBooleanAttribute(selectOne, ATTR_READONLY)) {
-        writer.writeAttribute(HtmlAttributes.READONLY, true);
-        if (checked) {
-          writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=true", false);
-          writer.writeAttribute(HtmlAttributes.ONCHANGE, "this.checked=true", false);
-        } else {
-          writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=false", false);
-          writer.writeAttribute(HtmlAttributes.ONCHANGE, "this.checked=false", false);
-        }
-      }
       Integer tabIndex = selectOne.getTabIndex();
       if (tabIndex != null) {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
       HtmlRendererUtil.renderTip(selectOne, writer);
-      if (!ComponentUtil.getBooleanAttribute(selectOne, ATTR_REQUIRED)) {
-        //writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneRadioClick(this, '" + clientId + "', '"
-        //    + checkedId +"')", false);
+      if (!ComponentUtil.getBooleanAttribute(selectOne, ATTR_REQUIRED) || readonly) {
+        writer.writeAttribute(HtmlAttributes.ONCLICK,
+            "Tobago.selectOneRadioClick(this, '" + clientId + "',"
+                + ComponentUtil.getBooleanAttribute(selectOne, ATTR_REQUIRED) + " , " + readonly + ")", false);
       }
       writer.endElement(HtmlConstants.INPUT);
 
@@ -173,6 +158,9 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         styleClasses.addAspectClass("label", StyleClasses.Aspect.DEFAULT);
         if (item.isDisabled() || disabled) {
           styleClasses.addAspectClass("label", StyleClasses.Aspect.DISABLED);
+        }
+        if (readonly) {
+          styleClasses.addAspectClass("label", StyleClasses.Aspect.READONLY);
         }
         writer.writeClassAttribute(styleClasses);
         writer.writeAttribute(HtmlAttributes.FOR, id, false);

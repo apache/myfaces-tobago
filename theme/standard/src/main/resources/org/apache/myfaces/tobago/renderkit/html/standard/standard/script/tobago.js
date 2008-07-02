@@ -857,20 +857,26 @@ var Tobago = {
   },
 
   /**
-    * Onclick function for SelectOneradio.
+    * Onclick function for SelectOneRadio.
     */
-  selectOneRadioClick: function(element, name) {
+  selectOneRadioClick: function(element, name, required, readonly) {
     var elements = document.getElementsByName(name);
     for (var i = 0; i < elements.length; i++) {
-      if (elements[i] != element) {
-        elements[i].checked = false;
-        elements[i].oldValue = false;
+      if (readonly) {
+        elements[i].checked = elements[i].oldValue;
+      } else {
+        if (elements[i] != element) {
+          elements[i].checked = false;
+          elements[i].oldValue = false;
+        }
       }
     }
-    if (element.oldValue == element.checked) {
-      element.checked = false;
+    if (!required && !readonly) {
+      if (element.oldValue == element.checked) {
+        element.checked = false;
+      }
+      element.oldValue = element.checked;
     }
-    element.oldValue = element.checked;
   },
 
 // -------- Popup functions ---------------------------------------------------
