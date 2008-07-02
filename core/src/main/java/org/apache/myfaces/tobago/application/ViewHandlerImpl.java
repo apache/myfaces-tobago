@@ -97,6 +97,11 @@ public class ViewHandlerImpl extends ViewHandler {
   public void renderView(FacesContext facesContext, UIViewRoot viewRoot)
       throws IOException, FacesException {
     // standard
+
+        LOG.error("renderView - view id '"
+                + (viewRoot != null ? viewRoot.getViewId() : "N/A")
+                + "'; view root: '" + viewRoot + "'");
+
     base.renderView(facesContext, viewRoot);
 
     if (LOG.isDebugEnabled()) {
