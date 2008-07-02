@@ -24,9 +24,10 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UISelectOne;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
@@ -96,6 +97,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     }
 
     boolean disabled = ComponentUtil.getBooleanAttribute(selectOne, ATTR_DISABLED);
+    boolean readonly = ComponentUtil.getBooleanAttribute(selectOne, ATTR_READONLY);
     Object value = selectOne.getValue();
     List<String> clientIds = new ArrayList<String>();
     for (SelectItem item : items) {
@@ -111,7 +113,8 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.startElement(HtmlConstants.INPUT, selectOne);
       writer.writeAttribute(HtmlAttributes.TYPE, "radio", false);
       writer.writeClassAttribute();
-      if (item.getValue().equals(value)) {
+      boolean checked = item.getValue().equals(value);
+      if (checked) {
         writer.writeAttribute(HtmlAttributes.CHECKED, "checked", false);
       }
       writer.writeNameAttribute(clientId);
@@ -125,8 +128,10 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
       HtmlRendererUtil.renderTip(selectOne, writer);
-      if (!ComponentUtil.getBooleanAttribute(selectOne, ATTR_REQUIRED)) {
-        writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneRadioClick(this, '" + clientId + "')", false);
+      if (!ComponentUtil.getBooleanAttribute(selectOne, ATTR_REQUIRED) || readonly) {
+        writer.writeAttribute(HtmlAttributes.ONCLICK,
+            "Tobago.selectOneRadioClick(this, '" + clientId + "',"
+                + ComponentUtil.getBooleanAttribute(selectOne, ATTR_REQUIRED) + " , " + readonly + ")", false);
       }
       writer.endElement(HtmlConstants.INPUT);
 
@@ -146,6 +151,9 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         styleClasses.addAspectClass("label", StyleClasses.Aspect.DEFAULT);
         if (item.isDisabled() || disabled) {
           styleClasses.addAspectClass("label", StyleClasses.Aspect.DISABLED);
+        }
+        if (readonly) {
+          styleClasses.addAspectClass("label", StyleClasses.Aspect.READONLY);
         }
         writer.writeClassAttribute(styleClasses);
         writer.writeAttribute(HtmlAttributes.FOR, id, false);

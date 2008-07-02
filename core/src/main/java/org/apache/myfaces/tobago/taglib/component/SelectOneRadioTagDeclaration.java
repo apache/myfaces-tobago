@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
+import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 
 /*
  * Created: Aug 5, 2005 6:11:03 PM
@@ -53,7 +54,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasConverter;
             "This facet can contain a UICommand that is invoked in case of a change event from the component")
         })
 public interface SelectOneRadioTagDeclaration extends SelectOneTagDeclaration, IsDisabled, HasId,
-    IsInline, HasRenderRange, IsRendered, HasBinding, HasConverter {
+    IsInline, HasRenderRange, IsRendered, HasBinding, HasConverter, IsReadonly {
 
   /**
    * Flag indicating that selecting an Item representing a Value is Required.
