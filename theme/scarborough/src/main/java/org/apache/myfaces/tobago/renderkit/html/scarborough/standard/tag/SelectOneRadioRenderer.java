@@ -123,6 +123,9 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       String formattedValue = RenderUtil.getFormattedValue(facesContext, selectOne, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
       writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled() || disabled);
+      if (readonly) {
+        writer.writeAttribute(HtmlAttributes.READONLY, true);
+      }
       Integer tabIndex = selectOne.getTabIndex();
       if (tabIndex != null) {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
