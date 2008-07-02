@@ -590,7 +590,7 @@ Tobago.Sheet.prototype.updateSelectionView = function(sheetId) {
 
       Tobago.removeCssClass(row, "tobago-sheet-row-selected");
 
-      if (image && !image.src.match(/Disabled/)) {
+      if (image && image.src && !image.src.match(/Disabled/)) {
         image.src = this.uncheckedImage;
       }
 
@@ -598,7 +598,7 @@ Tobago.Sheet.prototype.updateSelectionView = function(sheetId) {
       if (classes.search(/tobago-sheet-row-selected/) == -1) {
         Tobago.addCssClass(row, "tobago-sheet-row-selected");
       }
-      if (image && !image.src.match(/Disabled/)) {
+      if (image && image.src && !image.src.match(/Disabled/)) {
         image.src = this.checkedImage;
       }
     }
@@ -614,7 +614,7 @@ Tobago.Sheet.prototype.toggleSelectionForRow = function(dataRow) {
 Tobago.Sheet.prototype.toggleSelection = function(rowIndex) {
     this.tobagoLastClickedRowId = Tobago.element(this.id + "_data_tr_" + rowIndex).id;
     var selector = Tobago.element(this.id + "_data_row_selector_" + rowIndex);
-    if (!selector || !selector.src.match(/Disabled/)) {
+    if (!selector || !selector.src || !selector.src.match(/Disabled/)) {
       var re = new RegExp("," + rowIndex + ",");
       var selected = Tobago.element(this.selectedId);
       if (selected.value.search(re) != -1) {
@@ -645,7 +645,7 @@ Tobago.Sheet.prototype.selectRange = function(dataRow) {
       var re = new RegExp("," + i + ",");
       if (selected.value.search(re) == -1) {
         var selector = Tobago.element(this.id + "_data_row_selector_" + i);
-        if (!selector || !selector.src.match(/Disabled/)) {
+        if (!selector || !selector.src || !selector.src.match(/Disabled/)) {
           selected.value = selected.value + i + ",";
         }
       }
@@ -834,7 +834,7 @@ Tobago.Sheet.prototype.selectAll = function() {
     var selected = Tobago.element(this.selectedId);
     while (row) {
       var image = this.getSelectionElementForRow(row);
-      if (!image || !image.src.match(/Disabled/)) {
+      if (!image || !image.src || !image.src.match(/Disabled/)) {
         var re = new RegExp("," + i + ",");
         if (selected.value.search(re) == -1) {
           selected.value = selected.value + i + ",";
@@ -855,7 +855,7 @@ Tobago.Sheet.prototype.unSelectAll = function() {
       var j = 0;
       while (row) {
         image = this.getSelectionElementForRow(row);
-        if (!image || !image.src.match(/Disabled/)) {
+        if (!image || !image.src || !image.src.match(/Disabled/)) {
           var re = new RegExp("," + i + ",", 'g');
           selected.value = selected.value.replace(re, ",");
         }
