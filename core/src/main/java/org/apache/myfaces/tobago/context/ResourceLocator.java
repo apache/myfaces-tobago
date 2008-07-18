@@ -169,11 +169,12 @@ class ResourceLocator {
       String prefix) throws IOException, ServletException {
     String fileName = themeUrl.toString();
     int index = fileName.indexOf("!");
+    String protocol = themeUrl.getProtocol();
     if (index != -1) {
-      fileName = themeUrl.toString().substring(themeUrl.getProtocol().length() + 1, fileName.indexOf("!"));
+      fileName = fileName.substring(protocol.length() + 1, index);
     }
-
-    if (fileName.endsWith(META_INF_TOBAGO_THEME_XML)) {
+    // JBoss 5.0.0 introduced vfszip protocol
+    if (!protocol.equals("vfszip") && fileName.endsWith(META_INF_TOBAGO_THEME_XML)) {
       try {
         URI uri = themeUrl.toURI();
         File tobagoThemeXml = new File(uri);
@@ -186,6 +187,10 @@ class ResourceLocator {
     } else {
       URL jarFile;
       try {
+        // JBoss 5.0.0 introduced vfszip protocol
+        if (protocol.equals("vfszip")) {
+          fileName = new File(fileName).getParentFile().getParentFile().getPath();
+        }
         jarFile = new URL(fileName);
       } catch (MalformedURLException e) {
         // workaround for weblogic on windows
