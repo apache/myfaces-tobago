@@ -25,7 +25,19 @@
   <artifactId>maven-apt-plugin</artifactId>
   <packaging>maven-plugin</packaging>
   <name>Maven Apt Plugin</name>
-
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <configLocation>config/maven_checks.xml</configLocation>
+          <excludes>**/*.java</excludes>
+          <xrefLocation>xref</xrefLocation>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
   <reporting>
     <plugins>
       <plugin>
@@ -54,7 +66,6 @@
         <configuration>
           <configLocation>config/maven_checks.xml</configLocation>
           <excludes>**/*.java</excludes>
-          <sourceEncoding>${maven.compile.encoding}</sourceEncoding>
           <xrefLocation>xref</xrefLocation>
         </configuration>
       </plugin>
