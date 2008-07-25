@@ -48,12 +48,12 @@ public interface TreeTagDeclaration
    * Flag indicating whether or not this component should be render selectable items.
    * Possible values are:
    * <ul>
-   * <li><strong>multi</strong> : a multisection tree is rendered
-   * <li><strong>single</strong> : a singlesection tree is rendered
+   * <li><strong>multi</strong> : a multisection tree is rendered</li>
+   * <li><strong>single</strong> : a singlesection tree is rendered</li>
    * <li><strong>multiLeafOnly</strong> : a multisection tree is rendered,
-   * only Leaf's are selectable
+   * only Leaf's are selectable</li>
    * <li><strong>singleLeafOnly</strong> : a singlesection tree is rendered,
-   * only Leaf's are selectable
+   * only Leaf's are selectable</li>
    * </ul>
    * For any other value or if this attribute is omited the items are not selectable.
    */
