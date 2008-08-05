@@ -52,6 +52,7 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
   private javax.el.ValueExpression validatorMessage;
   private javax.el.ValueExpression converterMessage;
   private javax.el.ValueExpression requiredMessage;
+  private javax.el.ValueExpression markup;
 
   private LabelExtensionTag labelTag;
   private SelectOneListboxTag selectOneListboxTag;
@@ -73,6 +74,9 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
     }
     if (labelWidth != null) {
       labelTag.setColumns(createStringValueExpression(labelWidth.getExpressionString() + ";*"));
+    }
+    if (markup != null) {
+      labelTag.setMarkup(markup);
     }
     labelTag.setParent(getParent());
     labelTag.doStartTag();
@@ -130,6 +134,9 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
     if (requiredMessage != null) {
       selectOneListboxTag.setRequiredMessage(requiredMessage);
     }
+    if (markup != null) {
+      selectOneListboxTag.setMarkup(markup);
+    }
     selectOneListboxTag.setParent(labelTag);
     selectOneListboxTag.doStartTag();
 
@@ -168,6 +175,7 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
+    markup = null;
   }
   /**
    * Flag indicating that a value is required.
@@ -361,6 +369,16 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
   @UIComponentTagAttribute()
   public void setRequiredMessage(javax.el.ValueExpression requiredMessage) {
     this.requiredMessage = requiredMessage;
+  }
+
+  /**
+   * Indicate markup of this component.
+   * Possible value is 'none'. But this can be overridden in the theme.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
+  public void setMarkup(javax.el.ValueExpression markup) {
+    this.markup = markup;
   }
 
 }

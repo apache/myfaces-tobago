@@ -89,6 +89,9 @@ public class TextAreaExtensionTag extends TobagoExtensionBodyTagSupport {
     if (labelWidth != null) {
       labelTag.setColumns(createStringValueExpression(labelWidth.getExpressionString() + ";*"));
     }
+    if (markup != null) {
+      labelTag.setMarkup(markup);
+    }
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 

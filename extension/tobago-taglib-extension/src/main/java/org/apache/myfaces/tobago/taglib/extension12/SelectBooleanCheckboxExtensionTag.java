@@ -77,13 +77,9 @@ public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSup
     if (labelWidth != null) {
       labelTag.setColumns(createStringValueExpression(labelWidth.getExpressionString() + ";*"));
     }
-    /* TODO accessKey
-    if (labelWithAccessKey != null) {
-      label.setLabelWithAccessKey(labelWithAccessKey);
+    if (markup != null) {
+      labelTag.setMarkup(markup);
     }
-    if (accessKey !=null) {
-      label.setAccessKey(accessKey);
-    } */
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 

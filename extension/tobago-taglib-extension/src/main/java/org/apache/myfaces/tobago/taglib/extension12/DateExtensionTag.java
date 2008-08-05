@@ -99,6 +99,9 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
     if (rendered != null) {
       labelTag.setRendered(rendered);
     }
+    if (markup != null) {
+      labelTag.setMarkup(markup);
+    }
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 

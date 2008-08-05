@@ -56,6 +56,7 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression validatorMessage;
   private javax.el.ValueExpression converterMessage;
   private javax.el.ValueExpression requiredMessage;
+  private javax.el.ValueExpression markup;
 
   private LabelExtensionTag labelTag;
   private SelectOneRadioTag selectOneRadioTag;
@@ -76,6 +77,9 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
     }
     if (labelWidth != null) {
       labelTag.setColumns(createStringValueExpression(labelWidth.getExpressionString() + ";*"));
+    }
+    if (markup != null) {
+      labelTag.setMarkup(markup);
     }
     labelTag.setParent(getParent());
     labelTag.doStartTag();
@@ -133,6 +137,9 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
     if (requiredMessage != null) {
       selectOneRadioTag.setRequiredMessage(requiredMessage);
     }
+    if (markup != null) {
+      selectOneRadioTag.setMarkup(markup);
+    }
 
     selectOneRadioTag.setParent(labelTag);
     selectOneRadioTag.doStartTag();
@@ -172,6 +179,7 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
+    markup = null;
   }
 
   /**
@@ -375,6 +383,16 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   @UIComponentTagAttribute()
   public void setRequiredMessage(javax.el.ValueExpression requiredMessage) {
     this.requiredMessage = requiredMessage;
+  }
+
+  /**
+   * Indicate markup of this component.
+   * Possible value is 'none'. But this can be overridden in the theme.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
+  public void setMarkup(javax.el.ValueExpression markup) {
+    this.markup = markup;
   }
 
 }

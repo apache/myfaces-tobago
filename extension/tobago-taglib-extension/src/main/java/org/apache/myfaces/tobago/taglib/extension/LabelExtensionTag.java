@@ -50,6 +50,7 @@ public class LabelExtensionTag extends BodyTagSupport
   private String columns = DEFAULT_COLUMNS;
   private String rows = "fixed";
   private String labelWidth;
+  private String markup;
 
   private PanelTag panelTag;
 
@@ -92,6 +93,9 @@ public class LabelExtensionTag extends BodyTagSupport
     if (tip != null) {
       labelTag.setTip(tip);
     }
+    if (markup != null) {
+      labelTag.setMarkup(markup);
+    }
     labelTag.setFor("@auto");
     labelTag.setParent(panelTag);
     labelTag.doStartTag();
@@ -116,6 +120,7 @@ public class LabelExtensionTag extends BodyTagSupport
     rows = "fixed";
     panelTag = null;
     labelWidth = null;
+    markup = null;
   }
 
   public void setValue(String value) {
@@ -145,5 +150,9 @@ public class LabelExtensionTag extends BodyTagSupport
 
   public void setLabelWidth(String labelWidth) {
     this.labelWidth = labelWidth;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 }

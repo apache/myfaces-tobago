@@ -47,6 +47,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression columns;
   private String rows = "fixed";
   private javax.el.ValueExpression labelWidth;
+  private javax.el.ValueExpression markup;
 
   private PanelTag panelTag;
 
@@ -93,6 +94,9 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
     if (tip != null) {
       labelTag.setTip(tip);
     }
+    if (markup != null) {
+      labelTag.setMarkup(markup);
+    }
     labelTag.setFor("@auto");
     labelTag.setParent(panelTag);
     labelTag.doStartTag();
@@ -117,6 +121,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
     rows = "fixed";
     panelTag = null;
     labelWidth = null;
+    markup = null;
   }
 
    /**
@@ -170,5 +175,15 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
   @UIComponentTagAttribute()
   public void setLabelWidth(ValueExpression labelWidth) {
     this.labelWidth = labelWidth;
+  }
+
+ /**
+   * Indicate markup of this component.
+   * Possible value is 'none'. But this can be overridden in the theme.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
+  public void setMarkup(javax.el.ValueExpression markup) {
+    this.markup = markup;
   }
 }

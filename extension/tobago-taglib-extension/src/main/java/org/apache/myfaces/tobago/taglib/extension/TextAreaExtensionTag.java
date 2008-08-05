@@ -109,6 +109,9 @@ public class TextAreaExtensionTag extends BodyTagSupport
     if (labelWidth != null) {
       labelTag.setColumns(labelWidth + ";*");
     }
+    if (markup != null) {
+      labelTag.setMarkup(markup);
+    }
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 

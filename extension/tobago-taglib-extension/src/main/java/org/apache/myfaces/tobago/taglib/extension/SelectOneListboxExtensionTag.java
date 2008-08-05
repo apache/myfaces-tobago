@@ -40,6 +40,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -52,7 +53,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 public class SelectOneListboxExtensionTag
     extends BodyTagSupport implements HasId, HasValue, HasValueChangeListener, IsDisabled,
     HasLabel, HasLabelWidth, IsReadonly, HasOnchange, IsRendered,
-    HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
+    HasValidatorMessage, HasRequiredMessage, HasConverterMessage, HasMarkup,
     HasBinding, HasDeprecatedHeight, IsFocus, HasTip, IsRequired, HasConverter, HasValidator, HasTabIndex {
   private String required;
   private String value;
@@ -74,6 +75,7 @@ public class SelectOneListboxExtensionTag
   private String validatorMessage;
   private String converterMessage;
   private String requiredMessage;
+  private String markup;
 
   private LabelExtensionTag labelTag;
   private SelectOneListboxTag selectOneListboxTag;
@@ -95,6 +97,9 @@ public class SelectOneListboxExtensionTag
     }
     if (labelWidth != null) {
       labelTag.setColumns(labelWidth + ";*");
+    }
+    if (markup != null) {
+      labelTag.setMarkup(markup);
     }
     labelTag.setParent(getParent());
     labelTag.doStartTag();
@@ -152,6 +157,9 @@ public class SelectOneListboxExtensionTag
     if (requiredMessage != null) {
       selectOneListboxTag.setRequiredMessage(requiredMessage);
     }
+    if (markup != null) {
+      selectOneListboxTag.setMarkup(markup);
+    }
 
     selectOneListboxTag.setParent(labelTag);
     selectOneListboxTag.doStartTag();
@@ -191,6 +199,7 @@ public class SelectOneListboxExtensionTag
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
+    markup = null;
   }
 
   public void setRequired(String required) {
@@ -271,5 +280,9 @@ public class SelectOneListboxExtensionTag
 
   public void setRequiredMessage(String requiredMessage) {
     this.requiredMessage = requiredMessage;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 }
