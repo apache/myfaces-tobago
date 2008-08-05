@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.facelets.SuggestMethodRule;
 import org.apache.myfaces.tobago.facelets.SupportsMarkupRule;
 import org.apache.myfaces.tobago.util.LayoutUtil;
@@ -55,12 +56,14 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   private TagAttribute labelWidthAttribute;
   private TagAttribute tipAttribute;
   private TagAttribute labelAttribute;
+  private TagAttribute markupAttribute;
 
   public TobagoLabelExtensionHandler(ComponentConfig config) {
     super(config);
     labelWidthAttribute = getAttribute("labelWidth");
     tipAttribute = getAttribute(TobagoConstants.ATTR_TIP);
     labelAttribute = getAttribute(TobagoConstants.ATTR_LABEL);
+    markupAttribute = getAttribute(TobagoConstants.ATTR_MARKUP);
   }
 
   protected abstract String getSubComponentType();
@@ -142,6 +145,14 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
       } else {
         ValueExpression expression = labelAttribute.getValueExpression(faceletContext, String.class);
         ELAdaptor.setExpression(label, TobagoConstants.ATTR_VALUE, expression);
+      }
+    }
+    if (markupAttribute != null) {
+      if (markupAttribute.isLiteral()) {
+        ComponentUtil.setMarkup(label, markupAttribute.getValue());
+      } else {
+        ValueExpression expression = markupAttribute.getValueExpression(faceletContext, Object.class);
+        ELAdaptor.setExpression(label, TobagoConstants.ATTR_MARKUP, expression);
       }
     }
     panel.getChildren().add(label);
