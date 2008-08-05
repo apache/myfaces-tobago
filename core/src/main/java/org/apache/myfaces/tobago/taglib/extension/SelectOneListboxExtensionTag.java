@@ -37,6 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -48,7 +49,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.SelectOneListboxTag")
 public class SelectOneListboxExtensionTag
     extends BodyTagSupport implements HasId, HasValue, HasValueChangeListener, IsDisabled,
-    HasLabel, HasLabelWidth, IsReadonly, HasOnchange, IsRendered,
+    HasLabel, HasLabelWidth, IsReadonly, HasOnchange, IsRendered, HasMarkup,
     HasBinding, HasDeprecatedHeight, IsFocus, HasTip, IsRequired, HasConverter, HasValidator, HasTabIndex {
   private String required;
   private String value;
@@ -67,6 +68,7 @@ public class SelectOneListboxExtensionTag
   private String labelWidth;
   private String tabIndex;
   private String focus;
+  private String markup;
 
   private LabelExtensionTag labelTag;
   private SelectOneListboxTag selectOneListboxTag;
@@ -88,6 +90,9 @@ public class SelectOneListboxExtensionTag
     }
     if (labelWidth != null) {
       labelTag.setColumns(labelWidth + ";*");
+    }
+    if (markup != null) {
+      labelTag.setMarkup(markup);
     }
     labelTag.setParent(getParent());
     labelTag.doStartTag();
@@ -136,6 +141,9 @@ public class SelectOneListboxExtensionTag
     if (tabIndex != null) {
       selectOneListboxTag.setTabIndex(tabIndex);
     }
+    if (markup != null) {
+      selectOneListboxTag.setMarkup(markup);
+    }
     selectOneListboxTag.setParent(labelTag);
     selectOneListboxTag.doStartTag();
 
@@ -171,6 +179,7 @@ public class SelectOneListboxExtensionTag
     selectOneListboxTag = null;
     labelTag = null;
     focus = null;
+    markup = null;
   }
 
   public void setRequired(String required) {
@@ -239,5 +248,9 @@ public class SelectOneListboxExtensionTag
 
   public void setFocus(String focus) {
     this.focus = focus;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 }

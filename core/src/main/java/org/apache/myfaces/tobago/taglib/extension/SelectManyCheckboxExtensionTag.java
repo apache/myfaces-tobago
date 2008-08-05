@@ -95,13 +95,9 @@ public class SelectManyCheckboxExtensionTag extends BodyTagSupport
     if (labelWidth != null) {
       labelTag.setColumns(labelWidth + ";*");
     }
-    /* TODO accessKey
-   if (labelWithAccessKey != null) {
-     label.setLabelWithAccessKey(labelWithAccessKey);
-   }
-   if (accessKey !=null) {
-     label.setAccessKey(accessKey);
-   } */
+    if (markup != null) {
+      labelTag.setMarkup(markup);
+    }
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 

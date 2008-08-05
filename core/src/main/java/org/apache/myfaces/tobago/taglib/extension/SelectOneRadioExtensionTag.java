@@ -37,6 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -50,7 +51,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @Tag(name = "selectOneRadio")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.SelectOneRadioTag")
 public class SelectOneRadioExtensionTag extends BodyTagSupport
-    implements HasId, HasValue, HasValueChangeListener, IsDisabled,
+    implements HasId, HasValue, HasValueChangeListener, IsDisabled, HasMarkup,
     IsReadonly, HasOnchange, IsInline, HasLabel, HasLabelWidth, IsRequired,
     IsRendered, HasBinding, HasTip, HasValidator, HasConverter, HasRenderRange, HasTabIndex {
 
@@ -71,6 +72,7 @@ public class SelectOneRadioExtensionTag extends BodyTagSupport
   private String tabIndex;
   private String focus;
   private String renderRange;
+  private String markup;
 
   private LabelExtensionTag labelTag;
   private SelectOneRadioTag selectOneRadioTag;
@@ -91,6 +93,9 @@ public class SelectOneRadioExtensionTag extends BodyTagSupport
     }
     if (labelWidth != null) {
       labelTag.setColumns(labelWidth + ";*");
+    }
+    if (markup != null) {
+      labelTag.setMarkup(markup);
     }
     labelTag.setParent(getParent());
     labelTag.doStartTag();
@@ -139,6 +144,9 @@ public class SelectOneRadioExtensionTag extends BodyTagSupport
     if (renderRange != null) {
       selectOneRadioTag.setRenderRange(renderRange);
     }
+    if (markup != null) {
+      selectOneRadioTag.setMarkup(markup);
+    }
 
     selectOneRadioTag.setParent(labelTag);
     selectOneRadioTag.doStartTag();
@@ -175,6 +183,7 @@ public class SelectOneRadioExtensionTag extends BodyTagSupport
     labelTag = null;
     focus = null;
     renderRange = null;
+    markup = null;
   }
 
   public void setRequired(String required) {
@@ -243,5 +252,9 @@ public class SelectOneRadioExtensionTag extends BodyTagSupport
 
   public void setRenderRange(String renderRange) {
     this.renderRange = renderRange;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 }
