@@ -25,7 +25,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 import java.io.IOException;
 
-public class AbstractUILabel extends UIOutput {
+public class AbstractUILabel extends javax.faces.component.UIOutput {
 
    private static final Log LOG = LogFactory.getLog(AbstractUILabel.class);
 
