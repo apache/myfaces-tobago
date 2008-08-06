@@ -54,14 +54,22 @@ public class WizardTag extends BodyTagSupport {
   private String outcome;
   private String title;
 
+//  private WizardControllerTag controllerTag;
   private PanelTag panelTag;
 
   @Override
   public int doStartTag() throws JspException {
-
+/*
+    controllerTag = new WizardControllerTag();
+    controllerTag.setPageContext(pageContext);
+    controllerTag.setParent(getParent());
+    controllerTag.setController(controller);
+    controllerTag.doStartTag();
+*/
     panelTag = new PanelTag();
     panelTag.setPageContext(pageContext);
     panelTag.setParent(getParent());
+//    panelTag.setParent(controllerTag);
 /* todo
     if (rendered != null) {
       panelTag.setRendered(rendered);
@@ -194,15 +202,6 @@ public class WizardTag extends BodyTagSupport {
 
     cell(panelTag);
 
-/*
-    WizardControllerTag controllerTag = new WizardControllerTag();
-    controllerTag.setPageContext(pageContext);
-    controllerTag.setParent(panelTag);
-    controllerTag.setController(controller);
-    controllerTag.doStartTag();
-    controllerTag.doEndTag();
-*/
-
     ButtonTag previousTag = new ButtonTag();
     previousTag.setPageContext(pageContext);
     previousTag.setParent(panelTag);
@@ -211,15 +210,15 @@ public class WizardTag extends BodyTagSupport {
     previousTag.setActionListener(controller.replace("}", ".gotoStep}"));
     previousTag.setDisabled(controller.replace("}", ".previousAvailable}").replace("#{", "#{!"));
     previousTag.doStartTag();
-    {
-      AttributeTag step = new AttributeTag();
-      step.setPageContext(pageContext);
-      step.setParent(previousTag);
-      step.setName("step");
-      step.setValue("" + previousIndex);
-      step.doStartTag();
-      step.doEndTag();
-    }
+
+    AttributeTag step = new AttributeTag();
+    step.setPageContext(pageContext);
+    step.setParent(previousTag);
+    step.setName("step");
+    step.setValue("" + previousIndex);
+    step.doStartTag();
+    step.doEndTag();
+
     previousTag.doEndTag();
 
     ButtonTag nextTag = new ButtonTag();
@@ -247,6 +246,8 @@ public class WizardTag extends BodyTagSupport {
     p.doEndTag();
 
     panelTag.doEndTag();
+
+//    controllerTag.doEndTag();
 
     return super.doEndTag();
   }
