@@ -151,6 +151,12 @@
        <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${maven.compile.source}</source>
+          <target>${maven.compile.target}</target>
+          <encoding>${maven.compile.encoding}</encoding>
+          <showWarnings>true</showWarnings>
+        </configuration>
         <executions>
           <execution>
             <id>compile</id>
