@@ -23,7 +23,7 @@
 <layout:wizard>
   <jsp:body>
 
-    <tcs:wizard controller="#{controller.wizard}" title="Finish" outcome="finish">
+    <tcs:wizard controller="#{controller.wizard}" title="Finish" outcome="finish" finish="index">
 
       <tc:out value="Click finish for activation."/>
 

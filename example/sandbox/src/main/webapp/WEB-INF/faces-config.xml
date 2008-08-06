@@ -39,6 +39,13 @@
   </managed-bean>
 
   <navigation-rule>
+    <navigation-case>
+      <from-outcome>index</from-outcome>
+      <to-view-id>/wizard/index.jsp</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
     <from-view-id>/wizard/bean/single.jsp</from-view-id>
     <navigation-case>
       <from-outcome>wizard</from-outcome>
@@ -55,7 +62,7 @@
   </navigation-rule>
 
   <navigation-rule>
-    <from-view-id>/wizard/navi/*</from-view-id>
+    <from-view-id>/wizard/*</from-view-id>
     <navigation-case>
       <from-outcome>fileIntoCondition</from-outcome>
       <to-view-id>/wizard/navi/fileIntoCondition.jsp</to-view-id>
@@ -74,6 +81,7 @@
     </navigation-case>
   </navigation-rule>
 
+<!--
   <navigation-rule>
     <from-view-id>/wizard/navi/filter.jsp</from-view-id>
     <navigation-case>
@@ -92,30 +100,31 @@
       <from-outcome>next</from-outcome>
       <to-view-id>/wizard/navi/finish.jsp</to-view-id>
     </navigation-case>
+-->
 <!--
     <navigation-case>
       <from-outcome>previous</from-outcome>
       <to-view-id>/wizard/navi/filter.jsp</to-view-id>
     </navigation-case>
 -->
-  </navigation-rule>
+<!--  </navigation-rule>
 
   <navigation-rule>
     <from-view-id>/wizard/navi/forwardCondition.jsp</from-view-id>
     <navigation-case>
       <from-outcome>next</from-outcome>
       <to-view-id>/wizard/navi/finish.jsp</to-view-id>
-    </navigation-case>
+    </navigation-case>-->
 <!--
     <navigation-case>
       <from-outcome>previous</from-outcome>
       <to-view-id>/wizard/navi/filter.jsp</to-view-id>
     </navigation-case>
 -->
-  </navigation-rule>
+<!--  </navigation-rule>
 
   <navigation-rule>
-    <from-view-id>/wizard/navi/finish.jsp</from-view-id>
+    <from-view-id>/wizard/navi/finish.jsp</from-view-id>-->
 <!--
     <navigation-case>
       <from-outcome>forwardCondition</from-outcome>
@@ -126,6 +135,6 @@
       <to-view-id>/wizard/navi/forwardCondition.jsp</to-view-id>
     </navigation-case>
 -->
-  </navigation-rule>
+<!--  </navigation-rule> -->
 
 </faces-config>

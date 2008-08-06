@@ -25,12 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.internal.taglib.AttributeTag;
-import org.apache.myfaces.tobago.internal.taglib.ButtonTag;
-import org.apache.myfaces.tobago.internal.taglib.CellTag;
-import org.apache.myfaces.tobago.internal.taglib.GridLayoutTag;
-import org.apache.myfaces.tobago.internal.taglib.OutTag;
-import org.apache.myfaces.tobago.internal.taglib.PanelTag;
+import org.apache.myfaces.tobago.internal.taglib.*;
 import org.apache.myfaces.tobago.model.Wizard;
 import org.apache.myfaces.tobago.model.WizardStep;
 import org.apache.myfaces.tobago.util.VariableResolverUtil;
@@ -50,6 +45,7 @@ public class WizardTag extends BodyTagSupport {
   private String controller;
 
   private String next;
+  private String finish;
   private String outcome;
   private String title;
 
@@ -80,6 +76,7 @@ public class WizardTag extends BodyTagSupport {
     gridLayoutTag.setParent(facetTag);
     gridLayoutTag.doStartTag();
     gridLayoutTag.doEndTag();
+
 
     facetTag.doEndTag();
 
@@ -157,6 +154,19 @@ public class WizardTag extends BodyTagSupport {
   @Override
   public int doEndTag() throws JspException {
 
+    String previous = null;
+    int previousIndex = 0;
+    try {
+      Object bean = VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), "controller");
+      Wizard wizard = (Wizard) PropertyUtils.getProperty(bean, "wizard");
+      wizard.registerOutcome(outcome, title);
+      WizardStep step = wizard.getPreviousStep();
+      previous = step.getOutcome();
+      previousIndex = step.getIndex();
+    } catch (Exception e) {
+      LOG.error("", e);
+    }
+
     PanelTag p = new PanelTag();
     p.setPageContext(pageContext);
     p.setParent(panelTag);
@@ -192,9 +202,19 @@ public class WizardTag extends BodyTagSupport {
     previousTag.setPageContext(pageContext);
     previousTag.setParent(panelTag);
     previousTag.setLabel("Previous");
-    previousTag.setAction(controller.replace("}", ".previous}"));
+    previousTag.setAction(previous);
+    previousTag.setActionListener(controller.replace("}", ".gotoStep}"));
     previousTag.setDisabled(controller.replace("}", ".previousAvailable}").replace("#{", "#{!"));
     previousTag.doStartTag();
+    {
+      AttributeTag step = new AttributeTag();
+      step.setPageContext(pageContext);
+      step.setParent(previousTag);
+      step.setName("step");
+      step.setValue("" + previousIndex);
+      step.doStartTag();
+      step.doEndTag();
+    }
     previousTag.doEndTag();
 
     ButtonTag nextTag = new ButtonTag();
@@ -203,18 +223,21 @@ public class WizardTag extends BodyTagSupport {
     nextTag.setLabel("Next");
     nextTag.setAction(next);
     nextTag.setActionListener(controller.replace("}", ".next}"));
-    nextTag.setDisabled(controller.replace("}", ".nextAvailable}").replace("#{", "#{!"));
+    nextTag.setDisabled(Boolean.toString(next == null));
+//    nextTag.setDisabled(controller.replace("}", ".nextAvailable}").replace("#{", "#{!"));
     nextTag.doStartTag();
     nextTag.doEndTag();
 
-    ButtonTag finish = new ButtonTag();
-    finish.setPageContext(pageContext);
-    finish.setParent(panelTag);
-    finish.setLabel("Finish");
-    finish.setAction(controller.replace("}", ".finish}"));
-    finish.setDisabled(controller.replace("}", ".finishAvailable}").replace("#{", "#{!"));
-    finish.doStartTag();
-    finish.doEndTag();
+    ButtonTag finishTag = new ButtonTag();
+    finishTag.setPageContext(pageContext);
+    finishTag.setParent(panelTag);
+    finishTag.setLabel("Finish");
+    finishTag.setAction(finish);
+    finishTag.setActionListener(controller.replace("}", ".finish}"));
+    finishTag.setDisabled(Boolean.toString(finish == null));
+//    finish.setDisabled(controller.replace("}", ".finishAvailable}").replace("#{", "#{!"));
+    finishTag.doStartTag();
+    finishTag.doEndTag();
 
     p.doEndTag();
 
@@ -236,6 +259,7 @@ public class WizardTag extends BodyTagSupport {
     super.release();
     controller = null;
     next = null;
+    finish = null;
     outcome = null;
     title = null;
     panelTag = null;
@@ -251,6 +275,12 @@ public class WizardTag extends BodyTagSupport {
   @UIComponentTagAttribute
   public void setNext(String next) {
     this.next = next;
+  }
+
+  @TagAttribute
+  @UIComponentTagAttribute
+  public void setFinish(String finish) {
+    this.finish = finish;
   }
 
   @TagAttribute

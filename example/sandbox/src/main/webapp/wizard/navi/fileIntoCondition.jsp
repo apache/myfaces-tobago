@@ -17,29 +17,35 @@
 
 <%@ taglib uri="http://myfaces.apache.org/tobago/sandbox" prefix="tcs" %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <layout:wizard>
   <jsp:body>
 
-    <tcs:wizard controller="#{controller.wizard}" title="File Into Condition" outcome="fileIntoCondition" next="next">
+    <tcs:wizard controller="#{controller.wizard}" title="File Into Condition" outcome="fileIntoCondition" next="finish">
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="fixed;fixed;fixed;fixed;*"/>
+          <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;*"/>
         </f:facet>
 
-        <tc:out value="file into condition"/>
+        <tc:out value="File Into Condition"/>
 
-        <tc:selectOneChoice>
-          <f:selectItems/>
-        </tc:selectOneChoice>
+        <tx:selectOneChoice label="Header Field">
+          <tc:selectItem itemLabel="To:" itemValue="to" />
+          <tc:selectItem itemLabel="From:" itemValue="from"/>
+          <tc:selectItem itemLabel="Subject:" itemValue="subject"/>
+        </tx:selectOneChoice>
 
-        <tc:selectOneChoice>
-          <f:selectItems/>
-        </tc:selectOneChoice>
+        <tx:selectOneChoice label="Condition">
+          <tc:selectItem itemLabel="contains" itemValue="contains"/>
+          <tc:selectItem itemLabel="equals" itemValue="equals"/>
+        </tx:selectOneChoice>
 
-        <tc:in/>
+        <tx:in label="Value"/>
+
+        <tx:in label="Folder"/>
 
         <tc:cell/>
 

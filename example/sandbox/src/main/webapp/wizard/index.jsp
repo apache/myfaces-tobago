@@ -14,24 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
+
+<%@ taglib uri="http://myfaces.apache.org/tobago/sandbox" prefix="tcs" %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
-<f:view>
+<layout:wizard>
+  <jsp:body>
 
-  <tc:loadBundle basename="demo" var="bundle"/>
+    <tc:panel >
+      <f:facet name="layout">
+        <tc:gridLayout />
+      </f:facet>
 
-  <tc:page label="Sandbox Menu" id="page" width="200px" height="800px">
-    <f:facet name="layout">
-      <tc:gridLayout margin="5px" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
-    </f:facet>
+    <tc:link action="filter" label="Mail Filter Example (separate pages with navigation rules)" />
 
-    <tc:link link="separator.jsp" label="separator.jsp" target="View"/>
+    <tc:link link="wizard/bean/single.jsp" label="Wizard with navigation from model"/>
 
-    <tc:link link="inputSlider.jsp" label="inputSlider.jsp" target="View"/>
+    <tc:link link="wizard.xml" label="wizard.xml"/>
 
-    <tc:link link="wizard/index.jsp" label="Wizard" target="View"/>
-
-    <tc:cell/>
-  </tc:page>
-</f:view>
+    </tc:panel>
+  </jsp:body>
+</layout:wizard>
