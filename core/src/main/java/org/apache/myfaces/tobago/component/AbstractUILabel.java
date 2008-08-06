@@ -27,7 +27,7 @@ import java.io.IOException;
 
 public class AbstractUILabel extends javax.faces.component.UIOutput {
 
-   private static final Log LOG = LogFactory.getLog(AbstractUILabel.class);
+  private static final Log LOG = LogFactory.getLog(AbstractUILabel.class);
 
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
