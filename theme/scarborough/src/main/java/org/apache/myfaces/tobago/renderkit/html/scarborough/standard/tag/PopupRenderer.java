@@ -37,6 +37,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.myfaces.tobago.TobagoConstants;
@@ -141,7 +142,13 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
     }
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeIdAttribute(contentDivId);
-    writer.writeClassAttribute("tobago-popup-content tobago-popup-none");
+    StyleClasses styleClasses = new StyleClasses();
+    styleClasses.addClass("popup", "content");
+    styleClasses.addClass("popup", "none");
+    if (component.isModal()) {
+      styleClasses.addClass("popup", "modal");
+    }
+    writer.writeClassAttribute(styleClasses);
 
     writer.writeAttribute(HtmlAttributes.STYLE, contentStyle.toString(), false);
   }
