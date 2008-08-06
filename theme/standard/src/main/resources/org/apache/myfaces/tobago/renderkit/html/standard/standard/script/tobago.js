@@ -268,11 +268,7 @@ var Tobago = {
     Tobago.startScriptLoaders();
     TbgTimer.endScriptLoaders = new Date();
     Tobago.pageIsComplete = true;
-    if (Tobago.initialPopupId != null) {
-      Tobago.lockPopupPage(Tobago.initialPopupId);
-    } else {
-      Tobago.setFocus();
-    }
+    Tobago.setFocus();
     TbgTimer.endTotal = new Date();
     TbgTimer.log();
   },
@@ -942,29 +938,21 @@ var Tobago = {
       }
     }
     
-    if (!Tobago.pageIsComplete) {
-      // Popup is loaded during page loading
-      Tobago.initialPopupId = id;
-    } else {
-      //LOG.info("setup Popups " + Tobago.openPopups);
-      var contains = false;
-      for(var i = 0; i < Tobago.openPopups.length; i++) {
-        if (Tobago.openPopups[i] == id) {
-          contains = true;
-        }
-      }
-      if (!contains) {
-        // Popup is loaded by ajax
-        Tobago.lockPopupPage(id);
-      }
-    }
     var contains = false;
     for(var i = 0; i < Tobago.openPopups.length; i++) {
       if (Tobago.openPopups[i] == id) {
         contains = true;
       }
     }
-    if (!contains) {
+    if (!contains && modal) {
+      // Popup is loaded by ajax
+      if (Tobago.pageIsComplete) {
+        Tobago.lockPopupPage(id);
+      } else {
+        setTimeout(Tobago.lockPopupPage(id), 100);
+      }
+    }
+    if (!contains && modal) {
       Tobago.openPopups.push(id);
     }
 
