@@ -57,12 +57,16 @@ Building All
  mvn install -Pall-modules
 +----------------------------------------
 
-   Unfortunately you need two artifacts
+   Unfortunately you need two artifacts for the 1.0.x branch
 
    el-api.jar and el-ri.jar
 
    from the facelet distribution 
-   {{{http://facelets.dev.java.net}Facelets Project Page}} 
+   {{{http://facelets.dev.java.net}Facelets Project Page}}
+
+   You have to download the facelet 1.1.12 distribution
+   (the el-api.jar and el-ri.jar has been renamed in the facelets 1.1.13 version,
+   which would require changes in the poms).
 
    Please install the missing public artifacts with
 
