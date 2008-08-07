@@ -160,7 +160,8 @@ public final class AttributeHandler extends TagHandler {
     }
   }
 
-  private void setConverter(FaceletContext faceletContext, UIComponent parent, String nameValue, ValueExpression expression) {
+  private void setConverter(FaceletContext faceletContext, UIComponent parent, String nameValue,
+      ValueExpression expression) {
     if (expression.isLiteralText()) {
       Converter converter =
           faceletContext.getFacesContext().getApplication().createConverter(expression.getExpressionString());
