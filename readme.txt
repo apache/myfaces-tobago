@@ -23,6 +23,9 @@ from the facelet distribution
 
  http://facelets.dev.java.net
 
+You have to download the facelet 1.1.12 distribution
+(the el-api.jar and el-ri.jar has been renamed in the 1.1.13 version). 
+
 Please install the missing public artifacts with
 
  mvn install:install-file -Dfile=el-api.jar -DgroupId=javax.el \
