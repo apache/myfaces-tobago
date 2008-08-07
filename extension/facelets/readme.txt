@@ -4,7 +4,9 @@ Building
 The el jars are not available on
 a public maven repository.
 
-You have to download the facelet 1.1.12 distribution from:
+You have to download the facelet 1.1.12 distribution
+(the el-api.jar and el-ri.jar has been renamed in the 1.1.13 version)
+from:
 
 http://facelets.dev.java.net
 
