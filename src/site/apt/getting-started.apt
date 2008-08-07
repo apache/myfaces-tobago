@@ -61,7 +61,7 @@ Building All
 
    el-api.jar and el-ri.jar
 
-   from the facelet distribution 
+   from the facelets distribution
    {{{http://facelets.dev.java.net}Facelets Project Page}}
 
    You have to download the facelets 1.1.12 distribution
