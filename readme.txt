@@ -15,13 +15,16 @@ For building all the stuff you can use the profile all-modules
 
 mvn install -Pall-modules
 
-Unfortunately you need two artifacts
+Unfortunately you need two artifacts for the 1.0.x branch
 
 el-api.jar and el-ri.jar
 
 from the facelet distribution
 
  http://facelets.dev.java.net
+
+You have to download the facelet 1.1.12 distribution
+(the el-api.jar and el-ri.jar has been renamed in the 1.1.13 version).
 
 Please install the missing public artifacts with
 
