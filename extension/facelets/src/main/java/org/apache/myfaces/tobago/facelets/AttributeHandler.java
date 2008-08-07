@@ -22,9 +22,11 @@ import javax.el.MethodExpression;
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
+import javax.faces.convert.Converter;
 import javax.faces.component.UIComponent;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.ActionSource;
+import javax.faces.component.ValueHolder;
 
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.el.ELAdaptor;
@@ -93,6 +95,8 @@ public final class AttributeHandler extends TagHandler {
           // TODO jsf 1.2
           ((EditableValueHolder) parent).setValidator(new LegacyMethodBinding(methodExpression));
         }
+      } else if (parent instanceof ValueHolder && TobagoConstants.ATTR_CONVERTER.equals(nameValue)) {
+        setConverter(faceletContext, parent, nameValue);  
       } else if (parent instanceof EditableValueHolder
           && TobagoConstants.ATTR_VALUE_CHANGE_LISTENER.equals(nameValue)) {
         MethodExpression methodExpression =
@@ -139,5 +143,30 @@ public final class AttributeHandler extends TagHandler {
       return value.getMethodExpression(faceletContext, returnType, args);
     }
     return null;
+  }
+
+  private void setConverter(FaceletContext faceletContext, UIComponent parent, String nameValue) {
+    // in a composition may be we get the converter expression string from the current variable mapper
+    // the expression can be empty
+    // in this case return nothing
+    if (value.getValue().startsWith("${")) {
+      String myValue = value.getValue().replaceAll("(\\$\\{)|(\\})", "");
+      ValueExpression expression = faceletContext.getVariableMapper().resolveVariable(myValue);
+      if (expression != null) {
+        setConverter(faceletContext, parent, nameValue, expression);
+      }
+    } else {
+      setConverter(faceletContext, parent, nameValue, value.getValueExpression(faceletContext, Object.class));
+    }
+  }
+
+  private void setConverter(FaceletContext faceletContext, UIComponent parent, String nameValue, ValueExpression expression) {
+    if (expression.isLiteralText()) {
+      Converter converter =
+          faceletContext.getFacesContext().getApplication().createConverter(expression.getExpressionString());
+      ((ValueHolder) parent).setConverter(converter);
+    } else {
+      ELAdaptor.setExpression(parent, nameValue, expression);
+    }
   }
 }
