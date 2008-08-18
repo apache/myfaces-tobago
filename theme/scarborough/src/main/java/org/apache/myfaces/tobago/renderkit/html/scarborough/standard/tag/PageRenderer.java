@@ -470,6 +470,9 @@ public class PageRenderer extends PageRendererBase {
     //if (debugMode) {
     writer.writeJavascript("TbgTimer.endBody = new Date();");
     //}
+
+    writer.writeJavascript("setTimeout(\"Tobago.init('" + clientId + "')\", 1000)");
+
     writer.endElement(HtmlConstants.BODY);
     writer.endElement(HtmlConstants.HTML);
 
