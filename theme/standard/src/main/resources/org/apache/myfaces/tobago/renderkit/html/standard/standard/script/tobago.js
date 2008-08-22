@@ -233,6 +233,8 @@ var Tobago = {
     */
   openPopups: new Array(),
 
+  initMarker: false,
+
   // -------- Functions -------------------------------------------------------
 
 
@@ -241,6 +243,12 @@ var Tobago = {
    * Called via onload attribute of body tag
    */
   init: function(pageId) {
+
+    if (this.initMarker) {
+      return;
+    }
+    this.initMarker = true;
+    
 //    new LOG.LogArea({hide: false});
 //    LOG.show();
     if (TbgTimer.endBody) {
@@ -847,7 +855,7 @@ var Tobago = {
   },
 
   /**
-    * Init function for SelectOneradio.
+    * Init function for SelectOneRadio.
     */
   selectOneRadioInit: function(name) {
     var elements = document.getElementsByName(name);
