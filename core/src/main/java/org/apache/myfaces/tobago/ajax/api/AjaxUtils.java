@@ -128,8 +128,8 @@ public class AjaxUtils {
     Map parameterMap = facesContext.getExternalContext().getRequestParameterMap();
     String ajaxComponentIds = (String) parameterMap.get(AjaxPhaseListener.AJAX_COMPONENT_ID);
     if (ajaxComponentIds != null) {
-      if (LOG.isInfoEnabled()) {
-        LOG.info("ajaxComponentIds = \"" + ajaxComponentIds + "\"");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("ajaxComponentIds = \"" + ajaxComponentIds + "\"");
       }
       StringTokenizer tokenizer = new StringTokenizer(ajaxComponentIds, ",");
       Map<String, UIComponent> ajaxComponents = new HashMap<String, UIComponent>(tokenizer.countTokens());
@@ -140,8 +140,8 @@ public class AjaxUtils {
         String ajaxId = tokenizer.nextToken();
         UIComponent ajaxComponent = viewRoot.findComponent(ajaxId);
         if (ajaxComponent != null) {
-          if (LOG.isInfoEnabled()) {
-            LOG.info("ajaxComponent for \"" + ajaxId + "\" = \"" + ajaxComponent + "\"");
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("ajaxComponent for \"" + ajaxId + "\" = \"" + ajaxComponent + "\"");
           }
           ajaxComponents.put(ajaxId, ajaxComponent);
         }
