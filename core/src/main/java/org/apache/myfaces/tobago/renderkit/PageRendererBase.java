@@ -47,7 +47,9 @@ public class PageRendererBase extends LayoutableRendererBase {
       try {
         String name = page.getClientId(facesContext) + SUBCOMPONENT_SEP + "action-position";
         String actionPositionString = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
-        LOG.info("actionPosition='" + actionPositionString + "'");
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("actionPosition='" + actionPositionString + "'");
+        }
         if (StringUtils.isNotEmpty(actionPositionString)) {
           Box actionPosition = new Box(actionPositionString);
           page.setActionPosition(actionPosition);
