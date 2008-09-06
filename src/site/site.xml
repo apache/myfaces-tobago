@@ -39,7 +39,7 @@
       <item name="MyFaces"       href="http://myfaces.apache.org/"/>
       <item name="Tobago"        href="http://myfaces.apache.org/tobago"/>
       <item name="Download"      href="http://myfaces.apache.org/download.html" />
-      <item name="Mailing Lists" href="http://myfaces.apache.org/mail-lists.html" />
+      <item name="Mailing Lists" href="http://myfaces.apache.org/tobago/mail-lists.html" />
     </links>
 
     <menu name="Tobago">
