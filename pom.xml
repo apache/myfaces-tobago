@@ -55,7 +55,7 @@
       <name>Myfaces User List (use [Tobago] prefix)</name>
       <subscribe>users-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>users-unsubscribe@myfaces.apache.org</unsubscribe>
-      <post>do not post to users@myfaces.apache.org unless subscribed</post>
+      <post>List for posting questions about how to use myfaces projects. Subscribe to this list before posting</post>      
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-users</archive>
       <otherArchives>
         <otherArchive>http://www.mail-archive.com/users@myfaces.apache.org/</otherArchive>
@@ -67,7 +67,7 @@
       <name>Myfaces Developer List (use [Tobago] prefix)</name>
       <subscribe>dev-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>dev-unsubscribe@myfaces.apache.org</unsubscribe>
-      <post>do not post to dev@myfaces.apache.org unless subscribed</post>
+      <post>List for posting patches and discussing internal code implementation issues. Subscribe to this list before posting</post>
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-dev</archive>
       <otherArchives>
         <otherArchive>http://www.mail-archive.com/dev@myfaces.apache.org/</otherArchive>
