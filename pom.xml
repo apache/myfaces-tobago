@@ -60,7 +60,7 @@
       <otherArchives>
         <otherArchive>http://www.mail-archive.com/users@myfaces.apache.org/</otherArchive>
         <otherArchive>http://www.nabble.com/MyFaces---Users-f181.html</otherArchive>
-        <otherArchive>http://users.myfaces.markmail.org/</otherArchive>
+        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.users</otherArchive>
       </otherArchives>
     </mailingList>
     <mailingList>
@@ -72,7 +72,7 @@
       <otherArchives>
         <otherArchive>http://www.mail-archive.com/dev@myfaces.apache.org/</otherArchive>
         <otherArchive>http://www.nabble.com/My-Faces---Dev-f182.html</otherArchive>
-        <otherArchive>http://dev.myfaces.markmail.org/</otherArchive>
+        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.dev</otherArchive>
       </otherArchives>
     </mailingList>
     <mailingList>
@@ -82,7 +82,7 @@
       <post>do not post</post>
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-commits</archive>
       <otherArchives>
-        <otherArchive>http://commits.myfaces.markmail.org/</otherArchive>
+        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.commits</otherArchive>
       </otherArchives>
     </mailingList>
     <mailingList>
@@ -92,7 +92,7 @@
       <post>do not post</post>
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-notifications</archive>
       <otherArchives>
-        <otherArchive>http://notifications.myfaces.markmail.org/</otherArchive>
+        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.notifications</otherArchive>
       </otherArchives>
     </mailingList>
     <mailingList>
@@ -101,6 +101,9 @@
       <unsubscribe>announce-unsubscribe@myfaces.apache.org</unsubscribe>
       <post>do not post</post>
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-announce</archive>
+      <otherArchives>
+        <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.announce</otherArchive>
+      </otherArchives>      
     </mailingList>
     <mailingList>
       <name>Myfaces Private (PMC) List</name>
