@@ -109,6 +109,8 @@ public class TobagoDemoController {
 
   private Object tabState2;
 
+  private Object tabState3;
+
   private SheetState sheetState;
 
   private String toolbarIconSize;
@@ -490,6 +492,14 @@ public class TobagoDemoController {
 
   public void setTabState2(Object tabState2) {
     this.tabState2 = tabState2;
+  }
+
+  public Object getTabState3() {
+    return tabState3;
+  }
+
+  public void setTabState3(Object tabState3) {
+    this.tabState3 = tabState3;
   }
 
   public SheetState getSheetState() {

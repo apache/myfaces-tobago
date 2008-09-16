@@ -176,7 +176,8 @@
     &lt;/ul&gt;
   </entry>
 <entry key="tabClientSide">Client side tabbing</entry>
-<entry key="tabServerSide">Server side tabbing</entry>
+<entry key="tabSwitchTypeReloadTag">Server side tabbing (Ajax)</entry>
+<entry key="tabSwitchTypeReloadPage">Server side tabbing (Full Reload)</entry>
 <entry key="tabPlanet">Data of the _Planets</entry>
 <entry key="tabInsolar">In the _Solarsystem</entry>
 <entry key="tabMoons">_Moons</entry>
