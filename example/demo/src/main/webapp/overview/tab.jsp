@@ -33,7 +33,7 @@
 
       <tc:tabGroup id="tabs" state="#{demo.tabState0}" >
 
-        <tc:tab label="#{overviewBundle.tabClientSide}" >
+        <tc:tab label="#{overviewBundle.tabSwitchTypeClient}" >
           <f:facet name="layout"><tc:gridLayout /></f:facet>
           <tc:tabGroup id="tabMarsOuterForm" state="#{demo.tabState1}" >
             <tc:tab label="#{overviewBundle.tabPlanet}">

@@ -122,7 +122,7 @@
 <!--  tab -->
   <entry key="tab_sampleTitle">Tab Beispiel</entry>
   <entry key="tab_text">Das Tab-Control stellt so genannte Tab-Panels zur Verfügung. &lt;ul style="margin-top: 2px;"&gt; &lt;li style="line-height: 130%;"&gt;Die Steuerung kann server- oder clientseitig erfolgen.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Tab-Controls können verschachtelt werden.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Innerhalb von Tab-Controls können wiederum   beliebige Controls angeordnet werden.&lt;/li&gt; &lt;/ul&gt;</entry>
-  <entry key="tabClientSide">Clientseitiges Umschalten</entry>
+  <entry key="tabSwitchTypeClient">Clientseitiges Umschalten</entry>
   <entry key="tabSwitchTypeReloadTag">Serverseitges Umschalten per Ajax</entry>
   <entry key="tabSwitchTypeReloadPage">Vollständig neu laden</entry>
   <entry key="tabPlanet">_Planetendaten</entry>
