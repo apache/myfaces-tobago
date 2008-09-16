@@ -48,6 +48,18 @@ public class WizardImpl implements Wizard {
     LOG.debug("gotoStep: " + index);
   }
 
+  public String previous() {
+    String outcome = getPreviousStep().getOutcome();
+    if (index > 0) {
+      index--;
+    } else {
+      LOG.error("Previous not available!");
+    }
+
+    LOG.debug("gotoStep: " + index);
+    return outcome;
+  }
+
   public final boolean isPreviousAvailable() {
     return getIndex() > 0;
   }
@@ -83,12 +95,12 @@ public class WizardImpl implements Wizard {
     return course;
   }
 
-  public void registerOutcome(String outcome, String title) {
+  public void register() {
 
     if (index == course.size()) { // this is a new page
-      course.add(new WizardStep(outcome, title, index));
+      course.add(new WizardStep(index));
     } else if (index < course.size()) {
-      course.set(index, new WizardStep(outcome, title, index));
+      course.set(index, new WizardStep(index));
     } else {
       throw new IllegalStateException("Index too large for course: index="
           + index + " course.size()=" + course.size());
@@ -104,5 +116,13 @@ public class WizardImpl implements Wizard {
     } else {
       return null;
     }
+  }
+  public WizardStep getCurrentStep() {
+      return course.get(index);
+  }
+
+  public void removeForwardSteps() {
+    // todo
+    LOG.error("Not implemented yet");
   }
 }

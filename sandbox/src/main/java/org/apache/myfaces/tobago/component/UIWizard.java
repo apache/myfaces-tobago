@@ -17,15 +17,92 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.event.FacesEventWrapper;
 import org.apache.myfaces.tobago.model.Wizard;
 
+import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
+import java.io.IOException;
 
 public class UIWizard extends UIPanel {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Wizard";
 
+  // todo: how to use a auto-generated controller?
   private Wizard controller;
+
+  private String var;
+
+  private String outcome;
+  private String title;
+  private Boolean allowJumpForward;
+
+  public void init() {
+    Wizard wizard = getController();
+    wizard.register();
+    if (outcome != null) {
+       getController().getCurrentStep().setOutcome(outcome);
+    }
+    if (title != null) {
+       getController().getCurrentStep().setTitle(title);
+    }
+  }
+
+  public void processDecodes(FacesContext facesContext) {
+    facesContext.getExternalContext().getRequestMap().put(var, getController());
+    super.processDecodes(facesContext);
+  }
+
+  public void decode(FacesContext facesContext) {
+    super.decode(facesContext);
+    facesContext.getExternalContext().getRequestMap().remove(var);
+  }
+
+  public void queueEvent(FacesEvent event) {
+      super.queueEvent(new FacesEventWrapper(event, this));
+  }
+
+  public void broadcast(FacesEvent event) throws AbortProcessingException {
+    if (event instanceof FacesEventWrapper) {
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      facesContext.getExternalContext().getRequestMap().put(var, getController());
+      FacesEvent originalEvent = ((FacesEventWrapper) event).getWrappedFacesEvent();
+      originalEvent.getComponent().broadcast(originalEvent);
+      facesContext.getExternalContext().getRequestMap().remove(var);
+    } else {
+      super.broadcast(event);
+    }
+  }
+
+  public void encodeBegin(FacesContext facesContext) throws IOException {
+    facesContext.getExternalContext().getRequestMap().put(var, getController());
+    super.encodeBegin(facesContext);
+  }
+
+
+  public void encodeEnd(FacesContext facesContext) throws IOException {
+    super.encodeEnd(facesContext);
+    facesContext.getExternalContext().getRequestMap().remove(var);
+  }
+
+  @Override
+  public Object saveState(FacesContext facesContext) {
+    Object[] state = new Object[3];
+    state[0] = super.saveState(facesContext);
+    state[1] = var;
+    state[2] = controller;
+    return state;
+  }
+
+  @Override
+  public void restoreState(FacesContext facesContext, Object state) {
+    Object[] values = (Object[]) state;
+    super.restoreState(facesContext, values[0]);
+    var = (String) values[1];
+    controller = (Wizard) values[2];
+  }
 
   public Wizard getController() {
     if (controller != null) {
@@ -41,5 +118,38 @@ public class UIWizard extends UIPanel {
 
   public void setController(Wizard controller) {
     this.controller = controller;
+  }
+
+  public String getVar() {
+    return var;
+  }
+
+  public void setVar(String var) {
+    this.var = var;
+  }
+
+  public String getOutcome() {
+    return outcome;
+  }
+
+  public void setOutcome(String outcome) {
+    this.outcome = outcome;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public Boolean isAllowJumpForward() {
+    return allowJumpForward != null ? allowJumpForward : false;
+  }
+
+  public void setAllowJumpForward(Boolean allowJumpForward) {
+    this.allowJumpForward = allowJumpForward;
+//    getController().removeForwardSteps();
   }
 }

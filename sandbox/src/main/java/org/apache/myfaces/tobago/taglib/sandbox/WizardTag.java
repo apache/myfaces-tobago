@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  * limitations under the License.
  */
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
@@ -25,17 +24,16 @@ import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.UIWizard;
 import org.apache.myfaces.tobago.internal.taglib.AttributeTag;
 import org.apache.myfaces.tobago.internal.taglib.ButtonTag;
 import org.apache.myfaces.tobago.internal.taglib.CellTag;
 import org.apache.myfaces.tobago.internal.taglib.GridLayoutTag;
 import org.apache.myfaces.tobago.internal.taglib.OutTag;
 import org.apache.myfaces.tobago.internal.taglib.PanelTag;
-import org.apache.myfaces.tobago.model.Wizard;
+import org.apache.myfaces.tobago.internal.taglib.WizardControllerTag;
 import org.apache.myfaces.tobago.model.WizardStep;
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
 
-import javax.faces.context.FacesContext;
 import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -53,23 +51,31 @@ public class WizardTag extends BodyTagSupport {
   private String finish;
   private String outcome;
   private String title;
+  private String allowJumpForward;
 
-//  private WizardControllerTag controllerTag;
+  private WizardControllerTag controllerTag;
   private PanelTag panelTag;
 
   @Override
   public int doStartTag() throws JspException {
-/*
+
     controllerTag = new WizardControllerTag();
     controllerTag.setPageContext(pageContext);
     controllerTag.setParent(getParent());
     controllerTag.setController(controller);
+
+    controllerTag.setOutcome(outcome);
+    controllerTag.setTitle(title);
+    controllerTag.setAllowJumpForward(allowJumpForward);
+
+    // todo: change "w" to ? or make it configurable or settable over this tag? Whould this be helpful?
+    controllerTag.setVar("w");
+
     controllerTag.doStartTag();
-*/
+
     panelTag = new PanelTag();
     panelTag.setPageContext(pageContext);
-    panelTag.setParent(getParent());
-//    panelTag.setParent(controllerTag);
+    panelTag.setParent(controllerTag);
 /* todo
     if (rendered != null) {
       panelTag.setRendered(rendered);
@@ -93,23 +99,32 @@ public class WizardTag extends BodyTagSupport {
 
     facetTag.doEndTag();
 
-    processTrain();
-
     return super.doStartTag();
+  }
+
+  public void doInitBody() throws JspException {
+    super.doInitBody();
+    processTrain();
   }
 
   private void processTrain() throws JspException {
 
-    List<WizardStep> course = null;
-    try {
+    // XXX is this possible with facelets?
+
+    UIWizard uiWizard = (UIWizard) controllerTag.getComponentInstance();
+    uiWizard.init();
+    List<WizardStep> course = uiWizard.getController().getCourse();
+
+/*    try {
+      // fixme
       Object bean = VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), "controller");
       Wizard wizard = (Wizard) PropertyUtils.getProperty(bean, "wizard");
-      wizard.registerOutcome(outcome, title);
+//      wizard.registerOutcome(outcome, title, allowJumpForward);
       course = wizard.getCourse();
     } catch (Exception e) {
       LOG.error("", e);
     }
-
+*/
     PanelTag p = new PanelTag();
     p.setPageContext(pageContext);
     p.setParent(panelTag);
@@ -140,7 +155,8 @@ public class WizardTag extends BodyTagSupport {
       button.setPageContext(pageContext);
       button.setParent(p);
       button.setAction(info.getOutcome());
-      button.setActionListener(controller.replace("}", ".gotoStep}"));
+      button.setActionListener("#{w.gotoStep}");
+//      button.setActionListener(controller.replace("}", ".gotoStep}"));
       button.setLabel(info.getTitle());
       button.doStartTag();
 
@@ -157,7 +173,8 @@ public class WizardTag extends BodyTagSupport {
     OutTag spacer = new OutTag();
     spacer.setPageContext(pageContext);
     spacer.setParent(p);
-    spacer.setValue(controller.replace("}", ".index}"));
+    spacer.setValue("#{w.index}");
+//  spacer.setValue(controller.replace("}", ".index}"));
     spacer.doStartTag();
     spacer.doEndTag();
 
@@ -166,19 +183,23 @@ public class WizardTag extends BodyTagSupport {
 
   @Override
   public int doEndTag() throws JspException {
-
+/*
     String previous = null;
     int previousIndex = 0;
+    boolean previousAvailable = false;
     try {
-      Object bean = VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), "controller");
-      Wizard wizard = (Wizard) PropertyUtils.getProperty(bean, "wizard");
+      UIWizard uiWizard = (UIWizard) controllerTag.getComponentInstance();
+      Wizard wizard = uiWizard.getController();
+//      Object bean = VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), "controller");
+//      Wizard wizard = (Wizard) PropertyUtils.getProperty(bean, "wizard");
       wizard.registerOutcome(outcome, title);
       WizardStep step = wizard.getPreviousStep();
       previous = step.getOutcome();
       previousIndex = step.getIndex();
+      previousAvailable = wizard.isPreviousAvailable();
     } catch (Exception e) {
       LOG.error("", e);
-    }
+    }*/
 
     PanelTag p = new PanelTag();
     p.setPageContext(pageContext);
@@ -205,12 +226,14 @@ public class WizardTag extends BodyTagSupport {
     ButtonTag previousTag = new ButtonTag();
     previousTag.setPageContext(pageContext);
     previousTag.setParent(panelTag);
-    previousTag.setLabel("Previous");
-    previousTag.setAction(previous);
-    previousTag.setActionListener(controller.replace("}", ".gotoStep}"));
-    previousTag.setDisabled(controller.replace("}", ".previousAvailable}").replace("#{", "#{!"));
+    previousTag.setLabel("x4 Previous");
+//    previousTag.setAction(previous);
+    previousTag.setAction("#{w.previous}");
+//    previousTag.setActionListener("#{w.previous}");
+//    previousTag.setDisabled(Boolean.toString(!previousAvailable));
+    previousTag.setDisabled("#{!w.previousAvailable}");
     previousTag.doStartTag();
-
+/*
     AttributeTag step = new AttributeTag();
     step.setPageContext(pageContext);
     step.setParent(previousTag);
@@ -218,7 +241,7 @@ public class WizardTag extends BodyTagSupport {
     step.setValue("" + previousIndex);
     step.doStartTag();
     step.doEndTag();
-
+*/
     previousTag.doEndTag();
 
     ButtonTag nextTag = new ButtonTag();
@@ -226,7 +249,7 @@ public class WizardTag extends BodyTagSupport {
     nextTag.setParent(panelTag);
     nextTag.setLabel("Next");
     nextTag.setAction(next);
-    nextTag.setActionListener(controller.replace("}", ".next}"));
+    nextTag.setActionListener("#{w.next}");
     nextTag.setDisabled(Boolean.toString(next == null));
 //    nextTag.setDisabled(controller.replace("}", ".nextAvailable}").replace("#{", "#{!"));
     nextTag.doStartTag();
@@ -237,7 +260,7 @@ public class WizardTag extends BodyTagSupport {
     finishTag.setParent(panelTag);
     finishTag.setLabel("Finish");
     finishTag.setAction(finish);
-    finishTag.setActionListener(controller.replace("}", ".finish}"));
+    finishTag.setActionListener("#{w.finish}");
     finishTag.setDisabled(Boolean.toString(finish == null));
 //    finish.setDisabled(controller.replace("}", ".finishAvailable}").replace("#{", "#{!"));
     finishTag.doStartTag();
@@ -247,7 +270,7 @@ public class WizardTag extends BodyTagSupport {
 
     panelTag.doEndTag();
 
-//    controllerTag.doEndTag();
+    controllerTag.doEndTag();
 
     return super.doEndTag();
   }
@@ -301,4 +324,9 @@ public class WizardTag extends BodyTagSupport {
     this.title = title;
   }
 
+  @TagAttribute
+  @UIComponentTagAttribute(type="java.lang.Boolean")
+  public void setAllowJumpForward(String allowJumpForward) {
+    this.allowJumpForward = allowJumpForward;
+  }
 }

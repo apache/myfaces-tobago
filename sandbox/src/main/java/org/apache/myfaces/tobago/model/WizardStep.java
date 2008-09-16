@@ -28,9 +28,7 @@ public class WizardStep {
   private String title;
   private int index;
 
-  public WizardStep(String outcome, String title, int index) {
-    this.outcome = outcome;
-    this.title = title;
+  public WizardStep(int index) {
     this.index = index;
   }
 

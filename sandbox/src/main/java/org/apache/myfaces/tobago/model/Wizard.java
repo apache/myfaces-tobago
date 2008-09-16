@@ -35,6 +35,8 @@ public interface Wizard {
    */
   void next(ActionEvent event);
 
+  void gotoStep(ActionEvent event);
+
   /**
    * Indicates if the action previous is available.
    * 
@@ -58,7 +60,11 @@ public interface Wizard {
 
   List<WizardStep> getCourse();
 
-  void registerOutcome(String outcome, String title);
+  void register();
 
   WizardStep getPreviousStep();
+
+  WizardStep getCurrentStep();
+
+  void removeForwardSteps();
 }

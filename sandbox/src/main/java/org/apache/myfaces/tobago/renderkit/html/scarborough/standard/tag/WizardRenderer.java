@@ -17,8 +17,20 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.component.UIWizard;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
 
 public class WizardRenderer extends LayoutableRendererBase {
 
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    UIWizard wizard = (UIWizard) component;
+    facesContext.getExternalContext().getRequestMap().put(wizard.getVar(), wizard.getController());
+    super.prepareRender(facesContext, component);
+    // xxx can't be removed here, because there is no looping over children possible here.
+//    facesContext.getExternalContext().getRequestMap().remove(wizard.getVar());
+  }
 }

@@ -79,7 +79,7 @@
           <execution>
             <id>tobago-tlds</id>
             <goals><goal>process</goal></goals>
-            <phase>compile</phase>
+            <phase>generate-resources</phase>
             <configuration>
               <targetFiles>
                 <targetFile>org/apache/myfaces/tobago/taglib/sandbox/tobago-sandbox.tld</targetFile>
@@ -89,6 +89,7 @@
                 <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
                 <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
                 <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
+                <exclude>org/apache/myfaces/tobago/taglib/sandbox/WizardTag.java</exclude>
               </excludes>
               <additionalSourceRoots>
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
@@ -114,6 +115,7 @@
                 <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
                 <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
                 <exclude>org/apache/myfaces/tobago/taglib/sandbox/package-info.java</exclude>
+                <exclude>org/apache/myfaces/tobago/taglib/sandbox/WizardTag.java</exclude>
               </excludes>
               <additionalSourceRoots>
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
@@ -175,6 +177,10 @@
           <target>${maven.compile.target}</target>
           <encoding>${maven.compile.encoding}</encoding>
           <showWarnings>true</showWarnings>
+          <excludes>
+            <exclude>workaround-because-otherwise-this-will-be-excluded-in-the-next-step</exclude>
+            <exclude>org/apache/myfaces/tobago/taglib/sandbox/WizardTag.java</exclude>
+          </excludes>
         </configuration>
         <executions>
           <execution>
@@ -189,6 +195,7 @@
                 <include>org/apache/myfaces/tobago/internal/taglib/*</include>
                 <include>org/apache/myfaces/tobago/component/*</include>
                 <include>org/apache/myfaces/tobago/renderkit/*</include>
+                <include>org/apache/myfaces/tobago/taglib/sandbox/WizardTag.java</include>
               </includes>
               <excludes>
               </excludes>

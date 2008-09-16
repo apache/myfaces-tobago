@@ -23,7 +23,8 @@
 <layout:wizard>
   <jsp:body>
 
-    <tcs:wizard controller="#{controller.wizard}" title="New Filter" outcome="filter" next="#{controller.createFilter}">
+    <tcs:wizard controller="#{controller.wizard}" title="New Filter" outcome="filter" next="#{controller.createFilter}"
+        allowJumpForward="true">
 
       <tc:selectOneRadio value="#{controller.filterType}" required="true">
         <tc:selectItem itemLabel="File Into" itemValue="fileInto"/>

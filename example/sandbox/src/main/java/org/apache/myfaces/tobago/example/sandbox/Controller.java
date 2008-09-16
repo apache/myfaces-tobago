@@ -57,12 +57,13 @@ public class Controller {
   }
 
   public String createFilter() {
+    LOG.info("Filter type: '" + filterType + "'");
     if ("fileInto".equals(filterType)) {
       return "fileIntoCondition";
     } else if ("forward".equals(filterType)) {
       return "forwardCondition";
     }
-    throw new RuntimeException("no filter");
+    throw new RuntimeException("No filter type set.");
   }
 
   public String getCurrentTime() {

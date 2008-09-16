@@ -23,7 +23,7 @@
 <layout:wizard>
   <jsp:body>
 
-    <tcs:wizard controller="#{controller.wizard}" title="Forward Condition" outcome="forwardCondition" next="next">
+    <tcs:wizard controller="#{controller.wizard}" title="Forward Condition" outcome="forwardCondition" next="finish">
 
       <tc:out value="Forward Condition"/>
 

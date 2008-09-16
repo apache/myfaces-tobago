@@ -41,4 +41,32 @@ public interface WizardControllerTagDeclaration extends HasIdBindingAndRendered 
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.Wizard",
       expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setController(String controller);
+
+  /**
+   * Name of a request-scope attribute under which the model data will be exposed.
+   */
+  @TagAttribute(required = true)
+  @UIComponentTagAttribute(expression = DynamicExpression.PROHIBITED)
+  void setVar(String var);
+
+  /**
+   * Outcome to navigate to this page.
+   */
+  @TagAttribute(required = true)
+  @UIComponentTagAttribute(expression = DynamicExpression.PROHIBITED)
+  void setOutcome(String outcome);
+
+  /**
+   * Title of this page
+   */
+  @TagAttribute
+  @UIComponentTagAttribute
+  void setTitle(String title);
+
+  /**
+   * Is a jump forward to folling pages allowed?
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  void setAllowJumpForward(String allowJumpForward);
 }
