@@ -109,6 +109,12 @@
       <taglib-uri>http://myfaces.apache.org/tobago/example/demo</taglib-uri>
       <taglib-location>/WEB-INF/demo.tld</taglib-location>
     </taglib>
+
+  <!--To make Umlauts possible on JSP-Pages-->
+    <jsp-property-group>
+      <url-pattern>*.jsp</url-pattern>
+      <page-encoding>UTF-8</page-encoding>
+    </jsp-property-group>
   </jsp-config>
 
 </web-app>
