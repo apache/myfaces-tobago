@@ -33,7 +33,7 @@
 
       <tc:tabGroup id="tabs" state="#{demo.tabState0}" >
 
-        <tc:tab label="#{overviewBundle.tabClientSide}" >
+        <tc:tab label="#{overviewBundle.tabSwitchTypeClient}" >
           <f:facet name="layout"><tc:gridLayout /></f:facet>
           <tc:tabGroup id="tabMarsOuterForm" state="#{demo.tabState1}" >
             <tc:tab label="#{overviewBundle.tabPlanet}">
@@ -76,9 +76,56 @@
 
         </tc:tab>
 
-        <tc:tab label="#{overviewBundle.tabServerSide}" >
+        <tc:tab label="#{overviewBundle.tabSwitchTypeReloadTag}" >
           <f:facet name="layout"><tc:gridLayout /></f:facet>
           <tc:tabGroup id="tabMarsOuterForm2" switchType="reloadTab" state="#{demo.tabState2}" >
+
+            <tc:tabChangeListener type="org.apache.myfaces.tobago.example.demo.actionlistener.SimpleTabChangeListener"
+                binding="#{demo.tabChangeListener}" />
+
+            <tc:tab label="#{overviewBundle.tabPlanet}">
+              <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
+              <tc:cell />
+              <tx:in value="#{demo.solar.planets[0].diameter}"
+                  label="#{overviewBundle.solarPlanetDiameter}" />
+              <tx:in value="#{demo.solar.planets[0].mass}"
+                  label="#{overviewBundle.solarPlanetMass}" />
+              <tc:cell />
+            </tc:tab>
+            <tc:tab label="#{overviewBundle.tabInsolar}">
+              <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>
+              <tc:cell />
+              <tx:in value="#{demo.solar.planets[0].sunDistance}"
+                 label="#{overviewBundle.solarPlanetSunDistance}" />
+              <tx:in value="#{demo.solar.planets[0].timeOfCirculation}"
+                 label="#{overviewBundle.solarPlanetTimeOfCirculation}" />
+              <tc:cell />
+            </tc:tab>
+            <tc:tab label="#{overviewBundle.tabMoons}">
+              <f:facet name="layout"><tc:gridLayout /></f:facet>
+              <tc:sheet value="#{demo.solar.planets[0].moons}"
+                columns="2*;1*;2*;2*" var="moon">
+                <tc:column label="#{overviewBundle.solarArrayName}" id="name" sortable="true">
+                  <tc:out value="#{moon.name}" id="t_name" />
+                </tc:column>
+                <tc:column label="#{overviewBundle.solarArrayNumber}" id="number" sortable="false" align="center" >
+                  <tc:out value="#{moon.number}" id="t_number"/>
+                </tc:column>
+                <tc:column label="#{overviewBundle.solarArrayDistance}" sortable="true" align="right" >
+                  <tc:out value="#{moon.distance}" id="t_distance" />
+                </tc:column>
+                <tc:column label="#{overviewBundle.solarArrayPeriod}" sortable="true" align="right" >
+                  <tc:out value="#{moon.period}" id="t_period" />
+                </tc:column>
+              </tc:sheet>
+            </tc:tab>
+          </tc:tabGroup>
+
+        </tc:tab>
+
+        <tc:tab label="#{overviewBundle.tabSwitchTypeReloadPage}" >
+          <f:facet name="layout"><tc:gridLayout /></f:facet>
+          <tc:tabGroup id="tabMarsOuterForm3" switchType="reloadPage" state="#{demo.tabState3}" >
 
             <tc:tabChangeListener type="org.apache.myfaces.tobago.example.demo.actionlistener.SimpleTabChangeListener"
                 binding="#{demo.tabChangeListener}" />

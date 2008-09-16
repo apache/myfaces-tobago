@@ -25,10 +25,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_IN;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIToolBar;
-import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
@@ -36,6 +35,7 @@ import org.apache.myfaces.tobago.example.demo.model.solar.Solar;
 import org.apache.myfaces.tobago.example.demo.model.solar.SolarObject;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.model.TreeState;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIColumn;
@@ -109,6 +109,8 @@ public class TobagoDemoController {
   private Object tabState1;
 
   private Object tabState2;
+
+  private Object tabState3;
 
   private SheetState sheetState;
 
@@ -491,6 +493,14 @@ public class TobagoDemoController {
 
   public void setTabState2(Object tabState2) {
     this.tabState2 = tabState2;
+  }
+
+  public Object getTabState3() {
+    return tabState3;
+  }
+
+  public void setTabState3(Object tabState3) {
+    this.tabState3 = tabState3;
   }
 
   public SheetState getSheetState() {
