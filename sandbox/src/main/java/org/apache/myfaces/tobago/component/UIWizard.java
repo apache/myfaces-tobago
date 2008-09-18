@@ -17,16 +17,18 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.OnComponentCreated;
 import org.apache.myfaces.tobago.event.FacesEventWrapper;
 import org.apache.myfaces.tobago.model.Wizard;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import java.io.IOException;
 
-public class UIWizard extends UIPanel {
+public class UIWizard extends UIPanel implements OnComponentCreated {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Wizard";
 
@@ -39,31 +41,24 @@ public class UIWizard extends UIPanel {
   private String title;
   private Boolean allowJumpForward;
 
-  public void init() {
-    Wizard wizard = getController();
-    wizard.register();
-    if (outcome != null) {
-       getController().getCurrentStep().setOutcome(outcome);
-    }
-    if (title != null) {
-       getController().getCurrentStep().setTitle(title);
-    }
-  }
-
+  @Override
   public void processDecodes(FacesContext facesContext) {
     facesContext.getExternalContext().getRequestMap().put(var, getController());
     super.processDecodes(facesContext);
   }
 
+  @Override
   public void decode(FacesContext facesContext) {
     super.decode(facesContext);
     facesContext.getExternalContext().getRequestMap().remove(var);
   }
 
+  @Override
   public void queueEvent(FacesEvent event) {
       super.queueEvent(new FacesEventWrapper(event, this));
   }
 
+  @Override
   public void broadcast(FacesEvent event) throws AbortProcessingException {
     if (event instanceof FacesEventWrapper) {
       FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -76,15 +71,28 @@ public class UIWizard extends UIPanel {
     }
   }
 
+  @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
     facesContext.getExternalContext().getRequestMap().put(var, getController());
     super.encodeBegin(facesContext);
   }
 
 
+  @Override
   public void encodeEnd(FacesContext facesContext) throws IOException {
     super.encodeEnd(facesContext);
     facesContext.getExternalContext().getRequestMap().remove(var);
+  }
+
+  public void onComponentCreated(FacesContext context, UIComponent component) {
+    Wizard wizard = getController();
+    wizard.register();
+    if (outcome != null) {
+       getController().getCurrentStep().setOutcome(outcome);
+    }
+    if (title != null) {
+       getController().getCurrentStep().setTitle(title);
+    }
   }
 
   @Override

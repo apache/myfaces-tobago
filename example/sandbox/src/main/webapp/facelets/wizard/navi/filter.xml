@@ -1,4 +1,4 @@
-<%--
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,17 +13,23 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
---%>
+-->
 
-<%@ taglib uri="http://myfaces.apache.org/tobago/sandbox" prefix="tcs" %>
-<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+<f:view xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:tc="http://myfaces.apache.org/tobago/component"
+        xmlns:tx="http://myfaces.apache.org/tobago/facelet-extension"
+        xmlns:tcs="http://myfaces.apache.org/tobago/sandbox"
+        xmlns:tfs="http://myfaces.apache.org/tobago/facelet-sandbox">
+  <tc:loadBundle basename="demo" var="bundle"/>
 
-<layout:wizard>
-  <jsp:body>
+  <tc:page label="Sandbox - Wizard" id="page"
+           width="500px" height="800px">
+    <f:facet name="layout">
+      <tc:gridLayout margin="10px"/>
+    </f:facet>
 
-    <tcs:wizardController var="w" controller="#{controller.wizard}" title="New Filter" outcome="filter"
+    <tfs:wizardController var="w" controller="#{controller.wizard}" title="New Filter" outcome="filter"
                           allowJumpForward="true">
 
       <tc:panel>
@@ -31,7 +37,7 @@
           <tc:gridLayout rows="fixed;*;fixed"/>
         </f:facet>
 
-        <tcs:wizardTrain wizard="w" controller="#{controller.wizard}"/>
+        <!--<tfs:wizardTrain wizard="w" controller="#{controller.wizard}"/>-->
 
         <tc:selectOneRadio value="#{controller.filterType}" required="true">
           <tc:selectItem itemLabel="File Into" itemValue="fileInto"/>
@@ -44,31 +50,18 @@
           </f:facet>
 
           <tc:cell/>
-          <tcs:wizardPrevious wizard="w" label="Vorherige"/>
-          <tcs:wizardNext wizard="w" label="Nächste" action="#{controller.createFilter}"/>
-          <tcs:wizardLeave wizard="w" label="Fertig"/>
-          <tcs:wizardLeave wizard="w" label="Cancel"/>
+          <!--<tfs:wizardPrevious wizard="w" label="Vorherige"/>-->
+          <!--<tfs:wizardNext wizard="w" label="Nächste" action="#{controller.createFilter}"/>-->
+          <!--<tfs:wizardLeave wizard="w" label="Fertig"/>-->
+          <!--<tfs:wizardLeave wizard="w" label="Cancel"/>-->
 
         </tc:panel>
 
       </tc:panel>
 
-    </tcs:wizardController>
+    </tfs:wizardController>
 
-    <%--
-    <tcs:wizardStep controller="#{controller.wizard}" var="w" title="New Filter" outcome="filter" allowJumpForward="true">
 
-    <tcs:wizardTrain wizard="w" />
 
-      <tc:out value="Click finish for activation."/>
-
-    <tcs:wizardPrevious wizard="w" />
-    <tcs:wizardNext wizard="w" action="#{controller.createFilter}" />
-    <tcs:wizardFinish wizard="w" />
-    <tcs:wizardCancel wizard="w" />
-
-    </tcs:wizardStep>
---%>
-
-  </jsp:body>
-</layout:wizard>
+  </tc:page>
+</f:view>

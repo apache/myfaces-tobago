@@ -23,11 +23,56 @@
 <layout:wizard>
   <jsp:body>
 
-    <tcs:wizard controller="#{controller.wizard}" title="Finish" outcome="finish" finish="index">
+    <tcs:wizardController var="w" controller="#{controller.wizard}" title="Finish" outcome="finish">
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout rows="fixed;*;fixed"/>
+        </f:facet>
 
-      <tc:out value="Click finish for activation."/>
+        <tcs:wizardTrain wizard="w" controller="#{controller.wizard}" />
 
-    </tcs:wizard>
+        <tc:out value="Click finish for activation."/>
+
+        <tc:panel>
+          <f:facet name="layout">
+            <tc:gridLayout columns="*;fixed;fixed;fixed;fixed"/>
+          </f:facet>
+
+          <tc:cell/>
+          <tcs:wizardPrevious wizard="w" label="Vorherige"/>
+          <tcs:wizardNext wizard="w" label="Nächste"/>
+          <tcs:wizardLeave wizard="w" label="Fertig" action="index"/>
+          <tcs:wizardLeave wizard="w" label="Cancel"/>
+
+        </tc:panel>
+
+      </tc:panel>
+
+    </tcs:wizardController>
 
   </jsp:body>
 </layout:wizard>
+<%--
+<layout:wizard>
+  <jsp:body>
+
+    <tcs:wizard controller="#{controller.wizard}" title="File Into Condition" outcome="fileIntoCondition" next="finish"></tcs:wizard>
+    <tcs:wizard controller="#{controller.wizard}" title="New Filter" outcome="filter" next="#{controller.createFilter}"></tcs:wizard>
+
+    <tcs:wizardStep controller="#{controller.wizard}" var="w" title="Finish" outcome="finish">
+
+
+    <tcs:wizardTrain controller="#{controller.wizard}" title="Finish" outcome="finish" finish="index" />
+
+      <tc:out value="Click finish for activation."/>
+
+    <tcs:wizardPrevious controller="#{controller.wizard}" title="Finish" outcome="finish" finish="index" />
+    <tcs:wizardNext controller="#{controller.wizard}" title="Finish" outcome="finish" finish="index" />
+    <tcs:wizardFinish controller="#{controller.wizard}" title="Finish" outcome="finish" finish="index" />
+    <tcs:wizardCancel controller="#{controller.wizard}" title="Finish" outcome="finish" finish="index" />
+
+    </tcs:wizardStep>
+
+  </jsp:body>
+</layout:wizard>
+--%>

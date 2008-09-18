@@ -24,11 +24,13 @@
 <layout:wizard>
   <jsp:body>
 
-    <tcs:wizard controller="#{controller.wizard}" title="File Into Condition" outcome="fileIntoCondition" next="finish">
+    <tcs:wizardController var="w" controller="#{controller.wizard}" title="File Into Condition" outcome="fileIntoCondition">
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;*"/>
+          <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;*;fixed"/>
         </f:facet>
+
+        <tcs:wizardTrain wizard="w" controller="#{controller.wizard}" />
 
         <tc:out value="File Into Condition"/>
 
@@ -43,14 +45,27 @@
           <tc:selectItem itemLabel="equals" itemValue="equals"/>
         </tx:selectOneChoice>
 
-        <tx:in label="Value"/>
+        <tx:in label="Value" value="#{controller.filterValue}"/>
 
         <tx:in label="Folder"/>
 
         <tc:cell/>
 
+        <tc:panel>
+          <f:facet name="layout">
+            <tc:gridLayout columns="*;fixed;fixed;fixed;fixed"/>
+          </f:facet>
+
+          <tc:cell/>
+          <tcs:wizardPrevious wizard="w" label="Vorherige"/>
+          <tcs:wizardNext wizard="w" label="Nächste" action="finish"/>
+          <tcs:wizardLeave wizard="w" label="Fertig"/>
+          <tcs:wizardLeave wizard="w" label="Cancel"/>
+
+        </tc:panel>
+
       </tc:panel>
-    </tcs:wizard>
+    </tcs:wizardController>
 
   </jsp:body>
 </layout:wizard>

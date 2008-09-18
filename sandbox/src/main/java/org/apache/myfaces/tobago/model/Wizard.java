@@ -50,7 +50,7 @@ public interface Wizard {
    * 
    * @return The outcome after the method was executed
    */
-  void finish(ActionEvent event);
+  void leave(ActionEvent event);
 
   /**
    * Managed bean (controller) method to execute to quit (not save and exit) the

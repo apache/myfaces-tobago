@@ -64,9 +64,9 @@ public class WizardImpl implements Wizard {
     return getIndex() > 0;
   }
 
-  public final void finish(ActionEvent event) {
+  public final void leave(ActionEvent event) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("finish");
+      LOG.debug("leave");
     }
 
     reset();

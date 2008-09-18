@@ -89,8 +89,8 @@
                 <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
                 <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
                 <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
-                <exclude>org/apache/myfaces/tobago/taglib/sandbox/WizardTag.java</exclude>
-              </excludes>
+<!--                <exclude>org/apache/myfaces/tobago/taglib/sandbox/WizardTag.java</exclude>
+-->              </excludes>
               <additionalSourceRoots>
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
               </additionalSourceRoots>

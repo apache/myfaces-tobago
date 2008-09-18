@@ -33,11 +33,7 @@ public class TobagoSandboxTagLibrary extends AbstractTagLibrary {
 
     super(NAMESPACE);
 
-    addComponent("tree", "org.apache.myfaces.tobago.Tree", "Tree", TobagoComponentHandler.class);
-
-    addComponent("treeNode", "org.apache.myfaces.tobago.TreeNode", "TreeNode", TobagoComponentHandler.class);
-
-    addComponent("treeData", "org.apache.myfaces.tobago.TreeData", "TreeData", TobagoComponentHandler.class);
+    addComponent("wizardController", "org.apache.myfaces.tobago.WizardController", "WizardController", TobagoComponentHandler.class);
 
   }
 }

@@ -34,6 +34,7 @@ public class Controller {
   private Wizard wizard;
 
   private String filterType;
+  private String filterValue;
 
   public Controller() {
     // wizard
@@ -93,5 +94,13 @@ public class Controller {
 
   public void setFilterType(String filterType) {
     this.filterType = filterType;
+  }
+
+  public String getFilterValue() {
+    return filterValue;
+  }
+
+  public void setFilterValue(String filterValue) {
+    this.filterValue = filterValue;
   }
 }
