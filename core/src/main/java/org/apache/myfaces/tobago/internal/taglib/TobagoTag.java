@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.internal.taglib;
  */
 
 import org.apache.commons.lang.StringUtils;
-import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_COMPONENT_CREATED;
 import org.apache.myfaces.tobago.OnComponentCreated;
+import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_COMPONENT_CREATED;
 
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.UIComponentTag;
@@ -27,8 +27,8 @@ import javax.servlet.jsp.JspException;
 
 public abstract class TobagoTag extends UIComponentTag {
 
-
-  public int doEndTag() throws JspException {
+  public int doStartTag() throws JspException {
+    int result = super.doStartTag();
 
     UIComponent component = getComponentInstance();
     if (component instanceof OnComponentCreated
@@ -36,7 +36,7 @@ public abstract class TobagoTag extends UIComponentTag {
       component.getAttributes().put(TOBAGO_COMPONENT_CREATED, Boolean.TRUE);
       ((OnComponentCreated) component).onComponentCreated(getFacesContext(), getComponentInstance());
     }
-    return super.doEndTag();
+    return result;
   }
 
   public String[] splitList(String renderers) {
