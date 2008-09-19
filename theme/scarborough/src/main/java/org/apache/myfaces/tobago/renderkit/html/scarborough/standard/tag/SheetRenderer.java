@@ -428,6 +428,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
           for (UIComponent grandkid : data.getRenderedChildrenOf(column)) {
             // set height to 0 to prevent use of layoutheight from parent
             grandkid.getAttributes().put(ATTR_LAYOUT_HEIGHT, HEIGHT_0);
+            RenderUtil.prepareRendererAll(facesContext, grandkid);
             RenderUtil.encode(facesContext, grandkid);
           }
         }
