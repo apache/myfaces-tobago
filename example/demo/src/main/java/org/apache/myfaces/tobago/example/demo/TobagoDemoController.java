@@ -42,6 +42,7 @@ import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpSession;
@@ -229,7 +230,7 @@ public class TobagoDemoController {
     }
     ExternalContext externalContext = facesContext.getExternalContext();
     externalContext.redirect(externalContext.getRequestContextPath());
-    facesContext.responseComplete(); 
+    facesContext.responseComplete();
   }
 
   public TabChangeListener getTabChangeListener() {
@@ -511,7 +512,7 @@ public class TobagoDemoController {
     this.sheetState = sheetState;
   }
 
-  public void stateChangeListener(SheetStateChangeEvent e) {
+  public void stateChangeListener(ActionEvent e) {
     LOG.error("SheetState has Changed: " + e);
 
   }

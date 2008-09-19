@@ -18,15 +18,15 @@ package org.apache.myfaces.tobago.event;
  */
 
 import javax.faces.component.UIComponent;
-import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
+import javax.faces.event.ActionEvent;
 
 /*
  * User: weber
  * Date: 13.12.2004
  * Time: 16:25:03
  */
-public class SheetStateChangeEvent extends FacesEvent {
+public class SheetStateChangeEvent extends ActionEvent {
 
   private static final long serialVersionUID = 2875570768774425451L;
 
