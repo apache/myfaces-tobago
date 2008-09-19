@@ -23,7 +23,7 @@
 <layout:wizard>
   <jsp:body>
 
-    <tcs:wizardController var="w" controller="#{controller.wizard}" title="Finish" outcome="finish">
+    <tcs:wizard var="w" controller="#{controller.wizard}" title="Finish" outcome="finish">
       <tc:panel>
         <f:facet name="layout">
           <tc:gridLayout rows="fixed;*;fixed"/>
@@ -48,7 +48,7 @@
 
       </tc:panel>
 
-    </tcs:wizardController>
+    </tcs:wizard>
 
   </jsp:body>
 </layout:wizard>

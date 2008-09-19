@@ -24,7 +24,7 @@
 <layout:wizard>
   <jsp:body>
 
-    <tcs:wizardController var="w" controller="#{controller.wizard}" title="File Into Condition" outcome="fileIntoCondition">
+    <tcs:wizard var="w" controller="#{controller.wizard}" title="File Into Condition" outcome="fileIntoCondition">
       <tc:panel>
         <f:facet name="layout">
           <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;*;fixed"/>
@@ -65,7 +65,7 @@
         </tc:panel>
 
       </tc:panel>
-    </tcs:wizardController>
+    </tcs:wizard>
 
   </jsp:body>
 </layout:wizard>

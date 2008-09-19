@@ -32,7 +32,9 @@
 
     <tc:link link="wizard/bean/single.jsp" label="Wizard with navigation from model"/>
 
-    <tc:link link="wizard.xml" label="wizard.xml"/>
+    <tc:link link="wizard.xml" label="Facelets (old)"/>
+
+    <tc:link link="/facelets/wizard/navi/filter.xml" label="Facelets"/>
 
     </tc:panel>
   </jsp:body>

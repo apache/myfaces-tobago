@@ -23,7 +23,7 @@
 <layout:wizard>
   <jsp:body>
 
-    <tcs:wizardController var="w" controller="#{controller.wizard}" title="New Filter" outcome="filter"
+    <tcs:wizard var="w" controller="#{controller.wizard}" title="New Filter" outcome="filter"
                           allowJumpForward="true">
 
       <tc:panel>
@@ -53,7 +53,7 @@
 
       </tc:panel>
 
-    </tcs:wizardController>
+    </tcs:wizard>
 
     <%--
     <tcs:wizardStep controller="#{controller.wizard}" var="w" title="New Filter" outcome="filter" allowJumpForward="true">

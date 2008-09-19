@@ -27,6 +27,10 @@
     <source>wizard-goto.xml</source>
   </tag>
   <tag>
+    <tag-name>wizardNext</tag-name>
+    <source>wizardNext.xml</source>
+  </tag>
+  <tag>
     <tag-name>wizard-navigation</tag-name>
     <source>wizard-navigation.xml</source>
   </tag>

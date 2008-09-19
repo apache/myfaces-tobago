@@ -23,7 +23,7 @@
 <layout:wizard>
   <jsp:body>
 
-    <tcs:wizardController var="w" controller="#{controller.wizard}" title="Forward Condition" outcome="forwardCondition">
+    <tcs:wizard var="w" controller="#{controller.wizard}" title="Forward Condition" outcome="forwardCondition">
 
       <tc:panel>
         <f:facet name="layout">
@@ -49,7 +49,7 @@
 
       </tc:panel>
 
-    </tcs:wizardController>
+    </tcs:wizard>
 
   </jsp:body>
 </layout:wizard>

@@ -28,14 +28,14 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 /**
  * Renders a fexible Wizard.
  */
-@Tag(name = "wizardController")
+@Tag(name = "wizard")
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIWizard",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanel",
     generate = false,
     rendererType = "Wizard")
-public interface WizardControllerTagDeclaration extends HasIdBindingAndRendered {
+public interface WizardTagDeclaration extends HasIdBindingAndRendered {
 
   @TagAttribute(required = true)
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.Wizard",

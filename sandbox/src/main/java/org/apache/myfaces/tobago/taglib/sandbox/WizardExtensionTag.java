@@ -26,17 +26,17 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.internal.taglib.GridLayoutTag;
 import org.apache.myfaces.tobago.internal.taglib.PanelTag;
-import org.apache.myfaces.tobago.internal.taglib.WizardControllerTag;
+import org.apache.myfaces.tobago.internal.taglib.WizardTag;
 
 import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-@Tag(name = "wizard")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.sandbox.WizardTag")
-public class WizardTag extends BodyTagSupport {
+@Tag(name = "tx_wizard")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.sandbox.WizardExtensionTag")
+public class WizardExtensionTag extends BodyTagSupport {
 
-  private static final Log LOG = LogFactory.getLog(WizardTag.class);
+  private static final Log LOG = LogFactory.getLog(WizardExtensionTag.class);
 
   private String controller;
 
@@ -44,13 +44,13 @@ public class WizardTag extends BodyTagSupport {
   private String title;
   private String allowJumpForward;
 
-  private WizardControllerTag controllerTag;
+  private WizardTag controllerTag;
   private PanelTag panelTag;
 
   @Override
   public int doStartTag() throws JspException {
 
-    controllerTag = new WizardControllerTag();
+    controllerTag = new WizardTag();
     controllerTag.setPageContext(pageContext);
     controllerTag.setParent(getParent());
     controllerTag.setController(controller);

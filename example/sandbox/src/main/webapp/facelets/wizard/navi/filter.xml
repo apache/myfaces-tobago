@@ -29,7 +29,7 @@
       <tc:gridLayout margin="10px"/>
     </f:facet>
 
-    <tfs:wizardController var="w" controller="#{controller.wizard}" title="New Filter" outcome="filter"
+    <tcs:wizard var="w" controller="#{controller.wizard}" title="New Filter" outcome="filter"
                           allowJumpForward="true">
 
       <tc:panel>
@@ -51,7 +51,7 @@
 
           <tc:cell/>
           <!--<tfs:wizardPrevious wizard="w" label="Vorherige"/>-->
-          <!--<tfs:wizardNext wizard="w" label="Nächste" action="#{controller.createFilter}"/>-->
+          <tfs:wizardNext wizard="w" label="Nächste" action="#{controller.createFilter}"/>
           <!--<tfs:wizardLeave wizard="w" label="Fertig"/>-->
           <!--<tfs:wizardLeave wizard="w" label="Cancel"/>-->
 
@@ -59,7 +59,7 @@
 
       </tc:panel>
 
-    </tfs:wizardController>
+    </tcs:wizard>
 
 
 
