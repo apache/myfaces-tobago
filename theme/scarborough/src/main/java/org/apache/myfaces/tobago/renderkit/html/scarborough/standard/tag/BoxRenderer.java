@@ -23,11 +23,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SUPPPRESS_TOOLBAR_CONTAINER;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_TOOL_BAR;
 import org.apache.myfaces.tobago.context.ClientProperties;
@@ -37,7 +34,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
-import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -45,7 +41,6 @@ import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
-import java.util.Map;
 
 public class BoxRenderer extends BoxRendererBase {
 
@@ -87,15 +82,7 @@ public class BoxRenderer extends BoxRendererBase {
       writer.writeClassAttribute("tobago-box-toolbar-div");
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeClassAttribute("tobago-box-toolbar-span");
-      final Map attributes = toolbar.getAttributes();
-      attributes.put(
-          ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
-      if (ToolBarTag.LABEL_BOTTOM.equals(attributes.get(ATTR_LABEL_POSITION))) {
-        attributes.put(ATTR_LABEL_POSITION, ToolBarTag.LABEL_RIGHT);
-      }
-      if (ToolBarTag.ICON_BIG.equals(attributes.get(ATTR_ICON_SIZE))) {
-        attributes.put(ATTR_ICON_SIZE, ToolBarTag.ICON_SMALL);
-      }
+      toolbar.setRendererType("BoxToolBar");
       RenderUtil.encode(facesContext, toolbar);
       writer.endElement(HtmlConstants.DIV);
       writer.endElement(HtmlConstants.DIV);
@@ -135,6 +122,6 @@ public class BoxRenderer extends BoxRendererBase {
 
   private int getExtraPadding(FacesContext facesContext, UIComponent component) {
     return getConfiguredValue(facesContext, component,
-              "extraPaddingHeightWhenToolbar");
+        "extraPaddingHeightWhenToolbar");
   }
 }

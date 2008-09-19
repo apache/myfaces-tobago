@@ -47,7 +47,7 @@ div.tobago-tab-selected-outer {
 }
 
 div.tobago-tab-selected-inner {
-  margin: 0px 0.7em;
+  margin: 0px 0.4em;
   white-space: nowrap;
 }
 
@@ -58,7 +58,7 @@ div.tobago-tab-unselected-outer {
 }
 
 div.tobago-tab-unselected-inner {
-  margin: 0px 0.7em;
+  margin: 0px 0.4em;
   white-space: nowrap;
 }
 
@@ -73,6 +73,16 @@ td.tobago-tab-content {
   border-width: 0px 1px 1px 1px;
   border-style: solid;
   padding: 11px 11px;
+}
+
+div.tobago-tabnavigationbar {
+  border-bottom-color: #DDEEFF;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  height: 25px;
+  top: 0px;
+  margin-right: 0px;
+  position: absolute;
 }
 
 a:link.tab, a:visited.tab, a:active.tab {
@@ -447,7 +457,7 @@ div.tobago-label-markup-number {
 a.tobago-label-markup-number {
   padding-left: 0px;
   padding-right: 8px;
-  
+
 }
 
 div.tobago-label-default {
@@ -532,7 +542,7 @@ label.tobago-label-inline {
   height: 100%;
   top: 0px;
   left: 0px;
-  filter: progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0);
+  filter: progid: DXImageTransform . Microsoft . Alpha( style = 0, opacity = 0 );
 }
 
 .tobago-popup-content {
@@ -807,7 +817,7 @@ div.tobago-separator-default {
   overflow: hidden;
 }
 
-fieldset.tobago-separator-default  {
+fieldset.tobago-separator-default {
   border-left: 0px;
   border-bottom: 0px;
   border-right: 0px;
@@ -1031,7 +1041,7 @@ a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:activ
 */
 
 .tobago-tab-disabled {
-   color: #778899;
+  color: #778899;
 }
 
 .tobago-toolBar-button-label {

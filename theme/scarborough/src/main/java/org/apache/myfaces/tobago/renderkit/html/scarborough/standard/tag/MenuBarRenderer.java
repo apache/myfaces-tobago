@@ -456,6 +456,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
 
     writer.startElement(HtmlConstants.A, null);
     writer.writeClassAttribute(spanClass);
+    writer.writeIdAttribute(command.getClientId(facesContext));
     if (label.getAccessKey() != null) {
       if (LOG.isInfoEnabled()
           && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
@@ -463,7 +464,6 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       }
 
       if (!disabled) {
-        writer.writeIdAttribute(command.getClientId(facesContext));
         addAcceleratorKey(facesContext, accKeyFunctions, command, label.getAccessKey());
       }
     }

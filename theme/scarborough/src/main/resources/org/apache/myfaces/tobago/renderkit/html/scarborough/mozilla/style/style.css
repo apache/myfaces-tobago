@@ -46,3 +46,7 @@ table.tobago-treeOld-default {
   width: 20px;
   height: 17px;
 }
+
+div.tobago-tabnavigationbar {
+  top: -2px;
+}

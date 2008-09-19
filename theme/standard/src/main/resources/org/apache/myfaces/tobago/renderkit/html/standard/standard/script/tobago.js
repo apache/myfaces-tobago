@@ -61,6 +61,12 @@ var Tobago = {
     */
   SUB_COMPONENT_SEP: "::",
 
+  /**
+   * Tobago's subComponent separator constant
+   */
+  SUB_COMPONENT_SEP2: "__",
+
+
   EMPTY_HREF: window.all ? "#" : "javascript:;",
 
   /**
@@ -217,12 +223,12 @@ var Tobago = {
 
   isSubmit: false,
 
- 
+
   /**
     * The id of a initially loaded popup (not by ajax)
     */
   initialPopupId: null,
-  
+
   /**
     * Count of currently open popups
     */
@@ -945,7 +951,7 @@ var Tobago = {
         Tobago.removeCssClass(iframe, "tobago-popup-none");
       }
     }
-    
+
     var contains = false;
     for(var i = 0; i < Tobago.openPopups.length; i++) {
       if (Tobago.openPopups[i] == id) {
@@ -965,7 +971,7 @@ var Tobago = {
     }
 
   },
- 
+
   /**
     * Locks the parent page of a popup when it is opened
     */
@@ -986,7 +992,7 @@ var Tobago = {
       var element = document.forms[0].elements[i];
       if (element.type != "hidden" && !element.disabled) {
         if (element.id.indexOf(id + ":") != 0) {
-         element.disabled = true;        
+         element.disabled = true;
          hidden.value += element.id + ",";
        } else {
          if (firstPopupElement == null && element.focus) {
@@ -999,7 +1005,7 @@ var Tobago = {
       var element = document.anchors[i];
       if (!element.disabled) {
         if (element.id.indexOf(id + ":") != 0) {
-         element.disabled = true;        
+         element.disabled = true;
          hidden.value += element.id + ",";
        } else {
          if (firstPopupElement == null && element.focus) {
@@ -1082,7 +1088,7 @@ var Tobago = {
 
     Tobago.removeEventListener(window, "resize", Tobago.popupResizeStub);
     Tobago.popupResizeStub = null;
-    
+
     //LOG.info("unlockPopupPage " + id);
     Tobago.unlockPopupPage(id);
     Tobago.openPopups.pop();
@@ -1096,7 +1102,7 @@ var Tobago = {
 
   /**
     * Unlock the parent page of a popup when it is closed
-    */  
+    */
   unlockPopupPage: function(id) {
     // enable all elements and anchors on page stored in a hidden field
     var hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + "disabledElements");
