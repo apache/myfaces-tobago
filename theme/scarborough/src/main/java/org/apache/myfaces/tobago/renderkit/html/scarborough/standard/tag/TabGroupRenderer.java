@@ -78,7 +78,6 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
   private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
 
   public static final String ACTIVE_INDEX_POSTFIX = "__activeIndex";
-  private static final int TOOLBAR_WIDTH = 60;
 
   public void decode(FacesContext facesContext, UIComponent component) {
     if (ComponentUtil.isOutputOnly(component)) {
@@ -142,6 +141,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     // selected with stylesheet.
     int virtualTab = 0;
     int currentWidth = 0;
+    int navigationBarWidth = getConfiguredValue(facesContext, component, "navigationBarWidth");
     for (UIComponent tab : (List<UIComponent>) component.getChildren()) {
       if (tab instanceof UIPanelBase) {
         if (tab.isRendered()) {
@@ -164,7 +164,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
             writer.writeClassAttribute(classes);
             renderTabGroupView(facesContext, writer, component, virtualTab,
                 (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE),
-                switchType, image1x1, TOOLBAR_WIDTH, currentWidth, tabList);
+                switchType, image1x1, navigationBarWidth, currentWidth, tabList);
             writer.endElement(HtmlConstants.DIV);
 
             if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
@@ -196,7 +196,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
   private TabList getTabList(FacesContext facesContext, UITabGroup component) {
     TabList tabs = new TabList();
     int index = 0;
-    int tabLabelExtraWidth = 15;
+    int tabLabelExtraWidth = getConfiguredValue(facesContext, component, "tabLabelExtraWidth");
+
     boolean first = true;
     for (UIComponent child : (List<UIComponent>) component.getChildren()) {
       if (child instanceof UITab) {
@@ -488,7 +489,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.endElement(HtmlConstants.TABLE);
     writer.endElement(HtmlConstants.DIV);
     if (toolBar != null) { // todo: configurable later
-      renderToolbar(facesContext, writer, toolBar, width - toolbarWidth);
+      renderToolbar(facesContext, writer, toolBar, width - toolbarWidth, toolbarWidth);
     }
     writer.endElement(HtmlConstants.DIV);
     writer.endElement(HtmlConstants.TD);
@@ -499,11 +500,11 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.endElement(HtmlConstants.TABLE);
   }
 
-  private void renderToolbar(FacesContext facesContext, TobagoResponseWriter writer, UIPanel toolbar, int width)
-      throws IOException {
+  private void renderToolbar(FacesContext facesContext, TobagoResponseWriter writer, UIPanel toolbar, int width,
+      int navigationBarWidth) throws IOException {
     writer.startElement(HtmlConstants.DIV, null);
     HtmlStyleMap map = new HtmlStyleMap();
-    map.put("width", TOOLBAR_WIDTH);
+    map.put("width", navigationBarWidth);
     map.put("left", width);
     writer.writeStyleAttribute(map);
     writer.writeClassAttribute("tobago-tabnavigationbar");
@@ -540,7 +541,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     renderTabGroupView(context, HtmlRendererUtil.getTobagoResponseWriter(context),
         (UITabGroup) component, index,
         (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE), SWITCH_TYPE_RELOAD_TAB,
-        ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"), TOOLBAR_WIDTH, currentWidth, tabList);
+        ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"),
+        getConfiguredValue(context, component, "navigationBarWidth"), currentWidth, tabList);
   }
 
 
