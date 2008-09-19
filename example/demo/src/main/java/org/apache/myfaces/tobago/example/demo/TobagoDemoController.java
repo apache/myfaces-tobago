@@ -247,18 +247,19 @@ public class TobagoDemoController {
 
     List<UIColumn> columns = new ArrayList<UIColumn>(3);
 
-    UIInput textbox = (UIInput)
-        CreateComponentUtils.createComponent(UIInput.COMPONENT_TYPE, RENDERER_TYPE_IN);
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      UIInput textbox = (UIInput)
+        CreateComponentUtils.createComponent(facesContext, UIInput.COMPONENT_TYPE, RENDERER_TYPE_IN, "sac1i");
     ComponentUtil.setStringProperty(
         textbox, ATTR_VALUE, "#{luminary.population}");
     columns.add(CreateComponentUtils.createColumn(
-        "#{overviewBundle.solarArrayPopulation}", "true", null, textbox));
+        "#{overviewBundle.solarArrayPopulation}", "true", null, textbox, "sac1"));
 
     columns.add(CreateComponentUtils.createTextColumn(
-        "#{overviewBundle.solarArrayDistance}", "true", "right", "#{luminary.distance}"));
+        "#{overviewBundle.solarArrayDistance}", "true", "right", "#{luminary.distance}", "sac1"));
 
     columns.add(CreateComponentUtils.createTextColumn(
-        "#{overviewBundle.solarArrayPeriod}", "true", "right", "#{luminary.period}"));
+        "#{overviewBundle.solarArrayPeriod}", "true", "right", "#{luminary.period}", "sac1"));
 
 
     return columns;
