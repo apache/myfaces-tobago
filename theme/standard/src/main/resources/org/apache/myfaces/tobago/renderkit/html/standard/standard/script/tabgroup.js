@@ -192,7 +192,6 @@ Tobago.TabGroup.prototype.previous = function(event) {
 
 };
 
-
 Tobago.TabGroup.prototype.reload = function(event) {
   LOG.debug("Reload ");
   if (event) {

@@ -105,7 +105,8 @@
   <entry key="org.apache.myfaces.tobago.FileItemValidator.CONTENT_TYPE_detail">The given file is not content type of "{0}".</entry>
   <entry key="org.apache.myfaces.tobago.FileItemValidator.SIZE_LIMIT">File size error</entry>
   <entry key="org.apache.myfaces.tobago.FileItemValidator.SIZE_LIMIT_detail">The uploaded file exceeded the maximum size of {0} bytes.</entry>
-
+  <!-- Font metric for ArialMT plain 16 -->
+  <entry key="tobago.font2.widths">04050609090e0b03050506090405040409090909090909090909040409090909100b0b0c0c0b0a0c0b03080b090d0b0c0b0c0b0b090b0b0f0b09090404040709050909080909040908040308030d0809090905080408070b070707050305090c</entry>
   <!-- Font metric for ArialMT plain 14 -->
   <!-- The String contains all widths for char 32 to 127. Each pair of 2 chars is a hex value-->
   <entry key="tobago.font.widths">04040508080c09030505050804050404080808080808080808080404080808080e09090a0a09090b0a040709080c0a0b090b0a09090a090d0909090404040708050808070808040808030307030c0808080805070408070a070707050405080b</entry>

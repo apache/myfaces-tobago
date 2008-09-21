@@ -44,7 +44,6 @@ import org.apache.myfaces.tobago.component.UIPanelBase;
 import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.component.UITabGroup;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_CLIENT;
-import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_PAGE;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_TAB;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.config.TobagoConfig;
@@ -77,6 +76,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
 
   private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
 
+  private static final String[] SCRIPTS = new String[]{"script/tab.js", "script/tabgroup.js", "script/tobago-menu.js"};
   public static final String ACTIVE_INDEX_POSTFIX = "__activeIndex";
 
   public void decode(FacesContext facesContext, UIComponent component) {
@@ -117,11 +117,11 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     final String switchType = component.getSwitchType();
 
     UIPage page = ComponentUtil.findPage(facesContext, component);
-    final String[] scripts = new String[]{"script/tab.js", "script/tabgroup.js", "script/tobago-menu.js"};
-    page.getScriptFiles().addAll(Arrays.asList(scripts));
+
+    page.getScriptFiles().addAll(Arrays.asList(SCRIPTS));
 
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
-      HtmlRendererUtil.writeScriptLoader(facesContext, scripts, new String[0]);
+      HtmlRendererUtil.writeScriptLoader(facesContext, SCRIPTS, new String[0]);
     }
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
@@ -205,10 +205,10 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
         if (tab.isRendered()) {
           LabelWithAccessKey label = new LabelWithAccessKey(tab);
           if (label.getText() != null) {
-            tabs.getWidthList().add(RenderUtil.calculateStringWidth(facesContext, component, label.getText())
+            tabs.getWidthList().add(RenderUtil.calculateStringWidth2(facesContext, component, label.getText())
                 + tabLabelExtraWidth);
           } else {
-            tabs.getWidthList().add(RenderUtil.calculateStringWidth(facesContext, component, Integer.toString(index + 1))
+            tabs.getWidthList().add(RenderUtil.calculateStringWidth2(facesContext, component, Integer.toString(index + 1))
                 + tabLabelExtraWidth);
           }
           if (first) {
@@ -272,7 +272,6 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     final String clientId = component.getClientId(facesContext);
     writer.writeIdAttribute(clientId + "__" + virtualTab);
     writer.writeStyleAttribute(oStyle);
-
 
     writer.startElement(HtmlConstants.TR, null);
     writer.writeAttribute(HtmlAttributes.VALIGN, "bottom", false);
@@ -359,7 +358,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     //toolBar.setLabelPosition(UIToolBar.LABEL_OFF);
     toolBar.setRendererType("BoxToolBar");
     toolBar.setTransient(true);
-    //toolBar.setIconSize();
+    //toolBar.setIconSize(AbstractUIToolBar.ICON_OFF);
     toolBar.getChildren().add(scrollLeft);
     toolBar.getChildren().add(scrollRight);
     //toolBar.getChildren().add(commandList);
@@ -376,14 +375,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
           if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
               && SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
             onclick = null;
-          } else if (SWITCH_TYPE_RELOAD_PAGE.equals(switchType)
-              || SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
-            onclick = "tobago_requestTab('"
-                + clientId + "'," + index + ",'"
-                + ComponentUtil.findPage(facesContext, component).getFormId(facesContext) + "')";
-          } else {   //  SWITCH_TYPE_CLIENT
-            onclick = "tobago_selectTab('"
-                + clientId + "'," + index + ','
+          } else {
+            onclick = "tobago_switchTab('"+ switchType + "','" + clientId + "'," + index + ','
                 + component.getChildCount() + ')';
           }
 
@@ -408,6 +401,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
           writer.writeIdAttribute(tab.getClientId(facesContext));
 
           HtmlRendererUtil.renderTip(tab, writer);
+
           writer.startElement(HtmlConstants.DIV, null);
           writer.writeStyleAttribute(map);
           writer.startElement(HtmlConstants.DIV, null);
@@ -468,6 +462,9 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
       }
       index++;
     }
+    //TODO
+    //writer.startElement(HtmlConstants.TD, null);
+    //writer.writeAttribute(HtmlAttributes.WIDTH, "100%", false);
 
     writer.startElement(HtmlConstants.TD, null);
     if (currentWidth > width) {
@@ -514,7 +511,6 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.endElement(HtmlConstants.DIV);
   }
 
-
   protected void encodeContent(TobagoResponseWriter writer, FacesContext facesContext, UITab activeTab)
       throws IOException {
 
@@ -544,7 +540,6 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"),
         getConfiguredValue(context, component, "navigationBarWidth"), currentWidth, tabList);
   }
-
 
   public int getFixedHeight(FacesContext facesContext, UIComponent uiComponent) {
     UITabGroup component = (UITabGroup) uiComponent;
