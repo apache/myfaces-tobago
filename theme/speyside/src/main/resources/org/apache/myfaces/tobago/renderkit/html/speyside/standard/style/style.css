@@ -604,6 +604,15 @@ label.tobago-label-error {
 
 }
 
+.tobago-selectManyListbox-disabled {
+  background-color: #E8E8E8;
+  color: #808080;
+}
+
+.tobago-selectManyListbox-readonly {
+  background-color: #E8E8E8;
+}
+
 /* selectOnelistbox -------------------------------------------------------- */
 .tobago-selectOneListbox-default {
   font: 12px arial, helvetica, sans-serif;

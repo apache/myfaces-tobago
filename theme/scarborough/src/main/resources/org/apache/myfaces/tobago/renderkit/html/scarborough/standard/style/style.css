@@ -500,8 +500,13 @@ label.tobago-label-inline {
   height: 25px;
 }
 
+.tobago-selectManyListbox-readonly {
+  background-color: #bbccdd;
+}
+
 .tobago-selectManyListbox-disabled {
-  background: #c0c0c0;
+  color: #778899;
+  background: #bbccdd;
 }
 
 .tobago-selectManyListbox-error {

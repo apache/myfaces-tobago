@@ -26,6 +26,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UISelectMany;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
@@ -94,7 +95,9 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     String clientId = selectMany.getClientId(facesContext);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtil.getBooleanAttribute(selectMany, ATTR_DISABLED));
+    boolean renderDisabled = ComponentUtil.getBooleanAttribute(selectMany, ATTR_DISABLED)
+        || ComponentUtil.getBooleanAttribute(selectMany, ATTR_READONLY);
+    writer.writeAttribute(HtmlAttributes.DISABLED, renderDisabled);
     Integer tabIndex = selectMany.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
