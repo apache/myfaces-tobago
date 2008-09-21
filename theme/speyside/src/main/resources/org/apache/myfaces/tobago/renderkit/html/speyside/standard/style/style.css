@@ -906,9 +906,11 @@ label.tobago-label-error {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.tobago-sheet-header-box {
+  border-color: #b8b6b6 #ffffff #d7d7d7 #b8b6b6;
+}
 
 .tobago-sheet-header{
-	border-color: #b8b6b6 #ffffff #d7d7d7 #b8b6b6;
 	background-color: #d7d7d7;
   font: bold 12px arial, helvetica, sans-serif;
   color: #333333;
