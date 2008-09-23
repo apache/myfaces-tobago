@@ -356,7 +356,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     UIToolBar toolBar = (UIToolBar) application.createComponent(UIToolBar.COMPONENT_TYPE);
     toolBar.setId(facesContext.getViewRoot().createUniqueId());
     //toolBar.setLabelPosition(UIToolBar.LABEL_OFF);
-    toolBar.setRendererType("BoxToolBar");
+    toolBar.setRendererType("TabNavigationBar");
     toolBar.setTransient(true);
     //toolBar.setIconSize(AbstractUIToolBar.ICON_OFF);
     toolBar.getChildren().add(scrollLeft);
@@ -504,9 +504,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     map.put("width", navigationBarWidth);
     map.put("left", width);
     writer.writeStyleAttribute(map);
-    writer.writeClassAttribute("tobago-tabnavigationbar");
-    toolbar.setRendererType("BoxToolBar");
-
+    writer.writeClassAttribute("tobago-tabNavigationBar");
+    
     RenderUtil.encode(facesContext, toolbar);
     writer.endElement(HtmlConstants.DIV);
   }

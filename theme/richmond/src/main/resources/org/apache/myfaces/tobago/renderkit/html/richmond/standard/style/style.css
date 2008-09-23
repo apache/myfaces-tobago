@@ -370,6 +370,15 @@ a:link.tab, a:visited.tab, a:active.tab {
   background: #FFCC66 url(../image/toolbarButtonBoxFacetSelectEnabled.gif) repeat-x top;
 }
 
+.tobago-tabNavigationBar-button-selected-enabled {
+  cursor: pointer;
+  margin: 0px;
+  border-left: 1px solid #808080;
+  border-right: 1px solid #FFFFFF;
+  background: #FFCC66 url(../image/toolbarButtonBoxFacetSelectEnabled.gif) repeat-x top;
+}
+
+
 .tobago-toolBar-button-enabled {
   cursor: pointer;
 }

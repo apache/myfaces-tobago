@@ -148,7 +148,7 @@ div.tobago-tab-fulfill {
   box-sizing: border-box;
 }
 
-div.tobago-tabnavigationbar {
+div.tobago-tabNavigationBar {
   border-right-color: transparent;
   border-right-style: solid;
   border-right-width: 1px;
@@ -707,6 +707,11 @@ label.tobago-label-error {
 .tobago-toolbar-button-table {
   font: bold 12px arial, helvetica, sans-serif;
   color: #660000;
+}
+
+.tobago-tabNavigationBar-button {
+  float: left;
+  padding:0;
 }
 
 .tobago-toolbar-button-table-disabled {

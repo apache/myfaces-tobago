@@ -1,3 +1,5 @@
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -15,38 +17,11 @@
  * limitations under the License.
  */
 
-/* workaround for tree div problem.
-without a border the div get�s a scrollbar */
-/*
-.tobago-tree-default  {
-  border: 1px solid transparent;
-}
-*/
+public class TabNavigationBarRenderer extends BoxToolBarRenderer {
 
-/* Box ---------------------------------------------------------------- */
-/* fix scrollbar problem in divs without height set*/
-div.tobago-box-no-height {
-  padding-bottom: 1px;
-}
-
-/* Tree -------------------------------------------------------------------- */
-
-div.tobago-treeOld-default {
-  height: 100%;
-}
-
-table.tobago-treeOld-default {
-/* this fixes scroolbar bug in mozilla >= 1.6 */
-  margin: 1px;
-}
-
-/* toolBar -------------------------------------------------------------------- */
-
-.tobago-toolBar-button-menu-background-image {
-  width: 20px;
-  height: 17px;
-}
-
-div.tobago-tabNavigationBar {
-  top: -2px;
+  @Override
+  protected String getDivClasses(boolean selected, boolean disabled) {
+    return "tobago-toolbar-button tobago-tabNavigationBar-button tobago-tabNavigationBar-button-"
+        + (selected ? "selected-" : "") + (disabled ? "disabled" : "enabled");
+  }
 }

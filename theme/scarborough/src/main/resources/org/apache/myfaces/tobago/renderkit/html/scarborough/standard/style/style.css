@@ -75,7 +75,7 @@ td.tobago-tab-content {
   padding: 11px 11px;
 }
 
-div.tobago-tabnavigationbar {
+div.tobago-tabNavigationBar {
   border-bottom-color: #DDEEFF;
   border-bottom-style: solid;
   border-bottom-width: 1px;
@@ -942,6 +942,10 @@ hr.tobago-separator-default {
   font-family: arial, helvetica, sans-serif;
 }
 
+.tobago-tabNavigationBar-button {
+  float: left;
+}
+
 .tobago-toolbar-button-box-facet {
   float: left;
 }
@@ -969,6 +973,17 @@ hr.tobago-separator-default {
   border-top: 1px solid #6688aa;
   background: #c2d3e4;
 }
+
+.tobago-tabNavigationBar-button-selected-enabled {
+  cursor: pointer;
+  margin: 0px;
+  border-right: 1px solid #ddeeff;
+  border-left: 1px solid #6688aa;
+  border-bottom: 1px solid #ddeeff;
+  border-top: 1px solid #6688aa;
+  background: #c2d3e4;
+}
+
 
 .tobago-toolBar-button-disabled {
   color: #778899;
