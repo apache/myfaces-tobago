@@ -711,7 +711,7 @@ label.tobago-label-error {
 
 .tobago-tabNavigationBar-button {
   float: left;
-  padding:0;
+  padding:0 0 1px 0;
 }
 
 .tobago-toolbar-button-table-disabled {
