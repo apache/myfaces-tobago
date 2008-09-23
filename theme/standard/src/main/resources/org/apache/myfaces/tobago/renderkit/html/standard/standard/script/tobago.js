@@ -61,6 +61,11 @@ var Tobago = {
     */
   SUB_COMPONENT_SEP: "::",
 
+  /**
+    * Tobago's subComponent separator constant
+    */
+  SUB_COMPONENT_SEP2: "__",
+
   EMPTY_HREF: window.all ? "#" : "javascript:;",
 
   /**

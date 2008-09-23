@@ -170,6 +170,31 @@ public class RenderUtil {
     }
   }
 
+  public static int calculateStringWidth2(FacesContext facesContext, UIComponent component, String text) {
+    int width = 0;
+    int defaultCharWidth = 0;
+    try {
+      defaultCharWidth = ThemeConfig.getValue(facesContext, component, "fontWidth");
+    } catch (NullPointerException e) {
+      LOG.warn("no value for \"fontWidth\" found in theme-config");
+    }
+
+    String fontWidths = ResourceManagerUtil.getProperty(facesContext, "tobago", "tobago.font2.widths");
+
+    for (char c : text.toCharArray()) {
+      int charWidth;
+      if (c >= 32 && c < 128) {
+        int begin = (c - 32) * 2;
+        charWidth = Integer.parseInt(fontWidths.substring(begin, begin + 2), 16);
+      } else {
+        charWidth = defaultCharWidth;
+      }
+      width += charWidth;
+    }
+
+    return width;
+  }
+
   public static int calculateStringWidth(FacesContext facesContext, UIComponent component, String text) {
     int width = 0;
     int defaultCharWidth = 0;

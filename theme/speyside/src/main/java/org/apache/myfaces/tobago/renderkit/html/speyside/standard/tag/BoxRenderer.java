@@ -171,13 +171,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     }
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute(className);
-    attributes.put(ATTR_SUPPPRESS_TOOLBAR_CONTAINER, Boolean.TRUE);
-    if (UIToolBar.LABEL_BOTTOM.equals(attributes.get(ATTR_LABEL_POSITION))) {
-      attributes.put(ATTR_LABEL_POSITION, UIToolBar.LABEL_RIGHT);
-    }
-    if (UIToolBar.ICON_BIG.equals(attributes.get(ATTR_ICON_SIZE))) {
-      attributes.put(ATTR_ICON_SIZE, UIToolBar.ICON_SMALL);
-    }
+    toolbar.setRendererType("BoxToolBar");    
     RenderUtil.encode(facesContext, toolbar);
     writer.endElement(HtmlConstants.DIV);
   }

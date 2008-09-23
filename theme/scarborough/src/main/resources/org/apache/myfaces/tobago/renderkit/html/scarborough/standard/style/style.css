@@ -75,6 +75,16 @@ td.tobago-tab-content {
   padding: 11px 11px;
 }
 
+div.tobago-tabnavigationbar {
+  border-bottom-color: #DDEEFF;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  height: 25px;
+  top: 0px;
+  margin-right: 0px;
+  position: absolute;
+}
+
 a:link.tab, a:visited.tab, a:active.tab {
   font-family: arial, helvetica, sans-serif;
   color: #000000;
