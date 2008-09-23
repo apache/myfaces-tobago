@@ -118,16 +118,13 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
           } else if (inStock instanceof String[]) { // double (or more) parameter
             String[] oldValues = (String[]) inStock;
             String[] values = new String[oldValues.length + 1];
-            int i = 0;
-            for (; i < oldValues.length; i++) {
-              values[i] = oldValues[i];
-            }
+            System.arraycopy(oldValues, 0, values, 0, oldValues.length);
             try {
               // TODO: enable configuration of  'accept-charset'
-              values[i] = item.getString(FORM_ACCEPT_CHARSET);
+              values[oldValues.length] = item.getString(FORM_ACCEPT_CHARSET);
             } catch (UnsupportedEncodingException e) {
               LOG.error("Caught: " + e.getMessage(), e);
-              values[i] = item.getString();
+              values[oldValues.length] = item.getString();
             }
             parameters.put(key, values);
           } else {

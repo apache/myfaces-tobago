@@ -61,11 +61,11 @@ public final class <tagInfo.className> extends <tagInfo.superClassName> {
 
   <if(tagInfo.properties)>
   @Override
-  protected void setProperties(UIComponent uiComponent) {
+  protected void setProperties(final UIComponent uiComponent) {
     super.setProperties(uiComponent);
-    <tagInfo.componentClassName> component = (<tagInfo.componentClassName>) uiComponent;
-    FacesContext context = FacesContext.getCurrentInstance();
-    Application application = context.getApplication();
+    final <tagInfo.componentClassName> component = (<tagInfo.componentClassName>) uiComponent;
+    final FacesContext context = FacesContext.getCurrentInstance();
+    final Application application = context.getApplication();
     <tagInfo.properties:{ p | <p:(p.template)()>}; separator="\n">
   }
 
@@ -75,8 +75,8 @@ public final class <tagInfo.className> extends <tagInfo.superClassName> {
   @Override
   public int doEndTag() throws javax.servlet.jsp.JspException {
     if (!isBodyContentEmpty()) {
-      String bodyContentStr = getBodyContentStr();
-      <tagInfo.componentClassName> component = (<tagInfo.componentClassName>) getComponentInstance();
+      final String bodyContentStr = getBodyContentStr();
+      final <tagInfo.componentClassName> component = (<tagInfo.componentClassName>) getComponentInstance();
       component.set<tagInfo.bodyContent.upperCamelCaseName>(bodyContentStr);
     }
     return super.doEndTag();
@@ -106,7 +106,7 @@ public String get<it.upperCamelCaseName>() {
   return <it.propertyName>;
 }
 
-public void set<it.upperCamelCaseName>(String <it.propertyName>) {
+public void set<it.upperCamelCaseName>(final String <it.propertyName>) {
   this.<it.propertyName> = <it.propertyName>;
 }
 <else>
@@ -115,7 +115,7 @@ public javax.el.MethodExpression get<it.upperCamelCaseName>() {
   return <it.propertyName>;
 }
 
-public void set<it.upperCamelCaseName>(javax.el.MethodExpression <it.propertyName>) {
+public void set<it.upperCamelCaseName>(final javax.el.MethodExpression <it.propertyName>) {
   this.<it.propertyName> = <it.propertyName>;
 }
 <else>
@@ -123,7 +123,7 @@ public javax.el.ValueExpression get<it.upperCamelCaseName>() {
   return <it.propertyName>;
 }
 
-public void set<it.upperCamelCaseName>(javax.el.ValueExpression <it.propertyName>) {
+public void set<it.upperCamelCaseName>(final javax.el.ValueExpression <it.propertyName>) {
   this.<it.propertyName> = <it.propertyName>;
 }
 <endif>
@@ -289,7 +289,7 @@ if (<it.propertyName> != null) {
 >>
 
 createMethodBinding(it) ::= <<
-javax.faces.el.MethodBinding methodBinding = application.createMethodBinding(<it.propertyName>.getExpressionString(),
+final javax.faces.el.MethodBinding methodBinding = application.createMethodBinding(<it.propertyName>.getExpressionString(),
     new Class[] { <first(it.methodSignature):{ n | <n>.class }><rest(it.methodSignature):{ n | , <n>.class}>} );
 >>
 
