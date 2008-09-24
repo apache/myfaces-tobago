@@ -71,7 +71,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
 
 public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRenderer {
 
@@ -213,8 +212,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
             tabs.getWidthList().add(RenderUtil.calculateStringWidth2(facesContext, component, label.getText())
                 + tabLabelExtraWidth);
           } else {
-            tabs.getWidthList().add(RenderUtil.calculateStringWidth2(facesContext, component, Integer.toString(index + 1))
-                + tabLabelExtraWidth);
+            tabs.getWidthList().add(RenderUtil.calculateStringWidth2(facesContext,
+                component, Integer.toString(index + 1)) + tabLabelExtraWidth);
           }
           if (first) {
             tabs.firstIndex = index;
