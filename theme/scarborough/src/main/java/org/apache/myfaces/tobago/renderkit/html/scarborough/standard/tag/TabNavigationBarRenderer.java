@@ -21,7 +21,20 @@ public class TabNavigationBarRenderer extends BoxToolBarRenderer {
 
   @Override
   protected String getDivClasses(boolean selected, boolean disabled) {
-    return "tobago-toolbar-button tobago-tabNavigationBar-button tobago-tabNavigationBar-button-"
+    return "tobago-tabNavigationBar-button tobago-tabNavigationBar-button-"
         + (selected ? "selected-" : "") + (disabled ? "disabled" : "enabled");
   }
+
+  @Override
+  protected String getHoverClasses(boolean first, boolean last) {
+    return "tobago-tabNavigationBar-button-hover"
+        + (last ? " tobago-box-toolBar-button-hover-last" : "");
+  }
+
+  protected String getTableClasses(boolean selected, boolean disabled) {
+    return
+        "tobago-tabNavigationBar-button-table tobago-tabNavigationBar-button-"
+            + (selected ? "selected-" : "") + (disabled ? "disabled" : "enabled");
+  }
+
 }
