@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.component.UISelectOneCommand;
+import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -473,7 +474,11 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
       popupMenu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
       popupMenu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "ToolBarButton");
       popupMenu.setRendererType(RENDERER_TYPE_MENUBAR);
-      popupMenu.getAttributes().remove(ATTR_LABEL);
+      if (popupMenu instanceof UIMenu)  {
+        ((UIMenu)popupMenu).setLabel(null);
+      } else {
+        popupMenu.getAttributes().remove(ATTR_LABEL);
+      }
       popupMenu.getAttributes().put(ATTR_IMAGE, "image/toolbarButtonMenu.gif");
       RenderUtil.encode(facesContext, popupMenu);
     }
