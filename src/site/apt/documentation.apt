@@ -48,7 +48,8 @@ Examples
 
 * Address Book Example
 
-  The address book is a small example application demonstrating how to use Spring and Open JPA to manage addresses
+  The address book is a small example application demonstrating how to use
+  {{{http://springframework.org/}Spring}} and {{{http://openjpa.apache.org/}OpenJPA}} to manage addresses
   with a Tobago frontend.\
   \ 
   ~~ blank neceassary after backslash to force space before image
