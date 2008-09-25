@@ -21,11 +21,13 @@
 
   <part id="faq">
     <faq id="howto">
-      <question>Documentation or HowTo for using Tobago?</question>
+      <question>Where can I find documentation or HowTos for using Tobago?</question>
       <answer>
+          Please, see
         <p>
           <a href="http://tobago.atanion.net/tobago-example-demo/">Demo</a>
         </p>
+          and especially the section for best pratices:
         <p>
           <a href="http://tobago.atanion.net/tobago-example-demo/faces/best-practice/intro.jsp">
             Best Practices
@@ -34,7 +36,7 @@
       </answer>
     </faq>
     <faq id="hello-world">
-      <question>Where can I find a Hello World example and a list of needed
+      <question>Where can I find a "Hello World" example and a list of required
         jars?
       </question>
       <answer>
@@ -114,7 +116,7 @@
     <faq id="tobago/browser">
       <question>Which web browsers are currently supported by Tobago?</question>
       <answer>
-        <p>Firefox 2, IE 6 (TODO more details)</p>
+        <p>Firefox 2 &amp; 3 , IE 6 &amp; 7 (TODO more details)</p>
       </answer>
     </faq>
 
@@ -188,7 +190,7 @@
     </faq>
 
     <faq id="tiles/sitemesh">
-      <question>Can Tobago replace tiles? Can I ignore Tiles and Sitemesh in
+      <question>Can Tobago replace Tiles? Can I ignore Tiles and Sitemesh in
         favor of Tobago?
       </question>
       <answer>

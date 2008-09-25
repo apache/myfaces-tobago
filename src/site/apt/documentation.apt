@@ -14,31 +14,77 @@
  ~~ limitations under the License.
 
  ------
- Documentation
+ Documentation Overview
  ------
 
-Tobago Javadoc Documentation
+Documentation Overview
 
-  {{{http://myfaces.apache.org/tobago/apidocs-1.0.18/index.html}1.0.18 Javadoc Documentation}}
+  This is the hub to the various documentation documents helping you to get along with Tobago.
 
-  {{{http://myfaces.apache.org/tobago/apidocs/index.html}Latest 1.1.x SVN Javadoc Documentation}}
 
-  {{{oldDocumentation.html}Previous Releases}}
+Getting Started
 
-Tobago TLD Documentation
+  The {{{getting-started.html}'Getting Started'}} section describes how to build Tobago and run the
+  example applications from the sources.
 
-  {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc-1.0.18/index.html}1.0.18 TLD Documentation}}
 
-  {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc/index.html}Latest 1.1.x SVN TLD Documentation}}
+Examples
 
-  {{{oldDocumentation.html}Previous Releases}}
+  Tobago contains various example applications including a general demo, an address book application, a blank WAR,
+  and an example theme.
 
-Sun JSF Documentation
+* Tobago Demo
 
-  {{{http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html}JSF 1.1 Javadoc}}
-  
-  {{{http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/tlddocs/index.html}JSF 1.1 TLD}}
+  The Tobago demo presents the important features of Tobago including layout and themes. It contains
+  an overview of the provided controls and best practices how to use Tobago.\
+  \ 
+  ~~ blank neceassary after backslash to force space before image
 
-  {{{http://java.sun.com/javaee/javaserverfaces/1.2_MR1/docs/api/index.html}JSF 1.2 Javadoc}}
+[images/demo.png] Tobago Demo
 
-  {{{http://java.sun.com/javaee/javaserverfaces/1.2_MR1/docs/tlddocs/index.html}JSF 1.2 TLD}}
+  A live version of the demo can be found at: {{http://tobago.atanion.net/tobago-example-demo/}}
+
+  Sources: {{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/demo/}}
+
+* Address Book Example
+
+  The address book is a small example application demonstrating how to use Spring and Open JPA to manage addresses
+  with a Tobago frontend.\
+  \ 
+  ~~ blank neceassary after backslash to force space before image
+
+[images/addressbook.png] Address Book Example
+
+  Sources: {{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/addressbook/}}
+
+* Blank WAR
+
+  Minimal WAR to displaying a simple page with Tobago -- useful to get started with your own Tobago
+  application.
+
+  Sources: {{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/blank/}}
+
+* Blank WAR
+
+  The Blank WAR is a minimal WAR to display a simple page with Tobago -- useful to get started with your own Tobago
+  application.
+
+  Sources: {{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/blank/}}
+
+* Example Theme
+
+  This theme shows how to extend an existing theme and add new markups.
+
+  Sources: {{http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/tobago-theme-example/}}
+
+
+Tobago API
+
+  For Javadoc and TLD documentation see {{{api-documentation.html}here.}}
+
+
+Further Information
+
+  If you have problems and need help with Tobago, please ask your questions on the
+  {{{mail-lists.html}MyFaces User List}}.
+
