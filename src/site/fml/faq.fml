@@ -23,11 +23,15 @@
     <faq id="howto">
       <question>Where can I find documentation or HowTos for using Tobago?</question>
       <answer>
+        <p>
           Please, see
+        </p>
         <p>
           <a href="http://tobago.atanion.net/tobago-example-demo/">Demo</a>
         </p>
-          and especially the section for best pratices:
+        <p>
+          and especially the section for best practices:
+        </p>
         <p>
           <a href="http://tobago.atanion.net/tobago-example-demo/faces/best-practice/intro.jsp">
             Best Practices
