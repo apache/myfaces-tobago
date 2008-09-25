@@ -227,8 +227,8 @@ mvn install -Pall-modules
 
   Tobago organizes the placement of components with the help of layout managers. The main layout manager
   is called gridLayout. It divides the available rectangular space into grid cells. The grid is spawned
-  by column and row values. The syntax of these values is based on the {{http://www.w3.org/TR/html401/types.html#type-multi-length}multi-length notation}}
-  found in HTML.
+  by column and row values. The syntax of these values is based on the {{{http://www.w3.org/TR/html401/types.html#type-multi-length}multi-length notation}}
+  known from HTML.
 
 * {Themes}
 
