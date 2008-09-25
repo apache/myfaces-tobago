@@ -475,7 +475,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
       popupMenu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "ToolBarButton");
       popupMenu.setRendererType(RENDERER_TYPE_MENUBAR);
       if (popupMenu instanceof UIMenu)  {
-        ((UIMenu)popupMenu).setLabel(null);
+        ((UIMenu) popupMenu).setLabel(null);
       } else {
         popupMenu.getAttributes().remove(ATTR_LABEL);
       }
