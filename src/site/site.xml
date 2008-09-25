@@ -53,6 +53,7 @@
     <menu name="Documentation">
       <item name="Overview" href="http://myfaces.apache.org/tobago/documentation.html" />
       <item name="Getting Started" href="http://myfaces.apache.org/tobago/getting-started.html"/>
+      <item name="Guide to Tobago" href="http://myfaces.apache.org/tobago/guide.html"/>
       <item name="Roadmap" href="http://myfaces.apache.org/tobago/roadmap.html" />
       <item name="Theme Handling" href="http://myfaces.apache.org/tobago/themes.html" />
       <item name="FAQ" href="http://myfaces.apache.org/tobago/faq.html" />

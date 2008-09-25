@@ -1,0 +1,277 @@
+ ~~ Licensed to the Apache Software Foundation (ASF) under one or more
+ ~~ contributor license agreements.  See the NOTICE file distributed with
+ ~~ this work for additional information regarding copyright ownership.
+ ~~ The ASF licenses this file to You under the Apache License, Version 2.0
+ ~~ (the "License"); you may not use this file except in compliance with
+ ~~ the License.  You may obtain a copy of the License at
+ ~~
+ ~~      http://www.apache.org/licenses/LICENSE-2.0
+ ~~
+ ~~ Unless required by applicable law or agreed to in writing, software
+ ~~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~~ See the License for the specific language governing permissions and
+ ~~ limitations under the License.
+
+ ------
+ Guide to Tobago
+ ------
+
+{Guide to Tobago}
+
+  <Preliminary version -- work in progress>
+
+====================
+
+  Tobago is a JSF framework and component library. It provides a comfortable way to layout screens
+  of desktop-like applications with a consistent look & feel. Tobago emphasizes the separation of structure
+  and design of screens. Screens are developed indepently of the view technology -- no HTML, CSS, or JavaScript.
+  Because of strict separation a screen can be displayed with different themes. These themes can be used to render
+  screens according to different cooparate design without changing the sources of the screens.
+
+{Content}
+
+  \ 
+
+%{toc|fromDepth=0|toDepth=4}
+
+{Environment}
+
+* {Building and Deploying the Tobago Examples}
+
+  Tobago uses Maven as a build management system. The provided examples are normally build with Maven, but it would
+  be easy to use an alternative build system. The necessary artifacts can be downloaded {{{download.html}here}} or
+  from the Maven repository.
+
+  We will use the address book demo as an example in this guide. Since the address book example is currently
+  not part of the Tobago distribution, you have to check-out the sources from the Apache Subversion repository.
+  We will use the latest release tag for this.
+
++------------------------------------------+
+svn co https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.18/example/addressbook/ tobago-addressbook
++------------------------------------------+
+
+  You will need Java 5 and Maven 2.0.9 or later to build the address book example. Use the following command to
+  compile the sources and deploy the web application on an embedded Jetty server:
+
++------------------------------------------+
+mvn jetty:run-exploded
++------------------------------------------+
+
+  If you point your browser to {{http://localhost:8080/}} and you will be directed to the login dialog of the address
+  book example.\
+  \ 
+
+[images/guide-addressbook-login.png] Address Book Login
+
+  You can click on the guest/guest or admin/admin links or fill in the authentication information yourself
+  and press the 'Login' button. After displaying a splash screen for a while the application will direct you to
+  the address list page.\
+  \ 
+
+[images/guide-addressbook-list.png] Address List
+
+  A freshly started instance of the address book example will not contain any addresses in the list. But you can
+  add addresses by pressing the 'New' button in the tool bar. The addresses will be stored in an embedded Derby
+  database.
+
+* {Building Tobago}
+
+  To use the latest version of Tobago you can use the snapshot artifacts build by our continous integration server Continuum,
+  which are available in the {{{http://people.apache.org/repo/m2-snapshot-repository/org/apache/myfaces/tobago/}Apache snapshot repository.}}
+
+  Alternatively, you can build Tobago yourself. You will need Java 5 and Maven 2.0.9 or later.
+
+  Check-out Tobago from the Apache Subversion repository
+
++------------------------------------------+
+svn co https://svn.apache.org/repos/asf/myfaces/tobago/trunk/ tobago
++------------------------------------------+
+
+  To build the complete project with all sub-modules you have to enter the following command
+
++------------------------------------------+
+mvn install -Pall-modules
++------------------------------------------+
+
+  For mor information on building Tobago -- especially the 1.0.x branch -- see {{{getting-started.html}Getting Started.}}
+
+* {Building your own Tobago Application}
+
+  The Tobago example distribution contains the tobago-example-blank WAR, which can act as starting point for
+  your own Tobago application. Since Tobago is based on JSF you need a JSF implementation if the application server
+  you are targeting doesn't contain one.
+
+  If you cannot use Java 5 or higher you can use retrotranslated JARs from the Tobago distribution to develop and
+  run Tobago applications with Java 1.4.
+
+  A Tobago application is a web application which is packaged as a WAR. For a JSF application the <<<FacesServlet>>> needs
+  to be configured in the <<</WEB-INF/web.xml>>>. To serve the internal resources of Tobago directly from the Tobago
+  JARs the Tobago <<<ResourceServlet>>> has to configured, too. The configuration of a Tobago application is controlled
+  by the <<<WEB-INF/tobago-config.xml>>> file. This can be used to declare the available themes and the default theme.
+  Additionally, it can be used to locally add markup -- see the {{Themes}} section for further information.
+
+* {Simple Tobago Page}
+
+  You can use JSP or Facelets to write Tobago pages. For Facelets support the extension module tobago-facelets has to
+  be added as a dependency. Because the address book example uses JSP as rednering technology we will focus on JSP
+  for now.
+
+  Tobago provides to tag libraries --  the core library and the extension library. The corresponding TLDs contain
+  documentation for the provided tags which is generated from annotations on the underlying tag classes. The core tag
+  library contains basic controls and extension library convenience tag for pre-assembled tag compositions -- for
+  example a composition of a label and an input control.
+
+  A minimal Tobago JSP page looks like this:
+
++------------------------------------------+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
+<f:view>
+  <tc:page>
+    <f:facet name="layout">
+      <tc:gridLayout/>
+    </f:facet>
+    <tc:out value="Hello World"/>
+  </tc:page>
+</f:view>
++------------------------------------------+
+
+  This page is part of the blank WAR: {{https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.18/example/blank/src/main/webapp/helloWorld.jsp}}
+
+{Control Overview}
+
+  In addition to the basic controls known from HTML Tobago provides high-level controls typical for desktop
+  applications.
+  
+* {Basic Controls}
+
+  HTML offers a decent set of basic controls. These controls form the basis of the Tobago controls including
+  single line input controls, text areas, check boxes, radio buttons, links, buttons, labels, and others.
+
+  The Tobago demo contains an overview page for the basic controls.\
+  \ 
+
+[images/guide-basic-controls.png] Basic Controls  
+
+  Live demo of the basic controls: {{http://tobago.atanion.net/tobago-example-demo/faces/overview/basic.jsp}}
+
+  The basic controls page also shows two variants of a normal input control: the date input control and the time input
+  control.
+
+* {Sheet}
+
+  The sheet control is used to display tabular data. The address book example uses a sheet to give an overview of
+  all stored addresses.\
+  \ 
+
+[images/guide-sheet.png] Sheet
+
+  Live demo of a sheet: {{http://tobago.atanion.net/tobago-example-demo/faces/overview/sheet.jsp}}
+
+* {Tab Group}
+
+  The tab group control displays rectangular content in the same area of the screen with the help of tab panels.
+
+  In the address book example the tab group is used to structure the input controls for an address into three groups
+  for general, business, and miscellaneous information.\
+  \ 
+
+[images/guide-tab-group.png] Tab Group
+
+  Live demo of a tab group: {{http://tobago.atanion.net/tobago-example-demo/faces/overview/tab.jsp}}
+
+* {Menu}
+
+  The menu control can be used to render a menu bar at the top of a screen like it is typically used in desktop
+  applications. But the location for menus is not limited to this place.\
+  \ 
+  
+[images/guide-menu.png] Menu
+
+  Live demo of a menu: {{http://tobago.atanion.net/tobago-example-demo/faces/overview/toolbar.jsp}}
+  
+* {Tool Bar}
+
+  The tool bar control is used to render a special rectangular area of buttons.
+
+  The address book example uses a tool bar below the menu to provide convenient access to the most common actions
+  from the menu.\
+  \ 
+
+[images/guide-toolbar.png] Tool Bar
+
+  Live demo of a tool bar: {{http://tobago.atanion.net/tobago-example-demo/faces/overview/toolbar.jsp}}
+  
+* {Popup}
+
+  Popups are used to render small modal dialogs inside the current screen. The original screen is disabled until
+  the popup is released with one of the popup buttons.\
+  \ 
+
+[images/guide-popup.png] Tool Bar
+
+* {File Upload}
+
+  The file select control can be used to upload files.\
+  \ 
+
+[images/guide-upload.png] File Upload
+
+{Features and Concepts}
+
+* {Layout}
+
+  Tobago organizes the placement of components with the help of layout managers. The main layout manager
+  is called gridLayout. It divides the available rectangular space into grid cells. The grid is spawned
+  by column and row values. The syntax of these values is based on the {{http://www.w3.org/TR/html401/types.html#type-multi-length}multi-length notation}}
+  found in HTML.
+
+* {Themes}
+
+  A theme defines how the structured view is actually rendered. It provides the look & feel of the controls inside a
+  view. It appoints colors, dimensions, spacing, fonts and other graphical properties.
+
+  Tobago includes a small collection of themes called after cities on the island Tobago: Scarborough, Speyside,
+  Charlotteville, and Richmond. Scarborough is a basic theme, which tries to focus on features of plain
+  HTML, Speyside is the main theme of Tobago, Charlotteville and Richmond are mainly color variations of Speyside.\
+  \  
+
+[images/guide-theme-scarborough.png] Scarborough
+
+  Scarborough\
+  \ 
+
+[images/guide-theme-speyside.png] Speyside
+
+  Speyside\
+  \ 
+
+[images/guide-theme-charlotteville.png] Charlotteville
+
+  Charlotteville\
+  \ 
+
+[images/guide-theme-richmond.png] Richmond
+
+  Richmond
+
+* {Partial Rendering}
+
+  To avoid the reload of complete screens Tobago provides partial rendering, which advises the client to update
+  only parts of the screen to optimize the amount of data sent to the client and the time to render necessary updates.
+  Some controls like the tab control and the sheet directly support partial rendering. Whereas container
+  controls like the generic panel allow to group arbitrary controls to be able to update them exclusively as a group.
+
+* {Virtual Forms}
+
+  The page tag establishes an implicit form for all controls on the screen. The form tag allows to divide these
+  controls into smaller groups to be able to manage validation only for these grouped controls.
+
+* {Security}
+
+  The extension module tobago-security allows to protect method bindings with the help of annotations. The module
+  provides alternative command components with security handling. The available annotations are <<<@RolesAllowed>>>,
+  <<<@DenyAll>>>, and <<<@PermitAll>>>.
