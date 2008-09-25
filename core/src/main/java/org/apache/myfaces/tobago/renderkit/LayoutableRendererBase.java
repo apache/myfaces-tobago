@@ -21,10 +21,13 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -148,6 +151,11 @@ public abstract class LayoutableRendererBase
 
   protected void checkForCommandFacet(UIComponent component, List<String> clientIds, FacesContext facesContext,
       TobagoResponseWriter writer) throws IOException {
+    if (ComponentUtil.getBooleanAttribute(component, ATTR_READONLY)
+        || ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
+      // skip if readonly
+      return;
+    }
     Map<String, UIComponent> facets = component.getFacets();
     for (Map.Entry<String, UIComponent> entry : facets.entrySet()) {
       if (entry.getValue() instanceof UICommand) {
