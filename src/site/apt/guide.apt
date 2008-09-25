@@ -114,12 +114,12 @@ mvn install -Pall-modules
 * {Simple Tobago Page}
 
   You can use JSP or Facelets to write Tobago pages. For Facelets support the extension module tobago-facelets has to
-  be added as a dependency. Because the address book example uses JSP as rednering technology we will focus on JSP
+  be added as a dependency. Because the address book example uses JSP as rendering technology we will focus on JSP
   for now.
 
   Tobago provides to tag libraries --  the core library and the extension library. The corresponding TLDs contain
   documentation for the provided tags which is generated from annotations on the underlying tag classes. The core tag
-  library contains basic controls and extension library convenience tag for pre-assembled tag compositions -- for
+  library contains basic controls and the extension library convenience tags for pre-assembled tag compositions -- for
   example a composition of a label and an input control.
 
   A minimal Tobago JSP page looks like this:
@@ -139,7 +139,8 @@ mvn install -Pall-modules
 </f:view>
 +------------------------------------------+
 
-  This page is part of the blank WAR: {{https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.18/example/blank/src/main/webapp/helloWorld.jsp}}
+  A similar page is part of the blank WAR: \
+  {{https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.18/example/blank/src/main/webapp/helloWorld.jsp}}
 
 {Control Overview}
 
