@@ -45,9 +45,9 @@ public class WizardImpl implements Wizard {
   public void gotoStep(ActionEvent event) {
     Object step = (event.getComponent().getAttributes().get("step"));
     if (step instanceof Integer) {
-      index = (Integer)step;
+      index = (Integer) step;
     } else { // todo: The JSP Tag uses String in the moment
-      index = Integer.parseInt((String)step);
+      index = Integer.parseInt((String) step);
     }
 
     LOG.debug("gotoStep: " + index);
