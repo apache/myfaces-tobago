@@ -43,7 +43,12 @@ public class WizardImpl implements Wizard {
   }
 
   public void gotoStep(ActionEvent event) {
-    index = Integer.parseInt((String) (event.getComponent().getAttributes().get("step")));
+    Object step = (event.getComponent().getAttributes().get("step"));
+    if (step instanceof Integer) {
+      index = (Integer)step;
+    } else { // todo: The JSP Tag uses String in the moment
+      index = Integer.parseInt((String)step);
+    }
 
     LOG.debug("gotoStep: " + index);
   }
@@ -93,6 +98,10 @@ public class WizardImpl implements Wizard {
 
   public List<WizardStep> getCourse() {
     return course;
+  }
+
+  public int getSize() {
+    return course.size();
   }
 
   public void register() {

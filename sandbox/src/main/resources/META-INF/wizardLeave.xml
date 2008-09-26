@@ -18,17 +18,16 @@
 
 <ui:composition xmlns:c="http://java.sun.com/jstl/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tfs="http://myfaces.apache.org/tobago/facelet-sandbox">
+                xmlns:tc="http://myfaces.apache.org/tobago/component">
 
   <c:if test="${empty label}">
     <!--todo: i18n-->
-    <c:set var="label" value="Next"/>
+    <c:set var="label" value="Leave Wizard"/>
   </c:if>
 
   <tc:button label="${label}">
     <tc:attribute name="action" value="${action}" mode="action"/>
-    <tc:attribute name="actionListener" value="${wizard.next}" mode="actionListener"/>
+    <tc:attribute name="actionListener" value="${wizard.leave}" mode="actionListener"/>
     <tc:attribute name="disabled" value="${action}" mode="isNotSet"/>
   </tc:button>
 

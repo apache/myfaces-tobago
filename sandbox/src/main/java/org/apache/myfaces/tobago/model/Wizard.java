@@ -67,4 +67,6 @@ public interface Wizard {
   WizardStep getCurrentStep();
 
   void removeForwardSteps();
+
+  int getSize();
 }

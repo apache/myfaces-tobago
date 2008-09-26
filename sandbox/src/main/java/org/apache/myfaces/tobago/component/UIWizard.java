@@ -43,14 +43,18 @@ public class UIWizard extends UIPanel implements OnComponentCreated {
 
   @Override
   public void processDecodes(FacesContext facesContext) {
-    facesContext.getExternalContext().getRequestMap().put(var, getController());
+    if (var != null) {
+      facesContext.getExternalContext().getRequestMap().put(var, getController());
+    }
     super.processDecodes(facesContext);
   }
 
   @Override
   public void decode(FacesContext facesContext) {
     super.decode(facesContext);
+    if (var != null) {
     facesContext.getExternalContext().getRequestMap().remove(var);
+  }
   }
 
   @Override
@@ -62,10 +66,14 @@ public class UIWizard extends UIPanel implements OnComponentCreated {
   public void broadcast(FacesEvent event) throws AbortProcessingException {
     if (event instanceof FacesEventWrapper) {
       FacesContext facesContext = FacesContext.getCurrentInstance();
+      if (var != null) {
       facesContext.getExternalContext().getRequestMap().put(var, getController());
+      }
       FacesEvent originalEvent = ((FacesEventWrapper) event).getWrappedFacesEvent();
       originalEvent.getComponent().broadcast(originalEvent);
+      if (var != null) {
       facesContext.getExternalContext().getRequestMap().remove(var);
+      }
     } else {
       super.broadcast(event);
     }
@@ -73,7 +81,9 @@ public class UIWizard extends UIPanel implements OnComponentCreated {
 
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
+    if (var != null) {
     facesContext.getExternalContext().getRequestMap().put(var, getController());
+    }
     super.encodeBegin(facesContext);
   }
 
@@ -81,7 +91,9 @@ public class UIWizard extends UIPanel implements OnComponentCreated {
   @Override
   public void encodeEnd(FacesContext facesContext) throws IOException {
     super.encodeEnd(facesContext);
+    if (var != null) {
     facesContext.getExternalContext().getRequestMap().remove(var);
+    }
   }
 
   public void onComponentCreated(FacesContext context, UIComponent component) {

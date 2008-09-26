@@ -16,20 +16,34 @@
 	* limitations under the License.
 -->
 
-<ui:composition xmlns:c="http://java.sun.com/jstl/core"
+<ui:composition xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jstl/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
                 xmlns:tfs="http://myfaces.apache.org/tobago/facelet-sandbox">
 
-  <c:if test="${empty label}">
-    <!--todo: i18n-->
-    <c:set var="label" value="Next"/>
-  </c:if>
+  <c:set var="columns" value=""/>
+  <c:forEach var="i" begin="0" end="${wizard.size}" step="1">
+    <c:set var="columns" value="fixed;${columns}"/>
+  </c:forEach>
+  <c:set var="columns" value="${columns}*;50px"/>
 
-  <tc:button label="${label}">
-    <tc:attribute name="action" value="${action}" mode="action"/>
-    <tc:attribute name="actionListener" value="${wizard.next}" mode="actionListener"/>
-    <tc:attribute name="disabled" value="${action}" mode="isNotSet"/>
-  </tc:button>
+  <tc:panel>
 
+    <f:facet name="layout">
+      <tc:gridLayout rows="fixed" columns="${columns}"/>
+    </f:facet>
+
+    <c:forEach items="${wizard.course}" var="step">
+      <tc:button label="-${step.title}-${step.outcome}-${step.index}-">
+        <tc:attribute name="action" value="${step.outcome}" mode="actionFromValue"/>
+        <tc:attribute name="actionListener" value="${wizard.gotoStep}" mode="actionListener"/>
+        <tc:attribute name="step" value="${step.index}"/>
+      </tc:button>
+    </c:forEach>
+
+    <tc:cell/>
+    <tc:out value="${wizard.index}/${wizard.size}"/>
+
+  </tc:panel>
 </ui:composition>

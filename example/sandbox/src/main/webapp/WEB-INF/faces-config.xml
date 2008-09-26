@@ -64,6 +64,10 @@
   <navigation-rule>
     <from-view-id>/wizard/*</from-view-id>
     <navigation-case>
+      <from-outcome>filter</from-outcome>
+      <to-view-id>/wizard/navi/filter.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
       <from-outcome>fileIntoCondition</from-outcome>
       <to-view-id>/wizard/navi/fileIntoCondition.jsp</to-view-id>
     </navigation-case>
@@ -75,9 +79,25 @@
       <from-outcome>finish</from-outcome>
       <to-view-id>/wizard/navi/finish.jsp</to-view-id>
     </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/facelets/wizard/*</from-view-id>
     <navigation-case>
       <from-outcome>filter</from-outcome>
-      <to-view-id>/wizard/navi/filter.jsp</to-view-id>
+      <to-view-id>/facelets/wizard/navi/filter.xml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>fileIntoCondition</from-outcome>
+      <to-view-id>/facelets/wizard/navi/fileIntoCondition.xml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>forwardCondition</from-outcome>
+      <to-view-id>/facelets/wizard/navi/forwardCondition.xml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>finish</from-outcome>
+      <to-view-id>/facelets/wizard/navi/finish.xml</to-view-id>
     </navigation-case>
   </navigation-rule>
 

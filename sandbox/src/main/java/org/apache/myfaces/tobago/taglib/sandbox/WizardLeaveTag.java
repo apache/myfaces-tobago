@@ -43,7 +43,7 @@ public class WizardLeaveTag extends BodyTagSupport {
     ButtonTag button = new ButtonTag();
     button.setPageContext(pageContext);
     button.setParent(getParent());
-    button.setLabel(StringUtils.isEmpty(label) ? "OK" : label); // todo: i18n
+    button.setLabel(StringUtils.isEmpty(label) ? "Leave Wizard" : label); // todo: i18n
     button.setAction(action);
     button.setActionListener("#{" + wizard + ".leave}");
     button.setDisabled(Boolean.toString(action == null));

@@ -28,7 +28,9 @@ public class WizardRenderer extends LayoutableRendererBase {
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     UIWizard wizard = (UIWizard) component;
-    facesContext.getExternalContext().getRequestMap().put(wizard.getVar(), wizard.getController());
+    if (wizard.getVar() != null) {
+      facesContext.getExternalContext().getRequestMap().put(wizard.getVar(), wizard.getController());
+    }
     super.prepareRender(facesContext, component);
     // xxx can't be removed here, because there is no looping over children possible here.
 //    facesContext.getExternalContext().getRequestMap().remove(wizard.getVar());

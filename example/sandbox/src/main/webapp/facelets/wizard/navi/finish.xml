@@ -16,7 +16,6 @@
 -->
 
 <f:view xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:c="http://java.sun.com/jstl/core"
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:tc="http://myfaces.apache.org/tobago/component"
         xmlns:tx="http://myfaces.apache.org/tobago/facelet-extension"
@@ -30,24 +29,7 @@
       <tc:gridLayout margin="10px"/>
     </f:facet>
 
-    <tfs:wizardExtension wizard="#{controller.wizard}"
-                         title="New Filter"
-                         outcome="filter"
-                         allowJumpForward="true"
-                         labelPrevious="Zurück"
-                         labelNext="${controller.testItems[0]}"
-                         labelOkay="Fertig"
-                         labelCancel="Abbruch"
-                         actionNext="${controller.createFilter}">
-
-      <tc:selectOneRadio value="#{controller.filterType}" required="true">
-        <tc:selectItem itemLabel="File Into" itemValue="fileInto"/>
-        <tc:selectItem itemLabel="Forward" itemValue="forward"/>
-      </tc:selectOneRadio>
-
-    </tfs:wizardExtension>
-<!--
-    <tfs:wizard controller="#{controller.wizard}" title="New Filter" outcome="filter"
+    <tfs:wizard var="w" controller="#{controller.wizard}" title="Finish" outcome="finish"
                 allowJumpForward="true">
 
       <tc:panel>
@@ -55,17 +37,16 @@
           <tc:gridLayout rows="fixed;*;fixed"/>
         </f:facet>
 
+        <!--<tfs:wizardTrain wizard="w" controller="#{controller.wizard}"/>-->
         <tfs:wizardTrain wizard="#{controller.wizard}"/>
 
         <tc:panel>
           <f:facet name="layout">
-            <tc:gridLayout/>
+            <tc:gridLayout rows="fixed;*"/>
           </f:facet>
 
-          <tc:selectOneRadio value="#{controller.filterType}" required="true">
-            <tc:selectItem itemLabel="File Into" itemValue="fileInto"/>
-            <tc:selectItem itemLabel="Forward" itemValue="forward"/>
-          </tc:selectOneRadio>
+          <tc:out value="Finish" />
+          <tc:cell/>
 
         </tc:panel>
 
@@ -75,17 +56,17 @@
           </f:facet>
 
           <tc:cell/>
-          <tfs:wizardPrevious wizard="#{controller.wizard}" label="Vorherige"/>
-          <tfs:wizardNext wizard="#{controller.wizard}" label="Nächste" action="${controller.createFilter}"/>
-          <tfs:wizardLeave wizard="#{controller.wizard}" label="Fertig"/>
-          <tfs:wizardLeave wizard="#{controller.wizard}" label="Cancel"/>
+          <tfs:wizardPrevious wizard="${w}" label="Vorherige"/>
+          <tfs:wizardNext wizard="${w}" label="Nächste"/>
+          <tfs:wizardLeave wizard="${w}" label="Fertig"/>
+          <tfs:wizardLeave wizard="${w}" label="Cancel"/>
 
         </tc:panel>
 
       </tc:panel>
 
     </tfs:wizard>
--->
+
 
   </tc:page>
 </f:view>

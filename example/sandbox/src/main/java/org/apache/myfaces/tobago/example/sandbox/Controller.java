@@ -23,7 +23,9 @@ import org.apache.myfaces.tobago.model.Wizard;
 import org.apache.myfaces.tobago.model.WizardImpl;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class Controller {
 
@@ -102,5 +104,9 @@ public class Controller {
 
   public void setFilterValue(String filterValue) {
     this.filterValue = filterValue;
+  }
+
+  public List<String> getTestItems() {
+    return Arrays.asList("4","5");
   }
 }
