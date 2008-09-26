@@ -35,7 +35,7 @@
                          outcome="filter"
                          allowJumpForward="true"
                          labelPrevious="Zurück"
-                         labelNext="${controller.testItems[0]}"
+                         labelNext="Weiter"
                          labelOkay="Fertig"
                          labelCancel="Abbruch"
                          actionNext="${controller.createFilter}">
