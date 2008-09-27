@@ -55,6 +55,17 @@ public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindi
   void setServerside(String serverside);
 
   /**
+
+   * Flag indicating that the Tab Navigationbar is rendered.
+   *
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
+  @Deprecated
+  void setShowNavigationBar(String serverside);
+
+
+  /**
    * Flag indicating how tab switching should be done.
    * <p/>
    * Possible values are:

@@ -79,10 +79,11 @@ div.tobago-tabNavigationBar {
   border-bottom-color: #DDEEFF;
   border-bottom-style: solid;
   border-bottom-width: 1px;
-  height: 25px;
-  top: 0px;
-  margin-right: 0px;
+  overflow: hidden;
+  height: 100%;
   position: absolute;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 a:link.tab, a:visited.tab, a:active.tab {
@@ -807,7 +808,7 @@ div.tobago-richTextEditor-body {
 /* end --------------------------------------------------------------------- */
 
 .tobago-input-picker {
-  vertical-align: bottom;
+  vertical-align: baseline;
 }
 
 /* object ------------------------------------------------------------------ */

@@ -155,10 +155,7 @@ div.tobago-tabNavigationBar {
   border-bottom-color: #000000;
   border-bottom-style: solid;
   border-bottom-width: 1px;
-  height: 22px;
-  top: -4px;
   margin-right: 6px;
-  position: absolute;
 }
 
 a:link.tab, a:visited.tab, a:active.tab {

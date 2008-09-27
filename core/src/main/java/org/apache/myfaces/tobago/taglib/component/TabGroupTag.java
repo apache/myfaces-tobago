@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_NAVIGATION_BAR;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_INDEX;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SWITCH_TYPE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -38,6 +39,7 @@ public class TabGroupTag extends TobagoTag
   private String switchType;
   private String immediate;
   private String state;
+  private String showNavigationBar;
 
   @Override
   public String getComponentType() {
@@ -51,6 +53,7 @@ public class TabGroupTag extends TobagoTag
     ComponentUtil.setIntegerProperty(component, ATTR_SELECTED_INDEX, state);
     ComponentUtil.setStringProperty(component, ATTR_SWITCH_TYPE, switchType);
     ComponentUtil.setBooleanProperty(component, ATTR_IMMEDIATE, immediate);
+    ComponentUtil.setBooleanProperty(component, ATTR_SHOW_NAVIGATION_BAR, showNavigationBar);
   }
 
   @Override
@@ -60,6 +63,7 @@ public class TabGroupTag extends TobagoTag
     switchType = null;
     immediate = null;
     selectedIndex = null;
+    showNavigationBar = null;
   }
 
   public void setServerside(String serverside) {
@@ -82,6 +86,14 @@ public class TabGroupTag extends TobagoTag
 
   public void setImmediate(String immediate) {
     this.immediate = immediate;
+  }
+
+  public String getShowNavigationBar() {
+    return showNavigationBar;
+  }
+
+  public void setShowNavigationBar(String showNavigationBar) {
+    this.showNavigationBar = showNavigationBar;
   }
 }
 

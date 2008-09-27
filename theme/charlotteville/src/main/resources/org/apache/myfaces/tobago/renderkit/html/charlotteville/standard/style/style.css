@@ -108,6 +108,10 @@ div.tobago-tab-fulfill {
   border-color: #FECB66;
 }
 
+div.tobago-tabNavigationBar {
+  border-bottom-color: #FECB66;
+}
+
 a:link.tab, a:visited.tab, a:active.tab {
   color: #FECB66;
 }

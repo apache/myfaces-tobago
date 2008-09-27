@@ -1,5 +1,9 @@
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.myfaces.tobago.component.UIToolBar;
+
+import javax.faces.component.UIComponent;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -18,6 +22,11 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 public class TabNavigationBarRenderer extends BoxToolBarRenderer {
+
+  @Override
+  protected String getLabelPosition(UIComponent component) {
+    return UIToolBar.LABEL_OFF;
+  }
 
   @Override
   protected String getDivClasses(boolean selected, boolean disabled) {

@@ -98,7 +98,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     } catch (NumberFormatException e) {
       LOG.error("Can't parse activeIndex: '" + newValue + "'");
     }
-    HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, component);
+    //HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, component);
   }
 
   public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
@@ -141,7 +141,10 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     // selected with stylesheet.
     int virtualTab = 0;
     int currentWidth = 0;
-    int navigationBarWidth = getConfiguredValue(facesContext, component, "navigationBarWidth");
+    int navigationBarWidth = 0;
+    if (ComponentUtil.getBooleanAttribute(component, TobagoConstants.ATTR_SHOW_NAVIGATION_BAR)) {
+      navigationBarWidth = getConfiguredValue(facesContext, component, "navigationBarWidth");
+    }
     for (UIComponent tab : (List<UIComponent>) component.getChildren()) {
       if (tab instanceof UIPanelBase) {
         if (tab.isRendered()) {
@@ -315,54 +318,10 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.startElement(HtmlConstants.TR, null);
     writer.writeAttribute(HtmlAttributes.VALIGN, "bottom", false);
 
-    Application application = facesContext.getApplication();
-
-    // tool bar
-
-    UICommand scrollLeft = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
-    scrollLeft.setId(component.getId() + "__" + virtualTab + "__" + "previous");
-    //scrollLeft.setId(facesContext.getViewRoot().createUniqueId());
-    scrollLeft.setRendererType(null);
-    scrollLeft.getAttributes().put(ATTR_IMAGE, "image/tabPrev.gif");
-    if (tabList.isFirst(virtualTab)) {
-      scrollLeft.setDisabled(true);
+    UIToolBar toolBar = null;
+    if (toolbarWidth > 0) {
+      toolBar = createToolBar(facesContext, component, virtualTab, switchType, tabList, clientId);
     }
-    if (!(TobagoConfig.getInstance(facesContext).isAjaxEnabled() && SWITCH_TYPE_RELOAD_TAB.equals(switchType))) {
-      scrollLeft.getAttributes().put(ATTR_ONCLICK, "tobago_previousTab('" + switchType + "','" + clientId + "',"
-          + component.getChildCount() + ')');
-    } else {
-      scrollLeft.getAttributes().put(ATTR_ONCLICK, "javascript:false");
-    }
-    UICommand scrollRight = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
-    scrollRight.setId(component.getId() + "__" + virtualTab + "__" + "next");
-    scrollRight.setRendererType(null);
-    scrollRight.getAttributes().put(ATTR_IMAGE, "image/tabNext.gif");
-    if (tabList.isLast(virtualTab)) {
-      scrollRight.setDisabled(true);
-    }
-    if (!(TobagoConfig.getInstance(facesContext).isAjaxEnabled() && SWITCH_TYPE_RELOAD_TAB.equals(switchType))) {
-      scrollRight.getAttributes().put(ATTR_ONCLICK, "tobago_nextTab('" + switchType + "','" + clientId + "',"
-          + component.getChildCount() + ')');
-    } else {
-      scrollRight.getAttributes().put(ATTR_ONCLICK, "javascript:false");
-    }
-    /*UICommand commandList = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
-    commandList.setId(facesContext.getViewRoot().createUniqueId());
-    commandList.setRendererType(null);
-    UIMenu menu = (UIMenu) application.createComponent(UIMenu.COMPONENT_TYPE);
-    menu.setId(facesContext.getViewRoot().createUniqueId());
-    menu.setRendererType(null);
-    commandList.getFacets().put(FACET_MENUPOPUP, menu);*/
-    UIToolBar toolBar = (UIToolBar) application.createComponent(UIToolBar.COMPONENT_TYPE);
-    toolBar.setId(facesContext.getViewRoot().createUniqueId());
-    //toolBar.setLabelPosition(UIToolBar.LABEL_OFF);
-    toolBar.setRendererType("TabNavigationBar");
-    toolBar.setTransient(true);
-    //toolBar.setIconSize(AbstractUIToolBar.ICON_OFF);
-    toolBar.getChildren().add(scrollLeft);
-    toolBar.getChildren().add(scrollRight);
-    //toolBar.getChildren().add(commandList);
-    component.getFacets().put(TobagoConstants.FACET_TOOL_BAR, toolBar);
 
     UITab activeTab = null;
 
@@ -495,6 +454,58 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     encodeContent(writer, facesContext, activeTab);
 
     writer.endElement(HtmlConstants.TABLE);
+  }
+
+  private UIToolBar createToolBar(FacesContext facesContext, UITabGroup component, int virtualTab, String switchType, TabGroupRenderer.TabList tabList, String clientId) {
+    Application application = facesContext.getApplication();
+
+    // tool bar
+
+    UICommand scrollLeft = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+    scrollLeft.setId(component.getId() + "__" + virtualTab + "__" + "previous");
+    //scrollLeft.setId(facesContext.getViewRoot().createUniqueId());
+    scrollLeft.setRendererType(null);
+    scrollLeft.getAttributes().put(ATTR_IMAGE, "image/tabPrev.gif");
+    if (tabList.isFirst(virtualTab)) {
+      scrollLeft.setDisabled(true);
+    }
+    if (!(TobagoConfig.getInstance(facesContext).isAjaxEnabled() && SWITCH_TYPE_RELOAD_TAB.equals(switchType))) {
+      scrollLeft.getAttributes().put(ATTR_ONCLICK, "tobago_previousTab('" + switchType + "','" + clientId + "',"
+          + component.getChildCount() + ')');
+    } else {
+      scrollLeft.getAttributes().put(ATTR_ONCLICK, "javascript:false");
+    }
+    UICommand scrollRight = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+    scrollRight.setId(component.getId() + "__" + virtualTab + "__" + "next");
+    scrollRight.setRendererType(null);
+    scrollRight.getAttributes().put(ATTR_IMAGE, "image/tabNext.gif");
+    if (tabList.isLast(virtualTab)) {
+      scrollRight.setDisabled(true);
+    }
+    if (!(TobagoConfig.getInstance(facesContext).isAjaxEnabled() && SWITCH_TYPE_RELOAD_TAB.equals(switchType))) {
+      scrollRight.getAttributes().put(ATTR_ONCLICK, "tobago_nextTab('" + switchType + "','" + clientId + "',"
+          + component.getChildCount() + ')');
+    } else {
+      scrollRight.getAttributes().put(ATTR_ONCLICK, "javascript:false");
+    }
+    /*UICommand commandList = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+    commandList.setId(facesContext.getViewRoot().createUniqueId());
+    commandList.setRendererType(null);
+    UIMenu menu = (UIMenu) application.createComponent(UIMenu.COMPONENT_TYPE);
+    menu.setId(facesContext.getViewRoot().createUniqueId());
+    menu.setRendererType(null);
+    commandList.getFacets().put(FACET_MENUPOPUP, menu);*/
+    UIToolBar toolBar = (UIToolBar) application.createComponent(UIToolBar.COMPONENT_TYPE);
+    toolBar.setId(facesContext.getViewRoot().createUniqueId());
+    //toolBar.setLabelPosition(UIToolBar.LABEL_OFF);
+    toolBar.setRendererType("TabNavigationBar");
+    toolBar.setTransient(true);
+    //toolBar.setIconSize(AbstractUIToolBar.ICON_OFF);
+    toolBar.getChildren().add(scrollLeft);
+    toolBar.getChildren().add(scrollRight);
+    //toolBar.getChildren().add(commandList);
+    component.getFacets().put(TobagoConstants.FACET_TOOL_BAR, toolBar);
+    return toolBar;
   }
 
   private void renderToolbar(FacesContext facesContext, TobagoResponseWriter writer, UIPanel toolbar, int width,

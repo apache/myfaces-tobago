@@ -256,6 +256,10 @@ div.tobago-tab-fulfill {
   box-sizing: border-box;
 }
 
+div.tobago-tabNavigationBar {
+  border-bottom-color: #3366CC;
+} 
+
 a:link.tab, a:visited.tab, a:active.tab {
   font-family: bold 12px arial, helvetica, sans-serif;
   color: #3366CC;

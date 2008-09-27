@@ -22,6 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_NAVIGATION_BAR;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_INDEX;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SWITCH_TYPE;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
@@ -53,6 +54,7 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
   private int renderedIndex;
   private String switchType;
   private Boolean immediate;
+  private Boolean showNavigationBar;
   private MethodBinding tabChangeListener = null;
 
   public static final String SWITCH_TYPE_CLIENT = "client";
@@ -84,6 +86,24 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
       return false;
     }
   }
+
+  public boolean isShowNavigationBar() {
+    if (showNavigationBar != null) {
+      return showNavigationBar;
+    }
+    ValueBinding vb = getValueBinding(ATTR_SHOW_NAVIGATION_BAR);
+    if (vb != null) {
+      return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
+    } else {
+      return true;
+    }
+  }
+
+  public void setShowNavigationBar(boolean showNavigationBar) {
+    this.showNavigationBar = showNavigationBar;
+  }
+
+
 
   public void queueEvent(FacesEvent event) {
     if (this == event.getSource()) {
@@ -256,13 +276,14 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
   }
 
   public Object saveState(FacesContext context) {
-    Object[] state = new Object[6];
+    Object[] state = new Object[7];
     state[0] = super.saveState(context);
     state[1] = renderedIndex;
     state[2] = selectedIndex;
     state[3] = saveAttachedState(context, tabChangeListener);
     state[4] = switchType;
     state[5] = immediate;
+    state[6] = showNavigationBar;
     return state;
   }
 
@@ -274,6 +295,7 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
     tabChangeListener = (MethodBinding) restoreAttachedState(context, values[3]);
     switchType = (String) values[4];
     immediate = (Boolean) values[5];
+    showNavigationBar = (Boolean) values[6];
   }
 
   public void encodeAjax(FacesContext facesContext) throws IOException {
