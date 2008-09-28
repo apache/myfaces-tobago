@@ -53,13 +53,13 @@ public class UIWizard extends UIPanel implements OnComponentCreated {
   public void decode(FacesContext facesContext) {
     super.decode(facesContext);
     if (var != null) {
-    facesContext.getExternalContext().getRequestMap().remove(var);
-  }
+      facesContext.getExternalContext().getRequestMap().remove(var);
+    }
   }
 
   @Override
   public void queueEvent(FacesEvent event) {
-      super.queueEvent(new FacesEventWrapper(event, this));
+    super.queueEvent(new FacesEventWrapper(event, this));
   }
 
   @Override
@@ -67,12 +67,12 @@ public class UIWizard extends UIPanel implements OnComponentCreated {
     if (event instanceof FacesEventWrapper) {
       FacesContext facesContext = FacesContext.getCurrentInstance();
       if (var != null) {
-      facesContext.getExternalContext().getRequestMap().put(var, getController());
+        facesContext.getExternalContext().getRequestMap().put(var, getController());
       }
       FacesEvent originalEvent = ((FacesEventWrapper) event).getWrappedFacesEvent();
       originalEvent.getComponent().broadcast(originalEvent);
       if (var != null) {
-      facesContext.getExternalContext().getRequestMap().remove(var);
+        facesContext.getExternalContext().getRequestMap().remove(var);
       }
     } else {
       super.broadcast(event);
@@ -82,7 +82,7 @@ public class UIWizard extends UIPanel implements OnComponentCreated {
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
     if (var != null) {
-    facesContext.getExternalContext().getRequestMap().put(var, getController());
+      facesContext.getExternalContext().getRequestMap().put(var, getController());
     }
     super.encodeBegin(facesContext);
   }
@@ -92,7 +92,7 @@ public class UIWizard extends UIPanel implements OnComponentCreated {
   public void encodeEnd(FacesContext facesContext) throws IOException {
     super.encodeEnd(facesContext);
     if (var != null) {
-    facesContext.getExternalContext().getRequestMap().remove(var);
+      facesContext.getExternalContext().getRequestMap().remove(var);
     }
   }
 
@@ -100,10 +100,10 @@ public class UIWizard extends UIPanel implements OnComponentCreated {
     Wizard wizard = getController();
     wizard.register();
     if (outcome != null) {
-       getController().getCurrentStep().setOutcome(outcome);
+      getController().getCurrentStep().setOutcome(outcome);
     }
     if (title != null) {
-       getController().getCurrentStep().setTitle(title);
+      getController().getCurrentStep().setTitle(title);
     }
   }
 
