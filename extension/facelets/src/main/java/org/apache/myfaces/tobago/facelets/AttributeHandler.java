@@ -72,15 +72,13 @@ public final class AttributeHandler extends TagHandler {
 
       if (mode != null) {
         if ("isNotSet".equals(mode.getValue())) {
-          String string = value.getValue();
-          if (isMethodOrValueExpression(string)) {
+          if (!value.isLiteral()) {
             ValueExpression expression = getExpression(faceletContext);
             Boolean result = Boolean.valueOf(expression == null);
             parent.getAttributes().put(name.getValue(), result);
           }
         } else if ("isSet".equals(mode.getValue())) {
-          String string = value.getValue();
-          if (isMethodOrValueExpression(string)) {
+          if (!value.isLiteral()) {
             ValueExpression expression = getExpression(faceletContext);
             Boolean result = Boolean.valueOf(expression != null);
             parent.getAttributes().put(name.getValue(), result);
@@ -142,8 +140,7 @@ public final class AttributeHandler extends TagHandler {
             ((ActionSource) parent).setActionListener(new LegacyMethodBinding(actionListener));
           }
         } else if ("actionFromValue".equals(mode.getValue())) {
-          String string = value.getValue();
-          if (isMethodOrValueExpression(string)) {
+          if (!value.isLiteral()) {
             String result = value.getValue(faceletContext);
             parent.getAttributes().put(name.getValue(), new ConstantMethodBinding(result));
           }
@@ -235,14 +232,7 @@ public final class AttributeHandler extends TagHandler {
 
   private ValueExpression getExpression(FaceletContext faceletContext) {
     String myValue = removeElParenthesis(value.getValue());
-    ValueExpression expression = faceletContext.getVariableMapper().resolveVariable(myValue);
-    return expression;
-  }
-
-  private ValueExpression getExpressionOld(FaceletContext faceletContext) {
-    String myValue = value.getValue().replaceAll("(\\$\\{)|(\\})", "");
-    ValueExpression expression = faceletContext.getVariableMapper().resolveVariable(myValue);
-    return expression;
+    return faceletContext.getVariableMapper().resolveVariable(myValue);
   }
 
   private MethodExpression getMethodExpression(FaceletContext faceletContext, Class returnType, Class[] args) {
@@ -250,7 +240,7 @@ public final class AttributeHandler extends TagHandler {
     // the expression can be empty
     // in this case return nothing
     if (value.getValue().startsWith("${")) {
-      ValueExpression expression = getExpressionOld(faceletContext);
+      ValueExpression expression = getExpression(faceletContext);
       if (expression != null) {
         ExpressionFactory expressionFactory = faceletContext.getExpressionFactory();
         return new TagMethodExpression(value, expressionFactory.createMethodExpression(faceletContext,
@@ -272,7 +262,7 @@ public final class AttributeHandler extends TagHandler {
     // the expression can be empty
     // in this case return nothing
     if (value.getValue().startsWith("${")) {
-      ValueExpression expression = getExpressionOld(faceletContext);
+      ValueExpression expression = getExpression(faceletContext);
       if (expression != null) {
         setConverter(faceletContext, parent, nameValue, expression);
       }
