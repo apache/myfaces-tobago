@@ -489,14 +489,14 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
       scrollRight.getAttributes().put(ATTR_ONCLICK, "javascript:false");
     }
     /*UICommand commandList = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
-    commandList.setId(facesContext.getViewRoot().createUniqueId());
+    commandList.setId(component.getId() + "__commandList);
     commandList.setRendererType(null);
     UIMenu menu = (UIMenu) application.createComponent(UIMenu.COMPONENT_TYPE);
-    menu.setId(facesContext.getViewRoot().createUniqueId());
+    menu.setId(component.getId() + "__" + virtualTab + "__" + "menu");
     menu.setRendererType(null);
     commandList.getFacets().put(FACET_MENUPOPUP, menu);*/
     UIToolBar toolBar = (UIToolBar) application.createComponent(UIToolBar.COMPONENT_TYPE);
-    toolBar.setId(facesContext.getViewRoot().createUniqueId());
+    toolBar.setId(component.getId() + "__toolBar");
     //toolBar.setLabelPosition(UIToolBar.LABEL_OFF);
     toolBar.setRendererType("TabNavigationBar");
     toolBar.setTransient(true);
