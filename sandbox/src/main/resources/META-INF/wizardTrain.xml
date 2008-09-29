@@ -35,7 +35,7 @@
     </f:facet>
 
     <c:forEach items="${wizard.course}" var="step">
-      <tc:button label="-${step.title}-${step.outcome}-${step.index}-">
+      <tc:button label="${step.title}">
         <tc:attribute name="action" value="${step.outcome}" mode="actionFromValue"/>
         <tc:attribute name="actionListener" value="${wizard.gotoStep}" mode="actionListener"/>
         <tc:attribute name="step" value="${step.index}"/>
