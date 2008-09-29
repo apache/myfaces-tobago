@@ -57,8 +57,8 @@
         <tc:cell/>
         <tfs:wizardPrevious wizard="${wizard}" label="${labelPevious}"/>
         <tfs:wizardNext wizard="${wizard}" label="${labelNext}" action="${actionNext}"/>
-        <tfs:wizardLeave wizard="${wizard}" label="${labelOkay}" action="${actionOkay}"/>
-        <tfs:wizardLeave wizard="${wizard}" label="${labelCancel}" action="${actionCancel}"/>
+        <tfs:wizardFinish wizard="${wizard}" label="${labelOkay}" action="${actionOkay}"/>
+        <tfs:wizardCancel wizard="${wizard}" label="${labelCancel}" action="${actionCancel}"/>
 
       </tc:panel>
 

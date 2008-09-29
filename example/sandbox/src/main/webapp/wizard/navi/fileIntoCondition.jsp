@@ -59,8 +59,8 @@
           <tc:cell/>
           <tcs:wizardPrevious wizard="w" label="Vorherige"/>
           <tcs:wizardNext wizard="w" label="Nächste" action="finish"/>
-          <tcs:wizardLeave wizard="w" label="Fertig"/>
-          <tcs:wizardLeave wizard="w" label="Cancel"/>
+          <tcs:wizardFinish wizard="w" label="Fertig"/>
+          <tcs:wizardCancel wizard="w" label="Cancel"/>
 
         </tc:panel>
 

@@ -73,8 +73,8 @@
             <tc:cell/>
             <tfs:wizardPrevious wizard="#{controller.wizard}" label="Vorherige"/>
             <tfs:wizardNext wizard="#{controller.wizard}" label="Nächste" action="${controller.createFilter}"/>
-            <tfs:wizardLeave wizard="#{controller.wizard}" label="Fertig"/>
-            <tfs:wizardLeave wizard="#{controller.wizard}" label="Cancel"/>
+            <tfs:wizardFinish wizard="#{controller.wizard}" label="Fertig"/>
+            <tfs:wizardCancel wizard="#{controller.wizard}" label="Cancel"/>
 
           </tc:panel>
 

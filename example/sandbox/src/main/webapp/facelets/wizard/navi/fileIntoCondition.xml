@@ -79,8 +79,8 @@
           <tc:cell/>
           <tfs:wizardPrevious wizard="${w}" label="Vorherige"/>
           <tfs:wizardNext wizard="${w}" label="Nächste" action="finish"/>
-          <tfs:wizardLeave wizard="${w}" label="Fertig"/>
-          <tfs:wizardLeave wizard="${w}" label="Cancel"/>
+          <tfs:wizardFinish wizard="${w}" label="Fertig"/>
+          <tfs:wizardCancel wizard="${w}" label="Cancel"/>
 
         </tc:panel>
 

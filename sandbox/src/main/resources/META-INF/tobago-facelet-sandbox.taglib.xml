@@ -48,8 +48,12 @@
     <source>wizardNext.xml</source>
   </tag>
   <tag>
-    <tag-name>wizardLeave</tag-name>
-    <source>wizardLeave.xml</source>
+    <tag-name>wizardFinish</tag-name>
+    <source>wizardFinish.xml</source>
+  </tag>
+  <tag>
+    <tag-name>wizardCancel</tag-name>
+    <source>wizardCancel.xml</source>
   </tag>
   <tag>
     <tag-name>wizard-navigation</tag-name>
