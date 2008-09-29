@@ -59,7 +59,7 @@ public final class AttributeHandler extends TagHandler {
     super(config);
     this.name = getRequiredAttribute(TobagoConstants.ATTR_NAME);
     this.value = getRequiredAttribute(TobagoConstants.ATTR_VALUE);
-    this.mode = getAttribute(TobagoConstants.ATTR_TYPE);
+    this.mode = getAttribute(TobagoConstants.ATTR_MODE);
   }
 
   public void apply(FaceletContext faceletContext, UIComponent parent)
