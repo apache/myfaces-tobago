@@ -33,7 +33,8 @@
                        labelNext="Weiter"
                        labelOkay="Fertig"
                        labelCancel="Abbruch"
-                       actionNext="${controller.createFilter}">
+                       actionNext="${controller.createFilter}"
+                       actionCancel="index">
 
     <tc:selectOneRadio value="#{controller.filterType}" required="true">
       <tc:selectItem itemLabel="File Into" itemValue="fileInto"/>
