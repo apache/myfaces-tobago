@@ -37,8 +37,7 @@
     MethodBinding actionCancel
   -->
 
-  <tcs:wizard controller="${wizard}" title="Test Title ${title}" outcome="${outcome}"
-              allowJumpForward="${allowJumpForward}">
+  <tcs:wizard controller="${wizard}" title="${title}" outcome="${outcome}" allowJumpForward="${allowJumpForward}">
 
     <tc:panel>
       <f:facet name="layout">
@@ -52,11 +51,10 @@
 
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="*;fixed;fixed;fixed;fixed;fixed"/>
+          <tc:gridLayout columns="*;fixed;fixed;fixed;fixed"/>
         </f:facet>
 
         <tc:cell/>
-        <tc:button label="${title}" tip="Test" />
         <tfs:wizardPrevious wizard="${wizard}" label="${labelPevious}"/>
         <tfs:wizardNext wizard="${wizard}" label="${labelNext}" action="${actionNext}"/>
         <tfs:wizardLeave wizard="${wizard}" label="${labelOkay}" action="${actionOkay}"/>
