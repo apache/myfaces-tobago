@@ -15,58 +15,52 @@
  * limitations under the License.
 -->
 
-<f:view xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:tc="http://myfaces.apache.org/tobago/component"
-        xmlns:tx="http://myfaces.apache.org/tobago/facelet-extension"
-        xmlns:tcs="http://myfaces.apache.org/tobago/sandbox"
-        xmlns:tfs="http://myfaces.apache.org/tobago/facelet-sandbox">
-  <tc:loadBundle basename="demo" var="bundle"/>
+<ui:composition template="page.xml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jstl/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:tx="http://myfaces.apache.org/tobago/facelet-extension"
+                xmlns:tcs="http://myfaces.apache.org/tobago/sandbox"
+                xmlns:tfs="http://myfaces.apache.org/tobago/facelet-sandbox">
+  <ui:param name="title" value="Forward Condition"/>
 
-  <tc:page label="Sandbox - Wizard" id="page"
-           width="700px" height="800px">
-    <f:facet name="layout">
-      <tc:gridLayout margin="10px"/>
-    </f:facet>
+  <tfs:wizard var="w" controller="#{controller.wizard}" title="Forward Condition" outcome="forwardCondition"
+              allowJumpForward="true">
 
-    <tfs:wizard var="w" controller="#{controller.wizard}" title="ForwardCondition" outcome="forwardCondition"
-                allowJumpForward="true">
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout rows="fixed;*;fixed"/>
+      </f:facet>
+
+      <!--<tfs:wizardTrain wizard="w" controller="#{controller.wizard}"/>-->
+      <tfs:wizardTrain wizard="#{controller.wizard}"/>
 
       <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout rows="fixed;*;fixed"/>
+          <tc:gridLayout rows="fixed;*"/>
         </f:facet>
 
-        <!--<tfs:wizardTrain wizard="w" controller="#{controller.wizard}"/>-->
-        <tfs:wizardTrain wizard="#{controller.wizard}"/>
-
-        <tc:panel>
-          <f:facet name="layout">
-            <tc:gridLayout rows="fixed;*"/>
-          </f:facet>
-
-          <tc:out value="${w.index}" />
-          <tc:out value="Forward Condition"/>
-
-        </tc:panel>
-
-        <tc:panel>
-          <f:facet name="layout">
-            <tc:gridLayout columns="*;fixed;fixed;fixed;fixed"/>
-          </f:facet>
-
-          <tc:cell/>
-          <tfs:wizardPrevious wizard="${w}" label="Vorherige"/>
-          <tfs:wizardNext wizard="${w}" label="Nächste" action="finish"/>
-          <tfs:wizardLeave wizard="${w}" label="Fertig"/>
-          <tfs:wizardLeave wizard="${w}" label="Cancel"/>
-
-        </tc:panel>
+        <tc:out value="${w.index}"/>
+        <tc:out value="Forward Condition"/>
 
       </tc:panel>
 
-    </tfs:wizard>
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="*;fixed;fixed;fixed;fixed"/>
+        </f:facet>
 
+        <tc:cell/>
+        <tfs:wizardPrevious wizard="${w}" label="Vorherige"/>
+        <tfs:wizardNext wizard="${w}" label="Nächste" action="finish"/>
+        <tfs:wizardLeave wizard="${w}" label="Fertig"/>
+        <tfs:wizardLeave wizard="${w}" label="Cancel"/>
 
-  </tc:page>
-</f:view>
+      </tc:panel>
+
+    </tc:panel>
+
+  </tfs:wizard>
+
+</ui:composition>
