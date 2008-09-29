@@ -99,11 +99,11 @@ public class UIWizard extends UIPanel implements OnComponentCreated {
   public void onComponentCreated(FacesContext context, UIComponent component) {
     Wizard wizard = getController();
     wizard.register();
-    if (outcome != null) {
-      getController().getCurrentStep().setOutcome(outcome);
+    if (getOutcome() != null) {
+      getController().getCurrentStep().setOutcome(getOutcome());
     }
-    if (title != null) {
-      getController().getCurrentStep().setTitle(title);
+    if (getTitle() != null) {
+      getController().getCurrentStep().setTitle(getTitle());
     }
   }
 
@@ -148,24 +148,50 @@ public class UIWizard extends UIPanel implements OnComponentCreated {
     this.var = var;
   }
 
-  public String getOutcome() {
-    return outcome;
+  public java.lang.String getOutcome() {
+    if (outcome != null) {
+      return outcome;
+    }
+    javax.faces.el.ValueBinding vb = getValueBinding("outcome");
+    if (vb != null) {
+      return (java.lang.String) vb.getValue(getFacesContext());
+    }
+    return null;
   }
+
 
   public void setOutcome(String outcome) {
     this.outcome = outcome;
   }
 
   public String getTitle() {
-    return title;
+    if (title != null) {
+      return title;
+    }
+    javax.faces.el.ValueBinding vb = getValueBinding("title");
+    if (vb != null) {
+      return (java.lang.String) vb.getValue(getFacesContext());
+    }
+    return null;
   }
+
 
   public void setTitle(String title) {
     this.title = title;
   }
 
   public Boolean isAllowJumpForward() {
-    return allowJumpForward != null ? allowJumpForward : false;
+    if (allowJumpForward != null) {
+      return allowJumpForward;
+    }
+    javax.faces.el.ValueBinding vb = getValueBinding("allowJumpForward");
+    if (vb != null) {
+      Boolean bool = (Boolean) vb.getValue(getFacesContext());
+      if (bool != null) {
+        return bool;
+      }
+    }
+    return false;
   }
 
   public void setAllowJumpForward(Boolean allowJumpForward) {
