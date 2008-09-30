@@ -25,9 +25,9 @@
 
   Tobago is a JSF framework and component library. It provides a comfortable way to layout screens
   of desktop-like applications with a consistent look & feel. Tobago emphasizes the separation of structure
-  and design of screens. Screens are developed indepently of the view technology -- no HTML, CSS, or JavaScript.
+  and design of screens. Screens are developed independently of the view technology -- no HTML, CSS, or JavaScript.
   Because of strict separation a screen can be displayed with different themes. These themes can be used to render
-  screens according to different cooparate design without changing the sources of the screens.
+  screens according to different cooperate design without changing the sources of the screens.
 
 {Content}
 
@@ -77,7 +77,7 @@ mvn jetty:run-exploded
 
 * {Building Tobago}
 
-  To use the latest version of Tobago you can use the snapshot artifacts build by our continous integration server Continuum,
+  To use the latest version of Tobago you can use the snapshot artifacts build by our continuous integration server Continuum,
   which are available in the {{{http://people.apache.org/repo/m2-snapshot-repository/org/apache/myfaces/tobago/}Apache snapshot repository.}}
 
   Alternatively, you can build Tobago yourself. You will need Java 5 and Maven 2.0.9 or later.
@@ -94,7 +94,7 @@ svn co https://svn.apache.org/repos/asf/myfaces/tobago/trunk/ tobago
 mvn install -Pall-modules
 +------------------------------------------+
 
-  For mor information on building Tobago -- especially the 1.0.x branch -- see {{{getting-started.html}Getting Started.}}
+  For more information on building Tobago -- especially the 1.0.x branch -- see {{{getting-started.html}Getting Started.}}
 
 * {Building your own Tobago Application}
 
@@ -103,7 +103,7 @@ mvn install -Pall-modules
   you are targeting doesn't contain one.
 
   If you cannot use Java 5 or higher you can use retrotranslated JARs from the Tobago distribution to develop and
-  run Tobago applications with Java 1.4.
+  run Tobago applications with Java\ 1.4.
 
   A Tobago application is a web application which is packaged as a WAR. For a JSF application the <<<FacesServlet>>> needs
   to be configured in the <<</WEB-INF/web.xml>>>. To serve the internal resources of Tobago directly from the Tobago
@@ -150,7 +150,7 @@ mvn install -Pall-modules
 * {Basic Controls}
 
   HTML offers a decent set of basic controls. These controls form the basis of the Tobago controls including
-  single line input controls, text areas, check boxes, radio buttons, links, buttons, labels, and others.
+  single-line input controls, text areas, check boxes, radio buttons, links, buttons, labels, and others.
 
   The Tobago demo contains an overview page for the basic controls.\
   \ 
@@ -164,8 +164,9 @@ mvn install -Pall-modules
 
 * {Sheet}
 
-  The sheet control is used to display tabular data. The address book example uses a sheet to give an overview of
-  all stored addresses.\
+  The sheet control is used to display tabular data.
+
+  The address book example uses a sheet to give an overview of all stored addresses.\
   \ 
 
 [images/guide-sheet.png] Sheet
@@ -226,9 +227,42 @@ mvn install -Pall-modules
 * {Layout}
 
   Tobago organizes the placement of components with the help of layout managers. The main layout manager
-  is called gridLayout. It divides the available rectangular space into grid cells. The grid is spawned
-  by column and row values. The syntax of these values is based on the {{{http://www.w3.org/TR/html401/types.html#type-multi-length}multi-length notation}}
-  known from HTML.
+  is called grid layout. It divides the available rectangular space into grid cells. The grid is spawned
+  by the column and row values of the <<<\<tc:gridLayout\>>>> tag. The syntax of these values is based on
+  the {{{http://www.w3.org/TR/html401/types.html#type-multi-length}multi-length notation}} known from HTML.
+
+  To add a layout manager to a container like box, panel or page you have to add a layout facet (i.e. a facet
+  with the name 'layout') to the respective container tag.
+
++------------------------------------------+
+<tc:panel>
+  <f:facet name="layout">
+    <tc:gridLayout columns="*" rows="fixed;fixed;*"/>
+  </f:facet>
+  <tx:in label="First Name" />
+  <tx:in label="Last Name" />
+  <tc:cell />
+</tc:panel>
++------------------------------------------+
+
+  In this example we place to two input controls with labels into two consecutive rows. Below the two input fields
+  we add a spacer element. The layout token '<<<fixed>>>' advises the layout manager to give the input control
+  the height, which this kind of control normally possesses in the selected theme.
+
+  The values of the column and row attributes of the <<<\<tc:gridLayout\>>>> tag can contain a semicolon separated
+  list of layout tokens. A layout token can be an exact length in pixels like <<<200px>>>, a percentage length like <<<25%>>>,
+  a relative length like <<<2*>>>, or a specific length called <<<fixed>>>, which's exact length is determined by the
+  theme and make sure the control is usable -- a single-line input control for example needs to be so high that
+  characters from the assigned font can be read inside the control.
+
+  Relative lengths are determined last by the layout manager. The available remaining space is distributed among the
+  existing relative lengths. Each length receives space proportional to the integer before the '<<<*>>>'. A single
+  '<<<*>>>' is a shorthand for '<<<1*>>>'.
+
+  The layout manager handles the <<<rendered>>> attribute of controls, too. If the <<<rendered>>> attribute is
+  dynamically defined by a value binding, the page can contain fewer controls in some cases than in others.
+  The layout manager can then distribute the newly available space between the remaining relative and percentage
+  lengths.
 
 * {Themes}
 
