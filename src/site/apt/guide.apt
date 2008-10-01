@@ -181,9 +181,17 @@ mvn install -Pall-modules
   The <<<value>>> attribute refers the content of the control. If a value binding is used, this content can be written
   back into a bean property.
 
-  The <<<label>>> attribute generates the textual description for the control. If you
-  utilize a value binding to a resource bundle declared by a <<<\<tc:loadBundle\>>>> tag, you automatically get
-  localization for the text labels.
+  The <<<label>>> attribute generates the textual description for the control. The theme decides how the label is
+  actually rendered, for example it assigns a default width. This width can be overwritten with the <<<labelWidth>>>
+  attribute. If you utilize a value binding to a resource bundle declared by a <<<\<tc:loadBundle\>>>> tag, you
+  automatically get localization for the text labels. An underscore in the label transforms the following
+  character into an access key. The theme normally underlines the access key to make this circumstance visible to
+  the user. The access key can be used to quickly focus the related input control by pressing <<<Alt>>> in combination
+  with the access key.
+
+  If the control is marked as <<<required>>> the respective validation takes place. Additionally, the theme tries to
+  visualize this fact. Speyside renders a small check mark icon inside the field, which vanishes if the field
+  contains any data.
 
   For more information about the possible attributes of an input tag see the TLD documentation for
   {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc/tc/in.html}<<<\<tc:in\>>>>}} and
