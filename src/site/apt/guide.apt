@@ -160,10 +160,9 @@ mvn install -Pall-modules
   Live demo of the basic controls: {{http://tobago.atanion.net/tobago-example-demo/faces/overview/basic.jsp}}
 
   The basic controls page also shows two variants of a normal input control: the date input control and the time input
-  control.\
-  \ 
+  control.
 
-** {Text Input}
+* {Text Input}
 
   The single-line text input control comes in two flavors: the <<<\<tc:in\>>>> tag from the core tag library (<<<tc>>>
   is the preferred prefix for the core tag library) and the <<<\<tx:in\>>>> from the extension tag library (<<<tx>>>).
