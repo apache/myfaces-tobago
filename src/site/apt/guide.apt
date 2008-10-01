@@ -160,7 +160,35 @@ mvn install -Pall-modules
   Live demo of the basic controls: {{http://tobago.atanion.net/tobago-example-demo/faces/overview/basic.jsp}}
 
   The basic controls page also shows two variants of a normal input control: the date input control and the time input
-  control.
+  control.\
+  \ 
+
+** {Text Input}
+
+  The single-line text input control comes in two flavors: the <<<\<tc:in\>>>> tag from the core tag library (<<<tc>>>
+  is the preferred prefix for the core tag library) and the <<<\<tx:in\>>>> from the extension tag library (<<<tx>>>).
+
+  The extension tag library provides convenient shorthands for boilerplate code. For every input control there
+  is for example an extended version, which layouts a label next before the input field. The label is connected
+  with the field. If the label is clicked the related field is focused.
+
++------------------------------------------+
+<tx:in value="#{controller.currentAddress.firstName}"
+    label="#{bundle.editorFirstName}" required="true">
+  <f:validateLength minimum="2" maximum="20"/>
+</tx:in>
++------------------------------------------+
+
+  The <<<value>>> attribute refers the content of the control. If a value binding is used, this content can be written
+  back into a bean property.
+
+  The <<<label>>> attribute generates the textual description for the control. If you
+  utilize a value binding to a resource bundle declared by a <<<\<tc:loadBundle\>>>> tag, you automatically get
+  localization for the text labels.
+
+  For more information about the possible attributes of an input tag see the TLD documentation for
+  {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc/tc/in.html}<<<\<tc:in\>>>>}} and
+  {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc/tx/in.html}<<<\<tx:in\>>>>}}.
 
 * {Sheet}
 
