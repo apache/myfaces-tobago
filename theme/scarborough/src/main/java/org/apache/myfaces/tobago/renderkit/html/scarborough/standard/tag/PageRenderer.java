@@ -52,6 +52,7 @@ import org.apache.myfaces.tobago.util.FastStringWriter;
 import org.apache.myfaces.tobago.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.util.ResponseUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.model.PageState;
 
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
@@ -67,6 +68,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.StringTokenizer;
 
 public class PageRenderer extends PageRendererBase {
 
@@ -103,6 +105,34 @@ public class PageRenderer extends PageRendererBase {
     String severity = (String) externalContext.getRequestParameterMap().get(name);
     if (severity != null) {
       externalContext.getRequestMap().put(CLIENT_DEBUG_SEVERITY, severity);
+    }
+    updatePageState(facesContext, component);
+  }
+
+  public void updatePageState(FacesContext facesContext, UIComponent component) {
+    if (component instanceof UIPage) {
+      PageState state = ((UIPage) component).getPageState(facesContext);
+      String name;
+      String value = null;
+      try {
+        name = component.getClientId(facesContext)
+            + SUBCOMPONENT_SEP + "form-clientDimension";
+        value = (String) facesContext.getExternalContext()
+            .getRequestParameterMap().get(name);
+        if (value != null) {
+          StringTokenizer tokenizer = new StringTokenizer(value, ";");
+          int width = Integer.parseInt(tokenizer.nextToken());
+          int height = Integer.parseInt(tokenizer.nextToken());
+          if (state != null) {
+            state.setClientWidth(width);
+            state.setClientHeight(height);
+          }
+          facesContext.getExternalContext().getRequestMap().put("tobago-page-clientDimension-width", width);
+          facesContext.getExternalContext().getRequestMap().put("tobago-page-clientDimension-height", height);
+        }
+      } catch (Exception e) {
+        LOG.error("Error in decoding state: value='" + value + "'", e);
+      }
     }
   }
 

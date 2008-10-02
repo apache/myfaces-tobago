@@ -44,7 +44,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 public class UIPage extends UIForm {
 
@@ -249,38 +248,9 @@ public class UIPage extends UIForm {
   @Override
   public void processUpdates(FacesContext context) {
     super.processUpdates(context);
-    updatePageState(context);
   }
 
-  public void updatePageState(FacesContext facesContext) {
-    PageState state = getPageState(facesContext);
-    decodePageState(facesContext, state);
-  }
 
-  @SuppressWarnings("unchecked")
-  private void decodePageState(FacesContext facesContext, PageState pageState) {
-    String name;
-    String value = null;
-    try {
-      name = getClientId(facesContext)
-          + SUBCOMPONENT_SEP + "form-clientDimension";
-      value = (String) facesContext.getExternalContext()
-          .getRequestParameterMap().get(name);
-      if (value != null) {
-        StringTokenizer tokenizer = new StringTokenizer(value, ";");
-        int width = Integer.parseInt(tokenizer.nextToken());
-        int height = Integer.parseInt(tokenizer.nextToken());
-        if (pageState != null) {
-          pageState.setClientWidth(width);
-          pageState.setClientHeight(height);
-        }
-        facesContext.getExternalContext().getRequestMap().put("tobago-page-clientDimension-width", width);
-        facesContext.getExternalContext().getRequestMap().put("tobago-page-clientDimension-height", height);
-      }
-    } catch (Exception e) {
-      LOG.error("Error in decoding state: value='" + value + "'", e);
-    }
-  }
 
   public PageState getPageState(FacesContext facesContext) {
     ValueBinding stateBinding = getValueBinding(ATTR_STATE);
