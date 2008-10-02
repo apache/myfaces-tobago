@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 /**
  * Renders a label component.
  */
-@Tag(name = "label", bodyContent = BodyContent.EMPTY)
+@Tag(name = "label")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UILabel",
     rendererType = "Label")
