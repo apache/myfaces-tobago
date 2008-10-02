@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -39,7 +38,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 /**
  * Renders a label component.
  */
-@Tag(name = "label", bodyContent = BodyContent.EMPTY)
+@Tag(name = "label")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UILabel",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUILabel",
