@@ -23,11 +23,15 @@
 
 ====================
 
-  Tobago is a JSF framework and component library. It provides a comfortable way to layout screens
+  Tobago is a JavaServer Faces (JSF) framework and component library. It provides a comfortable way to layout screens
   of desktop-like applications with a consistent look & feel. Tobago emphasizes the separation of structure
   and design of screens. Screens are developed independently of the view technology -- no HTML, CSS, or JavaScript.
   Because of strict separation a screen can be displayed with different themes. These themes can be used to render
   screens according to different cooperate design without changing the sources of the screens.
+
+  This guide assumes basic knowledge about JSF. For more information about JSF see one of the various books about JSF,
+  the {{{http://java.sun.com/javaee/5/docs/tutorial/doc/bnaph.html}Sun Java 5 Tutorial}} or
+  the {{{http://java.sun.com/javaee/javaserverfaces/download.html}JSF Specification.}}
 
 {Content}
 
@@ -171,6 +175,8 @@ mvn install -Pall-modules
   is for example an extended version, which layouts a label next before the input field. The label is connected
   with the field. If the label is clicked the related field is focused.
 
+  A code fragment from the address book example:
+
 +------------------------------------------+
 <tx:in value="#{controller.currentAddress.firstName}"
     label="#{bundle.editorFirstName}" required="true">
@@ -208,6 +214,33 @@ mvn install -Pall-modules
 
   Live demo of a sheet: {{http://tobago.atanion.net/tobago-example-demo/faces/overview/sheet.jsp}}
 
+  A code fragment from the address book example:
+
++------------------------------------------+
+<tc:sheet columns="1*;1*;1*" value="#{controller.currentAddressList}"
+    var="address" state="#{controller.selectedAddresses}"
+    sortActionListener="#{controller.sheetSorter}" rows="25"
+    showRowRange="left" showPageRange="right" showDirectLinks="center">
+  <tc:columnEvent event="dblclick" >
+    <tc:command action="#{controller.editAddress}" />
+  </tc:columnEvent>
+  <tc:column id="firstName" label="#{bundle.listFirstName}" sortable="true"
+      rendered="#{controller.renderFirstName}">
+    <tc:out value="#{address.firstName}" />
+  </tc:column>
+  <tc:column id="lastName" label="#{bundle.listLastName}" sortable="true"
+      rendered="#{controller.renderLastName}">
+    <tc:out value="#{address.lastName}" />
+  </tc:column>
+  <tc:column id="dayOfBirth" label="Birthday" sortable="true"
+      rendered="#{controller.renderDayOfBirth}">
+    <tc:out value="#{address.dayOfBirth}">
+      <f:convertDateTime pattern="#{bundle.editorDatePattern}" />
+    </tc:out>
+  </tc:column>
+</tc:sheet>
++------------------------------------------+
+
 * {Tab Group}
 
   The tab group control displays rectangular content in the same area of the screen with the help of tab panels.
@@ -220,6 +253,24 @@ mvn install -Pall-modules
 
   Live demo of a tab group: {{http://tobago.atanion.net/tobago-example-demo/faces/overview/tab.jsp}}
 
+  A code fragment from the address book example:
+
++------------------------------------------+
+<tc:tabGroup switchType="reloadTab" immediate="true">
+  <tc:tab label="#{bundle.editorTabPersonal}">
+    <jsp:include page="tab/personal.jsp"/>
+  </tc:tab>
+
+  <tc:tab label="#{bundle.editorTabBusiness}" rendered="#{!controller.simple}">
+    <jsp:include page="tab/business.jsp"/>
+  </tc:tab>
+
+  <tc:tab label="#{bundle.editorTabMisc}" rendered="#{!controller.simple}">
+    <jsp:include page="tab/misc.jsp"/>
+  </tc:tab>
+</tc:tabGroup>
++------------------------------------------+
+
 * {Menu}
 
   The menu control can be used to render a menu bar at the top of a screen like it is typically used in desktop
@@ -229,10 +280,38 @@ mvn install -Pall-modules
 [images/guide-menu.png] Menu
 
   Live demo of a menu: {{http://tobago.atanion.net/tobago-example-demo/faces/overview/toolbar.jsp}}
-  
+
+  A code fragment from the address book example:
+
++------------------------------------------+
+<tc:menuBar>
+  <tc:menu label="#{bundle.menuFile}">
+    <tc:menuItem label="#{bundle.menuFileNew}" action="#{controller.createAddress}" immediate="true"
+        image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png"/>
+    <tc:menuItem label="Add Dummy Addresses" action="#{controller.addDummyAddresses}" immediate="true"/>
+    <tc:menuSeparator/>
+    <tc:menuItem label="#{bundle.admin}" action="#{admin.admin}"
+        image="image/org/tango-project/tango-icon-theme/16x16/categories/preferences-system.png" />
+    <tc:menuSeparator/>
+    <tc:menuItem label="Logout" action="#{controller.logout}"
+        image="image/org/tango-project/tango-icon-theme/16x16/actions/system-log-out.png"/>
+  </tc:menu>
+
+  <tc:menu label="#{bundle.menuSettings}">
+    ...
+  </tc:menu>
+
+  <tc:menu label="#{bundle.menuHelp}">
+    ...
+  </tc:menu>
+</tc:menuBar>
++------------------------------------------+
+
 * {Tool Bar}
 
-  The tool bar control is used to render a special rectangular area of buttons.
+  The tool bar control is used to render a special rectangular area of buttons. There are two versions of toolbars:
+  a standalone version and version that embeds itself in the border of a box. To embed a tool bar it has to be
+  attached to a <<<\<tc:box\>>>> via a toolbar facet.
 
   The address book example uses a tool bar below the menu to provide convenient access to the most common actions
   from the menu.\
@@ -241,7 +320,25 @@ mvn install -Pall-modules
 [images/guide-toolbar.png] Tool Bar
 
   Live demo of a tool bar: {{http://tobago.atanion.net/tobago-example-demo/faces/overview/toolbar.jsp}}
-  
+
+  A code fragment from the address book example:
+
++------------------------------------------+
+<tc:toolBar iconSize="big">
+  <tc:button label="#{bundle.toolbarAddressList}" action="#{controller.search}" immediate="true"
+      image="image/org/tango-project/tango-icon-theme/32x32/mimetypes/x-office-address-book.png"
+      disabled="#{facesContext.viewRoot.viewId == '/application/list.jsp'}"/>
+  <tc:button label="#{bundle.listNew}" action="#{controller.createAddress}"
+      image="image/org/tango-project/tango-icon-theme/32x32/actions/contact-new.png" />
+  <tc:button label="#{bundle.toolbarAbout}"
+      image="image/org/tango-project/tango-icon-theme/32x32/apps/help-browser.png">
+    <tc:popupReference for=":page:about"/>
+  </tc:button>
+  <tc:button label="#{bundle.admin}" action="#{admin.admin}"
+      image="image/org/tango-project/tango-icon-theme/32x32/categories/preferences-system.png" />
+</tc:toolBar>
++------------------------------------------+
+
 * {Popup}
 
   Popups are used to render small modal dialogs inside the current screen. The original screen is disabled until
@@ -250,12 +347,51 @@ mvn install -Pall-modules
 
 [images/guide-popup.png] Tool Bar
 
+  A code fragment from the address book example:
+
++------------------------------------------+
+<tc:popup id="about" width="300px" height="220px" left="200px" top="200px">
+  <tc:box label="About">
+    <f:facet name="layout">
+      <tc:gridLayout rows="150px;*;fixed" columns="150px;*"/>
+    </f:facet>
+
+    <tc:image value="image/org/tango-project/tango-icon-theme/address-book-splash-screen.png" width="150" height="150"/>
+    <tc:panel>
+      ...
+    </tc:panel>
+
+    <tc:cell spanX="2"/>
+
+    <tc:cell spanX="2">
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="*;fixed"/>
+        </f:facet>
+        <tc:cell/>
+        <tc:button label="OK">
+          <tc:attribute name="popupClose" value="immediate"/>
+        </tc:button>
+      </tc:panel>
+    </tc:cell>
+  </tc:box>
+</tc:popup>
++------------------------------------------+
+
 * {File Upload}
 
   The file select control can be used to upload files.\
   \ 
 
 [images/guide-upload.png] File Upload
+
+  A code fragment from the address book example:
+
++------------------------------------------+
+<tc:file value="#{controller.uploadedFile}" required="true">
+  <tc:validateFileItem contentType="image/*"/>
+</tc:file>
++------------------------------------------+
 
 {Features and Concepts}
 
@@ -268,6 +404,8 @@ mvn install -Pall-modules
 
   To add a layout manager to a container like box, panel or page you have to add a layout facet (i.e. a facet
   with the name 'layout') to the respective container tag.
+
+  A code fragment from the address book example:
 
 +------------------------------------------+
 <tc:panel>
@@ -340,8 +478,36 @@ mvn install -Pall-modules
   The page tag establishes an implicit form for all controls on the screen. The form tag allows to divide these
   controls into smaller groups to be able to manage validation only for these grouped controls.
 
+  A code fragment from the address book example:
+
++------------------------------------------+
+<tc:form>
+  <tx:selectOneChoice label="#{bundle.footerLanguage}"
+      value="#{controller.language}">
+    <f:selectItems value="#{controller.languages}" />
+    <f:facet name="change">
+      <tc:command action="#{controller.languageChangedList}"/>
+    </f:facet>
+  </tx:selectOneChoice>
+</tc:form>
++------------------------------------------+
+
 * {Security}
 
   The extension module tobago-security allows to protect method bindings with the help of annotations. The module
   provides alternative command components with security handling. The available annotations are <<<@RolesAllowed>>>,
   <<<@DenyAll>>>, and <<<@PermitAll>>>.
+
+  A code fragment from the address book example:
+
++------------------------------------------+
+public class AdminController {
+
+  @RolesAllowed("admin")
+  public String admin() {
+    return OUTCOME_ADMIN;
+  }
+
+  ...
+}
++------------------------------------------+
