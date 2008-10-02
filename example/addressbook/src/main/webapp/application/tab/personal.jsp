@@ -73,9 +73,8 @@
             image="#{controller.currentAddressPictureUrl}"
             action="#{controller.popupFileUpload}">
           <f:facet name="popup">
-            <tc:popup width="300px" height="170px" left="200px"
-                      top="200px" rendered="#{controller.renderFileUploadPopup}"
-                      id="popup-fileUpload">
+            <tc:popup id="popup-fileUpload" width="300" height="170" left="200" top="200"
+                      rendered="#{controller.renderFileUploadPopup}">
               <tc:box label="FileUpload">
                 <f:facet name="layout">
                   <tc:gridLayout rows="fixed;1*;fixed" margin="10"/>
