@@ -114,8 +114,8 @@ Tobago.TabGroup.prototype.next = function(event) {
       //LOG.error(idPrefix);
       for (i = this.activeIndex + 1; i < this.size; i++) {
         var id = idPrefix + i;
-        var div = Tobago.element(id);
-        if (div) {
+        var span = Tobago.element(id);
+        if (span && span.className.indexOf('tobago-tab-disabled') == -1) {
           this.activeIndex = i;
           break;
         }
@@ -160,8 +160,8 @@ Tobago.TabGroup.prototype.previous = function(event) {
       //LOG.error(idPrefix);
       for (i = this.activeIndex - 1; i >= 0; i--) {
         var id = idPrefix + i;
-        var div = Tobago.element(id);
-        if (div) {
+        var span = Tobago.element(id);
+        if (span && span.className.indexOf('tobago-tab-disabled') == -1) {
           this.activeIndex = i;
           break;
         }
