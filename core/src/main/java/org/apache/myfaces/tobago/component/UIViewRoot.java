@@ -29,10 +29,10 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.FacesException;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
+import java.util.Map;
 
 /*
  * User: weber
@@ -42,13 +42,13 @@ import java.util.Locale;
 public class UIViewRoot extends javax.faces.component.UIViewRoot {
 
   private static final Log LOG = LogFactory.getLog(UIViewRoot.class);
+  private static final String EVENT_LIST_KEY = UIViewRoot.class.getName() + ".EventList";
 
   private ResourceManagerImpl.CacheKey rendererCacheKey;
 
   private ClientProperties clientProperties;
 
   public static final int ANY_PHASE_ORDINAL = PhaseId.ANY_PHASE.getOrdinal();
-  private List events = null;
 
 
   /**
@@ -64,12 +64,12 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
     return clientProperties;
   }
 
-  public void setClientProperties(ClientProperties clientProperties) {
+  public void setClientProperties(final ClientProperties clientProperties) {
     this.clientProperties = clientProperties;
     updateRendererCachePrefix();
   }
 
-  public void setLocale(Locale locale) {
+  public void setLocale(final Locale locale) {
     super.setLocale(locale);
     updateRendererCachePrefix();
   }
@@ -85,10 +85,10 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
 //    LOG.info("updateRendererCachePrefix :" + rendererCachePrefix);
   }
 
-  public void broadcastEventsForPhase(FacesContext context, PhaseId phaseId) {
+  public void broadcastEventsForPhase(final FacesContext context, final PhaseId phaseId) {
     broadcastForPhase(phaseId);
     if (context.getRenderResponse() || context.getResponseComplete()) {
-      clearEvents();
+      clearEvents(context);
     }
   }
 
@@ -104,18 +104,16 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
 //
   // TODO: remove if fixed in stable release!
 
-  public void queueEvent(FacesEvent event) {
+  public void queueEvent(final FacesEvent event) {
     if (event == null) {
       throw new NullPointerException("event");
     }
-    if (events == null) {
-      events = new ArrayList();
-    }
-    events.add(event);
+    getEvents(FacesContext.getCurrentInstance(), true).add(event);
   }
 
 
-  private void broadcastForPhase(PhaseId phaseId) {
+  private void broadcastForPhase(final PhaseId phaseId) {
+    List<FacesEvent> events = getEvents(FacesContext.getCurrentInstance(), false);
     if (events == null) {
       return;
     }
@@ -152,70 +150,73 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
             break;
           }
         } finally {
-
-          try {
-            listiterator.remove();
-          } catch (ConcurrentModificationException cme) {
-            int eventIndex = listiterator.previousIndex();
-            events.remove(eventIndex);
-            //listiterator = events.listIterator();
-          }
+          listiterator.remove();
         }
       }
     }
 
     if (abort) {
       // TODO: abort processing of any event of any phase or just of any event of the current phase???
-      clearEvents();
+      clearEvents(FacesContext.getCurrentInstance());
     }
   }
 
 
-  private void clearEvents() {
-    events = null;
+  private void clearEvents(final FacesContext context) {
+    context.getExternalContext().getRequestMap().remove(EVENT_LIST_KEY);
   }
 
 
-  public void processDecodes(FacesContext context) {
+  public void processDecodes(final FacesContext context) {
     if (context == null) {
       throw new NullPointerException("context");
     }
     super.processDecodes(context);
     broadcastForPhase(PhaseId.APPLY_REQUEST_VALUES);
     if (context.getRenderResponse() || context.getResponseComplete()) {
-      clearEvents();
+      clearEvents(context);
     }
   }
 
-  public void processValidators(FacesContext context) {
+  public void processValidators(final FacesContext context) {
     if (context == null) {
       throw new NullPointerException("context");
     }
     super.processValidators(context);
     broadcastForPhase(PhaseId.PROCESS_VALIDATIONS);
     if (context.getRenderResponse() || context.getResponseComplete()) {
-      clearEvents();
+      clearEvents(context);
     }
   }
 
-  public void processUpdates(FacesContext context) {
+  public void processUpdates(final FacesContext context) {
     if (context == null) {
       throw new NullPointerException("context");
     }
     super.processUpdates(context);
     broadcastForPhase(PhaseId.UPDATE_MODEL_VALUES);
     if (context.getRenderResponse() || context.getResponseComplete()) {
-      clearEvents();
+      clearEvents(context);
     }
   }
 
-  public void processApplication(FacesContext context) {
+  public void processApplication(final FacesContext context) {
     if (context == null) {
       throw new NullPointerException("context");
     }
     broadcastForPhase(PhaseId.INVOKE_APPLICATION);
     if (context.getRenderResponse() || context.getResponseComplete()) {
-      clearEvents();
+      clearEvents(context);
     }
+  }
+
+  private List<FacesEvent> getEvents(final FacesContext context, boolean create) {
+    final Map requestMap = context.getExternalContext().getRequestMap();
+    List<FacesEvent> events = (List<FacesEvent>) requestMap.get(EVENT_LIST_KEY);
+    if (events == null && create) {
+      events = new ArrayList<FacesEvent>();
+      requestMap.put(EVENT_LIST_KEY, events);
+    }
+    return events;
   }
 }
