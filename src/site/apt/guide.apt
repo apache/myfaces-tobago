@@ -266,20 +266,20 @@ mvn install -Pall-modules
     sortActionListener="#{controller.sheetSorter}" rows="25"
     showRowRange="left" showPageRange="right" showDirectLinks="center">
   <tc:columnEvent event="dblclick" >
-    <tc:command action="#{controller.editAddress}" />
+    <tc:command action="#{controller.editAddress}"/>
   </tc:columnEvent>
   <tc:column id="firstName" label="#{bundle.listFirstName}" sortable="true"
       rendered="#{controller.renderFirstName}">
-    <tc:out value="#{address.firstName}" />
+    <tc:out value="#{address.firstName}"/>
   </tc:column>
   <tc:column id="lastName" label="#{bundle.listLastName}" sortable="true"
       rendered="#{controller.renderLastName}">
-    <tc:out value="#{address.lastName}" />
+    <tc:out value="#{address.lastName}"/>
   </tc:column>
   <tc:column id="dayOfBirth" label="Birthday" sortable="true"
       rendered="#{controller.renderDayOfBirth}">
     <tc:out value="#{address.dayOfBirth}">
-      <f:convertDateTime pattern="#{bundle.editorDatePattern}" />
+      <f:convertDateTime pattern="#{bundle.editorDatePattern}"/>
     </tc:out>
   </tc:column>
 </tc:sheet>
@@ -335,7 +335,7 @@ mvn install -Pall-modules
     <tc:menuItem label="Add Dummy Addresses" action="#{controller.addDummyAddresses}" immediate="true"/>
     <tc:menuSeparator/>
     <tc:menuItem label="#{bundle.admin}" action="#{admin.admin}"
-        image="image/org/tango-project/tango-icon-theme/16x16/categories/preferences-system.png" />
+        image="image/org/tango-project/tango-icon-theme/16x16/categories/preferences-system.png"/>
     <tc:menuSeparator/>
     <tc:menuItem label="Logout" action="#{controller.logout}"
         image="image/org/tango-project/tango-icon-theme/16x16/actions/system-log-out.png"/>
@@ -373,13 +373,13 @@ mvn install -Pall-modules
       image="image/org/tango-project/tango-icon-theme/32x32/mimetypes/x-office-address-book.png"
       disabled="#{facesContext.viewRoot.viewId == '/application/list.jsp'}"/>
   <tc:button label="#{bundle.listNew}" action="#{controller.createAddress}"
-      image="image/org/tango-project/tango-icon-theme/32x32/actions/contact-new.png" />
+      image="image/org/tango-project/tango-icon-theme/32x32/actions/contact-new.png"/>
   <tc:button label="#{bundle.toolbarAbout}"
       image="image/org/tango-project/tango-icon-theme/32x32/apps/help-browser.png">
     <tc:popupReference for=":page:about"/>
   </tc:button>
   <tc:button label="#{bundle.admin}" action="#{admin.admin}"
-      image="image/org/tango-project/tango-icon-theme/32x32/categories/preferences-system.png" />
+      image="image/org/tango-project/tango-icon-theme/32x32/categories/preferences-system.png"/>
 </tc:toolBar>
 +------------------------------------------+
 
@@ -400,7 +400,8 @@ mvn install -Pall-modules
       <tc:gridLayout rows="150px;*;fixed" columns="150px;*"/>
     </f:facet>
 
-    <tc:image value="image/org/tango-project/tango-icon-theme/address-book-splash-screen.png" width="150" height="150"/>
+    <tc:image width="150" height="150"
+        value="image/org/tango-project/tango-icon-theme/address-book-splash-screen.png"/>
     <tc:panel>
       ...
     </tc:panel>
@@ -456,8 +457,8 @@ mvn install -Pall-modules
   <f:facet name="layout">
     <tc:gridLayout columns="*" rows="fixed;fixed;*"/>
   </f:facet>
-  <tx:in label="First Name" />
-  <tx:in label="Last Name" />
+  <tx:in label="First Name"/>
+  <tx:in label="Last Name"/>
   <tc:cell />
 </tc:panel>
 +------------------------------------------+
@@ -512,7 +513,7 @@ mvn install -Pall-modules
 
 * {Markup}
 
-  Since you don't have direct control over layout without writing your own theme, Tobago supports the concept of
+  Since you don't have direct control over design without writing your own theme, Tobago supports the concept of
   markup. You can assign certain logical markup values to a control to fine-tune the rendering. A theme specifies
   the supported markup for every control. The standard theme already provides some helpful markups.\
   \ 
@@ -621,7 +622,7 @@ img.tobago-progress-color1-markup-error {
 <tc:form>
   <tx:selectOneChoice label="#{bundle.footerLanguage}"
       value="#{controller.language}">
-    <f:selectItems value="#{controller.languages}" />
+    <f:selectItems value="#{controller.languages}"/>
     <f:facet name="change">
       <tc:command action="#{controller.languageChangedList}"/>
     </f:facet>
