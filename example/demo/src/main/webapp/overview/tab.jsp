@@ -81,7 +81,8 @@
           <tc:tabGroup id="tabMarsOuterForm2" switchType="reloadTab" state="#{demo.tabState2}" >
 
             <tc:tabChangeListener type="org.apache.myfaces.tobago.example.demo.actionlistener.SimpleTabChangeListener"
-                binding="#{demo.tabChangeListener}" />
+                binding="#{demo.tabChangeListener}"
+                listener="#{overviewController.processTabChange}"/>
 
             <tc:tab label="#{overviewBundle.tabPlanet}">
               <f:facet name="layout"><tc:gridLayout rows="1*;fixed;fixed;1*" /></f:facet>

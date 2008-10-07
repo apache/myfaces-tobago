@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.event.SortActionEvent;
+import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.example.demo.model.solar.SolarObject;
 import org.apache.myfaces.tobago.example.demo.model.Salutation;
 import org.apache.myfaces.tobago.model.SheetState;
@@ -238,6 +239,12 @@ public class OverviewController {
       throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please type in 'Tobago'",
           "Please type in 'Tobago'"));
     }
+  }
+
+  public void processTabChange(TabChangeEvent tabChangeEvent) {
+    int oldIndex = tabChangeEvent.getOldTabIndex();
+    int newIndex = tabChangeEvent.getNewTabIndex();
+    LOG.error("Tab index changed from Tab " + oldIndex + " to Tab " + newIndex);      
   }
 
   public boolean getShowPopup() {

@@ -24,13 +24,17 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.event.TabChangeListenerValueBindingDelegate;
+import org.apache.myfaces.tobago.event.TabChangeEvent;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
+import javax.faces.el.MethodBinding;
 import javax.faces.webapp.UIComponentTag;
+import javax.faces.application.Application;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
@@ -43,6 +47,8 @@ public class TabChangeListenerTag extends TagSupport {
 
   private static final long serialVersionUID = -419199086962377873L;
 
+  private static final Class[] TAB_CHANGE_LISTENER_ARGS = new Class[] {TabChangeEvent.class};
+
   private static final Log LOG = LogFactory.getLog(TabChangeListenerTag.class);
 
   /**
@@ -51,6 +57,7 @@ public class TabChangeListenerTag extends TagSupport {
    */
   private String type;
   private String binding;
+  private String listener;
 
   /**
    * Fully qualified Java class name of a TabChangeListener to be
@@ -71,6 +78,14 @@ public class TabChangeListenerTag extends TagSupport {
 
 
   /**
+   * A method binding expression to a processTabChange(TabChangeEvent tabChangeEvent) method.
+   */
+  @TagAttribute
+  public void setListener(String listener) {
+    this.listener = listener;
+  }
+
+    /**
    * <p>Create a new instance of the specified {@link TabChangeListener}
    * class, and register it with the {@link javax.faces.component.UIComponent} instance associated
    * with our most immediately surrounding {@link javax.faces.webapp.UIComponentTag} instance, if
@@ -128,6 +143,12 @@ public class TabChangeListenerTag extends TagSupport {
       } else {
         changeSource.addTabChangeListener(handler);
       }
+    }
+
+    if (listener != null && UIComponentTag.isValueReference(listener)) {
+      Application application = FacesContext.getCurrentInstance().getApplication();
+      MethodBinding methodBinding = application.createMethodBinding(listener, TAB_CHANGE_LISTENER_ARGS);
+      changeSource.setTabChangeListener(methodBinding);
     }
     // TODO else LOG.warn?
     return (SKIP_BODY);
