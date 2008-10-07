@@ -514,7 +514,7 @@ mvn install -Pall-modules
 
   Since you don't have direct control over layout without writing your own theme, Tobago supports the concept of
   markup. You can assign certain logical markup values to a control to fine-tune the rendering. A theme specifies
-  the supported markup for every control. The standard theme already provides some interesting markups.\
+  the supported markup for every control. The standard theme already provides some helpful markups.\
   \ 
 
 *-----------------------+-------------------------+
@@ -557,7 +557,7 @@ mvn install -Pall-modules
   into the <<<tobago-config.xml.>>>
 
   The address book example adds markup values to the <<<\<tc:progress\>>>> control to be able to colorize the control
-  depending on the criticallity of the value. On the administration page the progress control is used to
+  depending on the criticallity of the progress value. On the administration page the progress control is used to
   visualize the memory consumption of the VM.
 
 +------------------------------------------+
