@@ -31,7 +31,6 @@ import java.io.IOException;
 import java.util.Iterator;
 
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 
 /*
  * User: bommel
