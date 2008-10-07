@@ -554,7 +554,7 @@ mvn install -Pall-modules
 
 [images/guide-markup.png] Markup example
 
-  You can add markup in your own theme or extend the current theme on the fly by adding a <<<\<renderers\>>>> section
+  You can add markup in your own theme or extend the current themes on the fly by adding a <<<\<renderers\>>>> section
   into the <<<tobago-config.xml.>>>
 
   The address book example adds markup values to the <<<\<tc:progress\>>>> control to be able to colorize the control
@@ -599,10 +599,15 @@ img.tobago-progress-color1-markup-error {
 }
 +------------------------------------------+
 
-  See the {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/addressbook/src/main/webapp/tobago-resource/html/speyside/standard/style/style.css}Speyside <<<style.css>>>}}.
+  See the address book example 
+  {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/addressbook/src/main/webapp/tobago-resource/html/speyside/standard/style/style.css}Speyside <<<style.css>>>}}.
 
   The <<<style.css>>> file is collected by the Tobago resource manager and can be used to overwrite and extend the
   default <<<style.css>>> file of the theme.
+
+  The {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/tobago-theme-example/}example theme}} provides
+  an example for styling sheet cells and contains more complex examples of markup, which need addtional JavaScript
+  to generate more dynamic behaviours like fade-out effects or client-side change detection.
 
 * {Partial Rendering}
 
