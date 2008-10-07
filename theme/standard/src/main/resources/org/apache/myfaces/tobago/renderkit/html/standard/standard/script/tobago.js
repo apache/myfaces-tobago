@@ -963,7 +963,7 @@ var Tobago = {
       if (Tobago.pageIsComplete) {
         Tobago.lockPopupPage(id);
       } else {
-        setTimeout(Tobago.lockPopupPage(id), 100);
+        setTimeout("Tobago.lockPopupPage('" + id + "')", 100);
       }
     }
     if (!contains && modal) {
