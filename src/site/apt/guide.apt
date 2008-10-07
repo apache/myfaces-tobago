@@ -394,7 +394,7 @@ mvn install -Pall-modules
   A code fragment from the address book example:
 
 +------------------------------------------+
-<tc:popup id="about" width="300px" height="220px" left="200px" top="200px">
+<tc:popup id="about" width="300" height="220" left="200" top="200">
   <tc:box label="About">
     <f:facet name="layout">
       <tc:gridLayout rows="150px;*;fixed" columns="150px;*"/>
@@ -509,6 +509,99 @@ mvn install -Pall-modules
 [images/guide-theme-richmond.png] Richmond
 
   Richmond
+
+* {Markup}
+
+  Since you don't have direct control over layout without writing your own theme, Tobago supports the concept of
+  markup. You can assign certain logical markup values to a control to fine-tune the rendering. A theme specifies
+  the supported markup for every control. The standard theme already provides some interesting markups.\
+  \ 
+
+*-----------------------+-------------------------+
+| <<<\<tc:out\>>>>      | strong, deleted, number |
+*-----------------------+-------------------------+
+| <<<\<tc:in\>>>>       | number                  |
+*-----------------------+-------------------------+
+| <<<\<tc:label\>>>>    | number                  |
+*-----------------------+-------------------------+
+| <<<\<tc:treeNode\>>>> | strong                  |
+*-----------------------+-------------------------+
+
+  Also see the {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/theme/standard/src/main/resources/META-INF/tobago-theme.xml}standard <<<tobago-theme.xml>>>}}
+
+  The markup <<<strong>>> is normally emphasized, <<<deleted>>> is rendered struck out, and <<<number>>> is
+  right aligned. Multiple markups can be combined as a comma separated list:
+
++------------------------------------------+
+...
+<tc:label value="Normal"/>
+<tc:out value="999.99"/>
+
+<tc:label value="Number"/>
+<tc:out markup="number" value="999.99"/>
+
+<tc:label value="Emphasized"/>
+<tc:out markup="strong" value="999.99"/>
+
+<tc:label value="Emphasized Number"/>
+<tc:out markup="number,strong" value="999.99"/>
+...
++------------------------------------------+
+
+  This code fragment is rendered like this:\
+  \ 
+
+[images/guide-markup.png] Markup example
+
+  You can add markup in your own theme or extend the current theme on the fly by adding a <<<\<renderers\>>>> section
+  into the <<<tobago-config.xml.>>>
+
+  The address book example adds markup values to the <<<\<tc:progress\>>>> control to be able to colorize the control
+  depending on the criticallity of the value. On the administration page the progress control is used to
+  visualize the memory consumption of the VM.
+
++------------------------------------------+
+<renderers>
+  <renderer>
+    <name>Progress</name>
+    <supported-markup>
+      <markup>ok</markup>
+      <markup>warn</markup>
+      <markup>error</markup>
+    </supported-markup>
+  </renderer>
+</renderers>
++------------------------------------------+
+
+  See the {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/addressbook/src/main/webapp/WEB-INF/tobago-config.xml}address book <<<tobago-config.xml>>>}} for a complete example.
+
+  The various progress variants look like this:\
+  \ 
+
+[images/guide-progress.png] Progress markup
+
+
+  Markup attributes are rendered into HTML as extra CSS style classes, which can be used to modify the normal
+  styling of a control. In the progress example the following CSS is added to the Speyside theme:
+
++------------------------------------------+
+img.tobago-progress-color1-markup-ok {
+  background: green;
+}
+
+img.tobago-progress-color1-markup-warn {
+  background: yellow;
+}
+
+img.tobago-progress-color1-markup-error {
+  background: red;
+}
++------------------------------------------+
+
+  See the {{{https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/addressbook/src/main/webapp/tobago-resource/html/speyside/standard/style/style.css}Speyside <<<style.css>>>}}.
+
+  The <<<style.css>>> file is collected by the Tobago resource manager and can be used to overwrite and extend the
+  default <<<style.css>>> file of the theme.
 
 * {Partial Rendering}
 
