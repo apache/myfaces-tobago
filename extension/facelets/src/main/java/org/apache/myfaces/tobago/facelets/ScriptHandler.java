@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.util.Iterator;
 
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 
 /*
  * User: bommel
@@ -43,6 +44,7 @@ public class ScriptHandler extends TagHandler {
   private final TagAttribute onload;
   private final TagAttribute onunload;
   private final TagAttribute onexit;
+  private final TagAttribute onsubmit;
 
   public ScriptHandler(TagConfig config) {
     super(config);
@@ -50,6 +52,7 @@ public class ScriptHandler extends TagHandler {
     onload = getAttribute("onload");
     onunload = getAttribute("onunload");
     onexit = getAttribute("onexit");
+    onsubmit = getAttribute("onsubmit");
   }
 
   public void apply(FaceletContext faceletContext, UIComponent parent)
@@ -68,6 +71,9 @@ public class ScriptHandler extends TagHandler {
       }
       if (onexit != null) {
         page.getOnexitScripts().add(onexit.getValue(faceletContext));
+      }
+      if (onsubmit != null) {
+        page.getOnsubmitScripts().add(onsubmit.getValue(faceletContext));
       }
       StringBuffer buffer = new StringBuffer();
       Iterator iter = findNextByType(TextHandler.class);
