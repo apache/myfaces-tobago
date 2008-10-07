@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.component.UIMessages;
 
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.UIComponentTag;
+import javax.faces.application.FacesMessage;
 
 
 public class MessagesTag extends TobagoTag
@@ -54,13 +55,23 @@ public class MessagesTag extends TobagoTag
     ComponentUtil.setBooleanProperty(component, ATTR_GLOBAL_ONLY, globalOnly);
     ComponentUtil.setBooleanProperty(component, ATTR_SHOW_SUMMARY, showSummary);
     ComponentUtil.setBooleanProperty(component, ATTR_SHOW_DETAIL, showDetail);
-    ComponentUtil.setStringProperty(component, ATTR_MIN_SEVERITY, minSeverity);
-    ComponentUtil.setStringProperty(component, ATTR_MAX_SEVERITY, maxSeverity);
-    ComponentUtil.setStringProperty(component, ATTR_MAX_NUMBER, maxNumber);
+    setSeverityProperty(component, ATTR_MIN_SEVERITY, minSeverity);
+    setSeverityProperty(component, ATTR_MAX_SEVERITY, maxSeverity);
+    ComponentUtil.setIntegerProperty(component, ATTR_MAX_NUMBER, maxNumber);
     setOrderByProperty(component, ATTR_ORDER_BY, orderBy);
   }
 
-  private void setOrderByProperty(UIComponent component, String name, String value) {
+    private void setSeverityProperty(UIComponent component, String name, String value) {
+      if (value != null) {
+        if (UIComponentTag.isValueReference(value)) {
+          component.setValueBinding(name, ComponentUtil.createValueBinding(value));
+        } else {
+          component.getAttributes().put(name, FacesMessage.VALUES_MAP.get(value));
+        }
+      }
+    }
+
+    private void setOrderByProperty(UIComponent component, String name, String value) {
     if (value != null) {
       if (UIComponentTag.isValueReference(value)) {
         component.setValueBinding(name, ComponentUtil.createValueBinding(value));
