@@ -143,6 +143,32 @@ public final class AttributeHandler extends TagHandler {
             String result = value.getValue(faceletContext);
             parent.getAttributes().put(name.getValue(), new ConstantMethodBinding(result));
           }
+        } else if ("valueIfSet".equals(mode.getValue())) {
+          String expressionString = value.getValue();
+          while (isSimpleExpression(expressionString)) {
+            if (isMethodOrValueExpression(expressionString)) {
+              ValueExpression expression
+                  = faceletContext.getVariableMapper().resolveVariable(removeElParenthesis(expressionString));
+              if (expression == null) {
+                if (LOG.isDebugEnabled()) {
+                  // when the action hasn't been set while using a componsition.
+                  LOG.debug("Variable can't be resolved: value='" + expressionString + "'");
+                }
+                expressionString = null;
+                break;
+              } else {
+                expressionString = expression.getExpressionString();
+              }
+            } else {
+              LOG.warn("Only expressions are supported mode=actionListener value='" + expressionString + "'");
+              expressionString = null;
+              break;
+            }
+          }
+          if (expressionString != null) {
+            ValueExpression expression = value.getValueExpression(faceletContext, Object.class);
+            ELAdaptor.setExpression(parent, name.getValue(faceletContext), expression);
+          }
         } else {
           throw new FacesException("Type " + mode + " not suppored");
         }
@@ -153,7 +179,7 @@ public final class AttributeHandler extends TagHandler {
           if (value.isLiteral()) {
             parent.setRendered(value.getBoolean(faceletContext));
           } else {
-            ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(faceletContext, Object.class));
+            ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(faceletContext, Boolean.class));
           }
         } else if (TobagoConstants.ATTR_RENDERED_PARTIALLY.equals(nameValue) && parent instanceof UICommand) {
           // TODO expression
@@ -195,7 +221,7 @@ public final class AttributeHandler extends TagHandler {
             ((ActionSource) parent).setAction(new LegacyMethodBinding(action));
           }
         } else if (parent instanceof ActionSource && TobagoConstants.ATTR_ACTION_LISTENER.equals(nameValue)) {
-          MethodExpression action = getMethodExpression2(faceletContext, null, ComponentUtil.ACTION_LISTENER_ARGS);
+          MethodExpression action = getMethodExpression(faceletContext, null, ComponentUtil.ACTION_LISTENER_ARGS);
           if (action != null) {
             // TODO jsf 1.2
             ((ActionSource) parent).setActionListener(new LegacyMethodBinding(action));
@@ -244,10 +270,6 @@ public final class AttributeHandler extends TagHandler {
     } else {
       return value.getMethodExpression(faceletContext, returnType, args);
     }
-  }
-
-  private MethodExpression getMethodExpression2(FaceletContext faceletContext, Class returnType, Class[] args) {
-    return value.getMethodExpression(faceletContext, returnType, args);
   }
 
   private void setConverter(FaceletContext faceletContext, UIComponent parent, String nameValue) {
