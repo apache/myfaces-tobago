@@ -180,7 +180,7 @@ public final class AttributeHandler extends TagHandler {
           if (value.isLiteral()) {
             parent.setRendered(value.getBoolean(faceletContext));
           } else {
-            ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(faceletContext, Object.class));
+            ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(faceletContext, Boolean.class));
           }
         } else if (TobagoConstants.ATTR_RENDERED_PARTIALLY.equals(nameValue)
             && parent instanceof SupportsRenderedPartially) {
