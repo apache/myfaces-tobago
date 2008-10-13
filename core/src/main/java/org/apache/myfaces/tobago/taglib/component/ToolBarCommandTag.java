@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BUTTON;
 import org.apache.myfaces.tobago.component.ComponentUtil;
@@ -36,6 +37,7 @@ public class ToolBarCommandTag extends AbstractCommandTag
   private String label;
   private String image;
   private String tip;
+  private String target;
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
@@ -43,6 +45,7 @@ public class ToolBarCommandTag extends AbstractCommandTag
     ComponentUtil.setStringProperty(component, ATTR_LABEL, label);
     ComponentUtil.setStringProperty(component, ATTR_IMAGE, image);
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
+    ComponentUtil.setStringProperty(component, ATTR_TARGET, target);
   }
 
   public void release() {
@@ -50,6 +53,7 @@ public class ToolBarCommandTag extends AbstractCommandTag
     label = null;
     image = null;
     tip = null;
+    target = null;
   }
 
   public String getImage() {
@@ -70,6 +74,14 @@ public class ToolBarCommandTag extends AbstractCommandTag
 
   public void setTip(String tip) {
     this.tip = tip;
+  }
+
+  public String getTarget() {
+    return target;
+  }
+
+  public void setTarget(String target) {
+    this.target = target;
   }
 
   public String getAccessKey() {
