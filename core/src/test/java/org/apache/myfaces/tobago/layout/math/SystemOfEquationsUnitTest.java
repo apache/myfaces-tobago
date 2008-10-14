@@ -134,12 +134,6 @@ public class SystemOfEquationsUnitTest extends TestCase {
     assertEquals(expected, result, 0.000001);
   }
 
-  public void testTime() {
-    for (int i = 0; i < 100; i++) {
-      test1To___To100();
-    }
-  }
-
   public static void assertEquals(double[] expected, double[] result, double delta) {
     assertEquals(expected.length, result.length);
     for (int i = 0; i < expected.length; i++) {

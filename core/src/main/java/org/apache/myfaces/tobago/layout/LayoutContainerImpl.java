@@ -50,6 +50,10 @@ public class LayoutContainerImpl extends LayoutComponentImpl implements LayoutCo
     return components;
   }
 
+  public void setLayoutManager(LayoutManager layoutManager) {
+    this.layoutManager = layoutManager;
+  }
+
   public LayoutManager getLayoutManager() {
     return layoutManager;
   }

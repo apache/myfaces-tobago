@@ -32,4 +32,6 @@ public interface LayoutContainer extends LayoutComponent {
   List<LayoutComponent> getComponents();
 
   LayoutManager getLayoutManager();
+
+  void setLayoutManager(LayoutManager layoutManager);
 }

@@ -17,7 +17,23 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-public interface LayoutManager {
+import org.apache.myfaces.tobago.layout.math.EquationManager;
 
-  void layout(LayoutContext layoutContext);
+public class LayoutContext {
+
+  private EquationManager horizontal;
+  private EquationManager vertical;
+
+  public LayoutContext() {
+    horizontal = new EquationManager();
+    vertical = new EquationManager();
+  }
+
+  public EquationManager getHorizontal() {
+    return horizontal;
+  }
+
+  public EquationManager getVertical() {
+    return vertical;
+  }
 }

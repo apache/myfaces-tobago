@@ -21,17 +21,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
+import org.apache.myfaces.tobago.layout.LayoutContext;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.PixelLayoutToken;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
-import org.apache.myfaces.tobago.layout.math.FixedEquation;
-import org.apache.myfaces.tobago.layout.math.ProportionEquation;
-import org.apache.myfaces.tobago.layout.math.SystemOfEquations;
+import org.apache.myfaces.tobago.layout.math.EquationManager;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,7 +41,6 @@ public class GridLayoutManager implements LayoutManager {
   private Grid grid;
 
   private LayoutTokens columnTokens;
-  private int[] columnIndexes;
   private LayoutTokens rowTokens;
 
   public GridLayoutManager(LayoutContainer container, String columnsString, String rowsString) {
@@ -82,63 +79,93 @@ public class GridLayoutManager implements LayoutManager {
     LOG.info("rows    = " + Arrays.toString(grid.getRows()));
   }
 
-  public void layout(SystemOfEquations systemOfEquations) {
+  public void layout(LayoutContext layoutContext) {
 
     List<LayoutComponent> components = container.getComponents();
 
-    registerVariables(systemOfEquations);
+    registerVariables(layoutContext);
 
     distributeCells(components);
 
-    addFixedConstraints(systemOfEquations);
-    addRelativeConstraints(systemOfEquations);
+    addFixedConstraints(layoutContext);
+    addRelativeConstraints(layoutContext);
 
-    for (LayoutComponent component : components) {
-      if (component instanceof LayoutContainer) {
-        LayoutManager layoutManager = ((LayoutContainer) component).getLayoutManager();
-        layoutManager.layout(systemOfEquations);
+    for (int i = 0; i < grid.getColumnCount(); i++) {
+      for (int j = 0; j < grid.getRowCount(); j++) {
+        Cell cell = grid.get(i, j);
+        if (cell instanceof ComponentCell) {
+          LayoutComponent component = cell.getComponent();
+          if (component instanceof LayoutContainer) {
+            LayoutManager layoutManager = ((LayoutContainer) component).getLayoutManager();
+            EquationManager horizontal = layoutContext.getHorizontal();
+            EquationManager vertial = layoutContext.getVertical();
+            horizontal.descend(i);
+            vertial.descend(j);
+            layoutManager.layout(layoutContext);
+            horizontal.ascend();
+            vertial.ascend();
+          }
+        }
       }
     }
   }
 
-  private void registerVariables(SystemOfEquations systemOfEquations) {
-    columnIndexes = systemOfEquations.addVariables(columnTokens.getSize());
+  private void registerVariables(LayoutContext layoutContext) {
+    // horizontal
+    layoutContext.getHorizontal().addSubTree(columnTokens.getSize());
+    // vertial
+    layoutContext.getVertical().addSubTree(rowTokens.getSize());
   }
 
-  private void addFixedConstraints(SystemOfEquations systemOfEquations) {
-
+  private void addFixedConstraints(LayoutContext layoutContext) {
+    // horizontal
     for (int i = 0; i < columnTokens.getSize(); i++) {
       LayoutToken layoutToken = columnTokens.get(i);
       if (layoutToken instanceof PixelLayoutToken) {
         int pixel = ((PixelLayoutToken) layoutToken).getPixel();
-        systemOfEquations.addEqualsEquation(new FixedEquation(columnIndexes[i], pixel));
+        layoutContext.getHorizontal().setFixedLength(i, pixel);
+      }
+    }
+    // vertial
+    for (int i = 0; i < rowTokens.getSize(); i++) {
+      LayoutToken layoutToken = rowTokens.get(i);
+      if (layoutToken instanceof PixelLayoutToken) {
+        int pixel = ((PixelLayoutToken) layoutToken).getPixel();
+        layoutContext.getVertical().setFixedLength(i, pixel);
       }
     }
   }
 
-  private void addRelativeConstraints(SystemOfEquations systemOfEquations) {
-
-    // find relative indices
-    List<Integer> relativeIndices = new ArrayList<Integer>();
-    for (int i = 1; i < columnIndexes.length; i++) {
-      LayoutToken layoutToken = columnTokens.get(i);
-      if (layoutToken instanceof RelativeLayoutToken) {
-        relativeIndices.add(i);
+  private void addRelativeConstraints(LayoutContext layoutContext) {
+    // horizontal
+    Integer first = null;
+    Integer firstIndex = null;
+    for (int i = 0; i <  columnTokens.getTokens().size(); i++) {
+      LayoutToken token = columnTokens.getTokens().get(i);
+      if (token instanceof RelativeLayoutToken) {
+        int factor = ((RelativeLayoutToken) token).getFactor();
+        if (first == null) {
+          first = factor;
+          firstIndex = i;
+        } else {
+          layoutContext.getHorizontal().setProportion(firstIndex, i, first, factor);
+        }
       }
     }
-
-    if (relativeIndices.size() == 0) {
-      return;
-    }
-
-    int firstIndex = relativeIndices.get(0);
-    int firstFactor = ((RelativeLayoutToken) columnTokens.get(firstIndex)).getFactor();
-
-    for (int i = 1; i < relativeIndices.size(); i++) {
-      int otherIndex = relativeIndices.get(i);
-      LayoutToken layoutToken = columnTokens.get(otherIndex);
-      int otherFactor = ((RelativeLayoutToken) layoutToken).getFactor();
-      systemOfEquations.addEqualsEquation(new ProportionEquation(firstIndex, otherIndex, firstFactor, otherFactor));
+    // vertial
+    first = null;
+    firstIndex = null;
+    for (int i = 0; i <  rowTokens.getTokens().size(); i++) {
+      LayoutToken token = rowTokens.getTokens().get(i);
+      if (token instanceof RelativeLayoutToken) {
+        int factor = ((RelativeLayoutToken) token).getFactor();
+        if (first == null) {
+          first = factor;
+          firstIndex = i;
+        } else {
+          layoutContext.getVertical().setProportion(firstIndex, i, first, factor);
+        }
+      }
     }
   }
 
