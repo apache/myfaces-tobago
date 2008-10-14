@@ -17,11 +17,9 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-/**
- * User: lofwyr
- * Date: 23.01.2008 20:09:17
- */
+import org.apache.myfaces.tobago.layout.math.SystemOfEquations;
+
 public interface LayoutManager {
 
-  void layout(LayoutContainer container);
+  void layout(SystemOfEquations systemOfEquations);
 }

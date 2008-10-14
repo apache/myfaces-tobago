@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.layout;
+package org.apache.myfaces.tobago.layout.math;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,21 +17,10 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-/**
- * User: lofwyr
- * Date: 23.01.2008 20:10:36
- */
-public interface LayoutComponent {
+public interface Equation {
 
-  ComponentConstraints getComponentConstraints(String name);
-
-  void setComponentConstraints(String name, ComponentConstraints constraints);
-
-  Measure getWidth();
-
-  void setWidth(Measure width);
-
-  Measure getHeight();
-
-  void setHeight(Measure height);
+  /**
+   * The row has the format: index 0 to n-2 are the factors and index n-1 is the result.
+   */
+  void fillRow(double[] row);
 }

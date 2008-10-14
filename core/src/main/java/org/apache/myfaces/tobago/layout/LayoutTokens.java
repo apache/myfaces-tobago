@@ -17,13 +17,13 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.math.NumberUtils;
 
-import java.util.StringTokenizer;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 /*
  * Date: May 2, 2007
@@ -65,6 +65,10 @@ public final class LayoutTokens {
 
   public void addToken(LayoutToken token) {
     tokens.add(token);
+  }
+
+  public List<LayoutToken> getTokens() {
+    return tokens;
   }
 
   public static LayoutTokens parse(String[] tokens) {
@@ -155,4 +159,3 @@ public final class LayoutTokens {
   }
 
 }
-

@@ -30,4 +30,6 @@ public interface LayoutContainer extends LayoutComponent {
   void setContainerConstraints(String name, ContainerConstraints component);
 
   List<LayoutComponent> getComponents();
+
+  LayoutManager getLayoutManager();
 }

@@ -27,6 +27,8 @@ import java.util.Map;
  */
 public class LayoutContainerImpl extends LayoutComponentImpl implements LayoutContainer {
 
+  private LayoutManager layoutManager;
+
   private Map<String, ContainerConstraints> containerConstraints;
 
   private List<LayoutComponent> components;
@@ -46,5 +48,9 @@ public class LayoutContainerImpl extends LayoutComponentImpl implements LayoutCo
 
   public List<LayoutComponent> getComponents() {
     return components;
+  }
+
+  public LayoutManager getLayoutManager() {
+    return layoutManager;
   }
 }

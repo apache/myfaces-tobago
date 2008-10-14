@@ -27,6 +27,9 @@ public class LayoutComponentImpl implements LayoutComponent {
 
   private Map<String, ComponentConstraints> componentConstraints;
 
+  private Measure width;
+  private Measure height;
+
   public LayoutComponentImpl() {
     componentConstraints = new HashMap<String, ComponentConstraints>();
 
@@ -38,5 +41,21 @@ public class LayoutComponentImpl implements LayoutComponent {
 
   public void setComponentConstraints(String name, ComponentConstraints constraints) {
     componentConstraints.put(name, constraints);
+  }
+
+  public Measure getWidth() {
+    return width;
+  }
+
+  public void setWidth(Measure width) {
+    this.width = width;
+  }
+
+  public Measure getHeight() {
+    return height;
+  }
+
+  public void setHeight(Measure height) {
+    this.height = height;
   }
 }

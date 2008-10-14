@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.layout;
+package org.apache.myfaces.tobago.layout.math;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,21 +17,21 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-/**
- * User: lofwyr
- * Date: 23.01.2008 20:10:36
- */
-public interface LayoutComponent {
+import java.util.Arrays;
 
-  ComponentConstraints getComponentConstraints(String name);
+public final class FixedEquation implements Equation {
 
-  void setComponentConstraints(String name, ComponentConstraints constraints);
+  private int index;
+  private double result;
 
-  Measure getWidth();
+  public FixedEquation(int index, double result) {
+    this.index = index;
+    this.result = result;
+  }
 
-  void setWidth(Measure width);
-
-  Measure getHeight();
-
-  void setHeight(Measure height);
+  public void fillRow(double[] row) {
+    Arrays.fill(row, 0.0);
+    row[index] = 1.0;
+    row[row.length - 1] = result;
+  }
 }

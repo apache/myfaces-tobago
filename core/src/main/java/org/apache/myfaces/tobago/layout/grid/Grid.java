@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.layout.grid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,14 +33,18 @@ public class Grid {
 
   private GridArray grid;
 
-  private int columnCursor;
-  private int rowCursor;
+  private PixelMeasure[] columns;
+  private PixelMeasure[] rows;
 
   private List<Integer> errorIndexes;
 
-  public Grid(int columnCount, int rowCount) {
+  private int columnCursor;
+  private int rowCursor;
 
+  public Grid(int columnCount, int rowCount) {
     grid = new GridArray(columnCount, rowCount);
+    columns = new PixelMeasure[columnCount];
+    rows = new PixelMeasure[rowCount];
   }
 
   public void add(ComponentCell cell, int columnSpan, int rowSpan) {
@@ -119,6 +124,14 @@ public class Grid {
       return false;
     }
     return errorIndexes.contains(j * grid.getColumnCount() + i);
+  }
+
+  public PixelMeasure[] getColumns() {
+    return columns;
+  }
+
+  public PixelMeasure[] getRows() {
+    return rows;
   }
 
   /**

@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.layout;
+package org.apache.myfaces.tobago.layout.math;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,21 +17,39 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-/**
- * User: lofwyr
- * Date: 23.01.2008 20:10:36
- */
-public interface LayoutComponent {
+import java.util.ArrayList;
+import java.util.List;
 
-  ComponentConstraints getComponentConstraints(String name);
+public class Node {
 
-  void setComponentConstraints(String name, ComponentConstraints constraints);
+  private int indexOfVariable;
 
-  Measure getWidth();
+  private List<Node> children;
+  private Node parent;
 
-  void setWidth(Measure width);
+  public Node(int indexOfVariable, Node parent) {
+    this.indexOfVariable = indexOfVariable;
+    this.parent = parent;
+    this.children = new ArrayList<Node>();
+  }
 
-  Measure getHeight();
+  public int getIndexOfVariable() {
+    return indexOfVariable;
+  }
 
-  void setHeight(Measure height);
+  public void setIndexOfVariable(int indexOfVariable) {
+    this.indexOfVariable = indexOfVariable;
+  }
+
+  public List<Node> getChildren() {
+    return children;
+  }
+
+  public Node getParent() {
+    return parent;
+  }
+
+  public boolean isRoot() {
+    return parent == null;
+  }
 }

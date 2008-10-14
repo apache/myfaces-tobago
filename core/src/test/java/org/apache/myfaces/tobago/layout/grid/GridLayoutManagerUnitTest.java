@@ -18,31 +18,38 @@ package org.apache.myfaces.tobago.layout.grid;
  */
 
 import junit.framework.TestCase;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutComponentImpl;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutContainerImpl;
+import org.apache.myfaces.tobago.layout.math.SystemOfEquations;
 
 /*
  * Date: 13.02.2008
  */
 public class GridLayoutManagerUnitTest extends TestCase {
 
+  private static final Log LOG = LogFactory.getLog(GridLayoutManagerUnitTest.class);
+
+  public void testDummy() {
+  }
+
   public void test() {
-
     LayoutContainer container = new LayoutContainerImpl();
-    LayoutComponent a = new LayoutComponentImpl();
-    LayoutComponent b = new LayoutComponentImpl();
-    GridComponentConstraints bConstraint = GridComponentConstraints.getConstraints(b);
+    LayoutComponent span = new LayoutComponentImpl();
+    GridComponentConstraints bConstraint = GridComponentConstraints.getConstraints(span);
     bConstraint.setRowSpan(2);
-    LayoutComponent c = new LayoutComponentImpl();
 
-    container.getComponents().add(a);
-    container.getComponents().add(b);
-    container.getComponents().add(c);
+    container.getComponents().add(new LayoutComponentImpl());
+    container.getComponents().add(span);
+    container.getComponents().add(new LayoutComponentImpl());
+    container.getComponents().add(new LayoutComponentImpl());
+    container.getComponents().add(new LayoutComponentImpl());
 
-    GridLayoutManager manager = new GridLayoutManager("*;*", "*;*");
-    manager.layout(container);
-
+    GridLayoutManager manager = new GridLayoutManager(container, "*;2*;500px", "*;600px");
+    SystemOfEquations systemOfEquations = new SystemOfEquations(1);
+    manager.layout(systemOfEquations);
   }
 }

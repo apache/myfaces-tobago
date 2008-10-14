@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.layout;
+package org.apache.myfaces.tobago.layout.math;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,21 +17,29 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-/**
- * User: lofwyr
- * Date: 23.01.2008 20:10:36
- */
-public interface LayoutComponent {
+public final class ProportionEquation implements Equation {
 
-  ComponentConstraints getComponentConstraints(String name);
+  private int index1;
+  private int index2;
+  private double factor1;
+  private double factor2;
 
-  void setComponentConstraints(String name, ComponentConstraints constraints);
-
-  Measure getWidth();
-
-  void setWidth(Measure width);
-
-  Measure getHeight();
-
-  void setHeight(Measure height);
+  public ProportionEquation(int index1, int index2, double factor1, double factor2) {
+    this.index1 = index1;
+    this.index2 = index2;
+    this.factor1 = factor1;
+    this.factor2 = factor2;
+  }
+/*
+  public void fillRow(double[] row) {
+    Arrays.fill(row, 0.0);
+    row[index1] = factor2;
+    row[index2] = -factor1;
+  }
+*/
+  public void fillRow(double[] row) {
+    for (int i = 0; i < row.length; i++) {
+      row[i] = i == index1 ? factor2 : i == index2 ? -factor1 : 0.0;
+    }
+  }
 }
