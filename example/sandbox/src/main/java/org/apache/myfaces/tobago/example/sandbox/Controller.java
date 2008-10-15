@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.example.sandbox;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.model.Wizard;
-import org.apache.myfaces.tobago.model.WizardImpl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,7 +38,7 @@ public class Controller {
   public Controller() {
     // wizard
 
-    wizard = new WizardImpl();
+    wizard = new Wizard();
   }
 
   public String action1() {
