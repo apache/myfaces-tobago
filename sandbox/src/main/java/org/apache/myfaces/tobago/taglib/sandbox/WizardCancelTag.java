@@ -45,7 +45,7 @@ public class WizardCancelTag extends BodyTagSupport {
     button.setParent(getParent());
     button.setLabel(StringUtils.isEmpty(label) ? "Cancel Wizard" : label); // todo: i18n
     button.setAction(action);
-    button.setActionListener("#{" + wizard + ".leave}");
+    button.setActionListener("#{" + wizard + ".cancel}");
     button.setDisabled(Boolean.toString(action == null));
 //    button.setDisabled(controller.replace("}", ".finishAvailable}").replace("#{", "#{!"));
     button.setImmediate(Boolean.TRUE.toString());

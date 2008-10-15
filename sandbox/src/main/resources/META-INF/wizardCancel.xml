@@ -27,7 +27,7 @@
 
   <tc:button label="${label}" immediate="true">
     <tc:attribute name="action" value="${action}" mode="action"/>
-    <tc:attribute name="actionListener" value="${wizard.leave}" mode="actionListener"/>
+    <tc:attribute name="actionListener" value="${wizard.cancel}" mode="actionListener"/>
     <tc:attribute name="disabled" value="${action}" mode="isNotSet"/>
   </tc:button>
 

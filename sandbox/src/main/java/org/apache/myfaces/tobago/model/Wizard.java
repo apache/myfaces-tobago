@@ -17,56 +17,121 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.faces.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.List;
 
-public interface Wizard {
+public class Wizard {
+
+  private static final Log LOG = LogFactory.getLog(Wizard.class);
+
+  private int index;
+
+  private List<WizardStep> course;
+
+  public Wizard() {
+    reset();
+  }
+
+  public void next(ActionEvent event) {
+    LOG.debug("next: " + event);
+
+    index++;
+  }
+
+  public void gotoStep(ActionEvent event) {
+    Object step = (event.getComponent().getAttributes().get("step"));
+    if (step instanceof Integer) {
+      index = (Integer) step;
+    } else { // todo: The JSP Tag uses String in the moment
+      index = Integer.parseInt((String) step);
+    }
+
+    LOG.debug("gotoStep: " + index);
+  }
+
+  public String previous() {
+    String outcome = getPreviousStep().getOutcome();
+    if (index > 0) {
+      index--;
+    } else {
+      LOG.error("Previous not available!");
+    }
+
+    LOG.debug("gotoStep: " + index);
+    return outcome;
+  }
+
+  public final boolean isPreviousAvailable() {
+    return getIndex() > 0;
+  }
+
+  public final void finish(ActionEvent event) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("finish");
+    }
+
+    reset();
+  }
+
+  public final void cancel(ActionEvent event) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("cancel");
+    }
+    reset();
+  }
+
+  public final int getIndex() {
+    return index;
+  }
 
   /**
-   * Return the index of the actual wizard view.
-   * 
-   * @return The index of the actual wizard view
+   * Helper method to reset attributes
    */
-  int getIndex();
+  public void reset() {
+    index = 0;
+    course = new ArrayList<WizardStep>();
+  }
 
-  /**
-   * Managed bean (controller) method to execute to show the next view of the
-   * wizard.
-   */
-  void next(ActionEvent event);
+  public List<WizardStep> getCourse() {
+    return course;
+  }
 
-  void gotoStep(ActionEvent event);
+  public int getSize() {
+    return course.size();
+  }
 
-  /**
-   * Indicates if the action previous is available.
-   * 
-   * @return True if the action previous is available otherwise false
-   */
-  boolean isPreviousAvailable();
+  public void register() {
 
-  /**
-   * Managed bean (controller) method to execute to quit (save and exit) the
-   * wizard.
-   * 
-   * @return The outcome after the method was executed
-   */
-  void leave(ActionEvent event);
+    if (index == course.size()) { // this is a new page
+      course.add(new WizardStep(index));
+    } else if (index < course.size()) {
+      course.set(index, new WizardStep(index));
+    } else {
+      throw new IllegalStateException("Index too large for course: index="
+          + index + " course.size()=" + course.size());
+    }
+    if (LOG.isInfoEnabled()) {
+      LOG.info("course: " + course);
+    }
+  }
 
-  /**
-   * Managed bean (controller) method to execute to quit (not save and exit) the
-   * wizard.
-   */
-  void cancel(ActionEvent event);
+  public WizardStep getPreviousStep() {
+    if (index > 0) {
+      return course.get(index - 1);
+    } else {
+      return null;
+    }
+  }
+  public WizardStep getCurrentStep() {
+      return course.get(index);
+  }
 
-  List<WizardStep> getCourse();
-
-  void register();
-
-  WizardStep getPreviousStep();
-
-  WizardStep getCurrentStep();
-
-  void removeForwardSteps();
-
-  int getSize();
+  public void removeForwardSteps() {
+    // todo
+    LOG.error("Not implemented yet");
+  }
 }

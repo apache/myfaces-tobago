@@ -45,7 +45,7 @@ public class WizardFinishTag extends BodyTagSupport {
     button.setParent(getParent());
     button.setLabel(StringUtils.isEmpty(label) ? "Finish Wizard" : label); // todo: i18n
     button.setAction(action);
-    button.setActionListener("#{" + wizard + ".leave}");
+    button.setActionListener("#{" + wizard + ".finish}");
     button.setDisabled(Boolean.toString(action == null));
 //    button.setDisabled(controller.replace("}", ".finishAvailable}").replace("#{", "#{!"));
     button.doStartTag();
