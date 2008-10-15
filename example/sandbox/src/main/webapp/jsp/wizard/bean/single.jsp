@@ -27,7 +27,13 @@
     <f:facet name="layout">
       <tc:gridLayout margin="10px" rows="600px;*"/>
     </f:facet>
+<!--
 
+    
+    XXX outdated!!!!
+
+
+    -->
     <tcs:wizard controller="#{controller.wizard}" next="wizard">
 
       <tc:include value="snip-#{controller.wizard.index}.jsp" />
