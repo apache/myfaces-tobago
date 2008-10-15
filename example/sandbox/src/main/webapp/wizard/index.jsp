@@ -30,11 +30,9 @@
 
     <tc:link action="filter" label="Mail Filter Example (separate pages with navigation rules)" />
 
-    <tc:link link="wizard/bean/single.jsp" label="Wizard with navigation from model"/>
+    <tc:link link="/wizard/bean/single.jsp" label="Wizard with navigation from model"/>
 
-    <tc:link link="wizard.xml" label="Facelets (old)"/>
-
-    <tc:link link="/facelets/wizard/navi/filter.xml" label="Facelets"/>
+    <tc:link link="/wizard/navi/filter.xml" label="Wizard with Facelets"/>
 
     </tc:panel>
   </jsp:body>

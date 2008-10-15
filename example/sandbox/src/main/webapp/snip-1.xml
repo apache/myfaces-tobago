@@ -1,5 +1,0 @@
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:tc="http://myfaces.apache.org/tobago/component">
-  <tc:out value="Second Page">
-  </tc:out>
-</ui:composition>
