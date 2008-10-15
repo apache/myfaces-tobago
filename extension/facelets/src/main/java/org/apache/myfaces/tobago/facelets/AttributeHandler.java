@@ -278,7 +278,7 @@ public final class AttributeHandler extends TagHandler {
   }
 
   private boolean isSimpleExpression(String string) {
-    return !string.contains(".") && !string.contains("[");
+    return string.indexOf('.') < 0 && string.indexOf('[') < 0;
   }
 
   private String removeElParenthesis(String string) {
