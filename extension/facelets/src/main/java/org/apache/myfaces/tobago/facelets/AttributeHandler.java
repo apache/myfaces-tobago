@@ -314,10 +314,6 @@ public final class AttributeHandler extends TagHandler {
     }
   }
 
-  private MethodExpression getMethodExpression2(FaceletContext faceletContext, Class returnType, Class[] args) {
-    return value.getMethodExpression(faceletContext, returnType, args);
-  }
-
   private void setConverter(FaceletContext faceletContext, UIComponent parent, String nameValue) {
     // in a composition may be we get the converter expression string from the current variable mapper
     // the expression can be empty
