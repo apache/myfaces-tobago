@@ -161,10 +161,7 @@ public class MockExternalContext extends ExternalContext {
 
 
     public String getInitParameter(String name) {
-	if (name.equals(javax.faces.application.StateManager.STATE_SAVING_METHOD_PARAM_NAME)) {
-	    return null;
-	}
-        throw new UnsupportedOperationException();
+	      return null;
     }
 
 

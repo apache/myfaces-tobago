@@ -989,12 +989,12 @@
   </repositories>
 
   <properties>
-    <myfaces.version>1.1.5</myfaces.version>
-    <myfaces12.version>1.2.0</myfaces12.version>
+    <myfaces.version>1.1.6</myfaces.version>
+    <myfaces12.version>1.2.4</myfaces12.version>
     <sunjsf.version>1.1_02</sunjsf.version>
-    <sunjsf12.version>1.2_04-p02</sunjsf12.version>
+    <sunjsf12.version>1.2_10-b01</sunjsf12.version>
     <facelets.version>1.1.14</facelets.version>
-    <jetty.version>6.1.6</jetty.version>
+    <jetty.version>6.1.11</jetty.version>
     <common-io.version>1.1</common-io.version>
     <common-lang.version>2.1</common-lang.version>
     <commons-logging.version>1.1</commons-logging.version>
