@@ -19,23 +19,19 @@ package org.apache.myfaces.tobago.layout.grid;
 
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 
+public class PseudoCell implements Cell {
 
-/*
- * Date: 24.01.2008 16:01:18
- */
-public class ComponentCell implements Cell {
+  private RealCell realCell;
 
-  private LayoutComponent component;
-
-  public ComponentCell(LayoutComponent component) {
-    this.component = component;
+  public PseudoCell(RealCell realCell) {
+    this.realCell = realCell;
   }
 
   public LayoutComponent getComponent() {
-    return component;
+    return realCell.getComponent();
   }
 
-  public Cell getMasterCell() {
-    return this;
+  public RealCell getRealCell() {
+    return realCell;
   }
 }
