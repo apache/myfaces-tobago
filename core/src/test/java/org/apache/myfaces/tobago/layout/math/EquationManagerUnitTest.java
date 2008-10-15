@@ -4,6 +4,8 @@ import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.util.Arrays;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -41,25 +43,27 @@ public class EquationManagerUnitTest extends TestCase {
 
     // outer limit (if exists)
     equationManager.setFixedLength(0, 600);
-
-    equationManager.descend(0);
+    equationManager.descend(0,1);
     equationManager.addSubTree(4);
     equationManager.setFixedLength(0, 100);
     equationManager.setFixedLength(1, 200);
     equationManager.setProportion(2, 3, 1, 2);
 
-    equationManager.descend(1);
+    equationManager.descend(1,1);
     equationManager.addSubTree(2);
     equationManager.setProportion(0, 1, 1, 2);
     equationManager.ascend();
 
-    equationManager.descend(3);
+    equationManager.descend(3,1);
     equationManager.addSubTree(2);
     equationManager.setFixedLength(0, 130);
     equationManager.ascend();
 
     equationManager.ascend();
 
-    equationManager.solve();
+    double[] result = equationManager.solve();
+
+    LOG.info("result: " + Arrays.toString(result));
+    AssertUtils.assertEquals(new double[]{600, 100, 200, 100, 200, 66.6666667, 133.3333333, 130, 70}, result, 0.000001);
   }
 }

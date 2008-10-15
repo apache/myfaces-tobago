@@ -1,5 +1,7 @@
 package org.apache.myfaces.tobago.layout.math;
 
+import junit.framework.Assert;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,48 +19,16 @@ package org.apache.myfaces.tobago.layout.math;
  * limitations under the License.
  */
 
-import java.util.ArrayList;
-import java.util.List;
+public class AssertUtils {
 
-public class Node {
-
-  private int indexOfVariable;
-
-  private List<Node> children;
-  private Node parent;
-  private int span;
-
-  public Node(int indexOfVariable, Node parent) {
-    this.indexOfVariable = indexOfVariable;
-    this.parent = parent;
-    this.children = new ArrayList<Node>();
+  private AssertUtils() {
+    // only static utils allowed
   }
 
-  public int getIndexOfVariable() {
-    return indexOfVariable;
-  }
-
-  public void setIndexOfVariable(int indexOfVariable) {
-    this.indexOfVariable = indexOfVariable;
-  }
-
-  public List<Node> getChildren() {
-    return children;
-  }
-
-  public Node getParent() {
-    return parent;
-  }
-
-  public boolean isRoot() {
-    return parent == null;
-  }
-
-  public int getSpan() {
-    return span;
-  }
-
-  public void setSpan(int span) {
-    this.span = span;
+  public static void assertEquals(double[] expected, double[] result, double delta) {
+    Assert.assertEquals(expected.length, result.length);
+    for (int i = 0; i < expected.length; i++) {
+      Assert.assertEquals(expected[i], result[i], delta);
+    }
   }
 }

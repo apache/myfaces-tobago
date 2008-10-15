@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.layout.LayoutComponentImpl;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutContainerImpl;
 import org.apache.myfaces.tobago.layout.LayoutContext;
+import org.apache.myfaces.tobago.layout.math.AssertUtils;
 import org.apache.myfaces.tobago.layout.math.EquationManager;
 
 import java.util.Arrays;
@@ -33,15 +34,12 @@ public class GridLayoutManagerUnitTest extends TestCase {
 
   private static final Log LOG = LogFactory.getLog(GridLayoutManagerUnitTest.class);
 
-  public void testDummy() {
-  }
-
   /**
    * <pre>
    * |                  800px               |
    * |    *    |    2*    |       500px     |
    * |         |          |    7*   |   3*  |
-   *
+   * <p/>
    * +---------+----------+-----------------+  ----- ----- -----
    * |         |                            |
    * |         |                            |          *
@@ -81,11 +79,11 @@ public class GridLayoutManagerUnitTest extends TestCase {
 
     EquationManager horizontal = layoutContext.getHorizontal();
     horizontal.setFixedLength(0, 800);
-    horizontal.descend(0);
+    horizontal.descend(0, 1);
 
     EquationManager vertial = layoutContext.getVertical();
     vertial.setFixedLength(0, 800);
-    vertial.descend(0);
+    vertial.descend(0, 1);
 
     manager.layout(layoutContext);
 
@@ -94,18 +92,65 @@ public class GridLayoutManagerUnitTest extends TestCase {
 
     double[] result = layoutContext.getHorizontal().solve();
     LOG.info("result: " + Arrays.toString(result));
-    assertEquals(new double[]{800, 100, 200, 500, 350, 150}, result, 0.000001);
+    AssertUtils.assertEquals(new double[]{800, 100, 200, 500, 350, 150}, result, 0.000001);
 
 
     result = layoutContext.getVertical().solve();
     LOG.info("result: " + Arrays.toString(result));
-    assertEquals(new double[]{800, 200, 600, 300, 300}, result, 0.000001);
+    AssertUtils.assertEquals(new double[]{800, 200, 600, 300, 300}, result, 0.000001);
   }
-  
-  public static void assertEquals(double[] expected, double[] result, double delta) {
-    assertEquals(expected.length, result.length);
-    for (int i = 0; i < expected.length; i++) {
-      assertEquals(expected[i], result[i], delta);
-    }
+
+  /**
+   * <pre>
+   * |               1000px              |
+   * |     *     |     *     |     *     |
+   * |           |   *   |   *   |   *   |
+   * |   *   |   *   |   *   |           |
+   * </pre>
+   */
+  public void testSpanOverlapsSpan() {
+    LayoutContainer container = new LayoutContainerImpl();
+
+    LayoutContainer span1 = new LayoutContainerImpl();
+    GridComponentConstraints constraint1 = GridComponentConstraints.getConstraints(span1);
+    constraint1.setRowSpan(2);
+
+    LayoutContainer span2 = new LayoutContainerImpl();
+    GridComponentConstraints constraint2 = GridComponentConstraints.getConstraints(span2);
+    constraint2.setRowSpan(2);
+
+    container.getComponents().add(span1);
+    container.getComponents().add(new LayoutComponentImpl());
+    container.getComponents().add(new LayoutComponentImpl());
+    container.getComponents().add(span2);
+
+    container.setLayoutManager(new GridLayoutManager(container, "*;*;*", "*;*"));
+    span1.setLayoutManager(new GridLayoutManager(span1, "*;*;*", "*"));
+    span2.setLayoutManager(new GridLayoutManager(span2, "*;*;*", "*"));
+
+    LayoutContext layoutContext = new LayoutContext();
+
+    EquationManager horizontal = layoutContext.getHorizontal();
+    horizontal.setFixedLength(0, 900);
+    horizontal.descend(0, 1);
+
+    EquationManager vertial = layoutContext.getVertical();
+    vertial.setFixedLength(0, 900);
+    vertial.descend(0, 1);
+
+    LOG.info(((GridLayoutManager)container.getLayoutManager()).getGrid());
+    container.getLayoutManager().layout(layoutContext);
+
+    horizontal.ascend();
+    vertial.ascend();
+
+    double[] result = layoutContext.getHorizontal().solve();
+    LOG.info("result: " + Arrays.toString(result));
+//fixme    AssertUtils.assertEquals(new double[]{900, 300, 300, 300, 200, 200, 200, 200, 200, 200}, result, 0.000001);
+
+
+    result = layoutContext.getVertical().solve();
+    LOG.info("result: " + Arrays.toString(result));
+//fixme    AssertUtils.assertEquals(new double[]{900, 450, 450}, result, 0.000001);
   }
 }

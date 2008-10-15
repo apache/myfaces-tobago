@@ -42,8 +42,8 @@ public class EquationManager {
     int n = equations.getNumberOfVariables();
     int[] newIndices = equations.addVariables(number);
     if (!current.isRoot()) {
-      equations.addEqualsEquation(
-          new PartitionEquation(newIndices[0], newIndices[newIndices.length - 1] + 1, current.getIndexOfVariable()));
+      equations.addEqualsEquation(new PartitionEquation(
+          newIndices[0], newIndices[newIndices.length - 1] + 1, current.getIndexOfVariable(), current.getSpan()));
     }
     for (int i = n; i < n + number; i++) {
       assert newIndices[i - n] == i;
@@ -51,8 +51,9 @@ public class EquationManager {
     }
   }
 
-  public void descend(int index) {
+  public void descend(int index, int span) {
     current = current.getChildren().get(index);
+    current.setSpan(span);
   }
 
   public void ascend() {

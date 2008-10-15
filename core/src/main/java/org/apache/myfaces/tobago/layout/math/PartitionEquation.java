@@ -27,20 +27,27 @@ public final class PartitionEquation implements Equation {
   private int begin;
   private int end;
   private int parent;
+  private int span;
 
   /**
    *
    * @param begin lowest index
    * @param end one more than the largest index
    * @param parent parent index
+   * @param span number of parent cells
    */
-  public PartitionEquation(int begin, int end, int parent) {
+  public PartitionEquation(int begin, int end, int parent, int span) {
     this.begin = begin;
     this.end = end;
     this.parent = parent;
+    this.span = span;
   }
 
   public void fillRow(double[] row) {
+    assert begin >= 0 && end > 0 && parent >=0 && span > 0;
+    assert begin < end;
+    assert parent + span <= begin || parent >= end;
+
     int i = 0;
     for (; i < begin; i++) {
       row[i] = 0.0;
@@ -51,6 +58,9 @@ public final class PartitionEquation implements Equation {
     for (; i < row.length; i++) {
       row[i] = 0.0;
     }
-    row[parent] = -1;
+
+    for (i = parent; i < parent + span; i++) {
+      row[i] = -1.0;
+    }
   }
 }

@@ -92,15 +92,16 @@ public class GridLayoutManager implements LayoutManager {
 
     for (int i = 0; i < grid.getColumnCount(); i++) {
       for (int j = 0; j < grid.getRowCount(); j++) {
-        Cell cell = grid.get(i, j);
-        if (cell instanceof ComponentCell) {
-          LayoutComponent component = cell.getComponent();
+        Cell temp = grid.get(i, j);
+        if (temp instanceof RealCell) {
+          RealCell cell = (RealCell) temp;
+          LayoutComponent component = temp.getComponent();
           if (component instanceof LayoutContainer) {
             LayoutManager layoutManager = ((LayoutContainer) component).getLayoutManager();
             EquationManager horizontal = layoutContext.getHorizontal();
             EquationManager vertial = layoutContext.getVertical();
-            horizontal.descend(i);
-            vertial.descend(j);
+            horizontal.descend(i, cell.getColumnSpan());
+            vertial.descend(j, cell.getRowSpan());
             layoutManager.layout(layoutContext);
             horizontal.ascend();
             vertial.ascend();
@@ -173,7 +174,7 @@ public class GridLayoutManager implements LayoutManager {
     for (LayoutComponent component : components) {
 
       GridComponentConstraints constraints = GridComponentConstraints.getConstraints(component);
-      grid.add(new ComponentCell(component), constraints.getColumnSpan(), constraints.getRowSpan());
+      grid.add(new RealCell(component), constraints.getColumnSpan(), constraints.getRowSpan());
 
       LOG.debug("\n" + grid);
     }
@@ -212,5 +213,9 @@ public class GridLayoutManager implements LayoutManager {
     }
     LOG.info("rest: " + space);
     // todo: distribute the rest (might be some pixels because of rounding errors)
+  }
+
+  protected Grid getGrid() {
+    return grid;
   }
 }
