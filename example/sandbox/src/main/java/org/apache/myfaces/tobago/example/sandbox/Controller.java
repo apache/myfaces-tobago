@@ -36,8 +36,6 @@ public class Controller {
   private String filterValue;
 
   public Controller() {
-    // wizard
-
     wizard = new Wizard();
   }
 
