@@ -26,13 +26,14 @@ import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagException;
 import com.sun.facelets.tag.TagHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 
 import javax.el.ELException;
 import javax.el.ExpressionFactory;
@@ -46,6 +47,7 @@ import javax.faces.component.ValueHolder;
 import javax.faces.convert.Converter;
 
 public final class AttributeHandler extends TagHandler {
+  
   private static final Log LOG = LogFactory.getLog(AttributeHandler.class);
 
   private final TagAttribute name;
@@ -71,17 +73,51 @@ public final class AttributeHandler extends TagHandler {
 
       if (mode != null) {
         if ("isNotSet".equals(mode.getValue())) {
+          boolean result = false;
+          String expressionString = value.getValue();
           if (!value.isLiteral()) {
-            ValueExpression expression = getExpression(faceletContext);
-            Boolean result = Boolean.valueOf(expression == null);
-            parent.getAttributes().put(name.getValue(), result);
+            while (isSimpleExpression(expressionString)) {
+              if (isMethodOrValueExpression(expressionString)) {
+                ValueExpression expression
+                    = faceletContext.getVariableMapper().resolveVariable(removeElParenthesis(expressionString));
+                if (expression == null) {
+                  result = true;
+                  break;
+                } else {
+                  expressionString = expression.getExpressionString();
+                }
+              } else {
+                result = false;
+                break;
+              }
+            }
+          } else {
+            result = StringUtils.isEmpty(expressionString);
           }
+          parent.getAttributes().put(name.getValue(), Boolean.valueOf(result));
         } else if ("isSet".equals(mode.getValue())) {
+          boolean result = true;
+          String expressionString = value.getValue();
           if (!value.isLiteral()) {
-            ValueExpression expression = getExpression(faceletContext);
-            Boolean result = Boolean.valueOf(expression != null);
-            parent.getAttributes().put(name.getValue(), result);
+            while (isSimpleExpression(expressionString)) {
+              if (isMethodOrValueExpression(expressionString)) {
+                ValueExpression expression
+                    = faceletContext.getVariableMapper().resolveVariable(removeElParenthesis(expressionString));
+                if (expression == null) {
+                  result = false;
+                  break;
+                } else {
+                  expressionString = expression.getExpressionString();
+                }
+              } else {
+                result = true;
+                break;
+              }
+            }
+          } else {
+            result = StringUtils.isNotEmpty(expressionString);
           }
+          parent.getAttributes().put(name.getValue(), Boolean.valueOf(result));
         } else if ("action".equals(mode.getValue())) {
           String expressionString = value.getValue();
           while (isSimpleExpression(expressionString)) {
