@@ -35,7 +35,10 @@
         <tc:reload frequency="2000"/>
       </f:facet>
 
-      <tcs:tree state="#{controller.state}" id="tree"
+      <%--
+      fixme: state="#{controller.state} no longer supported, but state is needed to mark a node
+      --%>
+      <tcs:tree id="tree"
                 showIcons="true"
                 showJunctions="true"
                 showRootJunction="true"

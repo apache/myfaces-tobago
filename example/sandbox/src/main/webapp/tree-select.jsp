@@ -28,7 +28,10 @@
       <tc:gridLayout margin="10px" rows="300px;*"/>
     </f:facet>
 
-    <tcs:tree state="#{controller.state}" id="sel"
+    <%--
+    fixme: state="#{controller.state} no longer supported, but state is needed to mark a node
+    --%>
+    <tcs:tree id="sel"
               showIcons="true"
               showJunctions="true"
               showRootJunction="true"

@@ -33,10 +33,13 @@
       <tc:toolBarCommand action="#{controller.deleteNode}" label="Delete"/>
     </tc:toolBar>
 
-    <tcs:tree state="#{controller.state}" id="tree">
-      <!--
+      <%--
+      fixme: state="#{controller.state} no longer supported, but state is needed to mark a node
+      --%>
+    <tcs:tree id="tree">
+      <%--
       fixme: The helping-node "Root" is required in the moment, has to be removed!
-      -->
+      --%>
       <tcs:treeNode label="Root">
         <tcs:treeData value="#{controller.tree}" var="node" id="data">
           <tcs:treeNode label="#{node.userObject.name}" id="template"
