@@ -115,7 +115,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     DefaultMutableTreeNode modelNode = (DefaultMutableTreeNode) node.getValue();
 
-    boolean isFolder = mixedModel.isFolder();
+    boolean folder = mixedModel.isFolder();
 
     boolean marked = node.isMarked();
     String id = node.getClientId(facesContext);
@@ -170,20 +170,20 @@ public class TreeNodeRenderer extends CommandRendererBase {
       }
       writer.writeStyleAttribute(widthString);
 
-      if (isFolder) {
+      if (folder) {
         encodeExpandedHidden(writer, node, id, expanded);
       }
 
-      if (isFolder && menuMode) {
+      if (folder && menuMode) {
         encodeMenuIcon(facesContext, writer, treeId, id, expanded);
       }
 
       encodeIndent(facesContext, writer, menuMode, junctions);
 
       encodeTreeJunction(facesContext, writer, id, treeId, showJunctions, showRootJunction, showRoot, expanded,
-          isFolder, depth, hasNextSibling, image);
+          folder, depth, hasNextSibling, image);
 
-      encodeTreeIcons(facesContext, writer, id, treeId, showIcons, expanded, isFolder, image);
+      encodeTreeIcons(facesContext, writer, id, treeId, showIcons, expanded, folder, image);
 
       encodeLabel(writer, helper, node, marked, treeId);
 
@@ -195,7 +195,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.endElement(DIV);
     }
 
-    if (isFolder) {
+    if (folder) {
       String contentStyle = "display: " + (expanded ? "block" : "none") + ";";
       writer.startElement(DIV, null);
       writer.writeIdAttribute(id + "-cont");
@@ -261,7 +261,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
   private void encodeTreeJunction(
       FacesContext facesContext, TobagoResponseWriter writer, String id, String treeId,
       boolean showJunctions, boolean showRootJunction, boolean showRoot,
-      boolean expanded, boolean isFolder, int depth, boolean hasNextSibling, String image) throws IOException {
+      boolean expanded, boolean folder, int depth, boolean hasNextSibling, String image) throws IOException {
     if (!(!showJunctions
         || !showRootJunction && depth == 0
         || !showRootJunction && !showRoot && depth == 1)) {
@@ -269,20 +269,20 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.writeClassAttribute("tree-junction");
       writer.writeIdAttribute(id + "-junction");
 
-      String gif = expanded
+      String gif = folder && expanded
           ? (depth == 0
           ? "Rminus.gif"
           : (hasNextSibling ? "Tminus.gif" : "Lminus.gif"))
           : ((depth == 0)
           ? "Rplus.gif"
           : (hasNextSibling)
-          ? (isFolder ? "Tplus.gif" : "T.gif")
-          : (isFolder ? "Lplus.gif" : "L.gif")
+          ? (folder ? "Tplus.gif" : "T.gif")
+          : (folder ? "Lplus.gif" : "L.gif")
       );
 
       String src = ResourceManagerUtil.getImageWithPath(facesContext, "image/" + gif);
       writer.writeAttribute("src", src, true); // xxx is escaping required
-      if (isFolder) {
+      if (folder) {
         // xxx is escaping required
         writer.writeAttribute("onclick", createOnclickForToggle(facesContext, treeId, image), true);
       }
@@ -297,7 +297,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
   private void encodeTreeIcons(
       FacesContext facesContext, TobagoResponseWriter writer, String id, String treeId,
-      boolean showIcons, boolean expanded, boolean isFolder, String image)
+      boolean showIcons, boolean expanded, boolean folder, String image)
       throws IOException {
 
     if (showIcons) {
@@ -306,11 +306,11 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.writeIdAttribute(id + "-icon");
 
       if (image == null) {
-        image = "image/" + (isFolder ? (expanded ? "openfoldericon.gif" : "foldericon.gif") : "new.gif");
+        image = "image/" + (folder ? (expanded ? "openfoldericon.gif" : "foldericon.gif") : "new.gif");
       }
       String src = ResourceManagerUtil.getImageWithPath(facesContext, image);
       writer.writeAttribute("src", src, true); // xxx is escaping required
-      if (isFolder) {
+      if (folder) {
         writer.writeAttribute("onclick",
             createOnclickForToggle(facesContext, treeId, image), true); // xxx is escaping required
       }
@@ -386,7 +386,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     UITreeNode node = (UITreeNode) component;
     UITree root = node.findTree();
     MixedTreeModel mixedModel = root.getModel();
-    boolean isFolder = mixedModel.isFolder();
+    boolean folder = mixedModel.isFolder();
 
     mixedModel.onEncodeEnd();
 
@@ -394,7 +394,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    if (isFolder) {
+    if (folder) {
       writer.endElement(DIV);
       writer.writeComment("\nend of " + id + "-cont ");
     }
