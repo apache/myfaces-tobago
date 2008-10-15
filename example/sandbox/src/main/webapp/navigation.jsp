@@ -30,7 +30,7 @@
 
     <tc:link link="inputSlider.jsp" label="inputSlider.jsp" target="View"/>
 
-    <tc:link link="wizard/index.jsp" label="Wizard" target="View"/>
+    <tc:link link="jsp/wizard/index.jsp" label="Wizard" target="View"/>
 
     <tc:cell/>
   </tc:page>
