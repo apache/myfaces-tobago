@@ -46,8 +46,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.convert.Converter;
 
-
 public final class AttributeHandler extends TagHandler {
+
   private static final Log LOG = LogFactory.getLog(AttributeHandler.class);
 
   private final TagAttribute name;
