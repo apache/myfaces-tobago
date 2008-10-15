@@ -49,7 +49,7 @@
     <priority value="debug"/>
   </category>
 
-  <category name="org.apache.myfaces.tobago.model.WizardImpl">
+  <category name="org.apache.myfaces.tobago.model.Wizard">
     <priority value="debug"/>
   </category>
 
