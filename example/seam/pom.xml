@@ -170,7 +170,7 @@
       <url>http://repository.jboss.org/maven2</url>
     </repository>
     <repository>
-      <id>java.net</id>
+      <id>java.net.legacy</id>
       <name>java.net Maven 1 Repository</name>
       <url>https://maven-repository.dev.java.net/nonav/repository</url>
       <layout>legacy</layout>
