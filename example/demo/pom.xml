@@ -55,6 +55,13 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>tomcat-maven-plugin</artifactId>
+<!--
+        <configuration>
+          <server>asari</server>
+          <update>true</update>
+          <url>http://10.0.0.4:8080/manager</url>
+        </configuration>
+-->
         <configuration>
           <server>tomcat</server>
           <update>true</update>
@@ -75,6 +82,16 @@
       <artifactId>tobago-theme-example</artifactId>
       <version>${project.version}</version>
     </dependency-->
+    <dependency>
+      <groupId>com.btc.tobago</groupId>
+      <artifactId>tobago-theme-btc</artifactId>
+      <version>1.0.12-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.btc.tobago</groupId>
+      <artifactId>tobago-theme-sap</artifactId>
+      <version>1.0.12-SNAPSHOT</version>
+    </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-charlotteville</artifactId>

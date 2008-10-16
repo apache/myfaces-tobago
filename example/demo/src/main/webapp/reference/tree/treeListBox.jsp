@@ -15,8 +15,8 @@
  * limitations under the License.
 --%>
 
-<%@ page import="javax.swing.tree.DefaultMutableTreeNode" %>
 <%@ page import="org.apache.myfaces.tobago.model.TreeState" %>
+<%@ page import="javax.swing.tree.DefaultMutableTreeNode" %>
 
 <%
   DefaultMutableTreeNode tree;

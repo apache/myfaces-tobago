@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.model.TreeState;
 
+import javax.faces.event.ActionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -80,6 +81,10 @@ public class TreeController {
   public String action2() {
     LOG.info("action 2");
     return null;
+  }
+
+  public void actionListener(ActionEvent event) {
+    LOG.info("actionListener");
   }
 
   public String action3() {
