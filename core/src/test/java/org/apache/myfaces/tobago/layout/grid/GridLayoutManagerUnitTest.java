@@ -113,16 +113,16 @@ public class GridLayoutManagerUnitTest extends TestCase {
 
     LayoutContainer span1 = new LayoutContainerImpl();
     GridComponentConstraints constraint1 = GridComponentConstraints.getConstraints(span1);
-    constraint1.setRowSpan(2);
+    constraint1.setColumnSpan(2);
 
     LayoutContainer span2 = new LayoutContainerImpl();
     GridComponentConstraints constraint2 = GridComponentConstraints.getConstraints(span2);
-    constraint2.setRowSpan(2);
+    constraint2.setColumnSpan(2);
 
+    container.getComponents().add(new LayoutComponentImpl());
     container.getComponents().add(span1);
-    container.getComponents().add(new LayoutComponentImpl());
-    container.getComponents().add(new LayoutComponentImpl());
     container.getComponents().add(span2);
+    container.getComponents().add(new LayoutComponentImpl());
 
     container.setLayoutManager(new GridLayoutManager(container, "*;*;*", "*;*"));
     span1.setLayoutManager(new GridLayoutManager(span1, "*;*;*", "*"));
@@ -135,7 +135,7 @@ public class GridLayoutManagerUnitTest extends TestCase {
     horizontal.descend(0, 1);
 
     EquationManager vertial = layoutContext.getVertical();
-    vertial.setFixedLength(0, 900);
+    vertial.setFixedLength(0, 200);
     vertial.descend(0, 1);
 
     LOG.info(((GridLayoutManager)container.getLayoutManager()).getGrid());
@@ -146,11 +146,11 @@ public class GridLayoutManagerUnitTest extends TestCase {
 
     double[] result = layoutContext.getHorizontal().solve();
     LOG.info("result: " + Arrays.toString(result));
-//fixme    AssertUtils.assertEquals(new double[]{900, 300, 300, 300, 200, 200, 200, 200, 200, 200}, result, 0.000001);
+    AssertUtils.assertEquals(new double[]{900, 300, 300, 300, 200, 200, 200, 200, 200, 200}, result, 0.000001);
 
 
     result = layoutContext.getVertical().solve();
     LOG.info("result: " + Arrays.toString(result));
-//fixme    AssertUtils.assertEquals(new double[]{900, 450, 450}, result, 0.000001);
+    AssertUtils.assertEquals(new double[]{200, 100, 100, 100, 100}, result, 0.000001);
   }
 }
