@@ -41,9 +41,9 @@
   </build>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.19</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.19</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.0.19</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/example/security</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/example/security</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/branches/tobago-1.0.x/example/security</url>
   </scm>
 
   <dependencies>
