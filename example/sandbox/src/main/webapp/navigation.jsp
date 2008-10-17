@@ -28,23 +28,9 @@
 
     <tc:link link="separator.jsp" label="separator.jsp" target="View"/>
 
-    <tc:link link="tree-normal.jsp" label="tree-normal.jsp" target="View"/>
-
-    <tc:link link="tree-select.jsp" label="tree-select.jsp" target="View"/>
-
-    <tc:link link="tree-menu.jsp" label="tree-menu.jsp" target="View"/>
-
-    <tc:link link="tree-editor.jsp" label="tree-editor.jsp" target="View"/>
-
-    <tc:link link="tree-ajax.jsp" label="tree-ajax.jsp" target="View"/>
-
     <tc:link link="inputSlider.jsp" label="inputSlider.jsp" target="View"/>
 
-    <tc:link link="wizard/bean/single.jsp" label="Wizard with navigation from model" target="View"/>
-
-    <tc:link link="wizard/navi/filter.jsp" label="Wizard with navigation tree" target="View"/>
-
-    <tc:link link="wizard.xml" label="wizard.xml" target="View"/>
+    <tc:link link="jsp/wizard/index.jsp" label="Wizard" target="View"/>
 
     <tc:cell/>
   </tc:page>

@@ -21,7 +21,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.model.Wizard;
-import org.apache.myfaces.tobago.model.WizardImpl;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.text.SimpleDateFormat;
@@ -42,6 +41,7 @@ public class Controller {
   private Wizard wizard;
 
   private String filterType;
+  private String filterValue;
 
   public Controller() {
     // tree
@@ -81,7 +81,7 @@ public class Controller {
 
     // wizard
 
-    wizard = new WizardImpl();
+    wizard = new Wizard();
   }
 
   public String action1() {
@@ -100,12 +100,13 @@ public class Controller {
   }
 
   public String createFilter() {
+    LOG.info("Filter type: '" + filterType + "'");
     if ("fileInto".equals(filterType)) {
       return "fileIntoCondition";
     } else if ("forward".equals(filterType)) {
       return "forwardCondition";
     }
-    throw new RuntimeException("no filter");
+    throw new RuntimeException("No filter type set.");
   }
 
   public String createNode() {
@@ -172,5 +173,13 @@ public class Controller {
 
   public void setFilterType(String filterType) {
     this.filterType = filterType;
+  }
+
+  public String getFilterValue() {
+    return filterValue;
+  }
+
+  public void setFilterValue(String filterValue) {
+    this.filterValue = filterValue;
   }
 }
