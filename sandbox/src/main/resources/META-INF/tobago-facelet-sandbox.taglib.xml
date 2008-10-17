@@ -15,20 +15,41 @@
 	* See the License for the specific language governing permissions and
 	* limitations under the License.
 -->
-<!DOCTYPE facelet-taglib PUBLIC "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN" "http://java.sun.com/dtd/facelet-taglib_1_0.dtd">
+<!DOCTYPE facelet-taglib PUBLIC "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
+    "http://java.sun.com/dtd/facelet-taglib_1_0.dtd">
 <facelet-taglib>
   <namespace>http://myfaces.apache.org/tobago/facelet-sandbox</namespace>
   <tag>
     <tag-name>wizard</tag-name>
-    <source>wizard.xml</source>
+    <component>
+      <component-type>org.apache.myfaces.tobago.Wizard</component-type>
+      <renderer-type>Wizard</renderer-type>
+      <handler-class>org.apache.myfaces.tobago.facelets.sandbox.WizardComponentHandler</handler-class>
+    </component>
   </tag>
   <tag>
-    <tag-name>wizard-goto</tag-name>
-    <source>wizard-goto.xml</source>
+    <tag-name>wizardExtension</tag-name>
+    <source>wizardExtension.xml</source>
   </tag>
   <tag>
-    <tag-name>wizard-navigation</tag-name>
-    <source>wizard-navigation.xml</source>
+    <tag-name>wizardTrain</tag-name>
+    <source>wizardTrain.xml</source>
+  </tag>
+  <tag>
+    <tag-name>wizardPrevious</tag-name>
+    <source>wizardPrevious.xml</source>
+  </tag>
+  <tag>
+    <tag-name>wizardNext</tag-name>
+    <source>wizardNext.xml</source>
+  </tag>
+  <tag>
+    <tag-name>wizardFinish</tag-name>
+    <source>wizardFinish.xml</source>
+  </tag>
+  <tag>
+    <tag-name>wizardCancel</tag-name>
+    <source>wizardCancel.xml</source>
   </tag>
   <tag>
     <tag-name>crud</tag-name>

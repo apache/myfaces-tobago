@@ -39,5 +39,14 @@ public class TobagoSandboxTagLibrary extends AbstractTagLibrary {
 
     addComponent("treeData", "org.apache.myfaces.tobago.TreeData", "TreeData", TobagoComponentHandler.class);
 
+    addTobagoComponent("wizard", "org.apache.myfaces.tobago.Wizard", "Wizard", TobagoComponentHandler.class);
   }
+
+  // fixme: double like TobagoTagLibrary
+  protected final void addTobagoComponent(String name, String componentType, String rendererType, Class handlerType) {
+    if (!containsTagHandler(getNamespace(), name)) {
+      addComponent(name, componentType, rendererType, handlerType);
+    }
+  }
+
 }

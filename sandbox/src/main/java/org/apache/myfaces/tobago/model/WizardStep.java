@@ -28,9 +28,7 @@ public class WizardStep {
   private String title;
   private int index;
 
-  public WizardStep(String outcome, String title, int index) {
-    this.outcome = outcome;
-    this.title = title;
+  public WizardStep(int index) {
     this.index = index;
   }
 
@@ -56,5 +54,17 @@ public class WizardStep {
 
   public void setIndex(int index) {
     this.index = index;
+  }
+
+  public String toString() {
+    StringBuilder builder = new StringBuilder();
+    builder.append("#");
+    builder.append(index);
+    builder.append(" outcome='");
+    builder.append(outcome);
+    builder.append("' title='");
+    builder.append(title);
+    builder.append("'");
+    return builder.toString();
   }
 }

@@ -17,144 +17,121 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.faces.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.List;
 
-public interface Wizard {
+public class Wizard {
 
-  /*
-   * Constants
-   */
+  private static final Log LOG = LogFactory.getLog(Wizard.class);
 
-  String BACKWARD_NAVIGATION_STRATEGY_DELETE = "delete";
+  private int index;
 
-  String BACKWARD_NAVIGATION_STRATEGY_REPLACE = "replace";
+  private List<WizardStep> course;
 
-  String BACKWARD_NAVIGATION_STRATEGY_NOTALLOWED = "notallowed";
+  public Wizard() {
+    reset();
+  }
 
-  /*
-   * Methods
-   */
+  public void next(ActionEvent event) {
+    LOG.debug("next: " + event);
 
-  /**
-   * Return the index of the actual wizard view.
-   * 
-   * @return The index of the actual wizard view
-   */
-  int getIndex();
+    index++;
+  }
 
-  /**
-   * @return The size (number) of views in the wizard
-   */
-  int getSize();
+  public void gotoStep(ActionEvent event) {
+    Object step = (event.getComponent().getAttributes().get("step"));
+    if (step instanceof Integer) {
+      index = (Integer) step;
+    } else { // todo: The JSP Tag uses String in the moment
+      index = Integer.parseInt((String) step);
+    }
 
-  /**
-   * Sets the number (size) of views of the wizard. The size should be set only
-   * once, e.g. during initialization.
-   * 
-   * @param size
-   *          The number of views of the wizard
-   */
-  void setSize(int size);
+    LOG.debug("gotoStep: " + index);
+  }
 
-  /**
-   * Managed bean (controller) method to execute to show the next view of the
-   * wizard.
-   */
-  void next(ActionEvent event);
+  public String previous() {
+    String outcome = getPreviousStep().getOutcome();
+    if (index > 0) {
+      index--;
+    } else {
+      LOG.error("Previous not available!");
+    }
 
-  /**
-   * Indicates if the action next is available.
-   * 
-   * @return True if the action next is available otherwise false
-   */
-  boolean isNextAvailable();
+    LOG.debug("gotoStep: " + index);
+    return outcome;
+  }
 
-  /**
-   * Managed bean (controller) method to execute to show the previous view of
-   * the wizard.
-   * 
-   * @return The outcome after the method was executed
-   */
-  String previous();
+  public final boolean isPreviousAvailable() {
+    return getIndex() > 0;
+  }
 
-  /**
-   * Indicates if the action previous is available.
-   * 
-   * @return True if the action previous is available otherwise false
-   */
-  boolean isPreviousAvailable();
+  public final void finish(ActionEvent event) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("finish");
+    }
 
-  /**
-   * Indicates if the component which invokes the previous action is rendered
-   * 
-   * @return True if the component is renderer otherwise false
-   */
-  boolean isPreviousRendered();
+    reset();
+  }
+
+  public final void cancel(ActionEvent event) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("cancel");
+    }
+    reset();
+  }
+
+  public final int getIndex() {
+    return index;
+  }
 
   /**
-   * Indicator, if backward navigation actions are immediate. The indicator
-   * should be set only once, e.g. during initialization.
-   * 
-   * @return If backward navigation actions are immediate
+   * Helper method to reset attributes
    */
-  boolean isBackwardNavigationImmediate();
+  public void reset() {
+    index = 0;
+    course = new ArrayList<WizardStep>();
+  }
 
-  /**
-   * Sets an indicator for the wizard to state that the wizard is prepared for
-   * finishing.
-   */
-  void setPreparedForFinishing();
+  public List<WizardStep> getCourse() {
+    return course;
+  }
 
-  /**
-   * Managed bean (controller) method to execute to quit (save and exit) the
-   * wizard.
-   * 
-   * @return The outcome after the method was executed
-   */
-  String finish();
+  public int getSize() {
+    return course.size();
+  }
 
-  /**
-   * Indicates if the action finish is available.
-   * 
-   * @return True if the action finish is available otherwise false
-   */
-  boolean isFinishAvailable();
+  public void register() {
 
-  /**
-   * Managed bean (controller) method to execute to quit (not save and exit) the
-   * wizard.
-   * 
-   * @return The outcome after the method was executed
-   */
-  String cancel();
+    if (index == course.size()) { // this is a new page
+      course.add(new WizardStep(index));
+    } else if (index < course.size()) {
+      course.set(index, new WizardStep(index));
+    } else {
+      throw new IllegalStateException("Index too large for course: index="
+          + index + " course.size()=" + course.size());
+    }
+    if (LOG.isInfoEnabled()) {
+      LOG.info("course: " + course);
+    }
+  }
 
-  /**
-   * Managed bean (controller) method which is called, when an action to
-   * navigate between the wizards views is exectued. The method parameter
-   * contains information about the component which was used to navigate.
-   * 
-   * @param actionEvent
-   */
-//  void gotoClicked(ActionEvent actionEvent);
+  public WizardStep getPreviousStep() {
+    if (index > 0) {
+      return course.get(index - 1);
+    } else {
+      return null;
+    }
+  }
+  public WizardStep getCurrentStep() {
+      return course.get(index);
+  }
 
-  /**
-   * Managed bean (controller) method to execute to navigate between the wizards
-   * views.
-   * 
-   * @return The outcome after the method was executed
-   */
-//  String gotoStep();
-
-  /**
-   * Sets the strategy to use for backward navigation
-   * 
-   * @param strategy
-   *          The strategy to use for backward navigation
-   */
-  void setBackwardNavigationStrategy(String strategy);
-
-  List<WizardStep> getCourse();
-
-  void registerOutcome(String outcome, String title);
+  public void removeForwardSteps() {
+    // todo
+    LOG.error("Not implemented yet");
+  }
 }

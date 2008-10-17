@@ -17,252 +17,121 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  * limitations under the License.
  */
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
-import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.model.Wizard;
-import org.apache.myfaces.tobago.model.WizardStep;
-import org.apache.myfaces.tobago.taglib.component.AttributeTag;
-import org.apache.myfaces.tobago.taglib.component.ButtonTag;
-import org.apache.myfaces.tobago.taglib.component.CellTag;
-import org.apache.myfaces.tobago.taglib.component.GridLayoutTag;
-import org.apache.myfaces.tobago.taglib.component.OutTag;
-import org.apache.myfaces.tobago.taglib.component.PanelTag;
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.component.UIWizard;
+import org.apache.myfaces.tobago.taglib.component.TobagoTag;
 
+import javax.faces.application.Application;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.webapp.FacetTag;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
-import java.util.List;
 
-@Tag(name = "wizard")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.sandbox.WizardTag")
-public class WizardTag extends BodyTagSupport {
-
+public final class WizardTag extends TobagoTag {
   private static final Log LOG = LogFactory.getLog(WizardTag.class);
-
   private String controller;
-
-  private String next;
   private String outcome;
+  private String var;
   private String title;
-
-  private PanelTag panelTag;
+  private String allowJumpForward;
 
   @Override
-  public int doStartTag() throws JspException {
-
-    panelTag = new PanelTag();
-    panelTag.setPageContext(pageContext);
-    panelTag.setParent(getParent());
-/* todo
-    if (rendered != null) {
-      panelTag.setRendered(rendered);
-    }
-*/
-    panelTag.doStartTag();
-
-    FacetTag facetTag = new FacetTag();
-    facetTag.setPageContext(pageContext);
-    facetTag.setName(FACET_LAYOUT);
-    facetTag.setParent(panelTag);
-    facetTag.doStartTag();
-
-    GridLayoutTag gridLayoutTag = new GridLayoutTag();
-    gridLayoutTag.setPageContext(pageContext);
-    gridLayoutTag.setRows("fixed;*;fixed");
-    gridLayoutTag.setParent(facetTag);
-    gridLayoutTag.doStartTag();
-    gridLayoutTag.doEndTag();
-
-    facetTag.doEndTag();
-
-    processTrain();
-
-    return super.doStartTag();
+  public String getComponentType() {
+    return UIWizard.COMPONENT_TYPE;
   }
-
-  private void processTrain() throws JspException {
-
-    List<WizardStep> course = null;
-    try {
-      Object bean = VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), "controller");
-      Wizard wizard = (Wizard) PropertyUtils.getProperty(bean, "wizard");
-      wizard.registerOutcome(outcome, title);
-      course = wizard.getCourse();
-    } catch (Exception e) {
-      LOG.error("", e);
-    }
-
-    PanelTag p = new PanelTag();
-    p.setPageContext(pageContext);
-    p.setParent(panelTag);
-    p.doStartTag();
-
-    FacetTag facetTag = new FacetTag();
-    facetTag.setPageContext(pageContext);
-    facetTag.setName(FACET_LAYOUT);
-    facetTag.setParent(panelTag);
-    facetTag.doStartTag();
-
-    GridLayoutTag gridLayoutTag = new GridLayoutTag();
-    gridLayoutTag.setPageContext(pageContext);
-//    gridLayoutTag.setColumns("*");
-    StringBuilder columns = new StringBuilder();
-    for (WizardStep info : course) {
-      columns.append("fixed;");
-    }
-    gridLayoutTag.setColumns(columns + "*");
-    gridLayoutTag.setParent(facetTag);
-    gridLayoutTag.doStartTag();
-    gridLayoutTag.doEndTag();
-
-    facetTag.doEndTag();
-
-    for (WizardStep info : course) {
-      ButtonTag button = new ButtonTag();
-      button.setPageContext(pageContext);
-      button.setParent(p);
-      button.setAction(info.getOutcome());
-      button.setActionListener(controller.replace("}", ".gotoStep}"));
-      button.setLabel(info.getTitle());
-      button.doStartTag();
-
-      AttributeTag step = new AttributeTag();
-      step.setPageContext(pageContext);
-      step.setParent(button);
-      step.setName("step");
-      step.setValue("" + info.getIndex());
-      step.doStartTag();
-      step.doEndTag();
-
-      button.doEndTag();
-    }
-    OutTag spacer = new OutTag();
-    spacer.setPageContext(pageContext);
-    spacer.setParent(p);
-    spacer.setValue(controller.replace("}", ".index}"));
-    spacer.doStartTag();
-    spacer.doEndTag();
-
-    p.doEndTag();
+  @Override
+  public String getRendererType() {
+    return "Wizard";
   }
 
   @Override
-  public int doEndTag() throws JspException {
+  protected void setProperties(UIComponent uiComponent) {
+    super.setProperties(uiComponent);
+    UIWizard component = (UIWizard) uiComponent;
+    FacesContext context = FacesContext.getCurrentInstance();
+    Application application = context.getApplication();
+    if (controller != null && isValueReference(controller)) {
+      component.setValueBinding("controller", application.createValueBinding(controller));
+    }
+    if (outcome != null) {
+      if (isValueReference(outcome)) {
+        component.setValueBinding("outcome", application.createValueBinding(outcome));
+      } else {
+        component.setOutcome(outcome);
+      }
+    }
+    if (var != null) {
+      if (isValueReference(var)) {
+        component.setValueBinding("var", application.createValueBinding(var));
+      } else {
+        component.setVar(var);
+      }
+    }
+    if (title != null) {
+      if (isValueReference(title)) {
+        component.setValueBinding("title", application.createValueBinding(title));
+      } else {
+        component.setTitle(title);
+      }
+    }
+    if (allowJumpForward != null) {
+      if (isValueReference(allowJumpForward)) {
+        component.setValueBinding("allowJumpForward", application.createValueBinding(allowJumpForward));
+      } else {
+        component.setAllowJumpForward(Boolean.valueOf(allowJumpForward));
+      }
+    }
 
-    PanelTag p = new PanelTag();
-    p.setPageContext(pageContext);
-    p.setParent(panelTag);
-    p.doStartTag();
-
-    FacetTag facetTag = new FacetTag();
-    facetTag.setPageContext(pageContext);
-    facetTag.setName(FACET_LAYOUT);
-    facetTag.setParent(panelTag);
-    facetTag.doStartTag();
-
-    GridLayoutTag gridLayoutTag = new GridLayoutTag();
-    gridLayoutTag.setPageContext(pageContext);
-    gridLayoutTag.setColumns("*;fixed;fixed;fixed");
-    gridLayoutTag.setParent(facetTag);
-    gridLayoutTag.doStartTag();
-    gridLayoutTag.doEndTag();
-
-    facetTag.doEndTag();
-
-    cell(panelTag);
-
-/*
-    WizardControllerTag controllerTag = new WizardControllerTag();
-    controllerTag.setPageContext(pageContext);
-    controllerTag.setParent(panelTag);
-    controllerTag.setController(controller);
-    controllerTag.doStartTag();
-    controllerTag.doEndTag();
-*/
-
-    ButtonTag previousTag = new ButtonTag();
-    previousTag.setPageContext(pageContext);
-    previousTag.setParent(panelTag);
-    previousTag.setLabel("Previous");
-    previousTag.setAction(controller.replace("}", ".previous}"));
-    previousTag.setDisabled(controller.replace("}", ".previousAvailable}").replace("#{", "#{!"));
-    previousTag.doStartTag();
-    previousTag.doEndTag();
-
-    ButtonTag nextTag = new ButtonTag();
-    nextTag.setPageContext(pageContext);
-    nextTag.setParent(panelTag);
-    nextTag.setLabel("Next");
-    nextTag.setAction(next);
-    nextTag.setActionListener(controller.replace("}", ".next}"));
-    nextTag.setDisabled(controller.replace("}", ".nextAvailable}").replace("#{", "#{!"));
-    nextTag.doStartTag();
-    nextTag.doEndTag();
-
-    ButtonTag finish = new ButtonTag();
-    finish.setPageContext(pageContext);
-    finish.setParent(panelTag);
-    finish.setLabel("Finish");
-    finish.setAction(controller.replace("}", ".finish}"));
-    finish.setDisabled(controller.replace("}", ".finishAvailable}").replace("#{", "#{!"));
-    finish.doStartTag();
-    finish.doEndTag();
-
-    p.doEndTag();
-
-    panelTag.doEndTag();
-
-    return super.doEndTag();
   }
 
-  private void cell(javax.servlet.jsp.tagext.Tag tag) throws JspException {
-    CellTag spacer = new CellTag();
-    spacer.setPageContext(pageContext);
-    spacer.setParent(tag);
-    spacer.doStartTag();
-    spacer.doEndTag();
+  public String getController() {
+    return controller;
   }
+
+  public void setController(String controller) {
+    this.controller = controller;
+  }
+
+  public String getOutcome() {
+    return outcome;
+  }
+
+  public void setOutcome(String outcome) {
+    this.outcome = outcome;
+  }
+
+  public String getVar() {
+    return var;
+  }
+
+  public void setVar(String var) {
+    this.var = var;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public String getAllowJumpForward() {
+    return allowJumpForward;
+  }
+
+  public void setAllowJumpForward(String allowJumpForward) {
+    this.allowJumpForward = allowJumpForward;
+  }
+
+
 
   @Override
   public void release() {
     super.release();
     controller = null;
-    next = null;
     outcome = null;
+    var = null;
     title = null;
-    panelTag = null;
+    allowJumpForward = null;
   }
-
-  @TagAttribute(required = true, type = Wizard.class)
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.Wizard")
-  public void setController(String controller) {
-    this.controller = controller;
-  }
-
-  @TagAttribute
-  @UIComponentTagAttribute
-  public void setNext(String next) {
-    this.next = next;
-  }
-
-  @TagAttribute
-  @UIComponentTagAttribute
-  public void setOutcome(String outcome) {
-    this.outcome = outcome;
-  }
-
-  @TagAttribute
-  @UIComponentTagAttribute
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
 }
