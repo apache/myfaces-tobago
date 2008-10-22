@@ -86,6 +86,7 @@
         <module>demo</module>
         <module>foreach</module>
         <module>nonfacesrequest</module>
+        <module>portlet</module>
         <module>sandbox</module>
         <module>security</module>
         <module>test</module>

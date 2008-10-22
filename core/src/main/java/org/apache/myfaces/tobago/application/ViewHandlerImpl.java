@@ -19,8 +19,9 @@ package org.apache.myfaces.tobago.application;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.util.RequestUtils;
+import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
+import org.apache.myfaces.tobago.util.RequestUtils;
 
 import javax.faces.FacesException;
 import javax.faces.application.ViewHandler;
@@ -72,6 +73,11 @@ public class ViewHandlerImpl extends ViewHandler {
   }
 
   public String getActionURL(FacesContext facesContext, String viewId) {
+
+    if (PortletUtils.isRenderResponse(facesContext)) {
+      return PortletUtils.setViewIdForUrl(facesContext, viewId);
+    }
+
     return base.getActionURL(facesContext, viewId);
   }
 
@@ -96,7 +102,7 @@ public class ViewHandlerImpl extends ViewHandler {
     }
     // this is only needed in the first request, the later will be handled by faces
     // TODO: maybe find a way to make this unneeded
-    RequestUtils.ensureEncoding(facesContext.getExternalContext());
+    RequestUtils.ensureEncoding(facesContext);
     UIViewRoot viewRoot = base.restoreView(facesContext, viewId);
     return viewRoot;
   }

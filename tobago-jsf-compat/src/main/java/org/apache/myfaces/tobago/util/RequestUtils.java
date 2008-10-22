@@ -19,8 +19,9 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.portlet.PortletUtils;
 
-import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 
@@ -32,15 +33,16 @@ public class RequestUtils {
 
   private static final Log LOG = LogFactory.getLog(RequestUtils.class);
 
-  public static void ensureEncoding(ExternalContext externalContext) {
+  public static void ensureEncoding(FacesContext facesContext) {
+    Object requestObject = facesContext.getExternalContext().getRequest();
     try {
-      // TODO PortletRequest
-      if (externalContext.getRequest() instanceof HttpServletRequest) {
-        HttpServletRequest request =
-            (HttpServletRequest) externalContext.getRequest();
+      if (requestObject instanceof HttpServletRequest) {
+        HttpServletRequest request = (HttpServletRequest) requestObject;
         if (request.getCharacterEncoding() == null) {
           request.setCharacterEncoding("UTF-8");
         }
+      } else if (PortletUtils.isPortletRequest(facesContext)) {
+        PortletUtils.ensureEncoding(facesContext);
       }
 
     } catch (UnsupportedEncodingException e) {

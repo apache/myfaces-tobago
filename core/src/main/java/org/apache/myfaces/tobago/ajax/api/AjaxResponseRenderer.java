@@ -20,15 +20,15 @@ package org.apache.myfaces.tobago.ajax.api;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CHARSET;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.FACES_MESSAGES_KEY;
 import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.util.EncodeAjaxCallback;
 import org.apache.myfaces.tobago.util.RequestUtils;
 import org.apache.myfaces.tobago.util.ResponseUtils;
-import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseJsonWriterImpl;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
@@ -104,7 +104,7 @@ public class AjaxResponseRenderer {
 
   private void renderComponent(FacesContext facesContext, RenderKit renderKit, String clientId,
       AjaxComponent component) throws IOException {
-    PrintWriter writer = getPrintWriter(facesContext.getExternalContext());
+    PrintWriter writer = getPrintWriter(facesContext);
     ResponseWriter contentWriter = renderKit.createResponseWriter(writer, contentType, null);
     facesContext.setResponseWriter(contentWriter);
 
@@ -139,7 +139,7 @@ public class AjaxResponseRenderer {
   private void saveState(FacesContext facesContext, RenderKit renderKit)
       throws IOException {
     ResponseWriter stateWriter =
-        renderKit.createResponseWriter(getPrintWriter(facesContext.getExternalContext()), contentType, null);
+        renderKit.createResponseWriter(getPrintWriter(facesContext), contentType, null);
     facesContext.setResponseWriter(stateWriter);
 
     StateManager stateManager = facesContext.getApplication().getStateManager();
@@ -165,9 +165,8 @@ public class AjaxResponseRenderer {
   private void writeResponse(FacesContext facesContext, RenderKit renderKit, boolean reloadRequired)
       throws IOException {
 
-    ExternalContext externalContext = facesContext.getExternalContext();
-    RequestUtils.ensureEncoding(externalContext);
-    ResponseUtils.ensureNoCacheHeader(externalContext);
+    RequestUtils.ensureEncoding(facesContext);
+    ResponseUtils.ensureNoCacheHeader(facesContext);
     UIComponent page = ComponentUtil.findPage(facesContext);
     String charset;
     if (page != null) {  // in case of CODE_RELOAD_REQUIRED page is null
@@ -177,7 +176,7 @@ public class AjaxResponseRenderer {
     }
     ensureContentTypeHeader(facesContext, charset, contentType);
 
-    PrintWriter writer = getPrintWriter(externalContext);
+    PrintWriter writer = getPrintWriter(facesContext);
     writer.write("{\n  tobagoAjaxResponse: true,\n");
     writer.write("  responseCode: ");
     writer.write(reloadRequired ? Integer.toString(CODE_RELOAD_REQUIRED) : Integer.toString(CODE_SUCCESS));
@@ -209,7 +208,8 @@ public class AjaxResponseRenderer {
     writer.close();
   }
 
-  private PrintWriter getPrintWriter(ExternalContext externalContext) throws IOException {
+  private PrintWriter getPrintWriter(FacesContext facesContext) throws IOException {
+    ExternalContext externalContext = facesContext.getExternalContext();
     //TODO: fix this to work in PortletRequest as well
     if (externalContext.getResponse() instanceof HttpServletResponse) {
       final HttpServletResponse httpServletResponse

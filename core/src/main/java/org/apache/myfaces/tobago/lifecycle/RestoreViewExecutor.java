@@ -17,18 +17,17 @@ package org.apache.myfaces.tobago.lifecycle;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.FACES_MESSAGES_KEY;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.FACES_MESSAGES_KEY;
 import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
+import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 
 import javax.faces.FacesException;
 import javax.faces.application.Application;
-import javax.faces.application.ViewHandler;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIViewRoot;
@@ -39,10 +38,8 @@ import javax.faces.event.PhaseId;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.List;
-//import org.apache.myfaces.portlet.MyFacesGenericPortlet;
-//import org.apache.myfaces.portlet.PortletUtil;
+import java.util.Map;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
@@ -134,11 +131,9 @@ class RestoreViewExecutor implements PhaseExecutor {
   private static String deriveViewId(FacesContext facesContext) {
     ExternalContext externalContext = facesContext.getExternalContext();
 
-    // TODO: Portlet
-//    if (PortletUtil.isPortletRequest(facesContext)) {
-//      PortletRequest request = (PortletRequest) externalContext.getRequest();
-//      return request.getParameter(MyFacesGenericPortlet.VIEW_ID);
-//    }
+    if (PortletUtils.isPortletRequest(facesContext)) {
+      return PortletUtils.getViewId(facesContext);
+    }
 
     String viewId = externalContext.getRequestPathInfo(); // getPathInfo
     if (viewId == null) {
