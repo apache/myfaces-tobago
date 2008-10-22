@@ -115,6 +115,21 @@ public class PageRenderer extends PageRendererBase {
     } else {
       facesContext = new TobagoFacesContext(facesContextOrg);
     }
+/*
+// LAYOUT
+    LayoutContext layoutContext = new LayoutContext();
+
+    EquationManager horizontal = layoutContext.getHorizontal();
+    horizontal.setFixedLength(0, 1000);
+    horizontal.descend(0, 1);
+
+    EquationManager vertial = layoutContext.getVertical();
+    vertial.setFixedLength(0, 1000);
+    vertial.descend(0, 1);
+
+    page.getLayoutManager().layout(layoutContext, page);
+
+*/
     RenderUtil.prepareRendererAll(facesContext, page);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
@@ -122,7 +137,7 @@ public class PageRenderer extends PageRendererBase {
     // reset responseWriter and render page
     facesContext.setResponseWriter(writer);
 
-    ResponseUtils.ensureNoCacheHeader(facesContext.getExternalContext());
+    ResponseUtils.ensureNoCacheHeader(facesContext);
 
     if (LOG.isDebugEnabled()) {
       for (Object o : page.getAttributes().entrySet()) {
