@@ -17,19 +17,19 @@ package org.apache.myfaces.tobago.layout.grid;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.layout.Component;
 
 public class RealCell implements Cell {
 
-  private LayoutComponent component;
+  private Component component;
   private int columnSpan;
   private int rowSpan;
 
-  public RealCell(LayoutComponent component) {
+  public RealCell(Component component) {
     this.component = component;
   }
 
-  public LayoutComponent getComponent() {
+  public Component getComponent() {
     return component;
   }
 

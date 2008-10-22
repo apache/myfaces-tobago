@@ -19,5 +19,5 @@ package org.apache.myfaces.tobago.layout;
 
 public interface LayoutManager {
 
-  void layout(LayoutContext layoutContext);
+  void layout(LayoutContext layoutContext, Container container);
 }

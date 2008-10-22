@@ -17,21 +17,17 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
+import java.util.List;
+
 /**
  * User: lofwyr
- * Date: 23.01.2008 20:10:36
+ * Date: 23.01.2008 20:10:16
  */
-public interface LayoutComponent {
+public interface Container extends Component {
 
-  ComponentConstraints getComponentConstraints(String name);
+  List<Component> getComponents();
 
-  void setComponentConstraints(String name, ComponentConstraints constraints);
+  LayoutManager getLayoutManager();
 
-  Measure getWidth();
-
-  void setWidth(Measure width);
-
-  Measure getHeight();
-
-  void setHeight(Measure height);
+  void setLayoutManager(LayoutManager layoutManager);
 }

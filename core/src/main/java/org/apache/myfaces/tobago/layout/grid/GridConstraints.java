@@ -17,17 +17,15 @@ package org.apache.myfaces.tobago.layout.grid;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.layout.ComponentConstraints;
+import org.apache.myfaces.tobago.layout.Component;
+import org.apache.myfaces.tobago.layout.Constraints;
 import org.apache.myfaces.tobago.layout.Dimension;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
 
 /*
  * User: lofwyr
  * Date: 13.02.2008 20:47:28
  */
-public class GridComponentConstraints implements ComponentConstraints {
-
-  public static final String NAME = "grid";
+public class GridConstraints implements Constraints {
 
   private int columnSpan = 1;
 
@@ -43,12 +41,12 @@ public class GridComponentConstraints implements ComponentConstraints {
    * Convenience method to get the correct layout constraints from the component.
    * If the constraints object doesn't exists it will be created a default and set to the component.
    */
-  public static GridComponentConstraints getConstraints(LayoutComponent component) {
-    GridComponentConstraints constraints
-        = (GridComponentConstraints) component.getComponentConstraints(NAME);
+  public static GridConstraints getConstraints(Component component) {
+    GridConstraints constraints
+        = (GridConstraints) component.getConstraints();
     if (constraints == null) {
-      constraints = new GridComponentConstraints();
-      component.setComponentConstraints(NAME, constraints);
+      constraints = new GridConstraints();
+      component.setConstraints(constraints);
     }
     return constraints;
   }

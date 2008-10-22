@@ -19,42 +19,38 @@ package org.apache.myfaces.tobago.layout.grid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
+import org.apache.myfaces.tobago.layout.Component;
+import org.apache.myfaces.tobago.layout.Container;
 import org.apache.myfaces.tobago.layout.LayoutContext;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.PixelLayoutToken;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.layout.math.EquationManager;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class GridLayoutManager implements LayoutManager {
 
   private static final Log LOG = LogFactory.getLog(GridLayoutManager.class);
 
-  private LayoutContainer container;
   private Grid grid;
 
   private LayoutTokens columnTokens;
   private LayoutTokens rowTokens;
 
-  public GridLayoutManager(LayoutContainer container, String columnsString, String rowsString) {
+  public GridLayoutManager(String columnsString, String rowsString) {
 
-    this.container = container;
     columnTokens = LayoutTokens.parse(columnsString);
     rowTokens = LayoutTokens.parse(rowsString);
 
     grid = new Grid(columnTokens.getSize(), rowTokens.getSize());
   }
-
+/*
   public void layout() {
 
-    List<LayoutComponent> components = container.getComponents();
+    List<Component> components = container.getComponents();
 
     distributeCells(components);
 
@@ -78,10 +74,10 @@ public class GridLayoutManager implements LayoutManager {
 
     LOG.info("rows    = " + Arrays.toString(grid.getRows()));
   }
+*/
+  public void layout(LayoutContext layoutContext, Container container) {
 
-  public void layout(LayoutContext layoutContext) {
-
-    List<LayoutComponent> components = container.getComponents();
+    List<Component> components = container.getComponents();
 
     registerVariables(layoutContext);
 
@@ -95,14 +91,15 @@ public class GridLayoutManager implements LayoutManager {
         Cell temp = grid.get(i, j);
         if (temp instanceof RealCell) {
           RealCell cell = (RealCell) temp;
-          LayoutComponent component = temp.getComponent();
-          if (component instanceof LayoutContainer) {
-            LayoutManager layoutManager = ((LayoutContainer) component).getLayoutManager();
+          Component component = temp.getComponent();
+          if (component instanceof Container) {
+            Container subContainer = (Container) component;
+            LayoutManager layoutManager = subContainer.getLayoutManager();
             EquationManager horizontal = layoutContext.getHorizontal();
             EquationManager vertial = layoutContext.getVertical();
             horizontal.descend(i, cell.getColumnSpan());
             vertial.descend(j, cell.getRowSpan());
-            layoutManager.layout(layoutContext);
+            layoutManager.layout(layoutContext, subContainer);
             horizontal.ascend();
             vertial.ascend();
           }
@@ -170,19 +167,20 @@ public class GridLayoutManager implements LayoutManager {
     }
   }
 
-  private void distributeCells(List<LayoutComponent> components) {
-    for (LayoutComponent component : components) {
+  private void distributeCells(List<Component> components) {
+    for (Component component : components) {
 
-      GridComponentConstraints constraints = GridComponentConstraints.getConstraints(component);
+      GridConstraints constraints = GridConstraints.getConstraints(component);
       grid.add(new RealCell(component), constraints.getColumnSpan(), constraints.getRowSpan());
 
       LOG.debug("\n" + grid);
     }
   }
 
+/*
   // todo: may use not only pixel but also other measures
   private void distributePixel(
-      PixelMeasure space, LayoutTokens tokens, PixelMeasure[] measures, List<LayoutComponent> components) {
+      PixelMeasure space, LayoutTokens tokens, PixelMeasure[] measures, List<Component> components) {
 
     for (int i = 0; i < measures.length; i++) {
       if (tokens.get(i) instanceof PixelLayoutToken) {
@@ -194,7 +192,7 @@ public class GridLayoutManager implements LayoutManager {
   }
 
   private void distributeAsterisk(
-      PixelMeasure space, LayoutTokens tokens, PixelMeasure[] measures, List<LayoutComponent> components) {
+      PixelMeasure space, LayoutTokens tokens, PixelMeasure[] measures, List<Component> components) {
     int sum = 0;
     int spreadingSpace = space.getPixel();
     for (int i = 0; i < measures.length; i++) {
@@ -214,6 +212,7 @@ public class GridLayoutManager implements LayoutManager {
     LOG.info("rest: " + space);
     // todo: distribute the rest (might be some pixels because of rounding errors)
   }
+   */
 
   protected Grid getGrid() {
     return grid;

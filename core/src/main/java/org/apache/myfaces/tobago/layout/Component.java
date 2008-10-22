@@ -17,8 +17,13 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-/*
- * Date: 13.02.2008 20:47:02
+/**
+ * User: lofwyr
+ * Date: 23.01.2008 20:10:36
  */
-public interface ComponentConstraints {
+public interface Component {
+
+  Constraints getConstraints();
+
+  void setConstraints(Constraints constraints);
 }

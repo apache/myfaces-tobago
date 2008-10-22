@@ -20,10 +20,10 @@ package org.apache.myfaces.tobago.layout.grid;
 import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutComponentImpl;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
-import org.apache.myfaces.tobago.layout.LayoutContainerImpl;
+import org.apache.myfaces.tobago.layout.Component;
+import org.apache.myfaces.tobago.layout.ComponentImpl;
+import org.apache.myfaces.tobago.layout.Container;
+import org.apache.myfaces.tobago.layout.ContainerImpl;
 import org.apache.myfaces.tobago.layout.LayoutContext;
 import org.apache.myfaces.tobago.layout.math.AssertUtils;
 import org.apache.myfaces.tobago.layout.math.EquationManager;
@@ -52,28 +52,28 @@ public class GridLayoutManagerUnitTest extends TestCase {
    * </pre>
    */
   public void test() {
-    LayoutContainer container = new LayoutContainerImpl();
-    LayoutComponent span = new LayoutComponentImpl();
-    GridComponentConstraints bConstraint = GridComponentConstraints.getConstraints(span);
+    Container container = new ContainerImpl();
+    Component span = new ComponentImpl();
+    GridConstraints bConstraint = GridConstraints.getConstraints(span);
     bConstraint.setRowSpan(2);
 
-    container.getComponents().add(new LayoutComponentImpl());
+    container.getComponents().add(new ComponentImpl());
     container.getComponents().add(span);
-    container.getComponents().add(new LayoutComponentImpl());
-    container.getComponents().add(new LayoutComponentImpl());
+    container.getComponents().add(new ComponentImpl());
+    container.getComponents().add(new ComponentImpl());
 
-    LayoutContainer subContainer = new LayoutContainerImpl();
+    Container subContainer = new ContainerImpl();
 
     container.getComponents().add(subContainer);
-    GridLayoutManager manager = new GridLayoutManager(container, "*;2*;500px", "*;600px");
+    GridLayoutManager manager = new GridLayoutManager("*;2*;500px", "*;600px");
     container.setLayoutManager(manager);
 
-    GridLayoutManager subManager = new GridLayoutManager(subContainer, "7*;3*", "*;*");
+    GridLayoutManager subManager = new GridLayoutManager("7*;3*", "*;*");
     subContainer.setLayoutManager(subManager);
-    subContainer.getComponents().add(new LayoutComponentImpl());
-    subContainer.getComponents().add(new LayoutComponentImpl());
-    subContainer.getComponents().add(new LayoutComponentImpl());
-    subContainer.getComponents().add(new LayoutComponentImpl());
+    subContainer.getComponents().add(new ComponentImpl());
+    subContainer.getComponents().add(new ComponentImpl());
+    subContainer.getComponents().add(new ComponentImpl());
+    subContainer.getComponents().add(new ComponentImpl());
 
     LayoutContext layoutContext = new LayoutContext();
 
@@ -85,7 +85,7 @@ public class GridLayoutManagerUnitTest extends TestCase {
     vertial.setFixedLength(0, 800);
     vertial.descend(0, 1);
 
-    manager.layout(layoutContext);
+    manager.layout(layoutContext, container);
 
     horizontal.ascend();
     vertial.ascend();
@@ -109,24 +109,24 @@ public class GridLayoutManagerUnitTest extends TestCase {
    * </pre>
    */
   public void testSpanOverlapsSpan() {
-    LayoutContainer container = new LayoutContainerImpl();
+    Container container = new ContainerImpl();
 
-    LayoutContainer span1 = new LayoutContainerImpl();
-    GridComponentConstraints constraint1 = GridComponentConstraints.getConstraints(span1);
+    Container span1 = new ContainerImpl();
+    GridConstraints constraint1 = GridConstraints.getConstraints(span1);
     constraint1.setColumnSpan(2);
 
-    LayoutContainer span2 = new LayoutContainerImpl();
-    GridComponentConstraints constraint2 = GridComponentConstraints.getConstraints(span2);
+    Container span2 = new ContainerImpl();
+    GridConstraints constraint2 = GridConstraints.getConstraints(span2);
     constraint2.setColumnSpan(2);
 
-    container.getComponents().add(new LayoutComponentImpl());
+    container.getComponents().add(new ComponentImpl());
     container.getComponents().add(span1);
     container.getComponents().add(span2);
-    container.getComponents().add(new LayoutComponentImpl());
+    container.getComponents().add(new ComponentImpl());
 
-    container.setLayoutManager(new GridLayoutManager(container, "*;*;*", "*;*"));
-    span1.setLayoutManager(new GridLayoutManager(span1, "*;*;*", "*"));
-    span2.setLayoutManager(new GridLayoutManager(span2, "*;*;*", "*"));
+    container.setLayoutManager(new GridLayoutManager("*;*;*", "*;*"));
+    span1.setLayoutManager(new GridLayoutManager("*;*;*", "*"));
+    span2.setLayoutManager(new GridLayoutManager("*;*;*", "*"));
 
     LayoutContext layoutContext = new LayoutContext();
 
@@ -139,7 +139,7 @@ public class GridLayoutManagerUnitTest extends TestCase {
     vertial.descend(0, 1);
 
     LOG.info(((GridLayoutManager)container.getLayoutManager()).getGrid());
-    container.getLayoutManager().layout(layoutContext);
+    container.getLayoutManager().layout(layoutContext, container);
 
     horizontal.ascend();
     vertial.ascend();

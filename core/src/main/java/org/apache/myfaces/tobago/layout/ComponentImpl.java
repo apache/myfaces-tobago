@@ -17,45 +17,18 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-import java.util.HashMap;
-import java.util.Map;
-
 /*
  * Date: 14.02.2008 12:08:52
  */
-public class LayoutComponentImpl implements LayoutComponent {
+public class ComponentImpl implements Component {
 
-  private Map<String, ComponentConstraints> componentConstraints;
+  private Constraints constraints;
 
-  private Measure width;
-  private Measure height;
-
-  public LayoutComponentImpl() {
-    componentConstraints = new HashMap<String, ComponentConstraints>();
-
+  public Constraints getConstraints() {
+    return constraints;
   }
 
-  public ComponentConstraints getComponentConstraints(String name) {
-    return componentConstraints.get(name);
-  }
-
-  public void setComponentConstraints(String name, ComponentConstraints constraints) {
-    componentConstraints.put(name, constraints);
-  }
-
-  public Measure getWidth() {
-    return width;
-  }
-
-  public void setWidth(Measure width) {
-    this.width = width;
-  }
-
-  public Measure getHeight() {
-    return height;
-  }
-
-  public void setHeight(Measure height) {
-    this.height = height;
+  public void setConstraints(Constraints constraints) {
+    this.constraints = constraints;
   }
 }

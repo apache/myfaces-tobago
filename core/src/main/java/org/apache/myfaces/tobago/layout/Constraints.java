@@ -17,21 +17,8 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-import java.util.List;
-
-/**
- * User: lofwyr
- * Date: 23.01.2008 20:10:16
+/*
+ * Date: 13.02.2008 20:47:02
  */
-public interface LayoutContainer extends LayoutComponent {
-
-  ContainerConstraints getContainerConstraints(String name);
-
-  void setContainerConstraints(String name, ContainerConstraints component);
-
-  List<LayoutComponent> getComponents();
-
-  LayoutManager getLayoutManager();
-
-  void setLayoutManager(LayoutManager layoutManager);
+public interface Constraints {
 }

@@ -17,11 +17,11 @@ package org.apache.myfaces.tobago.layout.grid;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.layout.Component;
 
 public interface Cell {
 
-  LayoutComponent getComponent();
+  Component getComponent();
 
   RealCell getRealCell();
 }
