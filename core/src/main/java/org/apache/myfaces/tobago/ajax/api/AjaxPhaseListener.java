@@ -17,16 +17,15 @@ package org.apache.myfaces.tobago.ajax.api;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
-
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.util.FastStringWriter;
 import org.apache.myfaces.tobago.util.RequestUtils;
 import org.apache.myfaces.tobago.util.ResponseUtils;
-import org.apache.myfaces.tobago.util.FastStringWriter;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
@@ -98,7 +97,7 @@ public class AjaxPhaseListener implements PhaseListener {
               + externalContext.getRequestParameterMap().get(AJAX_COMPONENT_ID));
         }
 
-        RequestUtils.ensureEncoding(externalContext);
+        RequestUtils.ensureEncoding(facesContext);
         ResponseUtils.ensureNoCacheHeader(externalContext);
         final UIViewRoot viewRoot = facesContext.getViewRoot();
         FastStringWriter content = new FastStringWriter(1024 * 10);

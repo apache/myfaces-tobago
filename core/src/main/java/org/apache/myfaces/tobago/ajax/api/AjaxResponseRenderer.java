@@ -29,9 +29,9 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.util.Callback;
 import org.apache.myfaces.tobago.util.EncodeAjaxCallback;
 import org.apache.myfaces.tobago.util.FastStringWriter;
+import org.apache.myfaces.tobago.util.JndiUtils;
 import org.apache.myfaces.tobago.util.RequestUtils;
 import org.apache.myfaces.tobago.util.ResponseUtils;
-import org.apache.myfaces.tobago.util.JndiUtils;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
@@ -203,9 +203,8 @@ public class AjaxResponseRenderer {
   private void writeResponse(FacesContext facesContext, RenderKit renderKit,
       String responseCode, List<FastStringWriter> responseParts, String jsfState)
       throws IOException {
-    ExternalContext externalContext = facesContext.getExternalContext();
-    RequestUtils.ensureEncoding(externalContext);
-    ResponseUtils.ensureNoCacheHeader(externalContext);
+    RequestUtils.ensureEncoding(facesContext);
+    ResponseUtils.ensureNoCacheHeader(facesContext);
     UIComponent page = ComponentUtil.findPage(facesContext);
     String charset;
     if (page != null) {  // in case of CODE_RELOAD_REQUIRED page is null
@@ -246,6 +245,7 @@ public class AjaxResponseRenderer {
     }
 
 
+    ExternalContext externalContext = facesContext.getExternalContext();
     //TODO: fix this to work in PortletRequest as well
     if (externalContext.getResponse() instanceof HttpServletResponse) {
       final HttpServletResponse httpServletResponse

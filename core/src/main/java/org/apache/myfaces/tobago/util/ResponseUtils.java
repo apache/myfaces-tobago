@@ -27,8 +27,18 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ResponseUtils {
 
+  @Deprecated
   public static void ensureNoCacheHeader(ExternalContext externalContext) {
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    if (facesContext.getExternalContext() != externalContext) {
+      throw new RuntimeException("Unexpected behaviour.");
+    }
+    ensureNoCacheHeader(facesContext);
+  }
+
+  public static void ensureNoCacheHeader(FacesContext facesContext) {
     // TODO PortletRequest
+    ExternalContext externalContext = facesContext.getExternalContext();
     if (externalContext.getResponse() instanceof HttpServletResponse) {
       HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
       response.setHeader("Cache-Control", "no-cache,no-store,max-age=0,must-revalidate");

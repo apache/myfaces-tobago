@@ -17,20 +17,18 @@ package org.apache.myfaces.tobago.lifecycle;
  * limitations under the License.
  */
 
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.util.RequestUtils;
 
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.util.RequestUtils;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
@@ -71,7 +69,7 @@ public class TobagoLifecycle extends Lifecycle {
 
     // At very first ensure the requestEncoding, this MUST done before
     // accessing request parameters, wich can occur in custom phaseListeners.
-    RequestUtils.ensureEncoding(facesContext.getExternalContext());
+    RequestUtils.ensureEncoding(facesContext);
     
     for (PhaseExecutor executor : lifecycleExecutors) {
       if (executePhase(facesContext, executor, phaseListenerMgr)) {

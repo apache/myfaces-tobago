@@ -116,7 +116,7 @@ public class ViewHandlerImpl extends ViewHandler {
     }
     // this is only needed in the first request, the later will be handled by faces
     // TODO: maybe find a way to make this unneeded
-    RequestUtils.ensureEncoding(facesContext.getExternalContext());
+    RequestUtils.ensureEncoding(facesContext);
     UIViewRoot viewRoot = base.restoreView(facesContext, viewId);
     ensureClientProperties(facesContext, viewRoot);
     return viewRoot;
