@@ -140,7 +140,7 @@ public class SystemOfEquationsUnitTest extends TestCase {
    * |           |   *   |   *   |   *   |
    * </pre>
    */
-    public void testSubPartition() {
+  public void testSubPartition() {
 
     long begin = System.nanoTime();
 
@@ -174,4 +174,22 @@ public class SystemOfEquationsUnitTest extends TestCase {
     equations.addVariables(4);
     assertEquals(5, equations.getNumberOfVariables());
   }
+
+  /**
+   * todo later: inequations
+   * <pre>≤\u2264
+   * |             x₀ = 1000px        |
+   * | 10 ≤ x₁ ≤ 1000 | 70 ≤ x₂ ≤ 700 |
+   * </pre>
+   *
+   *  1  0  0 = 1000
+   * -1  1  1 =    0
+   *  0 -1  0 ≤  -10
+   *  0  1  0 ≤ 1000
+   *  0  0 -1 ≤  -70
+   *  0  0  1 ≤  700
+   *
+   */
+
+
 }
