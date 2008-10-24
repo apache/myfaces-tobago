@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.layout;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.layout.grid.GridConstraints;
+import org.apache.myfaces.tobago.component.AbstractUIGridConstraints;
 import org.apache.myfaces.tobago.layout.math.EquationManager;
 
 public class LayoutContext {
@@ -46,8 +46,8 @@ public class LayoutContext {
 
   public void layout() {
 
-    horizontal.setFixedLength(0, ((GridConstraints)container.getConstraints()).getWidth().getPixel());
-    vertical.setFixedLength(0, ((GridConstraints)container.getConstraints()).getHeight().getPixel());
+    horizontal.setFixedLength(0, ((AbstractUIGridConstraints)container.getConstraints()).getWidth().getPixel());
+    vertical.setFixedLength(0, ((AbstractUIGridConstraints)container.getConstraints()).getHeight().getPixel());
 
     horizontal.descend(0, 1);
     vertical.descend(0, 1);

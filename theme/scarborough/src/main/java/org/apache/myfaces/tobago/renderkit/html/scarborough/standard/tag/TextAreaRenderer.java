@@ -27,14 +27,18 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import org.apache.myfaces.tobago.component.AbstractUIGridConstraints;
 import org.apache.myfaces.tobago.component.UITextarea;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -75,6 +79,19 @@ public class TextAreaRenderer extends InputRendererBase {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
     HtmlRendererUtil.renderDojoDndItem(component, writer, true);
+
+// LAYOUT Begin
+    HtmlStyleMap style = (HtmlStyleMap) input.getAttributes().get(ATTR_STYLE);
+    Measure width = ((AbstractUIGridConstraints) input.getConstraints()).getWidth();
+    if (width != null) {
+      style.put("width", width.toString());
+    }
+    Measure height = ((AbstractUIGridConstraints) input.getConstraints()).getHeight();
+    if (height !=null) {
+      style.put("height", height.toString());
+    }
+// LAYOUT End
+
     writer.writeStyleAttribute();
     writer.writeClassAttribute();
     if (onchange != null) {

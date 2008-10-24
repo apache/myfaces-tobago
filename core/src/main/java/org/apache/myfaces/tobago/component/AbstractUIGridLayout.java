@@ -19,11 +19,14 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.OnComponentCreated;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SPAN_X;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SPAN_Y;
-import org.apache.myfaces.tobago.util.LayoutUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.grid.GridLayoutManager;
+import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -32,7 +35,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractUIGridLayout extends UILayout {
+//public abstract class AbstractUIGridLayout extends UILayout {
+// LAYOUT Begin
+public abstract class AbstractUIGridLayout extends UILayout implements OnComponentCreated {
+// LAYOUT End
 
   private static final Log LOG = LogFactory.getLog(AbstractUIGridLayout.class);
 
@@ -44,6 +50,18 @@ public abstract class AbstractUIGridLayout extends UILayout {
   private transient LayoutTokens rowLayout;
 
   private List<Row> layoutRows;
+
+// LAYOUT Begin
+  private GridLayoutManager manager;
+
+  public void onComponentCreated(FacesContext context, UIComponent component) {
+    manager = new GridLayoutManager(getColumns(), getRows());
+  }
+
+  public LayoutManager getLayoutManager() {
+    return manager;
+  }
+// LAYOUT End
 
   public LayoutTokens getRowLayout() {
     if (rowLayout == null) {

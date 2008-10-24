@@ -28,6 +28,4 @@ public interface Container extends Component {
   List<Component> getComponents();
 
   LayoutManager getLayoutManager();
-
-  void setLayoutManager(LayoutManager layoutManager);
 }

@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.layout.grid;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,16 +17,18 @@ package org.apache.myfaces.tobago.layout.grid;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.layout.Component;
 import org.apache.myfaces.tobago.layout.Constraints;
 import org.apache.myfaces.tobago.layout.Dimension;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
+
+import javax.faces.component.UIComponentBase;
 
 /*
  * User: lofwyr
  * Date: 13.02.2008 20:47:28
  */
-public class GridConstraints implements Constraints {
+public abstract class AbstractUIGridConstraints extends UIComponentBase implements Constraints {
 
   private int columnSpan = 1;
 
@@ -42,18 +44,9 @@ public class GridConstraints implements Constraints {
 
   private Measure height;
 
-  /**
-   * Convenience method to get the correct layout constraints from the component.
-   * If the constraints object doesn't exists it will be created a default and set to the component.
-   */
-  public static GridConstraints getConstraints(Component component) {
-    GridConstraints constraints
-        = (GridConstraints) component.getConstraints();
-    if (constraints == null) {
-      constraints = new GridConstraints();
-      component.setConstraints(constraints);
-    }
-    return constraints;
+  // XXX
+  public String getFamily() {
+    return "TODO";
   }
 
   public int getColumnSpan() {
@@ -104,11 +97,23 @@ public class GridConstraints implements Constraints {
     this.width = width;
   }
 
+  // XXX remove
+  @Deprecated
+  public void setWidth(int width) {
+    this.width = new PixelMeasure(width);
+  }
+
   public Measure getHeight() {
     return height;
   }
 
   public void setHeight(Measure height) {
     this.height = height;
+  }
+
+  // XXX remove
+  @Deprecated
+  public void setHeight(int height) {
+    this.height = new PixelMeasure(height);
   }
 }

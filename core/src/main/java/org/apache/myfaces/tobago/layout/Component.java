@@ -24,6 +24,4 @@ package org.apache.myfaces.tobago.layout;
 public interface Component {
 
   Constraints getConstraints();
-
-  void setConstraints(Constraints constraints);
 }

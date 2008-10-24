@@ -29,7 +29,8 @@ public class MockContainer extends MockComponent implements Container {
 
   private List<Component> components;
 
-  public MockContainer() {
+  public MockContainer(Constraints constraints) {
+    super(constraints);
     components = new ArrayList<Component>();
   }
 

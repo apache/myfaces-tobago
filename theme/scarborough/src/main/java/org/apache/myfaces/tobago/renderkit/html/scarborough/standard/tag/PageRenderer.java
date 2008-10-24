@@ -41,6 +41,7 @@ import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.layout.LayoutContext;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -115,21 +116,18 @@ public class PageRenderer extends PageRendererBase {
     } else {
       facesContext = new TobagoFacesContext(facesContextOrg);
     }
-/*
-// LAYOUT
-    LayoutContext layoutContext = new LayoutContext();
 
-    EquationManager horizontal = layoutContext.getHorizontal();
-    horizontal.setFixedLength(0, 1000);
-    horizontal.descend(0, 1);
+// LAYOUT Begin
 
-    EquationManager vertial = layoutContext.getVertical();
-    vertial.setFixedLength(0, 1000);
-    vertial.descend(0, 1);
+    try {
+      LayoutContext layoutContext = new LayoutContext(page);
+      layoutContext.layout();
+    } catch (Exception e) {
+      LOG.error("", e);
+    }
 
-    page.getLayoutManager().layout(layoutContext, page);
+// LAYOUT End
 
-*/
     RenderUtil.prepareRendererAll(facesContext, page);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);

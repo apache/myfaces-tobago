@@ -20,8 +20,8 @@ package org.apache.myfaces.tobago.layout.grid;
 import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.AbstractUIGridConstraints;
 import org.apache.myfaces.tobago.layout.Component;
-import org.apache.myfaces.tobago.layout.Container;
 import org.apache.myfaces.tobago.layout.LayoutContext;
 import org.apache.myfaces.tobago.layout.MockComponent;
 import org.apache.myfaces.tobago.layout.MockContainer;
@@ -45,17 +45,17 @@ public class GridLayoutManagerUnitTest extends TestCase {
    * </pre>
    */
   public void testSimple() {
-    Container container = new MockContainer();
-    MockComponent c1 = new MockComponent();
+    MockContainer container = newContainer();
+    MockComponent c1 = newComponent();
     container.getComponents().add(c1);
-    MockComponent c2 = new MockComponent();
+    MockComponent c2 = newComponent();
     container.getComponents().add(c2);
 
     GridLayoutManager manager = new GridLayoutManager("*;2*", "*");
     container.setLayoutManager(manager);
 
-    ((GridConstraints) container.getConstraints()).setWidth(new PixelMeasure(300));
-    ((GridConstraints) container.getConstraints()).setHeight(new PixelMeasure(20));
+    ((AbstractUIGridConstraints) container.getConstraints()).setWidth(new PixelMeasure(300));
+    ((AbstractUIGridConstraints) container.getConstraints()).setHeight(new PixelMeasure(20));
     LayoutContext layoutContext = new LayoutContext(container);
     layoutContext.layout();
 
@@ -67,9 +67,9 @@ public class GridLayoutManagerUnitTest extends TestCase {
     LOG.info("result: " + Arrays.toString(result));
     AssertUtils.assertEquals(new double[]{20, 20}, result, 0.000001);
 
-    assertEquals("width of container", 300, ((GridConstraints) container.getConstraints()).getWidth().getPixel());
-    assertEquals("width of component 1", 100, ((GridConstraints) c1.getConstraints()).getWidth().getPixel());
-    assertEquals("width of component 2", 200, ((GridConstraints) c2.getConstraints()).getWidth().getPixel());
+    assertEquals("width of container", 300, ((AbstractUIGridConstraints) container.getConstraints()).getWidth().getPixel());
+    assertEquals("width of component 1", 100, ((AbstractUIGridConstraints) c1.getConstraints()).getWidth().getPixel());
+    assertEquals("width of component 2", 200, ((AbstractUIGridConstraints) c2.getConstraints()).getWidth().getPixel());
   }
 
   /**
@@ -83,18 +83,18 @@ public class GridLayoutManagerUnitTest extends TestCase {
    * </pre>
    */
   public void testSpan() {
-    Container container = new MockContainer();
-    MockComponent c = new MockComponent();
+    MockContainer container = newContainer();
+    MockComponent c = newComponent();
     container.getComponents().add(c);
-    MockComponent span = new MockComponent();
+    MockComponent span = newComponent();
     container.getComponents().add(span);
-    ((GridConstraints) span.getConstraints()).setColumnSpan(2);
+    ((AbstractUIGridConstraints) span.getConstraints()).setColumnSpan(2);
 
     GridLayoutManager manager = new GridLayoutManager("*;*;*", "*");
     container.setLayoutManager(manager);
 
-    ((GridConstraints) container.getConstraints()).setWidth(new PixelMeasure(300));
-    ((GridConstraints) container.getConstraints()).setHeight(new PixelMeasure(20));
+    ((AbstractUIGridConstraints) container.getConstraints()).setWidth(new PixelMeasure(300));
+    ((AbstractUIGridConstraints) container.getConstraints()).setHeight(new PixelMeasure(20));
     LayoutContext layoutContext = new LayoutContext(container);
     layoutContext.layout();
 
@@ -106,9 +106,9 @@ public class GridLayoutManagerUnitTest extends TestCase {
     LOG.info("result: " + Arrays.toString(result));
     AssertUtils.assertEquals(new double[]{20, 20}, result, 0.000001);
 
-    assertEquals("width of container", 300, ((GridConstraints) container.getConstraints()).getWidth().getPixel());
-    assertEquals("width of component", 100, ((GridConstraints) c.getConstraints()).getWidth().getPixel());
-    assertEquals("width of span", 200, ((GridConstraints) span.getConstraints()).getWidth().getPixel());
+    assertEquals("width of container", 300, ((AbstractUIGridConstraints) container.getConstraints()).getWidth().getPixel());
+    assertEquals("width of component", 100, ((AbstractUIGridConstraints) c.getConstraints()).getWidth().getPixel());
+    assertEquals("width of span", 200, ((AbstractUIGridConstraints) span.getConstraints()).getWidth().getPixel());
   }
 
   /**
@@ -129,17 +129,17 @@ public class GridLayoutManagerUnitTest extends TestCase {
    * </pre>
    */
   public void testSpanAndSubLayout() {
-    Container container = new MockContainer();
-    Component span = new MockComponent();
-    GridConstraints bConstraint = GridConstraints.getConstraints(span);
+    MockContainer container = newContainer();
+    Component span = newComponent();
+    AbstractUIGridConstraints bConstraint = (AbstractUIGridConstraints) span.getConstraints();
     bConstraint.setColumnSpan(2);
 
-    container.getComponents().add(new MockComponent());
+    container.getComponents().add(newComponent());
     container.getComponents().add(span);
-    container.getComponents().add(new MockComponent());
-    container.getComponents().add(new MockComponent());
+    container.getComponents().add(newComponent());
+    container.getComponents().add(newComponent());
 
-    Container subContainer = new MockContainer();
+    MockContainer subContainer = newContainer();
 
     container.getComponents().add(subContainer);
     GridLayoutManager manager = new GridLayoutManager("*;2*;500px", "*;600px");
@@ -147,13 +147,13 @@ public class GridLayoutManagerUnitTest extends TestCase {
 
     GridLayoutManager subManager = new GridLayoutManager("7*;3*", "*;*");
     subContainer.setLayoutManager(subManager);
-    subContainer.getComponents().add(new MockComponent());
-    subContainer.getComponents().add(new MockComponent());
-    subContainer.getComponents().add(new MockComponent());
-    subContainer.getComponents().add(new MockComponent());
+    subContainer.getComponents().add(newComponent());
+    subContainer.getComponents().add(newComponent());
+    subContainer.getComponents().add(newComponent());
+    subContainer.getComponents().add(newComponent());
 
-    ((GridConstraints) container.getConstraints()).setWidth(new PixelMeasure(800));
-    ((GridConstraints) container.getConstraints()).setHeight(new PixelMeasure(800));
+    ((AbstractUIGridConstraints) container.getConstraints()).setWidth(new PixelMeasure(800));
+    ((AbstractUIGridConstraints) container.getConstraints()).setHeight(new PixelMeasure(800));
     LayoutContext layoutContext = new LayoutContext(container);
     layoutContext.layout();
 
@@ -166,8 +166,8 @@ public class GridLayoutManagerUnitTest extends TestCase {
     LOG.info("result: " + Arrays.toString(result));
     AssertUtils.assertEquals(new double[]{800, 200, 600, 300, 300}, result, 0.000001);
 
-    assertEquals("width of container", 800, ((GridConstraints) container.getConstraints()).getWidth().getPixel());
-    assertEquals("width of span", 700, ((GridConstraints) span.getConstraints()).getWidth().getPixel());
+    assertEquals("width of container", 800, ((AbstractUIGridConstraints) container.getConstraints()).getWidth().getPixel());
+    assertEquals("width of span", 700, ((AbstractUIGridConstraints) span.getConstraints()).getWidth().getPixel());
   }
 
   /**
@@ -179,27 +179,27 @@ public class GridLayoutManagerUnitTest extends TestCase {
    * </pre>
    */
   public void testSpanOverlapsSpan() {
-    Container container = new MockContainer();
+    MockContainer container = newContainer();
 
-    Container span1 = new MockContainer();
-    GridConstraints constraint1 = GridConstraints.getConstraints(span1);
+    MockContainer span1 = newContainer();
+    AbstractUIGridConstraints constraint1 = (AbstractUIGridConstraints) span1.getConstraints();
     constraint1.setColumnSpan(2);
 
-    Container span2 = new MockContainer();
-    GridConstraints constraint2 = GridConstraints.getConstraints(span2);
+    MockContainer span2 = newContainer();
+    AbstractUIGridConstraints constraint2 = (AbstractUIGridConstraints) span2.getConstraints();
     constraint2.setColumnSpan(2);
 
-    container.getComponents().add(new MockComponent());
+    container.getComponents().add(newComponent());
     container.getComponents().add(span1);
     container.getComponents().add(span2);
-    container.getComponents().add(new MockComponent());
+    container.getComponents().add(newComponent());
 
     container.setLayoutManager(new GridLayoutManager("*;*;*", "*;*"));
     span1.setLayoutManager(new GridLayoutManager("*;*;*", "*"));
     span2.setLayoutManager(new GridLayoutManager("*;*;*", "*"));
 
-    ((GridConstraints) container.getConstraints()).setWidth(new PixelMeasure(900));
-    ((GridConstraints) container.getConstraints()).setHeight(new PixelMeasure(200));
+    ((AbstractUIGridConstraints) container.getConstraints()).setWidth(new PixelMeasure(900));
+    ((AbstractUIGridConstraints) container.getConstraints()).setHeight(new PixelMeasure(200));
     LayoutContext layoutContext = new LayoutContext(container);
     layoutContext.layout();
 
@@ -214,8 +214,16 @@ public class GridLayoutManagerUnitTest extends TestCase {
     LOG.info("result: " + Arrays.toString(result));
     AssertUtils.assertEquals(new double[]{200, 100, 100, 100, 100}, result, 0.000001);
 
-    assertEquals("width of container", 900, ((GridConstraints) container.getConstraints()).getWidth().getPixel());
-    assertEquals("width of span 1", 600, ((GridConstraints) span1.getConstraints()).getWidth().getPixel());
-    assertEquals("width of span 2", 600, ((GridConstraints) span2.getConstraints()).getWidth().getPixel());
+    assertEquals("width of container", 900, ((AbstractUIGridConstraints) container.getConstraints()).getWidth().getPixel());
+    assertEquals("width of span 1", 600, ((AbstractUIGridConstraints) span1.getConstraints()).getWidth().getPixel());
+    assertEquals("width of span 2", 600, ((AbstractUIGridConstraints) span2.getConstraints()).getWidth().getPixel());
+  }
+
+  private MockContainer newContainer() {
+    return new MockContainer(new AbstractUIGridConstraints(){});
+  }
+
+  private MockComponent newComponent() {
+    return new MockComponent(new AbstractUIGridConstraints(){});
   }
 }

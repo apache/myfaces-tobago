@@ -25,6 +25,10 @@ import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.layout.Box;
+import org.apache.myfaces.tobago.layout.Component;
+import org.apache.myfaces.tobago.layout.Constraints;
+import org.apache.myfaces.tobago.layout.Container;
+import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.model.PageState;
 import org.apache.myfaces.tobago.model.PageStateImpl;
 import org.apache.myfaces.tobago.util.ComponentUtil;
@@ -44,7 +48,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnComponent {
+public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnComponent, Container {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIPage.class);
 
@@ -283,4 +287,26 @@ public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnC
       throws FacesException {
     return FacesUtils.invokeOnComponent(context, this, clientId, callback);
   }
+
+// LAYOUT Begin
+  public List<Component> getComponents() {
+    List<Component> result = new ArrayList<Component>();
+    for (UIComponent uiComponent : (List<UIComponent>)getChildren()) {
+     if (uiComponent instanceof Component) {
+       result.add((Component) uiComponent);
+     }
+    }
+    return result;
+  }
+
+  public LayoutManager getLayoutManager() {
+    AbstractUIGridLayout uiGridLayout = (AbstractUIGridLayout) getFacet(FacetConstants.LAYOUT);
+    return uiGridLayout != null ? uiGridLayout.getLayoutManager() : null;
+  }
+
+  public Constraints getConstraints() {
+    return (AbstractUIGridConstraints) getFacet(FacetConstants.CONSTRAINTS);
+  }
+// LAYOUT End
+
 }

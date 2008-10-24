@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.layout.grid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.AbstractUIGridConstraints;
 import org.apache.myfaces.tobago.layout.Component;
 import org.apache.myfaces.tobago.layout.Container;
 import org.apache.myfaces.tobago.layout.LayoutContext;
@@ -39,6 +40,7 @@ public class GridLayoutManager implements LayoutManager {
   private Grid grid;
 
   private LayoutTokens columnTokens;
+
   private LayoutTokens rowTokens;
 
   public GridLayoutManager(String columnsString, String rowsString) {
@@ -48,34 +50,7 @@ public class GridLayoutManager implements LayoutManager {
 
     grid = new Grid(columnTokens.getSize(), rowTokens.getSize());
   }
-/*
-  public void layout() {
 
-    List<Component> components = container.getComponents();
-
-    distributeCells(components);
-
-    // fixme: 1000 -> container.get...
-    PixelMeasure horizontal = new PixelMeasure(1000);
-
-    distributePixel(horizontal, columnTokens, grid.getColumns(), components);
-// todo   distributeFixed(components);
-// todo   distributeAuto(components);
-    distributeAsterisk(horizontal, columnTokens, grid.getColumns(), components);
-
-    LOG.info("columns = " + Arrays.toString(grid.getColumns()));
-
-    // fixme: 1000 -> container.get...
-    PixelMeasure vertical = new PixelMeasure(1000);
-
-    distributePixel(vertical, rowTokens, grid.getRows(), components);
-// todo   distributeFixed(components);
-// todo   distributeAuto(components);
-    distributeAsterisk(vertical, rowTokens, grid.getRows(), components);
-
-    LOG.info("rows    = " + Arrays.toString(grid.getRows()));
-  }
-*/
   public void collect(LayoutContext layoutContext, Container container) {
 
     List<Component> components = container.getComponents();
@@ -122,8 +97,8 @@ public class GridLayoutManager implements LayoutManager {
           horizontal.descend(i, cell.getColumnSpan());
           vertial.descend(j, cell.getRowSpan());
 
-          ((GridConstraints) component.getConstraints()).setWidth(new PixelMeasure((int) horizontal.getValue()));
-          ((GridConstraints) component.getConstraints()).setHeight(new PixelMeasure((int) vertial.getValue()));
+          ((AbstractUIGridConstraints) component.getConstraints()).setWidth(new PixelMeasure((int) horizontal.getValue()));
+          ((AbstractUIGridConstraints) component.getConstraints()).setHeight(new PixelMeasure((int) vertial.getValue()));
 
           if (component instanceof Container) {
             Container subContainer = (Container) component;
@@ -167,7 +142,7 @@ public class GridLayoutManager implements LayoutManager {
     // horizontal
     Integer first = null;
     Integer firstIndex = null;
-    for (int i = 0; i <  columnTokens.getTokens().size(); i++) {
+    for (int i = 0; i < columnTokens.getTokens().size(); i++) {
       LayoutToken token = columnTokens.getTokens().get(i);
       if (token instanceof RelativeLayoutToken) {
         int factor = ((RelativeLayoutToken) token).getFactor();
@@ -182,7 +157,7 @@ public class GridLayoutManager implements LayoutManager {
     // vertial
     first = null;
     firstIndex = null;
-    for (int i = 0; i <  rowTokens.getTokens().size(); i++) {
+    for (int i = 0; i < rowTokens.getTokens().size(); i++) {
       LayoutToken token = rowTokens.getTokens().get(i);
       if (token instanceof RelativeLayoutToken) {
         int factor = ((RelativeLayoutToken) token).getFactor();
@@ -198,50 +173,11 @@ public class GridLayoutManager implements LayoutManager {
 
   private void distributeCells(List<Component> components) {
     for (Component component : components) {
-
-      GridConstraints constraints = GridConstraints.getConstraints(component);
+      AbstractUIGridConstraints constraints = (AbstractUIGridConstraints) component.getConstraints();
       grid.add(new RealCell(component), constraints.getColumnSpan(), constraints.getRowSpan());
-
       LOG.debug("\n" + grid);
     }
   }
-
-/*
-  // todo: may use not only pixel but also other measures
-  private void distributePixel(
-      PixelMeasure space, LayoutTokens tokens, PixelMeasure[] measures, List<Component> components) {
-
-    for (int i = 0; i < measures.length; i++) {
-      if (tokens.get(i) instanceof PixelLayoutToken) {
-        PixelLayoutToken token = (PixelLayoutToken) tokens.get(i);
-        measures[i] = new PixelMeasure(token.getPixel());
-        space = (PixelMeasure) space.substractNotNegative(measures[i]);
-      }
-    }
-  }
-
-  private void distributeAsterisk(
-      PixelMeasure space, LayoutTokens tokens, PixelMeasure[] measures, List<Component> components) {
-    int sum = 0;
-    int spreadingSpace = space.getPixel();
-    for (int i = 0; i < measures.length; i++) {
-      if (tokens.get(i) instanceof RelativeLayoutToken) {
-        RelativeLayoutToken token = (RelativeLayoutToken) tokens.get(i);
-        sum += token.getFactor();
-      }
-    }
-    for (int i = 0; i < measures.length; i++) {
-      if (tokens.get(i) instanceof RelativeLayoutToken) {
-        RelativeLayoutToken token = (RelativeLayoutToken) tokens.get(i);
-        int measure = spreadingSpace * token.getFactor() / sum;
-        space = (PixelMeasure) space.substractNotNegative(new PixelMeasure(measure));
-        measures[i] = new PixelMeasure(measure);
-      }
-    }
-    LOG.info("rest: " + space);
-    // todo: distribute the rest (might be some pixels because of rounding errors)
-  }
-   */
 
   protected Grid getGrid() {
     return grid;

@@ -1,7 +1,5 @@
 package org.apache.myfaces.tobago.layout;
 
-import org.apache.myfaces.tobago.layout.grid.GridConstraints;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -26,15 +24,12 @@ public class MockComponent implements Component {
 
   private Constraints constraints;
 
-  public MockComponent() {
-    constraints = new GridConstraints();
+  public MockComponent(Constraints constraints) {
+    this.constraints = constraints;
   }
 
   public Constraints getConstraints() {
     return constraints;
   }
 
-  public void setConstraints(Constraints constraints) {
-    this.constraints = constraints;
-  }
 }
