@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.util.ComponentUtil;
@@ -191,7 +190,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
 
     // TODO 
     UIComponent component  = facesContext.getApplication().createComponent(UIPanel.COMPONENT_TYPE);
-    component.setRendererType(TobagoConstants.RENDERER_TYPE_TOOL_BAR);
+    component.setRendererType(RendererType.TOOL_BAR);
     UIComponent toolbar = component;
     toolbar.getAttributes().put(Attributes.ICON_SIZE, AbstractUIToolBar.ICON_SMALL);
     toolbar.getAttributes().put(Attributes.LABEL_POSITION, AbstractUIToolBar.LABEL_OFF);
@@ -204,7 +203,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     UITreeOld.Command[] commands = getCommands();
     for (int i = 0; i < commands.length; i++) {
       UICommand command = (UICommand) facesContext.getApplication().createComponent(UICommand.COMPONENT_TYPE);
-      command.setRendererType(TobagoConstants.RENDERER_TYPE_LINK);
+      command.setRendererType(RendererType.LINK);
       toolbar.getChildren().add(command);
       command.setId(commands[i].getCommand());
 

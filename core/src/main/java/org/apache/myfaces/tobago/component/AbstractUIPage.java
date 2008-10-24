@@ -53,6 +53,8 @@ public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnC
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Page";
 
+  public static final String FORM_ACCEPT_CHARSET = "utf-8";
+
   private static final int DEFAULT_WIDTH = 1024;
 
   private static final int DEFAULT_HEIGHT = 768;

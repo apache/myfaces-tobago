@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
@@ -37,7 +38,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
     uiComponent = "org.apache.myfaces.tobago.component.UIColumnSelector",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIColumn",
     componentType = "org.apache.myfaces.tobago.ColumnSelector",
-    rendererType = "ColumnSelector",
+    rendererType = RendererType.COLUMN_SELECTOR,
     allowedChildComponenents = "NONE")
 public interface ColumnSelectorTagDeclaration extends IsDisabled, IsRendered, HasBinding {
 }

@@ -18,17 +18,18 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.component.AbstractUITabGroup;
+import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.taglib.decl.HasAction;
+import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
-import org.apache.myfaces.tobago.taglib.decl.HasAction;
-import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
 
 /*
  * Created by IntelliJ IDEA.
@@ -45,7 +46,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITabGroup",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITabGroup",
-    rendererType = "TabGroup",
+    rendererType = RendererType.TAB_GROUP,
     interfaces = { "org.apache.myfaces.tobago.ajax.api.AjaxComponent", "javax.faces.component.ActionSource"},
     allowedChildComponenents = "org.apache.myfaces.tobago.Tab")
 

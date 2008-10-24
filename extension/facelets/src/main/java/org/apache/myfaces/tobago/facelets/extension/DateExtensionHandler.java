@@ -20,7 +20,8 @@ package org.apache.myfaces.tobago.facelets.extension;
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentSupport;
-import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.OnComponentCreated;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.component.UIDateInput;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 
@@ -43,19 +44,19 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
   }
 
   protected String getSubRendererType() {
-    return TobagoConstants.RENDERER_TYPE_DATE;
+    return RendererType.DATE;
   }
 
   protected void onComponentPopulated(FaceletContext faceletContext, UIComponent panel, UIComponent parent) {
     if (panel.getChildCount() == 2) {
       Application application = faceletContext.getFacesContext().getApplication();
       UIDatePicker picker = (UIDatePicker) application.createComponent(UIDatePicker.COMPONENT_TYPE);
-      picker.setRendererType(TobagoConstants.RENDERER_TYPE_DATE_PICKER);
+      picker.setRendererType(RendererType.DATE_PICKER);
       picker.setFor("@auto");
       UIViewRoot root = ComponentSupport.getViewRoot(faceletContext, parent);
       picker.setId(root.createUniqueId());
-      if (picker.getAttributes().get(TobagoConstants.TOBAGO_COMPONENT_CREATED) == null) {
-        picker.getAttributes().put(TobagoConstants.TOBAGO_COMPONENT_CREATED, Boolean.TRUE);
+      if (picker.getAttributes().get(OnComponentCreated.MARKER) == null) {
+        picker.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
         picker.onComponentCreated(faceletContext.getFacesContext(), picker);
       }
       panel.getChildren().add(picker);

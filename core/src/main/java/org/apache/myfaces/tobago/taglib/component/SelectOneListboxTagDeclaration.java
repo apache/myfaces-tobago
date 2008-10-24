@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedHeight;
@@ -47,7 +48,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneListbox",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUISelectOne",
-    rendererType = "SelectOneListbox",
+    rendererType = RendererType.SELECT_ONE_LISTBOX,
     allowedChildComponenents = {
         "javax.faces.SelectItem",
         "javax.faces.SelectItems"

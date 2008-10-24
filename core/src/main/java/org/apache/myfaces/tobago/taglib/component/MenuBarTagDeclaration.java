@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
@@ -43,7 +44,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuBar",
     uiComponentBaseClass = "javax.faces.component.UIPanel",
-    rendererType = "MenuBar", isComponentAlreadyDefined = false,
+    rendererType = RendererType.MENU_BAR, isComponentAlreadyDefined = false,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.Menu",
         "org.apache.myfaces.tobago.MenuCommand",

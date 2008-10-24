@@ -20,12 +20,42 @@ package org.apache.myfaces.tobago;
 /**
  * @see org.apache.myfaces.tobago.component.Attributes
  * @see org.apache.myfaces.tobago.component.Facets
+ * @see org.apache.myfaces.tobago.component.RendererType
+ * @see org.apache.myfaces.tobago.component.AbstractUICommand
+ * @see org.apache.myfaces.tobago.OnComponentCreated
+ * @see org.apache.myfaces.tobago.renderkit.HtmlUtils
+ * @deprecated
  */
+@Deprecated
 public final class TobagoConstants {
 
   public static final String SUBCOMPONENT_SEP = "::";
 
-  //  public static final String ATTR_ACCESS_KEY = "accessKey";
+  /** @deprecated Please use AbstractUICommand instead. Will be removed after Tobago 1.1 */
+  @Deprecated
+  public static final String COMMAND_TYPE_SUBMIT = "submit";
+  /** @deprecated Please use AbstractUICommand instead. Will be removed after Tobago 1.1 */
+  @Deprecated
+  public static final String COMMAND_TYPE_RESET = "reset";
+  /** @deprecated Please use AbstractUICommand instead. Will be removed after Tobago 1.1 */
+  @Deprecated
+  public static final String COMMAND_TYPE_NAVIGATE = "navigate";
+  /** @deprecated Please use AbstractUICommand instead. Will be removed after Tobago 1.1 */
+  @Deprecated
+  public static final String COMMAND_TYPE_SCRIPT = "script";
+
+  /** @deprecated Please use AbstractUIPage instead. Will be removed after Tobago 1.1 */
+  @Deprecated
+  public static final String FORM_ACCEPT_CHARSET = "utf-8";
+
+  /** @deprecated Please use OnComponentCreated instead. Will be removed after Tobago 1.1 */
+  @Deprecated
+  public static final String TOBAGO_COMPONENT_CREATED = "org.apache.myfaces.tobago.CREATION_MARKER";
+
+  /** @deprecated Please use HtmlUtils instead. Will be removed after Tobago 1.1 */
+  @Deprecated
+  public static final String CHAR_NON_BEAKING_SPACE = "\u00a0";
+
   /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
   @Deprecated
   public static final String ATTR_ACTION = "action";
@@ -548,50 +578,99 @@ public final class TobagoConstants {
   @Deprecated
   public static final String FACET_TOOL_BAR_COMMAND = "toolBarCommand";
 
-  // Command types
-  public static final String COMMAND_TYPE_SUBMIT = "submit";
-  public static final String COMMAND_TYPE_RESET = "reset";
-  public static final String COMMAND_TYPE_NAVIGATE = "navigate";
-  // TODO: find an abstract way, to avoid this
-  public static final String COMMAND_TYPE_SCRIPT = "script";
-
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_BOX = "Box";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_BUTTON = "Button";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_CALENDAR = "Calendar";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_DATE = "Date";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_DEFAULT_LAYOUT = "DefaultLayout";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_FILE = "File";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_GRID_LAYOUT = "GridLayout";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_HIDDEN = "Hidden";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_IN = "In";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_IMAGE = "Image";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_LINK = "Link";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_LABEL = "Label";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_MENUBAR = "MenuBar";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_MENUCOMMAND = "MenuCommand";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_OUT = "Out";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_PANEL = "Panel";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_POPUP = "Popup";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_DATE_PICKER = "DatePicker";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX = "SelectBooleanCheckbox";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_SELECT_MANY_CHECKBOX = "SelectManyCheckbox";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_SELECT_MANY_LISTBOX = "SelectManyListbox";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_SELECT_ONE_CHOICE = "SelectOneChoice";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_SELECT_ONE_RADIO = "SelectOneRadio";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_SELECT_ONE_LISTBOX = "SelectOneListbox";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_TEXT_AREA = "TextArea";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_TIME = "Time";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_TOOL_BAR = "ToolBar";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_TREE_NODE = "TreeNode";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_TREE_OLD_NODE = "TreeOldNode";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_SHEET = "Sheet";
+  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String RENDERER_TYPE_VERBATIM = "Verbatim";
-
-  public static final String FORM_ACCEPT_CHARSET = "utf-8";
-
-  public static final String TOBAGO_COMPONENT_CREATED = "org.apache.myfaces.tobago.CREATION_MARKER";
-
-  public static final String CHAR_NON_BEAKING_SPACE = "\u00a0";
 
   private TobagoConstants() {
     // to prevent instantiation

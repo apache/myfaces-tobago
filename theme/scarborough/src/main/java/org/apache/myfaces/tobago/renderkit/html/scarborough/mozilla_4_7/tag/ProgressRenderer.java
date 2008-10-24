@@ -23,9 +23,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.mozilla_4_7.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIProgress;
+import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -35,8 +35,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.swing.BoundedRangeModel;
-import javax.swing.DefaultBoundedRangeModel;
+import javax.swing.*;
 import java.io.IOException;
 
 public class ProgressRenderer extends LayoutableRendererBase {
@@ -83,13 +82,13 @@ public class ProgressRenderer extends LayoutableRendererBase {
     writer.startElement(HtmlConstants.TD, null);
     writer.writeStyleAttribute("background-color: #aabbcc;");
     writer.writeAttribute(HtmlAttributes.WIDTH, width1, false);
-    writer.writeText(TobagoConstants.CHAR_NON_BEAKING_SPACE);
+    writer.writeText(HtmlUtils.CHAR_NON_BEAKING_SPACE);
     writer.endElement(HtmlConstants.TD);
 
     writer.startElement(HtmlConstants.TD, null);
     writer.writeStyleAttribute("background-color: #ddeeff;");
     writer.writeAttribute(HtmlAttributes.WIDTH, width2, false);
-    writer.writeText(TobagoConstants.CHAR_NON_BEAKING_SPACE);
+    writer.writeText(HtmlUtils.CHAR_NON_BEAKING_SPACE);
     writer.endElement(HtmlConstants.TD);
 
     writer.endElement(HtmlConstants.TR);

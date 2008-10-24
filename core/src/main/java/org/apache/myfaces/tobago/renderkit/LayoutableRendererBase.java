@@ -22,6 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Cell;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
@@ -220,7 +221,7 @@ public abstract class LayoutableRendererBase
       space = layoutSpace.intValue();
     }
     if (space == -1
-        && (!org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT.equals(component.getRendererType()))) {
+        && (!RendererType.OUT.equals(component.getRendererType()))) {
       UIComponent parent = component.getParent();
       space = LayoutUtil.getInnerSpace(facesContext, parent, width);
       if (space > 0 && !ComponentUtil.isFacetOf(component, parent)) {

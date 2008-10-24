@@ -25,15 +25,12 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LINK;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
@@ -786,7 +783,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
         String columnId = column.getClientId(facesContext);
         String sorterId = columnId.substring(columnId.lastIndexOf(":") + 1) + "_" + UIData.SORTER_ID;
         sortCommand = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
-        sortCommand.setRendererType(RENDERER_TYPE_LINK);
+        sortCommand.setRendererType(RendererType.LINK);
         sortCommand.setId(sorterId);
         column.getFacets().put(Facets.SORTER, sortCommand);
       }
@@ -884,7 +881,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       menu = (UIPanel) application.createComponent(UIMenu.COMPONENT_TYPE);
       menu.setId("selectorMenu");
       column.getFacets().put(Facets.MENUPOPUP, menu);
-      menu.setRendererType(RENDERER_TYPE_MENUBAR);
+      menu.setRendererType(RendererType.MENU_BAR);
       menu.getAttributes().put(Attributes.MENU_POPUP, Boolean.TRUE);
       menu.getAttributes().put(Attributes.MENU_POPUP_TYPE, "SheetSelector");
       menu.getAttributes().put(Attributes.IMAGE, "image/sheetSelectorMenu.gif");
@@ -926,7 +923,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       String action) {
     UIMenuCommand menuItem
         = (UIMenuCommand) application.createComponent(UIMenuCommand.COMPONENT_TYPE);
-    menuItem.setRendererType(RENDERER_TYPE_MENUCOMMAND);
+    menuItem.setRendererType(RendererType.MENU_COMMAND);
     menuItem.getAttributes().put(Attributes.ONCLICK, action);
     menuItem.getAttributes().put(Attributes.LABEL, label);
     return menuItem;
@@ -1055,7 +1052,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
                                                PageAction command, boolean disabled) {
     UICommand link;
     link = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
-    link.setRendererType(SheetPageCommandRenderer.PAGE_RENDERER_TYPE);
+    link.setRendererType(RendererType.SHEET_PAGE_COMMAND);
     link.setRendered(true);
     link.setId(command.getToken());
     link.getAttributes().put(Attributes.INLINE, Boolean.TRUE);
@@ -1238,7 +1235,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
               if (renderer == null) {
                 LOG.warn("can't find renderer for " + column.getClass().getName());
                 renderer = ComponentUtil.getRenderer(facesContext,
-                    org.apache.myfaces.tobago.component.UIPanel.COMPONENT_FAMILY, RENDERER_TYPE_OUT);
+                    org.apache.myfaces.tobago.component.UIPanel.COMPONENT_FAMILY, RendererType.OUT);
               }
               width = renderer.getFixedWidth(facesContext, column);
 

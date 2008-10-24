@@ -26,6 +26,7 @@ import javax.faces.context.FacesContext;
 public class HtmlUtils {
 
   public static final String LAYOUT_ATTRIBUTE_PREFIX = "layout.";
+  public static final String CHAR_NON_BEAKING_SPACE = "\u00a0";
 
   public static String generateAttribute(String name, Object value) {
     String stringValue;

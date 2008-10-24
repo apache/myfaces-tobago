@@ -30,8 +30,8 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 import javax.faces.render.Renderer;
-import java.util.Locale;
 import java.io.IOException;
+import java.util.Locale;
 
 /**
  * Date: Apr 21, 2007
@@ -69,7 +69,7 @@ public class RendererBase extends Renderer {
       LOG.debug("rendererType = '" + rendererType + "'");
     }
     /* if ("javax.faces.Text".equals(rendererType)) { // TODO: find a better way
-    name = RENDERER_TYPE_OUT;
+    name = OUT;
   } else {*/
     name = rendererType;
     /*}

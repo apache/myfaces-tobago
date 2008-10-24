@@ -17,11 +17,11 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_DATE;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
@@ -45,7 +45,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIDateInput",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIInputBase",
-    rendererType = RENDERER_TYPE_DATE,
+    rendererType = RendererType.DATE,
     allowedChildComponenents = "NONE",
     facets = {
     @Facet(name = Facets.CHANGE,

@@ -17,10 +17,10 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -66,7 +66,7 @@ public class SeparatorRenderer extends LayoutableRendererBase {
       UILabel label = (UILabel) component.getFacet(Facets.LABEL);
       String text = String.valueOf(label.getValue());
       if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
-        text = text.replace(" ", TobagoConstants.CHAR_NON_BEAKING_SPACE);
+        text = text.replace(" ", HtmlUtils.CHAR_NON_BEAKING_SPACE);
       }
       writer.writeText(text);
       writer.endElement(HtmlConstants.TD);

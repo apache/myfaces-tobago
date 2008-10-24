@@ -18,9 +18,10 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.RendererType;
 
 @UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UIDefaultLayout",
     generate = false,
-    rendererType = "DefaultLayout", isLayout = true)
+    rendererType = RendererType.DEFAULT_LAYOUT, isLayout = true)
 public interface DefaultLayoutTagDeclaration {
 }

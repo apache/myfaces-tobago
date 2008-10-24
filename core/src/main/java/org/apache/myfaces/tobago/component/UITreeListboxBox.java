@@ -28,6 +28,7 @@ import java.util.List;
 public class UITreeListboxBox extends UIComponentBase {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TreeListboxBox";
+  @Deprecated
   public static final String RENDERER_TYPE = "TreeListboxBox";
   public static final String COMPONENT_FAMILY = "javax.faces.Output";
 

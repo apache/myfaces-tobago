@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasIdReference;
 import org.apache.myfaces.tobago.taglib.decl.HasNameReference;
@@ -45,7 +46,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     uiComponent = "org.apache.myfaces.tobago.component.UITreeListbox",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UITreeOld",
     generate = false,
-    rendererType = "TreeListbox")
+    rendererType = RendererType.TREE_LISTBOX_BOX)
 public interface TreeListboxTagDeclaration extends HasIdBindingAndRendered, HasTreeNodeValue,
     HasState, HasIdReference, HasNameReference, IsRequired {
   /**

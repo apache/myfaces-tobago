@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
@@ -40,7 +41,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIProgress",
     uiComponentBaseClass = "javax.faces.component.UIOutput",
-    rendererType = "Progress",
+    rendererType = RendererType.PROGRESS,
     allowedChildComponenents = "NONE",
     facets = {@Facet(
         name= Facets.COMPLETE,

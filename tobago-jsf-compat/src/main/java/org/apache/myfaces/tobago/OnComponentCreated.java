@@ -26,5 +26,7 @@ import javax.faces.context.FacesContext;
  */
 public interface OnComponentCreated {
 
+  String MARKER = "org.apache.myfaces.tobago.CREATION_MARKER";
+
   void onComponentCreated(FacesContext context, UIComponent component);
 }

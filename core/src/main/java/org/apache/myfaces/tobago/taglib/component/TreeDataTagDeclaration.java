@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasTreeNodeValue;
 import org.apache.myfaces.tobago.taglib.decl.HasVar;
@@ -32,7 +33,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasVar;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeData",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITreeData",
-    rendererType = "TreeData",
+    rendererType = RendererType.TREE_DATA,
     allowedChildComponenents = "org.apache.myfaces.tobago.TreeNode")
 public interface TreeDataTagDeclaration extends
     HasIdBindingAndRendered, HasTreeNodeValue, HasVar {

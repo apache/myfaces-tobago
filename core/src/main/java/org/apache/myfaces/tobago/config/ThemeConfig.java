@@ -20,12 +20,12 @@ package org.apache.myfaces.tobago.config;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_IN;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -84,7 +84,7 @@ public class ThemeConfig {
       rendererType = component.getRendererType();
     } else {
       family = UIInput.COMPONENT_FAMILY;
-      rendererType = RENDERER_TYPE_IN;
+      rendererType = RendererType.IN;
     }
     Object renderer = ComponentUtil.getRenderer(facesContext, family, rendererType);
 

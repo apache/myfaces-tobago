@@ -19,17 +19,17 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.io.Serializable;
 
 // FIXME: is this class thread-safe?
 
@@ -370,7 +370,7 @@ public class ResourceManagerImpl implements ResourceManager {
       LOG.debug("rendererType = '" + rendererType + "'");
     }
     if ("javax.faces.Text".equals(rendererType)) { // TODO: find a better way
-      name = RENDERER_TYPE_OUT;
+      name = RendererType.OUT;
     } else {
       name = rendererType;
     }

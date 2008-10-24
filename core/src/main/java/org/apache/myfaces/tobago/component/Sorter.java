@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.model.SheetState;
@@ -196,7 +195,7 @@ public class Sorter {
           || child instanceof UISelectBoolean) {
         continue;
       } else if (child instanceof UIInput
-          && TobagoConstants.RENDERER_TYPE_HIDDEN.equals(child.getRendererType())) {
+          && RendererType.HIDDEN.equals(child.getRendererType())) {
         continue;
       } else if (child instanceof UIOutput) {
         break;

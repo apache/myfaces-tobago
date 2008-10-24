@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
@@ -55,7 +56,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBoolean",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUISelectBoolean",
-    rendererType = "SelectBooleanCheckbox",
+    rendererType = RendererType.SELECT_BOOLEAN_CHECKBOX,
     allowedChildComponenents = "NONE",
     facets = {
         @Facet(name= Facets.CLICK,

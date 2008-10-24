@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.internal.taglib;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.OnComponentCreated;
-import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_COMPONENT_CREATED;
 
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.UIComponentTag;
@@ -32,8 +31,8 @@ public abstract class TobagoTag extends UIComponentTag {
 
     UIComponent component = getComponentInstance();
     if (component instanceof OnComponentCreated
-        && component.getAttributes().get(TOBAGO_COMPONENT_CREATED) == null) {
-      component.getAttributes().put(TOBAGO_COMPONENT_CREATED, Boolean.TRUE);
+        && component.getAttributes().get(OnComponentCreated.MARKER) == null) {
+      component.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
       ((OnComponentCreated) component).onComponentCreated(getFacesContext(), getComponentInstance());
     }
     return result;

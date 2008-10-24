@@ -19,12 +19,13 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 
 /*
  * $Id$
@@ -37,7 +38,7 @@ import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuRadio",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UISelectOneCommand",
-    rendererType = "MenuCommand",
+    rendererType = RendererType.MENU_COMMAND,
     allowedChildComponenents = "NONE")
 public interface MenuRadioTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabel, IsDisabled, HasCommandType, HasValue {

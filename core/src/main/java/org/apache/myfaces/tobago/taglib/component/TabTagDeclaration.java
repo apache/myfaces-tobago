@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
@@ -38,7 +39,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
     uiComponent = "org.apache.myfaces.tobago.component.UITab",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanel",
     interfaces = "javax.faces.component.NamingContainer",
-    rendererType = "Tab")
+    rendererType = RendererType.TAB)
 public interface TabTagDeclaration extends HasIdBindingAndRendered, HasLabelAndAccessKey,
     HasTip, HasMarkup, IsDisabled {
 }

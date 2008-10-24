@@ -17,17 +17,17 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TIME;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
+import org.apache.myfaces.tobago.taglib.decl.InputTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-import org.apache.myfaces.tobago.taglib.decl.InputTagDeclaration;
 
 /*
  * Created: Aug 5, 2005 5:03:15 PM
@@ -41,7 +41,7 @@ import org.apache.myfaces.tobago.taglib.decl.InputTagDeclaration;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITimeInput",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITimeInput",
-    rendererType = RENDERER_TYPE_TIME,
+    rendererType = RendererType.TIME,
     allowedChildComponenents = "NONE")
 public interface TimeTagDeclaration
     extends InputTagDeclaration, HasIdBindingAndRendered,

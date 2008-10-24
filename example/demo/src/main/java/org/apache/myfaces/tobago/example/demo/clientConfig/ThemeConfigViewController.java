@@ -27,11 +27,7 @@ import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BUTTON;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_IN;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LINK;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE_RADIO;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 
 import javax.faces.component.UIComponent;
@@ -67,7 +63,7 @@ public class ThemeConfigViewController {
 
   public static final String[] DEFAULT_RENDERER_TYPES = {
     "Action",
-    RENDERER_TYPE_BUTTON,
+    RendererType.BUTTON,
     "Calendar",
     "Date",
     "File",
@@ -77,8 +73,8 @@ public class ThemeConfigViewController {
     "Hidden",
     "Image",
     "Items",
-    RENDERER_TYPE_LABEL,
-    RENDERER_TYPE_LINK,
+    RendererType.LABEL,
+    RendererType.LINK,
     "Message",
     "Messages",
     "MultiSelect",
@@ -90,13 +86,13 @@ public class ThemeConfigViewController {
     "SelectItems",
     "SelectManyCheckbox",
     "SelectOneChoice",
-    RENDERER_TYPE_SELECT_ONE_RADIO,
+    RendererType.SELECT_ONE_RADIO,
     "Sheet",
     "Subview",
     "TabGroup",
     "Tab",
     "TextArea",
-    RENDERER_TYPE_IN,
+    RendererType.IN,
     "Out",
     "Tree",
     "TreeNode",

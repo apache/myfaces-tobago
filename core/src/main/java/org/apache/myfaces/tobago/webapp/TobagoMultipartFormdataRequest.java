@@ -23,7 +23,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.FORM_ACCEPT_CHARSET;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
 
 import javax.faces.FacesException;
 import javax.servlet.http.HttpServletRequest;
@@ -79,7 +79,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 
       if (upload.getHeaderEncoding() != null) {
         // TODO: enable configuration of  'accept-charset'
-        upload.setHeaderEncoding(FORM_ACCEPT_CHARSET);
+        upload.setHeaderEncoding(AbstractUIPage.FORM_ACCEPT_CHARSET);
       }
       List<FileItem> itemList;
       try {
@@ -109,7 +109,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
             String[] values;
             try {
               // TODO: enable configuration of  'accept-charset'
-              values = new String[]{item.getString(FORM_ACCEPT_CHARSET)};
+              values = new String[]{item.getString(AbstractUIPage.FORM_ACCEPT_CHARSET)};
             } catch (UnsupportedEncodingException e) {
               LOG.error("Caught: " + e.getMessage(), e);
               values = new String[]{item.getString()};
@@ -121,7 +121,7 @@ public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
             System.arraycopy(oldValues, 0, values, 0, oldValues.length);
             try {
               // TODO: enable configuration of  'accept-charset'
-              values[oldValues.length] = item.getString(FORM_ACCEPT_CHARSET);
+              values[oldValues.length] = item.getString(AbstractUIPage.FORM_ACCEPT_CHARSET);
             } catch (UnsupportedEncodingException e) {
               LOG.error("Caught: " + e.getMessage(), e);
               values[oldValues.length] = item.getString();

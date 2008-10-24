@@ -20,12 +20,12 @@ package org.apache.myfaces.tobago.component;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 
-import javax.faces.component.UIComponent;
+import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
-import javax.faces.FacesException;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -34,8 +34,13 @@ import java.util.Iterator;
  * Time: 5:02:10 PM
  * $Id$
  */
-public abstract class AbstractUICommand extends javax.faces.component.UICommand implements InvokeOnComponent, 
-    SupportsRenderedPartially {
+public abstract class AbstractUICommand extends javax.faces.component.UICommand
+    implements InvokeOnComponent, SupportsRenderedPartially {
+
+  public static final String COMMAND_TYPE_SUBMIT = "submit";
+  public static final String COMMAND_TYPE_RESET = "reset";
+  public static final String COMMAND_TYPE_NAVIGATE = "navigate";
+  public static final String COMMAND_TYPE_SCRIPT = "script";
 
   public void processDecodes(FacesContext context) {
     if (context == null) {

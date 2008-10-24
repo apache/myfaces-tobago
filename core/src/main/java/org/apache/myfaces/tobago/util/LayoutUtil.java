@@ -19,11 +19,11 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Cell;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.Form;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 
 import javax.faces.component.UIComponent;
@@ -204,7 +204,7 @@ public final class LayoutUtil {
 
   public static void maybeSetLayoutAttribute(UIComponent cell, String attribute,
       Integer value) {
-    if (RENDERER_TYPE_OUT.equals(cell.getRendererType())) {
+    if (RendererType.OUT.equals(cell.getRendererType())) {
       return;
     }
     if (LOG.isDebugEnabled()) {

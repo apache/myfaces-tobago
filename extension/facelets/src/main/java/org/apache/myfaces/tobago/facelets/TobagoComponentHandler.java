@@ -21,11 +21,10 @@ import com.sun.facelets.FaceletContext;
 import com.sun.facelets.tag.MetaRuleset;
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentHandler;
-import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.OnComponentCreated;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.InputSuggest;
+import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.TabChangeSource;
@@ -67,8 +66,8 @@ public class TobagoComponentHandler extends ComponentHandler {
   protected void onComponentCreated(FaceletContext context, UIComponent component,
       UIComponent parent) {
     if (component instanceof OnComponentCreated
-        && component.getAttributes().get(TobagoConstants.TOBAGO_COMPONENT_CREATED) == null) {
-      component.getAttributes().put(TobagoConstants.TOBAGO_COMPONENT_CREATED, Boolean.TRUE);
+        && component.getAttributes().get(OnComponentCreated.MARKER) == null) {
+      component.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
       ((OnComponentCreated) component).onComponentCreated(context.getFacesContext(), component);
     }
   }

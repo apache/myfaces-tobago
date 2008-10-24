@@ -18,10 +18,11 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.RendererType;
 
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeListboxBox",
     generate = false,
-    rendererType = "TreeListboxBox")
+    rendererType = RendererType.TREE_LISTBOX_BOX)
 public interface TreeListboxBoxTagDeclaration {
 }

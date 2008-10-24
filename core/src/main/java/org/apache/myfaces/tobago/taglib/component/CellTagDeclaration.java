@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /*
@@ -38,7 +39,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanelBase",
     interfaces = "org.apache.myfaces.tobago.component.Cell",
     componentType = "org.apache.myfaces.tobago.Cell",
-    rendererType = "Cell")
+    rendererType = RendererType.CELL)
 public interface CellTagDeclaration extends HasIdBindingAndRendered {
 
   /**

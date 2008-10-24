@@ -21,13 +21,14 @@ import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /**
  * Renders a separator.
  */
 @Tag(name = "separator")
-@UIComponentTag(rendererType = "Separator",
+@UIComponentTag(rendererType = RendererType.SEPARATOR,
     uiComponent = "org.apache.myfaces.tobago.component.UISeparator",
     componentFamily = "org.apache.myfaces.tobago.Separator",
     componentType = "org.apache.myfaces.tobago.Separator",

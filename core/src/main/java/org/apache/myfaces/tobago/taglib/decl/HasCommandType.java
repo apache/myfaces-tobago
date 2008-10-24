@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.taglib.decl;
 
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.AbstractUICommand;
 
 /**
  * $Id$
@@ -31,7 +32,7 @@ public interface HasCommandType {
    * the default value is 'submit' is used.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "submit")
+  @UIComponentTagAttribute(defaultValue = AbstractUICommand.COMMAND_TYPE_SUBMIT)
   @Deprecated
   void setType(String type);
 }

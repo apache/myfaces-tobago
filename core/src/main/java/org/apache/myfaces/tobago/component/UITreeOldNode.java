@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -35,6 +34,7 @@ public class UITreeOldNode extends javax.faces.component.UIInput {
   private static final Log LOG = LogFactory.getLog(UITreeOldNode.class);
 
   private static final String SUB_REFERENCE_KEY = "subReferenceKey";
+  private static final String RENDERER_TYPE_TREE_OLD_NODE = "TreeOldNode";
 
   protected UITreeOldNode(UIComponent parent, int index) {
     super();
@@ -46,7 +46,7 @@ public class UITreeOldNode extends javax.faces.component.UIInput {
         getAttributes().put(SUB_REFERENCE_KEY, parentSubReference + ".childAt[" + index + "]");
       }
     }
-    setRendererType(TobagoConstants.RENDERER_TYPE_TREE_OLD_NODE);
+    setRendererType(RENDERER_TYPE_TREE_OLD_NODE);
     parent.getChildren().add(this);
     initId();
     initName();

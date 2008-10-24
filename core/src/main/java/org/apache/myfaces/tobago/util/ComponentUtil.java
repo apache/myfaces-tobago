@@ -25,12 +25,12 @@ package org.apache.myfaces.tobago.util;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LABEL;
 import org.apache.myfaces.tobago.component.AbstractUIForm;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.RendererType;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIInputBase;
 import org.apache.myfaces.tobago.context.TransientStateHolder;
@@ -682,7 +682,7 @@ public class ComponentUtil {
       if (labelText != null) {
         Application application = FacesContext.getCurrentInstance().getApplication();
         label = application.createComponent(UIOutput.COMPONENT_TYPE);
-        label.setRendererType(RENDERER_TYPE_LABEL);
+        label.setRendererType(RendererType.LABEL);
         String idprefix = ComponentUtil.getComponentId(facesContext, component);
         label.setId(idprefix + "_" + Facets.LABEL);
         label.setRendered(true);
