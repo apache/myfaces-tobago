@@ -26,10 +26,10 @@ public final class Facets {
   public static final String COMPLETE = "complete";
   public static final String CONFIRMATION = "confirmation";
   public static final String CONSTRAINTS = "constraints";
+  public static final String ITEMS = "items";
   public static final String LABEL = "label";
   public static final String LAYOUT = "layout";
   public static final String LAYOUT_DEFAULT = "layoutDefault";
-  public static final String ITEMS = "items";
   public static final String MENUBAR = "menuBar";
   public static final String MENUPOPUP = "menupopup";
   public static final String PAGER_PAGE = "pagerPage";
