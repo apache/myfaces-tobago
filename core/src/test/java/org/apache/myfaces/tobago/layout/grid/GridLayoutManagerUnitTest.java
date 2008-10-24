@@ -21,10 +21,10 @@ import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.layout.Component;
-import org.apache.myfaces.tobago.layout.ComponentImpl;
 import org.apache.myfaces.tobago.layout.Container;
-import org.apache.myfaces.tobago.layout.ContainerImpl;
 import org.apache.myfaces.tobago.layout.LayoutContext;
+import org.apache.myfaces.tobago.layout.MockComponent;
+import org.apache.myfaces.tobago.layout.MockContainer;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.layout.math.AssertUtils;
 
@@ -45,10 +45,10 @@ public class GridLayoutManagerUnitTest extends TestCase {
    * </pre>
    */
   public void testSimple() {
-    Container container = new ContainerImpl();
-    ComponentImpl c1 = new ComponentImpl();
+    Container container = new MockContainer();
+    MockComponent c1 = new MockComponent();
     container.getComponents().add(c1);
-    ComponentImpl c2 = new ComponentImpl();
+    MockComponent c2 = new MockComponent();
     container.getComponents().add(c2);
 
     GridLayoutManager manager = new GridLayoutManager("*;2*", "*");
@@ -83,10 +83,10 @@ public class GridLayoutManagerUnitTest extends TestCase {
    * </pre>
    */
   public void testSpan() {
-    Container container = new ContainerImpl();
-    ComponentImpl c = new ComponentImpl();
+    Container container = new MockContainer();
+    MockComponent c = new MockComponent();
     container.getComponents().add(c);
-    ComponentImpl span = new ComponentImpl();
+    MockComponent span = new MockComponent();
     container.getComponents().add(span);
     ((GridConstraints) span.getConstraints()).setColumnSpan(2);
 
@@ -129,17 +129,17 @@ public class GridLayoutManagerUnitTest extends TestCase {
    * </pre>
    */
   public void testSpanAndSubLayout() {
-    Container container = new ContainerImpl();
-    Component span = new ComponentImpl();
+    Container container = new MockContainer();
+    Component span = new MockComponent();
     GridConstraints bConstraint = GridConstraints.getConstraints(span);
     bConstraint.setColumnSpan(2);
 
-    container.getComponents().add(new ComponentImpl());
+    container.getComponents().add(new MockComponent());
     container.getComponents().add(span);
-    container.getComponents().add(new ComponentImpl());
-    container.getComponents().add(new ComponentImpl());
+    container.getComponents().add(new MockComponent());
+    container.getComponents().add(new MockComponent());
 
-    Container subContainer = new ContainerImpl();
+    Container subContainer = new MockContainer();
 
     container.getComponents().add(subContainer);
     GridLayoutManager manager = new GridLayoutManager("*;2*;500px", "*;600px");
@@ -147,10 +147,10 @@ public class GridLayoutManagerUnitTest extends TestCase {
 
     GridLayoutManager subManager = new GridLayoutManager("7*;3*", "*;*");
     subContainer.setLayoutManager(subManager);
-    subContainer.getComponents().add(new ComponentImpl());
-    subContainer.getComponents().add(new ComponentImpl());
-    subContainer.getComponents().add(new ComponentImpl());
-    subContainer.getComponents().add(new ComponentImpl());
+    subContainer.getComponents().add(new MockComponent());
+    subContainer.getComponents().add(new MockComponent());
+    subContainer.getComponents().add(new MockComponent());
+    subContainer.getComponents().add(new MockComponent());
 
     ((GridConstraints) container.getConstraints()).setWidth(new PixelMeasure(800));
     ((GridConstraints) container.getConstraints()).setHeight(new PixelMeasure(800));
@@ -179,20 +179,20 @@ public class GridLayoutManagerUnitTest extends TestCase {
    * </pre>
    */
   public void testSpanOverlapsSpan() {
-    Container container = new ContainerImpl();
+    Container container = new MockContainer();
 
-    Container span1 = new ContainerImpl();
+    Container span1 = new MockContainer();
     GridConstraints constraint1 = GridConstraints.getConstraints(span1);
     constraint1.setColumnSpan(2);
 
-    Container span2 = new ContainerImpl();
+    Container span2 = new MockContainer();
     GridConstraints constraint2 = GridConstraints.getConstraints(span2);
     constraint2.setColumnSpan(2);
 
-    container.getComponents().add(new ComponentImpl());
+    container.getComponents().add(new MockComponent());
     container.getComponents().add(span1);
     container.getComponents().add(span2);
-    container.getComponents().add(new ComponentImpl());
+    container.getComponents().add(new MockComponent());
 
     container.setLayoutManager(new GridLayoutManager("*;*;*", "*;*"));
     span1.setLayoutManager(new GridLayoutManager("*;*;*", "*"));
