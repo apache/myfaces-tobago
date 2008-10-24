@@ -19,19 +19,18 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.RenderersConfig;
+import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.taglib.TobagoTag;
-import org.apache.myfaces.tobago.mock.faces.MockFacesContext;
 import org.apache.myfaces.tobago.mock.faces.MockExternalContext;
+import org.apache.myfaces.tobago.mock.faces.MockFacesContext;
 import org.apache.myfaces.tobago.mock.faces.MockRenderKit;
-import org.apache.myfaces.tobago.mock.servlet.MockServletContext;
 import org.apache.myfaces.tobago.mock.servlet.MockHttpServletRequest;
 import org.apache.myfaces.tobago.mock.servlet.MockHttpServletResponse;
+import org.apache.myfaces.tobago.mock.servlet.MockServletContext;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
@@ -43,20 +42,16 @@ import javax.faces.context.ExternalContext;
 import javax.faces.lifecycle.Lifecycle;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
-import javax.faces.webapp.UIComponentTag;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.List;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Collections;
-
-import net.sf.maventaglib.checker.Tld;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class GenericComponentTagUnitTest extends GenericTestBase {
 
@@ -159,18 +154,18 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
       tobagoTag.doStartTag();
       UIComponent component = tobagoTag.getComponentInstance();
       UICommand command = (UICommand) component;
-      Object disabled = component.getAttributes().get(ATTR_DISABLED);
+      Object disabled = component.getAttributes().get(Attributes.DISABLED);
       LOG.debug("disabled = '" + disabled + "'");
       Map attributes = component.getAttributes();
       for (Iterator i = attributes.keySet().iterator(); i.hasNext();) {
         Object value = i.next();
         LOG.debug("value = " + value);
       }
-      Object height = attributes.get(ATTR_HEIGHT);
+      Object height = attributes.get(Attributes.HEIGHT);
       LOG.debug("height = '" + height + "'");
 
-      assertTrue(ComponentUtil.getBooleanAttribute(command, ATTR_DISABLED));
-      assertFalse(ComponentUtil.getBooleanAttribute(command, ATTR_HEIGHT));
+      assertTrue(ComponentUtil.getBooleanAttribute(command, Attributes.DISABLED));
+      assertFalse(ComponentUtil.getBooleanAttribute(command, Attributes.HEIGHT));
     }
   }
   private static class MockTheme implements Theme {

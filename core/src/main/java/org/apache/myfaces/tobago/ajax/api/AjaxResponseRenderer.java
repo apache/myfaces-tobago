@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.ajax.api;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CHARSET;
 import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.FACES_MESSAGES_KEY;
 import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
@@ -170,7 +170,7 @@ public class AjaxResponseRenderer {
     UIComponent page = ComponentUtil.findPage(facesContext);
     String charset;
     if (page != null) {  // in case of CODE_RELOAD_REQUIRED page is null
-      charset = (String) page.getAttributes().get(ATTR_CHARSET);
+      charset = (String) page.getAttributes().get(Attributes.CHARSET);
     } else {
       charset = "UTF-8";
     }

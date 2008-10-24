@@ -24,10 +24,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
@@ -86,7 +83,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
     List<SelectItem> items = RenderUtil.getItemsToRender(selectOne);
 
-    boolean inline = ComponentUtil.getBooleanAttribute(selectOne, ATTR_INLINE);
+    boolean inline = ComponentUtil.getBooleanAttribute(selectOne, Attributes.INLINE);
     String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, selectOne);
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
@@ -103,8 +100,8 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       }
     }
 
-    boolean disabled = ComponentUtil.getBooleanAttribute(selectOne, ATTR_DISABLED);
-    boolean readonly = ComponentUtil.getBooleanAttribute(selectOne, ATTR_READONLY);
+    boolean disabled = ComponentUtil.getBooleanAttribute(selectOne, Attributes.DISABLED);
+    boolean readonly = ComponentUtil.getBooleanAttribute(selectOne, Attributes.READONLY);
     Object value = selectOne.getValue();
     List<String> clientIds = new ArrayList<String>();
     for (SelectItem item : items) {
@@ -138,10 +135,10 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
       HtmlRendererUtil.renderTip(selectOne, writer);
-      if (!ComponentUtil.getBooleanAttribute(selectOne, ATTR_REQUIRED) || readonly) {
+      if (!ComponentUtil.getBooleanAttribute(selectOne, Attributes.REQUIRED) || readonly) {
         writer.writeAttribute(HtmlAttributes.ONCLICK,
             "Tobago.selectOneRadioClick(this, '" + clientId + "',"
-                + ComponentUtil.getBooleanAttribute(selectOne, ATTR_REQUIRED) + " , " + readonly + ")", false);
+                + ComponentUtil.getBooleanAttribute(selectOne, Attributes.REQUIRED) + " , " + readonly + ")", false);
       }
       writer.endElement(HtmlConstants.INPUT);
 
@@ -172,7 +169,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 //        Application application = tobagoContext.getApplication();
 //        UIOutput label = (UIOutput)
 //            application.createComponent(TobagoConstants.COMPONENT_TYPE_OUTPUT);
-//        label.getAttributes().put(TobagoConstants.ATTR_FOR, itemId);
+//        label.getAttributes().put(Attributes.FOR, itemId);
 //        label.setValue( item.getLabel() );
 //        label.setRendererType("Label");
 //        label.setRendered(true);
@@ -195,7 +192,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     int heightPerRow = super.getFixedHeight(facesContext, component);
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
+    if (ComponentUtil.getBooleanAttribute(component, Attributes.INLINE)) {
       return heightPerRow;
     } else {
       List<SelectItem> items = RenderUtil.getItemsToRender((UISelectOneRadio) component);

@@ -23,8 +23,8 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_IN;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIToolBar;
@@ -39,8 +39,8 @@ import org.apache.myfaces.tobago.util.ComponentUtil;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
@@ -250,7 +250,7 @@ public class TobagoDemoController {
       UIInput textbox = (UIInput)
         CreateComponentUtils.createComponent(facesContext, UIInput.COMPONENT_TYPE, RENDERER_TYPE_IN, "sac1i");
     ComponentUtil.setStringProperty(
-        textbox, ATTR_VALUE, "#{luminary.population}");
+        textbox, Attributes.VALUE, "#{luminary.population}");
     columns.add(CreateComponentUtils.createColumn(
         "#{overviewBundle.solarArrayPopulation}", "true", null, textbox, "sac1"));
 

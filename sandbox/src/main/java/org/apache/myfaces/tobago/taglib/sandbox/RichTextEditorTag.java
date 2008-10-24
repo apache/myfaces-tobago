@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE_PREVIEW;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 import org.apache.myfaces.tobago.internal.taglib.TobagoTag;
@@ -43,7 +43,7 @@ public abstract class RichTextEditorTag extends TobagoTag
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
-    TagUtils.setBooleanProperty(component, ATTR_STATE_PREVIEW, statePreview);
+    TagUtils.setBooleanProperty(component, Attributes.STATE_PREVIEW, statePreview);
   }
 
   public void release() {

@@ -25,9 +25,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.AbstractUITree;
 import org.apache.myfaces.tobago.component.AbstractUITreeNode;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
@@ -162,7 +162,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
       // div style (width)
       Integer width = null;
-      HtmlStyleMap style = (HtmlStyleMap) root.getAttributes().get(ATTR_STYLE);
+      HtmlStyleMap style = (HtmlStyleMap) root.getAttributes().get(Attributes.STYLE);
       if (style != null) {
         width = style.getInt("width");
       }

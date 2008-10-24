@@ -24,11 +24,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE_EXTERN;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -42,15 +40,15 @@ public class SelectReferenceRenderer extends LayoutableRendererBase {
       UIComponent component)
       throws IOException {
     String referenceId = (String)
-        component.getAttributes().get(ATTR_FOR);
+        component.getAttributes().get(Attributes.FOR);
     UIComponent reference = component.findComponent(referenceId);
 
-    reference.getAttributes().put(ATTR_RENDER_RANGE_EXTERN,
-        component.getAttributes().get(ATTR_RENDER_RANGE));
+    reference.getAttributes().put(Attributes.RENDER_RANGE_EXTERN,
+        component.getAttributes().get(Attributes.RENDER_RANGE));
 
     RenderUtil.encode(facesContext, reference);
 
-    reference.getAttributes().remove(ATTR_RENDER_RANGE_EXTERN);
+    reference.getAttributes().remove(Attributes.RENDER_RANGE_EXTERN);
   }
 
 }

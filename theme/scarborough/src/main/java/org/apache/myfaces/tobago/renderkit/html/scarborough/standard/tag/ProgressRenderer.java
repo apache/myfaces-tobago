@@ -24,7 +24,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIProgress;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -38,8 +38,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.swing.BoundedRangeModel;
-import javax.swing.DefaultBoundedRangeModel;
+import javax.swing.*;
 import java.io.IOException;
 
 public class ProgressRenderer extends LayoutableRendererBase {
@@ -63,7 +62,7 @@ public class ProgressRenderer extends LayoutableRendererBase {
     String value1 = Integer.toString(model.getValue());
     String value2 = Integer.toString(model.getMaximum() - model.getValue());
 
-    Object title = component.getAttributes().get(ATTR_TIP);
+    Object title = component.getAttributes().get(Attributes.TIP);
     if (title == null) {
       title = Integer.toString(100 * model.getValue()
           / (model.getMaximum() - model.getMinimum())) + " %";

@@ -19,14 +19,8 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Cell;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.Form;
@@ -56,9 +50,9 @@ public final class LayoutUtil {
       UIComponent component, boolean width) {
     String attribute;
     if (width) {
-      attribute = ATTR_INNER_WIDTH;
+      attribute = Attributes.INNER_WIDTH;
     } else {
-      attribute = ATTR_INNER_HEIGHT;
+      attribute = Attributes.INNER_HEIGHT;
     }
     Integer innerSpace = (Integer) component.getAttributes().get(attribute);
 
@@ -126,7 +120,7 @@ public final class LayoutUtil {
     if (component != null) {
       UIComponent label = component.getFacet(Facets.LABEL);
       if (label != null) {
-        String labelWidth = (String) label.getAttributes().get(ATTR_WIDTH);
+        String labelWidth = (String) label.getAttributes().get(Attributes.WIDTH);
         if (labelWidth != null) {
           try {
             return Integer.parseInt(labelWidth.replaceAll("\\D", ""));
@@ -141,12 +135,12 @@ public final class LayoutUtil {
 
   //TODO Change this to DimensionUtils.getWidth?
   public static Integer getLayoutWidth(UIComponent component) {
-    return getLayoutSpace(component, ATTR_WIDTH, ATTR_LAYOUT_WIDTH);
+    return getLayoutSpace(component, Attributes.WIDTH, Attributes.LAYOUT_WIDTH);
   }
 
   //TODO Change this to DimensionUtils.getHeight?
   public static Integer getLayoutHeight(UIComponent component) {
-    return getLayoutSpace(component, ATTR_HEIGHT, ATTR_LAYOUT_HEIGHT);
+    return getLayoutSpace(component, Attributes.HEIGHT, Attributes.LAYOUT_HEIGHT);
   }
 
   public static Integer getLayoutSpace(UIComponent component,
@@ -158,7 +152,7 @@ public final class LayoutUtil {
       } else {
         return (Integer) value;
       }
-    } else if (!ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
+    } else if (!ComponentUtil.getBooleanAttribute(component, Attributes.INLINE)) {
 
       value = ComponentUtil.getAttribute(component, layoutAttribute);
       return (Integer) value;
@@ -217,10 +211,10 @@ public final class LayoutUtil {
       LOG.debug("set " + value + " to " + cell.getRendererType());
     }
     cell.getAttributes().put(attribute, value);
-    if (ATTR_LAYOUT_WIDTH.equals(attribute)) {
-      cell.getAttributes().remove(ATTR_INNER_WIDTH);
-    } else if (ATTR_LAYOUT_HEIGHT.equals(attribute)) {
-      cell.getAttributes().remove(ATTR_INNER_HEIGHT);
+    if (Attributes.LAYOUT_WIDTH.equals(attribute)) {
+      cell.getAttributes().remove(Attributes.INNER_WIDTH);
+    } else if (Attributes.LAYOUT_HEIGHT.equals(attribute)) {
+      cell.getAttributes().remove(Attributes.INNER_HEIGHT);
     }
     if (cell instanceof Cell) {
       List<UIComponent> children = addChildren(new ArrayList<UIComponent>(), cell);

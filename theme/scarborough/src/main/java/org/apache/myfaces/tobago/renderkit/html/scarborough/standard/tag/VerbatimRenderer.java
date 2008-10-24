@@ -24,10 +24,10 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -50,7 +50,7 @@ public class VerbatimRenderer extends LayoutableRendererBase {
       return;
     }
 
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_ESCAPE)) {
+    if (ComponentUtil.getBooleanAttribute(component, Attributes.ESCAPE)) {
       writer.writeText(value, null);
     } else {
       writer.write(value);

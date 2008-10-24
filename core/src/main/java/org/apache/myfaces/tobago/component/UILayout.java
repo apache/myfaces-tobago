@@ -19,8 +19,6 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
 import org.apache.myfaces.tobago.renderkit.LayoutRenderer;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 
@@ -49,7 +47,7 @@ public abstract class UILayout extends UIComponentBase {
     if (layoutWidth != null) {
       int space = layoutWidth.intValue();
       int innerSpace = LayoutUtil.getInnerSpace(facesContext, component, space, true);
-      component.getAttributes().put(ATTR_INNER_WIDTH, Integer.valueOf(innerSpace));
+      component.getAttributes().put(Attributes.INNER_WIDTH, Integer.valueOf(innerSpace));
     }
   }
 
@@ -58,7 +56,7 @@ public abstract class UILayout extends UIComponentBase {
     if (layoutHeight != null) {
       int space = layoutHeight.intValue();
       int innerSpace = LayoutUtil.getInnerSpace(facesContext, component, space, false);
-      component.getAttributes().put(ATTR_INNER_HEIGHT, Integer.valueOf(innerSpace));
+      component.getAttributes().put(Attributes.INNER_HEIGHT, Integer.valueOf(innerSpace));
     }
   }
 

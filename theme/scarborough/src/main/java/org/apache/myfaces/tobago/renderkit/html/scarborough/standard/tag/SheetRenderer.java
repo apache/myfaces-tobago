@@ -25,31 +25,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOOTER_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FORCE_VERTICAL_SCROLLBAR;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP_TYPE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_LIST_STRING;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DIRECT_LINKS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_PAGE_RANGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROW_RANGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
@@ -57,12 +32,12 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIData;
-import static org.apache.myfaces.tobago.component.UIData.ATTR_SCROLL_POSITION;
 import static org.apache.myfaces.tobago.component.UIData.NONE;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIMenu;
@@ -136,7 +111,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, data);
 
     final String sheetId = data.getClientId(facesContext);
-    HtmlStyleMap sheetStyle = (HtmlStyleMap) data.getAttributes().get(ATTR_STYLE);
+    HtmlStyleMap sheetStyle = (HtmlStyleMap) data.getAttributes().get(Attributes.STYLE);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
@@ -212,8 +187,8 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     String unchecked = contextPath + resourceManager.getImage(viewRoot, "image/sheetUnchecked.gif");
 
     Map attributes = data.getAttributes();
-    HtmlStyleMap sheetStyle = (HtmlStyleMap) attributes.get(ATTR_STYLE);
-    //HtmlStyleMap headerStyle = (HtmlStyleMap) attributes.get(ATTR_STYLE_HEADER);
+    HtmlStyleMap sheetStyle = (HtmlStyleMap) attributes.get(Attributes.STYLE);
+    //HtmlStyleMap headerStyle = (HtmlStyleMap) attributes.get(STYLE_HEADER);
 //    String sheetWidthString = LayoutUtil.getStyleAttributeValue(sheetStyle,
 //        "width");
     Integer sheetHeight = HtmlRendererUtil.getStyleAttributeIntValue(sheetStyle, "height");
@@ -222,8 +197,8 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       LOG.error("no height in parent container, setting to 100");
       sheetHeight = 100;
     }
-    //HtmlStyleMap bodyStyle = (HtmlStyleMap) attributes.get(ATTR_STYLE_BODY);
-    int footerHeight = (Integer) attributes.get(ATTR_FOOTER_HEIGHT);
+    //HtmlStyleMap bodyStyle = (HtmlStyleMap) attributes.get(STYLE_BODY);
+    int footerHeight = (Integer) attributes.get(Attributes.FOOTER_HEIGHT);
 
     String selectable = data.getSelectable();
 
@@ -271,7 +246,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeIdAttribute(sheetId + "_header_div");
       writer.writeClassAttribute("tobago-sheet-header-div");
-      HtmlStyleMap headerStyle = (HtmlStyleMap) attributes.get(ATTR_STYLE_HEADER);
+      HtmlStyleMap headerStyle = (HtmlStyleMap) attributes.get(Attributes.STYLE_HEADER);
       if (headerStyle != null) {
         writer.writeStyleAttribute(headerStyle);
       }
@@ -307,8 +282,8 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     }
 
 // BEGIN RENDER BODY CONTENT
-    HtmlStyleMap bodyStyle = (HtmlStyleMap) attributes.get(ATTR_STYLE_BODY);
-    HtmlRendererUtil.replaceStyleAttribute(data, ATTR_STYLE_BODY, "height", (sheetHeight - footerHeight));
+    HtmlStyleMap bodyStyle = (HtmlStyleMap) attributes.get(Attributes.STYLE_BODY);
+    HtmlRendererUtil.replaceStyleAttribute(data, Attributes.STYLE_BODY, "height", (sheetHeight - footerHeight));
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + "_data_div");
     writer.writeClassAttribute("tobago-sheet-body-div ");
@@ -395,7 +370,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
         writer.startElement(HtmlConstants.TD, column);
 
         writer.writeClassAttribute(tdClass.toString());
-        final String align = (String) column.getAttributes().get(ATTR_ALIGN);
+        final String align = (String) column.getAttributes().get(Attributes.ALIGN);
         if (align != null) {
           writer.writeStyleAttribute(HtmlRendererUtil.toStyleString("text-align", align));
         }
@@ -411,7 +386,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 
         if (column instanceof UIColumnSelector) {
           final boolean disabled
-              = ComponentUtil.getBooleanAttribute(column, ATTR_DISABLED);
+              = ComponentUtil.getBooleanAttribute(column, Attributes.DISABLED);
           writer.startElement(HtmlConstants.IMG, null);
           if (disabled) {
             writer.writeAttribute(HtmlAttributes.SRC, selectorDisabled, false);
@@ -424,7 +399,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
         } else {
           for (UIComponent grandkid : data.getRenderedChildrenOf(column)) {
             // set height to 0 to prevent use of layoutheight from parent
-            grandkid.getAttributes().put(ATTR_LAYOUT_HEIGHT, HEIGHT_0);
+            grandkid.getAttributes().put(Attributes.LAYOUT_HEIGHT, HEIGHT_0);
             RenderUtil.prepareRendererAll(facesContext, grandkid);
             RenderUtil.encode(facesContext, grandkid);
           }
@@ -462,11 +437,11 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 
 
     final String showRowRange
-        = getPagingAttribute(data, ATTR_SHOW_ROW_RANGE);
+        = getPagingAttribute(data, Attributes.SHOW_ROW_RANGE);
     final String showPageRange
-        = getPagingAttribute(data, ATTR_SHOW_PAGE_RANGE);
+        = getPagingAttribute(data, Attributes.SHOW_PAGE_RANGE);
     final String showDirectLinks
-        = getPagingAttribute(data, ATTR_SHOW_DIRECT_LINKS);
+        = getPagingAttribute(data, Attributes.SHOW_DIRECT_LINKS);
 
     if (isValidPagingValue(showRowRange)
         || isValidPagingValue(showPageRange)
@@ -610,7 +585,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     if (requestParameterMap.containsKey(key)) {
       String widths = (String) requestParameterMap.get(key);
       if (widths.trim().length() > 0) {
-        component.getAttributes().put(ATTR_WIDTH_LIST_STRING,
+        component.getAttributes().put(Attributes.WIDTH_LIST_STRING,
             widths);
       }
     }
@@ -630,7 +605,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       }
 
       component.getAttributes().put(
-          ATTR_SELECTED_LIST_STRING, selectedRows);
+          Attributes.SELECTED_LIST_STRING, selectedRows);
     }
 
     key = component.getClientId(facesContext) + SCROLL_POSTFIX;
@@ -639,7 +614,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       Integer[] scrollPosition = SheetState.parseScrollPosition(value);
       if (scrollPosition != null) {
         //noinspection unchecked
-        component.getAttributes().put(ATTR_SCROLL_POSITION, scrollPosition);
+        component.getAttributes().put(Attributes.SCROLL_POSITION, scrollPosition);
       }
     }
 
@@ -650,7 +625,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     // this when calculating column width's
 
     final Object forceScroolbar
-        = data.getAttributes().get(ATTR_FORCE_VERTICAL_SCROLLBAR);
+        = data.getAttributes().get(Attributes.FORCE_VERTICAL_SCROLLBAR);
     if (forceScroolbar != null) {
       if ("true".equals(forceScroolbar)) {
         return true;
@@ -662,7 +637,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       }
     }
 
-    HtmlStyleMap style = (HtmlStyleMap) data.getAttributes().get(ATTR_STYLE);
+    HtmlStyleMap style = (HtmlStyleMap) data.getAttributes().get(Attributes.STYLE);
     Integer height = HtmlRendererUtil.getStyleAttributeIntValue(style, "height");
     if (height != null) {
       int first = data.getFirst();
@@ -689,15 +664,15 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 
   private void storeFooterHeight(FacesContext facesContext,
       UIComponent component) {
-    component.getAttributes().put(ATTR_FOOTER_HEIGHT,
+    component.getAttributes().put(Attributes.FOOTER_HEIGHT,
         getFooterHeight(facesContext, component));
   }
 
   private int getFooterHeight(FacesContext facesContext, UIComponent component) {
     int footerHeight;
-    if (isValidPagingAttribute((UIData) component, ATTR_SHOW_ROW_RANGE)
-        || isValidPagingAttribute((UIData) component, ATTR_SHOW_PAGE_RANGE)
-        || isValidPagingAttribute((UIData) component, ATTR_SHOW_DIRECT_LINKS)) {
+    if (isValidPagingAttribute((UIData) component, Attributes.SHOW_ROW_RANGE)
+        || isValidPagingAttribute((UIData) component, Attributes.SHOW_PAGE_RANGE)
+        || isValidPagingAttribute((UIData) component, Attributes.SHOW_DIRECT_LINKS)) {
       footerHeight =
           getConfiguredValue(facesContext, component, "footerHeight");
     } else {
@@ -739,7 +714,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 
   private List<Integer> getSelectedRows(UIData data, SheetState state) {
     List<Integer> selected = (List<Integer>)
-        data.getAttributes().get(ATTR_SELECTED_LIST_STRING);
+        data.getAttributes().get(Attributes.SELECTED_LIST_STRING);
     if (selected == null && state != null) {
       selected = state.getSelectedRows();
     }
@@ -786,14 +761,14 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     String sheetId = component.getClientId(facesContext);
     Application application = facesContext.getApplication();
 
-    List columnWidths = (List) component.getAttributes().get(ATTR_WIDTH_LIST);
+    List columnWidths = (List) component.getAttributes().get(Attributes.WIDTH_LIST);
     String divWidth = "width: " + columnWidths.get(columnIndex) + "px;";
 
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + "_header_box_" + columnIndex);
     writer.writeClassAttribute("tobago-sheet-header-box");
     writer.writeAttribute(HtmlAttributes.STYLE, divWidth, false);
-    String tip = (String) column.getAttributes().get(ATTR_TIP);
+    String tip = (String) column.getAttributes().get(Attributes.TIP);
     if (tip == null) {
       tip = "";
     }
@@ -804,7 +779,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     String sorterImage = null;
     String sorterClass = "";
     String sortTitle = null;
-    boolean sortable = ComponentUtil.getBooleanAttribute(column, ATTR_SORTABLE);
+    boolean sortable = ComponentUtil.getBooleanAttribute(column, Attributes.SORTABLE);
     if (sortable && !(column instanceof UIColumnSelector)) {
       UICommand sortCommand = (UICommand) column.getFacet(Facets.SORTER);
       if (sortCommand == null) {
@@ -842,7 +817,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 
     writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
 
-    String align = (String) column.getAttributes().get(ATTR_ALIGN);
+    String align = (String) column.getAttributes().get(Attributes.ALIGN);
 
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + "_header_outer_" + columnIndex);
@@ -910,9 +885,9 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       menu.setId("selectorMenu");
       column.getFacets().put(Facets.MENUPOPUP, menu);
       menu.setRendererType(RENDERER_TYPE_MENUBAR);
-      menu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
-      menu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "SheetSelector");
-      menu.getAttributes().put(ATTR_IMAGE, "image/sheetSelectorMenu.gif");
+      menu.getAttributes().put(Attributes.MENU_POPUP, Boolean.TRUE);
+      menu.getAttributes().put(Attributes.MENU_POPUP_TYPE, "SheetSelector");
+      menu.getAttributes().put(Attributes.IMAGE, "image/sheetSelectorMenu.gif");
 
       String sheetId = column.getParent().getClientId(facesContext);
 
@@ -952,8 +927,8 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     UIMenuCommand menuItem
         = (UIMenuCommand) application.createComponent(UIMenuCommand.COMPONENT_TYPE);
     menuItem.setRendererType(RENDERER_TYPE_MENUCOMMAND);
-    menuItem.getAttributes().put(ATTR_ACTION_ONCLICK, action);
-    menuItem.getAttributes().put(ATTR_LABEL, label);
+    menuItem.getAttributes().put(Attributes.ONCLICK, action);
+    menuItem.getAttributes().put(Attributes.LABEL, label);
     return menuItem;
   }
 
@@ -962,10 +937,10 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
                                        int sortMarkerWidth, String align,
                                        String image1x1) throws IOException {
     String label
-        = (String) column.getAttributes().get(ATTR_LABEL);
+        = (String) column.getAttributes().get(Attributes.LABEL);
     if (label != null) {
       writer.writeText(label, null);
-      if (ComponentUtil.getBooleanAttribute(column, ATTR_SORTABLE) && "right".equals(align)) {
+      if (ComponentUtil.getBooleanAttribute(column, Attributes.SORTABLE) && "right".equals(align)) {
         writer.startElement(HtmlConstants.IMG, null);
         writer.writeAttribute(HtmlAttributes.SRC, image1x1, false);
         writer.writeAttribute(HtmlAttributes.ALT, "", false);
@@ -994,7 +969,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     String onclick = new CommandRendererHelper(facesContext, pagerCommand).getOnclickDoubleQuoted();
     String hrefPostfix = "', '" + onclick + "');";
 
-    int linkCount = ComponentUtil.getIntAttribute(data, ATTR_DIRECT_LINK_COUNT);
+    int linkCount = ComponentUtil.getIntAttribute(data, Attributes.DIRECT_LINK_COUNT);
     linkCount--;  // current page needs no link
     ArrayList<Integer> prevs = new ArrayList<Integer>(linkCount);
     int page = data.getPage();
@@ -1083,8 +1058,8 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     link.setRendererType(SheetPageCommandRenderer.PAGE_RENDERER_TYPE);
     link.setRendered(true);
     link.setId(command.getToken());
-    link.getAttributes().put(ATTR_INLINE, Boolean.TRUE);
-    link.getAttributes().put(ATTR_DISABLED, disabled);
+    link.getAttributes().put(Attributes.INLINE, Boolean.TRUE);
+    link.getAttributes().put(Attributes.DISABLED, disabled);
     return link;
   }
 
@@ -1187,7 +1162,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       widthListString = state.getColumnWidths();
     }
     if (widthListString == null) {
-      widthListString = (String) attributes.get(ATTR_WIDTH_LIST_STRING);
+      widthListString = (String) attributes.get(Attributes.WIDTH_LIST_STRING);
     }
 
     if (widthListString != null) {
@@ -1302,8 +1277,8 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
              UIComponent child = (UIComponent) column.getChildren().get(0);
              int cellPaddingWidth = getConfiguredValue(facesContext, data, "cellPaddingWidth");
              child.getAttributes().put(
-                 ATTR_LAYOUT_WIDTH, width - cellPaddingWidth);
-             child.getAttributes().remove(ATTR_INNER_WIDTH);
+                 Attributes.LAYOUT_WIDTH, width - cellPaddingWidth);
+             child.getAttributes().remove(Attributes.INNER_WIDTH);
            } else {
              LOG.warn("More or less than 1 child in column! "
                  + "Can't set width for column " + i + " to " + width);

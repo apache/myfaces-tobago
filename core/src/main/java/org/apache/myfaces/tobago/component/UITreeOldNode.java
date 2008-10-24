@@ -120,7 +120,7 @@ public class UITreeOldNode extends javax.faces.component.UIInput {
       if (name == null) {
         name = toString();
       }
-      getAttributes().put(TobagoConstants.ATTR_NAME, name.toString());
+      getAttributes().put(Attributes.NAME, name.toString());
     }
   }
 
@@ -129,7 +129,7 @@ public class UITreeOldNode extends javax.faces.component.UIInput {
     if (treeNode != null) {
       Object tip = getReference(treeNode, UITreeOld.ATTR_TIP_REFERENCE);
       if (tip != null) {
-        getAttributes().put(TobagoConstants.ATTR_TIP, tip.toString());
+        getAttributes().put(Attributes.TIP, tip.toString());
       }
     }
   }
@@ -146,7 +146,7 @@ public class UITreeOldNode extends javax.faces.component.UIInput {
           disabled = false;
         }
       }
-      getAttributes().put(TobagoConstants.ATTR_DISABLED, disabled);
+      getAttributes().put(Attributes.DISABLED, disabled);
     }
   }
 

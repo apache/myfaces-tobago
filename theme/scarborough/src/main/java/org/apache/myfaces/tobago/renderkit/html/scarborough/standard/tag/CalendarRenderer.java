@@ -25,7 +25,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CALENDAR_DATE_INPUT_ID;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.model.CalendarModel;
@@ -69,7 +69,7 @@ public class CalendarRenderer extends LayoutableRendererBase {
 
     String id = output.getClientId(facesContext);
 
-    String dateTextBoxId = (String) component.getAttributes().get(ATTR_CALENDAR_DATE_INPUT_ID);
+    String dateTextBoxId = (String) component.getAttributes().get(Attributes.DATE_INPUT_ID);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("dateTextBoxId = '" + dateTextBoxId + "'");

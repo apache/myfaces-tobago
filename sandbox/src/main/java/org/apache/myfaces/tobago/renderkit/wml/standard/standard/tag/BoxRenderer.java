@@ -45,7 +45,7 @@ public class BoxRenderer extends BoxRendererBase {
     //  = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     //BodyContentHandler bodyContentHandler = (BodyContentHandler)
-    //    panel.getAttributes().get(ATTR_BODY_CONTENT);
+    //    panel.getAttributes().get(BODY_CONTENT);
 
     //writer.write(bodyContentHandler.getBodyContent());
     // </card> ?

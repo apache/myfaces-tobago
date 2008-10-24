@@ -17,12 +17,6 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CREATE_SPAN;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE_RADIO;
@@ -65,9 +59,9 @@ public class CreateComponentUtils {
 
   public static UIColumn createTextColumn(String label, String sortable, String align, String value, String clientId) {
     UIComponent text = createComponent(UIOutput.COMPONENT_TYPE, RENDERER_TYPE_OUT, clientId + "_t");
-    TagUtils.setStringProperty(text, ATTR_VALUE, value);
-    TagUtils.setBooleanProperty(text, ATTR_CREATE_SPAN, "false");
-    TagUtils.setBooleanProperty(text, ATTR_ESCAPE, "false");
+    TagUtils.setStringProperty(text, Attributes.VALUE, value);
+    TagUtils.setBooleanProperty(text, Attributes.CREATE_SPAN, "false");
+    TagUtils.setBooleanProperty(text, Attributes.ESCAPE, "false");
     return createColumn(label, sortable, align, text, clientId);
   }
 
@@ -89,9 +83,9 @@ public class CreateComponentUtils {
 
   public static UIColumn createColumn(String label, String sortable, String align, String clientId) {
     UIColumn column = (UIColumn) createComponent(UIColumn.COMPONENT_TYPE, null, clientId);
-    TagUtils.setStringProperty(column, ATTR_LABEL, label);
-    TagUtils.setBooleanProperty(column, ATTR_SORTABLE, sortable);
-    TagUtils.setStringProperty(column, ATTR_ALIGN, align);
+    TagUtils.setStringProperty(column, Attributes.LABEL, label);
+    TagUtils.setBooleanProperty(column, Attributes.SORTABLE, sortable);
+    TagUtils.setStringProperty(column, Attributes.ALIGN, align);
     return column;
   }
 
@@ -104,13 +98,13 @@ public class CreateComponentUtils {
   public static UIMenuSelectOne createUIMenuSelectOneFacet(FacesContext facesContext,
       javax.faces.component.UICommand command, String clientId) {
     UIMenuSelectOne radio = null;
-    final ValueBinding valueBinding = command.getValueBinding(ATTR_VALUE);
+    final ValueBinding valueBinding = command.getValueBinding(Attributes.VALUE);
     if (valueBinding != null) {
       radio = (UIMenuSelectOne) createComponent(facesContext, UIMenuSelectOne.COMPONENT_TYPE,
           RENDERER_TYPE_SELECT_ONE_RADIO, clientId);
       //noinspection unchecked
       command.getFacets().put(Facets.ITEMS, radio);
-      radio.setValueBinding(ATTR_VALUE, valueBinding);
+      radio.setValueBinding(Attributes.VALUE, valueBinding);
     }
     return radio;
   }
@@ -125,12 +119,12 @@ public class CreateComponentUtils {
         RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX, clientId);
     //noinspection unchecked
     command.getFacets().put(Facets.ITEMS, checkbox);
-    ValueBinding valueBinding = command.getValueBinding(ATTR_VALUE);
+    ValueBinding valueBinding = command.getValueBinding(Attributes.VALUE);
     if (valueBinding != null) {
-      checkbox.setValueBinding(ATTR_VALUE, valueBinding);
+      checkbox.setValueBinding(Attributes.VALUE, valueBinding);
     } else {
       //noinspection unchecked
-      checkbox.getAttributes().put(ATTR_VALUE, command.getAttributes().get(ATTR_VALUE));
+      checkbox.getAttributes().put(Attributes.VALUE, command.getAttributes().get(Attributes.VALUE));
     }
     return checkbox;
   }

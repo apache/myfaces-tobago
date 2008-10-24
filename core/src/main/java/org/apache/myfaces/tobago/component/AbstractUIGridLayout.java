@@ -20,8 +20,6 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.OnComponentCreated;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SPAN_X;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SPAN_Y;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.grid.GridLayoutManager;
@@ -163,12 +161,12 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
 
   public static int getSpanX(UIComponent component) {
     return ComponentUtil.getIntAttribute(
-        component, ATTR_SPAN_X, 1);
+        component, Attributes.SPAN_X, 1);
   }
 
   public static int getSpanY(UIComponent component) {
     return ComponentUtil.getIntAttribute(
-        component, ATTR_SPAN_Y, 1);
+        component, Attributes.SPAN_Y, 1);
   }
 
   public boolean isIgnoreFree() {

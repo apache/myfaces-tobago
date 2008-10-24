@@ -17,12 +17,11 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LABEL;
+import org.apache.myfaces.tobago.component.Attributes;
 
 import javax.faces.component.UIComponent;
 import java.util.Locale;
@@ -40,9 +39,9 @@ public final class LabelWithAccessKey {
   public LabelWithAccessKey(UIComponent component) {
     Object value;
     if (RENDERER_TYPE_LABEL.equals(component.getRendererType())) {
-      value = component.getAttributes().get(ATTR_VALUE);
+      value = component.getAttributes().get(Attributes.VALUE);
     } else {
-      value = component.getAttributes().get(ATTR_LABEL);
+      value = component.getAttributes().get(Attributes.LABEL);
     }
     text = (value == null) ? null : String.valueOf(value);
     setup(text);

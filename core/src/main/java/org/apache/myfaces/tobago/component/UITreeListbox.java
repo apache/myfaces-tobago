@@ -19,8 +19,6 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_GRID_LAYOUT;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 
@@ -76,16 +74,16 @@ public class UITreeListbox extends UITreeOld implements LayoutProvider {
   @SuppressWarnings("unchecked")
   private void fixSelectionType() {
     final Map attributes = getAttributes();
-    Object selectable = attributes.get(ATTR_SELECTABLE);
+    Object selectable = attributes.get(Attributes.SELECTABLE);
     if ("single".equals(selectable)
         || "singleLeafOnly".equals(selectable)
         || "siblingLeafOnly".equals(selectable)) {
     } else if (selectable == null) {
-      attributes.put(ATTR_SELECTABLE, "single");
+      attributes.put(Attributes.SELECTABLE, "single");
     } else {
       // fix to single
       LOG.warn("Illegal attributeValue selectable : " + selectable + " set to 'single'");
-      attributes.put(ATTR_SELECTABLE, "single");
+      attributes.put(Attributes.SELECTABLE, "single");
     }
   }
 
@@ -280,7 +278,7 @@ public class UITreeListbox extends UITreeOld implements LayoutProvider {
         columns.append(";1*");
       }
 
-      layout.getAttributes().put(ATTR_COLUMNS, columns.toString());
+      layout.getAttributes().put(Attributes.COLUMNS, columns.toString());
       getFacets().put(Facets.LAYOUT_DEFAULT, layout);
     }
 

@@ -19,29 +19,30 @@ package org.apache.myfaces.tobago.renderkit.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.util.RangeParser;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.ValueHolder;
 import javax.faces.component.EditableValueHolder;
-import javax.faces.component.UISelectItems;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectItem;
+import javax.faces.component.UISelectItems;
+import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Map;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class RenderUtil {
 
@@ -233,10 +234,10 @@ public class RenderUtil {
     List<SelectItem> selectItems = getSelectItems(component);
 
     String renderRange = (String)
-        component.getAttributes().get(org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE_EXTERN);
+        component.getAttributes().get(Attributes.RENDER_RANGE_EXTERN);
     if (renderRange == null) {
       renderRange = (String)
-          component.getAttributes().get(org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE);
+          component.getAttributes().get(Attributes.RENDER_RANGE);
     }
     if (renderRange == null) {
       return selectItems;

@@ -24,16 +24,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BORDER;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UICommand;
@@ -79,11 +76,11 @@ public class ImageRenderer extends LayoutableRendererBase {
       }
     }
 
-    String border = (String) graphic.getAttributes().get(ATTR_BORDER);
+    String border = (String) graphic.getAttributes().get(Attributes.BORDER);
     if (border == null) {
       border = "0";
     }
-    String alt = (String) graphic.getAttributes().get(ATTR_ALT);
+    String alt = (String) graphic.getAttributes().get(Attributes.ALT);
     if (alt == null) {
       alt = "";
     }
@@ -103,7 +100,7 @@ public class ImageRenderer extends LayoutableRendererBase {
     writer.writeAttribute(HtmlAttributes.ALT, alt, true);
     HtmlRendererUtil.renderTip(graphic, writer);
     writer.writeAttribute(HtmlAttributes.BORDER, border, false);
-    writer.writeAttributeFromComponent(HtmlAttributes.HEIGHT, ATTR_HEIGHT);
+    writer.writeAttributeFromComponent(HtmlAttributes.HEIGHT, Attributes.HEIGHT);
     writer.writeStyleAttribute();
     HtmlRendererUtil.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
@@ -124,10 +121,10 @@ public class ImageRenderer extends LayoutableRendererBase {
 
   private boolean isDisabled(UIGraphic graphic) {
     boolean disabled = ComponentUtil.getBooleanAttribute(graphic,
-        ATTR_DISABLED);
+        Attributes.DISABLED);
     if (!disabled && graphic.getParent() instanceof UICommand) {
       disabled =
-          ComponentUtil.getBooleanAttribute(graphic.getParent(), ATTR_DISABLED);
+          ComponentUtil.getBooleanAttribute(graphic.getParent(), Attributes.DISABLED);
     }
     return disabled;
   }

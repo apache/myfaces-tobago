@@ -17,12 +17,11 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class AbstractUILabel extends javax.faces.component.UIOutput {
@@ -31,7 +30,7 @@ public class AbstractUILabel extends javax.faces.component.UIOutput {
 
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
-    String forComponent = (String) getAttributes().get(TobagoConstants.ATTR_FOR);
+    String forComponent = (String) getAttributes().get(Attributes.FOR);
     if (LOG.isDebugEnabled()) {
       LOG.debug("for = '" + forComponent + "'");
     }
@@ -40,7 +39,7 @@ public class AbstractUILabel extends javax.faces.component.UIOutput {
         UIComponent child = (UIComponent) object;
         if (child instanceof javax.faces.component.UIInput) {
           forComponent = child.getId();
-          getAttributes().put(TobagoConstants.ATTR_FOR, forComponent);
+          getAttributes().put(Attributes.FOR, forComponent);
           break;
         }
       }

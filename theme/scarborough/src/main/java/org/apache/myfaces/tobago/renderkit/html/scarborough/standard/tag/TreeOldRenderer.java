@@ -17,8 +17,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITreeOld;
 import org.apache.myfaces.tobago.component.UITreeOldNode;
 import org.apache.myfaces.tobago.config.TobagoConfig;
@@ -26,11 +25,12 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.util.FastStringWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -89,7 +89,7 @@ public class TreeOldRenderer extends LayoutableRendererBase {
       if (isSelectable(tree)) {
         state.clearSelection();
       }
-      if (ComponentUtil.getBooleanAttribute(tree, TobagoConstants.ATTR_MUTABLE)) {
+      if (ComponentUtil.getBooleanAttribute(tree, Attributes.MUTABLE)) {
         state.setMarker(null);
       }
       // scroll position
@@ -174,7 +174,7 @@ public class TreeOldRenderer extends LayoutableRendererBase {
     }
     writer.endElement(HtmlConstants.INPUT);
 
-    if (ComponentUtil.getBooleanAttribute(tree, TobagoConstants.ATTR_MUTABLE)) {
+    if (ComponentUtil.getBooleanAttribute(tree, Attributes.MUTABLE)) {
 
 
 //      writer.startElement(HtmlConstants.DIV, null);

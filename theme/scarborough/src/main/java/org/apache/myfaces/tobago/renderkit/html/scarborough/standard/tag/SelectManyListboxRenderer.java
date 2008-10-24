@@ -24,16 +24,14 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectManyListbox;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -61,7 +59,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     int fixedHeight = -1;
-    String height = (String) component.getAttributes().get(ATTR_HEIGHT);
+    String height = (String) component.getAttributes().get(Attributes.HEIGHT);
     if (height != null) {
       try {
         fixedHeight = Integer.parseInt(height.replaceAll("\\D", ""));
@@ -97,8 +95,8 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     String clientId = selectMany.getClientId(facesContext);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    boolean renderDisabled = ComponentUtil.getBooleanAttribute(selectMany, ATTR_DISABLED)
-        || ComponentUtil.getBooleanAttribute(selectMany, ATTR_READONLY);
+    boolean renderDisabled = ComponentUtil.getBooleanAttribute(selectMany, Attributes.DISABLED)
+        || ComponentUtil.getBooleanAttribute(selectMany, Attributes.READONLY);
       writer.writeAttribute(HtmlAttributes.DISABLED, renderDisabled);
     Integer tabIndex = selectMany.getTabIndex();
     if (tabIndex != null) {

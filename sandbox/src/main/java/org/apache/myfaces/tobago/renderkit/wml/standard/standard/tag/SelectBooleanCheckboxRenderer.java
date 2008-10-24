@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
  * $Id:SelectBooleanCheckboxRenderer.java 472227 2006-11-07 21:05:00 +0100 (Tue, 07 Nov 2006) bommel $
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -42,7 +42,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    boolean value = ComponentUtil.getBooleanAttribute(component, ATTR_VALUE);
+    boolean value = ComponentUtil.getBooleanAttribute(component, Attributes.VALUE);
 
     writer.startElement(HtmlConstants.SELECT, component);
     writer.writeNameAttribute(component.getClientId(facesContext));

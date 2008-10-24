@@ -23,8 +23,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
@@ -50,7 +49,7 @@ public class BoxRenderer extends BoxRendererBase {
 
     UIComponent label = component.getFacet(Facets.LABEL);
     String labelString
-        = (String) component.getAttributes().get(ATTR_LABEL);
+        = (String) component.getAttributes().get(Attributes.LABEL);
     UIPanel toolbar = (UIPanel) component.getFacet(Facets.TOOL_BAR);
     if (toolbar != null) {
       final int padding = getConfiguredValue(facesContext, component, "paddingTopWhenToolbar");
@@ -107,7 +106,7 @@ public class BoxRenderer extends BoxRendererBase {
   }
 
   protected String getAttrStyleKey() {
-    return ATTR_STYLE;
+    return Attributes.STYLE;
   }
 
   public int getPaddingHeight(FacesContext facesContext, UIComponent component) {

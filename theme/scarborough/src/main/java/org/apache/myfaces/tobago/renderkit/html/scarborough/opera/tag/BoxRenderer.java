@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.opera.tag;
  * : $
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.UserAgent;
@@ -45,7 +45,7 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
 
     UIComponent label = component.getFacet(Facets.LABEL);
     String labelString
-        = (String) component.getAttributes().get(ATTR_LABEL);
+        = (String) component.getAttributes().get(Attributes.LABEL);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 

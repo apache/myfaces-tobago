@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_UPDATE;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
@@ -54,9 +52,9 @@ public class UIPanelBase extends javax.faces.component.UIPanel
       UIComponent reload = getFacet(Facets.RELOAD);
       if (ajaxId != null && ajaxId.equals(getClientId(context)) && reload != null && reload.isRendered()
           && ajaxId.equals(ComponentUtil.findPage(context, this).getActionId())) {
-        Boolean immediate = (Boolean) reload.getAttributes().get(ATTR_IMMEDIATE);
+        Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
         if (immediate != null && immediate) {
-          Boolean update = (Boolean) reload.getAttributes().get(ATTR_UPDATE);
+          Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
           if (update != null && !update) {
             if (context.getExternalContext().getResponse() instanceof HttpServletResponse) {
               ((HttpServletResponse) context.getExternalContext().getResponse())
@@ -74,9 +72,9 @@ public class UIPanelBase extends javax.faces.component.UIPanel
   public void encodeAjax(FacesContext facesContext) throws IOException {
     UIComponent reload = getFacet(Facets.RELOAD);
     if (reload != null && reload.isRendered()) {
-      Boolean immediate = (Boolean) reload.getAttributes().get(ATTR_IMMEDIATE);
+      Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
       if (immediate != null && !immediate) {
-        Boolean update = (Boolean) reload.getAttributes().get(ATTR_UPDATE);
+        Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
         if (update != null && !update) {
           return;
         }

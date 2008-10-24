@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.convert;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_UNIT;
+import org.apache.myfaces.tobago.component.Attributes;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -119,7 +119,7 @@ public class DurationConverter implements Converter {
   private static double getUnitFactor(UIComponent component) {
     String unit = null;
     if (component != null) {
-      unit = (String) component.getAttributes().get(ATTR_UNIT);
+      unit = (String) component.getAttributes().get(Attributes.UNIT);
     }
     double factor;
     if (unit == null) {

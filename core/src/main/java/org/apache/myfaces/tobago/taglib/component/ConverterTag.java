@@ -17,12 +17,12 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CONVERTER;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.component.Attributes;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
@@ -110,7 +110,7 @@ public abstract class ConverterTag extends TagSupport {
     if (converter != null) {
       if (!isBindingLiteral()) {
         FacesUtils.
-            setValueOfBindingOrExpression(FacesContext.getCurrentInstance(), converter, component, ATTR_CONVERTER);
+            setValueOfBindingOrExpression(FacesContext.getCurrentInstance(), converter, component, Attributes.CONVERTER);
       } else {
         valueHolder.setConverter(converter);
       }

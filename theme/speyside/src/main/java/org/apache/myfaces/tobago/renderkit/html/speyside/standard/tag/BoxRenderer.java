@@ -24,12 +24,10 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIToolBar;
@@ -65,7 +63,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
-    HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE);
+    HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get(Attributes.STYLE);
 
     if (style != null) {
       Integer styleHeight = style.getInt("height");
@@ -132,7 +130,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     writer.startElement(HtmlConstants.SPAN, null);
     writer.writeClassAttribute("tobago-box-header-label");
     String labelString
-        = (String) component.getAttributes().get(ATTR_LABEL);
+        = (String) component.getAttributes().get(Attributes.LABEL);
     if (label != null) {
       RenderUtil.encode(facesContext, label);
     } else if (labelString != null) {
@@ -163,7 +161,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
       FacesContext facesContext, TobagoResponseWriter writer, UIPanel toolbar) throws IOException {
     final Map attributes = toolbar.getAttributes();
     String className = "tobago-box-header-toolbar-div";
-    if (UIToolBar.LABEL_OFF.equals(attributes.get(ATTR_LABEL_POSITION))) {
+    if (UIToolBar.LABEL_OFF.equals(attributes.get(Attributes.LABEL_POSITION))) {
       className += " tobago-box-header-toolbar-label_off";
     }
     writer.startElement(HtmlConstants.DIV, null);

@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import org.apache.myfaces.tobago.component.Attributes;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -59,7 +59,7 @@ public class BoxRenderer extends FoRendererBase {
     FoUtils.writeBorder(writer, borderWidth);
     FoUtils.layoutBlockContainer(writer, height, width, x, y);
     //writer.writeAttribute("padding", Layout.getMM(padding), null);
-    String labelString = (String) component.getAttributes().get(ATTR_LABEL);
+    String labelString = (String) component.getAttributes().get(Attributes.LABEL);
     FoUtils.writeTextBlockAlignStart(writer, component, labelString);
     // TODO UIComponent label = component.getFacet(Facets.LABEL);
     FoUtils.endBlockContainer(writer);

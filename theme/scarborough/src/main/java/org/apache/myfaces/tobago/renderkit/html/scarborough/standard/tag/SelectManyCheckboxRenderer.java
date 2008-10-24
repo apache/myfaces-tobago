@@ -24,16 +24,15 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
@@ -68,7 +67,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     }
     String id = selectMany.getClientId(facesContext);
 
-    boolean inline = ComponentUtil.getBooleanAttribute(selectMany, ATTR_INLINE);
+    boolean inline = ComponentUtil.getBooleanAttribute(selectMany, Attributes.INLINE);
     String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, selectMany);
     if (!inline) {
       writer.startElement(HtmlConstants.TABLE, selectMany);
@@ -104,7 +103,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       String formattedValue = RenderUtil.getFormattedValue(facesContext, selectMany, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
       writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled());
-      if (ComponentUtil.getBooleanAttribute(selectMany, ATTR_READONLY)) {
+      if (ComponentUtil.getBooleanAttribute(selectMany, Attributes.READONLY)) {
         writer.writeAttribute(HtmlAttributes.READONLY, true);
         if (checked) {
           writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=true", false);
@@ -144,7 +143,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 //        Application application = tobagoContext.getApplication();
 //        UIOutput label = (UIOutput)
 //            application.createComponent(TobagoConstants.COMPONENT_TYPE_OUTPUT);
-//        label.getAttributes().put(TobagoConstants.ATTR_FOR, itemId);
+//        label.getAttributes().put(Attributes.FOR, itemId);
 //        label.setValue( item.getLabel() );
 //        label.setRendererType("Label");
 //        label.setRendered(true);
@@ -172,7 +171,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     UISelectManyCheckbox selectMany = (UISelectManyCheckbox) component;
 
     int heightPerRow = super.getFixedHeight(facesContext, selectMany);
-    if (ComponentUtil.getBooleanAttribute(selectMany, ATTR_INLINE)) {
+    if (ComponentUtil.getBooleanAttribute(selectMany, Attributes.INLINE)) {
       return heightPerRow;
     } else {
       List<SelectItem> items = RenderUtil.getItemsToRender(selectMany);

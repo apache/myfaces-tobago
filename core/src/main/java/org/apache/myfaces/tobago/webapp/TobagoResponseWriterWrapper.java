@@ -17,9 +17,8 @@ package org.apache.myfaces.tobago.webapp;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
@@ -76,11 +75,11 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
   }
 
   public void writeClassAttribute() throws IOException {
-    responseWriter.writeAttribute(HtmlAttributes.CLASS, null, ATTR_STYLE_CLASS);
+    responseWriter.writeAttribute(HtmlAttributes.CLASS, null, Attributes.STYLE_CLASS);
   }
 
   public void writeStyleAttribute() throws IOException {
-    responseWriter.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+    responseWriter.writeAttribute(HtmlAttributes.STYLE, null, Attributes.STYLE);
   }
 
   public String getContentType() {

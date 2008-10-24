@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
@@ -76,7 +75,7 @@ public abstract class AbstractUIPopup extends UIPanelBase implements NamingConta
       if (action != null) {
         UIComponent command = page.findComponent(SEPARATOR_CHAR + action);
         if (command != null && command instanceof UICommand) {
-          return !(command.getAttributes().get(TobagoConstants.ATTR_POPUP_CLOSE) != null);
+          return !(command.getAttributes().get(Attributes.POPUP_CLOSE) != null);
         }
       }
     }

@@ -24,16 +24,14 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectBoolean;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -83,7 +81,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
 
     UIComponent label = ComponentUtil.provideLabel(facesContext, selectBoolean);
 
-    boolean inline = ComponentUtil.getBooleanAttribute(selectBoolean, ATTR_INLINE);
+    boolean inline = ComponentUtil.getBooleanAttribute(selectBoolean, Attributes.INLINE);
 
     if (label != null && !inline) {
 
@@ -105,7 +103,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
     writer.writeAttribute(HtmlAttributes.TYPE, "checkbox", false);
     writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
     writer.writeAttribute(HtmlAttributes.CHECKED, checked);
-    if (ComponentUtil.getBooleanAttribute(selectBoolean, ATTR_READONLY)) {
+    if (ComponentUtil.getBooleanAttribute(selectBoolean, Attributes.READONLY)) {
       writer.writeAttribute(HtmlAttributes.READONLY, true);
       if (checked) {
         writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=true", false);
@@ -117,7 +115,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
     writer.writeClassAttribute();
     writer.writeIdAttribute(selectBoolean.getClientId(facesContext));
     writer.writeAttribute(HtmlAttributes.DISABLED,
-        ComponentUtil.getBooleanAttribute(selectBoolean, ATTR_DISABLED));
+        ComponentUtil.getBooleanAttribute(selectBoolean, Attributes.DISABLED));
     Integer tabIndex = selectBoolean.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);

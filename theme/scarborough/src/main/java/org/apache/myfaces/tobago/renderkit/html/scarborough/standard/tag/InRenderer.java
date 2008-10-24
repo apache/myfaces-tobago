@@ -24,23 +24,20 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
-import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIInputBase;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -48,9 +45,9 @@ import javax.faces.el.MethodBinding;
 import javax.faces.validator.LengthValidator;
 import javax.faces.validator.Validator;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Arrays;
 
 public class InRenderer extends InputRendererBase implements AjaxRenderer {
   private static final Log LOG = LogFactory.getLog(InRenderer.class);
@@ -94,7 +91,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
       LOG.debug("currentValue = '" + currentValue + "'");
     }
     String type = ComponentUtil.getBooleanAttribute(input,
-        ATTR_PASSWORD) ? "password" : "text";
+        Attributes.PASSWORD) ? "password" : "text";
 
     // Todo: check for valid binding
     boolean renderAjaxSuggest = false;
@@ -123,8 +120,8 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     if (maxLength > 0) {
       writer.writeAttribute(HtmlAttributes.MAXLENGTH, maxLength);
     }
-    writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtil.getBooleanAttribute(input, ATTR_READONLY));
-    writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED));
+    writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtil.getBooleanAttribute(input, Attributes.READONLY));
+    writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtil.getBooleanAttribute(input, Attributes.DISABLED));
     Integer tabIndex = input.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
@@ -145,7 +142,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
 
     HtmlRendererUtil.checkForCommandFacet(input, facesContext, writer);
 
-    boolean required = ComponentUtil.getBooleanAttribute(input, ATTR_REQUIRED);
+    boolean required = ComponentUtil.getBooleanAttribute(input, Attributes.REQUIRED);
     String rendererName = HtmlRendererUtil.getRendererName(facesContext, input);
     if (required && !renderAjaxSuggest) {
       final String[] cmds = {
@@ -179,7 +176,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
 
   protected void applyExtraStyle(FacesContext facesContext, UIInputBase input, String currentValue) {
     if (currentValue != null && currentValue.length() > 0
-        && ComponentUtil.getBooleanAttribute(input, ATTR_REQUIRED)) {
+        && ComponentUtil.getBooleanAttribute(input, Attributes.REQUIRED)) {
       StyleClasses styleClasses = StyleClasses.ensureStyleClasses(input);
       String rendererName = HtmlRendererUtil.getRendererName(facesContext, input);
       styleClasses.removeAspectClass(rendererName, StyleClasses.Aspect.REQUIRED);

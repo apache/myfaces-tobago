@@ -19,15 +19,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BOX;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BUTTON;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_CALENDAR;
@@ -39,6 +30,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_POPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TIME;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.AbstractUIPopup;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIBox;
@@ -105,7 +97,7 @@ public class DatePickerRenderer extends LinkRenderer {
     } else {
       popup.setId(facesContext.getViewRoot().createUniqueId());
     }
-    popup.getAttributes().put(TobagoConstants.ATTR_ZINDEX, 10);
+    popup.getAttributes().put(Attributes.Z_INDEX, 10);
 
     link.getFacets().put(Facets.PICKER_POPUP, popup);
 
@@ -116,13 +108,13 @@ public class DatePickerRenderer extends LinkRenderer {
     popup.getChildren().add(box);
     box.setId("box");
     // TODO: set string resources in renderer
-    box.getAttributes().put(ATTR_LABEL, ResourceManagerUtil.getPropertyNotNull(
+    box.getAttributes().put(Attributes.LABEL, ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "datePickerTitle"));
     UIComponent layout = CreateComponentUtils.createComponent(
         facesContext, UIGridLayout.COMPONENT_TYPE, RENDERER_TYPE_GRID_LAYOUT);
     box.getFacets().put(Facets.LAYOUT, layout);
     layout.setId("layout");
-    layout.getAttributes().put(ATTR_ROWS, "*;fixed;fixed");
+    layout.getAttributes().put(Attributes.ROWS, "*;fixed;fixed");
 
     final UIComponent calendar = CreateComponentUtils.createComponent(
         facesContext, javax.faces.component.UIOutput.COMPONENT_TYPE,
@@ -140,7 +132,7 @@ public class DatePickerRenderer extends LinkRenderer {
         facesContext, UIGridLayout.COMPONENT_TYPE, RENDERER_TYPE_GRID_LAYOUT);
     timePanel.getFacets().put(Facets.LAYOUT, layout);
     layout.setId("timePanelLayout");
-    layout.getAttributes().put(ATTR_COLUMNS, "1*;fixed;1*");
+    layout.getAttributes().put(Attributes.COLUMNS, "1*;fixed;1*");
     UIComponent cell = CreateComponentUtils.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_PANEL);
     cell.setId("cell1");
@@ -166,8 +158,7 @@ public class DatePickerRenderer extends LinkRenderer {
         facesContext, UIGridLayout.COMPONENT_TYPE, RENDERER_TYPE_GRID_LAYOUT);
     layout.setId("buttonPanelLayout");
     buttonPanel.getFacets().put(Facets.LAYOUT, layout);
-    layout.getAttributes().put(ATTR_COLUMNS, "*;*");
-//    layout.getAttributes().put(TobagoConstants.ATTR_BORDER, "1");
+    layout.getAttributes().put(Attributes.COLUMNS, "*;*");
 
     box.getChildren().add(buttonPanel);
 
@@ -177,7 +168,7 @@ public class DatePickerRenderer extends LinkRenderer {
             RENDERER_TYPE_BUTTON);
     buttonPanel.getChildren().add(okButton);
     okButton.setId("ok" + CLOSE_POPUP);
-    okButton.getAttributes().put(ATTR_LABEL, ResourceManagerUtil.getPropertyNotNull(
+    okButton.getAttributes().put(Attributes.LABEL, ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "datePickerOk"));
 
     final org.apache.myfaces.tobago.component.UICommand cancelButton =
@@ -186,7 +177,7 @@ public class DatePickerRenderer extends LinkRenderer {
             RENDERER_TYPE_BUTTON);
     buttonPanel.getChildren().add(cancelButton);
 
-    cancelButton.getAttributes().put(ATTR_LABEL, ResourceManagerUtil.getPropertyNotNull(
+    cancelButton.getAttributes().put(Attributes.LABEL, ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "datePickerCancel"));
     cancelButton.setId(CLOSE_POPUP);
 
@@ -200,19 +191,19 @@ public class DatePickerRenderer extends LinkRenderer {
       image.setId(facesContext.getViewRoot().createUniqueId());
     }
     image.setValue("image/date.gif");
-    image.getAttributes().put(ATTR_ALT, ""); //TODO: i18n
+    image.getAttributes().put(Attributes.ALT, ""); //TODO: i18n
     StyleClasses.ensureStyleClasses(image).addFullQualifiedClass("tobago-input-picker"); // XXX not a standard name
     link.getChildren().add(image);
   }
 
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
-    component.getAttributes().put(ATTR_LAYOUT_WIDTH, getConfiguredValue(facesContext, component, "pickerWidth"));
+    component.getAttributes().put(Attributes.LAYOUT_WIDTH, getConfiguredValue(facesContext, component, "pickerWidth"));
     if (facesContext instanceof TobagoFacesContext) {
       UIPopup popup = (UIPopup) component.getFacets().get(Facets.PICKER_POPUP);
       if (popup != null) {
-        popup.getAttributes().put(ATTR_WIDTH, ThemeConfig.getValue(facesContext, component, "CalendarPopupWidth"));
-        popup.getAttributes().put(ATTR_HEIGHT, ThemeConfig.getValue(facesContext, component, "CalendarPopupHeight"));
+        popup.getAttributes().put(Attributes.WIDTH, ThemeConfig.getValue(facesContext, component, "CalendarPopupWidth"));
+        popup.getAttributes().put(Attributes.HEIGHT, ThemeConfig.getValue(facesContext, component, "CalendarPopupHeight"));
         ((TobagoFacesContext) facesContext).getPopups().add(popup);
       }
     }
@@ -228,13 +219,13 @@ public class DatePickerRenderer extends LinkRenderer {
       LOG.error("No required UIDateInput component found.");
       return;
     }
-    if (FacesUtils.hasValueBindingOrValueExpression(dateInput, TobagoConstants.ATTR_READONLY)) {
-      FacesUtils.copyValueBindingOrValueExpression(link, TobagoConstants.ATTR_DISABLED,
-          dateInput, TobagoConstants.ATTR_READONLY);
+    if (FacesUtils.hasValueBindingOrValueExpression(dateInput, Attributes.READONLY)) {
+      FacesUtils.copyValueBindingOrValueExpression(link, Attributes.DISABLED,
+          dateInput, Attributes.READONLY);
     } else {
-      if (FacesUtils.hasValueBindingOrValueExpression(dateInput, TobagoConstants.ATTR_DISABLED)) {
-        FacesUtils.copyValueBindingOrValueExpression(link, TobagoConstants.ATTR_DISABLED,
-            dateInput, TobagoConstants.ATTR_DISABLED);
+      if (FacesUtils.hasValueBindingOrValueExpression(dateInput, Attributes.DISABLED)) {
+        FacesUtils.copyValueBindingOrValueExpression(link, Attributes.DISABLED,
+            dateInput, Attributes.DISABLED);
       } else {
         link.setDisabled(dateInput.isReadonly() || dateInput.isDisabled());
       }
@@ -245,7 +236,7 @@ public class DatePickerRenderer extends LinkRenderer {
     UIComponent hidden = (UIComponent) link.getChildren().get(0);
     UIPopup popup = (UIPopup) link.getFacets().get(Facets.PICKER_POPUP);
 
-    attributes.put(ATTR_ACTION_ONCLICK, "Tobago.openPickerPopup(event, '"
+    attributes.put(Attributes.ONCLICK, "Tobago.openPickerPopup(event, '"
         + link.getClientId(facesContext) + "', '"
         + hidden.getClientId(facesContext) + "', '"
         + popup.getClientId(facesContext) + "')");
@@ -261,13 +252,13 @@ public class DatePickerRenderer extends LinkRenderer {
 
     UICommand okButton = (UICommand) popup.findComponent("ok" + CLOSE_POPUP);
     attributes = okButton.getAttributes();
-    attributes.put(ATTR_ACTION_ONCLICK, "var textBox = writeIntoField2(this);Tobago.closePopup(this);textBox.focus();");
-    attributes.put(TobagoConstants.ATTR_POPUP_CLOSE, "afterSubmit");
+    attributes.put(Attributes.ONCLICK, "var textBox = writeIntoField2(this);Tobago.closePopup(this);textBox.focus();");
+    attributes.put(Attributes.POPUP_CLOSE, "afterSubmit");
 
     UICommand cancelButton = (UICommand) popup.findComponent(CLOSE_POPUP);
     attributes = cancelButton.getAttributes();
-    attributes.put(ATTR_ACTION_ONCLICK, "var textBox = writeIntoField2(this);Tobago.closePopup(this);textBox.focus();");
-    attributes.put(TobagoConstants.ATTR_POPUP_CLOSE, "immediate");
+    attributes.put(Attributes.ONCLICK, "var textBox = writeIntoField2(this);Tobago.closePopup(this);textBox.focus();");
+    attributes.put(Attributes.POPUP_CLOSE, "immediate");
 
     applyConverterPattern(facesContext, popup, converterPattern);
 
@@ -282,9 +273,9 @@ public class DatePickerRenderer extends LinkRenderer {
     UIComponent timePanel = box.findComponent("timePanel");
     if (converterPattern != null && (converterPattern.indexOf('h') > -1 || converterPattern.indexOf('H') > -1)) {
       UIComponent time = timePanel.findComponent("time");
-      int popupHeight = ComponentUtil.getIntAttribute(popup, ATTR_HEIGHT);
+      int popupHeight = ComponentUtil.getIntAttribute(popup, Attributes.HEIGHT);
       popupHeight += ThemeConfig.getValue(FacesContext.getCurrentInstance(), time, "fixedHeight");
-      popup.getAttributes().put(ATTR_HEIGHT, popupHeight);
+      popup.getAttributes().put(Attributes.HEIGHT, popupHeight);
       DateTimeConverter dateTimeConverter
           = (DateTimeConverter) facesContext.getApplication().createConverter(CONVERTER_ID);
       if (converterPattern.indexOf('s') > -1) {

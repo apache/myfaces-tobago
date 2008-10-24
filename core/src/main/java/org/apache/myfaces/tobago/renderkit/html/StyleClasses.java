@@ -18,17 +18,14 @@ package org.apache.myfaces.tobago.renderkit.html;
  */
 
 import org.apache.commons.collections.set.ListOrderedSet;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -65,10 +62,10 @@ public class StyleClasses implements Serializable {
 
   public static StyleClasses ensureStyleClasses(UIComponent component) {
     Map attributes = component.getAttributes();
-    StyleClasses classes = (StyleClasses) attributes.get(ATTR_STYLE_CLASS);
+    StyleClasses classes = (StyleClasses) attributes.get(Attributes.STYLE_CLASS);
     if (classes == null) {
       classes = new StyleClasses();
-      attributes.put(ATTR_STYLE_CLASS, classes);
+      attributes.put(Attributes.STYLE_CLASS, classes);
     }
     return classes;
   }
@@ -216,13 +213,13 @@ public class StyleClasses implements Serializable {
     removeTobagoClasses(rendererName);
 
     addAspectClass(rendererName, Aspect.DEFAULT);
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
+    if (ComponentUtil.getBooleanAttribute(component, Attributes.DISABLED)) {
       addAspectClass(rendererName, Aspect.DISABLED);
     }
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_READONLY)) {
+    if (ComponentUtil.getBooleanAttribute(component, Attributes.READONLY)) {
       addAspectClass(rendererName, Aspect.READONLY);
     }
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
+    if (ComponentUtil.getBooleanAttribute(component, Attributes.INLINE)) {
       addAspectClass(rendererName, Aspect.INLINE);
     }
     if (component instanceof UIInput) {

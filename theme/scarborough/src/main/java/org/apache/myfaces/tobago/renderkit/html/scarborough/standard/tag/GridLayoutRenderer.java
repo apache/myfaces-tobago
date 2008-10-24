@@ -24,39 +24,31 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BORDER;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CELLSPACING;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SCROLLBARS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST;
-import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.layout.LayoutToken;
-import org.apache.myfaces.tobago.layout.LayoutTokens;
-import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.component.AbstractUIForm;
+import org.apache.myfaces.tobago.component.AbstractUIGridLayout;
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.AbstractUIGridLayout;
+import org.apache.myfaces.tobago.layout.FixedLayoutToken;
+import org.apache.myfaces.tobago.layout.HideLayoutToken;
+import org.apache.myfaces.tobago.layout.LayoutToken;
+import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.MinimumLayoutToken;
+import org.apache.myfaces.tobago.layout.PixelLayoutToken;
+import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.layout.PixelLayoutToken;
-import org.apache.myfaces.tobago.layout.MinimumLayoutToken;
-import org.apache.myfaces.tobago.layout.FixedLayoutToken;
-import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
-import org.apache.myfaces.tobago.layout.HideLayoutToken;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -265,12 +257,12 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     //layoutMargins(layout);
 
     final Map attributes = layout.getAttributes();
-    List columnWidths =  (List) attributes.get(ATTR_WIDTH_LIST);
+    List columnWidths =  (List) attributes.get(Attributes.WIDTH_LIST);
 
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.TABLE, layout);
-    writer.writeAttributeFromComponent(HtmlAttributes.BORDER, ATTR_BORDER);
+    writer.writeAttributeFromComponent(HtmlAttributes.BORDER, Attributes.BORDER);
     writer.writeClassAttribute();
     writer.writeStyleAttribute();
     writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
@@ -383,7 +375,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
             writer.flush();
 
-            if (ComponentUtil.getAttribute(layout, ATTR_CELLSPACING) != null) {
+            if (ComponentUtil.getAttribute(layout, Attributes.CELLSPACING) != null) {
               cellStyle += " padding: " + getCellSpacing(facesContext, layout) + "px;";
             }
 
@@ -420,7 +412,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   private String getOverflow(UIComponent cell) {
     String overflow = "";
 
-    String scrollbars = (String) cell.getAttributes().get(ATTR_SCROLLBARS);
+    String scrollbars = (String) cell.getAttributes().get(Attributes.SCROLLBARS);
     if (scrollbars != null) {
       if (scrollbars.equals("false")) {
         overflow = " overflow: hidden;";
@@ -446,7 +438,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   private int getBorder(UIComponent component) {
     int border = 0;
     String borderWidth
-        = (String) component.getAttributes().get(ATTR_BORDER);
+        = (String) component.getAttributes().get(Attributes.BORDER);
     try {
       if (borderWidth != null) {
         border = Integer.parseInt(borderWidth);
@@ -483,7 +475,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
   }
 
   private int getCellSpacing(FacesContext facesContext, UIComponent component) {
-    String cellspacing = (String) component.getAttributes().get(ATTR_CELLSPACING);
+    String cellspacing = (String) component.getAttributes().get(Attributes.CELLSPACING);
     if (cellspacing != null) {
       try {
         return Integer.parseInt(cellspacing);
@@ -508,7 +500,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
     boolean needVerticalScroolbar = false;
     Integer innerHeight =
-          (Integer) attributes.get(ATTR_INNER_HEIGHT);
+          (Integer) attributes.get(Attributes.INNER_HEIGHT);
     if (innerHeight != null && innerHeight.intValue() > 0) {
       int value = innerHeight.intValue();
       int minimum = calculateLayoutHeight(facesContext, layout.getParent(), true);
@@ -521,7 +513,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
 
     Integer innerWidth =
-          (Integer) attributes.get(ATTR_INNER_WIDTH);
+          (Integer) attributes.get(Attributes.INNER_WIDTH);
     if (innerWidth != null && innerWidth.intValue() != -1) {
       int value = innerWidth.intValue();
       if (needVerticalScroolbar) {
@@ -550,7 +542,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     //layoutTokens.ensureSize(columnCount, new RelativeLayoutToken(1));
 
     //LayoutInfo.createLayoutTokens((String)
-        //layout.getAttributes().get(ATTR_COLUMNS), columnCount);
+        //layout.getAttributes().get(COLUMNS), columnCount);
 
     int renderedColumnCount = 0;
     if (!rows.isEmpty()) {
@@ -583,7 +575,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         getCellSpacing(facesContext, layout));
 
     setColumnWidths(layout, layoutInfo, facesContext);
-    layout.getAttributes().put(ATTR_WIDTH_LIST,
+    layout.getAttributes().put(Attributes.WIDTH_LIST,
         layoutInfo.getSpaceList());
   }
 
@@ -600,7 +592,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     LayoutTokens layoutTokens = layout.getRowLayout();
     layoutTokens.ensureSize(rows.size(), rows.size() == 1 ? new RelativeLayoutToken(1) : new FixedLayoutToken());
         /*LayoutInfo.createLayoutTokens(
-        (String) layout.getAttributes().get(ATTR_ROWS),
+        (String) layout.getAttributes().get(ROWS),
         rows.size(), rows.size() == 1 ? "1*" : "fixed");*/
 
     int renderedRowCount = rows.size();
@@ -791,7 +783,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           }
           cellWidth += (spanX - 1) * getCellSpacing(facesContext, layout);
           LayoutUtil.maybeSetLayoutAttribute(cell,
-              ATTR_LAYOUT_WIDTH, Integer.valueOf(cellWidth));
+              Attributes.LAYOUT_WIDTH, Integer.valueOf(cellWidth));
         }
       }
     }
@@ -821,8 +813,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
             LOG.debug("set height of " + cellHeight + "px to "
                 + cell.getRendererType() + " layoutInfo " + layoutInfo.toString());
           }
-          cell.getAttributes().put(ATTR_LAYOUT_HEIGHT, Integer.valueOf(cellHeight));
-          cell.getAttributes().remove(ATTR_INNER_HEIGHT);
+          cell.getAttributes().put(Attributes.LAYOUT_HEIGHT, Integer.valueOf(cellHeight));
+          cell.getAttributes().remove(Attributes.INNER_HEIGHT);
           if (cell instanceof UICell || cell instanceof AbstractUIForm) {
             List children = LayoutUtil.addChildren(new ArrayList<UIComponent>(), cell);
             for (Iterator childs = children.iterator(); childs.hasNext();) {
@@ -831,8 +823,8 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
                 LOG.debug("set height of " + cellHeight + "px to "
                     + component.getRendererType());
               }
-              component.getAttributes().put(ATTR_LAYOUT_HEIGHT, Integer.valueOf(cellHeight));
-              component.getAttributes().remove(ATTR_INNER_HEIGHT);
+              component.getAttributes().put(Attributes.LAYOUT_HEIGHT, Integer.valueOf(cellHeight));
+              component.getAttributes().remove(Attributes.INNER_HEIGHT);
 
             }
           }
@@ -856,7 +848,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
   private void layoutMargins(UIGridLayout layout) {
 
-    HtmlStyleMap style = (HtmlStyleMap) layout.getAttributes().get(ATTR_STYLE);
+    HtmlStyleMap style = (HtmlStyleMap) layout.getAttributes().get(Attributes.STYLE);
 
     if (style != null) {
       int marginTop = getMarginAsInt(layout.getMarginTop());

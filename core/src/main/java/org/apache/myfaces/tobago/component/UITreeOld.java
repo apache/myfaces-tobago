@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.util.ComponentUtil;
@@ -144,7 +143,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     if (mode != null) {
       return mode;
     }
-    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_MODE);
+    ValueBinding vb = getValueBinding(Attributes.MODE);
     if (vb != null) {
       return (String) vb.getValue(getFacesContext());
     } else {
@@ -179,7 +178,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
   public void encodeBegin(FacesContext facesContext)
       throws IOException {
     recreateTreeNodes();
-    if (ComponentUtil.getBooleanAttribute(this, TobagoConstants.ATTR_MUTABLE)
+    if (ComponentUtil.getBooleanAttribute(this, Attributes.MUTABLE)
         && getFacet("mutableToolbar") == null
         && getFacet("defaultToolbar") == null) {
       createDefaultToolbar(facesContext);
@@ -194,8 +193,8 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     UIComponent component  = facesContext.getApplication().createComponent(UIPanel.COMPONENT_TYPE);
     component.setRendererType(TobagoConstants.RENDERER_TYPE_TOOL_BAR);
     UIComponent toolbar = component;
-    toolbar.getAttributes().put(TobagoConstants.ATTR_ICON_SIZE, AbstractUIToolBar.ICON_SMALL);
-    toolbar.getAttributes().put(TobagoConstants.ATTR_LABEL_POSITION, AbstractUIToolBar.LABEL_OFF);
+    toolbar.getAttributes().put(Attributes.ICON_SIZE, AbstractUIToolBar.ICON_SMALL);
+    toolbar.getAttributes().put(Attributes.LABEL_POSITION, AbstractUIToolBar.LABEL_OFF);
     ActionListener[] handlers = getActionListeners();
 
     if ((handlers == null || handlers.length == 0) && getActionListener() == null) {
@@ -214,10 +213,10 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
       }
       command.setActionListener(getActionListener());
       command.getAttributes().put(
-          TobagoConstants.ATTR_IMAGE, "image/tobago.tree." + commands[i].getCommand() + ".gif");
+          Attributes.IMAGE, "image/tobago.tree." + commands[i].getCommand() + ".gif");
       String title = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
           "tree" + StringUtil.firstToUpperCase(commands[i].getCommand()));
-      command.getAttributes().put(TobagoConstants.ATTR_TIP, title);
+      command.getAttributes().put(Attributes.TIP, title);
 
     }
 
@@ -291,7 +290,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
 
   public boolean isSelectableTree() {
     final Object selectable
-        = ComponentUtil.getAttribute(this, TobagoConstants.ATTR_SELECTABLE);
+        = ComponentUtil.getAttribute(this, Attributes.SELECTABLE);
     return selectable != null
         && (selectable.equals("multi") || selectable.equals("multiLeafOnly")
         || selectable.equals("single") || selectable.equals("singleLeafOnly")
@@ -327,7 +326,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     }
 
     String selectable = ComponentUtil.getStringAttribute(this,
-        TobagoConstants.ATTR_SELECTABLE);
+        Attributes.SELECTABLE);
     if (selectable != null && selectable.endsWith("LeafOnly")) {
 
       Set<DefaultMutableTreeNode> selection = getState().getSelection();
@@ -424,7 +423,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     if (treeState != null) {
       return treeState;
     }
-    ValueBinding valueBinding = getValueBinding(TobagoConstants.ATTR_STATE);
+    ValueBinding valueBinding = getValueBinding(Attributes.STATE);
     if (valueBinding != null) {
       FacesContext facesContext = getFacesContext();
       TreeState state = (TreeState) valueBinding.getValue(facesContext);
@@ -447,7 +446,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     if (showJunctionsSet) {
       return (showJunctions);
     }
-    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_SHOW_JUNCTIONS);
+    ValueBinding vb = getValueBinding(Attributes.SHOW_JUNCTIONS);
     if (vb != null) {
       return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
@@ -464,7 +463,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     if (showIconsSet) {
       return (showIcons);
     }
-    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_SHOW_ICONS);
+    ValueBinding vb = getValueBinding(Attributes.SHOW_ICONS);
     if (vb != null) {
       return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
@@ -481,7 +480,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     if (showRootSet) {
       return (showRoot);
     }
-    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_SHOW_ROOT);
+    ValueBinding vb = getValueBinding(Attributes.SHOW_ROOT);
     if (vb != null) {
       return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
@@ -498,7 +497,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     if (showRootJunctionSet) {
       return (showRootJunction);
     }
-    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_SHOW_ROOT_JUNCTION);
+    ValueBinding vb = getValueBinding(Attributes.SHOW_ROOT_JUNCTION);
     if (vb != null) {
       return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
@@ -551,7 +550,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     if (mutable != null) {
       return mutable;
     }
-    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_MUTABLE);
+    ValueBinding vb = getValueBinding(Attributes.MUTABLE);
     if (vb != null) {
       return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
     } else {
@@ -582,7 +581,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     if (selectable != null) {
       return selectable;
     }
-    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_SELECTABLE);
+    ValueBinding vb = getValueBinding(Attributes.SELECTABLE);
     if (vb != null) {
       String str = (String) vb.getValue(getFacesContext());
       if (str != null) {
@@ -623,7 +622,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     if (tabIndex != null) {
       return tabIndex;
     }
-    ValueBinding vb = getValueBinding(ATTR_TAB_INDEX);
+    ValueBinding vb = getValueBinding(Attributes.TAB_INDEX);
     if (vb != null) {
       Number number = (Number) vb.getValue(getFacesContext());
       if (number != null) {

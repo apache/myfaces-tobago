@@ -24,17 +24,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE_PREVIEW;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TOOL_BAR;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UICommand;
@@ -75,8 +67,8 @@ public class RichTextEditorRenderer extends InputRendererBase {
     if (actionId != null
         && actionId.equals(component.getClientId(facesContext) + CHANGE_BUTTON)) {
       boolean state
-          = ComponentUtil.getBooleanAttribute(component, ATTR_STATE_PREVIEW);
-      component.getAttributes().put(ATTR_STATE_PREVIEW, !state);
+          = ComponentUtil.getBooleanAttribute(component, Attributes.STATE_PREVIEW);
+      component.getAttributes().put(Attributes.STATE_PREVIEW, !state);
       facesContext.renderResponse();
 
     }
@@ -104,7 +96,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
 
     boolean previewState
-        = ComponentUtil.getBooleanAttribute(component, ATTR_STATE_PREVIEW);
+        = ComponentUtil.getBooleanAttribute(component, Attributes.STATE_PREVIEW);
     // FIXME: remove this when i18n is ok
 
     String clientId = component.getClientId(facesContext);
@@ -156,7 +148,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
       writer.writeClassAttribute(bodyClasses);
       writer.writeNameAttribute(clientId);
       writer.writeIdAttribute(clientId);
-      writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE_BODY);
+      writer.writeAttribute(HtmlAttributes.STYLE, null, Attributes.STYLE_BODY);
       String onchange = HtmlUtils.generateOnchange(component, facesContext);
       if (null != onchange) {
         writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
@@ -177,8 +169,8 @@ public class RichTextEditorRenderer extends InputRendererBase {
     String clientId = component.getClientId(facesContext);
 
     component.getFacets().put(Facets.TOOL_BAR, toolbar);
-    toolbar.getAttributes().put(ATTR_ICON_SIZE, UIToolBar.ICON_SMALL);
-    toolbar.getAttributes().put(ATTR_LABEL_POSITION, UIToolBar.LABEL_OFF);
+    toolbar.getAttributes().put(Attributes.ICON_SIZE, UIToolBar.ICON_SMALL);
+    toolbar.getAttributes().put(Attributes.LABEL_POSITION, UIToolBar.LABEL_OFF);
 
     UICommand //command = (AbstractUICommand) ComponentUtil.createComponent(
 //        facesContext, AbstractUICommand.COMPONENT_TYPE, RENDERER_TYPE_MENUCOMMAND);
@@ -188,36 +180,36 @@ public class RichTextEditorRenderer extends InputRendererBase {
         facesContext, UISelectBooleanCommand.COMPONENT_TYPE, RENDERER_TYPE_MENUCOMMAND);
     toolbar.getChildren().add(command);
 
-    command.getAttributes().put(ATTR_IMAGE, "image/tobago-richtext-edit.gif");
-    command.setValueBinding(ATTR_DISABLED, ComponentUtil.createValueBinding("#{! tobagoRichtextPreviewState}"));
-    command.setValueBinding(ATTR_VALUE, ComponentUtil.createValueBinding("#{!tobagoRichtextPreviewState}"));
+    command.getAttributes().put(Attributes.IMAGE, "image/tobago-richtext-edit.gif");
+    command.setValueBinding(Attributes.DISABLED, ComponentUtil.createValueBinding("#{! tobagoRichtextPreviewState}"));
+    command.setValueBinding(Attributes.VALUE, ComponentUtil.createValueBinding("#{!tobagoRichtextPreviewState}"));
 
     String title = ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "tobago.richtexteditor.edit.title");
-    command.getAttributes().put(ATTR_TIP, title);
+    command.getAttributes().put(Attributes.TIP, title);
 
     String onClick = "Tobago.submitAction(this, '"
         + clientId + RichTextEditorRenderer.CHANGE_BUTTON + "')";
-    command.getAttributes().put(ATTR_ACTION_ONCLICK, onClick);
+    command.getAttributes().put(Attributes.ONCLICK, onClick);
 
     command = (UICommand) CreateComponentUtils.createComponent(
         facesContext, UISelectBooleanCommand.COMPONENT_TYPE, RENDERER_TYPE_MENUCOMMAND);
     toolbar.getChildren().add(command);
     //command.getAttributes().put(ATTR_COMMAND_TYPE, ToolBarSelectBooleanTag.COMMAND_TYPE);
-    command.getAttributes().put(ATTR_IMAGE, "image/tobago-richtext-preview.gif");
-    command.setValueBinding(ATTR_DISABLED, ComponentUtil.createValueBinding("#{tobagoRichtextPreviewState}"));
-    command.setValueBinding(ATTR_VALUE, ComponentUtil.createValueBinding("#{tobagoRichtextPreviewState}"));
+    command.getAttributes().put(Attributes.IMAGE, "image/tobago-richtext-preview.gif");
+    command.setValueBinding(Attributes.DISABLED, ComponentUtil.createValueBinding("#{tobagoRichtextPreviewState}"));
+    command.setValueBinding(Attributes.VALUE, ComponentUtil.createValueBinding("#{tobagoRichtextPreviewState}"));
 
     title = ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "tobago.richtexteditor.preview.title");
-    command.getAttributes().put(ATTR_TIP, title);
-    command.getAttributes().put(ATTR_ACTION_ONCLICK, onClick);
+    command.getAttributes().put(Attributes.TIP, title);
+    command.getAttributes().put(Attributes.ONCLICK, onClick);
 
     command = (UICommand) CreateComponentUtils.createComponent(
         facesContext, UICommand.COMPONENT_TYPE, RENDERER_TYPE_MENUCOMMAND);
     toolbar.getChildren().add(command);
-    command.getAttributes().put(ATTR_IMAGE, "image/config.gif");
-    command.getAttributes().put(ATTR_ACTION_ONCLICK, "Tobago.doEditorCommand(this);");
+    command.getAttributes().put(Attributes.IMAGE, "image/config.gif");
+    command.getAttributes().put(Attributes.ONCLICK, "Tobago.doEditorCommand(this);");
 
     return toolbar;
   }

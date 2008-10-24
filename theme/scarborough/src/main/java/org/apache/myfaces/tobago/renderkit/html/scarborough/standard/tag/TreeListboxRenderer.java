@@ -34,9 +34,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import java.util.Arrays;
 
 /*
  * Created 07.02.2003 16:00:00.
@@ -165,7 +165,7 @@ public class TreeListboxRenderer extends TreeOldRenderer{
 //    writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", null);
 //    writer.writeAttribute(HtmlAttributes.BORDER, "0", null);
 //    writer.writeAttribute(HtmlAttributes.SUMMARY, "", null);
-//    writer.writeComponentClass(ATTR_STYLE_CLASS);
+//    writer.writeComponentClass(STYLE_CLASS);
 //    writer.startElement(HtmlConstants.TR, null);
 //
 //
@@ -240,7 +240,7 @@ public class TreeListboxRenderer extends TreeOldRenderer{
 //          writer.writeAttribute(HtmlAttributes.SELECTED, "selected", null);
 //        }
 //
-//        writer.writeText(treeNode.getAttributes().get(ATTR_NAME), null);
+//        writer.writeText(treeNode.getAttributes().get(NAME), null);
 //        if (node.getChildCount() > 0) {
 //          writer.writeText(" -->", null);
 //        }

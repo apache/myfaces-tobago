@@ -24,11 +24,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.AbstractUIGridConstraints;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
@@ -66,14 +63,14 @@ public class TextAreaRenderer extends InputRendererBase {
     writer.startElement(HtmlConstants.TEXTAREA, input);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.ROWS, null, ATTR_ROWS);
+    writer.writeAttribute(HtmlAttributes.ROWS, null, Attributes.ROWS);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     writer.writeAttribute(HtmlAttributes.READONLY,
-        ComponentUtil.getBooleanAttribute(input, ATTR_READONLY));
+        ComponentUtil.getBooleanAttribute(input, Attributes.READONLY));
     writer.writeAttribute(HtmlAttributes.DISABLED,
-        ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED));
+        ComponentUtil.getBooleanAttribute(input, Attributes.DISABLED));
     Integer tabIndex = input.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
@@ -81,7 +78,7 @@ public class TextAreaRenderer extends InputRendererBase {
     HtmlRendererUtil.renderDojoDndItem(component, writer, true);
 
 // LAYOUT Begin
-    HtmlStyleMap style = (HtmlStyleMap) input.getAttributes().get(ATTR_STYLE);
+    HtmlStyleMap style = (HtmlStyleMap) input.getAttributes().get(Attributes.STYLE);
     Measure width = ((AbstractUIGridConstraints) input.getConstraints()).getWidth();
     if (width != null) {
       style.put("width", width.toString());

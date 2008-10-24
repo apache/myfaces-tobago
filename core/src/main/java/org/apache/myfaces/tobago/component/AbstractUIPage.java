@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.collections.KeyValue;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
@@ -223,12 +222,12 @@ public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnC
   }
 
   public PageState getPageState(FacesContext facesContext) {
-    if (FacesUtils.hasValueBindingOrValueExpression(this, ATTR_STATE)) {
+    if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.STATE)) {
       PageState state = (PageState)
-          FacesUtils.getValueFromValueBindingOrValueExpression(facesContext, this, ATTR_STATE);
+          FacesUtils.getValueFromValueBindingOrValueExpression(facesContext, this, Attributes.STATE);
       if (state == null) {
         state = new PageStateImpl();
-        FacesUtils.setValueOfBindingOrExpression(facesContext, state, this, ATTR_STATE);
+        FacesUtils.setValueOfBindingOrExpression(facesContext, state, this, Attributes.STATE);
       }
       return state;
     } else {

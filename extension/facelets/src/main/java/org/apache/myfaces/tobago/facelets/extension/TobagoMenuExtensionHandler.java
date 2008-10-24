@@ -23,7 +23,7 @@ import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
-import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 
@@ -73,15 +73,15 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
   protected MetaRuleset createMetaRuleset(Class aClass) {
     MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
     if (UIMenuCommand.class.isAssignableFrom(aClass)) {
-      metaRuleset.ignore(TobagoConstants.ATTR_CONVERTER);
-      metaRuleset.ignore(TobagoConstants.ATTR_VALUE);
+      metaRuleset.ignore(Attributes.CONVERTER);
+      metaRuleset.ignore(Attributes.VALUE);
       return metaRuleset;
     } else {
       TagAttribute [] attrs = tag.getAttributes().getAll();
       for (int i = 0; i < attrs.length; i++) {
         TagAttribute attr = attrs[i];
-        if (!(attr.getLocalName().equals(TobagoConstants.ATTR_CONVERTER)
-            || attr.getLocalName().equals(TobagoConstants.ATTR_VALUE))) {
+        if (!(attr.getLocalName().equals(Attributes.CONVERTER)
+            || attr.getLocalName().equals(Attributes.VALUE))) {
           metaRuleset.ignore(attr.getLocalName());
         }
       }

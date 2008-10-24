@@ -17,167 +17,480 @@ package org.apache.myfaces.tobago;
  * limitations under the License.
  */
 
+/**
+ * @see org.apache.myfaces.tobago.component.Attributes
+ * @see org.apache.myfaces.tobago.component.Facets
+ */
 public final class TobagoConstants {
 
   public static final String SUBCOMPONENT_SEP = "::";
 
   //  public static final String ATTR_ACCESS_KEY = "accessKey";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ACTION = "action";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ACTION_ONCLICK = "onclick";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ACTION_LINK = "link";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ACTION_LISTENER = "actionListener";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ALIGN = "align";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ALT = "alt";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_AUTO_RELOAD = "autoReload";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_BODY_CONTENT = "bodyContent";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_BORDER = "border";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_CHARSET = "charset";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_CALENDAR_DATE_INPUT_ID = "CalendarDateInputId";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_CELLSPACING = "cellspacing";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_CLASSES_BLOCKS = "cssClassesBlocks";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_CLIENT_PROPERTIES = "clientProperties";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_COLUMNS = "columns";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_CONVERTER = "converter";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_DATE_STYLE = "dateStyle";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_DEFAULT_COMMAND = "defaultCommand";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_DELAY = "delay";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_DIRECT_LINK_COUNT = "directLinkCount";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_DISABLED = "disabled";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_DOCTYPE = "doctype";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ENCTYPE = "enctype";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ESCAPE = "escape";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_EXPANDED = "expanded";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_EVENT = "event";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_FIRST = "first";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_FREQUENCY = "frequency";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_FOCUS = "focus";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_FOCUS_ID = "focusId";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_FOOTER_HEIGHT = "footerHeight";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_FORCE_VERTICAL_SCROLLBAR = "forceVerticalScrollbar";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_FORMAT_PATTERN = "formatPattern";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_FOR = "for";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_GLOBAL_ONLY = "globalOnly";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_HEIGHT = "height";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_HIDDEN = "hidden";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_HOVER = "hover";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_I18N = "i18n";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ICON_SIZE = "iconSize";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ID = "id";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_IMMEDIATE = "immediate";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_IMAGE = "image";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_INLINE = "inline";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_INNER_HEIGHT = "innerHeight";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_INNER_WIDTH = "innerWidth";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ITEM_DESCRIPTION = "itemDescription";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ITEM_DISABLED = "itemDisabled";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ITEM_LABEL = "itemLabel";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ITEM_IMAGE = "itemImage";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ITEM_VALUE = "itemValue";
 
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_LABEL = "label";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_LABEL_POSITION = "labelPosition";
   //  public static final String ATTR_LABEL_WITH_ACCESS_KEY = "labelWithAccessKey";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_LAYOUT_HEIGHT = "layoutHeight";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_MARGIN = "margin";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_MARGIN_BOTTOM = "marginBottom";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_MARGIN_LEFT = "marginLeft";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_MARGIN_RIGHT = "marginRight";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_MARGIN_TOP = "marginTop";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_MARKED = "marked";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_MODAL = "modal";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_LAYOUT_ORDER = "layoutOrder";
   //public static final String ATTR_LAYOUT_TABLE_STYLE = "layoutTableStyle";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_LAYOUT_WIDTH = "layoutWidth";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_LEFT = "left";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_MARKUP = "markup";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_MAX = "max";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_MAX_SEVERITY = "maxSeverity";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_MAX_NUMBER = "maxNumber";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_MENU_POPUP = "menuPopup";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_MENU_POPUP_TYPE = "menuPopupType";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_COMMAND_TYPE = "menuType";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_METHOD = "method";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_MIN = "min";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_MIN_SEVERITY = "minSeverity";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_MINIMUM_SIZE = "minimunSize";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_MODE = "mode";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_MUTABLE = "mutable";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_NAME = "name";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_NAVIGATE = "navigate";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_NUMBER_STYLE = "numberStyle";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ONCHANGE = "onchange";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ONCLICK = "onclick";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ORDER_BY = "orderBy";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ORIENTATION = "orientation";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_PAGE_MENU = "pageMenu";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_PASSWORD = "password";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_POPUP_LIST = "popupList";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_RENDERED_PARTIALLY = "renderedPartially";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
+  public static final String ATTR_POPUP_CLOSE = "popupClose";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_POPUP_RESET = "popupReset";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_POPUP_CALENDAR_ID = "popupCalendarId";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_PREFORMATED = "preformated";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_READONLY = "readonly";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_REFERENCE = "reference";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_RELATIVE = "relative";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_RENDERED = "rendered";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_RENDERER_TYPE = "rendererType";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_RENDER_AS = "renderAs";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_RENDER_RANGE = "renderRange";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_RENDER_RANGE_EXTERN = "renderRangeExtern";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_REQUIRED = "required";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ROW_ID = "sheetRowId";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ROWS = "rows";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SCRIPT_FILES = "scriptFiles";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SCROLLBAR_HEIGHT = "scrollbarHeight";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SCROLLBARS = "scrollbars";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SELECTED_INDEX = "selectedIndex";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SELECTED_LIST_STRING = "selectedListString";
   //  public static final String ATTR_SERVER_SIDE_TABS = "serverSideTab";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SORTABLE = "sortable";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_CREATE_SPAN = "createSpan";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SELECTABLE = "selectable";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SHOW_DIRECT_LINKS = "showDirectLinks";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SHOW_HEADER = "showHeader";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SHOW_ICONS = "showIcons";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SHOW_JUNCTIONS = "showJunctions";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SHOW_PAGE_RANGE = "showPageRange";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SHOW_ROOT = "showRoot";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SHOW_ROOT_JUNCTION = "showRootJunction";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SHOW_ROW_RANGE = "showRowRange";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SHOW_SUMMARY = "showSummary";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SHOW_DETAIL = "showDetail";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SPAN_X = "spanX";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SPAN_Y = "spanY";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SRC = "src";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_STATE = "state";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_STATE_PREVIEW = "state_preview";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_STYLE = "style";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_STYLE_BODY = "style_body";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_STYLE_CLASS = "styleClass";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_STYLE_HEADER = "style_header";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_STYLE_INNER = "style_inner";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_STYLE_FILES = "styleFiles";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SUPPPRESS_TOOLBAR_CONTAINER = "suppressToolbarContainer";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SWITCH_TYPE = "switchType";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_TARGET = "target";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_TIME_STYLE = "timeStyle";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_TIMEZONE = "timezone";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_TITLE = "title";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_TIP = "tip";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_TOP = "top";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_TRANSITION = "transition";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_TYPE = "type";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_VALUE = "value";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_VALUE_CHANGE_LISTENER = "valueChangeListener";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_VAR = "var";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_UNIT = "unit";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_UPDATE = "update";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_WIDTH = "width";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_WIDTH_LIST = "widthList";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_WIDTH_LIST_STRING = "widthListString";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_APPLICATION_ICON = "applicationIcon";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_VALIDATOR = "validator";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_TAB_INDEX = "tabIndex";
+  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_ZINDEX = "zIndex";
 
   /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
@@ -277,7 +590,6 @@ public final class TobagoConstants {
   public static final String FORM_ACCEPT_CHARSET = "utf-8";
 
   public static final String TOBAGO_COMPONENT_CREATED = "org.apache.myfaces.tobago.CREATION_MARKER";
-  public static final String ATTR_POPUP_CLOSE = "popupClose";
 
   public static final String CHAR_NON_BEAKING_SPACE = "\u00a0";
 

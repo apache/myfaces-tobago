@@ -27,6 +27,7 @@ import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
@@ -62,9 +63,9 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   public TobagoLabelExtensionHandler(ComponentConfig config) {
     super(config);
     labelWidthAttribute = getAttribute("labelWidth");
-    tipAttribute = getAttribute(TobagoConstants.ATTR_TIP);
-    labelAttribute = getAttribute(TobagoConstants.ATTR_LABEL);
-    markupAttribute = getAttribute(TobagoConstants.ATTR_MARKUP);
+    tipAttribute = getAttribute(Attributes.TIP);
+    labelAttribute = getAttribute(Attributes.LABEL);
+    markupAttribute = getAttribute(Attributes.MARKUP);
   }
 
   protected abstract String getSubComponentType();
@@ -131,13 +132,13 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     UILabel label = (UILabel) application.createComponent(UILabel.COMPONENT_TYPE);
     label.setRendererType(TobagoConstants.RENDERER_TYPE_LABEL);
     label.setId(uid);
-    label.getAttributes().put(TobagoConstants.ATTR_FOR, "@auto");
+    label.getAttributes().put(Attributes.FOR, "@auto");
     if (tipAttribute != null) {
       if (tipAttribute.isLiteral()) {
         label.setTip(tipAttribute.getValue(faceletContext));
       } else {
         ValueExpression expression = tipAttribute.getValueExpression(faceletContext, String.class);
-        ELAdaptor.setExpression(label, TobagoConstants.ATTR_TIP, expression);
+        ELAdaptor.setExpression(label, Attributes.TIP, expression);
       }
     }
     if (labelAttribute != null) {
@@ -145,7 +146,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
         label.setValue(labelAttribute.getValue(faceletContext));
       } else {
         ValueExpression expression = labelAttribute.getValueExpression(faceletContext, String.class);
-        ELAdaptor.setExpression(label, TobagoConstants.ATTR_VALUE, expression);
+        ELAdaptor.setExpression(label, Attributes.VALUE, expression);
       }
     }
     if (markupAttribute != null) {
@@ -153,7 +154,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
         ComponentUtil.setMarkup(label, markupAttribute.getValue());
       } else {
         ValueExpression expression = markupAttribute.getValueExpression(faceletContext, Object.class);
-        ELAdaptor.setExpression(label, TobagoConstants.ATTR_MARKUP, expression);
+        ELAdaptor.setExpression(label, Attributes.MARKUP, expression);
       }
     }
     panel.getChildren().add(label);
@@ -204,8 +205,8 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
       }
       return metaRuleset;
     } else {
-      metaRuleset.ignore(TobagoConstants.ATTR_LABEL);
-      metaRuleset.ignore(TobagoConstants.ATTR_TIP);
+      metaRuleset.ignore(Attributes.LABEL);
+      metaRuleset.ignore(Attributes.TIP);
       metaRuleset.ignore("labelWidth");
     }
     if (SupportsMarkup.class.isAssignableFrom(aClass)) {

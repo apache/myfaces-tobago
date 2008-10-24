@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.mozilla_4_7.tag;
  * $Id$
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -43,7 +43,7 @@ public class BoxRenderer extends BoxRendererBase {
       FacesContext facesContext, UIComponent component) throws IOException {
 
     UIComponent label = component.getFacet(Facets.LABEL);
-    String labelString = (String) component.getAttributes().get(ATTR_LABEL);
+    String labelString = (String) component.getAttributes().get(Attributes.LABEL);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 

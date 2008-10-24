@@ -25,19 +25,11 @@ package org.apache.myfaces.tobago.util;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CONVERTER;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HOVER;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LABEL;
 import org.apache.myfaces.tobago.component.AbstractUIForm;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.AbstractUIPopup;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIInputBase;
@@ -254,7 +246,7 @@ public class ComponentUtil {
   }
 
   public static UIComponent findFor(UIComponent component) {
-    String forValue = (String) component.getAttributes().get(ATTR_FOR);
+    String forValue = (String) component.getAttributes().get(Attributes.FOR);
     if (forValue == null) {
       return component.getParent();
     }
@@ -294,8 +286,8 @@ public class ComponentUtil {
   }
 
   public static boolean isOutputOnly(UIComponent component) {
-    return getBooleanAttribute(component, ATTR_DISABLED)
-        || getBooleanAttribute(component, ATTR_READONLY);
+    return getBooleanAttribute(component, Attributes.DISABLED)
+        || getBooleanAttribute(component, Attributes.READONLY);
   }
 
   public static boolean mayValidate(UIComponent component) {
@@ -350,7 +342,7 @@ public class ComponentUtil {
   public static void setStyleClasses(UIComponent component, String styleClasses) {
     if (styleClasses != null) {
       if (UIComponentTag.isValueReference(styleClasses)) {
-        component.setValueBinding(ATTR_STYLE_CLASS, createValueBinding(styleClasses));
+        component.setValueBinding(Attributes.STYLE_CLASS, createValueBinding(styleClasses));
       } else {
         String[] classes = splitList(styleClasses);
         if (classes.length > 0) {
@@ -367,7 +359,7 @@ public class ComponentUtil {
     if (markup != null) {
       if (markupComponent instanceof SupportsMarkup) {
         if (UIComponentTag.isValueReference(markup)) {
-          markupComponent.setValueBinding(ATTR_MARKUP, createValueBinding(markup));
+          markupComponent.setValueBinding(Attributes.MARKUP, createValueBinding(markup));
         } else {
           String[] markups = splitList(markup);
           ((SupportsMarkup) markupComponent).setMarkup(markups);
@@ -593,7 +585,7 @@ public class ComponentUtil {
   }
 
   public static boolean isHoverEnabled(UIComponent component) {
-    return ComponentUtil.getBooleanAttribute(component, ATTR_HOVER);
+    return ComponentUtil.getBooleanAttribute(component, Attributes.HOVER);
   }
 
   public static UIOutput getFirstNonGraphicChild(UIComponent component) {
@@ -682,9 +674,9 @@ public class ComponentUtil {
 
     if (label == null) {
       final Map attributes = component.getAttributes();
-      Object labelText = component.getValueBinding(ATTR_LABEL);
+      Object labelText = component.getValueBinding(Attributes.LABEL);
       if (labelText == null) {
-        labelText = attributes.get(ATTR_LABEL);
+        labelText = attributes.get(Attributes.LABEL);
       }
 
       if (labelText != null) {
@@ -696,9 +688,9 @@ public class ComponentUtil {
         label.setRendered(true);
 
         if (labelText instanceof ValueBinding) {
-          label.setValueBinding(ATTR_VALUE, (ValueBinding) labelText);
+          label.setValueBinding(Attributes.VALUE, (ValueBinding) labelText);
         } else {
-          label.getAttributes().put(ATTR_VALUE, labelText);
+          label.getAttributes().put(Attributes.VALUE, labelText);
         }
 
         component.getFacets().put(Facets.LABEL, label);
@@ -751,7 +743,7 @@ public class ComponentUtil {
       if (UIComponentTag.isValueReference(converterId)) {
         ValueBinding valueBinding = application.createValueBinding(converterId);
         if (valueHolder instanceof UIComponent) {
-          ((UIComponent) valueHolder).setValueBinding(ATTR_CONVERTER, valueBinding);
+          ((UIComponent) valueHolder).setValueBinding(Attributes.CONVERTER, valueBinding);
         }
       } else {
         Converter converter = application.createConverter(converterId);
@@ -818,7 +810,7 @@ public class ComponentUtil {
 
 
   public static String[] getMarkupBinding(FacesContext facesContext, SupportsMarkup component) {
-    ValueBinding vb = ((UIComponent) component).getValueBinding(ATTR_MARKUP);
+    ValueBinding vb = ((UIComponent) component).getValueBinding(Attributes.MARKUP);
     if (vb != null) {
       Object markups = vb.getValue(facesContext);
       if (markups instanceof String[]) {

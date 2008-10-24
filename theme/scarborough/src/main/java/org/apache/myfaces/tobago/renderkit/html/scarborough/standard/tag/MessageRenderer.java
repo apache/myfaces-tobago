@@ -24,13 +24,12 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DETAIL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_SUMMARY;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
@@ -80,8 +79,8 @@ public class MessageRenderer extends MessageRendererBase {
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    boolean showSummary = ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_SUMMARY);
-    boolean showDetail = ComponentUtil.getBooleanAttribute(component, ATTR_SHOW_DETAIL);
+    boolean showSummary = ComponentUtil.getBooleanAttribute(component, Attributes.SHOW_SUMMARY);
+    boolean showDetail = ComponentUtil.getBooleanAttribute(component, Attributes.SHOW_DETAIL);
 
     writer.startElement(HtmlConstants.SPAN, component);
     writer.writeClassAttribute("tobago-validation-message");

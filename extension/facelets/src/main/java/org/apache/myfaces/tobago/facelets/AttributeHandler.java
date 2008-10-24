@@ -29,7 +29,7 @@ import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
@@ -58,9 +58,9 @@ public final class AttributeHandler extends TagHandler {
 
   public AttributeHandler(TagConfig config) {
     super(config);
-    this.name = getRequiredAttribute(TobagoConstants.ATTR_NAME);
-    this.value = getRequiredAttribute(TobagoConstants.ATTR_VALUE);
-    this.mode = getAttribute(TobagoConstants.ATTR_MODE);
+    this.name = getRequiredAttribute(Attributes.NAME);
+    this.value = getRequiredAttribute(Attributes.VALUE);
+    this.mode = getAttribute(Attributes.MODE);
   }
 
   public void apply(FaceletContext faceletContext, UIComponent parent)
@@ -211,13 +211,13 @@ public final class AttributeHandler extends TagHandler {
       } else {
 
         String nameValue = name.getValue(faceletContext);
-        if (TobagoConstants.ATTR_RENDERED.equals(nameValue)) {
+        if (Attributes.RENDERED.equals(nameValue)) {
           if (value.isLiteral()) {
             parent.setRendered(value.getBoolean(faceletContext));
           } else {
             ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(faceletContext, Boolean.class));
           }
-        } else if (TobagoConstants.ATTR_RENDERED_PARTIALLY.equals(nameValue)
+        } else if (Attributes.RENDERED_PARTIALLY.equals(nameValue)
             && parent instanceof SupportsRenderedPartially) {
 
           if (value.isLiteral()) {
@@ -226,10 +226,10 @@ public final class AttributeHandler extends TagHandler {
           } else {
             ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(faceletContext, Object.class));
           }
-        } else if (TobagoConstants.ATTR_STYLE_CLASS.equals(nameValue)) {
+        } else if (Attributes.STYLE_CLASS.equals(nameValue)) {
           // TODO expression
           ComponentUtil.setStyleClasses(parent, value.getValue());
-        } else if (TobagoConstants.ATTR_MARKUP.equals(nameValue)) {
+        } else if (Attributes.MARKUP.equals(nameValue)) {
           if (parent instanceof SupportsMarkup) {
             if (value.isLiteral()) {
               ComponentUtil.setMarkup(parent, value.getValue());
@@ -240,29 +240,29 @@ public final class AttributeHandler extends TagHandler {
           } else {
             LOG.error("Component is not instanceof SupportsMarkup. Instance is: " + parent.getClass().getName());
           }
-        } else if (parent instanceof EditableValueHolder && TobagoConstants.ATTR_VALIDATOR.equals(nameValue)) {
+        } else if (parent instanceof EditableValueHolder && Attributes.VALIDATOR.equals(nameValue)) {
           MethodExpression methodExpression = getMethodExpression(faceletContext, null, ComponentUtil.VALIDATOR_ARGS);
           if (methodExpression != null) {
             // TODO jsf 1.2
             ((EditableValueHolder) parent).setValidator(new LegacyMethodBinding(methodExpression));
           }
         } else if (parent instanceof EditableValueHolder
-            && TobagoConstants.ATTR_VALUE_CHANGE_LISTENER.equals(nameValue)) {
+            && Attributes.VALUE_CHANGE_LISTENER.equals(nameValue)) {
           MethodExpression methodExpression =
               getMethodExpression(faceletContext, null, ComponentUtil.VALUE_CHANGE_LISTENER_ARGS);
           if (methodExpression != null) {
             // TODO jsf 1.2
             ((EditableValueHolder) parent).setValueChangeListener(new LegacyMethodBinding(methodExpression));
           }
-        } else if (parent instanceof ValueHolder && TobagoConstants.ATTR_CONVERTER.equals(nameValue)) {
+        } else if (parent instanceof ValueHolder && Attributes.CONVERTER.equals(nameValue)) {
           setConverter(faceletContext, parent, nameValue);
-        } else if (parent instanceof ActionSource && TobagoConstants.ATTR_ACTION.equals(nameValue)) {
+        } else if (parent instanceof ActionSource && Attributes.ACTION.equals(nameValue)) {
           MethodExpression action = getMethodExpression(faceletContext, String.class, ComponentUtil.ACTION_ARGS);
           if (action != null) {
             // TODO jsf 1.2
             ((ActionSource) parent).setAction(new LegacyMethodBinding(action));
           }
-        } else if (parent instanceof ActionSource && TobagoConstants.ATTR_ACTION_LISTENER.equals(nameValue)) {
+        } else if (parent instanceof ActionSource && Attributes.ACTION_LISTENER.equals(nameValue)) {
           MethodExpression action = getMethodExpression(faceletContext, null, ComponentUtil.ACTION_LISTENER_ARGS);
           if (action != null) {
             // TODO jsf 1.2

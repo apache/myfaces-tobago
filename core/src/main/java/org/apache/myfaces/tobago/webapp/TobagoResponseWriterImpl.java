@@ -20,8 +20,7 @@ package org.apache.myfaces.tobago.webapp;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.util.HtmlWriterUtil;
@@ -32,10 +31,10 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Arrays;
+import java.util.EmptyStackException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
-import java.util.EmptyStackException;
 
 public class TobagoResponseWriterImpl extends TobagoResponseWriter {
 
@@ -389,14 +388,14 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
   }
 
   public void writeClassAttribute() throws IOException {
-    Object clazz = component.getAttributes().get(ATTR_STYLE_CLASS);
+    Object clazz = component.getAttributes().get(Attributes.STYLE_CLASS);
     if (clazz != null) {
       writeAttribute(HtmlAttributes.CLASS, clazz.toString(), false);
     }
   }
 
   public void writeStyleAttribute() throws IOException {
-    Object style = component.getAttributes().get(ATTR_STYLE);
+    Object style = component.getAttributes().get(Attributes.STYLE);
     if (style != null) {
       writeAttribute(HtmlAttributes.STYLE, style.toString(), false);
     }

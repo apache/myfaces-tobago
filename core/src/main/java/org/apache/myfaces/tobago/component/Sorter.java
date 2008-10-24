@@ -20,23 +20,21 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.BeanComparator;
-import org.apache.myfaces.tobago.compat.FacesUtils;
 
 import javax.faces.component.UIColumn;
+import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UISelectBoolean;
-import javax.faces.component.UICommand;
-import javax.faces.component.UISelectOne;
 import javax.faces.component.UISelectMany;
+import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -181,7 +179,7 @@ public class Sorter {
 
   private void unsetSortableAttribute(UIColumn uiColumn) {
     LOG.warn("removing attribute sortable from column " + uiColumn.getId());
-    uiColumn.getAttributes().put(ATTR_SORTABLE, Boolean.FALSE);
+    uiColumn.getAttributes().put(Attributes.SORTABLE, Boolean.FALSE);
   }
 
   private UIComponent getFirstSortableChild(List children) {

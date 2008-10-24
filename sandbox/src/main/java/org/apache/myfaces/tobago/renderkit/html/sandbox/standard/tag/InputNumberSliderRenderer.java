@@ -18,10 +18,7 @@ package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
  */
 
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.util.ComponentUtil;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
@@ -29,9 +26,10 @@ import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -57,14 +55,14 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
 
     String id = component.getClientId(facesContext);
     String currentValue = getCurrentValue(facesContext, component);
-    boolean readonly = ComponentUtil.getBooleanAttribute(component, ATTR_READONLY);
-    boolean disabled = ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
+    boolean readonly = ComponentUtil.getBooleanAttribute(component, Attributes.READONLY);
+    boolean disabled = ComponentUtil.getBooleanAttribute(component, Attributes.DISABLED);
     Integer min = ComponentUtil.getIntAttribute(component, "min");
     Integer max = ComponentUtil.getIntAttribute(component, "max");
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
 
-    HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE);
+    HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get(Attributes.STYLE);
     int width = -1;
     int sliderWidthPerc = 33;
     if (ThemeConfig.hasValue(facesContext, component, SLIDER_WIDTH_PERCENT)) {
@@ -137,7 +135,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     }
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    //writer.writeAttribute(HtmlAttributes.STYLE, null, ATTR_STYLE);
+    //writer.writeAttribute(HtmlAttributes.STYLE, null, STYLE);
     writer.endElement(HtmlConstants.INPUT);
     writer.endElement(HtmlConstants.TD);
 

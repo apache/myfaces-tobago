@@ -17,8 +17,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIToolBar;
 
 import javax.faces.component.UIComponent;
@@ -28,7 +27,7 @@ public class BoxToolBarRenderer extends ToolBarRendererBase {
 
   @Override
   protected String getLabelPosition(UIComponent component) {
-    final String attribute = (String) component.getAttributes().get(ATTR_LABEL_POSITION);
+    final String attribute = (String) component.getAttributes().get(Attributes.LABEL_POSITION);
     if (UIToolBar.LABEL_BOTTOM.equals(attribute)) {
       return UIToolBar.LABEL_RIGHT;
     } else {
@@ -39,7 +38,7 @@ public class BoxToolBarRenderer extends ToolBarRendererBase {
 
   @Override
   protected String getIconSize(UIComponent component) {
-    final String attribute = (String) component.getAttributes().get(ATTR_ICON_SIZE);
+    final String attribute = (String) component.getAttributes().get(Attributes.ICON_SIZE);
     if (UIToolBar.ICON_BIG.equals(attribute)) {
       return UIToolBar.ICON_SMALL;
     } else {

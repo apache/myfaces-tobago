@@ -19,12 +19,6 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FIRST;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_LIST_STRING;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_UPDATE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
@@ -65,10 +59,16 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Data";
 
-  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+  /**
+   * @see Facets
+   * @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
   @Deprecated
   public static final String FACET_SORTER = "sorter";
   public static final String SORTER_ID = "sorter";
+  /**
+   * @see Attributes
+   * @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String ATTR_SCROLL_POSITION = "attrScrollPosition";
 
   public static final String NONE = "none";
@@ -90,8 +90,8 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
 
     SheetState state = getSheetState(facesContext);
     if (state.getFirst() > -1 && state.getFirst() < getRowCount()) {
-      if (FacesUtils.hasValueBindingOrValueExpression(this, ATTR_FIRST)) {
-        FacesUtils.setValueOfBindingOrExpression(facesContext, state.getFirst(), this, ATTR_FIRST);
+      if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.FIRST)) {
+        FacesUtils.setValueOfBindingOrExpression(facesContext, state.getFirst(), this, Attributes.FIRST);
       } else {
         setFirst(state.getFirst());
       }
@@ -120,12 +120,12 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
     if (sheetState != null) {
       return sheetState;
     } else {
-      if (FacesUtils.hasValueBindingOrValueExpression(this, ATTR_STATE)) {
+      if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.STATE)) {
         SheetState state = (SheetState)
-            FacesUtils.getValueFromValueBindingOrValueExpression(facesContext, this, ATTR_STATE);
+            FacesUtils.getValueFromValueBindingOrValueExpression(facesContext, this, Attributes.STATE);
         if (state == null) {
           state = new SheetState();
-          FacesUtils.setValueOfBindingOrExpression(facesContext, state, this, ATTR_STATE);
+          FacesUtils.setValueOfBindingOrExpression(facesContext, state, this, Attributes.STATE);
         }
         return state;
       } else {
@@ -227,11 +227,11 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
 //      state.setAscending(sortActionListener != null && sortActionListener.isAscending());
       Map attributes = getAttributes();
       //noinspection unchecked
-      state.setSelectedRows((List<Integer>) attributes.get(ATTR_SELECTED_LIST_STRING));
-      state.setColumnWidths((String) attributes.get(ATTR_WIDTH_LIST_STRING));
-      state.setScrollPosition((Integer[]) attributes.get(ATTR_SCROLL_POSITION));
-      attributes.remove(ATTR_SELECTED_LIST_STRING);
-      attributes.remove(ATTR_SCROLL_POSITION);
+      state.setSelectedRows((List<Integer>) attributes.get(Attributes.SELECTED_LIST_STRING));
+      state.setColumnWidths((String) attributes.get(Attributes.WIDTH_LIST_STRING));
+      state.setScrollPosition((Integer[]) attributes.get(Attributes.SCROLL_POSITION));
+      attributes.remove(Attributes.SELECTED_LIST_STRING);
+      attributes.remove(Attributes.SCROLL_POSITION);
     }
   }
 
@@ -367,9 +367,9 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
       UIComponent reload = getFacet(Facets.RELOAD);
       if (ajaxId != null && ajaxId.equals(getClientId(context)) && reload != null && reload.isRendered()
           && ajaxId.equals(ComponentUtil.findPage(context, this).getActionId())) {
-        Boolean immediate = (Boolean) reload.getAttributes().get(ATTR_IMMEDIATE);
+        Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
         if (immediate != null && immediate) {
-          Boolean update = (Boolean) reload.getAttributes().get(ATTR_UPDATE);
+          Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
           if (update != null && !update) {
             if (context.getExternalContext().getResponse() instanceof HttpServletResponse) {
               ((HttpServletResponse) context.getExternalContext().getResponse())
@@ -404,9 +404,9 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
     //}
     UIComponent reload = getFacet(Facets.RELOAD);
     if (reload != null && reload.isRendered()) {
-      Boolean immediate = (Boolean) reload.getAttributes().get(ATTR_IMMEDIATE);
+      Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
       if (immediate != null && !immediate) {
-        Boolean update = (Boolean) reload.getAttributes().get(ATTR_UPDATE);
+        Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
         if (update != null && !update) {
           return;
         }
@@ -416,7 +416,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
   }
 
   public Integer[] getScrollPosition() {
-    Integer[] scrollPosition = (Integer[]) getAttributes().get(ATTR_SCROLL_POSITION);
+    Integer[] scrollPosition = (Integer[]) getAttributes().get(Attributes.SCROLL_POSITION);
     if (scrollPosition == null) {
       scrollPosition = getSheetState(FacesContext.getCurrentInstance()).getScrollPosition();
     }
@@ -529,8 +529,8 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
         // can't happen
     }
 
-    if (FacesUtils.hasValueBindingOrValueExpression(this, ATTR_FIRST)) {
-      FacesUtils.setValueOfBindingOrExpression(FacesContext.getCurrentInstance(), first, this, ATTR_FIRST);
+    if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.FIRST)) {
+      FacesUtils.setValueOfBindingOrExpression(FacesContext.getCurrentInstance(), first, this, Attributes.FIRST);
     } else {
       setFirst(first);
     }

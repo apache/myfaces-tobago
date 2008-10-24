@@ -17,28 +17,28 @@ package org.apache.myfaces.tobago.internal.taglib;
  * limitations under the License.
  */
 
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.AbstractUIMessages;
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.InputSuggest;
+import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.component.AbstractUIMessages;
-import org.apache.myfaces.tobago.component.InputSuggest;
-import org.apache.myfaces.tobago.el.ConstantMethodBinding;
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.ActionSource;
-import javax.faces.component.ValueHolder;
-import javax.faces.webapp.UIComponentTag;
-import javax.faces.el.ValueBinding;
-import javax.faces.el.MethodBinding;
-import javax.faces.context.FacesContext;
 import javax.faces.application.Application;
+import javax.faces.component.ActionSource;
+import javax.faces.component.EditableValueHolder;
+import javax.faces.component.UIComponent;
+import javax.faces.component.ValueHolder;
+import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.el.MethodBinding;
+import javax.faces.el.ValueBinding;
+import javax.faces.webapp.UIComponentTag;
 import java.lang.reflect.InvocationTargetException;
 
 
@@ -53,7 +53,7 @@ public class TagUtils {
         if ((component instanceof org.apache.myfaces.tobago.component.AbstractUIPage
             || component instanceof javax.faces.component.UIGraphic
             || component instanceof org.apache.myfaces.tobago.component.AbstractUIPopup)
-            && (TobagoConstants.ATTR_WIDTH.equals(name) || TobagoConstants.ATTR_HEIGHT.equals(name))) {
+            && (Attributes.WIDTH.equals(name) || Attributes.HEIGHT.equals(name))) {
           if (value.endsWith("px")) {
             value = value.substring(0, value.length() - 2);
           }

@@ -19,10 +19,7 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Cell;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -126,9 +123,9 @@ public abstract class LayoutableRendererBase
       }
     } else {
       if (width) {
-        fixedSpace = getFixedSpace(facesContext, component, ATTR_WIDTH, "fixedWidth");
+        fixedSpace = getFixedSpace(facesContext, component, Attributes.WIDTH, "fixedWidth");
       } else {
-        fixedSpace = getFixedSpace(facesContext, component, ATTR_HEIGHT, "fixedHeight");
+        fixedSpace = getFixedSpace(facesContext, component, Attributes.HEIGHT, "fixedHeight");
       }
     }
     return fixedSpace;
@@ -190,7 +187,7 @@ public abstract class LayoutableRendererBase
     if (layoutWidth != null) {
       int space = layoutWidth.intValue();
       int innerSpace = LayoutUtil.getInnerSpace(facesContext, component, space, true);
-      component.getAttributes().put(ATTR_INNER_WIDTH, Integer.valueOf(innerSpace));
+      component.getAttributes().put(Attributes.INNER_WIDTH, Integer.valueOf(innerSpace));
     }
   }
 
@@ -199,7 +196,7 @@ public abstract class LayoutableRendererBase
     if (layoutHeight != null) {
       int space = layoutHeight.intValue();
       int innerSpace = LayoutUtil.getInnerSpace(facesContext, component, space, false);
-      component.getAttributes().put(ATTR_INNER_HEIGHT, Integer.valueOf(innerSpace));
+      component.getAttributes().put(Attributes.INNER_HEIGHT, Integer.valueOf(innerSpace));
     }
   }
 
@@ -211,11 +208,11 @@ public abstract class LayoutableRendererBase
     String styleAttribute;
     if (width) {
       layoutSpace = LayoutUtil.getLayoutWidth(component);
-      layoutAttribute = org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
+      layoutAttribute = Attributes.LAYOUT_WIDTH;
       styleAttribute = HtmlAttributes.WIDTH;
     } else {
       layoutSpace = LayoutUtil.getLayoutHeight(component);
-      layoutAttribute = org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
+      layoutAttribute = Attributes.LAYOUT_HEIGHT;
       styleAttribute = HtmlAttributes.HEIGHT;
     }
     int space = -1;
@@ -229,15 +226,15 @@ public abstract class LayoutableRendererBase
       if (space > 0 && !ComponentUtil.isFacetOf(component, parent)) {
         component.getAttributes().put(layoutAttribute, Integer.valueOf(space));
         if (width) {
-          component.getAttributes().remove(org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH);
+          component.getAttributes().remove(Attributes.INNER_WIDTH);
         } else {
-          component.getAttributes().remove(org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT);
+          component.getAttributes().remove(Attributes.INNER_HEIGHT);
         }
       }
     }
     if (space > 0) {
       if (layoutSpace != null
-          || !ComponentUtil.getBooleanAttribute(component, org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE)) {
+          || !ComponentUtil.getBooleanAttribute(component, Attributes.INLINE)) {
         int styleSpace = space;
           if (width) {
             styleSpace -= getComponentExtraWidth(facesContext, component);
@@ -265,7 +262,7 @@ public abstract class LayoutableRendererBase
     }
 
   private HtmlStyleMap ensureStyleAttributeMap(UIComponent component) {
-    return ensureStyleAttributeMap(component, org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE);
+    return ensureStyleAttributeMap(component, Attributes.STYLE);
   }
 
   private HtmlStyleMap ensureStyleAttributeMap(UIComponent component, String attribute) {

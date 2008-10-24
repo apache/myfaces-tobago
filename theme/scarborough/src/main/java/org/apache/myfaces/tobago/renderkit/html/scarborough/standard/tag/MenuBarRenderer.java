@@ -24,14 +24,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP_TYPE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PAGE_MENU;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIMenu;
@@ -82,7 +77,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     String clientId;
 
     Map attributes = component.getAttributes();
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_MENU_POPUP)) {
+    if (ComponentUtil.getBooleanAttribute(component, Attributes.MENU_POPUP)) {
       clientId = component.getParent().getClientId(facesContext);
     } else {
       clientId = component.getClientId(facesContext);
@@ -92,7 +87,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       writer.writeIdAttribute(clientId);
       HtmlRendererUtil.renderDojoDndItem(component, writer, true);
       StyleClasses styleClasses = StyleClasses.ensureStyleClasses(component);
-      if (ComponentUtil.getBooleanAttribute(component, ATTR_PAGE_MENU)) {
+      if (ComponentUtil.getBooleanAttribute(component, Attributes.PAGE_MENU)) {
         styleClasses.addClass("menuBar", "page-facet"); // XXX not a standard compliant name
       } else {
         writer.writeStyleAttribute();
@@ -140,7 +135,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
     if (facesContext instanceof TobagoFacesContext) {
-      if (!ComponentUtil.getBooleanAttribute(component, ATTR_MENU_POPUP)) {
+      if (!ComponentUtil.getBooleanAttribute(component, Attributes.MENU_POPUP)) {
         HtmlRendererUtil.renderDojoDndSource(facesContext, component);
       }
 
@@ -204,10 +199,10 @@ public class MenuBarRenderer extends LayoutableRendererBase {
         ResourceManagerUtil.getImageWithPath(facesContext, "image/MenuArrow.gif"));
     sb.append("\");\n");
 
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_MENU_POPUP)) {
+    if (ComponentUtil.getBooleanAttribute(component, Attributes.MENU_POPUP)) {
       addMenu(sb, "menu", facesContext, (UIPanel) component, 0);
       sb.append("    initMenuPopUp(searchId, pageId, \"");
-      sb.append(component.getAttributes().get(ATTR_MENU_POPUP_TYPE));
+      sb.append(component.getAttributes().get(Attributes.MENU_POPUP_TYPE));
       sb.append("\");\n");
     } else {
       addMenuEntrys(sb, "menu", facesContext, component, true);
@@ -260,12 +255,12 @@ public class MenuBarRenderer extends LayoutableRendererBase {
   private void writeMenuEntry(FacesContext facesContext, TobagoResponseWriter writer, UIPanel uiPanel)
       throws IOException {
     final boolean disabled
-        = ComponentUtil.getBooleanAttribute(uiPanel, ATTR_DISABLED);
+        = ComponentUtil.getBooleanAttribute(uiPanel, Attributes.DISABLED);
     final boolean topMenu = (uiPanel.getParent().getRendererType() != null)
-        || ComponentUtil.getBooleanAttribute(uiPanel, ATTR_MENU_POPUP);
+        || ComponentUtil.getBooleanAttribute(uiPanel, Attributes.MENU_POPUP);
     final boolean pageMenu = (uiPanel.getParent().getRendererType() != null)
         &&
-        ComponentUtil.getBooleanAttribute(uiPanel.getParent(), ATTR_PAGE_MENU);
+        ComponentUtil.getBooleanAttribute(uiPanel.getParent(), Attributes.PAGE_MENU);
     String spanClass
         = "tobago-menuBar-item-span tobago-menuBar-item-span-"
         + (disabled ? "disabled" : "enabled")
@@ -273,7 +268,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
         + (pageMenu ? " tobago-menuBar-item-page-top" : "");
 
     final LabelWithAccessKey label = new LabelWithAccessKey(uiPanel);
-    String image = (String) uiPanel.getAttributes().get(ATTR_IMAGE);
+    String image = (String) uiPanel.getAttributes().get(Attributes.IMAGE);
 
 
     addImage(writer, facesContext, image, disabled);
@@ -387,7 +382,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
 
   private void addCommand(StringBuilder sb, String var, FacesContext facesContext,
                           UICommand command, String onClick) throws IOException {
-    String image = (String) command.getAttributes().get(ATTR_IMAGE);
+    String image = (String) command.getAttributes().get(Attributes.IMAGE);
     addMenuItem(sb, var, facesContext, command, image, onClick);
   }
 
@@ -401,7 +396,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       checkbox.setId(facesContext.getViewRoot().createUniqueId());
     }
 
-    final boolean checked = ComponentUtil.getBooleanAttribute(checkbox, ATTR_VALUE);
+    final boolean checked = ComponentUtil.getBooleanAttribute(checkbox, Attributes.VALUE);
 
     String clientId = checkbox.getClientId(facesContext);
     onClick = RenderUtil.addMenuCheckToggle(clientId, onClick);
@@ -476,7 +471,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       return;
     }
     final boolean disabled
-        = ComponentUtil.getBooleanAttribute(command, ATTR_DISABLED);
+        = ComponentUtil.getBooleanAttribute(command, Attributes.DISABLED);
     String spanClass
         = "tobago-menuBar-item-span tobago-menuBar-item-span-"
         + (disabled ? "disabled" : "enabled");

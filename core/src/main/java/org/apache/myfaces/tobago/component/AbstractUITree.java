@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 
@@ -92,7 +91,7 @@ public abstract class AbstractUITree extends UIInput implements NamingContainer 
 
   public boolean isSelectableTree() {
     final Object selectable
-        = ComponentUtil.getAttribute(this, ATTR_SELECTABLE);
+        = ComponentUtil.getAttribute(this, Attributes.SELECTABLE);
     return selectable != null
         && (selectable.equals("multi") || selectable.equals("multiLeafOnly")
         || selectable.equals("single") || selectable.equals("singleLeafOnly")
@@ -130,7 +129,7 @@ public abstract class AbstractUITree extends UIInput implements NamingContainer 
       context.addMessage(getClientId(context), facesMessage);
     }
 
-    String selectable = ComponentUtil.getStringAttribute(this, ATTR_SELECTABLE);
+    String selectable = ComponentUtil.getStringAttribute(this, SELECTABLE);
     if (selectable != null && selectable.endsWith("LeafOnly")) {
 
       Set<DefaultMutableTreeNode> selection = getState().getSelection();
@@ -204,7 +203,7 @@ public abstract class AbstractUITree extends UIInput implements NamingContainer 
    if (showJunctions != null) {
      return (showJunctions);
    }
-   ValueBinding vb = getValueBinding(ATTR_SHOW_JUNCTIONS);
+   ValueBinding vb = getValueBinding(SHOW_JUNCTIONS);
    if (vb != null) {
      return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
    } else {
@@ -220,7 +219,7 @@ public abstract class AbstractUITree extends UIInput implements NamingContainer 
    if (showIcons != null) {
      return (showIcons);
    }
-   ValueBinding vb = getValueBinding(ATTR_SHOW_ICONS);
+   ValueBinding vb = getValueBinding(SHOW_ICONS);
    if (vb != null) {
      return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
    } else {
@@ -236,7 +235,7 @@ public abstract class AbstractUITree extends UIInput implements NamingContainer 
    if (showRoot != null) {
      return (showRoot);
    }
-   ValueBinding vb = getValueBinding(ATTR_SHOW_ROOT);
+   ValueBinding vb = getValueBinding(SHOW_ROOT);
    if (vb != null) {
      return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
    } else {
@@ -253,7 +252,7 @@ public abstract class AbstractUITree extends UIInput implements NamingContainer 
    if (showRootJunction != null) {
      return (showRootJunction);
    }
-   ValueBinding vb = getValueBinding(ATTR_SHOW_ROOT_JUNCTION);
+   ValueBinding vb = getValueBinding(SHOW_ROOT_JUNCTION);
    if (vb != null) {
      return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
    } else {

@@ -17,18 +17,18 @@ package org.apache.myfaces.tobago.facelets;
  * limitations under the License.
  */
 
-import com.sun.facelets.tag.Metadata;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.MetadataTarget;
-import com.sun.facelets.tag.MetaRule;
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.el.ELAdaptor;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import com.sun.facelets.tag.MetaRule;
+import com.sun.facelets.tag.Metadata;
+import com.sun.facelets.tag.MetadataTarget;
+import com.sun.facelets.tag.TagAttribute;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 
-import javax.faces.component.UIComponent;
 import javax.el.ValueExpression;
+import javax.faces.component.UIComponent;
 
 /*
  * User: bommel
@@ -41,7 +41,7 @@ public class SupportsMarkupRule extends MetaRule {
   public Metadata applyRule(String name, TagAttribute attribute,
       MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(SupportsMarkup.class)) {
-      if (TobagoConstants.ATTR_MARKUP.equals(name)) {
+      if (Attributes.MARKUP.equals(name)) {
         return new SupportsMarkupMapper(attribute);
       }
     }
@@ -61,7 +61,7 @@ public class SupportsMarkupRule extends MetaRule {
         ComponentUtil.setMarkup((UIComponent) instance, attribute.getValue());
       } else {
         ValueExpression expression = attribute.getValueExpression(ctx, Object.class);
-        ELAdaptor.setExpression((UIComponent) instance, TobagoConstants.ATTR_MARKUP, expression);
+        ELAdaptor.setExpression((UIComponent) instance, Attributes.MARKUP, expression);
       }
     }
   }

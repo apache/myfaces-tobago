@@ -19,9 +19,9 @@ package org.apache.myfaces.tobago.model;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import org.apache.myfaces.tobago.component.AbstractUITreeData;
 import org.apache.myfaces.tobago.component.AbstractUITreeNode;
+import org.apache.myfaces.tobago.component.Attributes;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
@@ -45,10 +45,10 @@ public class MixedTreeModel {
 
   public void beginBuildNode(AbstractUITreeNode node) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug(node.getAttributes().get(ATTR_LABEL));
+      LOG.debug(node.getAttributes().get(Attributes.LABEL));
     }
     if (!isInData) {
-      DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(node.getAttributes().get(ATTR_LABEL));
+      DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(node.getAttributes().get(Attributes.LABEL));
       if (root == null) {
         root = newNode;
         current = root;
@@ -61,7 +61,7 @@ public class MixedTreeModel {
 
   public void endBuildNode(AbstractUITreeNode node) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug(node.getAttributes().get(ATTR_LABEL));
+      LOG.debug(node.getAttributes().get(Attributes.LABEL));
     }
     if (!isInData) {
       current = (DefaultMutableTreeNode) current.getParent();

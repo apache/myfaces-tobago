@@ -19,9 +19,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_NAME;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeListboxBox;
 import org.apache.myfaces.tobago.component.UITreeOldNode;
@@ -63,7 +62,7 @@ public class TreeListboxBoxRenderer extends LayoutableRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     final boolean siblingMode
-        = "siblingLeafOnly".equals(tree.getAttributes().get(ATTR_SELECTABLE));
+        = "siblingLeafOnly".equals(tree.getAttributes().get(Attributes.SELECTABLE));
 
     String listboxId = treeId + SUBCOMPONENT_SEP + "cont_" + level;
     String onChange = "tbgTreeListboxChange(this, '" + treeId + "')";
@@ -95,7 +94,7 @@ public class TreeListboxBoxRenderer extends LayoutableRendererBase {
         writer.writeAttribute(HtmlAttributes.SELECTED, true);
       }
       HtmlRendererUtil.renderTip(treeNode, writer);
-      writer.writeText(treeNode.getAttributes().get(ATTR_NAME), null);
+      writer.writeText(treeNode.getAttributes().get(Attributes.NAME), null);
       if (node.getChildCount() > 0) {
         writer.writeText(" \u2192");
       }

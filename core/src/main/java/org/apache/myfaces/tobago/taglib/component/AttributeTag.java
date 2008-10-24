@@ -17,14 +17,14 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.compat.FacesUtils;
-import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
+import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.UIComponentTag;
@@ -105,9 +105,9 @@ public abstract class AttributeTag extends TagSupport {
         // TODO Message resource i18n
         throw new JspException("Can not get ValueBinding for attribute value " + getValueExpression());
       }
-    } else if (TobagoConstants.ATTR_STYLE_CLASS.equals(attributeName)) {
+    } else if (Attributes.STYLE_CLASS.equals(attributeName)) {
       ComponentUtil.setStyleClasses(component, getValueValue());
-    } else if (TobagoConstants.ATTR_RENDERED_PARTIALLY.equals(attributeName)
+    } else if (Attributes.RENDERED_PARTIALLY.equals(attributeName)
         && component instanceof SupportsRenderedPartially) {
       String[] components = ComponentUtil.splitList(getValueValue());
       ((SupportsRenderedPartially) component).setRenderedPartially(components);

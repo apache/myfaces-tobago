@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCHANGE;
+import org.apache.myfaces.tobago.component.Attributes;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -68,7 +68,7 @@ public class HtmlUtils {
       }
     } */
 
-    Object onchange = component.getAttributes().get(ATTR_ONCHANGE);
+    Object onchange = component.getAttributes().get(Attributes.ONCHANGE);
     if (onchange != null) {
       return onchange.toString();
     }

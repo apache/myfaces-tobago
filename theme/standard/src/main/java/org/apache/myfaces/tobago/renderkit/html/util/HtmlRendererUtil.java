@@ -20,21 +20,9 @@ package org.apache.myfaces.tobago.renderkit.html.util;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOCUS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ONCLICK;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UICommand;
@@ -87,7 +75,7 @@ public final class HtmlRendererUtil {
   public static void renderFocusId(FacesContext facesContext, UIComponent component)
       throws IOException {
 
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_FOCUS)) {
+    if (ComponentUtil.getBooleanAttribute(component, Attributes.FOCUS)) {
       UIPage page = (UIPage) ComponentUtil.findPage(facesContext, component);
       String id = component.getClientId(facesContext);
       if (!StringUtils.isBlank(page.getFocusId()) && !page.getFocusId().equals(id)) {
@@ -113,12 +101,12 @@ public final class HtmlRendererUtil {
   public static HtmlStyleMap prepareInnerStyle(UIComponent component) {
     HtmlStyleMap htmlStyleMap = new HtmlStyleMap();
     Integer innerSpaceInteger = (Integer)
-        component.getAttributes().get(ATTR_INNER_WIDTH);
+        component.getAttributes().get(Attributes.INNER_WIDTH);
     if (innerSpaceInteger != null && innerSpaceInteger != -1) {
       htmlStyleMap.put("width", innerSpaceInteger);
     }
     innerSpaceInteger = (Integer)
-        component.getAttributes().get(ATTR_INNER_HEIGHT);
+        component.getAttributes().get(Attributes.INNER_HEIGHT);
     if (innerSpaceInteger != null && innerSpaceInteger != -1) {
       htmlStyleMap.put("height", innerSpaceInteger);
     }
@@ -218,13 +206,13 @@ public final class HtmlRendererUtil {
 
   public static String getLayoutSpaceStyle(UIComponent component) {
     StringBuilder sb = new StringBuilder();
-    Integer space = LayoutUtil.getLayoutSpace(component, ATTR_LAYOUT_WIDTH, ATTR_LAYOUT_WIDTH);
+    Integer space = LayoutUtil.getLayoutSpace(component, Attributes.LAYOUT_WIDTH, Attributes.LAYOUT_WIDTH);
     if (space != null) {
       sb.append(" width: ");
       sb.append(space);
       sb.append("px;");
     }
-    space = LayoutUtil.getLayoutSpace(component, ATTR_LAYOUT_HEIGHT, ATTR_LAYOUT_HEIGHT);
+    space = LayoutUtil.getLayoutSpace(component, Attributes.LAYOUT_HEIGHT, Attributes.LAYOUT_HEIGHT);
     if (space != null) {
       sb.append(" height: ");
       sb.append(space);
@@ -280,7 +268,7 @@ public final class HtmlRendererUtil {
   }
 
   private static HtmlStyleMap ensureStyleAttributeMap(UIComponent component) {
-    return ensureStyleAttributeMap(component, ATTR_STYLE);
+    return ensureStyleAttributeMap(component, Attributes.STYLE);
   }
 
   private static HtmlStyleMap ensureStyleAttributeMap(UIComponent component, String attribute) {
@@ -336,11 +324,11 @@ public final class HtmlRendererUtil {
     String styleAttribute;
     if (width) {
       layoutSpace = LayoutUtil.getLayoutWidth(component);
-      layoutAttribute = ATTR_LAYOUT_WIDTH;
+      layoutAttribute = Attributes.LAYOUT_WIDTH;
       styleAttribute = HtmlAttributes.WIDTH;
     } else {
       layoutSpace = LayoutUtil.getLayoutHeight(component);
-      layoutAttribute = ATTR_LAYOUT_HEIGHT;
+      layoutAttribute = Attributes.LAYOUT_HEIGHT;
       styleAttribute = HtmlAttributes.HEIGHT;
     }
     int space = -1;
@@ -353,16 +341,16 @@ public final class HtmlRendererUtil {
       if (space > 0 && !ComponentUtil.isFacetOf(component, parent)) {
         component.getAttributes().put(layoutAttribute, Integer.valueOf(space));
         if (width) {
-          component.getAttributes().remove(ATTR_INNER_WIDTH);
+          component.getAttributes().remove(Attributes.INNER_WIDTH);
         } else {
-          component.getAttributes().remove(ATTR_INNER_HEIGHT);
+          component.getAttributes().remove(Attributes.INNER_HEIGHT);
         }
       }
     }
     if (space > 0) {
       LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, component);
       if (layoutSpace != null
-          || !ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
+          || !ComponentUtil.getBooleanAttribute(component, Attributes.INLINE)) {
         int styleSpace = space;
         if (renderer != null) {
           if (width) {
@@ -393,7 +381,7 @@ public final class HtmlRendererUtil {
 
   public static void createHeaderAndBodyStyles(FacesContext facesContext, UIComponent component, boolean width) {
     LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, component);
-    HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get(ATTR_STYLE);
+    HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get(Attributes.STYLE);
     Integer styleSpace = null;
     try {
       styleSpace = style.getInt(width ? "width" : "height");
@@ -409,8 +397,8 @@ public final class HtmlRendererUtil {
         }
         bodySpace = styleSpace - headerSpace;
       }
-      HtmlStyleMap headerStyle = ensureStyleAttributeMap(component, ATTR_STYLE_HEADER);
-      HtmlStyleMap bodyStyle = ensureStyleAttributeMap(component, ATTR_STYLE_BODY);
+      HtmlStyleMap headerStyle = ensureStyleAttributeMap(component, Attributes.STYLE_HEADER);
+      HtmlStyleMap bodyStyle = ensureStyleAttributeMap(component, Attributes.STYLE_BODY);
       if (width) {
         headerStyle.put("width", styleSpace);
         bodyStyle.put("width", styleSpace);
@@ -578,7 +566,7 @@ public final class HtmlRendererUtil {
 
   public static String getTitleFromTipAndMessages(FacesContext facesContext, UIComponent component) {
     String messages = ComponentUtil.getFacesMessageAsString(facesContext, component);
-    return HtmlRendererUtil.addTip(messages, component.getAttributes().get(ATTR_TIP));
+    return HtmlRendererUtil.addTip(messages, component.getAttributes().get(Attributes.TIP));
   }
 
   public static String addTip(String title, Object tip) {
@@ -691,7 +679,7 @@ public final class HtmlRendererUtil {
   }
 
   public static void renderTip(UIComponent component, TobagoResponseWriter writer) throws IOException {
-    Object objTip = component.getAttributes().get(ATTR_TIP);
+    Object objTip = component.getAttributes().get(Attributes.TIP);
     if (objTip != null) {
       String tip = String.valueOf(objTip);
       if (writer instanceof TobagoResponseJsonWriterImpl) {
@@ -702,7 +690,7 @@ public final class HtmlRendererUtil {
   }
 
   public static void renderImageTip(UIComponent component, TobagoResponseWriter writer) throws IOException {
-    Object objTip = component.getAttributes().get(ATTR_TIP);
+    Object objTip = component.getAttributes().get(Attributes.TIP);
     if (objTip != null) {
       String tip = String.valueOf(objTip);
       if (writer instanceof TobagoResponseJsonWriterImpl) {
@@ -843,8 +831,8 @@ public final class HtmlRendererUtil {
 
   public static void checkForCommandFacet(UIComponent component, List<String> clientIds, FacesContext facesContext,
                                       TobagoResponseWriter writer) throws IOException {
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_READONLY)
-        || ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED)) {
+    if (ComponentUtil.getBooleanAttribute(component, Attributes.READONLY)
+        || ComponentUtil.getBooleanAttribute(component, Attributes.DISABLED)) {
       return;
     }
     Map<String, UIComponent> facets = component.getFacets();
@@ -892,7 +880,7 @@ public final class HtmlRendererUtil {
       writer.write("   Tobago.addEventListener(element, \"");
       writer.write(facetEntry.getKey());
       writer.write("\", function(){");
-      String facetAction = (String) facetComponent.getAttributes().get(ATTR_ONCLICK);
+      String facetAction = (String) facetComponent.getAttributes().get(Attributes.ONCLICK);
       if (facetAction != null) {
         writer.write(facetAction);
       } else {
@@ -906,7 +894,7 @@ public final class HtmlRendererUtil {
   }
 
   public static void removeStyleClasses(UIComponent cell) {
-    Object obj = cell.getAttributes().get(org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS);
+    Object obj = cell.getAttributes().get(Attributes.STYLE_CLASS);
     if (obj != null && obj instanceof StyleClasses && cell.getRendererType() != null) {
       StyleClasses styleClasses = (StyleClasses) obj;
       if (!styleClasses.isEmpty()) {
@@ -915,7 +903,7 @@ public final class HtmlRendererUtil {
         styleClasses.removeTobagoClasses(rendererName);
       }
       if (styleClasses.isEmpty()) {
-        cell.getAttributes().remove(org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS);
+        cell.getAttributes().remove(Attributes.STYLE_CLASS);
       }
     }
   }

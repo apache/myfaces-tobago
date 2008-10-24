@@ -23,8 +23,8 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
   */
 
 import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -52,7 +52,7 @@ public class PanelRenderer extends LayoutableRendererBase {
 
     //UIPanel component = (UIPanel) uiComponent ;
     //BodyContentHandler bodyContentHandler = (BodyContentHandler)
-    //    component.getAttributes().get(ATTR_BODY_CONTENT);
+    //    component.getAttributes().get(BODY_CONTENT);
 
     //if (bodyContentHandler != null) {
     //  ResponseWriter writer = facesContext.getResponseWriter();

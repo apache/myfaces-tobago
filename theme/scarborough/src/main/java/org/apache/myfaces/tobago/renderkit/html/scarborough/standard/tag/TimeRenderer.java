@@ -24,19 +24,17 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CALENDAR_DATE_INPUT_ID;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITimeInput;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.util.DateFormatUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -140,8 +138,8 @@ public class TimeRenderer extends InputRendererBase {
     writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getImageWithPath(facesContext, imageSrc), true);
     writer.writeAttribute(HtmlAttributes.ALT, "", false); // TODO: tip
 
-    if (!(ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED)
-        || ComponentUtil.getBooleanAttribute(input, ATTR_READONLY))) {
+    if (!(ComponentUtil.getBooleanAttribute(input, Attributes.DISABLED)
+        || ComponentUtil.getBooleanAttribute(input, Attributes.READONLY))) {
       writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgIncTime(this)", false);
       writer.writeAttribute(HtmlAttributes.ONMOUSEOVER,
           "Tobago.imageMouseover('" + imageId + "')", null);
@@ -159,8 +157,8 @@ public class TimeRenderer extends InputRendererBase {
         + (hasSeconds ? " tobago-time-image-seconds" : ""));
     writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getImageWithPath(facesContext, imageSrc), true);
     writer.writeAttribute(HtmlAttributes.ALT, "", false); // TODO: tip
-    if (!(ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED)
-        || ComponentUtil.getBooleanAttribute(input, ATTR_READONLY))) {
+    if (!(ComponentUtil.getBooleanAttribute(input, Attributes.DISABLED)
+        || ComponentUtil.getBooleanAttribute(input, Attributes.READONLY))) {
       writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgDecTime(this)", false);
       writer.writeAttribute(HtmlAttributes.ONMOUSEOVER,
           "Tobago.imageMouseover('" + imageId + "')", null);
@@ -182,7 +180,7 @@ public class TimeRenderer extends InputRendererBase {
     writer.writeAttribute(HtmlAttributes.VALUE, hour + ":" + minute + ":" + second, false);
     writer.endElement(HtmlConstants.INPUT);
 
-    String dateTextBoxId = (String) input.getAttributes().get(ATTR_CALENDAR_DATE_INPUT_ID);
+    String dateTextBoxId = (String) input.getAttributes().get(Attributes.DATE_INPUT_ID);
 
     if (dateTextBoxId != null) {
       String[] cmds = {"tbgInitTimeParse('" + id + "', '" + dateTextBoxId + "');"};
@@ -214,10 +212,10 @@ public class TimeRenderer extends InputRendererBase {
     //styleClasses.updateClassAttributeAndMarkup(input, "time");
     styleClasses.addClass("time", "input");
     writer.writeClassAttribute(styleClasses);
-    writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtil.getBooleanAttribute(input, ATTR_READONLY));
-    writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED));
-    if (!(ComponentUtil.getBooleanAttribute(input, ATTR_DISABLED)
-        || ComponentUtil.getBooleanAttribute(input, ATTR_READONLY))) {
+    writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtil.getBooleanAttribute(input, Attributes.READONLY));
+    writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtil.getBooleanAttribute(input, Attributes.DISABLED));
+    if (!(ComponentUtil.getBooleanAttribute(input, Attributes.DISABLED)
+        || ComponentUtil.getBooleanAttribute(input, Attributes.READONLY))) {
       writer.writeAttribute(HtmlAttributes.ONFOCUS, "tbgTimerInputFocus(this, " + hourMode + ")", false);
       writer.writeAttribute(HtmlAttributes.ONBLUR, "tbgTimerInputBlur(this)", false);
       writer.writeAttribute(HtmlAttributes.ONKEYUP, "tbgTimerKeyUp(this, event)", false);

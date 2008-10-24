@@ -19,15 +19,12 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_INDEX;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource;
-import org.apache.myfaces.tobago.compat.FacesUtils;
 
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
@@ -35,14 +32,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.ActionListener;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
-import javax.faces.event.ActionListener;
-import javax.faces.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collection;
+import java.util.List;
 
 public abstract class AbstractUITabGroup extends UIPanelBase implements TabChangeSource, ActionSource, AjaxComponent {
 
@@ -90,8 +87,8 @@ public abstract class AbstractUITabGroup extends UIPanelBase implements TabChang
 
   private void resetTabLayout() {
     for (UIComponent component : (List<UIComponent>) getChildren()) {
-      component.getAttributes().remove(ATTR_LAYOUT_WIDTH);
-      component.getAttributes().remove(ATTR_LAYOUT_HEIGHT);
+      component.getAttributes().remove(Attributes.LAYOUT_WIDTH);
+      component.getAttributes().remove(Attributes.LAYOUT_HEIGHT);
     }
   }
 
@@ -184,8 +181,8 @@ public abstract class AbstractUITabGroup extends UIPanelBase implements TabChang
     super.broadcast(facesEvent);
     if (facesEvent instanceof TabChangeEvent && facesEvent.getComponent() == this) {
       Integer index = ((TabChangeEvent) facesEvent).getNewTabIndex();
-      if (FacesUtils.hasValueBindingOrValueExpression(this, ATTR_SELECTED_INDEX)) {
-        FacesUtils.setValueOfBindingOrExpression(getFacesContext(), index, this, ATTR_SELECTED_INDEX);
+      if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.SELECTED_INDEX)) {
+        FacesUtils.setValueOfBindingOrExpression(getFacesContext(), index, this, Attributes.SELECTED_INDEX);
       } else {
         setSelectedIndex(index);
       }

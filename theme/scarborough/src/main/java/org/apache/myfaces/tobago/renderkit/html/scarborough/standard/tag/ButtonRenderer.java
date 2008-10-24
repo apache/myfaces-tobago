@@ -24,19 +24,17 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIButtonCommand;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UICommand;
@@ -91,7 +89,7 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.flush(); // force closing the start tag
 
 
-    String imageName = (String) command.getAttributes().get(ATTR_IMAGE);
+    String imageName = (String) command.getAttributes().get(Attributes.IMAGE);
     if (imageName != null) {
       String image;
       if (imageName.startsWith("HTTP:") || imageName.startsWith("FTP:")
@@ -125,8 +123,8 @@ public class ButtonRenderer extends CommandRendererBase {
           facesContext, command.getClientId(facesContext), label.getAccessKey());
     }
 
-    if (ComponentUtil.getBooleanAttribute(component, ATTR_DEFAULT_COMMAND)) {
-      boolean transition = ComponentUtil.getBooleanAttribute(command, ATTR_TRANSITION);
+    if (ComponentUtil.getBooleanAttribute(component, Attributes.DEFAULT_COMMAND)) {
+      boolean transition = ComponentUtil.getBooleanAttribute(command, Attributes.TRANSITION);
       HtmlRendererUtil.setDefaultTransition(facesContext, transition);
 
       HtmlRendererUtil.writeScriptLoader(facesContext, null, new String[]{
@@ -135,13 +133,13 @@ public class ButtonRenderer extends CommandRendererBase {
   }
 
   private String createButtonType(UIComponent component) {
-    boolean defaultCommand = ComponentUtil.getBooleanAttribute(component, ATTR_DEFAULT_COMMAND);
+    boolean defaultCommand = ComponentUtil.getBooleanAttribute(component, Attributes.DEFAULT_COMMAND);
     return defaultCommand ? "submit" : "button";
   }
 
   public int getFixedWidth(FacesContext facesContext, UIComponent component) {
     int width = 0;
-    String imageName = (String) component.getAttributes().get(ATTR_IMAGE);
+    String imageName = (String) component.getAttributes().get(Attributes.IMAGE);
     if (imageName != null) {
       width = getConfiguredValue(facesContext, component, "imageWidth");
     }

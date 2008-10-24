@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.component;
  */
 
 import org.apache.myfaces.tobago.OnComponentCreated;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CALENDAR_DATE_INPUT_ID;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
@@ -85,10 +84,10 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
     String clientId = getForComponent().getClientId(facesContext);
     UIComponent box = popup.findComponent("box");
     UIComponent calendar = box.findComponent("calendar");
-    calendar.getAttributes().put(ATTR_CALENDAR_DATE_INPUT_ID, clientId);
+    calendar.getAttributes().put(Attributes.DATE_INPUT_ID, clientId);
     UIComponent time = box.findComponent("time");
     if (time != null) {
-      time.getAttributes().put(ATTR_CALENDAR_DATE_INPUT_ID, clientId);
+      time.getAttributes().put(Attributes.DATE_INPUT_ID, clientId);
     }
     super.broadcast(facesEvent);
   }

@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.convert;
  */
 
 import junit.framework.TestCase;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_UNIT;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIInput;
 
 import javax.faces.convert.Converter;
@@ -73,7 +73,7 @@ public class DurationConverterUnitTest extends TestCase {
         + " long='" + aLong + "'";
     String result;
     if (unit != null) {
-      input.getAttributes().put(ATTR_UNIT, unit);
+      input.getAttributes().put(Attributes.UNIT, unit);
     }
     result = converter.getAsString(null, input, aLong);
     assertEquals(info, string, result);
@@ -86,7 +86,7 @@ public class DurationConverterUnitTest extends TestCase {
         + " string='" + string + "'";
     Long result;
     if (unit != null) {
-      input.getAttributes().put(ATTR_UNIT, unit);
+      input.getAttributes().put(Attributes.UNIT, unit);
     }
     result = (Long) converter.getAsObject(null, input, string);
     assertEquals(info, aLong, result);

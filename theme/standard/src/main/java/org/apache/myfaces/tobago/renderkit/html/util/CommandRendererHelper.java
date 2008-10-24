@@ -19,14 +19,8 @@ package org.apache.myfaces.tobago.renderkit.html.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DEFAULT_COMMAND;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_CLOSE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
 import org.apache.myfaces.tobago.component.AbstractUICommand;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
@@ -66,7 +60,7 @@ public class CommandRendererHelper {
 
   private void initOnclick(FacesContext facesContext, UICommand command, Tag tag) {
 
-    disabled = ComponentUtil.getBooleanAttribute(command, ATTR_DISABLED);
+    disabled = ComponentUtil.getBooleanAttribute(command, Attributes.DISABLED);
     href = getEmptyHref(facesContext);
 
     if (disabled) {
@@ -82,20 +76,20 @@ public class CommandRendererHelper {
       }
 
       String clientId = command.getClientId(facesContext);
-      boolean defaultCommand = ComponentUtil.getBooleanAttribute(command, ATTR_DEFAULT_COMMAND);
-      boolean transition = ComponentUtil.getBooleanAttribute(command, ATTR_TRANSITION);
+      boolean defaultCommand = ComponentUtil.getBooleanAttribute(command, Attributes.DEFAULT_COMMAND);
+      boolean transition = ComponentUtil.getBooleanAttribute(command, Attributes.TRANSITION);
 
-      if (command.getAttributes().get(ATTR_ACTION_LINK) != null) {
+      if (command.getAttributes().get(Attributes.LINK) != null) {
         String url = generateUrl(facesContext, command);
         if (tag == Tag.ANCHOR) {
           onclick = null;
           href = url;
-          target = ComponentUtil.getStringAttribute(command, ATTR_TARGET);
+          target = ComponentUtil.getStringAttribute(command, Attributes.TARGET);
         } else {
           // TODO target
           onclick = "Tobago.navigateToUrl('" + url + "');";
         }
-      } else if (command.getAttributes().get(ATTR_ACTION_ONCLICK) != null) {
+      } else if (command.getAttributes().get(Attributes.ONCLICK) != null) {
         onclick = prepareOnClick(facesContext, command);
       } else if (command instanceof AbstractUICommand
           && ((AbstractUICommand) command).getRenderedPartially().length > 0) {
@@ -120,7 +114,7 @@ public class CommandRendererHelper {
         ComponentUtil.findPage(facesContext, command).setDefaultActionId(clientId);
         onclick = null;
       } else {
-        String target = ComponentUtil.getStringAttribute(command, ATTR_TARGET);
+        String target = ComponentUtil.getStringAttribute(command, Attributes.TARGET);
         if (target == null) {
           onclick = "Tobago.submitAction(this, '" + clientId + "', " + transition + ");";
         } else {
@@ -128,9 +122,9 @@ public class CommandRendererHelper {
         }
       }
 
-      if (command.getAttributes().get(ATTR_POPUP_CLOSE) != null
+      if (command.getAttributes().get(Attributes.POPUP_CLOSE) != null
           && ComponentUtil.isInPopup(command)) {
-        String value = (String) command.getAttributes().get(ATTR_POPUP_CLOSE);
+        String value = (String) command.getAttributes().get(Attributes.POPUP_CLOSE);
         if (value.equals("immediate")) {
           onclick = "Tobago.closePopup(this);";
         } else if (value.equals("afterSubmit")
@@ -152,7 +146,7 @@ public class CommandRendererHelper {
 
   private String prepareOnClick(FacesContext facesContext, UIComponent component) {
     String onclick;
-    onclick = (String) component.getAttributes().get(ATTR_ACTION_ONCLICK);
+    onclick = (String) component.getAttributes().get(Attributes.ONCLICK);
     if (onclick.contains("@autoId")) {
       onclick = onclick.replace("@autoId", component.getClientId(facesContext));
     }
@@ -179,7 +173,7 @@ public class CommandRendererHelper {
     Application application = facesContext.getApplication();
     ViewHandler viewHandler = application.getViewHandler();
 
-    String link = (String) component.getAttributes().get(ATTR_ACTION_LINK);
+    String link = (String) component.getAttributes().get(Attributes.LINK);
     if (link.startsWith("/")) { // internal URL
       url = viewHandler.getActionURL(facesContext, link);
     } else { // external URL

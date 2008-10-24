@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
  * limitations under the License.
  */
 
-//import static org.apache.myfaces.tobago.TobagoConstants.ATTR_BODY_CONTENT;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;

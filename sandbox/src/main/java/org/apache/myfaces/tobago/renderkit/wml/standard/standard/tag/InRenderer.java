@@ -23,8 +23,8 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
  */
 
 import org.apache.commons.collections.keyvalue.DefaultKeyValue;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
@@ -59,7 +59,7 @@ public class InRenderer extends LayoutableRendererBase {
     String currentValue = RenderUtil.currentValue(component);
 
     String type = ComponentUtil.getBooleanAttribute(
-        component, ATTR_PASSWORD) ? "password" : "text";
+        component, Attributes.PASSWORD) ? "password" : "text";
 
     writer.startElement("input", component);
     writer.writeNameAttribute(clientId);

@@ -25,7 +25,7 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CLIENT_PROPERTIES;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 
 import javax.faces.component.UIViewRoot;
@@ -126,13 +126,13 @@ public class ClientProperties implements Serializable {
       return getInstance(FacesContext.getCurrentInstance());
     }
     ClientProperties clientProperties = (ClientProperties)
-        viewRoot.getAttributes().get(ATTR_CLIENT_PROPERTIES);
+        viewRoot.getAttributes().get(Attributes.CLIENT_PROPERTIES);
     if (clientProperties == null) {
       if (LOG.isInfoEnabled()) {
         LOG.info("No ClientProperties instance found creating new one");
       }
       clientProperties = getInstance(FacesContext.getCurrentInstance());
-      viewRoot.getAttributes().put(ATTR_CLIENT_PROPERTIES, clientProperties);
+      viewRoot.getAttributes().put(Attributes.CLIENT_PROPERTIES, clientProperties);
       return clientProperties;
     }
     return clientProperties;

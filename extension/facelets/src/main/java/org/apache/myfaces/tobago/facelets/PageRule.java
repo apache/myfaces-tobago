@@ -17,15 +17,15 @@ package org.apache.myfaces.tobago.facelets;
  * limitations under the License.
  */
 
-import com.sun.facelets.tag.MetadataTarget;
-import com.sun.facelets.tag.MetaRule;
-import com.sun.facelets.tag.Metadata;
-import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.el.LegacyValueBinding;
+import com.sun.facelets.tag.MetaRule;
+import com.sun.facelets.tag.Metadata;
+import com.sun.facelets.tag.MetadataTarget;
+import com.sun.facelets.tag.TagAttribute;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 
@@ -41,10 +41,10 @@ public class PageRule extends MetaRule {
       MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(UIPage.class)) {
       if (attribute.isLiteral()) {
-        if (TobagoConstants.ATTR_WIDTH.equals(name)) {
+        if (Attributes.WIDTH.equals(name)) {
           return new PageWidthMapper(attribute);
         }
-        if (TobagoConstants.ATTR_HEIGHT.equals(name)) {
+        if (Attributes.HEIGHT.equals(name)) {
           return new PageHeightMapper(attribute);
         }
       }

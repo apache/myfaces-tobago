@@ -24,7 +24,7 @@ import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
-import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UISeparator;
@@ -43,7 +43,7 @@ public class SeparatorExtensionHandler extends ComponentHandler {
 
   public SeparatorExtensionHandler(ComponentConfig config) {
     super(config);
-    labelAttribute = getAttribute(TobagoConstants.ATTR_LABEL);
+    labelAttribute = getAttribute(Attributes.LABEL);
   }
 
   protected void applyNextHandler(FaceletContext faceletContext, UIComponent separator)
@@ -70,7 +70,7 @@ public class SeparatorExtensionHandler extends ComponentHandler {
         label.setValue(labelAttribute.getValue(faceletContext));
       } else {
         ValueExpression expression = labelAttribute.getValueExpression(faceletContext, String.class);
-        ELAdaptor.setExpression(label, TobagoConstants.ATTR_VALUE, expression);
+        ELAdaptor.setExpression(label, Attributes.VALUE, expression);
       }
     }
   }
@@ -78,7 +78,7 @@ public class SeparatorExtensionHandler extends ComponentHandler {
   protected MetaRuleset createMetaRuleset(Class aClass) {
     MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
     if (UISeparator.class.isAssignableFrom(aClass)) {
-      metaRuleset.ignore(TobagoConstants.ATTR_LABEL);
+      metaRuleset.ignore(Attributes.LABEL);
       return metaRuleset;
     } else {
       TagAttribute[] attrs = tag.getAttributes().getAll();

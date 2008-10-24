@@ -24,15 +24,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DELAY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DOCTYPE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_METHOD;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PAGE_MENU;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
 import static org.apache.myfaces.tobago.TobagoConstants.FORM_ACCEPT_CHARSET;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
@@ -152,7 +146,7 @@ public class PageRenderer extends PageRendererBase {
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
     HtmlRendererUtil.renderDojoDndSource(facesContext, component);
 
-    String title = (String) page.getAttributes().get(ATTR_LABEL);
+    String title = (String) page.getAttributes().get(Attributes.LABEL);
 
     String doctype = generateDoctype(page);
 
@@ -285,9 +279,9 @@ public class PageRenderer extends PageRendererBase {
     if (component.getFacets().containsKey(Facets.ACTION)) {
       UIComponent command = component.getFacet(Facets.ACTION);
       if (command != null && command.isRendered()) {
-        int duration = ComponentUtil.getIntAttribute(command, ATTR_DELAY, 100);
-        boolean transition = ComponentUtil.getBooleanAttribute(command, ATTR_TRANSITION);
-        String target = ComponentUtil.getStringAttribute(command, ATTR_TARGET);
+        int duration = ComponentUtil.getIntAttribute(command, Attributes.DELAY, 100);
+        boolean transition = ComponentUtil.getBooleanAttribute(command, Attributes.TRANSITION);
+        String target = ComponentUtil.getStringAttribute(command, Attributes.TARGET);
         String action;
         if (target != null) {
           action = "Tobago.submitAction(this, '" + command.getClientId(facesContext) + "', "
@@ -425,7 +419,7 @@ public class PageRenderer extends PageRendererBase {
 */
 
     if (menubar != null) {
-      menubar.getAttributes().put(ATTR_PAGE_MENU, Boolean.TRUE);
+      menubar.getAttributes().put(Attributes.PAGE_MENU, Boolean.TRUE);
       RenderUtil.encode(facesContext, menubar);
     }
     // write the proviously rendered page content
@@ -576,12 +570,12 @@ public class PageRenderer extends PageRendererBase {
   }
 
   private String getMethod(UIPage page) {
-    String method = (String) page.getAttributes().get(ATTR_METHOD);
+    String method = (String) page.getAttributes().get(Attributes.METHOD);
     return method == null ? "post" : method;
   }
 
   protected String generateDoctype(UIPage page) {
-    String doctype = (String) page.getAttributes().get(ATTR_DOCTYPE);
+    String doctype = (String) page.getAttributes().get(Attributes.DOCTYPE);
     String type = null;
     if (doctype == null || "loose".equals(doctype)) {
       //default

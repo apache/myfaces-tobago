@@ -21,14 +21,13 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.util.ComponentUtil;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITreeOld;
 import org.apache.myfaces.tobago.component.UITreeOldNode;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UICommand;
@@ -181,7 +180,7 @@ public class TreeOldNodeRenderer extends LayoutableRendererBase {
       writer.writeText(jsClientId, null);
       writer.writeText(" = new TreeOldNode('", null);
       // label
-      Object name = treeNode.getAttributes().get(TobagoConstants.ATTR_NAME);
+      Object name = treeNode.getAttributes().get(Attributes.NAME);
       if (LOG.isDebugEnabled()) {
         debuging += name + " : ";
       }
@@ -193,7 +192,7 @@ public class TreeOldNodeRenderer extends LayoutableRendererBase {
       writer.writeText("',", null);
 
       // tip
-      Object tip = treeNode.getAttributes().get(TobagoConstants.ATTR_TIP);
+      Object tip = treeNode.getAttributes().get(Attributes.TIP);
       if (tip != null) {
         tip = StringEscapeUtils.escapeJavaScript(tip.toString());
         writer.writeText("'", null);
@@ -224,7 +223,7 @@ public class TreeOldNodeRenderer extends LayoutableRendererBase {
       writer.writeText(rootId, null);
       writer.writeText("',", null);
       String selectable = ComponentUtil.getStringAttribute(root,
-          TobagoConstants.ATTR_SELECTABLE);
+          Attributes.SELECTABLE);
       if (selectable != null
           && (!(selectable.equals("multi") || selectable.equals("multiLeafOnly")
           || selectable.equals("single") || selectable.equals("singleLeafOnly")
@@ -240,7 +239,7 @@ public class TreeOldNodeRenderer extends LayoutableRendererBase {
       }
       writer.writeText(",", null);
       writer.writeText(Boolean.toString(ComponentUtil.getBooleanAttribute(root,
-          TobagoConstants.ATTR_MUTABLE)), null);
+          Attributes.MUTABLE)), null);
       writer.writeText(",'", null);
       writer.writeText(
           ComponentUtil.findPage(facesContext, component).getFormId(facesContext), null);
@@ -278,7 +277,7 @@ public class TreeOldNodeRenderer extends LayoutableRendererBase {
 
       // disabled
       writer.writeText(ComponentUtil.getBooleanAttribute(treeNode,
-          TobagoConstants.ATTR_DISABLED), null);
+          Attributes.DISABLED), null);
 
       // resources
       writer.writeText(",treeResourcesHelp", null);
@@ -313,7 +312,7 @@ public class TreeOldNodeRenderer extends LayoutableRendererBase {
 
       // width
       Integer width = null;
-      HtmlStyleMap style = (HtmlStyleMap) root.getAttributes().get(ATTR_STYLE);
+      HtmlStyleMap style = (HtmlStyleMap) root.getAttributes().get(Attributes.STYLE);
       if (style != null) {
         width = style.getInt("width");
       }

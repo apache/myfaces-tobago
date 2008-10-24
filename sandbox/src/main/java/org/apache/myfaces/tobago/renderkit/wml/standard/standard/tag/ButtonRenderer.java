@@ -26,9 +26,8 @@ import org.apache.commons.collections.KeyValue;
 import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
@@ -53,10 +52,10 @@ public class ButtonRenderer extends LayoutableRendererBase {
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     // TODO
-    //String action = (String) command.getAttributes().get(ATTR_ACTION);
+    //String action = (String) command.getAttributes().get(ACTION);
 
-    if (command.getAttributes().get(ATTR_ACTION_LINK) == null
-        && command.getAttributes().get(ATTR_ACTION_ONCLICK) == null) {
+    if (command.getAttributes().get(Attributes.LINK) == null
+        && command.getAttributes().get(Attributes.ONCLICK) == null) {
       ValueHolder labelComponent
           = (ValueHolder) command.getFacet(Facets.LABEL);
       String label = (String) labelComponent.getValue();

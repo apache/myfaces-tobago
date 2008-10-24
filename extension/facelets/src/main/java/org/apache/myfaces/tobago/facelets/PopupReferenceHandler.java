@@ -17,21 +17,20 @@ package org.apache.myfaces.tobago.facelets;
  * limitations under the License.
  */
 
-import com.sun.facelets.tag.TagHandler;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagException;
-import com.sun.facelets.tag.jsf.ComponentSupport;
 import com.sun.facelets.FaceletContext;
+import com.sun.facelets.tag.TagAttribute;
+import com.sun.facelets.tag.TagConfig;
+import com.sun.facelets.tag.TagException;
+import com.sun.facelets.tag.TagHandler;
+import com.sun.facelets.tag.jsf.ComponentSupport;
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.event.PopupActionListener;
 
 import javax.el.ELException;
 import javax.faces.FacesException;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 import java.io.IOException;
-
-import org.apache.myfaces.tobago.event.PopupActionListener;
-import org.apache.myfaces.tobago.TobagoConstants;
 
 /*
  * User: bommel
@@ -44,7 +43,7 @@ public class PopupReferenceHandler extends TagHandler {
 
   public PopupReferenceHandler(TagConfig config) {
     super(config);
-    forComponent = getAttribute(TobagoConstants.ATTR_FOR);
+    forComponent = getAttribute(Attributes.FOR);
   }
 
   public void apply(FaceletContext faceletContext, UIComponent parent)

@@ -24,13 +24,13 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITab;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.context.FacesContext;
@@ -46,7 +46,7 @@ public class TabGroupRenderer extends
       FacesContext facesContext, UITab activeTab) throws IOException {
 
     HtmlStyleMap bodyStyle = (HtmlStyleMap)
-        activeTab.getParent().getAttributes().get(ATTR_STYLE_BODY);
+        activeTab.getParent().getAttributes().get(Attributes.STYLE_BODY);
     writer.startElement(HtmlConstants.TR, null);
     writer.startElement(HtmlConstants.TD, null);
     if (bodyStyle != null) {

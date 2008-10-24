@@ -19,17 +19,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP_TYPE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIMenu;
@@ -74,11 +66,11 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
   }
 
   protected String getLabelPosition(UIComponent component) {
-    return (String) component.getAttributes().get(ATTR_LABEL_POSITION);
+    return (String) component.getAttributes().get(Attributes.LABEL_POSITION);
   }
 
   protected String getIconSize(UIComponent component) {
-    return (String) component.getAttributes().get(ATTR_ICON_SIZE);
+    return (String) component.getAttributes().get(Attributes.ICON_SIZE);
   }
 
   public void encodeEnd(FacesContext context, UIComponent uiComponent) throws IOException {
@@ -150,7 +142,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
       for (SelectItem item : items) {
         final String labelText = item.getLabel();
         if (labelText != null) {
-          command.getAttributes().put(ATTR_LABEL, labelText);
+          command.getAttributes().put(Attributes.LABEL, labelText);
         } else {
           LOG.warn("Menu item has label=null. UICommand.getClientId()="
               + command.getClientId(facesContext));
@@ -165,10 +157,10 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
         if (image == null) {
           image = "image/1x1.gif";
         }
-        command.getAttributes().put(ATTR_IMAGE, image);
+        command.getAttributes().put(Attributes.IMAGE, image);
 
         if (item.getDescription() != null) {
-          command.getAttributes().put(ATTR_TIP, item.getDescription());
+          command.getAttributes().put(Attributes.TIP, item.getDescription());
         }
 
 
@@ -201,7 +193,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
       checkbox.setId(facesContext.getViewRoot().createUniqueId());
     }
 
-    final boolean checked = ComponentUtil.getBooleanAttribute(checkbox, ATTR_VALUE);
+    final boolean checked = ComponentUtil.getBooleanAttribute(checkbox, Attributes.VALUE);
 
     String onClick = createOnClick(facesContext, command);
 
@@ -223,7 +215,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
     }
 
     final String clientId = command.getClientId(facesContext);
-    final boolean disabled = ComponentUtil.getBooleanAttribute(command, ATTR_DISABLED);
+    final boolean disabled = ComponentUtil.getBooleanAttribute(command, Attributes.DISABLED);
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
     final UIComponent popupMenu = command.getFacet(Facets.MENUPOPUP);
 
@@ -231,7 +223,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
     String iconSize = getIconSize(command.getParent());
 
 
-    String iconName = (String) command.getAttributes().get(ATTR_IMAGE);
+    String iconName = (String) command.getAttributes().get(Attributes.IMAGE);
     String image = getImage(facesContext, iconName, iconSize, disabled, selected);
     String graphicId = clientId + SUBCOMPONENT_SEP + "icon";
 
@@ -470,15 +462,15 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
       writer.writeClassAttribute("tobago-toolBar-button-menu-background-image");
       writer.endElement(HtmlConstants.IMG);
       writer.endElement(HtmlConstants.DIV);
-      popupMenu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
-      popupMenu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "ToolBarButton");
+      popupMenu.getAttributes().put(Attributes.MENU_POPUP, Boolean.TRUE);
+      popupMenu.getAttributes().put(Attributes.MENU_POPUP_TYPE, "ToolBarButton");
       popupMenu.setRendererType(RENDERER_TYPE_MENUBAR);
       if (popupMenu instanceof UIMenu)  {
         ((UIMenu) popupMenu).setLabel(null);
       } else {
-        popupMenu.getAttributes().remove(ATTR_LABEL);
+        popupMenu.getAttributes().remove(Attributes.LABEL);
       }
-      popupMenu.getAttributes().put(ATTR_IMAGE, "image/toolbarButtonMenu.gif");
+      popupMenu.getAttributes().put(Attributes.IMAGE, "image/toolbarButtonMenu.gif");
       RenderUtil.encode(facesContext, popupMenu);
     }
 
