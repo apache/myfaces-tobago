@@ -25,14 +25,91 @@ import org.apache.myfaces.tobago.layout.ComponentImpl;
 import org.apache.myfaces.tobago.layout.Container;
 import org.apache.myfaces.tobago.layout.ContainerImpl;
 import org.apache.myfaces.tobago.layout.LayoutContext;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.layout.math.AssertUtils;
-import org.apache.myfaces.tobago.layout.math.EquationManager;
 
 import java.util.Arrays;
 
 public class GridLayoutManagerUnitTest extends TestCase {
 
   private static final Log LOG = LogFactory.getLog(GridLayoutManagerUnitTest.class);
+
+  /**
+   * <pre>
+   * |        300px       |
+   * |    *    |    2*    |
+   * <p/>
+   * +---------+----------+  -----
+   * |         |          |   20px
+   * +---------+----------+  -----
+   * </pre>
+   */
+  public void testSimple() {
+    Container container = new ContainerImpl();
+    ComponentImpl c1 = new ComponentImpl();
+    container.getComponents().add(c1);
+    ComponentImpl c2 = new ComponentImpl();
+    container.getComponents().add(c2);
+
+    GridLayoutManager manager = new GridLayoutManager("*;2*", "*");
+    container.setLayoutManager(manager);
+
+    ((GridConstraints) container.getConstraints()).setWidth(new PixelMeasure(300));
+    ((GridConstraints) container.getConstraints()).setHeight(new PixelMeasure(20));
+    LayoutContext layoutContext = new LayoutContext(container);
+    layoutContext.layout();
+
+    double[] result = layoutContext.getHorizontal().getResult();
+    LOG.info("result: " + Arrays.toString(result));
+    AssertUtils.assertEquals(new double[]{300, 100, 200}, result, 0.000001);
+
+    result = layoutContext.getVertical().getResult();
+    LOG.info("result: " + Arrays.toString(result));
+    AssertUtils.assertEquals(new double[]{20, 20}, result, 0.000001);
+
+    assertEquals("width of container", 300, ((GridConstraints) container.getConstraints()).getWidth().getPixel());
+    assertEquals("width of component 1", 100, ((GridConstraints) c1.getConstraints()).getWidth().getPixel());
+    assertEquals("width of component 2", 200, ((GridConstraints) c2.getConstraints()).getWidth().getPixel());
+  }
+
+  /**
+   * <pre>
+   * |            300px             |
+   * |    *    |    *     |    *    |
+   * <p/>
+   * +---------+----------+---------+  -----
+   * |         |                    |   20px
+   * +---------+----------+---------+  -----
+   * </pre>
+   */
+  public void testSpan() {
+    Container container = new ContainerImpl();
+    ComponentImpl c = new ComponentImpl();
+    container.getComponents().add(c);
+    ComponentImpl span = new ComponentImpl();
+    container.getComponents().add(span);
+    ((GridConstraints) span.getConstraints()).setColumnSpan(2);
+
+    GridLayoutManager manager = new GridLayoutManager("*;*;*", "*");
+    container.setLayoutManager(manager);
+
+    ((GridConstraints) container.getConstraints()).setWidth(new PixelMeasure(300));
+    ((GridConstraints) container.getConstraints()).setHeight(new PixelMeasure(20));
+    LayoutContext layoutContext = new LayoutContext(container);
+    layoutContext.layout();
+
+    double[] result = layoutContext.getHorizontal().getResult();
+    LOG.info("result: " + Arrays.toString(result));
+    AssertUtils.assertEquals(new double[]{300, 100, 100, 100}, result, 0.000001);
+
+    result = layoutContext.getVertical().getResult();
+    LOG.info("result: " + Arrays.toString(result));
+    AssertUtils.assertEquals(new double[]{20, 20}, result, 0.000001);
+
+    assertEquals("width of container", 300, ((GridConstraints) container.getConstraints()).getWidth().getPixel());
+    assertEquals("width of component", 100, ((GridConstraints) c.getConstraints()).getWidth().getPixel());
+    assertEquals("width of span", 200, ((GridConstraints) span.getConstraints()).getWidth().getPixel());
+  }
 
   /**
    * <pre>
@@ -51,11 +128,11 @@ public class GridLayoutManagerUnitTest extends TestCase {
    * +---------+----------+--------+--------+  ----- ----- -----
    * </pre>
    */
-  public void test() {
+  public void testSpanAndSubLayout() {
     Container container = new ContainerImpl();
     Component span = new ComponentImpl();
     GridConstraints bConstraint = GridConstraints.getConstraints(span);
-    bConstraint.setRowSpan(2);
+    bConstraint.setColumnSpan(2);
 
     container.getComponents().add(new ComponentImpl());
     container.getComponents().add(span);
@@ -75,29 +152,22 @@ public class GridLayoutManagerUnitTest extends TestCase {
     subContainer.getComponents().add(new ComponentImpl());
     subContainer.getComponents().add(new ComponentImpl());
 
-    LayoutContext layoutContext = new LayoutContext();
+    ((GridConstraints) container.getConstraints()).setWidth(new PixelMeasure(800));
+    ((GridConstraints) container.getConstraints()).setHeight(new PixelMeasure(800));
+    LayoutContext layoutContext = new LayoutContext(container);
+    layoutContext.layout();
 
-    EquationManager horizontal = layoutContext.getHorizontal();
-    horizontal.setFixedLength(0, 800);
-    horizontal.descend(0, 1);
-
-    EquationManager vertial = layoutContext.getVertical();
-    vertial.setFixedLength(0, 800);
-    vertial.descend(0, 1);
-
-    manager.layout(layoutContext, container);
-
-    horizontal.ascend();
-    vertial.ascend();
-
-    double[] result = layoutContext.getHorizontal().solve();
+    double[] result = layoutContext.getHorizontal().getResult();
     LOG.info("result: " + Arrays.toString(result));
     AssertUtils.assertEquals(new double[]{800, 100, 200, 500, 350, 150}, result, 0.000001);
 
 
-    result = layoutContext.getVertical().solve();
+    result = layoutContext.getVertical().getResult();
     LOG.info("result: " + Arrays.toString(result));
     AssertUtils.assertEquals(new double[]{800, 200, 600, 300, 300}, result, 0.000001);
+
+    assertEquals("width of container", 800, ((GridConstraints) container.getConstraints()).getWidth().getPixel());
+    assertEquals("width of span", 700, ((GridConstraints) span.getConstraints()).getWidth().getPixel());
   }
 
   /**
@@ -128,29 +198,24 @@ public class GridLayoutManagerUnitTest extends TestCase {
     span1.setLayoutManager(new GridLayoutManager("*;*;*", "*"));
     span2.setLayoutManager(new GridLayoutManager("*;*;*", "*"));
 
-    LayoutContext layoutContext = new LayoutContext();
+    ((GridConstraints) container.getConstraints()).setWidth(new PixelMeasure(900));
+    ((GridConstraints) container.getConstraints()).setHeight(new PixelMeasure(200));
+    LayoutContext layoutContext = new LayoutContext(container);
+    layoutContext.layout();
 
-    EquationManager horizontal = layoutContext.getHorizontal();
-    horizontal.setFixedLength(0, 900);
-    horizontal.descend(0, 1);
+    LOG.info(((GridLayoutManager) container.getLayoutManager()).getGrid());
 
-    EquationManager vertial = layoutContext.getVertical();
-    vertial.setFixedLength(0, 200);
-    vertial.descend(0, 1);
-
-    LOG.info(((GridLayoutManager)container.getLayoutManager()).getGrid());
-    container.getLayoutManager().layout(layoutContext, container);
-
-    horizontal.ascend();
-    vertial.ascend();
-
-    double[] result = layoutContext.getHorizontal().solve();
+    double[] result = layoutContext.getHorizontal().getResult();
     LOG.info("result: " + Arrays.toString(result));
     AssertUtils.assertEquals(new double[]{900, 300, 300, 300, 200, 200, 200, 200, 200, 200}, result, 0.000001);
 
 
-    result = layoutContext.getVertical().solve();
+    result = layoutContext.getVertical().getResult();
     LOG.info("result: " + Arrays.toString(result));
     AssertUtils.assertEquals(new double[]{200, 100, 100, 100, 100}, result, 0.000001);
+
+    assertEquals("width of container", 900, ((GridConstraints) container.getConstraints()).getWidth().getPixel());
+    assertEquals("width of span 1", 600, ((GridConstraints) span1.getConstraints()).getWidth().getPixel());
+    assertEquals("width of span 2", 600, ((GridConstraints) span2.getConstraints()).getWidth().getPixel());
   }
 }

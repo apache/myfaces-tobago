@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.PixelLayoutToken;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.layout.math.EquationManager;
 
@@ -75,7 +76,7 @@ public class GridLayoutManager implements LayoutManager {
     LOG.info("rows    = " + Arrays.toString(grid.getRows()));
   }
 */
-  public void layout(LayoutContext layoutContext, Container container) {
+  public void collect(LayoutContext layoutContext, Container container) {
 
     List<Component> components = container.getComponents();
 
@@ -99,10 +100,38 @@ public class GridLayoutManager implements LayoutManager {
             EquationManager vertial = layoutContext.getVertical();
             horizontal.descend(i, cell.getColumnSpan());
             vertial.descend(j, cell.getRowSpan());
-            layoutManager.layout(layoutContext, subContainer);
+            layoutManager.collect(layoutContext, subContainer);
             horizontal.ascend();
             vertial.ascend();
           }
+        }
+      }
+    }
+  }
+
+  public void distribute(LayoutContext layoutContext, Container container) {
+
+    for (int i = 0; i < grid.getColumnCount(); i++) {
+      for (int j = 0; j < grid.getRowCount(); j++) {
+        Cell temp = grid.get(i, j);
+        if (temp instanceof RealCell) {
+          RealCell cell = (RealCell) temp;
+          Component component = temp.getComponent();
+          EquationManager horizontal = layoutContext.getHorizontal();
+          EquationManager vertial = layoutContext.getVertical();
+          horizontal.descend(i, cell.getColumnSpan());
+          vertial.descend(j, cell.getRowSpan());
+
+          ((GridConstraints) component.getConstraints()).setWidth(new PixelMeasure((int) horizontal.getValue()));
+          ((GridConstraints) component.getConstraints()).setHeight(new PixelMeasure((int) vertial.getValue()));
+
+          if (component instanceof Container) {
+            Container subContainer = (Container) component;
+            LayoutManager layoutManager = subContainer.getLayoutManager();
+            layoutManager.distribute(layoutContext, subContainer);
+          }
+          horizontal.ascend();
+          vertial.ascend();
         }
       }
     }

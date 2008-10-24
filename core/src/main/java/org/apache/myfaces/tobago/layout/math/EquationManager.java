@@ -29,6 +29,7 @@ public class EquationManager {
 
   private SystemOfEquations equations;
   private Node current;
+  private double[] result;
 
   public EquationManager() {
     equations = new SystemOfEquations(0);
@@ -73,10 +74,23 @@ public class EquationManager {
         new ProportionEquation(getIndexOfVariable(index1), getIndexOfVariable(index2), factor1, factor2));
   }
 
-  public double[] solve() {
+  public void solve() {
     equations.prepare();
     equations.gauss();
     equations.step2();
-    return equations.result();
+    result = equations.result();
+  }
+
+  public double getValue() {
+    assert result != null;
+    double sum = 0.0;
+    for (int i = 0; i < current.getSpan(); i++) {
+      sum += result[current.getIndexOfVariable() + i];
+    }
+    return sum;
+  }
+
+  public double[] getResult() {
+    return result;
   }
 }

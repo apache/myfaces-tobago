@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.layout.grid;
 import org.apache.myfaces.tobago.layout.Component;
 import org.apache.myfaces.tobago.layout.Constraints;
 import org.apache.myfaces.tobago.layout.Dimension;
+import org.apache.myfaces.tobago.layout.Measure;
 
 /*
  * User: lofwyr
@@ -36,6 +37,10 @@ public class GridConstraints implements Constraints {
   private Dimension preferedSize; // TODO = new Dimension();
 
   private Dimension maximumSize; // TODO = new Dimension();
+
+  private Measure width;
+
+  private Measure height;
 
   /**
    * Convenience method to get the correct layout constraints from the component.
@@ -89,5 +94,21 @@ public class GridConstraints implements Constraints {
 
   public void setMaximumSize(Dimension maximumSize) {
     this.maximumSize = maximumSize;
+  }
+
+  public Measure getWidth() {
+    return width;
+  }
+
+  public void setWidth(Measure width) {
+    this.width = width;
+  }
+
+  public Measure getHeight() {
+    return height;
+  }
+
+  public void setHeight(Measure height) {
+    this.height = height;
   }
 }

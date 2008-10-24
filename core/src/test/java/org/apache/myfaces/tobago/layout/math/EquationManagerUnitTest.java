@@ -61,8 +61,8 @@ public class EquationManagerUnitTest extends TestCase {
 
     equationManager.ascend();
 
-    double[] result = equationManager.solve();
-
+    equationManager.solve();
+    double[] result = equationManager.getResult();
     LOG.info("result: " + Arrays.toString(result));
     AssertUtils.assertEquals(new double[]{600, 100, 200, 100, 200, 66.6666667, 133.3333333, 130, 70}, result, 0.000001);
   }

@@ -1,5 +1,7 @@
 package org.apache.myfaces.tobago.layout;
 
+import org.apache.myfaces.tobago.layout.grid.GridConstraints;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -23,6 +25,10 @@ package org.apache.myfaces.tobago.layout;
 public class ComponentImpl implements Component {
 
   private Constraints constraints;
+
+  public ComponentImpl() {
+    constraints = new GridConstraints();
+  }
 
   public Constraints getConstraints() {
     return constraints;

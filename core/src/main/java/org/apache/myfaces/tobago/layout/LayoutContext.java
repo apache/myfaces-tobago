@@ -17,16 +17,23 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.layout.grid.GridConstraints;
 import org.apache.myfaces.tobago.layout.math.EquationManager;
 
 public class LayoutContext {
 
+  private static final Log LOG = LogFactory.getLog(LayoutContext.class);
+
   private EquationManager horizontal;
   private EquationManager vertical;
+  private Container container;
 
-  public LayoutContext() {
-    horizontal = new EquationManager();
-    vertical = new EquationManager();
+  public LayoutContext(Container container) {
+    this.horizontal = new EquationManager();
+    this.vertical = new EquationManager();
+    this.container = container;
   }
 
   public EquationManager getHorizontal() {
@@ -35,5 +42,26 @@ public class LayoutContext {
 
   public EquationManager getVertical() {
     return vertical;
+  }
+
+  public void layout() {
+
+    horizontal.setFixedLength(0, ((GridConstraints)container.getConstraints()).getWidth().getPixel());
+    vertical.setFixedLength(0, ((GridConstraints)container.getConstraints()).getHeight().getPixel());
+
+    horizontal.descend(0, 1);
+    vertical.descend(0, 1);
+    container.getLayoutManager().collect(this, container);
+    horizontal.ascend();
+    vertical.ascend();
+
+    horizontal.solve();
+    vertical.solve();
+
+    horizontal.descend(0, 1);
+    vertical.descend(0, 1);
+    container.getLayoutManager().distribute(this, container);
+    horizontal.ascend();
+    vertical.ascend();
   }
 }
