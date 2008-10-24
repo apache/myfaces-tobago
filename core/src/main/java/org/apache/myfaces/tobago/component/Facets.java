@@ -20,6 +20,10 @@ package org.apache.myfaces.tobago.component;
 public final class Facets {
 
   public static final String ACTION = "action";
+  public static final String ADDENDUM = "addendum";
+  public static final String CHANGE = "change";
+  public static final String CLICK = "click";
+  public static final String COMPLETE = "complete";
   public static final String CONFIRMATION = "confirmation";
   public static final String CONSTRAINTS = "constraints";
   public static final String LABEL = "label";

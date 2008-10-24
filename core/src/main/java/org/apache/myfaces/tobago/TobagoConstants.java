@@ -43,8 +43,6 @@ public final class TobagoConstants {
   public static final String ATTR_DELAY = "delay";
   public static final String ATTR_DIRECT_LINK_COUNT = "directLinkCount";
   public static final String ATTR_DISABLED = "disabled";
-  @Deprecated
-  public static final String ATTR_DISABLED_REFERENCE = "disabledReference";
   public static final String ATTR_DOCTYPE = "doctype";
   public static final String ATTR_ENCTYPE = "enctype";
   public static final String ATTR_ESCAPE = "escape";
@@ -65,8 +63,6 @@ public final class TobagoConstants {
   public static final String ATTR_I18N = "i18n";
   public static final String ATTR_ICON_SIZE = "iconSize";
   public static final String ATTR_ID = "id";
-  @Deprecated
-  public static final String ATTR_ID_REFERENCE = "idReference";
   public static final String ATTR_IMMEDIATE = "immediate";
   public static final String ATTR_IMAGE = "image";
   public static final String ATTR_INLINE = "inline";
@@ -107,8 +103,6 @@ public final class TobagoConstants {
   public static final String ATTR_MODE = "mode";
   public static final String ATTR_MUTABLE = "mutable";
   public static final String ATTR_NAME = "name";
-  @Deprecated
-  public static final String ATTR_NAME_REFERENCE = "nameReference";
   public static final String ATTR_NAVIGATE = "navigate";
   public static final String ATTR_NUMBER_STYLE = "numberStyle";
   public static final String ATTR_ONCHANGE = "onchange";
@@ -168,8 +162,6 @@ public final class TobagoConstants {
   public static final String ATTR_TARGET = "target";
   public static final String ATTR_TIME_STYLE = "timeStyle";
   public static final String ATTR_TIMEZONE = "timezone";
-  @Deprecated
-  public static final String ATTR_TIP_REFERENCE = "tipReference";
   public static final String ATTR_TITLE = "title";
   public static final String ATTR_TIP = "tip";
   public static final String ATTR_TOP = "top";

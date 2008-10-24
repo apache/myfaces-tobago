@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.taglib.decl.HasAction;
 import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -54,7 +55,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsTransition;
         "org.apache.myfaces.tobago.TreeData"
         },
     facets = {
-      @Facet(name = "addendum", description = "Displays an additional component to a node.")})
+      @Facet(name = Facets.ADDENDUM, description = "Displays an additional component to a node.")})
 public interface TreeNodeTagDeclaration
     extends HasIdBindingAndRendered, HasLabel, HasValue, HasMarkup, HasAction, HasActionListener, IsImmediateCommand,
     HasOnclick, HasLink, IsTransition, HasRenderedPartially, HasTip, HasTarget,

@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /**
@@ -31,7 +32,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
     componentFamily = "org.apache.myfaces.tobago.Separator",
     componentType = "org.apache.myfaces.tobago.Separator",
     allowedChildComponenents = "NONE",
-    facets = { @Facet(name = "label", description = "This facet contains a UILabel",
+    facets = { @Facet(name= Facets.LABEL, description = "This facet contains a UILabel",
                       allowedChildComponenents = "org.apache.myfaces.tobago.Label") })
 
 public interface SeparatorTagDeclaration extends HasIdBindingAndRendered {

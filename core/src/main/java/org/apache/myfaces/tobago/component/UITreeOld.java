@@ -23,9 +23,9 @@ import org.apache.myfaces.tobago.TobagoConstants;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.TreeState;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.util.MessageFactory;
 import org.apache.myfaces.tobago.util.StringUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.ActionSource;
@@ -101,6 +101,10 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
   private String tipReference;
   private String selectable;
   private String disabledReference;
+  protected static final String ATTR_DISABLED_REFERENCE = "disabledReference";
+  protected static final String ATTR_ID_REFERENCE = "idReference";
+  protected static final String ATTR_NAME_REFERENCE = "nameReference";
+  protected static final String ATTR_TIP_REFERENCE = "tipReference";
 
   public UITreeOld() {
     treeCommands = new UITreeOld.Command[]{
@@ -515,7 +519,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
      if (idReference != null) {
        return idReference;
      }
-     ValueBinding vb = getValueBinding(TobagoConstants.ATTR_ID_REFERENCE);
+     ValueBinding vb = getValueBinding(ATTR_ID_REFERENCE);
      if (vb != null) {
        return (String) vb.getValue(getFacesContext());
      }
@@ -531,7 +535,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
      if (nameReference != null) {
        return nameReference;
      }
-     ValueBinding vb = getValueBinding(TobagoConstants.ATTR_NAME_REFERENCE);
+     ValueBinding vb = getValueBinding(ATTR_NAME_REFERENCE);
      if (vb != null) {
        return (String) vb.getValue(getFacesContext());
      }
@@ -563,7 +567,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     if (tipReference != null) {
       return tipReference;
     }
-    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_TIP_REFERENCE);
+    ValueBinding vb = getValueBinding(ATTR_TIP_REFERENCE);
     if (vb != null) {
       return (String) vb.getValue(getFacesContext());
     }
@@ -596,7 +600,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
     if (disabledReference != null) {
       return disabledReference;
     }
-    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_DISABLED_REFERENCE);
+    ValueBinding vb = getValueBinding(ATTR_DISABLED_REFERENCE);
     if (vb != null) {
       return (String) vb.getValue(getFacesContext());
     }

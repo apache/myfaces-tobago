@@ -21,6 +21,8 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -33,7 +35,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDefaultCommand;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
-import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 
 /*
  * Date: 10.02.2006
@@ -51,9 +52,9 @@ import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
     rendererType = "Button",
     allowedChildComponenents = "NONE",
     facets = {
-        @Facet(name="confirmation", description = "Contains a UIOutput instance with the confirmation message.",
+        @Facet(name= Facets.CONFIRMATION, description = "Contains a UIOutput instance with the confirmation message.",
                 allowedChildComponenents = "org.apache.myfaces.tobago.Output"),
-        @Facet(name="popup", description = "Contains a UIPopup instance.",
+        @Facet(name=Facets.POPUP, description = "Contains a UIPopup instance.",
                 allowedChildComponenents = "org.apache.myfaces.tobago.Popup")})
 public interface ButtonTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,

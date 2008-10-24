@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
@@ -41,9 +42,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
     interfaces = {"org.apache.myfaces.tobago.ajax.api.AjaxComponent",
         "org.apache.myfaces.tobago.component.SupportsMarkup"},
     facets = {
-    @Facet(name="reload", description = "Contains an instance of UIReload",
+    @Facet(name= Facets.RELOAD, description = "Contains an instance of UIReload",
             allowedChildComponenents = "org.apache.myfaces.tobago.Reload"),
-    @Facet(name="layout", description = "Contains an instance of UILayout",
+    @Facet(name=Facets.LAYOUT, description = "Contains an instance of UILayout",
             allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 public interface PanelTagDeclaration extends HasIdBindingAndRendered, HasDeprecatedDimension {
 

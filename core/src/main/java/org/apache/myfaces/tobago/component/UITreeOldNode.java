@@ -116,7 +116,7 @@ public class UITreeOldNode extends javax.faces.component.UIInput {
   private void initName() {
     TreeNode treeNode = (TreeNode) getValue();
     if (treeNode != null) {
-      Object name = getReference(treeNode, TobagoConstants.ATTR_NAME_REFERENCE);
+      Object name = getReference(treeNode, UITreeOld.ATTR_NAME_REFERENCE);
       if (name == null) {
         name = toString();
       }
@@ -127,7 +127,7 @@ public class UITreeOldNode extends javax.faces.component.UIInput {
   private void initTip() {
     TreeNode treeNode = (TreeNode) getValue();
     if (treeNode != null) {
-      Object tip = getReference(treeNode, TobagoConstants.ATTR_TIP_REFERENCE);
+      Object tip = getReference(treeNode, UITreeOld.ATTR_TIP_REFERENCE);
       if (tip != null) {
         getAttributes().put(TobagoConstants.ATTR_TIP, tip.toString());
       }
@@ -138,7 +138,7 @@ public class UITreeOldNode extends javax.faces.component.UIInput {
     TreeNode treeNode = (TreeNode) getValue();
     if (treeNode != null) {
       Object disabled = getReference(treeNode,
-          TobagoConstants.ATTR_DISABLED_REFERENCE);
+          UITreeOld.ATTR_DISABLED_REFERENCE);
       if (!(disabled instanceof Boolean)) {
         if (disabled instanceof String) {
           disabled = Boolean.valueOf((String) disabled);
@@ -153,7 +153,7 @@ public class UITreeOldNode extends javax.faces.component.UIInput {
   private void initId() {
     TreeNode treeNode = (TreeNode) getValue();
     if (treeNode != null) {
-      Object id = getReference(treeNode, TobagoConstants.ATTR_ID_REFERENCE);
+      Object id = getReference(treeNode, UITreeOld.ATTR_ID_REFERENCE);
       if (!(id instanceof String)) {
         id = "node" + Integer.toString(System.identityHashCode(treeNode));
       }

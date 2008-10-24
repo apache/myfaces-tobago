@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /*
@@ -47,7 +48,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
     allowedChildComponenents = {
         "javax.faces.Column",
         "org.apache.myfaces.tobago.ColumnSelector"},
-    facets = {@Facet(name="reload", description = "Contains an instance of UIReload",
+    facets = {@Facet(name = Facets.RELOAD, description = "Contains an instance of UIReload",
                      allowedChildComponenents = "org.apache.myfaces.tobago.Reload")})
 
 public interface SheetTagDeclaration extends HasIdBindingAndRendered {

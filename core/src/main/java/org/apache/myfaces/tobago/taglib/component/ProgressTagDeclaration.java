@@ -17,12 +17,13 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
@@ -42,7 +43,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
     rendererType = "Progress",
     allowedChildComponenents = "NONE",
     facets = {@Facet(
-        name="complete",
+        name= Facets.COMPLETE,
         description =
             "Contains an instance of UICommand (tc:command). The action is invoked if the full progress has reached",
         allowedChildComponenents = "org.apache.myfaces.tobago.Command")})

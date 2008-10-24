@@ -28,6 +28,7 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import org.apache.myfaces.tobago.component.AbstractUITree;
 import org.apache.myfaces.tobago.component.AbstractUITreeNode;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -190,7 +191,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
       encodeLabel(writer, helper, node, marked, treeId);
 
-      UIComponent facet = node.getFacet("addendum");
+      UIComponent facet = node.getFacet(Facets.ADDENDUM);
       if (facet != null) {
         RenderUtil.encode(facesContext, facet);
       }

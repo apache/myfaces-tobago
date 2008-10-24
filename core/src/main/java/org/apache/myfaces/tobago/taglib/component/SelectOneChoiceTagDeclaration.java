@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
@@ -53,11 +54,11 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
         "javax.faces.SelectItems"
         },
     facets = {
-    @Facet(name = "click",
+    @Facet(name= Facets.CLICK,
         description =
             "This facet can contain a UICommand that is invoked in case of a click event from the component",
         allowedChildComponenents = "org.apache.myfaces.tobago.Command"),
-    @Facet(name = "change",
+    @Facet(name=Facets.CHANGE,
         description =
             "This facet can contain a UICommand that is invoked in case of a change event from the component",
         allowedChildComponenents = "org.apache.myfaces.tobago.Command")

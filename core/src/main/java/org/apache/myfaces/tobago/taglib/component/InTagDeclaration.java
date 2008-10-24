@@ -18,11 +18,12 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.Facet;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -53,7 +54,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     interfaces = { "org.apache.myfaces.tobago.ajax.api.AjaxComponent", 
         "org.apache.myfaces.tobago.component.InputSuggest" },
     facets = {
-    @Facet(name = "change",
+    @Facet(name = Facets.CHANGE,
         description =
             "This facet can contain a UICommand that is invoked in a case of a change event from the component")
         })
