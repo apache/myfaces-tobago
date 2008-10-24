@@ -21,9 +21,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
-import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutRenderer;
+import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
@@ -68,7 +67,7 @@ public abstract class UILayout extends UIComponentBase {
   }
 
   public static UILayout getLayout(UIComponent component) {
-    UILayout layout = (UILayout) component.getFacet(FACET_LAYOUT);
+    UILayout layout = (UILayout) component.getFacet(Facets.LAYOUT);
     if (layout == null) {
       if (component instanceof LayoutProvider) {
         layout = ((LayoutProvider) component).provideLayout();

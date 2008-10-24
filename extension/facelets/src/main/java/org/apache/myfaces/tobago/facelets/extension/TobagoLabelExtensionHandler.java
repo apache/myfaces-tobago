@@ -27,15 +27,16 @@ import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.facelets.SuggestMethodRule;
 import org.apache.myfaces.tobago.facelets.SupportsMarkupRule;
-import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
@@ -188,7 +189,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     gridLayout.setRows(getRows());
 
     gridLayout.setId(root.createUniqueId());
-    panel.getFacets().put(TobagoConstants.FACET_LAYOUT, gridLayout);
+    panel.getFacets().put(Facets.LAYOUT, gridLayout);
   }
 
   protected MetaRuleset createMetaRuleset(Class aClass) {

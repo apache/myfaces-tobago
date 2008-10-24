@@ -17,20 +17,19 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_UPDATE;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_RELOAD;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_UPDATE;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 
-import javax.faces.context.FacesContext;
+import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
-import javax.faces.FacesException;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -52,7 +51,7 @@ public class UIPanelBase extends javax.faces.component.UIPanel
     if (context instanceof TobagoFacesContext && ((TobagoFacesContext) context).isAjax()) {
 
       final String ajaxId = ((TobagoFacesContext) context).getAjaxComponentId();
-      UIComponent reload = getFacet(FACET_RELOAD);
+      UIComponent reload = getFacet(Facets.RELOAD);
       if (ajaxId != null && ajaxId.equals(getClientId(context)) && reload != null && reload.isRendered()
           && ajaxId.equals(ComponentUtil.findPage(context, this).getActionId())) {
         Boolean immediate = (Boolean) reload.getAttributes().get(ATTR_IMMEDIATE);
@@ -73,7 +72,7 @@ public class UIPanelBase extends javax.faces.component.UIPanel
   }
 
   public void encodeAjax(FacesContext facesContext) throws IOException {
-    UIComponent reload = getFacet(FACET_RELOAD);
+    UIComponent reload = getFacet(Facets.RELOAD);
     if (reload != null && reload.isRendered()) {
       Boolean immediate = (Boolean) reload.getAttributes().get(ATTR_IMMEDIATE);
       if (immediate != null && !immediate) {

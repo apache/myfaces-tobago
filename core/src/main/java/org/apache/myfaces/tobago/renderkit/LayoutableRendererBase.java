@@ -20,20 +20,20 @@ package org.apache.myfaces.tobago.renderkit;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import org.apache.myfaces.tobago.component.Cell;
-import org.apache.myfaces.tobago.util.LayoutUtil;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.awt.Dimension;
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public abstract class LayoutableRendererBase
   public int getHeaderHeight(
       FacesContext facesContext, UIComponent component) {
     int height = getConfiguredValue(facesContext, component, "headerHeight");
-    final UIComponent menubar = component.getFacet(FACET_MENUBAR);
+    final UIComponent menubar = component.getFacet(Facets.MENUBAR);
     if (menubar != null) {
       height += getConfiguredValue(facesContext, menubar, "headerHeight");
     }
@@ -248,7 +248,7 @@ public abstract class LayoutableRendererBase
         replaceStyleAttribute(component, styleAttribute, styleSpace);
 
       }
-      UIComponent layout = component.getFacet(org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT);
+      UIComponent layout = component.getFacet(Facets.LAYOUT);
       if (layout != null) {
         int layoutSpace2 = LayoutUtil.getInnerSpace(facesContext, component,
             width);

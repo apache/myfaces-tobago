@@ -26,10 +26,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_POPUP_CLOSE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_CONFIRMATION;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_POPUP;
-import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.AbstractUICommand;
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.util.ComponentUtil;
@@ -75,7 +74,7 @@ public class CommandRendererHelper {
       href = "";
     } else {
 
-      UIPopup popup = (UIPopup) command.getFacet(FACET_POPUP);
+      UIPopup popup = (UIPopup) command.getFacet(Facets.POPUP);
       if (popup != null) {
         if (!ComponentUtil.containsPopupActionListener(command)) {
           command.addActionListener(new PopupActionListener(popup));
@@ -161,7 +160,7 @@ public class CommandRendererHelper {
   }
 
   private String appendConfirmationScript(String onclick, UIComponent component) {
-    ValueHolder confirmation = (ValueHolder) component.getFacet(FACET_CONFIRMATION);
+    ValueHolder confirmation = (ValueHolder) component.getFacet(Facets.CONFIRMATION);
     if (confirmation != null) {
       StringBuilder script = new StringBuilder("return confirm('");
       script.append(confirmation.getValue());

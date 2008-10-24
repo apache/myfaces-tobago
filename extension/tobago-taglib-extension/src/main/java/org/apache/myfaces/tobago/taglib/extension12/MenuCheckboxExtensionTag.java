@@ -17,18 +17,19 @@ package org.apache.myfaces.tobago.taglib.extension12;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
-import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.taglib.MenuItemTag;
+import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
 
+import javax.el.MethodExpression;
 import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
-import javax.el.MethodExpression;
 
 /*
  * Date: 09.05.2006
@@ -103,7 +104,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport {
     facetTag = new FacetTag();
     facetTag.setPageContext(pageContext);
     facetTag.setParent(menuCommandTag);
-    facetTag.setName(org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS);
+    facetTag.setName(Facets.ITEMS);
 
     facetTag.doStartTag();
     selectBooleanCheckbox = new SelectBooleanCheckboxTag();

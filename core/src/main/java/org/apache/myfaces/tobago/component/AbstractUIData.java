@@ -19,33 +19,32 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FIRST;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_LIST_STRING;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_UPDATE;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_RELOAD;
-
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.compat.InvokeOnComponent;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeListener;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.event.SortActionSource;
+import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutableRenderer;
-import org.apache.myfaces.tobago.compat.FacesUtils;
-import org.apache.myfaces.tobago.compat.InvokeOnComponent;
-import org.apache.myfaces.tobago.layout.LayoutTokens;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 
+import javax.faces.FacesException;
+import javax.faces.component.ContextCallback;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
-import javax.faces.component.ContextCallback;
 import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
@@ -53,7 +52,6 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.render.Renderer;
-import javax.faces.FacesException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,6 +65,8 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Data";
 
+  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String FACET_SORTER = "sorter";
   public static final String SORTER_ID = "sorter";
   public static final String ATTR_SCROLL_POSITION = "attrScrollPosition";
@@ -364,7 +364,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
   public void processDecodes(FacesContext context) {
     if (context instanceof TobagoFacesContext && ((TobagoFacesContext) context).isAjax()) {
       final String ajaxId = ((TobagoFacesContext) context).getAjaxComponentId();
-      UIComponent reload = getFacet(FACET_RELOAD);
+      UIComponent reload = getFacet(Facets.RELOAD);
       if (ajaxId != null && ajaxId.equals(getClientId(context)) && reload != null && reload.isRendered()
           && ajaxId.equals(ComponentUtil.findPage(context, this).getActionId())) {
         Boolean immediate = (Boolean) reload.getAttributes().get(ATTR_IMMEDIATE);
@@ -402,7 +402,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
       setValue(getValue());
     }
     //}
-    UIComponent reload = getFacet(FACET_RELOAD);
+    UIComponent reload = getFacet(Facets.RELOAD);
     if (reload != null && reload.isRendered()) {
       Boolean immediate = (Boolean) reload.getAttributes().get(ATTR_IMMEDIATE);
       if (immediate != null && !immediate) {

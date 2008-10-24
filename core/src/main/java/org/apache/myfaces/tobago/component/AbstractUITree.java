@@ -44,7 +44,6 @@ public abstract class AbstractUITree extends UIInput implements NamingContainer 
   public static final String SELECT_STATE = SEP + "selectState";
   public static final String MARKER = SEP + "marker";
 
-  public static final String FACET_TREE_NODE_COMMAND = "treeNodeCommand";
   public static final String PARAMETER_TREE_NODE_ID = "treeNodeId";
 
  /* private Boolean showJunctions = true;

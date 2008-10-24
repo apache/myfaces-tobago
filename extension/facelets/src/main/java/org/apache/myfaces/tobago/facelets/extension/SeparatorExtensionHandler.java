@@ -17,26 +17,26 @@ package org.apache.myfaces.tobago.facelets.extension;
  * limitations under the License.
  */
 
-import com.sun.facelets.tag.jsf.ComponentHandler;
-import com.sun.facelets.tag.jsf.ComponentConfig;
-import com.sun.facelets.tag.jsf.ComponentSupport;
-import com.sun.facelets.tag.MetaRuleset;
-import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.el.ELAdaptor;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.UIOutput;
-import javax.faces.FacesException;
-import javax.faces.application.Application;
-import javax.el.ELException;
-import javax.el.ValueExpression;
-import java.io.IOException;
-
+import com.sun.facelets.tag.MetaRuleset;
+import com.sun.facelets.tag.TagAttribute;
+import com.sun.facelets.tag.jsf.ComponentConfig;
+import com.sun.facelets.tag.jsf.ComponentHandler;
+import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UISeparator;
+
+import javax.el.ELException;
+import javax.el.ValueExpression;
+import javax.faces.FacesException;
+import javax.faces.application.Application;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
+import javax.faces.component.UIViewRoot;
+import java.io.IOException;
 
 public class SeparatorExtensionHandler extends ComponentHandler {
   private TagAttribute labelAttribute;
@@ -49,11 +49,11 @@ public class SeparatorExtensionHandler extends ComponentHandler {
   protected void applyNextHandler(FaceletContext faceletContext, UIComponent separator)
       throws IOException, FacesException, ELException {
     if (ComponentSupport.isNew(separator)) {
-      UIComponent component = (UIComponent) separator.getFacets().remove(TobagoConstants.FACET_LABEL);
+      UIComponent component = (UIComponent) separator.getFacets().remove(Facets.LABEL);
       nextHandler.apply(faceletContext, component);
-      separator.getFacets().put(TobagoConstants.FACET_LABEL, component);
+      separator.getFacets().put(Facets.LABEL, component);
     } else {
-      nextHandler.apply(faceletContext, separator.getFacet(TobagoConstants.FACET_LABEL));
+      nextHandler.apply(faceletContext, separator.getFacet(Facets.LABEL));
     }
   }
 
@@ -64,7 +64,7 @@ public class SeparatorExtensionHandler extends ComponentHandler {
     label.setId(root.createUniqueId());
     label.setRendererType("Label");
     setAttributes(faceletContext, label);
-    separator.getFacets().put(TobagoConstants.FACET_LABEL, label);
+    separator.getFacets().put(Facets.LABEL, label);
     if (labelAttribute != null) {
       if (labelAttribute.isLiteral()) {
         label.setValue(labelAttribute.getValue(faceletContext));

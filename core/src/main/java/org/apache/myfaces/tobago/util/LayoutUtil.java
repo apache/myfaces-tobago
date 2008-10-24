@@ -26,16 +26,16 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
-import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
-import org.apache.myfaces.tobago.component.Form;
 import org.apache.myfaces.tobago.component.Cell;
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.Form;
+import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
-import java.awt.Dimension;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -124,7 +124,7 @@ public final class LayoutUtil {
 
   public static int getLabelWidth(UIComponent component) {
     if (component != null) {
-      UIComponent label = component.getFacet(FACET_LABEL);
+      UIComponent label = component.getFacet(Facets.LABEL);
       if (label != null) {
         String labelWidth = (String) label.getAttributes().get(ATTR_WIDTH);
         if (labelWidth != null) {

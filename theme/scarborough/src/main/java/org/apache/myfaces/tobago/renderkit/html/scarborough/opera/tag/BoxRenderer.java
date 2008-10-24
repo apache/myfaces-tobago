@@ -23,13 +23,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.opera.tag;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.UserAgent;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -43,7 +43,7 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
 
     HtmlStyleMap innerStyle = HtmlRendererUtil.prepareInnerStyle(component);
 
-    UIComponent label = component.getFacet(FACET_LABEL);
+    UIComponent label = component.getFacet(Facets.LABEL);
     String labelString
         = (String) component.getAttributes().get(ATTR_LABEL);
 

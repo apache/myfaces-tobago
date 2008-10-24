@@ -188,23 +188,59 @@ public final class TobagoConstants {
   public static final String ATTR_TAB_INDEX = "tabIndex";
   public static final String ATTR_ZINDEX = "zIndex";
 
+  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String FACET_ACTION = "action";
+  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+ @Deprecated
   public static final String FACET_CONFIRMATION = "confirmation";
+  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String FACET_LABEL = "label";
+  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String FACET_LAYOUT = "layout";
+  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String FACET_LAYOUT_DEFAULT = "layoutDefault";
+  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String FACET_IMAGE = "image ";
+  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String FACET_ITEMS = "items";
+  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String FACET_MENUBAR = "menuBar";
+  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String FACET_MENUPOPUP = "menupopup";
+  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String FACET_PAGER_LINKS = "pagerLinks";
+  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String FACET_PAGER_PAGE = "pagerPage";
+  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String FACET_PAGER_ROW = "pagerRow";
+  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String FACET_PICKER = "picker";
+  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String FACET_PICKER_POPUP = "pickerPopup";
+  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String FACET_POPUP = "popup";
+  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String FACET_RELOAD = "reload";
+  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String FACET_TOOL_BAR = "toolBar";
+  /** @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+  @Deprecated
   public static final String FACET_TOOL_BAR_COMMAND = "toolBarCommand";
 
   // Command types

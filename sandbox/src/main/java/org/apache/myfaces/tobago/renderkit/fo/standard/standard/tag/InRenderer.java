@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 
@@ -40,7 +40,7 @@ public class InRenderer extends InputRendererBase {
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
-    UIComponent label = component.getFacet(FACET_LABEL);
+    UIComponent label = component.getFacet(Facets.LABEL);
 
     ResponseWriter writer = facesContext.getResponseWriter();
     Layout layout = Layout.getLayout(component.getParent());

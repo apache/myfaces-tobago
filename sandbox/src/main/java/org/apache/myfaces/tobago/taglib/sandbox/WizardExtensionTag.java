@@ -19,11 +19,11 @@ package org.apache.myfaces.tobago.taglib.sandbox;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.taglib.GridLayoutTag;
 import org.apache.myfaces.tobago.internal.taglib.PanelTag;
 import org.apache.myfaces.tobago.internal.taglib.WizardTag;
@@ -76,7 +76,7 @@ public class WizardExtensionTag extends BodyTagSupport {
 
     FacetTag facetTag = new FacetTag();
     facetTag.setPageContext(pageContext);
-    facetTag.setName(FACET_LAYOUT);
+    facetTag.setName(Facets.LAYOUT);
     facetTag.setParent(panelTag);
     facetTag.doStartTag();
 

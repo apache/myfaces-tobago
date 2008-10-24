@@ -30,28 +30,28 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP_TYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PAGE_MENU;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
+import org.apache.myfaces.tobago.component.CreateComponentUtils;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIMenuSeparator;
-import org.apache.myfaces.tobago.component.AbstractUIPage;
-import org.apache.myfaces.tobago.component.CreateComponentUtils;
-import org.apache.myfaces.tobago.component.UISelectOneCommand;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
+import org.apache.myfaces.tobago.component.UISelectOneCommand;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.util.FastStringWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -368,8 +368,8 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     CommandRendererHelper helper = new CommandRendererHelper(facesContext, command);
     String onclick = helper.getOnclick();
     if (command instanceof UIMenuCommand) {
-      if (command.getFacet(FACET_ITEMS) != null) {
-        UIComponent facet = command.getFacet(FACET_ITEMS);
+      if (command.getFacet(Facets.ITEMS) != null) {
+        UIComponent facet = command.getFacet(Facets.ITEMS);
         if (facet instanceof UISelectOne) {
           addSelectOne(sb, var, facesContext, command, onclick);
         } else if (facet instanceof UISelectBoolean) {
@@ -395,7 +395,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
                                 FacesContext facesContext, UICommand command, String onClick)
       throws IOException {
 
-    UIComponent checkbox = command.getFacet(FACET_ITEMS);
+    UIComponent checkbox = command.getFacet(Facets.ITEMS);
     if (checkbox == null) {
       checkbox = CreateComponentUtils.createUISelectBooleanFacet(facesContext, command);
       checkbox.setId(facesContext.getViewRoot().createUniqueId());
@@ -425,7 +425,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     List<SelectItem> items;
     LabelWithAccessKey label = new LabelWithAccessKey(command);
 
-    UISelectOne radio = (UISelectOne) command.getFacet(FACET_ITEMS);
+    UISelectOne radio = (UISelectOne) command.getFacet(Facets.ITEMS);
     if (radio == null) {
       items = RenderUtil.getSelectItems(command);
       radio = CreateComponentUtils.createUIMenuSelectOneFacet(facesContext, command);

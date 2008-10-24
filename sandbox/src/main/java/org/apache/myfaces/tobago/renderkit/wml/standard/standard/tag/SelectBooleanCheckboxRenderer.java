@@ -23,12 +23,12 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -51,7 +51,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
     writer.startElement(HtmlConstants.OPTION, null);
     writer.writeAttribute("value", value ? "on" : "off", false);
 
-    UIComponent label = component.getFacet(FACET_LABEL);
+    UIComponent label = component.getFacet(Facets.LABEL);
     if (label != null) {
       RenderUtil.encode(facesContext, label);
     }

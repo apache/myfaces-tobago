@@ -22,9 +22,9 @@ package org.apache.myfaces.tobago.util;
  * $Id$
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CONVERTER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
@@ -34,20 +34,20 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LABEL;
+import org.apache.myfaces.tobago.component.AbstractUIForm;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
+import org.apache.myfaces.tobago.component.AbstractUIPopup;
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.UIInputBase;
 import org.apache.myfaces.tobago.context.TransientStateHolder;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.event.PopupActionListener;
-import org.apache.myfaces.tobago.renderkit.LayoutableRenderer;
 import org.apache.myfaces.tobago.renderkit.LayoutRenderer;
+import org.apache.myfaces.tobago.renderkit.LayoutableRenderer;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.component.AbstractUIPopup;
-import org.apache.myfaces.tobago.component.AbstractUIPage;
-import org.apache.myfaces.tobago.component.AbstractUIForm;
-import org.apache.myfaces.tobago.component.UIInputBase;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
@@ -677,7 +677,7 @@ public class ComponentUtil {
   }
 
   public static UIComponent provideLabel(FacesContext facesContext, UIComponent component) {
-    UIComponent label = component.getFacet(FACET_LABEL);
+    UIComponent label = component.getFacet(Facets.LABEL);
 
 
     if (label == null) {
@@ -692,7 +692,7 @@ public class ComponentUtil {
         label = application.createComponent(UIOutput.COMPONENT_TYPE);
         label.setRendererType(RENDERER_TYPE_LABEL);
         String idprefix = ComponentUtil.getComponentId(facesContext, component);
-        label.setId(idprefix + "_" + FACET_LABEL);
+        label.setId(idprefix + "_" + Facets.LABEL);
         label.setRendered(true);
 
         if (labelText instanceof ValueBinding) {
@@ -701,7 +701,7 @@ public class ComponentUtil {
           label.getAttributes().put(ATTR_VALUE, labelText);
         }
 
-        component.getFacets().put(FACET_LABEL, label);
+        component.getFacets().put(Facets.LABEL, label);
       }
     }
     return label;

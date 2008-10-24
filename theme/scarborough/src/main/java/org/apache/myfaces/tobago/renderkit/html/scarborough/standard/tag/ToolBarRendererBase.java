@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ICON_SIZE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
@@ -26,31 +28,28 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP_TYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUPOPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIMenuSelectOne;
-import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.UIMenu;
+import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.component.UISelectOneCommand;
-import org.apache.myfaces.tobago.component.UIMenu;
+import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -109,8 +108,8 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
     } else if (command instanceof UISelectOneCommand) {
       renderSelectOne(facesContext, command, writer, first, last);
     } else {
-      if (command.getFacet(FACET_ITEMS) != null) {
-        UIComponent facet = command.getFacet(FACET_ITEMS);
+      if (command.getFacet(Facets.ITEMS) != null) {
+        UIComponent facet = command.getFacet(Facets.ITEMS);
         if (facet instanceof UISelectBoolean) {
           renderSelectBoolean(facesContext, command, writer, first, last);
         } else if (facet instanceof UISelectOne) {
@@ -131,7 +130,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
 
     List<SelectItem> items;
 
-    UIMenuSelectOne radio = (UIMenuSelectOne) command.getFacet(FACET_ITEMS);
+    UIMenuSelectOne radio = (UIMenuSelectOne) command.getFacet(Facets.ITEMS);
     if (radio == null) {
       items = RenderUtil.getSelectItems(command);
       radio = CreateComponentUtils.createUIMenuSelectOneFacet(facesContext, command);
@@ -196,7 +195,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
       TobagoResponseWriter writer, boolean first, boolean last)
       throws IOException {
 
-    UIComponent checkbox = command.getFacet(FACET_ITEMS);
+    UIComponent checkbox = command.getFacet(Facets.ITEMS);
     if (checkbox == null) {
       checkbox = CreateComponentUtils.createUISelectBooleanFacet(facesContext, command);
       checkbox.setId(facesContext.getViewRoot().createUniqueId());
@@ -226,7 +225,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
     final String clientId = command.getClientId(facesContext);
     final boolean disabled = ComponentUtil.getBooleanAttribute(command, ATTR_DISABLED);
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
-    final UIComponent popupMenu = command.getFacet(FACET_MENUPOPUP);
+    final UIComponent popupMenu = command.getFacet(Facets.MENUPOPUP);
 
     String labelPosition = getLabelPosition(command.getParent());
     String iconSize = getIconSize(command.getParent());
@@ -351,7 +350,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
   protected abstract String getDivClasses(boolean selected, boolean disabled);
 
   private String createOnClick(FacesContext facesContext, UIComponent component) {
-    if (component.getFacet(FACET_MENUPOPUP) != null
+    if (component.getFacet(Facets.MENUPOPUP) != null
         && ((UICommand) component).getAction() == null
         && ((UICommand) component).getActionListener() == null
         && ((UICommand) component).getActionListeners().length == 0) {

@@ -31,10 +31,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_METHOD;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PAGE_MENU;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_ACTION;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.FORM_ACCEPT_CHARSET;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
@@ -283,8 +282,8 @@ public class PageRenderer extends PageRendererBase {
       writer.endJavascript();
     }
 
-    if (component.getFacets().containsKey(FACET_ACTION)) {
-      UIComponent command = component.getFacet(FACET_ACTION);
+    if (component.getFacets().containsKey(Facets.ACTION)) {
+      UIComponent command = component.getFacet(Facets.ACTION);
       if (command != null && command.isRendered()) {
         int duration = ComponentUtil.getIntAttribute(command, ATTR_DELAY, 100);
         boolean transition = ComponentUtil.getBooleanAttribute(command, ATTR_TRANSITION);
@@ -300,7 +299,7 @@ public class PageRenderer extends PageRendererBase {
       }
     }
 
-    UIComponent menubar = page.getFacet(FACET_MENUBAR);
+    UIComponent menubar = page.getFacet(Facets.MENUBAR);
     if (menubar != null) {
       facesContext.getOnloadScripts().add("Tobago.setElementWidth('"
           + menubar.getClientId(facesContext) + "', Tobago.getBrowserInnerWidth())");

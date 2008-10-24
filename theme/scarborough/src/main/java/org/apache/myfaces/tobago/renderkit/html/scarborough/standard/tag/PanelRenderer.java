@@ -25,19 +25,18 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_RELOAD;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -77,7 +76,7 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
   public static int getFixedHeightForPanel(UIComponent component, FacesContext facesContext) {
     int height = -1;
     // first ask layoutManager
-    UIComponent layout = component.getFacet(FACET_LAYOUT);
+    UIComponent layout = component.getFacet(Facets.LAYOUT);
     if (layout != null) {
       LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, layout);
       height = renderer.getFixedHeight(facesContext, component);
@@ -137,7 +136,7 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
      // writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\")");
       Integer frequency = null;
-      UIComponent facetReload = component.getFacet(FACET_RELOAD);
+      UIComponent facetReload = component.getFacet(Facets.RELOAD);
       if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
         UIReload update = (UIReload) facetReload;
         frequency = update.getFrequency();

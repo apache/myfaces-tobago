@@ -28,8 +28,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER_POPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BOX;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_BUTTON;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_CALENDAR;
@@ -42,6 +40,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TIME;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIDateInput;
 import org.apache.myfaces.tobago.component.UIDatePicker;
@@ -108,7 +107,7 @@ public class DatePickerRenderer extends LinkRenderer {
     }
     popup.getAttributes().put(TobagoConstants.ATTR_ZINDEX, 10);
 
-    link.getFacets().put(FACET_PICKER_POPUP, popup);
+    link.getFacets().put(Facets.PICKER_POPUP, popup);
 
     popup.setRendered(false);
 
@@ -121,7 +120,7 @@ public class DatePickerRenderer extends LinkRenderer {
         facesContext, "tobago", "datePickerTitle"));
     UIComponent layout = CreateComponentUtils.createComponent(
         facesContext, UIGridLayout.COMPONENT_TYPE, RENDERER_TYPE_GRID_LAYOUT);
-    box.getFacets().put(FACET_LAYOUT, layout);
+    box.getFacets().put(Facets.LAYOUT, layout);
     layout.setId("layout");
     layout.getAttributes().put(ATTR_ROWS, "*;fixed;fixed");
 
@@ -139,7 +138,7 @@ public class DatePickerRenderer extends LinkRenderer {
     box.getChildren().add(timePanel);
     layout = CreateComponentUtils.createComponent(
         facesContext, UIGridLayout.COMPONENT_TYPE, RENDERER_TYPE_GRID_LAYOUT);
-    timePanel.getFacets().put(FACET_LAYOUT, layout);
+    timePanel.getFacets().put(Facets.LAYOUT, layout);
     layout.setId("timePanelLayout");
     layout.getAttributes().put(ATTR_COLUMNS, "1*;fixed;1*");
     UIComponent cell = CreateComponentUtils.createComponent(
@@ -166,7 +165,7 @@ public class DatePickerRenderer extends LinkRenderer {
     layout = CreateComponentUtils.createComponent(
         facesContext, UIGridLayout.COMPONENT_TYPE, RENDERER_TYPE_GRID_LAYOUT);
     layout.setId("buttonPanelLayout");
-    buttonPanel.getFacets().put(FACET_LAYOUT, layout);
+    buttonPanel.getFacets().put(Facets.LAYOUT, layout);
     layout.getAttributes().put(ATTR_COLUMNS, "*;*");
 //    layout.getAttributes().put(TobagoConstants.ATTR_BORDER, "1");
 
@@ -210,7 +209,7 @@ public class DatePickerRenderer extends LinkRenderer {
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     component.getAttributes().put(ATTR_LAYOUT_WIDTH, getConfiguredValue(facesContext, component, "pickerWidth"));
     if (facesContext instanceof TobagoFacesContext) {
-      UIPopup popup = (UIPopup) component.getFacets().get(FACET_PICKER_POPUP);
+      UIPopup popup = (UIPopup) component.getFacets().get(Facets.PICKER_POPUP);
       if (popup != null) {
         popup.getAttributes().put(ATTR_WIDTH, ThemeConfig.getValue(facesContext, component, "CalendarPopupWidth"));
         popup.getAttributes().put(ATTR_HEIGHT, ThemeConfig.getValue(facesContext, component, "CalendarPopupHeight"));
@@ -244,7 +243,7 @@ public class DatePickerRenderer extends LinkRenderer {
 //    link.setActionListener(datePickerController);
 
     UIComponent hidden = (UIComponent) link.getChildren().get(0);
-    UIPopup popup = (UIPopup) link.getFacets().get(FACET_PICKER_POPUP);
+    UIPopup popup = (UIPopup) link.getFacets().get(Facets.PICKER_POPUP);
 
     attributes.put(ATTR_ACTION_ONCLICK, "Tobago.openPickerPopup(event, '"
         + link.getClientId(facesContext) + "', '"

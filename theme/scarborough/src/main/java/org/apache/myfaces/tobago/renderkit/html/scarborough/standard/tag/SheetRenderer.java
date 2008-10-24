@@ -50,10 +50,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUPOPUP;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_PAGER_PAGE;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_PAGER_ROW;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_RELOAD;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
@@ -61,6 +57,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
@@ -184,7 +181,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     boolean ajaxEnabled = TobagoConfig.getInstance(facesContext).isAjaxEnabled();
 
     Integer frequency = null;
-    UIComponent facetReload = data.getFacet(FACET_RELOAD);
+    UIComponent facetReload = data.getFacet(Facets.RELOAD);
     if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
       UIReload update = (UIReload) facetReload;
       frequency = update.getFrequency();
@@ -487,10 +484,10 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 
 
       if (isValidPagingValue(showRowRange)) {
-        UICommand pagerCommand = (UICommand) data.getFacet(FACET_PAGER_ROW);
+        UICommand pagerCommand = (UICommand) data.getFacet(Facets.PAGER_ROW);
         if (pagerCommand == null) {
           pagerCommand = createPagingCommand(application, PageAction.TO_ROW, false);
-          data.getFacets().put(FACET_PAGER_ROW, pagerCommand);
+          data.getFacets().put(Facets.PAGER_ROW, pagerCommand);
         }
         String pagingOnClick = new CommandRendererHelper(facesContext, pagerCommand).getOnclickDoubleQuoted();
         final String pagerCommandId = pagerCommand.getClientId(facesContext);
@@ -524,11 +521,11 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 
       if (isValidPagingValue(showPageRange)) {
         UICommand pagerCommand
-            = (UICommand) data.getFacet(FACET_PAGER_PAGE);
+            = (UICommand) data.getFacet(Facets.PAGER_PAGE);
         if (pagerCommand == null) {
           pagerCommand = createPagingCommand(
               application, PageAction.TO_PAGE, false);
-          data.getFacets().put(FACET_PAGER_PAGE, pagerCommand);
+          data.getFacets().put(Facets.PAGER_PAGE, pagerCommand);
         }
         String pagingOnClick = new CommandRendererHelper(facesContext, pagerCommand).getOnclickDoubleQuoted();
         final String pagerCommandId = pagerCommand.getClientId(facesContext);
@@ -809,14 +806,14 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     String sortTitle = null;
     boolean sortable = ComponentUtil.getBooleanAttribute(column, ATTR_SORTABLE);
     if (sortable && !(column instanceof UIColumnSelector)) {
-      UICommand sortCommand = (UICommand) column.getFacet(UIData.FACET_SORTER);
+      UICommand sortCommand = (UICommand) column.getFacet(Facets.SORTER);
       if (sortCommand == null) {
         String columnId = column.getClientId(facesContext);
         String sorterId = columnId.substring(columnId.lastIndexOf(":") + 1) + "_" + UIData.SORTER_ID;
         sortCommand = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
         sortCommand.setRendererType(RENDERER_TYPE_LINK);
         sortCommand.setId(sorterId);
-        column.getFacets().put(UIData.FACET_SORTER, sortCommand);
+        column.getFacets().put(Facets.SORTER, sortCommand);
       }
 
       String onclick = "Tobago.submitAction(this, '" + sortCommand.getClientId(facesContext) + "')";
@@ -906,12 +903,12 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
   protected void renderColumnSelectorHeader(FacesContext facesContext,
       TobagoResponseWriter writer, UIData component, UIColumn column)
       throws IOException {
-    UIPanel menu = (UIPanel) column.getFacet(FACET_MENUPOPUP);
+    UIPanel menu = (UIPanel) column.getFacet(Facets.MENUPOPUP);
     if (menu == null) {
       final Application application = facesContext.getApplication();
       menu = (UIPanel) application.createComponent(UIMenu.COMPONENT_TYPE);
       menu.setId("selectorMenu");
-      column.getFacets().put(FACET_MENUPOPUP, menu);
+      column.getFacets().put(Facets.MENUPOPUP, menu);
       menu.setRendererType(RENDERER_TYPE_MENUBAR);
       menu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
       menu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "SheetSelector");
@@ -987,11 +984,11 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
   private void writeDirectPagingLinks(
       TobagoResponseWriter writer, FacesContext facesContext, Application application, UIData data)
       throws IOException {
-    UICommand pagerCommand = (UICommand) data.getFacet(FACET_PAGER_PAGE);
+    UICommand pagerCommand = (UICommand) data.getFacet(Facets.PAGER_PAGE);
     if (pagerCommand == null) {
       pagerCommand = createPagingCommand(
           application, PageAction.TO_PAGE, false);
-      data.getFacets().put(FACET_PAGER_PAGE, pagerCommand);
+      data.getFacets().put(Facets.PAGER_PAGE, pagerCommand);
     }
     String pagerCommandId = pagerCommand.getClientId(facesContext);
     String onclick = new CommandRendererHelper(facesContext, pagerCommand).getOnclickDoubleQuoted();

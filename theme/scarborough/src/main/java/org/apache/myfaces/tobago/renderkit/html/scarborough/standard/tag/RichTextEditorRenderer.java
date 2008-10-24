@@ -33,10 +33,10 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE_PREVIEW;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_TOOL_BAR;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_MENUCOMMAND;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_TOOL_BAR;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.component.UIToolBar;
@@ -119,7 +119,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     writer.writeStyleAttribute();
     // class, stly.width, style.height
 
-    UIComponent toolbar = component.getFacet(FACET_TOOL_BAR);
+    UIComponent toolbar = component.getFacet(Facets.TOOL_BAR);
     if (toolbar == null) {
       toolbar = createToolbar(facesContext, component);
     }
@@ -176,7 +176,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
         facesContext, UIPanel.COMPONENT_TYPE, RENDERER_TYPE_TOOL_BAR);
     String clientId = component.getClientId(facesContext);
 
-    component.getFacets().put(FACET_TOOL_BAR, toolbar);
+    component.getFacets().put(Facets.TOOL_BAR, toolbar);
     toolbar.getAttributes().put(ATTR_ICON_SIZE, UIToolBar.ICON_SMALL);
     toolbar.getAttributes().put(ATTR_LABEL_POSITION, UIToolBar.LABEL_OFF);
 

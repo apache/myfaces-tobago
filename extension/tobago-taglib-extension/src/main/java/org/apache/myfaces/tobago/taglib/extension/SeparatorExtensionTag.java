@@ -17,16 +17,17 @@ package org.apache.myfaces.tobago.taglib.extension;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.internal.taglib.LabelTag;
+import org.apache.myfaces.tobago.internal.taglib.SeparatorTag;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
-import org.apache.myfaces.tobago.internal.taglib.SeparatorTag;
-import org.apache.myfaces.tobago.internal.taglib.LabelTag;
 
-import javax.servlet.jsp.tagext.BodyTagSupport;
-import javax.servlet.jsp.JspException;
 import javax.faces.webapp.FacetTag;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
  * Renders a separator.
@@ -67,7 +68,7 @@ public class SeparatorExtensionTag extends BodyTagSupport implements HasIdBindin
     facetTag = new FacetTag();
     facetTag.setPageContext(pageContext);
     facetTag.setParent(separatorTag);
-    facetTag.setName(org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL);
+    facetTag.setName(Facets.LABEL);
 
     facetTag.doStartTag();
     labelTag = new LabelTag();

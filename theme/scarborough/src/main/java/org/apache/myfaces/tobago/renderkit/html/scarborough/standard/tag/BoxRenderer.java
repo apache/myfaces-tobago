@@ -25,15 +25,14 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_TOOL_BAR;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -49,10 +48,10 @@ public class BoxRenderer extends BoxRendererBase {
 
     HtmlStyleMap innerStyle = HtmlRendererUtil.prepareInnerStyle(component);
 
-    UIComponent label = component.getFacet(FACET_LABEL);
+    UIComponent label = component.getFacet(Facets.LABEL);
     String labelString
         = (String) component.getAttributes().get(ATTR_LABEL);
-    UIPanel toolbar = (UIPanel) component.getFacet(FACET_TOOL_BAR);
+    UIPanel toolbar = (UIPanel) component.getFacet(Facets.TOOL_BAR);
     if (toolbar != null) {
       final int padding = getConfiguredValue(facesContext, component, "paddingTopWhenToolbar");
       HtmlRendererUtil.replaceStyleAttribute(component, getAttrStyleKey(), "padding-top", padding);
@@ -114,7 +113,7 @@ public class BoxRenderer extends BoxRendererBase {
   public int getPaddingHeight(FacesContext facesContext, UIComponent component) {
     final int paddingHeight = super.getPaddingHeight(facesContext, component);
     int extraPadding = 0;
-    if (component.getFacet(FACET_TOOL_BAR) != null) {
+    if (component.getFacet(Facets.TOOL_BAR) != null) {
       extraPadding = getExtraPadding(facesContext, component);
     }
     return paddingHeight + extraPadding;

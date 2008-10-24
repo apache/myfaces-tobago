@@ -27,19 +27,18 @@ import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL_POSITION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_TOOL_BAR;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -129,7 +128,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     writer.writeClassAttribute(headerClasses);
     String id = component.getClientId(facesContext) + HEADER;
     writer.writeIdAttribute(id);
-    UIComponent label = component.getFacet(FACET_LABEL);
+    UIComponent label = component.getFacet(Facets.LABEL);
     writer.startElement(HtmlConstants.SPAN, null);
     writer.writeClassAttribute("tobago-box-header-label");
     String labelString
@@ -141,7 +140,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     }
     writer.endElement(HtmlConstants.SPAN);
 
-    UIPanel toolbar = (UIPanel) component.getFacet(FACET_TOOL_BAR);
+    UIPanel toolbar = (UIPanel) component.getFacet(Facets.TOOL_BAR);
     if (toolbar != null) {
       renderToolbar(facesContext, writer, toolbar);
     }

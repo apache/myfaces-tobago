@@ -33,9 +33,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIData;
@@ -375,7 +375,7 @@ public final class HtmlRendererUtil {
         replaceStyleAttribute(component, styleAttribute, styleSpace);
 
       }
-      UIComponent layout = component.getFacet(FACET_LAYOUT);
+      UIComponent layout = component.getFacet(Facets.LAYOUT);
       if (layout != null) {
         int layoutSpace2 = LayoutUtil.getInnerSpace(facesContext, component,
             width);

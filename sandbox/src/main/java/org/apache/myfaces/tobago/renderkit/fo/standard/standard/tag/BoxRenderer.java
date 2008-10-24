@@ -61,7 +61,7 @@ public class BoxRenderer extends FoRendererBase {
     //writer.writeAttribute("padding", Layout.getMM(padding), null);
     String labelString = (String) component.getAttributes().get(ATTR_LABEL);
     FoUtils.writeTextBlockAlignStart(writer, component, labelString);
-    // TODO UIComponent label = component.getFacet(TobagoConstants.FACET_LABEL);
+    // TODO UIComponent label = component.getFacet(Facets.LABEL);
     FoUtils.endBlockContainer(writer);
 
 

@@ -21,7 +21,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT_DEFAULT;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_GRID_LAYOUT;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 
@@ -262,7 +261,7 @@ public class UITreeListbox extends UITreeOld implements LayoutProvider {
 // --------------------------------------------------- Interface LayoutProvider
 
   public UILayout provideLayout() {
-    UILayout layout = (UILayout) getFacet(FACET_LAYOUT_DEFAULT);
+    UILayout layout = (UILayout) getFacet(Facets.LAYOUT_DEFAULT);
     if (layout == null) {
       layout = (UILayout) CreateComponentUtils.createComponent(
           UIGridLayout.COMPONENT_TYPE,
@@ -282,7 +281,7 @@ public class UITreeListbox extends UITreeOld implements LayoutProvider {
       }
 
       layout.getAttributes().put(ATTR_COLUMNS, columns.toString());
-      getFacets().put(FACET_LAYOUT_DEFAULT, layout);
+      getFacets().put(Facets.LAYOUT_DEFAULT, layout);
     }
 
     return layout;

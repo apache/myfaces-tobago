@@ -19,9 +19,10 @@ package org.apache.myfaces.tobago.taglib.extension;
 
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
-import org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.taglib.MenuItemTag;
+import org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag;
+import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
@@ -109,7 +110,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
     facetTag = new FacetTag();
     facetTag.setPageContext(pageContext);
     facetTag.setParent(menuCommandTag);
-    facetTag.setName(org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS);
+    facetTag.setName(Facets.ITEMS);
 
     facetTag.doStartTag();
     selectOneRadio = new SelectOneRadioTag();

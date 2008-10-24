@@ -17,16 +17,16 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UILabel;
+import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.context.ClientProperties;
-import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -40,7 +40,7 @@ public class SeparatorRenderer extends LayoutableRendererBase {
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeClassAttribute();
     writer.writeStyleAttribute();
-    if (component.getFacet(FACET_LABEL) != null) {
+    if (component.getFacet(Facets.LABEL) != null) {
       writer.startElement(HtmlConstants.TABLE, component);
       writer.writeClassAttribute();
 
@@ -63,7 +63,7 @@ public class SeparatorRenderer extends LayoutableRendererBase {
       StyleClasses labelClass = new StyleClasses();
       labelClass.addAspectClass("separator", "label", StyleClasses.Aspect.DEFAULT);
       writer.writeClassAttribute(labelClass);
-      UILabel label = (UILabel) component.getFacet(FACET_LABEL);
+      UILabel label = (UILabel) component.getFacet(Facets.LABEL);
       String text = String.valueOf(label.getValue());
       if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
         text = text.replace(" ", TobagoConstants.CHAR_NON_BEAKING_SPACE);

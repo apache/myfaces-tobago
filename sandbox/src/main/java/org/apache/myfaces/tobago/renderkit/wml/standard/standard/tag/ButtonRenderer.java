@@ -28,11 +28,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
-import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UICommand;
@@ -58,7 +58,7 @@ public class ButtonRenderer extends LayoutableRendererBase {
     if (command.getAttributes().get(ATTR_ACTION_LINK) == null
         && command.getAttributes().get(ATTR_ACTION_ONCLICK) == null) {
       ValueHolder labelComponent
-          = (ValueHolder) command.getFacet(FACET_LABEL);
+          = (ValueHolder) command.getFacet(Facets.LABEL);
       String label = (String) labelComponent.getValue();
       page.getPostfields().add(
           new DefaultKeyValue(command.getClientId(facesContext), label));

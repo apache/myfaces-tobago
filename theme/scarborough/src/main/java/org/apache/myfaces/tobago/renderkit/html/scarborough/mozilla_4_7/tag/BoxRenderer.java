@@ -23,12 +23,12 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.mozilla_4_7.tag;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -42,7 +42,7 @@ public class BoxRenderer extends BoxRendererBase {
   public void encodeBegin(
       FacesContext facesContext, UIComponent component) throws IOException {
 
-    UIComponent label = component.getFacet(FACET_LABEL);
+    UIComponent label = component.getFacet(Facets.LABEL);
     String labelString = (String) component.getAttributes().get(ATTR_LABEL);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
@@ -85,7 +85,7 @@ public class BoxRenderer extends BoxRendererBase {
   }
 
   public int getPaddingHeight(FacesContext facesContext, UIComponent component) {
-    return 10 + (component.getFacet(FACET_LABEL) != null ? 25 : 0);
+    return 10 + (component.getFacet(Facets.LABEL) != null ? 25 : 0);
   }
 
 }

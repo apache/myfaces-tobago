@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE_PREVIEW;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 import org.apache.myfaces.tobago.internal.taglib.TobagoTag;
 
@@ -37,7 +37,7 @@ public abstract class RichTextEditorTag extends TobagoTag
   public int doEndTag() throws JspException {
     // TODO: own layout for editor?
     int result = super.doEndTag();
-    getComponentInstance().getFacets().remove(FACET_LAYOUT);
+    getComponentInstance().getFacets().remove(Facets.LAYOUT);
     return result;
   }
 

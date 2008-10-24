@@ -300,12 +300,12 @@ public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnC
   }
 
   public LayoutManager getLayoutManager() {
-    AbstractUIGridLayout uiGridLayout = (AbstractUIGridLayout) getFacet(FacetConstants.LAYOUT);
+    AbstractUIGridLayout uiGridLayout = (AbstractUIGridLayout) getFacet(Facets.LAYOUT);
     return uiGridLayout != null ? uiGridLayout.getLayoutManager() : null;
   }
 
   public Constraints getConstraints() {
-    return (AbstractUIGridConstraints) getFacet(FacetConstants.CONSTRAINTS);
+    return (AbstractUIGridConstraints) getFacet(Facets.CONSTRAINTS);
   }
 // LAYOUT End
 

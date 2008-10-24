@@ -17,16 +17,15 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE_RADIO;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CREATE_SPAN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE_RADIO;
 import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 
 import javax.faces.component.UICommand;
@@ -110,7 +109,7 @@ public class CreateComponentUtils {
       radio = (UIMenuSelectOne) createComponent(facesContext, UIMenuSelectOne.COMPONENT_TYPE,
           RENDERER_TYPE_SELECT_ONE_RADIO, clientId);
       //noinspection unchecked
-      command.getFacets().put(FACET_ITEMS, radio);
+      command.getFacets().put(Facets.ITEMS, radio);
       radio.setValueBinding(ATTR_VALUE, valueBinding);
     }
     return radio;
@@ -125,7 +124,7 @@ public class CreateComponentUtils {
     UIComponent checkbox = createComponent(facesContext, UISelectBoolean.COMPONENT_TYPE,
         RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX, clientId);
     //noinspection unchecked
-    command.getFacets().put(FACET_ITEMS, checkbox);
+    command.getFacets().put(Facets.ITEMS, checkbox);
     ValueBinding valueBinding = command.getValueBinding(ATTR_VALUE);
     if (valueBinding != null) {
       checkbox.setValueBinding(ATTR_VALUE, valueBinding);

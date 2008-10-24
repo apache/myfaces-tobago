@@ -17,10 +17,9 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CALENDAR_DATE_INPUT_ID;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_PICKER_POPUP;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.OnComponentCreated;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CALENDAR_DATE_INPUT_ID;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -82,7 +81,7 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
 
   public void broadcast(FacesEvent facesEvent) {
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    UIComponent popup = (UIComponent) getFacets().get(FACET_PICKER_POPUP);
+    UIComponent popup = (UIComponent) getFacets().get(Facets.PICKER_POPUP);
     String clientId = getForComponent().getClientId(facesContext);
     UIComponent box = popup.findComponent("box");
     UIComponent calendar = box.findComponent("calendar");

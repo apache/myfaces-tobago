@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.taglib.extension12;
 
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.taglib.LabelTag;
 import org.apache.myfaces.tobago.internal.taglib.SeparatorTag;
 
@@ -62,7 +63,7 @@ public class SeparatorExtensionTag extends TobagoExtensionBodyTagSupport {
     facetTag = new FacetTag();
     facetTag.setPageContext(pageContext);
     facetTag.setParent(separatorTag);
-    facetTag.setName(org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL);
+    facetTag.setName(Facets.LABEL);
 
     facetTag.doStartTag();
     labelTag = new LabelTag();

@@ -17,22 +17,22 @@ package org.apache.myfaces.tobago.facelets.extension;
  * limitations under the License.
  */
 
-import com.sun.facelets.tag.jsf.ComponentHandler;
-import com.sun.facelets.tag.jsf.ComponentConfig;
-import com.sun.facelets.tag.jsf.ComponentSupport;
+import com.sun.facelets.FaceletContext;
 import com.sun.facelets.tag.MetaRuleset;
 import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.FaceletContext;
+import com.sun.facelets.tag.jsf.ComponentConfig;
+import com.sun.facelets.tag.jsf.ComponentHandler;
+import com.sun.facelets.tag.jsf.ComponentSupport;
+import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.UIMenuCommand;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
+import javax.el.ELException;
 import javax.faces.FacesException;
 import javax.faces.application.Application;
-import javax.el.ELException;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 import java.io.IOException;
-
-import org.apache.myfaces.tobago.component.UIMenuCommand;
-import org.apache.myfaces.tobago.TobagoConstants;
 
 /*
  * Date: Aug 10, 2007
@@ -51,11 +51,11 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
   protected void applyNextHandler(FaceletContext faceletContext, UIComponent menuCommand)
       throws IOException, FacesException, ELException {
     if (ComponentSupport.isNew(menuCommand)) {
-      UIComponent component = (UIComponent) menuCommand.getFacets().remove(TobagoConstants.FACET_ITEMS);
+      UIComponent component = (UIComponent) menuCommand.getFacets().remove(Facets.ITEMS);
       nextHandler.apply(faceletContext, component);
-      menuCommand.getFacets().put(TobagoConstants.FACET_ITEMS, component);
+      menuCommand.getFacets().put(Facets.ITEMS, component);
     } else {
-      nextHandler.apply(faceletContext, menuCommand.getFacet(TobagoConstants.FACET_ITEMS));
+      nextHandler.apply(faceletContext, menuCommand.getFacet(Facets.ITEMS));
     }
   }
 
@@ -67,7 +67,7 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
     component.setId(root.createUniqueId());
     component.setRendererType(getSubRendererType());
     setAttributes(faceletContext, component);
-    menuCommand.getFacets().put(TobagoConstants.FACET_ITEMS, component);
+    menuCommand.getFacets().put(Facets.ITEMS, component);
   }
 
   protected MetaRuleset createMetaRuleset(Class aClass) {
