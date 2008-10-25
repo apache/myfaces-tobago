@@ -109,8 +109,8 @@ public abstract class ConverterTag extends TagSupport {
     }
     if (converter != null) {
       if (!isBindingLiteral()) {
-        FacesUtils.
-            setValueOfBindingOrExpression(FacesContext.getCurrentInstance(), converter, component, Attributes.CONVERTER);
+        FacesUtils.setValueOfBindingOrExpression(
+            FacesContext.getCurrentInstance(), converter, component, Attributes.CONVERTER);
       } else {
         valueHolder.setConverter(converter);
       }

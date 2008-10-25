@@ -46,8 +46,8 @@ public class LayoutContext {
 
   public void layout() {
 
-    horizontal.setFixedLength(0, ((AbstractUIGridConstraints)container.getConstraints()).getWidth().getPixel());
-    vertical.setFixedLength(0, ((AbstractUIGridConstraints)container.getConstraints()).getHeight().getPixel());
+    horizontal.setFixedLength(0, ((AbstractUIGridConstraints) container.getConstraints()).getWidth().getPixel());
+    vertical.setFixedLength(0, ((AbstractUIGridConstraints) container.getConstraints()).getHeight().getPixel());
 
     horizontal.descend(0, 1);
     vertical.descend(0, 1);

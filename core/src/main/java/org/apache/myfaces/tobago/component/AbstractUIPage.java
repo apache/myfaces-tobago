@@ -292,7 +292,7 @@ public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnC
 // LAYOUT Begin
   public List<Component> getComponents() {
     List<Component> result = new ArrayList<Component>();
-    for (UIComponent uiComponent : (List<UIComponent>)getChildren()) {
+    for (UIComponent uiComponent : (List<UIComponent>) getChildren()) {
      if (uiComponent instanceof Component) {
        result.add((Component) uiComponent);
      }

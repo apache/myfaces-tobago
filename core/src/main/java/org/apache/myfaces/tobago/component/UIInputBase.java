@@ -28,7 +28,8 @@ import org.apache.myfaces.tobago.util.ComponentUtil;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public abstract class UIInputBase extends javax.faces.component.UIInput implements AjaxComponent, SupportsMarkup, Component {
+public abstract class UIInputBase extends javax.faces.component.UIInput
+    implements AjaxComponent, SupportsMarkup, Component {
 
   private static final Log LOG = LogFactory.getLog(UIInputBase.class);
 

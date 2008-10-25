@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
-import java.awt.*;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;

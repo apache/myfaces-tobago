@@ -97,8 +97,10 @@ public class GridLayoutManager implements LayoutManager {
           horizontal.descend(i, cell.getColumnSpan());
           vertial.descend(j, cell.getRowSpan());
 
-          ((AbstractUIGridConstraints) component.getConstraints()).setWidth(new PixelMeasure((int) horizontal.getValue()));
-          ((AbstractUIGridConstraints) component.getConstraints()).setHeight(new PixelMeasure((int) vertial.getValue()));
+          ((AbstractUIGridConstraints) component.getConstraints()).setWidth(
+              new PixelMeasure((int) horizontal.getValue()));
+          ((AbstractUIGridConstraints) component.getConstraints()).setHeight(
+              new PixelMeasure((int) vertial.getValue()));
 
           if (component instanceof Container) {
             Container subContainer = (Container) component;

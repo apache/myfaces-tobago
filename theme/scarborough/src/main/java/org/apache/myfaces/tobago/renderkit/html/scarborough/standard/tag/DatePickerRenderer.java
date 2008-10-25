@@ -194,8 +194,10 @@ public class DatePickerRenderer extends LinkRenderer {
     if (facesContext instanceof TobagoFacesContext) {
       UIPopup popup = (UIPopup) component.getFacets().get(Facets.PICKER_POPUP);
       if (popup != null) {
-        popup.getAttributes().put(Attributes.WIDTH, ThemeConfig.getValue(facesContext, component, "CalendarPopupWidth"));
-        popup.getAttributes().put(Attributes.HEIGHT, ThemeConfig.getValue(facesContext, component, "CalendarPopupHeight"));
+        popup.getAttributes().put(
+            Attributes.WIDTH, ThemeConfig.getValue(facesContext, component, "CalendarPopupWidth"));
+        popup.getAttributes().put(
+            Attributes.HEIGHT, ThemeConfig.getValue(facesContext, component, "CalendarPopupHeight"));
         ((TobagoFacesContext) facesContext).getPopups().add(popup);
       }
     }
