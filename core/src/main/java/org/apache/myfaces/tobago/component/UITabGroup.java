@@ -69,6 +69,19 @@ public class UITabGroup extends UIPanelBase implements TabChangeSource, AjaxComp
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
     super.encodeBegin(facesContext);
+    // encodeBegin() is never called on UITab,
+    //  so we need to prepare the layout here
+    if (SWITCH_TYPE_CLIENT.equals(switchType)) {
+      //noinspection unchecked
+      for (UIComponent tab: (List<UIComponent>) getChildren()) {
+        if (tab instanceof UITab) {
+          UILayout.getLayout(tab).layoutBegin(facesContext, tab);
+        }
+      }
+    } else {
+      UIPanelBase tab = getRenderedTab();
+      UILayout.getLayout(tab).layoutBegin(facesContext, tab);
+    }
   }
 
   public void setImmediate(boolean immediate) {
