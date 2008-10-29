@@ -76,8 +76,7 @@ public class ThemeConfig {
     }
   }
 
-  private static Integer createValue(FacesContext facesContext,
-      UIComponent component, String name) {
+  private static Integer createValue(FacesContext facesContext, UIComponent component, String name) {
     String family;
     String rendererType;
     if (component != null) {
@@ -102,8 +101,7 @@ public class ThemeConfig {
         LOG.debug("try " + tag);
       }
 
-      String property = resourceManager.getThemeProperty(viewRoot,
-          "tobago-theme-config", tag + "." + name);
+      String property = resourceManager.getThemeProperty(viewRoot, "tobago-theme-config", tag + "." + name);
 
       if (property != null && property.length() > 0) {
         if (LOG.isDebugEnabled()) {
@@ -115,7 +113,7 @@ public class ThemeConfig {
     }
     // todo: remove condition, is only temporary to ignore wml errors.
     if (!ClientProperties.getInstance(viewRoot).getContentType().equals("wml")) {
-      LOG.error("Theme property not found for renderer: " + renderer.getClass()
+      LOG.error("Theme property '" + name + "' not found for renderer: " + renderer.getClass()
           + " with clientProperties='" + ClientProperties.getInstance(viewRoot).getId() + "'"
           + " and locale='" + viewRoot.getLocale() + "'");
     }
