@@ -203,6 +203,7 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
         facesContext, UIGridLayout.COMPONENT_TYPE, RENDERER_TYPE_GRID_LAYOUT, "buttonPanelLayout");
     buttonPanel.getFacets().put(FACET_LAYOUT, layout);
     layout.getAttributes().put(ATTR_COLUMNS, "*;*");
+    layout.getAttributes().put(ATTR_ROWS, "fixed");
 //    layout.getAttributes().put(TobagoConstants.ATTR_BORDER, "1");
 
     box.getChildren().add(buttonPanel);
