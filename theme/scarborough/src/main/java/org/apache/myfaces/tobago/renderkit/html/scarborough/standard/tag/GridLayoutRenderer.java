@@ -131,7 +131,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           if (layout.getRows() != null) {
             // TODO: this is only an error if the token was explicitly set by application
             LOG.warn("Unable to calculate Height for token '" + token
-                + "'! using " + (minimum ? "'minimum'" : "'fixed'") + " , component:"
+                + "'! using " + (minimum ? "'minimum'" : "'fixed'") + " , component-id="
                 + component.getClientId(facesContext) + " is "
                 + component.getRendererType());
           }
@@ -189,7 +189,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
       } else {
         if (!minimum && LOG.isWarnEnabled()) {
           LOG.warn("Unable to calculate Width for token '" + token
-              + "'! using " + (minimum ? "'minimum'" : "'fixed'") + " , component:"
+              + "'! using " + (minimum ? "'minimum'" : "'fixed'") + " , component-id="
               + component.getClientId(facesContext) + " is "
               + component.getRendererType());
         }
