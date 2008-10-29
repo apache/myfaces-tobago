@@ -151,6 +151,7 @@ public class DatePickerRenderer extends LinkRenderer {
     layout.setId("buttonPanelLayout");
     buttonPanel.getFacets().put(Facets.LAYOUT, layout);
     layout.getAttributes().put(Attributes.COLUMNS, "*;*");
+    layout.getAttributes().put(Attributes.ROWS, "fixed");
 
     box.getChildren().add(buttonPanel);
 
