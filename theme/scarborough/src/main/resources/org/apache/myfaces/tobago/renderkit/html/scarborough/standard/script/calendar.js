@@ -73,21 +73,14 @@ function getMonthName(id, month) {
   return document.getElementById(id + ":monthNames").value.split(',')[month-1];
 }
 
-function initCalendarDataX(id, year, month, day) {
+function initCalendarData(id, year, month, day) {
   document.getElementById(id + ":day").value = day;
   document.getElementById(id + ":month").value = month;
   document.getElementById(id + ":year").value = year;
   recalculateValues(id);
 }
 
-function initCalendarData(id, month, year) {
-  document.getElementById(id + ":month").value = month;
-  document.getElementById(id + ":year").value = year;
-  recalculateValues(id);
-}
-
 function addMonth(id, monthDelta) {
-  var calendar = document.getElementById(id);
   var yearDelta = 0;
   if (monthDelta > 0) {
     yearDelta = Math.floor(monthDelta / 12);
@@ -98,6 +91,7 @@ function addMonth(id, monthDelta) {
   }
   var year = parseInt(document.getElementById(id + ":year").value, 10) + yearDelta;
   var month = parseInt(document.getElementById(id + ":month").value, 10) + monthDelta;
+  var day = parseInt(document.getElementById(id + ":day").value);
   if (month < 1) {
     month = 12;
     --year;
@@ -105,7 +99,10 @@ function addMonth(id, monthDelta) {
     month = 1;
     ++year;
   }
-  initCalendarData(id, month, year);
+  if (day > Calendar.getMonthLength(month, year)) {
+    day = Calendar.getMonthLength(month, year);
+  }
+  initCalendarData(id, year, month, day);
   initCalendar(id);
 }
 
@@ -114,29 +111,31 @@ function recalculateValues(id) {
   var month = parseInt(document.getElementById(id + ":month").value);
   var year = parseInt(document.getElementById(id + ":year").value);
 //  alert("before " + day + "." + month + "." + year);
+
   if (month < 1) {
-    month = 12;
+    month += 12;
     --year;
   } else if (month > 12) {
-    month = 1;
+    month -= 12;
     ++year;
   }
 
   if (day < 1) {
     --month;
+    if (month < 1) {
+      month += 12;
+      --year;
+    }
     day += Calendar.getMonthLength(month, year);
   } else if (day > Calendar.getMonthLength(month, year)) {
     day -= Calendar.getMonthLength(month, year);
     ++month;
+    if (month > 12) {
+      month -= 12;
+      ++year;
+    }
   }
 
-  if (month < 1) {
-    month = 12;
-    --year;
-  } else if (month > 12) {
-    month = 1;
-    ++year;
-  }
 //  alert("after " + day + "." + month + "." + year);
 
   document.getElementById(id + ":day").value = day;
@@ -150,13 +149,7 @@ function selectDay(id, row, column) {
   var year = document.getElementById(id + ":year").value;
   var firstDayOfWeek = getFirstDayOfWeek(id);
   var firstDayOffset = Calendar.firstDayOffset(month, year, firstDayOfWeek);
-  initCalendarX(id, year, month, row * 7 + column - firstDayOffset + 1);
-  initCalendar(id);
-}
-
-function initCalendarX(id, year, month, day) {
-//  alert(id + " "  + year + " "  + month + " "  + day);
-  initCalendarDataX(id, year, month, day);
+  initCalendarData(id, year, month, row * 7 + column - firstDayOffset + 1);
   initCalendar(id);
 }
 
@@ -221,7 +214,7 @@ function initCalendarParse(id, textBoxId) {
   var month = date.getMonth() + 1;
   var year = date.getFullYear();
 
-  initCalendarDataX(id, year, month, day);
+  initCalendarData(id, year, month, day);
   initCalendar(id);
 }
 
