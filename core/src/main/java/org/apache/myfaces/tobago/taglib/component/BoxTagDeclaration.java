@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabel;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanel",
     componentType = "org.apache.myfaces.tobago.Box",
     interfaces = "org.apache.myfaces.tobago.ajax.api.AjaxComponent",
-    rendererType = RendererType.BOX,
+    rendererType = RendererTypes.BOX,
     facets = {
     @Facet(name= Facets.TOOL_BAR, description = "Contains an instance of UIToolBar",
             allowedChildComponenents = "org.apache.myfaces.tobago.ToolBar"),

@@ -21,7 +21,7 @@ import com.sun.facelets.FaceletContext;
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.myfaces.tobago.OnComponentCreated;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIDateInput;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 
@@ -44,14 +44,14 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
   }
 
   protected String getSubRendererType() {
-    return RendererType.DATE;
+    return RendererTypes.DATE;
   }
 
   protected void onComponentPopulated(FaceletContext faceletContext, UIComponent panel, UIComponent parent) {
     if (panel.getChildCount() == 2) {
       Application application = faceletContext.getFacesContext().getApplication();
       UIDatePicker picker = (UIDatePicker) application.createComponent(UIDatePicker.COMPONENT_TYPE);
-      picker.setRendererType(RendererType.DATE_PICKER);
+      picker.setRendererType(RendererTypes.DATE_PICKER);
       picker.setFor("@auto");
       UIViewRoot root = ComponentSupport.getViewRoot(faceletContext, parent);
       picker.setId(root.createUniqueId());

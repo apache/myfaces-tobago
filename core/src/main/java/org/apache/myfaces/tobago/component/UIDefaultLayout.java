@@ -36,7 +36,7 @@ public class UIDefaultLayout extends UILayout {
     if (instance == null) {
       final FacesContext facesContext = FacesContext.getCurrentInstance();
       instance = (UIDefaultLayout) facesContext.getApplication().createComponent(COMPONENT_TYPE);
-      instance.setRendererType(RendererType.DEFAULT_LAYOUT);
+      instance.setRendererType(RendererTypes.DEFAULT_LAYOUT);
       instance.setId("UIDefaultLayout");
     }
     return instance;

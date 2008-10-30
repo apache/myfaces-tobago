@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
@@ -45,7 +45,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectManyCheckbox",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUISelectMany",
-    rendererType = RendererType.SELECT_MANY_CHECKBOX,
+    rendererType = RendererTypes.SELECT_MANY_CHECKBOX,
     allowedChildComponenents = {
         "javax.faces.SelectItem",
         "javax.faces.SelectItems"})

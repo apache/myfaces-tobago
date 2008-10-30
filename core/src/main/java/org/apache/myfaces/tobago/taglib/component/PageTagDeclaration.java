@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
@@ -40,7 +40,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasState;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPage",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIPage",
-    rendererType = RendererType.PAGE,
+    rendererType = RendererTypes.PAGE,
     facets =
         { @Facet(name = Facets.ACTION, description ="Contains an instance of UICommand (tc:command) for an auto-action",
                 allowedChildComponenents = "org.apache.myfaces.tobago.Command"),

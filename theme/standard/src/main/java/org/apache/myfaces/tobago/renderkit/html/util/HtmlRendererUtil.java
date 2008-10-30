@@ -23,7 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIData;
@@ -335,7 +335,7 @@ public final class HtmlRendererUtil {
     if (layoutSpace != null) {
       space = layoutSpace.intValue();
     }
-    if (space == -1 && (!RendererType.OUT.equals(component.getRendererType()))) {
+    if (space == -1 && (!RendererTypes.OUT.equals(component.getRendererType()))) {
       UIComponent parent = component.getParent();
       space = LayoutUtil.getInnerSpace(facesContext, parent, width);
       if (space > 0 && !ComponentUtil.isFacetOf(component, parent)) {

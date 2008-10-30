@@ -195,7 +195,7 @@ public class Sorter {
           || child instanceof UISelectBoolean) {
         continue;
       } else if (child instanceof UIInput
-          && RendererType.HIDDEN.equals(child.getRendererType())) {
+          && RendererTypes.HIDDEN.equals(child.getRendererType())) {
         continue;
       } else if (child instanceof UIOutput) {
         break;

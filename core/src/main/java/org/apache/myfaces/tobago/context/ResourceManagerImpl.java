@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 
 import javax.faces.component.UIViewRoot;
@@ -370,7 +370,7 @@ public class ResourceManagerImpl implements ResourceManager {
       LOG.debug("rendererType = '" + rendererType + "'");
     }
     if ("javax.faces.Text".equals(rendererType)) { // TODO: find a better way
-      name = RendererType.OUT;
+      name = RendererTypes.OUT;
     } else {
       name = rendererType;
     }

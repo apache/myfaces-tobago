@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 
@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
     uiComponent = "org.apache.myfaces.tobago.component.UIForm",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIForm",
     interfaces = "org.apache.myfaces.tobago.component.Form",
-    rendererType = RendererType.FORM,
+    rendererType = RendererTypes.FORM,
     isTransparentForLayout = true,
     allowedChildComponenents = "ALL")
 public interface FormTagDeclaration extends HasBinding, HasId {

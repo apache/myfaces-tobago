@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIInputBase;
 import org.apache.myfaces.tobago.context.TransientStateHolder;
@@ -682,7 +682,7 @@ public class ComponentUtil {
       if (labelText != null) {
         Application application = FacesContext.getCurrentInstance().getApplication();
         label = application.createComponent(UIOutput.COMPONENT_TYPE);
-        label.setRendererType(RendererType.LABEL);
+        label.setRendererType(RendererTypes.LABEL);
         String idprefix = ComponentUtil.getComponentId(facesContext, component);
         label.setId(idprefix + "_" + Facets.LABEL);
         label.setRendered(true);

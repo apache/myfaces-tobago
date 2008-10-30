@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedHeight;
@@ -44,7 +44,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectManyListbox",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUISelectMany",
-    rendererType = RendererType.SELECT_MANY_LISTBOX,
+    rendererType = RendererTypes.SELECT_MANY_LISTBOX,
     allowedChildComponenents = {"javax.faces.SelectItem", "javax.faces.SelectItems"})
 
 public interface SelectManyListboxTagDeclaration extends SelectManyTagDeclaration, HasId, IsDisabled,

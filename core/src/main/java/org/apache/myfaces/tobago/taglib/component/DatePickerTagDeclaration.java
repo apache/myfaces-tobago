@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasFor;
 import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 
@@ -40,7 +40,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UILinkCommand",
     generate = false,
     componentType = "org.apache.myfaces.tobago.DatePicker",
-    rendererType = RendererType.DATE_PICKER,
+    rendererType = RendererTypes.DATE_PICKER,
     allowedChildComponenents = "NONE")
 public interface DatePickerTagDeclaration extends HasFor, HasTabIndex {
 }

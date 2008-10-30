@@ -18,11 +18,11 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UICommand",
     generate = false,
-    rendererType = RendererType.SHEET_PAGE_COMMAND)
+    rendererType = RendererTypes.SHEET_PAGE_COMMAND)
 public interface SheetPageCommandTagDeclaration extends LinkTagDeclaration {
 }

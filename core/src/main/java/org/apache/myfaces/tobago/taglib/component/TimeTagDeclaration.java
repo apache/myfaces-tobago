@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
@@ -41,7 +41,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITimeInput",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITimeInput",
-    rendererType = RendererType.TIME,
+    rendererType = RendererTypes.TIME,
     allowedChildComponenents = "NONE")
 public interface TimeTagDeclaration
     extends InputTagDeclaration, HasIdBindingAndRendered,

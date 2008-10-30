@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
@@ -43,7 +43,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIOutput",
     uiComponentBaseClass = "javax.faces.component.UIOutput",
-    rendererType = RendererType.OUT,
+    rendererType = RendererTypes.OUT,
     allowedChildComponenents = "NONE")
 
 public interface OutTagDeclaration extends HasIdBindingAndRendered, HasConverter, IsInline, HasTip, HasValue {

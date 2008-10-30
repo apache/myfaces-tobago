@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /*
@@ -45,7 +45,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIData",
     interfaces = { "org.apache.myfaces.tobago.ajax.api.AjaxComponent",
         "org.apache.myfaces.tobago.event.SortActionSource" },
-    rendererType = RendererType.SHEET,
+    rendererType = RendererTypes.SHEET,
     allowedChildComponenents = {
         "javax.faces.Column",
         "org.apache.myfaces.tobago.ColumnSelector"},

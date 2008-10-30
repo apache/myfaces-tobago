@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.AbstractUITabGroup;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasAction;
 import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
@@ -46,7 +46,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITabGroup",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITabGroup",
-    rendererType = RendererType.TAB_GROUP,
+    rendererType = RendererTypes.TAB_GROUP,
     interfaces = { "org.apache.myfaces.tobago.ajax.api.AjaxComponent", "javax.faces.component.ActionSource"},
     allowedChildComponenents = "org.apache.myfaces.tobago.Tab")
 

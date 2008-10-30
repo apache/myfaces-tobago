@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Cell;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.Form;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 
 import javax.faces.component.UIComponent;
@@ -204,7 +204,7 @@ public final class LayoutUtil {
 
   public static void maybeSetLayoutAttribute(UIComponent cell, String attribute,
       Integer value) {
-    if (RendererType.OUT.equals(cell.getRendererType())) {
+    if (RendererTypes.OUT.equals(cell.getRendererType())) {
       return;
     }
     if (LOG.isDebugEnabled()) {

@@ -21,7 +21,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 
 import javax.faces.component.UIComponent;
 import java.util.Locale;
@@ -38,7 +38,7 @@ public final class LabelWithAccessKey {
 
   public LabelWithAccessKey(UIComponent component) {
     Object value;
-    if (RendererType.LABEL.equals(component.getRendererType())) {
+    if (RendererTypes.LABEL.equals(component.getRendererType())) {
       value = component.getAttributes().get(Attributes.VALUE);
     } else {
       value = component.getAttributes().get(Attributes.LABEL);

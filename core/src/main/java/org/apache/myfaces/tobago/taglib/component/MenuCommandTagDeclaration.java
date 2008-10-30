@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuCommand",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUICommand",
-    rendererType = RendererType.MENU_COMMAND,
+    rendererType = RendererTypes.MENU_COMMAND,
     allowedChildComponenents = "NONE")
 public interface MenuCommandTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, HasCommandType, HasImage, HasTarget {

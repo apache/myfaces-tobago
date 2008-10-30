@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 @Tag(name = "command", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UICommand",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUICommand",
-    rendererType = RendererType.COMMAND,
+    rendererType = RendererTypes.COMMAND,
     allowedChildComponenents = "NONE")
 public interface CommandTagDeclaration extends AbstractCommandTagDeclaration, HasId, HasValue, IsDisabled {
 

@@ -55,7 +55,7 @@ public class CreateComponentUtils {
   }
 
   public static UIColumn createTextColumn(String label, String sortable, String align, String value, String clientId) {
-    UIComponent text = createComponent(UIOutput.COMPONENT_TYPE, RendererType.OUT, clientId + "_t");
+    UIComponent text = createComponent(UIOutput.COMPONENT_TYPE, RendererTypes.OUT, clientId + "_t");
     TagUtils.setStringProperty(text, Attributes.VALUE, value);
     TagUtils.setBooleanProperty(text, Attributes.CREATE_SPAN, "false");
     TagUtils.setBooleanProperty(text, Attributes.ESCAPE, "false");
@@ -98,7 +98,7 @@ public class CreateComponentUtils {
     final ValueBinding valueBinding = command.getValueBinding(Attributes.VALUE);
     if (valueBinding != null) {
       radio = (UIMenuSelectOne) createComponent(facesContext, UIMenuSelectOne.COMPONENT_TYPE,
-          RendererType.SELECT_ONE_RADIO, clientId);
+          RendererTypes.SELECT_ONE_RADIO, clientId);
       //noinspection unchecked
       command.getFacets().put(Facets.ITEMS, radio);
       radio.setValueBinding(Attributes.VALUE, valueBinding);
@@ -113,7 +113,7 @@ public class CreateComponentUtils {
 
   public static UIComponent createUISelectBooleanFacet(FacesContext facesContext, UICommand command, String clientId) {
     UIComponent checkbox = createComponent(facesContext, UISelectBoolean.COMPONENT_TYPE,
-        RendererType.SELECT_BOOLEAN_CHECKBOX, clientId);
+        RendererTypes.SELECT_BOOLEAN_CHECKBOX, clientId);
     //noinspection unchecked
     command.getFacets().put(Facets.ITEMS, checkbox);
     ValueBinding valueBinding = command.getValueBinding(Attributes.VALUE);

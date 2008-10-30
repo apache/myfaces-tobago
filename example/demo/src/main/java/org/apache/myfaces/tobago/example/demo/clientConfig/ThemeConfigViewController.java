@@ -27,7 +27,7 @@ import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 
 import javax.faces.component.UIComponent;
@@ -63,7 +63,7 @@ public class ThemeConfigViewController {
 
   public static final String[] DEFAULT_RENDERER_TYPES = {
     "Action",
-    RendererType.BUTTON,
+    RendererTypes.BUTTON,
     "Calendar",
     "Date",
     "File",
@@ -73,8 +73,8 @@ public class ThemeConfigViewController {
     "Hidden",
     "Image",
     "Items",
-    RendererType.LABEL,
-    RendererType.LINK,
+    RendererTypes.LABEL,
+    RendererTypes.LINK,
     "Message",
     "Messages",
     "MultiSelect",
@@ -86,13 +86,13 @@ public class ThemeConfigViewController {
     "SelectItems",
     "SelectManyCheckbox",
     "SelectOneChoice",
-    RendererType.SELECT_ONE_RADIO,
+    RendererTypes.SELECT_ONE_RADIO,
     "Sheet",
     "Subview",
     "TabGroup",
     "Tab",
     "TextArea",
-    RendererType.IN,
+    RendererTypes.IN,
     "Out",
     "Tree",
     "TreeNode",

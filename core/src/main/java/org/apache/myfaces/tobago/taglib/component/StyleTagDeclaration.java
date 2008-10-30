@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /**
@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
     uiComponent = "org.apache.myfaces.tobago.component.UIStyle",
     componentType = "org.apache.myfaces.tobago.Style",
     componentFamily = "org.apache.myfaces.tobago.Style",
-    rendererType = RendererType.STYLE,
+    rendererType = RendererTypes.STYLE,
     isTransparentForLayout = true,
     allowedChildComponenents = "NONE")
 public interface StyleTagDeclaration extends HasIdBindingAndRendered {

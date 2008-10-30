@@ -27,7 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.component.UIToolBar;
@@ -164,7 +164,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
   private UIComponent createToolbar(FacesContext facesContext, UIInput component) {
     UIPanel toolbar = (UIPanel) CreateComponentUtils.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE, RendererType.TOOL_BAR);
+        facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.TOOL_BAR);
     String clientId = component.getClientId(facesContext);
 
     component.getFacets().put(Facets.TOOL_BAR, toolbar);
@@ -176,7 +176,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
 //    toolbar.getChildren().add(command);
 
     command = (UICommand) CreateComponentUtils.createComponent(
-        facesContext, UISelectBooleanCommand.COMPONENT_TYPE, RendererType.MENU_COMMAND);
+        facesContext, UISelectBooleanCommand.COMPONENT_TYPE, RendererTypes.MENU_COMMAND);
     toolbar.getChildren().add(command);
 
     command.getAttributes().put(Attributes.IMAGE, "image/tobago-richtext-edit.gif");
@@ -192,7 +192,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     command.getAttributes().put(Attributes.ONCLICK, onClick);
 
     command = (UICommand) CreateComponentUtils.createComponent(
-        facesContext, UISelectBooleanCommand.COMPONENT_TYPE, RendererType.MENU_COMMAND);
+        facesContext, UISelectBooleanCommand.COMPONENT_TYPE, RendererTypes.MENU_COMMAND);
     toolbar.getChildren().add(command);
     //command.getAttributes().put(ATTR_COMMAND_TYPE, ToolBarSelectBooleanTag.COMMAND_TYPE);
     command.getAttributes().put(Attributes.IMAGE, "image/tobago-richtext-preview.gif");
@@ -205,7 +205,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     command.getAttributes().put(Attributes.ONCLICK, onClick);
 
     command = (UICommand) CreateComponentUtils.createComponent(
-        facesContext, UICommand.COMPONENT_TYPE, RendererType.MENU_COMMAND);
+        facesContext, UICommand.COMPONENT_TYPE, RendererTypes.MENU_COMMAND);
     toolbar.getChildren().add(command);
     command.getAttributes().put(Attributes.IMAGE, "image/config.gif");
     command.getAttributes().put(Attributes.ONCLICK, "Tobago.doEditorCommand(this);");

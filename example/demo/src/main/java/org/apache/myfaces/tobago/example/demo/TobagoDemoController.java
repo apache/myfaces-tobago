@@ -25,7 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -248,7 +248,7 @@ public class TobagoDemoController {
 
       FacesContext facesContext = FacesContext.getCurrentInstance();
       UIInput textbox = (UIInput)
-        CreateComponentUtils.createComponent(facesContext, UIInput.COMPONENT_TYPE, RendererType.IN, "sac1i");
+        CreateComponentUtils.createComponent(facesContext, UIInput.COMPONENT_TYPE, RendererTypes.IN, "sac1i");
     ComponentUtil.setStringProperty(
         textbox, Attributes.VALUE, "#{luminary.population}");
     columns.add(CreateComponentUtils.createColumn(

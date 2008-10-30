@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.facelets.extension;
  */
 
 import com.sun.facelets.tag.jsf.ComponentConfig;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UISelectOneChoice;
 
 /*
@@ -36,6 +36,6 @@ public class SelectOneChoiceExtensionHandler extends TobagoLabelExtensionHandler
   }
 
   protected String getSubRendererType() {
-    return RendererType.SELECT_ONE_CHOICE;
+    return RendererTypes.SELECT_ONE_CHOICE;
   }
 }

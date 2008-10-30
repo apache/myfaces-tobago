@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
@@ -47,7 +47,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneRadio",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUISelectOne",
-    rendererType = RendererType.SELECT_ONE_RADIO,
+    rendererType = RendererTypes.SELECT_ONE_RADIO,
     allowedChildComponenents = {
         "javax.faces.SelectItem",
         "javax.faces.SelectItems"

@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.AbstractUIMessages;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasFor;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMessages",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIMessages",
-    rendererType = RendererType.MESSAGES,
+    rendererType = RendererTypes.MESSAGES,
     allowedChildComponenents = "NONE")
 
 public interface MessagesTagDeclaration extends HasIdBindingAndRendered, HasFor {

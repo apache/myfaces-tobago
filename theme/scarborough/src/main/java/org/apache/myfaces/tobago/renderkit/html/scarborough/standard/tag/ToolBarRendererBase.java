@@ -23,7 +23,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
@@ -464,7 +464,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
       writer.endElement(HtmlConstants.DIV);
       popupMenu.getAttributes().put(Attributes.MENU_POPUP, Boolean.TRUE);
       popupMenu.getAttributes().put(Attributes.MENU_POPUP_TYPE, "ToolBarButton");
-      popupMenu.setRendererType(RendererType.MENU_BAR);
+      popupMenu.setRendererType(RendererTypes.MENU_BAR);
       if (popupMenu instanceof UIMenu)  {
         ((UIMenu) popupMenu).setLabel(null);
       } else {

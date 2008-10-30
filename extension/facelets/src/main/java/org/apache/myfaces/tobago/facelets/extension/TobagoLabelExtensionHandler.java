@@ -29,7 +29,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.InputSuggest;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UILabel;
@@ -130,7 +130,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     }
     Application application = faceletContext.getFacesContext().getApplication();
     UILabel label = (UILabel) application.createComponent(UILabel.COMPONENT_TYPE);
-    label.setRendererType(RendererType.LABEL);
+    label.setRendererType(RendererTypes.LABEL);
     label.setId(uid);
     label.getAttributes().put(Attributes.FOR, "@auto");
     if (tipAttribute != null) {
@@ -176,7 +176,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   private void addGridLayout(FaceletContext faceletContext, UIComponent panel, UIViewRoot root) {
     Application application = faceletContext.getFacesContext().getApplication();
     UIGridLayout gridLayout = (UIGridLayout) application.createComponent(UIGridLayout.COMPONENT_TYPE);
-    gridLayout.setRendererType(RendererType.GRID_LAYOUT);
+    gridLayout.setRendererType(RendererTypes.GRID_LAYOUT);
     if (labelWidthAttribute != null) {
       String columns = getColumns(labelWidthAttribute.getValue(faceletContext));
       if (!LayoutUtil.checkTokens(columns)) {

@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago;
 /**
  * @see org.apache.myfaces.tobago.component.Attributes
  * @see org.apache.myfaces.tobago.component.Facets
- * @see org.apache.myfaces.tobago.component.RendererType
+ * @see org.apache.myfaces.tobago.component.RendererTypes
  * @see org.apache.myfaces.tobago.component.AbstractUICommand
  * @see org.apache.myfaces.tobago.OnComponentCreated
  * @see org.apache.myfaces.tobago.renderkit.HtmlUtils

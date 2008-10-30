@@ -18,12 +18,12 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBar",
     generate = false,
-    rendererType = RendererType.BOX_TOOL_BAR,
+    rendererType = RendererTypes.BOX_TOOL_BAR,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.SelectOneCommand",
         "org.apache.myfaces.tobago.SelectBooleanCommand",

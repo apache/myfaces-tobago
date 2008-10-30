@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIDateInput;
 import org.apache.myfaces.tobago.component.UIDatePicker;
@@ -72,7 +72,7 @@ public class DatePickerRenderer extends LinkRenderer {
     link.setImmediate(true);
     String linkId = link.getId();
     UIHiddenInput hidden = (UIHiddenInput)
-        CreateComponentUtils.createComponent(facesContext, UIHiddenInput.COMPONENT_TYPE, RendererType.HIDDEN);
+        CreateComponentUtils.createComponent(facesContext, UIHiddenInput.COMPONENT_TYPE, RendererTypes.HIDDEN);
     if (linkId != null) {
       hidden.setId(linkId + "hidden");
     } else {
@@ -83,7 +83,7 @@ public class DatePickerRenderer extends LinkRenderer {
     // create popup
     final AbstractUIPopup popup =
         (AbstractUIPopup) CreateComponentUtils.createComponent(facesContext, UIPopup.COMPONENT_TYPE,
-            RendererType.POPUP);
+            RendererTypes.POPUP);
     if (linkId != null) {
       popup.setId(linkId + "popup");
     } else {
@@ -96,58 +96,58 @@ public class DatePickerRenderer extends LinkRenderer {
     popup.setRendered(false);
 
     final UIComponent box = CreateComponentUtils.createComponent(
-        facesContext, UIBox.COMPONENT_TYPE, RendererType.BOX);
+        facesContext, UIBox.COMPONENT_TYPE, RendererTypes.BOX);
     popup.getChildren().add(box);
     box.setId("box");
     // TODO: set string resources in renderer
     box.getAttributes().put(Attributes.LABEL, ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "datePickerTitle"));
     UIComponent layout = CreateComponentUtils.createComponent(
-        facesContext, UIGridLayout.COMPONENT_TYPE, RendererType.GRID_LAYOUT);
+        facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT);
     box.getFacets().put(Facets.LAYOUT, layout);
     layout.setId("layout");
     layout.getAttributes().put(Attributes.ROWS, "*;fixed;fixed");
 
     final UIComponent calendar = CreateComponentUtils.createComponent(
         facesContext, javax.faces.component.UIOutput.COMPONENT_TYPE,
-        RendererType.CALENDAR);
+        RendererTypes.CALENDAR);
 
     calendar.setId("calendar");
     box.getChildren().add(calendar);
 
     // add time input
     final UIComponent timePanel = CreateComponentUtils.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE, RendererType.PANEL);
+        facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL);
     timePanel.setId("timePanel");
     box.getChildren().add(timePanel);
     layout = CreateComponentUtils.createComponent(
-        facesContext, UIGridLayout.COMPONENT_TYPE, RendererType.GRID_LAYOUT);
+        facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT);
     timePanel.getFacets().put(Facets.LAYOUT, layout);
     layout.setId("timePanelLayout");
     layout.getAttributes().put(Attributes.COLUMNS, "1*;fixed;1*");
     UIComponent cell = CreateComponentUtils.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE, RendererType.PANEL);
+        facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL);
     cell.setId("cell1");
     timePanel.getChildren().add(cell);
 
     final UIComponent time = CreateComponentUtils.createComponent(
         facesContext,
         UITimeInput.COMPONENT_TYPE,
-        RendererType.TIME);
+        RendererTypes.TIME);
     timePanel.getChildren().add(time);
     time.setId("time");
 
     cell = CreateComponentUtils.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE, RendererType.PANEL);
+        facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL);
     cell.setId("cell2");
     timePanel.getChildren().add(cell);
 
 
     UIComponent buttonPanel = CreateComponentUtils.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE, RendererType.PANEL);
+        facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL);
     buttonPanel.setId("buttonPanel");
     layout = CreateComponentUtils.createComponent(
-        facesContext, UIGridLayout.COMPONENT_TYPE, RendererType.GRID_LAYOUT);
+        facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT);
     layout.setId("buttonPanelLayout");
     buttonPanel.getFacets().put(Facets.LAYOUT, layout);
     layout.getAttributes().put(Attributes.COLUMNS, "*;*");
@@ -158,7 +158,7 @@ public class DatePickerRenderer extends LinkRenderer {
     final org.apache.myfaces.tobago.component.UICommand okButton =
         (org.apache.myfaces.tobago.component.UICommand) CreateComponentUtils.createComponent(facesContext,
             org.apache.myfaces.tobago.component.UIButtonCommand.COMPONENT_TYPE,
-            RendererType.BUTTON);
+            RendererTypes.BUTTON);
     buttonPanel.getChildren().add(okButton);
     okButton.setId("ok" + CLOSE_POPUP);
     okButton.getAttributes().put(Attributes.LABEL, ResourceManagerUtil.getPropertyNotNull(
@@ -167,7 +167,7 @@ public class DatePickerRenderer extends LinkRenderer {
     final org.apache.myfaces.tobago.component.UICommand cancelButton =
         (org.apache.myfaces.tobago.component.UICommand) CreateComponentUtils.createComponent(facesContext,
             org.apache.myfaces.tobago.component.UIButtonCommand.COMPONENT_TYPE,
-            RendererType.BUTTON);
+            RendererTypes.BUTTON);
     buttonPanel.getChildren().add(cancelButton);
 
     cancelButton.getAttributes().put(Attributes.LABEL, ResourceManagerUtil.getPropertyNotNull(
@@ -176,7 +176,7 @@ public class DatePickerRenderer extends LinkRenderer {
 
     // create image
     UIGraphic image = (UIGraphic) CreateComponentUtils.createComponent(
-        facesContext, UIGraphic.COMPONENT_TYPE, RendererType.IMAGE);
+        facesContext, UIGraphic.COMPONENT_TYPE, RendererTypes.IMAGE);
     image.setRendered(true);
     if (linkId != null) {
       image.setId(linkId + "image");

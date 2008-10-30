@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasBorder;
 import org.apache.myfaces.tobago.taglib.decl.HasCellspacing;
@@ -96,7 +96,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIGridLayout",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIGridLayout",
-    rendererType = RendererType.GRID_LAYOUT,
+    rendererType = RendererTypes.GRID_LAYOUT,
     componentFamily = "org.apache.myfaces.tobago.GridLayout",
     allowedChildComponenents = "NONE", isLayout = true)
 public interface GridLayoutTagDeclaration extends HasId, HasBorder, HasCellspacing, HasMargin,

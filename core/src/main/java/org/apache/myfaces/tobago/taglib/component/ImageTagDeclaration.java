@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasBorder;
 import org.apache.myfaces.tobago.taglib.decl.HasDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -40,7 +40,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIGraphic",
     uiComponentBaseClass = "javax.faces.component.UIGraphic",
-    rendererType = RendererType.IMAGE,
+    rendererType = RendererTypes.IMAGE,
     allowedChildComponenents = "NONE")
 public interface ImageTagDeclaration extends HasIdBindingAndRendered, HasBorder, HasDimension, HasTip {
 

@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.component.RendererType;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 
 /*
@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIObject",
     uiComponentBaseClass = "javax.faces.component.UIOutput",
-    rendererType = RendererType.OBJECT,
+    rendererType = RendererTypes.OBJECT,
     allowedChildComponenents = "NONE")
 public interface ObjectTagDeclaration extends HasId {
   /**
