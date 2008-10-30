@@ -23,7 +23,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.myfaces.tobago.component.AbstractUITree;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -41,30 +40,6 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class TreeRenderer extends LayoutableRendererBase {
-
-  /**
-   * Resources to display the tree.
-   */
-  private static final String[] TREE_IMAGES = {
-      "openfoldericon.gif",
-      "foldericon.gif",
-      "unchecked.gif",
-      "uncheckedDisabled.gif",
-      "checked.gif",
-      "checkedDisabled.gif",
-      "new.gif",
-      "T.gif",
-      "L.gif",
-      "I.gif",
-      "Lminus.gif",
-      "Tminus.gif",
-      "Rminus.gif",
-      "Lplus.gif",
-      "Tplus.gif",
-      "Rplus.gif",
-      "treeMenuOpen.gif",
-      "treeMenuClose.gif",
-  };
 
   private static final String SCRIPT = "script/tobago-tree.js";
 
@@ -139,40 +114,11 @@ public class TreeRenderer extends LayoutableRendererBase {
       writer.endElement(HtmlConstants.INPUT);
     }
 
-    String scriptTexts = createJavascript(facesContext);
-
-    HtmlRendererUtil.writeScriptLoader(facesContext, new String[]{SCRIPT}, new String[]{scriptTexts});
+    HtmlRendererUtil.writeScriptLoader(facesContext, SCRIPT);
 
     RenderUtil.encode(facesContext, root);
 
     writer.endElement(HtmlConstants.DIV);
-  }
-
-  private String createJavascript(FacesContext facesContext) throws IOException {
-    StringBuilder sb = new StringBuilder(128);
-
-    sb.append("{\n");
-
-    sb.append("  var treeResourcesHelp = new Object();\n");
-    for (String images : TREE_IMAGES) {
-      sb.append("  treeResourcesHelp[\"");
-      sb.append(images);
-      sb.append("\"] = \"");
-      sb.append(ResourceManagerUtil.getImageWithPath(facesContext, "image/" + images));
-      sb.append("\";\n");
-    }
-    sb.append(" \n  treeResourcesHelp.getImage = function (name) {\n");
-    sb.append("    var result = this[name];\n");
-    sb.append("    if (result) {\n");
-    sb.append("      return result;\n");
-    sb.append("    } else {\n");
-    sb.append("      return \"");
-    sb.append(ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif"));
-    sb.append("\";\n");
-    sb.append("    }\n");
-    sb.append("  };\n \n");
-    sb.append("}");
-    return sb.toString();
   }
 
   protected String getNodesAsJavascript(FacesContext facesContext, UIComponent root) throws IOException {

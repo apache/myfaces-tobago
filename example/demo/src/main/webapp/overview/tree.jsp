@@ -26,7 +26,7 @@
   <tc:gridLayout rows="9*;16*"/>
 </f:facet>
 
-<tc:out escape="false" value="#{overviewBundle.tree_text}"/>
+<tc:out escape="false" value="(UNDER CONSTRUCTION) #{overviewBundle.tree_text}"/>
 
 <%-- column --%>
 
