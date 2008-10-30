@@ -52,10 +52,11 @@ public abstract class UIInputBase extends javax.faces.component.UIInput
 
     // fixme
     if (constraints == null) {
-      constraints = new AbstractUIGridConstraints(){};
+      constraints = new MockUIGridConstraints();
       getFacets().put(Facets.CONSTRAINTS, constraints);
     }
     return constraints;
   }
-// LAYOUT End
+
+  // LAYOUT End
 }

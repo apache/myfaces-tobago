@@ -115,8 +115,8 @@ public class PageRenderer extends PageRendererBase {
     try {
       LayoutContext layoutContext = new LayoutContext(page);
       layoutContext.layout();
-    } catch (Exception e) {
-      LOG.error("", e);
+    } catch (Throwable e) {
+      LOG.info("testing... " + e);
     }
 
 // LAYOUT End
