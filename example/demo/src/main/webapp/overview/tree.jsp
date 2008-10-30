@@ -20,101 +20,114 @@
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <layout:overview>
-  <jsp:body>
-    <tc:panel>
+<jsp:body>
+<tc:panel>
+<f:facet name="layout">
+  <tc:gridLayout rows="9*;16*"/>
+</f:facet>
+
+<tc:out escape="false" value="#{overviewBundle.tree_text}"/>
+
+<%-- column --%>
+
+<tc:box label="#{overviewBundle.tree_sampleTitle}">
+  <tc:tabGroup state="#{overviewController.treeTabsState}" switchType="reloadPage">
+    <tc:tab label="#{overviewBundle.treeLabel}">
       <f:facet name="layout">
-        <tc:gridLayout rows="9*;16*" />
-        <%-- <tc:gridLayout rows="8*;17*" />--%>
+        <tc:gridLayout columns="2*;1*"/>
       </f:facet>
 
-        <tc:out escape="false" value="#{overviewBundle.tree_text}" />
+      <tc:tree id="tree"
+               showIcons="#{demo.showIcons}"
+               showJunctions="#{demo.showJunctions}"
+               showRootJunction="#{demo.showRootJunction}"
+               showRoot="#{demo.showRoot}">
+        <tc:treeData value="#{demo.tree}" var="node" id="data">
+          <tc:treeNode label="#{node.userObject.name}"
+                       id="template"
+                       expanded="true"
+                       value="#{node}"
+                       image="image/feather.png">
+            <f:actionListener type="org.apache.myfaces.tobago.example.demo.actionlistener.TreeEditor"/>
+          </tc:treeNode>
 
-      <%-- column --%>
 
-      <tc:box label="#{overviewBundle.tree_sampleTitle}" >
-        <tc:tabGroup state="#{overviewController.treeTabsState}" switchType="reloadPage">
-          <tc:tab label="#{overviewBundle.treeLabel}">
+          <%--
+          todo: tree editor
+          todo: events instead of state
+          todo: test action listener
+
+          actionListener="org.apache.myfaces.tobago.example.demo.actionlistener.TreeEditor"
+          markup="#{node.userObject.markup}"
+          tip="#{node.userObject.tip}"
+          action="#{node.userObject.action}"
+          disabled="#{node.userObject.disabled}"
+          --%>
+        </tc:treeData>
+      </tc:tree>
+
+      <tc:panel>
         <f:facet name="layout">
-          <tc:gridLayout columns="2*;1*" />
+          <tc:gridLayout rows="fixed;fixed;fixed;fixed;1*;fixed;fixed;fixed"/>
         </f:facet>
 
-            <tc:treeOld value="#{demo.tree}" state="#{demo.treeState}" id="tree"
-                idReference="userObject.id"
-                nameReference="userObject.name"
-                showIcons="#{demo.showIcons}"
-                showJunctions="#{demo.showJunctions}"
-                showRootJunction="#{demo.showRootJunction}"
-                showRoot="#{demo.showRoot}"
-                selectable="#{overviewController.treeSelectMode}"
-                mutable="#{demo.mutable}"
-                tipReference="userObject.name"                
-                >
-              <f:actionListener type="org.apache.myfaces.tobago.example.demo.actionlistener.TreeEditor" />
-            </tc:treeOld>
+        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowIcons}"
+                                  value="#{demo.showIcons}"
+                                  disabled="#{overviewController.treeTabsState != 0}"/>
+        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowJunctions}"
+                                  value="#{demo.showJunctions}"
+                                  disabled="#{overviewController.treeTabsState != 0}"/>
+        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowRootJunction}"
+                                  value="#{demo.showRootJunction}"
+                                  disabled="#{overviewController.treeTabsState != 0}"/>
+        <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowRoot}"
+                                  value="#{demo.showRoot}"
+                                  disabled="#{overviewController.treeTabsState != 0}"/>
+        <tc:cell/>
+        <tc:selectOneChoice value="#{overviewController.treeSelectMode}">
+          <f:selectItems value="#{overviewController.treeSelectModeItems}"/>
+        </tc:selectOneChoice>
 
-            <tc:panel>
-              <f:facet name="layout">
-                <tc:gridLayout rows="fixed;fixed;fixed;fixed;1*;fixed;fixed;fixed" />
-              </f:facet>
+        <tc:selectBooleanCheckbox label="#{overviewBundle.treeMutable}"
+                                  value="#{demo.mutable}"
+                                  disabled="#{overviewController.treeTabsState != 0}"/>
+        <tc:button action="redisplay" label="#{overviewBundle.submit}"/>
+      </tc:panel>
 
-              <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowIcons}"
-                                        value="#{demo.showIcons}"
-                                        disabled="#{overviewController.treeTabsState != 0}"/>
-              <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowJunctions}"
-                                        value="#{demo.showJunctions}"
-                                        disabled="#{overviewController.treeTabsState != 0}"/>
-              <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowRootJunction}"
-                                        value="#{demo.showRootJunction}"
-                                        disabled="#{overviewController.treeTabsState != 0}"/>
-              <tc:selectBooleanCheckbox label="#{overviewBundle.treeShowRoot}"
-                                        value="#{demo.showRoot}"
-                                        disabled="#{overviewController.treeTabsState != 0}"/>
-              <tc:cell />
-              <tc:selectOneChoice value="#{overviewController.treeSelectMode}">
-                <f:selectItems value="#{overviewController.treeSelectModeItems}" />
-              </tc:selectOneChoice>
+    </tc:tab>
+    <tc:tab label="#{overviewBundle.treeListboxLabel}">
 
-              <tc:selectBooleanCheckbox label="#{overviewBundle.treeMutable}"
-                                        value="#{demo.mutable}"
-                                        disabled="#{overviewController.treeTabsState != 0}"/>
-              <tc:button action="redisplay" label="#{overviewBundle.submit}" />
-            </tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="2*;1*"/>
+      </f:facet>
 
-          </tc:tab>
-          <tc:tab label="#{overviewBundle.treeListboxLabel}">
+      <tc:treeListbox value="#{demo.tree}" state="#{demo.treeState}" id="treeListbox"
+                      idReference="userObject.id"
+                      nameReference="userObject.name"
+                      selectable="#{overviewController.treeListboxSelectMode}"
+                      tipReference="userObject.name">
+      </tc:treeListbox>
 
-            <f:facet name="layout">
-              <tc:gridLayout columns="2*;1*" />
-            </f:facet>
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout rows="1*;fixed;20px;fixed"/>
+        </f:facet>
 
-            <tc:treeListbox value="#{demo.tree}" state="#{demo.treeState}" id="treeListbox"
-                idReference="userObject.id"
-                nameReference="userObject.name"
-                selectable="#{overviewController.treeListboxSelectMode}"
-                tipReference="userObject.name"
-                >
-            </tc:treeListbox>
+        <tc:cell/>
 
-            <tc:panel>
-              <f:facet name="layout">
-                <tc:gridLayout rows="1*;fixed;20px;fixed" />
-              </f:facet>
+        <tc:selectOneChoice value="#{overviewController.treeListboxSelectMode}">
+          <f:selectItems value="#{overviewController.treeListboxSelectModeItems}"/>
+        </tc:selectOneChoice>
 
-              <tc:cell />
+        <tc:cell/>
 
-              <tc:selectOneChoice value="#{overviewController.treeListboxSelectMode}">
-                <f:selectItems value="#{overviewController.treeListboxSelectModeItems}" />
-              </tc:selectOneChoice>
+        <tc:button action="redisplay" label="#{overviewBundle.submit}"/>
+      </tc:panel>
+    </tc:tab>
+  </tc:tabGroup>
 
-              <tc:cell />
+</tc:box>
 
-              <tc:button action="redisplay" label="#{overviewBundle.submit}" />
-            </tc:panel>
-          </tc:tab>
-        </tc:tabGroup>
-
-      </tc:box>
-
-    </tc:panel>
-  </jsp:body>
+</tc:panel>
+</jsp:body>
 </layout:overview>
