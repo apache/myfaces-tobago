@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ResourceUtils;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.RenderUtil;
@@ -58,6 +59,13 @@ import java.util.Map;
 public class TreeNodeRenderer extends CommandRendererBase {
 
   private static final Log LOG = LogFactory.getLog(TreeNodeRenderer.class);
+
+  protected static final String OPEN_FOLDER
+      = ResourceUtils.createString("image", "treeNode", "icon", "open", ResourceUtils.GIF);
+  protected static final String CLOSED_FOLDER
+      = ResourceUtils.createString("image", "treeNode", "icon", ResourceUtils.GIF);
+  protected static final String LEAF
+      = ResourceUtils.createString("image", "treeNode", "icon", "leaf", ResourceUtils.GIF);
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
@@ -130,10 +138,39 @@ public class TreeNodeRenderer extends CommandRendererBase {
     boolean expanded = node.isExpanded() || (isRoot && !showRoot);
     boolean hasNextSibling = mixedModel.hasCurrentNodeNextSibling();
     List<Boolean> junctions = mixedModel.getJunctions();
-    String image = ComponentUtil.getStringAttribute(node, "image");
 
     if (!showRoot && junctions.size() > 0) {
       junctions.remove(0);
+    }
+
+    String source;
+    String openSource = null;
+    String closedSource;
+
+    String image = ComponentUtil.getStringAttribute(node, "image");
+    if (image != null) { // application image
+      closedSource = ResourceManagerUtil.getImageWithPath(facesContext, image);
+    } else { // theme image
+      closedSource = ResourceManagerUtil.getImageWithPath(facesContext, CLOSED_FOLDER);
+    }
+    if (folder) {
+      if (image != null) { // application image
+        openSource = ResourceManagerUtil.getImageWithPath(facesContext,
+            ResourceUtils.addPostfixToFilename(image, "open"), true);
+      } else { // theme image
+        openSource = ResourceManagerUtil.getImageWithPath(facesContext, OPEN_FOLDER);
+      }
+      source = expanded ? openSource : closedSource;
+    } else {
+      if (image != null) { // application image
+        source = ResourceManagerUtil.getImageWithPath(facesContext,
+            ResourceUtils.addPostfixToFilename(image, "leaf"), true);
+      } else { // theme image
+        source = ResourceManagerUtil.getImageWithPath(facesContext, LEAF);
+      }
+      if (source == null) {
+        source = closedSource;
+      }
     }
 
     CommandRendererHelper helper = new CommandRendererHelper(facesContext, node);
@@ -181,9 +218,9 @@ public class TreeNodeRenderer extends CommandRendererBase {
       encodeIndent(facesContext, writer, menuMode, junctions);
 
       encodeTreeJunction(facesContext, writer, id, treeId, showJunctions, showRootJunction, showRoot, expanded,
-          folder, depth, hasNextSibling, image);
+          folder, depth, hasNextSibling, openSource, closedSource);
 
-      encodeTreeIcons(facesContext, writer, id, treeId, showIcons, expanded, folder, image);
+      encodeTreeIcons(writer, id, treeId, showIcons, folder, source, openSource, closedSource);
 
       encodeLabel(writer, helper, node, marked, treeId);
 
@@ -201,15 +238,15 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.writeIdAttribute(id + "-cont");
       writer.writeStyleAttribute(contentStyle);
     }
-
-    String label = (String) node.getAttributes().get(ATTR_LABEL);
-    int level = modelNode.getLevel();
-    StringBuilder builder = new StringBuilder();
-    for (int i = 0; i < level; i++) {
-      builder.append("    ");
-
+    if (LOG.isDebugEnabled()) {
+      String label = (String) node.getAttributes().get(ATTR_LABEL);
+      int level = modelNode.getLevel();
+      StringBuilder builder = new StringBuilder();
+      for (int i = 0; i < level; i++) {
+        builder.append("    ");
+      }
+      LOG.debug(builder + "<div name=" + label + ">");
     }
-    LOG.debug(builder + "<div name=" + label + ">");
   }
 
   private void encodeExpandedHidden(TobagoResponseWriter writer, UITreeNode node, String clientId, boolean expanded)
@@ -233,8 +270,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
     writer.startElement(IMG, null);
     writer.writeClassAttribute("tobago-tree-menu-icon");
     writer.writeIdAttribute(id + "-menuIcon");
-    writer.writeAttribute("src", src, true); // xxx is escaping required?
-    writer.writeAttribute("onclick", onclick, true); // xxx is escaping required?
+    writer.writeAttribute("src", src, true);
+    writer.writeAttribute("onclick", onclick, true);
     writer.writeAttribute("alt", "", false);
     writer.endElement(IMG);
   }
@@ -250,9 +287,9 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.startElement(IMG, null);
       writer.writeClassAttribute("tree-junction");
       if (junction && !menuMode) {
-        writer.writeAttribute("src", perpendicular, true); // xxx is escaping required?
+        writer.writeAttribute("src", perpendicular, true);
       } else {
-        writer.writeAttribute("src", blank, true); // xxx is escaping required?
+        writer.writeAttribute("src", blank, true);
       }
       writer.endElement(IMG);
     }
@@ -260,8 +297,9 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
   private void encodeTreeJunction(
       FacesContext facesContext, TobagoResponseWriter writer, String id, String treeId,
-      boolean showJunctions, boolean showRootJunction, boolean showRoot,
-      boolean expanded, boolean folder, int depth, boolean hasNextSibling, String image) throws IOException {
+      boolean showJunctions, boolean showRootJunction, boolean showRoot, boolean expanded, boolean folder,
+      int depth, boolean hasNextSibling, String openSource, String closedSource)
+      throws IOException {
     if (!(!showJunctions
         || !showRootJunction && depth == 0
         || !showRootJunction && !showRoot && depth == 1)) {
@@ -281,10 +319,9 @@ public class TreeNodeRenderer extends CommandRendererBase {
       );
 
       String src = ResourceManagerUtil.getImageWithPath(facesContext, "image/" + gif);
-      writer.writeAttribute("src", src, true); // xxx is escaping required
+      writer.writeAttribute("src", src, true);
       if (folder) {
-        // xxx is escaping required
-        writer.writeAttribute("onclick", createOnclickForToggle(facesContext, treeId, image), true);
+        writer.writeAttribute("onclick", createOnclickForToggle(treeId, openSource, closedSource), true);
       }
       writer.writeAttribute("alt", "", false);
 //    } else if (( !this.hideRoot && depth >0 ) || (this.hideRoot && depth > 1)) {
@@ -296,8 +333,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
   }
 
   private void encodeTreeIcons(
-      FacesContext facesContext, TobagoResponseWriter writer, String id, String treeId,
-      boolean showIcons, boolean expanded, boolean folder, String image)
+      TobagoResponseWriter writer, String id, String treeId,
+      boolean showIcons, boolean folder, String source, String openSource, String closedSource)
       throws IOException {
 
     if (showIcons) {
@@ -305,29 +342,21 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.writeClassAttribute("tree-icon");
       writer.writeIdAttribute(id + "-icon");
 
-      if (image == null) {
-        image = "image/" + (folder ? (expanded ? "openfoldericon.gif" : "foldericon.gif") : "new.gif");
-      }
-      String src = ResourceManagerUtil.getImageWithPath(facesContext, image);
-      writer.writeAttribute("src", src, true); // xxx is escaping required
+      writer.writeAttribute("src", source, true);
       if (folder) {
-        writer.writeAttribute("onclick",
-            createOnclickForToggle(facesContext, treeId, image), true); // xxx is escaping required
+        writer.writeAttribute("onclick", createOnclickForToggle(treeId, openSource, closedSource), true);
       }
       writer.writeAttribute("alt", "", false);
       writer.endElement(IMG);
     }
   }
 
-  private String createOnclickForToggle(FacesContext facesContext, String treeId, String image) {
-    String openImage = image;
-    if (image == null) {
-      openImage = "image/openfoldericon.gif";
-      image = "image/foldericon.gif";
+  private String createOnclickForToggle(String treeId, String openSouce, String closedSource) {
+    if (openSouce == null) { // default
+      openSouce = closedSource;
     }
     return "tobagoTreeNodeToggle(this.parentNode, '" + treeId + "', '"
-        + ResourceManagerUtil.getImageWithPath(facesContext, openImage) + "', '"
-        + ResourceManagerUtil.getImageWithPath(facesContext, image) + "', null, null)";
+        + openSouce + "', '" + closedSource + "', null, null)";
   }
 
 /*
@@ -335,13 +364,13 @@ public class TreeNodeRenderer extends CommandRendererBase {
     str += '<img class="tree-icon" id="' + this.id + '-icon" '
         + 'src="' + (this.expanded ? this.openIcon : this.icon) + ' " '
         + 'onclick="toggle(this.parentNode, \'' + this.treeHiddenId
-        + '\', \'' + this.treeResources.getImage("openfoldericon.gif")
-        + '\', \'' + this.treeResources.getImage("foldericon.gif")
+        + '\', \'' + this.treeResources.getImage("image/treeNode-icon-open.gif")
+        + '\', \'' + this.treeResources.getImage("image/treeNode-icon.gif")
         + '\')"'
         + ' alt="">';
   } else {
     str += '<img class="tree-icon" id="' + this.id
-        + '-icon" src="' + this.treeResources.getImage("new.gif") + '" alt="">';
+        + '-icon" src="' + this.treeResources.getImage("image/treeNode-icon-leaf.gif") + '" alt="">';
   }
 */
 

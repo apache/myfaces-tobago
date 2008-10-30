@@ -129,10 +129,8 @@ public class ResourceManagerUtil {
   }
 
   public static String getDisabledImageWithPath(FacesContext facesContext, String image) {
-    int dotIndex = image.lastIndexOf('.');
-    String name = image.substring(0, dotIndex);
-    String postfix = image.substring(dotIndex);
-    return getImageWithPath(facesContext, name + "Disabled" + postfix, true);
+    String filename = ResourceUtils.addPostfixToFilename(image, "Disabled");
+    return getImageWithPath(facesContext, filename, true);
   }
 
   public static String getImageWithPath(FacesContext facesContext, String image, CommandRendererHelper helper) {
