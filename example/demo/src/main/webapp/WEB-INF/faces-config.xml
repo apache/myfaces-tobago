@@ -360,9 +360,8 @@ tree-editor.jsp
 tree-menu.jsp
 tree-normal.jsp
 tree-select.jsp
-treeCommand.jsp
 treeListBox.jsp
-treeOld.jsp-->
+-->
     <navigation-case>
       <from-outcome>reference/upload</from-outcome>
       <to-view-id>/reference/upload.jsp</to-view-id>
