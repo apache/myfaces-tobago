@@ -355,12 +355,12 @@
       <from-outcome>reference/tree/tree-normal</from-outcome>
       <to-view-id>/reference/tree/tree-normal.jsp</to-view-id>
     </navigation-case>
-<!--tree-ajax.jsp
+<!--
+tree-ajax.jsp
 tree-editor.jsp
 tree-menu.jsp
 tree-normal.jsp
 tree-select.jsp
-treeListBox.jsp
 -->
     <navigation-case>
       <from-outcome>reference/upload</from-outcome>

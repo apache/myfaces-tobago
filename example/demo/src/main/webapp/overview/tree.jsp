@@ -47,9 +47,7 @@
                        id="template"
                        expanded="true"
                        value="#{node}"
-                       image="image/feather.png">
-            <f:actionListener type="org.apache.myfaces.tobago.example.demo.actionlistener.TreeEditor"/>
-          </tc:treeNode>
+                       image="image/feather.png"/>
 
 
           <%--
