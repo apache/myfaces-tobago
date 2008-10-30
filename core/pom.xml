@@ -138,7 +138,6 @@
           <excludes>
             <exclude>org/apache/myfaces/tobago/tablib/extension/*</exclude>
             <exclude>org/apache/myfaces/tobago/component/CreateComponentUtils*</exclude>
-            <exclude>org/apache/myfaces/tobago/component/UITreeListbox*</exclude>
             <exclude>org/apache/myfaces/tobago/component/UIDatePicker*</exclude>
           </excludes>
         </configuration>
@@ -156,7 +155,6 @@
                 <include>org/apache/myfaces/tobago/renderkit/*</include>
                 <include>org/apache/myfaces/tobago/internal/taglib/*</include>
                 <include>org/apache/myfaces/tobago/component/*</include>
-                <include>org/apache/myfaces/tobago/component/UITreeListbox*</include>
                 <include>org/apache/myfaces/tobago/component/UIDatePicker*</include>
               </includes>
               <excludes>

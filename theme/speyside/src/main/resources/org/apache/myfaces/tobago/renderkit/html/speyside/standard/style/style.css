@@ -674,22 +674,6 @@ label.tobago-label-error {
   left: 88;
 }
 
-/* treeListbox -------------------------------------------------------------- */
-.tobago-treeListbox-default {
-  font: 12px arial, helvetica, sans-serif;
-  color: #000000;
-}
-/*
-.tobago-treeListbox-disabled {
-  background-color: #E8E8E8;
-  color: #808080;
-}
-
-.tobago-treeListbox-readonly {
-  background-color: #E8E8E8;
-}
-*/
-
 /* Toolbar ----------------------------------------------------------------- */
 .tobago-toolBar-default {
   border: 1px solid #000000;

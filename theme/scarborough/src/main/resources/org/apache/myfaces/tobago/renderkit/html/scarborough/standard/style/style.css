@@ -217,15 +217,6 @@ span.tobago-progress {
   font-weight: bold;
 }
 
-/* treeListbox -------------------------------------------------------------------- */
-
-select.tobago-treeListbox-default {
-}
-
-select.tobago-treeListbox-unused {
-  background: #d3d3d3;
-}
-
 /* calendar */
 table.tobago-calendar-default {
   width: 100%;
@@ -337,21 +328,6 @@ td.tobago-calendar-day-selected {
 /*.tobago-selectOneListbox-error {
 	border: 1px solid #ff0000;
 }*/
-
-/* treeListbox */
-.tobago-treeListbox-default {
-  font-family: arial, helvetica, sans-serif;
-  color: #000000;
-}
-
-.tobago-treeListbox-disabled {
-  color: #778899;
-  background: #bbccdd;
-}
-
-.tobago-treeListbox-readonly {
-  background-color: #bbccdd;
-}
 
 /* selectManyCheckbox ----------------------------------------------------------- */
 .tobago-selectManyCheckbox-default {

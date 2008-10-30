@@ -93,34 +93,8 @@
       </tc:panel>
 
     </tc:tab>
-    <tc:tab label="#{overviewBundle.treeListboxLabel}">
+    <tc:tab label="#{overviewBundle.treeListboxLabel} (todo)">
 
-      <f:facet name="layout">
-        <tc:gridLayout columns="2*;1*"/>
-      </f:facet>
-
-      <tc:treeListbox value="#{demo.tree}" state="#{demo.treeState}" id="treeListbox"
-                      idReference="userObject.id"
-                      nameReference="userObject.name"
-                      selectable="#{overviewController.treeListboxSelectMode}"
-                      tipReference="userObject.name">
-      </tc:treeListbox>
-
-      <tc:panel>
-        <f:facet name="layout">
-          <tc:gridLayout rows="1*;fixed;20px;fixed"/>
-        </f:facet>
-
-        <tc:cell/>
-
-        <tc:selectOneChoice value="#{overviewController.treeListboxSelectMode}">
-          <f:selectItems value="#{overviewController.treeListboxSelectModeItems}"/>
-        </tc:selectOneChoice>
-
-        <tc:cell/>
-
-        <tc:button action="redisplay" label="#{overviewBundle.submit}"/>
-      </tc:panel>
     </tc:tab>
   </tc:tabGroup>
 

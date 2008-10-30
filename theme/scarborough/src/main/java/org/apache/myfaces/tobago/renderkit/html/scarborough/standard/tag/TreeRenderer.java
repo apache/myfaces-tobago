@@ -131,7 +131,6 @@ public class TreeRenderer extends LayoutableRendererBase {
   }
 
   protected String nodeStateId(FacesContext facesContext, UIComponent node) {
-    // this must do the same as nodeStateId() in tree.js
     String clientId = node.getClientId(facesContext);
     int last = clientId.lastIndexOf(':') + 1;
     return clientId.substring(last);
