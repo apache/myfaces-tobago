@@ -128,7 +128,9 @@ public final class Attributes {
   public static final String SCRIPT_FILES = "scriptFiles";
   public static final String SCROLLBAR_HEIGHT = "scrollbarHeight";
   public static final String SCROLLBARS = "scrollbars";
-  public static final String SCROLL_POSITION = "scrollPosition";
+  // Attribute name could not be the same as the method name
+  // this cause an infinite loop on attribute map
+  public static final String SCROLL_POSITION = "attrScrollPosition";
   public static final String SELECTED_INDEX = "selectedIndex";
   public static final String SELECTED_LIST_STRING = "selectedListString";
   public static final String SORTABLE = "sortable";
