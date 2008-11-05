@@ -218,8 +218,11 @@ public final class AttributeHandler extends TagHandler {
             ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(faceletContext, Boolean.class));
           }
         } else if (TobagoConstants.ATTR_RENDERED_PARTIALLY.equals(nameValue) && parent instanceof UICommand) {
-          // TODO expression
-          ComponentUtil.setRenderedPartially((UICommand) parent, value.getValue());
+          if (value.isLiteral()) {
+            ComponentUtil.setRenderedPartially((UICommand) parent, value.getValue());
+          } else {
+            ELAdaptor.setExpression(parent, nameValue, value.getValueExpression(faceletContext, Object.class));
+          }
         } else if (TobagoConstants.ATTR_STYLE_CLASS.equals(nameValue)) {
           // TODO expression
           ComponentUtil.setStyleClasses(parent, value.getValue());
