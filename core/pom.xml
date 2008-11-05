@@ -168,13 +168,28 @@
         <executions>
           <execution>
             <id>copy-faces-config</id>
-            <goals><goal>resources</goal></goals>
+            <goals><goal>copy-resources</goal></goals>
             <phase>process-classes</phase>
             <configuration>
+              <outputDirectory>${project.build.outputDirectory}</outputDirectory>
               <resources>
                 <resource>
                   <targetPath>META-INF</targetPath>
                   <directory>${project.build.directory}/generated-faces-config</directory>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-tld</id>
+            <goals><goal>copy-resources</goal></goals>
+            <phase>process-classes</phase>
+            <configuration>
+              <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+              <resources>
+                <resource>
+                  <targetPath>META-INF</targetPath>
+                  <directory>${project.build.directory}/generated-tld</directory>
                 </resource>
               </resources>
             </configuration>
