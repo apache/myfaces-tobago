@@ -58,6 +58,18 @@
         <p>Tobago should run with Sun RI and with MyFaces.</p>
       </answer>
     </faq>
+    <faq id="tobago/facelets">
+      <question>Does Tobago supports Facelets?</question>
+      <answer>
+        <p>Tobago supports Facelets with the tobago-facelets.jar.
+        Note: Please add following context param in your web.xml</p> 
+        <source>
+        <context-param>
+          <param-name>facelets.SKIP_COMMENTS</param-name>
+          <param-value>true</param-value>
+        </context-param></source>
+      </answer>
+    </faq>
     <faq id="tobago/myfaces extension">
       <question>Can I mix Tobago and MyFaces extensions in the same web application?
       </question>
