@@ -156,14 +156,16 @@ public class TreeNodeRenderer extends CommandRendererBase {
     }
     if (folder) {
       if (image != null) { // application image
-        openSource = ResourceManagerUtil.getImageWithPath(facesContext, ResourceUtils.addPostfixToFilename(image, "open"), true);
+        openSource = ResourceManagerUtil.getImageWithPath(facesContext,
+            ResourceUtils.addPostfixToFilename(image, "open"), true);
       } else { // theme image
         openSource = ResourceManagerUtil.getImageWithPath(facesContext, OPEN_FOLDER);
       }
       source = expanded ? openSource : closedSource;
     } else {
       if (image != null) { // application image
-        source = ResourceManagerUtil.getImageWithPath(facesContext, ResourceUtils.addPostfixToFilename(image, "leaf"), true);
+        source = ResourceManagerUtil.getImageWithPath(facesContext,
+            ResourceUtils.addPostfixToFilename(image, "leaf"), true);
       } else { // theme image
         source = ResourceManagerUtil.getImageWithPath(facesContext, LEAF);
       }
