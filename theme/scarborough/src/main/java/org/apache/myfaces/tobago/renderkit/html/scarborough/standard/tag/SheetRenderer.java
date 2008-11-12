@@ -124,16 +124,18 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     for (UIComponent child : (List<UIComponent>) data.getChildren()) {
       if (child instanceof UIColumnEvent) {
         UIColumnEvent columnEvent = (UIColumnEvent) child;
-        UIComponent selectionChild = (UIComponent) child.getChildren().get(0);
-        if (selectionChild != null && selectionChild instanceof UICommand && selectionChild.isRendered()) {
-          UICommand action = (UICommand) selectionChild;
-          if ("click".equals(columnEvent.getEvent())) {
-            clickAction = action;
+        if (columnEvent.isRendered()) {
+          UIComponent selectionChild = (UIComponent) child.getChildren().get(0);
+          if (selectionChild != null && selectionChild instanceof UICommand && selectionChild.isRendered()) {
+            UICommand action = (UICommand) selectionChild;
+            if ("click".equals(columnEvent.getEvent())) {
+              clickAction = action;
+            }
+            if ("dblclick".equals(columnEvent.getEvent())) {
+              dblClickAction = action;
+            }
           }
-          if ("dblclick".equals(columnEvent.getEvent())) {
-            dblClickAction = action;
-          }
-        }
+        } 
       } else if (child instanceof UIColumnSelector) {
         columnSelectorIndex = i;
       }
@@ -1089,14 +1091,16 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     for (UIComponent child : (List<UIComponent>) component.getChildren()) {
       if (child instanceof UIColumnEvent) {
         UIColumnEvent columnEvent = (UIColumnEvent) child;
-        UIComponent selectionChild = (UIComponent) child.getChildren().get(0);
-        if (selectionChild != null && selectionChild instanceof UICommand && selectionChild.isRendered()) {
-          UICommand action = (UICommand) selectionChild;
-          if ("click".equals(columnEvent.getEvent())) {
-            clickAction = action;
-          }
-          if ("dblclick".equals(columnEvent.getEvent())) {
-            dblClickAction = action;
+        if (columnEvent.isRendered()) {
+          UIComponent selectionChild = (UIComponent) child.getChildren().get(0);
+          if (selectionChild != null && selectionChild instanceof UICommand && selectionChild.isRendered()) {
+            UICommand action = (UICommand) selectionChild;
+            if ("click".equals(columnEvent.getEvent())) {
+              clickAction = action;
+            }
+            if ("dblclick".equals(columnEvent.getEvent())) {
+              dblClickAction = action;
+            }
           }
         }
       }
