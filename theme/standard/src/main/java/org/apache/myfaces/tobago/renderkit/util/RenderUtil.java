@@ -177,7 +177,9 @@ public class RenderUtil {
     try {
       defaultCharWidth = ThemeConfig.getValue(facesContext, component, "fontWidth");
     } catch (NullPointerException e) {
-      LOG.warn("no value for \"fontWidth\" found in theme-config");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("no value for \"fontWidth\" found in theme-config");
+      }
     }
 
     String fontWidths = ResourceManagerUtil.getProperty(facesContext, "tobago", "tobago.font2.widths");
@@ -202,7 +204,9 @@ public class RenderUtil {
     try {
       defaultCharWidth = ThemeConfig.getValue(facesContext, component, "fontWidth");
     } catch (NullPointerException e) {
-      LOG.warn("no value for \"fontWidth\" found in theme-config");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("no value for \"fontWidth\" found in theme-config");
+      }
     }
 
     String fontWidths = ResourceManagerUtil.getProperty(facesContext, "tobago", "tobago.font.widths");
