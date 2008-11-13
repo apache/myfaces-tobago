@@ -221,6 +221,39 @@ public class TobagoDemoController {
     return update;
   }
 
+  public boolean isJsp() {
+    String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+    int end = viewId.lastIndexOf(".xhtml");
+    return end < 0;
+  }
+
+  public boolean isDoubleDefined() {
+    String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+    String name = viewId.substring(1, viewId.lastIndexOf("."));
+    String path = ResourceManagerUtil.getImageWithPath(FacesContext.getCurrentInstance(), name + ".xhtml", true);
+    return path != null;
+  }
+
+  public String asJsp() {
+    String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+    int end = viewId.lastIndexOf(".xhtml");
+    if (end >= 0) {
+      return viewId.substring(1, end) + ".jsp";
+    }
+    LOG.warn("Can't create the outcome");
+    return null;
+  }
+
+  public String asFacelet() {
+    String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+    int end = viewId.lastIndexOf(".jsp");
+    if (end >= 0) {
+      return viewId.substring(1, end) + ".xhtml";
+    }
+    LOG.warn("Can't create the outcome");
+    return null;
+  }
+
   public void resetSession() throws IOException {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);

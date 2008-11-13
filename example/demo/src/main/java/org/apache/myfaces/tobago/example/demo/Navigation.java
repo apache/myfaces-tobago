@@ -52,7 +52,7 @@ public class Navigation {
 
     DefaultMutableTreeNode overview = new DefaultMutableTreeNode(new Node("overview", "overview/intro"));
 //    overview.add(new DefaultMutableTreeNode(new Node("intro", "overview/intro")));
-    overview.add(new DefaultMutableTreeNode(new Node("basic", "overview/basic")));
+    overview.add(new DefaultMutableTreeNode(new Node("basic", "overview/basic.jsp")));
     overview.add(new DefaultMutableTreeNode(new Node("sheet", "overview/sheet")));
     overview.add(new DefaultMutableTreeNode(new Node("tree", "overview/tree")));
     overview.add(new DefaultMutableTreeNode(new Node("tab", "overview/tab")));

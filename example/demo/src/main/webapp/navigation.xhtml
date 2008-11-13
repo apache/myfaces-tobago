@@ -1,4 +1,6 @@
-<%--
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,11 +15,14 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
---%>
-<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+-->
 
-<f:subview id="navigator">
+<f:subview id="navigator"
+           xmlns:f="http://java.sun.com/jsf/core"
+           xmlns:tc="http://myfaces.apache.org/tobago/component"
+           xmlns:tx="http://myfaces.apache.org/tobago/extension"
+           xmlns:tf="http://myfaces.apache.org/tobago/facelet-extension"
+           xmlns:ui="http://java.sun.com/jsf/facelets">
   <tc:panel>
     <f:facet name="layout">
       <tc:gridLayout rows="*"/>
@@ -28,8 +33,8 @@
         <tc:treeNode label="#{node.userObject.title}"
                      action="#{node.userObject.action}"
                      immediate="true"
-            value="#{node}"
-            expanded="true"/>
+                     value="#{node}"
+                     expanded="true"/>
       </tc:treeData>
     </tc:tree>
 

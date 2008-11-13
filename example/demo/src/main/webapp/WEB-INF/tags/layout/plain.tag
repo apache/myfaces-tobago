@@ -14,24 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
+
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
-<f:subview id="navigator">
-  <tc:panel>
+<f:view locale="#{clientConfigController.locale}">
+  <tc:loadBundle basename="overview" var="overviewBundle"/>
+  <tc:page label="Test" id="page" width="1000px" height="750px">
     <f:facet name="layout">
-      <tc:gridLayout rows="*"/>
+      <tc:gridLayout/>
     </f:facet>
 
-    <tc:tree id="nav" mode="menu" showRoot="true">
-      <tc:treeData value="#{navigation.tree}" var="node" id="data">
-        <tc:treeNode label="#{node.userObject.title}"
-                     action="#{node.userObject.action}"
-                     immediate="true"
-            value="#{node}"
-            expanded="true"/>
-      </tc:treeData>
-    </tc:tree>
+    <jsp:doBody/>
 
-  </tc:panel>
-</f:subview>
+  </tc:page>
+</f:view>

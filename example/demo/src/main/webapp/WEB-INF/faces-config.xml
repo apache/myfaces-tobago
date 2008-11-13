@@ -24,6 +24,9 @@
 <faces-config>
 
   <application>
+    <view-handler>
+      com.sun.facelets.FaceletViewHandler
+    </view-handler>
     <locale-config>
       <default-locale>en</default-locale>
       <supported-locale>en_US</supported-locale>
@@ -111,8 +114,12 @@
       <to-view-id>/overview/intro.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
-      <from-outcome>overview/basic</from-outcome>
+      <from-outcome>overview/basic.jsp</from-outcome>
       <to-view-id>/overview/basic.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>overview/basic.xhtml</from-outcome>
+      <to-view-id>/overview/basic.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>overview/sheet</from-outcome>

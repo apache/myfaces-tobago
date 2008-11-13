@@ -29,6 +29,21 @@
     <param-value>true</param-value>
   </context-param>
 
+  <context-param>
+    <param-name>facelets.DEVELOPMENT</param-name>
+    <param-value>true</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>facelets.SKIP_COMMENTS</param-name>
+    <param-value>true</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>facelets.VIEW_MAPPINGS</param-name>
+    <param-value>*.xhtml</param-value>
+  </context-param>
+
   <filter>
     <filter-name>multipartFormdataFilter</filter-name>
     <filter-class>org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataFilter</filter-class>

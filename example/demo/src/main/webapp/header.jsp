@@ -1,3 +1,9 @@
+<%@ page import="org.apache.myfaces.tobago.example.reference.SimpleBean" %>
+<%@ page import="javax.faces.application.FacesMessage" %>
+<%@ page import="javax.faces.context.FacesContext" %>
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="java.io.StringWriter" %>
+<%@ page import="java.util.Date" %>
 <%--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -14,26 +20,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
-<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc"%>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
 <f:subview id="header">
   <tc:panel>
     <f:facet name="layout">
-      <tc:gridLayout columns="150px;*;200px" />
+      <tc:gridLayout columns="150px;*;200px"/>
     </f:facet>
 
-    <tc:link action="#{navigation.gotoFirst}" immediate="true" image="image/tobago_head.gif" />
+    <tc:link action="#{navigation.gotoFirst}" immediate="true" image="image/tobago_head.gif"/>
 
-    <tc:cell />
+    <tc:cell/>
 
     <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout rows="fixed;fixed;*" />
+        <tc:gridLayout rows="fixed;fixed;fixed;*"/>
       </f:facet>
-      <tc:out value="#{clientConfigController.localizedTheme}" />
-      <tc:out value="#{clientConfigController.localizedLocale}" />
-      <tc:cell />
+      <tc:out value="#{clientConfigController.localizedTheme}"/>
+      <tc:out value="#{clientConfigController.localizedLocale}"/>
+      <tc:out value="#{demo.jsp ? 'JSP' : 'Facelet'}"/>
+      <tc:cell/>
     </tc:panel>
   </tc:panel>
 </f:subview>

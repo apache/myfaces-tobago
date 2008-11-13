@@ -1,4 +1,6 @@
-<%--
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,38 +15,41 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
---%>
-<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
-<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
+-->
 
-<layout:overview>
-  <jsp:body>
+<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+        xmlns:tc="http://myfaces.apache.org/tobago/component"
+        xmlns:tx="http://myfaces.apache.org/tobago/extension"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="Basics"/>
+
     <tc:box label="#{overviewBundle.basic}">
-      <%--
+      <!--
       <f:facet name="reload">
         <tc:reload frequency="5000" />
       </f:facet>
-      --%>
+      -->
       <f:facet name="layout">
         <tc:gridLayout border="0" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed" />
       </f:facet>
 
-      <%-- row --%>
+      <!-- row -->
       <tc:separator>
         <f:facet name="label">
           <tc:label value="#{overviewBundle.basic_sampleInputTitle}"/>
         </f:facet>
       </tc:separator>
 
-      <%-- row --%>
+      <!-- row -->
       <tc:messages />
 
-      <%-- row --%>
+      <!-- row -->
       <tc:out escape="false" value="#{overviewBundle.basic_text_input}" />
 
-      <%-- row --%>
+      <!-- row -->
       <tc:panel>
         <f:facet name="layout">
           <tc:gridLayout columns="*;*" border="0" />
@@ -70,17 +75,17 @@
           label="#{overviewBundle.basic_textareaLabel}" />
       </tc:panel>
 
-      <%-- row --%>
+      <!-- row -->
       <tc:separator>
         <f:facet name="label">
           <tc:label value="#{overviewBundle.basic_sampleSelectTitle}"/>
         </f:facet>
       </tc:separator>
 
-      <%-- row --%>
+      <!-- row -->
       <tc:out escape="false" value="#{overviewBundle.basic_text_select}" />
 
-      <%-- row --%>
+      <!-- row -->
       <tc:panel>
         <f:facet name="layout">
           <tc:gridLayout columns="*;*"  border="0"/>
@@ -108,30 +113,30 @@
         </tc:panel>
       </tc:panel>
 
-      <%-- row --%>
+      <!-- row -->
       <tc:separator>
         <f:facet name="label">
           <tc:label value="#{overviewBundle.basic_sampleLinkTitle}"/>
         </f:facet>
       </tc:separator>
 
-      <%-- row --%>
+      <!-- row -->
       <tc:out escape="false" value="#{overviewBundle.basic_text_action}" />
 
-      <%-- row --%>
+      <!-- row -->
       <tc:panel>
         <f:facet name="layout">
           <tc:gridLayout columns="120px;*;120px;*;120px" rows="fixed;fixed" border="0"/>
         </f:facet>
-        <tc:link id="link" action="overview/basic.jsp"
+        <tc:link id="link" action="overview/basic.xhtml"
             actionListener="#{overviewController.click}"
             label="#{overviewBundle.basic_linkAction}" />
         <tc:cell/>
-        <tc:link id="image" action="overview/basic.jsp"
+        <tc:link id="image" action="overview/basic.xhtml"
             actionListener="#{overviewController.click}"
             image="image/image_button.gif" />
         <tc:cell/>
-        <tc:button id="button" action="overview/basic.jsp"
+        <tc:button id="button" action="overview/basic.xhtml"
             actionListener="#{overviewController.click}"
             label="#{overviewBundle.basic_buttonAction}" />
 
@@ -142,5 +147,4 @@
       </tc:panel>
 
     </tc:box>
-  </jsp:body>
-</layout:overview>
+</ui:composition>
