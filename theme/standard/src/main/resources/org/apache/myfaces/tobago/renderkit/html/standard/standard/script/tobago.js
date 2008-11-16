@@ -476,7 +476,7 @@ var Tobago = {
     * Submitting the page with specified actionId.
     */
   submitAction2: function(source, actionId, transition, target) {
-    if (transition === undefined) {
+    if (transition === undefined || transition == null) {
       transition = true;
     }
 

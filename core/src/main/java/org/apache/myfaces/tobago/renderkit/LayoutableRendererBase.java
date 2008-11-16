@@ -191,7 +191,7 @@ public abstract class LayoutableRendererBase
       UIComponent facetComponent = facetEntry.getValue();
       String facetAction = (String) facetComponent.getAttributes().get(ATTR_ONCLICK);
       if (facetAction == null) {
-        facetAction = "Tobago.submitAction2(this, '" + facetComponent.getClientId(facesContext) + "', null, null)";
+        facetAction = "Tobago.submitAction2(this, '" + facetComponent.getClientId(facesContext) + "')";
       }
       String script =
           "var element = Tobago.element(\"" + clientId + "\");\n"
