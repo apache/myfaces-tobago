@@ -28,12 +28,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasState;
 
-/*
- * Date: 30.03.2006
- * Time: 21:57:22
- */
 /**
- * TODO description of page tag
+ * Renders a page element.
  */
 @Tag(name = "page")
 @UIComponentTag(
