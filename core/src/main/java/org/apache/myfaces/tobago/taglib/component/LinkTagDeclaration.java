@@ -54,7 +54,11 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
         @Facet(
             name = Facets.CONFIRMATION,
             description = "Contains a UIOutput instance with the confirmation message.",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Output")})
+            allowedChildComponenents = "org.apache.myfaces.tobago.Output"),
+        @Facet(
+            name = Facets.POPUP,
+            description = "Contains a UIPopup instance.",
+            allowedChildComponenents = "org.apache.myfaces.tobago.Popup")})
 public interface LinkTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, IsInline,
     HasCommandType, HasTarget, HasTip, HasImage, HasMarkup, HasTabIndex {
