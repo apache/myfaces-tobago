@@ -23,11 +23,11 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.util.LayoutUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -191,7 +191,8 @@ public abstract class LayoutableRendererBase
       UIComponent facetComponent = facetEntry.getValue();
       String facetAction = (String) facetComponent.getAttributes().get(ATTR_ONCLICK);
       if (facetAction == null) {
-        facetAction = "Tobago.submitAction2(this, '" + facetComponent.getClientId(facesContext) + "')";
+        facetAction = "Tobago.submitAction2(this, '" + facetComponent.getClientId(facesContext) + "', "
+            + ComponentUtil.getBooleanAttribute(facetComponent, ATTR_TRANSITION) + ")";
       }
       String script =
           "var element = Tobago.element(\"" + clientId + "\");\n"
