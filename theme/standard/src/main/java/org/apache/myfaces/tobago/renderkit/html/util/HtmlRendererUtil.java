@@ -886,7 +886,9 @@ public final class HtmlRendererUtil {
       } else {
         writer.write("Tobago.submitAction(this, '");
         writer.write(facetComponent.getClientId(facesContext));
-        writer.write("')");
+        writer.write("', ");
+        writer.write(Boolean.toString(ComponentUtil.getBooleanAttribute(facetComponent, Attributes.TRANSITION)));
+        writer.write(")");
       }
       writer.write("});\n}");
       writer.endJavascript();
