@@ -17,17 +17,26 @@
  * limitations under the License.
 -->
 
-<!DOCTYPE tobago-config PUBLIC
-    "-//The Apache Software Foundation//DTD Tobago Config 1.0//EN" "tobago-config_1_0.dtd">
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 
-<tobago-config>
+<log4j:configuration>
 
-  <theme-config>
-    <default-theme>speyside</default-theme>
-    <supported-theme>scarborough</supported-theme>
-    <supported-theme>richmond</supported-theme>
-  </theme-config>
+  <appender name="logfile" class="org.apache.log4j.ConsoleAppender">
+    <param name="Encoding" value="UTF-8"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern"
+             value="%d{HH:mm:ss} %-5p %-50.50c:%-20.20M:%-4.4L %m%n"/>
+      <!-- See http://logging.apache.org/log4j/docs/api/org/apache/log4j/PatternLayout.html -->
+    </layout>
+  </appender>
 
-  <resource-dir>tobago-resource</resource-dir>
-  <ajax-enabled>true</ajax-enabled>
-</tobago-config>
+  <category name="org.apache.myfaces.tobago.example">
+    <priority value="debug"/>
+  </category>
+
+  <root>
+    <priority value="info"/>
+    <appender-ref ref="logfile"/>
+  </root>
+
+</log4j:configuration>

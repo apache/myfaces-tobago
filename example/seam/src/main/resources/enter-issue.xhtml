@@ -24,13 +24,9 @@
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:f="http://java.sun.com/jsf/core">
   <tc:page>
-    <tc:box label="test">
-      <f:facet name="layout">
-        <tc:gridLayout rows="fixed;fixed;*"/>
-      </f:facet>
-      <tc:out value="content"/>
-      <tc:button label="create new issue" action="#{issue.init}"/>
-      <tc:cell/>
+    <tc:box label="Please enter a new issue">
+      <tc:in value="#{issue.title}"/>
+      <tc:textarea value="#{issue.description}"/>
     </tc:box>
   </tc:page>
 </f:view>

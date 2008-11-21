@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN"
+    "http://jetty.mortbay.org/configure.dtd">
+
+<Configure id="Server" class="org.mortbay.jetty.Server">
+  <!-- =========================================================== -->
+  <!-- Datasources                                       -->
+  <!-- =========================================================== -->
+
+  <New id="jbpmDB" class="org.mortbay.jetty.plus.naming.Resource">
+    <Arg>jdbc/JbpmDataSource</Arg>
+    <!--<Arg>-->
+      <!--<New class="org.apache.derby.jdbc.EmbeddedDataSource">-->
+        <!-- todo: configure -->
+        <!--<Set name="DatabaseName">/Applications/jbpmDB</Set>-->
+        <!--<Set name="createDatabase">create</Set>-->
+      <!--</New>-->
+    <!--</Arg>-->
+    <Arg>
+        <New class="com.atomikos.jdbc.SimpleDataSourceBean">
+          <Set name="xaDataSourceClassName">org.apache.derby.jdbc.EmbeddedXADataSource</Set>
+          <Set name="xaDataSourceProperties">databaseName=/Applications/jbpmDB</Set>
+          <!--<Set name="xaDataSourceProperties">databaseName=/Applications/jbpmDB;createDatabase=create</Set>-->
+          <Set name="UniqueResourceName">test123</Set>
+        </New>
+      </Arg>
+  </New>
+
+  <New id="tx" class="org.mortbay.jetty.plus.naming.Transaction">
+   <Arg>
+     <New class="com.atomikos.icatch.jta.UserTransactionImp"/>
+   </Arg>
+  </New>
+
+
+</Configure>

@@ -28,6 +28,58 @@
   <name>Example Seam</name>
   <build>
     <finalName>tobago-example-seam</finalName>
+    <plugins>
+      <plugin>
+        <!-- NOTE The demo and addressbook run only with mvn jetty:run-exploded.
+         For the other examples mvn jetty:run should work.
+         For Debugging with jetty set following options
+            MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000"
+            or
+            MAVEN_OPTS="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"
+         -->
+        <groupId>org.mortbay.jetty</groupId>
+        <!-- jetty 6 -->
+        <artifactId>maven-jetty-plugin</artifactId>
+        <!-- jetty 7 -->
+        <!--<artifactId>jetty-maven-plugin</artifactId>-->
+        <configuration>
+          <jettyConfig>src/test/resources/jetty.xml</jettyConfig>
+          <userRealms>
+            <userRealm implementation="org.mortbay.jetty.security.HashUserRealm">
+              <name>jbpm-realm</name>
+              <config>src/test/resources/realm.properties</config>
+            </userRealm>
+          </userRealms>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>10.3.1.4</version>
+          </dependency>
+          <dependency>
+            <groupId>com.atomikos</groupId>
+            <artifactId>atomikos-util</artifactId>
+            <version>3.2.3</version>
+          </dependency>
+          <dependency>
+            <groupId>com.atomikos</groupId>
+            <artifactId>transactions-api</artifactId>
+            <version>3.2.3</version>
+          </dependency>
+          <dependency>
+            <groupId>com.atomikos</groupId>
+            <artifactId>transactions-jta</artifactId>
+            <version>3.2.3</version>
+          </dependency>
+          <dependency>
+            <groupId>com.atomikos</groupId>
+            <artifactId>transactions</artifactId>
+            <version>3.2.3</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
   </build>
   <dependencies>
     <dependency>
@@ -38,11 +90,6 @@
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-speyside</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-theme-richmond</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
@@ -77,26 +124,44 @@
         </exclusion>
       </exclusions>
     </dependency>
-     <dependency>
+    <dependency>
       <groupId>antlr</groupId>
       <artifactId>antlr</artifactId>
       <version>2.7.6</version>
     </dependency>
     <dependency>
+      <groupId>javassist</groupId>
+      <artifactId>javassist</artifactId>
+      <version>3.9.0.GA</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.seam</groupId>
+      <artifactId>jboss-seam</artifactId>
+      <version>${seam.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>javax.el</groupId>
+          <artifactId>el-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
       <groupId>org.jboss.seam</groupId>
       <artifactId>jboss-seam-ui</artifactId>
       <version>${seam.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>javax.el</groupId>
+          <artifactId>el-api</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
+
+    <!--
     <dependency>
       <groupId>org.jboss.seam</groupId>
       <artifactId>jboss-el</artifactId>
-      <version>${seam.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.el</groupId>
-      <artifactId>el-api</artifactId>
-      <version>1.0</version>
-      <scope>provided</scope>
+      <version>2.0.0.GA</version>
     </dependency>
     <dependency>
       <groupId>org.jboss.seam</groupId>
@@ -113,11 +178,37 @@
       <artifactId>jboss-seam-mail</artifactId>
       <version>${seam.version}</version>
     </dependency>
+-->
+    <!--
+        <dependency>
+          <groupId>javax.el</groupId>
+          <artifactId>el-api</artifactId>
+          <version>1.0</version>
+          <scope>provided</scope>
+        </dependency>
+    -->
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-validator</artifactId>
-      <version>3.0.0.GA</version>
+      <version>3.1.0.GA</version>
     </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate</artifactId>
+      <version>3.2.6.ga</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jbpm</groupId>
+      <artifactId>jbpm-jpdl</artifactId>
+      <version>3.2.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>bsh</groupId>
+      <artifactId>bsh</artifactId>
+      <version>1.3.0</version>
+    </dependency>
+
     <dependency>
       <groupId>javax.faces</groupId>
       <artifactId>jsf-api</artifactId>
@@ -128,6 +219,23 @@
       <artifactId>jsf-impl</artifactId>
       <version>${sunjsf12.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.sun.facelets</groupId>
+      <artifactId>jsf-facelets</artifactId>
+      <version>${facelets.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.1.0</version>
+      <exclusions>
+        <exclusion>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jsp-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <!--
     <dependency>
       <groupId>org.richfaces.framework</groupId>
       <artifactId>richfaces-impl</artifactId>
@@ -155,6 +263,7 @@
         </exclusion>
       </exclusions>
     </dependency>
+    -->
   </dependencies>
   <pluginRepositories>
     <pluginRepository>
@@ -179,12 +288,14 @@
 
   <scm>
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/seam</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/seam</developerConnection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/seam
+    </developerConnection>
     <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/example/seam</url>
   </scm>
   <properties>
-    <seam.version>2.0.0.GA</seam.version>
-    <openjpa.version>1.0.1</openjpa.version>
+    <seam.version>2.1.0.GA</seam.version>
+    <!--<seam.version>2.0.0.GA</seam.version>-->
+    <openjpa.version>1.2.0</openjpa.version>
     <richfaces.version>3.1.2.GA</richfaces.version>
     <spring.version>2.5.2</spring.version>
   </properties>
