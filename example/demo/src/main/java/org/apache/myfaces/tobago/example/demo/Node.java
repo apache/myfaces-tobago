@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.event.TreeExpansionEvent;
+//import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 
 public class Node {
 
@@ -48,12 +48,12 @@ public class Node {
     LOG.info("action: name='" + name + "'");
     return null;
   }
-
+/*
   public void expansionListener(TreeExpansionEvent event) {
     LOG.info("event='" + event + "'");
     expanded = event.isNewExpanded();
   }
-
+*/
   public String getName() {
     return name;
   }
