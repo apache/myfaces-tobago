@@ -68,20 +68,26 @@
           <url>http://localhost:8080/manager</url>
         </configuration>
       </plugin>
-      <!--
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>xslt-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>transform</goal>
+            </goals>
+          </execution>
+        </executions>
         <configuration>
           <srcDir>src/main/webapp/overview</srcDir>
           <destDir>target/tobago-example-demo/overview</destDir>
           <xslFile>src/main/xslt/facelet2jsp.xsl</xslFile>
           <srcIncludes>*.xhtml</srcIncludes>
           <fileNameRegex>(.*).xhtml</fileNameRegex>
-          <fileNameReplacement>$1.jsp</fileNameReplacement>
+          <fileNameReplacement>$1.jspx</fileNameReplacement>
         </configuration>
       </plugin>
-      -->
     </plugins>
   </build>
   <scm>

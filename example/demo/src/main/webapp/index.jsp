@@ -14,4 +14,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
-<jsp:forward page="overview/intro.jsf"/>
+<jsp:forward page="faces/overview/intro.xhtml"/>

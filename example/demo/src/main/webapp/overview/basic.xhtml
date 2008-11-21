@@ -24,7 +24,7 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="Basics"/>
+  <ui:param name="title" value="#{overviewBundle.basic}"/>
 
     <tc:box label="#{overviewBundle.basic}">
       <!--
@@ -128,15 +128,15 @@
         <f:facet name="layout">
           <tc:gridLayout columns="120px;*;120px;*;120px" rows="fixed;fixed" border="0"/>
         </f:facet>
-        <tc:link id="link" action="overview/basic.xhtml"
+        <tc:link id="link" action="/overview/basic"
             actionListener="#{overviewController.click}"
             label="#{overviewBundle.basic_linkAction}" />
         <tc:cell/>
-        <tc:link id="image" action="overview/basic.xhtml"
+        <tc:link id="image" action="/overview/basic"
             actionListener="#{overviewController.click}"
             image="image/image_button.gif" />
         <tc:cell/>
-        <tc:button id="button" action="overview/basic.xhtml"
+        <tc:button id="button" action="/overview/basic"
             actionListener="#{overviewController.click}"
             label="#{overviewBundle.basic_buttonAction}" />
 

@@ -50,19 +50,19 @@ public class Navigation {
 
     tree = new DefaultMutableTreeNode(new Node("Root", null));
 
-    DefaultMutableTreeNode overview = new DefaultMutableTreeNode(new Node("overview", "overview/intro"));
+    DefaultMutableTreeNode overview = new DefaultMutableTreeNode(new Node("overview", "/overview/intro"));
 //    overview.add(new DefaultMutableTreeNode(new Node("intro", "overview/intro")));
-    overview.add(new DefaultMutableTreeNode(new Node("basic", "overview/basic.jsp")));
-    overview.add(new DefaultMutableTreeNode(new Node("sheet", "overview/sheet")));
-    overview.add(new DefaultMutableTreeNode(new Node("tree", "overview/tree")));
-    overview.add(new DefaultMutableTreeNode(new Node("tab", "overview/tab")));
-    overview.add(new DefaultMutableTreeNode(new Node("toolbar", "overview/toolbar")));
-    overview.add(new DefaultMutableTreeNode(new Node("validation", "overview/validation")));
-    overview.add(new DefaultMutableTreeNode(new Node("form", "overview/form")));
-    overview.add(new DefaultMutableTreeNode(new Node("themes", "overview/themes")));
-    overview.add(new DefaultMutableTreeNode(new Node("browser", "overview/browser")));
-    overview.add(new DefaultMutableTreeNode(new Node("locale", "overview/locale")));
-    overview.add(new DefaultMutableTreeNode(new Node("layout", "overview/layout")));
+    overview.add(new DefaultMutableTreeNode(new Node("basic", "/overview/basic")));
+    overview.add(new DefaultMutableTreeNode(new Node("sheet", "/overview/sheet")));
+    overview.add(new DefaultMutableTreeNode(new Node("tree", "/overview/tree")));
+    overview.add(new DefaultMutableTreeNode(new Node("tab", "/overview/tab")));
+    overview.add(new DefaultMutableTreeNode(new Node("toolbar", "/overview/toolbar")));
+    overview.add(new DefaultMutableTreeNode(new Node("validation", "/overview/validation")));
+    overview.add(new DefaultMutableTreeNode(new Node("form", "/overview/form")));
+    overview.add(new DefaultMutableTreeNode(new Node("theme", "/overview/theme")));
+    overview.add(new DefaultMutableTreeNode(new Node("browser", "/overview/browser")));
+    overview.add(new DefaultMutableTreeNode(new Node("locale", "/overview/locale")));
+    overview.add(new DefaultMutableTreeNode(new Node("layout", "/overview/layout")));
     tree.add(overview);
 
     DefaultMutableTreeNode bestPractice = new DefaultMutableTreeNode(new Node("bestPractice", "best-practice/intro"));

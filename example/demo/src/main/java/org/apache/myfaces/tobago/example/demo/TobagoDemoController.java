@@ -238,7 +238,7 @@ public class TobagoDemoController {
     String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
     int end = viewId.lastIndexOf(".xhtml");
     if (end >= 0) {
-      return viewId.substring(1, end) + ".jsp";
+      return viewId.substring(1, end) + ".jspx";
     }
     LOG.warn("Can't create the outcome");
     return null;
@@ -246,7 +246,7 @@ public class TobagoDemoController {
 
   public String asFacelet() {
     String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-    int end = viewId.lastIndexOf(".jsp");
+    int end = viewId.lastIndexOf(".jspx");
     if (end >= 0) {
       return viewId.substring(1, end) + ".xhtml";
     }

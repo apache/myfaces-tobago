@@ -39,7 +39,7 @@
       </f:facet>
       <tc:out value="#{clientConfigController.localizedTheme}"/>
       <tc:out value="#{clientConfigController.localizedLocale}"/>
-      <tc:out value="#{demo.jsp ? 'JSP' : 'Facelet'}"/>
+      <tc:out value="JSP/JSPX"/>
       <tc:cell/>
     </tc:panel>
   </tc:panel>

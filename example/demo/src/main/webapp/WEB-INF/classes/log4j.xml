@@ -21,22 +21,12 @@
 
 <log4j:configuration>
 
-  <appender name="logfile" class="org.apache.log4j.FileAppender">
-    <param name="File"   value="tobago-example-demo.log" />
-    <param name="Append" value="true" />
-    <param name="Encoding" value="UTF-8" />
+  <appender name="logfile" class="org.apache.log4j.ConsoleAppender">
+    <param name="Encoding" value="UTF-8"/>
     <layout class="org.apache.log4j.PatternLayout">
       <param name="ConversionPattern"
-          value="%d{yyyy-MM-dd HH:mm:ss} %-5p - %c:%L - %m%n"/>
-      <!--
-        %d{...} date pattern
-        %p      priority
-        %m      log message
-        %n      newline
-        -5      fill with spaces (5)
-
-        For more options see class org.apache.log4j.PatternLayout.
-      -->
+             value="%d{HH:mm:ss} %-5p %-50.50c:%-20.20M:%-4.4L %m%n"/>
+      <!-- See http://logging.apache.org/log4j/docs/api/org/apache/log4j/PatternLayout.html -->
     </layout>
   </appender>
 

@@ -45,11 +45,11 @@
                immediate="true" label="#{overviewBundle.footer_viewSource}"
                target="Source Viewer" transition="false"/>
 
-    <tc:button action="#{demo.asJsp}" disabled="#{demo.jsp}" rendered="#{demo.doubleDefined}" immediate="true" 
-               label="As JSP" tip="Use JSP as render technologie"/>
+    <tc:button action="#{pageDeclarationLanguage.asJspx}" disabled="#{pageDeclarationLanguage.jspx}"
+               immediate="true" label="As JSP" tip="Use JSP as render technologie"/>
 
-    <tc:button action="#{demo.asFacelet}" disabled="#{! demo.jsp}" rendered="#{demo.doubleDefined}" immediate="true"
-               label="As Facelet" tip="Use Facelets as render technologie"/>
+    <tc:button action="#{pageDeclarationLanguage.asFacelets}" disabled="#{pageDeclarationLanguage.facelets}"
+               immediate="true" label="As Facelet" tip="Use Facelets as render technologie"/>
 
     <tc:out value="#{overviewBundle.notTranslated}"/>
 

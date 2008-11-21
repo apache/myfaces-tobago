@@ -100,7 +100,7 @@ public class ClientConfigController {
       }
     }
 
-    return "view";
+    return FacesContext.getCurrentInstance().getViewRoot().getViewId();
   }
 
 // ///////////////////////////////////////////// logic

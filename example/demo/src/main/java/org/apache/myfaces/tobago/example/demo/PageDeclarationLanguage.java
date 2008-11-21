@@ -1,4 +1,6 @@
-<%--
+package org.apache.myfaces.tobago.example.demo;
+
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,19 +15,27 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
---%>
+ */
 
-<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+public enum PageDeclarationLanguage {
 
-<f:view locale="#{clientConfigController.locale}">
-  <tc:loadBundle basename="overview" var="overviewBundle"/>
-  <tc:page label="Test" id="page" width="1000px" height="750px">
-    <f:facet name="layout">
-      <tc:gridLayout/>
-    </f:facet>
+  FACELETS(".xhtml", "Facelet"),
+  JSPX(".jspx", "JSPX"),
+  JSP(".jsp", "JSP");
 
-    <jsp:doBody/>
+  private String extension;
+  private String display;
 
-  </tc:page>
-</f:view>
+  PageDeclarationLanguage(String extension, String display) {
+    this.extension = extension;
+    this.display = display;
+  }
+
+  public String getExtension() {
+    return extension;
+  }
+
+  public String getDisplay() {
+    return display;
+  }
+}

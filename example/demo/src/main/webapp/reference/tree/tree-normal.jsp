@@ -20,14 +20,12 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
-<layout:overview>
+<layout:plain>
   <jsp:body>
-
     <tc:box label="Tree - General">
       <f:facet name="layout">
         <tc:gridLayout margin="10px"/>
       </f:facet>
-
       <tc:tree id="tree"
                showIcons="true"
                showJunctions="true"
@@ -43,14 +41,16 @@
                          action="#{node.userObject.action}"
                          disabled="#{node.userObject.disabled}"
                          value="#{node}"
-                         image="image/feather.png"/>
+                         image="image/feather.png"
+                         treeExpansionListener="#{node.userObject.expansionListener}"/>
           </tc:treeData>
           <tc:treeNode label="2 Action 1" action="#{treeController.action1}" id="action1">
             <f:facet name="addendum">
               <tc:out value="(Addendum)"/>
             </f:facet>
           </tc:treeNode>
-          <tc:treeNode label="3 Action 2 (with actionListener)" action="#{treeController.action2}" actionListener="#{treeController.actionListener}" id="action2"/>
+          <tc:treeNode label="3 Action 2 (with actionListener)" action="#{treeController.action2}"
+                       actionListener="#{treeController.actionListener}" id="action2"/>
           <tc:treeNode label="4 Action 3" action="#{treeController.action3}" id="action3">
             <tc:treeNode label="4.1 On Click 1" onclick="alert('On Click 1');" id="click1"/>
             <tc:treeNode label="4.2 On Click 2" onclick="alert('On Click 2');" id="click2">
@@ -61,7 +61,6 @@
           <tc:treeNode label="6 Target" action="#{treeController.action2}" target="Target Window"/>
         </tc:treeNode>
       </tc:tree>
-
     </tc:box>
   </jsp:body>
-</layout:overview>
+</layout:plain>
