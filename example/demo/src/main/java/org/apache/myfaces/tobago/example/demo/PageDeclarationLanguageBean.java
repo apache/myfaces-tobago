@@ -1,7 +1,5 @@
 package org.apache.myfaces.tobago.example.demo;
 
-import javax.faces.context.FacesContext;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -18,6 +16,8 @@ import javax.faces.context.FacesContext;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import javax.faces.context.FacesContext;
 
 public class PageDeclarationLanguageBean {
 
