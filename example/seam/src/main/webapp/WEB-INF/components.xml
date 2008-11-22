@@ -32,11 +32,6 @@
 
   <transaction:no-transaction/>
 
-  <!--
-  <component name="numberGuess">
-    <property name="maxGuesses">10</property>
-  </component>
--->
   <bpm:jbpm>
     <bpm:process-definitions>
       <value>issue.jpdl.xml</value>

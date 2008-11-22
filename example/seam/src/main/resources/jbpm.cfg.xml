@@ -16,7 +16,7 @@
     <service name="logging" factory="org.jbpm.logging.db.DbLoggingServiceFactory"/>
     <service name="authentication" factory="org.jbpm.security.authentication.DefaultAuthenticationServiceFactory"/>
   </jbpm-context>
-<!--
+
   <string name="resource.hibernate.cfg.xml" value="hibernate.cfg.xml"/>
--->
+
 </jbpm-configuration>
