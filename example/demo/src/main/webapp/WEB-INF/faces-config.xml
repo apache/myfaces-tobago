@@ -397,14 +397,18 @@
       <to-view-id>/reference/tool.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
-      <from-outcome>reference/tree/tree-normal</from-outcome>
-      <to-view-id>/reference/tree/tree-normal.jsp</to-view-id>
+      <from-outcome>/reference/tree/tree-normal.jspx</from-outcome>
+      <to-view-id>/reference/tree/tree-normal.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/reference/tree/tree-normal.xhtml</from-outcome>
+      <to-view-id>/reference/tree/tree-normal.xhtml</to-view-id>
     </navigation-case>
 <!--
 tree-ajax.jsp
 tree-editor.jsp
 tree-menu.jsp
-tree-normal.jsp
+tree-normal.xhtml
 tree-select.jsp
 -->
     <navigation-case>
