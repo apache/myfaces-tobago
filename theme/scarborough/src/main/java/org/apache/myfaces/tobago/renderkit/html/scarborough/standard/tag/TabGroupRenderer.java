@@ -211,8 +211,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
             tabs.getWidthList().add(RenderUtil.calculateStringWidth2(facesContext, component, label.getText())
                 + tabLabelExtraWidth);
           } else {
-            tabs.getWidthList().add(RenderUtil.calculateStringWidth2(facesContext, component, Integer.toString(index + 1))
-                + tabLabelExtraWidth);
+            tabs.getWidthList().add(RenderUtil.calculateStringWidth2(facesContext,
+                component, Integer.toString(index + 1)) + tabLabelExtraWidth);
           }
           if (first) {
             tabs.firstIndex = index;
