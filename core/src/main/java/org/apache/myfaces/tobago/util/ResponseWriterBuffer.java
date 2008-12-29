@@ -44,20 +44,19 @@ public class ResponseWriterBuffer {
 
   private static final int BUFFER_SIZE = 64;
 
-  private final char[] buff;
+  private final char[] buff = new char[BUFFER_SIZE];
 
   private int bufferIndex;
 
-  private Writer writer;
+  private final Writer writer;
 
-  public ResponseWriterBuffer(Writer writer) {
-    buff = new char[BUFFER_SIZE];
+  public ResponseWriterBuffer(final Writer writer) {
     this.writer = writer;
   }
 
   /**
    * Add a character to the buffer, flushing the buffer if the buffer is
-   * full, and returning the new buffer index
+   * full
    */
   public void addToBuffer(final char ch) throws IOException {
     if (bufferIndex >= BUFFER_SIZE) {
@@ -66,6 +65,16 @@ public class ResponseWriterBuffer {
     }
 
     buff[bufferIndex++] = ch;
+  }
+
+  public void addToBuffer(final char[] ch) throws IOException {
+    if (bufferIndex + ch.length >= BUFFER_SIZE) {
+      writer.write(buff, 0, bufferIndex);
+      bufferIndex = 0;
+    }
+
+    System.arraycopy(ch, 0, buff, bufferIndex, ch.length);
+    bufferIndex += ch.length;
   }
 
   /**

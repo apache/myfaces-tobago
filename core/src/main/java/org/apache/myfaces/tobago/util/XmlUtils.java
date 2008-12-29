@@ -33,13 +33,13 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.util.Properties;
 
-public class XmlUtils {
+public final class XmlUtils {
 
-  public static String escape(String s) {
+  public static String escape(final String s) {
     return escape(s, true);
   }
 
-  public static String escape(String s, boolean isAttributeValue) {
+  public static String escape(final String s, final boolean isAttributeValue) {
     if (null == s) {
       return "";
     }
@@ -51,8 +51,19 @@ public class XmlUtils {
     return buffer.toString();
   }
 
-  private static void appendEntityRef(StringBuilder buffer, char ch,
-      boolean isAttributeValue) {
+  public static String escape(final char[] chars, final int offset, final int length, final boolean isAttributeValue) {
+    if (null == chars) {
+      return "";
+    }
+    StringBuilder buffer = new StringBuilder(length);
+    for (int i = offset; i < length; i++) {
+      appendEntityRef(buffer, chars[i], isAttributeValue);
+    }
+    return buffer.toString();
+  }
+
+  private static void appendEntityRef(final StringBuilder buffer, final char ch,
+      final boolean isAttributeValue) {
     // Encode special XML characters into the equivalent character references.
     // These five are defined by default for all XML documents.
     switch (ch) {
@@ -84,7 +95,7 @@ public class XmlUtils {
     }
   }
 
-  public static void load(Properties properties, InputStream stream)
+  public static void load(final Properties properties, final InputStream stream)
       throws IOException {
     Document document;
     try {
@@ -97,7 +108,7 @@ public class XmlUtils {
     importProperties(properties, propertiesElement);
   }
 
-  private static Document createDocument(InputStream stream)
+  private static Document createDocument(final InputStream stream)
       throws SAXException, IOException {
     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     factory.setIgnoringElementContentWhitespace(true);
@@ -114,7 +125,7 @@ public class XmlUtils {
     }
   }
 
-  static void importProperties(Properties properties, Element propertiesElement) {
+  static void importProperties(final Properties properties, final Element propertiesElement) {
     NodeList entries = propertiesElement.getChildNodes();
     int numEntries = entries.getLength();
     int start = numEntries > 0
@@ -134,7 +145,7 @@ public class XmlUtils {
 
   private static class Resolver implements EntityResolver {
 
-    public InputSource resolveEntity(String publicId, String systemId)
+    public InputSource resolveEntity(final String publicId, final String systemId)
         throws SAXException {
       String dtd = "<!ELEMENT properties (comment?, entry*)>"
           + "<!ATTLIST properties version CDATA #FIXED '1.0'>"

@@ -44,7 +44,7 @@ public final class HtmlWriterUtil {
 
   private final boolean utf8;
 
-  public HtmlWriterUtil(Writer out, String characterEncoding) {
+  public HtmlWriterUtil(final Writer out, final String characterEncoding) {
     this.out = out;
     utf8 = "utf-8".equalsIgnoreCase(characterEncoding);
     buffer = new ResponseWriterBuffer(out);
@@ -52,18 +52,11 @@ public final class HtmlWriterUtil {
 
   public void writeAttributeValue(final String text)
       throws IOException {
-    writeAttributeValue(text.toCharArray(), 0, text.length());
+    writeEncodedValue(text.toCharArray(), 0, text.length(), true);
   }
-
-  private void writeAttributeValue(
-      final char[] text, final int start, final int length)
-      throws IOException {
-    writeEncodedValue(text, start, length, true);
-  }
-
 
   public void writeText(final String text) throws IOException {
-    writeText(text.toCharArray(), 0, text.length());
+    writeEncodedValue(text.toCharArray(), 0, text.length(), false);
   }
 
   public void writeText(final char[] text, final int start, final int length)
@@ -103,9 +96,7 @@ public final class HtmlWriterUtil {
             // an open brace don't get escaped
             buffer.addToBuffer('&');
           } else if (CHARS_TO_ESCAPE[ch] != null) {
-            for (char cha : CHARS_TO_ESCAPE[ch]) {
-              buffer.addToBuffer(cha);
-            }
+            buffer.addToBuffer(CHARS_TO_ESCAPE[ch]);
           } else {
             buffer.addToBuffer(ch);
           }
@@ -116,11 +107,8 @@ public final class HtmlWriterUtil {
           buffer.flushBuffer();
 
           out.write('&');
-//          FIXME? write(String) sets the startStillOpen=false
-//          out.write(sISO8859_1_Entities[ch - 0xA0]);
-          for (char c : ISO8859_1_ENTITIES[ch - 0xA0].toCharArray()) {
-            out.write(c);
-          }
+          char[] chars = ISO8859_1_ENTITIES[ch - 0xA0];
+          out.write(chars, 0, chars.length);
           out.write(';');
         } else {
           buffer.flushBuffer();
@@ -220,102 +208,102 @@ public final class HtmlWriterUtil {
   //
   // Entities from HTML 4.0, section 24.2.1; character codes 0xA0 to 0xFF
   //
-  private static final String[] ISO8859_1_ENTITIES = new String[]{
-      "nbsp",
-      "iexcl",
-      "cent",
-      "pound",
-      "curren",
-      "yen",
-      "brvbar",
-      "sect",
-      "uml",
-      "copy",
-      "ordf",
-      "laquo",
-      "not",
-      "shy",
-      "reg",
-      "macr",
-      "deg",
-      "plusmn",
-      "sup2",
-      "sup3",
-      "acute",
-      "micro",
-      "para",
-      "middot",
-      "cedil",
-      "sup1",
-      "ordm",
-      "raquo",
-      "frac14",
-      "frac12",
-      "frac34",
-      "iquest",
-      "Agrave",
-      "Aacute",
-      "Acirc",
-      "Atilde",
-      "Auml",
-      "Aring",
-      "AElig",
-      "Ccedil",
-      "Egrave",
-      "Eacute",
-      "Ecirc",
-      "Euml",
-      "Igrave",
-      "Iacute",
-      "Icirc",
-      "Iuml",
-      "ETH",
-      "Ntilde",
-      "Ograve",
-      "Oacute",
-      "Ocirc",
-      "Otilde",
-      "Ouml",
-      "times",
-      "Oslash",
-      "Ugrave",
-      "Uacute",
-      "Ucirc",
-      "Uuml",
-      "Yacute",
-      "THORN",
-      "szlig",
-      "agrave",
-      "aacute",
-      "acirc",
-      "atilde",
-      "auml",
-      "aring",
-      "aelig",
-      "ccedil",
-      "egrave",
-      "eacute",
-      "ecirc",
-      "euml",
-      "igrave",
-      "iacute",
-      "icirc",
-      "iuml",
-      "eth",
-      "ntilde",
-      "ograve",
-      "oacute",
-      "ocirc",
-      "otilde",
-      "ouml",
-      "divide",
-      "oslash",
-      "ugrave",
-      "uacute",
-      "ucirc",
-      "uuml",
-      "yacute",
-      "thorn",
-      "yuml"
+  private static final char [][] ISO8859_1_ENTITIES = new char [][]{
+      "nbsp".toCharArray(),
+      "iexcl".toCharArray(),
+      "cent".toCharArray(),
+      "pound".toCharArray(),
+      "curren".toCharArray(),
+      "yen".toCharArray(),
+      "brvbar".toCharArray(),
+      "sect".toCharArray(),
+      "uml".toCharArray(),
+      "copy".toCharArray(),
+      "ordf".toCharArray(),
+      "laquo".toCharArray(),
+      "not".toCharArray(),
+      "shy".toCharArray(),
+      "reg".toCharArray(),
+      "macr".toCharArray(),
+      "deg".toCharArray(),
+      "plusmn".toCharArray(),
+      "sup2".toCharArray(),
+      "sup3".toCharArray(),
+      "acute".toCharArray(),
+      "micro".toCharArray(),
+      "para".toCharArray(),
+      "middot".toCharArray(),
+      "cedil".toCharArray(),
+      "sup1".toCharArray(),
+      "ordm".toCharArray(),
+      "raquo".toCharArray(),
+      "frac14".toCharArray(),
+      "frac12".toCharArray(),
+      "frac34".toCharArray(),
+      "iquest".toCharArray(),
+      "Agrave".toCharArray(),
+      "Aacute".toCharArray(),
+      "Acirc".toCharArray(),
+      "Atilde".toCharArray(),
+      "Auml".toCharArray(),
+      "Aring".toCharArray(),
+      "AElig".toCharArray(),
+      "Ccedil".toCharArray(),
+      "Egrave".toCharArray(),
+      "Eacute".toCharArray(),
+      "Ecirc".toCharArray(),
+      "Euml".toCharArray(),
+      "Igrave".toCharArray(),
+      "Iacute".toCharArray(),
+      "Icirc".toCharArray(),
+      "Iuml".toCharArray(),
+      "ETH".toCharArray(),
+      "Ntilde".toCharArray(),
+      "Ograve".toCharArray(),
+      "Oacute".toCharArray(),
+      "Ocirc".toCharArray(),
+      "Otilde".toCharArray(),
+      "Ouml".toCharArray(),
+      "times".toCharArray(),
+      "Oslash".toCharArray(),
+      "Ugrave".toCharArray(),
+      "Uacute".toCharArray(),
+      "Ucirc".toCharArray(),
+      "Uuml".toCharArray(),
+      "Yacute".toCharArray(),
+      "THORN".toCharArray(),
+      "szlig".toCharArray(),
+      "agrave".toCharArray(),
+      "aacute".toCharArray(),
+      "acirc".toCharArray(),
+      "atilde".toCharArray(),
+      "auml".toCharArray(),
+      "aring".toCharArray(),
+      "aelig".toCharArray(),
+      "ccedil".toCharArray(),
+      "egrave".toCharArray(),
+      "eacute".toCharArray(),
+      "ecirc".toCharArray(),
+      "euml".toCharArray(),
+      "igrave".toCharArray(),
+      "iacute".toCharArray(),
+      "icirc".toCharArray(),
+      "iuml".toCharArray(),
+      "eth".toCharArray(),
+      "ntilde".toCharArray(),
+      "ograve".toCharArray(),
+      "oacute".toCharArray(),
+      "ocirc".toCharArray(),
+      "otilde".toCharArray(),
+      "ouml".toCharArray(),
+      "divide".toCharArray(),
+      "oslash".toCharArray(),
+      "ugrave".toCharArray(),
+      "uacute".toCharArray(),
+      "ucirc".toCharArray(),
+      "uuml".toCharArray(),
+      "yacute".toCharArray(),
+      "thorn".toCharArray(),
+      "yuml".toCharArray()
   };
 }
