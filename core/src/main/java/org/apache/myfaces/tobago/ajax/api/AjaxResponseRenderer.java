@@ -148,18 +148,13 @@ public class AjaxResponseRenderer {
   }
 
   private static void ensureContentTypeHeader(FacesContext facesContext, String charset, String contentType) {
-    // TODO PortletRequest
-    if (facesContext.getExternalContext().getResponse() instanceof HttpServletResponse) {
-      HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-
-      StringBuilder sb = new StringBuilder(contentType);
-      if (charset == null) {
-        charset = "UTF-8";
-      }
-      sb.append("; charset=");
-      sb.append(charset);
-      response.setContentType(sb.toString());
+    StringBuilder sb = new StringBuilder(contentType);
+    if (charset == null) {
+      charset = "UTF-8";
     }
+    sb.append("; charset=");
+    sb.append(charset);
+    ResponseUtils.ensureContentTypeHeader(facesContext, sb.toString());
   }
 
   private void writeResponse(FacesContext facesContext, RenderKit renderKit, boolean reloadRequired)

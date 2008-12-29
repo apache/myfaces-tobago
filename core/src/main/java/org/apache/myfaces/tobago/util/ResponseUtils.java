@@ -17,6 +17,9 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +29,8 @@ import javax.servlet.http.HttpServletResponse;
  * Time: 10:39:25 AM
  */
 public class ResponseUtils {
+
+  private static final Log LOG = LogFactory.getLog(ResponseUtils.class);
 
   public static void ensureNoCacheHeader(FacesContext facesContext) {
     // TODO PortletRequest
@@ -43,7 +48,14 @@ public class ResponseUtils {
     // TODO PortletRequest
     if (facesContext.getExternalContext().getResponse() instanceof HttpServletResponse) {
       HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-      response.setContentType(contentType);
+      if (!response.containsHeader("Content-Type")) {
+        response.setContentType(contentType);
+      } else {
+        if (LOG.isInfoEnabled()) {
+          LOG.info("Reponse already contains Header Content-Type " + response.getContentType() 
+              + ". Ignore setting Content-Type to " + contentType);
+        }
+      }
     }
   }
 }
