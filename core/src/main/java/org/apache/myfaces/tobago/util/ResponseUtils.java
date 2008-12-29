@@ -52,8 +52,7 @@ public class ResponseUtils {
         response.setContentType(contentType);
       } else {
         if (LOG.isInfoEnabled()) {
-          LOG.info("Reponse already contains Header Content-Type " + response.getContentType() 
-              + ". Ignore setting Content-Type to " + contentType);
+          LOG.info("Reponse already contains Header Content-Type. Ignore setting Content-Type to " + contentType);
         }
       }
     }
