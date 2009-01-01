@@ -20,6 +20,8 @@ package org.apache.myfaces.tobago.taglib.extension;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.UICommand;
+import static org.apache.myfaces.tobago.component.Attributes.RENDERED_PARTIALLY;
 import org.apache.myfaces.tobago.internal.taglib.MenuItemTag;
 import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
 import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
@@ -29,8 +31,12 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
 import javax.faces.webapp.FacetTag;
+import javax.faces.component.UIComponent;
+import javax.faces.el.ValueBinding;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+
+import org.apache.commons.lang.StringUtils;
 
 /*
  * Date: 09.05.2006
@@ -121,6 +127,18 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
 
   @Override
   public int doEndTag() throws JspException {
+
+    // Move attribute renderedPartially from selectOne to menuCommand component
+    UIComponent selectBooleanComponent = selectBooleanCheckbox.getComponentInstance();
+    UICommand command = (UICommand) menuCommandTag.getComponentInstance();
+    ValueBinding binding = selectBooleanComponent.getValueBinding(RENDERED_PARTIALLY);
+    if (binding != null) {
+      command.setValueBinding(RENDERED_PARTIALLY, binding);
+    } else {
+      Object renderedPartially = selectBooleanComponent.getAttributes().get(RENDERED_PARTIALLY);
+      command.setRenderedPartially(StringUtils.split((String) renderedPartially, ", "));
+    }
+
     selectBooleanCheckbox.doEndTag();
     facetTag.doEndTag();
     menuCommandTag.doEndTag();
