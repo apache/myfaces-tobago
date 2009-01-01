@@ -27,8 +27,13 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
+import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDERED_PARTIALLY;
 
 import javax.faces.webapp.FacetTag;
+import javax.faces.component.UIComponent;
+import javax.faces.el.ValueBinding;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
@@ -124,6 +129,18 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
 
   @Override
   public int doEndTag() throws JspException {
+
+    // Move attribute renderedPartially from selectOne to menuCommand component
+    UIComponent selectOneComponent = selectOneRadio.getComponentInstance();
+    UICommand command = (UICommand) menuCommandTag.getComponentInstance();
+    ValueBinding binding = selectOneComponent.getValueBinding(ATTR_RENDERED_PARTIALLY);
+    if (binding != null) {
+      command.setValueBinding(ATTR_RENDERED_PARTIALLY, binding);
+    } else {
+      Object renderedPartially = selectOneComponent.getAttributes().get(ATTR_RENDERED_PARTIALLY);
+      ComponentUtil.setRenderedPartially(command, (String) renderedPartially);
+    }
+    
     selectOneRadio.doEndTag();
     facetTag.doEndTag();
     menuCommandTag.doEndTag();
