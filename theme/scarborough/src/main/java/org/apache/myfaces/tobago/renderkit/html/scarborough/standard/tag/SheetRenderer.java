@@ -102,6 +102,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import static java.lang.Boolean.TRUE;
 
 public class SheetRenderer extends LayoutableRendererBase implements SheetRendererWorkaround, AjaxRenderer {
 
@@ -907,7 +908,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       menu.setId("selectorMenu");
       column.getFacets().put(FACET_MENUPOPUP, menu);
       menu.setRendererType(RENDERER_TYPE_MENUBAR);
-      menu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
+      menu.getAttributes().put(ATTR_MENU_POPUP, TRUE);
       menu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "SheetSelector");
       menu.getAttributes().put(ATTR_IMAGE, "image/sheetSelectorMenu.gif");
 
@@ -976,6 +977,40 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       writer.writeAttribute(HtmlAttributes.ALT, "", false);
       writer.endElement(HtmlConstants.IMG);
     }
+
+    if (column.getFacet(FACET_MENUPOPUP) != null) {
+      renderFilter(facesContext, writer, column);
+    }
+  }
+
+  private void renderFilter(FacesContext facesContext, TobagoResponseWriter writer, UIComponent column) throws IOException {
+
+    UIComponent facet = column.getFacet(FACET_MENUPOPUP);
+
+    if (facet instanceof UIMenu) {
+
+      if (facet.getAttributes().get(ATTR_MENU_POPUP) != TRUE) {
+        facet.setRendererType(RENDERER_TYPE_MENUBAR);
+        facet.getAttributes().put(ATTR_MENU_POPUP, TRUE);
+        facet.getAttributes().put(ATTR_MENU_POPUP_TYPE, "SheetSelector");
+      }
+      if (StringUtils.isBlank((String) facet.getAttributes().get(ATTR_IMAGE))) {
+        facet.getAttributes().put(ATTR_IMAGE, "image/sheetSelectorMenu.gif");
+      }
+
+
+      writer.startElement(HtmlConstants.SPAN, null);
+      writer.writeIdAttribute(column.getClientId(facesContext));
+      writer.writeClassAttribute("tobago-sheet-selector-menu");
+      writer.endElement(HtmlConstants.SPAN);
+      RenderUtil.encode(facesContext, facet);
+
+    } else {
+      LOG.warn("Unknown filter component: " + facet);
+    }
+
+
+
   }
 
   private void writeDirectPagingLinks(
@@ -1081,7 +1116,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     link.setRendered(true);
     link.setId(command.getToken());
 //    link.getAttributes().put(ATTR_ACTION_STRING, command);
-    link.getAttributes().put(ATTR_INLINE, Boolean.TRUE);
+    link.getAttributes().put(ATTR_INLINE, TRUE);
     link.getAttributes().put(ATTR_DISABLED, disabled);
     return link;
   }

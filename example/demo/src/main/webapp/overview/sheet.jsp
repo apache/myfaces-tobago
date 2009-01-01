@@ -134,6 +134,14 @@
           <tc:out value="#{luminary.number}" id="t_number"/>
         </tc:column>
         <tc:column label="#{overviewBundle.solarArrayOrbit}" sortable="true" id="orbit">
+          <f:facet name="menupopup">
+            <tc:menu>  
+              <tx:menuRadio actionListener="#{demo.filterOrbit}" >
+                <f:selectItems value="#{demo.orbitItems}" />
+                <tc:attribute name="renderedPartially" value=":page:sheet"/>
+              </tx:menuRadio>
+            </tc:menu>
+          </f:facet>
           <tc:out value="#{luminary.orbit}" id="t_orbit"/>
         </tc:column>
         <tc:column label="#{overviewBundle.solarArrayPopulation}" sortable="true" id="population">

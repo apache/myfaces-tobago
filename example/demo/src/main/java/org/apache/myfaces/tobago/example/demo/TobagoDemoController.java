@@ -25,8 +25,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_IN;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.UISelectOne;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
@@ -43,6 +45,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
+import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
@@ -343,7 +346,7 @@ public class TobagoDemoController {
     if (value > 100) {
       value = 0;
     }
-    return solarList;
+    return filteredList == null ? solarList : filteredList;
   }
 
   public void setSolarList(List<SolarObject> solarList) {
@@ -557,6 +560,63 @@ public class TobagoDemoController {
 
   }
 
+  private List<SolarObject> filteredList;
+  private SelectItem[] orbitItems;
+  private static final String showAllOrbits = "Show all";
+
+  public void filterOrbit(ActionEvent event) {
+//    FacesContext facesContext = FacesContext.getCurrentInstance();
+    UISelectOne selectOne = (UISelectOne) event.getComponent().getFacet(FACET_ITEMS);
+    if (filteredList == null) {
+      filteredList = new ArrayList<SolarObject>();
+    } else {
+      filteredList.clear();
+    }
+
+    String filter = (String) selectOne.getValue();
+    if (showAllOrbits.equals(filter)) {
+      filteredList.addAll(solarList);
+    } else {
+      for (SolarObject solarObject : solarList) {
+        if (solarObject.getOrbit().equalsIgnoreCase(filter)) {
+          filteredList.add(solarObject);
+        }
+      }
+    }
+
+  }
+
+  public SelectItem[] getOrbitItems() {
+    if (orbitItems == null) {
+      createOrbitItems();
+    }
+    return orbitItems;
+  }
+
+  private SelectItem[] createOrbitItems() {
+    orbitItems = new SelectItem[11];
+    orbitItems[0] = new org.apache.myfaces.tobago.model.SelectItem(showAllOrbits);
+    orbitItems[1] = new org.apache.myfaces.tobago.model.SelectItem("Sun");
+    orbitItems[2] = new org.apache.myfaces.tobago.model.SelectItem("Mercury");
+    orbitItems[3] = new org.apache.myfaces.tobago.model.SelectItem("Venus");
+    orbitItems[4] = new org.apache.myfaces.tobago.model.SelectItem("Earth");
+    orbitItems[5] = new org.apache.myfaces.tobago.model.SelectItem("Mars");
+    orbitItems[6] = new org.apache.myfaces.tobago.model.SelectItem("Jupiter");
+    orbitItems[7] = new org.apache.myfaces.tobago.model.SelectItem("Saturn");
+    orbitItems[8] = new org.apache.myfaces.tobago.model.SelectItem("Uranus");
+    orbitItems[9] = new org.apache.myfaces.tobago.model.SelectItem("Neptune");
+    orbitItems[10] = new org.apache.myfaces.tobago.model.SelectItem("Pluto");
+    return orbitItems;
+  }
+
+//  public void setOrbitFilter(String orbitFilter) {
+//    this.orbitFilter = orbitFilter;
+//  }
+//
+//  public String getOrbitFilter() {
+//    return orbitFilter;
+//  }
+
   public static class Node {
 
     private String name;
@@ -588,6 +648,7 @@ public class TobagoDemoController {
       return "Node name="+name+" id="+id;
     }
   }
+
 
 
 }
