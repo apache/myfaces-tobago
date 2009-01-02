@@ -17,25 +17,31 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.TobagoConstants;
+
 import javax.faces.context.FacesContext;
 
 
-/*
-* Created by IntelliJ IDEA.
-* User: bommel
-* Date: 10.02.2006
-* Time: 21:20:10
-*/
 public class UICell extends UIPanelBase {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Cell";
 
-  private Integer spanX = 1;
-  private Integer spanY = 1;
-  private String scrollbars = "false";
+  private Integer spanX;
+  private Integer spanY;
+  private String scrollbars;
 
   public Integer getSpanX() {
-    return spanX;
+    if (spanX != null) {
+      return spanX;
+    }
+    javax.faces.el.ValueBinding vb = getValueBinding(TobagoConstants.ATTR_SPAN_X);
+    if (vb != null) {
+      Number number = (Number) vb.getValue(getFacesContext());
+      if (number != null) {
+        return number.intValue();
+      }
+    }
+    return 1;
   }
 
   public void setSpanX(Integer spanX) {
@@ -43,7 +49,17 @@ public class UICell extends UIPanelBase {
   }
 
   public Integer getSpanY() {
-    return spanY;
+    if (spanY != null) {
+      return spanY;
+    }
+    javax.faces.el.ValueBinding vb = getValueBinding(TobagoConstants.ATTR_SPAN_Y);
+    if (vb != null) {
+      Number number = (Number) vb.getValue(getFacesContext());
+      if (number != null) {
+        return number.intValue();
+      }
+    }
+    return 1;
   }
 
   public void setSpanY(Integer spanY) {
@@ -51,7 +67,17 @@ public class UICell extends UIPanelBase {
   }
 
   public String getScrollbars() {
-    return scrollbars;
+    if (scrollbars != null) {
+      return scrollbars;
+    }
+    javax.faces.el.ValueBinding vb = getValueBinding(TobagoConstants.ATTR_SCROLLBARS);
+    if (vb != null) {
+      java.lang.String scrollbars = (java.lang.String) vb.getValue(getFacesContext());
+      if (scrollbars != null) {
+        return scrollbars;
+      }
+    }
+    return "false";
   }
 
   public void setScrollbars(String scrollbars) {
