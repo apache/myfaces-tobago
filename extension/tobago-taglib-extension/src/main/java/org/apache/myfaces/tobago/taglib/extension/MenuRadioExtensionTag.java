@@ -136,15 +136,17 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
   @Override
   public int doEndTag() throws JspException {
 
-    // Move attribute renderedPartially from selectOne to menuCommand component
-    UIComponent selectOneComponent = selectOneRadio.getComponentInstance();
-    UICommand command = (UICommand) menuCommandTag.getComponentInstance();
-    ValueBinding binding = selectOneComponent.getValueBinding(RENDERED_PARTIALLY);
-    if (binding != null) {
-      command.setValueBinding(RENDERED_PARTIALLY, binding);
-    } else {
-      Object renderedPartially = selectOneComponent.getAttributes().get(RENDERED_PARTIALLY);
-      command.setRenderedPartially(StringUtils.split((String) renderedPartially, ", "));
+    if (renderedPartially == null) {
+      // Move attribute renderedPartially from selectOne to menuCommand component
+      UIComponent selectOneComponent = selectOneRadio.getComponentInstance();
+      UICommand command = (UICommand) menuCommandTag.getComponentInstance();
+      ValueBinding binding = selectOneComponent.getValueBinding(RENDERED_PARTIALLY);
+      if (binding != null) {
+        command.setValueBinding(RENDERED_PARTIALLY, binding);
+      } else {
+        Object renderedPartially = selectOneComponent.getAttributes().get(RENDERED_PARTIALLY);
+        command.setRenderedPartially(StringUtils.split((String) renderedPartially, ", "));
+      }
     }
     
     selectOneRadio.doEndTag();

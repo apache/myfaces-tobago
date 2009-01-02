@@ -128,15 +128,17 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
   @Override
   public int doEndTag() throws JspException {
 
-    // Move attribute renderedPartially from selectOne to menuCommand component
-    UIComponent selectBooleanComponent = selectBooleanCheckbox.getComponentInstance();
-    UICommand command = (UICommand) menuCommandTag.getComponentInstance();
-    ValueBinding binding = selectBooleanComponent.getValueBinding(RENDERED_PARTIALLY);
-    if (binding != null) {
-      command.setValueBinding(RENDERED_PARTIALLY, binding);
-    } else {
-      Object renderedPartially = selectBooleanComponent.getAttributes().get(RENDERED_PARTIALLY);
-      command.setRenderedPartially(StringUtils.split((String) renderedPartially, ", "));
+    if (renderedPartially == null) {
+      // Move attribute renderedPartially from selectOne to menuCommand component
+      UIComponent selectBooleanComponent = selectBooleanCheckbox.getComponentInstance();
+      UICommand command = (UICommand) menuCommandTag.getComponentInstance();
+      ValueBinding binding = selectBooleanComponent.getValueBinding(RENDERED_PARTIALLY);
+      if (binding != null) {
+        command.setValueBinding(RENDERED_PARTIALLY, binding);
+      } else {
+        Object renderedPartially = selectBooleanComponent.getAttributes().get(RENDERED_PARTIALLY);
+        command.setRenderedPartially(StringUtils.split((String) renderedPartially, ", "));
+      }
     }
 
     selectBooleanCheckbox.doEndTag();
