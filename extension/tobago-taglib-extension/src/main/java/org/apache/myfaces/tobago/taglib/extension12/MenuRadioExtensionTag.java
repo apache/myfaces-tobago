@@ -24,13 +24,12 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UICommand;
-import static org.apache.myfaces.tobago.component.Attributes.RENDERED_PARTIALLY;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.taglib.MenuItemTag;
 import org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag;
 
 import javax.faces.webapp.FacetTag;
 import javax.faces.component.UIComponent;
-import javax.faces.el.ValueBinding;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
@@ -135,11 +134,11 @@ public class MenuRadioExtensionTag extends BodyTagSupport {
     // Move attribute renderedPartially from selectOne to menuCommand component
     UIComponent selectOneComponent = selectOneRadio.getComponentInstance();
     UICommand command = (UICommand) menuCommandTag.getComponentInstance();
-    ValueBinding binding = selectOneComponent.getValueBinding(RENDERED_PARTIALLY);
-    if (binding != null) {
-      command.setValueBinding(RENDERED_PARTIALLY, binding);
+    javax.el.ValueExpression expression = selectOneComponent.getValueExpression(Attributes.RENDERED_PARTIALLY);
+    if (expression != null) {
+      command.setValueExpression(Attributes.RENDERED_PARTIALLY, expression);
     } else {
-      Object renderedPartially = selectOneComponent.getAttributes().get(RENDERED_PARTIALLY);
+      Object renderedPartially = selectOneComponent.getAttributes().get(Attributes.RENDERED_PARTIALLY);
       command.setRenderedPartially(StringUtils.split((String) renderedPartially, ", "));
     }
 
