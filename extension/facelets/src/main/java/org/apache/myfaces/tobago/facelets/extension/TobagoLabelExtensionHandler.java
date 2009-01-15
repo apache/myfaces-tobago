@@ -57,6 +57,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   private TagAttribute tipAttribute;
   private TagAttribute labelAttribute;
   private TagAttribute markupAttribute;
+  private TagAttribute fieldIdAttribute;
 
   public TobagoLabelExtensionHandler(ComponentConfig config) {
     super(config);
@@ -64,6 +65,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     tipAttribute = getAttribute(TobagoConstants.ATTR_TIP);
     labelAttribute = getAttribute(TobagoConstants.ATTR_LABEL);
     markupAttribute = getAttribute(TobagoConstants.ATTR_MARKUP);
+    fieldIdAttribute = getAttribute("fieldId");
   }
 
   protected abstract String getSubComponentType();
@@ -106,7 +108,12 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     addGridLayout(faceletContext, panel, root);
 
     addLabel(faceletContext, panel, root);
-    String uid = root.createUniqueId();
+    String uid;
+    if (fieldIdAttribute !=  null) {
+      uid = fieldIdAttribute.getValue(faceletContext);
+    } else {
+      uid = root.createUniqueId();
+    }
     if (checkForAlreadyCreated(panel, uid)) {
       return;
     }
