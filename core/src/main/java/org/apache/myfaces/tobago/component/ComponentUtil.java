@@ -351,9 +351,11 @@ public class ComponentUtil {
     if (bool instanceof Boolean) {
       return (Boolean) bool;
     } else if (bool instanceof String) {
-      LOG.warn("Searching for a boolean, but find a String. Should not happen. "
-          + "attribute: '" + name + "' id: '" + component.getClientId(FacesContext.getCurrentInstance())
-          + "' comp: '" + component + "'");
+      if (LOG.isInfoEnabled()) {
+        LOG.info("Searching for a boolean, but find a String. Should not happen. "
+            + "attribute: '" + name + "' id: '" + component.getClientId(FacesContext.getCurrentInstance())
+            + "' comp: '" + component + "'");
+      }
       return Boolean.valueOf((String) bool);
     } else {
       LOG.warn("Unknown type '" + bool.getClass().getName()
