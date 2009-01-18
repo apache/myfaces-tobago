@@ -44,3 +44,48 @@
   height: 3px;
   background-color: #660000;
 }
+
+.tobago-simpleSheet-content {
+    -moz-box-sizing:border-box;
+    background-color:#FFFFFF;
+    border-width:0;
+    cursor:pointer;
+    overflow:hidden;
+    position:absolute
+}
+
+.tobago-simpleSheet-list {
+   -moz-box-sizing:border-box;
+   border:1px solid #686551;
+   left:0;
+   overflow:auto;
+   position:absolute;
+   top:0;
+}
+
+.tobago-simpleSheet-header {
+  -moz-box-sizing:border-box;
+  border-bottom:1px solid #FFFFFF;
+  height:20px;
+  left:0;
+}
+
+.tobabo-simpleSheet-cell {
+  -moz-box-sizing:border-box;
+  -x-system-font:none;
+  border-color:#000000 #000000 #E2E2E2;
+  border-style:solid;
+  border-width:0 0 1px;
+  font-family:arial,helvetica,sans-serif;
+  font-size:12px;
+  font-size-adjust:none;
+  font-stretch:normal;
+  font-style:normal;
+  font-variant:normal;
+  font-weight:normal;
+  height:20px;
+  line-height:normal;
+  overflow:hidden;
+  position:absolute;
+  padding:3px 10px 0 2px;
+}

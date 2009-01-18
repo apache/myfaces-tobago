@@ -102,7 +102,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import static java.lang.Boolean.TRUE;
 
 public class SheetRenderer extends LayoutableRendererBase implements SheetRendererWorkaround, AjaxRenderer {
 
@@ -459,6 +458,11 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
 // END RENDER BODY CONTENT
 
 
+    renderFooter(facesContext, data, writer, sheetId, sheetHeight, footerHeight, bodyStyle);
+  }
+
+  protected void renderFooter(FacesContext facesContext, UIData data, TobagoResponseWriter writer,
+      String sheetId, Integer sheetHeight, int footerHeight, HtmlStyleMap bodyStyle) throws IOException {
     final String showRowRange
         = getPagingAttribute(data, ATTR_SHOW_ROW_RANGE);
     final String showPageRange
@@ -469,6 +473,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     if (isValidPagingValue(showRowRange)
         || isValidPagingValue(showPageRange)
         || isValidPagingValue(showDirectLinks)) {
+      final Application application = facesContext.getApplication();
       final HtmlStyleMap footerStyle = (HtmlStyleMap) bodyStyle.clone();
       footerStyle.put("height", footerHeight);
       footerStyle.put("top", (sheetHeight - footerHeight));
@@ -667,8 +672,8 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       int rows = Math.min(data.getRowCount(), first + data.getRows()) - first;
       int heightNeeded = getHeaderHeight(facesContext, data)
           + getFooterHeight(facesContext, data)
-          + (rows * (getFixedHeight(facesContext, null)
-          + getRowPadding(facesContext, data)));
+          + (rows * getConfiguredValue(facesContext, data, "rowHeight"))
+          + getRowPadding(facesContext, data);
 
       return heightNeeded > height;
     } else {
@@ -691,7 +696,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
         getFooterHeight(facesContext, component));
   }
 
-  private int getFooterHeight(FacesContext facesContext, UIComponent component) {
+  protected int getFooterHeight(FacesContext facesContext, UIComponent component) {
     int footerHeight;
     if (isValidPagingAttribute((UIData) component, ATTR_SHOW_ROW_RANGE)
         || isValidPagingAttribute((UIData) component, ATTR_SHOW_PAGE_RANGE)
@@ -726,7 +731,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
         || "right".equals(value);
   }
 
-  private int getAscendingMarkerWidth(FacesContext facesContext,
+  protected int getAscendingMarkerWidth(FacesContext facesContext,
       UIComponent component) {
     return getConfiguredValue(facesContext, component, "ascendingMarkerWidth");
   }
@@ -735,7 +740,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     return true;
   }
 
-  private List<Integer> getSelectedRows(UIData data, SheetState state) {
+  protected List<Integer> getSelectedRows(UIData data, SheetState state) {
     List<Integer> selected = (List<Integer>)
         data.getAttributes().get(ATTR_SELECTED_LIST_STRING);
     if (selected == null && state != null) {
@@ -777,10 +782,19 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     writer.endElement(HtmlConstants.IMG);
   }
 
-  private void renderColumnHeader(FacesContext facesContext,
+  protected void renderColumnHeader(FacesContext facesContext,
       TobagoResponseWriter writer, UIData component,
       int columnIndex, UIColumn column, String imageAscending, String imageDescending, String imageUnsorted,
       String image1x1, int sortMarkerWidth) throws IOException {
+    renderColumnHeader(facesContext, writer,  component, columnIndex, column, imageAscending, imageDescending, 
+        imageUnsorted, image1x1, sortMarkerWidth, true);
+
+  }
+
+  protected void renderColumnHeader(FacesContext facesContext,
+      TobagoResponseWriter writer, UIData component,
+      int columnIndex, UIColumn column, String imageAscending, String imageDescending, String imageUnsorted,
+      String image1x1, int sortMarkerWidth, boolean headerResizer) throws IOException {
     String sheetId = component.getClientId(facesContext);
     Application application = facesContext.getApplication();
 
@@ -862,13 +876,14 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       renderColumnHeaderLabel(facesContext, writer, column, sortMarkerWidth, align, image1x1);
     }
     writer.endElement(HtmlConstants.DIV);
-
-    writer.startElement(HtmlConstants.DIV, null);
-    writer.writeIdAttribute(sheetId + "_header_resizer_" + columnIndex);
-    writer.writeClassAttribute(resizerClass);
-    writer.flush();
-    writer.write("&nbsp;");
-    writer.endElement(HtmlConstants.DIV);
+    if (headerResizer) {
+      writer.startElement(HtmlConstants.DIV, null);
+      writer.writeIdAttribute(sheetId + "_header_resizer_" + columnIndex);
+      writer.writeClassAttribute(resizerClass);
+      writer.flush();
+      writer.write("&nbsp;");
+      writer.endElement(HtmlConstants.DIV);
+    }
 // ############################################
 // ############################################
     if (sortable && !(column instanceof UIColumnSelector)) {
@@ -908,7 +923,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       menu.setId("selectorMenu");
       column.getFacets().put(FACET_MENUPOPUP, menu);
       menu.setRendererType(RENDERER_TYPE_MENUBAR);
-      menu.getAttributes().put(ATTR_MENU_POPUP, TRUE);
+      menu.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
       menu.getAttributes().put(ATTR_MENU_POPUP_TYPE, "SheetSelector");
       menu.getAttributes().put(ATTR_IMAGE, "image/sheetSelectorMenu.gif");
 
@@ -989,9 +1004,9 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
 
     if (facet instanceof UIMenu) {
 
-      if (facet.getAttributes().get(ATTR_MENU_POPUP) != TRUE) {
+      if (facet.getAttributes().get(ATTR_MENU_POPUP) != Boolean.TRUE) {
         facet.setRendererType(RENDERER_TYPE_MENUBAR);
-        facet.getAttributes().put(ATTR_MENU_POPUP, TRUE);
+        facet.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
         facet.getAttributes().put(ATTR_MENU_POPUP_TYPE, "SheetSelector");
       }
       if (StringUtils.isBlank((String) facet.getAttributes().get(ATTR_IMAGE))) {
@@ -1116,7 +1131,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     link.setRendered(true);
     link.setId(command.getToken());
 //    link.getAttributes().put(ATTR_ACTION_STRING, command);
-    link.getAttributes().put(ATTR_INLINE, TRUE);
+    link.getAttributes().put(ATTR_INLINE, Boolean.TRUE);
     link.getAttributes().put(ATTR_DISABLED, disabled);
     return link;
   }
