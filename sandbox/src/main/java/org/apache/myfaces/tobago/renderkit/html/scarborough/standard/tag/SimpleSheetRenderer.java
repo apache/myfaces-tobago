@@ -164,7 +164,8 @@ public class SimpleSheetRenderer extends SheetRenderer {
           continue;
         }
         writer.startElement(HtmlConstants.DIV, null);
-        writer.writeClassAttribute("tobabo-simpleSheet-cell" + (rowSelected ? " tobabo-simpleSheet-cell-selected" : ""));
+        writer.writeClassAttribute("tobabo-simpleSheet-cell"
+            + (rowSelected ? " tobabo-simpleSheet-cell-selected" : ""));
         writer.writeIdAttribute(sheetId + "_" + row + "_" + columnIndex);
         final String align = (String) column.getAttributes().get(TobagoConstants.ATTR_ALIGN);
         writer.writeAttribute(HtmlAttributes.STYLE, "top: " + top + "px; left: " + currentLeft + "px; width: "
