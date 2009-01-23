@@ -74,8 +74,8 @@
   -moz-box-sizing:border-box;
   -x-system-font:none;
   height:20px;
-  position:absolute;
   width: 100%;
+  position:absolute;
 }
 .tobago-simpleSheet-cell {
   -moz-box-sizing:border-box;
