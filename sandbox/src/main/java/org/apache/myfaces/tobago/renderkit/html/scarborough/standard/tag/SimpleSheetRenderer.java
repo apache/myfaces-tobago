@@ -214,7 +214,7 @@ public class SimpleSheetRenderer extends SheetRenderer {
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeClassAttribute("tobago-simpleSheet-row " + rowClass);
       writer.writeIdAttribute(sheetId + "_data_tr_" + row);
-      writer.writeAttribute(TobagoConstants.ATTR_STYLE, "top: "+ top+ "px: left: 0px;", false);
+      writer.writeAttribute(HtmlAttributes.STYLE, "top: "+ top+ "px: left: 0px;", false);
       writer.flush();
       boolean rowSelected = selectedRows.contains(row);
 
