@@ -109,7 +109,7 @@ public class SimpleSheetRenderer extends SheetRenderer {
     boolean ajaxEnabled = TobagoConfig.getInstance(facesContext).isAjaxEnabled();
 
     final String[] styles = new String[]{"style/tobago-sheet.css"};
-    final String[] scripts = new String[]{"script/tobago-sheet.js", "script/tobago-simpleSheet.js"};
+    final String[] scripts = new String[]{"script/tobago-sheet.js"};
     Integer frequency = null;
     UIComponent facetReload = data.getFacet(TobagoConstants.FACET_RELOAD);
     if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
@@ -129,7 +129,7 @@ public class SimpleSheetRenderer extends SheetRenderer {
     UIPage page = ComponentUtil.findPage(facesContext, data);
 
     page.getStyleFiles().add(styles[0]);
-    page.getScriptFiles().addAll(java.util.Arrays.asList(scripts));
+    page.getScriptFiles().add(scripts[0]);
 
     if (!ajaxEnabled) {
       page.getOnloadScripts().add(cmds[0]);
