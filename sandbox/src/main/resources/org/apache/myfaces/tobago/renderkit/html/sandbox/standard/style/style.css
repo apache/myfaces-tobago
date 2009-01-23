@@ -70,7 +70,14 @@
   left:0;
 }
 
-.tobabo-simpleSheet-cell {
+.tobago-simpleSheet-row {
+  -moz-box-sizing:border-box;
+  -x-system-font:none;
+  height:20px;
+  position:absolute;
+  width: 100%;
+}
+.tobago-simpleSheet-cell {
   -moz-box-sizing:border-box;
   -x-system-font:none;
   border-color:#000000 #000000 #E2E2E2;
