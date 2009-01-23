@@ -257,6 +257,7 @@ public class SimpleSheetRenderer extends SheetRenderer {
       top += 20;
     }
 
+    data.setRowIndex(-1);
 
     writer.endElement(HtmlConstants.DIV);
 
