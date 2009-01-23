@@ -224,7 +224,7 @@ public class SimpleSheetRenderer extends SheetRenderer {
         columnIndex++;
         List<UIComponent> childs = data.getRenderedChildrenOf(column);
         writer.startElement(HtmlConstants.DIV, null);
-        writer.writeClassAttribute("tobabo-simpleSheet-cell");
+        writer.writeClassAttribute("tobago-simpleSheet-cell");
            // + (rowSelected ? " tobabo-simpleSheet-cell-selected" : ""));
         writer.writeIdAttribute(sheetId + "_" + row + "_" + columnIndex);
         final String align = (String) column.getAttributes().get(TobagoConstants.ATTR_ALIGN);
