@@ -187,6 +187,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
             + ");"
     };
     UIPage page = ComponentUtil.findPage(facesContext, data);
+
     page.getStyleFiles().add(styles[0]);
     page.getScriptFiles().add(scripts[0]);
 
@@ -198,7 +199,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     }
   }
 
-  private void renderSheet(FacesContext facesContext, UIData data, boolean hasClickAction) throws IOException {
+  protected void renderSheet(FacesContext facesContext, UIData data, boolean hasClickAction) throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
     UIViewRoot viewRoot = facesContext.getViewRoot();
@@ -225,7 +226,6 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
 
     String selectable = data.getSelectable();
 
-    Application application = facesContext.getApplication();
     SheetState state = data.getSheetState(facesContext);
     List<Integer> columnWidths = data.getWidthList();
 
