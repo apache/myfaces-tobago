@@ -41,7 +41,7 @@ Tobago.Sheets = {
 };
 
 Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage, selectable, columnSelectorIndex, autoReload,
-                        clickActionId, clickReloadComponentId, dblClickActionId, dblClickReloadComponentId) {
+                        clickActionId, clickReloadComponentId, dblClickActionId, dblClickReloadComponentId, simpleSheet) {
   this.startTime = new Date();
   this.id = sheetId;
   Tobago.Sheets.put(this);
@@ -83,20 +83,8 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage, selec
     };
   }
 
-  this.ppPrefix
-      = Tobago.SUB_COMPONENT_SEP + "pagingPages" + Tobago.SUB_COMPONENT_SEP;
 
-  this.firstRegExp = new RegExp(this.ppPrefix + "First$");
-
-  this.prevRegExp = new RegExp(this.ppPrefix + "Prev$");
-
-  this.nextRegExp = new RegExp(this.ppPrefix + "Next$");
-
-  this.lastRegExp = new RegExp(this.ppPrefix + "Last$");
-
-  this.firstRowRegExp = new RegExp("^" + this.id + "_data_tr_\\d+$");
-
-  this.simpleSheet = Tobago.element(this.outerDivId).className.indexOf("tobago-simpleSheet-content") > -1;
+  this.simpleSheet = simpleSheet;//Tobago.element(this.outerDivId).className.indexOf("tobago-simpleSheet-content") > -1;
 
   this.setup();
 
@@ -227,6 +215,19 @@ Tobago.Sheet.prototype.doPagingDirect = function(event) {
 Tobago.Sheet.prototype.doPaging = function(event) {
     var element = Event.element(event);
     var action = "unset";
+
+  this.ppPrefix
+        = Tobago.SUB_COMPONENT_SEP + "pagingPages" + Tobago.SUB_COMPONENT_SEP;
+
+    this.firstRegExp = new RegExp(this.ppPrefix + "First$");
+
+    this.prevRegExp = new RegExp(this.ppPrefix + "Prev$");
+
+    this.nextRegExp = new RegExp(this.ppPrefix + "Next$");
+
+    this.lastRegExp = new RegExp(this.ppPrefix + "Last$");
+
+
     if (element.id.match(this.firstRegExp)){
       action = this.id + Tobago.COMPONENT_SEP +"First";
     } else if (element.id.match(this.prevRegExp)){
@@ -355,11 +356,11 @@ Tobago.Sheet.prototype.setup = function() {
     this.setupStart = new Date();
     //LOG.debug("Tobago.Sheet.setup(" + this.id +")");
 
-    var divElement = Tobago.element(this.outerDivId);
+    var divElement = document.getElementById(this.outerDivId);
     if (divElement.skipUpdate) {
         LOG.debug("skip setup");
         divElement.skipUpdate = false;
-        Tobago.deleteOverlay(Tobago.element(this.outerDivId));
+        Tobago.deleteOverlay(Tobago.element(divElement));
     } else {
 
       // ToDo: find a better way to fix this problem
@@ -371,18 +372,20 @@ Tobago.Sheet.prototype.setup = function() {
 
       this.setupElements();
 
-      this.setupResizer();
 
-      this.adjustHeaderDiv();
-      this.adjustResizer();
+      if (!this.simpleSheet) {
+        this.setupResizer();
+        this.adjustHeaderDiv();
+        this.adjustResizer();
+        this.setupHeader();
+        this.adjustScrollBars();
+      }
 
-      this.setupHeader();
 
       if (this.firstRowId) {
         this.tobagoLastClickedRowId = this.firstRowId;
       }
-      this.adjustScrollBars();
-      this.setScrollPosition();
+      this.setScrollPosition(divElement);
 
       if (this.selectable && (this.selectable == "single" || this.selectable == "multi")) {
         this.addSelectionListener();
@@ -400,8 +403,30 @@ Tobago.Sheet.prototype.setup = function() {
     this.setupEnd = new Date();
   };
 
-Tobago.Sheet.prototype.setScrollPosition = function() {
-  var hidden = Tobago.element(this.scrollPositionId);
+Tobago.Sheet.prototype.setScrollPosition = function(divElement) {
+
+  var hidden;
+
+//  var s1 = new Date().getTime();
+
+//  for (var i = 0; i < 1000; i++) {
+    hidden = divElement.firstChild;
+    while (hidden && hidden.id != this.scrollPositionId) {
+      hidden = hidden.nextSibling;
+    }
+//  }
+
+//  var s2 = new Date().getTime();
+
+//  for (var i = 0; i < 1000; i++) {
+//    hidden = Tobago.element(this.scrollPositionId);
+//  }
+
+//  var s3 = new Date().getTime();
+
+//  LOG.info(" zeit 1 = " + (s2 - s1));
+//  LOG.info(" zeit 2 = " + (s3 - s2));
+
   if (hidden) {
     var sep = hidden.value.indexOf(";");
     if (sep != -1) {
@@ -568,7 +593,6 @@ Tobago.Sheet.prototype.getSelectionElementForRow = function(row) {
     if (this.simpleSheet) {
       var cell = row.firstChild;
       while (cell && cell.firstChild) {
-        LOG.info("element.firstChild.className = " + cell.firstChild.className);
         if (cell.firstChild.id.search(/_data_row_selector_/) > -1) {
           return cell.firstChild;
         }
@@ -666,18 +690,20 @@ Tobago.Sheet.prototype.selectRange = function(dataRow) {
   };
 
 Tobago.Sheet.prototype.getFirstRowId = function() {
+  var element;
   if (this.simpleSheet) {
-    return Tobago.element(this.contentDivId).firstChild.id;
+    element = Tobago.element(this.contentDivId).firstChild;
   } else {
-    var element = Tobago.element(this.id + "_data_row_0_column0");// data div
+    element = Tobago.element(this.id + "_data_row_0_column0");// data div
+    this.firstRowRegExp = new RegExp("^" + this.id + "_data_tr_\\d+$");
     while (element && element.id.search(this.firstRowRegExp) == -1) {
-//      LOG.debug("element id = " + element.id);
+      //      LOG.debug("element id = " + element.id);
       element = element.parentNode;
     }
-//    LOG.debug("firstRowId = " + element.id);
-    return element ? element.id : undefined;
+    //    LOG.debug("firstRowId = " + element.id);
   }
-  };
+  return element ? element.id : undefined;
+};
 
 Tobago.Sheet.prototype.setupHeader = function() {
     var headerBox = Tobago.element(this.id + "_header_box_0");

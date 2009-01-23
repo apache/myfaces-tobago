@@ -124,7 +124,7 @@ public class SimpleSheetRenderer extends SheetRenderer {
             + ",  " + HtmlRendererUtil.getRenderedPartiallyJavascriptArray(facesContext, clickAction)
             + ",  " + (dblClickAction!=null?HtmlRendererUtil.getJavascriptString(dblClickAction.getId()):null)
             + ",  " + HtmlRendererUtil.getRenderedPartiallyJavascriptArray(facesContext, dblClickAction)
-            + ");"
+            + ", true);"
     };
     UIPage page = ComponentUtil.findPage(facesContext, data);
 
