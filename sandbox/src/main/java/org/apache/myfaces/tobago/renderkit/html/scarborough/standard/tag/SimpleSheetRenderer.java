@@ -22,11 +22,13 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
+import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UIColumnEvent;
+import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.model.SheetState;
@@ -46,49 +48,100 @@ import java.util.List;
 
 public class SimpleSheetRenderer extends SheetRenderer {
 
-  private final Log LOG = LogFactory.getLog(SimpleSheetRenderer.class);
+  private static final Log LOG = LogFactory.getLog(SimpleSheetRenderer.class);
 
   @SuppressWarnings(value = "unchecked")
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    UIData sheet = (UIData) component;
-    if (sheet.getRowIndex() != -1) {
+    UIData data = (UIData) component;
+    if (data.getRowIndex() != -1) {
       // TODO: find why this is needed
       LOG.warn("reset RowIndex");
-      sheet.setRowIndex(-1);
+      data.setRowIndex(-1);
     }
 
-    HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, sheet);
-    final String sheetId = component.getClientId(facesContext);
-    HtmlStyleMap sheetStyle = (HtmlStyleMap) sheet.getAttributes().get(TobagoConstants.ATTR_STYLE);
+    HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, data);
 
-    TobagoResponseWriter writer
-        = (TobagoResponseWriter) facesContext.getResponseWriter();
+    final String sheetId = data.getClientId(facesContext);
+    HtmlStyleMap sheetStyle = (HtmlStyleMap) data.getAttributes().get(TobagoConstants.ATTR_STYLE);
 
-    UIPage page = ComponentUtil.findPage(facesContext, sheet);
-    final String[] styles = new String[]{"style/tobago-sheet.css"};
-    page.getStyleFiles().add(styles[0]);
-
-    if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
-      //page.getOnloadScripts().add(cmds[0]);
-    } else {
-      HtmlRendererUtil.writeStyleLoader(facesContext, styles);
-    }
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     // Outher list div
     writer.startElement(HtmlConstants.DIV, null);
-    writer.writeIdAttribute(sheetId + "_content");
+    writer.writeIdAttribute(sheetId + "_outer_div");
     writer.writeClassAttribute("tobago-simpleSheet-content");
     writer.writeStyleAttribute(sheetStyle);
+    UICommand clickAction = null;
+    UICommand dblClickAction = null;
+    int columnSelectorIndex = -1;
+    int i = 0;
+    for (UIComponent child : (List<UIComponent>) data.getChildren()) {
+      if (child instanceof UIColumnEvent) {
+        UIColumnEvent columnEvent = (UIColumnEvent) child;
+        if (columnEvent.isRendered()) {
+          UIComponent selectionChild = (UIComponent) child.getChildren().get(0);
+          if (selectionChild != null && selectionChild instanceof UICommand && selectionChild.isRendered()) {
+            UICommand action = (UICommand) selectionChild;
+            if ("click".equals(columnEvent.getEvent())) {
+              clickAction = action;
+            }
+            if ("dblclick".equals(columnEvent.getEvent())) {
+              dblClickAction = action;
+            }
+          }
+        }
+      } else if (child instanceof UIColumnSelector) {
+        columnSelectorIndex = i;
+      }
+      i++;
+    }
 
-    renderListContent(facesContext, component);
+    renderSheet(facesContext, data, (clickAction != null || dblClickAction != null));
 
     writer.endElement(HtmlConstants.DIV);
 
+    ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
+    UIViewRoot viewRoot = facesContext.getViewRoot();
+    String contextPath = facesContext.getExternalContext().getRequestContextPath();
+
+    String unchecked = contextPath + resourceManager.getImage(viewRoot, "image/sheetUnchecked.gif");
+    String checked = contextPath + resourceManager.getImage(viewRoot, "image/sheetChecked.gif");
+    boolean ajaxEnabled = TobagoConfig.getInstance(facesContext).isAjaxEnabled();
+
+    final String[] styles = new String[]{"style/tobago-sheet.css"};
+    final String[] scripts = new String[]{"script/tobago-sheet.js", "script/tobago-simpleSheet.js"};
+    Integer frequency = null;
+    UIComponent facetReload = data.getFacet(TobagoConstants.FACET_RELOAD);
+    if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
+      UIReload update = (UIReload) facetReload;
+      frequency = update.getFrequency();
+    }
+    final String[] cmds = {
+        "new Tobago.Sheet(\"" + sheetId + "\", " + ajaxEnabled
+            + ", \"" + checked + "\", \"" + unchecked + "\", \"" + data.getSelectable()
+            + "\", " + columnSelectorIndex + ", "+ frequency
+            + ",  " + (clickAction!=null?HtmlRendererUtil.getJavascriptString(clickAction.getId()):null)
+            + ",  " + HtmlRendererUtil.getRenderedPartiallyJavascriptArray(facesContext, clickAction)
+            + ",  " + (dblClickAction!=null?HtmlRendererUtil.getJavascriptString(dblClickAction.getId()):null)
+            + ",  " + HtmlRendererUtil.getRenderedPartiallyJavascriptArray(facesContext, dblClickAction)
+            + ");"
+    };
+    UIPage page = ComponentUtil.findPage(facesContext, data);
+
+    page.getStyleFiles().add(styles[0]);
+    page.getScriptFiles().addAll(java.util.Arrays.asList(scripts));
+
+    if (!ajaxEnabled) {
+      page.getOnloadScripts().add(cmds[0]);
+    } else {
+      HtmlRendererUtil.writeStyleLoader(facesContext, styles);
+      HtmlRendererUtil.writeScriptLoader(facesContext, scripts, cmds);
+    }
   }
 
   @SuppressWarnings(value = "unchecked")
-  private void renderListContent(FacesContext facesContext, UIComponent component) throws IOException {
-    UIData data = (UIData) component;
+  protected void renderSheet(FacesContext facesContext, UIData data, boolean hasClickAction) throws IOException {
+
 
     TobagoResponseWriter writer
         = (TobagoResponseWriter) facesContext.getResponseWriter();
@@ -96,10 +149,10 @@ public class SimpleSheetRenderer extends SheetRenderer {
     SheetState sheetState = data.getSheetState(facesContext);
     List<UIColumn> renderedColumnList = data.getRenderedColumns();
 
-    HtmlStyleMap sheetStyle = (HtmlStyleMap) component.getAttributes().get(TobagoConstants.ATTR_STYLE);
+    HtmlStyleMap sheetStyle = (HtmlStyleMap) data.getAttributes().get(TobagoConstants.ATTR_STYLE);
 
-    HtmlStyleMap bodyStyle = (HtmlStyleMap) component.getAttributes().get(TobagoConstants.ATTR_STYLE_BODY);
-    List<Integer> columnWidths = (List<Integer>) component.getAttributes().get(TobagoConstants.ATTR_WIDTH_LIST);
+    HtmlStyleMap bodyStyle = (HtmlStyleMap) data.getAttributes().get(TobagoConstants.ATTR_STYLE_BODY);
+    List<Integer> columnWidths = (List<Integer>) data.getAttributes().get(TobagoConstants.ATTR_WIDTH_LIST);
     Integer sheetHeight = HtmlRendererUtil.getStyleAttributeIntValue(sheetStyle, "height");
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeIdAttribute(sheetId + WIDTHS_POSTFIX);
@@ -139,20 +192,30 @@ public class SimpleSheetRenderer extends SheetRenderer {
     String unchecked = contextPath + resourceManager.getImage(viewRoot, "image/sheetUnchecked.gif");
     // Outher list div
     writer.startElement(HtmlConstants.DIV, null);
-    writer.writeIdAttribute(sheetId + "_div");
+    writer.writeIdAttribute(sheetId + "_data_div");
     writer.writeClassAttribute("tobago-simpleSheet-list");
     writer.writeStyleAttribute(bodyStyle);
 
     int top = 20;
 
 
-
+    boolean odd = false;
     final int last = data.getFirst() + data.getRows();
     for (int row = data.getFirst(); row < last; row++) {
       data.setRowIndex(row);
       if (!data.isRowAvailable()) {
         break;
       }
+
+      odd = !odd;
+      final String rowClass = odd ? "tobago-sheet-content-odd " : "tobago-sheet-content-even ";
+
+
+      writer.startElement(HtmlConstants.DIV, null);
+      writer.writeClassAttribute("tobago-simpleSheet-row " + rowClass);
+      writer.writeIdAttribute(sheetId + "_data_tr_" + row);
+      writer.writeAttribute(TobagoConstants.ATTR_STYLE, "top: "+ top+ "px: left: 0px;", false);
+      writer.flush();
       boolean rowSelected = selectedRows.contains(row);
 
       int columnIndex = -1;
@@ -160,15 +223,12 @@ public class SimpleSheetRenderer extends SheetRenderer {
       for (UIColumn column : renderedColumnList) {
         columnIndex++;
         List<UIComponent> childs = data.getRenderedChildrenOf(column);
-        if (childs.isEmpty()) {
-          continue;
-        }
         writer.startElement(HtmlConstants.DIV, null);
-        writer.writeClassAttribute("tobabo-simpleSheet-cell"
-            + (rowSelected ? " tobabo-simpleSheet-cell-selected" : ""));
+        writer.writeClassAttribute("tobabo-simpleSheet-cell");
+           // + (rowSelected ? " tobabo-simpleSheet-cell-selected" : ""));
         writer.writeIdAttribute(sheetId + "_" + row + "_" + columnIndex);
         final String align = (String) column.getAttributes().get(TobagoConstants.ATTR_ALIGN);
-        writer.writeAttribute(HtmlAttributes.STYLE, "top: " + top + "px; left: " + currentLeft + "px; width: "
+        writer.writeAttribute(HtmlAttributes.STYLE, "top: 0px; left: " + currentLeft + "px; width: "
             + columnWidths.get(columnIndex) + "px; "
             + (align!=null?HtmlRendererUtil.toStyleString("text-align", align):""), false);
         if (column instanceof UIColumnSelector) {
@@ -192,6 +252,8 @@ public class SimpleSheetRenderer extends SheetRenderer {
         writer.endElement(HtmlConstants.DIV);
         currentLeft += columnWidths.get(columnIndex);
       }
+
+      writer.endElement(HtmlConstants.DIV);
       top += 20;
     }
 
@@ -210,6 +272,7 @@ public class SimpleSheetRenderer extends SheetRenderer {
       imageUnsorted = contextPath + img;
     }
     writer.startElement(HtmlConstants.DIV, null);
+    writer.writeIdAttribute(sheetId + "_header_div");
     writer.writeClassAttribute("tobago-simpleSheet-header");
     for (UIColumn column : renderedColumnList) {
       renderColumnHeader(facesContext, writer, data, columnCount, column,
@@ -221,9 +284,4 @@ public class SimpleSheetRenderer extends SheetRenderer {
 
   }
 
-  public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
-    AjaxUtils.checkParamValidity(facesContext, component, UIData.class);
-    renderListContent(facesContext, component);
-    facesContext.responseComplete();    
-  }
 }
