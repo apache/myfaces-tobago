@@ -96,6 +96,8 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage, selec
 
   this.firstRowRegExp = new RegExp("^" + this.id + "_data_tr_\\d+$");
 
+  this.simpleSheet = Tobago.element(this.outerDivId).className.indexOf("tobago-simpleSheet-content") > -1;
+
   this.setup();
 
   LOG.debug("New Sheet with id " + this.id);
@@ -377,7 +379,7 @@ Tobago.Sheet.prototype.setup = function() {
       this.setupHeader();
 
       if (this.firstRowId) {
-        this.tobagoLastClickedRowId = this.firstRowIndex;
+        this.tobagoLastClickedRowId = this.firstRowId;
       }
       this.adjustScrollBars();
       this.setScrollPosition();
@@ -563,7 +565,18 @@ Tobago.Sheet.prototype.doDblClick = function(event) {
 
 Tobago.Sheet.prototype.getSelectionElementForRow = function(row) {
   if (this.columnSelectorIndex >= 0) {
-    return row.childNodes[this.columnSelectorIndex].childNodes[0].childNodes[0].childNodes[0];
+    if (this.simpleSheet) {
+      var cell = row.firstChild;
+      while (cell && cell.firstChild) {
+        LOG.info("element.firstChild.className = " + cell.firstChild.className);
+        if (cell.firstChild.id.search(/_data_row_selector_/) > -1) {
+          return cell.firstChild;
+        }
+        cell = cell.nextSibling;
+      }
+    } else {
+      return row.childNodes[this.columnSelectorIndex].childNodes[0].childNodes[0].childNodes[0];
+    }
   }
 };
 
@@ -653,6 +666,9 @@ Tobago.Sheet.prototype.selectRange = function(dataRow) {
   };
 
 Tobago.Sheet.prototype.getFirstRowId = function() {
+  if (this.simpleSheet) {
+    return Tobago.element(this.contentDivId).firstChild.id;
+  } else {
     var element = Tobago.element(this.id + "_data_row_0_column0");// data div
     while (element && element.id.search(this.firstRowRegExp) == -1) {
 //      LOG.debug("element id = " + element.id);
@@ -660,6 +676,7 @@ Tobago.Sheet.prototype.getFirstRowId = function() {
     }
 //    LOG.debug("firstRowId = " + element.id);
     return element ? element.id : undefined;
+  }
   };
 
 Tobago.Sheet.prototype.setupHeader = function() {
@@ -718,7 +735,9 @@ Tobago.Sheet.prototype.adjustHeaderDiv = function () {
     minWidth = Math.max(minWidth, 0); // not less than 0
     headerDiv.style.width = Math.max(clientWidth, minWidth);
     var fillBox = Tobago.element(this.id + "_header_box_filler");
-    fillBox.style.width = Math.max(headerDiv.style.width.replace(/px/, "") - boxSum, 0);
+    if (fillBox) {
+        fillBox.style.width = Math.max(headerDiv.style.width.replace(/px/, "") - boxSum, 0);
+    }
     //  LOG.debug("adjustHeaderDiv(" + sheetId + ") : clientWidth = " + clientWidth + " :: width => " + headerDiv.style.width);
     //headerDiv.style.width = clientWidth;
     var clientWidth2 = contentDiv.clientWidth;
