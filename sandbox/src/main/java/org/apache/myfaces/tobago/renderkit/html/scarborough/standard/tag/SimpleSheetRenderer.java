@@ -19,6 +19,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
+
 import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.config.TobagoConfig;
@@ -210,9 +212,15 @@ public class SimpleSheetRenderer extends SheetRenderer {
       odd = !odd;
       final String rowClass = odd ? "tobago-sheet-content-odd " : "tobago-sheet-content-even ";
 
+      //TODO make markup toago compatible
+      String[] rowMarkups = (String[]) data.getAttributes().get("rowMarkup");
+      String rowMarkup = "";
+      if (rowMarkup != null) {
+        rowMarkup = " " + StringUtils.join(rowMarkups, " ");
+      }
 
       writer.startElement(HtmlConstants.DIV, null);
-      writer.writeClassAttribute("tobago-simpleSheet-row " + rowClass);
+      writer.writeClassAttribute("tobago-simpleSheet-row " + rowClass + rowMarkup);
       writer.writeIdAttribute(sheetId + "_data_tr_" + row);
       writer.writeAttribute(HtmlAttributes.STYLE, "top: "+ top+ "px; left: 0px;", false);
       writer.flush();
@@ -225,6 +233,7 @@ public class SimpleSheetRenderer extends SheetRenderer {
         List<UIComponent> childs = data.getRenderedChildrenOf(column);
         writer.startElement(HtmlConstants.DIV, null);
         writer.writeClassAttribute("tobago-simpleSheet-cell");
+        // todo cell markup
            // + (rowSelected ? " tobabo-simpleSheet-cell-selected" : ""));
         writer.writeIdAttribute(sheetId + "_" + row + "_" + columnIndex);
         final String align = (String) column.getAttributes().get(TobagoConstants.ATTR_ALIGN);

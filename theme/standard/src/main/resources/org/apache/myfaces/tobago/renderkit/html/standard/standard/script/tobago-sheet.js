@@ -313,7 +313,7 @@ Tobago.Sheet.prototype.doKeyEvent = function(event) {
       if (keyCode == 13) {
         if (input.value != input.nextSibling.innerHTML) {
           this.reloadWithAction2(event.srcElement, input.actionId, null);
-          Tobago.stopEventPropagation(event);          
+          Tobago.stopEventPropagation(event);
         }
         else {
           this.textInput = input;
@@ -405,27 +405,7 @@ Tobago.Sheet.prototype.setup = function() {
 
 Tobago.Sheet.prototype.setScrollPosition = function(divElement) {
 
-  var hidden;
-
-//  var s1 = new Date().getTime();
-
-//  for (var i = 0; i < 1000; i++) {
-    hidden = divElement.firstChild;
-    while (hidden && hidden.id != this.scrollPositionId) {
-      hidden = hidden.nextSibling;
-    }
-//  }
-
-//  var s2 = new Date().getTime();
-
-//  for (var i = 0; i < 1000; i++) {
-//    hidden = Tobago.element(this.scrollPositionId);
-//  }
-
-//  var s3 = new Date().getTime();
-
-//  LOG.info(" zeit 1 = " + (s2 - s1));
-//  LOG.info(" zeit 2 = " + (s3 - s2));
+  var hidden = divElement.childNodes[1];
 
   if (hidden) {
     var sep = hidden.value.indexOf(";");
