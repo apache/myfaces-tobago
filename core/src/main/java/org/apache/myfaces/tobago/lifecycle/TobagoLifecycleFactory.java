@@ -48,13 +48,13 @@ public class TobagoLifecycleFactory extends LifecycleFactory {
 
   public Lifecycle getLifecycle(String lifecycleId) {
     if (LifecycleFactory.DEFAULT_LIFECYCLE.equals(lifecycleId)) {
-      if (LOG.isInfoEnabled()) {
-        LOG.info("getLifecycle(\"" + lifecycleId + "\")  -> TobagoLifecycle");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("getLifecycle(\"" + lifecycleId + "\")  -> TobagoLifecycle");
       }
       return defaultLifecycle;
     } else {
-      if (LOG.isInfoEnabled()) {
-        LOG.info("getLifecycle(\"" + lifecycleId + "\")  -> other Lifecycle");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("getLifecycle(\"" + lifecycleId + "\")  -> other Lifecycle");
       }
       return factory.getLifecycle(lifecycleId);
     }
