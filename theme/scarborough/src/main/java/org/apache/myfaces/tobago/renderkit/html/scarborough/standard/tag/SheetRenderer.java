@@ -690,7 +690,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     return getConfiguredValue(facesContext, component, "scrollbarWidth");
   }
 
-  private void storeFooterHeight(FacesContext facesContext,
+  protected void storeFooterHeight(FacesContext facesContext,
       UIComponent component) {
     component.getAttributes().put(ATTR_FOOTER_HEIGHT,
         getFooterHeight(facesContext, component));

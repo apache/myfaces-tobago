@@ -55,6 +55,8 @@ public class SimpleSheetRenderer extends SheetRenderer {
   @SuppressWarnings(value = "unchecked")
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     UIData data = (UIData) component;
+    storeFooterHeight(facesContext, data);
+
     if (data.getRowIndex() != -1) {
       // TODO: find why this is needed
       LOG.warn("reset RowIndex");
@@ -152,10 +154,19 @@ public class SimpleSheetRenderer extends SheetRenderer {
     List<UIColumn> renderedColumnList = data.getRenderedColumns();
 
     HtmlStyleMap sheetStyle = (HtmlStyleMap) data.getAttributes().get(TobagoConstants.ATTR_STYLE);
+    Integer sheetHeight = HtmlRendererUtil.getStyleAttributeIntValue(sheetStyle, "height");
+    if (sheetHeight == null) {
+      // FIXME: nullpointer if height not defined
+      LOG.error("no height in parent container, setting to 100");
+      sheetHeight = 100;
+    }
+    int footerHeight = (Integer) data.getAttributes().get(TobagoConstants.ATTR_FOOTER_HEIGHT);
 
     HtmlStyleMap bodyStyle = (HtmlStyleMap) data.getAttributes().get(TobagoConstants.ATTR_STYLE_BODY);
+    HtmlRendererUtil.replaceStyleAttribute(data, TobagoConstants.ATTR_STYLE_BODY, "height", (sheetHeight - footerHeight));
+
+
     List<Integer> columnWidths = (List<Integer>) data.getAttributes().get(TobagoConstants.ATTR_WIDTH_LIST);
-    Integer sheetHeight = HtmlRendererUtil.getStyleAttributeIntValue(sheetStyle, "height");
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeIdAttribute(sheetId + WIDTHS_POSTFIX);
     writer.writeNameAttribute(sheetId + WIDTHS_POSTFIX);
