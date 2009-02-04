@@ -282,7 +282,7 @@ public final class LayoutUtil {
 
   // XXX perhaps move to StringUtil
   public static String stripNonNumericChars(String token) {
-    if (token == null || token.isEmpty()) {
+    if (token == null || token.length() == 0) {
       return token;
     }
     StringBuilder builder = new StringBuilder(token.length());
