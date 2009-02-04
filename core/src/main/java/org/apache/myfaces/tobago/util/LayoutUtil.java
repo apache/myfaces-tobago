@@ -128,7 +128,7 @@ public final class LayoutUtil {
         String labelWidth = (String) label.getAttributes().get(ATTR_WIDTH);
         if (labelWidth != null) {
           try {
-            return Integer.parseInt(labelWidth.replaceAll("\\D", ""));
+            return Integer.parseInt(stripNonNumericChars(labelWidth));
           } catch (NumberFormatException e) {
             LOG.warn("Can't parse label width, using default value", e);
           }
@@ -153,7 +153,7 @@ public final class LayoutUtil {
     Object value = ComponentUtil.getAttribute(component, sizeAttribute);
     if (value != null) {
       if (value instanceof String) {
-        return new Integer(((String) value).replaceAll("\\D", ""));
+        return new Integer(stripNonNumericChars(((String) value)));
       } else {
         return (Integer) value;
       }
@@ -279,6 +279,20 @@ public final class LayoutUtil {
 
   public static boolean checkToken(String columnToken) {
     return LayoutTokens.parseToken(columnToken) != null;
+  }
+
+  static String stripNonNumericChars(String token) {
+    if (token == null || token.isEmpty()) {
+      return token;
+    }
+    StringBuilder builder = new StringBuilder(token.length());
+    for (int i = 0; i < token.length(); ++i) {
+      char c = token.charAt(i);
+      if (Character.isDigit(c)) {
+        builder.append(c);
+      }
+    }
+    return builder.toString();
   }
 
 }
