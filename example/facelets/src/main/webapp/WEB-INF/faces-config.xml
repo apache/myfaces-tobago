@@ -60,6 +60,12 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
+  <managed-bean>
+    <managed-bean-name>tabController</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.facelets.TabController</managed-bean-class>
+    <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+
   <navigation-rule>
     <navigation-case>
       <from-outcome>next</from-outcome>
