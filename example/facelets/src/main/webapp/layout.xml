@@ -18,7 +18,7 @@
         <tc:tabChangeListener
             type="org.apache.myfaces.tobago.example.facelets.TestTabChangeListener"
             binding="#{tabController.listener}"
-            listener="#{tabController.changeTab}"/>
+            listener="#{tabController.processTabChange}"/>
         <tc:tab label="Demo">
           <f:facet name="layout">
             <tc:gridLayout

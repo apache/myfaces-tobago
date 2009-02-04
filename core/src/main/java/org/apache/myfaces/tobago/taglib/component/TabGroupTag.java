@@ -29,6 +29,8 @@ import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_CLIENT;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_PAGE;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.application.Application;
 
 public class TabGroupTag extends TobagoTag
     implements TabGroupTagDeclaration {
@@ -40,6 +42,7 @@ public class TabGroupTag extends TobagoTag
   private String immediate;
   private String state;
   private String showNavigationBar;
+  private String tabChangeListener;
 
   @Override
   public String getComponentType() {
@@ -54,6 +57,12 @@ public class TabGroupTag extends TobagoTag
     ComponentUtil.setStringProperty(component, ATTR_SWITCH_TYPE, switchType);
     ComponentUtil.setBooleanProperty(component, ATTR_IMMEDIATE, immediate);
     ComponentUtil.setBooleanProperty(component, ATTR_SHOW_NAVIGATION_BAR, showNavigationBar);
+    if (tabChangeListener != null && component instanceof  UITabGroup && isValueReference(tabChangeListener)) {
+      final Application application = FacesContext.getCurrentInstance().getApplication();
+      final javax.faces.el.MethodBinding methodBinding = application.createMethodBinding(tabChangeListener,
+          new Class[] { org.apache.myfaces.tobago.event.TabChangeEvent.class } );
+      ((UITabGroup)component).setTabChangeListener(methodBinding);
+    }
   }
 
   @Override
@@ -64,6 +73,7 @@ public class TabGroupTag extends TobagoTag
     immediate = null;
     selectedIndex = null;
     showNavigationBar = null;
+    tabChangeListener = null;
   }
 
   public void setServerside(String serverside) {
@@ -94,6 +104,14 @@ public class TabGroupTag extends TobagoTag
 
   public void setShowNavigationBar(String showNavigationBar) {
     this.showNavigationBar = showNavigationBar;
+  }
+
+  public String getTabChangeListener() {
+    return tabChangeListener;
+  }
+
+  public void setTabChangeListener(final String tabChangeListener) {
+    this.tabChangeListener = tabChangeListener;
   }
 }
 

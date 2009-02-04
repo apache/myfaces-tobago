@@ -24,12 +24,14 @@ import com.sun.facelets.tag.TagAttributeException;
 import com.sun.facelets.tag.TagException;
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.el.LegacyValueBinding;
+import com.sun.facelets.el.LegacyMethodBinding;
 
 import java.io.IOException;
 
 import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeListenerValueBindingDelegate;
+import org.apache.myfaces.tobago.event.TabChangeEvent;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
@@ -43,17 +45,22 @@ import javax.el.ELException;
  */
 public class TabChangeListenerHandler extends TagHandler {
 
+  private static final Class[] TAB_CHANGE_LISTENER_ARGS = new Class[] {TabChangeEvent.class};
+
   private Class listenerType;
 
   private final TagAttribute type;
 
   private final TagAttribute binding;
 
+  private final TagAttribute listener;
+
 
   public TabChangeListenerHandler(TagConfig config) {
     super(config);
     binding = getAttribute("binding");
     type = getAttribute("type");
+    listener = getAttribute("listener");
     if (type != null) {
       if (!type.isLiteral()) {
         throw new TagAttributeException(tag, type, "Must be literal");
@@ -72,28 +79,33 @@ public class TabChangeListenerHandler extends TagHandler {
       // only process if parent was just created
       if (parent.getParent() == null) {
         TabChangeSource changeSource = (TabChangeSource) parent;
-        TabChangeListener listener = null;
+        TabChangeListener changeListener = null;
         ValueExpression valueExpression = null;
         if (binding != null) {
           valueExpression = binding.getValueExpression(faceletContext, TabChangeListener.class);
-          listener = (TabChangeListener) valueExpression.getValue(faceletContext);
+          changeListener = (TabChangeListener) valueExpression.getValue(faceletContext);
         }
-        if (listener == null) {
+        if (changeListener == null) {
           try {
-            listener = (TabChangeListener) listenerType.newInstance();
+            changeListener = (TabChangeListener) listenerType.newInstance();
           } catch (Exception e) {
             throw new TagAttributeException(tag, type, e.getCause());
           }
           if (valueExpression != null) {
-            valueExpression.setValue(faceletContext, listener);
+            valueExpression.setValue(faceletContext, changeListener);
           }
         }
         if (valueExpression != null) {
           changeSource.addTabChangeListener(new TabChangeListenerValueBindingDelegate(type.getValue(),
               new LegacyValueBinding(valueExpression)));
         } else {
-          changeSource.addTabChangeListener(listener);
+          changeSource.addTabChangeListener(changeListener);
         }
+        if (listener != null && !listener.isLiteral()) {
+          changeSource.setTabChangeListener(new LegacyMethodBinding(
+              listener.getMethodExpression(faceletContext, null, TAB_CHANGE_LISTENER_ARGS)));
+        }
+
       }
     } else {
       throw new TagException(tag, "Parent is not of type TabChangeSource, type is: " + parent);

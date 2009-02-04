@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -96,4 +97,10 @@ public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindi
   @UIComponentTagAttribute(type = "java.lang.Integer")
   @Deprecated()
   void setState(String state);
+
+  @TagAttribute
+  @UIComponentTagAttribute(
+      type = "javax.faces.el.MethodBinding",
+      expression = DynamicExpression.METHOD_BINDING)
+  void setTabChangeListener(String listener);
 }
