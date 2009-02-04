@@ -33,9 +33,4 @@ public class LayoutTokensUnitTest extends TestCase {
     assertTrue(LayoutTokens.isRelativeToken("3*"));
   }
 
-  public void testIsNumberAndSuffix() {
-    assertTrue(LayoutTokens.isNumberAndSuffix("34cm", "cm"));
-    assertFalse(LayoutTokens.isNumberAndSuffix("acm", "cm"));
-    assertFalse(LayoutTokens.isNumberAndSuffix("cm", "cm"));
-  }
 }

@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.math.NumberUtils;
+import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import java.util.StringTokenizer;
 import java.util.List;
@@ -110,11 +110,11 @@ public class LayoutTokens {
       } else if (token.equals("minimum")) {
         return new MinimumLayoutToken();
       } else if (isPixelToken(token)) {
-        return new PixelLayoutToken(Integer.parseInt(removeSuffix(token, PixelLayoutToken.SUFFIX)));
+        return new PixelLayoutToken(Integer.parseInt(LayoutUtil.removeSuffix(token, PixelLayoutToken.SUFFIX)));
       } else if (isPercentToken(token)) {
-        return new PercentLayoutToken(Integer.parseInt(removeSuffix(token, PercentLayoutToken.SUFFIX)));
+        return new PercentLayoutToken(Integer.parseInt(LayoutUtil.removeSuffix(token, PercentLayoutToken.SUFFIX)));
       } else if (isRelativeToken(token)) {
-        return new RelativeLayoutToken(Integer.parseInt(removeSuffix(token, RelativeLayoutToken.SUFFIX)));
+        return new RelativeLayoutToken(Integer.parseInt(LayoutUtil.removeSuffix(token, RelativeLayoutToken.SUFFIX)));
       } else {
         LOG.error("Ignoring unknown layout token '" + token + "'");
       }
@@ -125,24 +125,15 @@ public class LayoutTokens {
   }
 
   static boolean isPixelToken(String token) {
-    return isNumberAndSuffix(token, PixelLayoutToken.SUFFIX);
+    return LayoutUtil.isNumberAndSuffix(token, PixelLayoutToken.SUFFIX);
   }
 
   static boolean isPercentToken(String token) {
-    return isNumberAndSuffix(token, PercentLayoutToken.SUFFIX);
+    return LayoutUtil.isNumberAndSuffix(token, PercentLayoutToken.SUFFIX);
   }
 
   static boolean isRelativeToken(String token) {
-    return isNumberAndSuffix(token, RelativeLayoutToken.SUFFIX);
-  }
-
-  static boolean isNumberAndSuffix(String token, String suffix) {
-    return token.endsWith(suffix)
-        && NumberUtils.isDigits(removeSuffix(token, suffix));
-  }
-
-  private static String removeSuffix(String token, String suffix) {
-    return token.substring(0, token.length() - suffix.length());
+    return LayoutUtil.isNumberAndSuffix(token, RelativeLayoutToken.SUFFIX);
   }
 
   public String toString() {

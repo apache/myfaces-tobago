@@ -19,25 +19,24 @@ package org.apache.myfaces.tobago.component;
 
 import junit.framework.TestCase;
 
-
 import javax.faces.model.ListDataModel;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * @author bommel (latest modification by $Author$)
  * @version $Revision$ $Date$
  */
 public class UIDataUnitTest extends TestCase {
+
   String [] nineRows =
       { "one", "two", "three", "four", "five",
           "six", "seven" , "eight", "nine" };
 
   public void testPage() {
-    List list = new ArrayList();
-    for (String nineRow : nineRows) {
-      list.add(nineRow);
-    }
+    List<String> list = new ArrayList<String>();
+    list.addAll(Arrays.asList(nineRows));
     UIData data = new UIData();
     data.setValue(new ListDataModel(list));
     data.setRows(5);
@@ -103,4 +102,10 @@ public class UIDataUnitTest extends TestCase {
     assertEquals(8, data.getPages());
       */
   }
+
+  public void testStripRowIndex() {
+    assertEquals("comp1:comp2", new UIData().stripRowIndex("123:comp1:comp2"));
+    assertEquals("comp1:comp2", new UIData().stripRowIndex("comp1:comp2"));
+  }
+
 }

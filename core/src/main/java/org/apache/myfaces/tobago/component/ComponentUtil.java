@@ -24,6 +24,8 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
@@ -371,7 +373,7 @@ public class ComponentUtil {
       if (UIComponentTag.isValueReference(renderers)) {
         command.setValueBinding(ATTR_RENDERED_PARTIALLY, createValueBinding(renderers));
       } else {
-        String[] components = renderers.split(",");
+        String[] components = StringUtils.split(renderers, ",");
         command.setRenderedPartially(components);
       }
     }
@@ -382,7 +384,7 @@ public class ComponentUtil {
       if (UIComponentTag.isValueReference(styleClasses)) {
         component.setValueBinding(ATTR_STYLE_CLASS, createValueBinding(styleClasses));
       } else {
-        String[] classes = styleClasses.split("[,  ]");
+        String[] classes = StringUtils.split(styleClasses, ", ");
         if (classes.length > 0) {
           StyleClasses styles = StyleClasses.ensureStyleClasses(component);
           for (String clazz : classes) {
@@ -399,7 +401,7 @@ public class ComponentUtil {
         if (UIComponentTag.isValueReference(markup)) {
           markupComponent.setValueBinding(ATTR_MARKUP, createValueBinding(markup));
         } else {
-          String[] markups = markup.split(",");
+          String[] markups = StringUtils.split(markup, ",");
           ((SupportsMarkup) markupComponent).setMarkup(markups);
         }
       } else {
@@ -1239,7 +1241,7 @@ public class ComponentUtil {
       if (markups instanceof String[]) {
         return (String[]) markups;
       } else if (markups instanceof String) {
-        String[] strings = ((String) markups).split("[, ]");
+        String[] strings = StringUtils.split((String) markups, ", ");
         List<String> result = new ArrayList<String>(strings.length);
         for (String string : strings) {
           if (string.trim().length() != 0) {
@@ -1357,17 +1359,22 @@ public class ComponentUtil {
     if (LOG.isInfoEnabled()) {
       LOG.info("idRemainder = \"" + idRemainder + "\"");
     }
-    if (idRemainder.matches("^:\\d+:.*")) {
+    if (idRemainder.startsWith(String.valueOf(NamingContainer.SEPARATOR_CHAR))) {
       idRemainder = idRemainder.substring(1);
-      int idx = idRemainder.indexOf(":");
-      try {
-        int rowIndex = Integer.parseInt(idRemainder.substring(0, idx));
-        if (LOG.isInfoEnabled()) {
-          LOG.info("set rowIndex = \"" + rowIndex + "\"");
+      int idx = idRemainder.indexOf(NamingContainer.SEPARATOR_CHAR);
+      if (idx > 0) {
+        String firstPart = idRemainder.substring(0, idx);
+        if (NumberUtils.isDigits(firstPart)) {
+          try {
+            int rowIndex = Integer.parseInt(firstPart);
+            if (LOG.isInfoEnabled()) {
+              LOG.info("set rowIndex = \"" + rowIndex + "\"");
+            }
+            uiData.setRowIndex(rowIndex);
+          } catch (NumberFormatException e) {
+            LOG.error("idRemainder = \"" + idRemainder + "\"", e);
+          }
         }
-        uiData.setRowIndex(rowIndex);
-      } catch (NumberFormatException e) {
-        LOG.error("idRemainder = \"" + idRemainder + "\"", e);
       }
     } else {
       if (LOG.isInfoEnabled()) {

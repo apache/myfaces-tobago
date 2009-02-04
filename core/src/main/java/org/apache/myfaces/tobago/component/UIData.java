@@ -83,7 +83,6 @@ public class UIData extends javax.faces.component.UIData
   public static final String MULTI = "multi";
   public static final int DEFAULT_DIRECT_LINK_COUNT = 9;
   public static final int DEFAULT_ROW_COUNT = 100;
-  public static final String ROW_IDX_REGEX = "^\\d+" + SEPARATOR_CHAR + ".*";
   private static final String DEFAULT_SELECTABLE = MULTI;
 
   private MethodBinding stateChangeListener;
@@ -725,11 +724,23 @@ public class UIData extends javax.faces.component.UIData
     return scrollPosition;
   }
 
-
   public UIComponent findComponent(String searchId) {
-    if (searchId.matches(ROW_IDX_REGEX)) {
-      searchId = searchId.substring(searchId.indexOf(SEPARATOR_CHAR) + 1);
+    return super.findComponent(stripRowIndex(searchId));
+  }
+
+  String stripRowIndex(String searchId) {
+    if (searchId.length() > 0 && Character.isDigit(searchId.charAt(0))) {
+      for (int i = 1; i < searchId.length(); ++i) {
+        char c = searchId.charAt(i);
+        if (c == SEPARATOR_CHAR) {
+          searchId = searchId.substring(i + 1);
+          break;
+        }
+        if (!Character.isDigit(c)) {
+          break;
+        }
+      }
     }
-    return super.findComponent(searchId);
+    return searchId;
   }
 }

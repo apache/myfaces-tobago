@@ -24,6 +24,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MENU_POPUP;
@@ -162,10 +163,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
   protected String createSetupFunction(FacesContext facesContext,
       UIComponent component, final String clientId, List<String> accKeyFunctions, StringBuilder sb)
       throws IOException {
-    String setupFunction = "setupMenu"
-        +
-        clientId.replaceAll(":", "_").replaceAll("\\.", "_").replaceAll("-",
-            "_");
+    String setupFunction = "setupMenu" + StringUtils.replaceChars(clientId, ":.-", "___");
 
     sb.append("function ");
     sb.append(setupFunction);
@@ -515,7 +513,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
   }
 
   private String prepareForScript(String s) {
-    return s.replaceAll("\n", " ").replaceAll("'", "\\\\'");
+    return StringUtils.replace(s.replace('\n', ' '), "'", "\\\\'");
   }
 
   public void encodeChildren(FacesContext facesContext, UIComponent component)

@@ -1,6 +1,7 @@
 package org.apache.myfaces.tobago.util;
 
 import junit.framework.TestCase;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Created 04.02.2009 10:48:34
@@ -30,6 +31,16 @@ public class LayoutUtilTest extends TestCase {
     assertEquals("50", LayoutUtil.stripNonNumericChars("50%"));
     assertEquals("3", LayoutUtil.stripNonNumericChars("3*"));
     assertEquals("", LayoutUtil.stripNonNumericChars("*"));
+  }
+
+  public void testIsNumberAndSuffix() {
+    assertTrue(LayoutUtil.isNumberAndSuffix("34cm", "cm"));
+    assertFalse(LayoutUtil.isNumberAndSuffix("acm", "cm"));
+    assertFalse(LayoutUtil.isNumberAndSuffix("cm", "cm"));
+  }
+
+  public void testSplit() {
+    assertEquals("ab", StringUtils.split("ab, sd", " ,")[0]);
   }
 
 }

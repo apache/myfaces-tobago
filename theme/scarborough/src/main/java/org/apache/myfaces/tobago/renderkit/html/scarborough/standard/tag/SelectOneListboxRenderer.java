@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.util.LayoutUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -58,7 +59,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     String height = (String) component.getAttributes().get(ATTR_HEIGHT);
     if (height != null) {
       try {
-        fixedHeight = Integer.parseInt(height.replaceAll("\\D", ""));
+        fixedHeight = Integer.parseInt(LayoutUtil.stripNonNumericChars(height));
       } catch (NumberFormatException e) {
         LOG.warn("Can't parse " + height + " to int");
       }

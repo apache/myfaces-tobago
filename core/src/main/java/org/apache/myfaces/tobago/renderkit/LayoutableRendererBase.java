@@ -132,7 +132,7 @@ public abstract class LayoutableRendererBase
     }
     if (space != null) {
       try {
-        intSpace = Integer.parseInt(space.replaceAll("\\D", ""));
+        intSpace = Integer.parseInt(LayoutUtil.stripNonNumericChars(space));
       } catch (NumberFormatException e) {
         LOG.error("Caught: " + e.getMessage(), e);
       }

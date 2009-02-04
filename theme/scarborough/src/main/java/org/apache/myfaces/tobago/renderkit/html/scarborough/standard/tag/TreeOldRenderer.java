@@ -32,6 +32,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.FastStringWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.commons.lang.StringUtils;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UICommand;
@@ -294,7 +295,7 @@ public class TreeOldRenderer extends LayoutableRendererBase {
       if (helper.getOnclick() != null) {
         String onclick = helper.getOnclick();
         String treeNodeCommandClientId = treeNodeCommand.getClientId(facesContext);
-        onclick = onclick.replaceAll("'" + treeNodeCommandClientId + "'", "this.id");
+        onclick = StringUtils.replace(onclick, "'" + treeNodeCommandClientId + "'", "this.id");
         treeNodeCommandVar += "\"" + onclick + "\";\n";
       } else {
         treeNodeCommandVar += "null;\n";

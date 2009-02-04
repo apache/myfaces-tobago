@@ -24,6 +24,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DELAY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DOCTYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ENCTYPE;
@@ -593,13 +594,15 @@ public class PageRenderer extends PageRendererBase {
     StringBuilder sb = new StringBuilder("LOG.info(\"FacesMessage: [");
     sb.append(id != null ? id : "null");
     sb.append("][");
-    sb.append(message.getSummary() == null ? "null"
-        : message.getSummary().replace("\\", "\\\\").replace("\"", "\\\""));
+    sb.append(message.getSummary() == null ? "null" : escape(message.getSummary()));
     sb.append("/");
-    sb.append(message.getDetail() == null ? "null"
-        : message.getDetail().replace("\\", "\\\\").replace("\"", "\\\""));
+    sb.append(message.getDetail() == null ? "null" : escape(message.getDetail()));
     sb.append("]\");");
     return sb.toString();
+  }
+
+  private String escape(String s) {
+    return StringUtils.replace(StringUtils.replace(s, "\\", "\\\\"), "\"", "\\\"");
   }
 
   private String getMethod(UIPage page) {

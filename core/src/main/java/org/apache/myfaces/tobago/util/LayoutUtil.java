@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.math.NumberUtils;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
@@ -279,7 +280,8 @@ public final class LayoutUtil {
     return LayoutTokens.parseToken(columnToken) != null;
   }
 
-  static String stripNonNumericChars(String token) {
+  // XXX perhaps move to StringUtil
+  public static String stripNonNumericChars(String token) {
     if (token == null || token.isEmpty()) {
       return token;
     }
@@ -291,6 +293,15 @@ public final class LayoutUtil {
       }
     }
     return builder.toString();
+  }
+
+  public static boolean isNumberAndSuffix(String token, String suffix) {
+    return token.endsWith(suffix)
+        && NumberUtils.isDigits(removeSuffix(token, suffix));
+  }
+
+  public static String removeSuffix(String token, String suffix) {
+    return token.substring(0, token.length() - suffix.length());
   }
 
 }

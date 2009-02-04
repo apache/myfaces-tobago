@@ -108,7 +108,7 @@ public class TreeListboxRenderer extends TreeOldRenderer{
       writer.writeJavascript(scriptText);
     } else {
       HtmlRendererUtil.writeScriptLoader(facesContext, scripts,
-          new String[] {scriptText.replaceAll("\n", " ")});
+          new String[] {scriptText.replace('\n', ' ')});
     }
 
   }

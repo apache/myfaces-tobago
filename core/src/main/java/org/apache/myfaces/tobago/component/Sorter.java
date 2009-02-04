@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.TobagoConstants;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
 import org.apache.myfaces.tobago.event.SortActionEvent;
@@ -179,8 +180,20 @@ public class Sorter extends MethodBinding {
     return null;
   }
 
-  private boolean isSimpleProperty(String expressionString) {
-    return expressionString.matches("^#\\{(\\w+(\\.\\w)*)\\}$");
+  // XXX needs to be tested
+  // XXX was based on ^#\{(\w+(\.\w)*)\}$ which is wrong, because there is a + missing after the last \w
+  boolean isSimpleProperty(String expressionString) {
+    if (expressionString.startsWith("#{") && expressionString.endsWith("}")) {
+      String inner = expressionString.substring(2, expressionString.length() - 1);
+      String[] parts = StringUtils.split(inner, ".");
+      for (String part : parts) {
+        if (!StringUtils.isAlpha(part)) {
+          return false;
+        }
+      }
+      return true;
+    }
+    return false;
   }
 
   private void unsetSortableAttribute(UIColumn uiColumn) {

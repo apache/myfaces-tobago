@@ -284,12 +284,18 @@ public final class HtmlRendererUtil {
     return style;
   }
 
+  /**
+   * @deprecated
+   */
   public static String replaceStyleAttribute(String style, String name,
       String value) {
     style = removeStyleAttribute(style != null ? style : "", name);
     return style + " " + name + ": " + value + ";";
   }
 
+  /**
+   * @deprecated
+   */
   public static String removeStyleAttribute(String style, String name) {
     if (style == null) {
       return null;

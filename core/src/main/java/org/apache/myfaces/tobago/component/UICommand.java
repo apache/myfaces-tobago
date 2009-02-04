@@ -24,6 +24,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -78,7 +79,7 @@ public class UICommand extends javax.faces.component.UICommand {
         if (value instanceof String[]) {
           return (String[]) value;
         } else if (value instanceof String) {
-          return ((String) value).split(",");
+          return StringUtils.split((String) value, ",");
         } else {
           LOG.error("Ignoring RenderedPartially value binding. Unknown instance " + value.getClass().getName());
         }
@@ -89,7 +90,7 @@ public class UICommand extends javax.faces.component.UICommand {
 
   public void setRenderedPartially(String renderedPartially) {
     if (renderedPartially != null) {
-      String[] components = renderedPartially.split(",");
+      String[] components = StringUtils.split(renderedPartially, ",");
       setRenderedPartially(components);
     }
   }

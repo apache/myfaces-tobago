@@ -206,7 +206,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     String trackId = getIdForSliderTrack(context, component);
     String handleId = getIdForSliderHandle(context, component);
     String inputId = getIdForInputField(context, component);
-    String jsId = component.getClientId(context).replace(":", "_");
+    String jsId = component.getClientId(context).replace(':', '_');
     Integer min = ComponentUtil.getIntAttribute(component, "min");
     Integer max = ComponentUtil.getIntAttribute(component, "max");
     String script = "    var slider_" + jsId + " = new Control.Slider('" + handleId + "', '" + trackId + "', {\n"
