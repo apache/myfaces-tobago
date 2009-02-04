@@ -23,6 +23,8 @@ public class LayoutUtilTest extends TestCase {
   }
 
   public void testStripNonNumericChars() {
+    assertEquals(null, LayoutUtil.stripNonNumericChars(null));
+    assertEquals("", LayoutUtil.stripNonNumericChars(""));
     assertEquals("1", LayoutUtil.stripNonNumericChars("1px"));
     assertEquals("99", LayoutUtil.stripNonNumericChars("99px"));
     assertEquals("50", LayoutUtil.stripNonNumericChars("50%"));

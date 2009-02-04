@@ -109,7 +109,7 @@ public final class LayoutUtil {
         }
       } catch (Exception e) {
         if (LOG.isDebugEnabled()) {
-          LOG.debug("cant find margin", e);
+          LOG.debug("cannot find margin", e);
         }
       }
     } else {
@@ -138,12 +138,12 @@ public final class LayoutUtil {
     return 0;
   }
 
-  //TODO Change this to DimensionUtils.getWidth?
+  // TODO Change this to DimensionUtils.getWidth?
   public static Integer getLayoutWidth(UIComponent component) {
     return getLayoutSpace(component, ATTR_WIDTH, ATTR_LAYOUT_WIDTH);
   }
 
-  //TODO Change this to DimensionUtils.getHeight?
+  // TODO Change this to DimensionUtils.getHeight?
   public static Integer getLayoutHeight(UIComponent component) {
     return getLayoutSpace(component, ATTR_HEIGHT, ATTR_LAYOUT_HEIGHT);
   }
@@ -153,12 +153,11 @@ public final class LayoutUtil {
     Object value = ComponentUtil.getAttribute(component, sizeAttribute);
     if (value != null) {
       if (value instanceof String) {
-        return new Integer(stripNonNumericChars(((String) value)));
+        return new Integer(stripNonNumericChars((String) value));
       } else {
         return (Integer) value;
       }
     } else if (!ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
-
       value = ComponentUtil.getAttribute(component, layoutAttribute);
       return (Integer) value;
     }
@@ -179,8 +178,8 @@ public final class LayoutUtil {
 
   public static boolean isTransparentForLayout(UIComponent component) {
 
-//    SubViewTag's component is UINamingContainer with 'null' rendererType
-//    is transparent for layouting
+    // SubViewTag's component is UINamingContainer with 'null' rendererType
+    // is transparent for layouting
 
     if (component instanceof UINamingContainer
         && component.getRendererType() == null) {
@@ -194,7 +193,7 @@ public final class LayoutUtil {
     if (component.getClass().getPackage().getName().equals("com.sun.facelets.compiler")) {
       return true;
     } */
-//  also Forms are transparent for layouting
+    //  also Forms are transparent for layouting
 
     return component instanceof UIForm;
   }
@@ -252,8 +251,7 @@ public final class LayoutUtil {
 
   public static Dimension getMinimumSize(
       FacesContext facesContext, UIComponent component) {
-    Dimension dimension
-        = (Dimension) component.getAttributes().get(ATTR_MINIMUM_SIZE);
+    Dimension dimension = (Dimension) component.getAttributes().get(ATTR_MINIMUM_SIZE);
     if (dimension == null) {
       LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, component);
       if (renderer != null) {
