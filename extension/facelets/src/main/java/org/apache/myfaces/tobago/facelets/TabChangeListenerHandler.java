@@ -23,12 +23,15 @@ import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagAttributeException;
 import com.sun.facelets.tag.TagException;
 import com.sun.facelets.FaceletContext;
+import com.sun.facelets.el.LegacyValueBinding;
+import com.sun.facelets.util.FacesAPI;
 
 import java.io.IOException;
 
 import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.ValueExpressionTabChangeListener;
+import org.apache.myfaces.tobago.event.ValueBindingTabChangeListener;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
@@ -36,7 +39,6 @@ import javax.el.ValueExpression;
 import javax.el.ELException;
 
 /*
- * User: bommel
  * Date: 20.04.2006
  * Time: 18:14:11
  */
@@ -88,7 +90,12 @@ public class TabChangeListenerHandler extends TagHandler {
           }
         }
         if (valueExpression != null) {
-          changeSource.addTabChangeListener(new ValueExpressionTabChangeListener(type.getValue(), valueExpression));
+          if (FacesAPI.getVersion() >= 12) {
+            changeSource.addTabChangeListener(new ValueExpressionTabChangeListener(type.getValue(), valueExpression));
+          } else {
+            changeSource.addTabChangeListener(new ValueBindingTabChangeListener(type.getValue(),
+                new LegacyValueBinding(valueExpression)));
+          }
         } else {
           changeSource.addTabChangeListener(listener);
         }

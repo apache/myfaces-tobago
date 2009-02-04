@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.event.TabChangeEvent;
  */
 public class TabChangeSourceRule extends MetaRule {
   static final Class[] ACTION_LISTENER = new Class[]{TabChangeEvent.class};
-  public static final SortActionSourceRule INSTANCE = new SortActionSourceRule();
+  public static final TabChangeSourceRule INSTANCE = new TabChangeSourceRule();
 
   public Metadata applyRule(String name, TagAttribute attribute,
       MetadataTarget metadataTarget) {
