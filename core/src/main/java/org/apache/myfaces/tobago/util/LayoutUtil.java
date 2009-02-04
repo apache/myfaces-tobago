@@ -32,6 +32,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.component.UIForm;
+import org.apache.myfaces.tobago.component.LayoutTokens;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 
 import javax.faces.component.UIComponent;
@@ -41,14 +42,10 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.regex.Pattern;
 
 public final class LayoutUtil {
 
   private static final Log LOG = LogFactory.getLog(LayoutUtil.class);
-
-  private static final Pattern TOKEN_PATTERN
-      = Pattern.compile("^(\\d*px|\\d*\\*|\\d*%|fixed)$");
 
   private LayoutUtil() {
     // to prevent instantiation
@@ -273,11 +270,15 @@ public final class LayoutUtil {
     StringTokenizer st = new StringTokenizer(columns, ";");
     while (st.hasMoreTokens()) {
       String token = st.nextToken();
-      if (!TOKEN_PATTERN.matcher(token).matches()) {
+      if (!checkToken(token)) {
         return false;
       }
     }
     return true;
   }
-}
 
+  public static boolean checkToken(String columnToken) {
+    return LayoutTokens.parseToken(columnToken) != null;
+  }
+
+}

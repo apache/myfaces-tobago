@@ -1,0 +1,25 @@
+package org.apache.myfaces.tobago.util;
+
+import junit.framework.TestCase;
+
+/**
+ * Created 04.02.2009 10:48:34
+ */
+public class LayoutUtilTest extends TestCase {
+
+    public void testCheckTokens() {
+        assertTrue(LayoutUtil.checkTokens("1px;*;25%;fixed"));
+        assertFalse(LayoutUtil.checkTokens("1px; *; fixed")); // XXX whitespace shouldn't matter
+        assertTrue(LayoutUtil.checkTokens("0px"));
+        assertTrue(LayoutUtil.checkTokens("1px"));
+        assertTrue(LayoutUtil.checkTokens("99999px"));
+        assertTrue(LayoutUtil.checkTokens("*"));
+        assertTrue(LayoutUtil.checkTokens("1*"));
+        assertTrue(LayoutUtil.checkTokens("99*"));
+        assertTrue(LayoutUtil.checkTokens("0%"));
+        assertTrue(LayoutUtil.checkTokens("1%"));
+        assertTrue(LayoutUtil.checkTokens("200%")); // XXX percentile value over 100 doesn't make much sense, does it?
+        assertTrue(LayoutUtil.checkTokens("fixed"));
+    }
+
+}
