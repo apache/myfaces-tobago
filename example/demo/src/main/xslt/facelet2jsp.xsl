@@ -39,6 +39,7 @@
     </xsl:comment>
 
     <jsp:root version="2.0">
+      <jsp:directive.page contentType="text/html; charset=utf-8"/>   
       <layout:overview>
         <jsp:params>
           <xsl:apply-templates select="ui:param" mode="parameter"/>

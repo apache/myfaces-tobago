@@ -23,8 +23,8 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.AbstractUICommand;
 import org.apache.myfaces.tobago.internal.taglib.MenuItemTag;
 import org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag;
 
@@ -134,7 +134,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport {
     if (renderedPartially == null) {
       // Move attribute renderedPartially from selectOne to menuCommand component
       UIComponent selectOneComponent = selectOneRadio.getComponentInstance();
-      UICommand command = (UICommand) menuCommandTag.getComponentInstance();
+      AbstractUICommand command = (AbstractUICommand) menuCommandTag.getComponentInstance();
       javax.el.ValueExpression expression = selectOneComponent.getValueExpression(Attributes.RENDERED_PARTIALLY);
       if (expression != null) {
         command.setValueExpression(Attributes.RENDERED_PARTIALLY, expression);
