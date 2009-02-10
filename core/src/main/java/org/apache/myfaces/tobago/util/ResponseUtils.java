@@ -60,8 +60,13 @@ public class ResponseUtils {
       if (!response.containsHeader("Content-Type")) {
         response.setContentType(contentType);
       } else {
-        if (LOG.isInfoEnabled()) {
-          LOG.info("Reponse already contains Header Content-Type. Ignore setting Content-Type to " + contentType);
+        String responseContentType = response.getContentType();
+        if (!responseContentType.equalsIgnoreCase(contentType)) {
+          response.setContentType(contentType);
+          if (LOG.isInfoEnabled()) {
+            LOG.info("Reponse already contains Header Content-Type '" + responseContentType
+                + "'. Setting Content-Type to '" + contentType + "'");
+          }
         }
       }
     }
