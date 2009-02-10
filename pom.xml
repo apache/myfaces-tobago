@@ -409,7 +409,7 @@
       <dependency>
         <groupId>javax.servlet</groupId>
         <artifactId>servlet-api</artifactId>
-        <version>2.3</version>
+        <version>2.4</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
@@ -995,9 +995,9 @@
 
   <properties>
     <myfaces.version>1.1.6</myfaces.version>
-    <myfaces12.version>1.2.4</myfaces12.version>
+    <myfaces12.version>1.2.6</myfaces12.version>
     <sunjsf.version>1.1_02</sunjsf.version>
-    <sunjsf12.version>1.2_10-b01</sunjsf12.version>
+    <sunjsf12.version>1.2_12</sunjsf12.version>
     <facelets.version>1.1.14</facelets.version>
     <jetty.version>6.1.11</jetty.version>
     <common-io.version>1.1</common-io.version>
