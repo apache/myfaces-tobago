@@ -38,7 +38,8 @@ public class DebugContentTypeFilter implements Filter {
     }
   }
 
-  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+      throws IOException, ServletException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("do Filter " + getClass().getName());
     }
