@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDERED_PARTIALLY;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.webapp.FacetTag;
 import javax.faces.component.UIComponent;
@@ -133,11 +133,11 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
     // Move attribute renderedPartially from selectOne to menuCommand component
     UIComponent selectOneComponent = selectOneRadio.getComponentInstance();
     UICommand command = (UICommand) menuCommandTag.getComponentInstance();
-    ValueBinding binding = selectOneComponent.getValueBinding(ATTR_RENDERED_PARTIALLY);
+    ValueBinding binding = selectOneComponent.getValueBinding(TobagoConstants.ATTR_RENDERED_PARTIALLY);
     if (binding != null) {
-      command.setValueBinding(ATTR_RENDERED_PARTIALLY, binding);
+      command.setValueBinding(TobagoConstants.ATTR_RENDERED_PARTIALLY, binding);
     } else {
-      Object renderedPartially = selectOneComponent.getAttributes().get(ATTR_RENDERED_PARTIALLY);
+      Object renderedPartially = selectOneComponent.getAttributes().get(TobagoConstants.ATTR_RENDERED_PARTIALLY);
       ComponentUtil.setRenderedPartially(command, (String) renderedPartially);
     }
     

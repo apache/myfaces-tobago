@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDERED_PARTIALLY;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.servlet.jsp.tagext.BodyTagSupport;
 import javax.servlet.jsp.JspException;
@@ -125,11 +125,11 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
     // Move attribute renderedPartially from selectBoolean to menuCommand component
     UIComponent selectBooleanComponent = selectBooleanCheckbox.getComponentInstance();
     UICommand command = (UICommand) menuCommandTag.getComponentInstance();
-    ValueBinding binding = selectBooleanComponent.getValueBinding(ATTR_RENDERED_PARTIALLY);
+    ValueBinding binding = selectBooleanComponent.getValueBinding(TobagoConstants.ATTR_RENDERED_PARTIALLY);
     if (binding != null) {
-      command.setValueBinding(ATTR_RENDERED_PARTIALLY, binding);
+      command.setValueBinding(TobagoConstants.ATTR_RENDERED_PARTIALLY, binding);
     } else {
-      Object renderedPartially = selectBooleanComponent.getAttributes().get(ATTR_RENDERED_PARTIALLY);
+      Object renderedPartially = selectBooleanComponent.getAttributes().get(TobagoConstants.ATTR_RENDERED_PARTIALLY);
       ComponentUtil.setRenderedPartially(command, (String) renderedPartially);
     }
 
