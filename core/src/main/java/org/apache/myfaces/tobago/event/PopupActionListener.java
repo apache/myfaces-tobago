@@ -65,7 +65,8 @@ public class PopupActionListener implements ActionListener, Serializable {
       }
       popup.setActivated(true);
     } else {
-      LOG.error("Found no popup for " + popupId);
+      LOG.error("Found no popup for " + popupId + " search base component " 
+              + actionEvent.getComponent().getClientId(FacesContext.getCurrentInstance()));
     }
   }
 

@@ -632,7 +632,7 @@ public final class HtmlRendererUtil {
       }
       return clientId;
     }
-    LOG.error("No Component found for id " + componentId);
+    LOG.error("No Component found for id " + componentId + " search base component " + component.getClientId(context));
     return null;
   }
 
