@@ -2184,8 +2184,9 @@ if (typeof(LOG) == "undefined") {
       debug: function(text) {},
       info  : function(text) {},
       warn: function(text) {},
-      error: function(text) {alert(text)},
-      show: function() {}
+      error: function(text) {alert(text);},
+      show: function() {},
+      debugAjaxComponents: function() {}
   };
 }
 
