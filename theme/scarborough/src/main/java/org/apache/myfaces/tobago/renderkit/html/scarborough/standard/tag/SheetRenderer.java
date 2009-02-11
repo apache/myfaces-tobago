@@ -420,10 +420,16 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
           writer.writeClassAttribute("tobago-sheet-column-selector");
           writer.endElement(HtmlConstants.IMG);
         } else {
-          for (UIComponent grandkid : data.getRenderedChildrenOf(column)) {
+          List<UIComponent> childs = data.getRenderedChildrenOf(column);
+          for (UIComponent grandkid : childs) {
             // set height to 0 to prevent use of layoutheight from parent
             grandkid.getAttributes().put(ATTR_LAYOUT_HEIGHT, HEIGHT_0);
             RenderUtil.encode(facesContext, grandkid);
+          }
+          if (childs.size() > 1) {
+            if (LOG.isInfoEnabled()) {
+              LOG.info("Column should not contain more than one child. Please surround the components with a tc:panel.");
+            }
           }
         }
 

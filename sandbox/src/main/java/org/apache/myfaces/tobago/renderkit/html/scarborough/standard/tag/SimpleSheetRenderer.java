@@ -241,7 +241,6 @@ public class SimpleSheetRenderer extends SheetRenderer {
       int currentLeft = 0;
       for (UIColumn column : renderedColumnList) {
         columnIndex++;
-        List<UIComponent> childs = data.getRenderedChildrenOf(column);
         writer.startElement(HtmlConstants.DIV, null);
         writer.writeClassAttribute("tobago-simpleSheet-cell");
         // todo cell markup
@@ -263,10 +262,16 @@ public class SimpleSheetRenderer extends SheetRenderer {
           writer.writeClassAttribute("tobago-sheet-column-selector");
           writer.endElement(HtmlConstants.IMG);
         } else {
+          List<UIComponent> childs = data.getRenderedChildrenOf(column);
           for (UIComponent grandkid : childs) {
             // set height to 0 to prevent use of layoutheight from parent
             grandkid.getAttributes().put(TobagoConstants.ATTR_LAYOUT_HEIGHT, 0);
             RenderUtil.encode(facesContext, grandkid);
+          }
+          if (childs.size() > 1) {
+            if (LOG.isInfoEnabled()) {
+              LOG.info("Column should not contain more than one child. Please surround the components with a tc:panel.");
+            }
           }
         }
         writer.endElement(HtmlConstants.DIV);
