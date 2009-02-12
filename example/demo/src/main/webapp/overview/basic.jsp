@@ -67,7 +67,9 @@
         </tc:panel>
 
         <tx:textarea value="#{overviewController.basicArea}" tabIndex="2"
-          label="#{overviewBundle.basic_textareaLabel}" />
+            label="#{overviewBundle.basic_textareaLabel}" >
+          <f:validateLength maximum="10" />
+        </tx:textarea>
       </tc:panel>
 
       <%-- row --%>

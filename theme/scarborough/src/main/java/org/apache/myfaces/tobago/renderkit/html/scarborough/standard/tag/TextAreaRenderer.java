@@ -34,10 +34,14 @@ import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.Validator;
+import javax.faces.validator.LengthValidator;
 import java.io.IOException;
 
 public class TextAreaRenderer extends InputRendererBase {
@@ -93,6 +97,22 @@ public class TextAreaRenderer extends InputRendererBase {
     writer.endElement(HtmlConstants.TEXTAREA);
 
     checkForCommandFacet(input, facesContext, writer);
+    int maxLength = -1;
+    for (Validator validator : input.getValidators()) {
+      if (validator instanceof LengthValidator) {
+        LengthValidator lengthValidator = (LengthValidator) validator;
+        maxLength = lengthValidator.getMaximum();
+      }
+    }
+    boolean required = ComponentUtil.getBooleanAttribute(input, TobagoConstants.ATTR_REQUIRED);
+    if (required || maxLength > 0) {
+      String rendererName = HtmlRendererUtil.getRendererName(facesContext, input);
+      final String[] cmds = {
+          "new Tobago.In(\"" + input.getClientId(facesContext) + "\", true ,\""
+                  + StyleClasses.PREFIX + rendererName + "\" " + (maxLength > -1? "," + maxLength: "")  + "  );"
+      };
+      HtmlRendererUtil.writeScriptLoader(facesContext, null, cmds);
+    }
 
     // focus
     HtmlRendererUtil.renderFocusId(facesContext, component);

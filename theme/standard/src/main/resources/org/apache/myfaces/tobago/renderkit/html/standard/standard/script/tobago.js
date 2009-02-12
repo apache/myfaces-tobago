@@ -1723,18 +1723,77 @@ Tobago.Image = function(id, normal, disabled, hover) {
   Tobago.images[id] = this;
 };
 
-Tobago.In = function(inId, required, cssPrefix) {
+Tobago.In = function(inId, required, cssPrefix, maxLength) {
   this.id = inId;
   this.required = required;
   this.cssPrefix = cssPrefix;
-  if (required) {
+  this.maxLength = maxLength;
+  this.setup();
+};
+
+Tobago.In.prototype.setup = function() {
+  if (this.required) {
     var ctrl = Tobago.element(this.id);
     if (ctrl.value && ctrl.value.length > 0) {
-      Tobago.removeCssClass(this.id, cssPrefix + "-required" );
+      Tobago.removeCssClass(this.id, this.cssPrefix + "-required" );
     }
     Tobago.addBindEventListener(ctrl, "focus", this, "enterRequired");
     Tobago.addBindEventListener(ctrl, "blur", this, "leaveRequired");
   }
+  if (this.maxLength && this.maxLength > 0) {
+    var ctrl = Tobago.element(this.id);
+    Tobago.addBindEventListener(ctrl, "change", this, "checkMaxLength");
+    Tobago.addBindEventListener(ctrl, "keyup", this, "checkMaxLength");
+  }
+};
+
+Tobago.In.prototype.checkMaxLength = function(event) {
+  if (!event) {
+    event = window.event;
+  }
+  var ctrl = Tobago.element(this.id);
+  var elementLength = ctrl.value.length;
+  if (elementLength > this.maxLength) {
+    // Input is longer than max, truncate and return false.
+    // This takes care of the case where the user has pasted in text
+    // that's too long. Return true here because the onChange event can
+    // continue (now that we've truncated the value). This allows chained
+    // handlers to work.
+    ctrl.value = ctrl.value.substr(0, this.maxLength);
+    return true;
+  }
+
+  // If less than max length (i.e. within acceptable range), return true
+  if (elementLength < this.maxLength) {
+    return true;
+  }
+
+  // If we've made it to here, we know that elementLength == length
+
+  // If this is a change event, the field has already been updated to a string
+  // of the maximum allowable length. This is fine. Continue processing.
+  if (event.type == 'change') {
+    return true;
+  }
+
+  // If we've made it to here, we know that this is a keyPress event
+
+  // If the input is something less than a space (e.g. tab, CR, etc.)
+  // return true.
+  // If key was CTRL-v, which will be used to paste some new text,
+  // pass it along.
+  if (event) {
+    if ((event.which < 32)
+        || ((event.which == 118) && (event["ctrlKey"]))) {
+      return true;
+    }
+  }
+
+  // Default return FALSE. If we're here, this is an onKeyPress event, it's a
+  // printable character, and elementLength already equals the maximum allowed.
+  // We need to return false here to cancel the event otherwise this last
+  // character will end up in the input field in position MAX+1.
+  return false;
 };
 
 Tobago.In.prototype.enterRequired = function(e) {
