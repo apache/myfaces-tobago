@@ -532,6 +532,7 @@
                   <banRelease>true</banRelease>
                   <unCheckedPlugins>
                     <unCheckedPlugin>org.apache.myfaces.tobago:maven-theme-plugin</unCheckedPlugin>
+                    <unCheckedPlugin>org.apache.maven.plugins:maven-idea-plugin</unCheckedPlugin>
                   </unCheckedPlugins>
                 </requirePluginVersions>
                 <requireJavaVersion>
