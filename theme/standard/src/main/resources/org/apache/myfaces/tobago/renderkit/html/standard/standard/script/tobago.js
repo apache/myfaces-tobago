@@ -1792,15 +1792,6 @@ Tobago.In.prototype.checkMaxLength = function(event) {
 
   // If we've made it to here, we know that elementLength == length
 
-  if (Tobago.getBrowser().type == "msie") {
-    // in many forms there is a hidden field named "event"
-    // Sometimes IE gets confused and sends us that instead of
-    // the true event, so...
-    if (event["type"] == "hidden") {
-      event = window.event;
-    }
-  }
-
   // If this is a change event, the field has already been updated to a string
   // of the maximum allowable length. This is fine. Continue processing.
   if (event.type == 'change') {
