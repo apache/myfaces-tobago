@@ -1763,7 +1763,6 @@ Tobago.In.prototype.setup = function() {
     Tobago.addBindEventListener(ctrl, "blur", this, "leaveRequired");
   }
   if (this.maxLength && this.maxLength > 0) {
-    LOG.error("register " + this.maxLength);
     var ctrl = Tobago.element(this.id);
     Tobago.addBindEventListener(ctrl, "change", this, "checkMaxLength");
     Tobago.addBindEventListener(ctrl, "keyup", this, "checkMaxLength");
