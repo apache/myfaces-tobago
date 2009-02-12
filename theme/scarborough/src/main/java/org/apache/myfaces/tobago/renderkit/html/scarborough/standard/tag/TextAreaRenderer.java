@@ -120,7 +120,7 @@ public class TextAreaRenderer extends InputRendererBase {
       }
     }
     boolean required = ComponentUtil.getBooleanAttribute(input, Attributes.REQUIRED);
-    if (required || maxLength > -1) {
+    if (required || maxLength > 0) {
       String rendererName = HtmlRendererUtil.getRendererName(facesContext, input);
       final String[] cmds = {
           "new Tobago.In(\"" + input.getClientId(facesContext) + "\", true ,\""
