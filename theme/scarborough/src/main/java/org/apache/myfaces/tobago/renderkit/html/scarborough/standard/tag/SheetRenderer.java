@@ -46,7 +46,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUPOPUP;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_PAGER_PAGE;
@@ -232,12 +231,11 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     String selectedRows = StringUtil.toString(getSelectedRows(data, state));
     List<UIColumn> renderedColumnList = data.getRenderedColumns();
 
-
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeIdAttribute(sheetId + WIDTHS_POSTFIX);
     writer.writeNameAttribute(sheetId + WIDTHS_POSTFIX);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-    writer.writeAttribute(HtmlAttributes.VALUE, "", false);
+    writer.writeAttribute(HtmlAttributes.VALUE, StringUtil.toString(columnWidths), false);
     writer.endElement(HtmlConstants.INPUT);
 
     writer.startElement(HtmlConstants.INPUT, null);
@@ -804,7 +802,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     String sheetId = component.getClientId(facesContext);
     Application application = facesContext.getApplication();
 
-    List columnWidths = (List) component.getAttributes().get(ATTR_WIDTH_LIST);
+    List columnWidths = (List) component.getWidthList();
     String divWidth = "width: " + columnWidths.get(columnIndex) + "px;";
 
     writer.startElement(HtmlConstants.DIV, null);

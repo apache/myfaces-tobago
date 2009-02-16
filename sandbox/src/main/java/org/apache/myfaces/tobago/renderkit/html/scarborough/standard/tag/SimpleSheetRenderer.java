@@ -166,7 +166,7 @@ public class SimpleSheetRenderer extends SheetRenderer {
     HtmlRendererUtil.replaceStyleAttribute(data, TobagoConstants.ATTR_STYLE_BODY, "height", (sheetHeight - footerHeight));
 
 
-    List<Integer> columnWidths = (List<Integer>) data.getAttributes().get(TobagoConstants.ATTR_WIDTH_LIST);
+    List<Integer> columnWidths = data.getWidthList();
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeIdAttribute(sheetId + WIDTHS_POSTFIX);
     writer.writeNameAttribute(sheetId + WIDTHS_POSTFIX);
