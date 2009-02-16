@@ -1773,6 +1773,7 @@ Tobago.In.prototype.setup = function() {
   }
 };
 
+// XXX IE only
 Tobago.In.prototype.checkMaxLengthOnPaste = function(event) {
   if (!event) {
     event = window.event;
@@ -1783,9 +1784,8 @@ Tobago.In.prototype.checkMaxLengthOnPaste = function(event) {
   if (input.value.length - range.text.length + pasteText.length > this.maxLength) {
     pasteText = pasteText.substring(0, this.maxLength - input.value.length + range.text.length);
     range.text = pasteText;
-    return false;
+    event.returnValue = false;
   }
-  return true;
 };
 
 Tobago.In.prototype.checkMaxLength = function(event) {
