@@ -26,13 +26,14 @@ import com.sun.facelets.el.LegacyMethodBinding;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 
+import javax.faces.event.ActionEvent;
+
 /*
- * User: bommel
  * Date: 15.04.2006
  * Time: 14:25:10
  */
 public class SheetStateChangeSourceRule extends MetaRule {
-  static final Class[] ACTION_LISTENER = new Class[]{SheetStateChangeEvent.class};
+  static final Class[] ACTION_LISTENER = new Class[]{ActionEvent.class};
   public static final SheetStateChangeSourceRule INSTANCE = new SheetStateChangeSourceRule();
 
   public Metadata applyRule(String name, TagAttribute attribute,
