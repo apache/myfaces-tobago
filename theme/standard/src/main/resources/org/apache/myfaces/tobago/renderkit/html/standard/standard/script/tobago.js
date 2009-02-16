@@ -1781,7 +1781,7 @@ Tobago.In.prototype.checkMaxLengthOnPaste = function(event) {
   var pasteText = window.clipboardData.getData("Text");
   var range = document.selection.createRange();
   if (input.value.length - range.text.length + pasteText.length > this.maxLength) {
-    pasteText = pasteText.substring(0, maxLength - input.value.length + range.text.length);
+    pasteText = pasteText.substring(0, this.maxLength - input.value.length + range.text.length);
     range.text = pasteText;
     return false;
   }
