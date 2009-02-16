@@ -213,7 +213,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     writer.writeIdAttribute(sheetId + WIDTHS_POSTFIX);
     writer.writeNameAttribute(sheetId + WIDTHS_POSTFIX);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-    writer.writeAttribute(HtmlAttributes.VALUE, "", false);
+    writer.writeAttribute(HtmlAttributes.VALUE, StringUtil.joinWithSurroundingSeparator(columnWidths), false);
     writer.endElement(HtmlConstants.INPUT);
 
     writer.startElement(HtmlConstants.INPUT, null);
@@ -766,7 +766,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     String sheetId = component.getClientId(facesContext);
     Application application = facesContext.getApplication();
 
-    List columnWidths = (List) component.getAttributes().get(Attributes.WIDTH_LIST);
+    List columnWidths = (List) component.getWidthList();
     String divWidth = "width: " + columnWidths.get(columnIndex) + "px;";
 
     writer.startElement(HtmlConstants.DIV, null);
