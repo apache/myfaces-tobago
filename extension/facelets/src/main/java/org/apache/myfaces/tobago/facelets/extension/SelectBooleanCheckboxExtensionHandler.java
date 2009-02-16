@@ -18,21 +18,22 @@ package org.apache.myfaces.tobago.facelets.extension;
  */
 
 import com.sun.facelets.tag.jsf.ComponentConfig;
-import org.apache.myfaces.tobago.component.AbstractUISelectBoolean;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.UISelectBoolean;
 
 /*
  * Date: Aug 9, 2007
  * Time: 8:36:38 PM
  */
-public class SelectBooleanCheckboxExtensionHandler extends TobagoLabelExtensionHandler {
+public class
+    SelectBooleanCheckboxExtensionHandler extends TobagoLabelExtensionHandler {
 
   public SelectBooleanCheckboxExtensionHandler(ComponentConfig config) {
     super(config);
   }
 
   protected String getSubComponentType() {
-    return AbstractUISelectBoolean.COMPONENT_TYPE;
+    return UISelectBoolean.COMPONENT_TYPE;
   }
 
   protected String getSubRendererType() {

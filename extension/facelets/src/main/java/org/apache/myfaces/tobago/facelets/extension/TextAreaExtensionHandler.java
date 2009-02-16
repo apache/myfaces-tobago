@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.facelets.extension;
 
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.UITextarea;
 
 /*
  * Date: Aug 8, 2007
@@ -32,7 +32,7 @@ public class TextAreaExtensionHandler extends TobagoLabelExtensionHandler {
   }
 
   protected String getSubComponentType() {
-    return UIInput.COMPONENT_TYPE;
+    return UITextarea.COMPONENT_TYPE;
   }
 
   protected String getSubRendererType() {
