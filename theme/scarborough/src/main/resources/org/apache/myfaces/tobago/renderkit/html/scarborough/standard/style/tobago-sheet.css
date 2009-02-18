@@ -31,7 +31,7 @@
   left: 0px;
   top: 0px;
   white-space: nowrap;
-  z-index: 2;
+  z-index: 1;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
 
@@ -157,7 +157,6 @@ div.tobago-sheet-cell-inner span {
 }
 
 .tobago-sheet-footer {
-  z-index: 1000;
   position: absolute;
   left: 0px;
   top: 0px;

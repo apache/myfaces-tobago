@@ -73,7 +73,7 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
     if (zIndex == null) {
       zIndex = 0;
     }
-
+    facesContext.getExternalContext().getRequestMap().put(TobagoConstants.ATTR_ZINDEX, zIndex);
     final StringBuilder contentStyle = new StringBuilder();
     if (component.getWidth() != null) {
       contentStyle.append("width: ");

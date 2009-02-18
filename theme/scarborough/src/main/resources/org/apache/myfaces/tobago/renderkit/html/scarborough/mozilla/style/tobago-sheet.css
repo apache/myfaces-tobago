@@ -39,14 +39,12 @@
 	margin-right: -5px;
 	position: relative;
 	/*-moz-box-sizing: border-box;*/
-	z-index: 1000;
 
 }
 
 
 .tobago-sheet-header-sort-div {
 	position: relative;
-	z-index: 1000;
   margin-top: 6px;
   margin-left: -13px;
   margin-right: 5px;

@@ -87,6 +87,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.StringUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
@@ -267,8 +268,16 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeIdAttribute(sheetId + "_header_div");
       writer.writeClassAttribute("tobago-sheet-header-div");
+      
       HtmlStyleMap headerStyle = (HtmlStyleMap) attributes.get(ATTR_STYLE_HEADER);
       if (headerStyle != null) {
+        Integer zIndex = (Integer) facesContext.getExternalContext().getRequestMap().get(TobagoConstants.ATTR_ZINDEX);
+        if (zIndex == null) {
+          zIndex = 1;
+        } else {
+          zIndex = zIndex + 4;
+        }
+        headerStyle.put("z-index", zIndex);
         writer.writeStyleAttribute(headerStyle);
       }
 
