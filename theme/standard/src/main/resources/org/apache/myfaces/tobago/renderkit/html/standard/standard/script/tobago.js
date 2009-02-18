@@ -1732,8 +1732,9 @@ Tobago.In = function(inId, required, cssPrefix, maxLength) {
 };
 
 Tobago.In.prototype.setup = function() {
+  var ctrl;
   if (this.required) {
-    var ctrl = Tobago.element(this.id);
+    ctrl = Tobago.element(this.id);
     if (ctrl.value && ctrl.value.length > 0) {
       Tobago.removeCssClass(this.id, this.cssPrefix + "-required" );
     }
@@ -1741,9 +1742,27 @@ Tobago.In.prototype.setup = function() {
     Tobago.addBindEventListener(ctrl, "blur", this, "leaveRequired");
   }
   if (this.maxLength && this.maxLength > 0) {
-    var ctrl = Tobago.element(this.id);
+    ctrl = Tobago.element(this.id);
     Tobago.addBindEventListener(ctrl, "change", this, "checkMaxLength");
-    Tobago.addBindEventListener(ctrl, "keyup", this, "checkMaxLength");
+    Tobago.addBindEventListener(ctrl, "keypress", this, "checkMaxLength");
+    if (Tobago.getBrowser().type == "msie") {
+      Tobago.addBindEventListener(ctrl, "paste", this, "checkMaxLengthOnPaste");
+    }
+  }
+};
+
+// XXX IE only
+Tobago.In.prototype.checkMaxLengthOnPaste = function(event) {
+  if (!event) {
+    event = window.event;
+  }
+  var input = Tobago.element(event);
+  var pasteText = window.clipboardData.getData("Text");
+  var range = document.selection.createRange();
+  if (input.value.length - range.text.length + pasteText.length > this.maxLength) {
+    pasteText = pasteText.substring(0, this.maxLength - input.value.length + range.text.length);
+    range.text = pasteText;
+    event.returnValue = false;
   }
 };
 
@@ -1751,7 +1770,7 @@ Tobago.In.prototype.checkMaxLength = function(event) {
   if (!event) {
     event = window.event;
   }
-  var ctrl = Tobago.element(this.id);
+  var ctrl = Tobago.element(event);
   var elementLength = ctrl.value.length;
   if (elementLength > this.maxLength) {
     // Input is longer than max, truncate and return false.
