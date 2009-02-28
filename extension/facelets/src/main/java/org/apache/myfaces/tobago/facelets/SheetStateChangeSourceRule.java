@@ -23,7 +23,6 @@ import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.MetadataTarget;
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.el.LegacyMethodBinding;
-import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 
 import javax.faces.event.ActionEvent;
