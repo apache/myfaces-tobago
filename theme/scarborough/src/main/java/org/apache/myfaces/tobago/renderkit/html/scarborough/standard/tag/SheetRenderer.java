@@ -405,7 +405,8 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
           }
           if (childs.size() > 1) {
             if (LOG.isInfoEnabled()) {
-              LOG.info("Column should not contain more than one child. Please surround the components with a tc:panel.");
+              LOG.info(
+                  "Column should not contain more than one child. Please surround the components with a tc:panel.");
             }
           }
         }
