@@ -286,7 +286,7 @@
             <ruleset>/rulesets/finalizers.xml</ruleset>
             <ruleset>/rulesets/junit.xml</ruleset>
             <ruleset>/rulesets/migrating_to_15.xml</ruleset>
-            <!--ruleset>/rulesets/typeresolution.xml</ruleset-->
+            <ruleset>/rulesets/typeresolution.xml</ruleset>
             <ruleset>/rulesets/strings.xml</ruleset>
             <!--
                 <ruleset>rulesets/controversial.xml</ruleset>
@@ -298,10 +298,6 @@
           <excludes>
             <exclude>**/package-info.java</exclude>
             <exclude>org/apache/myfaces/tobago/apt/annotation/*.java</exclude>
-            <exclude>org/apache/myfaces/tobago/taglib/component/*Declaration.java</exclude>
-            <exclude>org/apache/myfaces/tobago/taglib/decl/*.java</exclude>
-            <exclude>org/apache/myfaces/tobago/taglib/extension/*.java</exclude>
-            <exclude>org/apache/myfaces/tobago/taglib/extension12/*.java</exclude>
           </excludes>
           <encoding>${maven.compile.encoding}</encoding>
           <linkXref>true</linkXref>
@@ -563,6 +559,11 @@
     </plugins>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-pmd-plugin</artifactId>
+          <version>2.4</version>
+        </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>apt-maven-plugin</artifactId>
