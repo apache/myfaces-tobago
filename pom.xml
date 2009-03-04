@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces</groupId>
@@ -592,7 +594,33 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-resources-plugin</artifactId>
           <version>2.3</version>
-        </plugin>   
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>rat-maven-plugin</artifactId>
+          <version>1.0-alpha-3</version>
+          <configuration>
+            <excludes>
+              <exclude>**/javax.faces.lifecycle.LifecycleFactory</exclude>
+              <exclude>**/*.log</exclude>
+              <exclude>**/*.txt</exclude>
+              <exclude>**/target/**/*</exclude>
+              <exclude>**/blank.html</exclude>
+              <exclude>example/**/*</exclude>
+              <exclude>src/site/resources/css/png-fix.htc</exclude>
+              <exclude>src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/effects.js</exclude>
+              <exclude>src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/slider.js</exclude>
+              <exclude>src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/builder.js</exclude>
+              <exclude>src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/scriptaculous.js</exclude>
+              <exclude>src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/dragdrop.js</exclude>
+              <exclude>src/main/resources/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/controls.js</exclude>
+              <exclude>release.properties</exclude>
+              <exclude>*.iml</exclude>
+              <exclude>*.ipr</exclude>
+              <exclude>*.iws</exclude>
+            </excludes>
+          </configuration>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
