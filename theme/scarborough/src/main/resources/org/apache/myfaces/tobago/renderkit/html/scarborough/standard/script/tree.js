@@ -562,13 +562,13 @@ TreeOldNode.prototype.add = function (node) {
   return node;
 };
 
-TreeOldNode.prototype.onClick = function() {
+TreeOldNode.prototype.onClick = function(element) {
   LOG.debug("click on tree;");
   this.singleClick = true;
-  setTimeout(Tobago.bind(this, "doOnClick"), Tobago.TreeOld.DBL_CLICK_TIMEOUT);
+  setTimeout(Tobago.bind(this, "doOnClick", element), Tobago.TreeOld.DBL_CLICK_TIMEOUT);
 }
 
-TreeOldNode.prototype.doOnClick = function() {
+TreeOldNode.prototype.doOnClick = function(currentElement) {
   if (!this.singleClick) {
     return;
   }
@@ -578,6 +578,8 @@ TreeOldNode.prototype.doOnClick = function() {
   if (this.action && !this.disabled) {
     Tobago.navigateToUrl(this.action);
   } else if (this.onclick && !this.disabled) {
+    var node = this;
+    var element = currentElement;
     eval(this.onclick);
   } else {
     if (this.mutable) {

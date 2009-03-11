@@ -34,7 +34,7 @@ Tobago.TreeOld.destroy = function(node) {
 Tobago.TreeOld.onClick = function(element) {
   var treeNode = Tobago.treeNodes[element.parentNode.id];
   if (treeNode) {
-    treeNode.onClick();
+    treeNode.onClick(element);
   }
 };
 
