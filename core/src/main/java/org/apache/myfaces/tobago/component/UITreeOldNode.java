@@ -161,25 +161,32 @@ public class UITreeOldNode extends javax.faces.component.UIInput {
     }
   }
 
-  @SuppressWarnings("unchecked")
   private Object getReference(TreeNode treeNode, String key) {
     Object value = null;
-    UITreeOld root = findTreeRoot();
-    String reference = (String) root.getAttributes().get(key);
-    if (reference != null) {
-      try {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        Map requestMap = facesContext.getExternalContext().getRequestMap();
+    String reference = null;
+    try {
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      UITreeOld root = findTreeRoot();
+      ValueBinding binding = root.getValueBinding(key);
+      if (binding == null) {
+        reference = (String) root.getAttributes().get(key);
+        if (reference == null) {
+          return null;
+        }
         String ref = "#{tobagoTreeNode." + reference + "}";
-        ValueBinding vb = facesContext.getApplication().createValueBinding(ref);
-        requestMap.put("tobagoTreeNode", treeNode);
-        value = vb.getValue(facesContext);
-        requestMap.remove("tobagoTreeNode");
-      } catch (Exception e) {
-        LOG.warn(
-            "Can't find " + key + " over ref='" + reference
-                + "' treeNode='" + treeNode + "! " + treeNode.getClass().getName(), e);
+        binding = facesContext.getApplication().createValueBinding(ref);
+      } else {
+        reference = binding.getExpressionString();
       }
+      Map requestMap = facesContext.getExternalContext().getRequestMap();
+      //noinspection unchecked
+      requestMap.put("tobagoTreeNode", treeNode);
+      value = binding.getValue(facesContext);
+      requestMap.remove("tobagoTreeNode");
+    } catch (Exception e) {
+      LOG.warn(
+          "Can't find " + key + " over ref='" + reference
+              + "' treeNode='" + treeNode + "! " + treeNode.getClass().getName(), e);
     }
     return value;
   }
