@@ -37,10 +37,12 @@ import java.util.List;
 import java.util.Locale;
 
 public class ClientProperties implements Serializable {
+
   private static final long serialVersionUID = -6719319982485268698L;
-  private static final String CLIENT_PROPERTIES_IN_SESSION = ClientProperties.class.getName();
 
   private static final Log LOG = LogFactory.getLog(ClientProperties.class);
+
+  private static final String CLIENT_PROPERTIES_IN_SESSION = ClientProperties.class.getName();
 
   private String contentType = "html";
   // TODO transient
