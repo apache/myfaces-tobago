@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.layout.math;
 /**
  * This equation describes the partition of one column (or row) into some other columns (or rows).
  * E. g.: column2 = column4 + column5 + column6 -> 0 0 -1 0 1 1 1 0 ...
+ * In this example are: begin=4, end=6, parent=2, span=1
  * Because of the algorithm we have indices without gap.
  */
 public final class PartitionEquation implements Equation {
