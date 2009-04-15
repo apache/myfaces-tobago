@@ -50,15 +50,6 @@
     <priority value="debug" />
   </category>
 
-  <category name="org.apache.myfaces.tobago.application">
-    <priority value="debug" />
-  </category>
-
-
-  <category name="org.apache.myfaces.tobago.util">
-    <priority value="debug" />
-  </category>
-
   <root>
     <priority value="info" />
     <appender-ref ref="console" />
