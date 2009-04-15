@@ -24,8 +24,8 @@ package org.apache.myfaces.tobago.example.demo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_IN;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_IN;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UISelectOne;
@@ -43,9 +43,9 @@ import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
-import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpSession;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
@@ -562,7 +562,7 @@ public class TobagoDemoController {
 
   private List<SolarObject> filteredList;
   private SelectItem[] orbitItems;
-  private static final String showAllOrbits = "Show all";
+  private static final String SHOW_ALL_ORBITS = "Show all";
 
   public void filterOrbit(ActionEvent event) {
 //    FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -574,7 +574,7 @@ public class TobagoDemoController {
     }
 
     String filter = (String) selectOne.getValue();
-    if (showAllOrbits.equals(filter)) {
+    if (SHOW_ALL_ORBITS.equals(filter)) {
       filteredList.addAll(solarList);
     } else {
       for (SolarObject solarObject : solarList) {
@@ -595,7 +595,7 @@ public class TobagoDemoController {
 
   private SelectItem[] createOrbitItems() {
     orbitItems = new SelectItem[11];
-    orbitItems[0] = new org.apache.myfaces.tobago.model.SelectItem(showAllOrbits);
+    orbitItems[0] = new org.apache.myfaces.tobago.model.SelectItem(SHOW_ALL_ORBITS);
     orbitItems[1] = new org.apache.myfaces.tobago.model.SelectItem("Sun");
     orbitItems[2] = new org.apache.myfaces.tobago.model.SelectItem("Mercury");
     orbitItems[3] = new org.apache.myfaces.tobago.model.SelectItem("Venus");
