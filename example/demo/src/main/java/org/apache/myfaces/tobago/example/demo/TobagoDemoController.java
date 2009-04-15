@@ -261,10 +261,8 @@ public class TobagoDemoController {
     columns.add(ComponentUtil.createTextColumn(
         "#{overviewBundle.solarArrayPeriod}", "true", "right", "#{luminary.period}"));
 
-
     return columns;
   }
-
 
   public static SelectItem[] getSelectItems(String[] keys, String bundle) {
     FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -565,7 +563,6 @@ public class TobagoDemoController {
   private static final String SHOW_ALL_ORBITS = "Show all";
 
   public void filterOrbit(ActionEvent event) {
-//    FacesContext facesContext = FacesContext.getCurrentInstance();
     UISelectOne selectOne = (UISelectOne) event.getComponent().getFacet(FACET_ITEMS);
     if (filteredList == null) {
       filteredList = new ArrayList<SolarObject>();
@@ -583,7 +580,6 @@ public class TobagoDemoController {
         }
       }
     }
-
   }
 
   public SelectItem[] getOrbitItems() {
@@ -648,7 +644,4 @@ public class TobagoDemoController {
       return "Node name="+name+" id="+id;
     }
   }
-
-
-
 }
