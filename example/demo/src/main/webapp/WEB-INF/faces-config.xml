@@ -229,6 +229,10 @@
       <from-outcome>best-practice/non-faces-response</from-outcome>
       <to-view-id>/best-practice/non-faces-response.jsp</to-view-id>
     </navigation-case>
+    <navigation-case>
+      <from-outcome>best-practice/for-each</from-outcome>
+      <to-view-id>/best-practice/for-each.jsp</to-view-id>
+    </navigation-case>
   </navigation-rule>
 
   <navigation-rule>

@@ -70,6 +70,7 @@ public class Navigation {
     bestPractice.add(new DefaultMutableTreeNode(new Node("theme", "best-practice/theme")));
     bestPractice.add(new DefaultMutableTreeNode(new Node("transition", "best-practice/transition")));
     bestPractice.add(new DefaultMutableTreeNode(new Node("nonFacesResponse", "best-practice/non-faces-response")));
+    bestPractice.add(new DefaultMutableTreeNode(new Node("forEach", "best-practice/for-each")));
     tree.add(bestPractice);
 
     DefaultMutableTreeNode reference = new DefaultMutableTreeNode(new Node("reference_intro", "reference/intro"));
