@@ -76,7 +76,7 @@
         <module>foreach</module>
         <module>nonfacesrequest</module>
         <module>experimental</module>
-        <!--<module>test</module>-->
+        <module>test</module>
       </modules>
     </profile>
     <profile>
@@ -91,7 +91,7 @@
         <module>sandbox</module>
         <module>security</module>
         <module>experimental</module>
-        <!--<module>test</module>-->
+        <module>test</module>
         <module>facelets</module>
         <module>tobago-example-assembly</module>
         <module>tobago-theme-example</module>
