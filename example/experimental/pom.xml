@@ -24,9 +24,9 @@
   </parent>
   <artifactId>tobago-example-test</artifactId>
   <packaging>war</packaging>
-  <name>Example Test</name>
+  <name>Tobago Example Experimental</name>
   <build>
-    <finalName>tobago-example-test</finalName>
+    <finalName>tobago-example-experimental</finalName>
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
