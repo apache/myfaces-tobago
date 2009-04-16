@@ -25,7 +25,7 @@
       <tc:gridLayout rows="*" columns="*;2*"/>
     </f:facet>
     <f:facet name="constraints">
-      <tc:gridConstraints width="600px" height="50px"/>
+      <tc:gridConstraints width="300px" height="50px"/>
     </f:facet>
     <tc:textarea
         value="Some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, ..."/>
