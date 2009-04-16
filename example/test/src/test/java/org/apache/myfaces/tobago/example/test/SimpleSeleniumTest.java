@@ -44,6 +44,7 @@ public class SimpleSeleniumTest extends TestCase {
   public void testHelloWorld() {
       selenium.open("http://localhost:8080/tobago-example-test/faces/simple.xhtml");
       assertEquals("Simple Test", selenium.getValue("page:in"));
+      selenium.captureScreenshot(SimpleSeleniumTest.class.getName() + ".testHelloWorld.png");
   }
 
 }
