@@ -1,0 +1,44 @@
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+-->
+
+<ui:composition template="/WEB-INF/tags/layout/overview.xhtml"
+                xmlns:jsp="http://java.sun.com/JSP/Page"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:tx="http://myfaces.apache.org/tobago/extension"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+  <ui:param name="title" value="Repeat/ForEach Test"/>
+
+  <!--  XXX not working! -->
+
+  <tc:panel>
+    <!--<f:facet name="layout">-->
+      <!--<tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;*"/>-->
+    <!--
+    XXX Without a gridLayout, the controls will be rendered, but cannot be seen,
+    XXX because there are behind other elements.
+    XXX With a gridLayout, it doesn't work correktly. 
+     -->
+    <!--</f:facet>-->
+    <ui:repeat value="#{bestPracticeController.birds}" var="bird">
+      <tx:in value="#{bird.size}" label="#{bird.name}"/>
+    </ui:repeat>
+    <tc:label value="Not working"/>
+    <tc:cell/>
+  </tc:panel>
+</ui:composition>

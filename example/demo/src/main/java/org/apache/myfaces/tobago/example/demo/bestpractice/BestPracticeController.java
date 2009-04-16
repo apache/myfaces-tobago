@@ -23,13 +23,24 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class BestPracticeController {
 
   private static final Log LOG = LogFactory.getLog(BestPracticeController.class);
+
+  private List<Bird> birds = Arrays.asList(
+      new Bird("Amsel", 25),
+      new Bird("Drossel", 25),
+      new Bird("Fink", 9),
+      new Bird("Star", 19)
+  );
+
+  private String status;
 
   public String throwException() {
     throw new RuntimeException("This exception is forced by the user.");
@@ -67,5 +78,17 @@ public class BestPracticeController {
     }
     facesContext.responseComplete();
     return null;
+  }
+
+  public List<Bird> getBirds() {
+    return birds;
+  }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
   }
 }
