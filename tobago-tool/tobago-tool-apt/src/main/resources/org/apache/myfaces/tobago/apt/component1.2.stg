@@ -245,6 +245,10 @@ SeverityProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+MeasureProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 OrderByProperty(property) ::= <<
 <NormalProperty(property)>
 >>

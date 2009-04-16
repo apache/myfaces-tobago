@@ -220,6 +220,16 @@ if (<it.propertyName> != null) {
 }
 >>
 
+Measure() ::= <<
+if (<it.propertyName> != null) {
+  if (!<it.propertyName>.isLiteralText()) {
+    <createValueBinding(it)>
+  } else {
+    component.set<it.upperCamelCaseName>(org.apache.myfaces.tobago.layout.Measure.parse(<it.propertyName>));
+  }
+}
+>>
+
 OrderBy() ::= <<
 if (<it.propertyName> != null) {
   if (!<it.propertyName>.isLiteralText()) {

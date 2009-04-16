@@ -67,7 +67,6 @@ public final class <tagInfo.className> extends <tagInfo.superClassName> {
     final FacesContext context = FacesContext.getCurrentInstance();
     final Application application = context.getApplication();
     <tagInfo.properties:{ p | <p:(p.template)()>}; separator="\n">
-
   }
 
   <tagInfo.properties:property(); separator="\n">
@@ -189,7 +188,6 @@ if (<it.propertyName> != null) {
 }
 >>
 
-/*
 Measure() ::= <<
 if (<it.propertyName> != null) {
   if (isValueReference(<it.propertyName>)) {
@@ -199,7 +197,6 @@ if (<it.propertyName> != null) {
   }
 }
 >>
-*/
 
 OrderBy() ::= <<
 if (<it.propertyName> != null) {

@@ -158,7 +158,6 @@ if (<it.propertyName> != null) {
 }
 >>
 
-/*
 Measure() ::= <<
 if (<it.propertyName> != null) {
   if (isValueReference(<it.propertyName>)) {
@@ -168,7 +167,6 @@ if (<it.propertyName> != null) {
   }
 }
 >>
-*/
 
 OrderBy() ::= <<
 if (<it.propertyName> != null) {
