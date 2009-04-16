@@ -73,7 +73,6 @@
         <module>addressbook</module>
         <module>blank</module>
         <module>demo</module>
-        <module>foreach</module>
         <module>nonfacesrequest</module>
         <module>experimental</module>
         <module>test</module>
@@ -85,7 +84,6 @@
         <module>addressbook</module>
         <module>blank</module>
         <module>demo</module>
-        <module>foreach</module>
         <module>nonfacesrequest</module>
         <module>portlet</module>
         <module>sandbox</module>
