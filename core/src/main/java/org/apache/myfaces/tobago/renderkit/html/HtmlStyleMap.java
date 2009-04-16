@@ -38,7 +38,7 @@ public class HtmlStyleMap extends HashMap<String, Object> {
     if (o instanceof String && (s.equals("height") || s.equals("width"))) {
       String str = (String) o;
       if (str.endsWith("px")) {
-        LOG.error("", new Exception());
+        LOG.error("width or height should not end with 'px'. Will ignored.", new Exception());
         o = Integer.parseInt(str.substring(0, str.length() - 2));
       }
     }
