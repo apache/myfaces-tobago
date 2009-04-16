@@ -83,7 +83,7 @@
         </executions>
         <configuration>
           <srcDir>src/main/webapp</srcDir>
-          <destDir>target/tobago-quality-assurance</destDir>
+          <destDir>target/tobago-example-test</destDir>
           <xslFile>../demo/src/main/xslt/facelet2jsp.xsl</xslFile>
           <srcIncludes>**/*.xhtml</srcIncludes>
           <fileNameRegex>(.*).xhtml</fileNameRegex>
