@@ -1220,7 +1220,7 @@
     <sunjsf.version>1.1_02</sunjsf.version>
     <sunjsf12.version>1.2_12</sunjsf12.version>
     <facelets.version>1.1.14</facelets.version>
-    <jetty.version>6.1.11</jetty.version>
+    <jetty.version>6.1.14</jetty.version>
     <common-io.version>1.1</common-io.version>
     <common-lang.version>2.1</common-lang.version>
     <commons-logging.version>1.1</commons-logging.version>
