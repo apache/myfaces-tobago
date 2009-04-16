@@ -32,6 +32,6 @@ public interface IsRequired {
    * ValidationError occurs and a Error Message is rendered.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @UIComponentTagAttribute(type = "boolean")
   void setRequired(String required);
 }

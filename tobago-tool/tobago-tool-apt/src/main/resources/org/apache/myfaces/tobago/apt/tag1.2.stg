@@ -182,6 +182,16 @@ if (<it.propertyName> != null) {
 }
 >>
 
+boolean() ::= <<
+if (<it.propertyName> != null) {
+  if (!<it.propertyName>.isLiteralText()) {
+    <createValueBinding(it)>
+  } else {
+    component.set<it.upperCamelCaseName>(Boolean.parseBoolean(<it.propertyName>.getExpressionString()));
+  }
+}
+>>
+
 Boolean() ::= <<
 if (<it.propertyName> != null) {
   if (!<it.propertyName>.isLiteralText()) {
@@ -257,6 +267,12 @@ if (<it.propertyName> != null) {
 SortActionListener() ::= <<
 if (<it.propertyName> != null) {
   component.set<it.template>Expression(<it.propertyName>);
+}
+>>
+
+TreeExpansionListener() ::= <<
+if (<it.propertyName> != null) {
+  component.add<it.template>(new org.apache.myfaces.tobago.event.MethodExpressionTreeExpansionListener(<it.propertyName>));
 }
 >>
 

@@ -35,6 +35,7 @@ public class MixedTreeModelUnitTest extends TestCase {
     model.endBuildNode(n1);
 
     model.onEncodeBegin();
+    assertEquals(new TreePath(0), model.getPath());
     model.onEncodeEnd();
   }
 
@@ -64,53 +65,100 @@ public class MixedTreeModelUnitTest extends TestCase {
   public void testLifecycleFromModel() {
 
     MixedTreeModel model = new MixedTreeModel();
-    DefaultMutableTreeNode tree = new DefaultMutableTreeNode();
-    tree.add(new DefaultMutableTreeNode());
-    tree.add(new DefaultMutableTreeNode());
+    DefaultMutableTreeNode tree = new DefaultMutableTreeNode("D_0");
+    tree.add(new DefaultMutableTreeNode("D_0_0"));
+    tree.add(new DefaultMutableTreeNode("D_0_1"));
 
     UITreeData data = new UITreeData();
     data.setValue(tree);
     UITreeNode node = new UITreeNode();
 
-    model.beginBuildNodeData(data);
+//    model.beginBuildNodeData(data);
+    model.beginBuildNode(node);
     model.beginBuildNode(node);
     model.endBuildNode(node);
-    model.endBuildNodeData(data);
+    model.beginBuildNode(node);
+    model.endBuildNode(node);
+    model.endBuildNode(node);
+//    model.endBuildNodeData(data);
 
     model.onEncodeBegin();
+    assertEquals(new TreePath(0), model.getPath());
     model.onEncodeBegin();
+    assertEquals(new TreePath(0, 0), model.getPath());
     model.onEncodeEnd();
     model.onEncodeBegin();
+    assertEquals(new TreePath(0, 1), model.getPath());
     model.onEncodeEnd();
     model.onEncodeEnd();
   }
 
+  /**
+   * * --o Root (0)
+   * *   |
+   * *   +--o Individual Node (0,0)
+   * *   |
+   * *   +--o Data Root Node (0,1)
+   * *      |
+   * *      +--o Data Sub Node 1 (0,1,0)
+   * *      |
+   * *      +--o Data Sub Node 2 (0,1,1)
+   * *         |
+   * *         +--o Data Sub Sub Node 3 (0,1,1,0)
+   */
   public void testLifecycleMixed() {
 
     MixedTreeModel model = new MixedTreeModel();
-    DefaultMutableTreeNode tree = new DefaultMutableTreeNode();
-    tree.add(new DefaultMutableTreeNode());
-    tree.add(new DefaultMutableTreeNode());
+    DefaultMutableTreeNode tree = new DefaultMutableTreeNode("root");
+    tree.add(new DefaultMutableTreeNode("node1"));
+    DefaultMutableTreeNode node2 = new DefaultMutableTreeNode("node2");
+    node2.add(new DefaultMutableTreeNode("node3"));
+    tree.add(node2);
 
     UITreeData data = new UITreeData();
     data.setValue(tree);
+    UITreeNode root = new UITreeNode();
+    UITreeNode individual = new UITreeNode();
     UITreeNode node = new UITreeNode();
 
+    model.beginBuildNode(root);
+    model.beginBuildNode(individual);
+    model.endBuildNode(individual);
+//    model.beginBuildNodeData(data);
     model.beginBuildNode(node);
-    model.beginBuildNodeData(data);
     model.beginBuildNode(node);
     model.endBuildNode(node);
-    model.endBuildNodeData(data);
+    model.beginBuildNode(node);
+    model.beginBuildNode(node);
     model.endBuildNode(node);
+    model.endBuildNode(node);
+    model.endBuildNode(node);
+//    model.endBuildNodeData(data);
+    model.endBuildNode(root);
 
-    model.onEncodeBegin();
-    model.onEncodeBegin();
-    model.onEncodeBegin();
-    model.onEncodeEnd();
-    model.onEncodeBegin();
-    model.onEncodeEnd();
-    model.onEncodeEnd();
-    model.onEncodeEnd();
+    model.onEncodeBegin(); // root
+    assertEquals(new TreePath(0), model.getPath());
+    model.onEncodeBegin(); // individual
+    assertEquals(new TreePath(0, 0), model.getPath());
+    model.onEncodeEnd(); // individual
+    assertEquals(new TreePath(0), model.getPath());
+    model.onEncodeBegin(); // data root node
+    assertEquals(new TreePath(0, 1), model.getPath());
+    model.onEncodeBegin(); // data sub node 1
+    assertEquals(new TreePath(0, 1, 0), model.getPath());
+    model.onEncodeEnd(); // data sub node 1
+    assertEquals(new TreePath(0, 1), model.getPath());
+    model.onEncodeBegin(); // data sub node 2
+    assertEquals(new TreePath(0, 1, 1), model.getPath());
+    model.onEncodeBegin(); // data sub node 3
+    assertEquals(new TreePath(0, 1, 1, 0), model.getPath());
+    model.onEncodeEnd(); // data sub node 3
+    assertEquals(new TreePath(0, 1, 1), model.getPath());
+    model.onEncodeEnd(); // data sub node 2
+    assertEquals(new TreePath(0, 1), model.getPath());
+    model.onEncodeEnd();  // data root node
+    assertEquals(new TreePath(0), model.getPath());
+    model.onEncodeEnd(); // root
   }
 
 }

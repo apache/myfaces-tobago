@@ -24,29 +24,28 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
-  <ui:param name="title" value="Tree - General (Event)"/>
-  <tc:box label="Tree - General (Event)">
+  <ui:param name="title" value="Tree - General (State)"/>
+  <tc:box label="Tree - General (State)">
     <f:facet name="layout">
       <tc:gridLayout margin="10px" rows="fixed;*"/>
     </f:facet>
-    <tc:out value="A tree with a mixed model of static and dynamic nodes. It uses the tree event mechanism." />
+    <tc:out value="A tree with a mixed model of static and dynamic nodes. It uses the tree state mechanism." />
     <tc:tree id="tree"
              showIcons="true"
              showJunctions="true"
              showRootJunction="true"
-             showRoot="true">
+             showRoot="true"
+             state="#{demo.treeState}">
       <tc:treeNode label="Root" id="root" expanded="true">
         <tc:treeData value="#{treeController.tree}" var="node" id="data">
           <tc:treeNode label="#{node.userObject.name}"
                        id="template"
-                       expanded="#{node.userObject.expanded}"
                        markup="#{node.userObject.markup}"
                        tip="#{node.userObject.tip}"
                        action="#{node.userObject.action}"
                        disabled="#{node.userObject.disabled}"
                        value="#{node}"
-                       image="image/feather.png"
-                       treeExpansionListener="#{node.userObject.expansionListener}"/>
+                       image="image/feather.png"/>
         </tc:treeData>
         <tc:treeNode label="2 Action 1" action="#{treeController.action1}" id="action1">
           <f:facet name="addendum">

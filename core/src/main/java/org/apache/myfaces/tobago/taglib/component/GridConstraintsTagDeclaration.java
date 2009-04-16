@@ -19,10 +19,10 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.taglib.decl.HasHeight;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
-import org.apache.myfaces.tobago.taglib.decl.HasWidth;
 
 @Tag(name = "gridConstraints", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
@@ -30,5 +30,19 @@ import org.apache.myfaces.tobago.taglib.decl.HasWidth;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIGridConstraints",
     componentFamily = "org.apache.myfaces.tobago.GridConstraints",
     allowedChildComponenents = "NONE", isLayout = true)
-public interface GridConstraintsTagDeclaration extends HasId, HasWidth, HasHeight {
+public interface GridConstraintsTagDeclaration extends HasId {
+
+  /**
+   *  The width for this component.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  void setWidth(String width);
+
+  /**
+   *  The height for this component.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  void setHeight(String height);
 }

@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -66,13 +67,22 @@ public interface TreeNodeTagDeclaration
    * Flag indicating if the subnodes are to be displayed.
    */
   @TagAttribute()
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
   void setExpanded(String expanded);
 
   /**
    * Flag indicating if the node is marked, and should be displayed in a special way.
    */
   @TagAttribute()
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
   void setMarked(String marked);
+
+  /**
+   * Method binding representing a expansionListener method that ....
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = {},
+       expression = DynamicExpression.METHOD_BINDING_REQUIRED,
+       methodSignature = "org.apache.myfaces.tobago.event.TreeExpansionEvent")
+  void setTreeExpansionListener(String treeExpansionListener);
 }

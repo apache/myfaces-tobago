@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.component;
+package org.apache.myfaces.tobago.model;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,14 +17,11 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.model.MixedTreeModel;
+/**
+ * User: lofwyr
+ * Date: 04.12.2008
+ */
+public interface TreeAnalyser {
 
-import javax.faces.context.FacesContext;
-
-public interface TreeModelBuilder {
-
-  void buildTreeModelBegin(FacesContext facesContext, MixedTreeModel model);
-  void buildTreeModelChildren(FacesContext facesContext, MixedTreeModel model);
-  void buildTreeModelEnd(FacesContext facesContext, MixedTreeModel model);
-
+  int computeDepth();
 }

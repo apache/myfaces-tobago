@@ -110,15 +110,6 @@ span.tobago-progress {
 
 /* Tree old -------------------------------------------------------------------- */
 
-.tobago-treeOld-default {
-  overflow: auto;
-  padding: 0px;
-  margin: 0px;
-  font: icon;
-  color: black;
-  white-space: nowrap;
-}
-
 .tree-folder-label, .tree-item-label, .tree-folder-label:active,
   .tree-item-label:active, .tree-folder-label:hover, .tree-item-label:hover {
   margin-left: 3px;

@@ -31,6 +31,6 @@ public interface IsImmediateCommand {
    * waiting until Invoke Application phase.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setImmediate(String immediate);
 }

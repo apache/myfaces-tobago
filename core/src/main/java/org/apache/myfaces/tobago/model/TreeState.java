@@ -17,10 +17,9 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
-import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.apache.commons.lang.StringUtils;
 
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,32 +32,58 @@ import java.util.Set;
  */
 public class TreeState {
 
-  public static final String SEP = ";";
+  private Set<TreePath> expanded;
+  private Set<TreePath> selected;
+  private Set<TreePath> marked;
 
+  @Deprecated
   private Set<DefaultMutableTreeNode> selection;
+  @Deprecated
   private Set<DefaultMutableTreeNode> expandState;
+  @Deprecated
   private DefaultMutableTreeNode marker;
+  @Deprecated
   private DefaultMutableTreeNode lastMarker;
+  @Deprecated
   private String lastCommand;
   private Integer[] scrollPosition;
 
   public TreeState() {
     selection = new HashSet<DefaultMutableTreeNode>();
     expandState = new HashSet<DefaultMutableTreeNode>();
+    expanded = new HashSet<TreePath>();
+    selected = new HashSet<TreePath>();
+    marked = new HashSet<TreePath>();
   }
 
+  public Set<TreePath> getExpanded() {
+    return expanded;
+  }
+
+  public Set<TreePath> getSelected() {
+    return selected;
+  }
+
+  public Set<TreePath> getMarked() {
+    return marked;
+  }
+
+  @Deprecated
   public void addExpandState(DefaultMutableTreeNode expandStateItem) {
     expandState.add(expandStateItem);
   }
 
+  @Deprecated
   public void addSelection(DefaultMutableTreeNode selectItem) {
     selection.add(selectItem);
   }
 
+  @Deprecated
   public void clearExpandState() {
     expandState.clear();
   }
 
+  @Deprecated
   public void clearSelection() {
     selection.clear();
   }
@@ -66,12 +91,14 @@ public class TreeState {
   /**
    * Adds a (external created) node to the actually marked node.
    */
+  @Deprecated
   public void commandNew(DefaultMutableTreeNode newNode) {
     marker.insert(newNode, 0);
     setLastMarker(null);
     setLastCommand(null);
   }
 
+  @Deprecated
   public void expand(DefaultMutableTreeNode node, int level) {
     if (level > 0) {
       if (!expandState.contains(node)) {
@@ -87,12 +114,14 @@ public class TreeState {
   /**
    * Expands all parents which contains selected children.
    */
+  @Deprecated
   public void expandSelection() {
     for (DefaultMutableTreeNode treeNode : selection) {
       expandTo(treeNode);
     }
   }
 
+  @Deprecated
   public void expandTo(DefaultMutableTreeNode node) {
     node = (DefaultMutableTreeNode) node.getParent();
     while (node != null) {
@@ -103,54 +132,67 @@ public class TreeState {
     }
   }
 
+  @Deprecated
   public boolean isExpanded(DefaultMutableTreeNode node) {
     return expandState.contains(node);
   }
 
+  @Deprecated
   public boolean isMarked(DefaultMutableTreeNode node) {
     return node != null && node.equals(marker);
   }
 
+  @Deprecated
   public boolean isSelected(DefaultMutableTreeNode node) {
     return selection.contains(node);
   }
 
+  @Deprecated
   public Set<DefaultMutableTreeNode> getExpandState() {
     return expandState;
   }
 
+  @Deprecated
   public void setExpandState(Set<DefaultMutableTreeNode> expandState) {
     this.expandState = expandState;
   }
 
+  @Deprecated
   public String getLastCommand() {
     return lastCommand;
   }
 
+  @Deprecated
   public void setLastCommand(String lastCommand) {
     this.lastCommand = lastCommand;
   }
 
+  @Deprecated
   public DefaultMutableTreeNode getLastMarker() {
     return lastMarker;
   }
 
+  @Deprecated
   public void setLastMarker(DefaultMutableTreeNode lastMarker) {
     this.lastMarker = lastMarker;
   }
 
+  @Deprecated
   public DefaultMutableTreeNode getMarker() {
     return marker;
   }
 
+  @Deprecated
   public void setMarker(DefaultMutableTreeNode marker) {
     this.marker = marker;
   }
 
+  @Deprecated
   public Set<DefaultMutableTreeNode> getSelection() {
     return selection;
   }
 
+  @Deprecated
   public void setSelection(Set<DefaultMutableTreeNode> selection) {
     this.selection = selection;
   }

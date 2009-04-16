@@ -17,11 +17,12 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
-import org.apache.myfaces.tobago.model.TreeModel;
+import org.apache.myfaces.tobago.model.Node;
+import org.apache.myfaces.tobago.model.TreePath;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -32,6 +33,7 @@ import javax.faces.event.FacesListener;
 import javax.faces.event.PhaseId;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,47 +46,40 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
 
   private String var;
 
-  private TreeModel treeModel;
-
   private DefaultMutableTreeNode currentNode;
 
-  private String currentNodeId;
-
-  private String currentParentNodeId;
-
-  private String pathIndex;
+  private TreePath rowIndex;
 
   // XXX hack: fix this if there is a Listener
   private Object marker;
 
-//  @Override public void processDecodes(FacesContext facesContext) {
-//    LOG.info("processDecodes for nodes");
-//    LOG.warn("todo"); // todo
-//    super.processDecodes(facesContext);
-//  }
-
   // Holds for each node the states of the child components of this UITreeData.
-  private Map<String, Object> pathStates = new HashMap<String, Object>();
+  private Map<TreePath, Object> pathStates = new HashMap<TreePath, Object>();
 
   @Override
   public void processDecodes(FacesContext facesContext) {
 
-    // todo: does treeModel should be stored in the state?
-    // todo: what is, when the value has been changed since last rendering?
-    treeModel = new TreeModel((DefaultMutableTreeNode) getValue());
-    AbstractUITreeNode node = getTemplateComponent();
+    decodeNodes(facesContext, (DefaultMutableTreeNode) getValue(), new TreePath(0));
+  }
 
-    // TODO invoke decode on the children which are not instanceof UITreeNode
-    for (String pathIndex : treeModel.getPathIndexList()) {
-      setPathIndex(pathIndex);
-      node.processDecodes(facesContext);
+  private void decodeNodes(FacesContext facesContext, DefaultMutableTreeNode node, TreePath position) {
 
-      // XXX hack: fix this if there is a Listener
-      if (node.isMarked()) {
-        marker = node.getValue();
-      }
+    setRowIndex(facesContext, position);
+    LOG.info("path index (decode) = '" + position + "'");
+    AbstractUITreeNode templateComponent = getTemplateComponent();
+    templateComponent.processDecodes(facesContext);
+    setRowIndex(facesContext, null);
 
-      setPathIndex(null);
+    // XXX hack: fix this if there is a Listener
+    if (templateComponent.isMarked()) {
+      marker = templateComponent.getValue();
+    }
+
+    int index = 0;
+    for (Enumeration e = node.children(); e.hasMoreElements();) {
+      DefaultMutableTreeNode sub = (DefaultMutableTreeNode) e.nextElement();
+      decodeNodes(facesContext, sub, new TreePath(position, index));
+      index++;
     }
   }
 
@@ -93,68 +88,103 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
 
   }
 
-  public String getPathIndex() {
-    return pathIndex;
+  public TreePath getRowIndex() {
+    return rowIndex;
   }
 
-  public void setPathIndex(String pathIndex) {
+  private void setRowIndex(FacesContext facesContext, TreePath rowIndex) {
 
-    if (StringUtils.equals(this.pathIndex, pathIndex)) {
+    if (ObjectUtils.equals(this.rowIndex, rowIndex)) {
       return; // nothing to do, if already set.
     }
 
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-
     AbstractUITreeNode template = getTemplateComponent();
-    pathStates.put(this.pathIndex, template.saveState(facesContext));
+    pathStates.put(this.rowIndex, template.saveState(facesContext));
     if (LOG.isDebugEnabled()) {
-      LOG.debug("save   " + this.pathIndex + " ex=" + template.isExpanded());
+      LOG.debug("save   " + this.rowIndex + " ex=" + template.isExpanded());
     }
 
     // reset the client id (see spec 3.1.6)
     template.setId(template.getId());
 
-    this.pathIndex = pathIndex;
-    if (pathIndex != null) {
-      currentNode = treeModel.getNode(pathIndex);
+    this.rowIndex = rowIndex;
+    if (rowIndex != null) {
+      DefaultMutableTreeNode model = (DefaultMutableTreeNode) getValue();
+      currentNode = rowIndex.getNode(model);
       facesContext.getExternalContext().getRequestMap().put(var, currentNode);
-      // todo: remove currentNodeId
-      currentNodeId = pathIndex;
-      currentParentNodeId = treeModel.getParentPathIndex(pathIndex);
     } else {
       FacesContext.getCurrentInstance().getExternalContext().getRequestMap().remove(var);
       currentNode = null;
-      currentNodeId = null;
-      currentParentNodeId = null;
     }
 
-    Object state = pathStates.get(this.pathIndex);
+    Object state = pathStates.get(this.rowIndex);
     if (state != null) {
       template.restoreState(facesContext, state);
       if (LOG.isDebugEnabled()) {
-        LOG.debug("restore " + this.pathIndex + " ex=" + template.isExpanded());
+        LOG.debug("restore " + this.rowIndex + " ex=" + template.isExpanded());
       }
     }
-
   }
-
-  public void buildBegin(MixedTreeModel model) {
+/*
+  public void buildTreeModel(MixedTreeModel model) {
     model.beginBuildNodeData(this);
+    // childred are not needed to add here
+    model.endBuildNodeData(this);
   }
+  */
 
-  public void buildChildren(MixedTreeModel model) {
-    for (Object child : getChildren()) {
-      if (child instanceof TreeModelBuilder) {
-        TreeModelBuilder builder = (TreeModelBuilder) child;
-        builder.buildBegin(model);
-        builder.buildChildren(model);
-        builder.buildEnd(model);
-      }
+  public void buildTreeModelBegin(FacesContext facesContext, MixedTreeModel model) {
+    Object data = getValue();
+    if (data instanceof Node) {
+      buildTreeModelNodes(facesContext, model, (Node)data, new TreePath(0));
+    } else if (data instanceof DefaultMutableTreeNode) {
+      buildTreeModelNodes(facesContext, model, (DefaultMutableTreeNode)data, new TreePath(0));
     }
   }
 
-  public void buildEnd(MixedTreeModel model) {
-    model.endBuildNodeData(this);
+  public void buildTreeModelChildren(FacesContext facesContext, MixedTreeModel model) {
+  }
+
+  public void buildTreeModelEnd(FacesContext facesContext, MixedTreeModel model) {
+  }
+
+  public void buildTreeModelNodes(
+      FacesContext facesContext, MixedTreeModel model, Node node, TreePath position) {
+
+    setRowIndex(facesContext, position);
+    LOG.info("path index (build) node = '" + position + "'");
+
+    getTemplateComponent().buildTreeModelBegin(facesContext, model);
+
+    int index = 0;
+    for (Node sub : node.getChildren()) {
+      buildTreeModelNodes(facesContext, model, sub, new TreePath(position, index));
+      index++;
+    }
+
+    getTemplateComponent().buildTreeModelEnd(facesContext, model);
+
+    setRowIndex(facesContext, null);
+  }
+
+  public void buildTreeModelNodes(
+      FacesContext facesContext, MixedTreeModel model, DefaultMutableTreeNode node, TreePath position) {
+
+    setRowIndex(facesContext, position);
+    LOG.info("path index (build) dmtn = '" + position + "'");
+
+    getTemplateComponent().buildTreeModelBegin(facesContext, model);
+
+    int index = 0;
+    for (Enumeration e = node.children(); e.hasMoreElements();) {
+      DefaultMutableTreeNode sub = (DefaultMutableTreeNode) e.nextElement();
+      buildTreeModelNodes(facesContext, model, sub, new TreePath(position, index));
+      index++;
+    }
+
+    getTemplateComponent().buildTreeModelEnd(facesContext, model);
+
+    setRowIndex(facesContext, null);
   }
 
   @Override
@@ -163,22 +193,29 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
 
   @Override
   public void encodeEnd(FacesContext facesContext) throws IOException {
+    encodeNodes(facesContext, (DefaultMutableTreeNode) getValue(), new TreePath(0));
+    super.encodeEnd(facesContext);
+  }
 
-    // todo: does treeModel should be stored in the state?
-    treeModel = new TreeModel((DefaultMutableTreeNode) getValue());
+  private void encodeNodes(FacesContext facesContext, DefaultMutableTreeNode node, TreePath position)
+      throws IOException {
 
-    for (TreeModel.Tag pathIndex : treeModel.getDoublePathIndexList()) {
-      setPathIndex(pathIndex.getName());
-      if (pathIndex.isStart()) {
-        getTemplateComponent().encodeBegin(facesContext);
-      } else {
-        getTemplateComponent().encodeEnd(facesContext);
-      }
-//      RenderUtil.encode(facesContext, getTemplateComponent());
-      setPathIndex(null);
+    setRowIndex(facesContext, position);
+    LOG.info("path index (begin)  = '" + position + "'");
+    getTemplateComponent().encodeBegin(facesContext);
+    setRowIndex(facesContext, null);
+
+    int index = 0;
+    for (Enumeration e = node.children(); e.hasMoreElements();) {
+      DefaultMutableTreeNode sub = (DefaultMutableTreeNode) e.nextElement();
+      encodeNodes(facesContext, sub, new TreePath(position, index));
+      index++;
     }
 
-    super.encodeEnd(facesContext);
+    setRowIndex(facesContext, position);
+    LOG.info("path index (end)    = '" + position + "'");
+    getTemplateComponent().encodeEnd(facesContext);
+    setRowIndex(facesContext, null);
   }
 
   @Override
@@ -204,10 +241,10 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
   @Override
   public String getClientId(FacesContext context) {
     String clientId = super.getClientId(context);
-    if (pathIndex == null) {
+    if (rowIndex == null) {
       return clientId;
     }
-    return clientId + NamingContainer.SEPARATOR_CHAR + pathIndex;
+    return clientId + NamingContainer.SEPARATOR_CHAR + rowIndex;
   }
 
   public UIComponent findComponent(String searchId) {
@@ -221,20 +258,21 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
 
   @Override
   public void queueEvent(FacesEvent event) {
-    super.queueEvent(new FacesEventWrapper(event, getPathIndex(), this));
+    super.queueEvent(new FacesEventWrapper(event, getRowIndex(), this));
   }
 
   @Override
   public void broadcast(FacesEvent event) throws AbortProcessingException {
     if (event instanceof FacesEventWrapper) {
+      FacesContext facesContext = FacesContext.getCurrentInstance();
       FacesEvent originalEvent = ((FacesEventWrapper) event).getWrappedFacesEvent();
-      String eventPathIndex = ((FacesEventWrapper) event).getPathIndex();
-      String currentPathIndex = getPathIndex();
-      setPathIndex(eventPathIndex);
+      TreePath eventPathIndex = ((FacesEventWrapper) event).getRowIndex();
+      TreePath currentPathIndex = getRowIndex();
+      setRowIndex(facesContext, eventPathIndex);
       try {
         originalEvent.getComponent().broadcast(originalEvent);
       } finally {
-        setPathIndex(currentPathIndex);
+        setRowIndex(facesContext, currentPathIndex);
       }
     } else {
       super.broadcast(event);
@@ -272,33 +310,17 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
     this.currentNode = currentNode;
   }
 
-  public String getCurrentNodeId() {
-    return currentNodeId;
-  }
-
-  public void setCurrentNodeId(String currentNodeId) {
-    this.currentNodeId = currentNodeId;
-  }
-
-  public String getCurrentParentNodeId() {
-    return currentParentNodeId;
-  }
-
-  public void setCurrentParentNodeId(String currentParentNodeId) {
-    this.currentParentNodeId = currentParentNodeId;
-  }
-
   private static class FacesEventWrapper extends FacesEvent {
 
     private static final long serialVersionUID = 1L;
 
     private FacesEvent wrappedFacesEvent;
-    private String pathIndex;
+    private TreePath rowIndex;
 
-    FacesEventWrapper(FacesEvent facesEvent, String pathIndex, AbstractUITreeData redirectComponent) {
+    FacesEventWrapper(FacesEvent facesEvent, TreePath rowIndex, AbstractUITreeData redirectComponent) {
       super(redirectComponent);
       wrappedFacesEvent = facesEvent;
-      this.pathIndex = pathIndex;
+      this.rowIndex = rowIndex;
     }
 
     @Override
@@ -336,8 +358,8 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
       return wrappedFacesEvent;
     }
 
-    public String getPathIndex() {
-      return pathIndex;
+    public TreePath getRowIndex() {
+      return rowIndex;
     }
   }
 

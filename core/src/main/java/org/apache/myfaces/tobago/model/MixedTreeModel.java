@@ -19,11 +19,9 @@ package org.apache.myfaces.tobago.model;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.AbstractUITreeData;
 import org.apache.myfaces.tobago.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.component.Attributes;
 
-import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -36,26 +34,23 @@ public class MixedTreeModel {
 
   private static final Log LOG = LogFactory.getLog(MixedTreeModel.class);
 
-  private DefaultMutableTreeNode root;
-  private DefaultMutableTreeNode current;
+  private Node root;
+  private Node current;
   private Integer nextChildIndex;
-  private DefaultMutableTreeNode dataRoot;
-  private boolean isInData;
   private Stack<Boolean> junctions = new Stack<Boolean>();
 
   public void beginBuildNode(AbstractUITreeNode node) {
     if (LOG.isDebugEnabled()) {
       LOG.debug(node.getAttributes().get(Attributes.LABEL));
     }
-    if (!isInData) {
-      DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(node.getAttributes().get(Attributes.LABEL));
-      if (root == null) {
-        root = newNode;
-        current = root;
-      } else {
-        current.add(newNode);
-        current = newNode;
-      }
+    Node newNode = new Node();
+    newNode.setLabel((String) node.getAttributes().get(Attributes.LABEL));
+    if (root == null) {
+      root = newNode;
+      current = root;
+    } else {
+      current.add(newNode);
+      current = newNode;
     }
   }
 
@@ -63,30 +58,7 @@ public class MixedTreeModel {
     if (LOG.isDebugEnabled()) {
       LOG.debug(node.getAttributes().get(Attributes.LABEL));
     }
-    if (!isInData) {
-      current = (DefaultMutableTreeNode) current.getParent();
-    }
-  }
-
-  public void beginBuildNodeData(AbstractUITreeData data) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("var=" + data.getVar());
-    }
-    current = new DefaultMutableTreeNode(data.getValue());
-    if (root == null) {
-      root = current;
-    } else {
-      root.add(current);
-    }
-    isInData = true;
-  }
-
-  public void endBuildNodeData(AbstractUITreeData data) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("var=" + data.getVar());
-    }
-    current = (DefaultMutableTreeNode) current.getParent();
-    isInData = false;
+    current = current.getParent();
   }
 
   public void onEncodeBegin() {
@@ -96,12 +68,7 @@ public class MixedTreeModel {
     if (current == null) {
       current = root;
     } else {
-      current = (DefaultMutableTreeNode) current.getChildAt(nextChildIndex);
-    }
-    if (!isInData && current.getUserObject() instanceof DefaultMutableTreeNode) {
-      isInData = true;
-      dataRoot = current;
-      current = (DefaultMutableTreeNode) current.getUserObject();
+      current = current.getChildAt(nextChildIndex);
     }
     nextChildIndex = 0;
 
@@ -112,11 +79,7 @@ public class MixedTreeModel {
     if (LOG.isDebugEnabled()) {
       LOG.debug("current=" + current);
     }
-    if (isInData && current.isRoot()) {
-      current = dataRoot;
-      isInData = false;
-    }
-    DefaultMutableTreeNode parent = (DefaultMutableTreeNode) current.getParent();
+    Node parent = current.getParent();
     if (parent != null) {
       nextChildIndex = parent.getIndex(current) + 1;
       current = parent;
@@ -129,27 +92,7 @@ public class MixedTreeModel {
   }
 
   public boolean hasCurrentNodeNextSibling() {
-    boolean result;
-    if (isInData && current.isRoot()) {
-      result = dataRoot.getNextSibling() != null;
-    } else {
-      result = current.getNextSibling() != null;
-    }
-    return result;
-  }
-
-  public boolean isFolder() {
-    boolean folder = current.getChildCount() > 0;
-    return folder;
-  }
-
-  public int getDepth() {
-    int depth = junctions.size();
-    return depth;
-  }
-
-  public boolean isRoot() {
-    return junctions.size() < 2;
+    return current.hasNextSibling();
   }
 
   public List<Boolean> getJunctions() {
@@ -159,4 +102,7 @@ public class MixedTreeModel {
     return result;
   }
 
+  public TreePath getPath() {
+    return current.getPath();
+  }
 }

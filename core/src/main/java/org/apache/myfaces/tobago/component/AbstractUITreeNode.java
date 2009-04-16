@@ -19,38 +19,154 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
+import org.apache.myfaces.tobago.model.TreePath;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.el.EvaluationException;
+import javax.faces.el.MethodBinding;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.io.IOException;
+import java.util.List;
 
 public abstract class AbstractUITreeNode extends AbstractUICommand implements SupportsMarkup, TreeModelBuilder {
 
   private static final Log LOG = LogFactory.getLog(AbstractUITreeNode.class);
+
+  private int depth;
+  private boolean folder;
+  private TreePath path;
+  private List<Boolean> junctions;
+  private boolean hasNextSibling;
 
   @Override
   public boolean getRendersChildren() {
     return true;
   }
 
-  public void buildBegin(MixedTreeModel model) {
+  public void buildTreeModelBegin(FacesContext facesContext, MixedTreeModel model) {
     model.beginBuildNode(this);
+    setDepth(computeDepth(this));
+    setFolder(computeFolder());
   }
 
-  public void buildChildren(MixedTreeModel model) {
+  public void buildTreeModelChildren(FacesContext facesContext, MixedTreeModel model) {
     for (Object child : getChildren()) {
       if (child instanceof TreeModelBuilder) {
         TreeModelBuilder builder = (TreeModelBuilder) child;
-        builder.buildBegin(model);
-        builder.buildChildren(model);
-        builder.buildEnd(model);
+        builder.buildTreeModelBegin(facesContext, model);
+        builder.buildTreeModelChildren(facesContext, model);
+        builder.buildTreeModelEnd(facesContext, model);
       }
     }
   }
 
-  public void buildEnd(MixedTreeModel model) {
+  public void buildTreeModelEnd(FacesContext facesContext, MixedTreeModel model) {
     model.endBuildNode(this);
+  }
+
+  @Override
+  public void encodeBegin(FacesContext context) throws IOException {
+    AbstractUITree tree = findTree();
+    MixedTreeModel mixedModel = tree.getModel();
+    mixedModel.onEncodeBegin();
+    setPath(mixedModel.getPath());
+    setHasNextSibling(computeHasNextSibling());
+    setJunctions(mixedModel.getJunctions());
+    super.encodeBegin(context);
+  }
+
+  @Override
+  public void encodeEnd(FacesContext context) throws IOException {
+    super.encodeEnd(context);
+    AbstractUITree tree = findTree();
+    MixedTreeModel mixedModel = tree.getModel();
+    mixedModel.onEncodeEnd();
+  }
+
+  private int computeDepth(UIComponent node) {
+    int depth = 0;
+    while (node != null) {
+      depth++;
+      if (node instanceof AbstractUITree) {
+        return depth;
+      }
+      if (node instanceof AbstractUITreeData) {
+        Object dataTree = ((AbstractUITreeData) node).getValue();
+        // todo: make independent from impl.
+        if (dataTree instanceof DefaultMutableTreeNode) {
+          return ((DefaultMutableTreeNode) dataTree).getDepth();
+        }
+        LOG.warn("Tree type not supported");
+      }
+      node = node.getParent();
+    }
+    throw new RuntimeException("Not inside of a UITree");
+  }
+
+  private boolean computeFolder() {
+    if (isInData()) {
+      Object value = getValue();
+      // todo: make independent from impl.
+      if (value instanceof DefaultMutableTreeNode) {
+        return !((DefaultMutableTreeNode)value).isLeaf();
+      }
+      LOG.warn("Tree type not supported");
+      return true;
+    } else {
+      return getChildCount() != 0;
+    }
+  }
+
+  private boolean computeHasNextSibling() {
+    if (isInData()) {
+      Object value = getValue();
+      // todo: make independent from impl.
+      if (value instanceof DefaultMutableTreeNode) {
+
+        DefaultMutableTreeNode tree = (DefaultMutableTreeNode) value;
+        if (tree.isRoot()) {
+          return hasSiblingAfter(getParent().getParent(), getParent());
+        } else {
+          return tree.getNextSibling() != null;
+        }
+      }
+      LOG.warn("Tree type not supported");
+      return false;
+    } else {
+      return hasSiblingAfter(getParent(), this);
+    }
+  }
+
+  private boolean hasSiblingAfter(UIComponent parent, UIComponent child) {
+    boolean found = false;
+    for (Object sibling : parent.getChildren()) {
+      if (child.equals(sibling)) {
+        found = true;
+        continue;
+      }
+      if (found) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private boolean isInData() {
+    UIComponent component = this;
+    while (component != null) {
+      if (component instanceof AbstractUITreeData) {
+        return true;
+      } else if (component instanceof AbstractUITree) {
+        return false;
+      }
+      component = component.getParent();
+    }
+    return false;
   }
 
   @Override
@@ -68,7 +184,6 @@ public abstract class AbstractUITreeNode extends AbstractUICommand implements Su
   }
 
   public String nodeStateId(FacesContext facesContext) {
-    // this must do the same as nodeStateId() in tree.js
     String clientId = getClientId(facesContext);
     AbstractUITree tree = findTree(this);
     String treeId = tree.getClientId(facesContext);
@@ -89,12 +204,93 @@ public abstract class AbstractUITreeNode extends AbstractUICommand implements Su
     return null;
   }
 
+  @Override
+  public void broadcast(FacesEvent event) throws AbortProcessingException {
+    super.broadcast(event);
+    if (event instanceof TreeExpansionEvent) {
+      invokeMethodBinding(getTreeExpansionListener(), event);
+    }
+  }
 
-  public abstract void setExpanded(boolean expanded);
+  private void invokeMethodBinding(MethodBinding methodBinding, FacesEvent event) {
+    if (methodBinding != null && event != null) {
+      try {
+        methodBinding.invoke(getFacesContext(), new Object[]{event});
+      } catch (EvaluationException e) {
+        Throwable cause = e.getCause();
+        if (cause instanceof AbortProcessingException) {
+          throw (AbortProcessingException) cause;
+        } else {
+          throw e;
+        }
+      }
+    }
+  }
 
-  public abstract void setMarked(boolean b);
+  public void restoreState(FacesContext context, Object componentState) {
+    Object[] values = (Object[]) componentState;
+    super.restoreState(context, values[0]);
+    path = (TreePath) values[1];
+    folder = (Boolean) values[2];
+  }
 
-  public abstract boolean isMarked();
+  public Object saveState(FacesContext context) {
+    Object[] values = new Object[3];
+    values[0] = super.saveState(context);
+    values[1] = path;
+    values[2] = folder;
+    return values;
+  }
 
-  public abstract boolean isExpanded();
+  public int getDepth() {
+    return depth;
+  }
+
+  public void setDepth(int depth) {
+    this.depth = depth;
+  }
+
+  public boolean isFolder() {
+    return folder;
+  }
+
+  public void setFolder(boolean folder) {
+    this.folder = folder;
+  }
+
+  public TreePath getPath() {
+    return path;
+  }
+
+  public void setPath(TreePath path) {
+    this.path = path;
+  }
+
+  public List<Boolean> getJunctions() {
+    return junctions;
+  }
+
+  public void setJunctions(List<Boolean> junctions) {
+    this.junctions = junctions;
+  }
+
+  public boolean isHasNextSibling() {
+    return hasNextSibling;
+  }
+
+  public void setHasNextSibling(boolean hasNextSibling) {
+    this.hasNextSibling = hasNextSibling;
+  }
+
+  public abstract MethodBinding getTreeExpansionListener();
+
+  public abstract void setTreeExpansionListener(MethodBinding treeExpansionListener);
+
+  public abstract void setExpanded(Boolean expanded);
+
+  public abstract void setMarked(Boolean b);
+
+  public abstract Boolean isMarked();
+
+  public abstract Boolean isExpanded();
 }

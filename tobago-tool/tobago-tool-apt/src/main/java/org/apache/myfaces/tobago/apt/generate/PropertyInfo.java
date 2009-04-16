@@ -81,6 +81,10 @@ public class PropertyInfo {
     return type;
   }
 
+  public String getInternalType() {
+    return "boolean".equals(type) ? Boolean.class.getName() : getType();
+  }
+
   public boolean isWidthOrHeight() {
     return "width".equals(name) || "height".equals(name);
   }

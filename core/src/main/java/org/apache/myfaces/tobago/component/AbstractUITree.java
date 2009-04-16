@@ -28,31 +28,19 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 
 public abstract class AbstractUITree extends UIInput implements NamingContainer {
 
-  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Tree";
   public static final String MESSAGE_NOT_LEAF = "tobago.tree.MESSAGE_NOT_LEAF";
 
   public static final String SEP = "-";
 
-  public static final String TREE_STATE = SEP + "treeState";
   public static final String SELECT_STATE = SEP + "selectState";
   public static final String MARKER = SEP + "marker";
 
-  public static final String PARAMETER_TREE_NODE_ID = "treeNodeId";
-
- /* private Boolean showJunctions = true;
-  private Boolean showIcons = true;
-  private Boolean showRoot = true;
-  private Boolean showRootJunction = true;
-
-  private String mode;*/
   private MixedTreeModel model;
-
 
   public UIComponent getRoot() {
     // find the UITreeNode in the childen.
@@ -67,22 +55,24 @@ public abstract class AbstractUITree extends UIInput implements NamingContainer 
     return null;
   }
 
-  public void encodeEnd(FacesContext context) throws IOException {
+  public void encodeEnd(FacesContext facesContext) throws IOException {
     model = new MixedTreeModel();
-
-    buildModel();
-    super.encodeEnd(context);
-  }
-
-  private void buildModel() {
     for (Object child : getChildren()) {
       if (child instanceof TreeModelBuilder) {
         TreeModelBuilder builder = (TreeModelBuilder) child;
-        builder.buildBegin(model);
-        builder.buildChildren(model);
-        builder.buildEnd(model);
+        builder.buildTreeModelBegin(facesContext, model);
+        builder.buildTreeModelChildren(facesContext, model);
+        builder.buildTreeModelEnd(facesContext, model);
       }
     }
+
+    super.encodeEnd(facesContext);
+
+    model = null;
+  }
+
+  public MixedTreeModel getModel() {
+    return model;
   }
 
   public boolean getRendersChildren() {
@@ -175,108 +165,6 @@ public abstract class AbstractUITree extends UIInput implements NamingContainer 
   public abstract boolean isShowJunctions();
 
   public abstract boolean isShowRootJunction();
-   
+
   public abstract boolean isShowRoot();
-
-  /*public Object saveState(FacesContext context) {
-   Object[] state = new Object[6];
-   state[0] = super.saveState(context);
-   state[1] = showJunctions;
-   state[2] = showIcons;
-   state[3] = showRoot;
-   state[4] = showRootJunction;
-   state[5] = mode;
-   return state;
- }
-
- public void restoreState(FacesContext context, Object state) {
-   Object[] values = (Object[]) state;
-   super.restoreState(context, values[0]);
-   showJunctions = (Boolean) values[1];
-   showIcons = (Boolean) values[2];
-   showRoot = (Boolean) values[3];
-   showRootJunction = (Boolean) values[4];
-   mode = (String) values[5];
- }
-
- public boolean isShowJunctions() {
-   if (showJunctions != null) {
-     return (showJunctions);
-   }
-   ValueBinding vb = getValueBinding(SHOW_JUNCTIONS);
-   if (vb != null) {
-     return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
-   } else {
-     return (this.showJunctions);
-   }
- }
-
- public void setShowJunctions(boolean showJunctions) {
-   this.showJunctions = showJunctions;
- }
-
- public boolean isShowIcons() {
-   if (showIcons != null) {
-     return (showIcons);
-   }
-   ValueBinding vb = getValueBinding(SHOW_ICONS);
-   if (vb != null) {
-     return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
-   } else {
-     return (this.showIcons);
-   }
- }
-
- public void setShowIcons(boolean showIcons) {
-   this.showIcons = showIcons;
- }
-
- public boolean isShowRoot() {
-   if (showRoot != null) {
-     return (showRoot);
-   }
-   ValueBinding vb = getValueBinding(SHOW_ROOT);
-   if (vb != null) {
-     return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
-   } else {
-     return (this.showRoot);
-   }
- }
-
- public void setShowRoot(boolean showRoot) {
-   this.showRoot = showRoot;
-
- }
-
- public boolean isShowRootJunction() {
-   if (showRootJunction != null) {
-     return (showRootJunction);
-   }
-   ValueBinding vb = getValueBinding(SHOW_ROOT_JUNCTION);
-   if (vb != null) {
-     return (!Boolean.FALSE.equals(vb.getValue(getFacesContext())));
-   } else {
-     return (this.showRootJunction);
-   }
- }
-
- public void setShowRootJunction(boolean showRootJunction) {
-   this.showRootJunction = showRootJunction;
- } */
-
-  public static class Command implements Serializable {
-    private String command;
-
-    public Command(String command) {
-      this.command = command;
-    }
-
-    public String getCommand() {
-      return command;
-    }
-  }
-
-  public MixedTreeModel getModel() {
-    return model;
-  }
 }

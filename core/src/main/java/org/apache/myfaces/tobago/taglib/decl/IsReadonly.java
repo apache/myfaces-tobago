@@ -30,6 +30,6 @@ public interface IsReadonly {
    * Flag indicating that this component will prohibit changes by the user.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @UIComponentTagAttribute(type = "boolean")
   void setReadonly(String readonly);
 }

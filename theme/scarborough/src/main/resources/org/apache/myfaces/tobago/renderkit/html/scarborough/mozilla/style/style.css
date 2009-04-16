@@ -31,15 +31,6 @@ div.tobago-box-no-height {
 
 /* Tree -------------------------------------------------------------------- */
 
-div.tobago-treeOld-default {
-  height: 100%;
-}
-
-table.tobago-treeOld-default {
-/* this fixes scroolbar bug in mozilla >= 1.6 */
-  margin: 1px;
-}
-
 /* toolBar -------------------------------------------------------------------- */
 
 .tobago-toolBar-button-menu-background-image {

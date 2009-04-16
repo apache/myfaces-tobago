@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
@@ -64,19 +65,19 @@ public interface TreeTagDeclaration
   void setSelectable(String selectable);
 
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setShowRootJunction(String showRootJunction);
 
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setShowIcons(String showIcons);
 
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setShowJunctions(String showJunctions);
 
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setShowRoot(String showRoot);
   
   /**
@@ -86,4 +87,13 @@ public interface TreeTagDeclaration
   @UIComponentTagAttribute(defaultValue = "tree", allowedValues = {"tree", "menu"})
   void setMode(String mode);
 
+  /**
+   *
+   * <strong>ValueBindingExpression</strong> pointing to a object to save the
+   * component's state.
+   *
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Object", expression = DynamicExpression.VALUE_BINDING_REQUIRED)
+  void setState(String state);
 }

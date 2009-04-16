@@ -183,7 +183,7 @@ public void set<property.upperCamelCaseName>(String[] <property.propertyName>) {
 }
 >>
 
-BooleanProperty(property) ::= <<
+booleanProperty(property) ::= <<
 
 public boolean is<property.upperCamelCaseName>() {
   if (<property.propertyName> != null) {
@@ -208,6 +208,35 @@ public boolean is<property.upperCamelCaseName>() {
 }
 
 public void set<property.upperCamelCaseName>(boolean <property.propertyName>) {
+  this.<property.propertyName> = <property.propertyName>;
+}
+>>
+
+BooleanProperty(property) ::= <<
+
+public java.lang.Boolean is<property.upperCamelCaseName>() {
+  if (<property.propertyName> != null) {
+    return <property.propertyName>;
+  }
+  <getValueExpression(property)>
+  if (ve != null) {
+    try {
+      Boolean bool = (Boolean) <getValue(property)>
+      if (bool != null) {
+        return bool;
+      }
+    } catch (javax.el.ELException e) {
+		  throw new javax.faces.FacesException(e);
+	  }
+  }
+  <if(property.defaultCode)>
+  return <property.defaultCode>;
+  <else>
+  return null;
+  <endif>
+}
+
+public void set<property.upperCamelCaseName>(java.lang.Boolean <property.propertyName>) {
   this.<property.propertyName> = <property.propertyName>;
 }
 >>
@@ -344,6 +373,10 @@ StringArraySaveStateProperty() ::= <<
 values[<it.indexPlusOne>] = <it.propertyName>;
 >>
 
+booleanSaveStateProperty() ::= <<
+values[<it.indexPlusOne>] = <it.propertyName>;
+>>
+
 BooleanSaveStateProperty() ::= <<
 values[<it.indexPlusOne>] = <it.propertyName>;
 >>
@@ -390,6 +423,10 @@ StringRestoreStateProperty() ::= <<
 
 StringArrayRestoreStateProperty() ::= <<
 <it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+>>
+
+booleanRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.internalType>) values[<it.indexPlusOne>];
 >>
 
 BooleanRestoreStateProperty() ::= <<

@@ -154,6 +154,16 @@ if (<it.propertyName> != null) {
 }
 >>
 
+boolean() ::= <<
+if (<it.propertyName> != null) {
+  if (isValueReference(<it.propertyName>)) {
+    <createValueBinding(it)>
+  } else {
+    component.set<it.upperCamelCaseName>(Boolean.parseBoolean(<it.propertyName>));
+  }
+}
+>>
+
 Boolean() ::= <<
 if (<it.propertyName> != null) {
   if (isValueReference(<it.propertyName>)) {
@@ -178,6 +188,18 @@ if (<it.propertyName> != null) {
   }
 }
 >>
+
+/*
+Measure() ::= <<
+if (<it.propertyName> != null) {
+  if (isValueReference(<it.propertyName>)) {
+    <createValueBinding(it)>
+  } else {
+    component.set<it.upperCamelCaseName>(org.apache.myfaces.tobago.layout.Measure.parse(<it.propertyName>));
+  }
+}
+>>
+*/
 
 OrderBy() ::= <<
 if (<it.propertyName> != null) {
@@ -228,6 +250,13 @@ if (<it.propertyName> != null && isValueReference(<it.propertyName>)) {
 >>
 
 SortActionListener() ::= <<
+if (<it.propertyName> != null && isValueReference(<it.propertyName>)) {
+  <createMethodBinding(it)>
+  component.set<it.template>(methodBinding);
+}
+>>
+
+TreeExpansionListener() ::= <<
 if (<it.propertyName> != null && isValueReference(<it.propertyName>)) {
   <createMethodBinding(it)>
   component.set<it.template>(methodBinding);

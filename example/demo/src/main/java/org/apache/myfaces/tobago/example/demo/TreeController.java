@@ -63,6 +63,11 @@ public class TreeController {
     temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.12 Animal")));
     temp2.add(new DefaultMutableTreeNode(new Node("1.3.3.13 Personal")));
     temp.add(temp2);
+    DefaultMutableTreeNode bulk = new DefaultMutableTreeNode(new Node("1.6 Bulk"));
+    for (int i = 0; i < 5; i++) {
+      bulk.add(new DefaultMutableTreeNode(new Node("1.6." + (i + 1) + " Some Node")));
+    }
+    tree.add(bulk);
 
     // state
 

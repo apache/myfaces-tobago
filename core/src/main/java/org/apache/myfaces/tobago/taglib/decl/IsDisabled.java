@@ -30,6 +30,6 @@ public interface IsDisabled {
    * Flag indicating that this element is disabled.
    */
   @TagAttribute()
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setDisabled(String disabled);
 }
