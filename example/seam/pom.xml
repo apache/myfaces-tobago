@@ -25,7 +25,7 @@
   </parent>
   <artifactId>tobago-example-seam</artifactId>
   <packaging>war</packaging>
-  <name>Example Seam</name>
+  <name>Tobago Example Seam</name>
   <build>
     <finalName>tobago-example-seam</finalName>
     <plugins>

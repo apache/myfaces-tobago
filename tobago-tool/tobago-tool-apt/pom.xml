@@ -24,8 +24,8 @@
   </parent>
   <artifactId>tobago-tool-apt</artifactId>
   <packaging>jar</packaging>
-  <name>Tobago Apt</name>
-  <description>Tobago Apt</description>
+  <name>Tobago Tool Apt</name>
+  <description>Tobago Tool Apt</description>
 
   <dependencies>
     <dependency>

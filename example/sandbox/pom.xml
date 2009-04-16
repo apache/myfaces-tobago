@@ -24,7 +24,7 @@
   </parent>
   <artifactId>tobago-example-sandbox</artifactId>
   <packaging>war</packaging>
-  <name>Example Sandbox</name>
+  <name>Tobago Example Sandbox</name>
   <build>
     <finalName>tobago-example-sandbox</finalName>
     <plugins>

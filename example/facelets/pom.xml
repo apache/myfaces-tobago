@@ -24,7 +24,7 @@
   </parent>
   <artifactId>tobago-example-facelets</artifactId>
   <packaging>war</packaging>
-  <name>Example Facelets</name>
+  <name>Tobago Example Facelets</name>
   <build>
     <finalName>tobago-example-facelets</finalName>
     <plugins>

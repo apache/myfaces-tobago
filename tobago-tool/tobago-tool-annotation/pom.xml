@@ -24,8 +24,8 @@
   </parent>
   <artifactId>tobago-tool-annotation</artifactId>
   <packaging>jar</packaging>
-  <name>Tobago Annotation</name>
-  <description>Tobago Annotation</description>
+  <name>Tobago Tool Annotation</name>
+  <description>Tobago Tool Annotation</description>
 
   <dependencies>
     <dependency>
