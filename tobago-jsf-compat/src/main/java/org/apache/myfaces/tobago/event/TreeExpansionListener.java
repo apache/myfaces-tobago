@@ -1,6 +1,8 @@
 package org.apache.myfaces.tobago.event;
 
-public interface TreeExpansionListener {
+import javax.faces.event.FacesListener;
+
+public interface TreeExpansionListener  extends FacesListener {
 
   void treeExpanded(TreeExpansionEvent event);
 }

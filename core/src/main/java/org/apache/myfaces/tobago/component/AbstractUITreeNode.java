@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.event.TreeExpansionListener;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.model.TreePath;
@@ -285,6 +286,19 @@ public abstract class AbstractUITreeNode extends AbstractUICommand implements Su
   public abstract MethodBinding getTreeExpansionListener();
 
   public abstract void setTreeExpansionListener(MethodBinding treeExpansionListener);
+
+  public void addTreeExpansionListener(TreeExpansionListener listener) {
+    addFacesListener(listener);
+  }
+
+  public TreeExpansionListener[] getTreeExpansionListeners() {
+    return (TreeExpansionListener[]) getFacesListeners(TreeExpansionListener.class);
+  }
+
+  public void removeStateChangeListener(TreeExpansionListener listener) {
+    removeFacesListener(listener);
+  }
+
 
   public abstract void setExpanded(Boolean expanded);
 

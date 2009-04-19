@@ -345,7 +345,7 @@ public void set<property.upperCamelCaseName>(<property.type> <property.propertyN
 field() ::= <<
 <if(it.elAlternativeAvailable)>
 <else>
-private <it.type> <it.propertyName>;
+private <it.internalType> <it.propertyName>;
 <endif>
 >>
 

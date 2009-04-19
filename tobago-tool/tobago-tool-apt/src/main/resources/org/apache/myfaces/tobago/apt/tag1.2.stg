@@ -225,7 +225,7 @@ if (<it.propertyName> != null) {
   if (!<it.propertyName>.isLiteralText()) {
     <createValueBinding(it)>
   } else {
-    component.set<it.upperCamelCaseName>(org.apache.myfaces.tobago.layout.Measure.parse(<it.propertyName>));
+    component.set<it.upperCamelCaseName>(org.apache.myfaces.tobago.layout.Measure.parse(<it.propertyName>.getExpressionString()));
   }
 }
 >>
