@@ -49,15 +49,18 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
 
   private static final Log LOG = LogFactory.getLog(PanelRenderer.class);
 
+  @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
     HtmlRendererUtil.renderDojoDndSource(facesContext, component);
   }
 
+  @Override
   public boolean getRendersChildren() {
     return true;
   }
 
+  @Override
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     // wenn hoehe gesetzt dann diese,
     // sonst wenn layout vorhanden dieses fragen:
@@ -117,6 +120,7 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
     return height;
   }
 
+  @Override
   public void encodeChildren(FacesContext facesContext, UIComponent uiComponent) throws IOException {
     UIPanel component = (UIPanel) uiComponent;
     for (Object o : component.getChildren()) {
@@ -125,6 +129,7 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
     }
   }
 
+  @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     String clientId = component.getClientId(facesContext);
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
@@ -134,7 +139,7 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
     writer.writeIdAttribute(clientId);
     writer.writeStyleAttribute();
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
-     // writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\")");
+      // writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\")");
       Integer frequency = null;
       UIComponent facetReload = component.getFacet(Facets.RELOAD);
       if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
@@ -145,21 +150,22 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
         frequency = 0;
       }
       final String[] cmds = {
-         "new Tobago.Panel(\"" + clientId + "\", " + true + ", "+ frequency + ");"
+          "new Tobago.Panel(\"" + clientId + "\", " + true + ", " + frequency + ");"
       };
 
       HtmlRendererUtil.writeScriptLoader(facesContext, null, cmds);
     }
   }
 
+  @Override
   public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
     writer.endElement(HtmlConstants.DIV);
   }
 
+  @Override
   public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
     AjaxUtils.checkParamValidity(facesContext, component, UIPanel.class);
     component.encodeChildren(facesContext);
   }
 }
-
