@@ -163,7 +163,6 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
     writer.endElement(HtmlConstants.DIV);
   }
 
-  @Override
   public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
     AjaxUtils.checkParamValidity(facesContext, component, UIPanel.class);
     component.encodeChildren(facesContext);
