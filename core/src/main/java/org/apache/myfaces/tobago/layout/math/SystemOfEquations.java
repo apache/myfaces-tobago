@@ -60,13 +60,13 @@ import java.util.List;
  * <p/>
  * - Max: x_0 <= 100 (if not defined: ignore)
  * <p/>
- * - Prefered: no restriction (come later down in the optimization function
+ * - Preferred: no restriction (come later down in the optimization function
  * <p/>
  * - Nested Layout managers: x_0 = x_0_0 + x_0_1
  * <p/>
  * 3.) Finding minimization function
  * <p/>
- * a) collect prefered values p_j
+ * a) collect preferred values p_j
  * <p/>
  * b) abs(90 - x_0+x_1+x_2) ... abs(90 - x_0+x_1+x_2) or quadratic
  * <p/>
