@@ -575,7 +575,7 @@
           </execution>
         </executions>
       </plugin>-->
-      <plugin>
+      <!--plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>ianal-maven-plugin</artifactId>
         <executions>
@@ -584,12 +584,12 @@
               <goal>verify-legal-files</goal>
             </goals>
             <configuration>
-              <!-- Fail the build if any artifacts are missing legal files -->
+              <- Fail the build if any artifacts are missing legal files ->
               <strict>false</strict>
             </configuration>
           </execution>
         </executions>
-      </plugin>
+      </plugin-->
       <!--plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>rat-maven-plugin</artifactId>
