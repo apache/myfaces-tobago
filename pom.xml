@@ -304,7 +304,7 @@
           <linkXref>true</linkXref>
           <targetJdk>${maven.compile.source}</targetJdk>
         </configuration>
-      </plugin>
+      </plugin>                              i
 
       <!-- TODO test dashboard plugin  -->
       <plugin>
@@ -585,7 +585,7 @@
             </goals>
             <configuration>
               <!-- Fail the build if any artifacts are missing legal files -->
-              <strict>true</strict>
+              <strict>false</strict>
             </configuration>
           </execution>
         </executions>
