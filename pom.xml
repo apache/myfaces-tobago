@@ -55,7 +55,7 @@
       <name>Myfaces User List (use [Tobago] prefix)</name>
       <subscribe>users-subscribe@myfaces.apache.org</subscribe>
       <unsubscribe>users-unsubscribe@myfaces.apache.org</unsubscribe>
-      <post>List for posting questions about how to use myfaces projects. Subscribe to this list before posting</post>      
+      <post>List for posting questions about how to use myfaces projects. Subscribe to this list before posting</post>
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-users</archive>
       <otherArchives>
         <otherArchive>http://www.mail-archive.com/users@myfaces.apache.org/</otherArchive>
@@ -103,7 +103,7 @@
       <archive>http://mail-archives.apache.org/mod_mbox/myfaces-announce</archive>
       <otherArchives>
         <otherArchive>http://myfaces.markmail.org/search/?q=#query:list%3Aorg.apache.myfaces.announce</otherArchive>
-      </otherArchives>      
+      </otherArchives>
     </mailingList>
     <mailingList>
       <name>Myfaces Private (PMC) List</name>
@@ -304,7 +304,7 @@
           <linkXref>true</linkXref>
           <targetJdk>${maven.compile.source}</targetJdk>
         </configuration>
-      </plugin>                              i
+      </plugin>                              
 
       <!-- TODO test dashboard plugin  -->
       <plugin>
@@ -844,7 +844,7 @@
     <module>tobago-jsf-compat</module>
     <module>core</module>
     <module>theme</module>
-    <module>extension</module>    
+    <module>extension</module>
   </modules>
 
   <distributionManagement>
