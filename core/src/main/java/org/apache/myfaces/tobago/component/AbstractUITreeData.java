@@ -136,9 +136,9 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
   public void buildTreeModelBegin(FacesContext facesContext, MixedTreeModel model) {
     Object data = getValue();
     if (data instanceof Node) {
-      buildTreeModelNodes(facesContext, model, (Node)data, new TreePath(0));
+      buildTreeModelNodes(facesContext, model, (Node) data, new TreePath(0));
     } else if (data instanceof DefaultMutableTreeNode) {
-      buildTreeModelNodes(facesContext, model, (DefaultMutableTreeNode)data, new TreePath(0));
+      buildTreeModelNodes(facesContext, model, (DefaultMutableTreeNode) data, new TreePath(0));
     }
   }
 
