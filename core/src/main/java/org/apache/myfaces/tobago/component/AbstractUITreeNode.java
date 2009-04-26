@@ -114,7 +114,7 @@ public abstract class AbstractUITreeNode extends AbstractUICommand implements Su
       Object value = getValue();
       // todo: make independent from impl.
       if (value instanceof DefaultMutableTreeNode) {
-        return !((DefaultMutableTreeNode)value).isLeaf();
+        return !((DefaultMutableTreeNode) value).isLeaf();
       }
       LOG.warn("Tree type not supported");
       return true;
