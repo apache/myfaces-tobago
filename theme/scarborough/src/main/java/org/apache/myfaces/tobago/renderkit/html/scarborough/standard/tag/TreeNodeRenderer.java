@@ -70,7 +70,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       return;
     }
 
-    UITree tree = (UITree)node.findTree();
+    UITree tree = (UITree) node.findTree();
     String treeId = tree.getClientId(facesContext);
     String nodeStateId = node.nodeStateId(facesContext);
     Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
@@ -432,7 +432,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       node.setExpanded(expanded);
     }
     if (oldExpanded != expanded) {
-      node.queueEvent(new TreeExpansionEvent(node, node.isExpanded(), expanded));
+      new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
     }
   }
 }
