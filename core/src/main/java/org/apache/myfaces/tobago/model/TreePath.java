@@ -88,8 +88,12 @@ public class TreePath implements Serializable {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     TreePath nodeIndex = (TreePath) o;
     return Arrays.equals(path, nodeIndex.path);
 
