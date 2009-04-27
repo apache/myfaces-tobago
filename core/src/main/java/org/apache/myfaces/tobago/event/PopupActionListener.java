@@ -26,6 +26,8 @@ import javax.faces.event.ActionListener;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
+import javax.faces.webapp.UIComponentTag;
 import java.io.Serializable;
 
 /*
@@ -38,11 +40,18 @@ public class PopupActionListener implements ActionListener, Serializable {
 
   private String popupId;
 
+  private ValueBinding popupIdBinding;
+
   public PopupActionListener() {
   }
 
   public PopupActionListener(String popupId) {
-    this.popupId = popupId;
+
+    if (UIComponentTag.isValueReference(popupId)) {
+      popupIdBinding = ComponentUtil.createValueBinding(popupId);
+    } else {
+      this.popupId = popupId;
+    }
     if (LOG.isDebugEnabled()) {
       LOG.debug("Add ActionListener: " + popupId);
     }
@@ -56,17 +65,26 @@ public class PopupActionListener implements ActionListener, Serializable {
   }
 
   public void processAction(ActionEvent actionEvent) throws AbortProcessingException {
-    UIPopup popup = (UIPopup) ComponentUtil.findComponent(actionEvent.getComponent(), popupId);
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    String id = null;
+    if (popupIdBinding != null) {
+      id = (String) popupIdBinding.getValue(facesContext);
+    } else {
+      id = popupId;
+    }
+    UIPopup popup = (UIPopup) ComponentUtil.findComponent(actionEvent.getComponent(), id);
 
     if (popup != null) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("activated "
-            + actionEvent.getComponent().getClientId(FacesContext.getCurrentInstance()));
+            + actionEvent.getComponent().getClientId(facesContext));
       }
       popup.setActivated(true);
     } else {
-      LOG.error("Found no popup for " + popupId + " search base component " 
-              + actionEvent.getComponent().getClientId(FacesContext.getCurrentInstance()));
+      LOG.error("Found no popup for \""
+          + (popupIdBinding != null ? popupIdBinding.getExpressionString() + "\" := \"" : "" )
+          + id + "\"! Search base componentId : " 
+              + actionEvent.getComponent().getClientId(facesContext));
     }
   }
 
