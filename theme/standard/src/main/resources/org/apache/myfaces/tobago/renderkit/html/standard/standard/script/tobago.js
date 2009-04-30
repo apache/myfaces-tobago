@@ -262,7 +262,7 @@ var Tobago = {
     this.page = this.element(pageId);
     this.form = this.element(this.page.id + this.SUB_COMPONENT_SEP + "form");
     this.addBindEventListener(this.form, "submit", this, "onSubmit");
-    this.action = this.element(this.form.id + '-action')
+    this.action = this.element(this.form.id + '-action');
     this.contextPath = this.element(this.page.id + this.SUB_COMPONENT_SEP + "context-path");
     this.actionPosition = this.element(this.page.id + this.SUB_COMPONENT_SEP + "action-position");
 
@@ -632,7 +632,7 @@ var Tobago = {
     * Register a script file to prevent multiple loadings via Ajax.
     */
   registerScript: function(scriptId) {
-    LOG.info("register :" + scriptId);
+    LOG.info("register: " + scriptId);
     this.registeredScripts[this.genScriptId(scriptId)] = true;
   },
 
