@@ -32,7 +32,7 @@ var TbgTimer = {
       }
       LOG.debug("startBody-startTbgJs: " + (this.startBody.getTime() - this.startTbgJs.getTime()));
       LOG.debug("startTbgJs:" + this.startTbgJs.getTime());
-      LOG.debug("startBody :" + this.startBody.getTime());
+      LOG.debug("startBody: " + this.startBody.getTime());
       LOG.debug("parse tobago.js " + tbgjs);
 //      LOG.debug("parse htmltotal " + htmljs);
       LOG.debug("parse body " + bodyjs);
@@ -133,7 +133,7 @@ var Tobago = {
     set: function(keyAccelerator) {
       var key = keyAccelerator.modifier + keyAccelerator.key;
       if (this[key]) {
-        LOG.warn("Ignoring duplicate key: " + keyAccelerator.modifier + "-" + keyAccelerator.key + " with function :" + keyAccelerator.func.valueOf());
+        LOG.warn("Ignoring duplicate key: " + keyAccelerator.modifier + "-" + keyAccelerator.key + " with function: " + keyAccelerator.func.valueOf());
       } else {
 //        LOG.debug("add accelerator for " + keyAccelerator.modifier + "-" + keyAccelerator.key);
         this[key] = keyAccelerator;
@@ -256,7 +256,7 @@ var Tobago = {
     this.page = this.element(pageId);
     this.form = this.element(this.page.id + this.SUB_COMPONENT_SEP + "form");
     this.addBindEventListener(this.form, "submit", this, "onSubmit");
-    this.action = this.element(this.form.id + '-action')
+    this.action = this.element(this.form.id + '-action');
     this.contextPath = this.element(this.page.id + this.SUB_COMPONENT_SEP + "context-path");
     this.actionPosition = this.element(this.page.id + this.SUB_COMPONENT_SEP + "action-position");
 
@@ -495,7 +495,7 @@ var Tobago = {
       if (!this.isSubmit) {
         this.isSubmit = true;
         var req = Tobago.Transport.requests.shift(); // remove this from queue
-        LOG.debug("request removed :" + req.toString());
+        LOG.debug("request removed: " + req.toString());
         var oldAction = Tobago.action.value;
         var oldTarget = Tobago.form.target;
         Tobago.action.value = actionId;
@@ -613,7 +613,7 @@ var Tobago = {
     * Register a script file to prevent multiple loadings via Ajax.
     */
   registerScript: function(scriptId) {
-    LOG.info("register :" + scriptId);
+    LOG.info("register: " + scriptId);
     this.registeredScripts[this.genScriptId(scriptId)] = true;
   },
 
@@ -1440,7 +1440,7 @@ var Tobago = {
     else if (element.detachEvent) {  // IE
       element.detachEvent("on" + event, myFunction);
     } else {
-      LOG.debug("Unknown Element :" + typeof element);
+      LOG.debug("Unknown Element: " + typeof element);
     }
 
   },
