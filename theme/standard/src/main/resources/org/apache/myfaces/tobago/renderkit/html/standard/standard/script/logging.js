@@ -357,8 +357,17 @@ LOG.LogArea.prototype.append = function(message) {
     if (typeof(message) == "string") {
       logMessage = document.createTextNode(message);
     } else if (typeof(message.type) == "number") {
-      // TODO severity marker
-      logMessage = document.createTextNode(message.message);
+      var prefix = "";
+      if (LOG.ERROR == message.type) {
+        prefix = prefix + "Error: ";
+      } else       if (LOG.WARN == message.type) {
+        prefix = prefix + "Warn:  ";
+      } else       if (LOG.INFO == message.type) {
+        prefix = prefix + "Info:  ";
+      } else       if (LOG.DEBUG == message.type) {
+        prefix = prefix + "Debug: ";
+      }
+      logMessage = document.createTextNode(prefix + message.message);
     }
     listElement.appendChild(logMessage);
     this.logList.appendChild(listElement);
