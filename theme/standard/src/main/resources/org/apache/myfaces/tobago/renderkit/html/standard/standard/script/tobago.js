@@ -485,7 +485,7 @@ var Tobago = {
     if (Tobago.openPopups.length > 0) {
       // enable all elements on page when this is a submit from a popup
       // (disabled input elements are not submitted)
-      for (i = 0; i < document.forms[0].elements.length; i++) {
+      for (var i = 0; i < document.forms[0].elements.length; i++) {
         var element = document.forms[0].elements[i];
         element.disabled = false;
       }
@@ -900,7 +900,7 @@ var Tobago = {
     if (background) {
       background.style.width = Math.max(document.body.scrollWidth, document.body.clientWidth) + 'px';
       background.style.height = Math.max(document.body.scrollHeight, document.body.clientHeight) + 'px';
-      this.popupResizeStub = function() {Tobago.doResizePopupBackground(id);}
+      this.popupResizeStub = function() {Tobago.doResizePopupBackground(id);};
       Tobago.addEventListener(window, "resize", this.popupResizeStub);
     }
     var contentId = id + Tobago.SUB_COMPONENT_SEP + "content";
@@ -988,7 +988,7 @@ var Tobago = {
    }
     hidden.value = ",";
     var firstPopupElement = null;
-    for (i = 0; i < document.forms[0].elements.length; i++) {
+    for (var i = 0; i < document.forms[0].elements.length; i++) {
       var element = document.forms[0].elements[i];
       if (element.type != "hidden" && !element.disabled) {
         if (element.id && element.id.indexOf(id + ":") != 0) {
@@ -1053,7 +1053,7 @@ var Tobago = {
         div = Tobago.findAnchestorWithTagName(div.parentNode, "DIV");
       }
       if (div) {
-        var re = new RegExp(Tobago.SUB_COMPONENT_SEP + "content$")
+        var re = new RegExp(Tobago.SUB_COMPONENT_SEP + "content$");
         id = div.id.replace(re, "");
       }
     }
@@ -1107,7 +1107,7 @@ var Tobago = {
     // enable all elements and anchors on page stored in a hidden field
     var hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + "disabledElements");
     if (hidden != null && hidden.value != "") {
-     for (i = 0; i < document.forms[0].elements.length; i++) {
+     for (var i = 0; i < document.forms[0].elements.length; i++) {
        var element = document.forms[0].elements[i];
        if (hidden.value.indexOf("," + element.id + ",") >= 0) {
          element.disabled = false;
@@ -1147,7 +1147,7 @@ var Tobago = {
     }
 
     Tobago.addAjaxComponent(popupId, div.id);
-    var newOptions = {createOverlay: false}
+    var newOptions = {createOverlay: false};
     if (options) {
       Tobago.extend(newOptions, options);
     }
@@ -1162,10 +1162,10 @@ var Tobago = {
     if (element) {
       if (element.click) {
 //        LOG.debug("click on element");
-        element.click()
+        element.click();
       } else {
 //        LOG.debug("click on new button");
-        var a = document.createElement("input")
+        var a = document.createElement("input");
         a.type = "button";
         a.style.width = "0px;";
         a.style.height = "0px;";
@@ -1463,28 +1463,28 @@ var Tobago = {
   bind: function(object, func) {
     var rest = [];
     for (var i = 2; i < arguments.length; i++) {
-      rest.push(arguments[i])
+      rest.push(arguments[i]);
     }
     return function() {
       var args = [];
       for (var i = 0; i < arguments.length; i++) {
-        args.push(arguments[i])
+        args.push(arguments[i]);
       }
       object[func].apply(object, args.concat(rest));
-    }
+    };
   },
 
   bind2: function(object, func) {
     var rest = [];
     for (var i = 2; i < arguments.length; i++) {
-      rest.push(arguments[i])
+      rest.push(arguments[i]);
     }
     return function() {
       for (var i = 0; i < arguments.length; i++) {
-        rest.push(arguments[i])
+        rest.push(arguments[i]);
       }
       object[func].apply(object, rest);
-    }
+    };
   },
 
   /**
@@ -1497,7 +1497,7 @@ var Tobago = {
   bindAsEventListener: function(object, func) {
     return function(event) {
       object[func].call(object, event || window.event);
-    }
+    };
   },
 
   /**
@@ -1744,7 +1744,8 @@ Tobago.In.prototype.setup = function() {
   if (this.maxLength && this.maxLength > 0) {
     ctrl = Tobago.element(this.id);
     Tobago.addBindEventListener(ctrl, "change", this, "checkMaxLength");
-    Tobago.addBindEventListener(ctrl, "keypress", this, "checkMaxLength");
+    Tobago.addBindEventListener(ctrl, "keyup", this, "checkMaxLength");
+    Tobago.addBindEventListener(ctrl, "keypress", this, "checkMaxLengthOnKeyPress");
     if (Tobago.getBrowser().type == "msie") {
       Tobago.addBindEventListener(ctrl, "paste", this, "checkMaxLengthOnPaste");
     }
@@ -1813,6 +1814,25 @@ Tobago.In.prototype.checkMaxLength = function(event) {
   // We need to return false here to cancel the event otherwise this last
   // character will end up in the input field in position MAX+1.
   return false;
+};
+
+Tobago.In.prototype.checkMaxLengthOnKeyPress = function(event) {
+  if (!event) {
+    event = window.event;
+  }
+  var ctrl = Tobago.element(event);
+  var elementLength = ctrl.value.length;
+  var charCode = event.keyCode || event.charCode;
+  // LOG.debug("keyPress: current length=" + elementLength + "; char=" + charCode);
+  // In FireFox onkeypress is triggered for all keys not just characters. Therefore it's
+  // pretty hard to distinguish cursor movement, pos1, home, ... from real characters at this point
+  if (charCode == 8) {
+    return true;
+  }
+  event.returnValue = elementLength < this.maxLength;
+  if (!event.returnValue && event.preventDefault) {
+    event.preventDefault();
+  }
 };
 
 Tobago.In.prototype.enterRequired = function(e) {
