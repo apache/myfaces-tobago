@@ -513,7 +513,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
   }
 
   private String prepareForScript(String s) {
-    return StringUtils.replace(s.replace('\n', ' '), "'", "\\\\'");
+    return StringUtils.replace(s.replace('\n', ' '), "'", "\\'");
   }
 
   public void encodeChildren(FacesContext facesContext, UIComponent component)
