@@ -1824,12 +1824,25 @@ Tobago.In.prototype.checkMaxLengthOnKeyPress = function(event) {
   var elementLength = ctrl.value.length;
   var charCode = event.keyCode || event.charCode;
   // LOG.debug("keyPress: current length=" + elementLength + "; char=" + charCode);
-  // In FireFox onkeypress is triggered for all keys not just characters. Therefore it's
+  // In Firefox onkeypress is triggered for all keys not just characters. Therefore it's
   // pretty hard to distinguish cursor movement, pos1, home, ... from real characters at this point
   if (charCode == 8) {
     return true;
   }
   event.returnValue = elementLength < this.maxLength;
+  if (!event.returnValue) {
+    var selectedText;
+    if (document.selection) { // IE
+      selectedText = document.selection.createRange().text;
+    } else if (typeof(ctrl.selectionStart) != "undefined") { // Firefox
+       selectedText = ctrl.value.substr(ctrl.selectionStart, ctrl.selectionEnd - ctrl.selectionStart);
+    }
+    // LOG.debug("selectedText: " + selectedText);
+    if (selectedText) {
+      event.returnValue = selectedText.length > 0; // allow overwriting of selected text
+    }
+    // LOG.debug("event.returnValue: " + event.returnValue);
+  }
   if (!event.returnValue && event.preventDefault) {
     event.preventDefault();
   }
