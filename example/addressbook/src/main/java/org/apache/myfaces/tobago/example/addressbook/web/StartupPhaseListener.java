@@ -32,10 +32,8 @@ import java.io.IOException;
 public class StartupPhaseListener implements PhaseListener {
 
   private static final Log LOG = LogFactory.getLog(StartupPhaseListener.class);
-  public static final String LOGGED_IN
-      = StartupPhaseListener.class.getName() + ".LOGGED_IN";
-  public static final String PRINCIPAL
-      = StartupPhaseListener.class.getName() + ".PRINCIPAL";
+  public static final String LOGGED_IN = StartupPhaseListener.class.getName() + ".LOGGED_IN";
+  public static final String PRINCIPAL = StartupPhaseListener.class.getName() + ".PRINCIPAL";
 
   public PhaseId getPhaseId() {
     return PhaseId.RESTORE_VIEW;
@@ -50,7 +48,7 @@ public class StartupPhaseListener implements PhaseListener {
       LOG.debug("externalContext.getRequestPathInfo() = '" + pathInfo + "'");
     }
 
-    if (pathInfo.equals("/error.jsp") || // todo: not nice, find a declarative way.
+    if (pathInfo.equals("/error.xhtml") || // todo: not nice, find a declarative way.
         pathInfo.startsWith("/auth/")) {
       Object session = externalContext.getSession(false);
       if (session != null) {
@@ -65,19 +63,16 @@ public class StartupPhaseListener implements PhaseListener {
     if (!BooleanUtils.toBoolean(loggedIn)) {
       try {
         externalContext.getSessionMap().put(LOGGED_IN, Boolean.TRUE);
-        String forward = externalContext.getRequestContextPath()
-            + "/faces/application/start.jsp";
+        String forward = externalContext.getRequestContextPath() + "/faces/application/start.xhtml";
         externalContext.redirect(externalContext.encodeResourceURL(forward));
       } catch (Exception e) {
         LOG.error("", e);
-        String forward = externalContext.getRequestContextPath()
-            + "/error.jsp";
+        String forward = externalContext.getRequestContextPath() + "/error.xhtml";
         try {
           externalContext.redirect(externalContext.encodeResourceURL(forward));
         } catch (IOException e2) {
           LOG.error("", e2);
-          throw new FacesException("Can't redirect to errorpage '"
-              + forward + "'");
+          throw new FacesException("Can't redirect to errorpage '" + forward + "'");
         }
       }
     }

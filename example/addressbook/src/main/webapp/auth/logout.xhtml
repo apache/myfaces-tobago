@@ -1,4 +1,6 @@
-<%--
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,12 +15,14 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
---%>
-<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+-->
 
-<f:view locale="#{controller.language}">
-  <tc:loadBundle basename="resource" var="bundle" />
+<f:view xmlns:tc="http://myfaces.apache.org/tobago/component"
+        xmlns:tx="http://myfaces.apache.org/tobago/extension"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:f="http://java.sun.com/jsf/core"
+        locale="#{controller.language}">
+  <tc:loadBundle basename="resource" var="bundle"/>
 
   <tc:page label="#{bundle.loginLogoutTitle}" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
     <f:facet name="layout">
@@ -33,14 +37,14 @@
         <tc:gridLayout rows="fixed;fixed"/>
       </f:facet>
 
-      <tc:out value="#{bundle.loginLogoutText}" />
+      <tc:out value="#{bundle.loginLogoutText}"/>
 
       <tc:panel>
         <f:facet name="layout">
           <tc:gridLayout columns="*;fixed"/>
         </f:facet>
         <tc:cell/>
-        <tc:button link="/index.jsp" label="#{bundle.loginHomeButton}" />
+        <tc:button link="/index.jsp" label="#{bundle.loginHomeButton}"/>
       </tc:panel>
     </tc:box>
     <tc:cell/>

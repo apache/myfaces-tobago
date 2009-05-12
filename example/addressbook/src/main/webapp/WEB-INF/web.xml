@@ -24,6 +24,20 @@
 
   <display-name>A simple addressbook demo with Tobago</display-name>
 
+  <context-param>
+    <param-name>facelets.DEVELOPMENT</param-name>
+    <param-value>true</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>facelets.SKIP_COMMENTS</param-name>
+    <param-value>true</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+    <param-value>.xhtml</param-value>
+  </context-param>
 
   <!--  workaround for a bug in Oracle AS (e.g. 10.1.2.0.0)-->
   <listener>
@@ -110,8 +124,8 @@
     <auth-method>FORM</auth-method>
     <realm-name>addressbook-realm</realm-name>
     <form-login-config>
-      <form-login-page>/faces/auth/login.jsp</form-login-page>
-      <form-error-page>/faces/auth/error.jsp</form-error-page>
+      <form-login-page>/faces/auth/login.xhtml</form-login-page>
+      <form-error-page>/faces/auth/error.xhtml</form-error-page>
     </form-login-config>
   </login-config>
 

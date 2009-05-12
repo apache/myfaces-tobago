@@ -1,4 +1,6 @@
-<%--
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,17 +15,20 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
---%>
-<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
-<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+-->
 
-<tc:loadBundle basename="resource" var="bundle" />
-<tc:panel>
-  <f:facet name="layout">
-    <tc:gridLayout rows="1*" />
-  </f:facet>
+<ui:composition xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:tc="http://myfaces.apache.org/tobago/component"
+                xmlns:tx="http://myfaces.apache.org/tobago/extension"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
-  <tx:textarea value="#{controller.currentAddress.note}"
-      label="#{bundle.editorNote}" />
-</tc:panel>
+  <tc:loadBundle basename="resource" var="bundle"/>
+  <tc:panel>
+    <f:facet name="layout">
+      <tc:gridLayout rows="1*"/>
+    </f:facet>
+
+    <tx:textarea value="#{controller.currentAddress.note}"
+                 label="#{bundle.editorNote}"/>
+  </tc:panel>
+</ui:composition>
