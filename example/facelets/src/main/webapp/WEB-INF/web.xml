@@ -36,6 +36,11 @@
   </context-param>
 
   <context-param>
+    <param-name>facelets.RESOURCE_RESOLVER</param-name>
+    <param-value>org.apache.myfaces.tobago.facelets.WebinfResourcesClasspathResourceResolver</param-value>
+  </context-param>
+
+  <context-param>
     <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
     <param-value>.xml</param-value>
   </context-param>
