@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.component;
  */
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TAB_INDEX;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
 import org.apache.myfaces.tobago.util.MessageFactory;
 
 import javax.faces.application.FacesMessage;
@@ -26,7 +27,6 @@ import javax.faces.el.ValueBinding;
 import java.io.IOException;
 
 /*
- * User: weber
  * Date: May 31, 2005
  * Time: 7:47:11 PM
  */
@@ -37,19 +37,22 @@ public class UISelectOne extends javax.faces.component.UISelectOne implements Su
 
   private String[] markup;
   private Integer tabIndex;
+  private Boolean readonly;
 
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
     markup = (String[]) values[1];
     tabIndex = (Integer) values[2];
+    readonly = (Boolean) values[3];
   }
 
   public Object saveState(FacesContext context) {
-    Object[] values = new Object[3];
+    Object[] values = new Object[4];
     values[0] = super.saveState(context);
     values[1] = markup;
     values[2] = tabIndex;
+    values[3] = readonly;
     return values;
   }
 
@@ -60,7 +63,7 @@ public class UISelectOne extends javax.faces.component.UISelectOne implements Su
   }
 
   public void validate(FacesContext facesContext) {
-    if (isRequired()) {
+    if (isRequired() && !isReadonly()) {
 
       Object submittedValue = getSubmittedValue();
       if (submittedValue == null || "".equals(submittedValue)) {
@@ -102,4 +105,21 @@ public class UISelectOne extends javax.faces.component.UISelectOne implements Su
     this.tabIndex = tabIndex;
   }
 
+  public boolean isReadonly() {
+    if (readonly != null) {
+       return readonly;
+    }
+    javax.faces.el.ValueBinding vb = getValueBinding(ATTR_READONLY);
+    if (vb != null) {
+      Boolean bool = (Boolean) vb.getValue(getFacesContext());
+      if (bool != null) {
+        return bool;
+      }
+    }
+    return false;
+  }
+
+  public void setReadonly(boolean readonly) {
+    this.readonly = readonly;
+  }
 }
