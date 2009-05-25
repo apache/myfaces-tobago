@@ -23,7 +23,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 /*
- * User: weber
  * Date: May 31, 2005
  * Time: 7:47:11 PM
  */
@@ -32,7 +31,7 @@ public abstract class AbstractUISelectOne extends javax.faces.component.UISelect
   public static final String MESSAGE_VALUE_REQUIRED = "tobago.SelectOne.MESSAGE_VALUE_REQUIRED";
 
   public void validate(FacesContext facesContext) {
-    if (isRequired()) {
+    if (isRequired()  && !isReadonly()) {
       Object submittedValue = getSubmittedValue();
       if (submittedValue == null || "".equals(submittedValue)) {
         FacesMessage facesMessage = MessageFactory.createFacesMessage(
@@ -43,4 +42,6 @@ public abstract class AbstractUISelectOne extends javax.faces.component.UISelect
     }
     super.validate(facesContext);
   }
+
+  public abstract boolean isReadonly();
 }
