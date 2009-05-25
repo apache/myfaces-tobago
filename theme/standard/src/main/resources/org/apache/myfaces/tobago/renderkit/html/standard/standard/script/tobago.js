@@ -1826,7 +1826,7 @@ Tobago.In.prototype.checkMaxLengthOnKeyPress = function(event) {
   // LOG.debug("keyPress: current length=" + elementLength + "; char=" + charCode);
   // In Firefox onkeypress is triggered for all keys not just characters. Therefore it's
   // pretty hard to distinguish cursor movement, pos1, home, ... from real characters at this point
-  if (charCode == 8) {
+  if (charCode == 8 || charCode == 9) {
     return true;
   }
   event.returnValue = elementLength < this.maxLength;
