@@ -26,6 +26,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UIColumn;
+import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
@@ -124,7 +125,7 @@ public class Controller {
       SortActionEvent sortEvent = (SortActionEvent) event;
       UIColumn column = (UIColumn) sortEvent.getColumn();
 
-      SheetState sheetState = sortEvent.getSheet().getSheetState(FacesContext.getCurrentInstance());
+      SheetState sheetState = ((UIData)sortEvent.getSheet()).getSheetState(FacesContext.getCurrentInstance());
       currentAddressList = addressDao.findAddresses(searchCriterion, column.getId(), sheetState.isAscending());
     }
   }
@@ -209,6 +210,13 @@ public class Controller {
     return null;
   }
 
+  public String getCurrentAddressPictureUrl() {
+     return (currentAddress != null && currentAddress.getPicture() != null)
+         ? FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/picture?id=XXXX"
+         :"image/empty-portrait.png";
+
+   }
+  
   public void validatePhoneNumber(
       FacesContext context, UIComponent component, Object value) {
     String phoneNumber = (String) value;
