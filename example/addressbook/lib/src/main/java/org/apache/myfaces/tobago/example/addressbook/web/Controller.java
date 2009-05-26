@@ -209,6 +209,13 @@ public class Controller {
     return null;
   }
 
+  public String getCurrentAddressPictureUrl() {
+     return (currentAddress != null && currentAddress.getPicture() != null)
+         ? FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/faces/picture?id=XXXX"
+         :"image/empty-portrait.png";
+
+   }
+
   public void validatePhoneNumber(
       FacesContext context, UIComponent component, Object value) {
     String phoneNumber = (String) value;
