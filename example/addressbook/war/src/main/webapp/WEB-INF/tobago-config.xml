@@ -29,8 +29,7 @@
     <supported-theme>charlotteville</supported-theme>
   </theme-config>
 
-  <resource-dir>tobago-resource</resource-dir>
-  <resource-dir>tobago-resource2</resource-dir> <!-- XXX for testing, can be removed later -->
+  <resource-dir>addressbook-resource</resource-dir>
   <ajax-enabled>true</ajax-enabled>
   <renderers>
     <renderer>

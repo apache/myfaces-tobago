@@ -114,7 +114,7 @@
 
   <servlet-mapping>
     <servlet-name>ResourceServlet</servlet-name>
-    <url-pattern>/tobago-resource2/*</url-pattern>
+    <url-pattern>/addressbook-resource/*</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
