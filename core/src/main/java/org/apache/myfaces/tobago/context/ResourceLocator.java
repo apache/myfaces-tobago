@@ -48,17 +48,18 @@ class ResourceLocator {
 
   private static final Log LOG = LogFactory.getLog(ResourceLocator.class);
 
+  private static final String META_INF_TOBAGO_THEME_XML = "META-INF/tobago-theme.xml";
+  private static final String META_INF_RESOURCES = "META-INF/resources";
+
   private ServletContext servletContext;
   private ResourceManagerImpl resourceManager;
   private ThemeBuilder themeBuilder;
-  private static final String META_INF_TOBAGO_THEME_XML = "META-INF/tobago-theme.xml";
 
   public ResourceLocator(
-      ServletContext servletContext, ResourceManagerImpl resourceManager,
-      ThemeBuilder tobagoConfig) {
+      ServletContext servletContext, ResourceManagerImpl resourceManager, ThemeBuilder themeBuilder) {
     this.servletContext = servletContext;
     this.resourceManager = resourceManager;
-    this.themeBuilder = tobagoConfig;
+    this.themeBuilder = themeBuilder;
   }
 
   public void locate()
@@ -66,6 +67,7 @@ class ResourceLocator {
     // TODO should the resourcedir used from tobago-config.xml?
     locateResourcesInWar(servletContext, resourceManager, "/");
     locateResourcesFromClasspath(resourceManager);
+    locateResourcesServlet30Alike(resourceManager);
   }
 
   private void locateResourcesInWar(
@@ -81,9 +83,7 @@ class ResourceLocator {
     }
     Set<String> resourcePaths = servletContext.getResourcePaths(path);
     if (resourcePaths == null || resourcePaths.isEmpty()) {
-      if (LOG.isInfoEnabled()) {
-        LOG.info("ResourcePath empty! Please check the tobago-config.xml file!" + " path='" + path + "'");
-      }
+      LOG.warn("ResourcePath empty! Please check the tobago-config.xml file! path='" + path + "'");
       return;
     }
     for (String childPath : resourcePaths) {
@@ -100,14 +100,14 @@ class ResourceLocator {
         if (childPath.endsWith(".properties")) {
           InputStream inputStream = servletContext.getResourceAsStream(childPath);
           try {
-            addProperties(inputStream, resources, childPath, false);
+            addProperties(inputStream, resources, childPath, false, 0);
           } finally {
             IOUtils.closeQuietly(inputStream);
           }
         } else if (childPath.endsWith(".properties.xml")) {
           InputStream inputStream = servletContext.getResourceAsStream(childPath);
           try {
-            addProperties(inputStream, resources, childPath, true);
+            addProperties(inputStream, resources, childPath, true, 0);
           } catch (RuntimeException e) {
             LOG.error("childPath = \"" + childPath + "\" ", e);
             throw e;
@@ -127,7 +127,7 @@ class ResourceLocator {
     ThemeParser parser = new ThemeParser();
     try {
       if (LOG.isInfoEnabled()) {
-        LOG.info("Loading tobago-theme.xml");
+        LOG.info("Searching for " + META_INF_TOBAGO_THEME_XML);
       }
       ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
       Enumeration<URL> urls = classLoader.getResources(META_INF_TOBAGO_THEME_XML);
@@ -143,36 +143,77 @@ class ResourceLocator {
         // tomcat uses jar
         // weblogic uses zip
         // IBM WebSphere uses wsjar
-        if ("jar".equals(protocol) || "zip".equals(protocol) || "wsjar".equals(protocol)) {
-          addResources(resources, themeUrl, prefix);
-        } else {
+        if (!"jar".equals(protocol) && !"zip".equals(protocol) && !"wsjar".equals(protocol)) {
           LOG.warn("Unknown protocol '" + themeUrl + "'");
-          addResources(resources, themeUrl, prefix);
         }
+        addResources(resources, themeUrl, prefix, 0);
       }
     } catch (IOException e) {
       String msg = "while loading ";
-      if (LOG.isErrorEnabled()) {
-        LOG.error(msg, e);
-      }
+      LOG.error(msg, e);
       throw new ServletException(msg, e);
     } catch (SAXException e) {
       String msg = "while loading ";
-      if (LOG.isErrorEnabled()) {
-        LOG.error(msg, e);
-      }
+      LOG.error(msg, e);
       throw new ServletException(msg, e);
     }
   }
 
-  private void addResources(ResourceManagerImpl resources, URL themeUrl,
-      String prefix) throws IOException, ServletException {
+  /**
+   * Searches the /WEB-INF/lib directory for *.jar files which contains /META-INF/resources directory
+   * to hold resources and add them to the ResourceManager.
+   *
+   * @param resources Resource Manager which collects all the resources.
+   * @throws ServletException An error while accessing the resource.
+   */
+  private void locateResourcesServlet30Alike(ResourceManagerImpl resources) throws ServletException {
+
+    try {
+      if (LOG.isInfoEnabled()) {
+        LOG.info("Searching for " + META_INF_RESOURCES);
+      }
+      ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+      Enumeration<URL> urls = classLoader.getResources(META_INF_RESOURCES);
+
+      while (urls.hasMoreElements()) {
+        URL resourcesUrl = urls.nextElement();
+
+        LOG.info("resourcesUrl='"+resourcesUrl + "'");
+        if (! resourcesUrl.toString().matches(".*/WEB-INF/lib/.*\\.jar\\!.*")) {
+          LOG.info("skip ...");
+          continue;
+          // only resources from jar files in the /WEB-INF/lib should be considered (like in Servlet 3.0 spec.)
+        }
+        LOG.info("going on ...");
+
+        String protocol = resourcesUrl.getProtocol();
+        // tomcat uses jar
+        // weblogic uses zip
+        // IBM WebSphere uses wsjar
+        if (!"jar".equals(protocol) && !"zip".equals(protocol) && !"wsjar".equals(protocol)) {
+          LOG.warn("Unknown protocol '" + resourcesUrl + "'");
+        }
+        addResources(resources, resourcesUrl, "/" + META_INF_RESOURCES, META_INF_RESOURCES.length() + 1);
+      }
+    } catch (IOException e) {
+      String msg = "while loading ";
+      LOG.error(msg, e);
+      throw new ServletException(msg, e);
+    }
+  }
+
+  private void addResources(ResourceManagerImpl resources, URL themeUrl, String prefix, int skipPrefix)
+      throws IOException, ServletException {
     String fileName = themeUrl.toString();
     int index = fileName.indexOf("!");
     String protocol = themeUrl.getProtocol();
     if (index != -1) {
       fileName = fileName.substring(protocol.length() + 1, index);
     }
+    if (LOG.isInfoEnabled()) {
+      LOG.info("Adding resources from fileName='"+fileName + "' prefix='" + prefix + "' skip=" + skipPrefix + "");
+    }
+
     // JBoss 5.0.0 introduced vfszip protocol
     if (!protocol.equals("vfszip") && fileName.endsWith(META_INF_TOBAGO_THEME_XML)) {
       try {
@@ -208,7 +249,7 @@ class ResourceLocator {
           }
           String name = "/" + nextEntry.getName();
           if (name.startsWith(prefix)) {
-            addResource(resources, name);
+            addResource(resources, name, skipPrefix);
           }
         }
       } finally {
@@ -233,39 +274,39 @@ class ResourceLocator {
           LOG.info(resourcePath + File.separator + file.getName());
         }
         if (inResourcePath) {
-          addResource(resources, resourcePath + File.separator + file.getName());
+          addResource(resources, resourcePath + File.separator + file.getName(), 0);
         }
       }
     }
   }
 
-  private void addResource(ResourceManagerImpl resources, String name)
+  private void addResource(ResourceManagerImpl resources, String name, int skipPrefix)
       throws ServletException {
 
     if (name.endsWith(".class")) {
       // ignore the class files
     } else if (name.endsWith(".properties")) {
       if (LOG.isInfoEnabled()) {
-        LOG.info("** " + name.substring(1));
+        LOG.info("Adding properties from: '" + name.substring(1) + "'");
       }
       InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(name.substring(1));
       try {
-        addProperties(inputStream, resources, name, false);
+        addProperties(inputStream, resources, name, false, skipPrefix);
       } finally {
         IOUtils.closeQuietly(inputStream);
       }
     } else if (name.endsWith(".properties.xml")) {
       if (LOG.isInfoEnabled()) {
-        LOG.info("** " + name.substring(1));
+        LOG.info("Adding properties from: '" + name.substring(1) + "'");
       }
       InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(name.substring(1));
       try {
-        addProperties(inputStream, resources, name, true);
+        addProperties(inputStream, resources, name, true, skipPrefix);
       } finally {
         IOUtils.closeQuietly(inputStream);
       }
     } else {
-      resources.add(name);
+      resources.add(name.substring(skipPrefix));
     }
   }
 
@@ -280,11 +321,10 @@ class ResourceLocator {
   }
 
   private void addProperties(
-      InputStream stream, ResourceManagerImpl resources,
-      String childPath, boolean xml)
+      InputStream stream, ResourceManagerImpl resources, String childPath, boolean xml, int skipPrefix)
       throws ServletException {
 
-    String directory = childPath.substring(0, childPath.lastIndexOf('/'));
+    String directory = childPath.substring(skipPrefix, childPath.lastIndexOf('/'));
     String filename = childPath.substring(childPath.lastIndexOf('/') + 1);
 
     int end = filename.lastIndexOf('.');
@@ -313,9 +353,7 @@ class ResourceLocator {
       }
     } catch (IOException e) {
       String msg = "while loading " + childPath;
-      if (LOG.isErrorEnabled()) {
-        LOG.error(msg, e);
-      }
+      LOG.error(msg, e);
       throw new ServletException(msg, e);
     } finally {
       IOUtils.closeQuietly(stream);
