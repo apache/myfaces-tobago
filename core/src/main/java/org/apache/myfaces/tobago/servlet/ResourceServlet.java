@@ -22,8 +22,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.util.MimeTypeUtils;
 
-import javax.servlet.ServletException;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,6 +62,7 @@ public class ResourceServlet extends HttpServlet {
 
   private Long expires;
 
+  @Override
   public void init(ServletConfig servletConfig) throws ServletException {
     super.init(servletConfig);
     String expiresString = servletConfig.getInitParameter("expires");
@@ -101,7 +102,15 @@ public class ResourceServlet extends HttpServlet {
     InputStream inputStream = null;
     try {
       ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-      inputStream = classLoader.getResourceAsStream(resource);
+
+      // meta inf (like in servlet 3.0)
+      inputStream = classLoader.getResourceAsStream("META-INF/resources/" + resource);
+
+      // "normal" classpath
+      if (inputStream == null) {
+        inputStream = classLoader.getResourceAsStream(resource);
+      }
+
       if (inputStream != null) {
         IOUtils.copy(inputStream, response.getOutputStream());
       } else {
