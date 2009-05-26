@@ -26,13 +26,13 @@ import java.util.List;
 
 public interface AddressDao {
 
-  Address updateAddress(Address address) throws AddressDaoException;
+  Address updateAddress(Address address);
 
-  List<Address> findAddresses(String filter) throws AddressDaoException;
+  List<Address> findAddresses(String filter);
 
-  List<Address> findAddresses(String filter, String column, boolean order) throws AddressDaoException;
+  List<Address> findAddresses(String filter, String column, boolean order);
 
-  void removeAddress(Address address) throws AddressDaoException;
+  void removeAddress(Address address);
 
   Address getAddress(Integer id);
 }

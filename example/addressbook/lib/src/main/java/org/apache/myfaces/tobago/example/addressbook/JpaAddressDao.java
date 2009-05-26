@@ -39,7 +39,7 @@ public class JpaAddressDao implements AddressDao {
   @PersistenceContext(unitName = "addressBook")
   private EntityManager entityManager;
 
-  public Address updateAddress(Address address) throws AddressDaoException {
+  public Address updateAddress(Address address) {
     if (address.getId() == null) {
       entityManager.persist(address);
     } else {
@@ -52,13 +52,13 @@ public class JpaAddressDao implements AddressDao {
     return address;
   }
   @Transactional(readOnly = true)
-  public List<Address> findAddresses(String filter) throws AddressDaoException {
+  public List<Address> findAddresses(String filter) {
     return findAddresses(filter, null, true);
   }
 
   @Transactional(readOnly = true)
   @SuppressWarnings("unchecked")
-  public List<Address> findAddresses(String filter, String column, boolean order) throws AddressDaoException {
+  public List<Address> findAddresses(String filter, String column, boolean order) {
     StringBuilder builder = new StringBuilder();
     builder.append("select a from Address a");
     if (filter != null) {
@@ -80,7 +80,7 @@ public class JpaAddressDao implements AddressDao {
     return query.getResultList();
   }
 
-  public void removeAddress(Address address) throws AddressDaoException {
+  public void removeAddress(Address address) {
     address = getAddress(address.getId());
     entityManager.remove(address);
   }

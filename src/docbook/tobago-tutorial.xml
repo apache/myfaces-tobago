@@ -448,7 +448,7 @@
       code fragment show the method bound to the delete button and describes
       how to access the selected rows:</para>
 
-      <programlisting role="JAVA">public String deleteAddresses() throws AddressDaoException {
+      <programlisting role="JAVA">public String deleteAddresses() {
   List&lt;Integer&gt; selection = selectedAddresses.getSelectedRows();
   if (selection.size() &lt; 1) {
     FacesMessage error 

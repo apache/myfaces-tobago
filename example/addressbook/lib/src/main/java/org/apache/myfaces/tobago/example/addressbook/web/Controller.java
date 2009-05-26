@@ -33,7 +33,6 @@ import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.example.addressbook.Address;
 import org.apache.myfaces.tobago.example.addressbook.AddressDao;
-import org.apache.myfaces.tobago.example.addressbook.AddressDaoException;
 import org.apache.myfaces.tobago.example.addressbook.Picture;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.springframework.context.annotation.Scope;
@@ -95,7 +94,7 @@ public class Controller {
   private boolean renderFileUploadPopup;
 
   @PostConstruct
-  public void init() throws AddressDaoException {
+  public void init() {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     Application application = facesContext.getApplication();
     language = application.getDefaultLocale();
@@ -116,21 +115,21 @@ public class Controller {
     currentAddressList = addressDao.findAddresses(searchCriterion);
   }
 
-  public void setAddressDao(AddressDao addressDao) throws AddressDaoException {
+  public void setAddressDao(AddressDao addressDao) {
     this.addressDao = addressDao;
   }
 
-  public void sheetSorter(ActionEvent event) throws AddressDaoException {
+  public void sheetSorter(ActionEvent event) {
     if (event instanceof SortActionEvent) {
       SortActionEvent sortEvent = (SortActionEvent) event;
       UIColumn column = (UIColumn) sortEvent.getColumn();
 
-      SheetState sheetState = ((UIData)sortEvent.getSheet()).getSheetState(FacesContext.getCurrentInstance());
+      SheetState sheetState = ((UIData) sortEvent.getSheet()).getSheetState(FacesContext.getCurrentInstance());
       currentAddressList = addressDao.findAddresses(searchCriterion, column.getId(), sheetState.isAscending());
     }
   }
 
-  public String search() throws AddressDaoException {
+  public String search() {
     currentAddressList = addressDao.findAddresses(searchCriterion);
     return OUTCOME_LIST;
   }
@@ -148,7 +147,7 @@ public class Controller {
     return OUTCOME_EDITOR;
   }
 
-  public String addDummyAddresses() throws IOException, AddressDaoException {
+  public String addDummyAddresses() throws IOException {
     for (int i=0; i<100; ++i) {
       currentAddress = RandomAddressGenerator.generateAddress();
       store();
@@ -168,7 +167,7 @@ public class Controller {
     return OUTCOME_EDITOR;
   }
 
-  public String deleteAddresses() throws AddressDaoException {
+  public String deleteAddresses() {
     List<Integer> selection = selectedAddresses.getSelectedRows();
     if (selection.size() < 1) {
       FacesMessage error = new FacesMessage("Please select at least one address.");
@@ -185,7 +184,7 @@ public class Controller {
     return OUTCOME_LIST;
   }
 
-  public String store() throws AddressDaoException {
+  public String store() {
     LOG.debug("action: storeAddress");
     currentAddress = addressDao.updateAddress(currentAddress);
     selectedAddresses.resetSelected();
@@ -193,7 +192,7 @@ public class Controller {
     return OUTCOME_LIST;
   }
 
-  public String cancel() throws AddressDaoException {
+  public String cancel() {
     currentAddressList = addressDao.findAddresses(searchCriterion);
     return OUTCOME_LIST;
   }
