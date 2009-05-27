@@ -60,13 +60,17 @@ public class ResponseUtils {
       if (!response.containsHeader("Content-Type")) {
         response.setContentType(contentType);
       } else {
-        String responseContentType = response.getContentType();
-        if (!responseContentType.equalsIgnoreCase(contentType)) {
-          response.setContentType(contentType);
-          if (LOG.isInfoEnabled()) {
-            LOG.info("Reponse already contains Header Content-Type '" + responseContentType
-                + "'. Setting Content-Type to '" + contentType + "'");
+        try {
+          String responseContentType = response.getContentType();
+          if (!responseContentType.equalsIgnoreCase(contentType)) {
+            response.setContentType(contentType);
+            if (LOG.isInfoEnabled()) {
+              LOG.info("Reponse already contains Header Content-Type '" + responseContentType
+                  + "'. Setting Content-Type to '" + contentType + "'");
+            }
           }
+        } catch (AbstractMethodError e) {
+          LOG.warn("The method ServletResponse.getContentType() is not available before Servlet 2.4");
         }
       }
     }
