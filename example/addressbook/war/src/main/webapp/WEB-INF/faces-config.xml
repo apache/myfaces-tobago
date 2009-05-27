@@ -24,39 +24,14 @@
 <faces-config>
   
   <application>
-    <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
-    <action-listener>org.apache.myfaces.tobago.util.DebugActionListener</action-listener>
-    <navigation-handler>org.apache.myfaces.tobago.util.DebugNavigationHandler</navigation-handler>
-    <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
      <locale-config>
       <default-locale>en_US</default-locale>
       <supported-locale>de</supported-locale>
       <supported-locale>en_GB</supported-locale>
       <supported-locale>en_US</supported-locale>
     </locale-config>
-    <message-bundle>error.messages</message-bundle>
   </application>
 
-  <component>
-    <component-type>org.apache.myfaces.tobago.Command</component-type>
-    <component-class>org.apache.myfaces.tobago.security.UISecuredCommand</component-class>
-  </component>
-
-  <component>
-    <component-type>org.apache.myfaces.tobago.LinkCommand</component-type>
-    <component-class>org.apache.myfaces.tobago.security.UISecuredLinkCommand</component-class>
-  </component>
-  
-  <component>
-    <component-type>org.apache.myfaces.tobago.ButtonCommand</component-type>
-    <component-class>org.apache.myfaces.tobago.security.UISecuredButtonCommand</component-class>
-  </component>
-
-  <component>
-    <component-type>org.apache.myfaces.tobago.MenuCommand</component-type>
-    <component-class>org.apache.myfaces.tobago.security.UISecuredMenuCommand</component-class>
-  </component>
-  
   <lifecycle>
     <phase-listener>org.apache.myfaces.tobago.util.DebugPhaseListener</phase-listener>
     <phase-listener>org.apache.myfaces.tobago.example.addressbook.web.StartupPhaseListener</phase-listener>
@@ -98,39 +73,10 @@
     </managed-property>
   </managed-bean>
 
-  <converter>
-    <converter-for-class>java.util.Locale</converter-for-class>
-    <converter-class>org.apache.myfaces.tobago.example.addressbook.web.LocaleConverter</converter-class>
-  </converter>
-
-  <validator>
-    <validator-id>EmailAddressValidator</validator-id>
-    <validator-class>org.apache.myfaces.tobago.example.addressbook.web.EmailAddressValidator</validator-class>
-  </validator>
-
-  <converter>
-    <converter-for-class>org.apache.myfaces.tobago.example.addressbook.EmailAddress</converter-for-class>
-    <converter-class>org.apache.myfaces.tobago.example.addressbook.web.EmailAddressConverter</converter-class>
-  </converter>
-
   <navigation-rule>
     <navigation-case>
       <from-outcome>logout</from-outcome>
       <to-view-id>/auth/logout.xhtml</to-view-id>
-    </navigation-case>
-  </navigation-rule>
-  <navigation-rule>
-    <navigation-case>
-      <from-outcome>editor</from-outcome>
-      <to-view-id>/addressbook/editor.xhtml</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>list</from-outcome>
-      <to-view-id>/addressbook/list.xhtml</to-view-id>
-    </navigation-case>
-    <navigation-case>
-      <from-outcome>admin</from-outcome>
-      <to-view-id>/addressbook/admin/admin.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
 
