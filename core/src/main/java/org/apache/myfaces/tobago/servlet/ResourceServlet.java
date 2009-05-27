@@ -50,9 +50,6 @@ import java.util.Date;
  * </pre><p>
  *
  * @since 1.0.7
- *        <p/>
- *        XXX This class is in development. Please don't use it in
- *        production environment!
  */
 public class ResourceServlet extends HttpServlet {
 
@@ -83,9 +80,7 @@ public class ResourceServlet extends HttpServlet {
       throws ServletException, IOException {
 
     String requestURI = request.getRequestURI();
-
-    String resource = requestURI.substring(
-        request.getContextPath().length() + 1); // todo: make it "stable"
+    String resource = requestURI.substring(request.getContextPath().length() + 1);
 
     if (expires != null) {
       response.setHeader("Cache-Control", "max-age=" + expires);
@@ -95,10 +90,12 @@ public class ResourceServlet extends HttpServlet {
     if (contentType != null) {
       response.setContentType(contentType);
     } else {
-      LOG.warn("Unsupported file extension, will be ignored for security "
-          + "reasons; resource='" + resource + "'");
-      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      String message = "Unsupported mime type of resource='" + resource + "'";
+      LOG.warn(message + " (because of security reasons)");
+      response.sendError(HttpServletResponse.SC_FORBIDDEN, message);
+      return;
     }
+
     InputStream inputStream = null;
     try {
       ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -114,7 +111,9 @@ public class ResourceServlet extends HttpServlet {
       if (inputStream != null) {
         IOUtils.copy(inputStream, response.getOutputStream());
       } else {
-        LOG.warn("Resource '" + resource + "' not found!");
+        String message = "Resource '" + resource + "' not found!";
+        LOG.warn(message);
+        response.sendError(HttpServletResponse.SC_NOT_FOUND, message);
       }
     } finally {
       IOUtils.closeQuietly(inputStream);
