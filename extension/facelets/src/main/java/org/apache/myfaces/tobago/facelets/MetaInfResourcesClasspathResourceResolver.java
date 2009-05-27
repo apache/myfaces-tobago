@@ -31,7 +31,7 @@ import java.net.URL;
  * <pre>
  *  &lt;context-param&gt;
  *    &lt;param-name&gt;facelets.RESOURCE_RESOLVER&lt;/param-name&gt;
- *    &lt;param-value&gt;org.apache.myfaces.tobago.facelets.WebinfResourcesClasspathResourceResolver&lt;/param-value&gt;
+ *    &lt;param-value&gt;org.apache.myfaces.tobago.facelets.MetaInfResourcesClasspathResourceResolver&lt;/param-value&gt;
  *  &lt;/context-param&gt;
  * </pre>
  * <p/>
@@ -39,13 +39,13 @@ import java.net.URL;
  * Date: 12.05.2009
  * Time: 12:25:31
  */
-public class WebinfResourcesClasspathResourceResolver extends DefaultResourceResolver {
+public class MetaInfResourcesClasspathResourceResolver extends DefaultResourceResolver {
 
-  private static final Log LOG = LogFactory.getLog(WebinfResourcesClasspathResourceResolver.class);
+  private static final Log LOG = LogFactory.getLog(MetaInfResourcesClasspathResourceResolver.class);
 
-  public WebinfResourcesClasspathResourceResolver() {
+  public MetaInfResourcesClasspathResourceResolver() {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("WebinfResourcesClasspathResourceResolver is configured to resolve resoureces.");
+      LOG.debug("MetaInfResourcesClasspathResourceResolver is configured to resolve resoureces.");
     }
   }
 
