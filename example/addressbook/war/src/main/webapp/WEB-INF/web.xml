@@ -36,7 +36,7 @@
 
   <context-param>
     <param-name>facelets.RESOURCE_RESOLVER</param-name>
-    <param-value>org.apache.myfaces.tobago.facelets.WebinfResourcesClasspathResourceResolver</param-value>
+    <param-value>org.apache.myfaces.tobago.facelets.MetaInfResourcesClasspathResourceResolver</param-value>
   </context-param>
 
   <context-param>
@@ -122,7 +122,10 @@
     <url-pattern>/org/tango-project/*</url-pattern>
   </servlet-mapping>
 
-  <!-- Welcome File List -->
+  <error-page>
+    <exception-type>java.lang.Throwable</exception-type>
+    <location>/faces/error.xhtml</location>
+  </error-page>
 
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
