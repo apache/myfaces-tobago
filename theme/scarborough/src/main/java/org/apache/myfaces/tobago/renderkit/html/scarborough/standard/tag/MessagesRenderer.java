@@ -24,9 +24,18 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_GLOBAL_ONLY;
+import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIBox;
+import org.apache.myfaces.tobago.component.UIButtonCommand;
+import org.apache.myfaces.tobago.component.UICell;
+import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIMessages;
+import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -40,11 +49,15 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 
 public class MessagesRenderer extends MessageRendererBase {
 
   private static final Log LOG = LogFactory.getLog(MessagesRenderer.class);
 
+  public static final String CLOSE_POPUP = "closePopup";
+
+  @Override
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     int count = 0;
     for (Iterator i = facesContext.getMessages(); i.hasNext(); i.next()) {
@@ -59,9 +72,15 @@ public class MessagesRenderer extends MessageRendererBase {
         : getConfiguredValue(facesContext, component, "fixedHeight");
   }
 
+  @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
     UIMessages messages = (UIMessages) component;
+
+    if (messages.isConfirmation()) {
+      createPopup(facesContext, messages);
+      return;
+    }
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
@@ -76,7 +95,7 @@ public class MessagesRenderer extends MessageRendererBase {
       // with id
       String focusId = null;
       Iterator clientIds;
-      if (ComponentUtil.getBooleanAttribute(messages, ATTR_GLOBAL_ONLY)) {
+      if (ComponentUtil.getBooleanAttribute(messages, TobagoConstants.ATTR_GLOBAL_ONLY)) {
         ArrayList<String> list = new ArrayList<String>(1);
         list.add(null);
         clientIds = list.iterator();
@@ -102,6 +121,74 @@ public class MessagesRenderer extends MessageRendererBase {
 */
       writer.endElement(HtmlConstants.SPAN);
     }
+  }
+
+  private void createPopup(FacesContext facesContext, UIMessages messages) {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("POPUP");
+    }
+    String id = messages.getId() != null ? messages.getId() + "popup" : facesContext.getViewRoot().createUniqueId();
+    final UIPopup popup = (UIPopup)
+        ComponentUtil.createComponent(facesContext, UIPopup.COMPONENT_TYPE, TobagoConstants.RENDERER_TYPE_POPUP, id);
+    popup.getAttributes().put(TobagoConstants.ATTR_ZINDEX, 10);
+
+    UIPage page = ComponentUtil.findPage(facesContext, messages);
+
+    popup.setWidth(page.getWidth() - 200 + "px");
+    popup.setHeight(page.getHeight() - 200 + "px");
+    popup.setLeft("100px");
+    popup.setTop("100px");
+    popup.setRendered(true);
+    popup.setActivated(true);
+    page.getPopups().add(popup);
+
+    Map<String, Object> okButtonAttributes = popup.getAttributes();
+    okButtonAttributes.put(TobagoConstants.ATTR_POPUP_RESET, Boolean.TRUE);
+
+    final UIComponent box = ComponentUtil.createComponent(
+        facesContext, UIBox.COMPONENT_TYPE, TobagoConstants.RENDERER_TYPE_BOX);
+    popup.getChildren().add(box);
+    box.setId("box");
+    // TODO: set string resources in renderer
+    box.getAttributes().put(TobagoConstants.ATTR_LABEL, ResourceManagerUtil.getPropertyNotNull(
+        facesContext, "tobago", "tobago.message.confirmation.title"));
+    UIComponent layout = ComponentUtil.createComponent(
+        facesContext, UIGridLayout.COMPONENT_TYPE, TobagoConstants.RENDERER_TYPE_GRID_LAYOUT, "layout");
+    box.getFacets().put(TobagoConstants.FACET_LAYOUT, layout);
+    layout.getAttributes().put(TobagoConstants.ATTR_ROWS, "*;fixed");
+    layout.getAttributes().put(TobagoConstants.ATTR_MARGIN, "10");
+
+    final UICell scrollPanel = (UICell)
+        ComponentUtil.createComponent(facesContext, UICell.COMPONENT_TYPE, "Cell", "messagePanel");
+    box.getChildren().add(scrollPanel);
+
+    messages.getParent().getChildren().remove(messages);
+    messages.setConfirmation(false);
+    scrollPanel.setScrollbars("auto");
+    scrollPanel.getChildren().add(messages);
+
+    UIComponent buttonPanel = ComponentUtil.createComponent(
+        facesContext, UIPanel.COMPONENT_TYPE, TobagoConstants.RENDERER_TYPE_PANEL, "buttonPanel");
+    layout = ComponentUtil.createComponent(
+        facesContext, UIGridLayout.COMPONENT_TYPE, TobagoConstants.RENDERER_TYPE_GRID_LAYOUT, "buttonPanelLayout");
+    buttonPanel.getFacets().put(TobagoConstants.FACET_LAYOUT, layout);
+    layout.getAttributes().put(TobagoConstants.ATTR_COLUMNS, "*;100px");
+    layout.getAttributes().put(TobagoConstants.ATTR_ROWS, "fixed");
+
+    box.getChildren().add(buttonPanel);
+
+    final UICell space = (UICell)
+        ComponentUtil.createComponent(facesContext, UICell.COMPONENT_TYPE, "Cell", "space");
+    buttonPanel.getChildren().add(space);
+
+    final UICommand okButton = (UICommand) ComponentUtil.createComponent(
+        facesContext, UIButtonCommand.COMPONENT_TYPE, TobagoConstants.RENDERER_TYPE_BUTTON, CLOSE_POPUP);
+    buttonPanel.getChildren().add(okButton);
+    okButtonAttributes = okButton.getAttributes();
+    okButtonAttributes.put(TobagoConstants.ATTR_LABEL, ResourceManagerUtil.getPropertyNotNull(
+        facesContext, "tobago", "tobago.message.confirmation.okay"));
+    okButtonAttributes.put("popupClose", "immediate");
+    return;
   }
 
   /*
@@ -151,4 +238,3 @@ public class MessagesRenderer extends MessageRendererBase {
   }
 
 }
-

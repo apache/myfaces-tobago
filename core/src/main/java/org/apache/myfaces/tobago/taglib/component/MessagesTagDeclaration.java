@@ -101,4 +101,13 @@ public interface MessagesTagDeclaration extends TobagoTagDeclaration, HasIdBindi
           allowedValues = {UIMessages.OrderBy.OCCURENCE_STRING, UIMessages.OrderBy.SEVERITY_STRING},
           defaultValue = UIMessages.OrderBy.OCCURENCE_STRING)
   void setOrderBy(String orderBy);
+
+  /**
+  * Should the user confirm the message explicitly.
+  * The default is "true".
+  */
+ @TagAttribute
+ @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+ void setConfirmation(String confirmation);
+
 }

@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CONFIRMATION;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_GLOBAL_ONLY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MAX_NUMBER;
@@ -28,9 +29,9 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_SUMMARY;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIMessages;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.UIComponentTag;
-import javax.faces.application.FacesMessage;
 
 
 public class MessagesTag extends TobagoTag
@@ -44,6 +45,7 @@ public class MessagesTag extends TobagoTag
   private String maxSeverity;
   private String maxNumber;
   private String orderBy;
+  private String confirmation;
 
   public String getComponentType() {
     return UIMessages.COMPONENT_TYPE;
@@ -59,6 +61,7 @@ public class MessagesTag extends TobagoTag
     setSeverityProperty(component, ATTR_MAX_SEVERITY, maxSeverity);
     ComponentUtil.setIntegerProperty(component, ATTR_MAX_NUMBER, maxNumber);
     setOrderByProperty(component, ATTR_ORDER_BY, orderBy);
+    ComponentUtil.setBooleanProperty(component, ATTR_CONFIRMATION, confirmation);
   }
 
     private void setSeverityProperty(UIComponent component, String name, String value) {
@@ -80,8 +83,6 @@ public class MessagesTag extends TobagoTag
       }
     }
   }
-
-
 
   public void release() {
     super.release();
@@ -128,5 +129,9 @@ public class MessagesTag extends TobagoTag
 
   public void setOrderBy(String orderBy) {
     this.orderBy = orderBy;
+  }
+
+  public void setConfirmation(String confirmation) {
+    this.confirmation = confirmation;
   }
 }

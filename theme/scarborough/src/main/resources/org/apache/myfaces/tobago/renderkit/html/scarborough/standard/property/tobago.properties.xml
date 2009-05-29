@@ -69,6 +69,10 @@
   <entry key="datePickerOk">OK</entry>
   <entry key="datePickerCancel">Cancel</entry>
 
+  <!-- messages -->
+  <entry key="tobago.message.confirmation.title">Messages</entry>
+  <entry key="tobago.message.confirmation.okay">OK</entry>
+
   <!-- requiredvalidator -->
   <entry key="tobago.requiredvalidator.message.empty.summary">Required field.</entry>
   <entry key="tobago.requiredvalidator.message.empty.detail">Field is required.</entry>

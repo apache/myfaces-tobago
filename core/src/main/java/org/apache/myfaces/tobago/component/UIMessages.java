@@ -39,6 +39,7 @@ public class UIMessages extends javax.faces.component.UIMessages {
   // todo: emnum
   private OrderBy orderBy;
   private String forValue;
+  private Boolean confirmation;
 
   public List<Item> createMessageList(FacesContext facesContext) {
 
@@ -201,17 +202,36 @@ public class UIMessages extends javax.faces.component.UIMessages {
     }
   }
 
+  public boolean isConfirmation() {
+    if (confirmation != null) {
+      return confirmation;
+    }
+    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_CONFIRMATION);
+    if (vb != null) {
+      return (Boolean.TRUE.equals(vb.getValue(getFacesContext())));
+    } else {
+      return false;
+    }
+  }
+
+  public void setConfirmation(boolean confirmation) {
+    this.confirmation = confirmation;
+  }
+
+  @Override
   public Object saveState(FacesContext context) {
-    Object[] values = new Object[6];
+    Object[] values = new Object[7];
     values[0] = super.saveState(context);
     values[1] = minSeverity;
     values[2] = maxSeverity;
     values[3] = maxNumber;
     values[4] = orderBy;
     values[5] = forValue;
+    values[6] = confirmation;
     return values;
   }
 
+  @Override
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
@@ -220,6 +240,7 @@ public class UIMessages extends javax.faces.component.UIMessages {
     maxNumber = (Integer) values[3];
     orderBy = (OrderBy) values[4];
     forValue = (String) values[5];
+    confirmation = (Boolean) values[6];
   }
 
   public enum OrderBy {
