@@ -107,4 +107,15 @@ public interface MessagesTagDeclaration extends HasIdBindingAndRendered, HasFor 
       defaultValue = AbstractUIMessages.OrderBy.OCCURENCE_STRING, 
       defaultCode = "org.apache.myfaces.tobago.component.AbstractUIMessages.OrderBy.OCCURENCE")
   void setOrderBy(String orderBy);
+
+  /**
+   * Has the user to confirm this message?
+   * This attributes handles the case, if the application wants to warn the user about a problem,
+   * and the user has to confirm the message before he/she can continue.
+   * The default is false.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  void setConfirmation(String confirmation);
+
 }

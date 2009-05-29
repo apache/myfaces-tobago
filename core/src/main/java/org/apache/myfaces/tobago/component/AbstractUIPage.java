@@ -310,4 +310,7 @@ public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnC
   }
 // LAYOUT End
 
+  public abstract Integer getWidth();
+
+  public abstract Integer getHeight();
 }
