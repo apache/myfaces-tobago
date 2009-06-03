@@ -65,9 +65,8 @@ public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindi
   @Deprecated
   void setShowNavigationBar(String serverside);
 
-
   /**
-   * Flag indicating how tab switching should be done.
+   * Indicating how tab switching should be done.
    * <p/>
    * Possible values are:
    * <dl>
@@ -78,6 +77,7 @@ public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindi
    *   <dt>reloadTab</dt>
    *   <dd>Tab switching is done by server request. Only the Tab is reloaded.</dd>
    * </dl>
+   * @param switchType Sets the switching type.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.String",
