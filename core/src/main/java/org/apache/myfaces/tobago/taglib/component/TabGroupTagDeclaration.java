@@ -63,12 +63,18 @@ public interface TabGroupTagDeclaration extends HasIdBindingAndRendered, HasDepr
   void setServerside(String serverside);
 
   /**
-   * Flag indicating how tab switching should be done.
-   *
+   * Indicating how tab switching should be done.
+   * <p/>
    * Possible values are:
-   *   "client"     : Tab switching id done on client, no server Request. This is default.
-   *   "reloadPage" : Tab switching id done by server request. Full page is reloaded.
-   *   "reloadTab"  : Tab switching id done by server request. Only the Tab is reloaded.
+   * <dl>
+   *   <dt>client</dt>
+   *   <dd>Tab switching is done on client, no server Request. This is default.</dd>
+   *   <dt>reloadPage</dt>
+   *   <dd>Tab switching is done by server request. Full page is reloaded.</dd>
+   *   <dt>reloadTab</dt>
+   *   <dd>Tab switching is done by server request. Only the Tab is reloaded.</dd>
+   * </dl>
+   * @param switchType Sets the switching type.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.String",
