@@ -18,11 +18,11 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
@@ -70,9 +70,14 @@ public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindi
    * Flag indicating how tab switching should be done.
    * <p/>
    * Possible values are:
-   * "client"     : Tab switching id done on client, no server Request. This is default.
-   * "reloadPage" : Tab switching id done by server request. Full page is reloaded.
-   * "reloadTab"  : Tab switching id done by server request. Only the Tab is reloaded.
+   * <dl>
+   *   <dt>client</dt>
+   *   <dd>Tab switching is done on client, no server Request. This is default.</dd>
+   *   <dt>reloadPage</dt>
+   *   <dd>Tab switching is done by server request. Full page is reloaded.</dd>
+   *   <dt>reloadTab</dt>
+   *   <dd>Tab switching is done by server request. Only the Tab is reloaded.</dd>
+   * </dl>
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.String",
