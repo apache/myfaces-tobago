@@ -74,7 +74,7 @@
         <module>blank</module>
         <module>demo</module>
         <module>nonfacesrequest</module>
-        <module>test</module>
+        <module>experimental</module>
       </modules>
     </profile>
     <profile>
@@ -87,7 +87,7 @@
         <module>portlet</module>
         <module>sandbox</module>
         <module>security</module>
-        <module>test</module>
+        <module>experimental</module>
         <module>facelets</module>
         <module>tobago-example-assembly</module>
         <module>tobago-theme-example</module>
