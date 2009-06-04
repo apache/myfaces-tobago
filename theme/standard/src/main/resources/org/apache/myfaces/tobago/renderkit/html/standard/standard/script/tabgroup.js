@@ -25,6 +25,7 @@ Tobago.TabGroup = function(tabGroupId, activeIndex, size) {
 
   Tobago.element(this.tabGroupId).jsObject = this;
   Tobago.addJsObject(this);
+  Tobago.addAjaxComponent(this.tabGroupId, this);
 
   //  var htmlId = this.tabGroupId;
   //
@@ -112,7 +113,7 @@ Tobago.TabGroup.prototype.next = function(event) {
       //LOG.error(element.id);
       var idPrefix = element.id.substring(0, element.id.lastIndexOf(Tobago.SUB_COMPONENT_SEP2) + Tobago.SUB_COMPONENT_SEP2.length);
       //LOG.error(idPrefix);
-      for (i = (this.activeIndex * 1) + 1; i < this.size; i++) {
+      for (var i = (this.activeIndex * 1) + 1; i < this.size; i++) {
         var id = idPrefix + i;
         var span = Tobago.element(id);
         if (span && span.className.indexOf('tobago-tab-disabled') == -1) {
@@ -123,22 +124,8 @@ Tobago.TabGroup.prototype.next = function(event) {
       //this.activeIndex =
       //LOG.error("Request tab with index " + this.activeIndex);
 
-      var hidden = Tobago.element(this.tabGroupId + Tobago.SUB_COMPONENT_SEP2 + "activeIndex");
-      if (hidden) {
-        hidden.value = this.activeIndex;
-      }
-      else {
-        LOG.warn("No hidden field for tabindex Id='" + this.tabGroupId + Tobago.SUB_COMPONENT_SEP2 + "activeIndex" + "'");
-        LOG.warn("aId = " + aId);
-      }
-      if (Tobago.Updater.hasTransport()) {
-        var id = idPrefix + this.activeIndex;
-        this.removeRelatedAcceleratorKeys(id.substring(0, id.lastIndexOf(Tobago.SUB_COMPONENT_SEP2) + Tobago.SUB_COMPONENT_SEP2.length));
-        var container = Tobago.element(this.tabGroupId);
-        Tobago.Updater.update2(event.srcElement, container, Tobago.page, this.tabGroupId, this.tabGroupId, this.options);
-      } else {
-        Tobago.submitAction2(event.srcElement, this.tabGroupId, null, null);
-      }
+      this.doReload(event.srcElement, this.tabGroupId, this.options, idPrefix);
+
     }
   } else {
     LOG.info("No reload Event");
@@ -158,7 +145,7 @@ Tobago.TabGroup.prototype.previous = function(event) {
       //LOG.error(element.id);
       var idPrefix = element.id.substring(0, element.id.lastIndexOf(Tobago.SUB_COMPONENT_SEP2) + Tobago.SUB_COMPONENT_SEP2.length);
       //LOG.error(idPrefix);
-      for (i = this.activeIndex - 1; i >= 0; i--) {
+      for (var i = this.activeIndex - 1; i >= 0; i--) {
         var id = idPrefix + i;
         var span = Tobago.element(id);
         if (span && span.className.indexOf('tobago-tab-disabled') == -1) {
@@ -169,22 +156,7 @@ Tobago.TabGroup.prototype.previous = function(event) {
       //this.activeIndex =
       //LOG.error("Request tab with index " + this.activeIndex);
 
-      var hidden = Tobago.element(this.tabGroupId + Tobago.SUB_COMPONENT_SEP2 + "activeIndex");
-      if (hidden) {
-        hidden.value = this.activeIndex;
-      }
-      else {
-        LOG.warn("No hidden field for tabindex Id='" + this.tabGroupId + Tobago.SUB_COMPONENT_SEP2 + "activeIndex" + "'");
-        LOG.warn("aId = " + aId);
-      }
-      if (Tobago.Updater.hasTransport()) {
-        var id = idPrefix + this.activeIndex;
-        this.removeRelatedAcceleratorKeys(id.substring(0, id.lastIndexOf(Tobago.SUB_COMPONENT_SEP2) + Tobago.SUB_COMPONENT_SEP2.length));
-        var container = Tobago.element(this.tabGroupId);
-        Tobago.Updater.update2(event.srcElement, container, Tobago.page, this.tabGroupId, this.tabGroupId, this.options);
-      } else {
-        Tobago.submitAction2(event.srcElement, this.tabGroupId, null, null);
-      }
+      this.doReload(event.srcElement, this.tabGroupId, this.options, idPrefix);
     }
   } else {
     LOG.info("No reload Event");
@@ -205,26 +177,51 @@ Tobago.TabGroup.prototype.reload = function(event) {
       this.activeIndex = aId.substring(aId.lastIndexOf(Tobago.SUB_COMPONENT_SEP2) + Tobago.SUB_COMPONENT_SEP2.length);
       LOG.debug("Request tab with index " + this.activeIndex);
 
-      var hidden = Tobago.element(this.tabGroupId + Tobago.SUB_COMPONENT_SEP2 + "activeIndex");
-      if (hidden) {
-        hidden.value = this.activeIndex;
-      }
-      else {
-        LOG.warn("No hidden field for tabindex Id='" + this.tabGroupId + Tobago.SUB_COMPONENT_SEP2 + "activeIndex" + "'");
-        LOG.warn("aId = " + aId);
-      }
-      if (Tobago.Updater.hasTransport()) {
-        this.removeRelatedAcceleratorKeys(aId.substring(0, aId.lastIndexOf(Tobago.SUB_COMPONENT_SEP2) + Tobago.SUB_COMPONENT_SEP2.length));
-        var container = Tobago.element(this.tabGroupId);
-        Tobago.Updater.update2(event.srcElement, container, Tobago.page, this.tabGroupId, this.tabGroupId, this.options);
-      } else {
-        Tobago.submitAction2(event.srcElement, this.tabGroupId, null, null);
-      }
+      var idPrefix = aId.substring(0, aId.lastIndexOf(Tobago.SUB_COMPONENT_SEP2) + Tobago.SUB_COMPONENT_SEP2.length);
+      this.doReload(event.srcElement, this.tabGroupId, this.options, idPrefix);
     }
   } else {
     LOG.info("No reload Event");
   }
 
+};
+
+Tobago.TabGroup.prototype.reloadWithAction2 = function(source, actionId, options) {
+  if (options) {
+    var onComplete = options.onComplete;
+    Tobago.extend(options, this.options);
+    options.onComplete = function() {
+      onComplete();
+      options.onComplete();
+    };
+  } else {
+    options = {};
+    Tobago.extend(options, this.options);
+  }
+
+  var element = Tobago.element(this.tabGroupId).firstChild;
+  this.activeIndex = element.id.substring(element.id.lastIndexOf(Tobago.SUB_COMPONENT_SEP2) + Tobago.SUB_COMPONENT_SEP2.length);
+  var idPrefix = element.id + Tobago.SUB_COMPONENT_SEP2;
+
+  this.doReload(source, actionId, options, idPrefix);
+};
+
+Tobago.TabGroup.prototype.doReload = function(srcElement, actionId, options, idPrefix) {
+  var hidden = Tobago.element(this.tabGroupId + Tobago.SUB_COMPONENT_SEP2 + "activeIndex");
+  if (hidden) {
+    hidden.value = this.activeIndex;
+  }
+  else {
+    LOG.warn("No hidden field for tabindex Id='" + this.tabGroupId + Tobago.SUB_COMPONENT_SEP2 + "activeIndex" + "'");
+    LOG.warn("idPrefix = " + idPrefix);
+  }
+  if (Tobago.Updater.hasTransport()) {
+    this.removeRelatedAcceleratorKeys(idPrefix);
+    var container = Tobago.element(this.tabGroupId);
+    Tobago.Updater.update2(srcElement, container, Tobago.page, actionId, this.tabGroupId, options);
+  } else {
+    Tobago.submitAction2(srcElement, actionId, null, null);
+  }
 };
 
 Tobago.TabGroup.prototype.removeRelatedAcceleratorKeys = function(idPrefix) {
