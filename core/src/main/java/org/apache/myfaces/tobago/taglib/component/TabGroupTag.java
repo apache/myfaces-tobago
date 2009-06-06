@@ -60,8 +60,8 @@ public class TabGroupTag extends TobagoTag
     if (tabChangeListener != null && component instanceof  UITabGroup && isValueReference(tabChangeListener)) {
       final Application application = FacesContext.getCurrentInstance().getApplication();
       final javax.faces.el.MethodBinding methodBinding = application.createMethodBinding(tabChangeListener,
-          new Class[] { org.apache.myfaces.tobago.event.TabChangeEvent.class } );
-      ((UITabGroup)component).setTabChangeListener(methodBinding);
+          new Class[] {org.apache.myfaces.tobago.event.TabChangeEvent.class});
+      ((UITabGroup) component).setTabChangeListener(methodBinding);
     }
   }
 

@@ -108,10 +108,12 @@ public class CommandRendererHelper {
           boolean popupAction = ComponentUtil.containsPopupActionListener(command);
           if (popupAction) {
             onclick = "Tobago.openPopupWithAction2(this, '"
-                + HtmlRendererUtil.getComponentId(facesContext, command, componentId[0]) + "', '" + clientId + "', null)";
+                + HtmlRendererUtil.getComponentId(facesContext, command, componentId[0])
+                + "', '" + clientId + "', null)";
           } else {
             onclick = "Tobago.reloadComponent2(this, '"
-                + HtmlRendererUtil.getComponentId(facesContext, command, componentId[0]) + "','" + clientId + "', {});";
+                + HtmlRendererUtil.getComponentId(facesContext, command, componentId[0])
+                + "','" + clientId + "', {});";
           }
         } else {
           LOG.error("more than one parially rendered component is currently not supported "

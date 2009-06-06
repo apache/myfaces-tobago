@@ -456,7 +456,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.endElement(HtmlConstants.TABLE);
   }
 
-  private UIToolBar createToolBar(FacesContext facesContext, UITabGroup component, int virtualTab, String switchType, TabGroupRenderer.TabList tabList, String clientId) {
+  private UIToolBar createToolBar(FacesContext facesContext, UITabGroup component, int virtualTab, String switchType,
+      TabGroupRenderer.TabList tabList, String clientId) {
     Application application = facesContext.getApplication();
 
     // tool bar

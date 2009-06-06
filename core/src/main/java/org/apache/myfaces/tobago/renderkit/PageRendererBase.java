@@ -35,18 +35,18 @@ public class PageRendererBase extends LayoutableRendererBase {
     if (component instanceof UIPage) {
       UIPage page = (UIPage) component;
 
-      {
-        String name = page.getClientId(facesContext) + SUBCOMPONENT_SEP + "form-action";
-        String newActionId = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("action = " + newActionId);
-        }
-        page.setActionId(newActionId);
+
+      String name = page.getClientId(facesContext) + SUBCOMPONENT_SEP + "form-action";
+      String newActionId = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("action = " + newActionId);
       }
+      page.setActionId(newActionId);
 
       try {
-        String name = page.getClientId(facesContext) + SUBCOMPONENT_SEP + "action-position";
-        String actionPositionString = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
+        String actionPositionName = page.getClientId(facesContext) + SUBCOMPONENT_SEP + "action-position";
+        String actionPositionString = (String)
+            facesContext.getExternalContext().getRequestParameterMap().get(actionPositionName);
         if (LOG.isDebugEnabled()) {
           LOG.debug("actionPosition='" + actionPositionString + "'");
         }

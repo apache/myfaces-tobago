@@ -435,7 +435,8 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
           }
           if (childs.size() > 1) {
             if (LOG.isInfoEnabled()) {
-              LOG.info("Column should not contain more than one child. Please surround the components with a tc:panel.");
+              LOG.info(
+                  "Column should not contain more than one child. Please surround the components with a tc:panel.");
             }
           }
         }
@@ -1011,7 +1012,8 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     }
   }
 
-  private void renderFilter(FacesContext facesContext, TobagoResponseWriter writer, UIComponent column) throws IOException {
+  private void renderFilter(FacesContext facesContext, TobagoResponseWriter writer, UIComponent column)
+      throws IOException {
 
     UIComponent facet = column.getFacet(FACET_MENUPOPUP);
 

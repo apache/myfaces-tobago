@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>3</version>
+    <version>6</version>
   </parent>
   <groupId>org.apache.myfaces.tobago</groupId>
   <artifactId>tobago</artifactId>
@@ -476,7 +476,7 @@
           </execution>
         </executions>
       </plugin-->
-      <plugin>
+      <!--plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
         <executions>
@@ -487,7 +487,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
+      </plugin-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
@@ -532,6 +532,23 @@
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>retrotranslator-maven-plugin</artifactId>
           <version>1.0-alpha-2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <configuration>
+            <configLocation>
+              http://svn.apache.org/repos/asf/myfaces/maven/trunk/build-tools/src/main/resources/org/apache/myfaces/tobago/checkstyle.xml
+            </configLocation>
+            <headerLocation>
+              http://svn.apache.org/repos/asf/myfaces/maven/trunk/build-tools/src/main/resources/org/apache/myfaces/tobago/checkstyle-header.txt
+            </headerLocation>
+            <xrefLocation>xref</xrefLocation>
+            <excludes>**/package-info.java</excludes>
+            <sourceEncoding>utf-8</sourceEncoding>
+            <minimumTokens>100</minimumTokens>
+            <targetJdk>1.5</targetJdk>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -1027,7 +1044,7 @@
     <sunjsf.version>1.1_02</sunjsf.version>
     <sunjsf12.version>1.2_12</sunjsf12.version>
     <facelets.version>1.1.14</facelets.version>
-    <jetty.version>6.1.11</jetty.version>
+    <jetty.version>6.1.18</jetty.version>
     <common-io.version>1.1</common-io.version>
     <common-lang.version>2.1</common-lang.version>
     <commons-logging.version>1.1</commons-logging.version>
