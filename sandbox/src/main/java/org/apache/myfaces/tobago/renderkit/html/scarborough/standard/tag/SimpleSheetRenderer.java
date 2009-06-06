@@ -163,7 +163,8 @@ public class SimpleSheetRenderer extends SheetRenderer {
     int footerHeight = (Integer) data.getAttributes().get(TobagoConstants.ATTR_FOOTER_HEIGHT);
 
     HtmlStyleMap bodyStyle = (HtmlStyleMap) data.getAttributes().get(TobagoConstants.ATTR_STYLE_BODY);
-    HtmlRendererUtil.replaceStyleAttribute(data, TobagoConstants.ATTR_STYLE_BODY, "height", (sheetHeight - footerHeight));
+    HtmlRendererUtil.replaceStyleAttribute(data, TobagoConstants.ATTR_STYLE_BODY, "height",
+        (sheetHeight - footerHeight));
 
 
     List<Integer> columnWidths = data.getWidthList();
@@ -270,7 +271,8 @@ public class SimpleSheetRenderer extends SheetRenderer {
           }
           if (childs.size() > 1) {
             if (LOG.isInfoEnabled()) {
-              LOG.info("Column should not contain more than one child. Please surround the components with a tc:panel.");
+              LOG.info(
+                  "Column should not contain more than one child. Please surround the components with a tc:panel.");
             }
           }
         }

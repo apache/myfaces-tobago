@@ -68,3 +68,4 @@ public interface WizardTagDeclaration extends HasIdBindingAndRendered {
   @UIComponentTagAttribute(type = "java.lang.Boolean")
   void setAllowJumpForward(String allowJumpForward);
 }
+
