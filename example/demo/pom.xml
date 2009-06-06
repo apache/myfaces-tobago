@@ -64,9 +64,9 @@
     </plugins>
   </build>
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.21/example/demo</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.21/example/demo</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/tags/tobago-1.0.21/example/demo</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/example/demo</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/example/demo</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/myfaces/tobago/branches/tobago-1.0.x/example/demo</url>
   </scm>
 
   <dependencies>
