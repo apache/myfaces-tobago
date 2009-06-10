@@ -29,15 +29,15 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.apt.annotation.Taglib;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.apt.annotation.Facet;
-import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -54,9 +54,9 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 /*
  * Created: Mar 22, 2005 8:18:35 PM
@@ -200,11 +200,9 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
       // TODO configure replacement
 
       String className =
-          decl.getQualifiedName().substring(0, decl.getQualifiedName().length()-"Declaration".length());
+          decl.getQualifiedName().substring(0, decl.getQualifiedName().length() - "Declaration".length());
       if (decl.getAnnotation(UIComponentTag.class) != null) {
-        className = "org.apache.myfaces.tobago.internal.taglib."
-            + annotationTag.name().substring(0, 1).toUpperCase(Locale.ENGLISH)
-            + annotationTag.name().substring(1) + "Tag";
+        className = "org.apache.myfaces.tobago.internal.taglib." + StringUtils.capitalize(annotationTag.name()) + "Tag";
       }
       //decl.getQualifiedName().replaceAll("Declaration", "");
       String msg = "Replacing: " + decl.getQualifiedName()
@@ -221,7 +219,8 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     }
   }
 
-  protected Element createTag(Declaration decl, Tag annotationTag, String className, Document document,
+  protected Element createTag(
+      Declaration decl, Tag annotationTag, String className, Document document,
       boolean deprecated) {
     Element tagElement = document.createElement("tag");
     if (deprecated) {

@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.apt.generate;
  * limitations under the License.
  */
 
-import java.util.Locale;
+import org.apache.commons.lang.StringUtils;
 
 public class PropertyInfo {
   private String name;
@@ -98,7 +98,7 @@ public class PropertyInfo {
   }
 
   public String getShortType() {
-    String shortType = type.substring(type.lastIndexOf('.')+1, type.length());
+    String shortType = type.substring(type.lastIndexOf('.') + 1, type.length());
     return shortType.replace("[]", "Array").replace("$", ".");
   }
 
@@ -106,13 +106,13 @@ public class PropertyInfo {
     String type = getShortType();
     int index = type.lastIndexOf('.');
     if (index != -1) {
-      return type.substring(type.lastIndexOf('.')+1, type.length());
+      return type.substring(type.lastIndexOf('.') + 1, type.length());
     }
     return type;
   }
 
   public String getUpperCamelCaseName() {
-    return name.substring(0, 1).toUpperCase(Locale.ENGLISH) + name.substring(1);
+    return StringUtils.capitalize(name);
   }
 
   public String getPropertyName() {

@@ -17,47 +17,47 @@ package org.apache.myfaces.tobago.apt;
  * limitations under the License.
  */
 
-import org.antlr.stringtemplate.StringTemplateGroup;
+import com.sun.mirror.apt.AnnotationProcessorEnvironment;
+import com.sun.mirror.apt.Filer;
+import com.sun.mirror.declaration.ClassDeclaration;
+import com.sun.mirror.declaration.InterfaceDeclaration;
+import com.sun.mirror.declaration.MethodDeclaration;
+import com.sun.mirror.declaration.TypeDeclaration;
+import com.sun.mirror.type.InterfaceType;
 import org.antlr.stringtemplate.StringTemplate;
+import org.antlr.stringtemplate.StringTemplateGroup;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.apt.generate.ClassInfo;
+import org.apache.myfaces.tobago.apt.generate.ComponentInfo;
+import org.apache.myfaces.tobago.apt.generate.ComponentPropertyInfo;
+import org.apache.myfaces.tobago.apt.generate.PropertyInfo;
 import org.apache.myfaces.tobago.apt.generate.RendererInfo;
 import org.apache.myfaces.tobago.apt.generate.TagInfo;
-import org.apache.myfaces.tobago.apt.generate.ClassInfo;
-import org.apache.myfaces.tobago.apt.generate.PropertyInfo;
-import org.apache.myfaces.tobago.apt.generate.ComponentPropertyInfo;
-import org.apache.myfaces.tobago.apt.generate.ComponentInfo;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
-import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.commons.io.IOUtils;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.Writer;
-import java.io.File;
-import java.io.IOException;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Collection;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Collections;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-
-import com.sun.mirror.apt.AnnotationProcessorEnvironment;
-import com.sun.mirror.apt.Filer;
-import com.sun.mirror.declaration.InterfaceDeclaration;
-import com.sun.mirror.declaration.TypeDeclaration;
-import com.sun.mirror.declaration.MethodDeclaration;
-import com.sun.mirror.declaration.ClassDeclaration;
-import com.sun.mirror.type.InterfaceType;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 /*
  * Date: Apr 22, 2007
@@ -143,8 +143,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     addProperties(decl, properties);
     if (tag != null) {
 
-      String className = "org.apache.myfaces.tobago.internal.taglib."
-          + tag.name().substring(0, 1).toUpperCase(Locale.ENGLISH) + tag.name().substring(1) + "Tag";
+      String className = "org.apache.myfaces.tobago.internal.taglib." + StringUtils.capitalize(tag.name()) + "Tag";
       TagInfo tagInfo = new TagInfo(className, componentTag.rendererType());
       tagInfo.getProperties().addAll(properties);
       if (is12()) {
@@ -189,7 +188,8 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         Class componentBaseClass = Class.forName(componentTag.uiComponentBaseClass());
         int index = 0;
         for (PropertyInfo info:properties) {
-          String methodName = (info.getType().equals("java.lang.Boolean")?"is":"get") + info.getUpperCamelCaseName();
+          String methodName
+              = (info.getType().equals("java.lang.Boolean") ? "is" : "get") + info.getUpperCamelCaseName();
           String possibleUnifiedElAlternative = "set" + info.getUpperCamelCaseName() + "Expression";
           try {
             Method method = componentBaseClass.getMethod(methodName);
