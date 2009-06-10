@@ -44,27 +44,22 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Locale;
 
-/*
- * Created: Apr 27, 2005 4:45:44 PM
- * User: bommel
- * $Id$
- */
 public class TobagoAnnotationVisitor extends TaglibAnnotationVisitor {
 
   public TobagoAnnotationVisitor(AnnotationProcessorEnvironment env) {
     super(env);
   }
 
-  protected void writeTaglib(PackageDeclaration packageDeclaration, Taglib taglibAnnotation, Document document) throws
-      IOException, TransformerException {
+  @Override
+  protected void writeTaglib(PackageDeclaration packageDeclaration, Taglib taglibAnnotation, Document document)
+      throws IOException, TransformerException {
     Writer writer = null;
     try {
       getEnv().getMessager().printNotice("Create DOM");
-      String fileName =
-          taglibAnnotation.fileName().substring(0, taglibAnnotation.fileName().length()-3)+"xml";
+      String fileName = taglibAnnotation.fileName().substring(0, taglibAnnotation.fileName().length() - 3) + "xml";
 
-      writer = getEnv().getFiler().createTextFile(Filer.Location.SOURCE_TREE,
-          packageDeclaration.getQualifiedName(), new File(fileName), null);
+      writer = getEnv().getFiler().createTextFile(
+          Filer.Location.SOURCE_TREE, packageDeclaration.getQualifiedName(), new File(fileName), null);
       TransformerFactory transFactory = TransformerFactory.newInstance();
       transFactory.setAttribute("indent-number", 2);
       Transformer transformer = transFactory.newTransformer();
@@ -75,26 +70,26 @@ public class TobagoAnnotationVisitor extends TaglibAnnotationVisitor {
       transformer.setOutputProperty(OutputKeys.METHOD, "xml");
       transformer.setOutputProperty(OutputKeys.INDENT, "yes");
       transformer.transform(new DOMSource(document), new StreamResult(writer));
-      getEnv().getMessager().printNotice("Write to file " +packageDeclaration.getQualifiedName()+ "."+fileName);
+      getEnv().getMessager().printNotice("Write to file " + packageDeclaration.getQualifiedName() + "." + fileName);
     } finally {
       IOUtils.closeQuietly(writer);
     }
   }
 
-  protected Element createTag(Declaration decl, Tag annotationTag, String className, Document document,
-      boolean deprecated) {
+  @Override
+  protected Element createTag(Declaration decl, Tag tag, String className, Document document, boolean deprecated) {
     Element tagElement = document.createElement("tag");
-    addLeafTextElement(annotationTag.name(), "name", tagElement, document);
+    addLeafTextElement(tag.name(), "name", tagElement, document);
     addLeafTextElement(className, "tag-class", tagElement, document);
 
-    BodyContent bodyContent = annotationTag.bodyContent();
+    BodyContent bodyContent = tag.bodyContent();
     BodyContentDescription contentDescription = decl.getAnnotation(BodyContentDescription.class);
     // TODO more error checking
     if (contentDescription != null) {
       if (bodyContent.equals(BodyContent.JSP)
           && contentDescription.contentType().length() > 0) {
-        throw new IllegalArgumentException("contentType "
-            + contentDescription.contentType() + " for bodyContent JSP not allowed!");
+        throw new IllegalArgumentException(
+            "contentType " + contentDescription.contentType() + " for bodyContent JSP not allowed!");
       } else if (bodyContent.equals(BodyContent.TAGDEPENDENT)
           && contentDescription.contentType().length() == 0) {
         throw new IllegalArgumentException("contentType should set for tagdependent bodyContent");
@@ -126,17 +121,17 @@ public class TobagoAnnotationVisitor extends TaglibAnnotationVisitor {
     return tagElement;
   }
 
-  protected void addAttribute(MethodDeclaration d, Element tagElement,
-      Document document) {
-    TagAttribute tagAttribute = d.getAnnotation(TagAttribute.class);
+  @Override
+  protected void addAttribute(MethodDeclaration method, Element tagElement, Document document) {
+    TagAttribute tagAttribute = method.getAnnotation(TagAttribute.class);
     if (tagAttribute != null) {
       UIComponentTagAttribute uiTagAttribute = null;
       try {
-        uiTagAttribute = d.getAnnotation(UIComponentTagAttribute.class);
+        uiTagAttribute = method.getAnnotation(UIComponentTagAttribute.class);
       } catch (RuntimeException e) {
         e.printStackTrace();
       }
-      String simpleName = d.getSimpleName();
+      String simpleName = method.getSimpleName();
       if (simpleName.startsWith("set")) {
         Element attribute = document.createElement("attribute");
         addLeafTextElement(simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH)
@@ -146,7 +141,7 @@ public class TobagoAnnotationVisitor extends TaglibAnnotationVisitor {
         if (uiTagAttribute != null) {
           addLeafTextElement(uiTagAttribute.expression().toString(), "ui-attribute-expression", attribute, document);
 
-          String [] uiTypeClasses = uiTagAttribute.type();
+          String[] uiTypeClasses = uiTagAttribute.type();
           if (uiTypeClasses.length > 0) {
             Element uiAttributeType = document.createElement("ui-attribute-type");
             for (String typeClass : uiTypeClasses) {
@@ -162,7 +157,7 @@ public class TobagoAnnotationVisitor extends TaglibAnnotationVisitor {
           }
 
         }
-        addDescription(d, attribute, document);
+        addDescription(method, attribute, document);
 
         tagElement.appendChild(attribute);
       } else {
