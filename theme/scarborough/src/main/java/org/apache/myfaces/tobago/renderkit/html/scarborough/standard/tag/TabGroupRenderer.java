@@ -137,7 +137,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     int currentWidth = 0;
 
     int navigationBarWidth = getConfiguredValue(facesContext, component, "navigationBarWidth");
-    for (UIComponent tab: (List<UIComponent>) component.getChildren()) {
+    for (UIComponent tab : (List<UIComponent>) component.getChildren()) {
       if (tab instanceof UIPanelBase) {
         if (tab.isRendered()) {
           currentWidth += tabList.getWidthList().get(virtualTab);
@@ -225,7 +225,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     // ensure to select a rendered tab
     int index = -1;
     int closestRenderedTabIndex = -1;
-    for (UIComponent tab: (List<UIComponent>) tabGroup.getChildren()) {
+    for (UIComponent tab : (List<UIComponent>) tabGroup.getChildren()) {
       index++;
       if (tab instanceof UIPanelBase) {
         if (index == activeIndex) {

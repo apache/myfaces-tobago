@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.apt.generate;
  * limitations under the License.
  */
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class TagInfo extends RendererInfo {
@@ -40,7 +40,7 @@ public class TagInfo extends RendererInfo {
   public PropertyInfo getBodyContent() {
     if (!checkBodyContent) {
       checkBodyContent = true;
-      for (PropertyInfo info:properties) {
+      for (PropertyInfo info : properties) {
         if (info.isBodyContent()) {
           bodyContent = info;
           break;

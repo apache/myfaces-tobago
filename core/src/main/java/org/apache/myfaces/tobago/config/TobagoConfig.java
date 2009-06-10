@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.config;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.RenderersConfig;
+import org.apache.myfaces.tobago.context.Theme;
 
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
@@ -78,7 +78,7 @@ public class TobagoConfig {
       }
     } else {
       int deep = 0;
-      for (Map.Entry<String, Theme> entry: availableTheme.entrySet()) {
+      for (Map.Entry<String, Theme> entry : availableTheme.entrySet()) {
         Theme theme = entry.getValue();
         if (theme.getFallbackList().size() > deep) {
           defaultTheme = theme;

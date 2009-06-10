@@ -32,13 +32,13 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.Validator;
 import org.codehaus.plexus.util.FileUtils;
+import org.jdom.Attribute;
 import org.jdom.Comment;
 import org.jdom.DocType;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.jdom.Namespace;
-import org.jdom.Attribute;
 import org.jdom.filter.ContentFilter;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
@@ -272,7 +272,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
   }
 
   private void applyNamespace(Element parent, Namespace namespace) {
-    for (Element element:(List<Element>) parent.getChildren()) {
+    for (Element element : (List<Element>) parent.getChildren()) {
       element.setNamespace(namespace);
       applyNamespace(element, namespace);
     }

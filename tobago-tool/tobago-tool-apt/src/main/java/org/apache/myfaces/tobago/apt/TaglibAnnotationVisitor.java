@@ -358,7 +358,7 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     if (facets.length > 0) {
       description.append("<p><b>Supported facets:</b></p>");
       description.append("<dl>");
-      for (Facet facet: facets) {
+      for (Facet facet : facets) {
         description.append("<dt><b>");
         description.append(facet.name());
         description.append("</b></dt>");

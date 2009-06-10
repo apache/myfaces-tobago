@@ -105,11 +105,11 @@ public abstract class GenericTestBase extends TestCase {
     facesContext.setViewRoot(root);
   }
 
-    public void testRelease() throws IllegalAccessException,
+  public void testRelease() throws IllegalAccessException,
       NoSuchMethodException, InvocationTargetException, IOException,
-        SAXException, ClassNotFoundException, InstantiationException {
-    for (Tld tld:tlds){
-      for (net.sf.maventaglib.checker.Tag tag:tld.getTags()) {
+      SAXException, ClassNotFoundException, InstantiationException {
+    for (Tld tld : tlds) {
+      for (net.sf.maventaglib.checker.Tag tag : tld.getTags()) {
         Tag tagInstance = getTagInstance(tag);
         checkRelease(tagInstance);
       }
@@ -120,8 +120,8 @@ public abstract class GenericTestBase extends TestCase {
       IllegalAccessException, InvocationTargetException, IOException,
       SAXException, ClassNotFoundException, InstantiationException {
 
-    for (Tld tld:tlds){
-      for (net.sf.maventaglib.checker.Tag tag:tld.getTags()) {
+    for (Tld tld : tlds) {
+      for (net.sf.maventaglib.checker.Tag tag : tld.getTags()) {
         Tag tagInstance = getTagInstance(tag);
         TagAttribute[] attributes = tag.getAttributes();
         for (TagAttribute attribute : attributes) {

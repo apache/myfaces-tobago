@@ -40,7 +40,7 @@ public enum Salutation {
   }
 
   public static Salutation getSalutation(String key) {
-    for(Salutation salutation:values()) {
+    for (Salutation salutation : values()) {
       if (salutation.getKey().equals(key)) {
         return salutation;
       }

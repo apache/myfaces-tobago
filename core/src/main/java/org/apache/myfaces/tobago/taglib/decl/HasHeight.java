@@ -20,13 +20,11 @@ package org.apache.myfaces.tobago.taglib.decl;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/**
- * $Id$
- */
 public interface HasHeight {
   /**
-   *  The height for this component.
+   * The height for this component.
    */
-  @TagAttribute @UIComponentTagAttribute(type = "java.lang.Integer")
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer")
   void setHeight(String height);
 }
