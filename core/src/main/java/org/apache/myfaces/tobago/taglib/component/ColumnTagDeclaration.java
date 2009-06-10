@@ -71,6 +71,7 @@ public interface ColumnTagDeclaration extends HasIdBindingAndRendered, HasLabel,
    * Allowd layout tokens ('*', '&lt;x>*', '&lt;x>px' or '&lt;x>%').
    * Where '*' is equvalent to '1*'.
    */
-  @TagAttribute @UIComponentTagAttribute(type = "java.lang.String")
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.String")
   void setWidth(String width);
 }
