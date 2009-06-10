@@ -59,10 +59,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-/*
- * Date: Apr 22, 2007
- * Time: 10:26:23 PM
- */
 public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor {
 
   private StringTemplateGroup rendererStringTemplateGroup;
@@ -132,8 +128,8 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     stringTemplate.setAttribute("tagInfo", tagInfo);
     tagInfo.getProperties().addAll(properties);
     tagInfo.addImport("org.apache.commons.logging.Log");
-    tagInfo.addImport("org.apache.commons.logging.LogFactory");    
-    writeFile(tagInfo, stringTemplate);    
+    tagInfo.addImport("org.apache.commons.logging.LogFactory");
+    writeFile(tagInfo, stringTemplate);
   }
 
   private void createTagOrComponent(InterfaceDeclaration decl) {
@@ -161,7 +157,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
       tagInfo.addImport("javax.faces.application.Application");
       tagInfo.addImport("javax.faces.component.UIComponent");
       tagInfo.addImport("javax.faces.context.FacesContext");
-                        
+
       StringTemplate stringTemplate = tagStringTemplateGroup.getInstanceOf("tag");
       stringTemplate.setAttribute("tagInfo", tagInfo);
       writeFile(tagInfo, stringTemplate);
@@ -176,7 +172,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
       if (is12()) {
         elMethods = checkForElMethods(componentInfo, componentTag.interfaces());
       }
-      for (String interfaces:componentTag.interfaces()) {
+      for (String interfaces : componentTag.interfaces()) {
         componentInfo.addInterface(interfaces);
       }
       if (componentTag.componentType().length() > 0) {
@@ -187,7 +183,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
       try {
         Class componentBaseClass = Class.forName(componentTag.uiComponentBaseClass());
         int index = 0;
-        for (PropertyInfo info:properties) {
+        for (PropertyInfo info : properties) {
           String methodName
               = (info.getType().equals("java.lang.Boolean") ? "is" : "get") + info.getUpperCamelCaseName();
           String possibleUnifiedElAlternative = "set" + info.getUpperCamelCaseName() + "Expression";
@@ -200,7 +196,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
                 property.setElAlternativeAvailable(true);
               }
               index++;
-            }   
+            }
           } catch (NoSuchMethodException e) {
             ComponentPropertyInfo property = addPropertyToComponent(componentInfo, info, index, false);
             if (elMethods.contains(possibleUnifiedElAlternative)) {
@@ -211,7 +207,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
           }
         }
         boolean found = false;
-        for (Method method:componentBaseClass.getMethods()) {
+        for (Method method : componentBaseClass.getMethods()) {
           if ("invokeOnComponent".equals(method.getName())) {
             found = true;
           }
@@ -228,7 +224,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
       } catch (ClassNotFoundException e) {
         List<PropertyInfo> baseClassProperties = getBaseClassProperties(componentTag.uiComponentBaseClass());
         int index = 0;
-        for (PropertyInfo info:properties) {
+        for (PropertyInfo info : properties) {
           if (!baseClassProperties.contains(info)) {
             addPropertyToComponent(componentInfo, info, index, false);
             index++;
@@ -244,12 +240,12 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
 
   private List<String> checkForElMethods(ComponentInfo info, String[] interfaces) {
     List<String> elMethods = new ArrayList<String>();
-    for (String interfaceName:interfaces) {
+    for (String interfaceName : interfaces) {
       try {
         Class.forName(interfaceName);
         Class interfaceClass2 = Class.forName(interfaceName + "2");
         info.addInterface(interfaceClass2.getName());
-        for (Method method:interfaceClass2.getMethods()) {
+        for (Method method : interfaceClass2.getMethods()) {
           Class[] parameter = method.getParameterTypes();
           if (parameter.length == 1 && "javax.el.MethodExpression".equals(parameter[0].getName())) {
             elMethods.add(method.getName());
@@ -264,8 +260,8 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
   }
 
   private List<PropertyInfo> getBaseClassProperties(String baseClass) {
-    for (InterfaceDeclaration decl: getCollectedInterfaceDeclarations()) {
-      if (decl.getAnnotation(UIComponentTag.class)!= null) {
+    for (InterfaceDeclaration decl : getCollectedInterfaceDeclarations()) {
+      if (decl.getAnnotation(UIComponentTag.class) != null) {
         if (decl.getAnnotation(UIComponentTag.class).uiComponent().equals(baseClass)
             && decl.getAnnotation(UIComponentTag.class).generate()) {
           List<PropertyInfo> properties = new ArrayList<PropertyInfo>();
@@ -278,7 +274,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
   }
 
   private ComponentPropertyInfo addPropertyToComponent(ComponentInfo componentInfo, PropertyInfo info,
-      int index, boolean methodExpression) {
+                                                       int index, boolean methodExpression) {
     ComponentPropertyInfo componentPropertyInfo =
         (ComponentPropertyInfo) info.fill(new ComponentPropertyInfo());
     componentPropertyInfo.setIndex(index);
@@ -341,7 +337,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
 
   protected void addProperties(InterfaceDeclaration type, List<PropertyInfo> properties) {
     addProperties(type.getSuperinterfaces(), properties);
-    for (MethodDeclaration decl : getCollectedMethodDeclarations()) {     
+    for (MethodDeclaration decl : getCollectedMethodDeclarations()) {
       if (decl.getDeclaringType().equals(type)) {
         addProperty(decl, properties);
       }
@@ -391,10 +387,10 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
               + Arrays.toString(uiComponentTagAttribute.type()));
         }
         propertyInfo.setType(type);
-        propertyInfo.setDefaultValue(uiComponentTagAttribute.defaultValue().length() > 0
-            ?uiComponentTagAttribute.defaultValue():null);
-         propertyInfo.setDefaultCode(uiComponentTagAttribute.defaultCode().length() > 0
-            ?uiComponentTagAttribute.defaultCode():null);
+        propertyInfo.setDefaultValue(
+            uiComponentTagAttribute.defaultValue().length() > 0 ? uiComponentTagAttribute.defaultValue() : null);
+        propertyInfo.setDefaultCode(
+            uiComponentTagAttribute.defaultCode().length() > 0 ? uiComponentTagAttribute.defaultCode() : null);
         propertyInfo.setMethodSignature(uiComponentTagAttribute.methodSignature());
         propertyInfo.setDeprecated(decl.getAnnotation(Deprecated.class) != null);
         properties.add(propertyInfo);
