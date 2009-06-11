@@ -588,6 +588,10 @@ label.tobago-label-error {
   border: 1px solid #FF0000;
 }
 
+tobago-selectOneChoice-readonly {
+  background-color: #E8E8E8;
+}
+
 /* selectOneRadio --------------------------------------------------------- */
 
 .tobago-selectOneRadio-default  {
