@@ -63,9 +63,12 @@ Release Checklist
   * Sign the assemblies.
 
   * Upload the assemblies to the Apache Software Foundation Distribution Directory.\
-    scp * minotaur.apache.org:/www/www.apache.org/dist/myfaces/binaries 
+    scp * minotaur.apache.org:/www/www.apache.org/dist/myfaces/binaries
 
   * Update the download site after the distribution is on the apache mirrors available.
+
+  * Delete old assemblies in /www/www.apache.org/dist/myfaces/binaries on minotaur.apache.org
+    Older releases are automatic available in the {{{http://archive.apache.org/dist/myfaces/} archive}}.
 
   * Create and send Announcement.
 
