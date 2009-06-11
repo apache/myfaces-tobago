@@ -655,6 +655,10 @@ div.tobago-richTextEditor-body {
   border-color: #ff0000;
 }
 
+.tobago-selectOneChoice-readonly {
+  background-color: #bbccdd;
+}
+
 /* text -------------------------------------------------------------------- */
 
 .tobago-out-default {

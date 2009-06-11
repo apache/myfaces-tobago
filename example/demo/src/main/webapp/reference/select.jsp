@@ -24,7 +24,7 @@
     <tc:box>
       <f:facet name="layout">
         <tc:gridLayout
-            rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;45px;45px;fixed;fixed;fixed;200px;200px;fixed;fixed;fixed;fixed;fixed;*;fixed"/>
+            rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;45px;45px;fixed;fixed;fixed;fixed;200px;200px;fixed;fixed;fixed;fixed;fixed;*;fixed"/>
       </f:facet>
 
       <tc:messages/>
@@ -54,7 +54,7 @@
         <f:selectItem itemValue="Mobile" itemLabel="Mobile"/>
         <f:selectItem itemValue="Fax" itemLabel="Faxscimile"/>
       </tx:selectManyListbox>
-      <tx:selectManyListbox inline="true"
+      <tx:selectManyListbox readonly="true"
                             label="Contact via: ">
         <f:selectItem itemValue="Phone" itemLabel="Phone"/>
         <f:selectItem itemValue="eMail" itemLabel="eMail"/>
@@ -67,7 +67,7 @@
       <%-- code-sniplet-end id="selectManyListbox" --%>
 
       <%-- code-sniplet-start id="selectOneChoice" --%>
-      <tx:selectOneChoice inline="true" value="selectOneChoice0"
+      <tx:selectOneChoice value="selectOneChoice0"
                           label="Contact me1: ">
         <tc:selectItem itemLabel="Letter" itemValue="letter"/>
         <tc:selectItem itemLabel="Phone" itemValue="phone"/>
@@ -76,6 +76,14 @@
       </tx:selectOneChoice>
 
       <%-- code-sniplet-end id="selectOneChoice" --%>
+
+      <tx:selectOneChoice readonly="true" value="selectOneChoice0"
+                          label="Contact me1: ">
+        <tc:selectItem itemLabel="Letter" itemValue="letter"/>
+        <tc:selectItem itemLabel="Phone" itemValue="phone"/>
+        <tc:selectItem itemLabel="eMail" itemValue="eMail"/>
+        <tc:selectItem itemLabel="Fax" itemValue="fax"/>
+      </tx:selectOneChoice>
 
       <%-- surround this with a tc:form if you get validatation or required messages from other fields.
         With tc:form you enable partial validation and update model.
