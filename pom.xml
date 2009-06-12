@@ -1017,7 +1017,7 @@
                 <configuration>
                   <descriptorRefs>
                     <descriptorRef>project</descriptorRef>
-                  </descriptorRefs>>
+                  </descriptorRefs>
                   <tarLongFileMode>gnu</tarLongFileMode>
                 </configuration>
               </execution>
@@ -1306,7 +1306,7 @@
                 <configuration>
                   <descriptorRefs>
                     <descriptorRef>project</descriptorRef>
-                  </descriptorRefs>>
+                  </descriptorRefs>
                   <tarLongFileMode>gnu</tarLongFileMode>
                 </configuration>
               </execution>
