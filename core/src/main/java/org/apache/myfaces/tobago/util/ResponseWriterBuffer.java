@@ -35,7 +35,6 @@ import java.io.Writer;
 //
 
 /**
- * User: lofwyr
  * Date: 07.05.2007 12:03:26
  */
 public class ResponseWriterBuffer {

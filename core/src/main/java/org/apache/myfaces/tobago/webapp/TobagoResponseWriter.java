@@ -31,7 +31,6 @@ import java.io.Writer;
  * This provides an alternative ResponseWriter interfaces, which allows optimizations.
  * E. g. some attributes needed to to be escaped.
  * <p/>
- * User: lofwyr
  * Date: 08.05.2007 13:51:43
  */
 public abstract class TobagoResponseWriter extends ResponseWriter {

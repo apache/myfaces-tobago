@@ -29,7 +29,6 @@ import java.io.InputStream;
 import java.net.URL;
 
 /*
- * User: lofwyr
  * Date: 14.02.2006 20:34:41
  *
  * @since 1.0.7

@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.facelets;
 import com.sun.facelets.tag.AbstractTagLibrary;
 
 /**
- * User: lofwyr
  * Date: 15.10.2007 15:08:23
  */
 public class TobagoSandboxTagLibrary extends AbstractTagLibrary {

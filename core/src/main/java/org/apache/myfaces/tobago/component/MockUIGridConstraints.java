@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.component;
  */
 
 /**
- * User: lofwyr
  * Date: 29.10.2008 22:40:10
  */
 public final class MockUIGridConstraints extends AbstractUIGridConstraints {

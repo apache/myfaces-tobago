@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /*
- * User: lofwyr
  * Date: 25.03.2006 08:21:06
  */
 class ThemeBuilder {

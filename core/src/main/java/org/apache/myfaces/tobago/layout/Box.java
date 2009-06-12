@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.layout;
  */
 
 /**
- * User: lofwyr
  * Date: 28.05.2008 15:10:29
  */
 

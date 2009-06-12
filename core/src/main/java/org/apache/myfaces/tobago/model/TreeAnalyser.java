@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.model;
  */
 
 /**
- * User: lofwyr
  * Date: 04.12.2008
  */
 public interface TreeAnalyser {

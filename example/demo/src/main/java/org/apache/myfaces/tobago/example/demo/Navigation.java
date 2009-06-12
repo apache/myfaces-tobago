@@ -34,7 +34,6 @@ import java.io.PrintWriter;
 import java.util.Enumeration;
 
 /*
- * User: lofwyr
  * Date: 09.01.2007
  * Time: 10:41:49
  */

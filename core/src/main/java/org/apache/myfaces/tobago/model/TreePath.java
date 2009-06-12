@@ -25,7 +25,6 @@ import java.util.List;
 /**
  * Handles a path in a tree from the root node to the position inside this tree.
  *
- * User: lofwyr
  * Date: 02.12.2008
  */
 public class TreePath implements Serializable {

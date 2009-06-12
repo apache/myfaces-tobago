@@ -25,7 +25,6 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * User: lofwyr
  * Date: 09.04.2008 16:58:29
  * <p/>
  * |  3*      |  2*        |  auto       |   200px  |

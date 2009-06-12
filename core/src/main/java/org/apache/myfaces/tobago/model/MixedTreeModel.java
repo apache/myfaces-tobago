@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * User: lofwyr
  * Date: 23.04.2007 16:10:22
  */
 public class MixedTreeModel {

@@ -26,7 +26,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 
 /**
- * User: lofwyr
  * Date: 07.11.2006 13:36:09
  */
 public class OnOffConverter implements Converter {

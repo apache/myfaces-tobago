@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.layout.PixelMeasure;
 import javax.faces.component.UIComponentBase;
 
 /*
- * User: lofwyr
  * Date: 13.02.2008 20:47:28
  */
 public abstract class AbstractUIGridConstraints extends UIComponentBase implements Constraints {

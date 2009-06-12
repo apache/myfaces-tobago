@@ -22,7 +22,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /*
  * Created: Okt 9, 2005
- * User: lofwyr
  * $Id$
  */
 public interface IsPassword {
