@@ -181,7 +181,7 @@ class ResourceLocator {
         URL resourcesUrl = urls.nextElement();
 
         LOG.info("resourcesUrl='"+resourcesUrl + "'");
-        if (! resourcesUrl.toString().matches(".*/WEB-INF/lib/.*\\.jar\\!.*")) {
+        if (!resourcesUrl.toString().matches(".*/WEB-INF/lib/.*\\.jar\\!.*")) {
           LOG.info("skip ...");
           continue;
           // only resources from jar files in the /WEB-INF/lib should be considered (like in Servlet 3.0 spec.)
