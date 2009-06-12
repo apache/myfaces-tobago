@@ -52,7 +52,7 @@
   We will use the latest release tag for this.
 
 +------------------------------------------+
-svn co https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.18/example/addressbook/ tobago-addressbook
+svn co https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.21/example/addressbook/ tobago-addressbook
 +------------------------------------------+
 
   You will need Java 5 and Maven 2.0.9 or later to build the address book example. Use the following command to
@@ -144,7 +144,7 @@ mvn install -Pall-modules
 +------------------------------------------+
 
   A similar page is part of the blank WAR: \
-  {{https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.18/example/blank/src/main/webapp/helloWorld.jsp}}
+  {{https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.21/example/blank/src/main/webapp/helloWorld.jsp}}
 
 {Creating a Tobago page}
 

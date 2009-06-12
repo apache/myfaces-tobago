@@ -125,9 +125,9 @@
   </profiles>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.20/example/addressbook/war</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.20/example/addressbook/war</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.0.20/example/addressbook/war</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/addressbook/war</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/addressbook/war</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/example/addressbook/war</url>
   </scm>
   <dependencies>
     <dependency>
