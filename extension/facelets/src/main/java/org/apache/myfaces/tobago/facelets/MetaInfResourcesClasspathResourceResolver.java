@@ -31,11 +31,12 @@ import java.net.URL;
  * <pre>
  *  &lt;context-param&gt;
  *    &lt;param-name&gt;facelets.RESOURCE_RESOLVER&lt;/param-name&gt;
- *    &lt;param-value&gt;org.apache.myfaces.tobago.facelets.MetaInfResourcesClasspathResourceResolver&lt;/param-value&gt;
+ *    &lt;param-value&gt;
+ *        org.apache.myfaces.tobago.facelets.MetaInfResourcesClasspathResourceResolver
+ *    &lt;/param-value&gt;
  *  &lt;/context-param&gt;
  * </pre>
  * <p/>
- * User: lofwyr
  * Date: 12.05.2009
  * Time: 12:25:31
  */
