@@ -637,6 +637,11 @@
             </excludes>
           </configuration>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>2.2-beta-4</version>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
@@ -691,6 +696,33 @@
         <module>tobago-assembly</module>
         <module>sandbox</module>
       </modules>
+      <build>
+        <plugins>
+          <plugin>
+            <!-- Using this plugin configuration to produce a buildable project source distro,
+                 per the discussion on members@ASF regarding what constitutes a valid release.
+             -->
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>make-project-src-distro</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+                <configuration>
+                  <descriptorRefs>
+                    <descriptorRef>project</descriptorRef>
+                  </descriptorRefs>
+                  <tarLongFileMode>gnu</tarLongFileMode>
+                  <outputDirectory>target/assembly</outputDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
     <profile>
       <id>jdk14retro</id>
@@ -791,6 +823,28 @@
                 <goals>
                   <goal>update</goal>
                 </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <!-- Using this plugin configuration to produce a buildable project source distro,
+                 per the discussion on members@ASF regarding what constitutes a valid release.
+             -->
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>make-project-src-distro</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+                <configuration>
+                  <descriptorRefs>
+                    <descriptorRef>project</descriptorRef>
+                  </descriptorRefs>
+                  <tarLongFileMode>gnu</tarLongFileMode>
+                </configuration>
               </execution>
             </executions>
           </plugin>
