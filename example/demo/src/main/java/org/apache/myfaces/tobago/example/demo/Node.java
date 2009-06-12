@@ -92,8 +92,6 @@ public class Node {
 
   @Override
   public String toString() {
-    return "Node{" +
-        "name='" + name + '\'' +
-        '}';
+    return "Node{" + "name='" + name + '\'' + '}';
   }
 }
