@@ -85,8 +85,8 @@ echo "Building tobago ."
 cd tobago
 mvn -Djava14.home=$JAVA14_HOME -Daggregate=false -Pgenerate-assembly,attach-sources,jdk14retro -U clean install deploy
 cd tobago-assembly
-mvn -Pgenerate-assembly clean org.apache.myfaces.maven:wagon-maven-plugin:deploy
+mvn -Pgenerate-assembly clean package org.apache.myfaces.maven:wagon-maven-plugin:deploy
 cd ../example/tobago-example-assembly
-mvn -Pgenerate-assembly clean org.apache.myfaces.maven:wagon-maven-plugin:deploy
+mvn -Pgenerate-assembly clean package org.apache.myfaces.maven:wagon-maven-plugin:deploy
 
 cd ../../..
