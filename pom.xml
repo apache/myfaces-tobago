@@ -1019,6 +1019,7 @@
                     <descriptorRef>project</descriptorRef>
                   </descriptorRefs>
                   <tarLongFileMode>gnu</tarLongFileMode>
+                  <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
                 </configuration>
               </execution>
             </executions>
@@ -1308,6 +1309,7 @@
                     <descriptorRef>project</descriptorRef>
                   </descriptorRefs>
                   <tarLongFileMode>gnu</tarLongFileMode>
+                  <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
                 </configuration>
               </execution>
             </executions>

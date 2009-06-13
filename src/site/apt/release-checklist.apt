@@ -56,9 +56,9 @@ Release Checklist
 
   * Create the assemblies.\
     cd tobago-assembly\
-    mvn -Pgenerate-assembly clean assembly:assembly\
+    mvn -Pgenerate-assembly clean package\
     cd ../example/tobago-example-assembly\
-    mvn -Pgenerate-assembly clean assembly:assembly\
+    mvn -Pgenerate-assembly clean package\
 
   * Sign the assemblies.
 
