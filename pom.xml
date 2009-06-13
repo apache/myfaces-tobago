@@ -716,7 +716,7 @@
                     <descriptorRef>project</descriptorRef>
                   </descriptorRefs>
                   <tarLongFileMode>gnu</tarLongFileMode>
-                  <outputDirectory>target/assembly</outputDirectory>
+                  <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
                 </configuration>
               </execution>
             </executions>
@@ -844,6 +844,7 @@
                     <descriptorRef>project</descriptorRef>
                   </descriptorRefs>
                   <tarLongFileMode>gnu</tarLongFileMode>
+                  <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
                 </configuration>
               </execution>
             </executions>

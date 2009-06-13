@@ -31,17 +31,6 @@
   <build>
     <plugins>
       <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <descriptor>src/main/assembly/dep.xml</descriptor>
-          <finalName>myfaces-tobago-${project.version}</finalName>
-          <outputDirectory>target/assembly/out</outputDirectory>
-          <workDirectory>target/assembly/work</workDirectory>
-          <tarLongFileMode>gnu</tarLongFileMode>
-        </configuration>
-      </plugin>
-
-       <plugin>
         <groupId>org.apache.myfaces.maven</groupId>
         <artifactId>wagon-maven-plugin</artifactId>
         <version>1.0.1</version>
@@ -51,10 +40,9 @@
           <inputDirectory>target/assembly/out</inputDirectory>
         </configuration>
       </plugin>
-
     </plugins>
-
   </build>
+
   <profiles>
     <profile>
       <id>generate-assembly</id>
@@ -67,7 +55,7 @@
 
               <execution>
                 <id>copy-example</id>
-                <phase>package</phase>
+                <phase>generate-resources</phase>
                 <goals>
                   <goal>copy</goal>
                 </goals>
@@ -87,6 +75,25 @@
                     </artifactItem>
                   </artifactItems>
                   <outputDirectory>${project.build.directory}/webapp</outputDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <id>generate-assembly</id>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+                <configuration>
+                  <descriptor>src/main/assembly/dep.xml</descriptor>
+                  <finalName>myfaces-tobago-${project.version}</finalName>
+                  <outputDirectory>target/assembly/out</outputDirectory>
+                  <workDirectory>target/assembly/work</workDirectory>
+                  <tarLongFileMode>gnu</tarLongFileMode>
                 </configuration>
               </execution>
             </executions>
