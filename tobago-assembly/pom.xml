@@ -399,7 +399,7 @@
                         file="${project.build.directory}/assembly/out/tobago-${project.version}-project.tar.gz"
                         toFile="${project.build.directory}/assembly/out/myfaces-tobago-${project.version}-project.tar.gz"/>
                     <move failonerror="false"
-                        file="${project.build.directory}/assembly/out/tobago-${project.version}-project.tar.gz"
+                        file="${project.build.directory}/assembly/out/tobago-${project.version}-project.zip"
                         toFile="${project.build.directory}/assembly/out/myfaces-tobago-${project.version}-project.zip"/>
 
                   </tasks>
