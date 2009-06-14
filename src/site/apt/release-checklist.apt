@@ -67,8 +67,10 @@ Release Checklist
 
   * Update the download site after the distribution is on the apache mirrors available.
 
-  * Delete old assemblies in /www/www.apache.org/dist/myfaces/binaries on minotaur.apache.org
+  * Delete old assemblies in /www/www.apache.org/dist/myfaces/binaries on minotaur.apache.org.
     Older releases are automatic available in the {{{http://archive.apache.org/dist/myfaces/} archive}}.
+
+  * Delete old snapshots in /www/people.apache.org/builds/myfaces/nightly/ on minotaur.apache.org.
 
   * Create and send Announcement.
 
