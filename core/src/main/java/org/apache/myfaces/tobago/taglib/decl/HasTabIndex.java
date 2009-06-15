@@ -26,6 +26,18 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface HasTabIndex {
 
+  /**
+   * Controls the navigation of the focus through the
+   * input controls on a page with the Tab-Key.
+   * The navigation starts from the element with
+   * the lowest tabIndex value to the element with the highest value.
+   * Elements that have identical tabIndex values should be navigated 
+   * in the order they appear in the character stream
+   * Elements that are disabled or with a negative tabIndex
+   * do not participate in the tabbing order.
+   *
+   * @param tabIndex
+   */
   @TagAttribute
   @UIComponentTagAttribute()
   void setTabIndex(String tabIndex);
