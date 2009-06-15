@@ -29,8 +29,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.StringTokenizer;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ResourceManagerImpl implements ResourceManager {
@@ -78,8 +78,7 @@ public class ResourceManagerImpl implements ResourceManager {
     return getImage(viewRoot, name, false);
   }
 
-  public String getImage(UIViewRoot viewRoot, String name,
-      boolean ignoreMissing) {
+  public String getImage(UIViewRoot viewRoot, String name, boolean ignoreMissing) {
     String result = null;
     if (name != null) {
       int dot = name.lastIndexOf('.');
@@ -142,7 +141,7 @@ public class ResourceManagerImpl implements ResourceManager {
         try {
           result = (String) getPaths(key.getClientPropertyId(), key.getLocale(), "",
               JSP, name, "", false, true, true, null, true, false).get(0);
-          synchronized(jspCache) {
+          synchronized (jspCache) {
             jspCache.put(jspKey, result);
           }
         } catch (Exception e) {
@@ -180,10 +179,10 @@ public class ResourceManagerImpl implements ResourceManager {
     return null;
   }
 
-  private List getPaths(String clientProperties, Locale locale, String prefix,
-      String subDir, String name, String suffix,
-      boolean reverseOrder, boolean single, boolean returnKey,
-      String key, boolean returnStrings, boolean ignoreMissing) {
+  private List getPaths(
+      String clientProperties, Locale locale, String prefix, String subDir, String name, String suffix,
+      boolean reverseOrder, boolean single, boolean returnKey, String key, boolean returnStrings,
+      boolean ignoreMissing) {
     List matches = new ArrayList();
 
     StringTokenizer tokenizer = new StringTokenizer(clientProperties, "/");
@@ -199,7 +198,8 @@ public class ResourceManagerImpl implements ResourceManager {
       for (String resourceDirectory : tobagoConfig.getResourceDirs()) {
         for (String browserType : browser.getFallbackList()) { // browser loop
           for (String localeSuffix : locales) { // locale loop
-            path = makePath(resourceDirectory,
+            path = makePath(
+                resourceDirectory,
                 contentType,
                 themeName,
                 browserType,
@@ -208,33 +208,8 @@ public class ResourceManagerImpl implements ResourceManager {
                 localeSuffix,
                 suffix,
                 key);
-            if (LOG.isDebugEnabled()) {
-              LOG.debug("testing path: " + path);
-            }
-            if (returnStrings && resourceList.containsKey(path)) {
-              String result =
-                  returnKey
-                      ? prefix + path
-                      : prefix + resourceList.get(path);
-
-              if (reverseOrder) {
-                matches.add(0, result);
-              } else {
-                matches.add(result);
-              }
-
-              if (single) {
-                return matches;
-              }
-            } else if (!returnStrings) {
-              try {
-                path = path.substring(1).replace('/', '.');
-                Class clazz = Class.forName(path);
-                matches.add(clazz);
-                return matches;
-              } catch (ClassNotFoundException e) {
-                // not found
-              }
+            if (checkPath(prefix, reverseOrder, single, returnKey, returnStrings, matches, path)) {
+              return matches;
             }
           }
         }
@@ -242,33 +217,8 @@ public class ResourceManagerImpl implements ResourceManager {
     }
     for (String localeSuffix : locales) { // locale loop
       path = makePath(name, localeSuffix, suffix, key);
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("testing path: " + path);
-      }
-      if (returnStrings && resourceList.containsKey(path)) {
-        String result =
-            returnKey
-                ? prefix + path
-                : prefix + resourceList.get(path);
-
-        if (reverseOrder) {
-          matches.add(0, result);
-        } else {
-          matches.add(result);
-        }
-
-        if (single) {
-          return matches;
-        }
-      } else if (!returnStrings) {
-        try {
-          path = path.substring(1).replace('/', '.');
-          Class clazz = Class.forName(path);
-          matches.add(clazz);
-          return matches;
-        } catch (ClassNotFoundException e) {
-          // not found
-        }
+      if (checkPath(prefix, reverseOrder, single, returnKey, returnStrings, matches, path)) {
+        return matches;
       }
     }
     if (matches.isEmpty()) {
@@ -282,7 +232,10 @@ public class ResourceManagerImpl implements ResourceManager {
             + "' name = '" + name
             + "' suffix = '" + suffix
             + "' key = '" + key
-            + "'"/*, new Exception()*/);
+            + "'");
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Show stacktrace", new Exception());
+        }
       }
       return null;
     } else {
@@ -290,10 +243,53 @@ public class ResourceManagerImpl implements ResourceManager {
     }
   }
 
-  private String makePath(String project,
-      String language, Theme theme, String browser,
-      String subDir, String name, String localeSuffix, String extension,
-      String key) {
+  private boolean checkPath(
+      String prefix, boolean reverseOrder, boolean single, boolean returnKey, boolean returnStrings,
+      List matches, String path) {
+    if (returnStrings && resourceList.containsKey(path)) {
+      String result =
+          returnKey
+              ? prefix + path
+              : prefix + resourceList.get(path);
+
+      if (reverseOrder) {
+        matches.add(0, result);
+      } else {
+        matches.add(result);
+      }
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("testing path: " + path + " *"); // match
+      }
+
+      if (single) {
+        return true;
+      }
+    } else if (!returnStrings) {
+      try {
+        path = path.substring(1).replace('/', '.');
+        Class clazz = Class.forName(path);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("testing path: " + path + " *"); // match
+        }
+        matches.add(clazz);
+        return true;
+      } catch (ClassNotFoundException e) {
+        // not found
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("testing path: " + path); // no match
+        }
+      }
+    } else {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("testing path: " + path); // no match
+      }
+    }
+    return false;
+  }
+
+  private String makePath(
+      String project, String language, Theme theme, String browser, String subDir, String name, String localeSuffix,
+      String extension, String key) {
     StringBuilder searchtext = new StringBuilder(64);
 
     searchtext.append('/');
@@ -426,8 +422,7 @@ public class ResourceManagerImpl implements ResourceManager {
     return result;
   }
 
-  public String getThemeProperty(UIViewRoot viewRoot,
-      String bundle, String propertyKey) {
+  public String getThemeProperty(UIViewRoot viewRoot, String bundle, String propertyKey) {
     if (bundle != null && propertyKey != null) {
       CacheKey key = getCacheKey(viewRoot);
 
@@ -466,6 +461,7 @@ public class ResourceManagerImpl implements ResourceManager {
       hashCode = calcHashCode();
     }
 
+    @Override
     public boolean equals(Object o) {
       if (this == o) {
         return true;
@@ -477,7 +473,6 @@ public class ResourceManagerImpl implements ResourceManager {
       ImageCacheKey that = (ImageCacheKey) o;
 
       return cacheKey.equals(that.cacheKey) && name.equals(that.name);
-
     }
 
     private int calcHashCode() {
@@ -487,8 +482,14 @@ public class ResourceManagerImpl implements ResourceManager {
       return result;
     }
 
+    @Override
     public int hashCode() {
       return hashCode;
+    }
+
+    @Override
+    public String toString() {
+      return cacheKey + " + " + name;
     }
   }
 
@@ -503,6 +504,7 @@ public class ResourceManagerImpl implements ResourceManager {
       hashCode = calcHashCode();
     }
 
+    @Override
     public boolean equals(Object o) {
       if (this == o) {
         return true;
@@ -524,6 +526,7 @@ public class ResourceManagerImpl implements ResourceManager {
       return result;
     }
 
+    @Override
     public int hashCode() {
       return hashCode;
     }
@@ -542,6 +545,7 @@ public class ResourceManagerImpl implements ResourceManager {
       hashCode = calcHashCode();
     }
 
+    @Override
     public boolean equals(Object o) {
       if (this == o) {
         return true;
@@ -564,6 +568,7 @@ public class ResourceManagerImpl implements ResourceManager {
       return result;
     }
 
+    @Override
     public int hashCode() {
       return hashCode;
     }
@@ -580,6 +585,7 @@ public class ResourceManagerImpl implements ResourceManager {
       hashCode = calcHashCode();
     }
 
+    @Override
     public boolean equals(Object o) {
       if (this == o) {
         return true;
@@ -601,6 +607,7 @@ public class ResourceManagerImpl implements ResourceManager {
       return result;
     }
 
+    @Override
     public int hashCode() {
       return hashCode;
     }
@@ -617,6 +624,7 @@ public class ResourceManagerImpl implements ResourceManager {
       hashCode = calcHashCode();
     }
 
+    @Override
     public boolean equals(Object o) {
       if (this == o) {
         return true;
@@ -638,6 +646,7 @@ public class ResourceManagerImpl implements ResourceManager {
       return result;
     }
 
+    @Override
     public int hashCode() {
       return hashCode;
     }
@@ -666,6 +675,7 @@ public class ResourceManagerImpl implements ResourceManager {
       return locale;
     }
 
+    @Override
     public boolean equals(Object o) {
       if (this == o) {
         return true;
@@ -687,8 +697,14 @@ public class ResourceManagerImpl implements ResourceManager {
       return result;
     }
 
+    @Override
     public int hashCode() {
       return hashCode;
+    }
+
+    @Override
+    public String toString() {
+      return clientPropertyId + " + " + locale;
     }
   }
 
@@ -703,6 +719,7 @@ public class ResourceManagerImpl implements ResourceManager {
       return value;
     }
 
+    @Override
     public boolean equals(Object o) {
       if (this == o) {
         return true;
@@ -720,6 +737,7 @@ public class ResourceManagerImpl implements ResourceManager {
       return true;
     }
 
+    @Override
     public int hashCode() {
       return (value != null ? value.hashCode() : 0);
     }
