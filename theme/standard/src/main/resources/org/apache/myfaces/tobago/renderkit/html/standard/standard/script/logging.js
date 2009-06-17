@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-
 var LOG = new Object();
 Object.extend(LOG, {
   IdBase: "TbgLog",
   messages: new Array(),
   appenders: new Array(),
+  maximumSeverity: 0,
   SEVERITY_ID_POSTFIX: "clientSeverity",
   DEBUG: 1,
   INFO:  2,
@@ -37,11 +37,18 @@ Object.extend(LOG, {
     }
   },
 
+  getMaximumSeverity: function() {
+    return this.maximumSeverity;
+  },
+
   addAppender: function(appender) {
     this.appenders.push(appender);
   },
 
   addMessage: function(msg) {
+    if (this.maximumSeverity < msg.type) {
+      this.maximumSeverity = msg.type;
+    }
     this.messages.push(msg);
     for (var i = 0 ; i < this.appenders.length; i++) {
       var appender = this.appenders[i];
