@@ -37,6 +37,7 @@ public class Filter {
       "/index.html",
       "/navi.xhtml",
       "/org/apache/myfaces/tobago/renderkit/html/standard/blank.html",
+      "/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/dojo/.*",
       "/tc/button/plain.html",
       "/tc/button/plain_de.html"));
 
