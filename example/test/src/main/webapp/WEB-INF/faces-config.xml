@@ -29,4 +29,16 @@
     </view-handler>
   </application>
 
+  <managed-bean>
+    <managed-bean-name>browser</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.test.DirectoryBrowser</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <lifecycle>
+    <phase-listener>
+      org.apache.myfaces.tobago.example.test.DebugModePhaseListener
+    </phase-listener>
+  </lifecycle>
+
 </faces-config>
