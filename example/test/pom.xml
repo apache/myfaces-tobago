@@ -280,13 +280,16 @@
                   <port>8080</port>
                 </connector>
               </connectors>
+              <!-- XXX what is a good name for stopKey? -->
+              <stopKey>foo</stopKey>
+              <stopPort>9999</stopPort>
             </configuration>
             <executions>
               <execution>
                 <id>start-jetty</id>
                 <phase>pre-integration-test</phase>
                 <goals>
-                  <goal>run</goal>
+                  <goal>run-exploded</goal>
                 </goals>
                 <configuration>
                   <daemon>true</daemon>
@@ -300,7 +303,6 @@
                 </goals>
               </execution>
             </executions>
-
           </plugin>
 
 
