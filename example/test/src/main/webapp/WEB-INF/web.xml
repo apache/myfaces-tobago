@@ -51,9 +51,22 @@
     <load-on-startup>3</load-on-startup>
   </servlet>
 
+
+  <servlet>
+    <servlet-name>ResourceServlet</servlet-name>
+    <servlet-class>org.apache.myfaces.tobago.servlet.ResourceServlet</servlet-class>
+  </servlet>
+
+  <!-- servlet-mapping -->
+
   <servlet-mapping>
     <servlet-name>FacesServlet</servlet-name>
     <url-pattern>/faces/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ResourceServlet</servlet-name>
+    <url-pattern>/org/apache/myfaces/tobago/renderkit/html/*</url-pattern>
   </servlet-mapping>
 
   <jsp-config>
