@@ -21,6 +21,7 @@ var LOG = {
   IdBase: "TbgLog",
   messages: new Array(),
   appenders: new Array(),
+  maximumSeverity: 0,
   SEVERITY_ID_POSTFIX: "clientSeverity",
   DEBUG: 1,
   INFO:  2,
@@ -38,11 +39,18 @@ var LOG = {
     }
   },
 
+  getMaximumSeverity: function() {
+    return this.maximumSeverity;
+  },
+
   addAppender: function(appender) {
     this.appenders.push(appender);
   },
 
   addMessage: function(msg) {
+    if (this.maximumSeverity < msg.type) {
+      this.maximumSeverity = msg.type;
+    }
     this.messages.push(msg);
     while (this.messages.length > this.HISTORY_SIZE) {
       this.messages.shift();
