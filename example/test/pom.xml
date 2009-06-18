@@ -26,7 +26,7 @@
   <artifactId>tobago-example-test</artifactId>
   <packaging>war</packaging>
   <name>Tobago Example Test</name>
-  <description>A web application to provide test pages for running automated tests (todo).</description>
+  <description>A web application to provide test pages for running automated tests.</description>
   <build>
     <finalName>tobago-example-test</finalName>
     <plugins>
@@ -241,7 +241,6 @@
                   </excludes>
                   <includes>
                     <include>**/*SeleniumTest.java</include>
-                    <include>**/*SeleniumSuite.java</include>
                   </includes>
                 </configuration>
               </execution>
@@ -515,4 +514,18 @@
       </build>
     </profile>
   </profiles>
+
+  <repositories>
+    <repository>
+      <id>openqa</id>
+      <name>OpenQA Repository</name>
+      <url>http://nexus.openqa.org/content/repositories/releases/</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
+  </repositories>
 </project>
