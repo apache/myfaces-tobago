@@ -66,7 +66,7 @@ public class TestTheAutomaticSeleniumTest {
       test.setUp();
       test.testPageConsistency();
       test.tearDown();
-      Assert.fail("The test should has been failed.");
+      Assert.fail("The test should fail, but wasn't.");
     } catch (AssertionError e) {
       if (e.getMessage().contains(AutomaticSeleniumTest.CONTAINS_A_404)) {
         // okay, the error was detected.
@@ -85,7 +85,7 @@ public class TestTheAutomaticSeleniumTest {
       test.setUp();
       test.testPageConsistency();
       test.tearDown();
-      Assert.fail("The test should has been failed.");
+      Assert.fail("The test should fail, but wasn't.");
     } catch (AssertionError e) {
       if (e.getMessage().contains(AutomaticSeleniumTest.HAS_ERROR_SEVERITY)) {
         // okay, the error was detected.
@@ -104,7 +104,7 @@ public class TestTheAutomaticSeleniumTest {
       test.setUp();
       test.testPageConsistency();
       test.tearDown();
-      Assert.fail("The test should has been failed.");
+      Assert.fail("The test should fail, but wasn't.");
     } catch (AssertionError e) {
       if (e.getMessage().contains(AutomaticSeleniumTest.IS_BROKEN)) {
         // okay, the error was detected.
