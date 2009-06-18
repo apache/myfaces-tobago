@@ -17,34 +17,16 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
-import com.thoughtworks.selenium.DefaultSelenium;
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class SimpleSeleniumTest extends TestCase {
+public class SimpleSeleniumTest extends SeleniumTest {
 
-  private DefaultSelenium selenium;
-
-  @Override
-  public void setUp() throws Exception {
-    super.setUp();
-    selenium = createSeleniumClient("http://localhost:8080/");
-    selenium.start();
-  }
-
-  @Override
-  public void tearDown() throws Exception {
-    selenium.stop();
-    super.tearDown();
-  }
-
-  protected DefaultSelenium createSeleniumClient(String url) throws Exception {
-    return new DefaultSelenium("localhost", 4444, "*firefox", url);
-  }
-
+  @Test
   public void testHelloWorld() {
-      selenium.open("http://localhost:8080/tobago-example-test/faces/simple.xhtml");
-      assertEquals("Simple Test", selenium.getValue("page:in"));
-      selenium.captureScreenshot(SimpleSeleniumTest.class.getName() + ".testHelloWorld.png");
+    selenium.open("http://localhost:8080/tobago-example-test/faces/simple.xhtml");
+    Assert.assertEquals("Simple Test", selenium.getValue("page:in"));
+    selenium.captureScreenshot(SimpleSeleniumTest.class.getName() + ".testHelloWorld.png");
   }
 
 }
