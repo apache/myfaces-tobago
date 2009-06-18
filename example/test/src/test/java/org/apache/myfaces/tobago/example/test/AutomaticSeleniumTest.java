@@ -42,7 +42,6 @@ public class AutomaticSeleniumTest extends SeleniumTest {
 
   @Test
   public void testPageConsistency() {
-    selenium.open("/tobago-example-test/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/logging.js");
     selenium.open(url);
     Assert.assertFalse("Page '" + url + "' contains a 404. Source=" + selenium.getHtmlSource(), pageNotFound());
     try {
