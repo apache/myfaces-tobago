@@ -32,13 +32,13 @@ public class AutomaticSeleniumTest extends SeleniumTest {
 
   static final String CONTAINS_A_404 = "contains a 404";
   static final String HAS_ERROR_SEVERITY = "has error severity";
+  static final String IS_BROKEN = "is broken";
 
   private static final String MAVEN_TARGET = "target/tobago-example-test";
   private static final String CONTEXT_PATH = "tobago-example-test";
   private static final String SERVLET_MAPPING = "faces";
 
   private String url;
-  static final String IS_BROKEN = "is broken";
 
   public AutomaticSeleniumTest(String title, String url) {
     this.url = url;
