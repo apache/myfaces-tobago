@@ -30,11 +30,15 @@ import java.util.List;
 @RunWith(Parameterized.class)
 public class AutomaticSeleniumTest extends SeleniumTest {
 
+  static final String CONTAINS_A_404 = "contains a 404";
+  static final String HAS_ERROR_SEVERITY = "has error severity";
+
   private static final String MAVEN_TARGET = "target/tobago-example-test";
   private static final String CONTEXT_PATH = "tobago-example-test";
   private static final String SERVLET_MAPPING = "faces";
 
   private String url;
+  static final String IS_BROKEN = "is broken";
 
   public AutomaticSeleniumTest(String title, String url) {
     this.url = url;
@@ -42,12 +46,13 @@ public class AutomaticSeleniumTest extends SeleniumTest {
 
   @Test
   public void testPageConsistency() {
+
     selenium.open(url);
-    Assert.assertFalse("Page '" + url + "' contains a 404. Source=" + selenium.getHtmlSource(), pageNotFound());
+    Assert.assertFalse("Page '" + url + "' " + CONTAINS_A_404 + ". Source=" + selenium.getHtmlSource(), pageNotFound());
     try {
-      Assert.assertFalse("Page '" + url + "' has error severity. Source=" + selenium.getHtmlSource(), isErrorOnPage());
+      Assert.assertFalse("Page '" + url + "' " + HAS_ERROR_SEVERITY + ". Source=" + selenium.getHtmlSource(), isErrorOnPage());
     } catch (SeleniumException e) {
-      Assert.fail("Page '" + url + "' is broken. Not a Tobago page? Source=" + selenium.getHtmlSource() + " exception=" + e);
+      Assert.fail("Page '" + url + "' " + IS_BROKEN + ". Not a Tobago page? Source=" + selenium.getHtmlSource() + " exception=" + e);
     }
   }
 
@@ -104,7 +109,8 @@ public class AutomaticSeleniumTest extends SeleniumTest {
   }
 
   protected static String createUrl(String page) {
-    return '/' + CONTEXT_PATH + '/' + SERVLET_MAPPING + '/' + page;
+    Assert.assertTrue("Page name must start with a slash.", page.startsWith("/"));
+    return '/' + CONTEXT_PATH + '/' + SERVLET_MAPPING + page;
   }
 
 }

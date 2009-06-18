@@ -7,20 +7,15 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core">
-  <tc:page id="page" label="XXX" width="300px" height="700px">
+  <tc:page id="page" label="XXX">
     <f:facet name="layout">
-      <tc:gridLayout/>
+      <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed"/>
     </f:facet>
 
-    <tc:sheet value="#{browser.list}" columns="*" var="item" rows="1000">
-      <tc:column label="Test Pages">
-        <tc:link link="#{item.resource}" label="#{item.label}" target="test"/>
-<!--
-todo: this will work in later versions
-        <tc:link resource="#{item.resource}" jsfResource="#{item.jsfResource}" label="#{item.label}" target="test"/>
--->
-      </tc:column>
-    </tc:sheet>
+    <ui:repeat value="#{browser.list}" var="path">
+      <tc:link link="#{path.resource}" label="#{path.label}" target="test"/>
+      <tc:out value="&lt;br/&gt;" escape="false"/>
+    </ui:repeat>
 
   </tc:page>
 </f:view>
