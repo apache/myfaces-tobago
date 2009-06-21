@@ -109,6 +109,8 @@ var Tobago = {
     */
   focusId: undefined,
 
+  errorFocusId: undefined,
+
   htmlIdIndex: 0,
 
   createHtmlId: function() {
@@ -1185,7 +1187,7 @@ var Tobago = {
     * no element is explicitly requested.
     */
   setFocus: function() {
-    var focusElement = this.element(this.focusId);
+    var focusElement = this.element(this.errorFocusId == "undefined" ? this.focusId: this.errorFocusId);
     if (focusElement) {
       try { // focus() on not visible elements breaks IE
         focusElement.focus();

@@ -62,21 +62,45 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 /*
- * User: weber
  * Date: Jan 11, 2005
  * Time: 4:59:36 PM
  */
 public final class HtmlRendererUtil {
 
   private static final Log LOG = LogFactory.getLog(HtmlRendererUtil.class);
+  private static final String ERROR_FOCUS_KEY = HtmlRendererUtil.class.getName() + ".ErrorFocusId";
 
   private HtmlRendererUtil() {
     // to prevent instantiation
   }
 
-  public static void renderFocusId(FacesContext facesContext, UIComponent component)
-      throws IOException {
+  private static boolean renderErrorFocusId(final FacesContext facesContext, final UIInput input) throws IOException {
+    if (ComponentUtil.isError(input)) {
+      if (!FacesContext.getCurrentInstance().getExternalContext().getRequestMap().containsKey(ERROR_FOCUS_KEY)) {
+        FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put(ERROR_FOCUS_KEY, Boolean.TRUE);
+        TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+        String id = input.getClientId(facesContext);
+        writer.writeJavascript("Tobago.errorFocusId = '" + id + "';");
+        return true;
+      } else {
+        return true;
+      }
+    }
+    return FacesContext.getCurrentInstance().getExternalContext().getRequestMap().containsKey(ERROR_FOCUS_KEY);
+  }
 
+  public static void renderFocusId(final FacesContext facesContext, final UIComponent component)
+      throws IOException {
+    if (component instanceof UIInput) {
+      renderFocusId(facesContext, (UIInput) component);
+    }
+  }
+
+  public static void renderFocusId(final FacesContext facesContext, final UIInput component)
+      throws IOException {
+    if (renderErrorFocusId(facesContext, component)) {
+      return;
+    }
     if (ComponentUtil.getBooleanAttribute(component, ATTR_FOCUS)) {
       UIPage page = ComponentUtil.findPage(facesContext, component);
       String id = component.getClientId(facesContext);
