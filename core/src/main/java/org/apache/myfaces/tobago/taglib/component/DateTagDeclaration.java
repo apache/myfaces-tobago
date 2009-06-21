@@ -33,7 +33,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 /*
  * Created: Aug 5, 2005 5:03:15 PM
- * User: bommel
  * $Id$
  */
 /**
@@ -45,7 +44,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
     rendererType = RENDERER_TYPE_DATE)
 public interface DateTagDeclaration
     extends InputTagDeclaration, HasIdBindingAndRendered, IsReadonly,
-    IsDisabled, HasConverter, IsInline, IsFocus, HasLabelAndAccessKey,
+    IsDisabled, HasConverter, IsInline, HasLabelAndAccessKey,
     HasTip, IsRequired, HasMarkup {
 
 }

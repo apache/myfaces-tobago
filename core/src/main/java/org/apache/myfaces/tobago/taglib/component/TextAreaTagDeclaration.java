@@ -33,7 +33,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
 /*
  * Created: Aug 5, 2005 5:00:41 PM
- * User: bommel
  * $Id$
  */
 
@@ -46,7 +45,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     rendererType = "TextArea")
 public interface TextAreaTagDeclaration extends TextInputTagDeclaration, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasDeprecatedDimension,
-    IsFocus, IsRequired, HasLabelAndAccessKey, HasTip {
+    IsRequired, HasLabelAndAccessKey, HasTip {
 
   /**
    * The row count for this component.

@@ -22,13 +22,13 @@ import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
+import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 
 /*
  * Created: Aug 5, 2005 4:18:38 PM
- * User: bommel
  * $Id$
  */
 public interface InputTagDeclaration extends BeanTagDeclaration, HasValidator,
-    HasOnchange, HasValue, HasValueChangeListener, HasTabIndex {
+    HasOnchange, HasValue, HasValueChangeListener, HasTabIndex, IsFocus {
 
 }

@@ -117,6 +117,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
     writer.endElement(HtmlConstants.SELECT);
     checkForCommandFacet(selectMany, facesContext, writer);
+    HtmlRendererUtil.renderFocusId(facesContext, selectMany);
   }
 
 }

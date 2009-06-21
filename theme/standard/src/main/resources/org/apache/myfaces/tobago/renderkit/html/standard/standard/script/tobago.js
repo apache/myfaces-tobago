@@ -1187,7 +1187,15 @@ var Tobago = {
     * no element is explicitly requested.
     */
   setFocus: function() {
-    var focusElement = this.element(this.errorFocusId == "undefined" ? this.focusId: this.errorFocusId);
+    var elementId = this.errorFocusId == "undefined" ? this.focusId: this.errorFocusId;
+    var focusElement = this.element(elementId);
+    if ((focusElement == "undefined" || !focusElement) && elementId) {
+      // search for input elements in tc:select*  controls
+      var elements = document.getElementsByName(elementId);
+      if (elements.length > 0) {
+        focusElement = elements[0];
+      }
+    }
     if (focusElement) {
       try { // focus() on not visible elements breaks IE
         focusElement.focus();

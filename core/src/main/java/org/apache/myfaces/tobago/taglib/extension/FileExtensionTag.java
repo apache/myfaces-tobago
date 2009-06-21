@@ -67,6 +67,7 @@ public class FileExtensionTag extends BodyTagSupport
   private String labelWidth;
   private String required;
   private String tabIndex;
+  private String focus;
 
   private LabelExtensionTag labelTag;
   private FileTag fileTag;
@@ -120,6 +121,9 @@ public class FileExtensionTag extends BodyTagSupport
     if (tabIndex != null) {
       fileTag.setTabIndex(tabIndex);
     }
+    if (focus != null) {
+      fileTag.setFocus(focus);
+    }
     fileTag.setParent(labelTag);
     fileTag.doStartTag();
 
@@ -150,6 +154,7 @@ public class FileExtensionTag extends BodyTagSupport
     tabIndex = null;
     fileTag = null;
     labelTag = null;
+    focus = null;
   }
 
   public void setLabel(String label) {
@@ -198,5 +203,9 @@ public class FileExtensionTag extends BodyTagSupport
 
   public void setTabIndex(String tabIndex) {
     this.tabIndex = tabIndex;
+  }
+
+  public void setFocus(String focus) {
+    this.focus = focus;
   }
 }

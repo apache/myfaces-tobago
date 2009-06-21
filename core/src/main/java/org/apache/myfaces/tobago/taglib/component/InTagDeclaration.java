@@ -37,7 +37,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
 /*
  * Created: Aug 5, 2005 4:53:25 PM
- * User: bommel
  * $Id$
  */
 /**
@@ -51,7 +50,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 public interface InTagDeclaration
     extends TextInputTagDeclaration, HasIdBindingAndRendered,
     HasConverter, IsReadonly, IsDisabled, HasDeprecatedWidth,
-    IsInline, IsFocus, IsRequired, HasTip, HasLabelAndAccessKey,
+    IsInline, IsRequired, HasTip, HasLabelAndAccessKey,
     IsPassword, HasSuggestMethod {
 
   /**

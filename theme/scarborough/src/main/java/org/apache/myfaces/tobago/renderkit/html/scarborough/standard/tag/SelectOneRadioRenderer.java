@@ -183,7 +183,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     }
 
     checkForCommandFacet(selectOne, clientIds, facesContext, writer);
-
+    HtmlRendererUtil.renderFocusId(facesContext, selectOne);
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {

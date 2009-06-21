@@ -149,6 +149,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.endElement(HtmlConstants.TABLE);
     }
     checkForCommandFacet(selectMany, clientIds, facesContext, writer);
+    HtmlRendererUtil.renderFocusId(facesContext, selectMany);
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
