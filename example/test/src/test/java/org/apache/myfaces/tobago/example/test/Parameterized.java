@@ -51,8 +51,9 @@ public class Parameterized extends Suite {
 
     FrameworkMethod method = findMethod(getTestClass());
     List<Object[]> parametersList = (List<Object[]>) method.invokeExplosively(null);
-    for (int i = 0; i < parametersList.size(); i++)
-      getChildren().add(new ClassRunnerForParameters(getTestClass().getJavaClass(), parametersList.get(i)));
+    for (Object[] aParametersList : parametersList) {
+      getChildren().add(new ClassRunnerForParameters(getTestClass().getJavaClass(), aParametersList));
+    }
   }
 
   private FrameworkMethod findMethod(TestClass clazz) throws Throwable {
