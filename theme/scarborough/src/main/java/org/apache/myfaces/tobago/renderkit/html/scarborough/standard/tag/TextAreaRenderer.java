@@ -130,7 +130,8 @@ public class TextAreaRenderer extends InputRendererBase {
     }
 
     // focus
-    HtmlRendererUtil.renderFocusId(facesContext, component);
+    HtmlRendererUtil.renderFocusId(facesContext, input);
+
   }
 }
 

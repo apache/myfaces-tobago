@@ -82,10 +82,6 @@ public class DateRenderer extends InRenderer {
             + "DatePicker may not work correctly.");
       }
     }
-
-    // focus
-    // TODO is this not already done in InRenderer?
-    HtmlRendererUtil.renderFocusId(facesContext, component);
   }
 }
 

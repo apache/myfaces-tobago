@@ -22,7 +22,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
 /*
  * Created: Apr 9, 2005 3:16:44 PM
- * User: bommel
  * $Id$
  */
 public interface IsFocus {
