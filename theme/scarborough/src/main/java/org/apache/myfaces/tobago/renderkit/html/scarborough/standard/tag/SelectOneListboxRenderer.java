@@ -105,6 +105,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
 
     writer.endElement(HtmlConstants.SELECT);
     super.encodeEnd(facesContext, selectOne);
+    HtmlRendererUtil.renderFocusId(facesContext, selectOne);
     HtmlRendererUtil.checkForCommandFacet(selectOne, facesContext, writer);
   }
 

@@ -185,7 +185,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     if (!inline) {
       writer.endElement(HtmlConstants.TABLE);
     }
-
+    HtmlRendererUtil.renderFocusId(facesContext, selectOne);
     HtmlRendererUtil.checkForCommandFacet(selectOne, clientIds, facesContext, writer);
 
   }

@@ -158,6 +158,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     if (!inline) {
       writer.endElement(HtmlConstants.TABLE);
     }
+    HtmlRendererUtil.renderFocusId(facesContext, selectMany);
     HtmlRendererUtil.checkForCommandFacet(selectMany, clientIds, facesContext, writer);
   }
 
