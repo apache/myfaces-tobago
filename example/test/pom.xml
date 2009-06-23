@@ -85,7 +85,7 @@
         <configuration>
           <srcDir>src/main/webapp</srcDir>
           <destDir>target/tobago-example-test</destDir>
-          <xslFile>../demo/src/main/xslt/facelet2jsp.xsl</xslFile>
+          <xslFile>src/main/xslt/facelet2jsp.xsl</xslFile>
           <srcIncludes>**/*.xhtml</srcIncludes>
           <fileNameRegex>(.*).xhtml</fileNameRegex>
           <fileNameReplacement>$1.jspx</fileNameReplacement>
