@@ -73,6 +73,7 @@ public final class Attributes {
   public static final String ITEM_LABEL = "itemLabel";
   public static final String ITEM_IMAGE = "itemImage";
   public static final String ITEM_VALUE = "itemValue";
+  public static final String JSF_RESOURCE = "jsfResource";
   public static final String LABEL = "label";
   public static final String LABEL_POSITION = "labelPosition";
   public static final String LAYOUT_HEIGHT = "layoutHeight";
@@ -123,6 +124,7 @@ public final class Attributes {
   public static final String RENDER_RANGE = "renderRange";
   public static final String RENDER_RANGE_EXTERN = "renderRangeExtern";
   public static final String REQUIRED = "required";
+  public static final String RESOURCE = "resource";
   public static final String ROW_ID = "rowId";
   public static final String ROWS = "rows";
   public static final String SCRIPT_FILES = "scriptFiles";
