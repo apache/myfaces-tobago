@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.util;
 
 import junit.framework.TestCase;
 
-public class StringUtilUnitTest extends TestCase {
+public class StringUtilsUnitTest extends TestCase {
 
   public void test() {
     assertNull(StringUtils.firstToUpperCase(null));
