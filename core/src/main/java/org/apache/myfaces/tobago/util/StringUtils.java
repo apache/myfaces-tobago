@@ -19,26 +19,11 @@ package org.apache.myfaces.tobago.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.StringTokenizer;
 
 public class StringUtils {
 
   private StringUtils() {
-  }
-
-  public static String firstToUpperCase(String string) {
-    if (string == null) {
-      return null;
-    }
-    switch (string.length()) {
-      case 0:
-        return string;
-      case 1:
-        return string.toUpperCase(Locale.ENGLISH);
-      default:
-        return string.substring(0, 1).toUpperCase(Locale.ENGLISH) + string.substring(1);
-    }
   }
 
   public static List<Integer> parseIntegerList(String integerList)
