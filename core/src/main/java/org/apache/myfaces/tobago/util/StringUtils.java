@@ -29,7 +29,14 @@ public class StringUtils {
   private StringUtils() {
   }
 
+  /**
+   * @deprecated Use commons-lang StringUtils.capitalize() instead.
+   */
+  @Deprecated
   public static String firstToUpperCase(String string) {
+    if (Deprecation.LOG.isWarnEnabled()) {
+      Deprecation.LOG.warn("use commons-lang please");
+    }
     if (string == null) {
       return null;
     }
@@ -69,6 +76,9 @@ public class StringUtils {
 
   @Deprecated
   public static String escapeAccessKeyIndicator(String label) {
+    if (Deprecation.LOG.isWarnEnabled()) {
+      Deprecation.LOG.warn(label);
+    }
     return org.apache.commons.lang.StringUtils.replace(label,
         String.valueOf(LabelWithAccessKey.INDICATOR), LabelWithAccessKey.ESCAPED_INDICATOR);
   }
