@@ -22,7 +22,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
@@ -63,7 +62,7 @@ import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.util.LayoutUtil;
-import org.apache.myfaces.tobago.util.StringUtil;
+import org.apache.myfaces.tobago.util.StringUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
@@ -205,7 +204,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     SheetState state = data.getSheetState(facesContext);
     List<Integer> columnWidths = data.getWidthList();
 
-    String selectedRows = StringUtil.joinWithSurroundingSeparator(getSelectedRows(data, state));
+    String selectedRows = StringUtils.joinWithSurroundingSeparator(getSelectedRows(data, state));
     List<UIColumn> renderedColumnList = data.getRenderedColumns();
 
 
@@ -213,7 +212,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     writer.writeIdAttribute(sheetId + WIDTHS_POSTFIX);
     writer.writeNameAttribute(sheetId + WIDTHS_POSTFIX);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-    writer.writeAttribute(HtmlAttributes.VALUE, StringUtil.joinWithSurroundingSeparator(columnWidths), false);
+    writer.writeAttribute(HtmlAttributes.VALUE, StringUtils.joinWithSurroundingSeparator(columnWidths), false);
     writer.endElement(HtmlConstants.INPUT);
 
     writer.startElement(HtmlConstants.INPUT, null);
@@ -604,7 +603,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       }
       List<Integer> selectedRows;
       try {
-        selectedRows = StringUtil.parseIntegerList(selected);
+        selectedRows = StringUtils.parseIntegerList(selected);
       } catch (NumberFormatException e) {
         LOG.warn(selected, e);
         selectedRows = Collections.emptyList();
@@ -800,7 +799,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       String onclick = "Tobago.submitAction(this, '" + sortCommand.getClientId(facesContext) + "')";
       writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, false);
 
-      if (StringUtils.isNotEmpty(tip)) {
+      if (org.apache.commons.lang.StringUtils.isNotEmpty(tip)) {
         tip +=  " - ";
       }
       tip += ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "sheetTipSorting");
@@ -1174,7 +1173,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     }
 
     if (widthListString != null) {
-      currentWidthList = StringUtil.parseIntegerList(widthListString);
+      currentWidthList = StringUtils.parseIntegerList(widthListString);
     }
     if (currentWidthList != null && currentWidthList.size() != rendererdColumns.size()) {
       currentWidthList = null;

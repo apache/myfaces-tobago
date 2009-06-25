@@ -17,17 +17,14 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.commons.lang.StringUtils;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 import java.util.Locale;
+import java.util.StringTokenizer;
 
-public class StringUtil {
+public class StringUtils {
 
-  private StringUtil() {
+  private StringUtils() {
   }
 
   public static String firstToUpperCase(String string) {
@@ -67,10 +64,4 @@ public class StringUtil {
     }
     return buffer.toString();
   }
-
-  public static String escapeAccessKeyIndicator(String label) {
-    return StringUtils.replace(label,
-        String.valueOf(LabelWithAccessKey.INDICATOR), LabelWithAccessKey.ESCAPED_INDICATOR);
-  }
-
 }
