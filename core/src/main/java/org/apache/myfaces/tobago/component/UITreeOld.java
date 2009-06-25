@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 import org.apache.myfaces.tobago.util.MessageFactory;
-import org.apache.myfaces.tobago.util.StringUtil;
+import org.apache.myfaces.tobago.util.StringUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.ActionSource;
@@ -205,7 +205,7 @@ public class UITreeOld extends javax.faces.component.UIInput implements NamingCo
       command.getAttributes().put(
           TobagoConstants.ATTR_IMAGE, "image/tobago.tree." + commands[i].getCommand() + ".gif");
       String title = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
-          "tree" + StringUtil.firstToUpperCase(commands[i].getCommand()));
+          "tree" + StringUtils.firstToUpperCase(commands[i].getCommand()));
       command.getAttributes().put(TobagoConstants.ATTR_TIP, title);
 
     }

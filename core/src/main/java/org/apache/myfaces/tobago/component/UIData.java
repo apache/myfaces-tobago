@@ -33,8 +33,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_PAGE_RANGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROW_RANGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_RELOAD;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
@@ -50,7 +50,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.SheetRendererWorkaround;
 import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.util.LayoutUtil;
-import org.apache.myfaces.tobago.util.StringUtil;
+import org.apache.myfaces.tobago.util.StringUtils;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
@@ -292,7 +292,7 @@ public class UIData extends javax.faces.component.UIData
     }
 
     if (widthListString != null) {
-      currentWidthList = StringUtil.parseIntegerList(widthListString);
+      currentWidthList = StringUtils.parseIntegerList(widthListString);
     }
     if (currentWidthList != null && currentWidthList.size() != rendererdColumns.size()) {
       currentWidthList = null;

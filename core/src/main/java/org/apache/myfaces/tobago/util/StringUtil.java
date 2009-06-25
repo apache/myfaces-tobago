@@ -17,60 +17,37 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.commons.lang.StringUtils;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
-import java.util.Locale;
 
+/**
+ * @deprecated Please use StringUtils
+ * @see StringUtils
+ */
+@Deprecated
 public class StringUtil {
 
   private StringUtil() {
   }
 
+  @Deprecated
   public static String firstToUpperCase(String string) {
-    if (string == null) {
-      return null;
-    }
-    switch (string.length()) {
-      case 0:
-        return string;
-      case 1:
-        return string.toUpperCase(Locale.ENGLISH);
-      default:
-        return string.substring(0, 1).toUpperCase(Locale.ENGLISH) + string.substring(1);
-    }
+    return StringUtils.firstToUpperCase(string);
   }
 
+  @Deprecated
   public static List<Integer> parseIntegerList(String integerList)
       throws NumberFormatException {
-    List<Integer> list = new ArrayList<Integer>();
-
-    StringTokenizer tokenizer = new StringTokenizer(integerList, ", ");
-    while (tokenizer.hasMoreElements()) {
-      String token = tokenizer.nextToken().trim();
-      if (token.length() > 0) {
-        list.add(new Integer(token));
-      }
-    }
-
-    return list;
+   return StringUtils.parseIntegerList(integerList);
   }
 
+  @Deprecated
   public static <T> String toString(List<T> list) {
-    StringBuilder buffer = new StringBuilder(",");
-    for (T t : list) {
-      buffer.append(t);
-      buffer.append(",");
-    }
-    return buffer.toString();
+    return StringUtils.toString(list);
   }
 
+  @Deprecated
   public static String escapeAccessKeyIndicator(String label) {
-    return StringUtils.replace(label,
-        String.valueOf(LabelWithAccessKey.INDICATOR), LabelWithAccessKey.ESCAPED_INDICATOR);
+    return StringUtils.escapeAccessKeyIndicator(label);
   }
 
 }

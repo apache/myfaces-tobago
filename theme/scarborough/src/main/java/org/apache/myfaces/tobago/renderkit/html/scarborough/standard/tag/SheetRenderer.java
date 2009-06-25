@@ -17,14 +17,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.TobagoConstants;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
@@ -85,9 +80,8 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.util.StringUtil;
+import org.apache.myfaces.tobago.util.StringUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
@@ -229,14 +223,14 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     SheetState state = data.getSheetState(facesContext);
     List<Integer> columnWidths = data.getWidthList();
 
-    String selectedRows = StringUtil.toString(getSelectedRows(data, state));
+    String selectedRows = StringUtils.toString(getSelectedRows(data, state));
     List<UIColumn> renderedColumnList = data.getRenderedColumns();
 
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeIdAttribute(sheetId + WIDTHS_POSTFIX);
     writer.writeNameAttribute(sheetId + WIDTHS_POSTFIX);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-    writer.writeAttribute(HtmlAttributes.VALUE, StringUtil.toString(columnWidths), false);
+    writer.writeAttribute(HtmlAttributes.VALUE, StringUtils.toString(columnWidths), false);
     writer.endElement(HtmlConstants.INPUT);
 
     writer.startElement(HtmlConstants.INPUT, null);
@@ -640,7 +634,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       }
       List<Integer> selectedRows;
       try {
-        selectedRows = StringUtil.parseIntegerList(selected);
+        selectedRows = StringUtils.parseIntegerList(selected);
       } catch (NumberFormatException e) {
         LOG.warn(selected, e);
         selectedRows = Collections.emptyList();
@@ -845,7 +839,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       String onclick = "Tobago.submitAction2(this, '" + sortCommand.getClientId(facesContext) + "', null, null)";
       writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, false);
 
-      if (StringUtils.isNotEmpty(tip)) {
+      if (org.apache.commons.lang.StringUtils.isNotEmpty(tip)) {
         tip +=  " - ";
       }
       tip += ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "sheetTipSorting");
@@ -1024,7 +1018,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
         facet.getAttributes().put(ATTR_MENU_POPUP, Boolean.TRUE);
         facet.getAttributes().put(ATTR_MENU_POPUP_TYPE, "SheetSelector");
       }
-      if (StringUtils.isBlank((String) facet.getAttributes().get(ATTR_IMAGE))) {
+      if (org.apache.commons.lang.StringUtils.isBlank((String) facet.getAttributes().get(ATTR_IMAGE))) {
         facet.getAttributes().put(ATTR_IMAGE, "image/sheetSelectorMenu.gif");
       }
 

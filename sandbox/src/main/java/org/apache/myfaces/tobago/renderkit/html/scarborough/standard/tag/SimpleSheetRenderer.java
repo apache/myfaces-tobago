@@ -19,18 +19,15 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
-
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.util.StringUtil;
-import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIData;
-import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
-import org.apache.myfaces.tobago.component.UIColumnEvent;
+import org.apache.myfaces.tobago.component.UIData;
+import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIReload;
+import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.model.SheetState;
@@ -39,10 +36,11 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
+import org.apache.myfaces.tobago.util.StringUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UIComponent;
 import javax.faces.component.UIColumn;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -172,7 +170,7 @@ public class SimpleSheetRenderer extends SheetRenderer {
     writer.writeIdAttribute(sheetId + WIDTHS_POSTFIX);
     writer.writeNameAttribute(sheetId + WIDTHS_POSTFIX);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-    writer.writeAttribute(HtmlAttributes.VALUE, StringUtil.toString(columnWidths), false);
+    writer.writeAttribute(HtmlAttributes.VALUE, StringUtils.toString(columnWidths), false);
     writer.endElement(HtmlConstants.INPUT);
 
     writer.startElement(HtmlConstants.INPUT, null);
@@ -193,7 +191,7 @@ public class SimpleSheetRenderer extends SheetRenderer {
       writer.writeIdAttribute(sheetId + SELECTED_POSTFIX);
       writer.writeNameAttribute(sheetId + SELECTED_POSTFIX);
       writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-      writer.writeAttribute(HtmlAttributes.VALUE, StringUtil.toString(selectedRows), false);
+      writer.writeAttribute(HtmlAttributes.VALUE, StringUtils.toString(selectedRows), false);
       writer.endElement(HtmlConstants.INPUT);
     }
     ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
@@ -228,7 +226,7 @@ public class SimpleSheetRenderer extends SheetRenderer {
       String[] rowMarkups = (String[]) data.getAttributes().get("rowMarkup");
       String rowMarkup = "";
       if (rowMarkup != null) {
-        rowMarkup = " " + StringUtils.join(rowMarkups, " ");
+        rowMarkup = " " + org.apache.commons.lang.StringUtils.join(rowMarkups, " ");
       }
 
       writer.startElement(HtmlConstants.DIV, null);
