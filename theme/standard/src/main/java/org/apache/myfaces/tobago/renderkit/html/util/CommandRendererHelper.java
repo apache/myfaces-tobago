@@ -24,15 +24,16 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
-import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
 import javax.faces.component.ValueHolder;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import java.net.URLDecoder;
 import java.util.Arrays;
@@ -50,15 +51,15 @@ public class CommandRendererHelper {
   private String href;
   private String target;
 
-  public CommandRendererHelper(FacesContext facesContext, UICommand component) {
+  public CommandRendererHelper(FacesContext facesContext, AbstractUICommand component) {
     initOnclick(facesContext, component, null);
   }
 
-  public CommandRendererHelper(FacesContext facesContext, UICommand component, Tag tag) {
+  public CommandRendererHelper(FacesContext facesContext, AbstractUICommand component, Tag tag) {
     initOnclick(facesContext, component, tag);
   }
 
-  private void initOnclick(FacesContext facesContext, UICommand command, Tag tag) {
+  private void initOnclick(FacesContext facesContext, AbstractUICommand command, Tag tag) {
 
     disabled = ComponentUtil.getBooleanAttribute(command, Attributes.DISABLED);
     href = getEmptyHref(facesContext);
@@ -79,7 +80,7 @@ public class CommandRendererHelper {
       boolean defaultCommand = ComponentUtil.getBooleanAttribute(command, Attributes.DEFAULT_COMMAND);
       boolean transition = ComponentUtil.getBooleanAttribute(command, Attributes.TRANSITION);
 
-      if (command.getAttributes().get(Attributes.LINK) != null) {
+      if (command.getLink() != null || command.getResource() != null) {
         String url = generateUrl(facesContext, command);
         if (tag == Tag.ANCHOR) {
           onclick = null;
@@ -168,43 +169,63 @@ public class CommandRendererHelper {
     return onclick;
   }
 
-  private String generateUrl(FacesContext facesContext, UIComponent component) {
+  private String generateUrl(FacesContext facesContext, AbstractUICommand component) {
     String url;
     Application application = facesContext.getApplication();
     ViewHandler viewHandler = application.getViewHandler();
+    ExternalContext externalContext = facesContext.getExternalContext();
 
-    String link = (String) component.getAttributes().get(Attributes.LINK);
-    if (link.startsWith("/")) { // internal URL
-      url = viewHandler.getActionURL(facesContext, link);
-    } else { // external URL
-      url = link;
-    }
-
-    url = facesContext.getExternalContext().encodeActionURL(url);
-
-    StringBuilder builder = new StringBuilder(url);
-    boolean firstParameter = !url.contains("?");
-    for (UIComponent child : (List<UIComponent>) component.getChildren()) {
-      if (child instanceof UIParameter) {
-        UIParameter parameter = (UIParameter) child;
-        if (firstParameter) {
-          builder.append("?");
-          firstParameter = false;
+    if (component.getResource() != null) {
+      boolean jsfResource = component.isJsfResource();
+      url = ResourceManagerUtil.getPageWithoutContextPath(facesContext, component.getResource());
+      if (url != null) {
+        if (jsfResource) {
+          url = viewHandler.getActionURL(facesContext, url);
+          url = externalContext.encodeActionURL(url);
         } else {
-          builder.append("&");
+          url = viewHandler.getResourceURL(facesContext, url);
+          url = externalContext.encodeResourceURL(url);
         }
-        builder.append(parameter.getName());
-        builder.append("=");
-        Object value = parameter.getValue();
-        // TODO encoding
-        builder.append(value != null ? URLDecoder.decode(value.toString()) : null);
+      } else {
+        url = "";
       }
+    } else if (component.getLink() != null) {
+
+      String link = component.getLink();
+      if (link.startsWith("/")) { // internal absolute link
+        url = viewHandler.getActionURL(facesContext, link);
+        url = externalContext.encodeActionURL(url);
+      } else if (link.contains(":")) { // external link
+        url = link;
+      } else { // internal relative link
+        url = externalContext.encodeResourceURL(link);
+      }
+
+      StringBuilder builder = new StringBuilder(url);
+      boolean firstParameter = !url.contains("?");
+      for (UIComponent child : (List<UIComponent>) component.getChildren()) {
+        if (child instanceof UIParameter) {
+          UIParameter parameter = (UIParameter) child;
+          if (firstParameter) {
+            builder.append("?");
+            firstParameter = false;
+          } else {
+            builder.append("&");
+          }
+          builder.append(parameter.getName());
+          builder.append("=");
+          Object value = parameter.getValue();
+          // TODO encoding
+          builder.append(value != null ? URLDecoder.decode(value.toString()) : null);
+        }
+      }
+      url = builder.toString();
+    } else {
+      throw new AssertionError("Needed " + Attributes.LINK + " or " + Attributes.RESOURCE);
     }
-    url = builder.toString();
 
     return url;
   }
-
 
   public String getOnclick() {
     return onclick;

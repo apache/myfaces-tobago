@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
-import com.thoughtworks.selenium.SeleniumException;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -30,13 +28,7 @@ import java.util.List;
 @RunWith(Parameterized.class)
 public class AutomaticSeleniumTest extends SeleniumTest {
 
-  static final String CONTAINS_A_404 = "contains a 404";
-  static final String HAS_ERROR_SEVERITY = "has error severity";
-  static final String IS_BROKEN = "is broken";
-
   private static final String MAVEN_TARGET = "target/tobago-example-test";
-  private static final String CONTEXT_PATH = "tobago-example-test";
-  private static final String SERVLET_MAPPING = "faces";
 
   private String url;
 
@@ -46,35 +38,8 @@ public class AutomaticSeleniumTest extends SeleniumTest {
 
   @Test
   public void testPageConsistency() {
-
     selenium.open(url);
-    Assert.assertFalse("Page '" + url + "' " + CONTAINS_A_404 + ". Source=" + selenium.getHtmlSource(), pageNotFound());
-    try {
-      Assert.assertFalse("Page '" + url + "' " + HAS_ERROR_SEVERITY + ". Source=" + selenium.getHtmlSource(), isErrorOnPage());
-    } catch (SeleniumException e) {
-      Assert.fail("Page '" + url + "' " + IS_BROKEN + ". Not a Tobago page? Source=" + selenium.getHtmlSource() + " exception=" + e);
-    }
-  }
-
-  /**
-   * Was the page not found?
-   *
-   * @return True if the page not found.
-   */
-  // XXX might be improved, I didn't find a way to read the HTTP status code
-  protected boolean pageNotFound() {
-    return selenium.getHtmlSource().contains("404");
-  }
-
-  /**
-   * Checks the page for the Tobago JavaScript Logging Framework and tests its severity.
-   *
-   * @return True if the severity level of the page is error
-   * @throws SeleniumException If the page is not a Tobago page, or any other problem with JavaScrpt or the page.
-   */
-  protected boolean isErrorOnPage() throws SeleniumException {
-    String errorSeverity = selenium.getEval("window.LOG.getMaximumSeverity() >= window.LOG.ERROR");
-    return Boolean.parseBoolean(errorSeverity);
+    checkPage();
   }
 
   @Parameterized.Parameters
@@ -107,10 +72,4 @@ public class AutomaticSeleniumTest extends SeleniumTest {
       }
     }
   }
-
-  protected static String createUrl(String page) {
-    Assert.assertTrue("Page name must start with a slash.", page.startsWith("/"));
-    return '/' + CONTEXT_PATH + '/' + SERVLET_MAPPING + page;
-  }
-
 }

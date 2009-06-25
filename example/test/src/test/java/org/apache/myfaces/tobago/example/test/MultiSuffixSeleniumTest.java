@@ -17,16 +17,33 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class SimpleSeleniumTest extends SeleniumTest {
+import java.util.Arrays;
+import java.util.Collection;
 
-  @Test
-  public void testHelloWorld() {
-    selenium.open("/tobago-example-test/faces/simple.xhtml");
-    Assert.assertEquals("Simple Test", selenium.getValue("page:in"));
-    selenium.captureScreenshot(SimpleSeleniumTest.class.getName() + ".testHelloWorld.png");
+@RunWith(Parameterized.class)
+public abstract class MultiSuffixSeleniumTest extends SeleniumTest {
+
+  private String suffix;
+
+  public MultiSuffixSeleniumTest(String suffix) {
+    this.suffix = suffix;
   }
 
+  public void open(String urlFragment) {
+    selenium.open(createUrl(urlFragment + suffix));
+  }
+
+  protected void sleep() throws InterruptedException {
+    Thread.sleep(5000L);
+  }
+
+  @Parameterized.Parameters
+  public static Collection<Object[]> findFormats() {
+    return Arrays.asList(
+        new Object[]{"xhtml"},
+        new Object[]{"jspx"}
+    );
+  }
 }
