@@ -78,6 +78,7 @@ public final class TobagoConstants {
   public static final String ATTR_ITEM_LABEL = "itemLabel";
   public static final String ATTR_ITEM_IMAGE = "itemImage";
   public static final String ATTR_ITEM_VALUE = "itemValue";
+  public static final String ATTR_JSF_RESOURCE = "jsfResource";
 
   public static final String ATTR_LABEL = "label";
   public static final String ATTR_LABEL_POSITION = "labelPosition";
@@ -132,6 +133,7 @@ public final class TobagoConstants {
   public static final String ATTR_RENDER_RANGE = "renderRange";
   public static final String ATTR_RENDER_RANGE_EXTERN = "renderRangeExtern";
   public static final String ATTR_REQUIRED = "required";
+  public static final String ATTR_RESOURCE = "resource";
   public static final String ATTR_ROW_ID = "sheetRowId";
   public static final String ATTR_ROWS = "rows";
   public static final String ATTR_SCRIPT_FILES = "scriptFiles";

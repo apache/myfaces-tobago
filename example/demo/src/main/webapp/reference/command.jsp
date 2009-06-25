@@ -23,7 +23,7 @@
   <jsp:body>
     <tc:box label="Command Controls">
       <f:facet name="layout">
-        <tc:gridLayout columns="100px;100px;100px;100px;*" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
+        <tc:gridLayout columns="100px;100px;100px;100px;100px;*" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
       </f:facet>
 
       <%-- standard --%>
@@ -37,6 +37,7 @@
       <%-- code-sniplet-end id="button" --%>
       <tc:button label="On Click" onclick="alert('Hallo Tobago!');"/>
       <tc:button label="Link" link="http://www.apache.org/"/>
+      <tc:button label="Resource" resource="help.html"/>
       <tc:cell/>
 
       <%-- code-sniplet-start id="link" --%>
@@ -44,6 +45,7 @@
       <%-- code-sniplet-end id="link" --%>
       <tc:link label="On Click" onclick="alert('Hallo Tobago!');"/>
       <tc:link label="Link" link="http://www.apache.org/"/>
+      <tc:link label="Resource" resource="help.html"/>
       <tc:cell/>
 
       <%-- confirmation --%>
@@ -67,6 +69,11 @@
           <tc:out value="Are you sure?"/>
         </f:facet>
       </tc:button>
+      <tc:button label="Resource" resource="help.html">
+        <f:facet name="confirmation">
+          <tc:out value="Are you sure?"/>
+        </f:facet>
+      </tc:button>
       <tc:cell/>
 
       <tc:link label="Action" action="reference/command">
@@ -84,6 +91,11 @@
           <tc:out value="Are you sure?"/>
         </f:facet>
       </tc:link>
+      <tc:link label="Resource" resource="help.html">
+        <f:facet name="confirmation">
+          <tc:out value="Are you sure?"/>
+        </f:facet>
+      </tc:link>
       <tc:cell/>
 
       <%-- target --%>
@@ -95,11 +107,13 @@
       <tc:button label="Action" action="reference/command" target="Command Target"/>
       <tc:button label="N/A" disabled="true"/>
       <tc:button label="N/A yet" disabled="true"/>
+      <tc:button label="N/A yet" disabled="true"/>
       <tc:cell/>
 
       <tc:link label="Action" action="reference/command" target="Command Target"/>
       <tc:link label="N/A"  disabled="true"/>
       <tc:link label="Link" link="http://www.apache.org/" target="Command Target"/>
+      <tc:link label="Resource" resource="help.html" target="Command Target"/>
       <tc:cell/>
 
       <%-- default command --%>
@@ -110,18 +124,19 @@
       <tc:cell/>
       <tc:cell/>
       <tc:cell/>
+      <tc:cell/>
 
       <%-- dynamic widths --%>
 
-      <tc:cell spanX="5">
-        <tc:separator >
+      <tc:cell spanX="6">
+        <tc:separator>
           <f:facet name="label">
             <tc:label value="Layout"/>
           </f:facet>
         </tc:separator>
       </tc:cell>
 
-      <tc:cell spanX="5">
+      <tc:cell spanX="6">
         <tc:panel>
           <f:facet name="layout">
             <tc:gridLayout rows="fixed" columns="fixed;fixed;fixed;*"/>
@@ -134,7 +149,7 @@
 
         </tc:panel>
       </tc:cell>
-      <tc:cell spanX="5">
+      <tc:cell spanX="6">
         <tc:panel>
           <f:facet name="layout">
             <tc:gridLayout rows="fixed" columns="fixed;*"/>
@@ -145,7 +160,7 @@
 
         </tc:panel>
       </tc:cell>
-      <tc:cell spanX="5">
+      <tc:cell spanX="6">
         <tc:panel>
           <f:facet name="layout">
             <tc:gridLayout rows="45px" columns="100px;100px;*"/>
@@ -160,6 +175,7 @@
 
       <%-- empty --%>
 
+      <tc:cell/>
       <tc:cell/>
       <tc:cell/>
       <tc:cell/>

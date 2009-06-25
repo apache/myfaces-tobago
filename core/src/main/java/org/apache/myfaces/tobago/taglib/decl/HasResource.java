@@ -20,24 +20,29 @@ package org.apache.myfaces.tobago.taglib.decl;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-public interface HasLink {
+public interface HasResource {
   /**
-   * Link to an arbitrary URL, either an internal link or an external link.
-
-   * <dl>
-   *   <dt>internal absolute link</dt>
-   *   <dd>Starts with a slash '/' character. The context path will be added.
-   *       A session id will be added, if needed.</dd>
-   *   <dt>external link</dt>
-   *   <dd>Contains a colon ':' character.
-   *       The link will not be modified.</dd>
-   *   <dt>internal relative link</dt>
-   *   <dd>Any other strings. A session id will be added, if needed.</dd>
-   * </dl>
+   * Link to an internal resource.
+   * Resources will be processed by the resource management.
+   * E. g. define help.html and it will be served help_es.html or help_de.html if available.
+   * For JSF-Pages you have to set the jsfResource attribute.
    *
-   * @param link The external or internal link.
+   * @param resource The internal resource.
+   * @see #setJsfResource(String)
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  void setLink(String link);
+  void setResource(String resource);
+
+  /**
+   * Flag indicating that the resource referenced by the resource attribute is a jsf resource.
+   * That means that the url has to be processed to change the prefix or suffix (e. g. *.jsf or
+   * /faces/*). Default is false.
+   *
+   * @param jsfResource Is the Resource a JSF page or not?
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  void setJsfResource(String jsfResource);
+
 }

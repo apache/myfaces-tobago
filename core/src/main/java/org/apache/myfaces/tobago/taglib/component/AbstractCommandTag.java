@@ -21,8 +21,10 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TYPE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_JSF_RESOURCE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RESOURCE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TYPE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UICommand;
 
@@ -37,6 +39,8 @@ public abstract class AbstractCommandTag extends TobagoTag implements AbstractCo
   private String immediate;
   private String onclick;
   private String link;
+  private String resource;
+  private String jsfResource;
   private String transition;
 
   public String getComponentType() {
@@ -54,6 +58,8 @@ public abstract class AbstractCommandTag extends TobagoTag implements AbstractCo
       ComponentUtil.setAction((UICommand) component, type, action);
     }
     ComponentUtil.setStringProperty(component, ATTR_ACTION_LINK, link);
+    ComponentUtil.setStringProperty(component, ATTR_RESOURCE, resource);
+    ComponentUtil.setBooleanProperty(component, ATTR_JSF_RESOURCE, jsfResource);
     ComponentUtil.setStringProperty(component, ATTR_ACTION_ONCLICK, onclick);
     ComponentUtil.setActionListener(command, actionListener);
     ComponentUtil.setBooleanProperty(component, ATTR_TRANSITION, transition);
@@ -68,6 +74,8 @@ public abstract class AbstractCommandTag extends TobagoTag implements AbstractCo
     immediate = null;
     onclick = null;
     link = null;
+    resource = null;
+    jsfResource = null;
     transition = null;
   }
 
@@ -85,6 +93,14 @@ public abstract class AbstractCommandTag extends TobagoTag implements AbstractCo
 
   public void setLink(String link) {
     this.link = link;
+  }
+
+  public void setResource(String resource) {
+    this.resource = resource;
+  }
+
+  public void setJsfResource(String jsfResource) {
+    this.jsfResource = jsfResource;
   }
 
   public String getActionListener() {

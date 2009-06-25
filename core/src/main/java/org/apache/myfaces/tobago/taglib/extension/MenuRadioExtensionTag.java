@@ -17,23 +17,23 @@ package org.apache.myfaces.tobago.taglib.extension;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
-import org.apache.myfaces.tobago.taglib.component.MenuCommandTag;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.taglib.component.AbstractCommandTagDeclaration;
+import org.apache.myfaces.tobago.taglib.component.MenuCommandTag;
 import org.apache.myfaces.tobago.taglib.component.SelectOneRadioTag;
+import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
-import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
-import org.apache.myfaces.tobago.taglib.decl.HasConverter;
-import org.apache.myfaces.tobago.component.UICommand;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
-import javax.faces.webapp.FacetTag;
 import javax.faces.component.UIComponent;
 import javax.faces.el.ValueBinding;
+import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
@@ -61,6 +61,8 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
   private String actionListener;
   private String onclick;
   private String link;
+  private String resource;
+  private String jsfResource;
   private String disabled;
   private String binding;
   private String label;
@@ -89,6 +91,12 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
     }
     if (link != null) {
       menuCommandTag.setLink(link);
+    }
+    if (resource != null) {
+      menuCommandTag.setResource(resource);
+    }
+    if (jsfResource != null) {
+      menuCommandTag.setJsfResource(jsfResource);
     }
     if (disabled != null) {
       menuCommandTag.setDisabled(disabled);
@@ -164,6 +172,14 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
     this.link = navigate;
   }
 
+  public void setResource(String resource) {
+    this.resource = resource;
+  }
+
+  public void setJsfResource(String jsfResource) {
+    this.jsfResource = jsfResource;
+  }
+
   public void setBinding(String binding) throws JspException {
     this.binding = binding;
   }
@@ -196,6 +212,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
     this.converter = converter;
   }
 
+  @Override
   public void release() {
     super.release();
     rendered = null;
@@ -204,6 +221,8 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
     actionListener = null;
     onclick = null;
     link = null;
+    resource = null;
+    jsfResource = null;
     disabled = null;
     binding = null;
     label = null;

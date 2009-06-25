@@ -57,11 +57,6 @@ public class ResourceManagerUtil {
         .getImage(facesContext.getViewRoot(), name);
   }
 
-  public static String getBlankPage(FacesContext context) {
-    return context.getExternalContext().getRequestContextPath()
-        + "/org/apache/myfaces/tobago/renderkit/html/standard/blank.html";
-  }
-
   /**
    * Searchs for an image and return it with the context path
    */
@@ -142,5 +137,14 @@ public class ResourceManagerUtil {
       imageWithPath = getImageWithPath(facesContext, image);
     }
     return imageWithPath;
+  }
+
+  public static String getBlankPage(FacesContext facesContext) {
+    return facesContext.getExternalContext().getRequestContextPath()
+        + "/org/apache/myfaces/tobago/renderkit/html/standard/blank.html";
+  }
+
+  public static String getPageWithoutContextPath(FacesContext facesContext, String name) {
+    return ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext.getViewRoot(), name);
   }
 }
