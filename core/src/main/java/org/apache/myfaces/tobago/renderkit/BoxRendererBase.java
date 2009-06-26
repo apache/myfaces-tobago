@@ -28,7 +28,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.util.LayoutUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -64,7 +64,7 @@ public abstract class BoxRendererBase extends LayoutableRendererBase {
           + "using estimation by contained components. ");
     }
 
-    height = LayoutUtil.calculateFixedHeightForChildren(facesContext, component);
+    height = LayoutUtils.calculateFixedHeightForChildren(facesContext, component);
     height += getHeaderHeight(facesContext, component);
     height += getPaddingHeight(facesContext, component);
     return height;

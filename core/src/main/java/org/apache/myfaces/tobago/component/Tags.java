@@ -17,6 +17,12 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-public interface LayoutProvider {
-  UILayout provideLayout();
+/**
+ * Name constants of the tags library.
+ */
+public final class Tags {
+
+  // todo: add some tag names
+
+  public static final String GRID_LAYOUT_CONSTRAINT = "gridLayoutConstraint";
 }

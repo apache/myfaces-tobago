@@ -61,7 +61,7 @@ import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.util.LayoutInfo;
-import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.util.LayoutUtils;
 import org.apache.myfaces.tobago.util.StringUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -187,7 +187,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     Map attributes = data.getAttributes();
     HtmlStyleMap sheetStyle = (HtmlStyleMap) attributes.get(Attributes.STYLE);
     //HtmlStyleMap headerStyle = (HtmlStyleMap) attributes.get(STYLE_HEADER);
-//    String sheetWidthString = LayoutUtil.getStyleAttributeValue(sheetStyle,
+//    String sheetWidthString = LayoutUtils.getStyleAttributeValue(sheetStyle,
 //        "width");
     Integer sheetHeight = HtmlRendererUtil.getStyleAttributeIntValue(sheetStyle, "height");
     if (sheetHeight == null) {
@@ -1207,7 +1207,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       }
 
 
-      int space = LayoutUtil.getInnerSpace(facesContext, data, true);
+      int space = LayoutUtils.getInnerSpace(facesContext, data, true);
       space -= getContentBorder(facesContext, data);
       if (needVerticalScrollbar(facesContext, data)) {
         space -= getScrollbarWidth(facesContext, data);

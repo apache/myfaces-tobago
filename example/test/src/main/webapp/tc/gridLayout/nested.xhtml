@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:view
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page">
+    <f:facet name="layout">
+      <tc:gridLayout columns="100px;200px;*;2*" rows="*;*;*;2*"/>
+    </f:facet>
+    <tc:gridLayoutConstraint width="630px" height="500px"/>
+
+    <tc:in id="x_5" value="x_5">
+      <tc:gridLayoutConstraint rowSpan="3"/>
+    </tc:in>
+
+    <tc:in id="x_6" value="x_6"/>
+
+    <tc:in id="x_13" value="x_13">
+      <tc:gridLayoutConstraint rowSpan="2"/>
+    </tc:in>
+
+    <tc:panel id="x_14">
+      <tc:gridLayoutConstraint rowSpan="2"/>
+      <f:facet name="layout">
+        <tc:gridLayout columns="130px;*"/>
+      </f:facet>
+      <tc:in id="x_14_a" value="x_14_a"/>
+      <tc:in id="x_14_b" value="x_14_b"/>
+    </tc:panel>
+
+    <tc:panel id="x_7">
+      <f:facet name="layout">
+        <tc:gridLayout columns="*;2*"/>
+      </f:facet>
+      <tc:in id="x_7_a" value="x_7_a"/>
+      <tc:in id="x_7_b" value="x_7_b"/>
+    </tc:panel>
+
+    <tc:panel id="x_10">
+      <f:facet name="layout">
+        <tc:gridLayout columns="4*;*"/>
+      </f:facet>
+      <tc:in id="x_10_a" value="x_10_a"/>
+      <tc:in id="x_10_b" value="x_10_b"/>
+    </tc:panel>
+
+    <tc:in id="x_17" value="x_17">
+      <tc:gridLayoutConstraint columnSpan="2"/>
+    </tc:in>
+
+    <tc:script file="script/test-utils.js"/>
+
+    <tc:script onload="checkLayout('page:x_5', 0, 0, 100, 300);"/>
+    <tc:script onload="checkLayout('page:x_6', 100, 0, 200, 100);"/>
+    <tc:script onload="checkLayout('page:x_13', 300, 0, 110, 200);"/>
+    <tc:script onload="checkLayout('page:x_14', 410, 0, 220, 200);"/>
+    <tc:script onload="checkLayout('page:x_14_a', 0, 0, 130, 200);"/>
+    <tc:script onload="checkLayout('page:x_14_b', 130, 0, 90, 200);"/>
+    <!--todo: test the other controlls ...-->
+
+  </tc:page>
+</f:view>

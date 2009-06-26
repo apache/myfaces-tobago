@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
+import org.apache.myfaces.tobago.component.UIButtonCommand;
 import org.apache.myfaces.tobago.component.UIDateInput;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 import org.apache.myfaces.tobago.component.UIGridLayout;
@@ -37,6 +38,7 @@ import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.PopupActionListener;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.util.DateFormatUtils;
@@ -52,10 +54,6 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TimeZone;
 
-/*
- * Date: 30.05.2006
- * Time: 22:21:17
- */
 public class DatePickerRenderer extends LinkRenderer {
   private static final Log LOG = LogFactory.getLog(DatePickerRenderer.class);
   public static final String CLOSE_POPUP = "closePopup";
@@ -155,19 +153,15 @@ public class DatePickerRenderer extends LinkRenderer {
 
     box.getChildren().add(buttonPanel);
 
-    final org.apache.myfaces.tobago.component.UICommand okButton =
-        (org.apache.myfaces.tobago.component.UICommand) CreateComponentUtils.createComponent(facesContext,
-            org.apache.myfaces.tobago.component.UIButtonCommand.COMPONENT_TYPE,
-            RendererTypes.BUTTON);
+    final UIButtonCommand okButton = (UIButtonCommand)
+        CreateComponentUtils.createComponent(facesContext, UIButtonCommand.COMPONENT_TYPE, RendererTypes.BUTTON);
     buttonPanel.getChildren().add(okButton);
     okButton.setId("ok" + CLOSE_POPUP);
     okButton.getAttributes().put(Attributes.LABEL, ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "datePickerOk"));
 
-    final org.apache.myfaces.tobago.component.UICommand cancelButton =
-        (org.apache.myfaces.tobago.component.UICommand) CreateComponentUtils.createComponent(facesContext,
-            org.apache.myfaces.tobago.component.UIButtonCommand.COMPONENT_TYPE,
-            RendererTypes.BUTTON);
+    final UIButtonCommand cancelButton = (UIButtonCommand)
+        CreateComponentUtils.createComponent(facesContext, UIButtonCommand.COMPONENT_TYPE, RendererTypes.BUTTON);
     buttonPanel.getChildren().add(cancelButton);
 
     cancelButton.getAttributes().put(Attributes.LABEL, ResourceManagerUtil.getPropertyNotNull(
@@ -175,8 +169,8 @@ public class DatePickerRenderer extends LinkRenderer {
     cancelButton.setId(CLOSE_POPUP);
 
     // create image
-    UIGraphic image = (UIGraphic) CreateComponentUtils.createComponent(
-        facesContext, UIGraphic.COMPONENT_TYPE, RendererTypes.IMAGE);
+    UIGraphic image = (UIGraphic)
+        CreateComponentUtils.createComponent(facesContext, UIGraphic.COMPONENT_TYPE, RendererTypes.IMAGE);
     image.setRendered(true);
     if (linkId != null) {
       image.setId(linkId + "image");
@@ -195,18 +189,15 @@ public class DatePickerRenderer extends LinkRenderer {
     if (facesContext instanceof TobagoFacesContext) {
       UIPopup popup = (UIPopup) component.getFacets().get(Facets.PICKER_POPUP);
       if (popup != null) {
-        popup.getAttributes().put(
-            Attributes.WIDTH, ThemeConfig.getValue(facesContext, component, "CalendarPopupWidth"));
-        popup.getAttributes().put(
-            Attributes.HEIGHT, ThemeConfig.getValue(facesContext, component, "CalendarPopupHeight"));
+        popup.setWidth(new PixelMeasure(ThemeConfig.getValue(facesContext, component, "CalendarPopupWidth")));
+        popup.setHeight(new PixelMeasure(ThemeConfig.getValue(facesContext, component, "CalendarPopupHeight")));
         ((TobagoFacesContext) facesContext).getPopups().add(popup);
       }
     }
     super.prepareRender(facesContext, component);
   }
 
-  public void encodeBegin(FacesContext facesContext,
-                          UIComponent component) throws IOException {
+  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     UIDatePicker link = (UIDatePicker) component;
 //    DatePickerController datePickerController = new DatePickerController();
     UIDateInput dateInput = (UIDateInput) link.getForComponent();

@@ -22,14 +22,17 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.internal.taglib.SelectOneListboxTag;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
-import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedHeight;
+import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
+import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
@@ -37,10 +40,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
-import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
-import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
-import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -54,19 +53,17 @@ public class SelectOneListboxExtensionTag
     extends BodyTagSupport implements HasId, HasValue, HasValueChangeListener, IsDisabled,
     HasLabel, HasLabelWidth, IsReadonly, HasOnchange, IsRendered,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage, HasMarkup,
-    HasBinding, HasDeprecatedHeight, IsFocus, HasTip, IsRequired, HasConverter, HasValidator, HasTabIndex {
+    HasBinding, IsFocus, HasTip, IsRequired, HasConverter, HasValidator, HasTabIndex {
   private String required;
   private String value;
   private String valueChangeListener;
   private String disabled;
   private String readonly;
   private String onchange;
-  //private String inline;
   private String label;
   private String rendered;
   private String binding;
   private String tip;
-  private String height;
   private String converter;
   private String validator;
   private String labelWidth;
@@ -136,9 +133,6 @@ public class SelectOneListboxExtensionTag
     if (id != null) {
       selectOneListboxTag.setId(id);
     }
-    if (height != null) {
-      selectOneListboxTag.setHeight(height);
-    }
     if (readonly != null) {
       selectOneListboxTag.setReadonly(readonly);
     }
@@ -180,10 +174,8 @@ public class SelectOneListboxExtensionTag
     binding = null;
     onchange = null;
     disabled = null;
-    //inline = null;
     labelWidth = null;
     label = null;
-    height = null;
     readonly = null;
     rendered = null;
     converter = null;
@@ -226,16 +218,8 @@ public class SelectOneListboxExtensionTag
     this.onchange = onchange;
   }
 
-/*  public void setInline(String inline) {
-    this.inline = inline;
-  }*/
-
   public void setLabel(String label) {
     this.label = label;
-  }
-
-  public void setHeight(String height) {
-    this.height = height;
   }
 
   public void setValidator(String validator) {

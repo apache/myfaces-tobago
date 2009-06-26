@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
-import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.util.LayoutUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -69,7 +69,7 @@ public class ProgressRenderer extends LayoutableRendererBase {
           / (model.getMaximum() - model.getMinimum())) + " %";
     }
 
-    Integer width = LayoutUtil.getLayoutWidth(component);
+    Integer width = LayoutUtils.getLayoutWidth(component);
 
     String width1 = value1;
     String width2 = value2;

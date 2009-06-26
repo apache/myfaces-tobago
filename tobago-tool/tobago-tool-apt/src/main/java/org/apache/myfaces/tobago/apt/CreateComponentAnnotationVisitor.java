@@ -141,7 +141,11 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
 
       String className = "org.apache.myfaces.tobago.internal.taglib." + StringUtils.capitalize(tag.name()) + "Tag";
       TagInfo tagInfo = new TagInfo(className, componentTag.rendererType());
-      tagInfo.getProperties().addAll(properties);
+      for (PropertyInfo property : properties) {
+        if (property.isTagAttribute()) {
+          tagInfo.getProperties().add(property);
+        }
+      }
       if (is12()) {
         tagInfo.setSuperClass("org.apache.myfaces.tobago.internal.taglib12.TobagoELTag");
       } else {
@@ -364,6 +368,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         propertyInfo.setAllowdValues(uiComponentTagAttribute.allowedValues());
         if (tagAttribute != null) {
           propertyInfo.setBodyContent(tagAttribute.bodyContent());
+          propertyInfo.setTagAttribute(true);
         }
         String type;
         if (uiComponentTagAttribute.expression().isMethodExpression()) {

@@ -137,7 +137,6 @@
           <!-- <compilerArgument>-Xlint:all,-serial,-fallthrough</compilerArgument>-->
           <excludes>
             <exclude>org/apache/myfaces/tobago/tablib/extension/*</exclude>
-            <exclude>org/apache/myfaces/tobago/component/CreateComponentUtils*</exclude>
             <exclude>org/apache/myfaces/tobago/component/UIDatePicker*</exclude>
           </excludes>
         </configuration>

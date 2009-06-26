@@ -18,11 +18,19 @@ package org.apache.myfaces.tobago.layout;
  */
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.io.Serializable;
 
 /*
  * Date: 23.01.2008 20:12:30
  */
-public abstract class Measure {
+public abstract class Measure implements Serializable {
+
+  private static final long serialVersionUID = 1L;
+
+  private static final Log LOG = LogFactory.getLog(Measure.class);
 
   // todo: refactor and consolidate with LayoutToken
 
@@ -32,6 +40,10 @@ public abstract class Measure {
     }
     if (value.toLowerCase().matches("\\d+px")) {// XXX no regexp here: user LayoutTokens.parse !!!
       return new PixelMeasure(Integer.parseInt(value.substring(0, value.length() - 2)));
+    }
+    if (value.matches("\\d+")) {// XXX no regexp here: user LayoutTokens.parse !!!
+      LOG.warn("Measure parser found value without unit. Assuming px for value='" + value + "'.");
+      return new PixelMeasure(Integer.parseInt(value));
     }
     throw new IllegalArgumentException("Can't parse to any measure: '" + value + "'");
   }

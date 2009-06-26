@@ -24,15 +24,12 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.AbstractUIGridConstraints;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITextarea;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -41,8 +38,8 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.Validator;
 import javax.faces.validator.LengthValidator;
+import javax.faces.validator.Validator;
 import java.io.IOException;
 
 public class TextAreaRenderer extends InputRendererBase {
@@ -79,18 +76,6 @@ public class TextAreaRenderer extends InputRendererBase {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
     HtmlRendererUtil.renderDojoDndItem(component, writer, true);
-
-// LAYOUT Begin
-    HtmlStyleMap style = (HtmlStyleMap) input.getAttributes().get(Attributes.STYLE);
-    Measure width = ((AbstractUIGridConstraints) input.getConstraints()).getWidth();
-    if (width != null) {
-      style.put("width", width.toString());
-    }
-    Measure height = ((AbstractUIGridConstraints) input.getConstraints()).getHeight();
-    if (height !=null) {
-      style.put("height", height.toString());
-    }
-// LAYOUT End
 
     writer.writeStyleAttribute();
     writer.writeClassAttribute();

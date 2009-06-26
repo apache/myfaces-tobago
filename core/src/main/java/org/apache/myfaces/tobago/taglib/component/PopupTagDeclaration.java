@@ -22,14 +22,10 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.taglib.decl.HasDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponentWithDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 
-/*
- * Date: 02.04.2006
- * Time: 16:11:02
- */
 /**
  * Renders a popup panel.
  */
@@ -39,15 +35,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIPopup",
     interfaces = "org.apache.myfaces.tobago.ajax.api.AjaxComponent",
     rendererType = RendererTypes.POPUP)
-public interface PopupTagDeclaration extends HasId, IsRendered, HasDimension {
-
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Integer")
-  void setLeft(String left);
-
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Integer")
-  void setTop(String top);
+public interface PopupTagDeclaration extends HasId, IsRendered, IsGridLayoutComponentWithDeprecatedDimension {
 
   @TagAttribute
   @UIComponentTagAttribute(type = {"java.lang.Boolean"}, defaultValue = "true")

@@ -20,11 +20,23 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.OnComponentCreated;
+import org.apache.myfaces.tobago.layout.Component;
+import org.apache.myfaces.tobago.layout.Container;
+import org.apache.myfaces.tobago.layout.Display;
+import org.apache.myfaces.tobago.layout.FixedLayoutToken;
+import org.apache.myfaces.tobago.layout.LayoutContext;
 import org.apache.myfaces.tobago.layout.LayoutManager;
+import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
-import org.apache.myfaces.tobago.layout.grid.GridLayoutManager;
+import org.apache.myfaces.tobago.layout.PixelLayoutToken;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
+import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
+import org.apache.myfaces.tobago.layout.grid.Cell;
+import org.apache.myfaces.tobago.layout.grid.Grid;
+import org.apache.myfaces.tobago.layout.grid.RealCell;
+import org.apache.myfaces.tobago.layout.math.EquationManager;
 import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.util.LayoutUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -33,12 +45,223 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-//public abstract class AbstractUIGridLayout extends UILayout {
-// LAYOUT Begin
-public abstract class AbstractUIGridLayout extends UILayout implements OnComponentCreated {
-// LAYOUT End
+public abstract class AbstractUIGridLayout extends UILayout implements OnComponentCreated, LayoutManager {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIGridLayout.class);
+
+
+// LAYOUT Begin
+  // XXX new layout manager begin
+
+  private Grid grid;
+
+  // XXX columns and columnTokens are double/redundant
+  private LayoutTokens columnTokens;
+
+  // XXX rows and rowTokens are double/redundant
+  private LayoutTokens rowTokens;
+
+  public void onComponentCreated(FacesContext context, UIComponent component) {
+
+    columnTokens = LayoutTokens.parse(getColumns());
+    rowTokens = LayoutTokens.parse(getRows());
+
+    grid = new Grid(columnTokens.getSize(), rowTokens.getSize());
+  }
+
+  public void collect(LayoutContext layoutContext, Container container, int horizontalIndex, int verticalIndex) {
+
+    // horizontal
+    EquationManager horizontal = layoutContext.getHorizontal();
+    int[] horizontalIndices = horizontal.divide(horizontalIndex, columnTokens.getSize());
+
+    // vertical
+    EquationManager vertical = layoutContext.getVertical();
+    int[] verticalIndices = vertical.divide(verticalIndex, rowTokens.getSize());
+
+    List<Component> components = container.getComponents();
+    for (Component component1 : components) {
+      grid.add(new RealCell(component1), component1.getColumnSpan(), component1.getRowSpan());
+      LOG.debug("\n" + grid);
+    }
+
+    addFixedConstraints(layoutContext, horizontalIndex + 1, verticalIndex + 1);
+    addRelativeConstraints(layoutContext, horizontalIndex + 1, verticalIndex + 1);
+
+    for (int j = 0; j < grid.getRowCount(); j++) {
+      for (int i = 0; i < grid.getColumnCount(); i++) {
+        org.apache.myfaces.tobago.layout.grid.Cell temp = grid.get(i, j);
+        if (temp instanceof RealCell) {
+          RealCell cell = (RealCell) temp;
+          Component component = temp.getComponent();
+
+          // horizontal
+          int hIndex = horizontal.addComponent(horizontalIndices[i], cell.getColumnSpan());
+          cell.getComponent().setHorizontalIndex(hIndex);
+
+          // vertical
+          int vIndex = vertical.addComponent(verticalIndices[j], cell.getRowSpan());
+          cell.getComponent().setVerticalIndex(vIndex);
+
+          if (component instanceof Container) {
+            Container subContainer = (Container) component;
+            LayoutManager layoutManager = subContainer.getLayoutManager();
+            layoutManager.collect(layoutContext, subContainer, hIndex, vIndex);
+          }
+        }
+      }
+    }
+  }
+
+  public void distribute(LayoutContext layoutContext, Container container) {
+
+    distributeSizes(layoutContext);
+    distributePositions();
+  }
+
+  private void distributeSizes(LayoutContext layoutContext) {
+
+    for (int j = 0; j < grid.getRowCount(); j++) {
+      for (int i = 0; i < grid.getColumnCount(); i++) {
+        Cell temp = grid.get(i, j);
+        if (temp instanceof RealCell) {
+          RealCell cell = (RealCell) temp;
+          Component component = temp.getComponent();
+
+          component.setDisplay(Display.BLOCK);
+
+          EquationManager horizontal = layoutContext.getHorizontal();
+          EquationManager vertical = layoutContext.getVertical();
+
+          int horizontalIndex = cell.getComponent().getHorizontalIndex();
+          int verticalIndex = cell.getComponent().getVerticalIndex();
+
+          PixelMeasure width = new PixelMeasure(horizontal.getResult()[horizontalIndex]);
+          PixelMeasure height = new PixelMeasure(vertical.getResult()[verticalIndex]);
+
+          component.setWidth(width);
+          component.setHeight(height);
+
+          if (component instanceof Container) {
+
+            Container subContainer = (Container) component;
+            LayoutManager layoutManager = subContainer.getLayoutManager();
+            if (layoutManager != null) {
+              layoutManager.distribute(layoutContext, subContainer);
+            }
+          } 
+        }
+      }
+    }
+  }
+
+  private void distributePositions() {
+
+    // find the "left" positions
+    for (int j = 0; j < grid.getRowCount(); j++) {
+      PixelMeasure left = new PixelMeasure(0);
+      for (int i = 0; i < grid.getColumnCount(); i++) {
+        Cell cell = grid.get(i, j);
+        if (cell == null) {
+          continue; // XXX why this can happen?
+        }
+        Component component = cell.getComponent();
+        if (cell instanceof RealCell) {
+          component.setLeft(left);
+        }
+        if (cell.isInFirstColumn()) {
+          left = (PixelMeasure) left.add(component.getWidth());
+        }
+      }
+    }
+
+    // find the "top" positions
+    for (int i = 0; i < grid.getColumnCount(); i++) {
+      PixelMeasure top = new PixelMeasure(0);
+      for (int j = 0; j < grid.getRowCount(); j++) {
+        Cell cell = grid.get(i, j);
+        if (cell == null) {
+          continue; // XXX why this can happen?
+        }
+        Component component = cell.getComponent();
+        if (cell instanceof RealCell) {
+          component.setTop(top);
+        }
+        if (cell.isInFirstRow()) {
+          top = (PixelMeasure) top.add(component.getHeight());
+        }
+      }
+    }
+  }
+
+  private void addFixedConstraints(LayoutContext layoutContext, int horizontalIndexOffset, int verticalIndexOffset) {
+    // horizontal
+    for (int i = 0; i < columnTokens.getSize(); i++) {
+      LayoutToken layoutToken = columnTokens.get(i);
+      if (layoutToken instanceof PixelLayoutToken) {
+        int pixel = ((PixelLayoutToken) layoutToken).getPixel();
+        layoutContext.getHorizontal().setFixedLength(i + horizontalIndexOffset, pixel);
+      }
+      if (layoutToken instanceof FixedLayoutToken) {
+        int pixel = 100;
+        LOG.warn("auto/fixed is not implemented yet and was set to 100px");
+        layoutContext.getHorizontal().setFixedLength(i + horizontalIndexOffset, pixel);
+      }
+    }
+    // vertical
+    for (int i = 0; i < rowTokens.getSize(); i++) {
+      LayoutToken layoutToken = rowTokens.get(i);
+      if (layoutToken instanceof PixelLayoutToken) {
+        int pixel = ((PixelLayoutToken) layoutToken).getPixel();
+        layoutContext.getVertical().setFixedLength(i + verticalIndexOffset, pixel);
+      }
+      if (layoutToken instanceof FixedLayoutToken) {
+        int pixel = 25;
+        LOG.warn("auto/fixed is not implemented yet and was set to 25px");
+        layoutContext.getVertical().setFixedLength(i + verticalIndexOffset, pixel);
+      }
+    }
+  }
+
+  private void addRelativeConstraints(LayoutContext layoutContext, int horizontalIndexOffset, int verticalIndexOffset) {
+    // horizontal
+    Integer first = null;
+    Integer firstIndex = null;
+    for (int i = 0; i < columnTokens.getTokens().size(); i++) {
+      LayoutToken token = columnTokens.getTokens().get(i);
+      if (token instanceof RelativeLayoutToken) {
+        int factor = ((RelativeLayoutToken) token).getFactor();
+        if (first == null) {
+          first = factor;
+          firstIndex = i + horizontalIndexOffset;
+        } else {
+          layoutContext.getHorizontal().setProportion(firstIndex, i + horizontalIndexOffset, first, factor);
+        }
+      }
+    }
+    // vertical
+    first = null;
+    firstIndex = null;
+    for (int i = 0; i < rowTokens.getTokens().size(); i++) {
+      LayoutToken token = rowTokens.getTokens().get(i);
+      if (token instanceof RelativeLayoutToken) {
+        int factor = ((RelativeLayoutToken) token).getFactor();
+        if (first == null) {
+          first = factor;
+          firstIndex = i + verticalIndexOffset;
+        } else {
+          layoutContext.getVertical().setProportion(firstIndex, i + verticalIndexOffset, first, factor);
+        }
+      }
+    }
+  }
+
+  protected Grid getGrid() {
+    return grid;
+  }
+
+  // XXX new layout manager end
+// LAYOUT End
 
   public static final Marker FREE = new Marker("free");
   public static final String USED = "used";
@@ -50,16 +273,13 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
   private List<Row> layoutRows;
 
 // LAYOUT Begin
-  private GridLayoutManager manager;
 
-  public void onComponentCreated(FacesContext context, UIComponent component) {
-    manager = new GridLayoutManager(getColumns(), getRows());
+  public AbstractUIGridLayout() {
+    LOG.info("**************************************************************************************"
+        + " Constructor AbstractUIGridLayout");
   }
 
-  public LayoutManager getLayoutManager() {
-    return manager;
-  }
-// LAYOUT End
+  // LAYOUT End
 
   public LayoutTokens getRowLayout() {
     if (rowLayout == null) {
@@ -92,11 +312,11 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     return false;
   }
 
-  @Override
-  public void encodeChildren(FacesContext context)
-      throws IOException {
+//  @Override
+//  public void encodeChildren(FacesContext context)
+//      throws IOException {
     // do nothing here
-  }
+//  }
 
   @Override
   public void encodeChildrenOfComponent(
@@ -113,6 +333,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     return getColumnLayout().getSize();
   }
 
+  @Deprecated
   public List<Row> ensureRows() {
     if (layoutRows == null) {
       layoutRows = createRows();
@@ -120,11 +341,14 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     return layoutRows;
   }
 
+  @Deprecated
   private List<Row> createRows() {
+    // XXX
+    LOG.warn("This code is deprecated and should be removed!");
     List<Row> rows = new ArrayList<Row>();
     int columnCount = getColumnCount();
     List<UIComponent> children
-        = LayoutUtil.addChildren(new ArrayList<UIComponent>(), getParent());
+        = LayoutUtils.addChildren(new ArrayList<UIComponent>(), getParent());
 
     for (UIComponent component : children) {
       int spanX = getSpanX(component);

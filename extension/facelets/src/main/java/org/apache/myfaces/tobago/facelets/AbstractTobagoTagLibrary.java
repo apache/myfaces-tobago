@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.facelets;
  */
 
 import com.sun.facelets.tag.AbstractTagLibrary;
+import org.apache.myfaces.tobago.component.Tags;
 import org.apache.myfaces.tobago.validator.FileItemValidator;
 import org.apache.myfaces.tobago.validator.SubmittedValueLengthValidator;
 
@@ -35,6 +36,7 @@ public class AbstractTobagoTagLibrary  extends AbstractTagLibrary {
     addTagHandler("popupReference", PopupReferenceHandler.class);
     addTagHandler("loadBundle", LoadBundleHandler.class);
     addTagHandler("converter", ConverterHandler.class);
+    addTagHandler(Tags.GRID_LAYOUT_CONSTRAINT, GridLayoutConstraintHandler.class);
     addValidator("validateFileItem", FileItemValidator.VALIDATOR_ID);
     addValidator("validateSubmittedValueLength", SubmittedValueLengthValidator.VALIDATOR_ID);
     addTobagoComponent("script", "org.apache.myfaces.tobago.Script", "Script", ScriptHandler.class);

@@ -24,7 +24,7 @@
         locale="#{controller.language}">
   <tc:loadBundle basename="resource" var="bundle"/>
 
-  <tc:page id="page" label="Login" state="#{layout}" width="#{layout.width}" height="#{layout.height}">
+  <tc:page id="page" label="Login" width="600" height="600">
     <f:facet name="layout">
       <tc:gridLayout rows="*;fixed;*" columns="*;400px;*"/>
     </f:facet>
@@ -62,6 +62,7 @@
         <tc:button label="#{bundle.loginLogin}" defaultCommand="true"/>
       </tc:panel>
     </tc:box>
+
     <tc:cell/>
     <tc:cell spanX="3"/>
 

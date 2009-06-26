@@ -22,9 +22,13 @@ import org.apache.myfaces.tobago.layout.Component;
 public class PseudoCell implements Cell {
 
   private RealCell realCell;
+  private boolean inFirstColumn;
+  private boolean inFirstRow;
 
-  public PseudoCell(RealCell realCell) {
+  public PseudoCell(RealCell realCell, boolean inFirstColumn, boolean inFirstRow) {
     this.realCell = realCell;
+    this.inFirstColumn = inFirstColumn;
+    this.inFirstRow = inFirstRow;
   }
 
   public Component getComponent() {
@@ -33,5 +37,13 @@ public class PseudoCell implements Cell {
 
   public RealCell getRealCell() {
     return realCell;
+  }
+
+  public boolean isInFirstColumn() {
+    return inFirstColumn;
+  }
+
+  public boolean isInFirstRow() {
+    return inFirstRow;
   }
 }

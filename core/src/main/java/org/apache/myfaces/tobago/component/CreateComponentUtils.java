@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.component;
  */
 
 import org.apache.myfaces.tobago.internal.taglib.TagUtils;
+import org.apache.myfaces.tobago.layout.Display;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -50,36 +51,40 @@ public class CreateComponentUtils {
   }
 
   @Deprecated
-  public static UIColumn createTextColumn(String label, String sortable, String align, String value) {
+  public static AbstractUIColumn createTextColumn(String label, String sortable, String align, String value) {
     return createTextColumn(label, sortable, align, value, null);
   }
 
-  public static UIColumn createTextColumn(String label, String sortable, String align, String value, String clientId) {
-    UIComponent text = createComponent(UIOutput.COMPONENT_TYPE, RendererTypes.OUT, clientId + "_t");
+  public static AbstractUIColumn createTextColumn(
+      String label, String sortable, String align, String value, String clientId) {
+    AbstractUIOut text = (AbstractUIOut) createComponent(ComponentTypes.OUT, RendererTypes.OUT, clientId + "_t");
     TagUtils.setStringProperty(text, Attributes.VALUE, value);
     TagUtils.setBooleanProperty(text, Attributes.CREATE_SPAN, "false");
     TagUtils.setBooleanProperty(text, Attributes.ESCAPE, "false");
+    text.setDisplay(Display.INLINE);
     return createColumn(label, sortable, align, text, clientId);
   }
 
   @Deprecated
-  public static UIColumn createColumn(String label, String sortable, String align, UIComponent child) {
+  public static AbstractUIColumn createColumn(String label, String sortable, String align, UIComponent child) {
     return createColumn(label, sortable, align, child, null);
   }
-  public static UIColumn createColumn(String label, String sortable, String align, UIComponent child, String clientId) {
-    UIColumn column = createColumn(label, sortable, align, clientId);
+
+  public static AbstractUIColumn createColumn(
+      String label, String sortable, String align, UIComponent child, String clientId) {
+    AbstractUIColumn column = createColumn(label, sortable, align, clientId);
     //noinspection unchecked
     column.getChildren().add(child);
     return column;
   }
 
   @Deprecated
-  public static UIColumn createColumn(String label, String sortable, String align) {
+  public static AbstractUIColumn createColumn(String label, String sortable, String align) {
     return createColumn(label, sortable, align, (String) null);
   }
 
-  public static UIColumn createColumn(String label, String sortable, String align, String clientId) {
-    UIColumn column = (UIColumn) createComponent(UIColumn.COMPONENT_TYPE, null, clientId);
+  public static AbstractUIColumn createColumn(String label, String sortable, String align, String clientId) {
+    AbstractUIColumn column = (AbstractUIColumn) createComponent(ComponentTypes.COLUMN, null, clientId);
     TagUtils.setStringProperty(column, Attributes.LABEL, label);
     TagUtils.setBooleanProperty(column, Attributes.SORTABLE, sortable);
     TagUtils.setStringProperty(column, Attributes.ALIGN, align);
@@ -112,8 +117,8 @@ public class CreateComponentUtils {
   }
 
   public static UIComponent createUISelectBooleanFacet(FacesContext facesContext, UICommand command, String clientId) {
-    UIComponent checkbox = createComponent(facesContext, UISelectBoolean.COMPONENT_TYPE,
-        RendererTypes.SELECT_BOOLEAN_CHECKBOX, clientId);
+    UIComponent checkbox = createComponent(
+        facesContext, ComponentTypes.SELECT_BOOLEAN, RendererTypes.SELECT_BOOLEAN_CHECKBOX, clientId);
     //noinspection unchecked
     command.getFacets().put(Facets.ITEMS, checkbox);
     ValueBinding valueBinding = command.getValueBinding(Attributes.VALUE);

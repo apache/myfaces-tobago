@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UIGridLayout;
-import org.apache.myfaces.tobago.renderkit.LayoutManager;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIMessages;
@@ -30,13 +29,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-/*
- * Created: Dec 1, 2004 7:25:02 PM
- * User: bommel
- * $Id:GridLayoutRenderer.java 472227 2006-11-07 21:05:00 +0100 (Tue, 07 Nov 2006) bommel $
- */
-public class GridLayoutRenderer extends FoRendererBase
-    implements LayoutManager {
+public class GridLayoutRenderer extends FoRendererBase {
 
   private static final Log LOG = LogFactory.getLog(GridLayoutRenderer.class);
 
@@ -50,8 +43,6 @@ public class GridLayoutRenderer extends FoRendererBase
       LOG.debug("*** begin    " + component);
     }
     try {
-
-
       layoutBegin(facesContext, component);
     } catch (RuntimeException e) {
       LOG.error("caught RuntimeException :", e);

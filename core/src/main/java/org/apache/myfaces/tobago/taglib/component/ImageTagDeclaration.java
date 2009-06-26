@@ -24,15 +24,10 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasBorder;
-import org.apache.myfaces.tobago.taglib.decl.HasDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponentWithDeprecatedDimension;
 
-/*
- * Created: Aug 6, 2005 3:19:55 PM
- * User: bommel
- * $Id$
- */
 /**
  * Renders a Image.
  */
@@ -42,7 +37,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
     uiComponentBaseClass = "javax.faces.component.UIGraphic",
     rendererType = RendererTypes.IMAGE,
     allowedChildComponenents = "NONE")
-public interface ImageTagDeclaration extends HasIdBindingAndRendered, HasBorder, HasDimension, HasTip {
+public interface ImageTagDeclaration
+    extends HasIdBindingAndRendered, HasBorder, HasTip, IsGridLayoutComponentWithDeprecatedDimension {
 
   /**
    * Absolute url to an image or image name to lookup in tobago resource path

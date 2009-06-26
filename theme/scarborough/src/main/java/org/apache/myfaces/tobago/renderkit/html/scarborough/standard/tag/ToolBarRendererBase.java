@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import org.apache.myfaces.tobago.component.AbstractUICommand;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
@@ -351,7 +352,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
       return "tobagoButtonOpenMenu(this, '" + searchId + "')";
     } else {
       CommandRendererHelper helper
-          = new CommandRendererHelper(facesContext, (UICommand) component);
+          = new CommandRendererHelper(facesContext, (AbstractUICommand) component);
       return helper.getOnclick();
     }
   }

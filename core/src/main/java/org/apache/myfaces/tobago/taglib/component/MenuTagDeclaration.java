@@ -24,11 +24,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasImage;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-
-/*
-* Date: 31.03.2006
-* Time: 21:49:41
-*/
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 
 /**
  * Container component to hold submenus and items.
@@ -50,5 +46,5 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
         "org.apache.myfaces.tobago.MenuSelectOne",
         "org.apache.myfaces.tobago.MenuSeparator"})
 public interface MenuTagDeclaration extends HasIdBindingAndRendered, HasLabelAndAccessKey,
-    IsDisabled, HasImage {
+    IsDisabled, HasImage, IsGridLayoutComponent {
 }

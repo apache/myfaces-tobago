@@ -22,18 +22,14 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
-
-/*
- * Created: Aug 5, 2005 3:32:40 PM
- * User: bommel
- * $Id$
- */
 
 /**
  * Renders a text
@@ -41,12 +37,14 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 @Tag(name = "out")
 @BodyContentDescription(anyTagOf = "f:converter|f:convertNumber|f:convertDateTime|...")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIOutput",
-    uiComponentBaseClass = "javax.faces.component.UIOutput",
+    uiComponent = "org.apache.myfaces.tobago.component.UIOut",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIOut",
+    componentType = ComponentTypes.OUT,
     rendererType = RendererTypes.OUT,
     allowedChildComponenents = "NONE")
 
-public interface OutTagDeclaration extends HasIdBindingAndRendered, HasConverter, IsInline, HasTip, HasValue {
+public interface OutTagDeclaration
+    extends HasIdBindingAndRendered, HasConverter, IsInline, HasTip, HasValue, IsGridLayoutComponent {
 
   /**
    * Flag indicating that characters that are

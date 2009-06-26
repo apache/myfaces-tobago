@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.layout.Component;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 
@@ -31,7 +32,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class AbstractUITree extends UIInput implements NamingContainer {
+public abstract class AbstractUITree extends UIInput implements NamingContainer, Component {
 
   public static final String MESSAGE_NOT_LEAF = "tobago.tree.MESSAGE_NOT_LEAF";
 

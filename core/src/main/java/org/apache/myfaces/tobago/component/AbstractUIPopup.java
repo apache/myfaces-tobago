@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.component;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 
 import javax.faces.FacesException;
@@ -137,19 +138,19 @@ public abstract class AbstractUIPopup extends UIPanelBase implements NamingConta
     return FacesUtils.invokeOnComponent(context, this, clientId, callback);
   }
 
-  public abstract Integer getWidth();
+  public abstract Measure getWidth();
 
-  public abstract void setWidth(Integer width);
+  public abstract void setWidth(Measure width);
 
-  public abstract Integer getHeight();
+  public abstract Measure getHeight();
 
-  public abstract void setHeight(Integer height);
+  public abstract void setHeight(Measure height);
 
-  public abstract Integer getTop();
+  public abstract Measure getTop();
 
-  public abstract void setTop(Integer top);
+  public abstract void setTop(Measure top);
 
-  public abstract Integer getLeft();
+  public abstract Measure getLeft();
 
-  public abstract void setLeft(Integer left);
+  public abstract void setLeft(Measure left);
 }

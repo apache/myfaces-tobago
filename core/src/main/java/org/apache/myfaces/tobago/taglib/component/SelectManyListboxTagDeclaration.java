@@ -22,7 +22,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
-import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedHeight;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
@@ -32,11 +31,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
-/*
- * Created: Aug 5, 2005 5:58:55 PM
- * User: bommel
- * $Id$
- */
 /**
  * Render a multi selection option listbox.
  */
@@ -48,7 +42,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     allowedChildComponenents = {"javax.faces.SelectItem", "javax.faces.SelectItems"})
 
 public interface SelectManyListboxTagDeclaration extends SelectManyTagDeclaration, HasId, IsDisabled,
-    HasDeprecatedHeight, IsInline, HasLabelAndAccessKey, 
+    IsInline, HasLabelAndAccessKey,
     IsRendered, HasBinding, HasTip, IsReadonly, HasConverter, IsRequired {
 
 }

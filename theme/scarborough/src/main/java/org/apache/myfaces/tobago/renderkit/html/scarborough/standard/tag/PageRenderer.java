@@ -28,7 +28,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
@@ -55,6 +54,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -89,6 +89,7 @@ public class PageRenderer extends PageRendererBase {
   private static final String CLIENT_DEBUG_SEVERITY = "clientDebugSeverity";
 
 
+  @Override
   public void decode(FacesContext facesContext, UIComponent component) {
     super.decode(facesContext, component);
     String name = component.getClientId(facesContext) + SUBCOMPONENT_SEP + "clientSeverity";
@@ -99,11 +100,14 @@ public class PageRenderer extends PageRendererBase {
     }
   }
 
-  public void encodeEnd(FacesContext facesContextOrg, UIComponent component) throws IOException {
+  @Override
+  public void encodeBegin(FacesContext facesContextOrg, UIComponent component) throws IOException {
+
+//  public void encodeEnd(FacesContext facesContextOrg, UIComponent component) throws IOException {
     UIPage page = (UIPage) component;
 
     // invoke prepareRender
-    TobagoFacesContext facesContext = null;
+    TobagoFacesContext facesContext;
     if (facesContextOrg instanceof TobagoFacesContext) {
       facesContext = (TobagoFacesContext) facesContextOrg;
     } else {
@@ -112,12 +116,12 @@ public class PageRenderer extends PageRendererBase {
 
 // LAYOUT Begin
 
-    try {
+//    try {
       LayoutContext layoutContext = new LayoutContext(page);
       layoutContext.layout();
-    } catch (Throwable e) {
-      LOG.info("testing... " + e);
-    }
+//    } catch (Throwable e) {
+//      LOG.info("testing... ", e);
+//    }
 
 // LAYOUT End
 
@@ -243,9 +247,8 @@ public class PageRenderer extends PageRendererBase {
     scriptFiles.remove("script/theme-config.js");
 
     int clientLogSeverity = 2;
-    boolean hideClientLogging = true;
-    //        true; hideClientLogging = false;
     if (debugMode) {
+      boolean hideClientLogging = true;
       String severity = (String) facesContext.getExternalContext().getRequestMap().get(CLIENT_DEBUG_SEVERITY);
       LOG.info("get " + CLIENT_DEBUG_SEVERITY + " = " + severity);
       if (severity != null) {
@@ -259,6 +262,7 @@ public class PageRenderer extends PageRendererBase {
         hideClientLogging = !severity.contains("show");
       }
       scriptFiles.add("script/logging.js");
+      facesContext.getOnloadScripts().add(0, "new LOG.LogArea({hide: " + hideClientLogging + "});");
     }
 
     // render remaining script tags
@@ -331,6 +335,7 @@ public class PageRenderer extends PageRendererBase {
     //this ist for ie to prevent scrollbars where none are needed
     writer.writeAttribute(HtmlAttributes.SCROLL, "auto", false);
     writer.writeClassAttribute();
+    writer.writeStyleAttribute();
     writer.writeIdAttribute(clientId);
 
     writer.startJavascript();
@@ -344,7 +349,7 @@ public class PageRenderer extends PageRendererBase {
     writer.write(ResourceManagerUtil.getImageWithPath(facesContext, "image/tobago-overlay-wait.gif"));
     writer.write("';\n");
     writer.endJavascript();
-
+/*
     if (debugMode) {
       final String[] jsFiles = new String[]{
           "script/logging.js"
@@ -353,10 +358,13 @@ public class PageRenderer extends PageRendererBase {
       HtmlRendererUtil.writeScriptLoader(facesContext, jsFiles, jsCommand);
       writer.writeJavascript("TbgTimer.startBody = new Date();");
     }
+*/
+    if (debugMode) {
+      writer.writeJavascript("TbgTimer.startBody = new Date();");
+    }
 
     writer.startElement(HtmlConstants.FORM, page);
-    writer.writeNameAttribute(
-        clientId + SUBCOMPONENT_SEP + "form");
+    writer.writeNameAttribute(clientId + SUBCOMPONENT_SEP + "form");
     writer.writeAttribute(HtmlAttributes.ACTION, formAction, true);
     writer.writeIdAttribute(page.getFormId(facesContext));
     writer.writeAttribute(HtmlAttributes.METHOD, getMethod(page), false);
@@ -423,17 +431,46 @@ public class PageRenderer extends PageRendererBase {
       RenderUtil.encode(facesContext, menubar);
     }
     // write the proviously rendered page content
-    UILayout.getLayout(component).encodeChildrenOfComponent(facesContext, component);
+//    UILayout.getLayout(component).encodeChildrenOfComponent(facesContext, component);
+
+//    page.encodeLayoutBegin(facesContext);
+  }
+
+//  @Override
+//  public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
+//    UIPage page = (UIPage) component;
+//    page.encodeLayoutChildren(facesContext);
+//  }
+
+  @Override
+  public void encodeEnd(FacesContext facesContextOrg, UIComponent component) throws IOException {
+
+    UIPage page = (UIPage) component;
+
+    TobagoFacesContext facesContext;
+    if (facesContextOrg instanceof TobagoFacesContext) {
+      facesContext = (TobagoFacesContext) facesContextOrg;
+    } else {
+      facesContext = new TobagoFacesContext(facesContextOrg);
+    }
+
+//    page.encodeLayoutEnd(facesContext);
 
     // write popup components
     // beware of ConcurrentModificationException in cascating popups!
     // no foreach
     UIPopup[] popupArray = facesContext.getPopups().toArray(new UIPopup[facesContext.getPopups().size()]);
-    for (int i = 0; i < popupArray.length; i++) {
-      UIComponent popup = popupArray[i];
+    for (UIPopup popup : popupArray) {
       RenderUtil.encode(facesContext, popup);
     }
 
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+
+    String clientId = page.getClientId(facesContext);
+    final boolean debugMode = ClientProperties.getInstance(facesContext.getViewRoot()).isDebugMode();
+
+    Application application = facesContext.getApplication();
+    ViewHandler viewHandler = application.getViewHandler();
 
     writer.startElement(HtmlConstants.SPAN, null);
     writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "jsf-state-container");
@@ -468,7 +505,7 @@ public class PageRenderer extends PageRendererBase {
     if (debugMode) {
       writer.writeJavascript("TbgTimer.endBody = new Date();");
     }
-    
+
     writer.writeJavascript("setTimeout(\"Tobago.init('" + clientId + "')\", 1000)");
 
     writer.endElement(HtmlConstants.BODY);
@@ -480,9 +517,13 @@ public class PageRenderer extends PageRendererBase {
       LOG.debug("dublicated AccessKeys: "
           + AccessKeyMap.getDublicatedKeys(facesContext));
     }
+
+    if (facesContext.getExternalContext().getRequestParameterMap().get("X") != null) {
+      throw new RuntimeException("Debugging activated via X parameter");
+    }
   }
 
-  private void writeEventFunction(TobagoResponseWriter writer, Set<String> eventFunctions,
+  private void writeEventFunction(TobagoResponseWriter writer, Collection<String> eventFunctions,
       String event, boolean returnBoolean) throws IOException {
     if (!eventFunctions.isEmpty()) {
       writer.write("Tobago.applicationOn");
@@ -534,10 +575,11 @@ public class PageRenderer extends PageRendererBase {
     }
   }
 
-  public void encodeChildren(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    // children are encoded in encodeEndTobago(...)
-  }
+//  public void encodeEnd(FacesContext facesContext, UIComponent component)
+//  public void encodeChildren(FacesContext facesContext, UIComponent component)
+//      throws IOException {
+//todo: remove this comment    // children are encoded in encodeEndTobago(...)
+//  }
 
   private void errorMessageForDebugging(String id, FacesMessage message,
       ResponseWriter writer) throws IOException {

@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasState;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponentWithDeprecatedDimension;
 
 /**
  * Renders a page element.
@@ -45,7 +46,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasState;
         @Facet(name=Facets.LAYOUT, description = "Contains an instance of UILayout",
                 allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 
-public interface PageTagDeclaration extends HasLabel, HasId, HasBinding, HasState {
+public interface PageTagDeclaration
+    extends HasLabel, HasId, HasBinding, HasState, IsGridLayoutComponentWithDeprecatedDimension {
   /**
    * Possible values for doctype are:
    * <dl>
@@ -78,12 +80,14 @@ public interface PageTagDeclaration extends HasLabel, HasId, HasBinding, HasStat
   @UIComponentTagAttribute()
   void setApplicationIcon(String icon);
 
-  @TagAttribute
-  @UIComponentTagAttribute(type="java.lang.Integer", defaultCode = "getHeightInternal()")
-  void setHeight(String height);
+  // XXX LAYOUT_GENERATE
+//  @TagAttribute
+//  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+//  void setHeight(String height);
 
-  @TagAttribute
-  @UIComponentTagAttribute(type="java.lang.Integer", defaultCode = "getWidthInternal()")
-  void setWidth(String width);
+  // XXX LAYOUT_GENERATE
+//  @TagAttribute
+//  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+//  void setWidth(String width);
 
 }

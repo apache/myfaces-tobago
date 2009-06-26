@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:view
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page">
+    <f:facet name="layout">
+      <tc:gridLayout rows="*;*;*;*;*;*;*;*;*;*" columns="*;*;*;*;*;*;*;*;*;*"/>
+    </f:facet>
+    <tc:gridLayoutConstraint width="1000px" height="1000px"/>
+
+    <tc:in id="in-0" value="0">
+        <tc:gridLayoutConstraint columnSpan="1" rowSpan="9"/>
+    </tc:in>
+    <tc:in id="in-1" value="1">
+        <tc:gridLayoutConstraint columnSpan="9" rowSpan="1"/>
+    </tc:in>
+    <tc:in id="in-2" value="2">
+        <tc:gridLayoutConstraint columnSpan="7" rowSpan="1"/>
+    </tc:in>
+    <tc:in id="in-3" value="3">
+        <tc:gridLayoutConstraint columnSpan="1" rowSpan="7"/>
+    </tc:in>
+    <tc:in id="in-4" value="4">
+        <tc:gridLayoutConstraint columnSpan="1" rowSpan="9"/>
+    </tc:in>
+    <tc:in id="in-5" value="5">
+        <tc:gridLayoutConstraint columnSpan="1" rowSpan="7"/>
+    </tc:in>
+    <tc:in id="in-6" value="6">
+        <tc:gridLayoutConstraint columnSpan="2" rowSpan="1"/>
+    </tc:in>
+    <tc:in id="in-7" value="7">
+        <tc:gridLayoutConstraint columnSpan="1" rowSpan="2"/>
+    </tc:in>
+    <tc:in id="in-8" value="8">
+        <tc:gridLayoutConstraint columnSpan="2" rowSpan="2"/>
+    </tc:in>
+    <tc:in id="in-9" value="9">
+        <tc:gridLayoutConstraint columnSpan="1" rowSpan="2"/>
+    </tc:in>
+    <tc:in id="in-10" value="10">
+        <tc:gridLayoutConstraint columnSpan="2" rowSpan="2"/>
+    </tc:in>
+    <tc:in id="in-11" value="11">
+        <tc:gridLayoutConstraint columnSpan="2" rowSpan="2"/>
+    </tc:in>
+    <tc:in id="in-12" value="12">
+        <tc:gridLayoutConstraint columnSpan="2" rowSpan="1"/>
+    </tc:in>
+    <tc:in id="in-13" value="13">
+        <tc:gridLayoutConstraint columnSpan="2" rowSpan="1"/>
+    </tc:in>
+    <tc:in id="in-14" value="14">
+        <tc:gridLayoutConstraint columnSpan="2" rowSpan="2"/>
+    </tc:in>
+    <tc:in id="in-15" value="15">
+        <tc:gridLayoutConstraint columnSpan="1" rowSpan="2"/>
+    </tc:in>
+    <tc:in id="in-16" value="16">
+        <tc:gridLayoutConstraint columnSpan="2" rowSpan="2"/>
+    </tc:in>
+    <tc:in id="in-17" value="17">
+        <tc:gridLayoutConstraint columnSpan="1" rowSpan="2"/>
+    </tc:in>
+    <tc:in id="in-18" value="18">
+        <tc:gridLayoutConstraint columnSpan="2" rowSpan="1"/>
+    </tc:in>
+    <tc:in id="in-19" value="19">
+        <tc:gridLayoutConstraint columnSpan="7" rowSpan="1"/>
+    </tc:in>
+    <tc:in id="in-20" value="20">
+        <tc:gridLayoutConstraint columnSpan="9" rowSpan="1"/>
+    </tc:in>
+
+    <tc:script file="script/test-utils.js"/>
+
+    <!--todo-->
+    <tc:script onload="checkLayout('page:in-0', 0, 0, 100, 900);"/>
+    <tc:script onload="checkLayout('page:in-1', 100, 0, 900, 100);"/>
+    <tc:script onload="checkLayout('page:in-2', 100, 100, 700, 100);"/>
+    <tc:script onload="checkLayout('page:in-3', 800, 100, 100, 700);"/>
+    <tc:script onload="checkLayout('page:in-4', 900, 100, 100, 900);"/>
+    <tc:script onload="checkLayout('page:in-5', 100, 200, 100, 700);"/>
+    <tc:script onload="checkLayout('page:in-6', 200, 200, 200, 100);"/>
+    <tc:script onload="checkLayout('page:in-7', 400, 200, 100, 200);"/>
+    <tc:script onload="checkLayout('page:in-8', 500, 200, 200, 200);"/>
+    <tc:script onload="checkLayout('page:in-9', 700, 200, 100, 200);"/>
+    <tc:script onload="checkLayout('page:in-10', 200, 300, 200, 200);"/>
+    <tc:script onload="checkLayout('page:in-11', 400, 400, 200, 200);"/>
+    <tc:script onload="checkLayout('page:in-12', 600, 400, 200, 100);"/>
+    <tc:script onload="checkLayout('page:in-13', 200, 500, 200, 100);"/>
+    <tc:script onload="checkLayout('page:in-14', 600, 500, 200, 200);"/>
+    <tc:script onload="checkLayout('page:in-15', 200, 600, 100, 200);"/>
+    <tc:script onload="checkLayout('page:in-16', 300, 600, 200, 200);"/>
+    <tc:script onload="checkLayout('page:in-17', 500, 600, 100, 200);"/>
+    <tc:script onload="checkLayout('page:in-18', 600, 700, 200, 100);"/>
+    <tc:script onload="checkLayout('page:in-19', 200, 800, 700, 100);"/>
+    <tc:script onload="checkLayout('page:in-20', 0, 900, 900, 100);"/>
+
+  </tc:page>
+</f:view>

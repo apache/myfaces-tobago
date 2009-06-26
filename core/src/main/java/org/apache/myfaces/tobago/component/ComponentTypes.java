@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,14 +17,18 @@ package org.apache.myfaces.tobago.taglib.decl;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+/**
+ * Constants for the renderer type
+ */
+public final class ComponentTypes {
 
-public interface HasWidth {
-  /**
-   * The width for this component.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Integer")
-  void setWidth(String width);
+  // TODO: make a complete list.
+
+  public static final String COLUMN = "org.apache.myfaces.tobago.Column";
+  public static final String OUT = "org.apache.myfaces.tobago.Out";
+  public static final String SELECT_BOOLEAN = "org.apache.myfaces.tobago.SelectBoolean";
+
+  private ComponentTypes() {
+    // to prevent instantiation
+  }
 }

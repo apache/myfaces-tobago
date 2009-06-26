@@ -83,28 +83,43 @@ public class SystemOfEquations {
 
   private static final Log LOG = LogFactory.getLog(SystemOfEquations.class);
 
+  /**
+   * Values smaller than this EPSILON should be treated as zero.
+   */
+  public static final double EPSILON = 0.0000001;
+
   private int numberOfVariables;
   private List<Equation> equations = new ArrayList<Equation>();
   private double[][] data;
+  private Step step;
 
   public SystemOfEquations(int numberOfVariables) {
     this.numberOfVariables = numberOfVariables;
+    this.step = Step.NEW;
   }
 
   public void addEqualsEquation(FixedEquation equation) {
+    assert step == Step.NEW;
+
     equations.add(equation);
   }
 
   public void addEqualsEquation(PartitionEquation equation) {
+    assert step == Step.NEW;
+
     equations.add(equation);
   }
 
   public void addEqualsEquation(ProportionEquation equation) {
+    assert step == Step.NEW;
+
     equations.add(equation);
   }
 
   public int[] addVariables(int number) {
+    assert step == Step.NEW;
     assert number > 0;
+
     int[] indices = new int[number];
     for (int i = 0; i < number; i++) {
       indices[i] = numberOfVariables + i;
@@ -114,7 +129,20 @@ public class SystemOfEquations {
   }
 
   public void prepare() {
+    assert step == Step.NEW;
+    step = step.next();
 //    data = new double[equations.size() + equalEquations.size()][];
+
+    // if there are more variables than equations
+    // fill the rest with zero rows.
+    for (int j = equations.size(); j < numberOfVariables; j++) {
+      equations.add(new ZeroEquation());
+    }
+
+    if (numberOfVariables != equations.size()) {
+      LOG.warn("SOE have not korrekt dimensions: " + this);
+    }
+
     data = new double[equations.size()][];
     for (int i = 0; i < equations.size(); i++) {
       data[i] = new double[numberOfVariables + 1];
@@ -125,22 +153,38 @@ public class SystemOfEquations {
       data[i + equations.size()] = equalEquations.get(i);
     }
 */
+    step = step.next();
   }
 
   public void gauss() {
 
-//    prepare();
+    LOG.info(this);
 
-    for (int j = 0; j < data.length; j++) {
+    assert step == Step.PREPARED;
+    step = step.next();
+
+    int min = Math.min(data.length, numberOfVariables);
+
+    for (int j = 0; j < min; j++) {
       // normalize row
+      LOG.info(this);
       double factor = data[j][j];
-      if (factor == 0) {
+      if (isZero(factor)) {
         int nonZeroIndex = findNonZero(j);
         if (nonZeroIndex != -1) {
           swapRow(j, nonZeroIndex);
           factor = data[j][j];
         } else {
-          LOG.info("nicht eindeutig lösbar");
+          int fullZeroIndex = findFullZero();
+          if (fullZeroIndex != -1) {
+            swapRow(j, fullZeroIndex);
+            data[j][j] = 1.0;
+            data[j][numberOfVariables] = 100.0; // todo: default
+            LOG.warn("Setting free (undefined) variable x_" + j + " to " + data[j][numberOfVariables]);
+            factor = data[j][j];
+          } else {
+            LOG.error("Not unique solvable: " + this);
+          }
         }
       }
       divideRow(j, factor);
@@ -149,17 +193,32 @@ public class SystemOfEquations {
         substractMultipleOfRowJToRowK(j, k);
       }
     }
+
+    step = step.next();
   }
 
-  public void step2() {
+  public void reduce() {
+    assert step == Step.TRIANGULAR;
+    step = step.next();
+
+    LOG.info(this);
     for (int j = equations.size() - 1; j >= 0; j--) {
+      if (rowNull(j)) {
+        LOG.error("Not solvable: " + this);
+        continue;
+      }
       for (int k = j - 1; k >= 0; k--) {
         substractMultipleOfRowJToRowK(j, k);
       }
     }
+
+    step = step.next();
   }
 
   public double[] result() {
+    assert step == Step.DIAGONAL;
+
+    LOG.info(this);
     double[] result = new double[numberOfVariables];
     for (int i = 0; i < numberOfVariables; i++) {
       result[i] = data[i][numberOfVariables];
@@ -174,9 +233,30 @@ public class SystemOfEquations {
   }
 
   private int findNonZero(int j) {
-    for (int k = j + 1; k < equations.size(); k++) {
-      if (data[k][j] != 0.0) {
+    for (int k = j + 1; k < data.length; k++) {
+      if (isNotZero(data[k][j])) {
         return k;
+      }
+    }
+    return -1;
+  }
+
+  /**
+   * Searches for a row where all values are zero (comes from ZeroEquation)
+   *
+   * @return The row index or -1 if nothing was found.
+   */
+  private int findFullZero() {
+    for (int j = data.length - 1; j >= 0; j--) {
+      boolean allZero = true;
+      for (double value : data[j]) {
+        if (isNotZero(value)) {
+          allZero = false;
+          break;
+        }
+      }
+      if (allZero) {
+        return j;
       }
     }
     return -1;
@@ -191,11 +271,35 @@ public class SystemOfEquations {
 
   private void substractMultipleOfRowJToRowK(int j, int k) {
     double factor = data[k][j];
-    if (factor != 0) {
+    if (isNotZero(factor)) {
       for (int i = 0; i < numberOfVariables + 1; i++) {
         data[k][i] -= data[j][i] * factor;
       }
     }
+  }
+
+  private boolean isZero(double factor) {
+    return Math.abs(factor) < EPSILON;
+  }
+
+  private boolean isNotZero(double factor) {
+    return Math.abs(factor) >= EPSILON;
+  }
+
+  /**
+   * Determines if the row j has only null entries, accept the last one.
+   *
+   * @param j Index of the row to test.
+   * @return Is the row quasi null?
+   */
+  private boolean rowNull(int j) {
+    for (int i = 0; i < numberOfVariables; i++) {
+      if (isNotZero(data[j][i])) {
+        return false;
+      }
+    }
+    return true;
+
   }
 
   public double[][] getData() {
@@ -208,25 +312,51 @@ public class SystemOfEquations {
 
   @Override
   public String toString() {
-    String result;
-    if (data == null) { // the toString0 needed the data, but it may not be initilized.
-      prepare();
-      result = toString0();
-      data = null; // reset the state
-    } else {
-      result = toString0();
+    StringBuilder builder = new StringBuilder();
+    builder.append(
+        step + " number of equations=" + equations.size() + " number of variables=" + numberOfVariables + " ");
+    switch (step) {
+      case NEW:
+      case PREPARE_IN_PROGRESS:
+        toString1(builder, equations);
+        break;
+      case PREPARED:
+        toString0(builder, true);
+        break;
+      default:
+        toString0(builder, false);
+        break;
     }
-    return result;
+    return builder.toString();
   }
 
-  private String toString0() {
-    StringBuffer buffer = new StringBuffer();
-    buffer.append("[\n");
-    for (double[] row : data) {
-      buffer.append(Arrays.toString(row));
-      buffer.append("\n");
+  private void toString0(StringBuilder builder, boolean showEquation) {
+    builder.append("[\n");
+    for (int i = 0; i < data.length; i++) {
+      builder.append(Arrays.toString(data[i]));
+      if (showEquation) {
+        builder.append(" from ");
+        builder.append(equations.get(i));
+      }
+      builder.append("\n");
     }
-    buffer.append("]");
-    return buffer.toString();
+    builder.append("]");
+  }
+
+  private void toString1(StringBuilder builder, List<Equation> equations) {
+    builder.append("[\n");
+    for (Equation equation : equations) {
+      builder.append(equation);
+      builder.append(",\n");
+    }
+    builder.append("]");
+  }
+
+  private static enum Step {
+    NEW, PREPARE_IN_PROGRESS, PREPARED, GAUSS_IN_PROGRESS, TRIANGULAR, REDUCE_IN_PROGRESS, DIAGONAL;
+
+    public Step next() {
+      return values()[ordinal() + 1];
+    }
   }
 }

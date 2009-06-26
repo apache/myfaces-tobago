@@ -22,19 +22,13 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasFor;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWithAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
-
-/*
- * Created: Aug 5, 2005 3:48:09 PM
- * User: bommel
- * $Id$
- */
 
 /**
  * Renders a label component.
@@ -46,7 +40,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
     rendererType = RendererTypes.LABEL,
     allowedChildComponenents = "NONE")
 public interface LabelTagDeclaration extends HasIdBindingAndRendered,
-    HasLabelWithAccessKey, HasFor, IsInline, HasDeprecatedWidth, HasTip, HasMarkup {
+    HasLabelWithAccessKey, HasFor, IsInline, HasTip, HasMarkup, IsGridLayoutComponent {
 
   /**
    * Text value to display as label. Overwritten by 'labelWithAccessKey'

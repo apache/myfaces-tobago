@@ -24,4 +24,8 @@ public interface Cell {
   Component getComponent();
 
   RealCell getRealCell();
+
+  boolean isInFirstRow();
+
+  boolean isInFirstColumn();
 }

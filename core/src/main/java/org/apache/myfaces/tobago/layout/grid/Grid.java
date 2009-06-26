@@ -79,7 +79,7 @@ public class Grid {
         if (i == 0 && j == 0) {
           actualCell = cell;
         } else {
-          actualCell = new PseudoCell(cell);
+          actualCell = new PseudoCell(cell, i == 0, j == 0);
         }
         assert grid.get(i + columnCursor, j + rowCursor) == null : "Position in the cell must be free.";
         grid.set(i + columnCursor, j + rowCursor, actualCell);

@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.internal.taglib.PanelTag;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
-import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.util.LayoutUtils;
 
 import javax.faces.webapp.FacetTag;
 import javax.faces.webapp.UIComponentTag;
@@ -136,7 +136,7 @@ public class LabelExtensionTag extends BodyTagSupport
   }
 
   void setColumns(String columns) {
-    if (!(UIComponentTag.isValueReference(columns) || LayoutUtil.checkTokens(columns))) {
+    if (!(UIComponentTag.isValueReference(columns) || LayoutUtils.checkTokens(columns))) {
       LOG.warn("Illegal value for columns = \"" + columns + "\" replacing with default: \"" + DEFAULT_COLUMNS + "\"");
       this.columns = DEFAULT_COLUMNS;
     } else {

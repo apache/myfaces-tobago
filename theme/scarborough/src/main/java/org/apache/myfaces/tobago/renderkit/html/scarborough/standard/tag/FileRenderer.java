@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.util.LayoutUtils;
 import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -65,7 +65,7 @@ public class FileRenderer extends InputRendererBase {
     int space = 0;
 
     if (component.getFacet(Facets.LABEL) != null) {
-      int labelWidht = LayoutUtil.getLabelWidth(component);
+      int labelWidht = LayoutUtils.getLabelWidth(component);
       space += labelWidht != 0
           ? labelWidht : getLabelWidth(facesContext, component);
     }

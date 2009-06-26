@@ -51,15 +51,18 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
   public static final String CONTENT_INNER = SUBCOMPONENT_SEP + "content-inner";
   public static final String HEADER = SUBCOMPONENT_SEP + "header";
 
+  @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
     HtmlRendererUtil.renderDojoDndSource(facesContext, component);
   }
 
+  @Override
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
     return super.getFixedHeight(facesContext, component);
   }
 
+  @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
@@ -77,9 +80,11 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     HtmlRendererUtil.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
-    if (style != null) {
+//    if (style != null) {
       writer.writeStyleAttribute(style);
-    }
+//    }
+    // XXX what is abrout the writeStyleAttribute(style) method? is it useful or should it be deprecated?
+    writer.writeStyleAttribute();
     writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\");");
     
     encodeBeginInner(facesContext, writer, component);
@@ -145,6 +150,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     writer.endElement(HtmlConstants.DIV);
   }
 
+  @Override
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
@@ -181,4 +187,3 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     facesContext.responseComplete();
   }
 }
-

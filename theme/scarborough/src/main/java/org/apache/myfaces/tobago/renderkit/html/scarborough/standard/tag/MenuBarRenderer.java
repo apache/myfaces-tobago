@@ -25,6 +25,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import org.apache.myfaces.tobago.component.AbstractUICommand;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
@@ -342,8 +343,8 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       throws IOException {
     for (Object o : component.getChildren()) {
       UIComponent entry = (UIComponent) o;
-      if (entry instanceof UICommand) {
-        addMenuEntry(sb, var, facesContext, (UICommand) entry);
+      if (entry instanceof AbstractUICommand) {
+        addMenuEntry(sb, var, facesContext, (AbstractUICommand) entry);
       } else if (entry instanceof UIMenuSeparator) {
         addMenuSeparator(sb, var);
       } else if (entry instanceof UIMenu) {
@@ -358,7 +359,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     return index;
   }
 
-  private void addMenuEntry(StringBuilder sb, String var, FacesContext facesContext, UICommand command)
+  private void addMenuEntry(StringBuilder sb, String var, FacesContext facesContext, AbstractUICommand command)
       throws IOException {
     CommandRendererHelper helper = new CommandRendererHelper(facesContext, command);
     String onclick = helper.getOnclick();

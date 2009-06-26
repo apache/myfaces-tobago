@@ -17,6 +17,10 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+/**
+ * @deprecated The Cell is deprecated since Tobago 1.1
+ */
+@Deprecated
 public class CellRenderer extends PanelRenderer {
 
 }

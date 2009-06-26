@@ -17,17 +17,11 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
-import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -37,26 +31,28 @@ import java.util.StringTokenizer;
 
 public class OutRenderer extends LayoutableRendererBase {
 
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent component) throws IOException {
-    String text = RenderUtil.currentValue(component);
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+
+    UIOut out = (UIOut) component;
+
+    String text = RenderUtil.currentValue(out);
     if (text == null) {
       text = "";
     }
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    boolean escape = ComponentUtil.getBooleanAttribute(component, Attributes.ESCAPE);
-    boolean createSpan = ComponentUtil.getBooleanAttribute(component, Attributes.CREATE_SPAN);
+    boolean escape = out.isEscape();
+    boolean createSpan = out.isCreateSpan();
 
     if (createSpan) {
-      String id = component.getClientId(facesContext);
-      writer.startElement(HtmlConstants.SPAN, component);
+      String id = out.getClientId(facesContext);
+      writer.startElement(HtmlConstants.DIV, out);
       writer.writeIdAttribute(id);
       writer.writeStyleAttribute();
-      HtmlRendererUtil.renderDojoDndItem(component, writer, true);
+      HtmlRendererUtil.renderDojoDndItem(out, writer, true);
       writer.writeClassAttribute();
-      HtmlRendererUtil.renderTip(component, writer);
+      HtmlRendererUtil.renderTip(out, writer);
     }
     if (escape) {
       StringTokenizer tokenizer = new StringTokenizer(text, "\n\r");
@@ -73,7 +69,7 @@ public class OutRenderer extends LayoutableRendererBase {
       writer.write(text);
     }
     if (createSpan) {
-      writer.endElement(HtmlConstants.SPAN);
+      writer.endElement(HtmlConstants.DIV);
     }
   }
 }

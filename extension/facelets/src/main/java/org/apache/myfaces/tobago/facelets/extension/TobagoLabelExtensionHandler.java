@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.facelets.SuggestMethodRule;
 import org.apache.myfaces.tobago.facelets.SupportsMarkupRule;
 import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.util.LayoutUtils;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
@@ -186,7 +186,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     gridLayout.setRendererType(RendererTypes.GRID_LAYOUT);
     if (labelWidthAttribute != null) {
       String columns = getColumns(labelWidthAttribute.getValue(faceletContext));
-      if (!LayoutUtil.checkTokens(columns)) {
+      if (!LayoutUtils.checkTokens(columns)) {
         LOG.warn("Illegal value for columns = \"" + columns + "\" replacing with default: \"" + DEFAULT_COLUMNS + "\"");
         columns = DEFAULT_COLUMNS;
       }
@@ -195,8 +195,8 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
       gridLayout.setColumns(getColumns("fixed"));
     }
     gridLayout.setRows(getRows());
-
     gridLayout.setId(root.createUniqueId());
+    gridLayout.onComponentCreated(faceletContext.getFacesContext(), gridLayout);
     panel.getFacets().put(Facets.LAYOUT, gridLayout);
   }
 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:view
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page" label="Note: the &lt;tc:cell&gt; is deprecated">
+    <f:facet name="layout">
+      <tc:gridLayout columns="6*;9*;13*;2*" rows="4*;11*;10*;5*"/>
+    </f:facet>
+    <tc:gridLayoutConstraint width="300px" height="300px"/>
+
+    <tc:in id="in-0" value="0"/>
+    <tc:cell id="cell-1" spanY="2">
+      <tc:in value="1"/>
+    </tc:cell>
+    <tc:cell id="cell-2" spanX="2">
+      <tc:in value="2"/>
+    </tc:cell>
+    <tc:in id="in-3" value="3"/>
+    <tc:cell id="cell-4" spanY="2">
+      <tc:in value="4 (Note: the &lt;tc:cell&gt; is deprecated)"/>
+    </tc:cell>
+    <tc:in id="in-5" value="5"/>
+    <tc:cell id="cell-6" spanX="2">
+      <tc:in value="6"/>
+    </tc:cell>
+    <tc:cell id="cell-7" spanY="2">
+      <tc:in value="7"/>
+    </tc:cell>
+    <tc:in id="in-8" value="8"/>
+    <tc:cell id="cell-9" spanX="2">
+      <tc:in value="9"/>
+    </tc:cell>
+
+    <tc:script file="script/test-utils.js"/>
+
+    <tc:script onload="checkLayout('page:in-0', 0, 0, 60, 40);"/>
+    <tc:script onload="checkLayout('page:cell-1', 60, 0, 90, 150);"/>
+    <tc:script onload="checkLayout('page:cell-2', 150, 0, 150, 40);"/>
+    <tc:script onload="checkLayout('page:in-3', 0, 40, 60, 110);"/>
+    <tc:script onload="checkLayout('page:cell-4', 150, 40, 130, 210);"/>
+    <tc:script onload="checkLayout('page:in-5', 280, 40, 20, 110);"/>
+    <tc:script onload="checkLayout('page:cell-6', 0, 150, 150, 100);"/>
+    <tc:script onload="checkLayout('page:cell-7', 280, 150, 20, 150);"/>
+    <tc:script onload="checkLayout('page:in-8', 0, 250, 60, 50);"/>
+    <tc:script onload="checkLayout('page:cell-9', 60, 250, 220, 50);"/>
+
+  </tc:page>
+</f:view>

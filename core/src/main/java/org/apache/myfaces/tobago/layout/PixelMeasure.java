@@ -35,6 +35,10 @@ public final class PixelMeasure extends Measure {
     this.pixel = pixel;
   }
 
+  public PixelMeasure(double value) {
+    this((int) (value + 0.5));
+  }
+
   public Measure add(Measure m) {
     return new PixelMeasure(pixel + m.getPixel());
   }

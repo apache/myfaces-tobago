@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,19 +17,9 @@ package org.apache.myfaces.tobago.taglib.decl;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.layout.Component;
 
-/**
- * $Id$
- */
-@Deprecated
-public interface HasDeprecatedHeight {
-  /**
-   * The height for this component.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute()
-  @Deprecated
-  void setHeight(String height);
+import javax.faces.component.UIOutput;
+
+public abstract class AbstractUIOut extends UIOutput implements Component {
 }

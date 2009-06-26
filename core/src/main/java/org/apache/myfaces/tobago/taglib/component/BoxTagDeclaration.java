@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 
@@ -45,7 +44,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabel;
             allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 
 
-public interface BoxTagDeclaration extends HasIdBindingAndRendered, HasDeprecatedDimension, HasLabel {
+public interface BoxTagDeclaration extends HasIdBindingAndRendered, HasLabel {
 
   /**
    * Indicate markup of this component.

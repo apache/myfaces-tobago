@@ -17,48 +17,16 @@ package org.apache.myfaces.tobago.layout.math;
  * limitations under the License.
  */
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
-public class Node {
+public final class ZeroEquation implements Equation {
 
-  private int indexOfVariable;
-
-  private List<Node> children;
-  private Node parent;
-  private int span;
-
-  public Node(int indexOfVariable, Node parent) {
-    this.indexOfVariable = indexOfVariable;
-    this.parent = parent;
-    this.children = new ArrayList<Node>();
+  public void fillRow(double[] row) {
+    Arrays.fill(row, 0.0);
   }
 
-  public int getIndexOfVariable() {
-    return indexOfVariable;
-  }
-
-  public void setIndexOfVariable(int indexOfVariable) {
-    this.indexOfVariable = indexOfVariable;
-  }
-
-  public List<Node> getChildren() {
-    return children;
-  }
-
-  public Node getParent() {
-    return parent;
-  }
-
-  public boolean isRoot() {
-    return parent == null;
-  }
-
-  public int getSpan() {
-    return span;
-  }
-
-  public void setSpan(int span) {
-    this.span = span;
+  @Override
+  public String toString() {
+    return "ZeroEquation (no meaning)";
   }
 }

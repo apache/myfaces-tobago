@@ -20,5 +20,6 @@ package org.apache.myfaces.tobago.layout;
 /*
  * Date: 13.02.2008 20:47:02
  */
+// XXX rename to LayoutContraint
 public interface Constraints {
 }

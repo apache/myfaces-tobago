@@ -77,6 +77,12 @@ public class RenderUtil {
     }
   }
 
+  public static void encodeChildrenWithoutLayout(FacesContext facesContext, UIComponent container) throws IOException {
+    for (UIComponent child : (List<UIComponent>) container.getChildren()) {
+      encode(facesContext, child);
+    }
+  }
+
   public static void encode(FacesContext facesContext, UIComponent component) throws IOException {
     if (component.isRendered()) {
       if (LOG.isDebugEnabled()) {

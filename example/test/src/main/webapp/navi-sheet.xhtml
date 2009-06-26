@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:view
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+  <tc:page id="page" label="XXX" width="300px" height="700px">
+    <f:facet name="layout">
+      <tc:gridLayout/>
+    </f:facet>
+
+    <tc:sheet value="#{browser.list}" columns="*" var="item" rows="1000">
+      <tc:column label="Test Pages">
+        <tc:link link="#{item.resource}" label="#{item.label}" target="test"/>
+<!--
+todo: this will work in later versions
+        <tc:link resource="#{item.resource}" jsfResource="#{item.jsfResource}" label="#{item.label}" target="test"/>
+-->
+      </tc:column>
+    </tc:sheet>
+
+  </tc:page>
+</f:view>

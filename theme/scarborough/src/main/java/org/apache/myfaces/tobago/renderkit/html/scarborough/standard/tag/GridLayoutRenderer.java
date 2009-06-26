@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UILayout;
-import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.layout.FixedLayoutToken;
 import org.apache.myfaces.tobago.layout.HideLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutToken;
@@ -47,7 +46,7 @@ import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.util.LayoutInfo;
-import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.util.LayoutUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -346,7 +345,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
 
             int cellHeight = -1;
             try {
-              Integer layoutHeight = LayoutUtil.getLayoutHeight(cell);
+              Integer layoutHeight = LayoutUtils.getLayoutHeight(cell);
               if (layoutHeight != null) {
                 cellHeight = layoutHeight.intValue();
               }
@@ -400,13 +399,33 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     writer.endElement(HtmlConstants.TABLE);
   }
 
+  @Override
+  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    UIGridLayout gridLayout = (UIGridLayout) component;
+    writer.startElement(HtmlConstants.DIV, gridLayout);
+    writer.writeClassAttribute();
+//    writer.writeStyleAttribute();
+  }
+
+  @Override
+  public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
+    UIComponent container = component.getParent();
+    RenderUtil.encodeChildrenWithoutLayout(facesContext, container);
+  }
+
+  @Override
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
-    if (component.getParent() instanceof UIPage) {
-      LOG.error("XXXXXXXXXXXXXXXXXXXXXXX  never XXXXXXXXXXXXXXXXXXXXXX", new Exception());
-    } else {
-      encodeChildrenOfComponent(facesContext, component.getParent());
-    }
+    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+//    UIGridLayout gridLayout = (UIGridLayout)component;
+    writer.endElement(HtmlConstants.DIV);
+
+//    if (component.getParent() instanceof UIPage) {
+//      LOG.error("XXXXXXXXXXXXXXXXXXXXXXX  never XXXXXXXXXXXXXXXXXXXXXX", new Exception());
+//    } else {
+//      encodeChildrenOfComponent(facesContext, component.getParent());
+//    }
   }
 
   private String getOverflow(UIComponent cell) {
@@ -709,7 +728,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         UIComponent component = (UIComponent) cell;
         int height = -1;
         if (minimum) {
-          height = (int) LayoutUtil.getMinimumHeight(facesContext, component);
+          height = (int) LayoutUtils.getMinimumHeight(facesContext, component);
         } else {
           LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, component);
           if (renderer != null) {
@@ -743,7 +762,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           }
           int max = -1;
           if (minimum) {
-            max = (int) LayoutUtil.getMinimumWidth(facesContext, component);
+            max = (int) LayoutUtils.getMinimumWidth(facesContext, component);
           } else {
             LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, component);
             if (renderer != null) {
@@ -782,7 +801,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
             cellWidth += ((spanX - 1) * 2);
           }
           cellWidth += (spanX - 1) * getCellSpacing(facesContext, layout);
-          LayoutUtil.maybeSetLayoutAttribute(cell,
+          LayoutUtils.maybeSetLayoutAttribute(cell,
               Attributes.LAYOUT_WIDTH, Integer.valueOf(cellWidth));
         }
       }
@@ -816,7 +835,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
           cell.getAttributes().put(Attributes.LAYOUT_HEIGHT, Integer.valueOf(cellHeight));
           cell.getAttributes().remove(Attributes.INNER_HEIGHT);
           if (cell instanceof UICell || cell instanceof AbstractUIForm) {
-            List children = LayoutUtil.addChildren(new ArrayList<UIComponent>(), cell);
+            List children = LayoutUtils.addChildren(new ArrayList<UIComponent>(), cell);
             for (Iterator childs = children.iterator(); childs.hasNext();) {
               UIComponent component = (UIComponent) childs.next();
               if (LOG.isDebugEnabled()) {

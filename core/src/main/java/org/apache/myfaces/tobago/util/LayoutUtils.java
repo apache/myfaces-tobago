@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.component.Cell;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.Form;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 
 import javax.faces.component.UIComponent;
@@ -35,14 +36,14 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
-public final class LayoutUtil {
+public final class LayoutUtils {
 
-  private static final Log LOG = LogFactory.getLog(LayoutUtil.class);
+  private static final Log LOG = LogFactory.getLog(LayoutUtils.class);
 
   private static final Pattern TOKEN_PATTERN
       = Pattern.compile("^(\\d*px|\\d*\\*|\\d*%|fixed)$");
 
-  private LayoutUtil() {
+  private LayoutUtils() {
     // to prevent instantiation
   }
 
@@ -149,6 +150,8 @@ public final class LayoutUtil {
     if (value != null) {
       if (value instanceof String) {
         return new Integer(((String) value).replaceAll("\\D", ""));
+      } else if (value instanceof Measure) {
+        return ((Measure) value).getPixel();
       } else {
         return (Integer) value;
       }

@@ -17,12 +17,9 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.layout.Component;
-import org.apache.myfaces.tobago.layout.Constraints;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 
 import javax.faces.context.FacesContext;
@@ -30,8 +27,6 @@ import java.io.IOException;
 
 public abstract class UIInputBase extends javax.faces.component.UIInput
     implements AjaxComponent, SupportsMarkup, Component {
-
-  private static final Log LOG = LogFactory.getLog(UIInputBase.class);
 
   // TODO can this removed?
   public void updateModel(FacesContext facesContext) {
@@ -46,17 +41,4 @@ public abstract class UIInputBase extends javax.faces.component.UIInput
 
   public abstract Integer getTabIndex();
 
-// LAYOUT Begin
-  public Constraints getConstraints() {
-    AbstractUIGridConstraints constraints = (AbstractUIGridConstraints) getFacet(Facets.CONSTRAINTS);
-
-    // fixme
-    if (constraints == null) {
-      constraints = new MockUIGridConstraints();
-      getFacets().put(Facets.CONSTRAINTS, constraints);
-    }
-    return constraints;
-  }
-
-  // LAYOUT End
 }

@@ -33,6 +33,7 @@ public final class Attributes {
   public static final String CHARSET = "charset";
   public static final String CELLSPACING = "cellspacing";
   public static final String CLIENT_PROPERTIES = "clientProperties";
+  public static final String COLUMN_SPAN = "columnSpan";
   public static final String COLUMNS = "columns";
   public static final String CONVERTER = "converter";
   public static final String CREATE_SPAN = "createSpan";
@@ -91,12 +92,15 @@ public final class Attributes {
   public static final String MAX = "max";
   public static final String MAX_SEVERITY = "maxSeverity";
   public static final String MAX_NUMBER = "maxNumber";
+  public static final String MAXIMUM_HEIGHT = "maximumHeight";
+  public static final String MAXIMUM_WIDTH = "maximumWidth";
   public static final String MENU_POPUP = "menuPopup";
   public static final String MENU_POPUP_TYPE = "menuPopupType";
   public static final String METHOD = "method";
   public static final String MIN = "min";
   public static final String MIN_SEVERITY = "minSeverity";
-  public static final String MINIMUN_SIZE = "minimunSize";
+  public static final String MINIMUM_HEIGHT = "minimumHeight";
+  public static final String MINIMUM_WIDTH = "minimumWidth";
   public static final String MODAL = "modal";
   public static final String MODE = "mode";
   public static final String MUTABLE = "mutable";
@@ -113,6 +117,8 @@ public final class Attributes {
   public static final String POPUP_LIST = "popupList";
   public static final String POPUP_RESET = "popupReset";
   public static final String POPUP_CALENDAR_ID = "popupCalendarId";
+  public static final String PREFERRED_HEIGHT = "preferredHeight";
+  public static final String PREFERRED_WIDTH = "preferredWidth";
   public static final String PREFORMATED = "preformated";
   public static final String READONLY = "readonly";
   public static final String REFERENCE = "reference";
@@ -126,6 +132,7 @@ public final class Attributes {
   public static final String REQUIRED = "required";
   public static final String RESOURCE = "resource";
   public static final String ROW_ID = "rowId";
+  public static final String ROW_SPAN = "rowSpan";
   public static final String ROWS = "rows";
   public static final String SCRIPT_FILES = "scriptFiles";
   public static final String SCROLLBAR_HEIGHT = "scrollbarHeight";

@@ -24,13 +24,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 
-/*
- * Date: 11.02.2006
- * Time: 13:54:04
- */
 /**
  * Intended for use in situations when only one UIComponent child can be
  * nested, such as in the case of facets.
@@ -38,7 +34,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @Tag(name = "panel")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPanel",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanelBase",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIPanel",
     rendererType = RendererTypes.PANEL,
     interfaces = {"org.apache.myfaces.tobago.ajax.api.AjaxComponent",
         "org.apache.myfaces.tobago.component.SupportsMarkup"},
@@ -47,7 +43,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
             allowedChildComponenents = "org.apache.myfaces.tobago.Reload"),
     @Facet(name=Facets.LAYOUT, description = "Contains an instance of UILayout",
             allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
-public interface PanelTagDeclaration extends HasIdBindingAndRendered, HasDeprecatedDimension {
+public interface PanelTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent {
 
   /**
    * Indicate markup of this component.

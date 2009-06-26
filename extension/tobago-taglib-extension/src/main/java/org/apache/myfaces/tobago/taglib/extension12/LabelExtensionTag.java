@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.taglib.GridLayoutTag;
 import org.apache.myfaces.tobago.internal.taglib.LabelTag;
 import org.apache.myfaces.tobago.internal.taglib.PanelTag;
-import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.util.LayoutUtils;
 
 import javax.el.ValueExpression;
 import javax.faces.webapp.FacetTag;
@@ -153,7 +153,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   void setColumns(javax.el.ValueExpression columns) {
-    if (!(!columns.isLiteralText() || LayoutUtil.checkTokens(columns.getExpressionString()))) {
+    if (!(!columns.isLiteralText() || LayoutUtils.checkTokens(columns.getExpressionString()))) {
       LOG.warn("Illegal value for columns = \"" + columns.getExpressionString()
           + "\" replacing with default: \"" + DEFAULT_COLUMNS + "\"");
       this.columns = createStringValueExpression(DEFAULT_COLUMNS);

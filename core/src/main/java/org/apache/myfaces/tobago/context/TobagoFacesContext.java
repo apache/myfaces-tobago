@@ -22,9 +22,9 @@ import org.apache.commons.collections.set.ListOrderedSet;
 import org.apache.myfaces.tobago.component.AbstractUIPopup;
 
 import javax.faces.context.FacesContext;
-import java.util.Set;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 public class TobagoFacesContext extends FacesContextWrapper {
@@ -39,7 +39,7 @@ public class TobagoFacesContext extends FacesContextWrapper {
 
   private Set<String> styleBlocks;
 
-  private Set<String> onloadScripts;
+  private SetUniqueList onloadScripts;
 
   private Set<String> onunloadScripts;
 
@@ -63,7 +63,7 @@ public class TobagoFacesContext extends FacesContextWrapper {
     styleFiles = new ListOrderedSet();
     styleFiles.add(DEFAULT_STYLE);
     styleBlocks = new ListOrderedSet();
-    onloadScripts = new ListOrderedSet();
+    onloadScripts = SetUniqueList.decorate(new ArrayList());
     onunloadScripts = new ListOrderedSet();
     onexitScripts = new ListOrderedSet();
     onsubmitScripts = new ListOrderedSet();
@@ -111,7 +111,7 @@ public class TobagoFacesContext extends FacesContextWrapper {
     return styleBlocks;
   }
 
-  public Set<String> getOnloadScripts() {
+  public List<String> getOnloadScripts() {
     return onloadScripts;
   }
 

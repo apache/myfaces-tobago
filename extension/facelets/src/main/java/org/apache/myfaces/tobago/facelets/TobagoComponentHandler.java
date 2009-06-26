@@ -31,10 +31,6 @@ import org.apache.myfaces.tobago.event.TabChangeSource;
 
 import javax.faces.component.UIComponent;
 
-/*
- * Date: 15.04.2006
- * Time: 13:31:39
- */
 public class TobagoComponentHandler extends ComponentHandler {
 
   public TobagoComponentHandler(ComponentConfig componentConfig) {
@@ -63,8 +59,8 @@ public class TobagoComponentHandler extends ComponentHandler {
     }
     return metaRuleset;
   }
-  protected void onComponentCreated(FaceletContext context, UIComponent component,
-      UIComponent parent) {
+
+  protected void onComponentCreated(FaceletContext context, UIComponent component, UIComponent parent) {
     if (component instanceof OnComponentCreated
         && component.getAttributes().get(OnComponentCreated.MARKER) == null) {
       component.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);

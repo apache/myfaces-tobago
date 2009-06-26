@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,7 +17,33 @@ package org.apache.myfaces.tobago.taglib.decl;
  * limitations under the License.
  */
 
+/**
+ * @deprecated The Cell is deprecated since Tobago 1.1
+ */
 @Deprecated
-public interface HasDeprecatedDimension extends HasDeprecatedWidth, HasDeprecatedHeight {
+public abstract class AbstractUICell extends AbstractUIPanel {
 
+  public abstract Integer getSpanX();
+
+  public abstract void setSpanX(Integer spanX);
+
+  public abstract Integer getSpanY();
+
+  public abstract void setSpanY(Integer spanY);
+
+  public Integer getRowSpan() {
+    return getSpanY();
+  }
+
+  public void setRowSpan(Integer rowSpan) {
+    setSpanY(rowSpan);
+  }
+
+  public Integer getColumnSpan() {
+    return getSpanX();
+  }
+
+  public void setColumnSpan(Integer columnSpan) {
+    setSpanX(columnSpan);
+  }
 }

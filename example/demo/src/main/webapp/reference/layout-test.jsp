@@ -20,13 +20,11 @@
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <f:view>
-  <tc:page applicationIcon="icon/favicon.ico" label="title" id="page" width="1000px" height="750px">
+  <tc:page applicationIcon="icon/favicon.ico" label="title" id="page">
     <f:facet name="layout">
       <tc:gridLayout rows="*" columns="*;2*"/>
     </f:facet>
-    <f:facet name="constraints">
-      <tc:gridConstraints width="300px" height="50px"/>
-    </f:facet>
+    <tc:gridLayoutConstraint width="300px" height="50px"/>
     <tc:textarea
         value="Some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, ..."/>
 

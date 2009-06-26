@@ -17,8 +17,29 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-/**
- * Date: 29.10.2008 22:40:10
- */
-public final class MockUIGridConstraints extends AbstractUIGridConstraints {
+import org.apache.myfaces.tobago.OnComponentCreated;
+import org.apache.myfaces.tobago.layout.Container;
+import org.apache.myfaces.tobago.layout.LayoutContext;
+import org.apache.myfaces.tobago.layout.LayoutManager;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
+// XXX is this a good way?
+public abstract class AbstractUITabGroupLayout extends UILayout implements OnComponentCreated, LayoutManager {
+
+  public void onComponentCreated(FacesContext context, UIComponent component) {
+  }
+
+  public void collect(LayoutContext layoutContext, Container container, int horizontalIndex, int verticalIndex) {
+  }
+
+  public void distribute(LayoutContext layoutContext, Container container) {
+  }
+
+  @Override
+  public boolean getRendersChildren() {
+    return false;
+  }
+
 }

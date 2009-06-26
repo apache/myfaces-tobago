@@ -21,8 +21,13 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.layout.Component;
+import org.apache.myfaces.tobago.layout.Display;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.renderkit.css.CssProperties;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.util.HtmlWriterUtil;
 import org.apache.myfaces.tobago.util.XmlUtils;
 
@@ -33,6 +38,7 @@ import java.io.Writer;
 import java.util.Arrays;
 import java.util.EmptyStackException;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -394,9 +400,60 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
   }
 
   public void writeStyleAttribute() throws IOException {
-    Object style = component.getAttributes().get(Attributes.STYLE);
-    if (style != null) {
-      writeAttribute(HtmlAttributes.STYLE, style.toString(), false);
+
+    HtmlStyleMap styles = (HtmlStyleMap) component.getAttributes().get(Attributes.STYLE);
+
+    styles = addLayout(styles);
+
+    if (styles != null) {
+      writeAttribute(HtmlAttributes.STYLE, styles.toString(), false);
     }
   }
+
+  private HtmlStyleMap addLayout(HtmlStyleMap styles) {
+    if (component instanceof Component) {
+      Component layoutComponent = (Component) component;
+      Measure width = layoutComponent.getWidth();
+      if (width != null) {
+        styles = ensureHtmlStyleMap(component, styles);
+        styles.put(Attributes.WIDTH, width);
+      }
+      Measure height = layoutComponent.getHeight();
+      if (height != null) {
+        styles = ensureHtmlStyleMap(component, styles);
+        styles.put(Attributes.HEIGHT, height);
+      }
+      Measure left = layoutComponent.getLeft();
+      if (left != null) {
+        styles = ensureHtmlStyleMap(component, styles);
+        styles.put(Attributes.LEFT, left);
+      }
+      Measure top = layoutComponent.getTop();
+      if (top != null) {
+        styles = ensureHtmlStyleMap(component, styles);
+        styles.put(Attributes.TOP, top);
+      }
+      // if there are a position coordinates, activate absolute positioning
+      // XXX String "Page" is not nice here
+      if ((left != null || top != null) && !component.getRendererType().contains("Page")) {
+        styles = ensureHtmlStyleMap(component, styles);
+        styles.put(CssProperties.POSITION, CssProperties.Position.ABSOLUTE);
+      }
+      Display display = layoutComponent.getDisplay();
+      if (display != null) {
+        styles = ensureHtmlStyleMap(component, styles);
+        styles.put(CssProperties.DISPLAY, display.getValue());
+      }
+    }
+    return styles;
+  }
+
+  public static HtmlStyleMap ensureHtmlStyleMap(UIComponent component, HtmlStyleMap styles) {
+    if (styles == null) {
+      styles = new HtmlStyleMap();
+      ((Map<String, Object>) component.getAttributes()).put(Attributes.STYLE, styles);
+    }
+    return styles;
+  }
+
 }

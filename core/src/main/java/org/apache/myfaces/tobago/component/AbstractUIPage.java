@@ -20,14 +20,15 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.collections.KeyValue;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.OnComponentCreated;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.layout.Box;
 import org.apache.myfaces.tobago.layout.Component;
-import org.apache.myfaces.tobago.layout.Constraints;
 import org.apache.myfaces.tobago.layout.Container;
 import org.apache.myfaces.tobago.layout.LayoutManager;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.PageState;
 import org.apache.myfaces.tobago.model.PageStateImpl;
 import org.apache.myfaces.tobago.util.ComponentUtil;
@@ -70,15 +71,56 @@ public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnC
   private List<KeyValue> postfields;
 
   @Override
-  public void encodeChildren(FacesContext context) throws IOException {
+  public boolean getRendersChildren() {
+    return true;
   }
 
   public String getFormId(FacesContext facesContext) {
     if (formId == null) {
-      formId = getClientId(facesContext)
-          + SUBCOMPONENT_SEP + "form";
+      formId = getClientId(facesContext) + SUBCOMPONENT_SEP + "form";
     }
     return formId;
+  }
+
+  @Override
+  public void encodeBegin(FacesContext facesContext) throws IOException {
+
+    super.encodeBegin(facesContext);
+
+    UILayout layoutManager = (UILayout) getLayoutManager();
+    if (layoutManager != null) {
+      layoutManager.encodeBegin(facesContext);
+    } else {
+      // todo: later: LOG.debug or remove
+      LOG.warn("no layout manager found");
+    }
+  }
+
+  @Override
+  public void encodeChildren(FacesContext facesContext) throws IOException {
+
+    UILayout layoutManager = (UILayout) getLayoutManager();
+    if (layoutManager != null) {
+      layoutManager.encodeChildren(facesContext);
+    } else {
+      // todo: later: LOG.debug or remove
+      LOG.warn("no layout manager found");
+      super.encodeChildren(facesContext);
+    }
+  }
+
+  @Override
+  public void encodeEnd(FacesContext facesContext) throws IOException {
+
+    UILayout layoutManager = (UILayout) getLayoutManager();
+    if (layoutManager != null) {
+      layoutManager.encodeEnd(facesContext);
+    } else {
+      // todo: later: LOG.debug or remove
+      LOG.warn("no layout manager found");
+    }
+
+    super.encodeEnd(facesContext);
   }
 
   @Override
@@ -301,16 +343,21 @@ public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnC
   }
 
   public LayoutManager getLayoutManager() {
-    AbstractUIGridLayout uiGridLayout = (AbstractUIGridLayout) getFacet(Facets.LAYOUT);
-    return uiGridLayout != null ? uiGridLayout.getLayoutManager() : null;
+    LayoutManager layoutManager = (LayoutManager) getFacet(Facets.LAYOUT);
+    // todo: What is using as default, if nothing is defined?
+    if (layoutManager == null) {
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      layoutManager = (LayoutManager) CreateComponentUtils.createComponent(
+          facesContext, "org.apache.myfaces.tobago.GridLayout", RendererTypes.GRID_LAYOUT);
+      ((OnComponentCreated) layoutManager).onComponentCreated(facesContext, (UILayout) layoutManager);
+      getFacets().put(Facets.LAYOUT, (UILayout) layoutManager);
+    }
+    return layoutManager;
   }
 
-  public Constraints getConstraints() {
-    return (AbstractUIGridConstraints) getFacet(Facets.CONSTRAINTS);
-  }
 // LAYOUT End
 
-  public abstract Integer getWidth();
+  public abstract Measure getWidth();
 
-  public abstract Integer getHeight();
+  public abstract Measure getHeight();
 }

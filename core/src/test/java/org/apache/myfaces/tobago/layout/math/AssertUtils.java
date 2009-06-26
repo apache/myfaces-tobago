@@ -31,4 +31,11 @@ public class AssertUtils {
       Assert.assertEquals(expected[i], result[i], delta);
     }
   }
+
+  public static void assertEquals(int[] expected, int[] result) {
+    Assert.assertEquals(expected.length, result.length);
+    for (int i = 0; i < expected.length; i++) {
+      Assert.assertEquals(expected[i], result[i]);
+    }
+  }
 }

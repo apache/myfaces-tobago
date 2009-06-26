@@ -21,13 +21,7 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-
-/*
- * Date: 14.03.2006
- * Time: 17:14:12
- */
 
 /**
 * Renders a menu bar.<br />
@@ -52,5 +46,5 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
         "org.apache.myfaces.tobago.MenuSelectOne",
         "org.apache.myfaces.tobago.MenuSeparator"
         })
-public interface MenuBarTagDeclaration extends HasIdBindingAndRendered, HasDeprecatedWidth {
+public interface MenuBarTagDeclaration extends HasIdBindingAndRendered {
 }

@@ -38,7 +38,7 @@ public class SystemOfEquationsUnitTest extends TestCase {
     system.addEqualsEquation(new ProportionEquation(1, 2, 2, 3));
     system.prepare();
     system.gauss();
-    system.step2();
+    system.reduce();
     double[] result = system.result();
 
     long end = System.nanoTime();
@@ -46,7 +46,7 @@ public class SystemOfEquationsUnitTest extends TestCase {
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    AssertUtils.assertEquals(new double[]{1000, 400, 600}, result, 0.000001);
+    AssertUtils.assertEquals(new double[]{1000, 400, 600}, result, SystemOfEquations.EPSILON);
   }
 
   public void test1To2To3To4() {
@@ -61,7 +61,7 @@ public class SystemOfEquationsUnitTest extends TestCase {
     system.addEqualsEquation(new ProportionEquation(3, 4, 3, 4));
     system.prepare();
     system.gauss();
-    system.step2();
+    system.reduce();
     double[] result = system.result();
 
     long end = System.nanoTime();
@@ -69,7 +69,7 @@ public class SystemOfEquationsUnitTest extends TestCase {
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    AssertUtils.assertEquals(new double[]{1000, 100, 200, 300, 400}, result, 0.000001);
+    AssertUtils.assertEquals(new double[]{1000, 100, 200, 300, 400}, result, SystemOfEquations.EPSILON);
   }
 
   public void test1To2To3To4To5To6To7To8To9To10() {
@@ -91,7 +91,7 @@ public class SystemOfEquationsUnitTest extends TestCase {
 
     system.prepare();
     system.gauss();
-    system.step2();
+    system.reduce();
     double[] result = system.result();
 
     long end = System.nanoTime();
@@ -99,7 +99,7 @@ public class SystemOfEquationsUnitTest extends TestCase {
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    AssertUtils.assertEquals(new double[]{1100, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200}, result, 0.000001);
+    AssertUtils.assertEquals(new double[]{1100, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200}, result, SystemOfEquations.EPSILON);
   }
 
   public void test1To___To100() {
@@ -118,7 +118,7 @@ public class SystemOfEquationsUnitTest extends TestCase {
 
     system.prepare();
     system.gauss();
-    system.step2();
+    system.reduce();
     double[] result = system.result();
 
     long end = System.nanoTime();
@@ -130,7 +130,7 @@ public class SystemOfEquationsUnitTest extends TestCase {
     for (int i = 0; i < n; i++) {
       expected[i + 1] = i + 1;
     }
-    AssertUtils.assertEquals(expected, result, 0.000001);
+    AssertUtils.assertEquals(expected, result, SystemOfEquations.EPSILON);
   }
 
   /**
@@ -154,7 +154,7 @@ public class SystemOfEquationsUnitTest extends TestCase {
     system.addEqualsEquation(new ProportionEquation(4, 6, 1, 1));
     system.prepare();
     system.gauss();
-    system.step2();
+    system.reduce();
     double[] result = system.result();
 
     long end = System.nanoTime();
@@ -162,7 +162,7 @@ public class SystemOfEquationsUnitTest extends TestCase {
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    AssertUtils.assertEquals(new double[]{900, 300, 300, 300, 200, 200, 200}, result, 0.000001);
+    AssertUtils.assertEquals(new double[]{900, 300, 300, 300, 200, 200, 200}, result, SystemOfEquations.EPSILON);
   }
 
   public void testAddVariables() {
@@ -174,6 +174,101 @@ public class SystemOfEquationsUnitTest extends TestCase {
     equations.addVariables(4);
     assertEquals(5, equations.getNumberOfVariables());
   }
+
+  /**
+   * <pre>
+   * |                ? px               |
+   * |     *     |     *     |     *     |
+   * |           |   *   |   *   |   *   |
+   * </pre>
+   */
+  public void testTooManyVariables() {
+
+    long begin = System.nanoTime();
+
+    SystemOfEquations system = new SystemOfEquations(7);
+//    system.addEqualsEquation(new FixedEquation(0, 900));
+    system.addEqualsEquation(new PartitionEquation(1, 4, 0, 1));
+    system.addEqualsEquation(new PartitionEquation(4, 7, 2, 2));
+    system.addEqualsEquation(new ProportionEquation(1, 2, 1, 1));
+    system.addEqualsEquation(new ProportionEquation(1, 3, 1, 1));
+    system.addEqualsEquation(new ProportionEquation(4, 5, 1, 1));
+    system.addEqualsEquation(new ProportionEquation(4, 6, 1, 1));
+    system.prepare();
+    system.gauss();
+    system.reduce();
+    double[] result = system.result();
+
+    long end = System.nanoTime();
+
+    LOG.info("result: " + Arrays.toString(result));
+    LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
+
+    AssertUtils.assertEquals(new double[]{450, 150, 150, 150, 100, 100, 100}, result, SystemOfEquations.EPSILON);
+  }
+
+  /**
+   * <pre>
+   * |            100 px           |
+   * |     50px     |     50px     |
+   * </pre>
+   */
+  public void testTooManyEquations() {
+
+    long begin = System.nanoTime();
+
+    SystemOfEquations system = new SystemOfEquations(4);
+    system.addEqualsEquation(new FixedEquation(0, 100));
+    system.addEqualsEquation(new PartitionEquation(1, 3, 0, 1));
+    system.addEqualsEquation(new FixedEquation(1, 50));
+    system.addEqualsEquation(new FixedEquation(2, 50));
+    system.addEqualsEquation(new PartitionEquation(3, 4, 2, 1));
+    system.addEqualsEquation(new FixedEquation(3, 50));
+    system.prepare();
+    system.gauss();
+    system.reduce();
+    double[] result = system.result();
+
+    long end = System.nanoTime();
+
+    LOG.info("result: " + Arrays.toString(result));
+    LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
+
+    AssertUtils.assertEquals(new double[]{100, 50, 50, 50}, result, SystemOfEquations.EPSILON);
+  }
+
+  /**
+   * <pre>
+   * |          500 px       |
+   * |   100px   |     *     |
+   * |   100px   |     *     |
+   * </pre>
+   */
+  public void testTwoSubs() {
+
+    long begin = System.nanoTime();
+
+    SystemOfEquations system = new SystemOfEquations(7);
+//    system.addEqualsEquation(new FixedEquation(0, 900));
+    system.addEqualsEquation(new PartitionEquation(1, 4, 0, 1));
+    system.addEqualsEquation(new PartitionEquation(4, 7, 2, 2));
+    system.addEqualsEquation(new ProportionEquation(1, 2, 1, 1));
+    system.addEqualsEquation(new ProportionEquation(1, 3, 1, 1));
+    system.addEqualsEquation(new ProportionEquation(4, 5, 1, 1));
+    system.addEqualsEquation(new ProportionEquation(4, 6, 1, 1));
+    system.prepare();
+    system.gauss();
+    system.reduce();
+    double[] result = system.result();
+
+    long end = System.nanoTime();
+
+    LOG.info("result: " + Arrays.toString(result));
+    LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
+
+    AssertUtils.assertEquals(new double[]{450, 150, 150, 150, 100, 100, 100}, result, SystemOfEquations.EPSILON);
+  }
+
 
   /**
    * todo later: inequations

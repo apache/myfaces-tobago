@@ -18,22 +18,14 @@ package org.apache.myfaces.tobago.facelets;
  */
 
 import com.sun.facelets.FaceletContext;
-import com.sun.facelets.el.LegacyValueBinding;
 import com.sun.facelets.tag.MetaRule;
 import com.sun.facelets.tag.Metadata;
 import com.sun.facelets.tag.MetadataTarget;
 import com.sun.facelets.tag.TagAttribute;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.layout.Measure;
 
-import javax.faces.component.UIComponent;
-
-/*
- * User: bommel
- * Date: Jan 2, 2007
- * Time: 3:35:58 PM
- */
 public class PageRule extends MetaRule {
   public static final PageRule INSTANCE = new PageRule();
 
@@ -53,6 +45,7 @@ public class PageRule extends MetaRule {
   }
 
   // TODO remove this
+/*
   static final class PageDimensionExpression extends Metadata {
     private final String name;
     private final TagAttribute attr;
@@ -68,7 +61,7 @@ public class PageRule extends MetaRule {
       ((UIComponent) instance).setValueBinding(name, new LegacyValueBinding(attr.getValueExpression(ctx, type)));
     }
   }
-
+*/
   static final class PageWidthMapper extends Metadata {
     private final TagAttribute attribute;
 
@@ -78,7 +71,7 @@ public class PageRule extends MetaRule {
 
     public void applyMetadata(FaceletContext ctx, Object instance) {
       UIPage page = (UIPage) instance;
-      page.setWidth(new Integer(ComponentUtil.removePx(attribute.getValue())));
+      page.setWidth(Measure.parse(attribute.getValue()));
     }
   }
 
@@ -91,7 +84,7 @@ public class PageRule extends MetaRule {
 
     public void applyMetadata(FaceletContext ctx, Object instance) {
       UIPage page = (UIPage) instance;
-      page.setHeight(new Integer(ComponentUtil.removePx(attribute.getValue())));
+      page.setHeight(Measure.parse(attribute.getValue()));
     }
   }
 }

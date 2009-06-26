@@ -89,4 +89,10 @@ public abstract class AbstractUICommand extends javax.faces.component.UICommand
       throws FacesException {
     return FacesUtils.invokeOnComponent(context, this, clientId, callback);
   }
+
+  public abstract Boolean isJsfResource();
+
+  public abstract String getResource();
+
+  public abstract String getLink();
 }

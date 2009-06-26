@@ -31,19 +31,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/*
- * User: weber
- * Date: Feb 28, 2005
- * Time: 3:05:19 PM
- */
-public class UIPanelBase extends javax.faces.component.UIPanel
+public abstract class UIPanelBase extends javax.faces.component.UIPanel
     implements AjaxComponent, InvokeOnComponent {
-
-  public void encodeChildren(FacesContext facesContext) throws IOException {
-    if (isRendered()) {
-      UILayout.getLayout(this).encodeChildrenOfComponent(facesContext, this);
-    }
-  }
 
   public void processDecodes(FacesContext context) {
     if (context instanceof TobagoFacesContext && ((TobagoFacesContext) context).isAjax()) {

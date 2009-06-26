@@ -338,6 +338,10 @@ MeasureProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
+DisplayProperty(property) ::= <<
+<NormalProperty(property)>
+>>
+
 OrderByProperty(property) ::= <<
 <NormalProperty(property)>
 >>
@@ -435,6 +439,14 @@ SeveritySaveStateProperty() ::= <<
 values[<it.indexPlusOne>] = <it.propertyName>;
 >>
 
+MeasureSaveStateProperty() ::= <<
+values[<it.indexPlusOne>] = <it.propertyName>;
+>>
+
+DisplaySaveStateProperty() ::= <<
+values[<it.indexPlusOne>] = <it.propertyName>;
+>>
+
 OrderBySaveStateProperty() ::= <<
 values[<it.indexPlusOne>] = <it.propertyName>;
 >>
@@ -477,6 +489,14 @@ CharacterRestoreStateProperty() ::= <<
 >>
 
 SeverityRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+>>
+
+MeasureRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+>>
+
+DisplayRestoreStateProperty() ::= <<
 <it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
 >>
 

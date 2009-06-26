@@ -22,15 +22,17 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.internal.taglib.SelectManyListboxTag;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
-import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedHeight;
+import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
+import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
@@ -39,26 +41,17 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
-import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
-import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-/*
- * Date: 16.12.2005
- * Time: 19:12:33
- */
-
 /**
  * Renders a multi selection option listbox with a label.
  */
-
 @Tag(name = "selectManyListbox")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectManyListboxTag")
 public class SelectManyListboxExtensionTag extends BodyTagSupport
-    implements HasId, HasValue, HasValueChangeListener, IsDisabled, HasDeprecatedHeight, IsInline,
+    implements HasId, HasValue, HasValueChangeListener, IsDisabled, IsInline,
     HasLabel, HasLabelWidth, IsRendered, HasBinding, HasTip, HasConverter, HasValidator, HasOnchange,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
     IsReadonly, HasMarkup, IsFocus, IsRequired, HasTabIndex {
@@ -74,7 +67,6 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
   private String rendered;
   private String binding;
   private String tip;
-  private String height;
   private String converter;
   private String validator;
   private String labelWidth;
@@ -144,9 +136,6 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
     if (id != null) {
       selectManyListboxTag.setId(id);
     }
-    if (height != null) {
-      selectManyListboxTag.setHeight(height);
-    }
     if (readonly != null) {
       selectManyListboxTag.setReadonly(readonly);
     }
@@ -191,7 +180,6 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
     inline = null;
     label = null;
     labelWidth = null;
-    height = null;
     readonly = null;
     rendered = null;
     converter = null;
@@ -240,10 +228,6 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
 
   public void setLabel(String label) {
     this.label = label;
-  }
-
-  public void setHeight(String height) {
-    this.height = height;
   }
 
   public void setValidator(String validator) {

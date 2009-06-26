@@ -21,14 +21,10 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
-
-/*
- * Date: 20.02.2006
- * Time: 22:10:07
- */
 
 /**
  * Renders a UIComponent that represents a single column of data within a
@@ -37,8 +33,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 @Tag(name = "column")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIColumn",
-    uiComponentBaseClass = "javax.faces.component.UIColumn",
-    componentType = "org.apache.myfaces.tobago.Column")
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIColumn",
+    componentType = ComponentTypes.COLUMN)
 //rendererType = "Column")
 public interface ColumnTagDeclaration extends HasIdBindingAndRendered, HasLabel, HasTip {
   /**

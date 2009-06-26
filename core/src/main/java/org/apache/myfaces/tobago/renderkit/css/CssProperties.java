@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.renderkit.css;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,14 +17,17 @@ package org.apache.myfaces.tobago.taglib.decl;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+public final class CssProperties {
 
-public interface HasHeight {
-  /**
-   * The height for this component.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Integer")
-  void setHeight(String height);
+  // to avoid instantiation
+  private CssProperties() {
+  }
+
+  public static final String DISPLAY = "display";
+  
+  public static final String POSITION = "position";
+
+  public static final class Position {
+    public static final String ABSOLUTE = "absolute";
+  }
 }

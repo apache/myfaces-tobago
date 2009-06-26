@@ -54,7 +54,16 @@ public class HtmlStyleMap extends HashMap<String, Object> {
       return null;
     }
     LOG.error("", new Exception());
-    return Integer.parseInt(obj.toString());
+    String string = obj.toString();
+    try {
+      return Integer.parseInt(string);
+    } catch (NumberFormatException e) {
+      LOG.warn("TODO: Fix measure issue in HtmlStyleMap: '" + obj + "'");
+      if (string.endsWith("px")) {
+        return Integer.parseInt(string.substring(0, string.length() - 2));
+      }
+      throw e;
+    }
   }
 
   public String toString() {

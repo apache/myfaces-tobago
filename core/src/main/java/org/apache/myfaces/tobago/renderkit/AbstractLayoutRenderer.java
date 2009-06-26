@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.renderkit;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.util.LayoutUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -52,7 +52,7 @@ public abstract class AbstractLayoutRenderer extends LayoutableRendererBase impl
       LOG.info("Can't calculate fixedHeight! "
           + "using estimation by contained components. ");
     }
-    height += LayoutUtil.calculateFixedHeightForChildren(facesContext, component);
+    height += LayoutUtils.calculateFixedHeightForChildren(facesContext, component);
 
     LayoutInformationProvider containerRenderer =
         ComponentUtil.getRenderer(facesContext, component);

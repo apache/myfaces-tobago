@@ -85,12 +85,12 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
     final StringBuilder contentStyle = new StringBuilder(32);
     if (component.getWidth() != null) {
       contentStyle.append("width: ");
-      contentStyle.append(component.getWidth());
+      contentStyle.append(component.getWidth().getPixel());
       contentStyle.append("; ");
     }
     if (component.getHeight() != null) {
       contentStyle.append("height: ");
-      contentStyle.append(component.getHeight());
+      contentStyle.append(component.getHeight().getPixel());
       contentStyle.append("; ");
     }
     contentStyle.append("z-index: ");
@@ -126,10 +126,10 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
         final StringBuilder frameSize = new StringBuilder(32);
         // full client area
         frameSize.append("width: ");
-        frameSize.append(page.getWidth());
+        frameSize.append(page.getWidth().getPixel());
         frameSize.append("; ");
         frameSize.append("height: ");
-        frameSize.append(page.getHeight());
+        frameSize.append(page.getHeight().getPixel());
         frameSize.append("; ");
         writer.writeAttribute(HtmlAttributes.STYLE, frameSize.toString(), false);
       } else {
@@ -165,9 +165,9 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
     writer.write("Tobago.setupPopup('");
     writer.write(clientId);
     writer.write("', '");
-    writer.write(String.valueOf(component.getLeft()));
+    writer.write(component.getLeft().getPixel());
     writer.write("', '");
-    writer.write(String.valueOf(component.getTop()));
+    writer.write(component.getTop().getPixel());
     writer.write("', ");
     writer.write(String.valueOf(component.isModal()));
     writer.write(");");

@@ -19,12 +19,16 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.OnComponentCreated;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource;
+import org.apache.myfaces.tobago.layout.Component;
+import org.apache.myfaces.tobago.layout.Container;
+import org.apache.myfaces.tobago.layout.LayoutManager;
 
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
@@ -41,7 +45,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class AbstractUITabGroup extends UIPanelBase implements TabChangeSource, ActionSource, AjaxComponent {
+public abstract class AbstractUITabGroup extends UIPanelBase
+    implements TabChangeSource, ActionSource, AjaxComponent, Container, OnComponentCreated {
 
   private static final Log LOG = LogFactory.getLog(AbstractUITabGroup.class);
 
@@ -52,15 +57,34 @@ public abstract class AbstractUITabGroup extends UIPanelBase implements TabChang
   public static final String SWITCH_TYPE_RELOAD_TAB = "reloadTab";
 
   @Override
-  public boolean getRendersChildren() {
-    return true;
+  public void encodeBegin(FacesContext facesContext) throws IOException {
+
+    super.encodeBegin(facesContext);
+
+    ((UILayout) getLayoutManager()).encodeBegin(facesContext);
   }
 
   @Override
-  public void encodeBegin(FacesContext facesContext) throws IOException {
-    super.encodeBegin(facesContext);
+  public void encodeChildren(FacesContext facesContext) throws IOException {
+
+    ((UILayout) getLayoutManager()).encodeChildren(facesContext);
   }
 
+  @Override
+  public void encodeEnd(FacesContext facesContext) throws IOException {
+
+    ((UILayout) getLayoutManager()).encodeEnd(facesContext);
+
+    resetTabLayout();
+    super.encodeEnd(facesContext);
+    setRenderedIndex(getSelectedIndex());
+  }
+
+
+  @Override
+  public boolean getRendersChildren() {
+    return true;
+  }
 
   public void queueEvent(FacesEvent event) {
     if (this == event.getSource()) {
@@ -71,18 +95,6 @@ public abstract class AbstractUITabGroup extends UIPanelBase implements TabChang
       }
     }
     super.queueEvent(event);
-  }
-
-  @Override
-  public void encodeChildren(FacesContext context)
-      throws IOException {
-  }
-
-  @Override
-  public void encodeEnd(FacesContext facesContext) throws IOException {
-    resetTabLayout();
-    super.encodeEnd(facesContext);
-    setRenderedIndex(getSelectedIndex());
   }
 
   private void resetTabLayout() {
@@ -299,4 +311,32 @@ public abstract class AbstractUITabGroup extends UIPanelBase implements TabChang
   public void removeActionListener(ActionListener listener) {
     removeFacesListener(listener);
   }
+
+  // LAYOUT Begin
+  public List<Component> getComponents() {
+    List<Component> result = new ArrayList<Component>();
+    for (UIComponent uiComponent : (List<UIComponent>) getChildren()) {
+      if (uiComponent instanceof Component) {
+        result.add((Component) uiComponent);
+      }
+    }
+    return result;
+  }
+
+  public LayoutManager getLayoutManager() {
+    return (LayoutManager) getFacet(Facets.LAYOUT);
+  }
+
+  public void onComponentCreated(FacesContext context, UIComponent component) {
+    // if there is no layout manager set, create one
+    if (getLayoutManager() == null) {
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      LayoutManager layoutManager = (LayoutManager) CreateComponentUtils.createComponent(
+          facesContext, "org.apache.myfaces.tobago.TabGroupLayout", RendererTypes.TAB_GROUP_LAYOUT);
+      ((OnComponentCreated) layoutManager).onComponentCreated(facesContext, (UILayout) layoutManager);
+      getFacets().put(Facets.LAYOUT, (UILayout) layoutManager);
+    }
+  }
+
+// LAYOUT End
 }

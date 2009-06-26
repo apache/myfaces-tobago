@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.renderkit.LayoutRenderer;
-import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.util.LayoutUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
@@ -43,19 +43,19 @@ public abstract class UILayout extends UIComponentBase {
   }
 
   private static void setInnerWidth(FacesContext facesContext, UIComponent component) {
-    Integer layoutWidth = LayoutUtil.getLayoutWidth(component);
+    Integer layoutWidth = LayoutUtils.getLayoutWidth(component);
     if (layoutWidth != null) {
       int space = layoutWidth.intValue();
-      int innerSpace = LayoutUtil.getInnerSpace(facesContext, component, space, true);
+      int innerSpace = LayoutUtils.getInnerSpace(facesContext, component, space, true);
       component.getAttributes().put(Attributes.INNER_WIDTH, Integer.valueOf(innerSpace));
     }
   }
 
   private static void setInnerHeight(FacesContext facesContext, UIComponent component) {
-    Integer layoutHeight = LayoutUtil.getLayoutHeight(component);
+    Integer layoutHeight = LayoutUtils.getLayoutHeight(component);
     if (layoutHeight != null) {
       int space = layoutHeight.intValue();
-      int innerSpace = LayoutUtil.getInnerSpace(facesContext, component, space, false);
+      int innerSpace = LayoutUtils.getInnerSpace(facesContext, component, space, false);
       component.getAttributes().put(Attributes.INNER_HEIGHT, Integer.valueOf(innerSpace));
     }
   }
@@ -67,11 +67,7 @@ public abstract class UILayout extends UIComponentBase {
   public static UILayout getLayout(UIComponent component) {
     UILayout layout = (UILayout) component.getFacet(Facets.LAYOUT);
     if (layout == null) {
-      if (component instanceof LayoutProvider) {
-        layout = ((LayoutProvider) component).provideLayout();
-      } else {
-        layout = UIDefaultLayout.getInstance();
-      }
+      layout = UIDefaultLayout.getInstance();
     }
     return layout;
   }

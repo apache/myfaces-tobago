@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.renderkit;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,23 +17,8 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
+import javax.faces.component.UIColumn;
 
-/*
- * Created 01.09.2003 at 12:45:50.
- * $Id$
- *
- */
-
-/**
- * @deprecated
- */
-public interface LayoutManager {
-
-  /**
-   * @deprecated
-   */
-  void layoutBegin(FacesContext facesContext, UIComponent component);
+public abstract class AbstractUIColumn extends UIColumn {
 
 }

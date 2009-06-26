@@ -37,6 +37,14 @@ public class RealCell implements Cell {
     return this;
   }
 
+  public boolean isInFirstRow() {
+    return true;
+  }
+
+  public boolean isInFirstColumn() {
+    return true;
+  }
+
   public int getColumnSpan() {
     return columnSpan;
   }

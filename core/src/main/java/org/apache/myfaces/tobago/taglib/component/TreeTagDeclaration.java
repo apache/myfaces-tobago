@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasTreeNodeValue;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
 /**
@@ -44,7 +45,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
         "org.apache.myfaces.tobago.TreeData"
         })
 public interface TreeTagDeclaration
-    extends HasIdBindingAndRendered, HasTreeNodeValue, IsRequired {
+    extends HasIdBindingAndRendered, HasTreeNodeValue, IsRequired, IsGridLayoutComponent {
 
   /**
    * Flag indicating whether or not this component should be render selectable items.

@@ -17,10 +17,45 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-/**
- * Date: 23.01.2008 20:10:36
- */
+// XXX rename to LayoutComponent
 public interface Component {
 
-  Constraints getConstraints();
+  Integer getColumnSpan();
+  void setColumnSpan(Integer columnSpan);
+
+  Integer getRowSpan();
+  void setRowSpan(Integer rowSpan);
+
+  Measure getWidth();
+  void setWidth(Measure width);
+
+  Measure getHeight();
+  void setHeight(Measure height);
+
+  void setMinimumWidth(Measure minimumWidth);
+
+  void setMinimumHeight(Measure minimumHeight);
+
+  void setPreferredWidth(Measure preferredWidth);
+
+  void setPreferredHeight(Measure preferredHeight);
+
+  void setMaximumWidth(Measure maximumWidth);
+
+  void setMaximumHeight(Measure maximumHeight);
+
+  Measure getLeft();
+  void setLeft(Measure left);
+
+  Measure getTop();
+  void setTop(Measure top);
+
+  Integer getHorizontalIndex();
+  void setHorizontalIndex(Integer horizontalIndex);
+
+  Integer getVerticalIndex();
+  void setVerticalIndex(Integer verticalIndex);
+
+  Display getDisplay();
+  void setDisplay(Display display);
 }

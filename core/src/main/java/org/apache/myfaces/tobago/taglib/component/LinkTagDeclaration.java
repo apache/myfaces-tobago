@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
@@ -34,11 +35,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasTarget;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
-
-/*
- * Date: 11.02.2006
- * Time: 13:16:47
- */
 
 /**
  * Renders a link element.
@@ -54,7 +50,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
         @Facet(
             name = Facets.CONFIRMATION,
             description = "Contains a UIOutput instance with the confirmation message.",
-            allowedChildComponenents = "org.apache.myfaces.tobago.Output"),
+            allowedChildComponenents = ComponentTypes.OUT),
         @Facet(
             name = Facets.POPUP,
             description = "Contains a UIPopup instance.",

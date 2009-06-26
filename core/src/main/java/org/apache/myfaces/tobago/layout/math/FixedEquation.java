@@ -34,4 +34,9 @@ public final class FixedEquation implements Equation {
     row[index] = 1.0;
     row[row.length - 1] = result;
   }
+
+  @Override
+  public String toString() {
+    return "FixedEquation: x_" + index + " = " + result;
+  }
 }

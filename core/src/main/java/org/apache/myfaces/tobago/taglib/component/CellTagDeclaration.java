@@ -23,24 +23,30 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-
-/*
- * Date: 10.02.2006
- * Time: 22:20:01
- */
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 
 /**
  * Renders a panel-like layout element with the ability to span over more than
  * one layout cell. A cell may only contain one child.
+ * @deprecated The Cell is deprecated since Tobago 1.1
  */
+@Deprecated
 @Tag(name = "cell")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UICell",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanelBase",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUICell",
     interfaces = "org.apache.myfaces.tobago.component.Cell",
     componentType = "org.apache.myfaces.tobago.Cell",
     rendererType = RendererTypes.CELL)
-public interface CellTagDeclaration extends HasIdBindingAndRendered {
+public interface CellTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent {
+
+  @UIComponentTagAttribute(type = {"java.lang.Integer"},
+      defaultValue = "1")
+  void setColumnSpan(String columnSpan);
+
+  @UIComponentTagAttribute(type = {"java.lang.Integer"},
+      defaultValue = "1")
+  void setRowSpan(String rowSpan);
 
   /**
    * Count of layout columns to span over.

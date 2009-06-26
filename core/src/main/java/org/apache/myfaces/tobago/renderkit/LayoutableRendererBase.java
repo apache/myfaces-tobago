@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.util.LayoutUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -109,7 +109,7 @@ public abstract class LayoutableRendererBase
     int fixedSpace = 0;
 
     if (component instanceof Cell) {
-      List children = LayoutUtil.addChildren(new ArrayList(), component);
+      List children = LayoutUtils.addChildren(new ArrayList(), component);
       for (Object aChildren : children) {
         UIComponent child = (UIComponent) aChildren;
 
@@ -164,7 +164,7 @@ public abstract class LayoutableRendererBase
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     
-    prepareDimension(facesContext, component);
+//    prepareDimension(facesContext, component);
     final String rendererType = component.getRendererType();
     if (rendererType != null) {
       final String rendererName = getRendererName(rendererType);
@@ -173,8 +173,8 @@ public abstract class LayoutableRendererBase
     } else {
       LOG.error("No renderType for " + component); 
     }
-    layoutSpace(facesContext, component, true);
-    layoutSpace(facesContext, component, false);
+//    layoutSpace(facesContext, component, true);
+//    layoutSpace(facesContext, component, false);
   }
 
    void prepareDimension(FacesContext facesContext, UIComponent component) {
@@ -184,19 +184,19 @@ public abstract class LayoutableRendererBase
   }
 
   void setInnerWidth(FacesContext facesContext, UIComponent component) {
-    Integer layoutWidth = LayoutUtil.getLayoutWidth(component);
+    Integer layoutWidth = LayoutUtils.getLayoutWidth(component);
     if (layoutWidth != null) {
       int space = layoutWidth.intValue();
-      int innerSpace = LayoutUtil.getInnerSpace(facesContext, component, space, true);
+      int innerSpace = LayoutUtils.getInnerSpace(facesContext, component, space, true);
       component.getAttributes().put(Attributes.INNER_WIDTH, Integer.valueOf(innerSpace));
     }
   }
 
   void setInnerHeight(FacesContext facesContext, UIComponent component) {
-    Integer layoutHeight = LayoutUtil.getLayoutHeight(component);
+    Integer layoutHeight = LayoutUtils.getLayoutHeight(component);
     if (layoutHeight != null) {
       int space = layoutHeight.intValue();
-      int innerSpace = LayoutUtil.getInnerSpace(facesContext, component, space, false);
+      int innerSpace = LayoutUtils.getInnerSpace(facesContext, component, space, false);
       component.getAttributes().put(Attributes.INNER_HEIGHT, Integer.valueOf(innerSpace));
     }
   }
@@ -208,11 +208,11 @@ public abstract class LayoutableRendererBase
     String layoutAttribute;
     String styleAttribute;
     if (width) {
-      layoutSpace = LayoutUtil.getLayoutWidth(component);
+      layoutSpace = LayoutUtils.getLayoutWidth(component);
       layoutAttribute = Attributes.LAYOUT_WIDTH;
       styleAttribute = HtmlAttributes.WIDTH;
     } else {
-      layoutSpace = LayoutUtil.getLayoutHeight(component);
+      layoutSpace = LayoutUtils.getLayoutHeight(component);
       layoutAttribute = Attributes.LAYOUT_HEIGHT;
       styleAttribute = HtmlAttributes.HEIGHT;
     }
@@ -223,7 +223,7 @@ public abstract class LayoutableRendererBase
     if (space == -1
         && (!RendererTypes.OUT.equals(component.getRendererType()))) {
       UIComponent parent = component.getParent();
-      space = LayoutUtil.getInnerSpace(facesContext, parent, width);
+      space = LayoutUtils.getInnerSpace(facesContext, parent, width);
       if (space > 0 && !ComponentUtil.isFacetOf(component, parent)) {
         component.getAttributes().put(layoutAttribute, Integer.valueOf(space));
         if (width) {
@@ -248,7 +248,7 @@ public abstract class LayoutableRendererBase
       }
       UIComponent layout = component.getFacet(Facets.LAYOUT);
       if (layout != null) {
-        int layoutSpace2 = LayoutUtil.getInnerSpace(facesContext, component,
+        int layoutSpace2 = LayoutUtils.getInnerSpace(facesContext, component,
             width);
         if (layoutSpace2 > 0) {
           layout.getAttributes().put(layoutAttribute, Integer.valueOf(layoutSpace2));

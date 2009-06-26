@@ -28,69 +28,69 @@ public class EquationManager {
   private static final Log LOG = LogFactory.getLog(EquationManager.class);
 
   private SystemOfEquations equations;
-  private Node current;
   private double[] result;
 
-  public EquationManager() {
-    equations = new SystemOfEquations(0);
-    current = new Node(0, null);
-    addSubTree(1);
-  }
-
-  public void addSubTree(int number) {
-
-    assert number > 0;
-    int n = equations.getNumberOfVariables();
-    int[] newIndices = equations.addVariables(number);
-    if (!current.isRoot()) {
-      equations.addEqualsEquation(new PartitionEquation(
-          newIndices[0], newIndices[newIndices.length - 1] + 1, current.getIndexOfVariable(), current.getSpan()));
-    }
-    for (int i = n; i < n + number; i++) {
-      assert newIndices[i - n] == i;
-      current.getChildren().add(new Node(i, current));
-    }
-  }
-
-  public void descend(int index, int span) {
-    current = current.getChildren().get(index);
-    current.setSpan(span);
-  }
-
-  public void ascend() {
-    current = current.getParent();
+  public int addComponentRoot() {
+    equations = new SystemOfEquations(1);
+    return 0;
   }
 
   public void setFixedLength(int index, int length) {
-    equations.addEqualsEquation(new FixedEquation(getIndexOfVariable(index), length));
+    equations.addEqualsEquation(new FixedEquation(index, length));
+    LOG.info(equations);
   }
 
-  private int getIndexOfVariable(int index) {
-    return current.getChildren().get(index).getIndexOfVariable();
+  public int[] divide(int index, int number) {
+    int[] newIndices = addSubTree(index, number, 1);
+    LOG.info(equations);
+    return newIndices;
+  }
+
+  public int addComponent(int index, int span) {
+    int[] newIndices = addSubTree(index, 1, span);
+    LOG.info(equations);
+    return newIndices[0];
+  }
+
+  private int[] addSubTree(int index, int number, int span) {
+
+    assert number > 0;
+    assert span > 0;
+
+    int[] newIndices = equations.addVariables(number);
+    equations.addEqualsEquation(new PartitionEquation(
+        newIndices[0],
+        newIndices[newIndices.length - 1] + 1,
+        index,
+        span));
+    return newIndices;
   }
 
   public void setProportion(int index1, int index2, int factor1, int factor2) {
-    equations.addEqualsEquation(
-        new ProportionEquation(getIndexOfVariable(index1), getIndexOfVariable(index2), factor1, factor2));
+    equations.addEqualsEquation(new ProportionEquation(index1, index2, factor1, factor2));
+    LOG.info(equations);
   }
 
   public void solve() {
+
+    LOG.info("solve:\n" + equations);
+
     equations.prepare();
     equations.gauss();
-    equations.step2();
+    equations.reduce();
     result = equations.result();
-  }
-
-  public double getValue() {
-    assert result != null;
-    double sum = 0.0;
-    for (int i = 0; i < current.getSpan(); i++) {
-      sum += result[current.getIndexOfVariable() + i];
-    }
-    return sum;
   }
 
   public double[] getResult() {
     return result;
+  }
+
+  public int getNumberOfVariable() {
+    return equations.getNumberOfVariables();
+  }
+
+  @Override
+  public String toString() {
+    return "EquationManager: " + equations.toString();
   }
 }

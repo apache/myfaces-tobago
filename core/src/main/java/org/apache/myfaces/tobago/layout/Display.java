@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.layout;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,11 +17,18 @@ package org.apache.myfaces.tobago.taglib.decl;
  * limitations under the License.
  */
 
-/**
- * Created: Apr 9, 2005 2:32:53 PM
- * User: bommel
- * $Id$
- */
-public interface HasDimension extends HasWidth, HasHeight {
+public enum Display {
 
+  BLOCK("block"),
+  INLINE("inline");
+
+  private String value;
+
+  Display(String value) {
+    this.value = value;
+  }
+
+  public String getValue() {
+    return value;
+  }
 }

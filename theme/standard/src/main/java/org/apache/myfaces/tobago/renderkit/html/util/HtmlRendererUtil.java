@@ -40,7 +40,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.util.LayoutUtil;
+import org.apache.myfaces.tobago.util.LayoutUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseJsonWriterImpl;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriterWrapper;
@@ -231,13 +231,13 @@ public final class HtmlRendererUtil {
 
   public static String getLayoutSpaceStyle(UIComponent component) {
     StringBuilder sb = new StringBuilder();
-    Integer space = LayoutUtil.getLayoutSpace(component, Attributes.LAYOUT_WIDTH, Attributes.LAYOUT_WIDTH);
+    Integer space = LayoutUtils.getLayoutSpace(component, Attributes.LAYOUT_WIDTH, Attributes.LAYOUT_WIDTH);
     if (space != null) {
       sb.append(" width: ");
       sb.append(space);
       sb.append("px;");
     }
-    space = LayoutUtil.getLayoutSpace(component, Attributes.LAYOUT_HEIGHT, Attributes.LAYOUT_HEIGHT);
+    space = LayoutUtils.getLayoutSpace(component, Attributes.LAYOUT_HEIGHT, Attributes.LAYOUT_HEIGHT);
     if (space != null) {
       sb.append(" height: ");
       sb.append(space);
@@ -348,11 +348,11 @@ public final class HtmlRendererUtil {
     String layoutAttribute;
     String styleAttribute;
     if (width) {
-      layoutSpace = LayoutUtil.getLayoutWidth(component);
+      layoutSpace = LayoutUtils.getLayoutWidth(component);
       layoutAttribute = Attributes.LAYOUT_WIDTH;
       styleAttribute = HtmlAttributes.WIDTH;
     } else {
-      layoutSpace = LayoutUtil.getLayoutHeight(component);
+      layoutSpace = LayoutUtils.getLayoutHeight(component);
       layoutAttribute = Attributes.LAYOUT_HEIGHT;
       styleAttribute = HtmlAttributes.HEIGHT;
     }
@@ -362,7 +362,7 @@ public final class HtmlRendererUtil {
     }
     if (space == -1 && (!RendererTypes.OUT.equals(component.getRendererType()))) {
       UIComponent parent = component.getParent();
-      space = LayoutUtil.getInnerSpace(facesContext, parent, width);
+      space = LayoutUtils.getInnerSpace(facesContext, parent, width);
       if (space > 0 && !ComponentUtil.isFacetOf(component, parent)) {
         component.getAttributes().put(layoutAttribute, Integer.valueOf(space));
         if (width) {
@@ -390,7 +390,7 @@ public final class HtmlRendererUtil {
       }
       UIComponent layout = component.getFacet(Facets.LAYOUT);
       if (layout != null) {
-        int layoutSpace2 = LayoutUtil.getInnerSpace(facesContext, component,
+        int layoutSpace2 = LayoutUtils.getInnerSpace(facesContext, component,
             width);
         if (layoutSpace2 > 0) {
           layout.getAttributes().put(layoutAttribute, Integer.valueOf(layoutSpace2));

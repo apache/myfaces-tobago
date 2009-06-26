@@ -23,19 +23,12 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
-import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-
-/*
- * Created: Aug 5, 2005 5:00:41 PM
- * User: bommel
- * $Id$
- */
 
 /**
  * Renders a multiline text input control.
@@ -47,8 +40,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     rendererType = RendererTypes.TEXT_AREA,
     allowedChildComponenents = "NONE")
 public interface TextAreaTagDeclaration extends TextInputTagDeclaration, HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled, HasDeprecatedDimension,
-    IsRequired, HasLabelAndAccessKey, HasTip {
+    HasConverter, IsReadonly, IsDisabled, IsRequired, HasLabelAndAccessKey, HasTip {
 
   /**
    * The row count for this component.

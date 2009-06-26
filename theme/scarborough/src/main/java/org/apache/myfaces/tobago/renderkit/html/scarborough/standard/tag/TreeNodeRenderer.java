@@ -97,7 +97,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeStateId;
       node.setMarked(marked.equals(searchString));
     } else {
-      LOG.warn("This log message is help clarifying the occurence of this else case.");
+      LOG.warn("This log message is help clarifying the occurrence of this else case.");
     }
   }
 

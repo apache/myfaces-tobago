@@ -26,9 +26,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
-import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasSuggestMethod;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
@@ -37,11 +35,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsPassword;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
-/*
- * Created: Aug 5, 2005 4:53:25 PM
- * User: bommel
- * $Id$
- */
 /**
  * Renders a text input field.
  */
@@ -61,9 +54,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
         })
 public interface InTagDeclaration
     extends TextInputTagDeclaration, HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled, HasDeprecatedWidth,
-    IsInline, IsRequired, HasTip, HasLabelAndAccessKey,
-    IsPassword, HasSuggestMethod {
+    HasConverter, IsReadonly, IsDisabled, IsInline, IsRequired, HasTip, IsPassword, HasSuggestMethod {
 
   /**
    * Indicate markup of this component.

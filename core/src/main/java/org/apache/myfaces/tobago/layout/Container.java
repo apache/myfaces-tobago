@@ -19,9 +19,7 @@ package org.apache.myfaces.tobago.layout;
 
 import java.util.List;
 
-/**
- * Date: 23.01.2008 20:10:16
- */
+// XXX rename to LayoutContainer
 public interface Container extends Component {
 
   List<Component> getComponents();

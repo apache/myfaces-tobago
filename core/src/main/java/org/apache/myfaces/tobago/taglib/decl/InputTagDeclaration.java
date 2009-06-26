@@ -17,11 +17,6 @@ package org.apache.myfaces.tobago.taglib.decl;
  * limitations under the License.
  */
 
-
-/*
- * Created: Aug 5, 2005 4:18:38 PM
- * $Id$
- */
 public interface InputTagDeclaration extends HasValidator, HasOnchange, HasValue, HasValueChangeListener,
-    HasValidatorMessage, HasConverterMessage, HasRequiredMessage, HasTabIndex, IsFocus {
+    HasValidatorMessage, HasConverterMessage, HasRequiredMessage, HasTabIndex, IsFocus, IsGridLayoutComponent {
 }

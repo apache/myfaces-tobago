@@ -17,19 +17,154 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-/*
- * Date: 14.02.2008 12:08:52
- */
 public class MockComponent implements Component {
 
-  private Constraints constraints;
+  private Integer columnSpan = 1;
 
-  public MockComponent(Constraints constraints) {
-    this.constraints = constraints;
+  private Integer rowSpan = 1;
+
+  private Measure width;
+  private Measure height;
+
+  private Measure minimumWidth;
+  private Measure minimumHeight;
+
+  private Measure preferredWidth;
+  private Measure preferredHeight;
+
+  private Measure maximumWidth;
+  private Measure maximumHeight;
+
+  private Measure left;
+  private Measure top;
+
+  private Integer horizontalIndex;
+  private Integer verticalIndex;
+
+  private Display display;
+
+  public String getFamily() {
+    return null;
   }
 
-  public Constraints getConstraints() {
-    return constraints;
+  public Integer getColumnSpan() {
+    return columnSpan;
   }
 
+  public void setColumnSpan(Integer columnSpan) {
+    this.columnSpan = columnSpan;
+  }
+
+  public Integer getRowSpan() {
+    return rowSpan;
+  }
+
+  public void setRowSpan(Integer rowSpan) {
+    this.rowSpan = rowSpan;
+  }
+
+  public Measure getWidth() {
+    return width;
+  }
+
+  public void setWidth(Measure width) {
+    this.width = width;
+  }
+
+  public Measure getHeight() {
+    return height;
+  }
+
+  public void setHeight(Measure height) {
+    this.height = height;
+  }
+
+  public Measure getMinimumWidth() {
+    return minimumWidth;
+  }
+
+  public void setMinimumWidth(Measure minimumWidth) {
+    this.minimumWidth = minimumWidth;
+  }
+
+  public Measure getMinimumHeight() {
+    return minimumHeight;
+  }
+
+  public void setMinimumHeight(Measure minimumHeight) {
+    this.minimumHeight = minimumHeight;
+  }
+
+  public Measure getPreferredWidth() {
+    return preferredWidth;
+  }
+
+  public void setPreferredWidth(Measure preferredWidth) {
+    this.preferredWidth = preferredWidth;
+  }
+
+  public Measure getPreferredHeight() {
+    return preferredHeight;
+  }
+
+  public void setPreferredHeight(Measure preferredHeight) {
+    this.preferredHeight = preferredHeight;
+  }
+
+  public Measure getMaximumWidth() {
+    return maximumWidth;
+  }
+
+  public void setMaximumWidth(Measure maximumWidth) {
+    this.maximumWidth = maximumWidth;
+  }
+
+  public Measure getMaximumHeight() {
+    return maximumHeight;
+  }
+
+  public void setMaximumHeight(Measure maximumHeight) {
+    this.maximumHeight = maximumHeight;
+  }
+
+  public Measure getLeft() {
+    return left;
+  }
+
+  public void setLeft(Measure left) {
+    this.left = left;
+  }
+
+  public Measure getTop() {
+    return top;
+  }
+
+  public void setTop(Measure top) {
+
+    this.top = top;
+  }
+
+  public Integer getHorizontalIndex() {
+    return horizontalIndex;
+  }
+
+  public void setHorizontalIndex(Integer horizontalIndex) {
+    this.horizontalIndex = horizontalIndex;
+  }
+
+  public Integer getVerticalIndex() {
+    return verticalIndex;
+  }
+
+  public void setVerticalIndex(Integer verticalIndex) {
+    this.verticalIndex = verticalIndex;
+  }
+
+  public Display getDisplay() {
+    return display;
+  }
+
+  public void setDisplay(Display display) {
+    this.display = display;
+  }
 }

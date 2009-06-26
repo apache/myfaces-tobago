@@ -31,6 +31,7 @@ public class PropertyInfo {
   private boolean literalOnly;
   private boolean deprecated;
   private boolean bodyContent;
+  private boolean tagAttribute;
 
   public PropertyInfo() {
   }
@@ -187,6 +188,14 @@ public class PropertyInfo {
     this.methodExpressionRequired = methodExpressionRequired;
   }
 
+  public boolean isTagAttribute() {
+    return tagAttribute;
+  }
+
+  public void setTagAttribute(boolean tagAttribute) {
+    this.tagAttribute = tagAttribute;
+  }
+
   public PropertyInfo fill(PropertyInfo info) {
     info.setName(name);
     info.setType(type);
@@ -198,6 +207,7 @@ public class PropertyInfo {
     info.setValueExpressionRequired(valueExpressionRequired);
     info.setLiteralOnly(literalOnly);
     info.setMethodExpressionRequired(methodExpressionRequired);
+    info.setTagAttribute(tagAttribute);
     return info;
   }
 

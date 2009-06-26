@@ -31,11 +31,10 @@ public final class PartitionEquation implements Equation {
   private int span;
 
   /**
-   *
-   * @param begin lowest index
-   * @param end one more than the largest index
+   * @param begin  lowest index
+   * @param end    one more than the largest index
    * @param parent parent index
-   * @param span number of parent cells
+   * @param span   number of parent cells
    */
   public PartitionEquation(int begin, int end, int parent, int span) {
     this.begin = begin;
@@ -45,7 +44,7 @@ public final class PartitionEquation implements Equation {
   }
 
   public void fillRow(double[] row) {
-    assert begin >= 0 && end > 0 && parent >=0 && span > 0;
+    assert begin >= 0 && end > 0 && parent >= 0 && span > 0;
     assert begin < end;
     assert parent + span <= begin || parent >= end;
 
@@ -63,5 +62,30 @@ public final class PartitionEquation implements Equation {
     for (i = parent; i < parent + span; i++) {
       row[i] = -1.0;
     }
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder builder = new StringBuilder("PartitionEquation: ");
+    builder.append(" x_");
+    builder.append(parent);
+    if (span > 2) {
+      builder.append(" + ...");
+    }
+    if (span >= 2) {
+      builder.append(" + x_");
+      builder.append(parent + span - 1);
+    }
+    builder.append(" = ");
+    builder.append("x_");
+    builder.append(begin);
+    if (end - begin > 2) {
+      builder.append(" + ...");
+    }
+    if (end - begin >= 2) {
+      builder.append(" + x_");
+      builder.append(end - 1);
+    }
+    return builder.toString();
   }
 }

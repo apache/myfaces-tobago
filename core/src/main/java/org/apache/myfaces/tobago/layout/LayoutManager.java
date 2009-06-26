@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.layout;
 
 public interface LayoutManager {
 
-  void collect(LayoutContext layoutContext, Container container);
+  void collect(LayoutContext layoutContext, Container container, int horizontalIndex, int verticalIndex);
 
   void distribute(LayoutContext layoutContext, Container container);
 }

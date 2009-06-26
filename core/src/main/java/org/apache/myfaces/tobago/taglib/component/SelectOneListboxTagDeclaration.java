@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
-import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedHeight;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
@@ -35,11 +34,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 
-/*
- * Created: Aug 5, 2005 6:08:24 PM
- * User: bommel
- * $Id$
- */
 /**
  * Render a single selection option listbox.
  */
@@ -64,7 +58,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
         allowedChildComponenents = "org.apache.myfaces.tobago.Command")
         })
 public interface SelectOneListboxTagDeclaration extends SelectOneTagDeclaration, HasId, IsDisabled,
-    IsReadonly, HasLabelAndAccessKey, IsRendered, HasBinding, HasDeprecatedHeight, HasTip, HasConverter {
+    IsReadonly, HasLabelAndAccessKey, IsRendered, HasBinding, HasTip, HasConverter {
 
   /**
    * Flag indicating that selecting an Item representing a Value is Required.

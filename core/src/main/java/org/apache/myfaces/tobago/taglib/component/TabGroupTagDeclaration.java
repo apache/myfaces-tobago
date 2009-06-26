@@ -27,16 +27,9 @@ import org.apache.myfaces.tobago.component.AbstractUITabGroup;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasAction;
 import org.apache.myfaces.tobago.taglib.decl.HasActionListener;
-import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
-
-/*
- * Created by IntelliJ IDEA.
- * User: bommel
- * Date: 08.04.2006
- * Time: 14:53:06
- */
 
 /**
  * Renders a tabpanel.
@@ -48,10 +41,11 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITabGroup",
     rendererType = RendererTypes.TAB_GROUP,
     interfaces = { "org.apache.myfaces.tobago.ajax.api.AjaxComponent", "javax.faces.component.ActionSource"},
+//    componentFamily = "org.apache.myfaces.tobago.TabGroup",
     allowedChildComponenents = "org.apache.myfaces.tobago.Tab")
 
-public interface TabGroupTagDeclaration extends HasIdBindingAndRendered, HasDeprecatedDimension,
-    IsImmediateCommand, HasAction, HasActionListener {
+public interface TabGroupTagDeclaration
+    extends HasIdBindingAndRendered, IsImmediateCommand, HasAction, HasActionListener, IsGridLayoutComponent {
   /**
    * Deprecated! Use 'switchType' instead.
    * Flag indicating that tab switching is done by server request.

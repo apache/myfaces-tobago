@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.util;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,11 +17,8 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
+import org.apache.myfaces.tobago.layout.Component;
 
-public class StringUtilsUnitTest extends TestCase {
+public abstract class AbstractUIButton extends AbstractUICommand implements Component {
 
-  public void test() {
-    assertEquals(" x ", " x "); // todo
-  }
 }

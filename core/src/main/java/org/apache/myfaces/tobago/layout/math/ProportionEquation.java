@@ -30,16 +30,21 @@ public final class ProportionEquation implements Equation {
     this.factor1 = factor1;
     this.factor2 = factor2;
   }
-/*
-  public void fillRow(double[] row) {
-    Arrays.fill(row, 0.0);
-    row[index1] = factor2;
-    row[index2] = -factor1;
-  }
-*/
+
   public void fillRow(double[] row) {
     for (int i = 0; i < row.length; i++) {
-      row[i] = i == index1 ? factor2 : i == index2 ? -factor1 : 0.0;
+      row[i]
+          = i == index1
+          ? factor2
+          : i == index2
+          ? -factor1 
+          : 0.0;
     }
   }
+
+  @Override
+  public String toString() {
+    return "ProportionEquation: " + factor2 + " * x_" + index1 + " = " + factor1 + " * x_" + index2;
+  }
+
 }

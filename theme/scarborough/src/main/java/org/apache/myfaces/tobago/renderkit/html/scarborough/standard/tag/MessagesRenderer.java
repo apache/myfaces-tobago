@@ -39,6 +39,7 @@ import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -138,10 +139,10 @@ public class MessagesRenderer extends MessageRendererBase {
 
     AbstractUIPage page = ComponentUtil.findPage(facesContext, messages);
 
-    popup.setWidth(page.getWidth() - 200);
-    popup.setHeight(page.getHeight() - 200);
-    popup.setLeft(100);
-    popup.setTop(100);
+    popup.setWidth(new PixelMeasure(page.getWidth().getPixel() - 200));
+    popup.setHeight(new PixelMeasure(page.getHeight().getPixel() - 200));
+    popup.setLeft(new PixelMeasure(100));
+    popup.setTop(new PixelMeasure(100));
     popup.setRendered(true);
     popup.setActivated(true);
     ((TobagoFacesContext) facesContext).getPopups().add(popup);

@@ -20,12 +20,20 @@ package org.apache.myfaces.tobago.taglib.extension;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.internal.taglib.FileTag;
-import org.apache.myfaces.tobago.taglib.decl.InputTagDeclaration;
+import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
+import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
+import org.apache.myfaces.tobago.taglib.decl.HasValidator;
+import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
 import javax.servlet.jsp.JspException;
@@ -48,11 +56,12 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  * &lt;/tc:panel>
  * </pre>
  */
-
 @Tag(name = "file")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.FileTag")
 public class FileExtensionTag extends BodyTagSupport
-    implements InputTagDeclaration, HasIdBindingAndRendered, IsDisabled,
+    implements HasValidator, HasOnchange, HasValue, HasValueChangeListener,
+    HasValidatorMessage, HasConverterMessage, HasRequiredMessage, HasTabIndex, IsFocus,
+    HasIdBindingAndRendered, IsDisabled,
     HasTip, HasLabel, HasLabelWidth, IsRequired {
 
   private String binding;

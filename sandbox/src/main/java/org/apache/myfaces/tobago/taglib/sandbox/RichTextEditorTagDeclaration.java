@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.taglib.sandbox;
 
 /*import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;*/
@@ -35,7 +34,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasValue;*/
 // TODO: switched off @Tag(name="richTextEditor")
 public interface RichTextEditorTagDeclaration {
 //extends TextInputTagDeclaration,
-    /*HasIdBindingAndRendered, HasValue, HasLabelAndAccessKey, HasDeprecatedWidth {
+    /*HasIdBindingAndRendered, HasValue, HasLabelAndAccessKey {
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean")
   void setStatePreview(String statePreview);*/

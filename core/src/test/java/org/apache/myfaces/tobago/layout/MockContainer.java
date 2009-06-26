@@ -20,17 +20,13 @@ package org.apache.myfaces.tobago.layout;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * Date: 14.02.2008 12:03:31
- */
 public class MockContainer extends MockComponent implements Container {
 
   private LayoutManager layoutManager;
 
   private List<Component> components;
 
-  public MockContainer(Constraints constraints) {
-    super(constraints);
+  public MockContainer() {
     components = new ArrayList<Component>();
   }
 
