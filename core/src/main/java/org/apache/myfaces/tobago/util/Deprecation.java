@@ -26,15 +26,15 @@ public class Deprecation {
   /**
    * This Log object should help to detect the usage of deprecated code.
    * The main reason for this class is the lack of a "deprecated concept"
-   * for tag libraries. Thought the designer of a tobago page cannot see
+   * for tag libraries. Thought the designer of a Tobago page cannot see
    * in his IDE that a tag or attribute is deprecated.
    * <p>
-   * The Tobago java code will log into this Log object, with
+   * The Tobago Java code will log into this Log object, with
    * <dl>
    *   <dt><code>error</code></dt>
-   *   <dd>when the code will be removed soon in one of the next releases, or</dd>
+   *   <dd>when the code is deprecated with a loss of function, or</dd>
    *   <dt><code>warn</code></dt>
-   *   <dd>when the code is not optimal to use, but the code will work for some releases.</dd>
+   *   <dd>when the code is deprecated, but still works.</dd>
    * </dl>
    * <p>
    * This Log category can be switched off, in production environment without
