@@ -20,8 +20,8 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.OnComponentCreated;
-import org.apache.myfaces.tobago.layout.Component;
-import org.apache.myfaces.tobago.layout.Container;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 
 import javax.faces.component.UIComponent;
@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractUIPanel extends UIPanelBase implements Container {
+public abstract class AbstractUIPanel extends UIPanelBase implements LayoutContainer {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIPanel.class);
 
@@ -75,11 +75,11 @@ public abstract class AbstractUIPanel extends UIPanelBase implements Container {
     super.encodeEnd(facesContext);
   }
 
-  public List<Component> getComponents() {
-    List<Component> result = new ArrayList<Component>();
+  public List<LayoutComponent> getComponents() {
+    List<LayoutComponent> result = new ArrayList<LayoutComponent>();
     for (UIComponent uiComponent : (List<UIComponent>) getChildren()) {
-      if (uiComponent instanceof Component) {
-        result.add((Component) uiComponent);
+      if (uiComponent instanceof LayoutComponent) {
+        result.add((LayoutComponent) uiComponent);
       }
     }
     return result;

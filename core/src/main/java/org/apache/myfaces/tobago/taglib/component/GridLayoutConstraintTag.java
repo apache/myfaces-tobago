@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.layout.Component;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.Measure;
 
 import javax.faces.component.UIComponent;
@@ -131,14 +131,14 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
       throw new JspException("Component Instance is null");
     }
 
-    if (!(component instanceof Component)) {
+    if (!(component instanceof LayoutComponent)) {
       // TODO Message resource i18n
       throw new JspException("Component Instance is not a LayoutComponent");
     }
 
     if (isColumnSpanSet()) {
       if (isColumnSpanLiteral()) {
-        ((Component) component).setColumnSpan(Integer.valueOf(getColumnSpanExpression()));
+        ((LayoutComponent) component).setColumnSpan(Integer.valueOf(getColumnSpanExpression()));
       } else {
         component.setValueBinding(Attributes.COLUMN_SPAN, (ValueBinding) getColumnSpanAsBindingOrExpression());
       }
@@ -146,7 +146,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (isRowSpanSet()) {
       if (isRowSpanLiteral()) {
-        ((Component) component).setRowSpan(Integer.valueOf(getRowSpanExpression()));
+        ((LayoutComponent) component).setRowSpan(Integer.valueOf(getRowSpanExpression()));
       } else {
         component.setValueBinding(Attributes.ROW_SPAN, (ValueBinding) getRowSpanAsBindingOrExpression());
       }
@@ -154,7 +154,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (isWidthSet()) {
       if (isWidthLiteral()) {
-        ((Component) component).setWidth(Measure.parse(getWidthExpression()));
+        ((LayoutComponent) component).setWidth(Measure.parse(getWidthExpression()));
       } else {
         component.setValueBinding(Attributes.WIDTH, (ValueBinding) getWidthAsBindingOrExpression());
       }
@@ -162,7 +162,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (isHeightSet()) {
       if (isHeightLiteral()) {
-        ((Component) component).setHeight(Measure.parse(getHeightExpression()));
+        ((LayoutComponent) component).setHeight(Measure.parse(getHeightExpression()));
       } else {
         component.setValueBinding(Attributes.HEIGHT, (ValueBinding) getHeightAsBindingOrExpression());
       }
@@ -170,7 +170,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (isMinimumWidthSet()) {
       if (isMinimumWidthLiteral()) {
-        ((Component) component).setMinimumWidth(Measure.parse(getMinimumWidthExpression()));
+        ((LayoutComponent) component).setMinimumWidth(Measure.parse(getMinimumWidthExpression()));
       } else {
         component.setValueBinding(Attributes.MINIMUM_WIDTH, (ValueBinding) getMinimumWidthAsBindingOrExpression());
       }
@@ -178,7 +178,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (isMinimumHeightSet()) {
       if (isMinimumHeightLiteral()) {
-        ((Component) component).setMinimumHeight(Measure.parse(getMinimumHeightExpression()));
+        ((LayoutComponent) component).setMinimumHeight(Measure.parse(getMinimumHeightExpression()));
       } else {
         component.setValueBinding(Attributes.MINIMUM_WIDTH, (ValueBinding) getMinimumHeightAsBindingOrExpression());
       }
@@ -186,7 +186,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (isPreferredWidthSet()) {
       if (isPreferredWidthLiteral()) {
-        ((Component) component).setPreferredWidth(Measure.parse(getPreferredWidthExpression()));
+        ((LayoutComponent) component).setPreferredWidth(Measure.parse(getPreferredWidthExpression()));
       } else {
         component.setValueBinding(Attributes.PREFERRED_WIDTH, (ValueBinding) getPreferredWidthAsBindingOrExpression());
       }
@@ -194,7 +194,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (isPreferredHeightSet()) {
       if (isPreferredHeightLiteral()) {
-        ((Component) component).setPreferredHeight(Measure.parse(getPreferredHeightExpression()));
+        ((LayoutComponent) component).setPreferredHeight(Measure.parse(getPreferredHeightExpression()));
       } else {
         component.setValueBinding(Attributes.PREFERRED_WIDTH, (ValueBinding) getPreferredHeightAsBindingOrExpression());
       }
@@ -202,7 +202,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (isMaximumWidthSet()) {
       if (isMaximumWidthLiteral()) {
-        ((Component) component).setMaximumWidth(Measure.parse(getMaximumWidthExpression()));
+        ((LayoutComponent) component).setMaximumWidth(Measure.parse(getMaximumWidthExpression()));
       } else {
         component.setValueBinding(Attributes.MAXIMUM_WIDTH, (ValueBinding) getMaximumWidthAsBindingOrExpression());
       }
@@ -210,7 +210,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (isMaximumHeightSet()) {
       if (isMaximumHeightLiteral()) {
-        ((Component) component).setMaximumHeight(Measure.parse(getMaximumHeightExpression()));
+        ((LayoutComponent) component).setMaximumHeight(Measure.parse(getMaximumHeightExpression()));
       } else {
         component.setValueBinding(Attributes.MAXIMUM_WIDTH, (ValueBinding) getMaximumHeightAsBindingOrExpression());
       }

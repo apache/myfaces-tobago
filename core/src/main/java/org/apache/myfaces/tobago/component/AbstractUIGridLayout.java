@@ -20,10 +20,10 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.OnComponentCreated;
-import org.apache.myfaces.tobago.layout.Component;
-import org.apache.myfaces.tobago.layout.Container;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.FixedLayoutToken;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutContext;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutToken;
@@ -69,7 +69,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     grid = new Grid(columnTokens.getSize(), rowTokens.getSize());
   }
 
-  public void collect(LayoutContext layoutContext, Container container, int horizontalIndex, int verticalIndex) {
+  public void collect(LayoutContext layoutContext, LayoutContainer container, int horizontalIndex, int verticalIndex) {
 
     // horizontal
     EquationManager horizontal = layoutContext.getHorizontal();
@@ -79,8 +79,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     EquationManager vertical = layoutContext.getVertical();
     int[] verticalIndices = vertical.divide(verticalIndex, rowTokens.getSize());
 
-    List<Component> components = container.getComponents();
-    for (Component component1 : components) {
+    List<LayoutComponent> components = container.getComponents();
+    for (LayoutComponent component1 : components) {
       grid.add(new RealCell(component1), component1.getColumnSpan(), component1.getRowSpan());
       LOG.debug("\n" + grid);
     }
@@ -93,7 +93,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
         org.apache.myfaces.tobago.layout.grid.Cell temp = grid.get(i, j);
         if (temp instanceof RealCell) {
           RealCell cell = (RealCell) temp;
-          Component component = temp.getComponent();
+          LayoutComponent component = temp.getComponent();
 
           // horizontal
           int hIndex = horizontal.addComponent(horizontalIndices[i], cell.getColumnSpan());
@@ -103,8 +103,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
           int vIndex = vertical.addComponent(verticalIndices[j], cell.getRowSpan());
           cell.getComponent().setVerticalIndex(vIndex);
 
-          if (component instanceof Container) {
-            Container subContainer = (Container) component;
+          if (component instanceof LayoutContainer) {
+            LayoutContainer subContainer = (LayoutContainer) component;
             LayoutManager layoutManager = subContainer.getLayoutManager();
             layoutManager.collect(layoutContext, subContainer, hIndex, vIndex);
           }
@@ -113,7 +113,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     }
   }
 
-  public void distribute(LayoutContext layoutContext, Container container) {
+  public void distribute(LayoutContext layoutContext, LayoutContainer container) {
 
     distributeSizes(layoutContext);
     distributePositions();
@@ -126,7 +126,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
         Cell temp = grid.get(i, j);
         if (temp instanceof RealCell) {
           RealCell cell = (RealCell) temp;
-          Component component = temp.getComponent();
+          LayoutComponent component = temp.getComponent();
 
           component.setDisplay(Display.BLOCK);
 
@@ -142,9 +142,9 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
           component.setWidth(width);
           component.setHeight(height);
 
-          if (component instanceof Container) {
+          if (component instanceof LayoutContainer) {
 
-            Container subContainer = (Container) component;
+            LayoutContainer subContainer = (LayoutContainer) component;
             LayoutManager layoutManager = subContainer.getLayoutManager();
             if (layoutManager != null) {
               layoutManager.distribute(layoutContext, subContainer);
@@ -165,7 +165,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
         if (cell == null) {
           continue; // XXX why this can happen?
         }
-        Component component = cell.getComponent();
+        LayoutComponent component = cell.getComponent();
         if (cell instanceof RealCell) {
           component.setLeft(left);
         }
@@ -183,7 +183,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
         if (cell == null) {
           continue; // XXX why this can happen?
         }
-        Component component = cell.getComponent();
+        LayoutComponent component = cell.getComponent();
         if (cell instanceof RealCell) {
           component.setTop(top);
         }

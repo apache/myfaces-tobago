@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.component;
  */
 
 import org.apache.myfaces.tobago.OnComponentCreated;
-import org.apache.myfaces.tobago.layout.Container;
+import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutContext;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 
@@ -31,10 +31,10 @@ public abstract class AbstractUITabGroupLayout extends UILayout implements OnCom
   public void onComponentCreated(FacesContext context, UIComponent component) {
   }
 
-  public void collect(LayoutContext layoutContext, Container container, int horizontalIndex, int verticalIndex) {
+  public void collect(LayoutContext layoutContext, LayoutContainer container, int horizontalIndex, int verticalIndex) {
   }
 
-  public void distribute(LayoutContext layoutContext, Container container) {
+  public void distribute(LayoutContext layoutContext, LayoutContainer container) {
   }
 
   @Override

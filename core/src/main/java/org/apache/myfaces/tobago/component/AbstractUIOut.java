@@ -17,9 +17,9 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.layout.Component;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 
 import javax.faces.component.UIOutput;
 
-public abstract class AbstractUIOut extends UIOutput implements Component {
+public abstract class AbstractUIOut extends UIOutput implements LayoutComponent {
 }

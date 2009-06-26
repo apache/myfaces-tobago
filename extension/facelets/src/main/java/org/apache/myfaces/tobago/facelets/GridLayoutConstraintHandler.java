@@ -24,7 +24,7 @@ import com.sun.facelets.tag.TagHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.layout.Component;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.Measure;
 
 import javax.el.ELException;
@@ -68,8 +68,8 @@ public class GridLayoutConstraintHandler extends TagHandler {
   public void apply(FaceletContext faceletContext, UIComponent parent)
       throws IOException, FacesException, ELException {
 
-    if (parent instanceof Component) {
-      Component component = (Component) parent;
+    if (parent instanceof LayoutComponent) {
+      LayoutComponent component = (LayoutComponent) parent;
 
         if (columnSpan != null) {
           LOG.error(columnSpan.getValue());

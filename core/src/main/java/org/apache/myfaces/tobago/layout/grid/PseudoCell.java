@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.layout.grid;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.layout.Component;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 
 public class PseudoCell implements Cell {
 
@@ -31,7 +31,7 @@ public class PseudoCell implements Cell {
     this.inFirstRow = inFirstRow;
   }
 
-  public Component getComponent() {
+  public LayoutComponent getComponent() {
     return realCell.getComponent();
   }
 

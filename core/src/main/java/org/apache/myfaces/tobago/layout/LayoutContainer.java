@@ -19,10 +19,9 @@ package org.apache.myfaces.tobago.layout;
 
 import java.util.List;
 
-// XXX rename to LayoutContainer
-public interface Container extends Component {
+public interface LayoutContainer extends LayoutComponent {
 
-  List<Component> getComponents();
+  List<LayoutComponent> getComponents();
 
   LayoutManager getLayoutManager();
 }

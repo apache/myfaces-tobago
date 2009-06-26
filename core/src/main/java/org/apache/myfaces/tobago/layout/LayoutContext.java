@@ -23,9 +23,9 @@ public class LayoutContext {
 
   private EquationManager horizontal;
   private EquationManager vertical;
-  private Container container;
+  private LayoutContainer container;
 
-  public LayoutContext(Container container) {
+  public LayoutContext(LayoutContainer container) {
     this.horizontal = new EquationManager();
     this.vertical = new EquationManager();
     this.container = container;

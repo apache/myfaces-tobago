@@ -25,8 +25,8 @@ import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.layout.Box;
-import org.apache.myfaces.tobago.layout.Component;
-import org.apache.myfaces.tobago.layout.Container;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.PageState;
@@ -48,7 +48,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnComponent, Container {
+public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnComponent, LayoutContainer {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIPage.class);
 
@@ -332,11 +332,11 @@ public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnC
   }
 
 // LAYOUT Begin
-  public List<Component> getComponents() {
-    List<Component> result = new ArrayList<Component>();
+  public List<LayoutComponent> getComponents() {
+    List<LayoutComponent> result = new ArrayList<LayoutComponent>();
     for (UIComponent uiComponent : (List<UIComponent>) getChildren()) {
-     if (uiComponent instanceof Component) {
-       result.add((Component) uiComponent);
+     if (uiComponent instanceof LayoutComponent) {
+       result.add((LayoutComponent) uiComponent);
      }
     }
     return result;

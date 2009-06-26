@@ -21,8 +21,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.layout.Component;
 import org.apache.myfaces.tobago.layout.Display;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.css.CssProperties;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -411,8 +411,8 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
   }
 
   private HtmlStyleMap addLayout(HtmlStyleMap styles) {
-    if (component instanceof Component) {
-      Component layoutComponent = (Component) component;
+    if (component instanceof LayoutComponent) {
+      LayoutComponent layoutComponent = (LayoutComponent) component;
       Measure width = layoutComponent.getWidth();
       if (width != null) {
         styles = ensureHtmlStyleMap(component, styles);

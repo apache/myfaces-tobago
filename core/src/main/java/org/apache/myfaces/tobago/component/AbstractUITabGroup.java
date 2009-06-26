@@ -26,8 +26,8 @@ import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource;
-import org.apache.myfaces.tobago.layout.Component;
-import org.apache.myfaces.tobago.layout.Container;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 
 import javax.faces.component.ActionSource;
@@ -46,7 +46,7 @@ import java.util.Collection;
 import java.util.List;
 
 public abstract class AbstractUITabGroup extends UIPanelBase
-    implements TabChangeSource, ActionSource, AjaxComponent, Container, OnComponentCreated {
+    implements TabChangeSource, ActionSource, AjaxComponent, LayoutContainer, OnComponentCreated {
 
   private static final Log LOG = LogFactory.getLog(AbstractUITabGroup.class);
 
@@ -313,11 +313,11 @@ public abstract class AbstractUITabGroup extends UIPanelBase
   }
 
   // LAYOUT Begin
-  public List<Component> getComponents() {
-    List<Component> result = new ArrayList<Component>();
+  public List<LayoutComponent> getComponents() {
+    List<LayoutComponent> result = new ArrayList<LayoutComponent>();
     for (UIComponent uiComponent : (List<UIComponent>) getChildren()) {
-      if (uiComponent instanceof Component) {
-        result.add((Component) uiComponent);
+      if (uiComponent instanceof LayoutComponent) {
+        result.add((LayoutComponent) uiComponent);
       }
     }
     return result;

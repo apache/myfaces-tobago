@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-public class MockComponent implements Component {
+public class MockComponent implements LayoutComponent {
 
   private Integer columnSpan = 1;
 

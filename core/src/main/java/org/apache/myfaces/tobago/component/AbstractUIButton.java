@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.layout.Component;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 
-public abstract class AbstractUIButton extends AbstractUICommand implements Component {
+public abstract class AbstractUIButton extends AbstractUICommand implements LayoutComponent {
 
 }

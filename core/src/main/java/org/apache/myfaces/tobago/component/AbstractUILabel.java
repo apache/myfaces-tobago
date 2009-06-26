@@ -19,13 +19,13 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.layout.Component;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public abstract class AbstractUILabel extends javax.faces.component.UIOutput implements Component {
+public abstract class AbstractUILabel extends javax.faces.component.UIOutput implements LayoutComponent {
 
   private static final Log LOG = LogFactory.getLog(AbstractUILabel.class);
 

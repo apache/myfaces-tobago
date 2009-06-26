@@ -17,8 +17,7 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-// XXX rename to LayoutComponent
-public interface Component {
+public interface LayoutComponent {
 
   Integer getColumnSpan();
   void setColumnSpan(Integer columnSpan);
