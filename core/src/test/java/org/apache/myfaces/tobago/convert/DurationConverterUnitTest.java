@@ -17,53 +17,44 @@ package org.apache.myfaces.tobago.convert;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIInput;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import javax.faces.convert.Converter;
 
-public class DurationConverterUnitTest extends TestCase {
-
-// ///////////////////////////////////////////// constant
-
-// ///////////////////////////////////////////// attribute
+public class DurationConverterUnitTest {
 
   private Converter converter;
 
-// ///////////////////////////////////////////// constructor
-
-  public DurationConverterUnitTest(String string) {
-    super(string);
-  }
-
-// ///////////////////////////////////////////// code
-
-  protected void setUp() throws Exception {
-    super.setUp();
+  @Before
+  public void setUp() throws Exception {
     converter = new DurationConverter();
   }
 
-
+  @Test
   public void testFormat() {
 
-    format(null, new Long(1000L), "0:01");
-    format("second", new Long(1000L), "16:40");
-    format("minute", new Long(-100L), "-1:40:00");
-    format("hour", new Long(1L), "1:00:00");
-    format("day", new Long(1L), "24:00:00");
-    format("year", new Long(1L), "8765:45:36");
+    format(null, 1000L, "0:01");
+    format("second", 1000L, "16:40");
+    format("minute", -100L, "-1:40:00");
+    format("hour", 1L, "1:00:00");
+    format("day", 1L, "24:00:00");
+    format("year", 1L, "8765:45:36");
 
   }
 
+  @Test
   public void testParse() {
 
-    parse(null, new Long(1000L), "0:01");
-    parse("second", new Long(1001L), "16:41");
-    parse("minute", new Long(-16L), "-16:41");
-    parse("hour", new Long(1L), "1:00:00");
-    parse("day", new Long(1L), "24:00:00");
-    parse("year", new Long(1L), "8765:45:36");
+    parse(null, 1000L, "0:01");
+    parse("second", 1001L, "16:41");
+    parse("minute", -16L, "-16:41");
+    parse("hour", 1L, "1:00:00");
+    parse("day", 1L, "24:00:00");
+    parse("year", 1L, "8765:45:36");
   }
 
   private void format(String unit, Long aLong, String string) {
@@ -76,7 +67,7 @@ public class DurationConverterUnitTest extends TestCase {
       input.getAttributes().put(Attributes.UNIT, unit);
     }
     result = converter.getAsString(null, input, aLong);
-    assertEquals(info, string, result);
+    Assert.assertEquals(info, string, result);
   }
 
   private void parse(String unit, Long aLong, String string) {
@@ -89,10 +80,7 @@ public class DurationConverterUnitTest extends TestCase {
       input.getAttributes().put(Attributes.UNIT, unit);
     }
     result = (Long) converter.getAsObject(null, input, string);
-    assertEquals(info, aLong, result);
+    Assert.assertEquals(info, aLong, result);
   }
-
-
-// ///////////////////////////////////////////// bean getter + setter
 
 }

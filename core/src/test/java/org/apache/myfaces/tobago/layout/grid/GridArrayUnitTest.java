@@ -17,21 +17,20 @@ package org.apache.myfaces.tobago.layout.grid;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-/*
- * Date: 25.01.2008 17:05:52
- */
-public class GridArrayUnitTest extends TestCase {
+public class GridArrayUnitTest {
 
+  @Test
   public void test() {
 
     GridArray gridArray = new GridArray(1, 1);
-    gridArray.get(0,0);
-    assertEquals (1, gridArray.getRowCount());
-    gridArray.get(0,1);
-    assertEquals (1, gridArray.getRowCount());
-    gridArray.set(0,1, null);
-    assertEquals (2, gridArray.getRowCount());
+    gridArray.get(0, 0);
+    Assert.assertEquals(1, gridArray.getRowCount());
+    gridArray.get(0, 1);
+    Assert.assertEquals(1, gridArray.getRowCount());
+    gridArray.set(0, 1, null);
+    Assert.assertEquals(2, gridArray.getRowCount());
   }
 }

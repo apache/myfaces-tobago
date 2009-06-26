@@ -17,32 +17,38 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class LayoutTokensUnitTest extends TestCase {
+public class LayoutTokensUnitTest {
 
+  @Test
   public void testIsPixelToken() {
-    assertTrue(LayoutTokens.isPixelToken("120px"));
+    Assert.assertTrue(LayoutTokens.isPixelToken("120px"));
   }
 
+  @Test
   public void testIsPercentToken() {
-    assertTrue(LayoutTokens.isPercentToken("50%"));
+    Assert.assertTrue(LayoutTokens.isPercentToken("50%"));
   }
 
+  @Test
   public void testIsRelativeToken() {
-    assertTrue(LayoutTokens.isRelativeToken("3*"));
+    Assert.assertTrue(LayoutTokens.isRelativeToken("3*"));
   }
 
+  @Test
   public void testIsNumberAndSuffix() {
-    assertTrue(LayoutTokens.isNumberAndSuffix("34cm", "cm"));
-    assertFalse(LayoutTokens.isNumberAndSuffix("acm", "cm"));
-    assertFalse(LayoutTokens.isNumberAndSuffix("cm", "cm"));
+    Assert.assertTrue(LayoutTokens.isNumberAndSuffix("34cm", "cm"));
+    Assert.assertFalse(LayoutTokens.isNumberAndSuffix("acm", "cm"));
+    Assert.assertFalse(LayoutTokens.isNumberAndSuffix("cm", "cm"));
   }
 
+  @Test
   public void testParseToken() {
-    assertEquals(RelativeLayoutToken.DEFAULT_INSTANCE, LayoutTokens.parseToken("*"));
-    assertEquals(new RelativeLayoutToken(3), LayoutTokens.parseToken("3*"));
-    assertEquals(new PercentLayoutToken(33), LayoutTokens.parseToken("33%"));
-    assertEquals(new PixelLayoutToken(120), LayoutTokens.parseToken("120px"));
+    Assert.assertEquals(RelativeLayoutToken.DEFAULT_INSTANCE, LayoutTokens.parseToken("*"));
+    Assert.assertEquals(new RelativeLayoutToken(3), LayoutTokens.parseToken("3*"));
+    Assert.assertEquals(new PercentLayoutToken(33), LayoutTokens.parseToken("33%"));
+    Assert.assertEquals(new PixelLayoutToken(120), LayoutTokens.parseToken("120px"));
   }
 }

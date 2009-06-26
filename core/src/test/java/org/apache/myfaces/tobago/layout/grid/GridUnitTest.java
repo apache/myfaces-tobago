@@ -17,35 +17,34 @@ package org.apache.myfaces.tobago.layout.grid;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-/*
- * Date: 24.01.2008 16:31:58
- */
-public class GridUnitTest extends TestCase {
+public class GridUnitTest {
 
+  @Test
   public void test1x1() {
 
     Grid grid = new Grid(1, 1);
-    assertEquals(1, grid.getColumnCount());
-    assertEquals(1, grid.getRowCount());
-    assertEquals(""
+    Assert.assertEquals(1, grid.getColumnCount());
+    Assert.assertEquals(1, grid.getRowCount());
+    Assert.assertEquals(""
         + "┌─┐\n"
         + "│◌│\n"
         + "└─┘\n", grid.toString());
 
     grid.add(new RealCell(null), 1, 1);
-    assertEquals(1, grid.getColumnCount());
-    assertEquals(1, grid.getRowCount());
-    assertEquals(""
+    Assert.assertEquals(1, grid.getColumnCount());
+    Assert.assertEquals(1, grid.getRowCount());
+    Assert.assertEquals(""
         + "┏━┓\n"
         + "┃█┃\n"
         + "┗━┛\n", grid.toString());
 
     grid.add(new RealCell(null), 1, 1);
-    assertEquals(1, grid.getColumnCount());
-    assertEquals(2, grid.getRowCount());
-    assertEquals(""
+    Assert.assertEquals(1, grid.getColumnCount());
+    Assert.assertEquals(2, grid.getRowCount());
+    Assert.assertEquals(""
         + "┏━┓\n"
         + "┃█┃\n"
         + "┣━┫\n"
@@ -53,9 +52,9 @@ public class GridUnitTest extends TestCase {
         + "┗━┛\n", grid.toString());
 
     grid.add(new RealCell(null), 1, 2);
-    assertEquals(1, grid.getColumnCount());
-    assertEquals(4, grid.getRowCount());
-    assertEquals(""
+    Assert.assertEquals(1, grid.getColumnCount());
+    Assert.assertEquals(4, grid.getRowCount());
+    Assert.assertEquals(""
         + "┏━┓\n"
         + "┃█┃\n"
         + "┣━┫\n"
@@ -68,9 +67,9 @@ public class GridUnitTest extends TestCase {
 
     // with warning
     grid.add(new RealCell(null), 2, 1);
-    assertEquals(1, grid.getColumnCount());
-    assertEquals(5, grid.getRowCount());
-    assertEquals(""
+    Assert.assertEquals(1, grid.getColumnCount());
+    Assert.assertEquals(5, grid.getRowCount());
+    Assert.assertEquals(""
         + "┏━┓\n"
         + "┃█┃\n"
         + "┣━┫\n"
@@ -84,36 +83,37 @@ public class GridUnitTest extends TestCase {
         + "┗━┛\n", grid.toString());
   }
 
+  @Test
   public void test2x1() {
 
     Grid grid = new Grid(2, 1);
-    assertEquals(2, grid.getColumnCount());
-    assertEquals(1, grid.getRowCount());
-    assertEquals(""
+    Assert.assertEquals(2, grid.getColumnCount());
+    Assert.assertEquals(1, grid.getRowCount());
+    Assert.assertEquals(""
         + "┌─┬─┐\n"
         + "│◌│◌│\n"
         + "└─┴─┘\n", grid.toString());
 
     grid.add(new RealCell(null), 1, 1);
-    assertEquals(2, grid.getColumnCount());
-    assertEquals(1, grid.getRowCount());
-    assertEquals(""
+    Assert.assertEquals(2, grid.getColumnCount());
+    Assert.assertEquals(1, grid.getRowCount());
+    Assert.assertEquals(""
         + "┏━┱─┐\n"
         + "┃█┃◌│\n"
         + "┗━┹─┘\n", grid.toString());
 
     grid.add(new RealCell(null), 1, 1);
-    assertEquals(2, grid.getColumnCount());
-    assertEquals(1, grid.getRowCount());
-    assertEquals(""
+    Assert.assertEquals(2, grid.getColumnCount());
+    Assert.assertEquals(1, grid.getRowCount());
+    Assert.assertEquals(""
         + "┏━┳━┓\n"
         + "┃█┃█┃\n"
         + "┗━┻━┛\n", grid.toString());
 
     grid.add(new RealCell(null), 2, 2);
-    assertEquals(2, grid.getColumnCount());
-    assertEquals(3, grid.getRowCount());
-    assertEquals(""
+    Assert.assertEquals(2, grid.getColumnCount());
+    Assert.assertEquals(3, grid.getRowCount());
+    Assert.assertEquals(""
         + "┏━┳━┓\n"
         + "┃█┃█┃\n"
         + "┣━╇━┫\n"
@@ -123,9 +123,9 @@ public class GridUnitTest extends TestCase {
         + "┗━┷━┛\n", grid.toString());
 
     grid.add(new RealCell(null), 1, 2);
-    assertEquals(2, grid.getColumnCount());
-    assertEquals(5, grid.getRowCount());
-    assertEquals(""
+    Assert.assertEquals(2, grid.getColumnCount());
+    Assert.assertEquals(5, grid.getRowCount());
+    Assert.assertEquals(""
         + "┏━┳━┓\n"
         + "┃█┃█┃\n"
         + "┣━╇━┫\n"
@@ -139,9 +139,9 @@ public class GridUnitTest extends TestCase {
         + "┗━┹─┘\n", grid.toString());
 
     grid.add(new RealCell(null), 1, 1);
-    assertEquals(2, grid.getColumnCount());
-    assertEquals(5, grid.getRowCount());
-    assertEquals(""
+    Assert.assertEquals(2, grid.getColumnCount());
+    Assert.assertEquals(5, grid.getRowCount());
+    Assert.assertEquals(""
         + "┏━┳━┓\n"
         + "┃█┃█┃\n"
         + "┣━╇━┫\n"
@@ -155,9 +155,9 @@ public class GridUnitTest extends TestCase {
         + "┗━┹─┘\n", grid.toString());
 
     grid.add(new RealCell(null), 1, 2);
-    assertEquals(2, grid.getColumnCount());
-    assertEquals(6, grid.getRowCount());
-    assertEquals(""
+    Assert.assertEquals(2, grid.getColumnCount());
+    Assert.assertEquals(6, grid.getRowCount());
+    Assert.assertEquals(""
         + "┏━┳━┓\n"
         + "┃█┃█┃\n"
         + "┣━╇━┫\n"
@@ -174,16 +174,17 @@ public class GridUnitTest extends TestCase {
 
     grid.add(new RealCell(null), 2, 1);
     // fehler
-    assertEquals(2, grid.getColumnCount());
-    assertEquals(6, grid.getRowCount());
+    Assert.assertEquals(2, grid.getColumnCount());
+    Assert.assertEquals(6, grid.getRowCount());
   }
 
+  @Test
   public void test5x5() {
 
     Grid grid = new Grid(5, 5);
-    assertEquals(5, grid.getColumnCount());
-    assertEquals(5, grid.getRowCount());
-    assertEquals(""
+    Assert.assertEquals(5, grid.getColumnCount());
+    Assert.assertEquals(5, grid.getRowCount());
+    Assert.assertEquals(""
         + "┌─┬─┬─┬─┬─┐\n"
         + "│◌│◌│◌│◌│◌│\n"
         + "├─┼─┼─┼─┼─┤\n"
@@ -209,9 +210,9 @@ public class GridUnitTest extends TestCase {
     grid.add(new RealCell(null), 1, 2);
     grid.add(new RealCell(null), 2, 1);
     grid.add(new RealCell(null), 1, 1);
-    assertEquals(5, grid.getColumnCount());
-    assertEquals(5, grid.getRowCount());
-    assertEquals(""
+    Assert.assertEquals(5, grid.getColumnCount());
+    Assert.assertEquals(5, grid.getRowCount());
+    Assert.assertEquals(""
         + "┏━┳━┳━┳━┯━┓\n"
         + "┃█┃█┃█┃█│➞┃\n"
         + "┠─╂─╊━╇━┿━┫\n"

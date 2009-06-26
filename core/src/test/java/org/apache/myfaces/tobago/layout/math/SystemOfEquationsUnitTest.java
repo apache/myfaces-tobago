@@ -17,17 +17,19 @@ package org.apache.myfaces.tobago.layout.math;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.text.DecimalFormat;
 import java.util.Arrays;
 
-public class SystemOfEquationsUnitTest extends TestCase {
+public class SystemOfEquationsUnitTest {
 
   private static final Log LOG = LogFactory.getLog(SystemOfEquationsUnitTest.class);
 
+  @Test
   public void test2To3() {
 
     long begin = System.nanoTime();
@@ -46,9 +48,10 @@ public class SystemOfEquationsUnitTest extends TestCase {
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    AssertUtils.assertEquals(new double[]{1000, 400, 600}, result, SystemOfEquations.EPSILON);
+    Assert.assertArrayEquals(new double[]{1000, 400, 600}, result, SystemOfEquations.EPSILON);
   }
 
+  @Test
   public void test1To2To3To4() {
 
     long begin = System.nanoTime();
@@ -69,9 +72,10 @@ public class SystemOfEquationsUnitTest extends TestCase {
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    AssertUtils.assertEquals(new double[]{1000, 100, 200, 300, 400}, result, SystemOfEquations.EPSILON);
+    Assert.assertArrayEquals(new double[]{1000, 100, 200, 300, 400}, result, SystemOfEquations.EPSILON);
   }
 
+  @Test
   public void test1To2To3To4To5To6To7To8To9To10() {
 
     long begin = System.nanoTime();
@@ -99,9 +103,10 @@ public class SystemOfEquationsUnitTest extends TestCase {
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    AssertUtils.assertEquals(new double[]{1100, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200}, result, SystemOfEquations.EPSILON);
+    Assert.assertArrayEquals(new double[]{1100, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200}, result, SystemOfEquations.EPSILON);
   }
 
+  @Test
   public void test1To___To100() {
 
     long begin = System.nanoTime();
@@ -130,7 +135,7 @@ public class SystemOfEquationsUnitTest extends TestCase {
     for (int i = 0; i < n; i++) {
       expected[i + 1] = i + 1;
     }
-    AssertUtils.assertEquals(expected, result, SystemOfEquations.EPSILON);
+    Assert.assertArrayEquals(expected, result, SystemOfEquations.EPSILON);
   }
 
   /**
@@ -140,6 +145,7 @@ public class SystemOfEquationsUnitTest extends TestCase {
    * |           |   *   |   *   |   *   |
    * </pre>
    */
+  @Test
   public void testSubPartition() {
 
     long begin = System.nanoTime();
@@ -162,17 +168,18 @@ public class SystemOfEquationsUnitTest extends TestCase {
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    AssertUtils.assertEquals(new double[]{900, 300, 300, 300, 200, 200, 200}, result, SystemOfEquations.EPSILON);
+    Assert.assertArrayEquals(new double[]{900, 300, 300, 300, 200, 200, 200}, result, SystemOfEquations.EPSILON);
   }
 
+  @Test
   public void testAddVariables() {
 
     SystemOfEquations equations = new SystemOfEquations(0);
-    assertEquals(0, equations.getNumberOfVariables());
+    Assert.assertEquals(0, equations.getNumberOfVariables());
     equations.addVariables(1);
-    assertEquals(1, equations.getNumberOfVariables());
+    Assert.assertEquals(1, equations.getNumberOfVariables());
     equations.addVariables(4);
-    assertEquals(5, equations.getNumberOfVariables());
+    Assert.assertEquals(5, equations.getNumberOfVariables());
   }
 
   /**
@@ -182,6 +189,7 @@ public class SystemOfEquationsUnitTest extends TestCase {
    * |           |   *   |   *   |   *   |
    * </pre>
    */
+  @Test
   public void testTooManyVariables() {
 
     long begin = System.nanoTime();
@@ -204,7 +212,7 @@ public class SystemOfEquationsUnitTest extends TestCase {
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    AssertUtils.assertEquals(new double[]{450, 150, 150, 150, 100, 100, 100}, result, SystemOfEquations.EPSILON);
+    Assert.assertArrayEquals(new double[]{450, 150, 150, 150, 100, 100, 100}, result, SystemOfEquations.EPSILON);
   }
 
   /**
@@ -213,6 +221,7 @@ public class SystemOfEquationsUnitTest extends TestCase {
    * |     50px     |     50px     |
    * </pre>
    */
+  @Test
   public void testTooManyEquations() {
 
     long begin = System.nanoTime();
@@ -234,7 +243,7 @@ public class SystemOfEquationsUnitTest extends TestCase {
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    AssertUtils.assertEquals(new double[]{100, 50, 50, 50}, result, SystemOfEquations.EPSILON);
+    Assert.assertArrayEquals(new double[]{100, 50, 50, 50}, result, SystemOfEquations.EPSILON);
   }
 
   /**
@@ -244,6 +253,7 @@ public class SystemOfEquationsUnitTest extends TestCase {
    * |   100px   |     *     |
    * </pre>
    */
+  @Test
   public void testTwoSubs() {
 
     long begin = System.nanoTime();
@@ -266,7 +276,7 @@ public class SystemOfEquationsUnitTest extends TestCase {
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    AssertUtils.assertEquals(new double[]{450, 150, 150, 150, 100, 100, 100}, result, SystemOfEquations.EPSILON);
+    Assert.assertArrayEquals(new double[]{450, 150, 150, 150, 100, 100, 100}, result, SystemOfEquations.EPSILON);
   }
 
 

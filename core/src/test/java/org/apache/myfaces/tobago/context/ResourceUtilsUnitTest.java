@@ -1,7 +1,5 @@
 package org.apache.myfaces.tobago.context;
 
-import junit.framework.TestCase;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,15 +17,20 @@ import junit.framework.TestCase;
  * limitations under the License.
  */
 
-public class ResourceUtilsUnitTest extends TestCase {
+import org.junit.Assert;
+import org.junit.Test;
 
+public class ResourceUtilsUnitTest {
+
+  @Test
   public void testCreateString() {
-    assertEquals("folder/treeNode-icon-open.gif",
+    Assert.assertEquals("folder/treeNode-icon-open.gif",
         ResourceUtils.createString("folder", "treeNode", "icon", "open", "gif"));
   }
 
+  @Test
   public void testCreateString2() {
-        assertEquals("folder/treeNode-icon.gif",
+    Assert.assertEquals("folder/treeNode-icon.gif",
         ResourceUtils.createString("folder", "treeNode", "icon", "gif"));
   }
 }

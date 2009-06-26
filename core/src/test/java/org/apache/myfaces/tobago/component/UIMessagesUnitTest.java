@@ -17,70 +17,69 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
+import org.apache.shale.test.mock.MockFacesContext;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.util.List;
 
-import org.apache.shale.test.mock.MockFacesContext;
-
-/**
- * @author lofwyr (latest modification by $Author$)
- * @version $Revision$ $Date$
- */
-public class UIMessagesUnitTest extends TestCase {
+public class UIMessagesUnitTest {
 
   private FacesContext facesContext;
 
-  @Override
-  protected void setUp() throws Exception {
-    super.setUp();
-
+  @Before
+  public void setUp() throws Exception {
     facesContext = new MockFacesContext();
     facesContext.addMessage("id0", new FacesMessage(FacesMessage.SEVERITY_INFO, "test", "a test"));
     facesContext.addMessage("id0", new FacesMessage(FacesMessage.SEVERITY_WARN, "test", "a test"));
     facesContext.addMessage("id1", new FacesMessage(FacesMessage.SEVERITY_ERROR, "test", "a test"));
     facesContext.addMessage("id1", new FacesMessage(FacesMessage.SEVERITY_FATAL, "test", "a test"));
     facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "test", "a test"));
-
   }
 
+  @Test
   public void testCreateMessageListAll() {
 
     UIMessages component = new UIMessages();
     List<UIMessages.Item> messages = component.createMessageList(facesContext);
 
-    assertEquals(5, messages.size());
+    Assert.assertEquals(5, messages.size());
   }
 
+  @Test
   public void testCreateMessageListGlobalOnly() {
 
     UIMessages component = new UIMessages();
     component.setGlobalOnly(true);
     List<UIMessages.Item> messages = component.createMessageList(facesContext);
 
-    assertEquals(1, messages.size());
+    Assert.assertEquals(1, messages.size());
   }
 
+  @Test
   public void testCreateMessageListForId0() {
 
     UIMessages component = new UIMessages();
     component.setFor("id0");
     List<UIMessages.Item> messages = component.createMessageList(facesContext);
 
-    assertEquals(2, messages.size());
+    Assert.assertEquals(2, messages.size());
   }
 
+  @Test
   public void testCreateMessageListInfoToWarn() {
 
     UIMessages component = new UIMessages();
     component.setMaxSeverity(FacesMessage.SEVERITY_WARN);
     List<UIMessages.Item> messages = component.createMessageList(facesContext);
 
-    assertEquals(2, messages.size());
+    Assert.assertEquals(2, messages.size());
   }
 
+  @Test
   public void testCreateMessageListWarnToError() {
 
     UIMessages component = new UIMessages();
@@ -88,31 +87,34 @@ public class UIMessagesUnitTest extends TestCase {
     component.setMaxSeverity(FacesMessage.SEVERITY_ERROR);
     List<UIMessages.Item> messages = component.createMessageList(facesContext);
 
-    assertEquals(2, messages.size());
+    Assert.assertEquals(2, messages.size());
   }
 
+  @Test
   public void testCreateMessageListErrorToFatal() {
 
     UIMessages component = new UIMessages();
     component.setMinSeverity(FacesMessage.SEVERITY_ERROR);
     List<UIMessages.Item> messages = component.createMessageList(facesContext);
 
-    assertEquals(3, messages.size());
+    Assert.assertEquals(3, messages.size());
   }
 
+  @Test
   public void testCreateMessageListMaxNumber() {
 
     UIMessages component = new UIMessages();
 
     component.setMaxNumber(3);
     List<UIMessages.Item> messages = component.createMessageList(facesContext);
-    assertEquals(3, messages.size());
+    Assert.assertEquals(3, messages.size());
 
     component.setMaxNumber(30000);
     messages = component.createMessageList(facesContext);
-    assertEquals(5, messages.size());
+    Assert.assertEquals(5, messages.size());
   }
 
+  @Test
   public void testCreateMessageListOrderBySeverity() {
 
     UIMessages component = new UIMessages();
@@ -122,15 +124,16 @@ public class UIMessagesUnitTest extends TestCase {
     int mustShrink = FacesMessage.SEVERITY_FATAL.getOrdinal();
     for (UIMessages.Item message : messages) {
       int newValue = message.getFacesMessage().getSeverity().getOrdinal();
-      assertTrue(mustShrink >= newValue);
+      Assert.assertTrue(mustShrink >= newValue);
       mustShrink = newValue;
     }
   }
 
+  @Test
   public void testOrderByEnum() {
-    assertEquals(2, UIMessages.OrderBy.values().length);
-    assertEquals(UIMessages.OrderBy.OCCURENCE, UIMessages.OrderBy.parse(UIMessages.OrderBy.OCCURENCE_STRING));
-    assertEquals(UIMessages.OrderBy.SEVERITY, UIMessages.OrderBy.parse(UIMessages.OrderBy.SEVERITY_STRING));
+    Assert.assertEquals(2, UIMessages.OrderBy.values().length);
+    Assert.assertEquals(UIMessages.OrderBy.OCCURENCE, UIMessages.OrderBy.parse(UIMessages.OrderBy.OCCURENCE_STRING));
+    Assert.assertEquals(UIMessages.OrderBy.SEVERITY, UIMessages.OrderBy.parse(UIMessages.OrderBy.SEVERITY_STRING));
   }
 
 }

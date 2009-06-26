@@ -17,90 +17,86 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
-
+import org.junit.Assert;
+import org.junit.Test;
 
 import javax.faces.model.ListDataModel;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-/**
- * @author bommel (latest modification by $Author$)
- * @version $Revision$ $Date$
- */
-public class UIDataUnitTest extends TestCase {
-  String [] nineRows =
-      { "one", "two", "three", "four", "five",
-          "six", "seven" , "eight", "nine" };
+public class UIDataUnitTest {
+  String[] nineRows =
+      {"one", "two", "three", "four", "five",
+          "six", "seven", "eight", "nine"};
 
+  @Test
   public void testPage() {
-    List list = new ArrayList();
-    for (String nineRow : nineRows) {
-      list.add(nineRow);
-    }
+    List<String> list = new ArrayList<String>();
+    list.addAll(Arrays.asList(nineRows));
     UIData data = new UIData();
     data.setValue(new ListDataModel(list));
     data.setRows(5);
-    assertEquals(1, data.getPage());
-    assertEquals(2, data.getPages());
+    Assert.assertEquals(1, data.getPage());
+    Assert.assertEquals(2, data.getPages());
 
     data.setRows(9);
-    assertEquals(1, data.getPage());
-    assertEquals(1, data.getPages());
+    Assert.assertEquals(1, data.getPage());
+    Assert.assertEquals(1, data.getPages());
 
     data.setRows(2);
-    assertEquals(1, data.getPage());
-    assertEquals(5, data.getPages());
+    Assert.assertEquals(1, data.getPage());
+    Assert.assertEquals(5, data.getPages());
 
     data.setRows(3);
-    assertEquals(1, data.getPage());
-    assertEquals(3, data.getPages());
+    Assert.assertEquals(1, data.getPage());
+    Assert.assertEquals(3, data.getPages());
 
 
     data.setRows(1);
-    assertEquals(1, data.getPage());
-    assertEquals(9, data.getPages());
+    Assert.assertEquals(1, data.getPage());
+    Assert.assertEquals(9, data.getPages());
 
     data.setRows(5);
     data.setFirst(5);
-    assertEquals(2, data.getPage());
+    Assert.assertEquals(2, data.getPage());
 
     data.setRows(9);
     data.setFirst(6);
-    assertEquals(1, data.getPage());
+    Assert.assertEquals(1, data.getPage());
 
     data.setRows(2);
     data.setFirst(0);
-    assertEquals(1, data.getPage());
+    Assert.assertEquals(1, data.getPage());
 
     data.setRows(2);
     data.setFirst(1);
-    assertEquals(1, data.getPage());
+    Assert.assertEquals(1, data.getPage());
 
     data.setRows(2);
     data.setFirst(2);
-    assertEquals(2, data.getPage());
+    Assert.assertEquals(2, data.getPage());
 
     data.setRows(2);
     data.setFirst(3);
-    assertEquals(2, data.getPage());
+    Assert.assertEquals(2, data.getPage());
 
     data.setRows(2);
     data.setFirst(6);
-    assertEquals(4, data.getPage());
-     //TODO enable this
+    Assert.assertEquals(4, data.getPage());
+    //TODO enable this
     /*data.setRows(1);
     data.setFirst(8);
     data.setRowIndex(8);
-    assertEquals(data.getRowData(), list.get(8));
-    assertEquals(9, data.getPage());
-    assertEquals(9, data.getPages());
+    Assert.assertEquals(data.getRowData(), list.get(8));
+    Assert.assertEquals(9, data.getPage());
+    Assert.assertEquals(9, data.getPages());
 
     list.remove(8);
-    assertEquals(list.size(), data.getRowCount());
+    Assert.assertEquals(list.size(), data.getRowCount());
     data.setFirst(0);
-    assertEquals(1, data.getPage());
-    assertEquals(8, data.getPages());
+    Assert.assertEquals(1, data.getPage());
+    Assert.assertEquals(8, data.getPages());
       */
   }
 }

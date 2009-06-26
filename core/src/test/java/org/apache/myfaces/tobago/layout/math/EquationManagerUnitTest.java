@@ -1,11 +1,5 @@
 package org.apache.myfaces.tobago.layout.math;
 
-import junit.framework.TestCase;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import java.util.Arrays;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -23,10 +17,17 @@ import java.util.Arrays;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.util.Arrays;
+
 /**
  * Manages the relation between the Tree of LayoutManagers and the Linear System of Equations
  */
-public class EquationManagerUnitTest extends TestCase {
+public class EquationManagerUnitTest {
 
   private static final Log LOG = LogFactory.getLog(EquationManagerUnitTest.class);
 
@@ -241,6 +242,7 @@ public class EquationManagerUnitTest extends TestCase {
    x<sub>26</sub> = 180<br/>
    x<sub>27</sub> = 450<br/>
    */
+  @Test
   public void test() {
     EquationManager equationManager = new EquationManager();
 
@@ -250,54 +252,54 @@ public class EquationManagerUnitTest extends TestCase {
     // create
 
     index = equationManager.addComponentRoot();
-    assertEquals(0, index);
+    Assert.assertEquals(0, index);
     equationManager.setFixedLength(index, 630);        // the first (current) index has a fix size of 600
     indices = equationManager.divide(index, 4);                     // this index is divided into 4 parts
-    AssertUtils.assertEquals(new int[]{1, 2, 3, 4}, indices);
+    Assert.assertArrayEquals(new int[]{1, 2, 3, 4}, indices);
     equationManager.setProportion(indices[2], indices[3], 1, 2);     // the value on index 2 has factor 1,
     //                                                the value on position 3 has factor 2
     {
       equationManager.setFixedLength(indices[0], 100);        // the first one has a fix size of 100
       index = equationManager.addComponent(indices[0], 1);
-      assertEquals(5, index);
+      Assert.assertEquals(5, index);
     }
     {
       equationManager.setFixedLength(indices[1], 200);        // the second one has a fix size of 200
       index = equationManager.addComponent(indices[1], 1);
-      assertEquals(6, index);
+      Assert.assertEquals(6, index);
 
       index = equationManager.addComponent(indices[1], 1);
-      assertEquals(7, index);
+      Assert.assertEquals(7, index);
       int[] i7 = equationManager.divide(7, 2);
-      AssertUtils.assertEquals(new int[]{8, 9}, i7);
+      Assert.assertArrayEquals(new int[]{8, 9}, i7);
       equationManager.setProportion(i7[0], i7[1], 1, 2);
 
       index = equationManager.addComponent(indices[1], 1);
-      assertEquals(10, index);
+      Assert.assertEquals(10, index);
       int[] i10 = equationManager.divide(10, 2);
-      AssertUtils.assertEquals(new int[]{11, 12}, i10);
+      Assert.assertArrayEquals(new int[]{11, 12}, i10);
       equationManager.setProportion(i10[0], i10[1], 4, 1);
     }
     {
       index = equationManager.addComponent(indices[2], 1);
-      assertEquals(13, index);
+      Assert.assertEquals(13, index);
     }
     {
       index = equationManager.addComponent(indices[3], 1);
-      assertEquals(14, index);
+      Assert.assertEquals(14, index);
       int[] i14 = equationManager.divide(14, 2);
-      AssertUtils.assertEquals(new int[]{15, 16}, i14);
+      Assert.assertArrayEquals(new int[]{15, 16}, i14);
       equationManager.setFixedLength(i14[0], 130);        // the second one has a fix size of 200
     }
     {
       int iSpan2 = equationManager.addComponent(indices[2], 2);
-      assertEquals(17, iSpan2);
+      Assert.assertEquals(17, iSpan2);
     }
     {
       int iSpan4 = equationManager.addComponent(indices[0], 4);
-      assertEquals(18, iSpan4);
+      Assert.assertEquals(18, iSpan4);
       int[] i18 = equationManager.divide(18, 6);
-      AssertUtils.assertEquals(new int[]{19, 20, 21, 22, 23, 24}, i18);
+      Assert.assertArrayEquals(new int[]{19, 20, 21, 22, 23, 24}, i18);
       equationManager.setProportion(i18[0], i18[1], 1, 2);
       equationManager.setProportion(i18[0], i18[2], 1, 3);
       equationManager.setProportion(i18[0], i18[3], 1, 4);
@@ -306,11 +308,11 @@ public class EquationManagerUnitTest extends TestCase {
     }
     {
       int i19_1 = equationManager.addComponent(19, 6);
-      assertEquals(25, i19_1);
+      Assert.assertEquals(25, i19_1);
       int i19_2 = equationManager.addComponent(19, 3);
-      assertEquals(26, i19_2);
+      Assert.assertEquals(26, i19_2);
       int i22 = equationManager.addComponent(22, 3);
-      assertEquals(27, i22);
+      Assert.assertEquals(27, i22);
     }
 
     LOG.info("tree: " + equationManager.toString());
@@ -320,7 +322,7 @@ public class EquationManagerUnitTest extends TestCase {
     equationManager.solve();
     double[] result = equationManager.getResult();
     LOG.info("result: " + Arrays.toString(result));
-    AssertUtils.assertEquals(new double[]{
+    Assert.assertArrayEquals(new double[]{
        630,        // x_0
        100,        // x_1
        200,        // x_2
