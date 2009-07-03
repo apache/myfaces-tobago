@@ -192,7 +192,7 @@ public abstract class LayoutableRendererBase
       String facetAction = (String) facetComponent.getAttributes().get(ATTR_ONCLICK);
       if (facetAction == null) {
         facetAction = "Tobago.submitAction2(this, '" + facetComponent.getClientId(facesContext) + "', "
-            + ComponentUtil.getBooleanAttribute(facetComponent, ATTR_TRANSITION) + ")";
+            + ComponentUtil.getBooleanAttribute(facetComponent, ATTR_TRANSITION) + ", null, '" + clientId +"')";
       }
       String script =
           "var element = Tobago.element(\"" + clientId + "\");\n"

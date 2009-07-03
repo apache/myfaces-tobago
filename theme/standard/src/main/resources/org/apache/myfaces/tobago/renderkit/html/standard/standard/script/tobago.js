@@ -111,6 +111,8 @@ var Tobago = {
 
   errorFocusId: undefined,
 
+  lastFocusId: undefined,
+
   htmlIdIndex: 0,
 
   createHtmlId: function() {
@@ -409,6 +411,9 @@ var Tobago = {
     delete this.page;
     delete this.form;
     delete this.action;
+    delete this.actionPosition;
+    delete this.contextPath;
+    delete this.lastFocusId;
   },
 
   removeEventListeners: function() {
@@ -477,11 +482,14 @@ var Tobago = {
   /**
     * Submitting the page with specified actionId.
     */
-  submitAction2: function(source, actionId, transition, target) {
+  submitAction2: function(source, actionId, transition, target, focus) {
     if (transition === undefined || transition == null) {
       transition = true;
     }
-
+    if (focus) {
+      var lastFocusId = this.createInput("hidden", this.page.id + this.SUB_COMPONENT_SEP + 'lastFocusId', focus);
+      this.form.appendChild(lastFocusId);
+    }
     Tobago.setActionPosition(source);
     //LOG.inof("submitAction OpenPopups " + Tobago.openPopups);
     if (Tobago.openPopups.length > 0) {
@@ -1187,7 +1195,14 @@ var Tobago = {
     * no element is explicitly requested.
     */
   setFocus: function() {
-    var elementId = this.errorFocusId == "undefined" ? this.focusId: this.errorFocusId;
+    var elementId;
+    if (this.lastFocusId !== undefined) {
+      elementId = this.lastFocusId;
+    } else if (this.errorFocusId !== undefined) {
+      elementId = this.errorFocusId;
+    } else {
+      elementId = this.focusId;
+    }
     var focusElement = this.element(elementId);
     if ((focusElement == "undefined" || !focusElement) && elementId) {
       // search for input elements in tc:select*  controls
