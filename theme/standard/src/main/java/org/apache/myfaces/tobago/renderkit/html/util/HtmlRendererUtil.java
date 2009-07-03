@@ -913,7 +913,9 @@ public final class HtmlRendererUtil {
         writer.write(facetComponent.getClientId(facesContext));
         writer.write("', ");
         writer.write(Boolean.toString(ComponentUtil.getBooleanAttribute(facetComponent, Attributes.TRANSITION)));
-        writer.write(")");
+        writer.write(", null, '");
+        writer.write(clientId);
+        writer.write("')");
       }
       writer.write("});\n}");
       writer.endJavascript();

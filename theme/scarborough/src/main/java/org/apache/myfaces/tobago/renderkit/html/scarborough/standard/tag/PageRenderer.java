@@ -409,6 +409,12 @@ public class PageRenderer extends PageRendererBase {
       RenderUtil.encode(facesContext, hidden);
     }
 
+    String lastFocusIdParameter = component.getClientId(facesContext) + SUBCOMPONENT_SEP + "lastFocusId";
+    String lastFocusId = (String) facesContext.getExternalContext().getRequestParameterMap().get(lastFocusIdParameter);
+    if (lastFocusId != null) {
+      writer.writeJavascript("Tobago.lastFocusId = '" + lastFocusId + "';");
+    }
+
     //checkForCommandFacet(component, facesContext, writer);
 
 // TODO: this is needed for the "BACK-BUTTON-PROBLEM"
