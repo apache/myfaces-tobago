@@ -1210,10 +1210,10 @@ var Tobago = {
     */
   setFocus: function() {
     var elementId;
-    if (this.lastFocusId !== undefined) {
-      elementId = this.lastFocusId;
-    } else if (this.errorFocusId !== undefined) {
+    if (this.errorFocusId !== undefined) {
       elementId = this.errorFocusId;
+    } else if (this.lastFocusId !== undefined) {
+      elementId = this.lastFocusId;
     } else {
       elementId = this.focusId;
     }
