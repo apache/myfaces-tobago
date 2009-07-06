@@ -87,16 +87,22 @@ public class PageRenderer extends PageRendererBase {
       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\""
           + " \"http://www.w3.org/TR/html4/frameset.dtd\">";
   private static final String CLIENT_DEBUG_SEVERITY = "clientDebugSeverity";
-
+  private static final String LAST_FOCUS_ID = "lastFocusId";  
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
     super.decode(facesContext, component);
-    String name = component.getClientId(facesContext) + SUBCOMPONENT_SEP + "clientSeverity";
+    String clientId = component.getClientId(facesContext);
     ExternalContext externalContext = facesContext.getExternalContext();
-    String severity = (String) externalContext.getRequestParameterMap().get(name);
+    String severity =
+        (String) externalContext.getRequestParameterMap().get(clientId + SUBCOMPONENT_SEP + "clientSeverity");
     if (severity != null) {
       externalContext.getRequestMap().put(CLIENT_DEBUG_SEVERITY, severity);
+    }
+    String lastFocusId =
+        (String) externalContext.getRequestParameterMap().get(clientId + SUBCOMPONENT_SEP + LAST_FOCUS_ID);
+    if (lastFocusId != null) {
+      component.getAttributes().put(LAST_FOCUS_ID, lastFocusId);
     }
   }
 
@@ -409,10 +415,10 @@ public class PageRenderer extends PageRendererBase {
       RenderUtil.encode(facesContext, hidden);
     }
 
-    String lastFocusIdParameter = component.getClientId(facesContext) + SUBCOMPONENT_SEP + "lastFocusId";
-    String lastFocusId = (String) facesContext.getExternalContext().getRequestParameterMap().get(lastFocusIdParameter);
+    String lastFocusId = (String) component.getAttributes().get(LAST_FOCUS_ID);
     if (lastFocusId != null) {
       writer.writeJavascript("Tobago.lastFocusId = '" + lastFocusId + "';");
+      component.getAttributes().remove(LAST_FOCUS_ID);
     }
 
     //checkForCommandFacet(component, facesContext, writer);
