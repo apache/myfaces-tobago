@@ -1218,7 +1218,7 @@ var Tobago = {
       elementId = this.focusId;
     }
     var focusElement = this.element(elementId);
-    if ((focusElement == "undefined" || !focusElement) && elementId) {
+    if (!focusElement && elementId !== undefined) {
       // search for input elements in tc:select*  controls
       var elements = document.getElementsByName(elementId);
       if (elements.length > 0) {
