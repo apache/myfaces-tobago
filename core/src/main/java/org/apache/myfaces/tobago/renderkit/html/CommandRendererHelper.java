@@ -87,8 +87,8 @@ public class CommandRendererHelper {
       boolean defaultCommand = ComponentUtil.getBooleanAttribute(command, ATTR_DEFAULT_COMMAND);
       boolean transition = ComponentUtil.getBooleanAttribute(command, ATTR_TRANSITION);
 
-      if (command.getAttributes().get(ATTR_ACTION_LINK) != null ||
-          command.getAttributes().get(ATTR_RESOURCE) != null) {
+      if (command.getAttributes().get(ATTR_ACTION_LINK) != null 
+          || command.getAttributes().get(ATTR_RESOURCE) != null) {
         String url = generateUrl(facesContext, command);
         if (tag == Tag.ANCHOR) {
           onclick = null;
