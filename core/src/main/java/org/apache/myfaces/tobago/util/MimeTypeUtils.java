@@ -17,10 +17,6 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-/**
- * Date: 10.05.2007
- * Time: 18:01:46
- */
 public class MimeTypeUtils {
 
   private MimeTypeUtils() {
@@ -41,7 +37,7 @@ public class MimeTypeUtils {
       return "text/css";
     } else if (file.endsWith(".ico")) {
       return "image/vnd.microsoft.icon";
-    } else if (file.endsWith("blank.html")) {
+    } else if (file.endsWith(".html")) {
       return "text/html";
     }
     return null;
