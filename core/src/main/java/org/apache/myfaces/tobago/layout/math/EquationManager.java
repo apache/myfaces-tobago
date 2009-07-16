@@ -40,19 +40,19 @@ public class EquationManager {
     LOG.info(equations);
   }
 
-  public int[] divide(int index, int number) {
-    int[] newIndices = addSubTree(index, number, 1);
+  public int[] divide(int index, int number, int spacing) {
+    int[] newIndices = addSubTree(index, number, 1, spacing, 0);
     LOG.info(equations);
     return newIndices;
   }
 
-  public int addComponent(int index, int span) {
-    int[] newIndices = addSubTree(index, 1, span);
+  public int addComponent(int index, int span, int spacing) {
+    int[] newIndices = addSubTree(index, 1, span, 0, spacing);
     LOG.info(equations);
     return newIndices[0];
   }
 
-  private int[] addSubTree(int index, int number, int span) {
+  private int[] addSubTree(int index, int number, int span, double innerSpacing, double outerSpacing) {
 
     assert number > 0;
     assert span > 0;
@@ -62,7 +62,9 @@ public class EquationManager {
         newIndices[0],
         newIndices[newIndices.length - 1] + 1,
         index,
-        span));
+        span,
+        innerSpacing,
+        outerSpacing));
     return newIndices;
   }
 

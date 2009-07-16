@@ -19,31 +19,45 @@ package org.apache.myfaces.tobago.layout.grid;
 
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 
-public class PseudoCell implements Cell {
+public class OriginCell implements Cell {
 
-  private RealCell realCell;
-  private boolean inFirstColumn;
-  private boolean inFirstRow;
+  private LayoutComponent component;
+  private int columnSpan;
+  private int rowSpan;
 
-  public PseudoCell(RealCell realCell, boolean inFirstColumn, boolean inFirstRow) {
-    this.realCell = realCell;
-    this.inFirstColumn = inFirstColumn;
-    this.inFirstRow = inFirstRow;
+  public OriginCell(LayoutComponent component) {
+    this.component = component;
   }
 
   public LayoutComponent getComponent() {
-    return realCell.getComponent();
+    return component;
   }
 
-  public RealCell getRealCell() {
-    return realCell;
+  public OriginCell getOrigin() {
+    return this;
   }
 
-  public boolean isInFirstColumn() {
-    return inFirstColumn;
+  public boolean isVerticalFirst() {
+    return true;
   }
 
-  public boolean isInFirstRow() {
-    return inFirstRow;
+  public boolean isHorizontalFirst() {
+    return true;
+  }
+
+  public int getColumnSpan() {
+    return columnSpan;
+  }
+
+  public void setColumnSpan(int columnSpan) {
+    this.columnSpan = columnSpan;
+  }
+
+  public int getRowSpan() {
+    return rowSpan;
+  }
+
+  public void setRowSpan(int rowSpan) {
+    this.rowSpan = rowSpan;
   }
 }

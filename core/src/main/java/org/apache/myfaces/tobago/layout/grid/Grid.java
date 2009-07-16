@@ -47,7 +47,7 @@ public class Grid {
     rows = new PixelMeasure[rowCount];
   }
 
-  public void add(RealCell cell, int columnSpan, int rowSpan) {
+  public void add(OriginCell cell, int columnSpan, int rowSpan) {
 
     assert columnSpan > 0;
     assert rowSpan > 0;
@@ -79,7 +79,7 @@ public class Grid {
         if (i == 0 && j == 0) {
           actualCell = cell;
         } else {
-          actualCell = new PseudoCell(cell, i == 0, j == 0);
+          actualCell = new SpanCell(cell, i == 0, j == 0);
         }
         assert grid.get(i + columnCursor, j + rowCursor) == null : "Position in the cell must be free.";
         grid.set(i + columnCursor, j + rowCursor, actualCell);
@@ -312,9 +312,9 @@ public class Grid {
         if (hasError(i, j)) {
           builder.append("✖"); //↯
         } else {
-          if (grid.get(i, j) instanceof RealCell) {
+          if (grid.get(i, j) instanceof OriginCell) {
             builder.append("█");
-          } else if (grid.get(i, j) instanceof PseudoCell) {
+          } else if (grid.get(i, j) instanceof SpanCell) {
             if (j == 0) {
               builder.append("➞");
             } else {
@@ -389,6 +389,6 @@ public class Grid {
     if (a == null || b == null) {
       return false;
     }
-    return a.getRealCell().equals(b.getRealCell());
+    return a.getOrigin().equals(b.getOrigin());
   }
 }

@@ -39,6 +39,7 @@ import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIReload;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
@@ -659,12 +660,12 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
   }
 
   private int getRowPadding(FacesContext facesContext, UIComponent component) {
-    return getConfiguredValue(facesContext, component, "rowPadding");
+    return ThemeConfig.getValue(facesContext, component, "rowPadding");
   }
 
   public int getScrollbarWidth(FacesContext facesContext,
       UIComponent component) {
-    return getConfiguredValue(facesContext, component, "scrollbarWidth");
+    return ThemeConfig.getValue(facesContext, component, "scrollbarWidth");
   }
 
   private void storeFooterHeight(FacesContext facesContext,
@@ -679,7 +680,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
         || isValidPagingAttribute((UIData) component, Attributes.SHOW_PAGE_RANGE)
         || isValidPagingAttribute((UIData) component, Attributes.SHOW_DIRECT_LINKS)) {
       footerHeight =
-          getConfiguredValue(facesContext, component, "footerHeight");
+          ThemeConfig.getValue(facesContext, component, "footerHeight");
     } else {
       footerHeight = 0;
     }
@@ -710,7 +711,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 
   private int getAscendingMarkerWidth(FacesContext facesContext,
       UIComponent component) {
-    return getConfiguredValue(facesContext, component, "ascendingMarkerWidth");
+    return ThemeConfig.getValue(facesContext, component, "ascendingMarkerWidth");
   }
 
   public boolean getRendersChildren() {
@@ -1085,7 +1086,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
   }
 
   public int getContentBorder(FacesContext facesContext, UIData data) {
-    return getConfiguredValue(facesContext, data, "contentBorder");
+    return ThemeConfig.getValue(facesContext, data, "contentBorder");
   }
 
   public void encodeAjax(FacesContext facesContext, UIComponent component)
@@ -1129,7 +1130,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     int headerHeight = getHeaderHeight(facesContext, component);
     int footerHeight = getFooterHeight(facesContext, component);
 
-    int rowHeight = getConfiguredValue(facesContext, component, "rowHeight");
+    int rowHeight = ThemeConfig.getValue(facesContext, component, "rowHeight");
 
     int rows = data.getRows();
 
@@ -1282,7 +1283,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
          if (!(column instanceof UIColumnSelector)) {
            if (column.getChildCount() == 1) {
              UIComponent child = (UIComponent) column.getChildren().get(0);
-             int cellPaddingWidth = getConfiguredValue(facesContext, data, "cellPaddingWidth");
+             int cellPaddingWidth = ThemeConfig.getValue(facesContext, data, "cellPaddingWidth");
              child.getAttributes().put(
                  Attributes.LAYOUT_WIDTH, width - cellPaddingWidth);
              child.getAttributes().remove(Attributes.INNER_WIDTH);

@@ -25,6 +25,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -52,7 +53,7 @@ public class BoxRenderer extends BoxRendererBase {
         = (String) component.getAttributes().get(Attributes.LABEL);
     UIPanel toolbar = (UIPanel) component.getFacet(Facets.TOOL_BAR);
     if (toolbar != null) {
-      final int padding = getConfiguredValue(facesContext, component, "paddingTopWhenToolbar");
+      final int padding = ThemeConfig.getValue(facesContext, component, "paddingTopWhenToolbar");
       HtmlRendererUtil.replaceStyleAttribute(component, getAttrStyleKey(), "padding-top", padding);
       HtmlRendererUtil.replaceStyleAttribute(component, getAttrStyleKey(), "padding-bottom", 0);
     }
@@ -119,7 +120,6 @@ public class BoxRenderer extends BoxRendererBase {
   }
 
   private int getExtraPadding(FacesContext facesContext, UIComponent component) {
-    return getConfiguredValue(facesContext, component,
-        "extraPaddingHeightWhenToolbar");
+    return ThemeConfig.getValue(facesContext, component, "extraPaddingHeightWhenToolbar");
   }
 }

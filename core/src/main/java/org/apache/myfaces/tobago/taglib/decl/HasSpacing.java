@@ -20,35 +20,35 @@ package org.apache.myfaces.tobago.taglib.decl;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/**
- * $Id$
- */
-public interface HasMargins {
-  /**
-   * Top margin between container component and layouted children.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultCode = "getMargin()")
-  void setMarginTop(String margin);
+public interface HasSpacing {
 
   /**
-   * Right margin between container component and layouted children.
+   * Spacing between component and layout cell's.
+   * Can be overwritten by columnSpacing and rowSpacing.
+   *
+   * @deprecated Use columnSpacing and/or rowSpacing instead.
    */
+  @Deprecated
   @TagAttribute
-  @UIComponentTagAttribute(defaultCode = "getMargin()")
-  void setMarginRight(String margin);
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.Measure")
+  void setCellspacing(String cellspacing);
 
   /**
-   * Bottom margin between container component and layouted children.
+   * Spacing between the columns in the actual layout.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultCode = "getMargin()")
-  void setMarginBottom(String margin);
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "getCellspacing() != null ? getCellspacing() : org.apache.myfaces.tobago.config.ThemeConfig.getMeasure(getFacesContext(), this, \"columnSpacing\")")
+  void setColumnSpacing(String columnSpacing);
 
   /**
-   * Left margin between container component and layouted children.
+   * Spacing between the rows in the actual layout.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultCode = "getMargin()")
-  void setMarginLeft(String margin);
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "getCellspacing() != null ? getCellspacing() : org.apache.myfaces.tobago.config.ThemeConfig.getMeasure(getFacesContext(), this, \"rowSpacing\")")
+  void setRowSpacing(String rowSpacing);
 }

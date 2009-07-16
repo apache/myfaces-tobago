@@ -33,8 +33,8 @@ public class EquationManagerUnitTest {
 
   /**
    Horizontal model: (this example only contains information for horizontal layouting)<br/>
-   (the HTML source code from this documentation is <b>not</b> a reference for the renderer! The resulting
-   HTML of the page is totally different.)<br/>
+   (the HTML source code from this documentation is <b>not</b> a reference for the renderer implementation!
+   The resulting HTML of the page is totally different.)<br/>
    x<sub>0</sub> = 630px
    <table border="5">
      <tr>
@@ -254,51 +254,51 @@ public class EquationManagerUnitTest {
     index = equationManager.addComponentRoot();
     Assert.assertEquals(0, index);
     equationManager.setFixedLength(index, 630);        // the first (current) index has a fix size of 600
-    indices = equationManager.divide(index, 4);                     // this index is divided into 4 parts
+    indices = equationManager.divide(index, 4, 0);                     // this index is divided into 4 parts
     Assert.assertArrayEquals(new int[]{1, 2, 3, 4}, indices);
     equationManager.setProportion(indices[2], indices[3], 1, 2);     // the value on index 2 has factor 1,
     //                                                the value on position 3 has factor 2
     {
       equationManager.setFixedLength(indices[0], 100);        // the first one has a fix size of 100
-      index = equationManager.addComponent(indices[0], 1);
+      index = equationManager.addComponent(indices[0], 1, 0);
       Assert.assertEquals(5, index);
     }
     {
       equationManager.setFixedLength(indices[1], 200);        // the second one has a fix size of 200
-      index = equationManager.addComponent(indices[1], 1);
+      index = equationManager.addComponent(indices[1], 1, 0);
       Assert.assertEquals(6, index);
 
-      index = equationManager.addComponent(indices[1], 1);
+      index = equationManager.addComponent(indices[1], 1, 0);
       Assert.assertEquals(7, index);
-      int[] i7 = equationManager.divide(7, 2);
+      int[] i7 = equationManager.divide(7, 2, 0);
       Assert.assertArrayEquals(new int[]{8, 9}, i7);
       equationManager.setProportion(i7[0], i7[1], 1, 2);
 
-      index = equationManager.addComponent(indices[1], 1);
+      index = equationManager.addComponent(indices[1], 1, 0);
       Assert.assertEquals(10, index);
-      int[] i10 = equationManager.divide(10, 2);
+      int[] i10 = equationManager.divide(10, 2, 0);
       Assert.assertArrayEquals(new int[]{11, 12}, i10);
       equationManager.setProportion(i10[0], i10[1], 4, 1);
     }
     {
-      index = equationManager.addComponent(indices[2], 1);
+      index = equationManager.addComponent(indices[2], 1, 0);
       Assert.assertEquals(13, index);
     }
     {
-      index = equationManager.addComponent(indices[3], 1);
+      index = equationManager.addComponent(indices[3], 1, 0);
       Assert.assertEquals(14, index);
-      int[] i14 = equationManager.divide(14, 2);
+      int[] i14 = equationManager.divide(14, 2, 0);
       Assert.assertArrayEquals(new int[]{15, 16}, i14);
       equationManager.setFixedLength(i14[0], 130);        // the second one has a fix size of 200
     }
     {
-      int iSpan2 = equationManager.addComponent(indices[2], 2);
+      int iSpan2 = equationManager.addComponent(indices[2], 2, 0);
       Assert.assertEquals(17, iSpan2);
     }
     {
-      int iSpan4 = equationManager.addComponent(indices[0], 4);
+      int iSpan4 = equationManager.addComponent(indices[0], 4, 0);
       Assert.assertEquals(18, iSpan4);
-      int[] i18 = equationManager.divide(18, 6);
+      int[] i18 = equationManager.divide(18, 6, 0);
       Assert.assertArrayEquals(new int[]{19, 20, 21, 22, 23, 24}, i18);
       equationManager.setProportion(i18[0], i18[1], 1, 2);
       equationManager.setProportion(i18[0], i18[2], 1, 3);
@@ -307,11 +307,11 @@ public class EquationManagerUnitTest {
       equationManager.setProportion(i18[0], i18[5], 1, 6);
     }
     {
-      int i19_1 = equationManager.addComponent(19, 6);
+      int i19_1 = equationManager.addComponent(19, 6, 0);
       Assert.assertEquals(25, i19_1);
-      int i19_2 = equationManager.addComponent(19, 3);
+      int i19_2 = equationManager.addComponent(19, 3, 0);
       Assert.assertEquals(26, i19_2);
-      int i22 = equationManager.addComponent(22, 3);
+      int i22 = equationManager.addComponent(22, 3, 0);
       Assert.assertEquals(27, i22);
     }
 

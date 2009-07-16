@@ -140,7 +140,7 @@ public class SystemOfEquations {
     }
 
     if (numberOfVariables != equations.size()) {
-      LOG.warn("SOE have not korrekt dimensions: " + this);
+      LOG.warn("SOE have not correct dimensions: " + this);
     }
 
     data = new double[equations.size()][];
@@ -267,6 +267,12 @@ public class SystemOfEquations {
     for (int i = 0; i < numberOfVariables + 1; i++) {
       data[j][i] = data[j][i] / denominator;
     }
+    // try to fix float values
+//    double b = data[j][numberOfVariables];
+//    if (isNotZero(b - Math.round(b))) {
+//      data[j][numberOfVariables] = Math.round(b);
+//      LOG.warn("Fixing float result from " + b + " to " + data[j][numberOfVariables]);
+//    }
   }
 
   private void substractMultipleOfRowJToRowK(int j, int k) {

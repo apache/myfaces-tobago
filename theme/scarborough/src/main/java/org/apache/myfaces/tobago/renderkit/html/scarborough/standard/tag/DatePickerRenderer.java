@@ -185,7 +185,7 @@ public class DatePickerRenderer extends LinkRenderer {
 
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
-    component.getAttributes().put(Attributes.LAYOUT_WIDTH, getConfiguredValue(facesContext, component, "pickerWidth"));
+    component.getAttributes().put(Attributes.LAYOUT_WIDTH, ThemeConfig.getValue(facesContext, component, "pickerWidth"));
     if (facesContext instanceof TobagoFacesContext) {
       UIPopup popup = (UIPopup) component.getFacets().get(Facets.PICKER_POPUP);
       if (popup != null) {

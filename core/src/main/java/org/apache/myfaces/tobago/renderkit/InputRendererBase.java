@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 
 import javax.faces.component.UIComponent;
@@ -60,7 +61,7 @@ public class InputRendererBase extends LayoutableRendererBase {
   }
 
   public int getLabelWidth(FacesContext facesContext, UIComponent component) {
-    return getConfiguredValue(facesContext, component, "labelWidth");
+    return ThemeConfig.getValue(facesContext, component, "labelWidth");
   }
 
 }

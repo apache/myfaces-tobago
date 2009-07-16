@@ -26,6 +26,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectManyListbox;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -54,7 +55,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
   }
 
   public int getLabelWidth(FacesContext facesContext, UIComponent component) {
-    return getConfiguredValue(facesContext, component, "labelWidth");
+    return ThemeConfig.getValue(facesContext, component, "labelWidth");
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {

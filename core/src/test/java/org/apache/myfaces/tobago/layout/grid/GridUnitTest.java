@@ -33,7 +33,7 @@ public class GridUnitTest {
         + "│◌│\n"
         + "└─┘\n", grid.toString());
 
-    grid.add(new RealCell(null), 1, 1);
+    grid.add(new OriginCell(null), 1, 1);
     Assert.assertEquals(1, grid.getColumnCount());
     Assert.assertEquals(1, grid.getRowCount());
     Assert.assertEquals(""
@@ -41,7 +41,7 @@ public class GridUnitTest {
         + "┃█┃\n"
         + "┗━┛\n", grid.toString());
 
-    grid.add(new RealCell(null), 1, 1);
+    grid.add(new OriginCell(null), 1, 1);
     Assert.assertEquals(1, grid.getColumnCount());
     Assert.assertEquals(2, grid.getRowCount());
     Assert.assertEquals(""
@@ -51,7 +51,7 @@ public class GridUnitTest {
         + "┃█┃\n"
         + "┗━┛\n", grid.toString());
 
-    grid.add(new RealCell(null), 1, 2);
+    grid.add(new OriginCell(null), 1, 2);
     Assert.assertEquals(1, grid.getColumnCount());
     Assert.assertEquals(4, grid.getRowCount());
     Assert.assertEquals(""
@@ -66,7 +66,7 @@ public class GridUnitTest {
         + "┗━┛\n", grid.toString());
 
     // with warning
-    grid.add(new RealCell(null), 2, 1);
+    grid.add(new OriginCell(null), 2, 1);
     Assert.assertEquals(1, grid.getColumnCount());
     Assert.assertEquals(5, grid.getRowCount());
     Assert.assertEquals(""
@@ -94,7 +94,7 @@ public class GridUnitTest {
         + "│◌│◌│\n"
         + "└─┴─┘\n", grid.toString());
 
-    grid.add(new RealCell(null), 1, 1);
+    grid.add(new OriginCell(null), 1, 1);
     Assert.assertEquals(2, grid.getColumnCount());
     Assert.assertEquals(1, grid.getRowCount());
     Assert.assertEquals(""
@@ -102,7 +102,7 @@ public class GridUnitTest {
         + "┃█┃◌│\n"
         + "┗━┹─┘\n", grid.toString());
 
-    grid.add(new RealCell(null), 1, 1);
+    grid.add(new OriginCell(null), 1, 1);
     Assert.assertEquals(2, grid.getColumnCount());
     Assert.assertEquals(1, grid.getRowCount());
     Assert.assertEquals(""
@@ -110,7 +110,7 @@ public class GridUnitTest {
         + "┃█┃█┃\n"
         + "┗━┻━┛\n", grid.toString());
 
-    grid.add(new RealCell(null), 2, 2);
+    grid.add(new OriginCell(null), 2, 2);
     Assert.assertEquals(2, grid.getColumnCount());
     Assert.assertEquals(3, grid.getRowCount());
     Assert.assertEquals(""
@@ -122,7 +122,7 @@ public class GridUnitTest {
         + "┃⬇│⬇┃\n"
         + "┗━┷━┛\n", grid.toString());
 
-    grid.add(new RealCell(null), 1, 2);
+    grid.add(new OriginCell(null), 1, 2);
     Assert.assertEquals(2, grid.getColumnCount());
     Assert.assertEquals(5, grid.getRowCount());
     Assert.assertEquals(""
@@ -138,7 +138,7 @@ public class GridUnitTest {
         + "┃⬇┃◌│\n"
         + "┗━┹─┘\n", grid.toString());
 
-    grid.add(new RealCell(null), 1, 1);
+    grid.add(new OriginCell(null), 1, 1);
     Assert.assertEquals(2, grid.getColumnCount());
     Assert.assertEquals(5, grid.getRowCount());
     Assert.assertEquals(""
@@ -154,7 +154,7 @@ public class GridUnitTest {
         + "┃⬇┃◌│\n"
         + "┗━┹─┘\n", grid.toString());
 
-    grid.add(new RealCell(null), 1, 2);
+    grid.add(new OriginCell(null), 1, 2);
     Assert.assertEquals(2, grid.getColumnCount());
     Assert.assertEquals(6, grid.getRowCount());
     Assert.assertEquals(""
@@ -172,7 +172,7 @@ public class GridUnitTest {
         + "│◌┃⬇┃\n"
         + "└─┺━┛\n", grid.toString());
 
-    grid.add(new RealCell(null), 2, 1);
+    grid.add(new OriginCell(null), 2, 1);
     // fehler
     Assert.assertEquals(2, grid.getColumnCount());
     Assert.assertEquals(6, grid.getRowCount());
@@ -197,19 +197,19 @@ public class GridUnitTest {
         + "│◌│◌│◌│◌│◌│\n"
         + "└─┴─┴─┴─┴─┘\n", grid.toString());
 
-    grid.add(new RealCell(null), 1, 2);
-    grid.add(new RealCell(null), 1, 3);
-    grid.add(new RealCell(null), 1, 1);
-    grid.add(new RealCell(null), 2, 1);
-    grid.add(new RealCell(null), 3, 1);
-    grid.add(new RealCell(null), 1, 1);
-    grid.add(new RealCell(null), 1, 1);
-    grid.add(new RealCell(null), 1, 3);
-    grid.add(new RealCell(null), 1, 1);
-    grid.add(new RealCell(null), 3, 1);
-    grid.add(new RealCell(null), 1, 2);
-    grid.add(new RealCell(null), 2, 1);
-    grid.add(new RealCell(null), 1, 1);
+    grid.add(new OriginCell(null), 1, 2);
+    grid.add(new OriginCell(null), 1, 3);
+    grid.add(new OriginCell(null), 1, 1);
+    grid.add(new OriginCell(null), 2, 1);
+    grid.add(new OriginCell(null), 3, 1);
+    grid.add(new OriginCell(null), 1, 1);
+    grid.add(new OriginCell(null), 1, 1);
+    grid.add(new OriginCell(null), 1, 3);
+    grid.add(new OriginCell(null), 1, 1);
+    grid.add(new OriginCell(null), 3, 1);
+    grid.add(new OriginCell(null), 1, 2);
+    grid.add(new OriginCell(null), 2, 1);
+    grid.add(new OriginCell(null), 1, 1);
     Assert.assertEquals(5, grid.getColumnCount());
     Assert.assertEquals(5, grid.getRowCount());
     Assert.assertEquals(""

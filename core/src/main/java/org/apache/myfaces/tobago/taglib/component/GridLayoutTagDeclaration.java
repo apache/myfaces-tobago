@@ -23,12 +23,12 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasBorder;
-import org.apache.myfaces.tobago.taglib.decl.HasCellspacing;
 import org.apache.myfaces.tobago.taglib.decl.HasColumnLayout;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasMargin;
 import org.apache.myfaces.tobago.taglib.decl.HasMargins;
 import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
+import org.apache.myfaces.tobago.taglib.decl.HasSpacing;
 
 /*
  * Date: 14.03.2006
@@ -99,6 +99,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
     rendererType = RendererTypes.GRID_LAYOUT,
     componentFamily = "org.apache.myfaces.tobago.GridLayout",
     allowedChildComponenents = "NONE", isLayout = true)
-public interface GridLayoutTagDeclaration extends HasId, HasBorder, HasCellspacing, HasMargin,
+public interface GridLayoutTagDeclaration extends HasId, HasBorder, HasSpacing, HasMargin,
     HasMargins, HasColumnLayout, HasRowLayout, HasBinding {
 }

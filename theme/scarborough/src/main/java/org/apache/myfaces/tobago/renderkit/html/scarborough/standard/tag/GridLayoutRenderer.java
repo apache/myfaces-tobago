@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UILayout;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.layout.FixedLayoutToken;
 import org.apache.myfaces.tobago.layout.HideLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutToken;
@@ -506,7 +507,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
         // ignore and return defaut value
       }
     }
-    return getConfiguredValue(facesContext,  component, "cellSpacing");
+    return ThemeConfig.getValue(facesContext, component, "cellSpacing");
   }
 
   public void layoutEnd(FacesContext facesContext, UIComponent component) {
@@ -536,7 +537,7 @@ public class GridLayoutRenderer extends DefaultLayoutRenderer {
     if (innerWidth != null && innerWidth.intValue() != -1) {
       int value = innerWidth.intValue();
       if (needVerticalScroolbar) {
-        value -= getConfiguredValue(facesContext, component, "scrollbarWidth");
+        value -= ThemeConfig.getValue(facesContext, component, "scrollbarWidth");
         HtmlRendererUtil.replaceStyleAttribute(layout, "width", value);
       }
       layoutWidth(Integer.valueOf(value), layout, facesContext);

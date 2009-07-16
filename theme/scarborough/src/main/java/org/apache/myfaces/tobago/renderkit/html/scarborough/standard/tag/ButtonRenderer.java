@@ -27,6 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.AbstractUICommand;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIButtonCommand;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -142,14 +143,14 @@ public class ButtonRenderer extends CommandRendererBase {
     int width = 0;
     String imageName = (String) component.getAttributes().get(Attributes.IMAGE);
     if (imageName != null) {
-      width = getConfiguredValue(facesContext, component, "imageWidth");
+      width = ThemeConfig.getValue(facesContext, component, "imageWidth");
     }
     LabelWithAccessKey label = new LabelWithAccessKey(component);
 
     if (label.getText() != null) {
       width += RenderUtil.calculateStringWidth(facesContext, component, label.getText());
     }
-    int padding = getConfiguredValue(facesContext, component, "paddingWidth");
+    int padding = ThemeConfig.getValue(facesContext, component, "paddingWidth");
     width += 2 * padding;
     if (imageName != null && label.getText() != null) {
       width += padding;

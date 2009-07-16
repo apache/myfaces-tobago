@@ -25,6 +25,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -62,7 +63,7 @@ public class MessageRenderer extends MessageRendererBase {
     if (LOG.isDebugEnabled()) {
       LOG.debug("here are " + count + " messages");
     }
-    return count * getConfiguredValue(facesContext, component, "messageHeight");
+    return count * ThemeConfig.getValue(facesContext, component, "messageHeight");
   }
 
   public void encodeEnd(FacesContext facesContext,

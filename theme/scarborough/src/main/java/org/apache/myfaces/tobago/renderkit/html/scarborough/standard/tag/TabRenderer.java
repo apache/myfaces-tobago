@@ -25,6 +25,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 
@@ -42,7 +43,7 @@ public class TabRenderer extends LayoutableRendererBase {
 
     if (height == -1) {
       height = PanelRenderer.getFixedHeightForPanel(component, facesContext);
-      height += getConfiguredValue(facesContext, component, "paddingHeight");
+      height += ThemeConfig.getValue(facesContext, component, "paddingHeight");
     }
     return height;
   }

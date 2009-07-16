@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.component.UISelectOneCommand;
 import org.apache.myfaces.tobago.component.UIToolBar;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -483,7 +484,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
     final String labelPosition = getLabelPosition(component);
     final String iconSize = getIconSize(component);
     final String key = iconSize + "_" + labelPosition + "_Height";
-    return getConfiguredValue(facesContext, component, key);
+    return ThemeConfig.getValue(facesContext, component, key);
   }
 
   public void encodeChildren(FacesContext facesContext, UIComponent component)

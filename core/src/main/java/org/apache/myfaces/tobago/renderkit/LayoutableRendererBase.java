@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Cell;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
@@ -44,33 +45,33 @@ public abstract class LayoutableRendererBase
 
   public int getHeaderHeight(
       FacesContext facesContext, UIComponent component) {
-    int height = getConfiguredValue(facesContext, component, "headerHeight");
+    int height = ThemeConfig.getValue(facesContext, component, "headerHeight");
     final UIComponent menubar = component.getFacet(Facets.MENUBAR);
     if (menubar != null) {
-      height += getConfiguredValue(facesContext, menubar, "headerHeight");
+      height += ThemeConfig.getValue(facesContext, menubar, "headerHeight");
     }
     return height;
   }
 
   public int getPaddingWidth(FacesContext facesContext, UIComponent component) {
-    return getConfiguredValue(facesContext, component, "paddingWidth");
+    return ThemeConfig.getValue(facesContext, component, "paddingWidth");
   }
 
   public int getPaddingHeight(
       FacesContext facesContext, UIComponent component) {
-    return getConfiguredValue(facesContext, component, "paddingHeight");
+    return ThemeConfig.getValue(facesContext, component, "paddingHeight");
   }
 
   public int getComponentExtraWidth(
       FacesContext facesContext,
       UIComponent component) {
-    return getConfiguredValue(facesContext, component, "componentExtraWidth");
+    return ThemeConfig.getValue(facesContext, component, "componentExtraWidth");
   }
 
   public int getComponentExtraHeight(
       FacesContext facesContext,
       UIComponent component) {
-    return getConfiguredValue(facesContext, component, "componentExtraHeight");
+    return ThemeConfig.getValue(facesContext, component, "componentExtraHeight");
   }
 
   public Dimension getMinimumSize(
@@ -81,17 +82,17 @@ public abstract class LayoutableRendererBase
   }
 
   public int getMinimumHeight(FacesContext facesContext, UIComponent component) {
-    int height = getConfiguredValue(facesContext, component, "minimumHeight");
+    int height = ThemeConfig.getValue(facesContext, component, "minimumHeight");
     if (height == -1) {
-      height = getConfiguredValue(facesContext, component, "fixedHeight");
+      height = ThemeConfig.getValue(facesContext, component, "fixedHeight");
     }
     return height;
   }
 
   public int getMinimumWidth(FacesContext facesContext, UIComponent component) {
-    int width = getConfiguredValue(facesContext, component, "minimumWidth");
+    int width = ThemeConfig.getValue(facesContext, component, "minimumWidth");
     if (width == -1) {
-      width = getConfiguredValue(facesContext, component, "fixedWidth");
+      width = ThemeConfig.getValue(facesContext, component, "fixedWidth");
     }
     return width;
   }
@@ -150,7 +151,7 @@ public abstract class LayoutableRendererBase
       intSpace = (Integer) space;
     }
     if (intSpace == -1) {
-      return getConfiguredValue(facesContext, component, attrFixed);
+      return ThemeConfig.getValue(facesContext, component, attrFixed);
     } else {
       return intSpace;
     }

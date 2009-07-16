@@ -19,13 +19,27 @@ package org.apache.myfaces.tobago.layout.grid;
 
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 
+/**
+ * To support horizontal and vertical spans, at each position will be a cell as a represantive.
+ * Either a "origin cell" for the first position or a "span cell" for spanned other positions.
+ */
 public interface Cell {
 
   LayoutComponent getComponent();
 
-  RealCell getRealCell();
+  OriginCell getOrigin();
 
-  boolean isInFirstRow();
+  /**
+   * Is the origin cell or span cell at the first position of the cell compound.
+   *
+   * @return If its at the first position.
+   */
+  boolean isHorizontalFirst();
 
-  boolean isInFirstColumn();
+  /**
+   * Is the origin cell or span cell at the first position of the cell compound.
+   *
+   * @return If its at the first position.
+   */
+  boolean isVerticalFirst();
 }

@@ -24,6 +24,8 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 
@@ -38,12 +40,33 @@ public class ThemeConfig {
 
   private static final Log LOG = LogFactory.getLog(ThemeConfig.class);
 
-  public static final String THEME_CONFIG_CACHE
-      = "org.apache.myfaces.tobago.config.ThemeConfig.CACHE";
+  public static final String THEME_CONFIG_CACHE = "org.apache.myfaces.tobago.config.ThemeConfig.CACHE";
 
-  public static int getValue(FacesContext facesContext, UIComponent component,
+  public static int getValue(FacesContext facesContext, UIComponent component, String name) {
+
+    try {
+      return getValue0(facesContext, component, name);
+    } catch (Exception e) {
+      LOG.error("Can't take '" + name + "' for " + component + " from configuration: " + e.getMessage(), e);
+    }
+    return 0;
+  }
+
+  public static boolean hasValue(FacesContext facesContext, UIComponent component,
       String name) {
+    try {
+      getValue0(facesContext, component, name);
+      return true;
+    } catch (NullPointerException e) {
+      return false;
+    }
+  }
 
+  public static Measure getMeasure(FacesContext facesContext, UIComponent component, String name) {
+      return new PixelMeasure(getValue(facesContext, component, name));
+  }
+
+  private static int getValue0(FacesContext facesContext, UIComponent component, String name) {
     CacheKey key = new CacheKey(facesContext.getViewRoot(), component, name);
     Map<CacheKey, Integer> cache
         = (Map<CacheKey, Integer>) facesContext.getExternalContext().getApplicationMap().get(THEME_CONFIG_CACHE);
@@ -62,16 +85,6 @@ public class ThemeConfig {
       }
       // todo: remove, is only temporary to ignore wml errors.
       return 0;
-    }
-  }
-
-  public static boolean hasValue(FacesContext facesContext, UIComponent component,
-      String name) {
-    try {
-      getValue(facesContext, component, name);
-      return true;
-    } catch (NullPointerException e) {
-      return false;
     }
   }
 

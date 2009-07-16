@@ -25,6 +25,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.msie.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -65,7 +66,7 @@ public class MessageRenderer extends MessageRendererBase {
     }
 
     if (count != 0) {
-      return count * getConfiguredValue(facesContext, component, "messageHeight");
+      return count * ThemeConfig.getValue(facesContext, component, "messageHeight");
     } else {
       return 1;
     }

@@ -17,13 +17,14 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.config.ThemeConfig;
+import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import java.io.IOException;
@@ -61,8 +62,9 @@ public abstract class AbstractRendererBaseWrapper extends RendererBase {
     return getRenderer(FacesContext.getCurrentInstance()).getRendererName(rendererType);
   }
 
+  @Deprecated
   public final int getConfiguredValue(FacesContext facesContext, UIComponent component, String key) {
-    return getRenderer(facesContext).getConfiguredValue(facesContext, component, key);
+    return ThemeConfig.getValue(facesContext, component, key);
   }
 
   protected final Object getCurrentValueAsObject(UIInput input) {

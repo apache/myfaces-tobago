@@ -9,20 +9,17 @@
 
   <tc:page id="page">
     <f:facet name="layout">
-      <tc:gridLayout rows="2*;*" columns="2*;*" columnSpacing="0px" rowSpacing="0px"/>
+      <tc:gridLayout columns="*;*" columnSpacing="0px"/>
     </f:facet>
-    <tc:gridLayoutConstraint width="600px" height="600px"/>
+    <tc:gridLayoutConstraint width="201px" height="200px"/>
 
     <tc:in id="in-0" value="0"/>
     <tc:in id="in-1" value="1"/>
-    <tc:in id="in-2" value="2"/>
-    <tc:in id="in-3" value="3"/>
 
     <tc:script file="script/test-utils.js"/>
-    <tc:script onload="checkLayout('page:in-0', 0, 0, 400, 400);"/>
-    <tc:script onload="checkLayout('page:in-1', 400, 0, 200, 400);"/>
-    <tc:script onload="checkLayout('page:in-2', 0, 400, 400, 200);"/>
-    <tc:script onload="checkLayout('page:in-3', 400, 400, 200, 200);"/>
-    
+
+    <tc:script onload="checkLayout('page:in-0', 0, 0, 101, 200);"/>
+    <tc:script onload="checkLayout('page:in-1', 101, 0, 100, 200);"/>
+
   </tc:page>
 </f:view>

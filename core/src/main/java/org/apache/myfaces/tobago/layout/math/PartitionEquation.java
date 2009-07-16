@@ -29,18 +29,24 @@ public final class PartitionEquation implements Equation {
   private int end;
   private int parent;
   private int span;
+  private double innerSpacing;
+  private double outerSpacing;
 
   /**
-   * @param begin  lowest index
-   * @param end    one more than the largest index
-   * @param parent parent index
-   * @param span   number of parent cells
+   * @param begin        lowest index
+   * @param end          one more than the largest index
+   * @param parent       parent index
+   * @param span         number of parent cells
+   * @param innerSpacing space between two cells between begin and end
+   * @param outerSpacing space between two cells inside the span
    */
-  public PartitionEquation(int begin, int end, int parent, int span) {
+  public PartitionEquation(int begin, int end, int parent, int span, double innerSpacing, double outerSpacing) {
     this.begin = begin;
     this.end = end;
     this.parent = parent;
     this.span = span;
+    this.innerSpacing = innerSpacing;
+    this.outerSpacing = outerSpacing;
   }
 
   public void fillRow(double[] row) {
@@ -55,9 +61,11 @@ public final class PartitionEquation implements Equation {
     for (; i < end; i++) {
       row[i] = 1.0;
     }
-    for (; i < row.length; i++) {
+    for (; i < row.length - 1; i++) {
       row[i] = 0.0;
     }
+    // the last variable contains a constant, this is here the sum of spaces between cells.
+    row[row.length - 1] =  + (span - 1) * outerSpacing - (end - begin - 1) * innerSpacing;
 
     for (i = parent; i < parent + span; i++) {
       row[i] = -1.0;
@@ -67,6 +75,7 @@ public final class PartitionEquation implements Equation {
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder("PartitionEquation: ");
+    // cells from parent
     builder.append(" x_");
     builder.append(parent);
     if (span > 2) {
@@ -76,6 +85,16 @@ public final class PartitionEquation implements Equation {
       builder.append(" + x_");
       builder.append(parent + span - 1);
     }
+    // plus spacing
+    if (span >= 2) {
+      builder.append(" + ");
+      if (span >= 2) {
+        builder.append(span - 1);
+        builder.append(" * ");
+      }
+      builder.append(outerSpacing);
+    }
+    // sub cells
     builder.append(" = ");
     builder.append("x_");
     builder.append(begin);
@@ -86,6 +105,16 @@ public final class PartitionEquation implements Equation {
       builder.append(" + x_");
       builder.append(end - 1);
     }
+    // plus spacing
+    if (end - begin >= 2) {
+      builder.append(" + ");
+      if (end - begin > 2) {
+        builder.append(end - begin - 1);
+        builder.append(" * ");
+      }
+      builder.append(innerSpacing);
+    }
+
     return builder.toString();
   }
 }

@@ -35,8 +35,8 @@ public class SystemOfEquationsUnitTest {
     long begin = System.nanoTime();
 
     SystemOfEquations system = new SystemOfEquations(3);
-    system.addEqualsEquation(new FixedEquation(0, 1000));
-    system.addEqualsEquation(new PartitionEquation(1, 3, 0, 1));
+    system.addEqualsEquation(new FixedEquation(0, 1005));
+    system.addEqualsEquation(new PartitionEquation(1, 3, 0, 1, 5, 0));
     system.addEqualsEquation(new ProportionEquation(1, 2, 2, 3));
     system.prepare();
     system.gauss();
@@ -48,7 +48,7 @@ public class SystemOfEquationsUnitTest {
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    Assert.assertArrayEquals(new double[]{1000, 400, 600}, result, SystemOfEquations.EPSILON);
+    Assert.assertArrayEquals(new double[]{1005, 400, 600}, result, SystemOfEquations.EPSILON);
   }
 
   @Test
@@ -57,8 +57,8 @@ public class SystemOfEquationsUnitTest {
     long begin = System.nanoTime();
 
     SystemOfEquations system = new SystemOfEquations(5);
-    system.addEqualsEquation(new FixedEquation(0, 1000));
-    system.addEqualsEquation(new PartitionEquation(1, 5, 0, 1));
+    system.addEqualsEquation(new FixedEquation(0, 1015));
+    system.addEqualsEquation(new PartitionEquation(1, 5, 0, 1, 5, 0));
     system.addEqualsEquation(new ProportionEquation(1, 2, 1, 2));
     system.addEqualsEquation(new ProportionEquation(2, 3, 2, 3));
     system.addEqualsEquation(new ProportionEquation(3, 4, 3, 4));
@@ -72,7 +72,7 @@ public class SystemOfEquationsUnitTest {
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    Assert.assertArrayEquals(new double[]{1000, 100, 200, 300, 400}, result, SystemOfEquations.EPSILON);
+    Assert.assertArrayEquals(new double[]{1015, 100, 200, 300, 400}, result, SystemOfEquations.EPSILON);
   }
 
   @Test
@@ -82,7 +82,7 @@ public class SystemOfEquationsUnitTest {
 
     SystemOfEquations system = new SystemOfEquations(11);
     system.addEqualsEquation(new FixedEquation(0, 1100));
-    system.addEqualsEquation(new PartitionEquation(1, 11, 0, 1));
+    system.addEqualsEquation(new PartitionEquation(1, 11, 0, 1, 0, 0));
     system.addEqualsEquation(new ProportionEquation(1, 2, 1, 2));
     system.addEqualsEquation(new ProportionEquation(2, 3, 2, 3));
     system.addEqualsEquation(new ProportionEquation(3, 4, 3, 4));
@@ -116,7 +116,7 @@ public class SystemOfEquationsUnitTest {
 
     SystemOfEquations system = new SystemOfEquations(n + 1);
     system.addEqualsEquation(new FixedEquation(0, sum));
-    system.addEqualsEquation(new PartitionEquation(1, n + 1, 0, 1));
+    system.addEqualsEquation(new PartitionEquation(1, n + 1, 0, 1, 0, 0));
     for (int i = 1; i < n; i++) {
       system.addEqualsEquation(new ProportionEquation(i, i + 1, (double) i, (double) i + 1));
     }
@@ -152,8 +152,8 @@ public class SystemOfEquationsUnitTest {
 
     SystemOfEquations system = new SystemOfEquations(7);
     system.addEqualsEquation(new FixedEquation(0, 900));
-    system.addEqualsEquation(new PartitionEquation(1, 4, 0, 1));
-    system.addEqualsEquation(new PartitionEquation(4, 7, 2, 2));
+    system.addEqualsEquation(new PartitionEquation(1, 4, 0, 1, 0, 0));
+    system.addEqualsEquation(new PartitionEquation(4, 7, 2, 2, 0, 0));
     system.addEqualsEquation(new ProportionEquation(1, 2, 1, 1));
     system.addEqualsEquation(new ProportionEquation(1, 3, 1, 1));
     system.addEqualsEquation(new ProportionEquation(4, 5, 1, 1));
@@ -196,8 +196,8 @@ public class SystemOfEquationsUnitTest {
 
     SystemOfEquations system = new SystemOfEquations(7);
 //    system.addEqualsEquation(new FixedEquation(0, 900));
-    system.addEqualsEquation(new PartitionEquation(1, 4, 0, 1));
-    system.addEqualsEquation(new PartitionEquation(4, 7, 2, 2));
+    system.addEqualsEquation(new PartitionEquation(1, 4, 0, 1, 0, 0));
+    system.addEqualsEquation(new PartitionEquation(4, 7, 2, 2, 0, 0));
     system.addEqualsEquation(new ProportionEquation(1, 2, 1, 1));
     system.addEqualsEquation(new ProportionEquation(1, 3, 1, 1));
     system.addEqualsEquation(new ProportionEquation(4, 5, 1, 1));
@@ -228,10 +228,10 @@ public class SystemOfEquationsUnitTest {
 
     SystemOfEquations system = new SystemOfEquations(4);
     system.addEqualsEquation(new FixedEquation(0, 100));
-    system.addEqualsEquation(new PartitionEquation(1, 3, 0, 1));
+    system.addEqualsEquation(new PartitionEquation(1, 3, 0, 1, 0, 0));
     system.addEqualsEquation(new FixedEquation(1, 50));
     system.addEqualsEquation(new FixedEquation(2, 50));
-    system.addEqualsEquation(new PartitionEquation(3, 4, 2, 1));
+    system.addEqualsEquation(new PartitionEquation(3, 4, 2, 1, 0, 0));
     system.addEqualsEquation(new FixedEquation(3, 50));
     system.prepare();
     system.gauss();
@@ -260,8 +260,8 @@ public class SystemOfEquationsUnitTest {
 
     SystemOfEquations system = new SystemOfEquations(7);
 //    system.addEqualsEquation(new FixedEquation(0, 900));
-    system.addEqualsEquation(new PartitionEquation(1, 4, 0, 1));
-    system.addEqualsEquation(new PartitionEquation(4, 7, 2, 2));
+    system.addEqualsEquation(new PartitionEquation(1, 4, 0, 1, 0, 0));
+    system.addEqualsEquation(new PartitionEquation(4, 7, 2, 2, 0, 0));
     system.addEqualsEquation(new ProportionEquation(1, 2, 1, 1));
     system.addEqualsEquation(new ProportionEquation(1, 3, 1, 1));
     system.addEqualsEquation(new ProportionEquation(4, 5, 1, 1));

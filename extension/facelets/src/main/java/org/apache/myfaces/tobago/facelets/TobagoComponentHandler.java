@@ -22,6 +22,7 @@ import com.sun.facelets.tag.MetaRuleset;
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentHandler;
 import org.apache.myfaces.tobago.OnComponentCreated;
+import org.apache.myfaces.tobago.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
@@ -44,6 +45,9 @@ public class TobagoComponentHandler extends ComponentHandler {
     }
     if (AbstractUIPage.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(PageRule.INSTANCE);
+    }
+    if (AbstractUIGridLayout.class.isAssignableFrom(aClass)) {
+      metaRuleset.addRule(GridLayoutRule.INSTANCE);
     }
     if (TabChangeSource.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(TabChangeSourceRule.INSTANCE);

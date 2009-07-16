@@ -34,6 +34,7 @@ public final class Attributes {
   public static final String CELLSPACING = "cellspacing";
   public static final String CLIENT_PROPERTIES = "clientProperties";
   public static final String COLUMN_SPAN = "columnSpan";
+  public static final String COLUMN_SPACING = "columnSpacing";
   public static final String COLUMNS = "columns";
   public static final String CONVERTER = "converter";
   public static final String CREATE_SPAN = "createSpan";
@@ -133,6 +134,7 @@ public final class Attributes {
   public static final String RESOURCE = "resource";
   public static final String ROW_ID = "rowId";
   public static final String ROW_SPAN = "rowSpan";
+  public static final String ROW_SPACING = "rowSpacing";
   public static final String ROWS = "rows";
   public static final String SCRIPT_FILES = "scriptFiles";
   public static final String SCROLLBAR_HEIGHT = "scrollbarHeight";

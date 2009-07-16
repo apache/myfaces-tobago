@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.component.UITabGroup;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_CLIENT;
 import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_TAB;
 import org.apache.myfaces.tobago.component.UIToolBar;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
@@ -136,7 +137,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     int virtualTab = 0;
     int currentWidth = 0;
 
-    int navigationBarWidth = getConfiguredValue(facesContext, component, "navigationBarWidth");
+    int navigationBarWidth = ThemeConfig.getValue(facesContext, component, "navigationBarWidth");
     for (UIComponent tab : (List<UIComponent>) component.getChildren()) {
       if (tab instanceof UIPanelBase) {
         if (tab.isRendered()) {
@@ -191,7 +192,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
   private TabList getTabList(FacesContext facesContext, UITabGroup component) {
     TabList tabs = new TabList();
     int index = 0;
-    int tabLabelExtraWidth = getConfiguredValue(facesContext, component, "tabLabelExtraWidth");
+    int tabLabelExtraWidth = ThemeConfig.getValue(facesContext, component, "tabLabelExtraWidth");
 
     boolean first = true;
     for (UIComponent child : (List<UIComponent>) component.getChildren()) {
@@ -533,7 +534,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
         (UITabGroup) component, index,
         (HtmlStyleMap) component.getAttributes().get(Attributes.STYLE), SWITCH_TYPE_RELOAD_TAB,
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"),
-        getConfiguredValue(context, component, "navigationBarWidth"), currentWidth, tabList);
+        ThemeConfig.getValue(context, component, "navigationBarWidth"), currentWidth, tabList);
   }
 
   public int getFixedHeight(FacesContext facesContext, UIComponent uiComponent) {
@@ -553,8 +554,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
               = Math.max(fixedHeight, renderer.getFixedHeight(facesContext, tab));
         }
       }
-      fixedHeight += getConfiguredValue(facesContext, component, "headerHeight");
-      fixedHeight += getConfiguredValue(facesContext, component, "paddingHeight");
+      fixedHeight += ThemeConfig.getValue(facesContext, component, "headerHeight");
+      fixedHeight += ThemeConfig.getValue(facesContext, component, "paddingHeight");
     }
     return fixedHeight;
   }

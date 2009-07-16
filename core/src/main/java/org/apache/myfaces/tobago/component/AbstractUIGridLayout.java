@@ -28,12 +28,13 @@ import org.apache.myfaces.tobago.layout.LayoutContext;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelLayoutToken;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.layout.grid.Cell;
 import org.apache.myfaces.tobago.layout.grid.Grid;
-import org.apache.myfaces.tobago.layout.grid.RealCell;
+import org.apache.myfaces.tobago.layout.grid.OriginCell;
 import org.apache.myfaces.tobago.layout.math.EquationManager;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.util.LayoutUtils;
@@ -73,15 +74,15 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
 
     // horizontal
     EquationManager horizontal = layoutContext.getHorizontal();
-    int[] horizontalIndices = horizontal.divide(horizontalIndex, columnTokens.getSize());
+    int[] horizontalIndices = horizontal.divide(horizontalIndex, columnTokens.getSize(), getColumnSpacing().getPixel());
 
     // vertical
     EquationManager vertical = layoutContext.getVertical();
-    int[] verticalIndices = vertical.divide(verticalIndex, rowTokens.getSize());
+    int[] verticalIndices = vertical.divide(verticalIndex, rowTokens.getSize(), getRowSpacing().getPixel());
 
     List<LayoutComponent> components = container.getComponents();
-    for (LayoutComponent component1 : components) {
-      grid.add(new RealCell(component1), component1.getColumnSpan(), component1.getRowSpan());
+    for (LayoutComponent c : components) {
+      grid.add(new OriginCell(c), c.getColumnSpan(), c.getRowSpan());
       LOG.debug("\n" + grid);
     }
 
@@ -90,17 +91,17 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
 
     for (int j = 0; j < grid.getRowCount(); j++) {
       for (int i = 0; i < grid.getColumnCount(); i++) {
-        org.apache.myfaces.tobago.layout.grid.Cell temp = grid.get(i, j);
-        if (temp instanceof RealCell) {
-          RealCell cell = (RealCell) temp;
+        Cell temp = grid.get(i, j);
+        if (temp instanceof OriginCell) {
+          OriginCell cell = (OriginCell) temp;
           LayoutComponent component = temp.getComponent();
 
           // horizontal
-          int hIndex = horizontal.addComponent(horizontalIndices[i], cell.getColumnSpan());
+          int hIndex = horizontal.addComponent(horizontalIndices[i], cell.getColumnSpan(), getColumnSpacing().getPixel());
           cell.getComponent().setHorizontalIndex(hIndex);
 
           // vertical
-          int vIndex = vertical.addComponent(verticalIndices[j], cell.getRowSpan());
+          int vIndex = vertical.addComponent(verticalIndices[j], cell.getRowSpan(), getRowSpacing().getPixel());
           cell.getComponent().setVerticalIndex(vIndex);
 
           if (component instanceof LayoutContainer) {
@@ -124,8 +125,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     for (int j = 0; j < grid.getRowCount(); j++) {
       for (int i = 0; i < grid.getColumnCount(); i++) {
         Cell temp = grid.get(i, j);
-        if (temp instanceof RealCell) {
-          RealCell cell = (RealCell) temp;
+        if (temp instanceof OriginCell) {
+          OriginCell cell = (OriginCell) temp;
           LayoutComponent component = temp.getComponent();
 
           component.setDisplay(Display.BLOCK);
@@ -166,11 +167,14 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
           continue; // XXX why this can happen?
         }
         LayoutComponent component = cell.getComponent();
-        if (cell instanceof RealCell) {
+        if (cell instanceof OriginCell) {
           component.setLeft(left);
         }
-        if (cell.isInFirstColumn()) {
+        if (cell.isHorizontalFirst()) {
+          // XXX subject of change: may use the width of the column, and not of the component
+          // XXX (the component may have a other size with offset or inset (scrollbars) etc.)
           left = (PixelMeasure) left.add(component.getWidth());
+          left = (PixelMeasure) left.add(getColumnSpacing());
         }
       }
     }
@@ -184,11 +188,14 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
           continue; // XXX why this can happen?
         }
         LayoutComponent component = cell.getComponent();
-        if (cell instanceof RealCell) {
+        if (cell instanceof OriginCell) {
           component.setTop(top);
         }
-        if (cell.isInFirstRow()) {
+        if (cell.isVerticalFirst()) {
+          // XXX subject of change: may use the height of the row, and not of the component
+          // XXX (the component may have a other size with offset or inset (scrollbars) etc.)
           top = (PixelMeasure) top.add(component.getHeight());
+          top = (PixelMeasure) top.add(getRowSpacing());
         }
       }
     }
@@ -300,6 +307,9 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
 
   public abstract String getColumns();
 
+  public abstract Measure getRowSpacing();
+
+  public abstract Measure getColumnSpacing();
 
   public Object saveState(FacesContext context) {
     clearRows();

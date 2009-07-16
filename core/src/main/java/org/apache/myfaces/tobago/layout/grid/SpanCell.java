@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.layout.grid;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,17 +17,33 @@ package org.apache.myfaces.tobago.taglib.decl;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 
-/**
- * $Id$
- */
-public interface HasCellspacing {
-  /**
-   * Spacing between component and layout cell's
-   */
-  @TagAttribute
-  @UIComponentTagAttribute()
-  void setCellspacing(String cellspacing);
+public class SpanCell implements Cell {
+
+  private OriginCell origin;
+  private boolean horizontalFirst;
+  private boolean verticalFirst;
+
+  public SpanCell(OriginCell origin, boolean horizontalFirst, boolean verticalFirst) {
+    this.origin = origin;
+    this.horizontalFirst = horizontalFirst;
+    this.verticalFirst = verticalFirst;
+  }
+
+  public LayoutComponent getComponent() {
+    return origin.getComponent();
+  }
+
+  public OriginCell getOrigin() {
+    return origin;
+  }
+
+  public boolean isHorizontalFirst() {
+    return horizontalFirst;
+  }
+
+  public boolean isVerticalFirst() {
+    return verticalFirst;
+  }
 }

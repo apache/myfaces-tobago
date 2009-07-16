@@ -37,6 +37,7 @@ import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIMessages;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
@@ -73,8 +74,8 @@ public class MessagesRenderer extends MessageRendererBase {
       LOG.debug("here are " + count + " messages");
     }
     return (count > 0)
-        ? count * getConfiguredValue(facesContext, component, "messageHeight")
-        : getConfiguredValue(facesContext, component, "fixedHeight");
+        ? count * ThemeConfig.getValue(facesContext, component, "messageHeight")
+        : ThemeConfig.getValue(facesContext, component, "fixedHeight");
   }
 
   @Override

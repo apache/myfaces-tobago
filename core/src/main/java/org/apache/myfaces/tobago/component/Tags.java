@@ -24,5 +24,6 @@ public final class Tags {
 
   // todo: add some tag names
 
+  public static final String GRID_LAYOUT = "gridLayout";
   public static final String GRID_LAYOUT_CONSTRAINT = "gridLayoutConstraint";
 }
