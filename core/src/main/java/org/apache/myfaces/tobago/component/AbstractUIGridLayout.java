@@ -97,11 +97,13 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
           LayoutComponent component = temp.getComponent();
 
           // horizontal
-          int hIndex = horizontal.addComponent(horizontalIndices[i], cell.getColumnSpan(), getColumnSpacing().getPixel());
+          int hIndex
+              = horizontal.addComponent(horizontalIndices[i], cell.getColumnSpan(), getColumnSpacing().getPixel());
           cell.getComponent().setHorizontalIndex(hIndex);
 
           // vertical
-          int vIndex = vertical.addComponent(verticalIndices[j], cell.getRowSpan(), getRowSpacing().getPixel());
+          int vIndex
+              = vertical.addComponent(verticalIndices[j], cell.getRowSpan(), getRowSpacing().getPixel());
           cell.getComponent().setVerticalIndex(vIndex);
 
           if (component instanceof LayoutContainer) {

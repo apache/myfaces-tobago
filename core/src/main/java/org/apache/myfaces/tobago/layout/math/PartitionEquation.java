@@ -65,7 +65,7 @@ public final class PartitionEquation implements Equation {
       row[i] = 0.0;
     }
     // the last variable contains a constant, this is here the sum of spaces between cells.
-    row[row.length - 1] =  + (span - 1) * outerSpacing - (end - begin - 1) * innerSpacing;
+    row[row.length - 1] =  (span - 1) * outerSpacing - (end - begin - 1) * innerSpacing;
 
     for (i = parent; i < parent + span; i++) {
       row[i] = -1.0;
