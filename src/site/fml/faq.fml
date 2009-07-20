@@ -27,13 +27,13 @@
           Please, see
         </p>
         <p>
-          <a href="http://tobago.atanion.net/tobago-example-demo/">Demo</a>
+          <a href="http://www.irian.biz/tobago-example-demo/">Demo</a>
         </p>
         <p>
           and especially the section for best practices:
         </p>
         <p>
-          <a href="http://tobago.atanion.net/tobago-example-demo/faces/best-practice/intro.jsp">
+          <a href="http://www.irian.biz/tobago-example-demo/faces/best-practice/intro.jsp">
             Best Practices
           </a>
         </p>
@@ -124,7 +124,7 @@
       <answer>
         <p>The page tag already acts like a form tag. You only need a explicit form tag for partial validation of your data.
         Please look at the forms example in the
-        <a href="http://tobago.atanion.net/tobago-example-demo/faces/overview/form.jsp" >Tobago demo</a>
+        <a href="http://www.irian.biz/tobago-example-demo/faces/overview/form.jsp" >Tobago demo</a>
         </p>
       </answer>
     </faq>
