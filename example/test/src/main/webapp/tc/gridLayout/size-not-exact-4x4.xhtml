@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:view
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page">
+    <f:facet name="layout">
+      <tc:gridLayout columns="6*;9*;13*;2*" rows="4*;11*;10*;5*"/>
+    </f:facet>
+    <!-- 211 (prime number) + 15px = 226px -->
+    <tc:gridLayoutConstraint width="226px" height="226px"/>
+
+    <tc:in id="in-0" value="0"/>
+    <tc:in id="in-1" value="1">
+      <tc:gridLayoutConstraint rowSpan="2"/>
+    </tc:in>
+    <tc:in id="in-2" value="2">
+      <tc:gridLayoutConstraint columnSpan="2"/>
+    </tc:in>
+    <tc:in id="in-3" value="3"/>
+    <tc:in id="in-4" value="4">
+      <tc:gridLayoutConstraint rowSpan="2"/>
+    </tc:in>
+    <tc:in id="in-5" value="5"/>
+    <tc:in id="in-6" value="6">
+      <tc:gridLayoutConstraint columnSpan="2"/>
+    </tc:in>
+    <tc:in id="in-7" value="7">
+      <tc:gridLayoutConstraint rowSpan="2"/>
+    </tc:in>
+    <tc:in id="in-8" value="8"/>
+    <tc:in id="in-9" value="9">
+      <tc:gridLayoutConstraint columnSpan="2"/>
+    </tc:in>
+
+    <tc:script file="script/test-utils.js"/>
+
+    <tc:script onload="checkLayout('page:in-0', 0, 0, 42, 28);"/>
+    <tc:script onload="checkLayout('page:in-1', 47, 0, 63, 111);"/>
+    <tc:script onload="checkLayout('page:in-2', 115, 0, 111, 28);"/>
+    <tc:script onload="checkLayout('page:in-3', 0, 33, 42, 78);"/>
+    <tc:script onload="checkLayout('page:in-4', 115, 33, 92, 153);"/>
+    <tc:script onload="checkLayout('page:in-5', 212, 33, 14, 78);"/>
+    <tc:script onload="checkLayout('page:in-6', 0, 116, 110, 70);"/>
+    <tc:script onload="checkLayout('page:in-7', 212, 116, 14, 110);"/>
+    <tc:script onload="checkLayout('page:in-8', 0, 191, 42, 35);"/>
+    <tc:script onload="checkLayout('page:in-9', 47, 191, 160, 35);"/>
+
+  </tc:page>
+</f:view>

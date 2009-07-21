@@ -19,6 +19,8 @@ package org.apache.myfaces.tobago.layout.math;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -253,52 +255,52 @@ public class EquationManagerUnitTest {
 
     index = equationManager.addComponentRoot();
     Assert.assertEquals(0, index);
-    equationManager.setFixedLength(index, 630);        // the first (current) index has a fix size of 600
-    indices = equationManager.divide(index, 4, 0);                     // this index is divided into 4 parts
+    equationManager.setFixedLength(index, new PixelMeasure(630));        // the first (current) index has a fix size of 600
+    indices = equationManager.divide(index, 4, PixelMeasure.ZERO);                     // this index is divided into 4 parts
     Assert.assertArrayEquals(new int[]{1, 2, 3, 4}, indices);
     equationManager.setProportion(indices[2], indices[3], 1, 2);     // the value on index 2 has factor 1,
     //                                                the value on position 3 has factor 2
     {
-      equationManager.setFixedLength(indices[0], 100);        // the first one has a fix size of 100
-      index = equationManager.addComponent(indices[0], 1, 0);
+      equationManager.setFixedLength(indices[0], new PixelMeasure(100));        // the first one has a fix size of 100
+      index = equationManager.addComponent(indices[0], 1, PixelMeasure.ZERO);
       Assert.assertEquals(5, index);
     }
     {
-      equationManager.setFixedLength(indices[1], 200);        // the second one has a fix size of 200
-      index = equationManager.addComponent(indices[1], 1, 0);
+      equationManager.setFixedLength(indices[1], new PixelMeasure(200));        // the second one has a fix size of 200
+      index = equationManager.addComponent(indices[1], 1, PixelMeasure.ZERO);
       Assert.assertEquals(6, index);
 
-      index = equationManager.addComponent(indices[1], 1, 0);
+      index = equationManager.addComponent(indices[1], 1, PixelMeasure.ZERO);
       Assert.assertEquals(7, index);
-      int[] i7 = equationManager.divide(7, 2, 0);
+      int[] i7 = equationManager.divide(7, 2, PixelMeasure.ZERO);
       Assert.assertArrayEquals(new int[]{8, 9}, i7);
       equationManager.setProportion(i7[0], i7[1], 1, 2);
 
-      index = equationManager.addComponent(indices[1], 1, 0);
+      index = equationManager.addComponent(indices[1], 1, PixelMeasure.ZERO);
       Assert.assertEquals(10, index);
-      int[] i10 = equationManager.divide(10, 2, 0);
+      int[] i10 = equationManager.divide(10, 2, PixelMeasure.ZERO);
       Assert.assertArrayEquals(new int[]{11, 12}, i10);
       equationManager.setProportion(i10[0], i10[1], 4, 1);
     }
     {
-      index = equationManager.addComponent(indices[2], 1, 0);
+      index = equationManager.addComponent(indices[2], 1, PixelMeasure.ZERO);
       Assert.assertEquals(13, index);
     }
     {
-      index = equationManager.addComponent(indices[3], 1, 0);
+      index = equationManager.addComponent(indices[3], 1, PixelMeasure.ZERO);
       Assert.assertEquals(14, index);
-      int[] i14 = equationManager.divide(14, 2, 0);
+      int[] i14 = equationManager.divide(14, 2, PixelMeasure.ZERO);
       Assert.assertArrayEquals(new int[]{15, 16}, i14);
-      equationManager.setFixedLength(i14[0], 130);        // the second one has a fix size of 200
+      equationManager.setFixedLength(i14[0], new PixelMeasure(130));        // the second one has a fix size of 200
     }
     {
-      int iSpan2 = equationManager.addComponent(indices[2], 2, 0);
+      int iSpan2 = equationManager.addComponent(indices[2], 2, PixelMeasure.ZERO);
       Assert.assertEquals(17, iSpan2);
     }
     {
-      int iSpan4 = equationManager.addComponent(indices[0], 4, 0);
+      int iSpan4 = equationManager.addComponent(indices[0], 4, PixelMeasure.ZERO);
       Assert.assertEquals(18, iSpan4);
-      int[] i18 = equationManager.divide(18, 6, 0);
+      int[] i18 = equationManager.divide(18, 6, PixelMeasure.ZERO);
       Assert.assertArrayEquals(new int[]{19, 20, 21, 22, 23, 24}, i18);
       equationManager.setProportion(i18[0], i18[1], 1, 2);
       equationManager.setProportion(i18[0], i18[2], 1, 3);
@@ -307,11 +309,11 @@ public class EquationManagerUnitTest {
       equationManager.setProportion(i18[0], i18[5], 1, 6);
     }
     {
-      int i19_1 = equationManager.addComponent(19, 6, 0);
+      int i19_1 = equationManager.addComponent(19, 6, PixelMeasure.ZERO);
       Assert.assertEquals(25, i19_1);
-      int i19_2 = equationManager.addComponent(19, 3, 0);
+      int i19_2 = equationManager.addComponent(19, 3, PixelMeasure.ZERO);
       Assert.assertEquals(26, i19_2);
-      int i22 = equationManager.addComponent(22, 3, 0);
+      int i22 = equationManager.addComponent(22, 3, PixelMeasure.ZERO);
       Assert.assertEquals(27, i22);
     }
 
@@ -320,38 +322,37 @@ public class EquationManagerUnitTest {
     // solve
 
     equationManager.solve();
-    double[] result = equationManager.getResult();
+    Measure[] result = equationManager.getResult();
     LOG.info("result: " + Arrays.toString(result));
-    Assert.assertArrayEquals(new double[]{
-       630,        // x_0
-       100,        // x_1
-       200,        // x_2
-       110,        // x_3
-       220,        // x_4
-       100,        // x_5
-       200,        // x_6
-       200,        // x_7
-       66.666667,  // x_8
-       133.333333, // x_9
-       200,        // x_10
-       160,        // x_11
-       40,         // x_12
-       110,        // x_13
-       220,        // x_14
-       130,        // x_15
-       90,         // x_16
-       330,        // x_17
-       630,        // x_18
-       30,         // x_19
-       60,         // x_20
-       90,         // x_21
-       120,        // x_22
-       150,        // x_23
-       180,        // x_24
-       630,        // x_25
-       180,        // x_26
-       450,        // x_27
-    }, result, 0.000001);
-
+    Assert.assertArrayEquals(new Measure[]{
+        new PixelMeasure(630),        // x_0
+        new PixelMeasure(100),        // x_1
+        new PixelMeasure(200),        // x_2
+        new PixelMeasure(110),        // x_3
+        new PixelMeasure(220),        // x_4
+        new PixelMeasure(100),        // x_5
+        new PixelMeasure(200),        // x_6
+        new PixelMeasure(200),        // x_7
+        new PixelMeasure(67),         // x_8
+        new PixelMeasure(133),        // x_9
+        new PixelMeasure(200),        // x_10
+        new PixelMeasure(160),        // x_11
+        new PixelMeasure(40),         // x_12
+        new PixelMeasure(110),        // x_13
+        new PixelMeasure(220),        // x_14
+        new PixelMeasure(130),        // x_15
+        new PixelMeasure(90),         // x_16
+        new PixelMeasure(330),        // x_17
+        new PixelMeasure(630),        // x_18
+        new PixelMeasure(30),         // x_19
+        new PixelMeasure(60),         // x_20
+        new PixelMeasure(90),         // x_21
+        new PixelMeasure(120),        // x_22
+        new PixelMeasure(150),        // x_23
+        new PixelMeasure(180),        // x_24
+        new PixelMeasure(630),        // x_25
+        new PixelMeasure(180),        // x_26
+        new PixelMeasure(450),        // x_27
+    }, result);
   }
 }

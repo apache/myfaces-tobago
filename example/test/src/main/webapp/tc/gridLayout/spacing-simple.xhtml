@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:view
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <!--
+  Test page for spacing:
+  1. spacing attributes
+  2. theme defaults
+  3. only columnSpacing
+  4. only rowSpacing
+  -->
+
+  <tc:page id="page" label="Spacing Test">
+    <tc:gridLayoutConstraint width="310px" height="310px"/>
+
+    <f:facet name="layout">
+      <tc:gridLayout columns="*;*" rows="*;*" columnSpacing="0px"/>
+    </f:facet>
+
+    <tc:in id="c_NW" value="NW"/>
+    <tc:in id="c_NE" value="NE"/>
+    <tc:in id="c_SW" value="SW"/>
+    <tc:in id="c_SE" value="SE"/>
+
+    <tc:script file="script/test-utils.js"/>
+
+    <tc:script onload="checkLayout('page:c_NW', 0, 0, 155, 153);"/>
+    <tc:script onload="checkLayout('page:c_NE', 155, 0, 155, 153);"/>
+    <tc:script onload="checkLayout('page:c_SW', 0, 158, 155, 152);"/>
+    <tc:script onload="checkLayout('page:c_SE', 155, 158, 155, 152);"/>
+
+  </tc:page>
+</f:view>

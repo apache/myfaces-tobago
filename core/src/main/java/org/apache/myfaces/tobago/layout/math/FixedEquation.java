@@ -17,14 +17,16 @@ package org.apache.myfaces.tobago.layout.math;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.layout.Measure;
+
 import java.util.Arrays;
 
 public final class FixedEquation implements Equation {
 
   private int index;
-  private double result;
+  private Measure result;
 
-  public FixedEquation(int index, double result) {
+  public FixedEquation(int index, Measure result) {
     this.index = index;
     this.result = result;
   }
@@ -32,7 +34,7 @@ public final class FixedEquation implements Equation {
   public void fillRow(double[] row) {
     Arrays.fill(row, 0.0);
     row[index] = 1.0;
-    row[row.length - 1] = result;
+    row[row.length - 1] = result.getPixel();
   }
 
   @Override

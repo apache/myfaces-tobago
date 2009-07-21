@@ -19,6 +19,8 @@ package org.apache.myfaces.tobago.layout.math;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -35,20 +37,18 @@ public class SystemOfEquationsUnitTest {
     long begin = System.nanoTime();
 
     SystemOfEquations system = new SystemOfEquations(3);
-    system.addEqualsEquation(new FixedEquation(0, 1005));
-    system.addEqualsEquation(new PartitionEquation(1, 3, 0, 1, 5, 0));
+    system.addEqualsEquation(new FixedEquation(0, new PixelMeasure(1005)));
+    system.addEqualsEquation(new PartitionEquation(1, 2, 0, new PixelMeasure(5)));
     system.addEqualsEquation(new ProportionEquation(1, 2, 2, 3));
-    system.prepare();
-    system.gauss();
-    system.reduce();
-    double[] result = system.result();
+    Measure[] result = system.solve();
 
     long end = System.nanoTime();
 
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    Assert.assertArrayEquals(new double[]{1005, 400, 600}, result, SystemOfEquations.EPSILON);
+    Assert.assertArrayEquals(new Measure[]{
+        new PixelMeasure(1005), new PixelMeasure(400), new PixelMeasure(600)}, result);
   }
 
   @Test
@@ -57,22 +57,21 @@ public class SystemOfEquationsUnitTest {
     long begin = System.nanoTime();
 
     SystemOfEquations system = new SystemOfEquations(5);
-    system.addEqualsEquation(new FixedEquation(0, 1015));
-    system.addEqualsEquation(new PartitionEquation(1, 5, 0, 1, 5, 0));
+    system.addEqualsEquation(new FixedEquation(0, new PixelMeasure(1015)));
+    system.addEqualsEquation(new PartitionEquation(1, 4, 0, new PixelMeasure(5)));
     system.addEqualsEquation(new ProportionEquation(1, 2, 1, 2));
     system.addEqualsEquation(new ProportionEquation(2, 3, 2, 3));
     system.addEqualsEquation(new ProportionEquation(3, 4, 3, 4));
-    system.prepare();
-    system.gauss();
-    system.reduce();
-    double[] result = system.result();
+    Measure[] result = system.solve();
 
     long end = System.nanoTime();
 
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    Assert.assertArrayEquals(new double[]{1015, 100, 200, 300, 400}, result, SystemOfEquations.EPSILON);
+    Assert.assertArrayEquals(new Measure[]{
+        new PixelMeasure(1015), new PixelMeasure(100), new PixelMeasure(200), new PixelMeasure(300),
+        new PixelMeasure(400)}, result);
   }
 
   @Test
@@ -81,8 +80,8 @@ public class SystemOfEquationsUnitTest {
     long begin = System.nanoTime();
 
     SystemOfEquations system = new SystemOfEquations(11);
-    system.addEqualsEquation(new FixedEquation(0, 1100));
-    system.addEqualsEquation(new PartitionEquation(1, 11, 0, 1, 0, 0));
+    system.addEqualsEquation(new FixedEquation(0, new PixelMeasure(1100)));
+    system.addEqualsEquation(new PartitionEquation(1, 10, 0, PixelMeasure.ZERO));
     system.addEqualsEquation(new ProportionEquation(1, 2, 1, 2));
     system.addEqualsEquation(new ProportionEquation(2, 3, 2, 3));
     system.addEqualsEquation(new ProportionEquation(3, 4, 3, 4));
@@ -92,18 +91,17 @@ public class SystemOfEquationsUnitTest {
     system.addEqualsEquation(new ProportionEquation(7, 8, 7, 8));
     system.addEqualsEquation(new ProportionEquation(8, 9, 8, 9));
     system.addEqualsEquation(new ProportionEquation(9, 10, 9, 10));
-
-    system.prepare();
-    system.gauss();
-    system.reduce();
-    double[] result = system.result();
+    Measure[] result = system.solve();
 
     long end = System.nanoTime();
 
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    Assert.assertArrayEquals(new double[]{1100, 20, 40, 60, 80, 100, 120, 140, 160, 180, 200}, result, SystemOfEquations.EPSILON);
+    Assert.assertArrayEquals(new Measure[]{
+        new PixelMeasure(1100), new PixelMeasure(20), new PixelMeasure(40), new PixelMeasure(60),
+        new PixelMeasure(80), new PixelMeasure(100), new PixelMeasure(120), new PixelMeasure(140),
+        new PixelMeasure(160), new PixelMeasure(180), new PixelMeasure(200)}, result);
   }
 
   @Test
@@ -115,32 +113,28 @@ public class SystemOfEquationsUnitTest {
     int sum = n * (n + 1) / 2;
 
     SystemOfEquations system = new SystemOfEquations(n + 1);
-    system.addEqualsEquation(new FixedEquation(0, sum));
-    system.addEqualsEquation(new PartitionEquation(1, n + 1, 0, 1, 0, 0));
+    system.addEqualsEquation(new FixedEquation(0, new PixelMeasure(sum)));
+    system.addEqualsEquation(new PartitionEquation(1, n, 0, PixelMeasure.ZERO));
     for (int i = 1; i < n; i++) {
       system.addEqualsEquation(new ProportionEquation(i, i + 1, (double) i, (double) i + 1));
     }
-
-    system.prepare();
-    system.gauss();
-    system.reduce();
-    double[] result = system.result();
+    Measure[] result = system.solve();
 
     long end = System.nanoTime();
 
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
-    double[] expected = new double[n + 1];
-    expected[0] = sum;
+    Measure[] expected = new Measure[n + 1];
+    expected[0] = new PixelMeasure(sum);
     for (int i = 0; i < n; i++) {
-      expected[i + 1] = i + 1;
+      expected[i + 1] = new PixelMeasure(i + 1);
     }
-    Assert.assertArrayEquals(expected, result, SystemOfEquations.EPSILON);
+    Assert.assertArrayEquals(expected, result);
   }
 
   /**
    * <pre>
-   * |               1000px              |
+   * |               900px              |
    * |     *     |     *     |     *     |
    * |           |   *   |   *   |   *   |
    * </pre>
@@ -150,25 +144,25 @@ public class SystemOfEquationsUnitTest {
 
     long begin = System.nanoTime();
 
-    SystemOfEquations system = new SystemOfEquations(7);
-    system.addEqualsEquation(new FixedEquation(0, 900));
-    system.addEqualsEquation(new PartitionEquation(1, 4, 0, 1, 0, 0));
-    system.addEqualsEquation(new PartitionEquation(4, 7, 2, 2, 0, 0));
+    SystemOfEquations system = new SystemOfEquations(8);
+    system.addEqualsEquation(new FixedEquation(0, new PixelMeasure(900)));
+    system.addEqualsEquation(new PartitionEquation(1, 3, 0, PixelMeasure.ZERO));
+    system.addEqualsEquation(new CombinationEquation(4, 2, 2, PixelMeasure.ZERO));
+    system.addEqualsEquation(new PartitionEquation(5, 3, 4, PixelMeasure.ZERO));
     system.addEqualsEquation(new ProportionEquation(1, 2, 1, 1));
     system.addEqualsEquation(new ProportionEquation(1, 3, 1, 1));
-    system.addEqualsEquation(new ProportionEquation(4, 5, 1, 1));
-    system.addEqualsEquation(new ProportionEquation(4, 6, 1, 1));
-    system.prepare();
-    system.gauss();
-    system.reduce();
-    double[] result = system.result();
+    system.addEqualsEquation(new ProportionEquation(5, 6, 1, 1));
+    system.addEqualsEquation(new ProportionEquation(5, 7, 1, 1));
+    Measure[] result = system.solve();
 
     long end = System.nanoTime();
 
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    Assert.assertArrayEquals(new double[]{900, 300, 300, 300, 200, 200, 200}, result, SystemOfEquations.EPSILON);
+    Assert.assertArrayEquals(new Measure[]{
+        new PixelMeasure(900), new PixelMeasure(300), new PixelMeasure(300), new PixelMeasure(300),
+        new PixelMeasure(600), new PixelMeasure(200), new PixelMeasure(200), new PixelMeasure(200)}, result);
   }
 
   @Test
@@ -194,25 +188,25 @@ public class SystemOfEquationsUnitTest {
 
     long begin = System.nanoTime();
 
-    SystemOfEquations system = new SystemOfEquations(7);
+    SystemOfEquations system = new SystemOfEquations(8);
 //    system.addEqualsEquation(new FixedEquation(0, 900));
-    system.addEqualsEquation(new PartitionEquation(1, 4, 0, 1, 0, 0));
-    system.addEqualsEquation(new PartitionEquation(4, 7, 2, 2, 0, 0));
+    system.addEqualsEquation(new PartitionEquation(1, 3, 0, PixelMeasure.ZERO));
+    system.addEqualsEquation(new CombinationEquation(4, 2, 2, PixelMeasure.ZERO));
+    system.addEqualsEquation(new PartitionEquation(5, 3, 4, PixelMeasure.ZERO));
     system.addEqualsEquation(new ProportionEquation(1, 2, 1, 1));
     system.addEqualsEquation(new ProportionEquation(1, 3, 1, 1));
-    system.addEqualsEquation(new ProportionEquation(4, 5, 1, 1));
-    system.addEqualsEquation(new ProportionEquation(4, 6, 1, 1));
-    system.prepare();
-    system.gauss();
-    system.reduce();
-    double[] result = system.result();
+    system.addEqualsEquation(new ProportionEquation(5, 6, 1, 1));
+    system.addEqualsEquation(new ProportionEquation(5, 7, 1, 1));
+    Measure[] result = system.solve();
 
     long end = System.nanoTime();
 
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    Assert.assertArrayEquals(new double[]{450, 150, 150, 150, 100, 100, 100}, result, SystemOfEquations.EPSILON);
+    Assert.assertArrayEquals(new Measure[]{
+        new PixelMeasure(450), new PixelMeasure(150), new PixelMeasure(150), new PixelMeasure(150),
+        new PixelMeasure(300), new PixelMeasure(100), new PixelMeasure(100), new PixelMeasure(100)}, result);
   }
 
   /**
@@ -227,23 +221,21 @@ public class SystemOfEquationsUnitTest {
     long begin = System.nanoTime();
 
     SystemOfEquations system = new SystemOfEquations(4);
-    system.addEqualsEquation(new FixedEquation(0, 100));
-    system.addEqualsEquation(new PartitionEquation(1, 3, 0, 1, 0, 0));
-    system.addEqualsEquation(new FixedEquation(1, 50));
-    system.addEqualsEquation(new FixedEquation(2, 50));
-    system.addEqualsEquation(new PartitionEquation(3, 4, 2, 1, 0, 0));
-    system.addEqualsEquation(new FixedEquation(3, 50));
-    system.prepare();
-    system.gauss();
-    system.reduce();
-    double[] result = system.result();
+    system.addEqualsEquation(new FixedEquation(0, new PixelMeasure(100)));
+    system.addEqualsEquation(new PartitionEquation(1, 2, 0, PixelMeasure.ZERO));
+    system.addEqualsEquation(new FixedEquation(1, new PixelMeasure(50)));
+    system.addEqualsEquation(new FixedEquation(2, new PixelMeasure(50)));
+    system.addEqualsEquation(new PartitionEquation(3, 1, 2, PixelMeasure.ZERO));
+    system.addEqualsEquation(new FixedEquation(3, new PixelMeasure(50)));
+    Measure[] result = system.solve();
 
     long end = System.nanoTime();
 
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    Assert.assertArrayEquals(new double[]{100, 50, 50, 50}, result, SystemOfEquations.EPSILON);
+    Assert.assertArrayEquals(new Measure[]{
+        new PixelMeasure(100), new PixelMeasure(50), new PixelMeasure(50), new PixelMeasure(50)}, result);
   }
 
   /**
@@ -258,27 +250,72 @@ public class SystemOfEquationsUnitTest {
 
     long begin = System.nanoTime();
 
-    SystemOfEquations system = new SystemOfEquations(7);
+    SystemOfEquations system = new SystemOfEquations(8);
 //    system.addEqualsEquation(new FixedEquation(0, 900));
-    system.addEqualsEquation(new PartitionEquation(1, 4, 0, 1, 0, 0));
-    system.addEqualsEquation(new PartitionEquation(4, 7, 2, 2, 0, 0));
+    system.addEqualsEquation(new PartitionEquation(1, 3, 0, PixelMeasure.ZERO));
+    system.addEqualsEquation(new CombinationEquation(4, 2, 2, PixelMeasure.ZERO));
+    system.addEqualsEquation(new PartitionEquation(5, 3, 4, PixelMeasure.ZERO));
     system.addEqualsEquation(new ProportionEquation(1, 2, 1, 1));
     system.addEqualsEquation(new ProportionEquation(1, 3, 1, 1));
-    system.addEqualsEquation(new ProportionEquation(4, 5, 1, 1));
-    system.addEqualsEquation(new ProportionEquation(4, 6, 1, 1));
-    system.prepare();
-    system.gauss();
-    system.reduce();
-    double[] result = system.result();
+    system.addEqualsEquation(new ProportionEquation(5, 6, 1, 1));
+    system.addEqualsEquation(new ProportionEquation(5, 7, 1, 1));
+    Measure[] result = system.solve();
 
     long end = System.nanoTime();
 
     LOG.info("result: " + Arrays.toString(result));
     LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
 
-    Assert.assertArrayEquals(new double[]{450, 150, 150, 150, 100, 100, 100}, result, SystemOfEquations.EPSILON);
+    Assert.assertArrayEquals(new Measure[]{
+        new PixelMeasure(450), new PixelMeasure(150), new PixelMeasure(150), new PixelMeasure(150),
+        new PixelMeasure(300), new PixelMeasure(100), new PixelMeasure(100), new PixelMeasure(100)}, result);
   }
 
+  @Test
+  public void testRound() {
+
+    long begin = System.nanoTime();
+
+    SystemOfEquations system = new SystemOfEquations(4);
+    system.addEqualsEquation(new FixedEquation(0, new PixelMeasure(1001)));
+    system.addEqualsEquation(new PartitionEquation(1, 3, 0, PixelMeasure.ZERO));
+    system.addEqualsEquation(new ProportionEquation(1, 2, 1, 1));
+    system.addEqualsEquation(new ProportionEquation(2, 3, 1, 1));
+    Measure[] result = system.solve();
+
+    long end = System.nanoTime();
+
+    LOG.info("result: " + Arrays.toString(result));
+    LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
+
+    Assert.assertArrayEquals(new Measure[]{
+        new PixelMeasure(1001), new PixelMeasure(334), new PixelMeasure(333), new PixelMeasure(334)}, result);
+  }
+
+  @Test
+  public void testRoundWithCombination() {
+
+    long begin = System.nanoTime();
+
+    SystemOfEquations system = new SystemOfEquations(7);
+    system.addEqualsEquation(new FixedEquation(0, new PixelMeasure(310)));
+    system.addEqualsEquation(new PartitionEquation(1, 2, 0, new PixelMeasure(5)));
+    system.addEqualsEquation(new ProportionEquation(1, 2, 1, 1));
+    system.addEqualsEquation(new CombinationEquation(3, 1, 1, PixelMeasure.ZERO));
+    system.addEqualsEquation(new CombinationEquation(4, 1, 1, PixelMeasure.ZERO));
+    system.addEqualsEquation(new CombinationEquation(5, 2, 1, PixelMeasure.ZERO));
+    system.addEqualsEquation(new CombinationEquation(6, 2, 1, PixelMeasure.ZERO));
+    Measure[] result = system.solve();
+
+    long end = System.nanoTime();
+
+    LOG.info("result: " + Arrays.toString(result));
+    LOG.info("Duration: " + new DecimalFormat().format(end - begin) + " ns");
+
+    Assert.assertArrayEquals(new Measure[]{
+        new PixelMeasure(310), new PixelMeasure(153), new PixelMeasure(152),
+        new PixelMeasure(153), new PixelMeasure(153), new PixelMeasure(152), new PixelMeasure(152)}, result);
+  }
 
   /**
    * todo later: inequations

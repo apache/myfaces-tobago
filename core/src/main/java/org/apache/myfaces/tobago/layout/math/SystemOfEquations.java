@@ -19,6 +19,8 @@ package org.apache.myfaces.tobago.layout.math;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,11 +85,6 @@ public class SystemOfEquations {
 
   private static final Log LOG = LogFactory.getLog(SystemOfEquations.class);
 
-  /**
-   * Values smaller than this EPSILON should be treated as zero.
-   */
-  public static final double EPSILON = 0.0000001;
-
   private int numberOfVariables;
   private List<Equation> equations = new ArrayList<Equation>();
   private double[][] data;
@@ -105,6 +102,12 @@ public class SystemOfEquations {
   }
 
   public void addEqualsEquation(PartitionEquation equation) {
+    assert step == Step.NEW;
+
+    equations.add(equation);
+  }
+
+  public void addEqualsEquation(CombinationEquation equation) {
     assert step == Step.NEW;
 
     equations.add(equation);
@@ -128,7 +131,14 @@ public class SystemOfEquations {
     return indices;
   }
 
-  public void prepare() {
+  public Measure[] solve() {
+    prepare();
+    gauss();
+    reduce();
+    return result();
+  }
+
+  private void prepare() {
     assert step == Step.NEW;
     step = step.next();
 //    data = new double[equations.size() + equalEquations.size()][];
@@ -156,7 +166,7 @@ public class SystemOfEquations {
     step = step.next();
   }
 
-  public void gauss() {
+  private void gauss() {
 
     LOG.info(this);
 
@@ -169,7 +179,7 @@ public class SystemOfEquations {
       // normalize row
       LOG.info(this);
       double factor = data[j][j];
-      if (isZero(factor)) {
+      if (MathUtils.isZero(factor)) {
         int nonZeroIndex = findNonZero(j);
         if (nonZeroIndex != -1) {
           swapRow(j, nonZeroIndex);
@@ -197,7 +207,7 @@ public class SystemOfEquations {
     step = step.next();
   }
 
-  public void reduce() {
+  private void reduce() {
     assert step == Step.TRIANGULAR;
     step = step.next();
 
@@ -215,15 +225,62 @@ public class SystemOfEquations {
     step = step.next();
   }
 
-  public double[] result() {
+  private Measure[] result() {
     assert step == Step.DIAGONAL;
 
     LOG.info(this);
-    double[] result = new double[numberOfVariables];
+
+    round();
+
+    Measure[] result = new Measure[numberOfVariables];
     for (int i = 0; i < numberOfVariables; i++) {
-      result[i] = data[i][numberOfVariables];
+      assert MathUtils.isInteger(data[i][numberOfVariables]);
+      result[i] = new PixelMeasure((int) Math.round(data[i][numberOfVariables]));
     }
+
+    LOG.info("after adjust remainders:  " + Arrays.toString(result));
+
     return result;
+  }
+
+  private void round() {
+
+    for (Equation equation : equations) {
+      if (equation instanceof PartitionEquation) {
+        PartitionEquation partition = (PartitionEquation) equation;
+
+        int begin = partition.getBegin();
+        int count = partition.getCount();
+        double[] temp = new double[count];
+        // copy from data to temporary array
+        for (int i = 0; i < count; i++) {
+          temp[i] = data[i + begin][numberOfVariables];
+        }
+        // processing
+        MathUtils.adjustRemainders(temp);
+        // write back to data
+        for (int i = 0; i < count; i++) {
+          data[i + begin][numberOfVariables] = temp[i];
+        }
+      }
+      if (equation instanceof CombinationEquation) {
+        CombinationEquation combination = (CombinationEquation) equation;
+        combination.getParent();
+        int parent = combination.getParent();
+        int span = combination.getSpan();
+        double sum = (span - 1) * combination.getSpacing().getPixel();
+        for (int i = 0; i < span; i++) {
+          double value = data[i + parent][numberOfVariables];
+          assert MathUtils.isInteger(value);
+          sum += value;
+        }
+        int index = combination.getNewIndex();
+        LOG.info("Change value for index=" + index + " from "
+            + (data[index][numberOfVariables]) + " -> " + Math.round(sum));
+        assert Math.abs(data[index][numberOfVariables] - Math.round(sum)) < 1;
+        data[index][numberOfVariables] = Math.round(sum);
+      }
+    }
   }
 
   private void swapRow(int j, int k) {
@@ -234,7 +291,7 @@ public class SystemOfEquations {
 
   private int findNonZero(int j) {
     for (int k = j + 1; k < data.length; k++) {
-      if (isNotZero(data[k][j])) {
+      if (MathUtils.isNotZero(data[k][j])) {
         return k;
       }
     }
@@ -250,7 +307,7 @@ public class SystemOfEquations {
     for (int j = data.length - 1; j >= 0; j--) {
       boolean allZero = true;
       for (double value : data[j]) {
-        if (isNotZero(value)) {
+        if (MathUtils.isNotZero(value)) {
           allZero = false;
           break;
         }
@@ -267,29 +324,16 @@ public class SystemOfEquations {
     for (int i = 0; i < numberOfVariables + 1; i++) {
       data[j][i] = data[j][i] / denominator;
     }
-    // try to fix float values
-//    double b = data[j][numberOfVariables];
-//    if (isNotZero(b - Math.round(b))) {
-//      data[j][numberOfVariables] = Math.round(b);
-//      LOG.warn("Fixing float result from " + b + " to " + data[j][numberOfVariables]);
-//    }
   }
 
   private void substractMultipleOfRowJToRowK(int j, int k) {
     double factor = data[k][j];
-    if (isNotZero(factor)) {
+    if (MathUtils.isNotZero(factor)) {
       for (int i = 0; i < numberOfVariables + 1; i++) {
         data[k][i] -= data[j][i] * factor;
       }
+//      fixResultOfRow(k);
     }
-  }
-
-  private boolean isZero(double factor) {
-    return Math.abs(factor) < EPSILON;
-  }
-
-  private boolean isNotZero(double factor) {
-    return Math.abs(factor) >= EPSILON;
   }
 
   /**
@@ -300,7 +344,7 @@ public class SystemOfEquations {
    */
   private boolean rowNull(int j) {
     for (int i = 0; i < numberOfVariables; i++) {
-      if (isNotZero(data[j][i])) {
+      if (MathUtils.isNotZero(data[j][i])) {
         return false;
       }
     }

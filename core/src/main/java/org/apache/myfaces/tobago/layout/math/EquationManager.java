@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.layout.math;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.layout.Measure;
 
 /**
  * Manages the relation between the Tree of LayoutManagers and the Linear System of Equations
@@ -28,44 +29,38 @@ public class EquationManager {
   private static final Log LOG = LogFactory.getLog(EquationManager.class);
 
   private SystemOfEquations equations;
-  private double[] result;
+  private Measure[] result;
 
   public int addComponentRoot() {
     equations = new SystemOfEquations(1);
     return 0;
   }
 
-  public void setFixedLength(int index, int length) {
+  public void setFixedLength(int index, Measure length) {
     equations.addEqualsEquation(new FixedEquation(index, length));
     LOG.info(equations);
   }
 
-  public int[] divide(int index, int number, int spacing) {
-    int[] newIndices = addSubTree(index, number, 1, spacing, 0);
-    LOG.info(equations);
-    return newIndices;
-  }
-
-  public int addComponent(int index, int span, int spacing) {
-    int[] newIndices = addSubTree(index, 1, span, 0, spacing);
-    LOG.info(equations);
-    return newIndices[0];
-  }
-
-  private int[] addSubTree(int index, int number, int span, double innerSpacing, double outerSpacing) {
+  public int[] divide(int index, int number, Measure spacing) {
 
     assert number > 0;
-    assert span > 0;
 
     int[] newIndices = equations.addVariables(number);
     equations.addEqualsEquation(new PartitionEquation(
-        newIndices[0],
-        newIndices[newIndices.length - 1] + 1,
-        index,
-        span,
-        innerSpacing,
-        outerSpacing));
+        newIndices[0], number, index, spacing));
+    LOG.info(equations);
     return newIndices;
+  }
+
+  public int addComponent(int index, int span, Measure spacing) {
+
+    assert span > 0;
+
+    int[] newIndices = equations.addVariables(1);
+    equations.addEqualsEquation(new CombinationEquation(
+        newIndices[0], index, span, spacing));
+    LOG.info(equations);
+    return newIndices[0];
   }
 
   public void setProportion(int index1, int index2, int factor1, int factor2) {
@@ -77,18 +72,11 @@ public class EquationManager {
 
     LOG.info("solve:\n" + equations);
 
-    equations.prepare();
-    equations.gauss();
-    equations.reduce();
-    result = equations.result();
+    result = equations.solve();
   }
 
-  public double[] getResult() {
+  public Measure[] getResult() {
     return result;
-  }
-
-  public int getNumberOfVariable() {
-    return equations.getNumberOfVariables();
   }
 
   @Override

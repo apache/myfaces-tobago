@@ -29,14 +29,12 @@ public final class PixelMeasure extends Measure {
 
   private static final PixelMeasure NULL = new PixelMeasure(0);
 
+  public static final Measure ZERO = new PixelMeasure(0);
+
   private final int pixel;
 
   public PixelMeasure(int pixel) {
     this.pixel = pixel;
-  }
-
-  public PixelMeasure(double value) {
-    this((int) (value + 0.5));
   }
 
   public Measure add(Measure m) {
@@ -61,4 +59,26 @@ public final class PixelMeasure extends Measure {
     return pixel + "px";
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    PixelMeasure that = (PixelMeasure) o;
+
+    if (pixel != that.pixel) {
+      return false;
+    }
+
+    return true;
+  }
+
+  @Override
+  public int hashCode() {
+    return pixel;
+  }
 }

@@ -25,84 +25,92 @@ import org.apache.myfaces.tobago.layout.Measure;
  * In this example are: begin=4, end=6, parent=2, span=1
  * Because of the algorithm we have indices without gap.
  */
-public final class PartitionEquation implements Equation {
+public final class CombinationEquation implements Equation {
 
-  private int begin;
-  private int count;
+  private int newIndex;
   private int parent;
+  private int span;
   private Measure spacing;
 
   /**
-   * @param begin    lowest index
-   * @param count    number of cells of the partition
+   * @param newIndex new index
    * @param parent   parent index
-   * @param spacing  space between two cells of the partition
+   * @param span     number of parent cells
+   * @param spacing  space between two cells inside the span
    */
-  public PartitionEquation(int begin, int count, int parent, Measure spacing) {
-    this.begin = begin;
-    this.count = count;
+  public CombinationEquation(int newIndex, int parent, int span, Measure spacing) {
+    this.newIndex = newIndex;
     this.parent = parent;
+    this.span = span;
     this.spacing = spacing;
-
-    assert begin >= 0 && count > 0 && parent >= 0;
-    assert parent <= begin;
   }
 
   public void fillRow(double[] row) {
+    assert newIndex >= 0 && parent >= 0 && span > 0;
+    assert parent + span <= newIndex || parent > newIndex;
+
     int i = 0;
-    for (; i < begin; i++) {
+    for (; i < newIndex; i++) {
       row[i] = 0.0;
     }
-    for (; i < begin + count; i++) {
+    for (; i < newIndex + 1; i++) {
       row[i] = 1.0;
     }
     for (; i < row.length - 1; i++) {
       row[i] = 0.0;
     }
     // the last variable contains a constant, this is here the sum of spaces between cells.
-    row[row.length - 1] = -(count - 1) * spacing.getPixel();
+    row[row.length - 1] =  (span - 1) * spacing.getPixel();
 
-    for (i = parent; i < parent + 1; i++) {
+    for (i = parent; i < parent + span; i++) {
       row[i] = -1.0;
     }
   }
 
-  public int getBegin() {
-    return begin;
+  public int getNewIndex() {
+    return newIndex;
   }
 
-  public int getCount() {
-    return count;
+  public int getParent() {
+    return parent;
+  }
+
+  public int getSpan() {
+    return span;
+  }
+
+  public Measure getSpacing() {
+    return spacing;
   }
 
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder("PartitionEquation: ");
+    StringBuilder builder = new StringBuilder("CombinationEquation: ");
     // cells from parent
     builder.append(" x_");
     builder.append(parent);
-    // sub cells
-    builder.append(" = ");
-    builder.append("x_");
-    builder.append(begin);
-    if (count > 2) {
+    if (span > 2) {
       builder.append(" + ...");
     }
-    if (count >= 2) {
+    if (span >= 2) {
       builder.append(" + x_");
-      builder.append(begin + count - 1);
+      builder.append(parent + span - 1);
     }
     // plus spacing
     if (spacing.getPixel() > 0) {
-      if (count >= 2) {
+      if (span >= 2) {
         builder.append(" + ");
-        if (count > 2) {
-          builder.append(count - 1);
+        if (span > 2) {
+          builder.append(span - 1);
           builder.append(" * ");
         }
         builder.append(spacing);
       }
     }
+    // sub cells
+    builder.append(" = ");
+    builder.append("x_");
+    builder.append(newIndex);
 
     return builder.toString();
   }

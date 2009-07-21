@@ -1,0 +1,62 @@
+package org.apache.myfaces.tobago.layout.math;
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import org.apache.myfaces.tobago.layout.PixelMeasure;
+import org.junit.Assert;
+import org.junit.Test;
+
+public class CombinationEquationUnitTest {
+
+  @Test
+  public void testToString() {
+    Assert.assertEquals("CombinationEquation:  x_0 = x_4",
+        new CombinationEquation(4, 0, 1, PixelMeasure.ZERO).toString());
+    Assert.assertEquals("CombinationEquation:  x_0 + x_1 = x_4",
+        new CombinationEquation(4, 0, 2, PixelMeasure.ZERO).toString());
+    Assert.assertEquals("CombinationEquation:  x_0 + ... + x_2 = x_4",
+        new CombinationEquation(4, 0, 3, PixelMeasure.ZERO).toString());
+
+    Assert.assertEquals("CombinationEquation:  x_0 = x_4",
+        new CombinationEquation(4, 0, 1, new PixelMeasure(5)).toString());
+    Assert.assertEquals("CombinationEquation:  x_0 + x_1 + 5px = x_4",
+        new CombinationEquation(4, 0, 2, new PixelMeasure(5)).toString());
+    Assert.assertEquals("CombinationEquation:  x_0 + ... + x_2 + 2 * 5px = x_4",
+        new CombinationEquation(4, 0, 3, new PixelMeasure(5)).toString());
+  }
+
+  @Test
+  public void testFillRow() {
+    double[] row = new double[8];
+
+    new CombinationEquation(4, 0, 1, PixelMeasure.ZERO).fillRow(row);
+    Assert.assertArrayEquals(new double[] {-1, 0, 0, 0, 1, 0, 0, 0}, row, MathUtils.EPSILON);
+    new CombinationEquation(4, 0, 2, PixelMeasure.ZERO).fillRow(row);
+    Assert.assertArrayEquals(new double[] {-1, -1, 0, 0, 1, 0, 0, 0}, row, MathUtils.EPSILON);
+    new CombinationEquation(4, 0, 3, PixelMeasure.ZERO).fillRow(row);
+    Assert.assertArrayEquals(new double[] {-1, -1, -1, 0, 1, 0, 0, 0}, row, MathUtils.EPSILON);
+
+    new CombinationEquation(4, 0, 1, new PixelMeasure(5)).fillRow(row);
+    Assert.assertArrayEquals(new double[] {-1, 0, 0, 0, 1, 0, 0, 0}, row, MathUtils.EPSILON);
+    new CombinationEquation(4, 0, 2, new PixelMeasure(5)).fillRow(row);
+    Assert.assertArrayEquals(new double[] {-1, -1, 0, 0, 1, 0, 0, 5}, row, MathUtils.EPSILON);
+    new CombinationEquation(4, 0, 3, new PixelMeasure(5)).fillRow(row);
+    Assert.assertArrayEquals(new double[] {-1, -1, -1, 0, 1, 0, 0, 10}, row, MathUtils.EPSILON);
+  }
+
+}
