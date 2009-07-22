@@ -9,9 +9,9 @@
 
   <tc:page id="page">
     <f:facet name="layout">
-      <tc:gridLayout columns="100px;200px;*;2*" rows="*;*;*;2*"/>
+      <tc:gridLayout columns="100px;205px;*;2*" rows="*;*;*;2*"/>
     </f:facet>
-    <tc:gridLayoutConstraint width="630px" height="500px"/>
+    <tc:gridLayoutConstraint width="650px" height="515px"/>
 
     <tc:in id="x_5" value="x_5">
       <tc:gridLayoutConstraint rowSpan="3"/>
@@ -54,12 +54,12 @@
 
     <tc:script file="script/test-utils.js"/>
 
-    <tc:script onload="checkLayout('page:x_5', 0, 0, 100, 300);"/>
-    <tc:script onload="checkLayout('page:x_6', 100, 0, 200, 100);"/>
-    <tc:script onload="checkLayout('page:x_13', 300, 0, 110, 200);"/>
-    <tc:script onload="checkLayout('page:x_14', 410, 0, 220, 200);"/>
-    <tc:script onload="checkLayout('page:x_14_a', 0, 0, 130, 200);"/>
-    <tc:script onload="checkLayout('page:x_14_b', 130, 0, 90, 200);"/>
+    <tc:script onload="checkLayout('page:x_5', 0, 0, 100, 310);"/>
+    <tc:script onload="checkLayout('page:x_6', 105, 0, 205, 100);"/>
+    <tc:script onload="checkLayout('page:x_13', 315, 0, 110, 205);"/>
+    <tc:script onload="checkLayout('page:x_14', 430, 0, 220, 205);"/>
+    <tc:script onload="checkLayout('page:x_14_a', 430, 0, 130, 205);"/>
+    <tc:script onload="checkLayout('page:x_14_b', 565, 0, 85, 205);"/>
     <!--todo: test the other controls ...-->
 
   </tc:page>
