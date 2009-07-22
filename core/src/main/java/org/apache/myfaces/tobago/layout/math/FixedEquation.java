@@ -39,6 +39,6 @@ public final class FixedEquation implements Equation {
 
   @Override
   public String toString() {
-    return "FixedEquation: x_" + index + " = " + result;
+    return "FixedEquation:        x_" + index + " = " + result;
   }
 }
