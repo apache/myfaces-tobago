@@ -77,7 +77,7 @@ public final class PartitionEquation implements Equation {
 
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder("PartitionEquation: ");
+    StringBuilder builder = new StringBuilder("PartitionEquation:   ");
     // cells from parent
     builder.append(" x_");
     builder.append(parent);

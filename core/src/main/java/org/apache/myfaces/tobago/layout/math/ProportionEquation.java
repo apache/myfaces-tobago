@@ -37,14 +37,29 @@ public final class ProportionEquation implements Equation {
           = i == index1
           ? factor2
           : i == index2
-          ? -factor1 
+          ? -factor1
           : 0.0;
     }
   }
 
   @Override
   public String toString() {
-    return "ProportionEquation: " + factor2 + " * x_" + index1 + " = " + factor1 + " * x_" + index2;
+    StringBuilder builder = new StringBuilder();
+    builder.append("ProportionEquation:  ");
+    if (factor2 != 1.0) {
+      builder.append(factor2);
+      builder.append(" *");
+    }
+    builder.append(" x_");
+    builder.append(index1);
+    builder.append(" = ");
+    if (factor1 != 1.0) {
+      builder.append(factor1);
+      builder.append(" *");
+    }
+    builder.append(" x_");
+    builder.append(index2);
+    return builder.toString();
   }
 
 }

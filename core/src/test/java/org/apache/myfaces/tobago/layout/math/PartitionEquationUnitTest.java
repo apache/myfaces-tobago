@@ -25,18 +25,18 @@ public class PartitionEquationUnitTest {
 
   @Test
   public void testToString() {
-    Assert.assertEquals("PartitionEquation:  x_0 = x_4",
+    Assert.assertEquals("PartitionEquation:    x_0 = x_4",
         new PartitionEquation(4, 1, 0, PixelMeasure.ZERO).toString());
-    Assert.assertEquals("PartitionEquation:  x_0 = x_4 + x_5",
+    Assert.assertEquals("PartitionEquation:    x_0 = x_4 + x_5",
         new PartitionEquation(4, 2, 0, PixelMeasure.ZERO).toString());
-    Assert.assertEquals("PartitionEquation:  x_0 = x_4 + ... + x_6",
+    Assert.assertEquals("PartitionEquation:    x_0 = x_4 + ... + x_6",
         new PartitionEquation(4, 3, 0, PixelMeasure.ZERO).toString());
 
-    Assert.assertEquals("PartitionEquation:  x_0 = x_4",
+    Assert.assertEquals("PartitionEquation:    x_0 = x_4",
         new PartitionEquation(4, 1, 0, new PixelMeasure(5)).toString());
-    Assert.assertEquals("PartitionEquation:  x_0 = x_4 + x_5 + 5px",
+    Assert.assertEquals("PartitionEquation:    x_0 = x_4 + x_5 + 5px",
         new PartitionEquation(4, 2, 0, new PixelMeasure(5)).toString());
-    Assert.assertEquals("PartitionEquation:  x_0 = x_4 + ... + x_6 + 2 * 5px",
+    Assert.assertEquals("PartitionEquation:    x_0 = x_4 + ... + x_6 + 2 * 5px",
         new PartitionEquation(4, 3, 0, new PixelMeasure(5)).toString());
   }
 
