@@ -24,10 +24,6 @@
     <message-bundle>org.apache.myfaces.tobago.context.TobagoResourceBundle</message-bundle>
   </application>
   <component>
-    <component-type>org.apache.myfaces.tobago.DefaultLayout</component-type>
-    <component-class>org.apache.myfaces.tobago.component.UIDefaultLayout</component-class>
-  </component>
-  <component>
     <component-type>javax.faces.NamingContainer</component-type>
     <component-class>org.apache.myfaces.tobago.component.UINamingContainer</component-class>
   </component>

@@ -25,7 +25,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -47,24 +46,6 @@ import java.util.Iterator;
 public class MessageRenderer extends MessageRendererBase {
 
   private static final Log LOG = LogFactory.getLog(MessageRenderer.class);
-
-  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("component = '" + component + "'");
-    }
-    String clientId = null;
-    if (component instanceof UIMessage) {
-      clientId = ComponentUtil.findClientIdFor(component, facesContext);
-    }
-    int count = 0;
-    for (Iterator i = facesContext.getMessages(clientId); i.hasNext(); i.next()) {
-      count++;
-    }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("here are " + count + " messages");
-    }
-    return count * ThemeConfig.getValue(facesContext, component, "messageHeight");
-  }
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {

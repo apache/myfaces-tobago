@@ -17,12 +17,11 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public interface LayoutRenderer extends LayoutInformationProvider {
+public interface LayoutRenderer {
   void prepareRender(FacesContext facesContext, UIComponent component) throws IOException;
 
-  void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component) throws IOException;
 }

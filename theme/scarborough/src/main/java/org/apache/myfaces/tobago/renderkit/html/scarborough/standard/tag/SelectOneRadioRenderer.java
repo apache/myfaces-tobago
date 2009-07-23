@@ -189,15 +189,4 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     HtmlRendererUtil.checkForCommandFacet(selectOne, clientIds, facesContext, writer);
 
   }
-
-  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    int heightPerRow = super.getFixedHeight(facesContext, component);
-    if (ComponentUtil.getBooleanAttribute(component, Attributes.INLINE)) {
-      return heightPerRow;
-    } else {
-      List<SelectItem> items = RenderUtil.getItemsToRender((UISelectOneRadio) component);
-      return items.size() * heightPerRow;
-    }
-  }
-
 }

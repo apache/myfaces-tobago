@@ -22,8 +22,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIData;
@@ -31,16 +29,13 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.renderkit.LayoutableRenderer;
-import org.apache.myfaces.tobago.renderkit.RendererBaseWrapper;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.util.LayoutUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseJsonWriterImpl;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriterWrapper;
@@ -57,7 +52,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 /*
  * User: weber
@@ -110,16 +104,6 @@ public final class HtmlRendererUtil {
         TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
         writer.writeJavascript("Tobago.focusId = '" + id + "';");
       }
-    }
-  }
-
-  public static void prepareRender(FacesContext facesContext, UIComponent component) {
-    // xxx find a better way for this question: isTobago or isLayoutable something like that.
-    LayoutableRenderer layoutRenderer = ComponentUtil.getRenderer(facesContext, component);
-    if (layoutRenderer != null && !(layoutRenderer instanceof RendererBaseWrapper)) {
-      createCssClass(facesContext, component);
-      layoutWidth(facesContext, component);
-      layoutHeight(facesContext, component);
     }
   }
 
@@ -229,45 +213,12 @@ public final class HtmlRendererUtil {
     return buffer.toString();
   }
 
-  public static String getLayoutSpaceStyle(UIComponent component) {
-    StringBuilder sb = new StringBuilder();
-    Integer space = LayoutUtils.getLayoutSpace(component, Attributes.LAYOUT_WIDTH, Attributes.LAYOUT_WIDTH);
-    if (space != null) {
-      sb.append(" width: ");
-      sb.append(space);
-      sb.append("px;");
-    }
-    space = LayoutUtils.getLayoutSpace(component, Attributes.LAYOUT_HEIGHT, Attributes.LAYOUT_HEIGHT);
-    if (space != null) {
-      sb.append(" height: ");
-      sb.append(space);
-      sb.append("px;");
-    }
-    return sb.toString();
-  }
-
   public static Integer getStyleAttributeIntValue(HtmlStyleMap style, String name) {
     if (style == null) {
       return null;
     }
     return style.getInt(name);
   }
-
-  public static String getStyleAttributeValue(String style, String name) {
-    if (style == null) {
-      return null;
-    }
-    String value = null;
-    StringTokenizer st = new StringTokenizer(style, ";");
-    while (st.hasMoreTokens()) {
-      String attribute = st.nextToken().trim();
-      if (attribute.startsWith(name)) {
-        value = attribute.substring(attribute.indexOf(':') + 1).trim();
-      }
-    }
-    return value;
-  }
-
 
   public static void replaceStyleAttribute(UIComponent component, String styleAttribute, String value) {
     HtmlStyleMap style = ensureStyleAttributeMap(component);
@@ -332,80 +283,12 @@ public final class HtmlRendererUtil {
     StyleClasses.ensureStyleClasses(component).addFullQualifiedClass(clazz);
   }
 
-  public static void layoutWidth(FacesContext facesContext, UIComponent component) {
-    layoutSpace(facesContext, component, true);
-  }
-
-  public static void layoutHeight(FacesContext facesContext, UIComponent component) {
-    layoutSpace(facesContext, component, false);
-  }
-
-  public static void layoutSpace(FacesContext facesContext, UIComponent component,
-      boolean width) {
-
-    // prepare html 'style' attribute
-    Integer layoutSpace;
-    String layoutAttribute;
-    String styleAttribute;
-    if (width) {
-      layoutSpace = LayoutUtils.getLayoutWidth(component);
-      layoutAttribute = Attributes.LAYOUT_WIDTH;
-      styleAttribute = HtmlAttributes.WIDTH;
-    } else {
-      layoutSpace = LayoutUtils.getLayoutHeight(component);
-      layoutAttribute = Attributes.LAYOUT_HEIGHT;
-      styleAttribute = HtmlAttributes.HEIGHT;
-    }
-    int space = -1;
-    if (layoutSpace != null) {
-      space = layoutSpace.intValue();
-    }
-    if (space == -1 && (!RendererTypes.OUT.equals(component.getRendererType()))) {
-      UIComponent parent = component.getParent();
-      space = LayoutUtils.getInnerSpace(facesContext, parent, width);
-      if (space > 0 && !ComponentUtil.isFacetOf(component, parent)) {
-        component.getAttributes().put(layoutAttribute, Integer.valueOf(space));
-        if (width) {
-          component.getAttributes().remove(Attributes.INNER_WIDTH);
-        } else {
-          component.getAttributes().remove(Attributes.INNER_HEIGHT);
-        }
-      }
-    }
-    if (space > 0) {
-      LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, component);
-      if (layoutSpace != null
-          || !ComponentUtil.getBooleanAttribute(component, Attributes.INLINE)) {
-        int styleSpace = space;
-        if (renderer != null) {
-          if (width) {
-            styleSpace -= renderer.getComponentExtraWidth(facesContext, component);
-          } else {
-            styleSpace -= renderer.getComponentExtraHeight(facesContext, component);
-          }
-        }
-
-        replaceStyleAttribute(component, styleAttribute, styleSpace);
-
-      }
-      UIComponent layout = component.getFacet(Facets.LAYOUT);
-      if (layout != null) {
-        int layoutSpace2 = LayoutUtils.getInnerSpace(facesContext, component,
-            width);
-        if (layoutSpace2 > 0) {
-          layout.getAttributes().put(layoutAttribute, Integer.valueOf(layoutSpace2));
-        }
-      }
-    }
-  }
-
   public static void createHeaderAndBodyStyles(FacesContext facesContext, UIComponent component) {
     createHeaderAndBodyStyles(facesContext, component, true);
     createHeaderAndBodyStyles(facesContext, component, false);
   }
 
   public static void createHeaderAndBodyStyles(FacesContext facesContext, UIComponent component, boolean width) {
-    LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, component);
     HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get(Attributes.STYLE);
     Integer styleSpace = null;
     try {
@@ -417,9 +300,8 @@ public final class HtmlRendererUtil {
       int bodySpace = 0;
       int headerSpace = 0;
       if (!width) {
-        if (renderer != null) {
-          headerSpace = renderer.getHeaderHeight(facesContext, component);
-        }
+        headerSpace = 20; // FIXME: make dynamic (was removed by changing the layouting
+        LOG.error("20; // FIXME: make dynamic (was removed by changing the layouting");
         bodySpace = styleSpace - headerSpace;
       }
       HtmlStyleMap headerStyle = ensureStyleAttributeMap(component, Attributes.STYLE_HEADER);

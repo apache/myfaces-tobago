@@ -42,7 +42,6 @@ public class ToolBarRenderer extends ToolBarRendererBase {
     UIPanel toolbar = (UIPanel) uiComponent;
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
-    setToolBarHeight(facesContext, uiComponent);
 
     writer.startElement(HtmlConstants.DIV, toolbar);
     writer.writeIdAttribute(toolbar.getClientId(facesContext));
@@ -61,11 +60,6 @@ public class ToolBarRenderer extends ToolBarRendererBase {
 
     writer.endElement(HtmlConstants.DIV);
     writer.endElement(HtmlConstants.DIV);
-  }
-
-  private void setToolBarHeight(FacesContext facesContext, UIComponent component) {
-    final int height = getFixedHeight(facesContext, component);
-    HtmlRendererUtil.replaceStyleAttribute(component, "height", height);
   }
 
   protected String getHoverClasses(boolean first, boolean last) {

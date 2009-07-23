@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.renderkit.util;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -66,15 +65,19 @@ public class RenderUtil {
       UIComponent panel)
       throws IOException {
 //    UIComponent layout = panel.getFacet("layout");
-    UILayout layout = UILayout.getLayout(panel);
-    if (layout != null) {
-      layout.encodeChildrenOfComponent(facesContext, panel);
-    } else {
-      for (Object o : panel.getChildren()) {
-        UIComponent child = (UIComponent) o;
-        encode(facesContext, child);
-      }
-    }
+
+    encodeChildrenWithoutLayout(facesContext, panel);
+    // XXX is the following coded needed?
+
+//    UILayout layout = UILayout.getLayout(panel);
+//    if (layout != null) {
+//      layout.encodeChildrenOfComponent(facesContext, panel);
+//    } else {
+//      for (Object o : panel.getChildren()) {
+//        UIComponent child = (UIComponent) o;
+//        encode(facesContext, child);
+//      }
+//    }
   }
 
   public static void encodeChildrenWithoutLayout(FacesContext facesContext, UIComponent container) throws IOException {

@@ -96,8 +96,4 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     HtmlRendererUtil.renderFocusId(facesContext, selectOne);
     HtmlRendererUtil.checkForCommandFacet(selectOne, facesContext, writer);
   }
-
-  public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
-    return 0;
-  }
 }

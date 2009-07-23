@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.component.UISelectOneCommand;
 import org.apache.myfaces.tobago.component.UIToolBar;
-import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -56,7 +55,6 @@ import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public abstract class ToolBarRendererBase extends LayoutableRendererBase {
 
@@ -477,14 +475,6 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
     }
 
     writer.endElement(HtmlConstants.TD);
-  }
-
-  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    final Map attributes = component.getAttributes();
-    final String labelPosition = getLabelPosition(component);
-    final String iconSize = getIconSize(component);
-    final String key = iconSize + "_" + labelPosition + "_Height";
-    return ThemeConfig.getValue(facesContext, component, key);
   }
 
   public void encodeChildren(FacesContext facesContext, UIComponent component)

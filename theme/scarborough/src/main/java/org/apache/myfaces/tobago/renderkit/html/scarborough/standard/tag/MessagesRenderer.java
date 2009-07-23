@@ -37,7 +37,6 @@ import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIMessages;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
@@ -62,21 +61,6 @@ public class MessagesRenderer extends MessageRendererBase {
   private static final Log LOG = LogFactory.getLog(MessagesRenderer.class);
 
   public static final String CLOSE_POPUP = "closePopup";
-
-  @Override
-  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    int count = 0;
-    for (Iterator i = facesContext.getMessages(); i.hasNext(); i.next()) {
-      count++;
-    }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("component = '" + component + "'");
-      LOG.debug("here are " + count + " messages");
-    }
-    return (count > 0)
-        ? count * ThemeConfig.getValue(facesContext, component, "messageHeight")
-        : ThemeConfig.getValue(facesContext, component, "fixedHeight");
-  }
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {

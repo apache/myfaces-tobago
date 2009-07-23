@@ -25,13 +25,6 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UILayout;
-import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.util.LayoutUtils;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 
 public abstract class BoxRendererBase extends LayoutableRendererBase {
 
@@ -39,35 +32,6 @@ public abstract class BoxRendererBase extends LayoutableRendererBase {
 
   public boolean getRendersChildren() {
     return true;
-  }
-
-  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-
-    int height =
-        ComponentUtil.getIntAttribute(component, Attributes.HEIGHT, -1);
-    if (height != -1) {
-      return height;
-    }
-
-    // ask layoutManager
-    UIComponent layout = UILayout.getLayout(component);
-    if (layout != null) {
-      LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, layout);
-      height = renderer.getFixedHeight(facesContext, component);
-      if (height > -1) {
-        return height;
-      }
-    }
-
-    if (LOG.isInfoEnabled()) {
-      LOG.info("Can't calculate fixedHeight! "
-          + "using estimation by contained components. ");
-    }
-
-    height = LayoutUtils.calculateFixedHeightForChildren(facesContext, component);
-    height += getHeaderHeight(facesContext, component);
-    height += getPaddingHeight(facesContext, component);
-    return height;
   }
 
 }

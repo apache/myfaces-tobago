@@ -17,58 +17,8 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.renderkit.LayoutRenderer;
-import org.apache.myfaces.tobago.util.LayoutUtils;
-
-import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
 
 public abstract class UILayout extends UIComponentBase {
 
-  private static final Log LOG = LogFactory.getLog(UILayout.class);
-
-  public void layoutBegin(FacesContext facesContext, UIComponent component) {
-
-
-  }
-
-
-  public static void prepareDimension(FacesContext facesContext, UIComponent component) {
-    setInnerWidth(facesContext, component);
-    setInnerHeight(facesContext, component);
-  }
-
-  private static void setInnerWidth(FacesContext facesContext, UIComponent component) {
-    Integer layoutWidth = LayoutUtils.getLayoutWidth(component);
-    if (layoutWidth != null) {
-      int space = layoutWidth.intValue();
-      int innerSpace = LayoutUtils.getInnerSpace(facesContext, component, space, true);
-      component.getAttributes().put(Attributes.INNER_WIDTH, Integer.valueOf(innerSpace));
-    }
-  }
-
-  private static void setInnerHeight(FacesContext facesContext, UIComponent component) {
-    Integer layoutHeight = LayoutUtils.getLayoutHeight(component);
-    if (layoutHeight != null) {
-      int space = layoutHeight.intValue();
-      int innerSpace = LayoutUtils.getInnerSpace(facesContext, component, space, false);
-      component.getAttributes().put(Attributes.INNER_HEIGHT, Integer.valueOf(innerSpace));
-    }
-  }
-
-  public void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component) throws IOException {
-    ((LayoutRenderer) getRenderer(facesContext)).encodeChildrenOfComponent(facesContext, component);
-  }
-
-  public static UILayout getLayout(UIComponent component) {
-    UILayout layout = (UILayout) component.getFacet(Facets.LAYOUT);
-    if (layout == null) {
-      layout = UIDefaultLayout.getInstance();
-    }
-    return layout;
-  }
 }

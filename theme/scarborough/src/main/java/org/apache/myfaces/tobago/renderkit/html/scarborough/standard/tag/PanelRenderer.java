@@ -26,21 +26,17 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
@@ -58,66 +54,6 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
   @Override
   public boolean getRendersChildren() {
     return true;
-  }
-
-  @Override
-  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    // wenn hoehe gesetzt dann diese,
-    // sonst wenn layout vorhanden dieses fragen:
-    //       -> aus rowLayout berechnen
-    // sonst Warnung ausgebenn und addition der children's fixedHeight
-
-    int height =
-        ComponentUtil.getIntAttribute(component, Attributes.HEIGHT, -1);
-
-    if (height == -1) {
-      height = getFixedHeightForPanel(component, facesContext);
-    }
-    return height;
-  }
-
-  public static int getFixedHeightForPanel(UIComponent component, FacesContext facesContext) {
-    int height = -1;
-    // first ask layoutManager
-    UIComponent layout = component.getFacet(Facets.LAYOUT);
-    if (layout != null) {
-      LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, layout);
-      height = renderer.getFixedHeight(facesContext, component);
-    }
-    if (height < 0) {
-
-      if (component.getChildren().size() == 0) {
-        height = 0;
-      } else {
-
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Can't calculate fixedHeight! "
-              + "using estimation by contained components. for "
-              + component.getClientId(facesContext) + " = "
-              + component.getClass().getName() + " "
-              + component.getRendererType());
-        }
-
-        height = 0;
-        for (Object o : component.getChildren()) {
-          UIComponent child = (UIComponent) o;
-          LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, child);
-          if (renderer == null
-              && child instanceof UINamingContainer
-              && child.getChildren().size() > 0) {
-            // this is a subview component ??
-            renderer = ComponentUtil.getRenderer(facesContext, (UIComponent) child.getChildren().get(0));
-          }
-          if (renderer != null) {
-            int h = renderer.getFixedHeight(facesContext, child);
-            if (h > 0) {
-              height += h;
-            }
-          }
-        }
-      }
-    }
-    return height;
   }
 
   @Override

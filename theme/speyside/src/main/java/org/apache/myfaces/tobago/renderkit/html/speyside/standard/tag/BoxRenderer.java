@@ -58,11 +58,6 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
   }
 
   @Override
-  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    return super.getFixedHeight(facesContext, component);
-  }
-
-  @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);

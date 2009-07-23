@@ -36,23 +36,14 @@ import org.apache.myfaces.tobago.layout.grid.Cell;
 import org.apache.myfaces.tobago.layout.grid.Grid;
 import org.apache.myfaces.tobago.layout.grid.OriginCell;
 import org.apache.myfaces.tobago.layout.math.EquationManager;
-import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.util.LayoutUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractUIGridLayout extends UILayout implements OnComponentCreated, LayoutManager {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIGridLayout.class);
-
-
-// LAYOUT Begin
-  // XXX new layout manager begin
 
   private Grid grid;
 
@@ -61,6 +52,11 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
 
   // XXX rows and rowTokens are double/redundant
   private LayoutTokens rowTokens;
+
+  public AbstractUIGridLayout() {
+    LOG.info("**************************************************************************************"
+        + " Constructor AbstractUIGridLayout");
+  }
 
   public void onComponentCreated(FacesContext context, UIComponent component) {
 
@@ -74,11 +70,11 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
 
     // horizontal
     EquationManager horizontal = layoutContext.getHorizontal();
-    int[] horizontalIndices = horizontal.divide(horizontalIndex, columnTokens.getSize(), getColumnSpacing());
+    int[] horizontalIndices = horizontal.partition(horizontalIndex, columnTokens.getSize(), getColumnSpacing());
 
     // vertical
     EquationManager vertical = layoutContext.getVertical();
-    int[] verticalIndices = vertical.divide(verticalIndex, rowTokens.getSize(), getRowSpacing());
+    int[] verticalIndices = vertical.partition(verticalIndex, rowTokens.getSize(), getRowSpacing());
 
     List<LayoutComponent> components = container.getComponents();
     for (LayoutComponent c : components) {
@@ -97,13 +93,11 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
           LayoutComponent component = temp.getComponent();
 
           // horizontal
-          int hIndex
-              = horizontal.addComponent(horizontalIndices[i], cell.getColumnSpan(), getColumnSpacing());
+          int hIndex = horizontal.combine(horizontalIndices[i], cell.getColumnSpan(), getColumnSpacing());
           cell.getComponent().setHorizontalIndex(hIndex);
 
           // vertical
-          int vIndex
-              = vertical.addComponent(verticalIndices[j], cell.getRowSpan(), getRowSpacing());
+          int vIndex = vertical.combine(verticalIndices[j], cell.getRowSpan(), getRowSpacing());
           cell.getComponent().setVerticalIndex(vIndex);
 
           if (component instanceof LayoutContainer) {
@@ -245,7 +239,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
           first = factor;
           firstIndex = i + horizontalIndexOffset;
         } else {
-          layoutContext.getHorizontal().setProportion(firstIndex, i + horizontalIndexOffset, first, factor);
+          layoutContext.getHorizontal().proportionate(firstIndex, i + horizontalIndexOffset, first, factor);
         }
       }
     }
@@ -260,7 +254,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
           first = factor;
           firstIndex = i + verticalIndexOffset;
         } else {
-          layoutContext.getVertical().setProportion(firstIndex, i + verticalIndexOffset, first, factor);
+          layoutContext.getVertical().proportionate(firstIndex, i + verticalIndexOffset, first, factor);
         }
       }
     }
@@ -270,42 +264,6 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     return grid;
   }
 
-  // XXX new layout manager end
-// LAYOUT End
-
-  public static final Marker FREE = new Marker("free");
-  public static final String USED = "used";
-
-  private boolean ignoreFree;
-  private transient LayoutTokens columnLayout;
-  private transient LayoutTokens rowLayout;
-
-  private List<Row> layoutRows;
-
-// LAYOUT Begin
-
-  public AbstractUIGridLayout() {
-    LOG.info("**************************************************************************************"
-        + " Constructor AbstractUIGridLayout");
-  }
-
-  // LAYOUT End
-
-  public LayoutTokens getRowLayout() {
-    if (rowLayout == null) {
-      rowLayout = LayoutTokens.parse(getRows());
-    }
-    return rowLayout;
-  }
-
-  public LayoutTokens getColumnLayout() {
-    if (columnLayout == null) {
-      columnLayout = LayoutTokens.parse(getColumns());
-    }
-    return columnLayout;
-  }
-
-
   public abstract String getRows();
 
   public abstract String getColumns();
@@ -314,205 +272,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
 
   public abstract Measure getColumnSpacing();
 
-  public Object saveState(FacesContext context) {
-    clearRows();
-    return super.saveState(context);
-  }
-
-
   @Override
   public boolean getRendersChildren() {
     return false;
-  }
-
-//  @Override
-//  public void encodeChildren(FacesContext context)
-//      throws IOException {
-    // do nothing here
-//  }
-
-  @Override
-  public void encodeChildrenOfComponent(
-      FacesContext facesContext, UIComponent component) throws IOException {
-    super.encodeChildrenOfComponent(facesContext, component);
-    clearRows();
-  }
-
-  private void clearRows() {
-    layoutRows = null;
-  }
-
-  public int getColumnCount() {
-    return getColumnLayout().getSize();
-  }
-
-  @Deprecated
-  public List<Row> ensureRows() {
-    if (layoutRows == null) {
-      layoutRows = createRows();
-    }
-    return layoutRows;
-  }
-
-  @Deprecated
-  private List<Row> createRows() {
-    // XXX
-    LOG.warn("This code is deprecated and should be removed!");
-    List<Row> rows = new ArrayList<Row>();
-    int columnCount = getColumnCount();
-    List<UIComponent> children
-        = LayoutUtils.addChildren(new ArrayList<UIComponent>(), getParent());
-
-    for (UIComponent component : children) {
-      int spanX = getSpanX(component);
-      int spanY = getSpanY(component);
-
-      int r = nextFreeRow(rows);
-      if (r == rows.size()) {
-        rows.add(new Row(columnCount));
-      }
-      int c = rows.get(r).nextFreeColumn();
-      rows.get(r).addControl(component, spanX);
-      rows.get(r).fill(c + 1, c + spanX, component.isRendered());
-
-      for (int i = r + 1; i < r + spanY; i++) {
-
-        if (i == rows.size()) {
-          rows.add(new Row(columnCount));
-        }
-        rows.get(i).fill(c, c + spanX, component.isRendered());
-      }
-    }
-    return rows;
-  }
-
-  private int nextFreeRow(List rows) {
-    int i = 0;
-    for (; i < rows.size(); i++) {
-      if (((Row) rows.get(i)).nextFreeColumn() != -1) {
-        return i;
-      }
-    }
-    return i;
-  }
-
-  public static int getSpanX(UIComponent component) {
-    return ComponentUtil.getIntAttribute(
-        component, Attributes.SPAN_X, 1);
-  }
-
-  public static int getSpanY(UIComponent component) {
-    return ComponentUtil.getIntAttribute(
-        component, Attributes.SPAN_Y, 1);
-  }
-
-  public boolean isIgnoreFree() {
-    return ignoreFree;
-  }
-
-  public void setIgnoreFree(boolean ignoreFree) {
-    this.ignoreFree = ignoreFree;
-  }
-
-  public static class Row implements Serializable {
-    private static final long serialVersionUID = 1511693677519052045L;
-    private int columns;
-    private List cells;
-    private boolean hidden;
-
-    public Row(int columns) {
-      setColumns(columns);
-    }
-
-    private void addControl(UIComponent component, int spanX) {
-
-      int i = nextFreeColumn();
-
-      cells.set(i, component);
-      fill(i + 1, i + spanX, component.isRendered());
-    }
-
-    private void fill(int start, int end, boolean rendered) {
-
-      if (end > columns) {
-        LOG.error("Error in Jsp (end > columns). "
-            + "Try to insert more spanX as possible.");
-        LOG.error("start:   " + start);
-        LOG.error("end:     " + end);
-        LOG.error("columns: " + columns);
-        LOG.error("Actual cells:");
-        for (Object component : cells) {
-          if (component instanceof UIComponent) {
-            LOG.error("Cell-ID: " + ((UIComponent) component).getId()
-                + " " + ((UIComponent) component).getRendererType());
-          } else {
-            LOG.error("Cell:    " + component); // e.g. marker
-          }
-        }
-
-        end = columns; // fix the "end" parameter to continue the processing.
-      }
-
-      for (int i = start; i < end; i++) {
-        cells.set(i, new Marker(USED, rendered));
-      }
-    }
-
-    private int nextFreeColumn() {
-      for (int i = 0; i < columns; i++) {
-        if (FREE.equals(cells.get(i))) {
-          return i;
-        }
-      }
-      return -1;
-    }
-
-    public List getElements() {
-      return cells;
-    }
-
-    public int getColumns() {
-      return columns;
-    }
-
-    private void setColumns(int columns) {
-      this.columns = columns;
-      cells = new ArrayList(columns);
-      for (int i = 0; i < columns; i++) {
-        cells.add(FREE);
-      }
-    }
-
-    public boolean isHidden() {
-      return hidden;
-    }
-
-    public void setHidden(boolean hidden) {
-      this.hidden = hidden;
-    }
-  }
-
-  public static class Marker implements Serializable {
-    private static final long serialVersionUID = 2505999420762504893L;
-    private final String name;
-    private boolean rendered;
-
-    private Marker(String name) {
-      this.name = name;
-    }
-
-    public Marker(String name, boolean rendered) {
-      this.name = name;
-      this.rendered = rendered;
-    }
-
-    @Override
-    public String toString() {
-      return name;
-    }
-
-    public boolean isRendered() {
-      return rendered;
-    }
   }
 }

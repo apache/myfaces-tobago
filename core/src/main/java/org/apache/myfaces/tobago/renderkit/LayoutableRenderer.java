@@ -17,13 +17,13 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import java.io.IOException;
 
 
-public interface LayoutableRenderer extends LayoutInformationProvider {
+public interface LayoutableRenderer {
   void decode(FacesContext context, UIComponent component);
 
   void encodeBegin(FacesContext context, UIComponent component) throws IOException;
@@ -40,10 +40,6 @@ public interface LayoutableRenderer extends LayoutInformationProvider {
       throws ConverterException;
 
   String getRendererName(String rendererType);
-
-  void layoutBegin(FacesContext context, UIComponent component) throws IOException;
-
-  void layoutEnd(FacesContext context, UIComponent component) throws IOException;
 
   void prepareRender(FacesContext facesContext, UIComponent component) throws IOException;
 }

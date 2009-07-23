@@ -18,65 +18,12 @@ package org.apache.myfaces.tobago.renderkit;
  */
 
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.awt.Dimension;
-import java.io.IOException;
 
 public abstract class AbstractLayoutableRendererBaseWrapper extends AbstractRendererBaseWrapper
     implements LayoutableRenderer {
 
-  public final int getHeaderHeight(FacesContext facesContext, UIComponent component) {
-    return getLayoutableRenderer(facesContext).getHeaderHeight(facesContext, component);
-  }
-
-  public final int getPaddingWidth(FacesContext facesContext, UIComponent component) {
-    return getLayoutableRenderer(facesContext).getPaddingWidth(facesContext, component);
-  }
-
-  public final int getPaddingHeight(FacesContext facesContext, UIComponent component) {
-     return getLayoutableRenderer(facesContext).getPaddingHeight(facesContext, component);
-  }
-
-  public final int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
-     return getLayoutableRenderer(facesContext).getComponentExtraWidth(facesContext, component);
-  }
-
-  public final int getComponentExtraHeight(FacesContext facesContext, UIComponent component) {
-     return getLayoutableRenderer(facesContext).getComponentExtraHeight(facesContext, component);
-  }
-
-  public final int getMinimumWidth(FacesContext facesContext, UIComponent component) {
-     return getLayoutableRenderer(facesContext).getMinimumWidth(facesContext, component);
-  }
-
-  public final int getMinimumHeight(FacesContext facesContext, UIComponent component) {
-     return getLayoutableRenderer(facesContext).getMinimumHeight(facesContext, component);
-  }
-
-  public final Dimension getMinimumSize(FacesContext facesContext, UIComponent component) {
-     return getLayoutableRenderer(facesContext).getMinimumSize(facesContext, component);
-  }
-
-  public final int getFixedWidth(FacesContext facesContext, UIComponent component) {
-     return getLayoutableRenderer(facesContext).getFixedWidth(facesContext, component);
-  }
-
-  public final int getFixedHeight(FacesContext facesContext, UIComponent component) {
-     return getLayoutableRenderer(facesContext).getFixedHeight(facesContext, component);
-  }
-
-  public final void layoutBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    getLayoutableRenderer(facesContext).layoutBegin(facesContext, component);
-  }
-
-  public final void layoutEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    getLayoutableRenderer(facesContext).layoutEnd(facesContext, component);
-  }
-
   protected final LayoutableRenderer getLayoutableRenderer(FacesContext facesContext) {
     return (LayoutableRenderer) getRenderer(facesContext);
-
   }
-
 }

@@ -35,7 +35,6 @@ import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIData;
 import static org.apache.myfaces.tobago.component.UIData.NONE;
-import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIReload;
@@ -51,7 +50,6 @@ import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.model.SheetState;
-import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -62,7 +60,6 @@ import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.util.LayoutInfo;
-import org.apache.myfaces.tobago.util.LayoutUtils;
 import org.apache.myfaces.tobago.util.StringUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -648,10 +645,10 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     if (height != null) {
       int first = data.getFirst();
       int rows = Math.min(data.getRowCount(), first + data.getRows()) - first;
-      int heightNeeded = getHeaderHeight(facesContext, data)
+      LOG.error("20; // FIXME: make dynamic (was removed by changing the layouting");
+      int heightNeeded = 20 // FIXME: make dynamic (was removed by changing the layouting
           + getFooterHeight(facesContext, data)
-          + (rows * (getFixedHeight(facesContext, null)
-          + getRowPadding(facesContext, data)));
+          + (rows * (20 /* FIXME */ + getRowPadding(facesContext, data)));
 
       return heightNeeded > height;
     } else {
@@ -1115,48 +1112,10 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     renderSheet(facesContext, (UIData) component, (clickAction != null || dblClickAction != null));
   }
 
-  @Override
-  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-
-    // todo: why this will be called?
-    if (component == null) {
-      return 0;
-    }
-
-    UIData data = (UIData) component;
-
-//    int headerHeight = getConfiguredValue(facesContext, component, "headerHeight");
-//    int footerHeight = getConfiguredValue(facesContext, component, "footerHeight");
-    int headerHeight = getHeaderHeight(facesContext, component);
-    int footerHeight = getFooterHeight(facesContext, component);
-
-    int rowHeight = ThemeConfig.getValue(facesContext, component, "rowHeight");
-
-    int rows = data.getRows();
-
-    if (LOG.isInfoEnabled()) {
-      LOG.info(headerHeight + " " + footerHeight + " " + rowHeight + " " + rows);
-    }
-
-    return headerHeight + rows * rowHeight + footerHeight + 2; // XXX hotfix: + 1
-  }
-
   public void encodeChildren(FacesContext context,
                                UIComponent component)
             throws IOException {
     // DO Nothing
-  }
-
-  public void layoutBegin(FacesContext context, UIComponent component) throws IOException {
-    UILayout.prepareDimension(context, component);
-  }
-
-  public void layoutEnd(FacesContext context, UIComponent component) throws IOException {
-    if (component instanceof UIData) {
-      UIData data = (UIData) component;
-      ensureColumnWidthList(context, data);
-      prepareDimensions(context, data);
-    }
   }
 
   private void ensureColumnWidthList(FacesContext facesContext, UIData data) {
@@ -1208,7 +1167,8 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       }
 
 
-      int space = LayoutUtils.getInnerSpace(facesContext, data, true);
+      int space = 100; // FIXME: make dynamic (was removed by changing the layouting
+      LOG.error("100; // FIXME: make dynamic (was removed by changing the layouting");
       space -= getContentBorder(facesContext, data);
       if (needVerticalScrollbar(facesContext, data)) {
         space -= getScrollbarWidth(facesContext, data);
@@ -1241,20 +1201,13 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
           if (i < rendereredColumns.size()) {
             UIColumn column = rendereredColumns.get(i);
             if (column instanceof UIColumnSelector) {
-              LayoutInformationProvider renderer
-                  = ComponentUtil.getRenderer(facesContext, column);
-              if (renderer == null) {
-                LOG.warn("can't find renderer for " + column.getClass().getName());
-                renderer = ComponentUtil.getRenderer(facesContext,
-                    org.apache.myfaces.tobago.component.UIPanel.COMPONENT_FAMILY, RendererTypes.OUT);
-              }
-              width = renderer.getFixedWidth(facesContext, column);
+              width = 100; // FIXME: make dynamic (was removed by changing the layouting
+              LOG.error("100; // FIXME: make dynamic (was removed by changing the layouting");
 
             } else {
               for (UIComponent component : (List<UIComponent>) column.getChildren()) {
-                LayoutInformationProvider renderer
-                    = ComponentUtil.getRenderer(facesContext, component);
-                width += renderer.getFixedWidth(facesContext, component);
+                width += 100; // FIXME: make dynamic (was removed by changing the layouting
+                LOG.error("100; // FIXME: make dynamic (was removed by changing the layouting");
               }
             }
             layoutInfo.update(width, i);

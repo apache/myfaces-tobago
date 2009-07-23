@@ -26,7 +26,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectManyListbox;
-import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -48,31 +47,6 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
   public boolean getRendersChildren() {
     return true;
-  }
-
-  public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
-    return 0;
-  }
-
-  public int getLabelWidth(FacesContext facesContext, UIComponent component) {
-    return ThemeConfig.getValue(facesContext, component, "labelWidth");
-  }
-
-  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    int fixedHeight = -1;
-    String height = (String) component.getAttributes().get(Attributes.HEIGHT);
-    if (height != null) {
-      try {
-        fixedHeight = Integer.parseInt(height.replaceAll("\\D", ""));
-      } catch (NumberFormatException e) {
-        LOG.warn("Can't parse " + height + " to int");
-      }
-    }
-
-    if (fixedHeight == -1) {
-      fixedHeight = super.getFixedHeight(facesContext, component);
-    }
-    return fixedHeight;
   }
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {

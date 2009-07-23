@@ -76,10 +76,4 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
     writer.writeClassAttribute();
     writer.writeStyleAttribute(innerStyle);
   }
-
-  public int getPaddingWidth(FacesContext facesContext, UIComponent component) {
-    return 4;
-  }
-
 }
-

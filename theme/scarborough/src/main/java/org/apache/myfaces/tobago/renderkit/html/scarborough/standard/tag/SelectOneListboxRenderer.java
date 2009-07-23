@@ -48,27 +48,6 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     return true;
   }
 
-  public int getComponentExtraWidth(FacesContext facesContext, UIComponent component) {
-    return 0;
-  }
-
-  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    int fixedHeight = -1;
-    String height = (String) component.getAttributes().get(Attributes.HEIGHT);
-    if (height != null) {
-      try {
-        fixedHeight = Integer.parseInt(height.replaceAll("\\D", ""));
-      } catch (NumberFormatException e) {
-        LOG.warn("Can't parse " + height + " to int");
-      }
-    }
-
-    if (fixedHeight == -1) {
-      fixedHeight = super.getFixedHeight(facesContext, component);
-    }
-    return fixedHeight;
-  }
-
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     if (!(component instanceof UISelectOneListbox)) {
       LOG.error("Wrong type: Need " + UISelectOneListbox.class.getName() + ", but was "

@@ -17,15 +17,7 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import javax.faces.context.FacesContext;
-import javax.faces.component.UIComponent;
-import java.io.IOException;
-
-
 public abstract class AbstractLayoutRendererWrapper
     extends AbstractLayoutableRendererBaseWrapper implements LayoutRenderer {
 
-  public final void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component) throws IOException {
-    ((LayoutRenderer) getRenderer(facesContext)).encodeChildrenOfComponent(facesContext, component);
-  }
 }

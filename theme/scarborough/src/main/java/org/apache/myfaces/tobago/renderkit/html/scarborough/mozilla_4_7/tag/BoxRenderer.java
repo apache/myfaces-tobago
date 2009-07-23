@@ -84,8 +84,4 @@ public class BoxRenderer extends BoxRendererBase {
     writer.endElement(HtmlConstants.TABLE);
   }
 
-  public int getPaddingHeight(FacesContext facesContext, UIComponent component) {
-    return 10 + (component.getFacet(Facets.LABEL) != null ? 25 : 0);
-  }
-
 }

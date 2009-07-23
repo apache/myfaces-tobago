@@ -26,7 +26,6 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIFileInput;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
@@ -35,7 +34,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.util.LayoutUtils;
 import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -58,19 +56,6 @@ public class FileRenderer extends InputRendererBase {
 
   public boolean getRendersChildren() {
     return true;
-  }
-
-  public int getComponentExtraWidth(
-      FacesContext facesContext, UIComponent component) {
-    int space = 0;
-
-    if (component.getFacet(Facets.LABEL) != null) {
-      int labelWidht = LayoutUtils.getLabelWidth(component);
-      space += labelWidht != 0
-          ? labelWidht : getLabelWidth(facesContext, component);
-    }
-
-    return space;
   }
 
   public void decode(FacesContext facesContext, UIComponent component) {

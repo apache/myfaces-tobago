@@ -110,16 +110,4 @@ public class BoxRenderer extends BoxRendererBase {
     return Attributes.STYLE;
   }
 
-  public int getPaddingHeight(FacesContext facesContext, UIComponent component) {
-    final int paddingHeight = super.getPaddingHeight(facesContext, component);
-    int extraPadding = 0;
-    if (component.getFacet(Facets.TOOL_BAR) != null) {
-      extraPadding = getExtraPadding(facesContext, component);
-    }
-    return paddingHeight + extraPadding;
-  }
-
-  private int getExtraPadding(FacesContext facesContext, UIComponent component) {
-    return ThemeConfig.getValue(facesContext, component, "extraPaddingHeightWhenToolbar");
-  }
 }

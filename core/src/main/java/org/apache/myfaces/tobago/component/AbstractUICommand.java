@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 
@@ -29,13 +31,10 @@ import javax.faces.event.PhaseId;
 import java.io.IOException;
 import java.util.Iterator;
 
-/*
- * Date: Apr 4, 2005
- * Time: 5:02:10 PM
- * $Id$
- */
 public abstract class AbstractUICommand extends javax.faces.component.UICommand
     implements InvokeOnComponent, SupportsRenderedPartially {
+
+  private static final Log LOG = LogFactory.getLog(AbstractUICommand.class);
 
   public static final String COMMAND_TYPE_SUBMIT = "submit";
   public static final String COMMAND_TYPE_RESET = "reset";
@@ -69,7 +68,8 @@ public abstract class AbstractUICommand extends javax.faces.component.UICommand
 
   public void encodeChildren(FacesContext facesContext) throws IOException {
     if (isRendered()) {
-      UILayout.getLayout(this).encodeChildrenOfComponent(facesContext, this);
+//      UILayout.getLayout(this).encodeChildrenOfComponent(facesContext, this);
+      LOG.error("children are not encoded");
     }
   }
 

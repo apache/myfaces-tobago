@@ -161,22 +161,4 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     HtmlRendererUtil.renderFocusId(facesContext, selectMany);
     HtmlRendererUtil.checkForCommandFacet(selectMany, clientIds, facesContext, writer);
   }
-
-  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    if (!(component instanceof UISelectManyCheckbox)) {
-      LOG.error("Wrong type: Need " + UISelectManyCheckbox.class.getName() + ", but was "
-          + component.getClass().getName());
-      return 100;
-    }
-
-    UISelectManyCheckbox selectMany = (UISelectManyCheckbox) component;
-
-    int heightPerRow = super.getFixedHeight(facesContext, selectMany);
-    if (ComponentUtil.getBooleanAttribute(selectMany, Attributes.INLINE)) {
-      return heightPerRow;
-    } else {
-      List<SelectItem> items = RenderUtil.getItemsToRender(selectMany);
-      return items.size() * heightPerRow;
-    }
-  }
 }

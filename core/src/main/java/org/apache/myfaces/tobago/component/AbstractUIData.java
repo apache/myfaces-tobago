@@ -32,7 +32,6 @@ import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.model.SheetState;
-import org.apache.myfaces.tobago.renderkit.LayoutableRenderer;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 
 import javax.faces.FacesException;
@@ -45,7 +44,6 @@ import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
-import javax.faces.render.Renderer;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -83,11 +81,6 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
   private transient LayoutTokens columnLayout;
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
-    Renderer renderer = getRenderer(facesContext);
-    if (renderer != null && renderer instanceof LayoutableRenderer) {
-      ((LayoutableRenderer) renderer).layoutBegin(facesContext, this);
-    }
-
     SheetState state = getSheetState(facesContext);
     if (state.getFirst() > -1 && state.getFirst() < getRowCount()) {
       if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.FIRST)) {
@@ -98,15 +91,6 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
     }
     super.encodeBegin(facesContext);
   }
-
-  public void encodeEnd(FacesContext facesContext) throws IOException {
-    Renderer renderer = getRenderer(facesContext);
-    if (renderer != null && renderer instanceof LayoutableRenderer) {
-      ((LayoutableRenderer) renderer).layoutEnd(facesContext, this);
-    }
-    super.encodeEnd(facesContext);
-  }
-
 
   public void setState(SheetState state) {
     this.sheetState = state;
@@ -385,11 +369,6 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
   }
 
   public void encodeAjax(FacesContext facesContext) throws IOException {
-    Renderer renderer = getRenderer(facesContext);
-    if (renderer != null && renderer instanceof LayoutableRenderer) {
-      ((LayoutableRenderer) renderer).layoutEnd(facesContext, this);
-    }
-
     // TODO neets more testing!!!
     //if (!facesContext.getRenderResponse() && !ComponentUtil.hasErrorMessages(facesContext)) {
     // in encodeBegin of superclass is some logic which clears the DataModel

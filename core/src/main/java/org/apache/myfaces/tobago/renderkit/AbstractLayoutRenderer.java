@@ -19,12 +19,6 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.util.LayoutUtils;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
 
 
 /*
@@ -36,32 +30,5 @@ public abstract class AbstractLayoutRenderer extends LayoutableRendererBase impl
 
   private static final Log LOG = LogFactory.getLog(AbstractLayoutRenderer.class);
 
-
-  public void encodeChildrenOfComponent(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    // use renderer of component
-    LayoutableRenderer renderer = ComponentUtil.getRenderer(facesContext, component);
-    renderer.encodeChildren(facesContext, component);
-  }
-
-  @Override
-  public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    int height = 0;
-
-    if (LOG.isInfoEnabled() && component.getChildCount() > 1) {
-      LOG.info("Can't calculate fixedHeight! "
-          + "using estimation by contained components. ");
-    }
-    height += LayoutUtils.calculateFixedHeightForChildren(facesContext, component);
-
-    LayoutInformationProvider containerRenderer =
-        ComponentUtil.getRenderer(facesContext, component);
-    if (containerRenderer != null) {
-      height += containerRenderer.getHeaderHeight(facesContext, component);
-      height += containerRenderer.getPaddingHeight(facesContext, component);
-    }
-
-    return height;
-  }
 
 }

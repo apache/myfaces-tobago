@@ -42,7 +42,6 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.LayoutInformationProvider;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -107,7 +106,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
 
     HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, component);
 
-    layoutTabs(facesContext, component);
+//    layoutTabs(facesContext, component);
 
     int activeIndex = ensureRenderedActiveIndex(facesContext, component);
 
@@ -535,47 +534,6 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
         (HtmlStyleMap) component.getAttributes().get(Attributes.STYLE), SWITCH_TYPE_RELOAD_TAB,
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"),
         ThemeConfig.getValue(context, component, "navigationBarWidth"), currentWidth, tabList);
-  }
-
-  public int getFixedHeight(FacesContext facesContext, UIComponent uiComponent) {
-    UITabGroup component = (UITabGroup) uiComponent;
-    int height =
-        ComponentUtil.getIntAttribute(component, Attributes.HEIGHT, -1);
-
-    int fixedHeight;
-    if (height != -1) {
-      fixedHeight = height;
-    } else {
-      fixedHeight = 0;
-      for (UIComponent tab : (List<UIComponent>) component.getChildren()) {
-        if (tab instanceof UIPanelBase && tab.isRendered()) {
-          LayoutInformationProvider renderer = ComponentUtil.getRenderer(facesContext, tab);
-          fixedHeight
-              = Math.max(fixedHeight, renderer.getFixedHeight(facesContext, tab));
-        }
-      }
-      fixedHeight += ThemeConfig.getValue(facesContext, component, "headerHeight");
-      fixedHeight += ThemeConfig.getValue(facesContext, component, "paddingHeight");
-    }
-    return fixedHeight;
-  }
-
-  private void layoutTabs(FacesContext facesContext, UITabGroup component) {
-    Object layoutWidth =
-        component.getAttributes().get(Attributes.LAYOUT_WIDTH);
-    Object layoutHeight =
-        component.getAttributes().get(Attributes.LAYOUT_HEIGHT);
-
-    for (UIComponent tab : (List<UIComponent>) component.getChildren()) {
-      if (tab instanceof UIPanelBase && tab.isRendered())  {
-        if (layoutWidth != null) {
-          HtmlRendererUtil.layoutSpace(facesContext, tab, true);
-        }
-        if (layoutHeight != null) {
-          HtmlRendererUtil.layoutSpace(facesContext, tab, false);
-        }
-      }
-    }
   }
 
   private static class TabList {
