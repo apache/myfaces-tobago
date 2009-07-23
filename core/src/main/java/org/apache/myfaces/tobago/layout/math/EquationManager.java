@@ -41,29 +41,33 @@ public class EquationManager {
     LOG.info(equations);
   }
 
-  public int[] divide(int index, int number, Measure spacing) {
+  public int[] partition(int index, int number, Measure spacing) {
 
     assert number > 0;
 
     int[] newIndices = equations.addVariables(number);
-    equations.addEqualsEquation(new PartitionEquation(
-        newIndices[0], number, index, spacing));
+    equations.addEqualsEquation(new PartitionEquation(newIndices[0], number, index, spacing));
     LOG.info(equations);
     return newIndices;
   }
 
-  public int addComponent(int index, int span, Measure spacing) {
+  public int combine(int index, int span, Measure spacing) {
 
     assert span > 0;
 
     int[] newIndices = equations.addVariables(1);
-    equations.addEqualsEquation(new CombinationEquation(
-        newIndices[0], index, span, spacing));
+    equations.addEqualsEquation(new CombinationEquation(newIndices[0], index, span, spacing));
     LOG.info(equations);
     return newIndices[0];
   }
 
-  public void setProportion(int index1, int index2, int factor1, int factor2) {
+  public void proportionate(int index1, int index2, int factor1, int factor2) {
+
+    assert index1 >= 0;
+    assert index2 >= 0;
+    assert factor1 > 0;
+    assert factor2 > 0;
+
     equations.addEqualsEquation(new ProportionEquation(index1, index2, factor1, factor2));
     LOG.info(equations);
   }
