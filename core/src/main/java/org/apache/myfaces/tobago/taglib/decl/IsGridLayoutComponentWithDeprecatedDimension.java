@@ -20,6 +20,8 @@ package org.apache.myfaces.tobago.taglib.decl;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
+// XXX optimize: smarter code generator
+
 /**
  * This interface is useful for migration. The width and height attributes can be set
  * in Tobago 1.0. With this interface it can be set for compatibility.
@@ -127,4 +129,45 @@ public interface IsGridLayoutComponentWithDeprecatedDimension {
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Display")
   void setDisplay(String display);
+
+  /**
+   * This attribute is for internal use only.
+   * TODO: this attribute es for containers only
+   * @param leftOffset The left offset which is needed by some containers (e. g. a box).
+   */
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+        defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
+          + "getFacesContext(), this, \"leftOffset\")")
+  void setLeftOffset(String leftOffset);
+
+  /**
+   * This attribute is for internal use only.
+   * TODO: this attribute es for containers only
+   * @param rightOffset The right offset which is needed by some containers (e. g. a box).
+   */
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+        defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
+          + "getFacesContext(), this, \"rightOffset\")")
+  void setRightOffset(String rightOffset);
+
+  /**
+   * This attribute is for internal use only.
+   * TODO: this attribute es for containers only
+   * @param topOffset The top offset which is needed by some containers (e. g. a box).
+   */
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+        defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
+          + "getFacesContext(), this, \"topOffset\")")
+  void setTopOffset(String topOffset);
+
+  /**
+   * This attribute is for internal use only.
+   * TODO: this attribute es for containers only
+   * @param bottomOffset The bottom offset which is needed by some containers (e. g. a box).
+   */
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+        defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
+          + "getFacesContext(), this, \"bottomOffset\")")
+  void setBottomOffset(String bottomOffset);
+
 }

@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractUIPanel extends UIPanelBase implements LayoutContainer {
+public abstract class AbstractUIPanel extends UIPanelBase implements LayoutContainer, LayoutComponent {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIPanel.class);
 

@@ -22,19 +22,20 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface IsGridLayoutComponent {
 
   /**
-   *  @param columnSpan The number of horizontal cells this component should use.
+   * @param columnSpan The number of horizontal cells this component should use.
    */
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "1")
   void setColumnSpan(String columnSpan);
 
   /**
-   *  @param rowSpan The number of vertical cells this component should use.
+   * @param rowSpan The number of vertical cells this component should use.
    */
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "1")
   void setRowSpan(String rowSpan);
 
   /**
    * This value will usually be set by the layout manager.
+   *
    * @param width The width for this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -42,6 +43,7 @@ public interface IsGridLayoutComponent {
 
   /**
    * This value will usually be set by the layout manager.
+   *
    * @param height The height for this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -85,6 +87,7 @@ public interface IsGridLayoutComponent {
 
   /**
    * This value will usually be set by the layout manager.
+   *
    * @param left The left position value for this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -92,6 +95,7 @@ public interface IsGridLayoutComponent {
 
   /**
    * This value will usually be set by the layout manager.
+   *
    * @param top The top position value for this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
@@ -99,6 +103,7 @@ public interface IsGridLayoutComponent {
 
   /**
    * This attribute is for internal use only.
+   *
    * @param horizontalIndex The index of the component inside its container grid in horizontal direction.
    */
   @UIComponentTagAttribute(type = "java.lang.Integer")
@@ -106,6 +111,7 @@ public interface IsGridLayoutComponent {
 
   /**
    * This attribute is for internal use only.
+   *
    * @param verticalIndex The index of the component inside its container grid in vertical direction.
    */
   @UIComponentTagAttribute(type = "java.lang.Integer")
@@ -113,8 +119,55 @@ public interface IsGridLayoutComponent {
 
   /**
    * This attribute is for internal use only.
+   *
    * @param display Indicates the renderer to render the element as block or inline.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Display")
   void setDisplay(String display);
+
+  /**
+   * This attribute is for internal use only.
+   * TODO: this attribute es for containers only
+   *
+   * @param leftOffset The left offset which is needed by some containers (e. g. a box).
+   */
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
+          + "getFacesContext(), this, \"leftOffset\")")
+  void setLeftOffset(String leftOffset);
+
+  /**
+   * This attribute is for internal use only.
+   * TODO: this attribute es for containers only
+   *
+   * @param rightOffset The right offset which is needed by some containers (e. g. a box).
+   */
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
+          + "getFacesContext(), this, \"rightOffset\")")
+  void setRightOffset(String rightOffset);
+
+  /**
+   * This attribute is for internal use only.
+   * TODO: this attribute es for containers only
+   *
+   * @param topOffset The top offset which is needed by some containers (e. g. a box).
+   */
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
+          + "getFacesContext(), this, \"topOffset\")")
+  void setTopOffset(String topOffset);
+
+  /**
+   * This attribute is for internal use only.
+   * TODO: this attribute es for containers only
+   *
+   * @param bottomOffset The bottom offset which is needed by some containers (e. g. a box).
+   */
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
+          + "getFacesContext(), this, \"bottomOffset\")")
+  void setBottomOffset(String bottomOffset);
+
 }

@@ -66,15 +66,21 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     grid = new Grid(columnTokens.getSize(), rowTokens.getSize());
   }
 
+  /**
+   * Phase 1: Collects the layout information from the components recursively.
+   */
   public void collect(LayoutContext layoutContext, LayoutContainer container, int horizontalIndex, int verticalIndex) {
 
     // horizontal
     EquationManager horizontal = layoutContext.getHorizontal();
-    int[] horizontalIndices = horizontal.partition(horizontalIndex, columnTokens.getSize(), getColumnSpacing());
+    int[] horizontalIndices = horizontal.partition(
+        horizontalIndex, columnTokens.getSize(),
+        getColumnSpacing(), container.getLeftOffset(), container.getRightOffset());
 
     // vertical
     EquationManager vertical = layoutContext.getVertical();
-    int[] verticalIndices = vertical.partition(verticalIndex, rowTokens.getSize(), getRowSpacing());
+    int[] verticalIndices = vertical.partition(
+        verticalIndex, rowTokens.getSize(), getRowSpacing(), container.getTopOffset(), container.getBottomOffset());
 
     List<LayoutComponent> components = container.getComponents();
     for (LayoutComponent c : components) {
@@ -110,10 +116,13 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     }
   }
 
+  /**
+   * Phase 2: Distribute the computed values into the components recursively.
+   */
   public void distribute(LayoutContext layoutContext, LayoutContainer container) {
 
     distributeSizes(layoutContext);
-    distributePositions();
+    distributePositions(container);
   }
 
   private void distributeSizes(LayoutContext layoutContext) {
@@ -133,8 +142,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
           int horizontalIndex = cell.getComponent().getHorizontalIndex();
           int verticalIndex = cell.getComponent().getVerticalIndex();
 
-          PixelMeasure width = (PixelMeasure) horizontal.getResult()[horizontalIndex];
-          PixelMeasure height = (PixelMeasure) vertical.getResult()[verticalIndex];
+          Measure width = horizontal.getResult()[horizontalIndex];
+          Measure height = vertical.getResult()[verticalIndex];
 
           component.setWidth(width);
           component.setHeight(height);
@@ -152,11 +161,11 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     }
   }
 
-  private void distributePositions() {
+  private void distributePositions(LayoutContainer container) {
 
     // find the "left" positions
     for (int j = 0; j < grid.getRowCount(); j++) {
-      PixelMeasure left = new PixelMeasure(0);
+      PixelMeasure left = (PixelMeasure) container.getLeftOffset();
       for (int i = 0; i < grid.getColumnCount(); i++) {
         Cell cell = grid.get(i, j);
         if (cell == null) {
@@ -177,7 +186,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
 
     // find the "top" positions
     for (int i = 0; i < grid.getColumnCount(); i++) {
-      PixelMeasure top = new PixelMeasure(0);
+      PixelMeasure top = (PixelMeasure) container.getTopOffset();
       for (int j = 0; j < grid.getRowCount(); j++) {
         Cell cell = grid.get(i, j);
         if (cell == null) {
@@ -206,7 +215,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
         layoutContext.getHorizontal().setFixedLength(i + horizontalIndexOffset, pixel);
       }
       if (layoutToken instanceof FixedLayoutToken) {
-        Measure pixel = new PixelMeasure(100);
+        Measure pixel = new PixelMeasure(100); // TODO
         LOG.warn("auto/fixed is not implemented yet and was set to 100px");
         layoutContext.getHorizontal().setFixedLength(i + horizontalIndexOffset, pixel);
       }
@@ -220,7 +229,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
         layoutContext.getVertical().setFixedLength(i + verticalIndexOffset, pixel);
       }
       if (layoutToken instanceof FixedLayoutToken) {
-        Measure pixel = new PixelMeasure(25);
+        Measure pixel = new PixelMeasure(25); // TODO
         LOG.warn("auto/fixed is not implemented yet and was set to 25px");
         layoutContext.getVertical().setFixedLength(i + verticalIndexOffset, pixel);
       }

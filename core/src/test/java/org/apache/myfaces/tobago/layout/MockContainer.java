@@ -26,6 +26,12 @@ public class MockContainer extends MockComponent implements LayoutContainer {
 
   private List<LayoutComponent> components;
 
+  private Measure leftOffset = PixelMeasure.ZERO;
+  private Measure topOffset = PixelMeasure.ZERO;
+
+  private Measure rightOffset = PixelMeasure.ZERO;
+  private Measure bottomOffset = PixelMeasure.ZERO;
+
   public MockContainer() {
     components = new ArrayList<LayoutComponent>();
   }
@@ -40,5 +46,37 @@ public class MockContainer extends MockComponent implements LayoutContainer {
 
   public LayoutManager getLayoutManager() {
     return layoutManager;
+  }
+
+  public Measure getLeftOffset() {
+    return leftOffset;
+  }
+
+  public void setLeftOffset(Measure leftOffset) {
+    this.leftOffset = leftOffset;
+  }
+
+  public Measure getTopOffset() {
+    return topOffset;
+  }
+
+  public void setTopOffset(Measure topOffset) {
+    this.topOffset = topOffset;
+  }
+
+  public Measure getRightOffset() {
+    return rightOffset;
+  }
+
+  public void setRightOffset(Measure rightOffset) {
+    this.rightOffset = rightOffset;
+  }
+
+  public Measure getBottomOffset() {
+    return bottomOffset;
+  }
+
+  public void setBottomOffset(Measure bottomOffset) {
+    this.bottomOffset = bottomOffset;
   }
 }

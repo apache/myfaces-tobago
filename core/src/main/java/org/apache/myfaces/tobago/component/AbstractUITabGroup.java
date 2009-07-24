@@ -46,7 +46,7 @@ import java.util.Collection;
 import java.util.List;
 
 public abstract class AbstractUITabGroup extends UIPanelBase
-    implements TabChangeSource, ActionSource, AjaxComponent, LayoutContainer, OnComponentCreated {
+    implements TabChangeSource, ActionSource, AjaxComponent, LayoutContainer, LayoutComponent, OnComponentCreated {
 
   private static final Log LOG = LogFactory.getLog(AbstractUITabGroup.class);
 

@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.layout.math;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 
 /**
  * Manages the relation between the Tree of LayoutManagers and the Linear System of Equations
@@ -42,11 +43,16 @@ public class EquationManager {
   }
 
   public int[] partition(int index, int number, Measure spacing) {
+    // TODO
+    return partition(index, number, spacing, PixelMeasure.ZERO, PixelMeasure.ZERO);
+  }
+
+  public int[] partition(int index, int number, Measure spacing, Measure beginOffset, Measure endOffset) {
 
     assert number > 0;
 
     int[] newIndices = equations.addVariables(number);
-    equations.addEqualsEquation(new PartitionEquation(newIndices[0], number, index, spacing));
+    equations.addEqualsEquation(new PartitionEquation(newIndices[0], number, index, spacing, beginOffset, endOffset));
     LOG.info(equations);
     return newIndices;
   }

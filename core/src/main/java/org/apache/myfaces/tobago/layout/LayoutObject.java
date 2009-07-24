@@ -18,25 +18,29 @@ package org.apache.myfaces.tobago.layout;
  */
 
 /**
- * A LayoutComponent is a piece which can be positioned in a LayoutContainer.
+ * A LayoutObject is the technical base for LayoutComponent and LayoutContainer.
  */
-public interface LayoutComponent extends LayoutObject {
+public interface LayoutObject {
 
-  Integer getColumnSpan();
-  void setColumnSpan(Integer columnSpan);
+  Measure getWidth();
+  void setWidth(Measure width);
 
-  Integer getRowSpan();
-  void setRowSpan(Integer rowSpan);
+  Measure getHeight();
+  void setHeight(Measure height);
 
-  Measure getTop();
-  void setTop(Measure top);
+  void setMinimumWidth(Measure minimumWidth);
 
-  Integer getHorizontalIndex();
-  void setHorizontalIndex(Integer horizontalIndex);
+  void setMinimumHeight(Measure minimumHeight);
 
-  Integer getVerticalIndex();
-  void setVerticalIndex(Integer verticalIndex);
+  void setPreferredWidth(Measure preferredWidth);
 
-  Display getDisplay();
-  void setDisplay(Display display);
+  void setPreferredHeight(Measure preferredHeight);
+
+  void setMaximumWidth(Measure maximumWidth);
+
+  void setMaximumHeight(Measure maximumHeight);
+
+  Measure getLeft();
+  void setLeft(Measure left);
+
 }

@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.layout.math;
  */
 
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 
 /**
  * This equation describes the partition of one column (or row) into some other columns (or rows).
@@ -31,18 +32,29 @@ public final class PartitionEquation implements Equation {
   private int count;
   private int parent;
   private Measure spacing;
+  private Measure beginOffset;
+  private Measure endOffset;
+
+  @Deprecated
+  public PartitionEquation(int begin, int count, int parent, Measure spacing) {
+    this(begin, count, parent, spacing, PixelMeasure.ZERO, PixelMeasure.ZERO);
+  }
 
   /**
-   * @param begin    lowest index
-   * @param count    number of cells of the partition
-   * @param parent   parent index
-   * @param spacing  space between two cells of the partition
+   * @param begin   lowest index
+   * @param count   number of cells of the partition
+   * @param parent  parent index
+   * @param spacing space between two cells of the partition
+   * @param beginOffset offset before the first cell
+   * @param endOffset offset after the last cell
    */
-  public PartitionEquation(int begin, int count, int parent, Measure spacing) {
+  public PartitionEquation(int begin, int count, int parent, Measure spacing, Measure beginOffset, Measure endOffset) {
     this.begin = begin;
     this.count = count;
     this.parent = parent;
     this.spacing = spacing;
+    this.beginOffset = beginOffset;
+    this.endOffset = endOffset;
 
     assert begin >= 0 && count > 0 && parent >= 0;
     assert parent <= begin;
@@ -60,7 +72,7 @@ public final class PartitionEquation implements Equation {
       row[i] = 0.0;
     }
     // the last variable contains a constant, this is here the sum of spaces between cells.
-    row[row.length - 1] = -(count - 1) * spacing.getPixel();
+    row[row.length - 1] = -((count - 1) * spacing.getPixel() + beginOffset.getPixel() + endOffset.getPixel());
 
     for (i = parent; i < parent + 1; i++) {
       row[i] = -1.0;
@@ -102,6 +114,16 @@ public final class PartitionEquation implements Equation {
         }
         builder.append(spacing);
       }
+    }
+
+    // plus offsets
+    if (beginOffset.getPixel() > 0) {
+        builder.append(" + ");
+        builder.append(beginOffset);
+    }
+    if (endOffset.getPixel() > 0) {
+        builder.append(" + ");
+        builder.append(endOffset);
     }
 
     return builder.toString();

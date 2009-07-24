@@ -25,6 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.layout.LayoutObject;
 import org.apache.myfaces.tobago.layout.Measure;
 
 import javax.el.ELException;
@@ -68,108 +69,108 @@ public class GridLayoutConstraintHandler extends TagHandler {
   public void apply(FaceletContext faceletContext, UIComponent parent)
       throws IOException, FacesException, ELException {
 
-    if (parent instanceof LayoutComponent) {
-      LayoutComponent component = (LayoutComponent) parent;
+    if (parent instanceof LayoutObject) {
+      LayoutObject component = (LayoutObject) parent;
 
-        if (columnSpan != null) {
-          LOG.error(columnSpan.getValue());
-          if (columnSpan.isLiteral()) {
-            component.setColumnSpan(Integer.valueOf(columnSpan.getValue()));
-          } else {
-            parent.setValueBinding(Attributes.COLUMN_SPAN,
-                faceletContext.getFacesContext().getApplication().createValueBinding(columnSpan.getValue()));
-          }
+      if (parent instanceof LayoutComponent && columnSpan != null) {
+        LOG.error(columnSpan.getValue());
+        if (columnSpan.isLiteral()) {
+          ((LayoutComponent) component).setColumnSpan(Integer.valueOf(columnSpan.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.COLUMN_SPAN,
+              faceletContext.getFacesContext().getApplication().createValueBinding(columnSpan.getValue()));
         }
+      }
 
-        if (rowSpan != null) {
-          LOG.error(rowSpan.getValue());
-          if (rowSpan.isLiteral()) {
-            component.setRowSpan(Integer.valueOf(rowSpan.getValue()));
-          } else {
-            parent.setValueBinding(Attributes.ROW_SPAN,
-                faceletContext.getFacesContext().getApplication().createValueBinding(rowSpan.getValue()));
-          }
+      if (parent instanceof LayoutComponent && rowSpan != null) {
+        LOG.error(rowSpan.getValue());
+        if (rowSpan.isLiteral()) {
+          ((LayoutComponent) component).setRowSpan(Integer.valueOf(rowSpan.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.ROW_SPAN,
+              faceletContext.getFacesContext().getApplication().createValueBinding(rowSpan.getValue()));
         }
+      }
 
-        if (width != null) {
-          LOG.error(width.getValue());
-          if (width.isLiteral()) {
-            component.setWidth(Measure.parse(width.getValue()));
-          } else {
-            parent.setValueBinding(Attributes.WIDTH,
-                faceletContext.getFacesContext().getApplication().createValueBinding(width.getValue()));
-          }
+      if (width != null) {
+        LOG.error(width.getValue());
+        if (width.isLiteral()) {
+          component.setWidth(Measure.parse(width.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.WIDTH,
+              faceletContext.getFacesContext().getApplication().createValueBinding(width.getValue()));
         }
+      }
 
-        if (height != null) {
-          LOG.error(height.getValue());
-          if (height.isLiteral()) {
-            component.setHeight(Measure.parse(height.getValue()));
-          } else {
-            parent.setValueBinding(Attributes.HEIGHT,
-                faceletContext.getFacesContext().getApplication().createValueBinding(height.getValue()));
-          }
+      if (height != null) {
+        LOG.error(height.getValue());
+        if (height.isLiteral()) {
+          component.setHeight(Measure.parse(height.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.HEIGHT,
+              faceletContext.getFacesContext().getApplication().createValueBinding(height.getValue()));
         }
+      }
 
-        if (minimumWidth != null) {
-          LOG.error(minimumWidth.getValue());
-          if (minimumWidth.isLiteral()) {
-            component.setMinimumWidth(Measure.parse(minimumWidth.getValue()));
-          } else {
-            parent.setValueBinding(Attributes.MINIMUM_WIDTH,
-                faceletContext.getFacesContext().getApplication().createValueBinding(minimumWidth.getValue()));
-          }
+      if (minimumWidth != null) {
+        LOG.error(minimumWidth.getValue());
+        if (minimumWidth.isLiteral()) {
+          component.setMinimumWidth(Measure.parse(minimumWidth.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.MINIMUM_WIDTH,
+              faceletContext.getFacesContext().getApplication().createValueBinding(minimumWidth.getValue()));
         }
+      }
 
-        if (minimumHeight != null) {
-          LOG.error(minimumHeight.getValue());
-          if (minimumHeight.isLiteral()) {
-            component.setMinimumHeight(Measure.parse(minimumHeight.getValue()));
-          } else {
-            parent.setValueBinding(Attributes.MINIMUM_HEIGHT,
-                faceletContext.getFacesContext().getApplication().createValueBinding(minimumHeight.getValue()));
-          }
+      if (minimumHeight != null) {
+        LOG.error(minimumHeight.getValue());
+        if (minimumHeight.isLiteral()) {
+          component.setMinimumHeight(Measure.parse(minimumHeight.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.MINIMUM_HEIGHT,
+              faceletContext.getFacesContext().getApplication().createValueBinding(minimumHeight.getValue()));
         }
+      }
 
-        if (preferredWidth != null) {
-          LOG.error(preferredWidth.getValue());
-          if (preferredWidth.isLiteral()) {
-            component.setPreferredWidth(Measure.parse(preferredWidth.getValue()));
-          } else {
-            parent.setValueBinding(Attributes.PREFERRED_WIDTH,
-                faceletContext.getFacesContext().getApplication().createValueBinding(preferredWidth.getValue()));
-          }
+      if (preferredWidth != null) {
+        LOG.error(preferredWidth.getValue());
+        if (preferredWidth.isLiteral()) {
+          component.setPreferredWidth(Measure.parse(preferredWidth.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.PREFERRED_WIDTH,
+              faceletContext.getFacesContext().getApplication().createValueBinding(preferredWidth.getValue()));
         }
+      }
 
-        if (preferredHeight != null) {
-          LOG.error(preferredHeight.getValue());
-          if (preferredHeight.isLiteral()) {
-            component.setPreferredHeight(Measure.parse(preferredHeight.getValue()));
-          } else {
-            parent.setValueBinding(Attributes.PREFERRED_HEIGHT,
-                faceletContext.getFacesContext().getApplication().createValueBinding(preferredHeight.getValue()));
-          }
+      if (preferredHeight != null) {
+        LOG.error(preferredHeight.getValue());
+        if (preferredHeight.isLiteral()) {
+          component.setPreferredHeight(Measure.parse(preferredHeight.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.PREFERRED_HEIGHT,
+              faceletContext.getFacesContext().getApplication().createValueBinding(preferredHeight.getValue()));
         }
+      }
 
-        if (maximumWidth != null) {
-          LOG.error(maximumWidth.getValue());
-          if (maximumWidth.isLiteral()) {
-            component.setMaximumWidth(Measure.parse(maximumWidth.getValue()));
-          } else {
-            parent.setValueBinding(Attributes.MAXIMUM_WIDTH,
-                faceletContext.getFacesContext().getApplication().createValueBinding(maximumWidth.getValue()));
-          }
+      if (maximumWidth != null) {
+        LOG.error(maximumWidth.getValue());
+        if (maximumWidth.isLiteral()) {
+          component.setMaximumWidth(Measure.parse(maximumWidth.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.MAXIMUM_WIDTH,
+              faceletContext.getFacesContext().getApplication().createValueBinding(maximumWidth.getValue()));
         }
+      }
 
-        if (maximumHeight != null) {
-          LOG.error(maximumHeight.getValue());
-          if (maximumHeight.isLiteral()) {
-            component.setMaximumHeight(Measure.parse(maximumHeight.getValue()));
-          } else {
-            parent.setValueBinding(Attributes.MAXIMUM_HEIGHT,
-                faceletContext.getFacesContext().getApplication().createValueBinding(maximumHeight.getValue()));
-          }
+      if (maximumHeight != null) {
+        LOG.error(maximumHeight.getValue());
+        if (maximumHeight.isLiteral()) {
+          component.setMaximumHeight(Measure.parse(maximumHeight.getValue()));
+        } else {
+          parent.setValueBinding(Attributes.MAXIMUM_HEIGHT,
+              faceletContext.getFacesContext().getApplication().createValueBinding(maximumHeight.getValue()));
         }
+      }
     } else {
       LOG.warn("");
     }

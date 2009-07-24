@@ -19,9 +19,17 @@ package org.apache.myfaces.tobago.layout;
 
 import java.util.List;
 
-public interface LayoutContainer extends LayoutComponent {
+public interface LayoutContainer extends LayoutObject {
 
   List<LayoutComponent> getComponents();
 
   LayoutManager getLayoutManager();
+
+  Measure getLeftOffset();
+
+  Measure getRightOffset();
+
+  Measure getTopOffset();
+
+  Measure getBottomOffset();
 }
