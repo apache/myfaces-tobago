@@ -23,9 +23,6 @@ import org.apache.commons.logging.LogFactory;
 
 import java.io.Serializable;
 
-/*
- * Date: 23.01.2008 20:12:30
- */
 public abstract class Measure implements Serializable {
 
   private static final long serialVersionUID = 1L;
