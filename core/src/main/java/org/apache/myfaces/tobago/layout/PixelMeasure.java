@@ -46,7 +46,7 @@ public final class PixelMeasure extends Measure {
       LOG.warn("Not enough space! value=" + pixel);
       return NULL;
     } else {
-      return new PixelMeasure(pixel + m.getPixel());
+      return new PixelMeasure(pixel - m.getPixel());
     }
   }
 
