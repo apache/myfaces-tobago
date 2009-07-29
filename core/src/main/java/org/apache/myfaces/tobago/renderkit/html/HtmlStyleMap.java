@@ -23,12 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
- * Created by IntelliJ IDEA.
- * User: bommel
- * Date: Nov 24, 2006
- * Time: 10:07:33 PM
- */
+// TODO: write setter for height, width, etc.
 public class HtmlStyleMap extends HashMap<String, Object> {
 
   private static final Log LOG = LogFactory.getLog(HtmlStyleMap.class);
