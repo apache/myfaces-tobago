@@ -25,7 +25,7 @@ public class PageItem implements Comparable {
 
   public PageItem(String name) {
     this.resource = name.substring(1);
-    label = name;
+    label = name.replaceAll("_", "__");
     jsfResource = name.endsWith(".xhtml") || name.endsWith(".jspx");
   }
 
