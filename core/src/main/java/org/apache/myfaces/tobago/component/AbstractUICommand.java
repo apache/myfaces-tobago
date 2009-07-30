@@ -95,4 +95,6 @@ public abstract class AbstractUICommand extends javax.faces.component.UICommand
   public abstract String getResource();
 
   public abstract String getLink();
+
+  public abstract String getTarget();
 }

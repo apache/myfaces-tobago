@@ -17,11 +17,6 @@ package org.apache.myfaces.tobago.taglib.decl;
  * limitations under the License.
  */
 
-/*
-* Date: 10.02.2006
-* Time: 22:03:07
-*/
-
 public interface AbstractCommandTagDeclaration extends HasAction, HasActionListener, IsImmediateCommand,
-    HasOnclick, HasLink, HasResource, IsTransition, HasRenderedPartially {
+    HasOnclick, HasLink, HasResource, IsTransition, HasTarget, HasRenderedPartially {
 }

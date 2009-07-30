@@ -31,7 +31,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasImage;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
-import org.apache.myfaces.tobago.taglib.decl.HasTarget;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
@@ -57,5 +56,5 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
             allowedChildComponenents = "org.apache.myfaces.tobago.Popup")})
 public interface LinkTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, IsInline,
-    HasCommandType, HasTarget, HasTip, HasImage, HasMarkup, HasTabIndex {
+    HasCommandType, HasTip, HasImage, HasMarkup, HasTabIndex {
 }

@@ -20,11 +20,11 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-import org.apache.myfaces.tobago.component.AbstractUICommand;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
@@ -44,7 +44,6 @@ import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.component.UISelectBoolean;
@@ -341,17 +340,15 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
 
   protected abstract String getDivClasses(boolean selected, boolean disabled);
 
-  private String createOnClick(FacesContext facesContext, UIComponent component) {
-    if (component.getFacet(Facets.MENUPOPUP) != null
-        && ((UICommand) component).getAction() == null
-        && ((UICommand) component).getActionListener() == null
-        && ((UICommand) component).getActionListeners().length == 0) {
-      String searchId = component.getClientId(facesContext)
-          + MenuBarRenderer.SEARCH_ID_POSTFIX;
+  private String createOnClick(FacesContext facesContext, UICommand command) {
+    if (command.getFacet(Facets.MENUPOPUP) != null
+        && command.getAction() == null
+        && command.getActionListener() == null
+        && command.getActionListeners().length == 0) {
+      String searchId = command.getClientId(facesContext) + MenuBarRenderer.SEARCH_ID_POSTFIX;
       return "tobagoButtonOpenMenu(this, '" + searchId + "')";
     } else {
-      CommandRendererHelper helper
-          = new CommandRendererHelper(facesContext, (AbstractUICommand) component);
+      CommandRendererHelper helper = new CommandRendererHelper(facesContext, command);
       return helper.getOnclick();
     }
   }

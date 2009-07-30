@@ -25,22 +25,17 @@ import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasImage;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.taglib.decl.HasTarget;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
-/*
- * Date: 31.03.2006
- * Time: 21:14:17
- */
 /**
  * Renders a menu item.
  */
 @Tag(name = "menuItem", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuCommand",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUICommand",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UICommand",
     rendererType = RendererTypes.MENU_COMMAND,
     allowedChildComponenents = "NONE")
 public interface MenuCommandTagDeclaration extends AbstractCommandTagDeclaration,
-    HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, HasCommandType, HasImage, HasTarget {
+    HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, HasCommandType, HasImage {
 }

@@ -66,6 +66,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
   private String binding;
   private String label;
   private String immediate;
+  private String target;
   private String transition;
   private String renderedPartially;
 
@@ -75,6 +76,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
     menuCommandTag = new MenuItemTag();
     menuCommandTag.setPageContext(pageContext);
     menuCommandTag.setParent(getParent()); // ???
+
     if (rendered != null) {
       menuCommandTag.setRendered(rendered);
     }
@@ -107,6 +109,9 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
     }
     if (immediate != null) {
       menuCommandTag.setImmediate(immediate);
+    }
+    if (target != null) {
+      menuCommandTag.setTarget(target);
     }
     if (transition != null) {
       menuCommandTag.setTransition(transition);
@@ -202,6 +207,10 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
     this.immediate = immediate;
   }
 
+  public void setTarget(String target) {
+    this.target = target;
+  }
+
   public void setTransition(String transition) {
     this.transition = transition;
   }
@@ -224,10 +233,12 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
     binding = null;
     label = null;
     immediate = null;
+    target = null;
     transition = null;
     renderedPartially = null;
     menuCommandTag = null;
     facetTag = null;
     selectBooleanCheckbox = null;
   }
+
 }

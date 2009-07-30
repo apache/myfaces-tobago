@@ -68,6 +68,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
   private String binding;
   private String label;
   private String immediate;
+  private String target;
   private String transition;
   private String converter;
   private String renderedPartially;
@@ -77,7 +78,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
 
     menuCommandTag = new MenuItemTag();
     menuCommandTag.setPageContext(pageContext);
-    menuCommandTag.setParent(getParent());
+    menuCommandTag.setParent(getParent()); // ???
 
     if (rendered != null) {
       menuCommandTag.setRendered(rendered);
@@ -111,6 +112,9 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
     }
     if (immediate != null) {
       menuCommandTag.setImmediate(immediate);
+    }
+    if (target != null) {
+      menuCommandTag.setTarget(target);
     }
     if (transition != null) {
       menuCommandTag.setTransition(transition);
@@ -211,6 +215,10 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
     this.immediate = immediate;
   }
 
+  public void setTarget(String target) {
+    this.target = target;
+  }
+
   public void setTransition(String transition) {
     this.transition = transition;
   }
@@ -237,6 +245,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
     binding = null;
     label = null;
     immediate = null;
+    target = null;
     transition = null;
     converter = null;
     renderedPartially = null;

@@ -25,11 +25,11 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-import org.apache.myfaces.tobago.component.AbstractUICommand;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIMenuSeparator;
@@ -51,7 +51,6 @@ import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.util.FastStringWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.component.UIPanel;
@@ -343,8 +342,8 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       throws IOException {
     for (Object o : component.getChildren()) {
       UIComponent entry = (UIComponent) o;
-      if (entry instanceof AbstractUICommand) {
-        addMenuEntry(sb, var, facesContext, (AbstractUICommand) entry);
+      if (entry instanceof UICommand) {
+        addMenuEntry(sb, var, facesContext, (UICommand) entry);
       } else if (entry instanceof UIMenuSeparator) {
         addMenuSeparator(sb, var);
       } else if (entry instanceof UIMenu) {
@@ -359,7 +358,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     return index;
   }
 
-  private void addMenuEntry(StringBuilder sb, String var, FacesContext facesContext, AbstractUICommand command)
+  private void addMenuEntry(StringBuilder sb, String var, FacesContext facesContext, UICommand command)
       throws IOException {
     CommandRendererHelper helper = new CommandRendererHelper(facesContext, command);
     String onclick = helper.getOnclick();

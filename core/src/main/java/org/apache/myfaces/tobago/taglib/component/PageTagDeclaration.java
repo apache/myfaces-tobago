@@ -56,10 +56,10 @@ public interface PageTagDeclaration
    * <dt>frameset</dt><dd>HTML 4.01 Frameset DTD</dd>
    * </dl>
    * All other values are ignored and no DOCTYPE is set.
-   * The default value is 'loose'.
+   * The default value is 'strict'.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "loose")
+  @UIComponentTagAttribute(defaultValue = "strict")
   void setDoctype(String doctype);
 
   /**

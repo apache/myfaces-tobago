@@ -85,7 +85,7 @@ public class CommandRendererHelper {
         if (tag == Tag.ANCHOR) {
           onclick = null;
           href = url;
-          target = ComponentUtil.getStringAttribute(command, Attributes.TARGET);
+          target = command.getTarget();
         } else {
           // TODO target
           onclick = "Tobago.navigateToUrl('" + url + "');";

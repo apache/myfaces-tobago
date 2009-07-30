@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasImage;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
-import org.apache.myfaces.tobago.taglib.decl.HasTarget;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
@@ -44,5 +43,5 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
     rendererType = RendererTypes.BUTTON,
     allowedChildComponenents = "NONE")
 public interface ToolBarCommandTagDeclaration extends AbstractCommandTagDeclaration, HasIdBindingAndRendered,
-    HasLabelAndAccessKey, HasImage, IsDisabled, HasCommandType, HasTip, HasTarget {
+    HasLabelAndAccessKey, HasImage, IsDisabled, HasCommandType, HasTip {
 }

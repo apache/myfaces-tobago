@@ -31,7 +31,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasImage;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
-import org.apache.myfaces.tobago.taglib.decl.HasTarget;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDefaultCommand;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
@@ -61,5 +60,5 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 public interface ButtonTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
     IsDisabled, HasCommandType, IsDefaultCommand, HasTip,
-    IsInline, HasTarget, HasMarkup, HasTabIndex, IsGridLayoutComponent {
+    IsInline, HasMarkup, HasTabIndex, IsGridLayoutComponent {
 }

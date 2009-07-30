@@ -156,7 +156,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       }
     }
 
-    CommandRendererHelper helper = new CommandRendererHelper(facesContext, node);
+    CommandRendererHelper helper = new CommandRendererHelper(facesContext, node, CommandRendererHelper.Tag.ANCHOR);
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
     if (showRoot || depth != 0) {
@@ -369,6 +369,9 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true); // xxx is escaping required?
       writer.writeAttribute(
           HtmlAttributes.ONFOCUS, "Tobago.Tree.storeMarker(this.parentNode, '" + treeId + "')", false);
+      if (helper.getTarget() != null) {
+        writer.writeAttribute(HtmlAttributes.TARGET, helper.getTarget(), true);
+      }
     }
     if (marked) {
       StyleClasses classes = new StyleClasses();
