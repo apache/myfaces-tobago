@@ -27,8 +27,6 @@ public final class PixelMeasure extends Measure {
 
   private static final Log LOG = LogFactory.getLog(PixelMeasure.class);
 
-  private static final PixelMeasure NULL = new PixelMeasure(0);
-
   public static final Measure ZERO = new PixelMeasure(0);
 
   private final int pixel;
@@ -37,14 +35,20 @@ public final class PixelMeasure extends Measure {
     this.pixel = pixel;
   }
 
+  public PixelMeasure(Measure measure) {
+    this.pixel = measure.getPixel();
+  }
+
   public Measure add(Measure m) {
     return new PixelMeasure(pixel + m.getPixel());
   }
 
   public Measure substractNotNegative(Measure m) {
-    if (m.getPixel() > pixel) {
+    if (m == null) {
+      return new PixelMeasure(this);
+    } else if (m.getPixel() > pixel) {
       LOG.warn("Not enough space! value=" + pixel);
-      return NULL;
+      return ZERO;
     } else {
       return new PixelMeasure(pixel - m.getPixel());
     }
