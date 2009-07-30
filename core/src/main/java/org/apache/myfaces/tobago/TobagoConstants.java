@@ -121,9 +121,6 @@ public final class TobagoConstants {
   public static final String ATTR_DISABLED = "disabled";
   /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
   @Deprecated
-  public static final String ATTR_DOCTYPE = "doctype";
-  /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
-  @Deprecated
   public static final String ATTR_ENCTYPE = "enctype";
   /** @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
   @Deprecated

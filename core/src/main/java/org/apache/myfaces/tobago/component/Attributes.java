@@ -45,7 +45,6 @@ public final class Attributes {
   public static final String DELAY = "delay";
   public static final String DIRECT_LINK_COUNT = "directLinkCount";
   public static final String DISABLED = "disabled";
-  public static final String DOCTYPE = "doctype";
   public static final String ENCTYPE = "enctype";
   public static final String ESCAPE = "escape";
   public static final String EXPANDED = "expanded";

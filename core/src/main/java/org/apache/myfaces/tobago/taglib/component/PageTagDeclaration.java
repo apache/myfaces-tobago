@@ -48,19 +48,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponentWithDeprecated
 
 public interface PageTagDeclaration
     extends HasLabel, HasId, HasBinding, HasState, IsGridLayoutComponentWithDeprecatedDimension {
-  /**
-   * Possible values for doctype are:
-   * <dl>
-   * <dt>strict</dt><dd>HTML 4.01 Strict DTD</dd>
-   * <dt>loose</dt><dd>HTML 4.01 Transitional DTD</dd>
-   * <dt>frameset</dt><dd>HTML 4.01 Frameset DTD</dd>
-   * </dl>
-   * All other values are ignored and no DOCTYPE is set.
-   * The default value is 'strict'.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "strict")
-  void setDoctype(String doctype);
 
   /**
    * Contains the id of the component wich should have the focus after
