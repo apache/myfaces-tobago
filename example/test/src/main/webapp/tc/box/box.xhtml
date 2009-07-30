@@ -26,17 +26,22 @@
     <f:facet name="layout">
       <tc:gridLayout/>
     </f:facet>
-    <tc:gridLayoutConstraint width="500px" height="500px"/>
+    <tc:gridLayoutConstraint width="500px" height="200px"/>
 
-    <tc:box label="A simple box">
+    <tc:box id="box" label="A simple box">
       <f:facet name="layout">
         <tc:gridLayout/>
       </f:facet>
 
-      <tc:textarea  
+      <tc:textarea id="textarea"
           value="Some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, some text without label, ..."/>
 
     </tc:box>
+
+    <tc:script file="script/test-utils.js"/>
+
+    <tc:script onload="checkLayout('page:box', 0, 0, 500, 200);"/>
+    <tc:script onload="checkLayout('page:textarea', 6, 26, 487, 167);"/>
 
   </tc:page>
 </f:view>

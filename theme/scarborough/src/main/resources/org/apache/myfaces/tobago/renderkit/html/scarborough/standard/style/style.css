@@ -368,8 +368,6 @@ div.tobago-gridLayout-default {
 /* XXX was changed from 5px */
   padding-top: 0px;
   overflow: hidden;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 
 div.tobago-gridLayout-first-row {
@@ -408,13 +406,6 @@ legend.tobago-box-default {
   white-space: nowrap;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
-}
-
-div.tobago-box-default {
-  overflow: auto;
-  position: relative;
-  top: 0px;
-  left: 0px;
 }
 
 /* label ------------------------------------------------------------------- */

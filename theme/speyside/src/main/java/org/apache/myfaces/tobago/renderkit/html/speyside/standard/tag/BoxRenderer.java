@@ -29,8 +29,9 @@ import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIToolBar;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
@@ -57,80 +58,94 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     HtmlRendererUtil.renderDojoDndSource(facesContext, component);
   }
 
+  /*
+<div class="tobago-box-default" style="width: 100px; height: 100px">
+  <div class="tobago-box-shadow" style="width: 99px; height: 99px">
+    <div class="tobago-box-border" style="width: 97px; height: 97px">
+      <div class="tobago-box-header">
+        <span class="tobago-box-header-label">Label</span>
+      </div>
+    </div>
+  </div>
+            <div style="position: absolute; top: 26px; left: 6px; width: 87px; height: 67px; background-color: blue;">
+            Content
+            </div>
+</div>
+
+   */
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
-    HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get(Attributes.STYLE);
+    UIBox box = (UIBox) component;
 
-    if (style != null) {
-      Integer styleHeight = style.getInt("height");
-      if (styleHeight != null) {
-        style.put("height", styleHeight-1);
-      }
-    }
-
-    String clientId = component.getClientId(facesContext);
-    writer.startElement(HtmlConstants.DIV, component);
-    HtmlRendererUtil.renderDojoDndItem(component, writer, true);
+    String clientId = box.getClientId(facesContext);
+    writer.startElement(HtmlConstants.DIV, box);
+    HtmlRendererUtil.renderDojoDndItem(box, writer, true);
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
-//    if (style != null) {
-      writer.writeStyleAttribute(style);
-//    }
-    // XXX what is abrout the writeStyleAttribute(style) method? is it useful or should it be deprecated?
     writer.writeStyleAttribute();
     writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\");");
-    
-    encodeBeginInner(facesContext, writer, component);
+    encodeBox(facesContext, writer, box);
   }
 
-  private void encodeBeginInner(FacesContext facesContext,
-      TobagoResponseWriter writer, UIComponent component) throws IOException {
-    HtmlStyleMap innerStyle = HtmlRendererUtil.prepareInnerStyle(component);
+  private void encodeBox(FacesContext facesContext, TobagoResponseWriter writer, UIBox box) throws IOException {
 
-    renderBoxHeader(facesContext, writer, component);
+    // shadow begin
+    {
+      writer.startElement(HtmlConstants.DIV, box);
 
+      StyleClasses classes = new StyleClasses();
+      classes.addClass("box", "shadow");
+      // XXX should this be done everywhere?
+//      classes.addMarkupClass((SupportsMarkup) box, "box", "shadow");
+      writer.writeClassAttribute(classes);
 
-    writer.startElement(HtmlConstants.DIV, component);
-    StyleClasses contentClasses = new StyleClasses();
-    contentClasses.addClass("box", "content");
-    if (component instanceof SupportsMarkup) {
-      contentClasses.addMarkupClass((SupportsMarkup) component, "box", "content");
+      HtmlStyleMap shadow = new HtmlStyleMap();
+      shadow.put("width", box.getWidth().substractNotNegative(new PixelMeasure(1)));
+      shadow.put("height", box.getHeight().substractNotNegative(new PixelMeasure(1)));
+      writer.writeStyleAttribute(shadow);
     }
-    writer.writeClassAttribute(contentClasses);
 
-    writer.startElement(HtmlConstants.DIV, component);
-    String id = component.getClientId(facesContext) + CONTENT_INNER; 
-    writer.writeIdAttribute(id);
-    StyleClasses contentInnerClasses = new StyleClasses();
-    contentInnerClasses.addClass("box", "content-inner");
-    contentInnerClasses.addFullQualifiedClass("dojoDndItem");
-    if (component instanceof SupportsMarkup) {
-      contentInnerClasses.addMarkupClass((SupportsMarkup) component, "box", "content-inner");
+    // border begin
+    {
+      writer.startElement(HtmlConstants.DIV, box);
+
+      StyleClasses classes = new StyleClasses();
+      classes.addClass("box", "border");
+      writer.writeClassAttribute(classes);
+      // XXX should this be done everywhere?
+//      classes.addMarkupClass((SupportsMarkup) box, "box", "border");
+
+      HtmlStyleMap border = new HtmlStyleMap();
+      border.put("width", box.getWidth().substractNotNegative(new PixelMeasure(3)));
+      border.put("height", box.getHeight().substractNotNegative(new PixelMeasure(3)));
+      writer.writeStyleAttribute(border);
     }
-    writer.writeClassAttribute(contentInnerClasses);
-    writer.writeStyleAttribute(innerStyle);
+
+    renderBoxHeader(facesContext, writer, box);
+
+    // border end
+    writer.endElement(HtmlConstants.DIV);
+    // shadow end
+    writer.endElement(HtmlConstants.DIV);
   }
 
+  protected void renderBoxHeader(
+      FacesContext facesContext, TobagoResponseWriter writer, UIBox box) throws IOException {
 
-  protected void renderBoxHeader(FacesContext facesContext,
-      TobagoResponseWriter writer, UIComponent component) throws IOException {
-
-    writer.startElement(HtmlConstants.DIV, component);
+    writer.startElement(HtmlConstants.DIV, box);
     StyleClasses headerClasses = new StyleClasses();
     headerClasses.addClass("box", "header");
-    if (component instanceof SupportsMarkup) {
-      headerClasses.addMarkupClass((SupportsMarkup) component, "box", "header");
-    }
+    // XXX should this be done everywhere?
+    headerClasses.addMarkupClass(box, "box", "header");
     writer.writeClassAttribute(headerClasses);
-    String id = component.getClientId(facesContext) + HEADER;
+    String id = box.getClientId(facesContext) + HEADER;
     writer.writeIdAttribute(id);
-    UIComponent label = component.getFacet(Facets.LABEL);
+    UIComponent label = box.getFacet(Facets.LABEL);
     writer.startElement(HtmlConstants.SPAN, null);
     writer.writeClassAttribute("tobago-box-header-label");
-    String labelString
-        = (String) component.getAttributes().get(Attributes.LABEL);
+    String labelString = (String) box.getAttributes().get(Attributes.LABEL);
     if (label != null) {
       RenderUtil.encode(facesContext, label);
     } else if (labelString != null) {
@@ -138,7 +153,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     }
     writer.endElement(HtmlConstants.SPAN);
 
-    UIPanel toolbar = (UIPanel) component.getFacet(Facets.TOOL_BAR);
+    UIPanel toolbar = (UIPanel) box.getFacet(Facets.TOOL_BAR);
     if (toolbar != null) {
       renderToolbar(facesContext, writer, toolbar);
     }
@@ -146,15 +161,8 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent component) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
-    encodeEndInner(writer);
-    writer.endElement(HtmlConstants.DIV);
-  }
-
-  private void encodeEndInner(TobagoResponseWriter writer) throws IOException {
-    writer.endElement(HtmlConstants.DIV);
     writer.endElement(HtmlConstants.DIV);
   }
 
@@ -167,7 +175,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     }
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute(className);
-    toolbar.setRendererType("BoxToolBar");    
+    toolbar.setRendererType("BoxToolBar");
     RenderUtil.encode(facesContext, toolbar);
     writer.endElement(HtmlConstants.DIV);
   }
@@ -176,9 +184,8 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     AjaxUtils.checkParamValidity(facesContext, component, UIPanel.class);
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    encodeBeginInner(facesContext, writer, component);
+    encodeBox(facesContext, writer, (UIBox) component);
     component.encodeChildren(facesContext);
-    encodeEndInner(writer);
     facesContext.responseComplete();
   }
 }
