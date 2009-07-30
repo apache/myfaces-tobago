@@ -63,6 +63,9 @@ public class PageRenderer extends PageRendererBase {
   private static final String DOCTYPE_STRICT =
       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\""
           + " \"http://www.w3.org/TR/html4/strict.dtd\">";
+//      "<!DOCTYPE html "
+//          + "     PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\""
+//          + "     \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">";
 
   private static final String CLIENT_DEBUG_SEVERITY = "clientDebugSeverity";
   private static final String LAST_FOCUS_ID = "lastFocusId";
@@ -140,6 +143,7 @@ public class PageRenderer extends PageRendererBase {
     writer.write('\n');
 
     writer.startElement(HtmlConstants.HTML, null);
+//    writer.writeAttribute("xmlns", "http://www.w3.org/1999/xhtml", false);
     writer.startElement(HtmlConstants.HEAD, null);
     final boolean debugMode = ClientProperties.getInstance(facesContext.getViewRoot()).isDebugMode();
 
@@ -312,8 +316,6 @@ public class PageRenderer extends PageRendererBase {
     writer.startElement(HtmlConstants.BODY, page);
     writer.writeAttribute(HtmlAttributes.ONLOAD, "Tobago.init('" + clientId + "');", false);
 //    writer.writeAttribute("onunload", "Tobago.onexit();", null);
-    //this ist for ie to prevent scrollbars where none are needed
-    writer.writeAttribute(HtmlAttributes.SCROLL, "auto", false);
     writer.writeClassAttribute();
     writer.writeStyleAttribute();
     writer.writeIdAttribute(clientId);
@@ -344,7 +346,6 @@ public class PageRenderer extends PageRendererBase {
     }
 
     writer.startElement(HtmlConstants.FORM, page);
-    writer.writeNameAttribute(clientId + SUBCOMPONENT_SEP + "form");
     writer.writeAttribute(HtmlAttributes.ACTION, formAction, true);
     writer.writeIdAttribute(page.getFormId(facesContext));
     writer.writeAttribute(HtmlAttributes.METHOD, getMethod(page), false);

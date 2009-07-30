@@ -30,6 +30,11 @@ form {
   margin: 0px;
 }
 
+/* this ist for ie6 to prevent scrollbars where none are needed */
+html {
+  overflow: auto;
+}
+
 /* Tab ------------------------------------------------------------------ */
 
 .tobago-tab-link {
