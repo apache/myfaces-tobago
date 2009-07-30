@@ -21,6 +21,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -32,6 +33,7 @@ import org.apache.myfaces.tobago.util.HtmlWriterUtil;
 import org.apache.myfaces.tobago.util.XmlUtils;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -165,7 +167,11 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
 
   public void write(final char[] cbuf, final int off, final int len)
       throws IOException {
-    writer.write(cbuf, off, len);
+    if (new String(cbuf).equals("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n")) {
+      LOG.error("Filtering XML header: " + new String(cbuf) + " FIXME"); // FIXME
+    } else {
+      writer.write(cbuf, off, len);
+    }
   }
 
   @Override
@@ -413,13 +419,26 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
   private HtmlStyleMap addLayout(HtmlStyleMap styles) {
     if (component instanceof LayoutComponent) {
       LayoutComponent layoutComponent = (LayoutComponent) component;
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+
       Measure width = layoutComponent.getWidth();
       if (width != null) {
+        // TODO: Make configurable: this is needed if the box-sizing is border-box, not content-box (see CSS3)
+        width = width.substractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.border-left-width"));
+        width = width.substractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.padding-left"));
+        width = width.substractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.padding-right"));
+        width = width.substractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.border-right-width"));
         styles = ensureHtmlStyleMap(component, styles);
         styles.put(Attributes.WIDTH, width);
       }
       Measure height = layoutComponent.getHeight();
       if (height != null) {
+        // TODO: Make configurable: this is needed if the box-sizing is border-box, not content-box (see CSS3)
+        height = height.substractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.border-top-width"));
+        height = height.substractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.padding-top"));
+        height = height.substractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.padding-bottom"));
+        height
+            = height.substractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.border-bottom-width"));
         styles = ensureHtmlStyleMap(component, styles);
         styles.put(Attributes.HEIGHT, height);
       }

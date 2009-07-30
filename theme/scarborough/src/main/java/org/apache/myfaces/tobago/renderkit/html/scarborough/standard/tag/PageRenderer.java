@@ -17,11 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
@@ -65,29 +60,12 @@ public class PageRenderer extends PageRendererBase {
 
   private static final Log LOG = LogFactory.getLog(PageRenderer.class);
 
-//      values for doctype :
-//      'strict'   : HTML 4.01 Strict DTD
-//      'loose'    : HTML 4.01 Transitional DTD
-//      'frameset' : HTML 4.01 Frameset DTD
-//      all other values are ignored and no DOCTYPE is set.
-//      default value is 'loose'
-
-  private static final String LOOSE =
-      "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\""
-          + /*" \"http://www.w3.org/TR/html4/loose.dtd\*/">";
-  // TODO: this is commented, because the some pages in IE and mozilla
-  // does work properly with it:
-  // tobago-demo: sometimes the body has not height=100% in mozilla.
-
-  private static final String STRICT =
+  private static final String DOCTYPE_STRICT =
       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\""
           + " \"http://www.w3.org/TR/html4/strict.dtd\">";
 
-  private static final String FRAMESET =
-      "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\""
-          + " \"http://www.w3.org/TR/html4/frameset.dtd\">";
   private static final String CLIENT_DEBUG_SEVERITY = "clientDebugSeverity";
-  private static final String LAST_FOCUS_ID = "lastFocusId";  
+  private static final String LAST_FOCUS_ID = "lastFocusId";
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
@@ -158,12 +136,8 @@ public class PageRenderer extends PageRendererBase {
 
     String title = (String) page.getAttributes().get(Attributes.LABEL);
 
-    String doctype = generateDoctype(page);
-
-    if (doctype != null) {
-      writer.write(doctype);
-      writer.write("\n");
-    }
+    writer.write(DOCTYPE_STRICT);
+    writer.write('\n');
 
     writer.startElement(HtmlConstants.HTML, null);
     writer.startElement(HtmlConstants.HEAD, null);
@@ -628,25 +602,8 @@ public class PageRenderer extends PageRendererBase {
     return method == null ? "post" : method;
   }
 
-  protected String generateDoctype(UIPage page) {
-    String doctype = (String) page.getAttributes().get(Attributes.DOCTYPE);
-    String type = null;
-    if (doctype == null || "loose".equals(doctype)) {
-      //default
-      type = LOOSE;
-    } else if ("strict".equals(doctype)) {
-      type = STRICT;
-    } else if ("frameset".equals(doctype)) {
-      type = FRAMESET;
-    } else {
-      LOG.warn("Unsupported DOCTYPE keyword :'" + doctype + "'");
-    }
-    return type;
-  }
-
   public boolean getRendersChildren() {
     return true;
   }
 
 }
-
