@@ -35,7 +35,7 @@ public class FilterUnitTest {
     Assert.assertFalse(Filter.isValid("/NETA-INF"));
     Assert.assertFalse(Filter.isValid("/META-INF/"));
 
-    Assert.assertFalse(Filter.isValid("/navi.xhtml"));
+    Assert.assertFalse(Filter.isValid("/navigation.xhtml"));
     Assert.assertTrue(Filter.isValid("/nav.xhtml"));
   }
 }

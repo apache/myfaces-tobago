@@ -17,43 +17,67 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
-public class PageItem implements Comparable {
+import org.apache.myfaces.tobago.util.VariableResolverUtil;
 
+import javax.faces.context.FacesContext;
+import javax.swing.tree.DefaultMutableTreeNode;
+
+
+public class PageItem extends DefaultMutableTreeNode implements Comparable {
+
+  private String name;
   private String resource;
   private boolean jsfResource;
   private String label;
+  private boolean folder;
 
   public PageItem(String name) {
-    this.resource = name.substring(1);
-    label = name.replaceAll("_", "__");
+    this.name = name;
+    resource = name.substring(1);
     jsfResource = name.endsWith(".xhtml") || name.endsWith(".jspx");
+    folder = name.endsWith("/");
+
+    label = name;
+    if (folder && label.length() > 1) {
+      label = label.substring(0, label.length() - 1);
+    }
+    label = label.substring(label.lastIndexOf("/") + 1);
+//    label = label.replaceAll("_", "__");
+  }
+
+  public String getName() {
+    return name;
   }
 
   public String getResource() {
     return resource;
   }
 
-  public void setResource(String resource) {
-    this.resource = resource;
-  }
-
   public boolean isJsfResource() {
     return jsfResource;
-  }
-
-  public void setJsfResource(boolean jsfResource) {
-    this.jsfResource = jsfResource;
   }
 
   public String getLabel() {
     return label;
   }
 
-  public void setLabel(String label) {
-    this.label = label;
-  }
-
   public int compareTo(Object object) {
     return label.compareTo(((PageItem) object).label);
+  }
+
+  public boolean isFolder() {
+    return folder;
+  }
+
+  public String navigate() {
+    DirectoryBrowser browser =
+        (DirectoryBrowser) VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), "browser");
+    browser.setCurrent(this);
+    return null; // here it works, but return null is usually not a good idea.
+  }
+
+  @Override
+  public String toString() {
+    return name;
   }
 }

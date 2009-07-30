@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.example.test;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.model.TreeState;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
@@ -31,15 +32,22 @@ public class DirectoryBrowser {
 
   private static final Log LOG = LogFactory.getLog(DirectoryBrowser.class);
 
-  public List<PageItem> getList() {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
-    List<PageItem> list = new ArrayList<PageItem>();
-    locateResourcesInWar(((ServletContext) facesContext.getExternalContext().getContext()), list, "/");
-    Collections.sort(list);
-    return list;
+  private PageItem tree;
+  private TreeState state;
+  private PageItem current;
+
+  public DirectoryBrowser() {
+    tree = new PageItem("/");
+    ServletContext servletContext
+        = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+
+    locateResourcesInWar(tree, servletContext);
+    current = tree;
   }
 
-  private void locateResourcesInWar(ServletContext servletContext, List<PageItem> list, String path) {
+  private void locateResourcesInWar(PageItem node, ServletContext servletContext) {
+
+    String path = node.getName();
 
     // fix for jetty6
     if (path.endsWith("/") && path.length() > 1) {
@@ -52,14 +60,19 @@ public class DirectoryBrowser {
       }
       return;
     }
+
+    List<PageItem> list = new ArrayList<PageItem>();
+
     for (String childPath : resourcePaths) {
       if (childPath.endsWith("/")) {
         // ignore, because weblogic puts the path directory itself in the Set
         if (!childPath.equals(path)) {
-          if (LOG.isDebugEnabled()) {
-            LOG.debug("childPath dir " + childPath);
+          if (Filter.isValid(childPath)) {
+            if (LOG.isDebugEnabled()) {
+              LOG.debug("childPath dir " + childPath);
+            }
+            list.add(new PageItem(childPath));
           }
-          locateResourcesInWar(servletContext, list, childPath);
         }
       } else {
         if (Filter.isValid(childPath)) {
@@ -68,5 +81,35 @@ public class DirectoryBrowser {
         }
       }
     }
+
+    Collections.sort(list);
+
+    for (PageItem pageItem : list) {
+      node.add(pageItem);
+
+      if (pageItem.isFolder()) {
+        locateResourcesInWar(pageItem, servletContext);
+      }
+    }
+  }
+
+  public PageItem getTree() {
+    return tree;
+  }
+
+  public PageItem getCurrent() {
+    return current;
+  }
+
+  public void setCurrent(PageItem current) {
+    this.current = current;
+  }
+
+  public TreeState getState() {
+    return state;
+  }
+
+  public void setState(TreeState state) {
+    this.state = state;
   }
 }

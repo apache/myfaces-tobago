@@ -30,6 +30,7 @@ public class Filter {
   private static final Log LOG = LogFactory.getLog(Filter.class);
 
   public static final List<String> ALLOWED = Arrays.asList(
+      ".*\\/",
       ".*\\.xhtml",
       ".*\\.jsp",
       ".*\\.jspx",
@@ -39,14 +40,17 @@ public class Filter {
   public static final Set<String> FORBIDDEN = new HashSet<String>(Arrays.asList(
       "/META-INF.*",
       "/WEB-INF.*",
+      "/org/.*",
+      "/src/.*",
+
       "/index.html",
+      "/navigation.xhtml",
+
       "/meta-test/meta-1.*",
       "/meta-test/meta-2.*\\.jspx",
       "/meta-test/meta-3.*\\.xhtml",
       "/meta-test/meta-4.*",
-      "/navi.*",
-      "/org/apache/myfaces/tobago/renderkit/html/standard/blank.html",
-      "/org/apache/myfaces/tobago/renderkit/html/standard/standard/script/dojo/.*",
+
       "/tc/button/plain.html",
       "/tc/button/plain_de.html",
       "/tc/gridLayout/horizontal-600px-default-300px.*",
