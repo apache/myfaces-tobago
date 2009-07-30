@@ -46,6 +46,7 @@ public final class TobagoConstants {
   public static final String ATTR_DISABLED = "disabled";
   @Deprecated
   public static final String ATTR_DISABLED_REFERENCE = "disabledReference";
+  @Deprecated
   public static final String ATTR_DOCTYPE = "doctype";
   public static final String ATTR_ENCTYPE = "enctype";
   public static final String ATTR_ESCAPE = "escape";

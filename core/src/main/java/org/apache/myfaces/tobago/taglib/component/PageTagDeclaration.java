@@ -17,11 +17,11 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
@@ -54,6 +54,7 @@ public interface PageTagDeclaration extends TobagoBodyTagDeclaration, HasLabel, 
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "loose")
+  @Deprecated
   void setDoctype(String doctype);
 
   /**

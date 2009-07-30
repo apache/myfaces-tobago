@@ -36,6 +36,7 @@ import javax.servlet.jsp.tagext.BodyTag;
 public class PageTag extends TobagoBodyTag
     implements BodyTag, PageTagDeclaration {
 
+  @Deprecated
   private String doctype;
 
   // TODO move to renderkit
