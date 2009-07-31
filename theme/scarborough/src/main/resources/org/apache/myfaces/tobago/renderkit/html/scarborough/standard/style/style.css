@@ -685,7 +685,7 @@ div.tobago-richTextEditor-body {
   border-color: #bbccdd;
   border-style: inset;
   border-width: 2px;
-  margin: 0px;
+  margin: 0 0 0 0;
 }
 
 .tobago-in-markup-number {
