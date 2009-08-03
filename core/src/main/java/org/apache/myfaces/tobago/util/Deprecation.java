@@ -20,7 +20,11 @@ package org.apache.myfaces.tobago.util;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class Deprecation {
+public final class Deprecation {
+
+  // to prevent instantiation
+  private Deprecation() {
+  }
 
   /**
    * This Log object should help to detect the usage of deprecated code.
