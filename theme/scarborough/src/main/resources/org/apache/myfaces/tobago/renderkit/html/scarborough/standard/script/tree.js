@@ -856,7 +856,8 @@ function tobagoTreeListboxCreateOption(node, index, hiddenId) {
   if (node.childNodes && node.childNodes.length) {
     label += " \u2192";
   }
-  var option = new Option(label, index);
+  var option = new Option("", index);
+  option.innerHTML = label; 
   option.hiddenId = hiddenId;
   if (node.tip) {
     option.title = node.tip;
