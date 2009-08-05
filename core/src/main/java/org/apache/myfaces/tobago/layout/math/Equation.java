@@ -21,6 +21,14 @@ public interface Equation {
 
   /**
    * The row has the format: index 0 to n-2 are the factors and index n-1 is the result.
+   * @param row array to fill in the factors of the equation.
    */
   void fillRow(double[] row);
+
+  /**
+   * Priority for sorting.
+   * @return Large values represent a high priority
+   */
+  int priority();
+
 }

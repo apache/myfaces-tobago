@@ -30,11 +30,10 @@ public class MathUtils {
    *
    * @param list
    */
-  static void adjustRemainders(double[] list) {
-    double bias = 0.0;
+  static void adjustRemainders(double[] list, double bias) {
     for (double v : list) {
       double lastBias;
-      if (bias >= 0.0) {
+      if (bias < 0.0) {
         lastBias = findAndAdjustMaxRemainder(list);
       } else {
         lastBias = findAndAdjustMinRemainder(list);
@@ -60,7 +59,7 @@ public class MathUtils {
     }
     if (indexOfMax != null) {
       list[indexOfMax] += 1.0 - max;
-      return max - 1.0;
+      return 1.0 - max;
     }
     return 0.0;
   }
@@ -80,7 +79,7 @@ public class MathUtils {
     }
     if (indexOfMin != null) {
       list[indexOfMin] -= min;
-      return min;
+      return -min;
     }
     return 0.0;
   }

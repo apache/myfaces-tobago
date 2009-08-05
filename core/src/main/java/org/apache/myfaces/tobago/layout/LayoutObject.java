@@ -33,8 +33,10 @@ public interface LayoutObject {
   void setMinimumHeight(Measure minimumHeight);
 
   void setPreferredWidth(Measure preferredWidth);
+  Measure getPreferredWidth();
 
   void setPreferredHeight(Measure preferredHeight);
+  Measure getPreferredHeight();
 
   void setMaximumWidth(Measure maximumWidth);
 

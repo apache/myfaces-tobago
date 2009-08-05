@@ -63,7 +63,12 @@ public class ThemeConfig {
   }
 
   public static Measure getMeasure(FacesContext facesContext, UIComponent component, String name) {
-      return new PixelMeasure(getValue(facesContext, component, name));
+    try {
+      return new PixelMeasure(getValue0(facesContext, component, name));
+    } catch (Exception e) {
+      // XXX: not a good style to use exception for this normal behaviour, use Integer als result type of getValue0()
+      return null;
+    }
   }
 
   private static int getValue0(FacesContext facesContext, UIComponent component, String name) {
@@ -161,6 +166,7 @@ public class ThemeConfig {
       this.name = name;
     }
 
+    @Override
     public boolean equals(Object o) {
       if (this == o) {
         return true;
@@ -187,6 +193,7 @@ public class ThemeConfig {
       return true;
     }
 
+    @Override
     public int hashCode() {
       int result;
       result = clientProperties.hashCode();
@@ -194,6 +201,14 @@ public class ThemeConfig {
       result = 29 * result + rendererType.hashCode();
       result = 29 * result + name.hashCode();
       return result;
+    }
+
+    @Override
+    public String toString() {
+      return "CacheKey(" + clientProperties + 
+          "," + locale +
+          "," + rendererType +
+          "," + name +          ')';
     }
   }
 

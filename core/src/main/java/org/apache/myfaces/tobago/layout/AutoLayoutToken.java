@@ -17,12 +17,9 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-/*
- * Date: May 2, 2007
- * Time: 7:16:18 PM
- */
-public final class FixedLayoutToken extends LayoutToken {
-  public static final FixedLayoutToken INSTANCE = new FixedLayoutToken();
+public final class AutoLayoutToken extends LayoutToken {
+  
+  public static final AutoLayoutToken INSTANCE = new AutoLayoutToken();
 
   public String toString() {
     return "fixed";

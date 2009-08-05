@@ -25,6 +25,10 @@ public final class ZeroEquation implements Equation {
     Arrays.fill(row, 0.0);
   }
 
+  public int priority() {
+    return 0;
+  }
+
   @Override
   public String toString() {
     return "ZeroEquation (no meaning)";

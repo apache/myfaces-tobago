@@ -25,37 +25,37 @@ public class PartitionEquationUnitTest {
 
   @Test
   public void testToString() {
-    Assert.assertEquals("PartitionEquation:    x_0 = x_4",
-        new PartitionEquation(4, 1, 0, PixelMeasure.ZERO).toString());
-    Assert.assertEquals("PartitionEquation:    x_0 = x_4 + x_5",
-        new PartitionEquation(4, 2, 0, PixelMeasure.ZERO).toString());
-    Assert.assertEquals("PartitionEquation:    x_0 = x_4 + ... + x_6",
-        new PartitionEquation(4, 3, 0, PixelMeasure.ZERO).toString());
+    Assert.assertEquals("PartitionEquation:    x_0 = x_4 (test)",
+        new PartitionEquation(4, 1, 0, PixelMeasure.ZERO, "test").toString());
+    Assert.assertEquals("PartitionEquation:    x_0 = x_4 + x_5 (test)",
+        new PartitionEquation(4, 2, 0, PixelMeasure.ZERO, "test").toString());
+    Assert.assertEquals("PartitionEquation:    x_0 = x_4 + ... + x_6 (test)",
+        new PartitionEquation(4, 3, 0, PixelMeasure.ZERO, "test").toString());
 
-    Assert.assertEquals("PartitionEquation:    x_0 = x_4",
-        new PartitionEquation(4, 1, 0, new PixelMeasure(5)).toString());
-    Assert.assertEquals("PartitionEquation:    x_0 = x_4 + x_5 + 5px",
-        new PartitionEquation(4, 2, 0, new PixelMeasure(5)).toString());
-    Assert.assertEquals("PartitionEquation:    x_0 = x_4 + ... + x_6 + 2 * 5px",
-        new PartitionEquation(4, 3, 0, new PixelMeasure(5)).toString());
+    Assert.assertEquals("PartitionEquation:    x_0 = x_4 (test)",
+        new PartitionEquation(4, 1, 0, new PixelMeasure(5), "test").toString());
+    Assert.assertEquals("PartitionEquation:    x_0 = x_4 + x_5 + 5px (test)",
+        new PartitionEquation(4, 2, 0, new PixelMeasure(5), "test").toString());
+    Assert.assertEquals("PartitionEquation:    x_0 = x_4 + ... + x_6 + 2 * 5px (test)",
+        new PartitionEquation(4, 3, 0, new PixelMeasure(5), "test").toString());
   }
 
   @Test
   public void testFillRow() {
     double[] row = new double[8];
 
-    new PartitionEquation(4, 1, 0, PixelMeasure.ZERO).fillRow(row);
+    new PartitionEquation(4, 1, 0, PixelMeasure.ZERO, "test").fillRow(row);
     Assert.assertArrayEquals(new double[] {-1, 0, 0, 0, 1, 0, 0, 0}, row, MathUtils.EPSILON);
-    new PartitionEquation(4, 2, 0, PixelMeasure.ZERO).fillRow(row);
+    new PartitionEquation(4, 2, 0, PixelMeasure.ZERO, "test").fillRow(row);
     Assert.assertArrayEquals(new double[] {-1, 0, 0, 0, 1, 1, 0, 0}, row, MathUtils.EPSILON);
-    new PartitionEquation(4, 3, 0, PixelMeasure.ZERO).fillRow(row);
+    new PartitionEquation(4, 3, 0, PixelMeasure.ZERO, "test").fillRow(row);
     Assert.assertArrayEquals(new double[] {-1, 0, 0, 0, 1, 1, 1, 0}, row, MathUtils.EPSILON);
 
-    new PartitionEquation(4, 1, 0, new PixelMeasure(5)).fillRow(row);
+    new PartitionEquation(4, 1, 0, new PixelMeasure(5), "test").fillRow(row);
     Assert.assertArrayEquals(new double[] {-1, 0, 0, 0, 1, 0, 0, 0}, row, MathUtils.EPSILON);
-    new PartitionEquation(4, 2, 0, new PixelMeasure(5)).fillRow(row);
+    new PartitionEquation(4, 2, 0, new PixelMeasure(5), "test").fillRow(row);
     Assert.assertArrayEquals(new double[] {-1, 0, 0, 0, 1, 1, 0, -5}, row, MathUtils.EPSILON);
-    new PartitionEquation(4, 3, 0, new PixelMeasure(5)).fillRow(row);
+    new PartitionEquation(4, 3, 0, new PixelMeasure(5), "test").fillRow(row);
     Assert.assertArrayEquals(new double[] {-1, 0, 0, 0, 1, 1, 1, -10}, row, MathUtils.EPSILON);
   }
 }

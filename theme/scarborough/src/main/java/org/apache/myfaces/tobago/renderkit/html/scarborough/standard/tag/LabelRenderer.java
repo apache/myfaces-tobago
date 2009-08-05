@@ -17,11 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Facets;
@@ -45,34 +40,7 @@ public class LabelRenderer extends LayoutableRendererBase {
 
   private static final Log LOG = LogFactory.getLog(LabelRenderer.class);
 
-  private void createClassAttribute(UIComponent component) {
-
-    String rendererType = component.getRendererType().toLowerCase(Locale.ENGLISH);
-    String name = getRendererName(rendererType);
-
-    UIComponent parent = findParent(component);
-    StyleClasses styleClasses = StyleClasses.ensureStyleClasses(component);
-    styleClasses.updateClassAttribute(parent, name);
-    styleClasses.addMarkupClass(component, name);
-
-  }
-
-  private UIComponent findParent(UIComponent component) {
-    UIComponent parent = component.getParent();
-    if (component != parent.getFacet(Facets.LABEL)) {
-
-      // try to find belonging component
-      // this can only success if the component was rendered (created) before this label
-      parent = ComponentUtil.findFor(component);
-    }
-    if (parent == null) {
-      parent = component;
-    }
-    return parent;
-  }
-
-  public void encodeEnd(
-      FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
     UIOutput output = (UIOutput) component;
 
@@ -113,6 +81,32 @@ public class LabelRenderer extends LayoutableRendererBase {
       HtmlRendererUtil.addClickAcceleratorKey(facesContext, clientId, label.getAccessKey());
     }
     writer.endElement(HtmlConstants.DIV);
+  }
+
+  private void createClassAttribute(UIComponent component) {
+
+    String rendererType = component.getRendererType().toLowerCase(Locale.ENGLISH);
+    String name = getRendererName(rendererType);
+
+    UIComponent parent = findParent(component);
+    StyleClasses styleClasses = StyleClasses.ensureStyleClasses(component);
+    styleClasses.updateClassAttribute(parent, name);
+    styleClasses.addMarkupClass(component, name);
+
+  }
+
+  private UIComponent findParent(UIComponent component) {
+    UIComponent parent = component.getParent();
+    if (component != parent.getFacet(Facets.LABEL)) {
+
+      // try to find belonging component
+      // this can only success if the component was rendered (created) before this label
+      parent = ComponentUtil.findFor(component);
+    }
+    if (parent == null) {
+      parent = component;
+    }
+    return parent;
   }
 
 }

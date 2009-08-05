@@ -33,8 +33,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponentWithDeprecated
  */
 @Tag(name = "image", bodyContent = BodyContent.JSP)
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIGraphic",
-    uiComponentBaseClass = "javax.faces.component.UIGraphic",
+    uiComponent = "org.apache.myfaces.tobago.component.UIImage",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIImage",
     rendererType = RendererTypes.IMAGE,
     allowedChildComponenents = "NONE")
 public interface ImageTagDeclaration

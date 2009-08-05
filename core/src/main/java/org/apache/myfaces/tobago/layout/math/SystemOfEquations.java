@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.layout.PixelMeasure;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -149,6 +150,10 @@ public class SystemOfEquations {
       equations.add(new ZeroEquation());
     }
 
+    LOG.info("Before sorting: " + this);
+
+    Collections.sort(equations, new EquationComparator());
+
     if (numberOfVariables != equations.size()) {
       LOG.warn("SOE have not correct dimensions: " + this);
     }
@@ -230,20 +235,35 @@ public class SystemOfEquations {
 
     LOG.info(this);
 
-    round();
+    double[] original = copyResult();
 
+    round(original);
+
+    Measure[] rounded = copyResultMeasure();
+
+    LOG.info("after adjust remainders:  " + Arrays.toString(rounded));
+
+    return rounded;
+  }
+
+  private double[] copyResult() {
+    double[] result = new double[numberOfVariables];
+    for (int i = 0; i < numberOfVariables; i++) {
+      result[i] = data[i][numberOfVariables];
+    }
+    return result;
+  }
+
+  private Measure[] copyResultMeasure() {
     Measure[] result = new Measure[numberOfVariables];
     for (int i = 0; i < numberOfVariables; i++) {
       assert MathUtils.isInteger(data[i][numberOfVariables]);
       result[i] = new PixelMeasure((int) Math.round(data[i][numberOfVariables]));
     }
-
-    LOG.info("after adjust remainders:  " + Arrays.toString(result));
-
     return result;
   }
 
-  private void round() {
+  private void round(double[] original) {
 
     for (Equation equation : equations) {
       if (equation instanceof PartitionEquation) {
@@ -257,29 +277,33 @@ public class SystemOfEquations {
           temp[i] = data[i + begin][numberOfVariables];
         }
         // processing
-        MathUtils.adjustRemainders(temp);
+        int parent = partition.getParent();
+        MathUtils.adjustRemainders(temp, original[parent] - data[parent][numberOfVariables]);
         // write back to data
         for (int i = 0; i < count; i++) {
           data[i + begin][numberOfVariables] = temp[i];
         }
-      }
-      if (equation instanceof CombinationEquation) {
+      } else if (equation instanceof CombinationEquation) {
         CombinationEquation combination = (CombinationEquation) equation;
         combination.getParent();
         int parent = combination.getParent();
         int span = combination.getSpan();
-        double sum = (span - 1) * combination.getSpacing().getPixel();
+        double sum = (span - 1) * combination.getSpacing().getPixel(); // the spacings
         for (int i = 0; i < span; i++) {
           double value = data[i + parent][numberOfVariables];
           assert MathUtils.isInteger(value);
           sum += value;
         }
         int index = combination.getNewIndex();
-        LOG.info("Change value for index=" + index + " from "
-            + (data[index][numberOfVariables]) + " -> " + Math.round(sum));
-        assert Math.abs(data[index][numberOfVariables] - Math.round(sum)) < 1;
-        data[index][numberOfVariables] = Math.round(sum);
-      }
+        double old = data[index][numberOfVariables];
+        if (Math.abs(old - Math.round(sum)) < 1) {
+          data[index][numberOfVariables] = Math.round(sum);
+        } else {
+          data[index][numberOfVariables] = Math.round(old);
+        }
+        LOG.info("Change value for index=" + index + " from " + old + " -> " + Math.round(sum));
+
+      } //else if (equation instanceof )
     }
   }
 

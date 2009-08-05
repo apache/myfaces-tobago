@@ -45,7 +45,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.PageAction;
-import org.apache.myfaces.tobago.layout.FixedLayoutToken;
+import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
@@ -1195,7 +1195,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     LayoutTokens tokens = layoutInfo.getLayoutTokens();
     for (int i = 0; i < tokens.getSize(); i++) {
       LayoutToken token = tokens.get(i);
-      if (token instanceof FixedLayoutToken) {
+      if (token instanceof AutoLayoutToken) {
         int width = 0;
         if (!rendereredColumns.isEmpty()) {
           if (i < rendereredColumns.size()) {

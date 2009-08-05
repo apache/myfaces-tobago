@@ -64,13 +64,17 @@ public interface IsGridLayoutComponent {
   /**
    * @param preferredWidth The preferred width for this component.
    */
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
+          + "getFacesContext(), this, \"preferredWidth\")")
   void setPreferredWidth(String preferredWidth);
 
   /**
    * @param preferredHeight The preferred height for this component.
    */
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
+          + "getFacesContext(), this, \"preferredHeight\")")
   void setPreferredHeight(String preferredHeight);
 
   /**

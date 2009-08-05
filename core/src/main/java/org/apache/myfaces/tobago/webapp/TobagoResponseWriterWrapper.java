@@ -25,11 +25,8 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
 
-/*
- * Date: May 12, 2007
- * Time: 8:20:51 PM
- */
 public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
+
   private ResponseWriter responseWriter;
 
   public TobagoResponseWriterWrapper(ResponseWriter responseWriter) {

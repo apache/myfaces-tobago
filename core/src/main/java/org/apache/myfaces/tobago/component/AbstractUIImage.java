@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.layout.math;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,34 +17,9 @@ package org.apache.myfaces.tobago.layout.math;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 
-import java.util.Arrays;
+import javax.faces.component.UIGraphic;
 
-public final class FixedEquation implements Equation {
-
-  private int index;
-  private Measure result;
-  private String component;
-
-  public FixedEquation(int index, Measure result, String component) {
-    this.index = index;
-    this.result = result;
-    this.component = component;
-  }
-
-  public void fillRow(double[] row) {
-    Arrays.fill(row, 0.0);
-    row[index] = 1.0;
-    row[row.length - 1] = result.getPixel();
-  }
-
-  public int priority() {
-    return 40;
-  }
-
-  @Override
-  public String toString() {
-    return "FixedEquation:        x_" + index + " = " + result + " (" + component + ")";
-  }
+public abstract class AbstractUIImage extends UIGraphic implements LayoutComponent {
 }

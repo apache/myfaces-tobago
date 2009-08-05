@@ -682,10 +682,9 @@ div.tobago-richTextEditor-body {
   background: #ffffff;
   height: 25px;
   color: #000000;
-  border-color: #bbccdd;
-  border-style: inset;
-  border-width: 2px;
-  margin: 0 0 0 0;
+  border: 2px inset #bbccdd;
+  margin: 0;
+  padding: 2px;
 }
 
 .tobago-in-markup-number {
@@ -694,9 +693,7 @@ div.tobago-richTextEditor-body {
 }
 
 .tobago-in-required {
-  background-image: url( "../image/required.gif" );
-  background-position: 3px 50%;
-  background-repeat: no-repeat;
+  background: url("../image/required.gif") no-repeat 3px 50%;
 }
 
 .tobago-in-readonly {
@@ -709,8 +706,8 @@ div.tobago-richTextEditor-body {
 }
 
 .tobago-in-error {
-  border-style: solid;
-  border-color: #ff0000;
+  border: 2px solid #ff0000;
+
 }
 
 .tobago-in-suggest-popup {

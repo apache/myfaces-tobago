@@ -31,6 +31,7 @@ public final class CombinationEquation implements Equation {
   private int parent;
   private int span;
   private Measure spacing;
+  private String component;
 
   /**
    * @param newIndex new index
@@ -38,11 +39,12 @@ public final class CombinationEquation implements Equation {
    * @param span     number of parent cells
    * @param spacing  space between two cells inside the span
    */
-  public CombinationEquation(int newIndex, int parent, int span, Measure spacing) {
+  public CombinationEquation(int newIndex, int parent, int span, Measure spacing, String component) {
     this.newIndex = newIndex;
     this.parent = parent;
     this.span = span;
     this.spacing = spacing;
+    this.component = component;
   }
 
   public void fillRow(double[] row) {
@@ -65,6 +67,10 @@ public final class CombinationEquation implements Equation {
     for (i = parent; i < parent + span; i++) {
       row[i] = -1.0;
     }
+  }
+
+  public int priority() {
+    return 10;
   }
 
   public int getNewIndex() {
@@ -111,6 +117,10 @@ public final class CombinationEquation implements Equation {
     builder.append(" = ");
     builder.append("x_");
     builder.append(newIndex);
+
+    builder.append(" (");
+    builder.append(component);
+    builder.append(")");
 
     return builder.toString();
   }

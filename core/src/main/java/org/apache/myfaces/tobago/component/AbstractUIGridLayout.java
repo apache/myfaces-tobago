@@ -17,11 +17,11 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.OnComponentCreated;
 import org.apache.myfaces.tobago.layout.Display;
-import org.apache.myfaces.tobago.layout.FixedLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutContext;
@@ -75,12 +75,14 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     EquationManager horizontal = layoutContext.getHorizontal();
     int[] horizontalIndices = horizontal.partition(
         horizontalIndex, columnTokens.getSize(),
-        getColumnSpacing(), container.getLeftOffset(), container.getRightOffset());
+        getColumnSpacing(), container.getLeftOffset(), container.getRightOffset(),
+        container.getClass().getSimpleName());
 
     // vertical
     EquationManager vertical = layoutContext.getVertical();
     int[] verticalIndices = vertical.partition(
-        verticalIndex, rowTokens.getSize(), getRowSpacing(), container.getTopOffset(), container.getBottomOffset());
+        verticalIndex, rowTokens.getSize(), getRowSpacing(),
+        container.getTopOffset(), container.getBottomOffset(), container.getClass().getSimpleName());
 
     List<LayoutComponent> components = container.getComponents();
     for (LayoutComponent c : components) {
@@ -88,7 +90,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
       LOG.debug("\n" + grid);
     }
 
-    addFixedConstraints(layoutContext, horizontalIndex + 1, verticalIndex + 1);
+    addPixelConstraints(layoutContext, horizontalIndex + 1, verticalIndex + 1);
     addRelativeConstraints(layoutContext, horizontalIndex + 1, verticalIndex + 1);
 
     for (int j = 0; j < grid.getRowCount(); j++) {
@@ -99,17 +101,28 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
           LayoutComponent component = temp.getComponent();
 
           // horizontal
-          int hIndex = horizontal.combine(horizontalIndices[i], cell.getColumnSpan(), getColumnSpacing());
+          int hIndex = horizontal.combine(horizontalIndices[i], cell.getColumnSpan(), getColumnSpacing(), component.getClass().getSimpleName());
           cell.getComponent().setHorizontalIndex(hIndex);
 
           // vertical
-          int vIndex = vertical.combine(verticalIndices[j], cell.getRowSpan(), getRowSpacing());
+          int vIndex = vertical.combine(verticalIndices[j], cell.getRowSpan(), getRowSpacing(), component.getClass().getSimpleName());
           cell.getComponent().setVerticalIndex(vIndex);
 
           if (component instanceof LayoutContainer) {
             LayoutContainer subContainer = (LayoutContainer) component;
             LayoutManager layoutManager = subContainer.getLayoutManager();
             layoutManager.collect(layoutContext, subContainer, hIndex, vIndex);
+          } else {
+            // XXX is this a good idea?
+
+            Measure preferredWidth = component.getPreferredWidth();
+            if (preferredWidth != null) {
+              horizontal.setFixedLength(hIndex, preferredWidth, component.getClass().getSimpleName());
+            }
+            Measure preferredHeight = component.getPreferredHeight();
+            if (preferredHeight != null) {
+              vertical.setFixedLength(vIndex, preferredHeight, component.getClass().getSimpleName());
+            }
           }
         }
       }
@@ -206,19 +219,21 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     }
   }
 
-  private void addFixedConstraints(LayoutContext layoutContext, int horizontalIndexOffset, int verticalIndexOffset) {
+  private void addPixelConstraints(LayoutContext layoutContext, int horizontalIndexOffset, int verticalIndexOffset) {
     // horizontal
     for (int i = 0; i < columnTokens.getSize(); i++) {
       LayoutToken layoutToken = columnTokens.get(i);
       if (layoutToken instanceof PixelLayoutToken) {
         Measure pixel = new PixelMeasure(((PixelLayoutToken) layoutToken).getPixel());
-        layoutContext.getHorizontal().setFixedLength(i + horizontalIndexOffset, pixel);
+        layoutContext.getHorizontal().setFixedLength(i + horizontalIndexOffset, pixel, ClassUtils.getShortClassName(getParent(), "null"));
       }
-      if (layoutToken instanceof FixedLayoutToken) {
+/*
+      if (layoutToken instanceof AutoLayoutToken) {
         Measure pixel = new PixelMeasure(100); // TODO
         LOG.warn("auto/fixed is not implemented yet and was set to 100px");
         layoutContext.getHorizontal().setFixedLength(i + horizontalIndexOffset, pixel);
       }
+*/
     }
     // vertical
     for (int i = 0; i < rowTokens.getSize(); i++) {
@@ -226,13 +241,15 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
       if (layoutToken instanceof PixelLayoutToken) {
          // XXX PixelLayoutToken might be removed/changed
         Measure pixel = new PixelMeasure(((PixelLayoutToken) layoutToken).getPixel());
-        layoutContext.getVertical().setFixedLength(i + verticalIndexOffset, pixel);
+        layoutContext.getVertical().setFixedLength(i + verticalIndexOffset, pixel, ClassUtils.getShortClassName(getParent(), "null"));
       }
-      if (layoutToken instanceof FixedLayoutToken) {
+/*
+      if (layoutToken instanceof AutoLayoutToken) {
         Measure pixel = new PixelMeasure(25); // TODO
         LOG.warn("auto/fixed is not implemented yet and was set to 25px");
         layoutContext.getVertical().setFixedLength(i + verticalIndexOffset, pixel);
       }
+*/
     }
   }
 
@@ -248,7 +265,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
           first = factor;
           firstIndex = i + horizontalIndexOffset;
         } else {
-          layoutContext.getHorizontal().proportionate(firstIndex, i + horizontalIndexOffset, first, factor);
+          layoutContext.getHorizontal().proportionate(
+              firstIndex, i + horizontalIndexOffset, first, factor, ClassUtils.getShortClassName(getParent(), "null"));
         }
       }
     }
@@ -263,7 +281,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
           first = factor;
           firstIndex = i + verticalIndexOffset;
         } else {
-          layoutContext.getVertical().proportionate(firstIndex, i + verticalIndexOffset, first, factor);
+          layoutContext.getVertical().proportionate(
+              firstIndex, i + verticalIndexOffset, first, factor, ClassUtils.getShortClassName(getParent(), "null"));
         }
       }
     }

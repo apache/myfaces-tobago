@@ -45,10 +45,10 @@ public class LayoutContext {
     vertical.addComponentRoot();
 
     if (container.getWidth() != null) {
-      horizontal.setFixedLength(0, container.getWidth());
+      horizontal.setFixedLength(0, container.getWidth(), container.getClass().getSimpleName());
     }
     if (container.getHeight() != null) {
-      vertical.setFixedLength(0, container.getHeight());
+      vertical.setFixedLength(0, container.getHeight(), container.getClass().getSimpleName());
     }
 
     container.getLayoutManager().collect(this, container, 0, 0);

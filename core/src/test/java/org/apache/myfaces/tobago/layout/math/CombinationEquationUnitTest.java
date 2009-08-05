@@ -25,37 +25,38 @@ public class CombinationEquationUnitTest {
 
   @Test
   public void testToString() {
-    Assert.assertEquals("CombinationEquation:  x_0 = x_4",
-        new CombinationEquation(4, 0, 1, PixelMeasure.ZERO).toString());
-    Assert.assertEquals("CombinationEquation:  x_0 + x_1 = x_4",
-        new CombinationEquation(4, 0, 2, PixelMeasure.ZERO).toString());
-    Assert.assertEquals("CombinationEquation:  x_0 + ... + x_2 = x_4",
-        new CombinationEquation(4, 0, 3, PixelMeasure.ZERO).toString());
+    
+    Assert.assertEquals("CombinationEquation:  x_0 = x_4 (test)",
+        new CombinationEquation(4, 0, 1, PixelMeasure.ZERO, "test").toString());
+    Assert.assertEquals("CombinationEquation:  x_0 + x_1 = x_4 (test)",
+        new CombinationEquation(4, 0, 2, PixelMeasure.ZERO, "test").toString());
+    Assert.assertEquals("CombinationEquation:  x_0 + ... + x_2 = x_4 (test)",
+        new CombinationEquation(4, 0, 3, PixelMeasure.ZERO, "test").toString());
 
-    Assert.assertEquals("CombinationEquation:  x_0 = x_4",
-        new CombinationEquation(4, 0, 1, new PixelMeasure(5)).toString());
-    Assert.assertEquals("CombinationEquation:  x_0 + x_1 + 5px = x_4",
-        new CombinationEquation(4, 0, 2, new PixelMeasure(5)).toString());
-    Assert.assertEquals("CombinationEquation:  x_0 + ... + x_2 + 2 * 5px = x_4",
-        new CombinationEquation(4, 0, 3, new PixelMeasure(5)).toString());
+    Assert.assertEquals("CombinationEquation:  x_0 = x_4 (test)",
+        new CombinationEquation(4, 0, 1, new PixelMeasure(5), "test").toString());
+    Assert.assertEquals("CombinationEquation:  x_0 + x_1 + 5px = x_4 (test)",
+        new CombinationEquation(4, 0, 2, new PixelMeasure(5), "test").toString());
+    Assert.assertEquals("CombinationEquation:  x_0 + ... + x_2 + 2 * 5px = x_4 (test)",
+        new CombinationEquation(4, 0, 3, new PixelMeasure(5), "test").toString());
   }
 
   @Test
   public void testFillRow() {
     double[] row = new double[8];
 
-    new CombinationEquation(4, 0, 1, PixelMeasure.ZERO).fillRow(row);
+    new CombinationEquation(4, 0, 1, PixelMeasure.ZERO, "test").fillRow(row);
     Assert.assertArrayEquals(new double[] {-1, 0, 0, 0, 1, 0, 0, 0}, row, MathUtils.EPSILON);
-    new CombinationEquation(4, 0, 2, PixelMeasure.ZERO).fillRow(row);
+    new CombinationEquation(4, 0, 2, PixelMeasure.ZERO, "test").fillRow(row);
     Assert.assertArrayEquals(new double[] {-1, -1, 0, 0, 1, 0, 0, 0}, row, MathUtils.EPSILON);
-    new CombinationEquation(4, 0, 3, PixelMeasure.ZERO).fillRow(row);
+    new CombinationEquation(4, 0, 3, PixelMeasure.ZERO, "test").fillRow(row);
     Assert.assertArrayEquals(new double[] {-1, -1, -1, 0, 1, 0, 0, 0}, row, MathUtils.EPSILON);
 
-    new CombinationEquation(4, 0, 1, new PixelMeasure(5)).fillRow(row);
+    new CombinationEquation(4, 0, 1, new PixelMeasure(5), "test").fillRow(row);
     Assert.assertArrayEquals(new double[] {-1, 0, 0, 0, 1, 0, 0, 0}, row, MathUtils.EPSILON);
-    new CombinationEquation(4, 0, 2, new PixelMeasure(5)).fillRow(row);
+    new CombinationEquation(4, 0, 2, new PixelMeasure(5), "test").fillRow(row);
     Assert.assertArrayEquals(new double[] {-1, -1, 0, 0, 1, 0, 0, 5}, row, MathUtils.EPSILON);
-    new CombinationEquation(4, 0, 3, new PixelMeasure(5)).fillRow(row);
+    new CombinationEquation(4, 0, 3, new PixelMeasure(5), "test").fillRow(row);
     Assert.assertArrayEquals(new double[] {-1, -1, -1, 0, 1, 0, 0, 10}, row, MathUtils.EPSILON);
   }
 

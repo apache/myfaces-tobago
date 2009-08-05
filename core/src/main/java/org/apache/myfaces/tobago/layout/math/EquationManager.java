@@ -37,44 +37,44 @@ public class EquationManager {
     return 0;
   }
 
-  public void setFixedLength(int index, Measure length) {
-    equations.addEqualsEquation(new FixedEquation(index, length));
+  public void setFixedLength(int index, Measure length, String component) {
+    equations.addEqualsEquation(new FixedEquation(index, length, component));
     LOG.info(equations);
   }
 
-  public int[] partition(int index, int number, Measure spacing) {
+  public int[] partition(int index, int number, Measure spacing, String component) {
     // TODO
-    return partition(index, number, spacing, PixelMeasure.ZERO, PixelMeasure.ZERO);
+    return partition(index, number, spacing, PixelMeasure.ZERO, PixelMeasure.ZERO, component);
   }
 
-  public int[] partition(int index, int number, Measure spacing, Measure beginOffset, Measure endOffset) {
+  public int[] partition(int index, int number, Measure spacing, Measure beginOffset, Measure endOffset, String component) {
 
     assert number > 0;
 
     int[] newIndices = equations.addVariables(number);
-    equations.addEqualsEquation(new PartitionEquation(newIndices[0], number, index, spacing, beginOffset, endOffset));
+    equations.addEqualsEquation(new PartitionEquation(newIndices[0], number, index, spacing, beginOffset, endOffset, component));
     LOG.info(equations);
     return newIndices;
   }
 
-  public int combine(int index, int span, Measure spacing) {
+  public int combine(int index, int span, Measure spacing, String component) {
 
     assert span > 0;
 
     int[] newIndices = equations.addVariables(1);
-    equations.addEqualsEquation(new CombinationEquation(newIndices[0], index, span, spacing));
+    equations.addEqualsEquation(new CombinationEquation(newIndices[0], index, span, spacing, component));
     LOG.info(equations);
     return newIndices[0];
   }
 
-  public void proportionate(int index1, int index2, int factor1, int factor2) {
+  public void proportionate(int index1, int index2, int factor1, int factor2, String component) {
 
     assert index1 >= 0;
     assert index2 >= 0;
     assert factor1 > 0;
     assert factor2 > 0;
 
-    equations.addEqualsEquation(new ProportionEquation(index1, index2, factor1, factor2));
+    equations.addEqualsEquation(new ProportionEquation(index1, index2, factor1, factor2, component));
     LOG.info(equations);
   }
 

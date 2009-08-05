@@ -109,8 +109,8 @@ public final class LayoutTokens {
     try {
       if ("*".equals(token)) {
         return RelativeLayoutToken.DEFAULT_INSTANCE;
-      } else if (token.equals("fixed")) {
-        return FixedLayoutToken.INSTANCE;
+      } else if (token.equals("fixed") || token.equals("auto")) {
+        return AutoLayoutToken.INSTANCE;
       } else if (token.equals("minimum")) {
         return new MinimumLayoutToken();
       } else if (isPixelToken(token)) {
@@ -120,12 +120,13 @@ public final class LayoutTokens {
       } else if (isRelativeToken(token)) {
         return new RelativeLayoutToken(Integer.parseInt(removeSuffix(token, RelativeLayoutToken.SUFFIX)));
       } else {
-        LOG.error("Ignoring unknown layout token '" + token + "'");
+        LOG.error("Unknown layout token '" + token + "'! Using 'auto' instead.");
+        return AutoLayoutToken.INSTANCE;
       }
     } catch (NumberFormatException e) {
-      LOG.error("Error parsing layout token '" + token + "'", e);
+      LOG.error("Error parsing layout token '" + token + "'! Using 'auto' instead.");
+      return AutoLayoutToken.INSTANCE;
     }
-    return null;
   }
 
   static boolean isPixelToken(String token) {

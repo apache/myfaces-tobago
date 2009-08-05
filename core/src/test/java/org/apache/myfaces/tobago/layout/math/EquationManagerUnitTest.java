@@ -255,65 +255,65 @@ public class EquationManagerUnitTest {
 
     index = equationManager.addComponentRoot();
     Assert.assertEquals(0, index);
-    equationManager.setFixedLength(index, new PixelMeasure(630));        // the first (current) index has a fix size of 600
-    indices = equationManager.partition(index, 4, PixelMeasure.ZERO);                     // this index is divided into 4 parts
+    equationManager.setFixedLength(index, new PixelMeasure(630), "test");        // the first (current) index has a fix size of 600
+    indices = equationManager.partition(index, 4, PixelMeasure.ZERO, "test");                     // this index is divided into 4 parts
     Assert.assertArrayEquals(new int[]{1, 2, 3, 4}, indices);
-    equationManager.proportionate(indices[2], indices[3], 1, 2);     // the value on index 2 has factor 1,
+    equationManager.proportionate(indices[2], indices[3], 1, 2, "test");     // the value on index 2 has factor 1,
     //                                                the value on position 3 has factor 2
     {
-      equationManager.setFixedLength(indices[0], new PixelMeasure(100));        // the first one has a fix size of 100
-      index = equationManager.combine(indices[0], 1, PixelMeasure.ZERO);
+      equationManager.setFixedLength(indices[0], new PixelMeasure(100), "test");        // the first one has a fix size of 100
+      index = equationManager.combine(indices[0], 1, PixelMeasure.ZERO, "test");
       Assert.assertEquals(5, index);
     }
     {
-      equationManager.setFixedLength(indices[1], new PixelMeasure(200));        // the second one has a fix size of 200
-      index = equationManager.combine(indices[1], 1, PixelMeasure.ZERO);
+      equationManager.setFixedLength(indices[1], new PixelMeasure(200), "test");        // the second one has a fix size of 200
+      index = equationManager.combine(indices[1], 1, PixelMeasure.ZERO, "test");
       Assert.assertEquals(6, index);
 
-      index = equationManager.combine(indices[1], 1, PixelMeasure.ZERO);
+      index = equationManager.combine(indices[1], 1, PixelMeasure.ZERO, "test");
       Assert.assertEquals(7, index);
-      int[] i7 = equationManager.partition(7, 2, PixelMeasure.ZERO);
+      int[] i7 = equationManager.partition(7, 2, PixelMeasure.ZERO, "test");
       Assert.assertArrayEquals(new int[]{8, 9}, i7);
-      equationManager.proportionate(i7[0], i7[1], 1, 2);
+      equationManager.proportionate(i7[0], i7[1], 1, 2, "test");
 
-      index = equationManager.combine(indices[1], 1, PixelMeasure.ZERO);
+      index = equationManager.combine(indices[1], 1, PixelMeasure.ZERO, "test");
       Assert.assertEquals(10, index);
-      int[] i10 = equationManager.partition(10, 2, PixelMeasure.ZERO);
+      int[] i10 = equationManager.partition(10, 2, PixelMeasure.ZERO, "test");
       Assert.assertArrayEquals(new int[]{11, 12}, i10);
-      equationManager.proportionate(i10[0], i10[1], 4, 1);
+      equationManager.proportionate(i10[0], i10[1], 4, 1, "test");
     }
     {
-      index = equationManager.combine(indices[2], 1, PixelMeasure.ZERO);
+      index = equationManager.combine(indices[2], 1, PixelMeasure.ZERO, "test");
       Assert.assertEquals(13, index);
     }
     {
-      index = equationManager.combine(indices[3], 1, PixelMeasure.ZERO);
+      index = equationManager.combine(indices[3], 1, PixelMeasure.ZERO, "test");
       Assert.assertEquals(14, index);
-      int[] i14 = equationManager.partition(14, 2, PixelMeasure.ZERO);
+      int[] i14 = equationManager.partition(14, 2, PixelMeasure.ZERO, "test");
       Assert.assertArrayEquals(new int[]{15, 16}, i14);
-      equationManager.setFixedLength(i14[0], new PixelMeasure(130));        // the second one has a fix size of 200
+      equationManager.setFixedLength(i14[0], new PixelMeasure(130), "test");        // the second one has a fix size of 200
     }
     {
-      int iSpan2 = equationManager.combine(indices[2], 2, PixelMeasure.ZERO);
+      int iSpan2 = equationManager.combine(indices[2], 2, PixelMeasure.ZERO, "test");
       Assert.assertEquals(17, iSpan2);
     }
     {
-      int iSpan4 = equationManager.combine(indices[0], 4, PixelMeasure.ZERO);
+      int iSpan4 = equationManager.combine(indices[0], 4, PixelMeasure.ZERO, "test");
       Assert.assertEquals(18, iSpan4);
-      int[] i18 = equationManager.partition(18, 6, PixelMeasure.ZERO);
+      int[] i18 = equationManager.partition(18, 6, PixelMeasure.ZERO, "test");
       Assert.assertArrayEquals(new int[]{19, 20, 21, 22, 23, 24}, i18);
-      equationManager.proportionate(i18[0], i18[1], 1, 2);
-      equationManager.proportionate(i18[0], i18[2], 1, 3);
-      equationManager.proportionate(i18[0], i18[3], 1, 4);
-      equationManager.proportionate(i18[0], i18[4], 1, 5);
-      equationManager.proportionate(i18[0], i18[5], 1, 6);
+      equationManager.proportionate(i18[0], i18[1], 1, 2, "test");
+      equationManager.proportionate(i18[0], i18[2], 1, 3, "test");
+      equationManager.proportionate(i18[0], i18[3], 1, 4, "test");
+      equationManager.proportionate(i18[0], i18[4], 1, 5, "test");
+      equationManager.proportionate(i18[0], i18[5], 1, 6, "test");
     }
     {
-      int i19_1 = equationManager.combine(19, 6, PixelMeasure.ZERO);
+      int i19_1 = equationManager.combine(19, 6, PixelMeasure.ZERO, "test");
       Assert.assertEquals(25, i19_1);
-      int i19_2 = equationManager.combine(19, 3, PixelMeasure.ZERO);
+      int i19_2 = equationManager.combine(19, 3, PixelMeasure.ZERO, "test");
       Assert.assertEquals(26, i19_2);
-      int i22 = equationManager.combine(22, 3, PixelMeasure.ZERO);
+      int i22 = equationManager.combine(22, 3, PixelMeasure.ZERO, "test");
       Assert.assertEquals(27, i22);
     }
 

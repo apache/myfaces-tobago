@@ -54,11 +54,17 @@ public class GridLayoutManagerUnitTest {
     UIGridLayout manager = new UIGridLayout();
     manager.setColumns("*;2*");
     manager.setRows("*");
+    manager.setColumnSpacing(PixelMeasure.ZERO);
+    manager.setRowSpacing(PixelMeasure.ZERO);
     manager.onComponentCreated(null, manager);
     container.setLayoutManager(manager);
 
     container.setWidth(new PixelMeasure(300));
     container.setHeight(new PixelMeasure(20));
+    container.setLeftOffset(PixelMeasure.ZERO);
+    container.setTopOffset(PixelMeasure.ZERO);
+    container.setRightOffset(PixelMeasure.ZERO);
+    container.setBottomOffset(PixelMeasure.ZERO);
     LayoutContext layoutContext = new LayoutContext(container);
     layoutContext.layout();
 
@@ -95,11 +101,17 @@ public class GridLayoutManagerUnitTest {
     container.getComponents().add(c);
     MockComponent span = new MockComponent();
     container.getComponents().add(span);
+    container.setLeftOffset(PixelMeasure.ZERO);
+    container.setTopOffset(PixelMeasure.ZERO);
+    container.setRightOffset(PixelMeasure.ZERO);
+    container.setBottomOffset(PixelMeasure.ZERO);
     span.setColumnSpan(2);
 
     UIGridLayout manager = new UIGridLayout();
     manager.setColumns("*;*;*");
     manager.setRows("*");
+    manager.setColumnSpacing(PixelMeasure.ZERO);
+    manager.setRowSpacing(PixelMeasure.ZERO);
     manager.onComponentCreated(null, manager);
     container.setLayoutManager(manager);
 
@@ -158,21 +170,33 @@ public class GridLayoutManagerUnitTest {
     UIGridLayout manager = new UIGridLayout();
     manager.setColumns("*;2*;500px");
     manager.setRows("*;600px");
+    manager.setColumnSpacing(PixelMeasure.ZERO);
+    manager.setRowSpacing(PixelMeasure.ZERO);
     manager.onComponentCreated(null, manager);
     container.setLayoutManager(manager);
 
     UIGridLayout subManager = new UIGridLayout();
     subManager.setColumns("7*;3*");
     subManager.setRows("*;*");
+    subManager.setColumnSpacing(PixelMeasure.ZERO);
+    subManager.setRowSpacing(PixelMeasure.ZERO);
     subManager.onComponentCreated(null, manager);
     subContainer.setLayoutManager(subManager);
     subContainer.getComponents().add(new MockComponent());
     subContainer.getComponents().add(new MockComponent());
     subContainer.getComponents().add(new MockComponent());
     subContainer.getComponents().add(new MockComponent());
+    subContainer.setLeftOffset(PixelMeasure.ZERO);
+    subContainer.setTopOffset(PixelMeasure.ZERO);
+    subContainer.setRightOffset(PixelMeasure.ZERO);
+    subContainer.setBottomOffset(PixelMeasure.ZERO);
 
     container.setWidth(new PixelMeasure(800));
     container.setHeight(new PixelMeasure(800));
+    container.setLeftOffset(PixelMeasure.ZERO);
+    container.setTopOffset(PixelMeasure.ZERO);
+    container.setRightOffset(PixelMeasure.ZERO);
+    container.setBottomOffset(PixelMeasure.ZERO);
     LayoutContext layoutContext = new LayoutContext(container);
     layoutContext.layout();
 
@@ -225,23 +249,33 @@ public class GridLayoutManagerUnitTest {
     UIGridLayout manager1 = new UIGridLayout();
     manager1.setColumns("*;*;*");
     manager1.setRows("*;*");
+    manager1.setColumnSpacing(PixelMeasure.ZERO);
+    manager1.setRowSpacing(PixelMeasure.ZERO);
     manager1.onComponentCreated(null, manager1);
     container.setLayoutManager(manager1);
 
     UIGridLayout manager2 = new UIGridLayout();
     manager2.setColumns("*;*;*");
     manager2.setRows("*");
+    manager2.setColumnSpacing(PixelMeasure.ZERO);
+    manager2.setRowSpacing(PixelMeasure.ZERO);
     manager2.onComponentCreated(null, manager2);
     span1.setLayoutManager(manager2);
 
     UIGridLayout manager3 = new UIGridLayout();
     manager3.setColumns("*;*;*");
     manager3.setRows("*");
+    manager3.setColumnSpacing(PixelMeasure.ZERO);
+    manager3.setRowSpacing(PixelMeasure.ZERO);
     manager3.onComponentCreated(null, manager3);
     span2.setLayoutManager(manager3);
 
     container.setWidth(new PixelMeasure(900));
     container.setHeight(new PixelMeasure(200));
+    container.setLeftOffset(PixelMeasure.ZERO);
+    container.setTopOffset(PixelMeasure.ZERO);
+    container.setRightOffset(PixelMeasure.ZERO);
+    container.setBottomOffset(PixelMeasure.ZERO);
     LayoutContext layoutContext = new LayoutContext(container);
     layoutContext.layout();
 
@@ -298,11 +332,17 @@ public class GridLayoutManagerUnitTest {
     UIGridLayout manager = new UIGridLayout();
     manager.setColumns("*;*");
     manager.setRows("*;*");
+    manager.setColumnSpacing(PixelMeasure.ZERO);
+    manager.setRowSpacing(PixelMeasure.ZERO);
     manager.onComponentCreated(null, manager);
     container.setLayoutManager(manager);
 
     container.setWidth(new PixelMeasure(800));
     container.setHeight(new PixelMeasure(800));
+    container.setLeftOffset(PixelMeasure.ZERO);
+    container.setTopOffset(PixelMeasure.ZERO);
+    container.setRightOffset(PixelMeasure.ZERO);
+    container.setBottomOffset(PixelMeasure.ZERO);
     LayoutContext layoutContext = new LayoutContext(container);
     layoutContext.layout();
 

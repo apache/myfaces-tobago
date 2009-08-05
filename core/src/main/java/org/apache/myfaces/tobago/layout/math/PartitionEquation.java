@@ -34,10 +34,11 @@ public final class PartitionEquation implements Equation {
   private Measure spacing;
   private Measure beginOffset;
   private Measure endOffset;
+  private String component;
 
   @Deprecated
-  public PartitionEquation(int begin, int count, int parent, Measure spacing) {
-    this(begin, count, parent, spacing, PixelMeasure.ZERO, PixelMeasure.ZERO);
+  public PartitionEquation(int begin, int count, int parent, Measure spacing, String component) {
+    this(begin, count, parent, spacing, PixelMeasure.ZERO, PixelMeasure.ZERO, component);
   }
 
   /**
@@ -47,14 +48,21 @@ public final class PartitionEquation implements Equation {
    * @param spacing space between two cells of the partition
    * @param beginOffset offset before the first cell
    * @param endOffset offset after the last cell
+   * @param component
    */
-  public PartitionEquation(int begin, int count, int parent, Measure spacing, Measure beginOffset, Measure endOffset) {
+  public PartitionEquation(int begin, int count, int parent, Measure spacing, Measure beginOffset, Measure endOffset, String component) {
+
+    assert spacing != null;
+    assert beginOffset != null;
+    assert endOffset != null;
+    
     this.begin = begin;
     this.count = count;
     this.parent = parent;
     this.spacing = spacing;
     this.beginOffset = beginOffset;
     this.endOffset = endOffset;
+    this.component = component;
 
     assert begin >= 0 && count > 0 && parent >= 0;
     assert parent <= begin;
@@ -79,12 +87,20 @@ public final class PartitionEquation implements Equation {
     }
   }
 
+  public int priority() {
+    return 30;
+  }
+
   public int getBegin() {
     return begin;
   }
 
   public int getCount() {
     return count;
+  }
+
+  public int getParent() {
+    return parent;
   }
 
   @Override
@@ -125,6 +141,10 @@ public final class PartitionEquation implements Equation {
         builder.append(" + ");
         builder.append(endOffset);
     }
+
+    builder.append(" (");
+    builder.append(component);
+    builder.append(")");
 
     return builder.toString();
   }

@@ -23,12 +23,14 @@ public final class ProportionEquation implements Equation {
   private int index2;
   private double factor1;
   private double factor2;
+  private String component;
 
-  public ProportionEquation(int index1, int index2, double factor1, double factor2) {
+  public ProportionEquation(int index1, int index2, double factor1, double factor2, String component) {
     this.index1 = index1;
     this.index2 = index2;
     this.factor1 = factor1;
     this.factor2 = factor2;
+    this.component = component;
   }
 
   public void fillRow(double[] row) {
@@ -40,6 +42,10 @@ public final class ProportionEquation implements Equation {
           ? -factor1
           : 0.0;
     }
+  }
+
+  public int priority() {
+    return 20;
   }
 
   @Override
@@ -59,6 +65,11 @@ public final class ProportionEquation implements Equation {
     }
     builder.append(" x_");
     builder.append(index2);
+
+    builder.append(" (");
+    builder.append(component);
+    builder.append(")");
+
     return builder.toString();
   }
 

@@ -22,17 +22,17 @@
       <tc:gridLayout columns="*;*" rows="*;*" columnSpacing="0px"/>
     </f:facet>
 
-    <tc:in id="c_NW" value="NW"/>
-    <tc:in id="c_NE" value="NE"/>
-    <tc:in id="c_SW" value="SW"/>
-    <tc:in id="c_SE" value="SE"/>
+    <tc:image id="c_NW" value="pidgeon-point.jpg"/>
+    <tc:image id="c_NE" value="pidgeon-point.jpg"/>
+    <tc:image id="c_SW" value="pidgeon-point.jpg"/>
+    <tc:image id="c_SE" value="pidgeon-point.jpg"/>
 
     <tc:script file="script/test-utils.js"/>
 
-    <tc:script onload="checkLayout('page:c_NW', 0, 0, 155, 153);"/>
-    <tc:script onload="checkLayout('page:c_NE', 155, 0, 155, 153);"/>
-    <tc:script onload="checkLayout('page:c_SW', 0, 158, 155, 152);"/>
-    <tc:script onload="checkLayout('page:c_SE', 155, 158, 155, 152);"/>
+    <tc:script onload="checkLayout('page:c_NW', 0, 0, 155, 152);"/>
+    <tc:script onload="checkLayout('page:c_NE', 155, 0, 155, 152);"/>
+    <tc:script onload="checkLayout('page:c_SW', 0, 157, 155, 153);"/>
+    <tc:script onload="checkLayout('page:c_SE', 155, 157, 155, 153);"/>
 
   </tc:page>
 </f:view>

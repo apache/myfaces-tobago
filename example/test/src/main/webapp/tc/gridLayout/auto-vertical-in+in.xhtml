@@ -8,18 +8,20 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page id="page">
+    <tc:gridLayoutConstraint width="600px" height="300px"/>
     <f:facet name="layout">
-      <tc:gridLayout columns="*;*" columnSpacing="0px"/>
+      <tc:gridLayout rows="auto;auto;*"/>
     </f:facet>
-    <tc:gridLayoutConstraint width="201px" height="200px"/>
 
-    <tc:image id="image-0" value="pidgeon-point.jpg"/>
-    <tc:image id="image-1" value="pidgeon-point.jpg"/>
+    <tc:in id="in-0" value="0">
+      <tc:gridLayoutConstraint width="60px" height="30px"/>
+    </tc:in>
+    <tc:in id="in-1" value="1"/>
+    <tc:panel/>
 
     <tc:script file="script/test-utils.js"/>
-
-    <tc:script onload="checkLayout('page:image-0', 0, 0, 100, 200);"/>
-    <tc:script onload="checkLayout('page:image-1', 100, 0, 101, 200);"/>
+    <tc:script onload="checkLayout('page:in-0', 0, 0, 600, 20);"/>
+    <tc:script onload="checkLayout('page:in-1', 0, 25, 600, 20);"/>
 
   </tc:page>
 </f:view>

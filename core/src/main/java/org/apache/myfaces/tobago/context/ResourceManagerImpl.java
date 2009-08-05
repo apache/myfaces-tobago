@@ -553,6 +553,11 @@ public class ResourceManagerImpl implements ResourceManager {
     public int hashCode() {
       return hashCode;
     }
+
+    @Override
+    public String toString() {
+      return "PropertyCacheKey(" + cacheKey + "," + name + "," + key + "," + hashCode + '}';
+    }
   }
 
   private static final class MiscCacheKey {
@@ -592,6 +597,11 @@ public class ResourceManagerImpl implements ResourceManager {
     public int hashCode() {
       return hashCode;
     }
+
+    @Override
+    public String toString() {
+      return "MiscCacheKey(" + cacheKey + "," + name + "," + hashCode + ')';
+    }
   }
 
   private static final class RendererCacheKey {
@@ -630,6 +640,11 @@ public class ResourceManagerImpl implements ResourceManager {
     @Override
     public int hashCode() {
       return hashCode;
+    }
+
+    @Override
+    public String toString() {
+      return "RendererCacheKey(" + cacheKey + "," + name + "," + hashCode + ')';
     }
   }
 
@@ -685,6 +700,11 @@ public class ResourceManagerImpl implements ResourceManager {
     @Override
     public int hashCode() {
       return hashCode;
+    }
+
+    @Override
+    public String toString() {
+      return "CacheKey(" + clientProperties + "," + locale + "," + hashCode + ')';
     }
   }
 }
