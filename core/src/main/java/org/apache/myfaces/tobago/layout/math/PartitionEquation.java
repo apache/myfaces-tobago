@@ -50,7 +50,8 @@ public final class PartitionEquation implements Equation {
    * @param endOffset offset after the last cell
    * @param component
    */
-  public PartitionEquation(int begin, int count, int parent, Measure spacing, Measure beginOffset, Measure endOffset, String component) {
+  public PartitionEquation(
+      int begin, int count, int parent, Measure spacing, Measure beginOffset, Measure endOffset, String component) {
 
     assert spacing != null;
     assert beginOffset != null;

@@ -101,11 +101,13 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
           LayoutComponent component = temp.getComponent();
 
           // horizontal
-          int hIndex = horizontal.combine(horizontalIndices[i], cell.getColumnSpan(), getColumnSpacing(), component.getClass().getSimpleName());
+          int hIndex = horizontal.combine(horizontalIndices[i], cell.getColumnSpan(), getColumnSpacing(),
+              component.getClass().getSimpleName());
           cell.getComponent().setHorizontalIndex(hIndex);
 
           // vertical
-          int vIndex = vertical.combine(verticalIndices[j], cell.getRowSpan(), getRowSpacing(), component.getClass().getSimpleName());
+          int vIndex = vertical.combine(verticalIndices[j], cell.getRowSpan(), getRowSpacing(),
+              component.getClass().getSimpleName());
           cell.getComponent().setVerticalIndex(vIndex);
 
           if (component instanceof LayoutContainer) {
@@ -225,7 +227,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
       LayoutToken layoutToken = columnTokens.get(i);
       if (layoutToken instanceof PixelLayoutToken) {
         Measure pixel = new PixelMeasure(((PixelLayoutToken) layoutToken).getPixel());
-        layoutContext.getHorizontal().setFixedLength(i + horizontalIndexOffset, pixel, ClassUtils.getShortClassName(getParent(), "null"));
+        layoutContext.getHorizontal().setFixedLength(i + horizontalIndexOffset, pixel,
+            ClassUtils.getShortClassName(getParent(), "null"));
       }
 /*
       if (layoutToken instanceof AutoLayoutToken) {
@@ -241,7 +244,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
       if (layoutToken instanceof PixelLayoutToken) {
          // XXX PixelLayoutToken might be removed/changed
         Measure pixel = new PixelMeasure(((PixelLayoutToken) layoutToken).getPixel());
-        layoutContext.getVertical().setFixedLength(i + verticalIndexOffset, pixel, ClassUtils.getShortClassName(getParent(), "null"));
+        layoutContext.getVertical().setFixedLength(i + verticalIndexOffset, pixel,
+            ClassUtils.getShortClassName(getParent(), "null"));
       }
 /*
       if (layoutToken instanceof AutoLayoutToken) {

@@ -47,12 +47,14 @@ public class EquationManager {
     return partition(index, number, spacing, PixelMeasure.ZERO, PixelMeasure.ZERO, component);
   }
 
-  public int[] partition(int index, int number, Measure spacing, Measure beginOffset, Measure endOffset, String component) {
+  public int[] partition(
+      int index, int number, Measure spacing, Measure beginOffset, Measure endOffset, String component) {
 
     assert number > 0;
 
     int[] newIndices = equations.addVariables(number);
-    equations.addEqualsEquation(new PartitionEquation(newIndices[0], number, index, spacing, beginOffset, endOffset, component));
+    equations.addEqualsEquation(
+        new PartitionEquation(newIndices[0], number, index, spacing, beginOffset, endOffset, component));
     LOG.info(equations);
     return newIndices;
   }

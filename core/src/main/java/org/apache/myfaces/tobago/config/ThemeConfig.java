@@ -205,10 +205,10 @@ public class ThemeConfig {
 
     @Override
     public String toString() {
-      return "CacheKey(" + clientProperties + 
-          "," + locale +
-          "," + rendererType +
-          "," + name +          ')';
+      return "CacheKey(" + clientProperties
+          + "," + locale
+          + "," + rendererType
+          + "," + name +          ')';
     }
   }
 
