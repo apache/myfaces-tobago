@@ -856,8 +856,11 @@ function tobagoTreeListboxCreateOption(node, index, hiddenId) {
   if (node.childNodes && node.childNodes.length) {
     label += " \u2192";
   }
-  var option = new Option("", index);
-  option.innerHTML = label; 
+  // option.innerHTML did not work in IE: http://support.microsoft.com/?scid=kb%3Ben-us%3B276228&x=11&y=15
+  var span = document.createElement("span");
+  span.innerHTML = "<select><option>" + label + "</option></select>";
+  label = span.firstChild.firstChild.text;
+  var option = new Option(label, index);
   option.hiddenId = hiddenId;
   if (node.tip) {
     option.title = node.tip;
