@@ -92,7 +92,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
   private void encodeBox(FacesContext facesContext, TobagoResponseWriter writer, UIBox box) throws IOException {
 
     // shadow begin
-    {
+//    {
       writer.startElement(HtmlConstants.DIV, box);
 
       StyleClasses classes = new StyleClasses();
@@ -105,13 +105,13 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
       shadow.put("width", box.getWidth().substractNotNegative(new PixelMeasure(1)));
       shadow.put("height", box.getHeight().substractNotNegative(new PixelMeasure(1)));
       writer.writeStyleAttribute(shadow);
-    }
+//    }
 
     // border begin
-    {
+//    {
       writer.startElement(HtmlConstants.DIV, box);
 
-      StyleClasses classes = new StyleClasses();
+      /*StyleClasses*/ classes = new StyleClasses();
       classes.addClass("box", "border");
       writer.writeClassAttribute(classes);
       // XXX should this be done everywhere?
@@ -121,7 +121,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
       border.put("width", box.getWidth().substractNotNegative(new PixelMeasure(3)));
       border.put("height", box.getHeight().substractNotNegative(new PixelMeasure(3)));
       writer.writeStyleAttribute(border);
-    }
+//    }
 
     renderBoxHeader(facesContext, writer, box);
 
