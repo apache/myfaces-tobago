@@ -30,7 +30,7 @@ public class TobagoResponseWriterUnitTest extends TestCase {
   protected void setUp() throws Exception {
     super.setUp();
     stringWriter = new StringWriter();
-    writer = new TobagoResponseWriterImpl(stringWriter, "", "UTF-8", false);
+    writer = new TobagoResponseWriterImpl(stringWriter, "", "UTF-8"/*, false*/);
   }
 
   public void testDocument() throws IOException {
@@ -96,7 +96,7 @@ public class TobagoResponseWriterUnitTest extends TestCase {
   }
 
   public void testNonUtf8() throws IOException {
-    TobagoResponseWriterImpl writer1 = new TobagoResponseWriterImpl(stringWriter, "", "ISO-8859-1", false);
+    TobagoResponseWriterImpl writer1 = new TobagoResponseWriterImpl(stringWriter, "", "ISO-8859-1"/*, false*/);
     writer1.startElement("input", null);
     writer1.writeAttribute("value", "Gutschein über 100 €.", null);
     writer1.writeAttribute("readonly", true);
@@ -106,7 +106,7 @@ public class TobagoResponseWriterUnitTest extends TestCase {
   }
 
   public void testCharArray() throws IOException {
-    TobagoResponseWriterImpl writer = new TobagoResponseWriterImpl(stringWriter, "text/xml", "ISO-8859-1", true);
+    TobagoResponseWriterImpl writer = new TobagoResponseWriterImpl(stringWriter, "text/xml", "ISO-8859-1"/*, true*/);
     writer.writeText("123".toCharArray(), 0, 3);
     assertEquals("123", stringWriter.toString());
   }
