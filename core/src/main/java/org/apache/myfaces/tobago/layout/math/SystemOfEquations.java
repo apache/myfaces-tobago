@@ -96,25 +96,7 @@ public class SystemOfEquations {
     this.step = Step.NEW;
   }
 
-  public void addEqualsEquation(FixedEquation equation) {
-    assert step == Step.NEW;
-
-    equations.add(equation);
-  }
-
-  public void addEqualsEquation(PartitionEquation equation) {
-    assert step == Step.NEW;
-
-    equations.add(equation);
-  }
-
-  public void addEqualsEquation(CombinationEquation equation) {
-    assert step == Step.NEW;
-
-    equations.add(equation);
-  }
-
-  public void addEqualsEquation(ProportionEquation equation) {
+  public void addEqualsEquation(Equation equation) {
     assert step == Step.NEW;
 
     equations.add(equation);
@@ -160,8 +142,7 @@ public class SystemOfEquations {
 
     data = new double[equations.size()][];
     for (int i = 0; i < equations.size(); i++) {
-      data[i] = new double[numberOfVariables + 1];
-      equations.get(i).fillRow(data[i]);
+      data[i] = equations.get(i).fillRow(numberOfVariables + 1);
     }
     /*
     for (int i = 0; i < equalEquations.size(); i++) {

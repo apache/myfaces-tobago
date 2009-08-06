@@ -52,9 +52,11 @@ public class EquationManager {
 
     assert number > 0;
 
-    int[] newIndices = equations.addVariables(number);
+    int[] newIndices = equations.addVariables(number + 1);
     equations.addEqualsEquation(
         new PartitionEquation(newIndices[0], number, index, spacing, beginOffset, endOffset, component));
+    equations.addEqualsEquation(
+        new RemainderEquation(newIndices[number], component));
     LOG.info(equations);
     return newIndices;
   }

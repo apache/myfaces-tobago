@@ -43,20 +43,21 @@ public class CombinationEquationUnitTest {
 
   @Test
   public void testFillRow() {
-    double[] row = new double[8];
+    int length = 8;
+    double[] row;
 
-    new CombinationEquation(4, 0, 1, PixelMeasure.ZERO, "test").fillRow(row);
+    row = new CombinationEquation(4, 0, 1, PixelMeasure.ZERO, "test").fillRow(length);
     Assert.assertArrayEquals(new double[] {-1, 0, 0, 0, 1, 0, 0, 0}, row, MathUtils.EPSILON);
-    new CombinationEquation(4, 0, 2, PixelMeasure.ZERO, "test").fillRow(row);
+    row = new CombinationEquation(4, 0, 2, PixelMeasure.ZERO, "test").fillRow(length);
     Assert.assertArrayEquals(new double[] {-1, -1, 0, 0, 1, 0, 0, 0}, row, MathUtils.EPSILON);
-    new CombinationEquation(4, 0, 3, PixelMeasure.ZERO, "test").fillRow(row);
+    row = new CombinationEquation(4, 0, 3, PixelMeasure.ZERO, "test").fillRow(length);
     Assert.assertArrayEquals(new double[] {-1, -1, -1, 0, 1, 0, 0, 0}, row, MathUtils.EPSILON);
 
-    new CombinationEquation(4, 0, 1, new PixelMeasure(5), "test").fillRow(row);
+    row = new CombinationEquation(4, 0, 1, new PixelMeasure(5), "test").fillRow(length);
     Assert.assertArrayEquals(new double[] {-1, 0, 0, 0, 1, 0, 0, 0}, row, MathUtils.EPSILON);
-    new CombinationEquation(4, 0, 2, new PixelMeasure(5), "test").fillRow(row);
+    row = new CombinationEquation(4, 0, 2, new PixelMeasure(5), "test").fillRow(length);
     Assert.assertArrayEquals(new double[] {-1, -1, 0, 0, 1, 0, 0, 5}, row, MathUtils.EPSILON);
-    new CombinationEquation(4, 0, 3, new PixelMeasure(5), "test").fillRow(row);
+    row = new CombinationEquation(4, 0, 3, new PixelMeasure(5), "test").fillRow(length);
     Assert.assertArrayEquals(new double[] {-1, -1, -1, 0, 1, 0, 0, 10}, row, MathUtils.EPSILON);
   }
 

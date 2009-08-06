@@ -33,7 +33,8 @@ public final class ProportionEquation implements Equation {
     this.component = component;
   }
 
-  public void fillRow(double[] row) {
+  public double[] fillRow(int length) {
+    double[] row = new double[length];
     for (int i = 0; i < row.length; i++) {
       row[i]
           = i == index1
@@ -42,6 +43,7 @@ public final class ProportionEquation implements Equation {
           ? -factor1
           : 0.0;
     }
+    return row;
   }
 
   public int priority() {

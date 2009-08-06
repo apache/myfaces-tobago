@@ -19,20 +19,29 @@ package org.apache.myfaces.tobago.layout.math;
 
 import java.util.Arrays;
 
-public final class ZeroEquation implements Equation {
+public final class RemainderEquation implements Equation {
+
+  private int index;
+  private String component;
+
+  public RemainderEquation(int index, String component) {
+    this.index = index;
+    this.component = component;
+  }
 
   public double[] fillRow(int length) {
     double[] row = new double[length];
     Arrays.fill(row, 0.0);
+    row[index] = 1.0;
     return row;
   }
 
   public int priority() {
-    return -10;
+    return 0;
   }
 
   @Override
   public String toString() {
-    return "ZeroEquation (no meaning)";
+    return "RemainderEquation:    x_" + index + " = 0 (" + component + ")";
   }
 }

@@ -69,23 +69,29 @@ public final class PartitionEquation implements Equation {
     assert parent <= begin;
   }
 
-  public void fillRow(double[] row) {
+  public double[] fillRow(int length) {
+    double[] row = new double[length];
     int i = 0;
     for (; i < begin; i++) {
       row[i] = 0.0;
     }
+    // these variables are the cells from the partition
     for (; i < begin + count; i++) {
       row[i] = 1.0;
     }
+    // this variable is for the rest (overfull (scrollbar?) or underfull).
+    row[i++] = 1.0;
+
     for (; i < row.length - 1; i++) {
       row[i] = 0.0;
     }
     // the last variable contains a constant, this is here the sum of spaces between cells.
     row[row.length - 1] = -((count - 1) * spacing.getPixel() + beginOffset.getPixel() + endOffset.getPixel());
 
-    for (i = parent; i < parent + 1; i++) {
-      row[i] = -1.0;
-    }
+    // the variable for parent
+    row[parent] = -1.0;
+
+    return row;
   }
 
   public int priority() {
@@ -142,6 +148,9 @@ public final class PartitionEquation implements Equation {
         builder.append(" + ");
         builder.append(endOffset);
     }
+    // rest
+    builder.append(" + x_");
+    builder.append(begin + count);
 
     builder.append(" (");
     builder.append(component);

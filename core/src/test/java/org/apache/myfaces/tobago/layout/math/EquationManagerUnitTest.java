@@ -257,51 +257,51 @@ public class EquationManagerUnitTest {
     Assert.assertEquals(0, index);
     equationManager.setFixedLength(index, new PixelMeasure(630), "test");        // the first (current) index has a fix size of 600
     indices = equationManager.partition(index, 4, PixelMeasure.ZERO, "test");                     // this index is divided into 4 parts
-    Assert.assertArrayEquals(new int[]{1, 2, 3, 4}, indices);
+    Assert.assertArrayEquals(new int[]{1, 2, 3, 4, 5}, indices);
     equationManager.proportionate(indices[2], indices[3], 1, 2, "test");     // the value on index 2 has factor 1,
     //                                                the value on position 3 has factor 2
     {
       equationManager.setFixedLength(indices[0], new PixelMeasure(100), "test");        // the first one has a fix size of 100
       index = equationManager.combine(indices[0], 1, PixelMeasure.ZERO, "test");
-      Assert.assertEquals(5, index);
+      Assert.assertEquals(6, index);
     }
     {
       equationManager.setFixedLength(indices[1], new PixelMeasure(200), "test");        // the second one has a fix size of 200
       index = equationManager.combine(indices[1], 1, PixelMeasure.ZERO, "test");
-      Assert.assertEquals(6, index);
+      Assert.assertEquals(7, index);
 
       index = equationManager.combine(indices[1], 1, PixelMeasure.ZERO, "test");
-      Assert.assertEquals(7, index);
-      int[] i7 = equationManager.partition(7, 2, PixelMeasure.ZERO, "test");
-      Assert.assertArrayEquals(new int[]{8, 9}, i7);
+      Assert.assertEquals(8, index);
+      int[] i7 = equationManager.partition(8, 2, PixelMeasure.ZERO, "test");
+      Assert.assertArrayEquals(new int[]{9, 10,11}, i7);
       equationManager.proportionate(i7[0], i7[1], 1, 2, "test");
 
       index = equationManager.combine(indices[1], 1, PixelMeasure.ZERO, "test");
-      Assert.assertEquals(10, index);
-      int[] i10 = equationManager.partition(10, 2, PixelMeasure.ZERO, "test");
-      Assert.assertArrayEquals(new int[]{11, 12}, i10);
+      Assert.assertEquals(12, index);
+      int[] i10 = equationManager.partition(12, 2, PixelMeasure.ZERO, "test");
+      Assert.assertArrayEquals(new int[]{13, 14, 15}, i10);
       equationManager.proportionate(i10[0], i10[1], 4, 1, "test");
     }
     {
       index = equationManager.combine(indices[2], 1, PixelMeasure.ZERO, "test");
-      Assert.assertEquals(13, index);
+      Assert.assertEquals(16, index);
     }
     {
       index = equationManager.combine(indices[3], 1, PixelMeasure.ZERO, "test");
-      Assert.assertEquals(14, index);
-      int[] i14 = equationManager.partition(14, 2, PixelMeasure.ZERO, "test");
-      Assert.assertArrayEquals(new int[]{15, 16}, i14);
+      Assert.assertEquals(17, index);
+      int[] i14 = equationManager.partition(17, 2, PixelMeasure.ZERO, "test");
+      Assert.assertArrayEquals(new int[]{18, 19, 20}, i14);
       equationManager.setFixedLength(i14[0], new PixelMeasure(130), "test");        // the second one has a fix size of 200
     }
     {
       int iSpan2 = equationManager.combine(indices[2], 2, PixelMeasure.ZERO, "test");
-      Assert.assertEquals(17, iSpan2);
+      Assert.assertEquals(21, iSpan2);
     }
     {
       int iSpan4 = equationManager.combine(indices[0], 4, PixelMeasure.ZERO, "test");
-      Assert.assertEquals(18, iSpan4);
-      int[] i18 = equationManager.partition(18, 6, PixelMeasure.ZERO, "test");
-      Assert.assertArrayEquals(new int[]{19, 20, 21, 22, 23, 24}, i18);
+      Assert.assertEquals(22, iSpan4);
+      int[] i18 = equationManager.partition(22, 6, PixelMeasure.ZERO, "test");
+      Assert.assertArrayEquals(new int[]{23, 24, 25, 26, 27, 28, 29}, i18);
       equationManager.proportionate(i18[0], i18[1], 1, 2, "test");
       equationManager.proportionate(i18[0], i18[2], 1, 3, "test");
       equationManager.proportionate(i18[0], i18[3], 1, 4, "test");
@@ -309,12 +309,12 @@ public class EquationManagerUnitTest {
       equationManager.proportionate(i18[0], i18[5], 1, 6, "test");
     }
     {
-      int i19_1 = equationManager.combine(19, 6, PixelMeasure.ZERO, "test");
-      Assert.assertEquals(25, i19_1);
-      int i19_2 = equationManager.combine(19, 3, PixelMeasure.ZERO, "test");
-      Assert.assertEquals(26, i19_2);
-      int i22 = equationManager.combine(22, 3, PixelMeasure.ZERO, "test");
-      Assert.assertEquals(27, i22);
+      int i19_1 = equationManager.combine(23, 6, PixelMeasure.ZERO, "test");
+      Assert.assertEquals(30, i19_1);
+      int i19_2 = equationManager.combine(23, 3, PixelMeasure.ZERO, "test");
+      Assert.assertEquals(31, i19_2);
+      int i22 = equationManager.combine(26, 3, PixelMeasure.ZERO, "test");
+      Assert.assertEquals(32, i22);
     }
 
     LOG.info("tree: " + equationManager.toString());
@@ -330,29 +330,35 @@ public class EquationManagerUnitTest {
         new PixelMeasure(200),        // x_2
         new PixelMeasure(110),        // x_3
         new PixelMeasure(220),        // x_4
-        new PixelMeasure(100),        // x_5
-        new PixelMeasure(200),        // x_6
+        new PixelMeasure(0),          // x_5
+        new PixelMeasure(100),        // x_6
         new PixelMeasure(200),        // x_7
-        new PixelMeasure(67),         // x_8
-        new PixelMeasure(133),        // x_9
-        new PixelMeasure(200),        // x_10
-        new PixelMeasure(160),        // x_11
-        new PixelMeasure(40),         // x_12
-        new PixelMeasure(110),        // x_13
-        new PixelMeasure(220),        // x_14
-        new PixelMeasure(130),        // x_15
-        new PixelMeasure(90),         // x_16
-        new PixelMeasure(330),        // x_17
-        new PixelMeasure(630),        // x_18
-        new PixelMeasure(30),         // x_19
-        new PixelMeasure(60),         // x_20
-        new PixelMeasure(90),         // x_21
-        new PixelMeasure(120),        // x_22
-        new PixelMeasure(150),        // x_23
-        new PixelMeasure(180),        // x_24
-        new PixelMeasure(630),        // x_25
-        new PixelMeasure(180),        // x_26
-        new PixelMeasure(450),        // x_27
+        new PixelMeasure(200),        // x_8
+        new PixelMeasure(67),         // x_9
+        new PixelMeasure(133),        // x_10
+        new PixelMeasure(0),          // x_11
+        new PixelMeasure(200),        // x_12
+        new PixelMeasure(160),        // x_13
+        new PixelMeasure(40),         // x_14
+        new PixelMeasure(0),          // x_15
+        new PixelMeasure(110),        // x_16
+        new PixelMeasure(220),        // x_17
+        new PixelMeasure(130),        // x_18
+        new PixelMeasure(90),         // x_19
+        new PixelMeasure(0),          // x_20
+        new PixelMeasure(330),        // x_21
+        new PixelMeasure(630),        // x_22
+        new PixelMeasure(30),         // x_23
+        new PixelMeasure(60),         // x_24
+        new PixelMeasure(90),         // x_25
+        new PixelMeasure(120),        // x_26
+        new PixelMeasure(150),        // x_27
+        new PixelMeasure(180),        // x_28
+        new PixelMeasure(0),          // x_29
+        new PixelMeasure(630),        // x_30
+        new PixelMeasure(180),        // x_31
+        new PixelMeasure(450),        // x_32
     }, result);
   }
+
 }

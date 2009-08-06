@@ -21,9 +21,9 @@ public interface Equation {
 
   /**
    * The row has the format: index 0 to n-2 are the factors and index n-1 is the result.
-   * @param row array to fill in the factors of the equation.
+   * @param length The length of the array which has to be created.
    */
-  void fillRow(double[] row);
+  double[] fillRow(int length);
 
   /**
    * Priority for sorting.

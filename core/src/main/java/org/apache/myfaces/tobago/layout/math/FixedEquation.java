@@ -33,10 +33,12 @@ public final class FixedEquation implements Equation {
     this.component = component;
   }
 
-  public void fillRow(double[] row) {
+  public double[] fillRow(int length) {
+    double[] row = new double[length];
     Arrays.fill(row, 0.0);
     row[index] = 1.0;
     row[row.length - 1] = result.getPixel();
+    return row;
   }
 
   public int priority() {

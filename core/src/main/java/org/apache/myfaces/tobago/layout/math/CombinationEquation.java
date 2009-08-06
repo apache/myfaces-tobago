@@ -47,9 +47,11 @@ public final class CombinationEquation implements Equation {
     this.component = component;
   }
 
-  public void fillRow(double[] row) {
+  public double[] fillRow(int length) {
     assert newIndex >= 0 && parent >= 0 && span > 0;
     assert parent + span <= newIndex || parent > newIndex;
+
+    double[] row = new double[length];
 
     int i = 0;
     for (; i < newIndex; i++) {
@@ -67,6 +69,8 @@ public final class CombinationEquation implements Equation {
     for (i = parent; i < parent + span; i++) {
       row[i] = -1.0;
     }
+
+    return row;
   }
 
   public int priority() {
