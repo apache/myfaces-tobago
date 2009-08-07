@@ -391,14 +391,14 @@ reason they are not defined as a:link
 
 div.tobago-label-default  {
   background: #E8E8E8;
-  border: 0px solid transparent;
+  border: 0 solid transparent;
   vertical-align: top;
   height: 19px;
-  margin: 0px;
-  padding-top: 0px;
+  margin: 0;
+  padding-top: 0;
 }
 a.tobago-label-default  {
-  padding-top: 0px;
+  padding-top: 3px;
 }
 
 label.tobago-label-default  {
@@ -406,21 +406,21 @@ label.tobago-label-default  {
   /*height: 19px;*/
   /*height: auto;*/
   height: 15px;
-  border: 0px solid transparent;
+  border: 0 solid transparent;
   margin-top: 3px;
-  padding-top: 0px;
+  padding-top: 0;
   padding-left: 8px;
   color: #000000;
   background-color: transparent;
 }
 
 .tobago-label-td  {
-  border: 0px solid transparent;
+  border: 0 solid transparent;
  /* border-bottom: 0px solid #E2E2E2;*/ /* see workaround in mozilla style! */
   vertical-align: top;
   height: 19px;
-  margin: 0px;
-  padding-top: 0px;
+  margin: 0;
+  padding-top: 0;
 }
 
 .tobago-label-td-underline-label {
@@ -438,13 +438,13 @@ label.tobago-label-disabled  {
 
 .tobago-label-inline  {
   padding-top: 5px; /* see workaround in mozilla style! */
-  padding-left: 0px;
+  padding-left: 0;
   margin-top: 1px;
   width: auto;
 }
 
 label.tobago-label-inline  {
-  padding-left: 0px;
+  padding-left: 0;
 }
 
 label.tobago-label-error {
