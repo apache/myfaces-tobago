@@ -784,34 +784,31 @@ div.tobago-richTextEditor-body {
 
 /* separator ------------------------------------------------------------------- */
 
-div.tobago-separator-default {
-  overflow: hidden;
+.tobago-separator-default {
+  position: absolute;
 }
 
-fieldset.tobago-separator-default  {
-  border-left: 0px;
-  border-bottom: 0px;
-  border-right: 0px;
-  border-top: 1px solid #333;
+hr.tobago-separator-default {
+  border: 1px inset #000000;
 }
 
-legend.tobago-separator-default, .tobago-separator-label-default {
+.tobago-separator-start-default {
+  width: 20px;
+  position: static;
+}
+
+.tobago-separator-label-default {
   font: bold 12px arial, helvetica, sans-serif;
   padding-left: 5px;
   padding-right: 5px;
   white-space: nowrap;
 }
 
-.tobago-separator-start-default {
-  width: 20px;
+.tobago-separator-end-default {
+  width: 100%;
+  position: static;
 }
 
-hr.tobago-separator-default {
-  border-top: 1px solid #E2E2E2;
-  border-right: 1px solid #E2E2E2;
-  border-bottom: 1px solid #000000;
-  border-left: 1px solid #E2E2E2;
-}
 
 /* time -------------------------------------------------------------------- */
 

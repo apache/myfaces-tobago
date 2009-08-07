@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 
 /**
@@ -38,5 +39,5 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
     facets = { @Facet(name= Facets.LABEL, description = "This facet contains a UILabel",
                       allowedChildComponenents = "org.apache.myfaces.tobago.Label") })
 
-public interface SeparatorTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent {
+public interface SeparatorTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent, HasLabel {
 }

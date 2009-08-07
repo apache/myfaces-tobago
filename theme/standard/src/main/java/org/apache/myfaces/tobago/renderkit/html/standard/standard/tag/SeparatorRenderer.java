@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UILabel;
+import org.apache.myfaces.tobago.component.UISeparator;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
@@ -26,6 +27,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.util.Deprecation;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -34,66 +36,65 @@ import java.io.IOException;
 
 public class SeparatorRenderer extends LayoutableRendererBase {
 
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent component) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+
+    UISeparator separator = (UISeparator) component;
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlConstants.DIV, component);
-    writer.writeClassAttribute();
-    writer.writeStyleAttribute();
-    if (component.getFacet(Facets.LABEL) != null) {
+
+    String label = separator.getLabel();
+    if (label == null && separator.getFacet(Facets.LABEL) != null) {
+      // deprecated
+      Deprecation.LOG.warn("label facet in tc:separator is deprecated, use label attribute instead, please.");
+      label = String.valueOf(((UILabel) separator.getFacet(Facets.LABEL)).getValue());
+    }
+
+    if (label != null) {
+      if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
+        label = label.replace(" ", HtmlUtils.CHAR_NON_BEAKING_SPACE);
+      }
+
       writer.startElement(HtmlConstants.TABLE, component);
       writer.writeClassAttribute();
+      writer.writeStyleAttribute();
 
-      writer.writeAttribute(HtmlAttributes.WIDTH, "100%", false);
       writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
       writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
       writer.startElement(HtmlConstants.TR, component);
 
       writer.startElement(HtmlConstants.TD, component);
       StyleClasses startClass = new StyleClasses();
+      startClass.addAspectClass("separator", StyleClasses.Aspect.DEFAULT);
       startClass.addAspectClass("separator", "start", StyleClasses.Aspect.DEFAULT);
       writer.writeClassAttribute(startClass);
       writer.startElement(HtmlConstants.HR , component);
-      writer.writeClassAttribute();
+      writer.writeClassAttribute(startClass);
       writer.endElement(HtmlConstants.HR);
       writer.endElement(HtmlConstants.TD);
 
       writer.startElement(HtmlConstants.TD, component);
-      writer.writeAttribute(HtmlAttributes.STYLE, "width: 1px", false);
       StyleClasses labelClass = new StyleClasses();
       labelClass.addAspectClass("separator", "label", StyleClasses.Aspect.DEFAULT);
       writer.writeClassAttribute(labelClass);
-      UILabel label = (UILabel) component.getFacet(Facets.LABEL);
-      String text = String.valueOf(label.getValue());
-      if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
-        text = text.replace(" ", HtmlUtils.CHAR_NON_BEAKING_SPACE);
-      }
-      writer.writeText(text);
+      writer.writeText(label);
       writer.endElement(HtmlConstants.TD);
 
       writer.startElement(HtmlConstants.TD, component);
+      StyleClasses endClass = new StyleClasses();
+      endClass.addAspectClass("separator", StyleClasses.Aspect.DEFAULT);
+      endClass.addAspectClass("separator", "end", StyleClasses.Aspect.DEFAULT);
+      writer.writeClassAttribute(endClass);
       writer.startElement(HtmlConstants.HR , component);
-      writer.writeClassAttribute();
+      writer.writeClassAttribute(endClass);
       writer.endElement(HtmlConstants.HR);
       writer.endElement(HtmlConstants.TD);
 
       writer.endElement(HtmlConstants.TR);
       writer.endElement(HtmlConstants.TABLE);
-      /* field set variant for Scarborough 
-      writer.startElement(HtmlConstants.FIELDSET, component);
-      writer.writeComponentClass();
-      UILabel label =  (UILabel) component.getFacet("label");
-      writer.startElement(HtmlConstants.LEGEND, component);
-      writer.writeComponentClass();
-      writer.writeText(label.getValue(), null);
-      writer.endElement(HtmlConstants.LEGEND);
-      writer.endElement(HtmlConstants.FIELDSET);
-      */
     } else {
       writer.startElement(HtmlConstants.HR , component);
       writer.writeClassAttribute();
+      writer.writeStyleAttribute();
       writer.endElement(HtmlConstants.HR);
     }
-    writer.endElement(HtmlConstants.DIV);
   }
 }

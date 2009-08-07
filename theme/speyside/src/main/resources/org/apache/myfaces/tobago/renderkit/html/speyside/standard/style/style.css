@@ -25,13 +25,6 @@
   color: #888888;
 }
 
-hr  {
-  border-top: 1px solid #E2E2E2;
-  border-right: 1px solid #E2E2E2;
-  border-bottom: 1px solid #000000;
-  border-left: 1px solid #E2E2E2;
-}
-
 h5  {
   font: bold 14px arial, helvetica, sans-serif;
   margin-top: 0px;
@@ -881,7 +874,15 @@ tobago-selectOneChoice-readonly {
   border-left: 1px solid #E2E2E2;
 }
 
+/* separator ------------------------------------------------------------------- */
+
+hr.tobago-separator-default {
+  border: 0 solid #000000;
+  border-bottom-width: 1px;
+}
+
 /* Sheet -------------------------------------------------------- */
+
 .tobago-sheet-header-div {
   left: 1px;
   height: 20px;
