@@ -39,7 +39,6 @@ public class EquationManager {
 
   public void setFixedLength(int index, Measure length, String component) {
     equations.addEqualsEquation(new FixedEquation(index, length, component));
-    LOG.info(equations);
   }
 
   public int[] partition(int index, int number, Measure spacing, String component) {
