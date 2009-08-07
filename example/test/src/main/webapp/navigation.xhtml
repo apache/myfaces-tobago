@@ -13,14 +13,32 @@
     </f:facet>
     <tc:gridLayoutConstraint width="1000px" height="700px"/>
 
-    <tc:tree>
-      <tc:treeData  value="#{browser.tree}" var="node">
-        <tc:treeNode link="#{node.resource}" label="#{node.label}" target="page:content"/>
-      </tc:treeData>
-    </tc:tree>
+    <tc:panel>
+      <f:facet name="layout">
+        <!--todo replace 20px with "auto" -->
+        <tc:gridLayout rows="20px;*"/>
+      </f:facet>
+
+      <tc:panel>
+        <f:facet name="layout">
+          <tc:gridLayout columns="*;30px"/>
+        </f:facet>
+
+        <tx:selectOneChoice value="#{clientConfig.theme}" label="Theme">
+          <f:selectItems value="#{clientConfig.themeItems}"/>
+        </tx:selectOneChoice>
+        <tc:button action="#{clientConfig.submit}" label="OK"/>
+      </tc:panel>
+
+      <tc:tree>
+        <tc:treeData value="#{browser.tree}" var="node">
+          <tc:treeNode link="#{node.resource}" label="#{node.label}" target="page:content"/>
+        </tc:treeData>
+      </tc:tree>
+    </tc:panel>
 
     <!-- src will be set via tc:treeNode -->
-    <tc:object id="content" />
+    <tc:object id="content"/>
 
     <!--<tc:script file="http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js"/>-->
 
