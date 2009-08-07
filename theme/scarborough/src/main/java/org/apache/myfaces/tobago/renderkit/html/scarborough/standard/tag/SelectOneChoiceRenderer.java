@@ -17,11 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -73,6 +68,8 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     writer.startElement(HtmlConstants.SELECT, selectOne);
     writer.writeNameAttribute(selectOne.getClientId(facesContext));
     writer.writeIdAttribute(selectOne.getClientId(facesContext));
+    writer.writeClassAttribute();
+    writer.writeStyleAttribute();
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     Integer tabIndex = selectOne.getTabIndex();
     if (tabIndex != null) {

@@ -17,16 +17,14 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.util.MessageFactory;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-/*
- * Date: May 31, 2005
- * Time: 7:47:11 PM
- */
-public abstract class AbstractUISelectOne extends javax.faces.component.UISelectOne implements SupportsMarkup {
+public abstract class AbstractUISelectOne extends javax.faces.component.UISelectOne
+    implements SupportsMarkup, LayoutComponent {
 
   public static final String MESSAGE_VALUE_REQUIRED = "tobago.SelectOne.MESSAGE_VALUE_REQUIRED";
 
