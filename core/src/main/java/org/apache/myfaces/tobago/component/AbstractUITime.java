@@ -24,11 +24,7 @@ import javax.faces.convert.DateTimeConverter;
 import static javax.faces.convert.DateTimeConverter.CONVERTER_ID;
 import java.util.TimeZone;
 
-/*
- * Date: 10.02.2006
- * Time: 20:50:49
- */
-public class AbstractUITimeInput extends javax.faces.component.UIInput {
+public abstract class AbstractUITime extends UIInputBase {
 
   public Converter getConverter() {
     Converter converter = super.getConverter();

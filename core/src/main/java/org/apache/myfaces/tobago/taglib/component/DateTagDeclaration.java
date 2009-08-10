@@ -33,18 +33,13 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
-/*
- * Created: Aug 5, 2005 5:03:15 PM
- * User: bommel
- * $Id$
- */
 /**
  * Renders a date input field.
  */
 @Tag(name = "date")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIDateInput",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIInputBase",
+    uiComponent = "org.apache.myfaces.tobago.component.UIDate",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIDate",
     rendererType = RendererTypes.DATE,
     allowedChildComponenents = "NONE",
     facets = {

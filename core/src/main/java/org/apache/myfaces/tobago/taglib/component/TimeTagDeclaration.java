@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.InputTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
@@ -29,22 +30,17 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
-/*
- * Created: Aug 5, 2005 5:03:15 PM
- * User: bommel
- * $Id$
- */
 /**
  * Renders a time input field.
  */
 @Tag(name = "time")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UITimeInput",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITimeInput",
+    uiComponent = "org.apache.myfaces.tobago.component.UITime",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITime",
     rendererType = RendererTypes.TIME,
     allowedChildComponenents = "NONE")
 public interface TimeTagDeclaration
     extends InputTagDeclaration, HasIdBindingAndRendered,
-    IsReadonly, IsDisabled, IsInline, HasLabelAndAccessKey, HasTip, IsRequired {
+    IsReadonly, IsDisabled, IsInline, HasLabelAndAccessKey, HasTip, IsRequired, HasMarkup {
 
 }

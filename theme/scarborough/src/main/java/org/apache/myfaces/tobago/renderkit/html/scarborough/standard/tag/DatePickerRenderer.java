@@ -27,13 +27,13 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIButtonCommand;
-import org.apache.myfaces.tobago.component.UIDateInput;
+import org.apache.myfaces.tobago.component.UIDate;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIHiddenInput;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.component.UITimeInput;
+import org.apache.myfaces.tobago.component.UITime;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
@@ -130,7 +130,7 @@ public class DatePickerRenderer extends LinkRenderer {
 
     final UIComponent time = CreateComponentUtils.createComponent(
         facesContext,
-        UITimeInput.COMPONENT_TYPE,
+        UITime.COMPONENT_TYPE,
         RendererTypes.TIME);
     timePanel.getChildren().add(time);
     time.setId("time");
@@ -201,9 +201,9 @@ public class DatePickerRenderer extends LinkRenderer {
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     UIDatePicker link = (UIDatePicker) component;
 //    DatePickerController datePickerController = new DatePickerController();
-    UIDateInput dateInput = (UIDateInput) link.getForComponent();
+    UIDate dateInput = (UIDate) link.getForComponent();
     if (dateInput == null) {
-      LOG.error("No required UIDateInput component found.");
+      LOG.error("No required UIDate component found.");
       return;
     }
     if (FacesUtils.hasValueBindingOrValueExpression(dateInput, Attributes.READONLY)) {
@@ -271,7 +271,7 @@ public class DatePickerRenderer extends LinkRenderer {
         dateTimeConverter.setPattern("HH:mm");
       }
       dateTimeConverter.setTimeZone(TimeZone.getDefault());
-      ((UITimeInput) time).setConverter(dateTimeConverter);
+      ((UITime) time).setConverter(dateTimeConverter);
     } else {
       timePanel.setRendered(false);
     }
@@ -279,11 +279,11 @@ public class DatePickerRenderer extends LinkRenderer {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     UIDatePicker link = (UIDatePicker) component;
-    UIDateInput dateInput = (UIDateInput) link.getForComponent();
+    UIDate dateInput = (UIDate) link.getForComponent();
     if (dateInput != null) {
       super.encodeEnd(facesContext, component);
     } else {
-      LOG.error("No required UIDateInput component found.");
+      LOG.error("No required UIDate component found.");
     }
   }
 }

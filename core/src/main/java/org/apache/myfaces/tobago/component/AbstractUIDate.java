@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.facelets.extension;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,21 +17,6 @@ package org.apache.myfaces.tobago.facelets.extension;
  * limitations under the License.
  */
 
-import com.sun.facelets.tag.jsf.ComponentConfig;
-import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UITime;
+public abstract class AbstractUIDate extends UIInputBase {
 
-public class TimeExtensionHandler extends TobagoLabelExtensionHandler {
-
-  public TimeExtensionHandler(ComponentConfig config) {
-    super(config);
-  }
-
-  protected String getSubComponentType() {
-    return UITime.COMPONENT_TYPE;
-  }
-
-  protected String getSubRendererType() {
-    return RendererTypes.TIME;
-  }
 }

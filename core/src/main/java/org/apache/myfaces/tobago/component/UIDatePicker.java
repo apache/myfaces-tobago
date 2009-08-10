@@ -51,7 +51,7 @@ public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
   private UIComponent getUIDateInput(UIComponent parent) {
     for (Object object : parent.getChildren()) {
       UIComponent child = (UIComponent) object;
-      if (child instanceof UIDateInput) {
+      if (child instanceof UIDate) {
         return child;
       }
     }

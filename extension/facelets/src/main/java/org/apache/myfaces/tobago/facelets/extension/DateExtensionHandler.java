@@ -22,17 +22,13 @@ import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.myfaces.tobago.OnComponentCreated;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIDateInput;
+import org.apache.myfaces.tobago.component.UIDate;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 
-/*
- * Date: Aug 8, 2007
- * Time: 5:47:26 PM
- */
 public class DateExtensionHandler extends TobagoLabelExtensionHandler {
 
   public DateExtensionHandler(ComponentConfig config) {
@@ -40,7 +36,7 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
   }
 
   protected String getSubComponentType() {
-    return UIDateInput.COMPONENT_TYPE;
+    return UIDate.COMPONENT_TYPE;
   }
 
   protected String getSubRendererType() {

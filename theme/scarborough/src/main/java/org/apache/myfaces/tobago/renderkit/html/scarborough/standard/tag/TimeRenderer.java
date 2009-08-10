@@ -26,7 +26,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UITimeInput;
+import org.apache.myfaces.tobago.component.UITime;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
@@ -65,12 +65,12 @@ public class TimeRenderer extends InputRendererBase {
   }
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!(component instanceof UITimeInput)) {
-      LOG.error("Wrong type: Need " + UITimeInput.class.getName() + ", but was " + component.getClass().getName());
+    if (!(component instanceof UITime)) {
+      LOG.error("Wrong type: Need " + UITime.class.getName() + ", but was " + component.getClass().getName());
       return;
     }
 
-    UITimeInput input = (UITimeInput) component;
+    UITime input = (UITime) component;
 
     String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, input);
     String currentValue = getCurrentValue(facesContext, input);
@@ -111,6 +111,7 @@ public class TimeRenderer extends InputRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.DIV, input);
     writer.writeClassAttribute();
+    writer.writeStyleAttribute();
 
     writer.startElement(HtmlConstants.DIV, input);
     writer.writeAttribute(HtmlAttributes.ID, idPrefix + "borderDiv", false);
@@ -197,7 +198,7 @@ public class TimeRenderer extends InputRendererBase {
     writer.endElement(HtmlConstants.SPAN);
   }
 
-  private void writeInput(TobagoResponseWriter writer, UITimeInput input, String id, String hour, boolean hourMode,
+  private void writeInput(TobagoResponseWriter writer, UITime input, String id, String hour, boolean hourMode,
       String title) throws IOException {
     Integer tabIndex = input.getTabIndex();
     writer.startElement(HtmlConstants.INPUT, null);
