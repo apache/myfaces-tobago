@@ -53,11 +53,6 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
   // XXX rows and rowTokens are double/redundant
   private LayoutTokens rowTokens;
 
-  public AbstractUIGridLayout() {
-    LOG.info("**************************************************************************************"
-        + " Constructor AbstractUIGridLayout");
-  }
-
   public void onComponentCreated(FacesContext context, UIComponent component) {
 
     columnTokens = LayoutTokens.parse(getColumns());
@@ -87,7 +82,9 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     List<LayoutComponent> components = container.getComponents();
     for (LayoutComponent c : components) {
       grid.add(new OriginCell(c), c.getColumnSpan(), c.getRowSpan());
-      LOG.debug("\n" + grid);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("\n" + grid);
+      }
     }
 
     addPixelConstraints(layoutContext, horizontalIndex + 1, verticalIndex + 1);
@@ -170,7 +167,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
             if (layoutManager != null) {
               layoutManager.distribute(layoutContext, subContainer);
             }
-          } 
+          }
         }
       }
     }
@@ -242,7 +239,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     for (int i = 0; i < rowTokens.getSize(); i++) {
       LayoutToken layoutToken = rowTokens.get(i);
       if (layoutToken instanceof PixelLayoutToken) {
-         // XXX PixelLayoutToken might be removed/changed
+        // XXX PixelLayoutToken might be removed/changed
         Measure pixel = new PixelMeasure(((PixelLayoutToken) layoutToken).getPixel());
         layoutContext.getVertical().setFixedLength(i + verticalIndexOffset, pixel,
             ClassUtils.getShortClassName(getParent(), "null"));

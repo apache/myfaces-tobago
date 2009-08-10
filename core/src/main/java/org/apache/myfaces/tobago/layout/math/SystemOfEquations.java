@@ -132,7 +132,9 @@ public class SystemOfEquations {
       equations.add(new ZeroEquation());
     }
 
-    LOG.info("Before sorting: " + this);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Before sorting: " + this);
+    }
 
     Collections.sort(equations, new EquationComparator());
 
@@ -154,7 +156,9 @@ public class SystemOfEquations {
 
   private void gauss() {
 
-    LOG.info(this);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug(this);
+    }
 
     assert step == Step.PREPARED;
     step = step.next();
@@ -163,7 +167,9 @@ public class SystemOfEquations {
 
     for (int j = 0; j < min; j++) {
       // normalize row
-      LOG.info(this);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug(this);
+      }
       double factor = data[j][j];
       if (MathUtils.isZero(factor)) {
         int nonZeroIndex = findNonZero(j);
@@ -197,7 +203,9 @@ public class SystemOfEquations {
     assert step == Step.TRIANGULAR;
     step = step.next();
 
-    LOG.info(this);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug(this);
+    }
     for (int j = equations.size() - 1; j >= 0; j--) {
       if (rowNull(j)) {
         LOG.error("Not solvable: " + this);
@@ -214,7 +222,9 @@ public class SystemOfEquations {
   private Measure[] result() {
     assert step == Step.DIAGONAL;
 
-    LOG.info(this);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug(this);
+    }
 
     double[] original = copyResult();
 
@@ -222,7 +232,9 @@ public class SystemOfEquations {
 
     Measure[] rounded = copyResultMeasure();
 
-    LOG.info("after adjust remainders:  " + Arrays.toString(rounded));
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("after adjust remainders:  " + Arrays.toString(rounded));
+    }
 
     return rounded;
   }
@@ -282,7 +294,9 @@ public class SystemOfEquations {
         } else {
           data[index][numberOfVariables] = Math.round(old);
         }
-        LOG.info("Change value for index=" + index + " from " + old + " -> " + Math.round(sum));
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Change value for index=" + index + " from " + old + " -> " + Math.round(sum));
+        }
 
       } //else if (equation instanceof )
     }
