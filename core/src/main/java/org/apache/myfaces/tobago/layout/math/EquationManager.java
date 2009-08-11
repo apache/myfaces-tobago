@@ -17,16 +17,12 @@ package org.apache.myfaces.tobago.layout.math;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.layout.Measure;
 
 /**
  * Manages the relation between the Tree of LayoutManagers and the Linear System of Equations
  */
 public class EquationManager {
-
-  private static final Log LOG = LogFactory.getLog(EquationManager.class);
 
   private SystemOfEquations equations;
   private Measure[] result;
@@ -50,7 +46,6 @@ public class EquationManager {
         new PartitionEquation(newIndices[0], number, index, spacing, beginOffset, endOffset, component));
     equations.addEqualsEquation(
         new RemainderEquation(newIndices[number], component));
-    LOG.info(equations);
     return newIndices;
   }
 
@@ -60,7 +55,6 @@ public class EquationManager {
 
     int[] newIndices = equations.addVariables(1);
     equations.addEqualsEquation(new CombinationEquation(newIndices[0], index, span, spacing, component));
-    LOG.info(equations);
     return newIndices[0];
   }
 
@@ -72,7 +66,6 @@ public class EquationManager {
     assert factor2 > 0;
 
     equations.addEqualsEquation(new ProportionEquation(index1, index2, factor1, factor2, component));
-    LOG.info(equations);
   }
 
   public void solve() {
