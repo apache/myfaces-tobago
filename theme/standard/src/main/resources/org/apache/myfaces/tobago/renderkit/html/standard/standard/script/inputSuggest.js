@@ -36,6 +36,8 @@ Tobago.AutocompleterAjax = function(elementId, required, cssPrefix, options) {
   var className = input.className;
   var width = input.style.width;
   var height = input.style.height.replace(/\D/g, "");
+  var left = input.style.left;
+  var onTop = input.style.top;
   var combo = new dijit.form.ComboBox({
       name: elementId,
       autocomplete: false,
@@ -47,7 +49,10 @@ Tobago.AutocompleterAjax = function(elementId, required, cssPrefix, options) {
   combo.staticClass = table.className.replace("dijitTextBox", className);
   table.className = combo.staticClass + " dijitTextBox";
   table.style.width = width;
-  table.style.height = height + "px";
+  table.style.height = (height - 2) + "px";
+  table.style.position = "absolute";
+  table.style.left = left;
+  table.style.top = onTop;
   input = Tobago.element(elementId);
   input.className = className;
   input.style.width = width;
