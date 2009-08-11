@@ -26,7 +26,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
-import org.apache.myfaces.tobago.component.UILinkCommand;
+import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -72,8 +72,8 @@ public class LinkRenderer extends CommandRendererBase {
         writer.writeAttribute(HtmlAttributes.TARGET, helper.getTarget(), true);
       }
       Integer tabIndex = null;
-      if (command instanceof UILinkCommand) {
-        tabIndex = ((UILinkCommand) command).getTabIndex();
+      if (command instanceof UILink) {
+        tabIndex = ((UILink) command).getTabIndex();
       }
       if (tabIndex != null) {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);

@@ -29,7 +29,7 @@ import javax.faces.render.Renderer;
  * Date: 30.05.2006
  * Time: 19:22:40
  */
-public class UIDatePicker extends UILinkCommand implements OnComponentCreated {
+public class UIDatePicker extends UILink implements OnComponentCreated {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.DatePicker";
 

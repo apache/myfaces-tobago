@@ -17,11 +17,11 @@ package org.apache.myfaces.tobago.security;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UILinkCommand;
+import org.apache.myfaces.tobago.component.UILink;
 
 import javax.faces.context.FacesContext;
 
-public class UISecuredLinkCommand extends UILinkCommand {
+public class UISecuredLinkCommand extends UILink {
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecuredLinkCommand";
 

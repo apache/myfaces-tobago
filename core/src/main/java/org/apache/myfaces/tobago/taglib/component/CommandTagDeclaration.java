@@ -24,11 +24,7 @@ import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-
-/*
- * Date: 05.08.2006
- * Time: 12:01:32
- */
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 
 /**
  * Use this tag only as a facet for click, change in selectOneRadio,
@@ -39,7 +35,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUICommand",
     rendererType = RendererTypes.COMMAND,
     allowedChildComponenents = "NONE")
-public interface CommandTagDeclaration extends AbstractCommandTagDeclaration, HasId, HasValue, IsDisabled {
+public interface CommandTagDeclaration
+    extends AbstractCommandTagDeclaration, HasId, HasValue, IsDisabled, IsGridLayoutComponent {
 
 
 

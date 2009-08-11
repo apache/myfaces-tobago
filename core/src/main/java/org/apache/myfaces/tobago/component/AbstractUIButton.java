@@ -19,6 +19,6 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 
-public abstract class AbstractUIButton extends AbstractUICommand implements LayoutComponent {
+public abstract class AbstractUIButton extends UICommandBase implements LayoutComponent {
 
 }

@@ -171,8 +171,8 @@ public class RichTextEditorRenderer extends InputRendererBase {
     toolbar.getAttributes().put(Attributes.ICON_SIZE, UIToolBar.ICON_SMALL);
     toolbar.getAttributes().put(Attributes.LABEL_POSITION, UIToolBar.LABEL_OFF);
 
-    UICommand //command = (AbstractUICommand) ComponentUtil.createComponent(
-//        facesContext, AbstractUICommand.COMPONENT_TYPE, MENU_COMMAND);
+    UICommand //command = (UICommandBase) ComponentUtil.createComponent(
+//        facesContext, UICommandBase.COMPONENT_TYPE, MENU_COMMAND);
 //    toolbar.getChildren().add(command);
 
     command = (UICommand) CreateComponentUtils.createComponent(

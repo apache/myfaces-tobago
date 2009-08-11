@@ -24,9 +24,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.AbstractUICommand;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIButtonCommand;
+import org.apache.myfaces.tobago.component.UICommandBase;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -58,7 +58,7 @@ public class ButtonRenderer extends CommandRendererBase {
     if (!(component instanceof UICommand)) {
       return;
     }
-    AbstractUICommand command = (AbstractUICommand) component;
+    UICommandBase command = (UICommandBase) component;
     String clientId = command.getClientId(facesContext);
 
     CommandRendererHelper helper = new CommandRendererHelper(facesContext, command, CommandRendererHelper.Tag.BUTTON);

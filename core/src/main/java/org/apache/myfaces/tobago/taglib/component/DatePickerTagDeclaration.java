@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 @Tag(name = "datePicker")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIDatePicker",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UILinkCommand",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UILink",
     generate = false,
     componentType = "org.apache.myfaces.tobago.DatePicker",
     rendererType = RendererTypes.DATE_PICKER,

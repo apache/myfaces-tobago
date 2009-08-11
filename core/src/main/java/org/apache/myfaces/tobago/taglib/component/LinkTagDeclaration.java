@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 
 /**
@@ -41,7 +42,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 @Tag(name = "link", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UILinkCommand",
+    uiComponent = "org.apache.myfaces.tobago.component.UILink",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UICommand",
     rendererType = RendererTypes.LINK,
     allowedChildComponenents = "NONE",
@@ -56,5 +57,5 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
             allowedChildComponenents = "org.apache.myfaces.tobago.Popup")})
 public interface LinkTagDeclaration extends AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabelAndAccessKey, IsDisabled, IsInline,
-    HasCommandType, HasTip, HasImage, HasMarkup, HasTabIndex {
+    HasCommandType, HasTip, HasImage, HasMarkup, HasTabIndex, IsGridLayoutComponent {
 }

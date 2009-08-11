@@ -102,7 +102,7 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
     application.addComponent("javax.faces.Command", "javax.faces.component.UICommand");
     application.addComponent("org.apache.myfaces.tobago.Command", "org.apache.myfaces.tobago.component.UICommand");
     application
-        .addComponent("org.apache.myfaces.tobago.LinkCommand", "org.apache.myfaces.tobago.component.UILinkCommand");
+        .addComponent("org.apache.myfaces.tobago.LinkCommand", "org.apache.myfaces.tobago.component.UILink");
     application
         .addComponent("org.apache.myfaces.tobago.ButtonCommand", "org.apache.myfaces.tobago.component.UIButtonCommand");
 

@@ -27,11 +27,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasImage;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
-
-/*
- * Date: 10.04.2006
- * Time: 20:29:42
- */
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 
 /**
  * Renders a command button within a toolbar.
@@ -39,9 +35,10 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 @Tag(name = "toolBarCommand", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBarCommand",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUICommand",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIToolBarCommand",
     rendererType = RendererTypes.BUTTON,
     allowedChildComponenents = "NONE")
-public interface ToolBarCommandTagDeclaration extends AbstractCommandTagDeclaration, HasIdBindingAndRendered,
-    HasLabelAndAccessKey, HasImage, IsDisabled, HasCommandType, HasTip {
+public interface ToolBarCommandTagDeclaration
+    extends AbstractCommandTagDeclaration, HasIdBindingAndRendered,
+    HasLabelAndAccessKey, HasImage, IsDisabled, HasCommandType, HasTip, IsGridLayoutComponent {
 }

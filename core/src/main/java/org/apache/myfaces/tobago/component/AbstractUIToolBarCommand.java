@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,22 +17,9 @@ package org.apache.myfaces.tobago.taglib.decl;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.component.UICommandBase;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 
-/**
- * $Id$
- */
-public interface HasCommandType {
-  /**
-   * Type of command component to create. Valid values are 'navigate', 'reset',
-   * 'script' or 'submit'.
-   * If not specified, or not a valid value,
-   * the default value is 'submit' is used.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = UICommandBase.COMMAND_TYPE_SUBMIT)
-  @Deprecated
-  void setType(String type);
+public abstract class AbstractUIToolBarCommand
+    extends UICommandBase implements LayoutComponent {
+
 }

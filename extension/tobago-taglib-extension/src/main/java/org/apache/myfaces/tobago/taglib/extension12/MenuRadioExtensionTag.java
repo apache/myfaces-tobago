@@ -17,23 +17,22 @@ package org.apache.myfaces.tobago.taglib.extension12;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.AbstractUICommand;
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.UICommandBase;
 import org.apache.myfaces.tobago.internal.taglib.MenuItemTag;
 import org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag;
 
-import javax.faces.webapp.FacetTag;
 import javax.faces.component.UIComponent;
+import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
-
-import org.apache.commons.lang.StringUtils;
 
 /*
  * Date: 09.05.2006
@@ -134,7 +133,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport {
     if (renderedPartially == null) {
       // Move attribute renderedPartially from selectOne to menuCommand component
       UIComponent selectOneComponent = selectOneRadio.getComponentInstance();
-      AbstractUICommand command = (AbstractUICommand) menuCommandTag.getComponentInstance();
+      UICommandBase command = (UICommandBase) menuCommandTag.getComponentInstance();
       javax.el.ValueExpression expression = selectOneComponent.getValueExpression(Attributes.RENDERED_PARTIALLY);
       if (expression != null) {
         command.setValueExpression(Attributes.RENDERED_PARTIALLY, expression);

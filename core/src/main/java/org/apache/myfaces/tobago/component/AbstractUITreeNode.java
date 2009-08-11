@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.event.TreeExpansionListener;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;
+import org.apache.myfaces.tobago.event.TreeExpansionListener;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.model.TreePath;
 
@@ -34,7 +34,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class AbstractUITreeNode extends AbstractUICommand implements SupportsMarkup, TreeModelBuilder {
+public abstract class AbstractUITreeNode extends UICommandBase implements SupportsMarkup, TreeModelBuilder {
 
   private static final Log LOG = LogFactory.getLog(AbstractUITreeNode.class);
 

@@ -445,7 +445,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
           label.setText(labelText);
         }
       } else {
-        LOG.warn("Menu item has label=null. AbstractUICommand.getClientId()="
+        LOG.warn("Menu item has label=null. UICommandBase.getClientId()="
             + command.getClientId(facesContext));
       }
       String formattedValue

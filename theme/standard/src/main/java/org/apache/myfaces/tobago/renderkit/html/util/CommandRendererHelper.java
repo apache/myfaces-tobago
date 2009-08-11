@@ -19,9 +19,9 @@ package org.apache.myfaces.tobago.renderkit.html.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.AbstractUICommand;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.UICommandBase;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -51,15 +51,15 @@ public class CommandRendererHelper {
   private String href;
   private String target;
 
-  public CommandRendererHelper(FacesContext facesContext, AbstractUICommand component) {
+  public CommandRendererHelper(FacesContext facesContext, UICommandBase component) {
     initOnclick(facesContext, component, null);
   }
 
-  public CommandRendererHelper(FacesContext facesContext, AbstractUICommand component, Tag tag) {
+  public CommandRendererHelper(FacesContext facesContext, UICommandBase component, Tag tag) {
     initOnclick(facesContext, component, tag);
   }
 
-  private void initOnclick(FacesContext facesContext, AbstractUICommand command, Tag tag) {
+  private void initOnclick(FacesContext facesContext, UICommandBase command, Tag tag) {
 
     disabled = ComponentUtil.getBooleanAttribute(command, Attributes.DISABLED);
     href = getEmptyHref(facesContext);
@@ -92,10 +92,10 @@ public class CommandRendererHelper {
         }
       } else if (command.getAttributes().get(Attributes.ONCLICK) != null) {
         onclick = prepareOnClick(facesContext, command);
-      } else if (command instanceof AbstractUICommand
-          && ((AbstractUICommand) command).getRenderedPartially().length > 0) {
+      } else if (command instanceof UICommandBase
+          && ((UICommandBase) command).getRenderedPartially().length > 0) {
 
-        String[] componentIds = ((AbstractUICommand) command).getRenderedPartially();
+        String[] componentIds = ((UICommandBase) command).getRenderedPartially();
 
           // TODO find a better way
           boolean popupAction = ComponentUtil.containsPopupActionListener(command);
@@ -169,7 +169,7 @@ public class CommandRendererHelper {
     return onclick;
   }
 
-  private String generateUrl(FacesContext facesContext, AbstractUICommand component) {
+  private String generateUrl(FacesContext facesContext, UICommandBase component) {
     String url;
     Application application = facesContext.getApplication();
     ViewHandler viewHandler = application.getViewHandler();

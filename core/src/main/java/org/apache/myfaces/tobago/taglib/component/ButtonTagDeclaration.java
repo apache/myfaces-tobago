@@ -37,11 +37,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 
-/*
- * Date: 10.02.2006
- * Time: 22:00:03
- */
-
 /**
  * Renders a button element.
  */
