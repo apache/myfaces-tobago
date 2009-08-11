@@ -306,21 +306,16 @@ a:link.tab, a:visited.tab, a:active.tab {
 }
 
 /* Time -------------------------------------------------------------------- */
-.tobago-time-default {
-  height: 20px;
-}
 
 .tobago-time-borderDiv {
-  border: 1px solid #3366CC;
+  border-color: #3366CC;
 }
 
 .tobago-time-input {
-  font: 12px arial, helvetica, sans-serif;
   color: #3366CC;
 }
 
 .tobago-time-input-selected {
-  border: 1px solid #FFFFFF;
   background: #D6EBFF;
 }
 

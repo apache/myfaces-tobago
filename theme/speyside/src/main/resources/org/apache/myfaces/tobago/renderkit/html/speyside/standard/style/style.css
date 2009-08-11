@@ -615,32 +615,27 @@ tobago-selectOneChoice-readonly {
 }
 
 /* Time -------------------------------------------------------------------- */
-.tobago-time-default {
-  height: 20px;
-}
 
 .tobago-time-borderDiv {
   border: 1px solid black;
-  height: 20px;
-  width: 55px;
+  height: 18px;
+  width: 53px;
 }
 
 .tobago-time-borderDiv-seconds {
-  width: 83px;
+  width: 81px;
 }
+
 .tobago-time-input {
-  height: 18px;
-  font: 12px arial, helvetica, sans-serif;
+  font-size: 12px;
+  height: 14px;
+  width: 21px;
   color: #000000;
 }
 
 .tobago-time-input-selected {
-  border: 1px solid #E8E8E8;
+  border-color: #E8E8E8;
   background: #E8E8E8;
-}
-
-.tobago-time-sep {
-  font: 12px arial, helvetica, sans-serif;
 }
 
 .tobago-time-inc-image {
@@ -650,7 +645,7 @@ tobago-selectOneChoice-readonly {
   left: 60px;
 }
 .tobago-time-image-seconds {
-  left: 88;
+  left: 88px;
 }
 
 /* Toolbar ----------------------------------------------------------------- */
