@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:view
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension">
+
+  <tc:page>
+    <f:facet name="layout">
+      <tc:gridLayout/>
+    </f:facet>
+    <tc:gridLayoutConstraint width="600px" height="300px"/>
+
+    <tx:in value="some value" required="true" tabIndex="1" label="Suggest"
+           tip="test" suggestMethod="#{inputSuggest.getInputSuggestItems}"/>
+
+  </tc:page>
+</f:view>
