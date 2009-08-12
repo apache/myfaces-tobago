@@ -26,6 +26,7 @@ import com.sun.mirror.declaration.MethodDeclaration;
 import com.sun.mirror.declaration.PackageDeclaration;
 import com.sun.mirror.type.InterfaceType;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
@@ -35,6 +36,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.Taglib;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -49,6 +51,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Locale;
@@ -280,6 +283,16 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
     if (componentTag != null) {
       description.append(createDescription(componentTag));
+    }
+    UIComponentTagAttribute attributeTag = decl.getAnnotation(UIComponentTagAttribute.class);
+    if (attributeTag != null) {
+        if (null != attributeTag.type() && attributeTag.type().length > 0) {
+            description.append("<br />Type: <code>" + (attributeTag.type().length == 1
+                ? attributeTag.type()[0] : Arrays.toString(attributeTag.type())) + "</code>");
+        }
+        if (StringUtils.isNotEmpty(attributeTag.defaultValue())) {
+            description.append("<br />Default: <code>" + attributeTag.defaultValue() + "</code>");
+        }
     }
     ExtensionTag extensionTag = decl.getAnnotation(ExtensionTag.class);
     if (extensionTag != null) {
