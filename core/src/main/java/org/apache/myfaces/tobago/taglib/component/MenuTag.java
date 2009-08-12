@@ -23,6 +23,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIMenu;
+import org.apache.myfaces.tobago.util.Deprecation;
 
 import javax.faces.component.UIComponent;
 
@@ -78,8 +79,10 @@ public class MenuTag extends TobagoTag
   }
 
   public void setAccessKey(String accessKey) {
-    LOG.warn("Attibute 'accessKey' is deprecated, "
-        + "and will removed soon!");
+    if (Deprecation.LOG.isErrorEnabled()) {
+      Deprecation.LOG.error("Attribute 'accessKey' doesn't work any longer "
+          + "and will removed soon! Please use special syntax of 'label' instead.");
+    }
   }
 
   public String getLabelWithAccessKey() {
@@ -87,8 +90,10 @@ public class MenuTag extends TobagoTag
   }
 
   public void setLabelWithAccessKey(String labelWithAccessKey) {
-    LOG.warn("Attibute 'labelWithAccessKey' is deprecated, "
-        + "and will removed soon! Please use 'label' instead.");
+    if (Deprecation.LOG.isWarnEnabled()) {
+      Deprecation.LOG.warn("Attribute 'labelWithAccessKey' is deprecated, "
+          + "and will removed soon! Please use 'label' instead.");
+    }
     setLabel(labelWithAccessKey);
   }
 }

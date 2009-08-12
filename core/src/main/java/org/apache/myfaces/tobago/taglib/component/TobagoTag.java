@@ -30,6 +30,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import static org.apache.myfaces.tobago.TobagoConstants.TOBAGO_COMPONENT_CREATED;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
+import org.apache.myfaces.tobago.util.Deprecation;
 
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.UIComponentTag;
@@ -119,6 +120,10 @@ public abstract class TobagoTag extends UIComponentTag
   }
 
   public void setHeight(String height) {
+    if (Deprecation.LOG.isWarnEnabled()) {
+      Deprecation.LOG.warn("Attribute 'height' is deprecated, "
+          + "and will removed soon! Please use a layout manager instead.");
+    }
     this.height = height;
   }
 
@@ -167,6 +172,10 @@ public abstract class TobagoTag extends UIComponentTag
   }
 
   public void setWidth(String width) {
+    if (Deprecation.LOG.isWarnEnabled()) {
+      Deprecation.LOG.warn("Attribute 'width' is deprecated, "
+          + "and will removed soon! Please use a layout manager instead.");
+    }
     this.width = width;
   }
 

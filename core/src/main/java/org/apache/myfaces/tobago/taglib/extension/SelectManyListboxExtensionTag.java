@@ -39,6 +39,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
+import org.apache.myfaces.tobago.util.Deprecation;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
@@ -223,6 +224,10 @@ public class SelectManyListboxExtensionTag extends BodyTagSupport
   }
 
   public void setHeight(String height) {
+    if (Deprecation.LOG.isWarnEnabled()) {
+      Deprecation.LOG.warn("Attribute 'height' is deprecated, "
+          + "and will removed soon! Please use a layout manager instead.");
+    }
     this.height = height;
   }
 
