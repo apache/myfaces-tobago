@@ -50,7 +50,6 @@ public interface PageTagDeclaration extends TobagoBodyTagDeclaration, HasLabel, 
    * <dt>frameset</dt><dd>HTML 4.01 Frameset DTD</dd>
    * </dl>
    * All other values are ignored and no DOCTYPE is set.
-   * The default value is 'loose'.
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "loose")

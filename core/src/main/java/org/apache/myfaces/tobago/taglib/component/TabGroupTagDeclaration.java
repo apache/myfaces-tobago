@@ -71,7 +71,7 @@ public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindi
    * Possible values are:
    * <dl>
    *   <dt>client</dt>
-   *   <dd>Tab switching is done on client, no server Request. This is default.</dd>
+   *   <dd>Tab switching is done on client, no server Request.</dd>
    *   <dt>reloadPage</dt>
    *   <dd>Tab switching is done by server request. Full page is reloaded.</dd>
    *   <dt>reloadTab</dt>

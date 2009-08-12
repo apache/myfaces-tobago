@@ -17,14 +17,14 @@ package org.apache.myfaces.tobago.taglib.sandbox;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
+import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.taglib.component.TobagoTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.component.UIData;
 
 @Tag(name = "simpleSheet")
 @UIComponentTag(
@@ -99,7 +99,6 @@ public interface SimpleSheetTagDeclaration extends TobagoTagDeclaration, HasIdBi
 
     /**
      * The count of rendered direct paging links in the sheet's footer.<br />
-     * The <strong>default</strong> is 9.
      */
     @TagAttribute
     @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "9")
@@ -109,8 +108,7 @@ public interface SimpleSheetTagDeclaration extends TobagoTagDeclaration, HasIdBi
      * Flag indicating whether or not this sheet should reserve space for
      * vertical toolbar when calculating column width's.<br />
      * Possible values are: <pre>
-     *      'auto'  : sheet try to estimate the need of scrollbar,
-     *                this is the default.
+     *      'auto'  : sheet try to estimate the need of scrollbar.
      *      'true'  : space for scroolbar is reserved.
      *      'false' : no space is reserved.
      *      </pre>
@@ -125,7 +123,6 @@ public interface SimpleSheetTagDeclaration extends TobagoTagDeclaration, HasIdBi
      * rendered in the sheet's footer.<br />
      * Valid values are <strong>left</strong>, <strong>center</strong>,
      * <strong>right</strong> and <strong>none</strong>.
-     * The <strong>default</strong> is <code>none</code>.
      */
     @TagAttribute
     @UIComponentTagAttribute(defaultValue = "none",
@@ -138,7 +135,6 @@ public interface SimpleSheetTagDeclaration extends TobagoTagDeclaration, HasIdBi
      * capability to enter the index displayed page directly.<br />
      * Valid values are <strong>left</strong>, <strong>center</strong>,
      * <strong>right</strong> and <strong>none</strong>.
-     * The <strong>default</strong> is <code>none</code>.
      */
     @TagAttribute
     @UIComponentTagAttribute(defaultValue = "none",
@@ -151,7 +147,6 @@ public interface SimpleSheetTagDeclaration extends TobagoTagDeclaration, HasIdBi
      * capability to enter the index of the start row directly. <br />
      * Valid values are <strong>left</strong>, <strong>center</strong>,
      * <strong>right</strong> and <strong>none</strong>.
-     * The <strong>default</strong> is <code>none</code>.
      */
     @TagAttribute
     @UIComponentTagAttribute(defaultValue = "none",
@@ -162,7 +157,6 @@ public interface SimpleSheetTagDeclaration extends TobagoTagDeclaration, HasIdBi
      * Flag indicating whether or not the sheet should be selectable <br />
      * Valid values are <strong>none</strong>, <strong>single</strong>,
      * and <strong>multi</strong>.<br />
-     * The <strong>default</strong> is <code>multi</code>.
      */
     @TagAttribute
     @UIComponentTagAttribute(defaultValue = UIData.MULTI,

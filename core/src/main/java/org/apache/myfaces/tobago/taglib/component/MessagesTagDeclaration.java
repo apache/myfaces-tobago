@@ -44,15 +44,13 @@ public interface MessagesTagDeclaration extends TobagoTagDeclaration, HasIdBindi
   /**
    * Flag indicating that only messages that are not associated to any
    * particular UIComponent should be displayed. That are messages without clientId.
-   * The default is "false".
    */
   @TagAttribute
-  @UIComponentTagAttribute()
+  @UIComponentTagAttribute(defaultValue = "false")
   void setGlobalOnly(String globalOnly);
 
   /**
    * Flag indicating whether the detail should be included
-   * The default is "false".
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
@@ -60,7 +58,6 @@ public interface MessagesTagDeclaration extends TobagoTagDeclaration, HasIdBindi
 
   /**
    * Flag indicating whether the summary should be included
-   * The default is "true".
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
@@ -68,7 +65,6 @@ public interface MessagesTagDeclaration extends TobagoTagDeclaration, HasIdBindi
 
    /**
    * Sets the mininum severity to be shown. E. g. "warn" shows only "warn", "error" and "fatal".
-   * The default is "info".
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.application.FacesMessage.Severity", defaultValue = "info")
@@ -78,7 +74,6 @@ public interface MessagesTagDeclaration extends TobagoTagDeclaration, HasIdBindi
    * Sets the maximum severity to be shown. E. g. "warn" shows only "warn" and "info".
     * When setting this attribute you usually shoud take care, that you have a second message tag to show the
     * higher severity levels.
-   * The default is "fatal".
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "javax.faces.application.FacesMessage.Severity", defaultValue = "fatal")
@@ -86,7 +81,6 @@ public interface MessagesTagDeclaration extends TobagoTagDeclaration, HasIdBindi
 
    /**
    * Sets the maximum number of messages to show.
-   * The default is 2147483647 (more or less unlimited).
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "2147483647")
@@ -94,7 +88,6 @@ public interface MessagesTagDeclaration extends TobagoTagDeclaration, HasIdBindi
 
    /**
    * Sets the order of the messages.
-   * The default "occurence".
    */
   @TagAttribute
   @UIComponentTagAttribute(
@@ -104,7 +97,6 @@ public interface MessagesTagDeclaration extends TobagoTagDeclaration, HasIdBindi
 
   /**
   * Should the user confirm the message explicitly.
-  * The default is "true".
   */
  @TagAttribute
  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")

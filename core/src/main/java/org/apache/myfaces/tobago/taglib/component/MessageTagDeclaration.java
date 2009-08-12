@@ -44,7 +44,6 @@ public interface MessageTagDeclaration extends TobagoTagDeclaration, HasIdBindin
 
   /**
    * Flag indicating whether the detail should be included
-   * The default is "false".
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
@@ -52,7 +51,6 @@ public interface MessageTagDeclaration extends TobagoTagDeclaration, HasIdBindin
 
   /**
    * Flag indicating whether the summary should be included
-   * The default is "true".
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
