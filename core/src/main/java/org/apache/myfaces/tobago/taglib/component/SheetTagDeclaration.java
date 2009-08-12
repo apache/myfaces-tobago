@@ -28,13 +28,6 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
-/*
- * Created by IntelliJ IDEA.
- * User: bommel
- * Date: 08.04.2006
- * Time: 15:30:50
- */
-
 /**
  * Render a sheet element.
  */
@@ -72,6 +65,7 @@ public interface SheetTagDeclaration extends HasIdBindingAndRendered {
    * Please use "rows" instead.
    * The number of rows to display, starting with the one identified by the
    * "pageingStart" property.
+   * The <strong>default</strong> is 100.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "100")
@@ -81,6 +75,7 @@ public interface SheetTagDeclaration extends HasIdBindingAndRendered {
   /**
    * The number of rows to display, starting with the one identified by the
    * "pageingStart/first" property.
+   * The <strong>default</strong> is 100.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "100")
