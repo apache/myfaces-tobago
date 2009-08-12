@@ -22,7 +22,8 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
 import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelWithAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
 /*
@@ -37,7 +38,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
     rendererType = "MenuCommand")
-public interface MenuCheckboxTagDeclaration extends TobagoTagDeclaration, AbstractCommandTagDeclaration,
-    HasIdBindingAndRendered, IsDisabled, HasCommandType, HasBooleanValue,
-    HasLabelAndAccessKey {
+public interface MenuCheckboxTagDeclaration
+    extends TobagoTagDeclaration, AbstractCommandTagDeclaration, HasIdBindingAndRendered, 
+    IsDisabled, HasCommandType, HasBooleanValue, HasLabel, HasLabelWithAccessKey {
 }

@@ -25,7 +25,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasImage;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelWithAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasTarget;
@@ -51,7 +52,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
     @Facet(name = "confirmation", description = "Contains a UIOutput instance with the confirmation message."),
     @Facet(name = "popup", description = "Contains a UIPopup instance.")})
 public interface ButtonTagDeclaration extends AbstractCommandTagDeclaration,
-    HasIdBindingAndRendered, HasLabelAndAccessKey, HasImage,
+    HasIdBindingAndRendered, HasLabel, HasLabelWithAccessKey, HasImage,
     IsDisabled, HasCommandType, IsDefaultCommand, HasDeprecatedWidth, HasTip,
     IsInline, HasTarget, HasMarkup, HasTabIndex {
 }

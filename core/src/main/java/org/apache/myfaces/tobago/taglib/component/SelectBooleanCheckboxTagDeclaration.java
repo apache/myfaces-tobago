@@ -23,7 +23,8 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelWithAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
 import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
@@ -56,8 +57,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
             "This facet can contain a UICommand that is invoked in case of a change event from the component")
         })
 
-public interface SelectBooleanCheckboxTagDeclaration extends BeanTagDeclaration, HasValidator,
-    HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabelAndAccessKey, HasBooleanValue, IsDisabled,
-    IsInline, HasTip, IsReadonly, HasMarkup, HasTabIndex /*, IsRequired */ {
-
+public interface SelectBooleanCheckboxTagDeclaration
+    extends BeanTagDeclaration, HasValidator, HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabel,
+    HasLabelWithAccessKey, HasBooleanValue, IsDisabled, IsInline, HasTip, IsReadonly, HasMarkup, HasTabIndex {
 }

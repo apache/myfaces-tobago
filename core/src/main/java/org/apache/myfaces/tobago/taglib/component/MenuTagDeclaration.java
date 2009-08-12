@@ -22,7 +22,8 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasImage;
-import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.taglib.decl.HasLabelWithAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
 /*
@@ -42,6 +43,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
         "org.apache.myfaces.tobago.taglib.component.MenuSeparatorTag"})
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenu")
-public interface MenuTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered, HasLabelAndAccessKey,
-    IsDisabled, HasImage {
+public interface MenuTagDeclaration
+    extends TobagoTagDeclaration, HasIdBindingAndRendered, HasLabel, HasLabelWithAccessKey, IsDisabled, HasImage {
 }

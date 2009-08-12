@@ -21,5 +21,5 @@ package org.apache.myfaces.tobago.taglib.decl;
  * $Id$
  */
 @Deprecated
-public interface HasLabelAndAccessKey extends HasLabel, HasLabelWithAccessKey {
+public interface HasLabelAndAccessKey extends HasDeprecatedLabel, HasLabelWithAccessKey {
 }
