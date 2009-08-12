@@ -22,18 +22,16 @@ package org.apache.myfaces.tobago.taglib.component;
  * $Id$
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.util.Deprecation;
 
 import javax.faces.component.UIComponent;
 
 public class SelectOneChoiceTag extends SelectOneTag implements SelectOneChoiceTagDeclaration {
 
-  private static final Log LOG = LogFactory.getLog(SelectOneChoiceTag.class);
-
   protected void setProperties(UIComponent component) {
-    if (getLabel() != null) {
-      LOG.warn("the label attribute is deprecated in tc:selectOneChoice, please use tx:selectOneChoice instead.");
+    if (getLabel() != null && Deprecation.LOG.isErrorEnabled()) {
+      Deprecation.LOG.error(
+          "the label attribute is deprecated in tc:selectOneChoice, please use tx:selectOneChoice instead.");
     }
     super.setProperties(component);
   }

@@ -22,17 +22,14 @@ package org.apache.myfaces.tobago.taglib.component;
  * $Id$
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.util.Deprecation;
 
 import javax.faces.component.UIComponent;
 
 public class InTag extends TextInputTag implements InTagDeclaration {
-
-  private static final Log LOG = LogFactory.getLog(InTag.class);
 
   private String password;
   private String suggestMethod;
@@ -51,8 +48,8 @@ public class InTag extends TextInputTag implements InTagDeclaration {
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
 
-    if (getLabel() != null) {
-      LOG.warn("the label attribute is deprecated in t:in, please use tx:in instead.");
+    if (getLabel() != null && Deprecation.LOG.isErrorEnabled()) {
+      Deprecation.LOG.error("the label attribute is deprecated in tc:in, please use tx:in instead.");
     }
 
     ComponentUtil.setBooleanProperty(component, ATTR_PASSWORD, password);

@@ -17,23 +17,20 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UITimeInput;
+import org.apache.myfaces.tobago.util.Deprecation;
 
 import javax.faces.component.UIComponent;
 
 public class TimeTag extends InputTag implements TimeTagDeclaration {
-
-  private static final Log LOG = LogFactory.getLog(TimeTag.class);
 
   public String getComponentType() {
     return UITimeInput.COMPONENT_TYPE;
   }
 
   protected void setProperties(UIComponent component) {
-    if (getLabel() != null) {
-      LOG.warn("the label attribute is deprecated in tc:time, please use tx:time instead.");
+    if (getLabel() != null && Deprecation.LOG.isErrorEnabled()) {
+      Deprecation.LOG.error("the label attribute is deprecated in tc:time, please use tx:time instead.");
     }
     super.setProperties(component);
   }

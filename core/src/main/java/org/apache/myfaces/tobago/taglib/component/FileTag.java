@@ -17,20 +17,17 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UIFileInput;
+import org.apache.myfaces.tobago.util.Deprecation;
 
 import javax.servlet.jsp.JspException;
 
 
 public class FileTag extends InputTag implements FileTagDeclaration {
 
-  private static final Log LOG = LogFactory.getLog(FileTag.class);
-
   public int doStartTag() throws JspException {
-    if (getLabel() != null) {
-      LOG.warn("the label attribute is deprecated in t:in, please use tx:in instead.");
+    if (getLabel() != null && Deprecation.LOG.isErrorEnabled()) {
+      Deprecation.LOG.error("the label attribute is deprecated in tc:file, please use tx:file instead.");
     }
 
     return super.doStartTag();

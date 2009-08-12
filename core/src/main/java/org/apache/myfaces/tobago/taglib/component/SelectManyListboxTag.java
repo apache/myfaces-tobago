@@ -17,23 +17,21 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UISelectMany;
+import org.apache.myfaces.tobago.util.Deprecation;
 
 import javax.faces.component.UIComponent;
 
 public class SelectManyListboxTag extends SelectManyTag implements SelectManyListboxTagDeclaration {
-
-  private static final Log LOG = LogFactory.getLog(SelectManyListboxTag.class);
 
   public String getComponentType() {
     return UISelectMany.COMPONENT_TYPE;
   }
 
   protected void setProperties(UIComponent component) {
-    if (getLabel() != null) {
-      LOG.warn("the label attribute is deprecated in tc:selectManyListbox, please use tx:selectManyListbox instead.");
+    if (getLabel() != null && Deprecation.LOG.isErrorEnabled()) {
+      Deprecation.LOG.error(
+          "the label attribute is deprecated in tc:selectManyListbox, please use tx:selectManyListbox instead.");
     }
     super.setProperties(component);
   }

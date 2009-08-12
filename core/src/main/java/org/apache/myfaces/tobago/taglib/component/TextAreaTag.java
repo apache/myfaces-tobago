@@ -17,21 +17,17 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.util.Deprecation;
 
 import javax.faces.component.UIComponent;
 
 public class TextAreaTag extends TextInputTag
     implements TextAreaTagDeclaration {
 
-  private static final Log LOG = LogFactory.getLog(TextAreaTag.class);
-
   private String rows;
   private String markup;
-
 
   @Override
   public void release() {
@@ -42,12 +38,10 @@ public class TextAreaTag extends TextInputTag
 
   @Override
   protected void setProperties(UIComponent component) {
-    super.setProperties(component);
-
-    if (getLabel() != null) {
-      LOG.warn("the label attribute is deprecated in t:in, please use tx:in instead.");
+    if (getLabel() != null && Deprecation.LOG.isErrorEnabled()) {
+      Deprecation.LOG.error("the label attribute is deprecated in tc:textArea, please use tx:textArea instead.");
     }
-
+    super.setProperties(component);
     ComponentUtil.setStringProperty(component, ATTR_ROWS, rows);
     ComponentUtil.setMarkup(component, markup);
   }

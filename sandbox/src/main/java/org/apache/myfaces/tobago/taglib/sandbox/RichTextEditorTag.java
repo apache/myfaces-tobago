@@ -21,6 +21,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE_PREVIEW;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.taglib.component.TextInputTag;
+import org.apache.myfaces.tobago.util.Deprecation;
 
 import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
@@ -42,6 +43,10 @@ public class RichTextEditorTag extends TextInputTag
   }
 
   protected void setProperties(UIComponent component) {
+    if (getLabel() != null && Deprecation.LOG.isErrorEnabled()) {
+      Deprecation.LOG.error(
+          "the label attribute is deprecated in tc:richTextEditor, please use tx:richTextEditor instead.");
+    }
     super.setProperties(component);
     ComponentUtil.setBooleanProperty(component, ATTR_STATE_PREVIEW, statePreview);
   }
