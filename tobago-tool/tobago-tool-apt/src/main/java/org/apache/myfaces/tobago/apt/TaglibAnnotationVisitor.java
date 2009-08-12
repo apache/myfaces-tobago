@@ -337,8 +337,7 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
   }
 
   private InterfaceDeclaration getInterfaceDeclaration(String name) {
-    Set<InterfaceDeclaration> declarations = getCollectedInterfaceDeclarations();
-    for (InterfaceDeclaration declaration : declarations) {
+    for (InterfaceDeclaration declaration : getCollectedInterfaceDeclarations()) {
       if (name.equals(declaration.getQualifiedName())) {
         return declaration;
       }
