@@ -19,18 +19,13 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.Facet;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.component.UIData;
-
-/*
- * Date: 08.04.2006
- * Time: 15:30:50
- */
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 /**
  * Render a sheet element.
@@ -62,6 +57,7 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
    * Please use "rows" instead.
    * The number of rows to display, starting with the one identified by the
    * "pageingStart" property.
+   * The <strong>default</strong> is 100.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "100")
@@ -71,6 +67,7 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
   /**
    * The number of rows to display, starting with the one identified by the
    * "pageingStart/first" property.
+   * The <strong>default</strong> is 100.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "100")
