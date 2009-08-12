@@ -65,7 +65,6 @@ public interface SheetTagDeclaration extends HasIdBindingAndRendered {
    * Please use "rows" instead.
    * The number of rows to display, starting with the one identified by the
    * "pageingStart" property.
-   * The <strong>default</strong> is 100.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "100")
@@ -75,7 +74,6 @@ public interface SheetTagDeclaration extends HasIdBindingAndRendered {
   /**
    * The number of rows to display, starting with the one identified by the
    * "pageingStart/first" property.
-   * The <strong>default</strong> is 100.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "100")
@@ -117,7 +115,6 @@ public interface SheetTagDeclaration extends HasIdBindingAndRendered {
 
   /**
    * The count of rendered direct paging links in the sheet's footer.<br />
-   * The <strong>default</strong> is 9.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "9")
@@ -127,8 +124,7 @@ public interface SheetTagDeclaration extends HasIdBindingAndRendered {
    * Flag indicating whether or not this sheet should reserve space for
    * vertical toolbar when calculating column width's.<br />
    * Possible values are: <pre>
-   *      'auto'  : sheet try to estimate the need of scrollbar,
-   *                this is the default.
+   *      'auto'  : sheet try to estimate the need of scrollbar.
    *      'true'  : space for scroolbar is reserved.
    *      'false' : no space is reserved.
    *      </pre>
@@ -143,7 +139,6 @@ public interface SheetTagDeclaration extends HasIdBindingAndRendered {
    * rendered in the sheet's footer.<br />
    * Valid values are <strong>left</strong>, <strong>center</strong>,
    * <strong>right</strong> and <strong>none</strong>.
-   * The <strong>default</strong> is <code>none</code>.
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "none",
@@ -156,7 +151,6 @@ public interface SheetTagDeclaration extends HasIdBindingAndRendered {
    * capability to enter the index displayed page directly.<br />
    * Valid values are <strong>left</strong>, <strong>center</strong>,
    * <strong>right</strong> and <strong>none</strong>.
-   * The <strong>default</strong> is <code>none</code>.
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "none",
@@ -169,7 +163,6 @@ public interface SheetTagDeclaration extends HasIdBindingAndRendered {
    * capability to enter the index of the start row directly. <br />
    * Valid values are <strong>left</strong>, <strong>center</strong>,
    * <strong>right</strong> and <strong>none</strong>.
-   * The <strong>default</strong> is <code>none</code>.
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "none",
@@ -180,7 +173,6 @@ public interface SheetTagDeclaration extends HasIdBindingAndRendered {
    * Flag indicating whether or not the sheet should be selectable <br />
    * Valid values are <strong>none</strong>, <strong>single</strong>,
    * and <strong>multi</strong>.<br />
-   * The <strong>default</strong> is <code>multi</code>.
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "multi",

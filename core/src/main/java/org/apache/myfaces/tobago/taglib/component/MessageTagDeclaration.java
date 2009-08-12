@@ -46,16 +46,14 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 public interface MessageTagDeclaration extends HasIdBindingAndRendered, HasFor {
 
   /**
-   * Flag indicating whether the detail should be included
-   * The default is "false".
+   * Flag indicating whether the detail should be included.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
   void setShowDetail(String showDetail);
 
   /**
-   * Flag indicating whether the summary should be included
-   * The default is "true".
+   * Flag indicating whether the summary should be included.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")

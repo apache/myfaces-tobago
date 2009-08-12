@@ -49,7 +49,6 @@ public interface OutTagDeclaration
   /**
    * Flag indicating that characters that are
    * sensitive in HTML and XML markup must be escaped.
-   * This flag is set to "true" by default.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {"java.lang.Boolean"}, defaultValue = "true")
