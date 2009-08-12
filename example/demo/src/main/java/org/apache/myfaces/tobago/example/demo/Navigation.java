@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.example.demo.jsp.JspFormatter;
+import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.model.TreeState;
 
 import javax.faces.context.ExternalContext;
@@ -91,10 +92,10 @@ public class Navigation {
     tree.add(reference);
 
     state = new TreeState();
-    state.expand(tree, 1);
-    state.expand(overview, 1);
-    state.expand(bestPractice, 1);
-    state.setMarker(overview);
+    state.getExpanded().add(new TreePath(0));
+    state.getExpanded().add(new TreePath(0,0));
+    state.getExpanded().add(new TreePath(0,1));
+    state.getMarked().add(new TreePath(0,0));
   }
 
   public String navigate() {
