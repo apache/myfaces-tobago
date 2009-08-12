@@ -218,10 +218,10 @@ public class AjaxResponseRenderer {
       // FIXME:
       if (partStr.startsWith(responseCode)
           || partStr.equals(CODE_NOT_MODIFIED)) {
-        // remove resopnseCode from buffer
+        // remove responseCode from buffer
         buffer.setLength(0);
       }
-      // /FIXME:
+      // FIXME:
 
       buffer.append(partStr);
     }
