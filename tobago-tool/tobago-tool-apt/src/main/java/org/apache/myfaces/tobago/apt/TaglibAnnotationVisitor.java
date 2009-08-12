@@ -28,13 +28,13 @@ import com.sun.mirror.type.InterfaceType;
 import org.apache.commons.io.IOUtils;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
+import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Preliminary;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.Taglib;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.apt.annotation.Facet;
-import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -51,8 +51,8 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Locale;
+import java.util.Set;
 
 /*
  * Created: Mar 22, 2005 8:18:35 PM
@@ -302,8 +302,7 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
   }
 
   private InterfaceDeclaration getInterfaceDeclaration(String name) {
-    Set<InterfaceDeclaration> declarations = getCollectedInterfaceDeclarations();
-    for (InterfaceDeclaration declaration : declarations) {
+    for (InterfaceDeclaration declaration : getCollectedInterfaceDeclarations()) {
       if (name.equals(declaration.getQualifiedName())) {
         return declaration;
       }

@@ -24,9 +24,9 @@ import com.sun.mirror.declaration.PackageDeclaration;
 import com.sun.mirror.util.SimpleDeclarationVisitor;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 
 /*
  * Created: Mar 22, 2005 8:12:24 PM
@@ -35,20 +35,35 @@ import java.util.Set;
  */
 public class AnnotationDeclarationVisitorCollector extends SimpleDeclarationVisitor {
 
-  private Set<MethodDeclaration> collectedMethodDeclarations = new HashSet<MethodDeclaration>();
-  private Set<ClassDeclaration> collectedClassDeclarations = new HashSet<ClassDeclaration>();
-  private Set<InterfaceDeclaration> collectedInterfaceDeclarations = new HashSet<InterfaceDeclaration>();
+  private List<MethodDeclaration> collectedMethodDeclarations = new ArrayList<MethodDeclaration>();
+  private List<ClassDeclaration> collectedClassDeclarations = new ArrayList<ClassDeclaration>();
+  private List<InterfaceDeclaration> collectedInterfaceDeclarations = new ArrayList<InterfaceDeclaration>();
   private List<PackageDeclaration> collectedPackageDeclarations = new ArrayList<PackageDeclaration>();
 
-  public Set<MethodDeclaration> getCollectedMethodDeclarations() {
+  public List<MethodDeclaration> getCollectedMethodDeclarations() {
+    Collections.sort(collectedMethodDeclarations, new Comparator<MethodDeclaration>() {
+      public int compare(MethodDeclaration d1, MethodDeclaration d2) {
+          return d1.getSimpleName().compareTo(d2.getSimpleName());
+      }
+    });
     return collectedMethodDeclarations;
   }
 
-  public Set<ClassDeclaration> getCollectedClassDeclarations() {
+  public List<ClassDeclaration> getCollectedClassDeclarations() {
+    Collections.sort(collectedClassDeclarations, new Comparator<ClassDeclaration>() {
+      public int compare(ClassDeclaration d1, ClassDeclaration d2) {
+        return d1.getSimpleName().compareTo(d2.getSimpleName());
+      }
+    });
     return collectedClassDeclarations;
   }
 
-  public Set<InterfaceDeclaration> getCollectedInterfaceDeclarations() {
+  public List<InterfaceDeclaration> getCollectedInterfaceDeclarations() {
+    Collections.sort(collectedInterfaceDeclarations, new Comparator<InterfaceDeclaration>() {
+      public int compare(InterfaceDeclaration d1, InterfaceDeclaration d2) {
+        return d1.getSimpleName().compareTo(d2.getSimpleName());
+      }
+    });
     return collectedInterfaceDeclarations;
   }
 
