@@ -387,8 +387,8 @@ div.tobago-gridLayout-first-column {
 
 fieldset.tobago-box-default {
   border: 2px groove #ddeeff;
-  margin-left: 0px;
-  padding: 10px;
+  margin: 0;
+  padding: 20px 10px 10px 10px;
 }
 
 legend.tobago-box-default {
