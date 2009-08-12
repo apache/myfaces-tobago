@@ -52,6 +52,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Locale;
@@ -315,6 +316,16 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
     if (componentTag != null) {
       description.append(createDescription(componentTag));
+    }
+    UIComponentTagAttribute attributeTag = decl.getAnnotation(UIComponentTagAttribute.class);
+    if (attributeTag != null) {
+        if (null != attributeTag.type() && attributeTag.type().length > 0) {
+            description.append("<br />Type: <code>" + (attributeTag.type().length == 1
+                ? attributeTag.type()[0] : Arrays.toString(attributeTag.type())) + "</code>");
+        }
+        if (StringUtils.isNotEmpty(attributeTag.defaultValue())) {
+            description.append("<br />Default: <code>" + attributeTag.defaultValue() + "</code>");
+        }
     }
     ExtensionTag extensionTag = decl.getAnnotation(ExtensionTag.class);
     if (extensionTag != null) {
