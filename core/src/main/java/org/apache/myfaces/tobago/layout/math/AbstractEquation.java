@@ -33,8 +33,11 @@ public abstract class AbstractEquation implements Equation {
       UIComponent component = (UIComponent) debug;
       builder.append(" (");
       builder.append(component.getClass().getSimpleName());
-      builder.append(", id=");
-      builder.append(component.getClientId(FacesContext.getCurrentInstance()));
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      if (facesContext != null) {
+        builder.append(", id=");
+        builder.append(component.getClientId(facesContext));
+      }
       builder.append(")");
     } else {
       builder.append(" (");
