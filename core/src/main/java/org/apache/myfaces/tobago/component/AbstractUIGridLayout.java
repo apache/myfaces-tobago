@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.OnComponentCreated;
@@ -47,18 +46,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
 
   private Grid grid;
 
-  // XXX columns and columnTokens are double/redundant
-  private LayoutTokens columnTokens;
-
-  // XXX rows and rowTokens are double/redundant
-  private LayoutTokens rowTokens;
-
   public void onComponentCreated(FacesContext context, UIComponent component) {
-
-    columnTokens = LayoutTokens.parse(getColumns());
-    rowTokens = LayoutTokens.parse(getRows());
-
-    grid = new Grid(columnTokens.getSize(), rowTokens.getSize());
+    grid = new Grid(LayoutTokens.parse(getColumns()), LayoutTokens.parse(getRows()));
   }
 
   /**
@@ -69,15 +58,14 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     // horizontal
     EquationManager horizontal = layoutContext.getHorizontal();
     int[] horizontalIndices = horizontal.partition(
-        horizontalIndex, columnTokens.getSize(),
-        getColumnSpacing(), container.getLeftOffset(), container.getRightOffset(),
-        container.getClass().getSimpleName());
+        horizontalIndex, grid.getColumns().getSize(),
+        getColumnSpacing(), container.getLeftOffset(), container.getRightOffset(), container);
 
     // vertical
     EquationManager vertical = layoutContext.getVertical();
     int[] verticalIndices = vertical.partition(
-        verticalIndex, rowTokens.getSize(), getRowSpacing(),
-        container.getTopOffset(), container.getBottomOffset(), container.getClass().getSimpleName());
+        verticalIndex, grid.getRows().getSize(), getRowSpacing(),
+        container.getTopOffset(), container.getBottomOffset(), container);
 
     List<LayoutComponent> components = container.getComponents();
     for (LayoutComponent c : components) {
@@ -90,21 +78,19 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     addPixelConstraints(layoutContext, horizontalIndex + 1, verticalIndex + 1);
     addRelativeConstraints(layoutContext, horizontalIndex + 1, verticalIndex + 1);
 
-    for (int j = 0; j < grid.getRowCount(); j++) {
-      for (int i = 0; i < grid.getColumnCount(); i++) {
-        Cell temp = grid.get(i, j);
+    for (int j = 0; j < grid.getRows().getSize(); j++) {
+      for (int i = 0; i < grid.getColumns().getSize(); i++) {
+        Cell temp = grid.getCell(i, j);
         if (temp instanceof OriginCell) {
           OriginCell cell = (OriginCell) temp;
           LayoutComponent component = temp.getComponent();
 
           // horizontal
-          int hIndex = horizontal.combine(horizontalIndices[i], cell.getColumnSpan(), getColumnSpacing(),
-              component.getClass().getSimpleName());
+          int hIndex = horizontal.combine(horizontalIndices[i], cell.getColumnSpan(), getColumnSpacing(), component);
           cell.getComponent().setHorizontalIndex(hIndex);
 
           // vertical
-          int vIndex = vertical.combine(verticalIndices[j], cell.getRowSpan(), getRowSpacing(),
-              component.getClass().getSimpleName());
+          int vIndex = vertical.combine(verticalIndices[j], cell.getRowSpan(), getRowSpacing(), component);
           cell.getComponent().setVerticalIndex(vIndex);
 
           if (component instanceof LayoutContainer) {
@@ -116,11 +102,11 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
 
             Measure preferredWidth = component.getPreferredWidth();
             if (preferredWidth != null) {
-              horizontal.setFixedLength(hIndex, preferredWidth, component.getClass().getSimpleName());
+              horizontal.setFixedLength(hIndex, preferredWidth, component);
             }
             Measure preferredHeight = component.getPreferredHeight();
             if (preferredHeight != null) {
-              vertical.setFixedLength(vIndex, preferredHeight, component.getClass().getSimpleName());
+              vertical.setFixedLength(vIndex, preferredHeight, component);
             }
           }
         }
@@ -139,9 +125,9 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
 
   private void distributeSizes(LayoutContext layoutContext) {
 
-    for (int j = 0; j < grid.getRowCount(); j++) {
-      for (int i = 0; i < grid.getColumnCount(); i++) {
-        Cell temp = grid.get(i, j);
+    for (int j = 0; j < grid.getRows().getSize(); j++) {
+      for (int i = 0; i < grid.getColumns().getSize(); i++) {
+        Cell temp = grid.getCell(i, j);
         if (temp instanceof OriginCell) {
           OriginCell cell = (OriginCell) temp;
           LayoutComponent component = temp.getComponent();
@@ -176,10 +162,10 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
   private void distributePositions(LayoutContainer container) {
 
     // find the "left" positions
-    for (int j = 0; j < grid.getRowCount(); j++) {
+    for (int j = 0; j < grid.getRows().getSize(); j++) {
       PixelMeasure left = (PixelMeasure) container.getLeftOffset();
-      for (int i = 0; i < grid.getColumnCount(); i++) {
-        Cell cell = grid.get(i, j);
+      for (int i = 0; i < grid.getColumns().getSize(); i++) {
+        Cell cell = grid.getCell(i, j);
         if (cell == null) {
           continue; // XXX why this can happen?
         }
@@ -197,10 +183,10 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     }
 
     // find the "top" positions
-    for (int i = 0; i < grid.getColumnCount(); i++) {
+    for (int i = 0; i < grid.getColumns().getSize(); i++) {
       PixelMeasure top = (PixelMeasure) container.getTopOffset();
-      for (int j = 0; j < grid.getRowCount(); j++) {
-        Cell cell = grid.get(i, j);
+      for (int j = 0; j < grid.getRows().getSize(); j++) {
+        Cell cell = grid.getCell(i, j);
         if (cell == null) {
           continue; // XXX why this can happen?
         }
@@ -220,12 +206,12 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
 
   private void addPixelConstraints(LayoutContext layoutContext, int horizontalIndexOffset, int verticalIndexOffset) {
     // horizontal
+    LayoutTokens columnTokens = grid.getColumns();
     for (int i = 0; i < columnTokens.getSize(); i++) {
       LayoutToken layoutToken = columnTokens.get(i);
       if (layoutToken instanceof PixelLayoutToken) {
         Measure pixel = new PixelMeasure(((PixelLayoutToken) layoutToken).getPixel());
-        layoutContext.getHorizontal().setFixedLength(i + horizontalIndexOffset, pixel,
-            ClassUtils.getShortClassName(getParent(), "null"));
+        layoutContext.getHorizontal().setFixedLength(i + horizontalIndexOffset, pixel, this);
       }
 /*
       if (layoutToken instanceof AutoLayoutToken) {
@@ -236,13 +222,13 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
 */
     }
     // vertical
+    LayoutTokens rowTokens = grid.getRows();
     for (int i = 0; i < rowTokens.getSize(); i++) {
       LayoutToken layoutToken = rowTokens.get(i);
       if (layoutToken instanceof PixelLayoutToken) {
         // XXX PixelLayoutToken might be removed/changed
         Measure pixel = new PixelMeasure(((PixelLayoutToken) layoutToken).getPixel());
-        layoutContext.getVertical().setFixedLength(i + verticalIndexOffset, pixel,
-            ClassUtils.getShortClassName(getParent(), "null"));
+        layoutContext.getVertical().setFixedLength(i + verticalIndexOffset, pixel, this);
       }
 /*
       if (layoutToken instanceof AutoLayoutToken) {
@@ -258,6 +244,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     // horizontal
     Integer first = null;
     Integer firstIndex = null;
+    LayoutTokens columnTokens = grid.getColumns();
     for (int i = 0; i < columnTokens.getTokens().size(); i++) {
       LayoutToken token = columnTokens.getTokens().get(i);
       if (token instanceof RelativeLayoutToken) {
@@ -267,13 +254,14 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
           firstIndex = i + horizontalIndexOffset;
         } else {
           layoutContext.getHorizontal().proportionate(
-              firstIndex, i + horizontalIndexOffset, first, factor, ClassUtils.getShortClassName(getParent(), "null"));
+              firstIndex, i + horizontalIndexOffset, first, factor, getParent());
         }
       }
     }
     // vertical
     first = null;
     firstIndex = null;
+    LayoutTokens rowTokens = grid.getRows();
     for (int i = 0; i < rowTokens.getTokens().size(); i++) {
       LayoutToken token = rowTokens.getTokens().get(i);
       if (token instanceof RelativeLayoutToken) {
@@ -283,7 +271,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
           firstIndex = i + verticalIndexOffset;
         } else {
           layoutContext.getVertical().proportionate(
-              firstIndex, i + verticalIndexOffset, first, factor, ClassUtils.getShortClassName(getParent(), "null"));
+              firstIndex, i + verticalIndexOffset, first, factor, getParent());
         }
       }
     }

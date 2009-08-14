@@ -25,15 +25,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-/*
- * Date: May 2, 2007
- * Time: 1:11:25 PM
- */
 public final class LayoutTokens {
 
   private static final Log LOG = LogFactory.getLog(LayoutTokens.class);
 
   private List<LayoutToken> tokens = new ArrayList<LayoutToken>();
+
+  public LayoutTokens() {
+  }
 
   public int getSize() {
     return tokens.size();
