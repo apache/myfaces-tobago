@@ -177,6 +177,9 @@ public class SystemOfEquations {
           swapRow(j, nonZeroIndex);
           factor = data[j][j];
         } else {
+          LOG.error("No Not unique solvable: " + this);
+          continue;
+/*
           int fullZeroIndex = findFullZero();
           if (fullZeroIndex != -1) {
             swapRow(j, fullZeroIndex);
@@ -187,6 +190,7 @@ public class SystemOfEquations {
           } else {
             LOG.error("Not unique solvable: " + this);
           }
+*/
         }
       }
       divideRow(j, factor);

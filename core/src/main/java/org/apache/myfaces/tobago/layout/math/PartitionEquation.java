@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.layout.PixelMeasure;
  * In this example are: begin=4, end=6, parent=2, span=1
  * Because of the algorithm we have indices without gap.
  */
-public final class PartitionEquation implements Equation {
+public final class PartitionEquation extends AbstractEquation {
 
   private int begin;
   private int count;
@@ -34,11 +34,10 @@ public final class PartitionEquation implements Equation {
   private Measure spacing;
   private Measure beginOffset;
   private Measure endOffset;
-  private String component;
 
   @Deprecated
-  public PartitionEquation(int begin, int count, int parent, Measure spacing, String component) {
-    this(begin, count, parent, spacing, PixelMeasure.ZERO, PixelMeasure.ZERO, component);
+  public PartitionEquation(int begin, int count, int parent, Measure spacing, Object debug) {
+    this(begin, count, parent, spacing, PixelMeasure.ZERO, PixelMeasure.ZERO, debug);
   }
 
   /**
@@ -48,10 +47,11 @@ public final class PartitionEquation implements Equation {
    * @param spacing space between two cells of the partition
    * @param beginOffset offset before the first cell
    * @param endOffset offset after the last cell
-   * @param component
+   * @param debug Logging information
    */
   public PartitionEquation(
-      int begin, int count, int parent, Measure spacing, Measure beginOffset, Measure endOffset, String component) {
+      int begin, int count, int parent, Measure spacing, Measure beginOffset, Measure endOffset, Object debug) {
+    super(debug);
 
     assert spacing != null;
     assert beginOffset != null;
@@ -63,7 +63,6 @@ public final class PartitionEquation implements Equation {
     this.spacing = spacing;
     this.beginOffset = beginOffset;
     this.endOffset = endOffset;
-    this.component = component;
 
     assert begin >= 0 && count > 0 && parent >= 0;
     assert parent <= begin;
@@ -152,9 +151,7 @@ public final class PartitionEquation implements Equation {
     builder.append(" + x_");
     builder.append(begin + count);
 
-    builder.append(" (");
-    builder.append(component);
-    builder.append(")");
+    appendDebug(builder);
 
     return builder.toString();
   }

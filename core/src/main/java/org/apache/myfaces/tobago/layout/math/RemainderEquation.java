@@ -19,14 +19,13 @@ package org.apache.myfaces.tobago.layout.math;
 
 import java.util.Arrays;
 
-public final class RemainderEquation implements Equation {
+public final class RemainderEquation extends AbstractEquation {
 
   private int index;
-  private String component;
 
-  public RemainderEquation(int index, String component) {
+  public RemainderEquation(int index, Object debug) {
+    super(debug);
     this.index = index;
-    this.component = component;
   }
 
   public double[] fillRow(int length) {
@@ -42,6 +41,13 @@ public final class RemainderEquation implements Equation {
 
   @Override
   public String toString() {
-    return "RemainderEquation:    x_" + index + " = 0 (" + component + ")";
+    StringBuilder builder = new StringBuilder();
+    builder.append("RemainderEquation:    x_");
+    builder.append(index);
+    builder.append(" = 0px");
+
+    appendDebug(builder);
+
+    return builder.toString();
   }
 }

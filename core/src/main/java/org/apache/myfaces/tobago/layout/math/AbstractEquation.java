@@ -1,5 +1,8 @@
 package org.apache.myfaces.tobago.layout.math;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,43 +20,26 @@ package org.apache.myfaces.tobago.layout.math;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.layout.Measure;
+public abstract class AbstractEquation implements Equation {
 
-import java.util.Arrays;
+  public Object debug;
 
-public final class FixedEquation extends AbstractEquation {
-
-  private int index;
-  private Measure result;
-
-  public FixedEquation(int index, Measure result, Object debug) {
-    super(debug);
-    this.index = index;
-    this.result = result;
+  protected AbstractEquation(Object debug) {
+    this.debug = debug;
   }
 
-  public double[] fillRow(int length) {
-    double[] row = new double[length];
-    Arrays.fill(row, 0.0);
-    row[index] = 1.0;
-    row[row.length - 1] = result.getPixel();
-    return row;
-  }
-
-  public int priority() {
-    return 40;
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder builder = new StringBuilder();
-    builder.append("FixedEquation:        x_");
-    builder.append(index);
-    builder.append(" = ");
-    builder.append(result);
-
-    appendDebug(builder);
-
-    return builder.toString();
+  public void appendDebug(StringBuilder builder) {
+    if (debug instanceof UIComponent) {
+      UIComponent component = (UIComponent) debug;
+      builder.append(" (");
+      builder.append(component.getClass().getSimpleName());
+      builder.append(", id=");
+      builder.append(component.getClientId(FacesContext.getCurrentInstance()));
+      builder.append(")");
+    } else {
+      builder.append(" (");
+      builder.append(debug);
+      builder.append(")");
+    }
   }
 }

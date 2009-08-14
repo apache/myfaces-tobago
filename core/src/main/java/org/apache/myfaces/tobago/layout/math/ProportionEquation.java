@@ -17,20 +17,19 @@ package org.apache.myfaces.tobago.layout.math;
  * limitations under the License.
  */
 
-public final class ProportionEquation implements Equation {
+public final class ProportionEquation extends AbstractEquation {
 
   private int index1;
   private int index2;
   private double factor1;
   private double factor2;
-  private String component;
 
-  public ProportionEquation(int index1, int index2, double factor1, double factor2, String component) {
+  public ProportionEquation(int index1, int index2, double factor1, double factor2, Object debug) {
+    super(debug);
     this.index1 = index1;
     this.index2 = index2;
     this.factor1 = factor1;
     this.factor2 = factor2;
-    this.component = component;
   }
 
   public double[] fillRow(int length) {
@@ -68,9 +67,7 @@ public final class ProportionEquation implements Equation {
     builder.append(" x_");
     builder.append(index2);
 
-    builder.append(" (");
-    builder.append(component);
-    builder.append(")");
+    appendDebug(builder);
 
     return builder.toString();
   }

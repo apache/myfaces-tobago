@@ -22,6 +22,6 @@ public final class AutoLayoutToken extends LayoutToken {
   public static final AutoLayoutToken INSTANCE = new AutoLayoutToken();
 
   public String toString() {
-    return "fixed";
+    return "auto";
   }
 }

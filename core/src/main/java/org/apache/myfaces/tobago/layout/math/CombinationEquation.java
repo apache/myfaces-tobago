@@ -25,13 +25,12 @@ import org.apache.myfaces.tobago.layout.Measure;
  * In this example are: begin=4, end=6, parent=2, span=1
  * Because of the algorithm we have indices without gap.
  */
-public final class CombinationEquation implements Equation {
+public final class CombinationEquation extends AbstractEquation {
 
   private int newIndex;
   private int parent;
   private int span;
   private Measure spacing;
-  private String component;
 
   /**
    * @param newIndex new index
@@ -39,12 +38,12 @@ public final class CombinationEquation implements Equation {
    * @param span     number of parent cells
    * @param spacing  space between two cells inside the span
    */
-  public CombinationEquation(int newIndex, int parent, int span, Measure spacing, String component) {
+  public CombinationEquation(int newIndex, int parent, int span, Measure spacing, Object debug) {
+    super(debug);
     this.newIndex = newIndex;
     this.parent = parent;
     this.span = span;
     this.spacing = spacing;
-    this.component = component;
   }
 
   public double[] fillRow(int length) {
@@ -122,9 +121,7 @@ public final class CombinationEquation implements Equation {
     builder.append("x_");
     builder.append(newIndex);
 
-    builder.append(" (");
-    builder.append(component);
-    builder.append(")");
+    appendDebug(builder);
 
     return builder.toString();
   }

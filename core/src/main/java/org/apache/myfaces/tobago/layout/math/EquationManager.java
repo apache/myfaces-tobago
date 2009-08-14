@@ -32,40 +32,40 @@ public class EquationManager {
     return 0;
   }
 
-  public void setFixedLength(int index, Measure length, String component) {
-    equations.addEqualsEquation(new FixedEquation(index, length, component));
+  public void setFixedLength(int index, Measure length, Object debug) {
+    equations.addEqualsEquation(new FixedEquation(index, length, debug));
   }
 
   public int[] partition(
-      int index, int number, Measure spacing, Measure beginOffset, Measure endOffset, String component) {
+      int index, int number, Measure spacing, Measure beginOffset, Measure endOffset, Object debug) {
 
     assert number > 0;
 
     int[] newIndices = equations.addVariables(number + 1);
     equations.addEqualsEquation(
-        new PartitionEquation(newIndices[0], number, index, spacing, beginOffset, endOffset, component));
+        new PartitionEquation(newIndices[0], number, index, spacing, beginOffset, endOffset, debug));
     equations.addEqualsEquation(
-        new RemainderEquation(newIndices[number], component));
+        new RemainderEquation(newIndices[number], debug));
     return newIndices;
   }
 
-  public int combine(int index, int span, Measure spacing, String component) {
+  public int combine(int index, int span, Measure spacing, Object debug) {
 
     assert span > 0;
 
     int[] newIndices = equations.addVariables(1);
-    equations.addEqualsEquation(new CombinationEquation(newIndices[0], index, span, spacing, component));
+    equations.addEqualsEquation(new CombinationEquation(newIndices[0], index, span, spacing, debug));
     return newIndices[0];
   }
 
-  public void proportionate(int index1, int index2, int factor1, int factor2, String component) {
+  public void proportionate(int index1, int index2, int factor1, int factor2, Object debug) {
 
     assert index1 >= 0;
     assert index2 >= 0;
     assert factor1 > 0;
     assert factor2 > 0;
 
-    equations.addEqualsEquation(new ProportionEquation(index1, index2, factor1, factor2, component));
+    equations.addEqualsEquation(new ProportionEquation(index1, index2, factor1, factor2, debug));
   }
 
   public void solve() {
