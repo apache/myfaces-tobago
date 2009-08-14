@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.layout.math;
  */
 
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 
 /**
  * This equation describes the partition of one column (or row) into some other columns (or rows).
@@ -34,11 +33,6 @@ public final class PartitionEquation extends AbstractEquation {
   private Measure spacing;
   private Measure beginOffset;
   private Measure endOffset;
-
-  @Deprecated
-  public PartitionEquation(int begin, int count, int parent, Measure spacing, Object debug) {
-    this(begin, count, parent, spacing, PixelMeasure.ZERO, PixelMeasure.ZERO, debug);
-  }
 
   /**
    * @param begin   lowest index

@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.layout.math;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,18 +27,18 @@ public class PartitionEquationUnitTest {
   @Test
   public void testToString() {
     Assert.assertEquals("PartitionEquation:    x_0 = x_4 + x_5 (test)",
-        new PartitionEquation(4, 1, 0, PixelMeasure.ZERO, "test").toString());
+        new PartitionEquation(4, 1, 0, px(0), px(0), px(0), "test").toString());
     Assert.assertEquals("PartitionEquation:    x_0 = x_4 + x_5 + x_6 (test)",
-        new PartitionEquation(4, 2, 0, PixelMeasure.ZERO, "test").toString());
+        new PartitionEquation(4, 2, 0, px(0), px(0), px(0), "test").toString());
     Assert.assertEquals("PartitionEquation:    x_0 = x_4 + ... + x_6 + x_7 (test)",
-        new PartitionEquation(4, 3, 0, PixelMeasure.ZERO, "test").toString());
+        new PartitionEquation(4, 3, 0, px(0), px(0), px(0), "test").toString());
 
     Assert.assertEquals("PartitionEquation:    x_0 = x_4 + x_5 (test)",
-        new PartitionEquation(4, 1, 0, new PixelMeasure(5), "test").toString());
+        new PartitionEquation(4, 1, 0, px(5), px(0), px(0), "test").toString());
     Assert.assertEquals("PartitionEquation:    x_0 = x_4 + x_5 + 5px + x_6 (test)",
-        new PartitionEquation(4, 2, 0, new PixelMeasure(5), "test").toString());
+        new PartitionEquation(4, 2, 0, px(5), px(0), px(0), "test").toString());
     Assert.assertEquals("PartitionEquation:    x_0 = x_4 + ... + x_6 + 2 * 5px + x_7 (test)",
-        new PartitionEquation(4, 3, 0, new PixelMeasure(5), "test").toString());
+        new PartitionEquation(4, 3, 0, px(5), px(0), px(0), "test").toString());
   }
 
   @Test
@@ -46,18 +47,23 @@ public class PartitionEquationUnitTest {
     int length = 9;
     double[] row;
 
-    row = new PartitionEquation(4, 1, 0, PixelMeasure.ZERO, "test").fillRow(length);
+    row = new PartitionEquation(4, 1, 0, px(0), px(0), px(0), "test").fillRow(length);
     Assert.assertArrayEquals(new double[] {-1, 0, 0, 0, 1, 1, 0, 0, 0}, row, MathUtils.EPSILON);
-    row = new PartitionEquation(4, 2, 0, PixelMeasure.ZERO, "test").fillRow(length);
+    row = new PartitionEquation(4, 2, 0, px(0), px(0), px(0), "test").fillRow(length);
     Assert.assertArrayEquals(new double[] {-1, 0, 0, 0, 1, 1, 1, 0, 0}, row, MathUtils.EPSILON);
-    row = new PartitionEquation(4, 3, 0, PixelMeasure.ZERO, "test").fillRow(length);
+    row = new PartitionEquation(4, 3, 0, px(0), px(0), px(0), "test").fillRow(length);
     Assert.assertArrayEquals(new double[] {-1, 0, 0, 0, 1, 1, 1, 1, 0}, row, MathUtils.EPSILON);
 
-    row = new PartitionEquation(4, 1, 0, new PixelMeasure(5), "test").fillRow(length);
+    row = new PartitionEquation(4, 1, 0, px(5), px(0), px(0), "test").fillRow(length);
     Assert.assertArrayEquals(new double[] {-1, 0, 0, 0, 1, 1, 0, 0, 0}, row, MathUtils.EPSILON);
-    row = new PartitionEquation(4, 2, 0, new PixelMeasure(5), "test").fillRow(length);
+    row = new PartitionEquation(4, 2, 0, px(5), px(0), px(0), "test").fillRow(length);
     Assert.assertArrayEquals(new double[] {-1, 0, 0, 0, 1, 1, 1, 0, -5}, row, MathUtils.EPSILON);
-    row = new PartitionEquation(4, 3, 0, new PixelMeasure(5), "test").fillRow(length);
+    row = new PartitionEquation(4, 3, 0, px(5), px(0), px(0), "test").fillRow(length);
     Assert.assertArrayEquals(new double[] {-1, 0, 0, 0, 1, 1, 1, 1, -10}, row, MathUtils.EPSILON);
   }
+  
+  private Measure px(int pixel) {
+    return new PixelMeasure(pixel);
+  }
+  
 }
