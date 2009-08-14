@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
+import org.apache.myfaces.tobago.util.LayoutUtils;
 
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
@@ -314,13 +315,7 @@ public abstract class AbstractUITabGroup extends UIPanelBase
 
   // LAYOUT Begin
   public List<LayoutComponent> getComponents() {
-    List<LayoutComponent> result = new ArrayList<LayoutComponent>();
-    for (UIComponent uiComponent : (List<UIComponent>) getChildren()) {
-      if (uiComponent instanceof LayoutComponent) {
-        result.add((LayoutComponent) uiComponent);
-      }
-    }
-    return result;
+    return LayoutUtils.findLayoutChildren(this);
   }
 
   public LayoutManager getLayoutManager() {

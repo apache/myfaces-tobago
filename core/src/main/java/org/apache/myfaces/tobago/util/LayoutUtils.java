@@ -22,9 +22,12 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.Form;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.layout.LayoutContainer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
@@ -101,5 +104,20 @@ public final class LayoutUtils {
     }
     return true;
   }
-}
 
+  public static List<LayoutComponent> findLayoutChildren(LayoutContainer container) {
+    List<LayoutComponent> result = new ArrayList<LayoutComponent>();
+    addLayoutChildren((UIComponent) container, result);
+    return result;
+  }
+
+  private static void addLayoutChildren(UIComponent component, List<LayoutComponent> result) {
+    for (UIComponent child : (List<UIComponent>) component.getChildren()) {
+      if (child instanceof LayoutComponent) {
+        result.add((LayoutComponent) child);
+      } else {
+        addLayoutChildren(child, result);
+      }
+    }
+  }
+}

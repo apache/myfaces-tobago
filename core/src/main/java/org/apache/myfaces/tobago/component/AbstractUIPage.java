@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.model.PageState;
 import org.apache.myfaces.tobago.model.PageStateImpl;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.util.DebugUtils;
+import org.apache.myfaces.tobago.util.LayoutUtils;
 import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
 
 import javax.faces.FacesException;
@@ -333,13 +334,7 @@ public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnC
 
 // LAYOUT Begin
   public List<LayoutComponent> getComponents() {
-    List<LayoutComponent> result = new ArrayList<LayoutComponent>();
-    for (UIComponent uiComponent : (List<UIComponent>) getChildren()) {
-     if (uiComponent instanceof LayoutComponent) {
-       result.add((LayoutComponent) uiComponent);
-     }
-    }
-    return result;
+    return LayoutUtils.findLayoutChildren(this);
   }
 
   public LayoutManager getLayoutManager() {
