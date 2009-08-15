@@ -283,6 +283,7 @@ var Tobago = {
     this.addBindEventListener(document, "keypress", this.acceleratorKeys, "observe");
 
     if (Tobago.resizeActionId) {
+      // firebug submits an onresize event
       window.setTimeout(Tobago.registerResizeAction, 1000);
     }
 
