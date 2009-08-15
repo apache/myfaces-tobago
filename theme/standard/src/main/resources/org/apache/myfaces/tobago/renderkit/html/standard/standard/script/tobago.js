@@ -80,31 +80,31 @@ var Tobago = {
 
   /**
    * the html body object of current page.
-   * set via init fuction (onload attribute of body)
+   * set via init function (onload attribute of body)
    */
   page: null,
 
   /**
     * The html form object of current page.
-    * set via init fuction (onload attribute of body)
+    * set via init function (onload attribute of body)
     */
   form: null,
 
   /**
     * The hidden html input object for submitted actionId.
-    * set via init fuction (onload attribute of body)
+    * set via init function (onload attribute of body)
     */
   action: null,
 
   /**
    * The hidden html input object for the contextPath.
-   * set via init fuction (onload attribute of body)
+   * set via init function (onload attribute of body)
    */
   contextPath: null,
 
 
   /**
-    * The id ot the element which should became the focus after loading.
+    * The id of the element which should became the focus after loading.
     * Set via renderer if requested.
     */
   focusId: undefined,
@@ -112,6 +112,12 @@ var Tobago = {
   errorFocusId: undefined,
 
   lastFocusId: undefined,
+
+  /**
+    * The id ot the action which should be executed when the window was resized.
+    */
+  resizeActionId: undefined,
+  resizeEventCount: 0,
 
   htmlIdIndex: 0,
 
@@ -276,6 +282,10 @@ var Tobago = {
 
     this.addBindEventListener(document, "keypress", this.acceleratorKeys, "observe");
 
+    if (Tobago.resizeActionId) {
+      window.setTimeout(Tobago.registerResizeAction, 1000);
+    }
+
     window.setTimeout(Tobago.finishPageLoading, 1);
     TbgTimer.endOnload = new Date();
   },
@@ -289,6 +299,10 @@ var Tobago = {
     Tobago.setFocus();
     TbgTimer.endTotal = new Date();
     TbgTimer.log();
+  },
+
+  registerResizeAction: function() {
+    Tobago.addEventListener(window, "resize", Tobago.resizePage);
   },
 
   onSubmit: function() {
@@ -1162,6 +1176,18 @@ var Tobago = {
       Tobago.extend(newOptions, options);
     }
     Tobago.reloadComponent2(source, popupId, actionId, options);
+  },
+
+  resizePage: function(event) {
+    Tobago.resizeEventCount++;
+    window.setTimeout(Tobago.resizePageAction, 250);
+  },
+  
+  resizePageAction: function() {
+    Tobago.resizeEventCount--;
+    if (Tobago.resizeEventCount == 0) {
+      Tobago.submitAction(Tobago.resizeActionId);
+    }
   },
 
 // -------- Util functions ----------------------------------------------------

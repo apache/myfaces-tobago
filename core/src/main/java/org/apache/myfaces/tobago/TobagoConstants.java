@@ -209,6 +209,7 @@ public final class TobagoConstants {
   public static final String FACET_PICKER_POPUP = "pickerPopup";
   public static final String FACET_POPUP = "popup";
   public static final String FACET_RELOAD = "reload";
+  public static final String FACET_RESIZE_ACTION = "resizeAction";
   public static final String FACET_TOOL_BAR = "toolBar";
   public static final String FACET_TOOL_BAR_COMMAND = "toolBarCommand";
 

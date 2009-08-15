@@ -35,12 +35,14 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TARGET;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TRANSITION;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_ACTION;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_RESIZE_ACTION;
 import static org.apache.myfaces.tobago.TobagoConstants.FORM_ACCEPT_CHARSET;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UILayout;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
@@ -59,6 +61,7 @@ import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UICommand;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -340,7 +343,21 @@ public class PageRenderer extends PageRendererBase {
         page.getOnloadScripts().add("setTimeout(\"" + action  + "\", " + duration + ");\n");
       }
     }
-    StringBuilder script = new StringBuilder();
+
+    if (component.getFacets().containsKey(FACET_RESIZE_ACTION)) {
+      UIComponent facet = component.getFacet(FACET_RESIZE_ACTION);
+      UIComponent command = null;
+      if (facet instanceof UICommand) {
+        command = facet;
+      } else if (facet instanceof UIForm && facet.getChildCount() == 1) {
+        command = (UIComponent) facet.getChildren().get(0);
+      }
+      if (command != null && command.isRendered()) {
+        writer.writeJavascript("Tobago.resizeActionId = '" + command.getClientId(facesContext) + "';");
+      }
+    }
+
+    StringBuilder script = new StringBuilder(128);
 
     // onload script
     writeEventFunction(script, page.getOnloadScripts(), "load", false);
@@ -376,7 +393,7 @@ public class PageRenderer extends PageRendererBase {
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
 
-    StringBuilder images = new StringBuilder();
+    StringBuilder images = new StringBuilder(256);
     images.append("Tobago.pngFixBlankImage = '");
     images.append(ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif"));
     images.append("';\n");
