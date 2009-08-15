@@ -23,6 +23,7 @@ import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.UIForm;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
@@ -44,6 +45,7 @@ import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UICommand;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -281,6 +283,19 @@ public class PageRenderer extends PageRendererBase {
       }
     }
 
+     if (component.getFacets().containsKey(Facets.RESIZE_ACTION)) {
+      UIComponent facet = component.getFacet(Facets.RESIZE_ACTION);
+      UIComponent command = null;
+      if (facet instanceof UICommand) {
+        command = facet;
+      } else if (facet instanceof UIForm && facet.getChildCount() == 1) {
+        command = (UIComponent) facet.getChildren().get(0);
+      }
+      if (command != null && command.isRendered()) {
+        writer.writeJavascript("Tobago.resizeActionId = '" + command.getClientId(facesContext) + "';");
+      }
+    }
+
     UIComponent menubar = page.getFacet(Facets.MENUBAR);
     if (menubar != null) {
       facesContext.getOnloadScripts().add("Tobago.setElementWidth('"
@@ -478,6 +493,7 @@ public class PageRenderer extends PageRendererBase {
           FacesMessage message = (FacesMessage) messages.next();
           logMessages.add(errorMessageForDebugging(id, message));
         }
+        
       }
       if (!logMessages.isEmpty()) {
         logMessages.add(0, "LOG.show();");

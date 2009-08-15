@@ -37,6 +37,7 @@ public final class Facets {
   public static final String PICKER_POPUP = "pickerPopup";
   public static final String POPUP = "popup";
   public static final String RELOAD = "reload";
+  public static final String RESIZE_ACTION = "resizeAction";
   public static final String SORTER = "sorter";
   public static final String TOOL_BAR = "toolBar";
 

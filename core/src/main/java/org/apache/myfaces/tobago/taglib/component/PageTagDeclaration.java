@@ -39,11 +39,16 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponentWithDeprecated
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIPage",
     rendererType = RendererTypes.PAGE,
     facets =
-        { @Facet(name = Facets.ACTION, description ="Contains an instance of UICommand (tc:command) for an auto-action",
+        { @Facet(name = Facets.ACTION,
+                description ="Contains an instance of UICommand (tc:command) for an auto-action",
                 allowedChildComponenents = "org.apache.myfaces.tobago.Command"),
-        @Facet(name = Facets.MENUBAR, description = "Menubar",
+          @Facet(name = Facets.RESIZE_ACTION,
+                description ="Contains an instance of UICommand (tc:command) or a UIForm (tc:form) with a UICommand"
+                    + " for a resize-action",
+                allowedChildComponenents = {"org.apache.myfaces.tobago.Command", "org.apache.myfaces.tobago.Form"}),
+          @Facet(name = Facets.MENUBAR, description = "Menubar",
                 allowedChildComponenents = "javax.faces.component.UIPanel"), //fake
-        @Facet(name=Facets.LAYOUT, description = "Contains an instance of UILayout",
+          @Facet(name=Facets.LAYOUT, description = "Contains an instance of UILayout",
                 allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 
 public interface PageTagDeclaration
