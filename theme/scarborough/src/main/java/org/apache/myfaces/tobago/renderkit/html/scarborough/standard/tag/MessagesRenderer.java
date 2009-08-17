@@ -59,10 +59,8 @@ public class MessagesRenderer extends MessageRendererBase {
 
   @Override
   public int getFixedHeight(FacesContext facesContext, UIComponent component) {
-    int count = 0;
-    for (Iterator i = facesContext.getMessages(); i.hasNext(); i.next()) {
-      count++;
-    }
+    UIMessages messages = (UIMessages) component;
+    int count = messages.getMessageListCount(facesContext);
     if (LOG.isDebugEnabled()) {
       LOG.debug("component = '" + component + "'");
       LOG.debug("here are " + count + " messages");
@@ -92,33 +90,10 @@ public class MessagesRenderer extends MessageRendererBase {
       writer.writeClassAttribute("tobago-validation-message");
       writer.writeStyleAttribute();
 
-      // with id
-      String focusId = null;
-      Iterator clientIds;
-      if (ComponentUtil.getBooleanAttribute(messages, TobagoConstants.ATTR_GLOBAL_ONLY)) {
-        ArrayList<String> list = new ArrayList<String>(1);
-        list.add(null);
-        clientIds = list.iterator();
-      } else {
-        clientIds = facesContext.getClientIdsWithMessages();
-      }
-
       for (UIMessages.Item item : messages.createMessageList(facesContext)) {
         encodeMessage(writer, messages, item.getFacesMessage(), item.getClientId());
       }
-/*
-      while(clientIds.hasNext()) {
-        String clientId = (String) clientIds.next();
-        encodeMessagesForId(facesContext, writer, clientId, showSummary, showDetail);
-        if (focusId == null) {
-          focusId = clientId;
-        }
-      }
-  todo: don't forget: focus
-      if (focusId != null) {
-        ComponentUtil.findPage(facesContext, messages).setFocusId(focusId);
-      }
-*/
+
       writer.endElement(HtmlConstants.SPAN);
     }
   }

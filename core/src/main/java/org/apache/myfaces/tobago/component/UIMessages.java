@@ -36,13 +36,27 @@ public class UIMessages extends javax.faces.component.UIMessages {
   private FacesMessage.Severity minSeverity;
   private FacesMessage.Severity maxSeverity;
   private Integer maxNumber;
-  // todo: emnum
   private OrderBy orderBy;
   private String forValue;
   private Boolean confirmation;
 
   public List<Item> createMessageList(FacesContext facesContext) {
 
+    List<Item> messages = createMessageListInternal(facesContext);
+
+    // todo
+    if (OrderBy.SEVERITY.equals(orderBy)) {
+      // sort
+      Collections.sort(messages, new ItemComparator());
+    }
+    return messages;
+  }
+
+  public int getMessageListCount(final FacesContext facesContext) {
+    return createMessageListInternal(facesContext).size();
+  }
+
+  private List<Item> createMessageListInternal(FacesContext facesContext) {
     Iterator clientIds;
     if (isGlobalOnly()) {
       clientIds = new SingletonIterator(null);
@@ -52,17 +66,7 @@ public class UIMessages extends javax.faces.component.UIMessages {
       clientIds = facesContext.getClientIdsWithMessages();
     }
 
-    List<Item> messages = collectMessageList(facesContext, clientIds);
-
-    // todo
-    if (OrderBy.SEVERITY.equals(orderBy)) {
-      // sort
-      Collections.sort(messages, new ItemComparator());
-    }
-
-
-
-    return messages;
+    return collectMessageList(facesContext, clientIds);
   }
 
   private List<Item> collectMessageList(FacesContext facesContext, Iterator clientIds) {
