@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.layout.math;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.layout.LayoutToken;
+import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Measure;
 
 /**
@@ -37,7 +39,8 @@ public class EquationManager {
   }
 
   public int[] partition(
-      int index, int number, Measure spacing, Measure beginOffset, Measure endOffset, Object debug) {
+      int index, int number, Measure spacing, Measure beginOffset, Measure endOffset,
+      LayoutTokens tokens, Object debug) {
 
     assert number > 0;
 
@@ -45,16 +48,16 @@ public class EquationManager {
     equations.addEqualsEquation(
         new PartitionEquation(newIndices[0], number, index, spacing, beginOffset, endOffset, debug));
     equations.addEqualsEquation(
-        new RemainderEquation(newIndices[number], debug));
+        new RemainderEquation(newIndices[number], tokens, debug));
     return newIndices;
   }
 
-  public int combine(int index, int span, Measure spacing, Object debug) {
+  public int combine(int index, int span, Measure spacing, LayoutToken token, Object debug) {
 
     assert span > 0;
 
     int[] newIndices = equations.addVariables(1);
-    equations.addEqualsEquation(new CombinationEquation(newIndices[0], index, span, spacing, debug));
+    equations.addEqualsEquation(new CombinationEquation(newIndices[0], index, span, spacing, token, debug));
     return newIndices[0];
   }
 

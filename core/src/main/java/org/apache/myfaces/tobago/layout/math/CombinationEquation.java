@@ -17,7 +17,10 @@ package org.apache.myfaces.tobago.layout.math;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.layout.AutoLayoutToken;
+import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.PixelLayoutToken;
 
 /**
  * This equation describes the partition of one column (or row) into some other columns (or rows).
@@ -31,19 +34,22 @@ public final class CombinationEquation extends AbstractEquation {
   private int parent;
   private int span;
   private Measure spacing;
+  private LayoutToken token;
 
   /**
    * @param newIndex new index
    * @param parent   parent index
    * @param span     number of parent cells
    * @param spacing  space between two cells inside the span
+   * @param token
    */
-  public CombinationEquation(int newIndex, int parent, int span, Measure spacing, Object debug) {
+  public CombinationEquation(int newIndex, int parent, int span, Measure spacing, LayoutToken token, Object debug) {
     super(debug);
     this.newIndex = newIndex;
     this.parent = parent;
     this.span = span;
     this.spacing = spacing;
+    this.token = token;
   }
 
   public double[] fillRow(int length) {
@@ -73,7 +79,13 @@ public final class CombinationEquation extends AbstractEquation {
   }
 
   public int priority() {
-    return 10;
+    if (token instanceof AutoLayoutToken) {
+      return 12;
+    } else if (token instanceof PixelLayoutToken) {
+      return 11;
+    } else {
+      return 10;
+    }
   }
 
   public int getNewIndex() {

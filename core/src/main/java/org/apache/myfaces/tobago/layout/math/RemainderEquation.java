@@ -17,15 +17,19 @@ package org.apache.myfaces.tobago.layout.math;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.layout.LayoutTokens;
+
 import java.util.Arrays;
 
 public final class RemainderEquation extends AbstractEquation {
 
   private int index;
+  private LayoutTokens tokens;
 
-  public RemainderEquation(int index, Object debug) {
+  public RemainderEquation(int index, LayoutTokens tokens, Object debug) {
     super(debug);
     this.index = index;
+    this.tokens = tokens;
   }
 
   public double[] fillRow(int length) {
@@ -36,7 +40,13 @@ public final class RemainderEquation extends AbstractEquation {
   }
 
   public int priority() {
-    return 0;
+//    for (LayoutToken token : tokens.getTokens()) {
+//      if (token instanceof RelativeLayoutToken) {
+//        return 15;
+//      }
+//    }
+//    return 0;
+    return 15;
   }
 
   @Override
