@@ -13,8 +13,11 @@
       <tc:gridLayout rows="auto;*"/>
     </f:facet>
 
-    <tc:separator/>
+    <tc:separator id="sep-0"/>
     <tc:panel/>
+
+    <tc:script file="script/test-utils.js"/>
+    <tc:script onload="checkLayout('page:sep-0', 0, 0, 600, 14);"/>
 
   </tc:page>
 </f:view>
