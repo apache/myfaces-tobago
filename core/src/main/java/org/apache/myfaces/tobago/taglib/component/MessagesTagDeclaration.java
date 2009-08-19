@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.component.AbstractUIMessages;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasFor;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 
 /*
  * Date: 02.04.2006
@@ -42,7 +43,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
     rendererType = RendererTypes.MESSAGES,
     allowedChildComponenents = "NONE")
 
-public interface MessagesTagDeclaration extends HasIdBindingAndRendered, HasFor {
+public interface MessagesTagDeclaration extends HasIdBindingAndRendered, HasFor, IsGridLayoutComponent {
 
   /**
    * Flag indicating that only messages that are not associated to any
