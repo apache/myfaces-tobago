@@ -18,8 +18,12 @@ package org.apache.myfaces.tobago.component;
  */
 
 import org.apache.commons.collections.iterators.SingletonIterator;
+import org.apache.myfaces.tobago.OnComponentCreated;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,7 +31,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class AbstractUIMessages extends javax.faces.component.UIMessages {
+public abstract class AbstractUIMessages extends javax.faces.component.UIMessages
+    implements LayoutComponent, OnComponentCreated {
 
   public List<Item> createMessageList(FacesContext facesContext) {
 
@@ -70,6 +75,13 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
       }
     }
     return messages;
+  }
+
+  public void onComponentCreated(FacesContext facesContext, UIComponent component) {
+    // todo: performance
+    int count = createMessageList(facesContext).size();
+    // todo: is this okay? to set local values?
+    setPreferredHeight(new PixelMeasure(20 * count));
   }
 
   public static class Item {
