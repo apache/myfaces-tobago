@@ -15,19 +15,23 @@
 
     <tc:image id="i-1" value="pidgeon-point.jpg"/>
     <tc:cell>
-      <tc:panel>
-        <tc:gridLayout rows="100px;100px"/>
+      <f:subview id="subview">
+        <tc:panel>
+          <f:facet name="layout">
+            <tc:gridLayout rows="100px;100px"/>
+          </f:facet>
 
-        <tc:image id="i-2" value="pidgeon-point.jpg"/>
-        <tc:image id="i-3" value="pidgeon-point.jpg"/>
-      </tc:panel>
+          <tc:image id="i-2" value="pidgeon-point.jpg"/>
+          <tc:image id="i-3" value="pidgeon-point.jpg"/>
+        </tc:panel>
+      </f:subview>
     </tc:cell>
 
     <tc:script file="script/test-utils.js"/>
 
     <tc:script onload="checkLayout('page:i-1', 0, 0, 100, 100);"/>
-    <tc:script onload="checkLayout('page:i-2', 0, 105, 100, 100);"/>
-    <tc:script onload="checkLayout('page:i-3', 0, 210, 100, 100);"/>
+    <tc:script onload="checkLayout('page:subview:i-2', 0, 105, 100, 100);"/>
+    <tc:script onload="checkLayout('page:subview:i-3', 0, 210, 100, 100);"/>
 
   </tc:page>
 </f:view>
