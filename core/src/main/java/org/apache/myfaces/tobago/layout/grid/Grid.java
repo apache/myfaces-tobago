@@ -41,6 +41,8 @@ public class Grid {
 
   private int columnCursor;
   private int rowCursor;
+  private int[] horizontalIndices;
+  private int[] verticalIndices;
 
   public Grid(LayoutTokens columns, LayoutTokens rows) {
     assert columns.getSize() > 0;
@@ -413,5 +415,21 @@ public class Grid {
       return false;
     }
     return a.getOrigin().equals(b.getOrigin());
+  }
+
+  public int[] getHorizontalIndices() {
+    return horizontalIndices;
+  }
+
+  public void setHorizontalIndices(int[] horizontalIndices) {
+    this.horizontalIndices = horizontalIndices;
+  }
+
+  public int[] getVerticalIndices() {
+    return verticalIndices;
+  }
+
+  public void setVerticalIndices(int[] verticalIndices) {
+    this.verticalIndices = verticalIndices;
   }
 }

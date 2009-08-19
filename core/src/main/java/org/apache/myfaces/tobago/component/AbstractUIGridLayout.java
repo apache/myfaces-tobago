@@ -58,14 +58,16 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     // horizontal
     EquationManager horizontal = layoutContext.getHorizontal();
     int[] horizontalIndices = horizontal.partition(
-        horizontalIndex, grid.getColumns().getSize(),
-        getColumnSpacing(), container.getLeftOffset(), container.getRightOffset(), container);
+        horizontalIndex, grid.getColumns().getSize(), getColumnSpacing(),
+        container.getLeftOffset(), container.getRightOffset(), grid.getColumns(), container);
+    grid.setHorizontalIndices(horizontalIndices);
 
     // vertical
     EquationManager vertical = layoutContext.getVertical();
     int[] verticalIndices = vertical.partition(
         verticalIndex, grid.getRows().getSize(), getRowSpacing(),
-        container.getTopOffset(), container.getBottomOffset(), container);
+        container.getTopOffset(), container.getBottomOffset(), grid.getRows(), container);
+    grid.setVerticalIndices(verticalIndices);
 
     List<LayoutComponent> components = container.getComponents();
     for (LayoutComponent c : components) {
@@ -86,11 +88,13 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
           LayoutComponent component = temp.getComponent();
 
           // horizontal
-          int hIndex = horizontal.combine(horizontalIndices[i], cell.getColumnSpan(), getColumnSpacing(), component);
+          int hIndex = horizontal.combine(
+              horizontalIndices[i], cell.getColumnSpan(), getColumnSpacing(), grid.getColumns().get(i), component);
           cell.getComponent().setHorizontalIndex(hIndex);
 
           // vertical
-          int vIndex = vertical.combine(verticalIndices[j], cell.getRowSpan(), getRowSpacing(), component);
+          int vIndex = vertical.combine(
+              verticalIndices[j], cell.getRowSpan(), getRowSpacing(), grid.getRows().get(j), component);
           cell.getComponent().setVerticalIndex(vIndex);
 
           if (component instanceof LayoutContainer) {
@@ -120,7 +124,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
   public void distribute(LayoutContext layoutContext, LayoutContainer container) {
 
     distributeSizes(layoutContext);
-    distributePositions(container);
+    distributePositions(layoutContext, container);
   }
 
   private void distributeSizes(LayoutContext layoutContext) {
@@ -159,7 +163,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     }
   }
 
-  private void distributePositions(LayoutContainer container) {
+  private void distributePositions(LayoutContext layoutContext, LayoutContainer container) {
 
     // find the "left" positions
     for (int j = 0; j < grid.getRows().getSize(); j++) {
@@ -167,18 +171,15 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
       for (int i = 0; i < grid.getColumns().getSize(); i++) {
         Cell cell = grid.getCell(i, j);
         if (cell == null) {
-          continue; // XXX why this can happen?
+          continue; // XXX why this can happen? Can it still happen?
         }
         LayoutComponent component = cell.getComponent();
         if (cell instanceof OriginCell) {
           component.setLeft(left);
         }
-        if (cell.isHorizontalFirst()) {
-          // XXX subject of change: may use the width of the column, and not of the component
-          // XXX (the component may have a other size with offset or inset (scrollbars) etc.)
-          left = (PixelMeasure) left.add(component.getWidth());
-          left = (PixelMeasure) left.add(getColumnSpacing());
-        }
+        EquationManager horizontal = layoutContext.getHorizontal();
+        left = (PixelMeasure) left.add(horizontal.getResult()[grid.getHorizontalIndices()[i]]);
+        left = (PixelMeasure) left.add(getColumnSpacing());
       }
     }
 
@@ -188,18 +189,15 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
       for (int j = 0; j < grid.getRows().getSize(); j++) {
         Cell cell = grid.getCell(i, j);
         if (cell == null) {
-          continue; // XXX why this can happen?
+          continue; // XXX why this can happen? Can it still happen?
         }
         LayoutComponent component = cell.getComponent();
         if (cell instanceof OriginCell) {
           component.setTop(top);
         }
-        if (cell.isVerticalFirst()) {
-          // XXX subject of change: may use the height of the row, and not of the component
-          // XXX (the component may have a other size with offset or inset (scrollbars) etc.)
-          top = (PixelMeasure) top.add(component.getHeight());
-          top = (PixelMeasure) top.add(getRowSpacing());
-        }
+        EquationManager vertical = layoutContext.getVertical();
+        top = (PixelMeasure) top.add(vertical.getResult()[grid.getVerticalIndices()[j]]);
+        top = (PixelMeasure) top.add(getRowSpacing());
       }
     }
   }
@@ -213,13 +211,6 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
         Measure pixel = new PixelMeasure(((PixelLayoutToken) layoutToken).getPixel());
         layoutContext.getHorizontal().setFixedLength(i + horizontalIndexOffset, pixel, this);
       }
-/*
-      if (layoutToken instanceof AutoLayoutToken) {
-        Measure pixel = new PixelMeasure(100); // TODO
-        LOG.warn("auto/fixed is not implemented yet and was set to 100px");
-        layoutContext.getHorizontal().setFixedLength(i + horizontalIndexOffset, pixel);
-      }
-*/
     }
     // vertical
     LayoutTokens rowTokens = grid.getRows();
@@ -230,13 +221,6 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
         Measure pixel = new PixelMeasure(((PixelLayoutToken) layoutToken).getPixel());
         layoutContext.getVertical().setFixedLength(i + verticalIndexOffset, pixel, this);
       }
-/*
-      if (layoutToken instanceof AutoLayoutToken) {
-        Measure pixel = new PixelMeasure(25); // TODO
-        LOG.warn("auto/fixed is not implemented yet and was set to 25px");
-        layoutContext.getVertical().setFixedLength(i + verticalIndexOffset, pixel);
-      }
-*/
     }
   }
 
