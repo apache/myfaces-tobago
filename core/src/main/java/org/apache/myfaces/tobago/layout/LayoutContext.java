@@ -19,25 +19,6 @@ package org.apache.myfaces.tobago.layout;
 
 import org.apache.myfaces.tobago.layout.math.EquationManager;
 
-/*
-Thinking about an alternative algorithm to the SystemOfEquations ...
-
-- get UIPage
-  - call compute-sizes
-    - get the LayoutManager
-      - go to the PX elements
-        - call compute-sizes (recursively)
-      - go to the Auto elements
-        - call compute-sizes (recursively)
-        - compute the max size of the elements and set it to the row/column
-      - calculate remainder = given size - all px sizes - all auto sizes
-      - go to the * elements
-        - partition remainder to this elements (3*;2*)
-        - call compute-sizes (recursively)
-  - call set-positions
-      - compute and set positions of columns/rows
-      - call set-positions for all elements (recursively)
- */
 public class LayoutContext {
 
   private EquationManager horizontal;
