@@ -139,18 +139,14 @@ public class SystemOfEquations {
     Collections.sort(equations, new EquationComparator());
 
     if (numberOfVariables != equations.size()) {
-      LOG.warn("SOE have not correct dimensions: " + this);
+      LOG.warn("SOE have not correct dimensions: " + this); // todo: remove this warning, when all problems are solved
     }
 
     data = new double[equations.size()][];
     for (int i = 0; i < equations.size(); i++) {
       data[i] = equations.get(i).fillRow(numberOfVariables + 1);
     }
-    /*
-    for (int i = 0; i < equalEquations.size(); i++) {
-      data[i + equations.size()] = equalEquations.get(i);
-    }
-*/
+
     step = step.next();
   }
 
@@ -163,13 +159,11 @@ public class SystemOfEquations {
     assert step == Step.PREPARED;
     step = step.next();
 
-    int min = Math.min(data.length, numberOfVariables);
-
-    for (int j = 0; j < min; j++) {
+    for (int j = 0; j < numberOfVariables; j++) {
       // normalize row
-      if (LOG.isDebugEnabled()) {
-        LOG.debug(this);
-      }
+//      if (LOG.isDebugEnabled()) {
+//        LOG.debug(this);
+//      }
       double factor = data[j][j];
       if (MathUtils.isZero(factor)) {
         int nonZeroIndex = findNonZero(j);
@@ -177,19 +171,8 @@ public class SystemOfEquations {
           swapRow(j, nonZeroIndex);
           factor = data[j][j];
         } else {
-//          LOG.error("No Not unique solvable: " + this);
-//          continue;
-
-          int fullZeroIndex = findFullZero();
-          if (fullZeroIndex != -1) {
-            swapRow(j, fullZeroIndex);
-            data[j][j] = 1.0;
-            data[j][numberOfVariables] = 100.0; // todo: default
-            LOG.warn("Setting free (undefined) variable x_" + j + " to " + data[j][numberOfVariables]);
-            factor = data[j][j];
-          } else {
-            LOG.error("Not unique solvable: " + this);
-          }
+          insertRow(j);
+          continue;
         }
       }
       divideRow(j, factor);
@@ -203,19 +186,27 @@ public class SystemOfEquations {
   }
 
   private void reduce() {
-    assert step == Step.TRIANGULAR;
-    step = step.next();
-
     if (LOG.isDebugEnabled()) {
       LOG.debug(this);
     }
+
+    assert step == Step.TRIANGULAR;
+    step = step.next();
+
     for (int j = equations.size() - 1; j >= 0; j--) {
       if (rowNull(j)) {
         LOG.error("Not solvable: " + this);
         continue;
       }
       for (int k = j - 1; k >= 0; k--) {
-        substractMultipleOfRowJToRowK(j, k);
+//        if (LOG.isDebugEnabled()) {
+//          LOG.debug("j=" + j + "k=" + k + this);
+//        }
+        double factor = data[k][j];
+        if (MathUtils.isNotZero(factor)) {
+          data[k][j] -= data[j][j] * factor;
+          data[k][numberOfVariables] -= data[j][numberOfVariables] * factor;
+        }
       }
     }
 
@@ -318,6 +309,24 @@ public class SystemOfEquations {
       }
     }
     return -1;
+  }
+
+  private void insertRow(int j) {
+    LOG.warn("Not unique solvable, inserting dummy");
+    double[][] temp = data;
+    data = new double[temp.length + 1][];
+    for (int i = 0; i < temp.length; i++) {
+      if (i < j) {
+        data[i] = temp[i];
+      } else {
+        data[i + 1] = temp[i];
+      }
+    }
+    data[j] = new double[numberOfVariables + 1];
+    data[j][j] = 1;
+    data[j][numberOfVariables] = 100.0; // todo: default
+    LOG.warn("Setting free (undefined) variable x_" + j + " to " + data[j][numberOfVariables]);
+    equations.add(j, new ZeroEquation());// fixme
   }
 
   /**

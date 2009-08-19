@@ -19,8 +19,10 @@ package org.apache.myfaces.tobago.layout.math;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
+import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -147,14 +149,14 @@ public class SystemOfEquationsUnitTest {
     SystemOfEquations system = new SystemOfEquations(10);
     system.addEqualsEquation(new FixedEquation(0, px(900), "test"));
     system.addEqualsEquation(new PartitionEquation(1, 3, 0, px(0), px(0), px(0), "test"));
-    system.addEqualsEquation(new CombinationEquation(5, 2, 2, px(0), "test"));
+    system.addEqualsEquation(new CombinationEquation(5, 2, 2, px(0), new RelativeLayoutToken(1), "test"));
     system.addEqualsEquation(new PartitionEquation(6, 3, 5, px(0), px(0), px(0), "test"));
     system.addEqualsEquation(new ProportionEquation(1, 2, 1, 1, "test"));
     system.addEqualsEquation(new ProportionEquation(1, 3, 1, 1, "test"));
     system.addEqualsEquation(new ProportionEquation(6, 7, 1, 1, "test"));
     system.addEqualsEquation(new ProportionEquation(6, 8, 1, 1, "test"));
-    system.addEqualsEquation(new RemainderEquation(4, "test"));
-    system.addEqualsEquation(new RemainderEquation(9, "test"));
+    system.addEqualsEquation(new RemainderEquation(4, tokens(), "test"));
+    system.addEqualsEquation(new RemainderEquation(9, tokens(), "test"));
     Measure[] result = system.solve();
 
     long end = System.nanoTime();
@@ -194,14 +196,14 @@ public class SystemOfEquationsUnitTest {
     SystemOfEquations system = new SystemOfEquations(10);
 //    system.addEqualsEquation(new FixedEquation(0, 900)); // e. g. this is the missing equation
     system.addEqualsEquation(new PartitionEquation(1, 3, 0, px(0), px(0), px(0), "test"));
-    system.addEqualsEquation(new CombinationEquation(5, 2, 2, px(0), "test"));
+    system.addEqualsEquation(new CombinationEquation(5, 2, 2, px(0), new RelativeLayoutToken(1), "test"));
     system.addEqualsEquation(new PartitionEquation(6, 3, 5, px(0), px(0), px(0), "test"));
     system.addEqualsEquation(new ProportionEquation(1, 2, 1, 1, "test"));
     system.addEqualsEquation(new ProportionEquation(1, 3, 1, 1, "test"));
     system.addEqualsEquation(new ProportionEquation(6, 7, 1, 1, "test"));
     system.addEqualsEquation(new ProportionEquation(6, 8, 1, 1, "test"));
-    system.addEqualsEquation(new RemainderEquation(4, "test"));
-    system.addEqualsEquation(new RemainderEquation(9, "test"));
+    system.addEqualsEquation(new RemainderEquation(4, tokens(), "test"));
+    system.addEqualsEquation(new RemainderEquation(9, tokens(), "test"));
     Measure[] result = system.solve();
 
     long end = System.nanoTime();
@@ -258,14 +260,14 @@ public class SystemOfEquationsUnitTest {
     SystemOfEquations system = new SystemOfEquations(10);
 //    system.addEqualsEquation(new FixedEquation(0, 900));
     system.addEqualsEquation(new PartitionEquation(1, 3, 0, px(0), px(0), px(0), "test"));
-    system.addEqualsEquation(new CombinationEquation(5, 2, 2, px(0), "test"));
+    system.addEqualsEquation(new CombinationEquation(5, 2, 2, px(0), new RelativeLayoutToken(1), "test"));
     system.addEqualsEquation(new PartitionEquation(6, 3, 5, px(0), px(0), px(0), "test"));
     system.addEqualsEquation(new ProportionEquation(1, 2, 1, 1, "test"));
     system.addEqualsEquation(new ProportionEquation(1, 3, 1, 1, "test"));
     system.addEqualsEquation(new ProportionEquation(6, 7, 1, 1, "test"));
     system.addEqualsEquation(new ProportionEquation(6, 8, 1, 1, "test"));
-    system.addEqualsEquation(new RemainderEquation(4, "test"));
-    system.addEqualsEquation(new RemainderEquation(9, "test"));
+    system.addEqualsEquation(new RemainderEquation(4, tokens(), "test"));
+    system.addEqualsEquation(new RemainderEquation(9, tokens(), "test"));
     Measure[] result = system.solve();
 
     long end = System.nanoTime();
@@ -309,11 +311,11 @@ public class SystemOfEquationsUnitTest {
     system.addEqualsEquation(new FixedEquation(0, px(310), "test"));
     system.addEqualsEquation(new PartitionEquation(1, 2, 0, px(5), px(0), px(0), "test"));
     system.addEqualsEquation(new ProportionEquation(1, 2, 1, 1, "test"));
-    system.addEqualsEquation(new CombinationEquation(4, 1, 1, px(0), "test"));
-    system.addEqualsEquation(new CombinationEquation(5, 1, 1, px(0), "test"));
-    system.addEqualsEquation(new CombinationEquation(6, 2, 1, px(0), "test"));
-    system.addEqualsEquation(new CombinationEquation(7, 2, 1, px(0), "test"));
-    system.addEqualsEquation(new RemainderEquation(3, "test"));
+    system.addEqualsEquation(new CombinationEquation(4, 1, 1, px(0), new RelativeLayoutToken(1), "test"));
+    system.addEqualsEquation(new CombinationEquation(5, 1, 1, px(0), new RelativeLayoutToken(1), "test"));
+    system.addEqualsEquation(new CombinationEquation(6, 2, 1, px(0), new RelativeLayoutToken(1), "test"));
+    system.addEqualsEquation(new CombinationEquation(7, 2, 1, px(0), new RelativeLayoutToken(1), "test"));
+    system.addEqualsEquation(new RemainderEquation(3, tokens(), "test"));
     Measure[] result = system.solve();
 
     long end = System.nanoTime();
@@ -335,8 +337,8 @@ public class SystemOfEquationsUnitTest {
     system.addEqualsEquation(new PartitionEquation(1, 2, 0, px(0), px(0), px(0), "test"));
     system.addEqualsEquation(new ProportionEquation(1, 2, 1, 1, "test"));
     system.addEqualsEquation(new PartitionEquation(4, 1, 1, px(0), px(0), px(0), "test"));
-    system.addEqualsEquation(new RemainderEquation(3, "test"));
-    system.addEqualsEquation(new RemainderEquation(5, "test"));
+    system.addEqualsEquation(new RemainderEquation(3, tokens(), "test"));
+    system.addEqualsEquation(new RemainderEquation(5, tokens(), "test"));
     Measure[] result = system.solve();
 
     long end = System.nanoTime();
@@ -366,6 +368,10 @@ public class SystemOfEquationsUnitTest {
 
   private Measure px(int pixel) {
     return new PixelMeasure(pixel);
+  }
+
+  private LayoutTokens tokens() {
+    return LayoutTokens.parse("*");
   }
 
 }
