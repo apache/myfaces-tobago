@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
-import org.apache.myfaces.tobago.layout.LayoutContext;
+import org.apache.myfaces.tobago.layout.LayoutContext2;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -44,8 +44,8 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.ViewHandler;
-import javax.faces.component.UIComponent;
 import javax.faces.component.UICommand;
+import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -106,7 +106,7 @@ public class PageRenderer extends PageRendererBase {
 // LAYOUT Begin
 
 //    try {
-      LayoutContext layoutContext = new LayoutContext(page);
+      LayoutContext2 layoutContext = new LayoutContext2(page);
       layoutContext.layout();
 //    } catch (Throwable e) {
 //      LOG.info("testing... ", e);
