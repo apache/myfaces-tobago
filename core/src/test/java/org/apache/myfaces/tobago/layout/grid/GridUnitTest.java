@@ -32,7 +32,7 @@ public class GridUnitTest {
     Assert.assertEquals(""
         + "┌─┐\n"
         + "│◌│\n"
-        + "└─┘\n", grid.toString());
+        + "└─┘\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 1);
     Assert.assertEquals(1, grid.getColumns().getSize());
@@ -40,7 +40,7 @@ public class GridUnitTest {
     Assert.assertEquals(""
         + "┏━┓\n"
         + "┃█┃\n"
-        + "┗━┛\n", grid.toString());
+        + "┗━┛\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 1);
     Assert.assertEquals(1, grid.getColumns().getSize());
@@ -50,7 +50,7 @@ public class GridUnitTest {
         + "┃█┃\n"
         + "┣━┫\n"
         + "┃█┃\n"
-        + "┗━┛\n", grid.toString());
+        + "┗━┛\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 2);
     Assert.assertEquals(1, grid.getColumns().getSize());
@@ -64,7 +64,7 @@ public class GridUnitTest {
         + "┃█┃\n"
         + "┠─┨\n"
         + "┃⬇┃\n"
-        + "┗━┛\n", grid.toString());
+        + "┗━┛\n", grid.gridAsString());
 
     // with warning
     grid.add(new OriginCell(null), 2, 1);
@@ -81,7 +81,7 @@ public class GridUnitTest {
         + "┃⬇┃\n"
         + "┣━┫\n"
         + "┃✖┃\n"
-        + "┗━┛\n", grid.toString());
+        + "┗━┛\n", grid.gridAsString());
   }
 
   @Test
@@ -93,7 +93,7 @@ public class GridUnitTest {
     Assert.assertEquals(""
         + "┌─┬─┐\n"
         + "│◌│◌│\n"
-        + "└─┴─┘\n", grid.toString());
+        + "└─┴─┘\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 1);
     Assert.assertEquals(2, grid.getColumns().getSize());
@@ -101,7 +101,7 @@ public class GridUnitTest {
     Assert.assertEquals(""
         + "┏━┱─┐\n"
         + "┃█┃◌│\n"
-        + "┗━┹─┘\n", grid.toString());
+        + "┗━┹─┘\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 1);
     Assert.assertEquals(2, grid.getColumns().getSize());
@@ -109,7 +109,7 @@ public class GridUnitTest {
     Assert.assertEquals(""
         + "┏━┳━┓\n"
         + "┃█┃█┃\n"
-        + "┗━┻━┛\n", grid.toString());
+        + "┗━┻━┛\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 2, 2);
     Assert.assertEquals(2, grid.getColumns().getSize());
@@ -121,7 +121,7 @@ public class GridUnitTest {
         + "┃█│➞┃\n"
         + "┠─┼─┨\n"
         + "┃⬇│⬇┃\n"
-        + "┗━┷━┛\n", grid.toString());
+        + "┗━┷━┛\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 2);
     Assert.assertEquals(2, grid.getColumns().getSize());
@@ -137,7 +137,7 @@ public class GridUnitTest {
         + "┃█┃◌│\n"
         + "┠─╂─┤\n"
         + "┃⬇┃◌│\n"
-        + "┗━┹─┘\n", grid.toString());
+        + "┗━┹─┘\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 1);
     Assert.assertEquals(2, grid.getColumns().getSize());
@@ -153,7 +153,7 @@ public class GridUnitTest {
         + "┃█┃█┃\n"
         + "┠─╊━┩\n"
         + "┃⬇┃◌│\n"
-        + "┗━┹─┘\n", grid.toString());
+        + "┗━┹─┘\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 2);
     Assert.assertEquals(2, grid.getColumns().getSize());
@@ -171,7 +171,7 @@ public class GridUnitTest {
         + "┃⬇┃█┃\n"
         + "┡━╉─┨\n"
         + "│◌┃⬇┃\n"
-        + "└─┺━┛\n", grid.toString());
+        + "└─┺━┛\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 2, 1);
     // fehler
@@ -196,7 +196,7 @@ public class GridUnitTest {
         + "│◌│◌│◌│◌│◌│\n"
         + "├─┼─┼─┼─┼─┤\n"
         + "│◌│◌│◌│◌│◌│\n"
-        + "└─┴─┴─┴─┴─┘\n", grid.toString());
+        + "└─┴─┴─┴─┴─┘\n", grid.gridAsString());
 
     grid.add(new OriginCell(null), 1, 2);
     grid.add(new OriginCell(null), 1, 3);
@@ -224,6 +224,8 @@ public class GridUnitTest {
         + "┃█│➞│➞┃⬇┃█┃\n"
         + "┣━┿━╈━╉─╂─┨\n"
         + "┃█│➞┃█┃⬇┃⬇┃\n"
-        + "┗━┷━┻━┻━┻━┛\n", grid.toString());
+        + "┗━┷━┻━┻━┻━┛\n", grid.gridAsString());
   }
 }
+
+

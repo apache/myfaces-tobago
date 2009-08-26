@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.util;
+package org.apache.myfaces.tobago.layout;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -22,8 +22,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.Form;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutContainer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
@@ -118,6 +116,27 @@ public final class LayoutUtils {
       } else {
         addLayoutChildren(child, result);
       }
+    }
+  }
+
+  public static Measure getEndOffset(boolean orientation, LayoutContainer container) {
+    return orientation ? container.getRightOffset() : container.getBottomOffset();
+  }
+
+  public static Measure getBeginOffset(boolean orientation, LayoutContainer container) {
+    return orientation ? container.getLeftOffset() : container.getTopOffset();
+  }
+
+  public static Measure getSize(boolean orientation, LayoutContainer container) {
+    Measure available = orientation ? container.getWidth() : container.getHeight();
+    return available;
+  }
+
+  public static void setSize(boolean orientation, LayoutContainer container, Measure size) {
+    if (orientation) {
+      container.setWidth(size);
+    } else {
+      container.setHeight(size);
     }
   }
 }

@@ -22,10 +22,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public final class LayoutTokens {
+public final class LayoutTokens implements Iterable<LayoutToken> {
 
   private static final Log LOG = LogFactory.getLog(LayoutTokens.class);
 
@@ -68,6 +69,10 @@ public final class LayoutTokens {
 
   public List<LayoutToken> getTokens() {
     return tokens;
+  }
+
+  public Iterator<LayoutToken> iterator() {
+    return tokens.iterator();
   }
 
   public static LayoutTokens parse(String[] tokens) {

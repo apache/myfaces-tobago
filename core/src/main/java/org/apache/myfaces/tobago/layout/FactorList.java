@@ -17,36 +17,38 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-/**
- * A LayoutObject is the technical base for LayoutComponent and LayoutContainer.
- */
-public interface LayoutObject {
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.layout.math.MathUtils;
 
-  Measure getWidth();
-  void setWidth(Measure width);
+import java.util.ArrayList;
+import java.util.List;
 
-  Measure getHeight();
-  void setHeight(Measure height);
+public class FactorList extends ArrayList<Integer> {
 
-  Measure getMinimumWidth();
-  void setMinimumWidth(Measure minimumWidth);
+  private static final Log LOG = LogFactory.getLog(FactorList.class);
 
-  Measure getMinimumHeight();
-  void setMinimumHeight(Measure minimumHeight);
+  public List<Measure> partition(Measure size) {
 
-  void setPreferredWidth(Measure preferredWidth);
-  Measure getPreferredWidth();
+    List<Measure> result = new ArrayList<Measure>(size());
 
-  void setPreferredHeight(Measure preferredHeight);
-  Measure getPreferredHeight();
+    int sum = 0;
+    for (Integer integer : this) {
+      sum += integer;
+    }
 
-  Measure getMaximumWidth();
-  void setMaximumWidth(Measure maximumWidth);
+    double[] doubles = new double[size()];
+    int i = 0;
+    for (Integer integer : this) {
+      doubles[i++] = integer * size.getPixel() / (double)sum;
+    }
 
-  Measure getMaximumHeight();
-  void setMaximumHeight(Measure maximumHeight);
+    MathUtils.adjustRemainders(doubles, 0.0);
 
-  Measure getLeft();
-  void setLeft(Measure left);
+    for (double value : doubles) {
+      result.add(new PixelMeasure((int)value));
+    }
 
+    return result;
+  }
 }

@@ -21,8 +21,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Grid {
@@ -36,6 +38,8 @@ public class Grid {
   private List<Cell> cells;
   private LayoutTokens columns;
   private LayoutTokens rows;
+  private PixelMeasure[] widths;
+  private PixelMeasure[] heights;
 
   private List<Integer> errorIndexes;
 
@@ -55,6 +59,9 @@ public class Grid {
     for (int i = 0; i < size; i++) {
       this.cells.add(null);
     }
+
+    widths = new PixelMeasure[columns.getSize()];
+    heights = new PixelMeasure[rows.getSize()];
   }
 
   public void add(OriginCell cell, int columnSpan, int rowSpan) {
@@ -102,6 +109,10 @@ public class Grid {
     findNextFreeCell();
   }
 
+  public Cell getCell(int i, int j, boolean horizontal) {
+    return horizontal ? getCell(i, j) : getCell(j, i);
+  }
+
   public Cell getCell(int column, int row) {
     assert column >= 0 && column < columns.getSize() : "column=" + column + " columnCount=" + columns.getSize();
     assert row >= 0 : "row=" + row;
@@ -131,6 +142,10 @@ public class Grid {
     }
   }
 
+  public LayoutTokens getTokens(boolean horizontal) {
+    return horizontal ? getColumns() : getRows();
+  }
+
   public LayoutTokens getColumns() {
     return columns;
   }
@@ -146,6 +161,10 @@ public class Grid {
       }
       rows.addToken(AutoLayoutToken.INSTANCE);
     }
+
+    PixelMeasure[] oldHeights = heights;
+    heights = new PixelMeasure[heights.length + newRows];
+    System.arraycopy(oldHeights, 0, heights, 0, oldHeights.length);
   }
 
   public void addError(int i, int j) {
@@ -176,8 +195,7 @@ public class Grid {
    * │◌│◌│◌┃⬇┃◌│
    * └─┴─┴─┺━┹─┘
    */
-  @Override
-  public String toString() {
+  public String gridAsString() {
 
     StringBuilder builder = new StringBuilder();
 
@@ -407,6 +425,25 @@ public class Grid {
     return builder.toString();
   }
 
+  @Override
+  public String toString() {
+    StringBuilder builder = new StringBuilder();
+    builder.append(gridAsString());
+    builder.append("columns=");
+    builder.append(columns);
+    builder.append("\n");
+    builder.append("rows=");
+    builder.append(rows);
+    builder.append("\n");
+    builder.append("widths=");
+    builder.append(Arrays.toString(widths));
+    builder.append("\n");
+    builder.append("heights=");
+    builder.append(Arrays.toString(heights));
+    builder.append("\n");
+    return builder.toString();
+  }
+
   private boolean connected(Cell a, Cell b) {
     if (a == null && b == null) {
       return true;
@@ -431,5 +468,17 @@ public class Grid {
 
   public void setVerticalIndices(int[] verticalIndices) {
     this.verticalIndices = verticalIndices;
+  }
+
+  public PixelMeasure[] getSizes(boolean horizontal) {
+    return horizontal ? getWidths() : getHeights();
+  }
+
+  public PixelMeasure[] getWidths() {
+    return widths;
+  }
+
+  public PixelMeasure[] getHeights() {
+    return heights;
   }
 }

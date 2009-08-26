@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.taglib.GridLayoutTag;
 import org.apache.myfaces.tobago.internal.taglib.LabelTag;
 import org.apache.myfaces.tobago.internal.taglib.PanelTag;
-import org.apache.myfaces.tobago.util.LayoutUtils;
+import org.apache.myfaces.tobago.layout.LayoutUtils;
 
 import javax.el.ValueExpression;
 import javax.faces.webapp.FacetTag;

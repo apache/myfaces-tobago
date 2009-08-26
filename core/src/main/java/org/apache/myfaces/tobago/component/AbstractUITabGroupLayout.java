@@ -37,6 +37,18 @@ public abstract class AbstractUITabGroupLayout extends UILayout implements OnCom
   public void distribute(LayoutContext layoutContext, LayoutContainer container) {
   }
 
+  public void init() {
+  }
+
+  public void preProcessing(boolean orientation) {
+  }
+
+  public void mainProcessing(boolean orientation) {
+  }
+
+  public void postProcessing(boolean orientation) {
+  }
+
   @Override
   public boolean getRendersChildren() {
     return false;

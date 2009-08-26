@@ -25,6 +25,8 @@ public interface LayoutContainer extends LayoutObject {
 
   LayoutManager getLayoutManager();
 
+//  void setLayoutManager(LayoutManager layoutManager);
+
   Measure getLeftOffset();
 
   Measure getRightOffset();

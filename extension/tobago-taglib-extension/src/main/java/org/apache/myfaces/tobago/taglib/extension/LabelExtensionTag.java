@@ -25,10 +25,10 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.taglib.GridLayoutTag;
 import org.apache.myfaces.tobago.internal.taglib.LabelTag;
 import org.apache.myfaces.tobago.internal.taglib.PanelTag;
+import org.apache.myfaces.tobago.layout.LayoutUtils;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
-import org.apache.myfaces.tobago.util.LayoutUtils;
 
 import javax.faces.webapp.FacetTag;
 import javax.faces.webapp.UIComponentTag;

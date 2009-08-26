@@ -20,13 +20,18 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.OnComponentCreated;
+import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.Display;
+import org.apache.myfaces.tobago.layout.FactorList;
+import org.apache.myfaces.tobago.layout.Interval;
+import org.apache.myfaces.tobago.layout.IntervalList;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutContext;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelLayoutToken;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
@@ -50,10 +55,214 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     grid = new Grid(LayoutTokens.parse(getColumns()), LayoutTokens.parse(getRows()));
   }
 
+  // /////////////////////////////////////////////////////////////////////////////////////////
+  // /////////////////////////////////////////////////////////////////////////////////////////
+  // /////////////////////////////////////////////////////////////////////////////////////////
+  // /////////////////////////////////////////////////////////////////////////////////////////
+  // /////////////////////////////////////////////////////////////////////////////////////////
+
+  public void init() {
+    List<LayoutComponent> components = getLayoutContainer().getComponents();
+    for (LayoutComponent component : components) {
+      grid.add(new OriginCell(component), component.getColumnSpan(), component.getRowSpan());
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("\n" + grid);
+      }
+      if (component instanceof LayoutContainer) {
+        ((LayoutContainer) component).getLayoutManager().init();
+      }
+    }
+  }
+
+  public void preProcessing(boolean orientation) {
+
+    // process auto tokens
+    int i = 0;
+    for (LayoutToken token : grid.getTokens(orientation)) {
+
+      if (token instanceof PixelLayoutToken) {
+        int pixel = ((PixelLayoutToken) token).getPixel();
+        grid.getSizes(orientation)[i] = new PixelMeasure(pixel);// XXX refactor
+      }
+
+      IntervalList intervals = new IntervalList();
+      for (int j = 0; j < grid.getTokens(!orientation).getSize(); j++) {
+        Cell cell = grid.getCell(i, j, orientation);
+        if (cell instanceof OriginCell) {
+          OriginCell origin = (OriginCell) cell;
+          LayoutComponent component = cell.getComponent();
+
+          if (component instanceof LayoutContainer) {
+            ((LayoutContainer) component).getLayoutManager().preProcessing(orientation);
+          }
+
+          if (token instanceof AutoLayoutToken) {
+            if (origin.getSpan(orientation) == 1) {
+              intervals.add(new Interval(component, orientation));
+            } else {
+              LOG.info("ignored"); // todo
+            }
+          }
+        }
+      }
+      if (intervals.size() >= 1) {
+        Measure auto = intervals.computeAuto();
+        grid.getSizes(orientation)[i] = (PixelMeasure) auto;
+      }
+// todo: what when we cannot find a good value for "auto"?
+      i++;
+    }
+
+    // set the size if all sizes are set
+    Measure size = PixelMeasure.ZERO;
+    PixelMeasure[] sizes = grid.getSizes(orientation);
+    for (int j = 0; j < sizes.length; j++) {
+      if (sizes[j] == null) {
+        size = null; // set to invalid
+        break;
+      }
+      size = size.add(sizes[j]);
+      if (j < sizes.length - 1) {
+        size = size.add(getSpacing(orientation));
+      }
+    }
+    if (size != null) {
+      LayoutUtils.setSize(orientation, getLayoutContainer(), size);
+    }
+  }
+
+  public void mainProcessing(boolean orientation) {
+
+    // find *
+    {
+      FactorList list = new FactorList();
+      for (LayoutToken token : grid.getTokens(orientation)) {
+        if (token instanceof RelativeLayoutToken) {
+          list.add(((RelativeLayoutToken) token).getFactor());
+        }
+      }
+      if (!list.isEmpty()) {
+        // find rest
+        LayoutContainer container = getLayoutContainer();
+        Measure available = LayoutUtils.getSize(orientation, container);
+        if (available != null) {
+          for (PixelMeasure value : grid.getSizes(orientation)) {
+            available = available.substractNotNegative(value);
+          }
+          PixelMeasure spacing = new PixelMeasure(
+              getSpacing(orientation).getPixel() * (grid.getSizes(orientation).length - 1));
+          available = available.substractNotNegative(spacing);
+
+          available = available.substractNotNegative(LayoutUtils.getBeginOffset(orientation, container));
+          available = available.substractNotNegative(LayoutUtils.getEndOffset(orientation, container));
+
+          List<Measure> partition = list.partition(available);
+
+          // write values back into the header
+          int i = 0;
+          int j = 0;
+          for (LayoutToken token : grid.getTokens(orientation)) {
+            if (token instanceof RelativeLayoutToken) {
+              grid.getSizes(orientation)[i] = (PixelMeasure) partition.get(j);
+              j++;
+            }
+            i++;
+          }
+        } else {
+          LOG.warn("No width/height set but needed for *!");// todo: more information
+        }
+      }
+    }
+
+    // call manage sizes for all sub-layout-managers
+    {
+      for (int i = 0; i < grid.getTokens(orientation).getSize(); i++) {
+        for (int j = 0; j < grid.getTokens(!orientation).getSize(); j++) {
+          Cell cell = grid.getCell(i, j, orientation);
+          if (cell instanceof OriginCell) {
+            LayoutComponent component = cell.getComponent();
+
+            component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
+
+            Integer span = ((OriginCell) cell).getSpan(orientation);
+            PixelMeasure[] pixelMeasures = grid.getSizes(orientation);
+            
+            // compute the size of the cell
+            {
+              Measure size = pixelMeasures[i];
+              for (int k = 1; k < span; k++) {
+                size = size.add(pixelMeasures[i + k]);
+                size = size.add(getSpacing(orientation));
+              }
+              if (orientation) {
+                component.setWidth(size);
+              } else {
+                component.setHeight(size);
+              }
+            }
+
+            // call sub layout manager
+            if (component instanceof LayoutContainer) {
+              ((LayoutContainer) component).getLayoutManager().mainProcessing(orientation);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  public void postProcessing(boolean orientation) {
+
+    // call manage sizes for all sub-layout-managers
+    for (int i = 0; i < grid.getTokens(orientation).getSize(); i++) {
+      for (int j = 0; j < grid.getTokens(!orientation).getSize(); j++) {
+        Cell cell = grid.getCell(i, j, orientation);
+        if (cell instanceof OriginCell) {
+          LayoutComponent component = cell.getComponent();
+
+          component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
+
+          Integer span = ((OriginCell) cell).getSpan(orientation);
+          PixelMeasure[] pixelMeasures = grid.getSizes(orientation);
+
+
+          // compute the position of the cell
+          {
+            Measure position = LayoutUtils.getBeginOffset(orientation, getLayoutContainer());
+            for (int k = 0; k < i; k++) {
+              position = position.add(pixelMeasures[k]);
+              position = position.add(getSpacing(orientation));
+            }
+            if (orientation) {
+              component.setLeft(position);
+            } else {
+              component.setTop(position);
+            }
+          }
+
+          // call sub layout manager
+          if (component instanceof LayoutContainer) {
+            ((LayoutContainer) component).getLayoutManager().postProcessing(orientation);
+          }
+
+          // todo: optimize: the AutoLayoutTokens with columnSpan=1 are already called
+        }
+      }
+    }
+  }
+
+  // /////////////////////////////////////////////////////////////////////////////////////////
+  // /////////////////////////////////////////////////////////////////////////////////////////
+  // /////////////////////////////////////////////////////////////////////////////////////////
+  // /////////////////////////////////////////////////////////////////////////////////////////
+  // /////////////////////////////////////////////////////////////////////////////////////////
+
   /**
    * Phase 1: Collects the layout information from the components recursively.
    */
   public void collect(LayoutContext layoutContext, LayoutContainer container, int horizontalIndex, int verticalIndex) {
+
+    init();
 
     // horizontal
     EquationManager horizontal = layoutContext.getHorizontal();
@@ -68,14 +277,6 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
         verticalIndex, grid.getRows().getSize(), getRowSpacing(),
         container.getTopOffset(), container.getBottomOffset(), grid.getRows(), container);
     grid.setVerticalIndices(verticalIndices);
-
-    List<LayoutComponent> components = container.getComponents();
-    for (LayoutComponent c : components) {
-      grid.add(new OriginCell(c), c.getColumnSpan(), c.getRowSpan());
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("\n" + grid);
-      }
-    }
 
     addPixelConstraints(layoutContext, horizontalIndex + 1, verticalIndex + 1);
     addRelativeConstraints(layoutContext, horizontalIndex + 1, verticalIndex + 1);
@@ -261,8 +462,17 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     }
   }
 
+  private LayoutContainer getLayoutContainer() {
+    // todo: check with instanceof and do something in the error case
+    return ((LayoutContainer) getParent());
+  }
+
   protected Grid getGrid() {
     return grid;
+  }
+
+  public Measure getSpacing(boolean horizontal) {
+    return horizontal ? getColumnSpacing() : getRowSpacing();
   }
 
   public abstract String getRows();

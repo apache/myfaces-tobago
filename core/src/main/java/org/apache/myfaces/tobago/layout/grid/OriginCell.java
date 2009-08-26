@@ -45,6 +45,10 @@ public class OriginCell implements Cell {
     return true;
   }
 
+  public int getSpan(boolean horizontal) {
+    return horizontal ? getColumnSpan() : getRowSpan();
+  }
+
   public int getColumnSpan() {
     return columnSpan;
   }

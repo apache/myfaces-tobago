@@ -30,7 +30,7 @@ public class MathUtils {
    *
    * @param list
    */
-  static void adjustRemainders(double[] list, double bias) {
+  public static void adjustRemainders(double[] list, double bias) {
     for (double v : list) {
       double lastBias;
       if (bias < 0.0) {

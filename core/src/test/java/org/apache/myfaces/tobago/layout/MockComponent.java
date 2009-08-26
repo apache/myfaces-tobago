@@ -1,5 +1,7 @@
 package org.apache.myfaces.tobago.layout;
 
+import javax.faces.component.UIComponentBase;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,7 +19,7 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-public class MockComponent implements LayoutComponent {
+public class MockComponent extends UIComponentBase implements LayoutComponent {
 
   private Integer columnSpan = 1;
 

@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.OnComponentCreated;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
-import org.apache.myfaces.tobago.util.LayoutUtils;
+import org.apache.myfaces.tobago.layout.LayoutUtils;
 
 import javax.faces.context.FacesContext;
 import java.io.IOException;

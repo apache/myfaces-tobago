@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
-import org.apache.myfaces.tobago.util.LayoutUtils;
+import org.apache.myfaces.tobago.layout.LayoutUtils;
 
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
