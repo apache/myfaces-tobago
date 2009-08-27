@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
-import org.apache.myfaces.tobago.component.UIButtonCommand;
+import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UICell;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIGridLayout;
@@ -172,7 +172,7 @@ public class MessagesRenderer extends MessageRendererBase {
     buttonPanel.getChildren().add(space);
 
     final UICommand okButton = (UICommand) CreateComponentUtils.createComponent(
-        facesContext, UIButtonCommand.COMPONENT_TYPE, RendererTypes.BUTTON, CLOSE_POPUP);
+        facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, CLOSE_POPUP);
     buttonPanel.getChildren().add(okButton);
     okButtonAttributes = okButton.getAttributes();
     okButtonAttributes.put(Attributes.LABEL, ResourceManagerUtil.getPropertyNotNull(

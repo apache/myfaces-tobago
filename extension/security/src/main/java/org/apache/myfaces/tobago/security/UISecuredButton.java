@@ -17,13 +17,13 @@ package org.apache.myfaces.tobago.security;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.UIButtonCommand;
+import org.apache.myfaces.tobago.component.UIButton;
 
 import javax.faces.context.FacesContext;
 
-public class UISecuredButtonCommand extends UIButtonCommand {
+public class UISecuredButton extends UIButton {
 
-  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecuredButtonCommand";
+  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SecuredButton";
 
   public boolean isDisabled() {
     if (getAction() instanceof CheckAuthorisationMethodBinding) {

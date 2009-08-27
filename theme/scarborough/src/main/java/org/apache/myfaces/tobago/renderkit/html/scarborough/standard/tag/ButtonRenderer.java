@@ -25,7 +25,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UIButtonCommand;
+import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UICommandBase;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -74,8 +74,8 @@ public class ButtonRenderer extends CommandRendererBase {
     HtmlRendererUtil.renderTip(command, writer);
     writer.writeAttribute(HtmlAttributes.DISABLED, helper.isDisabled());
     Integer tabIndex = null;
-    if (command instanceof UIButtonCommand) {
-      tabIndex = ((UIButtonCommand) command).getTabIndex();
+    if (command instanceof UIButton) {
+      tabIndex = ((UIButton) command).getTabIndex();
     }
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
@@ -136,4 +136,25 @@ public class ButtonRenderer extends CommandRendererBase {
     boolean defaultCommand = ComponentUtil.getBooleanAttribute(component, Attributes.DEFAULT_COMMAND);
     return defaultCommand ? "submit" : "button";
   }
+/*
+  public int getPreferredWidth(FacesContext facesContext, UIComponent component) {
+    int width = 0;
+    String imageName = (String) component.getAttributes().get(ATTR_IMAGE);
+    if (imageName != null) {
+      width = getConfiguredValue(facesContext, component, "imageWidth");
+    }
+    LabelWithAccessKey label = new LabelWithAccessKey(component);
+
+    if (label.getText() != null) {
+      width += RenderUtil.calculateStringWidth(facesContext, component, label.getText());
+    }
+    int padding = getConfiguredValue(facesContext, component, "paddingWidth");
+    width += 2 * padding;
+    if (imageName != null && label.getText() != null) {
+      width += padding;
+    }
+
+    return width;
+  }
+  */
 }

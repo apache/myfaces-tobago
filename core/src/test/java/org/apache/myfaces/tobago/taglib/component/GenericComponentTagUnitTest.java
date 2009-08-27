@@ -104,7 +104,7 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
     application
         .addComponent("org.apache.myfaces.tobago.LinkCommand", "org.apache.myfaces.tobago.component.UILink");
     application
-        .addComponent("org.apache.myfaces.tobago.ButtonCommand", "org.apache.myfaces.tobago.component.UIButtonCommand");
+        .addComponent("org.apache.myfaces.tobago.ButtonCommand", "org.apache.myfaces.tobago.component.UIButton");
 
     facesContext.setApplication(application);
     UIViewRoot root = facesContext

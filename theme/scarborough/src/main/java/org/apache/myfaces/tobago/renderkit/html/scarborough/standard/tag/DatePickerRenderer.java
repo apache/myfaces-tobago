@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
-import org.apache.myfaces.tobago.component.UIButtonCommand;
+import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UIDate;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 import org.apache.myfaces.tobago.component.UIGridLayout;
@@ -153,15 +153,15 @@ public class DatePickerRenderer extends LinkRenderer {
 
     box.getChildren().add(buttonPanel);
 
-    final UIButtonCommand okButton = (UIButtonCommand)
-        CreateComponentUtils.createComponent(facesContext, UIButtonCommand.COMPONENT_TYPE, RendererTypes.BUTTON);
+    final UIButton okButton = (UIButton)
+        CreateComponentUtils.createComponent(facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON);
     buttonPanel.getChildren().add(okButton);
     okButton.setId("ok" + CLOSE_POPUP);
     okButton.getAttributes().put(Attributes.LABEL, ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "datePickerOk"));
 
-    final UIButtonCommand cancelButton = (UIButtonCommand)
-        CreateComponentUtils.createComponent(facesContext, UIButtonCommand.COMPONENT_TYPE, RendererTypes.BUTTON);
+    final UIButton cancelButton = (UIButton)
+        CreateComponentUtils.createComponent(facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON);
     buttonPanel.getChildren().add(cancelButton);
 
     cancelButton.getAttributes().put(Attributes.LABEL, ResourceManagerUtil.getPropertyNotNull(
