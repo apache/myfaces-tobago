@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.context.ClientProperties;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -85,6 +86,11 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     String onchange = HtmlUtils.generateOnchange(selectOne, facesContext);
     if (onchange != null) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, true);
+    }
+
+    if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
+      writer.writeAttribute("onfocusin", "Tobago.fixSelectionOnFocusIn()", false);
+      writer.writeAttribute("onfocus", "Tobago.fixSelectionOnFocus()", false);
     }
     Object[] values = {selectOne.getValue()};
 
