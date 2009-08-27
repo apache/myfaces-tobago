@@ -85,3 +85,25 @@ Tobago.fixImage = function(element) {
     element.runtimeStyle.filter = "";
   }
 };
+
+Tobago.fixSelectionOnFocusIn = function() {
+  try {
+    var src = window.event.srcElement;
+    if (src) {
+      src.tmpIndex = src.selectedIndex;
+    }
+  } catch (e) {
+     // ignore
+  }
+};
+
+Tobago.fixSelectionOnFocus = function() {
+  try {
+    var src = window.event.srcElement;
+    if (src) {
+      src.selectedIndex = src.tmpIndex;
+     }
+  } catch (e) {
+    // ignore
+  }
+};
