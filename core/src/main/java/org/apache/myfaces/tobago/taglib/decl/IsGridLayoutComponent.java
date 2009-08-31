@@ -38,7 +38,14 @@ public interface IsGridLayoutComponent {
    *
    * @param width The width for this component.
    */
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "(getRenderer(getFacesContext()) instanceof "
+          + "org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + "        ? ((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext()))\n"
+          + "        .getWidth(getFacesContext(), this)\n"
+          + "        : org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
+          + "getFacesContext(), this, \"width\")")
   void setWidth(String width);
 
   /**
@@ -46,26 +53,52 @@ public interface IsGridLayoutComponent {
    *
    * @param height The height for this component.
    */
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "(getRenderer(getFacesContext()) instanceof "
+          + "org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + "        ? ((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext()))\n"
+          + "        .getHeight(getFacesContext(), this)\n"
+          + "        : org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
+          + "getFacesContext(), this, \"height\")")
   void setHeight(String height);
 
   /**
    * @param minimumWidth The minimum width for this component.
    */
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "(getRenderer(getFacesContext()) instanceof "
+          + "org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + "        ? ((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext()))\n"
+          + "        .getMinimumWidth(getFacesContext(), this)\n"
+          + "        : org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
+          + "getFacesContext(), this, \"minimumWidth\")")
   void setMinimumWidth(String minimumWidth);
 
   /**
    * @param minimumHeight The minimum height for this component.
    */
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "(getRenderer(getFacesContext()) instanceof "
+          + "org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + "        ? ((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext()))\n"
+          + "        .getMinimumHeight(getFacesContext(), this)\n"
+          + "        : org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
+          + "getFacesContext(), this, \"minimumHeight\")")
   void setMinimumHeight(String minimumHeight);
 
   /**
    * @param preferredWidth The preferred width for this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
+      defaultCode = "(getRenderer(getFacesContext()) instanceof "
+          + "org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + "        ? ((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext()))\n"
+          + "        .getPreferredWidth(getFacesContext(), this)\n"
+          + "        : org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
           + "getFacesContext(), this, \"preferredWidth\")")
   void setPreferredWidth(String preferredWidth);
 
@@ -73,20 +106,39 @@ public interface IsGridLayoutComponent {
    * @param preferredHeight The preferred height for this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
+      defaultCode = "(getRenderer(getFacesContext()) instanceof "
+          + "org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + "        ? ((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext()))\n"
+          + "        .getPreferredHeight(getFacesContext(), this)\n"
+          + "        : org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
           + "getFacesContext(), this, \"preferredHeight\")")
   void setPreferredHeight(String preferredHeight);
 
   /**
    * @param maximumWidth The maximum width for this component.
    */
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "(getRenderer(getFacesContext()) instanceof "
+          + "org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + "        ? ((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext()))\n"
+          + "        .getMaximumWidth(getFacesContext(), this)\n"
+          + "        : org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
+          + "getFacesContext(), this, \"maximumWidth\")")
   void setMaximumWidth(String maximumWidth);
 
   /**
    * @param maximumHeight The maximum height for this component.
    */
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "(getRenderer(getFacesContext()) instanceof "
+          + "org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
+          + "        ? ((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer) "
+          + "getRenderer(getFacesContext()))\n"
+          + "        .getMaximumHeight(getFacesContext(), this)\n"
+          + "        : org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
+          + "getFacesContext(), this, \"maximumHeight\")")
   void setMaximumHeight(String maximumHeight);
 
   /**

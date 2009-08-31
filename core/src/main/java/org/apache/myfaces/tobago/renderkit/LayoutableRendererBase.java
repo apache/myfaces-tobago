@@ -25,8 +25,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
+// todo: may be removed when refactoring of the layout manager is done (TOBAGO-606)
 public abstract class LayoutableRendererBase
-    extends RendererBase implements LayoutableRenderer {
+    extends LayoutComponentRendererBase implements LayoutableRenderer {
 
   private static final Log LOG = LogFactory.getLog(LayoutableRendererBase.class);
 

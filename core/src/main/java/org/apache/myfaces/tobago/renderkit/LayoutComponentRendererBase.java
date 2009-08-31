@@ -17,48 +17,44 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.layout.Measure;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-public abstract class AbstractLayoutableRendererBaseWrapper extends AbstractRendererBaseWrapper
-    implements LayoutableRenderer, LayoutComponentRenderer {
-
-  protected final LayoutableRenderer getLayoutableRenderer(FacesContext facesContext) {
-    return (LayoutableRenderer) getRenderer(facesContext);
-  }
+public abstract class LayoutComponentRendererBase extends RendererBase implements LayoutComponentRenderer {
 
   public Measure getWidth(FacesContext facesContext, UIComponent component) {
-    return ((LayoutComponentRenderer) getRenderer(facesContext)).getWidth(facesContext, component);
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.WIDTH);
   }
 
   public Measure getHeight(FacesContext facesContext, UIComponent component) {
-    return ((LayoutComponentRenderer) getRenderer(facesContext)).getHeight(facesContext, component);
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.HEIGHT);
   }
 
   public Measure getMinimumWidth(FacesContext facesContext, UIComponent component) {
-    return ((LayoutComponentRenderer) getRenderer(facesContext)).getMinimumWidth(facesContext, component);
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.MINIMUM_WIDTH);
   }
 
   public Measure getMinimumHeight(FacesContext facesContext, UIComponent component) {
-    return ((LayoutComponentRenderer) getRenderer(facesContext)).getMinimumHeight(facesContext, component);
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.MINIMUM_HEIGHT);
   }
 
   public Measure getPreferredWidth(FacesContext facesContext, UIComponent component) {
-    return ((LayoutComponentRenderer) getRenderer(facesContext)).getPreferredWidth(facesContext, component);
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.PREFERRED_WIDTH);
   }
 
   public Measure getPreferredHeight(FacesContext facesContext, UIComponent component) {
-    return ((LayoutComponentRenderer) getRenderer(facesContext)).getPreferredHeight(facesContext, component);
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.PREFERRED_HEIGHT);
   }
 
   public Measure getMaximumWidth(FacesContext facesContext, UIComponent component) {
-    return ((LayoutComponentRenderer) getRenderer(facesContext)).getMaximumWidth(facesContext, component);
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.MAXIMUM_WIDTH);
   }
 
   public Measure getMaximumHeight(FacesContext facesContext, UIComponent component) {
-    return ((LayoutComponentRenderer) getRenderer(facesContext)).getMaximumHeight(facesContext, component);
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.MAXIMUM_HEIGHT);
   }
 }

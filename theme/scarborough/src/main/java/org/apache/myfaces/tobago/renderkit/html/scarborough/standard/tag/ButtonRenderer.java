@@ -27,12 +27,15 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UICommandBase;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -136,25 +139,27 @@ public class ButtonRenderer extends CommandRendererBase {
     boolean defaultCommand = ComponentUtil.getBooleanAttribute(component, Attributes.DEFAULT_COMMAND);
     return defaultCommand ? "submit" : "button";
   }
-/*
-  public int getPreferredWidth(FacesContext facesContext, UIComponent component) {
+
+  @Override
+  public Measure getPreferredWidth(FacesContext facesContext, UIComponent component) {
+
+    UIButton button = (UIButton) component;
     int width = 0;
-    String imageName = (String) component.getAttributes().get(ATTR_IMAGE);
-    if (imageName != null) {
-      width = getConfiguredValue(facesContext, component, "imageWidth");
+    boolean image = button.getImage() != null;
+    if (image) {
+      width = getConfiguredValue(facesContext, button, "imageWidth");
     }
-    LabelWithAccessKey label = new LabelWithAccessKey(component);
+    LabelWithAccessKey label = new LabelWithAccessKey(button);
 
     if (label.getText() != null) {
-      width += RenderUtil.calculateStringWidth(facesContext, component, label.getText());
+      width += RenderUtil.calculateStringWidth(facesContext, button, label.getText());
     }
-    int padding = getConfiguredValue(facesContext, component, "paddingWidth");
+    int padding = getConfiguredValue(facesContext, button, "paddingWidth");
     width += 2 * padding;
-    if (imageName != null && label.getText() != null) {
+    if (image && label.getText() != null) {
       width += padding;
     }
 
-    return width;
+    return new PixelMeasure(width);
   }
-  */
 }
