@@ -74,6 +74,36 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     }
   }
 
+  public void fixRelativeInsideAuto(boolean orientation, boolean auto) {
+
+    LayoutTokens tokens = grid.getTokens(orientation);
+
+    if (auto) {
+      for (int i = 0; i < tokens.getSize(); i++) {
+        if (tokens.get(i) instanceof RelativeLayoutToken) {
+          LOG.warn("Fixing layout token from * to auto, because a * in not allowed inside of a auto.");
+          tokens.set(i, AutoLayoutToken.INSTANCE);
+        }
+      }
+    }
+
+    for (int i = 0; i < tokens.getSize(); i++) {
+      for (int j = 0; j < grid.getTokens(!orientation).getSize(); j++) {
+        Cell cell = grid.getCell(i, j, orientation);
+        if (cell instanceof OriginCell) {
+          OriginCell origin = (OriginCell) cell;
+          LayoutComponent component = cell.getComponent();
+          if (component instanceof LayoutContainer) {
+            LayoutManager layoutManager = ((LayoutContainer) component).getLayoutManager();
+            // TODO: may be improved
+            boolean childAuto = origin.getSpan(orientation) == 1 && tokens.get(i) instanceof AutoLayoutToken;
+            layoutManager.fixRelativeInsideAuto(orientation, childAuto);
+          }
+        }
+      }
+    }
+  }
+
   public void preProcessing(boolean orientation) {
 
     // process auto tokens

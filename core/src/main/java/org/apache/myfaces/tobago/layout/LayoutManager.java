@@ -25,6 +25,8 @@ public interface LayoutManager {
 
   void init();
 
+  void fixRelativeInsideAuto(boolean orientation, boolean auto);
+
   void preProcessing(boolean orientation);
 
   void mainProcessing(boolean orientation);

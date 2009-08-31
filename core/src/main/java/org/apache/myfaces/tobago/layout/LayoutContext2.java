@@ -49,6 +49,8 @@ public class LayoutContext2 {
 
     LayoutManager layoutManager = container.getLayoutManager();
     layoutManager.init();
+    layoutManager.fixRelativeInsideAuto(true, false);
+    layoutManager.fixRelativeInsideAuto(false, false);
     layoutManager.preProcessing(true);
     layoutManager.preProcessing(false);
     layoutManager.mainProcessing(true);

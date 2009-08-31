@@ -40,6 +40,9 @@ public abstract class AbstractUITabGroupLayout extends UILayout implements OnCom
   public void init() {
   }
 
+  public void fixRelativeInsideAuto(boolean orientation, boolean auto) {
+  }
+
   public void preProcessing(boolean orientation) {
   }
 
