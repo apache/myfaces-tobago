@@ -31,7 +31,7 @@ public class Interval {
     this(
         horizontal ? component.getMinimumWidth() : component.getMinimumHeight(),
         horizontal ? component.getPreferredWidth() : component.getPreferredHeight(),
-        horizontal ? component.getMinimumWidth() : component.getMinimumHeight(),
+        horizontal ? component.getMaximumWidth() : component.getMaximumHeight(),
         horizontal ? component.getWidth() : component.getHeight());
   }
 
