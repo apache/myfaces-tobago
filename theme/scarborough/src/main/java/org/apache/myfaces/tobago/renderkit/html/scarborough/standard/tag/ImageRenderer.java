@@ -100,7 +100,7 @@ public class ImageRenderer extends LayoutableRendererBase {
     writer.writeAttribute(HtmlAttributes.ALT, alt, true);
     HtmlRendererUtil.renderTip(graphic, writer);
     writer.writeAttribute(HtmlAttributes.BORDER, border, false);
-    writer.writeAttributeFromComponent(HtmlAttributes.HEIGHT, Attributes.HEIGHT);
+//    writer.writeAttributeFromComponent(HtmlAttributes.HEIGHT, Attributes.HEIGHT);
     writer.writeStyleAttribute();
     HtmlRendererUtil.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
