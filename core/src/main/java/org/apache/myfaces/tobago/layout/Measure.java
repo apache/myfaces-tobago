@@ -49,5 +49,13 @@ public abstract class Measure implements Serializable {
 
   public abstract Measure substractNotNegative(Measure m);
 
+  public boolean greaterThan(Measure measure) {
+    return measure != null && getPixel() > measure.getPixel();
+  }
+
+  public boolean lessThan(Measure measure) {
+    return measure != null && getPixel() < measure.getPixel();
+  }
+
   public abstract int getPixel();
 }

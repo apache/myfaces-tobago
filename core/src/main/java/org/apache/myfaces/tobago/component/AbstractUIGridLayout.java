@@ -43,6 +43,7 @@ import org.apache.myfaces.tobago.layout.math.EquationManager;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class AbstractUIGridLayout extends UILayout implements OnComponentCreated, LayoutManager {
@@ -224,11 +225,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
                 size = size.add(pixelMeasures[i + k]);
                 size = size.add(getSpacing(orientation));
               }
-              if (orientation) {
-                component.setWidth(size);
-              } else {
-                component.setHeight(size);
-              }
+              setSize(orientation, component, size);
             }
 
             // call sub layout manager
@@ -497,6 +494,26 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
     return ((LayoutContainer) getParent());
   }
 
+  private void setSize(boolean orientation, LayoutComponent component, Measure size) {
+    if (orientation) {
+      if (size.greaterThan(component.getMaximumWidth())) {
+        size = component.getMaximumWidth();
+      }
+      if (size.lessThan(component.getMinimumWidth())) {
+        size = component.getMinimumWidth();
+      }
+      component.setWidth(size);
+    } else {
+      if (size.greaterThan(component.getMaximumHeight())) {
+        size = component.getMaximumHeight();
+      }
+      if (size.lessThan(component.getMinimumHeight())) {
+        size = component.getMinimumHeight();
+      }
+      component.setHeight(size);
+    }
+  }
+
   protected Grid getGrid() {
     return grid;
   }
@@ -516,5 +533,11 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
   @Override
   public boolean getRendersChildren() {
     return false;
+  }
+
+  @Override
+  public String toString() {
+    return getClass().getSimpleName()
+        + "(" + Arrays.toString(grid.getWidths()) + ", " + Arrays.toString(grid.getHeights()) + ")";
   }
 }

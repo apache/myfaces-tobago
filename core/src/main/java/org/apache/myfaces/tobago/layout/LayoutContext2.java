@@ -17,6 +17,12 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.AbstractUIGridLayout;
+
+import javax.faces.component.UIComponent;
+
 /*
 An alternative algorithm to the SystemOfEquations ...
 
@@ -39,6 +45,8 @@ An alternative algorithm to the SystemOfEquations ...
  */
 public class LayoutContext2 {
 
+  private static final Log LOG = LogFactory.getLog(LayoutContext2.class);
+
   private LayoutContainer container;
 
   public LayoutContext2(LayoutContainer container) {
@@ -57,5 +65,34 @@ public class LayoutContext2 {
     layoutManager.mainProcessing(false);
     layoutManager.postProcessing(true);
     layoutManager.postProcessing(false);
+
+    StringBuffer buffer = new StringBuffer("\n");
+    debug(buffer, container, 0);
+    LOG.info(buffer);
+  }
+
+  private void debug(StringBuffer buffer, LayoutObject component, int depth) {
+    for (int i = 0; i < depth; i++) {
+      buffer.append("  ");
+    }
+    buffer.append(component.getClass().getSimpleName());
+    buffer.append("(");
+    buffer.append(component.getWidth());
+    buffer.append(", ");
+    buffer.append(component.getHeight());
+    buffer.append(")");
+    if (component instanceof LayoutContainer) {
+      LayoutManager layoutManager = ((LayoutContainer) component).getLayoutManager();
+      if (layoutManager instanceof AbstractUIGridLayout) {
+        buffer.append(" ");
+        buffer.append(layoutManager.toString());
+      }
+    }
+    buffer.append("\n");
+    for (Object o : ((UIComponent) component).getChildren()) {
+      if (o instanceof LayoutObject) {
+        debug(buffer, (LayoutObject) o, depth + 2);
+      }
+    }
   }
 }
