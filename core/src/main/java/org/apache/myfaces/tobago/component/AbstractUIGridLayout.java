@@ -158,6 +158,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
       }
     }
     if (size != null) {
+      size = size.add(LayoutUtils.getBeginOffset(orientation, getLayoutContainer()));
+      size = size.add(LayoutUtils.getEndOffset(orientation, getLayoutContainer()));
       LayoutUtils.setSize(orientation, getLayoutContainer(), size);
     }
   }
@@ -225,7 +227,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
                 size = size.add(pixelMeasures[i + k]);
                 size = size.add(getSpacing(orientation));
               }
-              setSize(orientation, component, size);
+              LayoutUtils.setSize(orientation, component, size);
             }
 
             // call sub layout manager
@@ -249,9 +251,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
 
           component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
 
-          Integer span = ((OriginCell) cell).getSpan(orientation);
           PixelMeasure[] pixelMeasures = grid.getSizes(orientation);
-
 
           // compute the position of the cell
           {
@@ -466,7 +466,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
           firstIndex = i + horizontalIndexOffset;
         } else {
           layoutContext.getHorizontal().proportionate(
-              firstIndex, i + horizontalIndexOffset, first, factor, getParent());
+              firstIndex, i + horizontalIndexOffset, first, factor, getLayoutContainer());
         }
       }
     }
@@ -483,7 +483,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
           firstIndex = i + verticalIndexOffset;
         } else {
           layoutContext.getVertical().proportionate(
-              firstIndex, i + verticalIndexOffset, first, factor, getParent());
+              firstIndex, i + verticalIndexOffset, first, factor, getLayoutContainer());
         }
       }
     }
@@ -492,26 +492,6 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
   private LayoutContainer getLayoutContainer() {
     // todo: check with instanceof and do something in the error case
     return ((LayoutContainer) getParent());
-  }
-
-  private void setSize(boolean orientation, LayoutComponent component, Measure size) {
-    if (orientation) {
-      if (size.greaterThan(component.getMaximumWidth())) {
-        size = component.getMaximumWidth();
-      }
-      if (size.lessThan(component.getMinimumWidth())) {
-        size = component.getMinimumWidth();
-      }
-      component.setWidth(size);
-    } else {
-      if (size.greaterThan(component.getMaximumHeight())) {
-        size = component.getMaximumHeight();
-      }
-      if (size.lessThan(component.getMinimumHeight())) {
-        size = component.getMinimumHeight();
-      }
-      component.setHeight(size);
-    }
   }
 
   protected Grid getGrid() {

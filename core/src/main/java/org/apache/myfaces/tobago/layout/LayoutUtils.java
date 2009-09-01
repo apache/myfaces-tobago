@@ -132,11 +132,30 @@ public final class LayoutUtils {
     return available;
   }
 
-  public static void setSize(boolean orientation, LayoutContainer container, Measure size) {
+  public static void setSize(boolean orientation, LayoutObject component, Measure size) {
     if (orientation) {
-      container.setWidth(size);
+      if (component.getWidth() != null) { // to not override set sizes
+        return;
+      }
+      if (size.greaterThan(component.getMaximumWidth())) {
+        size = component.getMaximumWidth();
+      }
+      if (size.lessThan(component.getMinimumWidth())) {
+        size = component.getMinimumWidth();
+      }
+      component.setWidth(size);
     } else {
-      container.setHeight(size);
+      if (component.getHeight() != null) { // to not override set sizes
+        return;
+      }
+      if (size.greaterThan(component.getMaximumHeight())) {
+        size = component.getMaximumHeight();
+      }
+      if (size.lessThan(component.getMinimumHeight())) {
+        size = component.getMinimumHeight();
+      }
+      component.setHeight(size);
     }
   }
+
 }
