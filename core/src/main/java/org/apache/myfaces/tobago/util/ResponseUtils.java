@@ -24,10 +24,6 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
-/*
- * Date: Oct 21, 2006
- * Time: 10:39:25 AM
- */
 public class ResponseUtils {
 
   private static final Log LOG = LogFactory.getLog(ResponseUtils.class);
@@ -69,7 +65,7 @@ public class ResponseUtils {
                   + "'. Setting Content-Type to '" + contentType + "'");
             }
           }
-        } catch (AbstractMethodError e) {
+        } catch (Error e) {
           LOG.warn("The method ServletResponse.getContentType() is not available before Servlet 2.4");
         }
       }
