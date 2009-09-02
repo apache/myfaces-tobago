@@ -21,19 +21,14 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.taglib.decl.HasBinding;
-import org.apache.myfaces.tobago.taglib.decl.HasId;
-
-/**
- * @since 1.0.13
- */
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
 @Tag(name = "columnEvent")
 @UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UIColumnEvent",
     uiComponentBaseClass = "javax.faces.component.UIColumn",
     interfaces = "org.apache.myfaces.tobago.component.ColumnEvent",
     componentType = "org.apache.myfaces.tobago.ColumnEvent")
-public interface ColumnEventTagDeclaration extends HasId, HasBinding {
+public interface ColumnEventTagDeclaration extends HasIdBindingAndRendered {
 
   @TagAttribute
   @UIComponentTagAttribute()
