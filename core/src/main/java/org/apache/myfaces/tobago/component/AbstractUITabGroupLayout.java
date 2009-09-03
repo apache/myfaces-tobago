@@ -93,29 +93,27 @@ public abstract class AbstractUITabGroupLayout extends UILayout implements Layou
   public void mainProcessing(boolean orientation) {
 
     // find *
-    {
-      if (orientation && !horizontalAuto || !orientation && !verticalAuto) {
-        // find rest
-        LayoutContainer container = getLayoutContainer();
-        Measure available = LayoutUtils.getSize(orientation, container);
-        if (available != null) {
-          available = available.substractNotNegative(LayoutUtils.getBeginOffset(orientation, container));
-          available = available.substractNotNegative(LayoutUtils.getEndOffset(orientation, container));
+    if (orientation && !horizontalAuto || !orientation && !verticalAuto) {
+      // find rest
+      LayoutContainer container = getLayoutContainer();
+      Measure available = LayoutUtils.getSize(orientation, container);
+      if (available != null) {
+        available = available.substractNotNegative(LayoutUtils.getBeginOffset(orientation, container));
+        available = available.substractNotNegative(LayoutUtils.getEndOffset(orientation, container));
 
-          for (LayoutComponent component : getLayoutContainer().getComponents()) {
+        for (LayoutComponent component : getLayoutContainer().getComponents()) {
 
-            component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
-            LayoutUtils.setSize(orientation, component, available);
+          component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
+          LayoutUtils.setSize(orientation, component, available);
 
 
-            // call sub layout manager
-            if (component instanceof LayoutContainer) {
-              ((LayoutContainer) component).getLayoutManager().mainProcessing(orientation);
-            }
+          // call sub layout manager
+          if (component instanceof LayoutContainer) {
+            ((LayoutContainer) component).getLayoutManager().mainProcessing(orientation);
           }
-        } else {
-          LOG.warn("No width/height set but needed for *!");// todo: more information
         }
+      } else {
+        LOG.warn("No width/height set but needed for *!"); // todo: more information
       }
     }
   }
@@ -146,11 +144,9 @@ public abstract class AbstractUITabGroupLayout extends UILayout implements Layou
   }
 
   public void collect(LayoutContext layoutContext, LayoutContainer container, int horizontalIndex, int verticalIndex) {
-    //To change body of implemented methods use File | Settings | File Templates.
   }
 
   public void distribute(LayoutContext layoutContext, LayoutContainer container) {
-    //To change body of implemented methods use File | Settings | File Templates.
   }
 
   private LayoutContainer getLayoutContainer() {

@@ -326,7 +326,7 @@ public class SystemOfEquations {
     data[j][j] = 1;
     data[j][numberOfVariables] = 100.0; // todo: default
     LOG.warn("Setting free (undefined) variable x_" + j + " to " + data[j][numberOfVariables]);
-    equations.add(j, new ZeroEquation());// fixme
+    equations.add(j, new ZeroEquation()); // fixme
   }
 
   /**

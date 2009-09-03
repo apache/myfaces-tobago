@@ -40,13 +40,13 @@ public class FactorList extends ArrayList<Integer> {
     double[] doubles = new double[size()];
     int i = 0;
     for (Integer integer : this) {
-      doubles[i++] = integer * size.getPixel() / (double)sum;
+      doubles[i++] = integer * size.getPixel() / (double) sum;
     }
 
     MathUtils.adjustRemainders(doubles, 0.0);
 
     for (double value : doubles) {
-      result.add(new PixelMeasure((int)value));
+      result.add(new PixelMeasure((int) value));
     }
 
     return result;

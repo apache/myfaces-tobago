@@ -114,7 +114,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
 
       if (token instanceof PixelLayoutToken) {
         int pixel = ((PixelLayoutToken) token).getPixel();
-        grid.getSizes(orientation)[i] = new PixelMeasure(pixel);// XXX refactor
+        grid.getSizes(orientation)[i] = new PixelMeasure(pixel); // XXX refactor
       }
 
       IntervalList intervals = new IntervalList();
@@ -203,7 +203,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
             i++;
           }
         } else {
-          LOG.warn("No width/height set but needed for *!");// todo: more information
+          LOG.warn("No width/height set but needed for *!"); // todo: more information
         }
       }
     }
