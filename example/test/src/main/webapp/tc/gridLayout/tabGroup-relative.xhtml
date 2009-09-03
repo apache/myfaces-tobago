@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:view
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+  <tc:page id="page">
+    <f:facet name="layout">
+      <tc:gridLayout/>
+    </f:facet>
+    <tc:gridLayoutConstraint width="600px" height="300px"/>
+
+    <tc:tabGroup id="tabGroup">
+      <tc:tab label="Rows" id="rows">
+        <f:facet name="layout">
+          <tc:gridLayout rows="*;*"/>
+        </f:facet>
+        <tc:textarea id="a-1" />
+        <tc:textarea id="a-2" />
+      </tc:tab>
+      <tc:tab label="Columns" id="columns">
+        <f:facet name="layout">
+          <tc:gridLayout columns="*;*" />
+        </f:facet>
+        <tc:textarea id="a-3" />
+        <tc:textarea id="a-4" />
+      </tc:tab>
+    </tc:tabGroup>
+
+    <tc:script file="script/test-utils.js"/>
+
+    <tc:script onload="checkLayout('page:rows:a-1', 5, 24, 587, 132);"/>
+    <tc:script onload="checkLayout('page:rows:a-2', 5, 161, 587, 132);"/>
+
+    <!--click the tab to display the elements, they can only be measured if they are not hidden.-->
+    <tc:script onload="document.getElementById('page:tabGroup__1__1').onclick();"/>
+
+    <tc:script onload="checkLayout('page:columns:a-3', 5, 24, 291, 269);"/>
+    <tc:script onload="checkLayout('page:columns:a-4', 301, 24, 291, 269);"/>
+
+  </tc:page>
+</f:view>

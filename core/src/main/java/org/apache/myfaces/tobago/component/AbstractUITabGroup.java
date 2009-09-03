@@ -68,7 +68,7 @@ public abstract class AbstractUITabGroup extends UIPanelBase
   @Override
   public void encodeChildren(FacesContext facesContext) throws IOException {
 
-    ((UILayout) getLayoutManager()).encodeChildren(facesContext);
+//    ((UILayout) getLayoutManager()).encodeChildren(facesContext);
   }
 
   @Override

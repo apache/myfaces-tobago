@@ -41,6 +41,7 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
+import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -97,22 +98,17 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     if (facesContext instanceof TobagoFacesContext) {
       ((TobagoFacesContext) facesContext).getScriptFiles().addAll(Arrays.asList(SCRIPTS));
     }
-    HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, component);
   }
 
   public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
-    UITabGroup component = (UITabGroup) uiComponent;
+    UITabGroup tabGroup = (UITabGroup) uiComponent;
 
-    HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, component);
+    int activeIndex = ensureRenderedActiveIndex(facesContext, tabGroup);
 
-//    layoutTabs(facesContext, component);
-
-    int activeIndex = ensureRenderedActiveIndex(facesContext, component);
-
-    final String clientId = component.getClientId(facesContext);
+    final String clientId = tabGroup.getClientId(facesContext);
     final String hiddenId = clientId + TabGroupRenderer.ACTIVE_INDEX_POSTFIX;
-    final String switchType = component.getSwitchType();
+    final String switchType = tabGroup.getSwitchType();
 
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
       HtmlRendererUtil.writeScriptLoader(facesContext, SCRIPTS, new String[0]);
@@ -128,24 +124,24 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
 
     String image1x1 = ResourceManagerUtil.getImageWithPath(facesContext, "image/1x1.gif");
 
-    TabList tabList = getTabList(facesContext, component);
+    TabList tabList = getTabList(facesContext, tabGroup);
 
-    // if a outer uiPage is presend, the virtual tab will go over all
+    // if a outer uiPage is present, the virtual tab will go over all
     // tabs and render it as they are selected, and it will
     // selected with stylesheet.
     int virtualTab = 0;
     int currentWidth = 0;
 
-    int navigationBarWidth = ThemeConfig.getValue(facesContext, component, "navigationBarWidth");
-    for (UIComponent tab : (List<UIComponent>) component.getChildren()) {
+    int navigationBarWidth = ThemeConfig.getValue(facesContext, tabGroup, "navigationBarWidth");
+    for (UIComponent tab : (List<UIComponent>) tabGroup.getChildren()) {
       if (tab instanceof UIPanelBase) {
         if (tab.isRendered()) {
           currentWidth += tabList.getWidthList().get(virtualTab);
           if (SWITCH_TYPE_CLIENT.equals(switchType) || virtualTab == activeIndex) {
             if (virtualTab != activeIndex) {
-              HtmlRendererUtil.replaceStyleAttribute(component, "display", "none");
+              tabGroup.setDisplay(Display.NONE);
             } else {
-              HtmlRendererUtil.removeStyleAttribute(component, "display");
+              tabGroup.setDisplay(null);
             }
 
             writer.startElement(HtmlConstants.DIV, null);
@@ -154,12 +150,11 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
 
             writer.startElement(HtmlConstants.DIV, null);
             writer.writeIdAttribute(clientId);
-            HtmlRendererUtil.renderDojoDndItem(component, writer, false);
+            HtmlRendererUtil.renderDojoDndItem(tabGroup, writer, false);
             //TODO writer.writeClassAttribute("dojoDndItem");
-            StyleClasses classes = (StyleClasses) component.getAttributes().get(Attributes.STYLE_CLASS);
+            StyleClasses classes = (StyleClasses) tabGroup.getAttributes().get(Attributes.STYLE_CLASS);
             writer.writeClassAttribute(classes);
-            renderTabGroupView(facesContext, writer, component, virtualTab,
-                (HtmlStyleMap) component.getAttributes().get(Attributes.STYLE),
+            renderTabGroupView(facesContext, writer, tabGroup, virtualTab,
                 switchType, image1x1, navigationBarWidth, currentWidth, tabList);
             writer.endElement(HtmlConstants.DIV);
 
@@ -169,7 +164,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
                   "new Tobago.TabGroup(",
                   "    '" + clientId + "', ",
                   "    '" + activeIndex + "', ",
-                  "    '" + component.getChildCount() + "');"
+                  "    '" + tabGroup.getChildCount() + "');"
               };
               HtmlRendererUtil.writeScriptLoader(facesContext, new String[0], cmds);
             }
@@ -255,31 +250,34 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     return closestRenderedTabIndex;
   }
 
-  private void renderTabGroupView(FacesContext facesContext, TobagoResponseWriter writer, UITabGroup component,
-      int virtualTab, HtmlStyleMap oStyle, String switchType, String image1x1, int toolbarWidth,
+  private void renderTabGroupView(
+      FacesContext facesContext, TobagoResponseWriter writer, UITabGroup tabGroup,
+      int virtualTab, String switchType, String image1x1, int toolbarWidth,
       int currentWidth, TabList tabList) throws IOException {
-    writer.startElement(HtmlConstants.TABLE, null);
+    writer.startElement(HtmlConstants.TABLE, tabGroup);
     writer.writeAttribute(HtmlAttributes.BORDER, 0);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-    final String clientId = component.getClientId(facesContext);
+    final String clientId = tabGroup.getClientId(facesContext);
     writer.writeIdAttribute(clientId + "__" + virtualTab);
-    writer.writeStyleAttribute(oStyle);
+    writer.writeStyleAttribute();
 
-    writer.startElement(HtmlConstants.TR, null);
+    writer.startElement(HtmlConstants.TR, tabGroup);
     writer.writeAttribute(HtmlAttributes.VALIGN, "bottom", false);
 
-    writer.startElement(HtmlConstants.TD, null);
-    HtmlStyleMap headerStyle = (HtmlStyleMap) component.getAttributes().get(Attributes.STYLE_HEADER);
-    headerStyle.put("position", "relative");
-    headerStyle.put("width", headerStyle.getInt("width"));
-    int width = headerStyle.getInt("width");
-    writer.writeStyleAttribute(headerStyle);
-    writer.startElement(HtmlConstants.DIV, null);
-    writer.writeStyleAttribute(headerStyle);
+    writer.startElement(HtmlConstants.TD, tabGroup);
+    int width = tabGroup.getWidth().getPixel();
+    int headerHeight = ThemeConfig.getMeasure(facesContext, tabGroup, "headerHeight").getPixel();
+    HtmlStyleMap header = new HtmlStyleMap();
+    header.put("position", "relative");
+    header.put("width", width);
+    header.put("height", headerHeight);
+    writer.writeStyleAttribute(header);
+    writer.startElement(HtmlConstants.DIV, tabGroup);
+    writer.writeStyleAttribute(header);
 
-    writer.startElement(HtmlConstants.DIV, null);
+    writer.startElement(HtmlConstants.DIV, tabGroup);
     HtmlStyleMap map = new HtmlStyleMap();
     if (currentWidth > width) {
       map.put("width", currentWidth);
@@ -289,24 +287,24 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     }
     map.put("overflow", "hidden");
     map.put("position", "absolute");
+    map.put("height", headerHeight);
     writer.writeStyleAttribute(map);
-    writer.startElement(HtmlConstants.TABLE, component);
+    writer.startElement(HtmlConstants.TABLE, tabGroup);
     writer.writeAttribute(HtmlAttributes.BORDER, 0);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-    headerStyle = (HtmlStyleMap) component.getAttributes().get(Attributes.STYLE_HEADER);
-    writer.writeStyleAttribute(headerStyle);
+    writer.writeStyleAttribute(header);
 
-    writer.startElement(HtmlConstants.COLGROUP, null);
+    writer.startElement(HtmlConstants.COLGROUP, tabGroup);
     for (Integer colWidth : tabList.getWidthList()) {
-      writer.startElement(HtmlConstants.COL, null);
+      writer.startElement(HtmlConstants.COL, tabGroup);
       writer.writeAttribute(HtmlAttributes.WIDTH, colWidth);
       writer.endElement(HtmlConstants.COL);
     }
     writer.endElement(HtmlConstants.COLGROUP);
 
-    writer.startElement(HtmlConstants.TR, null);
+    writer.startElement(HtmlConstants.TR, tabGroup);
     writer.writeAttribute(HtmlAttributes.VALIGN, "bottom", false);
 
     Application application = facesContext.getApplication();
@@ -314,7 +312,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     // tool bar
 
     UICommand scrollLeft = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
-    scrollLeft.setId(component.getId() + "__" + virtualTab + "__" + "previous");
+    scrollLeft.setId(tabGroup.getId() + "__" + virtualTab + "__" + "previous");
     //scrollLeft.setId(facesContext.getViewRoot().createUniqueId());
     scrollLeft.setRendererType(null);
     scrollLeft.getAttributes().put(Attributes.IMAGE, "image/tabPrev.gif");
@@ -323,12 +321,12 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     }
     if (!(TobagoConfig.getInstance(facesContext).isAjaxEnabled() && SWITCH_TYPE_RELOAD_TAB.equals(switchType))) {
       scrollLeft.getAttributes().put(Attributes.ONCLICK, "tobago_previousTab('" + switchType + "','" + clientId + "',"
-          + component.getChildCount() + ')');
+          + tabGroup.getChildCount() + ')');
     } else {
       scrollLeft.getAttributes().put(Attributes.ONCLICK, "javascript:false");
     }
     UICommand scrollRight = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
-    scrollRight.setId(component.getId() + "__" + virtualTab + "__" + "next");
+    scrollRight.setId(tabGroup.getId() + "__" + virtualTab + "__" + "next");
     scrollRight.setRendererType(null);
     scrollRight.getAttributes().put(Attributes.IMAGE, "image/tabNext.gif");
     if (tabList.isLast(virtualTab)) {
@@ -336,7 +334,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     }
     if (!(TobagoConfig.getInstance(facesContext).isAjaxEnabled() && SWITCH_TYPE_RELOAD_TAB.equals(switchType))) {
       scrollRight.getAttributes().put(Attributes.ONCLICK, "tobago_nextTab('" + switchType + "','" + clientId + "',"
-          + component.getChildCount() + ')');
+          + tabGroup.getChildCount() + ')');
     } else {
       scrollRight.getAttributes().put(Attributes.ONCLICK, "javascript:false");
     }
@@ -356,12 +354,12 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     toolBar.getChildren().add(scrollLeft);
     toolBar.getChildren().add(scrollRight);
     //toolBar.getChildren().add(commandList);
-    component.getFacets().put(Facets.TOOL_BAR, toolBar);
+    tabGroup.getFacets().put(Facets.TOOL_BAR, toolBar);
 
     UITab activeTab = null;
 
     int index = 0;
-    for (UIComponent child : (List<UIComponent>) component.getChildren()) {
+    for (UIComponent child : (List<UIComponent>) tabGroup.getChildren()) {
       if (child instanceof UITab) {
         UITab tab = (UITab) child;
         if (tab.isRendered()) {
@@ -371,7 +369,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
             onclick = null;
           } else {
             onclick = "tobago_switchTab('"+ switchType + "','" + clientId + "'," + index + ','
-                + component.getChildCount() + ')';
+                + tabGroup.getChildCount() + ')';
           }
 
           LabelWithAccessKey label = new LabelWithAccessKey(tab);
@@ -380,7 +378,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
           if (virtualTab == index) {
             outerClass.addClass("tab", "selected-outer");
             innerClass.addClass("tab", "selected-inner");
-            activeTab = (UITab) tab;
+            activeTab = tab;
           } else {
             outerClass.addClass("tab", "unselected-outer");
             innerClass.addClass("tab", "unselected-inner");
@@ -388,24 +386,24 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
           outerClass.addMarkupClass(tab, "tab", "outer");
           innerClass.addMarkupClass(tab, "tab", "outer");
           writer.startElement(HtmlConstants.TD, tab);
-          map = new HtmlStyleMap();
-          map.put("width", tabList.getWidthList().get(index));
+          HtmlStyleMap labelStyle = new HtmlStyleMap();
+          labelStyle.put("width", tabList.getWidthList().get(index));
 
-          writer.writeStyleAttribute(map);
+          writer.writeStyleAttribute(labelStyle);
           writer.writeIdAttribute(tab.getClientId(facesContext));
 
           HtmlRendererUtil.renderTip(tab, writer);
 
-          writer.startElement(HtmlConstants.DIV, null);
-          writer.writeStyleAttribute(map);
-          writer.startElement(HtmlConstants.DIV, null);
+          writer.startElement(HtmlConstants.DIV, tab);
+          writer.writeStyleAttribute(labelStyle);
+          writer.startElement(HtmlConstants.DIV, tab);
           writer.writeClassAttribute(outerClass);
           //writer.writeStyleAttribute(map);
-          writer.startElement(HtmlConstants.DIV, null);
+          writer.startElement(HtmlConstants.DIV, tab);
           //writer.writeStyleAttribute(map);
           writer.writeClassAttribute(innerClass);
 
-          writer.startElement(HtmlConstants.SPAN, null);
+          writer.startElement(HtmlConstants.SPAN, tab);
           String tabId = clientId + "__" + virtualTab + "__" + index;
           writer.writeIdAttribute(tabId);
 
@@ -429,8 +427,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
                 && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
               LOG.warn("dublicated accessKey : " + label.getAccessKey());
             }
-            HtmlRendererUtil.addClickAcceleratorKey(
-                facesContext, tabId, label.getAccessKey());
+            HtmlRendererUtil.addClickAcceleratorKey(facesContext, tabId, label.getAccessKey());
           }
           writer.endElement(HtmlConstants.DIV);
           writer.endElement(HtmlConstants.DIV);
@@ -439,7 +436,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
 
           // tool bar
           /*UIMenuCommand menuItem = (UIMenuCommand) application.createComponent(UIMenuCommand.COMPONENT_TYPE);
-          menuItem.setId(component.getId() + "__" + virtualTab + "__" + index + "__" + "menu");
+          menuItem.setId(tabGroup.getId() + "__" + virtualTab + "__" + index + "__" + "menu");
           menuItem.setRendererType("MenuCommand");
           if (onclick != null) {
             menuItem.getAttributes().put(ONCLICK, onclick);
@@ -460,16 +457,16 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     //writer.startElement(HtmlConstants.TD, null);
     //writer.writeAttribute(HtmlAttributes.WIDTH, "100%", false);
 
-    writer.startElement(HtmlConstants.TD, null);
+    writer.startElement(HtmlConstants.TD, tabGroup);
     if (currentWidth > width) {
       writer.writeAttribute(HtmlAttributes.WIDTH, toolbarWidth);
     } else {
       writer.writeAttribute(HtmlAttributes.WIDTH, Integer.toString((width - currentWidth)) + "px", false);
     }
-    writer.startElement(HtmlConstants.DIV, null);
+    writer.startElement(HtmlConstants.DIV, tabGroup);
     writer.writeClassAttribute("tobago-tab-fulfill");
 
-    writer.startElement(HtmlConstants.IMG, null);
+    writer.startElement(HtmlConstants.IMG, tabGroup);
     writer.writeAttribute(HtmlAttributes.SRC, image1x1, false);
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.endElement(HtmlConstants.IMG);
@@ -486,7 +483,11 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.endElement(HtmlConstants.TD);
     writer.endElement(HtmlConstants.TR);
 
-    encodeContent(writer, facesContext, activeTab);
+    HtmlStyleMap body = new HtmlStyleMap();
+    body.put("position", "relative");
+    body.put("width", width);
+    body.put("height", tabGroup.getHeight().getPixel() - headerHeight);
+    encodeContent(writer, facesContext, activeTab, body);
 
     writer.endElement(HtmlConstants.TABLE);
   }
@@ -506,18 +507,17 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.endElement(HtmlConstants.DIV);
   }
 
-  protected void encodeContent(TobagoResponseWriter writer, FacesContext facesContext, UITab activeTab)
+  protected void encodeContent(
+      TobagoResponseWriter writer, FacesContext facesContext, UITab activeTab, HtmlStyleMap body)
       throws IOException {
 
-    HtmlStyleMap bodyStyle = (HtmlStyleMap)
-        activeTab.getParent().getAttributes().get(Attributes.STYLE_BODY);
-    writer.startElement(HtmlConstants.TR, null);
-    writer.startElement(HtmlConstants.TD, null);
+    writer.startElement(HtmlConstants.TR, activeTab);
+    writer.startElement(HtmlConstants.TD, activeTab);
     StyleClasses classes = new StyleClasses();
     classes.addClass("tab", "content");
     classes.addMarkupClass(activeTab, "tab", "content");
     writer.writeClassAttribute(classes);
-    writer.writeStyleAttribute(bodyStyle);
+    writer.writeStyleAttribute(body);
     writer.flush();
     RenderUtil.encodeChildren(facesContext, activeTab);
     writer.endElement(HtmlConstants.TD);
@@ -530,8 +530,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     int index = ensureRenderedActiveIndex(context, (UITabGroup) component);
     int currentWidth = getCurrentWidth(tabList, index);
     renderTabGroupView(context, HtmlRendererUtil.getTobagoResponseWriter(context),
-        (UITabGroup) component, index,
-        (HtmlStyleMap) component.getAttributes().get(Attributes.STYLE), SWITCH_TYPE_RELOAD_TAB,
+        (UITabGroup) component, index, SWITCH_TYPE_RELOAD_TAB,
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"),
         ThemeConfig.getValue(context, component, "navigationBarWidth"), currentWidth, tabList);
   }

@@ -17,46 +17,38 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.text.MessageFormat;
 
 public class TabGroupRenderer extends
     org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.TabGroupRenderer{
 
   private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
 
-  protected void encodeContent(TobagoResponseWriter writer,
-      FacesContext facesContext, UITab activeTab) throws IOException {
+  @Override
+  protected void encodeContent(
+      TobagoResponseWriter writer, FacesContext facesContext, UITab activeTab, HtmlStyleMap body)
+      throws IOException {
 
-    HtmlStyleMap bodyStyle = (HtmlStyleMap)
-        activeTab.getParent().getAttributes().get(Attributes.STYLE_BODY);
     writer.startElement(HtmlConstants.TR, null);
     writer.startElement(HtmlConstants.TD, null);
-    if (bodyStyle != null) {
-      writer.writeStyleAttribute(bodyStyle);
+    if (body != null) {
+      writer.writeStyleAttribute(body);
     }
 
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute("tobago-tab-shadow");
-    if (bodyStyle != null) {
-      writer.writeStyleAttribute(bodyStyle);
+    if (body != null) {
+      writer.writeStyleAttribute(body);
     }
 
     writer.startElement(HtmlConstants.DIV, null);
@@ -65,10 +57,9 @@ public class TabGroupRenderer extends
     classes.addMarkupClass(activeTab, "tab", "content");
     writer.writeClassAttribute(classes);
 
-    Integer height = HtmlRendererUtil.getStyleAttributeIntValue(bodyStyle, "height");
-    if (height != null) {
-      writer.writeStyleAttribute(MessageFormat.format("height: {0}px; overflow: auto;", height - 1));
-    }
+    body.put("height", body.getInt("height") - 1);
+    body.put("overflow", "auto");
+    writer.writeStyleAttribute(body);
 
     writer.flush();
     RenderUtil.encodeChildren(facesContext, activeTab);

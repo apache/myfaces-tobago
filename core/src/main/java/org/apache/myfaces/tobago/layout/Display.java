@@ -20,7 +20,8 @@ package org.apache.myfaces.tobago.layout;
 public enum Display {
 
   BLOCK("block"),
-  INLINE("inline");
+  INLINE("inline"),
+  NONE("none");
 
   private String value;
 

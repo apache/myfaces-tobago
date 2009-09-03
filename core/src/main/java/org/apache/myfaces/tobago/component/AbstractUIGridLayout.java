@@ -53,7 +53,6 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
   private Grid grid;
 
   public void onComponentCreated(FacesContext context, UIComponent component) {
-    grid = new Grid(LayoutTokens.parse(getColumns()), LayoutTokens.parse(getRows()));
   }
 
   // /////////////////////////////////////////////////////////////////////////////////////////
@@ -63,6 +62,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
   // /////////////////////////////////////////////////////////////////////////////////////////
 
   public void init() {
+    grid = new Grid(LayoutTokens.parse(getColumns()), LayoutTokens.parse(getRows()));
+
     List<LayoutComponent> components = getLayoutContainer().getComponents();
     for (LayoutComponent component : components) {
       grid.add(new OriginCell(component), component.getColumnSpan(), component.getRowSpan());

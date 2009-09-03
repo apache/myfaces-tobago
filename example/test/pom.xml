@@ -477,6 +477,35 @@
       </repositories>
     </profile>
     <profile>
+      <id>sunjsf20</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>ri12</value>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>javax.faces</groupId>
+          <artifactId>jsf-api</artifactId>
+          <version>2.0</version>
+        </dependency>
+        <dependency>
+          <groupId>javax.faces</groupId>
+          <artifactId>jsf-impl</artifactId>
+          <version>2.0</version>
+        </dependency>
+      </dependencies>
+      <repositories>
+        <repository>
+          <id>java.net</id>
+          <name>java.net Maven 1 Repository</name>
+          <url>https://maven-repository.dev.java.net/nonav/repository</url>
+          <layout>legacy</layout>
+        </repository>
+      </repositories>
+    </profile>
+    <profile>
       <!--
        mvn package cargo:start -Ptomcat5x
       -->
