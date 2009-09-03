@@ -127,9 +127,8 @@ public class ThemeConfig {
       }
       clazz = clazz.getSuperclass();
     }
-    // todo: remove condition, is only temporary to ignore wml errors.
-    if (!ClientProperties.getInstance(viewRoot).getContentType().equals("wml")) {
-      LOG.error("Theme property '" + name + "' not found for renderer: " + renderer.getClass()
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("Theme property '" + name + "' not found for renderer: " + renderer.getClass()
           + " with clientProperties='" + ClientProperties.getInstance(viewRoot).getId() + "'"
           + " and locale='" + viewRoot.getLocale() + "'");
     }
