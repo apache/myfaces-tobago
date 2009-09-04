@@ -1,0 +1,99 @@
+ ~~ Licensed to the Apache Software Foundation (ASF) under one or more
+ ~~ contributor license agreements.  See the NOTICE file distributed with
+ ~~ this work for additional information regarding copyright ownership.
+ ~~ The ASF licenses this file to You under the Apache License, Version 2.0
+ ~~ (the "License"); you may not use this file except in compliance with
+ ~~ the License.  You may obtain a copy of the License at
+ ~~
+ ~~      http://www.apache.org/licenses/LICENSE-2.0
+ ~~
+ ~~ Unless required by applicable law or agreed to in writing, software
+ ~~ distributed under the License is distributed on an "AS IS" BASIS,
+ ~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ~~ See the License for the specific language governing permissions and
+ ~~ limitations under the License.
+
+ ------
+ Compatibility
+ ------
+
+Compatibility
+
+  Tobago was compatible with the following specifications, libraries and containers.
+  This list is not exhaustive, additions are welcome.
+
+  \ 
+
+*--+--+--+
+| <<Tobago Version>>   | <<1.0.x>>                  | <<1.1.x>> (planning)
+*--+--+--+
+| <<Specifications>>   |                            |
+*--+--+--+
+| Java                 | 1.4\[retro\], <<1.5>>, 1.6 | 1.4\[retro\]\[unsettled\], <<1.5>>, 1.6
+*--+--+--+
+| JSF                  | <<1.1>>, 1.2               | 1.1\[unsettled\], <<1.2>>, 2.0
+*--+--+--+
+| Servlet              | 2.3, <<2.4>>, 2.5          | 2.4, <<2.5>>, 3.0
+*--+--+--+
+| JSP                  | 1.2, <<2.0>>, 2.1          | 2.0, <<2.1>>
+*--+--+--+
+| Facelets             | <<1.1>>\[ext\]             | <<1.1>>\[ext\] ?
+*--+--+--+
+| <<Implementations>>  |                            |
+*--+--+--+
+| MyFaces              | <<1.1>>, 1.2               |
+*--+--+--+
+| Sun RI               | <<1.1>>, 1.2               |
+*--+--+--+
+|                      |                            |
+*--+--+--+
+| <<Servers>>          |                            |
+*--+--+--+
+| Tomcat               | 4.1, 5.0, 5.5, 6.0         |
+*--+--+--+
+| Jetty                | 6.1                        | 6.1
+*--+--+--+
+| WebLogic             | 8.1, 9.0, 9.1, 9.2, 10.3   |
+*--+--+--+
+| WebSphere            | 6.0, 6.1                   |
+*--+--+--+
+|                      |                            |
+*--+--+--+
+| <<Browser>>          |                            |
+*--+--+--+
+| Internet Explorer    | 6.0, 7.0, 8.0              | 6.0, 7.0, 8.0
+*--+--+--+
+| Firefox              | 2.0, 3.0, 3.5              | 2.0, 3.0, 3.5
+*--+--+--+
+
+ ~~ | Safari               |        | 4.0
+ ~~ *--+--+--+
+ ~~ | Opera                |                         |
+ ~~ *--+--+--+
+ ~~ | WebSphere JSF Impl   | ?                          |
+ ~~ *--+--+--+
+ ~~ | <<Frameworks>>       |                            |
+ ~~ *--+--+--+
+ ~~ | Tomahawk             |        |
+ ~~ *--+--+--+
+ ~~ | Orchestra            |        |
+ ~~ *--+--+--+
+ ~~ | Seam                 |        |
+ ~~ *--+--+--+
+ ~~ | ?                    |        |
+ ~~ *--+--+--+
+
+ ~~ JSF Addon-Frameworks: Apache Shale Dialog, Apache Shale Clay, Spring Web Flow, Seam, WebBeans, "Validator", ...
+ ~~ IoC Frameworks: Spring, Guice, ...
+ ~~ Component Libs: Richfaces, Icefaces, Trinidad, Tomahawk ...
+ ~~ Browser: IE 6, IE 7, Firefox 2, Firefox 3, Safari, Opera, WebKit, ...
+
+  <<bold:>> preferred
+
+  normal: compatible
+
+  \[retro\]: use the JDK 1.4 retro version
+
+  \[ext\]: add the tobago-facelets extension
+
+  \[unsettled\]: this information is unsettled and to be discussed
