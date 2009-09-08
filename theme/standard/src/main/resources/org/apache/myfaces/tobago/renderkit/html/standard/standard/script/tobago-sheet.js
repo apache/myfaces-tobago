@@ -67,12 +67,12 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage, selec
   this.headerDivId   = this.id + "_header_div";
   this.contentDivId  = this.id + "_data_div";
   this.selectedId    = this.id + Tobago.SUB_COMPONENT_SEP +"selected";
-  this.headerWidthsId = this.id + Tobago.SUB_COMPONENT_SEP + "widths"
+  this.headerWidthsId = this.id + Tobago.SUB_COMPONENT_SEP + "widths";
   this.scrollPositionId = this.id + Tobago.SUB_COMPONENT_SEP + "scrollPosition";
 
   if (this.ajaxEnabled) {
     Tobago.ajaxComponents[this.id] = this;
-     // option are onyl used for ajax request
+     // option are only used for ajax request
     this.options = {
       method: 'post',
       asynchronous: true,
@@ -340,7 +340,7 @@ Tobago.Sheet.prototype.setupResizer = function() {
       Tobago.addBindEventListener(headerDiv, "mousemove", this, "doResize");
       Tobago.addBindEventListener(headerDiv, "mouseup", this, "endResize");
     }
-    var contentDiv = Tobago.element(this.contentDivId)
+    var contentDiv = Tobago.element(this.contentDivId);
     Tobago.addBindEventListener(contentDiv, "scroll", this, "doScroll");
     var resizer = Tobago.element(this.id + "_header_resizer_" + i++ );
     while (resizer) {
@@ -372,9 +372,8 @@ Tobago.Sheet.prototype.setup = function() {
 
       this.setupElements();
 
-
+      this.setupResizer();
       if (!this.simpleSheet) {
-        this.setupResizer();
         this.adjustHeaderDiv();
         this.adjustResizer();
         this.setupHeader();
@@ -421,7 +420,7 @@ Tobago.Sheet.prototype.setScrollPosition = function(divElement) {
       }
     }
   }
-}
+};
 
 Tobago.Sheet.prototype.initReload = function() {
   if (typeof this.autoReload == "number" && Tobago.element(this.contentDivId)) {
@@ -464,7 +463,7 @@ Tobago.Sheet.prototype.addSelectionListener = function() {
         if (this.dblClickActionId) {
           Tobago.addBindEventListener(row, "dblclick", this, "doDblClick");
         }
-        row = this.getSiblingRow(row, ++i)
+        row = this.getSiblingRow(row, ++i);
       }
       //LOG.debug("preSelected rows = " + Tobago.element(sheetId + "::selected").value);
     }
@@ -520,7 +519,7 @@ Tobago.Sheet.prototype.doSelection = function(event) {
         var action = this.id + ":" + rowIndex + ":" + this.clickActionId;
         //LOG.debug("Action " + action);
         if (this.clickReloadComponentId && this.clickReloadComponentId.length > 0) {
-          Tobago.reloadComponent2(srcElement, this.clickReloadComponentId[0], action, null)
+          Tobago.reloadComponent2(srcElement, this.clickReloadComponentId[0], action, null);
         } else {
           Tobago.submitAction2(srcElement, action, true, null);
         }
@@ -560,7 +559,7 @@ Tobago.Sheet.prototype.doDblClick = function(event) {
         var action = this.id + ":" + rowIndex + ":" + this.dblClickActionId;
         //LOG.debug("dblAction " + action);
         if (this.dblClickReloadComponentId && this.dblClickReloadComponentId.length > 0) {
-          Tobago.reloadComponent2(srcElement, this.dblClickReloadComponentId[0], action, null)
+          Tobago.reloadComponent2(srcElement, this.dblClickReloadComponentId[0], action, null);
         } else {
           Tobago.submitAction2(srcElement, action, true, null);
         }
