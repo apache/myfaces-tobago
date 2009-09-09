@@ -49,7 +49,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public abstract class AbstractUIPage extends AbstractUIForm implements InvokeOnComponent, LayoutContainer {
+public abstract class AbstractUIPage extends AbstractUIForm 
+    implements InvokeOnComponent, LayoutContainer, DeprecatedDimension {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIPage.class);
 

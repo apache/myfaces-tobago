@@ -26,18 +26,19 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.layout.Measure;
 
-public class PageRule extends MetaRule {
-  public static final PageRule INSTANCE = new PageRule();
+public class DeprecatedDimensionRule extends MetaRule {
+  
+  public static final DeprecatedDimensionRule INSTANCE = new DeprecatedDimensionRule();
 
   public Metadata applyRule(String name, TagAttribute attribute,
       MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(UIPage.class)) {
       if (attribute.isLiteral()) {
         if (Attributes.WIDTH.equals(name)) {
-          return new PageWidthMapper(attribute);
+          return new WidthMapper(attribute);
         }
         if (Attributes.HEIGHT.equals(name)) {
-          return new PageHeightMapper(attribute);
+          return new HeightMapper(attribute);
         }
       }
     }
@@ -62,23 +63,23 @@ public class PageRule extends MetaRule {
     }
   }
 */
-  static final class PageWidthMapper extends Metadata {
+  static final class WidthMapper extends Metadata {
     private final TagAttribute attribute;
 
-    PageWidthMapper(TagAttribute attribute) {
+    WidthMapper(TagAttribute attribute) {
       this.attribute = attribute;
     }
 
-    public void applyMetadata(FaceletContext ctx, Object instance) {
+  public void applyMetadata(FaceletContext ctx, Object instance) {
       UIPage page = (UIPage) instance;
       page.setWidth(Measure.parse(attribute.getValue()));
     }
   }
 
-  static final class PageHeightMapper extends Metadata {
+  static final class HeightMapper extends Metadata {
     private final TagAttribute attribute;
 
-    PageHeightMapper(TagAttribute attribute) {
+    HeightMapper(TagAttribute attribute) {
       this.attribute = attribute;
     }
 

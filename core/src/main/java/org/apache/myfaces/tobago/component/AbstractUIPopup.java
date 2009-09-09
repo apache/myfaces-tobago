@@ -32,7 +32,8 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Iterator;
 
-public abstract class AbstractUIPopup extends UIPanelBase implements NamingContainer, AjaxComponent, InvokeOnComponent {
+public abstract class AbstractUIPopup extends UIPanelBase 
+    implements NamingContainer, AjaxComponent, InvokeOnComponent, DeprecatedDimension {
 
   private boolean activated;
 
