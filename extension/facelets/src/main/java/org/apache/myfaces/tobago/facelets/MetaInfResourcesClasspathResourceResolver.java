@@ -46,7 +46,7 @@ public class MetaInfResourcesClasspathResourceResolver extends DefaultResourceRe
 
   public MetaInfResourcesClasspathResourceResolver() {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("MetaInfResourcesClasspathResourceResolver is configured to resolve resoureces.");
+      LOG.debug("MetaInfResourcesClasspathResourceResolver is configured to resolve resources.");
     }
   }
 
