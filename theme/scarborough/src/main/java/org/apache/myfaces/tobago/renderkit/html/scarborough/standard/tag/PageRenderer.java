@@ -480,6 +480,16 @@ public class PageRenderer extends PageRendererBase {
     viewHandler.writeState(facesContext);
     writer.endElement(HtmlConstants.SPAN);
 
+    // avoid submit page in ie if the form contains only one input and you press the enter key in the input
+    if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
+      writer.startElement(HtmlConstants.INPUT, null);
+      writer.writeAttribute(HtmlAttributes.TYPE, "text", false);
+      writer.writeAttribute(HtmlAttributes.NAME, "tobago.dummy", false);
+      writer.writeAttribute(HtmlAttributes.TABINDEX, "-1", false);
+      writer.writeAttribute(HtmlAttributes.STYLE, "visibility:hidden;display:none;", false);
+      writer.endElement(HtmlConstants.INPUT);
+    }
+
     writer.endElement(HtmlConstants.FORM);
 
     // debugging...
