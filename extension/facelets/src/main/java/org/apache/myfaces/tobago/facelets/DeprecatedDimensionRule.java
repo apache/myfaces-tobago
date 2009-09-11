@@ -24,6 +24,7 @@ import com.sun.facelets.tag.MetadataTarget;
 import com.sun.facelets.tag.TagAttribute;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.DeprecatedDimension;
 import org.apache.myfaces.tobago.layout.Measure;
 
 public class DeprecatedDimensionRule extends MetaRule {
@@ -32,14 +33,12 @@ public class DeprecatedDimensionRule extends MetaRule {
 
   public Metadata applyRule(String name, TagAttribute attribute,
       MetadataTarget metadataTarget) {
-    if (metadataTarget.isTargetInstanceOf(UIPage.class)) {
-      if (attribute.isLiteral()) {
-        if (Attributes.WIDTH.equals(name)) {
-          return new WidthMapper(attribute);
-        }
-        if (Attributes.HEIGHT.equals(name)) {
-          return new HeightMapper(attribute);
-        }
+    if (attribute.isLiteral()) {
+      if (Attributes.WIDTH.equals(name)) {
+        return new WidthMapper(attribute);
+      }
+      if (Attributes.HEIGHT.equals(name)) {
+        return new HeightMapper(attribute);
       }
     }
     return null;
@@ -71,8 +70,7 @@ public class DeprecatedDimensionRule extends MetaRule {
     }
 
   public void applyMetadata(FaceletContext ctx, Object instance) {
-      UIPage page = (UIPage) instance;
-      page.setWidth(Measure.parse(attribute.getValue()));
+      ((DeprecatedDimension) instance).setWidth(Measure.parse(attribute.getValue()));
     }
   }
 
@@ -84,8 +82,7 @@ public class DeprecatedDimensionRule extends MetaRule {
     }
 
     public void applyMetadata(FaceletContext ctx, Object instance) {
-      UIPage page = (UIPage) instance;
-      page.setHeight(Measure.parse(attribute.getValue()));
+      ((DeprecatedDimension) instance).setHeight(Measure.parse(attribute.getValue()));
     }
   }
 }
