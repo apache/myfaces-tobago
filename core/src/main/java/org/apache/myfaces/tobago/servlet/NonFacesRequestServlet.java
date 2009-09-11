@@ -52,29 +52,32 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
     FacesContextFactory fcFactory = (FacesContextFactory)
         FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
     FacesContext facesContext =
-        fcFactory.getFacesContext(getServletContext(), request, response,
-            lifecycle);
-    Application application = facesContext.getApplication();
-    ViewHandler viewHandler = application.getViewHandler();
-    String viewId = getFromViewId();
-    UIViewRoot view = viewHandler.createView(facesContext, viewId);
-    facesContext.setViewRoot(view);
+        fcFactory.getFacesContext(getServletContext(), request, response, lifecycle);
+    try {
+      Application application = facesContext.getApplication();
+      ViewHandler viewHandler = application.getViewHandler();
+      String viewId = getFromViewId();
+      UIViewRoot view = viewHandler.createView(facesContext, viewId);
+      facesContext.setViewRoot(view);
 
 //    ExternalContext externalContext = facesContext.getExternalContext();
 //    externalContext.getRequestMap().put("com.sun.faces.INVOCATION_PATH", "/faces");
 
-    // invoke application
-    String outcome = invokeApplication(facesContext);
+      // invoke application
+      String outcome = invokeApplication(facesContext);
 
-    if (facesContext.getResponseComplete()) {
-      return;
+      if (facesContext.getResponseComplete()) {
+        return;
+      }
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("outcome = '" + outcome + "'");
+      }
+      NavigationHandler navigationHandler = application.getNavigationHandler();
+      navigationHandler.handleNavigation(facesContext, null, outcome);
+      lifecycle.render(facesContext);
+    } finally {
+      facesContext.release();
     }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("outcome = '" + outcome + "'");
-    }
-    NavigationHandler navigationHandler = application.getNavigationHandler();
-    navigationHandler.handleNavigation(facesContext, null, outcome);
-    lifecycle.render(facesContext);
   }
 
   public abstract String invokeApplication(FacesContext facesContext);
