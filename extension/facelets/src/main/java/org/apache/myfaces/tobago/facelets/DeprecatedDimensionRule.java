@@ -23,7 +23,6 @@ import com.sun.facelets.tag.Metadata;
 import com.sun.facelets.tag.MetadataTarget;
 import com.sun.facelets.tag.TagAttribute;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.DeprecatedDimension;
 import org.apache.myfaces.tobago.layout.Measure;
 
