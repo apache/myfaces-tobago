@@ -764,7 +764,10 @@ function tbgTreeListboxClick(selectElement, hiddenId) {
 
 //  var actualNode = tbgGetActualNode(element, rootNode);
 
-
+  if (actualNode === undefined) {
+    return;
+  }
+  
   tbgSetExpand(actualNode, hiddenId);
   tbgToggleSelect(actualNode, hiddenId);
 
