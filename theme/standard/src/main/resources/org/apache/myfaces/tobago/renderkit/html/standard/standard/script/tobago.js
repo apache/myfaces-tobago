@@ -1763,6 +1763,10 @@ var Tobago = {
 
   setDefaultAction: function(defaultActionId) {
     Tobago.action.value = defaultActionId;
+  },
+
+  isFunction: function (func) {
+    return (typeof func == "function");
   }
 };
 
@@ -2161,10 +2165,11 @@ Ajax.Updater.prototype.updateContent = function() {
     }
 
     if (this.responseIsSuccess()) {
-      if (this.onComplete)
+      if (Tobago.isFunction(this.onComplete)) {
         setTimeout(this.onComplete.bind(this), 10);
+      }
     }
-}
+};
 
 
 Tobago.Updater = {
@@ -2220,7 +2225,7 @@ Tobago.Updater = {
 
     if (this.hasTransport()) {
 
-      if (Tobago.applicationOnsubmit) {
+      if (Tobago.isFunction(Tobago.applicationOnsubmit)) {
         var result = Tobago.applicationOnsubmit();
         if (!result) {
           return;
@@ -2232,12 +2237,12 @@ Tobago.Updater = {
         Tobago.extend(requestOptions, options);
       }
 
-      if (requestOptions.createOverlay) {
+      if (Tobago.isFunction(requestOptions.createOverlay)) {
         Tobago.createOverlay(container);
         if (requestOptions.onFailure === undefined) {
           requestOptions.onFailure = function(transport, json) {
             Tobago.deleteOverlay(container);
-          }
+          };
         }
       }
 
@@ -2245,7 +2250,15 @@ Tobago.Updater = {
 
       var onComplete = requestOptions.onComplete;
       requestOptions.onComplete = function(transport, json) {
-        onComplete(transport, json);
+        if (Tobago.isFunction(onComplete)) {
+          try {
+            onComplete(transport, json);
+          } catch(e) {
+            LOG.show();
+            LOG.warn(e);
+            LOG.error("error in ajax.onComplete! Code was " + onComplete.toString());
+          }
+        }
         // scripts included in response are executed via setTimeout(..., 10)
         // because of replaceJsfState() is in this scripts the next request
         // must be delayed more than that.
