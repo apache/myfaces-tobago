@@ -41,19 +41,19 @@ public class HtmlStyleMap extends HashMap<String, Object> {
   }
 
   public Integer getInt(Object o) {
-    Object obj = get(o);
-    if (obj instanceof Integer) {
-      return (Integer) obj;
+    Object object = get(o);
+    if (object instanceof Integer) {
+      return (Integer) object;
     }
-    if (obj == null) {
+    if (object == null) {
       return null;
     }
-    LOG.error("", new Exception());
-    String string = obj.toString();
+    String string = object.toString();
+    LOG.warn("Getting int value via parsing the object.toString()");
     try {
       return Integer.parseInt(string);
     } catch (NumberFormatException e) {
-      LOG.warn("TODO: Fix measure issue in HtmlStyleMap: '" + obj + "'");
+      LOG.warn("TODO: Fix measure issue in HtmlStyleMap: '" + object + "'");
       if (string.endsWith("px")) {
         return Integer.parseInt(string.substring(0, string.length() - 2));
       }
