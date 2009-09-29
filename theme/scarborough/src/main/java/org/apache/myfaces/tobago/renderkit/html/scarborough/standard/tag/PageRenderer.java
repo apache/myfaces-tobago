@@ -558,7 +558,7 @@ public class PageRenderer extends PageRendererBase {
     if (!eventFunctions.isEmpty()) {
       script.append("Tobago.applicationOn");
       script.append(event);
-      script.append(" = function() {\n");
+      script.append(" = function(on").append(event).append("Args) {\n");
       if (returnBoolean) {
         script.append("  var result;\n");
       }

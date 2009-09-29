@@ -308,7 +308,7 @@ var Tobago = {
 
   onSubmit: function() {
     if (Tobago.applicationOnsubmit) {
-      var result = Tobago.applicationOnsubmit();
+      var result = Tobago.applicationOnsubmit({});
       if (!result) {
         this.isSubmit = false;
         Tobago.action.value = oldAction;
@@ -1772,7 +1772,7 @@ var Tobago = {
   },
 
   isFunction: function (func) {
-    return (typeof func == "function");
+    return (typeof func == "function") || ((typeof func == "object") && func.call);
   }
 };
 
@@ -2232,7 +2232,14 @@ Tobago.Updater = {
     if (this.hasTransport()) {
 
       if (Tobago.isFunction(Tobago.applicationOnsubmit)) {
-        var result = Tobago.applicationOnsubmit();
+        var onsubmitArgs = {
+          source: source,
+          ajaxContainer: container,
+          actionId: actionId,
+          ajaxComponentId: ajaxComponentId,
+          options: options
+        };
+        var result = Tobago.applicationOnsubmit(onsubmitArgs);
         if (!result) {
           return;
         }
