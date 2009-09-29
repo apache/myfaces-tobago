@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
@@ -58,7 +59,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 public interface FileTagDeclaration
     extends HasValidator, HasValidatorMessage, HasRequiredMessage, HasConverterMessage, HasOnchange,
     HasValueChangeListener, HasIdBindingAndRendered, IsDisabled,
-    HasLabelAndAccessKey, HasTip, IsReadonly, IsRequired, HasTabIndex {
+    HasLabelAndAccessKey, HasTip, IsReadonly, IsRequired, HasTabIndex, IsGridLayoutComponent {
 
   /**
    * Value binding expression pointing to a

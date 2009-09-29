@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.OnComponentCreated;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
@@ -30,7 +31,11 @@ import org.apache.myfaces.tobago.event.SheetStateChangeListener;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.event.SortActionSource;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.layout.LayoutContainer;
+import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.LayoutUtils;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 
@@ -51,7 +56,8 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractUIData extends javax.faces.component.UIData
-    implements SheetStateChangeSource, SortActionSource, AjaxComponent, InvokeOnComponent {
+    implements SheetStateChangeSource, SortActionSource, AjaxComponent, InvokeOnComponent, OnComponentCreated,
+    LayoutContainer, LayoutComponent {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIData.class);
 
@@ -518,4 +524,26 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
 //      sheet.queueEvent(new SheetStateChangeEvent(sheet));
   }
 
+  // LAYOUT Begin
+  public List<LayoutComponent> getComponents() {
+    return LayoutUtils.findLayoutChildren(this);
+  }
+
+  public LayoutManager getLayoutManager() {
+    return (LayoutManager) getFacet(Facets.LAYOUT);
+  }
+
+  public void onComponentCreated(FacesContext context, UIComponent component) {
+    // if there is no layout manager set, create one
+    if (getLayoutManager() == null) {
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      LayoutManager layoutManager = (LayoutManager) CreateComponentUtils.createComponent(
+          facesContext, "org.apache.myfaces.tobago.SheetLayout", RendererTypes.SHEET_LAYOUT);
+      ((OnComponentCreated) layoutManager).onComponentCreated(facesContext, (UILayout) layoutManager);
+      getFacets().put(Facets.LAYOUT, (UILayout) layoutManager);
+    }
+  }
+
+// LAYOUT End
+  
 }

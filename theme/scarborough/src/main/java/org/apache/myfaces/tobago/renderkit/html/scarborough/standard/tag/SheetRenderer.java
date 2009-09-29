@@ -96,24 +96,24 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     } 
   }
 
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent uiComponent) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
     storeFooterHeight(facesContext, uiComponent);
     UIData data = (UIData) uiComponent;
 
+    ensureColumnWidthList(facesContext, data);
+
     HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, data);
 
     final String sheetId = data.getClientId(facesContext);
-    HtmlStyleMap sheetStyle = (HtmlStyleMap) data.getAttributes().get(Attributes.STYLE);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    // Outher sheet div
-    writer.startElement(HtmlConstants.DIV, null);
+    // Outer sheet div
+    writer.startElement(HtmlConstants.DIV, data);
     writer.writeIdAttribute(sheetId + "_outer_div");
     writer.writeClassAttribute("tobago-sheet-outer-div");
-    writer.writeStyleAttribute(sheetStyle);
+    writer.writeStyleAttribute();
     UICommand clickAction = null;
     UICommand dblClickAction = null;
     int columnSelectorIndex = -1;
@@ -278,8 +278,11 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     }
 
 // BEGIN RENDER BODY CONTENT
-    HtmlStyleMap bodyStyle = (HtmlStyleMap) attributes.get(Attributes.STYLE_BODY);
-    HtmlRendererUtil.replaceStyleAttribute(data, Attributes.STYLE_BODY, "height", (sheetHeight - footerHeight));
+    HtmlStyleMap bodyStyle = new HtmlStyleMap();
+    bodyStyle.put("position", "relative");
+    bodyStyle.put("width", data.getWidth());
+    bodyStyle.put("height", sheetHeight - footerHeight);
+    
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + "_data_div");
     writer.writeClassAttribute("tobago-sheet-body-div ");
@@ -583,13 +586,11 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 
     String key = component.getClientId(facesContext) + WIDTHS_POSTFIX;
 
-    Map requestParameterMap = facesContext.getExternalContext()
-        .getRequestParameterMap();
+    Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     if (requestParameterMap.containsKey(key)) {
       String widths = (String) requestParameterMap.get(key);
       if (widths.trim().length() > 0) {
-        component.getAttributes().put(Attributes.WIDTH_LIST_STRING,
-            widths);
+        component.getAttributes().put(Attributes.WIDTH_LIST_STRING, widths);
       }
     }
 
@@ -607,8 +608,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
         selectedRows = Collections.emptyList();
       }
 
-      component.getAttributes().put(
-          Attributes.SELECTED_LIST_STRING, selectedRows);
+      component.getAttributes().put(Attributes.SELECTED_LIST_STRING, selectedRows);
     }
 
     key = component.getClientId(facesContext) + SCROLL_POSTFIX;
@@ -764,7 +764,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     String sheetId = component.getClientId(facesContext);
     Application application = facesContext.getApplication();
 
-    List columnWidths = (List) component.getWidthList();
+    List<Integer> columnWidths = component.getWidthList();
     String divWidth = "width: " + columnWidths.get(columnIndex) + "px;";
 
     writer.startElement(HtmlConstants.DIV, null);
@@ -939,8 +939,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
                                        TobagoResponseWriter writer, UIColumn column,
                                        int sortMarkerWidth, String align,
                                        String image1x1) throws IOException {
-    String label
-        = (String) column.getAttributes().get(Attributes.LABEL);
+    String label = (String) column.getAttributes().get(Attributes.LABEL);
     if (label != null) {
       writer.writeText(label, null);
       if (ComponentUtil.getBooleanAttribute(column, Attributes.SORTABLE) && "right".equals(align)) {
@@ -1086,13 +1085,15 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     return ThemeConfig.getValue(facesContext, data, "contentBorder");
   }
 
-  public void encodeAjax(FacesContext facesContext, UIComponent component)
-      throws IOException {
-    AjaxUtils.checkParamValidity(facesContext, component, UIData.class);
+  public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
+    
+    UIData data = (UIData) component; 
+    
+    AjaxUtils.checkParamValidity(facesContext, data, UIData.class);
     // TODO find a better way
     UICommand clickAction = null;
     UICommand dblClickAction = null;
-    for (UIComponent child : (List<UIComponent>) component.getChildren()) {
+    for (UIComponent child : (List<UIComponent>) data.getChildren()) {
       if (child instanceof UIColumnEvent) {
         UIColumnEvent columnEvent = (UIColumnEvent) child;
         if (columnEvent.isRendered()) {
@@ -1109,12 +1110,12 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
         }
       }
     }
-    renderSheet(facesContext, (UIData) component, (clickAction != null || dblClickAction != null));
+    ensureColumnWidthList(facesContext, data);
+
+    renderSheet(facesContext, data, (clickAction != null || dblClickAction != null));
   }
 
-  public void encodeChildren(FacesContext context,
-                               UIComponent component)
-            throws IOException {
+  public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
     // DO Nothing
   }
 
@@ -1139,36 +1140,31 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       currentWidthList = null;
     }
 
-
     if (currentWidthList == null) {
       LayoutTokens tokens = data.getColumnLayout();
       List<UIColumn> allColumns = data.getAllColumns();
       LayoutTokens newTokens = new LayoutTokens();
-      if (allColumns.size() > 0) {
-        for (int i = 0; i < allColumns.size(); i++) {
-          UIColumn column = allColumns.get(i);
-          if (column.isRendered()) {
-            if (tokens == null) {
-              if (column instanceof org.apache.myfaces.tobago.component.UIColumn) {
-                newTokens.addToken(
-                    LayoutTokens.parseToken(((org.apache.myfaces.tobago.component.UIColumn) column).getWidth()));
-              } else {
-                newTokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
-              }
+      for (int i = 0; i < allColumns.size(); i++) {
+        UIColumn column = allColumns.get(i);
+        if (column.isRendered()) {
+          if (tokens == null) {
+            if (column instanceof org.apache.myfaces.tobago.component.UIColumn) {
+              newTokens.addToken(
+                  LayoutTokens.parseToken(((org.apache.myfaces.tobago.component.UIColumn) column).getWidth()));
             } else {
-              if (i < tokens.getSize()) {
-                newTokens.addToken(tokens.get(i));
-              } else {
-                newTokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
-              }
+              newTokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
+            }
+          } else {
+            if (i < tokens.getSize()) {
+              newTokens.addToken(tokens.get(i));
+            } else {
+              newTokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
             }
           }
         }
       }
 
-
-      int space = 100; // FIXME: make dynamic (was removed by changing the layouting
-      LOG.error("100; // FIXME: make dynamic (was removed by changing the layouting");
+      int space = data.getWidth().getPixel();
       space -= getContentBorder(facesContext, data);
       if (needVerticalScrollbar(facesContext, data)) {
         space -= getScrollbarWidth(facesContext, data);

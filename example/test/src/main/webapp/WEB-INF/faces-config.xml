@@ -47,10 +47,26 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
+  <managed-bean>
+    <managed-bean-name>immediate</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.test.Immediate</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+  
+  <managed-bean>
+    <managed-bean-name>upload</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.test.Upload</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+  
   <navigation-rule>
     <navigation-case>
       <from-outcome>navigation</from-outcome>
       <to-view-id>/navigation.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/tc/file/file.xhtml</from-outcome>
+      <to-view-id>/tc/file/file.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
 

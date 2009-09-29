@@ -27,7 +27,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIFileInput;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -115,9 +114,9 @@ public class FileRenderer extends InputRendererBase {
     writer.startElement(HtmlConstants.INPUT, input);
     writer.writeAttribute(HtmlAttributes.TYPE, "file", false);
     writer.writeClassAttribute();
-    if (!ClientProperties.getInstance(facesContext).getUserAgent().isMozilla()) {
+//    if (!ClientProperties.getInstance(facesContext).getUserAgent().isMozilla()) {
       writer.writeStyleAttribute();
-    }
+//    }
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtil.getBooleanAttribute(input, Attributes.DISABLED));

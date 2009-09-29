@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.component;
  */
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.util.MessageFactory;
 
 import javax.faces.application.FacesMessage;
@@ -27,7 +28,8 @@ import javax.faces.context.FacesContext;
  * Date: 10.02.2006
  * Time: 19:02:13
  */
-public abstract class AbstractUIFileInput extends javax.faces.component.UIInput {
+public abstract class AbstractUIFileInput 
+    extends javax.faces.component.UIInput implements LayoutComponent {
 
   public void validate(FacesContext facesContext) {
     if (isRequired()) {
