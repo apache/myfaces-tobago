@@ -25,49 +25,49 @@ Compatibility
   \ 
 
 *--+--+--+
-| <<Tobago Version>>   | <<1.0.x>>                  | <<1.1.x>> (planning)
+| <<Tobago Version>>   | <<1.0.x>>                  | <<1.5.x>> (planning)
 *--+--+--+
 | <<Specifications>>   |                            |
 *--+--+--+
-| Java                 | 1.4\[retro\], <<1.5>>, 1.6 | 1.4\[retro\]\[unsettled\], <<1.5>>, 1.6
+| Java                 | 1.4\[retro\], <<1.5>>, 1.6 | <<1.5>>, 1.6
 *--+--+--+
-| JSF                  | <<1.1>>, 1.2               | 1.1\[unsettled\], <<1.2>>, 2.0
+| JSF                  | <<1.1>>, 1.2               | <<1.2>>, 2.0\[unsettled\]
 *--+--+--+
-| Servlet              | 2.3, <<2.4>>, 2.5          | 2.4, <<2.5>>, 3.0
+| Servlet              | 2.3, <<2.4>>, 2.5          | 2.4\[facelets only\], <<2.5>>, 3.0\[unsettled\]
 *--+--+--+
-| JSP                  | 1.2, <<2.0>>, 2.1          | 2.0, <<2.1>>
+| JSP                  | 1.2, <<2.0>>, 2.1          | <<2.1>>
 *--+--+--+
 | Facelets             | <<1.1>>\[ext\]             | <<1.1>>\[ext\] ?
 *--+--+--+
 | <<Implementations>>  |                            |
 *--+--+--+
-| MyFaces              | <<1.1>>, 1.2               |
+| MyFaces              | <<1.1>>, 1.2               | <<1.2>>, 2.0\[unsettled\]
 *--+--+--+
-| Sun RI               | <<1.1>>, 1.2               |
+| Sun RI               | <<1.1>>, 1.2               | <<1.2>>, 2.0\[unsettled\]
 *--+--+--+
 |                      |                            |
 *--+--+--+
 | <<Servers>>          |                            |
 *--+--+--+
-| Tomcat               | 4.1, 5.0, 5.5, 6.0         |
+| Tomcat               | 4.1, 5.0, 5.5, 6.0         | 5.5\[facelets only\], 6.0
 *--+--+--+
 | Jetty                | 6.1                        | 6.1
 *--+--+--+
-| WebLogic             | 8.1, 9.0, 9.1, 9.2, 10.3   |
+| WebLogic             | 8.1, 9.0, 9.1, 9.2, 10.3   | 9.2\[facelets only\], 10.3
 *--+--+--+
-| WebSphere            | 6.0, 6.1                   |
+| WebSphere            | 6.0, 6.1                   | 6.1\[facelets only\], 7.0
 *--+--+--+
 |                      |                            |
 *--+--+--+
 | <<Browser>>          |                            |
 *--+--+--+
-| Internet Explorer    | 6.0, 7.0, 8.0              | 6.0, 7.0, 8.0
+| Internet Explorer    | 6, 7, 8                    | 6, 7, 8
 *--+--+--+
-| Firefox              | 2.0, 3.0, 3.5              | 2.0, 3.0, 3.5
+| Firefox              | 2, 3, 3.5                  | 2, 3, 3.5
+*--+--+--+
+| Safari               |                            | 4
 *--+--+--+
 
- ~~ | Safari               |        | 4.0
- ~~ *--+--+--+
  ~~ | Opera                |                         |
  ~~ *--+--+--+
  ~~ | WebSphere JSF Impl   | ?                          |
@@ -96,4 +96,7 @@ Compatibility
 
   \[ext\]: add the tobago-facelets extension
 
-  \[unsettled\]: this information is unsettled and to be discussed
+  \[unsettled\]: this information is unsettled
+  
+  \[facelets only\]: it works with facelets, but not with JSP, because JSF 1.2 requires JSP 2.1
+  
