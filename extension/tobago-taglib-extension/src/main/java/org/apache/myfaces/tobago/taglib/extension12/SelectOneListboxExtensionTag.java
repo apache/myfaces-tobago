@@ -17,11 +17,11 @@ package org.apache.myfaces.tobago.taglib.extension12;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.internal.taglib.SelectOneListboxTag;
 
 import javax.servlet.jsp.JspException;
@@ -43,7 +43,6 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
   private javax.el.ValueExpression rendered;
   private javax.el.ValueExpression binding;
   private javax.el.ValueExpression tip;
-  private javax.el.ValueExpression height;
   private javax.el.ValueExpression converter;
   private javax.el.MethodExpression validator;
   private javax.el.ValueExpression labelWidth;
@@ -113,9 +112,6 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
     if (id != null) {
       selectOneListboxTag.setId(id);
     }
-    if (height != null) {
-      selectOneListboxTag.setHeight(height);
-    }
     if (readonly != null) {
       selectOneListboxTag.setReadonly(readonly);
     }
@@ -159,7 +155,6 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
     //inline = null;
     labelWidth = null;
     label = null;
-    height = null;
     readonly = null;
     rendered = null;
     converter = null;
@@ -253,10 +248,6 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
   @UIComponentTagAttribute()
   public void setLabel(javax.el.ValueExpression label) {
     this.label = label;
-  }
-
-  public void setHeight(javax.el.ValueExpression height) {
-    this.height = height;
   }
 
   /**
