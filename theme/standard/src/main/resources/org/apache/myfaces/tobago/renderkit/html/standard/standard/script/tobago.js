@@ -1016,32 +1016,38 @@ var Tobago = {
     for (var i = 0; i < document.forms[0].elements.length; i++) {
       var element = document.forms[0].elements[i];
       if (element.type != "hidden" && !element.disabled) {
-        if (element.id && element.id.indexOf(id + ":") != 0) {
-         element.disabled = true;
-         hidden.value += element.id + ",";
-       } else {
-         if (firstPopupElement == null && element.focus) {
-           firstPopupElement = element;
-         }
-       }
-     }
+        if (element.id) {
+          if (element.id.indexOf(id + ":") != 0) {
+            element.disabled = true;
+            hidden.value += element.id + ",";
+          } else {
+            if (firstPopupElement == null && Tobago.isFunction(element.focus)) {
+              firstPopupElement = element;
+            }
+          }
+        }
+      }
     }
     for (i = 0; i < document.anchors.length; i++) {
-      var element = document.anchors[i];
-      if (!element.disabled) {
-        if (element.id && element.id.indexOf(id + ":") != 0) {
-         element.disabled = true;
-         hidden.value += element.id + ",";
-       } else {
-         if (firstPopupElement == null && element.focus) {
-           firstPopupElement = element;
-         }
-       }
-     }
+      var anchor = document.anchors[i];
+      if (!anchor.disabled) {
+        if (anchor.id) {
+          if (anchor.id.indexOf(id + ":") != 0) {
+            anchor.disabled = true;
+            hidden.value += anchor.id + ",";
+          } else {
+            if (firstPopupElement == null && Tobago.isFunction(anchor.focus)) {
+              firstPopupElement = anchor;
+            }
+          }
+        }
+      }
     }
     // set focus to first element in popup
     if (firstPopupElement != null) {
-       firstPopupElement.focus();
+      try {
+        firstPopupElement.focus();
+      } catch(e) {/* ignore */}
     }
   },
 
@@ -1139,9 +1145,9 @@ var Tobago = {
        }
      }
      for (i = 0; i < document.anchors.length; i++) {
-       var element = document.anchors[i];
-       if (hidden.value.indexOf("," + element.id + ",") >= 0) {
-         element.disabled = false;
+       var anchor = document.anchors[i];
+       if (hidden.value.indexOf("," + anchor.id + ",") >= 0) {
+         anchor.disabled = false;
        }
      }
    }
