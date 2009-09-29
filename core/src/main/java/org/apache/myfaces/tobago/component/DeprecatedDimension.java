@@ -21,12 +21,12 @@ import org.apache.myfaces.tobago.layout.Measure;
 
 public interface DeprecatedDimension {
 
-  public Measure getHeight();
+  Measure getHeight();
 
-  public void setHeight(Measure height);
+  void setHeight(Measure height);
 
-  public Measure getWidth();
+  Measure getWidth();
 
-  public void setWidth(Measure width);
+  void setWidth(Measure width);
 
 }
