@@ -42,7 +42,7 @@ public interface HasResource {
    * @param jsfResource Is the Resource a JSF page or not?
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
   void setJsfResource(String jsfResource);
 
 }

@@ -38,7 +38,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 public interface PopupTagDeclaration extends HasId, IsRendered, IsGridLayoutComponentWithDeprecatedDimension {
 
   @TagAttribute
-  @UIComponentTagAttribute(type = {"java.lang.Boolean"}, defaultValue = "true")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
   void setModal(String modal);
-
 }

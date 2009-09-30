@@ -51,7 +51,7 @@ public interface OutTagDeclaration
    * sensitive in HTML and XML markup must be escaped.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {"java.lang.Boolean"}, defaultValue = "true")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
   void setEscape(String escape);
 
   /**
@@ -63,6 +63,6 @@ public interface OutTagDeclaration
       allowedValues = {"none", "strong", "deleted"})
   void setMarkup(String markup);
   
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
   void setCreateSpan(String createSpan);
 }

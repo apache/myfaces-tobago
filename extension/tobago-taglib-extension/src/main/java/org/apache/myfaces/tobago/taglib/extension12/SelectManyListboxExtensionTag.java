@@ -221,7 +221,7 @@ public class SelectManyListboxExtensionTag extends TobagoExtensionBodyTagSupport
    * Flag indicating that this element is disabled.
    */
   @TagAttribute()
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
   public void setDisabled(javax.el.ValueExpression disabled) {
     this.disabled = disabled;
   }
@@ -298,7 +298,7 @@ public class SelectManyListboxExtensionTag extends TobagoExtensionBodyTagSupport
    * (during Render Response Phase), or processed on any subsequent form submit.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
   public void setRendered(javax.el.ValueExpression rendered) {
     this.rendered = rendered;
   }

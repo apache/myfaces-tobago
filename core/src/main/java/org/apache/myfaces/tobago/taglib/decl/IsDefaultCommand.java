@@ -27,10 +27,10 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface IsDefaultCommand {
   /**
-   * If true the command is excuted as default -- for example if the
+   * If true the command is executed as default -- for example if the
    * user presses the enter key inside a related input field.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
   void setDefaultCommand(String defaultCommand);
 }

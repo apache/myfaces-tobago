@@ -31,6 +31,6 @@ public interface IsPassword {
    * password field , so you will not see the typed charakters.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
   void setPassword(String password);
 }

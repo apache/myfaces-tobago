@@ -110,7 +110,7 @@ public class SeparatorExtensionTag extends TobagoExtensionBodyTagSupport {
    * (during Render Response Phase), or processed on any subsequent form submit.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
   public void setRendered(javax.el.ValueExpression rendered) {
     this.rendered = rendered;
   }

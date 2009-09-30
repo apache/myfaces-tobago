@@ -208,7 +208,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport {
    * (during Render Response Phase), or processed on any subsequent form submit.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
   public void setRendered(javax.el.ValueExpression rendered) {
     this.rendered = rendered;
   }
@@ -217,7 +217,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport {
    * Flag indicating that this element is disabled.
    */
   @TagAttribute()
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
   public void setDisabled(javax.el.ValueExpression disabled) {
     this.disabled = disabled;
   }
@@ -248,7 +248,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport {
    * waiting until Invoke Application phase.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
   public void setImmediate(javax.el.ValueExpression immediate) {
     this.immediate = immediate;
   }
@@ -260,7 +260,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport {
    * @param transition Indicates the transition.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
   public void setTransition(javax.el.ValueExpression transition) {
     this.transition = transition;
   }

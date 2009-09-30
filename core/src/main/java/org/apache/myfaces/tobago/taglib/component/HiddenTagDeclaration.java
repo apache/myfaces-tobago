@@ -44,7 +44,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasValue;
 public interface HiddenTagDeclaration extends HasId, HasBinding, HasValue, HasConverter,
     HasValidator {
 
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
   void setInline(String inline);
 
 }

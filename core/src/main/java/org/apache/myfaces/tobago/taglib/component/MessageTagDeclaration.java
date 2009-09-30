@@ -49,13 +49,13 @@ public interface MessageTagDeclaration extends HasIdBindingAndRendered, HasFor {
    * Flag indicating whether the detail should be included.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
   void setShowDetail(String showDetail);
 
   /**
    * Flag indicating whether the summary should be included.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
   void setShowSummary(String showSummary);
 }

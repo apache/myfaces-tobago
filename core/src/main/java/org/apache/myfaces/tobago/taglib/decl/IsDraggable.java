@@ -26,7 +26,7 @@ public interface IsDraggable {
    * Draggable components are the source components of the drag-and-drop feature.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
   void setDraggable(String draggable);
 
   /**

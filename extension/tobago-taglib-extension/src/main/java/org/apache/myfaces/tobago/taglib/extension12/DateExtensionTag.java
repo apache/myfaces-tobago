@@ -17,11 +17,11 @@ package org.apache.myfaces.tobago.taglib.extension12;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.internal.taglib.DatePickerTag;
 import org.apache.myfaces.tobago.internal.taglib.DateTag;
 import org.apache.myfaces.tobago.internal.taglib.FormTag;
@@ -286,7 +286,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    * (during Render Response Phase), or processed on any subsequent form submit.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
   public void setRendered(javax.el.ValueExpression rendered) {
     this.rendered = rendered;
   }
@@ -343,7 +343,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    * Flag indicating that this element is disabled.
    */
   @TagAttribute()
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
   public void setDisabled(javax.el.ValueExpression disabled) {
     this.disabled = disabled;
   }

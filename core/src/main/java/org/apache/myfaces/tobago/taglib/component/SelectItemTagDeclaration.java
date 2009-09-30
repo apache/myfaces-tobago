@@ -18,11 +18,11 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
+import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
@@ -44,11 +44,10 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
     allowedChildComponenents = "NONE")
 public interface SelectItemTagDeclaration extends HasBinding, HasId, HasMarkup {
   /**
-   * Flag indicating whether the option created
-   * by this component is disabled.
+   * Description of an item for use in tools.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {"java.lang.Boolean"}, defaultValue = "false")
+  @UIComponentTagAttribute(type = {"java.lang.String"})
   void setItemDescription(String itemDescription);
 
   /**

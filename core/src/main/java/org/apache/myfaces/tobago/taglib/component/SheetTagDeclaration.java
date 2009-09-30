@@ -58,7 +58,7 @@ public interface SheetTagDeclaration extends HasIdBindingAndRendered, IsGridLayo
    * Flag indicating the header should be rendered.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
   void setShowHeader(String showHeader);
 
   /**

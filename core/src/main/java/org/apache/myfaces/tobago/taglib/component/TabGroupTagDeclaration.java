@@ -52,7 +52,7 @@ public interface TabGroupTagDeclaration
    * @deprecated
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
   @Deprecated
   void setServerside(String serverside);
 

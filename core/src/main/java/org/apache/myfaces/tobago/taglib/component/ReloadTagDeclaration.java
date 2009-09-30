@@ -52,7 +52,7 @@ public interface ReloadTagDeclaration extends HasIdBindingAndRendered {
    * Is update required.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
   void setUpdate(String update);
 
   /**
@@ -62,6 +62,6 @@ public interface ReloadTagDeclaration extends HasIdBindingAndRendered {
    * waiting until Render Response phase.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "false")
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
   void setImmediate(String immediate);
 }
