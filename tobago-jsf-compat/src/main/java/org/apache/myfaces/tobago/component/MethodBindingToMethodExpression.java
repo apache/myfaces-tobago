@@ -44,6 +44,7 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
 
   /**
    * Creates a new instance of MethodBindingToMethodExpression
+   * @param methodBinding The MethodBinding to wrap.
    */
   public MethodBindingToMethodExpression(MethodBinding methodBinding) {
     checkNullArgument(methodBinding, "methodBinding");
@@ -52,6 +53,7 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
 
   /**
    * Return the wrapped MethodBinding.
+   * @return the wrapped MethodBinding
    */
   public MethodBinding getMethodBinding() {
     return methodBinding;
