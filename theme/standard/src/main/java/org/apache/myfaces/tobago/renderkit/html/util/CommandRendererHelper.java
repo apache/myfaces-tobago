@@ -176,7 +176,7 @@ public class CommandRendererHelper {
     ExternalContext externalContext = facesContext.getExternalContext();
 
     if (component.getResource() != null) {
-      boolean jsfResource = component.isJsfResource();
+      boolean jsfResource = component.getJsfResource();
       url = ResourceManagerUtil.getPageWithoutContextPath(facesContext, component.getResource());
       if (url != null) {
         if (jsfResource) {

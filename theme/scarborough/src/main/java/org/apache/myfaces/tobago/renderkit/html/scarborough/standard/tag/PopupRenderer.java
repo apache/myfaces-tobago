@@ -102,7 +102,7 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
     //contentStyle.append("top: ");
     //contentStyle.append(top);
     //contentStyle.append("; ");
-    if (component.isModal()) {
+    if (component.getModal()) {
       writer.startElement(HtmlConstants.DIV, component);
       writer.writeIdAttribute(clientId);
       writer.writeStyleAttribute("z-index: " + (zIndex + 1) + ";");
@@ -122,7 +122,7 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
       writer.writeClassAttribute("tobago-popup-iframe tobago-popup-none");
       writer.writeStyleAttribute("z-index: " + (zIndex + 2) + ";");
       UIPage page = (UIPage) ComponentUtil.findPage(facesContext);
-      if (component.isModal()) {
+      if (component.getModal()) {
         final StringBuilder frameSize = new StringBuilder(32);
         // full client area
         frameSize.append("width: ");
@@ -145,7 +145,7 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
     StyleClasses styleClasses = new StyleClasses();
     styleClasses.addClass("popup", "content");
     styleClasses.addClass("popup", "none");
-    if (component.isModal()) {
+    if (component.getModal()) {
       styleClasses.addClass("popup", "modal");
     }
     writer.writeClassAttribute(styleClasses);
@@ -169,7 +169,7 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
     writer.write("', '");
     writer.write(component.getTop().getPixel());
     writer.write("', ");
-    writer.write(String.valueOf(component.isModal()));
+    writer.write(String.valueOf(component.getModal()));
     writer.write(");");
     writer.endJavascript();
   }

@@ -67,7 +67,7 @@ public class MessagesRenderer extends MessageRendererBase {
 
     UIMessages messages = (UIMessages) component;
 
-    if (messages.isConfirmation()) {
+    if (messages.getConfirmation()) {
       createPopup(facesContext, messages);
       return;
     }

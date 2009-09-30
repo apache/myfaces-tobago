@@ -214,7 +214,7 @@ public void set<property.upperCamelCaseName>(boolean <property.propertyName>) {
 
 BooleanProperty(property) ::= <<
 
-public java.lang.Boolean is<property.upperCamelCaseName>() {
+public java.lang.Boolean get<property.upperCamelCaseName>() {
   if (<property.propertyName> != null) {
     return <property.propertyName>;
   }

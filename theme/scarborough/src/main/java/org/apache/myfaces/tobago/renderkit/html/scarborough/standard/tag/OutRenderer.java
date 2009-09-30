@@ -42,8 +42,8 @@ public class OutRenderer extends LayoutableRendererBase {
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    boolean escape = out.isEscape();
-    boolean createSpan = out.isCreateSpan();
+    boolean escape = out.getEscape();
+    boolean createSpan = out.getCreateSpan();
 
     if (createSpan) {
       String id = out.getClientId(facesContext);

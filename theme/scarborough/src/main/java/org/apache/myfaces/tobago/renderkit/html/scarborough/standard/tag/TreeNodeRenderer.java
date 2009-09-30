@@ -109,7 +109,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     String treeId = tree.getClientId(facesContext);
     boolean folder = node.isFolder();
-    boolean marked = node.isMarked();
+    boolean marked = node.getMarked();
     String id = node.getClientId(facesContext);
     int depth = node.getDepth();
     boolean hasNextSibling = node.isHasNextSibling();
@@ -415,8 +415,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
     TreeState state = (TreeState) tree.getState();
     if (state != null) {
       return state.getExpanded().contains(node.getPath());
-    } else if (node.isExpanded() != null) {
-      return node.isExpanded();
+    } else if (node.getExpanded() != null) {
+      return node.getExpanded();
     } else {
       return false;
     }
@@ -435,7 +435,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       node.setExpanded(expanded);
     }
     if (oldExpanded != expanded) {
-      new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
+      new TreeExpansionEvent(node, node.getExpanded(), expanded).queue();
     }
   }
 }

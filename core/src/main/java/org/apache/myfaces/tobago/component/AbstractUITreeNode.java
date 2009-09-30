@@ -304,7 +304,7 @@ public abstract class AbstractUITreeNode extends UICommandBase implements Suppor
 
   public abstract void setMarked(Boolean b);
 
-  public abstract Boolean isMarked();
+  public abstract Boolean getMarked();
 
-  public abstract Boolean isExpanded();
+  public abstract Boolean getExpanded();
 }

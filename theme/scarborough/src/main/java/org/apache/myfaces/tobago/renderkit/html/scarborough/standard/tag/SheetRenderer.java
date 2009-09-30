@@ -236,7 +236,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     }
 
 
-    final boolean showHeader = data.isShowHeader();
+    final boolean showHeader = data.getShowHeader();
     if (showHeader) {
       // begin rendering header
       writer.startElement(HtmlConstants.DIV, null);
