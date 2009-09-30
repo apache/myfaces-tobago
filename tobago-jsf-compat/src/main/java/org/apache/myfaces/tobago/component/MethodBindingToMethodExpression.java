@@ -17,16 +17,16 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import javax.el.ELContext;
+import javax.el.ELException;
 import javax.el.MethodExpression;
 import javax.el.MethodInfo;
-import javax.el.ELContext;
 import javax.el.MethodNotFoundException;
-import javax.el.ELException;
-import javax.faces.component.StateHolder;
-import javax.faces.el.MethodBinding;
-import javax.faces.el.EvaluationException;
-import javax.faces.context.FacesContext;
 import javax.faces.FacesException;
+import javax.faces.component.StateHolder;
+import javax.faces.context.FacesContext;
+import javax.faces.el.EvaluationException;
+import javax.faces.el.MethodBinding;
 
 @SuppressWarnings("deprecation")
 public class MethodBindingToMethodExpression extends MethodExpression implements StateHolder {
@@ -39,7 +39,7 @@ public class MethodBindingToMethodExpression extends MethodExpression implements
   /**
    * No-arg constructor used during restoreState
    */
-  protected MethodBindingToMethodExpression() {
+  public MethodBindingToMethodExpression() {
   }
 
   /**
