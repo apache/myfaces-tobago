@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutObject;
 import org.apache.myfaces.tobago.layout.Measure;
 
+import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.el.ValueBinding;
 import javax.faces.webapp.UIComponentTag;
@@ -47,69 +48,69 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    * @param columnSpan The number of horizontal cells this component should use.
    */
   @TagAttribute
-  public abstract void setColumnSpan(String columnSpan);
+  public abstract void setColumnSpan(ValueExpression columnSpan);
 
   /**
    * @param rowSpan The number of vertical cells this component should use.
    */
   @TagAttribute
-  public abstract void setRowSpan(String rowSpan);
+  public abstract void setRowSpan(ValueExpression rowSpan);
 
   /**
    * @param width The width for this component.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setWidth(String width);
+  public abstract void setWidth(ValueExpression width);
 
   /**
    * @param height The height for this component.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setHeight(String height);
+  public abstract void setHeight(ValueExpression height);
 
   /**
    * @param minimumWidth The minimum width for this component.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setMinimumWidth(String minimumWidth);
+  public abstract void setMinimumWidth(ValueExpression minimumWidth);
 
   /**
    * @param minimumHeight The minimum height for this component.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setMinimumHeight(String minimumHeight);
+  public abstract void setMinimumHeight(ValueExpression minimumHeight);
 
   /**
    * @param preferredWidth The preferred width for this component.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setPreferredWidth(String preferredWidth);
+  public abstract void setPreferredWidth(ValueExpression preferredWidth);
 
   /**
    * @param preferredHeight The preferred height for this component.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setPreferredHeight(String preferredHeight);
+  public abstract void setPreferredHeight(ValueExpression preferredHeight);
 
   /**
    * @param maximumWidth The maximum width for this component.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setMaximumWidth(String maximumWidth);
+  public abstract void setMaximumWidth(ValueExpression maximumWidth);
 
   /**
    * @param maximumHeight The maximum height for this component.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract void setMaximumHeight(String maximumHeight);
+  public abstract void setMaximumHeight(ValueExpression maximumHeight);
 
   @Override
   public int doStartTag() throws JspException {
