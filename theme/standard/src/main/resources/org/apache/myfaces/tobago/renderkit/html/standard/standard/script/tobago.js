@@ -308,7 +308,12 @@ var Tobago = {
 
   onSubmit: function() {
     if (Tobago.applicationOnsubmit) {
-      var result = Tobago.applicationOnsubmit({});
+      var onsubmitArgs = {
+        actionId: Tobago.action.value,
+        target: Tobago.form.target,
+        transition: Tobago.transition
+      };
+      var result = Tobago.applicationOnsubmit(onsubmitArgs);
       if (!result) {
         this.isSubmit = false;
         Tobago.action.value = oldAction;
