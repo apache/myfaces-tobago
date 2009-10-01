@@ -21,5 +21,5 @@ import org.apache.myfaces.tobago.layout.LayoutComponent;
 
 import javax.faces.component.UIGraphic;
 
-public abstract class AbstractUIImage extends UIGraphic implements LayoutComponent {
+public abstract class AbstractUIImage extends UIGraphic implements LayoutComponent, DeprecatedDimension {
 }
