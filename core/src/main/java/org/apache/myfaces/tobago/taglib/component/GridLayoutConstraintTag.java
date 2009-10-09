@@ -120,7 +120,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
       if (isPreferredWidthLiteral()) {
         ((LayoutObject) component).setPreferredWidth(Measure.parse(getPreferredWidthValue()));
       } else {
-        FacesUtils.setBindingOrExpression(component, Attributes.PREFERRED_WIDTH, getPreferredWidthAsBindingOrExpression());
+        FacesUtils.setBindingOrExpression(component, Attributes.PREFERRED_WIDTH,
+            getPreferredWidthAsBindingOrExpression());
       }
     }
 
@@ -128,7 +129,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
       if (isPreferredHeightLiteral()) {
         ((LayoutObject) component).setPreferredHeight(Measure.parse(getPreferredHeightValue()));
       } else {
-        FacesUtils.setBindingOrExpression(component, Attributes.PREFERRED_WIDTH, getPreferredHeightAsBindingOrExpression());
+        FacesUtils.setBindingOrExpression(component, Attributes.PREFERRED_WIDTH,
+            getPreferredHeightAsBindingOrExpression());
       }
     }
 
