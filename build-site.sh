@@ -50,5 +50,7 @@ fi
 
 echo "Building tobago site."
 mvn -Pall-modules clean
-mvn -Pall-modules install javancss:report jxr:jxr jxr:test-jxr clirr:clirr -Daggregate=false --batch-mode
-mvn -Pall-modules site-deploy -e -Daggregate=true --batch-mode
+mvn install javancss:report jxr:jxr jxr:test-jxr clirr:clirr -Daggregate=false --batch-mode
+mvn site:site -Daggregate=true --batch-mode
+mvn dashboard:dashboard
+mvn site:deploy -e -Daggregate=true --batch-mode
