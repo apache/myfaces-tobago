@@ -19,74 +19,84 @@ package org.apache.myfaces.tobago.taglib.extension;
 
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.internal.taglib.SelectOneChoiceTag;
-import org.apache.myfaces.tobago.taglib.decl.HasBinding;
+import org.apache.myfaces.tobago.internal.taglib.TextareaTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
-import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
+import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsFocus;
-import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
-import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
-import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
-import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
-import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Render a single selection dropdown list with a label.
+ * Renders a multiline text input control with a label.
+ * <br />
+ * Short syntax of:
+ * <p/>
+ * <pre>
+ * &lt;tc:panel>
+ *   &lt;f:facet name="layout">
+ *     &lt;tc:gridLayout columns="fixed;*"/>
+ *   &lt;/f:facet>
+ *   &lt;tc:label value="#{label}" for="@auto"/>
+ *   &lt;tc:textarea value="#{value}">
+ *     ...
+ *   &lt;/tc:in>
+ * &lt;/tc:panel>
+ * </pre>
  */
 
-@Tag(name = "selectOneChoice")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectOneChoiceTag")
-public class SelectOneChoiceExtensionTag
-    extends BodyTagSupport
-    implements HasId, HasValue, HasValueChangeListener, IsDisabled,
-    IsReadonly, HasOnchange, IsInline, HasLabel, HasLabelWidth, IsRequired,
+@Tag(name = "textarea")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.TextAreaTag")
+public class TextAreaExtensionTag extends BodyTagSupport
+    implements HasValue, HasValueChangeListener, HasIdBindingAndRendered,
+    HasConverter, HasValidator, IsReadonly, IsDisabled, HasMarkup, IsRequired,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
-    IsRendered, IsFocus, HasBinding, HasTip, HasValidator, HasConverter, HasMarkup, HasTabIndex {
+    HasTip, HasLabel, HasLabelWidth, IsFocus, HasOnchange, HasTabIndex {
 
+  private String binding;
+  private String converter;
+  private String disabled;
+  private String focus;
+  private String label;
+  private String readonly;
+  private String rendered;
   private String required;
+  private String tip;
   private String value;
   private String valueChangeListener;
-  private String disabled;
-  private String readonly;
-  private String onchange;
-  private String inline;
-  private String label;
-  private String rendered;
-  private String binding;
-  private String tip;
   private String validator;
-  private String converter;
+  private String onchange;
+  private String markup;
   private String labelWidth;
   private String tabIndex;
-  private String focus;
-  private String markup;
   private String validatorMessage;
   private String converterMessage;
   private String requiredMessage;
 
   private LabelExtensionTag labelTag;
-  private SelectOneChoiceTag selectOneChoiceTag;
+  private TextareaTag textAreaTag;
 
   @Override
   public int doStartTag() throws JspException {
 
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
+    labelTag.setRows("*");
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -105,69 +115,66 @@ public class SelectOneChoiceExtensionTag
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 
-    selectOneChoiceTag = new SelectOneChoiceTag();
-    selectOneChoiceTag.setPageContext(pageContext);
+    textAreaTag = new TextareaTag();
+    textAreaTag.setPageContext(pageContext);
     if (value != null) {
-      selectOneChoiceTag.setValue(value);
+      textAreaTag.setValue(value);
     }
     if (valueChangeListener != null) {
-      selectOneChoiceTag.setValueChangeListener(valueChangeListener);
-    }
-    if (validator != null) {
-      selectOneChoiceTag.setValidator(validator);
-    }
-    if (converter != null) {
-      selectOneChoiceTag.setConverter(converter);
+      textAreaTag.setValueChangeListener(valueChangeListener);
     }
     if (binding != null) {
-      selectOneChoiceTag.setBinding(binding);
+      textAreaTag.setBinding(binding);
+    }
+    if (converter != null) {
+      textAreaTag.setConverter(converter);
+    }
+    if (validator != null) {
+      textAreaTag.setValidator(validator);
     }
     if (onchange != null) {
-      selectOneChoiceTag.setOnchange(onchange);
+      textAreaTag.setOnchange(onchange);
     }
     if (disabled != null) {
-      selectOneChoiceTag.setDisabled(disabled);
-    }
-    if (markup != null) {
-      selectOneChoiceTag.setMarkup(markup);
-    }
-    if (inline != null) {
-      selectOneChoiceTag.setInline(inline);
+      textAreaTag.setDisabled(disabled);
     }
     if (focus != null) {
-      selectOneChoiceTag.setFocus(focus);
+      textAreaTag.setFocus(focus);
     }
     if (id != null) {
-      selectOneChoiceTag.setId(id);
+      textAreaTag.setId(id);
     }
     if (readonly != null) {
-      selectOneChoiceTag.setReadonly(readonly);
+      textAreaTag.setReadonly(readonly);
     }
     if (required != null) {
-      selectOneChoiceTag.setRequired(required);
+      textAreaTag.setRequired(required);
+    }
+    if (markup != null) {
+      textAreaTag.setMarkup(markup);
     }
     if (tabIndex != null) {
-      selectOneChoiceTag.setTabIndex(tabIndex);
+      textAreaTag.setTabIndex(tabIndex);
     }
     if (validatorMessage != null) {
-      selectOneChoiceTag.setValidatorMessage(validatorMessage);
+      textAreaTag.setValidatorMessage(validatorMessage);
     }
     if (converterMessage != null) {
-      selectOneChoiceTag.setConverterMessage(converterMessage);
+      textAreaTag.setConverterMessage(converterMessage);
     }
     if (requiredMessage != null) {
-      selectOneChoiceTag.setRequiredMessage(requiredMessage);
+      textAreaTag.setRequiredMessage(requiredMessage);
     }
 
-    selectOneChoiceTag.setParent(labelTag);
-    selectOneChoiceTag.doStartTag();
+    textAreaTag.setParent(labelTag);
+    textAreaTag.doStartTag();
 
     return super.doStartTag();
   }
 
   @Override
   public int doEndTag() throws JspException {
-    selectOneChoiceTag.doEndTag();
+    textAreaTag.doEndTag();
     labelTag.doEndTag();
     return super.doEndTag();
   }
@@ -176,31 +183,26 @@ public class SelectOneChoiceExtensionTag
   public void release() {
     super.release();
     binding = null;
-    onchange = null;
-    disabled = null;
-    inline = null;
-    label = null;
-    labelWidth = null;
     converter = null;
     validator = null;
+    disabled = null;
+    labelWidth = null;
+    focus = null;
+    label = null;
     readonly = null;
     rendered = null;
     required = null;
     tip = null;
     value = null;
+    onchange = null;
+    markup = null;
     valueChangeListener = null;
     tabIndex = null;
-    selectOneChoiceTag = null;
+    textAreaTag = null;
     labelTag = null;
-    focus = null;
-    markup = null;
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
-  }
-
-  public void setRequired(String required) {
-    this.required = required;
   }
 
   public void setValue(String value) {
@@ -211,40 +213,48 @@ public class SelectOneChoiceExtensionTag
     this.valueChangeListener = valueChangeListener;
   }
 
-  public void setValidator(String validator) {
-    this.validator = validator;
-  }
-
-  public void setDisabled(String disabled) {
-    this.disabled = disabled;
-  }
-
-  public void setReadonly(String readonly) {
-    this.readonly = readonly;
-  }
-
-  public void setOnchange(String onchange) {
-    this.onchange = onchange;
-  }
-
-  public void setConverter(String converter) {
-    this.converter = converter;
-  }
-
-  public void setInline(String inline) {
-    this.inline = inline;
-  }
-
   public void setLabel(String label) {
     this.label = label;
+  }
+
+  public void setFocus(String focus) {
+    this.focus = focus;
+  }
+
+  public void setBinding(String binding) {
+    this.binding = binding;
   }
 
   public void setRendered(String rendered) {
     this.rendered = rendered;
   }
 
-  public void setBinding(String binding) {
-    this.binding = binding;
+  public void setConverter(String converter) {
+    this.converter = converter;
+  }
+
+  public void setValidator(String validator) {
+    this.validator = validator;
+  }
+
+  public void setOnchange(String onchange) {
+    this.onchange = onchange;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
+  }
+
+  public void setReadonly(String readonly) {
+    this.readonly = readonly;
+  }
+
+  public void setDisabled(String disabled) {
+    this.disabled = disabled;
+  }
+
+  public void setRequired(String required) {
+    this.required = required;
   }
 
   public void setTip(String tip) {
@@ -257,14 +267,6 @@ public class SelectOneChoiceExtensionTag
 
   public void setTabIndex(String tabIndex) {
     this.tabIndex = tabIndex;
-  }
-
-  public void setFocus(String focus) {
-    this.focus = focus;
-  }
-
-  public void setMarkup(String markup) {
-    this.markup = markup;
   }
 
   public void setValidatorMessage(String validatorMessage) {

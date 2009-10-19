@@ -17,9 +17,9 @@ package org.apache.myfaces.tobago.taglib.extension12;
  * limitations under the License.
  */
 
-import javax.servlet.jsp.tagext.BodyTagSupport;
-import javax.servlet.jsp.JspFactory;
 import javax.el.ValueExpression;
+import javax.servlet.jsp.JspFactory;
+import javax.servlet.jsp.tagext.BodyTagSupport;
 
 
 public class TobagoExtensionBodyTagSupport extends BodyTagSupport {

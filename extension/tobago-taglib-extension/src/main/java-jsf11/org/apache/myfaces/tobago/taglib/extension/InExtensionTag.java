@@ -19,31 +19,33 @@ package org.apache.myfaces.tobago.taglib.extension;
 
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.internal.taglib.TimeTag;
+import org.apache.myfaces.tobago.internal.taglib.InTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
+import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasSuggestMethod;
 import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
+import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsFocus;
-import org.apache.myfaces.tobago.taglib.decl.IsInline;
+import org.apache.myfaces.tobago.taglib.decl.IsPassword;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
-import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
-import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Renders a time input field with a label.
+ * Renders a text input field with a label.
  * <br />
  * Short syntax of:
  * <p/>
@@ -53,19 +55,20 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *     &lt;tc:gridLayout columns="fixed;*"/>
  *   &lt;/f:facet>
  *   &lt;tc:label value="#{label}" for="@auto"/>
- *   &lt;tc:time value="#{value}">
+ *   &lt;tc:in value="#{value}">
  *     ...
  *   &lt;/tc:in>
  * &lt;/tc:panel>
  * </pre>
  */
-@Tag(name = "time")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.TimeTag")
-public class TimeExtensionTag extends BodyTagSupport
+
+@Tag(name = "in")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.InTag")
+public class InExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled, HasOnchange, IsRequired, HasTip,
+    HasConverter, IsReadonly, IsDisabled, HasOnchange, HasMarkup, IsRequired,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
-    HasLabel, HasLabelWidth, IsFocus, IsInline, HasTabIndex {
+    HasTip, HasLabel, HasLabelWidth, IsPassword, IsFocus, HasSuggestMethod, HasTabIndex {
 
   private String binding;
   private String converter;
@@ -73,14 +76,16 @@ public class TimeExtensionTag extends BodyTagSupport
   private String disabled;
   private String focus;
   private String label;
+  private String password;
   private String readonly;
   private String rendered;
   private String required;
   private String tip;
   private String value;
   private String valueChangeListener;
-  private String inline;
   private String onchange;
+  private String suggestMethod;
+  private String markup;
   private String labelWidth;
   private String tabIndex;
   private String validatorMessage;
@@ -88,7 +93,7 @@ public class TimeExtensionTag extends BodyTagSupport
   private String requiredMessage;
 
   private LabelExtensionTag labelTag;
-  private TimeTag timeTag;
+  private InTag inTag;
 
   @Override
   public int doStartTag() throws JspException {
@@ -107,69 +112,77 @@ public class TimeExtensionTag extends BodyTagSupport
     if (labelWidth != null) {
       labelTag.setColumns(labelWidth + ";*");
     }
+    if (markup != null) {
+      labelTag.setMarkup(markup);
+    }
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 
-    timeTag = new TimeTag();
-    timeTag.setPageContext(pageContext);
+    inTag = new InTag();
+    inTag.setPageContext(pageContext);
     if (value != null) {
-      timeTag.setValue(value);
+      inTag.setValue(value);
     }
     if (valueChangeListener != null) {
-      timeTag.setValueChangeListener(valueChangeListener);
+      inTag.setValueChangeListener(valueChangeListener);
     }
     if (binding != null) {
-      timeTag.setBinding(binding);
+      inTag.setBinding(binding);
     }
-    /*if (converter != null) {
-      timeTag.setConverter(converter);
-    }*/
+    if (converter != null) {
+      inTag.setConverter(converter);
+    }
     if (validator != null) {
-      timeTag.setValidator(validator);
+      inTag.setValidator(validator);
     }
     if (onchange != null) {
-      timeTag.setOnchange(onchange);
+      inTag.setOnchange(onchange);
+    }
+    if (suggestMethod != null) {
+      inTag.setSuggestMethod(suggestMethod);
     }
     if (disabled != null) {
-      timeTag.setDisabled(disabled);
+      inTag.setDisabled(disabled);
     }
     if (focus != null) {
-      timeTag.setFocus(focus);
+      inTag.setFocus(focus);
     }
     if (id != null) {
-      timeTag.setId(id);
+      inTag.setId(id);
     }
-    if (inline != null) {
-      timeTag.setInline(inline);
+    if (password != null) {
+      inTag.setPassword(password);
     }
     if (readonly != null) {
-      timeTag.setReadonly(readonly);
+      inTag.setReadonly(readonly);
     }
     if (required != null) {
-      timeTag.setRequired(required);
+      inTag.setRequired(required);
+    }
+    if (markup != null) {
+      inTag.setMarkup(markup);
     }
     if (tabIndex != null) {
-      timeTag.setTabIndex(tabIndex);
+      inTag.setTabIndex(tabIndex);
     }
     if (validatorMessage != null) {
-      timeTag.setValidatorMessage(validatorMessage);
+      inTag.setValidatorMessage(validatorMessage);
     }
     if (converterMessage != null) {
-      timeTag.setConverterMessage(converterMessage);
+      inTag.setConverterMessage(converterMessage);
     }
     if (requiredMessage != null) {
-      timeTag.setRequiredMessage(requiredMessage);
+      inTag.setRequiredMessage(requiredMessage);
     }
-
-    timeTag.setParent(labelTag);
-    timeTag.doStartTag();
+    inTag.setParent(labelTag);
+    inTag.doStartTag();
 
     return super.doStartTag();
   }
 
   @Override
   public int doEndTag() throws JspException {
-    timeTag.doEndTag();
+    inTag.doEndTag();
     labelTag.doEndTag();
     return super.doEndTag();
   }
@@ -184,20 +197,26 @@ public class TimeExtensionTag extends BodyTagSupport
     labelWidth = null;
     focus = null;
     label = null;
-    inline = null;
+    password = null;
     readonly = null;
     rendered = null;
     required = null;
     tip = null;
     value = null;
-    onchange = null;
     valueChangeListener = null;
+    onchange = null;
+    suggestMethod = null;
+    markup = null;
     tabIndex = null;
-    timeTag = null;
+    inTag = null;
     labelTag = null;
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 
   public void setValue(String value) {
@@ -228,16 +247,20 @@ public class TimeExtensionTag extends BodyTagSupport
     this.converter = converter;
   }
 
-  public void setValidator(String validator) {
-    this.validator = validator;
-  }
-
   public void setOnchange(String onchange) {
     this.onchange = onchange;
   }
 
-  public void setInline(String inline) {
-    this.inline = inline;
+  public void setSuggestMethod(String suggestMethod) {
+    this.suggestMethod = suggestMethod;
+  }
+
+  public void setValidator(String validator) {
+    this.validator = validator;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   public void setReadonly(String readonly) {

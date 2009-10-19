@@ -19,84 +19,71 @@ package org.apache.myfaces.tobago.taglib.extension;
 
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.internal.taglib.TextareaTag;
-import org.apache.myfaces.tobago.taglib.decl.HasConverter;
+import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
+import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
+import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
-import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsFocus;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
-import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
-import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-/**
- * Renders a multiline text input control with a label.
- * <br />
- * Short syntax of:
- * <p/>
- * <pre>
- * &lt;tc:panel>
- *   &lt;f:facet name="layout">
- *     &lt;tc:gridLayout columns="fixed;*"/>
- *   &lt;/f:facet>
- *   &lt;tc:label value="#{label}" for="@auto"/>
- *   &lt;tc:textarea value="#{value}">
- *     ...
- *   &lt;/tc:in>
- * &lt;/tc:panel>
- * </pre>
+/*
+ * Date: Oct 7, 2006
+ * Time: 9:13:21 AM
  */
-
-@Tag(name = "textarea")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.TextAreaTag")
-public class TextAreaExtensionTag extends BodyTagSupport
-    implements HasValue, HasValueChangeListener, HasIdBindingAndRendered,
-    HasConverter, HasValidator, IsReadonly, IsDisabled, HasMarkup, IsRequired,
+/**
+ * Renders a checkbox.
+ */
+@Tag(name = "selectBooleanCheckbox")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag")
+public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
+    HasValidator, HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabel,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
-    HasTip, HasLabel, HasLabelWidth, IsFocus, HasOnchange, HasTabIndex {
+    HasBooleanValue, HasLabelWidth, IsDisabled, HasTip, IsReadonly, HasMarkup, HasTabIndex, IsRequired,
+    IsFocus {
 
-  private String binding;
-  private String converter;
-  private String disabled;
-  private String focus;
-  private String label;
-  private String readonly;
-  private String rendered;
-  private String required;
-  private String tip;
   private String value;
   private String valueChangeListener;
-  private String validator;
+  private String disabled;
+  private String readonly;
   private String onchange;
-  private String markup;
+  private String label;
+  private String rendered;
+  private String binding;
+  private String tip;
+  private String converter;
+  private String validator;
   private String labelWidth;
+  private String markup;
   private String tabIndex;
+  private String required;
+  private String focus;
   private String validatorMessage;
   private String converterMessage;
   private String requiredMessage;
 
   private LabelExtensionTag labelTag;
-  private TextareaTag textAreaTag;
+  private SelectBooleanCheckboxTag selectBooleanCheckboxTag;
 
   @Override
   public int doStartTag() throws JspException {
 
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
-    labelTag.setRows("*");
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -115,66 +102,74 @@ public class TextAreaExtensionTag extends BodyTagSupport
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 
-    textAreaTag = new TextareaTag();
-    textAreaTag.setPageContext(pageContext);
+    selectBooleanCheckboxTag = new SelectBooleanCheckboxTag();
+    selectBooleanCheckboxTag.setPageContext(pageContext);
     if (value != null) {
-      textAreaTag.setValue(value);
+      selectBooleanCheckboxTag.setValue(value);
     }
     if (valueChangeListener != null) {
-      textAreaTag.setValueChangeListener(valueChangeListener);
+      selectBooleanCheckboxTag.setValueChangeListener(valueChangeListener);
     }
     if (binding != null) {
-      textAreaTag.setBinding(binding);
-    }
-    if (converter != null) {
-      textAreaTag.setConverter(converter);
-    }
-    if (validator != null) {
-      textAreaTag.setValidator(validator);
+      selectBooleanCheckboxTag.setBinding(binding);
     }
     if (onchange != null) {
-      textAreaTag.setOnchange(onchange);
+      selectBooleanCheckboxTag.setOnchange(onchange);
+    }
+    if (validator != null) {
+      selectBooleanCheckboxTag.setValidator(validator);
+    }
+    if (converter != null) {
+      selectBooleanCheckboxTag.setConverter(converter);
     }
     if (disabled != null) {
-      textAreaTag.setDisabled(disabled);
-    }
-    if (focus != null) {
-      textAreaTag.setFocus(focus);
-    }
-    if (id != null) {
-      textAreaTag.setId(id);
-    }
-    if (readonly != null) {
-      textAreaTag.setReadonly(readonly);
-    }
-    if (required != null) {
-      textAreaTag.setRequired(required);
-    }
-    if (markup != null) {
-      textAreaTag.setMarkup(markup);
-    }
-    if (tabIndex != null) {
-      textAreaTag.setTabIndex(tabIndex);
-    }
-    if (validatorMessage != null) {
-      textAreaTag.setValidatorMessage(validatorMessage);
-    }
-    if (converterMessage != null) {
-      textAreaTag.setConverterMessage(converterMessage);
-    }
-    if (requiredMessage != null) {
-      textAreaTag.setRequiredMessage(requiredMessage);
+      selectBooleanCheckboxTag.setDisabled(disabled);
     }
 
-    textAreaTag.setParent(labelTag);
-    textAreaTag.doStartTag();
+    if (id != null) {
+      selectBooleanCheckboxTag.setId(id);
+    }
+
+    if (readonly != null) {
+      selectBooleanCheckboxTag.setReadonly(readonly);
+    }
+
+    if (focus != null) {
+      selectBooleanCheckboxTag.setFocus(focus);
+    }
+
+    if (required != null) {
+      selectBooleanCheckboxTag.setRequired(required);
+    }
+    // TODO item Label
+    //if (itemLabel != null) {
+    //  selectOneRadioTag.setLabel(itemLabel);
+    //}
+
+    if (markup != null) {
+      selectBooleanCheckboxTag.setMarkup(markup);
+    }
+    if (tabIndex != null) {
+      selectBooleanCheckboxTag.setTabIndex(tabIndex);
+    }
+    if (validatorMessage != null) {
+      selectBooleanCheckboxTag.setValidatorMessage(validatorMessage);
+    }
+    if (converterMessage != null) {
+      selectBooleanCheckboxTag.setConverterMessage(converterMessage);
+    }
+    if (requiredMessage != null) {
+      selectBooleanCheckboxTag.setRequiredMessage(requiredMessage);
+    }
+    selectBooleanCheckboxTag.setParent(labelTag);
+    selectBooleanCheckboxTag.doStartTag();
 
     return super.doStartTag();
   }
 
   @Override
   public int doEndTag() throws JspException {
-    textAreaTag.doEndTag();
+    selectBooleanCheckboxTag.doEndTag();
     labelTag.doEndTag();
     return super.doEndTag();
   }
@@ -183,22 +178,22 @@ public class TextAreaExtensionTag extends BodyTagSupport
   public void release() {
     super.release();
     binding = null;
-    converter = null;
-    validator = null;
+    onchange = null;
     disabled = null;
-    labelWidth = null;
-    focus = null;
     label = null;
+    labelWidth = null;
     readonly = null;
     rendered = null;
-    required = null;
+    converter = null;
+    validator = null;
     tip = null;
     value = null;
-    onchange = null;
-    markup = null;
     valueChangeListener = null;
+    markup = null;
     tabIndex = null;
-    textAreaTag = null;
+    focus = null;
+    required = null;
+    selectBooleanCheckboxTag = null;
     labelTag = null;
     validatorMessage = null;
     converterMessage = null;
@@ -213,48 +208,36 @@ public class TextAreaExtensionTag extends BodyTagSupport
     this.valueChangeListener = valueChangeListener;
   }
 
-  public void setLabel(String label) {
-    this.label = label;
-  }
-
-  public void setFocus(String focus) {
-    this.focus = focus;
-  }
-
-  public void setBinding(String binding) {
-    this.binding = binding;
-  }
-
-  public void setRendered(String rendered) {
-    this.rendered = rendered;
-  }
-
-  public void setConverter(String converter) {
-    this.converter = converter;
-  }
-
-  public void setValidator(String validator) {
-    this.validator = validator;
-  }
-
-  public void setOnchange(String onchange) {
-    this.onchange = onchange;
-  }
-
-  public void setMarkup(String markup) {
-    this.markup = markup;
+  public void setDisabled(String disabled) {
+    this.disabled = disabled;
   }
 
   public void setReadonly(String readonly) {
     this.readonly = readonly;
   }
 
-  public void setDisabled(String disabled) {
-    this.disabled = disabled;
+  public void setOnchange(String onchange) {
+    this.onchange = onchange;
   }
 
-  public void setRequired(String required) {
-    this.required = required;
+  public void setLabel(String label) {
+    this.label = label;
+  }
+
+  public void setValidator(String validator) {
+    this.validator = validator;
+  }
+
+  public void setConverter(String converter) {
+    this.converter = converter;
+  }
+
+  public void setRendered(String rendered) {
+    this.rendered = rendered;
+  }
+
+  public void setBinding(String binding) {
+    this.binding = binding;
   }
 
   public void setTip(String tip) {
@@ -265,8 +248,20 @@ public class TextAreaExtensionTag extends BodyTagSupport
     this.labelWidth = labelWidth;
   }
 
+  public void setMarkup(String markup) {
+    this.markup = markup;
+  }
+
   public void setTabIndex(String tabIndex) {
     this.tabIndex = tabIndex;
+  }
+
+  public void setFocus(String focus) {
+    this.focus = focus;
+  }
+
+  public void setRequired(String required) {
+    this.required = required;
   }
 
   public void setValidatorMessage(String validatorMessage) {

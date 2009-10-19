@@ -28,6 +28,7 @@
   <description>Tobago Taglib Extension contains the tobago extension tags (tx)</description>
 
   <build>
+    <sourceDirectory>${source.directory}</sourceDirectory>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -63,7 +64,7 @@
           <showWarnings>true</showWarnings>
           <excludes>
             <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
-            <exclude>${taglib.exclude}</exclude>
+            <!--<exclude>${taglib.exclude}</exclude>-->
           </excludes>
         </configuration>
       </plugin>
@@ -206,6 +207,7 @@
       </dependencies>
       <properties>
         <jsf.target>1.2</jsf.target>
+        <source.directory>src/main/java-jsf12</source.directory>
         <taglib.exclude>org/apache/myfaces/tobago/taglib/extension/*</taglib.exclude>
         <taglib.file>org/apache/myfaces/tobago/taglib/extension12/tobago-extension.tld</taglib.file>
       </properties>
@@ -347,6 +349,7 @@
     </profile>
   </profiles>
   <properties>
+    <source.directory>src/main/java-jsf11</source.directory>
     <taglib.exclude>org/apache/myfaces/tobago/taglib/extension12/*</taglib.exclude>
     <taglib.file>org/apache/myfaces/tobago/taglib/extension/tobago-extension.tld</taglib.file>
   </properties>

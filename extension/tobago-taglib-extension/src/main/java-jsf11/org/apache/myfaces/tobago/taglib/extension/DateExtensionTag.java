@@ -19,33 +19,38 @@ package org.apache.myfaces.tobago.taglib.extension;
 
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.internal.taglib.InTag;
+import org.apache.myfaces.tobago.internal.taglib.DatePickerTag;
+import org.apache.myfaces.tobago.internal.taglib.DateTag;
+import org.apache.myfaces.tobago.internal.taglib.FormTag;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
+import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
-import org.apache.myfaces.tobago.taglib.decl.HasSuggestMethod;
+import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
+import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsFocus;
-import org.apache.myfaces.tobago.taglib.decl.IsPassword;
+import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
-import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
-import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
+/*
+ * Date: 19.12.2005
+ * Time: 20:13:26
+ */
 /**
- * Renders a text input field with a label.
+ * Renders a date input field with a date picker and a label.
  * <br />
  * Short syntax of:
  * <p/>
@@ -55,20 +60,21 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
  *     &lt;tc:gridLayout columns="fixed;*"/>
  *   &lt;/f:facet>
  *   &lt;tc:label value="#{label}" for="@auto"/>
- *   &lt;tc:in value="#{value}">
+ *   &lt;tc:date value="#{value}">
  *     ...
  *   &lt;/tc:in>
  * &lt;/tc:panel>
  * </pre>
  */
-
-@Tag(name = "in")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.InTag")
-public class InExtensionTag extends BodyTagSupport
+@Tag(name = "date")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.DateTag")
+public class DateExtensionTag extends BodyTagSupport
     implements HasValue, HasValueChangeListener, HasValidator, HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled, HasOnchange, HasMarkup, IsRequired,
+    HasConverter, IsReadonly, IsDisabled, HasOnchange, IsRequired, HasTip,
     HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
-    HasTip, HasLabel, HasLabelWidth, IsPassword, IsFocus, HasSuggestMethod, HasTabIndex {
+    HasLabel, HasMarkup, HasLabelWidth, IsFocus, IsInline, HasTabIndex {
+
+  private static final long serialVersionUID = 2044784791513107420L;
 
   private String binding;
   private String converter;
@@ -76,24 +82,23 @@ public class InExtensionTag extends BodyTagSupport
   private String disabled;
   private String focus;
   private String label;
-  private String password;
   private String readonly;
   private String rendered;
   private String required;
   private String tip;
   private String value;
   private String valueChangeListener;
+  private String inline;
   private String onchange;
-  private String suggestMethod;
-  private String markup;
-  private String labelWidth;
   private String tabIndex;
+  private String markup;
   private String validatorMessage;
   private String converterMessage;
   private String requiredMessage;
 
+  private String labelWidth;
   private LabelExtensionTag labelTag;
-  private InTag inTag;
+  private DateTag dateTag;
 
   @Override
   public int doStartTag() throws JspException {
@@ -103,14 +108,16 @@ public class InExtensionTag extends BodyTagSupport
     if (label != null) {
       labelTag.setValue(label);
     }
+    if (labelWidth != null) {
+      labelTag.setColumns(labelWidth + ";*;fixed");
+    } else {
+      labelTag.setColumns("fixed;*;fixed");
+    }
     if (tip != null) {
       labelTag.setTip(tip);
     }
     if (rendered != null) {
       labelTag.setRendered(rendered);
-    }
-    if (labelWidth != null) {
-      labelTag.setColumns(labelWidth + ";*");
     }
     if (markup != null) {
       labelTag.setMarkup(markup);
@@ -118,71 +125,84 @@ public class InExtensionTag extends BodyTagSupport
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 
-    inTag = new InTag();
-    inTag.setPageContext(pageContext);
+    dateTag = new DateTag();
+    dateTag.setPageContext(pageContext);
     if (value != null) {
-      inTag.setValue(value);
+      dateTag.setValue(value);
     }
     if (valueChangeListener != null) {
-      inTag.setValueChangeListener(valueChangeListener);
+      dateTag.setValueChangeListener(valueChangeListener);
     }
     if (binding != null) {
-      inTag.setBinding(binding);
+      dateTag.setBinding(binding);
     }
     if (converter != null) {
-      inTag.setConverter(converter);
+      dateTag.setConverter(converter);
     }
     if (validator != null) {
-      inTag.setValidator(validator);
-    }
-    if (onchange != null) {
-      inTag.setOnchange(onchange);
-    }
-    if (suggestMethod != null) {
-      inTag.setSuggestMethod(suggestMethod);
+      dateTag.setValidator(validator);
     }
     if (disabled != null) {
-      inTag.setDisabled(disabled);
+      dateTag.setDisabled(disabled);
+    }
+    if (onchange != null) {
+      dateTag.setOnchange(onchange);
     }
     if (focus != null) {
-      inTag.setFocus(focus);
+      dateTag.setFocus(focus);
     }
     if (id != null) {
-      inTag.setId(id);
+      dateTag.setId(id);
     }
-    if (password != null) {
-      inTag.setPassword(password);
+    if (inline != null) {
+      dateTag.setInline(inline);
     }
     if (readonly != null) {
-      inTag.setReadonly(readonly);
+      dateTag.setReadonly(readonly);
     }
     if (required != null) {
-      inTag.setRequired(required);
+      dateTag.setRequired(required);
     }
     if (markup != null) {
-      inTag.setMarkup(markup);
+      dateTag.setMarkup(markup);
     }
     if (tabIndex != null) {
-      inTag.setTabIndex(tabIndex);
+      dateTag.setTabIndex(tabIndex);
     }
     if (validatorMessage != null) {
-      inTag.setValidatorMessage(validatorMessage);
+      dateTag.setValidatorMessage(validatorMessage);
     }
     if (converterMessage != null) {
-      inTag.setConverterMessage(converterMessage);
+      dateTag.setConverterMessage(converterMessage);
     }
     if (requiredMessage != null) {
-      inTag.setRequiredMessage(requiredMessage);
+      dateTag.setRequiredMessage(requiredMessage);
     }
-    inTag.setParent(labelTag);
-    inTag.doStartTag();
+    dateTag.setParent(labelTag);
+    dateTag.doStartTag();
 
     return super.doStartTag();
   }
 
   @Override
   public int doEndTag() throws JspException {
-    inTag.doEndTag();
+    dateTag.doEndTag();
+    FormTag formTag = new FormTag();
+    formTag.setPageContext(pageContext);
+    formTag.setParent(labelTag);
+    formTag.doStartTag();
+
+    DatePickerTag datePicker = new DatePickerTag();
+    datePicker.setPageContext(pageContext);
+    datePicker.setFor("@auto");
+    if (tabIndex != null) {
+      datePicker.setTabIndex(tabIndex);
+    }
+    datePicker.setParent(formTag);
+    datePicker.doStartTag();
+    datePicker.doEndTag();
+    formTag.doEndTag();
+
     labelTag.doEndTag();
     return super.doEndTag();
   }
@@ -197,7 +217,7 @@ public class InExtensionTag extends BodyTagSupport
     labelWidth = null;
     focus = null;
     label = null;
-    password = null;
+    inline = null;
     readonly = null;
     rendered = null;
     required = null;
@@ -205,18 +225,13 @@ public class InExtensionTag extends BodyTagSupport
     value = null;
     valueChangeListener = null;
     onchange = null;
-    suggestMethod = null;
     markup = null;
     tabIndex = null;
-    inTag = null;
     labelTag = null;
+    dateTag = null;
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
-  }
-
-  public void setMarkup(String markup) {
-    this.markup = markup;
   }
 
   public void setValue(String value) {
@@ -229,6 +244,10 @@ public class InExtensionTag extends BodyTagSupport
 
   public void setLabel(String label) {
     this.label = label;
+  }
+
+  public void setOnchange(String onchange) {
+    this.onchange = onchange;
   }
 
   public void setFocus(String focus) {
@@ -247,20 +266,12 @@ public class InExtensionTag extends BodyTagSupport
     this.converter = converter;
   }
 
-  public void setOnchange(String onchange) {
-    this.onchange = onchange;
-  }
-
-  public void setSuggestMethod(String suggestMethod) {
-    this.suggestMethod = suggestMethod;
-  }
-
   public void setValidator(String validator) {
     this.validator = validator;
   }
 
-  public void setPassword(String password) {
-    this.password = password;
+  public void setInline(String inline) {
+    this.inline = inline;
   }
 
   public void setReadonly(String readonly) {
@@ -281,6 +292,10 @@ public class InExtensionTag extends BodyTagSupport
 
   public void setLabelWidth(String labelWidth) {
     this.labelWidth = labelWidth;
+  }
+
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 
   public void setTabIndex(String tabIndex) {

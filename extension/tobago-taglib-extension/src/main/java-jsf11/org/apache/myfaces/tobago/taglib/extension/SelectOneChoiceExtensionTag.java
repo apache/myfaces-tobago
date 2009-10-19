@@ -19,65 +19,68 @@ package org.apache.myfaces.tobago.taglib.extension;
 
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
-import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
-import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.internal.taglib.SelectOneChoiceTag;
+import org.apache.myfaces.tobago.taglib.decl.HasBinding;
+import org.apache.myfaces.tobago.taglib.decl.HasConverter;
+import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWidth;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasOnchange;
+import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasTabIndex;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
+import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
+import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsFocus;
+import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
+import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
-import org.apache.myfaces.tobago.taglib.decl.HasRequiredMessage;
-import org.apache.myfaces.tobago.taglib.decl.HasConverterMessage;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-/*
- * Date: Oct 7, 2006
- * Time: 9:13:21 AM
- */
 /**
- * Renders a checkbox.
+ * Render a single selection dropdown list with a label.
  */
-@Tag(name = "selectBooleanCheckbox")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag")
-public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
-    HasValidator, HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabel,
-    HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
-    HasBooleanValue, HasLabelWidth, IsDisabled, HasTip, IsReadonly, HasMarkup, HasTabIndex, IsRequired,
-    IsFocus {
 
+@Tag(name = "selectOneChoice")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectOneChoiceTag")
+public class SelectOneChoiceExtensionTag
+    extends BodyTagSupport
+    implements HasId, HasValue, HasValueChangeListener, IsDisabled,
+    IsReadonly, HasOnchange, IsInline, HasLabel, HasLabelWidth, IsRequired,
+    HasValidatorMessage, HasRequiredMessage, HasConverterMessage,
+    IsRendered, IsFocus, HasBinding, HasTip, HasValidator, HasConverter, HasMarkup, HasTabIndex {
+
+  private String required;
   private String value;
   private String valueChangeListener;
   private String disabled;
   private String readonly;
   private String onchange;
+  private String inline;
   private String label;
   private String rendered;
   private String binding;
   private String tip;
-  private String converter;
   private String validator;
+  private String converter;
   private String labelWidth;
-  private String markup;
   private String tabIndex;
-  private String required;
   private String focus;
+  private String markup;
   private String validatorMessage;
   private String converterMessage;
   private String requiredMessage;
 
   private LabelExtensionTag labelTag;
-  private SelectBooleanCheckboxTag selectBooleanCheckboxTag;
+  private SelectOneChoiceTag selectOneChoiceTag;
 
   @Override
   public int doStartTag() throws JspException {
@@ -102,74 +105,69 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 
-    selectBooleanCheckboxTag = new SelectBooleanCheckboxTag();
-    selectBooleanCheckboxTag.setPageContext(pageContext);
+    selectOneChoiceTag = new SelectOneChoiceTag();
+    selectOneChoiceTag.setPageContext(pageContext);
     if (value != null) {
-      selectBooleanCheckboxTag.setValue(value);
+      selectOneChoiceTag.setValue(value);
     }
     if (valueChangeListener != null) {
-      selectBooleanCheckboxTag.setValueChangeListener(valueChangeListener);
-    }
-    if (binding != null) {
-      selectBooleanCheckboxTag.setBinding(binding);
-    }
-    if (onchange != null) {
-      selectBooleanCheckboxTag.setOnchange(onchange);
+      selectOneChoiceTag.setValueChangeListener(valueChangeListener);
     }
     if (validator != null) {
-      selectBooleanCheckboxTag.setValidator(validator);
+      selectOneChoiceTag.setValidator(validator);
     }
     if (converter != null) {
-      selectBooleanCheckboxTag.setConverter(converter);
+      selectOneChoiceTag.setConverter(converter);
+    }
+    if (binding != null) {
+      selectOneChoiceTag.setBinding(binding);
+    }
+    if (onchange != null) {
+      selectOneChoiceTag.setOnchange(onchange);
     }
     if (disabled != null) {
-      selectBooleanCheckboxTag.setDisabled(disabled);
+      selectOneChoiceTag.setDisabled(disabled);
     }
-
-    if (id != null) {
-      selectBooleanCheckboxTag.setId(id);
-    }
-
-    if (readonly != null) {
-      selectBooleanCheckboxTag.setReadonly(readonly);
-    }
-
-    if (focus != null) {
-      selectBooleanCheckboxTag.setFocus(focus);
-    }
-
-    if (required != null) {
-      selectBooleanCheckboxTag.setRequired(required);
-    }
-    // TODO item Label
-    //if (itemLabel != null) {
-    //  selectOneRadioTag.setLabel(itemLabel);
-    //}
-
     if (markup != null) {
-      selectBooleanCheckboxTag.setMarkup(markup);
+      selectOneChoiceTag.setMarkup(markup);
+    }
+    if (inline != null) {
+      selectOneChoiceTag.setInline(inline);
+    }
+    if (focus != null) {
+      selectOneChoiceTag.setFocus(focus);
+    }
+    if (id != null) {
+      selectOneChoiceTag.setId(id);
+    }
+    if (readonly != null) {
+      selectOneChoiceTag.setReadonly(readonly);
+    }
+    if (required != null) {
+      selectOneChoiceTag.setRequired(required);
     }
     if (tabIndex != null) {
-      selectBooleanCheckboxTag.setTabIndex(tabIndex);
+      selectOneChoiceTag.setTabIndex(tabIndex);
     }
     if (validatorMessage != null) {
-      selectBooleanCheckboxTag.setValidatorMessage(validatorMessage);
+      selectOneChoiceTag.setValidatorMessage(validatorMessage);
     }
     if (converterMessage != null) {
-      selectBooleanCheckboxTag.setConverterMessage(converterMessage);
+      selectOneChoiceTag.setConverterMessage(converterMessage);
     }
     if (requiredMessage != null) {
-      selectBooleanCheckboxTag.setRequiredMessage(requiredMessage);
+      selectOneChoiceTag.setRequiredMessage(requiredMessage);
     }
-    selectBooleanCheckboxTag.setParent(labelTag);
-    selectBooleanCheckboxTag.doStartTag();
+
+    selectOneChoiceTag.setParent(labelTag);
+    selectOneChoiceTag.doStartTag();
 
     return super.doStartTag();
   }
 
   @Override
   public int doEndTag() throws JspException {
-    selectBooleanCheckboxTag.doEndTag();
+    selectOneChoiceTag.doEndTag();
     labelTag.doEndTag();
     return super.doEndTag();
   }
@@ -180,24 +178,29 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     binding = null;
     onchange = null;
     disabled = null;
+    inline = null;
     label = null;
     labelWidth = null;
-    readonly = null;
-    rendered = null;
     converter = null;
     validator = null;
+    readonly = null;
+    rendered = null;
+    required = null;
     tip = null;
     value = null;
     valueChangeListener = null;
-    markup = null;
     tabIndex = null;
-    focus = null;
-    required = null;
-    selectBooleanCheckboxTag = null;
+    selectOneChoiceTag = null;
     labelTag = null;
+    focus = null;
+    markup = null;
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
+  }
+
+  public void setRequired(String required) {
+    this.required = required;
   }
 
   public void setValue(String value) {
@@ -206,6 +209,10 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
 
   public void setValueChangeListener(String valueChangeListener) {
     this.valueChangeListener = valueChangeListener;
+  }
+
+  public void setValidator(String validator) {
+    this.validator = validator;
   }
 
   public void setDisabled(String disabled) {
@@ -220,16 +227,16 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     this.onchange = onchange;
   }
 
-  public void setLabel(String label) {
-    this.label = label;
-  }
-
-  public void setValidator(String validator) {
-    this.validator = validator;
-  }
-
   public void setConverter(String converter) {
     this.converter = converter;
+  }
+
+  public void setInline(String inline) {
+    this.inline = inline;
+  }
+
+  public void setLabel(String label) {
+    this.label = label;
   }
 
   public void setRendered(String rendered) {
@@ -248,10 +255,6 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     this.labelWidth = labelWidth;
   }
 
-  public void setMarkup(String markup) {
-    this.markup = markup;
-  }
-
   public void setTabIndex(String tabIndex) {
     this.tabIndex = tabIndex;
   }
@@ -260,8 +263,8 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     this.focus = focus;
   }
 
-  public void setRequired(String required) {
-    this.required = required;
+  public void setMarkup(String markup) {
+    this.markup = markup;
   }
 
   public void setValidatorMessage(String validatorMessage) {
