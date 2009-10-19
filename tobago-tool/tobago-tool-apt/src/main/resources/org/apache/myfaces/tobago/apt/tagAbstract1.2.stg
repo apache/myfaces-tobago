@@ -19,7 +19,7 @@ group tags;
 
 
 tag(tagInfo) ::= <<
-//------------------ GENERATED CODE BEGIN (do not modify!) --------------------
+// ---------- Attention: Generated code, please do not modify! -----------  
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -42,6 +42,10 @@ package <tagInfo.packageName>;
 
 <tagInfo.imports:import(); separator="\n">
 
+/** 
+ * JSP Tag class, generated from template {@code tagAbstract1.2.stg} with class 
+ * {@link <tagInfo.sourceClass>}.
+ */
 public class <tagInfo.className> extends <tagInfo.superClassName> {
   private static final Log LOG = LogFactory.getLog(<tagInfo.className>.class);
   <tagInfo.properties:field(); separator="\n">

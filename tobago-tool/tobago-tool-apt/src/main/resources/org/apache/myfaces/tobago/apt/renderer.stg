@@ -18,9 +18,7 @@ group renderers;
  */
 
 renderer(renderInfo) ::= <<
-//------------------ GENERATED CODE (do not modify!) --------------------
-
-package <renderInfo.packageName>;
+// ---------- Attention: Generated code, please do not modify! -----------  
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -39,8 +37,14 @@ package <renderInfo.packageName>;
  * limitations under the License.
  */
 
+package <renderInfo.packageName>;
+
 <renderInfo.imports:import(); separator="\n">
 
+/** 
+ * Renderer class, generated from template {@code renderer.stg} with class 
+ * {@link <rendererInfo.sourceClass>}.
+ */
 public final class <renderInfo.className>
     extends <renderInfo.superClassName> <first(renderInfo.interfaces):{ n | implements <n> }><rest(renderInfo.interfaces):{ n | , <n> }> {
 

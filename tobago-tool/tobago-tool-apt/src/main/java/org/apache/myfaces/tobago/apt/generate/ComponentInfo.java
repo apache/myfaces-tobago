@@ -25,8 +25,8 @@ public class ComponentInfo extends TagInfo {
   private boolean invokeOnComponent;
   private boolean messages;
 
-  public ComponentInfo(String qualifiedName, String rendererName) {
-    super(qualifiedName, rendererName);
+  public ComponentInfo(String sourceClass, String qualifiedName, String rendererName) {
+    super(sourceClass, qualifiedName, rendererName);
   }
 
   public boolean isInvokeOnComponent() {

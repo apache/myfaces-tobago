@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.apt.generate;
  * limitations under the License.
  */
 
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 
 
 public class ClassInfo {
@@ -27,8 +27,10 @@ public class ClassInfo {
   private Imports imports;
   private String superClassName;
   private Set<String> interfaces = new HashSet<String>();
+  private String sourceClass;
 
-  public ClassInfo(String qualifiedName) {
+  public ClassInfo(String sourceClass, String qualifiedName) {
+    this.sourceClass = sourceClass;
     this.className = ClassUtils.getSimpleName(qualifiedName);
     this.packageName = ClassUtils.getPackageName(qualifiedName);
     imports = new Imports(packageName);
@@ -82,4 +84,7 @@ public class ClassInfo {
     return interfaces;
   }
 
+  public String getSourceClass() {
+    return sourceClass;
+  }
 }

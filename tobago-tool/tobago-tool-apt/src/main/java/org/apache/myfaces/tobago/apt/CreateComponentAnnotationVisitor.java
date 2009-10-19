@@ -122,7 +122,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     Tag tag = decl.getAnnotation(Tag.class);
     TagGeneration tagGeneration = decl.getAnnotation(TagGeneration.class);
 
-    TagInfo tagInfo = new TagInfo(tagGeneration.className());
+    TagInfo tagInfo = new TagInfo(decl.getQualifiedName(), tagGeneration.className());
     tagInfo.setSuperClass(decl.getQualifiedName());
     StringTemplate stringTemplate = tagAbstractStringTemplateGroup.getInstanceOf("tag");
     stringTemplate.setAttribute("tagInfo", tagInfo);
@@ -140,7 +140,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     if (tag != null) {
 
       String className = "org.apache.myfaces.tobago.internal.taglib." + StringUtils.capitalize(tag.name()) + "Tag";
-      TagInfo tagInfo = new TagInfo(className, componentTag.rendererType());
+      TagInfo tagInfo = new TagInfo(decl.getQualifiedName(), className, componentTag.rendererType());
       for (PropertyInfo property : properties) {
         if (property.isTagAttribute()) {
           tagInfo.getProperties().add(property);
@@ -169,7 +169,8 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
 
     if (componentTag.generate()) {
       StringTemplate componentStringTemplate = componentStringTemplateGroup.getInstanceOf("component");
-      ComponentInfo componentInfo = new ComponentInfo(componentTag.uiComponent(), componentTag.rendererType());
+      ComponentInfo componentInfo 
+          = new ComponentInfo(decl.getQualifiedName(), componentTag.uiComponent(), componentTag.rendererType());
       componentInfo.setSuperClass(componentTag.uiComponentBaseClass());
       componentInfo.setComponentFamily(componentTag.componentFamily());
       List<String> elMethods = Collections.emptyList();
@@ -310,7 +311,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         return;
       }
       renderer.add(className);
-      RendererInfo info = new RendererInfo(className, rendererType);
+      RendererInfo info = new RendererInfo(decl.getQualifiedName(), className, rendererType);
       boolean ajaxEnabled =
           Arrays.asList(componentTag.interfaces()).contains("org.apache.myfaces.tobago.ajax.api.AjaxComponent");
       if (componentTag.isLayout()) {

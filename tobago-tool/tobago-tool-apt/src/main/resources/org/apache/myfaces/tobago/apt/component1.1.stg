@@ -18,9 +18,7 @@ group components;
  */
 
 component(componentInfo) ::= <<
-//------------------ GENERATED CODE (do not modify!) --------------------
-
-package <componentInfo.packageName>;
+// ---------- Attention: Generated code, please do not modify! -----------  
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -39,8 +37,14 @@ package <componentInfo.packageName>;
  * limitations under the License.
  */
 
+package <componentInfo.packageName>;
+
 <componentInfo.imports:import(); separator="\n">
 
+/** 
+ * UIComponent class, generated from template {@code component1.1.stg} with class 
+ * {@link <componentInfo.sourceClass>}.
+ */
 public class <componentInfo.className>
     extends <componentInfo.superClassName> <first(componentInfo.interfaces):{ n | implements <n>}><rest(componentInfo.interfaces):{ n |, <n>}> {
 
