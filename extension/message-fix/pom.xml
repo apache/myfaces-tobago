@@ -38,6 +38,12 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.apache.shale</groupId>
       <artifactId>shale-test</artifactId>
       <version>1.0.4</version>
