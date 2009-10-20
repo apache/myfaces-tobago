@@ -127,12 +127,12 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
 
   public abstract String getFor();
 
-  public enum OrderBy {
+  public static enum OrderBy {
 
-    OCCURENCE,
+    OCCURRENCE,
     SEVERITY;
 
-    public static final String OCCURENCE_STRING = "occurence";
+    public static final String OCCURRENCE_STRING = "occurrence";
     public static final String SEVERITY_STRING = "severity";
 
     public static OrderBy parse(String key) {

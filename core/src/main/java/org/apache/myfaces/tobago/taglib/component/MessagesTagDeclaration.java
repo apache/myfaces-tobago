@@ -97,9 +97,9 @@ public interface MessagesTagDeclaration extends HasIdBindingAndRendered, HasFor,
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.component.UIMessages$OrderBy",
-      allowedValues = {AbstractUIMessages.OrderBy.OCCURENCE_STRING, AbstractUIMessages.OrderBy.SEVERITY_STRING},
-      defaultValue = AbstractUIMessages.OrderBy.OCCURENCE_STRING, 
-      defaultCode = "org.apache.myfaces.tobago.component.AbstractUIMessages.OrderBy.OCCURENCE")
+      allowedValues = {AbstractUIMessages.OrderBy.OCCURRENCE_STRING, AbstractUIMessages.OrderBy.SEVERITY_STRING},
+      defaultValue = AbstractUIMessages.OrderBy.OCCURRENCE_STRING, 
+      defaultCode = "org.apache.myfaces.tobago.component.AbstractUIMessages.OrderBy.OCCURRENCE")
   void setOrderBy(String orderBy);
 
   /**

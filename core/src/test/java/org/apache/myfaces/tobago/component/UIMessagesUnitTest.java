@@ -132,7 +132,7 @@ public class UIMessagesUnitTest {
   @Test
   public void testOrderByEnum() {
     Assert.assertEquals(2, UIMessages.OrderBy.values().length);
-    Assert.assertEquals(UIMessages.OrderBy.OCCURENCE, UIMessages.OrderBy.parse(UIMessages.OrderBy.OCCURENCE_STRING));
+    Assert.assertEquals(UIMessages.OrderBy.OCCURRENCE, UIMessages.OrderBy.parse(UIMessages.OrderBy.OCCURRENCE_STRING));
     Assert.assertEquals(UIMessages.OrderBy.SEVERITY, UIMessages.OrderBy.parse(UIMessages.OrderBy.SEVERITY_STRING));
   }
 
