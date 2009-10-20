@@ -20,7 +20,7 @@
                 xmlns:c="http://java.sun.com/jstl/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tfs="http://myfaces.apache.org/tobago/facelet-sandbox">
+                xmlns:tf="http://myfaces.apache.org/tobago/facelet-extension">
 
   <c:set var="columns" value=""/>
   <c:forEach var="i" begin="0" end="${wizard.size}" step="1">

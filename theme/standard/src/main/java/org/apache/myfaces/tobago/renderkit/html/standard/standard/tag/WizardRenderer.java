@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more

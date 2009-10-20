@@ -58,7 +58,7 @@
     <managed-bean-class>org.apache.myfaces.tobago.example.test.Upload</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
-  
+
   <navigation-rule>
     <navigation-case>
       <from-outcome>navigation</from-outcome>
@@ -76,4 +76,32 @@
     </phase-listener>
   </lifecycle>
 
+  <!-- Wizard -->
+
+  <managed-bean>
+    <managed-bean-name>wizardController</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.test.FilterController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <navigation-rule>
+    <from-view-id>/tf/wizard/navi/*</from-view-id>
+    <navigation-case>
+      <from-outcome>filter</from-outcome>
+      <to-view-id>/tf/wizard/navi/filter.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>fileIntoCondition</from-outcome>
+      <to-view-id>/tf/wizard/navi/fileIntoCondition.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>forwardCondition</from-outcome>
+      <to-view-id>/tf/wizard/navi/forwardCondition.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>finish</from-outcome>
+      <to-view-id>/tf/wizard/navi/finish.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+  
 </faces-config>

@@ -32,7 +32,7 @@ public class TobagoSandboxTagLibrary extends AbstractTagLibrary {
 
     super(NAMESPACE);
 
-    addTobagoComponent("wizard", "org.apache.myfaces.tobago.Wizard", "Wizard", TobagoComponentHandler.class);
+//    addTobagoComponent("wizard", "org.apache.myfaces.tobago.Wizard", "Wizard", TobagoComponentHandler.class);
   }
 
   // fixme: double like TobagoTagLibrary

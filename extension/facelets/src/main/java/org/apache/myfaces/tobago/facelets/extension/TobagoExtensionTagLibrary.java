@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.facelets.extension;
  */
 
 import com.sun.facelets.tag.AbstractTagLibrary;
+import org.apache.myfaces.tobago.facelets.TobagoComponentHandler;
 
 /*
  * Date: Jul 31, 2007
@@ -50,5 +51,6 @@ public class TobagoExtensionTagLibrary extends AbstractTagLibrary {
         SelectOneListboxExtensionHandler.class);
     addComponent("separator", "org.apache.myfaces.tobago.Separator", "Separator",
         SeparatorExtensionHandler.class);
+    addComponent("wizard", "org.apache.myfaces.tobago.Wizard", "Wizard", TobagoComponentHandler.class);
   }
 }

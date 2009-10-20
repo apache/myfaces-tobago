@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.facelets.sandbox;
+package org.apache.myfaces.tobago.facelets;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -21,7 +21,6 @@ import com.sun.facelets.FaceletContext;
 import com.sun.facelets.el.ELAdaptor;
 import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.jsf.ComponentConfig;
-import org.apache.myfaces.tobago.facelets.TobagoComponentHandler;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;

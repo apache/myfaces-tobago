@@ -41,10 +41,6 @@
     </layout>
   </appender>
 
-  <category name="org.apache.myfaces.tobago.model.Wizard">
-    <priority value="debug"/>
-  </category>
-
   <root>
     <priority value="info" />
     <appender-ref ref="logfile" />

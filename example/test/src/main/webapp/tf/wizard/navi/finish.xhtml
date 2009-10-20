@@ -15,17 +15,16 @@
  * limitations under the License.
 -->
 
-<ui:composition template="page.xml"
+<ui:composition template="page.xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:c="http://java.sun.com/jstl/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tx="http://myfaces.apache.org/tobago/facelet-extension"
-                xmlns:tcs="http://myfaces.apache.org/tobago/sandbox"
-                xmlns:tfs="http://myfaces.apache.org/tobago/facelet-sandbox">
+                xmlns:tx="http://myfaces.apache.org/tobago/extension"
+                xmlns:tf="http://myfaces.apache.org/tobago/facelet-extension">
   <ui:param name="title" value="Finish"/>
 
-  <tfs:wizardExtension wizard="#{controller.wizard}"
+  <tf:wizardExtension wizard="#{wizardController.wizard}"
                        title="Finish"
                        outcome="finish"
                        allowJumpForward="true"
@@ -72,6 +71,6 @@
 
       </tfs:wizard>
     -->
-  </tfs:wizardExtension>
+  </tf:wizardExtension>
 
 </ui:composition>

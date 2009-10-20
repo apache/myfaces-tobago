@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.example.sandbox;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.model.Wizard;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,15 +28,6 @@ public class Controller {
   private static final Log LOG = LogFactory.getLog(Controller.class);
 
   private int sliderValue;
-
-  private Wizard wizard;
-
-  private String filterType;
-  private String filterValue;
-
-  public Controller() {
-    wizard = new Wizard();
-  }
 
   public String action1() {
     LOG.info("action 1");
@@ -52,16 +42,6 @@ public class Controller {
   public String action3() {
     LOG.info("action 3");
     return null;
-  }
-
-  public String createFilter() {
-    LOG.info("Filter type: '" + filterType + "'");
-    if ("fileInto".equals(filterType)) {
-      return "fileIntoCondition";
-    } else if ("forward".equals(filterType)) {
-      return "forwardCondition";
-    }
-    throw new RuntimeException("No filter type set.");
   }
 
   public String getCurrentTime() {
@@ -79,25 +59,5 @@ public class Controller {
   public String sliderSubmit() {
     LOG.info("Slider: " + sliderValue);
     return null;
-  }
-
-  public Wizard getWizard() {
-    return wizard;
-  }
-
-  public String getFilterType() {
-    return filterType;
-  }
-
-  public void setFilterType(String filterType) {
-    this.filterType = filterType;
-  }
-
-  public String getFilterValue() {
-    return filterValue;
-  }
-
-  public void setFilterValue(String filterValue) {
-    this.filterValue = filterValue;
   }
 }

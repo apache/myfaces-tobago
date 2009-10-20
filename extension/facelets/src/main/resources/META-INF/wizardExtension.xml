@@ -20,8 +20,8 @@
                 xmlns:c="http://java.sun.com/jstl/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:tc="http://myfaces.apache.org/tobago/component"
-                xmlns:tcs="http://myfaces.apache.org/tobago/sandbox"
-                xmlns:tfs="http://myfaces.apache.org/tobago/facelet-sandbox">
+                xmlns:tx="http://myfaces.apache.org/tobago/extension"
+                xmlns:tf="http://myfaces.apache.org/tobago/facelet-extension">
   <!--
     Attributes:
     Wizard controller
@@ -37,14 +37,14 @@
     MethodBinding actionCancel
   -->
 
-  <tcs:wizard controller="${wizard}" title="${title}" outcome="${outcome}" allowJumpForward="${allowJumpForward}">
+  <tx:wizard controller="${wizard}" title="${title}" outcome="${outcome}" allowJumpForward="${allowJumpForward}">
 
     <tc:panel>
       <f:facet name="layout">
         <tc:gridLayout rows="fixed;*;fixed"/>
       </f:facet>
 
-      <tfs:wizardTrain wizard="${wizard}"/>
+      <tf:wizardTrain wizard="${wizard}"/>
 
       <!-- The body content -->
       <ui:insert/>
@@ -55,15 +55,15 @@
         </f:facet>
 
         <tc:cell/>
-        <tfs:wizardPrevious wizard="${wizard}" label="${labelPevious}"/>
-        <tfs:wizardNext wizard="${wizard}" label="${labelNext}" action="${actionNext}"/>
-        <tfs:wizardFinish wizard="${wizard}" label="${labelOkay}" action="${actionOkay}"/>
-        <tfs:wizardCancel wizard="${wizard}" label="${labelCancel}" action="${actionCancel}"/>
+        <tf:wizardPrevious wizard="${wizard}" label="${labelPevious}"/>
+        <tf:wizardNext wizard="${wizard}" label="${labelNext}" action="${actionNext}"/>
+        <tf:wizardFinish wizard="${wizard}" label="${labelOkay}" action="${actionOkay}"/>
+        <tf:wizardCancel wizard="${wizard}" label="${labelCancel}" action="${actionCancel}"/>
 
       </tc:panel>
 
     </tc:panel>
 
-  </tcs:wizard>
+  </tx:wizard>
 
 </ui:composition>

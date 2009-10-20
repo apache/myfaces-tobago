@@ -28,13 +28,11 @@
         <tc:gridLayout />
       </f:facet>
 
-    <tc:link link="/jsp/wizard/navi/filter.jsp" label="Mail Filter Example (separate pages with navigation rules)" />
+    <tc:link link="/tc/wizard/navi/filter.xhtml" label="Mail Filter Example (separate pages with navigation rules)" />
 
-    <tc:link link="/jsp/wizard/bean/single.jsp" label="Wizard with navigation from model (outdated, not working in the moment)"/>
+    <tc:link label="Wizard with navigation from model (outdated, not working in the moment)"/>
 
-    <tc:link link="/facelet/wizard/navi/filter.xml" label="Wizard with Facelets"/>
-
-    <tc:link action="#{controller.wizard.reset}" label="Reset Wizard State"/>
+    <tc:link action="#{wizardController.wizard.reset}" label="Reset Wizard State"/>
 
     </tc:panel>
   </jsp:body>
