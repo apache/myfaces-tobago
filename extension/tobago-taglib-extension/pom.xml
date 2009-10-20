@@ -30,6 +30,7 @@
   <build>
     <sourceDirectory>${source.directory}</sourceDirectory>
     <plugins>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
@@ -54,6 +55,7 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -64,7 +66,6 @@
           <showWarnings>true</showWarnings>
           <excludes>
             <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
-            <!--<exclude>${taglib.exclude}</exclude>-->
           </excludes>
         </configuration>
       </plugin>
@@ -79,10 +80,9 @@
             <phase>compile</phase>
             <configuration>
               <targetFiles>
-                <targetFile>${taglib.file}</targetFile>
+                <targetFile>org/apache/myfaces/tobago/taglib/extension/tobago-extension.tld</targetFile>
               </targetFiles>
               <excludes>
-                <exclude>${taglib.exclude}</exclude>
                 <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
               </excludes>
               <additionalSourceRoots>
@@ -98,9 +98,9 @@
               </options>
             </configuration>
           </execution>
-
         </executions>
       </plugin>
+
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <executions>
@@ -181,6 +181,10 @@
       <activation>
         <activeByDefault>false</activeByDefault>
       </activation>
+      <properties>
+        <jsf.target>1.2</jsf.target>
+        <source.directory>src/main/java-jsf12</source.directory>
+      </properties>
       <dependencies>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
@@ -205,12 +209,6 @@
           <version>2.4</version>
         </dependency>
       </dependencies>
-      <properties>
-        <jsf.target>1.2</jsf.target>
-        <source.directory>src/main/java-jsf12</source.directory>
-        <taglib.exclude>org/apache/myfaces/tobago/taglib/extension/*</taglib.exclude>
-        <taglib.file>org/apache/myfaces/tobago/taglib/extension12/tobago-extension.tld</taglib.file>
-      </properties>
     </profile>
     <!-- Mac OS X has not a tools.jar! -->
     <profile>
@@ -350,7 +348,5 @@
   </profiles>
   <properties>
     <source.directory>src/main/java-jsf11</source.directory>
-    <taglib.exclude>org/apache/myfaces/tobago/taglib/extension12/*</taglib.exclude>
-    <taglib.file>org/apache/myfaces/tobago/taglib/extension/tobago-extension.tld</taglib.file>
   </properties>
 </project>

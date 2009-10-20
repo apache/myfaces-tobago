@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.extension12;
+package org.apache.myfaces.tobago.taglib.extension;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -22,42 +22,39 @@ import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.internal.taglib.SelectManyCheckboxTag;
+import org.apache.myfaces.tobago.internal.taglib.SelectOneListboxTag;
 
 import javax.servlet.jsp.JspException;
 
 /**
- * Render a group of checkboxes.
+ * Render a single selection option listbox.
  */
-@Tag(name = "selectManyCheckbox")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectManyCheckboxTag")
-public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
-
+@Tag(name = "selectOneListbox")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectOneListboxTag")
+public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression required;
   private javax.el.ValueExpression value;
   private javax.el.MethodExpression valueChangeListener;
   private javax.el.ValueExpression disabled;
   private javax.el.ValueExpression readonly;
   private javax.el.ValueExpression onchange;
-  private javax.el.ValueExpression inline;
+  //private javax.el.ValueExpression inline;
   private javax.el.ValueExpression label;
   private javax.el.ValueExpression rendered;
   private javax.el.ValueExpression binding;
   private javax.el.ValueExpression tip;
-  //private javax.el.ValueExpression height;
   private javax.el.ValueExpression converter;
   private javax.el.MethodExpression validator;
   private javax.el.ValueExpression labelWidth;
-  private javax.el.ValueExpression markup;
   private javax.el.ValueExpression tabIndex;
   private javax.el.ValueExpression focus;
-  private javax.el.ValueExpression renderRange;
   private javax.el.ValueExpression validatorMessage;
   private javax.el.ValueExpression converterMessage;
   private javax.el.ValueExpression requiredMessage;
+  private javax.el.ValueExpression markup;
 
   private LabelExtensionTag labelTag;
-  private SelectManyCheckboxTag selectManyCheckboxTag;
+  private SelectOneListboxTag selectOneListboxTag;
 
   @Override
   public int doStartTag() throws JspException {
@@ -83,74 +80,68 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 
-    selectManyCheckboxTag = new SelectManyCheckboxTag();
-    selectManyCheckboxTag.setPageContext(pageContext);
+    selectOneListboxTag = new SelectOneListboxTag();
+    selectOneListboxTag.setPageContext(pageContext);
     if (value != null) {
-      selectManyCheckboxTag.setValue(value);
+      selectOneListboxTag.setValue(value);
     }
     if (valueChangeListener != null) {
-      selectManyCheckboxTag.setValueChangeListener(valueChangeListener);
+      selectOneListboxTag.setValueChangeListener(valueChangeListener);
     }
     if (binding != null) {
-      selectManyCheckboxTag.setBinding(binding);
+      selectOneListboxTag.setBinding(binding);
     }
     if (onchange != null) {
-      selectManyCheckboxTag.setOnchange(onchange);
+      selectOneListboxTag.setOnchange(onchange);
     }
     if (validator != null) {
-      selectManyCheckboxTag.setValidator(validator);
+      selectOneListboxTag.setValidator(validator);
     }
     if (converter != null) {
-      selectManyCheckboxTag.setConverter(converter);
+      selectOneListboxTag.setConverter(converter);
     }
     if (disabled != null) {
-      selectManyCheckboxTag.setDisabled(disabled);
+      selectOneListboxTag.setDisabled(disabled);
     }
-    if (inline != null) {
-      selectManyCheckboxTag.setInline(inline);
-    }
+    /*if (inline != null) {
+      selectOneListboxTag.setInline(inline);
+    }*/
     if (focus != null) {
-      selectManyCheckboxTag.setFocus(focus);
+      selectOneListboxTag.setFocus(focus);
     }
     if (id != null) {
-      selectManyCheckboxTag.setId(id);
+      selectOneListboxTag.setId(id);
     }
-    /*if (height != null) {
-      selectManyCheckboxTag.setHeight(height);
-    }*/
     if (readonly != null) {
-      selectManyCheckboxTag.setReadonly(readonly);
+      selectOneListboxTag.setReadonly(readonly);
     }
     if (required != null) {
-      selectManyCheckboxTag.setRequired(required);
-    }
-    if (markup != null) {
-      selectManyCheckboxTag.setMarkup(markup);
-    }
-    if (renderRange != null) {
-      selectManyCheckboxTag.setRenderRange(renderRange);
+      selectOneListboxTag.setRequired(required);
     }
     if (tabIndex != null) {
-      selectManyCheckboxTag.setTabIndex(tabIndex);
+      selectOneListboxTag.setTabIndex(tabIndex);
     }
     if (validatorMessage != null) {
-      selectManyCheckboxTag.setValidatorMessage(validatorMessage);
+      selectOneListboxTag.setValidatorMessage(validatorMessage);
     }
     if (converterMessage != null) {
-      selectManyCheckboxTag.setConverterMessage(converterMessage);
+      selectOneListboxTag.setConverterMessage(converterMessage);
     }
     if (requiredMessage != null) {
-      selectManyCheckboxTag.setRequiredMessage(requiredMessage);
+      selectOneListboxTag.setRequiredMessage(requiredMessage);
     }
-    selectManyCheckboxTag.setParent(labelTag);
-    selectManyCheckboxTag.doStartTag();
+    if (markup != null) {
+      selectOneListboxTag.setMarkup(markup);
+    }
+    selectOneListboxTag.setParent(labelTag);
+    selectOneListboxTag.doStartTag();
 
     return super.doStartTag();
   }
 
   @Override
   public int doEndTag() throws JspException {
-    selectManyCheckboxTag.doEndTag();
+    selectOneListboxTag.doEndTag();
     labelTag.doEndTag();
     return super.doEndTag();
   }
@@ -161,10 +152,9 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
     binding = null;
     onchange = null;
     disabled = null;
-    inline = null;
-    label = null;
+    //inline = null;
     labelWidth = null;
-    //height = null;
+    label = null;
     readonly = null;
     rendered = null;
     converter = null;
@@ -173,17 +163,15 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
     tip = null;
     value = null;
     valueChangeListener = null;
-    markup = null;
     tabIndex = null;
-    selectManyCheckboxTag = null;
+    selectOneListboxTag = null;
     labelTag = null;
     focus = null;
-    renderRange = null;
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
+    markup = null;
   }
-
   /**
    * Flag indicating that a value is required.
    * If the value is an empty string a
@@ -248,14 +236,9 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
     this.onchange = onchange;
   }
 
-  /**
-   * Flag indicating this component should rendered as an inline element.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
-  public void setInline(javax.el.ValueExpression inline) {
+/*  public void setInline(String inline) {
     this.inline = inline;
-  }
+  }*/
 
   /**
    * Text value to display as label.
@@ -266,10 +249,6 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
   public void setLabel(javax.el.ValueExpression label) {
     this.label = label;
   }
-
-  /*public void setHeight(String height) {
-    this.height = height;
-  } */
 
   /**
    * A method binding EL expression,
@@ -341,16 +320,6 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
     this.labelWidth = labelWidth;
   }
 
-  /**
-   * Indicate markup of this component.
-   * Possible value is 'none'. But this can be overridden in the theme.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
-  public void setMarkup(javax.el.ValueExpression markup) {
-    this.markup = markup;
-  }
-
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer")
   public void setTabIndex(javax.el.ValueExpression tabIndex) {
@@ -364,15 +333,6 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
   @UIComponentTagAttribute(type = "java.lang.Boolean")
   public void setFocus(javax.el.ValueExpression focus) {
     this.focus = focus;
-  }
-
-  /**
-   * Range of items to render.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute()
-  public void setRenderRange(javax.el.ValueExpression renderRange) {
-    this.renderRange = renderRange;
   }
 
   /**
@@ -401,6 +361,15 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
   public void setRequiredMessage(javax.el.ValueExpression requiredMessage) {
     this.requiredMessage = requiredMessage;
   }
-  
-}
 
+  /**
+   * Indicate markup of this component.
+   * Possible value is 'none'. But this can be overridden in the theme.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
+  public void setMarkup(javax.el.ValueExpression markup) {
+    this.markup = markup;
+  }
+
+}

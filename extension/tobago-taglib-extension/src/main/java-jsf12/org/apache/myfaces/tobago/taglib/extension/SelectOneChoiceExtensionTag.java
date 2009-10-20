@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.extension12;
+package org.apache.myfaces.tobago.taglib.extension;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more

@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.extension12;
+package org.apache.myfaces.tobago.taglib.extension;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -22,51 +22,44 @@ import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.internal.taglib.FileTag;
+import org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag;
 
 import javax.servlet.jsp.JspException;
 
 /**
- * Renders a file input field with a label.
- * <p/>
- * Short syntax of:
- * <p/>
- * <pre>
- * &lt;tc:panel>
- *   &lt;f:facet name="layout">
- *     &lt;tc:gridLayout columns="fixed;*"/>
- *   &lt;/f:facet>
- *   &lt;tc:label value="#{label}" for="@auto"/>
- *   &lt;tc:file value="#{value}">
- *     ...
- *   &lt;/tc:in>
- * &lt;/tc:panel>
- * </pre>
+ * Render a set of radiobuttons.
+ *
+ * @since 1.0.13
  */
 
-@Tag(name = "file")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.FileTag")
-public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
+@Tag(name = "selectOneRadio")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag")
+public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
 
-  private javax.el.ValueExpression binding;
-  private javax.el.ValueExpression label;
+  private javax.el.ValueExpression required;
   private javax.el.ValueExpression value;
   private javax.el.MethodExpression valueChangeListener;
-  private javax.el.MethodExpression validator;
   private javax.el.ValueExpression disabled;
-  private javax.el.ValueExpression rendered;
-  private javax.el.ValueExpression tip;
+  private javax.el.ValueExpression readonly;
   private javax.el.ValueExpression onchange;
+  private javax.el.ValueExpression inline;
+  private javax.el.ValueExpression label;
+  private javax.el.ValueExpression rendered;
+  private javax.el.ValueExpression binding;
+  private javax.el.ValueExpression tip;
+  private javax.el.MethodExpression validator;
+  private javax.el.ValueExpression converter;
   private javax.el.ValueExpression labelWidth;
-  private javax.el.ValueExpression required;
   private javax.el.ValueExpression tabIndex;
   private javax.el.ValueExpression focus;
+  private javax.el.ValueExpression renderRange;
   private javax.el.ValueExpression validatorMessage;
   private javax.el.ValueExpression converterMessage;
   private javax.el.ValueExpression requiredMessage;
+  private javax.el.ValueExpression markup;
 
   private LabelExtensionTag labelTag;
-  private FileTag fileTag;
+  private SelectOneRadioTag selectOneRadioTag;
 
   @Override
   public int doStartTag() throws JspException {
@@ -83,62 +76,80 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
       labelTag.setRendered(rendered);
     }
     if (labelWidth != null) {
-      labelTag.setLabelWidth(createStringValueExpression(labelWidth.getExpressionString() + ";*"));
+      labelTag.setColumns(createStringValueExpression(labelWidth.getExpressionString() + ";*"));
+    }
+    if (markup != null) {
+      labelTag.setMarkup(markup);
     }
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 
-    fileTag = new FileTag();
-    fileTag.setPageContext(pageContext);
+    selectOneRadioTag = new SelectOneRadioTag();
+    selectOneRadioTag.setPageContext(pageContext);
     if (value != null) {
-      fileTag.setValue(value);
+      selectOneRadioTag.setValue(value);
     }
     if (valueChangeListener != null) {
-      fileTag.setValueChangeListener(valueChangeListener);
-    }
-    if (binding != null) {
-      fileTag.setBinding(binding);
+      selectOneRadioTag.setValueChangeListener(valueChangeListener);
     }
     if (validator != null) {
-      fileTag.setValidator(validator);
+      selectOneRadioTag.setValidator(validator);
     }
-    if (disabled != null) {
-      fileTag.setDisabled(disabled);
+    if (converter != null) {
+      selectOneRadioTag.setConverter(converter);
     }
-    if (id != null) {
-      fileTag.setId(id);
+    if (binding != null) {
+      selectOneRadioTag.setBinding(binding);
     }
     if (onchange != null) {
-      fileTag.setOnchange(onchange);
+      selectOneRadioTag.setOnchange(onchange);
+    }
+    if (disabled != null) {
+      selectOneRadioTag.setDisabled(disabled);
+    }
+    if (inline != null) {
+      selectOneRadioTag.setInline(inline);
+    }
+    if (focus != null) {
+      selectOneRadioTag.setFocus(focus);
+    }
+    if (id != null) {
+      selectOneRadioTag.setId(id);
+    }
+    if (readonly != null) {
+      selectOneRadioTag.setReadonly(readonly);
     }
     if (required != null) {
-      fileTag.setRequired(required);
+      selectOneRadioTag.setRequired(required);
     }
     if (tabIndex != null) {
-      fileTag.setTabIndex(tabIndex);
+      selectOneRadioTag.setTabIndex(tabIndex);
     }
-
-    if (focus != null) {
-      //fileTag.set
+    if (renderRange != null) {
+      selectOneRadioTag.setRenderRange(renderRange);
     }
     if (validatorMessage != null) {
-      fileTag.setValidatorMessage(validatorMessage);
+      selectOneRadioTag.setValidatorMessage(validatorMessage);
     }
     if (converterMessage != null) {
-      fileTag.setConverterMessage(converterMessage);
+      selectOneRadioTag.setConverterMessage(converterMessage);
     }
     if (requiredMessage != null) {
-      fileTag.setRequiredMessage(requiredMessage);
+      selectOneRadioTag.setRequiredMessage(requiredMessage);
     }
-    fileTag.setParent(labelTag);
-    fileTag.doStartTag();
+    if (markup != null) {
+      selectOneRadioTag.setMarkup(markup);
+    }
+
+    selectOneRadioTag.setParent(labelTag);
+    selectOneRadioTag.doStartTag();
 
     return super.doStartTag();
   }
 
   @Override
   public int doEndTag() throws JspException {
-    fileTag.doEndTag();
+    selectOneRadioTag.doEndTag();
     labelTag.doEndTag();
     return super.doEndTag();
   }
@@ -147,33 +158,39 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
   public void release() {
     super.release();
     binding = null;
-    validator = null;
+    onchange = null;
     disabled = null;
+    inline = null;
     label = null;
     labelWidth = null;
-    tip = null;
-    onchange = null;
-    value = null;
+    converter = null;
+    validator = null;
+    readonly = null;
     rendered = null;
-    valueChangeListener = null;
     required = null;
+    tip = null;
+    value = null;
+    valueChangeListener = null;
     tabIndex = null;
-    fileTag = null;
+    selectOneRadioTag = null;
     labelTag = null;
     focus = null;
+    renderRange = null;
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
+    markup = null;
   }
 
   /**
-   * Text value to display as label.
-   * If text contains an underscore the next character is used as accesskey.
+   * Flag indicating that a value is required.
+   * If the value is an empty string a
+   * ValidationError occurs and a Error Message is rendered.
    */
   @TagAttribute
-  @UIComponentTagAttribute()
-  public void setLabel(javax.el.ValueExpression label) {
-    this.label = label;
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  public void setRequired(javax.el.ValueExpression required) {
+    this.required = required;
   }
 
   /**
@@ -203,35 +220,6 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Clientside script function to add to this component's onchange handler.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute()
-  public void setOnchange(javax.el.ValueExpression onchange) {
-    this.onchange = onchange;
-  }
-
-  /**
-   * The value binding expression linking this
-   * component to a property in a backing bean.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(javax.el.ValueExpression binding) {
-    this.binding = binding;
-  }
-
-  /**
-   * Flag indicating whether or not this component should be rendered
-   * (during Render Response Phase), or processed on any subsequent form submit.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
-  public void setRendered(javax.el.ValueExpression rendered) {
-    this.rendered = rendered;
-  }
-
-  /**
    * A method binding EL expression,
    * accepting FacesContext, UIComponent,
    * and Object parameters, and returning void, that validates
@@ -255,6 +243,78 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
+   * Flag indicating that this component will prohibit changes by the user.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  public void setReadonly(javax.el.ValueExpression readonly) {
+    this.readonly = readonly;
+  }
+
+  /**
+   * Clientside script function to add to this component's onchange handler.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setOnchange(javax.el.ValueExpression onchange) {
+    this.onchange = onchange;
+  }
+
+  /**
+   * An expression that specifies the Converter for this component.
+   * If the value binding expression is a String,
+   * the String is used as an ID to look up a Converter.
+   * If the value binding expression is a Converter,
+   * uses that instance as the converter.
+   * The value can either be a static value (ID case only)
+   * or an EL expression.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "javax.faces.convert.Converter",
+      expression = DynamicExpression.VALUE_BINDING)
+  public void setConverter(javax.el.ValueExpression converter) {
+    this.converter = converter;
+  }
+  /**
+   * Flag indicating this component should rendered as an inline element.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  public void setInline(javax.el.ValueExpression inline) {
+    this.inline = inline;
+  }
+
+  /**
+   * Text value to display as label.
+   * If text contains an underscore the next character is used as accesskey.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setLabel(javax.el.ValueExpression label) {
+    this.label = label;
+  }
+
+  /**
+   * Flag indicating whether or not this component should be rendered
+   * (during Render Response Phase), or processed on any subsequent form submit.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
+  public void setRendered(javax.el.ValueExpression rendered) {
+    this.rendered = rendered;
+  }
+
+  /**
+   * The value binding expression linking this
+   * component to a property in a backing bean.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
+  public void setBinding(javax.el.ValueExpression binding) {
+    this.binding = binding;
+  }
+
+  /**
    * Text value to display as tooltip.
    */
   @TagAttribute
@@ -262,7 +322,8 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
   public void setTip(javax.el.ValueExpression tip) {
     this.tip = tip;
   }
-   /**
+
+  /**
    * The width for the label component. Default: 'fixed'.
    * This value is used in the gridLayouts columns attribute.
    * See gridLayout tag for valid values.
@@ -271,17 +332,6 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
   @UIComponentTagAttribute()
   public void setLabelWidth(javax.el.ValueExpression labelWidth) {
     this.labelWidth = labelWidth;
-  }
-
-  /**
-   * Flag indicating that a value is required.
-   * If the value is an empty string a
-   * ValidationError occurs and a Error Message is rendered.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
-  public void setRequired(javax.el.ValueExpression required) {
-    this.required = required;
   }
 
   @TagAttribute
@@ -297,6 +347,15 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
   @UIComponentTagAttribute(type = "java.lang.Boolean")
   public void setFocus(javax.el.ValueExpression focus) {
     this.focus = focus;
+  }
+
+  /**
+   * Range of items to render.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setRenderRange(javax.el.ValueExpression renderRange) {
+    this.renderRange = renderRange;
   }
 
   /**
@@ -324,6 +383,16 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
   @UIComponentTagAttribute()
   public void setRequiredMessage(javax.el.ValueExpression requiredMessage) {
     this.requiredMessage = requiredMessage;
+  }
+
+  /**
+   * Indicate markup of this component.
+   * Possible value is 'none'. But this can be overridden in the theme.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
+  public void setMarkup(javax.el.ValueExpression markup) {
+    this.markup = markup;
   }
 
 }

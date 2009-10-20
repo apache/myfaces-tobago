@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.extension12;
+package org.apache.myfaces.tobago.taglib.extension;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -22,49 +22,61 @@ import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
+import org.apache.myfaces.tobago.internal.taglib.TextareaTag;
 
 import javax.servlet.jsp.JspException;
 
-/*
- * Date: Oct 7, 2006
- * Time: 9:13:21 AM
- */
 /**
- * Renders a checkbox.
+ * Renders a multiline text input control with a label.
+ * <br />
+ * Short syntax of:
+ * <p/>
+ * <pre>
+ * &lt;tc:panel>
+ *   &lt;f:facet name="layout">
+ *     &lt;tc:gridLayout columns="fixed;*"/>
+ *   &lt;/f:facet>
+ *   &lt;tc:label value="#{label}" for="@auto"/>
+ *   &lt;tc:textarea value="#{value}">
+ *     ...
+ *   &lt;/tc:in>
+ * &lt;/tc:panel>
+ * </pre>
  */
-@Tag(name = "selectBooleanCheckbox")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag")
-public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
 
+@Tag(name = "textarea")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.TextAreaTag")
+public class TextAreaExtensionTag extends TobagoExtensionBodyTagSupport {
+
+  private javax.el.ValueExpression binding;
+  private javax.el.ValueExpression converter;
+  private javax.el.ValueExpression disabled;
+  private javax.el.ValueExpression focus;
+  private javax.el.ValueExpression label;
+  private javax.el.ValueExpression readonly;
+  private javax.el.ValueExpression rendered;
+  private javax.el.ValueExpression required;
+  private javax.el.ValueExpression tip;
   private javax.el.ValueExpression value;
   private javax.el.MethodExpression valueChangeListener;
-  private javax.el.ValueExpression disabled;
-  private javax.el.ValueExpression readonly;
-  private javax.el.ValueExpression onchange;
-  private javax.el.ValueExpression label;
-  private javax.el.ValueExpression rendered;
-  private javax.el.ValueExpression binding;
-  private javax.el.ValueExpression tip;
-  private javax.el.ValueExpression converter;
   private javax.el.MethodExpression validator;
-  private javax.el.ValueExpression labelWidth;
+  private javax.el.ValueExpression onchange;
   private javax.el.ValueExpression markup;
+  private javax.el.ValueExpression labelWidth;
   private javax.el.ValueExpression tabIndex;
-  private javax.el.ValueExpression required;
-  private javax.el.ValueExpression focus;
   private javax.el.ValueExpression validatorMessage;
   private javax.el.ValueExpression converterMessage;
   private javax.el.ValueExpression requiredMessage;
 
   private LabelExtensionTag labelTag;
-  private SelectBooleanCheckboxTag selectBooleanCheckboxTag;
+  private TextareaTag textAreaTag;
 
   @Override
   public int doStartTag() throws JspException {
 
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
+    labelTag.setRows("*");
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -83,74 +95,65 @@ public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSup
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 
-    selectBooleanCheckboxTag = new SelectBooleanCheckboxTag();
-    selectBooleanCheckboxTag.setPageContext(pageContext);
+    textAreaTag = new TextareaTag();
+    textAreaTag.setPageContext(pageContext);
     if (value != null) {
-      selectBooleanCheckboxTag.setValue(value);
+      textAreaTag.setValue(value);
     }
     if (valueChangeListener != null) {
-      selectBooleanCheckboxTag.setValueChangeListener(valueChangeListener);
+      textAreaTag.setValueChangeListener(valueChangeListener);
     }
     if (binding != null) {
-      selectBooleanCheckboxTag.setBinding(binding);
-    }
-    if (onchange != null) {
-      selectBooleanCheckboxTag.setOnchange(onchange);
-    }
-    if (validator != null) {
-      selectBooleanCheckboxTag.setValidator(validator);
+      textAreaTag.setBinding(binding);
     }
     if (converter != null) {
-      selectBooleanCheckboxTag.setConverter(converter);
+      textAreaTag.setConverter(converter);
+    }
+    if (validator != null) {
+      textAreaTag.setValidator(validator);
+    }
+    if (onchange != null) {
+      textAreaTag.setOnchange(onchange);
     }
     if (disabled != null) {
-      selectBooleanCheckboxTag.setDisabled(disabled);
+      textAreaTag.setDisabled(disabled);
     }
-
-    if (id != null) {
-      selectBooleanCheckboxTag.setId(id);
-    }
-
-    if (readonly != null) {
-      selectBooleanCheckboxTag.setReadonly(readonly);
-    }
-
     if (focus != null) {
-      selectBooleanCheckboxTag.setFocus(focus);
+      textAreaTag.setFocus(focus);
     }
-
+    if (id != null) {
+      textAreaTag.setId(id);
+    }
+    if (readonly != null) {
+      textAreaTag.setReadonly(readonly);
+    }
     if (required != null) {
-      selectBooleanCheckboxTag.setRequired(required);
+      textAreaTag.setRequired(required);
     }
-    // TODO item Label
-    //if (itemLabel != null) {
-    //  selectOneRadioTag.setLabel(itemLabel);
-    //}
-
     if (markup != null) {
-      selectBooleanCheckboxTag.setMarkup(markup);
+      textAreaTag.setMarkup(markup);
     }
     if (tabIndex != null) {
-      selectBooleanCheckboxTag.setTabIndex(tabIndex);
+      textAreaTag.setTabIndex(tabIndex);
     }
     if (validatorMessage != null) {
-      selectBooleanCheckboxTag.setValidatorMessage(validatorMessage);
+      textAreaTag.setValidatorMessage(validatorMessage);
     }
     if (converterMessage != null) {
-      selectBooleanCheckboxTag.setConverterMessage(converterMessage);
+      textAreaTag.setConverterMessage(converterMessage);
     }
     if (requiredMessage != null) {
-      selectBooleanCheckboxTag.setRequiredMessage(requiredMessage);
+      textAreaTag.setRequiredMessage(requiredMessage);
     }
-    selectBooleanCheckboxTag.setParent(labelTag);
-    selectBooleanCheckboxTag.doStartTag();
+    textAreaTag.setParent(labelTag);
+    textAreaTag.doStartTag();
 
     return super.doStartTag();
   }
 
   @Override
   public int doEndTag() throws JspException {
-    selectBooleanCheckboxTag.doEndTag();
+    textAreaTag.doEndTag();
     labelTag.doEndTag();
     return super.doEndTag();
   }
@@ -159,22 +162,22 @@ public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSup
   public void release() {
     super.release();
     binding = null;
-    onchange = null;
-    disabled = null;
-    label = null;
-    labelWidth = null;
-    readonly = null;
-    rendered = null;
     converter = null;
     validator = null;
+    disabled = null;
+    labelWidth = null;
+    focus = null;
+    label = null;
+    readonly = null;
+    rendered = null;
+    required = null;
     tip = null;
     value = null;
-    valueChangeListener = null;
+    onchange = null;
     markup = null;
+    valueChangeListener = null;
     tabIndex = null;
-    focus = null;
-    required = null;
-    selectBooleanCheckboxTag = null;
+    textAreaTag = null;
     labelTag = null;
     validatorMessage = null;
     converterMessage = null;
@@ -185,7 +188,7 @@ public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSup
    * The current value of this component.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @UIComponentTagAttribute(type = "java.lang.Object")
   public void setValue(javax.el.ValueExpression value) {
     this.value = value;
   }
@@ -208,33 +211,6 @@ public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSup
   }
 
   /**
-   * Flag indicating that this element is disabled.
-   */
-  @TagAttribute()
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
-  public void setDisabled(javax.el.ValueExpression disabled) {
-    this.disabled = disabled;
-  }
-
-  /**
-   * Flag indicating that this component will prohibit changes by the user.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
-  public void setReadonly(javax.el.ValueExpression readonly) {
-    this.readonly = readonly;
-  }
-
-  /**
-   * Clientside script function to add to this component's onchange handler.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute()
-  public void setOnchange(javax.el.ValueExpression onchange) {
-    this.onchange = onchange;
-  }
-
-  /**
    * Text value to display as label.
    * If text contains an underscore the next character is used as accesskey.
    */
@@ -245,17 +221,32 @@ public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSup
   }
 
   /**
-   * A method binding EL expression,
-   * accepting FacesContext, UIComponent,
-   * and Object parameters, and returning void, that validates
-   * the component's local value.
+   * Flag indicating this component should recieve the focus.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {},
-      expression = DynamicExpression.METHOD_BINDING,
-      methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
-  public void setValidator(javax.el.MethodExpression validator) {
-    this.validator = validator;
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  public void setFocus(javax.el.ValueExpression focus) {
+    this.focus = focus;
+  }
+
+  /**
+   * The value binding expression linking this
+   * component to a property in a backing bean.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
+  public void setBinding(javax.el.ValueExpression binding) {
+    this.binding = binding;
+  }
+
+  /**
+   * Flag indicating whether or not this component should be rendered
+   * (during Render Response Phase), or processed on any subsequent form submit.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
+  public void setRendered(javax.el.ValueExpression rendered) {
+    this.rendered = rendered;
   }
 
   /**
@@ -275,43 +266,26 @@ public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSup
   }
 
   /**
-   * Flag indicating whether or not this component should be rendered
-   * (during Render Response Phase), or processed on any subsequent form submit.
+   * A method binding EL expression,
+   * accepting FacesContext, UIComponent,
+   * and Object parameters, and returning void, that validates
+   * the component's local value.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
-  public void setRendered(javax.el.ValueExpression rendered) {
-    this.rendered = rendered;
+  @UIComponentTagAttribute(type = {},
+      expression = DynamicExpression.METHOD_BINDING,
+      methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
+  public void setValidator(javax.el.MethodExpression validator) {
+    this.validator = validator;
   }
 
   /**
-   * The value binding expression linking this
-   * component to a property in a backing bean.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(javax.el.ValueExpression binding) {
-    this.binding = binding;
-  }
-
-  /**
-   * Text value to display as tooltip.
+   * Clientside script function to add to this component's onchange handler.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  public void setTip(javax.el.ValueExpression tip) {
-    this.tip = tip;
-  }
-
-  /**
-   * The width for the label component. Default: 'fixed'.
-   * This value is used in the gridLayouts columns attribute.
-   * See gridLayout tag for valid values.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute()
-  public void setLabelWidth(javax.el.ValueExpression labelWidth) {
-    this.labelWidth = labelWidth;
+  public void setOnchange(javax.el.ValueExpression onchange) {
+    this.onchange = onchange;
   }
 
   /**
@@ -324,19 +298,22 @@ public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSup
     this.markup = markup;
   }
 
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Integer")
-  public void setTabIndex(javax.el.ValueExpression tabIndex) {
-    this.tabIndex = tabIndex;
-  }
-
   /**
-   * Flag indicating this component should recieve the focus.
+   * Flag indicating that this component will prohibit changes by the user.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean")
-  public void setFocus(javax.el.ValueExpression focus) {
-    this.focus = focus;
+  public void setReadonly(javax.el.ValueExpression readonly) {
+    this.readonly = readonly;
+  }
+
+  /**
+   * Flag indicating that this element is disabled.
+   */
+  @TagAttribute()
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
+  public void setDisabled(javax.el.ValueExpression disabled) {
+    this.disabled = disabled;
   }
 
   /**
@@ -348,6 +325,32 @@ public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSup
   @UIComponentTagAttribute(type = "java.lang.Boolean")
   public void setRequired(javax.el.ValueExpression required) {
     this.required = required;
+  }
+
+  /**
+   * Text value to display as tooltip.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setTip(javax.el.ValueExpression tip) {
+    this.tip = tip;
+  }
+
+   /**
+   * The width for the label component. Default: 'fixed'.
+   * This value is used in the gridLayouts columns attribute.
+   * See gridLayout tag for valid values.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setLabelWidth(javax.el.ValueExpression labelWidth) {
+    this.labelWidth = labelWidth;
+  }
+
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer")
+  public void setTabIndex(javax.el.ValueExpression tabIndex) {
+    this.tabIndex = tabIndex;
   }
 
   /**

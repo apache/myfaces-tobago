@@ -1,4 +1,14 @@
-package org.apache.myfaces.tobago.taglib.extension12;
+/**
+ * <b>Tobago Framework Extension Tag Library 1.5.x -
+ * (C) Copyright 2005-2009 The Apache Software Foundation</b>
+ */
+@org.apache.myfaces.tobago.apt.annotation.Taglib(
+    shortName = "tx",
+    tlibVersion = "1.5",
+    uri = "http://myfaces.apache.org/tobago/extension",
+    fileName = "tobago-extension.tld", 
+    displayName = "Tobago Extensions 1.5.x") 
+package org.apache.myfaces.tobago.taglib.extension;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -16,16 +26,3 @@ package org.apache.myfaces.tobago.taglib.extension12;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import javax.el.ValueExpression;
-import javax.servlet.jsp.JspFactory;
-import javax.servlet.jsp.tagext.BodyTagSupport;
-
-
-public class TobagoExtensionBodyTagSupport extends BodyTagSupport {
-
-  protected ValueExpression createStringValueExpression(String expression) {
-    return JspFactory.getDefaultFactory().getJspApplicationContext(pageContext.getServletContext())
-        .getExpressionFactory().createValueExpression(pageContext.getELContext(), expression, String.class);
-  }
-}

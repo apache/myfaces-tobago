@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.extension12;
+package org.apache.myfaces.tobago.taglib.extension;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -22,46 +22,62 @@ import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.internal.taglib.SelectOneListboxTag;
+import org.apache.myfaces.tobago.internal.taglib.InTag;
 
 import javax.servlet.jsp.JspException;
 
 /**
- * Render a single selection option listbox.
+ * Renders a text input field with a label.
+ * <br />
+ * Short syntax of:
+ * <p/>
+ * <pre>
+ * &lt;tc:panel>
+ *   &lt;f:facet name="layout">
+ *     &lt;tc:gridLayout columns="fixed;*"/>
+ *   &lt;/f:facet>
+ *   &lt;tc:label value="#{label}" for="@auto"/>
+ *   &lt;tc:in value="#{value}">
+ *     ...
+ *   &lt;/tc:in>
+ * &lt;/tc:panel>
+ * </pre>
  */
-@Tag(name = "selectOneListbox")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectOneListboxTag")
-public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport {
-  private javax.el.ValueExpression required;
-  private javax.el.ValueExpression value;
-  private javax.el.MethodExpression valueChangeListener;
-  private javax.el.ValueExpression disabled;
-  private javax.el.ValueExpression readonly;
-  private javax.el.ValueExpression onchange;
-  //private javax.el.ValueExpression inline;
-  private javax.el.ValueExpression label;
-  private javax.el.ValueExpression rendered;
+
+@Tag(name = "in")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.InTag")
+public class InExtensionTag extends TobagoExtensionBodyTagSupport {
+
   private javax.el.ValueExpression binding;
-  private javax.el.ValueExpression tip;
   private javax.el.ValueExpression converter;
   private javax.el.MethodExpression validator;
+  private javax.el.ValueExpression disabled;
+  private javax.el.ValueExpression focus;
+  private javax.el.ValueExpression label;
+  private javax.el.ValueExpression password;
+  private javax.el.ValueExpression readonly;
+  private javax.el.ValueExpression rendered;
+  private javax.el.ValueExpression required;
+  private javax.el.ValueExpression tip;
+  private javax.el.ValueExpression value;
+  private javax.el.MethodExpression valueChangeListener;
+  private javax.el.ValueExpression onchange;
+  private javax.el.MethodExpression suggestMethod;
+  private javax.el.ValueExpression markup;
   private javax.el.ValueExpression labelWidth;
   private javax.el.ValueExpression tabIndex;
-  private javax.el.ValueExpression focus;
   private javax.el.ValueExpression validatorMessage;
   private javax.el.ValueExpression converterMessage;
   private javax.el.ValueExpression requiredMessage;
-  private javax.el.ValueExpression markup;
 
   private LabelExtensionTag labelTag;
-  private SelectOneListboxTag selectOneListboxTag;
+  private InTag inTag;
 
   @Override
   public int doStartTag() throws JspException {
 
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
-    labelTag.setRows("*");
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -80,68 +96,71 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 
-    selectOneListboxTag = new SelectOneListboxTag();
-    selectOneListboxTag.setPageContext(pageContext);
+    inTag = new InTag();
+    inTag.setPageContext(pageContext);
     if (value != null) {
-      selectOneListboxTag.setValue(value);
+      inTag.setValue(value);
     }
     if (valueChangeListener != null) {
-      selectOneListboxTag.setValueChangeListener(valueChangeListener);
+      inTag.setValueChangeListener(valueChangeListener);
     }
     if (binding != null) {
-      selectOneListboxTag.setBinding(binding);
-    }
-    if (onchange != null) {
-      selectOneListboxTag.setOnchange(onchange);
-    }
-    if (validator != null) {
-      selectOneListboxTag.setValidator(validator);
+      inTag.setBinding(binding);
     }
     if (converter != null) {
-      selectOneListboxTag.setConverter(converter);
+      inTag.setConverter(converter);
+    }
+    if (validator != null) {
+      inTag.setValidator(validator);
+    }
+    if (onchange != null) {
+      inTag.setOnchange(onchange);
+    }
+    if (suggestMethod != null) {
+      inTag.setSuggestMethod(suggestMethod);
     }
     if (disabled != null) {
-      selectOneListboxTag.setDisabled(disabled);
+      inTag.setDisabled(disabled);
     }
-    /*if (inline != null) {
-      selectOneListboxTag.setInline(inline);
-    }*/
     if (focus != null) {
-      selectOneListboxTag.setFocus(focus);
+      inTag.setFocus(focus);
     }
     if (id != null) {
-      selectOneListboxTag.setId(id);
+      inTag.setId(id);
+    }
+    if (password != null) {
+      inTag.setPassword(password);
     }
     if (readonly != null) {
-      selectOneListboxTag.setReadonly(readonly);
+      inTag.setReadonly(readonly);
     }
     if (required != null) {
-      selectOneListboxTag.setRequired(required);
-    }
-    if (tabIndex != null) {
-      selectOneListboxTag.setTabIndex(tabIndex);
-    }
-    if (validatorMessage != null) {
-      selectOneListboxTag.setValidatorMessage(validatorMessage);
-    }
-    if (converterMessage != null) {
-      selectOneListboxTag.setConverterMessage(converterMessage);
-    }
-    if (requiredMessage != null) {
-      selectOneListboxTag.setRequiredMessage(requiredMessage);
+      inTag.setRequired(required);
     }
     if (markup != null) {
-      selectOneListboxTag.setMarkup(markup);
+      inTag.setMarkup(markup);
     }
-    selectOneListboxTag.setParent(labelTag);
-    selectOneListboxTag.doStartTag();
+    if (tabIndex != null) {
+      inTag.setTabIndex(tabIndex);
+    }
+    if (validatorMessage != null) {
+      inTag.setValidatorMessage(validatorMessage);
+    }
+    if (converterMessage != null) {
+      inTag.setConverterMessage(converterMessage);
+    }
+    if (requiredMessage != null) {
+      inTag.setRequiredMessage(requiredMessage);
+    }
+    inTag.setParent(labelTag);
+    inTag.doStartTag();
 
     return super.doStartTag();
   }
 
   @Override
   public int doEndTag() throws JspException {
-    selectOneListboxTag.doEndTag();
+    inTag.doEndTag();
     labelTag.doEndTag();
     return super.doEndTag();
   }
@@ -150,37 +169,38 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
   public void release() {
     super.release();
     binding = null;
-    onchange = null;
-    disabled = null;
-    //inline = null;
-    labelWidth = null;
-    label = null;
-    readonly = null;
-    rendered = null;
     converter = null;
     validator = null;
+    disabled = null;
+    labelWidth = null;
+    focus = null;
+    label = null;
+    password = null;
+    readonly = null;
+    rendered = null;
     required = null;
     tip = null;
     value = null;
     valueChangeListener = null;
+    onchange = null;
+    suggestMethod = null;
+    markup = null;
     tabIndex = null;
-    selectOneListboxTag = null;
+    inTag = null;
     labelTag = null;
-    focus = null;
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
-    markup = null;
   }
+
   /**
-   * Flag indicating that a value is required.
-   * If the value is an empty string a
-   * ValidationError occurs and a Error Message is rendered.
+   * Indicate markup of this component.
+   * Possible value is 'none'. But this can be overridden in the theme.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
-  public void setRequired(javax.el.ValueExpression required) {
-    this.required = required;
+  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
+  public void setMarkup(javax.el.ValueExpression markup) {
+    this.markup = markup;
   }
 
   /**
@@ -210,37 +230,6 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
   }
 
   /**
-   * Flag indicating that this element is disabled.
-   */
-  @TagAttribute()
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
-  public void setDisabled(javax.el.ValueExpression disabled) {
-    this.disabled = disabled;
-  }
-
-  /**
-   * Flag indicating that this component will prohibit changes by the user.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
-  public void setReadonly(javax.el.ValueExpression readonly) {
-    this.readonly = readonly;
-  }
-
-  /**
-   * Clientside script function to add to this component's onchange handler.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute()
-  public void setOnchange(javax.el.ValueExpression onchange) {
-    this.onchange = onchange;
-  }
-
-/*  public void setInline(String inline) {
-    this.inline = inline;
-  }*/
-
-  /**
    * Text value to display as label.
    * If text contains an underscore the next character is used as accesskey.
    */
@@ -251,17 +240,31 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
   }
 
   /**
-   * A method binding EL expression,
-   * accepting FacesContext, UIComponent,
-   * and Object parameters, and returning void, that validates
-   * the component's local value.
+   * Flag indicating this component should recieve the focus.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {},
-      expression = DynamicExpression.METHOD_BINDING,
-      methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
-  public void setValidator(javax.el.MethodExpression validator) {
-    this.validator = validator;
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  public void setFocus(javax.el.ValueExpression focus) {
+    this.focus = focus;
+  }
+
+  /**
+   * The value binding expression linking this
+   * component to a property in a backing bean.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
+  public void setBinding(javax.el.ValueExpression binding) {
+    this.binding = binding;
+  }
+  /**
+   * Flag indicating whether or not this component should be rendered
+   * (during Render Response Phase), or processed on any subsequent form submit.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
+  public void setRendered(javax.el.ValueExpression rendered) {
+    this.rendered = rendered;
   }
 
   /**
@@ -281,23 +284,76 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
   }
 
   /**
-   * Flag indicating whether or not this component should be rendered
-   * (during Render Response Phase), or processed on any subsequent form submit.
+   * Clientside script function to add to this component's onchange handler.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
-  public void setRendered(javax.el.ValueExpression rendered) {
-    this.rendered = rendered;
+  @UIComponentTagAttribute()
+  public void setOnchange(javax.el.ValueExpression onchange) {
+    this.onchange = onchange;
   }
 
   /**
-   * The value binding expression linking this
-   * component to a property in a backing bean.
+   * @param suggestMethod
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(javax.el.ValueExpression binding) {
-    this.binding = binding;
+  @UIComponentTagAttribute(type = {},
+      expression = DynamicExpression.METHOD_BINDING_REQUIRED,
+      methodSignature = "java.lang.String")
+  public void setSuggestMethod(javax.el.MethodExpression suggestMethod) {
+    this.suggestMethod = suggestMethod;
+  }
+
+  /**
+   * A method binding EL expression,
+   * accepting FacesContext, UIComponent,
+   * and Object parameters, and returning void, that validates
+   * the component's local value.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = {},
+      expression = DynamicExpression.METHOD_BINDING,
+      methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
+  public void setValidator(javax.el.MethodExpression validator) {
+    this.validator = validator;
+  }
+
+  /**
+   * Flag indicating whether or not this component should be rendered as
+   * password field , so you will not see the typed charakters.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
+  public void setPassword(javax.el.ValueExpression password) {
+    this.password = password;
+  }
+
+  /**
+   * Flag indicating that this component will prohibit changes by the user.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  public void setReadonly(javax.el.ValueExpression readonly) {
+    this.readonly = readonly;
+  }
+
+  /**
+   * Flag indicating that this element is disabled.
+   */
+  @TagAttribute()
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
+  public void setDisabled(javax.el.ValueExpression disabled) {
+    this.disabled = disabled;
+  }
+
+  /**
+   * Flag indicating that a value is required.
+   * If the value is an empty string a
+   * ValidationError occurs and a Error Message is rendered.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  public void setRequired(javax.el.ValueExpression required) {
+    this.required = required;
   }
 
   /**
@@ -309,7 +365,7 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
     this.tip = tip;
   }
 
-  /**
+   /**
    * The width for the label component. Default: 'fixed'.
    * This value is used in the gridLayouts columns attribute.
    * See gridLayout tag for valid values.
@@ -324,15 +380,6 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
   @UIComponentTagAttribute(type = "java.lang.Integer")
   public void setTabIndex(javax.el.ValueExpression tabIndex) {
     this.tabIndex = tabIndex;
-  }
-
-  /**
-   * Flag indicating this component should recieve the focus.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
-  public void setFocus(javax.el.ValueExpression focus) {
-    this.focus = focus;
   }
 
   /**
@@ -360,16 +407,6 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
   @UIComponentTagAttribute()
   public void setRequiredMessage(javax.el.ValueExpression requiredMessage) {
     this.requiredMessage = requiredMessage;
-  }
-
-  /**
-   * Indicate markup of this component.
-   * Possible value is 'none'. But this can be overridden in the theme.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
-  public void setMarkup(javax.el.ValueExpression markup) {
-    this.markup = markup;
   }
 
 }

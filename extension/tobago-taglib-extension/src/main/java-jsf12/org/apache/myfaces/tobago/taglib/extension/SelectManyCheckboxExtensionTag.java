@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.extension12;
+package org.apache.myfaces.tobago.taglib.extension;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -22,76 +22,51 @@ import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.internal.taglib.DatePickerTag;
-import org.apache.myfaces.tobago.internal.taglib.DateTag;
-import org.apache.myfaces.tobago.internal.taglib.FormTag;
+import org.apache.myfaces.tobago.internal.taglib.SelectManyCheckboxTag;
 
 import javax.servlet.jsp.JspException;
 
-/*
- * Date: 19.12.2005
- * Time: 20:13:26
- */
 /**
- * Renders a date input field with a date picker and a label.
- * <br />
- * Short syntax of:
- * <p/>
- * <pre>
- * &lt;tc:panel>
- *   &lt;f:facet name="layout">
- *     &lt;tc:gridLayout columns="fixed;*"/>
- *   &lt;/f:facet>
- *   &lt;tc:label value="#{label}" for="@auto"/>
- *   &lt;tc:date value="#{value}">
- *     ...
- *   &lt;/tc:in>
- * &lt;/tc:panel>
- * </pre>
+ * Render a group of checkboxes.
  */
-@Tag(name = "date")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.DateTag")
-public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
+@Tag(name = "selectManyCheckbox")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectManyCheckboxTag")
+public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
 
-  private static final long serialVersionUID = 2044784791513107420L;
-
-  private javax.el.ValueExpression binding;
-  private javax.el.ValueExpression converter;
-  private javax.el.MethodExpression validator;
-  private javax.el.ValueExpression disabled;
-  private javax.el.ValueExpression focus;
-  private javax.el.ValueExpression label;
-  private javax.el.ValueExpression readonly;
-  private javax.el.ValueExpression rendered;
   private javax.el.ValueExpression required;
-  private javax.el.ValueExpression tip;
   private javax.el.ValueExpression value;
   private javax.el.MethodExpression valueChangeListener;
-  private javax.el.ValueExpression inline;
+  private javax.el.ValueExpression disabled;
+  private javax.el.ValueExpression readonly;
   private javax.el.ValueExpression onchange;
-  private javax.el.ValueExpression tabIndex;
+  private javax.el.ValueExpression inline;
+  private javax.el.ValueExpression label;
+  private javax.el.ValueExpression rendered;
+  private javax.el.ValueExpression binding;
+  private javax.el.ValueExpression tip;
+  //private javax.el.ValueExpression height;
+  private javax.el.ValueExpression converter;
+  private javax.el.MethodExpression validator;
+  private javax.el.ValueExpression labelWidth;
   private javax.el.ValueExpression markup;
+  private javax.el.ValueExpression tabIndex;
+  private javax.el.ValueExpression focus;
+  private javax.el.ValueExpression renderRange;
   private javax.el.ValueExpression validatorMessage;
   private javax.el.ValueExpression converterMessage;
-  private javax.el.ValueExpression requiredMessage;  
+  private javax.el.ValueExpression requiredMessage;
 
-  private javax.el.ValueExpression labelWidth;
   private LabelExtensionTag labelTag;
-  private DateTag dateTag;
+  private SelectManyCheckboxTag selectManyCheckboxTag;
 
   @Override
   public int doStartTag() throws JspException {
 
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
+    labelTag.setRows("*");
     if (label != null) {
       labelTag.setValue(label);
-    }
-
-    if (labelWidth != null) {
-      labelTag.setColumns(createStringValueExpression(labelWidth.getExpressionString() + ";*;fixed"));
-    } else {
-      labelTag.setColumns(createStringValueExpression("fixed;*;fixed"));
     }
     if (tip != null) {
       labelTag.setTip(tip);
@@ -99,93 +74,83 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
     if (rendered != null) {
       labelTag.setRendered(rendered);
     }
+    if (labelWidth != null) {
+      labelTag.setColumns(createStringValueExpression(labelWidth.getExpressionString() + ";*"));
+    }
     if (markup != null) {
       labelTag.setMarkup(markup);
     }
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 
-    dateTag = new DateTag();
-    dateTag.setPageContext(pageContext);
+    selectManyCheckboxTag = new SelectManyCheckboxTag();
+    selectManyCheckboxTag.setPageContext(pageContext);
     if (value != null) {
-      dateTag.setValue(value);
+      selectManyCheckboxTag.setValue(value);
     }
     if (valueChangeListener != null) {
-      dateTag.setValueChangeListener(valueChangeListener);
+      selectManyCheckboxTag.setValueChangeListener(valueChangeListener);
     }
     if (binding != null) {
-      dateTag.setBinding(binding);
-    }
-    if (converter != null) {
-      dateTag.setConverter(converter);
-    }
-    if (validator != null) {
-      dateTag.setValidator(validator);
-    }
-    if (disabled != null) {
-      dateTag.setDisabled(disabled);
+      selectManyCheckboxTag.setBinding(binding);
     }
     if (onchange != null) {
-      dateTag.setOnchange(onchange);
+      selectManyCheckboxTag.setOnchange(onchange);
     }
-    if (focus != null) {
-      dateTag.setFocus(focus);
+    if (validator != null) {
+      selectManyCheckboxTag.setValidator(validator);
     }
-    if (id != null) {
-      dateTag.setId(id);
+    if (converter != null) {
+      selectManyCheckboxTag.setConverter(converter);
+    }
+    if (disabled != null) {
+      selectManyCheckboxTag.setDisabled(disabled);
     }
     if (inline != null) {
-      dateTag.setInline(inline);
+      selectManyCheckboxTag.setInline(inline);
     }
+    if (focus != null) {
+      selectManyCheckboxTag.setFocus(focus);
+    }
+    if (id != null) {
+      selectManyCheckboxTag.setId(id);
+    }
+    /*if (height != null) {
+      selectManyCheckboxTag.setHeight(height);
+    }*/
     if (readonly != null) {
-      dateTag.setReadonly(readonly);
+      selectManyCheckboxTag.setReadonly(readonly);
     }
     if (required != null) {
-      dateTag.setRequired(required);
+      selectManyCheckboxTag.setRequired(required);
     }
     if (markup != null) {
-      dateTag.setMarkup(markup);
+      selectManyCheckboxTag.setMarkup(markup);
+    }
+    if (renderRange != null) {
+      selectManyCheckboxTag.setRenderRange(renderRange);
     }
     if (tabIndex != null) {
-      dateTag.setTabIndex(tabIndex);
+      selectManyCheckboxTag.setTabIndex(tabIndex);
     }
     if (validatorMessage != null) {
-      dateTag.setValidatorMessage(validatorMessage);
+      selectManyCheckboxTag.setValidatorMessage(validatorMessage);
     }
     if (converterMessage != null) {
-      dateTag.setConverterMessage(converterMessage);
+      selectManyCheckboxTag.setConverterMessage(converterMessage);
     }
     if (requiredMessage != null) {
-      dateTag.setRequiredMessage(requiredMessage);
+      selectManyCheckboxTag.setRequiredMessage(requiredMessage);
     }
-
-    dateTag.setParent(labelTag);
-    dateTag.doStartTag();
+    selectManyCheckboxTag.setParent(labelTag);
+    selectManyCheckboxTag.doStartTag();
 
     return super.doStartTag();
   }
 
-
-
   @Override
   public int doEndTag() throws JspException {
-    dateTag.doEndTag();
-    FormTag formTag = new FormTag();
-    formTag.setPageContext(pageContext);
-    formTag.setParent(labelTag);
-    formTag.doStartTag();
-
-    DatePickerTag datePicker = new DatePickerTag();
-    datePicker.setPageContext(pageContext);
-    datePicker.setFor("@auto");
-    if (tabIndex != null) {
-      datePicker.setTabIndex(tabIndex);
-    }
-    datePicker.setParent(formTag);
-    datePicker.doStartTag();
-    datePicker.doEndTag();
-    formTag.doEndTag();
-
+    selectManyCheckboxTag.doEndTag();
     labelTag.doEndTag();
     return super.doEndTag();
   }
@@ -194,27 +159,40 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   public void release() {
     super.release();
     binding = null;
-    converter = null;
-    validator = null;
+    onchange = null;
     disabled = null;
-    labelWidth = null;
-    focus = null;
-    label = null;
     inline = null;
+    label = null;
+    labelWidth = null;
+    //height = null;
     readonly = null;
     rendered = null;
+    converter = null;
+    validator = null;
     required = null;
     tip = null;
     value = null;
     valueChangeListener = null;
-    onchange = null;
     markup = null;
     tabIndex = null;
+    selectManyCheckboxTag = null;
     labelTag = null;
-    dateTag = null;
+    focus = null;
+    renderRange = null;
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
+  }
+
+  /**
+   * Flag indicating that a value is required.
+   * If the value is an empty string a
+   * ValidationError occurs and a Error Message is rendered.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  public void setRequired(javax.el.ValueExpression required) {
+    this.required = required;
   }
 
   /**
@@ -244,13 +222,21 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Text value to display as label.
-   * If text contains an underscore the next character is used as accesskey.
+   * Flag indicating that this element is disabled.
+   */
+  @TagAttribute()
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
+  public void setDisabled(javax.el.ValueExpression disabled) {
+    this.disabled = disabled;
+  }
+
+  /**
+   * Flag indicating that this component will prohibit changes by the user.
    */
   @TagAttribute
-  @UIComponentTagAttribute()
-  public void setLabel(javax.el.ValueExpression label) {
-    this.label = label;
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  public void setReadonly(javax.el.ValueExpression readonly) {
+    this.readonly = readonly;
   }
 
   /**
@@ -263,32 +249,40 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Flag indicating this component should recieve the focus.
+   * Flag indicating this component should rendered as an inline element.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean")
-  public void setFocus(javax.el.ValueExpression focus) {
-    this.focus = focus;
+  public void setInline(javax.el.ValueExpression inline) {
+    this.inline = inline;
   }
 
   /**
-   * The value binding expression linking this
-   * component to a property in a backing bean.
+   * Text value to display as label.
+   * If text contains an underscore the next character is used as accesskey.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
-  public void setBinding(javax.el.ValueExpression binding) {
-    this.binding = binding;
+  @UIComponentTagAttribute()
+  public void setLabel(javax.el.ValueExpression label) {
+    this.label = label;
   }
 
+  /*public void setHeight(String height) {
+    this.height = height;
+  } */
+
   /**
-   * Flag indicating whether or not this component should be rendered
-   * (during Render Response Phase), or processed on any subsequent form submit.
+   * A method binding EL expression,
+   * accepting FacesContext, UIComponent,
+   * and Object parameters, and returning void, that validates
+   * the component's local value.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
-  public void setRendered(javax.el.ValueExpression rendered) {
-    this.rendered = rendered;
+  @UIComponentTagAttribute(type = {},
+      expression = DynamicExpression.METHOD_BINDING,
+      methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
+  public void setValidator(javax.el.MethodExpression validator) {
+    this.validator = validator;
   }
 
   /**
@@ -308,55 +302,23 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * A method binding EL expression,
-   * accepting FacesContext, UIComponent,
-   * and Object parameters, and returning void, that validates
-   * the component's local value.
+   * Flag indicating whether or not this component should be rendered
+   * (during Render Response Phase), or processed on any subsequent form submit.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {},
-      expression = DynamicExpression.METHOD_BINDING,
-      methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
-  public void setValidator(javax.el.MethodExpression validator) {
-    this.validator = validator;
+  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
+  public void setRendered(javax.el.ValueExpression rendered) {
+    this.rendered = rendered;
   }
 
   /**
-   * Flag indicating this component should rendered as an inline element.
+   * The value binding expression linking this
+   * component to a property in a backing bean.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
-  public void setInline(javax.el.ValueExpression inline) {
-    this.inline = inline;
-  }
-
-  /**
-   * Flag indicating that this component will prohibit changes by the user.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
-  public void setReadonly(javax.el.ValueExpression readonly) {
-    this.readonly = readonly;
-  }
-
-  /**
-   * Flag indicating that this element is disabled.
-   */
-  @TagAttribute()
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
-  public void setDisabled(javax.el.ValueExpression disabled) {
-    this.disabled = disabled;
-  }
-
-  /**
-   * Flag indicating that a value is required.
-   * If the value is an empty string a
-   * ValidationError occurs and a Error Message is rendered.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
-  public void setRequired(javax.el.ValueExpression required) {
-    this.required = required;
+  @UIComponentTagAttribute(type = "javax.faces.component.UIComponent")
+  public void setBinding(javax.el.ValueExpression binding) {
+    this.binding = binding;
   }
 
   /**
@@ -368,7 +330,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
     this.tip = tip;
   }
 
-   /**
+  /**
    * The width for the label component. Default: 'fixed'.
    * This value is used in the gridLayouts columns attribute.
    * See gridLayout tag for valid values.
@@ -393,6 +355,24 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   @UIComponentTagAttribute(type = "java.lang.Integer")
   public void setTabIndex(javax.el.ValueExpression tabIndex) {
     this.tabIndex = tabIndex;
+  }
+
+  /**
+   * Flag indicating this component should recieve the focus.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  public void setFocus(javax.el.ValueExpression focus) {
+    this.focus = focus;
+  }
+
+  /**
+   * Range of items to render.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setRenderRange(javax.el.ValueExpression renderRange) {
+    this.renderRange = renderRange;
   }
 
   /**
@@ -421,5 +401,6 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   public void setRequiredMessage(javax.el.ValueExpression requiredMessage) {
     this.requiredMessage = requiredMessage;
   }
-
+  
 }
+

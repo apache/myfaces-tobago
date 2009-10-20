@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.extension12;
+package org.apache.myfaces.tobago.taglib.extension;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -22,12 +22,12 @@ import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.internal.taglib.TextareaTag;
+import org.apache.myfaces.tobago.internal.taglib.TimeTag;
 
 import javax.servlet.jsp.JspException;
 
 /**
- * Renders a multiline text input control with a label.
+ * Renders a time input field with a label.
  * <br />
  * Short syntax of:
  * <p/>
@@ -37,19 +37,19 @@ import javax.servlet.jsp.JspException;
  *     &lt;tc:gridLayout columns="fixed;*"/>
  *   &lt;/f:facet>
  *   &lt;tc:label value="#{label}" for="@auto"/>
- *   &lt;tc:textarea value="#{value}">
+ *   &lt;tc:time value="#{value}">
  *     ...
  *   &lt;/tc:in>
  * &lt;/tc:panel>
  * </pre>
  */
-
-@Tag(name = "textarea")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.TextAreaTag")
-public class TextAreaExtensionTag extends TobagoExtensionBodyTagSupport {
+@Tag(name = "time")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.TimeTag")
+public class TimeExtensionTag extends TobagoExtensionBodyTagSupport {
 
   private javax.el.ValueExpression binding;
   private javax.el.ValueExpression converter;
+  private javax.el.MethodExpression validator;
   private javax.el.ValueExpression disabled;
   private javax.el.ValueExpression focus;
   private javax.el.ValueExpression label;
@@ -59,9 +59,8 @@ public class TextAreaExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression tip;
   private javax.el.ValueExpression value;
   private javax.el.MethodExpression valueChangeListener;
-  private javax.el.MethodExpression validator;
+  private javax.el.ValueExpression inline;
   private javax.el.ValueExpression onchange;
-  private javax.el.ValueExpression markup;
   private javax.el.ValueExpression labelWidth;
   private javax.el.ValueExpression tabIndex;
   private javax.el.ValueExpression validatorMessage;
@@ -69,14 +68,13 @@ public class TextAreaExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression requiredMessage;
 
   private LabelExtensionTag labelTag;
-  private TextareaTag textAreaTag;
+  private TimeTag timeTag;
 
   @Override
   public int doStartTag() throws JspException {
 
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
-    labelTag.setRows("*");
     if (label != null) {
       labelTag.setValue(label);
     }
@@ -89,71 +87,68 @@ public class TextAreaExtensionTag extends TobagoExtensionBodyTagSupport {
     if (labelWidth != null) {
       labelTag.setColumns(createStringValueExpression(labelWidth.getExpressionString() + ";*"));
     }
-    if (markup != null) {
-      labelTag.setMarkup(markup);
-    }
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 
-    textAreaTag = new TextareaTag();
-    textAreaTag.setPageContext(pageContext);
+    timeTag = new TimeTag();
+    timeTag.setPageContext(pageContext);
     if (value != null) {
-      textAreaTag.setValue(value);
+      timeTag.setValue(value);
     }
     if (valueChangeListener != null) {
-      textAreaTag.setValueChangeListener(valueChangeListener);
+      timeTag.setValueChangeListener(valueChangeListener);
     }
     if (binding != null) {
-      textAreaTag.setBinding(binding);
+      timeTag.setBinding(binding);
     }
-    if (converter != null) {
-      textAreaTag.setConverter(converter);
-    }
+    /*if (converter != null) {
+      timeTag.setConverter(converter);
+    }*/
     if (validator != null) {
-      textAreaTag.setValidator(validator);
+      timeTag.setValidator(validator);
     }
     if (onchange != null) {
-      textAreaTag.setOnchange(onchange);
+      timeTag.setOnchange(onchange);
     }
     if (disabled != null) {
-      textAreaTag.setDisabled(disabled);
+      timeTag.setDisabled(disabled);
     }
     if (focus != null) {
-      textAreaTag.setFocus(focus);
+      timeTag.setFocus(focus);
     }
     if (id != null) {
-      textAreaTag.setId(id);
+      timeTag.setId(id);
+    }
+    if (inline != null) {
+      timeTag.setInline(inline);
     }
     if (readonly != null) {
-      textAreaTag.setReadonly(readonly);
+      timeTag.setReadonly(readonly);
     }
     if (required != null) {
-      textAreaTag.setRequired(required);
-    }
-    if (markup != null) {
-      textAreaTag.setMarkup(markup);
+      timeTag.setRequired(required);
     }
     if (tabIndex != null) {
-      textAreaTag.setTabIndex(tabIndex);
+      timeTag.setTabIndex(tabIndex);
     }
     if (validatorMessage != null) {
-      textAreaTag.setValidatorMessage(validatorMessage);
+      timeTag.setValidatorMessage(validatorMessage);
     }
     if (converterMessage != null) {
-      textAreaTag.setConverterMessage(converterMessage);
+      timeTag.setConverterMessage(converterMessage);
     }
     if (requiredMessage != null) {
-      textAreaTag.setRequiredMessage(requiredMessage);
+      timeTag.setRequiredMessage(requiredMessage);
     }
-    textAreaTag.setParent(labelTag);
-    textAreaTag.doStartTag();
+    timeTag.setParent(labelTag);
+    timeTag.doStartTag();
 
     return super.doStartTag();
   }
 
   @Override
   public int doEndTag() throws JspException {
-    textAreaTag.doEndTag();
+    timeTag.doEndTag();
     labelTag.doEndTag();
     return super.doEndTag();
   }
@@ -168,16 +163,16 @@ public class TextAreaExtensionTag extends TobagoExtensionBodyTagSupport {
     labelWidth = null;
     focus = null;
     label = null;
+    inline = null;
     readonly = null;
     rendered = null;
     required = null;
     tip = null;
     value = null;
     onchange = null;
-    markup = null;
     valueChangeListener = null;
     tabIndex = null;
-    textAreaTag = null;
+    timeTag = null;
     labelTag = null;
     validatorMessage = null;
     converterMessage = null;
@@ -289,13 +284,12 @@ public class TextAreaExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Indicate markup of this component.
-   * Possible value is 'none'. But this can be overridden in the theme.
+   * Flag indicating this component should rendered as an inline element.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
-  public void setMarkup(javax.el.ValueExpression markup) {
-    this.markup = markup;
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  public void setInline(javax.el.ValueExpression inline) {
+    this.inline = inline;
   }
 
   /**
@@ -336,7 +330,7 @@ public class TextAreaExtensionTag extends TobagoExtensionBodyTagSupport {
     this.tip = tip;
   }
 
-   /**
+  /**
    * The width for the label component. Default: 'fixed'.
    * This value is used in the gridLayouts columns attribute.
    * See gridLayout tag for valid values.

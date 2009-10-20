@@ -1,12 +1,15 @@
 /**
- * <b>Tobago Framework Component Tag Library -
+ * <b>Tobago Framework Component Tag Library 1.5.x -
  * (C) Copyright 2005-2009 The Apache Software Foundation</b>
- *
  */
 @org.apache.myfaces.tobago.apt.annotation.Taglib(
-    shortName = "tc", uri = "http://myfaces.apache.org/tobago/component",
+    shortName = "tc", 
+    tlibVersion = "1.5",
+    uri = "http://myfaces.apache.org/tobago/component",
     listener = "org.apache.myfaces.tobago.webapp.TobagoServletContextListener",
-    fileName = "tobago.tld", displayName = "Tobago Components") package org.apache.myfaces.tobago.taglib.component;
+    fileName = "tobago.tld", 
+    displayName = "Tobago Components 1.5.x") 
+package org.apache.myfaces.tobago.taglib.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more

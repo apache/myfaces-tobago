@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.extension12;
+package org.apache.myfaces.tobago.taglib.extension;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -22,44 +22,43 @@ import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag;
+import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
 
 import javax.servlet.jsp.JspException;
 
-/**
- * Render a set of radiobuttons.
- *
- * @since 1.0.13
+/*
+ * Date: Oct 7, 2006
+ * Time: 9:13:21 AM
  */
+/**
+ * Renders a checkbox.
+ */
+@Tag(name = "selectBooleanCheckbox")
+@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag")
+public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
 
-@Tag(name = "selectOneRadio")
-@ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag")
-public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
-
-  private javax.el.ValueExpression required;
   private javax.el.ValueExpression value;
   private javax.el.MethodExpression valueChangeListener;
   private javax.el.ValueExpression disabled;
   private javax.el.ValueExpression readonly;
   private javax.el.ValueExpression onchange;
-  private javax.el.ValueExpression inline;
   private javax.el.ValueExpression label;
   private javax.el.ValueExpression rendered;
   private javax.el.ValueExpression binding;
   private javax.el.ValueExpression tip;
-  private javax.el.MethodExpression validator;
   private javax.el.ValueExpression converter;
+  private javax.el.MethodExpression validator;
   private javax.el.ValueExpression labelWidth;
+  private javax.el.ValueExpression markup;
   private javax.el.ValueExpression tabIndex;
+  private javax.el.ValueExpression required;
   private javax.el.ValueExpression focus;
-  private javax.el.ValueExpression renderRange;
   private javax.el.ValueExpression validatorMessage;
   private javax.el.ValueExpression converterMessage;
   private javax.el.ValueExpression requiredMessage;
-  private javax.el.ValueExpression markup;
 
   private LabelExtensionTag labelTag;
-  private SelectOneRadioTag selectOneRadioTag;
+  private SelectBooleanCheckboxTag selectBooleanCheckboxTag;
 
   @Override
   public int doStartTag() throws JspException {
@@ -84,72 +83,74 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
     labelTag.setParent(getParent());
     labelTag.doStartTag();
 
-    selectOneRadioTag = new SelectOneRadioTag();
-    selectOneRadioTag.setPageContext(pageContext);
+    selectBooleanCheckboxTag = new SelectBooleanCheckboxTag();
+    selectBooleanCheckboxTag.setPageContext(pageContext);
     if (value != null) {
-      selectOneRadioTag.setValue(value);
+      selectBooleanCheckboxTag.setValue(value);
     }
     if (valueChangeListener != null) {
-      selectOneRadioTag.setValueChangeListener(valueChangeListener);
-    }
-    if (validator != null) {
-      selectOneRadioTag.setValidator(validator);
-    }
-    if (converter != null) {
-      selectOneRadioTag.setConverter(converter);
+      selectBooleanCheckboxTag.setValueChangeListener(valueChangeListener);
     }
     if (binding != null) {
-      selectOneRadioTag.setBinding(binding);
+      selectBooleanCheckboxTag.setBinding(binding);
     }
     if (onchange != null) {
-      selectOneRadioTag.setOnchange(onchange);
+      selectBooleanCheckboxTag.setOnchange(onchange);
+    }
+    if (validator != null) {
+      selectBooleanCheckboxTag.setValidator(validator);
+    }
+    if (converter != null) {
+      selectBooleanCheckboxTag.setConverter(converter);
     }
     if (disabled != null) {
-      selectOneRadioTag.setDisabled(disabled);
-    }
-    if (inline != null) {
-      selectOneRadioTag.setInline(inline);
-    }
-    if (focus != null) {
-      selectOneRadioTag.setFocus(focus);
-    }
-    if (id != null) {
-      selectOneRadioTag.setId(id);
-    }
-    if (readonly != null) {
-      selectOneRadioTag.setReadonly(readonly);
-    }
-    if (required != null) {
-      selectOneRadioTag.setRequired(required);
-    }
-    if (tabIndex != null) {
-      selectOneRadioTag.setTabIndex(tabIndex);
-    }
-    if (renderRange != null) {
-      selectOneRadioTag.setRenderRange(renderRange);
-    }
-    if (validatorMessage != null) {
-      selectOneRadioTag.setValidatorMessage(validatorMessage);
-    }
-    if (converterMessage != null) {
-      selectOneRadioTag.setConverterMessage(converterMessage);
-    }
-    if (requiredMessage != null) {
-      selectOneRadioTag.setRequiredMessage(requiredMessage);
-    }
-    if (markup != null) {
-      selectOneRadioTag.setMarkup(markup);
+      selectBooleanCheckboxTag.setDisabled(disabled);
     }
 
-    selectOneRadioTag.setParent(labelTag);
-    selectOneRadioTag.doStartTag();
+    if (id != null) {
+      selectBooleanCheckboxTag.setId(id);
+    }
+
+    if (readonly != null) {
+      selectBooleanCheckboxTag.setReadonly(readonly);
+    }
+
+    if (focus != null) {
+      selectBooleanCheckboxTag.setFocus(focus);
+    }
+
+    if (required != null) {
+      selectBooleanCheckboxTag.setRequired(required);
+    }
+    // TODO item Label
+    //if (itemLabel != null) {
+    //  selectOneRadioTag.setLabel(itemLabel);
+    //}
+
+    if (markup != null) {
+      selectBooleanCheckboxTag.setMarkup(markup);
+    }
+    if (tabIndex != null) {
+      selectBooleanCheckboxTag.setTabIndex(tabIndex);
+    }
+    if (validatorMessage != null) {
+      selectBooleanCheckboxTag.setValidatorMessage(validatorMessage);
+    }
+    if (converterMessage != null) {
+      selectBooleanCheckboxTag.setConverterMessage(converterMessage);
+    }
+    if (requiredMessage != null) {
+      selectBooleanCheckboxTag.setRequiredMessage(requiredMessage);
+    }
+    selectBooleanCheckboxTag.setParent(labelTag);
+    selectBooleanCheckboxTag.doStartTag();
 
     return super.doStartTag();
   }
 
   @Override
   public int doEndTag() throws JspException {
-    selectOneRadioTag.doEndTag();
+    selectBooleanCheckboxTag.doEndTag();
     labelTag.doEndTag();
     return super.doEndTag();
   }
@@ -160,44 +161,31 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
     binding = null;
     onchange = null;
     disabled = null;
-    inline = null;
     label = null;
     labelWidth = null;
-    converter = null;
-    validator = null;
     readonly = null;
     rendered = null;
-    required = null;
+    converter = null;
+    validator = null;
     tip = null;
     value = null;
     valueChangeListener = null;
+    markup = null;
     tabIndex = null;
-    selectOneRadioTag = null;
-    labelTag = null;
     focus = null;
-    renderRange = null;
+    required = null;
+    selectBooleanCheckboxTag = null;
+    labelTag = null;
     validatorMessage = null;
     converterMessage = null;
     requiredMessage = null;
-    markup = null;
-  }
-
-  /**
-   * Flag indicating that a value is required.
-   * If the value is an empty string a
-   * ValidationError occurs and a Error Message is rendered.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
-  public void setRequired(javax.el.ValueExpression required) {
-    this.required = required;
   }
 
   /**
    * The current value of this component.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Object")
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
   public void setValue(javax.el.ValueExpression value) {
     this.value = value;
   }
@@ -217,20 +205,6 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
           methodSignature = "javax.faces.event.ValueChangeEvent")
   public void setValueChangeListener(javax.el.MethodExpression valueChangeListener) {
     this.valueChangeListener = valueChangeListener;
-  }
-
-  /**
-   * A method binding EL expression,
-   * accepting FacesContext, UIComponent,
-   * and Object parameters, and returning void, that validates
-   * the component's local value.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = {},
-      expression = DynamicExpression.METHOD_BINDING,
-      methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
-  public void setValidator(javax.el.MethodExpression validator) {
-    this.validator = validator;
   }
 
   /**
@@ -261,6 +235,30 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
+   * Text value to display as label.
+   * If text contains an underscore the next character is used as accesskey.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setLabel(javax.el.ValueExpression label) {
+    this.label = label;
+  }
+
+  /**
+   * A method binding EL expression,
+   * accepting FacesContext, UIComponent,
+   * and Object parameters, and returning void, that validates
+   * the component's local value.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = {},
+      expression = DynamicExpression.METHOD_BINDING,
+      methodSignature = { "javax.faces.context.FacesContext", "javax.faces.component.UIComponent", "java.lang.Object" })
+  public void setValidator(javax.el.MethodExpression validator) {
+    this.validator = validator;
+  }
+
+  /**
    * An expression that specifies the Converter for this component.
    * If the value binding expression is a String,
    * the String is used as an ID to look up a Converter.
@@ -274,24 +272,6 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
       expression = DynamicExpression.VALUE_BINDING)
   public void setConverter(javax.el.ValueExpression converter) {
     this.converter = converter;
-  }
-  /**
-   * Flag indicating this component should rendered as an inline element.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
-  public void setInline(javax.el.ValueExpression inline) {
-    this.inline = inline;
-  }
-
-  /**
-   * Text value to display as label.
-   * If text contains an underscore the next character is used as accesskey.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute()
-  public void setLabel(javax.el.ValueExpression label) {
-    this.label = label;
   }
 
   /**
@@ -334,6 +314,16 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
     this.labelWidth = labelWidth;
   }
 
+  /**
+   * Indicate markup of this component.
+   * Possible value is 'none'. But this can be overridden in the theme.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
+  public void setMarkup(javax.el.ValueExpression markup) {
+    this.markup = markup;
+  }
+
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer")
   public void setTabIndex(javax.el.ValueExpression tabIndex) {
@@ -350,12 +340,14 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Range of items to render.
+   * Flag indicating that a value is required.
+   * If the value is an empty string a
+   * ValidationError occurs and a Error Message is rendered.
    */
   @TagAttribute
-  @UIComponentTagAttribute()
-  public void setRenderRange(javax.el.ValueExpression renderRange) {
-    this.renderRange = renderRange;
+  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  public void setRequired(javax.el.ValueExpression required) {
+    this.required = required;
   }
 
   /**
@@ -383,16 +375,6 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
   @UIComponentTagAttribute()
   public void setRequiredMessage(javax.el.ValueExpression requiredMessage) {
     this.requiredMessage = requiredMessage;
-  }
-
-  /**
-   * Indicate markup of this component.
-   * Possible value is 'none'. But this can be overridden in the theme.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
-  public void setMarkup(javax.el.ValueExpression markup) {
-    this.markup = markup;
   }
 
 }
