@@ -1,12 +1,12 @@
 /**
- * <b>Tobago Framework Extension Tag Library -
+ * <b>Tobago Framework Extension Tag Library 1.5.x -
  * (C) Copyright 2005-2009 The Apache Software Foundation</b>
  */
 @org.apache.myfaces.tobago.apt.annotation.Taglib(
     shortName = "tx",
     tlibVersion = "1.2",
     uri = "http://myfaces.apache.org/tobago/extension",
-    fileName = "tobago-extension.tld", displayName = "Tobago Extensions") package org.apache.myfaces.tobago.taglib.extension12;
+    fileName = "tobago-extension.tld", displayName = "Tobago Extensions 1.5.x") package org.apache.myfaces.tobago.taglib.extension12;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
