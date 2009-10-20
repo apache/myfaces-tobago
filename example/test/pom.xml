@@ -169,6 +169,11 @@
       </exclusions>
     </dependency>
     <dependency>
+      <groupId>org.apache.myfaces.tobago</groupId>
+      <artifactId>tobago-fileupload</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>1.2.11</version>
@@ -486,22 +491,22 @@
       </activation>
       <dependencies>
         <dependency>
-          <groupId>javax.faces</groupId>
+          <groupId>com.sun.faces</groupId>
           <artifactId>jsf-api</artifactId>
-          <version>2.0</version>
+          <version>2.0.0-b18</version>
         </dependency>
         <dependency>
-          <groupId>javax.faces</groupId>
+          <groupId>com.sun.faces</groupId>
           <artifactId>jsf-impl</artifactId>
-          <version>2.0</version>
+          <version>2.0.0-b18</version>
         </dependency>
       </dependencies>
       <repositories>
         <repository>
-          <id>java.net</id>
-          <name>java.net Maven 1 Repository</name>
-          <url>https://maven-repository.dev.java.net/nonav/repository</url>
-          <layout>legacy</layout>
+          <id>maven2-repository.dev.java.net</id>
+          <name>Java.net Repository for Maven</name>
+          <url>http://download.java.net/maven/2/</url>
+          <layout>default</layout>
         </repository>
       </repositories>
     </profile>
