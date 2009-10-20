@@ -26,7 +26,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIButton;
-import org.apache.myfaces.tobago.component.UICommandBase;
+import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
@@ -40,7 +40,6 @@ import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -49,19 +48,9 @@ public class ButtonRenderer extends CommandRendererBase {
 
   private static final Log LOG = LogFactory.getLog(ButtonRenderer.class);
 
-  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!(component instanceof UICommand)) {
-      LOG.error("Wrong type: Need " + UICommand.class.getName() + ", but was " + component.getClass().getName());
-      return;
-    }
-  }
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent component) throws IOException {
-    if (!(component instanceof UICommand)) {
-      return;
-    }
-    UICommandBase command = (UICommandBase) component;
+    UICommand command = (UICommand) component;
     String clientId = command.getClientId(facesContext);
 
     CommandRendererHelper helper = new CommandRendererHelper(facesContext, command, CommandRendererHelper.Tag.BUTTON);
@@ -76,10 +65,7 @@ public class ButtonRenderer extends CommandRendererBase {
     writer.writeIdAttribute(clientId);
     HtmlRendererUtil.renderTip(command, writer);
     writer.writeAttribute(HtmlAttributes.DISABLED, helper.isDisabled());
-    Integer tabIndex = null;
-    if (command instanceof UIButton) {
-      tabIndex = ((UIButton) command).getTabIndex();
-    }
+    Integer tabIndex = ((UIButton)command).getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
@@ -90,7 +76,6 @@ public class ButtonRenderer extends CommandRendererBase {
     HtmlRendererUtil.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     writer.flush(); // force closing the start tag
-
 
     String imageName = (String) command.getAttributes().get(Attributes.IMAGE);
     if (imageName != null) {
@@ -114,7 +99,6 @@ public class ButtonRenderer extends CommandRendererBase {
       }
       HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
     }
-
 
     writer.endElement(HtmlConstants.BUTTON);
     if (label.getAccessKey() != null) {

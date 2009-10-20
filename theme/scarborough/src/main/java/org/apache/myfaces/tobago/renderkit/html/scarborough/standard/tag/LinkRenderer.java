@@ -47,10 +47,6 @@ public class LinkRenderer extends CommandRendererBase {
   private static final Log LOG = LogFactory.getLog(LinkRenderer.class);
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!(component instanceof UICommand)) {
-      LOG.error("Wrong type: Need " + UICommand.class.getName() + ", but was " + component.getClass().getName());
-      return;
-    }
 
     UICommand command = (UICommand) component;
     String clientId = command.getClientId(facesContext);
@@ -79,6 +75,7 @@ public class LinkRenderer extends CommandRendererBase {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
     }
+    writer.writeStyleAttribute();
     HtmlRendererUtil.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);

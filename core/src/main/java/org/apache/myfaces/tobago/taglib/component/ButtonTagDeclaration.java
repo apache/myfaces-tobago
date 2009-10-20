@@ -44,7 +44,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIButton",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIButton",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UICommand",
     rendererType = RendererTypes.BUTTON,
     allowedChildComponenents = "NONE",
     facets = {
