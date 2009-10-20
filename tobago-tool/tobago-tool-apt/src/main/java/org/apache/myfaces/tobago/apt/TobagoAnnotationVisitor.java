@@ -79,6 +79,7 @@ public class TobagoAnnotationVisitor extends TaglibAnnotationVisitor {
   @Override
   protected Element createTag(Declaration decl, Tag tag, String className, Document document, boolean deprecated) {
     Element tagElement = document.createElement("tag");
+    addDescription(decl, tagElement, document, false);
     addLeafTextElement(tag.name(), "name", tagElement, document);
     addLeafTextElement(className, "tag-class", tagElement, document);
 
@@ -115,9 +116,6 @@ public class TobagoAnnotationVisitor extends TaglibAnnotationVisitor {
       tagElement.appendChild(bodyContentDescription);
     }
 
-
-    addDescription(decl, tagElement, document, false);
-
     return tagElement;
   }
 
@@ -134,6 +132,7 @@ public class TobagoAnnotationVisitor extends TaglibAnnotationVisitor {
       String simpleName = method.getSimpleName();
       if (simpleName.startsWith("set")) {
         Element attribute = document.createElement("attribute");
+        addDescription(method, attribute, document);
         addLeafTextElement(simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH)
             + simpleName.substring(4), "name", attribute, document);
         addLeafTextElement(Boolean.toString(tagAttribute.required()), "required", attribute, document);
@@ -157,7 +156,6 @@ public class TobagoAnnotationVisitor extends TaglibAnnotationVisitor {
           }
 
         }
-        addDescription(method, attribute, document);
 
         tagElement.appendChild(attribute);
       } else {
