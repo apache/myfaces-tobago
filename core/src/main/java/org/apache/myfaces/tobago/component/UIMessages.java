@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.collections.iterators.SingletonIterator;
 import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.util.Deprecation;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -253,9 +254,16 @@ public class UIMessages extends javax.faces.component.UIMessages {
     SEVERITY;
 
     public static final String OCCURENCE_STRING = "occurence";
+    public static final String OCCURRENCE_STRING = "occurrence";
     public static final String SEVERITY_STRING = "severity";
 
     public static OrderBy parse(String key) {
+      if (OCCURENCE_STRING.equals(key)) {
+        Deprecation.LOG.warn("Please use '" + OCCURRENCE_STRING + "' instead of '" + OCCURENCE_STRING + "'");
+      }
+      if (OCCURRENCE_STRING.equals(key)) {
+        key = OCCURENCE_STRING;
+      }
       return valueOf(key.toUpperCase());
     }
 

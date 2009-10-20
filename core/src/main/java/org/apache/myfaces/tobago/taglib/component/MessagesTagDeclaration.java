@@ -91,8 +91,11 @@ public interface MessagesTagDeclaration extends TobagoTagDeclaration, HasIdBindi
    */
   @TagAttribute
   @UIComponentTagAttribute(
-          allowedValues = {UIMessages.OrderBy.OCCURENCE_STRING, UIMessages.OrderBy.SEVERITY_STRING},
-          defaultValue = UIMessages.OrderBy.OCCURENCE_STRING)
+          allowedValues = {
+              UIMessages.OrderBy.OCCURRENCE_STRING, 
+              UIMessages.OrderBy.SEVERITY_STRING, 
+              UIMessages.OrderBy.OCCURENCE_STRING},
+          defaultValue = UIMessages.OrderBy.OCCURRENCE_STRING)
   void setOrderBy(String orderBy);
 
   /**
