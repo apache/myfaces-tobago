@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.taglib.decl;
+package org.apache.myfaces.tobago.taglib.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -24,6 +24,8 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 
 // XXX check if JSP will be supported for the wizard
 
