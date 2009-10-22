@@ -17,17 +17,18 @@ package org.apache.myfaces.tobago.example.reference;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.taglib.extension.InExtensionTag;
-import org.apache.myfaces.tobago.internal.taglib.ButtonTag;
-import org.apache.myfaces.tobago.internal.taglib.LinkTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.internal.taglib.ButtonTag;
+import org.apache.myfaces.tobago.internal.taglib.LinkTag;
+import org.apache.myfaces.tobago.taglib.extension.InExtensionTag;
 
 import javax.servlet.jsp.tagext.TagSupport;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DynamicController {
+  
   private static final Log LOG = LogFactory.getLog(DynamicController.class);
 
   private List<TagData> tags;
@@ -63,7 +64,7 @@ public class DynamicController {
       throw new RuntimeException(e);
     }
   }
-
+  
   public List<TagData> getTags() {
     return tags;
   }

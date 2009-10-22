@@ -383,12 +383,12 @@
       <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
-        <version>${common-io.version}</version>
+        <version>${commons-io.version}</version>
       </dependency>
       <dependency>
         <groupId>commons-lang</groupId>
         <artifactId>commons-lang</artifactId>
-        <version>${common-lang.version}</version>
+        <version>${commons-lang.version}</version>
       </dependency>
       <dependency>
         <groupId>commons-beanutils</groupId>
@@ -443,35 +443,9 @@
         <version>1.1.2</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.myfaces.core</groupId>
-        <artifactId>myfaces-api</artifactId>
-        <version>${myfaces.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.myfaces.core</groupId>
-        <artifactId>myfaces-impl</artifactId>
-        <version>${myfaces.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>javax.faces</groupId>
-        <artifactId>jsf-api</artifactId>
-        <version>${sunjsf.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>javax.faces</groupId>
-        <artifactId>jsf-impl</artifactId>
-        <version>${sunjsf.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>javax.servlet.jsp</groupId>
-        <artifactId>jsp-api</artifactId>
-        <version>2.0</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>servlet-api</artifactId>
-        <version>2.4</version>
+        <groupId>javax.el</groupId>
+        <artifactId>el-api</artifactId>
+        <version>1.0</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
@@ -521,15 +495,36 @@
   <build>
     <defaultGoal>install</defaultGoal>
     <plugins>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.4</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>src/main/java-jsf-${jsf.target}</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
         <version>2.4</version>
       </plugin>
+
       <plugin>
         <artifactId>maven-checkstyle-plugin</artifactId>
         <version>2.2</version>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
@@ -1330,12 +1325,217 @@
         </plugins>
       </build>
     </profile>
+
+<!--
+    Attention: The next profiles should only be changed by a clean build.
+    It may also make sense to activate it in your personal settings.xml.
+    
+    They define the JSF version which are generally incompatible.
+    
+    They also define the JSF implementation used to compile and for runtime.
+-->
+
     <profile>
-      <id>jsf-1.2</id>
+      <id>myfaces-1.1</id>
+      <properties>
+        <jsf.target>1.1</jsf.target>
+      </properties>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+            <version>${myfaces11.version}</version>
+            <scope>provided</scope>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
+            <version>${myfaces11.version}</version>
+            <scope>provided</scope>
+          </dependency>
+          <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+          </dependency>
+          <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+            <scope>provided</scope>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+    </profile>
+
+    <profile>
+      <id>myfaces-1.2</id>
+      <activation>
+        <property>
+          <name>!jsf.target</name>
+        </property>
+      </activation>
       <properties>
         <jsf.target>1.2</jsf.target>
       </properties>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+            <version>${myfaces12.version}</version>
+            <scope>provided</scope>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-impl</artifactId>
+            <version>${myfaces12.version}</version>
+            <scope>provided</scope>
+          </dependency>
+          <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+          </dependency>
+          <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
     </profile>
+
+    <profile>
+      <id>mojarra-1.1</id>
+      <properties>
+        <jsf.target>1.1</jsf.target>
+      </properties>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>${mojarra11.version}</version>
+            <scope>provided</scope>
+          </dependency>
+          <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>${mojarra11.version}</version>
+            <scope>provided</scope>
+          </dependency>
+          <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+          </dependency>
+          <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+            <scope>provided</scope>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+      <repositories>
+        <repository>
+          <id>maven2-repository.dev.java.net</id>
+          <name>Java.net Repository for Maven</name>
+          <url>http://download.java.net/maven/2/</url>
+        </repository>
+      </repositories>
+    </profile>
+
+    <profile>
+      <id>mojarra-1.2</id>
+      <properties>
+        <jsf.target>1.2</jsf.target>
+      </properties>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>${mojarra12.version}</version>
+            <scope>provided</scope>
+          </dependency>
+          <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>${mojarra12.version}</version>
+            <scope>provided</scope>
+          </dependency>
+          <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+          </dependency>
+          <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+      <repositories>
+        <repository>
+          <id>maven2-repository.dev.java.net</id>
+          <name>Java.net Repository for Maven</name>
+          <url>http://download.java.net/maven/2/</url>
+        </repository>
+      </repositories>
+    </profile>
+
+    <profile>
+      <id>mojarra-2.0</id>
+      <properties>
+        <jsf.target>2.0</jsf.target>
+      </properties>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>${mojarra20.version}</version>
+            <scope>provided</scope>
+          </dependency>
+          <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>${mojarra20.version}</version>
+            <scope>provided</scope>
+          </dependency>
+          <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+          </dependency>
+          <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+      <repositories>
+        <repository>
+          <id>maven2-repository.dev.java.net</id>
+          <name>Java.net Repository for Maven</name>
+          <url>http://download.java.net/maven/2/</url>
+        </repository>
+      </repositories>
+    </profile>
+
   </profiles>
 
   <repositories>
@@ -1365,15 +1565,15 @@
   </contributors>
 
   <properties>
-    <myfaces.version>1.1.7</myfaces.version>
+    <myfaces11.version>1.1.7</myfaces11.version>
     <myfaces12.version>1.2.7</myfaces12.version>
-    <sunjsf.version>1.1_02</sunjsf.version>
-    <sunjsf12.version>1.2_13</sunjsf12.version>
-    <sunjsf20.version>2.0.0-b18</sunjsf20.version>
+    <mojarra11.version>1.1_02</mojarra11.version>
+    <mojarra12.version>1.2_13</mojarra12.version>
+    <mojarra20.version>2.0.1-b02</mojarra20.version>
     <facelets.version>1.1.14</facelets.version>
     <jetty.version>6.1.14</jetty.version>
-    <common-io.version>1.1</common-io.version>
-    <common-lang.version>2.1</common-lang.version>
+    <commons-io.version>1.1</commons-io.version>
+    <commons-lang.version>2.1</commons-lang.version>
     <commons-logging.version>1.1.1</commons-logging.version>
     <commons-digester.version>1.8</commons-digester.version>
     <commons-collection.version>3.1</commons-collection.version>
