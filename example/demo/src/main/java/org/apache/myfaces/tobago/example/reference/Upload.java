@@ -1,4 +1,6 @@
-<%--
+package org.apache.myfaces.tobago.example.reference;
+
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,25 +15,30 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
---%>
-<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
-<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+ */
 
-<layout:overview>
-  <jsp:body>
-    <tc:box label="File Upload">
-      <f:facet name="layout">
-        <tc:gridLayout columns="400px;*" rows="fixed;1*" />
-      </f:facet>
-<%-- code-sniplet-start id="file" --%>
-      <tx:file label="Upload file:" value="#{upload.file}" />
-<%-- code-sniplet-end id="file" --%>
-      <tc:button label="Submit" defaultCommand="true" action="#{upload.upload}" />
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-      <tc:cell/>
-      <tc:cell/>
-    </tc:box>
-  </jsp:body>
-</layout:overview>
+public class Upload {
+
+  private static final Log LOG = LogFactory.getLog(Upload.class);
+
+  private FileItem file;
+
+  public String upload() {
+    LOG.info("type=" + file.getContentType());
+    LOG.info("file=" + file.get().length);
+    LOG.info("name=" + file.getName());
+    return null;
+  }
+  
+  public FileItem getFile() {
+    return file;
+  }
+
+  public void setFile(FileItem file) {
+    this.file = file;
+  }
+}
