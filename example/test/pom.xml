@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>1.5.0-alpha-1-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-example-test</artifactId>
   <packaging>war</packaging>
@@ -110,6 +110,14 @@
   </scm>
 
   <dependencies>
+<!--
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.4</version>
+    </dependency>
+-->
+
     <!--dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-theme-example</artifactId>
@@ -176,7 +184,6 @@
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
-      <version>1.2.11</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
@@ -184,18 +191,6 @@
       <artifactId>oro</artifactId>
       <version>2.0.8</version>
       <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      <version>2.3</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>jsp-api</artifactId>
-      <version>2.0</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.sun.facelets</groupId>
@@ -362,153 +357,6 @@
           </plugin>
         </plugins>
       </build>
-    </profile>
-    <profile>
-      <id>myfaces</id>
-      <activation>
-        <property>
-          <name>!jsf</name>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-api</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-impl</artifactId>
-        </dependency>
-      </dependencies>
-    </profile>
-    <profile>
-      <id>myfaces12</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>myfaces12</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-api</artifactId>
-          <version>${myfaces12.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-impl</artifactId>
-          <version>${myfaces12.version}</version>
-        </dependency>
-      </dependencies>
-    </profile>
-    <profile>
-      <id>jsf-provided</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>provided</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-api</artifactId>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.myfaces.core</groupId>
-          <artifactId>myfaces-impl</artifactId>
-          <scope>provided</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-    <profile>
-      <id>sunjsf</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>ri</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-message-fix</artifactId>
-          <version>${project.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>javax.faces</groupId>
-          <artifactId>jsf-api</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>javax.faces</groupId>
-          <artifactId>jsf-impl</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>javax.servlet</groupId>
-          <artifactId>jstl</artifactId>
-          <scope>runtime</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-    <profile>
-      <id>sunjsf12</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>ri12</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>javax.faces</groupId>
-          <artifactId>jsf-api</artifactId>
-          <version>${sunjsf12.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>javax.faces</groupId>
-          <artifactId>jsf-impl</artifactId>
-          <version>${sunjsf12.version}</version>
-        </dependency>
-      </dependencies>
-      <repositories>
-        <repository>
-          <id>java.net</id>
-          <name>java.net Maven 1 Repository</name>
-          <url>https://maven-repository.dev.java.net/nonav/repository</url>
-          <layout>legacy</layout>
-        </repository>
-      </repositories>
-    </profile>
-    <profile>
-      <id>sunjsf20</id>
-      <activation>
-        <property>
-          <name>jsf</name>
-          <value>ri12</value>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>com.sun.faces</groupId>
-          <artifactId>jsf-api</artifactId>
-          <version>2.0.0-b18</version>
-        </dependency>
-        <dependency>
-          <groupId>com.sun.faces</groupId>
-          <artifactId>jsf-impl</artifactId>
-          <version>2.0.0-b18</version>
-        </dependency>
-      </dependencies>
-      <repositories>
-        <repository>
-          <id>maven2-repository.dev.java.net</id>
-          <name>Java.net Repository for Maven</name>
-          <url>http://download.java.net/maven/2/</url>
-          <layout>default</layout>
-        </repository>
-      </repositories>
     </profile>
     <profile>
       <!--
