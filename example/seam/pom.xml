@@ -15,13 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example</artifactId>
-    <version>1.5.0-alpha-1-SNAPSHOT</version>
+    <version>1.5.0-alpha-1</version>
   </parent>
   <artifactId>tobago-example-seam</artifactId>
   <packaging>war</packaging>
@@ -277,10 +276,10 @@
   </repositories>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/seam</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/seam
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.5.0-alpha-1/example/seam</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.5.0-alpha-1/example/seam
     </developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/example/seam</url>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.5.0-alpha-1/example/seam</url>
   </scm>
   <properties>
     <seam.version>2.1.0.GA</seam.version>

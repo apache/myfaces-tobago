@@ -15,8 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces</groupId>
@@ -27,7 +26,7 @@
   <artifactId>tobago</artifactId>
   <packaging>pom</packaging>
   <name>Apache Tobago</name>
-  <version>1.5.0-alpha-1-SNAPSHOT</version>
+  <version>1.5.0-alpha-1</version>
   <description>The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF and run on MyFaces.</description>
   <prerequisites>
     <maven>2.0.6</maven>
@@ -481,9 +480,9 @@
 
   <scm>
 
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk</developerConnection>
-    <url>http://svn.eu.apache.org/viewvc/myfaces/tobago/trunk</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.5.0-alpha-1</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.5.0-alpha-1</developerConnection>
+    <url>http://svn.eu.apache.org/viewvc/myfaces/tobago/tags/tobago-1.5.0-alpha-1</url>
 
   </scm>
 
@@ -1055,7 +1054,7 @@
                 <phase>package</phase>
                 <configuration>
                   <tasks>
-                    <mkdir dir="${project.build.directory}/site/docbook"/>
+                    <mkdir dir="${project.build.directory}/site/docbook" />
                   </tasks>
                 </configuration>
                 <goals>
@@ -1067,10 +1066,10 @@
                 <phase>install</phase>
                 <configuration>
                   <tasks>
-                    <mkdir dir="${project.build.directory}/site/docbook/resources"/>
+                    <mkdir dir="${project.build.directory}/site/docbook/resources" />
                     <copy verbose="true" todir="${project.build.directory}/site/docbook/resources">
                       <fileset dir="${project.build.directory}/site/docbook">
-                        <include name="*.png"/>
+                        <include name="*.png" />
                       </fileset>
                     </copy>
                   </tasks>
@@ -1118,7 +1117,7 @@
                 <configuration>
                   <tasks>
                     <copy todir="${project.build.directory}/staging/images/resources">
-                      <fileset dir="${basedir}/src/docbook/resources"/>
+                      <fileset dir="${basedir}/src/docbook/resources" />
                     </copy>
                   </tasks>
                 </configuration>
@@ -1200,10 +1199,10 @@
                   <chunkedOutput>true</chunkedOutput>
                   <chunkQuietly>false</chunkQuietly>
                   <postProcess>
-                    <mkdir dir="${docbook.target}/resources"/>
+                    <mkdir dir="${docbook.target}/resources" />
                     <copy todir="${docbook.target}/resources">
                       <fileset dir="${docbook.source}/resources">
-                        <include name="*.png"/>
+                        <include name="*.png" />
                       </fileset>
                     </copy>
                   </postProcess>
