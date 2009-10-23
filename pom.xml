@@ -1328,11 +1328,19 @@
 
 <!--
     Attention: The next profiles should only be changed by a clean build.
-    It may also make sense to activate it in your personal settings.xml.
-
     They define the JSF version which are generally incompatible.
-
     They also define the JSF implementation used to compile and for runtime.
+    
+    Usage for a standard build (myfaces-1.2): 
+    mvn 
+    
+    Usage for specific build:
+    mvn -Djsf=myfaces-1.1
+    mvn -Djsf=mojarra-1.1
+    mvn -Djsf=mojarra-1.2
+    mvn -Djsf=mojarra-2.0
+    
+    Please to not use -Pmyfaces-1.1 because myfaces-1.2 will already be activated. 
 -->
 
     <profile>
