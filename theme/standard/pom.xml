@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-theme</artifactId>
-    <version>1.5.0-alpha-1</version>
+    <version>1.5.0-alpha-2-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-theme-standard</artifactId>
   <packaging>jar</packaging>
@@ -109,10 +109,10 @@
   </repositories>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.5.0-alpha-1/theme/standard</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.5.0-alpha-1/theme/standard
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/theme/standard</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/theme/standard
     </developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.5.0-alpha-1/theme/standard</url>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/theme/standard</url>
   </scm>
 
   <dependencies>
