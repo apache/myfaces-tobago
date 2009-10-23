@@ -510,6 +510,12 @@
 
     <profile>
       <id>myfaces-1.1</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>myfaces-1.1</value>
+        </property>
+      </activation>
       <dependencies>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
@@ -526,7 +532,7 @@
       <id>myfaces-1.2</id>
       <activation>
         <property>
-          <name>!jsf.target</name>
+          <name>!jsf</name>
         </property>
       </activation>
       <dependencies>
@@ -543,6 +549,12 @@
 
     <profile>
       <id>mojarra-1.1</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>mojarra-1.1</value>
+        </property>
+      </activation>
       <dependencies>
         <dependency>
           <groupId>javax.faces</groupId>
@@ -557,6 +569,12 @@
 
     <profile>
       <id>mojarra-1.2</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>mojarra-1.2</value>
+        </property>
+      </activation>
       <dependencies>
         <dependency>
           <groupId>javax.faces</groupId>
@@ -571,6 +589,12 @@
 
     <profile>
       <id>mojarra-2.0</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>mojarra-2.0</value>
+        </property>
+      </activation>
       <dependencies>
         <dependency>
           <groupId>com.sun.faces</groupId>

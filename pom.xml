@@ -1329,14 +1329,20 @@
 <!--
     Attention: The next profiles should only be changed by a clean build.
     It may also make sense to activate it in your personal settings.xml.
-    
+
     They define the JSF version which are generally incompatible.
-    
+
     They also define the JSF implementation used to compile and for runtime.
 -->
 
     <profile>
       <id>myfaces-1.1</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>myfaces-1.1</value>
+        </property>
+      </activation>
       <properties>
         <jsf.target>1.1</jsf.target>
       </properties>
@@ -1374,7 +1380,7 @@
       <id>myfaces-1.2</id>
       <activation>
         <property>
-          <name>!jsf.target</name>
+          <name>!jsf</name>
         </property>
       </activation>
       <properties>
@@ -1412,6 +1418,12 @@
 
     <profile>
       <id>mojarra-1.1</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>mojarra-1.1</value>
+        </property>
+      </activation>
       <properties>
         <jsf.target>1.1</jsf.target>
       </properties>
@@ -1459,6 +1471,12 @@
 
     <profile>
       <id>mojarra-1.2</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>mojarra-1.2</value>
+        </property>
+      </activation>
       <properties>
         <jsf.target>1.2</jsf.target>
       </properties>
@@ -1506,6 +1524,12 @@
 
     <profile>
       <id>mojarra-2.0</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>mojarra-2.0</value>
+        </property>
+      </activation>
       <properties>
         <jsf.target>2.0</jsf.target>
       </properties>
