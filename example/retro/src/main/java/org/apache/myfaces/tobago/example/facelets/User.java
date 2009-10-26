@@ -25,11 +25,11 @@ public class User {
   private Date date;
   private Double value;
 
-  public User(String name, String surname, Date date, Double value) {
+  public User(String name, String surname, Date date, double value) {
     this.name = name;
     this.surname = surname;
     this.date = date;
-    this.value = value;
+    this.value = Double.valueOf(value);
   }
 
   public String getName() {

@@ -65,10 +65,12 @@
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>javax.servlet.jsp</groupId>
       <artifactId>jsp-api</artifactId>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
   
@@ -101,7 +103,7 @@
         <module>security</module>
         <module>experimental</module>
         <module>test</module>
-        <module>facelets</module>
+        <module>retro</module>
         <module>tobago-example-assembly</module>
         <module>tobago-theme-example</module>
         <module>seam</module>

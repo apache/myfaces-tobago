@@ -40,8 +40,8 @@ public class MessageBackingBean {
     return items;
   }
 
-  public List<User> getList() {
-    List<User> list = new ArrayList<User>();
+  public List getList() {
+    List list = new ArrayList();
     list.add(new User("Anton", "Antonius", new Date(), 10.1));
     list.add(new User("Bill", "Bilson", new Date(), 200.20));
     return list;
