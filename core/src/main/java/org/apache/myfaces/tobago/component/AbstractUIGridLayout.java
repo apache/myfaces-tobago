@@ -168,73 +168,67 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
   public void mainProcessing(boolean orientation) {
 
     // find *
-    {
-      FactorList list = new FactorList();
-      for (LayoutToken token : grid.getTokens(orientation)) {
-        if (token instanceof RelativeLayoutToken) {
-          list.add(((RelativeLayoutToken) token).getFactor());
-        }
+    FactorList list = new FactorList();
+    for (LayoutToken token : grid.getTokens(orientation)) {
+      if (token instanceof RelativeLayoutToken) {
+        list.add(((RelativeLayoutToken) token).getFactor());
       }
-      if (!list.isEmpty()) {
-        // find rest
-        LayoutContainer container = getLayoutContainer();
-        Measure available = LayoutUtils.getSize(orientation, container);
-        if (available != null) {
-          for (PixelMeasure value : grid.getSizes(orientation)) {
-            available = available.substractNotNegative(value);
-          }
-          PixelMeasure spacing = new PixelMeasure(
-              getSpacing(orientation).getPixel() * (grid.getSizes(orientation).length - 1));
-          available = available.substractNotNegative(spacing);
-
-          available = available.substractNotNegative(LayoutUtils.getBeginOffset(orientation, container));
-          available = available.substractNotNegative(LayoutUtils.getEndOffset(orientation, container));
-
-          List<Measure> partition = list.partition(available);
-
-          // write values back into the header
-          int i = 0;
-          int j = 0;
-          for (LayoutToken token : grid.getTokens(orientation)) {
-            if (token instanceof RelativeLayoutToken) {
-              grid.getSizes(orientation)[i] = (PixelMeasure) partition.get(j);
-              j++;
-            }
-            i++;
-          }
-        } else {
-          LOG.warn("No width/height set but needed for *!"); // todo: more information
+    }
+    if (!list.isEmpty()) {
+      // find rest
+      LayoutContainer container = getLayoutContainer();
+      Measure available = LayoutUtils.getSize(orientation, container);
+      if (available != null) {
+        for (PixelMeasure value : grid.getSizes(orientation)) {
+          available = available.substractNotNegative(value);
         }
+        PixelMeasure spacing = new PixelMeasure(
+            getSpacing(orientation).getPixel() * (grid.getSizes(orientation).length - 1));
+        available = available.substractNotNegative(spacing);
+
+        available = available.substractNotNegative(LayoutUtils.getBeginOffset(orientation, container));
+        available = available.substractNotNegative(LayoutUtils.getEndOffset(orientation, container));
+
+        List<Measure> partition = list.partition(available);
+
+        // write values back into the header
+        int i = 0;
+        int j = 0;
+        for (LayoutToken token : grid.getTokens(orientation)) {
+          if (token instanceof RelativeLayoutToken) {
+            grid.getSizes(orientation)[i] = (PixelMeasure) partition.get(j);
+            j++;
+          }
+          i++;
+        }
+      } else {
+        LOG.warn("No width/height set but needed for *!"); // todo: more information
       }
     }
 
     // call manage sizes for all sub-layout-managers
-    {
-      for (int i = 0; i < grid.getTokens(orientation).getSize(); i++) {
-        for (int j = 0; j < grid.getTokens(!orientation).getSize(); j++) {
-          Cell cell = grid.getCell(i, j, orientation);
-          if (cell instanceof OriginCell) {
-            LayoutComponent component = cell.getComponent();
+    for (int i = 0; i < grid.getTokens(orientation).getSize(); i++) {
+      for (int j = 0; j < grid.getTokens(!orientation).getSize(); j++) {
+        Cell cell = grid.getCell(i, j, orientation);
+        if (cell instanceof OriginCell) {
+          LayoutComponent component = cell.getComponent();
 
-            component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
+          component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
 
-            Integer span = ((OriginCell) cell).getSpan(orientation);
-            PixelMeasure[] pixelMeasures = grid.getSizes(orientation);
-            
-            // compute the size of the cell
-            {
-              Measure size = pixelMeasures[i];
-              for (int k = 1; k < span; k++) {
-                size = size.add(pixelMeasures[i + k]);
-                size = size.add(getSpacing(orientation));
-              }
-              LayoutUtils.setSize(orientation, component, size);
-            }
+          Integer span = ((OriginCell) cell).getSpan(orientation);
+          PixelMeasure[] pixelMeasures = grid.getSizes(orientation);
 
-            // call sub layout manager
-            if (component instanceof LayoutContainer) {
-              ((LayoutContainer) component).getLayoutManager().mainProcessing(orientation);
-            }
+          // compute the size of the cell
+          Measure size = pixelMeasures[i];
+          for (int k = 1; k < span; k++) {
+            size = size.add(pixelMeasures[i + k]);
+            size = size.add(getSpacing(orientation));
+          }
+          LayoutUtils.setSize(orientation, component, size);
+
+          // call sub layout manager
+          if (component instanceof LayoutContainer) {
+            ((LayoutContainer) component).getLayoutManager().mainProcessing(orientation);
           }
         }
       }
@@ -255,17 +249,15 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
           PixelMeasure[] pixelMeasures = grid.getSizes(orientation);
 
           // compute the position of the cell
-          {
-            Measure position = LayoutUtils.getBeginOffset(orientation, getLayoutContainer());
-            for (int k = 0; k < i; k++) {
-              position = position.add(pixelMeasures[k]);
-              position = position.add(getSpacing(orientation));
-            }
-            if (orientation) {
-              component.setLeft(position);
-            } else {
-              component.setTop(position);
-            }
+          Measure position = LayoutUtils.getBeginOffset(orientation, getLayoutContainer());
+          for (int k = 0; k < i; k++) {
+            position = position.add(pixelMeasures[k]);
+            position = position.add(getSpacing(orientation));
+          }
+          if (orientation) {
+            component.setLeft(position);
+          } else {
+            component.setTop(position);
           }
 
           // call sub layout manager
