@@ -106,15 +106,6 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
         "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd");
       taglib.setAttribute("version", "2.1");
     }
-    String description = packageDeclaration.getDocComment();
-    if (description != null) {
-      addLeafCDATAElement(description, "description", taglib, document);
-    }
-    String displayName = taglibAnnotation.displayName();
-    if (displayName == null || displayName.length() == 0) {
-      displayName = taglibAnnotation.shortName();
-    }
-    addLeafTextElement(displayName, "display-name", taglib, document);
     if (is12()) {
       addLeafTextElement("1.2", "tlib-version", taglib, document);
     } else {
@@ -125,6 +116,15 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     }
     addLeafTextElement(taglibAnnotation.shortName(), "short-name", taglib, document);
     addLeafTextElement(taglibAnnotation.uri(), "uri", taglib, document);
+    String displayName = taglibAnnotation.displayName();
+    if (displayName == null || displayName.length() == 0) {
+      displayName = taglibAnnotation.shortName();
+    }
+    addLeafTextElement(displayName, "display-name", taglib, document);
+    String description = packageDeclaration.getDocComment();
+    if (description != null) {
+      addLeafCDATAElement(description, "description", taglib, document);
+    }
     for (String listenerClass : taglibAnnotation.listener()) {
       Element listener = document.createElement("listener");
       // TODO check listenerClass implements ServletContextListener !!
@@ -224,7 +224,6 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
       Declaration decl, Tag annotationTag, String className, Document document,
       boolean deprecated) {
     Element tagElement = document.createElement("tag");
-    addDescription(decl, tagElement, document, deprecated);
     if (deprecated) {
       addLeafTextElement(annotationTag.deprecatedName(), "name", tagElement, document);
     } else {
@@ -250,6 +249,7 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
       }
     }
     addLeafTextElement(bodyContent.toString(), "body-content", tagElement, document);
+    addDescription(decl, tagElement, document, deprecated);
     return tagElement;
   }
 
@@ -428,7 +428,6 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
           attributeStr = tagAttribute.name();
         }
         checkAttributeDuplicates(attributeStr);
-        addDescription(d, attribute, document, false);
         addLeafTextElement(attributeStr, "name", attribute, document);
 
         addLeafTextElement(Boolean.toString(tagAttribute.required()), "required", attribute, document);
@@ -468,6 +467,7 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
         if (tagAttribute.rtexprvalue()) {
           addLeafTextElement(Boolean.toString(tagAttribute.rtexprvalue()), "rtexprvalue", attribute, document);
         }
+        addDescription(d, attribute, document, false);
         tagElement.appendChild(attribute);
       } else {
         throw new IllegalArgumentException("Only setter allowed found: " + simpleName);
