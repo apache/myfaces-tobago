@@ -147,7 +147,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         }
       }
       if (is12()) {
-        tagInfo.setSuperClass("org.apache.myfaces.tobago.internal.taglib12.TobagoELTag");
+        tagInfo.setSuperClass("org.apache.myfaces.tobago.internal.taglib.TobagoELTag");
       } else {
         if (tagInfo.getBodyContent() != null) {
           tagInfo.setSuperClass("org.apache.myfaces.tobago.internal.taglib.TobagoBodyTag");

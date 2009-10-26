@@ -17,13 +17,13 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import javax.faces.el.MethodBinding;
-import javax.faces.el.MethodNotFoundException;
-import javax.faces.el.EvaluationException;
+import javax.el.ELException;
+import javax.el.MethodExpression;
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
-import javax.el.MethodExpression;
-import javax.el.ELException;
+import javax.faces.el.EvaluationException;
+import javax.faces.el.MethodBinding;
+import javax.faces.el.MethodNotFoundException;
 
 @SuppressWarnings("deprecation")
 public class MethodExpressionToMethodBinding extends MethodBinding implements StateHolder {

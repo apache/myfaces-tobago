@@ -17,26 +17,21 @@ package org.apache.myfaces.tobago.facelets;
  * limitations under the License.
  */
 
-import com.sun.facelets.tag.TagHandler;
-import com.sun.facelets.tag.TagAttribute;
-import com.sun.facelets.tag.TagConfig;
-import com.sun.facelets.tag.TagAttributeException;
-import com.sun.facelets.tag.TagException;
 import com.sun.facelets.FaceletContext;
-import com.sun.facelets.el.LegacyValueBinding;
-import com.sun.facelets.util.FacesAPI;
-
-import java.io.IOException;
-
-import org.apache.myfaces.tobago.event.TabChangeSource;
+import com.sun.facelets.tag.TagAttribute;
+import com.sun.facelets.tag.TagAttributeException;
+import com.sun.facelets.tag.TagConfig;
+import com.sun.facelets.tag.TagException;
+import com.sun.facelets.tag.TagHandler;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.event.TabChangeListener;
-import org.apache.myfaces.tobago.event.ValueExpressionTabChangeListener;
-import org.apache.myfaces.tobago.event.ValueBindingTabChangeListener;
+import org.apache.myfaces.tobago.event.TabChangeSource;
 
+import javax.el.ELException;
+import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
-import javax.el.ValueExpression;
-import javax.el.ELException;
+import java.io.IOException;
 
 /*
  * Date: 20.04.2006
@@ -90,12 +85,8 @@ public class TabChangeListenerHandler extends TagHandler {
           }
         }
         if (valueExpression != null) {
-          if (FacesAPI.getVersion() >= 12) {
-            changeSource.addTabChangeListener(new ValueExpressionTabChangeListener(type.getValue(), valueExpression));
-          } else {
-            changeSource.addTabChangeListener(new ValueBindingTabChangeListener(type.getValue(),
-                new LegacyValueBinding(valueExpression)));
-          }
+          FacesUtils.addBindingOrExpressionTabChangeListener(
+              changeSource, type.getValue(), valueExpression);
         } else {
           changeSource.addTabChangeListener(listener);
         }

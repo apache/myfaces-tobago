@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.internal.taglib12;
+package org.apache.myfaces.tobago.internal.taglib;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -22,8 +22,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.OnComponentCreated;
 
-import javax.faces.webapp.UIComponentELTag;
 import javax.faces.component.UIComponent;
+import javax.faces.webapp.UIComponentELTag;
 import javax.servlet.jsp.JspException;
 
 

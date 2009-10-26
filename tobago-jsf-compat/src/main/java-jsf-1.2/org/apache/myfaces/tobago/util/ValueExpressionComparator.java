@@ -20,8 +20,8 @@ package org.apache.myfaces.tobago.util;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.context.FacesContext;
 import javax.el.ValueExpression;
+import javax.faces.context.FacesContext;
 import java.util.Comparator;
 import java.util.Map;
 

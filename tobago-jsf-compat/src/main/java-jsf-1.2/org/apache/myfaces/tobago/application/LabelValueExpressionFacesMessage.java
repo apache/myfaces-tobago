@@ -17,9 +17,9 @@ package org.apache.myfaces.tobago.application;
  * limitations under the License.
  */
 
+import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.el.ValueExpression;
 
 public class LabelValueExpressionFacesMessage extends FacesMessage {
   public LabelValueExpressionFacesMessage() {

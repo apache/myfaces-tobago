@@ -17,26 +17,27 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
-import javax.el.MethodExpression;
 import javax.el.ELContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.context.FacesContext;
+import javax.el.MethodExpression;
 import javax.faces.component.StateHolder;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
 
-public class MethodExpressionTabChangeListener implements TabChangeListener, StateHolder {
+
+public class MethodExpressionStateChangeListener implements SheetStateChangeListener, StateHolder {
 
   private MethodExpression methodExpression;
 
   private boolean isTransient = false;
 
-  public MethodExpressionTabChangeListener() {
+  public MethodExpressionStateChangeListener() {
   }
 
-  public MethodExpressionTabChangeListener(MethodExpression methodExpression) {
+  public MethodExpressionStateChangeListener(MethodExpression methodExpression) {
     this.methodExpression = methodExpression;
   }
 
-  public void processTabChange(TabChangeEvent actionEvent) throws AbortProcessingException {
+  public void processSheetStateChange(SheetStateChangeEvent actionEvent) throws AbortProcessingException {
     try {
       Object[] params = new Object[]{actionEvent};
       methodExpression.invoke(elContext(), params);

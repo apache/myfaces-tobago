@@ -520,6 +520,8 @@
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>
           <artifactId>myfaces-api</artifactId>
+          <!-- XXX needed for retro-->
+    <!--      <scope>compile</scope> -->
         </dependency>
         <dependency>
           <groupId>org.apache.myfaces.core</groupId>

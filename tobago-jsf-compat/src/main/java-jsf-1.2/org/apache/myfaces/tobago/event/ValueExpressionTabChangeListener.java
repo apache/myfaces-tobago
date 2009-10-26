@@ -20,13 +20,15 @@ package org.apache.myfaces.tobago.event;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.el.ValueExpression;
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
-import javax.el.ValueExpression;
 
 public class ValueExpressionTabChangeListener implements TabChangeListener, StateHolder {
-  private static final Log LOG = LogFactory.getLog(ValueBindingTabChangeListener.class);
+
+  private static final Log LOG = LogFactory.getLog(ValueExpressionTabChangeListener.class);
+
   private String type;
   private ValueExpression valueExpression;
 
