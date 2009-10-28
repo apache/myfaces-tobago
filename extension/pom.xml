@@ -31,6 +31,7 @@
     <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/extension</url>
   </scm>
   <modules>
+    <module>deprecation</module>
     <module>facelets</module>
     <module>fileupload</module>
     <module>security</module>
