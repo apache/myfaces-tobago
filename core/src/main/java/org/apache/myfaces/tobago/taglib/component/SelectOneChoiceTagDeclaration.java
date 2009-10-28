@@ -48,7 +48,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneChoice",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUISelectOne",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUISelectOneChoice",
     rendererType = RendererTypes.SELECT_ONE_CHOICE,
     allowedChildComponenents = {
         "javax.faces.SelectItem",

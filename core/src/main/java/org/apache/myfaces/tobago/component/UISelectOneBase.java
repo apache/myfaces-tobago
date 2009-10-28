@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.util.MessageFactory;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-public abstract class AbstractUISelectOne extends javax.faces.component.UISelectOne
+public abstract class UISelectOneBase extends javax.faces.component.UISelectOne
     implements SupportsMarkup, LayoutComponent {
 
   public static final String MESSAGE_VALUE_REQUIRED = "tobago.SelectOne.MESSAGE_VALUE_REQUIRED";
