@@ -333,7 +333,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
     return FacesUtils.invokeOnComponent(context, this, clientId, callback);
   }
 
-  public void onComponentPopulated(FacesContext facesContext, UIComponent component) {
+  public void onComponentPopulated(FacesContext facesContext) {
     if (getLayoutManager() == null) {
       setLayoutManager(CreateComponentUtils.createAndInitLayout(
           facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT));

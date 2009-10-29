@@ -528,7 +528,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
     return LayoutUtils.findLayoutChildren(this);
   }
 
-  public void onComponentPopulated(FacesContext facesContext, UIComponent component) {
+  public void onComponentPopulated(FacesContext facesContext) {
     if (getLayoutManager() == null) {
       setLayoutManager(CreateComponentUtils.createAndInitLayout(
           facesContext, ComponentTypes.SHEET_LAYOUT, RendererTypes.SHEET_LAYOUT));

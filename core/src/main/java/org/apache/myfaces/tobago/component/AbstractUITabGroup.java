@@ -317,7 +317,7 @@ public abstract class AbstractUITabGroup extends UIPanelBase
     return LayoutUtils.findLayoutChildren(this);
   }
 
-  public void onComponentPopulated(FacesContext facesContext, UIComponent component) {
+  public void onComponentPopulated(FacesContext facesContext) {
     if (getLayoutManager() == null) {
       setLayoutManager(CreateComponentUtils.createAndInitLayout(
           facesContext, ComponentTypes.TAB_GROUP_LAYOUT, RendererTypes.TAB_GROUP_LAYOUT));
