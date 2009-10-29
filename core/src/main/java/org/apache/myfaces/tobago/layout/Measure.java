@@ -47,7 +47,15 @@ public abstract class Measure implements Serializable {
 
   public abstract Measure add(Measure m);
 
+  public abstract Measure add(int m);
+
+  public abstract Measure multiply(int times);
+
   public abstract Measure substractNotNegative(Measure m);
+
+  public abstract Measure subtract(Measure m);
+  
+  public abstract Measure subtract(int m);
 
   public boolean greaterThan(Measure measure) {
     return measure != null && getPixel() > measure.getPixel();
@@ -58,4 +66,5 @@ public abstract class Measure implements Serializable {
   }
 
   public abstract int getPixel();
+
 }

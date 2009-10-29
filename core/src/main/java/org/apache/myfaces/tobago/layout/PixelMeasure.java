@@ -43,6 +43,14 @@ public final class PixelMeasure extends Measure {
     return new PixelMeasure(pixel + m.getPixel());
   }
 
+  public Measure add(int m) {
+    return new PixelMeasure(pixel + m);
+  }
+
+  public Measure multiply(int times) {
+    return new PixelMeasure(pixel * times);
+  }
+
   public Measure substractNotNegative(Measure m) {
     if (m == null) {
       return new PixelMeasure(this);
@@ -52,6 +60,18 @@ public final class PixelMeasure extends Measure {
     } else {
       return new PixelMeasure(pixel - m.getPixel());
     }
+  }
+
+  public Measure subtract(Measure m) {
+    if (m == null) {
+      return new PixelMeasure(this);
+    } else {
+      return new PixelMeasure(pixel - m.getPixel());
+    }
+  }
+
+  public Measure subtract(int m) {
+      return new PixelMeasure(pixel - m);
   }
 
   public int getPixel() {
