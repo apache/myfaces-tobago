@@ -17,20 +17,22 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.ClientProperties;
-import org.apache.myfaces.tobago.context.ResourceManagerImpl;
-import org.apache.myfaces.tobago.compat.FacesUtils;
-import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.compat.InvokeOnComponent;
+import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.context.ResourceManagerImpl;
+import org.apache.myfaces.tobago.util.FacesVersion;
 
-import javax.faces.component.UIComponent;
+import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
+import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
-import javax.faces.FacesException;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.List;
@@ -52,6 +54,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
 
   private List events = null;
 
+  private int nextUniqueId;
 
   /**
    * <p>Create a new {@link UIViewRoot} instance with default property
@@ -78,9 +81,17 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
   }
 
   public Object saveState(FacesContext facesContext) {
-    Object[] state = new Object[2];
+    Object[] state;
+    if (FacesVersion.supports12()) {
+      state = new Object[2];
+    } else {
+      state = new Object[3];
+    }
     state[0] = super.saveState(facesContext);
     state[1] = rendererCacheKey;
+    if (FacesVersion.supports12()) {
+      state[2] = nextUniqueId;
+    }
     return state;
   }
 
@@ -88,12 +99,24 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
     Object[] state = (Object[]) o;
     super.restoreState(facesContext, state[0]);
     rendererCacheKey = (ResourceManagerImpl.CacheKey) state[1];
+    if (FacesVersion.supports12()) {
+      nextUniqueId = (Integer) state[2];
+    }
   }
 
   public void broadcastEventsForPhase(FacesContext context, PhaseId phaseId) {
     broadcastForPhase(phaseId);
     if (context.getRenderResponse() || context.getResponseComplete()) {
       clearEvents();
+    }
+  }
+
+  public String createUniqueId() {
+    if (FacesVersion.supports12()) {
+      return super.createUniqueId();
+    } else {
+      ExternalContext extCtx = FacesContext.getCurrentInstance().getExternalContext();
+      return extCtx.encodeNamespace(UNIQUE_ID_PREFIX + nextUniqueId++);
     }
   }
 
