@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.layout;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,21 +17,11 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-import java.util.List;
+import javax.faces.context.FacesContext;
 
-public interface LayoutContainer extends LayoutObject {
+public interface OnComponentPopulated {
 
-  List<LayoutComponent> getComponents();
+  String MARKER = "org.apache.myfaces.tobago.component.OnComponentPopulated.MARKER";
 
-  LayoutManager getLayoutManager();
-
-  void setLayoutManager(LayoutManager layoutManager);
-
-  Measure getLeftOffset();
-
-  Measure getRightOffset();
-
-  Measure getTopOffset();
-
-  Measure getBottomOffset();
+  void onComponentPopulated(FacesContext facesContext);
 }

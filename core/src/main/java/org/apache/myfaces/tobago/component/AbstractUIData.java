@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.OnComponentCreated;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
@@ -56,7 +55,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractUIData extends javax.faces.component.UIData
-    implements SheetStateChangeSource, SortActionSource, AjaxComponent, InvokeOnComponent, OnComponentCreated,
+    implements SheetStateChangeSource, SortActionSource, AjaxComponent, InvokeOnComponent, OnComponentPopulated,
     LayoutContainer, LayoutComponent {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIData.class);
@@ -529,19 +528,19 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
     return LayoutUtils.findLayoutChildren(this);
   }
 
+  public void onComponentPopulated(FacesContext facesContext, UIComponent component) {
+    if (getLayoutManager() == null) {
+      setLayoutManager(CreateComponentUtils.createAndInitLayout(
+          facesContext, ComponentTypes.SHEET_LAYOUT, RendererTypes.SHEET_LAYOUT));
+    }
+  }
+  
   public LayoutManager getLayoutManager() {
     return (LayoutManager) getFacet(Facets.LAYOUT);
   }
 
-  public void onComponentCreated(FacesContext context, UIComponent component) {
-    // if there is no layout manager set, create one
-    if (getLayoutManager() == null) {
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      LayoutManager layoutManager = (LayoutManager) CreateComponentUtils.createComponent(
-          facesContext, "org.apache.myfaces.tobago.SheetLayout", RendererTypes.SHEET_LAYOUT);
-      ((OnComponentCreated) layoutManager).onComponentCreated(facesContext, (UILayout) layoutManager);
-      getFacets().put(Facets.LAYOUT, (UILayout) layoutManager);
-    }
+  public void setLayoutManager(LayoutManager layoutManager) {
+    getFacets().put(Facets.LAYOUT, (UILayout) layoutManager);
   }
 
 // LAYOUT End

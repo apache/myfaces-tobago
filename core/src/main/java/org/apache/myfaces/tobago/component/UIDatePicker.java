@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.OnComponentCreated;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
@@ -92,10 +91,10 @@ public class UIDatePicker extends UILink implements OnComponentCreated {
     super.broadcast(facesEvent);
   }
 
-  public void onComponentCreated(FacesContext context, UIComponent component) {
+  public void onComponentCreated(FacesContext context) {
     Renderer renderer = getRenderer(getFacesContext());
     if (renderer instanceof RendererBase) {
-      ((RendererBase) renderer).onComponentCreated(context, component);
+      ((RendererBase) renderer).onComponentCreated(context, this);
     }
   }
 }

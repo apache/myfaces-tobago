@@ -29,6 +29,8 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.InputSuggest;
+import org.apache.myfaces.tobago.component.OnComponentCreated;
+import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIGridLayout;
@@ -196,8 +198,13 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     }
     gridLayout.setRows(getRows());
     gridLayout.setId(root.createUniqueId());
-    gridLayout.onComponentCreated(faceletContext.getFacesContext(), gridLayout);
+    if (gridLayout instanceof OnComponentCreated) {
+      ((OnComponentCreated)gridLayout).onComponentCreated(faceletContext.getFacesContext());
+    }
     panel.getFacets().put(Facets.LAYOUT, gridLayout);
+    if (gridLayout instanceof OnComponentPopulated) {
+      ((OnComponentPopulated)gridLayout).onComponentPopulated(faceletContext.getFacesContext());
+    }
   }
 
   protected MetaRuleset createMetaRuleset(Class aClass) {

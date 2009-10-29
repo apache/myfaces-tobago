@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,16 +17,11 @@ package org.apache.myfaces.tobago;
  * limitations under the License.
  */
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-/*
- * Date: 09.06.2006
- * Time: 15:46:20
- */
 public interface OnComponentCreated {
 
-  String MARKER = "org.apache.myfaces.tobago.CREATION_MARKER";
+  String MARKER = "org.apache.myfaces.tobago.OnComponentCreated.MARKER";
 
-  void onComponentCreated(FacesContext context, UIComponent component);
+  void onComponentCreated(FacesContext facesContext);
 }

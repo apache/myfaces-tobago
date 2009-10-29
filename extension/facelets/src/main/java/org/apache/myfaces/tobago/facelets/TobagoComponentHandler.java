@@ -21,10 +21,11 @@ import com.sun.facelets.FaceletContext;
 import com.sun.facelets.tag.MetaRuleset;
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentHandler;
-import org.apache.myfaces.tobago.OnComponentCreated;
 import org.apache.myfaces.tobago.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.component.DeprecatedDimension;
 import org.apache.myfaces.tobago.component.InputSuggest;
+import org.apache.myfaces.tobago.component.OnComponentCreated;
+import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;
@@ -68,7 +69,15 @@ public class TobagoComponentHandler extends ComponentHandler {
     if (component instanceof OnComponentCreated
         && component.getAttributes().get(OnComponentCreated.MARKER) == null) {
       component.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
-      ((OnComponentCreated) component).onComponentCreated(context.getFacesContext(), component);
+      ((OnComponentCreated) component).onComponentCreated(context.getFacesContext());
+    }
+  }
+
+  protected void onComponentPopulated(FaceletContext context, UIComponent component, UIComponent parent) {
+    if (component instanceof OnComponentPopulated
+        && component.getAttributes().get(OnComponentPopulated.MARKER) == null) {
+      component.getAttributes().put(OnComponentPopulated.MARKER, Boolean.TRUE);
+      ((OnComponentPopulated) component).onComponentPopulated(context.getFacesContext());
     }
   }
 }

@@ -20,8 +20,6 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.collections.KeyValue;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.OnComponentCreated;
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.layout.Box;
@@ -49,8 +47,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+
 public abstract class AbstractUIPage extends AbstractUIForm 
-    implements InvokeOnComponent, LayoutContainer, DeprecatedDimension {
+    implements OnComponentPopulated, InvokeOnComponent, LayoutContainer, DeprecatedDimension {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIPage.class);
 
@@ -333,25 +333,27 @@ public abstract class AbstractUIPage extends AbstractUIForm
     return FacesUtils.invokeOnComponent(context, this, clientId, callback);
   }
 
-// LAYOUT Begin
+  public void onComponentPopulated(FacesContext facesContext, UIComponent component) {
+    if (getLayoutManager() == null) {
+      setLayoutManager(CreateComponentUtils.createAndInitLayout(
+          facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT));
+    }
+  }
+
+  // LAYOUT Begin
   public List<LayoutComponent> getComponents() {
     return LayoutUtils.findLayoutChildren(this);
   }
 
   public LayoutManager getLayoutManager() {
-    LayoutManager layoutManager = (LayoutManager) getFacet(Facets.LAYOUT);
-    // todo: What is using as default, if nothing is defined?
-    if (layoutManager == null) {
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      layoutManager = (LayoutManager) CreateComponentUtils.createComponent(
-          facesContext, "org.apache.myfaces.tobago.GridLayout", RendererTypes.GRID_LAYOUT);
-      ((OnComponentCreated) layoutManager).onComponentCreated(facesContext, (UILayout) layoutManager);
-      getFacets().put(Facets.LAYOUT, (UILayout) layoutManager);
-    }
-    return layoutManager;
+    return (LayoutManager) getFacet(Facets.LAYOUT);
   }
 
-// LAYOUT End
+  public void setLayoutManager(LayoutManager layoutManager) {
+    getFacets().put(Facets.LAYOUT, (UILayout) layoutManager);
+  }
+
+  // LAYOUT End
 
   public abstract Measure getWidth();
 

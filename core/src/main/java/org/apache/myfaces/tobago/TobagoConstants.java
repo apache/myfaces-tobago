@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago;
  * @see org.apache.myfaces.tobago.component.Facets
  * @see org.apache.myfaces.tobago.component.RendererTypes
  * @see org.apache.myfaces.tobago.component.UICommandBase
- * @see org.apache.myfaces.tobago.OnComponentCreated
+ * @see org.apache.myfaces.tobago.component.OnComponentCreated
  * @see org.apache.myfaces.tobago.renderkit.HtmlUtils
  * @deprecated
  */

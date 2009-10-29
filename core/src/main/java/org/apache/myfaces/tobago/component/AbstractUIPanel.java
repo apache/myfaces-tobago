@@ -19,17 +19,18 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.OnComponentCreated;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutUtils;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class AbstractUIPanel extends UIPanelBase implements LayoutContainer, LayoutComponent {
+public abstract class AbstractUIPanel extends UIPanelBase 
+    implements OnComponentPopulated, LayoutContainer, LayoutComponent {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIPanel.class);
 
@@ -74,21 +75,22 @@ public abstract class AbstractUIPanel extends UIPanelBase implements LayoutConta
     super.encodeEnd(facesContext);
   }
 
+  public void onComponentPopulated(FacesContext facesContext, UIComponent component) {
+    if (getLayoutManager() == null) {
+      setLayoutManager(CreateComponentUtils.createAndInitLayout(
+          facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT));
+    }
+  }
+  
   public List<LayoutComponent> getComponents() {
     return LayoutUtils.findLayoutChildren(this);
   }
 
   public LayoutManager getLayoutManager() {
-    LayoutManager layoutManager = (LayoutManager) getFacet(Facets.LAYOUT);
-    // todo: What is using as default, if nothing is defined?
-    if (layoutManager == null) {
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      layoutManager = (LayoutManager) CreateComponentUtils.createComponent(
-          facesContext, "org.apache.myfaces.tobago.GridLayout", RendererTypes.GRID_LAYOUT);
-      ((OnComponentCreated) layoutManager).onComponentCreated(facesContext, (UILayout) layoutManager);
-      getFacets().put(Facets.LAYOUT, (UILayout) layoutManager);
-    }
-    return layoutManager;
+    return (LayoutManager) getFacet(Facets.LAYOUT);
   }
 
+  public void setLayoutManager(LayoutManager layoutManager) {
+    getFacets().put(Facets.LAYOUT, (UILayout) layoutManager);
+  }
 }

@@ -18,7 +18,8 @@ package org.apache.myfaces.tobago.internal.taglib;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.tobago.OnComponentCreated;
+import org.apache.myfaces.tobago.component.OnComponentCreated;
+import org.apache.myfaces.tobago.component.OnComponentPopulated;
 
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.UIComponentTag;
@@ -33,8 +34,22 @@ public abstract class TobagoTag extends UIComponentTag {
     if (component instanceof OnComponentCreated
         && component.getAttributes().get(OnComponentCreated.MARKER) == null) {
       component.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
-      ((OnComponentCreated) component).onComponentCreated(getFacesContext(), getComponentInstance());
+      ((OnComponentCreated) component).onComponentCreated(getFacesContext());
     }
+    return result;
+  }
+
+  @Override
+  public int doEndTag() throws JspException {
+    int result = super.doEndTag();
+    
+    UIComponent component = getComponentInstance();
+    if (component instanceof OnComponentPopulated
+        && component.getAttributes().get(OnComponentPopulated.MARKER) == null) {
+      component.getAttributes().put(OnComponentPopulated.MARKER, Boolean.TRUE);
+      ((OnComponentPopulated) component).onComponentPopulated(getFacesContext());
+    }
+    
     return result;
   }
 

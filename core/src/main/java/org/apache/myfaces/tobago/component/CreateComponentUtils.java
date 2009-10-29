@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 import org.apache.myfaces.tobago.layout.Display;
+import org.apache.myfaces.tobago.layout.LayoutManager;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
@@ -129,5 +130,17 @@ public class CreateComponentUtils {
       checkbox.getAttributes().put(Attributes.VALUE, command.getAttributes().get(Attributes.VALUE));
     }
     return checkbox;
+  }
+
+  public static LayoutManager createAndInitLayout(FacesContext facesContext, String componentType, String rendererType) {
+    LayoutManager layoutManager = (LayoutManager) CreateComponentUtils.createComponent(
+        facesContext, componentType, rendererType, facesContext.getViewRoot().createUniqueId());
+    if (layoutManager instanceof OnComponentCreated) {
+      ((OnComponentCreated) layoutManager).onComponentCreated(facesContext);
+    }
+    if (layoutManager instanceof OnComponentPopulated) {
+      ((OnComponentPopulated) layoutManager).onComponentPopulated(facesContext);
+    }
+    return layoutManager;
   }
 }

@@ -57,7 +57,6 @@ public class GridLayoutManagerUnitTest {
     manager.setColumnSpacing(PixelMeasure.ZERO);
     manager.setRowSpacing(PixelMeasure.ZERO);
     manager.setParent(container);
-    manager.onComponentCreated(null, manager);
     container.setLayoutManager(manager);
 
     container.setWidth(new PixelMeasure(300));
@@ -115,7 +114,6 @@ public class GridLayoutManagerUnitTest {
     manager.setColumnSpacing(PixelMeasure.ZERO);
     manager.setRowSpacing(PixelMeasure.ZERO);
     manager.setParent(container);
-    manager.onComponentCreated(null, manager);
     container.setLayoutManager(manager);
 
     container.setWidth(new PixelMeasure(300));
@@ -177,7 +175,6 @@ public class GridLayoutManagerUnitTest {
     manager.setColumnSpacing(PixelMeasure.ZERO);
     manager.setRowSpacing(PixelMeasure.ZERO);
     manager.setParent(container);
-    manager.onComponentCreated(null, manager);
     container.setLayoutManager(manager);
 
     UIGridLayout subManager = new UIGridLayout();
@@ -186,7 +183,6 @@ public class GridLayoutManagerUnitTest {
     subManager.setColumnSpacing(PixelMeasure.ZERO);
     subManager.setRowSpacing(PixelMeasure.ZERO);
     subManager.setParent(subContainer);
-    subManager.onComponentCreated(null, manager);
     subContainer.setLayoutManager(subManager);
     subContainer.getComponents().add(new MockComponent());
     subContainer.getComponents().add(new MockComponent());
@@ -260,7 +256,6 @@ public class GridLayoutManagerUnitTest {
     manager1.setColumnSpacing(PixelMeasure.ZERO);
     manager1.setRowSpacing(PixelMeasure.ZERO);
     manager1.setParent(container);
-    manager1.onComponentCreated(null, manager1);
     container.setLayoutManager(manager1);
 
     UIGridLayout manager2 = new UIGridLayout();
@@ -269,7 +264,6 @@ public class GridLayoutManagerUnitTest {
     manager2.setColumnSpacing(PixelMeasure.ZERO);
     manager2.setRowSpacing(PixelMeasure.ZERO);
     manager2.setParent(span1);
-    manager2.onComponentCreated(null, manager2);
     span1.setLayoutManager(manager2);
 
     UIGridLayout manager3 = new UIGridLayout();
@@ -278,7 +272,6 @@ public class GridLayoutManagerUnitTest {
     manager3.setColumnSpacing(PixelMeasure.ZERO);
     manager3.setRowSpacing(PixelMeasure.ZERO);
     manager3.setParent(span2);
-    manager3.onComponentCreated(null, manager3);
     span2.setLayoutManager(manager3);
 
     container.setWidth(new PixelMeasure(900));
@@ -347,7 +340,6 @@ public class GridLayoutManagerUnitTest {
     manager.setColumnSpacing(PixelMeasure.ZERO);
     manager.setRowSpacing(PixelMeasure.ZERO);
     manager.setParent(container);
-    manager.onComponentCreated(null, manager);
     container.setLayoutManager(manager);
 
     container.setWidth(new PixelMeasure(800));

@@ -25,8 +25,11 @@ public final class ComponentTypes {
   // TODO: make a complete list.
 
   public static final String COLUMN = "org.apache.myfaces.tobago.Column";
+  public static final String GRID_LAYOUT = "org.apache.myfaces.tobago.GridLayout";
   public static final String OUT = "org.apache.myfaces.tobago.Out";
   public static final String SELECT_BOOLEAN = "org.apache.myfaces.tobago.SelectBoolean";
+  public static final String SHEET_LAYOUT = "org.apache.myfaces.tobago.SheetLayout";
+  public static final String TAB_GROUP_LAYOUT = "org.apache.myfaces.tobago.TabGroupLayout";
 
   private ComponentTypes() {
     // to prevent instantiation

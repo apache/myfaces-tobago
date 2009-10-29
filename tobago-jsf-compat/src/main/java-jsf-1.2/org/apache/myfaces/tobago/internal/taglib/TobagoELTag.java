@@ -20,7 +20,8 @@ package org.apache.myfaces.tobago.internal.taglib;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.OnComponentCreated;
+import org.apache.myfaces.tobago.component.OnComponentCreated;
+import org.apache.myfaces.tobago.component.OnComponentPopulated;
 
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.UIComponentELTag;
@@ -31,16 +32,30 @@ public abstract class TobagoELTag extends UIComponentELTag {
 
   private static final Log LOG = LogFactory.getLog(TobagoELTag.class);
  
-  public int doEndTag() throws JspException {
+  public int doStartTag() throws JspException {
     UIComponent component = getComponentInstance();
     if (component instanceof OnComponentCreated
-        && component.getAttributes().get("org.apache.myfaces.tobago.CREATION_MARKER") == null) {
-      component.getAttributes().put("org.apache.myfaces.tobago.CREATION_MARKER", Boolean.TRUE);
-      ((OnComponentCreated) component).onComponentCreated(getFacesContext(), getComponentInstance());
+        && component.getAttributes().get(OnComponentCreated.MARKER) == null) {
+      component.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
+      ((OnComponentCreated) component).onComponentCreated(getFacesContext());
     }
     return super.doEndTag();
   }
 
+  @Override
+  public int doEndTag() throws JspException {
+    int result = super.doEndTag();
+    
+    UIComponent component = getComponentInstance();
+    if (component instanceof OnComponentPopulated
+        && component.getAttributes().get(OnComponentCreated.MARKER) == null) {
+      component.getAttributes().put(OnComponentPopulated.MARKER, Boolean.TRUE);
+      ((OnComponentPopulated) component).onComponentPopulated(getFacesContext());
+    }
+    
+    return result;
+  }
+  
   public String[] splitList(String renderers) {
     return StringUtils.split(renderers, ", ");
   }

@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.OnComponentCreated;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.Interval;
 import org.apache.myfaces.tobago.layout.IntervalList;
@@ -30,18 +29,12 @@ import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
-public abstract class AbstractUITabGroupLayout extends UILayout implements LayoutManager, OnComponentCreated {
+public abstract class AbstractUITabGroupLayout extends UILayout implements LayoutManager {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIGridLayout.class);
 
   private boolean horizontalAuto;
   private boolean verticalAuto;
-
-  public void onComponentCreated(FacesContext context, UIComponent component) {
-  }
 
   public void init() {
     for (LayoutComponent component : getLayoutContainer().getComponents()) {

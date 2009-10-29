@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.OnComponentCreated;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
@@ -47,7 +46,7 @@ import java.util.Collection;
 import java.util.List;
 
 public abstract class AbstractUITabGroup extends UIPanelBase
-    implements TabChangeSource, ActionSource, AjaxComponent, LayoutContainer, LayoutComponent, OnComponentCreated {
+    implements TabChangeSource, ActionSource, AjaxComponent, LayoutContainer, LayoutComponent, OnComponentPopulated {
 
   private static final Log LOG = LogFactory.getLog(AbstractUITabGroup.class);
 
@@ -293,21 +292,21 @@ public abstract class AbstractUITabGroup extends UIPanelBase
 
 
   /**
-   * @since 1.1.0
+   * @since 1.5.0
    */
   public void addActionListener(ActionListener listener) {
     addFacesListener(listener);
   }
 
   /**
-   * @since 1.1.0
+   * @since 1.5.0
    */
   public ActionListener[] getActionListeners() {
     return (ActionListener[]) getFacesListeners(ActionListener.class);
   }
 
   /**
-   * @since 1.1.0
+   * @since 1.5.0
    */
   public void removeActionListener(ActionListener listener) {
     removeFacesListener(listener);
@@ -318,19 +317,19 @@ public abstract class AbstractUITabGroup extends UIPanelBase
     return LayoutUtils.findLayoutChildren(this);
   }
 
+  public void onComponentPopulated(FacesContext facesContext, UIComponent component) {
+    if (getLayoutManager() == null) {
+      setLayoutManager(CreateComponentUtils.createAndInitLayout(
+          facesContext, ComponentTypes.TAB_GROUP_LAYOUT, RendererTypes.TAB_GROUP_LAYOUT));
+    }
+  }
+  
   public LayoutManager getLayoutManager() {
     return (LayoutManager) getFacet(Facets.LAYOUT);
   }
 
-  public void onComponentCreated(FacesContext context, UIComponent component) {
-    // if there is no layout manager set, create one
-    if (getLayoutManager() == null) {
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      LayoutManager layoutManager = (LayoutManager) CreateComponentUtils.createComponent(
-          facesContext, "org.apache.myfaces.tobago.TabGroupLayout", RendererTypes.TAB_GROUP_LAYOUT);
-      ((OnComponentCreated) layoutManager).onComponentCreated(facesContext, (UILayout) layoutManager);
-      getFacets().put(Facets.LAYOUT, (UILayout) layoutManager);
-    }
+  public void setLayoutManager(LayoutManager layoutManager) {
+    getFacets().put(Facets.LAYOUT, (UILayout) layoutManager);
   }
 
 // LAYOUT End
