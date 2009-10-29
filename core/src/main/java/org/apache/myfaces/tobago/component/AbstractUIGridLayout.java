@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.OnComponentCreated;
 import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.FactorList;
@@ -41,24 +40,17 @@ import org.apache.myfaces.tobago.layout.grid.Grid;
 import org.apache.myfaces.tobago.layout.grid.OriginCell;
 import org.apache.myfaces.tobago.layout.math.EquationManager;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractUIGridLayout extends UILayout implements OnComponentCreated, LayoutManager {
+public abstract class AbstractUIGridLayout extends UILayout implements LayoutManager {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIGridLayout.class);
 
   private Grid grid;
 
-  public void onComponentCreated(FacesContext context, UIComponent component) {
-  }
-
   // /////////////////////////////////////////////////////////////////////////////////////////
-  // /////////////////////////////////////////////////////////////////////////////////////////
-  // /////////////////////////////////////////////////////////////////////////////////////////
-  // /////////////////////////////////////////////////////////////////////////////////////////
+  // new layout mechanism
   // /////////////////////////////////////////////////////////////////////////////////////////
 
   public void init() {
@@ -272,9 +264,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
   }
 
   // /////////////////////////////////////////////////////////////////////////////////////////
-  // /////////////////////////////////////////////////////////////////////////////////////////
-  // /////////////////////////////////////////////////////////////////////////////////////////
-  // /////////////////////////////////////////////////////////////////////////////////////////
+  // layout mechanism with equations
   // /////////////////////////////////////////////////////////////////////////////////////////
 
   /**
@@ -511,6 +501,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements OnCompone
   @Override
   public String toString() {
     return getClass().getSimpleName()
-        + "(" + Arrays.toString(grid.getWidths()) + ", " + Arrays.toString(grid.getHeights()) + ")";
+        + (grid != null
+        ? "(" + Arrays.toString(grid.getWidths()) + ", " + Arrays.toString(grid.getHeights()) + ")" 
+        : "");
   }
 }
