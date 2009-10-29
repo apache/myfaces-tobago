@@ -187,6 +187,11 @@
           <artifactId>jsf-impl</artifactId>
           <scope>runtime</scope>
         </dependency>
+        <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jstl</artifactId>
+          <scope>runtime</scope>
+        </dependency>
       </dependencies>
     </profile>
 
@@ -209,6 +214,11 @@
           <artifactId>jsf-impl</artifactId>
           <scope>runtime</scope>
         </dependency>
+        <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jstl</artifactId>
+          <scope>runtime</scope>
+        </dependency>
       </dependencies>
     </profile>
 
@@ -229,6 +239,11 @@
         <dependency>
           <groupId>com.sun.faces</groupId>
           <artifactId>jsf-impl</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+        <dependency>
+          <groupId>javax.servlet</groupId>
+          <artifactId>jstl</artifactId>
           <scope>runtime</scope>
         </dependency>
       </dependencies>
