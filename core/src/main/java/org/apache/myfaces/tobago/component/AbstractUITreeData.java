@@ -65,7 +65,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
   private void decodeNodes(FacesContext facesContext, DefaultMutableTreeNode node, TreePath position) {
 
     setRowIndex(facesContext, position);
-    LOG.info("path index (decode) = '" + position + "'");
+    LOG.debug("path index (decode) = '" + position + "'");
     AbstractUITreeNode templateComponent = getTemplateComponent();
     templateComponent.processDecodes(facesContext);
     setRowIndex(facesContext, null);
@@ -152,7 +152,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
       FacesContext facesContext, MixedTreeModel model, Node node, TreePath position) {
 
     setRowIndex(facesContext, position);
-    LOG.info("path index (build) node = '" + position + "'");
+    LOG.debug("path index (build) node = '" + position + "'");
 
     getTemplateComponent().buildTreeModelBegin(facesContext, model);
 
@@ -171,7 +171,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
       FacesContext facesContext, MixedTreeModel model, DefaultMutableTreeNode node, TreePath position) {
 
     setRowIndex(facesContext, position);
-    LOG.info("path index (build) dmtn = '" + position + "'");
+    LOG.debug("path index (build) dmtn = '" + position + "'");
 
     getTemplateComponent().buildTreeModelBegin(facesContext, model);
 
@@ -201,7 +201,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
       throws IOException {
 
     setRowIndex(facesContext, position);
-    LOG.info("path index (begin)  = '" + position + "'");
+    LOG.debug("path index (begin)  = '" + position + "'");
     getTemplateComponent().encodeBegin(facesContext);
     setRowIndex(facesContext, null);
 
@@ -213,7 +213,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
     }
 
     setRowIndex(facesContext, position);
-    LOG.info("path index (end)    = '" + position + "'");
+    LOG.debug("path index (end)    = '" + position + "'");
     getTemplateComponent().encodeEnd(facesContext);
     setRowIndex(facesContext, null);
   }
