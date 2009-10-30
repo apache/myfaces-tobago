@@ -89,7 +89,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
     }
     state[0] = super.saveState(facesContext);
     state[1] = rendererCacheKey;
-    if (FacesVersion.supports12()) {
+    if (!FacesVersion.supports12()) {
       state[2] = nextUniqueId;
     }
     return state;
