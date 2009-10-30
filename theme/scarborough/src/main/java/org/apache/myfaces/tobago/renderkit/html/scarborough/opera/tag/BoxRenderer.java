@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -40,8 +39,6 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
 
   public void encodeBegin(FacesContext facesContext,
       UIComponent component) throws IOException {
-
-    HtmlStyleMap innerStyle = HtmlRendererUtil.prepareInnerStyle(component);
 
     UIComponent label = component.getFacet(Facets.LABEL);
     String labelString
@@ -74,6 +71,5 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
     }
     writer.startElement(HtmlConstants.DIV, component);
     writer.writeClassAttribute();
-    writer.writeStyleAttribute(innerStyle);
   }
 }

@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.util.ComponentUtil;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
@@ -32,7 +31,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class AbstractUITree extends UIInput implements NamingContainer, LayoutComponent {
+public abstract class AbstractUITree extends javax.faces.component.UIInput implements NamingContainer, LayoutComponent {
 
   public static final String MESSAGE_NOT_LEAF = "tobago.tree.MESSAGE_NOT_LEAF";
 

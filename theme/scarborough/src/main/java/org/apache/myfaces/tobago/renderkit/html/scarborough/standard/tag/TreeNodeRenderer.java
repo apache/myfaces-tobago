@@ -22,7 +22,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.AbstractUITree;
 import org.apache.myfaces.tobago.component.AbstractUITreeNode;
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeNode;
@@ -181,14 +180,10 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.writeClassAttribute(styleClasses);
 
       // div style (width)
-      Integer width = null;
-      HtmlStyleMap style = (HtmlStyleMap) tree.getAttributes().get(Attributes.STYLE);
-      if (style != null) {
-        width = style.getInt("width");
-      }
+      HtmlStyleMap style = HtmlRendererUtil.ensureStyleAttributeMap(tree);
       String widthString;
-      if (width != null) {
-        widthString = "width: " + Integer.toString(width - 22); // fixme: 4 + 18 for scrollbar
+      if (style != null && style.getWidth() != null) {
+        widthString = "width: " + Integer.toString(style.getWidth().getPixel() - 22); // fixme: 4 + 18 for scrollbar
       } else {
         widthString = "100%";
       }

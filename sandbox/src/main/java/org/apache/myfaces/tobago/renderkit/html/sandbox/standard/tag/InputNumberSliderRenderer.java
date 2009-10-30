@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -62,7 +63,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
 
-    HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get(Attributes.STYLE);
+    HtmlStyleMap style = HtmlRendererUtil.ensureStyleAttributeMap(component);
     int width = -1;
     int sliderWidthPerc = 33;
     if (ThemeConfig.hasValue(facesContext, component, SLIDER_WIDTH_PERCENT)) {
@@ -76,10 +77,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     }
     int sliderWidth = 100; // fixme
     int inputWidth = 50; // fixme;
-    if (style != null && style.containsKey("width")) {
-      width = style.getInt("width");
-    }
-    if (width >= 0) {
+    if (style != null && style.getWidth() != null && style.getWidth().getPixel() >= 0) {
       sliderWidth = (width * sliderWidthPerc) / 100;
       inputWidth = (width * (100 - sliderWidthPerc)) / 100;
     }
@@ -98,7 +96,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     writer.writeClassAttribute(styleClasses);
 
     HtmlStyleMap widthStyle = new HtmlStyleMap();
-    widthStyle.put("width", sliderWidth / 2);
+    widthStyle.setWidth(new PixelMeasure(sliderWidth / 2));
     writer.writeStyleAttribute(widthStyle);
     writer.startElement(HtmlConstants.SPAN, null);
     writer.writeClassAttribute(styleClasses);
@@ -125,7 +123,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
 
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeClassAttribute("tobago-in-default");
-    widthStyle.put("width", inputWidth);
+    widthStyle.setWidth(new PixelMeasure(inputWidth));
     writer.writeStyleAttribute(widthStyle);
     String inputIdAndName = getIdForInputField(facesContext, component);
     writer.writeNameAttribute(inputIdAndName);

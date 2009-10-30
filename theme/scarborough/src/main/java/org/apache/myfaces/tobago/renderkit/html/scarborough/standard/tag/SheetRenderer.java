@@ -48,6 +48,8 @@ import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
@@ -103,8 +105,6 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 
     ensureColumnWidthList(facesContext, data);
 
-    HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, data);
-
     final String sheetId = data.getClientId(facesContext);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
@@ -113,6 +113,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     writer.startElement(HtmlConstants.DIV, data);
     writer.writeIdAttribute(sheetId + "_outer_div");
     writer.writeClassAttribute("tobago-sheet-outer-div");
+// todo    HtmlStyleMap style = HtmlRendererUtil.createStyle(data);
     writer.writeStyleAttribute();
     UICommand clickAction = null;
     UICommand dblClickAction = null;
@@ -182,19 +183,19 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     String selectorDisabled = contextPath + resourceManager.getImage(viewRoot, "image/sheetUncheckedDisabled.gif");
     String unchecked = contextPath + resourceManager.getImage(viewRoot, "image/sheetUnchecked.gif");
 
-    Map attributes = data.getAttributes();
-    HtmlStyleMap sheetStyle = (HtmlStyleMap) attributes.get(Attributes.STYLE);
+    HtmlStyleMap style = HtmlRendererUtil.ensureStyleAttributeMap(data);
     //HtmlStyleMap headerStyle = (HtmlStyleMap) attributes.get(STYLE_HEADER);
-//    String sheetWidthString = LayoutUtils.getStyleAttributeValue(sheetStyle,
+//    String sheetWidthString = LayoutUtils.getStyleAttributeValue(style,
 //        "width");
-    Integer sheetHeight = HtmlRendererUtil.getStyleAttributeIntValue(sheetStyle, "height");
-    if (sheetHeight == null) {
+    Integer sheetHeight;
+    if (style.getHeight() == null) {
       // FIXME: nullpointer if height not defined
       LOG.error("no height in parent container, setting to 100");
       sheetHeight = 100;
+    } else {
+      sheetHeight = style.getHeight().getPixel();
     }
-    //HtmlStyleMap bodyStyle = (HtmlStyleMap) attributes.get(STYLE_BODY);
-    int footerHeight = (Integer) attributes.get(Attributes.FOOTER_HEIGHT);
+    int footerHeight = (Integer) data.getAttributes().get(Attributes.FOOTER_HEIGHT);
 
     String selectable = data.getSelectable();
 
@@ -242,7 +243,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeIdAttribute(sheetId + "_header_div");
       writer.writeClassAttribute("tobago-sheet-header-div");
-      HtmlStyleMap headerStyle = (HtmlStyleMap) attributes.get(Attributes.STYLE_HEADER);
+      HtmlStyleMap headerStyle = new HtmlStyleMap();
       if (headerStyle != null) {
         writer.writeStyleAttribute(headerStyle);
       }
@@ -279,26 +280,28 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 
 // BEGIN RENDER BODY CONTENT
     HtmlStyleMap bodyStyle = new HtmlStyleMap();
-    bodyStyle.put("position", "relative");
-    bodyStyle.put("width", data.getWidth());
-    bodyStyle.put("height", sheetHeight - footerHeight);
+    bodyStyle.setPosition("relative");
+    bodyStyle.setWidth(data.getWidth());
+    bodyStyle.setHeight(new PixelMeasure(sheetHeight - footerHeight));
     
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + "_data_div");
     writer.writeClassAttribute("tobago-sheet-body-div ");
-    writer.writeAttribute(HtmlAttributes.STYLE, bodyStyle.toString() + (showHeader?"":" padding-top: 0px;"), false);
-    Integer space = HtmlRendererUtil.getStyleAttributeIntValue(bodyStyle, "width");
-    HtmlStyleMap sheetBodyStyle = (HtmlStyleMap) bodyStyle.clone();
-    //String sheetBodyStyle;
-    if (space != null) {
-//      intSpace -= columnWidths.get(columnWidths.size() - 1);
-      space -= getContentBorder(facesContext, data);
-      if (needVerticalScrollbar(facesContext, data)) {
-        space -= getScrollbarWidth(facesContext, data);
-      }
-      sheetBodyStyle.put("width", space);
+    HtmlStyleMap sheetBodyStyle = new HtmlStyleMap(bodyStyle);
+    if (!showHeader) {
+      bodyStyle.setPaddingTop(PixelMeasure.ZERO);
     }
-    sheetBodyStyle.remove("height");
+    writer.writeStyleAttribute(bodyStyle);
+    if (bodyStyle.getWidth() != null) {
+//      intSpace -= columnWidths.get(columnWidths.size() - 1);
+      Measure space = bodyStyle.getWidth();
+      space.substractNotNegative(getContentBorder(facesContext, data));
+      if (needVerticalScrollbar(facesContext, data)) {
+        space.substractNotNegative(getScrollbarWidth(facesContext, data));
+      }
+      sheetBodyStyle.setWidth(space);
+    }
+    sheetBodyStyle.setHeight(null);
 
 
 
@@ -441,7 +444,6 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 
 // END RENDER BODY CONTENT
 
-
     final String showRowRange
         = getPagingAttribute(data, Attributes.SHOW_ROW_RANGE);
     final String showPageRange
@@ -452,9 +454,9 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     if (isValidPagingValue(showRowRange)
         || isValidPagingValue(showPageRange)
         || isValidPagingValue(showDirectLinks)) {
-      final HtmlStyleMap footerStyle = (HtmlStyleMap) bodyStyle.clone();
-      footerStyle.put("height", footerHeight);
-      footerStyle.put("top", (sheetHeight - footerHeight));
+      HtmlStyleMap footerStyle = new HtmlStyleMap(bodyStyle);
+      footerStyle.setHeight(new PixelMeasure(footerHeight));
+      footerStyle.setTop(new PixelMeasure(sheetHeight - footerHeight));
 
         //  "height", MessageFormat.format("{0}px", footerHeight));
         //  + " top: " + (sheetHeight - footerHeight) + "px;";
@@ -640,9 +642,8 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       }
     }
 
-    HtmlStyleMap style = (HtmlStyleMap) data.getAttributes().get(Attributes.STYLE);
-    Integer height = HtmlRendererUtil.getStyleAttributeIntValue(style, "height");
-    if (height != null) {
+    HtmlStyleMap style = HtmlRendererUtil.ensureStyleAttributeMap(data);
+    if (style.getHeight() != null) {
       int first = data.getFirst();
       int rows = Math.min(data.getRowCount(), first + data.getRows()) - first;
       LOG.error("20; // FIXME: make dynamic (was removed by changing the layouting");
@@ -650,7 +651,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
           + getFooterHeight(facesContext, data)
           + (rows * (20 /* FIXME */ + getRowPadding(facesContext, data)));
 
-      return heightNeeded > height;
+      return heightNeeded > style.getHeight().getPixel();
     } else {
       return false;
     }
@@ -660,9 +661,9 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     return ThemeConfig.getValue(facesContext, component, "rowPadding");
   }
 
-  public int getScrollbarWidth(FacesContext facesContext,
-      UIComponent component) {
-    return ThemeConfig.getValue(facesContext, component, "scrollbarWidth");
+  private Measure getScrollbarWidth(FacesContext facesContext, UIComponent component) {
+    // todo: get measure directly from theme config
+    return new PixelMeasure(ThemeConfig.getValue(facesContext, component, "scrollbarWidth"));
   }
 
   private void storeFooterHeight(FacesContext facesContext,
@@ -1081,8 +1082,9 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     writer.endElement(type);
   }
 
-  public int getContentBorder(FacesContext facesContext, UIData data) {
-    return ThemeConfig.getValue(facesContext, data, "contentBorder");
+  private Measure getContentBorder(FacesContext facesContext, UIData data) {
+    // todo: get measure directly from theme config
+    return new PixelMeasure(ThemeConfig.getValue(facesContext, data, "contentBorder"));
   }
 
   public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
@@ -1164,15 +1166,15 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
         }
       }
 
-      int space = data.getWidth().getPixel();
-      space -= getContentBorder(facesContext, data);
+      Measure space = data.getWidth();
+      space.substractNotNegative(getContentBorder(facesContext, data));
       if (needVerticalScrollbar(facesContext, data)) {
-        space -= getScrollbarWidth(facesContext, data);
+        space.substractNotNegative(getScrollbarWidth(facesContext, data));
       }
       LayoutInfo layoutInfo =
-          new LayoutInfo(newTokens.getSize(), space, newTokens, data.getClientId(facesContext), false);
+          new LayoutInfo(newTokens.getSize(), space.getPixel(), newTokens, data.getClientId(facesContext), false);
       parseFixedWidth(facesContext, layoutInfo, rendererdColumns);
-      layoutInfo.parseColumnLayout(space);
+      layoutInfo.parseColumnLayout(space.getPixel());
       currentWidthList = layoutInfo.getSpaceList();
     }
 
@@ -1220,34 +1222,6 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       }
     }
   }
-
-  private void prepareDimensions(FacesContext facesContext, UIData data) {
-     // prepare width's in column's children components
-
-     List<Integer> columnWidths = data.getWidthList();
-     int i = 0;
-     for (UIColumn column : data.getRenderedColumns()) {
-       if (i < columnWidths.size()) {
-         Integer width = columnWidths.get(i);
-         if (!(column instanceof UIColumnSelector)) {
-           if (column.getChildCount() == 1) {
-             UIComponent child = (UIComponent) column.getChildren().get(0);
-             int cellPaddingWidth = ThemeConfig.getValue(facesContext, data, "cellPaddingWidth");
-             child.getAttributes().put(
-                 Attributes.LAYOUT_WIDTH, width - cellPaddingWidth);
-             child.getAttributes().remove(Attributes.INNER_WIDTH);
-           } else {
-             LOG.warn("More or less than 1 child in column! "
-                 + "Can't set width for column " + i + " to " + width);
-           }
-         }
-       } else {
-         LOG.warn("More columns than columnSizes! "
-             + "Can't set width for column " + i);
-       }
-       i++;
-     }
-   }
 
   @Override
   public boolean getPrepareRendersChildren() {

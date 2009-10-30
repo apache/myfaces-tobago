@@ -161,11 +161,7 @@ public final class Attributes {
   public static final String STATE = "state";
   public static final String STATE_PREVIEW = "statePreview";
   public static final String STYLE = "style";
-  public static final String STYLE_BODY = "style_body";
   public static final String STYLE_CLASS = "styleClass";
-  public static final String STYLE_HEADER = "style_header";
-  public static final String STYLE_INNER = "style_inner";
-  public static final String STYLE_FILES = "styleFiles";
   public static final String SUPPRESS_TOOLBAR_CONTAINER = "suppressToolbarContainer";
   public static final String SWITCH_TYPE = "switchType";
   public static final String TAB_INDEX = "tabIndex";

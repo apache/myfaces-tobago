@@ -42,6 +42,8 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.layout.Display;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -130,13 +132,13 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     // tabs and render it as they are selected, and it will
     // selected with stylesheet.
     int virtualTab = 0;
-    int currentWidth = 0;
+    Measure currentWidth = PixelMeasure.ZERO;
 
-    int navigationBarWidth = ThemeConfig.getValue(facesContext, tabGroup, "navigationBarWidth");
+    Measure navigationBarWidth = ThemeConfig.getMeasure(facesContext, tabGroup, "navigationBarWidth");
     for (UIComponent tab : (List<UIComponent>) tabGroup.getChildren()) {
       if (tab instanceof UIPanelBase) {
         if (tab.isRendered()) {
-          currentWidth += tabList.getWidthList().get(virtualTab);
+          currentWidth.add(tabList.getWidthList().get(virtualTab));
           if (SWITCH_TYPE_CLIENT.equals(switchType) || virtualTab == activeIndex) {
             if (virtualTab != activeIndex) {
               tabGroup.setDisplay(Display.NONE);
@@ -252,8 +254,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
 
   private void renderTabGroupView(
       FacesContext facesContext, TobagoResponseWriter writer, UITabGroup tabGroup,
-      int virtualTab, String switchType, String image1x1, int toolbarWidth,
-      int currentWidth, TabList tabList) throws IOException {
+      int virtualTab, String switchType, String image1x1, Measure toolbarWidth,
+      Measure currentWidth, TabList tabList) throws IOException {
     writer.startElement(HtmlConstants.TABLE, tabGroup);
     writer.writeAttribute(HtmlAttributes.BORDER, 0);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
@@ -267,27 +269,27 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.writeAttribute(HtmlAttributes.VALIGN, "bottom", false);
 
     writer.startElement(HtmlConstants.TD, tabGroup);
-    int width = tabGroup.getWidth().getPixel();
-    int headerHeight = ThemeConfig.getMeasure(facesContext, tabGroup, "headerHeight").getPixel();
+    Measure width = tabGroup.getWidth();
+    Measure headerHeight = ThemeConfig.getMeasure(facesContext, tabGroup, "headerHeight");
     HtmlStyleMap header = new HtmlStyleMap();
-    header.put("position", "relative");
-    header.put("width", width);
-    header.put("height", headerHeight);
+    header.setPosition("relative");
+    header.setWidth(width);
+    header.setHeight(headerHeight);
     writer.writeStyleAttribute(header);
     writer.startElement(HtmlConstants.DIV, tabGroup);
     writer.writeStyleAttribute(header);
 
     writer.startElement(HtmlConstants.DIV, tabGroup);
     HtmlStyleMap map = new HtmlStyleMap();
-    if (currentWidth > width) {
-      map.put("width", currentWidth);
-      map.put("left", width - toolbarWidth - currentWidth);
+    if (currentWidth.greaterThan(width)) {
+      map.setWidth(new PixelMeasure(currentWidth));
+      map.setLeft(width.subtract(toolbarWidth).subtract(currentWidth));
     } else {
-      map.put("width", width - toolbarWidth);
+      map.setWidth(width.subtract(toolbarWidth));
     }
-    map.put("overflow", "hidden");
-    map.put("position", "absolute");
-    map.put("height", headerHeight);
+    map.setOverflow("hidden");
+    map.setPosition("absolute");
+    map.setHeight(headerHeight);
     writer.writeStyleAttribute(map);
     writer.startElement(HtmlConstants.TABLE, tabGroup);
     writer.writeAttribute(HtmlAttributes.BORDER, 0);
@@ -387,7 +389,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
           innerClass.addMarkupClass(tab, "tab", "outer");
           writer.startElement(HtmlConstants.TD, tab);
           HtmlStyleMap labelStyle = new HtmlStyleMap();
-          labelStyle.put("width", tabList.getWidthList().get(index));
+          labelStyle.setWidth(new PixelMeasure(tabList.getWidthList().get(index)));
 
           writer.writeStyleAttribute(labelStyle);
           writer.writeIdAttribute(tab.getClientId(facesContext));
@@ -458,10 +460,10 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     //writer.writeAttribute(HtmlAttributes.WIDTH, "100%", false);
 
     writer.startElement(HtmlConstants.TD, tabGroup);
-    if (currentWidth > width) {
-      writer.writeAttribute(HtmlAttributes.WIDTH, toolbarWidth);
+    if (currentWidth.greaterThan(width)) {
+      writer.writeAttribute(HtmlAttributes.WIDTH, toolbarWidth.toString(), false);
     } else {
-      writer.writeAttribute(HtmlAttributes.WIDTH, Integer.toString((width - currentWidth)) + "px", false);
+      writer.writeAttribute(HtmlAttributes.WIDTH, width.subtract(currentWidth).toString(), false);
     }
     writer.startElement(HtmlConstants.DIV, tabGroup);
     writer.writeClassAttribute("tobago-tab-fulfill");
@@ -477,28 +479,28 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.endElement(HtmlConstants.TABLE);
     writer.endElement(HtmlConstants.DIV);
     if (toolBar != null) { // todo: configurable later
-      renderToolbar(facesContext, writer, toolBar, width - toolbarWidth, toolbarWidth);
+      renderToolbar(facesContext, writer, toolBar, width.subtract(toolbarWidth), toolbarWidth);
     }
     writer.endElement(HtmlConstants.DIV);
     writer.endElement(HtmlConstants.TD);
     writer.endElement(HtmlConstants.TR);
 
     HtmlStyleMap body = new HtmlStyleMap();
-    body.put("position", "relative");
-    body.put("width", width);
-    body.put("height", tabGroup.getHeight().getPixel() - headerHeight);
+    body.setPosition("relative");
+    body.setWidth(width);
+    body.setHeight(tabGroup.getHeight().subtract(headerHeight));
     encodeContent(writer, facesContext, activeTab, body);
 
     writer.endElement(HtmlConstants.TABLE);
   }
 
   // todo: this is quite the same as in ButtonRenderer
-  private void renderToolbar(FacesContext facesContext, TobagoResponseWriter writer, UIPanel toolbar, int width,
-      int navigationBarWidth) throws IOException {
+  private void renderToolbar(FacesContext facesContext, TobagoResponseWriter writer, UIPanel toolbar, Measure width,
+      Measure navigationBarWidth) throws IOException {
     writer.startElement(HtmlConstants.DIV, null);
     HtmlStyleMap map = new HtmlStyleMap();
-    map.put("width", navigationBarWidth);
-    map.put("left", width);
+    map.setWidth(navigationBarWidth);
+    map.setLeft(width);
     writer.writeStyleAttribute(map);
     writer.writeClassAttribute("tobago-tabnavigationbar");
     toolbar.setRendererType("BoxToolBar");
@@ -528,11 +530,11 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     AjaxUtils.checkParamValidity(context, component, UITabGroup.class);
     TabList tabList = getTabList(context, (UITabGroup) component);
     int index = ensureRenderedActiveIndex(context, (UITabGroup) component);
-    int currentWidth = getCurrentWidth(tabList, index);
+    Measure currentWidth = new PixelMeasure(getCurrentWidth(tabList, index));
     renderTabGroupView(context, HtmlRendererUtil.getTobagoResponseWriter(context),
         (UITabGroup) component, index, SWITCH_TYPE_RELOAD_TAB,
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"),
-        ThemeConfig.getValue(context, component, "navigationBarWidth"), currentWidth, tabList);
+        ThemeConfig.getMeasure(context, component, "navigationBarWidth"), currentWidth, tabList);
   }
 
   private static class TabList {

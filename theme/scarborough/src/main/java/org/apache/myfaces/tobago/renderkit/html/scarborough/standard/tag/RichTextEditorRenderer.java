@@ -91,9 +91,6 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
     UIInput component = (UIInput) uiComponent;
 
-    HtmlRendererUtil.createHeaderAndBodyStyles(facesContext, component);
-
-
     boolean previewState
         = ComponentUtil.getBooleanAttribute(component, Attributes.STATE_PREVIEW);
     // FIXME: remove this when i18n is ok
@@ -147,7 +144,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
       writer.writeClassAttribute(bodyClasses);
       writer.writeNameAttribute(clientId);
       writer.writeIdAttribute(clientId);
-      writer.writeAttribute(HtmlAttributes.STYLE, null, Attributes.STYLE_BODY);
+      writer.writeStyleAttribute();
       String onchange = HtmlUtils.generateOnchange(component, facesContext);
       if (null != onchange) {
         writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);

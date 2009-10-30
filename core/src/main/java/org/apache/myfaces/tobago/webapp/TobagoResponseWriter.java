@@ -138,7 +138,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    */
   public void writeStyleAttribute(HtmlStyleMap style) throws IOException {
     if (style != null) {
-      writeAttribute(HtmlAttributes.STYLE, style.toString(), false);
+      writeAttribute(HtmlAttributes.STYLE, style.encode(), false);
     }
   }
 

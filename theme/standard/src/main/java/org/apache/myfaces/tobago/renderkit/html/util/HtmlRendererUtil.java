@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.Deprecation;
 import org.apache.myfaces.tobago.webapp.TobagoResponseJsonWriterImpl;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriterWrapper;
@@ -106,22 +107,6 @@ public final class HtmlRendererUtil {
       }
     }
   }
-
-  public static HtmlStyleMap prepareInnerStyle(UIComponent component) {
-    HtmlStyleMap htmlStyleMap = new HtmlStyleMap();
-    Integer innerSpaceInteger = (Integer)
-        component.getAttributes().get(Attributes.INNER_WIDTH);
-    if (innerSpaceInteger != null && innerSpaceInteger != -1) {
-      htmlStyleMap.put("width", innerSpaceInteger);
-    }
-    innerSpaceInteger = (Integer)
-        component.getAttributes().get(Attributes.INNER_HEIGHT);
-    if (innerSpaceInteger != null && innerSpaceInteger != -1) {
-      htmlStyleMap.put("height", innerSpaceInteger);
-    }
-    return htmlStyleMap;
-  }
-
 
   public static void createCssClass(FacesContext facesContext, UIComponent component) {
     String rendererName = getRendererName(facesContext, component);
@@ -213,37 +198,42 @@ public final class HtmlRendererUtil {
     return buffer.toString();
   }
 
-  public static Integer getStyleAttributeIntValue(HtmlStyleMap style, String name) {
-    if (style == null) {
-      return null;
-    }
-    return style.getInt(name);
-  }
-
+  /**
+   * @deprecated Please use setter;
+   */
+  @Deprecated
   public static void replaceStyleAttribute(UIComponent component, String styleAttribute, String value) {
-    HtmlStyleMap style = ensureStyleAttributeMap(component);
-    style.put(styleAttribute, value);
+    Deprecation.LOG.error("HtmlRendererUtil.replaceStyleAttribute() no longer supported. Use setter.");
   }
 
+  /**
+   * @deprecated Please use setter;
+   */
+  @Deprecated
   public static void replaceStyleAttribute(UIComponent component, String attribute,
       String styleAttribute, String value) {
-    HtmlStyleMap style = ensureStyleAttributeMap(component, attribute);
-    style.put(styleAttribute, value);
+    Deprecation.LOG.error("HtmlRendererUtil.replaceStyleAttribute() no longer supported. Use setter.");
   }
 
+  /**
+   * @deprecated Please use setter;
+   */
+  @Deprecated
   public static void replaceStyleAttribute(UIComponent component, String styleAttribute, int value) {
-    HtmlStyleMap style = ensureStyleAttributeMap(component);
-    style.put(styleAttribute, value);
+    Deprecation.LOG.error("HtmlRendererUtil.replaceStyleAttribute() no longer supported. Use setter.");
   }
 
+  /**
+   * @deprecated Please use setter;
+   */
+  @Deprecated
   public static void replaceStyleAttribute(UIComponent component, String attribute,
       String styleAttribute, int value) {
-    HtmlStyleMap style = ensureStyleAttributeMap(component, attribute);
-    style.put(styleAttribute, value);
+    Deprecation.LOG.error("HtmlRendererUtil.replaceStyleAttribute() no longer supported. Use setter.");
 
   }
 
-  private static HtmlStyleMap ensureStyleAttributeMap(UIComponent component) {
+  public static HtmlStyleMap ensureStyleAttributeMap(UIComponent component) {
     return ensureStyleAttributeMap(component, Attributes.STYLE);
   }
 
@@ -271,8 +261,12 @@ public final class HtmlRendererUtil {
     return style.replaceAll(pattern, "").trim();
   }
 
+  /**
+   * @deprecated Please use setter;
+   */
+  @Deprecated
   public static void removeStyleAttribute(UIComponent component, String name) {
-    ensureStyleAttributeMap(component).remove(name);
+    Deprecation.LOG.error("HtmlRendererUtil.removeStyleAttribute() no longer supported. Use setter.");
   }
 
   /**
@@ -283,37 +277,14 @@ public final class HtmlRendererUtil {
     StyleClasses.ensureStyleClasses(component).addFullQualifiedClass(clazz);
   }
 
+  @Deprecated
   public static void createHeaderAndBodyStyles(FacesContext facesContext, UIComponent component) {
-    createHeaderAndBodyStyles(facesContext, component, true);
-    createHeaderAndBodyStyles(facesContext, component, false);
+    Deprecation.LOG.error("HtmlRendererUtil.createHeaderAndBodyStyles() no longer supported");
   }
 
+  @Deprecated
   public static void createHeaderAndBodyStyles(FacesContext facesContext, UIComponent component, boolean width) {
-    HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get(Attributes.STYLE);
-    Integer styleSpace = null;
-    try {
-      styleSpace = style.getInt(width ? "width" : "height");
-    } catch (Exception e) {
-      /* ignore */
-    }
-    if (styleSpace != null) {
-      int bodySpace = 0;
-      int headerSpace = 0;
-      if (!width) {
-        headerSpace = 20; // FIXME: make dynamic (was removed by changing the layouting
-        LOG.error("20; // FIXME: make dynamic (was removed by changing the layouting");
-        bodySpace = styleSpace - headerSpace;
-      }
-      HtmlStyleMap headerStyle = ensureStyleAttributeMap(component, Attributes.STYLE_HEADER);
-      HtmlStyleMap bodyStyle = ensureStyleAttributeMap(component, Attributes.STYLE_BODY);
-      if (width) {
-        headerStyle.put("width", styleSpace);
-        bodyStyle.put("width", styleSpace);
-      } else {
-        headerStyle.put("height", headerSpace);
-        bodyStyle.put("height", bodySpace);
-      }
-    }
+    Deprecation.LOG.error("HtmlRendererUtil.createHeaderAndBodyStyles() no longer supported");
   }
 
   /**

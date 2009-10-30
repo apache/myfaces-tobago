@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -45,8 +46,6 @@ public class BoxRenderer extends BoxRendererBase {
 
   public void encodeBegin(
       FacesContext facesContext, UIComponent component) throws IOException {
-
-    HtmlStyleMap innerStyle = HtmlRendererUtil.prepareInnerStyle(component);
 
     UIComponent label = component.getFacet(Facets.LABEL);
     String labelString
@@ -77,6 +76,7 @@ public class BoxRenderer extends BoxRendererBase {
       writer.endElement(HtmlConstants.LEGEND);
     }
 
+    HtmlStyleMap innerStyle = new HtmlStyleMap();
     if (toolbar != null) {
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeClassAttribute("tobago-box-toolbar-div");
@@ -87,7 +87,7 @@ public class BoxRenderer extends BoxRendererBase {
       writer.endElement(HtmlConstants.DIV);
       writer.endElement(HtmlConstants.DIV);
       if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
-        innerStyle.put("top", -10);
+        innerStyle.setTop(new PixelMeasure(-10));
       }
     }
     writer.startElement(HtmlConstants.DIV, component);

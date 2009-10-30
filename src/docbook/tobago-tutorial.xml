@@ -1187,7 +1187,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
       demonstrates the usage of the style map.</para>
 
       <programlisting role="JAVA">HtmlStyleMap style = (HtmlStyleMap) component.getAttributes().get("style");
-int width = style.getInt("width");</programlisting>
+Measure width = style.getWidth();</programlisting>
     </sect2>
 
     <sect2>

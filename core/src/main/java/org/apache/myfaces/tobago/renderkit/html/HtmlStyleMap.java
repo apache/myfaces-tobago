@@ -17,65 +17,163 @@ package org.apache.myfaces.tobago.renderkit.html;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.layout.Display;
+import org.apache.myfaces.tobago.layout.Measure;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.Serializable;
 
-// TODO: write setter for height, width, etc.
-public class HtmlStyleMap extends HashMap<String, Object> {
+public class HtmlStyleMap implements Serializable {
 
-  private static final Log LOG = LogFactory.getLog(HtmlStyleMap.class);
-  private static final long serialVersionUID = 342607693971417143L;
+  private static final long serialVersionUID = 2L;
 
-  public Object put(String s, Object o) {
-    if (o instanceof String && (s.equals("height") || s.equals("width"))) {
-      String str = (String) o;
-      if (str.endsWith("px")) {
-        LOG.error("width or height should not end with 'px'. Will ignored.", new Exception());
-        o = Integer.parseInt(str.substring(0, str.length() - 2));
-      }
-    }
-    return super.put(s, o);
+  private Measure width;
+  private Measure height;
+  private Measure left;
+  private Measure top;
+  private Display display;
+  // todo: class or enum instead of String
+  private String position;
+
+  // todo: class or enum instead of String
+  private String overflow;
+  private Measure paddingTop;
+  private Measure paddingBottom;
+
+  public HtmlStyleMap() {
   }
 
-  public Integer getInt(Object o) {
-    Object object = get(o);
-    if (object instanceof Integer) {
-      return (Integer) object;
-    }
-    if (object == null) {
-      return null;
-    }
-    String string = object.toString();
-    LOG.warn("Getting int value via parsing the object.toString()");
-    try {
-      return Integer.parseInt(string);
-    } catch (NumberFormatException e) {
-      LOG.warn("TODO: Fix measure issue in HtmlStyleMap: '" + object + "'");
-      if (string.endsWith("px")) {
-        return Integer.parseInt(string.substring(0, string.length() - 2));
-      }
-      throw e;
-    }
+  public HtmlStyleMap(HtmlStyleMap map) {
+    this.width = map.width;
+    this.height = map.height;
+    this.left = map.left;
+    this.top = map.top;
+    this.display = map.display;
+    this.position = map.position;
+    this.overflow = map.overflow;
+    this.paddingTop = map.paddingTop;
+    this.paddingBottom = map.paddingBottom;
   }
 
-  public String toString() {
-    if (entrySet().isEmpty()) {
-      return null;
-    }
+  public String encode() {
     StringBuilder buf = new StringBuilder();
-    for(Map.Entry<String, Object> style :entrySet()) {
-      buf.append(style.getKey());
-      buf.append(":");
-      buf.append(style.getValue());
-      if (style.getValue() instanceof Integer) {
-        buf.append("px; ");
-      } else {
-        buf.append("; ");
-      }
+    if (width != null) {
+      buf.append("width:");
+      buf.append(width);
+      buf.append(';');
     }
+    if (height != null) {
+      buf.append("height:");
+      buf.append(height);
+      buf.append(';');
+    }
+    if (top != null) {
+      buf.append("top:");
+      buf.append(top);
+      buf.append(';');
+    }
+    if (left != null) {
+      buf.append("left:");
+      buf.append(left);
+      buf.append(';');
+    }
+    if (display != null) {
+      buf.append("display:");
+      buf.append(display.getValue());
+      buf.append(';');
+    }
+    if (position != null) {
+      buf.append("position:");
+      buf.append(position);
+      buf.append(';');
+    }
+    if (overflow != null) {
+      buf.append("overflow:");
+      buf.append(overflow);
+      buf.append(';');
+    }
+    if (paddingTop != null) {
+      buf.append("padding-top:");
+      buf.append(paddingTop);
+      buf.append(';');
+    }
+    if (paddingBottom != null) {
+      buf.append("padding-bottom:");
+      buf.append(paddingBottom);
+      buf.append(';');
+    }
+
     return buf.toString();
+  }
+
+  public Measure getWidth() {
+    return width;
+  }
+
+  public void setWidth(Measure width) {
+    this.width = width;
+  }
+
+  public Measure getHeight() {
+    return height;
+  }
+
+  public void setHeight(Measure height) {
+    this.height = height;
+  }
+
+  public Measure getLeft() {
+    return left;
+  }
+
+  public void setLeft(Measure left) {
+    this.left = left;
+  }
+
+  public Measure getTop() {
+    return top;
+  }
+
+  public void setTop(Measure top) {
+    this.top = top;
+  }
+
+  public Display getDisplay() {
+    return display;
+  }
+
+  public void setDisplay(Display display) {
+    this.display = display;
+  }
+
+  public String getPosition() {
+    return position;
+  }
+
+  public void setPosition(String position) {
+    this.position = position;
+  }
+
+  public String getOverflow() {
+    return overflow;
+  }
+
+  public void setOverflow(String overflow) {
+    this.overflow = overflow;
+  }
+
+  public Measure getPaddingTop() {
+    return paddingTop;
+  }
+
+  public void setPaddingTop(Measure paddingTop) {
+    this.paddingTop = paddingTop;
+  }
+
+  public Measure getPaddingBottom() {
+    return paddingBottom;
+  }
+
+  public void setPaddingBottom(Measure paddingBottom) {
+    this.paddingBottom = paddingBottom;
   }
 }

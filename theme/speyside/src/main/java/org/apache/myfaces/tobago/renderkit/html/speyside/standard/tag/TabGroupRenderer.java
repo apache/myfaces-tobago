@@ -57,9 +57,11 @@ public class TabGroupRenderer extends
     classes.addMarkupClass(activeTab, "tab", "content");
     writer.writeClassAttribute(classes);
 
-    body.put("height", body.getInt("height") - 1);
-    body.put("overflow", "auto");
-    writer.writeStyleAttribute(body);
+    if (body != null) {
+      body.setHeight(body.getHeight().subtract(1));
+      body.setOverflow("auto");
+      writer.writeStyleAttribute(body);
+    }
 
     writer.flush();
     RenderUtil.encodeChildren(facesContext, activeTab);

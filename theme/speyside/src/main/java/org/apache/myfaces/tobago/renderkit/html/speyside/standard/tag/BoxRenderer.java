@@ -31,7 +31,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIToolBar;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
@@ -102,8 +101,8 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
       writer.writeClassAttribute(classes);
 
       HtmlStyleMap shadow = new HtmlStyleMap();
-      shadow.put("width", box.getWidth().substractNotNegative(new PixelMeasure(1)));
-      shadow.put("height", box.getHeight().substractNotNegative(new PixelMeasure(1)));
+      shadow.setWidth(box.getWidth().subtract(1));
+      shadow.setHeight(box.getHeight().subtract(1));
       writer.writeStyleAttribute(shadow);
 //    }
 
@@ -118,8 +117,8 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 //      classes.addMarkupClass((SupportsMarkup) box, "box", "border");
 
       HtmlStyleMap border = new HtmlStyleMap();
-      border.put("width", box.getWidth().substractNotNegative(new PixelMeasure(3)));
-      border.put("height", box.getHeight().substractNotNegative(new PixelMeasure(3)));
+      border.setWidth(box.getWidth().subtract(3));
+      border.setHeight(box.getHeight().subtract(3));
       writer.writeStyleAttribute(border);
 //    }
 
