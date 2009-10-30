@@ -41,6 +41,12 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.endElement(name);
   }
 
+  @Override
+  public boolean isXml() {
+    // fixme
+    return false;
+  }
+
   public void write(String string) throws IOException {
     responseWriter.write(string);
   }
