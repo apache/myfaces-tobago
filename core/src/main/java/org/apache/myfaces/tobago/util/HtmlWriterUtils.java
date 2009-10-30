@@ -25,7 +25,7 @@ import java.io.Writer;
  * Date: Jun 28, 2005
  * Time: 2:07:29 PM
  */
-public final class HtmlWriterUtil {
+public final class HtmlWriterUtils {
 
   private static final char[][] CHARS_TO_ESCAPE;
 
@@ -44,7 +44,7 @@ public final class HtmlWriterUtil {
 
   private final boolean utf8;
 
-  public HtmlWriterUtil(final Writer out, final String characterEncoding) {
+  public HtmlWriterUtils(final Writer out, final String characterEncoding) {
     this.out = out;
     utf8 = "utf-8".equalsIgnoreCase(characterEncoding);
     buffer = new ResponseWriterBuffer(out);

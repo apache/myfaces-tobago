@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.renderkit.css.CssProperties;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
-import org.apache.myfaces.tobago.util.HtmlWriterUtil;
+import org.apache.myfaces.tobago.util.HtmlWriterUtils;
 import org.apache.myfaces.tobago.util.XmlUtils;
 
 import javax.faces.component.UIComponent;
@@ -77,7 +77,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
    */
   private boolean xml;
 
-  private HtmlWriterUtil helper;
+  private HtmlWriterUtils helper;
 
   public TobagoResponseWriterImpl(
       Writer writer, String contentType, String characterEncoding, boolean xml) {
@@ -92,7 +92,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
     this.contentType = contentType;
     this.characterEncoding = characterEncoding != null ? characterEncoding : "UTF-8";
     this.xml = xml;
-    this.helper = new HtmlWriterUtil(writer, characterEncoding);
+    this.helper = new HtmlWriterUtils(writer, characterEncoding);
   }
 
   protected final UIComponent getComponent() {
@@ -119,7 +119,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
     return xml;
   }
 
-  public final HtmlWriterUtil getHelper() {
+  public final HtmlWriterUtils getHelper() {
     return helper;
   }
 

@@ -27,7 +27,7 @@ import java.io.IOException;
  * Date: Jul 11, 2005
  * Time: 11:50:03 AM
  */
-public class HtmlWriterUtilUnitTest extends TestCase {
+public class HtmlWriterUtilsUnitTest extends TestCase {
 
   // some chars must escaped in attribute values other than in text
   // put them at beginning of raw texts and in both escaped texts
@@ -66,7 +66,7 @@ public class HtmlWriterUtilUnitTest extends TestCase {
 
   public void test() {
     CharArrayWriter writer = new CharArrayWriter();
-    HtmlWriterUtil helper = new HtmlWriterUtil(writer, "");
+    HtmlWriterUtils helper = new HtmlWriterUtils(writer, "");
 
     for (int i = 0; i < ESCAPED_TEXTS.length; i++) {
       testText(helper, writer, RAW_TEXTS[i], ESCAPED_TEXTS[i]);
@@ -76,7 +76,7 @@ public class HtmlWriterUtilUnitTest extends TestCase {
     }
   }
 
-  private void testText(HtmlWriterUtil writerUtil, CharArrayWriter writer,
+  private void testText(HtmlWriterUtils writerUtil, CharArrayWriter writer,
       String text, String escaped) {
     try {
       writer.reset();
@@ -89,7 +89,7 @@ public class HtmlWriterUtilUnitTest extends TestCase {
     }
   }
 
-  private void testAttributeValue(HtmlWriterUtil writerUtil,
+  private void testAttributeValue(HtmlWriterUtils writerUtil,
       CharArrayWriter writer, String text, String escaped) {
     try {
       writer.reset();
