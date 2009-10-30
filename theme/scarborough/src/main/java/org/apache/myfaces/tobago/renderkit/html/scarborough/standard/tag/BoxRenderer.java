@@ -53,8 +53,10 @@ public class BoxRenderer extends BoxRendererBase {
     UIPanel toolbar = (UIPanel) component.getFacet(Facets.TOOL_BAR);
     if (toolbar != null) {
       final int padding = ThemeConfig.getValue(facesContext, component, "paddingTopWhenToolbar");
-      HtmlRendererUtils.replaceStyleAttribute(component, getAttrStyleKey(), "padding-top", padding);
-      HtmlRendererUtils.replaceStyleAttribute(component, getAttrStyleKey(), "padding-bottom", 0);
+// fixme
+//      HtmlRendererUtils.replaceStyleAttribute(component, getAttrStyleKey(), "padding-top", padding);
+// fixme
+//      HtmlRendererUtils.replaceStyleAttribute(component, getAttrStyleKey(), "padding-bottom", 0);
     }
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
