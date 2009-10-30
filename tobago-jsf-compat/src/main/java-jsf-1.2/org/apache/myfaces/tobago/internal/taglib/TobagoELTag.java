@@ -32,6 +32,7 @@ public abstract class TobagoELTag extends UIComponentELTag {
 
   private static final Log LOG = LogFactory.getLog(TobagoELTag.class);
  
+  @Override
   public int doStartTag() throws JspException {
     UIComponent component = getComponentInstance();
     if (component instanceof OnComponentCreated
@@ -39,7 +40,7 @@ public abstract class TobagoELTag extends UIComponentELTag {
       component.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
       ((OnComponentCreated) component).onComponentCreated(getFacesContext());
     }
-    return super.doEndTag();
+    return super.doStartTag();
   }
 
   @Override
