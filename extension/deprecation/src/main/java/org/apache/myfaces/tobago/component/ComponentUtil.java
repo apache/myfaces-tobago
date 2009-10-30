@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
 
 import javax.faces.application.Application;
@@ -56,31 +57,31 @@ public class ComponentUtil {
   }
 
   public static boolean hasErrorMessages(FacesContext context) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.hasErrorMessages(context);
+    return ComponentUtils.hasErrorMessages(context);
   }
 
   public static boolean containsPopupActionListener(javax.faces.component.UICommand command) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.containsPopupActionListener(command);
+    return ComponentUtils.containsPopupActionListener(command);
   }
 
   public static String getFacesMessageAsString(FacesContext facesContext, UIComponent component) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.getFacesMessageAsString(facesContext, component);
+    return ComponentUtils.getFacesMessageAsString(facesContext, component);
   }
 
   public static boolean isInPopup(UIComponent component) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.isInPopup(component);
+    return ComponentUtils.isInPopup(component);
   }
 
   public static void resetPage(FacesContext context) {
-    org.apache.myfaces.tobago.util.ComponentUtil.resetPage(context);
+    ComponentUtils.resetPage(context);
   }
 
   public static UIPage findPage(FacesContext context, UIComponent component) {
-    return (UIPage) org.apache.myfaces.tobago.util.ComponentUtil.findPage(context, component);
+    return (UIPage) ComponentUtils.findPage(context, component);
   }
 
   public static UIPage findPage(UIComponent component) {
-    return (UIPage) org.apache.myfaces.tobago.util.ComponentUtil.findPage(component);
+    return (UIPage) ComponentUtils.findPage(component);
   }
 
   public static void addStyles(UIComponent component, String[] styles) {
@@ -96,51 +97,51 @@ public class ComponentUtil {
   }
 
   public static UIPage findPage(FacesContext facesContext) {
-    return (UIPage) org.apache.myfaces.tobago.util.ComponentUtil.findPage(facesContext);
+    return (UIPage) ComponentUtils.findPage(facesContext);
   }
 
   public static UIForm findForm(UIComponent component) {
-    return (UIForm) org.apache.myfaces.tobago.util.ComponentUtil.findForm(component);
+    return (UIForm) ComponentUtils.findForm(component);
   }
 
   public static List<UIForm> findSubForms(UIComponent component) {
-    return new ArrayList<UIForm>((List) org.apache.myfaces.tobago.util.ComponentUtil.findSubForms(component));
+    return new ArrayList<UIForm>((List) ComponentUtils.findSubForms(component));
   }
 
   public static String findClientIdFor(UIComponent component, FacesContext facesContext) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.findClientIdFor(component, facesContext);
+    return ComponentUtils.findClientIdFor(component, facesContext);
   }
 
   public static UIComponent findFor(UIComponent component) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.findFor(component);
+    return ComponentUtils.findFor(component);
   }
 
   public static boolean isInActiveForm(UIComponent component) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.isInActiveForm(component);
+    return ComponentUtils.isInActiveForm(component);
   }
 
   public static boolean isError(javax.faces.component.UIInput uiInput) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.isError(uiInput);
+    return ComponentUtils.isError(uiInput);
   }
 
   public static boolean isError(UIComponent component) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.isError(component);
+    return ComponentUtils.isError(component);
   }
 
   public static boolean isOutputOnly(UIComponent component) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.isOutputOnly(component);
+    return ComponentUtils.isOutputOnly(component);
   }
 
   public static boolean mayValidate(UIComponent component) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.mayValidate(component);
+    return ComponentUtils.mayValidate(component);
   }
 
   public static boolean mayUpdateModel(UIComponent component) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.mayUpdateModel(component);
+    return ComponentUtils.mayUpdateModel(component);
   }
 
   public static boolean getBooleanAttribute(UIComponent component, String name) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.getBooleanAttribute(component, name);
+    return ComponentUtils.getBooleanAttribute(component, name);
   }
 
   public static void setRenderedPartially(org.apache.myfaces.tobago.component.UICommand command, String renderers) {
@@ -148,19 +149,19 @@ public class ComponentUtil {
   }
 
   public static void setStyleClasses(UIComponent component, String styleClasses) {
-    org.apache.myfaces.tobago.util.ComponentUtil.setStyleClasses(component, styleClasses);
+    ComponentUtils.setStyleClasses(component, styleClasses);
   }
 
   public static void setMarkup(UIComponent markupComponent, String markup) {
-    org.apache.myfaces.tobago.util.ComponentUtil.setMarkup(markupComponent, markup);
+    ComponentUtils.setMarkup(markupComponent, markup);
   }
 
   public static Object getAttribute(UIComponent component, String name) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.getAttribute(component, name);
+    return ComponentUtils.getAttribute(component, name);
   }
 
   public static String getStringAttribute(UIComponent component, String name) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.getStringAttribute(component, name);
+    return ComponentUtils.getStringAttribute(component, name);
   }
 
   public static int getIntAttribute(UIComponent component, String name) {
@@ -168,23 +169,23 @@ public class ComponentUtil {
   }
 
   public static int getIntAttribute(UIComponent component, String name, int defaultValue) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.getIntAttribute(component, name, defaultValue);
+    return ComponentUtils.getIntAttribute(component, name, defaultValue);
   }
 
   public static Character getCharacterAttribute(UIComponent component, String name) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.getCharacterAttribute(component, name);
+    return ComponentUtils.getCharacterAttribute(component, name);
   }
 
   public static boolean isFacetOf(UIComponent component, UIComponent parent) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.isFacetOf(component, parent);
+    return ComponentUtils.isFacetOf(component, parent);
   }
 
   public static LayoutableRendererBase getRenderer(FacesContext facesContext, UIComponent component) {
-    return (LayoutableRendererBase) org.apache.myfaces.tobago.util.ComponentUtil.getRenderer(facesContext, component);
+    return (LayoutableRendererBase) ComponentUtils.getRenderer(facesContext, component);
   }
 
   public static LayoutableRendererBase getRenderer(FacesContext facesContext, String family, String rendererType) {
-    return (LayoutableRendererBase) org.apache.myfaces.tobago.util.ComponentUtil.getRenderer(facesContext, family, rendererType);
+    return (LayoutableRendererBase) ComponentUtils.getRenderer(facesContext, family, rendererType);
   }
 
   public static String currentValue(UIComponent component) {
@@ -196,7 +197,7 @@ public class ComponentUtil {
   }
 
   public static Object findParameter(UIComponent component, String name) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.findParameter(component, name);
+    return ComponentUtils.findParameter(component, name);
   }
 
   public static String toString(UIComponent component, int offset) {
@@ -204,27 +205,27 @@ public class ComponentUtil {
   }
 
   public static ActionListener createActionListener(String type) throws JspException {
-    return org.apache.myfaces.tobago.util.ComponentUtil.createActionListener(type);
+    return ComponentUtils.createActionListener(type);
   }
 
   public static UIGraphic getFirstGraphicChild(UIComponent component) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.getFirstGraphicChild(component);
+    return ComponentUtils.getFirstGraphicChild(component);
   }
 
   public static boolean isHoverEnabled(UIComponent component) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.isHoverEnabled(component);
+    return ComponentUtils.isHoverEnabled(component);
   }
 
   public static UIOutput getFirstNonGraphicChild(UIComponent component) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.getFirstNonGraphicChild(component);
+    return ComponentUtils.getFirstNonGraphicChild(component);
   }
 
   public static void setIntegerSizeProperty(UIComponent component, String name, String value) {
-    org.apache.myfaces.tobago.util.ComponentUtil.setIntegerSizeProperty(component, name, value);
+    ComponentUtils.setIntegerSizeProperty(component, name, value);
   }
 
   public static String removePx(String value) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.removePx(value);
+    return ComponentUtils.removePx(value);
   }
 
   public static void setIntegerProperty(UIComponent component, String name, String value) {
@@ -258,16 +259,16 @@ public class ComponentUtil {
   }
 
   public static void setValueForValueBinding(String name, Object value) {
-    org.apache.myfaces.tobago.util.ComponentUtil.setValueForValueBinding(name, value);
+    ComponentUtils.setValueForValueBinding(name, value);
   }
 
   public static ValueBinding createValueBinding(String value) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.createValueBinding(value);
+    return ComponentUtils.createValueBinding(value);
   }
 
   public static String getValueFromEl(String script) {
     if (UIComponentTag.isValueReference(script)) {
-      ValueBinding valueBinding = org.apache.myfaces.tobago.util.ComponentUtil.createValueBinding(script);
+      ValueBinding valueBinding = ComponentUtils.createValueBinding(script);
       script = (String) valueBinding.getValue(FacesContext.getCurrentInstance());
     }
     return script;
@@ -280,7 +281,7 @@ public class ComponentUtil {
   public static UIComponent createComponent(FacesContext facesContext, String componentType, String rendererType, String id) {
     return CreateComponentUtils.createComponent(facesContext, componentType, rendererType, id);
   }
-
+  
   public static UIColumn createTextColumn(String label, String sortable, String align, String value, String id) {
     return (UIColumn) CreateComponentUtils.createTextColumn(label, sortable, align, value, id);
   }
@@ -298,7 +299,7 @@ public class ComponentUtil {
   }
 
   public static boolean hasSelectedValue(List<SelectItem> items, Object value) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.hasSelectedValue(items, value);
+    return ComponentUtils.hasSelectedValue(items, value);
   }
 
   public static UIComponent createUISelectBooleanFacet(FacesContext facesContext, UICommand command, String id) {
@@ -306,19 +307,19 @@ public class ComponentUtil {
   }
 
   public static int getIntValue(ValueBinding valueBinding) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.getIntValue(valueBinding);
+    return ComponentUtils.getIntValue(valueBinding);
   }
 
   public static String createPickerId(FacesContext facesContext, UIComponent component, String postfix) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.createPickerId(facesContext, component, postfix);
+    return ComponentUtils.createPickerId(facesContext, component, postfix);
   }
 
   public static String getComponentId(FacesContext facesContext, UIComponent component) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.getComponentId(facesContext, component);
+    return ComponentUtils.getComponentId(facesContext, component);
   }
 
   public static UIComponent provideLabel(FacesContext facesContext, UIComponent component) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.provideLabel(facesContext, component);
+    return ComponentUtils.provideLabel(facesContext, component);
   }
 
   public static List<SelectItem> getItemsToRender(javax.faces.component.UISelectOne component) {
@@ -330,15 +331,15 @@ public class ComponentUtil {
   }
 
   public static void setValidator(EditableValueHolder editableValueHolder, String validator) {
-    org.apache.myfaces.tobago.util.ComponentUtil.setValidator(editableValueHolder, validator);
+    ComponentUtils.setValidator(editableValueHolder, validator);
   }
 
   public static void setConverter(ValueHolder valueHolder, String converterId) {
-    org.apache.myfaces.tobago.util.ComponentUtil.setConverter(valueHolder, converterId);
+    ComponentUtils.setConverter(valueHolder, converterId);
   }
 
   public static void setAction(UICommand component, String type, String action) {
-    org.apache.myfaces.tobago.util.ComponentUtil.setAction(component, action);
+    ComponentUtils.setAction(component, action);
   }
 
   public static void setSuggestMethodBinding(UIInput component, String suggestMethod) {
@@ -355,11 +356,11 @@ public class ComponentUtil {
   }
 
   public static void setActionListener(ActionSource command, String actionListener) {
-    org.apache.myfaces.tobago.util.ComponentUtil.setActionListener(command, actionListener);
+    ComponentUtils.setActionListener(command, actionListener);
   }
 
   public static void setValueChangeListener(EditableValueHolder valueHolder, String valueChangeListener) {
-    org.apache.myfaces.tobago.util.ComponentUtil.setValueChangeListener(valueHolder, valueChangeListener);
+    ComponentUtils.setValueChangeListener(valueHolder, valueChangeListener);
   }
 
   public static void setSortActionListener(UIData data, String actionListener) {
@@ -378,7 +379,7 @@ public class ComponentUtil {
   }
 
   public static void setValueBinding(UIComponent component, String name, String state) {
-    org.apache.myfaces.tobago.util.ComponentUtil.setValueBinding(component, name, state);
+    ComponentUtils.setValueBinding(component, name, state);
   }
 
   public static void setStateChangeListener(UIData data, String stateChangeListener) {
@@ -399,10 +400,10 @@ public class ComponentUtil {
   }
 
   public static String[] getMarkupBinding(FacesContext facesContext, SupportsMarkup component) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.getMarkupBinding(facesContext, component);
+    return ComponentUtils.getMarkupBinding(facesContext, component);
   }
 
   public static UIComponent findComponent(UIComponent from, String relativeId) {
-    return org.apache.myfaces.tobago.util.ComponentUtil.findComponent(from, relativeId);
+    return ComponentUtils.findComponent(from, relativeId);
   }
 }
