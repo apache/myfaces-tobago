@@ -34,7 +34,6 @@ import org.apache.myfaces.tobago.example.demo.model.solar.Solar;
 import org.apache.myfaces.tobago.example.demo.model.solar.SolarObject;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.model.TreeState;
-import org.apache.myfaces.tobago.util.ComponentUtil;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIColumn;
@@ -279,11 +278,12 @@ public class TobagoDemoController {
 
     List<UIColumn> columns = new ArrayList<UIColumn>(3);
 
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      UIInput textbox = (UIInput)
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    UIInput textbox = (UIInput)
         CreateComponentUtils.createComponent(facesContext, UIInput.COMPONENT_TYPE, RendererTypes.IN, "sac1i");
-    ComponentUtil.setStringProperty(
-        textbox, Attributes.VALUE, "#{luminary.population}");
+    textbox.setValueBinding(
+        Attributes.VALUE, facesContext.getApplication().createValueBinding("#{luminary.population}"));
+
     columns.add(CreateComponentUtils.createColumn(
         "#{overviewBundle.solarArrayPopulation}", "true", null, textbox, "sac1"));
 
