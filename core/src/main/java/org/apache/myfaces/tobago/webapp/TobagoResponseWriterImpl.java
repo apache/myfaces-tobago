@@ -120,7 +120,6 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
     return stack;
   }
 
-
   public final boolean isXml() {
     return xml;
   }
@@ -412,7 +411,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
     styles = addLayout(styles);
 
     if (styles != null) {
-      writeAttribute(HtmlAttributes.STYLE, styles.toString(), false);
+      writeAttribute(HtmlAttributes.STYLE, styles.encode(), false);
     }
   }
 
@@ -429,7 +428,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
         width = width.substractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.padding-right"));
         width = width.substractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.border-right-width"));
         styles = ensureHtmlStyleMap(component, styles);
-        styles.put(Attributes.WIDTH, width);
+        styles.setWidth(width);
       }
       Measure height = layoutComponent.getHeight();
       if (height != null) {
@@ -440,28 +439,28 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
         height
             = height.substractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.border-bottom-width"));
         styles = ensureHtmlStyleMap(component, styles);
-        styles.put(Attributes.HEIGHT, height);
+        styles.setHeight(height);
       }
       Measure left = layoutComponent.getLeft();
       if (left != null) {
         styles = ensureHtmlStyleMap(component, styles);
-        styles.put(Attributes.LEFT, left);
+        styles.setLeft(left);
       }
       Measure top = layoutComponent.getTop();
       if (top != null) {
         styles = ensureHtmlStyleMap(component, styles);
-        styles.put(Attributes.TOP, top);
+        styles.setTop(top);
       }
       // if there are a position coordinates, activate absolute positioning
       // XXX String "Page" is not nice here
       if ((left != null || top != null) && !component.getRendererType().contains("Page")) {
         styles = ensureHtmlStyleMap(component, styles);
-        styles.put(CssProperties.POSITION, CssProperties.Position.ABSOLUTE);
+        styles.setPosition(CssProperties.Position.ABSOLUTE);
       }
       Display display = layoutComponent.getDisplay();
       if (display != null) {
         styles = ensureHtmlStyleMap(component, styles);
-        styles.put(CssProperties.DISPLAY, display.getValue());
+        styles.setDisplay(display);
       }
     }
     return styles;
