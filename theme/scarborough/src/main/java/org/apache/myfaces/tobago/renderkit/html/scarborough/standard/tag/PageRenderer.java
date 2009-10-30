@@ -50,6 +50,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -62,12 +64,14 @@ public class PageRenderer extends PageRendererBase {
 
   private static final Log LOG = LogFactory.getLog(PageRenderer.class);
 
-  private static final String DOCTYPE_STRICT =
+  private static final String XHTML_DOCTYPE =
+      "<!DOCTYPE html "
+          + "     PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\""
+          + "     \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">";
+
+  private static final String HTML_DOCTYPE =
       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\""
           + " \"http://www.w3.org/TR/html4/strict.dtd\">";
-//      "<!DOCTYPE html "
-//          + "     PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\""
-//          + "     \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">";
 
   private static final String CLIENT_DEBUG_SEVERITY = "clientDebugSeverity";
   private static final String LAST_FOCUS_ID = "lastFocusId";
@@ -105,12 +109,12 @@ public class PageRenderer extends PageRendererBase {
 
 // LAYOUT Begin
 
-//    try {
-      LayoutContext2 layoutContext = new LayoutContext2(page);
-      layoutContext.layout();
-//    } catch (Throwable e) {
-//      LOG.info("testing... ", e);
-//    }
+    long begin = System.nanoTime();
+    LayoutContext2 layoutContext = new LayoutContext2(page);
+    layoutContext.layout();
+    long end = System.nanoTime();
+    NumberFormat format = new DecimalFormat("#,##0");
+    LOG.info("layouting takes: " + format.format(end-begin) + " ns");
 
 // LAYOUT End
 
@@ -141,11 +145,17 @@ public class PageRenderer extends PageRendererBase {
 
     String title = (String) page.getAttributes().get(Attributes.LABEL);
 
-    writer.write(DOCTYPE_STRICT);
+    if (writer.isXml()) {
+      writer.write(XHTML_DOCTYPE);
+    } else {
+      writer.write(HTML_DOCTYPE);
+    }
     writer.write('\n');
 
     writer.startElement(HtmlConstants.HTML, null);
-//    writer.writeAttribute("xmlns", "http://www.w3.org/1999/xhtml", false);
+    if (writer.isXml()) {
+      writer.writeAttribute("xmlns", "http://www.w3.org/1999/xhtml", false);
+    }
     writer.startElement(HtmlConstants.HEAD, null);
     final boolean debugMode = ClientProperties.getInstance(facesContext.getViewRoot()).isDebugMode();
 

@@ -79,8 +79,8 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
 
   private HtmlWriterUtil helper;
 
-  public TobagoResponseWriterImpl(final Writer writer, final String contentType,
-      final String characterEncoding) {
+  public TobagoResponseWriterImpl(
+      Writer writer, String contentType, String characterEncoding, boolean xml) {
 //    LOG.info("new TobagoResponseWriterImpl!");
 //    final StackTraceElement[] stackTrace = new Exception().getStackTrace();
 //    for (int i = 1; i < stackTrace.length && i < 5; i++) {
@@ -90,14 +90,9 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
     this.component = null;
     this.stack = new Stack<String>();
     this.contentType = contentType;
-    this.characterEncoding
-        = characterEncoding != null ? characterEncoding : "UTF-8";
-    if ("application/xhtml".equals(contentType)
-        || "application/xml".equals(contentType)
-        || "text/xml".equals(contentType)) {
-      xml = true;
-    }
-    helper = new HtmlWriterUtil(writer, characterEncoding);
+    this.characterEncoding = characterEncoding != null ? characterEncoding : "UTF-8";
+    this.xml = xml;
+    this.helper = new HtmlWriterUtil(writer, characterEncoding);
   }
 
   protected final UIComponent getComponent() {
@@ -337,7 +332,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
 
   public ResponseWriter cloneWithWriter(final Writer originalWriter) {
     return new TobagoResponseWriterImpl(
-        originalWriter, getContentType(), getCharacterEncoding());
+        originalWriter, getContentType(), getCharacterEncoding(), isXml());
   }
 
   public void writeAttribute(final String name, final Object value, final String property)

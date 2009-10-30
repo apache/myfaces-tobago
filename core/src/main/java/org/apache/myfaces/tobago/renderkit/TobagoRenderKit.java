@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 import org.apache.myfaces.tobago.webapp.TobagoResponseJsonWriterImpl;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.FactoryFinder;
 import javax.faces.context.FacesContext;
@@ -32,8 +32,8 @@ import javax.faces.render.Renderer;
 import javax.faces.render.ResponseStateManager;
 import java.io.OutputStream;
 import java.io.Writer;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 public class TobagoRenderKit extends RenderKit {
 
@@ -91,12 +91,23 @@ public class TobagoRenderKit extends RenderKit {
       contentType = "text/fo";
       LOG.warn("patching content type from " + contentTypeList + " to " + contentType + "'");
     } else if (contentTypeList.indexOf("application/json") > -1) {
-      return new TobagoResponseJsonWriterImpl(writer, "application/json", characterEncoding);
+      return new TobagoResponseJsonWriterImpl(writer, "application/json", characterEncoding, false);
     } else {
       contentType = "text/html";
       LOG.warn("Content-Type '" + contentTypeList + "' not supported! Using text/html");
     }
-    return new TobagoResponseWriterImpl(writer, contentType, characterEncoding);
+
+    boolean xml = false;
+    if ("application/xhtml".equals(contentType)
+        || "application/xml".equals(contentType)
+        || "text/xml".equals(contentType)) {
+      xml = true;
+    }
+    // XXX for XHTML 1.0 the content type must be set to "text/html" for IE6
+    // XXX so at this time we can't differ ...
+//    xml = true;
+
+    return new TobagoResponseWriterImpl(writer, contentType, characterEncoding, xml);
   }
 
   @Override

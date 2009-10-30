@@ -49,6 +49,8 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   public abstract void endElement(String name) throws IOException;
 
+  public abstract boolean isXml();
+    
   public abstract void write(String string) throws IOException;
 
   public abstract void writeComment(Object comment) throws IOException;

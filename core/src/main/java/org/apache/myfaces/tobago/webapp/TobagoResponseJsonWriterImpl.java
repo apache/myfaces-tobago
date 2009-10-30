@@ -17,25 +17,26 @@ package org.apache.myfaces.tobago.webapp;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.util.FastStringWriter;
-import org.apache.myfaces.tobago.util.XmlUtils;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.util.FastStringWriter;
+import org.apache.myfaces.tobago.util.XmlUtils;
 
 import javax.faces.component.UIComponent;
-import java.io.Writer;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.EmptyStackException;
 
 public class TobagoResponseJsonWriterImpl extends TobagoResponseWriterImpl {
+
   private static final Log LOG = LogFactory.getLog(TobagoResponseWriterImpl.class);
 
   private Writer javascriptWriter;
   private boolean javascriptMode;
 
-  public TobagoResponseJsonWriterImpl(Writer writer, String contentType, String characterEncoding) {
-    super(writer, contentType, characterEncoding);
+  public TobagoResponseJsonWriterImpl(Writer writer, String contentType, String characterEncoding, boolean xml) {
+    super(writer, contentType, characterEncoding, xml);
     this.javascriptWriter = new FastStringWriter();
   }
 
