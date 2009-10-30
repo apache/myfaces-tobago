@@ -378,7 +378,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
 
     // find the "left" positions
     for (int j = 0; j < grid.getRows().getSize(); j++) {
-      PixelMeasure left = (PixelMeasure) container.getLeftOffset();
+      Measure left = container.getLeftOffset();
       for (int i = 0; i < grid.getColumns().getSize(); i++) {
         Cell cell = grid.getCell(i, j);
         if (cell == null) {
@@ -389,14 +389,14 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
           component.setLeft(left);
         }
         EquationManager horizontal = layoutContext.getHorizontal();
-        left = (PixelMeasure) left.add(horizontal.getResult()[grid.getHorizontalIndices()[i]]);
-        left = (PixelMeasure) left.add(getColumnSpacing());
+        left = left.add(horizontal.getResult()[grid.getHorizontalIndices()[i]]);
+        left = left.add(getColumnSpacing());
       }
     }
 
     // find the "top" positions
     for (int i = 0; i < grid.getColumns().getSize(); i++) {
-      PixelMeasure top = (PixelMeasure) container.getTopOffset();
+      Measure top = container.getTopOffset();
       for (int j = 0; j < grid.getRows().getSize(); j++) {
         Cell cell = grid.getCell(i, j);
         if (cell == null) {
@@ -407,8 +407,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
           component.setTop(top);
         }
         EquationManager vertical = layoutContext.getVertical();
-        top = (PixelMeasure) top.add(vertical.getResult()[grid.getVerticalIndices()[j]]);
-        top = (PixelMeasure) top.add(getRowSpacing());
+        top = top.add(vertical.getResult()[grid.getVerticalIndices()[j]]);
+        top = top.add(getRowSpacing());
       }
     }
   }
