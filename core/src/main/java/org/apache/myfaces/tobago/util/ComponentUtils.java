@@ -71,12 +71,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class ComponentUtil {
+public class ComponentUtils {
 
-  private static final Log LOG = LogFactory.getLog(ComponentUtil.class);
+  private static final Log LOG = LogFactory.getLog(ComponentUtils.class);
 
   private static final String RENDER_KEY_PREFIX
-      = "org.apache.myfaces.tobago.util.ComponentUtil.RendererKeyPrefix_";
+      = "org.apache.myfaces.tobago.util.ComponentUtils.RendererKeyPrefix_";
 
   private static final String PAGE_KEY = "org.apache.myfaces.tobago.Page.Key";
 
@@ -86,7 +86,7 @@ public class ComponentUtil {
   public static final Class[] VALIDATOR_ARGS = {FacesContext.class, UIComponent.class, Object.class};
   public static final String LIST_SEPARATOR_CHARS = ", ";
 
-  private ComponentUtil() {
+  private ComponentUtils() {
   }
 
   public static boolean hasErrorMessages(FacesContext context) {
@@ -292,7 +292,7 @@ public class ComponentUtil {
 
   public static boolean mayValidate(UIComponent component) {
     return !isOutputOnly(component)
-        && ComponentUtil.isInActiveForm(component);
+        && ComponentUtils.isInActiveForm(component);
   }
 
   public static boolean mayUpdateModel(UIComponent component) {
@@ -327,16 +327,6 @@ public class ComponentUtil {
 
   public static ValueBinding createValueBinding(String value) {
     return FacesContext.getCurrentInstance().getApplication().createValueBinding(value);
-  }
-
-  public static void setStringProperty(UIComponent component, String name, String value) {
-    if (value != null) {
-      if (UIComponentTag.isValueReference(value)) {
-        component.setValueBinding(name, createValueBinding(value));
-      } else {
-        component.getAttributes().put(name, value);
-      }
-    }
   }
 
   public static void setStyleClasses(UIComponent component, String styleClasses) {
@@ -585,7 +575,7 @@ public class ComponentUtil {
   }
 
   public static boolean isHoverEnabled(UIComponent component) {
-    return ComponentUtil.getBooleanAttribute(component, Attributes.HOVER);
+    return ComponentUtils.getBooleanAttribute(component, Attributes.HOVER);
   }
 
   public static UIOutput getFirstNonGraphicChild(UIComponent component) {
@@ -683,7 +673,7 @@ public class ComponentUtil {
         Application application = FacesContext.getCurrentInstance().getApplication();
         label = application.createComponent(UIOutput.COMPONENT_TYPE);
         label.setRendererType(RendererTypes.LABEL);
-        String idprefix = ComponentUtil.getComponentId(facesContext, component);
+        String idprefix = ComponentUtils.getComponentId(facesContext, component);
         label.setId(idprefix + "_" + Facets.LABEL);
         label.setRendered(true);
 
