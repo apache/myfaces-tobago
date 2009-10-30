@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -46,7 +46,7 @@ public class LabelRenderer extends LayoutableRendererBase {
 
     LabelWithAccessKey label = new LabelWithAccessKey(component);
 
-    String forValue = ComponentUtil.findClientIdFor(output, facesContext);
+    String forValue = ComponentUtils.findClientIdFor(output, facesContext);
 
     createClassAttribute(component);
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
@@ -101,7 +101,7 @@ public class LabelRenderer extends LayoutableRendererBase {
 
       // try to find belonging component
       // this can only success if the component was rendered (created) before this label
-      parent = ComponentUtil.findFor(component);
+      parent = ComponentUtils.findFor(component);
     }
     if (parent == null) {
       parent = component;

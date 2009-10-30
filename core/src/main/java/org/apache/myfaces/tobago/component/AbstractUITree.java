@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.NamingContainer;
@@ -81,7 +81,7 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
 
   public boolean isSelectableTree() {
     final Object selectable
-        = ComponentUtil.getAttribute(this, Attributes.SELECTABLE);
+        = ComponentUtils.getAttribute(this, Attributes.SELECTABLE);
     return selectable != null
         && (selectable.equals("multi") || selectable.equals("multiLeafOnly")
         || selectable.equals("single") || selectable.equals("singleLeafOnly")
@@ -94,7 +94,7 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
       return;
     }
 
-    if (ComponentUtil.isOutputOnly(this)) {
+    if (ComponentUtils.isOutputOnly(this)) {
       setValid(true);
     } else {
       // in tree first decode node and than decode children
@@ -119,7 +119,7 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
       context.addMessage(getClientId(context), facesMessage);
     }
 
-    String selectable = ComponentUtil.getStringAttribute(this, SELECTABLE);
+    String selectable = ComponentUtils.getStringAttribute(this, SELECTABLE);
     if (selectable != null && selectable.endsWith("LeafOnly")) {
 
       Set<DefaultMutableTreeNode> selection = getState().getSelection();

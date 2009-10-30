@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -64,7 +64,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     String clientId = selectOne.getClientId(facesContext);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtil.getBooleanAttribute(selectOne, Attributes.DISABLED));
+    writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtils.getBooleanAttribute(selectOne, Attributes.DISABLED));
     Integer tabIndex = selectOne.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
@@ -73,7 +73,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     writer.writeClassAttribute();
     HtmlRendererUtil.renderTip(selectOne, writer);
     writer.writeAttribute(HtmlAttributes.SIZE, 2); // should be greater 1
-    if (!ComponentUtil.getBooleanAttribute(selectOne, Attributes.REQUIRED)) {
+    if (!ComponentUtils.getBooleanAttribute(selectOne, Attributes.REQUIRED)) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, "Tobago.selectOneListboxChange(this)", false);
       writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneListboxClick(this)", false);
     }

@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UICommand;
@@ -48,7 +48,7 @@ public class ButtonRenderer extends LayoutableRendererBase {
       throws IOException {
 
     UICommand command = (UICommand) component;
-    AbstractUIPage page = ComponentUtil.findPage(facesContext, command);
+    AbstractUIPage page = ComponentUtils.findPage(facesContext, command);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     // TODO

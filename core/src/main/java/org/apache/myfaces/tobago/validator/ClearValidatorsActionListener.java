@@ -24,7 +24,7 @@ package org.apache.myfaces.tobago.validator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -50,7 +50,7 @@ public class ClearValidatorsActionListener implements ActionListener {
     }
     UIComponent source = actionEvent.getComponent();
     String clearValidatorsFieldIds
-        = (String) ComponentUtil.findParameter(source, "clearValidatorsFieldIds");
+        = (String) ComponentUtils.findParameter(source, "clearValidatorsFieldIds");
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("clearValidatorsFieldIds = '" + clearValidatorsFieldIds + "'");

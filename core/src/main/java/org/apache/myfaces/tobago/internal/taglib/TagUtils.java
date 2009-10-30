@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.TabChangeSource;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.application.Application;
 import javax.faces.component.ActionSource;
@@ -179,7 +179,7 @@ public class TagUtils {
       if (UIComponentTag.isValueReference(value)) {
         component.setValueBinding(name, createValueBinding(value));
       } else {
-        String[] components = ComponentUtil.splitList(value);
+        String[] components = ComponentUtils.splitList(value);
         try {
           PropertyUtils.setProperty(component, name, components);
         } catch (IllegalAccessException e) {

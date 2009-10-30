@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
@@ -55,14 +55,14 @@ public class MessageRenderer extends MessageRendererBase {
 
     UIMessage component = (UIMessage) uiComponent;
 
-    String clientId = ComponentUtil.findClientIdFor(component, facesContext);
+    String clientId = ComponentUtils.findClientIdFor(component, facesContext);
 
     Iterator iterator = facesContext.getMessages(clientId);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    boolean showSummary = ComponentUtil.getBooleanAttribute(component, Attributes.SHOW_SUMMARY);
-    boolean showDetail = ComponentUtil.getBooleanAttribute(component, Attributes.SHOW_DETAIL);
+    boolean showSummary = ComponentUtils.getBooleanAttribute(component, Attributes.SHOW_SUMMARY);
+    boolean showDetail = ComponentUtils.getBooleanAttribute(component, Attributes.SHOW_DETAIL);
 
     writer.startElement(HtmlConstants.SPAN, component);
     writer.writeClassAttribute("tobago-validation-message");

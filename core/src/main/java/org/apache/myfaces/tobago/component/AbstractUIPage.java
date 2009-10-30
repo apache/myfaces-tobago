@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.collections.KeyValue;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.layout.Box;
@@ -30,7 +31,7 @@ import org.apache.myfaces.tobago.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.PageState;
 import org.apache.myfaces.tobago.model.PageStateImpl;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
 import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
 
@@ -46,8 +47,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
-
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 
 public abstract class AbstractUIPage extends AbstractUIForm 
     implements OnComponentPopulated, InvokeOnComponent, LayoutContainer, DeprecatedDimension {
@@ -183,7 +182,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
     }
 
     if (command != null) {
-      AbstractUIForm form = ComponentUtil.findForm(command);
+      AbstractUIForm form = ComponentUtils.findForm(command);
       form.setSubmitted(true);
 
       if (LOG.isTraceEnabled()) {

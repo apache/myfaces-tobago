@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.FastStringWriter;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -54,7 +54,7 @@ public class TreeRenderer extends LayoutableRendererBase {
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
-    if (ComponentUtil.isOutputOnly(component)) {
+    if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
 

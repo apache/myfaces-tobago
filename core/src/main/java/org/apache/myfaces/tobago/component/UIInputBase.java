@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.component;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -30,7 +30,7 @@ public abstract class UIInputBase extends javax.faces.component.UIInput
 
   // TODO can this removed?
   public void updateModel(FacesContext facesContext) {
-    if (ComponentUtil.mayUpdateModel(this)) {
+    if (ComponentUtils.mayUpdateModel(this)) {
       super.updateModel(facesContext);
     }
   }

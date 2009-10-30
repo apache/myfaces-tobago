@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -69,7 +69,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
   public void decode(FacesContext facesContext, UIComponent component) {
     super.decode(facesContext, component);
     String clientId = component.getClientId(facesContext);
-    AbstractUIPage page = ComponentUtil.findPage(component);
+    AbstractUIPage page = ComponentUtils.findPage(component);
     if (clientId.equals(page.getActionId())) {
       // this is a inputSuggest request -> render response
       facesContext.renderResponse();
@@ -90,7 +90,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     if (LOG.isDebugEnabled()) {
       LOG.debug("currentValue = '" + currentValue + "'");
     }
-    String type = ComponentUtil.getBooleanAttribute(input,
+    String type = ComponentUtils.getBooleanAttribute(input,
         Attributes.PASSWORD) ? "password" : "text";
 
     // Todo: check for valid binding
@@ -120,8 +120,8 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     if (maxLength > 0) {
       writer.writeAttribute(HtmlAttributes.MAXLENGTH, maxLength);
     }
-    writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtil.getBooleanAttribute(input, Attributes.READONLY));
-    writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtil.getBooleanAttribute(input, Attributes.DISABLED));
+    writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtils.getBooleanAttribute(input, Attributes.READONLY));
+    writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED));
     Integer tabIndex = input.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
@@ -142,7 +142,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
 
     HtmlRendererUtil.checkForCommandFacet(input, facesContext, writer);
 
-    boolean required = ComponentUtil.getBooleanAttribute(input, Attributes.REQUIRED);
+    boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
     String rendererName = HtmlRendererUtil.getRendererName(facesContext, input);
     if (required && !renderAjaxSuggest) {
       final String[] cmds = {
@@ -176,7 +176,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
 
   protected void applyExtraStyle(FacesContext facesContext, UIInputBase input, String currentValue) {
     if (currentValue != null && currentValue.length() > 0
-        && ComponentUtil.getBooleanAttribute(input, Attributes.REQUIRED)) {
+        && ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED)) {
       StyleClasses styleClasses = StyleClasses.ensureStyleClasses(input);
       String rendererName = HtmlRendererUtil.getRendererName(facesContext, input);
       styleClasses.removeAspectClass(rendererName, StyleClasses.Aspect.REQUIRED);

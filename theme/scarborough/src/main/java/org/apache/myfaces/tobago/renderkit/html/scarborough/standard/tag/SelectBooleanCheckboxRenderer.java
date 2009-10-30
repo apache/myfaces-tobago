@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -47,7 +47,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
 
     UIInput input = (UIInput) component;
 
-    if (ComponentUtil.isOutputOnly(input)) {
+    if (ComponentUtils.isOutputOnly(input)) {
       return;
     }
 
@@ -79,9 +79,9 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    UIComponent label = ComponentUtil.provideLabel(facesContext, selectBoolean);
+    UIComponent label = ComponentUtils.provideLabel(facesContext, selectBoolean);
 
-    boolean inline = ComponentUtil.getBooleanAttribute(selectBoolean, Attributes.INLINE);
+    boolean inline = ComponentUtils.getBooleanAttribute(selectBoolean, Attributes.INLINE);
 
     if (label != null && !inline) {
 
@@ -103,7 +103,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
     writer.writeAttribute(HtmlAttributes.TYPE, "checkbox", false);
     writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
     writer.writeAttribute(HtmlAttributes.CHECKED, checked);
-    if (ComponentUtil.getBooleanAttribute(selectBoolean, Attributes.READONLY)) {
+    if (ComponentUtils.getBooleanAttribute(selectBoolean, Attributes.READONLY)) {
       writer.writeAttribute(HtmlAttributes.READONLY, true);
       if (checked) {
         writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=true", false);
@@ -115,7 +115,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
     writer.writeClassAttribute();
     writer.writeIdAttribute(selectBoolean.getClientId(facesContext));
     writer.writeAttribute(HtmlAttributes.DISABLED,
-        ComponentUtil.getBooleanAttribute(selectBoolean, Attributes.DISABLED));
+        ComponentUtils.getBooleanAttribute(selectBoolean, Attributes.DISABLED));
     Integer tabIndex = selectBoolean.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);

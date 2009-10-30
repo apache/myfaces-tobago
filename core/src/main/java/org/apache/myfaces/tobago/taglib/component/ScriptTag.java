@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.jsp.JspException;
@@ -66,7 +66,7 @@ public abstract class ScriptTag extends BodyTagSupport {
   public int doEndTag() throws JspException {
 
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    AbstractUIPage page = ComponentUtil.findPage(facesContext);
+    AbstractUIPage page = ComponentUtils.findPage(facesContext);
     if (page == null) {
       throw new JspException("The ScriptTag cannot find UIPage. "
           + "Check you have defined the ScriptTag inside of the PageTag!");

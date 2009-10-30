@@ -20,8 +20,8 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.component.AbstractUIForm;
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 
 public class ProcessValidationsCallback implements javax.faces.component.ContextCallback {
 
@@ -31,7 +31,7 @@ public class ProcessValidationsCallback implements javax.faces.component.Context
       component.processValidators(facesContext);
     } else {
       // if we're not the submitted form, only process subforms.
-      for (AbstractUIForm subForm : ComponentUtil.findSubForms(component)) {
+      for (AbstractUIForm subForm : ComponentUtils.findSubForms(component)) {
         subForm.processValidators(facesContext);
       }
     }

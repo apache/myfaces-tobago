@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -70,8 +70,8 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     String clientId = selectMany.getClientId(facesContext);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    boolean renderDisabled = ComponentUtil.getBooleanAttribute(selectMany, Attributes.DISABLED)
-        || ComponentUtil.getBooleanAttribute(selectMany, Attributes.READONLY);
+    boolean renderDisabled = ComponentUtils.getBooleanAttribute(selectMany, Attributes.DISABLED)
+        || ComponentUtils.getBooleanAttribute(selectMany, Attributes.READONLY);
       writer.writeAttribute(HtmlAttributes.DISABLED, renderDisabled);
     Integer tabIndex = selectMany.getTabIndex();
     if (tabIndex != null) {

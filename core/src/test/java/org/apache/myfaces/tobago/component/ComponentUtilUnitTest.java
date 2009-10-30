@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -25,10 +25,10 @@ public class ComponentUtilUnitTest {
 
   @Test
   public void testSplitList() {
-    Assert.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtil.splitList("ab cd"));
-    Assert.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtil.splitList("ab  cd"));
-    Assert.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtil.splitList("ab,  cd"));
-    Assert.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtil.splitList("ab , cd"));
-    Assert.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtil.splitList("ab,,cd"));
+    Assert.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtils.splitList("ab cd"));
+    Assert.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtils.splitList("ab  cd"));
+    Assert.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtils.splitList("ab,  cd"));
+    Assert.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtils.splitList("ab , cd"));
+    Assert.assertArrayEquals(new String[]{"ab", "cd"}, ComponentUtils.splitList("ab,,cd"));
   }
 }

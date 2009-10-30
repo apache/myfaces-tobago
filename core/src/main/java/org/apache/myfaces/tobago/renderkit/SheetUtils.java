@@ -17,16 +17,16 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.event.PageActionEvent;
-import org.apache.myfaces.tobago.event.PageAction;
-import org.apache.myfaces.tobago.event.PageActionUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import org.apache.myfaces.tobago.event.PageAction;
+import org.apache.myfaces.tobago.event.PageActionEvent;
+import org.apache.myfaces.tobago.event.PageActionUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import java.util.Map;
 
 /*
@@ -39,7 +39,7 @@ public class SheetUtils {
   private static final Log LOG = LogFactory.getLog(SheetUtils.class);
 
   public static void decode(FacesContext facesContext, UIComponent component) {
-    String actionId = ComponentUtil.findPage(facesContext, component).getActionId();
+    String actionId = ComponentUtils.findPage(facesContext, component).getActionId();
     String clientId = component.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {
       LOG.debug("actionId = '" + actionId + "'");

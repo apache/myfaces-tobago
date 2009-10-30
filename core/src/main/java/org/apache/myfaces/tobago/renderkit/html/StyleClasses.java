@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -213,18 +213,18 @@ public class StyleClasses implements Serializable {
     removeTobagoClasses(rendererName);
 
     addAspectClass(rendererName, Aspect.DEFAULT);
-    if (ComponentUtil.getBooleanAttribute(component, Attributes.DISABLED)) {
+    if (ComponentUtils.getBooleanAttribute(component, Attributes.DISABLED)) {
       addAspectClass(rendererName, Aspect.DISABLED);
     }
-    if (ComponentUtil.getBooleanAttribute(component, Attributes.READONLY)) {
+    if (ComponentUtils.getBooleanAttribute(component, Attributes.READONLY)) {
       addAspectClass(rendererName, Aspect.READONLY);
     }
-    if (ComponentUtil.getBooleanAttribute(component, Attributes.INLINE)) {
+    if (ComponentUtils.getBooleanAttribute(component, Attributes.INLINE)) {
       addAspectClass(rendererName, Aspect.INLINE);
     }
     if (component instanceof UIInput) {
       UIInput input = (UIInput) component;
-      if (ComponentUtil.isError(input)) {
+      if (ComponentUtils.isError(input)) {
         addAspectClass(rendererName, Aspect.ERROR);
       }
       if (input.isRequired()) {

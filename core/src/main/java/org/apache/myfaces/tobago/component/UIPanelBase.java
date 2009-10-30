@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
@@ -40,7 +40,7 @@ public abstract class UIPanelBase extends javax.faces.component.UIPanel
       final String ajaxId = ((TobagoFacesContext) context).getAjaxComponentId();
       UIComponent reload = getFacet(Facets.RELOAD);
       if (ajaxId != null && ajaxId.equals(getClientId(context)) && reload != null && reload.isRendered()
-          && ajaxId.equals(ComponentUtil.findPage(context, this).getActionId())) {
+          && ajaxId.equals(ComponentUtils.findPage(context, this).getActionId())) {
         Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
         if (immediate != null && immediate) {
           Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);

@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
@@ -30,15 +30,15 @@ import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Arrays;
+import java.util.List;
 
 public class SelectManyRendererBase extends LayoutableRendererBase {
 
   private static final Log LOG = LogFactory.getLog(SelectManyRendererBase.class);
 
   public void decode(FacesContext facesContext, UIComponent component) {
-    if (ComponentUtil.isOutputOnly(component)) {
+    if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
     if (component instanceof UISelectMany) {

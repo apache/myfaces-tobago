@@ -27,7 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -50,7 +50,7 @@ public class VerbatimRenderer extends LayoutableRendererBase {
       return;
     }
 
-    if (ComponentUtil.getBooleanAttribute(component, Attributes.ESCAPE)) {
+    if (ComponentUtils.getBooleanAttribute(component, Attributes.ESCAPE)) {
       writer.writeText(value, null);
     } else {
       writer.write(value);

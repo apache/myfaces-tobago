@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.LayoutUtils;
 import org.apache.myfaces.tobago.model.SheetState;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
@@ -355,7 +355,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
       final String ajaxId = ((TobagoFacesContext) context).getAjaxComponentId();
       UIComponent reload = getFacet(Facets.RELOAD);
       if (ajaxId != null && ajaxId.equals(getClientId(context)) && reload != null && reload.isRendered()
-          && ajaxId.equals(ComponentUtil.findPage(context, this).getActionId())) {
+          && ajaxId.equals(ComponentUtils.findPage(context, this).getActionId())) {
         Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
         if (immediate != null && immediate) {
           Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
@@ -375,7 +375,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
 
   public void encodeAjax(FacesContext facesContext) throws IOException {
     // TODO neets more testing!!!
-    //if (!facesContext.getRenderResponse() && !ComponentUtil.hasErrorMessages(facesContext)) {
+    //if (!facesContext.getRenderResponse() && !ComponentUtils.hasErrorMessages(facesContext)) {
     // in encodeBegin of superclass is some logic which clears the DataModel
     // this must here also done.
     // in RI and myfaces this could done via setValue(null)

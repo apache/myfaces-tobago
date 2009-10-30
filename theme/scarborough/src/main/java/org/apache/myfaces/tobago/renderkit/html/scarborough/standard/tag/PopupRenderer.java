@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -121,7 +121,7 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
       writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + HtmlConstants.IFRAME);
       writer.writeClassAttribute("tobago-popup-iframe tobago-popup-none");
       writer.writeStyleAttribute("z-index: " + (zIndex + 2) + ";");
-      UIPage page = (UIPage) ComponentUtil.findPage(facesContext);
+      UIPage page = (UIPage) ComponentUtils.findPage(facesContext);
       if (component.getModal()) {
         final StringBuilder frameSize = new StringBuilder(32);
         // full client area

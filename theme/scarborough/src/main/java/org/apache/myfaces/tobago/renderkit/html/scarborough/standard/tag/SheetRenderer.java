@@ -60,7 +60,7 @@ import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.util.StringUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -388,7 +388,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 
         if (column instanceof UIColumnSelector) {
           final boolean disabled
-              = ComponentUtil.getBooleanAttribute(column, Attributes.DISABLED);
+              = ComponentUtils.getBooleanAttribute(column, Attributes.DISABLED);
           writer.startElement(HtmlConstants.IMG, null);
           if (disabled) {
             writer.writeAttribute(HtmlAttributes.SRC, selectorDisabled, false);
@@ -690,7 +690,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
   }
 
   private String getPagingAttribute(UIData component, String name) {
-    String value = ComponentUtil.getStringAttribute(component, name);
+    String value = ComponentUtils.getStringAttribute(component, name);
     if (isValidPagingValue(value)) {
       return value;
     } else {
@@ -783,7 +783,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     String sorterImage = null;
     String sorterClass = "";
     String sortTitle = null;
-    boolean sortable = ComponentUtil.getBooleanAttribute(column, Attributes.SORTABLE);
+    boolean sortable = ComponentUtils.getBooleanAttribute(column, Attributes.SORTABLE);
     if (sortable && !(column instanceof UIColumnSelector)) {
       UICommand sortCommand = (UICommand) column.getFacet(Facets.SORTER);
       if (sortCommand == null) {
@@ -943,7 +943,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     String label = (String) column.getAttributes().get(Attributes.LABEL);
     if (label != null) {
       writer.writeText(label, null);
-      if (ComponentUtil.getBooleanAttribute(column, Attributes.SORTABLE) && "right".equals(align)) {
+      if (ComponentUtils.getBooleanAttribute(column, Attributes.SORTABLE) && "right".equals(align)) {
         writer.startElement(HtmlConstants.IMG, null);
         writer.writeAttribute(HtmlAttributes.SRC, image1x1, false);
         writer.writeAttribute(HtmlAttributes.ALT, "", false);
@@ -972,7 +972,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     String onclick = new CommandRendererHelper(facesContext, pagerCommand).getOnclickDoubleQuoted();
     String hrefPostfix = "', '" + onclick + "');";
 
-    int linkCount = ComponentUtil.getIntAttribute(data, Attributes.DIRECT_LINK_COUNT);
+    int linkCount = ComponentUtils.getIntAttribute(data, Attributes.DIRECT_LINK_COUNT);
     linkCount--;  // current page needs no link
     ArrayList<Integer> prevs = new ArrayList<Integer>(linkCount);
     int page = data.getPage();

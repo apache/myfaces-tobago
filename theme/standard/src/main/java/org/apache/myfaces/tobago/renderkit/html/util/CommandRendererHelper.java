@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.PopupActionListener;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
@@ -61,7 +61,7 @@ public class CommandRendererHelper {
 
   private void initOnclick(FacesContext facesContext, UICommandBase command, Tag tag) {
 
-    disabled = ComponentUtil.getBooleanAttribute(command, Attributes.DISABLED);
+    disabled = ComponentUtils.getBooleanAttribute(command, Attributes.DISABLED);
     href = getEmptyHref(facesContext);
 
     if (disabled) {
@@ -71,14 +71,14 @@ public class CommandRendererHelper {
 
       UIPopup popup = (UIPopup) command.getFacet(Facets.POPUP);
       if (popup != null) {
-        if (!ComponentUtil.containsPopupActionListener(command)) {
+        if (!ComponentUtils.containsPopupActionListener(command)) {
           command.addActionListener(new PopupActionListener(popup));
         }
       }
 
       String clientId = command.getClientId(facesContext);
-      boolean defaultCommand = ComponentUtil.getBooleanAttribute(command, Attributes.DEFAULT_COMMAND);
-      boolean transition = ComponentUtil.getBooleanAttribute(command, Attributes.TRANSITION);
+      boolean defaultCommand = ComponentUtils.getBooleanAttribute(command, Attributes.DEFAULT_COMMAND);
+      boolean transition = ComponentUtils.getBooleanAttribute(command, Attributes.TRANSITION);
 
       if (command.getLink() != null || command.getResource() != null) {
         String url = generateUrl(facesContext, command);
@@ -98,7 +98,7 @@ public class CommandRendererHelper {
         String[] componentIds = ((UICommandBase) command).getRenderedPartially();
 
           // TODO find a better way
-          boolean popupAction = ComponentUtil.containsPopupActionListener(command);
+          boolean popupAction = ComponentUtils.containsPopupActionListener(command);
           if (popupAction) {
             if (componentIds.length != 1) {
               LOG.warn("more than one parially rendered component is not supported for popup! using first one: "
@@ -112,10 +112,10 @@ public class CommandRendererHelper {
           }
 
       } else if (defaultCommand) {
-        ComponentUtil.findPage(facesContext, command).setDefaultActionId(clientId);
+        ComponentUtils.findPage(facesContext, command).setDefaultActionId(clientId);
         onclick = null;
       } else {
-        String target = ComponentUtil.getStringAttribute(command, Attributes.TARGET);
+        String target = ComponentUtils.getStringAttribute(command, Attributes.TARGET);
         if (target == null) {
           onclick = "Tobago.submitAction(this, '" + clientId + "', " + transition + ");";
         } else {
@@ -124,7 +124,7 @@ public class CommandRendererHelper {
       }
 
       if (command.getAttributes().get(Attributes.POPUP_CLOSE) != null
-          && ComponentUtil.isInPopup(command)) {
+          && ComponentUtils.isInPopup(command)) {
         String value = (String) command.getAttributes().get(Attributes.POPUP_CLOSE);
         if (value.equals("immediate")) {
           onclick = "Tobago.closePopup(this);";

@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.Deprecation;
 import org.apache.myfaces.tobago.webapp.TobagoResponseJsonWriterImpl;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -69,7 +69,7 @@ public final class HtmlRendererUtil {
   }
 
   private static boolean renderErrorFocusId(final FacesContext facesContext, final UIInput input) throws IOException {
-    if (ComponentUtil.isError(input)) {
+    if (ComponentUtils.isError(input)) {
       if (!FacesContext.getCurrentInstance().getExternalContext().getRequestMap().containsKey(ERROR_FOCUS_KEY)) {
         FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put(ERROR_FOCUS_KEY, Boolean.TRUE);
         TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
@@ -95,8 +95,8 @@ public final class HtmlRendererUtil {
     if (renderErrorFocusId(facesContext, component)) {
       return;
     }
-    if (ComponentUtil.getBooleanAttribute(component, Attributes.FOCUS)) {
-      UIPage page = (UIPage) ComponentUtil.findPage(facesContext, component);
+    if (ComponentUtils.getBooleanAttribute(component, Attributes.FOCUS)) {
+      UIPage page = (UIPage) ComponentUtils.findPage(facesContext, component);
       String id = component.getClientId(facesContext);
       if (!StringUtils.isBlank(page.getFocusId()) && !page.getFocusId().equals(id)) {
         LOG.warn("page focusId = \"" + page.getFocusId() + "\" ignoring new value \""
@@ -121,7 +121,7 @@ public final class HtmlRendererUtil {
     //final String family = component.getFamily();
     if (rendererType != null//&& !"facelets".equals(family)
         ) {
-      LayoutableRenderer layoutableRendererBase = ComponentUtil.getRenderer(facesContext, component);
+      LayoutableRenderer layoutableRendererBase = ComponentUtils.getRenderer(facesContext, component);
       if (layoutableRendererBase != null) {
         return layoutableRendererBase.getRendererName(rendererType);
       }
@@ -443,7 +443,7 @@ public final class HtmlRendererUtil {
   }
 
   public static String getTitleFromTipAndMessages(FacesContext facesContext, UIComponent component) {
-    String messages = ComponentUtil.getFacesMessageAsString(facesContext, component);
+    String messages = ComponentUtils.getFacesMessageAsString(facesContext, component);
     return HtmlRendererUtil.addTip(messages, component.getAttributes().get(Attributes.TIP));
   }
 
@@ -523,7 +523,7 @@ public final class HtmlRendererUtil {
   }
 
   public static String getComponentId(FacesContext context, UIComponent component, String componentId) {
-    UIComponent partiallyComponent = ComponentUtil.findComponent(component, componentId);
+    UIComponent partiallyComponent = ComponentUtils.findComponent(component, componentId);
     if (partiallyComponent != null) {
       String clientId = partiallyComponent.getClientId(context);
       if (partiallyComponent instanceof UIData) {
@@ -709,8 +709,8 @@ public final class HtmlRendererUtil {
 
   public static void checkForCommandFacet(UIComponent component, List<String> clientIds, FacesContext facesContext,
                                       TobagoResponseWriter writer) throws IOException {
-    if (ComponentUtil.getBooleanAttribute(component, Attributes.READONLY)
-        || ComponentUtil.getBooleanAttribute(component, Attributes.DISABLED)) {
+    if (ComponentUtils.getBooleanAttribute(component, Attributes.READONLY)
+        || ComponentUtils.getBooleanAttribute(component, Attributes.DISABLED)) {
       return;
     }
     Map<String, UIComponent> facets = component.getFacets();
@@ -765,7 +765,7 @@ public final class HtmlRendererUtil {
         writer.write("Tobago.submitAction(this, '");
         writer.write(facetComponent.getClientId(facesContext));
         writer.write("', ");
-        writer.write(Boolean.toString(ComponentUtil.getBooleanAttribute(facetComponent, Attributes.TRANSITION)));
+        writer.write(Boolean.toString(ComponentUtils.getBooleanAttribute(facetComponent, Attributes.TRANSITION)));
         writer.write(", null, '");
         writer.write(clientId);
         writer.write("')");

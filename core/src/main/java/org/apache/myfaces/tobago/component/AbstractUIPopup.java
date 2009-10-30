@@ -21,7 +21,7 @@ import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
@@ -66,13 +66,13 @@ public abstract class AbstractUIPopup extends UIPanelBase
   }
 
   private boolean isSubmitted() {
-    String action = ComponentUtil.findPage(getFacesContext(), this).getActionId();
+    String action = ComponentUtils.findPage(getFacesContext(), this).getActionId();
     return action != null && action.startsWith(getClientId(getFacesContext()) + SEPARATOR_CHAR);
   }
 
   private boolean isRedisplay() {
     if (isSubmitted()) {
-      AbstractUIPage page = ComponentUtil.findPage(getFacesContext(), this);
+      AbstractUIPage page = ComponentUtils.findPage(getFacesContext(), this);
       String action = page.getActionId();
       if (action != null) {
         UIComponent command = page.findComponent(SEPARATOR_CHAR + action);

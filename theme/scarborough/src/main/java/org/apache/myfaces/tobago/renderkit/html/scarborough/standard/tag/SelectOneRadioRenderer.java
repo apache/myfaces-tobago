@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
@@ -83,7 +83,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
     List<SelectItem> items = RenderUtil.getItemsToRender(selectOne);
 
-    boolean inline = ComponentUtil.getBooleanAttribute(selectOne, Attributes.INLINE);
+    boolean inline = ComponentUtils.getBooleanAttribute(selectOne, Attributes.INLINE);
     String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, selectOne);
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
@@ -100,8 +100,8 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       }
     }
 
-    boolean disabled = ComponentUtil.getBooleanAttribute(selectOne, Attributes.DISABLED);
-    boolean readonly = ComponentUtil.getBooleanAttribute(selectOne, Attributes.READONLY);
+    boolean disabled = ComponentUtils.getBooleanAttribute(selectOne, Attributes.DISABLED);
+    boolean readonly = ComponentUtils.getBooleanAttribute(selectOne, Attributes.READONLY);
     Object value = selectOne.getValue();
     List<String> clientIds = new ArrayList<String>();
     for (SelectItem item : items) {
@@ -135,10 +135,10 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
       HtmlRendererUtil.renderTip(selectOne, writer);
-      if (!ComponentUtil.getBooleanAttribute(selectOne, Attributes.REQUIRED) || readonly) {
+      if (!ComponentUtils.getBooleanAttribute(selectOne, Attributes.REQUIRED) || readonly) {
         writer.writeAttribute(HtmlAttributes.ONCLICK,
             "Tobago.selectOneRadioClick(this, '" + clientId + "',"
-                + ComponentUtil.getBooleanAttribute(selectOne, Attributes.REQUIRED) + " , " + readonly + ")", false);
+                + ComponentUtils.getBooleanAttribute(selectOne, Attributes.REQUIRED) + " , " + readonly + ")", false);
       }
       writer.endElement(HtmlConstants.INPUT);
 

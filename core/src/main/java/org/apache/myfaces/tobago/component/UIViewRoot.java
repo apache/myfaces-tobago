@@ -26,12 +26,12 @@ import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerImpl;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
-import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.util.TobagoCallback;
 import org.apache.myfaces.tobago.util.ApplyRequestValuesCallback;
-import org.apache.myfaces.tobago.util.ProcessValidationsCallback;
-import org.apache.myfaces.tobago.util.UpdateModelValuesCallback;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.FacesVersion;
+import org.apache.myfaces.tobago.util.ProcessValidationsCallback;
+import org.apache.myfaces.tobago.util.TobagoCallback;
+import org.apache.myfaces.tobago.util.UpdateModelValuesCallback;
 
 import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
@@ -223,7 +223,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
      Map<String, UIComponent> ajaxComponents = AjaxUtils.parseAndStoreComponents(context);
     if (ajaxComponents != null) {
       // first decode the page
-      AbstractUIPage page = ComponentUtil.findPage(context);
+      AbstractUIPage page = ComponentUtils.findPage(context);
       page.decode(context);
       page.markSubmittedForm(context);
       if (context instanceof TobagoFacesContext) {

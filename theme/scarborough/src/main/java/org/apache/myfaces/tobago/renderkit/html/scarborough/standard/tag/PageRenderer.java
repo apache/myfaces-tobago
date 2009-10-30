@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.util.ResponseUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -279,9 +279,9 @@ public class PageRenderer extends PageRendererBase {
     if (component.getFacets().containsKey(Facets.ACTION)) {
       UIComponent command = component.getFacet(Facets.ACTION);
       if (command != null && command.isRendered()) {
-        int duration = ComponentUtil.getIntAttribute(command, Attributes.DELAY, 100);
-        boolean transition = ComponentUtil.getBooleanAttribute(command, Attributes.TRANSITION);
-        String target = ComponentUtil.getStringAttribute(command, Attributes.TARGET);
+        int duration = ComponentUtils.getIntAttribute(command, Attributes.DELAY, 100);
+        boolean transition = ComponentUtils.getBooleanAttribute(command, Attributes.TRANSITION);
+        String target = ComponentUtils.getStringAttribute(command, Attributes.TARGET);
         String action;
         if (target != null) {
           action = "Tobago.submitAction(this, '" + command.getClientId(facesContext) + "', "

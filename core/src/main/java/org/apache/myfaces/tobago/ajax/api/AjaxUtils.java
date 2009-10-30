@@ -21,14 +21,14 @@ package org.apache.myfaces.tobago.ajax.api;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.HashMap;
 
 public class AjaxUtils {
 
@@ -62,7 +62,7 @@ public class AjaxUtils {
     if (!component.isRendered()) {
       return;
     }
-    Object renderer = ComponentUtil.getRenderer(facesContext, component);
+    Object renderer = ComponentUtils.getRenderer(facesContext, component);
     if (renderer != null && renderer instanceof AjaxRenderer) {
       ((AjaxRenderer) renderer).encodeAjax(facesContext, component);
     }

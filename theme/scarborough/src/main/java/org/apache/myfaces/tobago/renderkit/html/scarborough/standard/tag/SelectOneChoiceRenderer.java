@@ -21,15 +21,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectOneChoice;
+import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.context.ClientProperties;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -63,8 +63,8 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, selectOne);
 
     boolean disabled = items.size() == 0
-        || ComponentUtil.getBooleanAttribute(selectOne, Attributes.DISABLED)
-        || ComponentUtil.getBooleanAttribute(selectOne, Attributes.READONLY);
+        || ComponentUtils.getBooleanAttribute(selectOne, Attributes.DISABLED)
+        || ComponentUtils.getBooleanAttribute(selectOne, Attributes.READONLY);
 
     writer.startElement(HtmlConstants.SELECT, selectOne);
     writer.writeNameAttribute(selectOne.getClientId(facesContext));

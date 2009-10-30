@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -45,7 +45,7 @@ public class InRenderer extends LayoutableRendererBase {
 
     String clientId = component.getClientId(facesContext);
 
-    AbstractUIPage uiPage = ComponentUtil.findPage(facesContext, component);
+    AbstractUIPage uiPage = ComponentUtils.findPage(facesContext, component);
 
     if (uiPage != null) {
       uiPage.getPostfields().add(new DefaultKeyValue(clientId, clientId));
@@ -58,7 +58,7 @@ public class InRenderer extends LayoutableRendererBase {
 
     String currentValue = RenderUtil.currentValue(component);
 
-    String type = ComponentUtil.getBooleanAttribute(
+    String type = ComponentUtils.getBooleanAttribute(
         component, Attributes.PASSWORD) ? "password" : "text";
 
     writer.startElement("input", component);

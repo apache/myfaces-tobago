@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -63,7 +63,7 @@ public class FileRenderer extends InputRendererBase {
       return;
     }
 
-    if (ComponentUtil.isOutputOnly(component)) {
+    if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
 
@@ -119,7 +119,7 @@ public class FileRenderer extends InputRendererBase {
 //    }
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtil.getBooleanAttribute(input, Attributes.DISABLED));
+    writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED));
     Integer tabIndex = input.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);

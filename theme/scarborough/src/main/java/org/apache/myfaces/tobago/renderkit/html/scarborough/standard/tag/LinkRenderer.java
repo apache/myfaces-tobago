@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -125,7 +125,7 @@ public class LinkRenderer extends CommandRendererBase {
     }
 
     ResponseWriter writer = facesContext.getResponseWriter();
-    if (ComponentUtil.getBooleanAttribute(component, Attributes.DISABLED)) {
+    if (ComponentUtils.getBooleanAttribute(component, Attributes.DISABLED)) {
       writer.endElement(HtmlConstants.SPAN);
     } else {
       writer.endElement(HtmlConstants.A);

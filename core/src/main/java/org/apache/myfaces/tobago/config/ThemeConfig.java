@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -103,7 +103,7 @@ public class ThemeConfig {
       family = UIInput.COMPONENT_FAMILY;
       rendererType = RendererTypes.IN;
     }
-    Object renderer = ComponentUtil.getRenderer(facesContext, family, rendererType);
+    Object renderer = ComponentUtils.getRenderer(facesContext, family, rendererType);
 
     Class clazz = renderer.getClass();
     if (LOG.isDebugEnabled()) {

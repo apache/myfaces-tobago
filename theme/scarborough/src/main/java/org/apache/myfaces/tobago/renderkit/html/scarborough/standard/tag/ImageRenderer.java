@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UICommand;
@@ -88,7 +88,7 @@ public class ImageRenderer extends LayoutableRendererBase {
     writer.startElement(HtmlConstants.IMG, graphic);
     final String clientId = graphic.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
-    if (ComponentUtil.isHoverEnabled(graphic) && !isDisabled(graphic)) {
+    if (ComponentUtils.isHoverEnabled(graphic) && !isDisabled(graphic)) {
       writer.writeAttribute(HtmlAttributes.ONMOUSEOVER,
           "Tobago.imageMouseover('" + clientId + "')", false);
       writer.writeAttribute(HtmlAttributes.ONMOUSEOUT,
@@ -120,11 +120,11 @@ public class ImageRenderer extends LayoutableRendererBase {
   }
 
   private boolean isDisabled(UIGraphic graphic) {
-    boolean disabled = ComponentUtil.getBooleanAttribute(graphic,
+    boolean disabled = ComponentUtils.getBooleanAttribute(graphic,
         Attributes.DISABLED);
     if (!disabled && graphic.getParent() instanceof UICommand) {
       disabled =
-          ComponentUtil.getBooleanAttribute(graphic.getParent(), Attributes.DISABLED);
+          ComponentUtils.getBooleanAttribute(graphic.getParent(), Attributes.DISABLED);
     }
     return disabled;
   }

@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -68,9 +68,9 @@ public class TextAreaRenderer extends InputRendererBase {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
     writer.writeAttribute(HtmlAttributes.READONLY,
-        ComponentUtil.getBooleanAttribute(input, Attributes.READONLY));
+        ComponentUtils.getBooleanAttribute(input, Attributes.READONLY));
     writer.writeAttribute(HtmlAttributes.DISABLED,
-        ComponentUtil.getBooleanAttribute(input, Attributes.DISABLED));
+        ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED));
     Integer tabIndex = input.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
@@ -104,7 +104,7 @@ public class TextAreaRenderer extends InputRendererBase {
         maxLength = lengthValidator.getMaximum();
       }
     }
-    boolean required = ComponentUtil.getBooleanAttribute(input, Attributes.REQUIRED);
+    boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
     if (required || maxLength > 0) {
       String rendererName = HtmlRendererUtil.getRendererName(facesContext, input);
       final String[] cmds = {

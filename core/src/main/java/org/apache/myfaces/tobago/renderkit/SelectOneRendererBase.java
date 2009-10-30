@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectOne;
@@ -30,7 +30,7 @@ public abstract class SelectOneRendererBase extends InputRendererBase {
   private static final Log LOG = LogFactory.getLog(SelectOneRendererBase.class);
 
   public void decode(FacesContext facesContext, UIComponent component) {
-    if (ComponentUtil.isOutputOnly(component)) {
+    if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
     if (component instanceof UISelectOne) {

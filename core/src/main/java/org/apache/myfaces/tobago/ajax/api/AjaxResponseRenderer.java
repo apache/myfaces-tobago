@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.FACES_MESSAGES_KEY;
 import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.EncodeAjaxCallback;
 import org.apache.myfaces.tobago.util.RequestUtils;
 import org.apache.myfaces.tobago.util.ResponseUtils;
@@ -162,7 +162,7 @@ public class AjaxResponseRenderer {
 
     RequestUtils.ensureEncoding(facesContext);
     ResponseUtils.ensureNoCacheHeader(facesContext);
-    UIComponent page = ComponentUtil.findPage(facesContext);
+    UIComponent page = ComponentUtils.findPage(facesContext);
     String charset;
     if (page != null) {  // in case of CODE_RELOAD_REQUIRED page is null
       charset = (String) page.getAttributes().get(Attributes.CHARSET);

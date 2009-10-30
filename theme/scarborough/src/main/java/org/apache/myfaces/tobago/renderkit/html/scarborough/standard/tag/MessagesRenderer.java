@@ -45,7 +45,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.FacesMessage;
@@ -85,7 +85,7 @@ public class MessagesRenderer extends MessageRendererBase {
       // with id
       String focusId = null;
       Iterator clientIds;
-      if (ComponentUtil.getBooleanAttribute(messages, Attributes.GLOBAL_ONLY)) {
+      if (ComponentUtils.getBooleanAttribute(messages, Attributes.GLOBAL_ONLY)) {
         ArrayList<String> list = new ArrayList<String>(1);
         list.add(null);
         clientIds = list.iterator();
@@ -106,7 +106,7 @@ public class MessagesRenderer extends MessageRendererBase {
       }
   todo: don't forget: focus
       if (focusId != null) {
-        ComponentUtil.findPage(facesContext, messages).setFocusId(focusId);
+        ComponentUtils.findPage(facesContext, messages).setFocusId(focusId);
       }
 */
       writer.endElement(HtmlConstants.SPAN);
@@ -122,7 +122,7 @@ public class MessagesRenderer extends MessageRendererBase {
         CreateComponentUtils.createComponent(facesContext, UIPopup.COMPONENT_TYPE, RendererTypes.POPUP, id);
     popup.getAttributes().put(Attributes.Z_INDEX, 10);
 
-    AbstractUIPage page = ComponentUtil.findPage(facesContext, messages);
+    AbstractUIPage page = ComponentUtils.findPage(facesContext, messages);
 
     popup.setWidth(new PixelMeasure(page.getWidth().getPixel() - 200));
     popup.setHeight(new PixelMeasure(page.getHeight().getPixel() - 200));

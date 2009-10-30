@@ -18,9 +18,9 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
-import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.jsp.JspException;
@@ -49,7 +49,7 @@ public abstract class StyleTag extends BodyTagSupport implements HasId {
   public int doEndTag() throws JspException {
 
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    AbstractUIPage page = ComponentUtil.findPage(facesContext);
+    AbstractUIPage page = ComponentUtils.findPage(facesContext);
     if (page == null) {
       throw new JspException("The StyleTag cannot find the UIPage. "
           + "Check you have defined the StyleTag inside of the PageTag!");

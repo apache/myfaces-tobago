@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -42,7 +42,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
-    boolean value = ComponentUtil.getBooleanAttribute(component, Attributes.VALUE);
+    boolean value = ComponentUtils.getBooleanAttribute(component, Attributes.VALUE);
 
     writer.startElement(HtmlConstants.SELECT, component);
     writer.writeNameAttribute(component.getClientId(facesContext));

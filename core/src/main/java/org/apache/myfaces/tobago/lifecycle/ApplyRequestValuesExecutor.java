@@ -17,24 +17,21 @@ package org.apache.myfaces.tobago.lifecycle;
  * limitations under the License.
  */
 
-import static javax.faces.event.PhaseId.APPLY_REQUEST_VALUES;
-
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
-import org.apache.myfaces.tobago.util.ComponentUtil;
-import org.apache.myfaces.tobago.component.AbstractUIPage;
-import org.apache.myfaces.tobago.component.UIViewRoot;
-import org.apache.myfaces.tobago.util.ApplyRequestValuesCallback;
-import org.apache.myfaces.tobago.compat.FacesUtils;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
-
-import javax.faces.component.ContextCallback;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
+import org.apache.myfaces.tobago.component.UIViewRoot;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.util.ApplyRequestValuesCallback;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
+import javax.faces.component.ContextCallback;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
-import javax.faces.component.UIComponent;
+import static javax.faces.event.PhaseId.APPLY_REQUEST_VALUES;
 import java.util.Map;
 
 /**
@@ -59,7 +56,7 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
         = AjaxUtils.parseAndStoreComponents(facesContext);
     if (ajaxComponents != null) {
       // first decode the page
-      AbstractUIPage page = ComponentUtil.findPage(facesContext);
+      AbstractUIPage page = ComponentUtils.findPage(facesContext);
       page.decode(facesContext);
       page.markSubmittedForm(facesContext);
       if (facesContext instanceof TobagoFacesContext) {

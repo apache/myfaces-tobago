@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.RangeParser;
 
 import javax.faces.component.EditableValueHolder;
@@ -108,7 +108,7 @@ public class RenderUtil {
     if (!component.isRendered()) {
       return;
     }
-    RendererBase renderer = ComponentUtil.getRendererBase(facesContext,  component);
+    RendererBase renderer = ComponentUtils.getRendererBase(facesContext,  component);
     boolean prepareRendersChildren = false;
     if (renderer != null) {
       renderer.prepareRender(facesContext, component);

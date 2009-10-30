@@ -25,7 +25,7 @@ import com.sun.facelets.tag.MetadataTarget;
 import com.sun.facelets.tag.TagAttribute;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
@@ -58,7 +58,7 @@ public class SupportsMarkupRule extends MetaRule {
 
     public void applyMetadata(FaceletContext ctx, Object instance) {
       if (attribute.isLiteral()) {
-        ComponentUtil.setMarkup((UIComponent) instance, attribute.getValue());
+        ComponentUtils.setMarkup((UIComponent) instance, attribute.getValue());
       } else {
         ValueExpression expression = attribute.getValueExpression(ctx, Object.class);
         ELAdaptor.setExpression((UIComponent) instance, Attributes.MARKUP, expression);

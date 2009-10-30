@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
@@ -67,7 +67,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     }
     String id = selectMany.getClientId(facesContext);
 
-    boolean inline = ComponentUtil.getBooleanAttribute(selectMany, Attributes.INLINE);
+    boolean inline = ComponentUtils.getBooleanAttribute(selectMany, Attributes.INLINE);
     String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, selectMany);
     if (!inline) {
       writer.startElement(HtmlConstants.TABLE, selectMany);
@@ -103,7 +103,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       String formattedValue = RenderUtil.getFormattedValue(facesContext, selectMany, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
       writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled());
-      if (ComponentUtil.getBooleanAttribute(selectMany, Attributes.READONLY)) {
+      if (ComponentUtils.getBooleanAttribute(selectMany, Attributes.READONLY)) {
         writer.writeAttribute(HtmlAttributes.READONLY, true);
         if (checked) {
           writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=true", false);

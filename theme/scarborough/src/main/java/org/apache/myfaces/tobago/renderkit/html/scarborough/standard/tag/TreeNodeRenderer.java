@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
@@ -65,7 +65,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     super.decode(facesContext, node);
 
-    if (ComponentUtil.isOutputOnly(node)) {
+    if (ComponentUtils.isOutputOnly(node)) {
       return;
     }
 
@@ -129,7 +129,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     String openSource = null;
     String closedSource;
 
-    String image = ComponentUtil.getStringAttribute(node, "image");
+    String image = ComponentUtils.getStringAttribute(node, "image");
     if (image != null) { // application image
       closedSource = ResourceManagerUtil.getImageWithPath(facesContext, image);
     } else { // theme image

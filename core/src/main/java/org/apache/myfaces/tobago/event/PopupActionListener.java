@@ -17,15 +17,15 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.AbstractUIPopup;
-import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.AbstractUIPopup;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
-import javax.faces.event.ActionListener;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.AbortProcessingException;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.ActionListener;
 import java.io.Serializable;
 
 /*
@@ -56,7 +56,7 @@ public class PopupActionListener implements ActionListener, Serializable {
   }
 
   public void processAction(ActionEvent actionEvent) throws AbortProcessingException {
-    AbstractUIPopup popup = (AbstractUIPopup) ComponentUtil.findComponent(actionEvent.getComponent(), popupId);
+    AbstractUIPopup popup = (AbstractUIPopup) ComponentUtils.findComponent(actionEvent.getComponent(), popupId);
     if (popup != null) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("activated "

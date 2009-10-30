@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.mock.faces.MockRenderKit;
 import org.apache.myfaces.tobago.mock.servlet.MockHttpServletRequest;
 import org.apache.myfaces.tobago.mock.servlet.MockHttpServletResponse;
 import org.apache.myfaces.tobago.mock.servlet.MockServletContext;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
@@ -164,8 +164,8 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
       Object height = attributes.get(Attributes.HEIGHT);
       LOG.debug("height = '" + height + "'");
 
-      assertTrue(ComponentUtil.getBooleanAttribute(command, Attributes.DISABLED));
-      assertFalse(ComponentUtil.getBooleanAttribute(command, Attributes.HEIGHT));
+      assertTrue(ComponentUtils.getBooleanAttribute(command, Attributes.DISABLED));
+      assertFalse(ComponentUtils.getBooleanAttribute(command, Attributes.HEIGHT));
     }
   }
   private static class MockTheme implements Theme {

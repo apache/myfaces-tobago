@@ -53,7 +53,7 @@ import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
@@ -75,7 +75,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
   public static final String ACTIVE_INDEX_POSTFIX = "__activeIndex";
 
   public void decode(FacesContext facesContext, UIComponent component) {
-    if (ComponentUtil.isOutputOnly(component)) {
+    if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
 

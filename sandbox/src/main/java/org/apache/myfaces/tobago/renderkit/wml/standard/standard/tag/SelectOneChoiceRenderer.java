@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -45,7 +45,7 @@ public class SelectOneChoiceRenderer extends LayoutableRendererBase {
       throws IOException {
 
     UISelectOne selectOne = (UISelectOne) component;
-    AbstractUIPage page = ComponentUtil.findPage(facesContext, selectOne);
+    AbstractUIPage page = ComponentUtils.findPage(facesContext, selectOne);
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 

@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.UIComponentTag;
@@ -106,10 +106,10 @@ public abstract class AttributeTag extends TagSupport {
         throw new JspException("Can not get ValueBinding for attribute value " + getValueExpression());
       }
     } else if (Attributes.STYLE_CLASS.equals(attributeName)) {
-      ComponentUtil.setStyleClasses(component, getValueValue());
+      ComponentUtils.setStyleClasses(component, getValueValue());
     } else if (Attributes.RENDERED_PARTIALLY.equals(attributeName)
         && component instanceof SupportsRenderedPartially) {
-      String[] components = ComponentUtil.splitList(getValueValue());
+      String[] components = ComponentUtils.splitList(getValueValue());
       ((SupportsRenderedPartially) component).setRenderedPartially(components);
     } else {
       component.getAttributes().put(attributeName, getValueValue());

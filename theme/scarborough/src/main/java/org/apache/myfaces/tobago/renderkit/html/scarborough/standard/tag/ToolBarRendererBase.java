@@ -41,7 +41,7 @@ import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -134,7 +134,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
     if (radio != null) {
       Object value = radio.getValue();
 
-      boolean markFirst = !ComponentUtil.hasSelectedValue(items, value);
+      boolean markFirst = !ComponentUtils.hasSelectedValue(items, value);
       String radioId = radio.getClientId(facesContext);
       String onClickPrefix = "menuSetRadioValue('" + radioId + "', '";
       String onClickPostfix = onclick != null ? "') ; " + onclick : "";
@@ -192,7 +192,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
       checkbox.setId(facesContext.getViewRoot().createUniqueId());
     }
 
-    final boolean checked = ComponentUtil.getBooleanAttribute(checkbox, Attributes.VALUE);
+    final boolean checked = ComponentUtils.getBooleanAttribute(checkbox, Attributes.VALUE);
 
     String onClick = createOnClick(facesContext, command);
 
@@ -214,7 +214,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
     }
 
     final String clientId = command.getClientId(facesContext);
-    final boolean disabled = ComponentUtil.getBooleanAttribute(command, Attributes.DISABLED);
+    final boolean disabled = ComponentUtils.getBooleanAttribute(command, Attributes.DISABLED);
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
     final UIComponent popupMenu = command.getFacet(Facets.MENUPOPUP);
 

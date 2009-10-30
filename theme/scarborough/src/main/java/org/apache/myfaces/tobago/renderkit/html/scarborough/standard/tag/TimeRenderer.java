@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.DateFormatUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -139,8 +139,8 @@ public class TimeRenderer extends InputRendererBase {
     writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getImageWithPath(facesContext, imageSrc), true);
     writer.writeAttribute(HtmlAttributes.ALT, "", false); // TODO: tip
 
-    if (!(ComponentUtil.getBooleanAttribute(input, Attributes.DISABLED)
-        || ComponentUtil.getBooleanAttribute(input, Attributes.READONLY))) {
+    if (!(ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED)
+        || ComponentUtils.getBooleanAttribute(input, Attributes.READONLY))) {
       writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgIncTime(this)", false);
       writer.writeAttribute(HtmlAttributes.ONMOUSEOVER,
           "Tobago.imageMouseover('" + imageId + "')", null);
@@ -158,8 +158,8 @@ public class TimeRenderer extends InputRendererBase {
         + (hasSeconds ? " tobago-time-image-seconds" : ""));
     writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getImageWithPath(facesContext, imageSrc), true);
     writer.writeAttribute(HtmlAttributes.ALT, "", false); // TODO: tip
-    if (!(ComponentUtil.getBooleanAttribute(input, Attributes.DISABLED)
-        || ComponentUtil.getBooleanAttribute(input, Attributes.READONLY))) {
+    if (!(ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED)
+        || ComponentUtils.getBooleanAttribute(input, Attributes.READONLY))) {
       writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgDecTime(this)", false);
       writer.writeAttribute(HtmlAttributes.ONMOUSEOVER,
           "Tobago.imageMouseover('" + imageId + "')", null);
@@ -213,10 +213,10 @@ public class TimeRenderer extends InputRendererBase {
     //styleClasses.updateClassAttributeAndMarkup(input, "time");
     styleClasses.addClass("time", "input");
     writer.writeClassAttribute(styleClasses);
-    writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtil.getBooleanAttribute(input, Attributes.READONLY));
-    writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtil.getBooleanAttribute(input, Attributes.DISABLED));
-    if (!(ComponentUtil.getBooleanAttribute(input, Attributes.DISABLED)
-        || ComponentUtil.getBooleanAttribute(input, Attributes.READONLY))) {
+    writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtils.getBooleanAttribute(input, Attributes.READONLY));
+    writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED));
+    if (!(ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED)
+        || ComponentUtils.getBooleanAttribute(input, Attributes.READONLY))) {
       writer.writeAttribute(HtmlAttributes.ONFOCUS, "tbgTimerInputFocus(this, " + hourMode + ")", false);
       writer.writeAttribute(HtmlAttributes.ONBLUR, "tbgTimerInputBlur(this)", false);
       writer.writeAttribute(HtmlAttributes.ONKEYUP, "tbgTimerKeyUp(this, event)", false);

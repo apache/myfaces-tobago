@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -56,10 +56,10 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
 
     String id = component.getClientId(facesContext);
     String currentValue = getCurrentValue(facesContext, component);
-    boolean readonly = ComponentUtil.getBooleanAttribute(component, Attributes.READONLY);
-    boolean disabled = ComponentUtil.getBooleanAttribute(component, Attributes.DISABLED);
-    Integer min = ComponentUtil.getIntAttribute(component, "min");
-    Integer max = ComponentUtil.getIntAttribute(component, "max");
+    boolean readonly = ComponentUtils.getBooleanAttribute(component, Attributes.READONLY);
+    boolean disabled = ComponentUtils.getBooleanAttribute(component, Attributes.DISABLED);
+    Integer min = ComponentUtils.getIntAttribute(component, "min");
+    Integer max = ComponentUtils.getIntAttribute(component, "max");
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
 
 
@@ -166,7 +166,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
 
   public void decode(FacesContext context, UIComponent component) {
     UIInput uiInput;
-    if (component instanceof UIInput && !ComponentUtil.isOutputOnly(component)) {
+    if (component instanceof UIInput && !ComponentUtils.isOutputOnly(component)) {
       uiInput = (UIInput) component;
     } else {
       return;
@@ -210,8 +210,8 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     String handleId = getIdForSliderHandle(context, component);
     String inputId = getIdForInputField(context, component);
     String jsId = component.getClientId(context).replace(":", "_");
-    Integer min = ComponentUtil.getIntAttribute(component, "min");
-    Integer max = ComponentUtil.getIntAttribute(component, "max");
+    Integer min = ComponentUtils.getIntAttribute(component, "min");
+    Integer max = ComponentUtils.getIntAttribute(component, "max");
     String script = "    var slider_" + jsId + " = new Control.Slider('" + handleId + "', '" + trackId + "', {\n"
         + "        sliderValue:$('" + inputId + "').value,\n"
         + "        range : $R(" + min + ", " + max + "),\n"

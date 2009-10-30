@@ -21,13 +21,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.TobagoCallback;
-import org.apache.myfaces.tobago.util.ComponentUtil;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.ContextCallback;
-import javax.faces.context.FacesContext;
 import javax.faces.FacesException;
+import javax.faces.component.ContextCallback;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import java.util.Iterator;
 
@@ -56,7 +56,7 @@ public class AbstractUIForm extends javax.faces.component.UIForm implements Invo
     super.setSubmitted(b);
 
     // set submitted for all subforms
-    for (AbstractUIForm subForm : ComponentUtil.findSubForms(this)) {
+    for (AbstractUIForm subForm : ComponentUtils.findSubForms(this)) {
       subForm.setSubmitted(b);
     }
   }
@@ -67,7 +67,7 @@ public class AbstractUIForm extends javax.faces.component.UIForm implements Invo
       LOG.debug("processValidators for form: " + getClientId(facesContext));
     }
     if (!isSubmitted()) {
-      for (AbstractUIForm subForm : ComponentUtil.findSubForms(this)) {
+      for (AbstractUIForm subForm : ComponentUtils.findSubForms(this)) {
         subForm.processValidators(facesContext);
       }
     } else {
@@ -86,7 +86,7 @@ public class AbstractUIForm extends javax.faces.component.UIForm implements Invo
       LOG.debug("processUpdates for form: " + getClientId(facesContext));
     }
     if (!isSubmitted()) {
-      for (AbstractUIForm subForm : ComponentUtil.findSubForms(this)) {
+      for (AbstractUIForm subForm : ComponentUtils.findSubForms(this)) {
         subForm.processUpdates(facesContext);
       }
     } else {

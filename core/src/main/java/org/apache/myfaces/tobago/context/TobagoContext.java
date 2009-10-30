@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.layout.Box;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.context.FacesContext;
 
@@ -30,7 +30,7 @@ public class TobagoContext {
 
   public Box getActionPosition() {
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    AbstractUIPage page = ComponentUtil.findPage(facesContext);
+    AbstractUIPage page = ComponentUtils.findPage(facesContext);
     return page.getActionPosition();
   }
 }

@@ -40,7 +40,7 @@ import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.DateFormatUtils;
 
 import javax.faces.component.UICommand;
@@ -249,7 +249,7 @@ public class DatePickerRenderer extends LinkRenderer {
 
     applyConverterPattern(facesContext, popup, converterPattern);
 
-    if (!ComponentUtil.containsPopupActionListener(link)) {
+    if (!ComponentUtils.containsPopupActionListener(link)) {
       link.addActionListener(new PopupActionListener(popup.getId()));
     }
     super.encodeBegin(facesContext, component);
@@ -260,7 +260,7 @@ public class DatePickerRenderer extends LinkRenderer {
     UIComponent timePanel = box.findComponent("timePanel");
     if (converterPattern != null && (converterPattern.indexOf('h') > -1 || converterPattern.indexOf('H') > -1)) {
       UIComponent time = timePanel.findComponent("time");
-      int popupHeight = ComponentUtil.getIntAttribute(popup, Attributes.HEIGHT);
+      int popupHeight = ComponentUtils.getIntAttribute(popup, Attributes.HEIGHT);
       popupHeight += ThemeConfig.getValue(FacesContext.getCurrentInstance(), time, "fixedHeight");
       popup.getAttributes().put(Attributes.HEIGHT, popupHeight);
       DateTimeConverter dateTimeConverter

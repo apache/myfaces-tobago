@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -110,8 +110,8 @@ public class ButtonRenderer extends CommandRendererBase {
           facesContext, command.getClientId(facesContext), label.getAccessKey());
     }
 
-    if (ComponentUtil.getBooleanAttribute(component, Attributes.DEFAULT_COMMAND)) {
-      boolean transition = ComponentUtil.getBooleanAttribute(command, Attributes.TRANSITION);
+    if (ComponentUtils.getBooleanAttribute(component, Attributes.DEFAULT_COMMAND)) {
+      boolean transition = ComponentUtils.getBooleanAttribute(command, Attributes.TRANSITION);
       HtmlRendererUtil.setDefaultTransition(facesContext, transition);
 
       HtmlRendererUtil.writeScriptLoader(facesContext, null, new String[]{
@@ -120,7 +120,7 @@ public class ButtonRenderer extends CommandRendererBase {
   }
 
   private String createButtonType(UIComponent component) {
-    boolean defaultCommand = ComponentUtil.getBooleanAttribute(component, Attributes.DEFAULT_COMMAND);
+    boolean defaultCommand = ComponentUtils.getBooleanAttribute(component, Attributes.DEFAULT_COMMAND);
     return defaultCommand ? "submit" : "button";
   }
 

@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.EditableValueHolder;
@@ -57,16 +57,16 @@ public class RichTextEditorRenderer extends InputRendererBase {
   public static final String CHANGE_BUTTON = "togleState";
 
   public void decode(FacesContext facesContext, UIComponent component) {
-    if (ComponentUtil.isOutputOnly(component)) {
+    if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
 
     super.decode(facesContext, component);
-    String actionId = ComponentUtil.findPage(facesContext, component).getActionId();
+    String actionId = ComponentUtils.findPage(facesContext, component).getActionId();
     if (actionId != null
         && actionId.equals(component.getClientId(facesContext) + CHANGE_BUTTON)) {
       boolean state
-          = ComponentUtil.getBooleanAttribute(component, Attributes.STATE_PREVIEW);
+          = ComponentUtils.getBooleanAttribute(component, Attributes.STATE_PREVIEW);
       component.getAttributes().put(Attributes.STATE_PREVIEW, !state);
       facesContext.renderResponse();
 
@@ -92,7 +92,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     UIInput component = (UIInput) uiComponent;
 
     boolean previewState
-        = ComponentUtil.getBooleanAttribute(component, Attributes.STATE_PREVIEW);
+        = ComponentUtils.getBooleanAttribute(component, Attributes.STATE_PREVIEW);
     // FIXME: remove this when i18n is ok
 
     String clientId = component.getClientId(facesContext);
@@ -168,7 +168,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     toolbar.getAttributes().put(Attributes.ICON_SIZE, UIToolBar.ICON_SMALL);
     toolbar.getAttributes().put(Attributes.LABEL_POSITION, UIToolBar.LABEL_OFF);
 
-    UICommand //command = (UICommandBase) ComponentUtil.createComponent(
+    UICommand //command = (UICommandBase) ComponentUtils.createComponent(
 //        facesContext, UICommandBase.COMPONENT_TYPE, MENU_COMMAND);
 //    toolbar.getChildren().add(command);
 
@@ -177,8 +177,8 @@ public class RichTextEditorRenderer extends InputRendererBase {
     toolbar.getChildren().add(command);
 
     command.getAttributes().put(Attributes.IMAGE, "image/tobago-richtext-edit.gif");
-    command.setValueBinding(Attributes.DISABLED, ComponentUtil.createValueBinding("#{! tobagoRichtextPreviewState}"));
-    command.setValueBinding(Attributes.VALUE, ComponentUtil.createValueBinding("#{!tobagoRichtextPreviewState}"));
+    command.setValueBinding(Attributes.DISABLED, ComponentUtils.createValueBinding("#{! tobagoRichtextPreviewState}"));
+    command.setValueBinding(Attributes.VALUE, ComponentUtils.createValueBinding("#{!tobagoRichtextPreviewState}"));
 
     String title = ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "tobago.richtexteditor.edit.title");
@@ -193,8 +193,8 @@ public class RichTextEditorRenderer extends InputRendererBase {
     toolbar.getChildren().add(command);
     //command.getAttributes().put(ATTR_COMMAND_TYPE, ToolBarSelectBooleanTag.COMMAND_TYPE);
     command.getAttributes().put(Attributes.IMAGE, "image/tobago-richtext-preview.gif");
-    command.setValueBinding(Attributes.DISABLED, ComponentUtil.createValueBinding("#{tobagoRichtextPreviewState}"));
-    command.setValueBinding(Attributes.VALUE, ComponentUtil.createValueBinding("#{tobagoRichtextPreviewState}"));
+    command.setValueBinding(Attributes.DISABLED, ComponentUtils.createValueBinding("#{tobagoRichtextPreviewState}"));
+    command.setValueBinding(Attributes.VALUE, ComponentUtils.createValueBinding("#{tobagoRichtextPreviewState}"));
 
     title = ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "tobago.richtexteditor.preview.title");

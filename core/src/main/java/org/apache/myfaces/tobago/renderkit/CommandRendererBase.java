@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.util.ComponentUtil;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -32,10 +32,10 @@ public abstract class CommandRendererBase extends LayoutableRendererBase {
 
   public void decode(FacesContext facesContext, UIComponent component) {
 
-    if (ComponentUtil.isOutputOnly(component)) {
+    if (ComponentUtils.isOutputOnly(component)) {
       return;
     }
-    String actionId = ComponentUtil.findPage(facesContext, component).getActionId();
+    String actionId = ComponentUtils.findPage(facesContext, component).getActionId();
     String clientId = component.getClientId(facesContext);
     if (LOG.isDebugEnabled()) {
       LOG.debug("actionId = '" + actionId + "'");

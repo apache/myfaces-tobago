@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.facelets.SuggestMethodRule;
 import org.apache.myfaces.tobago.facelets.SupportsMarkupRule;
 import org.apache.myfaces.tobago.layout.LayoutUtils;
-import org.apache.myfaces.tobago.util.ComponentUtil;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
@@ -160,7 +160,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     }
     if (markupAttribute != null) {
       if (markupAttribute.isLiteral()) {
-        ComponentUtil.setMarkup(label, markupAttribute.getValue());
+        ComponentUtils.setMarkup(label, markupAttribute.getValue());
       } else {
         ValueExpression expression = markupAttribute.getValueExpression(faceletContext, Object.class);
         ELAdaptor.setExpression(label, Attributes.MARKUP, expression);
