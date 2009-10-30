@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -156,7 +156,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     }
 
     CommandRendererHelper helper = new CommandRendererHelper(facesContext, node, CommandRendererHelper.Tag.ANCHOR);
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     if (showRoot || depth != 0) {
       writer.startElement(HtmlConstants.DIV, null);
@@ -164,7 +164,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       // div id
       writer.writeIdAttribute(id);
       if (!folder) {
-        HtmlRendererUtil.renderDojoDndItem(node, writer, true);
+        HtmlRendererUtils.renderDojoDndItem(node, writer, true);
       }
 
       // div class (css)
@@ -180,7 +180,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.writeClassAttribute(styleClasses);
 
       // div style (width)
-      HtmlStyleMap style = HtmlRendererUtil.ensureStyleAttributeMap(tree);
+      HtmlStyleMap style = HtmlRendererUtils.ensureStyleAttributeMap(tree);
       String widthString;
       if (style != null && style.getWidth() != null) {
         widthString = "width: " + Integer.toString(style.getWidth().getPixel() - 22); // fixme: 4 + 18 for scrollbar
@@ -398,7 +398,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     boolean folder = node.isFolder();
     String id = node.getClientId(facesContext);
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     if (folder) {
       writer.endElement(HtmlConstants.DIV);

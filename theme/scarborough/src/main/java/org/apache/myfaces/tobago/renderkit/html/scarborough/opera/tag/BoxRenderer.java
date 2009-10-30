@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -44,7 +44,7 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
     String labelString
         = (String) component.getAttributes().get(Attributes.LABEL);
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlConstants.FIELDSET, component);
     writer.writeClassAttribute();

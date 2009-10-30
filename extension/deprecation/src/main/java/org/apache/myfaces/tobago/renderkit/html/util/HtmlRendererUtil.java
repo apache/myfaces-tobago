@@ -54,11 +54,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-/*
- * User: weber
- * Date: Jan 11, 2005
- * Time: 4:59:36 PM
+/**
+ * @deprecated Please use HtmlRendererUtils
  */
+@Deprecated
 public final class HtmlRendererUtil {
 
   private static final Log LOG = LogFactory.getLog(HtmlRendererUtil.class);
@@ -203,7 +202,7 @@ public final class HtmlRendererUtil {
    */
   @Deprecated
   public static void replaceStyleAttribute(UIComponent component, String styleAttribute, String value) {
-    Deprecation.LOG.error("HtmlRendererUtil.replaceStyleAttribute() no longer supported. Use setter.");
+    Deprecation.LOG.error("HtmlRendererUtils.replaceStyleAttribute() no longer supported. Use setter.");
   }
 
   /**
@@ -212,7 +211,7 @@ public final class HtmlRendererUtil {
   @Deprecated
   public static void replaceStyleAttribute(UIComponent component, String attribute,
       String styleAttribute, String value) {
-    Deprecation.LOG.error("HtmlRendererUtil.replaceStyleAttribute() no longer supported. Use setter.");
+    Deprecation.LOG.error("HtmlRendererUtils.replaceStyleAttribute() no longer supported. Use setter.");
   }
 
   /**
@@ -220,7 +219,7 @@ public final class HtmlRendererUtil {
    */
   @Deprecated
   public static void replaceStyleAttribute(UIComponent component, String styleAttribute, int value) {
-    Deprecation.LOG.error("HtmlRendererUtil.replaceStyleAttribute() no longer supported. Use setter.");
+    Deprecation.LOG.error("HtmlRendererUtils.replaceStyleAttribute() no longer supported. Use setter.");
   }
 
   /**
@@ -229,11 +228,11 @@ public final class HtmlRendererUtil {
   @Deprecated
   public static void replaceStyleAttribute(UIComponent component, String attribute,
       String styleAttribute, int value) {
-    Deprecation.LOG.error("HtmlRendererUtil.replaceStyleAttribute() no longer supported. Use setter.");
+    Deprecation.LOG.error("HtmlRendererUtils.replaceStyleAttribute() no longer supported. Use setter.");
 
   }
 
-  public static HtmlStyleMap ensureStyleAttributeMap(UIComponent component) {
+  private static HtmlStyleMap ensureStyleAttributeMap(UIComponent component) {
     return ensureStyleAttributeMap(component, Attributes.STYLE);
   }
 
@@ -266,7 +265,7 @@ public final class HtmlRendererUtil {
    */
   @Deprecated
   public static void removeStyleAttribute(UIComponent component, String name) {
-    Deprecation.LOG.error("HtmlRendererUtil.removeStyleAttribute() no longer supported. Use setter.");
+    Deprecation.LOG.error("HtmlRendererUtils.removeStyleAttribute() no longer supported. Use setter.");
   }
 
   /**
@@ -279,12 +278,12 @@ public final class HtmlRendererUtil {
 
   @Deprecated
   public static void createHeaderAndBodyStyles(FacesContext facesContext, UIComponent component) {
-    Deprecation.LOG.error("HtmlRendererUtil.createHeaderAndBodyStyles() no longer supported");
+    Deprecation.LOG.error("HtmlRendererUtils.createHeaderAndBodyStyles() no longer supported");
   }
 
   @Deprecated
   public static void createHeaderAndBodyStyles(FacesContext facesContext, UIComponent component, boolean width) {
-    Deprecation.LOG.error("HtmlRendererUtil.createHeaderAndBodyStyles() no longer supported");
+    Deprecation.LOG.error("HtmlRendererUtils.createHeaderAndBodyStyles() no longer supported");
   }
 
   /**

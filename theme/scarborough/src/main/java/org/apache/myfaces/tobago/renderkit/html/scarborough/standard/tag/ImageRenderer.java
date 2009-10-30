@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -46,13 +46,13 @@ public class ImageRenderer extends LayoutableRendererBase {
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
-    HtmlRendererUtil.renderDojoDndSource(facesContext, component);
+    HtmlRendererUtils.renderDojoDndSource(facesContext, component);
   }
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     UIGraphic graphic = (UIGraphic) component;
     final String value = graphic.getUrl();
@@ -66,12 +66,12 @@ public class ImageRenderer extends LayoutableRendererBase {
         src = null;
         if (isDisabled(graphic)) {
           src = ResourceManagerUtil.getImageWithPath(
-              facesContext, HtmlRendererUtil.createSrc(value, "Disabled"), true);
+              facesContext, HtmlRendererUtils.createSrc(value, "Disabled"), true);
         }
         if (src == null) {
           src = ResourceManagerUtil.getImageWithPath(facesContext, value);
         }
-        HtmlRendererUtil.addImageSources(facesContext, writer, graphic.getUrl(),
+        HtmlRendererUtils.addImageSources(facesContext, writer, graphic.getUrl(),
             graphic.getClientId(facesContext));
       }
     }
@@ -98,11 +98,11 @@ public class ImageRenderer extends LayoutableRendererBase {
       writer.writeAttribute(HtmlAttributes.SRC, src, true);
     }
     writer.writeAttribute(HtmlAttributes.ALT, alt, true);
-    HtmlRendererUtil.renderTip(graphic, writer);
+    HtmlRendererUtils.renderTip(graphic, writer);
     writer.writeAttribute(HtmlAttributes.BORDER, border, false);
 //    writer.writeAttributeFromComponent(HtmlAttributes.HEIGHT, Attributes.HEIGHT);
     writer.writeStyleAttribute();
-    HtmlRendererUtil.renderDojoDndItem(component, writer, true);
+    HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     writer.endElement(HtmlConstants.IMG);
 

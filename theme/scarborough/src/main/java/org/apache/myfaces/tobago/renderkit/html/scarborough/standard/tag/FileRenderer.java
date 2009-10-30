@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -109,7 +109,7 @@ public class FileRenderer extends InputRendererBase {
     UIFileInput input = (UIFileInput) component;
     String clientId = input.getClientId(facesContext);
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlConstants.INPUT, input);
     writer.writeAttribute(HtmlAttributes.TYPE, "file", false);
@@ -124,7 +124,7 @@ public class FileRenderer extends InputRendererBase {
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    HtmlRendererUtil.renderTip(input, writer);
+    HtmlRendererUtils.renderTip(input, writer);
     writer.endElement(HtmlConstants.INPUT);
   }
 }

@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.component.UISelectManyListbox;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -64,8 +64,8 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
       LOG.debug("items.size() = '" + items.size() + "'");
     }
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
-    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, selectMany);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, selectMany);
     writer.startElement(HtmlConstants.SELECT, selectMany);
     String clientId = selectMany.getClientId(facesContext);
     writer.writeNameAttribute(clientId);
@@ -87,11 +87,11 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     if (LOG.isDebugEnabled()) {
       LOG.debug("values = '" + Arrays.toString(values) + "'");
     }
-    HtmlRendererUtil.renderSelectItems(selectMany, items, values, writer, facesContext);
+    HtmlRendererUtils.renderSelectItems(selectMany, items, values, writer, facesContext);
 
     writer.endElement(HtmlConstants.SELECT);
-    HtmlRendererUtil.checkForCommandFacet(selectMany, facesContext, writer);
-    HtmlRendererUtil.renderFocusId(facesContext, selectMany);
+    HtmlRendererUtils.checkForCommandFacet(selectMany, facesContext, writer);
+    HtmlRendererUtils.renderFocusId(facesContext, selectMany);
   }
 
 }

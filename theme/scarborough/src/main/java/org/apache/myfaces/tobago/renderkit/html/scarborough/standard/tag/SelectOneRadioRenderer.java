@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -84,8 +84,8 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     List<SelectItem> items = RenderUtil.getItemsToRender(selectOne);
 
     boolean inline = ComponentUtils.getBooleanAttribute(selectOne, Attributes.INLINE);
-    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, selectOne);
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, selectOne);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     if (!inline) {
       writer.startElement(HtmlConstants.TABLE, selectOne);
@@ -134,7 +134,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       if (tabIndex != null) {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
-      HtmlRendererUtil.renderTip(selectOne, writer);
+      HtmlRendererUtils.renderTip(selectOne, writer);
       if (!ComponentUtils.getBooleanAttribute(selectOne, Attributes.REQUIRED) || readonly) {
         writer.writeAttribute(HtmlAttributes.ONCLICK,
             "Tobago.selectOneRadioClick(this, '" + clientId + "',"
@@ -185,8 +185,8 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     if (!inline) {
       writer.endElement(HtmlConstants.TABLE);
     }
-    HtmlRendererUtil.renderFocusId(facesContext, selectOne);
-    HtmlRendererUtil.checkForCommandFacet(selectOne, clientIds, facesContext, writer);
+    HtmlRendererUtils.renderFocusId(facesContext, selectOne);
+    HtmlRendererUtils.checkForCommandFacet(selectOne, clientIds, facesContext, writer);
 
   }
 }

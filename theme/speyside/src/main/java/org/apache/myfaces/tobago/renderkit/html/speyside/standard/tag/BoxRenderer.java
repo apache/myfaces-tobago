@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -54,7 +54,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
   @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
-    HtmlRendererUtil.renderDojoDndSource(facesContext, component);
+    HtmlRendererUtils.renderDojoDndSource(facesContext, component);
   }
 
   /*
@@ -75,12 +75,12 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     UIBox box = (UIBox) component;
 
     String clientId = box.getClientId(facesContext);
     writer.startElement(HtmlConstants.DIV, box);
-    HtmlRendererUtil.renderDojoDndItem(box, writer, true);
+    HtmlRendererUtils.renderDojoDndItem(box, writer, true);
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
     writer.writeStyleAttribute();
@@ -161,7 +161,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlConstants.DIV);
   }
 
@@ -181,7 +181,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
 
   public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
     AjaxUtils.checkParamValidity(facesContext, component, UIPanel.class);
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     encodeBox(facesContext, writer, (UIBox) component);
     component.encodeChildren(facesContext);

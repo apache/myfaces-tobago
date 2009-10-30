@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -54,12 +54,12 @@ public class TextAreaRenderer extends InputRendererBase {
     }
 
     UITextarea input = (UITextarea) component;
-    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, component);
+    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, component);
 
     String clientId = input.getClientId(facesContext);
     String onchange = HtmlUtils.generateOnchange(input, facesContext);
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.TEXTAREA, input);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
@@ -75,7 +75,7 @@ public class TextAreaRenderer extends InputRendererBase {
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    HtmlRendererUtil.renderDojoDndItem(component, writer, true);
+    HtmlRendererUtils.renderDojoDndItem(component, writer, true);
 
     writer.writeStyleAttribute();
     writer.writeClassAttribute();
@@ -96,7 +96,7 @@ public class TextAreaRenderer extends InputRendererBase {
     }
     writer.endElement(HtmlConstants.TEXTAREA);
 
-    HtmlRendererUtil.checkForCommandFacet(input, facesContext, writer);
+    HtmlRendererUtils.checkForCommandFacet(input, facesContext, writer);
     int maxLength = -1;
     for (Validator validator : input.getValidators()) {
       if (validator instanceof LengthValidator) {
@@ -106,16 +106,16 @@ public class TextAreaRenderer extends InputRendererBase {
     }
     boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
     if (required || maxLength > 0) {
-      String rendererName = HtmlRendererUtil.getRendererName(facesContext, input);
+      String rendererName = HtmlRendererUtils.getRendererName(facesContext, input);
       final String[] cmds = {
           "new Tobago.In(\"" + input.getClientId(facesContext) + "\", true ,\""
                   + StyleClasses.PREFIX + rendererName + "\" " + (maxLength > -1? "," + maxLength: "")  + "  );"
       };
-      HtmlRendererUtil.writeScriptLoader(facesContext, null, cmds);
+      HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
     }
 
     // focus
-    HtmlRendererUtil.renderFocusId(facesContext, input);
+    HtmlRendererUtils.renderFocusId(facesContext, input);
 
   }
 }

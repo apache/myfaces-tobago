@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.component.UISelectOneListbox;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -55,7 +55,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
       return;
     }
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     UISelectOneListbox selectOne = (UISelectOneListbox) component;
     List<SelectItem> items = RenderUtil.getSelectItems(selectOne);
@@ -71,7 +71,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     }
     writer.writeStyleAttribute();
     writer.writeClassAttribute();
-    HtmlRendererUtil.renderTip(selectOne, writer);
+    HtmlRendererUtils.renderTip(selectOne, writer);
     writer.writeAttribute(HtmlAttributes.SIZE, 2); // should be greater 1
     if (!ComponentUtils.getBooleanAttribute(selectOne, Attributes.REQUIRED)) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, "Tobago.selectOneListboxChange(this)", false);
@@ -80,12 +80,12 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
 
     Object[] values = {selectOne.getValue()};
 
-    HtmlRendererUtil.renderSelectItems(selectOne, items, values, writer, facesContext);
+    HtmlRendererUtils.renderSelectItems(selectOne, items, values, writer, facesContext);
 
     writer.endElement(HtmlConstants.SELECT);
     super.encodeEnd(facesContext, selectOne);
-    HtmlRendererUtil.renderFocusId(facesContext, selectOne);
-    HtmlRendererUtil.checkForCommandFacet(selectOne, facesContext, writer);
+    HtmlRendererUtils.renderFocusId(facesContext, selectOne);
+    HtmlRendererUtils.checkForCommandFacet(selectOne, facesContext, writer);
   }
 
 

@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.layout.LayoutContext2;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -120,7 +120,7 @@ public class PageRenderer extends PageRendererBase {
 
     RenderUtil.prepareRendererAll(facesContext, page);
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     // reset responseWriter and render page
     facesContext.setResponseWriter(writer);
@@ -141,7 +141,7 @@ public class PageRenderer extends PageRendererBase {
     formAction = facesContext.getExternalContext().encodeActionURL(formAction);
     String contentType = writer.getContentTypeWithCharSet();
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
-    HtmlRendererUtil.renderDojoDndSource(facesContext, component);
+    HtmlRendererUtils.renderDojoDndSource(facesContext, component);
 
     String title = (String) page.getAttributes().get(Attributes.LABEL);
 
@@ -362,7 +362,7 @@ public class PageRenderer extends PageRendererBase {
           "script/logging.js"
       };
       final String[] jsCommand = new String[]{"new LOG.LogArea({hide: " + hideClientLogging + "});"};
-      HtmlRendererUtil.writeScriptLoader(facesContext, jsFiles, jsCommand);
+      HtmlRendererUtils.writeScriptLoader(facesContext, jsFiles, jsCommand);
       writer.writeJavascript("TbgTimer.startBody = new Date();");
     }
 */
@@ -476,7 +476,7 @@ public class PageRenderer extends PageRendererBase {
       RenderUtil.encode(facesContext, popup);
     }
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     String clientId = page.getClientId(facesContext);
     final boolean debugMode = ClientProperties.getInstance(facesContext.getViewRoot()).isDebugMode();
@@ -521,7 +521,7 @@ public class PageRenderer extends PageRendererBase {
 
       logMessages.add("LOG.info(\"FacesContext = " + facesContext + "\");");
 
-      HtmlRendererUtil.writeScriptLoader(facesContext, null,
+      HtmlRendererUtils.writeScriptLoader(facesContext, null,
           logMessages.toArray(new String[logMessages.size()]));
     }
 

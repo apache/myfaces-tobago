@@ -105,10 +105,10 @@ public class CommandRendererHelper {
               + Arrays.toString(componentIds));
             }
             onclick = "Tobago.openPopupWithAction(this, '"
-                + HtmlRendererUtil.getComponentId(facesContext, command, componentIds[0]) + "', '" + clientId + "')";
+                + HtmlRendererUtils.getComponentId(facesContext, command, componentIds[0]) + "', '" + clientId + "')";
           } else {
             onclick = "Tobago.reloadComponent(this, '"
-                + HtmlRendererUtil.getComponentIds(facesContext, command, componentIds) + "','" + clientId + "', {});";
+                + HtmlRendererUtils.getComponentIds(facesContext, command, componentIds) + "','" + clientId + "', {});";
           }
 
       } else if (defaultCommand) {

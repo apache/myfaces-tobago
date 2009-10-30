@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -49,11 +49,11 @@ public class LabelRenderer extends LayoutableRendererBase {
     String forValue = ComponentUtils.findClientIdFor(output, facesContext);
 
     createClassAttribute(component);
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     
     String clientId = output.getClientId(facesContext);
     writer.startElement(HtmlConstants.DIV, output);
-    HtmlRendererUtil.renderDojoDndItem(component, writer, true);
+    HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     writer.writeStyleAttribute();
     writer.startElement(HtmlConstants.A, output);
@@ -65,10 +65,10 @@ public class LabelRenderer extends LayoutableRendererBase {
     }
     writer.writeClassAttribute();
 
-    HtmlRendererUtil.renderTip(output, writer);
+    HtmlRendererUtils.renderTip(output, writer);
 
     if (label.getText() != null) {
-      HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
+      HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
     }
     writer.endElement(HtmlConstants.LABEL);
     writer.endElement(HtmlConstants.A);
@@ -78,7 +78,7 @@ public class LabelRenderer extends LayoutableRendererBase {
           && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
         LOG.info("dublicated accessKey : " + label.getAccessKey());
       }      
-      HtmlRendererUtil.addClickAcceleratorKey(facesContext, clientId, label.getAccessKey());
+      HtmlRendererUtils.addClickAcceleratorKey(facesContext, clientId, label.getAccessKey());
     }
     writer.endElement(HtmlConstants.DIV);
   }

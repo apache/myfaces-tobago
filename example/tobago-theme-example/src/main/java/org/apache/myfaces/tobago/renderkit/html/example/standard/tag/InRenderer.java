@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.renderkit.html.example.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIInputBase;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -59,14 +59,14 @@ public class InRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbor
       final String[] cmds = {
           "new Example.ChangeAware('" + id + "');"
       };
-      HtmlRendererUtil.writeScriptLoader(facesContext, null, cmds);
+      HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
     }
     if (markup.contains("blink")) {
       String id = input.getClientId(facesContext);
       final String[] cmds = {
           "new Example.Blinker('" + id + "');"
       };
-      HtmlRendererUtil.writeScriptLoader(facesContext, null, cmds);
+      HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
     }
   }
 

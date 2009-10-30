@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.FastStringWriter;
@@ -85,7 +85,7 @@ public class TreeRenderer extends LayoutableRendererBase {
     String clientId = tree.getClientId(facesContext);
     UIComponent root = tree.getRoot();
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlConstants.DIV, tree);
     writer.writeClassAttribute();
@@ -114,7 +114,7 @@ public class TreeRenderer extends LayoutableRendererBase {
       writer.endElement(HtmlConstants.INPUT);
     }
 
-    HtmlRendererUtil.writeScriptLoader(facesContext, SCRIPT);
+    HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPT);
 
     RenderUtil.encode(facesContext, root);
 

@@ -26,7 +26,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -41,11 +41,11 @@ public class ToolBarRenderer extends ToolBarRendererBase {
   public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
     UIPanel toolbar = (UIPanel) uiComponent;
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlConstants.DIV, toolbar);
     writer.writeIdAttribute(toolbar.getClientId(facesContext));
-    HtmlRendererUtil.renderDojoDndItem(toolbar, writer, true);
+    HtmlRendererUtils.renderDojoDndItem(toolbar, writer, true);
     writer.writeClassAttribute();
     writer.writeStyleAttribute();
     writer.startElement(HtmlConstants.DIV, toolbar);

@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -40,7 +40,7 @@ public class OutRenderer extends LayoutableRendererBase {
       text = "";
     }
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     boolean escape = out.getEscape();
     boolean createSpan = out.getCreateSpan();
@@ -50,9 +50,9 @@ public class OutRenderer extends LayoutableRendererBase {
       writer.startElement(HtmlConstants.DIV, out);
       writer.writeIdAttribute(id);
       writer.writeStyleAttribute();
-      HtmlRendererUtil.renderDojoDndItem(out, writer, true);
+      HtmlRendererUtils.renderDojoDndItem(out, writer, true);
       writer.writeClassAttribute();
-      HtmlRendererUtil.renderTip(out, writer);
+      HtmlRendererUtils.renderTip(out, writer);
     }
     if (escape) {
       StringTokenizer tokenizer = new StringTokenizer(text, "\n\r");

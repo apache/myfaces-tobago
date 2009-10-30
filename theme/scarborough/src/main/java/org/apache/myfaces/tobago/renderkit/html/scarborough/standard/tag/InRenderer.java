@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -84,7 +84,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     }
     UIInputBase input = (UIInputBase) component;
 
-    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, input);
+    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, input);
 
     String currentValue = getCurrentValue(facesContext, input);
     if (LOG.isDebugEnabled()) {
@@ -99,7 +99,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
      renderAjaxSuggest = ((UIInput) input).getSuggestMethod() != null;
     }
     String id = input.getClientId(facesContext);
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.INPUT, input);
     writer.writeAttribute(HtmlAttributes.TYPE, type, false);
     writer.writeNameAttribute(id);
@@ -129,7 +129,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     writer.writeStyleAttribute();
 
     applyExtraStyle(facesContext, input, currentValue);
-    HtmlRendererUtil.renderDojoDndItem(component, writer, true);
+    HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     /*if (component instanceof UIInputBase) {
       String onchange = HtmlUtils.generateOnchange((UIInputBase) component, facesContext);
@@ -140,20 +140,20 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     } */
     writer.endElement(HtmlConstants.INPUT);
 
-    HtmlRendererUtil.checkForCommandFacet(input, facesContext, writer);
+    HtmlRendererUtils.checkForCommandFacet(input, facesContext, writer);
 
     boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
-    String rendererName = HtmlRendererUtil.getRendererName(facesContext, input);
+    String rendererName = HtmlRendererUtils.getRendererName(facesContext, input);
     if (required && !renderAjaxSuggest) {
       final String[] cmds = {
           "new Tobago.In(\"" + id + "\", true ,\"" + StyleClasses.PREFIX + rendererName + "\"  );"
       };
 
-      HtmlRendererUtil.writeScriptLoader(facesContext, null, cmds);
+      HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
     }
 
     // focus
-    HtmlRendererUtil.renderFocusId(facesContext, input);
+    HtmlRendererUtils.renderFocusId(facesContext, input);
 
     // input suggest
     if (renderAjaxSuggest) {
@@ -168,8 +168,8 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
           "    { });"
       };
 
-      HtmlRendererUtil.writeStyleLoader(facesContext, STYLES);
-      HtmlRendererUtil.writeScriptLoader(facesContext, SCRIPTS, cmds);
+      HtmlRendererUtils.writeStyleLoader(facesContext, STYLES);
+      HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmds);
     }
 
   }
@@ -178,7 +178,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     if (currentValue != null && currentValue.length() > 0
         && ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED)) {
       StyleClasses styleClasses = StyleClasses.ensureStyleClasses(input);
-      String rendererName = HtmlRendererUtil.getRendererName(facesContext, input);
+      String rendererName = HtmlRendererUtils.getRendererName(facesContext, input);
       styleClasses.removeAspectClass(rendererName, StyleClasses.Aspect.REQUIRED);
     }
   }
@@ -205,7 +205,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
       return;
     }
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(context);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(context);
     int maxSuggestedCount = 25; //input.getMaxSuggestedItems()!=null
 //        ? input.getMaxSuggestedItems().intValue()
 //        : DEFAULT_MAX_SUGGESTED_ITEMS;

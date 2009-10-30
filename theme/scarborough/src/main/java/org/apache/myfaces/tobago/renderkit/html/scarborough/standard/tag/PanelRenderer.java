@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -48,7 +48,7 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
   @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
-    HtmlRendererUtil.renderDojoDndSource(facesContext, component);
+    HtmlRendererUtils.renderDojoDndSource(facesContext, component);
   }
 
   @Override
@@ -68,9 +68,9 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     String clientId = component.getClientId(facesContext);
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.DIV, component);
-    HtmlRendererUtil.renderDojoDndItem(component, writer, true);
+    HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
     writer.writeStyleAttribute();
@@ -89,7 +89,7 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
           "new Tobago.Panel(\"" + clientId + "\", " + true + ", " + frequency + ");"
       };
 
-      HtmlRendererUtil.writeScriptLoader(facesContext, null, cmds);
+      HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
     }
   }
 

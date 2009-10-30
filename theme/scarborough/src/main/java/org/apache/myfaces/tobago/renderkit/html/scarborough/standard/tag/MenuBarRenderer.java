@@ -44,7 +44,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -81,11 +81,11 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       clientId = component.getParent().getClientId(facesContext);
     } else {
       clientId = component.getClientId(facesContext);
-      TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+      TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
       writer.startElement(HtmlConstants.DIV, component);
       writer.writeIdAttribute(clientId);
-      HtmlRendererUtil.renderDojoDndItem(component, writer, true);
+      HtmlRendererUtils.renderDojoDndItem(component, writer, true);
       StyleClasses styleClasses = StyleClasses.ensureStyleClasses(component);
       if (ComponentUtils.getBooleanAttribute(component, Attributes.PAGE_MENU)) {
         styleClasses.addClass("menuBar", "page-facet"); // XXX not a standard compliant name
@@ -113,7 +113,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     List<String> accKeyFunctions
         = (List<String>) attributes.remove(MENU_ACCELERATOR_KEYS);
     if (!accKeyFunctions.isEmpty()) {
-      HtmlRendererUtil.writeScriptLoader(facesContext, null,
+      HtmlRendererUtils.writeScriptLoader(facesContext, null,
           accKeyFunctions.toArray(new String[accKeyFunctions.size()]));
     }
   }
@@ -136,7 +136,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     super.prepareRender(facesContext, component);
     if (facesContext instanceof TobagoFacesContext) {
       if (!ComponentUtils.getBooleanAttribute(component, Attributes.MENU_POPUP)) {
-        HtmlRendererUtil.renderDojoDndSource(facesContext, component);
+        HtmlRendererUtils.renderDojoDndSource(facesContext, component);
       }
 
       final String[] scripts = new String[]{"script/tobago-menu.js"};
@@ -169,7 +169,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
         lines.add(st.nextToken());
       }
       lines.add(function);
-      HtmlRendererUtil.writeScriptLoader(facesContext,
+      HtmlRendererUtils.writeScriptLoader(facesContext,
           new String[] {"script/tobago-menu.js"},
           lines.toArray(new String[lines.size()]));
     }
@@ -242,7 +242,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     FastStringWriter stringWriter = new FastStringWriter();
     ResponseWriter newWriter = savedWriter.cloneWithWriter(stringWriter);
     facesContext.setResponseWriter(newWriter);
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writeMenuEntry(facesContext, writer, uiPanel);
 
@@ -291,7 +291,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
           addAcceleratorKey(facesContext, uiPanel, label.getAccessKey());
         }
       }
-      HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
+      HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
     }
     writer.endElement(HtmlConstants.A);
   }
@@ -305,7 +305,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     if (component != null) {
       List<String> keys
           = (List<String>) component.getAttributes().get(MENU_ACCELERATOR_KEYS);
-      String jsStatement = HtmlRendererUtil.createOnclickAcceleratorKeyJsStatement(
+      String jsStatement = HtmlRendererUtils.createOnclickAcceleratorKeyJsStatement(
           clientId, accessKey, null);
       keys.add(jsStatement);
     } else {
@@ -480,7 +480,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     FastStringWriter stringWriter = new FastStringWriter();
     ResponseWriter newWriter = savedWriter.cloneWithWriter(stringWriter);
     facesContext.setResponseWriter(newWriter);
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     addImage(writer, facesContext, image, disabled);
 
     writer.startElement(HtmlConstants.A, null);
@@ -502,7 +502,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     writer.writeAttribute(HtmlAttributes.ONKEYDOWN, "tobagoMenuKeyDown(event)", false);
     writer.writeAttribute(HtmlAttributes.ONKEYPRESS, "tobagoMenuKeyPress(event)", false);
     if (label.getText() != null) {
-      HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
+      HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
     }
     writer.endElement(HtmlConstants.A);
 

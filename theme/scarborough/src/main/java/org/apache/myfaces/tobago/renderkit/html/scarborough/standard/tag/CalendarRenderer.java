@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.model.DateModel;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -92,11 +92,11 @@ public class CalendarRenderer extends LayoutableRendererBase {
 
     // rendering:
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlConstants.TABLE, component);
     writer.writeIdAttribute(id);
-    HtmlRendererUtil.renderDojoDndItem(component, writer, true);
+    HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, 3);
@@ -233,7 +233,7 @@ public class CalendarRenderer extends LayoutableRendererBase {
             ? "initCalendarParse('" + id + "', '" + dateTextBoxId + "');"
             : ""
     };
-    HtmlRendererUtil.writeScriptLoader(facesContext, SCRIPTS, cmd);
+    HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmd);
   }
   
   private void writeInputHidden(TobagoResponseWriter writer,

@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -60,10 +60,10 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     boolean disabled = ComponentUtils.getBooleanAttribute(component, Attributes.DISABLED);
     Integer min = ComponentUtils.getIntAttribute(component, "min");
     Integer max = ComponentUtils.getIntAttribute(component, "max");
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
 
-    HtmlStyleMap style = HtmlRendererUtil.ensureStyleAttributeMap(component);
+    HtmlStyleMap style = HtmlRendererUtils.ensureStyleAttributeMap(component);
     int width = -1;
     int sliderWidthPerc = 33;
     if (ThemeConfig.hasValue(facesContext, component, SLIDER_WIDTH_PERCENT)) {
@@ -161,7 +161,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     writer.endElement(HtmlConstants.TABLE);
 
     writeSliderJavaScript(facesContext, component, writer);
-    //HtmlRendererUtil.renderFocusId(facesContext, component);
+    //HtmlRendererUtils.renderFocusId(facesContext, component);
   }
 
   public void decode(FacesContext context, UIComponent component) {

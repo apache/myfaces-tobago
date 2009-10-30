@@ -58,7 +58,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.LayoutInfo;
@@ -107,13 +107,13 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 
     final String sheetId = data.getClientId(facesContext);
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     // Outer sheet div
     writer.startElement(HtmlConstants.DIV, data);
     writer.writeIdAttribute(sheetId + "_outer_div");
     writer.writeClassAttribute("tobago-sheet-outer-div");
-// todo    HtmlStyleMap style = HtmlRendererUtil.createStyle(data);
+// todo    HtmlStyleMap style = HtmlRendererUtils.createStyle(data);
     writer.writeStyleAttribute();
     UICommand clickAction = null;
     UICommand dblClickAction = null;
@@ -162,18 +162,18 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
         "new Tobago.Sheet(\"" + sheetId + "\", " + ajaxEnabled
             + ", \"" + checked + "\", \"" + unchecked + "\", \"" + data.getSelectable()
             + "\", " + columnSelectorIndex + ", "+ frequency
-            + ",  " + (clickAction!=null?HtmlRendererUtil.getJavascriptString(clickAction.getId()):null)
-            + ",  " + HtmlRendererUtil.getRenderedPartiallyJavascriptArray(facesContext, clickAction)
-            + ",  " + (dblClickAction!=null?HtmlRendererUtil.getJavascriptString(dblClickAction.getId()):null)
-            + ",  " + HtmlRendererUtil.getRenderedPartiallyJavascriptArray(facesContext, dblClickAction)
+            + ",  " + (clickAction!=null? HtmlRendererUtils.getJavascriptString(clickAction.getId()):null)
+            + ",  " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, clickAction)
+            + ",  " + (dblClickAction!=null? HtmlRendererUtils.getJavascriptString(dblClickAction.getId()):null)
+            + ",  " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, dblClickAction)
             + ");"
     };
 
-    HtmlRendererUtil.writeScriptLoader(facesContext, SCRIPTS, cmds);
+    HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmds);
   }
 
   private void renderSheet(FacesContext facesContext, UIData data, boolean hasClickAction) throws IOException {
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
     UIViewRoot viewRoot = facesContext.getViewRoot();
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
@@ -183,7 +183,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     String selectorDisabled = contextPath + resourceManager.getImage(viewRoot, "image/sheetUncheckedDisabled.gif");
     String unchecked = contextPath + resourceManager.getImage(viewRoot, "image/sheetUnchecked.gif");
 
-    HtmlStyleMap style = HtmlRendererUtil.ensureStyleAttributeMap(data);
+    HtmlStyleMap style = HtmlRendererUtils.ensureStyleAttributeMap(data);
     //HtmlStyleMap headerStyle = (HtmlStyleMap) attributes.get(STYLE_HEADER);
 //    String sheetWidthString = LayoutUtils.getStyleAttributeValue(style,
 //        "width");
@@ -374,13 +374,13 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
         writer.writeClassAttribute(tdClass.toString());
         final String align = (String) column.getAttributes().get(Attributes.ALIGN);
         if (align != null) {
-          writer.writeStyleAttribute(HtmlRendererUtil.toStyleString("text-align", align));
+          writer.writeStyleAttribute(HtmlRendererUtils.toStyleString("text-align", align));
         }
         writer.startElement(HtmlConstants.DIV, null);
         writer.writeIdAttribute(
             sheetId + "_data_row_" + visibleIndex + "_column" + columnIndex);
         writer.writeClassAttribute("tobago-sheet-cell-outer");
-        writer.writeStyleAttribute(HtmlRendererUtil.toStyleString("width", columnWidths.get(columnIndex)));
+        writer.writeStyleAttribute(HtmlRendererUtils.toStyleString("width", columnWidths.get(columnIndex)));
 
         writer.startElement(HtmlConstants.DIV, null);
         writer.writeClassAttribute("tobago-sheet-cell-inner");
@@ -642,7 +642,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       }
     }
 
-    HtmlStyleMap style = HtmlRendererUtil.ensureStyleAttributeMap(data);
+    HtmlStyleMap style = HtmlRendererUtils.ensureStyleAttributeMap(data);
     if (style.getHeight() != null) {
       int first = data.getFirst();
       int rows = Math.min(data.getRowCount(), first + data.getRows()) - first;
@@ -741,7 +741,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     String image = ResourceManagerUtil.getImageWithPath(facesContext,
         "image/sheet" + command.getToken() + (disabled ? "Disabled" : "") + ".gif");
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.IMG, null);
     writer.writeIdAttribute(data.getClientId(facesContext)
         + SUBCOMPONENT_SEP + "pagingPages" + SUBCOMPONENT_SEP + command.getToken());

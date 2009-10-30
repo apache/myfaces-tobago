@@ -50,7 +50,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -113,10 +113,10 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     final String switchType = tabGroup.getSwitchType();
 
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
-      HtmlRendererUtil.writeScriptLoader(facesContext, SCRIPTS, new String[0]);
+      HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, new String[0]);
     }
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeAttribute(HtmlAttributes.VALUE, Integer.toString(activeIndex), false);
@@ -152,7 +152,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
 
             writer.startElement(HtmlConstants.DIV, null);
             writer.writeIdAttribute(clientId);
-            HtmlRendererUtil.renderDojoDndItem(tabGroup, writer, false);
+            HtmlRendererUtils.renderDojoDndItem(tabGroup, writer, false);
             //TODO writer.writeClassAttribute("dojoDndItem");
             StyleClasses classes = (StyleClasses) tabGroup.getAttributes().get(Attributes.STYLE_CLASS);
             writer.writeClassAttribute(classes);
@@ -168,7 +168,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
                   "    '" + activeIndex + "', ",
                   "    '" + tabGroup.getChildCount() + "');"
               };
-              HtmlRendererUtil.writeScriptLoader(facesContext, new String[0], cmds);
+              HtmlRendererUtils.writeScriptLoader(facesContext, new String[0], cmds);
             }
           }
         }
@@ -394,7 +394,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
           writer.writeStyleAttribute(labelStyle);
           writer.writeIdAttribute(tab.getClientId(facesContext));
 
-          HtmlRendererUtil.renderTip(tab, writer);
+          HtmlRendererUtils.renderTip(tab, writer);
 
           writer.startElement(HtmlConstants.DIV, tab);
           writer.writeStyleAttribute(labelStyle);
@@ -418,7 +418,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
             }
           }
           if (label.getText() != null) {
-            HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
+            HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
           } else {
             writer.writeText(Integer.toString(index + 1));
           }
@@ -429,7 +429,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
                 && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
               LOG.warn("dublicated accessKey : " + label.getAccessKey());
             }
-            HtmlRendererUtil.addClickAcceleratorKey(facesContext, tabId, label.getAccessKey());
+            HtmlRendererUtils.addClickAcceleratorKey(facesContext, tabId, label.getAccessKey());
           }
           writer.endElement(HtmlConstants.DIV);
           writer.endElement(HtmlConstants.DIV);
@@ -531,7 +531,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     TabList tabList = getTabList(context, (UITabGroup) component);
     int index = ensureRenderedActiveIndex(context, (UITabGroup) component);
     Measure currentWidth = new PixelMeasure(getCurrentWidth(tabList, index));
-    renderTabGroupView(context, HtmlRendererUtil.getTobagoResponseWriter(context),
+    renderTabGroupView(context, HtmlRendererUtils.getTobagoResponseWriter(context),
         (UITabGroup) component, index, SWITCH_TYPE_RELOAD_TAB,
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"),
         ThemeConfig.getMeasure(context, component, "navigationBarWidth"), currentWidth, tabList);

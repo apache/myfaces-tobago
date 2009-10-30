@@ -125,7 +125,7 @@ public class RenderUtil {
     }
   }
 
-  //TODO move to HtmlRendererUtil
+  //TODO move to HtmlRendererUtils
   public static String addMenuCheckToggle(String clientId, String onClick) {
     if (onClick != null) {
       onClick = " ; " + onClick;

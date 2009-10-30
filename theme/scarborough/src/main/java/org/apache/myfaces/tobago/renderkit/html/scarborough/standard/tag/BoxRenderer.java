@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -53,11 +53,11 @@ public class BoxRenderer extends BoxRendererBase {
     UIPanel toolbar = (UIPanel) component.getFacet(Facets.TOOL_BAR);
     if (toolbar != null) {
       final int padding = ThemeConfig.getValue(facesContext, component, "paddingTopWhenToolbar");
-      HtmlRendererUtil.replaceStyleAttribute(component, getAttrStyleKey(), "padding-top", padding);
-      HtmlRendererUtil.replaceStyleAttribute(component, getAttrStyleKey(), "padding-bottom", 0);
+      HtmlRendererUtils.replaceStyleAttribute(component, getAttrStyleKey(), "padding-top", padding);
+      HtmlRendererUtils.replaceStyleAttribute(component, getAttrStyleKey(), "padding-bottom", 0);
     }
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlConstants.FIELDSET, component);
     writer.writeClassAttribute();

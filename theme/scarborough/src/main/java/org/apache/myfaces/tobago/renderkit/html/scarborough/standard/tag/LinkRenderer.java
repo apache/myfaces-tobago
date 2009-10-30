@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -52,7 +52,7 @@ public class LinkRenderer extends CommandRendererBase {
     String clientId = command.getClientId(facesContext);
     CommandRendererHelper helper = new CommandRendererHelper(facesContext, command, CommandRendererHelper.Tag.ANCHOR);
     String href = helper.getHref();
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     LabelWithAccessKey label = new LabelWithAccessKey(command);
 
@@ -76,11 +76,11 @@ public class LinkRenderer extends CommandRendererBase {
       }
     }
     writer.writeStyleAttribute();
-    HtmlRendererUtil.renderDojoDndItem(component, writer, true);
+    HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);
-    HtmlRendererUtil.renderTip(command, writer);
+    HtmlRendererUtils.renderTip(command, writer);
     writer.flush();
 
 //  image
@@ -94,8 +94,8 @@ public class LinkRenderer extends CommandRendererBase {
       writer.startElement(HtmlConstants.IMG, command);
       writer.writeAttribute(HtmlAttributes.SRC, image, true);
       writer.writeAttribute(HtmlAttributes.BORDER, 0); // TODO: is border=0 setting via style possible?
-      HtmlRendererUtil.renderImageTip(command, writer);
-      HtmlRendererUtil.renderTip(command, writer);
+      HtmlRendererUtils.renderImageTip(command, writer);
+      HtmlRendererUtils.renderTip(command, writer);
       writer.endElement(HtmlConstants.IMG);
     }
 
@@ -104,7 +104,7 @@ public class LinkRenderer extends CommandRendererBase {
       if (image != null) {
         writer.write(" "); // separator: e.g. &nbsp;
       }
-      HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
+      HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
     }
 
     if (label.getAccessKey() != null) {
@@ -113,7 +113,7 @@ public class LinkRenderer extends CommandRendererBase {
         LOG.info("dublicated accessKey : " + label.getAccessKey());
       }
 
-      HtmlRendererUtil.addClickAcceleratorKey(facesContext, clientId, label.getAccessKey());
+      HtmlRendererUtils.addClickAcceleratorKey(facesContext, clientId, label.getAccessKey());
     }
   }
 

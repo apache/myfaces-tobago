@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -52,7 +52,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
       return;
     }
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     UISelectOneChoice selectOne = (UISelectOneChoice) component;
     List<SelectItem> items = RenderUtil.getSelectItems(selectOne);
 
@@ -60,7 +60,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
       LOG.debug("items.size() = '" + items.size() + "'");
     }
 
-    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, selectOne);
+    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, selectOne);
 
     boolean disabled = items.size() == 0
         || ComponentUtils.getBooleanAttribute(selectOne, Attributes.DISABLED)
@@ -92,11 +92,11 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     }
     Object[] values = {selectOne.getValue()};
 
-    HtmlRendererUtil.renderSelectItems(selectOne, items, values, writer, facesContext);
+    HtmlRendererUtils.renderSelectItems(selectOne, items, values, writer, facesContext);
 
     writer.endElement(HtmlConstants.SELECT);
     super.encodeEnd(facesContext, selectOne);
-    HtmlRendererUtil.renderFocusId(facesContext, selectOne);
-    HtmlRendererUtil.checkForCommandFacet(selectOne, facesContext, writer);
+    HtmlRendererUtils.renderFocusId(facesContext, selectOne);
+    HtmlRendererUtils.checkForCommandFacet(selectOne, facesContext, writer);
   }
 }

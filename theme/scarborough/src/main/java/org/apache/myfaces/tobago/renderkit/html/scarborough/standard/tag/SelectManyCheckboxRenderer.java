@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -59,7 +59,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
     List<SelectItem> items = RenderUtil.getItemsToRender(selectMany);
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     Object[] values = selectMany.getSelectedValues();
     if (LOG.isDebugEnabled()) {
@@ -68,7 +68,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     String id = selectMany.getClientId(facesContext);
 
     boolean inline = ComponentUtils.getBooleanAttribute(selectMany, Attributes.INLINE);
-    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, selectMany);
+    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, selectMany);
     if (!inline) {
       writer.startElement(HtmlConstants.TABLE, selectMany);
       // TODO writer.writeComponentClass();
@@ -158,7 +158,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     if (!inline) {
       writer.endElement(HtmlConstants.TABLE);
     }
-    HtmlRendererUtil.renderFocusId(facesContext, selectMany);
-    HtmlRendererUtil.checkForCommandFacet(selectMany, clientIds, facesContext, writer);
+    HtmlRendererUtils.renderFocusId(facesContext, selectMany);
+    HtmlRendererUtils.checkForCommandFacet(selectMany, clientIds, facesContext, writer);
   }
 }

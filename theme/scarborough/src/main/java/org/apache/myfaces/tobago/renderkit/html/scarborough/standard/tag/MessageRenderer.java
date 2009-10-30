@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -59,7 +59,7 @@ public class MessageRenderer extends MessageRendererBase {
 
     Iterator iterator = facesContext.getMessages(clientId);
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     boolean showSummary = ComponentUtils.getBooleanAttribute(component, Attributes.SHOW_SUMMARY);
     boolean showDetail = ComponentUtils.getBooleanAttribute(component, Attributes.SHOW_DETAIL);

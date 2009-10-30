@@ -38,7 +38,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -61,7 +61,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
-    HtmlRendererUtil.renderDojoDndSource(facesContext, component);
+    HtmlRendererUtils.renderDojoDndSource(facesContext, component);
   }
 
   protected String getLabelPosition(UIComponent component) {
@@ -75,7 +75,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
   public void encodeEnd(FacesContext context, UIComponent uiComponent) throws IOException {
     UIPanel toolbar = (UIPanel) uiComponent;
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(context);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(context);
     List children = toolbar.getChildren();
 
     boolean first = true;
@@ -252,12 +252,12 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
     boolean anchorOnLabel = label.getText() != null && !UIToolBar.LABEL_OFF.equals(labelPosition);
 
     if (!UIToolBar.ICON_OFF.equals(iconSize)) {
-      HtmlRendererUtil.addImageSources(facesContext, writer,
+      HtmlRendererUtils.addImageSources(facesContext, writer,
           iconName != null ? iconName : "image/1x1.gif", graphicId);
 
       writer.startElement(HtmlConstants.TD, command);
       writer.writeAttribute(HtmlAttributes.ALIGN, "center", false);
-      HtmlRendererUtil.renderTip(command, writer);
+      HtmlRendererUtils.renderTip(command, writer);
 
       boolean render1pxImage = (iconName == null
           && (!UIToolBar.LABEL_BOTTOM.equals(labelPosition)
@@ -280,7 +280,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
       writer.writeIdAttribute(graphicId);
       writer.writeAttribute(HtmlAttributes.SRC, image, false);
       writer.writeAttribute(HtmlAttributes.ALT, "", false);
-      HtmlRendererUtil.renderTip(command, writer);
+      HtmlRendererUtils.renderTip(command, writer);
       writer.writeAttribute(HtmlAttributes.BORDER, 0);
       writer.writeClassAttribute(className);
       if (render1pxImage) {
@@ -315,7 +315,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
       }
       if (label.getText() != null) {
         renderAnchorBegin(facesContext, writer, command, label, disabled);
-        HtmlRendererUtil.writeLabelWithAccessKey(writer, label);
+        HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
         writer.endElement(HtmlConstants.A);
       }
       writer.endElement(HtmlConstants.TD);
@@ -417,7 +417,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
     writer.startElement(HtmlConstants.A, command);
     // TODO use StyleClasses
     writer.writeClassAttribute(getAnchorClass(disabled));
-    HtmlRendererUtil.renderTip(command, writer);
+    HtmlRendererUtils.renderTip(command, writer);
     if (!disabled) {
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);
       writer.writeAttribute(HtmlAttributes.ONFOCUS, "Tobago.toolbarFocus(this, event)", false);
@@ -428,7 +428,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
             && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
           LOG.info("dublicated accessKey : " + label.getAccessKey());
         }
-        HtmlRendererUtil.addClickAcceleratorKey(
+        HtmlRendererUtils.addClickAcceleratorKey(
             facesContext, id, label.getAccessKey());
       }
     }

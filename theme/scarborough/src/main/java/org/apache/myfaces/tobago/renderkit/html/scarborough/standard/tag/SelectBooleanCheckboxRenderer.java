@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.component.UISelectBoolean;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -77,7 +77,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
 
     UISelectBoolean selectBoolean = (UISelectBoolean) component;
 
-    TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     UIComponent label = ComponentUtils.provideLabel(facesContext, selectBoolean);
 
@@ -90,7 +90,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
       writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
       writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
       writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-      HtmlRendererUtil.renderTip(component, writer);
+      HtmlRendererUtils.renderTip(component, writer);
 
       writer.startElement(HtmlConstants.TR, null);
       writer.startElement(HtmlConstants.TD, null);
@@ -120,7 +120,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    String title = HtmlRendererUtil.getTitleFromTipAndMessages(facesContext, selectBoolean);
+    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, selectBoolean);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
@@ -141,7 +141,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
       writer.endElement(HtmlConstants.TR);
       writer.endElement(HtmlConstants.TABLE);
     }
-    HtmlRendererUtil.checkForCommandFacet(selectBoolean, facesContext, writer);
+    HtmlRendererUtils.checkForCommandFacet(selectBoolean, facesContext, writer);
   }
 }
 

@@ -25,12 +25,12 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtil;
+import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.DateFormatUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -58,7 +58,7 @@ public class DateRenderer extends InRenderer {
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
-      HtmlRendererUtil.writeScriptLoader(facesContext, SCRIPTS, null);
+      HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, null);
     }
 
     super.encodeEnd(facesContext, component);
@@ -70,7 +70,7 @@ public class DateRenderer extends InRenderer {
       String pattern = DateFormatUtils.findPattern(converter);
 
       if (pattern != null) {
-        TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
+        TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
         String id = component.getClientId(facesContext);
         writer.startElement(HtmlConstants.INPUT, component);
         writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
