@@ -1,7 +1,5 @@
 package org.apache.myfaces.tobago.util;
 
-import javax.faces.application.Application;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -18,6 +16,8 @@ import javax.faces.application.Application;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import javax.faces.application.Application;
 
 public enum FacesVersion {
 
