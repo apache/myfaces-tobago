@@ -338,10 +338,6 @@ SeverityProperty(property) ::= <<
 <NormalProperty(property)>
 >>
 
-MeasureProperty(property) ::= <<
-<NormalProperty(property)>
->>
-
 DisplayProperty(property) ::= <<
 <NormalProperty(property)>
 >>
@@ -389,6 +385,36 @@ public <property.type> get<property.upperCamelCaseName>() {
     <else>
     return (<property.type>) <getValue(property)>
     <endif>
+  }
+  <if(property.defaultCode)>
+  return <property.defaultCode>;
+  <else>
+  return null;
+  <endif>
+}
+
+public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+  this.<property.propertyName> = <property.propertyName>;
+}
+>>
+
+MeasureProperty(property) ::= <<
+
+public <property.type> get<property.upperCamelCaseName>() {
+  if (<property.propertyName> != null) {
+    return <property.propertyName>;
+  }
+  <getValueExpression(property)>
+  if (vb != null) {
+    Object object = <getValue(property)>
+    if (object instanceof Number) {
+      return new org.apache.myfaces.tobago.layout.PixelMeasure(((Number)object).intValue());
+    } else if (object instanceof Measure) {
+      <property.type> <property.propertyName> = (<property.type>) object;
+      return <property.propertyName>;
+    } else if (object != null) {
+      throw new ClassCastException(object.getClass().getName());
+    }
   }
   <if(property.defaultCode)>
   return <property.defaultCode>;
