@@ -21,8 +21,10 @@ import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerImpl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.util.FacesVersion;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
@@ -47,6 +49,8 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
   private ResourceManagerImpl.CacheKey rendererCacheKey;
 
   private ClientProperties clientProperties;
+
+  private int nextUniqueId;
 
   public static final int ANY_PHASE_ORDINAL = PhaseId.ANY_PHASE.getOrdinal();
 
@@ -219,4 +223,33 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
     }
     return events;
   }
+
+  public Object saveState(FacesContext facesContext) {
+    if (FacesVersion.supports12()) {
+      return super.saveState(facesContext);
+    } else {
+      Object[] state = new Object[2];
+      state[0] = super.saveState(facesContext);
+      state[1] = nextUniqueId;
+      return state;
+    }
+  }
+
+  public void restoreState(FacesContext facesContext, Object o) {
+    Object[] state = (Object[]) o;
+    super.restoreState(facesContext, state[0]);
+    if (!FacesVersion.supports12()) {
+      nextUniqueId = (Integer) state[1];
+    }
+  }
+
+  public String createUniqueId() {
+    if (FacesVersion.supports12()) {
+      return super.createUniqueId();
+    } else {
+      ExternalContext extCtx = FacesContext.getCurrentInstance().getExternalContext();
+      return extCtx.encodeNamespace(UNIQUE_ID_PREFIX + nextUniqueId++);
+    }
+  }
+
 }
