@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.facelets;
  */
 
 import com.sun.facelets.FaceletContext;
+import com.sun.facelets.el.ELAdaptor;
 import com.sun.facelets.tag.MetaRule;
 import com.sun.facelets.tag.Metadata;
 import com.sun.facelets.tag.MetadataTarget;
@@ -26,41 +27,23 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.DeprecatedDimension;
 import org.apache.myfaces.tobago.layout.Measure;
 
+import javax.el.ValueExpression;
+import javax.faces.component.UIComponent;
+
 public class DeprecatedDimensionRule extends MetaRule {
   
   public static final DeprecatedDimensionRule INSTANCE = new DeprecatedDimensionRule();
 
-  public Metadata applyRule(String name, TagAttribute attribute,
-      MetadataTarget metadataTarget) {
-    if (attribute.isLiteral()) {
-      if (Attributes.WIDTH.equals(name)) {
-        return new WidthMapper(attribute);
-      }
-      if (Attributes.HEIGHT.equals(name)) {
-        return new HeightMapper(attribute);
-      }
+  public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget metadataTarget) {
+    if (Attributes.WIDTH.equals(name)) {
+      return new WidthMapper(attribute);
+    }
+    if (Attributes.HEIGHT.equals(name)) {
+      return new HeightMapper(attribute);
     }
     return null;
   }
 
-  // TODO remove this
-/*
-  static final class PageDimensionExpression extends Metadata {
-    private final String name;
-    private final TagAttribute attr;
-    private final Class type;
-
-    PageDimensionExpression(String name, Class type, TagAttribute attr) {
-      this.name = name;
-      this.attr = attr;
-      this.type = type;
-    }
-
-    public void applyMetadata(FaceletContext ctx, Object instance) {
-      ((UIComponent) instance).setValueBinding(name, new LegacyValueBinding(attr.getValueExpression(ctx, type)));
-    }
-  }
-*/
   static final class WidthMapper extends Metadata {
     private final TagAttribute attribute;
 
@@ -68,8 +51,13 @@ public class DeprecatedDimensionRule extends MetaRule {
       this.attribute = attribute;
     }
 
-  public void applyMetadata(FaceletContext ctx, Object instance) {
-      ((DeprecatedDimension) instance).setWidth(Measure.parse(attribute.getValue()));
+    public void applyMetadata(FaceletContext ctx, Object instance) {
+      if (attribute.isLiteral()) {
+        ((DeprecatedDimension) instance).setWidth(Measure.parse(attribute.getValue()));
+      } else {
+        ValueExpression expression = attribute.getValueExpression(ctx, Object.class);
+        ELAdaptor.setExpression((UIComponent) instance, Attributes.WIDTH, expression);
+      }
     }
   }
 
@@ -81,7 +69,12 @@ public class DeprecatedDimensionRule extends MetaRule {
     }
 
     public void applyMetadata(FaceletContext ctx, Object instance) {
-      ((DeprecatedDimension) instance).setHeight(Measure.parse(attribute.getValue()));
+      if (attribute.isLiteral()) {
+         ((DeprecatedDimension) instance).setHeight(Measure.parse(attribute.getValue()));
+      } else {
+        ValueExpression expression = attribute.getValueExpression(ctx, Object.class);
+        ELAdaptor.setExpression((UIComponent) instance, Attributes.HEIGHT, expression);
+      }
     }
   }
 }
