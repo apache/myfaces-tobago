@@ -44,6 +44,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UILink",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UICommand",
+    interfaces = "org.apache.myfaces.tobago.component.UILinkCommand",
     rendererType = RendererTypes.LINK,
     allowedChildComponenents = "NONE",
     facets = {

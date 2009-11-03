@@ -20,5 +20,17 @@ package org.apache.myfaces.tobago.component;
 import javax.faces.component.UIColumn;
 
 public abstract class AbstractUIColumn extends UIColumn {
+  
+  public abstract void setSortable(Boolean sortable);
+
+  /**
+   * @deprecated since Tobago 1.5.
+   * Compatibility setter for java 1.4 (no autoboxing).
+   * @param sortable
+   */
+  @Deprecated
+  public void setSortable(boolean sortable) {
+    setSortable(Boolean.valueOf(sortable));
+  }
 
 }
