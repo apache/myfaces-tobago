@@ -420,21 +420,21 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
       Measure width = layoutComponent.getWidth();
       if (width != null) {
         // TODO: Make configurable: this is needed if the box-sizing is border-box, not content-box (see CSS3)
-        width = width.substractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.border-left-width"));
-        width = width.substractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.padding-left"));
-        width = width.substractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.padding-right"));
-        width = width.substractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.border-right-width"));
+        width = width.subtractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.border-left-width"));
+        width = width.subtractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.padding-left"));
+        width = width.subtractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.padding-right"));
+        width = width.subtractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.border-right-width"));
         styles = ensureHtmlStyleMap(component, styles);
         styles.setWidth(width);
       }
       Measure height = layoutComponent.getHeight();
       if (height != null) {
         // TODO: Make configurable: this is needed if the box-sizing is border-box, not content-box (see CSS3)
-        height = height.substractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.border-top-width"));
-        height = height.substractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.padding-top"));
-        height = height.substractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.padding-bottom"));
+        height = height.subtractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.border-top-width"));
+        height = height.subtractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.padding-top"));
+        height = height.subtractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.padding-bottom"));
         height
-            = height.substractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.border-bottom-width"));
+            = height.subtractNotNegative(ThemeConfig.getMeasure(facesContext, component, "css.border-bottom-width"));
         styles = ensureHtmlStyleMap(component, styles);
         styles.setHeight(height);
       }

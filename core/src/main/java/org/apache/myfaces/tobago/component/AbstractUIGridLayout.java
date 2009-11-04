@@ -172,14 +172,14 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
       Measure available = LayoutUtils.getSize(orientation, container);
       if (available != null) {
         for (PixelMeasure value : grid.getSizes(orientation)) {
-          available = available.substractNotNegative(value);
+          available = available.subtractNotNegative(value);
         }
         PixelMeasure spacing = new PixelMeasure(
             getSpacing(orientation).getPixel() * (grid.getSizes(orientation).length - 1));
-        available = available.substractNotNegative(spacing);
+        available = available.subtractNotNegative(spacing);
 
-        available = available.substractNotNegative(LayoutUtils.getBeginOffset(orientation, container));
-        available = available.substractNotNegative(LayoutUtils.getEndOffset(orientation, container));
+        available = available.subtractNotNegative(LayoutUtils.getBeginOffset(orientation, container));
+        available = available.subtractNotNegative(LayoutUtils.getEndOffset(orientation, container));
 
         List<Measure> partition = list.partition(available);
 

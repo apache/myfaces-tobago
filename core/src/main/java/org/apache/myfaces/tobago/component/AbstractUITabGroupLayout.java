@@ -91,8 +91,8 @@ public abstract class AbstractUITabGroupLayout extends UILayout implements Layou
       LayoutContainer container = getLayoutContainer();
       Measure available = LayoutUtils.getSize(orientation, container);
       if (available != null) {
-        available = available.substractNotNegative(LayoutUtils.getBeginOffset(orientation, container));
-        available = available.substractNotNegative(LayoutUtils.getEndOffset(orientation, container));
+        available = available.subtractNotNegative(LayoutUtils.getBeginOffset(orientation, container));
+        available = available.subtractNotNegative(LayoutUtils.getEndOffset(orientation, container));
 
         for (LayoutComponent component : getLayoutContainer().getComponents()) {
 

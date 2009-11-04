@@ -293,9 +293,9 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     if (bodyStyle.getWidth() != null) {
 //      intSpace -= columnWidths.get(columnWidths.size() - 1);
       Measure space = bodyStyle.getWidth();
-      space.substractNotNegative(getContentBorder(facesContext, data));
+      space.subtractNotNegative(getContentBorder(facesContext, data));
       if (needVerticalScrollbar(facesContext, data)) {
-        space.substractNotNegative(getScrollbarWidth(facesContext, data));
+        space.subtractNotNegative(getScrollbarWidth(facesContext, data));
       }
       sheetBodyStyle.setWidth(space);
     }
@@ -1165,9 +1165,9 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       }
 
       Measure space = data.getWidth();
-      space.substractNotNegative(getContentBorder(facesContext, data));
+      space.subtractNotNegative(getContentBorder(facesContext, data));
       if (needVerticalScrollbar(facesContext, data)) {
-        space.substractNotNegative(getScrollbarWidth(facesContext, data));
+        space.subtractNotNegative(getScrollbarWidth(facesContext, data));
       }
       LayoutInfo layoutInfo =
           new LayoutInfo(newTokens.getSize(), space.getPixel(), newTokens, data.getClientId(facesContext), false);

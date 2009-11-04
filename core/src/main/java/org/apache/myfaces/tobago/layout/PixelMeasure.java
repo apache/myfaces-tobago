@@ -51,7 +51,7 @@ public final class PixelMeasure extends Measure {
     return new PixelMeasure(pixel * times);
   }
 
-  public Measure substractNotNegative(Measure m) {
+  public Measure subtractNotNegative(Measure m) {
     if (m == null) {
       return new PixelMeasure(this);
     } else if (m.getPixel() > pixel) {

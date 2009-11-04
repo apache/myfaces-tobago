@@ -51,7 +51,15 @@ public abstract class Measure implements Serializable {
 
   public abstract Measure multiply(int times);
 
-  public abstract Measure substractNotNegative(Measure m);
+  /**
+   * @deprecated since 1.5.0, please use subtractNotNegative
+   */
+  @Deprecated
+  public Measure substractNotNegative(Measure m) {
+    return subtractNotNegative(m);
+  }
+
+  public abstract Measure subtractNotNegative(Measure m);
 
   public abstract Measure subtract(Measure m);
   
