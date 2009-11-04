@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:view
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page">
+    <tc:gridLayoutConstraint width="600px" height="2000px"/>
+<f:facet name="layout">
+  <tc:gridLayout cellspacing="25px"/>
+</f:facet>
+    <!--
+    Test of different ways to set the width of tc:gridLayoutConstraint.
+    There are literals like "100" or "100px" and 
+    different types like: Measure, Integer, int, String (?)
+    -->
+    
+    <tc:image id="i-0" value="pidgeon-point.jpg">
+      <tc:gridLayoutConstraint width="100px" height="95px"/>
+    </tc:image>
+    <tc:image id="i-1" value="pidgeon-point.jpg">
+      <tc:gridLayoutConstraint width="150" height="95px"/>
+    </tc:image>
+    <tc:image id="i-2" value="pidgeon-point.jpg">
+      <tc:gridLayoutConstraint width="#{measureBean.intWidth}" height="95px"/>
+    </tc:image>
+    <tc:image id="i-3" value="pidgeon-point.jpg">
+      <tc:gridLayoutConstraint width="#{measureBean.integerWidth}" height="95px"/>
+    </tc:image>
+    <tc:image id="i-4" value="pidgeon-point.jpg">
+      <tc:gridLayoutConstraint width="#{measureBean.measureWidth}" height="95px"/>
+    </tc:image>
+    <tc:image id="i-5" value="pidgeon-point.jpg">
+      <tc:gridLayoutConstraint width="#{measureBean.stringWidth}" height="95px"/>
+    </tc:image>
+    <tc:image id="i-6" value="pidgeon-point.jpg">
+      <tc:gridLayoutConstraint width="#{measureBean.stringPxWidth}" height="95px"/>
+    </tc:image>
+    <tc:image id="i-7" value="pidgeon-point.jpg">
+      <tc:gridLayoutConstraint width="#{measureBean.longWidth}" height="95px"/>
+    </tc:image>
+    <tc:image id="i-8" value="pidgeon-point.jpg">
+      <tc:gridLayoutConstraint width="#{measureBean.anyWidth}" height="95px"/>
+    </tc:image>
+
+    <tc:image id="j-0" value="pidgeon-point.jpg" width="100px" height="95px"/>
+    <tc:image id="j-1" value="pidgeon-point.jpg" width="150" height="95px"/>
+    <tc:image id="j-2" value="pidgeon-point.jpg" width="#{measureBean.intWidth}" height="95px"/>
+    <tc:image id="j-3" value="pidgeon-point.jpg" width="#{measureBean.integerWidth}" height="95px"/>
+    <tc:image id="j-4" value="pidgeon-point.jpg" width="#{measureBean.measureWidth}" height="95px"/>
+    <tc:image id="j-5" value="pidgeon-point.jpg" width="#{measureBean.stringWidth}" height="95px"/>
+    <tc:image id="j-6" value="pidgeon-point.jpg" width="#{measureBean.stringPxWidth}" height="95px"/>
+    <tc:image id="j-7" value="pidgeon-point.jpg" width="#{measureBean.longWidth}" height="95px"/>
+    <tc:image id="j-8" value="pidgeon-point.jpg" width="#{measureBean.anyWidth}" height="95px"/>
+
+    <!-- fixme: this filler is not nice, should work automatically -->
+    <tc:cell>
+      <tc:gridLayoutConstraint width="100px" height="200px"/>
+    </tc:cell>
+
+    <!-- checks below here -->
+    
+    <tc:script file="script/test-utils.js"/>
+
+    <tc:script onload="checkLayout('page:i-0', 0, 0, 100, 95);"/>
+    <tc:script onload="checkLayout('page:i-1', 0, 100, 150, 95);"/>
+    <tc:script onload="checkLayout('page:i-2', 0, 200, 200, 95);"/>
+    <tc:script onload="checkLayout('page:i-3', 0, 300, 250, 95);"/>
+    <tc:script onload="checkLayout('page:i-4', 0, 400, 300, 95);"/>
+    <tc:script onload="checkLayout('page:i-5', 0, 500, 350, 95);"/>
+    <tc:script onload="checkLayout('page:i-6', 0, 600, 400, 95);"/>
+    <tc:script onload="checkLayout('page:i-7', 0, 700, 450, 95);"/>
+    <tc:script onload="checkLayout('page:i-8', 0, 800, 500, 95);"/>
+
+    <tc:script onload="checkLayout('page:j-0', 0, 900, 100, 95);"/>
+    <tc:script onload="checkLayout('page:j-1', 0, 1000, 150, 95);"/>
+    <tc:script onload="checkLayout('page:j-2', 0, 1100, 200, 95);"/>
+    <tc:script onload="checkLayout('page:j-3', 0, 1200, 250, 95);"/>
+    <tc:script onload="checkLayout('page:j-4', 0, 1300, 300, 95);"/>
+    <tc:script onload="checkLayout('page:j-5', 0, 1400, 350, 95);"/>
+    <tc:script onload="checkLayout('page:j-6', 0, 1500, 400, 95);"/>
+    <tc:script onload="checkLayout('page:j-7', 0, 1600, 450, 95);"/>
+    <tc:script onload="checkLayout('page:j-8', 0, 1700, 500, 95);"/>
+
+  </tc:page>
+</f:view>

@@ -355,13 +355,15 @@ public <property.type> get<property.upperCamelCaseName>() {
   if (ve != null) {
     try {
       Object object = <getValue(property)>
-      if (object instanceof Number) {
-        return new org.apache.myfaces.tobago.layout.PixelMeasure(((Number)object).intValue());
-      } else if (object instanceof Measure) {
-        <property.type> <property.propertyName> = (<property.type>) object;
+      if (object instanceof Measure) {
+        Measure <property.propertyName> = (Measure) object;
         return <property.propertyName>;
+      } else if (object instanceof Number) {
+        return new org.apache.myfaces.tobago.layout.PixelMeasure(((Number)object).intValue());
+      } else if (object instanceof String) {
+        return Measure.parse((String)object);
       } else if (object != null) {
-        throw new ClassCastException(object.getClass().getName());
+        return Measure.parse(object.toString());
       }
     } catch (javax.el.ELException e) {
 		  throw new javax.faces.FacesException(e);
