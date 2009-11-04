@@ -71,6 +71,27 @@ public class ThemeConfig {
     }
   }
 
+  public static Measure getMeasure(FacesContext facesContext, String rendererType, String name) {
+    CacheKey key = new CacheKey(facesContext.getViewRoot(), rendererType, name);
+    Map<CacheKey, Integer> cache
+        = (Map<CacheKey, Integer>) facesContext.getExternalContext().getApplicationMap().get(THEME_CONFIG_CACHE);
+
+    Integer value = cache.get(key);
+    if (value == null) {
+      ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
+      UIViewRoot viewRoot = facesContext.getViewRoot();
+      String property = resourceManager.getThemeProperty(viewRoot, "tobago-theme-config", rendererType + "." + name);
+      if (property != null) {
+        value = new Integer(property); // todo: Measure
+      }
+      cache.put(key, value);
+    }
+    if (value != null) {
+      return new PixelMeasure(value);
+    }
+    return null;
+  }
+
   private static int getValue0(FacesContext facesContext, UIComponent component, String name) {
     CacheKey key = new CacheKey(facesContext.getViewRoot(), component, name);
     Map<CacheKey, Integer> cache
@@ -161,6 +182,17 @@ public class ThemeConfig {
         rendererType = component.getRendererType();
       } else {
         rendererType = "DEFAULT";
+      }
+      this.name = name;
+    }
+
+    public CacheKey(UIViewRoot viewRoot, String rendererType, String name) {
+      this.clientProperties = ClientProperties.getInstance(viewRoot).getId();
+      this.locale = viewRoot.getLocale();
+      if (rendererType != null) {
+        this.rendererType = rendererType;
+      } else {
+        this.rendererType = "DEFAULT";
       }
       this.name = name;
     }

@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
  */
 
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.UIInputNumberSlider;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
@@ -54,20 +54,21 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
-    String id = component.getClientId(facesContext);
-    String currentValue = getCurrentValue(facesContext, component);
-    boolean readonly = ComponentUtils.getBooleanAttribute(component, Attributes.READONLY);
-    boolean disabled = ComponentUtils.getBooleanAttribute(component, Attributes.DISABLED);
-    Integer min = ComponentUtils.getIntAttribute(component, "min");
-    Integer max = ComponentUtils.getIntAttribute(component, "max");
+    UIInputNumberSlider slider = (UIInputNumberSlider) component;
+    
+    String id = slider.getClientId(facesContext);
+    String currentValue = getCurrentValue(facesContext, slider);
+    boolean readonly = slider.isReadonly();
+    boolean disabled = slider.isDisabled();
+    Integer min = ComponentUtils.getIntAttribute(slider, "min");
+    Integer max = ComponentUtils.getIntAttribute(slider, "max");
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-
-    HtmlStyleMap style = HtmlRendererUtils.ensureStyleAttributeMap(component);
+    HtmlStyleMap style = new HtmlStyleMap(facesContext, slider);
     int width = -1;
     int sliderWidthPerc = 33;
-    if (ThemeConfig.hasValue(facesContext, component, SLIDER_WIDTH_PERCENT)) {
-      sliderWidthPerc = ThemeConfig.getValue(facesContext, component, SLIDER_WIDTH_PERCENT);
+    if (ThemeConfig.hasValue(facesContext, slider, SLIDER_WIDTH_PERCENT)) {
+      sliderWidthPerc = ThemeConfig.getValue(facesContext, slider, SLIDER_WIDTH_PERCENT);
       if (sliderWidthPerc <= 25) {
         sliderWidthPerc = 25;
       }
@@ -77,15 +78,15 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     }
     int sliderWidth = 100; // fixme
     int inputWidth = 50; // fixme;
-    if (style != null && style.getWidth() != null && style.getWidth().getPixel() >= 0) {
+    if (style.getWidth() != null && style.getWidth().getPixel() >= 0) {
       sliderWidth = (width * sliderWidthPerc) / 100;
       inputWidth = (width * (100 - sliderWidthPerc)) / 100;
     }
 
-    writer.startElement(HtmlConstants.TABLE, component);
+    writer.startElement(HtmlConstants.TABLE, slider);
     writer.writeIdAttribute(id);
     writer.writeClassAttribute();
-    writer.writeStyleAttribute();
+    writer.writeStyleAttribute(style);
     //writer.writeAttribute("border","1",false);
 
     StyleClasses styleClasses = new StyleClasses();
@@ -125,7 +126,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     writer.writeClassAttribute("tobago-in-default");
     widthStyle.setWidth(new PixelMeasure(inputWidth));
     writer.writeStyleAttribute(widthStyle);
-    String inputIdAndName = getIdForInputField(facesContext, component);
+    String inputIdAndName = getIdForInputField(facesContext, slider);
     writer.writeNameAttribute(inputIdAndName);
     writer.writeIdAttribute(inputIdAndName);
     if (currentValue != null) {
@@ -145,11 +146,11 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     //track
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute("tobago-inputNumberSlider-slider-default");
-    writer.writeIdAttribute(getIdForSliderTrack(facesContext, component));
+    writer.writeIdAttribute(getIdForSliderTrack(facesContext, slider));
 
     // handle
     writer.startElement(HtmlConstants.DIV, null);
-    writer.writeIdAttribute(getIdForSliderHandle(facesContext, component));
+    writer.writeIdAttribute(getIdForSliderHandle(facesContext, slider));
     writer.writeStyleAttribute("position:relative; top:-6px; width:12px; height:6px");
     writer.startElement(HtmlConstants.IMG, null);
     writer.writeAttribute(HtmlAttributes.SRC, getAbsoluteImagePath(facesContext, "image/sliderTriangle.gif"), true);
@@ -160,8 +161,8 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     writer.endElement(HtmlConstants.TR);
     writer.endElement(HtmlConstants.TABLE);
 
-    writeSliderJavaScript(facesContext, component, writer);
-    //HtmlRendererUtils.renderFocusId(facesContext, component);
+    writeSliderJavaScript(facesContext, slider, writer);
+    //HtmlRendererUtils.renderFocusId(facesContext, slider);
   }
 
   public void decode(FacesContext context, UIComponent component) {

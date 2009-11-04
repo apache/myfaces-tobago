@@ -17,9 +17,13 @@ package org.apache.myfaces.tobago.renderkit.html;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.layout.Display;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.renderkit.css.CssProperties;
 
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 
 public class HtmlStyleMap implements Serializable {
@@ -52,6 +56,42 @@ public class HtmlStyleMap implements Serializable {
     this.overflow = map.overflow;
     this.paddingTop = map.paddingTop;
     this.paddingBottom = map.paddingBottom;
+  }
+
+//  public HtmlStyleMap(FacesContext facesContext, UIComponent component) {
+//    this(facesContext, (LayoutComponent)component);
+//  }
+  
+  public HtmlStyleMap(FacesContext facesContext, LayoutComponent layout) {
+
+    String rendererType = layout.getRendererType();
+    
+    width = layout.getWidth();
+    if (width != null) {
+      // TODO: Make configurable: this is needed if the box-sizing is border-box, not content-box (see CSS3)
+      width = width.substractNotNegative(ThemeConfig.getMeasure(facesContext, rendererType, "css.border-left-width"));
+      width = width.substractNotNegative(ThemeConfig.getMeasure(facesContext, rendererType, "css.padding-left"));
+      width = width.substractNotNegative(ThemeConfig.getMeasure(facesContext, rendererType, "css.padding-right"));
+      width = width.substractNotNegative(ThemeConfig.getMeasure(facesContext, rendererType, "css.border-right-width"));
+    }
+    height = layout.getHeight();
+    if (height != null) {
+      // TODO: Make configurable: this is needed if the box-sizing is border-box, not content-box (see CSS3)
+      height = height.substractNotNegative(ThemeConfig.getMeasure(facesContext, rendererType, "css.border-top-width"));
+      height = height.substractNotNegative(ThemeConfig.getMeasure(facesContext, rendererType, "css.padding-top"));
+      height = height.substractNotNegative(ThemeConfig.getMeasure(facesContext, rendererType, "css.padding-bottom"));
+      height = height.substractNotNegative(ThemeConfig.getMeasure(facesContext, rendererType, "css.border-bottom-width"));
+    }
+    this.left = layout.getLeft();
+    this.top = layout.getTop();
+
+    // if there are a position coordinates, activate absolute positioning
+    // XXX String "Page" is not nice here
+    if ((left != null || top != null) && !rendererType.contains("Page")) {
+      position = CssProperties.Position.ABSOLUTE;
+    }
+
+    display = layout.getDisplay();
   }
 
   public String encode() {

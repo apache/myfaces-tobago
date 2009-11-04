@@ -113,8 +113,8 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     writer.startElement(HtmlConstants.DIV, data);
     writer.writeIdAttribute(sheetId + "_outer_div");
     writer.writeClassAttribute("tobago-sheet-outer-div");
-// todo    HtmlStyleMap style = HtmlRendererUtils.createStyle(data);
-    writer.writeStyleAttribute();
+    HtmlStyleMap style = new HtmlStyleMap(facesContext, data);
+    writer.writeStyleAttribute(style);
     UICommand clickAction = null;
     UICommand dblClickAction = null;
     int columnSelectorIndex = -1;
@@ -243,10 +243,8 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeIdAttribute(sheetId + "_header_div");
       writer.writeClassAttribute("tobago-sheet-header-div");
-      HtmlStyleMap headerStyle = new HtmlStyleMap();
-      if (headerStyle != null) {
-        writer.writeStyleAttribute(headerStyle);
-      }
+      // todo: style is empty in the moment
+      writer.writeStyleAttribute(new HtmlStyleMap());
 
       int columnCount = 0;
       final int sortMarkerWidth = getAscendingMarkerWidth(facesContext, data);

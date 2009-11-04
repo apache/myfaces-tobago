@@ -399,6 +399,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
     }
   }
 
+  @Deprecated
   public void writeStyleAttribute() throws IOException {
 
     HtmlStyleMap styles = (HtmlStyleMap) component.getAttributes().get(Attributes.STYLE);
@@ -410,6 +411,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
     }
   }
 
+  @Deprecated
   private HtmlStyleMap addLayout(HtmlStyleMap styles) {
     if (component instanceof LayoutComponent) {
       LayoutComponent layoutComponent = (LayoutComponent) component;

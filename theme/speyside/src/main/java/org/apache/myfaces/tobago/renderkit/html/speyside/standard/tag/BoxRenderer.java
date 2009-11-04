@@ -17,11 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
@@ -83,7 +78,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     HtmlRendererUtils.renderDojoDndItem(box, writer, true);
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
-    writer.writeStyleAttribute();
+    writer.writeStyleAttribute(new HtmlStyleMap(facesContext, box));
     writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\");");
     encodeBox(facesContext, writer, box);
   }
@@ -91,36 +86,28 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
   private void encodeBox(FacesContext facesContext, TobagoResponseWriter writer, UIBox box) throws IOException {
 
     // shadow begin
-//    {
-      writer.startElement(HtmlConstants.DIV, box);
+    writer.startElement(HtmlConstants.DIV, box);
 
-      StyleClasses classes = new StyleClasses();
-      classes.addClass("box", "shadow");
-      // XXX should this be done everywhere?
-//      classes.addMarkupClass((SupportsMarkup) box, "box", "shadow");
-      writer.writeClassAttribute(classes);
+    StyleClasses classes = new StyleClasses();
+    classes.addClass("box", "shadow");
+    writer.writeClassAttribute(classes);
 
-      HtmlStyleMap shadow = new HtmlStyleMap();
-      shadow.setWidth(box.getWidth().subtract(1));
-      shadow.setHeight(box.getHeight().subtract(1));
-      writer.writeStyleAttribute(shadow);
-//    }
+    HtmlStyleMap shadow = new HtmlStyleMap();
+    shadow.setWidth(box.getWidth().subtract(1));
+    shadow.setHeight(box.getHeight().subtract(1));
+    writer.writeStyleAttribute(shadow);
 
     // border begin
-//    {
-      writer.startElement(HtmlConstants.DIV, box);
+    writer.startElement(HtmlConstants.DIV, box);
 
-      /*StyleClasses*/ classes = new StyleClasses();
-      classes.addClass("box", "border");
-      writer.writeClassAttribute(classes);
-      // XXX should this be done everywhere?
-//      classes.addMarkupClass((SupportsMarkup) box, "box", "border");
+    classes = new StyleClasses();
+    classes.addClass("box", "border");
+    writer.writeClassAttribute(classes);
 
-      HtmlStyleMap border = new HtmlStyleMap();
-      border.setWidth(box.getWidth().subtract(3));
-      border.setHeight(box.getHeight().subtract(3));
-      writer.writeStyleAttribute(border);
-//    }
+    HtmlStyleMap border = new HtmlStyleMap();
+    border.setWidth(box.getWidth().subtract(3));
+    border.setHeight(box.getHeight().subtract(3));
+    writer.writeStyleAttribute(border);
 
     renderBoxHeader(facesContext, writer, box);
 
