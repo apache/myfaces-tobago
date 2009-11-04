@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.component.UIDate;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIHiddenInput;
+import org.apache.myfaces.tobago.component.UIImage;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.UITime;
@@ -38,6 +39,7 @@ import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.PopupActionListener;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -45,7 +47,6 @@ import org.apache.myfaces.tobago.util.DateFormatUtils;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIGraphic;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
@@ -169,8 +170,8 @@ public class DatePickerRenderer extends LinkRenderer {
     cancelButton.setId(CLOSE_POPUP);
 
     // create image
-    UIGraphic image = (UIGraphic)
-        CreateComponentUtils.createComponent(facesContext, UIGraphic.COMPONENT_TYPE, RendererTypes.IMAGE);
+    UIImage image = (UIImage)
+        CreateComponentUtils.createComponent(facesContext, UIImage.COMPONENT_TYPE, RendererTypes.IMAGE);
     image.setRendered(true);
     if (linkId != null) {
       image.setId(linkId + "image");
@@ -259,10 +260,10 @@ public class DatePickerRenderer extends LinkRenderer {
     UIComponent box = (UIComponent) popup.getChildren().get(0);
     UIComponent timePanel = box.findComponent("timePanel");
     if (converterPattern != null && (converterPattern.indexOf('h') > -1 || converterPattern.indexOf('H') > -1)) {
-      UIComponent time = timePanel.findComponent("time");
-      int popupHeight = ComponentUtils.getIntAttribute(popup, Attributes.HEIGHT);
-      popupHeight += ThemeConfig.getValue(FacesContext.getCurrentInstance(), time, "fixedHeight");
-      popup.getAttributes().put(Attributes.HEIGHT, popupHeight);
+      UITime time = (UITime) timePanel.findComponent("time");
+      Measure popupHeight = popup.getHeight();
+      popupHeight.add(ThemeConfig.getMeasure(facesContext, time.getRendererType(), "preferredHeight"));
+      popup.setHeight(popupHeight);
       DateTimeConverter dateTimeConverter
           = (DateTimeConverter) facesContext.getApplication().createConverter(CONVERTER_ID);
       if (converterPattern.indexOf('s') > -1) {
@@ -271,7 +272,7 @@ public class DatePickerRenderer extends LinkRenderer {
         dateTimeConverter.setPattern("HH:mm");
       }
       dateTimeConverter.setTimeZone(TimeZone.getDefault());
-      ((UITime) time).setConverter(dateTimeConverter);
+      time.setConverter(dateTimeConverter);
     } else {
       timePanel.setRendered(false);
     }
