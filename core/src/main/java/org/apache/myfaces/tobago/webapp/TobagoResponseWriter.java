@@ -146,7 +146,9 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   /**
    * Write the style attribute. The value will not escaped.
+   * @deprecated since 1.5.0, use writeStyleAttribute(Style) instead.
    */
+  @Deprecated
   public void writeStyleAttribute(String style) throws IOException {
     writeAttribute(HtmlAttributes.STYLE, style, false);
   }

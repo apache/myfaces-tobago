@@ -151,7 +151,12 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     // handle
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(getIdForSliderHandle(facesContext, slider));
-    writer.writeStyleAttribute("position:relative; top:-6px; width:12px; height:6px");
+    HtmlStyleMap handleStyle = new HtmlStyleMap();
+    handleStyle.setPosition("relative");
+    handleStyle.setTop(new PixelMeasure(-6));
+    handleStyle.setWidth(new PixelMeasure(12));
+    handleStyle.setHeight(new PixelMeasure(6));
+    writer.writeStyleAttribute(handleStyle); // todo: why not do that via the class?
     writer.startElement(HtmlConstants.IMG, null);
     writer.writeAttribute(HtmlAttributes.SRC, getAbsoluteImagePath(facesContext, "image/sliderTriangle.gif"), true);
     writer.endElement(HtmlConstants.IMG);
