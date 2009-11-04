@@ -18,16 +18,17 @@ package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
  */
 
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.component.UIInputNumberSlider;
+import org.apache.myfaces.tobago.component.AbstractUIInputNumberSlider;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Position;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -54,7 +55,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UIInputNumberSlider slider = (UIInputNumberSlider) component;
+    AbstractUIInputNumberSlider slider = (AbstractUIInputNumberSlider) component;
     
     String id = slider.getClientId(facesContext);
     String currentValue = getCurrentValue(facesContext, slider);
@@ -64,7 +65,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     Integer max = ComponentUtils.getIntAttribute(slider, "max");
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    HtmlStyleMap style = new HtmlStyleMap(facesContext, slider);
+    Style style = new Style(facesContext, slider);
     int width = -1;
     int sliderWidthPerc = 33;
     if (ThemeConfig.hasValue(facesContext, slider, SLIDER_WIDTH_PERCENT)) {
@@ -96,7 +97,7 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     writer.startElement(HtmlConstants.TD, null);
     writer.writeClassAttribute(styleClasses);
 
-    HtmlStyleMap widthStyle = new HtmlStyleMap();
+    Style widthStyle = new Style();
     widthStyle.setWidth(new PixelMeasure(sliderWidth / 2));
     writer.writeStyleAttribute(widthStyle);
     writer.startElement(HtmlConstants.SPAN, null);
@@ -151,8 +152,8 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
     // handle
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(getIdForSliderHandle(facesContext, slider));
-    HtmlStyleMap handleStyle = new HtmlStyleMap();
-    handleStyle.setPosition("relative");
+    Style handleStyle = new Style();
+    handleStyle.setPosition(Position.RELATIVE);
     handleStyle.setTop(new PixelMeasure(-6));
     handleStyle.setWidth(new PixelMeasure(12));
     handleStyle.setHeight(new PixelMeasure(6));

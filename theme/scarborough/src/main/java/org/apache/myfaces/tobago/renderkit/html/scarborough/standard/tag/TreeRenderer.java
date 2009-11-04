@@ -25,9 +25,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.AbstractUITree;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -90,7 +90,7 @@ public class TreeRenderer extends LayoutableRendererBase {
 
     writer.startElement(HtmlConstants.DIV, tree);
     writer.writeClassAttribute();
-    HtmlStyleMap style = new HtmlStyleMap(facesContext, tree);
+    Style style = new Style(facesContext, tree);
     writer.writeStyleAttribute(style);
 
     writer.startElement(HtmlConstants.INPUT, tree);

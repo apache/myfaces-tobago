@@ -26,14 +26,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIButton;
-import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -73,7 +72,7 @@ public class ButtonRenderer extends CommandRendererBase {
     if (helper.getOnclick() != null) {
       writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true);
     }
-    HtmlStyleMap style = new HtmlStyleMap(facesContext, button);
+    Style style = new Style(facesContext, button);
     writer.writeStyleAttribute(style);
     HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();

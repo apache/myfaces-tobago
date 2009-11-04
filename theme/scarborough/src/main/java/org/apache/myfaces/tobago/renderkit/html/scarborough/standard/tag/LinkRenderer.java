@@ -30,9 +30,9 @@ import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UILink;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
@@ -81,7 +81,7 @@ public class LinkRenderer extends CommandRendererBase {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
     }
-    HtmlStyleMap style = new HtmlStyleMap(facesContext, link);
+    Style style = new Style(facesContext, link);
     writer.writeStyleAttribute(style);
     HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();

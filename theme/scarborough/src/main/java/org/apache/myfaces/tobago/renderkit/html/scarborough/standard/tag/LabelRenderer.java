@@ -23,9 +23,9 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
@@ -34,7 +34,6 @@ import org.apache.myfaces.tobago.util.Deprecation;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Locale;
@@ -67,7 +66,7 @@ public class LabelRenderer extends LayoutableRendererBase {
     writer.writeClassAttribute();
     // todo: remove after 1.5.0 (see start of method)
     if (output != null) {
-      HtmlStyleMap style = new HtmlStyleMap(facesContext, output);
+      Style style = new Style(facesContext, output);
       writer.writeStyleAttribute(style);
     }
     writer.startElement(HtmlConstants.A, component);

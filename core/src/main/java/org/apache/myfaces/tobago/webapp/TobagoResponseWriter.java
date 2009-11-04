@@ -17,9 +17,9 @@ package org.apache.myfaces.tobago.webapp;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 
 import javax.faces.component.UIComponent;
@@ -138,7 +138,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   /**
    * Write the style attribute. The value will not escaped.
    */
-  public void writeStyleAttribute(HtmlStyleMap style) throws IOException {
+  public void writeStyleAttribute(Style style) throws IOException {
     if (style != null) {
       writeAttribute(HtmlAttributes.STYLE, style.encode(), false);
     }

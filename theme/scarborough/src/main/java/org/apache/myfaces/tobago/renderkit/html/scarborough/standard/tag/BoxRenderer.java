@@ -17,18 +17,15 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -49,7 +46,7 @@ public class BoxRenderer extends BoxRendererBase {
     UIComponent label = box.getFacet(Facets.LABEL);
     String labelString = box.getLabel();
     UIPanel toolbar = (UIPanel) box.getFacet(Facets.TOOL_BAR);
-    HtmlStyleMap style = new HtmlStyleMap(facesContext, box);
+    Style style = new Style(facesContext, box);
     if (toolbar != null) {
       Measure padding = ThemeConfig.getMeasure(facesContext, box, "paddingTopWhenToolbar");
       style.setPaddingTop(padding);
@@ -72,7 +69,7 @@ public class BoxRenderer extends BoxRendererBase {
       writer.endElement(HtmlConstants.LEGEND);
     }
 
-    HtmlStyleMap innerStyle = new HtmlStyleMap();
+    Style innerStyle = new Style();
     if (toolbar != null) {
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeClassAttribute("tobago-box-toolbar-div");

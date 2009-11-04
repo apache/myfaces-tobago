@@ -41,9 +41,9 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -81,7 +81,7 @@ public class MessagesRenderer extends LayoutableRendererBase {
     if (facesContext.getMessages().hasNext()) { // in ie empty span gets a height
       writer.startElement(HtmlConstants.SPAN, messages);
       writer.writeClassAttribute("tobago-validation-message");
-      HtmlStyleMap style = new HtmlStyleMap(facesContext, messages);
+      Style style = new Style(facesContext, messages);
       writer.writeStyleAttribute(style);
 
       // with id

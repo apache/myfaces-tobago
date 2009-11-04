@@ -28,9 +28,9 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -95,7 +95,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
       writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
       writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-      HtmlStyleMap style = new HtmlStyleMap(facesContext, selectOne);
+      Style style = new Style(facesContext, selectOne);
       writer.writeStyleAttribute(style);
       if (title != null) {
         writer.writeAttribute(HtmlAttributes.TITLE, title, true);

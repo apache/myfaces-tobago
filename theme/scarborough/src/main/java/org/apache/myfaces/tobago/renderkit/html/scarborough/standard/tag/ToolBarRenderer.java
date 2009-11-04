@@ -25,8 +25,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UIToolBar;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -48,7 +48,7 @@ public class ToolBarRenderer extends ToolBarRendererBase {
     writer.writeIdAttribute(toolbar.getClientId(facesContext));
     HtmlRendererUtils.renderDojoDndItem(toolbar, writer, true);
     writer.writeClassAttribute();
-    HtmlStyleMap style = new HtmlStyleMap(facesContext, toolbar);
+    Style style = new Style(facesContext, toolbar);
     writer.writeStyleAttribute(style);
     writer.startElement(HtmlConstants.DIV, toolbar);
     boolean right = false;

@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.renderkit.html;
+package org.apache.myfaces.tobago.renderkit.css;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -21,12 +21,11 @@ import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.css.CssProperties;
 
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 
-public class HtmlStyleMap implements Serializable {
+public class Style implements Serializable {
 
   private static final long serialVersionUID = 2L;
 
@@ -35,18 +34,15 @@ public class HtmlStyleMap implements Serializable {
   private Measure left;
   private Measure top;
   private Display display;
-  // todo: class or enum instead of String
-  private String position;
-
-  // todo: class or enum instead of String
-  private String overflow;
+  private Position position;
+  private Overflow overflow;
   private Measure paddingTop;
   private Measure paddingBottom;
 
-  public HtmlStyleMap() {
+  public Style() {
   }
 
-  public HtmlStyleMap(HtmlStyleMap map) {
+  public Style(Style map) {
     this.width = map.width;
     this.height = map.height;
     this.left = map.left;
@@ -58,11 +54,7 @@ public class HtmlStyleMap implements Serializable {
     this.paddingBottom = map.paddingBottom;
   }
 
-//  public HtmlStyleMap(FacesContext facesContext, UIComponent component) {
-//    this(facesContext, (LayoutComponent)component);
-//  }
-  
-  public HtmlStyleMap(FacesContext facesContext, LayoutComponent layout) {
+  public Style(FacesContext facesContext, LayoutComponent layout) {
 
     String rendererType = layout.getRendererType();
     
@@ -88,7 +80,7 @@ public class HtmlStyleMap implements Serializable {
     // if there are a position coordinates, activate absolute positioning
     // XXX String "Page" is not nice here
     if ((left != null || top != null) && !rendererType.contains("Page")) {
-      position = CssProperties.Position.ABSOLUTE;
+      position = Position.ABSOLUTE;
     }
 
     display = layout.getDisplay();
@@ -123,12 +115,12 @@ public class HtmlStyleMap implements Serializable {
     }
     if (position != null) {
       buf.append("position:");
-      buf.append(position);
+      buf.append(position.getValue());
       buf.append(';');
     }
     if (overflow != null) {
       buf.append("overflow:");
-      buf.append(overflow);
+      buf.append(overflow.getValue());
       buf.append(';');
     }
     if (paddingTop != null) {
@@ -185,19 +177,19 @@ public class HtmlStyleMap implements Serializable {
     this.display = display;
   }
 
-  public String getPosition() {
+  public Position getPosition() {
     return position;
   }
 
-  public void setPosition(String position) {
+  public void setPosition(Position position) {
     this.position = position;
   }
 
-  public String getOverflow() {
+  public Overflow getOverflow() {
     return overflow;
   }
 
-  public void setOverflow(String overflow) {
+  public void setOverflow(Overflow overflow) {
     this.overflow = overflow;
   }
 

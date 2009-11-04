@@ -30,9 +30,9 @@ import org.apache.myfaces.tobago.component.UITime;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -112,7 +112,7 @@ public class TimeRenderer extends InputRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.DIV, input);
     writer.writeClassAttribute();
-    HtmlStyleMap style = new HtmlStyleMap(facesContext, input);
+    Style style = new Style(facesContext, input);
     writer.writeStyleAttribute(style);
 
     writer.startElement(HtmlConstants.DIV, input);

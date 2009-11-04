@@ -32,8 +32,8 @@ import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -79,7 +79,7 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
     HtmlRendererUtils.renderDojoDndItem(panel, writer, true);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute();
-    HtmlStyleMap style = new HtmlStyleMap(facesContext, panel);
+    Style style = new Style(facesContext, panel);
     writer.writeStyleAttribute(style);
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
       // writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\")");

@@ -28,9 +28,9 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITextarea;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -79,7 +79,7 @@ public class TextAreaRenderer extends InputRendererBase {
     HtmlRendererUtils.renderDojoDndItem(component, writer, true);
 
     writer.writeClassAttribute();
-    HtmlStyleMap style = new HtmlStyleMap(facesContext, input);
+    Style style = new Style(facesContext, input);
     writer.writeStyleAttribute(style);
     if (onchange != null) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);

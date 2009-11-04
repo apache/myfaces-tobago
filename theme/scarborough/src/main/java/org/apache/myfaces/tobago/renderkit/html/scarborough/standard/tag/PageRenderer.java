@@ -33,7 +33,6 @@ import org.apache.myfaces.tobago.layout.LayoutContext2;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
@@ -344,7 +343,7 @@ public class PageRenderer extends PageRendererBase {
 //    writer.writeAttribute("onunload", "Tobago.onexit();", null);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute();
-//    HtmlStyleMap style = new HtmlStyleMap(facesContext, page);
+//    Style style = new Style(facesContext, page);
 //    writer.writeStyleAttribute(style);
 
     writer.startJavascript();

@@ -30,9 +30,9 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutableRenderer;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -232,15 +232,15 @@ public final class HtmlRendererUtil {
 
   }
 
-  private static HtmlStyleMap ensureStyleAttributeMap(UIComponent component) {
+  private static Style ensureStyleAttributeMap(UIComponent component) {
     return ensureStyleAttributeMap(component, Attributes.STYLE);
   }
 
-  private static HtmlStyleMap ensureStyleAttributeMap(UIComponent component, String attribute) {
+  private static Style ensureStyleAttributeMap(UIComponent component, String attribute) {
     final Map attributes = component.getAttributes();
-    HtmlStyleMap style = (HtmlStyleMap) attributes.get(attribute);
+    Style style = (Style) attributes.get(attribute);
     if (style == null) {
-      style = new HtmlStyleMap();
+      style = new Style();
       attributes.put(attribute, style);
     }
     return style;

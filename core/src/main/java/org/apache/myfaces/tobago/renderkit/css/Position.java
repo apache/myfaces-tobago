@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.component;
+package org.apache.myfaces.tobago.renderkit.css;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,28 +17,18 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+public enum Position {
 
-import javax.faces.context.FacesContext;
-import javax.faces.validator.LongRangeValidator;
-import javax.faces.validator.ValidatorException;
+  ABSOLUTE("absolute"),
+  RELATIVE("relative");
 
-public abstract class AbstractUIInputNumberSlider extends javax.faces.component.UIInput implements LayoutComponent {
+  private String value;
 
-  public abstract Integer getMin();
+  Position(String value) {
+    this.value = value;
+  }
 
-  public abstract Integer getMax();
-
-  public abstract boolean isReadonly();
-  
-  public abstract boolean isDisabled();
-
-  public void validate(FacesContext context) {
-    super.validate(context);
-    try {
-      new LongRangeValidator(getMax(), getMin()).validate(context, this, getValue());
-    } catch (ValidatorException e) {
-      context.addMessage(getClientId(context), e.getFacesMessage());
-    }
+  public String getValue() {
+    return value;
   }
 }

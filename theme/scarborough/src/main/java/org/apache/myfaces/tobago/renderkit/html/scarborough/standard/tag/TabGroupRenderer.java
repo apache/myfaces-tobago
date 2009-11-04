@@ -46,9 +46,11 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Overflow;
+import org.apache.myfaces.tobago.renderkit.css.Position;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -263,7 +265,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
     final String clientId = tabGroup.getClientId(facesContext);
     writer.writeIdAttribute(clientId + "__" + virtualTab);
-    HtmlStyleMap style = new HtmlStyleMap(facesContext, tabGroup);
+    Style style = new Style(facesContext, tabGroup);
     writer.writeStyleAttribute(style);
 
     writer.startElement(HtmlConstants.TR, tabGroup);
@@ -272,8 +274,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.startElement(HtmlConstants.TD, tabGroup);
     Measure width = tabGroup.getWidth();
     Measure headerHeight = ThemeConfig.getMeasure(facesContext, tabGroup, "headerHeight");
-    HtmlStyleMap header = new HtmlStyleMap();
-    header.setPosition("relative");
+    Style header = new Style();
+    header.setPosition(Position.RELATIVE);
     header.setWidth(width);
     header.setHeight(headerHeight);
     writer.writeStyleAttribute(header);
@@ -281,15 +283,15 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.writeStyleAttribute(header);
 
     writer.startElement(HtmlConstants.DIV, tabGroup);
-    HtmlStyleMap map = new HtmlStyleMap();
+    Style map = new Style();
     if (currentWidth.greaterThan(width)) {
       map.setWidth(new PixelMeasure(currentWidth));
       map.setLeft(width.subtract(toolbarWidth).subtract(currentWidth));
     } else {
       map.setWidth(width.subtract(toolbarWidth));
     }
-    map.setOverflow("hidden");
-    map.setPosition("absolute");
+    map.setOverflow(Overflow.HIDDEN);
+    map.setPosition(Position.ABSOLUTE);
     map.setHeight(headerHeight);
     writer.writeStyleAttribute(map);
     writer.startElement(HtmlConstants.TABLE, tabGroup);
@@ -389,7 +391,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
           outerClass.addMarkupClass(tab, "tab", "outer");
           innerClass.addMarkupClass(tab, "tab", "outer");
           writer.startElement(HtmlConstants.TD, tab);
-          HtmlStyleMap labelStyle = new HtmlStyleMap();
+          Style labelStyle = new Style();
           labelStyle.setWidth(new PixelMeasure(tabList.getWidthList().get(index)));
 
           writer.writeStyleAttribute(labelStyle);
@@ -486,8 +488,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.endElement(HtmlConstants.TD);
     writer.endElement(HtmlConstants.TR);
 
-    HtmlStyleMap body = new HtmlStyleMap();
-    body.setPosition("relative");
+    Style body = new Style();
+    body.setPosition(Position.RELATIVE);
     body.setWidth(width);
     body.setHeight(tabGroup.getHeight().subtract(headerHeight));
     encodeContent(writer, facesContext, activeTab, body);
@@ -499,7 +501,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
   private void renderToolbar(FacesContext facesContext, TobagoResponseWriter writer, UIPanel toolbar, Measure width,
       Measure navigationBarWidth) throws IOException {
     writer.startElement(HtmlConstants.DIV, null);
-    HtmlStyleMap map = new HtmlStyleMap();
+    Style map = new Style();
     map.setWidth(navigationBarWidth);
     map.setLeft(width);
     writer.writeStyleAttribute(map);
@@ -511,7 +513,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
   }
 
   protected void encodeContent(
-      TobagoResponseWriter writer, FacesContext facesContext, UITab activeTab, HtmlStyleMap body)
+      TobagoResponseWriter writer, FacesContext facesContext, UITab activeTab, Style body)
       throws IOException {
 
     writer.startElement(HtmlConstants.TR, activeTab);

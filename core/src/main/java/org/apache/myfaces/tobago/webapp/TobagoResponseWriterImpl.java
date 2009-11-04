@@ -25,10 +25,10 @@ import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.css.CssProperties;
+import org.apache.myfaces.tobago.renderkit.css.Position;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.util.HtmlWriterUtils;
 import org.apache.myfaces.tobago.util.XmlUtils;
 
@@ -402,7 +402,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
   @Deprecated
   public void writeStyleAttribute() throws IOException {
 
-    HtmlStyleMap styles = (HtmlStyleMap) component.getAttributes().get(Attributes.STYLE);
+    Style styles = (Style) component.getAttributes().get(Attributes.STYLE);
 
     styles = addLayout(styles);
 
@@ -412,7 +412,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
   }
 
   @Deprecated
-  private HtmlStyleMap addLayout(HtmlStyleMap styles) {
+  private Style addLayout(Style styles) {
     if (component instanceof LayoutComponent) {
       LayoutComponent layoutComponent = (LayoutComponent) component;
       FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -452,7 +452,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
       // XXX String "Page" is not nice here
       if ((left != null || top != null) && !component.getRendererType().contains("Page")) {
         styles = ensureHtmlStyleMap(component, styles);
-        styles.setPosition(CssProperties.Position.ABSOLUTE);
+        styles.setPosition(Position.ABSOLUTE);
       }
       Display display = layoutComponent.getDisplay();
       if (display != null) {
@@ -463,9 +463,9 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
     return styles;
   }
 
-  public static HtmlStyleMap ensureHtmlStyleMap(UIComponent component, HtmlStyleMap styles) {
+  public static Style ensureHtmlStyleMap(UIComponent component, Style styles) {
     if (styles == null) {
-      styles = new HtmlStyleMap();
+      styles = new Style();
       ((Map<String, Object>) component.getAttributes()).put(Attributes.STYLE, styles);
     }
     return styles;

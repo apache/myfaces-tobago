@@ -20,8 +20,9 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UITab;
+import org.apache.myfaces.tobago.renderkit.css.Overflow;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -36,7 +37,7 @@ public class TabGroupRenderer extends
 
   @Override
   protected void encodeContent(
-      TobagoResponseWriter writer, FacesContext facesContext, UITab activeTab, HtmlStyleMap body)
+      TobagoResponseWriter writer, FacesContext facesContext, UITab activeTab, Style body)
       throws IOException {
 
     writer.startElement(HtmlConstants.TR, null);
@@ -59,7 +60,7 @@ public class TabGroupRenderer extends
 
     if (body != null) {
       body.setHeight(body.getHeight().subtract(1));
-      body.setOverflow("auto");
+      body.setOverflow(Overflow.AUTO);
       writer.writeStyleAttribute(body);
     }
 

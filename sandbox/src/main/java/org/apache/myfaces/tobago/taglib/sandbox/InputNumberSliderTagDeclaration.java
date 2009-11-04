@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 
 @Tag(name = "numberSlider")
@@ -35,7 +36,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 
 public interface InputNumberSliderTagDeclaration extends
     HasIdBindingAndRendered, IsReadonly, IsDisabled,
-    HasValue, HasValueChangeListener {
+    HasValue, HasValueChangeListener, IsGridLayoutComponent {
 
   /**
    * The minimum integer that can be entered and which represents the left

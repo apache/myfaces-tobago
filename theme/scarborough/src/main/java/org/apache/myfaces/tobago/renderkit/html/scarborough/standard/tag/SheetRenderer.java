@@ -53,9 +53,10 @@ import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Position;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -113,7 +114,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     writer.startElement(HtmlConstants.DIV, data);
     writer.writeIdAttribute(sheetId + "_outer_div");
     writer.writeClassAttribute("tobago-sheet-outer-div");
-    HtmlStyleMap style = new HtmlStyleMap(facesContext, data);
+    Style style = new Style(facesContext, data);
     writer.writeStyleAttribute(style);
     UICommand clickAction = null;
     UICommand dblClickAction = null;
@@ -183,8 +184,8 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     String selectorDisabled = contextPath + resourceManager.getImage(viewRoot, "image/sheetUncheckedDisabled.gif");
     String unchecked = contextPath + resourceManager.getImage(viewRoot, "image/sheetUnchecked.gif");
 
-    HtmlStyleMap style = HtmlRendererUtils.ensureStyleAttributeMap(data);
-    //HtmlStyleMap headerStyle = (HtmlStyleMap) attributes.get(STYLE_HEADER);
+    Style style = HtmlRendererUtils.ensureStyleAttributeMap(data);
+    //Style headerStyle = (Style) attributes.get(STYLE_HEADER);
 //    String sheetWidthString = LayoutUtils.getStyleAttributeValue(style,
 //        "width");
     Integer sheetHeight;
@@ -244,7 +245,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       writer.writeIdAttribute(sheetId + "_header_div");
       writer.writeClassAttribute("tobago-sheet-header-div");
       // todo: style is empty in the moment
-      writer.writeStyleAttribute(new HtmlStyleMap());
+      writer.writeStyleAttribute(new Style());
 
       int columnCount = 0;
       final int sortMarkerWidth = getAscendingMarkerWidth(facesContext, data);
@@ -277,15 +278,15 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     }
 
 // BEGIN RENDER BODY CONTENT
-    HtmlStyleMap bodyStyle = new HtmlStyleMap();
-    bodyStyle.setPosition("relative");
+    Style bodyStyle = new Style();
+    bodyStyle.setPosition(Position.RELATIVE);
     bodyStyle.setWidth(data.getWidth());
     bodyStyle.setHeight(new PixelMeasure(sheetHeight - footerHeight));
     
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + "_data_div");
     writer.writeClassAttribute("tobago-sheet-body-div ");
-    HtmlStyleMap sheetBodyStyle = new HtmlStyleMap(bodyStyle);
+    Style sheetBodyStyle = new Style(bodyStyle);
     if (!showHeader) {
       bodyStyle.setPaddingTop(PixelMeasure.ZERO);
     }
@@ -452,7 +453,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     if (isValidPagingValue(showRowRange)
         || isValidPagingValue(showPageRange)
         || isValidPagingValue(showDirectLinks)) {
-      HtmlStyleMap footerStyle = new HtmlStyleMap(bodyStyle);
+      Style footerStyle = new Style(bodyStyle);
       footerStyle.setHeight(new PixelMeasure(footerHeight));
       footerStyle.setTop(new PixelMeasure(sheetHeight - footerHeight));
 
@@ -640,7 +641,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       }
     }
 
-    HtmlStyleMap style = HtmlRendererUtils.ensureStyleAttributeMap(data);
+    Style style = HtmlRendererUtils.ensureStyleAttributeMap(data);
     if (style.getHeight() != null) {
       int first = data.getFirst();
       int rows = Math.min(data.getRowCount(), first + data.getRows()) - first;

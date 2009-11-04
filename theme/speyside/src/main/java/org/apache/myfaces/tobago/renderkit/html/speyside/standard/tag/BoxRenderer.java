@@ -27,8 +27,8 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -78,7 +78,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     HtmlRendererUtils.renderDojoDndItem(box, writer, true);
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
-    writer.writeStyleAttribute(new HtmlStyleMap(facesContext, box));
+    writer.writeStyleAttribute(new Style(facesContext, box));
     writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\");");
     encodeBox(facesContext, writer, box);
   }
@@ -92,7 +92,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     classes.addClass("box", "shadow");
     writer.writeClassAttribute(classes);
 
-    HtmlStyleMap shadow = new HtmlStyleMap();
+    Style shadow = new Style();
     shadow.setWidth(box.getWidth().subtract(1));
     shadow.setHeight(box.getHeight().subtract(1));
     writer.writeStyleAttribute(shadow);
@@ -104,7 +104,7 @@ public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
     classes.addClass("box", "border");
     writer.writeClassAttribute(classes);
 
-    HtmlStyleMap border = new HtmlStyleMap();
+    Style border = new Style();
     border.setWidth(box.getWidth().subtract(3));
     border.setHeight(box.getHeight().subtract(3));
     writer.writeStyleAttribute(border);

@@ -21,9 +21,9 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIObject;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -46,7 +46,7 @@ public class ObjectRenderer extends LayoutableRendererBase {
       writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getBlankPage(facesContext), false);
     }
     writer.writeClassAttribute();
-    HtmlStyleMap style = new HtmlStyleMap(facesContext, object);
+    Style style = new Style(facesContext, object);
     writer.writeStyleAttribute(style);
 
     String noframes = ResourceManagerUtil.getPropertyNotNull(

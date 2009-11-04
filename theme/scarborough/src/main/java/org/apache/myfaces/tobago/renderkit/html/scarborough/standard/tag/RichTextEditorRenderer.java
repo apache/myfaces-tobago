@@ -35,9 +35,9 @@ import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -104,7 +104,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
     writer.startElement(HtmlConstants.DIV, input);
     writer.writeClassAttribute(containerClasses);
-    HtmlStyleMap style = new HtmlStyleMap(facesContext, input);
+    Style style = new Style(facesContext, input);
     writer.writeStyleAttribute(style);
 
     UIComponent toolbar = input.getFacet(Facets.TOOL_BAR);

@@ -27,9 +27,9 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectManyListbox;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -78,7 +78,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    HtmlStyleMap style = new HtmlStyleMap(facesContext, selectMany);
+    Style style = new Style(facesContext, selectMany);
     writer.writeStyleAttribute(style);
     writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);

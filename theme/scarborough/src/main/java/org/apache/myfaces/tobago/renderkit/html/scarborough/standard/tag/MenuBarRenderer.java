@@ -90,7 +90,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
         styleClasses.addClass("menuBar", "page-facet"); // XXX not a standard compliant name
       } else {
         // todo
-//        HtmlStyleMap style = new HtmlStyleMap(facesContext, component);
+//        Style style = new Style(facesContext, component);
 //        writer.writeStyleAttribute(style);
       }
       writer.writeClassAttribute(styleClasses);
@@ -395,8 +395,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
 
     UIComponent checkbox = command.getFacet(Facets.ITEMS);
     if (checkbox == null) {
-      checkbox = CreateComponentUtils.createUISelectBooleanFacet(facesContext, command);
-      checkbox.setId(facesContext.getViewRoot().createUniqueId());
+      checkbox = CreateComponentUtils.createUISelectBooleanFacetWithId(facesContext, command);
     }
 
     final boolean checked = ComponentUtils.getBooleanAttribute(checkbox, Attributes.VALUE);

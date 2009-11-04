@@ -30,9 +30,9 @@ import org.apache.myfaces.tobago.context.ResourceUtils;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -180,7 +180,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.writeClassAttribute(styleClasses);
 
       // div style (width)
-      HtmlStyleMap style = HtmlRendererUtils.ensureStyleAttributeMap(tree);
+      Style style = HtmlRendererUtils.ensureStyleAttributeMap(tree);
       String widthString;
       if (style != null && style.getWidth() != null) {
         widthString = "width: " + Integer.toString(style.getWidth().getPixel() - 22); // fixme: 4 + 18 for scrollbar

@@ -188,8 +188,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
 
     UIComponent checkbox = command.getFacet(Facets.ITEMS);
     if (checkbox == null) {
-      checkbox = CreateComponentUtils.createUISelectBooleanFacet(facesContext, command);
-      checkbox.setId(facesContext.getViewRoot().createUniqueId());
+      checkbox = CreateComponentUtils.createUISelectBooleanFacetWithId(facesContext, command);
     }
 
     final boolean checked = ComponentUtils.getBooleanAttribute(checkbox, Attributes.VALUE);

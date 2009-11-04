@@ -27,9 +27,9 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -77,7 +77,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
       writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
       writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-      HtmlStyleMap style = new HtmlStyleMap(facesContext, selectMany);
+      Style style = new Style(facesContext, selectMany);
       writer.writeStyleAttribute(style);
       if (title != null) {
         writer.writeAttribute(HtmlAttributes.TITLE, title, true);

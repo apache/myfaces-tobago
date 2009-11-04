@@ -27,8 +27,8 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.UserAgent;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -50,7 +50,7 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
 
     writer.startElement(HtmlConstants.FIELDSET, box);
     writer.writeClassAttribute();
-    HtmlStyleMap style = new HtmlStyleMap(facesContext, box);
+    Style style = new Style(facesContext, box);
     writer.writeStyleAttribute(style);
 
     if (label != null || labelString != null) {
