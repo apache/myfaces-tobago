@@ -1,5 +1,7 @@
 package org.apache.myfaces.tobago.component;
 
+import org.apache.myfaces.tobago.layout.LayoutComponent;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,12 +19,7 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-
-/*
- * Date: 11.02.2006
- * Time: 14:48:46
- */
-public abstract class AbstractUIToolBar extends javax.faces.component.UIPanel {
+public abstract class AbstractUIToolBar extends javax.faces.component.UIPanel implements LayoutComponent {
 
   public static final String LABEL_BOTTOM = "bottom";
   public static final String LABEL_RIGHT = "right";
