@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.component.UISelectOneListbox;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -56,7 +57,6 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     }
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
     UISelectOneListbox selectOne = (UISelectOneListbox) component;
     List<SelectItem> items = RenderUtil.getSelectItems(selectOne);
 
@@ -69,7 +69,8 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    writer.writeStyleAttribute();
+    HtmlStyleMap style = new HtmlStyleMap(facesContext, selectOne);
+    writer.writeStyleAttribute(style);
     writer.writeClassAttribute();
     HtmlRendererUtils.renderTip(selectOne, writer);
     writer.writeAttribute(HtmlAttributes.SIZE, 2); // should be greater 1

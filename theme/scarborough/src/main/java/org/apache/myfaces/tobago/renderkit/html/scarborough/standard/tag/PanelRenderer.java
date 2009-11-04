@@ -26,12 +26,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.component.AbstractUIPanel;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -67,17 +69,22 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    String clientId = component.getClientId(facesContext);
+    
+    // UIPanel and UICell
+    AbstractUIPanel panel = (AbstractUIPanel) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlConstants.DIV, component);
-    HtmlRendererUtils.renderDojoDndItem(component, writer, true);
-    writer.writeClassAttribute();
+
+    String clientId = panel.getClientId(facesContext);
+    writer.startElement(HtmlConstants.DIV, panel);
+    HtmlRendererUtils.renderDojoDndItem(panel, writer, true);
     writer.writeIdAttribute(clientId);
-    writer.writeStyleAttribute();
+    writer.writeClassAttribute();
+    HtmlStyleMap style = new HtmlStyleMap(facesContext, panel);
+    writer.writeStyleAttribute(style);
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
       // writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\")");
       Integer frequency = null;
-      UIComponent facetReload = component.getFacet(Facets.RELOAD);
+      UIComponent facetReload = panel.getFacet(Facets.RELOAD);
       if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
         UIReload update = (UIReload) facetReload;
         frequency = update.getFrequency();

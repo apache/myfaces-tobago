@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.Deprecation;
@@ -55,7 +56,8 @@ public class SeparatorRenderer extends LayoutableRendererBase {
 
       writer.startElement(HtmlConstants.TABLE, component);
       writer.writeClassAttribute();
-      writer.writeStyleAttribute();
+      HtmlStyleMap style = new HtmlStyleMap(facesContext, separator);
+      writer.writeStyleAttribute(style);
 
       writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
       writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
@@ -93,7 +95,8 @@ public class SeparatorRenderer extends LayoutableRendererBase {
     } else {
       writer.startElement(HtmlConstants.HR , component);
       writer.writeClassAttribute();
-      writer.writeStyleAttribute();
+      HtmlStyleMap style = new HtmlStyleMap(facesContext, separator);
+      writer.writeStyleAttribute(style);
       writer.endElement(HtmlConstants.HR);
     }
   }

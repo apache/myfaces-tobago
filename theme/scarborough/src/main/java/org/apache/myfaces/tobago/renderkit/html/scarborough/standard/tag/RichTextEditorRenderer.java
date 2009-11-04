@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -36,6 +37,7 @@ import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -44,7 +46,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -86,66 +87,65 @@ public class RichTextEditorRenderer extends InputRendererBase {
     return content;
   }
 
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent uiComponent) throws IOException {
+  public void encodeEnd(FacesContext facesContext,      UIComponent component) throws IOException {
 
-    UIInput component = (UIInput) uiComponent;
+    UIInput input = (UIInput) component;
 
     boolean previewState
-        = ComponentUtils.getBooleanAttribute(component, Attributes.STATE_PREVIEW);
+        = ComponentUtils.getBooleanAttribute(input, Attributes.STATE_PREVIEW);
     // FIXME: remove this when i18n is ok
 
-    String clientId = component.getClientId(facesContext);
+    String clientId = input.getClientId(facesContext);
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    StyleClasses containerClasses = StyleClasses.ensureStyleClassesCopy(component);
+    StyleClasses containerClasses = StyleClasses.ensureStyleClassesCopy(input);
     containerClasses.addClass("richTextEditor", "container");
 
-    writer.startElement(HtmlConstants.DIV, component);
+    writer.startElement(HtmlConstants.DIV, input);
     writer.writeClassAttribute(containerClasses);
-    writer.writeStyleAttribute();
-    // class, stly.width, style.height
+    HtmlStyleMap style = new HtmlStyleMap(facesContext, input);
+    writer.writeStyleAttribute(style);
 
-    UIComponent toolbar = component.getFacet(Facets.TOOL_BAR);
+    UIComponent toolbar = input.getFacet(Facets.TOOL_BAR);
     if (toolbar == null) {
-      toolbar = createToolbar(facesContext, component);
+      toolbar = createToolbar(facesContext, input);
     }
 
     facesContext.getExternalContext().getRequestMap().put(
         "tobagoRichtextPreviewState", previewState ? Boolean.TRUE : Boolean.FALSE);
 
     RenderUtil.encode(facesContext, toolbar);
-//    renderToolBar(facesContext, writer, component);
+//    renderToolBar(facesContext, writer, input);
 
-    String content = getCurrentValue(facesContext, component);
+    String content = getCurrentValue(facesContext, input);
 
-    StyleClasses bodyClasses = StyleClasses.ensureStyleClassesCopy(component);
+    StyleClasses bodyClasses = StyleClasses.ensureStyleClassesCopy(input);
     bodyClasses.addClass("richTextEditor", "body");
 
     if (previewState) {
-      writer.startElement(HtmlConstants.INPUT, component);
+      writer.startElement(HtmlConstants.INPUT, input);
       writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
       writer.writeNameAttribute(clientId);
       writer.writeAttribute(HtmlAttributes.VALUE, content, true);
       writer.endElement(HtmlConstants.INPUT);
 
-      writer.startElement(HtmlConstants.DIV, component);
+      writer.startElement(HtmlConstants.DIV, input);
       writer.writeClassAttribute(bodyClasses);
       writer.writeIdAttribute(clientId);
 
-      writer.writeStyleAttribute();
+      writer.writeStyleAttribute(style);
       writer.writeText("");
       writer.write(RichTextEditorRenderer.contentToHtml(content));
 
       writer.endElement(HtmlConstants.DIV);
     } else {
-      writer.startElement(HtmlConstants.TEXTAREA, component);
+      writer.startElement(HtmlConstants.TEXTAREA, input);
       writer.writeClassAttribute(bodyClasses);
       writer.writeNameAttribute(clientId);
       writer.writeIdAttribute(clientId);
-      writer.writeStyleAttribute();
-      String onchange = HtmlUtils.generateOnchange(component, facesContext);
+      writer.writeStyleAttribute(style);
+      String onchange = HtmlUtils.generateOnchange(input, facesContext);
       if (null != onchange) {
         writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
       }

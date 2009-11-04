@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.layout.LayoutContext2;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
@@ -341,9 +342,10 @@ public class PageRenderer extends PageRendererBase {
     writer.startElement(HtmlConstants.BODY, page);
     writer.writeAttribute(HtmlAttributes.ONLOAD, "Tobago.init('" + clientId + "');", false);
 //    writer.writeAttribute("onunload", "Tobago.onexit();", null);
-    writer.writeClassAttribute();
-    writer.writeStyleAttribute();
     writer.writeIdAttribute(clientId);
+    writer.writeClassAttribute();
+//    HtmlStyleMap style = new HtmlStyleMap(facesContext, page);
+//    writer.writeStyleAttribute(style);
 
     writer.startJavascript();
     writer.write("Tobago.pngFixBlankImage = '");

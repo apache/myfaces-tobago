@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -49,7 +50,8 @@ public class OutRenderer extends LayoutableRendererBase {
       String id = out.getClientId(facesContext);
       writer.startElement(HtmlConstants.DIV, out);
       writer.writeIdAttribute(id);
-      writer.writeStyleAttribute();
+      HtmlStyleMap style = new HtmlStyleMap(facesContext, out);
+      writer.writeStyleAttribute(style);
       HtmlRendererUtils.renderDojoDndItem(out, writer, true);
       writer.writeClassAttribute();
       HtmlRendererUtils.renderTip(out, writer);

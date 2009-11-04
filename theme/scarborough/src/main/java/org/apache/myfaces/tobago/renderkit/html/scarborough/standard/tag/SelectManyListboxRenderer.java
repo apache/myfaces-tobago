@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.component.UISelectManyListbox;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -57,6 +58,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     }
 
     UISelectManyListbox selectMany = (UISelectManyListbox) component;
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     List<SelectItem> items = RenderUtil.getSelectItems(selectMany);
 
@@ -64,7 +66,6 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
       LOG.debug("items.size() = '" + items.size() + "'");
     }
 
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, selectMany);
     writer.startElement(HtmlConstants.SELECT, selectMany);
     String clientId = selectMany.getClientId(facesContext);
@@ -77,7 +78,8 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    writer.writeStyleAttribute();
+    HtmlStyleMap style = new HtmlStyleMap(facesContext, selectMany);
+    writer.writeStyleAttribute(style);
     writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
     if (title != null) {

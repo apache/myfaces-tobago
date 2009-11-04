@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
@@ -114,9 +115,8 @@ public class FileRenderer extends InputRendererBase {
     writer.startElement(HtmlConstants.INPUT, input);
     writer.writeAttribute(HtmlAttributes.TYPE, "file", false);
     writer.writeClassAttribute();
-//    if (!ClientProperties.getInstance(facesContext).getUserAgent().isMozilla()) {
-      writer.writeStyleAttribute();
-//    }
+    HtmlStyleMap style = new HtmlStyleMap(facesContext, input);
+    writer.writeStyleAttribute(style);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED));

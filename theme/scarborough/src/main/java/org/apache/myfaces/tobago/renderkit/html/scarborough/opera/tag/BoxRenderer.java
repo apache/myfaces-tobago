@@ -24,9 +24,11 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.opera.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -37,21 +39,22 @@ import java.io.IOException;
 
 public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.BoxRenderer {
 
-  public void encodeBegin(FacesContext facesContext,
-      UIComponent component) throws IOException {
+  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UIComponent label = component.getFacet(Facets.LABEL);
-    String labelString
-        = (String) component.getAttributes().get(Attributes.LABEL);
+    UIBox box = (UIBox) component;
+    
+    UIComponent label = box.getFacet(Facets.LABEL);
+    String labelString = (String) box.getAttributes().get(Attributes.LABEL);
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlConstants.FIELDSET, component);
+    writer.startElement(HtmlConstants.FIELDSET, box);
     writer.writeClassAttribute();
-    writer.writeStyleAttribute();
+    HtmlStyleMap style = new HtmlStyleMap(facesContext, box);
+    writer.writeStyleAttribute(style);
 
     if (label != null || labelString != null) {
-      writer.startElement(HtmlConstants.LEGEND, component);
+      writer.startElement(HtmlConstants.LEGEND, box);
       writer.writeClassAttribute();
 
       writer.startElement(HtmlConstants.B, null);
@@ -69,7 +72,7 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
         writer.endElement(HtmlConstants.BR);
       }
     }
-    writer.startElement(HtmlConstants.DIV, component);
+    writer.startElement(HtmlConstants.DIV, box);
     writer.writeClassAttribute();
   }
 }

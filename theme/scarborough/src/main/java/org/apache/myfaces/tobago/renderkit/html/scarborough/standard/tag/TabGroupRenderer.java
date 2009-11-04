@@ -263,7 +263,8 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
     final String clientId = tabGroup.getClientId(facesContext);
     writer.writeIdAttribute(clientId + "__" + virtualTab);
-    writer.writeStyleAttribute();
+    HtmlStyleMap style = new HtmlStyleMap(facesContext, tabGroup);
+    writer.writeStyleAttribute(style);
 
     writer.startElement(HtmlConstants.TR, tabGroup);
     writer.writeAttribute(HtmlAttributes.VALIGN, "bottom", false);

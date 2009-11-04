@@ -20,14 +20,17 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.Deprecation;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -42,30 +45,41 @@ public class LabelRenderer extends LayoutableRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UIOutput output = (UIOutput) component;
+    UILabel output = null;
+    // todo: remove after 1.5.0
+    if (component instanceof UILabel) {
+      output = (UILabel) component;
+    } else {
+      Deprecation.LOG.warn("LabelRenderer should only render UILabel but got " + component.getClass().getName()
+          + " id=" + component.getClientId(facesContext));
+    }
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     LabelWithAccessKey label = new LabelWithAccessKey(component);
 
-    String forValue = ComponentUtils.findClientIdFor(output, facesContext);
+    String forValue = ComponentUtils.findClientIdFor(component, facesContext);
 
     createClassAttribute(component);
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     
-    String clientId = output.getClientId(facesContext);
-    writer.startElement(HtmlConstants.DIV, output);
+    String clientId = component.getClientId(facesContext);
+    writer.startElement(HtmlConstants.DIV, component);
     HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
-    writer.writeStyleAttribute();
-    writer.startElement(HtmlConstants.A, output);
+    // todo: remove after 1.5.0 (see start of method)
+    if (output != null) {
+      HtmlStyleMap style = new HtmlStyleMap(facesContext, output);
+      writer.writeStyleAttribute(style);
+    }
+    writer.startElement(HtmlConstants.A, component);
     writer.writeClassAttribute();
-    writer.startElement(HtmlConstants.LABEL, output);
+    writer.startElement(HtmlConstants.LABEL, component);
     writer.writeIdAttribute(clientId);
     if (forValue != null) {
       writer.writeAttribute(HtmlAttributes.FOR, forValue, false);
     }
     writer.writeClassAttribute();
 
-    HtmlRendererUtils.renderTip(output, writer);
+    HtmlRendererUtils.renderTip(component, writer);
 
     if (label.getText() != null) {
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);

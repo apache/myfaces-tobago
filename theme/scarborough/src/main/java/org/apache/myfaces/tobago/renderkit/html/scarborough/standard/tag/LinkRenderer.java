@@ -24,6 +24,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.AbstractUICommand;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UILink;
@@ -31,10 +32,12 @@ import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.Deprecation;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -48,18 +51,18 @@ public class LinkRenderer extends CommandRendererBase {
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UICommand command = (UICommand) component;
-    String clientId = command.getClientId(facesContext);
-    CommandRendererHelper helper = new CommandRendererHelper(facesContext, command, CommandRendererHelper.Tag.ANCHOR);
+    AbstractUICommand link = (AbstractUICommand) component;
+    String clientId = link.getClientId(facesContext);
+    CommandRendererHelper helper = new CommandRendererHelper(facesContext, link, CommandRendererHelper.Tag.ANCHOR);
     String href = helper.getHref();
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    LabelWithAccessKey label = new LabelWithAccessKey(command);
+    LabelWithAccessKey label = new LabelWithAccessKey(link);
 
     if (helper.isDisabled()) {
-      writer.startElement(HtmlConstants.SPAN, command);
+      writer.startElement(HtmlConstants.SPAN, link);
     } else {
-      writer.startElement(HtmlConstants.A, command);
+      writer.startElement(HtmlConstants.A, link);
       writer.writeAttribute(HtmlAttributes.HREF, href, true);
       if (helper.getOnclick() != null) {
         writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true);
@@ -68,34 +71,38 @@ public class LinkRenderer extends CommandRendererBase {
         writer.writeAttribute(HtmlAttributes.TARGET, helper.getTarget(), true);
       }
       Integer tabIndex = null;
-      if (command instanceof UILink) {
-        tabIndex = ((UILink) command).getTabIndex();
+      if (link instanceof UILink) {
+        tabIndex = ((UILink) link).getTabIndex();
+      } else {
+        Deprecation.LOG.warn("LinkRenderer should only render UILink but got " + link.getClass().getName() 
+        + " id=" + link.getClientId(facesContext));
       }
       if (tabIndex != null) {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
     }
-    writer.writeStyleAttribute();
+    HtmlStyleMap style = new HtmlStyleMap(facesContext, link);
+    writer.writeStyleAttribute(style);
     HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);
-    HtmlRendererUtils.renderTip(command, writer);
+    HtmlRendererUtils.renderTip(link, writer);
     writer.flush();
 
 //  image
-    String image = (String) command.getAttributes().get(Attributes.IMAGE);
+    String image = (String) link.getAttributes().get(Attributes.IMAGE);
     if (image != null) {
       if (image.startsWith("HTTP:") || image.startsWith("FTP:") || image.startsWith("/")) {
         // absolute Path to image : nothing to do
       } else {
         image = getImageWithPath(facesContext, image, helper.isDisabled());
       }
-      writer.startElement(HtmlConstants.IMG, command);
+      writer.startElement(HtmlConstants.IMG, link);
       writer.writeAttribute(HtmlAttributes.SRC, image, true);
       writer.writeAttribute(HtmlAttributes.BORDER, 0); // TODO: is border=0 setting via style possible?
-      HtmlRendererUtils.renderImageTip(command, writer);
-      HtmlRendererUtils.renderTip(command, writer);
+      HtmlRendererUtils.renderImageTip(link, writer);
+      HtmlRendererUtils.renderTip(link, writer);
       writer.endElement(HtmlConstants.IMG);
     }
 

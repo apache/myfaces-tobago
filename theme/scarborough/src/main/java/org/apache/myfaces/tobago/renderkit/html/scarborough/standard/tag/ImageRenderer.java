@@ -25,17 +25,18 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UIImage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
-import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIGraphic;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Locale;
@@ -49,13 +50,12 @@ public class ImageRenderer extends LayoutableRendererBase {
     HtmlRendererUtils.renderDojoDndSource(facesContext, component);
   }
 
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent component) throws IOException {
+  public void encodeEnd(FacesContext facesContext,      UIComponent component) throws IOException {
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    UIGraphic graphic = (UIGraphic) component;
-    final String value = graphic.getUrl();
+    UIImage image = (UIImage) component;
+    final String value = image.getUrl();
     String src = value;
     if (src != null) {
       final String ucSrc = src.toUpperCase(Locale.ENGLISH);
@@ -64,31 +64,31 @@ public class ImageRenderer extends LayoutableRendererBase {
         // absolute Path to image : nothing to do
       } else {
         src = null;
-        if (isDisabled(graphic)) {
+        if (isDisabled(image)) {
           src = ResourceManagerUtil.getImageWithPath(
               facesContext, HtmlRendererUtils.createSrc(value, "Disabled"), true);
         }
         if (src == null) {
           src = ResourceManagerUtil.getImageWithPath(facesContext, value);
         }
-        HtmlRendererUtils.addImageSources(facesContext, writer, graphic.getUrl(),
-            graphic.getClientId(facesContext));
+        HtmlRendererUtils.addImageSources(facesContext, writer, image.getUrl(),
+            image.getClientId(facesContext));
       }
     }
 
-    String border = (String) graphic.getAttributes().get(Attributes.BORDER);
+    String border = (String) image.getAttributes().get(Attributes.BORDER);
     if (border == null) {
       border = "0";
     }
-    String alt = (String) graphic.getAttributes().get(Attributes.ALT);
+    String alt = (String) image.getAttributes().get(Attributes.ALT);
     if (alt == null) {
       alt = "";
     }
 
-    writer.startElement(HtmlConstants.IMG, graphic);
-    final String clientId = graphic.getClientId(facesContext);
+    writer.startElement(HtmlConstants.IMG, image);
+    final String clientId = image.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
-    if (ComponentUtils.isHoverEnabled(graphic) && !isDisabled(graphic)) {
+    if (ComponentUtils.isHoverEnabled(image) && !isDisabled(image)) {
       writer.writeAttribute(HtmlAttributes.ONMOUSEOVER,
           "Tobago.imageMouseover('" + clientId + "')", false);
       writer.writeAttribute(HtmlAttributes.ONMOUSEOUT,
@@ -98,11 +98,11 @@ public class ImageRenderer extends LayoutableRendererBase {
       writer.writeAttribute(HtmlAttributes.SRC, src, true);
     }
     writer.writeAttribute(HtmlAttributes.ALT, alt, true);
-    HtmlRendererUtils.renderTip(graphic, writer);
+    HtmlRendererUtils.renderTip(image, writer);
     writer.writeAttribute(HtmlAttributes.BORDER, border, false);
-//    writer.writeAttributeFromComponent(HtmlAttributes.HEIGHT, Attributes.HEIGHT);
-    writer.writeStyleAttribute();
-    HtmlRendererUtils.renderDojoDndItem(component, writer, true);
+    HtmlStyleMap style = new HtmlStyleMap(facesContext, image);
+    writer.writeStyleAttribute(style);
+    HtmlRendererUtils.renderDojoDndItem(image, writer, true);
     writer.writeClassAttribute();
     writer.endElement(HtmlConstants.IMG);
 
@@ -119,14 +119,8 @@ public class ImageRenderer extends LayoutableRendererBase {
     }
   }
 
-  private boolean isDisabled(UIGraphic graphic) {
-    boolean disabled = ComponentUtils.getBooleanAttribute(graphic,
-        Attributes.DISABLED);
-    if (!disabled && graphic.getParent() instanceof UICommand) {
-      disabled =
-          ComponentUtils.getBooleanAttribute(graphic.getParent(), Attributes.DISABLED);
-    }
-    return disabled;
+  private boolean isDisabled(UIImage graphic) {
+    return graphic.isDisabled() 
+        || (graphic.getParent() instanceof UICommand && ((UICommand)graphic.getParent()).isDisabled());
   }
 }
-

@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -50,34 +51,35 @@ public class ButtonRenderer extends CommandRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UICommand command = (UICommand) component;
-    String clientId = command.getClientId(facesContext);
+    UIButton button = (UIButton) component;
+    String clientId = button.getClientId(facesContext);
 
-    CommandRendererHelper helper = new CommandRendererHelper(facesContext, command, CommandRendererHelper.Tag.BUTTON);
+    CommandRendererHelper helper = new CommandRendererHelper(facesContext, button, CommandRendererHelper.Tag.BUTTON);
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    LabelWithAccessKey label = new LabelWithAccessKey(command);
+    LabelWithAccessKey label = new LabelWithAccessKey(button);
 
-    writer.startElement(HtmlConstants.BUTTON, command);
-    writer.writeAttribute(HtmlAttributes.TYPE, createButtonType(command), false);
+    writer.startElement(HtmlConstants.BUTTON, button);
+    writer.writeAttribute(HtmlAttributes.TYPE, createButtonType(button), false);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    HtmlRendererUtils.renderTip(command, writer);
+    HtmlRendererUtils.renderTip(button, writer);
     writer.writeAttribute(HtmlAttributes.DISABLED, helper.isDisabled());
-    Integer tabIndex = ((UIButton)command).getTabIndex();
+    Integer tabIndex = button.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
     if (helper.getOnclick() != null) {
       writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true);
     }
-    writer.writeStyleAttribute();
+    HtmlStyleMap style = new HtmlStyleMap(facesContext, button);
+    writer.writeStyleAttribute(style);
     HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
     writer.flush(); // force closing the start tag
 
-    String imageName = (String) command.getAttributes().get(Attributes.IMAGE);
+    String imageName = (String) button.getAttributes().get(Attributes.IMAGE);
     if (imageName != null) {
       String image;
       if (imageName.startsWith("HTTP:") || imageName.startsWith("FTP:")
@@ -107,15 +109,15 @@ public class ButtonRenderer extends CommandRendererBase {
         LOG.info("duplicated accessKey : " + label.getAccessKey());
       }
       HtmlRendererUtils.addClickAcceleratorKey(
-          facesContext, command.getClientId(facesContext), label.getAccessKey());
+          facesContext, button.getClientId(facesContext), label.getAccessKey());
     }
 
     if (ComponentUtils.getBooleanAttribute(component, Attributes.DEFAULT_COMMAND)) {
-      boolean transition = ComponentUtils.getBooleanAttribute(command, Attributes.TRANSITION);
+      boolean transition = ComponentUtils.getBooleanAttribute(button, Attributes.TRANSITION);
       HtmlRendererUtils.setDefaultTransition(facesContext, transition);
 
       HtmlRendererUtils.writeScriptLoader(facesContext, null, new String[]{
-          "Tobago.setDefaultAction('" + command.getClientId(facesContext) + "')"});      
+          "Tobago.setDefaultAction('" + button.getClientId(facesContext) + "')"});      
     }
   }
 

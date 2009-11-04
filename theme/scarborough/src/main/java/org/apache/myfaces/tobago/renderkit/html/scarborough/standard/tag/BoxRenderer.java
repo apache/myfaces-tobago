@@ -17,16 +17,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
-
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -44,30 +41,27 @@ import java.io.IOException;
 
 public class BoxRenderer extends BoxRendererBase {
 
-  public void encodeBegin(
-      FacesContext facesContext, UIComponent component) throws IOException {
+  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UIComponent label = component.getFacet(Facets.LABEL);
-    String labelString
-        = (String) component.getAttributes().get(Attributes.LABEL);
-    UIPanel toolbar = (UIPanel) component.getFacet(Facets.TOOL_BAR);
-    if (toolbar != null) {
-      final int padding = ThemeConfig.getValue(facesContext, component, "paddingTopWhenToolbar");
-// fixme
-//      HtmlRendererUtils.replaceStyleAttribute(component, getAttrStyleKey(), "padding-top", padding);
-// fixme
-//      HtmlRendererUtils.replaceStyleAttribute(component, getAttrStyleKey(), "padding-bottom", 0);
-    }
-
+    UIBox box = (UIBox) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlConstants.FIELDSET, component);
+    UIComponent label = box.getFacet(Facets.LABEL);
+    String labelString = box.getLabel();
+    UIPanel toolbar = (UIPanel) box.getFacet(Facets.TOOL_BAR);
+    HtmlStyleMap style = new HtmlStyleMap(facesContext, box);
+    if (toolbar != null) {
+      Measure padding = ThemeConfig.getMeasure(facesContext, box, "paddingTopWhenToolbar");
+      style.setPaddingTop(padding);
+      style.setPaddingBottom(PixelMeasure.ZERO);
+    }
+
+    writer.startElement(HtmlConstants.FIELDSET, box);
     writer.writeClassAttribute();
-    writer.writeStyleAttribute();
-    writer.writeAttributeFromComponent(HtmlAttributes.STYLE, getAttrStyleKey());
+    writer.writeStyleAttribute(style);
 
     if (label != null || labelString != null) {
-      writer.startElement(HtmlConstants.LEGEND, component);
+      writer.startElement(HtmlConstants.LEGEND, box);
       writer.writeClassAttribute();
 
       if (label != null) {
@@ -92,13 +86,13 @@ public class BoxRenderer extends BoxRendererBase {
         innerStyle.setTop(new PixelMeasure(-10));
       }
     }
-    writer.startElement(HtmlConstants.DIV, component);
+    writer.startElement(HtmlConstants.DIV, box);
     writer.writeClassAttribute();
     writer.writeStyleAttribute(innerStyle);
   }
 
   public void encodeEnd(FacesContext facesContext,
-      UIComponent component) throws IOException {
+                        UIComponent component) throws IOException {
 
     ResponseWriter writer = facesContext.getResponseWriter();
     writer.endElement(HtmlConstants.DIV);
@@ -108,9 +102,4 @@ public class BoxRenderer extends BoxRendererBase {
   public boolean getRendersChildren() {
     return true;
   }
-
-  protected String getAttrStyleKey() {
-    return Attributes.STYLE;
-  }
-
 }

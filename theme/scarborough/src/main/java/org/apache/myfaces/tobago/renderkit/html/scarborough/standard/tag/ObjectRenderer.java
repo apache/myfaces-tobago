@@ -18,10 +18,12 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.UIObject;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -30,32 +32,33 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public class ObjectRenderer extends LayoutableRendererBase {
-  public void encodeEnd(FacesContext facesContext, UIComponent component)
-      throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
+    UIObject object = (UIObject) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlConstants.IFRAME, component);
-    writer.writeIdAttribute(component.getClientId(facesContext));
-    writer.writeNameAttribute(component.getClientId(facesContext));
-    Object src = component.getAttributes().get(Attributes.SRC);
+
+    writer.startElement(HtmlConstants.IFRAME, object);
+    writer.writeIdAttribute(object.getClientId(facesContext));
+    writer.writeNameAttribute(object.getClientId(facesContext));
+    Object src = object.getSrc();
     if (src != null) {
       writer.writeAttribute(HtmlAttributes.SRC, String.valueOf(src), true);
     } else {
       writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getBlankPage(facesContext), false);
     }
     writer.writeClassAttribute();
-    writer.writeStyleAttribute();
+    HtmlStyleMap style = new HtmlStyleMap(facesContext, object);
+    writer.writeStyleAttribute(style);
 
     String noframes = ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "browser.noframe.message.prefix");
     writer.writeText(noframes + " ");
-    writer.startElement(HtmlConstants.A, component);
-    if (component.getAttributes().get(Attributes.SRC) != null) {
+    writer.startElement(HtmlConstants.A, object);
+    if (src != null) {
       writer.writeAttributeFromComponent(HtmlAttributes.HREF, Attributes.SRC);
       writer.writeTextFromComponent(Attributes.SRC);
     }
     writer.endElement(HtmlConstants.A);
-    noframes = ResourceManagerUtil.getPropertyNotNull(
-        facesContext, "tobago", "browser.noframe.message.postfix");
+    noframes = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "browser.noframe.message.postfix");
     writer.writeText(" " + noframes);
 
     writer.endElement(HtmlConstants.IFRAME);

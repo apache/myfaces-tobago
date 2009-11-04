@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlStyleMap;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -70,14 +71,13 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     writer.writeNameAttribute(selectOne.getClientId(facesContext));
     writer.writeIdAttribute(selectOne.getClientId(facesContext));
     writer.writeClassAttribute();
-    writer.writeStyleAttribute();
+    HtmlStyleMap style = new HtmlStyleMap(facesContext, selectOne);
+    writer.writeStyleAttribute(style);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     Integer tabIndex = selectOne.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    writer.writeStyleAttribute();
-    writer.writeClassAttribute();
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
