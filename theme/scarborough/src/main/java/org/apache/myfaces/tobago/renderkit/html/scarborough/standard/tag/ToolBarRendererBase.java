@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UICommandBase;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
@@ -81,18 +81,18 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
     boolean first = true;
     for (Iterator iter = children.iterator(); iter.hasNext();) {
       UIComponent component = (UIComponent) iter.next();
-      if (component instanceof UICommand) {
+      if (component instanceof UICommandBase) {
         boolean last = !iter.hasNext();
-        renderToolbarCommand(context, (UICommand) component, writer, first, last);
+        renderToolbarCommand(context, (UICommandBase) component, writer, first, last);
         first = false;
       } else {
-        LOG.error("Illegal UIComponent class in toolbar :" + component.getClass().getName());
+        LOG.error("Illegal UIComponent class in toolbar (not UICommandBase):" + component.getClass().getName());
       }
     }
   }
 
   private void renderToolbarCommand(FacesContext facesContext,
-      final UICommand command, TobagoResponseWriter writer, boolean first, boolean last)
+      final UICommandBase command, TobagoResponseWriter writer, boolean first, boolean last)
       throws IOException {
     if (command instanceof UISelectBooleanCommand) {
       renderSelectBoolean(facesContext, command, writer, first, last);
@@ -113,7 +113,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
     }
   }
 
-  private void renderSelectOne(FacesContext facesContext, UICommand command,
+  private void renderSelectOne(FacesContext facesContext, UICommandBase command,
       TobagoResponseWriter writer, boolean first, boolean last)
       throws IOException {
 
@@ -182,7 +182,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
 
   }
 
-  private void renderSelectBoolean(FacesContext facesContext, UICommand command,
+  private void renderSelectBoolean(FacesContext facesContext, UICommandBase command,
       TobagoResponseWriter writer, boolean first, boolean last)
       throws IOException {
 
@@ -206,7 +206,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
   }
 
   private void renderToolbarButton(
-      FacesContext facesContext, final UICommand command, TobagoResponseWriter writer,
+      FacesContext facesContext, UICommandBase command, TobagoResponseWriter writer,
       boolean first, boolean last, boolean selected, String onClick)
       throws IOException {
     if (!command.isRendered()) {
@@ -340,7 +340,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
 
   protected abstract String getDivClasses(boolean selected, boolean disabled);
 
-  private String createOnClick(FacesContext facesContext, UICommand command) {
+  private String createOnClick(FacesContext facesContext, UICommandBase command) {
     if (command.getFacet(Facets.MENUPOPUP) != null
         && command.getAction() == null
         && command.getActionListener() == null
@@ -411,7 +411,7 @@ public abstract class ToolBarRendererBase extends LayoutableRendererBase {
   }
 
   private void renderAnchorBegin(
-      FacesContext facesContext, TobagoResponseWriter writer, final UICommand command,
+      FacesContext facesContext, TobagoResponseWriter writer, UICommandBase command,
       final LabelWithAccessKey label, final boolean disabled)
       throws IOException {
     writer.startElement(HtmlConstants.A, command);

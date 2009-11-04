@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UICommandBase;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIMenuSeparator;
@@ -72,8 +72,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
   public static final String SEARCH_ID_POSTFIX = SUBCOMPONENT_SEP + "popup";
   private static final String MENU_ACCELERATOR_KEYS = "menuAcceleratorKeys";
 
-  public void encodeEnd(FacesContext facesContext,
-                              UIComponent component) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     String clientId;
 
     Map attributes = component.getAttributes();
@@ -90,10 +89,12 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       if (ComponentUtils.getBooleanAttribute(component, Attributes.PAGE_MENU)) {
         styleClasses.addClass("menuBar", "page-facet"); // XXX not a standard compliant name
       } else {
-        writer.writeStyleAttribute();
+        // todo
+//        HtmlStyleMap style = new HtmlStyleMap(facesContext, component);
+//        writer.writeStyleAttribute(style);
       }
       writer.writeClassAttribute(styleClasses);
-      
+
 /*
 
       writer.startElement(HtmlConstants.SPAN);
@@ -119,7 +120,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
   }
 
   private void renderTopLevelItems(FacesContext facesContext,
-      TobagoResponseWriter writer, UIComponent component) throws IOException {
+                                   TobagoResponseWriter writer, UIComponent component) throws IOException {
     String bac = "green;";
     for (Object o : component.getChildren()) {
       if (o instanceof UIMenu) {
@@ -164,19 +165,19 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       String function = setupFunction + "('" + clientId + "', '" + page.getClientId(facesContext) + "');";
       String scriptBlock = createJavascriptFunction(facesContext, component, setupFunction);
       StringTokenizer st = new StringTokenizer(scriptBlock, "\n");
-      ArrayList<String>  lines = new ArrayList<String>();
+      ArrayList<String> lines = new ArrayList<String>();
       while (st.hasMoreTokens()) {
         lines.add(st.nextToken());
       }
       lines.add(function);
       HtmlRendererUtils.writeScriptLoader(facesContext,
-          new String[] {"script/tobago-menu.js"},
+          new String[]{"script/tobago-menu.js"},
           lines.toArray(new String[lines.size()]));
     }
   }
 
   protected String createJavascriptFunction(FacesContext facesContext,
-                                       UIComponent component, String setupFunction)
+                                            UIComponent component, String setupFunction)
       throws IOException {
     StringBuilder sb = new StringBuilder(256);
 
@@ -333,17 +334,19 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     writer.writeAttribute(HtmlAttributes.SRC, image, false);
     writer.endElement(HtmlConstants.IMG);
   }
+
   private int addMenuEntrys(StringBuilder sb, String var,
                             FacesContext facesContext, UIComponent component, boolean warn) throws IOException {
     return addMenuEntrys(sb, var, facesContext, component, warn, 0);
   }
-  private int addMenuEntrys(StringBuilder sb, String var,
-                             FacesContext facesContext, UIComponent component, boolean warn, int index)
+
+  private int addMenuEntrys(
+      StringBuilder sb, String var, FacesContext facesContext, UIComponent component, boolean warn, int index)
       throws IOException {
     for (Object o : component.getChildren()) {
       UIComponent entry = (UIComponent) o;
-      if (entry instanceof UICommand) {
-        addMenuEntry(sb, var, facesContext, (UICommand) entry);
+      if (entry instanceof UICommandBase) {
+        addMenuEntry(sb, var, facesContext, (UICommandBase) entry);
       } else if (entry instanceof UIMenuSeparator) {
         addMenuSeparator(sb, var);
       } else if (entry instanceof UIMenu) {
@@ -351,14 +354,13 @@ public class MenuBarRenderer extends LayoutableRendererBase {
       } else if (entry instanceof UIForm) {
         index = addMenuEntrys(sb, var, facesContext, entry, warn, index);
       } else if (warn) {
-        LOG.error("Illegal UIComponent class in menuBar: "
-            + entry.getClass().getName());
+        LOG.error("Illegal UIComponent class in menuBar (not UICommandBase): " + entry.getClass().getName());
       }
     }
     return index;
   }
 
-  private void addMenuEntry(StringBuilder sb, String var, FacesContext facesContext, UICommand command)
+  private void addMenuEntry(StringBuilder sb, String var, FacesContext facesContext, UICommandBase command)
       throws IOException {
     CommandRendererHelper helper = new CommandRendererHelper(facesContext, command);
     String onclick = helper.getOnclick();
@@ -380,14 +382,15 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     }
   }
 
-  private void addCommand(StringBuilder sb, String var, FacesContext facesContext,
-                          UICommand command, String onClick) throws IOException {
+  private void addCommand(
+      StringBuilder sb, String var, FacesContext facesContext, UICommandBase command, String onClick) 
+      throws IOException {
     String image = (String) command.getAttributes().get(Attributes.IMAGE);
     addMenuItem(sb, var, facesContext, command, image, onClick);
   }
 
-  private void addSelectBoolean(StringBuilder sb, String var,
-                                FacesContext facesContext, UICommand command, String onClick)
+  private void addSelectBoolean(
+      StringBuilder sb, String var, FacesContext facesContext, UICommandBase command, String onClick)
       throws IOException {
 
     UIComponent checkbox = command.getFacet(Facets.ITEMS);
@@ -408,14 +411,14 @@ public class MenuBarRenderer extends LayoutableRendererBase {
   }
 
   private void addMenuItem(
-      StringBuilder sb, String var, FacesContext facesContext, UICommand command, String image, String onclick)
+      StringBuilder sb, String var, FacesContext facesContext, UICommandBase command, String image, String onclick)
       throws IOException {
     LabelWithAccessKey label = new LabelWithAccessKey(command);
     addMenuItem(sb, var, facesContext, command, label, image, onclick);
   }
 
   private void addSelectOne(
-      StringBuilder sb, String var, FacesContext facesContext, UICommand command, String onclick)
+      StringBuilder sb, String var, FacesContext facesContext, UICommandBase command, String onclick)
       throws IOException {
     List<SelectItem> items;
     LabelWithAccessKey label = new LabelWithAccessKey(command);
@@ -463,10 +466,10 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     }
   }
 
-  private void addMenuItem(StringBuilder sb, String var,
-                           FacesContext facesContext,
-                           UICommand command, LabelWithAccessKey label, String image,
-                           String onClick) throws IOException {
+  private void addMenuItem(
+      StringBuilder sb, String var, FacesContext facesContext, UICommandBase command, 
+      LabelWithAccessKey label, String image, String onClick) 
+      throws IOException {
     if (!command.isRendered()) {
       return;
     }
@@ -543,7 +546,7 @@ public class MenuBarRenderer extends LayoutableRendererBase {
     sb.append("));\n");
   }
 
-  private String prepareForScript(String s) {    
+  private String prepareForScript(String s) {
     return s.replaceAll("\n", " ").replaceAll("'", "\\\\'");
   }
 
