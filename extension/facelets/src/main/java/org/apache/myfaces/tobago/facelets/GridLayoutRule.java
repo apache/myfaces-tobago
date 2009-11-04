@@ -39,6 +39,9 @@ public class GridLayoutRule extends MetaRule {
         if (Attributes.ROW_SPACING.equals(name)) {
           return new RowSpacingMapper(attribute);
         }
+        if (Attributes.CELLSPACING.equals(name)) {
+          return new CellspacingMapper(attribute);
+        }
       }
     }
     return null;
@@ -67,6 +70,19 @@ public class GridLayoutRule extends MetaRule {
     public void applyMetadata(FaceletContext ctx, Object instance) {
       UIGridLayout gridLayout = (UIGridLayout) instance;
       gridLayout.setRowSpacing(Measure.parse(attribute.getValue()));
+    }
+  }
+
+  static final class CellspacingMapper extends Metadata {
+    private final TagAttribute attribute;
+
+    CellspacingMapper(TagAttribute attribute) {
+      this.attribute = attribute;
+    }
+
+    public void applyMetadata(FaceletContext ctx, Object instance) {
+      UIGridLayout gridLayout = (UIGridLayout) instance;
+      gridLayout.setCellspacing(Measure.parse(attribute.getValue()));
     }
   }
 }

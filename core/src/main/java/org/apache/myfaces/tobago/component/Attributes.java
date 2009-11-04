@@ -31,6 +31,7 @@ public final class Attributes {
   public static final String BODY_CONTENT = "bodyContent";
   public static final String BORDER = "border";
   public static final String CHARSET = "charset";
+  @Deprecated
   public static final String CELLSPACING = "cellspacing";
   public static final String CLIENT_PROPERTIES = "clientProperties";
   public static final String COLUMN_SPAN = "columnSpan";
