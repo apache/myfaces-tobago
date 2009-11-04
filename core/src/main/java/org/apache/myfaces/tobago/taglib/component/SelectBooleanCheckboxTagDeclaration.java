@@ -38,24 +38,19 @@ import org.apache.myfaces.tobago.taglib.decl.HasValidatorMessage;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsFocus;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
-//import org.apache.myfaces.tobago.taglib.decl.IsImmediateComponent;
 
-/*
- * Created: Aug 5, 2005 5:18:50 PM
- * User: bommel
- * $Id$
- */
 /**
  * Renders a checkbox.
  */
 @Tag(name = "selectBooleanCheckbox")
 @BodyContentDescription(anyTagOf = "<f:facet>* ")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UISelectBoolean",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUISelectBoolean",
+    uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCheckbox",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUISelectBooleanCheckbox",
     rendererType = RendererTypes.SELECT_BOOLEAN_CHECKBOX,
     allowedChildComponenents = "NONE",
     facets = {
@@ -72,6 +67,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 public interface SelectBooleanCheckboxTagDeclaration extends HasValidator,
     HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabelAndAccessKey, HasBooleanValue, IsDisabled,
     IsInline, HasTip, IsReadonly, HasMarkup, HasTabIndex, IsRequired, HasConverter, IsFocus,
-    HasValidatorMessage, HasRequiredMessage, HasConverterMessage /*, IsImmediateComponent */{
+    HasValidatorMessage, HasRequiredMessage, HasConverterMessage, IsGridLayoutComponent /*, IsImmediateComponent */{
 
 }

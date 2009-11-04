@@ -25,7 +25,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UISelectBoolean;
+import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -70,12 +70,12 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
 
   //
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-    if (!(component instanceof UISelectBoolean)) {
-      LOG.error("Wrong type: Need " + UISelectBoolean.class.getName() + ", but was " + component.getClass().getName());
+    if (!(component instanceof UISelectBooleanCheckbox)) {
+      LOG.error("Wrong type: Need " + UISelectBooleanCheckbox.class.getName() + ", but was " + component.getClass().getName());
       return;
     }
 
-    UISelectBoolean selectBoolean = (UISelectBoolean) component;
+    UISelectBooleanCheckbox selectBoolean = (UISelectBooleanCheckbox) component;
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 

@@ -212,11 +212,15 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
 
           // compute the size of the cell
           Measure size = pixelMeasures[i];
-          for (int k = 1; k < span; k++) {
-            size = size.add(pixelMeasures[i + k]);
-            size = size.add(getSpacing(orientation));
+          if (size != null) {
+            for (int k = 1; k < span; k++) {
+              size = size.add(pixelMeasures[i + k]);
+              size = size.add(getSpacing(orientation));
+            }
+            LayoutUtils.setSize(orientation, component, size);
+          } else {
+            LOG.warn("Size is null, should be debugged... i=" + i + " grid="+grid, new RuntimeException());
           }
-          LayoutUtils.setSize(orientation, component, size);
 
           // call sub layout manager
           if (component instanceof LayoutContainer) {
@@ -243,7 +247,11 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
           // compute the position of the cell
           Measure position = LayoutUtils.getBeginOffset(orientation, getLayoutContainer());
           for (int k = 0; k < i; k++) {
-            position = position.add(pixelMeasures[k]);
+            if (pixelMeasures[k] == null) {
+              LOG.warn("Measure is null, should be debugged... i=" + i + " k=" + k + " grid="+grid, new RuntimeException());
+            } else {
+              position = position.add(pixelMeasures[k]);
+            }
             position = position.add(getSpacing(orientation));
           }
           if (orientation) {
@@ -488,6 +496,9 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
   public abstract String getRows();
 
   public abstract String getColumns();
+
+  @Deprecated
+  public abstract Measure getCellspacing();
 
   public abstract Measure getRowSpacing();
 

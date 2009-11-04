@@ -17,16 +17,14 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.util.MessageFactory;
 
-import javax.faces.context.FacesContext;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
-/*
- * Date: Jan 30, 2007
- * Time: 8:16:45 AM
- */
-public abstract class AbstractUISelectBoolean extends javax.faces.component.UISelectBoolean implements SupportsMarkup {
+public abstract class AbstractUISelectBooleanCheckbox extends javax.faces.component.UISelectBoolean 
+    implements LayoutComponent, SupportsMarkup {
 
   public boolean isSelected() {
     Object value = getSubmittedValue();

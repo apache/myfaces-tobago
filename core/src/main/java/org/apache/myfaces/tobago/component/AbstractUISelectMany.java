@@ -1,5 +1,9 @@
 package org.apache.myfaces.tobago.component;
 
+import org.apache.myfaces.tobago.layout.LayoutComponent;
+
+import javax.faces.component.UISelectMany;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,11 +21,6 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-/*
- * User: weber
- * Date: May 31, 2005
- * Time: 7:47:11 PM
- */
-public abstract class AbstractUISelectMany extends javax.faces.component.UISelectMany implements SupportsMarkup {
+public abstract class AbstractUISelectMany extends UISelectMany implements SupportsMarkup, LayoutComponent {
 
 }
