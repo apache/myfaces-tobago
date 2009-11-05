@@ -180,7 +180,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.writeClassAttribute(styleClasses);
 
       // div style (width)
-      Style style = HtmlRendererUtils.ensureStyleAttributeMap(tree);
+      Style style = new Style(facesContext, tree);
       String widthString;
       if (style != null && style.getWidth() != null) {
         widthString = "width: " + Integer.toString(style.getWidth().getPixel() - 22); // fixme: 4 + 18 for scrollbar

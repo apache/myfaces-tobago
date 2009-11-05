@@ -104,7 +104,9 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     storeFooterHeight(facesContext, uiComponent);
     UIData data = (UIData) uiComponent;
 
-    ensureColumnWidthList(facesContext, data);
+    Style style = new Style(facesContext, data);
+    
+    ensureColumnWidthList(facesContext, data, style);
 
     final String sheetId = data.getClientId(facesContext);
 
@@ -114,7 +116,6 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     writer.startElement(HtmlConstants.DIV, data);
     writer.writeIdAttribute(sheetId + "_outer_div");
     writer.writeClassAttribute("tobago-sheet-outer-div");
-    Style style = new Style(facesContext, data);
     writer.writeStyleAttribute(style);
     UICommand clickAction = null;
     UICommand dblClickAction = null;
@@ -141,7 +142,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       i++;
     }
 
-    renderSheet(facesContext, data, (clickAction != null || dblClickAction != null));
+    renderSheet(facesContext, data, (clickAction != null || dblClickAction != null), style);
 
     writer.endElement(HtmlConstants.DIV);
 
@@ -173,7 +174,8 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmds);
   }
 
-  private void renderSheet(FacesContext facesContext, UIData data, boolean hasClickAction) throws IOException {
+  private void renderSheet(FacesContext facesContext, UIData data, boolean hasClickAction, Style style) 
+      throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
     UIViewRoot viewRoot = facesContext.getViewRoot();
@@ -184,7 +186,6 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     String selectorDisabled = contextPath + resourceManager.getImage(viewRoot, "image/sheetUncheckedDisabled.gif");
     String unchecked = contextPath + resourceManager.getImage(viewRoot, "image/sheetUnchecked.gif");
 
-    Style style = HtmlRendererUtils.ensureStyleAttributeMap(data);
     //Style headerStyle = (Style) attributes.get(STYLE_HEADER);
 //    String sheetWidthString = LayoutUtils.getStyleAttributeValue(style,
 //        "width");
@@ -295,7 +296,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 //      intSpace -= columnWidths.get(columnWidths.size() - 1);
       Measure space = bodyStyle.getWidth();
       space.subtractNotNegative(getContentBorder(facesContext, data));
-      if (needVerticalScrollbar(facesContext, data)) {
+      if (needVerticalScrollbar(facesContext, data, style)) {
         space.subtractNotNegative(getScrollbarWidth(facesContext, data));
       }
       sheetBodyStyle.setWidth(space);
@@ -624,7 +625,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 
   }
 
-  public boolean needVerticalScrollbar(FacesContext facesContext, UIData data) {
+  private boolean needVerticalScrollbar(FacesContext facesContext, UIData data, Style style) {
     // estimate need of height-scrollbar on client, if yes we have to consider
     // this when calculating column width's
 
@@ -641,7 +642,6 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       }
     }
 
-    Style style = HtmlRendererUtils.ensureStyleAttributeMap(data);
     if (style.getHeight() != null) {
       int first = data.getFirst();
       int rows = Math.min(data.getRowCount(), first + data.getRows()) - first;
@@ -1089,6 +1089,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
   public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
     
     UIData data = (UIData) component; 
+    Style style = new Style(facesContext, data);
     
     AjaxUtils.checkParamValidity(facesContext, data, UIData.class);
     // TODO find a better way
@@ -1111,16 +1112,16 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
         }
       }
     }
-    ensureColumnWidthList(facesContext, data);
+    ensureColumnWidthList(facesContext, data, style);
 
-    renderSheet(facesContext, data, (clickAction != null || dblClickAction != null));
+    renderSheet(facesContext, data, (clickAction != null || dblClickAction != null), style);
   }
 
   public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
     // DO Nothing
   }
 
-  private void ensureColumnWidthList(FacesContext facesContext, UIData data) {
+  private void ensureColumnWidthList(FacesContext facesContext, UIData data, Style style) {
     List<Integer> currentWidthList = null;
     List<UIColumn> rendererdColumns = data.getRenderedColumns();
 
@@ -1167,7 +1168,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 
       Measure space = data.getWidth();
       space.subtractNotNegative(getContentBorder(facesContext, data));
-      if (needVerticalScrollbar(facesContext, data)) {
+      if (needVerticalScrollbar(facesContext, data, style)) {
         space.subtractNotNegative(getScrollbarWidth(facesContext, data));
       }
       LayoutInfo layoutInfo =
