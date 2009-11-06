@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:view
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page>
+    <tc:gridLayoutConstraint width="700px" height="600px"/>
+    <f:facet name="layout">
+      <!-- fixme: rows="20px" -->
+      <tc:gridLayout columns="*;*;2*" rows="auto;20px" columnSpacing="30px"/>
+    </f:facet>
+
+    <tc:messages>
+      <tc:gridLayoutConstraint columnSpan="3"/>
+    </tc:messages>
+    
+    <tc:label value="tc"/>
+    <tc:label value="tx"/>
+    <tc:label value="tx with itemLabel"/>
+    
+    <tc:selectBooleanCheckbox value="true" label="normal"/>
+    <tx:selectBooleanCheckbox value="true" label="normal"/>
+    <tx:selectBooleanCheckbox value="true" label="normal" itemLabel="item label"/>
+
+    <tc:selectBooleanCheckbox value="false" label="readonly" readonly="true"/>
+    <tx:selectBooleanCheckbox value="false" label="readonly" readonly="true"/>
+    <tx:selectBooleanCheckbox value="false" label="readonly" readonly="true" itemLabel="item label"/>
+
+    <tc:selectBooleanCheckbox value="true" label="disabled" disabled="true"/>
+    <tx:selectBooleanCheckbox value="true" label="disabled" disabled="true"/>
+    <tx:selectBooleanCheckbox value="true" label="disabled" disabled="true" itemLabel="item label"/>
+
+    <tc:selectBooleanCheckbox value="false" label="title" tip="title"/>
+    <tx:selectBooleanCheckbox value="false" label="title" tip="title"/>
+    <tx:selectBooleanCheckbox value="false" label="title" tip="title" itemLabel="item label"/>
+
+    <tc:selectBooleanCheckbox value="true" label="escape &lt;hr/>"/>
+    <tx:selectBooleanCheckbox value="true" label="escape &lt;hr/>"/>
+    <tx:selectBooleanCheckbox value="true" label="escape &lt;hr/>" itemLabel="escape &lt;hr/>"/>
+
+    <tc:selectBooleanCheckbox value="#{selectBooleanCheckboxBean.value0}" label="edit"/>
+    <tx:selectBooleanCheckbox value="#{selectBooleanCheckboxBean.value1}" label="edit"/>
+    <tx:selectBooleanCheckbox value="#{selectBooleanCheckboxBean.value2}" label="edit" itemLabel="edit"/>
+
+    <tc:selectBooleanCheckbox label="required" required="true"/>
+    <tx:selectBooleanCheckbox label="required" required="true"/>
+    <tx:selectBooleanCheckbox label="required" required="true" itemLabel="required"/>
+
+    <tc:selectBooleanCheckbox value="#{selectBooleanCheckboxBean.required0}" label="required/edit" required="true"/>
+    <tx:selectBooleanCheckbox value="#{selectBooleanCheckboxBean.required1}" label="required/edit" required="true"/>
+    <tx:selectBooleanCheckbox value="#{selectBooleanCheckboxBean.required2}" label="required/edit" required="true" 
+                              itemLabel="required"/>
+
+    <tc:button label="submit"/>
+    
+  </tc:page>
+</f:view>

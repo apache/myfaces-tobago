@@ -67,6 +67,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 public interface SelectBooleanCheckboxTagDeclaration extends HasValidator,
     HasOnchange, HasValueChangeListener, HasIdBindingAndRendered, HasLabelAndAccessKey, HasBooleanValue, IsDisabled,
     IsInline, HasTip, IsReadonly, HasMarkup, HasTabIndex, IsRequired, HasConverter, IsFocus,
-    HasValidatorMessage, HasRequiredMessage, HasConverterMessage, IsGridLayoutComponent /*, IsImmediateComponent */{
-
+    HasValidatorMessage, HasRequiredMessage, HasConverterMessage, IsGridLayoutComponent {
+    // IsImmediateComponent
 }

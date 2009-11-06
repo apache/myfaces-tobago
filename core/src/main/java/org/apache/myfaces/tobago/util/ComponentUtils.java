@@ -658,6 +658,11 @@ public class ComponentUtils {
     return id;
   }
 
+  /**
+   * Checks if the Component has a label facet and if not creates one with the label attribute.
+   *
+   * Todo: check if this method should be set to deprecated. 
+   */
   public static UIComponent provideLabel(FacesContext facesContext, UIComponent component) {
     UIComponent label = component.getFacet(Facets.LABEL);
 

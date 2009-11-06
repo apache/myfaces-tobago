@@ -329,6 +329,9 @@ reason they are not defined as a:link
   margin-bottom: 0px;
 }
 
+.tobago-selectBooleanCheckbox-disabled {
+  color: #808080;
+}
 
 /* file  ------------------------------------------------------------------- */
 

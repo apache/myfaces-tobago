@@ -41,10 +41,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-/*
- * Date: Oct 7, 2006
- * Time: 9:13:21 AM
- */
 /**
  * Renders a checkbox.
  */
@@ -62,6 +58,7 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
   private String readonly;
   private String onchange;
   private String label;
+  private String itemLabel;
   private String rendered;
   private String binding;
   private String tip;
@@ -125,27 +122,21 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     if (disabled != null) {
       selectBooleanCheckboxTag.setDisabled(disabled);
     }
-
     if (id != null) {
       selectBooleanCheckboxTag.setId(id);
     }
-
     if (readonly != null) {
       selectBooleanCheckboxTag.setReadonly(readonly);
     }
-
     if (focus != null) {
       selectBooleanCheckboxTag.setFocus(focus);
     }
-
     if (required != null) {
       selectBooleanCheckboxTag.setRequired(required);
     }
-    // TODO item Label
-    //if (itemLabel != null) {
-    //  selectOneRadioTag.setLabel(itemLabel);
-    //}
-
+    if (itemLabel != null) {
+      selectBooleanCheckboxTag.setLabel(itemLabel);
+    }
     if (markup != null) {
       selectBooleanCheckboxTag.setMarkup(markup);
     }
@@ -181,6 +172,7 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
     onchange = null;
     disabled = null;
     label = null;
+    itemLabel = null;
     labelWidth = null;
     readonly = null;
     rendered = null;
@@ -222,6 +214,10 @@ public class SelectBooleanCheckboxExtensionTag extends BodyTagSupport implements
 
   public void setLabel(String label) {
     this.label = label;
+  }
+
+  public void setItemLabel(String itemLabel) {
+    this.itemLabel = itemLabel;
   }
 
   public void setValidator(String validator) {

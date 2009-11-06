@@ -297,9 +297,7 @@ td.tobago-calendar-day-selected {
 }
 
 .tobago-selectBooleanCheckbox-disabled {
-}
-
-.tobago-selectBooleanCheckbox-inline {
+  color: #778899;
 }
 
 .tobago-selectBooleanCheckbox-error {

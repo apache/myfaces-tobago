@@ -117,9 +117,13 @@ public class CreateComponentUtils {
     return createUISelectBooleanFacet(facesContext, command, null);
   }
 
-  public static UIComponent createUISelectBooleanFacet(FacesContext facesContext, UICommand command, String clientId) {
-    UIComponent checkbox = createComponent(
-        facesContext, ComponentTypes.SELECT_BOOLEAN, RendererTypes.SELECT_BOOLEAN_CHECKBOX, clientId);
+  public static AbstractUISelectBooleanCheckbox createUISelectBooleanFacetWithId(FacesContext facesContext, UICommand command) {
+    return createUISelectBooleanFacet(facesContext, command, facesContext.getViewRoot().createUniqueId());
+  }
+
+  public static AbstractUISelectBooleanCheckbox createUISelectBooleanFacet(FacesContext facesContext, UICommand command, String clientId) {
+    AbstractUISelectBooleanCheckbox checkbox = (AbstractUISelectBooleanCheckbox) createComponent(
+        facesContext, ComponentTypes.SELECT_BOOLEAN_CHECKBOX, RendererTypes.SELECT_BOOLEAN_CHECKBOX, clientId);
     //noinspection unchecked
     command.getFacets().put(Facets.ITEMS, checkbox);
     ValueBinding valueBinding = command.getValueBinding(Attributes.VALUE);
@@ -127,7 +131,7 @@ public class CreateComponentUtils {
       checkbox.setValueBinding(Attributes.VALUE, valueBinding);
     } else {
       //noinspection unchecked
-      checkbox.getAttributes().put(Attributes.VALUE, command.getAttributes().get(Attributes.VALUE));
+      checkbox.setValue(command.getValue());
     }
     return checkbox;
   }

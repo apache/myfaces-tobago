@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasItemLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 /*
@@ -42,7 +43,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
     uiComponent = "org.apache.myfaces.tobago.component.UISelectItem",
     uiComponentBaseClass = "javax.faces.component.UISelectItem",
     allowedChildComponenents = "NONE")
-public interface SelectItemTagDeclaration extends HasBinding, HasId, HasMarkup {
+public interface SelectItemTagDeclaration extends HasBinding, HasId, HasMarkup, HasItemLabel {
   /**
    * Description of an item for use in tools.
    */
@@ -57,13 +58,6 @@ public interface SelectItemTagDeclaration extends HasBinding, HasId, HasMarkup {
   @TagAttribute
   @UIComponentTagAttribute(type = {"java.lang.Boolean"}, defaultValue = "false")
   void setItemDisabled(String itemDisabled);
-
-  /**
-   * Label to be displayed to the user for this option.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute()
-  void setItemLabel(String itemLabel);
 
   /**
    * Value to be returned to the server if this option is selected by the user.

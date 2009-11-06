@@ -125,12 +125,15 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     UIComponent input = application.createComponent(getSubComponentType());
     input.setRendererType(getSubRendererType());
     input.setId(uid);
-
+    enrichInput(faceletContext, input);
+    
     setAttributes(faceletContext, input);
 
     panel.getChildren().add(input);
   }
 
+  protected void enrichInput(FaceletContext faceletContext, UIComponent input) {
+  }
 
   private void addLabel(FaceletContext faceletContext, UIComponent panel, UIViewRoot root) {
     String uid = root.createUniqueId();

@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
 
+import javax.el.ValueExpression;
 import javax.servlet.jsp.JspException;
 
 /*
@@ -43,6 +44,7 @@ public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSup
   private javax.el.ValueExpression readonly;
   private javax.el.ValueExpression onchange;
   private javax.el.ValueExpression label;
+  private javax.el.ValueExpression itemLabel;
   private javax.el.ValueExpression rendered;
   private javax.el.ValueExpression binding;
   private javax.el.ValueExpression tip;
@@ -106,27 +108,21 @@ public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSup
     if (disabled != null) {
       selectBooleanCheckboxTag.setDisabled(disabled);
     }
-
     if (id != null) {
       selectBooleanCheckboxTag.setId(id);
     }
-
     if (readonly != null) {
       selectBooleanCheckboxTag.setReadonly(readonly);
     }
-
     if (focus != null) {
       selectBooleanCheckboxTag.setFocus(focus);
     }
-
     if (required != null) {
       selectBooleanCheckboxTag.setRequired(required);
     }
-    // TODO item Label
-    //if (itemLabel != null) {
-    //  selectOneRadioTag.setLabel(itemLabel);
-    //}
-
+    if (itemLabel != null) {
+      selectBooleanCheckboxTag.setLabel(itemLabel);
+    }
     if (markup != null) {
       selectBooleanCheckboxTag.setMarkup(markup);
     }
@@ -162,6 +158,7 @@ public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSup
     onchange = null;
     disabled = null;
     label = null;
+    itemLabel = null;
     labelWidth = null;
     readonly = null;
     rendered = null;
@@ -242,6 +239,16 @@ public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSup
   @UIComponentTagAttribute()
   public void setLabel(javax.el.ValueExpression label) {
     this.label = label;
+  }
+
+  /**
+   * Label to be displayed to the user for this option. This label will displayed beneath the component like 
+   * the label of other check box components.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute()
+  public void setItemLabel(ValueExpression itemLabel) {
+    this.itemLabel = itemLabel;
   }
 
   /**

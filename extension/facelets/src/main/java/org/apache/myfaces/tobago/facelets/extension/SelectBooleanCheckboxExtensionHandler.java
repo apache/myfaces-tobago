@@ -17,19 +17,37 @@ package org.apache.myfaces.tobago.facelets.extension;
  * limitations under the License.
  */
 
+import com.sun.facelets.FaceletContext;
+import com.sun.facelets.el.ELAdaptor;
+import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.jsf.ComponentConfig;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 
-/*
- * Date: Aug 9, 2007
- * Time: 8:36:38 PM
- */
-public class
-    SelectBooleanCheckboxExtensionHandler extends TobagoLabelExtensionHandler {
+import javax.el.ValueExpression;
+import javax.faces.component.UIComponent;
+
+public class SelectBooleanCheckboxExtensionHandler extends TobagoLabelExtensionHandler {
+
+  private TagAttribute itemLabelAttribute;
 
   public SelectBooleanCheckboxExtensionHandler(ComponentConfig config) {
     super(config);
+    itemLabelAttribute = getAttribute(Attributes.ITEM_LABEL);
+  }
+
+  protected void enrichInput(FaceletContext faceletContext, UIComponent input) {
+    super.enrichInput(faceletContext, input);
+    UISelectBooleanCheckbox checkbox = (UISelectBooleanCheckbox) input;
+    if (itemLabelAttribute != null) {
+      if (itemLabelAttribute.isLiteral()) {
+        checkbox.setLabel(itemLabelAttribute.getValue(faceletContext));
+      } else {
+        ValueExpression expression = itemLabelAttribute.getValueExpression(faceletContext, String.class);
+        ELAdaptor.setExpression(checkbox, Attributes.TIP, expression);
+      }
+    }
   }
 
   protected String getSubComponentType() {

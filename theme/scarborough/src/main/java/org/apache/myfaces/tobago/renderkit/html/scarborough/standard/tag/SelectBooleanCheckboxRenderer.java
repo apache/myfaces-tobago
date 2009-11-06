@@ -27,10 +27,10 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -71,39 +71,32 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
   //
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     if (!(component instanceof UISelectBooleanCheckbox)) {
-      LOG.error("Wrong type: Need " + UISelectBooleanCheckbox.class.getName() + ", but was " + component.getClass().getName());
+      LOG.error("Wrong type: Need " + UISelectBooleanCheckbox.class.getName() 
+          + ", but was " + component.getClass().getName());
       return;
     }
 
-    UISelectBooleanCheckbox selectBoolean = (UISelectBooleanCheckbox) component;
-
+    UISelectBooleanCheckbox checkbox = (UISelectBooleanCheckbox) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    UIComponent label = ComponentUtils.provideLabel(facesContext, selectBoolean);
+    String currentValue = getCurrentValue(facesContext, checkbox);
+    boolean checked = "true".equals(currentValue);
+    String clientId = checkbox.getClientId(facesContext);
 
-    boolean inline = ComponentUtils.getBooleanAttribute(selectBoolean, Attributes.INLINE);
-
-    if (label != null && !inline) {
-
-      writer.startElement(HtmlConstants.TABLE, selectBoolean);
-      writer.writeAttribute(HtmlAttributes.BORDER, 0);
-      writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
-      writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
-      writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-      HtmlRendererUtils.renderTip(component, writer);
-
-      writer.startElement(HtmlConstants.TR, null);
-      writer.startElement(HtmlConstants.TD, null);
+    writer.startElement(HtmlConstants.DIV, checkbox);
+    writer.writeStyleAttribute(new Style(facesContext, checkbox));
+    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, checkbox);
+    if (title != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
 
-    String currentValue = getCurrentValue(facesContext, selectBoolean);
-    boolean checked = "true".equals(currentValue);
-
-    writer.startElement(HtmlConstants.INPUT, selectBoolean);
+    writer.startElement(HtmlConstants.INPUT, checkbox);
     writer.writeAttribute(HtmlAttributes.TYPE, "checkbox", false);
     writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
+    writer.writeNameAttribute(clientId);
+    writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.CHECKED, checked);
-    if (ComponentUtils.getBooleanAttribute(selectBoolean, Attributes.READONLY)) {
+    if (ComponentUtils.getBooleanAttribute(checkbox, Attributes.READONLY)) {
       writer.writeAttribute(HtmlAttributes.READONLY, true);
       if (checked) {
         writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=true", false);
@@ -111,37 +104,25 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
         writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=false", false);
       }
     }
-    writer.writeNameAttribute(selectBoolean.getClientId(facesContext));
     writer.writeClassAttribute();
-    writer.writeIdAttribute(selectBoolean.getClientId(facesContext));
-    writer.writeAttribute(HtmlAttributes.DISABLED,
-        ComponentUtils.getBooleanAttribute(selectBoolean, Attributes.DISABLED));
-    Integer tabIndex = selectBoolean.getTabIndex();
+    writer.writeAttribute(HtmlAttributes.DISABLED, checkbox.isDisabled());
+    Integer tabIndex = checkbox.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, selectBoolean);
-    if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    }
     writer.endElement(HtmlConstants.INPUT);
 
-    if (label != null && !inline) {
-      writer.endElement(HtmlConstants.TD);
-      writer.startElement(HtmlConstants.TD, null);
-      writer.flush();
-    }
-
+    String label = checkbox.getLabel();
     if (label != null) {
-      RenderUtil.encode(facesContext, label);
+      writer.startElement(HtmlConstants.LABEL, checkbox);
+      writer.writeClassAttribute();
+      writer.writeAttribute(HtmlAttributes.FOR, clientId, false);
+      writer.writeText(label);  
+      writer.endElement(HtmlConstants.LABEL);
     }
 
-    if (label != null && !inline) {
-      writer.endElement(HtmlConstants.TD);
-      writer.endElement(HtmlConstants.TR);
-      writer.endElement(HtmlConstants.TABLE);
-    }
-    HtmlRendererUtils.checkForCommandFacet(selectBoolean, facesContext, writer);
+    writer.endElement(HtmlConstants.DIV);
+
+    HtmlRendererUtils.checkForCommandFacet(checkbox, facesContext, writer);
   }
 }
-
