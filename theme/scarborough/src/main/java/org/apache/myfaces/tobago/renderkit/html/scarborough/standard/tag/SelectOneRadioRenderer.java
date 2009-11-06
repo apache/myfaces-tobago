@@ -17,11 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -58,7 +53,6 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     }
   }
 
-
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     if (!(component instanceof UISelectOneRadio)) {
       LOG.error("Wrong type: Need " + UISelectOneRadio.class.getName()
@@ -78,6 +72,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     Style style = new Style(facesContext, radio);
     boolean required = radio.isRequired();
 
+    // todo: use <ol><li> ... instead of <div> + <br/>
     writer.startElement(HtmlConstants.DIV, radio);
     writer.writeStyleAttribute(style);
     if (title != null) {
@@ -113,25 +108,10 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
             "Tobago.selectOneRadioClick(this, '" + clientId + "'," + required + " , " + readonly + ")", false);
       }
       writer.endElement(HtmlConstants.INPUT);
-/*
-        if (!inline) {
-          writer.writeStyleAttribute("width: 100%;"); // todo: make more nice with a layout-manager!
-        }
-*/
+
       String label = item.getLabel();
       if (label != null) {
         writer.startElement(HtmlConstants.LABEL, radio);
-/*
-        StyleClasses styleClasses = new StyleClasses();
-        styleClasses.addAspectClass("label", StyleClasses.Aspect.DEFAULT);
-        if (item.isDisabled() || disabled) {
-          styleClasses.addAspectClass("label", StyleClasses.Aspect.DISABLED);
-        }
-        if (readonly) {
-          styleClasses.addAspectClass("label", StyleClasses.Aspect.READONLY);
-        }
-        writer.writeClassAttribute(styleClasses);
-*/
         writer.writeClassAttribute();
         writer.writeAttribute(HtmlAttributes.FOR, id, false);
         writer.writeText(label);
