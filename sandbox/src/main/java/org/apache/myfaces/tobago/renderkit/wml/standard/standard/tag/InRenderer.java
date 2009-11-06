@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -59,7 +60,7 @@ public class InRenderer extends LayoutableRendererBase {
     String currentValue = RenderUtil.currentValue(component);
 
     String type = ComponentUtils.getBooleanAttribute(
-        component, Attributes.PASSWORD) ? "password" : "text";
+        component, Attributes.PASSWORD) ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;
 
     writer.startElement("input", component);
     writer.writeNameAttribute(clientId);

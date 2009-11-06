@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.layout.LayoutContext2;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
@@ -494,7 +495,7 @@ public class PageRenderer extends PageRendererBase {
     // avoid submit page in ie if the form contains only one input and you press the enter key in the input
     if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
       writer.startElement(HtmlConstants.INPUT, null);
-      writer.writeAttribute(HtmlAttributes.TYPE, "text", false);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
       writer.writeAttribute(HtmlAttributes.NAME, "tobago.dummy", false);
       writer.writeAttribute(HtmlAttributes.TABINDEX, "-1", false);
       writer.writeAttribute(HtmlAttributes.STYLE, "visibility:hidden;display:none;", false);

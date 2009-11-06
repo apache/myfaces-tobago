@@ -35,6 +35,7 @@ import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -92,7 +93,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
       LOG.debug("currentValue = '" + currentValue + "'");
     }
     String type = ComponentUtils.getBooleanAttribute(input,
-        Attributes.PASSWORD) ? "password" : "text";
+        Attributes.PASSWORD) ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;
 
     // Todo: check for valid binding
     boolean renderAjaxSuggest = false;

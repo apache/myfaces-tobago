@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -204,7 +205,7 @@ public class TimeRenderer extends InputRendererBase {
       String title) throws IOException {
     Integer tabIndex = input.getTabIndex();
     writer.startElement(HtmlConstants.INPUT, null);
-    writer.writeAttribute(HtmlAttributes.TYPE, "text", false);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
     writer.writeIdAttribute(id);
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
