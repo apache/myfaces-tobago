@@ -39,14 +39,17 @@ public abstract class AbstractUISelectBooleanCheckbox extends javax.faces.compon
   }
 
   protected void validateValue(FacesContext context, Object convertedValue) {
-    if (isRequired() && convertedValue instanceof Boolean && !((Boolean) convertedValue)) {
-      FacesMessage facesMessage = MessageFactory.createFacesMessage(context,
-          REQUIRED_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, new Object[]{getId()});
-      context.addMessage(getClientId(context), facesMessage);
-      setValid(false);
-      return;
+    if (isRequired()) {
+      if (convertedValue instanceof Boolean && !((Boolean) convertedValue)
+          // String: e. g. if there is no ValueExpression
+          || convertedValue instanceof String && !Boolean.parseBoolean((String) convertedValue)) {
+        FacesMessage facesMessage = MessageFactory.createFacesMessage(context,
+            REQUIRED_MESSAGE_ID, FacesMessage.SEVERITY_ERROR, new Object[]{getId()});
+        context.addMessage(getClientId(context), facesMessage);
+        setValid(false);
+        return;
+      }
     }
     super.validateValue(context, convertedValue);
-
   }
 }
