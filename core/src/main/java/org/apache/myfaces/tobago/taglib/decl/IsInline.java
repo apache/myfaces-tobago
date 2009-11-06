@@ -20,16 +20,11 @@ package org.apache.myfaces.tobago.taglib.decl;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/*
- * Created: Apr 9, 2005 2:48:07 PM
- * User: bommel
- * $Id$
- */
 public interface IsInline {
   /**
    * Flag indicating this component should rendered as an inline element.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setInline(String inline);
 }

@@ -541,6 +541,14 @@ label.tobago-label-inline {
   background: transparent;
 }
 
+.tobago-selectOneRadio-disabled  {
+  color: #778899;
+}
+
+.tobago-selectOneRadio-error  {
+  border: 1px solid #FF0000;
+}
+
 /* richTextEditor ---------------------------------------------------------- */
 
 .tobago-richTextEditor-default {

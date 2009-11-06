@@ -82,10 +82,10 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
     String currentValue = getCurrentValue(facesContext, checkbox);
     boolean checked = "true".equals(currentValue);
     String clientId = checkbox.getClientId(facesContext);
+    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, checkbox);
 
     writer.startElement(HtmlConstants.DIV, checkbox);
     writer.writeStyleAttribute(new Style(facesContext, checkbox));
-    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, checkbox);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }

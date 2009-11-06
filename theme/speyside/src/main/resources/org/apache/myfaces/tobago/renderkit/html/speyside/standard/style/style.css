@@ -578,10 +578,9 @@ tobago-selectOneChoice-readonly {
   color: #000000;
 }
 
-.tobago-selectOneRadio-error  {
-  border: 1px solid #FF0000;
+.tobago-selectOneRadio-disabled  {
+  color: #808080;
 }
-
 
 /* selectManyListbox ------------------------------------------------------- */
 
