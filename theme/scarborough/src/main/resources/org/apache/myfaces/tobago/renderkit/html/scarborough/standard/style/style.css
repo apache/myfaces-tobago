@@ -304,7 +304,8 @@ td.tobago-calendar-day-selected {
   border: 2px solid #ff0000;
 }
 
-/* selectOneListbox */
+/* selectOneListbox --------------------------------------------------- */
+
 .tobago-selectOneListbox-default {
   font-family: arial, helvetica, sans-serif;
   color: #000000;
@@ -324,14 +325,18 @@ td.tobago-calendar-day-selected {
 }*/
 
 /* selectManyCheckbox ----------------------------------------------------------- */
+
 .tobago-selectManyCheckbox-default {
-  font-family: arial, helvetica, sans-serif;
   background: transparent;
 }
 
-/*.tobago-selectManyCheckbox-error {
-	border: 1px solid #ff0000;
-}*/
+.tobago-selectManyCheckbox-disabled  {
+  color: #778899;
+}
+
+.tobago-selectManyCheckbox-error  {
+  border: 1px solid #FF0000;
+}
 
 /* file -------------------------------------------------------------------- */
 

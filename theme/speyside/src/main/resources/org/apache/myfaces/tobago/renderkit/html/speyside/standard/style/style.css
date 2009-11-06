@@ -570,15 +570,9 @@ tobago-selectOneChoice-readonly {
   background-color: #E8E8E8;
 }
 
-/* selectOneRadio --------------------------------------------------------- */
+/* selectManyCheckbox ---------------------------------------------------------- */
 
-.tobago-selectOneRadio-default  {
-  border: 1px;
-  font: 12px arial, helvetica, sans-serif;
-  color: #000000;
-}
-
-.tobago-selectOneRadio-disabled  {
+.tobago-selectManyCheckbox-disabled  {
   color: #808080;
 }
 
@@ -601,7 +595,8 @@ tobago-selectOneChoice-readonly {
   background-color: #E8E8E8;
 }
 
-/* selectOnelistbox -------------------------------------------------------- */
+/* selectOneListbox -------------------------------------------------------- */
+
 .tobago-selectOneListbox-default  {
   font: 12px arial, helvetica, sans-serif;
   color: #000000;
@@ -616,7 +611,19 @@ tobago-selectOneChoice-readonly {
   background-color: #E8E8E8;
 }
 
-/* Time -------------------------------------------------------------------- */
+/* selectOneRadio --------------------------------------------------------- */
+
+.tobago-selectOneRadio-default  {
+  border: 1px;
+  font: 12px arial, helvetica, sans-serif;
+  color: #000000;
+}
+
+.tobago-selectOneRadio-disabled  {
+  color: #808080;
+}
+
+/* time -------------------------------------------------------------------- */
 
 .tobago-time-borderDiv {
   border: 1px solid black;
@@ -650,7 +657,8 @@ tobago-selectOneChoice-readonly {
   left: 88px;
 }
 
-/* Toolbar ----------------------------------------------------------------- */
+/* toolbar ----------------------------------------------------------------- */
+
 .tobago-toolBar-default {
   border: 1px solid #000000;
   box-sizing: border-box;

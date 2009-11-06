@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -27,9 +26,9 @@ import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
@@ -60,60 +59,57 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       return;
     }
 
-    UISelectOneRadio radio = (UISelectOneRadio) component;
+    UISelectOneRadio select = (UISelectOneRadio) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    String clientId = radio.getClientId(facesContext);
-    List<SelectItem> items = RenderUtil.getItemsToRender(radio);
-    boolean inline = radio.isInline();
-    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, radio);
-    boolean disabled = ComponentUtils.getBooleanAttribute(radio, Attributes.DISABLED);
-    boolean readonly = ComponentUtils.getBooleanAttribute(radio, Attributes.READONLY);
-    Style style = new Style(facesContext, radio);
-    boolean required = radio.isRequired();
+    String id = select.getClientId(facesContext);
+    List<SelectItem> items = RenderUtil.getItemsToRender(select);
+    boolean inline = select.isInline();
+    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
+    boolean disabled = select.isDisabled();
+    boolean readonly = select.isReadonly();
+    Style style = new Style(facesContext, select);
+    boolean required = select.isRequired();
 
     // todo: use <ol><li> ... instead of <div> + <br/>
-    writer.startElement(HtmlConstants.DIV, radio);
+    writer.startElement(HtmlConstants.DIV, select);
     writer.writeStyleAttribute(style);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
 
-    Object value = radio.getValue();
+    Object value = select.getValue();
     List<String> clientIds = new ArrayList<String>();
     for (SelectItem item : items) {
-      String id = clientId + NamingContainer.SEPARATOR_CHAR
-          + NamingContainer.SEPARATOR_CHAR + item.getValue().toString();
-      clientIds.add(id);
-      writer.startElement(HtmlConstants.INPUT, radio);
-      writer.writeAttribute(HtmlAttributes.TYPE, "radio", false);
+      String itemId = id + NamingContainer.SEPARATOR_CHAR + NamingContainer.SEPARATOR_CHAR + item.getValue().toString();
+      clientIds.add(itemId);
+      writer.startElement(HtmlConstants.INPUT, select);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO, false);
       writer.writeClassAttribute();
       boolean checked = item.getValue().equals(value);
-      if (checked) {
-        writer.writeAttribute(HtmlAttributes.CHECKED, "checked", false);
-      }
-      writer.writeNameAttribute(clientId);
-      writer.writeIdAttribute(id);
-      String formattedValue = RenderUtil.getFormattedValue(facesContext, radio, item.getValue());
+      writer.writeAttribute(HtmlAttributes.CHECKED, checked);
+      writer.writeNameAttribute(id);
+      writer.writeIdAttribute(itemId);
+      String formattedValue = RenderUtil.getFormattedValue(facesContext, select, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
       writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled() || disabled);
       writer.writeAttribute(HtmlAttributes.READONLY, readonly);
-      Integer tabIndex = radio.getTabIndex();
-      if (tabIndex != null) {
-        writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
-      }
-      HtmlRendererUtils.renderTip(radio, writer);
+      HtmlRendererUtils.renderTip(select, writer);
       if (!required || readonly) {
         writer.writeAttribute(HtmlAttributes.ONCLICK,
-            "Tobago.selectOneRadioClick(this, '" + clientId + "'," + required + " , " + readonly + ")", false);
+            "Tobago.selectOneRadioClick(this, '" + id + "'," + required + " , " + readonly + ")", false);
+      }
+      Integer tabIndex = select.getTabIndex();
+      if (tabIndex != null) {
+        writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
       writer.endElement(HtmlConstants.INPUT);
 
       String label = item.getLabel();
       if (label != null) {
-        writer.startElement(HtmlConstants.LABEL, radio);
+        writer.startElement(HtmlConstants.LABEL, select);
         writer.writeClassAttribute();
-        writer.writeAttribute(HtmlAttributes.FOR, id, false);
+        writer.writeAttribute(HtmlAttributes.FOR, itemId, false);
         writer.writeText(label);
         writer.endElement(HtmlConstants.LABEL);
       }
@@ -124,15 +120,15 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     }
     writer.endElement(HtmlConstants.DIV);
 
-    HtmlRendererUtils.renderFocusId(facesContext, radio);
-    HtmlRendererUtils.checkForCommandFacet(radio, clientIds, facesContext, writer);
+    HtmlRendererUtils.renderFocusId(facesContext, select);
+    HtmlRendererUtils.checkForCommandFacet(select, clientIds, facesContext, writer);
   }
 
   @Override
   public Measure getHeight(FacesContext facesContext, UIComponent component) {
-    UISelectOneRadio radio = (UISelectOneRadio) component;
+    UISelectOneRadio select = (UISelectOneRadio) component;
     Measure heightOfOne = super.getHeight(facesContext, component);
-    if (radio.isInline()) {
+    if (select.isInline()) {
       return heightOfOne;
     } else {
       List<SelectItem> items = RenderUtil.getItemsToRender((UISelectOne) component);
