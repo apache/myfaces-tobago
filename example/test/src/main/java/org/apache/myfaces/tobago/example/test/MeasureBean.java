@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.example.test.type;
+package org.apache.myfaces.tobago.example.test;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
