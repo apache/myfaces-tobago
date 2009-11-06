@@ -40,6 +40,8 @@ public class TobagoExtensionTagLibrary extends AbstractTagLibrary {
     addComponent("textarea", "org.apache.myfaces.tobago.Panel", "Panel", TextAreaExtensionHandler.class);
     addComponent("selectBooleanCheckbox", "org.apache.myfaces.tobago.Panel", "Panel",
         SelectBooleanCheckboxExtensionHandler.class);
+    addComponent("selectManyCheckbox", "org.apache.myfaces.tobago.Panel", "Panel",
+        SelectManyCheckboxExtensionHandler.class);
     addComponent("selectManyListbox", "org.apache.myfaces.tobago.Panel", "Panel",
         SelectManyListboxExtensionHandler.class);
     addComponent("selectOneChoice", "org.apache.myfaces.tobago.Panel", "Panel",
