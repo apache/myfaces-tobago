@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.HtmlWriterUtils;
 import org.apache.myfaces.tobago.util.XmlUtils;
 
@@ -393,7 +394,7 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
   }
 
   public void writeClassAttribute() throws IOException {
-    Object clazz = component.getAttributes().get(Attributes.STYLE_CLASS);
+    StyleClasses clazz = (StyleClasses) component.getAttributes().get(Attributes.STYLE_CLASS);
     if (clazz != null) {
       writeAttribute(HtmlAttributes.CLASS, clazz.toString(), false);
     }

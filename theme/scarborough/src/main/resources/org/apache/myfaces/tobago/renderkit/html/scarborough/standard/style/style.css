@@ -288,56 +288,6 @@ td.tobago-calendar-day-selected {
   vertical-align: middle;
 }
 
-/* selectBooleanCheckbox --------------------------------------------------- */
-
-.tobago-selectBooleanCheckbox-default {
-  background: transparent;
-  margin-top: 2px;
-  margin-bottom: 2px;
-}
-
-.tobago-selectBooleanCheckbox-disabled {
-  color: #778899;
-}
-
-.tobago-selectBooleanCheckbox-error {
-  border: 2px solid #ff0000;
-}
-
-/* selectOneListbox --------------------------------------------------- */
-
-.tobago-selectOneListbox-default {
-  font-family: arial, helvetica, sans-serif;
-  color: #000000;
-}
-
-.tobago-selectOneListbox-disabled {
-  color: #778899;
-  background: #bbccdd;
-}
-
-.tobago-selectOneListbox-readonly {
-  background-color: #bbccdd;
-}
-
-/*.tobago-selectOneListbox-error {
-	border: 1px solid #ff0000;
-}*/
-
-/* selectManyCheckbox ----------------------------------------------------------- */
-
-.tobago-selectManyCheckbox-default {
-  background: transparent;
-}
-
-.tobago-selectManyCheckbox-disabled  {
-  color: #778899;
-}
-
-.tobago-selectManyCheckbox-error  {
-  border: 1px solid #FF0000;
-}
-
 /* file -------------------------------------------------------------------- */
 
 .tobago-file-default {
@@ -460,6 +410,43 @@ label.tobago-label-inline {
   padding-left: 0px;
 }
 
+/* selectBooleanCheckbox --------------------------------------------------- */
+
+.tobago-selectBooleanCheckbox-default {
+  background: transparent;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.tobago-selectBooleanCheckbox-disabled {
+  color: #778899;
+}
+
+.tobago-selectBooleanCheckbox-error {
+  border: 2px solid #ff0000;
+}
+
+/* selectManyCheckbox ----------------------------------------------------------- */
+
+.tobago-selectManyCheckbox-default {
+  background: transparent;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tobago-selectManyCheckbox-disabled  {
+  color: #778899;
+}
+
+.tobago-selectManyCheckbox-inline, .tobago-selectManyCheckbox-inline li  {
+  display: inline;
+}
+
+.tobago-selectManyCheckbox-error label {
+  border: 1px solid #FF0000;
+}
+
 /* selectManyListbox ------------------------------------------------------- */
 
 .tobago-selectManyListbox-default {
@@ -480,6 +467,67 @@ label.tobago-label-inline {
 .tobago-selectManyListbox-error {
   border-style: solid;
   border-color: #ff0000;
+}
+
+/* selectOneChoice --------------------------------------------------------- */
+
+.tobago-selectOneChoice-default {
+  font-family: arial, helvetica, sans-serif;
+  background: #ffffff;
+}
+
+.tobago-selectOneChoice-disabled {
+  background: #c0c0c0;
+}
+
+.tobago-selectOneChoice-error {
+  border-style: solid;
+  border-color: #ff0000;
+}
+
+.tobago-selectOneChoice-readonly {
+ background-color: #bbccdd;
+}
+
+/* selectOneListbox --------------------------------------------------- */
+
+.tobago-selectOneListbox-default {
+  font-family: arial, helvetica, sans-serif;
+  color: #000000;
+}
+
+.tobago-selectOneListbox-disabled {
+  color: #778899;
+  background: #bbccdd;
+}
+
+.tobago-selectOneListbox-readonly {
+  background-color: #bbccdd;
+}
+
+/*.tobago-selectOneListbox-error {
+	border: 1px solid #ff0000;
+}*/
+
+/* selectOneRadio ---------------------------------------------------------- */
+
+.tobago-selectOneRadio-default {
+  background: transparent;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tobago-selectOneRadio-disabled  {
+  color: #778899;
+}
+
+.tobago-selectOneRadio-inline, .tobago-selectOneRadio-inline li  {
+  display: inline;
+}
+
+.tobago-selectOneRadio-error label {
+  border: 1px solid #FF0000;
 }
 
 /* page -------------------------------------------------------------------- */
@@ -540,20 +588,6 @@ label.tobago-label-inline {
   left: 0px;
 }
 
-/* selectOneRadio ---------------------------------------------------------- */
-
-.tobago-selectOneRadio-default {
-  background: transparent;
-}
-
-.tobago-selectOneRadio-disabled  {
-  color: #778899;
-}
-
-.tobago-selectOneRadio-error  {
-  border: 1px solid #FF0000;
-}
-
 /* richTextEditor ---------------------------------------------------------- */
 
 .tobago-richTextEditor-default {
@@ -612,26 +646,6 @@ textarea.tobago-richTextEditor-body {
 
 div.tobago-richTextEditor-body {
   overflow: auto;
-}
-
-/* selectOneChoice --------------------------------------------------------- */
-
-.tobago-selectOneChoice-default {
-  font-family: arial, helvetica, sans-serif;
-  background: #ffffff;
-}
-
-.tobago-selectOneChoice-disabled {
-  background: #c0c0c0;
-}
-
-.tobago-selectOneChoice-error {
-  border-style: solid;
-  border-color: #ff0000;
-}
-
-.tobago-selectOneChoice-readonly {
- background-color: #bbccdd;
 }
 
 /* text -------------------------------------------------------------------- */

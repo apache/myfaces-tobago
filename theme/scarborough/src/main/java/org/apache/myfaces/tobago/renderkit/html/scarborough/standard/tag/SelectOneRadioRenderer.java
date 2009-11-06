@@ -70,10 +70,12 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     boolean readonly = select.isReadonly();
     Style style = new Style(facesContext, select);
     boolean required = select.isRequired();
+    // fixme: use CSS, not the Style Attribute for "display"
+    style.setDisplay(null);
 
-    // todo: use <ol><li> ... instead of <div> + <br/>
-    writer.startElement(HtmlConstants.DIV, select);
+    writer.startElement(HtmlConstants.OL, select);
     writer.writeStyleAttribute(style);
+    writer.writeClassAttribute();
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
@@ -83,9 +85,9 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     for (SelectItem item : items) {
       String itemId = id + NamingContainer.SEPARATOR_CHAR + NamingContainer.SEPARATOR_CHAR + item.getValue().toString();
       clientIds.add(itemId);
+      writer.startElement(HtmlConstants.LI, select);
       writer.startElement(HtmlConstants.INPUT, select);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO, false);
-      writer.writeClassAttribute();
       boolean checked = item.getValue().equals(value);
       writer.writeAttribute(HtmlAttributes.CHECKED, checked);
       writer.writeNameAttribute(id);
@@ -94,7 +96,6 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
       writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled() || disabled);
       writer.writeAttribute(HtmlAttributes.READONLY, readonly);
-      HtmlRendererUtils.renderTip(select, writer);
       if (!required || readonly) {
         writer.writeAttribute(HtmlAttributes.ONCLICK,
             "Tobago.selectOneRadioClick(this, '" + id + "'," + required + " , " + readonly + ")", false);
@@ -108,17 +109,14 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       String label = item.getLabel();
       if (label != null) {
         writer.startElement(HtmlConstants.LABEL, select);
-        writer.writeClassAttribute();
         writer.writeAttribute(HtmlAttributes.FOR, itemId, false);
         writer.writeText(label);
         writer.endElement(HtmlConstants.LABEL);
       }
-      if (!inline) {
-        writer.startElement(HtmlConstants.BR, null);
-        writer.endElement(HtmlConstants.BR);
-      }
+
+      writer.endElement(HtmlConstants.LI);
     }
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlConstants.OL);
 
     HtmlRendererUtils.renderFocusId(facesContext, select);
     HtmlRendererUtils.checkForCommandFacet(select, clientIds, facesContext, writer);

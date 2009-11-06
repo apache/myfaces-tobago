@@ -613,12 +613,6 @@ tobago-selectOneChoice-readonly {
 
 /* selectOneRadio --------------------------------------------------------- */
 
-.tobago-selectOneRadio-default  {
-  border: 1px;
-  font: 12px arial, helvetica, sans-serif;
-  color: #000000;
-}
-
 .tobago-selectOneRadio-disabled  {
   color: #808080;
 }
