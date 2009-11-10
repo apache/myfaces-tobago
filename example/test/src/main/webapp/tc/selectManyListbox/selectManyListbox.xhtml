@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:view
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page>
+    <tc:gridLayoutConstraint width="630px" height="600px"/>
+    <f:facet name="layout">
+      <!-- fixme: rows="20px" -->
+      <tc:gridLayout columns="*;2*" rows="auto;20px" columnSpacing="30px"/>
+    </f:facet>
+
+    <tc:messages>
+      <tc:gridLayoutConstraint columnSpan="2"/>
+    </tc:messages>
+    
+    <tc:label value="tc"/>
+    <tc:label value="tx"/>
+    
+    <tc:selectManyListbox>
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tc:selectManyListbox>
+    <tx:selectManyListbox label="normal">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tx:selectManyListbox>
+
+    <tc:selectManyListbox readonly="true">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tc:selectManyListbox>
+    <tx:selectManyListbox readonly="true" label="readonly">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tx:selectManyListbox>
+
+    <tc:selectManyListbox disabled="true">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tc:selectManyListbox>
+    <tx:selectManyListbox disabled="true" label="disabled">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tx:selectManyListbox>
+
+    <tc:selectManyListbox tip="tip">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tc:selectManyListbox>
+    <tx:selectManyListbox tip="tip" label="tip">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tx:selectManyListbox>
+
+    <tc:selectManyListbox required="true">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tc:selectManyListbox>
+    <tx:selectManyListbox required="true" label="required">
+      <tc:selectItem itemValue="a" itemLabel="A Value"/>
+      <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+    </tx:selectManyListbox>
+    
+    <tc:button label="submit"/>
+    
+  </tc:page>
+</f:view>

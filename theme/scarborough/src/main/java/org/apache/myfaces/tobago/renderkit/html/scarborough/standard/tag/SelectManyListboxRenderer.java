@@ -17,14 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectManyListbox;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -32,14 +26,12 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 public class SelectManyListboxRenderer extends SelectManyRendererBase {
@@ -52,48 +44,40 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     if (!(component instanceof UISelectManyListbox)) {
-      LOG.error("Wrong type: Need " + UISelectManyListbox.class.getName() + ", but was "
-          + component.getClass().getName());
+      LOG.error("Wrong type: Need " + UISelectManyListbox.class.getName() 
+          + ", but was " + component.getClass().getName());
       return;
     }
 
-    UISelectManyListbox selectMany = (UISelectManyListbox) component;
+    UISelectManyListbox select = (UISelectManyListbox) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    List<SelectItem> items = RenderUtil.getSelectItems(selectMany);
+    String id = select.getClientId(facesContext);
+    List<SelectItem> items = RenderUtil.getSelectItems(select);
+    boolean disabled = items.size() == 0 || select.isDisabled() || select.isReadonly();
 
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("items.size() = '" + items.size() + "'");
-    }
-
-    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, selectMany);
-    writer.startElement(HtmlConstants.SELECT, selectMany);
-    String clientId = selectMany.getClientId(facesContext);
-    writer.writeNameAttribute(clientId);
-    writer.writeIdAttribute(clientId);
-    boolean renderDisabled = ComponentUtils.getBooleanAttribute(selectMany, Attributes.DISABLED)
-        || ComponentUtils.getBooleanAttribute(selectMany, Attributes.READONLY);
-      writer.writeAttribute(HtmlAttributes.DISABLED, renderDisabled);
-    Integer tabIndex = selectMany.getTabIndex();
+    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
+    writer.startElement(HtmlConstants.SELECT, select);
+    writer.writeNameAttribute(id);
+    writer.writeIdAttribute(id);
+    writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
+    Integer tabIndex = select.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    Style style = new Style(facesContext, selectMany);
+    Style style = new Style(facesContext, select);
     writer.writeStyleAttribute(style);
     writer.writeClassAttribute();
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
-    Object[] values = selectMany.getSelectedValues();
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("values = '" + Arrays.toString(values) + "'");
-    }
-    HtmlRendererUtils.renderSelectItems(selectMany, items, values, writer, facesContext);
+    Object[] values = select.getSelectedValues();
+    HtmlRendererUtils.renderSelectItems(select, items, values, writer, facesContext);
 
     writer.endElement(HtmlConstants.SELECT);
-    HtmlRendererUtils.checkForCommandFacet(selectMany, facesContext, writer);
-    HtmlRendererUtils.renderFocusId(facesContext, selectMany);
+    HtmlRendererUtils.renderFocusId(facesContext, select);
+    HtmlRendererUtils.checkForCommandFacet(select, facesContext, writer);
   }
 
 }
