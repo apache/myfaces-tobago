@@ -17,11 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -77,27 +72,28 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
       return;
     }
 
-    UISelectBooleanCheckbox checkbox = (UISelectBooleanCheckbox) component;
+    UISelectBooleanCheckbox select = (UISelectBooleanCheckbox) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    String currentValue = getCurrentValue(facesContext, checkbox);
+    String id = select.getClientId(facesContext);
+    String currentValue = getCurrentValue(facesContext, select);
     boolean checked = "true".equals(currentValue);
-    String clientId = checkbox.getClientId(facesContext);
-    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, checkbox);
+    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
 
-    writer.startElement(HtmlConstants.DIV, checkbox);
-    writer.writeStyleAttribute(new Style(facesContext, checkbox));
+    writer.startElement(HtmlConstants.DIV, select);
+    writer.writeStyleAttribute(new Style(facesContext, select));
+    writer.writeClassAttribute();
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
 
-    writer.startElement(HtmlConstants.INPUT, checkbox);
+    writer.startElement(HtmlConstants.INPUT, select);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
     writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
-    writer.writeNameAttribute(clientId);
-    writer.writeIdAttribute(clientId);
+    writer.writeNameAttribute(id);
+    writer.writeIdAttribute(id);
     writer.writeAttribute(HtmlAttributes.CHECKED, checked);
-    if (ComponentUtils.getBooleanAttribute(checkbox, Attributes.READONLY)) {
+    if (ComponentUtils.getBooleanAttribute(select, Attributes.READONLY)) {
       writer.writeAttribute(HtmlAttributes.READONLY, true);
       if (checked) {
         writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=true", false);
@@ -105,25 +101,23 @@ public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
         writer.writeAttribute(HtmlAttributes.ONCLICK, "this.checked=false", false);
       }
     }
-    writer.writeClassAttribute();
-    writer.writeAttribute(HtmlAttributes.DISABLED, checkbox.isDisabled());
-    Integer tabIndex = checkbox.getTabIndex();
+    writer.writeAttribute(HtmlAttributes.DISABLED, select.isDisabled());
+    Integer tabIndex = select.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
     writer.endElement(HtmlConstants.INPUT);
 
-    String label = checkbox.getLabel();
+    String label = select.getLabel();
     if (label != null) {
-      writer.startElement(HtmlConstants.LABEL, checkbox);
-      writer.writeClassAttribute();
-      writer.writeAttribute(HtmlAttributes.FOR, clientId, false);
-      writer.writeText(label);  
+      writer.startElement(HtmlConstants.LABEL, select);
+      writer.writeAttribute(HtmlAttributes.FOR, id, false);
+      writer.writeText(label);
       writer.endElement(HtmlConstants.LABEL);
     }
 
     writer.endElement(HtmlConstants.DIV);
 
-    HtmlRendererUtils.checkForCommandFacet(checkbox, facesContext, writer);
+    HtmlRendererUtils.checkForCommandFacet(select, facesContext, writer);
   }
 }
