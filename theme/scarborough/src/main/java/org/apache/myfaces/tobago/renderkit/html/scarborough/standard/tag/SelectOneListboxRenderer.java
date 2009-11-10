@@ -17,11 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -62,10 +57,14 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     String id = select.getClientId(facesContext);
     List<SelectItem> items = RenderUtil.getSelectItems(select);
 
+    boolean disabled = items.size() == 0
+        || ComponentUtils.getBooleanAttribute(select, Attributes.DISABLED)
+        || ComponentUtils.getBooleanAttribute(select, Attributes.READONLY);
+
     writer.startElement(HtmlConstants.SELECT, select);
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
-    writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtils.getBooleanAttribute(select, Attributes.DISABLED));
+    writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     Integer tabIndex = select.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
