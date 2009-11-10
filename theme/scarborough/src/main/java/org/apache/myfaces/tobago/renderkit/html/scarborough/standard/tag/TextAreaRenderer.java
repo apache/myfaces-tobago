@@ -68,10 +68,8 @@ public class TextAreaRenderer extends InputRendererBase {
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
-    writer.writeAttribute(HtmlAttributes.READONLY,
-        ComponentUtils.getBooleanAttribute(input, Attributes.READONLY));
-    writer.writeAttribute(HtmlAttributes.DISABLED,
-        ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED));
+    writer.writeAttribute(HtmlAttributes.READONLY, input.isReadonly());
+    writer.writeAttribute(HtmlAttributes.DISABLED, input.isDisabled());
     Integer tabIndex = input.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);

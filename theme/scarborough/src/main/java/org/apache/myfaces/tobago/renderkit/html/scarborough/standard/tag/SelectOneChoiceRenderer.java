@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectOneChoice;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
@@ -29,7 +28,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -59,10 +57,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     String id = select.getClientId(facesContext);
     List<SelectItem> items = RenderUtil.getSelectItems(select);
     String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
-
-    boolean disabled = items.size() == 0
-        || ComponentUtils.getBooleanAttribute(select, Attributes.DISABLED)
-        || ComponentUtils.getBooleanAttribute(select, Attributes.READONLY);
+    boolean disabled = items.size() == 0 || select.isDisabled() || select.isReadonly();
 
     writer.startElement(HtmlConstants.SELECT, select);
     writer.writeNameAttribute(id);

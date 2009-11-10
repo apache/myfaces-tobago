@@ -56,10 +56,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
 
     String id = select.getClientId(facesContext);
     List<SelectItem> items = RenderUtil.getSelectItems(select);
-
-    boolean disabled = items.size() == 0
-        || ComponentUtils.getBooleanAttribute(select, Attributes.DISABLED)
-        || ComponentUtils.getBooleanAttribute(select, Attributes.READONLY);
+    boolean disabled = items.size() == 0 || select.isDisabled() || select.isReadonly();
 
     writer.startElement(HtmlConstants.SELECT, select);
     writer.writeNameAttribute(id);
@@ -78,9 +75,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, "Tobago.selectOneListboxChange(this)", false);
       writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.selectOneListboxClick(this)", false);
     }
-
     Object[] values = {select.getValue()};
-
     HtmlRendererUtils.renderSelectItems(select, items, values, writer, facesContext);
 
     writer.endElement(HtmlConstants.SELECT);
@@ -88,7 +83,6 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     HtmlRendererUtils.renderFocusId(facesContext, select);
     HtmlRendererUtils.checkForCommandFacet(select, facesContext, writer);
   }
-
 
 }
 
