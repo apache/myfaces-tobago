@@ -505,9 +505,10 @@ label.tobago-label-inline {
   background-color: #bbccdd;
 }
 
-/*.tobago-selectOneListbox-error {
-	border: 1px solid #ff0000;
-}*/
+.tobago-selectOneListbox-error {
+  border-style: solid;
+  border-color: #ff0000;
+}
 
 /* selectOneRadio ---------------------------------------------------------- */
 

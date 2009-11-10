@@ -598,8 +598,7 @@ tobago-selectOneChoice-readonly {
 /* selectOneListbox -------------------------------------------------------- */
 
 .tobago-selectOneListbox-default  {
-  font: 12px arial, helvetica, sans-serif;
-  color: #000000;
+  font-size: 12px;
 }
 
 .tobago-selectOneListbox-disabled {
