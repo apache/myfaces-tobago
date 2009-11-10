@@ -24,7 +24,9 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasRenderRange;
+import org.apache.myfaces.tobago.taglib.decl.InputTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
@@ -50,7 +52,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
         "javax.faces.SelectItem",
         "javax.faces.SelectItems"})
 public interface SelectManyCheckboxTagDeclaration extends
-    SelectManyTagDeclaration, IsDisabled, HasId,
-    IsInline, HasRenderRange, IsRendered, IsRequired, HasBinding, IsReadonly, HasConverter {
+    IsDisabled, HasId,
+    IsInline, HasRenderRange, IsRendered, IsRequired, HasBinding, IsReadonly, HasConverter, 
+    InputTagDeclaration, HasMarkup {
 
 }
