@@ -48,40 +48,37 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     if (!(component instanceof UISelectOneChoice)) {
-      LOG.error("Wrong type: Need " + UISelectOneChoice.class.getName() + ", but was "
-          + component.getClass().getName());
+      LOG.error("Wrong type: Need " + UISelectOneChoice.class.getName()
+          + ", but was " + component.getClass().getName());
       return;
     }
 
+    UISelectOneChoice select = (UISelectOneChoice) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    UISelectOneChoice selectOne = (UISelectOneChoice) component;
-    List<SelectItem> items = RenderUtil.getSelectItems(selectOne);
 
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("items.size() = '" + items.size() + "'");
-    }
-
-    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, selectOne);
+    String id = select.getClientId(facesContext);
+    List<SelectItem> items = RenderUtil.getSelectItems(select);
+    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
 
     boolean disabled = items.size() == 0
-        || ComponentUtils.getBooleanAttribute(selectOne, Attributes.DISABLED)
-        || ComponentUtils.getBooleanAttribute(selectOne, Attributes.READONLY);
+        || ComponentUtils.getBooleanAttribute(select, Attributes.DISABLED)
+        || ComponentUtils.getBooleanAttribute(select, Attributes.READONLY);
 
-    writer.startElement(HtmlConstants.SELECT, selectOne);
-    writer.writeNameAttribute(selectOne.getClientId(facesContext));
-    writer.writeIdAttribute(selectOne.getClientId(facesContext));
-    writer.writeClassAttribute();
-    Style style = new Style(facesContext, selectOne);
-    writer.writeStyleAttribute(style);
+    writer.startElement(HtmlConstants.SELECT, select);
+    writer.writeNameAttribute(id);
+    writer.writeIdAttribute(id);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    Integer tabIndex = selectOne.getTabIndex();
+    Integer tabIndex = select.getTabIndex();
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
+    Style style = new Style(facesContext, select);
+    writer.writeStyleAttribute(style);
+    writer.writeClassAttribute();
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
-    String onchange = HtmlUtils.generateOnchange(selectOne, facesContext);
+    String onchange = HtmlUtils.generateOnchange(select, facesContext);
     if (onchange != null) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, true);
     }
@@ -90,13 +87,13 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
       writer.writeAttribute("onfocusin", "Tobago.fixSelectionOnFocusIn()", false);
       writer.writeAttribute("onfocus", "Tobago.fixSelectionOnFocus()", false);
     }
-    Object[] values = {selectOne.getValue()};
+    Object[] values = {select.getValue()};
 
-    HtmlRendererUtils.renderSelectItems(selectOne, items, values, writer, facesContext);
+    HtmlRendererUtils.renderSelectItems(select, items, values, writer, facesContext);
 
     writer.endElement(HtmlConstants.SELECT);
-    super.encodeEnd(facesContext, selectOne);
-    HtmlRendererUtils.renderFocusId(facesContext, selectOne);
-    HtmlRendererUtils.checkForCommandFacet(selectOne, facesContext, writer);
+    super.encodeEnd(facesContext, select);
+    HtmlRendererUtils.renderFocusId(facesContext, select);
+    HtmlRendererUtils.checkForCommandFacet(select, facesContext, writer);
   }
 }

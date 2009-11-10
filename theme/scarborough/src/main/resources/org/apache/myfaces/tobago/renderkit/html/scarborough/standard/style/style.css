@@ -480,13 +480,13 @@ label.tobago-label-inline {
   background: #c0c0c0;
 }
 
+.tobago-selectOneChoice-readonly {
+ background-color: #bbccdd;
+}
+
 .tobago-selectOneChoice-error {
   border-style: solid;
   border-color: #ff0000;
-}
-
-.tobago-selectOneChoice-readonly {
- background-color: #bbccdd;
 }
 
 /* selectOneListbox --------------------------------------------------- */
