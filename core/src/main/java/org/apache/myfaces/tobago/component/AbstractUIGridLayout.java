@@ -48,10 +48,6 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
 
   private Grid grid;
 
-  // /////////////////////////////////////////////////////////////////////////////////////////
-  // new layout mechanism
-  // /////////////////////////////////////////////////////////////////////////////////////////
-
   public void init() {
     grid = new Grid(LayoutTokens.parse(getColumns()), LayoutTokens.parse(getRows()));
 
@@ -247,7 +243,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
           Measure position = LayoutUtils.getBeginOffset(orientation, getLayoutContainer());
           for (int k = 0; k < i; k++) {
             if (pixelMeasures[k] == null) {
-              LOG.warn("Measure is null, should be debugged... i=" + i + " k=" + k + " grid=" + grid, new RuntimeException());
+              LOG.warn("Measure is null, should be debugged... i=" + i + " k=" + k + " grid=" + grid, 
+                  new RuntimeException());
             } else {
               position = position.add(pixelMeasures[k]);
             }
