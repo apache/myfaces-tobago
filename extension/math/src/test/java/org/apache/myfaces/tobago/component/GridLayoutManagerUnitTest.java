@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.layout.LayoutContext;
+import org.apache.myfaces.tobago.layout.EquationLayoutContext;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.MockComponent;
 import org.apache.myfaces.tobago.layout.MockContainer;
@@ -51,7 +51,7 @@ public class GridLayoutManagerUnitTest {
     MockComponent c2 = new MockComponent();
     container.getComponents().add(c2);
 
-    UIGridLayout manager = new UIGridLayout();
+    UIEquationGridLayout manager = new UIEquationGridLayout();
     manager.setColumns("*;2*");
     manager.setRows("*");
     manager.setColumnSpacing(PixelMeasure.ZERO);
@@ -65,7 +65,7 @@ public class GridLayoutManagerUnitTest {
     container.setTopOffset(PixelMeasure.ZERO);
     container.setRightOffset(PixelMeasure.ZERO);
     container.setBottomOffset(PixelMeasure.ZERO);
-    LayoutContext layoutContext = new LayoutContext(container);
+    EquationLayoutContext layoutContext = new EquationLayoutContext(container);
     layoutContext.layout();
 
     Measure[] result = layoutContext.getHorizontal().getResult();
@@ -108,7 +108,7 @@ public class GridLayoutManagerUnitTest {
     container.setBottomOffset(PixelMeasure.ZERO);
     span.setColumnSpan(2);
 
-    UIGridLayout manager = new UIGridLayout();
+    UIEquationGridLayout manager = new UIEquationGridLayout();
     manager.setColumns("*;*;*");
     manager.setRows("*");
     manager.setColumnSpacing(PixelMeasure.ZERO);
@@ -118,7 +118,7 @@ public class GridLayoutManagerUnitTest {
 
     container.setWidth(new PixelMeasure(300));
     container.setHeight(new PixelMeasure(20));
-    LayoutContext layoutContext = new LayoutContext(container);
+    EquationLayoutContext layoutContext = new EquationLayoutContext(container);
     layoutContext.layout();
 
     Measure[] result = layoutContext.getHorizontal().getResult();
@@ -169,7 +169,7 @@ public class GridLayoutManagerUnitTest {
     MockContainer subContainer = new MockContainer();
 
     container.getComponents().add(subContainer);
-    UIGridLayout manager = new UIGridLayout();
+    UIEquationGridLayout manager = new UIEquationGridLayout();
     manager.setColumns("*;2*;500px");
     manager.setRows("*;600px");
     manager.setColumnSpacing(PixelMeasure.ZERO);
@@ -177,7 +177,7 @@ public class GridLayoutManagerUnitTest {
     manager.setParent(container);
     container.setLayoutManager(manager);
 
-    UIGridLayout subManager = new UIGridLayout();
+    UIEquationGridLayout subManager = new UIEquationGridLayout();
     subManager.setColumns("7*;3*");
     subManager.setRows("*;*");
     subManager.setColumnSpacing(PixelMeasure.ZERO);
@@ -199,7 +199,7 @@ public class GridLayoutManagerUnitTest {
     container.setTopOffset(PixelMeasure.ZERO);
     container.setRightOffset(PixelMeasure.ZERO);
     container.setBottomOffset(PixelMeasure.ZERO);
-    LayoutContext layoutContext = new LayoutContext(container);
+    EquationLayoutContext layoutContext = new EquationLayoutContext(container);
     layoutContext.layout();
 
     Measure[] result = layoutContext.getHorizontal().getResult();
@@ -250,7 +250,7 @@ public class GridLayoutManagerUnitTest {
     container.getComponents().add(span2);
     container.getComponents().add(new MockComponent());
 
-    UIGridLayout manager1 = new UIGridLayout();
+    UIEquationGridLayout manager1 = new UIEquationGridLayout();
     manager1.setColumns("*;*;*");
     manager1.setRows("*;*");
     manager1.setColumnSpacing(PixelMeasure.ZERO);
@@ -258,7 +258,7 @@ public class GridLayoutManagerUnitTest {
     manager1.setParent(container);
     container.setLayoutManager(manager1);
 
-    UIGridLayout manager2 = new UIGridLayout();
+    UIEquationGridLayout manager2 = new UIEquationGridLayout();
     manager2.setColumns("*;*;*");
     manager2.setRows("*");
     manager2.setColumnSpacing(PixelMeasure.ZERO);
@@ -266,7 +266,7 @@ public class GridLayoutManagerUnitTest {
     manager2.setParent(span1);
     span1.setLayoutManager(manager2);
 
-    UIGridLayout manager3 = new UIGridLayout();
+    UIEquationGridLayout manager3 = new UIEquationGridLayout();
     manager3.setColumns("*;*;*");
     manager3.setRows("*");
     manager3.setColumnSpacing(PixelMeasure.ZERO);
@@ -280,10 +280,10 @@ public class GridLayoutManagerUnitTest {
     container.setTopOffset(PixelMeasure.ZERO);
     container.setRightOffset(PixelMeasure.ZERO);
     container.setBottomOffset(PixelMeasure.ZERO);
-    LayoutContext layoutContext = new LayoutContext(container);
+    EquationLayoutContext layoutContext = new EquationLayoutContext(container);
     layoutContext.layout();
 
-    LOG.info(((UIGridLayout) container.getLayoutManager()).getGrid());
+    LOG.info(((UIEquationGridLayout) container.getLayoutManager()).getGrid());
 
     Measure[] result = layoutContext.getHorizontal().getResult();
     LOG.info("result: " + Arrays.toString(result));
@@ -298,8 +298,8 @@ public class GridLayoutManagerUnitTest {
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
         new PixelMeasure(200), new PixelMeasure(100), new PixelMeasure(100), PixelMeasure.ZERO,
-        new PixelMeasure(100), new PixelMeasure(100), new PixelMeasure(100),PixelMeasure.ZERO,
-        new PixelMeasure(100), new PixelMeasure(100), PixelMeasure.ZERO,new PixelMeasure(100)},
+        new PixelMeasure(100), new PixelMeasure(100), new PixelMeasure(100), PixelMeasure.ZERO,
+        new PixelMeasure(100), new PixelMeasure(100), PixelMeasure.ZERO, new PixelMeasure(100)},
         result);
 
     Assert.assertEquals("width of container", 900, container.getWidth().getPixel());
@@ -334,7 +334,7 @@ public class GridLayoutManagerUnitTest {
     container.getComponents().add(new MockComponent());
     container.getComponents().add(new MockComponent());
 
-    UIGridLayout manager = new UIGridLayout();
+    UIEquationGridLayout manager = new UIEquationGridLayout();
     manager.setColumns("*;*");
     manager.setRows("*;*");
     manager.setColumnSpacing(PixelMeasure.ZERO);
@@ -348,7 +348,7 @@ public class GridLayoutManagerUnitTest {
     container.setTopOffset(PixelMeasure.ZERO);
     container.setRightOffset(PixelMeasure.ZERO);
     container.setBottomOffset(PixelMeasure.ZERO);
-    LayoutContext layoutContext = new LayoutContext(container);
+    EquationLayoutContext layoutContext = new EquationLayoutContext(container);
     layoutContext.layout();
 
     Measure[] result = layoutContext.getHorizontal().getResult();

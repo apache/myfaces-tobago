@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.layout.math;
+package org.apache.myfaces.tobago.internal.layout;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -47,7 +47,7 @@ public class MathUtils {
     assert isZero(bias);
   }
 
-  static double findAndAdjustMaxRemainder(double[] list) {
+  public static double findAndAdjustMaxRemainder(double[] list) {
     double max = 0.0;
     Integer indexOfMax = null;
     for (int i = 0; i < list.length; i++) {
@@ -64,7 +64,7 @@ public class MathUtils {
     return 0.0;
   }
 
-  static double findAndAdjustMinRemainder(double[] list) {
+  public static double findAndAdjustMinRemainder(double[] list) {
     double min = 1.0;
     Integer indexOfMin = null;
     for (int i = 0; i < list.length; i++) {
@@ -84,23 +84,23 @@ public class MathUtils {
     return 0.0;
   }
 
-  static double remainder(double v) {
+  public static double remainder(double v) {
     return v - Math.floor(v);
   }
 
-  static boolean isZero(double factor) {
+  public static boolean isZero(double factor) {
     return Math.abs(factor) < EPSILON;
   }
 
-  static boolean isNotZero(double factor) {
+  public static boolean isNotZero(double factor) {
     return Math.abs(factor) >= EPSILON;
   }
 
-  static boolean isInteger(double value) {
+  public static boolean isInteger(double value) {
     return isZero(value - Math.round(value));
   }
 
-  static boolean isNotInteger(double value) {
+  public static boolean isNotInteger(double value) {
     return isNotZero(value - Math.round(value));
   }
 }

@@ -34,8 +34,9 @@
     <module>deprecation</module>
     <module>facelets</module>
     <module>fileupload</module>
-    <module>security</module>
+    <module>math</module>
     <module>message-fix</module>
+    <module>security</module>
     <module>tobago-taglib-extension</module>
   </modules>
 

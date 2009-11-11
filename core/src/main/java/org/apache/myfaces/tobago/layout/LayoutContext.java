@@ -17,45 +17,82 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.layout.math.EquationManager;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.AbstractUIGridLayout;
 
+import javax.faces.component.UIComponent;
+
+/*
+An algorithm for layouting ...
+
+- get UIPage
+  - call compute-sizes
+    - get the LayoutManager
+      - go to the PX elements
+        - call compute-sizes (recursively)
+      - go to the Auto elements
+        - call compute-sizes (recursively)
+        - compute the max size of the elements and set it to the row/column
+      - check given size: if not set: warn
+      - calculate remainder = given size - all px sizes - all auto sizes
+      - go to the * elements
+        - partition remainder to this elements (3*;2*)
+        - call compute-sizes (recursively)
+  - call set-positions
+      - compute and set positions of columns/rows
+      - call set-positions for all elements (recursively)
+ */
 public class LayoutContext {
 
-  private EquationManager horizontal;
-  private EquationManager vertical;
+  private static final Log LOG = LogFactory.getLog(LayoutContext.class);
+
   private LayoutContainer container;
 
   public LayoutContext(LayoutContainer container) {
-    this.horizontal = new EquationManager();
-    this.vertical = new EquationManager();
     this.container = container;
-  }
-
-  public EquationManager getHorizontal() {
-    return horizontal;
-  }
-
-  public EquationManager getVertical() {
-    return vertical;
   }
 
   public void layout() {
 
-    horizontal.addComponentRoot();
-    vertical.addComponentRoot();
+    LayoutManager layoutManager = container.getLayoutManager();
+    layoutManager.init();
+    layoutManager.fixRelativeInsideAuto(true, false);
+    layoutManager.fixRelativeInsideAuto(false, false);
+    layoutManager.preProcessing(true);
+    layoutManager.preProcessing(false);
+    layoutManager.mainProcessing(true);
+    layoutManager.mainProcessing(false);
+    layoutManager.postProcessing(true);
+    layoutManager.postProcessing(false);
 
-    if (container.getWidth() != null) {
-      horizontal.setFixedLength(0, container.getWidth(), container);
+    StringBuffer buffer = new StringBuffer("\n");
+    debug(buffer, container, 0);
+    LOG.info(buffer);
+  }
+
+  private void debug(StringBuffer buffer, LayoutObject component, int depth) {
+    for (int i = 0; i < depth; i++) {
+      buffer.append("  ");
     }
-    if (container.getHeight() != null) {
-      vertical.setFixedLength(0, container.getHeight(), container);
+    buffer.append(component.getClass().getSimpleName());
+    buffer.append("(");
+    buffer.append(component.getWidth());
+    buffer.append(", ");
+    buffer.append(component.getHeight());
+    buffer.append(")");
+    if (component instanceof LayoutContainer) {
+      LayoutManager layoutManager = ((LayoutContainer) component).getLayoutManager();
+      if (layoutManager instanceof AbstractUIGridLayout) {
+        buffer.append(" ");
+        buffer.append(layoutManager.toString());
+      }
     }
-
-    container.getLayoutManager().collect(this, container, 0, 0);
-
-    horizontal.solve();
-    vertical.solve();
-
-    container.getLayoutManager().distribute(this, container);
+    buffer.append("\n");
+    for (Object o : ((UIComponent) component).getChildren()) {
+      if (o instanceof LayoutObject) {
+        debug(buffer, (LayoutObject) o, depth + 2);
+      }
+    }
   }
 }

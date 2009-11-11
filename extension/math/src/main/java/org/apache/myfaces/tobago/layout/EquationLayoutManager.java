@@ -17,38 +17,9 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.internal.layout.MathUtils;
+public interface EquationLayoutManager extends LayoutManager {
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class FactorList extends ArrayList<Integer> {
-
-  private static final Log LOG = LogFactory.getLog(FactorList.class);
-
-  public List<Measure> partition(Measure size) {
-
-    List<Measure> result = new ArrayList<Measure>(size());
-
-    int sum = 0;
-    for (Integer integer : this) {
-      sum += integer;
-    }
-
-    double[] doubles = new double[size()];
-    int i = 0;
-    for (Integer integer : this) {
-      doubles[i++] = integer * size.getPixel() / (double) sum;
-    }
-
-    MathUtils.adjustRemainders(doubles, 0.0);
-
-    for (double value : doubles) {
-      result.add(new PixelMeasure((int) value));
-    }
-
-    return result;
-  }
+  void init();
+  void collect(EquationLayoutContext layoutContext, LayoutContainer container, int horizontalIndex, int verticalIndex);
+  void distribute(EquationLayoutContext layoutContext, LayoutContainer container);
 }

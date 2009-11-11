@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.layout.Interval;
 import org.apache.myfaces.tobago.layout.IntervalList;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
-import org.apache.myfaces.tobago.layout.LayoutContext;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -134,12 +133,6 @@ public abstract class AbstractUISheetLayout extends UILayout implements LayoutMa
 
       // todo: optimize: the AutoLayoutTokens with columnSpan=1 are already called
     }
-  }
-
-  public void collect(LayoutContext layoutContext, LayoutContainer container, int horizontalIndex, int verticalIndex) {
-  }
-
-  public void distribute(LayoutContext layoutContext, LayoutContainer container) {
   }
 
   private LayoutContainer getLayoutContainer() {

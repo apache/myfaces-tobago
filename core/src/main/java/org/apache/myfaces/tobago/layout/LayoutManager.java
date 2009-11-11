@@ -19,10 +19,6 @@ package org.apache.myfaces.tobago.layout;
 
 public interface LayoutManager {
 
-  void collect(LayoutContext layoutContext, LayoutContainer container, int horizontalIndex, int verticalIndex);
-
-  void distribute(LayoutContext layoutContext, LayoutContainer container);
-
   void init();
 
   void fixRelativeInsideAuto(boolean orientation, boolean auto);

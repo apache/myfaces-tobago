@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
@@ -29,7 +28,7 @@ import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
-import org.apache.myfaces.tobago.layout.LayoutContext2;
+import org.apache.myfaces.tobago.layout.LayoutContext;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -60,6 +59,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 
 public class PageRenderer extends PageRendererBase {
 
@@ -111,7 +112,7 @@ public class PageRenderer extends PageRendererBase {
 // LAYOUT Begin
 
     long begin = System.nanoTime();
-    LayoutContext2 layoutContext = new LayoutContext2(page);
+    LayoutContext layoutContext = new LayoutContext(page);
     layoutContext.layout();
     long end = System.nanoTime();
     NumberFormat format = new DecimalFormat("#,##0");
