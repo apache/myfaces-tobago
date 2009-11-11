@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.layout.grid;
  */
 
 import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.layout.Orientation;
 
 public class OriginCell implements Cell {
 
@@ -45,8 +46,8 @@ public class OriginCell implements Cell {
     return true;
   }
 
-  public int getSpan(boolean horizontal) {
-    return horizontal ? getColumnSpan() : getRowSpan();
+  public int getSpan(Orientation orientation) {
+    return orientation == Orientation.HORIZONTAL ? getColumnSpan() : getRowSpan();
   }
 
   public int getColumnSpan() {

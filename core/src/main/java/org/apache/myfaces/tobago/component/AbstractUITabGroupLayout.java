@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.Orientation;
 
 public abstract class AbstractUITabGroupLayout extends UILayout implements LayoutManager {
 
@@ -43,9 +44,9 @@ public abstract class AbstractUITabGroupLayout extends UILayout implements Layou
     }
   }
 
-  public void fixRelativeInsideAuto(boolean orientation, boolean auto) {
+  public void fixRelativeInsideAuto(Orientation orientation, boolean auto) {
 
-    if (orientation) {
+    if (orientation == Orientation.HORIZONTAL) {
       horizontalAuto = auto;
     } else {
       verticalAuto = auto;
@@ -58,7 +59,7 @@ public abstract class AbstractUITabGroupLayout extends UILayout implements Layou
     }
   }
 
-  public void preProcessing(boolean orientation) {
+  public void preProcessing(Orientation orientation) {
 
     // process auto tokens
     int i = 0;
@@ -69,7 +70,8 @@ public abstract class AbstractUITabGroupLayout extends UILayout implements Layou
         ((LayoutContainer) component).getLayoutManager().preProcessing(orientation);
       }
 
-      if (orientation && horizontalAuto || !orientation && verticalAuto) {
+      if (orientation == Orientation.HORIZONTAL && horizontalAuto 
+          || orientation == Orientation.VERTICAL && verticalAuto) {
         intervals.add(new Interval(component, orientation));
       }
     }
@@ -82,10 +84,11 @@ public abstract class AbstractUITabGroupLayout extends UILayout implements Layou
     }
   }
 
-  public void mainProcessing(boolean orientation) {
+  public void mainProcessing(Orientation orientation) {
 
     // find *
-    if (orientation && !horizontalAuto || !orientation && !verticalAuto) {
+    if (orientation == Orientation.HORIZONTAL && !horizontalAuto 
+        || orientation == Orientation.VERTICAL && !verticalAuto) {
       // find rest
       LayoutContainer container = getLayoutContainer();
       Measure available = LayoutUtils.getSize(orientation, container);
@@ -110,7 +113,7 @@ public abstract class AbstractUITabGroupLayout extends UILayout implements Layou
     }
   }
 
-  public void postProcessing(boolean orientation) {
+  public void postProcessing(Orientation orientation) {
 
     // set positions to all sub-layout-managers
 
@@ -120,7 +123,7 @@ public abstract class AbstractUITabGroupLayout extends UILayout implements Layou
 
       // compute the position of the cell
       Measure position = LayoutUtils.getBeginOffset(orientation, getLayoutContainer());
-      if (orientation) {
+      if (orientation == Orientation.HORIZONTAL) {
         component.setLeft(position);
       } else {
         component.setTop(position);

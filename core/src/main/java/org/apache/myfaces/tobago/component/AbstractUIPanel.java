@@ -28,7 +28,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class AbstractUIPanel extends UIPanelBase 
+public abstract class AbstractUIPanel extends UIPanelBase
     implements OnComponentPopulated, LayoutContainer, LayoutComponent {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIPanel.class);
@@ -37,40 +37,19 @@ public abstract class AbstractUIPanel extends UIPanelBase
   public void encodeBegin(FacesContext facesContext) throws IOException {
 
     super.encodeBegin(facesContext);
-
-    UILayout layoutManager = (UILayout) getLayoutManager();
-    if (layoutManager != null) {
-      layoutManager.encodeBegin(facesContext);
-    } else {
-      // todo: later: LOG.debug or remove
-      LOG.warn("no layout manager found");
-    }
+    ((UILayout) getLayoutManager()).encodeBegin(facesContext);
   }
 
   @Override
   public void encodeChildren(FacesContext facesContext) throws IOException {
 
-    UILayout layoutManager = (UILayout) getLayoutManager();
-    if (layoutManager != null) {
-      layoutManager.encodeChildren(facesContext);
-    } else {
-      // todo: later: LOG.debug or remove
-      LOG.warn("no layout manager found");
-      super.encodeChildren(facesContext);
-    }
+    ((UILayout) getLayoutManager()).encodeChildren(facesContext);
   }
 
   @Override
   public void encodeEnd(FacesContext facesContext) throws IOException {
 
-    UILayout layoutManager = (UILayout) getLayoutManager();
-    if (layoutManager != null) {
-      layoutManager.encodeEnd(facesContext);
-    } else {
-      // todo: later: LOG.debug or remove
-      LOG.warn("no layout manager found");
-    }
-
+    ((UILayout) getLayoutManager()).encodeEnd(facesContext);
     super.encodeEnd(facesContext);
   }
 
@@ -80,7 +59,7 @@ public abstract class AbstractUIPanel extends UIPanelBase
           facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT));
     }
   }
-  
+
   public List<LayoutComponent> getComponents() {
     return LayoutUtils.findLayoutChildren(this);
   }

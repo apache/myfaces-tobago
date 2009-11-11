@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class Grid {
 
   // TODO: check if it is faster with arrays.
   /**
-   * The rectangular data as a 1-dim list;
+   * The rectangular data as a 1-dim list
    */
   private List<Cell> cells;
   private LayoutTokens columns;
@@ -109,8 +110,8 @@ public class Grid {
     findNextFreeCell();
   }
 
-  public Cell getCell(int i, int j, boolean horizontal) {
-    return horizontal ? getCell(i, j) : getCell(j, i);
+  public Cell getCell(int i, int j, Orientation orientation) {
+    return orientation == Orientation.HORIZONTAL ? getCell(i, j) : getCell(j, i);
   }
 
   public Cell getCell(int column, int row) {
@@ -142,8 +143,8 @@ public class Grid {
     }
   }
 
-  public LayoutTokens getTokens(boolean horizontal) {
-    return horizontal ? getColumns() : getRows();
+  public LayoutTokens getTokens(Orientation orientation) {
+    return orientation == Orientation.HORIZONTAL ? getColumns() : getRows();
   }
 
   public LayoutTokens getColumns() {
@@ -470,8 +471,8 @@ public class Grid {
     this.verticalIndices = verticalIndices;
   }
 
-  public PixelMeasure[] getSizes(boolean horizontal) {
-    return horizontal ? getWidths() : getHeights();
+  public PixelMeasure[] getSizes(Orientation orientation) {
+    return orientation == Orientation.HORIZONTAL ? getWidths() : getHeights();
   }
 
   public PixelMeasure[] getWidths() {

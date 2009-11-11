@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.layout.PixelLayoutToken;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
@@ -66,7 +67,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
     }
   }
 
-  public void fixRelativeInsideAuto(boolean orientation, boolean auto) {
+  public void fixRelativeInsideAuto(Orientation orientation, boolean auto) {
 
     LayoutTokens tokens = grid.getTokens(orientation);
 
@@ -80,7 +81,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
     }
 
     for (int i = 0; i < tokens.getSize(); i++) {
-      for (int j = 0; j < grid.getTokens(!orientation).getSize(); j++) {
+      for (int j = 0; j < grid.getTokens(orientation.other()).getSize(); j++) {
         Cell cell = grid.getCell(i, j, orientation);
         if (cell instanceof OriginCell) {
           OriginCell origin = (OriginCell) cell;
@@ -96,7 +97,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
     }
   }
 
-  public void preProcessing(boolean orientation) {
+  public void preProcessing(Orientation orientation) {
 
     // process auto tokens
     int i = 0;
@@ -108,7 +109,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
       }
 
       IntervalList intervals = new IntervalList();
-      for (int j = 0; j < grid.getTokens(!orientation).getSize(); j++) {
+      for (int j = 0; j < grid.getTokens(orientation.other()).getSize(); j++) {
         Cell cell = grid.getCell(i, j, orientation);
         if (cell instanceof OriginCell) {
           OriginCell origin = (OriginCell) cell;
@@ -155,7 +156,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
     }
   }
 
-  public void mainProcessing(boolean orientation) {
+  public void mainProcessing(Orientation orientation) {
 
     // find *
     FactorList list = new FactorList();
@@ -198,7 +199,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
 
     // call manage sizes for all sub-layout-managers
     for (int i = 0; i < grid.getTokens(orientation).getSize(); i++) {
-      for (int j = 0; j < grid.getTokens(!orientation).getSize(); j++) {
+      for (int j = 0; j < grid.getTokens(orientation.other()).getSize(); j++) {
         Cell cell = grid.getCell(i, j, orientation);
         if (cell instanceof OriginCell) {
           LayoutComponent component = cell.getComponent();
@@ -229,11 +230,11 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
     }
   }
 
-  public void postProcessing(boolean orientation) {
+  public void postProcessing(Orientation orientation) {
 
     // call manage sizes for all sub-layout-managers
     for (int i = 0; i < grid.getTokens(orientation).getSize(); i++) {
-      for (int j = 0; j < grid.getTokens(!orientation).getSize(); j++) {
+      for (int j = 0; j < grid.getTokens(orientation.other()).getSize(); j++) {
         Cell cell = grid.getCell(i, j, orientation);
         if (cell instanceof OriginCell) {
           LayoutComponent component = cell.getComponent();
@@ -252,7 +253,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
             }
             position = position.add(getSpacing(orientation));
           }
-          if (orientation) {
+          if (orientation == Orientation.HORIZONTAL) {
             component.setLeft(position);
           } else {
             component.setTop(position);
@@ -278,8 +279,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
     return grid;
   }
 
-  public Measure getSpacing(boolean horizontal) {
-    return horizontal ? getColumnSpacing() : getRowSpacing();
+  public Measure getSpacing(Orientation orientation) {
+    return orientation == Orientation.HORIZONTAL ? getColumnSpacing() : getRowSpacing();
   }
 
   public abstract String getRows();

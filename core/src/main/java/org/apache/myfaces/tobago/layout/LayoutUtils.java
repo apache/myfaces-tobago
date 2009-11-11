@@ -119,21 +119,20 @@ public final class LayoutUtils {
     }
   }
 
-  public static Measure getEndOffset(boolean orientation, LayoutContainer container) {
-    return orientation ? container.getRightOffset() : container.getBottomOffset();
+  public static Measure getEndOffset(Orientation orientation, LayoutContainer container) {
+    return orientation == Orientation.HORIZONTAL ? container.getRightOffset() : container.getBottomOffset();
   }
 
-  public static Measure getBeginOffset(boolean orientation, LayoutContainer container) {
-    return orientation ? container.getLeftOffset() : container.getTopOffset();
+  public static Measure getBeginOffset(Orientation orientation, LayoutContainer container) {
+    return orientation == Orientation.HORIZONTAL ? container.getLeftOffset() : container.getTopOffset();
   }
 
-  public static Measure getSize(boolean orientation, LayoutContainer container) {
-    Measure available = orientation ? container.getWidth() : container.getHeight();
-    return available;
+  public static Measure getSize(Orientation orientation, LayoutContainer container) {
+    return orientation == Orientation.HORIZONTAL ? container.getWidth() : container.getHeight();
   }
 
-  public static void setSize(boolean orientation, LayoutObject component, Measure size) {
-    if (orientation) {
+  public static void setSize(Orientation orientation, LayoutObject component, Measure size) {
+    if (orientation == Orientation.HORIZONTAL) {
       if (component.getWidth() != null) { // to not override set sizes
         return;
       }

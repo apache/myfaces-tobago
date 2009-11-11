@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.collections.KeyValue;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.layout.Box;
@@ -48,7 +47,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public abstract class AbstractUIPage extends AbstractUIForm 
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+
+public abstract class AbstractUIPage extends AbstractUIForm
     implements OnComponentPopulated, InvokeOnComponent, LayoutContainer, DeprecatedDimension {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIPage.class);
@@ -87,40 +88,19 @@ public abstract class AbstractUIPage extends AbstractUIForm
   public void encodeBegin(FacesContext facesContext) throws IOException {
 
     super.encodeBegin(facesContext);
-
-    UILayout layoutManager = (UILayout) getLayoutManager();
-    if (layoutManager != null) {
-      layoutManager.encodeBegin(facesContext);
-    } else {
-      // todo: later: LOG.debug or remove
-      LOG.warn("no layout manager found");
-    }
+    ((UILayout) getLayoutManager()).encodeBegin(facesContext);
   }
 
   @Override
   public void encodeChildren(FacesContext facesContext) throws IOException {
 
-    UILayout layoutManager = (UILayout) getLayoutManager();
-    if (layoutManager != null) {
-      layoutManager.encodeChildren(facesContext);
-    } else {
-      // todo: later: LOG.debug or remove
-      LOG.warn("no layout manager found");
-      super.encodeChildren(facesContext);
-    }
+    ((UILayout) getLayoutManager()).encodeChildren(facesContext);
   }
 
   @Override
   public void encodeEnd(FacesContext facesContext) throws IOException {
 
-    UILayout layoutManager = (UILayout) getLayoutManager();
-    if (layoutManager != null) {
-      layoutManager.encodeEnd(facesContext);
-    } else {
-      // todo: later: LOG.debug or remove
-      LOG.warn("no layout manager found");
-    }
-
+    ((UILayout) getLayoutManager()).encodeEnd(facesContext);
     super.encodeEnd(facesContext);
   }
 

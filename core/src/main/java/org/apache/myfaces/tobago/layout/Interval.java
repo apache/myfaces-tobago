@@ -27,12 +27,12 @@ public class Interval {
 
   private Measure fixed;
 
-  public Interval(LayoutComponent component, boolean horizontal) {
+  public Interval(LayoutComponent component, Orientation orientation) {
     this(
-        horizontal ? component.getMinimumWidth() : component.getMinimumHeight(),
-        horizontal ? component.getPreferredWidth() : component.getPreferredHeight(),
-        horizontal ? component.getMaximumWidth() : component.getMaximumHeight(),
-        horizontal ? component.getWidth() : component.getHeight());
+        orientation == Orientation.HORIZONTAL ? component.getMinimumWidth() : component.getMinimumHeight(),
+        orientation == Orientation.HORIZONTAL ? component.getPreferredWidth() : component.getPreferredHeight(),
+        orientation == Orientation.HORIZONTAL ? component.getMaximumWidth() : component.getMaximumHeight(),
+        orientation == Orientation.HORIZONTAL ? component.getWidth() : component.getHeight());
   }
 
   public Interval(Measure minimum, Measure preferred, Measure maximum, Measure fixed) {

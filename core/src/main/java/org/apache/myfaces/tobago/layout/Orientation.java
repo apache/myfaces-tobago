@@ -17,15 +17,16 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-public interface LayoutManager {
-
-  void init();
-
-  void fixRelativeInsideAuto(Orientation orientation, boolean auto);
-
-  void preProcessing(Orientation orientation);
-
-  void mainProcessing(Orientation orientation);
-
-  void postProcessing(Orientation orientation);
+public enum Orientation {
+  
+  HORIZONTAL,
+  VERTICAL;
+  
+  public Orientation other() {
+    if (this == HORIZONTAL) {
+      return VERTICAL;
+    } else {
+      return HORIZONTAL;
+    }
+  }
 }

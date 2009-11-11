@@ -57,14 +57,14 @@ public class LayoutContext {
 
     LayoutManager layoutManager = container.getLayoutManager();
     layoutManager.init();
-    layoutManager.fixRelativeInsideAuto(true, false);
-    layoutManager.fixRelativeInsideAuto(false, false);
-    layoutManager.preProcessing(true);
-    layoutManager.preProcessing(false);
-    layoutManager.mainProcessing(true);
-    layoutManager.mainProcessing(false);
-    layoutManager.postProcessing(true);
-    layoutManager.postProcessing(false);
+    layoutManager.fixRelativeInsideAuto(Orientation.HORIZONTAL, false);
+    layoutManager.fixRelativeInsideAuto(Orientation.VERTICAL, false);
+    layoutManager.preProcessing(Orientation.HORIZONTAL);
+    layoutManager.preProcessing(Orientation.VERTICAL);
+    layoutManager.mainProcessing(Orientation.HORIZONTAL);
+    layoutManager.mainProcessing(Orientation.VERTICAL);
+    layoutManager.postProcessing(Orientation.HORIZONTAL);
+    layoutManager.postProcessing(Orientation.VERTICAL);
 
     StringBuffer buffer = new StringBuffer("\n");
     debug(buffer, container, 0);

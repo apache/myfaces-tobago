@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.layout.PixelLayoutToken;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
@@ -264,19 +265,19 @@ public abstract class AbstractUIEquationGridLayout extends UILayout implements E
     }
   }
 
-  public void fixRelativeInsideAuto(boolean orientation, boolean auto) {
+  public void fixRelativeInsideAuto(Orientation orientation, boolean auto) {
     //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  public void preProcessing(boolean orientation) {
+  public void preProcessing(Orientation orientation) {
     //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  public void mainProcessing(boolean orientation) {
+  public void mainProcessing(Orientation orientation) {
     //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  public void postProcessing(boolean orientation) {
+  public void postProcessing(Orientation orientation) {
     //To change body of implemented methods use File | Settings | File Templates.
   }
 
