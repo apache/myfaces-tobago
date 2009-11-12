@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasSuggestMethod;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
+import org.apache.myfaces.tobago.taglib.decl.InputTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsPassword;
@@ -53,8 +54,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
             "This facet can contain a UICommand that is invoked in a case of a change event from the component")
         })
 public interface InTagDeclaration
-    extends TextInputTagDeclaration, HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled, IsInline, IsRequired, HasTip, IsPassword, HasSuggestMethod {
+    extends HasIdBindingAndRendered,
+    HasConverter, IsReadonly, IsDisabled, IsInline, IsRequired, HasTip, IsPassword, HasSuggestMethod, InputTagDeclaration {
 
   /**
    * Indicate markup of this component.
