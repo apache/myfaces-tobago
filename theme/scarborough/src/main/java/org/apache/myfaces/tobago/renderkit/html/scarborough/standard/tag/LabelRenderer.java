@@ -45,7 +45,7 @@ public class LabelRenderer extends LayoutableRendererBase {
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
     UILabel output = null;
-    // todo: remove after 1.5.0
+    // todo: remove test after 1.5.0, then UILabel is required
     if (component instanceof UILabel) {
       output = (UILabel) component;
     } else {
@@ -64,7 +64,7 @@ public class LabelRenderer extends LayoutableRendererBase {
     writer.startElement(HtmlConstants.DIV, component);
     HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
-    // todo: remove after 1.5.0 (see start of method)
+    // todo: remove after 1.5.0 (see begin of method)
     if (output != null) {
       Style style = new Style(facesContext, output);
       writer.writeStyleAttribute(style);
