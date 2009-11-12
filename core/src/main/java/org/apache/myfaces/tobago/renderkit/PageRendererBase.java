@@ -20,14 +20,15 @@ package org.apache.myfaces.tobago.renderkit;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.layout.Box;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-public class PageRendererBase extends LayoutableRendererBase {
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+
+public class PageRendererBase extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(PageRendererBase.class);
 

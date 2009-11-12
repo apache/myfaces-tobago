@@ -25,7 +25,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -34,7 +34,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public class VerbatimRenderer extends LayoutableRendererBase {
+public class VerbatimRenderer extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(VerbatimRenderer.class);
 

@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.renderkit;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.config.ThemeConfig;
+import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
@@ -33,14 +34,11 @@ import javax.faces.render.Renderer;
 import java.io.IOException;
 import java.util.Locale;
 
-/**
- * Date: Apr 21, 2007
- * Time: 8:04:25 PM
- */
 public class RendererBase extends Renderer {
 
-  private static final Log LOG = LogFactory.getLog(LayoutableRendererBase.class);
+  private static final Log LOG = LogFactory.getLog(RendererBase.class);
 
+  @Override
   public void decode(FacesContext facesContext, UIComponent component) {
     // nothing to do
 
@@ -52,7 +50,14 @@ public class RendererBase extends Renderer {
   }
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
-    
+    final String rendererType = component.getRendererType();
+    if (rendererType != null) {
+      String rendererName = getRendererName(rendererType);
+      StyleClasses classes = StyleClasses.ensureStyleClasses(component);
+      classes.updateClassAttributeAndMarkup(component, rendererName);
+    } else {
+      LOG.error("No renderType for " + component); 
+    }
   }
 
   public boolean getPrepareRendersChildren() {
@@ -60,34 +65,22 @@ public class RendererBase extends Renderer {
   }
 
   public void prepareRendersChildren(FacesContext context, UIComponent component) {
-    
-  }
-
-  public String getRendererName(String rendererType) {
-    String name;
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("rendererType = '" + rendererType + "'");
-    }
-    /* if ("javax.faces.Text".equals(rendererType)) { // TODO: find a better way
-    name = OUT;
-  } else {*/
-    name = rendererType;
-    /*}
-    if (name.startsWith("javax.faces.")) { // FIXME: this is a hotfix from jsf1.0beta to jsf1.0fr
-      LOG.warn("patching renderer from " + name);
-      name = name.substring("javax.faces.".length());
-      LOG.warn("patching renderer to   " + name);
-    }*/
-    name = name.substring(0, 1).toLowerCase(Locale.ENGLISH) + name.substring(1);
-    return name;
   }
 
   /**
-   * @deprecated since 1.1
+   * @deprecated todo: should be done in the StyleClasses class.
+   */
+  @Deprecated
+  protected String getRendererName(String rendererType) {
+    return rendererType.substring(0, 1).toLowerCase(Locale.ENGLISH) + rendererType.substring(1);
+  }
+
+  /**
+   * @deprecated since 1.5.0, please use ThemeConfig.getMeasure()
    */
   @Deprecated
   public int getConfiguredValue(FacesContext facesContext, UIComponent component, String key) {
-    return ThemeConfig.getValue(facesContext, component, key);
+    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), key).getPixel();
   }
 
   protected Object getCurrentValueAsObject(UIInput input) {
@@ -179,7 +172,7 @@ public class RendererBase extends Renderer {
   }
 
   public Object getConvertedValue(FacesContext context,
-      UIComponent component, Object submittedValue)
+                                  UIComponent component, Object submittedValue)
       throws ConverterException {
     if (!(submittedValue instanceof String)) {
       return submittedValue;
@@ -193,6 +186,6 @@ public class RendererBase extends Renderer {
   }
 
   public void onComponentCreated(FacesContext context, UIComponent component) {
-    
+
   }
 }

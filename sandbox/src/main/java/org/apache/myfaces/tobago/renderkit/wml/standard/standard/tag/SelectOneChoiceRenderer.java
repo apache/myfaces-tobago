@@ -25,7 +25,7 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
 import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -39,7 +39,7 @@ import javax.faces.model.SelectItem;
 import java.io.IOException;
 import java.util.List;
 
-public class SelectOneChoiceRenderer extends LayoutableRendererBase {
+public class SelectOneChoiceRenderer extends LayoutComponentRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {

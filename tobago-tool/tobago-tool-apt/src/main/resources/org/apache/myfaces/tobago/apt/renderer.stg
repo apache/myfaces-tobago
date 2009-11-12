@@ -49,8 +49,8 @@ public final class <renderInfo.className>
     extends <renderInfo.superClassName> <first(renderInfo.interfaces):{ n | implements <n> }><rest(renderInfo.interfaces):{ n | , <n> }> {
 
   @Override
-  protected final String getRendererName() {
-	  return "<renderInfo.rendererName>";
+  protected final String getRendererType() {
+	  return "<renderInfo.rendererType>";
 	}
 
 }

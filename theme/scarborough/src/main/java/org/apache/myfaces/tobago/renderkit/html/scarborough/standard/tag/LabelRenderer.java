@@ -22,7 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -38,7 +38,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Locale;
 
-public class LabelRenderer extends LayoutableRendererBase {
+public class LabelRenderer extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(LabelRenderer.class);
 

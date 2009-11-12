@@ -324,32 +324,33 @@ public class ResourceManagerImpl implements ResourceManager {
     return searchtext.toString();
   }
 
-  public Renderer getRenderer(UIViewRoot viewRoot, String name) {
+  public Renderer getRenderer(UIViewRoot viewRoot, String rendererType) {
     Renderer renderer = null;
 
-    if (name != null) {
+    if (rendererType != null) {
       CacheKey key = getCacheKey(viewRoot);
 
-      RendererCacheKey rendererKey = new RendererCacheKey(key, name);
+      RendererCacheKey rendererKey = new RendererCacheKey(key, rendererType);
       renderer = rendererCache.get(rendererKey);
       if (renderer != null) {
         return renderer;
       }
+      String simpleClassName = null;
       try {
-        name = getRendererClassName(name);
-        List<Class> classes = getPaths(key.getClientProperties(), key.getLocale(), "", TAG, name, "",
+        simpleClassName = getRendererClassName(rendererType);
+        List<Class> classes = getPaths(key.getClientProperties(), key.getLocale(), "", TAG, simpleClassName, "",
             false, true, true, null, false, false);
         if (classes != null && !classes.isEmpty()) {
           Class clazz = classes.get(0);
           renderer = (Renderer) clazz.newInstance();
           rendererCache.put(rendererKey, renderer);
         } else {
-          LOG.error("Don't find any RendererClass for " + name + ". Please check you configuration.");
+          LOG.error("Don't find any RendererClass for " + simpleClassName + ". Please check you configuration.");
         }
       } catch (InstantiationException e) {
-        LOG.error("name = '" + name + "' clientProperties = '" + key.getClientPropertyId() + "'", e);
+        LOG.error("name = '" + simpleClassName + "' clientProperties = '" + key.getClientPropertyId() + "'", e);
       } catch (IllegalAccessException e) {
-        LOG.error("name = '" + name + "' clientProperties = '" + key.getClientPropertyId() + "'", e);
+        LOG.error("name = '" + simpleClassName + "' clientProperties = '" + key.getClientPropertyId() + "'", e);
       }
     }
     return renderer;

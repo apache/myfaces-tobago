@@ -54,8 +54,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
             "This facet can contain a UICommand that is invoked in a case of a change event from the component")
         })
 public interface InTagDeclaration
-    extends HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled, IsInline, IsRequired, HasTip, IsPassword, HasSuggestMethod, InputTagDeclaration {
+    extends HasIdBindingAndRendered, HasConverter, IsReadonly, IsDisabled, IsInline, IsRequired, HasTip, IsPassword, 
+    HasSuggestMethod, InputTagDeclaration {
 
   /**
    * Indicate markup of this component.

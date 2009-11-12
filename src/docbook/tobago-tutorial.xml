@@ -264,7 +264,7 @@
     <para>Tobago also contains a deprecated tree control. The API of this tree
     control does not really fit to the other controls. But the sandbox already
     contains a version of the future tree control, which will be introduced
-    in Tobago 1.1.</para>
+    in Tobago 1.5.</para>
 
     <sect2>
       <title>Basic Controls</title>

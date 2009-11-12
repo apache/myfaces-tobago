@@ -40,7 +40,7 @@ import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -57,7 +57,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
-public class MessagesRenderer extends LayoutableRendererBase {
+public class MessagesRenderer extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(MessagesRenderer.class);
 

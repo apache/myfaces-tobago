@@ -24,7 +24,7 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -35,7 +35,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
+public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {

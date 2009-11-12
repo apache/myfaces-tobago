@@ -67,20 +67,22 @@ public class LayoutContext {
     layoutManager.postProcessing(Orientation.VERTICAL);
 
     StringBuffer buffer = new StringBuffer("\n");
-    debug(buffer, container, 0);
+    debug(buffer, (UIComponent) container, 0);
     LOG.info(buffer);
   }
 
-  private void debug(StringBuffer buffer, LayoutObject component, int depth) {
+  private void debug(StringBuffer buffer, UIComponent component, int depth) {
     for (int i = 0; i < depth; i++) {
       buffer.append("  ");
     }
     buffer.append(component.getClass().getSimpleName());
-    buffer.append("(");
-    buffer.append(component.getWidth());
-    buffer.append(", ");
-    buffer.append(component.getHeight());
-    buffer.append(")");
+    if (component instanceof LayoutObject) {
+      buffer.append("(");
+      buffer.append(((LayoutObject)component).getWidth());
+      buffer.append(", ");
+      buffer.append(((LayoutObject)component).getHeight());
+      buffer.append(")");
+    }
     if (component instanceof LayoutContainer) {
       LayoutManager layoutManager = ((LayoutContainer) component).getLayoutManager();
       if (layoutManager instanceof AbstractUIGridLayout) {
@@ -89,10 +91,8 @@ public class LayoutContext {
       }
     }
     buffer.append("\n");
-    for (Object o : ((UIComponent) component).getChildren()) {
-      if (o instanceof LayoutObject) {
-        debug(buffer, (LayoutObject) o, depth + 2);
-      }
+    for (UIComponent child : component.getChildren()) {
+      debug(buffer, child, depth + 2);
     }
   }
 }

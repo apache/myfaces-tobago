@@ -64,13 +64,13 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
 
   /**
    * @see Facets
-   * @deprecated Please use Facets instead. Will be removed after Tobago 1.1 */
+   * @deprecated Please use Facets instead. Will be removed after Tobago 1.5.0 */
   @Deprecated
   public static final String FACET_SORTER = "sorter";
   public static final String SORTER_ID = "sorter";
   /**
    * @see Attributes
-   * @deprecated Please use Attributes instead. Will be removed after Tobago 1.1 */
+   * @deprecated Please use Attributes instead. Will be removed after Tobago 1.5.0 */
   @Deprecated
   public static final String ATTR_SCROLL_POSITION = "attrScrollPosition";
 

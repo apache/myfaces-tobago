@@ -29,8 +29,8 @@ public class TagInfo extends RendererInfo {
   private PropertyInfo bodyContent;
   private boolean checkBodyContent;
 
-  public TagInfo(String sourceClass, String qualifiedName, String rendererName) {
-    super(sourceClass, qualifiedName, rendererName);
+  public TagInfo(String sourceClass, String qualifiedName, String rendererType) {
+    super(sourceClass, qualifiedName, rendererType);
   }
 
   public TagInfo(String sourceClass, String qualifiedName) {

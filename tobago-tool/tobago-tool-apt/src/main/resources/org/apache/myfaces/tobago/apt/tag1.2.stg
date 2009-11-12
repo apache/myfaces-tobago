@@ -56,8 +56,8 @@ public final class <tagInfo.className> extends <tagInfo.superClassName> {
   }
   @Override
   public String getRendererType() {
-  <if(tagInfo.rendererName)>
-    return "<tagInfo.rendererName>";
+  <if(tagInfo.rendererType)>
+    return "<tagInfo.rendererType>";
   <else>
     return null;
   <endif>

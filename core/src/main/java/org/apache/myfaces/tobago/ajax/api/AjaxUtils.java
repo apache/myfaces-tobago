@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.ajax.api;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
@@ -62,7 +63,7 @@ public class AjaxUtils {
     if (!component.isRendered()) {
       return;
     }
-    Object renderer = ComponentUtils.getRenderer(facesContext, component);
+    RendererBase renderer = ComponentUtils.getRenderer(facesContext, component);
     if (renderer != null && renderer instanceof AjaxRenderer) {
       ((AjaxRenderer) renderer).encodeAjax(facesContext, component);
     }

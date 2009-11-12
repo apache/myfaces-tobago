@@ -19,6 +19,7 @@
 
 package org.apache.myfaces.tobago.component;
 
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.layout.Measure;
 
 import javax.faces.context.FacesContext;
@@ -123,7 +124,9 @@ public class UIEquationGridLayout
   		  throw new javax.faces.FacesException(e);
   	  }
     }
-    return getCellspacing() != null ? getCellspacing() : org.apache.myfaces.tobago.config.ThemeConfig.getMeasure(getFacesContext(), this, "columnSpacing");
+    return getCellspacing() != null 
+        ? getCellspacing() 
+        : ThemeConfig.getMeasure(getFacesContext(), getRendererType(), "columnSpacing");
   }
 
   public void setColumnSpacing(Measure columnSpacing) {
@@ -152,7 +155,9 @@ public class UIEquationGridLayout
   		  throw new javax.faces.FacesException(e);
   	  }
     }
-    return getCellspacing() != null ? getCellspacing() : org.apache.myfaces.tobago.config.ThemeConfig.getMeasure(getFacesContext(), this, "rowSpacing");
+    return getCellspacing() != null 
+        ? getCellspacing() 
+        : ThemeConfig.getMeasure(getFacesContext(), getRendererType(), "rowSpacing");
   }
 
   public void setRowSpacing(Measure rowSpacing) {

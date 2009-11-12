@@ -41,7 +41,8 @@ public interface HasSpacing {
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure",
       defaultCode = "getCellspacing() != null ? getCellspacing() : "
-          + "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure(getFacesContext(), this, \"columnSpacing\")")
+          + "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure(" 
+          + "getFacesContext(), getRendererType(), \"columnSpacing\")")
   void setColumnSpacing(String columnSpacing);
 
   /**
@@ -51,6 +52,7 @@ public interface HasSpacing {
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure",
       defaultCode = "getCellspacing() != null ? getCellspacing() : "
-          + "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure(getFacesContext(), this, \"rowSpacing\")")
+          + "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure(" 
+          + "getFacesContext(), getRendererType(), \"rowSpacing\")")
   void setRowSpacing(String rowSpacing);
 }

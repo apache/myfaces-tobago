@@ -24,7 +24,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.AbstractUITree;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -40,7 +40,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public class TreeRenderer extends LayoutableRendererBase {
+public class TreeRenderer extends LayoutComponentRendererBase {
 
   private static final String SCRIPT = "script/tobago-tree.js";
 

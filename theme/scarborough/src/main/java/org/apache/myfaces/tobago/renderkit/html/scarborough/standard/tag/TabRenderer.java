@@ -19,9 +19,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 
-public class TabRenderer extends LayoutableRendererBase {
+public class TabRenderer extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(TabRenderer.class);
 

@@ -18,21 +18,21 @@ package org.apache.myfaces.tobago.apt.generate;
  */
 
 public class RendererInfo extends ClassInfo {
-  private String rendererName;
+  private String rendererType;
 
   public RendererInfo(String sourceClass, String qualifiedName) {
     super(sourceClass, qualifiedName);
   }
 
-  public RendererInfo(String sourceClass, String qualifiedName, String rendererName) {
+  public RendererInfo(String sourceClass, String qualifiedName, String rendererType) {
     super(sourceClass, qualifiedName);
-    this.rendererName = rendererName;
+    this.rendererType = rendererType;
   }
 
-  public String getRendererName() {
-    if (rendererName != null && rendererName.length() == 0) {
+  public String getRendererType() {
+    if (rendererType != null && rendererType.length() == 0) {
       return null;
     }
-    return rendererName;
+    return rendererType;
   }
 }

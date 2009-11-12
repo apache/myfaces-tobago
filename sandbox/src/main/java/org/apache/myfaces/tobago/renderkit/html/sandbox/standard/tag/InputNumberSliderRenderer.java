@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -41,7 +41,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
 
-public class InputNumberSliderRenderer extends LayoutableRendererBase {
+public class InputNumberSliderRenderer extends LayoutComponentRendererBase {
 
   private static final String SLIDER_WIDTH_PERCENT = "sliderWidthPercent";
 
@@ -67,16 +67,14 @@ public class InputNumberSliderRenderer extends LayoutableRendererBase {
 
     Style style = new Style(facesContext, slider);
     int width = -1;
-    int sliderWidthPerc = 33;
-    if (ThemeConfig.hasValue(facesContext, slider, SLIDER_WIDTH_PERCENT)) {
-      sliderWidthPerc = ThemeConfig.getValue(facesContext, slider, SLIDER_WIDTH_PERCENT);
+    int sliderWidthPerc 
+        = ThemeConfig.getMeasure(facesContext, slider.getRendererType(), SLIDER_WIDTH_PERCENT).getPixel();
       if (sliderWidthPerc <= 25) {
         sliderWidthPerc = 25;
       }
       if (sliderWidthPerc >= 75) {
         sliderWidthPerc = 75;
       }
-    }
     int sliderWidth = 100; // fixme
     int inputWidth = 50; // fixme;
     if (style.getWidth() != null && style.getWidth().getPixel() >= 0) {

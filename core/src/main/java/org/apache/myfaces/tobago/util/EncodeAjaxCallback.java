@@ -41,7 +41,7 @@ public class EncodeAjaxCallback implements javax.faces.component.ContextCallback
 
   // TODO merge with RenderUtil.prepareRendererAll
   public static void prepareRendererAll(FacesContext facesContext, UIComponent component) throws IOException {
-    RendererBase renderer = ComponentUtils.getRendererBase(facesContext,  component);
+    RendererBase renderer = ComponentUtils.getRenderer(facesContext,  component);
     boolean prepareRendersChildren = false;
     if (renderer != null) {
       renderer.prepareRender(facesContext, component);

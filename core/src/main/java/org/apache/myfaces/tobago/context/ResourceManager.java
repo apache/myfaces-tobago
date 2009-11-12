@@ -26,7 +26,7 @@ public interface ResourceManager {
 
   String getProperty(UIViewRoot viewRoot, String bundle, String propertyKey);
 
-  Renderer getRenderer(UIViewRoot viewRoot, String name);
+  Renderer getRenderer(UIViewRoot viewRoot, String rendererType);
 
   String[] getScripts(UIViewRoot viewRoot, String name);
 

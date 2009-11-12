@@ -40,7 +40,6 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.DateFormatUtils;
@@ -50,10 +49,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
-import static javax.faces.convert.DateTimeConverter.CONVERTER_ID;
 import java.io.IOException;
 import java.util.Map;
 import java.util.TimeZone;
+
+import static javax.faces.convert.DateTimeConverter.CONVERTER_ID;
 
 public class DatePickerRenderer extends LinkRenderer {
   private static final Log LOG = LogFactory.getLog(DatePickerRenderer.class);
@@ -186,13 +186,15 @@ public class DatePickerRenderer extends LinkRenderer {
 
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    // todo: use Measure instead of int
     component.getAttributes().put(
-        Attributes.LAYOUT_WIDTH, ThemeConfig.getValue(facesContext, component, "pickerWidth"));
+        Attributes.LAYOUT_WIDTH, 
+        ThemeConfig.getMeasure(facesContext, component.getRendererType(), "pickerWidth").getPixel());
     if (facesContext instanceof TobagoFacesContext) {
       UIPopup popup = (UIPopup) component.getFacets().get(Facets.PICKER_POPUP);
       if (popup != null) {
-        popup.setWidth(new PixelMeasure(ThemeConfig.getValue(facesContext, component, "CalendarPopupWidth")));
-        popup.setHeight(new PixelMeasure(ThemeConfig.getValue(facesContext, component, "CalendarPopupHeight")));
+        popup.setWidth(ThemeConfig.getMeasure(facesContext, component.getRendererType(), "CalendarPopupWidth"));
+        popup.setHeight(ThemeConfig.getMeasure(facesContext, component.getRendererType(), "CalendarPopupHeight"));
         ((TobagoFacesContext) facesContext).getPopups().add(popup);
       }
     }
@@ -262,7 +264,7 @@ public class DatePickerRenderer extends LinkRenderer {
     if (converterPattern != null && (converterPattern.indexOf('h') > -1 || converterPattern.indexOf('H') > -1)) {
       UITime time = (UITime) timePanel.findComponent("time");
       Measure popupHeight = popup.getHeight();
-      popupHeight.add(ThemeConfig.getMeasure(facesContext, time.getRendererType(), "preferredHeight"));
+      popupHeight = popupHeight.add(ThemeConfig.getMeasure(facesContext, time.getRendererType(), "preferredHeight"));
       popup.setHeight(popupHeight);
       DateTimeConverter dateTimeConverter
           = (DateTimeConverter) facesContext.getApplication().createConverter(CONVERTER_ID);

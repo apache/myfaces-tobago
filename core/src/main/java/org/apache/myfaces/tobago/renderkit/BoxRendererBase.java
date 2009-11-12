@@ -26,7 +26,7 @@ package org.apache.myfaces.tobago.renderkit;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public abstract class BoxRendererBase extends LayoutableRendererBase {
+public abstract class BoxRendererBase extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(BoxRendererBase.class);
 

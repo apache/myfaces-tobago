@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 
-public class WizardRenderer extends LayoutableRendererBase {
+public class WizardRenderer extends LayoutComponentRendererBase {
 
 }

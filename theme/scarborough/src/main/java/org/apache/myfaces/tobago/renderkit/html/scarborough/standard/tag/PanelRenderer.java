@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.config.TobagoConfig;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -43,7 +43,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public class PanelRenderer extends LayoutableRendererBase implements AjaxRenderer {
+public class PanelRenderer extends LayoutComponentRendererBase implements AjaxRenderer {
 
   private static final Log LOG = LogFactory.getLog(PanelRenderer.class);
 

@@ -24,11 +24,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 public abstract class AbstractLayoutableRendererBaseWrapper extends AbstractRendererBaseWrapper
-    implements LayoutableRenderer, LayoutComponentRenderer {
-
-  protected final LayoutableRenderer getLayoutableRenderer(FacesContext facesContext) {
-    return (LayoutableRenderer) getRenderer(facesContext);
-  }
+    implements LayoutComponentRenderer {
 
   public Measure getWidth(FacesContext facesContext, UIComponent component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getWidth(facesContext, component);

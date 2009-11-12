@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.component;
  */
 
 /**
- * @deprecated The Cell is deprecated since Tobago 1.1
+ * @deprecated The Cell is deprecated since Tobago 1.5.0
  */
 @Deprecated
 public abstract class AbstractUICell extends AbstractUIPanel {

@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.model.CalendarModel;
 import org.apache.myfaces.tobago.model.DateModel;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -47,7 +47,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class CalendarRenderer extends LayoutableRendererBase {
+public class CalendarRenderer extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(CalendarRenderer.class);
 

@@ -17,14 +17,10 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UIGridLayout;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -34,7 +30,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class GridLayoutRenderer extends DefaultLayoutRenderer {
+public class GridLayoutRenderer extends RendererBase {
 
   private static final Log LOG = LogFactory.getLog(GridLayoutRenderer.class);
 

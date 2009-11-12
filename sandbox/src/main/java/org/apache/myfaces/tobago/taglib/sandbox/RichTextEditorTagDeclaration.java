@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasValue;*/
  */
 // TODO: switched off @Tag(name="richTextEditor")
 public interface RichTextEditorTagDeclaration {
-//extends TextInputTagDeclaration,
+//extends InputTagDeclaration,
     /*HasIdBindingAndRendered, HasValue, HasLabelAndAccessKey {
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean")

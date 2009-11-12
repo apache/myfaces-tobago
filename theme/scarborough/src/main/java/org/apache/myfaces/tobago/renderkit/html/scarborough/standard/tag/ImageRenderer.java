@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIImage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -41,7 +41,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Locale;
 
-public class ImageRenderer extends LayoutableRendererBase {
+public class ImageRenderer extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(ImageRenderer.class);
 

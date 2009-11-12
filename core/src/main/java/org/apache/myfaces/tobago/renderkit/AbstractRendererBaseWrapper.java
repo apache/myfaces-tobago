@@ -58,10 +58,6 @@ public abstract class AbstractRendererBaseWrapper extends RendererBase {
     getRenderer(facesContext).decode(facesContext, component);
   }
 
-  public final String getRendererName(String rendererType) {
-    return getRenderer(FacesContext.getCurrentInstance()).getRendererName(rendererType);
-  }
-
   @Deprecated
   public final int getConfiguredValue(FacesContext facesContext, UIComponent component, String key) {
     return ThemeConfig.getValue(facesContext, component, key);
@@ -106,12 +102,12 @@ public abstract class AbstractRendererBaseWrapper extends RendererBase {
 
   protected final RendererBase getRenderer(FacesContext facesContext) {
     RendererBase renderer = (RendererBase) ResourceManagerFactory.
-        getResourceManager(facesContext).getRenderer(facesContext.getViewRoot(), getRendererName());
+        getResourceManager(facesContext).getRenderer(facesContext.getViewRoot(), getRendererType());
     if (renderer == null) {
-      LOG.error("No Render found for "+ getRendererName() + " xxx " + this.getClass().getName());
+      LOG.error("No Render found for "+ getRendererType() + " xxx " + this.getClass().getName());
     }
     return renderer;
   }
 
-  protected abstract String getRendererName();
+  protected abstract String getRendererType();
 }

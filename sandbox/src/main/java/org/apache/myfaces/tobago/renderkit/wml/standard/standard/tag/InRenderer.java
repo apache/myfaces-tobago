@@ -17,16 +17,11 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * : $
- */
-
 import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -37,7 +32,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class InRenderer extends LayoutableRendererBase {
+public class InRenderer extends LayoutComponentRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {

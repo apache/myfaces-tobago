@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIObject;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -31,7 +31,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class ObjectRenderer extends LayoutableRendererBase {
+public class ObjectRenderer extends LayoutComponentRendererBase {
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     UIObject object = (UIObject) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);

@@ -33,8 +33,6 @@ import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIPanelBase;
 import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.component.UITabGroup;
-import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_CLIENT;
-import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_TAB;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.config.TobagoConfig;
@@ -45,7 +43,7 @@ import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Overflow;
 import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -68,7 +66,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRenderer {
+import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_CLIENT;
+import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_TAB;
+
+public class TabGroupRenderer extends LayoutComponentRendererBase implements AjaxRenderer {
 
   private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
 
@@ -136,11 +137,11 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     int virtualTab = 0;
     Measure currentWidth = PixelMeasure.ZERO;
 
-    Measure navigationBarWidth = ThemeConfig.getMeasure(facesContext, tabGroup, "navigationBarWidth");
+    Measure navigationBarWidth = ThemeConfig.getMeasure(facesContext, tabGroup.getRendererType(), "navigationBarWidth");
     for (UIComponent tab : (List<UIComponent>) tabGroup.getChildren()) {
       if (tab instanceof UIPanelBase) {
         if (tab.isRendered()) {
-          currentWidth.add(tabList.getWidthList().get(virtualTab));
+          currentWidth = currentWidth.add(tabList.getWidthList().get(virtualTab));
           if (SWITCH_TYPE_CLIENT.equals(switchType) || virtualTab == activeIndex) {
             if (virtualTab != activeIndex) {
               tabGroup.setDisplay(Display.NONE);
@@ -179,10 +180,10 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     }
   }
 
-  private Integer getCurrentWidth(TabList tabs, int tabIndex) {
-    int currentWidth = 0;
+  private Measure getCurrentWidth(TabList tabs, int tabIndex) {
+    Measure currentWidth = PixelMeasure.ZERO;
     for (int i = 0; i <= tabIndex; i++) {
-      currentWidth += tabs.getWidthList().get(i);
+      currentWidth = currentWidth.add(tabs.getWidthList().get(i));
     }
     return currentWidth;
   }
@@ -190,7 +191,9 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
   private TabList getTabList(FacesContext facesContext, UITabGroup component) {
     TabList tabs = new TabList();
     int index = 0;
-    int tabLabelExtraWidth = ThemeConfig.getValue(facesContext, component, "tabLabelExtraWidth");
+    // todo: use Measure instead of int
+    int tabLabelExtraWidth 
+        = ThemeConfig.getMeasure(facesContext, component.getRendererType(), "tabLabelExtraWidth").getPixel();
 
     boolean first = true;
     for (UIComponent child : (List<UIComponent>) component.getChildren()) {
@@ -200,10 +203,10 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
           LabelWithAccessKey label = new LabelWithAccessKey(tab);
           if (label.getText() != null) {
             tabs.getWidthList().add(RenderUtil.calculateStringWidth2(facesContext, component, label.getText())
-                + tabLabelExtraWidth);
+                .add(tabLabelExtraWidth));
           } else {
             tabs.getWidthList().add(RenderUtil.calculateStringWidth2(facesContext,
-                component, Integer.toString(index + 1)) + tabLabelExtraWidth);
+                component, Integer.toString(index + 1)).add(tabLabelExtraWidth));
           }
           if (first) {
             tabs.firstIndex = index;
@@ -211,7 +214,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
           }
           tabs.lastIndex = index;
         } else {
-          tabs.getWidthList().add(0);
+          tabs.getWidthList().add(PixelMeasure.ZERO);
         }
         index++;
       }
@@ -273,7 +276,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
 
     writer.startElement(HtmlConstants.TD, tabGroup);
     Measure width = tabGroup.getWidth();
-    Measure headerHeight = ThemeConfig.getMeasure(facesContext, tabGroup, "headerHeight");
+    Measure headerHeight = ThemeConfig.getMeasure(facesContext, tabGroup.getRendererType(), "headerHeight");
     Style header = new Style();
     header.setPosition(Position.RELATIVE);
     header.setWidth(width);
@@ -302,9 +305,9 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     writer.writeStyleAttribute(header);
 
     writer.startElement(HtmlConstants.COLGROUP, tabGroup);
-    for (Integer colWidth : tabList.getWidthList()) {
+    for (Measure colWidth : tabList.getWidthList()) {
       writer.startElement(HtmlConstants.COL, tabGroup);
-      writer.writeAttribute(HtmlAttributes.WIDTH, colWidth);
+      writer.writeAttribute(HtmlAttributes.WIDTH, colWidth.toString(), false);
       writer.endElement(HtmlConstants.COL);
     }
     writer.endElement(HtmlConstants.COLGROUP);
@@ -392,7 +395,7 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
           innerClass.addMarkupClass(tab, "tab", "outer");
           writer.startElement(HtmlConstants.TD, tab);
           Style labelStyle = new Style();
-          labelStyle.setWidth(new PixelMeasure(tabList.getWidthList().get(index)));
+          labelStyle.setWidth(tabList.getWidthList().get(index));
 
           writer.writeStyleAttribute(labelStyle);
           writer.writeIdAttribute(tab.getClientId(facesContext));
@@ -537,15 +540,15 @@ public class TabGroupRenderer extends LayoutableRendererBase implements AjaxRend
     renderTabGroupView(context, HtmlRendererUtils.getTobagoResponseWriter(context),
         (UITabGroup) component, index, SWITCH_TYPE_RELOAD_TAB,
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"),
-        ThemeConfig.getMeasure(context, component, "navigationBarWidth"), currentWidth, tabList);
+        ThemeConfig.getMeasure(context, component.getRendererType(), "navigationBarWidth"), currentWidth, tabList);
   }
 
   private static class TabList {
-    private List<Integer> widthList = new ArrayList<Integer>();
+    private List<Measure> widthList = new ArrayList<Measure>();
     private int firstIndex;
     private int lastIndex;
 
-    public List<Integer> getWidthList() {
+    public List<Measure> getWidthList() {
       return widthList;
     }
 

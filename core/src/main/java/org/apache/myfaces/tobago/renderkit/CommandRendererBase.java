@@ -26,7 +26,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-public abstract class CommandRendererBase extends LayoutableRendererBase {
+public abstract class CommandRendererBase extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(CommandRendererBase.class);
 

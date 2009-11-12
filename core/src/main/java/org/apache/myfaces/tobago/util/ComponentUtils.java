@@ -36,8 +36,6 @@ import org.apache.myfaces.tobago.component.UIInputBase;
 import org.apache.myfaces.tobago.context.TransientStateHolder;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.event.PopupActionListener;
-import org.apache.myfaces.tobago.renderkit.LayoutRenderer;
-import org.apache.myfaces.tobago.renderkit.LayoutableRenderer;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 
@@ -438,12 +436,13 @@ public class ComponentUtils {
   }
 
   // TODO This should not be neseccary, but UIComponentBase.getRenderer() is protected
-  public static LayoutableRenderer getRenderer(FacesContext facesContext, UIComponent component) {
+/*
+  public static LayoutComponentRendererBase getRenderer(FacesContext facesContext, UIComponent component) {
     return getRenderer(facesContext, component.getFamily(), component.getRendererType());
 
   }
 
-  public static LayoutRenderer getLayoutRenderer(FacesContext facesContext, String family, String rendererType) {
+  public static LayoutComponentRendererBase getRenderer(FacesContext facesContext, String family, String rendererType) {
     if (rendererType == null) {
       return null;
     }
@@ -462,43 +461,17 @@ public class ComponentUtils {
         return null;
       }
     }
-    if (renderer instanceof LayoutRenderer) {
-      return (LayoutRenderer) renderer;
+    if (renderer instanceof LayoutComponentRendererBase) {
+      return (LayoutComponentRendererBase) renderer;
     }
     return null;
   }
-
-
-  public static LayoutableRenderer getRenderer(FacesContext facesContext, String family, String rendererType) {
-    if (rendererType == null) {
-      return null;
-    }
-
-    Map requestMap = facesContext.getExternalContext().getRequestMap();
-    StringBuilder key = new StringBuilder(RENDER_KEY_PREFIX);
-    key.append(rendererType);
-    RendererBase renderer = (RendererBase) requestMap.get(key.toString());
-
-    if (renderer == null) {
-      Renderer myRenderer = getRendererInternal(facesContext, family, rendererType);
-      if (myRenderer instanceof RendererBase) {
-        requestMap.put(key.toString(), myRenderer);
-        renderer = (RendererBase) myRenderer;
-      } else {
-        return null;
-      }
-    }
-    if (renderer instanceof LayoutableRenderer) {
-      return (LayoutableRenderer) renderer;
-    }
-    return null;
+*/
+  public static RendererBase getRenderer(FacesContext facesContext, UIComponent component) {
+    return getRenderer(facesContext, component.getFamily(), component.getRendererType());
   }
 
-  public static RendererBase getRendererBase(FacesContext facesContext, UIComponent component) {
-    return getRendererBase(facesContext, component.getFamily(), component.getRendererType());
-  }
-
-   public static RendererBase getRendererBase(FacesContext facesContext, String family, String rendererType) {
+  public static RendererBase getRenderer(FacesContext facesContext, String family, String rendererType) {
     if (rendererType == null) {
       return null;
     }

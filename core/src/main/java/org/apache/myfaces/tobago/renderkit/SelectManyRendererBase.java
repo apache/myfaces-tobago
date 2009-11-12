@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SelectManyRendererBase extends LayoutableRendererBase {
+public class SelectManyRendererBase extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(SelectManyRendererBase.class);
 

@@ -17,13 +17,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 
 /*
  * Date: Jul 22, 2007
  * Time: 9:32:22 PM
  */
-public class ColumnRenderer extends LayoutableRendererBase {
+public class ColumnRenderer extends LayoutComponentRendererBase {
   public boolean getRendersChildren() {
     return true;
   }

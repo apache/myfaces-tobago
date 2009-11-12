@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
@@ -34,7 +33,7 @@ import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
@@ -55,7 +54,9 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class ToolBarRendererBase extends LayoutableRendererBase {
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+
+public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(ToolBarRendererBase.class);
 

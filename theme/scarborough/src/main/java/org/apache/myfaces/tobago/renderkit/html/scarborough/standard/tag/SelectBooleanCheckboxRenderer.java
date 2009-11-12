@@ -21,7 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -35,7 +35,7 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class SelectBooleanCheckboxRenderer extends LayoutableRendererBase {
+public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(SelectBooleanCheckboxRenderer.class);
 

@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 /**
- * @deprecated The Cell is deprecated since Tobago 1.1
+ * @deprecated The Cell is deprecated since Tobago 1.5.0
  */
 @Deprecated
 public class CellRenderer extends PanelRenderer {

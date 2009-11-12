@@ -17,20 +17,16 @@ package org.apache.myfaces.tobago.config;
  * limitations under the License.
  */
 
-import org.apache.commons.lang.ClassUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
-import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.Deprecation;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import java.util.Locale;
@@ -42,33 +38,22 @@ public class ThemeConfig {
 
   public static final String THEME_CONFIG_CACHE = "org.apache.myfaces.tobago.config.ThemeConfig.CACHE";
 
+  /**
+   * @deprecated since 1.5.0, please use ThemeConfig.getMeasure()
+   */
+  @Deprecated
   public static int getValue(FacesContext facesContext, UIComponent component, String name) {
-
-    try {
-      return getValue0(facesContext, component, name);
-    } catch (Exception e) {
-      LOG.error("Can't take '" + name + "' for " + component + " from configuration: " + e.getMessage(), e);
-    }
-    return 0;
+    Deprecation.LOG.warn("please use ThemeConfig.getMeasure()");
+    return getMeasure(facesContext, component.getRendererType(), name).getPixel();
   }
 
-  public static boolean hasValue(FacesContext facesContext, UIComponent component,
-      String name) {
-    try {
-      getValue0(facesContext, component, name);
-      return true;
-    } catch (NullPointerException e) {
-      return false;
-    }
-  }
-
-  public static Measure getMeasure(FacesContext facesContext, UIComponent component, String name) {
-    try {
-      return new PixelMeasure(getValue0(facesContext, component, name));
-    } catch (Exception e) {
-      // XXX: not a good style to use exception for this normal behaviour, use Integer als result type of getValue0()
-      return null;
-    }
+  /**
+   * @deprecated since 1.5.0, please use ThemeConfig.getMeasure()
+   */
+  @Deprecated
+  public static boolean hasValue(FacesContext facesContext, UIComponent component, String name) {
+    Deprecation.LOG.warn("please use ThemeConfig.getMeasure()");
+    return getMeasure(facesContext, component.getRendererType(), name) != null;
   }
 
   public static Measure getMeasure(FacesContext facesContext, String rendererType, String name) {
@@ -91,83 +76,6 @@ public class ThemeConfig {
     }
     return null;
   }
-
-  private static int getValue0(FacesContext facesContext, UIComponent component, String name) {
-    CacheKey key = new CacheKey(facesContext.getViewRoot(), component, name);
-    Map<CacheKey, Integer> cache
-        = (Map<CacheKey, Integer>) facesContext.getExternalContext().getApplicationMap().get(THEME_CONFIG_CACHE);
-
-    Integer value = cache.get(key);
-    if (value == null) {
-      value = createValue(facesContext, component, name);
-      cache.put(key, value);
-    }
-    if (value != null) {
-      return value;
-    } else {
-      // todo: remove condition, is only temporary to ignore wml errors.
-      if (!ClientProperties.getInstance(facesContext.getViewRoot()).getContentType().equals("wml")) {
-        throw new NullPointerException("No value configured");
-      }
-      // todo: remove, is only temporary to ignore wml errors.
-      return 0;
-    }
-  }
-
-  private static Integer createValue(FacesContext facesContext, UIComponent component, String name) {
-    String family;
-    String rendererType;
-    if (component != null) {
-      family = component.getFamily();
-      rendererType = component.getRendererType();
-    } else {
-      family = UIInput.COMPONENT_FAMILY;
-      rendererType = RendererTypes.IN;
-    }
-    Object renderer = ComponentUtils.getRenderer(facesContext, family, rendererType);
-
-    Class clazz = renderer.getClass();
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("search for '" + name + "' in '" + clazz.getName() + "'");
-    }
-    ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
-    UIViewRoot viewRoot = facesContext.getViewRoot();
-    while (clazz != null) {
-      String tag = getTagName(clazz);
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("try " + tag);
-      }
-
-      String property = resourceManager.getThemeProperty(viewRoot, "tobago-theme-config", tag + "." + name);
-
-      if (property != null && property.length() > 0) {
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("found " + property);
-        }
-        return new Integer(property);
-      }
-      clazz = clazz.getSuperclass();
-    }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("Theme property '" + name + "' not found for renderer: " + renderer.getClass()
-          + " with clientProperties='" + ClientProperties.getInstance(viewRoot).getId() + "'"
-          + " and locale='" + viewRoot.getLocale() + "'");
-    }
-    return null;
-  }
-
-  private static String getTagName(Class clazz) {
-    String className = ClassUtils.getShortClassName(clazz);
-    if (className.equals(ClassUtils.getShortClassName(RendererBase.class))) {
-      return "Tobago";
-    } else if (className.endsWith("Renderer")) {
-      return className.substring(0, className.lastIndexOf("Renderer"));
-    } else if (className.endsWith("RendererBase")) {
-      return className.substring(0, className.lastIndexOf("RendererBase")) + "Base";
-    }
-    return null;
-  }
-
 
   private static class CacheKey {
     private String clientProperties;
@@ -239,7 +147,7 @@ public class ThemeConfig {
       return "CacheKey(" + clientProperties
           + "," + locale
           + "," + rendererType
-          + "," + name +          ')';
+          + "," + name + ')';
     }
   }
 

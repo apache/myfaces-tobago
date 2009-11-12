@@ -22,9 +22,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 
-public class SelectItemsRenderer extends LayoutableRendererBase {
+public class SelectItemsRenderer extends LayoutComponentRendererBase {
 
 }
 

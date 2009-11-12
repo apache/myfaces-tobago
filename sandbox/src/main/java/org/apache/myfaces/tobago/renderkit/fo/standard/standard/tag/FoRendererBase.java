@@ -19,14 +19,14 @@ package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 
 /*
  * Created: Dec 3, 2004 12:07:38 AM
  * User: bommel
  * $Id:FoRendererBase.java 472227 2006-11-07 21:05:00 +0100 (Tue, 07 Nov 2006) bommel $
  */
-public class FoRendererBase extends LayoutableRendererBase {
+public class FoRendererBase extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(FoRendererBase.class);
 

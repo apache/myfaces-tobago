@@ -24,7 +24,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
@@ -39,7 +38,7 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
@@ -65,7 +64,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-public class MenuBarRenderer extends LayoutableRendererBase {
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+
+public class MenuBarRenderer extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(MenuBarRenderer.class);
 

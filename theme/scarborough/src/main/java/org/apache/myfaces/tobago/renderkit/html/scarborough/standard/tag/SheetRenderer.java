@@ -24,7 +24,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -34,7 +33,6 @@ import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIData;
-import static org.apache.myfaces.tobago.component.UIData.NONE;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIReload;
@@ -52,7 +50,7 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.model.SheetState;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -80,7 +78,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class SheetRenderer extends LayoutableRendererBase implements AjaxRenderer {
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import static org.apache.myfaces.tobago.component.UIData.NONE;
+
+public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRenderer {
 
   private static final Log LOG = LogFactory.getLog(SheetRenderer.class);
 
@@ -96,7 +97,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     super.prepareRender(facesContext, component);
     if (facesContext instanceof TobagoFacesContext) {
       ((TobagoFacesContext) facesContext).getScriptFiles().add(SCRIPTS[0]);
-    } 
+    }
   }
 
   public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
@@ -105,7 +106,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     UIData data = (UIData) uiComponent;
 
     Style style = new Style(facesContext, data);
-    
+
     ensureColumnWidthList(facesContext, data, style);
 
     final String sheetId = data.getClientId(facesContext);
@@ -135,7 +136,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
               dblClickAction = action;
             }
           }
-        } 
+        }
       } else if (child instanceof UIColumnSelector) {
         columnSelectorIndex = i;
       }
@@ -163,10 +164,10 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     final String[] cmds = {
         "new Tobago.Sheet(\"" + sheetId + "\", " + ajaxEnabled
             + ", \"" + checked + "\", \"" + unchecked + "\", \"" + data.getSelectable()
-            + "\", " + columnSelectorIndex + ", "+ frequency
-            + ",  " + (clickAction!=null? HtmlRendererUtils.getJavascriptString(clickAction.getId()):null)
+            + "\", " + columnSelectorIndex + ", " + frequency
+            + ",  " + (clickAction != null ? HtmlRendererUtils.getJavascriptString(clickAction.getId()) : null)
             + ",  " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, clickAction)
-            + ",  " + (dblClickAction!=null? HtmlRendererUtils.getJavascriptString(dblClickAction.getId()):null)
+            + ",  " + (dblClickAction != null ? HtmlRendererUtils.getJavascriptString(dblClickAction.getId()) : null)
             + ",  " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, dblClickAction)
             + ");"
     };
@@ -174,7 +175,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmds);
   }
 
-  private void renderSheet(FacesContext facesContext, UIData data, boolean hasClickAction, Style style) 
+  private void renderSheet(FacesContext facesContext, UIData data, boolean hasClickAction, Style style)
       throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
@@ -189,15 +190,15 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     //Style headerStyle = (Style) attributes.get(STYLE_HEADER);
 //    String sheetWidthString = LayoutUtils.getStyleAttributeValue(style,
 //        "width");
-    Integer sheetHeight;
+    Measure sheetHeight;
     if (style.getHeight() == null) {
       // FIXME: nullpointer if height not defined
       LOG.error("no height in parent container, setting to 100");
-      sheetHeight = 100;
+      sheetHeight = new PixelMeasure(100);
     } else {
-      sheetHeight = style.getHeight().getPixel();
+      sheetHeight = style.getHeight();
     }
-    int footerHeight = (Integer) data.getAttributes().get(Attributes.FOOTER_HEIGHT);
+    Measure footerHeight = (Measure) data.getAttributes().get(Attributes.FOOTER_HEIGHT);
 
     String selectable = data.getSelectable();
 
@@ -249,7 +250,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       writer.writeStyleAttribute(new Style());
 
       int columnCount = 0;
-      final int sortMarkerWidth = getAscendingMarkerWidth(facesContext, data);
+      Measure sortMarkerWidth = getAscendingMarkerWidth(facesContext, data);
       String imageAscending = contextPath + resourceManager.getImage(viewRoot, "image/ascending.gif");
       String imageDescending = contextPath + resourceManager.getImage(viewRoot, "image/descending.gif");
       String img = resourceManager.getImage(viewRoot, "image/unsorted.gif", true);
@@ -282,8 +283,8 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     Style bodyStyle = new Style();
     bodyStyle.setPosition(Position.RELATIVE);
     bodyStyle.setWidth(data.getWidth());
-    bodyStyle.setHeight(new PixelMeasure(sheetHeight - footerHeight));
-    
+    bodyStyle.setHeight(sheetHeight.subtract(footerHeight));
+
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + "_data_div");
     writer.writeClassAttribute("tobago-sheet-body-div ");
@@ -302,7 +303,6 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       sheetBodyStyle.setWidth(space);
     }
     sheetBodyStyle.setHeight(null);
-
 
 
     writer.startElement(HtmlConstants.TABLE, null);
@@ -455,11 +455,11 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
         || isValidPagingValue(showPageRange)
         || isValidPagingValue(showDirectLinks)) {
       Style footerStyle = new Style(bodyStyle);
-      footerStyle.setHeight(new PixelMeasure(footerHeight));
-      footerStyle.setTop(new PixelMeasure(sheetHeight - footerHeight));
+      footerStyle.setHeight(footerHeight);
+      footerStyle.setTop(sheetHeight.subtract(footerHeight));
 
-        //  "height", MessageFormat.format("{0}px", footerHeight));
-        //  + " top: " + (sheetHeight - footerHeight) + "px;";
+      //  "height", MessageFormat.format("{0}px", footerHeight));
+      //  + " top: " + (sheetHeight - footerHeight) + "px;";
 
       writer.startElement(HtmlConstants.DIV, data);
       writer.writeClassAttribute("tobago-sheet-footer");
@@ -537,7 +537,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
         writer.endElement(HtmlConstants.SPAN);
         boolean atEnd = data.isAtEnd();
         link(facesContext, application, atEnd, PageAction.NEXT, data);
-        link(facesContext, application, atEnd||!data.hasRowCount(), PageAction.LAST, data);
+        link(facesContext, application, atEnd || !data.hasRowCount(), PageAction.LAST, data);
         writer.endElement(HtmlConstants.SPAN);
       }
 
@@ -546,7 +546,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
   }
 
   private String createSheetPagingInfo(UIData data,
-      FacesContext facesContext, String pagerCommandId, boolean row) {
+                                       FacesContext facesContext, String pagerCommandId, boolean row) {
     String sheetPagingInfo;
     if (data.getRowCount() > 0) {
       Locale locale = facesContext.getViewRoot().getLocale();
@@ -646,40 +646,37 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       int first = data.getFirst();
       int rows = Math.min(data.getRowCount(), first + data.getRows()) - first;
       LOG.error("20; // FIXME: make dynamic (was removed by changing the layouting");
-      int heightNeeded = 20 // FIXME: make dynamic (was removed by changing the layouting
-          + getFooterHeight(facesContext, data)
-          + (rows * (20 /* FIXME */ + getRowPadding(facesContext, data)));
-
-      return heightNeeded > style.getHeight().getPixel();
+      Measure heightNeeded = getFooterHeight(facesContext, data)
+              .add(getRowPadding(facesContext, data).add(20/*fixme*/).multiply(rows))
+              .add(20); // FIXME: make dynamic (was removed by changing the layouting
+      return heightNeeded.greaterThan(style.getHeight());
     } else {
       return false;
     }
   }
 
-  private int getRowPadding(FacesContext facesContext, UIComponent component) {
-    return ThemeConfig.getValue(facesContext, component, "rowPadding");
+  private Measure getRowPadding(FacesContext facesContext, UIComponent component) {
+    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), "rowPadding");
   }
 
   private Measure getScrollbarWidth(FacesContext facesContext, UIComponent component) {
-    // todo: get measure directly from theme config
-    return new PixelMeasure(ThemeConfig.getValue(facesContext, component, "scrollbarWidth"));
+    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), "scrollbarWidth");
   }
 
-  private void storeFooterHeight(FacesContext facesContext,
-      UIComponent component) {
-    component.getAttributes().put(Attributes.FOOTER_HEIGHT,
-        getFooterHeight(facesContext, component));
+  private void storeFooterHeight(FacesContext facesContext, UIComponent component) {
+    component.getAttributes().put(Attributes.FOOTER_HEIGHT, getFooterHeight(facesContext, component));
   }
 
-  private int getFooterHeight(FacesContext facesContext, UIComponent component) {
-    int footerHeight;
+  private Measure getFooterHeight(FacesContext facesContext, UIComponent component) {
+    // todo: use Measure instead of int
+    Measure footerHeight;
     if (isValidPagingAttribute((UIData) component, Attributes.SHOW_ROW_RANGE)
         || isValidPagingAttribute((UIData) component, Attributes.SHOW_PAGE_RANGE)
         || isValidPagingAttribute((UIData) component, Attributes.SHOW_DIRECT_LINKS)) {
       footerHeight =
-          ThemeConfig.getValue(facesContext, component, "footerHeight");
+          ThemeConfig.getMeasure(facesContext, component.getRendererType(), "footerHeight");
     } else {
-      footerHeight = 0;
+      footerHeight = PixelMeasure.ZERO;
     }
     return footerHeight;
   }
@@ -706,9 +703,8 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
         || "right".equals(value);
   }
 
-  private int getAscendingMarkerWidth(FacesContext facesContext,
-      UIComponent component) {
-    return ThemeConfig.getValue(facesContext, component, "ascendingMarkerWidth");
+  private Measure getAscendingMarkerWidth(FacesContext facesContext, UIComponent component) {
+    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), "ascendingMarkerWidth");
   }
 
   public boolean getRendersChildren() {
@@ -728,9 +724,9 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
   }
 
   private void link(FacesContext facesContext, Application application,
-                           boolean disabled, PageAction command, UIData data)
+                    boolean disabled, PageAction command, UIData data)
       throws IOException {
-    UICommand link= createPagingCommand(application, command, disabled);
+    UICommand link = createPagingCommand(application, command, disabled);
 
     data.getFacets().put(command.getToken(), link);
 
@@ -758,9 +754,9 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
   }
 
   private void renderColumnHeader(FacesContext facesContext,
-      TobagoResponseWriter writer, UIData component,
-      int columnIndex, UIColumn column, String imageAscending, String imageDescending, String imageUnsorted,
-      String image1x1, int sortMarkerWidth) throws IOException {
+                                  TobagoResponseWriter writer, UIData component,
+                                  int columnIndex, UIColumn column, String imageAscending, String imageDescending, String imageUnsorted,
+                                  String image1x1, Measure sortMarkerWidth) throws IOException {
     String sheetId = component.getClientId(facesContext);
     Application application = facesContext.getApplication();
 
@@ -798,7 +794,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
       writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, false);
 
       if (org.apache.commons.lang.StringUtils.isNotEmpty(tip)) {
-        tip +=  " - ";
+        tip += " - ";
       }
       tip += ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "sheetTipSorting");
 
@@ -827,7 +823,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     //if (columnIndex == 0) {
     //  writer.writeClassAttribute("tobago-sheet-header"+ sorterClass + " tobago-sheet-header-first-column");
     //} else {
-      writer.writeClassAttribute("tobago-sheet-header" + sorterClass);
+    writer.writeClassAttribute("tobago-sheet-header" + sorterClass);
     //}
     if (align != null) {
       writer.writeStyleAttribute("text-align: " + align + ";");
@@ -879,7 +875,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
 
 
   protected void renderColumnSelectorHeader(FacesContext facesContext,
-      TobagoResponseWriter writer, UIData component, UIColumn column)
+                                            TobagoResponseWriter writer, UIData component, UIColumn column)
       throws IOException {
     UIPanel menu = (UIPanel) column.getFacet(Facets.MENUPOPUP);
     if (menu == null) {
@@ -926,7 +922,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
   }
 
   private UIMenuCommand createMenuItem(final Application application, String label,
-      String action) {
+                                       String action) {
     UIMenuCommand menuItem
         = (UIMenuCommand) application.createComponent(UIMenuCommand.COMPONENT_TYPE);
     menuItem.setRendererType(RendererTypes.MENU_COMMAND);
@@ -935,10 +931,9 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
     return menuItem;
   }
 
-  private void renderColumnHeaderLabel(FacesContext facesContext,
-                                       TobagoResponseWriter writer, UIColumn column,
-                                       int sortMarkerWidth, String align,
-                                       String image1x1) throws IOException {
+  private void renderColumnHeaderLabel(
+      FacesContext facesContext, TobagoResponseWriter writer, UIColumn column,
+      Measure sortMarkerWidth, String align, String image1x1) throws IOException {
     String label = (String) column.getAttributes().get(Attributes.LABEL);
     if (label != null) {
       writer.writeText(label, null);
@@ -946,7 +941,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
         writer.startElement(HtmlConstants.IMG, null);
         writer.writeAttribute(HtmlAttributes.SRC, image1x1, false);
         writer.writeAttribute(HtmlAttributes.ALT, "", false);
-        writer.writeAttribute(HtmlAttributes.WIDTH, sortMarkerWidth);
+        writer.writeAttribute(HtmlAttributes.WIDTH, sortMarkerWidth.toString(), false);
         writer.writeAttribute(HtmlAttributes.HEIGHT, 1);
         writer.endElement(HtmlConstants.IMG);
       }
@@ -1054,7 +1049,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
   }
 
   private UICommand createPagingCommand(Application application,
-                                               PageAction command, boolean disabled) {
+                                        PageAction command, boolean disabled) {
     UICommand link;
     link = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     link.setRendererType(RendererTypes.SHEET_PAGE_COMMAND);
@@ -1066,7 +1061,7 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
   }
 
   private void writeLinkElement(TobagoResponseWriter writer, String str, String skip,
-      String id, String hrefPostfix, boolean makeLink)
+                                String id, String hrefPostfix, boolean makeLink)
       throws IOException {
     String type = makeLink ? HtmlConstants.A : HtmlConstants.SPAN;
     writer.startElement(type, null);
@@ -1082,15 +1077,14 @@ public class SheetRenderer extends LayoutableRendererBase implements AjaxRendere
   }
 
   private Measure getContentBorder(FacesContext facesContext, UIData data) {
-    // todo: get measure directly from theme config
-    return new PixelMeasure(ThemeConfig.getValue(facesContext, data, "contentBorder"));
+    return ThemeConfig.getMeasure(facesContext, data.getRendererType(), "contentBorder");
   }
 
   public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
-    
-    UIData data = (UIData) component; 
+
+    UIData data = (UIData) component;
     Style style = new Style(facesContext, data);
-    
+
     AjaxUtils.checkParamValidity(facesContext, data, UIData.class);
     // TODO find a better way
     UICommand clickAction = null;

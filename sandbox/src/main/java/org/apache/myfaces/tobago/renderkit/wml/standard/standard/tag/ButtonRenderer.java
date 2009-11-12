@@ -29,7 +29,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -40,7 +40,7 @@ import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class ButtonRenderer extends LayoutableRendererBase {
+public class ButtonRenderer extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(ButtonRenderer.class);
 

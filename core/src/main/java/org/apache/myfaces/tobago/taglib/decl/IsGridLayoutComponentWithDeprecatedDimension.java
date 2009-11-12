@@ -161,7 +161,7 @@ public interface IsGridLayoutComponentWithDeprecatedDimension {
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
         defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
-          + "getFacesContext(), this, \"leftOffset\")")
+          + "getFacesContext(), getRendererType(), \"leftOffset\")")
   void setLeftOffset(String leftOffset);
 
   /**
@@ -172,7 +172,7 @@ public interface IsGridLayoutComponentWithDeprecatedDimension {
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
         defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
-          + "getFacesContext(), this, \"rightOffset\")")
+          + "getFacesContext(), getRendererType(), \"rightOffset\")")
   void setRightOffset(String rightOffset);
 
   /**
@@ -183,7 +183,7 @@ public interface IsGridLayoutComponentWithDeprecatedDimension {
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
         defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
-          + "getFacesContext(), this, \"topOffset\")")
+          + "getFacesContext(), getRendererType(), \"topOffset\")")
   void setTopOffset(String topOffset);
 
   /**
@@ -194,7 +194,7 @@ public interface IsGridLayoutComponentWithDeprecatedDimension {
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
         defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
-          + "getFacesContext(), this, \"bottomOffset\")")
+          + "getFacesContext(), getRendererType(), \"bottomOffset\")")
   void setBottomOffset(String bottomOffset);
 
 }

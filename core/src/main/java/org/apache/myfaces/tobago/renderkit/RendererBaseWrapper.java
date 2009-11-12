@@ -17,10 +17,10 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import javax.faces.render.Renderer;
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
+import javax.faces.render.Renderer;
 import java.io.IOException;
 
 /*
@@ -28,7 +28,7 @@ import java.io.IOException;
  * Date: Mar 9, 2007
  * Time: 7:39:10 PM
  */
-public class RendererBaseWrapper extends LayoutableRendererBase {
+public class RendererBaseWrapper extends LayoutComponentRendererBase {
   private Renderer renderer;
 
   public RendererBaseWrapper(Renderer renderer) {

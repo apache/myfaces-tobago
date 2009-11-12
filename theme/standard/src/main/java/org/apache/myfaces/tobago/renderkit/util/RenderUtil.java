@@ -22,6 +22,8 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.RangeParser;
@@ -108,7 +110,7 @@ public class RenderUtil {
     if (!component.isRendered()) {
       return;
     }
-    RendererBase renderer = ComponentUtils.getRendererBase(facesContext,  component);
+    RendererBase renderer = ComponentUtils.getRenderer(facesContext,  component);
     boolean prepareRendersChildren = false;
     if (renderer != null) {
       renderer.prepareRender(facesContext, component);
@@ -180,45 +182,28 @@ public class RenderUtil {
     }
   }
 
-  public static int calculateStringWidth2(FacesContext facesContext, UIComponent component, String text) {
-    int width = 0;
-    int defaultCharWidth = 0;
-    try {
-      defaultCharWidth = ThemeConfig.getValue(facesContext, component, "fontWidth");
-    } catch (NullPointerException e) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("no value for \"fontWidth\" found in theme-config");
-      }
-    }
-
-    String fontWidths = ResourceManagerUtil.getProperty(facesContext, "tobago", "tobago.font2.widths");
-
-    for (char c : text.toCharArray()) {
-      int charWidth;
-      if (c >= 32 && c < 128) {
-        int begin = (c - 32) * 2;
-        charWidth = Integer.parseInt(fontWidths.substring(begin, begin + 2), 16);
-      } else {
-        charWidth = defaultCharWidth;
-      }
-      width += charWidth;
-    }
-
-    return width;
+  public static Measure calculateStringWidth(FacesContext facesContext, UIComponent component, String text) {
+    return calculateStringWidth(facesContext, component, text, "tobago.font.widths");
   }
 
-  public static int calculateStringWidth(FacesContext facesContext, UIComponent component, String text) {
+  public static Measure calculateStringWidth2(FacesContext facesContext, UIComponent component, String text) {
+    return calculateStringWidth(facesContext, component, text, "tobago.font2.widths");
+  }
+
+  private static Measure calculateStringWidth(
+      FacesContext facesContext, UIComponent component, String text, String type) {
     int width = 0;
     int defaultCharWidth = 0;
     try {
-      defaultCharWidth = ThemeConfig.getValue(facesContext, component, "fontWidth");
+      // todo: use Measure instead of int
+      defaultCharWidth = ThemeConfig.getMeasure(facesContext, component.getRendererType(), "fontWidth").getPixel();
     } catch (NullPointerException e) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("no value for \"fontWidth\" found in theme-config");
       }
     }
 
-    String fontWidths = ResourceManagerUtil.getProperty(facesContext, "tobago", "tobago.font.widths");
+    String fontWidths = ResourceManagerUtil.getProperty(facesContext, "tobago", type);
 
     for (char c : text.toCharArray()) {
       int charWidth;
@@ -231,7 +216,7 @@ public class RenderUtil {
       width += charWidth;
     }
 
-    return width;
+    return new PixelMeasure(width);
   }
 
   public static List<SelectItem> getItemsToRender(javax.faces.component.UISelectOne component) {

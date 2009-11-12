@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
@@ -180,12 +180,12 @@ public class ComponentUtil {
     return ComponentUtils.isFacetOf(component, parent);
   }
 
-  public static LayoutableRendererBase getRenderer(FacesContext facesContext, UIComponent component) {
-    return (LayoutableRendererBase) ComponentUtils.getRenderer(facesContext, component);
+  public static LayoutComponentRendererBase getRenderer(FacesContext facesContext, UIComponent component) {
+    return (LayoutComponentRendererBase) ComponentUtils.getRenderer(facesContext, component);
   }
 
-  public static LayoutableRendererBase getRenderer(FacesContext facesContext, String family, String rendererType) {
-    return (LayoutableRendererBase) ComponentUtils.getRenderer(facesContext, family, rendererType);
+  public static LayoutComponentRendererBase getRenderer(FacesContext facesContext, String family, String rendererType) {
+    return (LayoutComponentRendererBase) ComponentUtils.getRenderer(facesContext, family, rendererType);
   }
 
   public static String currentValue(UIComponent component) {

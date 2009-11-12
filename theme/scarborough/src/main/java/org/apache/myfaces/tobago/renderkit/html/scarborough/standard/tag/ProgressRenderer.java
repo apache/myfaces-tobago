@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIProgress;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
@@ -41,7 +41,7 @@ import javax.swing.BoundedRangeModel;
 import javax.swing.DefaultBoundedRangeModel;
 import java.io.IOException;
 
-public class ProgressRenderer extends LayoutableRendererBase {
+public class ProgressRenderer extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(ProgressRenderer.class);
 

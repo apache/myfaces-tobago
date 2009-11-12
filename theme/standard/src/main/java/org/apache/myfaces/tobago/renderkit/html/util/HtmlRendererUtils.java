@@ -29,7 +29,6 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
-import org.apache.myfaces.tobago.renderkit.LayoutableRenderer;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
@@ -116,16 +115,8 @@ public final class HtmlRendererUtils {
   }
 
   public static String getRendererName(FacesContext facesContext, UIComponent component) {
-    final String rendererType = component.getRendererType();
-    //final String family = component.getFamily();
-    if (rendererType != null//&& !"facelets".equals(family)
-        ) {
-      LayoutableRenderer layoutableRendererBase = ComponentUtils.getRenderer(facesContext, component);
-      if (layoutableRendererBase != null) {
-        return layoutableRendererBase.getRendererName(rendererType);
-      }
-    }
-    return null;
+    String rendererType = component.getRendererType();
+    return rendererType.substring(0, 1).toLowerCase(Locale.ENGLISH) + rendererType.substring(1);
   }
 
   public static void writeLabelWithAccessKey(TobagoResponseWriter writer, LabelWithAccessKey label)

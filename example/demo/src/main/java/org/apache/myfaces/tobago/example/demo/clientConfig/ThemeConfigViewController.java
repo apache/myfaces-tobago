@@ -29,6 +29,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.config.ThemeConfig;
+import org.apache.myfaces.tobago.layout.Measure;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -171,8 +172,8 @@ public class ThemeConfigViewController {
     for (int i = 0; i < propertyNames.length; i++) {
       String propertyName = propertyNames[i];
       try {
-        int value = ThemeConfig.getValue(facesContext, component, propertyName);
-        found.add(new DefaultKeyValue(propertyName, Integer.toString(value)));
+        Measure measure = ThemeConfig.getMeasure(facesContext, component.getRendererType(), propertyName);
+        found.add(new DefaultKeyValue(propertyName, measure.toString()));
       } catch (Exception e) {
         if (LOG.isDebugEnabled()) {
           LOG.debug("No value found for \"" + propertyName

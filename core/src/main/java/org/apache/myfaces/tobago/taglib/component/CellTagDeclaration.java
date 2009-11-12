@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 /**
  * Renders a panel-like layout element with the ability to span over more than
  * one layout cell. A cell may only contain one child.
- * @deprecated The Cell is deprecated since Tobago 1.1
+ * @deprecated The Cell is deprecated since Tobago 1.5.0
  */
 @Deprecated
 @Tag(name = "cell")
