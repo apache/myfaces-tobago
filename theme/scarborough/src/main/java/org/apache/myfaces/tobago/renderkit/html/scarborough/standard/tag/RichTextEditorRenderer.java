@@ -57,6 +57,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
   public static final String CHANGE_BUTTON = "togleState";
 
+  @Override
   public void decode(FacesContext facesContext, UIComponent component) {
     if (ComponentUtils.isOutputOnly(component)) {
       return;
@@ -87,6 +88,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     return content;
   }
 
+  @Override
   public void encodeEnd(FacesContext facesContext,      UIComponent component) throws IOException {
 
     UIInput input = (UIInput) component;

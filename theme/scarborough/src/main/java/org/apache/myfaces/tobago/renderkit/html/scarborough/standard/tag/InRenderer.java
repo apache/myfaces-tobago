@@ -17,11 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
@@ -52,6 +47,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class InRenderer extends InputRendererBase implements AjaxRenderer {
+
   private static final Log LOG = LogFactory.getLog(InRenderer.class);
 
   private static final String[] SCRIPTS = new String[] {"script/inputSuggest.js"};
@@ -67,6 +63,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
       }
     }
   }
+  
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
     super.decode(facesContext, component);
