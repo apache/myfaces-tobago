@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:view
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:tomahawk="http://myfaces.apache.org/tomahawk">
+
+  <tc:page id="page">
+    <tc:gridLayoutConstraint width="600px" height="300px"/>
+    <f:facet name="layout">
+      <tc:gridLayout columns="*;*" rows="*;2*"/>
+    </f:facet>
+
+    <tc:mediator var="mediator">
+      <tomahawk:captcha captchaSessionKeyName="captcha"
+                        imageHeight="#{mediator.height}" imageWidth="#{mediator.width}"/>
+    </tc:mediator>
+    <tc:panel/>
+
+    <tc:mediator var="mediator">
+      <tc:gridLayoutConstraint columnSpan="2"/>
+      <tomahawk:captcha captchaSessionKeyName="captcha"
+                        imageHeight="#{mediator.height}" imageWidth="#{mediator.width}"/>
+    </tc:mediator>
+
+    <tx:in label="Last Value" value="#{sessionScope.captcha}">
+      <tc:gridLayoutConstraint columnSpan="2"/>
+    </tx:in>
+
+  </tc:page>
+</f:view>

@@ -40,7 +40,7 @@ public final class RendererTypes {
   public static final String IMAGE = "Image";
   public static final String LINK = "Link";
   public static final String LABEL = "Label";
-  public static final String MESSAGE = "Message";
+  public static final String MEDIATOR = "Mediator";
   public static final String MESSAGES = "Messages";
   public static final String MENU_BAR = "MenuBar";
   public static final String MENU_COMMAND = "MenuCommand";
