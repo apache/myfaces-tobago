@@ -40,6 +40,16 @@ component(componentInfo) ::= <<
 package <componentInfo.packageName>;
 
 <componentInfo.imports:import(); separator="\n">
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.myfaces.tobago.component.MethodBindingToMethodExpression;
+import org.apache.myfaces.tobago.component.MethodExpressionToMethodBinding;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
+import javax.el.ELException;
+import javax.faces.FacesException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.el.MethodExpression;
+import javax.el.ValueExpression;
 
 /** 
  * UIComponent class, generated from template {@code component1.2.stg} with class 
@@ -111,8 +121,8 @@ public <property.type> get<property.upperCamelCaseName>() {
       if (number != null) {
         return number.intValue();
       }
-    } catch (javax.el.ELException e) {
-		  throw new javax.faces.FacesException(e);
+    } catch (ELException e) {
+		  throw new FacesException(e);
 	  }
   }
   <if(property.defaultCode)>
@@ -137,8 +147,8 @@ public <property.type> get<property.upperCamelCaseName>() {
   if (ve != null) {
     try {
       return (<property.type>) <getValue(property)>
-    } catch (javax.el.ELException e) {
-		  throw new javax.faces.FacesException(e);
+    } catch (ELException e) {
+		  throw new FacesException(e);
 	  }
   }
   return null;
@@ -163,7 +173,7 @@ public String[] get<property.upperCamelCaseName>() {
         return (String[]) strArray;
       } else if (strArray instanceof String) {
         String[] strings = ((String) strArray).split("[, ]");
-        java.util.List\<String\> result = new java.util.ArrayList\<String\>(strings.length);
+        List\<String\> result = new ArrayList\<String\>(strings.length);
         for (String string : strings) {
           if (string.trim().length() != 0) {
             result.add(string.trim());
@@ -171,15 +181,15 @@ public String[] get<property.upperCamelCaseName>() {
         }
         return result.toArray(new String[result.size()]);
       } else if (strArray == null) {
-        return new String[0];
+        return ArrayUtils.EMPTY_STRING_ARRAY;
       } else {
         return new String[]{strArray.toString()};
       }
-    } catch (javax.el.ELException e) {
-		  throw new javax.faces.FacesException(e);
+    } catch (ELException e) {
+		  throw new FacesException(e);
 	  }
   }
-  return new String[0];
+  return ArrayUtils.EMPTY_STRING_ARRAY;
 }
 
 public void set<property.upperCamelCaseName>(String[] <property.propertyName>) {
@@ -200,8 +210,8 @@ public boolean is<property.upperCamelCaseName>() {
       if (bool != null) {
         return bool;
       }
-    } catch (javax.el.ELException e) {
-		  throw new javax.faces.FacesException(e);
+    } catch (ELException e) {
+		  throw new FacesException(e);
 	  }
   }
   <if(property.defaultCode)>
@@ -218,7 +228,7 @@ public void set<property.upperCamelCaseName>(boolean <property.propertyName>) {
 
 BooleanProperty(property) ::= <<
 
-public java.lang.Boolean get<property.upperCamelCaseName>() {
+public Boolean get<property.upperCamelCaseName>() {
   if (<property.propertyName> != null) {
     return <property.propertyName>;
   }
@@ -229,8 +239,8 @@ public java.lang.Boolean get<property.upperCamelCaseName>() {
       if (bool != null) {
         return bool;
       }
-    } catch (javax.el.ELException e) {
-		  throw new javax.faces.FacesException(e);
+    } catch (ELException e) {
+		  throw new FacesException(e);
 	  }
   }
   <if(property.defaultCode)>
@@ -240,7 +250,7 @@ public java.lang.Boolean get<property.upperCamelCaseName>() {
   <endif>
 }
 
-public void set<property.upperCamelCaseName>(java.lang.Boolean <property.propertyName>) {
+public void set<property.upperCamelCaseName>(Boolean <property.propertyName>) {
   this.<property.propertyName> = <property.propertyName>;
 }
 >>
@@ -273,12 +283,12 @@ MethodBindingProperty(property) ::= <<
 
 public <property.type> get<property.upperCamelCaseName>() {
 <if(property.elAlternativeAvailable)>
-  javax.el.MethodExpression expression = get<property.upperCamelCaseName>Expression();
-  if (expression instanceof org.apache.myfaces.tobago.component.MethodBindingToMethodExpression) {
-    return ((org.apache.myfaces.tobago.component.MethodBindingToMethodExpression)expression).getMethodBinding();
+  MethodExpression expression = get<property.upperCamelCaseName>Expression();
+  if (expression instanceof MethodBindingToMethodExpression) {
+    return ((MethodBindingToMethodExpression)expression).getMethodBinding();
   }
   if (expression != null) {
-     return new org.apache.myfaces.tobago.component.MethodExpressionToMethodBinding(expression);
+     return new MethodExpressionToMethodBinding(expression);
   }
   return null;
 <else>
@@ -290,7 +300,7 @@ public <property.type> get<property.upperCamelCaseName>() {
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
 <if(property.elAlternativeAvailable)>
   if (<property.propertyName> != null) {
-    set<property.upperCamelCaseName>Expression(new org.apache.myfaces.tobago.component.MethodBindingToMethodExpression(<property.propertyName>));
+    set<property.upperCamelCaseName>Expression(new MethodBindingToMethodExpression(<property.propertyName>));
   } else {
     set<property.upperCamelCaseName>Expression(null);
   }
@@ -329,8 +339,8 @@ public <property.type> get<property.upperCamelCaseName>() {
       <else>
       return (<property.type>) <getValue(property)>
       <endif>
-    } catch (javax.el.ELException e) {
-		  throw new javax.faces.FacesException(e);
+    } catch (ELException e) {
+		  throw new FacesException(e);
 	  }
   }
   <if(property.defaultCode)>
@@ -359,14 +369,14 @@ public <property.type> get<property.upperCamelCaseName>() {
         Measure <property.propertyName> = (Measure) object;
         return <property.propertyName>;
       } else if (object instanceof Number) {
-        return new org.apache.myfaces.tobago.layout.PixelMeasure(((Number)object).intValue());
+        return new PixelMeasure(((Number)object).intValue());
       } else if (object instanceof String) {
         return Measure.parse((String)object);
       } else if (object != null) {
         return Measure.parse(object.toString());
       }
-    } catch (javax.el.ELException e) {
-		  throw new javax.faces.FacesException(e);
+    } catch (ELException e) {
+		  throw new FacesException(e);
 	  }
   }
   <if(property.defaultCode)>
@@ -517,7 +527,7 @@ MethodExpressionRestoreStateProperty() ::= <<
 >>
 
 getValueExpression(property) ::= <<
-javax.el.ValueExpression ve = getValueExpression("<property.name>");
+ValueExpression ve = getValueExpression("<property.name>");
 >>
 
 getValue(property) ::= <<

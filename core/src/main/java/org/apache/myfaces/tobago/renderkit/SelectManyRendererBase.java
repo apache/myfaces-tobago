@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -58,7 +59,7 @@ public class SelectManyRendererBase extends LayoutComponentRendererBase {
       }
 
       if (newValues == null) {
-        newValues = new String[0]; // because no selection will not submitted by browsers
+        newValues = ArrayUtils.EMPTY_STRING_ARRAY; // because no selection will not submitted by browsers
       }
       uiSelectMany.setSubmittedValue(newValues);
     }

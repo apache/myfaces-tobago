@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.util;
  * $Id$
  */
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -777,6 +778,7 @@ public class ComponentUtils {
   }
 
 
+  @Deprecated
   public static String[] getMarkupBinding(FacesContext facesContext, SupportsMarkup component) {
     ValueBinding vb = ((UIComponent) component).getValueBinding(Attributes.MARKUP);
     if (vb != null) {
@@ -793,13 +795,13 @@ public class ComponentUtils {
         }
         return result.toArray(new String[result.size()]);
       } else if (markups == null) {
-        return new String[0];
+        return ArrayUtils.EMPTY_STRING_ARRAY;
       } else {
         return new String[]{markups.toString()};
       }
     }
 
-    return new String[0];
+    return ArrayUtils.EMPTY_STRING_ARRAY;
   }
 
   /**

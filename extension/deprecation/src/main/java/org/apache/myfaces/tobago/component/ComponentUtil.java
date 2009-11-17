@@ -399,6 +399,7 @@ public class ComponentUtil {
     }
   }
 
+  @Deprecated
   public static String[] getMarkupBinding(FacesContext facesContext, SupportsMarkup component) {
     return ComponentUtils.getMarkupBinding(facesContext, component);
   }

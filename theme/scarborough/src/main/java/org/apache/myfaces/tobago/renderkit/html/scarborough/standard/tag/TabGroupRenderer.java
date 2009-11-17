@@ -22,6 +22,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
@@ -116,7 +117,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
     final String switchType = tabGroup.getSwitchType();
 
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
-      HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, new String[0]);
+      HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, ArrayUtils.EMPTY_STRING_ARRAY);
     }
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -171,7 +172,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
                   "    '" + activeIndex + "', ",
                   "    '" + tabGroup.getChildCount() + "');"
               };
-              HtmlRendererUtils.writeScriptLoader(facesContext, new String[0], cmds);
+              HtmlRendererUtils.writeScriptLoader(facesContext, ArrayUtils.EMPTY_STRING_ARRAY, cmds);
             }
           }
         }

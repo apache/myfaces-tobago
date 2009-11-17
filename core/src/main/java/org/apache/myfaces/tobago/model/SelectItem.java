@@ -17,18 +17,15 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 
-/*
- * Date: Apr 5, 2005
- * Time: 6:11:16 PM
- */
 public class SelectItem extends javax.faces.model.SelectItem implements SupportsMarkup {
 
   private static final long serialVersionUID = 2582455665060354639L;
 
   private String image;
-  private String[] markup = new String[0];
+  private String[] markup = ArrayUtils.EMPTY_STRING_ARRAY;
 
   public SelectItem() {
     super();
