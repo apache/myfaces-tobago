@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
 
 // XXX check if JSP will be supported for the wizard
 
@@ -38,7 +39,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
     uiComponent = "org.apache.myfaces.tobago.component.UIWizard",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIWizard",
     rendererType = RendererTypes.WIZARD)
-public interface WizardTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent {
+public interface WizardTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer {
 
   @TagAttribute(required = true)
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.Wizard",

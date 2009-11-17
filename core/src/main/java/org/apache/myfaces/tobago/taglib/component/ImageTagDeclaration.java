@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponentWithDeprecatedDimension;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
 
 /**
  * Renders a Image.
@@ -39,7 +40,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponentWithDeprecated
     rendererType = RendererTypes.IMAGE,
     allowedChildComponenents = "NONE")
 public interface ImageTagDeclaration
-    extends HasIdBindingAndRendered, HasBorder, HasTip, IsDisabled, IsGridLayoutComponentWithDeprecatedDimension {
+    extends HasIdBindingAndRendered, HasBorder, HasTip, IsDisabled, 
+    IsGridLayoutComponentWithDeprecatedDimension, IsGridLayoutContainer {
 
   /**
    * Absolute url to an image or image name to lookup in tobago resource path

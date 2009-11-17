@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
 
 /**
  * Intended for use in situations when only one UIComponent child can be
@@ -42,5 +43,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
             allowedChildComponenents = "org.apache.myfaces.tobago.Reload"),
     @Facet(name=Facets.LAYOUT, description = "Contains an instance of UILayout",
             allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
-public interface PanelTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent, HasMarkup {
+public interface PanelTagDeclaration 
+    extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup {
 }

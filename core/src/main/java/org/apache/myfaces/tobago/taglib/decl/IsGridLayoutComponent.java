@@ -141,49 +141,4 @@ public interface IsGridLayoutComponent {
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Display")
   void setDisplay(String display);
 
-  /**
-   * This attribute is for internal use only.
-   * TODO: this attribute es for containers only
-   *
-   * @param leftOffset The left offset which is needed by some containers (e. g. a box).
-   */
-  @UIComponentTagAttribute(
-      type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
-          + "getFacesContext(), getRendererType(), \"leftOffset\")")
-  void setLeftOffset(String leftOffset);
-
-  /**
-   * This attribute is for internal use only.
-   * TODO: this attribute es for containers only
-   *
-   * @param rightOffset The right offset which is needed by some containers (e. g. a box).
-   */
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
-          + "getFacesContext(), getRendererType(), \"rightOffset\")")
-  void setRightOffset(String rightOffset);
-
-  /**
-   * This attribute is for internal use only.
-   * TODO: this attribute es for containers only
-   *
-   * @param topOffset The top offset which is needed by some containers (e. g. a box).
-   */
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
-          + "getFacesContext(), getRendererType(), \"topOffset\")")
-  void setTopOffset(String topOffset);
-
-  /**
-   * This attribute is for internal use only.
-   * TODO: this attribute es for containers only
-   *
-   * @param bottomOffset The bottom offset which is needed by some containers (e. g. a box).
-   */
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "org.apache.myfaces.tobago.config.ThemeConfig.getMeasure("
-          + "getFacesContext(), getRendererType(), \"bottomOffset\")")
-  void setBottomOffset(String bottomOffset);
-
 }

@@ -19,13 +19,14 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
 
 /**
  * Renders a panel with border and title.
@@ -43,14 +44,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabel;
     @Facet(name=Facets.LAYOUT, description = "Contains an instance of UILayout",
             allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 
-
-public interface BoxTagDeclaration extends HasIdBindingAndRendered, HasLabel {
-
-  /**
-   * Indicate markup of this component.
-   * Possible value is 'none'. But this can be overridden in the theme.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
-  void setMarkup(String markup);
+public interface BoxTagDeclaration 
+    extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup, HasLabel {
 }

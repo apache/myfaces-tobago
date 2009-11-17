@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasState;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponentWithDeprecatedDimension;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
 
 /**
  * Renders a page element.
@@ -52,7 +53,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponentWithDeprecated
                 allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 
 public interface PageTagDeclaration
-    extends HasLabel, HasId, HasBinding, HasState, IsGridLayoutComponentWithDeprecatedDimension {
+    extends HasLabel, HasId, HasBinding, HasState, 
+    IsGridLayoutComponentWithDeprecatedDimension, IsGridLayoutContainer {
 
   /**
    * Contains the id of the component wich should have the focus after

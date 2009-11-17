@@ -57,4 +57,20 @@ public abstract class LayoutComponentRendererBase extends RendererBase implement
   public Measure getMaximumHeight(FacesContext facesContext, UIComponent component) {
     return ThemeConfig.getMeasure(facesContext, component.getRendererType(), Attributes.MAXIMUM_HEIGHT);
   }
+
+  public Measure getLeftOffset(FacesContext facesContext, UIComponent component) {
+    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), Attributes.LEFT_OFFSET);
+  }
+
+  public Measure getRightOffset(FacesContext facesContext, UIComponent component) {
+    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), Attributes.RIGHT_OFFSET);
+  }
+
+  public Measure getTopOffset(FacesContext facesContext, UIComponent component) {
+    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), Attributes.TOP_OFFSET);
+  }
+
+  public Measure getBottomOffset(FacesContext facesContext, UIComponent component) {
+    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), Attributes.BOTTOM_OFFSET);
+  }
 }

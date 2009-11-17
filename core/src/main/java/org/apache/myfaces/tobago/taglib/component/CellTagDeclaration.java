@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
 
 /**
  * Renders a panel-like layout element with the ability to span over more than
@@ -37,7 +38,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUICell",
     componentType = "org.apache.myfaces.tobago.Cell",
     rendererType = RendererTypes.CELL)
-public interface CellTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent {
+public interface CellTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer {
 
   @UIComponentTagAttribute(type = {"java.lang.Integer"},
       defaultValue = "1")

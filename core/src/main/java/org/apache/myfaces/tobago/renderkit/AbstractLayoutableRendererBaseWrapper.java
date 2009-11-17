@@ -57,4 +57,20 @@ public abstract class AbstractLayoutableRendererBaseWrapper extends AbstractRend
   public Measure getMaximumHeight(FacesContext facesContext, UIComponent component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getMaximumHeight(facesContext, component);
   }
+
+  public Measure getLeftOffset(FacesContext facesContext, UIComponent component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getLeftOffset(facesContext, component);    
+  }
+
+  public Measure getRightOffset(FacesContext facesContext, UIComponent component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getRightOffset(facesContext, component);
+  }
+
+  public Measure getTopOffset(FacesContext facesContext, UIComponent component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getTopOffset(facesContext, component);
+  }
+
+  public Measure getBottomOffset(FacesContext facesContext, UIComponent component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getBottomOffset(facesContext, component);
+  }
 }

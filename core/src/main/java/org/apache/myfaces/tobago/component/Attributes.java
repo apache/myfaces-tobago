@@ -30,6 +30,7 @@ public final class Attributes {
   public static final String AUTO_RELOAD = "autoReload";
   public static final String BODY_CONTENT = "bodyContent";
   public static final String BORDER = "border";
+  public static final String BOTTOM_OFFSET = "bottomOffset";
   public static final String CHARSET = "charset";
   @Deprecated
   public static final String CELLSPACING = "cellspacing";
@@ -68,7 +69,9 @@ public final class Attributes {
   public static final String IMMEDIATE = "immediate";
   public static final String IMAGE = "image";
   public static final String INLINE = "inline";
+  @Deprecated
   public static final String INNER_HEIGHT = "innerHeight";
+  @Deprecated
   public static final String INNER_WIDTH = "innerWidth";
   public static final String ITEM_DESCRIPTION = "itemDescription";
   public static final String ITEM_DISABLED = "itemDisabled";
@@ -82,6 +85,7 @@ public final class Attributes {
   public static final String LAYOUT_ORDER = "layoutOrder";
   public static final String LAYOUT_WIDTH = "layoutWidth";
   public static final String LEFT = "left";
+  public static final String LEFT_OFFSET = "leftOffset";
   public static final String LINK = "link";
   public static final String MARGIN = "margin";
   public static final String MARGIN_BOTTOM = "marginBottom";
@@ -132,6 +136,7 @@ public final class Attributes {
   public static final String RENDER_RANGE_EXTERN = "renderRangeExtern";
   public static final String REQUIRED = "required";
   public static final String RESOURCE = "resource";
+  public static final String RIGHT_OFFSET = "rightOffset";
   public static final String ROW_ID = "rowId";
   public static final String ROW_SPAN = "rowSpan";
   public static final String ROW_SPACING = "rowSpacing";
@@ -172,6 +177,7 @@ public final class Attributes {
   public static final String TITLE = "title";
   public static final String TIP = "tip";
   public static final String TOP = "top";
+  public static final String TOP_OFFSET = "topOffset";
   public static final String TRANSITION = "transition";
   public static final String TYPE = "type";
   public static final String VALUE = "value";
