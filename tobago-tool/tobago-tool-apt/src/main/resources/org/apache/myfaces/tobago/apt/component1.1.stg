@@ -41,7 +41,10 @@ package <componentInfo.packageName>;
 
 <componentInfo.imports:import(); separator="\n">
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
+import org.apache.myfaces.tobago.renderkit.SpacingValues;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.FacesMessage;

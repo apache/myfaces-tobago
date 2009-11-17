@@ -19,8 +19,12 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIGridLayout;
+import org.apache.myfaces.tobago.config.ThemeConfig;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
+import org.apache.myfaces.tobago.renderkit.SpacingValues;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -30,7 +34,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class GridLayoutRenderer extends RendererBase {
+public class GridLayoutRenderer extends RendererBase implements SpacingValues {
 
   private static final Log LOG = LogFactory.getLog(GridLayoutRenderer.class);
 
@@ -55,4 +59,12 @@ public class GridLayoutRenderer extends RendererBase {
     writer.endElement(HtmlConstants.DIV);
   }
 
+  public Measure getColumnSpacing(FacesContext facesContext, UIComponent component) {
+    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), Attributes.COLUMN_SPACING);
+  }
+  
+  public Measure getRowSpacing(FacesContext facesContext, UIComponent component) {
+    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), Attributes.ROW_SPACING);
+  }
+  
 }
