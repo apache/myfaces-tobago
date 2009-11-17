@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 
 /*
@@ -36,7 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIOut",
     rendererType = RendererTypes.OBJECT,
     allowedChildComponenents = "NONE")
-public interface ObjectTagDeclaration extends HasId, IsGridLayoutComponent {
+public interface ObjectTagDeclaration extends HasId, IsGridLayoutComponent, HasMarkup {
   /**
    * URI to object source
    */

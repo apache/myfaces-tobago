@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
 
@@ -46,7 +47,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
         "org.apache.myfaces.tobago.ColumnSelector"},
     facets = {@Facet(name = Facets.RELOAD, description = "Contains an instance of UIReload",
                      allowedChildComponenents = "org.apache.myfaces.tobago.Reload")})
-public interface SheetTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer {
+public interface SheetTagDeclaration 
+    extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup {
   /**
    * LayoutConstraints for column layout.
    * Semicolon separated list of layout tokens ('&lt;x>*', '&lt;x>px' or '&lt;x>%').

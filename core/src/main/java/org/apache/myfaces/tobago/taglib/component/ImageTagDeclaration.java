@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasBorder;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponentWithDeprecatedDimension;
@@ -40,7 +41,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
     rendererType = RendererTypes.IMAGE,
     allowedChildComponenents = "NONE")
 public interface ImageTagDeclaration
-    extends HasIdBindingAndRendered, HasBorder, HasTip, IsDisabled, 
+    extends HasIdBindingAndRendered, HasBorder, HasTip, IsDisabled, HasMarkup, 
     IsGridLayoutComponentWithDeprecatedDimension, IsGridLayoutContainer {
 
   /**

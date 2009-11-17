@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
 
@@ -39,7 +40,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
     uiComponent = "org.apache.myfaces.tobago.component.UIWizard",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIWizard",
     rendererType = RendererTypes.WIZARD)
-public interface WizardTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer {
+public interface WizardTagDeclaration 
+    extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup {
 
   @TagAttribute(required = true)
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.model.Wizard",

@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 
 /**
@@ -36,8 +37,10 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
     componentFamily = "org.apache.myfaces.tobago.Separator",
     componentType = "org.apache.myfaces.tobago.Separator",
     allowedChildComponenents = "NONE",
-    facets = { @Facet(name= Facets.LABEL, description = "This facet contains a UILabel",
-                      allowedChildComponenents = "org.apache.myfaces.tobago.Label") })
+    facets = {
+        @Facet(name = Facets.LABEL,
+            description = "This facet contains a UILabel",
+            allowedChildComponenents = "org.apache.myfaces.tobago.Label")})
 
-public interface SeparatorTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent, HasLabel {
+public interface SeparatorTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent, HasLabel, HasMarkup {
 }

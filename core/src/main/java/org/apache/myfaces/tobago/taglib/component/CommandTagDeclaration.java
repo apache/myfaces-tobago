@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
@@ -36,7 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
     rendererType = RendererTypes.COMMAND,
     allowedChildComponenents = "NONE")
 public interface CommandTagDeclaration
-    extends AbstractCommandTagDeclaration, HasId, HasValue, IsDisabled, IsGridLayoutComponent {
+    extends AbstractCommandTagDeclaration, HasId, HasValue, IsDisabled, IsGridLayoutComponent, HasMarkup {
 
 
 

@@ -17,10 +17,6 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-/*
- * Date: Sep 24, 2006
- * Time: 12:10:58 PM
- */
 public interface SupportsMarkup {
 
   String[] getMarkup();

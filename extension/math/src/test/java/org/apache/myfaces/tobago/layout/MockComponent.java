@@ -1,5 +1,7 @@
 package org.apache.myfaces.tobago.layout;
 
+import org.apache.commons.lang.ArrayUtils;
+
 import javax.faces.component.UIComponentBase;
 
 /*
@@ -44,6 +46,8 @@ public class MockComponent extends UIComponentBase implements LayoutComponent {
   private Integer verticalIndex;
 
   private Display display;
+  
+  private String[] markup = ArrayUtils.EMPTY_STRING_ARRAY;
 
   public String getFamily() {
     return null;
@@ -168,5 +172,13 @@ public class MockComponent extends UIComponentBase implements LayoutComponent {
 
   public void setDisplay(Display display) {
     this.display = display;
+  }
+
+  public String[] getMarkup() {
+    return markup;
+  }
+
+  public void setMarkup(String[] markup) {
+    this.markup = markup;
   }
 }

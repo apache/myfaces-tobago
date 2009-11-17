@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasCommandType;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasImage;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
@@ -39,6 +40,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
     rendererType = RendererTypes.BUTTON,
     allowedChildComponenents = "NONE")
 public interface ToolBarCommandTagDeclaration
-    extends AbstractCommandTagDeclaration, HasIdBindingAndRendered,
+    extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, HasMarkup,
     HasLabelAndAccessKey, HasImage, IsDisabled, HasCommandType, HasTip, IsGridLayoutComponent {
 }
