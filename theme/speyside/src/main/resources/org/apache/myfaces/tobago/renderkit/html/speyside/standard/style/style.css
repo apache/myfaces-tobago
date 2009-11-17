@@ -363,19 +363,13 @@ reason they are not defined as a:link
 
 .tobago-box-header {
   background: #E8E8E8 url(../image/box-header-bg.gif) repeat-x top;
-  height: 19px;
+  height: 16px;
   border-bottom: 1px dotted black;
   font: bold 12px arial, helvetica, sans-serif;
   color: #660000;
-  padding: 0px 0px 0px 5px;
+  padding: 3px 0 0 5px;
   overflow: hidden;
   position: relative;
-}
-
-.tobago-box-header-label {
-  padding-top: 3px;
-  padding-bottom: 2px;
-  float: left;
   white-space: nowrap;
 }
 

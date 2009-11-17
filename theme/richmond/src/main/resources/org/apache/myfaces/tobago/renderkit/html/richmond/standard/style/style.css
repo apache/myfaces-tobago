@@ -118,33 +118,20 @@ img.tobago-progress-color2 {
 
 .tobago-box-default {
   background: #E6E6E6;
-  border: 0px solid #FF9900;
+  border: 1px solid #FF9900;
 }
 
 .tobago-box-header {
   background: #FFCC66 none;
-  height: 20px;
-  border: 1px solid #FF9900;
-  border-bottom: 0px dotted #FF9900;
-  font: bold 12px arial, helvetica, sans-serif;
   color: #3366CC;
-  padding-left: 5px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 
 .tobago-box-content {
-  border: 1px solid #FF9900;
-  border-top: 0px solid #FF9900;
   background-color: #E6E6E6;
-  padding: 5px;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 
-/* tobago button ------------------------------------------------------------ */
+/* button ------------------------------------------------------------ */
+
 .tobago-button-default  {
   border: 1px #FF7D00 solid;
   background: #FFCC66;
@@ -180,7 +167,7 @@ img.tobago-progress-color2 {
 }
 
 
-/* tobago label ------------------------------------------------------------ */
+/* label ------------------------------------------------------------ */
 
 div.tobago-label-default  {
   background: #99ccff;
@@ -199,7 +186,7 @@ label.tobago-label-default {
   background: #e6e6e6;
 }
 
-/* Tab ---------------------------------------------------------------------- */
+/* tab ---------------------------------------------------------------------- */
 .tobago-tab-link {
   font: bold 12px Arial, Helvetica, sans-serif;
   color: #D6EBFF;
@@ -305,7 +292,7 @@ a:link.tab, a:visited.tab, a:active.tab {
   border: 1px solid #ff0000;
 }
 
-/* Time -------------------------------------------------------------------- */
+/* time -------------------------------------------------------------------- */
 
 .tobago-time-borderDiv {
   border-color: #3366CC;
@@ -319,7 +306,7 @@ a:link.tab, a:visited.tab, a:active.tab {
   background: #D6EBFF;
 }
 
-/* Toolbar ----------------------------------------------------------------- */
+/* toolbar ----------------------------------------------------------------- */
 .tobago-toolBar-default  {
   height: 20px;
   border: 1px solid #FF9900;
@@ -397,13 +384,13 @@ a:link.tab, a:visited.tab, a:active.tab {
   padding-left: 5px;
 }
 
-/* Validation ----------------------------------------------------------------- */
+/* validation ----------------------------------------------------------------- */
 .tobago-validation-message {
   color: #ff0000;
   font: 14px arial, helvetica, sans-serif;
 }
 
-/* MenuBar ----------------------------------------------------------------- */
+/* menuBar ----------------------------------------------------------------- */
 .tobago-menuBar-default {
   border: 1px solid #FF9900;
   background: #FFCC66;
@@ -440,7 +427,7 @@ a:link.tab, a:visited.tab, a:active.tab {
   color: #888888;
 }
 
-/* Sheet ----------------------------------------------------------------- */
+/* sheet ----------------------------------------------------------------- */
 .tobago-sheet-header-div {
   border-bottom: 1px solid #d6ebff;
 

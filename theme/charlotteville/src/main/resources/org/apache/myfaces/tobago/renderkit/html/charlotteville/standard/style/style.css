@@ -19,30 +19,16 @@
 
 .tobago-box-default {
   background: #785A1D;
-  border: 0px solid #FECB66;
+  border: 1px solid #FECB66;
 }
 
 .tobago-box-header {
   background: #FADC9F none;
-  height: 20px;
-  border: 1px solid #FECB66;
-  border-bottom: 0px dotted #FECB66;
-  font: bold 12px arial, helvetica, sans-serif;
   color: #660000;
-  padding-left: 5px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 
 .tobago-box-content {
-  border: 1px solid #FECB66;
-  border-top: 0px solid #FECB66;
   background-color: #FFEECF;
-  padding: 5px;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 
 /* button ------------------------------------------------------------------ */
