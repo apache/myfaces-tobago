@@ -124,6 +124,7 @@ img.tobago-progress-color2 {
 .tobago-box-header {
   background: #FFCC66 none;
   color: #3366CC;
+  border-bottom: 1px solid #FF9900;
 }
 
 .tobago-box-content {

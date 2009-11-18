@@ -18,13 +18,14 @@
 /* box ----------------------------------------------------------------- */
 
 .tobago-box-default {
-  background: #785A1D;
+  background: #FFEECF;
   border: 1px solid #FECB66;
 }
 
 .tobago-box-header {
   background: #FADC9F none;
   color: #660000;
+  border-bottom: 1px solid #FECB66;
 }
 
 .tobago-box-content {
