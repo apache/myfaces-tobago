@@ -26,6 +26,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIButton;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
@@ -127,20 +128,20 @@ public class ButtonRenderer extends CommandRendererBase {
   }
 
   @Override
-  public Measure getPreferredWidth(FacesContext facesContext, UIComponent component) {
+  public Measure getPreferredWidth(FacesContext facesContext, Configurable component) {
 
     UIButton button = (UIButton) component;
     Measure width = PixelMeasure.ZERO;
     boolean image = button.getImage() != null;
     if (image) {
-      width = ThemeConfig.getMeasure(facesContext, button.getRendererType(), "imageWidth");
+      width = ThemeConfig.getMeasure(facesContext, button, "imageWidth");
     }
     LabelWithAccessKey label = new LabelWithAccessKey(button);
 
     if (label.getText() != null) {
       width = width.add(RenderUtil.calculateStringWidth(facesContext, button, label.getText()));
     }
-    Measure padding = ThemeConfig.getMeasure(facesContext, button.getRendererType(), "paddingWidth");
+    Measure padding = ThemeConfig.getMeasure(facesContext, button, "paddingWidth");
     // left padding, right padding and when an image and an text then a middle padding.
     width = width.add(padding.multiply(image && label.getText() != null ? 3 : 2));
 

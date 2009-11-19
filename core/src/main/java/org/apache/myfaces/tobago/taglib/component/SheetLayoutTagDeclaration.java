@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 /**
  * Creates a SheetLayout, which is a internal layout manager of a sheet.
@@ -34,5 +35,5 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
     componentFamily = "org.apache.myfaces.tobago.SheetLayout",
     allowedChildComponenents = "NONE",
     isLayout = true)
-public interface SheetLayoutTagDeclaration extends HasId {
+public interface SheetLayoutTagDeclaration extends HasId, HasMarkup {
 }

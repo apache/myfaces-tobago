@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
@@ -123,7 +124,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
   }
 
   @Override
-  public Measure getHeight(FacesContext facesContext, UIComponent component) {
+  public Measure getHeight(FacesContext facesContext, Configurable component) {
     UISelectOneRadio select = (UISelectOneRadio) component;
     Measure heightOfOne = super.getHeight(facesContext, component);
     if (select.isInline()) {

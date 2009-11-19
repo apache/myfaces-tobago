@@ -21,11 +21,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.config.ThemeConfig;
-import org.apache.myfaces.tobago.layout.Display;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -34,7 +29,6 @@ import org.apache.myfaces.tobago.util.HtmlWriterUtils;
 import org.apache.myfaces.tobago.util.XmlUtils;
 
 import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -398,77 +392,6 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriter {
     if (clazz != null) {
       writeAttribute(HtmlAttributes.CLASS, clazz.toString(), false);
     }
-  }
-
-  @Deprecated
-  public void writeStyleAttribute() throws IOException {
-
-    Style styles = (Style) component.getAttributes().get(Attributes.STYLE);
-
-    styles = addLayout(styles);
-
-    if (styles != null) {
-      writeAttribute(HtmlAttributes.STYLE, styles.encode(), false);
-    }
-  }
-
-  @Deprecated
-  private Style addLayout(Style styles) {
-    if (component instanceof LayoutComponent) {
-      LayoutComponent layoutComponent = (LayoutComponent) component;
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-
-      Measure width = layoutComponent.getWidth();
-      if (width != null) {
-        // TODO: Make configurable: this is needed if the box-sizing is border-box, not content-box (see CSS3)
-        width = width.subtractNotNegative(
-            ThemeConfig.getMeasure(facesContext, component.getRendererType(), "css.border-left-width"));
-        width = width.subtractNotNegative(
-            ThemeConfig.getMeasure(facesContext, component.getRendererType(), "css.padding-left"));
-        width = width.subtractNotNegative(
-            ThemeConfig.getMeasure(facesContext, component.getRendererType(), "css.padding-right"));
-        width = width.subtractNotNegative(
-            ThemeConfig.getMeasure(facesContext, component.getRendererType(), "css.border-right-width"));
-        styles = ensureHtmlStyleMap(component, styles);
-        styles.setWidth(width);
-      }
-      Measure height = layoutComponent.getHeight();
-      if (height != null) {
-        // TODO: Make configurable: this is needed if the box-sizing is border-box, not content-box (see CSS3)
-        height = height.subtractNotNegative(
-            ThemeConfig.getMeasure(facesContext, component.getRendererType(), "css.border-top-width"));
-        height = height.subtractNotNegative(
-            ThemeConfig.getMeasure(facesContext, component.getRendererType(), "css.padding-top"));
-        height = height.subtractNotNegative(
-            ThemeConfig.getMeasure(facesContext, component.getRendererType(), "css.padding-bottom"));
-        height = height.subtractNotNegative(
-            ThemeConfig.getMeasure(facesContext, component.getRendererType(), "css.border-bottom-width"));
-        styles = ensureHtmlStyleMap(component, styles);
-        styles.setHeight(height);
-      }
-      Measure left = layoutComponent.getLeft();
-      if (left != null) {
-        styles = ensureHtmlStyleMap(component, styles);
-        styles.setLeft(left);
-      }
-      Measure top = layoutComponent.getTop();
-      if (top != null) {
-        styles = ensureHtmlStyleMap(component, styles);
-        styles.setTop(top);
-      }
-      // if there are a position coordinates, activate absolute positioning
-      // XXX String "Page" is not nice here
-      if ((left != null || top != null) && !component.getRendererType().contains("Page")) {
-        styles = ensureHtmlStyleMap(component, styles);
-        styles.setPosition(Position.ABSOLUTE);
-      }
-      Display display = layoutComponent.getDisplay();
-      if (display != null) {
-        styles = ensureHtmlStyleMap(component, styles);
-        styles.setDisplay(display);
-      }
-    }
-    return styles;
   }
 
   public static Style ensureHtmlStyleMap(UIComponent component, Style styles) {

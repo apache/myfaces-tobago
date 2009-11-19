@@ -186,19 +186,20 @@ public class DatePickerRenderer extends LinkRenderer {
 
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    UIDatePicker picker = (UIDatePicker) component;
     // todo: use Measure instead of int
-    component.getAttributes().put(
+    picker.getAttributes().put(
         Attributes.LAYOUT_WIDTH, 
-        ThemeConfig.getMeasure(facesContext, component.getRendererType(), "pickerWidth").getPixel());
+        ThemeConfig.getMeasure(facesContext, picker, "pickerWidth").getPixel());
     if (facesContext instanceof TobagoFacesContext) {
-      UIPopup popup = (UIPopup) component.getFacets().get(Facets.PICKER_POPUP);
+      UIPopup popup = (UIPopup) picker.getFacets().get(Facets.PICKER_POPUP);
       if (popup != null) {
-        popup.setWidth(ThemeConfig.getMeasure(facesContext, component.getRendererType(), "CalendarPopupWidth"));
-        popup.setHeight(ThemeConfig.getMeasure(facesContext, component.getRendererType(), "CalendarPopupHeight"));
+        popup.setWidth(ThemeConfig.getMeasure(facesContext, picker, "CalendarPopupWidth"));
+        popup.setHeight(ThemeConfig.getMeasure(facesContext, picker, "CalendarPopupHeight"));
         ((TobagoFacesContext) facesContext).getPopups().add(popup);
       }
     }
-    super.prepareRender(facesContext, component);
+    super.prepareRender(facesContext, picker);
   }
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
@@ -264,7 +265,7 @@ public class DatePickerRenderer extends LinkRenderer {
     if (converterPattern != null && (converterPattern.indexOf('h') > -1 || converterPattern.indexOf('H') > -1)) {
       UITime time = (UITime) timePanel.findComponent("time");
       Measure popupHeight = popup.getHeight();
-      popupHeight = popupHeight.add(ThemeConfig.getMeasure(facesContext, time.getRendererType(), "preferredHeight"));
+      popupHeight = popupHeight.add(ThemeConfig.getMeasure(facesContext, time, "preferredHeight"));
       popup.setHeight(popupHeight);
       DateTimeConverter dateTimeConverter
           = (DateTimeConverter) facesContext.getApplication().createConverter(CONVERTER_ID);

@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.layout;
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,23 +17,7 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-/**
- * A LayoutComponent is a piece which can be positioned in a LayoutContainer.
- */
-public interface LayoutComponent extends LayoutBase {
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 
-  Integer getColumnSpan();
-  void setColumnSpan(Integer columnSpan);
-
-  Integer getRowSpan();
-  void setRowSpan(Integer rowSpan);
-
-  Integer getHorizontalIndex();
-  void setHorizontalIndex(Integer horizontalIndex);
-
-  Integer getVerticalIndex();
-  void setVerticalIndex(Integer verticalIndex);
-
-  Display getDisplay();
-  void setDisplay(Display display);
+public class MenuRenderer extends LayoutComponentRendererBase {
 }

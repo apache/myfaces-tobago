@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.renderkit.util;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -183,20 +184,20 @@ public class RenderUtil {
   }
 
   public static Measure calculateStringWidth(FacesContext facesContext, UIComponent component, String text) {
-    return calculateStringWidth(facesContext, component, text, "tobago.font.widths");
+    return calculateStringWidth(facesContext, (Configurable) component, text, "tobago.font.widths");
   }
 
   public static Measure calculateStringWidth2(FacesContext facesContext, UIComponent component, String text) {
-    return calculateStringWidth(facesContext, component, text, "tobago.font2.widths");
+    return calculateStringWidth(facesContext, (Configurable) component, text, "tobago.font2.widths");
   }
 
   private static Measure calculateStringWidth(
-      FacesContext facesContext, UIComponent component, String text, String type) {
+      FacesContext facesContext, Configurable component, String text, String type) {
     int width = 0;
     int defaultCharWidth = 0;
     try {
       // todo: use Measure instead of int
-      defaultCharWidth = ThemeConfig.getMeasure(facesContext, component.getRendererType(), "fontWidth").getPixel();
+      defaultCharWidth = ThemeConfig.getMeasure(facesContext, component, "fontWidth").getPixel();
     } catch (NullPointerException e) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("no value for \"fontWidth\" found in theme-config");

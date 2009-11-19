@@ -42,7 +42,7 @@ import org.apache.myfaces.tobago.layout.grid.OriginCell;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractUIGridLayout extends UILayout implements LayoutManager {
+public abstract class AbstractUIGridLayout extends UILayout implements LayoutManager, SupportsMarkup {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIGridLayout.class);
 

@@ -102,7 +102,7 @@ without shadow
   private void encodeBox(FacesContext facesContext, TobagoResponseWriter writer, UIBox box) throws IOException {
 
     // todo: shadow = 0px means, that shadow is disabled, but it may be better, if we can set a boolean in the config.
-    Measure measure = ThemeConfig.getMeasure(facesContext, box.getRendererType(), "shadow");
+    Measure measure = ThemeConfig.getMeasure(facesContext, box, "shadow");
     boolean hasShadow = measure.greaterThan(PixelMeasure.ZERO);
 
     if (hasShadow) {

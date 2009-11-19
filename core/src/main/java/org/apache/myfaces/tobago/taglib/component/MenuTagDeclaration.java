@@ -20,9 +20,11 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasImage;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 
@@ -38,7 +40,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
         "org.apache.myfaces.tobago.internal.taglib.MenuSeparatorTag"})
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenu",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanelBase",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIMenu",
+    rendererType = RendererTypes.MENU,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.Menu",
         "org.apache.myfaces.tobago.MenuCommand",
@@ -46,5 +49,5 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
         "org.apache.myfaces.tobago.MenuSelectOne",
         "org.apache.myfaces.tobago.MenuSeparator"})
 public interface MenuTagDeclaration extends HasIdBindingAndRendered, HasLabelAndAccessKey,
-    IsDisabled, HasImage, IsGridLayoutComponent {
+    IsDisabled, HasImage, IsGridLayoutComponent, HasMarkup {
 }

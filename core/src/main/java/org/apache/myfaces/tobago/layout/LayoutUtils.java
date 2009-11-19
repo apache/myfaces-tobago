@@ -131,7 +131,7 @@ public final class LayoutUtils {
     return orientation == Orientation.HORIZONTAL ? container.getWidth() : container.getHeight();
   }
 
-  public static void setSize(Orientation orientation, LayoutObject component, Measure size) {
+  public static void setSize(Orientation orientation, LayoutBase component, Measure size) {
     if (orientation == Orientation.HORIZONTAL) {
       if (component.getWidth() != null) { // to not override set sizes
         return;

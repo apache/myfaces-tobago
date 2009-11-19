@@ -23,6 +23,8 @@ import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.config.TobagoConfigParser;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.context.ResourceManagerImpl;
+import org.apache.myfaces.tobago.layout.Measure;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -62,7 +64,7 @@ public class TobagoServletContextListener implements ServletContextListener {
       tobagoConfig.resolveThemes();
 
       // theme config cache
-      servletContext.setAttribute(ThemeConfig.THEME_CONFIG_CACHE, new HashMap());
+      servletContext.setAttribute(ThemeConfig.THEME_CONFIG_CACHE, new HashMap<ResourceManagerImpl.CacheKey, Measure>());
 
     } catch (Throwable e) {
       if (LOG.isFatalEnabled()) {

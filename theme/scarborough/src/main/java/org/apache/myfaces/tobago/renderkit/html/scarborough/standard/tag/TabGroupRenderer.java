@@ -138,7 +138,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
     int virtualTab = 0;
     Measure currentWidth = PixelMeasure.ZERO;
 
-    Measure navigationBarWidth = ThemeConfig.getMeasure(facesContext, tabGroup.getRendererType(), "navigationBarWidth");
+    Measure navigationBarWidth = ThemeConfig.getMeasure(facesContext, tabGroup, "navigationBarWidth");
     for (UIComponent tab : (List<UIComponent>) tabGroup.getChildren()) {
       if (tab instanceof UIPanelBase) {
         if (tab.isRendered()) {
@@ -194,7 +194,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
     int index = 0;
     // todo: use Measure instead of int
     int tabLabelExtraWidth 
-        = ThemeConfig.getMeasure(facesContext, component.getRendererType(), "tabLabelExtraWidth").getPixel();
+        = ThemeConfig.getMeasure(facesContext, component, "tabLabelExtraWidth").getPixel();
 
     boolean first = true;
     for (UIComponent child : (List<UIComponent>) component.getChildren()) {
@@ -277,7 +277,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
 
     writer.startElement(HtmlConstants.TD, tabGroup);
     Measure width = tabGroup.getWidth();
-    Measure headerHeight = ThemeConfig.getMeasure(facesContext, tabGroup.getRendererType(), "headerHeight");
+    Measure headerHeight = ThemeConfig.getMeasure(facesContext, tabGroup, "headerHeight");
     Style header = new Style();
     header.setPosition(Position.RELATIVE);
     header.setWidth(width);
@@ -534,14 +534,15 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
   }
 
   public void encodeAjax(FacesContext context, UIComponent component) throws IOException {
-    AjaxUtils.checkParamValidity(context, component, UITabGroup.class);
-    TabList tabList = getTabList(context, (UITabGroup) component);
-    int index = ensureRenderedActiveIndex(context, (UITabGroup) component);
+    UITabGroup tabGroup = (UITabGroup) component;
+    AjaxUtils.checkParamValidity(context, tabGroup, UITabGroup.class);
+    TabList tabList = getTabList(context, tabGroup);
+    int index = ensureRenderedActiveIndex(context, tabGroup);
     Measure currentWidth = new PixelMeasure(getCurrentWidth(tabList, index));
     renderTabGroupView(context, HtmlRendererUtils.getTobagoResponseWriter(context),
-        (UITabGroup) component, index, SWITCH_TYPE_RELOAD_TAB,
+        tabGroup, index, SWITCH_TYPE_RELOAD_TAB,
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"),
-        ThemeConfig.getMeasure(context, component.getRendererType(), "navigationBarWidth"), currentWidth, tabList);
+        ThemeConfig.getMeasure(context, tabGroup, "navigationBarWidth"), currentWidth, tabList);
   }
 
   private static class TabList {

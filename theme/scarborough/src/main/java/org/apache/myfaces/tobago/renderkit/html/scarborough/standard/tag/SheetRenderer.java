@@ -102,8 +102,8 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
 
   public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
-    storeFooterHeight(facesContext, uiComponent);
     UIData data = (UIData) uiComponent;
+    storeFooterHeight(facesContext, data);
 
     Style style = new Style(facesContext, data);
 
@@ -655,26 +655,26 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     }
   }
 
-  private Measure getRowPadding(FacesContext facesContext, UIComponent component) {
-    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), "rowPadding");
+  private Measure getRowPadding(FacesContext facesContext, UIData data) {
+    return ThemeConfig.getMeasure(facesContext, data, "rowPadding");
   }
 
-  private Measure getScrollbarWidth(FacesContext facesContext, UIComponent component) {
-    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), "scrollbarWidth");
+  private Measure getScrollbarWidth(FacesContext facesContext, UIData data) {
+    return ThemeConfig.getMeasure(facesContext, data, "scrollbarWidth");
   }
 
-  private void storeFooterHeight(FacesContext facesContext, UIComponent component) {
-    component.getAttributes().put(Attributes.FOOTER_HEIGHT, getFooterHeight(facesContext, component));
+  private void storeFooterHeight(FacesContext facesContext, UIData data) {
+    data.getAttributes().put(Attributes.FOOTER_HEIGHT, getFooterHeight(facesContext, data));
   }
 
-  private Measure getFooterHeight(FacesContext facesContext, UIComponent component) {
+  private Measure getFooterHeight(FacesContext facesContext, UIData data) {
     // todo: use Measure instead of int
     Measure footerHeight;
-    if (isValidPagingAttribute((UIData) component, Attributes.SHOW_ROW_RANGE)
-        || isValidPagingAttribute((UIData) component, Attributes.SHOW_PAGE_RANGE)
-        || isValidPagingAttribute((UIData) component, Attributes.SHOW_DIRECT_LINKS)) {
+    if (isValidPagingAttribute(data, Attributes.SHOW_ROW_RANGE)
+        || isValidPagingAttribute(data, Attributes.SHOW_PAGE_RANGE)
+        || isValidPagingAttribute(data, Attributes.SHOW_DIRECT_LINKS)) {
       footerHeight =
-          ThemeConfig.getMeasure(facesContext, component.getRendererType(), "footerHeight");
+          ThemeConfig.getMeasure(facesContext, data, "footerHeight");
     } else {
       footerHeight = PixelMeasure.ZERO;
     }
@@ -703,8 +703,8 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
         || "right".equals(value);
   }
 
-  private Measure getAscendingMarkerWidth(FacesContext facesContext, UIComponent component) {
-    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), "ascendingMarkerWidth");
+  private Measure getAscendingMarkerWidth(FacesContext facesContext, UIData data) {
+    return ThemeConfig.getMeasure(facesContext, data, "ascendingMarkerWidth");
   }
 
   public boolean getRendersChildren() {
@@ -1077,7 +1077,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
   }
 
   private Measure getContentBorder(FacesContext facesContext, UIData data) {
-    return ThemeConfig.getMeasure(facesContext, data.getRendererType(), "contentBorder");
+    return ThemeConfig.getMeasure(facesContext, data, "contentBorder");
   }
 
   public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {

@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.layout;
+package org.apache.myfaces.tobago.config;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,23 +17,14 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-/**
- * A LayoutComponent is a piece which can be positioned in a LayoutContainer.
- */
-public interface LayoutComponent extends LayoutBase {
+public interface Configurable {
 
-  Integer getColumnSpan();
-  void setColumnSpan(Integer columnSpan);
-
-  Integer getRowSpan();
-  void setRowSpan(Integer rowSpan);
-
-  Integer getHorizontalIndex();
-  void setHorizontalIndex(Integer horizontalIndex);
-
-  Integer getVerticalIndex();
-  void setVerticalIndex(Integer verticalIndex);
-
-  Display getDisplay();
-  void setDisplay(Display display);
+  /**
+   * The renderer is an id that is used by Tobago to gather information about the components which are 
+   * configured in the theme configuration files. E. g. the preferredWidth of a component.
+   * @return The renderer type.
+   */
+  String getRendererType();  
+  
+  String[] getMarkup();
 }

@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 
@@ -80,7 +81,7 @@ public class RendererBase extends Renderer {
    */
   @Deprecated
   public int getConfiguredValue(FacesContext facesContext, UIComponent component, String key) {
-    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), key).getPixel();
+    return ThemeConfig.getMeasure(facesContext, (Configurable) component, key).getPixel();
   }
 
   protected Object getCurrentValueAsObject(UIInput input) {

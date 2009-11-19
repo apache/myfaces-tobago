@@ -48,7 +48,7 @@ public class BoxRenderer extends BoxRendererBase {
     UIPanel toolbar = (UIPanel) box.getFacet(Facets.TOOL_BAR);
     Style style = new Style(facesContext, box);
     if (toolbar != null) {
-      Measure padding = ThemeConfig.getMeasure(facesContext, box.getRendererType(), "paddingTopWhenToolbar");
+      Measure padding = ThemeConfig.getMeasure(facesContext, box, "paddingTopWhenToolbar");
       style.setPaddingTop(padding);
       style.setPaddingBottom(PixelMeasure.ZERO);
     }

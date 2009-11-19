@@ -18,59 +18,59 @@ package org.apache.myfaces.tobago.renderkit;
  */
 
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.layout.Measure;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 public abstract class LayoutComponentRendererBase extends RendererBase implements LayoutComponentRenderer {
-  
-  public Measure getWidth(FacesContext facesContext, UIComponent component) {
-    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), Attributes.WIDTH);
+
+  public Measure getWidth(FacesContext facesContext, Configurable component) {
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.WIDTH);
   }
 
-  public Measure getHeight(FacesContext facesContext, UIComponent component) {
-    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), Attributes.HEIGHT);
+  public Measure getHeight(FacesContext facesContext, Configurable component) {
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.HEIGHT);
   }
 
-  public Measure getMinimumWidth(FacesContext facesContext, UIComponent component) {
-    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), Attributes.MINIMUM_WIDTH);
+  public Measure getMinimumWidth(FacesContext facesContext, Configurable component) {
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.MINIMUM_WIDTH);
   }
 
-  public Measure getMinimumHeight(FacesContext facesContext, UIComponent component) {
-    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), Attributes.MINIMUM_HEIGHT);
+  public Measure getMinimumHeight(FacesContext facesContext, Configurable component) {
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.MINIMUM_HEIGHT);
   }
 
-  public Measure getPreferredWidth(FacesContext facesContext, UIComponent component) {
-    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), Attributes.PREFERRED_WIDTH);
+  public Measure getPreferredWidth(FacesContext facesContext, Configurable component) {
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.PREFERRED_WIDTH);
   }
 
-  public Measure getPreferredHeight(FacesContext facesContext, UIComponent component) {
-    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), Attributes.PREFERRED_HEIGHT);
+  public Measure getPreferredHeight(FacesContext facesContext, Configurable component) {
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.PREFERRED_HEIGHT);
   }
 
-  public Measure getMaximumWidth(FacesContext facesContext, UIComponent component) {
-    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), Attributes.MAXIMUM_WIDTH);
+  public Measure getMaximumWidth(FacesContext facesContext, Configurable component) {
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.MAXIMUM_WIDTH);
   }
 
-  public Measure getMaximumHeight(FacesContext facesContext, UIComponent component) {
-    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), Attributes.MAXIMUM_HEIGHT);
+  public Measure getMaximumHeight(FacesContext facesContext, Configurable component) {
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.MAXIMUM_HEIGHT);
   }
 
-  public Measure getLeftOffset(FacesContext facesContext, UIComponent component) {
-    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), Attributes.LEFT_OFFSET);
+  public Measure getLeftOffset(FacesContext facesContext, Configurable component) {
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.LEFT_OFFSET);
   }
 
-  public Measure getRightOffset(FacesContext facesContext, UIComponent component) {
-    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), Attributes.RIGHT_OFFSET);
+  public Measure getRightOffset(FacesContext facesContext, Configurable component) {
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.RIGHT_OFFSET);
   }
 
-  public Measure getTopOffset(FacesContext facesContext, UIComponent component) {
-    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), Attributes.TOP_OFFSET);
+  public Measure getTopOffset(FacesContext facesContext, Configurable component) {
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.TOP_OFFSET);
   }
 
-  public Measure getBottomOffset(FacesContext facesContext, UIComponent component) {
-    return ThemeConfig.getMeasure(facesContext, component.getRendererType(), Attributes.BOTTOM_OFFSET);
+  public Measure getBottomOffset(FacesContext facesContext, Configurable component) {
+    return ThemeConfig.getMeasure(facesContext, component, Attributes.BOTTOM_OFFSET);
   }
 }

@@ -17,18 +17,19 @@ package org.apache.myfaces.tobago.config;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.util.Deprecation;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
 
@@ -44,7 +45,7 @@ public class ThemeConfig {
   @Deprecated
   public static int getValue(FacesContext facesContext, UIComponent component, String name) {
     Deprecation.LOG.warn("please use ThemeConfig.getMeasure()");
-    return getMeasure(facesContext, component.getRendererType(), name).getPixel();
+    return getMeasure(facesContext, component.getRendererType(), ArrayUtils.EMPTY_STRING_ARRAY, name).getPixel();
   }
 
   /**
@@ -53,73 +54,79 @@ public class ThemeConfig {
   @Deprecated
   public static boolean hasValue(FacesContext facesContext, UIComponent component, String name) {
     Deprecation.LOG.warn("please use ThemeConfig.getMeasure()");
-    return getMeasure(facesContext, component.getRendererType(), name) != null;
+    return getMeasure(facesContext, component.getRendererType(), ArrayUtils.EMPTY_STRING_ARRAY, name) != null;
   }
 
-  public static Measure getMeasure(FacesContext facesContext, String rendererType, String name) {
-    CacheKey key = new CacheKey(facesContext.getViewRoot(), rendererType, name);
-    Map<CacheKey, Integer> cache
-        = (Map<CacheKey, Integer>) facesContext.getExternalContext().getApplicationMap().get(THEME_CONFIG_CACHE);
+  public static Measure getMeasure(FacesContext facesContext, Configurable configurable, String name) {
+    return getMeasure(facesContext, configurable.getRendererType(), configurable.getMarkup(), name);
+  }
 
-    Integer value = cache.get(key);
-    if (value == null) {
+  private static Measure getMeasure(FacesContext facesContext, String rendererType, String[] markup, String name) {
+    CacheKey key = new CacheKey(facesContext.getViewRoot(), rendererType, markup, name);
+    Map<CacheKey, Measure> cache
+        = (Map<CacheKey, Measure>) facesContext.getExternalContext().getApplicationMap().get(THEME_CONFIG_CACHE);
+
+    if (!cache.containsKey(key)) {
       ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
       UIViewRoot viewRoot = facesContext.getViewRoot();
       String property = resourceManager.getThemeProperty(viewRoot, "tobago-theme-config", rendererType + "." + name);
       if (property != null) {
-        value = new Integer(property); // todo: Measure
+        Measure value = Measure.parse(property);
+        for (String m : markup) {
+          String mValue = resourceManager.getThemeProperty(viewRoot, "tobago-theme-config",
+              rendererType + "[" + m + "]" + "." + name);
+          if (mValue != null) {
+            value.add(Measure.parse(mValue));
+          }
+        }
+        cache.put(key, value);
+        return value;
+      } else {
+        cache.put(key, null); // to mark that this value is undefined
+        return null;
       }
-      cache.put(key, value);
+    } else {
+      return cache.get(key);
     }
-    if (value != null) {
-      return new PixelMeasure(value);
-    }
-    return null;
   }
 
-  private static class CacheKey {
+  private static final class CacheKey {
+
     private String clientProperties;
     private Locale locale;
     private String rendererType;
     private String name;
+    private String[] markup;
 
     public CacheKey(UIViewRoot viewRoot, UIComponent component, String name) {
       this.clientProperties = ClientProperties.getInstance(viewRoot).getId();
       this.locale = viewRoot.getLocale();
-      if (component != null) {
-        rendererType = component.getRendererType();
-      } else {
-        rendererType = "DEFAULT";
-      }
+      rendererType = component.getRendererType();
       this.name = name;
     }
 
-    public CacheKey(UIViewRoot viewRoot, String rendererType, String name) {
+    public CacheKey(UIViewRoot viewRoot, String rendererType, String[] markup, String name) {
       this.clientProperties = ClientProperties.getInstance(viewRoot).getId();
       this.locale = viewRoot.getLocale();
-      if (rendererType != null) {
-        this.rendererType = rendererType;
-      } else {
-        this.rendererType = "DEFAULT";
-      }
+      this.rendererType = rendererType;
+      this.markup = (String[]) ArrayUtils.clone(markup);
       this.name = name;
     }
 
     @Override
     public boolean equals(Object o) {
-      if (this == o) {
-        return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-        return false;
-      }
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
 
-      final CacheKey cacheKey = (CacheKey) o;
+      CacheKey cacheKey = (CacheKey) o;
 
       if (!clientProperties.equals(cacheKey.clientProperties)) {
         return false;
       }
       if (!locale.equals(cacheKey.locale)) {
+        return false;
+      }
+      if (!Arrays.equals(markup, cacheKey.markup)) {
         return false;
       }
       if (!name.equals(cacheKey.name)) {
@@ -134,11 +141,11 @@ public class ThemeConfig {
 
     @Override
     public int hashCode() {
-      int result;
-      result = clientProperties.hashCode();
-      result = 29 * result + locale.hashCode();
-      result = 29 * result + rendererType.hashCode();
-      result = 29 * result + name.hashCode();
+      int result = clientProperties.hashCode();
+      result = 31 * result + locale.hashCode();
+      result = 31 * result + rendererType.hashCode();
+      result = 31 * result + name.hashCode();
+      result = 31 * result + Arrays.hashCode(markup);
       return result;
     }
 
@@ -147,8 +154,8 @@ public class ThemeConfig {
       return "CacheKey(" + clientProperties
           + "," + locale
           + "," + rendererType
+          + "," + Arrays.toString(markup)
           + "," + name + ')';
     }
   }
-
 }

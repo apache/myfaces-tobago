@@ -24,8 +24,8 @@ import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.LayoutObject;
 import org.apache.myfaces.tobago.layout.Measure;
 
 import javax.faces.component.UIComponent;
@@ -63,9 +63,9 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
       throw new JspException("Component Instance is null");
     }
 
-    if (!(component instanceof LayoutObject)) {
+    if (!(component instanceof LayoutBase)) {
       // TODO Message resource i18n
-      throw new JspException("Component Instance is not a LayoutObject");
+      throw new JspException("Component Instance is not a LayoutBase");
     }
 
     if (component instanceof LayoutComponent && isColumnSpanSet()) {
@@ -86,7 +86,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (isWidthSet()) {
       if (isWidthLiteral()) {
-        ((LayoutObject) component).setWidth(Measure.parse(getWidthValue()));
+        ((LayoutBase) component).setWidth(Measure.parse(getWidthValue()));
+//        ((LayoutBase) component).setWidth(Measure.parse(getWidthExpression()));
       } else {
         FacesUtils.setBindingOrExpression(component, Attributes.WIDTH, getWidthAsBindingOrExpression());
       }
@@ -94,7 +95,8 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (isHeightSet()) {
       if (isHeightLiteral()) {
-        ((LayoutObject) component).setHeight(Measure.parse(getHeightValue()));
+        ((LayoutBase) component).setHeight(Measure.parse(getHeightValue()));
+//        ((LayoutBase) component).setHeight(Measure.parse(getHeightExpression()));
       } else {
         FacesUtils.setBindingOrExpression(component, Attributes.HEIGHT, getHeightAsBindingOrExpression());
       }
@@ -102,7 +104,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (isMinimumWidthSet()) {
       if (isMinimumWidthLiteral()) {
-        ((LayoutObject) component).setMinimumWidth(Measure.parse(getMinimumWidthValue()));
+        ((LayoutBase) component).setMinimumWidth(Measure.parse(getMinimumWidthValue()));
       } else {
         FacesUtils.setBindingOrExpression(component, Attributes.MINIMUM_WIDTH, getMinimumWidthAsBindingOrExpression());
       }
@@ -110,7 +112,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (isMinimumHeightSet()) {
       if (isMinimumHeightLiteral()) {
-        ((LayoutObject) component).setMinimumHeight(Measure.parse(getMinimumHeightValue()));
+        ((LayoutBase) component).setMinimumHeight(Measure.parse(getMinimumHeightValue()));
       } else {
         FacesUtils.setBindingOrExpression(component, Attributes.MINIMUM_WIDTH, getMinimumHeightAsBindingOrExpression());
       }
@@ -118,7 +120,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (isPreferredWidthSet()) {
       if (isPreferredWidthLiteral()) {
-        ((LayoutObject) component).setPreferredWidth(Measure.parse(getPreferredWidthValue()));
+        ((LayoutBase) component).setPreferredWidth(Measure.parse(getPreferredWidthValue()));
       } else {
         FacesUtils.setBindingOrExpression(component, Attributes.PREFERRED_WIDTH,
             getPreferredWidthAsBindingOrExpression());
@@ -127,7 +129,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (isPreferredHeightSet()) {
       if (isPreferredHeightLiteral()) {
-        ((LayoutObject) component).setPreferredHeight(Measure.parse(getPreferredHeightValue()));
+        ((LayoutBase) component).setPreferredHeight(Measure.parse(getPreferredHeightValue()));
       } else {
         FacesUtils.setBindingOrExpression(component, Attributes.PREFERRED_WIDTH,
             getPreferredHeightAsBindingOrExpression());
@@ -136,7 +138,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (isMaximumWidthSet()) {
       if (isMaximumWidthLiteral()) {
-        ((LayoutObject) component).setMaximumWidth(Measure.parse(getMaximumWidthValue()));
+        ((LayoutBase) component).setMaximumWidth(Measure.parse(getMaximumWidthValue()));
       } else {
         FacesUtils.setBindingOrExpression(component, Attributes.MAXIMUM_WIDTH, getMaximumWidthAsBindingOrExpression());
       }
@@ -144,7 +146,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
 
     if (isMaximumHeightSet()) {
       if (isMaximumHeightLiteral()) {
-        ((LayoutObject) component).setMaximumHeight(Measure.parse(getMaximumHeightValue()));
+        ((LayoutBase) component).setMaximumHeight(Measure.parse(getMaximumHeightValue()));
       } else {
         FacesUtils.setBindingOrExpression(component, Attributes.MAXIMUM_WIDTH, getMaximumHeightAsBindingOrExpression());
       }
@@ -194,8 +196,10 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "width")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract String getWidthValue();
+  public abstract Object getWidthValue();
 
+//  public abstract String getWidthExpression();
+  
   // height
 
   public abstract boolean isHeightSet();
@@ -208,8 +212,10 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "height")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract String getHeightValue();
+  public abstract Object getHeightValue();
 
+//  public abstract String getHeightExpression();
+  
   // minimum width
 
   public abstract boolean isMinimumWidthSet();

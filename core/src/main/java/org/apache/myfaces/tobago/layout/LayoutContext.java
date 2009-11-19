@@ -76,11 +76,11 @@ public class LayoutContext {
       buffer.append("  ");
     }
     buffer.append(component.getClass().getSimpleName());
-    if (component instanceof LayoutObject) {
+    if (component instanceof LayoutBase) {
       buffer.append("(");
-      buffer.append(((LayoutObject)component).getWidth());
+      buffer.append(((LayoutBase)component).getWidth());
       buffer.append(", ");
-      buffer.append(((LayoutObject)component).getHeight());
+      buffer.append(((LayoutBase)component).getHeight());
       buffer.append(")");
     }
     if (component instanceof LayoutContainer) {

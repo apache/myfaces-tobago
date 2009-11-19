@@ -1,5 +1,10 @@
 package org.apache.myfaces.tobago.renderkit;
 
+import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.layout.Measure;
+
+import javax.faces.context.FacesContext;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -18,6 +23,13 @@ package org.apache.myfaces.tobago.renderkit;
  */
 
 public abstract class AbstractLayoutRendererWrapper
-    extends AbstractLayoutableRendererBaseWrapper implements LayoutRenderer {
+    extends AbstractLayoutableRendererBaseWrapper implements LayoutRenderer, SpacingValues {
 
+  public Measure getColumnSpacing(FacesContext facesContext, Configurable component) {
+    return ((SpacingValues) getRenderer(facesContext)).getColumnSpacing(facesContext, component);
+  }
+
+  public Measure getRowSpacing(FacesContext facesContext, Configurable component) {
+    return ((SpacingValues) getRenderer(facesContext)).getRowSpacing(facesContext, component);
+  }
 }

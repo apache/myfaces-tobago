@@ -20,6 +20,10 @@ package org.apache.myfaces.tobago.component;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.layout.LayoutContainer;
+import org.apache.myfaces.tobago.layout.LayoutManager;
+import org.apache.myfaces.tobago.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -31,11 +35,24 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 
 public abstract class AbstractUIPopup extends UIPanelBase 
-    implements NamingContainer, AjaxComponent, InvokeOnComponent, DeprecatedDimension {
+    implements OnComponentPopulated, NamingContainer, AjaxComponent, InvokeOnComponent, 
+    DeprecatedDimension, LayoutContainer {
 
   private boolean activated;
+
+  public void onComponentPopulated(FacesContext facesContext) {
+    if (getLayoutManager() == null) {
+      setLayoutManager(CreateComponentUtils.createAndInitLayout(
+          facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT));
+    }
+  }
+  
+  public List<LayoutComponent> getComponents() {
+    return LayoutUtils.findLayoutChildren(this);
+  }
 
   public void setActivated(boolean activated) {
     this.activated = activated;
@@ -139,6 +156,14 @@ public abstract class AbstractUIPopup extends UIPanelBase
     return FacesUtils.invokeOnComponent(context, this, clientId, callback);
   }
 
+  public LayoutManager getLayoutManager() {
+    return (LayoutManager) getFacet(Facets.LAYOUT);
+  }
+  
+  public void setLayoutManager(LayoutManager layoutManager) {
+    getFacets().put(Facets.LAYOUT, (UILayout) layoutManager);
+  }
+  
   public abstract Measure getWidth();
 
   public abstract void setWidth(Measure width);

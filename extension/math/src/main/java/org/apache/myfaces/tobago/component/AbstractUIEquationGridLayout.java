@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.EquationLayoutContext;
 import org.apache.myfaces.tobago.layout.EquationLayoutManager;
@@ -39,7 +40,8 @@ import org.apache.myfaces.tobago.layout.math.EquationManager;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractUIEquationGridLayout extends UILayout implements EquationLayoutManager {
+public abstract class AbstractUIEquationGridLayout extends UILayout 
+    implements EquationLayoutManager, Configurable {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIEquationGridLayout.class);
 

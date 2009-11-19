@@ -17,35 +17,34 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.layout.Measure;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 public interface LayoutComponentRenderer {
 
-  Measure getWidth(FacesContext facesContext, UIComponent component);
+  Measure getWidth(FacesContext facesContext, Configurable component);
 
-  Measure getHeight(FacesContext facesContext, UIComponent component);
+  Measure getHeight(FacesContext facesContext, Configurable component);
 
-  Measure getMinimumWidth(FacesContext facesContext, UIComponent component);
+  Measure getMinimumWidth(FacesContext facesContext, Configurable component);
 
-  Measure getMinimumHeight(FacesContext facesContext, UIComponent component);
+  Measure getMinimumHeight(FacesContext facesContext, Configurable component);
 
-  Measure getPreferredWidth(FacesContext facesContext, UIComponent component);
+  Measure getPreferredWidth(FacesContext facesContext, Configurable component);
 
-  Measure getPreferredHeight(FacesContext facesContext, UIComponent component);
+  Measure getPreferredHeight(FacesContext facesContext, Configurable component);
 
-  Measure getMaximumWidth(FacesContext facesContext, UIComponent component);
+  Measure getMaximumWidth(FacesContext facesContext, Configurable component);
 
-  Measure getMaximumHeight(FacesContext facesContext, UIComponent component);
+  Measure getMaximumHeight(FacesContext facesContext, Configurable component);
 
-  Measure getLeftOffset(FacesContext facesContext, UIComponent component);
+  Measure getLeftOffset(FacesContext facesContext, Configurable component);
 
-  Measure getRightOffset(FacesContext facesContext, UIComponent component);
+  Measure getRightOffset(FacesContext facesContext, Configurable component);
 
-  Measure getTopOffset(FacesContext facesContext, UIComponent component);
+  Measure getTopOffset(FacesContext facesContext, Configurable component);
 
-  Measure getBottomOffset(FacesContext facesContext, UIComponent component);
-
+  Measure getBottomOffset(FacesContext facesContext, Configurable component);
 }

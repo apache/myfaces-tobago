@@ -17,15 +17,15 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.layout.Measure;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 public interface SpacingValues {
 
-  public Measure getColumnSpacing(FacesContext facesContext, UIComponent component);
+  public Measure getColumnSpacing(FacesContext facesContext, Configurable component);
 
-  public Measure getRowSpacing(FacesContext facesContext, UIComponent component);
+  public Measure getRowSpacing(FacesContext facesContext, Configurable component);
 
 }

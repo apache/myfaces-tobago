@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponentWithDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
@@ -37,7 +38,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
     interfaces = "org.apache.myfaces.tobago.ajax.api.AjaxComponent",
     rendererType = RendererTypes.POPUP)
 public interface PopupTagDeclaration 
-    extends HasId, IsRendered, IsGridLayoutComponentWithDeprecatedDimension, IsGridLayoutContainer {
+    extends HasId, IsRendered, IsGridLayoutComponentWithDeprecatedDimension, IsGridLayoutContainer, HasMarkup {
 
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")

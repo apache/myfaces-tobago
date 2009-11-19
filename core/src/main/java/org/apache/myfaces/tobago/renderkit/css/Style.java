@@ -61,18 +61,18 @@ public class Style implements Serializable {
     width = layout.getWidth();
     if (width != null) {
       // TODO: Make configurable: this is needed if the box-sizing is border-box, not content-box (see CSS3)
-      width = width.subtractNotNegative(ThemeConfig.getMeasure(facesContext, rendererType, "css.border-left-width"));
-      width = width.subtractNotNegative(ThemeConfig.getMeasure(facesContext, rendererType, "css.padding-left"));
-      width = width.subtractNotNegative(ThemeConfig.getMeasure(facesContext, rendererType, "css.padding-right"));
-      width = width.subtractNotNegative(ThemeConfig.getMeasure(facesContext, rendererType, "css.border-right-width"));
+      width = width.subtractNotNegative(ThemeConfig.getMeasure(facesContext, layout, "css.border-left-width"));
+      width = width.subtractNotNegative(ThemeConfig.getMeasure(facesContext, layout, "css.padding-left"));
+      width = width.subtractNotNegative(ThemeConfig.getMeasure(facesContext, layout, "css.padding-right"));
+      width = width.subtractNotNegative(ThemeConfig.getMeasure(facesContext, layout, "css.border-right-width"));
     }
     height = layout.getHeight();
     if (height != null) {
       // TODO: Make configurable: this is needed if the box-sizing is border-box, not content-box (see CSS3)
-      height = height.subtractNotNegative(ThemeConfig.getMeasure(facesContext, rendererType, "css.border-top-width"));
-      height = height.subtractNotNegative(ThemeConfig.getMeasure(facesContext, rendererType, "css.padding-top"));
-      height = height.subtractNotNegative(ThemeConfig.getMeasure(facesContext, rendererType, "css.padding-bottom"));
-      height = height.subtractNotNegative(ThemeConfig.getMeasure(facesContext, rendererType, "css.border-bottom-width"));
+      height = height.subtractNotNegative(ThemeConfig.getMeasure(facesContext, layout, "css.border-top-width"));
+      height = height.subtractNotNegative(ThemeConfig.getMeasure(facesContext, layout, "css.padding-top"));
+      height = height.subtractNotNegative(ThemeConfig.getMeasure(facesContext, layout, "css.padding-bottom"));
+      height = height.subtractNotNegative(ThemeConfig.getMeasure(facesContext, layout, "css.border-bottom-width"));
     }
     this.left = layout.getLeft();
     this.top = layout.getTop();

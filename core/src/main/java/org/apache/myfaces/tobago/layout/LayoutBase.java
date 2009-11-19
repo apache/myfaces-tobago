@@ -1,7 +1,5 @@
 package org.apache.myfaces.tobago.layout;
 
-import org.apache.myfaces.tobago.component.SupportsMarkup;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,10 +17,12 @@ import org.apache.myfaces.tobago.component.SupportsMarkup;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.config.Configurable;
+
 /**
- * A LayoutObject is the technical base for LayoutComponent and LayoutContainer.
+ * A LayoutBase is the technical base for LayoutComponent and LayoutContainer.
  */
-public interface LayoutObject extends SupportsMarkup {
+public interface LayoutBase extends Configurable {
 
   Measure getWidth();
   void setWidth(Measure width);
@@ -51,11 +51,6 @@ public interface LayoutObject extends SupportsMarkup {
   Measure getLeft();
   void setLeft(Measure left);
 
-  /**
-   * The renderer is an id that is used by Tobago to gather information about the components which are 
-   * configured in the theme configuration files. E. g. the preferredWidth of a component.
-   * @return The renderer type.
-   */
-  String getRendererType();
-  
+  Measure getTop();
+  void setTop(Measure top);
 }

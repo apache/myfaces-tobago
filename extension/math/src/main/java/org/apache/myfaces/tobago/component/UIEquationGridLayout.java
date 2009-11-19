@@ -1,37 +1,18 @@
-// ---------- Attention: Generated code, please do not modify! -----------  
-
-/*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package org.apache.myfaces.tobago.component;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.layout.Measure;
 
+import javax.el.ELException;
+import javax.el.ValueExpression;
+import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
+import java.util.ArrayList;
+import java.util.List;
 
-/** 
- * UIComponent class, generated from template {@code component1.2.stg} with class 
- * {@link org.apache.myfaces.tobago.taglib.component.GridLayoutTagDeclaration}.
- */
 public class UIEquationGridLayout
     extends AbstractUIEquationGridLayout  {
-
-  
   
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.GridLayout";
 
@@ -48,6 +29,7 @@ public class UIEquationGridLayout
   private String marginTop;
   private String columns;
   private String rows;
+  private java.lang.String[] markup;
 
   public String getFamily() {
     return COMPONENT_FAMILY;
@@ -126,7 +108,7 @@ public class UIEquationGridLayout
     }
     return getCellspacing() != null 
         ? getCellspacing() 
-        : ThemeConfig.getMeasure(getFacesContext(), getRendererType(), "columnSpacing");
+        : ThemeConfig.getMeasure(getFacesContext(), this, "columnSpacing");
   }
 
   public void setColumnSpacing(Measure columnSpacing) {
@@ -157,7 +139,7 @@ public class UIEquationGridLayout
     }
     return getCellspacing() != null 
         ? getCellspacing() 
-        : ThemeConfig.getMeasure(getFacesContext(), getRendererType(), "rowSpacing");
+        : ThemeConfig.getMeasure(getFacesContext(), this, "rowSpacing");
   }
 
   public void setRowSpacing(Measure rowSpacing) {
@@ -315,6 +297,41 @@ public class UIEquationGridLayout
     this.rows = rows;
   }
 
+  public String[] getMarkup() {
+    if (markup != null) {
+      return markup;
+    }
+    ValueExpression ve = getValueExpression("markup");
+    if (ve != null) {
+      try {
+        Object strArray = ve.getValue(getFacesContext().getELContext());
+        if (strArray instanceof String[]) {
+          return (String[]) strArray;
+        } else if (strArray instanceof String) {
+          String[] strings = ((String) strArray).split("[, ]");
+          List<String> result = new ArrayList<String>(strings.length);
+          for (String string : strings) {
+            if (string.trim().length() != 0) {
+              result.add(string.trim());
+            }
+          }
+          return result.toArray(new String[result.size()]);
+        } else if (strArray == null) {
+          return ArrayUtils.EMPTY_STRING_ARRAY;
+        } else {
+          return new String[]{strArray.toString()};
+        }
+      } catch (ELException e) {
+  		  throw new FacesException(e);
+  	  }
+    }
+    return ArrayUtils.EMPTY_STRING_ARRAY;
+  }
+
+  public void setMarkup(String[] markup) {
+    this.markup = markup;
+  }
+
   public void restoreState(FacesContext context, Object componentState) {
     Object[] values = (Object[]) componentState;
     super.restoreState(context, values[0]);
@@ -329,10 +346,11 @@ public class UIEquationGridLayout
     marginTop = (String) values[9];
     columns = (String) values[10];
     rows = (String) values[11];
+    markup = (java.lang.String[]) values[12];
   }
 
   public Object saveState(FacesContext context) {
-    Object[] values = new Object[12];
+    Object[] values = new Object[13];
     values[0] = super.saveState(context);
     values[1] = border;
     values[2] = cellspacing;
@@ -345,8 +363,7 @@ public class UIEquationGridLayout
     values[9] = marginTop;
     values[10] = columns;
     values[11] = rows;
+    values[12] = markup;
     return values;
   }
-
-
 }

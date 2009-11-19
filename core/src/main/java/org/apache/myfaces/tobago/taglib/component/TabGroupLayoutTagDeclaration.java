@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 
 /**
  * Creates a TabGroupLayout, which is a internal layout manager of a tabGroup.
@@ -34,5 +35,5 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
     componentFamily = "org.apache.myfaces.tobago.TabGroupLayout",
     allowedChildComponenents = "NONE",
     isLayout = true)
-public interface TabGroupLayoutTagDeclaration extends HasId {
+public interface TabGroupLayoutTagDeclaration extends HasId, HasMarkup {
 }
