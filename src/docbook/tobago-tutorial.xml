@@ -964,7 +964,7 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
 
       <para>We are starting with the user interface component of the control
       and will name it:
-      <classname>UIInputNumberSlider</classname><footnote><para>See <ulink url="http://svn.apache.org/viewvc/myfaces/tobago/trunk/sandbox/src/main/java/org/apache/myfaces/tobago/component/UIInputNumberSlider.java?view=markup"/></para></footnote>. Like all JSF
+      <classname>UINumberSlider</classname><footnote><para>See <ulink url="http://svn.apache.org/viewvc/myfaces/tobago/trunk/sandbox/src/main/java/org/apache/myfaces/tobago/component/UINumberSlider.java?view=markup"/></para></footnote>. Like all JSF
       components, Tobago components must extend
       <classname>UIComponent</classname><footnote><para>See <ulink url="http://java.sun.com/javaee/javaserverfaces/1.1_01/docs/api/javax/faces/component/UIComponent.html"/></para></footnote>. Because we want to create an input
       component we can extend <classname>UIInput</classname><footnote><para>See <ulink url="http://java.sun.com/javaee/javaserverfaces/1.1_01/docs/api/javax/faces/component/UIInput.html"/></para></footnote> which is a (non
@@ -992,10 +992,10 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
 
       <para>The following code shows some parts of our component class:</para>
 
-      <programlisting role="JAVA">public class UIInputNumberSlider extends javax.faces.component.UIInput {
+      <programlisting role="JAVA">public class UINumberSlider extends javax.faces.component.UIInput {
 
   public static final String COMPONENT_TYPE
-      = "org.apache.myfaces.tobago.InputNumberSlider";
+      = "org.apache.myfaces.tobago.NumberSlider";
 
   private Boolean readonly;
   private Boolean disabled;
@@ -1045,7 +1045,7 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
       <classname>LayoutableRendererBase</classname><footnote><para>See <ulink url="http://myfaces.apache.org/tobago/apidocs/org/apache/myfaces/tobago/renderkit/LayoutableRendererBase.html"/></para></footnote> which uses properties
       that are provided by the theme configuration of the used theme
       (<filename>tobago-theme-config.properties</filename>). We name our renderer
-      <classname>InputNumberSliderRenderer</classname> and extend from <classname>LayoutableRendererBase</classname>. Following the
+      <classname>NumberSliderRenderer</classname> and extend from <classname>LayoutableRendererBase</classname>. Following the
       Tobago naming convention the renderer must end with "Renderer".</para>
 
       <para>When using the <classname>LayoutableRendererBase</classname> the theme configuration is a good
@@ -1090,7 +1090,7 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
       <para>If <classname>LayoutableRendererBase</classname> does not find a value for a renderer it searches
       for default properties: "Tobago." + <literal>key</literal>. We could (but will not)
       specify a width padding of five pixels for our control by adding the
-      property <literal>InputNumberSlider.paddingWidth=5</literal> in the theme configuration of
+      property <literal>NumberSlider.paddingWidth=5</literal> in the theme configuration of
       the sandbox theme. Please note that the resource location mechanism as
       described in <xref linkend="sec-resource-management"/> is used to find a
       property.</para>
@@ -1098,7 +1098,7 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
       <para>The Tobago theme configuration is not only used by <classname>RendererBase</classname>,
       but properties of own renderers can be specified there. For example we
       define the percentage of the width of the slider of our control in the
-      <filename>tobago-theme-config.xml</filename>: <literal>InputNumberSlider.sliderWidthPercent=66</literal>. This
+      <filename>tobago-theme-config.xml</filename>: <literal>NumberSlider.sliderWidthPercent=66</literal>. This
       means the slider gets 66 percent of the width of our control and the
       input field 34 percent. The value can be accessed in the renderer with
       the following line of code:</para>
@@ -1132,7 +1132,7 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
       <example><title>Renderer for the slider bar control</title>
       <programlisting role="JAVA">package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
 
-public class InputNumberSliderRenderer extends LayoutableRendererBase {
+public class NumberSliderRenderer extends LayoutableRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component)
       throws IOException {
@@ -1213,7 +1213,7 @@ Measure width = style.getWidth();</programlisting>
       properties <literal>readonly</literal> and <literal>disabled</literal>.</para>
 
       <para>Our tag is named
-      <classname>InputNumberSliderTag</classname><footnote><para>See <ulink url="http://svn.apache.org/viewvc/myfaces/tobago/trunk/sandbox/src/main/java/org/apache/myfaces/tobago/taglib/sandbox/InputNumberSliderTag.java?view=markup"/></para></footnote> and
+      <classname>NumberSliderTag</classname><footnote><para>See <ulink url="http://svn.apache.org/viewvc/myfaces/tobago/trunk/sandbox/src/main/java/org/apache/myfaces/tobago/taglib/sandbox/NumberSliderTag.java?view=markup"/></para></footnote> and
       consists of four new properties (<literal>min</literal>, <literal>max</literal>, <literal>value</literal> and
       <literal>valueChangeListener</literal>) with their getter/setters, an implementation of
       <literal>getComponentType</literal>, a <literal>release</literal> method and a <literal>setProperties</literal> method.</para>
@@ -1227,7 +1227,7 @@ Measure width = style.getWidth();</programlisting>
 
       <para>Next thing is the declaration of the tag. Therefore it implements
       an interface
-      <classname>InputNumberSliderTagDeclaration</classname><footnote><para>See <ulink url="http://svn.apache.org/viewvc/myfaces/tobago/trunk/sandbox/src/main/java/org/apache/myfaces/tobago/taglib/sandbox/InputNumberSliderTagDeclaration.java?view=markup"/></para></footnote>.
+      <classname>NumberSliderTagDeclaration</classname><footnote><para>See <ulink url="http://svn.apache.org/viewvc/myfaces/tobago/trunk/sandbox/src/main/java/org/apache/myfaces/tobago/taglib/sandbox/NumberSliderTagDeclaration.java?view=markup"/></para></footnote>.
       This interface describes our tag and its attributes with annotations.
       Tobago's build process uses this declaration to generate a
       <filename>faces-config.xml</filename> and a tag library description (TLD) for our component
@@ -1254,9 +1254,9 @@ Measure width = style.getWidth();</programlisting>
 
     <example><title>Tag declaration for the slider bar tag</title>
       <programlisting role="JAVA">@Tag(name = "numberSlider")
-@UIComponentTag(rendererType = "InputNumberSlider",
-    uiComponent = "org.apache.myfaces.tobago.component.UIInputNumberSlider")
-public interface InputNumberSliderTagDeclaration extends
+@UIComponentTag(rendererType = "NumberSlider",
+    uiComponent = "org.apache.myfaces.tobago.component.UINumberSlider")
+public interface NumberSliderTagDeclaration extends
   HasIdBindingAndRendered, IsReadonly, IsDisabled,
   HasValue, HasValueChangeListener {
   
