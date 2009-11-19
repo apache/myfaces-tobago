@@ -41,15 +41,13 @@ public abstract class TobagoTag extends UIComponentTag {
 
   @Override
   public int doEndTag() throws JspException {
-    int result = super.doEndTag();
-    
     UIComponent component = getComponentInstance();
+    int result = super.doEndTag();
     if (component instanceof OnComponentPopulated
         && component.getAttributes().get(OnComponentPopulated.MARKER) == null) {
       component.getAttributes().put(OnComponentPopulated.MARKER, Boolean.TRUE);
       ((OnComponentPopulated) component).onComponentPopulated(getFacesContext());
     }
-    
     return result;
   }
 
