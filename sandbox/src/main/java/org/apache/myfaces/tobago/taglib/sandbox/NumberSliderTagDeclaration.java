@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.HasValueChangeListener;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
@@ -30,12 +31,12 @@ import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 
 @Tag(name = "numberSlider")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIInputNumberSlider",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIInputNumberSlider",
-    rendererType = "InputNumberSlider")
+    uiComponent = "org.apache.myfaces.tobago.component.UINumberSlider",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUINumberSlider",
+    rendererType = "NumberSlider")
 
-public interface InputNumberSliderTagDeclaration extends
-    HasIdBindingAndRendered, IsReadonly, IsDisabled,
+public interface NumberSliderTagDeclaration extends
+    HasIdBindingAndRendered, IsReadonly, IsDisabled, HasMarkup,
     HasValue, HasValueChangeListener, IsGridLayoutComponent {
 
   /**

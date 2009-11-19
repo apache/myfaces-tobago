@@ -23,7 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.LongRangeValidator;
 import javax.faces.validator.ValidatorException;
 
-public abstract class AbstractUIInputNumberSlider extends javax.faces.component.UIInput implements LayoutComponent {
+public abstract class AbstractUINumberSlider extends javax.faces.component.UIInput implements LayoutComponent {
 
   public abstract Integer getMin();
 

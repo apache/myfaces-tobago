@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
  */
 
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.component.AbstractUIInputNumberSlider;
+import org.apache.myfaces.tobago.component.AbstractUINumberSlider;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
@@ -41,7 +41,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
 
-public class InputNumberSliderRenderer extends LayoutComponentRendererBase {
+public class NumberSliderRenderer extends LayoutComponentRendererBase {
 
   private static final String SLIDER_WIDTH_PERCENT = "sliderWidthPercent";
 
@@ -55,7 +55,7 @@ public class InputNumberSliderRenderer extends LayoutComponentRendererBase {
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
-    AbstractUIInputNumberSlider slider = (AbstractUIInputNumberSlider) component;
+    AbstractUINumberSlider slider = (AbstractUINumberSlider) component;
     
     String id = slider.getClientId(facesContext);
     String currentValue = getCurrentValue(facesContext, slider);
@@ -68,7 +68,7 @@ public class InputNumberSliderRenderer extends LayoutComponentRendererBase {
     Style style = new Style(facesContext, slider);
     int width = -1;
     int sliderWidthPerc 
-        = ThemeConfig.getMeasure(facesContext, slider.getRendererType(), SLIDER_WIDTH_PERCENT).getPixel();
+        = ThemeConfig.getMeasure(facesContext, slider, SLIDER_WIDTH_PERCENT).getPixel();
       if (sliderWidthPerc <= 25) {
         sliderWidthPerc = 25;
       }
@@ -89,7 +89,7 @@ public class InputNumberSliderRenderer extends LayoutComponentRendererBase {
     //writer.writeAttribute("border","1",false);
 
     StyleClasses styleClasses = new StyleClasses();
-    styleClasses.addAspectClass("inputNumberSlider", "min", StyleClasses.Aspect.DEFAULT);
+    styleClasses.addAspectClass("numberSlider", "min", StyleClasses.Aspect.DEFAULT);
 
     writer.startElement(HtmlConstants.TR, null);
     writer.startElement(HtmlConstants.TD, null);
@@ -104,7 +104,7 @@ public class InputNumberSliderRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlConstants.SPAN);
 
     styleClasses = new StyleClasses();
-    styleClasses.addAspectClass("inputNumberSlider", "max", StyleClasses.Aspect.DEFAULT);
+    styleClasses.addAspectClass("numberSlider", "max", StyleClasses.Aspect.DEFAULT);
 
     writer.endElement(HtmlConstants.TD);
     writer.startElement(HtmlConstants.TD, null);
@@ -119,7 +119,7 @@ public class InputNumberSliderRenderer extends LayoutComponentRendererBase {
     // the input field starts here
     writer.startElement(HtmlConstants.TD, null);
     writer.writeAttribute("rowspan", "2", false);
-    writer.writeClassAttribute("tobago-inputNumberSlider-input-default");
+    writer.writeClassAttribute("tobago-numberSlider-input-default");
 
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeClassAttribute("tobago-in-default");
@@ -144,7 +144,7 @@ public class InputNumberSliderRenderer extends LayoutComponentRendererBase {
 
     //track
     writer.startElement(HtmlConstants.DIV, null);
-    writer.writeClassAttribute("tobago-inputNumberSlider-slider-default");
+    writer.writeClassAttribute("tobago-numberSlider-slider-default");
     writer.writeIdAttribute(getIdForSliderTrack(facesContext, slider));
 
     // handle
