@@ -20,17 +20,17 @@ package org.apache.myfaces.tobago.util;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.layout.HideLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutToken;
-import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.PercentLayoutToken;
 import org.apache.myfaces.tobago.layout.PixelLayoutToken;
-import org.apache.myfaces.tobago.layout.HideLayoutToken;
+import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
+@Deprecated
 public class LayoutInfo {
 
   private static final Log LOG = LogFactory.getLog(LayoutInfo.class);
@@ -154,32 +154,6 @@ public class LayoutInfo {
   }
 
 
-  public static String[] createLayoutTokens(String columnLayout, int count, String defaultToken) {
-    String[] tokens;
-    if (columnLayout != null) {
-      List<String> list = new ArrayList<String>();
-      StringTokenizer tokenizer = new StringTokenizer(columnLayout, ";");
-      while (tokenizer.hasMoreTokens()) {
-        String token = tokenizer.nextToken().trim();
-        if ("*".equals(token)) {
-          token = "1*";
-        }
-        list.add(token);
-      }
-      tokens = list.toArray(new String[list.size()]);
-    } else {
-      defaultToken = "*".equals(defaultToken) ? "1*" : defaultToken;
-      tokens = new String[count];
-      for (int i = 0; i < tokens.length; i++) {
-        tokens[i] = defaultToken;
-      }
-    }
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("created Tokens : " + tokensToString(tokens));
-    }
-    return tokens;
-  }
-
   public static String listToTokenString(List list) {
     String[] tokens = new String[list.size()];
     for (int i = 0; i < list.size(); i++) {
@@ -211,14 +185,6 @@ public class LayoutInfo {
 
   public boolean isFree(int column) {
     return spaces[column] == FREE;
-  }
-
-  public int getSpaceForColumn(int column) {
-    if (column >= spaces.length) {
-      LOG.error("spaces length " + spaces.length + " column " + column);
-      return 0;
-    }
-    return spaces[column];
   }
 
   public int getSpaceLeft() {

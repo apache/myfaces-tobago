@@ -29,6 +29,9 @@ import org.apache.myfaces.tobago.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Orientation;
 
+/**
+ * XXX: Not really implemented yet.
+ */
 public abstract class AbstractUISheetLayout extends UILayout implements LayoutManager {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIGridLayout.class);
@@ -80,7 +83,7 @@ public abstract class AbstractUISheetLayout extends UILayout implements LayoutMa
       Measure size = intervals.computeAuto();
       size = size.add(LayoutUtils.getBeginOffset(orientation, getLayoutContainer()));
       size = size.add(LayoutUtils.getEndOffset(orientation, getLayoutContainer()));
-      LayoutUtils.setSize(orientation, getLayoutContainer(), size);
+// todo      LayoutUtils.setSize(orientation, getLayoutContainer(), size);
     }
   }
 
@@ -99,7 +102,7 @@ public abstract class AbstractUISheetLayout extends UILayout implements LayoutMa
         for (LayoutComponent component : getLayoutContainer().getComponents()) {
 
           component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
-          LayoutUtils.setSize(orientation, component, available);
+// todo          LayoutUtils.setSize(orientation, component, available);
 
 
           // call sub layout manager
