@@ -196,7 +196,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "width")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract Object getWidthValue();
+  public abstract String getWidthValue();
 
 //  public abstract String getWidthExpression();
   
@@ -212,7 +212,7 @@ public abstract class GridLayoutConstraintTag extends TagSupport {
    */
   @TagAttribute(name = "height")
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure")
-  public abstract Object getHeightValue();
+  public abstract String getHeightValue();
 
 //  public abstract String getHeightExpression();
   
