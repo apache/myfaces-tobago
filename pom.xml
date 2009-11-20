@@ -1616,7 +1616,7 @@
     <mojarra12.version>1.2_13</mojarra12.version>
     <mojarra20.version>2.0.1-b02</mojarra20.version>
     <facelets.version>1.1.14</facelets.version>
-    <jetty.version>6.1.14</jetty.version>
+    <jetty.version>6.1.21</jetty.version>
     <commons-io.version>1.1</commons-io.version>
     <commons-lang.version>2.1</commons-lang.version>
     <commons-logging.version>1.1.1</commons-logging.version>
