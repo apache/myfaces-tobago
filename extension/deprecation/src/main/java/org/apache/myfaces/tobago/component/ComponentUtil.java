@@ -382,7 +382,7 @@ public class ComponentUtil {
     ComponentUtils.setValueBinding(component, name, state);
   }
 
-  public static void setStateChangeListener(UIData data, String stateChangeListener) {
+  public static void setStateChangeListener(UISheet data, String stateChangeListener) {
     final FacesContext facesContext = FacesContext.getCurrentInstance();
     final Application application = facesContext.getApplication();
 

@@ -24,8 +24,8 @@ import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UICommand;
-import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -438,8 +438,8 @@ public final class HtmlRendererUtils {
     UIComponent partiallyComponent = ComponentUtils.findComponent(component, componentId);
     if (partiallyComponent != null) {
       String clientId = partiallyComponent.getClientId(context);
-      if (partiallyComponent instanceof UIData) {
-        int rowIndex = ((UIData) partiallyComponent).getRowIndex();
+      if (partiallyComponent instanceof UISheet) {
+        int rowIndex = ((UISheet) partiallyComponent).getRowIndex();
         if (rowIndex >= 0 && clientId.endsWith(Integer.toString(rowIndex))) {
           return clientId.substring(0, clientId.lastIndexOf(NamingContainer.SEPARATOR_CHAR));
         }

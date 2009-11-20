@@ -19,13 +19,12 @@ package org.apache.myfaces.tobago.example.reference;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.UISheet;
 
-import org.apache.myfaces.tobago.component.UIData;
-
-import javax.faces.event.ActionEvent;
 import javax.faces.component.UIComponent;
-import java.util.List;
+import javax.faces.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PopupReferenceController {
 
@@ -49,11 +48,11 @@ public class PopupReferenceController {
 
   public void selectEntry(ActionEvent event) {
     UIComponent component = event.getComponent();
-    while (!(component instanceof UIData)) {
+    while (!(component instanceof UISheet)) {
       component = component.getParent();
     }
 
-    UIData sheet = (UIData) component;
+    UISheet sheet = (UISheet) component;
     entry = (Entry) sheet.getRowData();
     LOG.info("entry = \"" + entry.getColumn1() + "\"");
   }

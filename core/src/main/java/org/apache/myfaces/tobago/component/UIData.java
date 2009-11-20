@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.event;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,31 +17,13 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
-import javax.faces.component.UIColumn;
-import javax.faces.component.UIData;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.PhaseId;
+import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
+import org.apache.myfaces.tobago.event.SortActionSource;
+import org.apache.myfaces.tobago.event.SortActionSource2;
 
-public class SortActionEvent extends ActionEvent {
+/**
+ * @deprecated Please use UISheet
+ */
+public interface UIData extends SortActionSource2, AjaxComponent, SupportsMarkup, SortActionSource {
 
-  private static final long serialVersionUID = 4906962574581815720L;
-
-  private transient UIColumn column;
-
-  public SortActionEvent(UIData sheet, UIColumn column) {
-    super(sheet);
-    this.column = column;
-    setPhaseId(PhaseId.INVOKE_APPLICATION);
-  }
-
-  /**
-   * @return UIColumn The UIColumn object for which this event was triggered.
-   */
-  public UIColumn getColumn() {
-    return column;
-  }
-
-  public UIData getSheet() {
-    return (UIData) getComponent();
-  }
 }

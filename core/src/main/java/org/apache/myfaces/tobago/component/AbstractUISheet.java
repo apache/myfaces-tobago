@@ -54,11 +54,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractUIData extends javax.faces.component.UIData
+public abstract class AbstractUISheet extends javax.faces.component.UIData
     implements SheetStateChangeSource, SortActionSource, AjaxComponent, InvokeOnComponent, OnComponentPopulated,
     LayoutContainer, LayoutComponent {
 
-  private static final Log LOG = LogFactory.getLog(AbstractUIData.class);
+  private static final Log LOG = LogFactory.getLog(AbstractUISheet.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Data";
 
@@ -417,7 +417,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
 
   public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
       throws FacesException {
-    // we may need setRowIndex on UIData
+    // we may need setRowIndex on UISheet
     int oldRowIndex = getRowIndex();
     try {
       String sheetId = getClientId(context);
@@ -449,7 +449,7 @@ public abstract class AbstractUIData extends javax.faces.component.UIData
       return FacesUtils.invokeOnComponent(context, this, clientId, callback);
 
     } finally {
-      // we should reset rowIndex on UIData
+      // we should reset rowIndex on UISheet
       setRowIndex(oldRowIndex);
     }
   }

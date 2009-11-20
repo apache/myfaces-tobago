@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class UIDataUnitTest {
+public class UISheetUnitTest {
   String[] nineRows =
       {"one", "two", "three", "four", "five",
           "six", "seven", "eight", "nine"};
@@ -34,7 +34,7 @@ public class UIDataUnitTest {
   public void testPage() {
     List<String> list = new ArrayList<String>();
     list.addAll(Arrays.asList(nineRows));
-    UIData data = new UIData();
+    UISheet data = new UISheet();
     data.setValue(new ListDataModel(list));
     data.setRows(5);
     Assert.assertEquals(1, data.getPage());

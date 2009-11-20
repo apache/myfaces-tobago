@@ -32,10 +32,10 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIColumnEvent;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
-import org.apache.myfaces.tobago.component.UIData;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIReload;
+import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
@@ -79,7 +79,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-import static org.apache.myfaces.tobago.component.UIData.NONE;
+import static org.apache.myfaces.tobago.component.UISheet.NONE;
 
 public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRenderer {
 
@@ -102,7 +102,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
 
   public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
-    UIData data = (UIData) uiComponent;
+    UISheet data = (UISheet) uiComponent;
     storeFooterHeight(facesContext, data);
 
     Style style = new Style(facesContext, data);
@@ -175,7 +175,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmds);
   }
 
-  private void renderSheet(FacesContext facesContext, UIData data, boolean hasClickAction, Style style)
+  private void renderSheet(FacesContext facesContext, UISheet data, boolean hasClickAction, Style style)
       throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
@@ -545,7 +545,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     }
   }
 
-  private String createSheetPagingInfo(UIData data,
+  private String createSheetPagingInfo(UISheet data,
                                        FacesContext facesContext, String pagerCommandId, boolean row) {
     String sheetPagingInfo;
     if (data.getRowCount() > 0) {
@@ -625,7 +625,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
 
   }
 
-  private boolean needVerticalScrollbar(FacesContext facesContext, UIData data, Style style) {
+  private boolean needVerticalScrollbar(FacesContext facesContext, UISheet data, Style style) {
     // estimate need of height-scrollbar on client, if yes we have to consider
     // this when calculating column width's
 
@@ -655,19 +655,19 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     }
   }
 
-  private Measure getRowPadding(FacesContext facesContext, UIData data) {
+  private Measure getRowPadding(FacesContext facesContext, UISheet data) {
     return ThemeConfig.getMeasure(facesContext, data, "rowPadding");
   }
 
-  private Measure getScrollbarWidth(FacesContext facesContext, UIData data) {
+  private Measure getScrollbarWidth(FacesContext facesContext, UISheet data) {
     return ThemeConfig.getMeasure(facesContext, data, "scrollbarWidth");
   }
 
-  private void storeFooterHeight(FacesContext facesContext, UIData data) {
+  private void storeFooterHeight(FacesContext facesContext, UISheet data) {
     data.getAttributes().put(Attributes.FOOTER_HEIGHT, getFooterHeight(facesContext, data));
   }
 
-  private Measure getFooterHeight(FacesContext facesContext, UIData data) {
+  private Measure getFooterHeight(FacesContext facesContext, UISheet data) {
     // todo: use Measure instead of int
     Measure footerHeight;
     if (isValidPagingAttribute(data, Attributes.SHOW_ROW_RANGE)
@@ -681,11 +681,11 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     return footerHeight;
   }
 
-  private boolean isValidPagingAttribute(UIData component, String name) {
+  private boolean isValidPagingAttribute(UISheet component, String name) {
     return isValidPagingValue(getPagingAttribute(component, name));
   }
 
-  private String getPagingAttribute(UIData component, String name) {
+  private String getPagingAttribute(UISheet component, String name) {
     String value = ComponentUtils.getStringAttribute(component, name);
     if (isValidPagingValue(value)) {
       return value;
@@ -703,7 +703,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
         || "right".equals(value);
   }
 
-  private Measure getAscendingMarkerWidth(FacesContext facesContext, UIData data) {
+  private Measure getAscendingMarkerWidth(FacesContext facesContext, UISheet data) {
     return ThemeConfig.getMeasure(facesContext, data, "ascendingMarkerWidth");
   }
 
@@ -711,7 +711,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     return true;
   }
 
-  private List<Integer> getSelectedRows(UIData data, SheetState state) {
+  private List<Integer> getSelectedRows(UISheet data, SheetState state) {
     List<Integer> selected = (List<Integer>)
         data.getAttributes().get(Attributes.SELECTED_LIST_STRING);
     if (selected == null && state != null) {
@@ -724,7 +724,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
   }
 
   private void link(FacesContext facesContext, Application application,
-                    boolean disabled, PageAction command, UIData data)
+                    boolean disabled, PageAction command, UISheet data)
       throws IOException {
     UICommand link = createPagingCommand(application, command, disabled);
 
@@ -754,7 +754,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
   }
 
   private void renderColumnHeader(FacesContext facesContext,
-                                  TobagoResponseWriter writer, UIData component,
+                                  TobagoResponseWriter writer, UISheet component,
                                   int columnIndex, UIColumn column, String imageAscending, String imageDescending, String imageUnsorted,
                                   String image1x1, Measure sortMarkerWidth) throws IOException {
     String sheetId = component.getClientId(facesContext);
@@ -783,7 +783,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
       UICommand sortCommand = (UICommand) column.getFacet(Facets.SORTER);
       if (sortCommand == null) {
         String columnId = column.getClientId(facesContext);
-        String sorterId = columnId.substring(columnId.lastIndexOf(":") + 1) + "_" + UIData.SORTER_ID;
+        String sorterId = columnId.substring(columnId.lastIndexOf(":") + 1) + "_" + UISheet.SORTER_ID;
         sortCommand = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
         sortCommand.setRendererType(RendererTypes.LINK);
         sortCommand.setId(sorterId);
@@ -875,7 +875,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
 
 
   protected void renderColumnSelectorHeader(FacesContext facesContext,
-                                            TobagoResponseWriter writer, UIData component, UIColumn column)
+                                            TobagoResponseWriter writer, UISheet component, UIColumn column)
       throws IOException {
     UIPanel menu = (UIPanel) column.getFacet(Facets.MENUPOPUP);
     if (menu == null) {
@@ -912,7 +912,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
       menu.getChildren().add(menuItem);
     }
 
-    menu.setRendered(UIData.MULTI.equals(component.getSelectable()));
+    menu.setRendered(UISheet.MULTI.equals(component.getSelectable()));
 
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(column.getClientId(facesContext));
@@ -954,7 +954,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
   }
 
   private void writeDirectPagingLinks(
-      TobagoResponseWriter writer, FacesContext facesContext, Application application, UIData data)
+      TobagoResponseWriter writer, FacesContext facesContext, Application application, UISheet data)
       throws IOException {
     UICommand pagerCommand = (UICommand) data.getFacet(Facets.PAGER_PAGE);
     if (pagerCommand == null) {
@@ -1076,16 +1076,16 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     writer.endElement(type);
   }
 
-  private Measure getContentBorder(FacesContext facesContext, UIData data) {
+  private Measure getContentBorder(FacesContext facesContext, UISheet data) {
     return ThemeConfig.getMeasure(facesContext, data, "contentBorder");
   }
 
   public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UIData data = (UIData) component;
+    UISheet data = (UISheet) component;
     Style style = new Style(facesContext, data);
 
-    AjaxUtils.checkParamValidity(facesContext, data, UIData.class);
+    AjaxUtils.checkParamValidity(facesContext, data, UISheet.class);
     // TODO find a better way
     UICommand clickAction = null;
     UICommand dblClickAction = null;
@@ -1115,7 +1115,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     // DO Nothing
   }
 
-  private void ensureColumnWidthList(FacesContext facesContext, UIData data, Style style) {
+  private void ensureColumnWidthList(FacesContext facesContext, UISheet data, Style style) {
     List<Integer> currentWidthList = null;
     List<UIColumn> rendererdColumns = data.getRenderedColumns();
 

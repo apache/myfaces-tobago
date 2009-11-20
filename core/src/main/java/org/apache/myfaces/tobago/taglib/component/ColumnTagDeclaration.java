@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 
 /**
  * Renders a UIComponent that represents a single column of data within a
- * parent UIData component.
+ * parent UISheet component.
  */
 @Tag(name = "column")
 @UIComponentTag(

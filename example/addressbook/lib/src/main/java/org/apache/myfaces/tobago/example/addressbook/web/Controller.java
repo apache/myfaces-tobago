@@ -26,7 +26,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UIColumn;
-import org.apache.myfaces.tobago.component.UIData;
+import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
@@ -124,7 +124,7 @@ public class Controller {
       SortActionEvent sortEvent = (SortActionEvent) event;
       UIColumn column = (UIColumn) sortEvent.getColumn();
 
-      SheetState sheetState = ((UIData) sortEvent.getSheet()).getSheetState(FacesContext.getCurrentInstance());
+      SheetState sheetState = ((UISheet) sortEvent.getSheet()).getSheetState(FacesContext.getCurrentInstance());
       currentAddressList = addressDao.findAddresses(searchCriterion, column.getId(), sheetState.isAscending());
     }
   }

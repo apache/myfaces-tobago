@@ -57,7 +57,7 @@ public class Sorter {
       LOG.debug("sorterId = " + sortEvent.getComponent().getId());
     }
     UIColumn column = sortEvent.getColumn();
-    AbstractUIData data = (AbstractUIData) sortEvent.getComponent();
+    AbstractUISheet data = (AbstractUISheet) sortEvent.getComponent();
 
     Object value = data.getValue();
     if (value instanceof DataModel) {

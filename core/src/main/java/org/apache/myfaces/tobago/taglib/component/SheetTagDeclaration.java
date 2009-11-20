@@ -37,8 +37,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
 @Tag(name = "sheet")
 @BodyContentDescription(anyTagOf = "<tc:column>* <tc:columnSelector>?")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIData",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIData",
+    uiComponent = "org.apache.myfaces.tobago.component.UISheet",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUISheet",
     interfaces = { "org.apache.myfaces.tobago.ajax.api.AjaxComponent",
         "org.apache.myfaces.tobago.event.SortActionSource" },
     rendererType = RendererTypes.SHEET,
