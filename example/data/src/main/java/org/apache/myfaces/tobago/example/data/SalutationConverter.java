@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.example.demo.model.solar;
+package org.apache.myfaces.tobago.example.data;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,38 +17,25 @@ package org.apache.myfaces.tobago.example.demo.model.solar;
  * limitations under the License.
  */
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
+
 /*
- * Created 20.09.2002 at 10:40:44.
- * $Id$
+ * Date: 01.08.2006
+ * Time: 20:04:26
  */
+public class SalutationConverter implements Converter {
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Solar {
-
-// ///////////////////////////////////////////// constant
-
-// ///////////////////////////////////////////// attribute
-
-  private List<Planet> planets;
-
-// ///////////////////////////////////////////// constructor
-
-  public Solar() {
-    planets = new ArrayList<Planet>();
-    planets.add(new Planet(Planet.MARS));
+  public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
+    return Salutation.getSalutation(value);
   }
 
-// ///////////////////////////////////////////// code
-
-// ///////////////////////////////////////////// bean getter + setter
-
-  public List<Planet> getPlanets() {
-    return planets;
-  }
-
-  public void setPlanets(List<Planet> planets) {
-    this.planets = planets;
+  public String getAsString(FacesContext context, UIComponent component, Object value) throws ConverterException {
+    if (value instanceof Salutation) {
+      return ((Salutation) value).getKey();
+    }
+    return "";
   }
 }

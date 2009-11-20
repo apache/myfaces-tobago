@@ -85,6 +85,7 @@
       <modules>
         <module>addressbook</module>
         <module>blank</module>
+        <module>data</module>
         <module>demo</module>
         <module>nonfacesrequest</module>
         <module>experimental</module>
@@ -96,6 +97,7 @@
       <modules>
         <module>addressbook</module>
         <module>blank</module>
+        <module>data</module>
         <module>demo</module>
         <module>nonfacesrequest</module>
         <module>portlet</module>
@@ -113,6 +115,7 @@
       <id>release</id>
       <modules>
         <module>blank</module>
+        <module>data</module>
         <module>demo</module>
       </modules>
     </profile>
@@ -120,6 +123,7 @@
       <id>generate-assembly</id>
       <modules>
         <module>blank</module>
+        <module>data</module>
         <module>demo</module>
         <module>tobago-example-assembly</module>
       </modules>

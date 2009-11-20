@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.example.demo.model;
+package org.apache.myfaces.tobago.example.data;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,25 +17,23 @@ package org.apache.myfaces.tobago.example.demo.model;
  * limitations under the License.
  */
 
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
-import javax.faces.context.FacesContext;
-import javax.faces.component.UIComponent;
+import java.util.ArrayList;
+import java.util.List;
 
-/*
- * Date: 01.08.2006
- * Time: 20:04:26
- */
-public class SalutationConverter implements Converter {
+public class Solar {
 
-  public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
-    return Salutation.getSalutation(value);
+  private List<Planet> planets;
+
+  public Solar() {
+    planets = new ArrayList<Planet>();
+    planets.add(new Planet(Planet.MARS));
   }
 
-  public String getAsString(FacesContext context, UIComponent component, Object value) throws ConverterException {
-    if (value instanceof Salutation) {
-      return ((Salutation) value).getKey();
-    }
-    return "";
+  public List<Planet> getPlanets() {
+    return planets;
+  }
+
+  public void setPlanets(List<Planet> planets) {
+    this.planets = planets;
   }
 }

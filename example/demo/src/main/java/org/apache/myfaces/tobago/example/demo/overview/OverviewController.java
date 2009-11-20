@@ -19,13 +19,13 @@ package org.apache.myfaces.tobago.example.demo.overview;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.UIData;
+import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.event.SortActionEvent;
-import org.apache.myfaces.tobago.example.demo.model.Salutation;
-import org.apache.myfaces.tobago.example.demo.model.solar.SolarObject;
+import org.apache.myfaces.tobago.example.data.Salutation;
+import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.model.SelectItem;
 import org.apache.myfaces.tobago.model.SheetState;
 
@@ -39,11 +39,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-
-/*
- * Created 19.05.2004 18:47:47.
- * $Id$
- */
 
 public class OverviewController {
 
@@ -163,7 +158,7 @@ public class OverviewController {
   public void sheetSorter(ActionEvent event) {
     if (event instanceof SortActionEvent) {
       SortActionEvent sortEvent = (SortActionEvent) event;
-      UIData sheet = (UIData) sortEvent.getComponent();
+      UISheet sheet = (UISheet) sortEvent.getComponent();
       SheetState sheetState
           = sheet.getSheetState(FacesContext.getCurrentInstance());
       String columnId = sheetState.getSortedColumnId();

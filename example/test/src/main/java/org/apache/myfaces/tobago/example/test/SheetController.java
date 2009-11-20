@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.example.demo.model;
+package org.apache.myfaces.tobago.example.test;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,34 +17,13 @@ package org.apache.myfaces.tobago.example.demo.model;
  * limitations under the License.
  */
 
-/*
- * Date: 27.07.2006
- * Time: 21:21:12
-  */
-public enum Salutation {
+import org.apache.myfaces.tobago.example.data.SolarObject;
 
-  UNKNOWN("basic_itemUnknown"),
+public class SheetController {
+  
+  private SolarObject[] solarArray = SolarObject.getArray();
 
-  MR("basic_itemMr"),
-
-  MRS("basic_itemMrs");
-
-  private String key;
-
-  Salutation(String key) {
-    this.key = key;
-  }
-
-  public String getKey() {
-    return key;
-  }
-
-  public static Salutation getSalutation(String key) {
-    for (Salutation salutation : values()) {
-      if (salutation.getKey().equals(key)) {
-        return salutation;
-      }
-    }
-    return null;
+  public SolarObject[] getSolarArray() {
+    return solarArray;
   }
 }

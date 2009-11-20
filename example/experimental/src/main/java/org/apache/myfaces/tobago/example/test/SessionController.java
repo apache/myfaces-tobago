@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.example.test;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.UIData;
+import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.model.SelectItem;
 
@@ -114,8 +114,8 @@ public class SessionController {
       }
     }
     while ((component = component.getParent()) != null) {
-      if (component instanceof UIData) {
-        LOG.error(((UIData) component).getRowIndex());
+      if (component instanceof UISheet) {
+        LOG.error(((UISheet) component).getRowIndex());
       }
     }
   }

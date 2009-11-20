@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.example.demo.model.solar;
+package org.apache.myfaces.tobago.example.data;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.example.demo.model.solar;
 
 /*
  * Created 20.09.2002 at 10:54:32.
- * $Id$
+ * $Id: Planet.java 578592 2007-09-23 18:51:32Z bommel $
  */
 
 import java.util.ArrayList;

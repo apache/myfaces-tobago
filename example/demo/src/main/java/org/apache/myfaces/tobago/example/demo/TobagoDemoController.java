@@ -30,8 +30,8 @@ import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.TabChangeListener;
-import org.apache.myfaces.tobago.example.demo.model.solar.Solar;
-import org.apache.myfaces.tobago.example.demo.model.solar.SolarObject;
+import org.apache.myfaces.tobago.example.data.Solar;
+import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.model.TreeState;
 
