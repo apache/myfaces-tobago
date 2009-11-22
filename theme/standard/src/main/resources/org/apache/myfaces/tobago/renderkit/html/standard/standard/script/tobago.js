@@ -1787,6 +1787,18 @@ var Tobago = {
 
   setDefaultAction: function(defaultActionId) {
     Tobago.action.value = defaultActionId;
+  },
+
+  raiseEvent: function(eventType, element) {
+    if (document.createEvent) {
+      var evt = document.createEvent("Events");
+      evt.initEvent(eventType, true, true);
+      element.dispatchEvent(evt);
+    }
+    else if (document.createEventObject) {
+      var evt = document.createEventObject();   
+      element.fireEvent('on' + eventType, evt);
+    }
   }
 };
 
