@@ -1778,7 +1778,19 @@ var Tobago = {
 
   isFunction: function (func) {
     return (typeof func == "function") || ((typeof func == "object") && func.call);
+  },
+
+  raiseEvent: function (eventType, element) {
+  if (document.createEvent) {
+    var evt = document.createEvent("Events");
+    evt.initEvent(eventType, true, true);
+    element.dispatchEvent(evt);
   }
+  else if (document.createEventObject) {  
+    var evt = document.createEventObject();
+    element.fireEvent('on' + eventType, evt);
+  }
+}
 };
 
 

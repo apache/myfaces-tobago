@@ -221,11 +221,11 @@ function initCalendarParse(id, textBoxId) {
 function writeIntoField2(obj) {
   var id = obj.id;
   var index = id.lastIndexOf(':');
-  return writeIntoField(id.substring(0, index));
+  return writeIntoField(obj, id.substring(0, index));
 }
 
 
-function writeIntoField(id) {
+function writeIntoField(obj, id) {
   var textBoxId = document.getElementById(id + ":calendar:fieldId");
   var textBox = document.getElementById(textBoxId.value);
 
@@ -253,12 +253,17 @@ function writeIntoField(id) {
     second = 0;
   }
   var date = new Date(year, month - 1, day, hour, minute, second);
-  textBox.value = formatDate(date, document.calendar.formatPattern);
-//  textBox.focus();
-//  alert(document.calendar.formatPattern);
-	return textBox;
-}
 
+  Tobago.closePopup(obj)
+
+  textBox.focus();
+  
+  var newValue =  formatDate(date, document.calendar.formatPattern);
+  if (textBox.value != newValue) {
+    textBox.value = newValue;
+    Tobago.raiseEvent("change", textBox);
+  }
+}
 // ------------------------------------------------------------------
 
 function tbgGetTimeInput(imageButton) {
