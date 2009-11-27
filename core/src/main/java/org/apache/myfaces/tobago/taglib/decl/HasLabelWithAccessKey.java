@@ -40,7 +40,7 @@ public interface HasLabelWithAccessKey {
 
 
   /**
-   * Deprecated! Has not longer any function.
+   * Deprecated! Has not longer any function. See label attribute.
    *
    * @deprecated
    */

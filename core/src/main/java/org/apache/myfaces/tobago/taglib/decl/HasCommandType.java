@@ -25,10 +25,22 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
  */
 public interface HasCommandType {
   /**
+   * <p>
    * Type of command component to create. Valid values are 'navigate', 'reset',
    * 'script' or 'submit'.
    * If not specified, or not a valid value,
    * the default value is 'submit' is used.
+   * </p>
+   * <p>
+   * Deprecation info: 
+   * <ul>
+   * <li>Instead of 'navigate' please use the link attribute.</li>
+   * <li>Instead of 'script' please use the onclick attribute.</li>
+   * <li>'submit' is the default, so you can omit it.</li>
+   * <li>'reset' should not be used, but can emulated by the application (e.g. cancel button).</li>
+   * </ul>
+   * </p>
+   * 
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "submit")
