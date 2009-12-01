@@ -26,18 +26,15 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelWithAccessKey;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
-/*
- * $Id$
- */
-
 /**
  * Renders a checkable menuitem.
+ * @deprecated Please use tx:menuCheckbox
  */
-
 @Tag(name = "menuCheckbox", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",
     rendererType = "MenuCommand")
+@Deprecated
 public interface MenuCheckboxTagDeclaration
     extends TobagoTagDeclaration, AbstractCommandTagDeclaration, HasIdBindingAndRendered, 
     IsDisabled, HasCommandType, HasBooleanValue, HasLabel, HasLabelWithAccessKey {

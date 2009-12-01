@@ -17,10 +17,10 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-/*
- * $Id$
+/**
+ * @deprecated Please use tx:menuCheckbox
  */
-
+@Deprecated
 public class MenuCheckboxTag extends SelectBooleanCommandTag
     implements MenuSelectBooleanTagDeclaration {
 

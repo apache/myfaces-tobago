@@ -25,17 +25,15 @@ import org.apache.myfaces.tobago.taglib.decl.HasLabel;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
-/*
- * $Id$
- */
-
 /**
  * Renders a submenu with select one items (like a radio button).
+ * @deprecated Please use tx:menuRadio
  */
 @Tag(name = "menuRadio", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneCommand",
     rendererType = "MenuCommand")
+@Deprecated
 public interface MenuRadioTagDeclaration extends TobagoTagDeclaration, AbstractCommandTagDeclaration,
     HasIdBindingAndRendered, HasLabel, IsDisabled, HasCommandType, HasValue {
 }

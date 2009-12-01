@@ -18,9 +18,9 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 /*
- * $Id$
+ * @deprecated Please use tx:menuRadio
  */
-
+@Deprecated
 public class MenuRadioTag extends SelectOneCommandTag
     implements MenuRadioTagDeclaration {
 
