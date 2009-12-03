@@ -52,6 +52,10 @@ public class RenderUtil {
 
   public static final String COMPONENT_IN_REQUEST = "org.apache.myfaces.tobago.component";
 
+  private RenderUtil() {
+    // to prevent instantiation
+  }
+
   public static boolean contains(Object[] list, Object value) {
     if (list == null) {
       return false;
