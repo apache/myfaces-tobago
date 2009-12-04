@@ -30,7 +30,9 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 /**
  * Renders a menu item.
  */
-@Tag(name = "menuItem", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
+@Tag(name = "menuCommand", 
+//    deprecatedName = "menuItem", 
+    tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuCommand",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UICommand",

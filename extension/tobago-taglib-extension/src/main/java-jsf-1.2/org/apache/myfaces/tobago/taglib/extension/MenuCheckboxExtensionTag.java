@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UICommandBase;
-import org.apache.myfaces.tobago.internal.taglib.MenuItemTag;
+import org.apache.myfaces.tobago.internal.taglib.MenuCommandTag;
 import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
 
 import javax.faces.component.UIComponent;
@@ -49,7 +49,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport {
   private javax.el.ValueExpression rendered;
   private javax.el.ValueExpression value;
 
-  private MenuItemTag menuCommandTag;
+  private MenuCommandTag menuCommandTag;
   private SelectBooleanCheckboxTag selectBooleanCheckbox;
   private FacetTag facetTag;
   private javax.el.MethodExpression action;
@@ -66,7 +66,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport {
   @Override
   public int doStartTag() throws JspException {
 
-    menuCommandTag = new MenuItemTag();
+    menuCommandTag = new MenuCommandTag();
     menuCommandTag.setPageContext(pageContext);
     menuCommandTag.setParent(getParent()); // ???
     if (rendered != null) {
@@ -107,7 +107,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport {
     facetTag = new FacetTag();
     facetTag.setPageContext(pageContext);
     facetTag.setParent(menuCommandTag);
-    facetTag.setName(Facets.ITEMS);
+    facetTag.setName(Facets.CHECKBOX);
 
     facetTag.doStartTag();
     selectBooleanCheckbox = new SelectBooleanCheckboxTag();

@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.facelets.extension;
  */
 
 import com.sun.facelets.tag.jsf.ComponentConfig;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
 
 /*
@@ -38,4 +39,8 @@ public class MenuRadioExtensionHandler extends TobagoMenuExtensionHandler {
     return "SelectOneRadio";
   }
 
+  protected String getFacetName() {
+    return Facets.RADIO;
+  }
+  
 }

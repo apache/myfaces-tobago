@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 
@@ -35,6 +36,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuSeparator",
     uiComponentBaseClass = "javax.faces.component.UIOutput",
+    rendererType = RendererTypes.MENU_SEPARATOR,
     allowedChildComponenents = "NONE")
 
 public interface MenuSeparatorTagDeclaration extends IsRendered, HasBinding {

@@ -42,14 +42,6 @@ a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:activ
    color: #660000;
 }
 
-/* MenuBar -------------------------------------------------------- */
-.tobago-menuBar-separator  {
-  width: 100%;
-  position: relative;
-  top: -4px;
-  left: -2px;
-}
-
 /* Sheet -------------------------------------------------------- */
 .tobago-sheet-paging-input {
 

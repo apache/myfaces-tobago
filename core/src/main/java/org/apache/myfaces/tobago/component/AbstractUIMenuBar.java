@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.renderkit.css;
+package org.apache.myfaces.tobago.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,20 +17,23 @@ package org.apache.myfaces.tobago.renderkit.css;
  * limitations under the License.
  */
 
-public enum Position {
+import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.renderkit.RendererBase;
 
-  ABSOLUTE("absolute"),
-  RELATIVE("relative"),
-  FIXED("fixed"), // not supported in IE 6
-  STATIC("static");
+import javax.faces.context.FacesContext;
+import javax.faces.render.Renderer;
 
-  private String value;
+public class AbstractUIMenuBar extends javax.faces.component.UIPanel implements Configurable, OnComponentCreated {
 
-  Position(String value) {
-    this.value = value;
+  // todo: may have a markup for menubar, also may be a LayoutComponent/Container
+  public String[] getMarkup() {
+    return new String[0];
   }
 
-  public String getValue() {
-    return value;
+  public void onComponentCreated(FacesContext context) {
+    Renderer renderer = getRenderer(getFacesContext());
+    if (renderer instanceof RendererBase) {
+      ((RendererBase) renderer).onComponentCreated(context, this);
+    }
   }
 }

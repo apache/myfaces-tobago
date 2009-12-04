@@ -24,7 +24,6 @@ import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 
 import javax.el.ELException;
@@ -48,14 +47,16 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
 
   protected abstract String getSubRendererType();
 
+  protected abstract String getFacetName();
+
   protected void applyNextHandler(FaceletContext faceletContext, UIComponent menuCommand)
       throws IOException, FacesException, ELException {
     if (ComponentSupport.isNew(menuCommand)) {
-      UIComponent component = (UIComponent) menuCommand.getFacets().remove(Facets.ITEMS);
+      UIComponent component = (UIComponent) menuCommand.getFacets().remove(getFacetName());
       nextHandler.apply(faceletContext, component);
-      menuCommand.getFacets().put(Facets.ITEMS, component);
+      menuCommand.getFacets().put(getFacetName(), component);
     } else {
-      nextHandler.apply(faceletContext, menuCommand.getFacet(Facets.ITEMS));
+      nextHandler.apply(faceletContext, menuCommand.getFacet(getFacetName()));
     }
   }
 
@@ -67,7 +68,7 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
     component.setId(root.createUniqueId());
     component.setRendererType(getSubRendererType());
     setAttributes(faceletContext, component);
-    menuCommand.getFacets().put(Facets.ITEMS, component);
+    menuCommand.getFacets().put(getFacetName(), component);
   }
 
   protected MetaRuleset createMetaRuleset(Class aClass) {

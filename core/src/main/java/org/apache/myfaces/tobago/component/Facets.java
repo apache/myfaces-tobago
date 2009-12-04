@@ -22,11 +22,11 @@ public final class Facets {
   public static final String ACTION = "action";
   public static final String ADDENDUM = "addendum";
   public static final String CHANGE = "change";
+  public static final String CHECKBOX = "checkbox";
   public static final String CLICK = "click";
   public static final String COMPLETE = "complete";
   public static final String CONFIRMATION = "confirmation";
   public static final String CONSTRAINTS = "constraints";
-  public static final String ITEMS = "items";
   public static final String LABEL = "label";
   public static final String LAYOUT = "layout";
   public static final String LAYOUT_DEFAULT = "layoutDefault";
@@ -36,6 +36,7 @@ public final class Facets {
   public static final String PAGER_ROW = "pagerRow";
   public static final String PICKER_POPUP = "pickerPopup";
   public static final String POPUP = "popup";
+  public static final String RADIO = "radio";
   public static final String RELOAD = "reload";
   public static final String RESIZE_ACTION = "resizeAction";
   public static final String SORTER = "sorter";

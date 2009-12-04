@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UICommandBase;
-import org.apache.myfaces.tobago.internal.taglib.MenuItemTag;
+import org.apache.myfaces.tobago.internal.taglib.MenuCommandTag;
 import org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag;
 
 import javax.faces.component.UIComponent;
@@ -50,7 +50,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport {
   private javax.el.ValueExpression rendered;
   private javax.el.ValueExpression value;
 
-  private MenuItemTag menuCommandTag;
+  private MenuCommandTag menuCommandTag;
   private SelectOneRadioTag selectOneRadio;
   private FacetTag facetTag;
   private javax.el.MethodExpression action;
@@ -68,7 +68,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport {
   @Override
   public int doStartTag() throws JspException {
 
-    menuCommandTag = new MenuItemTag();
+    menuCommandTag = new MenuCommandTag();
     menuCommandTag.setPageContext(pageContext);
     menuCommandTag.setParent(getParent());
 
@@ -110,7 +110,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport {
     facetTag = new FacetTag();
     facetTag.setPageContext(pageContext);
     facetTag.setParent(menuCommandTag);
-    facetTag.setName(Facets.ITEMS);
+    facetTag.setName(Facets.RADIO);
 
     facetTag.doStartTag();
     selectOneRadio = new SelectOneRadioTag();

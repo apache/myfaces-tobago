@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.layout.Display;
+import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.Measure;
 
@@ -27,7 +28,7 @@ import java.io.Serializable;
 
 public class Style implements Serializable {
 
-  private static final long serialVersionUID = 2L;
+  private static final long serialVersionUID = 3L;
 
   private Measure width;
   private Measure height;
@@ -36,8 +37,10 @@ public class Style implements Serializable {
   private Display display;
   private Position position;
   private Overflow overflow;
+  private Measure marginTop;
   private Measure paddingTop;
   private Measure paddingBottom;
+  private String backgroundImage;
 
   public Style() {
   }
@@ -50,11 +53,13 @@ public class Style implements Serializable {
     this.display = map.display;
     this.position = map.position;
     this.overflow = map.overflow;
+    this.marginTop = map.marginTop;
     this.paddingTop = map.paddingTop;
     this.paddingBottom = map.paddingBottom;
+    this.backgroundImage = map.backgroundImage;
   }
 
-  public Style(FacesContext facesContext, LayoutComponent layout) {
+  public Style(FacesContext facesContext, LayoutBase layout) {
 
     String rendererType = layout.getRendererType();
     
@@ -83,7 +88,9 @@ public class Style implements Serializable {
       position = Position.ABSOLUTE;
     }
 
-    display = layout.getDisplay();
+    if (layout instanceof LayoutComponent) { // fixme
+      display = ((LayoutComponent)layout).getDisplay();
+    }
   }
 
   public String encode() {
@@ -123,6 +130,11 @@ public class Style implements Serializable {
       buf.append(overflow.getValue());
       buf.append(';');
     }
+    if (marginTop != null) {
+      buf.append("margin-top:");
+      buf.append(marginTop);
+      buf.append(';');
+    }
     if (paddingTop != null) {
       buf.append("padding-top:");
       buf.append(paddingTop);
@@ -131,6 +143,11 @@ public class Style implements Serializable {
     if (paddingBottom != null) {
       buf.append("padding-bottom:");
       buf.append(paddingBottom);
+      buf.append(';');
+    }
+    if (backgroundImage != null) {
+      buf.append("background-image:");
+      buf.append(backgroundImage);
       buf.append(';');
     }
 
@@ -193,6 +210,14 @@ public class Style implements Serializable {
     this.overflow = overflow;
   }
 
+  public Measure getMarginTop() {
+    return marginTop;
+  }
+
+  public void setMarginTop(Measure marginTop) {
+    this.marginTop = marginTop;
+  }
+
   public Measure getPaddingTop() {
     return paddingTop;
   }
@@ -207,5 +232,13 @@ public class Style implements Serializable {
 
   public void setPaddingBottom(Measure paddingBottom) {
     this.paddingBottom = paddingBottom;
+  }
+
+  public String getBackgroundImage() {
+    return backgroundImage;
+  }
+
+  public void setBackgroundImage(String backgroundImage) {
+    this.backgroundImage = backgroundImage;
   }
 }

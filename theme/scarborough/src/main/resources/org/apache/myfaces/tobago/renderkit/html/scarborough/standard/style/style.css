@@ -27,13 +27,22 @@ table.tobago-gridLayout-default {
 }
 
 form {
-  margin: 0px;
+  margin: 0;
 }
 
-/* this ist for ie6 to prevent scrollbars where none are needed */
-html {
-  overflow: auto;
+/*
+  This is to make the menu bar to be always at the top of the page.
+  The "position: fixed;" doesn't work with ie6 and makes 
+  on other browsers problems, when clicking the menu (the scroll panel scrolls then).
+*/
+html, body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
 }
+
 
 /* Tab ------------------------------------------------------------------ */
 
@@ -46,13 +55,13 @@ html {
 
 div.tobago-tab-selected-outer {
   border-color: #ddeeff #778899 #ddeeff #ddeeff;
-  border-width: 0.13ex 0.13ex 0px 0.13ex;
+  border-width: 0.13ex 0.13ex 0 0.13ex;
   border-style: solid;
   padding: 0.2ex 0.2em;
 }
 
 div.tobago-tab-selected-inner {
-  margin: 0px 0.7em;
+  margin: 0 0.7em;
   white-space: nowrap;
 }
 
@@ -63,19 +72,19 @@ div.tobago-tab-unselected-outer {
 }
 
 div.tobago-tab-unselected-inner {
-  margin: 0px 0.7em;
+  margin: 0 0.7em;
   white-space: nowrap;
 }
 
 div.tobago-tab-fulfill {
   border-color: #ddeeff;
-  border-width: 0px 0px 1px 0px;
+  border-width: 0 0 1px 0;
   border-style: solid;
 }
 
 td.tobago-tab-content {
   border-color: #ddeeff #778899 #778899 #ddeeff;
-  border-width: 0px 1px 1px 1px;
+  border-width: 0 1px 1px 1px;
   border-style: solid;
   padding: 11px 11px;
 }
@@ -85,8 +94,8 @@ div.tobago-tabnavigationbar {
   border-bottom-style: solid;
   border-bottom-width: 1px;
   height: 25px;
-  top: 0px;
-  margin-right: 0px;
+  top: 0;
+  margin-right: 0;
   position: absolute;
 }
 
@@ -99,13 +108,13 @@ a:link.tab, a:visited.tab, a:active.tab {
 
 img.tobago-progress-color1 {
   background: #aabbcc;
-  border-width: 1px 0px 1px 1px;
+  border-width: 1px 0 1px 1px;
   height: 1.4ex;
 }
 
 img.tobago-progress-color2 {
   background: #ddeeff;
-  border-width: 1px 1px 1px 0px;
+  border-width: 1px 1px 1px 0;
   height: 1.4ex;
 }
 
@@ -149,7 +158,7 @@ span.tobago-progress {
 
 .tree-item img {
   vertical-align: middle;
-  border: 0px;
+  border: 0;
 }
 
 .tree-icon {
@@ -166,8 +175,8 @@ span.tobago-progress {
 
 .tobago-tree-default {
   overflow: auto;
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
   font: icon;
   color: black;
   white-space: nowrap;
@@ -175,7 +184,7 @@ span.tobago-progress {
 
 .tobago-treeNode-default img {
   vertical-align: middle;
-  border: 0px;
+  border: 0;
 }
 
 .tobago-treeNode-default a, .tobago-treeNode-default a:active, .tobago-treeNode-default a:hover {
@@ -307,33 +316,28 @@ td.tobago-calendar-day-selected {
 /* gridLayout -------------------------------------------------------------- */
 
 .tobago-gridLayout-default {
-  border-spacing: 0px;
-  padding: 0px;
-  margin: 0px;
+  border-spacing: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .tobago-gridLayout-cell-td {
-  border-spacing: 0px;
-  padding: 0px;
-  margin: 0px;
+  border-spacing: 0;
+  padding: 0;
+  margin: 0;
 }
 
 div.tobago-gridLayout-default {
-  padding-bottom: 0px;
-  padding-right: 0px;
-/* XXX was changed from 5px */
-  padding-left: 0px;
-/* XXX was changed from 5px */
-  padding-top: 0px;
+  padding: 0;
   overflow: hidden;
 }
 
 div.tobago-gridLayout-first-row {
-  padding-top: 0px;
+  padding-top: 0;
 }
 
 div.tobago-gridLayout-first-column {
-  padding-left: 0px;
+  padding-left: 0;
 }
 
 /* box ---------------------------------------------------------------- */
@@ -357,8 +361,8 @@ legend.tobago-box-default {
 
 .tobago-box-toolbar-span {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 0;
+  right: 0;
   border: 2px groove #f6faff;
   background: #bbccdd; /*  font-size: 22px; */
   white-space: nowrap;
@@ -373,7 +377,7 @@ div.tobago-label-markup-number {
 }
 
 a.tobago-label-markup-number {
-  padding-left: 0px;
+  padding-left: 0;
   padding-right: 8px;
   
 }
@@ -407,7 +411,7 @@ label.tobago-label-default {
 
 label.tobago-label-inline {
   width: auto;
-  padding-left: 0px;
+  padding-left: 0;
 }
 
 /* selectBooleanCheckbox --------------------------------------------------- */
@@ -532,11 +536,17 @@ label.tobago-label-inline {
 }
 
 /* page -------------------------------------------------------------------- */
+
 .tobago-page-default {
   background: #bbccdd;
   font-family: arial, helvetica, sans-serif; /*  font-size: 14px;*/
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  position: absolute;
 }
 
 /* popup-------------------------------------------------------------- */
@@ -546,8 +556,8 @@ label.tobago-label-inline {
   width: 100%;
   height: 100%;
   position: absolute;
-  top: 0px;
-  left: 0px; /*background: url(../../standard/image/popupBg.png);*/
+  top: 0;
+  left: 0; /*background: url(../../standard/image/popupBg.png);*/
   opacity: .40;
   background: url( ../image/popupBg.png );
   filter: alpha( opacity = 40 );
@@ -562,13 +572,13 @@ label.tobago-label-inline {
   position: absolute;
   width: 100%;
   height: 100%;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   filter: progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0);
 }
 
 .tobago-popup-content {
-  border-width: 0px;
+  border-width: 0;
   background: #bbccdd;
   position: absolute;
   cursor: default;
@@ -585,8 +595,8 @@ label.tobago-label-inline {
 
 .tobago-popup-parent {
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
 }
 
 /* richTextEditor ---------------------------------------------------------- */
@@ -604,7 +614,7 @@ label.tobago-label-inline {
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 1px;
-  padding-right: 0px; /*  font: 12px arial, helvetica, sans-serif;*/
+  padding-right: 0; /*  font: 12px arial, helvetica, sans-serif;*/
 }
 
 .tobago-richTextEditor-toolbar-button-span-enabled, .tobago-richTextEditor-toolbar-button-span-disabled {
@@ -637,7 +647,7 @@ label.tobago-label-inline {
   border-right: 2px solid #f6f2f6;
   border-top: 2px solid #7b7d7b;
   border-bottom: 2px solid #f6f2f6;
-  margin: 0px;
+  margin: 0;
   background: #ffffff;
   height: 75px;
 }
@@ -678,7 +688,7 @@ div.tobago-richTextEditor-body {
   background: #ffffff;
   color: #000000;
   overflow: auto;
-  margin: 0px;
+  margin: 0;
 }
 
 .tobago-textArea-readonly {
@@ -743,8 +753,8 @@ div.tobago-richTextEditor-body {
   width: 250px;
   background-color: white;
   border: 1px solid #888;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   z-index: 5;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -760,8 +770,8 @@ div.tobago-richTextEditor-body {
 
 .tobago-in-suggest-popup ul {
   list-style-type: none;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 
 /* date ---------------------------------------------------------------------- */
@@ -775,7 +785,7 @@ div.tobago-richTextEditor-body {
   border-color: #bbccdd;
   border-style: inset;
   border-width: 2px;
-  margin: 0px;
+  margin: 0;
 }
 
 .tobago-date-required {
@@ -807,7 +817,7 @@ div.tobago-richTextEditor-body {
 /* object ------------------------------------------------------------------ */
 
 .tobago-object-default {
-  border: 0px solid black;
+  border: 0 solid black;
 }
 
 /* separator ------------------------------------------------------------------- */
@@ -890,6 +900,7 @@ hr.tobago-separator-default {
 }
 
 /* Toolbar ----------------------------------------------------------------- */
+
 .tobago-toolBar-default {
   border: 2px groove #f6faff;
   position: relative;
@@ -903,7 +914,7 @@ hr.tobago-separator-default {
 }
 
 .tobago-toolbar-orientation-right {
-  right: 0px;
+  right: 0;
   position: absolute;
 }
 
@@ -916,7 +927,7 @@ hr.tobago-separator-default {
   padding-bottom: 2px;
   padding-left: 5px;
   margin: 1px;
-  border: 0px solid #bbccdd;
+  border: 0 solid #bbccdd;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
 }
@@ -936,7 +947,7 @@ hr.tobago-separator-default {
 
 .tobago-toolBar-button-selected-enabled {
   cursor: pointer;
-  margin: 0px;
+  margin: 0;
   border-right: 1px solid #ddeeff;
   border-left: 1px solid #6688aa;
   border-bottom: 1px solid #ddeeff;
@@ -946,7 +957,7 @@ hr.tobago-separator-default {
 
 .tobago-toolBar-button-box-facet-selected-enabled {
   cursor: pointer;
-  margin: 0px;
+  margin: 0;
   border-right: 1px solid #ddeeff;
   border-left: 1px solid #6688aa;
   border-bottom: 1px solid #ddeeff;
@@ -975,8 +986,8 @@ hr.tobago-separator-default {
   position: relative;
   width: 20px;
   height: 20px;
-  top: 0px;
-  left: 0px; /*  background: yellow;*/
+  top: 0;
+  left: 0; /*  background: yellow;*/
 }
 
 /*
@@ -984,7 +995,7 @@ hr.tobago-separator-default {
     should have the same content, but needs different names !
 */
 .tobago-toolBar-button-hover {
-  margin: 0px;
+  margin: 0;
   border-left: 1px solid #ddeeff;
   border-right: 1px solid #6688aa;
   border-top: 1px solid #ddeeff;
@@ -993,7 +1004,7 @@ hr.tobago-separator-default {
 }
 
 .tobago-toolBar-button-menu-focus {
-  margin: 0px;
+  margin: 0;
   border-left: 1px solid #ddeeff;
   border-right: 1px solid #6688aa;
   border-top: 1px solid #ddeeff;
@@ -1037,135 +1048,81 @@ a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:activ
   padding-left: 5px;
 }
 
-/* MenuBar ------------------------------------------------------------------ */
-.tobago-menuBar-default {
-  height: 24px;
-  border: 2px groove #f6faff;
-  position: relative;
-  top: 0px;
-  left: 0px;
-  background: #bbccdd;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
+/* MenuBar, Menu, etc. ------------------------------------------------------------------ */
 
-.tobago-menuBar-page-facet {
-  height: 27px;
-}
-
-.tobago-menuBar-item-page-facet {
-  font: inherit;
-}
-
-.tobago-menuBar-container {
-  width: 10px;
-  height: 10px;
-  position: absolute;
-  font: inherit;
-  /* top and left are set from script on the client */
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.tobago-menuBar-submenuroot {
-    top: 0px;
-    left: 0px;
-    position: absolute;
-    width: 0px;
-    height: 0px;
-    overflow: visible;
- }
-
-.tobago-menuBar-container-ToolbarButton {
-  width: 20px;
-  height: 20px;
-  display: inline;
-}
-
-.tobago-menuBar-subitem-container {
-  border: 2px groove #f6faff;
-  position: absolute;
-  padding: 0px;
-  background: #bbccdd;
-  z-index: 1000;
-  overflow: visible;
-  visibility: hidden;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-
-}
-
-.tobago-menu-item, .tobago-menu-item-separator {
-  visibility: inherit;
-  overflow: auto; /* this MUST be auto (is needed and overwritten in javascript ) */
-  height: 20px;
-  position: absolute;
-  padding: 0px;
-  padding-left: 5px;
-  padding-right: 0px;
-  z-index: 1000;
-  white-space: nowrap;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-
-}
-
-.tobago-menuBar-separator  {
-  width: 90%;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  padding-top: 0px;
-  padding-bottom: 0px;
-}
-
-.tobago-menu-item-hover {
-  background: #ccddee;
-}
-.tobago-menu-item-focus {
-  background: #ccddee;
-}
-
-
-.tobago-menuBar-item-span {
-  position: absolute;
-  top: 0px;
-  left: 20px;
+.tobago-menuBar-default, .tobago-menuBar-default a:link, .tobago-menuBar-default a:visited, .tobago-menuBar-default a:active {
+  color: black;
+  font-family: arial, helvetica, sans-serif;
+  font-size: 12px;
+  font-size-adjust: none;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: normal;
   text-decoration: none;
 }
 
-.tobago-menuBar-item-span-enabled {
-  color: #000000;
+.tobago-menuBar-default li {
+  background-color: #aabbcc;
+  list-style: none outside none;
 }
 
-.tobago-menuBar-item-span-disabled {
-  color: #888888;
+li.tobago-menu-selected {
+  background-color: #d8e9fb;
 }
 
-.tobago-menuBar-item-span-top {
-  left: 0px;
-  padding-right: 5px;
-  padding-left: 5px;
-}
-
-.tobago-menuBar-item-page-top {
-  top: 2px;
-}
-
-.tobago-menu-item-image {
+.tobago-menuBar-default {
+  padding: 0;
+  margin: 0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #6688aa;
+  height: 18px;
+  left: 0;
+  top: 0;
   position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 20px;
-  height: 20px;
+  width: 100%;
+  background-color: #aabbcc;
+  z-index: 1000; /* todo */
 }
 
-.tobago-menu-subitem-arrow {
-  float: right;
-  width: 20px;
-  height: 20px;
+.tobago-menuBar-default ol {
+  padding: 0;
+  margin: 0;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #888888;
+  visibility: hidden;
+  position: absolute;
+}
+
+.tobago-menu-top {
+  float: left;
+  white-space: nowrap;
+  padding: 2px 3px 2px 5px;
+}
+
+.tobago-menu-parent {
+  white-space: nowrap;
+  padding: 2px 3px 2px 25px; 
+  background-repeat: no-repeat; /* prepare for images via element style */
+  background-position: 5px center;
+}
+
+.tobago-menuSeparator-default {
+  padding: 2px 3px 2px 5px;
+  display: block;
+  position: static;
+}
+
+.tobago-menuSeparator-default hr {
+  margin: 3px 0;
+  border-width: 1px 0 0 0;
+  border-style: solid;
 }
 
 /* Sheet ------------------------------------------------------------------ */
+
 .tobago-sheet-outer-div {
   overflow: hidden;
   position: relative;
@@ -1177,10 +1134,10 @@ a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:activ
   height: 20px;
   width: 100%;
   overflow: hidden;
-  padding: 0px 0px 0px 0px;
+  padding: 0 0 0 0;
   position: absolute;
-  left: 0px;
-  top: 0px;
+  left: 0;
+  top: 0;
   white-space: nowrap;
   z-index: 2;
   box-sizing: border-box;
@@ -1189,9 +1146,9 @@ a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:activ
 }
 
 .tobago-sheet-header-table {
-  padding: 0px 0px 0px 0px;
+  padding: 0 0 0 0;
   width: 100%;
-  border: 0px solid black;
+  border: 0 solid black;
 }
 
 .tobago-sheet-header-box{
@@ -1204,7 +1161,7 @@ a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:activ
 	vertical-align: top;
 	display: inline;
 	height: 100%;
-	padding: 0px;
+	padding: 0;
 	text-overflow: ellipsis;
 
 }
@@ -1213,7 +1170,7 @@ a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:activ
 	background-color: #bbccdd;
 	height: 100%;
 	overflow: hidden;
-	padding: 0px 5px;
+	padding: 0 5px;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	width: 100%;
@@ -1237,7 +1194,7 @@ a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:activ
 	height: 100%;
 	overflow: hidden;
 	right: -5px;
-	top: 0px;
+	top: 0;
 	width: 10px;
 }
 
@@ -1250,7 +1207,7 @@ a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:activ
 	height: 100%;
 	overflow: hidden;
 	right: 5px;
-	top: 0px;
+	top: 0;
 	width: 8px;
 }
 
@@ -1258,14 +1215,14 @@ a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:activ
   overflow: auto;
   padding-top: 20px;
   position: absolute;
-  left: 0px;
-  top: 0px;
+  left: 0;
+  top: 0;
   background: #ebf4fd;
 }
 
 .tobago-sheet-cell-td {
-  padding-left: 0px;
-  padding-right: 0px;
+  padding-left: 0;
+  padding-right: 0;
   vertical-align: top;
 }
 
@@ -1307,8 +1264,8 @@ div.tobago-sheet-cell-inner span {
 .tobago-sheet-footer {
   z-index: 1000;
   position: absolute;
-  left: 0px;
-  top: 0px;
+  left: 0;
+  top: 0;
   text-align: center;
   overflow: hidden;
   box-sizing: border-box;
@@ -1317,22 +1274,22 @@ div.tobago-sheet-cell-inner span {
 
 .tobago-sheet-paging-span-left {
   position : absolute;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
 }
 .tobago-sheet-paging-span-center {
 
 }
 .tobago-sheet-paging-span-right {
   position : absolute;
-  top: 0px;
-  right: 0px;
+  top: 0;
+  right: 0;
 }
 
 .tobago-sheet-paging-input {
   width: 30px;
   height: 20px;
-  padding-top: 0px;
+  padding-top: 0;
   text-align: center;
   vertical-align: top;
 

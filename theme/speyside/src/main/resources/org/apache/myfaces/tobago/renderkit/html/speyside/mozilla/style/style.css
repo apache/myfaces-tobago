@@ -15,12 +15,13 @@
  * limitations under the License.
  */
 
-/* in ---------------------------------------------------------------------- */
+/* date ---------------------------------------------------------------------- */
+
 .tobago-date-default  {
   margin-top: 0px;
 }
 
-/* - Label ------------------------------------------------------------------ */
+/* label ------------------------------------------------------------------ */
 
 label.tobago-label-default  {
   margin-top: 0px;
@@ -31,8 +32,6 @@ label.tobago-label-default  {
   border-bottom: 0px solid transparent;
 }
 
-/* in ---------------------------------------------------------------------- */
-
 .tobago-label-default  {
   padding-top: 0px;
 }
@@ -40,7 +39,6 @@ label.tobago-label-default  {
 .tobago-label-inline  {
   padding-top: 1px;
 }
-
 
 /* selectManyListbox ------------------------------------------------------- */
 
@@ -62,8 +60,8 @@ label.tobago-label-default  {
   height: 12px;
 }
 
-/* Sheet -------------------------------------------------------- */
+/* sheet -------------------------------------------------------- */
+
 .tobago-sheet-header-box {
 	height: 19px;
 }
-

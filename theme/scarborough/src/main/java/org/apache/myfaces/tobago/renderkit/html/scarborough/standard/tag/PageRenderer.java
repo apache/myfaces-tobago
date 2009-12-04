@@ -23,13 +23,19 @@ import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIForm;
+import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.layout.LayoutContext;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -98,7 +104,6 @@ public class PageRenderer extends PageRendererBase {
   @Override
   public void encodeBegin(FacesContext facesContextOrg, UIComponent component) throws IOException {
 
-//  public void encodeEnd(FacesContext facesContextOrg, UIComponent component) throws IOException {
     UIPage page = (UIPage) component;
 
     // invoke prepareRender
@@ -228,6 +233,7 @@ public class PageRenderer extends PageRendererBase {
     // script files
     List<String> scriptFiles = facesContext.getScriptFiles();
     // dojo.js and tobago.js needs to be first!
+    addScripts(writer, facesContext, "script/jquery-1.3.2.min.js");
     if (debugMode) {
       addScripts(writer, facesContext, "script/dojo/dojo/dojo.js.uncompressed.js");
     } else {
@@ -236,6 +242,7 @@ public class PageRenderer extends PageRendererBase {
     addScripts(writer, facesContext, "script/tobago.js");
     addScripts(writer, facesContext, "script/theme-config.js");
     // remove  dojo.js and tobago.js from list to prevent dublicated rendering of script tags
+    scriptFiles.remove("script/jquery-1.3.2.min.js");
     if (debugMode) {
       scriptFiles.remove("script/dojo/dojo/dojo.js.uncompressed.js");
     } else {
@@ -308,10 +315,10 @@ public class PageRenderer extends PageRendererBase {
       }
     }
 
-    UIComponent menubar = page.getFacet(Facets.MENUBAR);
-    if (menubar != null) {
+    UIMenuBar menuBar = (UIMenuBar)page.getFacet(Facets.MENUBAR);
+    if (menuBar != null) {
       facesContext.getOnloadScripts().add("Tobago.setElementWidth('"
-          + menubar.getClientId(facesContext) + "', Tobago.getBrowserInnerWidth())");
+          + menuBar.getClientId(facesContext) + "', Tobago.getBrowserInnerWidth())");
     }
     writer.startJavascript();
     // onload script
@@ -345,8 +352,6 @@ public class PageRenderer extends PageRendererBase {
 //    writer.writeAttribute("onunload", "Tobago.onexit();", null);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute();
-//    Style style = new Style(facesContext, page);
-//    writer.writeStyleAttribute(style);
 
     writer.startJavascript();
     writer.write("Tobago.pngFixBlankImage = '");
@@ -441,14 +446,25 @@ public class PageRenderer extends PageRendererBase {
     }
 */
 
-    if (menubar != null) {
-      menubar.getAttributes().put(Attributes.PAGE_MENU, Boolean.TRUE);
-      RenderUtil.encode(facesContext, menubar);
+    if (menuBar != null) {
+      menuBar.getAttributes().put(Attributes.PAGE_MENU, Boolean.TRUE);
+      RenderUtil.encode(facesContext, menuBar);
     }
     // write the proviously rendered page content
 //    UILayout.getLayout(component).encodeChildrenOfComponent(facesContext, component);
 
 //    page.encodeLayoutBegin(facesContext);
+    
+    writer.startElement(HtmlConstants.DIV, page);
+    writer.writeClassAttribute();
+    Style style = new Style(facesContext, page);
+    // XXX position the div, so that the scrollable area is correct.
+    // XXX better to take this fact into layout management.
+    // XXX is also useful in boxes, etc.
+    Measure topOffset = getBottomOffset(facesContext, page);
+    style.setHeight(page.getHeight().subtract(topOffset));
+    style.setTop(topOffset);
+    writer.writeStyleAttribute(style);
   }
 
 //  @Override
@@ -460,8 +476,6 @@ public class PageRenderer extends PageRendererBase {
   @Override
   public void encodeEnd(FacesContext facesContextOrg, UIComponent component) throws IOException {
 
-    UIPage page = (UIPage) component;
-
     TobagoFacesContext facesContext;
     if (facesContextOrg instanceof TobagoFacesContext) {
       facesContext = (TobagoFacesContext) facesContextOrg;
@@ -469,7 +483,10 @@ public class PageRenderer extends PageRendererBase {
       facesContext = new TobagoFacesContext(facesContextOrg);
     }
 
-//    page.encodeLayoutEnd(facesContext);
+    UIPage page = (UIPage) component;
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
+    writer.endElement(HtmlConstants.DIV);
 
     // write popup components
     // beware of ConcurrentModificationException in cascating popups!
@@ -478,8 +495,6 @@ public class PageRenderer extends PageRendererBase {
     for (UIPopup popup : popupArray) {
       RenderUtil.encode(facesContext, popup);
     }
-
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     String clientId = page.getClientId(facesContext);
     final boolean debugMode = ClientProperties.getInstance(facesContext.getViewRoot()).isDebugMode();
@@ -642,8 +657,21 @@ public class PageRenderer extends PageRendererBase {
     return method == null ? "post" : method;
   }
 
+  @Override
   public boolean getRendersChildren() {
     return true;
   }
 
+  @Override
+  public Measure getBottomOffset(FacesContext facesContext, Configurable component) {
+    // XXX this is a hack. correct whould be the top-offset, but this would shift the content, because of the 
+    // XXX hack before the code: writer.writeStyleAttribute(style)
+    UIPage page = (UIPage) component;
+    UIMenuBar menuBar = (UIMenuBar)page.getFacet(Facets.MENUBAR);
+    if (menuBar != null) {
+      return ThemeConfig.getMeasure(facesContext, menuBar, "fixedHeight");
+    } else {
+      return PixelMeasure.ZERO;
+    }
+  }
 }

@@ -22,7 +22,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UICommandBase;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuSelectOne;
@@ -45,8 +44,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
-import javax.faces.component.UISelectBoolean;
-import javax.faces.component.UISelectOne;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -100,13 +97,10 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     } else if (command instanceof UISelectOneCommand) {
       renderSelectOne(facesContext, command, writer, first, last);
     } else {
-      if (command.getFacet(Facets.ITEMS) != null) {
-        UIComponent facet = command.getFacet(Facets.ITEMS);
-        if (facet instanceof UISelectBoolean) {
-          renderSelectBoolean(facesContext, command, writer, first, last);
-        } else if (facet instanceof UISelectOne) {
-          renderSelectOne(facesContext, command, writer, first, last);
-        }
+      if (command.getFacet(Facets.RADIO) != null) {
+        renderSelectOne(facesContext, command, writer, first, last);
+      } else if (command.getFacet(Facets.CHECKBOX) != null) {
+        renderSelectBoolean(facesContext, command, writer, first, last);
       } else {
         String onClick = createOnClick(facesContext, command);
         renderToolbarButton(facesContext, command, writer, first, last, false, onClick);
@@ -122,7 +116,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
     List<SelectItem> items;
 
-    UIMenuSelectOne radio = (UIMenuSelectOne) command.getFacet(Facets.ITEMS);
+    UIMenuSelectOne radio = (UIMenuSelectOne) command.getFacet(Facets.RADIO);
     if (radio == null) {
       items = RenderUtil.getSelectItems(command);
       radio = CreateComponentUtils.createUIMenuSelectOneFacet(facesContext, command);
@@ -187,7 +181,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       TobagoResponseWriter writer, boolean first, boolean last)
       throws IOException {
 
-    UIComponent checkbox = command.getFacet(Facets.ITEMS);
+    UIComponent checkbox = command.getFacet(Facets.CHECKBOX);
     if (checkbox == null) {
       checkbox = CreateComponentUtils.createUISelectBooleanFacetWithId(facesContext, command);
     }
@@ -298,8 +292,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
         && !UIToolBar.ICON_OFF.equals(iconSize);
     if (popupOn2) {
       if (popupMenu != null) {
-        renderPopupTd(facesContext, writer, command, popupMenu,
-            true);
+        renderPopupTd(facesContext, writer, command, popupMenu, true);
       }
       writer.endElement(HtmlConstants.TR);
       writer.startElement(HtmlConstants.TR, null);
@@ -461,7 +454,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       writer.endElement(HtmlConstants.DIV);
       popupMenu.getAttributes().put(Attributes.MENU_POPUP, Boolean.TRUE);
       popupMenu.getAttributes().put(Attributes.MENU_POPUP_TYPE, "ToolBarButton");
-      popupMenu.setRendererType(RendererTypes.MENU_BAR);
+//      popupMenu.setRendererType(RendererTypes.MENU_BAR);
       if (popupMenu instanceof UIMenu)  {
         ((UIMenu) popupMenu).setLabel(null);
       } else {

@@ -20,10 +20,9 @@ package org.apache.myfaces.tobago.taglib.extension;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import static org.apache.myfaces.tobago.component.Attributes.RENDERED_PARTIALLY;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UICommandBase;
-import org.apache.myfaces.tobago.internal.taglib.MenuItemTag;
+import org.apache.myfaces.tobago.internal.taglib.MenuCommandTag;
 import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
 import org.apache.myfaces.tobago.taglib.decl.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.HasBooleanValue;
@@ -36,6 +35,8 @@ import javax.faces.el.ValueBinding;
 import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+
+import static org.apache.myfaces.tobago.component.Attributes.RENDERED_PARTIALLY;
 
 /*
  * Date: 09.05.2006
@@ -53,7 +54,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
   private String rendered;
   private String value;
 
-  private MenuItemTag menuCommandTag;
+  private MenuCommandTag menuCommandTag;
   private SelectBooleanCheckboxTag selectBooleanCheckbox;
   private FacetTag facetTag;
   private String action;
@@ -73,7 +74,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
   @Override
   public int doStartTag() throws JspException {
 
-    menuCommandTag = new MenuItemTag();
+    menuCommandTag = new MenuCommandTag();
     menuCommandTag.setPageContext(pageContext);
     menuCommandTag.setParent(getParent()); // ???
 
@@ -124,7 +125,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
     facetTag = new FacetTag();
     facetTag.setPageContext(pageContext);
     facetTag.setParent(menuCommandTag);
-    facetTag.setName(Facets.ITEMS);
+    facetTag.setName(Facets.CHECKBOX);
 
     facetTag.doStartTag();
     selectBooleanCheckbox = new SelectBooleanCheckboxTag();

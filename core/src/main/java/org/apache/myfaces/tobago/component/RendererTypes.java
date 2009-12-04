@@ -45,6 +45,7 @@ public final class RendererTypes {
   public static final String MENU = "Menu";
   public static final String MENU_BAR = "MenuBar";
   public static final String MENU_COMMAND = "MenuCommand";
+  public static final String MENU_SEPARATOR = "MenuSeparator";
   public static final String OBJECT = "Object";
   public static final String OUT = "Out";
   public static final String PAGE = "Page";

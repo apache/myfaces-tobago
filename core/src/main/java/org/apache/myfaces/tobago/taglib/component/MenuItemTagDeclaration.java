@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.renderkit.css;
+package org.apache.myfaces.tobago.taglib.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,20 +17,23 @@ package org.apache.myfaces.tobago.renderkit.css;
  * limitations under the License.
  */
 
-public enum Position {
+import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.RendererTypes;
 
-  ABSOLUTE("absolute"),
-  RELATIVE("relative"),
-  FIXED("fixed"), // not supported in IE 6
-  STATIC("static");
-
-  private String value;
-
-  Position(String value) {
-    this.value = value;
-  }
-
-  public String getValue() {
-    return value;
-  }
+/**
+ * Renders a menu item.
+ * <p>
+ * Please use menuCommand instead!
+ * @deprecated
+ */
+@Tag(name = "menuItem", 
+    tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
+@UIComponentTag(
+    uiComponent = "org.apache.myfaces.tobago.component.UIMenuCommand",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UICommand",
+    rendererType = RendererTypes.MENU_COMMAND,
+    allowedChildComponenents = "NONE")
+@Deprecated
+public interface MenuItemTagDeclaration extends MenuCommandTagDeclaration {
 }

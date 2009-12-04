@@ -392,40 +392,22 @@ a:link.tab, a:visited.tab, a:active.tab {
 }
 
 /* menuBar ----------------------------------------------------------------- */
+
+.tobago-menuBar-default li {
+  background-color: #FFCC66;
+}
+
+li.tobago-menu-selected {
+  background-color: #FF9900;
+}
+
 .tobago-menuBar-default {
-  border: 1px solid #FF9900;
-  background: #FFCC66;
+  border-bottom-color: #FF9900;
+  background-color: #FFCC66;
 }
 
-.tobago-menuBar-separator   {
-  margin-top: 0px;
-  margin-bottom: 0px;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  border-top:1px solid #000000;
-  border-right:0px solid #000000;
-  border-bottom:0px solid #000000;
-  border-left:0px solid #000000;
-}
-
-.tobago-menuBar-page-facet {
-  background: #FFCC66;
-}
-
-.tobago-menuBar-subitem-container {
-  background: #FFCC66;
-}
-
-.tobago-menu-item-focus {
-  background: #FF9900;
-}
-
-.tobago-menu-item-hover {
-  background: #FF9900;
-}
-
-.tobago-menuBar-item-span-disabled {
-  color: #888888;
+.tobago-menuBar-default ol {
+  border-color: #000000;
 }
 
 /* sheet ----------------------------------------------------------------- */

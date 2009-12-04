@@ -18,11 +18,19 @@ package org.apache.myfaces.tobago.facelets.extension;
  */
 
 import com.sun.facelets.tag.jsf.ComponentConfig;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 
-/*
- * Date: Aug 10, 2007
- * Time: 10:19:47 PM
+// XXX check if this is correct
+// todo: remove the facet
+/**
+  <pre>
+    &lt;tc:menuCommand label="" action="">
+      &lt;f:facet name="items">
+        &lt;tc:selectBooleanCheckbox value=""/>
+      &lt;/f:facet>
+    &lt;/tc:menuCommand>
+  </pre>
  */
 public class MenuCheckboxExtensionHandler extends TobagoMenuExtensionHandler {
 
@@ -36,5 +44,9 @@ public class MenuCheckboxExtensionHandler extends TobagoMenuExtensionHandler {
 
   protected String getSubRendererType() {
     return "SelectBooleanCheckbox";
+  }
+
+  protected String getFacetName() {
+    return Facets.CHECKBOX;
   }
 }
