@@ -254,6 +254,7 @@ public class TobagoDemoController {
   }
 
   public void resetSession() throws IOException {
+    LOG.info("Resetting the session.");
     FacesContext facesContext = FacesContext.getCurrentInstance();
     HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
     if (session != null) {

@@ -35,17 +35,19 @@
       <jsp:include page="/menu.jsp"/>
       <f:facet name="layout">
         <tc:gridLayout border="0" columns="*;4*"
-                       margin="10px" rows="100px;*;fixed"/>
+                       margin="10px" rows="100px;fixed;*;fixed"/>
       </f:facet>
 
       <tc:cell spanX="2">
         <jsp:include page="/header.jsp"/>
       </tc:cell>
 
-      <tc:cell spanY="2">
+      <tc:cell spanY="3">
         <jsp:include page="/navigation.jsp"/>
       </tc:cell>
 
+      <tc:messages/>
+      
       <tc:cell>
         <jsp:doBody/>
       </tc:cell>

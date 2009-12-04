@@ -30,17 +30,19 @@
 
       <f:facet name="layout">
         <tc:gridLayout border="0" columns="*;4*"
-                       margin="10px" rows="100px;*;fixed"/>
+                       margin="10px" rows="100px;fixed;*;fixed"/>
       </f:facet>
 
       <tc:cell spanX="2">
         <ui:include src="/header.xhtml"/>
       </tc:cell>
 
-      <tc:cell spanY="2">
+      <tc:cell spanY="3">
         <ui:include src="/navigation.xhtml"/>
       </tc:cell>
 
+      <tc:messages/>
+      
       <tc:cell>
         <ui:insert/>
       </tc:cell>
