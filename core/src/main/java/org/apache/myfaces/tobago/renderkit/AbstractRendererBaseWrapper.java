@@ -30,6 +30,7 @@ import javax.faces.convert.ConverterException;
 import java.io.IOException;
 
 public abstract class AbstractRendererBaseWrapper extends RendererBase {
+  
   private static final Log LOG = LogFactory.getLog(AbstractRendererBaseWrapper.class);
 
   @Override
@@ -50,52 +51,64 @@ public abstract class AbstractRendererBaseWrapper extends RendererBase {
     getRenderer(context).prepareRendersChildren(context, component);
   }
 
+  @Override
   public final boolean getRendersChildren() {
     return getRenderer(FacesContext.getCurrentInstance()).getRendersChildren();
   }
 
+  @Override
   public final void decode(FacesContext facesContext, UIComponent component) {
     getRenderer(facesContext).decode(facesContext, component);
   }
 
   @Deprecated
+  @Override
   public final int getConfiguredValue(FacesContext facesContext, UIComponent component, String key) {
     return ThemeConfig.getValue(facesContext, component, key);
   }
 
+  @Override
   protected final Object getCurrentValueAsObject(UIInput input) {
     return getRenderer(FacesContext.getCurrentInstance()).getCurrentValueAsObject(input);
   }
 
+  @Override
   protected final String getCurrentValue(FacesContext facesContext, UIComponent component) {
     return getRenderer(facesContext).getCurrentValue(facesContext, component);
   }
 
+  @Override
   protected final Object getValue(UIComponent component) {
     return getRenderer(FacesContext.getCurrentInstance()).getValue(component);
   }
 
+  @Override
   public final Converter getConverter(FacesContext facesContext, UIComponent component) {
     return getRenderer(facesContext).getConverter(facesContext, component);
   }
 
+  @Override
   public final Object getConvertedValue(FacesContext facesContext, UIComponent component, Object submittedValue)
       throws ConverterException {
     return getRenderer(facesContext).getConvertedValue(facesContext, component, submittedValue);
   }
 
+  @Override
   public final void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     getRenderer(facesContext).encodeBegin(facesContext, component);
   }
 
+  @Override
   public final void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
     getRenderer(facesContext).encodeChildren(facesContext, component);
   }
 
+  @Override
   public final void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     getRenderer(facesContext).encodeEnd(facesContext, component);
   }
 
+  @Override
   public final String convertClientId(FacesContext facesContext, String clientId) {
     return getRenderer(facesContext).convertClientId(facesContext, clientId);
   }
@@ -104,7 +117,8 @@ public abstract class AbstractRendererBaseWrapper extends RendererBase {
     RendererBase renderer = (RendererBase) ResourceManagerFactory.
         getResourceManager(facesContext).getRenderer(facesContext.getViewRoot(), getRendererType());
     if (renderer == null) {
-      LOG.error("No Render found for "+ getRendererType() + " xxx " + this.getClass().getName());
+      LOG.error("No Renderer found for rendererType='"+ getRendererType() 
+          + "' in wrapper class '" + this.getClass().getName() + "'");
     }
     return renderer;
   }
