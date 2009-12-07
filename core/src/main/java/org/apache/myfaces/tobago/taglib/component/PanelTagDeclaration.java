@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasTip;
 
 /*
  * Date: 11.02.2006
@@ -41,7 +42,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
     @Facet(name = "reload", description = "Contains an instance of UIReload"),
     @Facet(name = "layout", description = "Contains an instance of UILayout")})
 public interface PanelTagDeclaration extends TobagoBodyTagDeclaration,
-    HasIdBindingAndRendered, HasDeprecatedDimension {
+    HasIdBindingAndRendered, HasDeprecatedDimension, HasTip {
 
   /**
    * Indicate markup of this component.

@@ -24,9 +24,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_RELOAD;
+import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxResponseRenderer;
@@ -47,6 +45,10 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_RELOAD;
 
 public class PanelRenderer extends LayoutableRendererBase implements AjaxRenderer {
 
@@ -132,6 +134,10 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
     writer.writeClassAttribute();
     writer.writeIdAttribute(clientId);
     //writer.writeStyleAttribute();
+    String tip = (String) component.getAttributes().get(TobagoConstants.ATTR_TIP);
+    if (tip != null) {
+      writer.writeAttribute(HtmlConstants.TITLE, tip, true);
+    }
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
       writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\")");
       Integer frequency = null;

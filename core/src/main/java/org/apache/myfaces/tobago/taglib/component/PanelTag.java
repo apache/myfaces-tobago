@@ -23,17 +23,19 @@ package org.apache.myfaces.tobago.taglib.component;
  */
 
 
-import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIPanel;
 
-import javax.servlet.jsp.tagext.BodyTag;
 import javax.faces.component.UIComponent;
+import javax.servlet.jsp.tagext.BodyTag;
 
 // Some Weblogic versions need explicit 'implements' for BodyTag
 public class PanelTag extends TobagoBodyTag
     implements BodyTag, PanelTagDeclaration {
 
   private String markup;
+  private String tip;
 
   public String getComponentType() {
     return UIPanel.COMPONENT_TYPE;
@@ -42,16 +44,20 @@ public class PanelTag extends TobagoBodyTag
   public void release() {
     super.release();
     markup = null;
+    tip = null;
   }
 
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     ComponentUtil.setMarkup(component, markup);
+    ComponentUtil.setStringProperty(component, TobagoConstants.ATTR_TIP, tip);
   }
 
   public void setMarkup(String markup) {
     this.markup = markup;
   }
 
+  public void setTip(String tip) {
+    this.tip = tip;
+  }
 }
-
