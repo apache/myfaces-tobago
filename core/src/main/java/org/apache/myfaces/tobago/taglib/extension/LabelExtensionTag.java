@@ -19,8 +19,6 @@ package org.apache.myfaces.tobago.taglib.extension;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.taglib.component.GridLayoutTag;
@@ -34,6 +32,8 @@ import javax.faces.webapp.FacetTag;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
 
 @Tag(name = "label")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.LabelTag")
@@ -62,6 +62,9 @@ public class LabelExtensionTag extends BodyTagSupport
     if (rendered != null) {
       panelTag.setRendered(rendered);
     }
+    if (tip != null) {
+      panelTag.setTip(tip);
+    }
     panelTag.doStartTag();
 
     FacetTag facetTag = new FacetTag();
@@ -84,9 +87,6 @@ public class LabelExtensionTag extends BodyTagSupport
     labelTag.setPageContext(pageContext);
     if (value != null) {
       labelTag.setValue(value);
-    }
-    if (tip != null) {
-      labelTag.setTip(tip);
     }
     if (markup != null) {
       labelTag.setMarkup(markup);

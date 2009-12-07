@@ -27,12 +27,12 @@ import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
+import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UIPanel;
-import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.facelets.SuggestMethodRule;
 import org.apache.myfaces.tobago.facelets.SupportsMarkupRule;
 import org.apache.myfaces.tobago.util.LayoutUtil;
@@ -107,7 +107,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
 
     addGridLayout(faceletContext, panel, root);
 
-    addLabel(faceletContext, panel, root);
+    addLabel(faceletContext, (UIPanel)panel, root);
     String uid;
     if (fieldIdAttribute !=  null) {
       uid = fieldIdAttribute.getValue(faceletContext);
@@ -128,7 +128,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   }
 
 
-  private void addLabel(FaceletContext faceletContext, UIComponent panel, UIViewRoot root) {
+  private void addLabel(FaceletContext faceletContext, UIPanel panel, UIViewRoot root) {
     String uid = root.createUniqueId();
     if (checkForAlreadyCreated(panel, uid)) {
       return;
@@ -140,10 +140,10 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     label.getAttributes().put(TobagoConstants.ATTR_FOR, "@auto");
     if (tipAttribute != null) {
       if (tipAttribute.isLiteral()) {
-        label.setTip(tipAttribute.getValue(faceletContext));
+        panel.getAttributes().put(TobagoConstants.ATTR_TIP, tipAttribute.getValue(faceletContext));
       } else {
         ValueExpression expression = tipAttribute.getValueExpression(faceletContext, String.class);
-        ELAdaptor.setExpression(label, TobagoConstants.ATTR_TIP, expression);
+        ELAdaptor.setExpression(panel, TobagoConstants.ATTR_TIP, expression);
       }
     }
     if (labelAttribute != null) {
