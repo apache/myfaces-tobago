@@ -25,7 +25,7 @@ public enum FacesVersion {
   VERSION_12,
   VERSION_20;
 
-  public static FacesVersion CURRENT;
+  private static FacesVersion currentVersion;
 
   static {
     try {
@@ -34,15 +34,15 @@ public enum FacesVersion {
       try {
         Application.class.getMethod("getExceptionHandler");
 
-        CURRENT = VERSION_20;
+        currentVersion = VERSION_20;
 
 
       } catch (NoSuchMethodException e) {
-        CURRENT = VERSION_12;
+        currentVersion = VERSION_12;
       }
 
     } catch (NoSuchMethodException e) {
-      CURRENT = VERSION_11;
+      currentVersion = VERSION_11;
     }
   }
 
@@ -51,7 +51,7 @@ public enum FacesVersion {
    * @return Supports 1.2 or higher
    */
   public static boolean supports12() {
-    return CURRENT == VERSION_12 || CURRENT == VERSION_20;
+    return currentVersion == VERSION_12 || currentVersion == VERSION_20;
   }
 
   /**
@@ -59,6 +59,6 @@ public enum FacesVersion {
    * @return Supports 2.0 or higher
    */
   public static boolean supports20() {
-    return CURRENT == VERSION_20;
+    return currentVersion == VERSION_20;
   }
 }
