@@ -1,7 +1,5 @@
 package org.apache.myfaces.tobago.layout;
 
-import org.apache.myfaces.tobago.config.Configurable;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -18,6 +16,8 @@ import org.apache.myfaces.tobago.config.Configurable;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import org.apache.myfaces.tobago.config.Configurable;
 
 public interface LayoutManager extends Configurable {
 
