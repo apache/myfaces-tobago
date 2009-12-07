@@ -37,8 +37,10 @@ import org.apache.myfaces.tobago.component.UIGridLayout;
 import org.apache.myfaces.tobago.component.UIMessages;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -229,4 +231,11 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlConstants.BR);
   }
 
+  @Override
+  public Measure getPreferredHeight(FacesContext facesContext, Configurable component) {
+    Measure measure = super.getPreferredHeight(facesContext, component);
+    UIMessages messages = (UIMessages) component;
+    int count = messages.createMessageList(facesContext).size();
+    return measure.multiply(count);
+  }
 }
