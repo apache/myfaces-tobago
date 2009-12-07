@@ -92,7 +92,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
       labelTag.setValue(value);
     }
     if (tip != null) {
-      labelTag.setTip(tip);
+      panelTag.setTip(tip);
     }
     if (markup != null) {
       labelTag.setMarkup(markup);

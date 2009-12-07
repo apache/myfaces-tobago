@@ -111,7 +111,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
 
     addGridLayout(faceletContext, panel, root);
 
-    addLabel(faceletContext, panel, root);
+    addLabel(faceletContext, (UIPanel)panel, root);
     String uid;
     if (fieldIdAttribute !=  null) {
       uid = fieldIdAttribute.getValue(faceletContext);
@@ -135,7 +135,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   protected void enrichInput(FaceletContext faceletContext, UIComponent input) {
   }
 
-  private void addLabel(FaceletContext faceletContext, UIComponent panel, UIViewRoot root) {
+  private void addLabel(FaceletContext faceletContext, UIPanel panel, UIViewRoot root) {
     String uid = root.createUniqueId();
     if (checkForAlreadyCreated(panel, uid)) {
       return;
@@ -147,10 +147,10 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     label.getAttributes().put(Attributes.FOR, "@auto");
     if (tipAttribute != null) {
       if (tipAttribute.isLiteral()) {
-        label.setTip(tipAttribute.getValue(faceletContext));
+        panel.setTip(tipAttribute.getValue(faceletContext));
       } else {
         ValueExpression expression = tipAttribute.getValueExpression(faceletContext, String.class);
-        ELAdaptor.setExpression(label, Attributes.TIP, expression);
+        ELAdaptor.setExpression(panel, Attributes.TIP, expression);
       }
     }
     if (labelAttribute != null) {
