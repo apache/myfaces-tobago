@@ -20,9 +20,6 @@ package org.apache.myfaces.tobago.layout;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/*
- * Date: 23.01.2008 20:21:08
- */
 public final class PixelMeasure extends Measure {
 
   private static final Log LOG = LogFactory.getLog(PixelMeasure.class);
@@ -39,13 +36,18 @@ public final class PixelMeasure extends Measure {
     return new PixelMeasure(pixel + m.getPixel());
   }
 
-  public Measure substractNotNegative(Measure m) {
+  public Measure subtractNotNegative(Measure m) {
     if (m.getPixel() > pixel) {
       LOG.warn("Not enough space! value=" + pixel);
       return NULL;
     } else {
       return new PixelMeasure(pixel + m.getPixel());
     }
+  }
+
+  @Deprecated
+  public Measure substractNotNegative(Measure m) {
+    return subtractNotNegative(m);
   }
 
   public int getPixel() {
