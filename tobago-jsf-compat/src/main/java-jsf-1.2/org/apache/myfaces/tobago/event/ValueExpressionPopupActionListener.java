@@ -57,12 +57,12 @@ public class ValueExpressionPopupActionListener extends AbstractPopupActionListe
   }
 
   public void restoreState(FacesContext context, Object state) {
-    Object values[] = (Object[]) state;
+    Object[] values = (Object[]) state;
     popupIdExpression = (ValueExpression) UIComponentBase.restoreAttachedState(context, values[0]);
   }
 
   public Object saveState(FacesContext context) {
-    Object values[] = new Object[1];
+    Object[] values = new Object[1];
     values[0] = UIComponentBase.saveAttachedState(context, popupIdExpression);
     return values;
   }
