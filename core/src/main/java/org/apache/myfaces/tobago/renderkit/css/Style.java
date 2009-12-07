@@ -89,7 +89,7 @@ public class Style implements Serializable {
     }
 
     if (layout instanceof LayoutComponent) { // fixme
-      display = ((LayoutComponent)layout).getDisplay();
+      display = ((LayoutComponent) layout).getDisplay();
     }
   }
 
