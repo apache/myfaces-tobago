@@ -22,17 +22,15 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
+import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.ActionListener;
-import java.io.Serializable;
 
 /*
  * Date: Dec 23, 2006
  * Time: 10:59:53 AM
  */
-public class PopupActionListener implements ActionListener, Serializable {
+public class PopupActionListener extends AbstractPopupActionListener implements StateHolder {
 
   private static final Log LOG = LogFactory.getLog(PopupActionListener.class);
 
@@ -48,25 +46,34 @@ public class PopupActionListener implements ActionListener, Serializable {
     }
   }
 
-  public PopupActionListener(AbstractUIPopup popup) {
-    this.popupId = ":" + popup.getClientId(FacesContext.getCurrentInstance());
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("Add ActionListener: " + popupId);
-    }
-  }
-
-  public void processAction(ActionEvent actionEvent) throws AbortProcessingException {
+  @Override
+  protected AbstractUIPopup getPopup(ActionEvent actionEvent) {
+    FacesContext facesContext = FacesContext.getCurrentInstance();
     AbstractUIPopup popup = (AbstractUIPopup) ComponentUtils.findComponent(actionEvent.getComponent(), popupId);
-    if (popup != null) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("activated "
-            + actionEvent.getComponent().getClientId(FacesContext.getCurrentInstance()));
-      }
-      popup.setActivated(true);
-    } else {
-      LOG.error("Found no popup for " + popupId + " search base component "
-              + actionEvent.getComponent().getClientId(FacesContext.getCurrentInstance()));
+    if (popup == null) {
+      LOG.error("Found no popup for \""
+          + popupId + "\"! Search base componentId : "
+          + actionEvent.getComponent().getClientId(facesContext));
     }
+    return popup;
   }
 
+  public boolean isTransient() {
+    return false;
+  }
+
+  public void restoreState(FacesContext context, Object state) {
+    Object values[] = (Object[])state;
+    popupId = (String) values[0];
+  }
+
+  public Object saveState(FacesContext context) {
+    Object values[] = new Object[1];
+    values[0] = popupId;
+    return values;
+  }
+
+  public void setTransient(boolean newTransientValue) {
+    // ignore
+  }
 }

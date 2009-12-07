@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.TagGeneration;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 
 import javax.faces.component.ActionSource;
@@ -50,6 +51,10 @@ public abstract class PopupReferenceTag extends TagSupport {
   @TagAttribute(required = true, name ="for")
   public abstract String getForValue();
 
+  public abstract boolean isForLiteral();
+
+  public abstract Object getForAsBindingOrExpression();
+
   public int doStartTag() throws JspException {
 
     // Locate our parent UIComponentTag
@@ -74,7 +79,11 @@ public abstract class PopupReferenceTag extends TagSupport {
       throw new JspException("Component " + component.getClass().getName() + " is not instanceof ActionSource");
     }
     ActionSource actionSource = (ActionSource) component;
-    actionSource.addActionListener(new PopupActionListener(getForValue()));
+    if (isForLiteral()) {
+      actionSource.addActionListener(new PopupActionListener(getForValue()));
+    } else {
+      FacesUtils.addBindingOrExpressionPopupActionListener(actionSource, getForAsBindingOrExpression());
+    }
     return (SKIP_BODY);
   }
 

@@ -20,14 +20,17 @@ package org.apache.myfaces.tobago.compat;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.event.TabChangeSource;
+import org.apache.myfaces.tobago.event.ValueExpressionPopupActionListener;
 import org.apache.myfaces.tobago.event.ValueExpressionTabChangeListener;
 import org.apache.myfaces.tobago.util.ValueExpressionComparator;
 
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
+import javax.faces.component.ActionSource;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.NamingContainer;
+import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
@@ -165,5 +168,9 @@ public class FacesUtils {
                                                             boolean descending, Comparator comparator) {
     ValueExpression valueBinding = child.getValueExpression("value");
     return new ValueExpressionComparator(facesContext, var, valueBinding, descending, comparator);
+  }
+
+  public static void addBindingOrExpressionPopupActionListener(ActionSource actionSource, Object bindingOrExpression) {
+    actionSource.addActionListener(new ValueExpressionPopupActionListener((ValueExpression) bindingOrExpression));
   }
 }

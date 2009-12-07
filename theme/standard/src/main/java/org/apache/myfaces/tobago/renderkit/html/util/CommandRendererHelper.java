@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.component.UICommandBase;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.event.PopupActionListener;
+import org.apache.myfaces.tobago.event.PopupFacetActionListener;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.application.Application;
@@ -72,7 +72,7 @@ public class CommandRendererHelper {
       UIPopup popup = (UIPopup) command.getFacet(Facets.POPUP);
       if (popup != null) {
         if (!ComponentUtils.containsPopupActionListener(command)) {
-          command.addActionListener(new PopupActionListener(popup));
+          command.addActionListener(new PopupFacetActionListener());
         }
       }
 
@@ -135,7 +135,6 @@ public class CommandRendererHelper {
         }
 
       }
-
       onclick = appendConfirmationScript(onclick, command);
     }
   }
