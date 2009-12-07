@@ -41,7 +41,10 @@ public abstract class Measure {
 
   public abstract Measure add(Measure m);
 
+  @Deprecated
   public abstract Measure substractNotNegative(Measure m);
+
+  public abstract Measure subtractNotNegative(Measure m);
 
   public abstract int getPixel();
 }
