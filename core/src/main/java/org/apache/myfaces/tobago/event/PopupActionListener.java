@@ -63,7 +63,7 @@ public class PopupActionListener extends AbstractPopupActionListener implements 
   }
 
   public void restoreState(FacesContext context, Object state) {
-    Object[] values = (Object[])state;
+    Object[] values = (Object[]) state;
     popupId = (String) values[0];
   }
 
