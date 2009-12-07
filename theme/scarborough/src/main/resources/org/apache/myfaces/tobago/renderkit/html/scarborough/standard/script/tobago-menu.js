@@ -44,7 +44,7 @@ function xxx_tobagoMenuHandelKey(event) {
       if ($(this).parent().hasClass('tobago-menu-top')) {
         // nothing
       } else {
-        $(this).parent().prevAll('li:first').children('a').focus();
+        $(this).parent().prevAll('li').children('a')[0].focus();
       }
       handled = true;
       break;
@@ -62,7 +62,7 @@ function xxx_tobagoMenuHandelKey(event) {
       if ($(this).parent().hasClass('tobago-menu-top')) {
         $(this).next('ol').children(":nth-child(1)").children('a').focus();
       } else {
-        $(this).parent().nextAll('li:first').children('a').focus();
+        $(this).parent().nextAll('li').children('a')[0].focus();
       }
       handled = true;
       break;
