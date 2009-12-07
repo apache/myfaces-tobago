@@ -117,11 +117,13 @@ public class CreateComponentUtils {
     return createUISelectBooleanFacet(facesContext, command, null);
   }
 
-  public static AbstractUISelectBooleanCheckbox createUISelectBooleanFacetWithId(FacesContext facesContext, UICommand command) {
+  public static AbstractUISelectBooleanCheckbox createUISelectBooleanFacetWithId(FacesContext facesContext,
+      UICommand command) {
     return createUISelectBooleanFacet(facesContext, command, facesContext.getViewRoot().createUniqueId());
   }
 
-  public static AbstractUISelectBooleanCheckbox createUISelectBooleanFacet(FacesContext facesContext, UICommand command, String clientId) {
+  public static AbstractUISelectBooleanCheckbox createUISelectBooleanFacet(FacesContext facesContext, UICommand command,
+      String clientId) {
     AbstractUISelectBooleanCheckbox checkbox = (AbstractUISelectBooleanCheckbox) createComponent(
         facesContext, ComponentTypes.SELECT_BOOLEAN_CHECKBOX, RendererTypes.SELECT_BOOLEAN_CHECKBOX, clientId);
     //noinspection unchecked
@@ -136,7 +138,8 @@ public class CreateComponentUtils {
     return checkbox;
   }
 
-  public static LayoutManager createAndInitLayout(FacesContext facesContext, String componentType, String rendererType) {
+  public static LayoutManager createAndInitLayout(FacesContext facesContext, String componentType,
+      String rendererType) {
     LayoutManager layoutManager = (LayoutManager) CreateComponentUtils.createComponent(
         facesContext, componentType, rendererType, facesContext.getViewRoot().createUniqueId());
     if (layoutManager instanceof OnComponentCreated) {
