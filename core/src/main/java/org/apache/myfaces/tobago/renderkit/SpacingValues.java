@@ -24,8 +24,8 @@ import javax.faces.context.FacesContext;
 
 public interface SpacingValues {
 
-  public Measure getColumnSpacing(FacesContext facesContext, Configurable component);
+  Measure getColumnSpacing(FacesContext facesContext, Configurable component);
 
-  public Measure getRowSpacing(FacesContext facesContext, Configurable component);
+  Measure getRowSpacing(FacesContext facesContext, Configurable component);
 
 }

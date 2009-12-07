@@ -34,7 +34,7 @@ import java.util.Map;
 @Deprecated
 public interface UIOutput extends ValueHolder, StateHolder {
 
-  public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Out";
+  String COMPONENT_TYPE = "org.apache.myfaces.tobago.Out";
   
   Map<String, Object> getAttributes();
 

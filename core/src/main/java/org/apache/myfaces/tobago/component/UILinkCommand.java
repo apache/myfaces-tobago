@@ -34,7 +34,7 @@ import java.util.Map;
 @Deprecated
 public interface UILinkCommand extends ActionSource, StateHolder {
   
-  static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Link";
+  String COMPONENT_TYPE = "org.apache.myfaces.tobago.Link";
   
   Map<String, Object> getAttributes();
 
