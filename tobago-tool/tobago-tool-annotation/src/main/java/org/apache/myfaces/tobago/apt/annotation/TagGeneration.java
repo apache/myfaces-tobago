@@ -1,8 +1,5 @@
 package org.apache.myfaces.tobago.apt.annotation;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,6 +16,9 @@ import java.lang.annotation.RetentionPolicy;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 @Retention(value = RetentionPolicy.SOURCE)
 public @interface TagGeneration {
