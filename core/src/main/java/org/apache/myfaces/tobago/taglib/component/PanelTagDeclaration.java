@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
+import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
 
@@ -44,5 +45,5 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
     @Facet(name=Facets.LAYOUT, description = "Contains an instance of UILayout",
             allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 public interface PanelTagDeclaration 
-    extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup {
+    extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup, HasTip {
 }
