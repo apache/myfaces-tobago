@@ -60,6 +60,9 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
     if (rendered != null) {
       panelTag.setRendered(rendered);
     }
+    if (tip != null) {
+      panelTag.setTip(tip);
+    }
     panelTag.doStartTag();
 
     FacetTag facetTag = new FacetTag();
@@ -90,9 +93,6 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
     labelTag.setPageContext(pageContext);
     if (value != null) {
       labelTag.setValue(value);
-    }
-    if (tip != null) {
-      panelTag.setTip(tip);
     }
     if (markup != null) {
       labelTag.setMarkup(markup);

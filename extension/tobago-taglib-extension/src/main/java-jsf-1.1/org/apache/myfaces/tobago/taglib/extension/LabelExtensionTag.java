@@ -63,6 +63,9 @@ public class LabelExtensionTag extends BodyTagSupport
     if (rendered != null) {
       panelTag.setRendered(rendered);
     }
+    if (tip != null) {
+      panelTag.setTip(tip);
+    }
     panelTag.doStartTag();
 
     FacetTag facetTag = new FacetTag();
@@ -89,9 +92,6 @@ public class LabelExtensionTag extends BodyTagSupport
     labelTag.setPageContext(pageContext);
     if (value != null) {
       labelTag.setValue(value);
-    }
-    if (tip != null) {
-      labelTag.setTip(tip);
     }
     if (markup != null) {
       labelTag.setMarkup(markup);
