@@ -75,9 +75,9 @@
                              label="#{overviewBundle.toolbar_dropDownAction}">
             <f:facet name="menupopup">
               <tc:menu>
-                <tc:menuItem onclick="alert('test 1')" label="Alert 1"/>
-                <tc:menuItem onclick="alert('test 2')" label="Alert 2"/>
-                <tc:menuItem action="#{overviewController.ping}" id="dropdown3"
+                <tc:menuCommand onclick="alert('test 1')" label="Alert 1"/>
+                <tc:menuCommand onclick="alert('test 2')" label="Alert 2"/>
+                <tc:menuCommand action="#{overviewController.ping}" id="dropdown3"
                              actionListener="#{overviewController.click}" label="Action 3"/>
               </tc:menu>
             </f:facet>
@@ -127,9 +127,9 @@
                              label="#{overviewBundle.toolbar_dropDownAction}">
             <f:facet name="menupopup">
               <tc:menu>
-                <tc:menuItem onclick="alert('test 1')" label="Alert 1"/>
-                <tc:menuItem onclick="alert('test 2')" label="Alert 2"/>
-                <tc:menuItem id="dropdown3_2" actionListener="#{overviewController.click}" label="Action 3"/>
+                <tc:menuCommand onclick="alert('test 1')" label="Alert 1"/>
+                <tc:menuCommand onclick="alert('test 2')" label="Alert 2"/>
+                <tc:menuCommand id="dropdown3_2" actionListener="#{overviewController.click}" label="Action 3"/>
               </tc:menu>
             </f:facet>
           </tc:toolBarCommand>
@@ -163,31 +163,31 @@
 
         <tc:menu label="Menu 1">
 
-          <tc:menuItem onclick="alert('action 1')" label="alert 1"/>
+          <tc:menuCommand onclick="alert('action 1')" label="alert 1"/>
 
-          <tc:menuItem action="/" type="navigate" label="#{overviewBundle.toolbar_linkClickme}"
+          <tc:menuCommand action="/" type="navigate" label="#{overviewBundle.toolbar_linkClickme}"
                        image="image/config.gif">
             <f:facet name="confirmation"><tc:out value="Do you really want leave this demo?"/></f:facet>
-          </tc:menuItem>
+          </tc:menuCommand>
 
-          <tc:menuItem link="http://www.atanion.com" disabled="true" label="disabled"/>
+          <tc:menuCommand link="http://www.atanion.com" disabled="true" label="disabled"/>
 
           <tx:menuCheckbox action="#{demo.clickButton}" label="#{overviewBundle.toolbar_linkClickme}"
                            value="#{demo.boolTest}"/>
         </tc:menu>
         <tc:menu label="Menu 2">
 
-          <tc:menuItem onclick="alert('action 1')" label="alert 1"/>
+          <tc:menuCommand onclick="alert('action 1')" label="alert 1"/>
 
           <tc:menu label="Menu 3">
 
-            <tc:menuItem onclick="alert('action 1')" label="alert 1" image="image/date.gif"/>
+            <tc:menuCommand onclick="alert('action 1')" label="alert 1" image="image/date.gif"/>
 
-            <tc:menuItem link="/" label="#{overviewBundle.toolbar_linkClickme}" image="image/config.gif">
+            <tc:menuCommand link="/" label="#{overviewBundle.toolbar_linkClickme}" image="image/config.gif">
               <f:facet name="confirmation"><tc:out value="Do you really want leave this demo?"/></f:facet>
-            </tc:menuItem>
+            </tc:menuCommand>
 
-            <tc:menuItem link="http://www.atanion.com" disabled="true" label="#{overviewBundle.toolbar_linkClickme}"
+            <tc:menuCommand link="http://www.atanion.com" disabled="true" label="#{overviewBundle.toolbar_linkClickme}"
                          image="image/remove.gif"/>
 
             <tc:menu label="#{overviewBundle.toolbar_selectSingleselect}">
@@ -198,16 +198,16 @@
 
             </tc:menu>
 
-            <tc:menuItem action="#{demo.clickButton}" label="#{overviewBundle.toolbar_linkClickme}"/>
+            <tc:menuCommand action="#{demo.clickButton}" label="#{overviewBundle.toolbar_linkClickme}"/>
           </tc:menu>
 
           <tc:menuSeparator/>
 
-          <tc:menuItem label="#{overviewBundle.toolbar_linkClickme}">
+          <tc:menuCommand label="#{overviewBundle.toolbar_linkClickme}">
             <f:facet name="items">
               <tc:selectBooleanCheckbox value="#{demo.bool[0]}"/>
             </f:facet>
-          </tc:menuItem>
+          </tc:menuCommand>
           <tx:menuCheckbox label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[1]}"/>
           <tx:menuCheckbox label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[2]}"/>
 

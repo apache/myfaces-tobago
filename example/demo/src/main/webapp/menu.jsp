@@ -22,13 +22,13 @@
         <tc:menuBar >
           <tc:menu label="#{overviewBundle.menu_config}" >
             <tc:menu label="#{overviewBundle.menu_themes}" >
-              <tc:menuItem action="#{clientConfigController.submit}">
+              <tc:menuCommand action="#{clientConfigController.submit}">
                 <f:facet name="items">
                   <tc:selectOneRadio value="#{clientConfigController.theme}" >
                     <f:selectItems value="#{clientConfigController.themeItems}" />
                   </tc:selectOneRadio>
                 </f:facet>
-              </tc:menuItem>
+              </tc:menuCommand>
             </tc:menu>
             <tc:menu label="#{overviewBundle.menu_locale}">
               <tx:menuRadio action="#{clientConfigController.submit}"
@@ -40,16 +40,16 @@
             <tx:menuCheckbox action="#{clientConfigController.submit}"
                 label="#{overviewBundle.menu_debug}"
                 value="#{clientConfigController.debugMode}"/>
-            <tc:menuItem action="#{demo.resetSession}" label="Reset" />
+            <tc:menuCommand action="#{demo.resetSession}" label="Reset" />
           </tc:menu>
 
           <tc:menu label="#{overviewBundle.menu_help}">
-            <tc:menuItem onclick="alert('#{overviewBundle.pageTitle}' + String.fromCharCode(10) + '#{info.version}' + String.fromCharCode(10) + '#{overviewBundle.tobago_url}' + String.fromCharCode(10))"
+            <tc:menuCommand onclick="alert('#{overviewBundle.pageTitle}' + String.fromCharCode(10) + '#{info.version}' + String.fromCharCode(10) + '#{overviewBundle.tobago_url}' + String.fromCharCode(10))"
                          label="#{overviewBundle.menu_about}" />
-            <tc:menuItem onclick="LOG.show();"
+            <tc:menuCommand onclick="LOG.show();"
                          label="#{overviewBundle.menu_showLog}"
                          rendered="#{clientConfigController.debugMode}"/>
-            <tc:menuItem action="server-info" immediate="true"
+            <tc:menuCommand action="server-info" immediate="true"
                          label="Server Info"
                          disabled="#{! info.enabled}"/>
           </tc:menu>

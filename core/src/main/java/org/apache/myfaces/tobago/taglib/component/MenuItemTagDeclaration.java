@@ -30,8 +30,8 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 @Tag(name = "menuItem", 
     tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIMenuCommand",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UICommand",
+    uiComponent = "org.apache.myfaces.tobago.component.UIMenuItem",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIMenuCommand",
     rendererType = RendererTypes.MENU_COMMAND,
     allowedChildComponenents = "NONE")
 @Deprecated

@@ -41,6 +41,8 @@ Tag Library
 *--+--+--+--+                                                                                                                                                                   
 | tc:menuCheckbox | tx:menuCheckbox |                                                                 
 *--+--+--+--+                                                                                                                                                                   
+| tc:menuItem | tc:menuCommand |                                                                 
+*--+--+--+--+                                                                                                                                                                   
    
 UIComponent Classes
   

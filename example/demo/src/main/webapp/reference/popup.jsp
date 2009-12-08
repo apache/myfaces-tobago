@@ -29,9 +29,9 @@
 
 <tc:menuBar>
   <tc:menu label="Menu">
-    <tc:menuItem label="Open Popup">
+    <tc:menuCommand label="Open Popup">
       <tc:popupReference for=":page:popup"/>
-    </tc:menuItem>
+    </tc:menuCommand>
   </tc:menu>
 </tc:menuBar>
 

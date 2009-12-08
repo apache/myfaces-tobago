@@ -28,39 +28,39 @@
       <%-- code-sniplet-start id="menuBar" --%>
       <tc:menuBar>
         <tc:menu label="_File">
-          <tc:menuItem label="New File"/>
-          <tc:menuItem label="Open File"/>
-          <tc:menuItem label="Save"/>
-          <tc:menuItem label="Print"/>
+          <tc:menuCommand label="New File"/>
+          <tc:menuCommand label="Open File"/>
+          <tc:menuCommand label="Save"/>
+          <tc:menuCommand label="Print"/>
           <tc:menuSeparator/>
-          <tc:menuItem label="Exit">
+          <tc:menuCommand label="Exit">
             <f:facet name="confirmation">
               <tc:out value="Are you sure?"/>
             </f:facet>
-          </tc:menuItem>
+          </tc:menuCommand>
           <%--<tx:menuCheckbox action="none" label="Administration Mode"/>--%>
         </tc:menu>
 
         <%-- code-sniplet-start id="menu" --%>
         <tc:menu label="_Edit">
-          <tc:menuItem label="Copy"/>
-          <tc:menuItem label="Cut"/>
-          <tc:menuItem label="Paste"/>
+          <tc:menuCommand label="Copy"/>
+          <tc:menuCommand label="Cut"/>
+          <tc:menuCommand label="Paste"/>
           <%-- code-sniplet-start id="menuItem" --%>
-          <tc:menuItem label="Delete"/>
+          <tc:menuCommand label="Delete"/>
           <%-- code-sniplet-end id="menuItem" --%>
           <tc:menuSeparator/>
           <tc:menu label="_Delete">
-            <tc:menuItem label="As Spam"/>
-            <tc:menuItem label="As Newsletter"/>
-            <tc:menuItem label="As Uninteresting"/>
+            <tc:menuCommand label="As Spam"/>
+            <tc:menuCommand label="As Newsletter"/>
+            <tc:menuCommand label="As Uninteresting"/>
           </tc:menu>
         </tc:menu>
         <%-- code-sniplet-end id="menu" --%>
 
         <tc:menu label="_View">
-          <tc:menuItem label="Snap to Grid"/>
-          <tc:menuItem label="Show Rulers"/>
+          <tc:menuCommand label="Snap to Grid"/>
+          <tc:menuCommand label="Show Rulers"/>
         </tc:menu>
       </tc:menuBar>
       <%-- code-sniplet-end id="menuBar" --%>

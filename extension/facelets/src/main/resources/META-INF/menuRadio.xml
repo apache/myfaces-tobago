@@ -24,7 +24,7 @@
   <c:if test="${empty rendered}">
     <c:set var="rendered" value="true"/>
   </c:if>
-  <tc:menuItem rendered="${rendered}" >
+  <tc:menuCommand rendered="${rendered}" >
     <tc:attribute name="action" value="${action}" />
     <tc:attribute name="actionListener" value="${actionListener}" />
     <f:facet name="items">
@@ -32,5 +32,5 @@
         <ui:insert/>
       </tc:selectOneRadio>
     </f:facet>
-  </tc:menuItem>
+  </tc:menuCommand>
 </ui:composition>

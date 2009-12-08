@@ -30,14 +30,14 @@
         <tc:menuBar>
           <tc:form>
             <tc:menu label="#{bundle.menuFile}">
-              <tc:menuItem label="#{bundle.menuFileNew}" action="#{controller.createAddress}" immediate="true"
+              <tc:menuCommand label="#{bundle.menuFileNew}" action="#{controller.createAddress}" immediate="true"
                            image="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png"/>
-              <tc:menuItem label="Add Dummy Addresses" action="#{controller.addDummyAddresses}" immediate="true"/>
+              <tc:menuCommand label="Add Dummy Addresses" action="#{controller.addDummyAddresses}" immediate="true"/>
               <tc:menuSeparator/>
-              <tc:menuItem label="#{bundle.admin}" action="#{admin.admin}"
+              <tc:menuCommand label="#{bundle.admin}" action="#{admin.admin}"
                            image="image/org/tango-project/tango-icon-theme/16x16/categories/preferences-system.png"/>
               <tc:menuSeparator/>
-              <tc:menuItem label="Logout" action="#{controller.logout}"
+              <tc:menuCommand label="Logout" action="#{controller.logout}"
                            image="image/org/tango-project/tango-icon-theme/16x16/actions/system-log-out.png"/>
             </tc:menu>
 
@@ -58,10 +58,10 @@
             </tc:menu>
 
             <tc:menu label="#{bundle.menuHelp}">
-              <tc:menuItem label="#{bundle.menuHelpAbout}"
+              <tc:menuCommand label="#{bundle.menuHelpAbout}"
                            image="image/org/tango-project/tango-icon-theme/16x16/apps/help-browser.png">
                 <tc:popupReference for=":page:about"/>
-              </tc:menuItem>
+              </tc:menuCommand>
             </tc:menu>
           </tc:form>
         </tc:menuBar>

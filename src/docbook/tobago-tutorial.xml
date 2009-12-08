@@ -516,7 +516,7 @@
       <literal>&lt;tc:menuBar&gt;</literal> tag inside the <literal>menuBar</literal> facet of the <literal>&lt;tc:page&gt;</literal>.
       A menu bar can contain <literal>&lt;tc:menu&gt;</literal> tags, which can be nested to
       produce sub menus. Actions can be bound with method bindings to
-      <literal>&lt;tc:menuItem&gt;</literal> tags. A menu item can be disabled and can
+      <literal>&lt;tc:menuCommand&gt;</literal> tags. A menu item can be disabled and can
       encapsulate icons. An underscore in the label marks the following
       character as an access key, which can be activated together with the <keycap>Alt</keycap> key.</para>
 
@@ -528,12 +528,12 @@
 
       <programlisting role="XML">&lt;tc:menuBar id="menuBar"&gt;
   &lt;tc:menu label="_File"&gt;
-    &lt;tc:menuItem label="_New" action="#{controller.createAddress}" image
+    &lt;tc:menuCommand label="_New" action="#{controller.createAddress}" image
         ="image/org/tango-project/tango-icon-theme/16x16/actions/contact-new.png"/&gt;
-    &lt;tc:menuItem label="_Add Dummy Addresses"
+    &lt;tc:menuCommand label="_Add Dummy Addresses"
         action="#{controller.addDummyAddresses}"/&gt;
     &lt;tc:menuSeparator/&gt;
-    &lt;tc:menuItem label="_Logout" image
+    &lt;tc:menuCommand label="_Logout" image
         ="image/org/tango-project/tango-icon-theme/16x16/actions/system-log-out.png"/&gt;
   &lt;/tc:menu&gt;
 
