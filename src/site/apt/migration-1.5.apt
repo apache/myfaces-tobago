@@ -36,7 +36,11 @@ Migration from Tobago 1.0 to 1.5 (work in progress)
    
 Tag Library
 
-   ...
+*--+--+--+--+                                                                                                                                                                   
+| <<deprecated>> | <<replacement>> |                                                                 
+*--+--+--+--+                                                                                                                                                                   
+| tc:menuCheckbox | tx:menuCheckbox |                                                                 
+*--+--+--+--+                                                                                                                                                                   
    
 UIComponent Classes
   

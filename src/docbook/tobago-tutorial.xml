@@ -523,7 +523,7 @@
       <para>In the address book example the settings menu contains single
       selections created by <literal>&lt;tx:menuRadio&gt;</literal> to choose the current theme
       and language. Additionally it demonstrates how to use a check box menu
-      item <literal>&lt;tc:menuCheckbox&gt;</literal> to change the mode of the
+      item <literal>&lt;tx:menuCheckbox&gt;</literal> to change the mode of the
       application.</para>
 
       <programlisting role="XML">&lt;tc:menuBar id="menuBar"&gt;
@@ -545,7 +545,7 @@
         &lt;f:selectItems value="#{controller.themeItems}"/&gt;
       &lt;/tx:menuRadio&gt;
     &lt;/tc:menu&gt;
-    &lt;tc:menuCheckbox label="Simple _Mode" value="#{controller.simple}"/&gt;
+    &lt;tx:menuCheckbox label="Simple _Mode" value="#{controller.simple}"/&gt;
   &lt;/tc:menu&gt;
   ...
 &lt;/tc:menuBar&gt;</programlisting>

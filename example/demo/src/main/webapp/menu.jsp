@@ -37,7 +37,7 @@
               </tx:menuRadio>
             </tc:menu>
             <%-- todo: may have something like immediate="true", but in this case, the value will not switched --%>
-            <tc:menuCheckbox action="#{clientConfigController.submit}"
+            <tx:menuCheckbox action="#{clientConfigController.submit}"
                 label="#{overviewBundle.menu_debug}"
                 value="#{clientConfigController.debugMode}"/>
             <tc:menuItem action="#{demo.resetSession}" label="Reset" />

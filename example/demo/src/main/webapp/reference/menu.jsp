@@ -38,7 +38,7 @@
               <tc:out value="Are you sure?"/>
             </f:facet>
           </tc:menuItem>
-          <%--<tc:menuCheckbox action="none" label="Administration Mode"/>--%>
+          <%--<tx:menuCheckbox action="none" label="Administration Mode"/>--%>
         </tc:menu>
 
         <%-- code-sniplet-start id="menu" --%>
