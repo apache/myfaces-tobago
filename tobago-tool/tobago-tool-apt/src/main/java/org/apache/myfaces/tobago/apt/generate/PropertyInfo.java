@@ -22,7 +22,7 @@ import org.apache.commons.lang.StringUtils;
 public class PropertyInfo {
   private String name;
   private String type;
-  private String[] allowdValues;
+  private String[] allowedValues;
   private String[] methodSignature;
   private String defaultValue;
   private String defaultCode;
@@ -32,6 +32,7 @@ public class PropertyInfo {
   private boolean deprecated;
   private boolean bodyContent;
   private boolean tagAttribute;
+  private String description;
 
   public PropertyInfo() {
   }
@@ -123,12 +124,12 @@ public class PropertyInfo {
     return name;
   }
 
-  public String[] getAllowdValues() {
-    return allowdValues;
+  public String[] getAllowedValues() {
+    return allowedValues;
   }
 
-  public void setAllowdValues(String[] allowdValues) {
-    this.allowdValues = allowdValues;
+  public void setAllowedValues(String[] allowdValues) {
+    this.allowedValues = allowdValues;
   }
 
   public String[] getMethodSignature() {
@@ -199,7 +200,7 @@ public class PropertyInfo {
   public PropertyInfo fill(PropertyInfo info) {
     info.setName(name);
     info.setType(type);
-    info.setAllowdValues(allowdValues);
+    info.setAllowedValues(allowedValues);
     info.setDefaultValue(defaultValue);
     info.setDeprecated(deprecated);
     info.setMethodSignature(methodSignature);
@@ -208,6 +209,7 @@ public class PropertyInfo {
     info.setLiteralOnly(literalOnly);
     info.setMethodExpressionRequired(methodExpressionRequired);
     info.setTagAttribute(tagAttribute);
+    info.setDescription(description);
     return info;
   }
 
@@ -227,5 +229,13 @@ public class PropertyInfo {
 
   public int hashCode() {
     return name.hashCode();
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public String getDescription() {
+    return description;
   }
 }

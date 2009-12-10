@@ -51,10 +51,20 @@ import javax.faces.FacesMessage;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
-/** 
- * UIComponent class, generated from template {@code component1.1.stg} with class 
- * {@link <componentInfo.sourceClass>}.
+/**
+ <if(componentInfo.description)>
+ <componentInfo.description>
+ <endif>
+  * UIComponent class, generated from template {@code component1.2.stg} with class
+  * {@link <componentInfo.sourceClass>}.
+   <if(componentInfo.deprecated)>
+   @deprecated
+   <endif>
  */
+<if(componentInfo.deprecated)>
+@Deprecated
+
+<endif>
 public class <componentInfo.className>
     extends <componentInfo.superClassName> <first(componentInfo.interfaces):{ n | implements <n>}><rest(componentInfo.interfaces):{ n |, <n>}> {
 
@@ -217,8 +227,37 @@ private javax.faces.convert.Converter findUIOutputConverter(FacesContext facesCo
 
 >>
 
+createDescription(property) ::= <<
+<if(property.description)>
+/**
+<property.description>
+<if(property.defaultValue)>
+\<br /\>Default: \<code\><property.defaultValue>\</code\>
+<endif>
+<if(property.allowedValues)>
+\<br /\>Allowed Values: \<code\><property.allowedValues:allowedValue(); separator=",">\</code\>
+<endif>
+
+<if(property.deprecated)>
+@deprecated
+<endif>
+*/
+<endif>
+>>
+
+checkDeprecated(property) ::= <<
+<if(property.deprecated)>
+@Deprecated
+<endif>
+>>
+
+allowedValue() ::= <<
+<it>
+>>
+
 IntegerProperty(property) ::= <<
 
+<createDescription(property)>
 public <property.type> get<property.upperCamelCaseName>() {
   if (<property.propertyName> != null) {
     return <property.propertyName>;
@@ -237,6 +276,7 @@ public <property.type> get<property.upperCamelCaseName>() {
   <endif>
 }
 
+<checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
   this.<property.propertyName> = <property.propertyName>;
 }
@@ -244,6 +284,7 @@ public void set<property.upperCamelCaseName>(<property.type> <property.propertyN
 
 ObjectProperty(property) ::= <<
 
+<createDescription(property)>
 public <property.type> get<property.upperCamelCaseName>() {
   if (<property.propertyName> != null) {
     return <property.propertyName>;
@@ -255,6 +296,7 @@ public <property.type> get<property.upperCamelCaseName>() {
   return null;
 }
 
+<checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
   this.<property.propertyName> = <property.propertyName>;
 }
@@ -262,6 +304,7 @@ public void set<property.upperCamelCaseName>(<property.type> <property.propertyN
 
 StringArrayProperty(property) ::= <<
 
+<createDescription(property)>
 public String[] get<property.upperCamelCaseName>() {
   if (<property.propertyName> != null) {
     return <property.propertyName>;
@@ -289,6 +332,7 @@ public String[] get<property.upperCamelCaseName>() {
   return ArrayUtils.EMPTY_STRING_ARRAY;
 }
 
+<checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(String[] <property.propertyName>) {
   this.<property.propertyName> = <property.propertyName>;
 }
@@ -296,6 +340,7 @@ public void set<property.upperCamelCaseName>(String[] <property.propertyName>) {
 
 booleanProperty(property) ::= <<
 
+<createDescription(property)>
 public boolean is<property.upperCamelCaseName>() {
   if (<property.propertyName> != null) {
     return <property.propertyName>;
@@ -314,6 +359,7 @@ public boolean is<property.upperCamelCaseName>() {
   <endif>
 }
 
+<checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(boolean <property.propertyName>) {
   this.<property.propertyName> = <property.propertyName>;
 }
@@ -321,6 +367,7 @@ public void set<property.upperCamelCaseName>(boolean <property.propertyName>) {
 
 BooleanProperty(property) ::= <<
 
+<createDescription(property)>
 public Boolean get<property.upperCamelCaseName>() {
   if (<property.propertyName> != null) {
     return <property.propertyName>;
@@ -339,6 +386,7 @@ public Boolean get<property.upperCamelCaseName>() {
   <endif>
 }
 
+<checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(Boolean <property.propertyName>) {
   this.<property.propertyName> = <property.propertyName>;
 }
@@ -381,6 +429,7 @@ public void set<property.upperCamelCaseName>(<property.type> <property.propertyN
 
 NormalProperty(property) ::= <<
 
+<createDescription(property)>
 public <property.type> get<property.upperCamelCaseName>() {
   if (<property.propertyName> != null) {
     return <property.propertyName>;
@@ -402,7 +451,7 @@ public <property.type> get<property.upperCamelCaseName>() {
   return null;
   <endif>
 }
-
+<checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
   this.<property.propertyName> = <property.propertyName>;
 }
@@ -410,6 +459,7 @@ public void set<property.upperCamelCaseName>(<property.type> <property.propertyN
 
 MeasureProperty(property) ::= <<
 
+<createDescription(property)>
 public Measure get<property.upperCamelCaseName>() {
   if (<property.propertyName> != null) {
     return <property.propertyName>;
@@ -435,6 +485,7 @@ public Measure get<property.upperCamelCaseName>() {
   <endif>
 }
 
+<checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(Measure <property.propertyName>) {
   this.<property.propertyName> = <property.propertyName>;
 }

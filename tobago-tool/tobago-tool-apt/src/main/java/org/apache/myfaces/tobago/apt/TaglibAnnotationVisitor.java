@@ -319,13 +319,16 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     }
     UIComponentTagAttribute attributeTag = decl.getAnnotation(UIComponentTagAttribute.class);
     if (attributeTag != null) {
-        if (null != attributeTag.type() && attributeTag.type().length > 0) {
-            description.append("<br />Type: <code>" + (attributeTag.type().length == 1
-                ? attributeTag.type()[0] : Arrays.toString(attributeTag.type())) + "</code>");
-        }
-        if (StringUtils.isNotEmpty(attributeTag.defaultValue())) {
-            description.append("<br />Default: <code>" + attributeTag.defaultValue() + "</code>");
-        }
+      if (null != attributeTag.type() && attributeTag.type().length > 0) {
+        description.append("<br />Type: <code>" + (attributeTag.type().length == 1
+              ? attributeTag.type()[0] : Arrays.toString(attributeTag.type())) + "</code>");
+      }
+      if (StringUtils.isNotEmpty(attributeTag.defaultValue())) {
+        description.append("<br />Default: <code>" + attributeTag.defaultValue() + "</code>");
+      }
+      if (attributeTag.allowedValues().length > 0) {
+        description.append("<br />Allowed Values: <code>" + attributeTag.allowedValues() + "</code>");
+      }
     }
     ExtensionTag extensionTag = decl.getAnnotation(ExtensionTag.class);
     if (extensionTag != null) {
@@ -449,7 +452,9 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
               Element deferredValue = document.createElement("deferred-value");
               String type = "java.lang.Object";
               if (componentTagAttribute.expression().isValueExpression()) {
-                if (componentTagAttribute.type().length == 1) {
+                if (componentTagAttribute.type().length == 1
+                    // XXX fix me hack
+                    && !"org.apache.myfaces.tobago.layout.Measure".equals(componentTagAttribute.type()[0])) {
                   type = componentTagAttribute.type()[0];
                 }
               } else {

@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.apt;
 import com.sun.mirror.apt.AnnotationProcessorEnvironment;
 import com.sun.mirror.apt.Filer;
 import com.sun.mirror.declaration.ClassDeclaration;
+import com.sun.mirror.declaration.Declaration;
 import com.sun.mirror.declaration.InterfaceDeclaration;
 import com.sun.mirror.declaration.MethodDeclaration;
 import com.sun.mirror.declaration.TypeDeclaration;
@@ -173,6 +174,8 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
           = new ComponentInfo(decl.getQualifiedName(), componentTag.uiComponent(), componentTag.rendererType());
       componentInfo.setSuperClass(componentTag.uiComponentBaseClass());
       componentInfo.setComponentFamily(componentTag.componentFamily());
+      componentInfo.setDescription(getDescription(decl));
+      componentInfo.setDeprecated(decl.getAnnotation(Deprecated.class) != null);
       List<String> elMethods = Collections.emptyList();
       if (is12()) {
         elMethods = checkForElMethods(componentInfo, componentTag.interfaces());
@@ -366,7 +369,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
           return;
         }
         PropertyInfo propertyInfo = new PropertyInfo(attributeStr);
-        propertyInfo.setAllowdValues(uiComponentTagAttribute.allowedValues());
+        propertyInfo.setAllowedValues(uiComponentTagAttribute.allowedValues());
         if (tagAttribute != null) {
           propertyInfo.setBodyContent(tagAttribute.bodyContent());
           propertyInfo.setTagAttribute(true);
@@ -399,9 +402,24 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
             uiComponentTagAttribute.defaultCode().length() > 0 ? uiComponentTagAttribute.defaultCode() : null);
         propertyInfo.setMethodSignature(uiComponentTagAttribute.methodSignature());
         propertyInfo.setDeprecated(decl.getAnnotation(Deprecated.class) != null);
+        propertyInfo.setDescription(getDescription(decl));
         properties.add(propertyInfo);
       }
     }
+  }
+  private String getDescription(Declaration d) {
+    String comment = d.getDocComment();
+    if (comment != null) {
+      int index = comment.indexOf('@');
+      if (index != -1) {
+        comment = comment.substring(0, index);
+      }
+      comment = comment.trim();
+      if (comment.length() > 0) {
+        return comment;
+      }
+    }
+    return null;
   }
 
   protected void addPropertyForTagOnly(MethodDeclaration decl, List<PropertyInfo> properties) {

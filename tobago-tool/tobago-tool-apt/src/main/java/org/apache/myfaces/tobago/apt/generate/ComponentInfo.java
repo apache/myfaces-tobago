@@ -24,6 +24,8 @@ package org.apache.myfaces.tobago.apt.generate;
 public class ComponentInfo extends TagInfo {
   private boolean invokeOnComponent;
   private boolean messages;
+  private String description;
+  private boolean deprecated;
 
   public ComponentInfo(String sourceClass, String qualifiedName, String rendererType) {
     super(sourceClass, qualifiedName, rendererType);
@@ -43,5 +45,21 @@ public class ComponentInfo extends TagInfo {
 
   public void setMessages(boolean messages) {
     this.messages = messages;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDeprecated(boolean deprecated) {
+    this.deprecated = deprecated;
+  }
+
+  public boolean isDeprecated() {
+    return deprecated;
   }
 }
