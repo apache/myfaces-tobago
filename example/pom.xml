@@ -105,13 +105,18 @@
         <module>security</module>
         <module>experimental</module>
         <module>test</module>
-        <module>retro</module>
         <module>tobago-example-assembly</module>
         <module>tobago-theme-example</module>
         <module>seam</module>
       </modules>
     </profile>
-     <profile>
+    <profile>
+      <id>jdk14retro</id>
+      <modules>
+        <module>retro</module>
+      </modules>
+    </profile>
+    <profile>
       <id>release</id>
       <modules>
         <module>blank</module>
