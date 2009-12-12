@@ -170,10 +170,16 @@ public class TestBean {
             + "discoverYear INTEGER)");
         PreparedStatement ps =
             connection.prepareStatement("insert into solarObject values (?,?,?,?,?,?,?,?,?)");
-        for (String[] aSTRINGS : SolarObject.DATA) {
-          for (int j = 0; j < aSTRINGS.length; j++) {
-            ps.setString(j + 1, aSTRINGS[j]);
-          }
+        for (SolarObject solarObject : SolarObject.DATA) {
+          ps.setString(1, solarObject.getName());
+          ps.setString(2, solarObject.getNumber());
+          ps.setString(3, solarObject.getOrbit());
+          ps.setInt(4, solarObject.getDistance());
+          ps.setDouble(5, solarObject.getPeriod());
+          ps.setDouble(6, solarObject.getIncl());
+          ps.setString(7, solarObject.getPopulation());
+          ps.setString(8, solarObject.getDiscoverer());
+          
           int inserted = ps.executeUpdate();
           if (LOG.isDebugEnabled()) {
             LOG.debug(inserted + " Row(s) inserted");
