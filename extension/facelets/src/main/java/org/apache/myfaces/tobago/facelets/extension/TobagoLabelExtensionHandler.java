@@ -107,7 +107,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
 
     addGridLayout(faceletContext, panel, root);
 
-    addLabel(faceletContext, (UIPanel)panel, root);
+    addLabel(faceletContext, (UIPanel) panel, root);
     String uid;
     if (fieldIdAttribute !=  null) {
       uid = fieldIdAttribute.getValue(faceletContext);
