@@ -108,12 +108,12 @@ var Tobago = {
   partialRequestIds: null,
 
   /**
-    * The id ot the element which should became the focus after loading.
+    * The id of the element which should became the focus after loading.
     * Set via renderer if requested.
     */
   focusId: undefined,
 
-  errorFocusId:undefined,
+  errorFocusId: undefined,
 
   lastFocusId: undefined,
 
@@ -550,14 +550,16 @@ var Tobago = {
         }
         Tobago.oldTransition = Tobago.transition;
         Tobago.transition = transition && !target;
-        Tobago.onSubmit();
+        var onSubmitResult = Tobago.onSubmit();
+        if (onSubmitResult) {
   //      LOG.debug("submit form with action: " + Tobago.action.value);
-        Tobago.form.submit();
+          Tobago.form.submit();
+        }
         Tobago.action.value = oldAction;
         if (target) {
           Tobago.form.target = oldTarget;
         }
-        if (target || !transition) {
+        if (target || !transition || !onSubmitResult) {
           this.isSubmit = false;
           Tobago.Transport.pageSubmited = false;
         }
@@ -937,7 +939,7 @@ var Tobago = {
     if (background) {
       background.style.width = Math.max(document.body.scrollWidth, document.body.clientWidth) + 'px';
       background.style.height = Math.max(document.body.scrollHeight, document.body.clientHeight) + 'px';
-      this.popupResizeStub = function() {Tobago.doResizePopupBackground(id);}
+      this.popupResizeStub = function() {Tobago.doResizePopupBackground(id);};
       Tobago.addEventListener(window, "resize", this.popupResizeStub);
     }
     var contentId = id + Tobago.SUB_COMPONENT_SEP + "content";
@@ -999,7 +1001,7 @@ var Tobago = {
           contains = true;
         }
       }
-      if (!contains) {
+      if (!contains && modal) {
         // Popup is loaded by ajax
         Tobago.lockPopupPage(id);
       }
@@ -1010,7 +1012,7 @@ var Tobago = {
         contains = true;
       }
     }
-    if (!contains) {
+    if (!contains&& modal) {
       Tobago.openPopups.push(id);
     }
 
@@ -1025,43 +1027,49 @@ var Tobago = {
     // store their ids in a hidden field
     var hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + "disabledElements");
     if (hidden == null) {
-     hidden = document.createElement("input");
-     hidden.id = id + Tobago.SUB_COMPONENT_SEP + "disabledElements";
-     hidden.name = id;
-     hidden.type = "hidden";
-     document.forms[0].appendChild(hidden);
-   }
+      hidden = document.createElement("input");
+      hidden.id = id + Tobago.SUB_COMPONENT_SEP + "disabledElements";
+      hidden.name = id;
+      hidden.type = "hidden";
+      document.forms[0].appendChild(hidden);
+    }
     hidden.value = ",";
     var firstPopupElement = null;
-    for (i = 0; i < document.forms[0].elements.length; i++) {
+    for (var i = 0; i < document.forms[0].elements.length; i++) {
       var element = document.forms[0].elements[i];
       if (element.type != "hidden" && !element.disabled) {
-        if (element.id.indexOf(id + ":") != 0) {
-         element.disabled = true;
-         hidden.value += element.id + ",";
-       } else {
-         if (firstPopupElement == null && element.focus) {
-           firstPopupElement = element;
-         }
-       }
-     }
+        if (element.id) {
+          if (element.id.indexOf(id + ":") != 0) {
+            element.disabled = true;
+            hidden.value += element.id + ",";
+          } else {
+            if (firstPopupElement == null && Tobago.isFunction(element.focus)) {
+              firstPopupElement = element;
+            }
+          }
+        }
+      }
     }
     for (i = 0; i < document.anchors.length; i++) {
       var element = document.anchors[i];
       if (!element.disabled) {
-        if (element.id.indexOf(id + ":") != 0) {
-         element.disabled = true;
-         hidden.value += element.id + ",";
-       } else {
-         if (firstPopupElement == null && element.focus) {
-           firstPopupElement = element;
-         }
-       }
-     }
+        if (element.id) {
+          if (element.id.indexOf(id + ":") != 0) {
+             element.disabled = true;
+             hidden.value += element.id + ",";
+          } else {
+            if (firstPopupElement == null && element.focus) {
+              firstPopupElement = element;
+            }
+          }
+        }
+      }
     }
     // set focus to first element in popup
     if (firstPopupElement != null) {
-       firstPopupElement.focus();
+      try {
+        firstPopupElement.focus();
+      } catch(e) {/* ignore */}
     }
   },
 
@@ -1098,7 +1106,7 @@ var Tobago = {
         div = Tobago.findAnchestorWithTagName(div.parentNode, "DIV");
       }
       if (div) {
-        var re = new RegExp(Tobago.SUB_COMPONENT_SEP + "content$")
+        var re = new RegExp(Tobago.SUB_COMPONENT_SEP + "content$");
         id = div.id.replace(re, "");
       }
     }
@@ -1151,7 +1159,7 @@ var Tobago = {
     // enable all elements and anchors on page stored in a hidden field
     var hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + "disabledElements");
     if (hidden != null && hidden.value != "") {
-     for (i = 0; i < document.forms[0].elements.length; i++) {
+     for (var i = 0; i < document.forms[0].elements.length; i++) {
        var element = document.forms[0].elements[i];
        if (hidden.value.indexOf("," + element.id + ",") >= 0) {
          element.disabled = false;
@@ -1213,10 +1221,10 @@ var Tobago = {
     if (element) {
       if (element.click) {
 //        LOG.debug("click on element");
-        element.click()
+        element.click();
       } else {
 //        LOG.debug("click on new button");
-        var a = document.createElement("input")
+        var a = document.createElement("input");
         a.type = "button";
         a.style.width = "0px;";
         a.style.height = "0px;";
@@ -1376,7 +1384,7 @@ var Tobago = {
       classes = classes.replace(re, " ");
     }
     classes = classes.replace(/  /g, " ");
-      element.className = classes;
+    element.className = classes;
   },
 
   /**
@@ -1534,28 +1542,28 @@ var Tobago = {
   bind: function(object, func) {
     var rest = [];
     for (var i = 2; i < arguments.length; i++) {
-      rest.push(arguments[i])
+      rest.push(arguments[i]);
     }
     return function() {
       var args = [];
       for (var i = 0; i < arguments.length; i++) {
-        args.push(arguments[i])
+        args.push(arguments[i]);
       }
       object[func].apply(object, args.concat(rest));
-    }
+    };
   },
 
   bind2: function(object, func) {
     var rest = [];
     for (var i = 2; i < arguments.length; i++) {
-      rest.push(arguments[i])
+      rest.push(arguments[i]);
     }
     return function() {
       for (var i = 0; i < arguments.length; i++) {
-        rest.push(arguments[i])
+        rest.push(arguments[i]);
       }
       object[func].apply(object, rest);
-    }
+    };
   },
 
   /**
@@ -1568,7 +1576,7 @@ var Tobago = {
   bindAsEventListener: function(object, func) {
     return function(event) {
       object[func].call(object, event || window.event);
-    }
+    };
   },
 
   /**
@@ -1787,6 +1795,10 @@ var Tobago = {
 
   setDefaultAction: function(defaultActionId) {
     Tobago.action.value = defaultActionId;
+  },
+
+  isFunction: function (func) {
+    return (typeof func == "function") || ((typeof func == "object") && func.call);
   },
 
   raiseEvent: function(eventType, element) {
@@ -2096,6 +2108,7 @@ Tobago.ScriptLoader = function(names, doAfter) {
       } catch(ex) {
         LOG.error(ex);
         LOG.error("errorCode: " + this.doAfter.valueOf());
+        throw ex;
       }
   };
 

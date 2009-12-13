@@ -261,11 +261,9 @@ function writeIntoField(obj, id) {
   var newValue =  formatDate(date, document.calendar.formatPattern);
   if (textBox.value != newValue) {
     textBox.value = newValue;
-    raiseEvent("change", textBox);
+    Tobago.raiseEvent("change", textBox);
   }
 }
-// ------------------------------------------------------------------
-
 // ------------------------------------------------------------------
 
 function tbgGetTimeInput(imageButton) {

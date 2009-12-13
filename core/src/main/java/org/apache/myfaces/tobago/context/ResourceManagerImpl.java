@@ -27,9 +27,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 // FIXME: is this class thread-safe?
 
@@ -40,18 +41,22 @@ public class ResourceManagerImpl implements ResourceManager {
   private static final String JSP = "jsp";
   private static final String TAG = "tag";
 
-  private final HashMap<String, String> resourceList;
+  private final Map<String, String> resourceList = new ConcurrentHashMap<String, String>(100, 0.75f, 1);
 
-  private final HashMap<RendererCacheKey, Renderer> rendererCache = new HashMap<RendererCacheKey, Renderer>();
-  private final HashMap<ImageCacheKey, String> imageCache = new HashMap<ImageCacheKey, String>();
-  private final HashMap<JspCacheKey, String> jspCache = new HashMap<JspCacheKey, String>();
-  private final HashMap<MiscCacheKey, String[]> miscCache = new HashMap<MiscCacheKey, String[]>();
-  private final HashMap<PropertyCacheKey, String> propertyCache = new HashMap<PropertyCacheKey, String>();
+  private final Map<RendererCacheKey, Renderer>
+      rendererCache = new ConcurrentHashMap<RendererCacheKey, Renderer>(100, 0.75f, 1);
+  private final Map<ImageCacheKey, String>
+      imageCache = new ConcurrentHashMap<ImageCacheKey, String>(100, 0.75f, 1);
+  private final Map<JspCacheKey, String>
+      jspCache = new ConcurrentHashMap<JspCacheKey, String>(100, 0.75f, 1);
+  private final Map<MiscCacheKey, String[]>
+      miscCache = new ConcurrentHashMap<MiscCacheKey, String[]>(100, 0.75f, 1);
+  private final Map<PropertyCacheKey, String>
+      propertyCache = new ConcurrentHashMap<PropertyCacheKey, String>(100, 0.75f, 1);
 
   private TobagoConfig tobagoConfig;
 
   public ResourceManagerImpl(TobagoConfig tobagoConfig) {
-    resourceList = new HashMap<String, String>();
     this.tobagoConfig = tobagoConfig;
   }
 

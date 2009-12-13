@@ -259,7 +259,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
       }
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeIdAttribute(sheetId + "_header_box_filler");
-      writer.writeClassAttribute("tobago-sheet-header-box");
+      writer.writeClassAttribute("tobago-sheet-header-box tobago-sheet-header-filler");
       writer.writeAttribute(HtmlAttributes.STYLE, "width: 0px", false);
 
       writer.startElement(HtmlConstants.DIV, null);
@@ -424,7 +424,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
       }
 
       writer.startElement(HtmlConstants.TD, null);
-      writer.writeClassAttribute("tobago-sheet-cell-td");
+      writer.writeClassAttribute("tobago-sheet-cell-td tobago-sheet-cell-filler");
 
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeIdAttribute(
@@ -885,6 +885,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
       final Application application = facesContext.getApplication();
       menu = (UIPanel) application.createComponent(UIMenu.COMPONENT_TYPE);
       menu.setId("selectorMenu");
+      //menu.setTransient(true);
       column.getFacets().put(Facets.MENUPOPUP, menu);
       menu.setRendererType(RendererTypes.MENU_BAR);
       menu.getAttributes().put(Attributes.MENU_POPUP, Boolean.TRUE);

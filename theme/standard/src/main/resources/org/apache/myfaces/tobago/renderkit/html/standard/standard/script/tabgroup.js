@@ -108,10 +108,10 @@ Tobago.TabGroup.prototype.next = function(event) {
       //LOG.error(element.id);
       var idPrefix = element.id.substring(0, element.id.lastIndexOf(Tobago.SUB_COMPONENT_SEP2) + Tobago.SUB_COMPONENT_SEP2.length);
       //LOG.error(idPrefix);
-      for (i = this.activeIndex + 1; i < this.size; i++) {
+      for (var i = (this.activeIndex * 1) + 1; i < this.size; i++) {
         var id = idPrefix + i;
-        var div = Tobago.element(id);
-        if (div) {
+        var span = Tobago.element(id);
+        if (span && span.className.indexOf('tobago-tab-disabled') == -1) {
           this.activeIndex = i;
           break;
         }
@@ -154,10 +154,10 @@ Tobago.TabGroup.prototype.previous = function(event) {
       //LOG.error(element.id);
       var idPrefix = element.id.substring(0, element.id.lastIndexOf(Tobago.SUB_COMPONENT_SEP2) + Tobago.SUB_COMPONENT_SEP2.length);
       //LOG.error(idPrefix);
-      for (i = this.activeIndex - 1; i >= 0; i--) {
+      for (var i = this.activeIndex - 1; i >= 0; i--) {
         var id = idPrefix + i;
-        var div = Tobago.element(id);
-        if (div) {
+        var span = Tobago.element(id);
+        if (span && span.className.indexOf('tobago-tab-disabled') == -1) {
           this.activeIndex = i;
           break;
         }

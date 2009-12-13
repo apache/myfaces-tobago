@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.renderkit.html.util;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -148,7 +149,7 @@ public class CommandRendererHelper {
     String onclick;
     onclick = (String) component.getAttributes().get(Attributes.ONCLICK);
     if (onclick.contains("@autoId")) {
-      onclick = onclick.replace("@autoId", component.getClientId(facesContext));
+      onclick = StringUtils.replace(onclick, "@autoId", component.getClientId(facesContext));
     }
     return onclick;
   }
@@ -231,7 +232,8 @@ public class CommandRendererHelper {
   }
 
   public String getOnclickDoubleQuoted() {
-    return onclick.replaceAll("'", "\"");
+    return onclick.replace('\'', '\"');
+    
   }
 
   public boolean isDisabled() {

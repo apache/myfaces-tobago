@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
+
 /*
  * Date: Oct 30, 2006
  * Time: 10:26:27 PM
@@ -31,7 +33,7 @@ public class ContentType {
 
   private void parse(String contentType) {
     // TODO parse Parameter
-    String[] values = contentType.split("/");
+    String[] values = StringUtils.split(contentType, "/");
     if (values.length == 2) {
       primaryType = values[0];
       subType = values[1];

@@ -99,4 +99,11 @@ public class UISheetUnitTest {
     Assert.assertEquals(8, data.getPages());
       */
   }
+
+  @Test
+  public void testStripRowIndex() {
+    Assert.assertEquals("comp1:comp2", new UISheet().stripRowIndex("123:comp1:comp2"));
+    Assert.assertEquals("comp1:comp2", new UISheet().stripRowIndex("comp1:comp2"));
+  }
+
 }

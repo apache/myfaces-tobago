@@ -1,6 +1,7 @@
 package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.layout.Measure;
 
@@ -308,7 +309,7 @@ public class UIEquationGridLayout
         if (strArray instanceof String[]) {
           return (String[]) strArray;
         } else if (strArray instanceof String) {
-          String[] strings = ((String) strArray).split("[, ]");
+          String[] strings = StringUtils.split((String) strArray, ", ");
           List<String> result = new ArrayList<String>(strings.length);
           for (String string : strings) {
             if (string.trim().length() != 0) {

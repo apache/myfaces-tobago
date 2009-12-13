@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UISeparator;
@@ -51,7 +52,7 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
 
     if (label != null) {
       if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
-        label = label.replace(" ", HtmlUtils.CHAR_NON_BEAKING_SPACE);
+        label = StringUtils.replace(label, " ", HtmlUtils.CHAR_NON_BEAKING_SPACE);
       }
 
       writer.startElement(HtmlConstants.TABLE, component);

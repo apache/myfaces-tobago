@@ -99,7 +99,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
         }
         String formattedValue = RenderUtil.getFormattedValue(facesContext, radio, item.getValue());
         String setValue = JQueryUtils.selectId(hiddenId) + ".val('" + JQueryUtils.escapeValue(formattedValue) + "'); ";
-        encodeItem(facesContext, writer, null ,label, setValue + submit, disabled, firstLevel, image);
+        encodeItem(facesContext, writer, null, label, setValue + submit, disabled, firstLevel, image);
       }
       encodeHidden(writer, hiddenId, radio.getValue());
     } else {

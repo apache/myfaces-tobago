@@ -785,7 +785,7 @@ public class ComponentUtils {
       if (markups instanceof String[]) {
         return (String[]) markups;
       } else if (markups instanceof String) {
-        String[] strings = ((String) markups).split("[, ]");
+        String[] strings = StringUtils.split((String) markups, ", ");
         List<String> result = new ArrayList<String>(strings.length);
         for (String string : strings) {
           if (string.trim().length() != 0) {

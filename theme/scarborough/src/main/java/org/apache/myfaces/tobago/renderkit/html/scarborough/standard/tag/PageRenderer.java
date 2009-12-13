@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
@@ -233,15 +234,17 @@ public class PageRenderer extends PageRendererBase {
     // script files
     List<String> scriptFiles = facesContext.getScriptFiles();
     // dojo.js and tobago.js needs to be first!
-    addScripts(writer, facesContext, "script/jquery-1.3.2.min.js");
+
     if (debugMode) {
+      addScripts(writer, facesContext, "script/jquery-1.3.2.js");
       addScripts(writer, facesContext, "script/dojo/dojo/dojo.js.uncompressed.js");
     } else {
+      addScripts(writer, facesContext, "script/jquery-1.3.2.min.js");
       addScripts(writer, facesContext, "script/dojo/dojo/dojo.js");
     }
     addScripts(writer, facesContext, "script/tobago.js");
     addScripts(writer, facesContext, "script/theme-config.js");
-    // remove  dojo.js and tobago.js from list to prevent dublicated rendering of script tags
+    // remove  dojo.js and tobago.js from list to prevent duplicated rendering of script tags
     scriptFiles.remove("script/jquery-1.3.2.min.js");
     if (debugMode) {
       scriptFiles.remove("script/dojo/dojo/dojo.js.uncompressed.js");
@@ -643,13 +646,15 @@ public class PageRenderer extends PageRendererBase {
     StringBuilder sb = new StringBuilder("LOG.info(\"FacesMessage: [");
     sb.append(id != null ? id : "null");
     sb.append("][");
-    sb.append(message.getSummary() == null ? "null"
-        : message.getSummary().replace("\\", "\\\\").replace("\"", "\\\""));
+    sb.append(message.getSummary() == null ? "null" : escape(message.getSummary()));
     sb.append("/");
-    sb.append(message.getDetail() == null ? "null"
-        : message.getDetail().replace("\\", "\\\\").replace("\"", "\\\""));
+    sb.append(message.getDetail() == null ? "null" : escape(message.getDetail()));
     sb.append("]\");");
     return sb.toString();
+  }
+
+  private String escape(String s) {
+    return StringUtils.replace(StringUtils.replace(s, "\\", "\\\\"), "\"", "\\\"");
   }
 
   private String getMethod(UIPage page) {
