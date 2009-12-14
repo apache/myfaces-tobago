@@ -29,7 +29,6 @@ import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -39,6 +38,7 @@ import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.VariableResolverUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -109,7 +109,7 @@ public class PopupRenderer extends LayoutComponentRendererBase implements AjaxRe
       writer.writeStyleAttribute("z-index: " + (zIndex + 1) + ";");
       writer.writeClassAttribute();
       writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.popupBlink('" + clientId + "')", null);
-      if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
+      if (VariableResolverUtil.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
         String bgImage = ResourceManagerUtil.getImageWithPath(facesContext, "image/popupBg.png");
         writer.writeAttribute(HtmlAttributes.STYLE, "background: none; "
             + "filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
@@ -117,7 +117,7 @@ public class PopupRenderer extends LayoutComponentRendererBase implements AjaxRe
       }
       writer.endElement(HtmlConstants.DIV);
     }
-    if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
+    if (VariableResolverUtil.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
       writer.startElement(HtmlConstants.IFRAME, component);
       writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + HtmlConstants.IFRAME);
       writer.writeClassAttribute("tobago-popup-iframe tobago-popup-none");

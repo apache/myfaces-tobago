@@ -17,16 +17,11 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
-/*
- * Created: 23.07.2002 14:21:58
- * $Id$
- */
-
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.internal.context.ClientPropertiesKey;
+import org.apache.myfaces.tobago.util.VariableResolverUtil;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
@@ -36,25 +31,47 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * The ClientProperties contains data, which are individual for each user.
+ * It is stored in the session by default, but the application can override this in the faces-config.xml.
+ * <p/>
+ * The managed bean name which is Tobago using for the instance is {@link #MANAGED_BEAN_NAME}.
+ * <p/>
+ * Please use {@link VariableResolverUtil#resolveClientProperties(FacesContext)}
+ * to access to the users client properties.
+ */
+
 public class ClientProperties implements Serializable {
 
-  private static final long serialVersionUID = -6719319982485268698L;
+  /**
+   * The name of the managed bean
+   */
+  public static final String MANAGED_BEAN_NAME = "tobagoClientProperties";
+
+  private static final long serialVersionUID = 2L;
 
   private static final Log LOG = LogFactory.getLog(ClientProperties.class);
 
-  private static final String CLIENT_PROPERTIES_IN_SESSION = ClientProperties.class.getName();
-
   private String contentType = "html";
-  // TODO transient
   private Theme theme;
   private UserAgent userAgent = UserAgent.DEFAULT;
   private boolean debugMode;
 
-  private String id;
+  private Locale locale;
 
+  /** 
+   * managed bean constructor
+   */
+  public ClientProperties() {
+    this(FacesContext.getCurrentInstance());
+  }
+
+  /**
+   * @deprecated since 1.5.
+   */
   private ClientProperties(TobagoConfig tobagoConfig) {
     theme = tobagoConfig.getDefaultTheme();
-    updateId();
+    reset();
   }
 
   private ClientProperties(FacesContext facesContext) {
@@ -73,8 +90,7 @@ public class ClientProperties implements Serializable {
     }
 
     // user agent
-    String requestUserAgent
-        = (String) externalContext.getRequestHeaderMap().get("User-Agent");
+    String requestUserAgent = (String) externalContext.getRequestHeaderMap().get("User-Agent");
     this.userAgent = UserAgent.getInstance(requestUserAgent);
     if (LOG.isInfoEnabled()) {
       LOG.info("userAgent='" + this.userAgent + "' from header " + "'User-Agent: " + requestUserAgent + "'");
@@ -83,87 +99,53 @@ public class ClientProperties implements Serializable {
     // debug mode
     // to enable the debug mode for a user, put a
     // "to-ba-go" custom locale to your browser
-    String acceptLanguage
-        = (String) externalContext.getRequestHeaderMap().get("Accept-Language");
+    String acceptLanguage = (String) externalContext.getRequestHeaderMap().get("Accept-Language");
     if (acceptLanguage != null) {
       this.debugMode = acceptLanguage.indexOf("to-ba-go") > -1;
     }
     if (LOG.isInfoEnabled()) {
-      LOG.info("debug-mode=" + debugMode);
+      LOG.info("debugMode=" + debugMode);
     }
 
     // theme
-    String requestTheme
-        = (String) externalContext.getRequestParameterMap().get("tobago.theme");
+    String requestTheme = (String) externalContext.getRequestParameterMap().get("tobago.theme");
     TobagoConfig config = TobagoConfig.getInstance(facesContext);
     this.theme = config.getTheme(requestTheme);
     if (LOG.isInfoEnabled()) {
       LOG.info("theme='" + theme.getName() + "' from requestParameter " + "tobago.theme='" + requestTheme + "'");
     }
-    updateId();
+    reset();
   }
 
-  private void updateId() {
-
-    StringBuilder buffer = new StringBuilder();
-    buffer.append(getContentType());
-    buffer.append('/');
-    buffer.append(getTheme().getName());
-    buffer.append('/');
-    buffer.append(getUserAgent());
-    id = buffer.toString();
-    UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
-    if (viewRoot instanceof org.apache.myfaces.tobago.component.UIViewRoot) {
-      ((org.apache.myfaces.tobago.component.UIViewRoot) viewRoot).updateRendererCachePrefix();
-    }
-  }
-
+  /**
+   * @deprecated since 1.5.
+   */
+  @Deprecated
   public static ClientProperties getDefaultInstance(FacesContext facesContext) {
     return new ClientProperties(TobagoConfig.getInstance(facesContext));
   }
 
+  /**
+   * @deprecated since 1.5. Please use {@link VariableResolverUtil#resolveClientProperties(javax.faces.context.FacesContext)} 
+   */
+  @Deprecated
   public static ClientProperties getInstance(UIViewRoot viewRoot) {
-    if (viewRoot == null) {
-      LOG.error("No ViewRoot found creating new ClientProperties.");
-      return getInstance(FacesContext.getCurrentInstance());
-    }
-    ClientProperties clientProperties = (ClientProperties)
-        viewRoot.getAttributes().get(Attributes.CLIENT_PROPERTIES);
-    if (clientProperties == null) {
-      if (LOG.isInfoEnabled()) {
-        LOG.info("No ClientProperties instance found creating new one");
-      }
-      clientProperties = getInstance(FacesContext.getCurrentInstance());
-      viewRoot.getAttributes().put(Attributes.CLIENT_PROPERTIES, clientProperties);
-      return clientProperties;
-    }
-    return clientProperties;
+    return getInstance(FacesContext.getCurrentInstance());
   }
 
+  /**
+   * @deprecated since 1.5. Please use {@link VariableResolverUtil#resolveClientProperties(javax.faces.context.FacesContext)} 
+   */
+  @Deprecated
   public static ClientProperties getInstance(FacesContext facesContext) {
-
-    ExternalContext context = facesContext.getExternalContext();
-
-    boolean hasSession = context.getSession(false) != null;
-
-    ClientProperties client = null;
-
-    if (hasSession) {
-      client = (ClientProperties) context.getSessionMap().get(
-          CLIENT_PROPERTIES_IN_SESSION);
-    }
-    if (client == null) {
-      client = new ClientProperties(facesContext);
-      if (hasSession) {
-        context.getSessionMap().put(CLIENT_PROPERTIES_IN_SESSION, client);
-      }
-    }
-    return client;
+    return (ClientProperties) VariableResolverUtil.resolveClientProperties(facesContext);
   }
 
-  public static List<String> getLocaleList(
-      Locale locale, boolean propertyPathMode) {
-
+  /**
+   * @deprecated since 1.5. Please use {@link org.apache.myfaces.tobago.util.LocaleUtil#getLocaleSuffixList(java.util.Locale)} 
+   */
+  @Deprecated
+  public static List<String> getLocaleList(Locale locale, boolean propertyPathMode) {
     String string = locale.toString();
     String prefix = propertyPathMode ? "" : "_";
     List<String> locales = new ArrayList<String>(4);
@@ -179,8 +161,8 @@ public class ClientProperties implements Serializable {
     return locales;
   }
 
-  public String getId() {
-    return id;
+  private void reset() {
+    ClientPropertiesKey.reset(FacesContext.getCurrentInstance());
   }
 
   public String getContentType() {
@@ -189,16 +171,16 @@ public class ClientProperties implements Serializable {
 
   public void setContentType(String contentType) {
     this.contentType = contentType;
-    updateId();
+    reset();
   }
 
   public Theme getTheme() {
     return theme;
   }
-
+  
   public void setTheme(Theme theme) {
     this.theme = theme;
-    updateId();
+    reset();
   }
 
   public UserAgent getUserAgent() {
@@ -207,7 +189,7 @@ public class ClientProperties implements Serializable {
 
   public void setUserAgent(UserAgent userAgent) {
     this.userAgent = userAgent;
-    updateId();
+    reset();
   }
 
   public boolean isDebugMode() {
@@ -218,4 +200,20 @@ public class ClientProperties implements Serializable {
     this.debugMode = debugMode;
   }
 
+  public Locale getLocale() {
+    return locale;
+  }
+
+  /**
+   * Holds the locale of the user, which is located in the UIViewRoot.
+   * This setter should not be called from the application directly, 
+   * but via {@link UIViewRoot#setLocale(Locale locale)} 
+   */
+  public void setLocale(Locale locale) {
+    // set locale will be called "too often" from the JSF
+    if (this.locale == null && locale != null || this.locale != null && locale == null || !this.locale.equals(locale)) {
+      this.locale = locale;
+      reset();
+    }
+  }
 }

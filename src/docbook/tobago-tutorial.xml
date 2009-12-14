@@ -789,7 +789,7 @@
     <programlisting role="JAVA">public String themeChanged() {
   FacesContext facesContext = FacesContext.getCurrentInstance();
   ClientProperties client 
-      = ClientProperties.getInstance(facesContext);
+      = VariableResolverUtil.resolveClientProperties(facesContext);
   client.setTheme(theme);
   return null;
 }</programlisting>

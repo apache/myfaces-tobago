@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.PopupFacetActionListener;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.VariableResolverUtil;
 
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
@@ -141,7 +142,7 @@ public class CommandRendererHelper {
   }
 
   private String getEmptyHref(FacesContext facesContext) {
-    ClientProperties clientProperties = ClientProperties.getInstance(facesContext);
+    ClientProperties clientProperties = VariableResolverUtil.resolveClientProperties(facesContext);
     return clientProperties.getUserAgent().isMsie() ? "#" : "javascript:;";
   }
 

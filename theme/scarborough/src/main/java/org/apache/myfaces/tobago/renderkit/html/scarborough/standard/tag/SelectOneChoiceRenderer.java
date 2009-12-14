@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UISelectOneChoice;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -28,6 +27,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -78,7 +78,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, true);
     }
     
-    if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
+    if (VariableResolverUtil.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
       writer.writeAttribute("onfocusin", "Tobago.fixSelectionOnFocusIn()", false);
       writer.writeAttribute("onfocus", "Tobago.fixSelectionOnFocus()", false);
     }

@@ -17,16 +17,21 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.context.ClientProperties;
+
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
-import javax.faces.el.VariableResolver;
 import javax.faces.el.ValueBinding;
+import javax.faces.el.VariableResolver;
 
 public class VariableResolverUtil {
 
   private VariableResolverUtil() {
   }
 
+  /**
+   * Returns the requested object configured in the faces-config or from library.
+   */
   public static Object resolveVariable(FacesContext context, String variable) {
     Application application = context.getApplication();
     VariableResolver variableResolver = application.getVariableResolver();
@@ -34,13 +39,17 @@ public class VariableResolverUtil {
   }
 
   /**
+   * Returns the ClientProperties object configured in the faces-config.
+   */
+  public static ClientProperties resolveClientProperties(FacesContext facesContext) {
+    return (ClientProperties) resolveVariable(facesContext, ClientProperties.MANAGED_BEAN_NAME);
+  }
+  
+  /**
    * Clears the value of the variable.
    * Useful for cleaning up e.g. a session or application variable
    * to save memory without the knowledge of the scope.
    * Also useful to enforce a new creation of a managed-bean.
-   *
-   * @param context
-   * @param variable
    */
   public static void clearVariable(FacesContext context, String variable) {
     Application application = context.getApplication();

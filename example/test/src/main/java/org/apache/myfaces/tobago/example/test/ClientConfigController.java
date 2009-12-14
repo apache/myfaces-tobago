@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.example.test;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.util.VariableResolverUtil;
 
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
@@ -81,7 +82,7 @@ public class ClientConfigController {
 // ///////////////////////////////////////////// logic
 
   public void storeInClientProperties() {
-    ClientProperties client = ClientProperties.getInstance(FacesContext.getCurrentInstance());
+    ClientProperties client = VariableResolverUtil.resolveClientProperties(FacesContext.getCurrentInstance());
 
     client.setDebugMode(debugMode);
     client.setTheme(theme);
@@ -90,7 +91,7 @@ public class ClientConfigController {
 
   public void loadFromClientProperties() {
     ClientProperties client
-        = ClientProperties.getInstance(FacesContext.getCurrentInstance());
+        = VariableResolverUtil.resolveClientProperties(FacesContext.getCurrentInstance());
 
     debugMode = client.isDebugMode();
     theme = client.getTheme();

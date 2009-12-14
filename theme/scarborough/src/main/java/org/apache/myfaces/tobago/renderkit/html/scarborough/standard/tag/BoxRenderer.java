@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.config.ThemeConfig;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
@@ -28,6 +27,7 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -79,7 +79,7 @@ public class BoxRenderer extends BoxRendererBase {
       RenderUtil.encode(facesContext, toolbar);
       writer.endElement(HtmlConstants.DIV);
       writer.endElement(HtmlConstants.DIV);
-      if (ClientProperties.getInstance(facesContext.getViewRoot()).getUserAgent().isMsie()) {
+      if (VariableResolverUtil.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
         innerStyle.setTop(new PixelMeasure(-10));
       }
     }

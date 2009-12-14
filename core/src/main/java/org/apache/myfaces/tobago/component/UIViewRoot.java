@@ -24,7 +24,6 @@ import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.context.ClientProperties;
-import org.apache.myfaces.tobago.context.ResourceManagerImpl;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.util.ApplyRequestValuesCallback;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -32,6 +31,7 @@ import org.apache.myfaces.tobago.util.FacesVersion;
 import org.apache.myfaces.tobago.util.ProcessValidationsCallback;
 import org.apache.myfaces.tobago.util.TobagoCallback;
 import org.apache.myfaces.tobago.util.UpdateModelValuesCallback;
+import org.apache.myfaces.tobago.util.VariableResolverUtil;
 
 import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
@@ -58,8 +58,6 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
 
   private static final Log LOG = LogFactory.getLog(UIViewRoot.class);
 
-  private ResourceManagerImpl.CacheKey rendererCacheKey;
-
   public static final int ANY_PHASE_ORDINAL = PhaseId.ANY_PHASE.getOrdinal();
   private static final TobagoCallback APPLY_REQUEST_VALUES_CALLBACK = new ApplyRequestValuesCallback();
   private static final ContextCallback PROCESS_VALIDATION_CALLBACK = new ProcessValidationsCallback();
@@ -74,35 +72,24 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
    */
   public UIViewRoot() {
     super();
-    updateRendererCachePrefix();
   }
 
   public void setLocale(Locale locale) {
     super.setLocale(locale);
-    updateRendererCachePrefix();
-  }
-
-  public ResourceManagerImpl.CacheKey getRendererCacheKey() {
-    return rendererCacheKey;
-  }
-
-
-  public void updateRendererCachePrefix() {
-    ClientProperties clientProperties = ClientProperties.getInstance(this);
-    rendererCacheKey = ResourceManagerImpl.getRendererCacheKey(clientProperties, getLocale());
+    ClientProperties clientProperties = VariableResolverUtil.resolveClientProperties(getFacesContext());
+    clientProperties.setLocale(locale);
   }
 
   public Object saveState(FacesContext facesContext) {
     Object[] state;
     if (FacesVersion.supports12()) {
-      state = new Object[2];
+      state = new Object[1];
     } else {
-      state = new Object[3];
+      state = new Object[2];
     }
     state[0] = super.saveState(facesContext);
-    state[1] = rendererCacheKey;
     if (!FacesVersion.supports12()) {
-      state[2] = nextUniqueId;
+      state[1] = nextUniqueId;
     }
     return state;
   }
@@ -110,9 +97,8 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
   public void restoreState(FacesContext facesContext, Object o) {
     Object[] state = (Object[]) o;
     super.restoreState(facesContext, state[0]);
-    rendererCacheKey = (ResourceManagerImpl.CacheKey) state[1];
     if (!FacesVersion.supports12()) {
-      nextUniqueId = (Integer) state[2];
+      nextUniqueId = (Integer) state[1];
     }
   }
 

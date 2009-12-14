@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.example.test;
  */
 
 import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.util.VariableResolverUtil;
 
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
@@ -32,7 +33,7 @@ public class DebugModePhaseListener implements PhaseListener {
   }
 
   public void beforePhase(PhaseEvent event) {
-    ClientProperties client = ClientProperties.getInstance(event.getFacesContext());
+    ClientProperties client = VariableResolverUtil.resolveClientProperties(event.getFacesContext());
     client.setDebugMode(true);
   }
 

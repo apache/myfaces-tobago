@@ -17,21 +17,21 @@ package org.apache.myfaces.tobago.application;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.ClientProperties;
-import org.apache.myfaces.tobago.webapp.TobagoResponse;
-import org.apache.myfaces.tobago.util.DebugUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.util.DebugUtils;
+import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.webapp.TobagoResponse;
 
-import javax.faces.context.FacesContext;
-import javax.faces.component.UIViewRoot;
 import javax.faces.FacesException;
 import javax.faces.application.ViewHandler;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletResponse;
-import javax.servlet.ServletException;
 import java.io.IOException;
 
 /*
@@ -50,8 +50,7 @@ public class FoViewHandlerImpl extends ViewHandlerImpl {
       throws IOException, FacesException {
     String requestUri = viewRoot.getViewId();
 
-    String contentType
-        = ClientProperties.getInstance(viewRoot).getContentType();
+    String contentType = VariableResolverUtil.resolveClientProperties(facesContext).getContentType();
     if (LOG.isDebugEnabled()) {
       LOG.debug("contentType = '" + contentType + "'");
     }

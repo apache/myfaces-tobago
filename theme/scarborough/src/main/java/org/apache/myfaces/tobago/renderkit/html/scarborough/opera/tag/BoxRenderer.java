@@ -25,12 +25,12 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.opera.tag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIBox;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -66,8 +66,7 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
       }
       writer.endElement(HtmlConstants.B);
       writer.endElement(HtmlConstants.LEGEND);
-      if (!ClientProperties.getInstance(facesContext.getViewRoot())
-          .getUserAgent().equals(UserAgent.OPERA_7_11)) {
+      if (!VariableResolverUtil.resolveClientProperties(facesContext).getUserAgent().equals(UserAgent.OPERA_7_11)) {
         writer.startElement(HtmlConstants.BR, null);
         writer.endElement(HtmlConstants.BR);
       }
