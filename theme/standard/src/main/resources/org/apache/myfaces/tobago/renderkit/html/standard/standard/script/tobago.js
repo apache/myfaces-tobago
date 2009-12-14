@@ -335,7 +335,7 @@ var Tobago = {
         this.isSubmit = false;
         Tobago.action.value = oldAction;
         Tobago.form.target = oldTarget;
-        return;
+        return false;
       }
     }
     var hidden = Tobago.element("tobago::partialIds");
@@ -347,6 +347,7 @@ var Tobago = {
     clientDimension.value = document.body.clientWidth + ";" + document.body.clientHeight;
     this.form.appendChild(clientDimension);
     Tobago.onBeforeUnload();
+    return true;
   },
 
   onBeforeUnload: function() {
@@ -550,6 +551,7 @@ var Tobago = {
         }
         Tobago.oldTransition = Tobago.transition;
         Tobago.transition = transition && !target;
+// new
         var onSubmitResult = Tobago.onSubmit();
         if (onSubmitResult) {
   //      LOG.debug("submit form with action: " + Tobago.action.value);
@@ -563,6 +565,20 @@ var Tobago = {
           this.isSubmit = false;
           Tobago.Transport.pageSubmited = false;
         }
+// old
+/*
+        Tobago.onSubmit();
+  //      LOG.debug("submit form with action: " + Tobago.action.value);
+          Tobago.form.submit();
+        Tobago.action.value = oldAction;
+        if (target) {
+          Tobago.form.target = oldTarget;
+        }
+        if (target || !transition) {
+          this.isSubmit = false;
+          Tobago.Transport.pageSubmited = false;
+        }
+*/
       }
     }, true);
   },
