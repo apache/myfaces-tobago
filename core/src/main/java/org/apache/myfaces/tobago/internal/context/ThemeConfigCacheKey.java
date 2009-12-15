@@ -29,7 +29,8 @@ public final class ThemeConfigCacheKey {
   private final String[] markup;
   private final int hashCode;
 
-  public ThemeConfigCacheKey(ClientPropertiesKey clientPropertiesKey, String rendererType, String[] markup, String name) {
+  public ThemeConfigCacheKey(
+      ClientPropertiesKey clientPropertiesKey, String rendererType, String[] markup, String name) {
     this.clientPropertiesKey = clientPropertiesKey;
     this.rendererType = rendererType;
     this.markup = (String[]) ArrayUtils.clone(markup);

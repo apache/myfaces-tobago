@@ -126,7 +126,8 @@ public class ClientProperties implements Serializable {
   }
 
   /**
-   * @deprecated since 1.5. Please use {@link VariableResolverUtil#resolveClientProperties(javax.faces.context.FacesContext)} 
+   * @deprecated since 1.5. Please use 
+   * {@link VariableResolverUtil#resolveClientProperties(javax.faces.context.FacesContext)} 
    */
   @Deprecated
   public static ClientProperties getInstance(UIViewRoot viewRoot) {
@@ -134,7 +135,8 @@ public class ClientProperties implements Serializable {
   }
 
   /**
-   * @deprecated since 1.5. Please use {@link VariableResolverUtil#resolveClientProperties(javax.faces.context.FacesContext)} 
+   * @deprecated since 1.5. Please use 
+   * {@link VariableResolverUtil#resolveClientProperties(javax.faces.context.FacesContext)} 
    */
   @Deprecated
   public static ClientProperties getInstance(FacesContext facesContext) {
@@ -142,7 +144,8 @@ public class ClientProperties implements Serializable {
   }
 
   /**
-   * @deprecated since 1.5. Please use {@link org.apache.myfaces.tobago.util.LocaleUtil#getLocaleSuffixList(java.util.Locale)} 
+   * @deprecated since 1.5. Please use 
+   * {@link org.apache.myfaces.tobago.util.LocaleUtil#getLocaleSuffixList(java.util.Locale)} 
    */
   @Deprecated
   public static List<String> getLocaleList(Locale locale, boolean propertyPathMode) {

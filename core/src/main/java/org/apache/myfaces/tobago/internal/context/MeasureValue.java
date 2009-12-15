@@ -1,7 +1,5 @@
 package org.apache.myfaces.tobago.internal.context;
 
-import org.apache.myfaces.tobago.layout.Measure;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -18,6 +16,8 @@ import org.apache.myfaces.tobago.layout.Measure;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import org.apache.myfaces.tobago.layout.Measure;
 
 /**
  * This class makes it possible to put "null" values into the Map.
