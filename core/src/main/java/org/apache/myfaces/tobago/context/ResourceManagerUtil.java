@@ -17,6 +17,9 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.layout.Measure;
+
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ import java.util.List;
 public class ResourceManagerUtil {
 
   private ResourceManagerUtil() {
+    // no instance
   }
 
   public static String getProperty(
@@ -138,4 +142,10 @@ public class ResourceManagerUtil {
   public static String getPageWithoutContextPath(FacesContext facesContext, String name) {
     return ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext.getViewRoot(), name);
   }
+  
+  public static Measure getThemeMeasure(FacesContext facesContext, Configurable configurable, String name) {
+    return ResourceManagerFactory.getResourceManager(facesContext).getThemeMeasure(
+        facesContext, configurable.getRendererType(), configurable.getMarkup(), name);
+  }
+  
 }

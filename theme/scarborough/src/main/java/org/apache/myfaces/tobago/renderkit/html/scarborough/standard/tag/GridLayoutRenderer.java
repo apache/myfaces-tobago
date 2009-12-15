@@ -21,7 +21,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.SpacingValues;
@@ -57,11 +56,11 @@ public class GridLayoutRenderer extends RendererBase implements SpacingValues {
   }
 
   public Measure getColumnSpacing(FacesContext facesContext, Configurable component) {
-    return ThemeConfig.getMeasure(facesContext, component, Attributes.COLUMN_SPACING);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.COLUMN_SPACING);
   }
   
   public Measure getRowSpacing(FacesContext facesContext, Configurable component) {
-    return ThemeConfig.getMeasure(facesContext, component, Attributes.ROW_SPACING);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.ROW_SPACING);
   }
   
 }

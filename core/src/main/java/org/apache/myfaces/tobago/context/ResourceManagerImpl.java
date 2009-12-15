@@ -20,8 +20,18 @@ package org.apache.myfaces.tobago.context;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.context.ClientPropertiesKey;
+import org.apache.myfaces.tobago.internal.context.ImageCacheKey;
+import org.apache.myfaces.tobago.internal.context.JspCacheKey;
+import org.apache.myfaces.tobago.internal.context.MeasureValue;
+import org.apache.myfaces.tobago.internal.context.MiscCacheKey;
+import org.apache.myfaces.tobago.internal.context.PropertyCacheKey;
+import org.apache.myfaces.tobago.internal.context.RendererCacheKey;
+import org.apache.myfaces.tobago.internal.context.StringValue;
+import org.apache.myfaces.tobago.internal.context.ThemeConfigCacheKey;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.util.LocaleUtil;
 
 import javax.faces.component.UIViewRoot;
@@ -39,14 +49,21 @@ public class ResourceManagerImpl implements ResourceManager {
   private static final String JSP = "jsp";
   private static final String TAG = "tag";
 
-  private final Map<String, String> resourceList = new ConcurrentHashMap<String, String>(100, 0.75f, 1);
+  private final Map<String, String> resourceList 
+      = new ConcurrentHashMap<String, String>(100, 0.75f, 1);
 
-  private final Map<RendererCacheKey, Renderer> rendererCache = new ConcurrentHashMap<RendererCacheKey, Renderer>(100, 0.75f, 1);
-  private final Map<ImageCacheKey, StringValue> imageCache = new ConcurrentHashMap<ImageCacheKey, StringValue>(100, 0.75f, 1);
-  private final Map<JspCacheKey, String> jspCache = new ConcurrentHashMap<JspCacheKey, String>(100, 0.75f, 1);
-  private final Map<MiscCacheKey, String[]> miscCache = new ConcurrentHashMap<MiscCacheKey, String[]>(100, 0.75f, 1);
+  private final Map<RendererCacheKey, Renderer> rendererCache 
+      = new ConcurrentHashMap<RendererCacheKey, Renderer>(100, 0.75f, 1);
+  private final Map<ImageCacheKey, StringValue> imageCache 
+      = new ConcurrentHashMap<ImageCacheKey, StringValue>(100, 0.75f, 1);
+  private final Map<JspCacheKey, String> jspCache 
+      = new ConcurrentHashMap<JspCacheKey, String>(100, 0.75f, 1);
+  private final Map<MiscCacheKey, String[]> miscCache 
+      = new ConcurrentHashMap<MiscCacheKey, String[]>(100, 0.75f, 1);
   private final Map<PropertyCacheKey, StringValue> propertyCache 
       = new ConcurrentHashMap<PropertyCacheKey, StringValue>(100, 0.75f, 1);
+  private final Map<ThemeConfigCacheKey, MeasureValue> themeCache 
+      = new ConcurrentHashMap<ThemeConfigCacheKey, MeasureValue>(100, 0.75f, 1);
   
   private TobagoConfig tobagoConfig;
 
@@ -69,32 +86,199 @@ public class ResourceManagerImpl implements ResourceManager {
     resourceList.put(resourceKey, value);
   }
 
+  @Deprecated
+  public String getJsp(UIViewRoot viewRoot, String name) {
+    String result = null;
+    if (name != null) {
 
-  public String getImage(UIViewRoot viewRoot, String name) {
-    return getImage(viewRoot, name, false);
+      ClientPropertiesKey clientKey = ClientPropertiesKey.get(FacesContext.getCurrentInstance());
+      JspCacheKey cacheKey = new JspCacheKey(clientKey, name);
+
+      result = jspCache.get(cacheKey);
+      if (result != null) {
+        return result;
+      }
+      try {
+        result = (String) getPaths(clientKey, "",
+            JSP, name, "", false, true, true, null, true, false).get(0);
+        jspCache.put(cacheKey, result);
+      } catch (Exception e) {
+        LOG.error("name = '" + name + "' clientProperties = '" + clientKey.toString() + "'", e);
+      }
+    }
+    return result;
   }
 
+  @Deprecated
+  public String getProperty(UIViewRoot viewRoot, String bundle, String propertyKey) {
+    return getProperty(FacesContext.getCurrentInstance(), bundle, propertyKey);
+  }
+
+  public String getProperty(FacesContext facesContext, String bundle, String propertyKey) {
+
+    if (bundle != null && propertyKey != null) {
+      ClientPropertiesKey clientKey = ClientPropertiesKey.get(facesContext);
+      PropertyCacheKey cacheKey = new PropertyCacheKey(clientKey, bundle, propertyKey);
+      
+      StringValue result = propertyCache.get(cacheKey);
+      if (result == null) {
+        List properties = getPaths(clientKey, "", PROPERTY, bundle, "", false, true, false, propertyKey, true, false);
+        if (properties != null) {
+          result = new StringValue((String) properties.get(0));
+        } else {
+          result = StringValue.NULL;
+        }
+        propertyCache.put(cacheKey, result);
+      }
+      return result.getValue();
+    }
+    return null;
+  }
+
+  @Deprecated
+  public Renderer getRenderer(UIViewRoot viewRoot, String rendererType) {
+    return getRenderer(FacesContext.getCurrentInstance(), rendererType);
+  }
+
+  public Renderer getRenderer(FacesContext facesContext, String rendererType) {
+    Renderer renderer = null;
+
+    if (rendererType != null) {
+      ClientPropertiesKey clientKey = ClientPropertiesKey.get(facesContext);
+      RendererCacheKey cacheKey = new RendererCacheKey(clientKey, rendererType);
+
+      renderer = rendererCache.get(cacheKey);
+      if (renderer != null) {
+        return renderer;
+      }
+      String simpleClassName = null;
+      try {
+        simpleClassName = getRendererClassName(rendererType);
+        List<Class> classes = getPaths(clientKey, "", TAG, simpleClassName, "", false, true, true, null, false, false);
+        if (classes != null && !classes.isEmpty()) {
+          Class clazz = classes.get(0);
+          renderer = (Renderer) clazz.newInstance();
+          rendererCache.put(cacheKey, renderer);
+        } else {
+          LOG.error("Don't find any RendererClass for " + simpleClassName + ". Please check you configuration.");
+        }
+      } catch (InstantiationException e) {
+        LOG.error("name = '" + simpleClassName + "' clientProperties = '" + clientKey.toString() + "'", e);
+      } catch (IllegalAccessException e) {
+        LOG.error("name = '" + simpleClassName + "' clientProperties = '" + clientKey.toString() + "'", e);
+      }
+    }
+    return renderer;
+  }
+  
+  @Deprecated
+  public String[] getScripts(UIViewRoot viewRoot, String name) {
+    return getScripts(FacesContext.getCurrentInstance(), name);
+  }
+  
+  public String[] getScripts(FacesContext facesContext, String name) {
+    return getStrings(facesContext, name, null);
+  }
+
+  @Deprecated
+  public String[] getStyles(UIViewRoot viewRoot, String name) {
+    return getStyles(FacesContext.getCurrentInstance(), name);
+  }
+
+  public String[] getStyles(FacesContext facesContext, String name) {
+    return getStrings(facesContext, name, null);
+  }
+
+  @Deprecated
+  public String getThemeProperty(UIViewRoot viewRoot, String bundle, String propertyKey) {
+    if (bundle != null && propertyKey != null) {
+
+      ClientPropertiesKey clientKey = ClientPropertiesKey.get(FacesContext.getCurrentInstance());
+      PropertyCacheKey cacheKey = new PropertyCacheKey(clientKey, bundle, propertyKey);
+
+      StringValue result = propertyCache.get(cacheKey);
+      if (result == null) {
+        List properties = getPaths(clientKey, "", PROPERTY, bundle, "", false, true, false, propertyKey, true, true);
+        if (properties != null) {
+          result = new StringValue((String) properties.get(0));
+        } else {
+          result = StringValue.NULL;
+        }
+        propertyCache.put(cacheKey, result);
+      }
+      return result.getValue();
+    }
+    return null;
+  }
+
+  public Measure getThemeMeasure(FacesContext facesContext, Configurable configurable, String name) {
+    return getThemeMeasure(facesContext, configurable.getRendererType(), configurable.getMarkup(), name);
+  }
+
+  public Measure getThemeMeasure(FacesContext facesContext, String rendererType, String[] markup, String name) {
+
+    ClientPropertiesKey clientKey = ClientPropertiesKey.get(facesContext);
+    ThemeConfigCacheKey cacheKey = new ThemeConfigCacheKey(clientKey, rendererType, markup, name);
+
+    MeasureValue result = themeCache.get(cacheKey);
+
+    if (result == null) {
+      List properties = getPaths(clientKey, "", PROPERTY, "tobago-theme-config", "",
+          false, true, false, rendererType + "." + name, true, true);
+      if (properties != null) {
+        Measure measure = Measure.parse(properties.get(0));
+
+        for (String m : markup) {
+          List mProperties = getPaths(clientKey, "", PROPERTY, "tobago-theme-config", "",
+              false, true, false, rendererType + "[" + m + "]" + "." + name, true, true);
+          if (mProperties != null) {
+            measure.add(Measure.parse(mProperties.get(0)));
+          }
+        }
+
+        result = new MeasureValue(measure);
+      } else {
+        result = MeasureValue.NULL;  // to mark and cache that this value is undefined.
+      }
+      themeCache.put(cacheKey, result);
+    }
+    return result.getValue();
+  }
+  
+  @Deprecated
+  public String getImage(UIViewRoot viewRoot, String name) {
+    return getImage(FacesContext.getCurrentInstance(), name);
+  }
+  
+  public String getImage(FacesContext facesContext, String name) {
+    return getImage(facesContext, name, false);
+  }
+
+  @Deprecated
   public String getImage(UIViewRoot viewRoot, String name, boolean ignoreMissing) {
+    return getImage(FacesContext.getCurrentInstance(), name, ignoreMissing);
+  }
+
+  public String getImage(FacesContext facesContext, String name, boolean ignoreMissing) {
     if (name != null) {
       int dot = name.lastIndexOf('.');
       if (dot == -1) {
         dot = name.length();
       }
 
-      ClientPropertiesKey key = ClientPropertiesKey.get(FacesContext.getCurrentInstance());
+      ClientPropertiesKey clientKey = ClientPropertiesKey.get(facesContext);
+      ImageCacheKey cacheKey = new ImageCacheKey(clientKey, name);
 
-      ImageCacheKey imageKey = new ImageCacheKey(key, name);
-
-      StringValue result = imageCache.get(imageKey);
+      StringValue result = imageCache.get(cacheKey);
       if (result == null) {
-        List paths = getPaths(key, "", null, name.substring(0, dot),
+        List paths = getPaths(clientKey, "", null, name.substring(0, dot),
             name.substring(dot), false, true, true, null, true, ignoreMissing);
         if (paths != null) {
           result = new StringValue((String) paths.get(0));
         } else {
           result = StringValue.NULL;
         }
-        imageCache.put(imageKey, result);
+        imageCache.put(cacheKey, result);
       }
       if (LOG.isDebugEnabled()) {
         if (result.getValue() == null) {
@@ -108,59 +292,15 @@ public class ResourceManagerImpl implements ResourceManager {
     return null;
   }
 
-  public String getJsp(UIViewRoot viewRoot, String name) {
-    String result = null;
-    if (name != null) {
-
-      ClientPropertiesKey key = ClientPropertiesKey.get(FacesContext.getCurrentInstance());
-
-      JspCacheKey jspKey = new JspCacheKey(key, name);
-
-      result = jspCache.get(jspKey);
-      if (result != null) {
-        return result;
-      }
-      try {
-        result = (String) getPaths(key, "",
-            JSP, name, "", false, true, true, null, true, false).get(0);
-        jspCache.put(jspKey, result);
-      } catch (Exception e) {
-        LOG.error("name = '" + name + "' clientProperties = '" + key.toString() + "'", e);
-      }
-    }
-    return result;
-  }
-
-  public String getProperty(UIViewRoot viewRoot, String bundle, String propertyKey) {
-
-    if (bundle != null && propertyKey != null) {
-      ClientPropertiesKey key = ClientPropertiesKey.get(FacesContext.getCurrentInstance());
-
-      PropertyCacheKey propertyCacheKey = new PropertyCacheKey(key, bundle, propertyKey);
-      StringValue result = propertyCache.get(propertyCacheKey);
-      if (result == null) {
-        List properties = getPaths(key, "", PROPERTY, bundle, "", false, true, false, propertyKey, true, false);
-        if (properties != null) {
-          result = new StringValue((String) properties.get(0));
-        } else {
-          result = StringValue.NULL;
-        }
-        propertyCache.put(propertyCacheKey, result);
-      }
-      return result.getValue();
-    }
-    return null;
-  }
-
   private List getPaths(
-      ClientPropertiesKey clientProperties, String prefix, String subDir, String name, String suffix,
+      ClientPropertiesKey clientkey, String prefix, String subDir, String name, String suffix,
       boolean reverseOrder, boolean single, boolean returnKey, String key, boolean returnStrings,
       boolean ignoreMissing) {
     List matches = new ArrayList();
-    String contentType = clientProperties.getContentType();
-    Theme theme = clientProperties.getTheme();
-    UserAgent browser = clientProperties.getUserAgent();
-    List<String> locales = LocaleUtil.getLocaleSuffixList(clientProperties.getLocale());
+    String contentType = clientkey.getContentType();
+    Theme theme = clientkey.getTheme();
+    UserAgent browser = clientkey.getUserAgent();
+    List<String> locales = LocaleUtil.getLocaleSuffixList(clientkey.getLocale());
 
     String path;
 
@@ -299,39 +439,6 @@ public class ResourceManagerImpl implements ResourceManager {
     return searchtext.toString();
   }
 
-  public Renderer getRenderer(UIViewRoot viewRoot, String rendererType) {
-    Renderer renderer = null;
-
-    if (rendererType != null) {
-
-      ClientPropertiesKey key = ClientPropertiesKey.get(FacesContext.getCurrentInstance());
-
-      RendererCacheKey rendererKey = new RendererCacheKey(key, rendererType);
-      renderer = rendererCache.get(rendererKey);
-      if (renderer != null) {
-        return renderer;
-      }
-      String simpleClassName = null;
-      try {
-        simpleClassName = getRendererClassName(rendererType);
-        List<Class> classes = getPaths(key, "", TAG, simpleClassName, "", false, true, true, null, false, false);
-        if (classes != null && !classes.isEmpty()) {
-          Class clazz = classes.get(0);
-          renderer = (Renderer) clazz.newInstance();
-          rendererCache.put(rendererKey, renderer);
-        } else {
-          LOG.error("Don't find any RendererClass for " + simpleClassName + ". Please check you configuration.");
-        }
-      } catch (InstantiationException e) {
-        LOG.error("name = '" + simpleClassName + "' clientProperties = '" + key.toString() + "'", e);
-      } catch (IllegalAccessException e) {
-        LOG.error("name = '" + simpleClassName + "' clientProperties = '" + key.toString() + "'", e);
-      }
-    }
-    return renderer;
-  }
-
-
   private String getRendererClassName(String rendererType) {
     String name;
     if (LOG.isDebugEnabled()) {
@@ -351,15 +458,7 @@ public class ResourceManagerImpl implements ResourceManager {
     return name;
   }
 
-  public String[] getScripts(UIViewRoot viewRoot, String name) {
-    return getStrings(viewRoot, name, null);
-  }
-
-  public String[] getStyles(UIViewRoot viewRoot, String name) {
-    return getStrings(viewRoot, name, null);
-  }
-
-  private String[] getStrings(UIViewRoot viewRoot, String name, String type) {
+  private String[] getStrings(FacesContext facesContext, String name, String type) {
     String[] result = null;
     if (name != null) {
       int dot = name.lastIndexOf('.');
@@ -367,7 +466,7 @@ public class ResourceManagerImpl implements ResourceManager {
         dot = name.length();
       }
 
-      ClientPropertiesKey key = ClientPropertiesKey.get(FacesContext.getCurrentInstance());
+      ClientPropertiesKey key = ClientPropertiesKey.get(facesContext);
       MiscCacheKey miscKey = new MiscCacheKey(key, name);
       result = miscCache.get(miscKey);
       if (result != null) {
@@ -385,278 +484,4 @@ public class ResourceManagerImpl implements ResourceManager {
     return result;
   }
 
-  public String getThemeProperty(UIViewRoot viewRoot, String bundle, String propertyKey) {
-    if (bundle != null && propertyKey != null) {
-      ClientPropertiesKey key = ClientPropertiesKey.get(FacesContext.getCurrentInstance());
-
-      PropertyCacheKey propertyCacheKey = new PropertyCacheKey(key, bundle, propertyKey);
-      StringValue result = propertyCache.get(propertyCacheKey);
-      if (result == null) {
-        List properties = getPaths(key, "", PROPERTY, bundle, "", false, true, false, propertyKey, true, true);
-        if (properties != null) {
-          result = new StringValue((String) properties.get(0));
-        } else {
-          result = StringValue.NULL;
-        }
-        propertyCache.put(propertyCacheKey, result);
-      }
-      return result.getValue();
-    }
-    return null;
-  }
-
-  private static final class ImageCacheKey {
-    private final ClientPropertiesKey cacheKey;
-    private final String name;
-    private final int hashCode;
-
-    private ImageCacheKey(ClientPropertiesKey cacheKey, String name) {
-      this.name = name;
-      this.cacheKey = cacheKey;
-      hashCode = calcHashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      if (this == o) {
-        return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-        return false;
-      }
-
-      ImageCacheKey that = (ImageCacheKey) o;
-
-      return cacheKey.equals(that.cacheKey) && name.equals(that.name);
-
-    }
-
-    private int calcHashCode() {
-      int result;
-      result = cacheKey.hashCode();
-      result = 31 * result + name.hashCode();
-      return result;
-    }
-
-    @Override
-    public int hashCode() {
-      return hashCode;
-    }
-  }
-
-  private static final class JspCacheKey {
-    private final ClientPropertiesKey cacheKey;
-    private final String name;
-    private final int hashCode;
-
-    private JspCacheKey(ClientPropertiesKey cacheKey, String name) {
-      this.cacheKey = cacheKey;
-      this.name = name;
-      hashCode = calcHashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      if (this == o) {
-        return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-        return false;
-      }
-
-      JspCacheKey that = (JspCacheKey) o;
-
-      return cacheKey.equals(that.cacheKey) && name.equals(that.name);
-
-    }
-
-    private int calcHashCode() {
-      int result;
-      result = cacheKey.hashCode();
-      result = 31 * result + name.hashCode();
-      return result;
-    }
-
-    @Override
-    public int hashCode() {
-      return hashCode;
-    }
-  }
-
-  private static final class PropertyCacheKey {
-    private final ClientPropertiesKey cacheKey;
-    private final String name;
-    private final String key;
-    private final int hashCode;
-
-    private PropertyCacheKey(ClientPropertiesKey cacheKey, String name, String key) {
-      this.cacheKey = cacheKey;
-      this.name = name;
-      this.key = key;
-      hashCode = calcHashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      if (this == o) {
-        return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-        return false;
-      }
-
-      PropertyCacheKey that = (PropertyCacheKey) o;
-
-      return cacheKey.equals(that.cacheKey) && key.equals(that.key) && name.equals(that.name);
-
-    }
-
-    private int calcHashCode() {
-      int result;
-      result = cacheKey.hashCode();
-      result = 31 * result + name.hashCode();
-      result = 31 * result + key.hashCode();
-      return result;
-    }
-
-    @Override
-    public int hashCode() {
-      return hashCode;
-    }
-
-    @Override
-    public String toString() {
-      return "PropertyCacheKey(" + cacheKey + "," + name + "," + key + "," + hashCode + '}';
-    }
-  }
-
-  private static final class MiscCacheKey {
-    private final ClientPropertiesKey cacheKey;
-    private final String name;
-    private final int hashCode;
-
-    private MiscCacheKey(ClientPropertiesKey cacheKey, String name) {
-      this.cacheKey = cacheKey;
-      this.name = name;
-      hashCode = calcHashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      if (this == o) {
-        return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-        return false;
-      }
-
-      MiscCacheKey that = (MiscCacheKey) o;
-
-      return cacheKey.equals(that.cacheKey) && name.equals(that.name);
-
-    }
-
-    private int calcHashCode() {
-      int result;
-      result = cacheKey.hashCode();
-      result = 31 * result + name.hashCode();
-      return result;
-    }
-
-    @Override
-    public int hashCode() {
-      return hashCode;
-    }
-
-    @Override
-    public String toString() {
-      return "MiscCacheKey(" + cacheKey + "," + name + "," + hashCode + ')';
-    }
-  }
-
-  private static final class RendererCacheKey {
-    private final ClientPropertiesKey cacheKey;
-    private final String name;
-    private final int hashCode;
-
-    private RendererCacheKey(ClientPropertiesKey cacheKey, String name) {
-      this.cacheKey = cacheKey;
-      this.name = name;
-      hashCode = calcHashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      if (this == o) {
-        return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-        return false;
-      }
-
-      RendererCacheKey that = (RendererCacheKey) o;
-
-      return cacheKey.equals(that.cacheKey) && name.equals(that.name);
-
-    }
-
-    private int calcHashCode() {
-      int result;
-      result = cacheKey.hashCode();
-      result = 31 * result + name.hashCode();
-      return result;
-    }
-
-    @Override
-    public int hashCode() {
-      return hashCode;
-    }
-
-    @Override
-    public String toString() {
-      return "RendererCacheKey(" + cacheKey + "," + name + "," + hashCode + ')';
-    }
-  }
-
-  /**
-   * This class makes it possible to put "null" values into the Map.
-   */
-  public static final class StringValue {
-
-    public static final StringValue NULL = new StringValue(null);
-
-    private String value;
-
-    public StringValue(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      if (this == o) {
-        return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-        return false;
-      }
-
-      StringValue that = (StringValue) o;
-
-      if (value != null ? !value.equals(that.value) : that.value != null) {
-        return false;
-      }
-
-      return true;
-    }
-
-    @Override
-    public int hashCode() {
-      return (value != null ? value.hashCode() : 0);
-    }
-  }
-  
 }

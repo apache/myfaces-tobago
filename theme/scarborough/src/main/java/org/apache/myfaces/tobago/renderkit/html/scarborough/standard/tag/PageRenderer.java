@@ -28,7 +28,6 @@ import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.layout.LayoutContext;
@@ -674,7 +673,7 @@ public class PageRenderer extends PageRendererBase {
     UIPage page = (UIPage) component;
     UIMenuBar menuBar = (UIMenuBar)page.getFacet(Facets.MENUBAR);
     if (menuBar != null) {
-      return ThemeConfig.getMeasure(facesContext, menuBar, "fixedHeight");
+      return getResourceManager().getThemeMeasure(facesContext, menuBar, "fixedHeight");
     } else {
       return PixelMeasure.ZERO;
     }

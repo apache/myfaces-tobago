@@ -25,7 +25,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIToolBar;
-import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
@@ -102,7 +101,7 @@ without shadow
   private void encodeBox(FacesContext facesContext, TobagoResponseWriter writer, UIBox box) throws IOException {
 
     // todo: shadow = 0px means, that shadow is disabled, but it may be better, if we can set a boolean in the config.
-    Measure measure = ThemeConfig.getMeasure(facesContext, box, "shadow");
+    Measure measure = getResourceManager().getThemeMeasure(facesContext, box, "shadow");
     boolean hasShadow = measure.greaterThan(PixelMeasure.ZERO);
 
     if (hasShadow) {

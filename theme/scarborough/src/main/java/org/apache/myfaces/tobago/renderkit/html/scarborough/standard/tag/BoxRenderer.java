@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIBox;
-import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
@@ -48,7 +47,7 @@ public class BoxRenderer extends BoxRendererBase {
     UIPanel toolbar = (UIPanel) box.getFacet(Facets.TOOL_BAR);
     Style style = new Style(facesContext, box);
     if (toolbar != null) {
-      Measure padding = ThemeConfig.getMeasure(facesContext, box, "paddingTopWhenToolbar");
+      Measure padding = getResourceManager().getThemeMeasure(facesContext, box, "paddingTopWhenToolbar");
       style.setPaddingTop(padding);
       style.setPaddingBottom(PixelMeasure.ZERO);
     }

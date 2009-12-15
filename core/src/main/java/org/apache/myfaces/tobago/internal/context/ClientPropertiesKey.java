@@ -71,10 +71,18 @@ public final class ClientPropertiesKey implements Serializable {
 
     ClientPropertiesKey that = (ClientPropertiesKey) o;
 
-    if (!contentType.equals(that.contentType)) return false;
-    if (!locale.equals(that.locale)) return false;
-    if (!theme.equals(that.theme)) return false;
-    if (!userAgent.equals(that.userAgent)) return false;
+    if (!contentType.equals(that.contentType)) {
+      return false;
+    }
+    if (!locale.equals(that.locale)) {
+      return false;
+    }
+    if (!theme.equals(that.theme)) {
+      return false;
+    }
+    if (!userAgent.equals(that.userAgent)) {
+      return false;
+    }
 
     return true;
   }

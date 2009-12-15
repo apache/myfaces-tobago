@@ -35,7 +35,6 @@ import org.apache.myfaces.tobago.component.UIPanelBase;
 import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.component.UIToolBar;
-import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
@@ -138,7 +137,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
     int virtualTab = 0;
     Measure currentWidth = PixelMeasure.ZERO;
 
-    Measure navigationBarWidth = ThemeConfig.getMeasure(facesContext, tabGroup, "navigationBarWidth");
+    Measure navigationBarWidth = getResourceManager().getThemeMeasure(facesContext, tabGroup, "navigationBarWidth");
     for (UIComponent tab : (List<UIComponent>) tabGroup.getChildren()) {
       if (tab instanceof UIPanelBase) {
         if (tab.isRendered()) {
@@ -194,7 +193,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
     int index = 0;
     // todo: use Measure instead of int
     int tabLabelExtraWidth 
-        = ThemeConfig.getMeasure(facesContext, component, "tabLabelExtraWidth").getPixel();
+        = getResourceManager().getThemeMeasure(facesContext, component, "tabLabelExtraWidth").getPixel();
 
     boolean first = true;
     for (UIComponent child : (List<UIComponent>) component.getChildren()) {
@@ -277,7 +276,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
 
     writer.startElement(HtmlConstants.TD, tabGroup);
     Measure width = tabGroup.getWidth();
-    Measure headerHeight = ThemeConfig.getMeasure(facesContext, tabGroup, "headerHeight");
+    Measure headerHeight = getResourceManager().getThemeMeasure(facesContext, tabGroup, "headerHeight");
     Style header = new Style();
     header.setPosition(Position.RELATIVE);
     header.setWidth(width);
@@ -542,7 +541,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
     renderTabGroupView(context, HtmlRendererUtils.getTobagoResponseWriter(context),
         tabGroup, index, SWITCH_TYPE_RELOAD_TAB,
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"),
-        ThemeConfig.getMeasure(context, tabGroup, "navigationBarWidth"), currentWidth, tabList);
+        getResourceManager().getThemeMeasure(context, tabGroup, "navigationBarWidth"), currentWidth, tabList);
   }
 
   private static class TabList {

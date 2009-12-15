@@ -19,17 +19,13 @@ package org.apache.myfaces.tobago.webapp;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.config.TobagoConfigParser;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
-import org.apache.myfaces.tobago.context.ResourceManagerImpl;
-import org.apache.myfaces.tobago.layout.Measure;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.util.HashMap;
 
 public class TobagoServletContextListener implements ServletContextListener {
 
@@ -63,9 +59,6 @@ public class TobagoServletContextListener implements ServletContextListener {
       // prepare themes
       tobagoConfig.resolveThemes();
 
-      // theme config cache
-      servletContext.setAttribute(ThemeConfig.THEME_CONFIG_CACHE, new HashMap<ResourceManagerImpl.CacheKey, Measure>());
-
     } catch (Throwable e) {
       if (LOG.isFatalEnabled()) {
         String error = "Error while deploy process. Tobago can't be initialized! "
@@ -85,8 +78,8 @@ public class TobagoServletContextListener implements ServletContextListener {
     ServletContext servletContext = event.getServletContext();
 
     servletContext.removeAttribute(TobagoConfig.TOBAGO_CONFIG);
+
     ResourceManagerFactory.release(servletContext);
-    servletContext.removeAttribute(ThemeConfig.THEME_CONFIG_CACHE);
 
     LogFactory.releaseAll();
 //    LogManager.shutdown();

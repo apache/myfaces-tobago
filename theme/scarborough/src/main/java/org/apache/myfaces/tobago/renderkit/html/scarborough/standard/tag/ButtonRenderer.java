@@ -27,7 +27,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
@@ -134,14 +133,14 @@ public class ButtonRenderer extends CommandRendererBase {
     Measure width = PixelMeasure.ZERO;
     boolean image = button.getImage() != null;
     if (image) {
-      width = ThemeConfig.getMeasure(facesContext, button, "imageWidth");
+      width = getResourceManager().getThemeMeasure(facesContext, button, "imageWidth");
     }
     LabelWithAccessKey label = new LabelWithAccessKey(button);
 
     if (label.getText() != null) {
       width = width.add(RenderUtil.calculateStringWidth(facesContext, button, label.getText()));
     }
-    Measure padding = ThemeConfig.getMeasure(facesContext, button, "paddingWidth");
+    Measure padding = getResourceManager().getThemeMeasure(facesContext, button, "paddingWidth");
     // left padding, right padding and when an image and an text then a middle padding.
     width = width.add(padding.multiply(image && label.getText() != null ? 3 : 2));
 

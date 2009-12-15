@@ -31,7 +31,6 @@ import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UISheet;
-import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
@@ -660,11 +659,11 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
   }
 
   private Measure getRowPadding(FacesContext facesContext, UISheet data) {
-    return ThemeConfig.getMeasure(facesContext, data, "rowPadding");
+    return getResourceManager().getThemeMeasure(facesContext, data, "rowPadding");
   }
 
   private Measure getScrollbarWidth(FacesContext facesContext, UISheet data) {
-    return ThemeConfig.getMeasure(facesContext, data, "scrollbarWidth");
+    return getResourceManager().getThemeMeasure(facesContext, data, "scrollbarWidth");
   }
 
   private void storeFooterHeight(FacesContext facesContext, UISheet data) {
@@ -673,7 +672,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
 
   private Measure getFooterHeight(FacesContext facesContext, UISheet sheet) {
     return isFooterVisible(sheet) 
-        ? ThemeConfig.getMeasure(facesContext, sheet, "footerHeight")
+        ? getResourceManager().getThemeMeasure(facesContext, sheet, "footerHeight")
         : PixelMeasure.ZERO;
   }
   
@@ -707,7 +706,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
   }
 
   private Measure getAscendingMarkerWidth(FacesContext facesContext, UISheet data) {
-    return ThemeConfig.getMeasure(facesContext, data, "ascendingMarkerWidth");
+    return getResourceManager().getThemeMeasure(facesContext, data, "ascendingMarkerWidth");
   }
 
   public boolean getRendersChildren() {

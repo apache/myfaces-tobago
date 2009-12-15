@@ -21,7 +21,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
@@ -201,7 +200,7 @@ public class RenderUtil {
     int defaultCharWidth = 0;
     try {
       // todo: use Measure instead of int
-      defaultCharWidth = ThemeConfig.getMeasure(facesContext, component, "fontWidth").getPixel();
+      defaultCharWidth = ResourceManagerUtil.getThemeMeasure(facesContext, component, "fontWidth").getPixel();
     } catch (NullPointerException e) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("no value for \"fontWidth\" found in theme-config");

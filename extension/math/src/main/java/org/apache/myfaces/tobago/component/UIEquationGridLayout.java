@@ -2,7 +2,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.tobago.config.ThemeConfig;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.layout.Measure;
 
 import javax.el.ELException;
@@ -109,7 +109,7 @@ public class UIEquationGridLayout
     }
     return getCellspacing() != null 
         ? getCellspacing() 
-        : ThemeConfig.getMeasure(getFacesContext(), this, "columnSpacing");
+        : ResourceManagerUtil.getThemeMeasure(getFacesContext(), this, "columnSpacing");
   }
 
   public void setColumnSpacing(Measure columnSpacing) {
@@ -140,7 +140,7 @@ public class UIEquationGridLayout
     }
     return getCellspacing() != null 
         ? getCellspacing() 
-        : ThemeConfig.getMeasure(getFacesContext(), this, "rowSpacing");
+        : ResourceManagerUtil.getThemeMeasure(getFacesContext(), this, "rowSpacing");
   }
 
   public void setRowSpacing(Measure rowSpacing) {

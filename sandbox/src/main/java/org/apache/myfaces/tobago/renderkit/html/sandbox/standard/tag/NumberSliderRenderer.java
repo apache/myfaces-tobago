@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
 
 import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.AbstractUINumberSlider;
-import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
@@ -68,7 +67,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     Style style = new Style(facesContext, slider);
     int width = -1;
     int sliderWidthPerc 
-        = ThemeConfig.getMeasure(facesContext, slider, SLIDER_WIDTH_PERCENT).getPixel();
+        = getResourceManager().getThemeMeasure(facesContext, slider, SLIDER_WIDTH_PERCENT).getPixel();
       if (sliderWidthPerc <= 25) {
         sliderWidthPerc = 25;
       }

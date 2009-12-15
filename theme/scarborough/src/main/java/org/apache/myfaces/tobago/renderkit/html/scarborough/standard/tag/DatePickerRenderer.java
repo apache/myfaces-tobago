@@ -35,7 +35,6 @@ import org.apache.myfaces.tobago.component.UIImage;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.UITime;
-import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.PopupActionListener;
@@ -190,12 +189,12 @@ public class DatePickerRenderer extends LinkRenderer {
     // todo: use Measure instead of int
     picker.getAttributes().put(
         Attributes.LAYOUT_WIDTH, 
-        ThemeConfig.getMeasure(facesContext, picker, "pickerWidth").getPixel());
+        getResourceManager().getThemeMeasure(facesContext, picker, "pickerWidth").getPixel());
     if (facesContext instanceof TobagoFacesContext) {
       UIPopup popup = (UIPopup) picker.getFacets().get(Facets.PICKER_POPUP);
       if (popup != null) {
-        popup.setWidth(ThemeConfig.getMeasure(facesContext, picker, "CalendarPopupWidth"));
-        popup.setHeight(ThemeConfig.getMeasure(facesContext, picker, "CalendarPopupHeight"));
+        popup.setWidth(getResourceManager().getThemeMeasure(facesContext, picker, "CalendarPopupWidth"));
+        popup.setHeight(getResourceManager().getThemeMeasure(facesContext, picker, "CalendarPopupHeight"));
         ((TobagoFacesContext) facesContext).getPopups().add(popup);
       }
     }
@@ -265,7 +264,7 @@ public class DatePickerRenderer extends LinkRenderer {
     if (converterPattern != null && (converterPattern.indexOf('h') > -1 || converterPattern.indexOf('H') > -1)) {
       UITime time = (UITime) timePanel.findComponent("time");
       Measure popupHeight = popup.getHeight();
-      popupHeight = popupHeight.add(ThemeConfig.getMeasure(facesContext, time, "preferredHeight"));
+      popupHeight = popupHeight.add(getResourceManager().getThemeMeasure(facesContext, time, "preferredHeight"));
       popup.setHeight(popupHeight);
       DateTimeConverter dateTimeConverter
           = (DateTimeConverter) facesContext.getApplication().createConverter(CONVERTER_ID);

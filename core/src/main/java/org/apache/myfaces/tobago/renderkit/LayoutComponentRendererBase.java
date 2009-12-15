@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.layout.Measure;
 
 import javax.faces.context.FacesContext;
@@ -27,50 +26,50 @@ import javax.faces.context.FacesContext;
 public abstract class LayoutComponentRendererBase extends RendererBase implements LayoutComponentRenderer {
 
   public Measure getWidth(FacesContext facesContext, Configurable component) {
-    return ThemeConfig.getMeasure(facesContext, component, Attributes.WIDTH);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.WIDTH);
   }
 
   public Measure getHeight(FacesContext facesContext, Configurable component) {
-    return ThemeConfig.getMeasure(facesContext, component, Attributes.HEIGHT);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.HEIGHT);
   }
 
   public Measure getMinimumWidth(FacesContext facesContext, Configurable component) {
-    return ThemeConfig.getMeasure(facesContext, component, Attributes.MINIMUM_WIDTH);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MINIMUM_WIDTH);
   }
 
   public Measure getMinimumHeight(FacesContext facesContext, Configurable component) {
-    return ThemeConfig.getMeasure(facesContext, component, Attributes.MINIMUM_HEIGHT);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MINIMUM_HEIGHT);
   }
 
   public Measure getPreferredWidth(FacesContext facesContext, Configurable component) {
-    return ThemeConfig.getMeasure(facesContext, component, Attributes.PREFERRED_WIDTH);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PREFERRED_WIDTH);
   }
 
   public Measure getPreferredHeight(FacesContext facesContext, Configurable component) {
-    return ThemeConfig.getMeasure(facesContext, component, Attributes.PREFERRED_HEIGHT);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.PREFERRED_HEIGHT);
   }
 
   public Measure getMaximumWidth(FacesContext facesContext, Configurable component) {
-    return ThemeConfig.getMeasure(facesContext, component, Attributes.MAXIMUM_WIDTH);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MAXIMUM_WIDTH);
   }
 
   public Measure getMaximumHeight(FacesContext facesContext, Configurable component) {
-    return ThemeConfig.getMeasure(facesContext, component, Attributes.MAXIMUM_HEIGHT);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MAXIMUM_HEIGHT);
   }
 
   public Measure getLeftOffset(FacesContext facesContext, Configurable component) {
-    return ThemeConfig.getMeasure(facesContext, component, Attributes.LEFT_OFFSET);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.LEFT_OFFSET);
   }
 
   public Measure getRightOffset(FacesContext facesContext, Configurable component) {
-    return ThemeConfig.getMeasure(facesContext, component, Attributes.RIGHT_OFFSET);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.RIGHT_OFFSET);
   }
 
   public Measure getTopOffset(FacesContext facesContext, Configurable component) {
-    return ThemeConfig.getMeasure(facesContext, component, Attributes.TOP_OFFSET);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.TOP_OFFSET);
   }
 
   public Measure getBottomOffset(FacesContext facesContext, Configurable component) {
-    return ThemeConfig.getMeasure(facesContext, component, Attributes.BOTTOM_OFFSET);
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.BOTTOM_OFFSET);
   }
 }

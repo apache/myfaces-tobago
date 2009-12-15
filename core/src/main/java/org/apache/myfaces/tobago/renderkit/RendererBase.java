@@ -20,7 +20,8 @@ package org.apache.myfaces.tobago.renderkit;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.config.ThemeConfig;
+import org.apache.myfaces.tobago.context.ResourceManager;
+import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 
 import javax.faces.FacesException;
@@ -38,6 +39,8 @@ import java.util.Locale;
 public class RendererBase extends Renderer {
 
   private static final Log LOG = LogFactory.getLog(RendererBase.class);
+
+  private ResourceManager resourceManager;
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
@@ -77,11 +80,11 @@ public class RendererBase extends Renderer {
   }
 
   /**
-   * @deprecated since 1.5.0, please use ThemeConfig.getMeasure()
+   * @deprecated since 1.5.0, please use getResourceManager().getThemeMeasure()
    */
   @Deprecated
   public int getConfiguredValue(FacesContext facesContext, UIComponent component, String key) {
-    return ThemeConfig.getMeasure(facesContext, (Configurable) component, key).getPixel();
+    return getResourceManager().getThemeMeasure(facesContext, (Configurable) component, key).getPixel();
   }
 
   protected Object getCurrentValueAsObject(UIInput input) {
@@ -188,5 +191,12 @@ public class RendererBase extends Renderer {
 
   public void onComponentCreated(FacesContext context, UIComponent component) {
 
+  }
+  
+  protected synchronized ResourceManager getResourceManager() {
+    if (resourceManager == null) {
+      resourceManager = ResourceManagerFactory.getResourceManager(FacesContext.getCurrentInstance());
+    }
+    return resourceManager;
   }
 }
