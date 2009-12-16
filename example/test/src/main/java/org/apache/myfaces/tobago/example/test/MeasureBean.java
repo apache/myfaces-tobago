@@ -21,47 +21,74 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.PixelMeasure;
 
 public class MeasureBean {
-  
-  int intWidth = 200;
-  Integer integerWidth = new Integer(250);
-  Measure measureWidth = new PixelMeasure(300);
-  String stringWidth = "350";
-  String stringPxWidth = "400px";
-  long longWidth = 450L;
-  Any anyWidth = new Any();
 
   public int getIntWidth() {
-    return intWidth;
+    return 200;
+  }
+
+  public int getIntHeight() {
+    return 95;
   }
 
   public Integer getIntegerWidth() {
-    return integerWidth;
+    return 250;
+  }
+
+  public Integer getIntegerHeight() {
+    return 95;
   }
 
   public Measure getMeasureWidth() {
-    return measureWidth;
+    return new PixelMeasure(300);
+  }
+
+  public Measure getMeasureHeight() {
+    return new PixelMeasure(95);
   }
 
   public String getStringWidth() {
-    return stringWidth;
+    return "350";
+  }
+
+  public String getStringHeight() {
+    return "95";
   }
 
   public String getStringPxWidth() {
-    return stringPxWidth;
+    return "400px";
+  }
+
+  public String getStringPxHeight() {
+    return "95px";
   }
 
   public long getLongWidth() {
-    return longWidth;
+    return 450L;
+  }
+
+  public long getLongHeight() {
+    return 95L;
   }
 
   public Any getAnyWidth() {
-    return anyWidth;
+    return new Any("500");
+  }
+
+  public Any getAnyHeight() {
+    return new Any("95");
   }
 
   public static class Any {
+    
+    private String value;
+
+    public Any(String value) {
+      this.value = value;
+    }
+
     @Override
     public String toString() {
-      return "500";
+      return value;
     }
   }
 }
