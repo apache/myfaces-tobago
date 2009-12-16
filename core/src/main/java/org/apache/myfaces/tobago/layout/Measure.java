@@ -52,7 +52,6 @@ public abstract class Measure implements Serializable {
       return new PixelMeasure(Integer.parseInt(value.substring(0, value.length() - 2)));
     }
     if (value.matches("\\d+")) {// XXX no regexp here: user LayoutTokens.parse !!!
-      LOG.warn("Measure parser found value without unit. Assuming px for value='" + value + "'.");
       return new PixelMeasure(Integer.parseInt(value));
     }
     throw new IllegalArgumentException("Can't parse to any measure: '" + value + "'");
