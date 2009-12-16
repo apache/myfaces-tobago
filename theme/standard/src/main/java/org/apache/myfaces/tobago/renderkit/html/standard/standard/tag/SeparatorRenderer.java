@@ -21,6 +21,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UISeparator;
+import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -43,12 +45,7 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
     UISeparator separator = (UISeparator) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    String label = separator.getLabel();
-    if (label == null && separator.getFacet(Facets.LABEL) != null) {
-      // deprecated
-      Deprecation.LOG.warn("label facet in tc:separator is deprecated, use label attribute instead, please.");
-      label = String.valueOf(((UILabel) separator.getFacet(Facets.LABEL)).getValue());
-    }
+    String label = getLabel(separator);
 
     if (label != null) {
       if (VariableResolverUtil.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
@@ -56,6 +53,7 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
       }
 
       writer.startElement(HtmlConstants.TABLE, component);
+      writer.writeIdAttribute(separator.getClientId(facesContext));
       writer.writeClassAttribute();
       Style style = new Style(facesContext, separator);
       writer.writeStyleAttribute(style);
@@ -95,10 +93,31 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
       writer.endElement(HtmlConstants.TABLE);
     } else {
       writer.startElement(HtmlConstants.HR , component);
+      writer.writeIdAttribute(separator.getClientId(facesContext));
       writer.writeClassAttribute();
       Style style = new Style(facesContext, separator);
       writer.writeStyleAttribute(style);
       writer.endElement(HtmlConstants.HR);
+    }
+  }
+
+  private String getLabel(UISeparator separator) {
+    String label = separator.getLabel();
+    if (label == null && separator.getFacet(Facets.LABEL) != null) {
+      // deprecated
+      Deprecation.LOG.warn("label facet in tc:separator is deprecated, use label attribute instead, please.");
+      label = String.valueOf(((UILabel) separator.getFacet(Facets.LABEL)).getValue());
+    }
+    return label;
+  }
+
+  @Override
+  public Measure getHeight(FacesContext facesContext, Configurable component) {
+    String label = getLabel((UISeparator) component);
+    if (label == null) {
+      return getResourceManager().getThemeMeasure(facesContext, component, "withoutLabelHeight");
+    } else {
+      return super.getHeight(facesContext, component);
     }
   }
 }

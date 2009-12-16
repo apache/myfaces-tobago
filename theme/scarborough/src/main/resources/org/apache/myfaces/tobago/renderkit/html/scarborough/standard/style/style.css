@@ -828,6 +828,7 @@ div.tobago-richTextEditor-body {
 
 hr.tobago-separator-default {
   border: 1px inset #000000;
+  margin: 0;
 }
 
 .tobago-separator-start-default {
