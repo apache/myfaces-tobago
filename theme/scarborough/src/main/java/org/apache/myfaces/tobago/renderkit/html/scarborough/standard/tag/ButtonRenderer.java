@@ -130,7 +130,7 @@ public class ButtonRenderer extends CommandRendererBase {
   public Measure getPreferredWidth(FacesContext facesContext, Configurable component) {
 
     UIButton button = (UIButton) component;
-    Measure width = PixelMeasure.ZERO;
+    Measure width = Measure.ZERO;
     boolean image = button.getImage() != null;
     if (image) {
       width = getResourceManager().getThemeMeasure(facesContext, button, "imageWidth");

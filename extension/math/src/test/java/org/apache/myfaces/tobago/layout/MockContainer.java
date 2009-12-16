@@ -26,11 +26,11 @@ public class MockContainer extends MockComponent implements LayoutContainer {
 
   private List<LayoutComponent> components;
 
-  private Measure leftOffset = PixelMeasure.ZERO;
-  private Measure topOffset = PixelMeasure.ZERO;
+  private Measure leftOffset = Measure.ZERO;
+  private Measure topOffset = Measure.ZERO;
 
-  private Measure rightOffset = PixelMeasure.ZERO;
-  private Measure bottomOffset = PixelMeasure.ZERO;
+  private Measure rightOffset = Measure.ZERO;
+  private Measure bottomOffset = Measure.ZERO;
 
   public MockContainer() {
     components = new ArrayList<LayoutComponent>();

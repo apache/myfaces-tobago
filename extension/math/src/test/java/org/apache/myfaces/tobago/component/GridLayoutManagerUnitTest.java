@@ -54,30 +54,30 @@ public class GridLayoutManagerUnitTest {
     UIEquationGridLayout manager = new UIEquationGridLayout();
     manager.setColumns("*;2*");
     manager.setRows("*");
-    manager.setColumnSpacing(PixelMeasure.ZERO);
-    manager.setRowSpacing(PixelMeasure.ZERO);
+    manager.setColumnSpacing(Measure.ZERO);
+    manager.setRowSpacing(Measure.ZERO);
     manager.setParent(container);
     container.setLayoutManager(manager);
 
     container.setWidth(new PixelMeasure(300));
     container.setHeight(new PixelMeasure(20));
-    container.setLeftOffset(PixelMeasure.ZERO);
-    container.setTopOffset(PixelMeasure.ZERO);
-    container.setRightOffset(PixelMeasure.ZERO);
-    container.setBottomOffset(PixelMeasure.ZERO);
+    container.setLeftOffset(Measure.ZERO);
+    container.setTopOffset(Measure.ZERO);
+    container.setRightOffset(Measure.ZERO);
+    container.setBottomOffset(Measure.ZERO);
     EquationLayoutContext layoutContext = new EquationLayoutContext(container);
     layoutContext.layout();
 
     Measure[] result = layoutContext.getHorizontal().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(300), new PixelMeasure(100), new PixelMeasure(200), PixelMeasure.ZERO,
+        new PixelMeasure(300), new PixelMeasure(100), new PixelMeasure(200), Measure.ZERO,
         new PixelMeasure(100), new PixelMeasure(200)}, result);
 
     result = layoutContext.getVertical().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(20), new PixelMeasure(20), PixelMeasure.ZERO, new PixelMeasure(20), new PixelMeasure(20)},
+        new PixelMeasure(20), new PixelMeasure(20), Measure.ZERO, new PixelMeasure(20), new PixelMeasure(20)},
         result);
 
     Assert.assertEquals("width of container", 300, container.getWidth().getPixel());
@@ -102,17 +102,17 @@ public class GridLayoutManagerUnitTest {
     container.getComponents().add(c);
     MockComponent span = new MockComponent();
     container.getComponents().add(span);
-    container.setLeftOffset(PixelMeasure.ZERO);
-    container.setTopOffset(PixelMeasure.ZERO);
-    container.setRightOffset(PixelMeasure.ZERO);
-    container.setBottomOffset(PixelMeasure.ZERO);
+    container.setLeftOffset(Measure.ZERO);
+    container.setTopOffset(Measure.ZERO);
+    container.setRightOffset(Measure.ZERO);
+    container.setBottomOffset(Measure.ZERO);
     span.setColumnSpan(2);
 
     UIEquationGridLayout manager = new UIEquationGridLayout();
     manager.setColumns("*;*;*");
     manager.setRows("*");
-    manager.setColumnSpacing(PixelMeasure.ZERO);
-    manager.setRowSpacing(PixelMeasure.ZERO);
+    manager.setColumnSpacing(Measure.ZERO);
+    manager.setRowSpacing(Measure.ZERO);
     manager.setParent(container);
     container.setLayoutManager(manager);
 
@@ -124,13 +124,13 @@ public class GridLayoutManagerUnitTest {
     Measure[] result = layoutContext.getHorizontal().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(300), new PixelMeasure(100), new PixelMeasure(100), new PixelMeasure(100), PixelMeasure.ZERO,
+        new PixelMeasure(300), new PixelMeasure(100), new PixelMeasure(100), new PixelMeasure(100), Measure.ZERO,
         new PixelMeasure(100), new PixelMeasure(200)}, result);
 
     result = layoutContext.getVertical().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(20), new PixelMeasure(20), PixelMeasure.ZERO, new PixelMeasure(20), new PixelMeasure(20)},
+        new PixelMeasure(20), new PixelMeasure(20), Measure.ZERO, new PixelMeasure(20), new PixelMeasure(20)},
         result);
 
     Assert.assertEquals("width of container", 300, container.getWidth().getPixel());
@@ -172,42 +172,42 @@ public class GridLayoutManagerUnitTest {
     UIEquationGridLayout manager = new UIEquationGridLayout();
     manager.setColumns("*;2*;500px");
     manager.setRows("*;600px");
-    manager.setColumnSpacing(PixelMeasure.ZERO);
-    manager.setRowSpacing(PixelMeasure.ZERO);
+    manager.setColumnSpacing(Measure.ZERO);
+    manager.setRowSpacing(Measure.ZERO);
     manager.setParent(container);
     container.setLayoutManager(manager);
 
     UIEquationGridLayout subManager = new UIEquationGridLayout();
     subManager.setColumns("7*;3*");
     subManager.setRows("*;*");
-    subManager.setColumnSpacing(PixelMeasure.ZERO);
-    subManager.setRowSpacing(PixelMeasure.ZERO);
+    subManager.setColumnSpacing(Measure.ZERO);
+    subManager.setRowSpacing(Measure.ZERO);
     subManager.setParent(subContainer);
     subContainer.setLayoutManager(subManager);
     subContainer.getComponents().add(new MockComponent());
     subContainer.getComponents().add(new MockComponent());
     subContainer.getComponents().add(new MockComponent());
     subContainer.getComponents().add(new MockComponent());
-    subContainer.setLeftOffset(PixelMeasure.ZERO);
-    subContainer.setTopOffset(PixelMeasure.ZERO);
-    subContainer.setRightOffset(PixelMeasure.ZERO);
-    subContainer.setBottomOffset(PixelMeasure.ZERO);
+    subContainer.setLeftOffset(Measure.ZERO);
+    subContainer.setTopOffset(Measure.ZERO);
+    subContainer.setRightOffset(Measure.ZERO);
+    subContainer.setBottomOffset(Measure.ZERO);
 
     container.setWidth(new PixelMeasure(800));
     container.setHeight(new PixelMeasure(800));
-    container.setLeftOffset(PixelMeasure.ZERO);
-    container.setTopOffset(PixelMeasure.ZERO);
-    container.setRightOffset(PixelMeasure.ZERO);
-    container.setBottomOffset(PixelMeasure.ZERO);
+    container.setLeftOffset(Measure.ZERO);
+    container.setTopOffset(Measure.ZERO);
+    container.setRightOffset(Measure.ZERO);
+    container.setBottomOffset(Measure.ZERO);
     EquationLayoutContext layoutContext = new EquationLayoutContext(container);
     layoutContext.layout();
 
     Measure[] result = layoutContext.getHorizontal().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(800), new PixelMeasure(100), new PixelMeasure(200), new PixelMeasure(500), PixelMeasure.ZERO,
+        new PixelMeasure(800), new PixelMeasure(100), new PixelMeasure(200), new PixelMeasure(500), Measure.ZERO,
         new PixelMeasure(100), new PixelMeasure(700), new PixelMeasure(100), new PixelMeasure(200),
-        new PixelMeasure(500), new PixelMeasure(350), new PixelMeasure(150), PixelMeasure.ZERO, new PixelMeasure(350),
+        new PixelMeasure(500), new PixelMeasure(350), new PixelMeasure(150), Measure.ZERO, new PixelMeasure(350),
         new PixelMeasure(150), new PixelMeasure(350), new PixelMeasure(150)
     }, result);
 
@@ -215,10 +215,10 @@ public class GridLayoutManagerUnitTest {
     result = layoutContext.getVertical().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(800), new PixelMeasure(200), new PixelMeasure(600), PixelMeasure.ZERO,
+        new PixelMeasure(800), new PixelMeasure(200), new PixelMeasure(600), Measure.ZERO,
         new PixelMeasure(200), new PixelMeasure(200),
         new PixelMeasure(600), new PixelMeasure(600), new PixelMeasure(600),
-        new PixelMeasure(300), new PixelMeasure(300), PixelMeasure.ZERO,
+        new PixelMeasure(300), new PixelMeasure(300), Measure.ZERO,
         new PixelMeasure(300), new PixelMeasure(300),
         new PixelMeasure(300), new PixelMeasure(300)
     }, result);
@@ -253,33 +253,33 @@ public class GridLayoutManagerUnitTest {
     UIEquationGridLayout manager1 = new UIEquationGridLayout();
     manager1.setColumns("*;*;*");
     manager1.setRows("*;*");
-    manager1.setColumnSpacing(PixelMeasure.ZERO);
-    manager1.setRowSpacing(PixelMeasure.ZERO);
+    manager1.setColumnSpacing(Measure.ZERO);
+    manager1.setRowSpacing(Measure.ZERO);
     manager1.setParent(container);
     container.setLayoutManager(manager1);
 
     UIEquationGridLayout manager2 = new UIEquationGridLayout();
     manager2.setColumns("*;*;*");
     manager2.setRows("*");
-    manager2.setColumnSpacing(PixelMeasure.ZERO);
-    manager2.setRowSpacing(PixelMeasure.ZERO);
+    manager2.setColumnSpacing(Measure.ZERO);
+    manager2.setRowSpacing(Measure.ZERO);
     manager2.setParent(span1);
     span1.setLayoutManager(manager2);
 
     UIEquationGridLayout manager3 = new UIEquationGridLayout();
     manager3.setColumns("*;*;*");
     manager3.setRows("*");
-    manager3.setColumnSpacing(PixelMeasure.ZERO);
-    manager3.setRowSpacing(PixelMeasure.ZERO);
+    manager3.setColumnSpacing(Measure.ZERO);
+    manager3.setRowSpacing(Measure.ZERO);
     manager3.setParent(span2);
     span2.setLayoutManager(manager3);
 
     container.setWidth(new PixelMeasure(900));
     container.setHeight(new PixelMeasure(200));
-    container.setLeftOffset(PixelMeasure.ZERO);
-    container.setTopOffset(PixelMeasure.ZERO);
-    container.setRightOffset(PixelMeasure.ZERO);
-    container.setBottomOffset(PixelMeasure.ZERO);
+    container.setLeftOffset(Measure.ZERO);
+    container.setTopOffset(Measure.ZERO);
+    container.setRightOffset(Measure.ZERO);
+    container.setBottomOffset(Measure.ZERO);
     EquationLayoutContext layoutContext = new EquationLayoutContext(container);
     layoutContext.layout();
 
@@ -288,18 +288,18 @@ public class GridLayoutManagerUnitTest {
     Measure[] result = layoutContext.getHorizontal().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(900), new PixelMeasure(300), new PixelMeasure(300), new PixelMeasure(300), PixelMeasure.ZERO,
+        new PixelMeasure(900), new PixelMeasure(300), new PixelMeasure(300), new PixelMeasure(300), Measure.ZERO,
         new PixelMeasure(300), new PixelMeasure(600), new PixelMeasure(200), new PixelMeasure(200),
-        new PixelMeasure(200), PixelMeasure.ZERO, new PixelMeasure(600), new PixelMeasure(200), new PixelMeasure(200),
-        new PixelMeasure(200), PixelMeasure.ZERO, new PixelMeasure(300)
+        new PixelMeasure(200), Measure.ZERO, new PixelMeasure(600), new PixelMeasure(200), new PixelMeasure(200),
+        new PixelMeasure(200), Measure.ZERO, new PixelMeasure(300)
     }, result);
 
     result = layoutContext.getVertical().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(200), new PixelMeasure(100), new PixelMeasure(100), PixelMeasure.ZERO,
-        new PixelMeasure(100), new PixelMeasure(100), new PixelMeasure(100), PixelMeasure.ZERO,
-        new PixelMeasure(100), new PixelMeasure(100), PixelMeasure.ZERO, new PixelMeasure(100)},
+        new PixelMeasure(200), new PixelMeasure(100), new PixelMeasure(100), Measure.ZERO,
+        new PixelMeasure(100), new PixelMeasure(100), new PixelMeasure(100), Measure.ZERO,
+        new PixelMeasure(100), new PixelMeasure(100), Measure.ZERO, new PixelMeasure(100)},
         result);
 
     Assert.assertEquals("width of container", 900, container.getWidth().getPixel());
@@ -337,31 +337,31 @@ public class GridLayoutManagerUnitTest {
     UIEquationGridLayout manager = new UIEquationGridLayout();
     manager.setColumns("*;*");
     manager.setRows("*;*");
-    manager.setColumnSpacing(PixelMeasure.ZERO);
-    manager.setRowSpacing(PixelMeasure.ZERO);
+    manager.setColumnSpacing(Measure.ZERO);
+    manager.setRowSpacing(Measure.ZERO);
     manager.setParent(container);
     container.setLayoutManager(manager);
 
     container.setWidth(new PixelMeasure(800));
     container.setHeight(new PixelMeasure(800));
-    container.setLeftOffset(PixelMeasure.ZERO);
-    container.setTopOffset(PixelMeasure.ZERO);
-    container.setRightOffset(PixelMeasure.ZERO);
-    container.setBottomOffset(PixelMeasure.ZERO);
+    container.setLeftOffset(Measure.ZERO);
+    container.setTopOffset(Measure.ZERO);
+    container.setRightOffset(Measure.ZERO);
+    container.setBottomOffset(Measure.ZERO);
     EquationLayoutContext layoutContext = new EquationLayoutContext(container);
     layoutContext.layout();
 
     Measure[] result = layoutContext.getHorizontal().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(800), new PixelMeasure(400), new PixelMeasure(400), PixelMeasure.ZERO,
+        new PixelMeasure(800), new PixelMeasure(400), new PixelMeasure(400), Measure.ZERO,
         new PixelMeasure(400), new PixelMeasure(400), new PixelMeasure(400)}, result);
 
 
     result = layoutContext.getVertical().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(800), new PixelMeasure(400), new PixelMeasure(400), PixelMeasure.ZERO,
+        new PixelMeasure(800), new PixelMeasure(400), new PixelMeasure(400), Measure.ZERO,
         new PixelMeasure(800), new PixelMeasure(400), new PixelMeasure(400)}, result);
 
     Assert.assertEquals("width of container", 800, container.getWidth().getPixel());

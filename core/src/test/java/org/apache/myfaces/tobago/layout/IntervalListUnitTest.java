@@ -31,7 +31,7 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
   public void test0() {
     IntervalList list = new IntervalList();
     Measure auto = list.computeAuto();
-    Assert.assertEquals(PixelMeasure.ZERO, auto);
+    Assert.assertEquals(Measure.ZERO, auto);
   }
 
   /**

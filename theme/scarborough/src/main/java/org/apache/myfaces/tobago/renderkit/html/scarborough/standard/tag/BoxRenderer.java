@@ -49,7 +49,7 @@ public class BoxRenderer extends BoxRendererBase {
     if (toolbar != null) {
       Measure padding = getResourceManager().getThemeMeasure(facesContext, box, "paddingTopWhenToolbar");
       style.setPaddingTop(padding);
-      style.setPaddingBottom(PixelMeasure.ZERO);
+      style.setPaddingBottom(Measure.ZERO);
     }
 
     writer.startElement(HtmlConstants.FIELDSET, box);

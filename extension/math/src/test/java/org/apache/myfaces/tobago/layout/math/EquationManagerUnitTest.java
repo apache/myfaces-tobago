@@ -364,7 +364,7 @@ public class EquationManagerUnitTest {
   }
 
   private static Measure px0() {
-    return PixelMeasure.ZERO;
+    return Measure.ZERO;
   }
 
 }

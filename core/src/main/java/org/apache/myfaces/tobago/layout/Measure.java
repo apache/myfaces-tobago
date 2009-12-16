@@ -29,11 +29,13 @@ public abstract class Measure implements Serializable {
 
   private static final Log LOG = LogFactory.getLog(Measure.class);
 
+  public static final Measure ZERO = new PixelMeasure(0);
+
   // todo: refactor and consolidate with LayoutToken
 
   public static Measure parse(Object object) {
     if (object == null) {
-      return PixelMeasure.ZERO; // fixme: may return a "default measure", or is Pixel the default?
+      return ZERO;
     }
     if (object instanceof Measure) {
       return (Measure) object;
@@ -44,7 +46,7 @@ public abstract class Measure implements Serializable {
     String value = object instanceof String ? (String) object : object.toString();
     
     if (StringUtils.isEmpty(value)) {
-      return PixelMeasure.ZERO; // fixme: may return a "default measure", or is Pixel the default?
+      return ZERO;
     }
     if (value.toLowerCase().matches("\\d+px")) {// XXX no regexp here: user LayoutTokens.parse !!!
       return new PixelMeasure(Integer.parseInt(value.substring(0, value.length() - 2)));

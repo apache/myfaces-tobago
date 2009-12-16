@@ -27,8 +27,6 @@ public final class PixelMeasure extends Measure {
 
   private static final Log LOG = LogFactory.getLog(PixelMeasure.class);
 
-  public static final Measure ZERO = new PixelMeasure(0);
-
   private final int pixel;
 
   public PixelMeasure(int pixel) {

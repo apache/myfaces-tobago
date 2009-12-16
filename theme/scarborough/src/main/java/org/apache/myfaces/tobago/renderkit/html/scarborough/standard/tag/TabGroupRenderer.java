@@ -135,7 +135,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
     // tabs and render it as they are selected, and it will
     // selected with stylesheet.
     int virtualTab = 0;
-    Measure currentWidth = PixelMeasure.ZERO;
+    Measure currentWidth = Measure.ZERO;
 
     Measure navigationBarWidth = getResourceManager().getThemeMeasure(facesContext, tabGroup, "navigationBarWidth");
     for (UIComponent tab : (List<UIComponent>) tabGroup.getChildren()) {
@@ -181,7 +181,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
   }
 
   private Measure getCurrentWidth(TabList tabs, int tabIndex) {
-    Measure currentWidth = PixelMeasure.ZERO;
+    Measure currentWidth = Measure.ZERO;
     for (int i = 0; i <= tabIndex; i++) {
       currentWidth = currentWidth.add(tabs.getWidthList().get(i));
     }
@@ -214,7 +214,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
           }
           tabs.lastIndex = index;
         } else {
-          tabs.getWidthList().add(PixelMeasure.ZERO);
+          tabs.getWidthList().add(Measure.ZERO);
         }
         index++;
       }

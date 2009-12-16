@@ -26,7 +26,6 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -102,7 +101,7 @@ without shadow
 
     // todo: shadow = 0px means, that shadow is disabled, but it may be better, if we can set a boolean in the config.
     Measure measure = getResourceManager().getThemeMeasure(facesContext, box, "shadow");
-    boolean hasShadow = measure.greaterThan(PixelMeasure.ZERO);
+    boolean hasShadow = measure.greaterThan(Measure.ZERO);
 
     if (hasShadow) {
       // shadow begin

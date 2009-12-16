@@ -84,7 +84,7 @@ public class IntervalList extends ArrayList<Interval> {
   }
 
   private Measure max(List<Measure> list) {
-    Measure max = PixelMeasure.ZERO;
+    Measure max = Measure.ZERO;
     for (Measure measure : list) {
       if (measure.getPixel() > max.getPixel()) {
         max = measure;

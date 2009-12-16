@@ -283,7 +283,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     writer.writeClassAttribute("tobago-sheet-body-div ");
     Style sheetBodyStyle = new Style(bodyStyle);
     if (!showHeader) {
-      bodyStyle.setPaddingTop(PixelMeasure.ZERO);
+      bodyStyle.setPaddingTop(Measure.ZERO);
     }
     writer.writeStyleAttribute(bodyStyle);
     if (bodyStyle.getWidth() != null) {
@@ -673,7 +673,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
   private Measure getFooterHeight(FacesContext facesContext, UISheet sheet) {
     return isFooterVisible(sheet) 
         ? getResourceManager().getThemeMeasure(facesContext, sheet, "footerHeight")
-        : PixelMeasure.ZERO;
+        : Measure.ZERO;
   }
   
   private boolean isFooterVisible(UISheet sheet) {

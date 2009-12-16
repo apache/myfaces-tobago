@@ -133,7 +133,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
     }
 
     // set the size if all sizes are set
-    Measure size = PixelMeasure.ZERO;
+    Measure size = Measure.ZERO;
     PixelMeasure[] sizes = grid.getSizes(orientation);
     for (int j = 0; j < sizes.length; j++) {
       if (sizes[j] == null) {

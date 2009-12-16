@@ -32,7 +32,6 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.layout.LayoutContext;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -675,7 +674,7 @@ public class PageRenderer extends PageRendererBase {
     if (menuBar != null) {
       return getResourceManager().getThemeMeasure(facesContext, menuBar, "fixedHeight");
     } else {
-      return PixelMeasure.ZERO;
+      return Measure.ZERO;
     }
   }
 }
