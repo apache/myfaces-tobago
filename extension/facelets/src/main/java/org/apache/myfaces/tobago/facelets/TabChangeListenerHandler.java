@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.facelets;
  */
 
 import com.sun.facelets.FaceletContext;
+import com.sun.facelets.el.LegacyValueBinding;
 import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagAttributeException;
 import com.sun.facelets.tag.TagConfig;
@@ -26,6 +27,7 @@ import com.sun.facelets.tag.TagHandler;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource;
+import org.apache.myfaces.tobago.util.FacesVersion;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
@@ -85,8 +87,12 @@ public class TabChangeListenerHandler extends TagHandler {
           }
         }
         if (valueExpression != null) {
-          FacesUtils.addBindingOrExpressionTabChangeListener(
-              changeSource, type.getValue(), valueExpression);
+          if (FacesVersion.supports12()) {
+            FacesUtils.addBindingOrExpressionTabChangeListener(changeSource, type.getValue(), valueExpression);
+          } else {
+            FacesUtils.addBindingOrExpressionTabChangeListener(changeSource, type.getValue(),
+                new LegacyValueBinding(valueExpression));
+          }
         } else {
           changeSource.addTabChangeListener(listener);
         }

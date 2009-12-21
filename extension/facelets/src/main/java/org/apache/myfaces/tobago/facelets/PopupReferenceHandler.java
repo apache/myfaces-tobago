@@ -18,15 +18,19 @@ package org.apache.myfaces.tobago.facelets;
  */
 
 import com.sun.facelets.FaceletContext;
+import com.sun.facelets.el.LegacyValueBinding;
 import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagException;
 import com.sun.facelets.tag.TagHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.event.PopupActionListener;
+import org.apache.myfaces.tobago.util.FacesVersion;
 
 import javax.el.ELException;
+import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
@@ -51,7 +55,17 @@ public class PopupReferenceHandler extends TagHandler {
     if (parent instanceof ActionSource) {
       if (ComponentSupport.isNew(parent)) {
         ActionSource actionSource = (ActionSource) parent;
-        actionSource.addActionListener(new PopupActionListener(forComponent.getValue()));
+        if (forComponent.isLiteral())  {
+          actionSource.addActionListener(new PopupActionListener(forComponent.getValue()));
+        } else {
+          ValueExpression forValueExpression = forComponent.getValueExpression(faceletContext, String.class);
+          if (FacesVersion.supports12()) {
+            FacesUtils.addBindingOrExpressionPopupActionListener(actionSource, forValueExpression);
+          } else {
+            FacesUtils.addBindingOrExpressionPopupActionListener(actionSource,
+                new LegacyValueBinding(forValueExpression));
+          }
+        }
       }
     } else {
       throw new TagException(tag, "Parent is not of type ActionSource, type is: " + parent);
