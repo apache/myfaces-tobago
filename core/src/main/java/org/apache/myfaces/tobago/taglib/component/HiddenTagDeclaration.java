@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
+import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 
 /*
  * Created: Aug 5, 2005 4:08:32 PM
@@ -39,7 +40,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasValidator;
     uiComponent = "org.apache.myfaces.tobago.component.UIHiddenInput",
     rendererType = "Hidden")
 public interface HiddenTagDeclaration extends BeanTagDeclaration, HasId, HasBinding, HasValue, HasConverter,
-    HasValidator {
+    HasValidator, IsReadonly {
 
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
   void setInline(String inline);
