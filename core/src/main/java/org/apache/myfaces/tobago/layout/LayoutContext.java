@@ -91,8 +91,8 @@ public class LayoutContext {
       }
     }
     buffer.append("\n");
-    for (UIComponent child : component.getChildren()) {
-      debug(buffer, child, depth + 2);
+    for (Object child : component.getChildren()) {
+      debug(buffer, (UIComponent) child, depth + 2);
     }
   }
 }
