@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
+import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 
 /*
  * Created: Aug 5, 2005 4:08:32 PM
@@ -42,9 +43,11 @@ import org.apache.myfaces.tobago.taglib.decl.HasValue;
     rendererType = RendererTypes.HIDDEN,
     allowedChildComponenents = "NONE")
 public interface HiddenTagDeclaration extends HasId, HasBinding, HasValue, HasConverter,
-    HasValidator {
+    HasValidator, IsReadonly {
 
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
   void setInline(String inline);
+
+
 
 }
