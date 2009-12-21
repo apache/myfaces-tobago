@@ -668,7 +668,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       } else if ("false".equals(forceScroolbar)) {
         return false;
       } else if (!"auto".equals(forceScroolbar)) {
-        LOG.warn("Illegal value for attibute 'forceVerticalScrollbar' : \""
+        LOG.warn("Illegal value for attribute 'forceVerticalScrollbar' : \""
             + forceScroolbar + "\"");
       }
     }
