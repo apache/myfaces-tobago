@@ -198,7 +198,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tomahawk</groupId>
-      <artifactId>tomahawk12</artifactId>
+      <artifactId>tomahawk</artifactId>
       <version>1.1.9</version>
     </dependency>
     <dependency>
@@ -415,7 +415,7 @@
           <plugin>
             <groupId>org.codehaus.cargo</groupId>
             <artifactId>cargo-maven2-plugin</artifactId>
-            <version>0.3</version>
+            <version>1.0</version>
             <configuration>
               <container>
                 <containerId>tomcat5x</containerId>
