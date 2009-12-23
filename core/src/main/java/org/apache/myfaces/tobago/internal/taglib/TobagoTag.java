@@ -18,12 +18,16 @@ package org.apache.myfaces.tobago.internal.taglib;
  */
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
+import org.apache.myfaces.tobago.util.FacesVersion;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
+import java.io.IOException;
 
 public abstract class TobagoTag extends UIComponentTag {
 
@@ -40,15 +44,32 @@ public abstract class TobagoTag extends UIComponentTag {
   }
 
   @Override
+  protected void encodeBegin() throws IOException {
+    // in jsf 1.1 the method component.encodeBegin is called in doEndTag ensure a LayoutManager for UIPage
+    if (getComponentInstance() instanceof AbstractUIPage && !FacesVersion.supports12()) {
+      onComponentPopulated(getComponentInstance());
+    }
+    super.encodeBegin();
+  }
+
+  @Override
   public int doEndTag() throws JspException {
     UIComponent component = getComponentInstance();
     int result = super.doEndTag();
+    // in jsf 1.1 the method component.encodeBegin is called in doEndTag ensure a LayoutManager for UIPage
+    if (!(component instanceof AbstractUIPage && !FacesVersion.supports12())) {
+       onComponentPopulated(component);
+    }
+    return result;
+  }
+
+  private void onComponentPopulated(UIComponent component) {
     if (component instanceof OnComponentPopulated
         && component.getAttributes().get(OnComponentPopulated.MARKER) == null) {
       component.getAttributes().put(OnComponentPopulated.MARKER, Boolean.TRUE);
-      ((OnComponentPopulated) component).onComponentPopulated(getFacesContext());
+      FacesContext facesContext = FacesContext.getCurrentInstance();
+      ((OnComponentPopulated) component).onComponentPopulated(facesContext);
     }
-    return result;
   }
 
   public String[] splitList(String renderers) {
