@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.component;
  */
 
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
+import org.apache.myfaces.tobago.ajax.api.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
@@ -70,6 +71,10 @@ public abstract class UIPanelBase extends javax.faces.component.UIPanel
       }
     }
     AjaxUtils.encodeAjaxComponent(facesContext, this);
+  }
+
+  public int getAjaxResponseCode() {
+    return AjaxResponseRenderer.CODE_SUCCESS;
   }
 
   public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)

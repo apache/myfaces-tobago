@@ -102,12 +102,6 @@ var Tobago = {
   contextPath: null,
 
   /**
-    * The hidden html input object for partial requests.
-    * set via init function (onload attribute of body)
-    */
-  partialRequestIds: null,
-
-  /**
     * The id of the element which should became the focus after loading.
     * Set via renderer if requested.
     */
@@ -677,7 +671,7 @@ var Tobago = {
     * Register a script file to prevent multiple loadings via Ajax.
     */
   registerScript: function(scriptId) {
-    LOG.info("register: " + scriptId);
+    LOG.debug("register: " + scriptId);
     this.registeredScripts[this.genScriptId(scriptId)] = true;
   },
 
@@ -1967,7 +1961,7 @@ Tobago.Panel.prototype.setup = function() {
   this.initReload();
 };
 
-Tobago.Panel.prototype.doUpdate = function(data, ioArgs) {
+Tobago.Panel.prototype.doUpdate = function(data) {
   //LOG.debug("Panel reloaded : " + transport.responseText.substr(0,20));
   if (data.responseCode == Tobago.Updater.CODE_SUCCESS) {
     Tobago.element(this.id).innerHTML = data.html;
@@ -2135,27 +2129,28 @@ Tobago.Transport = {
   requests: new Array(),
   currentActionId: null,
   pageSubmited: false,
+  ajaxTransport: undefined,
 
   hasTransport: function() {
-    if (typeof this.transportFound == 'undefined') {
+    if (this.ajaxTransport === undefined) {
       try {
         new XMLHttpRequest();
-        this.transportFound = true;
+        this.ajaxTransport = this.getAjaxTransport();
       } catch (e) {
         try {
           new ActiveXObject('Msxml2.XMLHTTP');
-          this.transportFound = true;
+          this.ajaxTransport = this.getAjaxTransport();
         } catch (e) {
           try {
             new ActiveXObject('Microsoft.XMLHTTP');
-            this.transportFound = true;
+            this.ajaxTransport = this.getAjaxTransport();
           } catch (e) {
-            this.transportFound = false;
+            this.ajaxTransport = false;
           }
         }
       }
     }
-    return this.transportFound;
+    return this.ajaxTransport && typeof this.ajaxTransport.request == "function";
   },
 
   request: function(req, submitPage, actionId) {
@@ -2197,9 +2192,135 @@ Tobago.Transport = {
       this.startTime = new Date().getTime();
       this.requests[0]();
     }
-  }
-}
+  },
 
+  getAjaxTransport: function() {
+    try {
+      if (jQuery && typeof jQuery.ajax == "function") {
+        return Tobago.Transport.JqueryTransport;
+      }
+    } catch(e) {
+    }
+    try {
+      if (dojo && typeof dojo.xhrPost == "function") {
+        return Tobago.Transport.DojoTransport;
+      }
+    } catch(e) {
+    }
+  }
+};
+
+
+Tobago.Transport.JqueryTransport = {
+
+  transportOptions: {
+
+    dataType: "json",
+
+    cache: false,
+
+    complete: function() {
+      // scripts included in response are executed via setTimeout(..., 10)
+      // because of replaceJsfState() is in this scripts the next request
+      // must delayed more than that.
+      setTimeout(Tobago.bind(Tobago.Transport, "requestComplete"), 15);
+    }
+  },
+
+  request: function(requestOptions) {
+
+    var requestObject = Tobago.extend({}, this.transportOptions);
+
+    requestObject.timeout = requestOptions.timeout;
+
+    requestObject.success = function(data, textStatus) {
+      LOG.debug("requestObject.success()");
+      requestOptions.resultData = data;
+      requestOptions.textStatus = textStatus;
+
+      Tobago.Updater.onSuccess(requestOptions);
+    };
+
+    requestObject.error = function(xhr, textStatus, errorThrown) {
+      LOG.debug("requestOptions.error() : " + textStatus);
+      requestOptions.xhr = xhr;
+      requestOptions.textStatus = textStatus;
+      Tobago.Updater.onError(requestOptions);
+    };
+
+
+    return Tobago.Transport.request(function() {
+      requestOptions.oldValue = Tobago.action.value;
+      requestObject.url = requestOptions.url;
+      Tobago.action.value = requestOptions.actionId;
+      Tobago.partialRequestIds.value = requestOptions.ajaxComponentIds;
+      requestObject.data = jQuery(Tobago.form).serialize();
+      requestOptions.xhr = jQuery.ajax(requestObject);
+    }, false, requestOptions.actionId);
+  }
+};
+
+Tobago.Transport.DojoTransport = {
+
+  transportOptions: {
+
+    handleAs: "json"
+
+  },
+
+  request: function(requestOptions) {
+
+    var requestObject = Tobago.extend({}, this.transportOptions);
+
+    requestObject.timeout = requestOptions.timeout;
+
+    requestObject.load = function(data, ioArgs) {
+      LOG.debug("requestObject.success()");
+      requestOptions.resultData = data;
+      requestOptions.xhr = ioArgs.xhr;
+      try {
+        if (ioArgs.xhr.status === 200) {
+          requestOptions.textStatus = "success";
+          Tobago.Updater.onSuccess(requestOptions);
+          return;
+        } else if (ioArgs.xhr.status === 304) {
+          requestOptions.textStatus = "notmodified";
+          Tobago.Updater.onError(requestOptions);
+          return;
+        }
+
+      } catch(e) {
+
+      }
+      Tobago.Updater.onError(requestOptions);
+    };
+
+
+    return Tobago.Transport.request(function() {
+      requestOptions.oldValue = Tobago.action.value;
+      requestObject.url = requestOptions.url;
+      requestObject.form = Tobago.form.id;
+      Tobago.action.value = requestOptions.actionId;
+      Tobago.partialRequestIds.value = requestOptions.ajaxComponentIds;
+      dojo.xhrPost(requestObject);
+    }, false, requestOptions.actionId);
+  },
+
+  error: function(data, ioArgs) {
+    LOG.error("Request failed : " + ioArgs.xhr.status);
+    requestOptions.xhr = ioArgs.xhr;
+    if (ioArgs.xhr.status == 304) {
+      requestOptions.textStatus = "notmodified";
+      Tobago.Updater.onError(requestOptions);
+    } else {
+      requestOptions.textStatus = "error";
+      Tobago.Updater.onError(requestOptions);
+    }
+    Tobago.Transport.requestComplete();
+    return data;
+  }
+
+};
 
 function tobago_showHidden() {
   for(var i = 0; i < document.forms.length; i++) {
@@ -2249,8 +2370,11 @@ Tobago.Updater = {
 
   WAIT_ON_RELOAD: false,
 
+  TIMEOUT: 5000,
+
   options: {
-    createOverlay: true
+    createOverlay: true,
+    timeout: this.TIMEOUT
   },
 
   update: function(source, actionId, ajaxComponentIds, options) {
@@ -2273,6 +2397,11 @@ Tobago.Updater = {
         Tobago.extend(requestOptions, options);
       }
 
+      requestOptions.source = source;
+      requestOptions.actionId = actionId;
+      requestOptions.ajaxComponentIds = ajaxComponentIds;
+      requestOptions.url = Tobago.form.action;
+
       var ids;
       if (requestOptions.createOverlay) {
         ids = Tobago.parsePartialIds(ajaxComponentIds);
@@ -2291,10 +2420,7 @@ Tobago.Updater = {
 
       Tobago.setActionPosition(source);
 
-      var requestObject = Tobago.extend({}, Tobago.Updater.dojoUpdateRequestBase);
-      requestObject.url = Tobago.form.action;
-      requestObject.form = Tobago.form.id;
-      requestObject.requestedIds = ajaxComponentIds;
+
       if (!Tobago.partialRequestIds) {
         var hidden = document.createElement("input");
         hidden.type = "hidden";
@@ -2304,15 +2430,10 @@ Tobago.Updater = {
         Tobago.partialRequestIds = hidden;
       }
 
-      var queued = Tobago.Transport.request(function() {
-        requestOptions.oldValue = Tobago.action.value;
-        Tobago.action.value = actionId;
-        Tobago.partialRequestIds.value = ajaxComponentIds;
-        dojo.xhrPost(requestObject);
-      }, false, actionId);
+      var queued = Tobago.Transport.ajaxTransport.request(requestOptions);
 
       if (!queued) {
-        LOG.error("error on update: not queued!")
+        LOG.error("error on update: not queued!");
         if (!ids) {
           ids = Tobago.parsePartialIds(ajaxComponentIds);
         }
@@ -2331,7 +2452,7 @@ Tobago.Updater = {
         ajaxId: id,
         responseCode: Tobago.Updater.CODE_ERROR
       };
-      this.dojoUpdateRequestBase.updateComponent(data);
+      this.updateComponent(data);
     }
   },
 
@@ -2363,60 +2484,40 @@ Tobago.Updater = {
   },
 
 
-  dojoUpdateRequestBase: {
-
-    handleAs: "json",
-
-    timeout: 5000,
-
-    reloadRequired: false,
-
-    load: function(data, ioArgs) {
-
-      if (ioArgs.xhr.status == 304) {
-        LOG.debug("status 304");
-        //Tobago.Transport.requestComplete();
-        //return data;        
-      } else if (!data.tobagoAjaxResponse) {
+  onSuccess: function(requestOptions) {
+      LOG.debug("Tobago.Updater.onSuccess()");
+      if (!requestOptions.resultData || !requestOptions.resultData.tobagoAjaxResponse) {
         // unknown response do full page reload
         LOG.warn("initiating full reload");
         if (Tobago.Updater.WAIT_ON_ERROR) {
           alert("wait: initiating full reload");
         }
-        Tobago.Transport.requestComplete();
         Tobago.submitAction(null, Tobago.page.id);
-        return data;
-      } else if (data.responseCode == Tobago.Updater.CODE_RELOAD_REQUIRED) {
+      } else if (requestOptions.resultData.responseCode == Tobago.Updater.CODE_RELOAD_REQUIRED) {
         // update required do full page reload
-        Tobago.replaceJsfState(data.jsfState);
+        Tobago.replaceJsfState(requestOptions.resultData.jsfState);
         LOG.info("full reload requested");
         if (Tobago.Updater.WAIT_ON_RELOAD) {
-          alert("wait: full reload requeste: responseCode = " + data.responseCode);
+          alert("wait: full reload requeste: responseCode = " + requestOptions.resultData.responseCode);
         }
-        Tobago.Transport.requestComplete();
         Tobago.submitAction(null, Tobago.page.id);
-        return data;
       }
 
-      Tobago.replaceJsfState(data.jsfState);
+      Tobago.replaceJsfState(requestOptions.resultData.jsfState);
 
       var doneIds = {};
-      for (var partId in data) {
+      for (var partId in requestOptions.resultData) {
+        LOG.debug(partId + "= " + requestOptions.resultData[partId]);
         if (partId.indexOf("ajaxPart_") == 0) {
-          LOG.debug("doUpdate componentId = " + partId) ;
-          this.updateComponent(data[partId]);
-          doneIds[data[partId].ajaxId] = true;
+          LOG.debug("doUpdate partId = " + partId) ;
+          this.updateComponent(requestOptions.resultData[partId]);
+          doneIds[requestOptions.resultData[partId].ajaxId] = true;
         }
       }
 
-      this.handleMissingResponses(ioArgs.args.requestedIds, doneIds);
+      Tobago.Updater.handleMissingResponses(requestOptions.ajaxComponentIds, doneIds);
 
 
-      // scripts included in response are executed via setTimeout(..., 10)
-      // because of replaceJsfState() is in this scripts the next request
-      // must delayed more than that.
-      setTimeout(Tobago.bind(Tobago.Transport, "requestComplete"), 15);
-      return data;
     },
 
     handleMissingResponses: function(ids, doneIds) {
@@ -2430,12 +2531,12 @@ Tobago.Updater = {
             data = {responseCode: Tobago.Updater.CODE_NOT_MODIFIED, html: "error", script: function() {}};
           }
           data.ajaxId = id;
-          this.updateComponent(data, ioArgs);
+          this.updateComponent(data);
         }
       }
     },
 
-    handle304Response: function(ids, ioArgs) {
+    handle304Response: function(ids) {
       for (var i = 0; i < ids.length; i++) {
         var id = ids[i];
         LOG.debug("handle304Response id = " + id) ;
@@ -2445,27 +2546,29 @@ Tobago.Updater = {
           html: "error",
           script: function() {}
         };
-        this.updateComponent(data, ioArgs);
+        Tobago.Updater.updateComponent(data);
       }
     },
 
 
-    error: function(data, ioArgs) {
-      LOG.error("Request failed : " + ioArgs.xhr.status);
-      if (ioArgs.xhr.status == 304) {
-        this.handle304Response(Tobago.parsePartialIds(ioArgs.args.requestedIds))
+    onError: function(requestObject) {
+
+      LOG.warn("Request failed : " + requestObject.statusText);
+
+      if (requestObject.statusText === "timeout") {
+        Tobago.Updater.doErrorUpdate(Tobago.parsePartialIds(requestObject.ajaxComponentIds));
+      } else if (requestObject.statusText === "notmodified") {
+        Tobago.Updater.handle304Response(Tobago.parsePartialIds(requestObject.ajaxComponentIds))
       } else {
-        Tobago.Updater.doErrorUpdate(Tobago.parsePartialIds(ioArgs.args.requestedIds));
+        Tobago.Updater.doErrorUpdate(Tobago.parsePartialIds(requestObject.ajaxComponentIds));
       }
-      Tobago.Transport.requestComplete();
-      return data;
     },
 
-    updateComponent: function(componentData, ioArgs) {
+    updateComponent: function(componentData) {
       var ajaxId = componentData.ajaxId;
-      LOG.info("update Component = " + ajaxId) ;
+      LOG.debug("update Component = " + ajaxId) ;
       if (componentData.responseCode == Tobago.Updater.CODE_RELOAD_REQUIRED) {
-        LOG.info("nop do reload = ") ;
+        LOG.debug("nop do reload = ") ;
         // nop
       } else {
         var container = Tobago.ajaxComponents[ajaxId];
@@ -2477,14 +2580,14 @@ Tobago.Updater = {
             container.doUpdate = Tobago.Updater.doUpdate;
           }
 
-          container.doUpdate(componentData, ioArgs);
+          container.doUpdate(componentData);
         } else {
           LOG.info("kein container = " + ajaxId) ;
 //          LOG.debugAjaxComponents();
         }
       }
     }
-  }
+
 };
 
 TbgTimer.endTbgJs = new Date();

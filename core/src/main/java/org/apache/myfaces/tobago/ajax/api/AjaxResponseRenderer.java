@@ -115,10 +115,6 @@ public class AjaxResponseRenderer {
     writer.write(clientId);
     writer.write("\",\n");
 
-    writer.write("    responseCode: ");
-    writer.write(Integer.toString(CODE_SUCCESS));
-    writer.write(",\n");
-
     writer.write("    html: \"");
     try {
       FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), clientId, callback);
@@ -126,9 +122,13 @@ public class AjaxResponseRenderer {
       //LOG.error(" content = \"" + content.toString() + "\"");
       throw e;
     }
+    writer.write("\",\n");
+
+    writer.write("    responseCode: ");
+    writer.write(Integer.toString(component.getAjaxResponseCode()));
 
     if (contentWriter instanceof TobagoResponseJsonWriterImpl) {
-      writer.write("\",\n");
+      writer.write(",\n");
       writer.write("    script: function() {\n");
       writer.write(((TobagoResponseJsonWriterImpl) contentWriter).getJavascript());
       writer.write("\n    }");

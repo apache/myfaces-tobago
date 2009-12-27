@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
+import org.apache.myfaces.tobago.ajax.api.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
@@ -83,6 +84,8 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
   private SheetState sheetState;
   private List<Integer> widthList;
   private transient LayoutTokens columnLayout;
+
+  private transient int ajaxResponseCode;
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
     SheetState state = getSheetState(facesContext);
@@ -391,11 +394,17 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
       if (immediate != null && !immediate) {
         Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
         if (update != null && !update) {
+          ajaxResponseCode = AjaxResponseRenderer.CODE_NOT_MODIFIED;
           return;
         }
       }
     }
+    ajaxResponseCode = AjaxResponseRenderer.CODE_SUCCESS;
     AjaxUtils.encodeAjaxComponent(facesContext, this);
+  }
+
+  public int getAjaxResponseCode() {
+    return ajaxResponseCode;
   }
 
   public Integer[] getScrollPosition() {
@@ -556,5 +565,5 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
   }
 
 // LAYOUT End
-  
+
 }

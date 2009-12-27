@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.component;
  */
 
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
+import org.apache.myfaces.tobago.ajax.api.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -37,6 +38,10 @@ public abstract class UIInputBase extends javax.faces.component.UIInput
 
   public void encodeAjax(FacesContext facesContext) throws IOException {
     AjaxUtils.encodeAjaxComponent(facesContext, this);
+  }
+
+  public int getAjaxResponseCode() {
+    return AjaxResponseRenderer.CODE_SUCCESS;
   }
 
   public abstract Integer getTabIndex();

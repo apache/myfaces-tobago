@@ -24,4 +24,5 @@ public interface AjaxComponent {
 
   void encodeAjax(FacesContext context) throws IOException;
 
+  int getAjaxResponseCode();
 }
