@@ -76,6 +76,7 @@ public class Navigation {
     reference.add(new DefaultMutableTreeNode(new Node("reference_command", "reference/command")));
     reference.add(new DefaultMutableTreeNode(new Node("reference_container", "reference/container")));
     reference.add(new DefaultMutableTreeNode(new Node("reference_input", "reference/input")));
+    reference.add(new DefaultMutableTreeNode(new Node("reference_inputSuggest", "reference/inputSuggest")));
     reference.add(new DefaultMutableTreeNode(new Node("reference_menu", "reference/menu")));
     reference.add(new DefaultMutableTreeNode(new Node("reference_output", "reference/output")));
     reference.add(new DefaultMutableTreeNode(new Node("reference_object", "reference/object")));    

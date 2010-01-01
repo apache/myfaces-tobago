@@ -61,6 +61,7 @@
   <entry key="reference_command">Command</entry>
   <entry key="reference_container">Container</entry>
   <entry key="reference_input">Input</entry>
+  <entry key="reference_inputSuggest">Input suggest</entry>
   <entry key="reference_menu">Menu</entry>
   <entry key="reference_output">Output</entry>
   <entry key="reference_object">Object</entry>

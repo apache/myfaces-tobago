@@ -2525,8 +2525,8 @@ Tobago.Updater = {
       var data;
       for (var i = 0; i < requestedIds.length; i++) {
         var id = requestedIds[i];
-        LOG.debug("handleMissingResponse id = " + id) ;
         if (! doneIds[id]) {
+          LOG.debug("handleMissingResponse id = " + id) ;
           if (!data) {
             data = {responseCode: Tobago.Updater.CODE_NOT_MODIFIED, html: "error", script: function() {}};
           }

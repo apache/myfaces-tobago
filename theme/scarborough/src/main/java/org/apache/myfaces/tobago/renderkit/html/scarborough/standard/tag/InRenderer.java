@@ -26,6 +26,9 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIInputBase;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.model.AutoSuggestExtensionItem;
+import org.apache.myfaces.tobago.model.AutoSuggestItem;
+import org.apache.myfaces.tobago.model.AutoSuggestItems;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -42,6 +45,7 @@ import javax.faces.el.MethodBinding;
 import javax.faces.validator.LengthValidator;
 import javax.faces.validator.Validator;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -157,18 +161,16 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
 
     // input suggest
     if (renderAjaxSuggest) {
-   
-
 
       final String[] cmds = {
           "new Tobago.AutocompleterAjax(",
           "    '" + id + "',",
-          "    '" + required + "',",
+          "    " + required + ",",
           "    '" + StyleClasses.PREFIX + rendererName + "',",
           "    { });"
       };
 
-      HtmlRendererUtils.writeStyleLoader(facesContext, STYLES);
+//      HtmlRendererUtils.writeStyleLoader(facesContext, STYLES);
       HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmds);
     }
 
@@ -206,28 +208,88 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     }
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(context);
-    int maxSuggestedCount = 25; //input.getMaxSuggestedItems()!=null
+//    int maxSuggestedCount = 25; //input.getMaxSuggestedItems()!=null
 //        ? input.getMaxSuggestedItems().intValue()
 //        : DEFAULT_MAX_SUGGESTED_ITEMS;
 
-    List suggesteds
-        = (List) mb.invoke(context, new Object[]{(String) input.getSubmittedValue()});
+    Object object = mb.invoke(context, new Object[]{(String) input.getSubmittedValue()});
+
+    AutoSuggestItems items = null;
+    if (object instanceof AutoSuggestItems) {
+      items = (AutoSuggestItems) object;
+    } else {
+      items = createAutoSuggestItems(object);
+    }
+    List<AutoSuggestItem> suggesteds = items.getItems();
+
+
     writer.startJavascript();
     writer.write("return  {items: [");
 
-    int suggestedCount = 0;
-    for (Iterator i = suggesteds.iterator(); i.hasNext(); suggestedCount++) {
-      if (suggestedCount > maxSuggestedCount) {
-        break;
-      }
-      if (suggestedCount > 0) {
+    for (int i = 0; i < suggesteds.size() && i < items.getMaxSuggestedCount(); i++) {
+      AutoSuggestItem suggestItem = suggesteds.get(i);
+      if (i > 0) {
         writer.write(", ");
       }
       writer.write("{label: \"");
-      writer.write(AjaxUtils.encodeJavascriptString(i.next().toString()));
-      writer.write("\"}");
+      writer.write(AjaxUtils.encodeJavascriptString(suggestItem.getLabel()));
+      writer.write("\", value: \"");
+      writer.write(AjaxUtils.encodeJavascriptString(suggestItem.getValue()));
+      writer.write("\"");
+      if (suggestItem.getExtensionItems() != null) {
+        writer.write(", values: [");
+        for (int j = 0; j < suggestItem.getExtensionItems().size(); j++) {
+          AutoSuggestExtensionItem item = suggestItem.getExtensionItems().get(j);
+          if (j > 0) {
+            writer.write(", ");
+          }
+          writer.write("{id: \"");
+          writer.write(item.getId());
+          writer.write("\", value: \"");
+          writer.write(AjaxUtils.encodeJavascriptString(item.getValue()));
+          writer.write("\"}");
+        }
+        writer.write("]");
+      }
+      if (suggestItem.getNextFocusId() != null) {
+        writer.write(", nextfocusId: \"");
+        writer.write(AjaxUtils.encodeJavascriptString(suggestItem.getNextFocusId()));
+        writer.write("\"");
+      }
+
+      writer.write("}");
+
     }
-    writer.write("]};");
+
+    writer.write("]");
+    if (items.getNextFocusId() != null) {
+      writer.write(", nextFocusId: \"");
+      writer.write(items.getNextFocusId());
+      writer.write("\"");
+    }
+    writer.write("};");
     writer.endJavascript();
+  }
+
+  private AutoSuggestItems createAutoSuggestItems(Object object) {
+    AutoSuggestItems autoSuggestItems = new AutoSuggestItems();
+    if (object instanceof List && !((List) object).isEmpty()) {
+      if (((List) object).get(0) instanceof AutoSuggestItem) {
+        //noinspection unchecked
+        autoSuggestItems.setItems((List<AutoSuggestItem>) object);
+      } else if (((List) object).get(0) instanceof String) {
+        List<AutoSuggestItem> items = new ArrayList<AutoSuggestItem>(((List) object).size());
+        for (int i = 0; i < ((List) object).size(); i++) {
+          AutoSuggestItem item = new AutoSuggestItem();
+          item.setLabel((String) ((List) object).get(i));
+          item.setValue((String) ((List) object).get(i));
+          items.add(item);
+        }
+        autoSuggestItems.setItems(items);
+      } else {
+        throw new IllegalArgumentException("Cant create AutoSuggestItems from " + object);
+      }
+    }
+    return autoSuggestItems;
   }
 }

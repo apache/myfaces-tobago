@@ -340,6 +340,12 @@
   </managed-bean>
 
   <managed-bean>
+    <managed-bean-name>inputSuggestController</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.reference.InputSuggestController</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
     <managed-bean-name>upload</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.reference.Upload</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
@@ -361,6 +367,10 @@
     <navigation-case>
       <from-outcome>reference/input</from-outcome>
       <to-view-id>/reference/input.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>reference/inputSuggest</from-outcome>
+      <to-view-id>/reference/inputSuggest.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>reference/menu</from-outcome>
