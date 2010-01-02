@@ -28,7 +28,7 @@
 
       <tc:separator label="Simple"/>
 
-      <tc:out value=" suggestion starts with the 3. character and just adds an index to the prefix"/>
+      <tc:out value=" suggestion starts with the 2. character and just adds an index to the prefix"/>
 
       <tc:panel >
         <f:facet name="layout">
