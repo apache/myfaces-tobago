@@ -132,7 +132,7 @@ public class InputSuggestController {
           List<AutoSuggestExtensionItem> extensionItems = new ArrayList<AutoSuggestExtensionItem>(2);
           extensionItems.add(createExtensionItem("page:isCity", dataRow[2]));
           if (dataRow[3] != null) {
-            extensionItems.add(createExtensionItem("page:isCountry", dataRow[3]));
+            extensionItems.add(createExtensionItem("page:isState", dataRow[3]));
           }
           item.setExtensionItems(extensionItems);
           items.add(item);
@@ -145,7 +145,7 @@ public class InputSuggestController {
           List<AutoSuggestExtensionItem> extensionItems = new ArrayList<AutoSuggestExtensionItem>(2);
           extensionItems.add(createExtensionItem("page:isZip", dataRow[1]));
           if (dataRow[3] != null) {
-            extensionItems.add(createExtensionItem("page:isCountry", dataRow[3]));
+            extensionItems.add(createExtensionItem("page:isState", dataRow[3]));
           }
           item.setExtensionItems(extensionItems);
           items.add(item);

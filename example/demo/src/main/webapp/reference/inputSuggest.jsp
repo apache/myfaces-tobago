@@ -23,10 +23,12 @@
   <jsp:body>
     <tc:box label="InputSuggest">
       <f:facet name="layout">
-        <tc:gridLayout rows="fixed;fixed;fixed;150px;fixed;1*"/>
+        <tc:gridLayout rows="fixed;50px;fixed;fixed;50px;150px;fixed;1*"/>
       </f:facet>
 
       <tc:separator label="Simple"/>
+
+      <tc:out value=" suggestion starts with the 3. character and just adds an index to the prefix"/>
 
       <tc:panel >
         <f:facet name="layout">
@@ -43,6 +45,8 @@
       </tc:panel>
 
       <tc:separator label="Multi field suggest"/>
+
+      <tc:out value="Try \"26...\" in the ZIP, or \"ol...\" in the city field. On selection ZIP, City and State are updated, focus goes to textarea. "/>      
 
       <tc:panel >
         <f:facet name="layout">
@@ -64,8 +68,8 @@
 
         <tc:cell spanY="3"/>
 
-        <tx:selectOneChoice label="Country:"
-                            id="isCountry"
+        <tx:selectOneChoice label="State:"
+                            id="isState"
             value="#{inputSuggestController.region}">
           <f:selectItems value="#{inputSuggestController.regionItems}"/>
         </tx:selectOneChoice>
