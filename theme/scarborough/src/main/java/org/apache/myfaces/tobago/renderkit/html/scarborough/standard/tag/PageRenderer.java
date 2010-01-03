@@ -316,7 +316,7 @@ public class PageRenderer extends PageRendererBase {
       }
     }
 
-    UIMenuBar menuBar = (UIMenuBar)page.getFacet(Facets.MENUBAR);
+    UIMenuBar menuBar = (UIMenuBar) page.getFacet(Facets.MENUBAR);
     if (menuBar != null) {
       facesContext.getOnloadScripts().add("Tobago.setElementWidth('"
           + menuBar.getClientId(facesContext) + "', Tobago.getBrowserInnerWidth())");
@@ -670,7 +670,7 @@ public class PageRenderer extends PageRendererBase {
     // XXX this is a hack. correct whould be the top-offset, but this would shift the content, because of the 
     // XXX hack before the code: writer.writeStyleAttribute(style)
     UIPage page = (UIPage) component;
-    UIMenuBar menuBar = (UIMenuBar)page.getFacet(Facets.MENUBAR);
+    UIMenuBar menuBar = (UIMenuBar) page.getFacet(Facets.MENUBAR);
     if (menuBar != null) {
       return getResourceManager().getThemeMeasure(facesContext, menuBar, "fixedHeight");
     } else {

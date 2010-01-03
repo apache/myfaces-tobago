@@ -55,7 +55,7 @@ public class MenuBarRenderer extends LayoutComponentRendererBase {
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UIMenuBar menuBar = (UIMenuBar)component;
+    UIMenuBar menuBar = (UIMenuBar) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     
     writer.startElement(HtmlConstants.OL, menuBar);

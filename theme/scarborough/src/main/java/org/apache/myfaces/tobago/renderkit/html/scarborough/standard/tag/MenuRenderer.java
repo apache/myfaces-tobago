@@ -44,7 +44,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     
-    UIMenu menu = (UIMenu)component;
+    UIMenu menu = (UIMenu) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     boolean disabled = menu.isDisabled();
@@ -85,7 +85,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UIMenu menu = (UIMenu)component;
+    UIMenu menu = (UIMenu) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     boolean isParentMenu = menu.getChildCount() > 0; // todo: may be not correct

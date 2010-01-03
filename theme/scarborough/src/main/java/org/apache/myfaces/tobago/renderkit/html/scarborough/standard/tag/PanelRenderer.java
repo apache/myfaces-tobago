@@ -77,8 +77,8 @@ public class PanelRenderer extends LayoutComponentRendererBase implements AjaxRe
     writer.writeClassAttribute();
     Style style = new Style(facesContext, panel);
     writer.writeStyleAttribute(style);
-    if (panel instanceof UIPanel && ((UIPanel)panel).getTip() != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, ((UIPanel)panel).getTip(), true);
+    if (panel instanceof UIPanel && ((UIPanel) panel).getTip() != null) {
+      writer.writeAttribute(HtmlAttributes.TITLE, ((UIPanel) panel).getTip(), true);
     }
     if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
       // writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\")");
