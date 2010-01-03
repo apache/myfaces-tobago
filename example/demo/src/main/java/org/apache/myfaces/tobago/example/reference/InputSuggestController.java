@@ -4,6 +4,7 @@ import org.apache.myfaces.tobago.model.AutoSuggestExtensionItem;
 import org.apache.myfaces.tobago.model.AutoSuggestItem;
 import org.apache.myfaces.tobago.model.AutoSuggestItems;
 
+import javax.faces.component.UIInput;
 import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +94,8 @@ public class InputSuggestController {
     this.region = region;
   }
 
-  public List<String> getSimpleSuggestItems(String prefix) {
+  public List<String> getSimpleSuggestItems(UIInput component) {
+    String prefix = (String) component.getSubmittedValue();
     LOG.info("createing items for prefix :\"" + prefix + "\"");
     List<String> li = new ArrayList<String>();
     li.add(prefix+1);
@@ -105,7 +107,8 @@ public class InputSuggestController {
     return li;
   }
 
-  public AutoSuggestItems getZipSuggestItems(String prefix) {
+  public AutoSuggestItems getZipSuggestItems(UIInput component) {
+    String prefix = (String) component.getSubmittedValue();
     AutoSuggestItems item = new AutoSuggestItems();
     item.setItems(getSuggestItems(prefix, true));
     item.setNextFocusId("page:txarea");
@@ -114,7 +117,8 @@ public class InputSuggestController {
 
 
 
-  public AutoSuggestItems getCitySuggestItems(String prefix) {
+  public AutoSuggestItems getCitySuggestItems(UIInput component) {
+    String prefix = (String) component.getSubmittedValue();
     AutoSuggestItems item = new AutoSuggestItems();
     item.setItems(getSuggestItems(prefix, false));
     item.setNextFocusId("page:txarea");

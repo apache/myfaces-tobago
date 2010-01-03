@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.component.InputSuggest;
  * Time: 8:59:29 PM
  */
 public class SuggestMethodRule extends MetaRule {
-  static final Class[] SUGGEST_METHOD = new Class[]{String.class};
+  static final Class[] SUGGEST_METHOD = new Class[]{javax.faces.component.UIInput.class};
   public static final SuggestMethodRule INSTANCE = new SuggestMethodRule();
 
   public Metadata applyRule(String name, TagAttribute attribute,

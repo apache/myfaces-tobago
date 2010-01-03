@@ -27,16 +27,17 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface HasSuggestMethod {
 
   /**
-   * MethodBinding which generates a list of suggested input values based on a
-   * passed prefix -- the currently entered text.
-   * The expression has to evaluate to a public method which has a String parameter
-   * and a List&lt;String> as return type.
+   * MethodBinding which generates a list of suggested input values based on
+   * the currently entered text, which could be retrieved via getSubmittedValue() on the UIInput.
+   * The expression has to evaluate to a public method which has a javax.faces.component.UIInput parameter
+   * and returns a List&lt;String>(deprecated), a List&lt;org.apache.myfaces.tobago.model.AutoSuggestItem>
+   * or a org.apache.myfaces.tobago.model.AutoSuggestItems.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = {},
       expression = DynamicExpression.METHOD_BINDING_REQUIRED,
-      methodSignature = "java.lang.String",
-      methodReturnType = "java.util.List<java.lang.String>")
+      methodSignature = "javax.faces.component.UIInput",
+      methodReturnType = "java.lang.Object")
   void setSuggestMethod(String suggestMethod);
 
 }

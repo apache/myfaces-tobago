@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.model.SheetState;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.validator.ValidatorException;
@@ -391,7 +392,8 @@ public class OverviewController {
         this.toolbarTextItems = toolbarTextItems;
     }
 
-    public List<String> getInputSuggestItems(String prefix) {
+  public List<String> getInputSuggestItems(UIInput component) {
+    String prefix = (String) component.getSubmittedValue();
     LOG.info("createing items for prefix :\"" + prefix + "\"");
     List<String> li = new ArrayList<String>();
     li.add(prefix+1);

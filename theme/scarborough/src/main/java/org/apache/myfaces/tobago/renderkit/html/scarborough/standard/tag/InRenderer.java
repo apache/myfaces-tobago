@@ -212,7 +212,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
 //        ? input.getMaxSuggestedItems().intValue()
 //        : DEFAULT_MAX_SUGGESTED_ITEMS;
 
-    Object object = mb.invoke(context, new Object[]{(String) input.getSubmittedValue()});
+    Object object = mb.invoke(context, new Object[]{(UIInput) input});
 
     AutoSuggestItems items = null;
     if (object instanceof AutoSuggestItems) {
