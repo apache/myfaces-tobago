@@ -47,7 +47,6 @@ import javax.faces.validator.Validator;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 public class InRenderer extends InputRendererBase implements AjaxRenderer {
