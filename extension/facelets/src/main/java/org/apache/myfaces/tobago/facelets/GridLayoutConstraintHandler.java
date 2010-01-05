@@ -73,7 +73,6 @@ public class GridLayoutConstraintHandler extends TagHandler {
       LayoutBase component = (LayoutBase) parent;
 
       if (parent instanceof LayoutComponent && columnSpan != null) {
-        LOG.error(columnSpan.getValue());
         if (columnSpan.isLiteral()) {
           ((LayoutComponent) component).setColumnSpan(Integer.valueOf(columnSpan.getValue()));
         } else {
@@ -83,7 +82,6 @@ public class GridLayoutConstraintHandler extends TagHandler {
       }
 
       if (parent instanceof LayoutComponent && rowSpan != null) {
-        LOG.error(rowSpan.getValue());
         if (rowSpan.isLiteral()) {
           ((LayoutComponent) component).setRowSpan(Integer.valueOf(rowSpan.getValue()));
         } else {
@@ -93,7 +91,6 @@ public class GridLayoutConstraintHandler extends TagHandler {
       }
 
       if (width != null) {
-        LOG.error(width.getValue());
         if (width.isLiteral()) {
           component.setWidth(Measure.parse(width.getValue()));
         } else {
@@ -103,7 +100,6 @@ public class GridLayoutConstraintHandler extends TagHandler {
       }
 
       if (height != null) {
-        LOG.error(height.getValue());
         if (height.isLiteral()) {
           component.setHeight(Measure.parse(height.getValue()));
         } else {
@@ -113,7 +109,6 @@ public class GridLayoutConstraintHandler extends TagHandler {
       }
 
       if (minimumWidth != null) {
-        LOG.error(minimumWidth.getValue());
         if (minimumWidth.isLiteral()) {
           component.setMinimumWidth(Measure.parse(minimumWidth.getValue()));
         } else {
@@ -123,7 +118,6 @@ public class GridLayoutConstraintHandler extends TagHandler {
       }
 
       if (minimumHeight != null) {
-        LOG.error(minimumHeight.getValue());
         if (minimumHeight.isLiteral()) {
           component.setMinimumHeight(Measure.parse(minimumHeight.getValue()));
         } else {
@@ -133,7 +127,6 @@ public class GridLayoutConstraintHandler extends TagHandler {
       }
 
       if (preferredWidth != null) {
-        LOG.error(preferredWidth.getValue());
         if (preferredWidth.isLiteral()) {
           component.setPreferredWidth(Measure.parse(preferredWidth.getValue()));
         } else {
@@ -143,7 +136,6 @@ public class GridLayoutConstraintHandler extends TagHandler {
       }
 
       if (preferredHeight != null) {
-        LOG.error(preferredHeight.getValue());
         if (preferredHeight.isLiteral()) {
           component.setPreferredHeight(Measure.parse(preferredHeight.getValue()));
         } else {
@@ -153,7 +145,6 @@ public class GridLayoutConstraintHandler extends TagHandler {
       }
 
       if (maximumWidth != null) {
-        LOG.error(maximumWidth.getValue());
         if (maximumWidth.isLiteral()) {
           component.setMaximumWidth(Measure.parse(maximumWidth.getValue()));
         } else {
@@ -163,7 +154,6 @@ public class GridLayoutConstraintHandler extends TagHandler {
       }
 
       if (maximumHeight != null) {
-        LOG.error(maximumHeight.getValue());
         if (maximumHeight.isLiteral()) {
           component.setMaximumHeight(Measure.parse(maximumHeight.getValue()));
         } else {
@@ -172,7 +162,7 @@ public class GridLayoutConstraintHandler extends TagHandler {
         }
       }
     } else {
-      LOG.warn("");
+      LOG.warn("Layout Constraints inside of a non LayoutBase component!");
     }
   }
 }
