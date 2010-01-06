@@ -28,7 +28,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -144,6 +143,6 @@ public class ButtonRenderer extends CommandRendererBase {
     // left padding, right padding and when an image and an text then a middle padding.
     width = width.add(padding.multiply(image && label.getText() != null ? 3 : 2));
 
-    return new PixelMeasure(width);
+    return width;
   }
 }

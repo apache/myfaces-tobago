@@ -41,7 +41,6 @@ import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Overflow;
@@ -288,7 +287,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
     writer.startElement(HtmlConstants.DIV, tabGroup);
     Style map = new Style();
     if (currentWidth.greaterThan(width)) {
-      map.setWidth(new PixelMeasure(currentWidth));
+      map.setWidth(currentWidth);
       map.setLeft(width.subtract(toolbarWidth).subtract(currentWidth));
     } else {
       map.setWidth(width.subtract(toolbarWidth));
@@ -537,7 +536,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
     AjaxUtils.checkParamValidity(context, tabGroup, UITabGroup.class);
     TabList tabList = getTabList(context, tabGroup);
     int index = ensureRenderedActiveIndex(context, tabGroup);
-    Measure currentWidth = new PixelMeasure(getCurrentWidth(tabList, index));
+    Measure currentWidth = getCurrentWidth(tabList, index);
     renderTabGroupView(context, HtmlRendererUtils.getTobagoResponseWriter(context),
         tabGroup, index, SWITCH_TYPE_RELOAD_TAB,
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"),
