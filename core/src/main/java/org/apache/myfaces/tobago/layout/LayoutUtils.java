@@ -127,34 +127,35 @@ public final class LayoutUtils {
     return orientation == Orientation.HORIZONTAL ? container.getLeftOffset() : container.getTopOffset();
   }
 
-  public static Measure getSize(Orientation orientation, LayoutContainer container) {
-    return orientation == Orientation.HORIZONTAL ? container.getWidth() : container.getHeight();
+  public static Measure getCurrentSize(Orientation orientation, LayoutContainer container) {
+    return orientation == Orientation.HORIZONTAL ? container.getCurrentWidth() : container.getCurrentHeight();
   }
 
-  public static void setSize(Orientation orientation, LayoutBase component, Measure size) {
+  public static void setCurrentSize(Orientation orientation, LayoutBase component, Measure size) {
     if (orientation == Orientation.HORIZONTAL) {
       if (component.getWidth() != null) { // to not override set sizes
-        return;
+        size = component.getWidth();
+      } else {
+        if (size.greaterThan(component.getMaximumWidth())) {
+          size = component.getMaximumWidth();
+        }
+        if (size.lessThan(component.getMinimumWidth())) {
+          size = component.getMinimumWidth();
+        }
       }
-      if (size.greaterThan(component.getMaximumWidth())) {
-        size = component.getMaximumWidth();
-      }
-      if (size.lessThan(component.getMinimumWidth())) {
-        size = component.getMinimumWidth();
-      }
-      component.setWidth(size);
+      component.setCurrentWidth(size);
     } else {
       if (component.getHeight() != null) { // to not override set sizes
-        return;
+        size = component.getHeight();
+      } else {
+        if (size.greaterThan(component.getMaximumHeight())) {
+          size = component.getMaximumHeight();
+        }
+        if (size.lessThan(component.getMinimumHeight())) {
+          size = component.getMinimumHeight();
+        }
       }
-      if (size.greaterThan(component.getMaximumHeight())) {
-        size = component.getMaximumHeight();
-      }
-      if (size.lessThan(component.getMinimumHeight())) {
-        size = component.getMinimumHeight();
-      }
-      component.setHeight(size);
+      component.setCurrentHeight(size);
     }
   }
-
 }

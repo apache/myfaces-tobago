@@ -26,6 +26,24 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface IsGridLayoutComponentBase {
 
   /**
+   * This value will usually be set by the layout manager. It holds the current width computed by the layout manager.
+   *
+   * @param currentWidth The current width for this component.
+   */
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "getWidth()")
+  void setCurrentWidth(String currentWidth);
+
+  /**
+   * This value will usually be set by the layout manager. It holds the current height computed by the layout manager.
+   *
+   * @param currentHeight The current height for this component.
+   */
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "getHeight()")
+  void setCurrentHeight(String currentHeight);
+  
+  /**
    * @param columnSpan The number of horizontal cells this component should use.
    */
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "1")

@@ -128,8 +128,8 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
 
     AbstractUIPage page = ComponentUtils.findPage(facesContext, messages);
 
-    popup.setWidth(new PixelMeasure(page.getWidth().getPixel() - 200));
-    popup.setHeight(new PixelMeasure(page.getHeight().getPixel() - 200));
+    popup.setWidth(page.getCurrentWidth().subtract(200));
+    popup.setHeight(page.getCurrentHeight().subtract(200));
     popup.setLeft(new PixelMeasure(100));
     popup.setTop(new PixelMeasure(100));
     popup.setRendered(true);

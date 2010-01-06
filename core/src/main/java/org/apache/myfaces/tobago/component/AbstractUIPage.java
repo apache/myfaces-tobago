@@ -58,10 +58,6 @@ public abstract class AbstractUIPage extends AbstractUIForm
 
   public static final String FORM_ACCEPT_CHARSET = "utf-8";
 
-  private static final int DEFAULT_WIDTH = 1024;
-
-  private static final int DEFAULT_HEIGHT = 768;
-
   private String formId;
 
   private String actionId;
@@ -232,11 +228,11 @@ public abstract class AbstractUIPage extends AbstractUIForm
           .getRequestParameterMap().get(name);
       if (value != null) {
         StringTokenizer tokenizer = new StringTokenizer(value, ";");
-        int width = Integer.parseInt(tokenizer.nextToken());
-        int height = Integer.parseInt(tokenizer.nextToken());
+        Measure width = Measure.parse(tokenizer.nextToken());
+        Measure height = Measure.parse(tokenizer.nextToken());
         if (pageState != null) {
-          pageState.setClientWidth(width);
-          pageState.setClientHeight(height);
+          pageState.setClientWidth(width.getPixel());
+          pageState.setClientHeight(height.getPixel());
         }
         facesContext.getExternalContext().getRequestMap().put("tobago-page-clientDimension-width", width);
         facesContext.getExternalContext().getRequestMap().put("tobago-page-clientDimension-height", height);
@@ -282,29 +278,6 @@ public abstract class AbstractUIPage extends AbstractUIForm
 
   public void setDefaultActionId(String defaultActionId) {
     this.defaultActionId = defaultActionId;
-  }
-
-  protected Integer getWidthInternal() {
-    Integer requestWidth =
-        (Integer) FacesContext.getCurrentInstance().getExternalContext().
-            getRequestMap().get("tobago-page-clientDimension-width");
-    if (requestWidth != null) {
-      return requestWidth;
-    } else {
-      return DEFAULT_WIDTH;
-    }
-  }
-
-
-  protected Integer getHeightInternal() {
-    Integer requestHeight =
-        (Integer) FacesContext.getCurrentInstance().getExternalContext().
-            getRequestMap().get("tobago-page-clientDimension-height");
-    if (requestHeight != null) {
-      return requestHeight;
-    } else {
-      return DEFAULT_HEIGHT;
-    }
   }
 
   public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)

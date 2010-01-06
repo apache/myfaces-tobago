@@ -275,7 +275,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
 // BEGIN RENDER BODY CONTENT
     Style bodyStyle = new Style();
     bodyStyle.setPosition(Position.RELATIVE);
-    bodyStyle.setWidth(sheet.getWidth());
+    bodyStyle.setWidth(sheet.getCurrentWidth());
     bodyStyle.setHeight(sheetHeight.subtract(footerHeight));
 
     writer.startElement(HtmlConstants.DIV, null);
@@ -1163,7 +1163,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
         }
       }
 
-      Measure space = data.getWidth();
+      Measure space = data.getCurrentWidth();
       space = space.subtractNotNegative(getContentBorder(facesContext, data));
       if (needVerticalScrollbar(facesContext, data, style)) {
         space = space.subtractNotNegative(getScrollbarWidth(facesContext, data));

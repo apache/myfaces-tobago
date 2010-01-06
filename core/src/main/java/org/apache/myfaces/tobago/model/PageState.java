@@ -17,13 +17,22 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
+/**
+ * @deprecated since 1.5.0, please configure constraints for the page size with a tc:gridLayoutConstraints tag 
+ * inside the tc:page tag.
+ */
+@Deprecated
 public interface PageState {
 
+  @Deprecated
   int getClientWidth();
 
+  @Deprecated
   void setClientWidth(int width);
 
+  @Deprecated
   int getClientHeight();
 
+  @Deprecated
   void setClientHeight(int height);
 }

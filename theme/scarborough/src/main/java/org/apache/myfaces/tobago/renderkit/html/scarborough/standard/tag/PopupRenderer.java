@@ -84,14 +84,14 @@ public class PopupRenderer extends LayoutComponentRendererBase implements AjaxRe
     }
 
     final StringBuilder contentStyle = new StringBuilder(32);
-    if (component.getWidth() != null) {
+    if (component.getCurrentWidth() != null) {
       contentStyle.append("width: ");
-      contentStyle.append(component.getWidth().getPixel());
+      contentStyle.append(component.getCurrentWidth().getPixel());
       contentStyle.append("; ");
     }
-    if (component.getHeight() != null) {
+    if (component.getCurrentHeight() != null) {
       contentStyle.append("height: ");
-      contentStyle.append(component.getHeight().getPixel());
+      contentStyle.append(component.getCurrentHeight().getPixel());
       contentStyle.append("; ");
     }
     contentStyle.append("z-index: ");
@@ -127,10 +127,10 @@ public class PopupRenderer extends LayoutComponentRendererBase implements AjaxRe
         final StringBuilder frameSize = new StringBuilder(32);
         // full client area
         frameSize.append("width: ");
-        frameSize.append(page.getWidth().getPixel());
+        frameSize.append(page.getCurrentWidth().getPixel());
         frameSize.append("; ");
         frameSize.append("height: ");
-        frameSize.append(page.getHeight().getPixel());
+        frameSize.append(page.getCurrentHeight().getPixel());
         frameSize.append("; ");
         writer.writeAttribute(HtmlAttributes.STYLE, frameSize.toString(), false);
       } else {

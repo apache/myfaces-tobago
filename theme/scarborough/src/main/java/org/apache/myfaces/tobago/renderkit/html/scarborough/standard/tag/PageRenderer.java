@@ -463,7 +463,7 @@ public class PageRenderer extends PageRendererBase {
     // XXX better to take this fact into layout management.
     // XXX is also useful in boxes, etc.
     Measure topOffset = getBottomOffset(facesContext, page);
-    style.setHeight(page.getHeight().subtract(topOffset));
+    style.setHeight(page.getCurrentHeight().subtract(topOffset));
     style.setTop(topOffset);
     writer.writeStyleAttribute(style);
   }
@@ -675,6 +675,30 @@ public class PageRenderer extends PageRendererBase {
       return getResourceManager().getThemeMeasure(facesContext, menuBar, "fixedHeight");
     } else {
       return Measure.ZERO;
+    }
+  }
+
+  @Override
+  public Measure getWidth(FacesContext facesContext, Configurable component) {
+    // width of the actual browser window
+    Measure width = (Measure) FacesContext.getCurrentInstance().getExternalContext()
+        .getRequestMap().get("tobago-page-clientDimension-width");
+    if (width != null) {
+      return width;
+    } else {
+      return super.getWidth(facesContext, component);
+    }
+  }
+
+  @Override
+  public Measure getHeight(FacesContext facesContext, Configurable component) {
+    // height of the actual browser window
+    Measure height = (Measure) FacesContext.getCurrentInstance().getExternalContext()
+        .getRequestMap().get("tobago-page-clientDimension-height");
+    if (height != null) {
+      return height;
+    } else {
+      return super.getHeight(facesContext, component);
     }
   }
 }

@@ -275,7 +275,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
     writer.writeAttribute(HtmlAttributes.VALIGN, "bottom", false);
 
     writer.startElement(HtmlConstants.TD, tabGroup);
-    Measure width = tabGroup.getWidth();
+    Measure width = tabGroup.getCurrentWidth();
     Measure headerHeight = getResourceManager().getThemeMeasure(facesContext, tabGroup, "headerHeight");
     Style header = new Style();
     header.setPosition(Position.RELATIVE);
@@ -494,7 +494,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
     Style body = new Style();
     body.setPosition(Position.RELATIVE);
     body.setWidth(width);
-    body.setHeight(tabGroup.getHeight().subtract(headerHeight));
+    body.setHeight(tabGroup.getCurrentHeight().subtract(headerHeight));
     encodeContent(writer, facesContext, activeTab, body);
 
     writer.endElement(HtmlConstants.TABLE);

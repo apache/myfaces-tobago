@@ -62,7 +62,6 @@ public abstract class AbstractUITabGroupLayout extends UILayout implements Layou
   public void preProcessing(Orientation orientation) {
 
     // process auto tokens
-    int i = 0;
     IntervalList intervals = new IntervalList();
     for (LayoutComponent component : getLayoutContainer().getComponents()) {
 
@@ -80,7 +79,7 @@ public abstract class AbstractUITabGroupLayout extends UILayout implements Layou
       Measure size = intervals.computeAuto();
       size = size.add(LayoutUtils.getBeginOffset(orientation, getLayoutContainer()));
       size = size.add(LayoutUtils.getEndOffset(orientation, getLayoutContainer()));
-      LayoutUtils.setSize(orientation, getLayoutContainer(), size);
+      LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), size);
     }
   }
 
@@ -91,7 +90,7 @@ public abstract class AbstractUITabGroupLayout extends UILayout implements Layou
         || orientation == Orientation.VERTICAL && !verticalAuto) {
       // find rest
       LayoutContainer container = getLayoutContainer();
-      Measure available = LayoutUtils.getSize(orientation, container);
+      Measure available = LayoutUtils.getCurrentSize(orientation, container);
       if (available != null) {
         available = available.subtractNotNegative(LayoutUtils.getBeginOffset(orientation, container));
         available = available.subtractNotNegative(LayoutUtils.getEndOffset(orientation, container));
@@ -99,7 +98,7 @@ public abstract class AbstractUITabGroupLayout extends UILayout implements Layou
         for (LayoutComponent component : getLayoutContainer().getComponents()) {
 
           component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
-          LayoutUtils.setSize(orientation, component, available);
+          LayoutUtils.setCurrentSize(orientation, component, available);
 
 
           // call sub layout manager

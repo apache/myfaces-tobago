@@ -63,7 +63,7 @@ public class Style implements Serializable {
 
     String rendererType = layout.getRendererType();
     
-    width = layout.getWidth();
+    width = layout.getCurrentWidth();
     if (width != null) {
       // TODO: Make configurable: this is needed if the box-sizing is border-box, not content-box (see CSS3)
       width = width.subtractNotNegative(
@@ -75,7 +75,7 @@ public class Style implements Serializable {
       width = width.subtractNotNegative(
           ResourceManagerUtil.getThemeMeasure(facesContext, layout, "css.border-right-width"));
     }
-    height = layout.getHeight();
+    height = layout.getCurrentHeight();
     if (height != null) {
       // TODO: Make configurable: this is needed if the box-sizing is border-box, not content-box (see CSS3)
       height = height.subtractNotNegative(

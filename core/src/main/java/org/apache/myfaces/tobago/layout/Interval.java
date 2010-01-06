@@ -25,21 +25,21 @@ public class Interval {
 
   private Measure maximum;
 
-  private Measure fixed;
+  private Measure current;
 
   public Interval(LayoutComponent component, Orientation orientation) {
     this(
         orientation == Orientation.HORIZONTAL ? component.getMinimumWidth() : component.getMinimumHeight(),
         orientation == Orientation.HORIZONTAL ? component.getPreferredWidth() : component.getPreferredHeight(),
         orientation == Orientation.HORIZONTAL ? component.getMaximumWidth() : component.getMaximumHeight(),
-        orientation == Orientation.HORIZONTAL ? component.getWidth() : component.getHeight());
+        orientation == Orientation.HORIZONTAL ? component.getCurrentWidth() : component.getCurrentHeight());
   }
 
-  public Interval(Measure minimum, Measure preferred, Measure maximum, Measure fixed) {
+  public Interval(Measure minimum, Measure preferred, Measure maximum, Measure current) {
     this.minimum = minimum;
     this.preferred = preferred;
     this.maximum = maximum;
-    this.fixed = fixed;
+    this.current = current;
   }
 
   public Measure getMinimum() {
@@ -66,11 +66,26 @@ public class Interval {
     this.maximum = maximum;
   }
 
-  public Measure getFixed() {
-    return fixed;
+  public Measure getCurrent() {
+    return current;
   }
 
-  public void setFixed(Measure fixed) {
-    this.fixed = fixed;
+  public void setCurrent(Measure current) {
+    this.current = current;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder builder = new StringBuilder();
+    builder.append("[");
+    builder.append(minimum);
+    builder.append("<=");
+    builder.append(preferred);
+    builder.append("<=");
+    builder.append(maximum);
+    builder.append(",");
+    builder.append(current);
+    builder.append("]");
+    return builder.toString();
   }
 }

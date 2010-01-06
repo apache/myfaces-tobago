@@ -148,7 +148,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
     if (size != null) {
       size = size.add(LayoutUtils.getBeginOffset(orientation, getLayoutContainer()));
       size = size.add(LayoutUtils.getEndOffset(orientation, getLayoutContainer()));
-      LayoutUtils.setSize(orientation, getLayoutContainer(), size);
+      LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), size);
     }
   }
 
@@ -164,7 +164,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
     if (!list.isEmpty()) {
       // find rest
       LayoutContainer container = getLayoutContainer();
-      Measure available = LayoutUtils.getSize(orientation, container);
+      Measure available = LayoutUtils.getCurrentSize(orientation, container);
       if (available != null) {
         for (PixelMeasure value : grid.getSizes(orientation)) {
           available = available.subtractNotNegative(value);
@@ -212,7 +212,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
               size = size.add(pixelMeasures[i + k]);
               size = size.add(getSpacing(orientation));
             }
-            LayoutUtils.setSize(orientation, component, size);
+            LayoutUtils.setCurrentSize(orientation, component, size);
           } else {
             LOG.warn("Size is null, should be debugged... i=" + i + " grid=" + grid, new RuntimeException());
           }

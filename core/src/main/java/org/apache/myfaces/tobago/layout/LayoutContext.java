@@ -78,9 +78,9 @@ public class LayoutContext {
     buffer.append(component.getClass().getSimpleName());
     if (component instanceof LayoutBase) {
       buffer.append("(");
-      buffer.append(((LayoutBase) component).getWidth());
+      buffer.append(((LayoutBase) component).getCurrentWidth());
       buffer.append(", ");
-      buffer.append(((LayoutBase) component).getHeight());
+      buffer.append(((LayoutBase) component).getCurrentHeight());
       buffer.append(")");
     }
     if (component instanceof LayoutContainer) {

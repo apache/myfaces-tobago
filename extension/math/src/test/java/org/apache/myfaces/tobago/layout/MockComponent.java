@@ -30,6 +30,9 @@ public class MockComponent extends UIComponentBase implements LayoutComponent {
   private Measure width;
   private Measure height;
 
+  private Measure currentWidth;
+  private Measure currentHeight;
+
   private Measure minimumWidth;
   private Measure minimumHeight;
 
@@ -83,6 +86,22 @@ public class MockComponent extends UIComponentBase implements LayoutComponent {
 
   public void setHeight(Measure height) {
     this.height = height;
+  }
+
+  public Measure getCurrentWidth() {
+    return currentWidth;
+  }
+
+  public void setCurrentWidth(Measure currentWidth) {
+    this.currentWidth = currentWidth;
+  }
+
+  public Measure getCurrentHeight() {
+    return currentHeight;
+  }
+
+  public void setCurrentHeight(Measure currentHeight) {
+    this.currentHeight = currentHeight;
   }
 
   public Measure getMinimumWidth() {

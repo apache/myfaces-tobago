@@ -94,7 +94,7 @@ public abstract class AbstractUISheetLayout extends UILayout implements LayoutMa
         || orientation == Orientation.VERTICAL && !verticalAuto) {
       // find rest
       LayoutContainer container = getLayoutContainer();
-      Measure available = LayoutUtils.getSize(orientation, container);
+      Measure available = LayoutUtils.getCurrentSize(orientation, container);
       if (available != null) {
         available = available.subtractNotNegative(LayoutUtils.getBeginOffset(orientation, container));
         available = available.subtractNotNegative(LayoutUtils.getEndOffset(orientation, container));

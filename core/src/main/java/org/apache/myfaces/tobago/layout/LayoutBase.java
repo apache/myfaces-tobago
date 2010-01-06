@@ -30,6 +30,12 @@ public interface LayoutBase extends Configurable {
   Measure getHeight();
   void setHeight(Measure height);
 
+  Measure getCurrentWidth();
+  void setCurrentWidth(Measure width);
+
+  Measure getCurrentHeight();
+  void setCurrentHeight(Measure height);
+
   Measure getMinimumWidth();
   void setMinimumWidth(Measure minimumWidth);
 

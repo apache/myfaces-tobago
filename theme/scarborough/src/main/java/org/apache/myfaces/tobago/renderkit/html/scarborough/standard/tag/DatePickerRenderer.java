@@ -263,7 +263,7 @@ public class DatePickerRenderer extends LinkRenderer {
     UIComponent timePanel = box.findComponent("timePanel");
     if (converterPattern != null && (converterPattern.indexOf('h') > -1 || converterPattern.indexOf('H') > -1)) {
       UITime time = (UITime) timePanel.findComponent("time");
-      Measure popupHeight = popup.getHeight();
+      Measure popupHeight = popup.getCurrentHeight();
       popupHeight = popupHeight.add(getResourceManager().getThemeMeasure(facesContext, time, "preferredHeight"));
       popup.setHeight(popupHeight);
       DateTimeConverter dateTimeConverter

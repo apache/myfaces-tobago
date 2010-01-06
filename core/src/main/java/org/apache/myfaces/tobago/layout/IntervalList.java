@@ -29,11 +29,11 @@ public class IntervalList extends ArrayList<Interval> {
 
   public Measure computeAuto() {
     Measure auto;
-    List<Measure> fixedList = collectFixed();
+    List<Measure> currentList = collectCurrent();
     List<Measure> minimumList = collectMinimum();
     List<Measure> maximumList = collectMaximum();
-    if (!fixedList.isEmpty()) {
-      auto = max(max(minimumList), max(fixedList));
+    if (!currentList.isEmpty()) {
+      auto = max(max(minimumList), max(currentList));
     } else {
       Measure maximumOfMinimumList = max(minimumList);
       Measure minimumOfMaximumList = min(maximumList);
@@ -41,7 +41,7 @@ public class IntervalList extends ArrayList<Interval> {
         LOG.warn("!");
         auto = maximumOfMinimumList;
       } else {
-        List preferredInInterval = findPreferredInInterval(maximumOfMinimumList, minimumOfMaximumList);
+        List<Measure> preferredInInterval = findPreferredInInterval(maximumOfMinimumList, minimumOfMaximumList);
         if (!preferredInInterval.isEmpty()) {
           auto = max(preferredInInterval);
         } else {
@@ -53,11 +53,11 @@ public class IntervalList extends ArrayList<Interval> {
     return auto;
   }
 
-  private List<Measure> collectFixed() {
+  private List<Measure> collectCurrent() {
     List<Measure> result = new ArrayList<Measure>();
     for (Interval interval : this) {
-      if (interval.getFixed() != null) {
-        result.add(interval.getFixed());
+      if (interval.getCurrent() != null) {
+        result.add(interval.getCurrent());
       }
     }
     return result;
