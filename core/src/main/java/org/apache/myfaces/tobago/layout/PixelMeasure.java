@@ -27,49 +27,62 @@ public final class PixelMeasure extends Measure {
 
   private static final Log LOG = LogFactory.getLog(PixelMeasure.class);
 
+  static final Measure[] PIXEL_CACHE;
+  static final int PIXEL_CACHE_MAX = 4000;
+  
+  static {
+    PIXEL_CACHE = new Measure[PIXEL_CACHE_MAX + 1];
+    for (int i = 0; i < PIXEL_CACHE.length; i++) {
+      PIXEL_CACHE[i] = new PixelMeasure(i);
+    }
+  }
+  
   private final int pixel;
 
-  public PixelMeasure(int pixel) {
+  private PixelMeasure(int pixel) {
     this.pixel = pixel;
   }
 
-  public PixelMeasure(Measure measure) {
-    this.pixel = measure.getPixel();
+  static Measure pixelValueOf(int value) {
+    if (value <= PixelMeasure.PIXEL_CACHE_MAX) {
+      return PixelMeasure.PIXEL_CACHE[value];
+    }
+    return new PixelMeasure(value);
   }
-
+  
   public Measure add(Measure m) {
-    return new PixelMeasure(pixel + m.getPixel());
+    return pixelValueOf(pixel + m.getPixel());
   }
 
   public Measure add(int m) {
-    return new PixelMeasure(pixel + m);
+    return pixelValueOf(pixel + m);
   }
 
   public Measure multiply(int times) {
-    return new PixelMeasure(pixel * times);
+    return pixelValueOf(pixel * times);
   }
 
   public Measure subtractNotNegative(Measure m) {
     if (m == null) {
-      return new PixelMeasure(this);
+      return this;
     } else if (m.getPixel() > pixel) {
       LOG.warn("Not enough space! value=" + pixel);
       return ZERO;
     } else {
-      return new PixelMeasure(pixel - m.getPixel());
+      return pixelValueOf(pixel - m.getPixel());
     }
   }
 
   public Measure subtract(Measure m) {
     if (m == null) {
-      return new PixelMeasure(this);
+      return this;
     } else {
-      return new PixelMeasure(pixel - m.getPixel());
+      return pixelValueOf(pixel - m.getPixel());
     }
   }
 
   public Measure subtract(int m) {
-      return new PixelMeasure(pixel - m);
+      return pixelValueOf(pixel - m);
   }
 
   public int getPixel() {

@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.layout.math;
 
 import org.apache.myfaces.tobago.internal.layout.MathUtils;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -64,7 +63,7 @@ public class PartitionEquationUnitTest {
   }
   
   private Measure px(int pixel) {
-    return new PixelMeasure(pixel);
+    return Measure.valueOf(pixel);
   }
   
 }

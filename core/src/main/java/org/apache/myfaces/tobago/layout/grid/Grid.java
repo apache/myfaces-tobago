@@ -21,8 +21,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Orientation;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,8 +39,8 @@ public class Grid {
   private List<Cell> cells;
   private LayoutTokens columns;
   private LayoutTokens rows;
-  private PixelMeasure[] widths;
-  private PixelMeasure[] heights;
+  private Measure[] widths;
+  private Measure[] heights;
 
   private List<Integer> errorIndexes;
 
@@ -61,8 +61,8 @@ public class Grid {
       this.cells.add(null);
     }
 
-    widths = new PixelMeasure[columns.getSize()];
-    heights = new PixelMeasure[rows.getSize()];
+    widths = new Measure[columns.getSize()];
+    heights = new Measure[rows.getSize()];
   }
 
   public void add(OriginCell cell, int columnSpan, int rowSpan) {
@@ -163,8 +163,8 @@ public class Grid {
       rows.addToken(AutoLayoutToken.INSTANCE);
     }
 
-    PixelMeasure[] oldHeights = heights;
-    heights = new PixelMeasure[heights.length + newRows];
+    Measure[] oldHeights = heights;
+    heights = new Measure[heights.length + newRows];
     System.arraycopy(oldHeights, 0, heights, 0, oldHeights.length);
   }
 
@@ -471,15 +471,15 @@ public class Grid {
     this.verticalIndices = verticalIndices;
   }
 
-  public PixelMeasure[] getSizes(Orientation orientation) {
+  public Measure[] getSizes(Orientation orientation) {
     return orientation == Orientation.HORIZONTAL ? getWidths() : getHeights();
   }
 
-  public PixelMeasure[] getWidths() {
+  public Measure[] getWidths() {
     return widths;
   }
 
-  public PixelMeasure[] getHeights() {
+  public Measure[] getHeights() {
     return heights;
   }
 }

@@ -226,13 +226,13 @@ public class ResourceManagerImpl implements ResourceManager {
       List properties = getPaths(clientKey, "", PROPERTY, "tobago-theme-config", "",
           false, true, false, rendererType + "." + name, true, true);
       if (properties != null) {
-        Measure measure = Measure.parse(properties.get(0));
+        Measure measure = Measure.valueOf(properties.get(0));
 
         for (String m : markup) {
           List mProperties = getPaths(clientKey, "", PROPERTY, "tobago-theme-config", "",
               false, true, false, rendererType + "[" + m + "]" + "." + name, true, true);
           if (mProperties != null) {
-            measure.add(Measure.parse(mProperties.get(0)));
+            measure.add(Measure.valueOf(mProperties.get(0)));
           }
         }
 

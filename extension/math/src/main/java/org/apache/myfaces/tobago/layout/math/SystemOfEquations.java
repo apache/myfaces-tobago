@@ -21,7 +21,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.internal.layout.MathUtils;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -246,7 +245,7 @@ public class SystemOfEquations {
     Measure[] result = new Measure[numberOfVariables];
     for (int i = 0; i < numberOfVariables; i++) {
       assert MathUtils.isInteger(data[i][numberOfVariables]);
-      result[i] = new PixelMeasure((int) Math.round(data[i][numberOfVariables]));
+      result[i] = Measure.valueOf((int) Math.round(data[i][numberOfVariables]));
     }
     return result;
   }

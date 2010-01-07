@@ -44,7 +44,6 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.MethodBindingToMethodExpression;
 import org.apache.myfaces.tobago.component.MethodExpressionToMethodBinding;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.SpacingValues;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
 import javax.el.ELException;
@@ -424,16 +423,7 @@ public <property.type> get<property.upperCamelCaseName>() {
   if (ve != null) {
     try {
       Object object = <getValue(property)>
-      if (object instanceof Measure) {
-        Measure <property.propertyName> = (Measure) object;
-        return <property.propertyName>;
-      } else if (object instanceof Number) {
-        return new PixelMeasure(((Number)object).intValue());
-      } else if (object instanceof String) {
-        return Measure.parse((String)object);
-      } else if (object != null) {
-        return Measure.parse(object.toString());
-      }
+      return Measure.valueOf(object);
     } catch (ELException e) {
 		  throw new FacesException(e);
 	  }

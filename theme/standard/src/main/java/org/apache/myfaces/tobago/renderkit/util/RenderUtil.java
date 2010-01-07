@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.RangeParser;
@@ -220,7 +219,7 @@ public class RenderUtil {
       width += charWidth;
     }
 
-    return new PixelMeasure(width);
+    return Measure.valueOf(width);
   }
 
   public static List<SelectItem> getItemsToRender(javax.faces.component.UISelectOne component) {

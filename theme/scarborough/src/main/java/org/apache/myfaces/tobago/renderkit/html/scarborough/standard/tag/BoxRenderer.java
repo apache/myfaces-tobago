@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -79,7 +78,7 @@ public class BoxRenderer extends BoxRendererBase {
       writer.endElement(HtmlConstants.DIV);
       writer.endElement(HtmlConstants.DIV);
       if (VariableResolverUtil.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
-        innerStyle.setTop(new PixelMeasure(-10));
+        innerStyle.setTop(Measure.valueOf(-10));
       }
     }
     writer.startElement(HtmlConstants.DIV, box);

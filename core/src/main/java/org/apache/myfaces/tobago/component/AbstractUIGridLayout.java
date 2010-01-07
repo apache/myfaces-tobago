@@ -33,7 +33,6 @@ import org.apache.myfaces.tobago.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.layout.PixelLayoutToken;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.layout.grid.Cell;
 import org.apache.myfaces.tobago.layout.grid.Grid;
@@ -101,7 +100,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
 
       if (token instanceof PixelLayoutToken) {
         int pixel = ((PixelLayoutToken) token).getPixel();
-        grid.getSizes(orientation)[i] = new PixelMeasure(pixel); // XXX refactor
+        grid.getSizes(orientation)[i] = Measure.valueOf(pixel); // XXX refactor
       }
 
       IntervalList intervals = new IntervalList();
@@ -126,7 +125,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
       }
       if (intervals.size() >= 1) {
         Measure auto = intervals.computeAuto();
-        grid.getSizes(orientation)[i] = (PixelMeasure) auto;
+        grid.getSizes(orientation)[i] = auto;
       }
 // todo: what when we cannot find a good value for "auto"?
       i++;
@@ -134,7 +133,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
 
     // set the size if all sizes are set
     Measure size = Measure.ZERO;
-    PixelMeasure[] sizes = grid.getSizes(orientation);
+    Measure[] sizes = grid.getSizes(orientation);
     for (int j = 0; j < sizes.length; j++) {
       if (sizes[j] == null) {
         size = null; // set to invalid
@@ -166,11 +165,10 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
       LayoutContainer container = getLayoutContainer();
       Measure available = LayoutUtils.getCurrentSize(orientation, container);
       if (available != null) {
-        for (PixelMeasure value : grid.getSizes(orientation)) {
+        for (Measure value : grid.getSizes(orientation)) {
           available = available.subtractNotNegative(value);
         }
-        PixelMeasure spacing = new PixelMeasure(
-            getSpacing(orientation).getPixel() * (grid.getSizes(orientation).length - 1));
+        Measure spacing = getSpacing(orientation).multiply(grid.getSizes(orientation).length - 1);
         available = available.subtractNotNegative(spacing);
 
         available = available.subtractNotNegative(LayoutUtils.getBeginOffset(orientation, container));
@@ -183,7 +181,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
         int j = 0;
         for (LayoutToken token : grid.getTokens(orientation)) {
           if (token instanceof RelativeLayoutToken) {
-            grid.getSizes(orientation)[i] = (PixelMeasure) partition.get(j);
+            grid.getSizes(orientation)[i] = partition.get(j);
             j++;
           }
           i++;
@@ -203,7 +201,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
           component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
 
           Integer span = ((OriginCell) cell).getSpan(orientation);
-          PixelMeasure[] pixelMeasures = grid.getSizes(orientation);
+          Measure[] pixelMeasures = grid.getSizes(orientation);
 
           // compute the size of the cell
           Measure size = pixelMeasures[i];
@@ -237,7 +235,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
 
           component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
 
-          PixelMeasure[] pixelMeasures = grid.getSizes(orientation);
+          Measure[] pixelMeasures = grid.getSizes(orientation);
 
           // compute the position of the cell
           Measure position = LayoutUtils.getBeginOffset(orientation, getLayoutContainer());

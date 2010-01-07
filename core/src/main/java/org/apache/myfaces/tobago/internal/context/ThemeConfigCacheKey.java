@@ -33,7 +33,7 @@ public final class ThemeConfigCacheKey {
       ClientPropertiesKey clientPropertiesKey, String rendererType, String[] markup, String name) {
     this.clientPropertiesKey = clientPropertiesKey;
     this.rendererType = rendererType;
-    this.markup = (String[]) ArrayUtils.clone(markup);
+    this.markup = (String[]) ArrayUtils.clone(markup); // todo: copy ref and don't clone when markup is unmodifiable
     this.name = name;
     hashCode = calcHashCode();
   }

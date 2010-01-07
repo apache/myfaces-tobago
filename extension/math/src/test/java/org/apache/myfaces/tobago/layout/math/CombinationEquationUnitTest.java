@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.layout.math;
 
 import org.apache.myfaces.tobago.internal.layout.MathUtils;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -36,11 +35,11 @@ public class CombinationEquationUnitTest {
         new CombinationEquation(4, 0, 3, Measure.ZERO, null, "test").toString());
 
     Assert.assertEquals("CombinationEquation:  x_0 = x_4 (test)",
-        new CombinationEquation(4, 0, 1, new PixelMeasure(5), null, "test").toString());
+        new CombinationEquation(4, 0, 1, px(5), null, "test").toString());
     Assert.assertEquals("CombinationEquation:  x_0 + x_1 + 5px = x_4 (test)",
-        new CombinationEquation(4, 0, 2, new PixelMeasure(5), null, "test").toString());
+        new CombinationEquation(4, 0, 2, px(5), null, "test").toString());
     Assert.assertEquals("CombinationEquation:  x_0 + ... + x_2 + 2 * 5px = x_4 (test)",
-        new CombinationEquation(4, 0, 3, new PixelMeasure(5), null, "test").toString());
+        new CombinationEquation(4, 0, 3, px(5), null, "test").toString());
   }
 
   @Test
@@ -55,12 +54,16 @@ public class CombinationEquationUnitTest {
     row = new CombinationEquation(4, 0, 3, Measure.ZERO, null, "test").fillRow(length);
     Assert.assertArrayEquals(new double[] {-1, -1, -1, 0, 1, 0, 0, 0}, row, MathUtils.EPSILON);
 
-    row = new CombinationEquation(4, 0, 1, new PixelMeasure(5), null, "test").fillRow(length);
+    row = new CombinationEquation(4, 0, 1, px(5), null, "test").fillRow(length);
     Assert.assertArrayEquals(new double[] {-1, 0, 0, 0, 1, 0, 0, 0}, row, MathUtils.EPSILON);
-    row = new CombinationEquation(4, 0, 2, new PixelMeasure(5), null, "test").fillRow(length);
+    row = new CombinationEquation(4, 0, 2, px(5), null, "test").fillRow(length);
     Assert.assertArrayEquals(new double[] {-1, -1, 0, 0, 1, 0, 0, 5}, row, MathUtils.EPSILON);
-    row = new CombinationEquation(4, 0, 3, new PixelMeasure(5), null, "test").fillRow(length);
+    row = new CombinationEquation(4, 0, 3, px(5), null, "test").fillRow(length);
     Assert.assertArrayEquals(new double[] {-1, -1, -1, 0, 1, 0, 0, 10}, row, MathUtils.EPSILON);
   }
 
+  private Measure px(int pixel) {
+    return Measure.valueOf(pixel);
+  }
+  
 }

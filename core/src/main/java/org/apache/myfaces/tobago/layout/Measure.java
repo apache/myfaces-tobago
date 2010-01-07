@@ -22,6 +22,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.io.Serializable;
+import java.util.List;
 
 public abstract class Measure implements Serializable {
 
@@ -29,32 +30,73 @@ public abstract class Measure implements Serializable {
 
   private static final Log LOG = LogFactory.getLog(Measure.class);
 
-  public static final Measure ZERO = new PixelMeasure(0);
+  public static final Measure ZERO = valueOf(0);
+  public static final Measure MAX = valueOf(Integer.MAX_VALUE);
 
   // todo: refactor and consolidate with LayoutToken
-
-  public static Measure parse(Object object) {
-    if (object == null) {
+  
+  public static Measure valueOf(Measure value) {
+    if (value == null) {
       return ZERO;
     }
-    if (object instanceof Measure) {
-      return (Measure) object;
+    return value;
+  }
+
+  public static Measure valueOf(int value) {
+    return PixelMeasure.pixelValueOf(value);
+  }
+
+  public static Measure valueOf(Integer value) {
+    if (value == null) {
+      return ZERO;
     }
-    if (object instanceof Number) {
-      return new PixelMeasure(((Number) object).intValue());
+    return valueOf(value.intValue());
+  }
+
+  public static Measure valueOf(Number value) {
+    if (value == null) {
+      return ZERO;
     }
-    String value = object instanceof String ? (String) object : object.toString();
-    
+    return valueOf(value.intValue());
+  }
+
+  public static Measure valueOf(String value) {
     if (StringUtils.isEmpty(value)) {
       return ZERO;
     }
-    if (value.toLowerCase().matches("\\d+px")) {// XXX no regexp here: user LayoutTokens.parse !!!
-      return new PixelMeasure(Integer.parseInt(value.substring(0, value.length() - 2)));
+    try {
+      if (value.endsWith("px")) {
+        return Measure.valueOf(Integer.parseInt(value.substring(0, value.length() - 2)));
+      }
+      return Measure.valueOf(Integer.parseInt(value));
+
+    } catch (NumberFormatException e) {
+      throw new IllegalArgumentException("Can't parse to any measure: '" + value + "'", e);
     }
-    if (value.matches("\\d+")) {// XXX no regexp here: user LayoutTokens.parse !!!
-      return new PixelMeasure(Integer.parseInt(value));
+  }
+
+  public static Measure valueOf(Object object) {
+    if (object instanceof Measure) {
+      return valueOf((Measure) object);
     }
-    throw new IllegalArgumentException("Can't parse to any measure: '" + value + "'");
+    if (object instanceof Number) {
+      return valueOf((Number) object);
+    }
+    if (object instanceof String) {
+      return valueOf((String) object);
+    }
+    if (object == null) {
+      return ZERO;
+    }
+    return valueOf(object.toString());
+  }
+
+  /**
+   * @deprecated since 1.5.0, please use valueOf()
+   */
+  @Deprecated
+  public static Measure parse(String value) {
+    return valueOf(value);
   }
 
   public abstract Measure add(Measure m);
@@ -74,17 +116,60 @@ public abstract class Measure implements Serializable {
   public abstract Measure subtractNotNegative(Measure m);
 
   public abstract Measure subtract(Measure m);
-  
+
   public abstract Measure subtract(int m);
 
   public boolean greaterThan(Measure measure) {
     return measure != null && getPixel() > measure.getPixel();
   }
 
+  public boolean greaterOrEqualThan(Measure measure) {
+    return measure != null && getPixel() >= measure.getPixel();
+  }
+
   public boolean lessThan(Measure measure) {
     return measure != null && getPixel() < measure.getPixel();
   }
 
+  public boolean lessOrEqualThan(Measure measure) {
+    return measure != null && getPixel() <= measure.getPixel();
+  }
+
   public abstract int getPixel();
 
+  public static Measure max(List<Measure> list) {
+    Measure max = ZERO;
+    for (Measure measure : list) {
+      if (measure.greaterThan(max)) {
+        max = measure;
+      }
+    }
+    return max;
+  }
+
+  public static Measure min(List<Measure> list) {
+    Measure min = MAX;
+    for (Measure measure : list) {
+      if (measure.lessThan(min)) {
+        min = measure;
+      }
+    }
+    return min;
+  }
+
+  public static Measure max(Measure m1, Measure m2) {
+    if (m1.greaterThan(m2)) {
+      return m1;
+    } else {
+      return m2;
+    }
+  }
+
+  public static Measure min(Measure m1, Measure m2) {
+    if (m1.lessThan(m2)) {
+      return m1;
+    } else {
+      return m2;
+    }
+  }
 }

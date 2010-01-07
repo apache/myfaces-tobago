@@ -46,7 +46,7 @@ public class FactorList extends ArrayList<Integer> {
     MathUtils.adjustRemainders(doubles, 0.0);
 
     for (double value : doubles) {
-      result.add(new PixelMeasure((int) value));
+      result.add(Measure.valueOf((int) value));
     }
 
     return result;

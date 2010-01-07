@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.layout.PixelLayoutToken;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.layout.grid.Cell;
 import org.apache.myfaces.tobago.layout.grid.Grid;
@@ -214,7 +213,7 @@ public abstract class AbstractUIEquationGridLayout extends UILayout
     for (int i = 0; i < columnTokens.getSize(); i++) {
       LayoutToken layoutToken = columnTokens.get(i);
       if (layoutToken instanceof PixelLayoutToken) {
-        Measure pixel = new PixelMeasure(((PixelLayoutToken) layoutToken).getPixel());
+        Measure pixel = Measure.valueOf(((PixelLayoutToken) layoutToken).getPixel());
         layoutContext.getHorizontal().setFixedLength(i + horizontalIndexOffset, pixel, this);
       }
     }
@@ -224,7 +223,7 @@ public abstract class AbstractUIEquationGridLayout extends UILayout
       LayoutToken layoutToken = rowTokens.get(i);
       if (layoutToken instanceof PixelLayoutToken) {
         // XXX PixelLayoutToken might be removed/changed
-        Measure pixel = new PixelMeasure(((PixelLayoutToken) layoutToken).getPixel());
+        Measure pixel = Measure.valueOf(((PixelLayoutToken) layoutToken).getPixel());
         layoutContext.getVertical().setFixedLength(i + verticalIndexOffset, pixel, this);
       }
     }

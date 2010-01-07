@@ -189,6 +189,6 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
   }
 
   private Measure px(int pixel) {
-    return new PixelMeasure(pixel);
+    return Measure.valueOf(pixel);
   }
 }

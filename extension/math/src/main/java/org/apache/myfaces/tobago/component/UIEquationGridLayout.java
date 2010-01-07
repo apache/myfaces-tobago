@@ -68,7 +68,7 @@ public class UIEquationGridLayout
           Measure cellspacing = (Measure) object;
           return cellspacing;
         } else if (object instanceof Number) {
-          return new org.apache.myfaces.tobago.layout.PixelMeasure(((Number)object).intValue());
+          return Measure.valueOf(((Number)object).intValue());
         } else if (object instanceof String) {
           return Measure.parse((String)object);
         } else if (object != null) {
@@ -97,7 +97,7 @@ public class UIEquationGridLayout
           Measure columnSpacing = (Measure) object;
           return columnSpacing;
         } else if (object instanceof Number) {
-          return new org.apache.myfaces.tobago.layout.PixelMeasure(((Number)object).intValue());
+          return Measure.valueOf(((Number)object).intValue());
         } else if (object instanceof String) {
           return Measure.parse((String)object);
         } else if (object != null) {
@@ -128,7 +128,7 @@ public class UIEquationGridLayout
           Measure rowSpacing = (Measure) object;
           return rowSpacing;
         } else if (object instanceof Number) {
-          return new org.apache.myfaces.tobago.layout.PixelMeasure(((Number)object).intValue());
+          return Measure.valueOf(((Number)object).intValue());
         } else if (object instanceof String) {
           return Measure.parse((String)object);
         } else if (object != null) {

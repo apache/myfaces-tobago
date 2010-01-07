@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.component.AbstractUINumberSlider;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -95,7 +95,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(styleClasses);
 
     Style widthStyle = new Style();
-    widthStyle.setWidth(new PixelMeasure(sliderWidth / 2));
+    widthStyle.setWidth(Measure.valueOf(sliderWidth / 2));
     writer.writeStyleAttribute(widthStyle);
     writer.startElement(HtmlConstants.SPAN, null);
     writer.writeClassAttribute(styleClasses);
@@ -122,7 +122,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeClassAttribute("tobago-in-default");
-    widthStyle.setWidth(new PixelMeasure(inputWidth));
+    widthStyle.setWidth(Measure.valueOf(inputWidth));
     writer.writeStyleAttribute(widthStyle);
     String inputIdAndName = getIdForInputField(facesContext, slider);
     writer.writeNameAttribute(inputIdAndName);
@@ -151,9 +151,9 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     writer.writeIdAttribute(getIdForSliderHandle(facesContext, slider));
     Style handleStyle = new Style();
     handleStyle.setPosition(Position.RELATIVE);
-    handleStyle.setTop(new PixelMeasure(-6));
-    handleStyle.setWidth(new PixelMeasure(12));
-    handleStyle.setHeight(new PixelMeasure(6));
+    handleStyle.setTop(Measure.valueOf(-6));
+    handleStyle.setWidth(Measure.valueOf(12));
+    handleStyle.setHeight(Measure.valueOf(6));
     writer.writeStyleAttribute(handleStyle); // todo: why not do that via the class?
     writer.startElement(HtmlConstants.IMG, null);
     writer.writeAttribute(HtmlAttributes.SRC, getAbsoluteImagePath(facesContext, "image/sliderTriangle.gif"), true);

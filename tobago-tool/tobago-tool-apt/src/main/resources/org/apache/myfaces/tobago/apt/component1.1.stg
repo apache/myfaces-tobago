@@ -42,7 +42,6 @@ package <componentInfo.packageName>;
 <componentInfo.imports:import(); separator="\n">
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
 import org.apache.myfaces.tobago.renderkit.SpacingValues;
 import java.util.ArrayList;
@@ -467,16 +466,7 @@ public Measure get<property.upperCamelCaseName>() {
   <getValueExpression(property)>
   if (vb != null) {
     Object object = <getValue(property)>
-    if (object instanceof Measure) {
-      Measure <property.propertyName> = (Measure) object;
-      return <property.propertyName>;
-    } else if (object instanceof Number) {
-      return new PixelMeasure(((Number)object).intValue());
-    } else if (object instanceof String) {
-      return Measure.parse((String)object);
-    } else if (object != null) {
-      return Measure.parse(object.toString());
-    }
+    return Measure.valueOf(object);
   }
   <if(property.defaultCode)>
   return <property.defaultCode>;

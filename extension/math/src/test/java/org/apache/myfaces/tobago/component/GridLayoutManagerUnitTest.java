@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.layout.EquationLayoutContext;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.MockComponent;
 import org.apache.myfaces.tobago.layout.MockContainer;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -59,8 +58,8 @@ public class GridLayoutManagerUnitTest {
     manager.setParent(container);
     container.setLayoutManager(manager);
 
-    container.setWidth(new PixelMeasure(300));
-    container.setHeight(new PixelMeasure(20));
+    container.setWidth(px(300));
+    container.setHeight(px(20));
     container.setLeftOffset(Measure.ZERO);
     container.setTopOffset(Measure.ZERO);
     container.setRightOffset(Measure.ZERO);
@@ -71,13 +70,13 @@ public class GridLayoutManagerUnitTest {
     Measure[] result = layoutContext.getHorizontal().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(300), new PixelMeasure(100), new PixelMeasure(200), Measure.ZERO,
-        new PixelMeasure(100), new PixelMeasure(200)}, result);
+        px(300), px(100), px(200), Measure.ZERO,
+        px(100), px(200)}, result);
 
     result = layoutContext.getVertical().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(20), new PixelMeasure(20), Measure.ZERO, new PixelMeasure(20), new PixelMeasure(20)},
+        px(20), px(20), Measure.ZERO, px(20), px(20)},
         result);
 
     Assert.assertEquals("width of container", 300, container.getWidth().getPixel());
@@ -116,21 +115,21 @@ public class GridLayoutManagerUnitTest {
     manager.setParent(container);
     container.setLayoutManager(manager);
 
-    container.setWidth(new PixelMeasure(300));
-    container.setHeight(new PixelMeasure(20));
+    container.setWidth(px(300));
+    container.setHeight(px(20));
     EquationLayoutContext layoutContext = new EquationLayoutContext(container);
     layoutContext.layout();
 
     Measure[] result = layoutContext.getHorizontal().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(300), new PixelMeasure(100), new PixelMeasure(100), new PixelMeasure(100), Measure.ZERO,
-        new PixelMeasure(100), new PixelMeasure(200)}, result);
+        px(300), px(100), px(100), px(100), Measure.ZERO,
+        px(100), px(200)}, result);
 
     result = layoutContext.getVertical().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(20), new PixelMeasure(20), Measure.ZERO, new PixelMeasure(20), new PixelMeasure(20)},
+        px(20), px(20), Measure.ZERO, px(20), px(20)},
         result);
 
     Assert.assertEquals("width of container", 300, container.getWidth().getPixel());
@@ -193,8 +192,8 @@ public class GridLayoutManagerUnitTest {
     subContainer.setRightOffset(Measure.ZERO);
     subContainer.setBottomOffset(Measure.ZERO);
 
-    container.setWidth(new PixelMeasure(800));
-    container.setHeight(new PixelMeasure(800));
+    container.setWidth(px(800));
+    container.setHeight(px(800));
     container.setLeftOffset(Measure.ZERO);
     container.setTopOffset(Measure.ZERO);
     container.setRightOffset(Measure.ZERO);
@@ -205,22 +204,22 @@ public class GridLayoutManagerUnitTest {
     Measure[] result = layoutContext.getHorizontal().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(800), new PixelMeasure(100), new PixelMeasure(200), new PixelMeasure(500), Measure.ZERO,
-        new PixelMeasure(100), new PixelMeasure(700), new PixelMeasure(100), new PixelMeasure(200),
-        new PixelMeasure(500), new PixelMeasure(350), new PixelMeasure(150), Measure.ZERO, new PixelMeasure(350),
-        new PixelMeasure(150), new PixelMeasure(350), new PixelMeasure(150)
+        px(800), px(100), px(200), px(500), Measure.ZERO,
+        px(100), px(700), px(100), px(200),
+        px(500), px(350), px(150), Measure.ZERO, px(350),
+        px(150), px(350), px(150)
     }, result);
 
 
     result = layoutContext.getVertical().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(800), new PixelMeasure(200), new PixelMeasure(600), Measure.ZERO,
-        new PixelMeasure(200), new PixelMeasure(200),
-        new PixelMeasure(600), new PixelMeasure(600), new PixelMeasure(600),
-        new PixelMeasure(300), new PixelMeasure(300), Measure.ZERO,
-        new PixelMeasure(300), new PixelMeasure(300),
-        new PixelMeasure(300), new PixelMeasure(300)
+        px(800), px(200), px(600), Measure.ZERO,
+        px(200), px(200),
+        px(600), px(600), px(600),
+        px(300), px(300), Measure.ZERO,
+        px(300), px(300),
+        px(300), px(300)
     }, result);
 
     Assert.assertEquals("width of container", 800, container.getWidth().getPixel());
@@ -274,8 +273,8 @@ public class GridLayoutManagerUnitTest {
     manager3.setParent(span2);
     span2.setLayoutManager(manager3);
 
-    container.setWidth(new PixelMeasure(900));
-    container.setHeight(new PixelMeasure(200));
+    container.setWidth(px(900));
+    container.setHeight(px(200));
     container.setLeftOffset(Measure.ZERO);
     container.setTopOffset(Measure.ZERO);
     container.setRightOffset(Measure.ZERO);
@@ -288,18 +287,18 @@ public class GridLayoutManagerUnitTest {
     Measure[] result = layoutContext.getHorizontal().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(900), new PixelMeasure(300), new PixelMeasure(300), new PixelMeasure(300), Measure.ZERO,
-        new PixelMeasure(300), new PixelMeasure(600), new PixelMeasure(200), new PixelMeasure(200),
-        new PixelMeasure(200), Measure.ZERO, new PixelMeasure(600), new PixelMeasure(200), new PixelMeasure(200),
-        new PixelMeasure(200), Measure.ZERO, new PixelMeasure(300)
+        px(900), px(300), px(300), px(300), Measure.ZERO,
+        px(300), px(600), px(200), px(200),
+        px(200), Measure.ZERO, px(600), px(200), px(200),
+        px(200), Measure.ZERO, px(300)
     }, result);
 
     result = layoutContext.getVertical().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(200), new PixelMeasure(100), new PixelMeasure(100), Measure.ZERO,
-        new PixelMeasure(100), new PixelMeasure(100), new PixelMeasure(100), Measure.ZERO,
-        new PixelMeasure(100), new PixelMeasure(100), Measure.ZERO, new PixelMeasure(100)},
+        px(200), px(100), px(100), Measure.ZERO,
+        px(100), px(100), px(100), Measure.ZERO,
+        px(100), px(100), Measure.ZERO, px(100)},
         result);
 
     Assert.assertEquals("width of container", 900, container.getWidth().getPixel());
@@ -342,8 +341,8 @@ public class GridLayoutManagerUnitTest {
     manager.setParent(container);
     container.setLayoutManager(manager);
 
-    container.setWidth(new PixelMeasure(800));
-    container.setHeight(new PixelMeasure(800));
+    container.setWidth(px(800));
+    container.setHeight(px(800));
     container.setLeftOffset(Measure.ZERO);
     container.setTopOffset(Measure.ZERO);
     container.setRightOffset(Measure.ZERO);
@@ -354,15 +353,15 @@ public class GridLayoutManagerUnitTest {
     Measure[] result = layoutContext.getHorizontal().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(800), new PixelMeasure(400), new PixelMeasure(400), Measure.ZERO,
-        new PixelMeasure(400), new PixelMeasure(400), new PixelMeasure(400)}, result);
+        px(800), px(400), px(400), Measure.ZERO,
+        px(400), px(400), px(400)}, result);
 
 
     result = layoutContext.getVertical().getResult();
     LOG.info("result: " + Arrays.toString(result));
     Assert.assertArrayEquals(new Measure[]{
-        new PixelMeasure(800), new PixelMeasure(400), new PixelMeasure(400), Measure.ZERO,
-        new PixelMeasure(800), new PixelMeasure(400), new PixelMeasure(400)}, result);
+        px(800), px(400), px(400), Measure.ZERO,
+        px(800), px(400), px(400)}, result);
 
     Assert.assertEquals("width of container", 800, container.getWidth().getPixel());
     Assert.assertEquals("height of container", 800, container.getHeight().getPixel());
@@ -370,4 +369,8 @@ public class GridLayoutManagerUnitTest {
     Assert.assertEquals("height of span", 800, span.getHeight().getPixel());
   }
 
+  private Measure px(int pixel) {
+    return Measure.valueOf(pixel);
+  }
+  
 }

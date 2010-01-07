@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.example.test;
  */
 
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 
 public class MeasureBean {
 
@@ -39,11 +38,11 @@ public class MeasureBean {
   }
 
   public Measure getMeasureWidth() {
-    return new PixelMeasure(300);
+    return Measure.valueOf(300);
   }
 
   public Measure getMeasureHeight() {
-    return new PixelMeasure(95);
+    return Measure.valueOf(95);
   }
 
   public String getStringWidth() {

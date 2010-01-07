@@ -21,7 +21,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.junit.Assert;
 import org.junit.Test;
@@ -367,7 +366,7 @@ public class SystemOfEquationsUnitTest {
    */
 
   private Measure px(int pixel) {
-    return new PixelMeasure(pixel);
+    return Measure.valueOf(pixel);
   }
 
   private LayoutTokens tokens() {

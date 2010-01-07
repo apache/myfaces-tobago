@@ -42,7 +42,6 @@ import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -188,7 +187,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     if (style.getHeight() == null) {
       // FIXME: nullpointer if height not defined
       LOG.error("no height in parent container, setting to 100");
-      sheetHeight = new PixelMeasure(100);
+      sheetHeight = Measure.valueOf(100);
     } else {
       sheetHeight = style.getHeight();
     }

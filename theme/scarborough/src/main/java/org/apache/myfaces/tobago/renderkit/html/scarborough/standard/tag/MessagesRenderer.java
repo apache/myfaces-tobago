@@ -41,7 +41,6 @@ import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -130,8 +129,8 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
 
     popup.setWidth(page.getCurrentWidth().subtract(200));
     popup.setHeight(page.getCurrentHeight().subtract(200));
-    popup.setLeft(new PixelMeasure(100));
-    popup.setTop(new PixelMeasure(100));
+    popup.setLeft(Measure.valueOf(100));
+    popup.setTop(Measure.valueOf(100));
     popup.setRendered(true);
     popup.setActivated(true);
     ((TobagoFacesContext) facesContext).getPopups().add(popup);

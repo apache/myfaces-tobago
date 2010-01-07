@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.collections.iterators.SingletonIterator;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.PixelMeasure;
+import org.apache.myfaces.tobago.layout.Measure;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -79,7 +79,7 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
     // todo: performance
     int count = createMessageList(facesContext).size();
     // todo: is this okay? to set local values?
-    setPreferredHeight(new PixelMeasure(20 * count));
+    setPreferredHeight(Measure.valueOf(20 * count));
   }
 
   public static class Item {

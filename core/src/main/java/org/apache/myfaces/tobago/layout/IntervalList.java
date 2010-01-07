@@ -33,17 +33,17 @@ public class IntervalList extends ArrayList<Interval> {
     List<Measure> minimumList = collectMinimum();
     List<Measure> maximumList = collectMaximum();
     if (!currentList.isEmpty()) {
-      auto = max(max(minimumList), max(currentList));
+      auto = Measure.max(Measure.max(minimumList), Measure.max(currentList));
     } else {
-      Measure maximumOfMinimumList = max(minimumList);
-      Measure minimumOfMaximumList = min(maximumList);
-      if (maximumOfMinimumList.getPixel() > minimumOfMaximumList.getPixel()) {
+      Measure maximumOfMinimumList = Measure.max(minimumList);
+      Measure minimumOfMaximumList = Measure.min(maximumList);
+      if (maximumOfMinimumList.greaterThan(minimumOfMaximumList)) {
         LOG.warn("!");
         auto = maximumOfMinimumList;
       } else {
         List<Measure> preferredInInterval = findPreferredInInterval(maximumOfMinimumList, minimumOfMaximumList);
         if (!preferredInInterval.isEmpty()) {
-          auto = max(preferredInInterval);
+          auto = Measure.max(preferredInInterval);
         } else {
           auto = maximumOfMinimumList;
         }
@@ -83,39 +83,11 @@ public class IntervalList extends ArrayList<Interval> {
     return result;
   }
 
-  private Measure max(List<Measure> list) {
-    Measure max = Measure.ZERO;
-    for (Measure measure : list) {
-      if (measure.getPixel() > max.getPixel()) {
-        max = measure;
-      }
-    }
-    return max;
-  }
-
-  private Measure min(List<Measure> list) {
-    Measure min = new PixelMeasure(Integer.MAX_VALUE);
-    for (Measure measure : list) {
-      if (measure.getPixel() < min.getPixel()) {
-        min = measure;
-      }
-    }
-    return min;
-  }
-
-  private Measure max(Measure m1, Measure m2) {
-    if (m1.getPixel() > m2.getPixel()) {
-      return m1;
-    } else {
-      return m2;
-    }
-  }
-
   private List<Measure> findPreferredInInterval(Measure min, Measure max) {
     List<Measure> result = new ArrayList<Measure>();
     for (Interval interval : this) {
       Measure preferred = interval.getPreferred();
-      if (preferred != null && preferred.getPixel() >= min.getPixel() && preferred.getPixel() <= max.getPixel()) {
+      if (preferred != null && preferred.greaterOrEqualThan(min) && preferred.lessOrEqualThan(max)) {
         result.add(preferred);
       }
     }
