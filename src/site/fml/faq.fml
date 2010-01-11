@@ -201,7 +201,8 @@
     <faq id="tobago/container">
       <question>In which containers was Tobago tested?</question>
       <answer>
-        <p>Tomcat 5.5, Websphere 6.0, 6.1, Weblogic 8.1, 9.2. Feel free to post your own experiences.</p>
+        <p>Please take a look at the <a href="compatibility.html">Compatibility</a> List.
+        Feel free to post your own experiences.</p>
       </answer>
     </faq>
 
@@ -215,7 +216,7 @@
           If you want to position and size your components automatically, you
           can do this with a Tobago LayoutManager.
           If you want your header and sidebar rendered without writing duplicate
-          code, you may use JSP 2.0 tag files or Tiles/Sitemesh.
+          code, you may use JSP 2.0 tag files, Facelets or Tiles/Sitemesh.
         </p>
       </answer>
     </faq>
