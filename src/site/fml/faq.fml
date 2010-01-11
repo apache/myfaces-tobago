@@ -55,7 +55,8 @@
     <faq id="tobago/RI">
       <question>Does Tobago run with the Sun reference implementation (RI)?</question>
       <answer>
-        <p>Tobago should run with Sun RI and with MyFaces.</p>
+        <p>Tobago runs with Sun RI and with MyFaces.
+        Please take a look at the <a href="compatibility.html">Compatibility</a> List.</p>
       </answer>
     </faq>
     <faq id="tobago/facelets">
@@ -132,7 +133,7 @@
     <faq id="tobago/browser">
       <question>Which web browsers are currently supported by Tobago?</question>
       <answer>
-        <p>Firefox 2 &amp; 3 , IE 6 &amp; 7 (TODO more details)</p>
+        <p>Please take a look at the <a href="compatibility.html">Compatibility</a> List.</p>
       </answer>
     </faq>
 
