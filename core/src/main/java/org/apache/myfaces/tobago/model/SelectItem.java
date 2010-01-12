@@ -17,15 +17,15 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.context.Markup;
 
 public class SelectItem extends javax.faces.model.SelectItem implements SupportsMarkup {
 
   private static final long serialVersionUID = 2582455665060354639L;
 
   private String image;
-  private String[] markup = ArrayUtils.EMPTY_STRING_ARRAY;
+  private Markup markup = Markup.NULL;
 
   public SelectItem() {
     super();
@@ -47,17 +47,26 @@ public class SelectItem extends javax.faces.model.SelectItem implements Supports
     this(value, label, description, false, image);
   }
 
+  /** @deprecated since 1.5.0 */
+  @Deprecated
   public SelectItem(Object value, String label, String description, String image, String[] markup) {
     this(value, label, description, false, image, markup);
   }
 
-  public SelectItem(Object value, String label, String description,
-      boolean disabled, String image) {
-    this(value, label, description, disabled, image, null);
+  public SelectItem(Object value, String label, String description, String image, Markup markup) {
+    this(value, label, description, false, image, markup);
   }
 
-  public SelectItem(Object value, String label, String description,
-      boolean disabled, String image, String[] markup) {
+  public SelectItem(Object value, String label, String description, boolean disabled, String image) {
+    this(value, label, description, disabled, image, Markup.NULL);
+  }
+
+  /** @deprecated since 1.5.0 */
+  public SelectItem(Object value, String label, String description, boolean disabled, String image, String[] markup) {
+    this(value, label, description, disabled, image, Markup.valueOf(markup));
+  }
+
+  public SelectItem(Object value, String label, String description, boolean disabled, String image, Markup markup) {
     super(value, label, description, disabled);
     this.image = image;
     this.markup = markup;
@@ -71,11 +80,11 @@ public class SelectItem extends javax.faces.model.SelectItem implements Supports
     this.image = image;
   }
 
-  public String[] getMarkup() {
+  public Markup getMarkup() {
     return markup;
   }
 
-  public void setMarkup(String[] markup) {
+  public void setMarkup(Markup markup) {
     this.markup = markup;
   }
 }

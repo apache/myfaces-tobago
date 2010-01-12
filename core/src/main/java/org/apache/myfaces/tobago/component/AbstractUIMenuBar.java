@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.component;
  */
 
 import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.context.FacesContext;
@@ -25,9 +26,9 @@ import javax.faces.render.Renderer;
 
 public class AbstractUIMenuBar extends javax.faces.component.UIPanel implements Configurable, OnComponentCreated {
 
-  // todo: may have a markup for menubar, also may be a LayoutComponent/Container
-  public String[] getMarkup() {
-    return new String[0];
+  // todo: may have a markup for menu bar, also may be a LayoutComponent/Container
+  public Markup getMarkup() {
+    return null;
   }
 
   public void onComponentCreated(FacesContext context) {

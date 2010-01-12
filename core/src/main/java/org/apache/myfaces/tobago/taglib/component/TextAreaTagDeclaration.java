@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabelAndAccessKey;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.InputTagDeclaration;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
@@ -41,7 +42,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     rendererType = RendererTypes.TEXT_AREA,
     allowedChildComponenents = "NONE")
 public interface TextAreaTagDeclaration extends HasIdBindingAndRendered,
-    HasConverter, IsReadonly, IsDisabled, IsRequired, HasLabelAndAccessKey, HasTip, InputTagDeclaration {
+    HasConverter, IsReadonly, IsDisabled, IsRequired, HasLabelAndAccessKey, HasTip, HasMarkup, InputTagDeclaration {
 
   /**
    * The row count for this component.
@@ -49,12 +50,4 @@ public interface TextAreaTagDeclaration extends HasIdBindingAndRendered,
   @TagAttribute
   @UIComponentTagAttribute()
   void setRows(String rows);
-
-  /**
-   * Indicate markup of this component.
-   * Possible value is 'none'. But this can be overridden in the theme.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
-  void setMarkup(String markup);
 }

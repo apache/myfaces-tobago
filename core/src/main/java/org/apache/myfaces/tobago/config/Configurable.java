@@ -1,5 +1,7 @@
 package org.apache.myfaces.tobago.config;
 
+import org.apache.myfaces.tobago.context.Markup;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -26,5 +28,5 @@ public interface Configurable {
    */
   String getRendererType();  
   
-  String[] getMarkup();
+  Markup getMarkup();
 }

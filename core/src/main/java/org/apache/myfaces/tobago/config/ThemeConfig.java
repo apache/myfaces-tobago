@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.config;
  * limitations under the License.
  */
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.util.Deprecation;
 
@@ -34,7 +33,7 @@ public class ThemeConfig {
   public static int getValue(FacesContext facesContext, UIComponent component, String name) {
     Deprecation.LOG.warn("please use ThemeConfig.getMeasure()");
     return ResourceManagerFactory.getResourceManager(facesContext).getThemeMeasure(
-        facesContext, component.getRendererType(), ArrayUtils.EMPTY_STRING_ARRAY, name).getPixel();
+        facesContext, component.getRendererType(), null, name).getPixel();
   }
 
   /**
@@ -44,6 +43,6 @@ public class ThemeConfig {
   public static boolean hasValue(FacesContext facesContext, UIComponent component, String name) {
     Deprecation.LOG.warn("please use ThemeConfig.getMeasure()");
     return ResourceManagerFactory.getResourceManager(facesContext).getThemeMeasure(
-        facesContext, component.getRendererType(), ArrayUtils.EMPTY_STRING_ARRAY, name) != null;
+        facesContext, component.getRendererType(), null, name) != null;
   }
 }

@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasLabel;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 
 /**
@@ -36,7 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIColumn",
     componentType = ComponentTypes.COLUMN)
 //rendererType = "Column")
-public interface ColumnTagDeclaration extends HasIdBindingAndRendered, HasLabel, HasTip {
+public interface ColumnTagDeclaration extends HasIdBindingAndRendered, HasLabel, HasTip, HasMarkup {
   /**
    * Alignment of this column.
    */
@@ -53,14 +54,6 @@ public interface ColumnTagDeclaration extends HasIdBindingAndRendered, HasLabel,
   @UIComponentTagAttribute(type = {"java.lang.Boolean"},
       defaultValue = "false")
   void setSortable(String sortable);
-
-  /**
-   * Indicate markup of this component.
-   * Possible value is 'none'. But this can be overridden in the theme.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
-  void setMarkup(String markup);
 
   /**
    * The layout token for this column.

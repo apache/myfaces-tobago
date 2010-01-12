@@ -54,7 +54,7 @@ public interface ResourceManager {
 
   Measure getThemeMeasure(FacesContext facesContext, Configurable configurable, String name);
 
-  Measure getThemeMeasure(FacesContext facesContext, String rendererType, String[] markup, String name);
+  Measure getThemeMeasure(FacesContext facesContext, String rendererType, Markup markup, String name);
 
   @Deprecated
   String getImage(UIViewRoot viewRoot, String name);

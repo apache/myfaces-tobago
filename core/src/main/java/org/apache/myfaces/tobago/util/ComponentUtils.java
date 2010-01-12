@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIInputBase;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TransientStateHolder;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.event.PopupActionListener;
@@ -349,8 +350,7 @@ public class ComponentUtils {
         if (UIComponentTag.isValueReference(markup)) {
           markupComponent.setValueBinding(Attributes.MARKUP, createValueBinding(markup));
         } else {
-          String[] markups = splitList(markup);
-          ((SupportsMarkup) markupComponent).setMarkup(markups);
+          ((SupportsMarkup) markupComponent).setMarkup(Markup.valueOf(markup));
         }
       } else {
         LOG.error("Component did not support Markup " + markupComponent.getClass().getName());

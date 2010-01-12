@@ -20,13 +20,12 @@ package org.apache.myfaces.tobago.taglib.component;
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
-import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasSuggestMethod;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
 import org.apache.myfaces.tobago.taglib.decl.InputTagDeclaration;
@@ -55,13 +54,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
         })
 public interface InTagDeclaration
     extends HasIdBindingAndRendered, HasConverter, IsReadonly, IsDisabled, IsInline, IsRequired, HasTip, IsPassword, 
-    HasSuggestMethod, InputTagDeclaration {
+    HasSuggestMethod, HasMarkup, InputTagDeclaration {
 
-  /**
-   * Indicate markup of this component.
-   * Possible value is 'none'. But this can be overridden in the theme.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
-  void setMarkup(String markup);
 }

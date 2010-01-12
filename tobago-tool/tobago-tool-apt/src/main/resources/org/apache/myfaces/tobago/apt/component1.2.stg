@@ -441,6 +441,30 @@ public void set<property.upperCamelCaseName>(<property.type> <property.propertyN
 }
 >>
 
+MarkupProperty(property) ::= <<
+
+<checkDeprecated(property)>
+public <property.type> get<property.upperCamelCaseName>() {
+  if (<property.propertyName> != null) {
+    return <property.propertyName>;
+  }
+  <getValueExpression(property)>
+  if (ve != null) {
+    try {
+      Object object = <getValue(property)>
+      return Markup.valueOf(object);
+    } catch (ELException e) {
+		  throw new FacesException(e);
+	  }
+  }
+  return null;
+}
+
+<checkDeprecated(property)>
+public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+  this.<property.propertyName> = <property.propertyName>;
+}
+>>
 
 field() ::= <<
 <if(it.elAlternativeAvailable)>
@@ -494,6 +518,10 @@ values[<it.indexPlusOne>] = <it.propertyName>;
 >>
 
 MeasureSaveStateProperty() ::= <<
+values[<it.indexPlusOne>] = <it.propertyName>;
+>>
+
+MarkupSaveStateProperty() ::= <<
 values[<it.indexPlusOne>] = <it.propertyName>;
 >>
 
@@ -554,6 +582,10 @@ SeverityRestoreStateProperty() ::= <<
 >>
 
 MeasureRestoreStateProperty() ::= <<
+<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
+>>
+
+MarkupRestoreStateProperty() ::= <<
 <it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
 >>
 

@@ -18,13 +18,14 @@ package org.apache.myfaces.tobago.renderkit.html;
  */
 
 import org.apache.commons.collections.set.ListOrderedSet;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.Deprecation;
 import org.apache.myfaces.tobago.util.VariableResolverUtil;
 
 import javax.faces.component.UIComponent;
@@ -34,10 +35,6 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
-
-/*
- * Date: 2007-05-01
- */
 
 public class StyleClasses implements Serializable {
 
@@ -139,12 +136,15 @@ public class StyleClasses implements Serializable {
   }
 
   public void addMarkupClass(SupportsMarkup supportsMarkup, String rendererName, String sub) {
-    for (String markup : supportsMarkup.getMarkup()) {
-      if (!StringUtils.isBlank(markup)) {
+    Markup m = supportsMarkup.getMarkup();
+    if (m != null) {
+      for (String markup : m) {
         Theme theme = VariableResolverUtil.resolveClientProperties(FacesContext.getCurrentInstance()).getTheme();
         if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
           addMarkupClass(rendererName, sub, markup);
-        } else if (!"none".equals(markup)) {
+        } else if ("none".equals(markup)) {
+          Deprecation.LOG.warn("Markup 'none' is deprecated, please use a NULL pointer instead.");
+        } else {
           LOG.warn("Unknown markup='" + markup + "'");
         }
       }
@@ -165,7 +165,6 @@ public class StyleClasses implements Serializable {
     builder.append(aspect);
     return builder.toString();
   }
-
 
   public void addAspectClass(String renderer, String sub, Aspect aspect) {
     classes.add(nameOfAspectClass(renderer, sub, aspect));

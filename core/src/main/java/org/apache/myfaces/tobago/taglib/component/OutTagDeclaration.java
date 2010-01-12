@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasTip;
@@ -57,12 +58,13 @@ public interface OutTagDeclaration
 
   /**
    * Indicate markup of this component.
-   * Possible values are 'none', 'strong' and 'deleted'
+   * Possible values are 'none'(deprecated), 'strong' and 'deleted'. This can be overridden in the theme.
+   * The value 'none' should not be used any longer. Just leave the attribute empty, or use a NULL pointer. 
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]",
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.context.Markup",
       allowedValues = {"none", "strong", "deleted"})
-  void setMarkup(String markup);
+  void setMarkup(Markup markup);
   
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
   void setCreateSpan(String createSpan);

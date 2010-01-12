@@ -1,7 +1,6 @@
 package org.apache.myfaces.tobago.component;
 
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.layout.Measure;
 
@@ -9,8 +8,6 @@ import javax.el.ELException;
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UIEquationGridLayout
     extends AbstractUIEquationGridLayout  {
@@ -30,7 +27,7 @@ public class UIEquationGridLayout
   private String marginTop;
   private String columns;
   private String rows;
-  private java.lang.String[] markup;
+  private Markup markup;
 
   public String getFamily() {
     return COMPONENT_FAMILY;
@@ -298,7 +295,7 @@ public class UIEquationGridLayout
     this.rows = rows;
   }
 
-  public String[] getMarkup() {
+  public Markup getMarkup() {
     if (markup != null) {
       return markup;
     }
@@ -306,30 +303,15 @@ public class UIEquationGridLayout
     if (ve != null) {
       try {
         Object strArray = ve.getValue(getFacesContext().getELContext());
-        if (strArray instanceof String[]) {
-          return (String[]) strArray;
-        } else if (strArray instanceof String) {
-          String[] strings = StringUtils.split((String) strArray, ", ");
-          List<String> result = new ArrayList<String>(strings.length);
-          for (String string : strings) {
-            if (string.trim().length() != 0) {
-              result.add(string.trim());
-            }
-          }
-          return result.toArray(new String[result.size()]);
-        } else if (strArray == null) {
-          return ArrayUtils.EMPTY_STRING_ARRAY;
-        } else {
-          return new String[]{strArray.toString()};
-        }
-      } catch (ELException e) {
+        return Markup.valueOf(strArray);
+     } catch (ELException e) {
   		  throw new FacesException(e);
   	  }
     }
-    return ArrayUtils.EMPTY_STRING_ARRAY;
+    return Markup.NULL;
   }
 
-  public void setMarkup(String[] markup) {
+  public void setMarkup(Markup markup) {
     this.markup = markup;
   }
 
@@ -347,7 +329,7 @@ public class UIEquationGridLayout
     marginTop = (String) values[9];
     columns = (String) values[10];
     rows = (String) values[11];
-    markup = (java.lang.String[]) values[12];
+    markup = (Markup) values[12];
   }
 
   public Object saveState(FacesContext context) {

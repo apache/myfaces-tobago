@@ -20,17 +20,14 @@ package org.apache.myfaces.tobago.taglib.decl;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/*
- * User: bommel
- * Date: Jan 19, 2007
- * Time: 9:51:30 PM
- */
 public interface HasMarkup {
+  
   /**
    * Indicate markup of this component.
-   * Possible value is 'none'. But this can be overridden in the theme.
+   * The allowed markups can be defined or overridden in the theme.
+   * The value 'none' should not be used any longer. Just leave the attribute empty, or use a NULL pointer. 
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
+  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.context.Markup")
   void setMarkup(String markup);
 }

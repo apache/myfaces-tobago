@@ -172,6 +172,16 @@ if (<it.propertyName> != null) {
 }
 >>
 
+Markup() ::= <<
+if (<it.propertyName> != null) {
+  if (isValueReference(<it.propertyName>)) {
+    <createValueBinding(it)>
+  } else {
+    component.set<it.upperCamelCaseName>(org.apache.myfaces.tobago.context.Markup.valueOf(<it.propertyName>));
+  }
+}
+>>
+
 OrderBy() ::= <<
 if (<it.propertyName> != null) {
   if (isValueReference(<it.propertyName>)) {

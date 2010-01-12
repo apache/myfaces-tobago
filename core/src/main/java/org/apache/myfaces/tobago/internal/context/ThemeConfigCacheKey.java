@@ -17,23 +17,21 @@ package org.apache.myfaces.tobago.internal.context;
  * limitations under the License.
  */
 
-import org.apache.commons.lang.ArrayUtils;
-
-import java.util.Arrays;
+import org.apache.myfaces.tobago.context.Markup;
 
 public final class ThemeConfigCacheKey {
 
   private final ClientPropertiesKey clientPropertiesKey;
   private final String rendererType;
   private final String name;
-  private final String[] markup;
+  private final Markup markup;
   private final int hashCode;
 
   public ThemeConfigCacheKey(
-      ClientPropertiesKey clientPropertiesKey, String rendererType, String[] markup, String name) {
+      ClientPropertiesKey clientPropertiesKey, String rendererType, Markup markup, String name) {
     this.clientPropertiesKey = clientPropertiesKey;
     this.rendererType = rendererType;
-    this.markup = (String[]) ArrayUtils.clone(markup); // todo: copy ref and don't clone when markup is unmodifiable
+    this.markup = markup;
     this.name = name;
     hashCode = calcHashCode();
   }
@@ -55,7 +53,7 @@ public final class ThemeConfigCacheKey {
     if (!name.equals(cacheKey.name)) {
       return false;
     }
-    if (!Arrays.equals(markup, cacheKey.markup)) {
+    if (markup != null ? !markup.equals(cacheKey.markup) : cacheKey.markup != null) {
       return false;
     }
     if (!clientPropertiesKey.equals(cacheKey.clientPropertiesKey)) {
@@ -69,7 +67,7 @@ public final class ThemeConfigCacheKey {
     int result = clientPropertiesKey.hashCode();
     result = 31 * result + rendererType.hashCode();
     result = 31 * result + name.hashCode();
-    result = 31 * result + Arrays.hashCode(markup);
+    result = 31 * result + (markup != null ? markup.hashCode() : 0);
     return result;
   }
   
@@ -83,7 +81,7 @@ public final class ThemeConfigCacheKey {
   public String toString() {
     return "ThemeConfigCacheKey(" + clientPropertiesKey
         + "," + rendererType
-        + "," + Arrays.toString(markup)
+        + "," + markup
         + "," + name + ')';
   }
 }

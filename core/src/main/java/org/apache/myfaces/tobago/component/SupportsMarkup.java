@@ -1,5 +1,7 @@
 package org.apache.myfaces.tobago.component;
 
+import org.apache.myfaces.tobago.context.Markup;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,7 +21,7 @@ package org.apache.myfaces.tobago.component;
 
 public interface SupportsMarkup {
 
-  String[] getMarkup();
+  Markup getMarkup();
 
-  void setMarkup(String[] markups);
+  void setMarkup(Markup markup);
 }
