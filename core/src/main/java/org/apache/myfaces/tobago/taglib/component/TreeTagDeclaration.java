@@ -31,9 +31,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
 /**
- * Renders a tree view.
- * <p/>
- * Date: 11.02.2006 13:28:14
+ * A tree which has to variants: as menu or normal tree.
  */
 @Tag(name = "tree")
 @BodyContentDescription(anyTagOf = "<tcs:treeNode>|<tcs:treeData>")
