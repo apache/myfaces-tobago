@@ -94,9 +94,9 @@ public class Navigation {
 
     state = new TreeState();
     state.getExpanded().add(new TreePath(0));
-    state.getExpanded().add(new TreePath(0,0));
-    state.getExpanded().add(new TreePath(0,1));
-    state.getMarked().add(new TreePath(0,0));
+    state.getExpanded().add(new TreePath(0, 0));
+    state.getExpanded().add(new TreePath(0, 1));
+    state.getMarked().add(new TreePath(0, 0));
   }
 
   public String navigate() {

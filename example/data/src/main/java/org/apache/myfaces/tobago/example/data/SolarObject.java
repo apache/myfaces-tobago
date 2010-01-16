@@ -43,7 +43,8 @@ public class SolarObject {
   private String population;
 
   public SolarObject(
-      String name, String number, String orbit, Integer distance, Double period, Double incl, Double eccen, String discoverer, Integer discoverYear) {
+      String name, String number, String orbit, Integer distance, Double period,
+      Double incl, Double eccen, String discoverer, Integer discoverYear) {
     this.name = name;
     this.number = number;
     this.orbit = orbit;

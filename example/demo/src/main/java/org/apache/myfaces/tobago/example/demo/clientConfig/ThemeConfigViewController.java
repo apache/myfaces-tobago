@@ -170,10 +170,9 @@ public class ThemeConfigViewController {
     component.setRendererType(rendererType);
 
     ArrayList<KeyValue> found  = new ArrayList<KeyValue>();
-    for (int i = 0; i < propertyNames.length; i++) {
-      String propertyName = propertyNames[i];
+    for (String propertyName : propertyNames) {
       try {
-        Measure measure = ResourceManagerUtil.getThemeMeasure(facesContext, (LayoutBase)component, propertyName);
+        Measure measure = ResourceManagerUtil.getThemeMeasure(facesContext, (LayoutBase) component, propertyName);
         found.add(new DefaultKeyValue(propertyName, measure.toString()));
       } catch (Exception e) {
         if (LOG.isDebugEnabled()) {
