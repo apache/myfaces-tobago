@@ -1,7 +1,5 @@
 package org.apache.myfaces.tobago.config;
 
-import org.apache.myfaces.tobago.context.Markup;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -18,6 +16,8 @@ import org.apache.myfaces.tobago.context.Markup;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import org.apache.myfaces.tobago.context.Markup;
 
 public interface Configurable {
 

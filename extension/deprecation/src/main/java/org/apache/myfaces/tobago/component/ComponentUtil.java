@@ -278,7 +278,8 @@ public class ComponentUtil {
     return CreateComponentUtils.createComponent(componentType, rendererType, id);
   }
 
-  public static UIComponent createComponent(FacesContext facesContext, String componentType, String rendererType, String id) {
+  public static UIComponent createComponent(FacesContext facesContext, String componentType,
+      String rendererType, String id) {
     return CreateComponentUtils.createComponent(facesContext, componentType, rendererType, id);
   }
   
@@ -303,7 +304,7 @@ public class ComponentUtil {
   }
 
   public static UIComponent createUISelectBooleanFacet(FacesContext facesContext, UICommand command, String id) {
-    return CreateComponentUtils.createUISelectBooleanFacet(facesContext,command,id);
+    return CreateComponentUtils.createUISelectBooleanFacet(facesContext, command, id);
   }
 
   public static int getIntValue(ValueBinding valueBinding) {
