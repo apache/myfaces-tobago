@@ -27,10 +27,10 @@ import org.jboss.seam.security.Identity;
 public class AuthenticationManager {
 
   @In
-  Identity identity;
+  private Identity identity;
 
   @In
-  Actor actor;
+  private Actor actor;
 
   public boolean authenticate() {
 
