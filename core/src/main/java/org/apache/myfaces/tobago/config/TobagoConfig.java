@@ -19,10 +19,16 @@ package org.apache.myfaces.tobago.config;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.context.RenderersConfig;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.util.JndiUtils;
 
 import javax.faces.context.FacesContext;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -44,6 +50,7 @@ public class TobagoConfig {
   private boolean ajaxEnabled;
   private Map<String, Theme> availableTheme;
   private RenderersConfig renderersConfig;
+  private ProjectStage projectStage;
 
 
   public TobagoConfig() {
@@ -87,8 +94,8 @@ public class TobagoConfig {
       }
       if (defaultTheme == null) {
         String error = "Did not found any theme! "
-          + "Please ensure you have a tobago-theme.xml file in your "
-          + "theme jar. Please add a theme jar to your WEB-INF/lib";
+            + "Please ensure you have a tobago-theme.xml file in your "
+            + "theme jar. Please add a theme jar to your WEB-INF/lib";
         LOG.error(error);
         throw new RuntimeException(error);
       } else {
@@ -212,6 +219,46 @@ public class TobagoConfig {
 
   public void setRenderersConfig(RenderersConfig renderersConfig) {
     this.renderersConfig = renderersConfig;
+  }
+
+  public void initProjectState(ServletContext servletContext) {
+    String stageName = null;
+    try {
+      Context ctx = new InitialContext();
+      Object obj = JndiUtils.getJndiProperty(ctx, "jsf", "ProjectStage");
+      if (obj != null) {
+        if (obj instanceof String) {
+          stageName = (String) obj;
+        } else {
+          LOG.warn("JNDI lookup for key " + ProjectStage.PROJECT_STAGE_JNDI_NAME
+              + " should return a java.lang.String value");
+        }
+      }
+    } catch (NamingException e) {
+      // ignore
+    }
+
+    if (stageName == null) {
+      stageName = servletContext.getInitParameter(ProjectStage.PROJECT_STAGE_PARAM_NAME);
+    }
+
+    if (stageName == null) {
+      stageName = System.getProperty("org.apache.myfaces.PROJECT_STAGE");
+    }
+
+    if (stageName != null) {
+      try {
+        projectStage = ProjectStage.valueOf(stageName);
+      } catch (IllegalArgumentException e) {
+        LOG.error("Couldn't discover the current project stage", e);
+      }
+    }
+    if (projectStage == null) {
+      if (LOG.isInfoEnabled()) {
+        LOG.info("Couldn't discover the current project stage, using " + ProjectStage.Production);
+      }
+      projectStage = ProjectStage.Production;
+    }
   }
 }
 

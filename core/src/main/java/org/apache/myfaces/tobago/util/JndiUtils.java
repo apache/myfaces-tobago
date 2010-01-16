@@ -29,25 +29,44 @@ public class JndiUtils {
 
   private static final Log LOG = LogFactory.getLog(JndiUtils.class);
 
-  public static Object getJndiProperty(Context ctx, String property) throws NamingException {
-    return getJndiProperty(ctx, property, null);
+  public static Object getJndiProperty(Context ctx, String... path) throws NamingException {
+    return getJndiProperty(ctx, null, path);
   }
-  
-  public static Object getJndiProperty(Context ctx, String property, Object defaultValue) throws NamingException {
-    NamingEnumeration<Binding> ne = ctx.listBindings("java:comp/env");
+
+  public static Object getJndiProperty(Context ctx, Object defaultValue, String... path) throws NamingException {
+    String name = "java:comp/env";
+    // avoid error messages from websphere
+    for (int i = 0; i < path.length; i++) {
+      Binding b = getBinding(ctx, name, path[i]);
+      if (b == null) {
+        break;
+      }
+      if (i == path.length - 1) {
+        Object obj = b.getObject();
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("Value: " + obj);
+        }
+        return obj;
+      } else {
+        name = name + "/" + path[i];
+      }
+    }
+    return defaultValue;
+  }
+
+  private static Binding getBinding(Context ctx, String name, String path)
+      throws NamingException {
+    NamingEnumeration<Binding> ne = ctx.listBindings(name);
     while (ne.hasMore()) {
       Binding b = ne.next();
       if (LOG.isDebugEnabled()) {
         LOG.debug("Property: " + b.getName());
       }
-      if (property.equals(b.getName())) {
-        Object obj = b.getObject();
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Value: "+ obj);
-        }
-        return obj;
+      if (path.equals(b.getName())) {
+        return b;
       }
     }
-    return defaultValue;
+    return null;
   }
+
 }
