@@ -19,7 +19,9 @@ package org.apache.myfaces.tobago.example.test;
 
 public class TomahawkInputHtml {
 
-  private String inputHtml = "<html><body>Hallo <b>Tomahawk</b><br/>not working yet: javascript errors, submit will not be sent.</body></html>";
+  private String inputHtml =
+      "<html><body>Hallo <b>Tomahawk</b><br/>not working yet: "
+          + "javascript errors, submit will not be sent.</body></html>";
 
   public void setInputHtml(String inputHtml) {
     this.inputHtml = inputHtml;
