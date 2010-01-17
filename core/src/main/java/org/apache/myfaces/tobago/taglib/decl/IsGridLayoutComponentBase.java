@@ -67,7 +67,7 @@ public interface IsGridLayoutComponentBase {
    * @param minimumHeight The minimum height for this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((LayoutComponentRenderer)"
+      defaultCode = "((LayoutComponentRenderer) "
           + "getRenderer(getFacesContext())).getMinimumHeight(getFacesContext(), this)")
   void setMinimumHeight(String minimumHeight);
 
@@ -75,7 +75,7 @@ public interface IsGridLayoutComponentBase {
    * @param preferredWidth The preferred width for this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((LayoutComponentRenderer)"
+      defaultCode = "((LayoutComponentRenderer) "
           + "getRenderer(getFacesContext())).getPreferredWidth(getFacesContext(), this)")
   void setPreferredWidth(String preferredWidth);
 
@@ -83,7 +83,7 @@ public interface IsGridLayoutComponentBase {
    * @param preferredHeight The preferred height for this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((LayoutComponentRenderer)"
+      defaultCode = "((LayoutComponentRenderer) "
           + "getRenderer(getFacesContext())).getPreferredHeight(getFacesContext(), this)")
   void setPreferredHeight(String preferredHeight);
 
@@ -91,7 +91,7 @@ public interface IsGridLayoutComponentBase {
    * @param maximumWidth The maximum width for this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((LayoutComponentRenderer)"
+      defaultCode = "((LayoutComponentRenderer) "
           + "getRenderer(getFacesContext())).getMaximumWidth(getFacesContext(), this)")
   void setMaximumWidth(String maximumWidth);
 
@@ -99,7 +99,7 @@ public interface IsGridLayoutComponentBase {
    * @param maximumHeight The maximum height for this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((LayoutComponentRenderer)"
+      defaultCode = "((LayoutComponentRenderer) "
           + "getRenderer(getFacesContext())).getMaximumHeight(getFacesContext(), this)")
   void setMaximumHeight(String maximumHeight);
 

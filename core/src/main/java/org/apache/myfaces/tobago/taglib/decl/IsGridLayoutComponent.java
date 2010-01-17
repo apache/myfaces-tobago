@@ -27,7 +27,7 @@ public interface IsGridLayoutComponent extends IsGridLayoutComponentBase {
    * @param width The width for this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((LayoutComponentRenderer)getRenderer(getFacesContext())).getWidth(getFacesContext(), this)")
+      defaultCode = "((LayoutComponentRenderer) getRenderer(getFacesContext())).getWidth(getFacesContext(), this)")
   void setWidth(String width);
 
   /**
@@ -36,7 +36,7 @@ public interface IsGridLayoutComponent extends IsGridLayoutComponentBase {
    * @param height The height for this component.
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "((LayoutComponentRenderer)getRenderer(getFacesContext())).getHeight(getFacesContext(), this)")
+      defaultCode = "((LayoutComponentRenderer) getRenderer(getFacesContext())).getHeight(getFacesContext(), this)")
   void setHeight(String height);
 
 }
