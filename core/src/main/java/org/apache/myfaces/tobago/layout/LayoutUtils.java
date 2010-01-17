@@ -133,26 +133,32 @@ public final class LayoutUtils {
 
   public static void setCurrentSize(Orientation orientation, LayoutBase component, Measure size) {
     if (orientation == Orientation.HORIZONTAL) {
-      if (component.getWidth() != null) { // to not override set sizes
-        size = component.getWidth();
+      final Measure width = component.getWidth();
+      if (width != null) { // to not override set sizes
+        size = width;
       } else {
-        if (size.greaterThan(component.getMaximumWidth())) {
-          size = component.getMaximumWidth();
+        final Measure maximumWidth = component.getMaximumWidth();
+        if (size.greaterThan(maximumWidth)) {
+          size = maximumWidth;
         }
-        if (size.lessThan(component.getMinimumWidth())) {
-          size = component.getMinimumWidth();
+        final Measure minimumWidth = component.getMinimumWidth();
+        if (size.lessThan(minimumWidth)) {
+          size = minimumWidth;
         }
       }
       component.setCurrentWidth(size);
     } else {
-      if (component.getHeight() != null) { // to not override set sizes
-        size = component.getHeight();
+      final Measure height = component.getHeight();
+      if (height != null) { // to not override set sizes
+        size = height;
       } else {
-        if (size.greaterThan(component.getMaximumHeight())) {
-          size = component.getMaximumHeight();
+        final Measure maximumHeight = component.getMaximumHeight();
+        if (size.greaterThan(maximumHeight)) {
+          size = maximumHeight;
         }
-        if (size.lessThan(component.getMinimumHeight())) {
-          size = component.getMinimumHeight();
+        final Measure minimumHeight = component.getMinimumHeight();
+        if (size.lessThan(minimumHeight)) {
+          size = minimumHeight;
         }
       }
       component.setCurrentHeight(size);
