@@ -30,7 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public abstract class AbstractUIMessages extends javax.faces.component.UIMessages
-    implements LayoutComponent, OnComponentCreated {
+    implements LayoutComponent {
 
   public List<Item> createMessageList(FacesContext facesContext) {
 
@@ -73,13 +73,6 @@ public abstract class AbstractUIMessages extends javax.faces.component.UIMessage
       }
     }
     return messages;
-  }
-
-  public void onComponentCreated(FacesContext facesContext) {
-    // todo: performance
-    int count = createMessageList(facesContext).size();
-    // todo: is this okay? to set local values?
-    setPreferredHeight(Measure.valueOf(20 * count));
   }
 
   public static class Item {
