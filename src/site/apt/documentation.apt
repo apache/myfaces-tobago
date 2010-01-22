@@ -38,7 +38,7 @@ Examples
   The Tobago demo presents the important features of Tobago including layout and themes. It contains
   an overview of the provided controls and best practices how to use Tobago.\
   \ 
-  ~~ blank neceassary after backslash to force space before image
+  ~~ blank necessary after backslash to force space before image
 
 [images/demo.png] Tobago Demo
 
@@ -52,7 +52,7 @@ Examples
   {{{http://springframework.org/}Spring}} and {{{http://openjpa.apache.org/}OpenJPA}} to manage addresses
   with a Tobago frontend.\
   \ 
-  ~~ blank neceassary after backslash to force space before image
+  ~~ blank necessary after backslash to force space before image
 
 [images/addressbook.png] Address Book Example
 
