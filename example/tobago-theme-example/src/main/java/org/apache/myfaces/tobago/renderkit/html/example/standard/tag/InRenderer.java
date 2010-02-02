@@ -24,8 +24,6 @@ import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Simple example for dynamic markups.
@@ -53,21 +51,17 @@ public class InRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbor
     super.encodeEnd(facesContext, component);
 
     UIInput input = (UIInput) component;
-    List<String> markup = Arrays.asList(input.getMarkup());
-    if (markup.contains("changeaware")) {
-      String id = input.getClientId(facesContext);
-      final String[] cmds = {
-          "new Example.ChangeAware('" + id + "');"
-      };
-      HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
-    }
-    if (markup.contains("blink")) {
-      String id = input.getClientId(facesContext);
-      final String[] cmds = {
-          "new Example.Blinker('" + id + "');"
-      };
-      HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
+    for (String markup : input.getMarkup()) {
+      if (markup.equals("changeaware")) {
+        String id = input.getClientId(facesContext);
+        final String[] cmds = {"new Example.ChangeAware('" + id + "');"};
+        HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
+      }
+      if (markup.equals("blink")) {
+        String id = input.getClientId(facesContext);
+        final String[] cmds = {"new Example.Blinker('" + id + "');"};
+        HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
+      }
     }
   }
-
 }
