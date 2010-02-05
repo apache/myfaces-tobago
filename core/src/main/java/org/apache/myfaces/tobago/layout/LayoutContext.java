@@ -66,12 +66,16 @@ public class LayoutContext {
     layoutManager.postProcessing(Orientation.HORIZONTAL);
     layoutManager.postProcessing(Orientation.VERTICAL);
 
+    log();
+  }
+
+  private void log() {
     StringBuffer buffer = new StringBuffer("\n");
-    debug(buffer, (UIComponent) container, 0);
+    log(buffer, (UIComponent) container, 0);
     LOG.info(buffer);
   }
 
-  private void debug(StringBuffer buffer, UIComponent component, int depth) {
+  private void log(StringBuffer buffer, UIComponent component, int depth) {
     for (int i = 0; i < depth; i++) {
       buffer.append("  ");
     }
@@ -92,7 +96,7 @@ public class LayoutContext {
     }
     buffer.append("\n");
     for (Object child : component.getChildren()) {
-      debug(buffer, (UIComponent) child, depth + 2);
+      log(buffer, (UIComponent) child, depth + 2);
     }
   }
 }
