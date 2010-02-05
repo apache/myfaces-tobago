@@ -52,6 +52,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
 
     List<LayoutComponent> components = getLayoutContainer().getComponents();
     for (LayoutComponent component : components) {
+      component.setCurrentHeight(null);
+      component.setCurrentWidth(null);
       grid.add(new OriginCell(component), component.getColumnSpan(), component.getRowSpan());
       if (LOG.isDebugEnabled()) {
         LOG.debug("\n" + grid);
@@ -131,7 +133,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
       i++;
     }
 
-    // set the size if all sizes are set
+    // set the size if all sizes of the grid are set
     Measure size = Measure.ZERO;
     Measure[] sizes = grid.getSizes(orientation);
     for (int j = 0; j < sizes.length; j++) {
