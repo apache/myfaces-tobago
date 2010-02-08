@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.layout;
+package org.apache.myfaces.tobago.internal.layout;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -20,6 +20,10 @@ package org.apache.myfaces.tobago.layout;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.AbstractUIGridLayout;
+import org.apache.myfaces.tobago.layout.LayoutBase;
+import org.apache.myfaces.tobago.layout.LayoutContainer;
+import org.apache.myfaces.tobago.layout.LayoutManager;
+import org.apache.myfaces.tobago.layout.Orientation;
 
 import javax.faces.component.UIComponent;
 

@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.layout.grid;
+package org.apache.myfaces.tobago.internal.layout;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more

@@ -19,13 +19,13 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.internal.layout.Interval;
+import org.apache.myfaces.tobago.internal.layout.IntervalList;
+import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.Display;
-import org.apache.myfaces.tobago.layout.Interval;
-import org.apache.myfaces.tobago.layout.IntervalList;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
-import org.apache.myfaces.tobago.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Orientation;
 

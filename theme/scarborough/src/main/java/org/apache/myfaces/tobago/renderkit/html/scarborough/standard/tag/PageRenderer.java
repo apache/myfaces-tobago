@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
-import org.apache.myfaces.tobago.layout.LayoutContext;
+import org.apache.myfaces.tobago.internal.layout.LayoutContext;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;

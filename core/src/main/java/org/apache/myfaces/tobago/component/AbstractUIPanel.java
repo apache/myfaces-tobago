@@ -19,10 +19,10 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
-import org.apache.myfaces.tobago.layout.LayoutUtils;
 
 import javax.faces.context.FacesContext;
 import java.io.IOException;

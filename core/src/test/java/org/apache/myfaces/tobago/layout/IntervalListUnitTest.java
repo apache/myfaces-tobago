@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.internal.layout.Interval;
+import org.apache.myfaces.tobago.internal.layout.IntervalList;
 import org.junit.Assert;
 import org.junit.Test;
 

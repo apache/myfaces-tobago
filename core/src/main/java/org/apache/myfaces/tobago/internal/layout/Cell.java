@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.layout;
+package org.apache.myfaces.tobago.internal.layout;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,9 +17,29 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-/*
- * Date: 13.02.2008 20:47:02
+import org.apache.myfaces.tobago.layout.LayoutComponent;
+
+/**
+ * To support horizontal and vertical spans, at each position will be a cell as a represantive.
+ * Either a "origin cell" for the first position or a "span cell" for spanned other positions.
  */
-// XXX rename to LayoutContraint
-public interface Constraints {
+public interface Cell {
+
+  LayoutComponent getComponent();
+
+  OriginCell getOrigin();
+
+  /**
+   * Is the origin cell or span cell at the first position of the cell compound.
+   *
+   * @return If its at the first position.
+   */
+  boolean isHorizontalFirst();
+
+  /**
+   * Is the origin cell or span cell at the first position of the cell compound.
+   *
+   * @return If its at the first position.
+   */
+  boolean isVerticalFirst();
 }

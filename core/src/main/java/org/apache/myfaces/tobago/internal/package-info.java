@@ -1,5 +1,4 @@
-package org.apache.myfaces.tobago.layout.grid;
-
+package org.apache.myfaces.tobago.internal;
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,29 +16,6 @@ package org.apache.myfaces.tobago.layout.grid;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.layout.LayoutComponent;
-
 /**
- * To support horizontal and vertical spans, at each position will be a cell as a represantive.
- * Either a "origin cell" for the first position or a "span cell" for spanned other positions.
+ * Package of internal classes. Classes of this package may be changed without any deprecation warnings, etc.
  */
-public interface Cell {
-
-  LayoutComponent getComponent();
-
-  OriginCell getOrigin();
-
-  /**
-   * Is the origin cell or span cell at the first position of the cell compound.
-   *
-   * @return If its at the first position.
-   */
-  boolean isHorizontalFirst();
-
-  /**
-   * Is the origin cell or span cell at the first position of the cell compound.
-   *
-   * @return If its at the first position.
-   */
-  boolean isVerticalFirst();
-}

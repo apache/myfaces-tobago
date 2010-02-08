@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.layout.grid;
+package org.apache.myfaces.tobago.internal.layout;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -18,51 +18,32 @@ package org.apache.myfaces.tobago.layout.grid;
  */
 
 import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.Orientation;
 
-public class OriginCell implements Cell {
+public class SpanCell implements Cell {
 
-  private LayoutComponent component;
-  private int columnSpan;
-  private int rowSpan;
+  private OriginCell origin;
+  private boolean horizontalFirst;
+  private boolean verticalFirst;
 
-  public OriginCell(LayoutComponent component) {
-    this.component = component;
+  public SpanCell(OriginCell origin, boolean horizontalFirst, boolean verticalFirst) {
+    this.origin = origin;
+    this.horizontalFirst = horizontalFirst;
+    this.verticalFirst = verticalFirst;
   }
 
   public LayoutComponent getComponent() {
-    return component;
+    return origin.getComponent();
   }
 
   public OriginCell getOrigin() {
-    return this;
-  }
-
-  public boolean isVerticalFirst() {
-    return true;
+    return origin;
   }
 
   public boolean isHorizontalFirst() {
-    return true;
+    return horizontalFirst;
   }
 
-  public int getSpan(Orientation orientation) {
-    return orientation == Orientation.HORIZONTAL ? getColumnSpan() : getRowSpan();
-  }
-
-  public int getColumnSpan() {
-    return columnSpan;
-  }
-
-  public void setColumnSpan(int columnSpan) {
-    this.columnSpan = columnSpan;
-  }
-
-  public int getRowSpan() {
-    return rowSpan;
-  }
-
-  public void setRowSpan(int rowSpan) {
-    this.rowSpan = rowSpan;
+  public boolean isVerticalFirst() {
+    return verticalFirst;
   }
 }

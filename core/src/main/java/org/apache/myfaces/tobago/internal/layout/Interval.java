@@ -1,4 +1,8 @@
-package org.apache.myfaces.tobago.layout;
+package org.apache.myfaces.tobago.internal.layout;
+
+import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.Orientation;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more

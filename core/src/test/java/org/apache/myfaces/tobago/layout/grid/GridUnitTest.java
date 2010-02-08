@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.layout.grid;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.internal.layout.Grid;
+import org.apache.myfaces.tobago.internal.layout.OriginCell;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.junit.Assert;
 import org.junit.Test;

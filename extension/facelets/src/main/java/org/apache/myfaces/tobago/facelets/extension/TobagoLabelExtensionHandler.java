@@ -38,7 +38,7 @@ import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.facelets.SuggestMethodRule;
 import org.apache.myfaces.tobago.facelets.SupportsMarkupRule;
-import org.apache.myfaces.tobago.layout.LayoutUtils;
+import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.ELException;

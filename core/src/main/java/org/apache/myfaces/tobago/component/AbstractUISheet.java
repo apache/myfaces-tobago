@@ -31,11 +31,11 @@ import org.apache.myfaces.tobago.event.SheetStateChangeListener;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.event.SortActionSource;
+import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
-import org.apache.myfaces.tobago.layout.LayoutUtils;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 

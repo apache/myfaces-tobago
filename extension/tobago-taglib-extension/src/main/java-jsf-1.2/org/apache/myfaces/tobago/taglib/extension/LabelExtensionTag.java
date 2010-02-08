@@ -24,10 +24,10 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.internal.taglib.GridLayoutTag;
 import org.apache.myfaces.tobago.internal.taglib.LabelTag;
 import org.apache.myfaces.tobago.internal.taglib.PanelTag;
-import org.apache.myfaces.tobago.layout.LayoutUtils;
 
 import javax.el.ValueExpression;
 import javax.faces.webapp.FacetTag;
