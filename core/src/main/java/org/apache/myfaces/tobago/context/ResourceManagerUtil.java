@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.context;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.layout.Measure;
 
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,17 +30,12 @@ public class ResourceManagerUtil {
     // no instance
   }
 
-  public static String getProperty(
-      FacesContext facesContext, String bundle, String key) {
-    return ResourceManagerFactory.getResourceManager(facesContext)
-        .getProperty(facesContext.getViewRoot(), bundle, key);
+  public static String getProperty(FacesContext facesContext, String bundle, String key) {
+    return ResourceManagerFactory.getResourceManager(facesContext).getProperty(facesContext, bundle, key);
   }
 
-  public static String getPropertyNotNull(
-      FacesContext facesContext, String bundle, String key) {
-    UIViewRoot viewRoot = facesContext.getViewRoot();
-    String result = ResourceManagerFactory.getResourceManager(facesContext)
-        .getProperty(viewRoot, bundle, key);
+  public static String getPropertyNotNull(FacesContext facesContext, String bundle, String key) {
+    String result = ResourceManagerFactory.getResourceManager(facesContext).getProperty(facesContext, bundle, key);
     if (result == null) {
       return "???" + key + "???";
     } else {
@@ -50,22 +44,18 @@ public class ResourceManagerUtil {
   }
 
   /**
-   * Searchs for an image and return it with the context path
+   * Searches for an image and return it with the context path
    */
-  public static String getImageWithPath(
-      FacesContext facesContext, String name) {
+  public static String getImageWithPath(FacesContext facesContext, String name) {
     return facesContext.getExternalContext().getRequestContextPath()
-        + ResourceManagerFactory.getResourceManager(facesContext)
-        .getImage(facesContext.getViewRoot(), name);
+        + ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name);
   }
 
   /**
-   * Searchs for an image and return it with the context path
+   * Searches for an image and return it with the context path
    */
-  public static String getImageWithPath(
-      FacesContext facesContext, String name, boolean ignoreMissing) {
-    String image = ResourceManagerFactory.getResourceManager(facesContext)
-        .getImage(facesContext.getViewRoot(), name, ignoreMissing);
+  public static String getImageWithPath(FacesContext facesContext, String name, boolean ignoreMissing) {
+    String image = ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name, ignoreMissing);
     if (image == null) {
       return null;
     } else {
@@ -74,9 +64,8 @@ public class ResourceManagerUtil {
   }
 
   public static List<String> getStyles(FacesContext facesContext, String name) {
-    UIViewRoot viewRoot = facesContext.getViewRoot();
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    String[] styles = ResourceManagerFactory.getResourceManager(facesContext).getStyles(viewRoot, name);
+    String[] styles = ResourceManagerFactory.getResourceManager(facesContext).getStyles(facesContext, name);
     return addContextPath(styles, contextPath);
   }
 
@@ -89,14 +78,8 @@ public class ResourceManagerUtil {
   }
 
   public static List<String> getScripts(FacesContext facesContext, String name) {
-    UIViewRoot viewRoot = facesContext.getViewRoot();
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
-    //if (name.startsWith("script/dojo/")) {
-    //  scripts = new String[] {"/" + ResourceServlet.DOJO_RESOURCE_PREFIX + name.substring("script/dojo/".length())};
-    //} else {
-    String[] scripts = ResourceManagerFactory.getResourceManager(facesContext)
-        .getScripts(viewRoot, name);
-    //}
+    String[] scripts = ResourceManagerFactory.getResourceManager(facesContext).getScripts(facesContext, name);
     return addContextPath(scripts, contextPath);
   }
 
@@ -140,7 +123,7 @@ public class ResourceManagerUtil {
   }
 
   public static String getPageWithoutContextPath(FacesContext facesContext, String name) {
-    return ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext.getViewRoot(), name);
+    return ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name);
   }
   
   public static Measure getThemeMeasure(FacesContext facesContext, Configurable configurable, String name) {

@@ -61,7 +61,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -231,27 +230,12 @@ public class PageRenderer extends PageRendererBase {
 
     // script files
     List<String> scriptFiles = facesContext.getScriptFiles();
-    // dojo.js and tobago.js needs to be first!
+    // jquery.js and tobago.js needs to be first!
 
-    if (debugMode) {
-      addScripts(writer, facesContext, "script/jquery-1.3.2.js");
-      addScripts(writer, facesContext, "script/dojo/dojo/dojo.js.uncompressed.js");
-    } else {
-      addScripts(writer, facesContext, "script/jquery-1.3.2.min.js");
-      addScripts(writer, facesContext, "script/dojo/dojo/dojo.js");
-    }
-    addScripts(writer, facesContext, "script/tobago.js");
-    addScripts(writer, facesContext, "script/theme-config.js");
-    // remove  dojo.js and tobago.js from list to prevent duplicated rendering of script tags
-    scriptFiles.remove("script/jquery-1.3.2.min.js");
-    if (debugMode) {
-      scriptFiles.remove("script/dojo/dojo/dojo.js.uncompressed.js");
-    } else {
-      scriptFiles.remove("script/dojo/dojo/dojo.js");
-    }
-    scriptFiles.remove("script/tobago.js");
-    scriptFiles.remove("script/theme-config.js");
-
+    scriptFiles.add(0, debugMode ? "script/jquery-1.3.2.js" : "script/jquery-1.3.2.min.js");
+    scriptFiles.add(1, "script/tobago.js");
+    scriptFiles.add(2, "script/theme-config.js");
+    
     int clientLogSeverity = 2;
     if (debugMode) {
       boolean hideClientLogging = true;
@@ -273,7 +257,7 @@ public class PageRenderer extends PageRendererBase {
 
     // render remaining script tags
     for (String scriptFile : scriptFiles) {
-      addScripts(writer, facesContext, scriptFile);
+      encodeScripts(writer, facesContext, scriptFile);
     }
 
     // focus id
@@ -596,32 +580,25 @@ public class PageRenderer extends PageRendererBase {
     }
   }
 
-  private void addScripts(TobagoResponseWriter writer, FacesContext facesContext,
-      String script) throws IOException {
-    List<String> scripts;
-    final String ucScript = script.toUpperCase(Locale.ENGLISH);
-    if (ucScript.startsWith("HTTP:") || ucScript.startsWith("FTP:")
-        || ucScript.startsWith("/")) {
-      scripts = new ArrayList<String>();
-      scripts.add(script);
+  private void encodeScripts(TobagoResponseWriter writer, FacesContext facesContext, String script) throws IOException {
+    List<String> list;
+    if (StringUtils.startsWith(script, "/") 
+        || StringUtils.startsWithIgnoreCase(script, "HTTP:")
+        || StringUtils.startsWithIgnoreCase(script, "FTP:")) {
+      list = new ArrayList<String>();
+      list.add(script);
     } else {
-      scripts = ResourceManagerUtil.getScripts(facesContext, script);
+      list = ResourceManagerUtil.getScripts(facesContext, script);
     }
-    for (String scriptString : scripts) {
-      if (scriptString.length() > 0) {
+    for (String src : list) {
+      if (StringUtils.isNotBlank(src)) {
         writer.startElement(HtmlConstants.SCRIPT, null);
-        writer.writeAttribute(HtmlAttributes.SRC, scriptString, true);
+        writer.writeAttribute(HtmlAttributes.SRC, src, true);
         writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", false);
         writer.endElement(HtmlConstants.SCRIPT);
       }
     }
   }
-
-//  public void encodeEnd(FacesContext facesContext, UIComponent component)
-//  public void encodeChildren(FacesContext facesContext, UIComponent component)
-//      throws IOException {
-//todo: remove this comment    // children are encoded in encodeEndTobago(...)
-//  }
 
   private void errorMessageForDebugging(String id, FacesMessage message,
       ResponseWriter writer) throws IOException {

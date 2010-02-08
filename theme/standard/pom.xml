@@ -27,6 +27,7 @@
   <name>Tobago Theme Standard</name>
   <build>
     <plugins>
+<!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
@@ -64,6 +65,7 @@
           </execution>
         </executions>
       </plugin>
+-->
       <!--<plugin>
         <groupId>gr.abiss.mvn.plugins</groupId>
         <artifactId>mvn-jstools</artifactId>
@@ -73,10 +75,12 @@
   </build>
 
   <repositories>
+<!-- dojo not needed, 
     <repository>
       <id>Temp dojo repository</id>
       <url>http://people.apache.org/~bommel/dojorepo</url>
     </repository>
+-->
     <!--
     TODO use dojo maven repository see: http://blogs.webtide.com/gregw/2008/07/10/1215675720000.html
     <repository>

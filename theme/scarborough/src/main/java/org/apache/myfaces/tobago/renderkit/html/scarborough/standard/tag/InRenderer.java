@@ -55,14 +55,11 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
 
   private static final String[] SCRIPTS = new String[] {"script/inputSuggest.js"};
 
-  private static final String[] STYLES = new String[]{"style/dojo.css"};
-
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
     if (facesContext instanceof TobagoFacesContext) {
       if (component instanceof UIInput && ((UIInput) component).getSuggestMethod() != null) {
         ((TobagoFacesContext) facesContext).getScriptFiles().addAll(Arrays.asList(SCRIPTS));
-        ((TobagoFacesContext) facesContext).getStyleFiles().addAll(Arrays.asList(STYLES));
       }
     }
   }
@@ -213,7 +210,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
 
     Object object = mb.invoke(context, new Object[]{(UIInput) input});
 
-    AutoSuggestItems items = null;
+    AutoSuggestItems items;
     if (object instanceof AutoSuggestItems) {
       items = (AutoSuggestItems) object;
     } else {
