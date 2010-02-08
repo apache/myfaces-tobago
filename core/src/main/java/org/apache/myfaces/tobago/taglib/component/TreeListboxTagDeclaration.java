@@ -31,26 +31,25 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
 /**
- * A tree which has to variants: as menu or normal tree.
+ * A tree data structure displayed as a set of list boxes.
  */
-@Tag(name = "tree")
+@Tag(name = "treeListbox")
 @BodyContentDescription(anyTagOf = "<tcs:treeNode>|<tcs:treeData>")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UITree",
+    uiComponent = "org.apache.myfaces.tobago.component.UITreeListbox",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITree",
-    rendererType = RendererTypes.TREE,
+    rendererType = RendererTypes.TREE_LISTBOX,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.TreeNode",
         "org.apache.myfaces.tobago.TreeData"
         })
-public interface TreeTagDeclaration
+public interface TreeListboxTagDeclaration
     extends HasIdBindingAndRendered, HasTreeNodeValue, IsRequired, IsGridLayoutComponent, HasMarkup {
 
   /**
    * Flag indicating whether or not this component should be render selectable items.
    * Possible values are:
    * <ul>
-   * <li><strong>multi</strong> : a multi section tree is rendered</li>
    * <li><strong>single</strong> : a single section tree is rendered</li>
    * <li><strong>multiLeafOnly</strong> : a multi section tree is rendered,
    * only Leaf's are selectable</li>
@@ -61,31 +60,8 @@ public interface TreeTagDeclaration
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "off",
-      allowedValues = {"multi", "single", "multiLeafOnly", "singleLeafOnly", "off"})
+      allowedValues = {"single", "multiLeafOnly", "singleLeafOnly", "off"})
   void setSelectable(String selectable);
-
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  void setShowRootJunction(String showRootJunction);
-
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  void setShowIcons(String showIcons);
-
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  void setShowJunctions(String showJunctions);
-
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  void setShowRoot(String showRoot);
-  
-  /**
-   * Display option: Normal tree or menu.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "tree", allowedValues = {"tree", "menu"})
-  void setMode(String mode);
 
   /**
    *

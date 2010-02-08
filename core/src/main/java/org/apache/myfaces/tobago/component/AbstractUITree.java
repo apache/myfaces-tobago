@@ -154,17 +154,9 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
   }
 
   public void updateModel(FacesContext facesContext) {
-    // nothig to update for tree's
-    // TODO: updateing the model here and *NOT* in the decode phase
+    // nothing to update for tree's
+    // TODO: updating the model here and *NOT* in the decode phase
   }
 
-  public abstract String getMode();
-
-  public abstract boolean isShowIcons();
-
-  public abstract boolean isShowJunctions();
-
-  public abstract boolean isShowRootJunction();
-
-  public abstract boolean isShowRoot();
+  public abstract Object getState();
 }

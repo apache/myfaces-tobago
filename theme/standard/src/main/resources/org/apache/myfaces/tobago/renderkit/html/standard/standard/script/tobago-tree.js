@@ -117,3 +117,64 @@ function nodeStateId(node) {
   // this must do the same as nodeStateId() in TreeRenderer.java
   return node.id.substring(node.id.lastIndexOf(':') + 1);
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// new stuff with jQuery
+// TreeListbox
+
+function asJQueryId(string) {
+  return "#" + string.replace(/:/g, "\\:");
+}
+
+$(document).ready(function () {
+
+  // find all option tags and add the dedicated select tag in its data section.
+
+  $(".tobago-treeListbox-default > div > div > select > option").each(function() {
+    var option = $(this);
+    var optionId = option.attr("id");
+    var selectId = optionId + "::select";
+    var select = $(asJQueryId(selectId));
+    if (select.length == 1) {
+      option.data("select", select);
+    } else {
+      var empty = option.parent().parent().next().children(":first");
+      option.data("select", empty);
+    }
+  });
+
+  // add on change on all select tag, all options that are not selected hide there dedicated
+  // select tag, and the selected option show its dedicated select tag.
+
+  $(".tobago-treeListbox-default > div > div > select").each(function() {
+
+    $(this).change(function() {
+      $(this).children("option:not(:selected)").each(function() {
+        $(this).data("select").hide();
+      });
+      $(this).children("option:selected").data("select").show();
+
+      // Deeper level (2nd and later) should only show the empty select tag.
+      // The first child is the empty selection.
+      $(this).parent().nextAll(":not(:first)").children(":not(:first)").hide();
+      $(this).parent().nextAll(":not(:first)").children(":first").show();
+
+    });
+
+    $(this).focus(function() {
+      $(this).change();
+    });
+
+  });
+
+/*
+  $(".tobago-treeListbox-default > div > div > select > option:selected").change();
+*/
+
+/*
+  $(".tobago-treeListbox-default > div > div > select > option:selected").each(function() {
+    $(this).change();
+  });
+*/
+
+});

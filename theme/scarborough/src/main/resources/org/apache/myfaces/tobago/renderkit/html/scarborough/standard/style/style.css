@@ -222,7 +222,31 @@ span.tobago-progress {
   font-weight: bold;
 }
 
-/* calendar */
+/* TreeListbox ------------------------------------------------------------------- */
+
+.tobago-treeListbox-default {
+  overflow-x: auto;
+}
+
+.tobago-treeListbox-level {
+/* after ie6: .tobago-treeListbox-default > div > div */
+  width: 160px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.tobago-treeListbox-select {
+/* after ie6: .tobago-treeListbox-default > div > div > select */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+/* Calendar ------------------------------------------------------------------- */
+
 table.tobago-calendar-default {
   width: 100%;
 }

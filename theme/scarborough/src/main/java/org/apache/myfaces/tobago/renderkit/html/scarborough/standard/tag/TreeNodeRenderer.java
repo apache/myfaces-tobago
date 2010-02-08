@@ -20,14 +20,20 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.AbstractUITree;
 import org.apache.myfaces.tobago.component.AbstractUITreeNode;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UITree;
+import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.ResourceUtils;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;
+import org.apache.myfaces.tobago.internal.context.ResponseWriterDivider;
+import org.apache.myfaces.tobago.layout.Display;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -39,6 +45,7 @@ import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -69,7 +76,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       return;
     }
 
-    UITree tree = (UITree) node.findTree();
+    AbstractUITree tree = node.findTree();
     String treeId = tree.getClientId(facesContext);
     String nodeStateId = node.nodeStateId(facesContext);
     Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
@@ -102,9 +109,82 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-
     UITreeNode node = (UITreeNode) component;
-    UITree tree = (UITree) node.findTree();
+    AbstractUITree tree = node.findTree();
+    if (tree instanceof UITree) {
+      encodeBeginMenuAndNormal(facesContext, node, (UITree)tree);
+    } else { // if (tree instanceof UITreeListbox)
+      encodeBeginListbox(facesContext, node, (UITreeListbox)tree);
+    }
+  }
+
+  public void encodeBeginListbox(FacesContext facesContext, UITreeNode node, UITreeListbox tree) throws IOException {
+    String treeId = tree.getClientId(facesContext);
+    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
+    boolean folder = node.isFolder();
+    int level = node.getJunctions().size();
+    String id = node.getClientId(facesContext);
+    boolean expanded = isExpanded(tree, node);
+
+    if (level > 0) { // root will not rendered as an option
+      writer.startElement(HtmlConstants.OPTION, null);
+      writer.writeAttribute(HtmlAttributes.VALUE, node.getValue().toString(), true);// XXX converter?
+      writer.writeIdAttribute(id);
+      writer.writeAttribute(HtmlAttributes.SELECTED, expanded);
+      writer.writeText("(" + level + ") " + node.getLabel());
+      if (folder) {
+        writer.writeText(" \u2192");
+      }
+      writer.endElement(HtmlConstants.OPTION);
+    }
+
+    if (folder) {
+      boolean siblingMode = "siblingLeafOnly".equals(tree.getAttributes().get(Attributes.SELECTABLE));
+
+      boolean alreadyExists = ResponseWriterDivider.getInstance(facesContext).activateBranch(facesContext);
+      writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+      if (!alreadyExists) {
+        writer.startElement(HtmlConstants.DIV, null);
+        StyleClasses levelClass = new StyleClasses();
+        levelClass.addClass("treeListbox", "level");
+        writer.writeClassAttribute(levelClass);
+        Style levelStyle = new Style();
+        levelStyle.setLeft(Measure.valueOf(level * 160)); // xxx 160 should be configurable
+        writer.writeStyleAttribute(levelStyle);
+        // at the start of each div there is an empty and disabled select tag to show empty area.
+        // this is not needed for the 1st level.
+        if (level > 0) {
+          writer.startElement(HtmlConstants.SELECT, null);
+          writer.writeAttribute(HtmlAttributes.DISABLED, true);
+          writer.writeAttribute(HtmlAttributes.SIZE, 2); // must be > 1, but the size comes from the layout
+          StyleClasses selectClass = new StyleClasses();
+          selectClass.addClass("treeListbox", "select");
+          writer.writeClassAttribute(selectClass);
+          writer.endElement(HtmlConstants.SELECT);
+        }
+      }
+
+      writer.startElement(HtmlConstants.SELECT, node);
+      writer.writeIdAttribute(id + TobagoConstants.SUBCOMPONENT_SEP + "select");
+      StyleClasses selectClass = new StyleClasses();
+      selectClass.addClass("treeListbox", "select");
+      writer.writeClassAttribute(selectClass);
+      if (!expanded) {
+        Style selectStyle = new Style();
+        selectStyle.setDisplay(Display.NONE);
+      }
+      writer.writeAttribute(HtmlAttributes.SIZE, 2); // must be > 1, but the size comes from the layout
+      writer.writeAttribute(HtmlAttributes.MULTIPLE, siblingMode);
+
+// XXX insert options here
+      writer.startElement(HtmlConstants.OPTGROUP, null);
+      writer.writeAttribute(HtmlAttributes.LABEL, node.getLabel(), true);
+      writer.endElement(HtmlConstants.OPTGROUP);
+    }
+  }
+
+  public void encodeBeginMenuAndNormal(FacesContext facesContext, UITreeNode node, UITree tree) throws IOException {
 
     String treeId = tree.getClientId(facesContext);
     boolean folder = node.isFolder();
@@ -393,8 +473,27 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
-
     UITreeNode node = (UITreeNode) component;
+    AbstractUITree tree = node.findTree();
+    if (tree instanceof UITree) {
+      encodeEndMenuAndNormal(facesContext, node);
+    } else { // if (tree instanceof UITreeListbox)
+      encodeEndListbox(facesContext, node);
+    }
+  }
+
+  protected void encodeEndListbox(FacesContext facesContext, UITreeNode node) throws IOException {
+    boolean folder = node.isFolder();
+    if (folder) {
+      TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+      writer.endElement(HtmlConstants.SELECT);
+
+      ResponseWriterDivider.getInstance(facesContext).passivateBranch(facesContext);
+    }
+  }
+
+  protected void encodeEndMenuAndNormal(FacesContext facesContext, UITreeNode node) throws IOException {
+
     boolean folder = node.isFolder();
     String id = node.getClientId(facesContext);
 
@@ -406,7 +505,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     }
   }
 
-  private boolean isExpanded(UITree tree, UITreeNode node) {
+  private boolean isExpanded(AbstractUITree tree, UITreeNode node) {
     TreeState state = (TreeState) tree.getState();
     if (state != null) {
       return state.getExpanded().contains(node.getPath());
@@ -417,7 +516,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     }
   }
 
-  private void setExpanded(UITreeNode node, UITree tree, boolean expanded) {
+  private void setExpanded(UITreeNode node, AbstractUITree tree, boolean expanded) {
     boolean oldExpanded = isExpanded(tree, node);
 
     if (tree.getState() != null) {

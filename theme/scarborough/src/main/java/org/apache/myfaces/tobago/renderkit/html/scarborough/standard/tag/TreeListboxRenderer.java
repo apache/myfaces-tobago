@@ -19,7 +19,10 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.AbstractUITree;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.internal.context.ResponseWriterDivider;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -34,7 +37,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
-public class TreeRenderer extends LayoutComponentRendererBase {
+public class TreeListboxRenderer extends LayoutComponentRendererBase {
 
   private static final String SCRIPT = "script/tobago-tree.js";
 
@@ -107,6 +110,29 @@ public class TreeRenderer extends LayoutComponentRendererBase {
 
     RenderUtil.encode(facesContext, root);
 
+    writer.startElement(HtmlConstants.DIV, tree);
+    Style scrollDivStyle = new Style();
+    scrollDivStyle.setWidth(Measure.valueOf(6 * 160)); // todo: depth * width of a select 
+    scrollDivStyle.setHeight(style.getHeight() // todo: what, when there is no scrollbar? 
+        .subtract(15));// // todo: scrollbar height
+    scrollDivStyle.setPosition(Position.ABSOLUTE);
+    writer.writeStyleAttribute(scrollDivStyle);
+    
+    ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext);
+    // write in all open branches the end tag.
+    while (divider.activateBranch(facesContext)) {
+      writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+      writer.endElement(HtmlConstants.DIV);
+    }
+    while (divider.passivateBranch(facesContext)) {
+    }  
+      
+    divider.writeOut(facesContext);
+
+    writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+
+    writer.endElement(HtmlConstants.DIV);
+    
     writer.endElement(HtmlConstants.DIV);
   }
 
