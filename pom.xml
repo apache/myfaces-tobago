@@ -1640,7 +1640,7 @@
     <facelets.version>1.1.14</facelets.version>
     <jetty.version>6.1.21</jetty.version>
     <commons-io.version>1.1</commons-io.version>
-    <commons-lang.version>2.1</commons-lang.version>
+    <commons-lang.version>2.4</commons-lang.version>
     <commons-logging.version>1.1.1</commons-logging.version>
     <commons-digester.version>1.8</commons-digester.version>
     <commons-collection.version>3.1</commons-collection.version>
