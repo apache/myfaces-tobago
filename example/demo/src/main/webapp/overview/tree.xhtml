@@ -95,6 +95,16 @@
         </tc:tab>
         <tc:tab label="#{overviewBundle.treeListboxLabel} (todo)">
 
+          <tc:treeListbox id="tree">
+            <tc:treeData value="#{demo.tree}" var="node" id="data">
+              <tc:treeNode label="#{node.userObject.name}"
+                           id="template"
+                           expanded="true"
+                           value="#{node}"
+                           image="image/feather.png"/>
+            </tc:treeData>
+          </tc:treeListbox>
+          
         </tc:tab>
       </tc:tabGroup>
 

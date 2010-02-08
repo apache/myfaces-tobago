@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.TabChangeListener;
+import org.apache.myfaces.tobago.example.data.CategoryTree;
 import org.apache.myfaces.tobago.example.data.Solar;
 import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.model.SheetState;
@@ -45,7 +46,6 @@ import javax.faces.model.SelectItem;
 import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpSession;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.MutableTreeNode;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -168,30 +168,11 @@ public class TobagoDemoController {
     solarArrayColumns = createSolarArrayColumns();
     solarArrayColumnLayout = "3*; 3*; 3*";
 
-    tree = new DefaultMutableTreeNode(
-        new Node("Root Node", "root"));
-    tree.insert(new DefaultMutableTreeNode(new Node("Sports", "sports")), 0);
-    tree.insert(new DefaultMutableTreeNode(new Node("Movies", "movies")), 0);
-    DefaultMutableTreeNode music = new DefaultMutableTreeNode(
-        new Node("Music", "music"));
-    tree.insert(music, 0);
-    tree.insert(new DefaultMutableTreeNode(new Node("Games", "games")), 0);
-    MutableTreeNode temp = new DefaultMutableTreeNode(
-        new Node("Science", "science"));
-    temp.insert(
-        new DefaultMutableTreeNode(new Node("Geography", "geography")), 0);
-    temp.insert(
-        new DefaultMutableTreeNode(new Node("Mathematics", "math")), 0);
-    DefaultMutableTreeNode temp2 = new DefaultMutableTreeNode(
-        new Node("Astronomy", "astro"));
-    temp2.insert(new DefaultMutableTreeNode(new Node("Education", "edu")), 0);
-    temp2.insert(new DefaultMutableTreeNode(new Node("Pictures", "pic")), 0);
-    temp.insert(temp2, 2);
-    tree.insert(temp, 2);
+    tree = CategoryTree.createSample();
     treeState = new TreeState();
     treeState.addExpandState(tree);
-    treeState.addSelection(temp2);
-    treeState.setMarker(music);
+    treeState.addSelection((DefaultMutableTreeNode) tree.getChildAt(2).getChildAt(2));
+    treeState.setMarker((DefaultMutableTreeNode) tree.getChildAt(1));
     String[] values = {"none", "single", "singleLeafOnly", "multi", "multiLeafOnly"};
     selectionItems = getSelectItems(values, "demo");
     selectionType = (String) selectionItems[0].getValue();
@@ -592,38 +573,5 @@ public class TobagoDemoController {
   public void setNull(Object o) {
 
   }
-
-  public static class Node {
-
-    private String name;
-
-    private String id;
-
-    public Node(String name, String id) {
-      this.name = name;
-      this.id = id;
-    }
-
-    public String getName() {
-      return name;
-    }
-
-    public void setName(String name) {
-      this.name = name;
-    }
-
-    public String getId() {
-      return id;
-    }
-
-    public void setId(String id) {
-      this.id = id;
-    }
-
-    public String toString() {
-      return "Node name="+name+" id="+id;
-    }
-  }
-
 
 }
