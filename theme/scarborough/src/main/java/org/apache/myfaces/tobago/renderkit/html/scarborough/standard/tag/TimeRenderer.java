@@ -24,7 +24,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITime;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -109,7 +108,7 @@ public class TimeRenderer extends InputRendererBase {
     String second = new SimpleDateFormat("ss").format(date);
 
     String id = input.getClientId(facesContext);
-    final String idPrefix = id + SUBCOMPONENT_SEP;
+    final String idPrefix = id + ComponentUtils.SUB_SEPARATOR;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.DIV, input);
     writer.writeClassAttribute();

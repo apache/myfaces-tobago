@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -40,13 +38,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
 
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-
 public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
-
-  private static final Log LOG = LogFactory.getLog(BoxRenderer.class);
-  public static final String CONTENT_INNER = SUBCOMPONENT_SEP + "content-inner";
-  public static final String HEADER = SUBCOMPONENT_SEP + "header";
 
   @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {

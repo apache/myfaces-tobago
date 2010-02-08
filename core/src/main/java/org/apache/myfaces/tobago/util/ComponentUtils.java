@@ -74,6 +74,8 @@ public class ComponentUtils {
 
   private static final Log LOG = LogFactory.getLog(ComponentUtils.class);
 
+  public static final String SUB_SEPARATOR = "::";
+  
   private static final String RENDER_KEY_PREFIX
       = "org.apache.myfaces.tobago.util.ComponentUtils.RendererKeyPrefix_";
 

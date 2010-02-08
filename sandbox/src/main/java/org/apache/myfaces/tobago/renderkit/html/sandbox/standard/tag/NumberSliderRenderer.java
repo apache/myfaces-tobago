@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.AbstractUINumberSlider;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
@@ -193,19 +192,19 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
   private String getIdForInputField(FacesContext context,
       UIComponent component) {
     String id = component.getClientId(context);
-    return id + TobagoConstants.SUBCOMPONENT_SEP + "input";
+    return id + ComponentUtils.SUB_SEPARATOR + "input";
   }
 
   private String getIdForSliderTrack(FacesContext context,
       UIComponent component) {
     String id = component.getClientId(context);
-    return id + TobagoConstants.SUBCOMPONENT_SEP + "track";
+    return id + ComponentUtils.SUB_SEPARATOR + "track";
   }
 
   private String getIdForSliderHandle(FacesContext context,
       UIComponent component) {
     String id = component.getClientId(context);
-    return id + TobagoConstants.SUBCOMPONENT_SEP + "handle";
+    return id + ComponentUtils.SUB_SEPARATOR + "handle";
   }
 
   private void writeSliderJavaScript(FacesContext context, UIComponent component,

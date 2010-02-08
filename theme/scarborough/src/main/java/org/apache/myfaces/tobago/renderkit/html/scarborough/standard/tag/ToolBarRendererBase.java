@@ -51,8 +51,6 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-
 public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(ToolBarRendererBase.class);
@@ -218,7 +216,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
     String iconName = (String) command.getAttributes().get(Attributes.IMAGE);
     String image = getImage(facesContext, iconName, iconSize, disabled, selected);
-    String graphicId = clientId + SUBCOMPONENT_SEP + "icon";
+    String graphicId = clientId + ComponentUtils.SUB_SEPARATOR + "icon";
 
     final String hover = getHoverClasses(first, last);
     final String mouseOverScript = "Tobago.toolbarMousesover(this, '" + hover + "', '" + graphicId + "');";
@@ -414,7 +412,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     if (!disabled) {
       writer.writeAttribute(HtmlAttributes.HREF, "#", false);
       writer.writeAttribute(HtmlAttributes.ONFOCUS, "Tobago.toolbarFocus(this, event)", false);
-      String id = command.getClientId(facesContext) + SUBCOMPONENT_SEP + "link";
+      String id = command.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "link";
       writer.writeIdAttribute(id);
       if (label.getAccessKey() != null) {
         if (LOG.isInfoEnabled()
@@ -445,7 +443,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
           "image/1x1.gif");
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeIdAttribute(
-          command.getClientId(facesContext) + SUBCOMPONENT_SEP + "popup");
+          command.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "popup");
       writer.writeClassAttribute("tobago-toolBar-button-menu");
       writer.startElement(HtmlConstants.IMG, null);
       writer.writeAttribute(HtmlAttributes.SRC, backgroundImage, false);

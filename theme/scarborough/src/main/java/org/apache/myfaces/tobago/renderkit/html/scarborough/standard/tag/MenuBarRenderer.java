@@ -24,19 +24,18 @@ import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-
 public class MenuBarRenderer extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(MenuBarRenderer.class);
 
-  public static final String SEARCH_ID_POSTFIX = SUBCOMPONENT_SEP + "popup";
+  public static final String SEARCH_ID_POSTFIX = ComponentUtils.SUB_SEPARATOR + "popup";
   private static final String MENU_ACCELERATOR_KEYS = "menuAcceleratorKeys";
 
   // XXX check the ajax case

@@ -22,11 +22,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.layout.Box;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 
 public class PageRendererBase extends LayoutComponentRendererBase {
 
@@ -36,7 +35,7 @@ public class PageRendererBase extends LayoutComponentRendererBase {
     if (component instanceof AbstractUIPage) {
       AbstractUIPage page = (AbstractUIPage) component;
 
-      String actionIdName = page.getClientId(facesContext) + SUBCOMPONENT_SEP + "form-action";
+      String actionIdName = page.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "form-action";
       String newActionId = (String) facesContext.getExternalContext().getRequestParameterMap().get(actionIdName);
       if (LOG.isDebugEnabled()) {
         LOG.debug("action = " + newActionId);
@@ -44,7 +43,7 @@ public class PageRendererBase extends LayoutComponentRendererBase {
       page.setActionId(newActionId);
 
       try {
-        String actionPositionName = page.getClientId(facesContext) + SUBCOMPONENT_SEP + "action-position";
+        String actionPositionName = page.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "action-position";
         String actionPositionString = (String)
             facesContext.getExternalContext().getRequestParameterMap().get(actionPositionName);
         if (LOG.isDebugEnabled()) {

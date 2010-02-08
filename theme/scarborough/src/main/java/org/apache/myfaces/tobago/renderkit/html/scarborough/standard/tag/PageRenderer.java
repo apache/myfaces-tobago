@@ -64,8 +64,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-
 public class PageRenderer extends PageRendererBase {
 
   private static final Log LOG = LogFactory.getLog(PageRenderer.class);
@@ -87,13 +85,13 @@ public class PageRenderer extends PageRendererBase {
     super.decode(facesContext, component);
     String clientId = component.getClientId(facesContext);
     ExternalContext externalContext = facesContext.getExternalContext();
-    String severity =
-        (String) externalContext.getRequestParameterMap().get(clientId + SUBCOMPONENT_SEP + "clientSeverity");
+    String severity = (String) 
+        externalContext.getRequestParameterMap().get(clientId + ComponentUtils.SUB_SEPARATOR + "clientSeverity");
     if (severity != null) {
       externalContext.getRequestMap().put(CLIENT_DEBUG_SEVERITY, severity);
     }
-    String lastFocusId =
-        (String) externalContext.getRequestParameterMap().get(clientId + SUBCOMPONENT_SEP + LAST_FOCUS_ID);
+    String lastFocusId = (String) 
+        externalContext.getRequestParameterMap().get(clientId + ComponentUtils.SUB_SEPARATOR + LAST_FOCUS_ID);
     if (lastFocusId != null) {
       component.getAttributes().put(LAST_FOCUS_ID, lastFocusId);
     }
@@ -376,29 +374,29 @@ public class PageRenderer extends PageRendererBase {
 
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-    writer.writeNameAttribute(clientId + SUBCOMPONENT_SEP + "form-action");
-    writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "form-action");
+    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-action");
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "form-action");
     writer.writeAttribute(HtmlAttributes.VALUE, defaultActionId, true);
     writer.endElement(HtmlConstants.INPUT);
 
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-    writer.writeNameAttribute(clientId + SUBCOMPONENT_SEP + "context-path");
-    writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "context-path");
+    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "context-path");
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "context-path");
     writer.writeAttribute(HtmlAttributes.VALUE, facesContext.getExternalContext().getRequestContextPath(), true);
     writer.endElement(HtmlConstants.INPUT);
 
     writer.startElement(HtmlConstants.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-    writer.writeNameAttribute(clientId + SUBCOMPONENT_SEP + "action-position");
-    writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "action-position");
+    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "action-position");
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "action-position");
     writer.endElement(HtmlConstants.INPUT);
 
     if (debugMode) {
       writer.startElement(HtmlConstants.INPUT, null);
       writer.writeAttribute(HtmlAttributes.VALUE, clientLogSeverity);
-      writer.writeAttribute(HtmlAttributes.ID, clientId + SUBCOMPONENT_SEP + "clientSeverity", false);
-      writer.writeAttribute(HtmlAttributes.NAME, clientId + SUBCOMPONENT_SEP + "clientSeverity", false);
+      writer.writeAttribute(HtmlAttributes.ID, clientId + ComponentUtils.SUB_SEPARATOR + "clientSeverity", false);
+      writer.writeAttribute(HtmlAttributes.NAME, clientId + ComponentUtils.SUB_SEPARATOR + "clientSeverity", false);
       writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
       writer.endElement(HtmlConstants.INPUT);
     }
@@ -488,7 +486,7 @@ public class PageRenderer extends PageRendererBase {
     ViewHandler viewHandler = application.getViewHandler();
 
     writer.startElement(HtmlConstants.SPAN, null);
-    writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "jsf-state-container");
+    writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "jsf-state-container");
     writer.flush();
     viewHandler.writeState(facesContext);
     writer.endElement(HtmlConstants.SPAN);

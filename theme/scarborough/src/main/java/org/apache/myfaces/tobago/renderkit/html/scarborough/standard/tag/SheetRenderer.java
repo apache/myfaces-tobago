@@ -62,7 +62,6 @@ import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -72,7 +71,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import static org.apache.myfaces.tobago.component.UISheet.NONE;
 
 public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRenderer {
@@ -81,9 +79,9 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
 
   private static final String[] SCRIPTS = new String[]{"script/tobago-sheet.js"};
 
-  public static final String WIDTHS_POSTFIX = SUBCOMPONENT_SEP + "widths";
-  public static final String SCROLL_POSTFIX = SUBCOMPONENT_SEP + "scrollPosition";
-  public static final String SELECTED_POSTFIX = SUBCOMPONENT_SEP + "selected";
+  public static final String WIDTHS_POSTFIX = ComponentUtils.SUB_SEPARATOR + "widths";
+  public static final String SCROLL_POSTFIX = ComponentUtils.SUB_SEPARATOR + "scrollPosition";
+  public static final String SELECTED_POSTFIX = ComponentUtils.SUB_SEPARATOR + "selected";
 
   private static final Integer HEIGHT_0 = 0;
 
@@ -141,11 +139,10 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     writer.endElement(HtmlConstants.DIV);
 
     ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
-    UIViewRoot viewRoot = facesContext.getViewRoot();
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
 
-    String unchecked = contextPath + resourceManager.getImage(viewRoot, "image/sheetUnchecked.gif");
-    String checked = contextPath + resourceManager.getImage(viewRoot, "image/sheetChecked.gif");
+    String unchecked = contextPath + resourceManager.getImage(facesContext, "image/sheetUnchecked.gif");
+    String checked = contextPath + resourceManager.getImage(facesContext, "image/sheetChecked.gif");
     boolean ajaxEnabled = TobagoConfig.getInstance(facesContext).isAjaxEnabled();
 
     Integer frequency = null;
@@ -172,13 +169,12 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
       throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
-    UIViewRoot viewRoot = facesContext.getViewRoot();
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
     String sheetId = sheet.getClientId(facesContext);
 
-    String image1x1 = contextPath + resourceManager.getImage(viewRoot, "image/1x1.gif");
-    String selectorDisabled = contextPath + resourceManager.getImage(viewRoot, "image/sheetUncheckedDisabled.gif");
-    String unchecked = contextPath + resourceManager.getImage(viewRoot, "image/sheetUnchecked.gif");
+    String image1x1 = contextPath + resourceManager.getImage(facesContext, "image/1x1.gif");
+    String selectorDisabled = contextPath + resourceManager.getImage(facesContext, "image/sheetUncheckedDisabled.gif");
+    String unchecked = contextPath + resourceManager.getImage(facesContext, "image/sheetUnchecked.gif");
 
     //Style headerStyle = (Style) attributes.get(STYLE_HEADER);
 //    String sheetWidthString = LayoutUtils.getStyleAttributeValue(style,
@@ -243,9 +239,9 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
 
       int columnCount = 0;
       Measure sortMarkerWidth = getAscendingMarkerWidth(facesContext, sheet);
-      String imageAscending = contextPath + resourceManager.getImage(viewRoot, "image/ascending.gif");
-      String imageDescending = contextPath + resourceManager.getImage(viewRoot, "image/descending.gif");
-      String img = resourceManager.getImage(viewRoot, "image/unsorted.gif", true);
+      String imageAscending = contextPath + resourceManager.getImage(facesContext, "image/ascending.gif");
+      String imageDescending = contextPath + resourceManager.getImage(facesContext, "image/descending.gif");
+      String img = resourceManager.getImage(facesContext, "image/unsorted.gif", true);
       String imageUnsorted = image1x1;
       if (img != null) {
         imageUnsorted = contextPath + img;
@@ -500,7 +496,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
 
         writer.startElement(HtmlConstants.SPAN, null);
         writer.writeClassAttribute(className);
-        writer.writeIdAttribute(sheetId + SUBCOMPONENT_SEP + "pagingLinks");
+        writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "pagingLinks");
         writeDirectPagingLinks(writer, facesContext, application, sheet);
         writer.endElement(HtmlConstants.SPAN);
       }
@@ -522,7 +518,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
 
         writer.startElement(HtmlConstants.SPAN, null);
         writer.writeClassAttribute(className);
-        writer.writeIdAttribute(sheetId + SUBCOMPONENT_SEP + "pagingPages");
+        writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "pagingPages");
         writer.writeText("");
 
         boolean atBeginning = sheet.isAtBeginning();
@@ -574,7 +570,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
           first,
           last,
           sheet.getRowCount(),
-          pagerCommandId + SUBCOMPONENT_SEP + "text"
+          pagerCommandId + ComponentUtils.SUB_SEPARATOR + "text"
       };
       sheetPagingInfo = detail.format(args);
     } else {
@@ -740,7 +736,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.IMG, null);
     writer.writeIdAttribute(data.getClientId(facesContext)
-        + SUBCOMPONENT_SEP + "pagingPages" + SUBCOMPONENT_SEP + command.getToken());
+        + ComponentUtils.SUB_SEPARATOR + "pagingPages" + ComponentUtils.SUB_SEPARATOR + command.getToken());
     writer.writeClassAttribute("tobago-sheet-footer-pager-button"
         + (disabled ? " tobago-sheet-footer-pager-button-disabled" : ""));
     writer.writeAttribute(HtmlAttributes.SRC, image, false);
@@ -1007,7 +1003,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     }
 
     String name;
-    int skip = prevs.size() > 0 ? ((Integer) prevs.get(0)) : 1;
+    int skip = prevs.size() > 0 ? prevs.get(0) : 1;
     if (skip > 1) {
       skip -= (linkCount - (linkCount / 2));
       skip--;
@@ -1033,8 +1029,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
       writeLinkElement(writer, name, name, pagerCommandId, hrefPostfix, true);
     }
 
-    skip = nexts.size() > 0
-        ? ((Integer) nexts.get(nexts.size() - 1)) : data.getPages();
+    skip = nexts.size() > 0 ? nexts.get(nexts.size() - 1) : data.getPages();
     if (skip < data.getPages()) {
       skip += linkCount / 2;
       skip++;
@@ -1069,9 +1064,9 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     writer.startElement(type, null);
     writer.writeClassAttribute("tobago-sheet-paging-links-link");
     if (makeLink) {
-      writer.writeIdAttribute(id + SUBCOMPONENT_SEP + "link_" + skip);
-      writer.writeAttribute(HtmlAttributes.HREF, "javascript: tobagoSheetSetPagerPage('"
-          + id + "', '" + skip + hrefPostfix, null);
+      writer.writeIdAttribute(id + ComponentUtils.SUB_SEPARATOR + "link_" + skip);
+      writer.writeAttribute(
+          HtmlAttributes.HREF, "javascript: tobagoSheetSetPagerPage('" + id + "', '" + skip + hrefPostfix, true);
     }
     writer.flush();
     writer.write(str);

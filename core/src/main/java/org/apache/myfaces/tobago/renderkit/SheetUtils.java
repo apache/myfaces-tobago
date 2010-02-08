@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.PageActionUtil;
@@ -64,7 +63,7 @@ public class SheetUtils {
         case TO_PAGE:
         case TO_ROW:
           Map map = facesContext.getExternalContext().getRequestParameterMap();
-          Object value = map.get(clientId + SUBCOMPONENT_SEP + "value");
+          Object value = map.get(clientId + ComponentUtils.SUB_SEPARATOR + "value");
           try {
             event.setValue(Integer.parseInt((String) value));
           } catch (Exception e) {

@@ -24,11 +24,14 @@ package org.apache.myfaces.tobago;
  * @see org.apache.myfaces.tobago.component.UICommandBase
  * @see org.apache.myfaces.tobago.component.OnComponentCreated
  * @see org.apache.myfaces.tobago.renderkit.HtmlUtils
+ * @see org.apache.myfaces.tobago.util.ComponentUtils
  * @deprecated
  */
 @Deprecated
 public final class TobagoConstants {
 
+  /** @deprecated Please use ComponentUtils.SUB_SEPARATOR instead. Will be removed after Tobago 1.5 */
+  @Deprecated
   public static final String SUBCOMPONENT_SEP = "::";
 
   /** @deprecated Please use AbstractUICommand instead. Will be removed after Tobago 1.5 */

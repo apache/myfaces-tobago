@@ -47,8 +47,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-
 public abstract class AbstractUIPage extends AbstractUIForm
     implements OnComponentPopulated, InvokeOnComponent, LayoutContainer, DeprecatedDimension {
 
@@ -75,7 +73,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
 
   public String getFormId(FacesContext facesContext) {
     if (formId == null) {
-      formId = getClientId(facesContext) + SUBCOMPONENT_SEP + "form";
+      formId = getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "form";
     }
     return formId;
   }
@@ -222,8 +220,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
     String name;
     String value = null;
     try {
-      name = getClientId(facesContext)
-          + SUBCOMPONENT_SEP + "form-clientDimension";
+      name = getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "form-clientDimension";
       value = (String) facesContext.getExternalContext()
           .getRequestParameterMap().get(name);
       if (value != null) {

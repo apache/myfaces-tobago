@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.component.AbstractUITree;
 import org.apache.myfaces.tobago.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -166,7 +165,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       }
 
       writer.startElement(HtmlConstants.SELECT, node);
-      writer.writeIdAttribute(id + TobagoConstants.SUBCOMPONENT_SEP + "select");
+      writer.writeIdAttribute(id + ComponentUtils.SUB_SEPARATOR + "select");
       StyleClasses selectClass = new StyleClasses();
       selectClass.addClass("treeListbox", "select");
       writer.writeClassAttribute(selectClass);

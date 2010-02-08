@@ -45,14 +45,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-
 public class PopupRenderer extends LayoutComponentRendererBase implements AjaxRenderer {
 
   @SuppressWarnings({"UnusedDeclaration"})
   private static final Log LOG = LogFactory.getLog(PopupRenderer.class);
-
-  public static final String CONTENT_ID_POSTFIX = SUBCOMPONENT_SEP + "content";
 
   public boolean getRendersChildren() {
     return true;
@@ -75,7 +71,7 @@ public class PopupRenderer extends LayoutComponentRendererBase implements AjaxRe
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     UIPopup component = (UIPopup) uiComponent;
     final String clientId = component.getClientId(facesContext);
-    final String contentDivId = clientId + CONTENT_ID_POSTFIX;
+    final String contentDivId = clientId + ComponentUtils.SUB_SEPARATOR + "content";
     //final String left = component.getLeft();
     //final String top = component.getTop();
     Integer zIndex = (Integer) component.getAttributes().get(Attributes.Z_INDEX);
@@ -119,7 +115,7 @@ public class PopupRenderer extends LayoutComponentRendererBase implements AjaxRe
     }
     if (VariableResolverUtil.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
       writer.startElement(HtmlConstants.IFRAME, component);
-      writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + HtmlConstants.IFRAME);
+      writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + HtmlConstants.IFRAME);
       writer.writeClassAttribute("tobago-popup-iframe tobago-popup-none");
       writer.writeStyleAttribute("z-index: " + (zIndex + 2) + ";");
       UIPage page = (UIPage) ComponentUtils.findPage(facesContext);
