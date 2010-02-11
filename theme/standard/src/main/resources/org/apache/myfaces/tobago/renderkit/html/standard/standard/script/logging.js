@@ -15,8 +15,6 @@
  * limitations under the License.
  */
 
-dojo.require("dojo.dnd.move");
-
 var LOG = {
   IdBase: "TbgLog",
   messages: new Array(),
@@ -266,11 +264,6 @@ LOG.LogArea.prototype.initialize = function() {
     Tobago.addBindEventListener(this.hideButton, "click", this, "doHide");
     Tobago.addBindEventListener(this.hideButton, "mousedown", Tobago, "stopEventPropagation");
 
-    var moveable = new dojo.dnd.Moveable(this.element, {handle: this.dragHandleTop});
-    moveable.events[moveable.events.length] = dojo.connect(this.dragHandleRight, "onmousedown", moveable, "onMouseDown")
-    moveable.events[moveable.events.length] = dojo.connect(this.dragHandleBottom, "onmousedown", moveable, "onMouseDown")
-    moveable.events[moveable.events.length] = dojo.connect(this.dragHandleLeft, "onmousedown", moveable, "onMouseDown")
-
     this.body = document.getElementsByTagName("body")[0];
     this.body.tbgLogArea = this;
 
@@ -282,6 +275,9 @@ LOG.LogArea.prototype.initialize = function() {
     }
     this.body.appendChild(this.element);
     LOG.addAppender(this);
+
+    /* Select the logging area with jQuery. TODO: The selector is fragile! */
+    $("body > div").draggable();
 };
 
 LOG.LogArea.prototype.show = function() {

@@ -230,7 +230,8 @@ public class PageRenderer extends PageRendererBase {
     List<String> scriptFiles = facesContext.getScriptFiles();
     // jquery.js and tobago.js needs to be first!
 
-    scriptFiles.add(0, debugMode ? "script/jquery-1.3.2.js" : "script/jquery-1.3.2.min.js");
+//    scriptFiles.add(0, debugMode ? "script/jquery/1_4_1/jquery.js" : "script/jquery/1_4_1/jquery.min.js");
+    scriptFiles.add(0, debugMode ? "script/jquery/1_3_2/jquery.js" : "script/jquery/1_3_2/jquery.min.js");
     scriptFiles.add(1, "script/tobago.js");
     scriptFiles.add(2, "script/theme-config.js");
     
@@ -249,6 +250,9 @@ public class PageRenderer extends PageRendererBase {
         } catch (NumberFormatException e) {/* ignore; use default*/ }
         hideClientLogging = !severity.contains("show");
       }
+      // the jquery ui is used in moment only for the logging area...
+      scriptFiles.add("script/jquery-ui/1_7_2/ui.core.min.js");
+      scriptFiles.add("script/jquery-ui/1_7_2/ui.draggable.min.js");
       scriptFiles.add("script/logging.js");
       facesContext.getOnloadScripts().add(0, "new LOG.LogArea({hide: " + hideClientLogging + "});");
     }
