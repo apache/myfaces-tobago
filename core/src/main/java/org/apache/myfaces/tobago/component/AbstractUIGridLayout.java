@@ -71,7 +71,11 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
     if (auto) {
       for (int i = 0; i < tokens.getSize(); i++) {
         if (tokens.get(i) instanceof RelativeLayoutToken) {
-          LOG.warn("Fixing layout token from * to auto, because a * in not allowed inside of a auto.");
+          LOG.warn("Fixing layout token from * to auto, because a * in not allowed inside of a auto. "
+              + "For more information please use the debug logging level.");
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Token * at index=" + i + ", orientation=" + orientation + ", grid=\n" + grid);
+          }
           tokens.set(i, AutoLayoutToken.INSTANCE);
         }
       }
@@ -243,7 +247,7 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
           Measure position = LayoutUtils.getBeginOffset(orientation, getLayoutContainer());
           for (int k = 0; k < i; k++) {
             if (pixelMeasures[k] == null) {
-              LOG.warn("Measure is null, should be debugged... i=" + i + " k=" + k + " grid=" + grid, 
+              LOG.warn("Measure is null, should be debugged... i=" + i + " k=" + k + " grid=" + grid,
                   new RuntimeException());
             } else {
               position = position.add(pixelMeasures[k]);
