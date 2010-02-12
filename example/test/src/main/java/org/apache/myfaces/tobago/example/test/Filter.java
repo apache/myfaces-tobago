@@ -42,6 +42,7 @@ public class Filter {
       "/WEB-INF.*",
       "/org/.*",
       "/src/.*",
+      "/try/.*",
       ".*/\\.svn/.*",
 
       "/index.html",
