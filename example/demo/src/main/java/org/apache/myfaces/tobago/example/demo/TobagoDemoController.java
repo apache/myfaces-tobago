@@ -17,10 +17,6 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
-/*
- * $Id$
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -59,7 +55,8 @@ public class TobagoDemoController {
 
   private SelectItem[] salutationItems;
 
-  private boolean[] bool;
+  // XXX jetty 6.1.22 has problems with boolean[] (primitive), see: http://jira.codehaus.org/browse/JETTY-1181
+  private Boolean[] bool;
 
   private boolean update;
 
@@ -123,7 +120,6 @@ public class TobagoDemoController {
 
   private TabChangeListener tabChangeListener;
 
-
   public TobagoDemoController() {
 
     String[] salutationKeys = {
@@ -136,17 +132,7 @@ public class TobagoDemoController {
     salutationItems = getSelectItems(salutationKeys, "demo");
     this.salutation = new String[]{"", "", "", ""};
 
-    bool = new boolean[10];
-    bool[0] = true;
-    bool[1] = false;
-    bool[2] = true;
-    bool[3] = false;
-    bool[4] = true;
-    bool[5] = false;
-    bool[6] = true;
-    bool[7] = false;
-    bool[8] = true;
-    bool[9] = false;
+    bool = new Boolean[] {true, false, true, false, true, false, true, false, true, false};
     boolTest = Boolean.TRUE;
 
     text = new String[11];
@@ -234,7 +220,7 @@ public class TobagoDemoController {
     return null;
   }
 
-  public void resetSession() throws IOException {
+  public String resetSession() throws IOException {
     LOG.info("Resetting the session.");
     FacesContext facesContext = FacesContext.getCurrentInstance();
     HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
@@ -244,6 +230,7 @@ public class TobagoDemoController {
     ExternalContext externalContext = facesContext.getExternalContext();
     externalContext.redirect(externalContext.getRequestContextPath());
     facesContext.responseComplete();
+    return null;
   }
 
   public TabChangeListener getTabChangeListener() {
@@ -323,12 +310,8 @@ public class TobagoDemoController {
     this.salutationItems = salutationItems;
   }
 
-  public boolean[] getBool() {
+  public Boolean[] getBool() {
     return this.bool;
-  }
-
-  public void setBool(boolean[] argBool) {
-    this.bool = argBool;
   }
 
   public Boolean getBoolTest() {
