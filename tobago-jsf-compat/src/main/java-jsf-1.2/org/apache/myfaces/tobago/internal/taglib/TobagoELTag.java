@@ -18,8 +18,6 @@ package org.apache.myfaces.tobago.internal.taglib;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 
@@ -30,17 +28,16 @@ import javax.servlet.jsp.JspException;
 
 public abstract class TobagoELTag extends UIComponentELTag {
 
-  private static final Log LOG = LogFactory.getLog(TobagoELTag.class);
- 
   @Override
   public int doStartTag() throws JspException {
+    int result = super.doStartTag();
     UIComponent component = getComponentInstance();
     if (component instanceof OnComponentCreated
         && component.getAttributes().get(OnComponentCreated.MARKER) == null) {
       component.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
       ((OnComponentCreated) component).onComponentCreated(getFacesContext());
     }
-    return super.doStartTag();
+    return result;
   }
 
   @Override
