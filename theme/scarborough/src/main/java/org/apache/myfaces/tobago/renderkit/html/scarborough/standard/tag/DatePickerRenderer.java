@@ -55,7 +55,9 @@ import java.util.TimeZone;
 import static javax.faces.convert.DateTimeConverter.CONVERTER_ID;
 
 public class DatePickerRenderer extends LinkRenderer {
+
   private static final Log LOG = LogFactory.getLog(DatePickerRenderer.class);
+
   public static final String CLOSE_POPUP = "closePopup";
 
   @Override
@@ -63,12 +65,12 @@ public class DatePickerRenderer extends LinkRenderer {
     preparePicker(context, (UIDatePicker) component);
   }
 
-  public void preparePicker(FacesContext facesContext, UIDatePicker link) {
-    if (link.getFor() == null) {
-      link.setFor("@auto");
+  public void preparePicker(FacesContext facesContext, UIDatePicker picker) {
+    if (picker.getFor() == null) {
+      picker.setFor("@auto");
     }
-    link.setImmediate(true);
-    String linkId = link.getId();
+    picker.setImmediate(true);
+    String linkId = picker.getId();
     UIHiddenInput hidden = (UIHiddenInput)
         CreateComponentUtils.createComponent(facesContext, UIHiddenInput.COMPONENT_TYPE, RendererTypes.HIDDEN);
     if (linkId != null) {
@@ -76,7 +78,7 @@ public class DatePickerRenderer extends LinkRenderer {
     } else {
       hidden.setId(facesContext.getViewRoot().createUniqueId());
     }
-    link.getChildren().add(hidden);
+    picker.getChildren().add(hidden);
 
     // create popup
     final AbstractUIPopup popup =
@@ -89,7 +91,7 @@ public class DatePickerRenderer extends LinkRenderer {
     }
     popup.getAttributes().put(Attributes.Z_INDEX, 10);
 
-    link.getFacets().put(Facets.PICKER_POPUP, popup);
+    picker.getFacets().put(Facets.PICKER_POPUP, popup);
 
     popup.setRendered(false);
 
@@ -180,7 +182,7 @@ public class DatePickerRenderer extends LinkRenderer {
     image.setValue("image/date.gif");
     image.getAttributes().put(Attributes.ALT, ""); //TODO: i18n
     StyleClasses.ensureStyleClasses(image).addFullQualifiedClass("tobago-input-picker"); // XXX not a standard name
-    link.getChildren().add(image);
+    picker.getChildren().add(image);
   }
 
 
@@ -202,32 +204,32 @@ public class DatePickerRenderer extends LinkRenderer {
   }
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    UIDatePicker link = (UIDatePicker) component;
+    UIDatePicker picker = (UIDatePicker) component;
 //    DatePickerController datePickerController = new DatePickerController();
-    UIDate dateInput = (UIDate) link.getForComponent();
+    UIDate dateInput = (UIDate) picker.getForComponent();
     if (dateInput == null) {
       LOG.error("No required UIDate component found.");
       return;
     }
     if (FacesUtils.hasValueBindingOrValueExpression(dateInput, Attributes.READONLY)) {
-      FacesUtils.copyValueBindingOrValueExpression(link, Attributes.DISABLED,
+      FacesUtils.copyValueBindingOrValueExpression(picker, Attributes.DISABLED,
           dateInput, Attributes.READONLY);
     } else {
       if (FacesUtils.hasValueBindingOrValueExpression(dateInput, Attributes.DISABLED)) {
-        FacesUtils.copyValueBindingOrValueExpression(link, Attributes.DISABLED,
+        FacesUtils.copyValueBindingOrValueExpression(picker, Attributes.DISABLED,
             dateInput, Attributes.DISABLED);
       } else {
-        link.setDisabled(dateInput.isReadonly() || dateInput.isDisabled());
+        picker.setDisabled(dateInput.isReadonly() || dateInput.isDisabled());
       }
     }
-    Map<String, Object> attributes = link.getAttributes();
-//    link.setActionListener(datePickerController);
+    Map<String, Object> attributes = picker.getAttributes();
+//    picker.setActionListener(datePickerController);
 
-    UIComponent hidden = (UIComponent) link.getChildren().get(0);
-    UIPopup popup = (UIPopup) link.getFacets().get(Facets.PICKER_POPUP);
+    UIComponent hidden = (UIComponent) picker.getChildren().get(0);
+    UIPopup popup = (UIPopup) picker.getFacets().get(Facets.PICKER_POPUP);
 
     attributes.put(Attributes.ONCLICK, "Tobago.openPickerPopup(event, '"
-        + link.getClientId(facesContext) + "', '"
+        + picker.getClientId(facesContext) + "', '"
         + hidden.getClientId(facesContext) + "', '"
         + popup.getClientId(facesContext) + "')");
 
@@ -252,8 +254,8 @@ public class DatePickerRenderer extends LinkRenderer {
 
     applyConverterPattern(facesContext, popup, converterPattern);
 
-    if (!ComponentUtils.containsPopupActionListener(link)) {
-      link.addActionListener(new PopupActionListener(popup.getId()));
+    if (!ComponentUtils.containsPopupActionListener(picker)) {
+      picker.addActionListener(new PopupActionListener(popup.getId()));
     }
     super.encodeBegin(facesContext, component);
   }
