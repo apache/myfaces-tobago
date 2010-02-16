@@ -1633,12 +1633,12 @@
 
   <properties>
     <myfaces11.version>1.1.7</myfaces11.version>
-    <myfaces12.version>1.2.7</myfaces12.version>
+    <myfaces12.version>1.2.8</myfaces12.version>
     <mojarra11.version>1.1_02</mojarra11.version>
     <mojarra12.version>1.2_13</mojarra12.version>
     <mojarra20.version>2.0.1-b02</mojarra20.version>
     <facelets.version>1.1.14</facelets.version>
-    <jetty.version>6.1.21</jetty.version>
+    <jetty.version>6.1.22</jetty.version>
     <commons-io.version>1.1</commons-io.version>
     <commons-lang.version>2.4</commons-lang.version>
     <commons-logging.version>1.1.1</commons-logging.version>
