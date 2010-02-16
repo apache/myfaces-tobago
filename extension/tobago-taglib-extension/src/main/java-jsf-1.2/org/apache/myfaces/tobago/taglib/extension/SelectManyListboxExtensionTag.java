@@ -26,15 +26,9 @@ import org.apache.myfaces.tobago.internal.taglib.SelectManyListboxTag;
 
 import javax.servlet.jsp.JspException;
 
-/*
- * Date: 16.12.2005
- * Time: 19:12:33
- */
-
 /**
  * Renders a multi selection option listbox with a label.
  */
-
 @Tag(name = "selectManyListbox")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectManyListboxTag")
 public class SelectManyListboxExtensionTag extends TobagoExtensionBodyTagSupport {
@@ -85,6 +79,7 @@ public class SelectManyListboxExtensionTag extends TobagoExtensionBodyTagSupport
       labelTag.setMarkup(markup);
     }
     labelTag.setParent(getParent());
+    labelTag.setJspId(jspId + PREFIX + idSuffix++);
     labelTag.doStartTag();
 
     selectManyListboxTag = new SelectManyListboxTag();
@@ -141,6 +136,7 @@ public class SelectManyListboxExtensionTag extends TobagoExtensionBodyTagSupport
       selectManyListboxTag.setRequiredMessage(requiredMessage);
     }
     selectManyListboxTag.setParent(labelTag);
+    selectManyListboxTag.setJspId(jspId + PREFIX + idSuffix++);
     selectManyListboxTag.doStartTag();
 
     return super.doStartTag();

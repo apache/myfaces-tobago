@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.internal.taglib.InTag;
 
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.JspIdConsumer;
 
 /**
  * Renders a text input field with a label.
@@ -49,10 +48,8 @@ import javax.servlet.jsp.tagext.JspIdConsumer;
 
 @Tag(name = "in")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.InTag")
-public class InExtensionTag extends TobagoExtensionBodyTagSupport implements JspIdConsumer {
+public class InExtensionTag extends TobagoExtensionBodyTagSupport {
 
-  public static final String PREFIX = "tx";
-  
   private javax.el.ValueExpression binding;
   private javax.el.ValueExpression converter;
   private javax.el.MethodExpression validator;
@@ -78,13 +75,9 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport implements Jsp
   private LabelExtensionTag labelTag;
   private InTag inTag;
 
-  private String jspId;
-  
   @Override
   public int doStartTag() throws JspException {
 
-    int suffixId = 0;
-    
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
     if (label != null) {
@@ -103,7 +96,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport implements Jsp
       labelTag.setMarkup(markup);
     }
     labelTag.setParent(getParent());
-    labelTag.setJspId(jspId + PREFIX + suffixId++);
+    labelTag.setJspId(jspId + PREFIX + idSuffix++);
     labelTag.doStartTag();
 
     inTag = new InTag();
@@ -163,7 +156,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport implements Jsp
       inTag.setRequiredMessage(requiredMessage);
     }
     inTag.setParent(labelTag);
-    inTag.setJspId(jspId + PREFIX + suffixId++);
+    inTag.setJspId(jspId + PREFIX + idSuffix++);
     inTag.doStartTag();
 
     return super.doStartTag();
@@ -177,10 +170,6 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport implements Jsp
   }
 
   private static final Log LOG = LogFactory.getLog(InExtensionTag.class);
-
-  public void setJspId(String jspId) {
-    this.jspId = jspId;
-  }
 
   @Override
   public void release() {

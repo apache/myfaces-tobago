@@ -32,20 +32,13 @@ import org.apache.myfaces.tobago.internal.taglib.SelectBooleanCheckboxTag;
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
-
-/*
- * Date: 09.05.2006
- * Time: 00:00:49
- */
 
 /**
- * Renders a checkable menuitem.
+ * Renders a checkable menu item.
  */
-
 @Tag(name = "menuCheckbox", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.MenuCheckboxTag")
-public class MenuCheckboxExtensionTag extends BodyTagSupport {
+public class MenuCheckboxExtensionTag extends TobagoExtensionBodyTagSupport {
   private javax.el.ValueExpression rendered;
   private javax.el.ValueExpression value;
 
@@ -63,6 +56,9 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport {
   private javax.el.ValueExpression transition;
   private javax.el.ValueExpression renderedPartially;
 
+  private String jspId;
+  private int suffixId;
+  
   @Override
   public int doStartTag() throws JspException {
 
@@ -102,6 +98,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport {
     if (renderedPartially != null) {
       menuCommandTag.setRenderedPartially(renderedPartially);
     }
+    menuCommandTag.setJspId(jspId + PREFIX + suffixId++);
     menuCommandTag.doStartTag();
 
     facetTag = new FacetTag();
@@ -116,6 +113,7 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport {
       selectBooleanCheckbox.setValue(value);
     }
     selectBooleanCheckbox.setParent(facetTag);
+    selectBooleanCheckbox.setJspId(jspId + PREFIX + suffixId++);
     selectBooleanCheckbox.doStartTag();
     return super.doStartTag();
   }

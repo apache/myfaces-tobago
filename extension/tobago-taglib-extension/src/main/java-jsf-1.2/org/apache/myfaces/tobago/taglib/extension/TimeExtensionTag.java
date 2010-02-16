@@ -88,6 +88,7 @@ public class TimeExtensionTag extends TobagoExtensionBodyTagSupport {
       labelTag.setColumns(createStringValueExpression(labelWidth.getExpressionString() + ";*"));
     }
     labelTag.setParent(getParent());
+    labelTag.setJspId(jspId + PREFIX + idSuffix++);
     labelTag.doStartTag();
 
     timeTag = new TimeTag();
@@ -141,6 +142,7 @@ public class TimeExtensionTag extends TobagoExtensionBodyTagSupport {
       timeTag.setRequiredMessage(requiredMessage);
     }
     timeTag.setParent(labelTag);
+    timeTag.setJspId(jspId + PREFIX + idSuffix++);
     timeTag.doStartTag();
 
     return super.doStartTag();

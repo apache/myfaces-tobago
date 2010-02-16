@@ -81,6 +81,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
       labelTag.setMarkup(markup);
     }
     labelTag.setParent(getParent());
+    labelTag.setJspId(jspId + PREFIX + idSuffix++);
     labelTag.doStartTag();
 
     selectManyCheckboxTag = new SelectManyCheckboxTag();
@@ -143,6 +144,7 @@ public class SelectManyCheckboxExtensionTag extends TobagoExtensionBodyTagSuppor
       selectManyCheckboxTag.setRequiredMessage(requiredMessage);
     }
     selectManyCheckboxTag.setParent(labelTag);
+    selectManyCheckboxTag.setJspId(jspId + PREFIX + idSuffix++);
     selectManyCheckboxTag.doStartTag();
 
     return super.doStartTag();

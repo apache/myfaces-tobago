@@ -103,6 +103,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
       labelTag.setMarkup(markup);
     }
     labelTag.setParent(getParent());
+    labelTag.setJspId(jspId + PREFIX + idSuffix++);
     labelTag.doStartTag();
 
     dateTag = new DateTag();
@@ -160,12 +161,11 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
     }
 
     dateTag.setParent(labelTag);
+    dateTag.setJspId(jspId + PREFIX + idSuffix++);
     dateTag.doStartTag();
 
     return super.doStartTag();
   }
-
-
 
   @Override
   public int doEndTag() throws JspException {
@@ -173,6 +173,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
     FormTag formTag = new FormTag();
     formTag.setPageContext(pageContext);
     formTag.setParent(labelTag);
+    formTag.setJspId(jspId + PREFIX + idSuffix++);
     formTag.doStartTag();
 
     DatePickerTag datePicker = new DatePickerTag();
@@ -182,6 +183,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
       datePicker.setTabIndex(tabIndex);
     }
     datePicker.setParent(formTag);
+    datePicker.setJspId(jspId + PREFIX + idSuffix++);
     datePicker.doStartTag();
     datePicker.doEndTag();
     formTag.doEndTag();

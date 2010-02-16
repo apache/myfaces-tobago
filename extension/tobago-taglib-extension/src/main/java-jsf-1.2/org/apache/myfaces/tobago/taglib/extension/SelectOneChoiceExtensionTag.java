@@ -79,6 +79,7 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
       labelTag.setMarkup(markup);
     }
     labelTag.setParent(getParent());
+    labelTag.setJspId(jspId + PREFIX + idSuffix++);
     labelTag.doStartTag();
 
     selectOneChoiceTag = new SelectOneChoiceTag();
@@ -135,6 +136,7 @@ public class SelectOneChoiceExtensionTag extends TobagoExtensionBodyTagSupport {
       selectOneChoiceTag.setRequiredMessage(requiredMessage);
     }
     selectOneChoiceTag.setParent(labelTag);
+    selectOneChoiceTag.setJspId(jspId + PREFIX + idSuffix++);
     selectOneChoiceTag.doStartTag();
 
     return super.doStartTag();

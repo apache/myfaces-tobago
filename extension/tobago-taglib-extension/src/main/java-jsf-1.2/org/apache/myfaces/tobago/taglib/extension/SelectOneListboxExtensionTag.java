@@ -78,6 +78,7 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
       labelTag.setMarkup(markup);
     }
     labelTag.setParent(getParent());
+    labelTag.setJspId(jspId + PREFIX + idSuffix++);
     labelTag.doStartTag();
 
     selectOneListboxTag = new SelectOneListboxTag();
@@ -134,6 +135,7 @@ public class SelectOneListboxExtensionTag extends TobagoExtensionBodyTagSupport 
       selectOneListboxTag.setMarkup(markup);
     }
     selectOneListboxTag.setParent(labelTag);
+    selectOneListboxTag.setJspId(jspId + PREFIX + idSuffix++);
     selectOneListboxTag.doStartTag();
 
     return super.doStartTag();

@@ -86,6 +86,7 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
       labelTag.setLabelWidth(createStringValueExpression(labelWidth.getExpressionString() + ";*"));
     }
     labelTag.setParent(getParent());
+    labelTag.setJspId(jspId + PREFIX + idSuffix++);
     labelTag.doStartTag();
 
     fileTag = new FileTag();
@@ -131,6 +132,7 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
       fileTag.setRequiredMessage(requiredMessage);
     }
     fileTag.setParent(labelTag);
+    fileTag.setJspId(jspId + PREFIX + idSuffix++);
     fileTag.doStartTag();
 
     return super.doStartTag();

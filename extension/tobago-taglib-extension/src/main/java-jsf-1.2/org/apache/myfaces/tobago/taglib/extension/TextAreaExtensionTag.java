@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.internal.taglib.TextareaTag;
 import javax.servlet.jsp.JspException;
 
 /**
- * Renders a multiline text input control with a label.
+ * Renders a multi line text input control with a label.
  * <br />
  * Short syntax of:
  * <p/>
@@ -93,6 +93,7 @@ public class TextAreaExtensionTag extends TobagoExtensionBodyTagSupport {
       labelTag.setMarkup(markup);
     }
     labelTag.setParent(getParent());
+    labelTag.setJspId(jspId + PREFIX + idSuffix++);
     labelTag.doStartTag();
 
     textAreaTag = new TextareaTag();
@@ -146,6 +147,7 @@ public class TextAreaExtensionTag extends TobagoExtensionBodyTagSupport {
       textAreaTag.setRequiredMessage(requiredMessage);
     }
     textAreaTag.setParent(labelTag);
+    textAreaTag.setJspId(jspId + PREFIX + idSuffix++);
     textAreaTag.doStartTag();
 
     return super.doStartTag();

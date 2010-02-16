@@ -20,12 +20,28 @@ package org.apache.myfaces.tobago.taglib.extension;
 import javax.el.ValueExpression;
 import javax.servlet.jsp.JspFactory;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.JspIdConsumer;
 
 
-public class TobagoExtensionBodyTagSupport extends BodyTagSupport {
+public class TobagoExtensionBodyTagSupport extends BodyTagSupport implements JspIdConsumer {
 
+  protected static final String PREFIX = "tx";
+  
+  protected String jspId;
+  protected int idSuffix;
+    
   protected ValueExpression createStringValueExpression(String expression) {
     return JspFactory.getDefaultFactory().getJspApplicationContext(pageContext.getServletContext())
         .getExpressionFactory().createValueExpression(pageContext.getELContext(), expression, String.class);
+  }
+  
+  public void setJspId(String jspId) {
+    this.jspId = jspId;
+  }
+
+  public void release() {
+    super.release();
+    jspId = null;
+    idSuffix = 0;
   }
 }

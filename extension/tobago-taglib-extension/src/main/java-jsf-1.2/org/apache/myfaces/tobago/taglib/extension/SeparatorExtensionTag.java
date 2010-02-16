@@ -41,6 +41,7 @@ import javax.servlet.jsp.JspException;
  */
 
 public class SeparatorExtensionTag extends TobagoExtensionBodyTagSupport {
+  
   private javax.el.ValueExpression binding;
   private javax.el.ValueExpression rendered;
   private javax.el.ValueExpression label;
@@ -72,6 +73,7 @@ public class SeparatorExtensionTag extends TobagoExtensionBodyTagSupport {
     if (label != null) {
       labelTag.setValue(label);
     }
+    labelTag.setJspId(jspId + PREFIX + idSuffix++);
     labelTag.doStartTag();
     return super.doStartTag();
   }

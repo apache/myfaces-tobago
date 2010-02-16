@@ -83,6 +83,7 @@ public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSup
       labelTag.setMarkup(markup);
     }
     labelTag.setParent(getParent());
+    labelTag.setJspId(jspId + PREFIX + idSuffix++);
     labelTag.doStartTag();
 
     selectBooleanCheckboxTag = new SelectBooleanCheckboxTag();
@@ -139,6 +140,7 @@ public class SelectBooleanCheckboxExtensionTag extends TobagoExtensionBodyTagSup
       selectBooleanCheckboxTag.setRequiredMessage(requiredMessage);
     }
     selectBooleanCheckboxTag.setParent(labelTag);
+    selectBooleanCheckboxTag.setJspId(jspId + PREFIX + idSuffix++);
     selectBooleanCheckboxTag.doStartTag();
 
     return super.doStartTag();

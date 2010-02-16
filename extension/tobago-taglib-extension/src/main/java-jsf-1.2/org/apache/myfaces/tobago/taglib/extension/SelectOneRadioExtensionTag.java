@@ -27,11 +27,10 @@ import org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag;
 import javax.servlet.jsp.JspException;
 
 /**
- * Render a set of radiobuttons.
+ * Render a set of radio buttons.
  *
  * @since 1.0.13
  */
-
 @Tag(name = "selectOneRadio")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag")
 public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
@@ -82,6 +81,7 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
       labelTag.setMarkup(markup);
     }
     labelTag.setParent(getParent());
+    labelTag.setJspId(jspId + PREFIX + idSuffix++);
     labelTag.doStartTag();
 
     selectOneRadioTag = new SelectOneRadioTag();
@@ -142,6 +142,7 @@ public class SelectOneRadioExtensionTag extends TobagoExtensionBodyTagSupport {
     }
 
     selectOneRadioTag.setParent(labelTag);
+    selectOneRadioTag.setJspId(jspId + PREFIX + idSuffix++);
     selectOneRadioTag.doStartTag();
 
     return super.doStartTag();

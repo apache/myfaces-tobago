@@ -32,20 +32,13 @@ import org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag;
 import javax.faces.component.UIComponent;
 import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyTagSupport;
-
-/*
- * Date: 09.05.2006
- * Time: 17:41:39
- */
 
 /**
- * Renders a submenu with select one items (like a radio button).
+ * Renders a sub menu with select one items (like a radio button).
  */
-
 @Tag(name = "menuRadio", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.MenuRadioTag")
-public class MenuRadioExtensionTag extends BodyTagSupport {
+public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
 
   private javax.el.ValueExpression rendered;
   private javax.el.ValueExpression value;
@@ -105,6 +98,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport {
     if (renderedPartially != null) {
       menuCommandTag.setRenderedPartially(renderedPartially);
     }
+    menuCommandTag.setJspId(jspId + PREFIX + idSuffix++);
     menuCommandTag.doStartTag();
 
     facetTag = new FacetTag();
@@ -122,6 +116,7 @@ public class MenuRadioExtensionTag extends BodyTagSupport {
     if (value != null) {
       selectOneRadio.setValue(value);
     }
+    selectOneRadio.setJspId(jspId + PREFIX + idSuffix++);
     selectOneRadio.doStartTag();
 
     return super.doStartTag();
@@ -148,6 +143,26 @@ public class MenuRadioExtensionTag extends BodyTagSupport {
     menuCommandTag.doEndTag();
 
     return super.doEndTag();
+  }
+
+  public void release() {
+    super.release();
+    rendered = null;
+    value = null;
+    action = null;
+    actionListener = null;
+    onclick = null;
+    link = null;
+    disabled = null;
+    binding = null;
+    label = null;
+    immediate = null;
+    transition = null;
+    converter = null;
+    renderedPartially = null;
+    menuCommandTag = null;
+    facetTag = null;
+    selectOneRadio = null;
   }
 
   /**
@@ -297,25 +312,4 @@ public class MenuRadioExtensionTag extends BodyTagSupport {
   public void setRenderedPartially(javax.el.ValueExpression renderedPartially) {
     this.renderedPartially = renderedPartially;
   }
-
-  public void release() {
-    super.release();
-    rendered = null;
-    value = null;
-    action = null;
-    actionListener = null;
-    onclick = null;
-    link = null;
-    disabled = null;
-    binding = null;
-    label = null;
-    immediate = null;
-    transition = null;
-    converter = null;
-    renderedPartially = null;
-    menuCommandTag = null;
-    facetTag = null;
-    selectOneRadio = null;
-  }
-
 }
