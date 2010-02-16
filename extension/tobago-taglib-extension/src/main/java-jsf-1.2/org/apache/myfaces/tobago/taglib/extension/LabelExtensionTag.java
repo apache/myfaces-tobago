@@ -32,14 +32,16 @@ import org.apache.myfaces.tobago.internal.taglib.PanelTag;
 import javax.el.ValueExpression;
 import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.JspIdConsumer;
 
 @Tag(name = "label")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.LabelTag")
-public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
+public class LabelExtensionTag extends TobagoExtensionBodyTagSupport implements JspIdConsumer {
 
   private static final Log LOG = LogFactory.getLog(LabelExtensionTag.class);
 
   public static final String DEFAULT_COLUMNS = "fixed;*";
+  public static final String PREFIX = "tx";
 
   private javax.el.ValueExpression value;
   private javax.el.ValueExpression tip;
@@ -51,9 +53,12 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
 
   private PanelTag panelTag;
 
+  private String jspId;
+  
   @Override
   public int doStartTag() throws JspException {
 
+    int suffixId = 0;
     panelTag = new PanelTag();
     panelTag.setPageContext(pageContext);
     panelTag.setParent(getParent());
@@ -63,6 +68,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
     if (tip != null) {
       panelTag.setTip(tip);
     }
+    panelTag.setJspId(jspId + PREFIX + suffixId++);
     panelTag.doStartTag();
 
     FacetTag facetTag = new FacetTag();
@@ -84,6 +90,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
     javax.el.ValueExpression ve = createStringValueExpression(rows);
     gridLayoutTag.setRows(ve);
     gridLayoutTag.setParent(facetTag);
+    gridLayoutTag.setJspId(jspId + PREFIX + suffixId++);
     gridLayoutTag.doStartTag();
     gridLayoutTag.doEndTag();
 
@@ -99,6 +106,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
     }
     labelTag.setFor("@auto");
     labelTag.setParent(panelTag);
+    labelTag.setJspId(jspId + PREFIX + suffixId++);
     labelTag.doStartTag();
     labelTag.doEndTag();
 
@@ -109,6 +117,10 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
   public int doEndTag() throws JspException {
     panelTag.doEndTag();
     return super.doEndTag();
+  }
+
+  public void setJspId(String jspId) {
+    this.jspId = jspId;
   }
 
   @Override

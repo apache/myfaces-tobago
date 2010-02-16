@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.taglib.extension;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
@@ -25,6 +27,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.internal.taglib.InTag;
 
 import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.JspIdConsumer;
 
 /**
  * Renders a text input field with a label.
@@ -46,8 +49,10 @@ import javax.servlet.jsp.JspException;
 
 @Tag(name = "in")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.InTag")
-public class InExtensionTag extends TobagoExtensionBodyTagSupport {
+public class InExtensionTag extends TobagoExtensionBodyTagSupport implements JspIdConsumer {
 
+  public static final String PREFIX = "tx";
+  
   private javax.el.ValueExpression binding;
   private javax.el.ValueExpression converter;
   private javax.el.MethodExpression validator;
@@ -73,9 +78,13 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   private LabelExtensionTag labelTag;
   private InTag inTag;
 
+  private String jspId;
+  
   @Override
   public int doStartTag() throws JspException {
 
+    int suffixId = 0;
+    
     labelTag = new LabelExtensionTag();
     labelTag.setPageContext(pageContext);
     if (label != null) {
@@ -94,6 +103,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
       labelTag.setMarkup(markup);
     }
     labelTag.setParent(getParent());
+    labelTag.setJspId(jspId + PREFIX + suffixId++);
     labelTag.doStartTag();
 
     inTag = new InTag();
@@ -153,6 +163,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
       inTag.setRequiredMessage(requiredMessage);
     }
     inTag.setParent(labelTag);
+    inTag.setJspId(jspId + PREFIX + suffixId++);
     inTag.doStartTag();
 
     return super.doStartTag();
@@ -163,6 +174,12 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
     inTag.doEndTag();
     labelTag.doEndTag();
     return super.doEndTag();
+  }
+
+  private static final Log LOG = LogFactory.getLog(InExtensionTag.class);
+
+  public void setJspId(String jspId) {
+    this.jspId = jspId;
   }
 
   @Override
