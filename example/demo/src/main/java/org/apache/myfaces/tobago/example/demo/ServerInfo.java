@@ -17,15 +17,15 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
-import java.io.InputStream;
-import java.io.IOException;
 
 public class ServerInfo {
 
@@ -36,26 +36,8 @@ public class ServerInfo {
   private boolean enabled;
 
   public ServerInfo() {
-    InputStream pom = null;
-    try {
-      pom = getClass().getClassLoader().getResourceAsStream(
-          "META-INF/maven/org.apache.myfaces.tobago/tobago-core/pom.properties");
-      Properties properties = new Properties();
-      properties.load(pom);
-      version = properties.getProperty("version");
-
-      /*
-      This should work, too. But the default ImplementationEntries in MANIFEST.MF are missing
-      See:
-      https://issues.apache.org/jira/browse/TOBAGO-417
-      Package tobagoPackage = Package.getPackage("org.apache.myfaces.tobago.component");
-      version = tobagoPackage.getImplementationVersion();
-      */
-    } catch (IOException e) {
-      LOG.warn("No version info found.", e);
-    } finally {
-      IOUtils.closeQuietly(pom);
-    }
+    Package tobagoPackage = Package.getPackage("org.apache.myfaces.tobago.component");
+    version = tobagoPackage.getImplementationVersion();
   }
 
   public String getServerInfo() {
@@ -72,6 +54,10 @@ public class ServerInfo {
     } else {
       return null;
     }
+  }
+
+  public List<Map.Entry<Object, Object>> getSystemPropertiesAsList() {
+    return new ArrayList<Map.Entry<Object, Object>>(getSystemProperties().entrySet());
   }
 
   public String getVersion() {

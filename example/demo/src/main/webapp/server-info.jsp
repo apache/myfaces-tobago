@@ -23,7 +23,7 @@
   <jsp:body>
     <tc:box label="Server Info">
       <f:facet name="layout">
-        <tc:gridLayout rows="fixed;fixed;fixed;fixed;*" />
+        <tc:gridLayout rows="fixed;fixed;fixed;fixed;*;3*" />
       </f:facet>
 
       <tx:in value="#{info.version}" readonly="true"
@@ -38,8 +38,23 @@
       <tx:in value="#{info.systemProperties['os.name']} - #{info.systemProperties['os.version']} - #{info.systemProperties['os.arch']}" readonly="true"
           label="Operating System" />
 
-      <tc:cell/>
+      <tx:textarea value="#{info.systemProperties['java.class.path']}" readonly="true"
+          label="Java Classpath" />
 
+<%-- todo: not tested jet
+      <tx:textarea value="#{applicationScope['org.apache.catalina.jsp_classpath']}" readonly="true"
+          label="JSP Java Classpath" />
+
+--%>
+      <tc:sheet var="entry" value="#{info.systemPropertiesAsList}" columns="*;2*" rows="1000">
+        <tc:column label="Key">
+          <tc:out value="#{entry.key}"/>
+        </tc:column>
+        <tc:column label="Value">
+          <tc:out value="#{entry.value}" escape="true"/>
+        </tc:column>
+      </tc:sheet>
+      
     </tc:box>
   </jsp:body>
 </layout:overview>
