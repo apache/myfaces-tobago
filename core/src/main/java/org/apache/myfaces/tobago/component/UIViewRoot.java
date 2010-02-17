@@ -36,24 +36,18 @@ import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
 
-/*
- * User: weber
- * Date: Jun 13, 2005
- * Time: 5:19:31 PM
- */
 public class UIViewRoot extends javax.faces.component.UIViewRoot {
 
   private static final Log LOG = LogFactory.getLog(UIViewRoot.class);
+
   private static final String EVENT_LIST_KEY = UIViewRoot.class.getName() + ".EventList";
+  public static final int ANY_PHASE_ORDINAL = PhaseId.ANY_PHASE.getOrdinal();
 
   private ResourceManagerImpl.CacheKey rendererCacheKey;
 
   private ClientProperties clientProperties;
 
   private int nextUniqueId;
-
-  public static final int ANY_PHASE_ORDINAL = PhaseId.ANY_PHASE.getOrdinal();
-
 
   /**
    * <p>Create a new {@link UIViewRoot} instance with default property
@@ -73,6 +67,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
     updateRendererCachePrefix();
   }
 
+  @Override
   public void setLocale(final Locale locale) {
     super.setLocale(locale);
     updateRendererCachePrefix();
@@ -108,6 +103,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
 //
   // TODO: remove if fixed in stable release!
 
+  @Override
   public void queueEvent(final FacesEvent event) {
     if (event == null) {
       throw new NullPointerException("event");
@@ -171,6 +167,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
   }
 
 
+  @Override
   public void processDecodes(final FacesContext context) {
     if (context == null) {
       throw new NullPointerException("context");
@@ -182,6 +179,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
     }
   }
 
+  @Override
   public void processValidators(final FacesContext context) {
     if (context == null) {
       throw new NullPointerException("context");
@@ -193,6 +191,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
     }
   }
 
+  @Override
   public void processUpdates(final FacesContext context) {
     if (context == null) {
       throw new NullPointerException("context");
@@ -204,6 +203,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
     }
   }
 
+  @Override
   public void processApplication(final FacesContext context) {
     if (context == null) {
       throw new NullPointerException("context");
@@ -224,6 +224,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
     return events;
   }
 
+  @Override
   public Object saveState(FacesContext facesContext) {
     if (FacesVersion.supports12()) {
       return super.saveState(facesContext);
@@ -235,6 +236,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
     }
   }
 
+  @Override
   public void restoreState(FacesContext facesContext, Object o) {
     if (FacesVersion.supports12()) {
       super.restoreState(facesContext, o);
@@ -245,6 +247,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
     }
   }
 
+  @Override
   public String createUniqueId() {
     if (FacesVersion.supports12()) {
       return super.createUniqueId();
@@ -253,5 +256,4 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
       return extCtx.encodeNamespace(UNIQUE_ID_PREFIX + nextUniqueId++);
     }
   }
-
 }
