@@ -27,7 +27,7 @@
       </f:facet>
 
       <tc:out escape="false" value="#{overviewBundle.validation_text}" />
-
+  
       <tc:box label="#{overviewBundle.validation_sampleTitle}" >
         <f:facet name="layout">
           <tc:gridLayout rows="fixed;1*;fixed;fixed" />
@@ -39,7 +39,7 @@
           </f:facet>
           <tx:in label="#{overviewBundle.validation_number}" markup="number" required="true">
             <f:validateLength minimum="7" maximum="7" />
-            <f:validateLongRange />
+            <f:validateLongRange maximum="9000000"/>
           </tx:in>
           <tx:in label="#{overviewBundle.validation_price}" markup="number">
             <f:validateDoubleRange minimum="0.01" maximum="1000" />
