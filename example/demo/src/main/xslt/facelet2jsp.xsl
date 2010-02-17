@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  This code is experimenal and only for use in this example
+  This code is experimental and only for use in this example
 -->
 
 <xsl:stylesheet version="1.0"
