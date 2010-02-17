@@ -51,9 +51,6 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
 
   private PanelTag panelTag;
 
-  private String jspId;
-  private int suffixId;
-  
   @Override
   public int doStartTag() throws JspException {
 
@@ -66,7 +63,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
     if (tip != null) {
       panelTag.setTip(tip);
     }
-    panelTag.setJspId(jspId + PREFIX + suffixId++);
+    panelTag.setJspId(jspId + PREFIX + idSuffix++);
     panelTag.doStartTag();
 
     FacetTag facetTag = new FacetTag();
@@ -88,7 +85,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
     javax.el.ValueExpression ve = createStringValueExpression(rows);
     gridLayoutTag.setRows(ve);
     gridLayoutTag.setParent(facetTag);
-    gridLayoutTag.setJspId(jspId + PREFIX + suffixId++);
+    gridLayoutTag.setJspId(jspId + PREFIX + idSuffix++);
     gridLayoutTag.doStartTag();
     gridLayoutTag.doEndTag();
 
@@ -104,7 +101,7 @@ public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
     }
     labelTag.setFor("@auto");
     labelTag.setParent(panelTag);
-    labelTag.setJspId(jspId + PREFIX + suffixId++);
+    labelTag.setJspId(jspId + PREFIX + idSuffix++);
     labelTag.doStartTag();
     labelTag.doEndTag();
 
