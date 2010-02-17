@@ -1127,7 +1127,7 @@
 
   <properties>
     <myfaces.version>1.1.7</myfaces.version>
-    <myfaces12.version>1.2.7</myfaces12.version>
+    <myfaces12.version>1.2.8</myfaces12.version>
     <sunjsf.version>1.1_02</sunjsf.version>
     <sunjsf12.version>1.2_14</sunjsf12.version>
     <facelets.version>1.1.14</facelets.version>
