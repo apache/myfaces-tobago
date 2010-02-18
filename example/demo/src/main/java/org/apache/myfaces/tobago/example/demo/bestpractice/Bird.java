@@ -35,10 +35,14 @@ public class Bird {
     this.size = size;
   }
 
+  /**
+   * Selects this bird in the controller. 
+   * It would be nicer to implement this method in the controller, but this is to show that it is possible.
+   */
   public String select() {
     LOG.info("Select Bird: name=" + name + " size=" + size);
-    BestPracticeController controller = (BestPracticeController)
-        VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), "bestPracticeController");
+    BirdController controller = (BirdController)
+        VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), "birdController");
     controller.setStatus("Selected bird is " + name);
     return null;
   }

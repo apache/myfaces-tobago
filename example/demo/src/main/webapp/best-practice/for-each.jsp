@@ -1,4 +1,4 @@
-<!--
+<%--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,15 +13,15 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
--->
+--%>
 
-<f:view locale="#{clientConfigController.locale}"
-        xmlns:jsp="http://java.sun.com/JSP/Page"
-        xmlns:tc="http://myfaces.apache.org/tobago/component"
-        xmlns:tx="http://myfaces.apache.org/tobago/extension"
-        xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
+
+<f:view locale="#{clientConfigController.locale}">
   <tc:loadBundle basename="overview" var="overviewBundle"/>
   <tc:page applicationIcon="icon/favicon.ico" id="page" width="600px" height="400px">
     <tc:box label="Best Practice - For Each">
@@ -31,10 +31,8 @@
 
       <tc:messages/>
 
-      <!--XXX not working with the layout manager-->
-      
       <tc:out escape="false"
-              value="Is is possible to use the ui:repeat tag of the Facelets to iterate over a list. &lt;br/>&lt;b>Warning:&lt;/b> &lt;br/>This example is broken with the layout manager in the moment! The iterated components are on top of each other."/>
+              value="Is is possible to use the c:forEach tag of the JSTL to iterate over a list. <br/><b>Warning:</b> <br/>This example works only with JSF 1.2"/>
 
       <tc:form>
         <tc:panel>
@@ -42,10 +40,10 @@
             <tc:gridLayout columns="*;100px"/>
           </f:facet>
 
-          <ui:repeat value="#{birdController.birds}" var="bird">
+          <c:forEach items="#{birdController.birds}" var="bird">
             <tx:in value="#{bird.size}" label="#{bird.name}"/>
             <tc:button label="Select" action="#{bird.select}"/>
-          </ui:repeat>
+          </c:forEach>
         </tc:panel>
       </tc:form>
 
