@@ -1,5 +1,5 @@
 Apache Tobago
-Copyright 2005-2009 The Apache Software Foundation
+Copyright 2005-2010 The Apache Software Foundation
 
 This product includes software developed by
 The Apache Software Foundation (http://www.apache.org/).
@@ -13,5 +13,8 @@ Sam Stephenson (the ProtoType library) (http://conio.net/).
 
 This product includes software developed by
 Thomas Fuchs (the Ruby on Rails Ajax javascript extensions) (http://script.aculo.us/).
+
+This product includes software developed by
+The jQuery Project (http://jquery.org/)
 
 
