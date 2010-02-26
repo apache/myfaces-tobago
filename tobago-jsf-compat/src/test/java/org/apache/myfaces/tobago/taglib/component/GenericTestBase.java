@@ -28,6 +28,7 @@ import org.apache.myfaces.tobago.mock.faces.MockExternalContext;
 import org.apache.myfaces.tobago.mock.faces.MockFacesContext;
 import org.apache.myfaces.tobago.mock.servlet.MockHttpServletRequest;
 import org.apache.myfaces.tobago.mock.servlet.MockHttpServletResponse;
+import org.apache.myfaces.tobago.mock.servlet.MockPageContext;
 import org.apache.myfaces.tobago.mock.servlet.MockServletContext;
 import org.w3c.dom.Document;
 import org.xml.sax.EntityResolver;
@@ -153,7 +154,7 @@ public abstract class GenericTestBase extends TestCase {
   private void checkRelease(javax.servlet.jsp.tagext.Tag tag) throws NoSuchMethodException,
       IllegalAccessException, InvocationTargetException, IOException,
       SAXException {
-    //tag.setPageContext(new MockPageContext());
+    tag.setPageContext(new MockPageContext());
 
     HashMap initialValues = new HashMap();
     PropertyDescriptor descriptors[] =

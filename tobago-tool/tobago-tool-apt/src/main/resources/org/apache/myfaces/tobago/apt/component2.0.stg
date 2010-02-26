@@ -57,7 +57,7 @@ import javax.el.ValueExpression;
  <if(componentInfo.description)>
  <componentInfo.description>
  <endif>
-  * UIComponent class, generated from template {@code component1.2.stg} with class
+  * UIComponent class, generated from template {@code component2.0.stg} with class
   * {@link <componentInfo.sourceClass>}.
    <if(componentInfo.deprecated)>
    @deprecated
@@ -78,7 +78,12 @@ public class <componentInfo.className>
   public static final String COMPONENT_FAMILY = "<componentInfo.componentFamily>";
 
   <endif>
+  <if(componentInfo.properties)>
+  enum PropertyKeys
+  {
   <componentInfo.properties:field(); separator="\n">
+  }
+  <endif>
 
   <if(componentInfo.componentFamily)>
   public String getFamily() {
@@ -87,21 +92,6 @@ public class <componentInfo.className>
 
   <endif>
   <componentInfo.properties:{ p | <p:(p.propertyTemplate)()>}; separator="\n">
-
-  <if(componentInfo.properties)>
-  public void restoreState(FacesContext context, Object componentState) {
-    Object[] values = (Object[]) componentState;
-    super.restoreState(context, values[0]);
-    <componentInfo.properties:{ p | <p:(p.propertyRestoreStateTemplate)()>}; separator="\n">
-  }
-
-  public Object saveState(FacesContext context) {
-    Object[] values = new Object[<componentInfo.propertiesSizePlusOne>];
-    values[0] = super.saveState(context);
-    <componentInfo.properties:{ p | <p:(p.propertySaveStateTemplate)()>}; separator="\n">
-    return values;
-  }
-  <endif>
 
   <if(componentInfo.invokeOnComponent)>
   <invokeOnComponent()>
@@ -153,19 +143,9 @@ IntegerProperty(property) ::= <<
 <createDescription(property)>
 <checkDeprecated(property)>
 public <property.type> get<property.upperCamelCaseName>() {
-  if (<property.propertyName> != null) {
-    return <property.propertyName>;
-  }
-  <getValueExpression(property)>
-  if (ve != null) {
-    try {
-      Number number = (Number) <getValue(property)>
-      if (number != null) {
-        return number.intValue();
-      }
-    } catch (ELException e) {
-		  throw new FacesException(e);
-	  }
+  Number value  = (Number) getStateHelper().eval(PropertyKeys.<property.propertyName>);
+  if (value != null) {
+    return value.intValue();
   }
   <if(property.defaultCode)>
   return <property.defaultCode>;
@@ -176,7 +156,7 @@ public <property.type> get<property.upperCamelCaseName>() {
 
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
-  this.<property.propertyName> = <property.propertyName>;
+  getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
 }
 >>
 
@@ -185,23 +165,12 @@ ObjectProperty(property) ::= <<
 <createDescription(property)>
 <checkDeprecated(property)>
 public <property.type> get<property.upperCamelCaseName>() {
-  if (<property.propertyName> != null) {
-    return <property.propertyName>;
-  }
-  <getValueExpression(property)>
-  if (ve != null) {
-    try {
-      return (<property.type>) <getValue(property)>
-    } catch (ELException e) {
-		  throw new FacesException(e);
-	  }
-  }
-  return null;
+  return getStateHelper().eval(PropertyKeys.<property.propertyName>);
 }
 
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
-  this.<property.propertyName> = <property.propertyName>;
+  getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
 }
 >>
 
@@ -210,39 +179,31 @@ StringArrayProperty(property) ::= <<
 <createDescription(property)>
 <checkDeprecated(property)>
 public String[] get<property.upperCamelCaseName>() {
-  if (<property.propertyName> != null) {
-    return <property.propertyName>;
-  }
-  <getValueExpression(property)>
-  if (ve != null) {
-    try {
-      Object strArray = <getValue(property)>
-      if (strArray instanceof String[]) {
-        return (String[]) strArray;
-      } else if (strArray instanceof String) {
-        String[] strings = StringUtils.split((String) strArray, ", ");
-        List\<String\> result = new ArrayList\<String\>(strings.length);
-        for (String string : strings) {
-          if (string.trim().length() != 0) {
-            result.add(string.trim());
-          }
+  Object strArray = getStateHelper().eval(PropertyKeys.<property.propertyName>);
+  if (strArray != null) {
+    if (strArray instanceof String[]) {
+      return (String[]) strArray;
+    } else if (strArray instanceof String) {
+      String[] strings = StringUtils.split((String) strArray, ", ");
+      List\<String\> result = new ArrayList\<String\>(strings.length);
+      for (String string : strings) {
+        if (string.trim().length() != 0) {
+          result.add(string.trim());
         }
-        return result.toArray(new String[result.size()]);
-      } else if (strArray == null) {
-        return ArrayUtils.EMPTY_STRING_ARRAY;
-      } else {
-        return new String[]{strArray.toString()};
       }
-    } catch (ELException e) {
-		  throw new FacesException(e);
-	  }
+      return result.toArray(new String[result.size()]);
+    } else if (strArray == null) {
+      return ArrayUtils.EMPTY_STRING_ARRAY;
+    } else {
+      return new String[]{strArray.toString()};
+    }
   }
   return ArrayUtils.EMPTY_STRING_ARRAY;
 }
 
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(String[] <property.propertyName>) {
-  this.<property.propertyName> = <property.propertyName>;
+  getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
 }
 >>
 
@@ -251,19 +212,9 @@ booleanProperty(property) ::= <<
 <createDescription(property)>
 <checkDeprecated(property)>
 public boolean is<property.upperCamelCaseName>() {
-  if (<property.propertyName> != null) {
-    return <property.propertyName>;
-  }
-  <getValueExpression(property)>
-  if (ve != null) {
-    try {
-      Boolean bool = (Boolean) <getValue(property)>
-      if (bool != null) {
-        return bool;
-      }
-    } catch (ELException e) {
-		  throw new FacesException(e);
-	  }
+  Boolean bool = (Boolean) getStateHelper().eval(PropertyKeys.<property.propertyName>);
+  if (bool != null) {
+    return bool;
   }
   <if(property.defaultCode)>
   return <property.defaultCode>;
@@ -274,7 +225,7 @@ public boolean is<property.upperCamelCaseName>() {
 
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(boolean <property.propertyName>) {
-  this.<property.propertyName> = <property.propertyName>;
+  getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
 }
 >>
 
@@ -283,20 +234,10 @@ BooleanProperty(property) ::= <<
 <createDescription(property)>
 <checkDeprecated(property)>
 public Boolean get<property.upperCamelCaseName>() {
-  if (<property.propertyName> != null) {
-    return <property.propertyName>;
-  }
-  <getValueExpression(property)>
-  if (ve != null) {
-    try {
-      Boolean bool = (Boolean) <getValue(property)>
-      if (bool != null) {
-        return bool;
-      }
-    } catch (ELException e) {
-		  throw new FacesException(e);
-	  }
-  }
+   Boolean bool = (Boolean) getStateHelper().eval(PropertyKeys.<property.propertyName>);
+   if (bool != null) {
+     return bool;
+   }
   <if(property.defaultCode)>
   return <property.defaultCode>;
   <else>
@@ -306,7 +247,7 @@ public Boolean get<property.upperCamelCaseName>() {
 
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(Boolean <property.propertyName>) {
-  this.<property.propertyName> = <property.propertyName>;
+  getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
 }
 >>
 
@@ -338,7 +279,7 @@ MethodBindingProperty(property) ::= <<
 
 public <property.type> get<property.upperCamelCaseName>() {
 <if(property.elAlternativeAvailable)>
-  MethodExpression expression = get<property.upperCamelCaseName>Expression();
+  javax.el.MethodExpression expression = get<property.upperCamelCaseName>Expression();
   if (expression instanceof MethodBindingToMethodExpression) {
     return ((MethodBindingToMethodExpression)expression).getMethodBinding();
   }
@@ -347,7 +288,7 @@ public <property.type> get<property.upperCamelCaseName>() {
   }
   return null;
 <else>
-  return <property.propertyName>;
+  return (<property.type>) getStateHelper().eval(PropertyKeys.<property.propertyName>);
 <endif>
 
 }
@@ -360,7 +301,7 @@ public void set<property.upperCamelCaseName>(<property.type> <property.propertyN
     set<property.upperCamelCaseName>Expression(null);
   }
 <else>
-  this.<property.propertyName> = <property.propertyName>;
+  getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
 <endif>
 
 }
@@ -369,11 +310,11 @@ public void set<property.upperCamelCaseName>(<property.type> <property.propertyN
 MethodExpressionProperty(property) ::= <<
 
 public <property.type> get<property.upperCamelCaseName>() {
-  return <property.propertyName>;
+  return (<property.type>) getStateHelper().eval(PropertyKeys.<property.propertyName>);
 }
 
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
-  this.<property.propertyName> = <property.propertyName>;
+  getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
 }
 >>
 
@@ -382,34 +323,22 @@ NormalProperty(property) ::= <<
 <createDescription(property)>
 <checkDeprecated(property)>
 public <property.type> get<property.upperCamelCaseName>() {
+  <if(property.defaultCode)>
+  <property.type> <property.propertyName> = (<property.type>) getStateHelper().eval(PropertyKeys.<property.propertyName>);
   if (<property.propertyName> != null) {
     return <property.propertyName>;
   }
-  <getValueExpression(property)>
-  if (ve != null) {
-    try {
-      <if(property.defaultCode)>
-      <property.type> <property.propertyName> = (<property.type>) <getValue(property)>
-      if (<property.propertyName> != null) {
-        return <property.propertyName>;
-      }
-      <else>
-      return (<property.type>) <getValue(property)>
-      <endif>
-    } catch (ELException e) {
-		  throw new FacesException(e);
-	  }
-  }
+  <else>
+  return (<property.type>) getStateHelper().eval(PropertyKeys.<property.propertyName>);
+  <endif>
   <if(property.defaultCode)>
   return <property.defaultCode>;
-  <else>
-  return null;
   <endif>
 }
 
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
-  this.<property.propertyName> = <property.propertyName>;
+  getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
 }
 >>
 
@@ -418,17 +347,9 @@ MeasureProperty(property) ::= <<
 <createDescription(property)>
 <checkDeprecated(property)>
 public <property.type> get<property.upperCamelCaseName>() {
-  if (<property.propertyName> != null) {
-    return <property.propertyName>;
-  }
-  <getValueExpression(property)>
-  if (ve != null) {
-    try {
-      Object object = <getValue(property)>
-      return Measure.valueOf(object);
-    } catch (ELException e) {
-		  throw new FacesException(e);
-	  }
+  Object object = getStateHelper().eval(PropertyKeys.<property.propertyName>);
+  if (object != null) {
+     return Measure.valueOf(object);
   }
   <if(property.defaultCode)>
   return <property.defaultCode>;
@@ -439,7 +360,7 @@ public <property.type> get<property.upperCamelCaseName>() {
 
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
-  this.<property.propertyName> = <property.propertyName>;
+  getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
 }
 >>
 
@@ -447,173 +368,22 @@ MarkupProperty(property) ::= <<
 
 <checkDeprecated(property)>
 public <property.type> get<property.upperCamelCaseName>() {
-  if (<property.propertyName> != null) {
-    return <property.propertyName>;
-  }
-  <getValueExpression(property)>
-  if (ve != null) {
-    try {
-      Object object = <getValue(property)>
-      return Markup.valueOf(object);
-    } catch (ELException e) {
-		  throw new FacesException(e);
-	  }
+  Object object = getStateHelper().eval(PropertyKeys.<property.propertyName>);
+  if (object != null) {
+    return Markup.valueOf(object);
   }
   return null;
 }
 
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
-  this.<property.propertyName> = <property.propertyName>;
+  getStateHelper().put(PropertyKeys.<property.propertyName>, <property.propertyName>);
 }
 >>
 
 field() ::= <<
 <if(it.elAlternativeAvailable)>
 <else>
-private <it.internalType> <it.propertyName>;
+<it.propertyName>,
 <endif>
->>
-
-restoreStateField() ::= <<
-<it.propertyName> = (<it.type>) values[<i>];
->>
-
-saveStateField() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
->>
-
-WizardSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
->>
-
-ObjectSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
->>
-
-IntegerSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
->>
-
-StringSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
->>
-
-StringArraySaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
->>
-
-booleanSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
->>
-
-BooleanSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
->>
-
-CharacterSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
->>
-
-SeveritySaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
->>
-
-MeasureSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
->>
-
-MarkupSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
->>
-
-DisplaySaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
->>
-
-OrderBySaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = <it.propertyName>;
->>
-
-MethodBindingSaveStateProperty() ::= <<
-<if(it.elAlternativeAvailable)>
-<else>
-values[<it.indexPlusOne>] = saveAttachedState(context, <it.propertyName>);
-<endif>
->>
-
-MethodExpressionSaveStateProperty() ::= <<
-values[<it.indexPlusOne>] = saveAttachedState(context, <it.propertyName>);
->>
-
-
-WizardRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
->>
-
-ObjectRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
->>
-
-IntegerRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
->>
-
-StringRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
->>
-
-StringArrayRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
->>
-
-booleanRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.internalType>) values[<it.indexPlusOne>];
->>
-
-BooleanRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
->>
-
-CharacterRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
->>
-
-SeverityRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
->>
-
-MeasureRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
->>
-
-MarkupRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
->>
-
-DisplayRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
->>
-
-OrderByRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) values[<it.indexPlusOne>];
->>
-
-MethodBindingRestoreStateProperty() ::= <<
-<if(it.elAlternativeAvailable)>
-<else>
-<it.propertyName> = (<it.type>) restoreAttachedState(context, values[<it.indexPlusOne>]);
-<endif>
->>
-
-MethodExpressionRestoreStateProperty() ::= <<
-<it.propertyName> = (<it.type>) restoreAttachedState(context, values[<it.indexPlusOne>]);
->>
-
-getValueExpression(property) ::= <<
-ValueExpression ve = getValueExpression("<property.name>");
->>
-
-getValue(property) ::= <<
-ve.getValue(getFacesContext().getELContext());
 >>

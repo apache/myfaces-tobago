@@ -136,6 +136,9 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         if ("1.2".equals(version)) {
           jsfVersion = "1.2";
         }
+        if ("2.0".equals(version)) {
+          jsfVersion = "2.0";
+        }
       }
     }
     Document document;
@@ -168,9 +171,16 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
         rootElement.setAttribute(new Attribute("schemaLocation",
             "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd", xsi));
         rootElement.setAttribute("version", "1.2");
+      } else if (is20()) {
+        rootElement.setNamespace(Namespace.getNamespace("http://java.sun.com/xml/ns/javaee"));
+        Namespace xsi = Namespace.getNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+        rootElement.addNamespaceDeclaration(Namespace.getNamespace("xi", "http://www.w3.org/2001/XInclude"));
+        rootElement.setAttribute(new Attribute("schemaLocation",
+            "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd", xsi));
+        rootElement.setAttribute("version", "2.0");
       }
       Namespace namespace = rootElement.getNamespace();
-      if (is12()) {
+      if (is12()||is20()) {
         applyNamespace(rootElement, namespace);
       }
       List<Element> components = rootElement.getChildren(COMPONENT, namespace);
@@ -227,7 +237,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
       if (!newValidators.isEmpty()) {
         rootElement.addContent(newValidators);
       }
-      if (!is12()) {
+      if (is11()) {
         document.setDocType(new DocType("faces-config",
             "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN",
            "http://java.sun.com/dtd/web-facesconfig_1_1.dtd"));
@@ -240,7 +250,7 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
       format.setLineSeparator(SEPARATOR);
       XMLOutputter out = new XMLOutputter(format);
       out.output(document, facesConfig);
-      if (!is12()) {
+      if (is11()) {
         // TODO: is this replace really necessary?
         String facesConfigStr =
             facesConfig.toString().replaceFirst(" xmlns=\"http://java.sun.com/JSF/Configuration\"", "");
@@ -509,14 +519,14 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
       attributeClass.setText(Object.class.getName());
     } else if (componentAttribute.type().length == 1) {
       String className = componentAttribute.type()[0];
-      if (componentAttribute.expression().isMethodExpression() && is12()) {
+      if (componentAttribute.expression().isMethodExpression() && isUnifiedEL()) {
         className = "javax.el.MethodExpression";
       }
-      attributeClass.setText((className.equals(Boolean.class.getName()) && !is12()) ? "boolean" : className);
+      attributeClass.setText((className.equals(Boolean.class.getName()) && !isUnifiedEL()) ? "boolean" : className);
     } else {
       if (componentAttribute.expression().isMethodExpression()) {
         String className = "";
-        if (is12()) {
+        if (isUnifiedEL()) {
           className = "javax.el.MethodExpression";
         } else {
           className = "javax.faces.el.MethodBinding";
@@ -716,5 +726,17 @@ public class FacesConfigAnnotationVisitor extends AbstractAnnotationVisitor {
 
   private boolean is12() {
     return "1.2".equals(jsfVersion);
+  }
+
+  private boolean is11() {
+    return "1.1".equals(jsfVersion);
+  }
+
+  private boolean is20() {
+    return "2.0".equals(jsfVersion);
+  }
+
+  private boolean isUnifiedEL() {
+    return !"1.1".equals(jsfVersion);
   }
 }

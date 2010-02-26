@@ -505,7 +505,7 @@
             </goals>
             <configuration>
               <sources>
-                <source>src/main/java-jsf-${jsf.target}</source>
+                <source>src/main/java-jsf-${jsf.targetDirectory}</source>
               </sources>
             </configuration>
           </execution>
@@ -1373,6 +1373,7 @@
       </activation>
       <properties>
         <jsf.target>1.1</jsf.target>
+        <jsf.targetDirectory>1.1</jsf.targetDirectory>
       </properties>
       <dependencyManagement>
         <dependencies>
@@ -1413,6 +1414,7 @@
       </activation>
       <properties>
         <jsf.target>1.2</jsf.target>
+        <jsf.targetDirectory>1.2</jsf.targetDirectory>
       </properties>
       <dependencyManagement>
         <dependencies>
@@ -1454,6 +1456,7 @@
       </activation>
       <properties>
         <jsf.target>2.0</jsf.target>
+        <jsf.targetDirectory>1.2</jsf.targetDirectory>
       </properties>
       <dependencyManagement>
         <dependencies>
@@ -1495,6 +1498,7 @@
       </activation>
       <properties>
         <jsf.target>1.1</jsf.target>
+        <jsf.targetDirectory>1.1</jsf.targetDirectory>
       </properties>
       <dependencyManagement>
         <dependencies>
@@ -1548,6 +1552,7 @@
       </activation>
       <properties>
         <jsf.target>1.2</jsf.target>
+        <jsf.targetDirectory>1.2</jsf.targetDirectory>
       </properties>
       <dependencyManagement>
         <dependencies>
@@ -1601,6 +1606,7 @@
       </activation>
       <properties>
         <jsf.target>2.0</jsf.target>
+        <jsf.targetDirectory>1.2</jsf.targetDirectory>
       </properties>
       <dependencyManagement>
         <dependencies>

@@ -73,6 +73,8 @@ public class MockFacesContext extends FacesContext {
   // viewRoot
   private UIViewRoot root = null;
 
+  private HashMap<Object, Object> attributes;
+
 // --------------------------------------------------------------- constructors
 
   public MockFacesContext() {
@@ -222,6 +224,13 @@ public class MockFacesContext extends FacesContext {
 
   public void setResponseWriter(ResponseWriter responseWriter) {
     this.responseWriter = responseWriter;
+  }
+
+  public Map<Object, Object> getAttributes() {
+    if (attributes == null) {
+      attributes = new HashMap<Object, Object>();
+    }
+    return attributes;
   }
 }
 

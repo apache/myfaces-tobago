@@ -69,6 +69,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
   private Set<String> renderer = new HashSet<String>();
   private Set<String> ignoredProperties;
   private String jsfVersion = "1.1";
+  private String tagVersion = "1.1";
 
   public CreateComponentAnnotationVisitor(AnnotationProcessorEnvironment env) {
     super(env);
@@ -78,17 +79,22 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         String version = entry.getKey().substring("-Ajsf-version=".length());
         if ("1.2".equals(version)) {
           jsfVersion = "1.2";
+          tagVersion = "1.2";
+        }
+        if ("2.0".equals(version)) {
+          jsfVersion = "2.0";
+          tagVersion = "1.2";
         }
       }
     }
     InputStream stream = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/renderer.stg");
     Reader reader = new InputStreamReader(stream);
     rendererStringTemplateGroup = new StringTemplateGroup(reader);
-    stream = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/tag" + jsfVersion + ".stg");
+    stream = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/tag" + tagVersion + ".stg");
     reader = new InputStreamReader(stream);
     tagStringTemplateGroup = new StringTemplateGroup(reader);
     stream = getClass().getClassLoader().getResourceAsStream("org/apache/myfaces/tobago/apt/tagAbstract"
-        + jsfVersion + ".stg");
+        + tagVersion + ".stg");
     reader = new InputStreamReader(stream);
     tagAbstractStringTemplateGroup = new StringTemplateGroup(reader);
 
@@ -147,7 +153,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
           tagInfo.getProperties().add(property);
         }
       }
-      if (is12()) {
+      if (isUnifiedEL()) {
         tagInfo.setSuperClass("org.apache.myfaces.tobago.internal.taglib.TobagoELTag");
       } else {
         if (tagInfo.getBodyContent() != null) {
@@ -177,7 +183,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
       componentInfo.setDescription(getDescription(decl));
       componentInfo.setDeprecated(decl.getAnnotation(Deprecated.class) != null);
       List<String> elMethods = Collections.emptyList();
-      if (is12()) {
+      if (isUnifiedEL()) {
         elMethods = checkForElMethods(componentInfo, componentTag.interfaces());
       }
       for (String interfaces : componentTag.interfaces()) {
@@ -451,7 +457,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     }
   }
 
-  private boolean is12() {
-    return "1.2".equals(jsfVersion);
+  private boolean isUnifiedEL() {
+    return !"1.1".equals(jsfVersion);
   }
 }
