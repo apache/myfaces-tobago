@@ -150,6 +150,7 @@ LOG.LogArea.prototype.initialize = function() {
     this.element.style.paddingTop = "25px";
     this.element.style.overflow = "hidden";
     this.element.style.zIndex = "9010";
+    this.element.className = "tobagoLogArea";
 
     this.dragHandleTop = document.createElement("DIV");
     this.setUpHandleDiv(this.dragHandleTop, "0px", "0px", null, null, "100%", "25px", "2px outset gray", null, "move");
@@ -277,7 +278,7 @@ LOG.LogArea.prototype.initialize = function() {
     LOG.addAppender(this);
 
     /* Select the logging area with jQuery. TODO: The selector is fragile! */
-    $("body > div").draggable();
+    $("body > .tobagoLogArea").draggable();
 };
 
 LOG.LogArea.prototype.show = function() {
