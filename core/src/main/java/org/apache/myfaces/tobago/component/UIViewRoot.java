@@ -47,8 +47,6 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
 
   private ClientProperties clientProperties;
 
-  private int nextUniqueId;
-
   /**
    * <p>Create a new {@link UIViewRoot} instance with default property
    * values.</p>
@@ -222,38 +220,5 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot {
       requestMap.put(EVENT_LIST_KEY, events);
     }
     return events;
-  }
-
-  @Override
-  public Object saveState(FacesContext facesContext) {
-    if (FacesVersion.supports12()) {
-      return super.saveState(facesContext);
-    } else {
-      Object[] state = new Object[2];
-      state[0] = super.saveState(facesContext);
-      state[1] = nextUniqueId;
-      return state;
-    }
-  }
-
-  @Override
-  public void restoreState(FacesContext facesContext, Object o) {
-    if (FacesVersion.supports12()) {
-      super.restoreState(facesContext, o);
-    } else {
-      Object[] state = (Object[]) o;
-      super.restoreState(facesContext, state[0]);
-      nextUniqueId = (Integer) state[1];
-    }
-  }
-
-  @Override
-  public String createUniqueId() {
-    if (FacesVersion.supports12()) {
-      return super.createUniqueId();
-    } else {
-      ExternalContext extCtx = FacesContext.getCurrentInstance().getExternalContext();
-      return extCtx.encodeNamespace(UNIQUE_ID_PREFIX + nextUniqueId++);
-    }
   }
 }
