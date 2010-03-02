@@ -38,6 +38,7 @@ import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.layout.PixelLayoutToken;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 
+import javax.faces.context.FacesContext;
 import java.util.Arrays;
 import java.util.List;
 
@@ -303,6 +304,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
   @Override
   public String toString() {
     return getClass().getSimpleName()
+        + "#"
+        + getClientId(FacesContext.getCurrentInstance())
         + (grid != null
         ? "(" + Arrays.toString(grid.getWidths()) + ", " + Arrays.toString(grid.getHeights()) + ")"
         : "");

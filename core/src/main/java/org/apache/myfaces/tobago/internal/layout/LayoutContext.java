@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.Orientation;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 
 /*
 An algorithm for layouting ...
@@ -80,10 +81,13 @@ public class LayoutContext {
   }
 
   private void log(StringBuffer buffer, UIComponent component, int depth) {
+    FacesContext facesContext = FacesContext.getCurrentInstance();
     for (int i = 0; i < depth; i++) {
       buffer.append("  ");
     }
     buffer.append(component.getClass().getSimpleName());
+    buffer.append("#");
+    buffer.append(component.getClientId(facesContext));
     if (component instanceof LayoutBase) {
       buffer.append("(");
       buffer.append(((LayoutBase) component).getCurrentWidth());
