@@ -140,8 +140,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     if (folder) {
       boolean siblingMode = "siblingLeafOnly".equals(tree.getAttributes().get(Attributes.SELECTABLE));
-
-      boolean alreadyExists = ResponseWriterDivider.getInstance(facesContext).activateBranch(facesContext);
+      ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, TreeListboxRenderer.DIVIDER);
+      boolean alreadyExists = divider.activateBranch(facesContext);
       writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
       if (!alreadyExists) {
         writer.startElement(HtmlConstants.DIV, null);
@@ -484,10 +484,11 @@ public class TreeNodeRenderer extends CommandRendererBase {
   protected void encodeEndListbox(FacesContext facesContext, UITreeNode node) throws IOException {
     boolean folder = node.isFolder();
     if (folder) {
-      TobagoResponseWriterImpl writer = (TobagoResponseWriterImpl) HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+      TobagoResponseWriterImpl writer 
+          = (TobagoResponseWriterImpl) HtmlRendererUtils.getTobagoResponseWriter(facesContext);
       writer.endElement(HtmlConstants.SELECT);
-
-      ResponseWriterDivider.getInstance(facesContext).passivateBranch(facesContext);
+      ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, TreeListboxRenderer.DIVIDER);
+      divider.passivateBranch(facesContext);
     }
   }
 

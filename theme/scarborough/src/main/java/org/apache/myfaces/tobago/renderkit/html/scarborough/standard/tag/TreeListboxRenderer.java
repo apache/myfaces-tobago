@@ -40,6 +40,8 @@ import java.io.IOException;
 public class TreeListboxRenderer extends LayoutComponentRendererBase {
 
   private static final String SCRIPT = "script/tobago-tree.js";
+  
+  public static final String DIVIDER = TreeListboxRenderer.class.getName() + "DIVIDER";
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
@@ -118,7 +120,7 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
     scrollDivStyle.setPosition(Position.ABSOLUTE);
     writer.writeStyleAttribute(scrollDivStyle);
     
-    ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext);
+    ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, DIVIDER);
     // write in all open branches the end tag.
     while (divider.activateBranch(facesContext)) {
       writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -127,7 +129,7 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
     while (divider.passivateBranch(facesContext)) {
     }  
       
-    divider.writeOut(facesContext);
+    divider.writeOutAndCleanUp(facesContext);
 
     writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 

@@ -57,8 +57,8 @@ public class ResponseWriterDividerUnitTest {
 
     render(facesContext, root);
 
-    ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext);
-    divider.writeOut(facesContext);
+    ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, "unit test");
+    divider.writeOutAndCleanUp(facesContext);
 
     String expected 
         = "(Root)\n"
@@ -82,7 +82,7 @@ public class ResponseWriterDividerUnitTest {
   }
 
   private void render(FacesContext facesContext, DefaultMutableTreeNode node) throws IOException {
-    ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext);
+    ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, "unit test");
 
     String label = (String) node.getUserObject();
 

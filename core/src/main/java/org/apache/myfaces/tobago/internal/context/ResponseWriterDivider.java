@@ -29,14 +29,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Sometimes the rendered output must be places in the Response in a different order than it was rendered.
+ * In some cases the rendered output must be places in the Response in a different order than it was rendered.
  * The <code>ResponseWriterDivider</code> helps to manage a list of buffers which holds the temporary output.
  */
 public class ResponseWriterDivider {
 
   private static final Log LOG = LogFactory.getLog(ResponseWriterDivider.class);
-
-  private static final String NAME_IN_REQUEST = ResponseWriterDivider.class.getName();
 
   private List<ResponseWriter> writers;
   private List<FastStringWriter> buffers;
@@ -44,13 +42,17 @@ public class ResponseWriterDivider {
   private ResponseWriter original;
   
   private int current;
+  
+  private String nameInRequest;
 
-  public static ResponseWriterDivider getInstance(FacesContext facesContext) {
+  public static ResponseWriterDivider getInstance(FacesContext facesContext, String nameInRequest) {
     final Map<String,Object> map = facesContext.getExternalContext().getRequestMap();
-    ResponseWriterDivider divider = (ResponseWriterDivider) map.get(NAME_IN_REQUEST);
+    ResponseWriterDivider divider = (ResponseWriterDivider) map.get(nameInRequest);
     if (divider == null) {
       divider = new ResponseWriterDivider(facesContext);
-      map.put(NAME_IN_REQUEST, divider);
+      map.put(nameInRequest, divider);
+      divider.nameInRequest = nameInRequest;
+      
     }
     return divider;
   }
@@ -65,6 +67,8 @@ public class ResponseWriterDivider {
   /**
    * Create (if needed) and activate a new branch. 
    * After this call, all output will be stored in this new branch. 
+   * <p>
+   * It is usually needed to get the response writer again with HtmlRendererUtils.getTobagoResponseWriter();
    * @return true if the branch was not created new. So the branch was already existent.
    */
   public boolean activateBranch(FacesContext facesContext) {
@@ -90,6 +94,8 @@ public class ResponseWriterDivider {
   /**
    * Passivate the current branch. 
    * After this call, all output will be written in the former branch (if any) or into the original writer.
+   * <p>
+   * It is usually needed to get the response writer again with HtmlRendererUtils.getTobagoResponseWriter();
    * @return true, if the current writer is not the original writer. So the "stack" is at the bottom. 
    */
   public boolean passivateBranch(FacesContext facesContext) {
@@ -116,14 +122,14 @@ public class ResponseWriterDivider {
    * Write the collected stuff in the original writer.
    * This is always the last call on this object.
    */
-  public void writeOut(FacesContext facesContext) throws IOException {
+  public void writeOutAndCleanUp(FacesContext facesContext) throws IOException {
     facesContext.setResponseWriter(original);
     for (FastStringWriter buffer : buffers) {
       original.write(buffer.toString());
     }
     // clean up.
-    writers = null;
-    buffers = null;
+    final Map<String,Object> map = facesContext.getExternalContext().getRequestMap();
+    map.remove(nameInRequest);
   }
 
   @Override
