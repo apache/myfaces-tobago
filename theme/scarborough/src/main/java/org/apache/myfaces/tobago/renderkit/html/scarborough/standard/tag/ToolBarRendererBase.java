@@ -55,6 +55,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(ToolBarRendererBase.class);
 
+  @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
     HtmlRendererUtils.renderDojoDndSource(facesContext, component);
@@ -68,6 +69,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     return (String) component.getAttributes().get(Attributes.ICON_SIZE);
   }
 
+  @Override
   public void encodeEnd(FacesContext context, UIComponent uiComponent) throws IOException {
     UIPanel toolbar = (UIPanel) uiComponent;
 
@@ -298,7 +300,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
     if (!UIToolBar.LABEL_OFF.equals(labelPosition)) {
       writer.startElement(HtmlConstants.TD, null);
-      writer.writeClassAttribute("tobago-toolbar-label-td");
+      writer.writeClassAttribute("tobago-toolBar-label-td");
       writer.writeAttribute(HtmlAttributes.ALIGN, "center", false);
       if (popupMenu != null) {
         writer.writeAttribute(HtmlAttributes.STYLE, "padding-right: 3px;", false);
@@ -429,46 +431,48 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     return "tobago-toolBar-button-link" + (disabled ? " tobago-toolBar-button-link-disabled" : "");
   }
 
-  private void renderPopupTd(FacesContext facesContext,
-      TobagoResponseWriter writer, UIComponent command, UIComponent popupMenu,
-      boolean labelBottom)
-      throws IOException {
+  private void renderPopupTd(
+      FacesContext facesContext, TobagoResponseWriter writer, UIComponent command, UIComponent popupMenu,
+      boolean labelBottom) throws IOException {
     writer.startElement(HtmlConstants.TD, null);
     if (labelBottom) {
       writer.writeAttribute(HtmlAttributes.ROWSPAN, 2);
     }
 
     if (popupMenu != null) {
-      String backgroundImage = ResourceManagerUtil.getImageWithPath(facesContext,
-          "image/1x1.gif");
+      String backgroundImage = ResourceManagerUtil.getImageWithPath(facesContext, "image/1x1.gif");
       writer.startElement(HtmlConstants.DIV, null);
-      writer.writeIdAttribute(
-          command.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "popup");
+      writer.writeIdAttribute(command.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "popup");
       writer.writeClassAttribute("tobago-toolBar-button-menu");
       writer.startElement(HtmlConstants.IMG, null);
       writer.writeAttribute(HtmlAttributes.SRC, backgroundImage, false);
       writer.writeClassAttribute("tobago-toolBar-button-menu-background-image");
       writer.endElement(HtmlConstants.IMG);
       writer.endElement(HtmlConstants.DIV);
-      popupMenu.getAttributes().put(Attributes.MENU_POPUP, Boolean.TRUE);
-      popupMenu.getAttributes().put(Attributes.MENU_POPUP_TYPE, "ToolBarButton");
-//      popupMenu.setRendererType(RendererTypes.MENU_BAR);
       if (popupMenu instanceof UIMenu)  {
         ((UIMenu) popupMenu).setLabel(null);
       } else {
         popupMenu.getAttributes().remove(Attributes.LABEL);
       }
-      popupMenu.getAttributes().put(Attributes.IMAGE, "image/toolbarButtonMenu.gif");
+      String image = ResourceManagerUtil.getImageWithPath(facesContext, "image/toolbarButtonMenu.gif");
+      popupMenu.getAttributes().put(Attributes.IMAGE, image);
+      popupMenu.getAttributes().put(Attributes.LABEL, "\u00a0\u00a0"); // non breaking space
+      writer.startElement(HtmlConstants.OL, popupMenu);
+      writer.writeClassAttribute("tobago-menuBar-default");
+      writer.writeStyleAttribute("position:relative;");  // FIXME: use a different style class
       RenderUtil.encode(facesContext, popupMenu);
+      writer.endElement(HtmlConstants.OL);
     }
 
     writer.endElement(HtmlConstants.TD);
   }
 
+  @Override
   public void encodeChildren(FacesContext facesContext, UIComponent component)
       throws IOException {
   }
 
+  @Override
   public boolean getRendersChildren() {
     return true;
   }

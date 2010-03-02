@@ -938,12 +938,12 @@ hr.tobago-separator-default {
   padding: 4px;
 }
 
-.tobago-toolbar-orientation-right {
+.tobago-toolBar-orientation-right {
   right: 0;
   position: absolute;
 }
 
-.tobago-toolbar-button {
+.tobago-toolBar-button {
   float: left;
   font-weight: normal;
   font-family: arial, helvetica, sans-serif;
@@ -957,12 +957,12 @@ hr.tobago-separator-default {
   -moz-box-sizing: border-box;
 }
 
-.tobago-toolbar-button-table {
+.tobago-toolBar-button-table {
   font-weight: normal;
   font-family: arial, helvetica, sans-serif;
 }
 
-.tobago-toolbar-button-box-facet {
+.tobago-toolBar-button-box-facet {
   float: left;
 }
 
@@ -998,11 +998,11 @@ hr.tobago-separator-default {
   color: #778899;
 }
 
-.tobago-toolbar-button-table-box-facet-disabled {
+.tobago-toolBar-button-table-box-facet-disabled {
   color: #778899;
 }
 
-.tobago-toolbar-label-td {
+.tobago-toolBar-label-td {
   height: 19px; /*  background: lime;*/
   white-space: nowrap;
 }
@@ -1075,7 +1075,8 @@ a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:activ
 
 /* MenuBar, Menu, etc. ------------------------------------------------------------------ */
 
-.tobago-menuBar-default, .tobago-menuBar-default a:link, .tobago-menuBar-default a:visited, .tobago-menuBar-default a:active {
+.tobago-menuBar-default, .tobago-menuBar-default a:link, .tobago-menuBar-default a:visited, .tobago-menuBar-default a:active, 
+.tobago-page-menuStore, .tobago-page-menuStore a:link, .tobago-page-menuStore a:visited, .tobago-page-menuStore a:active {
   color: black;
   font-family: arial, helvetica, sans-serif;
   font-size: 12px;
@@ -1087,7 +1088,9 @@ a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:activ
   text-decoration: none;
 }
 
-.tobago-menuBar-default li {
+
+.tobago-menuBar-default li, 
+.tobago-page-menuStore li {
   background-color: #aabbcc;
   list-style: none outside none;
 }
@@ -1096,7 +1099,8 @@ li.tobago-menu-selected {
   background-color: #d8e9fb;
 }
 
-.tobago-menuBar-default {
+.tobago-menuBar-default,
+.tobago-page-menuStore {
   padding: 0;
   margin: 0;
   border-bottom-width: 1px;
@@ -1111,7 +1115,12 @@ li.tobago-menu-selected {
   z-index: 1000; /* todo */
 }
 
-.tobago-menuBar-default ol {
+.tobago-page-menuStore {
+  visibility: hidden;
+}
+
+.tobago-menuBar-default ol, 
+.tobago-page-menuStore ol {
   padding: 0;
   margin: 0;
   border-width: 1px;

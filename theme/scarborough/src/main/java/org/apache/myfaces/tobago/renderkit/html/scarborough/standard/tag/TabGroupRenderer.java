@@ -17,11 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -72,10 +67,11 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
 
   private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
 
-  private static final String[] SCRIPTS = new String[]{"script/tab.js", "script/tabgroup.js", "script/tobago-menu.js"};
+  private static final String[] SCRIPTS = new String[]{"script/tab.js", "script/tabgroup.js"};
 
   public static final String ACTIVE_INDEX_POSTFIX = "__activeIndex";
 
+  @Override
   public void decode(FacesContext facesContext, UIComponent component) {
     if (ComponentUtils.isOutputOnly(component)) {
       return;
@@ -97,6 +93,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
     }
   }
 
+  @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
     if (facesContext instanceof TobagoFacesContext) {
@@ -104,6 +101,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
     }
   }
 
+  @Override
   public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
     UITabGroup tabGroup = (UITabGroup) uiComponent;

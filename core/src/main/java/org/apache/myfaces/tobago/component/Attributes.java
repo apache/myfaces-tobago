@@ -99,8 +99,6 @@ public final class Attributes {
   public static final String MAX_NUMBER = "maxNumber";
   public static final String MAXIMUM_HEIGHT = "maximumHeight";
   public static final String MAXIMUM_WIDTH = "maximumWidth";
-  public static final String MENU_POPUP = "menuPopup";
-  public static final String MENU_POPUP_TYPE = "menuPopupType";
   public static final String METHOD = "method";
   public static final String MIN = "min";
   public static final String MIN_SEVERITY = "minSeverity";

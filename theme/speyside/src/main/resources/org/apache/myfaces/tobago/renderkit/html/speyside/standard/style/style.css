@@ -645,21 +645,21 @@ tobago-selectOneChoice-readonly {
   padding: 0px;
 }
 
-.tobago-toolbar-button {
+.tobago-toolBar-button {
   font: bold 12px arial, helvetica, sans-serif;
   color: #660000;
 }
 
-.tobago-toolbar-button-table {
+.tobago-toolBar-button-table {
   font: bold 12px arial, helvetica, sans-serif;
   color: #660000;
 }
 
-.tobago-toolbar-button-table-disabled {
+.tobago-toolBar-button-table-disabled {
   color: #808080;
 }
 
-.tobago-toolbar-button-table-box-facet-disabled {
+.tobago-toolBar-button-table-box-facet-disabled {
   color: #808080;
 }
 
@@ -679,7 +679,7 @@ tobago-selectOneChoice-readonly {
   background: #dddddd;
 }
 
-.tobago-toolbar-button-box-facet {
+.tobago-toolBar-button-box-facet {
   padding-top: 1px;
   padding-bottom: 1px;
 }
@@ -764,7 +764,8 @@ tobago-selectOneChoice-readonly {
 
 /* menuBar -------------------------------------------------------- */
 
-.tobago-menuBar-default li {
+.tobago-menuBar-default li,
+.tobago-page-menuStore li {
   background-color: #dddddd;
 }
 
@@ -772,12 +773,14 @@ li.tobago-menu-selected {
   background-color: #bbbbbb;
 }
 
-.tobago-menuBar-default {
+.tobago-menuBar-default,
+.tobago-page-menuStore {
   border-bottom-color: #808080;
   background-color: #dddddd;
 }
 
-.tobago-menuBar-default ol {
+.tobago-menuBar-default ol,
+.tobago-page-menuStore ol {
   border-color: #888888;
 }
 

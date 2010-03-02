@@ -17,14 +17,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
-  * Created 28.04.2003 at 15:29:36.
-  * $Id$
-  */
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UIToolBar;
+import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -36,27 +31,24 @@ import java.io.IOException;
 
 public class ToolBarRenderer extends ToolBarRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(ToolBarRenderer.class);
-
+  @Override
   public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
-    UIToolBar toolbar = (UIToolBar) uiComponent;
+    UIToolBar toolBar = (UIToolBar) uiComponent;
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlConstants.DIV, toolbar);
-    writer.writeIdAttribute(toolbar.getClientId(facesContext));
-    HtmlRendererUtils.renderDojoDndItem(toolbar, writer, true);
+    writer.startElement(HtmlConstants.DIV, toolBar);
+    writer.writeIdAttribute(toolBar.getClientId(facesContext));
+    HtmlRendererUtils.renderDojoDndItem(toolBar, writer, true);
     writer.writeClassAttribute();
-    Style style = new Style(facesContext, toolbar);
+    Style style = new Style(facesContext, toolBar);
     writer.writeStyleAttribute(style);
-    writer.startElement(HtmlConstants.DIV, toolbar);
-    boolean right = false;
-    if (toolbar instanceof UIToolBar) {
-      right = UIToolBar.ORIENTATION_RIGHT.equals(((UIToolBar) toolbar).getOrientation());
-    }
+    writer.startElement(HtmlConstants.DIV, toolBar);
+    boolean right = toolBar instanceof UIToolBar && UIToolBar.ORIENTATION_RIGHT.equals(toolBar.getOrientation());
+
     // TODO use StyleClasses
-    writer.writeClassAttribute("tobago-toolbar-div-inner" + (right ? " tobago-toolbar-orientation-right" : ""));
+    writer.writeClassAttribute("tobago-toolBar-div-inner" + (right ? " tobago-toolBar-orientation-right" : ""));
 
     super.encodeEnd(facesContext, uiComponent);
 
@@ -69,13 +61,21 @@ public class ToolBarRenderer extends ToolBarRendererBase {
   }
 
   protected String getTableClasses(boolean selected, boolean disabled) {
-    return "tobago-toolbar-button-table tobago-toolbar-button-table-"
+    return "tobago-toolBar-button-table tobago-toolBar-button-table-"
         + (selected ? "selected-" : "") + (disabled ? "disabled" : "enabled");
   }
 
   protected String getDivClasses(boolean selected, boolean disabled) {
-    return "tobago-toolbar-button tobago-toolbar-button-"
+    return "tobago-toolBar-button tobago-toolBar-button-"
         + (selected ? "selected-" : "") + (disabled ? "disabled" : "enabled");
   }
 
+  @Override
+  public Measure getHeight(FacesContext facesContext, Configurable component) {
+    UIToolBar toolBar = (UIToolBar) component;
+    String labelPosition = getLabelPosition(toolBar);
+    String iconSize = getIconSize(toolBar);
+    String key = iconSize + "_" + labelPosition + "_Height";
+    return getResourceManager().getThemeMeasure(facesContext, component, key);
+  }
 }

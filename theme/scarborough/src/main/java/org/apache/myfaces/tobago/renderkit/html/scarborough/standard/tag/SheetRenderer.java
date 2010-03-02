@@ -882,8 +882,6 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
       //menu.setTransient(true);
       column.getFacets().put(Facets.MENUPOPUP, menu);
       menu.setRendererType(RendererTypes.MENU_BAR);
-      menu.getAttributes().put(Attributes.MENU_POPUP, Boolean.TRUE);
-      menu.getAttributes().put(Attributes.MENU_POPUP_TYPE, "SheetSelector");
       menu.getAttributes().put(Attributes.IMAGE, "image/sheetSelectorMenu.gif");
 
       String sheetId = column.getParent().getClientId(facesContext);

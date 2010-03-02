@@ -332,16 +332,16 @@ a:link.tab, a:visited.tab, a:active.tab {
   border: 0px solid black;
 }
 
-.tobago-toolbar-button-table {
+.tobago-toolBar-button-table {
   font: bold 12px arial, helvetica, sans-serif;
   color: #3366CC;
 }
 
-.tobago-toolbar-button-table-disabled {
+.tobago-toolBar-button-table-disabled {
   color: GrayText;
 }
 
-.tobago-toolbar-button-table-box-facet-disabled {
+.tobago-toolBar-button-table-box-facet-disabled {
   color: GrayText;
 }
 

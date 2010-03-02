@@ -30,6 +30,7 @@ import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.internal.context.ResponseWriterDivider;
 import org.apache.myfaces.tobago.internal.layout.LayoutContext;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
@@ -233,7 +234,8 @@ public class PageRenderer extends PageRendererBase {
 //    scriptFiles.add(0, debugMode ? "script/jquery/1_4_1/jquery.js" : "script/jquery/1_4_1/jquery.min.js");
     scriptFiles.add(0, debugMode ? "script/jquery/1_3_2/jquery.js" : "script/jquery/1_3_2/jquery.min.js");
     scriptFiles.add(1, "script/tobago.js");
-    scriptFiles.add(2, "script/theme-config.js");
+    scriptFiles.add(2, "script/tobago-menu.js");
+    scriptFiles.add(3, "script/theme-config.js");
     
     int clientLogSeverity = 2;
     if (debugMode) {
@@ -536,13 +538,20 @@ public class PageRenderer extends PageRendererBase {
 
     writer.writeJavascript("setTimeout(\"Tobago.init('" + clientId + "')\", 1000)");
 
+    // todo: check if it is empty
+    writer.startElement(HtmlConstants.DIV, page);
+    writer.writeClassAttribute("tobago-page-menuStore");
+    ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, MenuBarRenderer.DIVIDER);
+    divider.writeOutAndCleanUp(facesContext);
+    writer.endElement(HtmlConstants.DIV);
+    
     writer.endElement(HtmlConstants.BODY);
     writer.endElement(HtmlConstants.HTML);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("unused AccessKeys    : "
           + AccessKeyMap.getUnusedKeys(facesContext));
-      LOG.debug("dublicated AccessKeys: "
+      LOG.debug("duplicated AccessKeys: "
           + AccessKeyMap.getDublicatedKeys(facesContext));
     }
 

@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIMenu;
+import org.apache.myfaces.tobago.internal.context.ResponseWriterDivider;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -28,6 +29,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.AccessKeyMap;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -48,8 +50,9 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     boolean disabled = menu.isDisabled();
-    boolean firstLevel = RendererTypes.MENU_BAR.equals(menu.getParent().getRendererType());
+    boolean firstLevel = !RendererTypes.MENU.equals(menu.getParent().getRendererType());
     boolean isParentMenu = menu.getChildCount() > 0; // todo: may be not correct
+    String clientId = menu.getClientId(facesContext);
 
     writer.startElement(HtmlConstants.LI, menu);
     String clazz = firstLevel ? "tobago-menu-top" : "tobago-menu-parent"; 
@@ -61,7 +64,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     }
     writer.startElement(HtmlConstants.A, menu);
     writer.writeAttribute(HtmlAttributes.HREF, "#", false);
-    writer.writeIdAttribute(menu.getClientId(facesContext));
+    writer.writeIdAttribute(clientId);
 
     LabelWithAccessKey label = new LabelWithAccessKey(menu);
     if (label.getText() != null) {
@@ -78,7 +81,13 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     }
     writer.endElement(HtmlConstants.A);
     if (isParentMenu) {
+      if (firstLevel) {
+        ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, MenuBarRenderer.DIVIDER);
+        divider.activateBranch(facesContext);
+        writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+      }
       writer.startElement(HtmlConstants.OL, menu);
+      writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "menu");
     }
   }
 
@@ -87,16 +96,21 @@ public class MenuRenderer extends LayoutComponentRendererBase {
 
     UIMenu menu = (UIMenu) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    boolean firstLevel = !RendererTypes.MENU.equals(menu.getParent().getRendererType());
 
     boolean isParentMenu = menu.getChildCount() > 0; // todo: may be not correct
     if (isParentMenu) {
       writer.endElement(HtmlConstants.OL);
+      if (firstLevel) {
+        ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, MenuBarRenderer.DIVIDER);
+        divider.passivateBranch(facesContext);
+        writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+      }
     }
     writer.endElement(HtmlConstants.LI);
   }
   
-  private void addAcceleratorKey(
-      FacesContext facesContext, UIComponent component, Character accessKey) {
+  private void addAcceleratorKey(FacesContext facesContext, UIComponent component, Character accessKey) {
     String clientId = component.getClientId(facesContext);
     while (component != null && !component.getAttributes().containsKey(MENU_ACCELERATOR_KEYS)) {
       component = component.getParent();

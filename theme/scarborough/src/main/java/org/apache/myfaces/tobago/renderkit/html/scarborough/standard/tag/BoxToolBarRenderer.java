@@ -54,12 +54,12 @@ public class BoxToolBarRenderer extends ToolBarRendererBase {
 
   protected String getTableClasses(boolean selected, boolean disabled) {
     return
-        "tobago-toolbar-button-table tobago-boxToolbar-button-table-box-facet tobago-toolbar-button-table-box-facet-"
+        "tobago-toolBar-button-table tobago-boxToolbar-button-table-box-facet tobago-toolBar-button-table-box-facet-"
             + (selected ? "selected-" : "") + (disabled ? "disabled" : "enabled");
   }
 
   protected String getDivClasses(boolean selected, boolean disabled) {
-    return "tobago-toolbar-button tobago-toolbar-button-box-facet tobago-toolbar-button-box-facet-"
+    return "tobago-toolBar-button tobago-toolBar-button-box-facet tobago-toolBar-button-box-facet-"
         + (selected ? "selected-" : "") + (disabled ? "disabled" : "enabled");
   }
 }
