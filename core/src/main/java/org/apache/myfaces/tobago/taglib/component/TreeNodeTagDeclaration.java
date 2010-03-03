@@ -36,11 +36,12 @@ import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
 /**
- * Creates a tree node.
+ * Creates a tree node. This component represents a single node inside a tree structure.
+ * For interating over tree node use tc:treeData
  */
 @SuppressWarnings("ALL")
 @Tag(name = "treeNode")
-@BodyContentDescription(anyTagOf = "<tcs:treeNode>* <tcs:treeData>*")
+@BodyContentDescription(anyTagOf = "<tc:treeNode>* <tc:treeData>*")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeNode",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITreeNode",

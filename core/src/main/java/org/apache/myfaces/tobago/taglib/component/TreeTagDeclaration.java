@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
  * A tree which has to variants: as menu or normal tree.
  */
 @Tag(name = "tree")
-@BodyContentDescription(anyTagOf = "<tcs:treeNode>|<tcs:treeData>")
+@BodyContentDescription(anyTagOf = "<tc:treeNode>|<tc:treeData>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITree",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITree",

@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
  * A tree data structure displayed as a set of list boxes.
  */
 @Tag(name = "treeListbox")
-@BodyContentDescription(anyTagOf = "<tcs:treeNode>|<tcs:treeData>")
+@BodyContentDescription(anyTagOf = "<tc:treeNode>|<tc:treeData>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeListbox",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITree",
