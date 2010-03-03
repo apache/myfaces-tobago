@@ -44,7 +44,7 @@ public final class PixelMeasure extends Measure {
   }
 
   static Measure pixelValueOf(int value) {
-    if (value <= PixelMeasure.PIXEL_CACHE_MAX) {
+    if (value >= 0 && value <= PixelMeasure.PIXEL_CACHE_MAX) {
       return PixelMeasure.PIXEL_CACHE[value];
     }
     return new PixelMeasure(value);
