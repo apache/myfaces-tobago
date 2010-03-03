@@ -28,13 +28,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasDeprecatedDimension;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 
-/*
- * Date: 08.04.2006
- * Time: 14:53:06
- */
-
 /**
- * Renders a tabpanel.
+ * Renders a tab panel.
  */
 @Tag(name = "tabGroup")
 @BodyContentDescription(anyTagOf = "(<tc:tab>* ")
@@ -56,14 +51,11 @@ public interface TabGroupTagDeclaration extends TobagoTagDeclaration, HasIdBindi
   void setServerside(String serverside);
 
   /**
-
-   * Flag indicating that the Tab Navigationbar is rendered.
-   *
+   * Flag indicating that the tab navigation bar is rendered.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
-  @Deprecated
-  void setShowNavigationBar(String serverside);
+  void setShowNavigationBar(String showNavigationBar);
 
   /**
    * Indicating how tab switching should be done.
