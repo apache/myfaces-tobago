@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
 /**
  * Creates a tree node. This component represents a single node inside a tree structure.
- * For interating over tree node use tc:treeData
+ * For interating over tree node use tc:treeData.
  */
 @SuppressWarnings("ALL")
 @Tag(name = "treeNode")

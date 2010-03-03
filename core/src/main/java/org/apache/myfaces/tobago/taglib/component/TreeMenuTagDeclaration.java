@@ -31,51 +31,21 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 
 /**
- * A tree with classical look. 
- * Usually used with icons and junction lines to open folder, etc.
+ * A tree which will be displayed like a flat menu.
+ * This menu is often used for navigation on the left side of an application.
  */
-@Tag(name = "tree")
+@Tag(name = "treeMenu")
 @BodyContentDescription(anyTagOf = "<tc:treeNode>|<tc:treeData>")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UITree",
+    uiComponent = "org.apache.myfaces.tobago.component.UITreeMenu",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITree",
-    rendererType = RendererTypes.TREE,
+    rendererType = RendererTypes.TREE_MENU,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.TreeNode",
         "org.apache.myfaces.tobago.TreeData"
         })
-public interface TreeTagDeclaration
+public interface TreeMenuTagDeclaration
     extends HasIdBindingAndRendered, HasTreeNodeValue, IsRequired, IsGridLayoutComponent, HasMarkup {
-
-  /**
-   * Flag indicating whether or not this component should be render selectable items.
-   * Possible values are:
-   * <ul>
-   * <li><strong>multi</strong> : a multi section tree is rendered</li>
-   * <li><strong>single</strong> : a single section tree is rendered</li>
-   * <li><strong>multiLeafOnly</strong> : a multi section tree is rendered,
-   * only Leaf's are selectable</li>
-   * <li><strong>singleLeafOnly</strong> : a single section tree is rendered,
-   * only Leaf's are selectable</li>
-   * </ul>
-   * For any other value or if this attribute is omitted the items are not selectable.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "off",
-      allowedValues = {"multi", "single", "multiLeafOnly", "singleLeafOnly", "off"})
-  void setSelectable(String selectable);
-
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  void setShowRootJunction(String showRootJunction);
-
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  void setShowIcons(String showIcons);
-
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  void setShowJunctions(String showJunctions);
 
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")

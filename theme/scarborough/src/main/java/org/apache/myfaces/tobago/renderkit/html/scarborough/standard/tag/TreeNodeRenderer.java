@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeListbox;
+import org.apache.myfaces.tobago.component.UITreeMenu;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.ResourceUtils;
@@ -110,8 +111,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     UITreeNode node = (UITreeNode) component;
     AbstractUITree tree = node.findTree();
-    if (tree instanceof UITree) {
-      encodeBeginMenuAndNormal(facesContext, node, (UITree)tree);
+    if (tree instanceof UITree || tree instanceof UITreeMenu) {
+      encodeBeginMenuAndNormal(facesContext, node, tree, tree instanceof UITreeMenu);
     } else { // if (tree instanceof UITreeListbox)
       encodeBeginListbox(facesContext, node, (UITreeListbox)tree);
     }
@@ -183,7 +184,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
     }
   }
 
-  public void encodeBeginMenuAndNormal(FacesContext facesContext, UITreeNode node, UITree tree) throws IOException {
+  public void encodeBeginMenuAndNormal(FacesContext facesContext, UITreeNode node, AbstractUITree tree, boolean isMenu) 
+      throws IOException {
 
     String treeId = tree.getClientId(facesContext);
     boolean folder = node.isFolder();
@@ -194,10 +196,14 @@ public class TreeNodeRenderer extends CommandRendererBase {
     List<Boolean> junctions = node.getJunctions();
 
     boolean expanded = isExpanded(tree, node);
-    boolean menuMode = tree.getMode().equals("menu");
-    boolean showIcons = tree.isShowIcons();
-    boolean showJunctions = tree.isShowJunctions();
-    boolean showRootJunction = tree.isShowRootJunction();
+    boolean showIcons = false;
+    boolean showJunctions = false;
+    boolean showRootJunction = false;
+    if (tree instanceof UITree) {
+      showIcons = ((UITree)tree).isShowIcons();
+      showJunctions = ((UITree)tree).isShowJunctions();
+      showRootJunction = ((UITree)tree).isShowRootJunction();
+    }
     boolean showRoot = tree.isShowRoot();
 
     if (!showRoot && junctions.size() > 0) {
@@ -249,7 +255,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       // div class (css)
       StyleClasses styleClasses = StyleClasses.ensureStyleClasses(node);
       styleClasses.updateClassAttributeAndMarkup(node, "treeNode");
-      if ("menu".equals(tree.getMode())) {
+      if (isMenu) {
         styleClasses.addClass("treeNode", "menu");
         if (marked) {
           styleClasses.addClass("treeNode", "marker");
@@ -272,11 +278,11 @@ public class TreeNodeRenderer extends CommandRendererBase {
         encodeExpandedHidden(writer, node, id, expanded);
       }
 
-      if (folder && menuMode) {
+      if (folder && isMenu) {
         encodeMenuIcon(facesContext, writer, treeId, id, expanded, node);
       }
 
-      encodeIndent(facesContext, writer, menuMode, junctions);
+      encodeIndent(facesContext, writer, isMenu, junctions);
 
       encodeTreeJunction(facesContext, writer, id, treeId, showJunctions, showRootJunction, showRoot, expanded,
           folder, depth, hasNextSibling, openSource, closedSource);
@@ -474,7 +480,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     UITreeNode node = (UITreeNode) component;
     AbstractUITree tree = node.findTree();
-    if (tree instanceof UITree) {
+    if (tree instanceof UITree || tree instanceof UITreeMenu) {
       encodeEndMenuAndNormal(facesContext, node);
     } else { // if (tree instanceof UITreeListbox)
       encodeEndListbox(facesContext, node);

@@ -73,6 +73,7 @@ public final class RendererTypes {
   public static final String TREE = "Tree";
   public static final String TREE_DATA = "TreeData";
   public static final String TREE_LISTBOX = "TreeListbox";
+  public static final String TREE_MENU = "TreeMenu";
   public static final String TREE_NODE = "TreeNode";
   public static final String SHEET = "Sheet";
   public static final String VERBATIM = "Verbatim";

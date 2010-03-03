@@ -43,7 +43,7 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
   private MixedTreeModel model;
 
   public UIComponent getRoot() {
-    // find the UITreeNode in the childen.
+    // find the UITreeNode in the children.
     for (UIComponent child : (List<UIComponent>) getChildren()) {
       if (child instanceof AbstractUITreeNode) {
         return child;
@@ -55,6 +55,7 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
     return null;
   }
 
+  @Override
   public void encodeEnd(FacesContext facesContext) throws IOException {
     model = new MixedTreeModel();
     for (Object child : getChildren()) {
@@ -75,6 +76,7 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
     return model;
   }
 
+  @Override
   public boolean getRendersChildren() {
     return true;
   }
@@ -88,6 +90,7 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
         || selectable.equals("sibling") || selectable.equals("siblingLeafOnly"));
   }
 
+  @Override
   public void processDecodes(FacesContext facesContext) {
 
     if (!isRendered()) {
@@ -108,6 +111,7 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
     }
   }
 
+  @Override
   public void validate(FacesContext context) {
 
 // todo: validate must be written new, without TreeState
@@ -153,10 +157,15 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
     }
   }
 
+  @Override
   public void updateModel(FacesContext facesContext) {
     // nothing to update for tree's
     // TODO: updating the model here and *NOT* in the decode phase
   }
 
   public abstract Object getState();
+
+  public boolean isShowRoot() {
+    return false;
+  }
 }

@@ -28,7 +28,7 @@
       <tc:gridLayout rows="*"/>
     </f:facet>
 
-    <tc:tree id="nav" mode="menu" showRoot="true" state="#{navigation.state}">
+    <tc:treeMenu id="nav" state="#{navigation.state}">
       <tc:treeData value="#{navigation.tree}" var="node" id="data">
         <tc:treeNode label="#{node.userObject.title}"
                      action="#{node.userObject.action}"
@@ -36,7 +36,7 @@
                      value="#{node}"
                      expanded="true"/>
       </tc:treeData>
-    </tc:tree>
+    </tc:treeMenu>
 
   </tc:panel>
 </f:subview>

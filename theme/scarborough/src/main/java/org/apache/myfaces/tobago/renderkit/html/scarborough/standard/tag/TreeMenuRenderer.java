@@ -1,4 +1,6 @@
-<%--
+package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
+
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,25 +15,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
---%>
-<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+ */
 
-<f:subview id="navigator">
-  <tc:panel>
-    <f:facet name="layout">
-      <tc:gridLayout rows="*"/>
-    </f:facet>
+public class TreeMenuRenderer extends TreeRenderer {
 
-    <tc:treeMenu id="nav" state="#{navigation.state}">
-      <tc:treeData value="#{navigation.tree}" var="node" id="data">
-        <tc:treeNode label="#{node.userObject.title}"
-                     action="#{node.userObject.action}"
-                     immediate="true"
-                     value="#{node}"
-                     expanded="true"/>
-      </tc:treeData>
-    </tc:treeMenu>
-
-  </tc:panel>
-</f:subview>
+}
