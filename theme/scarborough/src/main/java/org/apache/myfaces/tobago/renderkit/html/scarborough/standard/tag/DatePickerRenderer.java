@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.component.UIDate;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 import org.apache.myfaces.tobago.component.UIGridLayout;
-import org.apache.myfaces.tobago.component.UIHiddenInput;
+import org.apache.myfaces.tobago.component.UIHidden;
 import org.apache.myfaces.tobago.component.UIImage;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
@@ -71,8 +71,8 @@ public class DatePickerRenderer extends LinkRenderer {
     }
     picker.setImmediate(true);
     String linkId = picker.getId();
-    UIHiddenInput hidden = (UIHiddenInput)
-        CreateComponentUtils.createComponent(facesContext, UIHiddenInput.COMPONENT_TYPE, RendererTypes.HIDDEN);
+    UIHidden hidden = (UIHidden)
+        CreateComponentUtils.createComponent(facesContext, UIHidden.COMPONENT_TYPE, RendererTypes.HIDDEN);
     if (linkId != null) {
       hidden.setId(linkId + "hidden");
     } else {

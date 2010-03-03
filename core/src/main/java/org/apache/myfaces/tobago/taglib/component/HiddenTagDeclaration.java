@@ -19,35 +19,21 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
-import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.taglib.decl.HasBinding;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
-import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
 import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 
-/*
- * Created: Aug 5, 2005 4:08:32 PM
- * User: bommel
- * $Id$
- */
 /**
- * Renders a 'hidden' input element.
+ * Renders a hidden input element.
  */
 @Tag(name = "hidden")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIHiddenInput",
+    uiComponent = "org.apache.myfaces.tobago.component.UIHidden",
     uiComponentBaseClass = "javax.faces.component.UIInput",
     rendererType = RendererTypes.HIDDEN,
     allowedChildComponenents = "NONE")
-public interface HiddenTagDeclaration extends HasId, HasBinding, HasValue, HasConverter,
-    HasValidator, IsReadonly {
-
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
-  void setInline(String inline);
-
-
-
+public interface HiddenTagDeclaration extends HasIdBindingAndRendered, HasValue, HasConverter, HasValidator, IsReadonly {
 }
