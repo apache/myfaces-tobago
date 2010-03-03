@@ -21,10 +21,10 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasBinding;
-import org.apache.myfaces.tobago.taglib.decl.HasId;
-import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.HasConverter;
+import org.apache.myfaces.tobago.taglib.decl.HasId;
 import org.apache.myfaces.tobago.taglib.decl.HasValidator;
+import org.apache.myfaces.tobago.taglib.decl.HasValue;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 
 /*
@@ -42,6 +42,10 @@ import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 public interface HiddenTagDeclaration extends BeanTagDeclaration, HasId, HasBinding, HasValue, HasConverter,
     HasValidator, IsReadonly {
 
+  /**
+   * @deprecated
+   */
+  @Deprecated
   @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "true")
   void setInline(String inline);
 
