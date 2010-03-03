@@ -153,6 +153,7 @@ public final class Attributes {
   public static final String SHOW_HEADER = "showHeader";
   public static final String SHOW_ICONS = "showIcons";
   public static final String SHOW_JUNCTIONS = "showJunctions";
+  public static final String SHOW_NAVIGATION_BAR = "showNavigationBar";
   public static final String SHOW_PAGE_RANGE = "showPageRange";
   public static final String SHOW_ROOT = "showRoot";
   public static final String SHOW_ROOT_JUNCTION = "showRootJunction";

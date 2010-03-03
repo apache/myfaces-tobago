@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
 import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 
 /**
- * Renders a tabpanel.
+ * Renders a tab group which contains tab panels.
  */
 @Tag(name = "tabGroup")
 @BodyContentDescription(anyTagOf = "(<tc:tab>* ")
@@ -49,15 +49,13 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
 public interface TabGroupTagDeclaration
     extends HasIdBindingAndRendered, IsImmediateCommand, HasAction, HasActionListener, HasMarkup,
     IsGridLayoutComponent, IsGridLayoutContainer {
+
   /**
-   * Deprecated! Use 'switchType' instead.
-   * Flag indicating that tab switching is done by server request.
-   * @deprecated
+   * Flag indicating that the tab navigation bar is rendered.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
-  @Deprecated
-  void setServerside(String serverside);
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
+  void setShowNavigationBar(String showNavigationBar);
 
   /**
    * Indicating how tab switching should be done.
