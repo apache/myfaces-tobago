@@ -404,6 +404,12 @@
           <artifactId>myfaces-impl</artifactId>
           <version>${myfaces12.version}</version>
         </dependency>
+        <dependency>
+          <groupId>javax.el</groupId>
+          <artifactId>el-api</artifactId>
+          <version>1.0</version>
+          <scope>provided</scope>
+        </dependency>
       </dependencies>
     </profile>
     <profile>
@@ -474,6 +480,12 @@
           <groupId>javax.faces</groupId>
           <artifactId>jsf-impl</artifactId>
           <version>${sunjsf12.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>javax.el</groupId>
+          <artifactId>el-api</artifactId>
+          <version>1.0</version>
+          <scope>provided</scope>
         </dependency>
       </dependencies>
       <repositories>
