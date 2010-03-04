@@ -20,14 +20,12 @@ package org.apache.myfaces.tobago.taglib.decl;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/**
- * $Id$
- */
 public interface HasColumnLayout {
   /**
-   * LayoutConstraints for column layout.
-   * Semicolon separated list of layout tokens ('*', '&lt;x>*', '&lt;x>px' or '&lt;x>%').
-   * Where '*' is equvalent to '1*'.
+   * This value defines the layout constraints for column layout.
+   * It is a semicolon separated list of layout tokens '[&lt;n>]*', '&lt;n>px' or 'auto'.
+   * Where &lt;n> is a non negative integer and the square brackets means optional.
+   * Example: '2*;*;100px;auto'.
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "1*")
