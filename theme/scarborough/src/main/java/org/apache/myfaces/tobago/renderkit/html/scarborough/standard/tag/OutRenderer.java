@@ -32,6 +32,7 @@ import java.util.StringTokenizer;
 
 public class OutRenderer extends LayoutComponentRendererBase {
 
+  @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
     UIOut out = (UIOut) component;
@@ -43,8 +44,8 @@ public class OutRenderer extends LayoutComponentRendererBase {
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    boolean escape = out.getEscape();
-    boolean createSpan = out.getCreateSpan();
+    boolean escape = out.isEscape();
+    boolean createSpan = out.isCreateSpan();
 
     if (createSpan) {
       String id = out.getClientId(facesContext);

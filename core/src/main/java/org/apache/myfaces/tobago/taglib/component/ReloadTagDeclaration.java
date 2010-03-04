@@ -23,15 +23,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
-/*
- * Date: 28.05.2006
- * Time: 22:31:38
- */
-
 /**
  * Update the parent component
  */
-
 @Tag(name = "reload")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIReload",
@@ -42,7 +36,7 @@ public interface ReloadTagDeclaration extends HasIdBindingAndRendered {
 
 
   /**
-   * Time in milliseconds after which the parent component is automaticaly reloaded.
+   * Time in milliseconds after which the parent component is automatically reloaded.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "5000")
@@ -52,7 +46,7 @@ public interface ReloadTagDeclaration extends HasIdBindingAndRendered {
    * Is update required.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setUpdate(String update);
 
   /**
@@ -62,6 +56,6 @@ public interface ReloadTagDeclaration extends HasIdBindingAndRendered {
    * waiting until Render Response phase.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setImmediate(String immediate);
 }

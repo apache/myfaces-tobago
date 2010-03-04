@@ -41,6 +41,6 @@ public interface PopupTagDeclaration
     extends HasId, IsRendered, IsGridLayoutComponentWithDeprecatedDimension, IsGridLayoutContainer, HasMarkup {
 
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setModal(String modal);
 }

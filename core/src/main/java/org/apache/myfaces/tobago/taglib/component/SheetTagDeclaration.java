@@ -61,7 +61,7 @@ public interface SheetTagDeclaration
    * Flag indicating the header should be rendered.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setShowHeader(String showHeader);
 
   /**

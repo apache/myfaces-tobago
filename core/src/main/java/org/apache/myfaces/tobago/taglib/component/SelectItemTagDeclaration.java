@@ -56,7 +56,7 @@ public interface SelectItemTagDeclaration extends HasBinding, HasId, HasMarkup, 
    * by this component is disabled.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {"java.lang.Boolean"}, defaultValue = "false")
+  @UIComponentTagAttribute(type = {"boolean"}, defaultValue = "false")
   void setItemDisabled(String itemDisabled);
 
   /**

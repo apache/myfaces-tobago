@@ -90,7 +90,7 @@ public abstract class UICommandBase extends javax.faces.component.UICommand
     return FacesUtils.invokeOnComponent(context, this, clientId, callback);
   }
 
-  public abstract Boolean getJsfResource();
+  public abstract boolean isJsfResource();
 
   public abstract String getResource();
 

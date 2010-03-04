@@ -246,10 +246,10 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Flag indicating this component should recieve the focus.
+   * Flag indicating this component should receive the focus.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   public void setFocus(javax.el.ValueExpression focus) {
     this.focus = focus;
   }
@@ -268,7 +268,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    * (during Render Response Phase), or processed on any subsequent form submit.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   public void setRendered(javax.el.ValueExpression rendered) {
     this.rendered = rendered;
   }
@@ -328,7 +328,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    * password field , so you will not see the typed charakters.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   public void setPassword(javax.el.ValueExpression password) {
     this.password = password;
   }
@@ -337,7 +337,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    * Flag indicating that this component will prohibit changes by the user.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   public void setReadonly(javax.el.ValueExpression readonly) {
     this.readonly = readonly;
   }
@@ -346,7 +346,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    * Flag indicating that this element is disabled.
    */
   @TagAttribute()
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   public void setDisabled(javax.el.ValueExpression disabled) {
     this.disabled = disabled;
   }
@@ -357,7 +357,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
    * ValidationError occurs and a Error Message is rendered.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   public void setRequired(javax.el.ValueExpression required) {
     this.required = required;
   }

@@ -58,14 +58,14 @@ public interface MessagesTagDeclaration extends HasIdBindingAndRendered, HasFor,
    * Flag indicating whether the detail should be included
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setShowDetail(String showDetail);
 
   /**
    * Flag indicating whether the summary should be included
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setShowSummary(String showSummary);
 
    /**
@@ -109,7 +109,7 @@ public interface MessagesTagDeclaration extends HasIdBindingAndRendered, HasFor,
    * and the user has to confirm the message before he/she can continue.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setConfirmation(String confirmation);
 
 }

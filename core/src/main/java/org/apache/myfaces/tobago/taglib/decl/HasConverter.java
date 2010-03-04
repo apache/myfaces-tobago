@@ -21,11 +21,6 @@ import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/**
- * Created: Apr 9, 2005 2:51:04 PM
- * User: bommel
- * $Id$
- */
 public interface HasConverter {
   /**
    * An expression that specifies the Converter for this component.

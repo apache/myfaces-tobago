@@ -20,10 +20,6 @@ package org.apache.myfaces.tobago.taglib.decl;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/*
- * Created: Okt 9, 2005
- * $Id$
- */
 public interface IsPassword {
 
   /**
@@ -31,6 +27,6 @@ public interface IsPassword {
    * password field , so you will not see the typed charakters.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setPassword(String password);
 }

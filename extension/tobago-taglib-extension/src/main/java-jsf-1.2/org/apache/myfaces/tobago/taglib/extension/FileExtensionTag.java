@@ -228,7 +228,7 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
    * (during Render Response Phase), or processed on any subsequent form submit.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   public void setRendered(javax.el.ValueExpression rendered) {
     this.rendered = rendered;
   }
@@ -251,7 +251,7 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
    * Flag indicating that this element is disabled.
    */
   @TagAttribute()
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   public void setDisabled(javax.el.ValueExpression disabled) {
     this.disabled = disabled;
   }
@@ -281,7 +281,7 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
    * ValidationError occurs and a Error Message is rendered.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   public void setRequired(javax.el.ValueExpression required) {
     this.required = required;
   }
@@ -293,10 +293,10 @@ public class FileExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Flag indicating this component should recieve the focus.
+   * Flag indicating this component should receive the focus.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   public void setFocus(javax.el.ValueExpression focus) {
     this.focus = focus;
   }

@@ -177,7 +177,7 @@ public abstract class AbstractUIWizard extends AbstractUIPanel implements OnComp
     this.title = title;
   }
 
-  public Boolean isAllowJumpForward() {
+  public boolean isAllowJumpForward() {
     if (allowJumpForward != null) {
       return allowJumpForward;
     }

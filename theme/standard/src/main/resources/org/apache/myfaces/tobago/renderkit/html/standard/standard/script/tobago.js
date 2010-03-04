@@ -1323,7 +1323,7 @@ var Tobago = {
 
 
   /**
-   * check if a component type is valid to recieve the focus
+   * check if a component type is valid to receive the focus
    */
   isFocusType: function(type) {
     if ( type == 'text'

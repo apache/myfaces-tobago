@@ -17,11 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.AbstractUIPage;
@@ -69,7 +64,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
 
     UIMessages messages = (UIMessages) component;
 
-    if (messages.getConfirmation()) {
+    if (messages.isConfirmation()) {
       createPopup(facesContext, messages);
       return;
     }

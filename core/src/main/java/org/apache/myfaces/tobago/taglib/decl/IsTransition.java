@@ -28,7 +28,7 @@ public interface IsTransition {
    * @param transition Indicates the transition.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setTransition(String transition);
 
 }

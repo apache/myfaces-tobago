@@ -20,15 +20,11 @@ package org.apache.myfaces.tobago.taglib.decl;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/*
- * Created: Apr 9, 2005 3:16:44 PM
- * $Id$
- */
 public interface IsFocus {
   /**
-   * Flag indicating this component should recieve the focus.
+   * Flag indicating this component should receive the focus.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setFocus(String focus);
 }

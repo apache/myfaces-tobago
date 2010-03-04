@@ -71,7 +71,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
     setRowIndex(facesContext, null);
 
     // XXX hack: fix this if there is a Listener
-    if (templateComponent.getMarked()) {
+    if (templateComponent.isMarked()) {
       marker = templateComponent.getValue();
     }
 
@@ -101,7 +101,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
     AbstractUITreeNode template = getTemplateComponent();
     pathStates.put(this.rowIndex, template.saveState(facesContext));
     if (LOG.isDebugEnabled()) {
-      LOG.debug("save   " + this.rowIndex + " ex=" + template.getExpanded());
+      LOG.debug("save   " + this.rowIndex + " ex=" + template.isExpanded());
     }
 
     // reset the client id (see spec 3.1.6)
@@ -121,7 +121,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
     if (state != null) {
       template.restoreState(facesContext, state);
       if (LOG.isDebugEnabled()) {
-        LOG.debug("restore " + this.rowIndex + " ex=" + template.getExpanded());
+        LOG.debug("restore " + this.rowIndex + " ex=" + template.isExpanded());
       }
     }
   }

@@ -119,7 +119,6 @@ public class TreeNodeRenderer extends CommandRendererBase {
   }
 
   public void encodeBeginListbox(FacesContext facesContext, UITreeNode node, UITreeListbox tree) throws IOException {
-    String treeId = tree.getClientId(facesContext);
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     boolean folder = node.isFolder();
@@ -189,7 +188,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     String treeId = tree.getClientId(facesContext);
     boolean folder = node.isFolder();
-    boolean marked = node.getMarked();
+    boolean marked = node.isMarked();
     String id = node.getClientId(facesContext);
     int depth = node.getDepth();
     boolean hasNextSibling = node.isHasNextSibling();
@@ -515,10 +514,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
     TreeState state = (TreeState) tree.getState();
     if (state != null) {
       return state.getExpanded().contains(node.getPath());
-    } else if (node.getExpanded() != null) {
-      return node.getExpanded();
     } else {
-      return false;
+      return node.isExpanded();
     }
   }
 
@@ -535,7 +532,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       node.setExpanded(expanded);
     }
     if (oldExpanded != expanded) {
-      new TreeExpansionEvent(node, node.getExpanded(), expanded).queue();
+      new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
     }
   }
 }

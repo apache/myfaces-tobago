@@ -265,10 +265,10 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
   }
 
   /**
-   * Flag indicating this component should recieve the focus.
+   * Flag indicating this component should receive the focus.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   public void setFocus(javax.el.ValueExpression focus) {
     this.focus = focus;
   }
@@ -288,7 +288,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    * (during Render Response Phase), or processed on any subsequent form submit.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   public void setRendered(javax.el.ValueExpression rendered) {
     this.rendered = rendered;
   }
@@ -327,7 +327,8 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    * Flag indicating this component should rendered as an inline element.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  @Deprecated
   public void setInline(javax.el.ValueExpression inline) {
     this.inline = inline;
   }
@@ -336,7 +337,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    * Flag indicating that this component will prohibit changes by the user.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   public void setReadonly(javax.el.ValueExpression readonly) {
     this.readonly = readonly;
   }
@@ -345,7 +346,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    * Flag indicating that this element is disabled.
    */
   @TagAttribute()
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   public void setDisabled(javax.el.ValueExpression disabled) {
     this.disabled = disabled;
   }
@@ -356,7 +357,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    * ValidationError occurs and a Error Message is rendered.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   public void setRequired(javax.el.ValueExpression required) {
     this.required = required;
   }
@@ -386,7 +387,7 @@ public class DateExtensionTag extends TobagoExtensionBodyTagSupport {
    * Possible value is 'none'. But this can be overridden in the theme.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none", type = "java.lang.String[]")
+  @UIComponentTagAttribute(type = "java.lang.String[]", defaultValue = "none")
   public void setMarkup(javax.el.ValueExpression markup) {
     this.markup = markup;
   }

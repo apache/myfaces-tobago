@@ -20,11 +20,6 @@ package org.apache.myfaces.tobago.taglib.decl;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/*
- * Created: Apr 9, 2005 2:52:15 PM
- * User: bommel
- * $Id$
- */
 public interface IsRequired {
   /**
    * Flag indicating that a value is required.
@@ -32,6 +27,6 @@ public interface IsRequired {
    * ValidationError occurs and a Error Message is rendered.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "boolean")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setRequired(String required);
 }

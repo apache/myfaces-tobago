@@ -85,6 +85,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
 
   private static final Integer HEIGHT_0 = 0;
 
+  @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
     if (facesContext instanceof TobagoFacesContext) {
@@ -92,6 +93,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     }
   }
 
+  @Override
   public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
 
     UISheet sheet = (UISheet) uiComponent;
@@ -228,7 +230,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     }
 
 
-    final boolean showHeader = sheet.getShowHeader();
+    final boolean showHeader = sheet.isShowHeader();
     if (showHeader) {
       // begin rendering header
       writer.startElement(HtmlConstants.DIV, null);
@@ -581,6 +583,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     return sheetPagingInfo;
   }
 
+  @Override
   public void decode(FacesContext facesContext, UIComponent component) {
     super.decode(facesContext, component);
 
@@ -687,8 +690,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
       return value;
     } else {
       if (!"none".equals(value)) {
-        LOG.warn(
-            "illegal value in sheet' paging attribute : \"" + value + "\"");
+        LOG.warn("Illegal value in sheets paging attribute: '" + value + "'");
       }
       return "none";
     }
@@ -696,14 +698,14 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
 
   private boolean isValidPagingValue(String value) {
     // todo: use enum type instead of string
-    return "left".equals(value) || "center".equals(value)
-        || "right".equals(value);
+    return "left".equals(value) || "center".equals(value) || "right".equals(value);
   }
 
   private Measure getAscendingMarkerWidth(FacesContext facesContext, UISheet data) {
     return getResourceManager().getThemeMeasure(facesContext, data, "ascendingMarkerWidth");
   }
 
+  @Override
   public boolean getRendersChildren() {
     return true;
   }
@@ -1106,6 +1108,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     renderSheet(facesContext, data, (clickAction != null || dblClickAction != null), style);
   }
 
+  @Override
   public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
     // DO Nothing
   }

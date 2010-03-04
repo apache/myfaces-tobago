@@ -130,7 +130,7 @@ public class WizardExtensionTag extends BodyTagSupport {
   }
 
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   public void setAllowJumpForward(String allowJumpForward) {
     this.allowJumpForward = allowJumpForward;
   }

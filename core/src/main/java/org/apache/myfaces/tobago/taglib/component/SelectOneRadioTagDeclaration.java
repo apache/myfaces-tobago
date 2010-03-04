@@ -34,13 +34,8 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
 import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 
-/*
- * Created: Aug 5, 2005 6:11:03 PM
- * User: bommel
- * $Id$
- */
 /**
- * Render a set of radiobuttons.
+ * Render a set of radio buttons.
  */
 @Tag(name = "selectOneRadio")
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
@@ -67,10 +62,10 @@ public interface SelectOneRadioTagDeclaration extends SelectOneTagDeclaration, I
 
   /**
    * Flag indicating that selecting an Item representing a Value is Required.
-   * If an SelectItem was choosen which underling value is an empty string an
+   * If an SelectItem was chosen which underling value is an empty string an
    * ValidationError occurs and a Error Message is rendered.
    */
   @TagAttribute()
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setRequired(String required);
 }

@@ -51,8 +51,7 @@ public interface ColumnTagDeclaration extends HasIdBindingAndRendered, HasLabel,
    * <code>java.util.List</code> or <code>Object[]</code>.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = {"java.lang.Boolean"},
-      defaultValue = "false")
+  @UIComponentTagAttribute(type = {"boolean"}, defaultValue = "false")
   void setSortable(String sortable);
 
   /**

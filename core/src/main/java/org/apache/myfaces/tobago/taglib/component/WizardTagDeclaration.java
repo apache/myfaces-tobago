@@ -73,6 +73,6 @@ public interface WizardTagDeclaration
    * Is a jump forward to following pages allowed?
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setAllowJumpForward(String allowJumpForward);
 }

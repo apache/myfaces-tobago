@@ -41,9 +41,6 @@ import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.List;
 
-/*
- * Date: 19.03.2007 17:54:59
- */
 public class CommandRendererHelper {
 
   private static final Log LOG = LogFactory.getLog(CommandRendererHelper.class);
@@ -177,7 +174,7 @@ public class CommandRendererHelper {
     ExternalContext externalContext = facesContext.getExternalContext();
 
     if (component.getResource() != null) {
-      boolean jsfResource = component.getJsfResource();
+      boolean jsfResource = component.isJsfResource();
       url = ResourceManagerUtil.getPageWithoutContextPath(facesContext, component.getResource());
       if (url != null) {
         if (jsfResource) {

@@ -20,9 +20,6 @@ package org.apache.myfaces.tobago.taglib.decl;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/**
- * $Id$
- */
 public interface IsImmediateCommand {
   /**
    * Flag indicating that, if this component is activated by the user,

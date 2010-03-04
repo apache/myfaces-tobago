@@ -231,7 +231,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    * (during Render Response Phase), or processed on any subsequent form submit.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   public void setRendered(javax.el.ValueExpression rendered) {
     this.rendered = rendered;
   }
@@ -240,7 +240,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    * Flag indicating that this element is disabled.
    */
   @TagAttribute()
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   public void setDisabled(javax.el.ValueExpression disabled) {
     this.disabled = disabled;
   }
@@ -271,7 +271,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    * waiting until Invoke Application phase.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   public void setImmediate(javax.el.ValueExpression immediate) {
     this.immediate = immediate;
   }
@@ -283,7 +283,7 @@ public class MenuRadioExtensionTag extends TobagoExtensionBodyTagSupport {
    * @param transition Indicates the transition.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.TRUE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   public void setTransition(javax.el.ValueExpression transition) {
     this.transition = transition;
   }

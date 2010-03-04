@@ -20,13 +20,16 @@ package org.apache.myfaces.tobago.taglib.decl;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
+/**
+ * Warning: This class is stil in progress.
+ */
 public interface IsDraggable {
 
   /**
    * Draggable components are the source components of the drag-and-drop feature.
    */
   @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Boolean", defaultValue = "Boolean.FALSE")
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setDraggable(String draggable);
 
   /**
