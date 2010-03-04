@@ -31,11 +31,6 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 import org.apache.myfaces.tobago.taglib.decl.HasRowLayout;
 import org.apache.myfaces.tobago.taglib.decl.HasSpacing;
 
-/*
- * Date: 14.03.2006
- * Time: 16:58:13
- */
-
 /**
  * Renders a GridLayout.
  * <pre>
@@ -82,8 +77,8 @@ import org.apache.myfaces.tobago.taglib.decl.HasSpacing;
  * <td>PROPORTIONAL</td>
  * <td>any combination of FIXED or PIXEL but no PROPORTIONAL</td>
  * <td>potentially wrong</td>
- * <td>No automatical matching:<ul><li>too little space: scrollbar</li>
- * <li>too much space: elements will be spreaded.</li></ul></td>
+ * <td>No automatic matching:<ul><li>too little space: scroll bar</li>
+ * <li>too much space: elements will be spread.</li></ul></td>
  * </tr>
  * <tr>
  * <td>PROPORTIONAL</td>
