@@ -7,15 +7,41 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core">
 
-  <tc:page>
+  <tc:page id="page">
     <f:facet name="layout">
       <tc:gridLayout/>
     </f:facet>
     <tc:gridLayoutConstraint width="600px" height="300px"/>
 
-    <tc:hidden id="h1" value="h1-value"/>
-    <tc:hidden id="h2" value="h2-value" rendered="false"/>
-    <tc:hidden id="h3" value="h3-value" rendered="true"/>
+    <tc:out value="Click 'fill' and than 'submit' and check that the 2. field has not modified, because the hidden field 2 has rendered=false"/>
+    
+    <tc:hidden id="h1" value="#{hidden.value1}"/>
+    <tx:in label="Value of the hidden field 1 on server" 
+           labelWidth="350px" value="#{hidden.value1}" disabled="true"/>
+    
+    <tc:hidden id="h2" value="#{hidden.value2}" rendered="false"/>
+    <tx:in label="Value of the hidden field 2 on server (rendered=false)" 
+           labelWidth="350px" value="#{hidden.value2}" disabled="true"/>
+    
+    <tc:hidden id="h3" value="#{hidden.value3}" rendered="true"/>
+    <tx:in label="Value of the hidden field 3 on server (rendered=true)" 
+           labelWidth="350px" value="#{hidden.value3}" disabled="true"/>
+    
+    <tc:button id="fill" label="1. fill hidden fields" onclick="fillHiddenFields();"/>
+    <tc:button label="2. submit hidden fields..."/>
+
+    <tc:cell/>
+    
+    <tc:script>
+
+      function fillHiddenFields() {
+        $('#page\\:h1').val("new " + $('#page\\:h1').val());
+        $('#page\\:h2').val("new " + $('#page\\:h2').val());
+        $('#page\\:h3').val("new " + $('#page\\:h3').val());
+      }
+      
+      // todo: the test code is not full automated
+    </tc:script>
 
   </tc:page>
 </f:view>
