@@ -33,7 +33,9 @@ public interface IsGridLayoutComponentWithDeprecatedDimension extends IsGridLayo
    * This value will usually be set by the layout manager.
    *
    * @param width The width for this component.
+   * @deprecated
    */
+  @Deprecated
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
       defaultCode = "((LayoutComponentRenderer)getRenderer(getFacesContext())).getWidth(getFacesContext(), this)")
@@ -43,7 +45,9 @@ public interface IsGridLayoutComponentWithDeprecatedDimension extends IsGridLayo
    * This value will usually be set by the layout manager.
    *
    * @param height The height for this component.
+   * @deprecated
    */
+  @Deprecated
   @TagAttribute
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
       defaultCode = "((LayoutComponentRenderer)getRenderer(getFacesContext())).getHeight(getFacesContext(), this)")
