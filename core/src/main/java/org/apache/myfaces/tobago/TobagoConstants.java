@@ -590,7 +590,7 @@ public final class TobagoConstants {
   /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.5 */
   @Deprecated
   public static final String RENDERER_TYPE_DATE = "Date";
-  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.5 */
+  /** @deprecated Not existing any longer. Will be removed after Tobago 1.5 */
   @Deprecated
   public static final String RENDERER_TYPE_DEFAULT_LAYOUT = "DefaultLayout";
   /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.5 */
@@ -668,7 +668,7 @@ public final class TobagoConstants {
   /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.5 */
   @Deprecated
   public static final String RENDERER_TYPE_SHEET = "Sheet";
-  /** @deprecated Please use RendererTypes instead. Will be removed after Tobago 1.5 */
+  /** @deprecated Not existing any longer. Will be removed after Tobago 1.5 */
   @Deprecated
   public static final String RENDERER_TYPE_VERBATIM = "Verbatim";
 
