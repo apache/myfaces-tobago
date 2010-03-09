@@ -51,7 +51,11 @@ public final class PixelMeasure extends Measure {
   }
   
   public Measure add(Measure m) {
-    return pixelValueOf(pixel + m.getPixel());
+    if (m == null) {
+      return this;
+    } else {
+      return pixelValueOf(pixel + m.getPixel());
+    }
   }
 
   public Measure add(int m) {
