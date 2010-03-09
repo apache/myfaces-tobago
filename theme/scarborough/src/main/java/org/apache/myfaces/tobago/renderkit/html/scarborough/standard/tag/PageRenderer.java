@@ -57,7 +57,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -116,9 +115,7 @@ public class PageRenderer extends PageRendererBase {
     long begin = System.nanoTime();
     LayoutContext layoutContext = new LayoutContext(page);
     layoutContext.layout();
-    long end = System.nanoTime();
-    NumberFormat format = new DecimalFormat("#,##0");
-    LOG.info("layouting takes: " + format.format(end-begin) + " ns");
+    LOG.info("Laying out takes: " + new DecimalFormat("#,##0").format(System.nanoTime() - begin) + " ns");
 
 // LAYOUT End
 
@@ -231,11 +228,13 @@ public class PageRenderer extends PageRendererBase {
     List<String> scriptFiles = facesContext.getScriptFiles();
     // jquery.js and tobago.js needs to be first!
 
-//    scriptFiles.add(0, debugMode ? "script/jquery/1_4_1/jquery.js" : "script/jquery/1_4_1/jquery.min.js");
-    scriptFiles.add(0, debugMode ? "script/jquery/1_3_2/jquery.js" : "script/jquery/1_3_2/jquery.min.js");
-    scriptFiles.add(1, "script/tobago.js");
-    scriptFiles.add(2, "script/tobago-menu.js");
-    scriptFiles.add(3, "script/theme-config.js");
+    int pos = 0;
+    scriptFiles.add(pos++, debugMode ? "script/jquery/1_4_1/jquery.js" : "script/jquery/1_4_1/jquery.min.js");
+    scriptFiles.add(pos++, "script/jquery/1_4_1/jquery.compat-1.3.js"); // TODO: remove after fixing AJAX
+//    scriptFiles.add(pos++, debugMode ? "script/jquery/1_3_2/jquery.js" : "script/jquery/1_3_2/jquery.min.js");
+    scriptFiles.add(pos++, "script/tobago.js");
+    scriptFiles.add(pos++, "script/tobago-menu.js");
+    scriptFiles.add(pos++, "script/theme-config.js");
     
     int clientLogSeverity = 2;
     if (debugMode) {
