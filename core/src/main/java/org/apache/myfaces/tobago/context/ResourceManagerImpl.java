@@ -366,8 +366,8 @@ public class ResourceManagerImpl implements ResourceManager {
       } else {
         matches.add(result);
       }
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("testing path: " + path + " *"); // match
+      if (LOG.isTraceEnabled()) {
+        LOG.trace("testing path: " + path + " *"); // match
       }
 
       if (single) {
@@ -377,20 +377,20 @@ public class ResourceManagerImpl implements ResourceManager {
       try {
         path = path.substring(1).replace('/', '.');
         Class clazz = Class.forName(path);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("testing path: " + path + " *"); // match
+        if (LOG.isTraceEnabled()) {
+          LOG.trace("testing path: " + path + " *"); // match
         }
         matches.add(clazz);
         return true;
       } catch (ClassNotFoundException e) {
         // not found
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("testing path: " + path); // no match
+        if (LOG.isTraceEnabled()) {
+          LOG.trace("testing path: " + path); // no match
         }
       }
     } else {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("testing path: " + path); // no match
+      if (LOG.isTraceEnabled()) {
+        LOG.trace("testing path: " + path); // no match
       }
     }
     return false;
