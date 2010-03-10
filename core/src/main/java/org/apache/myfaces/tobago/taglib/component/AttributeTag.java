@@ -74,7 +74,7 @@ public abstract class AttributeTag extends TagSupport {
    * <br/>
    * "isSet" (boolean) checks, if the expression is set from the composition caller.
    * <br/>
-   * "isNotSet" (boolean) nagation of "isSet"
+   * "isNotSet" (boolean) negation of "isSet"
    * <br/>
    * "actionFromValue" Evaluates the ValueBinding to get an outcome set directly (no action method)
    * <br/>
