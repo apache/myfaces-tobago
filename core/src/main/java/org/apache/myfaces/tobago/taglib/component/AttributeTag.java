@@ -31,11 +31,6 @@ import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-/*
- * Date: Oct 14, 2006
- * Time: 1:47:13 PM
- */
-
 /**
  * Add an attribute on the UIComponent
  * associated with the closest parent UIComponent custom action.
@@ -48,6 +43,9 @@ public abstract class AttributeTag extends TagSupport {
 
   public abstract Object getNameAsBindingOrExpression();
 
+  /**
+   * The name of the attribute in the parent component.
+   */
   @TagAttribute(required = true, name = "name")
   public abstract String getNameValue();
 
@@ -58,11 +56,35 @@ public abstract class AttributeTag extends TagSupport {
 
   public abstract Object getValueAsBindingOrExpression();
 
+  /**
+   * The value of the attribute in the parent component.
+   */
   @TagAttribute(required = true, name = "value")
   public abstract String getValueValue();
 
   public abstract String getValueExpression();
 
+  /**
+   * Warning: The mode is only available when using Facelets.
+   * Allowed values are "action", "actionListener", "actionFromValue", "isNotSet", "isSet", "valueIfSet".
+   * <br/>
+   * "action" (method binding) evaluate the expression to find the method binding which is referenced with the template.
+   * <br/>
+   * "actionListener" same as "action" but for the method signature of ActionListeners.
+   * <br/>
+   * "isSet" (boolean) checks, if the expression is set from the composition caller.
+   * <br/>
+   * "isNotSet" (boolean) nagation of "isSet"
+   * <br/>
+   * "actionFromValue" Evaluates the ValueBinding to get an outcome set directly (no action method)
+   * <br/>
+   * "valueIfSet" set the attribute only if the value is set.
+   */
+  @TagAttribute(name = "mode")
+  public void setMode(String mode) {
+    throw new RuntimeException("The mode is only available when using Facelets, not with JSP.");
+  }
+  
   /**
    * @throws javax.servlet.jsp.JspException if a JSP error occurs
    */
