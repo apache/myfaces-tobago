@@ -40,28 +40,31 @@ public class TobagoResponseJsonWriterImpl extends TobagoResponseWriterImpl {
     this.javascriptWriter = new FastStringWriter();
   }
 
+  @Override
   public void endJavascript() throws IOException {
     javascriptMode = false;
   }
 
+  @Override
   public void startJavascript() throws IOException {
     javascriptMode = true;
   }
 
   @Override
   public void write(String string) throws IOException {
-    writeInternal(javascriptMode ? javascriptWriter : getWriter(),
-        javascriptMode ? string: AjaxUtils.encodeJavascriptString(string));
+    writeInternal(javascriptMode ? javascriptWriter : getWriter(), AjaxUtils.encodeJavascriptString(string));
   }
 
+  @Override
   public void writeJavascript(String script) throws IOException {
-    writeInternal(javascriptWriter, script);
+    writeInternal(javascriptWriter, AjaxUtils.encodeJavascriptString(script));
   }
 
   public String getJavascript() {
     return javascriptWriter.toString();
   }
 
+  @Override
   protected void startElementInternal(Writer writer, String name, UIComponent currentComponent)
       throws IOException {
     setComponent(currentComponent);
@@ -74,6 +77,7 @@ public class TobagoResponseJsonWriterImpl extends TobagoResponseWriterImpl {
     setStartStillOpen(true);
   }
 
+  @Override
   protected void endElementInternal(Writer writer, String name) throws IOException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("end Element: " + name);
@@ -109,6 +113,7 @@ public class TobagoResponseJsonWriterImpl extends TobagoResponseWriterImpl {
     setStartStillOpen(false);
   }
 
+  @Override
   protected void closeOpenTag() throws IOException {
     if (isStartStillOpen()) {
       getWriter().write(">");
@@ -116,6 +121,7 @@ public class TobagoResponseJsonWriterImpl extends TobagoResponseWriterImpl {
     }
   }
 
+  @Override
   protected void writeAttributeInternal(Writer writer, String name, String value, boolean escape)
       throws IOException {
     if (!isStartStillOpen()) {

@@ -22,8 +22,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
-import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.FACES_MESSAGES_KEY;
-import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.EncodeAjaxCallback;
 import org.apache.myfaces.tobago.util.RequestUtils;
@@ -47,6 +45,9 @@ import java.util.EmptyStackException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.FACES_MESSAGES_KEY;
+import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
 
 public class AjaxResponseRenderer {
   public static final int CODE_SUCCESS = 200;
@@ -111,11 +112,11 @@ public class AjaxResponseRenderer {
     if (LOG.isDebugEnabled()) {
       LOG.debug("write ajax response for " + component);
     }
-    writer.write("{\n    ajaxId: \"");
+    writer.write("{\n    \"ajaxId\": \"");
     writer.write(clientId);
     writer.write("\",\n");
 
-    writer.write("    html: \"");
+    writer.write("    \"html\": \"");
     try {
       FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), clientId, callback);
     } catch (EmptyStackException e) {
@@ -124,14 +125,14 @@ public class AjaxResponseRenderer {
     }
     writer.write("\",\n");
 
-    writer.write("    responseCode: ");
+    writer.write("    \"responseCode\": ");
     writer.write(Integer.toString(component.getAjaxResponseCode()));
 
     if (contentWriter instanceof TobagoResponseJsonWriterImpl) {
       writer.write(",\n");
-      writer.write("    script: function() {\n");
+      writer.write("    \"script\": \"function() { ");
       writer.write(((TobagoResponseJsonWriterImpl) contentWriter).getJavascript());
-      writer.write("\n    }");
+      writer.write(" }\"");
     }
     writer.write("\n  }");
   }
@@ -172,13 +173,13 @@ public class AjaxResponseRenderer {
     ensureContentTypeHeader(facesContext, charset, contentType);
 
     PrintWriter writer = getPrintWriter(facesContext);
-    writer.write("{\n  tobagoAjaxResponse: true,\n");
-    writer.write("  responseCode: ");
+    writer.write("{\n  \"tobagoAjaxResponse\": true,\n");
+    writer.write("  \"responseCode\": ");
     writer.write(reloadRequired ? Integer.toString(CODE_RELOAD_REQUIRED) : Integer.toString(CODE_SUCCESS));
 
     if (!reloadRequired) {
       writer.write(",\n");
-      writer.write("  jsfState: \"");
+      writer.write("  \"jsfState\": \"");
       saveState(facesContext, renderKit);
       writer.write("\"");
     }
@@ -187,9 +188,9 @@ public class AjaxResponseRenderer {
     int i = 0;
     for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
       writer.write(",\n");
-      writer.write("  ajaxPart_");
+      writer.write("  \"ajaxPart_");
       writer.write(Integer.toString(i++));
-      writer.write(": ");
+      writer.write("\": ");
 
       AjaxComponent component = (AjaxComponent) entry.getValue();
       if (facesContext instanceof TobagoFacesContext) {

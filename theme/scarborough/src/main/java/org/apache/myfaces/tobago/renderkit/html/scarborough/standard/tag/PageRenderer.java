@@ -229,9 +229,9 @@ public class PageRenderer extends PageRendererBase {
     // jquery.js and tobago.js needs to be first!
 
     int pos = 0;
-    scriptFiles.add(pos++, debugMode ? "script/jquery/1_4_1/jquery.js" : "script/jquery/1_4_1/jquery.min.js");
-    scriptFiles.add(pos++, "script/jquery/1_4_1/jquery.compat-1.3.js"); // TODO: remove after fixing AJAX
 //    scriptFiles.add(pos++, debugMode ? "script/jquery/1_3_2/jquery.js" : "script/jquery/1_3_2/jquery.min.js");
+//    scriptFiles.add(pos++, debugMode ? "script/jquery/1_4_1/jquery.js" : "script/jquery/1_4_1/jquery.min.js");
+    scriptFiles.add(pos++, debugMode ? "script/jquery/1_4_2/jquery.js" : "script/jquery/1_4_2/jquery.min.js");
     scriptFiles.add(pos++, "script/tobago.js");
     scriptFiles.add(pos++, "script/tobago-menu.js");
     scriptFiles.add(pos++, "script/theme-config.js");
@@ -477,7 +477,7 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement(HtmlConstants.DIV);
 
     // write popup components
-    // beware of ConcurrentModificationException in cascating popups!
+    // beware of ConcurrentModificationException in cascading popups!
     // no foreach
     UIPopup[] popupArray = facesContext.getPopups().toArray(new UIPopup[facesContext.getPopups().size()]);
     for (UIPopup popup : popupArray) {

@@ -1966,7 +1966,9 @@ Tobago.Panel.prototype.doUpdate = function(data) {
   if (data.responseCode == Tobago.Updater.CODE_SUCCESS) {
     Tobago.element(this.id).innerHTML = data.html;
     try {
-      data.script();
+      var updateScript;
+      eval("updateScript = " + data.script);
+      updateScript();
     } catch (e) {
       LOG.error(e);
     }
@@ -2216,7 +2218,7 @@ Tobago.Transport.JqueryTransport = {
   transportOptions: {
 
     dataType: "json",
-
+    type: "POST",
     cache: false,
 
     complete: function() {
@@ -2463,7 +2465,9 @@ Tobago.Updater = {
         container = Tobago.element(container);
         container.innerHTML = data.html;
         try {
-          data.script();
+          var updateScript;
+          eval("updateScript = " + data.script);
+          updateScript();
         } catch (e) {
           LOG.error(e);
         }

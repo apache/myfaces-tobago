@@ -123,7 +123,9 @@ Tobago.AutocompleterAjax.prototype.doUpdate = function(data) {
       if (data.responseCode == Tobago.Updater.CODE_SUCCESS) {
         LOG.debug("doUpdate() CODE_SUCCESS");
         LOG.debug("doUpdate() data.script() : " + data.script);
-        this.suggest(data.script())
+        var updateScript;
+        eval("updateScript = " + data.script);
+        this.suggest(updateScript());
       }
       this.requestActive = false;
     }
