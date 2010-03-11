@@ -22,6 +22,7 @@ import com.sun.facelets.tag.MetaRuleset;
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentHandler;
 import org.apache.myfaces.tobago.component.AbstractUIGridLayout;
+import org.apache.myfaces.tobago.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.component.DeprecatedDimension;
 import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
@@ -46,6 +47,12 @@ public class TobagoComponentHandler extends ComponentHandler {
     }
     if (DeprecatedDimension.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(DeprecatedDimensionRule.INSTANCE);
+    }
+    if (DeprecatedDimension.class.isAssignableFrom(aClass)) {
+      metaRuleset.addRule(DeprecatedDimensionRule.INSTANCE);
+    }
+    if (AbstractUIPopup.class.isAssignableFrom(aClass)) {
+      metaRuleset.addRule(PositionRule.INSTANCE);
     }
     if (AbstractUIGridLayout.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(GridLayoutRule.INSTANCE);

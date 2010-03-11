@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -24,6 +26,8 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.internal.layout.LayoutContext;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -37,8 +41,11 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 public class PopupRenderer extends LayoutComponentRendererBase implements AjaxRenderer {
+
+  private static final Log LOG = LogFactory.getLog(PopupRenderer.class);
 
   @Override
   public boolean getRendersChildren() {
@@ -54,28 +61,38 @@ public class PopupRenderer extends LayoutComponentRendererBase implements AjaxRe
   }
 
   @Override
-  public void encodeBegin(FacesContext facesContext, UIComponent uiComponent) throws IOException {
+  public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    UIPopup component = (UIPopup) uiComponent;
-    final String clientId = component.getClientId(facesContext);
+    UIPopup popup = (UIPopup) component;
+
+// LAYOUT Begin
+
+    long begin = System.nanoTime();
+    LayoutContext layoutContext = new LayoutContext(popup);
+    layoutContext.layout();
+    LOG.info("Laying out takes: " + new DecimalFormat("#,##0").format(System.nanoTime() - begin) + " ns");
+
+// LAYOUT End
+
+    final String clientId = popup.getClientId(facesContext);
     final String contentDivId = clientId + ComponentUtils.SUB_SEPARATOR + "content";
-    //final String left = component.getLeft();
-    //final String top = component.getTop();
-    Integer zIndex = (Integer) component.getAttributes().get(Attributes.Z_INDEX);
+    //final String left = popup.getLeft();
+    //final String top = popup.getTop();
+    Integer zIndex = (Integer) popup.getAttributes().get(Attributes.Z_INDEX);
     if (zIndex == null) {
       zIndex = 0;
     }
 
     final StringBuilder contentStyle = new StringBuilder(32);
-    if (component.getCurrentWidth() != null) {
+    if (popup.getCurrentWidth() != null) {
       contentStyle.append("width: ");
-      contentStyle.append(component.getCurrentWidth().getPixel());
+      contentStyle.append(popup.getCurrentWidth().getPixel());
       contentStyle.append("; ");
     }
-    if (component.getCurrentHeight() != null) {
+    if (popup.getCurrentHeight() != null) {
       contentStyle.append("height: ");
-      contentStyle.append(component.getCurrentHeight().getPixel());
+      contentStyle.append(popup.getCurrentHeight().getPixel());
       contentStyle.append("; ");
     }
     contentStyle.append("z-index: ");
@@ -87,8 +104,8 @@ public class PopupRenderer extends LayoutComponentRendererBase implements AjaxRe
     //contentStyle.append("top: ");
     //contentStyle.append(top);
     //contentStyle.append("; ");
-    if (component.isModal()) {
-      writer.startElement(HtmlConstants.DIV, component);
+    if (popup.isModal()) {
+      writer.startElement(HtmlConstants.DIV, popup);
       writer.writeIdAttribute(clientId);
       writer.writeStyleAttribute("z-index: " + (zIndex + 1) + ";");
       writer.writeClassAttribute();
@@ -102,12 +119,12 @@ public class PopupRenderer extends LayoutComponentRendererBase implements AjaxRe
       writer.endElement(HtmlConstants.DIV);
     }
     if (VariableResolverUtil.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
-      writer.startElement(HtmlConstants.IFRAME, component);
+      writer.startElement(HtmlConstants.IFRAME, popup);
       writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + HtmlConstants.IFRAME);
       writer.writeClassAttribute("tobago-popup-iframe tobago-popup-none");
       writer.writeStyleAttribute("z-index: " + (zIndex + 2) + ";");
       UIPage page = (UIPage) ComponentUtils.findPage(facesContext);
-      if (component.isModal()) {
+      if (popup.isModal()) {
         final StringBuilder frameSize = new StringBuilder(32);
         // full client area
         frameSize.append("width: ");
@@ -125,12 +142,12 @@ public class PopupRenderer extends LayoutComponentRendererBase implements AjaxRe
       writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
       writer.endElement(HtmlConstants.IFRAME);
     }
-    writer.startElement(HtmlConstants.DIV, component);
+    writer.startElement(HtmlConstants.DIV, popup);
     writer.writeIdAttribute(contentDivId);
     StyleClasses styleClasses = new StyleClasses();
     styleClasses.addClass("popup", "content");
     styleClasses.addClass("popup", "none");
-    if (component.isModal()) {
+    if (popup.isModal()) {
       styleClasses.addClass("popup", "modal");
     }
     writer.writeClassAttribute(styleClasses);
@@ -139,23 +156,24 @@ public class PopupRenderer extends LayoutComponentRendererBase implements AjaxRe
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent uiComponent) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    UIPopup component = (UIPopup) uiComponent;
-    final String clientId = component.getClientId(facesContext);
+    UIPopup popup = (UIPopup) component;
+    final String clientId = popup.getClientId(facesContext);
 
     writer.endElement(HtmlConstants.DIV);
 
     writer.startJavascript();
     writer.write("Tobago.setupPopup('");
     writer.write(clientId);
-    writer.write("', '");
-    writer.write(component.getLeft().getPixel());
-    writer.write("', '");
-    writer.write(component.getTop().getPixel());
     writer.write("', ");
-    writer.write(String.valueOf(component.isModal()));
+    final Measure left = popup.getLeft();
+    writer.write(left != null ? Integer.toString(left.getPixel()) : "null");
+    writer.write(", ");
+    final Measure top = popup.getTop();
+    writer.write(top != null ? Integer.toString(top.getPixel()) : "null");
+    writer.write(", ");
+    writer.write(String.valueOf(popup.isModal()));
     writer.write(");");
     writer.endJavascript();
   }

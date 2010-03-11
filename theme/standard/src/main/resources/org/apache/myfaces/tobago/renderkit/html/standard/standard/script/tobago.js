@@ -936,9 +936,13 @@ var Tobago = {
 
   /**
     * Setup popup size
+   *  @param id String
+   *  @param left int or null
+   *  @param top int or null
+   *  @param modal boolean or null
     */
   setupPopup: function(id, left, top, modal) {
-//  alert("tobagoSetupPopup('" + id + "', '" + left + "', '"+ top + "')");
+//    alert("tobagoSetupPopup('" + id + "', '" + left + "', '"+ top + "')");
     var hidden = Tobago.element(id + Tobago.SUB_COMPONENT_SEP + "hidden");
     if (hidden && hidden.type == "hidden") {
       hidden.parentNode.removeChild(hidden);
@@ -952,52 +956,36 @@ var Tobago = {
       this.popupResizeStub = function() {Tobago.doResizePopupBackground(id);};
       Tobago.addEventListener(window, "resize", this.popupResizeStub);
     }
+    
     var contentId = id + Tobago.SUB_COMPONENT_SEP + "content";
-    var div = this.element(contentId);
+    var div = jQuery(Tobago.escapeClientId(contentId));
     if (div) {
-      var l = left.replace(/\D/g, "");
-      if (l.length > 0) {
-        div.style.left = l;
-        //      alert("1 set left to " + l);
-      } else {
-        var popupWidth = div.style.width;
-        if (popupWidth) {
-          popupWidth = popupWidth.replace(/\D/g, "");
-        } else {
-          popupWidth = div.clientWidth - Tobago.Config.get("Popup", "borderWidth");
-        }
-        l = this.getBrowserInnerWidth() - popupWidth;
-        div.style.left = l/2;
-        //      alert("2 set left to " + l/2);
+
+      // XXX removing the class would be better after setting the position, but
+      // XXX div.children().outerWidth() doesn't work in that case (which is used in the next lines).
+      div.removeClass("tobago-popup-none");
+      
+      // calculate left, if lack
+      if (left == null) {
+        left = (jQuery(window).width() - div.children().outerWidth()) / 2;
+      }
+  
+      // calculate top, if lack
+      if (top == null) {
+        top = (jQuery(window).height() - div.children().outerHeight()) / 2;
       }
 
-      var t = top.replace(/\D/g, "");
-      if (t.length > 0) {
-        div.style.top = t;
-        //      alert("1 set top to " + t);
-      } else {
-        var popupHeight = div.style.height;
-        if (popupHeight) {
-          popupHeight = popupHeight.replace(/\D/g, "");
-        } else {
-          popupHeight = div.clientHeight - Tobago.Config.get("Popup", "borderWidth");
-        }
-
-        t = this.getBrowserInnerHeight() - popupHeight;
-        div.style.top = t/2;
-        //      alert("2 set top to " + t/2);
-      }
-
+//      alert("Setting offset of popup: left to '" + left + "' and top to '" + top + "'");
+      div.offset({ left: left, top: top });
+      
+      // iframe is used in IE, because the <select> tags would shining through.
       var iframeId = id + Tobago.SUB_COMPONENT_SEP + "iframe";
-      var iframe = this.element(iframeId);
-      if (iframe && !modal) {
-        iframe.style.left = div.style.left;
-        iframe.style.top = div.style.top;
-      }
-
-      Tobago.removeCssClass(div, "tobago-popup-none");
+      var iframe = jQuery(Tobago.escapeClientId(iframeId));
       if (iframe) {
-        Tobago.removeCssClass(iframe, "tobago-popup-none");
+        if (!modal) {
+          iframe.offset({ left: left, top: top });
+        }
+        iframe.removeClass("tobago-popup-none");
       }
     }
 
@@ -1225,6 +1213,10 @@ var Tobago = {
 
 // -------- Util functions ----------------------------------------------------
 
+  escapeClientId : function(id) {
+    return "#" + id.replace(/:/g,"\\:");
+  },
+  
   clickOnElement: function(id) {
     var element = this.element(id);
 //    LOG.debug("id = " + id + "  element = " + typeof element);

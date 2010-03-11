@@ -39,7 +39,7 @@ import java.util.List;
 
 public abstract class AbstractUIPopup extends UIPanelBase 
     implements OnComponentPopulated, NamingContainer, AjaxComponent, InvokeOnComponent, 
-    DeprecatedDimension, LayoutContainer {
+    DeprecatedDimension, Position, LayoutContainer {
 
   private boolean activated;
 
