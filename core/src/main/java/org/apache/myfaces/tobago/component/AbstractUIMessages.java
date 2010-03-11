@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.collections.iterators.SingletonIterator;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
-import org.apache.myfaces.tobago.layout.Measure;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;

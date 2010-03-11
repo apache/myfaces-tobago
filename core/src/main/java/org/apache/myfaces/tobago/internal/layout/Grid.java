@@ -167,7 +167,7 @@ public class Grid {
     rowHeads = newRowHeads;
     // todo: shorter in jdk 1.6: rowHeads = Arrays.copyOf(rowHeads, rowHeads.length + newRows);
     
-    for (int i = rowCount; i <rowCount + newRows; i++ ) {
+    for (int i = rowCount; i < rowCount + newRows; i++) {
       rowHeads[i] = new BankHead(RelativeLayoutToken.DEFAULT_INSTANCE);
     }
 

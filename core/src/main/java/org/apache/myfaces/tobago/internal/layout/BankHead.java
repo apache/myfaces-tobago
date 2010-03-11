@@ -61,10 +61,10 @@ public class BankHead {
 
   @Override
   public String toString() {
-    return "BankHead{" +
-        "token='" + token +
-        "', measure='" + measure +
-        "', rendered=" + rendered +
-        '}';
+    return "BankHead{"
+        + "token='" + token
+        + "', measure='" + measure
+        + "', rendered=" + rendered
+        + '}';
   }
 }

@@ -46,7 +46,7 @@ public class ResponseWriterDivider {
   private String nameInRequest;
 
   public static ResponseWriterDivider getInstance(FacesContext facesContext, String nameInRequest) {
-    final Map<String,Object> map = facesContext.getExternalContext().getRequestMap();
+    final Map<String, Object> map = facesContext.getExternalContext().getRequestMap();
     ResponseWriterDivider divider = (ResponseWriterDivider) map.get(nameInRequest);
     if (divider == null) {
       divider = new ResponseWriterDivider(facesContext);
@@ -128,7 +128,7 @@ public class ResponseWriterDivider {
       original.write(buffer.toString());
     }
     // clean up.
-    final Map<String,Object> map = facesContext.getExternalContext().getRequestMap();
+    final Map<String, Object> map = facesContext.getExternalContext().getRequestMap();
     map.remove(nameInRequest);
   }
 

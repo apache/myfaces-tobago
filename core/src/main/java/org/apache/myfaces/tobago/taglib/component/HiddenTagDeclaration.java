@@ -35,5 +35,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsReadonly;
     uiComponentBaseClass = "javax.faces.component.UIInput",
     rendererType = RendererTypes.HIDDEN,
     allowedChildComponenents = "NONE")
-public interface HiddenTagDeclaration extends HasIdBindingAndRendered, HasValue, HasConverter, HasValidator, IsReadonly {
+public interface HiddenTagDeclaration extends HasIdBindingAndRendered, HasValue, HasConverter, HasValidator,
+    IsReadonly {
 }
