@@ -29,7 +29,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 /*
-An algorithm for layouting ...
+An algorithm for laying out ...
 
 - get UIPage
   - call compute-sizes
@@ -47,6 +47,10 @@ An algorithm for layouting ...
   - call set-positions
       - compute and set positions of columns/rows
       - call set-positions for all elements (recursively)
+
+todo: describe what happens, when there is a rendered=false (if all in one bank than collapse)
+todo: describe what happens, when there are too less components (there a free space)
+todo: describe what happens, when there are too much components (there a rows with * added)
  */
 public class LayoutContext {
 

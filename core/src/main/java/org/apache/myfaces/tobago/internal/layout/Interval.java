@@ -23,13 +23,13 @@ import org.apache.myfaces.tobago.layout.Orientation;
 
 public class Interval {
 
-  private Measure minimum;
+  private final Measure minimum;
 
-  private Measure preferred;
+  private final Measure preferred;
 
-  private Measure maximum;
+  private final Measure maximum;
 
-  private Measure current;
+  private final Measure current;
 
   public Interval(LayoutComponent component, Orientation orientation) {
     this(
@@ -50,32 +50,16 @@ public class Interval {
     return minimum;
   }
 
-  public void setMinimum(Measure minimum) {
-    this.minimum = minimum;
-  }
-
   public Measure getPreferred() {
     return preferred;
-  }
-
-  public void setPreferred(Measure preferred) {
-    this.preferred = preferred;
   }
 
   public Measure getMaximum() {
     return maximum;
   }
 
-  public void setMaximum(Measure maximum) {
-    this.maximum = maximum;
-  }
-
   public Measure getCurrent() {
     return current;
-  }
-
-  public void setCurrent(Measure current) {
-    this.current = current;
   }
 
   @Override

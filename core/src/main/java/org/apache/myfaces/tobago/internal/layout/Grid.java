@@ -19,10 +19,9 @@ package org.apache.myfaces.tobago.internal.layout;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Orientation;
+import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,32 +36,38 @@ public class Grid {
    * The rectangular data as a 1-dim list
    */
   private List<Cell> cells;
-  private LayoutTokens columns;
-  private LayoutTokens rows;
-  private Measure[] widths;
-  private Measure[] heights;
 
-  private List<Integer> errorIndexes;
+  private BankHead[] columnHeads;
+  private BankHead[] rowHeads;
+
+  private int columnCount;
+  private int rowCount;
 
   private int columnCursor;
   private int rowCursor;
-  private int[] horizontalIndices;
-  private int[] verticalIndices;
+
+  private List<Integer> errorIndexes;
 
   public Grid(LayoutTokens columns, LayoutTokens rows) {
     assert columns.getSize() > 0;
     assert rows.getSize() > 0;
 
-    this.columns = columns;
-    this.rows = rows;
-    int size = columns.getSize() * rows.getSize();
+    this.columnCount = columns.getSize(); 
+    this.rowCount = rows.getSize(); 
+    
+    this.columnHeads = new BankHead[columnCount];
+    for (int i = 0; i < columnCount; i++) {
+      columnHeads[i] = new BankHead(columns.get(i));
+    }
+    this.rowHeads = new BankHead[rowCount];
+    for (int i = 0; i < rowCount; i++) {
+      rowHeads[i] = new BankHead(rows.get(i));
+    }
+    int size = columnCount * rowCount;
     this.cells = new ArrayList<Cell>(size);
     for (int i = 0; i < size; i++) {
       this.cells.add(null);
     }
-
-    widths = new Measure[columns.getSize()];
-    heights = new Measure[rows.getSize()];
   }
 
   public void add(OriginCell cell, int columnSpan, int rowSpan) {
@@ -72,10 +77,10 @@ public class Grid {
 
     boolean error = false;
 
-    if (columnSpan + columnCursor > columns.getSize()) {
+    if (columnSpan + columnCursor > columnCount) {
       LOG.warn("The columnSpan is to large for the actual position in the grid. Will be fixed. "
-          + "columnSpan=" + columnSpan + " columnCursor=" + columnCursor + " columnCount=" + columns.getSize());
-      columnSpan = columns.getSize() - columnCursor;
+          + "columnSpan=" + columnSpan + " columnCursor=" + columnCursor + " columnCount=" + columnCount);
+      columnSpan = columnCount - columnCursor;
       error = true;
     }
 
@@ -85,7 +90,7 @@ public class Grid {
     for (int i = 1; i < columnSpan; i++) {
       if (getCell(i + columnCursor, rowCursor) != null) {
         LOG.warn("The columnSpan is to large for the actual position in the grid. Will be fixed. "
-            + "columnSpan=" + columnSpan + " columnCursor=" + columnCursor + " columnCount=" + columns.getSize());
+            + "columnSpan=" + columnSpan + " columnCursor=" + columnCursor + " columnCount=" + columnCount);
         columnSpan = i - 1;
         error = true;
       }
@@ -115,26 +120,26 @@ public class Grid {
   }
 
   public Cell getCell(int column, int row) {
-    assert column >= 0 && column < columns.getSize() : "column=" + column + " columnCount=" + columns.getSize();
+    assert column >= 0 && column < columnCount : "column=" + column + " columnCount=" + columnCount;
     assert row >= 0 : "row=" + row;
 
-    if (row >= rows.getSize()) {
+    if (row >= rowCount) {
       return null;
     } else {
-      return cells.get(column + row * columns.getSize());
+      return cells.get(column + row * columnCount);
     }
   }
 
   public void setCell(int column, int row, Cell cell) {
-    if (row >= rows.getSize()) {
-      enlarge(row - rows.getSize() + 1);
+    if (row >= rowCount) {
+      enlarge(row - rowCount + 1);
     }
-    cells.set(column + row * columns.getSize(), cell);
+    cells.set(column + row * columnCount, cell);
   }
 
   private void findNextFreeCell() {
-    for (; rowCursor < rows.getSize(); rowCursor++) {
-      for (; columnCursor < columns.getSize(); columnCursor++) {
+    for (; rowCursor < rowCount; rowCursor++) {
+      for (; columnCursor < columnCount; columnCursor++) {
         if (getCell(columnCursor, rowCursor) == null) {
           return;
         }
@@ -143,43 +148,44 @@ public class Grid {
     }
   }
 
-  public LayoutTokens getTokens(Orientation orientation) {
-    return orientation == Orientation.HORIZONTAL ? getColumns() : getRows();
+  public BankHead[] getBankHeads(Orientation orientation) {
+    return orientation == Orientation.HORIZONTAL ? columnHeads : rowHeads;
   }
-
-  public LayoutTokens getColumns() {
-    return columns;
-  }
-
-  public LayoutTokens getRows() {
-    return rows;
-  }
-
+  
   private void enlarge(int newRows) {
+    
+    // process cells
     for (int i = 0; i < newRows; i++) {
-      for (int j = 0; j < columns.getSize(); j++) {
+      for (int j = 0; j < columnCount; j++) {
         cells.add(null);
       }
-      rows.addToken(AutoLayoutToken.INSTANCE);
     }
 
-    Measure[] oldHeights = heights;
-    heights = new Measure[heights.length + newRows];
-    System.arraycopy(oldHeights, 0, heights, 0, oldHeights.length);
+    // process heads
+    BankHead[] newRowHeads = new BankHead[rowCount + newRows];
+    System.arraycopy(rowHeads, 0, newRowHeads, 0, rowHeads.length);
+    rowHeads = newRowHeads;
+    // todo: shorter in jdk 1.6: rowHeads = Arrays.copyOf(rowHeads, rowHeads.length + newRows);
+    
+    for (int i = rowCount; i <rowCount + newRows; i++ ) {
+      rowHeads[i] = new BankHead(RelativeLayoutToken.DEFAULT_INSTANCE);
+    }
+
+    rowCount += newRows;
   }
 
   public void addError(int i, int j) {
     if (errorIndexes == null) {
       errorIndexes = new ArrayList<Integer>();
     }
-    errorIndexes.add(j * columns.getSize() + i);
+    errorIndexes.add(j * columnCount + i);
   }
 
   public boolean hasError(int i, int j) {
     if (errorIndexes == null) {
       return false;
     }
-    return errorIndexes.contains(j * columns.getSize() + i);
+    return errorIndexes.contains(j * columnCount + i);
   }
 
   /**
@@ -201,7 +207,7 @@ public class Grid {
     StringBuilder builder = new StringBuilder();
 
     // top of grid
-    for (int i = 0; i < columns.getSize(); i++) {
+    for (int i = 0; i < columnCount; i++) {
       if (i == 0) {
         if (getCell(i, 0) != null) {
           builder.append("┏");
@@ -234,18 +240,18 @@ public class Grid {
       }
 
     }
-    if (getCell(columns.getSize() - 1, 0) != null) {
+    if (getCell(columnCount - 1, 0) != null) {
       builder.append("┓");
     } else {
       builder.append("┐");
     }
     builder.append("\n");
 
-    for (int j = 0; j < rows.getSize(); j++) {
+    for (int j = 0; j < rowCount; j++) {
 
       // between the cells
       if (j != 0) {
-        for (int i = 0; i < columns.getSize(); i++) {
+        for (int i = 0; i < columnCount; i++) {
           if (i == 0) {
             Cell b = getCell(0, j - 1);
             Cell d = getCell(0, j);
@@ -316,8 +322,8 @@ public class Grid {
             builder.append("━");
           }
         }
-        Cell a = getCell(columns.getSize() - 1, j - 1);
-        Cell c = getCell(columns.getSize() - 1, j);
+        Cell a = getCell(columnCount - 1, j - 1);
+        Cell c = getCell(columnCount - 1, j);
         if (a == null && c == null) {
           builder.append("┤");
         } else {
@@ -337,7 +343,7 @@ public class Grid {
       }
 
       // cell
-      for (int i = 0; i < columns.getSize(); i++) {
+      for (int i = 0; i < columnCount; i++) {
         if (i == 0) {
           if (getCell(i, j) != null) {
             builder.append("┃");
@@ -375,7 +381,7 @@ public class Grid {
           }
         }
       }
-      if (getCell(columns.getSize() - 1, j) != null) {
+      if (getCell(columnCount - 1, j) != null) {
         builder.append("┃");
       } else {
         builder.append("│");
@@ -384,16 +390,16 @@ public class Grid {
     }
 
     //last bottom
-    for (int i = 0; i < columns.getSize(); i++) {
+    for (int i = 0; i < columnCount; i++) {
       if (i == 0) {
-        if (getCell(0, rows.getSize() - 1) != null) {
+        if (getCell(0, rowCount - 1) != null) {
           builder.append("┗");
         } else {
           builder.append("└");
         }
       } else {
-        Cell a = getCell(i - 1, rows.getSize() - 1);
-        Cell b = getCell(i, rows.getSize() - 1);
+        Cell a = getCell(i - 1, rowCount - 1);
+        Cell b = getCell(i, rowCount - 1);
         if (a == null && b == null) {
           builder.append("┴");
         } else {
@@ -410,13 +416,13 @@ public class Grid {
           }
         }
       }
-      if (getCell(i, rows.getSize() - 1) != null) {
+      if (getCell(i, rowCount - 1) != null) {
         builder.append("━");
       } else {
         builder.append("─");
       }
     }
-    if (getCell(columns.getSize() - 1, rows.getSize() - 1) != null) {
+    if (getCell(columnCount - 1, rowCount - 1) != null) {
       builder.append("┛");
     } else {
       builder.append("┘");
@@ -430,17 +436,11 @@ public class Grid {
   public String toString() {
     StringBuilder builder = new StringBuilder();
     builder.append(gridAsString());
-    builder.append("columns=");
-    builder.append(columns);
+    builder.append("columnHeads=");
+    builder.append(Arrays.toString(columnHeads));
     builder.append("\n");
-    builder.append("rows=");
-    builder.append(rows);
-    builder.append("\n");
-    builder.append("widths=");
-    builder.append(Arrays.toString(widths));
-    builder.append("\n");
-    builder.append("heights=");
-    builder.append(Arrays.toString(heights));
+    builder.append("rowHeads=");
+    builder.append(Arrays.toString(rowHeads));
     builder.append("\n");
     return builder.toString();
   }
@@ -453,33 +453,5 @@ public class Grid {
       return false;
     }
     return a.getOrigin().equals(b.getOrigin());
-  }
-
-  public int[] getHorizontalIndices() {
-    return horizontalIndices;
-  }
-
-  public void setHorizontalIndices(int[] horizontalIndices) {
-    this.horizontalIndices = horizontalIndices;
-  }
-
-  public int[] getVerticalIndices() {
-    return verticalIndices;
-  }
-
-  public void setVerticalIndices(int[] verticalIndices) {
-    this.verticalIndices = verticalIndices;
-  }
-
-  public Measure[] getSizes(Orientation orientation) {
-    return orientation == Orientation.HORIZONTAL ? getWidths() : getHeights();
-  }
-
-  public Measure[] getWidths() {
-    return widths;
-  }
-
-  public Measure[] getHeights() {
-    return heights;
   }
 }

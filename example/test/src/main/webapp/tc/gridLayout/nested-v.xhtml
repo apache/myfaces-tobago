@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:view
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page">
+    <tc:gridLayoutConstraint width="500px" height="500px"/>
+
+      <f:facet name="layout">
+        <tc:gridLayout id="page-grid" rows="*;auto"/>
+      </f:facet>
+
+      <tc:textarea id="textarea"/>
+
+      <tc:panel id="panel">
+        <f:facet name="layout">
+          <tc:gridLayout id="panel-grid" columns="*;100px"/>
+        </f:facet>
+        <tc:cell id="cell"/>
+        <tc:button id="button" label="Submit"/>
+      </tc:panel>
+
+    <tc:script file="script/test-utils.js"/>
+
+    <tc:script onload="checkLayout('page:textarea', 0, 0, 500, 475);"/>
+    <tc:script onload="checkLayout('page:button', 400, 480, 100, 20);"/>
+
+  </tc:page>
+</f:view>

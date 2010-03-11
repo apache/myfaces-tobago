@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.internal.layout.BankHead;
 import org.apache.myfaces.tobago.internal.layout.Cell;
 import org.apache.myfaces.tobago.internal.layout.FactorList;
 import org.apache.myfaces.tobago.internal.layout.Grid;
@@ -67,51 +68,66 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
 
   public void fixRelativeInsideAuto(Orientation orientation, boolean auto) {
 
-    LayoutTokens tokens = grid.getTokens(orientation);
+    BankHead[] heads = grid.getBankHeads(orientation);
+    BankHead[] heads2 = grid.getBankHeads(orientation.other());
 
     if (auto) {
-      for (int i = 0; i < tokens.getSize(); i++) {
-        if (tokens.get(i) instanceof RelativeLayoutToken) {
+      for (int i = 0; i < heads.length; i++) {
+        if (heads[i].getToken() instanceof RelativeLayoutToken) {
           LOG.warn("Fixing layout token from * to auto, because a * in not allowed inside of a auto. "
               + "For more information please use the debug logging level.");
           if (LOG.isDebugEnabled()) {
             LOG.debug("Token * at index=" + i + ", orientation=" + orientation + ", grid=\n" + grid);
           }
-          tokens.set(i, AutoLayoutToken.INSTANCE);
+          heads[i].setToken(AutoLayoutToken.INSTANCE);
         }
       }
     }
 
-    for (int i = 0; i < tokens.getSize(); i++) {
-      for (int j = 0; j < grid.getTokens(orientation.other()).getSize(); j++) {
+    for (int i = 0; i < heads.length; i++) {
+      boolean neitherRendered = true;
+      for (int j = 0; j < heads2.length; j++) {
         Cell cell = grid.getCell(i, j, orientation);
+        // check rendered = false
+        if (neitherRendered && (cell == null || cell.getComponent().isRendered())) {
+          neitherRendered = false;
+        }
+        // recursion
         if (cell instanceof OriginCell) {
           OriginCell origin = (OriginCell) cell;
           LayoutComponent component = cell.getComponent();
           if (component instanceof LayoutContainer) {
             LayoutManager layoutManager = ((LayoutContainer) component).getLayoutManager();
             // TODO: may be improved
-            boolean childAuto = origin.getSpan(orientation) == 1 && tokens.get(i) instanceof AutoLayoutToken;
+            boolean childAuto = origin.getSpan(orientation) == 1 && heads[i].getToken() instanceof AutoLayoutToken;
             layoutManager.fixRelativeInsideAuto(orientation, childAuto);
           }
         }
+      }
+      if (neitherRendered) {
+        heads[i].setRendered(false);
       }
     }
   }
 
   public void preProcessing(Orientation orientation) {
 
+    final BankHead[] heads = grid.getBankHeads(orientation);
+    final BankHead[] heads2 = grid.getBankHeads(orientation.other());
+    
     // process auto tokens
     int i = 0;
-    for (LayoutToken token : grid.getTokens(orientation)) {
-
+    
+    for (BankHead head : heads) {
+      LayoutToken token = head.getToken();
+      
       if (token instanceof PixelLayoutToken) {
         int pixel = ((PixelLayoutToken) token).getPixel();
-        grid.getSizes(orientation)[i] = Measure.valueOf(pixel); // XXX refactor
+        heads[i].setMeasure(Measure.valueOf(pixel)); // XXX refactor
       }
 
-      IntervalList intervals = new IntervalList();
-      for (int j = 0; j < grid.getTokens(orientation.other()).getSize(); j++) {
+      IntervalList intervalList = new IntervalList();
+      for (int j = 0; j < heads2.length; j++) {
         Cell cell = grid.getCell(i, j, orientation);
         if (cell instanceof OriginCell) {
           OriginCell origin = (OriginCell) cell;
@@ -122,49 +138,57 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
           }
 
           if (token instanceof AutoLayoutToken) {
-            if (origin.getSpan(orientation) == 1) {
-              intervals.add(new Interval(component, orientation));
+            if (origin.getSpan(orientation) == 1 && component.isRendered()) {
+              intervalList.add(new Interval(component, orientation));
             } else {
-              LOG.info("ignored"); // todo
+              if (LOG.isDebugEnabled()) {
+                LOG.debug("Components with span > 1 will be ignored in 'auto' layout rows/columns.");
+                // todo: give this information to the developer
+              }
             }
           }
         }
       }
-      if (intervals.size() >= 1) {
-        Measure auto = intervals.computeAuto();
-        grid.getSizes(orientation)[i] = auto;
-      }
+      if (token instanceof AutoLayoutToken) {
+        if (intervalList.size() >= 1) {
+          heads[i].setMeasure(intervalList.computeAuto());
+        } else {
+          heads[i].setMeasure(Measure.ZERO);
 // todo: what when we cannot find a good value for "auto"?
+        }
+      }
       i++;
     }
 
     // set the size if all sizes of the grid are set
-    Measure size = Measure.ZERO;
-    Measure[] sizes = grid.getSizes(orientation);
-    for (int j = 0; j < sizes.length; j++) {
-      if (sizes[j] == null) {
-        size = null; // set to invalid
+    Measure sum = Measure.ZERO;
+    for (BankHead head : heads) {
+      Measure size = head.getMeasure();
+      if (size == null) {
+        sum = null; // set to invalid
         break;
       }
-      size = size.add(sizes[j]);
-      if (j < sizes.length - 1) {
-        size = size.add(getSpacing(orientation));
-      }
+      sum = sum.add(size);
     }
-    if (size != null) {
-      size = size.add(LayoutUtils.getBeginOffset(orientation, getLayoutContainer()));
-      size = size.add(LayoutUtils.getEndOffset(orientation, getLayoutContainer()));
-      LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), size);
+    if (sum != null) {
+      // adding the space between the cells
+      sum = sum.add(computeSpacing(orientation, 0, heads.length));
+      sum = sum.add(LayoutUtils.getBeginOffset(orientation, getLayoutContainer()));
+      sum = sum.add(LayoutUtils.getEndOffset(orientation, getLayoutContainer()));
+      LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), sum);
     }
   }
 
   public void mainProcessing(Orientation orientation) {
 
+    final BankHead[] heads = grid.getBankHeads(orientation);
+    final BankHead[] heads2 = grid.getBankHeads(orientation.other());
+    
     // find *
     FactorList list = new FactorList();
-    for (LayoutToken token : grid.getTokens(orientation)) {
-      if (token instanceof RelativeLayoutToken) {
-        list.add(((RelativeLayoutToken) token).getFactor());
+    for (BankHead head : heads) {
+      if (head.getToken() instanceof RelativeLayoutToken) {
+        list.add(((RelativeLayoutToken) head.getToken()).getFactor());
       }
     }
     if (!list.isEmpty()) {
@@ -172,13 +196,11 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
       LayoutContainer container = getLayoutContainer();
       Measure available = LayoutUtils.getCurrentSize(orientation, container);
       if (available != null) {
-        for (Measure value : grid.getSizes(orientation)) {
-          available = available.subtractNotNegative(value);
+        for (BankHead head : heads) {
+          available = available.subtractNotNegative(head.getMeasure());
         }
-        Measure spacing = getSpacing(orientation).multiply(grid.getSizes(orientation).length - 1);
-        available = available.subtractNotNegative(spacing);
-
         available = available.subtractNotNegative(LayoutUtils.getBeginOffset(orientation, container));
+        available = available.subtractNotNegative(computeSpacing(orientation, 0, heads.length));
         available = available.subtractNotNegative(LayoutUtils.getEndOffset(orientation, container));
 
         List<Measure> partition = list.partition(available);
@@ -186,9 +208,9 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
         // write values back into the header
         int i = 0;
         int j = 0;
-        for (LayoutToken token : grid.getTokens(orientation)) {
-          if (token instanceof RelativeLayoutToken) {
-            grid.getSizes(orientation)[i] = partition.get(j);
+        for (BankHead head : heads) {
+          if (head.getToken() instanceof RelativeLayoutToken) {
+            heads[i].setMeasure(partition.get(j));
             j++;
           }
           i++;
@@ -199,8 +221,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
     }
 
     // call manage sizes for all sub-layout-managers
-    for (int i = 0; i < grid.getTokens(orientation).getSize(); i++) {
-      for (int j = 0; j < grid.getTokens(orientation.other()).getSize(); j++) {
+    for (int i = 0; i < heads.length; i++) {
+      for (int j = 0; j < heads2.length; j++) {
         Cell cell = grid.getCell(i, j, orientation);
         if (cell instanceof OriginCell) {
           LayoutComponent component = cell.getComponent();
@@ -208,19 +230,14 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
           component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
 
           Integer span = ((OriginCell) cell).getSpan(orientation);
-          Measure[] pixelMeasures = grid.getSizes(orientation);
 
           // compute the size of the cell
-          Measure size = pixelMeasures[i];
-          if (size != null) {
-            for (int k = 1; k < span; k++) {
-              size = size.add(pixelMeasures[i + k]);
-              size = size.add(getSpacing(orientation));
-            }
-            LayoutUtils.setCurrentSize(orientation, component, size);
-          } else {
-            LOG.warn("Size is null, should be debugged... i=" + i + " grid=" + grid, new RuntimeException());
+          Measure size = Measure.ZERO;
+          for (int k = 0; k < span; k++) {
+            size = size.add(heads[i + k].getMeasure());
           }
+          size = size.add(computeSpacing(orientation, i, span));
+          LayoutUtils.setCurrentSize(orientation, component, size);
 
           // call sub layout manager
           if (component instanceof LayoutContainer) {
@@ -233,27 +250,30 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
 
   public void postProcessing(Orientation orientation) {
 
+    final BankHead[] heads = grid.getBankHeads(orientation);
+    final BankHead[] heads2 = grid.getBankHeads(orientation.other());
+    
     // call manage sizes for all sub-layout-managers
-    for (int i = 0; i < grid.getTokens(orientation).getSize(); i++) {
-      for (int j = 0; j < grid.getTokens(orientation.other()).getSize(); j++) {
+    for (int i = 0; i < heads.length; i++) {
+      for (int j = 0; j < heads2.length; j++) {
         Cell cell = grid.getCell(i, j, orientation);
         if (cell instanceof OriginCell) {
           LayoutComponent component = cell.getComponent();
 
-          component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
-
-          Measure[] pixelMeasures = grid.getSizes(orientation);
+          component.setDisplay(Display.BLOCK);
 
           // compute the position of the cell
           Measure position = LayoutUtils.getBeginOffset(orientation, getLayoutContainer());
           for (int k = 0; k < i; k++) {
-            if (pixelMeasures[k] == null) {
+            if (heads[k] == null) {
               LOG.warn("Measure is null, should be debugged... i=" + i + " k=" + k + " grid=" + grid,
                   new RuntimeException());
             } else {
-              position = position.add(pixelMeasures[k]);
+              if (heads[k].getMeasure().greaterThan(Measure.ZERO)) {
+                position = position.add(heads[k].getMeasure());
+                position = position.add(getSpacing(orientation));
+              }
             }
-            position = position.add(getSpacing(orientation));
           }
           if (orientation == Orientation.HORIZONTAL) {
             component.setLeft(position);
@@ -277,12 +297,31 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
     return ((LayoutContainer) getParent());
   }
 
-  protected Grid getGrid() {
-    return grid;
-  }
-
   public Measure getSpacing(Orientation orientation) {
     return orientation == Orientation.HORIZONTAL ? getColumnSpacing() : getRowSpacing();
+  }
+
+
+  /**
+   * Compute the sum of the space between the cells.
+   * There is one "space" less than cells that are not void.
+   */
+  private Measure computeSpacing(Orientation orientation, int startIndex, int length) {
+
+    final BankHead[] heads = grid.getBankHeads(orientation);
+
+    int count = 0;
+    for (int i = startIndex; i < startIndex + length; i++) {
+      if ((heads[i].isRendered())
+          && (heads[i].getMeasure() == null || heads[i].getMeasure().greaterThan(Measure.ZERO))) {
+        count++;
+      }
+    }
+    if (count > 0) {
+      return getSpacing(orientation).multiply(count - 1);
+    } else {
+      return Measure.ZERO;
+    }
   }
 
   public abstract String getRows();
@@ -307,7 +346,8 @@ public abstract class AbstractUIGridLayout extends UILayout implements LayoutMan
         + "#"
         + getClientId(FacesContext.getCurrentInstance())
         + (grid != null
-        ? "(" + Arrays.toString(grid.getWidths()) + ", " + Arrays.toString(grid.getHeights()) + ")"
+        ? "(" + Arrays.toString(grid.getBankHeads(Orientation.HORIZONTAL)) 
+        + ", " + Arrays.toString(grid.getBankHeads(Orientation.VERTICAL)) + ")"
         : "");
   }
 }

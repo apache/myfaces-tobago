@@ -39,8 +39,7 @@ public final class LayoutUtils {
 
   private static final Log LOG = LogFactory.getLog(LayoutUtils.class);
 
-  private static final Pattern TOKEN_PATTERN
-      = Pattern.compile("^(\\d*px|\\d*\\*|\\d*%|fixed)$");
+  private static final Pattern TOKEN_PATTERN = Pattern.compile("^(\\d*px|\\d*\\*|\\d*%|fixed)$");
 
   private LayoutUtils() {
     // to prevent instantiation
@@ -94,7 +93,11 @@ public final class LayoutUtils {
     } */
 //  also Forms are transparent for layouting
 
-    return component instanceof Form;
+    if (component instanceof Form) {
+      return true;
+    }
+    
+    return false;
   }
 
   public static boolean checkTokens(String columns) {
@@ -119,6 +122,8 @@ public final class LayoutUtils {
       if (child instanceof LayoutComponent) {
         result.add((LayoutComponent) child);
       } else {
+        // Child seems to be transparent for layout, like UIForm. 
+        // So we try to add the inner components.
         addLayoutChildren(child, result);
       }
     }
