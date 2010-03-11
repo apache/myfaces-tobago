@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
  * Render a sheet element.
  */
 @Tag(name = "sheet")
-@BodyContentDescription(anyTagOf = "<tc:column>* <tc:columnSelector>?")
+@BodyContentDescription(anyTagOf = "<tc:column>* <tc:columnSelector>? <tc:columnEvent>?")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISheet",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUISheet",
