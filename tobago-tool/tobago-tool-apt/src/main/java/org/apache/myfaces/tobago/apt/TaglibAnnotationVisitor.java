@@ -286,13 +286,21 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     }
     UIComponentTagAttribute attributeTag = decl.getAnnotation(UIComponentTagAttribute.class);
     if (attributeTag != null) {
-        if (null != attributeTag.type() && attributeTag.type().length > 0) {
-            description.append("<br />Type: <code>" + (attributeTag.type().length == 1
-                ? attributeTag.type()[0] : Arrays.toString(attributeTag.type())) + "</code>");
-        }
-        if (StringUtils.isNotEmpty(attributeTag.defaultValue())) {
-            description.append("<br />Default: <code>" + attributeTag.defaultValue() + "</code>");
-        }
+      if (null != attributeTag.type() && attributeTag.type().length > 0) {
+        description.append("<br />Type: <code>")
+            .append(attributeTag.type().length == 1 ? attributeTag.type()[0] : Arrays.toString(attributeTag.type()))
+            .append("</code>");
+      }
+      if (StringUtils.isNotEmpty(attributeTag.defaultValue())) {
+        description.append("<br />Default: <code>")
+            .append(attributeTag.defaultValue())
+            .append("</code>");
+      }
+      if (attributeTag.allowedValues().length > 0) {
+        description.append("<br />Allowed values: <code>")
+            .append(Arrays.toString(attributeTag.allowedValues()))
+            .append("</code>");
+      }
     }
     ExtensionTag extensionTag = decl.getAnnotation(ExtensionTag.class);
     if (extensionTag != null) {
