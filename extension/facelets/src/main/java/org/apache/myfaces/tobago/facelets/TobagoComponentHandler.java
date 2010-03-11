@@ -48,9 +48,6 @@ public class TobagoComponentHandler extends ComponentHandler {
     if (DeprecatedDimension.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(DeprecatedDimensionRule.INSTANCE);
     }
-    if (DeprecatedDimension.class.isAssignableFrom(aClass)) {
-      metaRuleset.addRule(DeprecatedDimensionRule.INSTANCE);
-    }
     if (AbstractUIPopup.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(PositionRule.INSTANCE);
     }
