@@ -54,6 +54,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -142,13 +143,13 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
   private void createTagOrComponent(InterfaceDeclaration decl) {
     UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
     Tag tag = decl.getAnnotation(Tag.class);
-    List<PropertyInfo> properties = new ArrayList<PropertyInfo>();
+    Map<String, PropertyInfo> properties = new HashMap<String, PropertyInfo>();
     addProperties(decl, properties);
     if (tag != null) {
 
       String className = "org.apache.myfaces.tobago.internal.taglib." + StringUtils.capitalize(tag.name()) + "Tag";
       TagInfo tagInfo = new TagInfo(decl.getQualifiedName(), className, componentTag.rendererType());
-      for (PropertyInfo property : properties) {
+      for (PropertyInfo property : properties.values()) {
         if (property.isTagAttribute()) {
           tagInfo.getProperties().add(property);
         }
@@ -178,6 +179,16 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
       StringTemplate componentStringTemplate = componentStringTemplateGroup.getInstanceOf("component");
       ComponentInfo componentInfo 
           = new ComponentInfo(decl.getQualifiedName(), componentTag.uiComponent(), componentTag.rendererType());
+/*      
+      String p = componentTag.uiComponentBaseClass();
+      String c = componentTag.uiComponent();
+      String m = c.substring(0, 36) + "Abstract" + c.substring(36);
+      if (p.equals(m)) {
+        System.out.println("*********** ok   " + c);
+      } else {
+        System.out.println("*********** diff " + c + " " + p);
+      }
+*/      
       componentInfo.setSuperClass(componentTag.uiComponentBaseClass());
       componentInfo.setComponentFamily(componentTag.componentFamily());
       componentInfo.setDescription(getDescription(decl));
@@ -197,7 +208,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
       try {
         Class componentBaseClass = Class.forName(componentTag.uiComponentBaseClass());
         int index = 0;
-        for (PropertyInfo info : properties) {
+        for (PropertyInfo info : properties.values()) {
           String methodName
               = (info.getType().equals("java.lang.Boolean") ? "is" : "get") + info.getUpperCamelCaseName();
           String possibleUnifiedElAlternative = "set" + info.getUpperCamelCaseName() + "Expression";
@@ -236,10 +247,10 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         }
 
       } catch (ClassNotFoundException e) {
-        List<PropertyInfo> baseClassProperties = getBaseClassProperties(componentTag.uiComponentBaseClass());
+        Map<String, PropertyInfo> baseClassProperties = getBaseClassProperties(componentTag.uiComponentBaseClass());
         int index = 0;
-        for (PropertyInfo info : properties) {
-          if (!baseClassProperties.contains(info)) {
+        for (PropertyInfo info : properties.values()) {
+          if (!baseClassProperties.containsValue(info)) {
             addPropertyToComponent(componentInfo, info, index, false);
             index++;
           }
@@ -273,12 +284,12 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
 
   }
 
-  private List<PropertyInfo> getBaseClassProperties(String baseClass) {
+  private Map<String, PropertyInfo> getBaseClassProperties(String baseClass) {
     for (InterfaceDeclaration decl : getCollectedInterfaceDeclarations()) {
       if (decl.getAnnotation(UIComponentTag.class) != null) {
         if (decl.getAnnotation(UIComponentTag.class).uiComponent().equals(baseClass)
             && decl.getAnnotation(UIComponentTag.class).generate()) {
-          List<PropertyInfo> properties = new ArrayList<PropertyInfo>();
+          Map<String, PropertyInfo> properties = new HashMap<String, PropertyInfo>();
           addProperties(decl, properties);
           return properties;
         }
@@ -349,7 +360,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     }
   }
 
-  protected void addProperties(InterfaceDeclaration type, List<PropertyInfo> properties) {
+  protected void addProperties(InterfaceDeclaration type, Map<String, PropertyInfo> properties) {
     addProperties(type.getSuperinterfaces(), properties);
     for (MethodDeclaration decl : getCollectedMethodDeclarations()) {
       if (decl.getDeclaringType().equals(type)) {
@@ -358,23 +369,23 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     }
   }
 
-  protected void addProperties(Collection<InterfaceType> interfaces, List<PropertyInfo> properties) {
+  protected void addProperties(Collection<InterfaceType> interfaces, Map<String, PropertyInfo> properties) {
     for (InterfaceType type : interfaces) {
       addProperties(type.getDeclaration(), properties);
     }
   }
 
-  protected void addProperty(MethodDeclaration decl, List<PropertyInfo> properties) {
+  protected void addProperty(MethodDeclaration decl, Map<String, PropertyInfo> properties) {
     TagAttribute tagAttribute = decl.getAnnotation(TagAttribute.class);
     UIComponentTagAttribute uiComponentTagAttribute = decl.getAnnotation(UIComponentTagAttribute.class);
     if (uiComponentTagAttribute != null) {
       String simpleName = decl.getSimpleName();
       if (simpleName.startsWith("set") || simpleName.startsWith("get")) {
-        String attributeStr = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
-        if (ignoredProperties.contains(attributeStr)) {
+        String name = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
+        if (ignoredProperties.contains(name)) {
           return;
         }
-        PropertyInfo propertyInfo = new PropertyInfo(attributeStr);
+        PropertyInfo propertyInfo = new PropertyInfo(name);
         propertyInfo.setAllowedValues(uiComponentTagAttribute.allowedValues());
         if (tagAttribute != null) {
           propertyInfo.setBodyContent(tagAttribute.bodyContent());
@@ -409,7 +420,10 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         propertyInfo.setMethodSignature(uiComponentTagAttribute.methodSignature());
         propertyInfo.setDeprecated(decl.getAnnotation(Deprecated.class) != null);
         propertyInfo.setDescription(getDescription(decl));
-        properties.add(propertyInfo);
+        if (properties.containsKey(name)) {
+          System.out.println("Info: Redefinition of attribute '" + name + "'.");
+        }
+        properties.put(name, propertyInfo);
       }
     }
   }
