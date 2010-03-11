@@ -34,7 +34,7 @@
 
     <tc:box label="#{overviewBundle.locale_title}">
       <f:facet name="layout">
-        <tc:gridLayout rows="fixed;fixed"/>
+        <tc:gridLayout rows="auto;auto;auto"/>
       </f:facet>
 
       <tx:selectOneChoice value="#{clientConfigController2.locale}"
@@ -58,6 +58,9 @@
           <tc:button action="#{clientConfigController2.submit}" label="#{overviewBundle.locale_submit}"/>
         </tc:panel>
       </tc:panel>
+      
+      <tx:selectBooleanCheckbox label="#{overviewBundle.menu_debug}" 
+                                value="#{clientConfigController2.debugMode}" />
 
     </tc:box>
     <tc:cell/>
