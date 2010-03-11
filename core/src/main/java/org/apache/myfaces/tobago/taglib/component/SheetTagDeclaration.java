@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
  * Render a sheet element.
  */
 @Tag(name = "sheet")
-@BodyContentDescription(anyTagOf = "<tc:column>* <tc:columnSelector>?")
+@BodyContentDescription(anyTagOf = "<tc:column>* <tc:columnSelector>? <tc:columnEvent>?")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIData",
     rendererType = "Sheet",
