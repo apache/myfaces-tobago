@@ -506,6 +506,13 @@ public class PageRenderer extends PageRendererBase {
       writer.endElement(HtmlConstants.INPUT);
     }
 
+    // todo: check if it is empty
+    writer.startElement(HtmlConstants.DIV, page);
+    writer.writeClassAttribute("tobago-page-menuStore");
+    ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, MenuBarRenderer.DIVIDER);
+    divider.writeOutAndCleanUp(facesContext);
+    writer.endElement(HtmlConstants.DIV);
+    
     writer.endElement(HtmlConstants.FORM);
 
     // debugging...
@@ -537,13 +544,6 @@ public class PageRenderer extends PageRendererBase {
 
     writer.writeJavascript("setTimeout(\"Tobago.init('" + clientId + "')\", 1000)");
 
-    // todo: check if it is empty
-    writer.startElement(HtmlConstants.DIV, page);
-    writer.writeClassAttribute("tobago-page-menuStore");
-    ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, MenuBarRenderer.DIVIDER);
-    divider.writeOutAndCleanUp(facesContext);
-    writer.endElement(HtmlConstants.DIV);
-    
     writer.endElement(HtmlConstants.BODY);
     writer.endElement(HtmlConstants.HTML);
 
