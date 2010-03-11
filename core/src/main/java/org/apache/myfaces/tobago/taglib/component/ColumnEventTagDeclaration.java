@@ -23,12 +23,15 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 
+/**
+ * This component creates an event in a UISheet for each row.
+ */
 @Tag(name = "columnEvent")
 @UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UIColumnEvent")
 public interface ColumnEventTagDeclaration extends TobagoTagDeclaration, HasIdBindingAndRendered {
 
   @TagAttribute
-  @UIComponentTagAttribute()
+  @UIComponentTagAttribute(type = "java.lang.String", allowedValues = {"click", "dblclick"})
   void setEvent(String event);
 
 }
