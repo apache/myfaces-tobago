@@ -159,11 +159,11 @@ public class Navigation {
   }
 
   public boolean isFirst() {
-    return state.getMarker().getPreviousNode().isRoot();
+    return state.getMarker() != null && state.getMarker().getPreviousNode().isRoot();
   }
 
   public boolean isLast() {
-    return state.getMarker().getNextNode() == null;
+    return state.getMarker() != null && state.getMarker().getNextNode() == null;
   }
 
   public String viewSource() {
