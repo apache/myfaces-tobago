@@ -33,7 +33,7 @@
        <div class="tobago-page-default">
          // page content     
        </div>
-       <span ...
+       <span ... </span>
        <div class="tobago-menu-store">  // container for the sub menus.
          <ol id="m1::menu">
            <li class="tobago-menu-parent">

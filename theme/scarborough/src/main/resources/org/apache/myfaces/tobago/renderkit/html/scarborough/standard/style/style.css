@@ -1099,8 +1099,7 @@ li.tobago-menu-selected {
   background-color: #d8e9fb;
 }
 
-.tobago-menuBar-default,
-.tobago-page-menuStore {
+.tobago-menuBar-default {
   padding: 0;
   margin: 0;
   border-bottom-width: 1px;
@@ -1112,11 +1111,16 @@ li.tobago-menu-selected {
   position: absolute;
   width: 100%;
   background-color: #aabbcc;
-  z-index: 1000; /* todo */
+/*  z-index: 1000; /* todo */
 }
 
 .tobago-page-menuStore {
-  visibility: hidden;
+  padding: 0;
+  margin: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+/*  z-index: 1000; /* todo */
 }
 
 .tobago-menuBar-default ol, 
