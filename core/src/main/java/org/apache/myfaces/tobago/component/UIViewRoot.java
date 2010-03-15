@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.util.ApplyRequestValuesCallback;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.FacesVersion;
 import org.apache.myfaces.tobago.util.ProcessValidationsCallback;
 import org.apache.myfaces.tobago.util.TobagoCallback;
 import org.apache.myfaces.tobago.util.UpdateModelValuesCallback;
@@ -36,7 +35,6 @@ import org.apache.myfaces.tobago.util.VariableResolverUtil;
 import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
@@ -49,66 +47,53 @@ import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
 
-/*
- * User: weber
- * Date: Jun 13, 2005
- * Time: 5:19:31 PM
- */
 public class UIViewRoot extends javax.faces.component.UIViewRoot implements InvokeOnComponent {
 
   private static final Log LOG = LogFactory.getLog(UIViewRoot.class);
 
-  public static final int ANY_PHASE_ORDINAL = PhaseId.ANY_PHASE.getOrdinal();
   private static final TobagoCallback APPLY_REQUEST_VALUES_CALLBACK = new ApplyRequestValuesCallback();
   private static final ContextCallback PROCESS_VALIDATION_CALLBACK = new ProcessValidationsCallback();
   private static final ContextCallback UPDATE_MODEL_VALUES_CALLBACK = new UpdateModelValuesCallback();
-  private List events = null;
 
-  private int nextUniqueId;
+  private List<FacesEvent> events;
 
-  /**
-   * <p>Create a new {@link UIViewRoot} instance with default property
-   * values.</p>
-   */
-  public UIViewRoot() {
-    super();
-  }
+// XXX check if TOBAGO-811 is still an issue
+//  private int nextUniqueId;
 
+  @Override
   public void setLocale(Locale locale) {
     super.setLocale(locale);
     ClientProperties clientProperties = VariableResolverUtil.resolveClientProperties(getFacesContext());
     clientProperties.setLocale(locale);
   }
 
+/*
+// XXX check if TOBAGO-811 is still an issue
+
+  @Override
   public Object saveState(FacesContext facesContext) {
-    Object[] state;
     if (FacesVersion.supports12()) {
-      state = new Object[1];
+      return super.saveState(facesContext);
     } else {
-      state = new Object[2];
-    }
-    state[0] = super.saveState(facesContext);
-    if (!FacesVersion.supports12()) {
+      Object[] state = new Object[2];
+      state[0] = super.saveState(facesContext);
       state[1] = nextUniqueId;
+      return state;
     }
-    return state;
   }
 
+  @Override
   public void restoreState(FacesContext facesContext, Object o) {
-    Object[] state = (Object[]) o;
-    super.restoreState(facesContext, state[0]);
-    if (!FacesVersion.supports12()) {
+    if (FacesVersion.supports12()) {
+      super.restoreState(facesContext, o);
+    } else {
+      Object[] state = (Object[]) o;
+      super.restoreState(facesContext, state[0]);
       nextUniqueId = (Integer) state[1];
     }
   }
 
-  public void broadcastEventsForPhase(FacesContext context, PhaseId phaseId) {
-    broadcastForPhase(phaseId);
-    if (context.getRenderResponse() || context.getResponseComplete()) {
-      clearEvents();
-    }
-  }
-
+  @Override
   public String createUniqueId() {
     if (FacesVersion.supports12()) {
       return super.createUniqueId();
@@ -117,7 +102,17 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
       return extCtx.encodeNamespace(UNIQUE_ID_PREFIX + nextUniqueId++);
     }
   }
+*/
 
+  // XXX begin of JSF 2.0 like code
+
+  public void broadcastEventsForPhase(FacesContext context, PhaseId phaseId) {
+    broadcastForPhase(phaseId);
+    if (context.getRenderResponse() || context.getResponseComplete()) {
+      clearEvents();
+    }
+  }
+  
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 //
@@ -128,14 +123,14 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
 //  Events are private member of UIViewRoot, so we have to copy anny code
 //  accessing them.
 //
-  // TODO: remove if fixed in stable release!
+  // TODO: remove if fixed in stable release! In 1.1_02 this seems to be fixed.
 
   public void queueEvent(FacesEvent event) {
     if (event == null) {
       throw new NullPointerException("event");
     }
     if (events == null) {
-      events = new ArrayList();
+      events = new ArrayList<FacesEvent>();
     }
     events.add(event);
   }
@@ -149,11 +144,10 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
     boolean abort = false;
 
     int phaseIdOrdinal = phaseId.getOrdinal();
-    for (ListIterator listiterator = events.listIterator(); listiterator.hasNext();) {
-      FacesEvent event = (FacesEvent) listiterator.next();
+    for (ListIterator<FacesEvent> listiterator = events.listIterator(); listiterator.hasNext();) {
+      FacesEvent event = listiterator.next();
       int ordinal = event.getPhaseId().getOrdinal();
-      if (ordinal == ANY_PHASE_ORDINAL
-          || ordinal == phaseIdOrdinal) {
+      if (ordinal == PhaseId.ANY_PHASE.getOrdinal() || ordinal == phaseIdOrdinal) {
         UIComponent source = event.getComponent();
         try {
           source.broadcast(event);
@@ -202,11 +196,12 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
   }
 
 
+  @Override
   public void processDecodes(FacesContext context) {
     if (context == null) {
       throw new NullPointerException("context");
     }
-     Map<String, UIComponent> ajaxComponents = AjaxUtils.parseAndStoreComponents(context);
+    Map<String, UIComponent> ajaxComponents = AjaxUtils.parseAndStoreComponents(context);
     if (ajaxComponents != null) {
       // first decode the page
       AbstractUIPage page = ComponentUtils.findPage(context);
@@ -258,6 +253,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
   }
 
 
+  @Override
   public void processValidators(FacesContext context) {
     if (context == null) {
       throw new NullPointerException("context");
@@ -280,11 +276,12 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
     }
   }
 
+  @Override
   public void processUpdates(FacesContext context) {
     if (context == null) {
       throw new NullPointerException("context");
     }
-     Map<String, UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(context);
+    Map<String, UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(context);
     if (ajaxComponents != null) {
       for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
         invokeOnComponent(context, entry.getKey(), UPDATE_MODEL_VALUES_CALLBACK);
@@ -298,6 +295,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
     }
   }
 
+  @Override
   public void processApplication(FacesContext context) {
     if (context == null) {
       throw new NullPointerException("context");
@@ -307,6 +305,8 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
       clearEvents();
     }
   }
+
+  // XXX end of JSF 2.0 like code
 
   @Override
   public boolean getRendersChildren() {
@@ -327,6 +327,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
     }
   }
 
+  @Override
   public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
       throws FacesException {
     return FacesUtils.invokeOnComponent(context, this, clientId, callback);
