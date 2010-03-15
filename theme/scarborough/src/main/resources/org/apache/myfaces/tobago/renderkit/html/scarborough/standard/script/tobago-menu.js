@@ -36,9 +36,11 @@
        <span ... </span>
        <div class="tobago-menu-store">  // container for the sub menus.
          <ol id="m1::menu">
+--->         insert iframe here
            <li class="tobago-menu-parent">
              <a>Sub Menu 1.1</a>
                <ol>
+--->         insert iframe here
                  <li class="tobago-menu-parent">
                    <a>Sub Sub Menu 1.1.1</a>
                  </li>
@@ -139,6 +141,19 @@ function xxx_tobagoMenuOpen(event) {
 
     // show
     sub.css('visibility', 'visible');
+    
+    // IE6 select-tag fix
+    if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
+      //          sub.css('width', sub.width());
+      //          sub.css('height', sub.height());
+      //          sub.css('display', 'none');
+      //          sub.css('display', 'block');
+      var iframe = sub.children("iframe:first");
+      iframe.css('width', sub.outerWidth());
+      iframe.css('height', sub.outerHeight());
+      iframe.css('left', -(parseInt(sub.css('border-left-width')) + parseInt(sub.css('padding-left'))));
+      iframe.css('top', -(parseInt(sub.css('border-top-width')) + parseInt(sub.css('padding-top'))));
+    }
   }
       
   // old "hover" off
@@ -212,6 +227,14 @@ function xxx_tobagoMenuInit() {
       event.stopPropagation();
 
     });
+    
+    // IE6 select-tag fix
+    // put a iframe inside the div, so that a <select> tag doesn't shine through.
+    // the iframe must be resized (see above)
+    if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
+      jQuery(".tobago-page-menuStore ol").prepend("<iframe class='tobago-menu-ie6bugfix'></iframe>");
+    }
+    
   });
 }
 
@@ -222,7 +245,6 @@ jQuery.tobagoMenuParent = function(element) {
 
   return result;
 };
-
 
 /*
   jQuery(this) is a list of "a" element of a menu item as jQuery object.

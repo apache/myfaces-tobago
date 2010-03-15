@@ -15,16 +15,7 @@
  * limitations under the License.
  */
 
-/*
-a:link.tobago-link-default, a:visited.tobago-link-default, a:active.tobago-link-default {
-  color: #000000;
-  font-size: 15px;
-}
-*/
-
-table.tobago-gridLayout-default {
-  table-layout: fixed;
-}
+/* Global settings ------------------------------------------------------------------ */
 
 form {
   margin: 0;
@@ -42,7 +33,6 @@ html, body {
   margin: 0;
   overflow: hidden;
 }
-
 
 /* Tab ------------------------------------------------------------------ */
 
@@ -229,7 +219,7 @@ span.tobago-progress {
 }
 
 .tobago-treeListbox-level {
-/* after ie6: .tobago-treeListbox-default > div > div */
+/* without ie6 support we can use: .tobago-treeListbox-default > div > div */
   width: 160px;
   height: 100%;
   position: absolute;
@@ -237,7 +227,7 @@ span.tobago-progress {
 }
 
 .tobago-treeListbox-select {
-/* after ie6: .tobago-treeListbox-default > div > div > select */
+/* without ie6 support we can use: .tobago-treeListbox-default > div > div > select */
   position: absolute;
   width: 100%;
   height: 100%;
@@ -1157,6 +1147,18 @@ li.tobago-menu-selected {
   margin: 3px 0;
   border-width: 1px 0 0 0;
   border-style: solid;
+}
+
+/* workaround for IE6 */
+iframe.tobago-menu-ie6bugfix {
+  position: absolute;
+  display: block;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  filter: mask();
 }
 
 /* Sheet ------------------------------------------------------------------ */
