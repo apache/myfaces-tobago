@@ -179,16 +179,18 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
       StringTemplate componentStringTemplate = componentStringTemplateGroup.getInstanceOf("component");
       ComponentInfo componentInfo 
           = new ComponentInfo(decl.getQualifiedName(), componentTag.uiComponent(), componentTag.rendererType());
-/*      
+      
+/*
       String p = componentTag.uiComponentBaseClass();
       String c = componentTag.uiComponent();
       String m = c.substring(0, 36) + "Abstract" + c.substring(36);
       if (p.equals(m)) {
-        System.out.println("*********** ok   " + c);
+        getEnv().getMessager().printNotice("*********** ok   " + c);
       } else {
-        System.out.println("*********** diff " + c + " " + p);
+        getEnv().getMessager().printNotice("*********** diff " + c + " " + p);
       }
-*/      
+*/
+      
       componentInfo.setSuperClass(componentTag.uiComponentBaseClass());
       componentInfo.setComponentFamily(componentTag.componentFamily());
       componentInfo.setDescription(getDescription(decl));
@@ -421,7 +423,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         propertyInfo.setDeprecated(decl.getAnnotation(Deprecated.class) != null);
         propertyInfo.setDescription(getDescription(decl));
         if (properties.containsKey(name)) {
-          System.out.println("Info: Redefinition of attribute '" + name + "'.");
+          getEnv().getMessager().printWarning("Redefinition of attribute '" + name + "'.");
         }
         properties.put(name, propertyInfo);
       }
