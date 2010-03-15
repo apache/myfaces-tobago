@@ -27,17 +27,19 @@ import org.apache.myfaces.tobago.util.TobagoCallback;
 import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import java.util.Iterator;
 
-public class AbstractUIForm extends javax.faces.component.UIForm implements InvokeOnComponent, Form {
+public abstract class AbstractUIForm extends UIForm implements InvokeOnComponent, Form {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIForm.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Form";
   public static final String SUBMITTED_MARKER = COMPONENT_TYPE + ".InSubmitted";
 
+  @Override
   public void processDecodes(FacesContext facesContext) {
 
     // Process this component first
@@ -52,6 +54,7 @@ public class AbstractUIForm extends javax.faces.component.UIForm implements Invo
     }
   }
 
+  @Override
   public void setSubmitted(boolean b) {
     super.setSubmitted(b);
 
@@ -61,6 +64,7 @@ public class AbstractUIForm extends javax.faces.component.UIForm implements Invo
     }
   }
 
+  @Override
   public void processValidators(FacesContext facesContext) {
     // if we're not the submitted form, only process subforms.
     if (LOG.isDebugEnabled()) {
@@ -80,6 +84,7 @@ public class AbstractUIForm extends javax.faces.component.UIForm implements Invo
     }
   }
 
+  @Override
   public void processUpdates(FacesContext facesContext) {
     // if we're not the submitted form, only process subforms.
     if (LOG.isDebugEnabled()) {
@@ -99,6 +104,7 @@ public class AbstractUIForm extends javax.faces.component.UIForm implements Invo
     }
   }
 
+  @Override
   public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
       throws FacesException {
     // TODO is this needed?
