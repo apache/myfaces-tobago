@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasTip;
 @Tag(name = "column")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIColumn",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIColumn",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIColumn",
     componentType = ComponentTypes.COLUMN)
 //rendererType = "Column")
 public interface ColumnTagDeclaration extends HasIdBindingAndRendered, HasLabel, HasTip, HasMarkup {

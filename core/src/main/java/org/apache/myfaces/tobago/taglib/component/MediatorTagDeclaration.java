@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 @Tag(name = "mediator")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMediator",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIMediator",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIMediator",
     rendererType = RendererTypes.MEDIATOR,
     interfaces = {"org.apache.myfaces.tobago.component.SupportsMarkup"})
 public interface MediatorTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent, HasMarkup {

@@ -41,7 +41,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
     facets = {
     @Facet(name= Facets.TOOL_BAR, description = "Contains an instance of UIToolBar",
             allowedChildComponenents = "org.apache.myfaces.tobago.ToolBar"),
-    @Facet(name=Facets.LAYOUT, description = "Contains an instance of UILayout",
+    @Facet(name=Facets.LAYOUT, description = "Contains an instance of UILayoutBase",
             allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 
 public interface BoxTagDeclaration 

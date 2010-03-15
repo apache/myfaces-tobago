@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @Tag(name = "time")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITime",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITime",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITime",
     rendererType = RendererTypes.TIME,
     allowedChildComponenents = "NONE")
 public interface TimeTagDeclaration

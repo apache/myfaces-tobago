@@ -38,7 +38,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIWizard",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIWizard",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIWizard",
     rendererType = RendererTypes.WIZARD)
 public interface WizardTagDeclaration 
     extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup {

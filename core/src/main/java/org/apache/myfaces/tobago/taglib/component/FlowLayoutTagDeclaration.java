@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasSpacing;
 @Tag(name = "flowLayout", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIFlowLayout",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIFlowLayout",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIFlowLayout",
     rendererType = RendererTypes.FLOW_LAYOUT,
     componentFamily = "org.apache.myfaces.tobago.FlowLayout",
     allowedChildComponenents = "NONE", isLayout = true)

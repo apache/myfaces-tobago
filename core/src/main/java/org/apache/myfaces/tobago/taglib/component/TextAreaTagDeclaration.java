@@ -38,7 +38,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @Tag(name = "textarea")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITextarea",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIInputBase",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.UIInputBase",
     rendererType = RendererTypes.TEXT_AREA,
     allowedChildComponenents = "NONE")
 public interface TextAreaTagDeclaration extends HasIdBindingAndRendered,

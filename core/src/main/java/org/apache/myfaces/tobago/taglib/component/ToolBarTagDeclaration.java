@@ -22,8 +22,8 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.component.AbstractUIToolBar;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.component.AbstractUIToolBar;
 
 /*
  * Date: 11.02.2006
@@ -60,7 +60,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 @BodyContentDescription(anyTagOf = "(<tc:toolBarCommand>|<tc:toolBarSelectBoolean>|<tc:toolBarSelectOne>)* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBar",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIToolBar",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIToolBar",
     rendererType = RendererTypes.TOOL_BAR,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.SelectOneCommand",

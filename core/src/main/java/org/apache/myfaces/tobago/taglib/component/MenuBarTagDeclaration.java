@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
         "org.apache.myfaces.tobago.internal.taglib.MenuSeparatorTag"})
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuBar",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIMenuBar",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIMenuBar",
     rendererType = RendererTypes.MENU_BAR, isComponentAlreadyDefined = false,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.Menu",

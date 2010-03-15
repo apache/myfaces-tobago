@@ -46,7 +46,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectManyCheckbox",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUISelectMany",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectMany",
     rendererType = RendererTypes.SELECT_MANY_CHECKBOX,
     allowedChildComponenents = {
         "javax.faces.SelectItem",

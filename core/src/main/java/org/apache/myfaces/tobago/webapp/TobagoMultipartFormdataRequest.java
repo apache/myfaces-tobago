@@ -23,7 +23,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.AbstractUIPage;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 
 import javax.faces.FacesException;
 import javax.servlet.http.HttpServletRequest;

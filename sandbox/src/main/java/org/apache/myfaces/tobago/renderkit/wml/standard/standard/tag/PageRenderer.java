@@ -22,7 +22,7 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
  * : $
  */
 
-import org.apache.myfaces.tobago.component.AbstractUIPage;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 

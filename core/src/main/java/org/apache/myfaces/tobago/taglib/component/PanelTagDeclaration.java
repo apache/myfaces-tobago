@@ -35,14 +35,14 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
 @Tag(name = "panel")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPanel",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIPanel",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIPanel",
     rendererType = RendererTypes.PANEL,
     interfaces = {"org.apache.myfaces.tobago.ajax.api.AjaxComponent",
         "org.apache.myfaces.tobago.component.SupportsMarkup"},
     facets = {
     @Facet(name= Facets.RELOAD, description = "Contains an instance of UIReload",
             allowedChildComponenents = "org.apache.myfaces.tobago.Reload"),
-    @Facet(name=Facets.LAYOUT, description = "Contains an instance of UILayout",
+    @Facet(name=Facets.LAYOUT, description = "Contains an instance of UILayoutBase",
             allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 public interface PanelTagDeclaration 
     extends HasIdBindingAndRendered, IsGridLayoutComponent, IsGridLayoutContainer, HasMarkup, HasTip {

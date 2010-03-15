@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @BodyContentDescription(anyTagOf = "<tc:treeNode>|<tc:treeData>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeListbox",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITree",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITree",
     rendererType = RendererTypes.TREE_LISTBOX,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.TreeNode",

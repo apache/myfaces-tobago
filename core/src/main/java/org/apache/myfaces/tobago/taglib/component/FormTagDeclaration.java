@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasId;
 @Tag(name = "form")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIForm",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIForm",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIForm",
     interfaces = "org.apache.myfaces.tobago.component.Form",
     rendererType = RendererTypes.FORM,
     isTransparentForLayout = true,

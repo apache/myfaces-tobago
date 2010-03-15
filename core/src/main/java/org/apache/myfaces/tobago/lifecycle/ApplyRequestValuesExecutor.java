@@ -21,9 +21,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
-import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.UIViewRoot;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.util.ApplyRequestValuesCallback;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -31,8 +31,9 @@ import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
-import static javax.faces.event.PhaseId.APPLY_REQUEST_VALUES;
 import java.util.Map;
+
+import static javax.faces.event.PhaseId.APPLY_REQUEST_VALUES;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2

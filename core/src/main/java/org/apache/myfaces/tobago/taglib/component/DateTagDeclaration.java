@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @Tag(name = "date")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIDate",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIDate",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIDate",
     rendererType = RendererTypes.DATE,
     allowedChildComponenents = "NONE",
     facets = {

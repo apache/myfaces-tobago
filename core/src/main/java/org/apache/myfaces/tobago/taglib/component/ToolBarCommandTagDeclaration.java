@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 @Tag(name = "toolBarCommand", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBarCommand",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIToolBarCommand",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIToolBarCommand",
     rendererType = RendererTypes.BUTTON,
     allowedChildComponenents = "NONE")
 public interface ToolBarCommandTagDeclaration

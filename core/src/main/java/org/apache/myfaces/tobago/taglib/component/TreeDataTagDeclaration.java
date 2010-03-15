@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasVar;
 @BodyContentDescription(anyTagOf = "<tc:treeNode>")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeData",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITreeData",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeData",
     rendererType = RendererTypes.TREE_DATA,
     allowedChildComponenents = "org.apache.myfaces.tobago.TreeNode")
 public interface TreeDataTagDeclaration extends

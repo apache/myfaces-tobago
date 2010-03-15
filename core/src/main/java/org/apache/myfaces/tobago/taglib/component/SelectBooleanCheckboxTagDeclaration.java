@@ -50,7 +50,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @BodyContentDescription(anyTagOf = "<f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectBooleanCheckbox",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUISelectBooleanCheckbox",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox",
     rendererType = RendererTypes.SELECT_BOOLEAN_CHECKBOX,
     allowedChildComponenents = "NONE",
     facets = {

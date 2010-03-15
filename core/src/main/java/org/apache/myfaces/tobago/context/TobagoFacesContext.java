@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.commons.collections.list.SetUniqueList;
 import org.apache.commons.collections.set.ListOrderedSet;
-import org.apache.myfaces.tobago.component.AbstractUIPopup;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;

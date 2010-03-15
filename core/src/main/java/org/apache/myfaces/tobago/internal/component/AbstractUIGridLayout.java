@@ -1,0 +1,354 @@
+package org.apache.myfaces.tobago.internal.component;
+
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.internal.layout.BankHead;
+import org.apache.myfaces.tobago.internal.layout.Cell;
+import org.apache.myfaces.tobago.internal.layout.FactorList;
+import org.apache.myfaces.tobago.internal.layout.Grid;
+import org.apache.myfaces.tobago.internal.layout.Interval;
+import org.apache.myfaces.tobago.internal.layout.IntervalList;
+import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
+import org.apache.myfaces.tobago.internal.layout.OriginCell;
+import org.apache.myfaces.tobago.layout.AutoLayoutToken;
+import org.apache.myfaces.tobago.layout.Display;
+import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.layout.LayoutContainer;
+import org.apache.myfaces.tobago.layout.LayoutManager;
+import org.apache.myfaces.tobago.layout.LayoutToken;
+import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.layout.Orientation;
+import org.apache.myfaces.tobago.layout.PixelLayoutToken;
+import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
+
+import javax.faces.context.FacesContext;
+import java.util.Arrays;
+import java.util.List;
+
+public abstract class AbstractUIGridLayout extends UILayoutBase implements LayoutManager, SupportsMarkup {
+
+  private static final Log LOG = LogFactory.getLog(AbstractUIGridLayout.class);
+
+  private Grid grid;
+
+  public void init() {
+    grid = new Grid(LayoutTokens.parse(getColumns()), LayoutTokens.parse(getRows()));
+
+    List<LayoutComponent> components = getLayoutContainer().getComponents();
+    for (LayoutComponent component : components) {
+      component.setCurrentHeight(null);
+      component.setCurrentWidth(null);
+      grid.add(new OriginCell(component), component.getColumnSpan(), component.getRowSpan());
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("\n" + grid);
+      }
+      if (component instanceof LayoutContainer) {
+        ((LayoutContainer) component).getLayoutManager().init();
+      }
+    }
+  }
+
+  public void fixRelativeInsideAuto(Orientation orientation, boolean auto) {
+
+    BankHead[] heads = grid.getBankHeads(orientation);
+    BankHead[] heads2 = grid.getBankHeads(orientation.other());
+
+    if (auto) {
+      for (int i = 0; i < heads.length; i++) {
+        if (heads[i].getToken() instanceof RelativeLayoutToken) {
+          LOG.warn("Fixing layout token from * to auto, because a * in not allowed inside of a auto. "
+              + "For more information please use the debug logging level.");
+          if (LOG.isDebugEnabled()) {
+            LOG.debug("Token * at index=" + i + ", orientation=" + orientation + ", grid=\n" + grid);
+          }
+          heads[i].setToken(AutoLayoutToken.INSTANCE);
+        }
+      }
+    }
+
+    for (int i = 0; i < heads.length; i++) {
+      boolean neitherRendered = true;
+      for (int j = 0; j < heads2.length; j++) {
+        Cell cell = grid.getCell(i, j, orientation);
+        // check rendered = false
+        if (neitherRendered && (cell == null || cell.getComponent().isRendered())) {
+          neitherRendered = false;
+        }
+        // recursion
+        if (cell instanceof OriginCell) {
+          OriginCell origin = (OriginCell) cell;
+          LayoutComponent component = cell.getComponent();
+          if (component instanceof LayoutContainer) {
+            LayoutManager layoutManager = ((LayoutContainer) component).getLayoutManager();
+            // TODO: may be improved
+            boolean childAuto = origin.getSpan(orientation) == 1 && heads[i].getToken() instanceof AutoLayoutToken;
+            layoutManager.fixRelativeInsideAuto(orientation, childAuto);
+          }
+        }
+      }
+      if (neitherRendered) {
+        heads[i].setRendered(false);
+      }
+    }
+  }
+
+  public void preProcessing(Orientation orientation) {
+
+    final BankHead[] heads = grid.getBankHeads(orientation);
+    final BankHead[] heads2 = grid.getBankHeads(orientation.other());
+    
+    // process auto tokens
+    int i = 0;
+    
+    for (BankHead head : heads) {
+      LayoutToken token = head.getToken();
+      
+      if (token instanceof PixelLayoutToken) {
+        int pixel = ((PixelLayoutToken) token).getPixel();
+        heads[i].setMeasure(Measure.valueOf(pixel)); // XXX refactor
+      }
+
+      IntervalList intervalList = new IntervalList();
+      for (int j = 0; j < heads2.length; j++) {
+        Cell cell = grid.getCell(i, j, orientation);
+        if (cell instanceof OriginCell) {
+          OriginCell origin = (OriginCell) cell;
+          LayoutComponent component = cell.getComponent();
+
+          if (component instanceof LayoutContainer) {
+            ((LayoutContainer) component).getLayoutManager().preProcessing(orientation);
+          }
+
+          if (token instanceof AutoLayoutToken) {
+            if (origin.getSpan(orientation) == 1 && component.isRendered()) {
+              intervalList.add(new Interval(component, orientation));
+            } else {
+              if (LOG.isDebugEnabled()) {
+                LOG.debug("Components with span > 1 will be ignored in 'auto' layout rows/columns.");
+                // todo: give this information to the developer
+              }
+            }
+          }
+        }
+      }
+      if (token instanceof AutoLayoutToken) {
+        if (intervalList.size() >= 1) {
+          heads[i].setMeasure(intervalList.computeAuto());
+        } else {
+          heads[i].setMeasure(Measure.ZERO);
+// todo: what when we cannot find a good value for "auto"?
+        }
+      }
+      i++;
+    }
+
+    // set the size if all sizes of the grid are set
+    Measure sum = Measure.ZERO;
+    for (BankHead head : heads) {
+      Measure size = head.getMeasure();
+      if (size == null) {
+        sum = null; // set to invalid
+        break;
+      }
+      sum = sum.add(size);
+    }
+    if (sum != null) {
+      // adding the space between the cells
+      sum = sum.add(computeSpacing(orientation, 0, heads.length));
+      sum = sum.add(LayoutUtils.getBeginOffset(orientation, getLayoutContainer()));
+      sum = sum.add(LayoutUtils.getEndOffset(orientation, getLayoutContainer()));
+      LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), sum);
+    }
+  }
+
+  public void mainProcessing(Orientation orientation) {
+
+    final BankHead[] heads = grid.getBankHeads(orientation);
+    final BankHead[] heads2 = grid.getBankHeads(orientation.other());
+    
+    // find *
+    FactorList list = new FactorList();
+    for (BankHead head : heads) {
+      if (head.getToken() instanceof RelativeLayoutToken) {
+        list.add(((RelativeLayoutToken) head.getToken()).getFactor());
+      }
+    }
+    if (!list.isEmpty()) {
+      // find rest
+      LayoutContainer container = getLayoutContainer();
+      Measure available = LayoutUtils.getCurrentSize(orientation, container);
+      if (available != null) {
+        for (BankHead head : heads) {
+          available = available.subtractNotNegative(head.getMeasure());
+        }
+        available = available.subtractNotNegative(LayoutUtils.getBeginOffset(orientation, container));
+        available = available.subtractNotNegative(computeSpacing(orientation, 0, heads.length));
+        available = available.subtractNotNegative(LayoutUtils.getEndOffset(orientation, container));
+
+        List<Measure> partition = list.partition(available);
+
+        // write values back into the header
+        int i = 0;
+        int j = 0;
+        for (BankHead head : heads) {
+          if (head.getToken() instanceof RelativeLayoutToken) {
+            heads[i].setMeasure(partition.get(j));
+            j++;
+          }
+          i++;
+        }
+      } else {
+        LOG.warn("No width/height set but needed for *!"); // todo: more information
+      }
+    }
+
+    // call manage sizes for all sub-layout-managers
+    for (int i = 0; i < heads.length; i++) {
+      for (int j = 0; j < heads2.length; j++) {
+        Cell cell = grid.getCell(i, j, orientation);
+        if (cell instanceof OriginCell) {
+          LayoutComponent component = cell.getComponent();
+
+          component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
+
+          Integer span = ((OriginCell) cell).getSpan(orientation);
+
+          // compute the size of the cell
+          Measure size = Measure.ZERO;
+          for (int k = 0; k < span; k++) {
+            size = size.add(heads[i + k].getMeasure());
+          }
+          size = size.add(computeSpacing(orientation, i, span));
+          LayoutUtils.setCurrentSize(orientation, component, size);
+
+          // call sub layout manager
+          if (component instanceof LayoutContainer) {
+            ((LayoutContainer) component).getLayoutManager().mainProcessing(orientation);
+          }
+        }
+      }
+    }
+  }
+
+  public void postProcessing(Orientation orientation) {
+
+    final BankHead[] heads = grid.getBankHeads(orientation);
+    final BankHead[] heads2 = grid.getBankHeads(orientation.other());
+    
+    // call manage sizes for all sub-layout-managers
+    for (int i = 0; i < heads.length; i++) {
+      for (int j = 0; j < heads2.length; j++) {
+        Cell cell = grid.getCell(i, j, orientation);
+        if (cell instanceof OriginCell) {
+          LayoutComponent component = cell.getComponent();
+
+          component.setDisplay(Display.BLOCK);
+
+          // compute the position of the cell
+          Measure position = LayoutUtils.getBeginOffset(orientation, getLayoutContainer());
+          for (int k = 0; k < i; k++) {
+            if (heads[k] == null) {
+              LOG.warn("Measure is null, should be debugged... i=" + i + " k=" + k + " grid=" + grid,
+                  new RuntimeException());
+            } else {
+              if (heads[k].getMeasure().greaterThan(Measure.ZERO)) {
+                position = position.add(heads[k].getMeasure());
+                position = position.add(getSpacing(orientation));
+              }
+            }
+          }
+          if (orientation == Orientation.HORIZONTAL) {
+            component.setLeft(position);
+          } else {
+            component.setTop(position);
+          }
+
+          // call sub layout manager
+          if (component instanceof LayoutContainer) {
+            ((LayoutContainer) component).getLayoutManager().postProcessing(orientation);
+          }
+
+          // todo: optimize: the AutoLayoutTokens with columnSpan=1 are already called
+        }
+      }
+    }
+  }
+
+  private LayoutContainer getLayoutContainer() {
+    // todo: check with instanceof and do something in the error case
+    return ((LayoutContainer) getParent());
+  }
+
+  public Measure getSpacing(Orientation orientation) {
+    return orientation == Orientation.HORIZONTAL ? getColumnSpacing() : getRowSpacing();
+  }
+
+
+  /**
+   * Compute the sum of the space between the cells.
+   * There is one "space" less than cells that are not void.
+   */
+  private Measure computeSpacing(Orientation orientation, int startIndex, int length) {
+
+    final BankHead[] heads = grid.getBankHeads(orientation);
+
+    int count = 0;
+    for (int i = startIndex; i < startIndex + length; i++) {
+      if ((heads[i].isRendered())
+          && (heads[i].getMeasure() == null || heads[i].getMeasure().greaterThan(Measure.ZERO))) {
+        count++;
+      }
+    }
+    if (count > 0) {
+      return getSpacing(orientation).multiply(count - 1);
+    } else {
+      return Measure.ZERO;
+    }
+  }
+
+  public abstract String getRows();
+
+  public abstract String getColumns();
+
+  @Deprecated
+  public abstract Measure getCellspacing();
+
+  public abstract Measure getRowSpacing();
+
+  public abstract Measure getColumnSpacing();
+
+  @Override
+  public boolean getRendersChildren() {
+    return false;
+  }
+
+  @Override
+  public String toString() {
+    return getClass().getSimpleName()
+        + "#"
+        + getClientId(FacesContext.getCurrentInstance())
+        + (grid != null
+        ? "(" + Arrays.toString(grid.getBankHeads(Orientation.HORIZONTAL)) 
+        + ", " + Arrays.toString(grid.getBankHeads(Orientation.VERTICAL)) + ")"
+        : "");
+  }
+}

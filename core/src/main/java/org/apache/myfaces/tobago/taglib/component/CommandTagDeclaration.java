@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
  */
 @Tag(name = "command", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UICommand",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUICommand",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommand",
     rendererType = RendererTypes.COMMAND,
     allowedChildComponenents = "NONE")
 public interface CommandTagDeclaration

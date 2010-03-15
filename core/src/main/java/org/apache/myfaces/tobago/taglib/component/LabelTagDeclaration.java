@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 @Tag(name = "label")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UILabel",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUILabel",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUILabel",
     rendererType = RendererTypes.LABEL,
     allowedChildComponenents = "NONE")
 public interface LabelTagDeclaration extends HasIdBindingAndRendered,

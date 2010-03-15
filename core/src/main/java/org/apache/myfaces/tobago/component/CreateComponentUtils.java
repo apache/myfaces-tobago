@@ -17,6 +17,9 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.internal.component.AbstractUIColumn;
+import org.apache.myfaces.tobago.internal.component.AbstractUIOut;
+import org.apache.myfaces.tobago.internal.component.AbstractUISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.internal.taglib.TagUtils;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutManager;

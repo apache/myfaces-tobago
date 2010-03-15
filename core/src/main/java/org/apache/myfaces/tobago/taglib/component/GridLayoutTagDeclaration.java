@@ -91,7 +91,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasSpacing;
 @Tag(name = "gridLayout", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIGridLayout",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIGridLayout",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout",
     rendererType = RendererTypes.GRID_LAYOUT,
     componentFamily = "org.apache.myfaces.tobago.GridLayout",
     allowedChildComponenents = "NONE", isLayout = true)

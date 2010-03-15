@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.event;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.AbstractUIPage;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 
 import javax.faces.component.UIComponent;

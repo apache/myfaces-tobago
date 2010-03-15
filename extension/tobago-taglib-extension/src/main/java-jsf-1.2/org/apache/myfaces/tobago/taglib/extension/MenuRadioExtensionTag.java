@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UICommandBase;
+import org.apache.myfaces.tobago.internal.component.UICommandBase;
 import org.apache.myfaces.tobago.internal.taglib.MenuCommandTag;
 import org.apache.myfaces.tobago.internal.taglib.SelectOneRadioTag;
 

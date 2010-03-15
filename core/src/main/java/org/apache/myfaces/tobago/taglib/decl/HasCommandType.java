@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.taglib.decl;
 
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.component.UICommandBase;
+import org.apache.myfaces.tobago.internal.component.UICommandBase;
 
 @Deprecated
 public interface HasCommandType {

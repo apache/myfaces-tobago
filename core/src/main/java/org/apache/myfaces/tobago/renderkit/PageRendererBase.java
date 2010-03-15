@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.renderkit;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.AbstractUIPage;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.layout.Box;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 

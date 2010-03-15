@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 @Tag(name = "object", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIObject",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIOut",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIOut",
     rendererType = RendererTypes.OBJECT,
     allowedChildComponenents = "NONE")
 public interface ObjectTagDeclaration extends HasId, IsGridLayoutComponent, HasMarkup {

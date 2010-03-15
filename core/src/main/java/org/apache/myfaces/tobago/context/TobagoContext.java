@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.AbstractUIPage;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.layout.Box;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 

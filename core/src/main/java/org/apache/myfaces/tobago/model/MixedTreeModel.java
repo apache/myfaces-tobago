@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.model;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 
 import java.util.ArrayList;
 import java.util.List;

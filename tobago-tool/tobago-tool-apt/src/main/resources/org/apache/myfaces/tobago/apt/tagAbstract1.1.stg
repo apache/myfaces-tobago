@@ -187,7 +187,7 @@ if (<it.propertyName> != null) {
   if (isValueReference(<it.propertyName>)) {
     <createValueBinding(it)>
   } else {
-    component.set<it.upperCamelCaseName>(org.apache.myfaces.tobago.component.AbstractUIMessages.OrderBy.parse(<it.propertyName>));
+    component.set<it.upperCamelCaseName>(org.apache.myfaces.tobago.internal.component.AbstractUIMessages.OrderBy.parse(<it.propertyName>));
   }
 }
 >>

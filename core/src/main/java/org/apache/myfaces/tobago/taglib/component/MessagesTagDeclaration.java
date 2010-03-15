@@ -22,8 +22,8 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.component.AbstractUIMessages;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.internal.component.AbstractUIMessages;
 import org.apache.myfaces.tobago.taglib.decl.HasFor;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
@@ -40,7 +40,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 @Tag(name = "messages", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMessages",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIMessages",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIMessages",
     rendererType = RendererTypes.MESSAGES,
     allowedChildComponenents = "NONE")
 
@@ -100,7 +100,7 @@ public interface MessagesTagDeclaration extends HasIdBindingAndRendered, HasFor,
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.component.UIMessages$OrderBy",
       allowedValues = {AbstractUIMessages.OrderBy.OCCURRENCE_STRING, AbstractUIMessages.OrderBy.SEVERITY_STRING},
       defaultValue = AbstractUIMessages.OrderBy.OCCURRENCE_STRING, 
-      defaultCode = "org.apache.myfaces.tobago.component.AbstractUIMessages.OrderBy.OCCURRENCE")
+      defaultCode = "org.apache.myfaces.tobago.internal.component.AbstractUIMessages.OrderBy.OCCURRENCE")
   void setOrderBy(String orderBy);
 
   /**

@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsInline;
 @BodyContentDescription(anyTagOf = "f:converter|f:convertNumber|f:convertDateTime|...")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIOut",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIOut",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIOut",
     interfaces = "org.apache.myfaces.tobago.component.UIOutput",
     componentType = ComponentTypes.OUT,
     rendererType = RendererTypes.OUT,

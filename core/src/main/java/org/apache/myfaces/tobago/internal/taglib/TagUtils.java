@@ -20,13 +20,15 @@ package org.apache.myfaces.tobago.internal.taglib;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.AbstractUIMessages;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.TabChangeSource;
+import org.apache.myfaces.tobago.internal.component.AbstractUIMessages;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.application.Application;
@@ -50,9 +52,9 @@ public class TagUtils {
       if (UIComponentTag.isValueReference(value)) {
         component.setValueBinding(name, createValueBinding(value));
       } else {
-        if ((component instanceof org.apache.myfaces.tobago.component.AbstractUIPage
+        if ((component instanceof AbstractUIPage
             || component instanceof javax.faces.component.UIGraphic
-            || component instanceof org.apache.myfaces.tobago.component.AbstractUIPopup)
+            || component instanceof AbstractUIPopup)
             && (Attributes.WIDTH.equals(name) || Attributes.HEIGHT.equals(name))) {
           if (value.endsWith("px")) {
             value = value.substring(0, value.length() - 2);

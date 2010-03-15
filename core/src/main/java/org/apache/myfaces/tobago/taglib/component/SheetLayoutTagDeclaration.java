@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
 @Tag(name = "sheetLayout", bodyContent = BodyContent.EMPTY)
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISheetLayout",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUISheetLayout",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISheetLayout",
     rendererType = RendererTypes.SHEET_LAYOUT,
     componentFamily = "org.apache.myfaces.tobago.SheetLayout",
     allowedChildComponenents = "NONE",

@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @Tag(name = "selectManyListbox")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectManyListbox",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUISelectMany",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectMany",
     rendererType = RendererTypes.SELECT_MANY_LISTBOX,
     allowedChildComponenents = {"javax.faces.SelectItem", "javax.faces.SelectItems"})
 

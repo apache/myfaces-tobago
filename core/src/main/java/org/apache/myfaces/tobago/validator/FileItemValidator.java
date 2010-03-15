@@ -17,17 +17,17 @@ package org.apache.myfaces.tobago.validator;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.AbstractUIFileInput;
-import org.apache.myfaces.tobago.util.MessageFactory;
-import org.apache.myfaces.tobago.util.ContentType;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.myfaces.tobago.internal.component.AbstractUIFileInput;
+import org.apache.myfaces.tobago.util.ContentType;
+import org.apache.myfaces.tobago.util.MessageFactory;
 
-import javax.faces.validator.Validator;
-import javax.faces.validator.ValidatorException;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.application.FacesMessage;
+import javax.faces.validator.Validator;
+import javax.faces.validator.ValidatorException;
 
 /*
  * Date: Oct 30, 2006

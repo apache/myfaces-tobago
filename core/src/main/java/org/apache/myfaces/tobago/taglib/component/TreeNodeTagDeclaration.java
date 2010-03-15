@@ -44,7 +44,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 @BodyContentDescription(anyTagOf = "<tc:treeNode>* <tc:treeData>*")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeNode",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUITreeNode",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeNode",
     rendererType = RendererTypes.TREE_NODE,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.TreeNode",

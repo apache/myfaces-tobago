@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.AbstractUIPage;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 
 import javax.faces.component.UIComponent;

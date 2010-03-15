@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
 @Tag(name = "image", bodyContent = BodyContent.JSP)
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIImage",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIImage",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIImage",
     rendererType = RendererTypes.IMAGE,
     allowedChildComponenents = "NONE")
 public interface ImageTagDeclaration

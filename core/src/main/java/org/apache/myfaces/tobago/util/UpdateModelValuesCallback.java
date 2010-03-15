@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.util;
  */
 
 
-import org.apache.myfaces.tobago.component.AbstractUIForm;
+import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

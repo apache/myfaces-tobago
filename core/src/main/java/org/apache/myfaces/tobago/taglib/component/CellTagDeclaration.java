@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
 @Tag(name = "cell")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UICell",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUICell",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICell",
     componentType = "org.apache.myfaces.tobago.Cell",
     rendererType = RendererTypes.CELL)
 public interface CellTagDeclaration 

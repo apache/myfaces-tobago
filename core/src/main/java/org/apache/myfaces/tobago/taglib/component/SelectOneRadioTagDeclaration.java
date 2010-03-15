@@ -41,7 +41,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 @BodyContentDescription(anyTagOf = "(<f:selectItems>|<f:selectItem>|<tc:selectItem>)+ <f:facet>* ")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISelectOneRadio",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUISelectOneRadio",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISelectOneRadio",
     rendererType = RendererTypes.SELECT_ONE_RADIO,
     allowedChildComponenents = {
         "javax.faces.SelectItem",

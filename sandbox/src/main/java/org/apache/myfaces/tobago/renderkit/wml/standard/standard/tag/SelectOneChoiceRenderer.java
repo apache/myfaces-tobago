@@ -23,8 +23,8 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
  */
 
 import org.apache.commons.collections.keyvalue.DefaultKeyValue;
-import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;

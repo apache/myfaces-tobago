@@ -42,7 +42,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @BodyContentDescription(anyTagOf = "facestag")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIInput",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIInputBase",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.UIInputBase",
     rendererType = RendererTypes.IN,
     allowedChildComponenents = "NONE",
     interfaces = { "org.apache.myfaces.tobago.ajax.api.AjaxComponent", 

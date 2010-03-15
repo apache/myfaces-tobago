@@ -54,7 +54,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
 @Tag(name = "file")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIFileInput",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIFileInput",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIFileInput",
     rendererType = RendererTypes.FILE,
     allowedChildComponenents = "NONE")
 public interface FileTagDeclaration

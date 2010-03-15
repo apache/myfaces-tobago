@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.AbstractUIPage;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIForm;
@@ -30,6 +29,7 @@ import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.context.ResponseWriterDivider;
 import org.apache.myfaces.tobago.internal.layout.LayoutContext;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -439,7 +439,7 @@ public class PageRenderer extends PageRendererBase {
       RenderUtil.encode(facesContext, menuBar);
     }
     // write the proviously rendered page content
-//    UILayout.getLayout(component).encodeChildrenOfComponent(facesContext, component);
+//    UILayoutBase.getLayout(component).encodeChildrenOfComponent(facesContext, component);
 
 //    page.encodeLayoutBegin(facesContext);
     

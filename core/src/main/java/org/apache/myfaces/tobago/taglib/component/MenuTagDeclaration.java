@@ -40,7 +40,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
         "org.apache.myfaces.tobago.internal.taglib.MenuSeparatorTag"})
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenu",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIMenu",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIMenu",
     rendererType = RendererTypes.MENU,
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.Menu",

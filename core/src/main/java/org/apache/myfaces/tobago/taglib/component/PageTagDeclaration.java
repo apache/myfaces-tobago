@@ -38,7 +38,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
 @Tag(name = "page")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIPage",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.component.AbstractUIPage",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIPage",
     rendererType = RendererTypes.PAGE,
     facets =
         { @Facet(name = Facets.ACTION,
@@ -50,7 +50,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
                 allowedChildComponenents = {"org.apache.myfaces.tobago.Command", "org.apache.myfaces.tobago.Form"}),
           @Facet(name = Facets.MENUBAR, description = "Menubar",
                 allowedChildComponenents = "javax.faces.component.UIPanel"), //fake
-          @Facet(name=Facets.LAYOUT, description = "Contains an instance of UILayout",
+          @Facet(name=Facets.LAYOUT, description = "Contains an instance of UILayoutBase",
                 allowedChildComponenents = "org.apache.myfaces.tobago.GridLayout")})
 
 public interface PageTagDeclaration
