@@ -17,28 +17,24 @@ package org.apache.myfaces.tobago.convert;
  * limitations under the License.
  */
 
-/*
- * Created 09.12.2003 15:52:53.
- * $Id$
- */
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import java.util.Currency;
 
+/**
+ * JSF converter for the java.util.Currency class.
+ */
 @org.apache.myfaces.tobago.apt.annotation.Converter(forClass = "java.util.Currency")
 public class CurrencyConverter implements Converter {
 
-  public Object getAsObject(FacesContext facesContext, UIComponent component,
-      String string)
+  public Object getAsObject(FacesContext facesContext, UIComponent component, String string)
       throws ConverterException {
     return Currency.getInstance(string);
   }
 
-  public String getAsString(FacesContext facesContext, UIComponent component,
-      Object object)
+  public String getAsString(FacesContext facesContext, UIComponent component, Object object)
       throws ConverterException {
     try {
       return ((Currency) object).getCurrencyCode();
@@ -47,4 +43,3 @@ public class CurrencyConverter implements Converter {
     }
   }
 }
-
