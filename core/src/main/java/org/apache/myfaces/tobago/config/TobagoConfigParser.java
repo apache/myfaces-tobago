@@ -17,18 +17,13 @@ package org.apache.myfaces.tobago.config;
  * limitations under the License.
  */
 
-/*
- * Created 24.06.2003 08:53:35.
- * $Id$
- */
-
 import org.apache.commons.digester.Digester;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.context.RenderersConfigImpl;
-import org.apache.myfaces.tobago.context.RendererConfig;
 import org.apache.myfaces.tobago.context.MarkupConfig;
+import org.apache.myfaces.tobago.context.RendererConfig;
+import org.apache.myfaces.tobago.context.RenderersConfigImpl;
 import org.xml.sax.SAXException;
 
 import javax.faces.FacesException;
@@ -42,8 +37,7 @@ public class TobagoConfigParser {
   private static final Log LOG = LogFactory.getLog(TobagoConfigParser.class);
   private static final String TOBAGO_CONFIG_DTD = "/org/apache/myfaces/tobago/config/tobago-config_1_0.dtd";
 
-  public TobagoConfig parse(ServletContext context)
-      throws IOException, SAXException, FacesException {
+  public TobagoConfig parse(ServletContext context)  throws IOException, SAXException, FacesException {
 
     TobagoConfig tobagoConfig = new TobagoConfig();
     Digester digester = configure(tobagoConfig);
@@ -60,25 +54,6 @@ public class TobagoConfigParser {
     // theme-config
     digester.addCallMethod("tobago-config/theme-config/default-theme", "setDefaultThemeName", 0);
     digester.addCallMethod("tobago-config/theme-config/supported-theme", "addSupportedThemeName", 0);
-
-    // mapping rules
-    digester.addObjectCreate("tobago-config/mapping-rule", MappingRule.class);
-    digester.addSetNext("tobago-config/mapping-rule", "addMappingRule");
-    digester.addCallMethod(
-        "tobago-config/mapping-rule/request-uri", "setRequestUri", 0);
-    digester.addCallMethod(
-        "tobago-config/mapping-rule/forward-uri", "setForwardUri", 0);
-    digester.addObjectCreate(
-        "tobago-config/mapping-rule/attribute", Attribute.class);
-    digester.addSetNext(
-        "tobago-config/mapping-rule/attribute", "addAttribute");
-    digester.addCallMethod(
-        "tobago-config/mapping-rule/attribute/key", "setKey", 0);
-    digester.addCallMethod(
-        "tobago-config/mapping-rule/attribute/value", "setValue", 0);
-
-    // XXX: deprecated! will ever be true (will be removed in next release after 1.0.7)
-    digester.addCallMethod("tobago-config/load-theme-resources-from-classpath", "setLoadThemesFromClasspath", 0);
 
     // resource dirs
     digester.addCallMethod("tobago-config/resource-dir", "addResourceDir", 0);

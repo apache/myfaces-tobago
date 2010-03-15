@@ -31,44 +31,30 @@ import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 public class TobagoConfig {
+
   private static final Log LOG = LogFactory.getLog(TobagoConfig.class);
 
-  public static final String TOBAGO_CONFIG
-      = "org.apache.myfaces.tobago.config.TobagoConfig";
+  public static final String TOBAGO_CONFIG = "org.apache.myfaces.tobago.config.TobagoConfig";
 
   private List<Theme> supportedThemes;
   private List<String> supportedThemeNames;
   private Theme defaultTheme;
   private String defaultThemeName;
   private List<String> resourceDirs;
-  private List<MappingRule> mappingRules;
   private boolean ajaxEnabled;
   private Map<String, Theme> availableTheme;
   private RenderersConfig renderersConfig;
   private ProjectStage projectStage;
-
 
   public TobagoConfig() {
     supportedThemeNames = new ArrayList<String>();
     supportedThemes = new ArrayList<Theme>();
     resourceDirs = new ArrayList<String>();
     ajaxEnabled = true;
-  }
-
-  public void addMappingRule(MappingRule mappingRule) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("addMappingRule: {" + mappingRule + "}");
-    }
-
-    if (mappingRules == null) {
-      mappingRules = new ArrayList<MappingRule>();
-    }
-    mappingRules.add(mappingRule);
   }
 
   public void addSupportedThemeName(String name) {
@@ -127,29 +113,9 @@ public class TobagoConfig {
     }
   }
 
-
   public static TobagoConfig getInstance(FacesContext facesContext) {
     return (TobagoConfig) facesContext.getExternalContext()
         .getApplicationMap().get(TOBAGO_CONFIG);
-  }
-
-  public MappingRule getMappingRule(String requestUri) {
-    for (Iterator i = getMappingRules(); i.hasNext();) {
-      MappingRule rule = (MappingRule) i.next();
-      if (rule.getRequestUri().equals(requestUri)) {
-        return rule;
-      }
-    }
-    return null;
-  }
-
-  public Iterator<MappingRule> getMappingRules() {
-    if (mappingRules == null) {
-      List<MappingRule> objects = Collections.emptyList();
-      return objects.iterator();
-    } else {
-      return mappingRules.iterator();
-    }
   }
 
   public Theme getTheme(String name) {
@@ -197,12 +163,6 @@ public class TobagoConfig {
 
   public void setAjaxEnabled(String value) {
     this.ajaxEnabled = Boolean.valueOf(value);
-  }
-
-  @Deprecated
-  public void setLoadThemesFromClasspath(String loadThemesFromClasspath) {
-    LOG.warn("Deprecated: setting load-theme-resources-from-classpath is "
-        + "no longer supported");
   }
 
   public Theme getDefaultTheme() {
