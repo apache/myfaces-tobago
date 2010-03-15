@@ -35,9 +35,10 @@ import java.net.URL;
 public class TobagoConfigParser {
 
   private static final Log LOG = LogFactory.getLog(TobagoConfigParser.class);
+
   private static final String TOBAGO_CONFIG_DTD = "/org/apache/myfaces/tobago/config/tobago-config_1_0.dtd";
 
-  public TobagoConfig parse(ServletContext context)  throws IOException, SAXException, FacesException {
+  public TobagoConfig parse(ServletContext context) throws IOException, SAXException, FacesException {
 
     TobagoConfig tobagoConfig = new TobagoConfig();
     Digester digester = configure(tobagoConfig);
@@ -72,9 +73,7 @@ public class TobagoConfigParser {
     return digester;
   }
 
-  // TODO: make it runnable without config file, using defaults
-  private void parse(ServletContext context, Digester digester)
-      throws IOException, SAXException, FacesException {
+  private void parse(ServletContext context, Digester digester) throws IOException, SAXException, FacesException {
 
     String configPath = "/WEB-INF/tobago-config.xml";
     InputStream input = null;
@@ -94,19 +93,13 @@ public class TobagoConfigParser {
   private void registerDtd(Digester digester) {
     URL url = TobagoConfigParser.class.getResource(TOBAGO_CONFIG_DTD);
     if (LOG.isDebugEnabled()) {
-      LOG.debug("registering dtd: url=" + url);
+      LOG.debug("Registering dtd: url=" + url);
     }
     if (null != url) {
-      digester.register(
-          "-//Atanion GmbH//DTD Tobago Config 1.0//EN",
-          url.toString());
-      digester.register(
-          "-//The Apache Software Foundation//DTD Tobago Config 1.0//EN",
-          url.toString());
+      digester.register("-//Atanion GmbH//DTD Tobago Config 1.0//EN", url.toString());
+      digester.register("-//The Apache Software Foundation//DTD Tobago Config 1.0//EN", url.toString());
     } else {
-      LOG.warn(
-          "unable to retrieve local DTD '" + TOBAGO_CONFIG_DTD
-              + "'; trying external URL");
+      LOG.warn("Unable to retrieve local DTD '" + TOBAGO_CONFIG_DTD + "'; trying external URL");
     }
   }
 
