@@ -191,7 +191,6 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
       addAttributes(decl, deprecatedTag, document);
       parent.appendChild(deprecatedTag);
     }
-
   }
 
   protected void appendTag(InterfaceDeclaration decl, Element parent, Document document) {
@@ -207,8 +206,7 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
         className = "org.apache.myfaces.tobago.internal.taglib." + StringUtils.capitalize(annotationTag.name()) + "Tag";
       }
       //decl.getQualifiedName().replaceAll("Declaration", "");
-      String msg = "Replacing: " + decl.getQualifiedName()
-          + " -> " + className;
+      String msg = "Replacing: " + decl.getQualifiedName() + " -> " + className;
       getEnv().getMessager().printNotice(msg);
       Element tag = createTag(decl, annotationTag, className, document, false);
       addAttributes(decl, tag, document);
@@ -222,8 +220,7 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
   }
 
   protected Element createTag(
-      Declaration decl, Tag annotationTag, String className, Document document,
-      boolean deprecated) {
+      Declaration decl, Tag annotationTag, String className, Document document, boolean deprecated) {
     Element tagElement = document.createElement("tag");
     if (deprecated) {
       addLeafTextElement(annotationTag.deprecatedName(), "name", tagElement, document);
@@ -240,12 +237,10 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
     BodyContentDescription contentDescription = decl.getAnnotation(BodyContentDescription.class);
     // TODO more error checking
     if (contentDescription != null) {
-      if (bodyContent.equals(BodyContent.JSP)
-          && contentDescription.contentType().length() > 0) {
-        throw new IllegalArgumentException("contentType " + contentDescription.contentType()
-            + " for bodyContent JSP not allowed!");
-      } else if (bodyContent.equals(BodyContent.TAGDEPENDENT)
-          && contentDescription.contentType().length() == 0) {
+      if (bodyContent.equals(BodyContent.JSP) && contentDescription.contentType().length() > 0) {
+        throw new IllegalArgumentException(
+            "contentType " + contentDescription.contentType() + " for bodyContent JSP not allowed!");
+      } else if (bodyContent.equals(BodyContent.TAGDEPENDENT) && contentDescription.contentType().length() == 0) {
         throw new IllegalArgumentException("contentType should set for tagdependent bodyContent");
       }
     }
@@ -418,9 +413,11 @@ public class TaglibAnnotationVisitor extends AbstractAnnotationVisitor {
       addAttributes(d.getSuperclass().getDeclaration(), tagElement, document);
     }
   }
+  
   private void resetDuplicateList() {
     tagSet = new HashSet<String>();
   }
+  
   private void resetAttributeDuplicateList() {
     attributeSet = new HashSet<String>();
   }
