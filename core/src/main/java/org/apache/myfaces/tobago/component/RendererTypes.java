@@ -31,8 +31,8 @@ public final class RendererTypes {
   public static final String COMMAND = "Command";
   public static final String DATE = "Date";
   public static final String DATE_PICKER = "DatePicker";
-  public static final String DEFAULT_LAYOUT = "DefaultLayout";
   public static final String FILE = "File";
+  public static final String FLOW_LAYOUT = "FlowLayout";
   public static final String FORM = "Form";
   public static final String GRID_LAYOUT = "GridLayout";
   public static final String HIDDEN = "Hidden";
@@ -76,7 +76,6 @@ public final class RendererTypes {
   public static final String TREE_MENU = "TreeMenu";
   public static final String TREE_NODE = "TreeNode";
   public static final String SHEET = "Sheet";
-  public static final String VERBATIM = "Verbatim";
   public static final String WIZARD = "Wizard";
 
   private RendererTypes() {
