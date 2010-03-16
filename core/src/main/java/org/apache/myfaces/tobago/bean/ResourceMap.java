@@ -29,6 +29,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class ResourceMap extends Properties {
 
   private static final Log LOG = LogFactory.getLog(ResourceMap.class);
