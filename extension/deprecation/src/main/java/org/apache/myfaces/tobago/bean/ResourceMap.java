@@ -17,11 +17,6 @@ package org.apache.myfaces.tobago.bean;
  * limitations under the License.
  */
 
-/*
- * Created 26.10.2004 11:51:00.
- * $Id$
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -29,6 +24,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class ResourceMap extends Properties {
 
   private static final Log LOG = LogFactory.getLog(ResourceMap.class);
@@ -63,6 +62,8 @@ public class ResourceMap extends Properties {
 
   // setFilename() is never called with myfaces implementation,
   // because we implement Map. This hotfix enables filename setting via put().
+
+  @Override
   public Object put(Object key, Object value) {
     if ("filename".equals(key)) {
       if (LOG.isDebugEnabled()) {
@@ -73,6 +74,7 @@ public class ResourceMap extends Properties {
     return super.put(key, value);
   }
 
+  @Override
   public Object get(Object key) {
     Object value = super.get(key);
     if (LOG.isDebugEnabled()) {
