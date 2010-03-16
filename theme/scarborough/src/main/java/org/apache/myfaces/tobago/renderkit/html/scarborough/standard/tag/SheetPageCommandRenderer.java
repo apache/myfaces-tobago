@@ -19,20 +19,52 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.apache.myfaces.tobago.renderkit.SheetUtils;
+import org.apache.myfaces.tobago.event.PageAction;
+import org.apache.myfaces.tobago.event.PageActionEvent;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-
+import java.util.Map;
 
 public class SheetPageCommandRenderer extends LinkRenderer {
 
   private static final Log LOG = LogFactory.getLog(SheetPageCommandRenderer.class);
 
-  public static final String PAGE_RENDERER_TYPE = "SheetPageCommand";
-
+  @Override
   public void decode(FacesContext facesContext, UIComponent component) {
-    SheetUtils.decode(facesContext, component);
+    String actionId = ComponentUtils.findPage(facesContext, component).getActionId();
+    String clientId = component.getClientId(facesContext);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("actionId = '" + actionId + "'");
+      LOG.debug("clientId = '" + clientId + "'");
+    }
+    if (actionId != null && actionId.equals(clientId)) {
+
+      PageAction action;
+      try {
+        action = PageAction.parse(component.getId());
+      } catch (Exception e) {
+        LOG.error("Illegal value for PageAction :" + component.getId());
+        return;
+      }
+      PageActionEvent event = new PageActionEvent(component.getParent(), action);
+
+      switch (action) {
+        case TO_PAGE:
+        case TO_ROW:
+          Map map = facesContext.getExternalContext().getRequestParameterMap();
+          Object value = map.get(clientId + ComponentUtils.SUB_SEPARATOR + "value");
+          try {
+            event.setValue(Integer.parseInt((String) value));
+          } catch (NumberFormatException e) {
+            LOG.error("Can't parse integer value for action " + action.name() + ": " + value);
+          }
+          break;
+        default:
+          // nothing more to do
+      }
+      component.queueEvent(event);
+    }
   }
 }

@@ -17,13 +17,13 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
-/*
- * Date: 24.04.2006
- * Time: 21:13:06
+/**
+ * @deprecated use {@link PageAction.parse()}
  */
+@Deprecated
 public class PageActionUtil {
 
   private static final Map<String, PageAction> MAPPING;

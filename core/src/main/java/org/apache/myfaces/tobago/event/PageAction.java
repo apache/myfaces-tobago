@@ -17,6 +17,9 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum PageAction {
 
   /**
@@ -57,5 +60,30 @@ public enum PageAction {
 
   public String getToken() {
     return token;
+  }
+  
+  private static final Map<String, PageAction> MAPPING;
+
+  static {
+    MAPPING = new HashMap<String, PageAction>();
+
+    for (PageAction action : PageAction.values()) {
+      MAPPING.put(action.getToken(), action);
+    }
+  }
+
+  /**
+   * 
+   * @param name Name of the PageAction
+   * @return The matching page action (can't be null).
+   * @throws IllegalArgumentException When the name doesn't match any PageAction.
+   */
+  public static PageAction parse(String name) throws IllegalArgumentException {
+    PageAction value = MAPPING.get(name);
+    if (value != null) {
+      return value;
+    } else {
+      throw new IllegalArgumentException("Unknown name for PageAction: '" + name + "'");
+    }
   }
 }
