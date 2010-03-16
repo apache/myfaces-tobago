@@ -19,9 +19,6 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
-import org.apache.myfaces.tobago.ajax.api.AjaxResponseRenderer;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -39,6 +36,9 @@ import org.apache.myfaces.tobago.event.SheetStateChangeListener;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.event.SortActionSource;
+import org.apache.myfaces.tobago.internal.ajax.AjaxComponent;
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
+import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
@@ -415,7 +415,7 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
       }
     }
     ajaxResponseCode = AjaxResponseRenderer.CODE_SUCCESS;
-    AjaxUtils.encodeAjaxComponent(facesContext, this);
+    AjaxInternalUtils.encodeAjaxComponent(facesContext, this);
   }
 
   public int getAjaxResponseCode() {

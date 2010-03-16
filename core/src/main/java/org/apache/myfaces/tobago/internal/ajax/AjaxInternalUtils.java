@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.ajax.api;
+package org.apache.myfaces.tobago.internal.ajax;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -21,6 +21,7 @@ package org.apache.myfaces.tobago.ajax.api;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -31,9 +32,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-public class AjaxUtils {
+public class AjaxInternalUtils {
 
-  private static final Log LOG = LogFactory.getLog(AjaxUtils.class);
+  private static final Log LOG = LogFactory.getLog(AjaxInternalUtils.class);
 
   public static final String AJAX_COMPONENTS = AjaxUtils.class.getName() + ".AJAX_COMPONENTS";
 
@@ -52,9 +53,6 @@ public class AjaxUtils {
           + compClass.getName() + " as it should be");
     }
   }
-
-
-
 
   public static void encodeAjaxComponent(FacesContext facesContext, UIComponent component) throws IOException {
     if (facesContext == null) {
@@ -102,56 +100,7 @@ public class AjaxUtils {
         facesContext.getExternalContext().getRequestMap().get(AJAX_COMPONENTS);
   }
 
-  public static boolean isAjaxRequest(FacesContext facesContext) {
-    return facesContext.getExternalContext().getRequestMap().containsKey(AJAX_COMPONENTS);
-  }
-
-  public static void removeAjaxComponent(FacesContext facesContext, String clientId) {
-    Map<String, UIComponent> ajaxComponents = getAjaxComponents(facesContext);
-    if (ajaxComponents != null) {
-      ajaxComponents.remove(clientId);
-    }
-  }
-
-  public static void addAjaxComponent(FacesContext facesContext, String clientId) {
-    addAjaxComponent(facesContext, facesContext.getViewRoot().findComponent(clientId));
-  }
-
-  public static void addAjaxComponent(FacesContext facesContext, UIComponent component) {
-    if (component instanceof AjaxComponent) {
-      Map<String, UIComponent> ajaxComponents = getAjaxComponents(facesContext);
-      if (ajaxComponents != null) {
-        ajaxComponents.put(component.getClientId(facesContext), component);
-      }
-    } else {
-      LOG.warn("Ignore non AjaxComponent : \""
-          + (component != null ? component.getClientId(facesContext) : "null")
-          + "\" = " + (component != null ? component.getClass().getName() : "null"));
-    }
-  }
-
-
-  public static void ensureDecoded(FacesContext facesContext, String clientId) {
-    ensureDecoded(facesContext, facesContext.getViewRoot().findComponent(clientId));
-  }
-
-  public static void ensureDecoded(FacesContext facesContext, UIComponent component) {
-    Map<String, UIComponent> ajaxComponents = getAjaxComponents(facesContext);
-    if (ajaxComponents != null) {
-      for (UIComponent uiComponent : ajaxComponents.values()) {
-        UIComponent currentComponent = component;
-        while (currentComponent != null) {
-          if (component == uiComponent) {
-            return;
-          }
-          currentComponent = currentComponent.getParent();
-        }
-      }
-      component.processDecodes(facesContext);
-    }
-  }
-
-  public static String encodeJavascriptString(String value) {
+  public static String encodeJavaScriptString(String value) {
     String result = StringUtils.replace(value, "\\", "\\\\");
     result = StringUtils.replace(result, "\n", "\\n");
     result = StringUtils.replace(result, "\r", "\\r");

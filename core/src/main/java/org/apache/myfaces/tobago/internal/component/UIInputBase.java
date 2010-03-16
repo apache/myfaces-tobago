@@ -17,10 +17,10 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
-import org.apache.myfaces.tobago.ajax.api.AjaxResponseRenderer;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.internal.ajax.AjaxComponent;
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
+import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -38,7 +38,7 @@ public abstract class UIInputBase extends javax.faces.component.UIInput
   }
 
   public void encodeAjax(FacesContext facesContext) throws IOException {
-    AjaxUtils.encodeAjaxComponent(facesContext, this);
+    AjaxInternalUtils.encodeAjaxComponent(facesContext, this);
   }
 
   public int getAjaxResponseCode() {

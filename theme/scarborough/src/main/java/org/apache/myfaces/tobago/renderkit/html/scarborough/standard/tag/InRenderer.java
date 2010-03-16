@@ -19,11 +19,11 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
+import org.apache.myfaces.tobago.internal.ajax.AjaxRenderer;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.component.UIInputBase;
 import org.apache.myfaces.tobago.model.AutoSuggestExtensionItem;
@@ -187,7 +187,7 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
       return;
     }
 
-    AjaxUtils.checkParamValidity(context, component, UIInput.class);
+    AjaxInternalUtils.checkParamValidity(context, component, UIInput.class);
 
     UIInputBase input = (UIInputBase) component;
 
@@ -228,9 +228,9 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
         writer.write(", ");
       }
       writer.write("{label: \"");
-      writer.write(AjaxUtils.encodeJavascriptString(suggestItem.getLabel()));
+      writer.write(AjaxInternalUtils.encodeJavaScriptString(suggestItem.getLabel()));
       writer.write("\", value: \"");
-      writer.write(AjaxUtils.encodeJavascriptString(suggestItem.getValue()));
+      writer.write(AjaxInternalUtils.encodeJavaScriptString(suggestItem.getValue()));
       writer.write("\"");
       if (suggestItem.getExtensionItems() != null) {
         writer.write(", values: [");
@@ -242,14 +242,14 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
           writer.write("{id: \"");
           writer.write(item.getId());
           writer.write("\", value: \"");
-          writer.write(AjaxUtils.encodeJavascriptString(item.getValue()));
+          writer.write(AjaxInternalUtils.encodeJavaScriptString(item.getValue()));
           writer.write("\"}");
         }
         writer.write("]");
       }
       if (suggestItem.getNextFocusId() != null) {
         writer.write(", nextfocusId: \"");
-        writer.write(AjaxUtils.encodeJavascriptString(suggestItem.getNextFocusId()));
+        writer.write(AjaxInternalUtils.encodeJavaScriptString(suggestItem.getNextFocusId()));
         writer.write("\"");
       }
 

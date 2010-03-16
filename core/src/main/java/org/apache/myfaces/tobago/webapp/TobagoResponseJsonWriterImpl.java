@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.webapp;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.util.FastStringWriter;
 import org.apache.myfaces.tobago.util.XmlUtils;
 
@@ -52,12 +52,12 @@ public class TobagoResponseJsonWriterImpl extends TobagoResponseWriterImpl {
 
   @Override
   public void write(String string) throws IOException {
-    writeInternal(javascriptMode ? javascriptWriter : getWriter(), AjaxUtils.encodeJavascriptString(string));
+    writeInternal(javascriptMode ? javascriptWriter : getWriter(), AjaxInternalUtils.encodeJavaScriptString(string));
   }
 
   @Override
   public void writeJavascript(String script) throws IOException {
-    writeInternal(javascriptWriter, AjaxUtils.encodeJavascriptString(script));
+    writeInternal(javascriptWriter, AjaxInternalUtils.encodeJavaScriptString(script));
   }
 
   public String getJavascript() {

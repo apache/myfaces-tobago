@@ -19,13 +19,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
+import org.apache.myfaces.tobago.internal.ajax.AjaxRenderer;
 import org.apache.myfaces.tobago.internal.layout.LayoutContext;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -179,7 +179,7 @@ public class PopupRenderer extends LayoutComponentRendererBase implements AjaxRe
   }
 
   public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
-    AjaxUtils.checkParamValidity(facesContext, component, UIPopup.class);
+    AjaxInternalUtils.checkParamValidity(facesContext, component, UIPopup.class);
     RenderUtil.encode(facesContext, component);
   }
 }

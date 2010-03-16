@@ -19,10 +19,10 @@ package org.apache.myfaces.tobago.lifecycle;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.UIViewRoot;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.util.ApplyRequestValuesCallback;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -54,7 +54,7 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
 
   public boolean execute(FacesContext facesContext) {
     Map<String, UIComponent> ajaxComponents
-        = AjaxUtils.parseAndStoreComponents(facesContext);
+        = AjaxInternalUtils.parseAndStoreComponents(facesContext);
     if (ajaxComponents != null) {
       // first decode the page
       AbstractUIPage page = ComponentUtils.findPage(facesContext);

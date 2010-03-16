@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.ajax.api;
+package org.apache.myfaces.tobago.internal.ajax;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -22,6 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.lifecycle.TobagoLifecycle;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.EncodeAjaxCallback;
 import org.apache.myfaces.tobago.util.RequestUtils;
@@ -46,10 +47,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.FACES_MESSAGES_KEY;
-import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
-
 public class AjaxResponseRenderer {
+  
   public static final int CODE_SUCCESS = 200;
   public static final int CODE_NOT_MODIFIED = 304;
   public static final int CODE_RELOAD_REQUIRED = 309;
@@ -71,16 +70,16 @@ public class AjaxResponseRenderer {
     RenderKit renderKit = renderFactory.getRenderKit(
         facesContext, viewRoot.getRenderKitId());
 
-    UIViewRoot incommingViewRoot = (UIViewRoot)
-        facesContext.getExternalContext().getRequestMap().get(VIEW_ROOT_KEY);
-    if (viewRoot != incommingViewRoot) {
+    UIViewRoot incomingViewRoot = (UIViewRoot)
+        facesContext.getExternalContext().getRequestMap().get(TobagoLifecycle.VIEW_ROOT_KEY);
+    if (viewRoot != incomingViewRoot) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("requesting full page reload because of navigation to "
-            + viewRoot.getViewId() + " from " + incommingViewRoot.getViewId());
+            + viewRoot.getViewId() + " from " + incomingViewRoot.getViewId());
       }
       Map sessionMap = facesContext.getExternalContext().getSessionMap();
       //noinspection unchecked
-      sessionMap.put(VIEW_ROOT_KEY, viewRoot);
+      sessionMap.put(TobagoLifecycle.VIEW_ROOT_KEY, viewRoot);
       List<Object[]> messageHolders = new ArrayList<Object[]>();
       Iterator clientIds = facesContext.getClientIdsWithMessages();
       while (clientIds.hasNext()) {
@@ -95,7 +94,7 @@ public class AjaxResponseRenderer {
       }
       if (!messageHolders.isEmpty()) {
         //noinspection unchecked
-        sessionMap.put(FACES_MESSAGES_KEY, messageHolders);
+        sessionMap.put(TobagoLifecycle.FACES_MESSAGES_KEY, messageHolders);
       }
       writeResponse(facesContext, renderKit, true);
     } else {
@@ -184,7 +183,7 @@ public class AjaxResponseRenderer {
       writer.write("\"");
     }
 
-    Map<String, UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(facesContext);
+    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(facesContext);
     int i = 0;
     for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
       writer.write(",\n");

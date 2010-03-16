@@ -17,19 +17,18 @@ package org.apache.myfaces.tobago.lifecycle;
  * limitations under the License.
  */
 
-import static javax.faces.event.PhaseId.UPDATE_MODEL_VALUES;
-
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.UIViewRoot;
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
+import org.apache.myfaces.tobago.util.UpdateModelValuesCallback;
 
 import javax.faces.component.ContextCallback;
-import org.apache.myfaces.tobago.util.UpdateModelValuesCallback;
-import org.apache.myfaces.tobago.compat.FacesUtils;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import java.util.Map;
+
+import static javax.faces.event.PhaseId.UPDATE_MODEL_VALUES;
 
 
 /**
@@ -45,7 +44,7 @@ class UpdateModelValuesExecutor implements PhaseExecutor {
   }
 
   public boolean execute(FacesContext facesContext) {
-    Map<String, UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(facesContext);
+    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(facesContext);
     if (ajaxComponents != null) {
       for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
         FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), entry.getKey(), contextCallback);

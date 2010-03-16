@@ -19,12 +19,13 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.ajax.api.AjaxResponseRenderer;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
+import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.util.ApplyRequestValuesCallback;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -202,7 +203,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
     if (context == null) {
       throw new NullPointerException("context");
     }
-    Map<String, UIComponent> ajaxComponents = AjaxUtils.parseAndStoreComponents(context);
+    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.parseAndStoreComponents(context);
     if (ajaxComponents != null) {
       // first decode the page
       AbstractUIPage page = ComponentUtils.findPage(context);
@@ -260,7 +261,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
       throw new NullPointerException("context");
     }
 
-    Map<String, UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(context);
+    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(context);
     if (ajaxComponents != null) {
       for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
         if (context instanceof TobagoFacesContext) {
@@ -282,7 +283,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
     if (context == null) {
       throw new NullPointerException("context");
     }
-    Map<String, UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(context);
+    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(context);
     if (ajaxComponents != null) {
       for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
         invokeOnComponent(context, entry.getKey(), UPDATE_MODEL_VALUES_CALLBACK);

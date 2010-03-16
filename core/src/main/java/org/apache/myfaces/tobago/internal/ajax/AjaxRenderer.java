@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.ajax.api;
+package org.apache.myfaces.tobago.internal.ajax;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,12 +17,13 @@ package org.apache.myfaces.tobago.ajax.api;
  * limitations under the License.
  */
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public interface AjaxComponent {
-
-  void encodeAjax(FacesContext context) throws IOException;
-
-  int getAjaxResponseCode();
+/**
+ * !! copy of sandbox org.apache.myfaces.custom.ajax.api.AjaxRenderer !!
+ */
+public interface AjaxRenderer {
+    void encodeAjax(FacesContext context, UIComponent component) throws IOException;
 }

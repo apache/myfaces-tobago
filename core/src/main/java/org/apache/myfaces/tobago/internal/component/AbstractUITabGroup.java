@@ -19,8 +19,6 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ComponentTypes;
@@ -31,6 +29,8 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource;
+import org.apache.myfaces.tobago.internal.ajax.AjaxComponent;
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
@@ -263,7 +263,7 @@ public abstract class AbstractUITabGroup extends UIPanelBase
 
   public void encodeAjax(FacesContext facesContext) throws IOException {
     setRenderedIndex(getSelectedIndex());
-    AjaxUtils.encodeAjaxComponent(facesContext, this);
+    AjaxInternalUtils.encodeAjaxComponent(facesContext, this);
   }
 
   public abstract Integer getRenderedIndex();

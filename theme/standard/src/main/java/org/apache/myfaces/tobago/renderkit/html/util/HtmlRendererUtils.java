@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.renderkit.html.util;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UICommand;
@@ -28,6 +27,7 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -473,7 +473,7 @@ public final class HtmlRendererUtils {
     if (objTip != null) {
       String tip = String.valueOf(objTip);
       if (writer instanceof TobagoResponseJsonWriterImpl) {
-        tip = AjaxUtils.encodeJavascriptString(tip);
+        tip = AjaxInternalUtils.encodeJavaScriptString(tip);
       }
       writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
     }
@@ -484,7 +484,7 @@ public final class HtmlRendererUtils {
     if (objTip != null) {
       String tip = String.valueOf(objTip);
       if (writer instanceof TobagoResponseJsonWriterImpl) {
-        tip = AjaxUtils.encodeJavascriptString(tip);
+        tip = AjaxInternalUtils.encodeJavaScriptString(tip);
       }
       writer.writeAttribute(HtmlAttributes.ALT, tip, true);
     } else {

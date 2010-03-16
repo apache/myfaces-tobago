@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.util;
  */
 
 
-import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
+import org.apache.myfaces.tobago.internal.ajax.AjaxComponent;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.FacesException;

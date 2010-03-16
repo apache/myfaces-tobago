@@ -17,12 +17,12 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIToolBar;
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
+import org.apache.myfaces.tobago.internal.ajax.AjaxRenderer;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -167,7 +167,7 @@ without shadow
   }
 
   public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
-    AjaxUtils.checkParamValidity(facesContext, component, UIPanel.class);
+    AjaxInternalUtils.checkParamValidity(facesContext, component, UIPanel.class);
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     encodeBox(facesContext, writer, (UIBox) component);

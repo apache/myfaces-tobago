@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.application;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.internal.application.ViewHandlerImpl;
 import org.apache.myfaces.tobago.util.DebugUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponse;

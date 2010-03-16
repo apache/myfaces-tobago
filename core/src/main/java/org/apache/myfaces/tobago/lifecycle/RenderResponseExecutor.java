@@ -17,9 +17,9 @@ package org.apache.myfaces.tobago.lifecycle;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.ajax.api.AjaxResponseRenderer;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
+import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
 
 import javax.faces.FacesException;
 import javax.faces.application.Application;
@@ -43,7 +43,7 @@ class RenderResponseExecutor implements PhaseExecutor {
   }
 
   public boolean execute(FacesContext facesContext) {
-    if (AjaxUtils.getAjaxComponents(facesContext) != null) {
+    if (AjaxInternalUtils.getAjaxComponents(facesContext) != null) {
       try {
         if (facesContext instanceof TobagoFacesContext) {
           ((TobagoFacesContext) facesContext).setAjax(true);

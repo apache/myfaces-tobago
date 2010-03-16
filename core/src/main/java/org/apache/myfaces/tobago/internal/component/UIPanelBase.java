@@ -17,14 +17,14 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
-import org.apache.myfaces.tobago.ajax.api.AjaxResponseRenderer;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.internal.ajax.AjaxComponent;
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
+import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.FacesException;
@@ -72,7 +72,7 @@ public abstract class UIPanelBase extends javax.faces.component.UIPanel
         }
       }
     }
-    AjaxUtils.encodeAjaxComponent(facesContext, this);
+    AjaxInternalUtils.encodeAjaxComponent(facesContext, this);
   }
 
   public int getAjaxResponseCode() {

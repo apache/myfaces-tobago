@@ -20,8 +20,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
@@ -33,6 +31,8 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
+import org.apache.myfaces.tobago.internal.ajax.AjaxRenderer;
 import org.apache.myfaces.tobago.internal.component.UIPanelBase;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -536,7 +536,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
 
   public void encodeAjax(FacesContext context, UIComponent component) throws IOException {
     UITabGroup tabGroup = (UITabGroup) component;
-    AjaxUtils.checkParamValidity(context, tabGroup, UITabGroup.class);
+    AjaxInternalUtils.checkParamValidity(context, tabGroup, UITabGroup.class);
     TabList tabList = getTabList(context, tabGroup);
     int index = ensureRenderedActiveIndex(context, tabGroup);
     Measure currentWidth = getCurrentWidth(tabList, index);

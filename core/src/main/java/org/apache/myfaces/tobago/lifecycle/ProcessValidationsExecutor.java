@@ -17,20 +17,19 @@ package org.apache.myfaces.tobago.lifecycle;
  * limitations under the License.
  */
 
-import static javax.faces.event.PhaseId.PROCESS_VALIDATIONS;
-
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.UIViewRoot;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
+import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
+import org.apache.myfaces.tobago.util.ProcessValidationsCallback;
 
 import javax.faces.component.ContextCallback;
-import org.apache.myfaces.tobago.util.ProcessValidationsCallback;
-import org.apache.myfaces.tobago.compat.FacesUtils;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import java.util.Map;
+
+import static javax.faces.event.PhaseId.PROCESS_VALIDATIONS;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
@@ -45,7 +44,7 @@ class ProcessValidationsExecutor implements PhaseExecutor {
   }
 
   public boolean execute(FacesContext facesContext) {
-    Map<String, UIComponent> ajaxComponents = AjaxUtils.getAjaxComponents(facesContext);
+    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(facesContext);
     if (ajaxComponents != null) {
       for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
         if (facesContext instanceof TobagoFacesContext) {

@@ -17,10 +17,10 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
+import org.apache.myfaces.tobago.internal.ajax.AjaxRenderer;
 
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 public abstract class AbstractAjaxRendererBaseWrapper extends AbstractLayoutableRendererBaseWrapper

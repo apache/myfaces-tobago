@@ -19,8 +19,7 @@ package org.apache.myfaces.tobago.example.reference;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
+import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.example.demo.Navigation;
 
 import javax.faces.context.FacesContext;

@@ -17,9 +17,9 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.SortActionSource2;
+import org.apache.myfaces.tobago.internal.ajax.AjaxComponent;
 
 /**
  * @deprecated Please use UISheet
