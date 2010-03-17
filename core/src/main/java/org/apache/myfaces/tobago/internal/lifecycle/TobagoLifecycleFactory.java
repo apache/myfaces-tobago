@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.lifecycle;
+package org.apache.myfaces.tobago.internal.lifecycle;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -20,8 +20,8 @@ package org.apache.myfaces.tobago.lifecycle;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.faces.lifecycle.LifecycleFactory;
 import javax.faces.lifecycle.Lifecycle;
+import javax.faces.lifecycle.LifecycleFactory;
 import java.util.Iterator;
 
 public class TobagoLifecycleFactory extends LifecycleFactory {

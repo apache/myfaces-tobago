@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.lifecycle;
+package org.apache.myfaces.tobago.internal.lifecycle;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -39,8 +39,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.FACES_MESSAGES_KEY;
-import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
+import static org.apache.myfaces.tobago.internal.lifecycle.TobagoLifecycle.FACES_MESSAGES_KEY;
+import static org.apache.myfaces.tobago.internal.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
 
 /**
  * Implements the life cycle as described in Spec. 1.0 PFD Chapter 2

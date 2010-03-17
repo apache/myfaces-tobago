@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.lifecycle;
+package org.apache.myfaces.tobago.internal.lifecycle;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -19,8 +19,9 @@ package org.apache.myfaces.tobago.lifecycle;
 
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.UIViewRoot;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
-import org.apache.myfaces.tobago.util.UpdateModelValuesCallback;
+import org.apache.myfaces.tobago.util.ProcessValidationsCallback;
 
 import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
@@ -28,36 +29,38 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import java.util.Map;
 
-import static javax.faces.event.PhaseId.UPDATE_MODEL_VALUES;
-
+import static javax.faces.event.PhaseId.PROCESS_VALIDATIONS;
 
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
- * Update model values phase (JSF Spec 2.2.4)
+ * Process validations phase (JSF Spec 2.2.3)
  */
-class UpdateModelValuesExecutor implements PhaseExecutor {
+class ProcessValidationsExecutor implements PhaseExecutor {
 
   private ContextCallback contextCallback;
 
-  public UpdateModelValuesExecutor() {
-    contextCallback = new UpdateModelValuesCallback();
+  public ProcessValidationsExecutor() {
+    this.contextCallback = new ProcessValidationsCallback();
   }
 
   public boolean execute(FacesContext facesContext) {
     Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(facesContext);
     if (ajaxComponents != null) {
       for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
+        if (facesContext instanceof TobagoFacesContext) {
+          ((TobagoFacesContext) facesContext).setAjaxComponentId(entry.getKey());
+        }
         FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), entry.getKey(), contextCallback);
       }
       UIViewRoot viewRoot = ((UIViewRoot) facesContext.getViewRoot());
-      viewRoot.broadcastEventsForPhase(facesContext, UPDATE_MODEL_VALUES);
+      viewRoot.broadcastEventsForPhase(facesContext, PROCESS_VALIDATIONS);
     } else {
-      facesContext.getViewRoot().processUpdates(facesContext);
+      facesContext.getViewRoot().processValidators(facesContext);
     }
     return false;
   }
 
   public PhaseId getPhase() {
-    return UPDATE_MODEL_VALUES;
+    return PROCESS_VALIDATIONS;
   }
 }

@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.lifecycle;
+package org.apache.myfaces.tobago.internal.lifecycle;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more

@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.lifecycle;
+package org.apache.myfaces.tobago.internal.lifecycle;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,16 +17,16 @@ package org.apache.myfaces.tobago.lifecycle;
  * limitations under the License.
  */
 
-import java.util.HashMap;
-import java.util.Map;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class encapsulates the logic used to call PhaseListeners.  It was

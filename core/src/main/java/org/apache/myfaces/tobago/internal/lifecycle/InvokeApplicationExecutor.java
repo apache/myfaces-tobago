@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.lifecycle;
+package org.apache.myfaces.tobago.internal.lifecycle;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -21,24 +21,17 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 
 /**
- * Implements the PhaseExecutor for a lifecycle
+ * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
+ * <p/>
+ * Invoke application phase (JSF Spec 2.2.5)
  */
-interface PhaseExecutor {
+class InvokeApplicationExecutor implements PhaseExecutor {
+  public boolean execute(FacesContext facesContext) {
+    facesContext.getViewRoot().processApplication(facesContext);
+    return false;
+  }
 
-  /**
-   * Executes a phase of the JavaServer(tm) Faces lifecycle, like UpdateModelValues.
-   * The <code>execute</code> method is called by the lifecylce implementation's private
-   * <code>executePhase</code>.
-   *
-   * @param facesContext The <code>FacesContext</code> for the current request we are processing
-   * @return <code>true</code> if execution should be stopped
-   */
-  boolean execute(FacesContext facesContext);
-
-  /**
-   * Returns the <code>PhaseId</code> for which the implemented executor is invoked
-   *
-   * @return
-   */
-  PhaseId getPhase();
+  public PhaseId getPhase() {
+    return PhaseId.INVOKE_APPLICATION;
+  }
 }
