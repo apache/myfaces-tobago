@@ -116,7 +116,7 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
     Style scrollDivStyle = new Style();
     scrollDivStyle.setWidth(Measure.valueOf(6 * 160)); // todo: depth * width of a select 
     scrollDivStyle.setHeight(style.getHeight() // todo: what, when there is no scrollbar? 
-        .subtract(15));// // todo: scrollbar height
+        .subtract(15)); // todo: scrollbar height
     scrollDivStyle.setPosition(Position.ABSOLUTE);
     writer.writeStyleAttribute(scrollDivStyle);
     

@@ -114,7 +114,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     if (tree instanceof UITree || tree instanceof UITreeMenu) {
       encodeBeginMenuAndNormal(facesContext, node, tree, tree instanceof UITreeMenu);
     } else { // if (tree instanceof UITreeListbox)
-      encodeBeginListbox(facesContext, node, (UITreeListbox)tree);
+      encodeBeginListbox(facesContext, node, (UITreeListbox) tree);
     }
   }
 
@@ -128,7 +128,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     if (level > 0) { // root will not rendered as an option
       writer.startElement(HtmlConstants.OPTION, null);
-      writer.writeAttribute(HtmlAttributes.VALUE, node.getValue().toString(), true);// XXX converter?
+      writer.writeAttribute(HtmlAttributes.VALUE, node.getValue().toString(), true); // XXX converter?
       writer.writeIdAttribute(id);
       writer.writeAttribute(HtmlAttributes.SELECTED, expanded);
       writer.writeText("(" + level + ") " + node.getLabel());
@@ -199,9 +199,9 @@ public class TreeNodeRenderer extends CommandRendererBase {
     boolean showJunctions = false;
     boolean showRootJunction = false;
     if (tree instanceof UITree) {
-      showIcons = ((UITree)tree).isShowIcons();
-      showJunctions = ((UITree)tree).isShowJunctions();
-      showRootJunction = ((UITree)tree).isShowRootJunction();
+      showIcons = ((UITree) tree).isShowIcons();
+      showJunctions = ((UITree) tree).isShowJunctions();
+      showRootJunction = ((UITree) tree).isShowRootJunction();
     }
     boolean showRoot = tree.isShowRoot();
 
