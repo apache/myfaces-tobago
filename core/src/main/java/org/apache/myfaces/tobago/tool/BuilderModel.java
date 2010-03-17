@@ -28,6 +28,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * @deprecated
+ */
+@Deprecated
 public class BuilderModel {
 
   private static final Log LOG = LogFactory.getLog(BuilderModel.class);
