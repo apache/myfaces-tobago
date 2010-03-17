@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.util;
+package org.apache.myfaces.tobago.internal.util;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -24,13 +24,13 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
-/*
- * Date: Oct 21, 2006
- * Time: 10:39:25 AM
- */
 public class ResponseUtils {
 
   private static final Log LOG = LogFactory.getLog(ResponseUtils.class);
+
+  private ResponseUtils() {
+    // utils class
+  }
 
   public static void ensureNoCacheHeader(FacesContext facesContext) {
     // TODO PortletRequest

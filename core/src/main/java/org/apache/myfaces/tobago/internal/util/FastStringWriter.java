@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.util;
+package org.apache.myfaces.tobago.internal.util;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-import java.io.Writer;
 import java.io.IOException;
+import java.io.Writer;
 
 public class FastStringWriter extends Writer {
 

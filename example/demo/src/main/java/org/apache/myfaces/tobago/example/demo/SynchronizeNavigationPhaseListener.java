@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -36,7 +36,7 @@ public class SynchronizeNavigationPhaseListener implements PhaseListener {
     UIViewRoot viewRoot = facesContext.getViewRoot();
     if (viewRoot.getChildCount() == 0) { // in case of direct links the ViewRoot is empty after "restore view".
       String viewId = viewRoot.getViewId();
-      Navigation navigation = (Navigation) VariableResolverUtil.resolveVariable(facesContext, "navigation");
+      Navigation navigation = (Navigation) VariableResolverUtils.resolveVariable(facesContext, "navigation");
       navigation.updateMarker(viewId);
     }
   }

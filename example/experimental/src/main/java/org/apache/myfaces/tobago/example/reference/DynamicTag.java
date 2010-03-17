@@ -17,11 +17,11 @@ package org.apache.myfaces.tobago.example.reference;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
-import javax.servlet.jsp.tagext.TagSupport;
-import javax.servlet.jsp.JspException;
 import javax.faces.context.FacesContext;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.TagSupport;
 
 public class DynamicTag extends TagSupport {
 
@@ -31,7 +31,7 @@ public class DynamicTag extends TagSupport {
   public int doStartTag() throws JspException {
     // fixme: session?
     DynamicController controller =
-        (DynamicController) VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), controllerName);
+        (DynamicController) VariableResolverUtils.resolveVariable(FacesContext.getCurrentInstance(), controllerName);
     //DynamicController controller = (DynamicController) pageContext.getSession().getAttribute(controllerName);
     if (controller != null) {
       tag = controller.createTag();

@@ -17,10 +17,10 @@ package org.apache.myfaces.tobago.example.nonfacesrequest;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.servlet.NonFacesRequestServlet;
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.servlet.NonFacesRequestServlet;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.context.FacesContext;
 
@@ -33,7 +33,7 @@ public class FishServlet extends NonFacesRequestServlet {
     String id = (String) facesContext.getExternalContext().getRequestParameterMap().get("id");
     LOG.info("id='" + id + "'");
 
-    FishPond fishPond = (FishPond) VariableResolverUtil.resolveVariable(facesContext, "fishPond");
+    FishPond fishPond = (FishPond) VariableResolverUtils.resolveVariable(facesContext, "fishPond");
 
     String outcome = fishPond.select(id);
 

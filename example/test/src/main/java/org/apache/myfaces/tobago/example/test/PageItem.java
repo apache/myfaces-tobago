@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.context.FacesContext;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -71,7 +71,7 @@ public class PageItem extends DefaultMutableTreeNode implements Comparable {
 
   public String navigate() {
     DirectoryBrowser browser =
-        (DirectoryBrowser) VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), "browser");
+        (DirectoryBrowser) VariableResolverUtils.resolveVariable(FacesContext.getCurrentInstance(), "browser");
     browser.setCurrent(this);
     return null; // here it works, but return null is usually not a good idea.
   }

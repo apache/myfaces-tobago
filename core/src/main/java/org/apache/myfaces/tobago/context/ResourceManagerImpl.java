@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.internal.context.RendererCacheKey;
 import org.apache.myfaces.tobago.internal.context.StringValue;
 import org.apache.myfaces.tobago.internal.context.ThemeConfigCacheKey;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.util.LocaleUtil;
+import org.apache.myfaces.tobago.util.LocaleUtils;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -302,7 +302,7 @@ public class ResourceManagerImpl implements ResourceManager {
     String contentType = clientkey.getContentType();
     Theme theme = clientkey.getTheme();
     UserAgent browser = clientkey.getUserAgent();
-    List<String> locales = LocaleUtil.getLocaleSuffixList(clientkey.getLocale());
+    List<String> locales = LocaleUtils.getLocaleSuffixList(clientkey.getLocale());
 
     String path;
 

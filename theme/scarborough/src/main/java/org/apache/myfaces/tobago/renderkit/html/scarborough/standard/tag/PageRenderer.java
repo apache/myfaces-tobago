@@ -32,6 +32,9 @@ import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.context.ResponseWriterDivider;
 import org.apache.myfaces.tobago.internal.layout.LayoutContext;
+import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
+import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
+import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -40,11 +43,8 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.AccessKeyMap;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.MimeTypeUtils;
-import org.apache.myfaces.tobago.util.ResponseUtils;
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
@@ -158,7 +158,7 @@ public class PageRenderer extends PageRendererBase {
       writer.writeAttribute("xmlns", "http://www.w3.org/1999/xhtml", false);
     }
     writer.startElement(HtmlConstants.HEAD, null);
-    final boolean debugMode = VariableResolverUtil.resolveClientProperties(facesContext).isDebugMode();
+    final boolean debugMode = VariableResolverUtils.resolveClientProperties(facesContext).isDebugMode();
 
     if (debugMode) {
       writer.writeJavascript("var TbgHeadStart = new Date();");
@@ -485,7 +485,7 @@ public class PageRenderer extends PageRendererBase {
     }
 
     String clientId = page.getClientId(facesContext);
-    final boolean debugMode = VariableResolverUtil.resolveClientProperties(facesContext).isDebugMode();
+    final boolean debugMode = VariableResolverUtils.resolveClientProperties(facesContext).isDebugMode();
 
     Application application = facesContext.getApplication();
     ViewHandler viewHandler = application.getViewHandler();
@@ -497,7 +497,7 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement(HtmlConstants.SPAN);
 
     // avoid submit page in ie if the form contains only one input and you press the enter key in the input
-    if (VariableResolverUtil.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
+    if (VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
       writer.startElement(HtmlConstants.INPUT, null);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
       writer.writeAttribute(HtmlAttributes.NAME, "tobago.dummy", false);

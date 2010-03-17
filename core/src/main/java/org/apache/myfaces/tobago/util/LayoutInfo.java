@@ -30,6 +30,9 @@ import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @deprecated
+ */
 @Deprecated
 public class LayoutInfo {
 

@@ -21,7 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.context.ClientPropertiesKey;
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
@@ -37,7 +37,7 @@ import java.util.Locale;
  * <p/>
  * The managed bean name which is Tobago using for the instance is {@link #MANAGED_BEAN_NAME}.
  * <p/>
- * Please use {@link VariableResolverUtil#resolveClientProperties(FacesContext)}
+ * Please use {@link org.apache.myfaces.tobago.util.VariableResolverUtils#resolveClientProperties(FacesContext)}
  * to access to the users client properties.
  */
 
@@ -127,7 +127,7 @@ public class ClientProperties implements Serializable {
 
   /**
    * @deprecated since 1.5. Please use 
-   * {@link VariableResolverUtil#resolveClientProperties(javax.faces.context.FacesContext)} 
+   * {@link org.apache.myfaces.tobago.util.VariableResolverUtils#resolveClientProperties(javax.faces.context.FacesContext)} 
    */
   @Deprecated
   public static ClientProperties getInstance(UIViewRoot viewRoot) {
@@ -136,16 +136,16 @@ public class ClientProperties implements Serializable {
 
   /**
    * @deprecated since 1.5. Please use 
-   * {@link VariableResolverUtil#resolveClientProperties(javax.faces.context.FacesContext)} 
+   * {@link org.apache.myfaces.tobago.util.VariableResolverUtils#resolveClientProperties(javax.faces.context.FacesContext)} 
    */
   @Deprecated
   public static ClientProperties getInstance(FacesContext facesContext) {
-    return (ClientProperties) VariableResolverUtil.resolveClientProperties(facesContext);
+    return (ClientProperties) VariableResolverUtils.resolveClientProperties(facesContext);
   }
 
   /**
    * @deprecated since 1.5. Please use 
-   * {@link org.apache.myfaces.tobago.util.LocaleUtil#getLocaleSuffixList(java.util.Locale)} 
+   * {@link org.apache.myfaces.tobago.util.LocaleUtils#getLocaleSuffixList(java.util.Locale)} 
    */
   @Deprecated
   public static List<String> getLocaleList(Locale locale, boolean propertyPathMode) {

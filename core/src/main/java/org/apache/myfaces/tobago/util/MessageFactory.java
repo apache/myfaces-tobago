@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 
 import javax.faces.application.FacesMessage;
@@ -30,30 +28,22 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-/*
- * User: weber
- * Date: Jun 14, 2005
- * Time: 5:40:04 PM
- */
 public class MessageFactory {
 
-  private static final Log LOG = LogFactory.getLog(MessageFactory.class);
+  public static Map<Locale, ResourceBundle> facesMessagesMap = new HashMap<Locale, ResourceBundle>();
 
-  private static Map<Locale, ResourceBundle> facesMessagesMap
-      = new HashMap<Locale, ResourceBundle>();
-
-  public static FacesMessage createFacesMessage(FacesContext facesContext,
-      String key, FacesMessage.Severity severity, Object[] args) {
+  public static FacesMessage createFacesMessage(
+      FacesContext facesContext, String key, FacesMessage.Severity severity, Object[] args) {
     return createFacesMessage(facesContext, "tobago", key, severity, args);
   }
 
-  public static FacesMessage createFacesMessage(FacesContext facesContext,
-      String key, FacesMessage.Severity severity) {
+  public static FacesMessage createFacesMessage(
+      FacesContext facesContext, String key, FacesMessage.Severity severity) {
     return createFacesMessage(facesContext, key, severity, new Object[0]);
   }
 
-  public static FacesMessage createFacesMessage(FacesContext facesContext,
-      String bundle, String key, FacesMessage.Severity severity, Object[] args) {
+  public static FacesMessage createFacesMessage(
+      FacesContext facesContext, String bundle, String key, FacesMessage.Severity severity, Object[] args) {
     String summary = getMessageText(facesContext, bundle, key);
     String detail = getMessageText(facesContext, bundle, key + "_detail");
     if (args != null && args.length > 0) {
@@ -71,7 +61,7 @@ public class MessageFactory {
     return new FacesMessage(severity, summary != null ? summary : key, detail);
   }
 
-  private static Locale getLocale(FacesContext facesContext) {
+  public static Locale getLocale(FacesContext facesContext) {
     UIViewRoot root = facesContext.getViewRoot();
     Locale locale;
     if (root != null) {
@@ -82,12 +72,12 @@ public class MessageFactory {
     return locale;
   }
 
-  public static FacesMessage createFacesMessage(FacesContext facesContext,
-      String bundle, String key, FacesMessage.Severity severity) {
+  public static FacesMessage createFacesMessage(
+      FacesContext facesContext, String bundle, String key, FacesMessage.Severity severity) {
     return createFacesMessage(facesContext, bundle, key, severity, new Object[0]);
   }
 
-  private static String getMessageText(
+  public static String getMessageText(
       FacesContext facesContext, String bundle, String key) {
     String message = ResourceManagerUtil.getProperty(facesContext, bundle, key);
     if (message == null || message.length() < 1) {
@@ -101,7 +91,7 @@ public class MessageFactory {
     return message;
   }
 
-  private static ResourceBundle getFacesMessages(Locale locale) {
+  public static ResourceBundle getFacesMessages(Locale locale) {
     ResourceBundle facesMessages = facesMessagesMap.get(locale);
     if (facesMessages == null) {
       facesMessages

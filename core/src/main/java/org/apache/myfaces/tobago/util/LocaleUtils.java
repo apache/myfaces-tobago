@@ -24,9 +24,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-public class LocaleUtil {
+public class LocaleUtils {
 
-  private LocaleUtil() {
+  private LocaleUtils() {
   }
 
   public static Locale createLocale(String value) {

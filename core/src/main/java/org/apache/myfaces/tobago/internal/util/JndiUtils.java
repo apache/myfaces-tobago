@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.util;
+package org.apache.myfaces.tobago.internal.util;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -20,10 +20,10 @@ package org.apache.myfaces.tobago.util;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.naming.Context;
-import javax.naming.NamingException;
 import javax.naming.Binding;
+import javax.naming.Context;
 import javax.naming.NamingEnumeration;
+import javax.naming.NamingException;
 
 public class JndiUtils {
 

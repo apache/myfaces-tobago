@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.util;
+package org.apache.myfaces.tobago.internal.util;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -21,9 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class StringUtils {
+public final class StringUtils {
 
   private StringUtils() {
+    // utils class
   }
 
   public static List<Integer> parseIntegerList(String integerList)
@@ -48,5 +49,35 @@ public class StringUtils {
       buffer.append(",");
     }
     return buffer.toString();
+  }
+
+  public static int[] getIndices(String list) {
+    List<String> indexList = new ArrayList<String>();
+    StringTokenizer st = new StringTokenizer(list, ",");
+    while (st.hasMoreTokens()) {
+      String token = st.nextToken().trim();
+      int idx = token.indexOf('-');
+      if (idx == -1) {
+        indexList.add(token);
+      } else {
+        int start = Integer.parseInt(token.substring(0, idx).trim());
+        int end = Integer.parseInt(token.substring(idx + 1).trim());
+        if (start < end) {
+          for (int i = start; i < end + 1; i++) {
+            indexList.add(Integer.toString(i));
+          }
+        } else {
+          for (int i = start; i > end - 1; i--) {
+            indexList.add(Integer.toString(i));
+          }
+        }
+      }
+    }
+
+    int[] indices = new int[indexList.size()];
+    for (int i = 0; i < indices.length; i++) {
+      indices[i] = Integer.parseInt(indexList.get(i));
+    }
+    return indices;
   }
 }

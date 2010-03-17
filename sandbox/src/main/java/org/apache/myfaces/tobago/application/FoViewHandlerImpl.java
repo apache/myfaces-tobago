@@ -21,7 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.internal.application.ViewHandlerImpl;
 import org.apache.myfaces.tobago.util.DebugUtils;
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponse;
 
 import javax.faces.FacesException;
@@ -51,7 +51,7 @@ public class FoViewHandlerImpl extends ViewHandlerImpl {
       throws IOException, FacesException {
     String requestUri = viewRoot.getViewId();
 
-    String contentType = VariableResolverUtil.resolveClientProperties(facesContext).getContentType();
+    String contentType = VariableResolverUtils.resolveClientProperties(facesContext).getContentType();
     if (LOG.isDebugEnabled()) {
       LOG.debug("contentType = '" + contentType + "'");
     }

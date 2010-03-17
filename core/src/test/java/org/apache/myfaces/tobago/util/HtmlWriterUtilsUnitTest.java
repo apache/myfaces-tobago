@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.util;
  */
 
 import junit.framework.TestCase;
+import org.apache.myfaces.tobago.internal.util.HtmlWriterUtils;
 
 import java.io.CharArrayWriter;
 import java.io.IOException;

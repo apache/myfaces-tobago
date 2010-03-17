@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -66,7 +66,7 @@ public class BoxRenderer extends org.apache.myfaces.tobago.renderkit.html.scarbo
       }
       writer.endElement(HtmlConstants.B);
       writer.endElement(HtmlConstants.LEGEND);
-      if (!VariableResolverUtil.resolveClientProperties(facesContext).getUserAgent().equals(UserAgent.OPERA_7_11)) {
+      if (!VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().equals(UserAgent.OPERA_7_11)) {
         writer.startElement(HtmlConstants.BR, null);
         writer.endElement(HtmlConstants.BR);
       }

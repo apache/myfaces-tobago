@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.webapp;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
-import org.apache.myfaces.tobago.util.FastStringWriter;
+import org.apache.myfaces.tobago.internal.util.FastStringWriter;
 import org.apache.myfaces.tobago.util.XmlUtils;
 
 import javax.faces.component.UIComponent;

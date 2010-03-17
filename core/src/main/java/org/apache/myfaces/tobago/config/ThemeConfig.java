@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.config;
  */
 
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
-import org.apache.myfaces.tobago.util.Deprecation;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

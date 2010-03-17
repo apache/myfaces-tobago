@@ -24,9 +24,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.faces.el.VariableResolver;
 
-public class VariableResolverUtil {
+public final class VariableResolverUtils {
 
-  private VariableResolverUtil() {
+  private VariableResolverUtils() {
+    // utils class
   }
 
   /**

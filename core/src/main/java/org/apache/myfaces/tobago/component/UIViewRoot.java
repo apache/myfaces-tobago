@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.ProcessValidationsCallback;
 import org.apache.myfaces.tobago.util.TobagoCallback;
 import org.apache.myfaces.tobago.util.UpdateModelValuesCallback;
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
@@ -65,7 +65,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
   @Override
   public void setLocale(Locale locale) {
     super.setLocale(locale);
-    ClientProperties clientProperties = VariableResolverUtil.resolveClientProperties(getFacesContext());
+    ClientProperties clientProperties = VariableResolverUtils.resolveClientProperties(getFacesContext());
     clientProperties.setLocale(locale);
   }
 

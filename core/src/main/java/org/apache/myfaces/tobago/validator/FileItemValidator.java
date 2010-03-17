@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.validator;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.myfaces.tobago.internal.component.AbstractUIFileInput;
-import org.apache.myfaces.tobago.util.ContentType;
+import org.apache.myfaces.tobago.internal.util.ContentType;
 import org.apache.myfaces.tobago.util.MessageFactory;
 
 import javax.faces.application.FacesMessage;

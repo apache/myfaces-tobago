@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.util;
  */
 
 import junit.framework.TestCase;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 
 public class RangeParserUnitTest extends TestCase {
 
@@ -25,25 +26,25 @@ public class RangeParserUnitTest extends TestCase {
 
     int[] ints =  {0,5,10};
     String s = "0,5,10";
-    checkEquals(ints, RangeParser.getIndices(s));
+    checkEquals(ints, StringUtils.getIndices(s));
     s = "0, 5, 10";
-    checkEquals(ints, RangeParser.getIndices(s));
+    checkEquals(ints, StringUtils.getIndices(s));
     s = " 0 , 5 , 10 ";
-    checkEquals(ints, RangeParser.getIndices(s));
+    checkEquals(ints, StringUtils.getIndices(s));
 
     ints = new int[] {3,4,5,6,7,15,16,17};
     s = "3-7,15-17";
-    checkEquals(ints, RangeParser.getIndices(s));
+    checkEquals(ints, StringUtils.getIndices(s));
     s = "3-5,6,7,15,16-17";
-    checkEquals(ints, RangeParser.getIndices(s));
+    checkEquals(ints, StringUtils.getIndices(s));
     s = "3-5, 6, 7, 15, 16 - 17 ";
-    checkEquals(ints, RangeParser.getIndices(s));
+    checkEquals(ints, StringUtils.getIndices(s));
 
     ints = new int[] {3,4,5,6,7,15,14,13};
     s = "3-7,15-13";
-    checkEquals(ints, RangeParser.getIndices(s));
+    checkEquals(ints, StringUtils.getIndices(s));
     s = "3 - 7, 15 - 13";
-    checkEquals(ints, RangeParser.getIndices(s));
+    checkEquals(ints, StringUtils.getIndices(s));
 
 
   }

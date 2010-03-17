@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -78,7 +78,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, true);
     }
     
-    if (VariableResolverUtil.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
+    if (VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
       writer.writeAttribute("onfocusin", "Tobago.fixSelectionOnFocusIn()", false);
       writer.writeAttribute("onfocus", "Tobago.fixSelectionOnFocus()", false);
     }

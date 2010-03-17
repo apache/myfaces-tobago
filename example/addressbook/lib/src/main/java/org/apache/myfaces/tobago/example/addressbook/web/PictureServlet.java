@@ -23,7 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.example.addressbook.Address;
 import org.apache.myfaces.tobago.example.addressbook.Picture;
 import org.apache.myfaces.tobago.servlet.NonFacesRequestServlet;
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +35,7 @@ public class PictureServlet extends NonFacesRequestServlet {
   private static final Log LOG = LogFactory.getLog(PictureServlet.class);
 
   public String invokeApplication(FacesContext facesContext) {
-    Controller controller = (Controller) VariableResolverUtil.resolveVariable(facesContext, "controller");
+    Controller controller = (Controller) VariableResolverUtils.resolveVariable(facesContext, "controller");
     Address address = controller.getCurrentAddress();
     if (address.hasPicture()) {
       Picture picture = address.getPicture();

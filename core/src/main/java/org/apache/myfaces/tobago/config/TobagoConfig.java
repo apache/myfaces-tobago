@@ -22,7 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.context.RenderersConfig;
 import org.apache.myfaces.tobago.context.Theme;
-import org.apache.myfaces.tobago.util.JndiUtils;
+import org.apache.myfaces.tobago.internal.util.JndiUtils;
 
 import javax.faces.context.FacesContext;
 import javax.naming.Context;

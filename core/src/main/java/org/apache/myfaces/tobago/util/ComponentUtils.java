@@ -17,11 +17,6 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-/*
- * Created 01.07.2003 10:07:23.
- * $Id$
- */
-
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -201,8 +196,8 @@ public class ComponentUtils {
   }
 
   /**
-   * Find all subforms of a component, and collects it.
-   * It does not find subforms of subforms.
+   * Find all sub forms of a component, and collects it.
+   * It does not find sub forms of sub forms.
    */
   public static List<AbstractUIForm> findSubForms(UIComponent component) {
     List<AbstractUIForm> collect = new ArrayList<AbstractUIForm>();
@@ -256,20 +251,14 @@ public class ComponentUtils {
 
   public static boolean isInActiveForm(UIComponent component) {
     while (component != null) {
-      //log.debug("compoent= " + component.getClientId(FacesContext.getCurrentInstance())
-      // + " " + component.getRendererType());
       if (component instanceof AbstractUIForm) {
         AbstractUIForm form = (AbstractUIForm) component;
         if (form.isSubmitted()) {
-          //log.debug("in active form = " + form.getClientId(FacesContext.getCurrentInstance()));
           return true;
-        } /*else {
-          log.debug("form found but not active = " + form.getClientId(FacesContext.getCurrentInstance()));
-        } */
+        }
       }
       component = component.getParent();
     }
-    //log.debug("not in an active form");
     return false;
   }
 
@@ -401,16 +390,6 @@ public class ComponentUtils {
     }
   }
 
-  /**
-   * @param component
-   * @param name
-   * @deprecated please use the  method {@link #getCharacterAttribute(javax.faces.component.UIComponent, String)}
-   */
-  @Deprecated
-  public static Character getCharakterAttribute(UIComponent component, String name) {
-    return getCharacterAttribute(component, name);
-  }
-
   public static Character getCharacterAttribute(UIComponent component, String name) {
     Object character = component.getAttributes().get(name);
     if (character == null) {
@@ -437,38 +416,6 @@ public class ComponentUtils {
     return false;
   }
 
-  // TODO This should not be neseccary, but UIComponentBase.getRenderer() is protected
-/*
-  public static LayoutComponentRendererBase getRenderer(FacesContext facesContext, UIComponent component) {
-    return getRenderer(facesContext, component.getFamily(), component.getRendererType());
-
-  }
-
-  public static LayoutComponentRendererBase getRenderer(FacesContext facesContext, String family, String rendererType) {
-    if (rendererType == null) {
-      return null;
-    }
-
-    Map requestMap = facesContext.getExternalContext().getRequestMap();
-    StringBuilder key = new StringBuilder(RENDER_KEY_PREFIX);
-    key.append(rendererType);
-    RendererBase renderer = (RendererBase) requestMap.get(key.toString());
-
-    if (renderer == null) {
-      Renderer myRenderer = getRendererInternal(facesContext, family, rendererType);
-      if (myRenderer instanceof RendererBase) {
-        requestMap.put(key.toString(), myRenderer);
-        renderer = (RendererBase) myRenderer;
-      } else {
-        return null;
-      }
-    }
-    if (renderer instanceof LayoutComponentRendererBase) {
-      return (LayoutComponentRendererBase) renderer;
-    }
-    return null;
-  }
-*/
   public static RendererBase getRenderer(FacesContext facesContext, UIComponent component) {
     return getRenderer(facesContext, component.getFamily(), component.getRendererType());
   }
@@ -478,7 +425,7 @@ public class ComponentUtils {
       return null;
     }
 
-    Map requestMap = facesContext.getExternalContext().getRequestMap();
+    Map<String, Object> requestMap = (Map<String, Object>)facesContext.getExternalContext().getRequestMap();
     StringBuilder key = new StringBuilder(RENDER_KEY_PREFIX);
     key.append(rendererType);
     RendererBase renderer = (RendererBase) requestMap.get(key.toString());
@@ -554,16 +501,12 @@ public class ComponentUtils {
   }
 
   public static UIOutput getFirstNonGraphicChild(UIComponent component) {
-    UIOutput output = null;
-    for (Object o : component.getChildren()) {
-      UIComponent uiComponent = (UIComponent) o;
-      if ((uiComponent instanceof UIOutput)
-          && !(uiComponent instanceof UIGraphic)) {
-        output = (UIOutput) uiComponent;
-        break;
+    for (UIComponent child : (List<UIComponent>)component.getChildren()) {
+      if (child instanceof UIOutput) {
+        return (UIOutput) child;
       }
     }
-    return output;
+    return null;
   }
 
   public static void setIntegerSizeProperty(UIComponent component,
@@ -669,21 +612,6 @@ public class ComponentUtils {
     return label;
   }
 
-  /*public static void debug(UIComponent component) {
-      LOG.error("###############################");
-      LOG.error("ID " + component.getId());
-      LOG.error("ClassName " + component.getClass().getName());
-      if (component instanceof EditableValueHolder) {
-        EditableValueHolder editableValueHolder = (EditableValueHolder) component;
-        LOG.error("Valid " + editableValueHolder.isValid());
-        LOG.error("SubmittedValue " + editableValueHolder.getSubmittedValue());
-      }
-    for (Iterator it = component.getFacetsAndChildren(); it.hasNext(); ) {
-      debug((UIComponent)it.next());
-    }
-  } */
-
-
   public static void setValidator(EditableValueHolder editableValueHolder, String validator) {
     if (validator != null && editableValueHolder.getValidator() == null) {
       if (UIComponentTag.isValueReference(validator)) {
@@ -691,18 +619,6 @@ public class ComponentUtils {
             FacesContext.getCurrentInstance().getApplication().createMethodBinding(validator, VALIDATOR_ARGS);
         editableValueHolder.setValidator(methodBinding);
       }
-    }
-  }
-
-  /**
-   * @param component
-   * @param converterId
-   * @deprecated please use the typesave method {@link #setConverter(javax.faces.component.ValueHolder, String)}
-   */
-  @Deprecated
-  public static void setConverter(UIComponent component, String converterId) {
-    if (component instanceof ValueHolder) {
-      setConverter((ValueHolder) component, converterId);
     }
   }
 
@@ -778,7 +694,9 @@ public class ComponentUtils {
     }
   }
 
-
+  /**
+   * @deprecated since 1.5
+   */
   @Deprecated
   public static String[] getMarkupBinding(FacesContext facesContext, SupportsMarkup component) {
     ValueBinding vb = ((UIComponent) component).getValueBinding(Attributes.MARKUP);

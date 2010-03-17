@@ -17,10 +17,10 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
@@ -41,7 +41,7 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
 
     if (outcome != null) {
       PageDeclarationLanguageBean bean
-          = (PageDeclarationLanguageBean) VariableResolverUtil.resolveVariable(facesContext, "pageDeclarationLanguage");
+          = (PageDeclarationLanguageBean) VariableResolverUtils.resolveVariable(facesContext, "pageDeclarationLanguage");
 
       for (PageDeclarationLanguage renderTechnologie : PageDeclarationLanguage.values()) {
         if (outcome.endsWith(renderTechnologie.getExtension())) {

@@ -24,9 +24,9 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.Deprecation;
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -139,7 +139,7 @@ public class StyleClasses implements Serializable {
     Markup m = supportsMarkup.getMarkup();
     if (m != null) {
       for (String markup : m) {
-        Theme theme = VariableResolverUtil.resolveClientProperties(FacesContext.getCurrentInstance()).getTheme();
+        Theme theme = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance()).getTheme();
         if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
           addMarkupClass(rendererName, sub, markup);
         } else if ("none".equals(markup)) {

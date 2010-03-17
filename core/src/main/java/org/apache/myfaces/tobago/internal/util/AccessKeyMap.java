@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.util;
+package org.apache.myfaces.tobago.internal.util;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.util;
 
 import javax.faces.context.FacesContext;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Locale;
+import java.util.Map;
 
 public class AccessKeyMap {
 

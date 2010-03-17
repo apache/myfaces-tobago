@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.servlet;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.util.MimeTypeUtils;
+import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;

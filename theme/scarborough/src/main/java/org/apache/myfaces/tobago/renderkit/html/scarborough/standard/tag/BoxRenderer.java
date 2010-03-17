@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -77,7 +77,7 @@ public class BoxRenderer extends BoxRendererBase {
       RenderUtil.encode(facesContext, toolbar);
       writer.endElement(HtmlConstants.DIV);
       writer.endElement(HtmlConstants.DIV);
-      if (VariableResolverUtil.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
+      if (VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
         innerStyle.setTop(Measure.valueOf(-10));
       }
     }

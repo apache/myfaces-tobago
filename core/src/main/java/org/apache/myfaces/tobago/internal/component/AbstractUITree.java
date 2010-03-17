@@ -120,7 +120,7 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
 /*
     if (isRequired() && getState().getSelection().size() == 0) {
       setValid(false);
-      FacesMessage facesMessage = MessageFactory.createFacesMessage(context,
+      FacesMessage facesMessage = MessageUtils.createFacesMessage(context,
           UISelectOne.MESSAGE_VALUE_REQUIRED, FacesMessage.SEVERITY_ERROR);
       context.addMessage(getClientId(context), facesMessage);
     }
@@ -132,7 +132,7 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
 
       for (DefaultMutableTreeNode node : selection) {
         if (!node.isLeaf()) {
-          FacesMessage facesMessage = MessageFactory.createFacesMessage(
+          FacesMessage facesMessage = MessageUtils.createFacesMessage(
               context, MESSAGE_NOT_LEAF, FacesMessage.SEVERITY_ERROR);
           context.addMessage(getClientId(context), facesMessage);
           break; // don't continue iteration, no dublicate messages needed

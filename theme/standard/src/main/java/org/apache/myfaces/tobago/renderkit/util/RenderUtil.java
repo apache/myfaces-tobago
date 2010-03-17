@@ -22,10 +22,10 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.RangeParser;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -244,7 +244,7 @@ public class RenderUtil {
       return selectItems;
     }
 
-    int[] indices = RangeParser.getIndices(renderRange);
+    int[] indices = StringUtils.getIndices(renderRange);
     List<SelectItem> items = new ArrayList<SelectItem>(indices.length);
 
     if (selectItems.size() != 0) {

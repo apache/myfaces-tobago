@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.example.addressbook.Address;
 import org.apache.myfaces.tobago.example.addressbook.AddressDao;
 import org.apache.myfaces.tobago.example.addressbook.Picture;
 import org.apache.myfaces.tobago.model.SheetState;
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -111,7 +111,7 @@ public class Controller {
       themeItems.add(new SelectItem(theme, theme.getDisplayName()));
     }
 
-    ClientProperties client = VariableResolverUtil.resolveClientProperties(facesContext);
+    ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
     theme = client.getTheme();
     currentAddressList = addressDao.findAddresses(searchCriterion);
   }
@@ -205,7 +205,7 @@ public class Controller {
 
   public String themeChanged() {
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    ClientProperties client = VariableResolverUtil.resolveClientProperties(facesContext);
+    ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
     client.setTheme(theme);
     return null;
   }

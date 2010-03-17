@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.convert;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.util.LocaleUtil;
+import org.apache.myfaces.tobago.util.LocaleUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -31,7 +31,7 @@ public class LocaleConverter implements Converter {
 
   public Object getAsObject(
       FacesContext facesContext, UIComponent component, String value) {
-    Locale locale = LocaleUtil.createLocale(value);
+    Locale locale = LocaleUtils.createLocale(value);
     if (locale == null) {
       throw new ConverterException("Can't parse " + value + " to a locale.");
     }

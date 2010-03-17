@@ -17,10 +17,10 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.servlet.NonFacesRequestServlet;
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.servlet.NonFacesRequestServlet;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.context.FacesContext;
 
@@ -33,7 +33,7 @@ public class SolarServlet extends NonFacesRequestServlet {
     String id = (String) facesContext.getExternalContext().getRequestParameterMap().get("id");
     LOG.info("id='" + id + "'");
 
-    TestBean testBean = (TestBean) VariableResolverUtil.resolveVariable(facesContext, "test");
+    TestBean testBean = (TestBean) VariableResolverUtils.resolveVariable(facesContext, "test");
 
     return testBean.select(id);
     

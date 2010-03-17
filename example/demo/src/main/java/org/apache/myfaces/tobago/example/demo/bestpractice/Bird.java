@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.example.demo.bestpractice;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.context.FacesContext;
 
@@ -42,7 +42,7 @@ public class Bird {
   public String select() {
     LOG.info("Select Bird: name=" + name + " size=" + size);
     BirdController controller = (BirdController)
-        VariableResolverUtil.resolveVariable(FacesContext.getCurrentInstance(), "birdController");
+        VariableResolverUtils.resolveVariable(FacesContext.getCurrentInstance(), "birdController");
     controller.setStatus("Selected bird is " + name);
     return null;
   }

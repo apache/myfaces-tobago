@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.internal.context;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.context.UserAgent;
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
@@ -43,7 +43,7 @@ public final class ClientPropertiesKey implements Serializable {
     Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
     ClientPropertiesKey key = (ClientPropertiesKey) requestMap.get(KEY_IN_REQUEST);
     if (key == null) {
-      ClientProperties clientProperties = VariableResolverUtil.resolveClientProperties(facesContext);
+      ClientProperties clientProperties = VariableResolverUtils.resolveClientProperties(facesContext);
       key = new ClientPropertiesKey(clientProperties);
       requestMap.put(KEY_IN_REQUEST, key);
     }

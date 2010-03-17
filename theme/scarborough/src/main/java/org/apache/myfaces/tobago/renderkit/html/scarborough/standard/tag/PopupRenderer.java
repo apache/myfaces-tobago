@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.VariableResolverUtil;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -110,7 +110,7 @@ public class PopupRenderer extends LayoutComponentRendererBase implements AjaxRe
       writer.writeStyleAttribute("z-index: " + (zIndex + 1) + ";");
       writer.writeClassAttribute();
       writer.writeAttribute(HtmlAttributes.ONCLICK, "Tobago.popupBlink('" + clientId + "')", null);
-      if (VariableResolverUtil.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
+      if (VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
         String bgImage = ResourceManagerUtil.getImageWithPath(facesContext, "image/popupBg.png");
         writer.writeAttribute(HtmlAttributes.STYLE, "background: none; "
             + "filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
@@ -118,7 +118,7 @@ public class PopupRenderer extends LayoutComponentRendererBase implements AjaxRe
       }
       writer.endElement(HtmlConstants.DIV);
     }
-    if (VariableResolverUtil.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
+    if (VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
       writer.startElement(HtmlConstants.IFRAME, popup);
       writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + HtmlConstants.IFRAME);
       writer.writeClassAttribute("tobago-popup-iframe tobago-popup-none");
