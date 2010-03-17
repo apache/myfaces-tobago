@@ -28,9 +28,13 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class MessageFactory {
+public final class MessageFactory {
 
-  public static Map<Locale, ResourceBundle> facesMessagesMap = new HashMap<Locale, ResourceBundle>();
+  public MessageFactory() {
+    // utils class
+  }
+
+  private static final Map<Locale, ResourceBundle> FACES_MESSAGES_MAP = new HashMap<Locale, ResourceBundle>();
 
   public static FacesMessage createFacesMessage(
       FacesContext facesContext, String key, FacesMessage.Severity severity, Object[] args) {
@@ -92,11 +96,11 @@ public class MessageFactory {
   }
 
   public static ResourceBundle getFacesMessages(Locale locale) {
-    ResourceBundle facesMessages = facesMessagesMap.get(locale);
+    ResourceBundle facesMessages = FACES_MESSAGES_MAP.get(locale);
     if (facesMessages == null) {
       facesMessages
           = ResourceBundle.getBundle(FacesMessage.FACES_MESSAGES, locale);
-      facesMessagesMap.put(locale, facesMessages);
+      FACES_MESSAGES_MAP.put(locale, facesMessages);
     }
     return facesMessages;
   }

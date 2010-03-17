@@ -127,7 +127,8 @@ public class ClientProperties implements Serializable {
 
   /**
    * @deprecated since 1.5. Please use 
-   * {@link org.apache.myfaces.tobago.util.VariableResolverUtils#resolveClientProperties(javax.faces.context.FacesContext)} 
+   * {@link 
+   * org.apache.myfaces.tobago.util.VariableResolverUtils#resolveClientProperties(javax.faces.context.FacesContext)} 
    */
   @Deprecated
   public static ClientProperties getInstance(UIViewRoot viewRoot) {
@@ -136,7 +137,8 @@ public class ClientProperties implements Serializable {
 
   /**
    * @deprecated since 1.5. Please use 
-   * {@link org.apache.myfaces.tobago.util.VariableResolverUtils#resolveClientProperties(javax.faces.context.FacesContext)} 
+   * {@link 
+   * org.apache.myfaces.tobago.util.VariableResolverUtils#resolveClientProperties(javax.faces.context.FacesContext)} 
    */
   @Deprecated
   public static ClientProperties getInstance(FacesContext facesContext) {

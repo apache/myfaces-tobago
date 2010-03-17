@@ -425,7 +425,7 @@ public class ComponentUtils {
       return null;
     }
 
-    Map<String, Object> requestMap = (Map<String, Object>)facesContext.getExternalContext().getRequestMap();
+    Map<String, Object> requestMap = (Map<String, Object>) facesContext.getExternalContext().getRequestMap();
     StringBuilder key = new StringBuilder(RENDER_KEY_PREFIX);
     key.append(rendererType);
     RendererBase renderer = (RendererBase) requestMap.get(key.toString());
@@ -501,7 +501,7 @@ public class ComponentUtils {
   }
 
   public static UIOutput getFirstNonGraphicChild(UIComponent component) {
-    for (UIComponent child : (List<UIComponent>)component.getChildren()) {
+    for (UIComponent child : (List<UIComponent>) component.getChildren()) {
       if (child instanceof UIOutput) {
         return (UIOutput) child;
       }
