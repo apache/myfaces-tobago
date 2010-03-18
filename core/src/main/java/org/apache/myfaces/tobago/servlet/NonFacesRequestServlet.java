@@ -41,8 +41,9 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
 
   private static final Log LOG = LogFactory.getLog(NonFacesRequestServlet.class);
 
-  protected void service(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException,
+  @Override
+  protected void service(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException,
       IOException {
 
     LifecycleFactory lFactory = (LifecycleFactory)
@@ -83,7 +84,7 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
   public abstract String invokeApplication(FacesContext facesContext);
 
   /**
-   * will be called to initilize the first ViewRoot,
+   * will be called to initialize the first ViewRoot,
    * may be overwritten by extended classes
    */
   public String getFromViewId() {
