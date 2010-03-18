@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.servlet;
+package org.apache.myfaces.tobago.internal.webapp;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -20,8 +20,8 @@ package org.apache.myfaces.tobago.servlet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 
 public class DebugContentTypeResponse extends HttpServletResponseWrapper {
   private static final Log LOG = LogFactory.getLog(DebugContentTypeResponse.class);

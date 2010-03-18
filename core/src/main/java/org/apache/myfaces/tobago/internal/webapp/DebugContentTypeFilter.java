@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.servlet;
+package org.apache.myfaces.tobago.internal.webapp;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -20,12 +20,7 @@ package org.apache.myfaces.tobago.servlet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.FilterChain;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
