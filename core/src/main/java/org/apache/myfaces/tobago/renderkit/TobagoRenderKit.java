@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.webapp.TobagoResponseJsonWriterImpl;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.internal.webapp.TobagoResponseJsonWriterImpl;
+import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterImpl;
 
 import javax.faces.FactoryFinder;
 import javax.faces.context.FacesContext;

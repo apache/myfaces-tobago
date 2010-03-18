@@ -17,5 +17,9 @@ package org.apache.myfaces.tobago.internal;
  */
 
 /**
- * Package of internal classes. Classes of this package may be changed without any deprecation warnings, etc.
+ * Package of internal classes.
+ * <br/>
+ * Classes of this package will normally not used by applications directly.
+ * <br/>
+ * Classes of this package may be changed without any deprecation warnings.
  */

@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.webapp;
  */
 
 import junit.framework.TestCase;
+import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterImpl;
 
 import java.io.IOException;
 import java.io.StringWriter;

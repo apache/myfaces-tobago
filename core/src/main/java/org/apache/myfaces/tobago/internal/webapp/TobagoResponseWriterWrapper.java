@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.webapp;
+package org.apache.myfaces.tobago.internal.webapp;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.webapp;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;

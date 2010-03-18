@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.webapp;
+package org.apache.myfaces.tobago.internal.webapp;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more

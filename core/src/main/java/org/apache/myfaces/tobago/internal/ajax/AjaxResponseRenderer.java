@@ -24,10 +24,10 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.lifecycle.TobagoLifecycle;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
+import org.apache.myfaces.tobago.internal.webapp.TobagoResponseJsonWriterImpl;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.EncodeAjaxCallback;
 import org.apache.myfaces.tobago.util.RequestUtils;
-import org.apache.myfaces.tobago.webapp.TobagoResponseJsonWriterImpl;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
@@ -41,11 +41,7 @@ import javax.faces.render.RenderKitFactory;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.EmptyStackException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AjaxResponseRenderer {
   

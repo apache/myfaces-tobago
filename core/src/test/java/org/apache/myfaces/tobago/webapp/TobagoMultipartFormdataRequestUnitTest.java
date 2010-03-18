@@ -24,16 +24,11 @@ package org.apache.myfaces.tobago.webapp;
 
 import junit.framework.TestCase;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.mock.servlet.MockHttpServletRequest;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
 

@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.webapp;
+package org.apache.myfaces.tobago.internal.webapp;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -27,17 +27,13 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.XmlUtils;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Arrays;
-import java.util.EmptyStackException;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 
 public class TobagoResponseWriterImpl extends TobagoResponseWriter {
 

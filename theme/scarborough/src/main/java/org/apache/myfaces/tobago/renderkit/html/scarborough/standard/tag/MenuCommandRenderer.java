@@ -19,11 +19,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UIMenuCommand;
-import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
+import org.apache.myfaces.tobago.component.*;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
@@ -122,7 +118,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
   }
 
   private void encodeItem(
-      FacesContext facesContext, TobagoResponseWriter writer, UIComponent component, LabelWithAccessKey label, 
+      FacesContext facesContext, TobagoResponseWriter writer, UIComponent component, LabelWithAccessKey label,
       String onclick, boolean disabled, boolean firstLevel, String image) throws IOException {
 
     writer.startElement(HtmlConstants.LI, null);

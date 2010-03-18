@@ -3,7 +3,7 @@ package org.apache.myfaces.tobago.internal.context;
 import org.apache.myfaces.test.mock.MockExternalContext;
 import org.apache.myfaces.test.mock.MockFacesContext;
 import org.apache.myfaces.test.mock.MockHttpServletRequest;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterImpl;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -37,6 +37,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   // same as in ResponseWriter
 
+  @Override
   public abstract void startElement(String name, UIComponent component) throws IOException;
 
   /**
@@ -47,14 +48,17 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
     startElement(name, null);
   }
 
+  @Override
   public abstract void endElement(String name) throws IOException;
 
   public abstract boolean isXml();
     
   public abstract void write(String string) throws IOException;
 
+  @Override
   public abstract void writeComment(Object comment) throws IOException;
 
+  @Override
   public abstract ResponseWriter cloneWithWriter(Writer writer);
 
   /**
@@ -69,6 +73,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   @Deprecated
   public abstract void writeText(Object text, String property) throws IOException;
 
+  @Override
   public abstract void flush() throws IOException;
 
   // others (not from ResponseWriter)

@@ -28,6 +28,8 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
+import org.apache.myfaces.tobago.internal.webapp.TobagoResponseJsonWriterImpl;
+import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -35,9 +37,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.webapp.TobagoResponseJsonWriterImpl;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriterWrapper;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;

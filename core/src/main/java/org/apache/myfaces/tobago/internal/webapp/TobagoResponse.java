@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.webapp;
+package org.apache.myfaces.tobago.internal.webapp;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -27,11 +27,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-/*
- * Created: Nov 29, 2004 4:48:29 PM
- * User: bommel
- * $Id$
- */
 public class TobagoResponse extends HttpServletResponseWrapper {
 
   private static final Log LOG = LogFactory.getLog(TobagoResponse.class);
@@ -60,11 +55,13 @@ public class TobagoResponse extends HttpServletResponseWrapper {
     }
   }
 
+  @Override
   public ServletOutputStream getOutputStream() throws IOException {
     LOG.debug("***** getOutputStream() from " + new Exception().getStackTrace()[1]);
     return getResponse().getOutputStream();
   }
 
+  @Override
   public PrintWriter getWriter() throws IOException {
     LOG.debug("***** getWriter() from " + new Exception().getStackTrace()[1]);
     if (printWriter != null) {
@@ -74,10 +71,10 @@ public class TobagoResponse extends HttpServletResponseWrapper {
   }
 
 
+  @Override
   public void setContentType(String s) {
     LOG.debug("***** setContentType(" + s + ") from " + new Exception().getStackTrace()[1]);
     getResponse().setContentType(s);
   }
-
 
 }

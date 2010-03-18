@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.fileupload;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.internal.util.JndiUtils;
-import org.apache.myfaces.tobago.webapp.TobagoMultipartFormdataRequest;
+import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
 
 import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;

@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.webapp;
+package org.apache.myfaces.tobago.internal.webapp;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -30,12 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 

@@ -20,9 +20,9 @@ package org.apache.myfaces.tobago.application;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.internal.application.ViewHandlerImpl;
+import org.apache.myfaces.tobago.internal.webapp.TobagoResponse;
 import org.apache.myfaces.tobago.util.DebugUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
-import org.apache.myfaces.tobago.webapp.TobagoResponse;
 
 import javax.faces.FacesException;
 import javax.faces.application.ViewHandler;
