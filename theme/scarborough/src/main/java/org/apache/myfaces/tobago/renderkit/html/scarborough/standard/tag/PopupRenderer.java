@@ -24,12 +24,12 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
+import org.apache.myfaces.tobago.TobagoConstants;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutableRendererBase;
@@ -39,11 +39,12 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.TobagoConstants;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 
 public class PopupRenderer extends LayoutableRendererBase implements AjaxRenderer {
 
@@ -69,9 +70,11 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
     final String contentDivId = clientId + CONTENT_ID_POSTFIX;
     //final String left = component.getLeft();
     //final String top = component.getTop();
-    Integer zIndex = (Integer) component.getAttributes().get(TobagoConstants.ATTR_ZINDEX);
+    Integer zIndex = (Integer) facesContext.getExternalContext().getRequestMap().get(TobagoConstants.ATTR_ZINDEX);
     if (zIndex == null) {
       zIndex = 0;
+    } else {
+      zIndex += 10;
     }
     facesContext.getExternalContext().getRequestMap().put(TobagoConstants.ATTR_ZINDEX, zIndex);
     final StringBuilder contentStyle = new StringBuilder();
@@ -85,9 +88,6 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
       contentStyle.append(component.getHeight());
       contentStyle.append("; ");
     }
-    contentStyle.append("z-index: ");
-    contentStyle.append(zIndex + 3);
-    contentStyle.append("; ");
     //contentStyle.append("left: ");
     //contentStyle.append(left);
     //contentStyle.append("; ");
@@ -112,21 +112,23 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
       writer.startElement(HtmlConstants.IFRAME, component);
       writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + HtmlConstants.IFRAME);
       writer.writeClassAttribute("tobago-popup-iframe tobago-popup-none");
-      writer.writeStyleAttribute("z-index: " + (zIndex + 2) + ";");      
       UIPage page = ComponentUtil.findPage(facesContext);
-      final StringBuilder frameSize = new StringBuilder();
+      final StringBuilder iFrameStyle = new StringBuilder();
+      iFrameStyle.append("z-index: ");
+      iFrameStyle.append(zIndex + 2);
+      iFrameStyle.append("; ");
       if (component.isModal()) {
         // full client area
-        frameSize.append("width: ");
-        frameSize.append(page.getWidth());
-        frameSize.append("; ");
-        frameSize.append("height: ");
-        frameSize.append(page.getHeight());
-        frameSize.append("; ");
+        iFrameStyle.append("width: ");
+        iFrameStyle.append(page.getWidth());
+        iFrameStyle.append("; ");
+        iFrameStyle.append("height: ");
+        iFrameStyle.append(page.getHeight());
+        iFrameStyle.append("; ");
       } else {
-        frameSize.append(contentStyle); // size of the popup
+        iFrameStyle.append(contentStyle); // size of the popup
       }
-      writer.writeAttribute(HtmlAttributes.STYLE, frameSize.toString(), false);
+      writer.writeAttribute(HtmlAttributes.STYLE, iFrameStyle.toString(), false);
       writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getBlankPage(facesContext), false);
       writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
       writer.endElement(HtmlConstants.IFRAME);
@@ -141,7 +143,12 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
     }
     writer.writeClassAttribute(styleClasses);
 
+    contentStyle.append("z-index: ");
+    contentStyle.append(zIndex + 3);
+    contentStyle.append("; ");
     writer.writeAttribute(HtmlAttributes.STYLE, contentStyle.toString(), false);
+
+
   }
 
   public void encodeEnd(FacesContext facesContext,
@@ -165,4 +172,3 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
     facesContext.responseComplete();
   }
 }
-
