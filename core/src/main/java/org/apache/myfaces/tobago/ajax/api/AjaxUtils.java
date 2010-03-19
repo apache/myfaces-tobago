@@ -27,16 +27,20 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.faces.render.Renderer;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.HashMap;
 
 public class AjaxUtils {
 
   private static final Log LOG = LogFactory.getLog(AjaxUtils.class);
 
   public static final String AJAX_COMPONENTS = AjaxUtils.class.getName() + ".AJAX_COMPONENTS";
+
+  public static boolean isAjaxRequest(FacesContext facesContext) {
+    return facesContext.getExternalContext().getRequestMap().containsKey(AJAX_COMPONENTS);
+  }
 
   public static void checkParamValidity(FacesContext facesContext, UIComponent uiComponent, Class compClass) {
     if (facesContext == null) {
@@ -54,7 +58,6 @@ public class AjaxUtils {
     }
   }
 
-
   public static void encodeAjaxComponent(FacesContext facesContext, UIComponent component) throws IOException {
     if (facesContext == null) {
       throw new NullPointerException("facesContext");
@@ -67,7 +70,6 @@ public class AjaxUtils {
       ((AjaxRenderer) renderer).encodeAjax(facesContext, component);
     }
   }
-
 
   public static void processAjax(FacesContext facesContext, UIComponent component)
       throws IOException {
@@ -162,15 +164,21 @@ public class AjaxUtils {
   }
 
   public static void ensureDecoded(FacesContext facesContext, UIComponent component) {
+    if (component == null) {
+      LOG.warn("Ignore AjaxComponent: null");
+      return;
+    }
     Map<String, UIComponent> ajaxComponents = getAjaxComponents(facesContext);
     if (ajaxComponents != null) {
       for (UIComponent uiComponent : ajaxComponents.values()) {
-        UIComponent currentComponent = component;
-        while (currentComponent != null) {
+        // is component or a parent of it in the list?
+        UIComponent parent = component;
+        while (parent != null) {
           if (component == uiComponent) {
+            // nothing to do, because it was already decoded (in the list)
             return;
           }
-          currentComponent = currentComponent.getParent();
+          parent = parent.getParent();
         }
       }
       component.processDecodes(facesContext);

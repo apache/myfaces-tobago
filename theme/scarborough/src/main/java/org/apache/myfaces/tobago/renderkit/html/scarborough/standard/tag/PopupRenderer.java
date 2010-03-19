@@ -94,6 +94,12 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
     //contentStyle.append("top: ");
     //contentStyle.append(top);
     //contentStyle.append("; ");
+
+    if (!AjaxUtils.isAjaxRequest(facesContext)) {
+      writer.startElement(HtmlConstants.DIV, component);
+      writer.writeClassAttribute("tobago-popup-parent");
+    }
+
     if (component.isModal()) {
       writer.startElement(HtmlConstants.DIV, component);
       writer.writeIdAttribute(clientId);
@@ -158,6 +164,10 @@ public class PopupRenderer extends LayoutableRendererBase implements AjaxRendere
     final String clientId = component.getClientId(facesContext);
 
     writer.endElement(HtmlConstants.DIV);
+
+    if (!AjaxUtils.isAjaxRequest(facesContext)) {
+      writer.endElement(HtmlConstants.DIV);
+    }
 
     String setupScript = "Tobago.setupPopup('" + clientId + "', '"
         + component.getLeft() + "', '" + component.getTop() + "', " + component.isModal() + ");";
