@@ -20,12 +20,13 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 
-import javax.faces.context.FacesContext;
-import javax.faces.component.UIComponent;
 import javax.faces.FacesException;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
 import java.io.IOException;
 
-public class EncodeAjaxCallback implements Callback {
+public class EncodeAjaxCallback implements TobagoCallback {
 
   public void execute(FacesContext facesContext, UIComponent component) {
     try {
@@ -33,5 +34,9 @@ public class EncodeAjaxCallback implements Callback {
     } catch (IOException e) {
       throw new FacesException(e);
     }
+  }
+
+  public PhaseId getPhaseId() {
+    return PhaseId.RENDER_RESPONSE;
   }
 }
