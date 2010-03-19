@@ -83,10 +83,13 @@
       <tc:popup width="300" height="270" id="non_modal_popup" modal="false">
         <tc:box label="Non modal text input">
           <f:facet name="layout">
-            <tc:gridLayout rows="fixed;*;fixed"/>
+            <tc:gridLayout rows="fixed;fixed;*;fixed"/>
           </f:facet>
 
           <tx:in label="Field" required="true"/>
+          <tx:date>
+            <f:convertDateTime pattern="dd/MM/yyyy"/>
+          </tx:date>
           <tc:cell/>
           <tc:panel>
             <f:facet name="layout">
