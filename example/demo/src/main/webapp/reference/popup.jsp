@@ -47,7 +47,7 @@
   <tc:button label="Open">
     <f:facet name="popup">
       <tc:popup width="300" height="270" id="modal_popup">
-        <tc:box label="Modal text input">
+        <tc:box label="Modal text input" id="modal_box">
           <f:facet name="layout">
             <tc:gridLayout rows="fixed;fixed;fixed;*;fixed"/>
           </f:facet>
@@ -66,7 +66,7 @@
               <tc:attribute name="popupClose" value="immediate"/>
             </tc:button>
             <tc:button label="Redisplay">
-              <tc:attribute name="renderedPartially" value="popup"/>
+              <tc:attribute name="renderedPartially" value="modal_box"/>
             </tc:button>
             <tc:button label="Ok">
               <tc:attribute name="popupClose" value="afterSubmit"/>
