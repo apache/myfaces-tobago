@@ -21,6 +21,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseJsonWriterImpl;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.internal.webapp.TobagoResponseXmlWriterImpl;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.FactoryFinder;
 import javax.faces.context.FacesContext;
@@ -91,7 +93,7 @@ public class TobagoRenderKit extends RenderKit {
       contentType = "text/fo";
       LOG.warn("patching content type from " + contentTypeList + " to " + contentType + "'");
     } else if (contentTypeList.indexOf("application/json") > -1) {
-      return new TobagoResponseJsonWriterImpl(writer, "application/json", characterEncoding, false);
+      return new TobagoResponseJsonWriterImpl(writer, "application/json", characterEncoding);
     } else {
       contentType = "text/html";
       LOG.warn("Content-Type '" + contentTypeList + "' not supported! Using text/html");
@@ -106,8 +108,17 @@ public class TobagoRenderKit extends RenderKit {
     // XXX for XHTML 1.0 the content type must be set to "text/html" for IE6
     // XXX so at this time we can't differ ...
 //    xml = true;
-
-    return new TobagoResponseWriterImpl(writer, contentType, characterEncoding, xml);
+    TobagoResponseWriter responseWriter;
+    if (xml) {
+      responseWriter = new TobagoResponseXmlWriterImpl(writer, contentType, characterEncoding);
+    } else {
+      responseWriter = new TobagoResponseWriterImpl(writer, contentType, characterEncoding);
+    }
+    /* TODO if ProjectState Development use the Debug Response Writer
+    if (ProjectStage.Development)) {
+      return new DebugTobagoResponseWriterWrapper(responseWriter);
+    } */
+    return responseWriter;
   }
 
   @Override

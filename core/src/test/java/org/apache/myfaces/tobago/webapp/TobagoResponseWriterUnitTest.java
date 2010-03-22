@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.webapp;
 
 import junit.framework.TestCase;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.internal.webapp.TobagoResponseXmlWriterImpl;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -26,18 +27,21 @@ import java.io.StringWriter;
 public class TobagoResponseWriterUnitTest extends TestCase {
 
   private StringWriter stringWriter;
-  private TobagoResponseWriterImpl writer;
+  private TobagoResponseWriter writer;
 
   protected void setUp() throws Exception {
     super.setUp();
     stringWriter = new StringWriter();
-    writer = new TobagoResponseWriterImpl(stringWriter, "", "UTF-8", false);
+    writer = new TobagoResponseWriterImpl(stringWriter, "", "UTF-8");
   }
 
   public void testDocument() throws IOException {
     writer.startDocument();
     writer.endDocument();
-    assertEquals("no content needed", "", stringWriter.toString());
+    assertEquals("content expected", 
+        "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n" +
+        "<html\n" +
+        "></html>", stringWriter.toString());
   }
 
   public void testEmptyTag() throws IOException {
@@ -97,7 +101,7 @@ public class TobagoResponseWriterUnitTest extends TestCase {
   }
 
   public void testNonUtf8() throws IOException {
-    TobagoResponseWriterImpl writer1 = new TobagoResponseWriterImpl(stringWriter, "", "ISO-8859-1", false);
+    TobagoResponseWriter writer1 = new TobagoResponseWriterImpl(stringWriter, "", "ISO-8859-1");
     writer1.startElement("input", null);
     writer1.writeAttribute("value", "Gutschein über 100 €.", null);
     writer1.writeAttribute("readonly", true);
@@ -107,7 +111,7 @@ public class TobagoResponseWriterUnitTest extends TestCase {
   }
 
   public void testCharArray() throws IOException {
-    TobagoResponseWriterImpl writer = new TobagoResponseWriterImpl(stringWriter, "text/xml", "ISO-8859-1", true);
+    TobagoResponseWriter writer = new TobagoResponseXmlWriterImpl(stringWriter, "text/xml", "ISO-8859-1");
     writer.writeText("123".toCharArray(), 0, 3);
     assertEquals("123", stringWriter.toString());
   }

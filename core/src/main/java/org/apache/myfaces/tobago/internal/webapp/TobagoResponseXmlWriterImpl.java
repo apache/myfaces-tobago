@@ -17,84 +17,64 @@ package org.apache.myfaces.tobago.internal.webapp;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.internal.util.HtmlWriterUtils;
-import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.util.XmlUtils;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Map;
 
-public class TobagoResponseWriterImpl extends TobagoResponseWriterBase {
+public final class TobagoResponseXmlWriterImpl extends TobagoResponseWriterBase {
 
-   private static final String HTML_DOCTYPE =
-      "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">";
+  private static final String XHTML_DOCTYPE =
+      "<!DOCTYPE html      PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\""
+          + "     \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">";
 
-  private HtmlWriterUtils helper;
-
-  public TobagoResponseWriterImpl(
+  public TobagoResponseXmlWriterImpl(
       Writer writer, String contentType, String characterEncoding) {
     super(writer, contentType, characterEncoding);
-    this.helper = new HtmlWriterUtils(writer, characterEncoding);
-  }
-
-  public final HtmlWriterUtils getHelper() {
-    return helper;
   }
 
   public void writeText(final Object text, final String property)
       throws IOException {
     closeOpenTag();
     final String value = findValue(text, property);
-    helper.writeText(value);
+    write(XmlUtils.escape(value));
   }
 
   public void writeText(final char[] text, final int offset, final int length)
       throws IOException {
     closeOpenTag();
-    helper.writeText(text, offset, length);
+    getWriter().write(XmlUtils.escape(text, offset, length, true));
+  }
+
+
+  public ResponseWriter cloneWithWriter(final Writer originalWriter) {
+    return new TobagoResponseXmlWriterImpl(
+        originalWriter, getContentType(), getCharacterEncoding());
   }
 
   @Override
-  protected final void closeEmptyTag() throws IOException {
-     getWriter().write("\n>");
+  public void closeEmptyTag() throws IOException {
+    getWriter().write("\n/>");
   }
 
   @Override
   protected void writerAttributeValue(String value, boolean escape) throws IOException {
-    if (escape) {
-       helper.writeAttributeValue(value);
-    } else {
-       getWriter().write(value);
-    }
-  }
-
-  public ResponseWriter cloneWithWriter(final Writer originalWriter) {
-    return new TobagoResponseWriterImpl(
-        originalWriter, getContentType(), getCharacterEncoding());
-  }
-
-
-  public static Style ensureHtmlStyleMap(UIComponent component, Style styles) {
-    if (styles == null) {
-      styles = new Style();
-      ((Map<String, Object>) component.getAttributes()).put(Attributes.STYLE, styles);
-    }
-    return styles;
+    getWriter().write(XmlUtils.escape(value));
   }
 
   @Override
   public void startDocument() throws IOException {
-    getWriter().write(HTML_DOCTYPE);
+    getWriter().write(XHTML_DOCTYPE);
     getWriter().write('\n');
     startElement(HtmlConstants.HTML, null);
+    writeAttribute("xmlns", "http://www.w3.org/1999/xhtml", false);
+
   }
 
   @Override
   public void endDocument() throws IOException {
-    endElement(HtmlConstants.HTML);    
+    endElement(HtmlConstants.HTML);
   }
 }

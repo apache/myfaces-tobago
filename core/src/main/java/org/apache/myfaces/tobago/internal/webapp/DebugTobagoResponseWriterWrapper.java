@@ -17,6 +17,9 @@ package org.apache.myfaces.tobago.internal.webapp;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -25,34 +28,40 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.EmptyStackException;
+import java.util.Stack;
 
-public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
+public class DebugTobagoResponseWriterWrapper extends TobagoResponseWriter {
 
-  private ResponseWriter responseWriter;
+  private Stack<String> stack = new Stack<String>();
 
-  public TobagoResponseWriterWrapper(ResponseWriter responseWriter) {
+  private static final Log LOG = LogFactory.getLog(DebugTobagoResponseWriterWrapper.class);
+
+  private final TobagoResponseWriter responseWriter;
+
+  public DebugTobagoResponseWriterWrapper(TobagoResponseWriter responseWriter) {
     this.responseWriter = responseWriter;
   }
-
-  public void startElement(String name, UIComponent component) throws IOException {
-    responseWriter.startElement(name, component);
-  }
-
-  public void endElement(String name) throws IOException {
-    responseWriter.endElement(name);
-  }
-
 
   public void write(String string) throws IOException {
     responseWriter.write(string);
   }
 
   public void writeComment(Object comment) throws IOException {
-    responseWriter.writeComment(comment);
+    String commentStr = comment.toString();
+    if (commentStr.indexOf("--") > 0) {
+      String trace = getCallingClassStackTraceElementString();
+      LOG.error(
+          "Comment must not contain the sequence '--', comment = '"
+              + comment + "' " + trace.substring(trace.indexOf('(')));
+
+      commentStr = StringUtils.replace(commentStr, "--", "++");
+    }
+    responseWriter.writeComment(commentStr);
   }
 
   public ResponseWriter cloneWithWriter(Writer writer) {
-    return responseWriter.cloneWithWriter(writer);
+    return new DebugTobagoResponseWriterWrapper((TobagoResponseWriter) responseWriter.cloneWithWriter(writer));
   }
 
   @Deprecated
@@ -108,4 +117,43 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
   public void close() throws IOException {
     responseWriter.close();
   }
+
+  @Override
+  public void endElement(String name) throws IOException {
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("end Element: " + name);
+    }
+    String top = "";
+    try {
+      top = stack.pop();
+    } catch (EmptyStackException e) {
+      LOG.error("Failed to close element \"" + name + "\"!");
+      throw e;
+    }
+
+    if (!top.equals(name)) {
+      final String trace = getCallingClassStackTraceElementString();
+      LOG.error("Element end with name='" + name + "' doesn't "
+          + "match with top element on the stack='" + top + "' "
+          + trace.substring(trace.indexOf('(')));
+    }
+    responseWriter.endElement(name);
+  }
+
+  @Override
+  public void startElement(String name, UIComponent currentComponent)
+      throws IOException {
+    stack.push(name);
+    responseWriter.startElement(name, currentComponent);
+  }
+  
+  protected final String getCallingClassStackTraceElementString() {
+    final StackTraceElement[] stackTrace = new Exception().getStackTrace();
+    int i = 1;
+    while (stackTrace[i].getClassName().equals(this.getClass().getName())) {
+      i++;
+    }
+    return stackTrace[i].toString();
+  }
+
 }

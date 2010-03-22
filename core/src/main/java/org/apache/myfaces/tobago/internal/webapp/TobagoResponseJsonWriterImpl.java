@@ -21,12 +21,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.util.FastStringWriter;
-import org.apache.myfaces.tobago.util.XmlUtils;
 
 import javax.faces.component.UIComponent;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.EmptyStackException;
 
 public class TobagoResponseJsonWriterImpl extends TobagoResponseWriterImpl {
 
@@ -35,8 +33,8 @@ public class TobagoResponseJsonWriterImpl extends TobagoResponseWriterImpl {
   private Writer javascriptWriter;
   private boolean javascriptMode;
 
-  public TobagoResponseJsonWriterImpl(Writer writer, String contentType, String characterEncoding, boolean xml) {
-    super(writer, contentType, characterEncoding, xml);
+  public TobagoResponseJsonWriterImpl(Writer writer, String contentType, String characterEncoding) {
+    super(writer, contentType, characterEncoding);
     this.javascriptWriter = new FastStringWriter();
   }
 
@@ -68,7 +66,6 @@ public class TobagoResponseJsonWriterImpl extends TobagoResponseWriterImpl {
   protected void startElementInternal(Writer writer, String name, UIComponent currentComponent)
       throws IOException {
     setComponent(currentComponent);
-    getStack().push(name);
     if (isStartStillOpen()) {
       writer.write(">");
     }
@@ -79,29 +76,8 @@ public class TobagoResponseJsonWriterImpl extends TobagoResponseWriterImpl {
 
   @Override
   protected void endElementInternal(Writer writer, String name) throws IOException {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("end Element: " + name);
-    }
-    String top = "";
-    try {
-      top = getStack().pop();
-    } catch (EmptyStackException e) {
-      LOG.error("Failed to close element \"" + name + "\"!");
-      throw e;
-    }
-    if (!top.equals(name)) {
-      final String trace = getCallingClassStackTraceElementString();
-      LOG.error("Element end with name='" + name + "' doesn't "
-          + "match with top element on the stack='" + top + "' "
-          + trace.substring(trace.indexOf('(')));
-    }
-
     if (EMPTY_TAG.contains(name)) {
-      if (isXml()) {
-        writer.write("/>");
-      } else {
         writer.write(">");
-      }
     } else {
       if (isStartStillOpen()) {
         writer.write(">");
@@ -138,14 +114,10 @@ public class TobagoResponseJsonWriterImpl extends TobagoResponseWriterImpl {
       writer.write(' ');
       writer.write(name);
       writer.write("=\\\"");
-      if (isXml()) {
-        writer.write(XmlUtils.escape(value));
+      if (escape) {
+        getHelper().writeAttributeValue(value);
       } else {
-        if (escape) {
-          getHelper().writeAttributeValue(value);
-        } else {
-          writer.write(value);
-        }
+        writer.write(value);
       }
       writer.write("\\\"");
     }

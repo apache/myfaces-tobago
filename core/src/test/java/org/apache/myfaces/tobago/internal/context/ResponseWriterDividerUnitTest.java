@@ -3,7 +3,7 @@ package org.apache.myfaces.tobago.internal.context;
 import org.apache.myfaces.test.mock.MockExternalContext;
 import org.apache.myfaces.test.mock.MockFacesContext;
 import org.apache.myfaces.test.mock.MockHttpServletRequest;
-import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterImpl;
+import org.apache.myfaces.tobago.internal.webapp.TobagoResponseXmlWriterImpl;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -39,7 +39,7 @@ public class ResponseWriterDividerUnitTest {
     MockExternalContext externalContext = new MockExternalContext(null, new MockHttpServletRequest(), null);
     facesContext.setExternalContext(externalContext);
     StringWriter stringWriter = new StringWriter();
-    facesContext.setResponseWriter(new TobagoResponseWriterImpl(stringWriter, "text/xml", "ISO-8859-1", true));
+    facesContext.setResponseWriter(new TobagoResponseXmlWriterImpl(stringWriter, "text/xml", "ISO-8859-1"));
 
     DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
     DefaultMutableTreeNode colors = new DefaultMutableTreeNode("Colors");
