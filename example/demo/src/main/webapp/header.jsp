@@ -1,9 +1,3 @@
-<%@ page import="org.apache.myfaces.tobago.example.reference.SimpleBean" %>
-<%@ page import="javax.faces.application.FacesMessage" %>
-<%@ page import="javax.faces.context.FacesContext" %>
-<%@ page import="java.io.PrintWriter" %>
-<%@ page import="java.io.StringWriter" %>
-<%@ page import="java.util.Date" %>
 <%--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -37,9 +31,9 @@
       <f:facet name="layout">
         <tc:gridLayout rows="fixed;fixed;fixed;*"/>
       </f:facet>
-      <tc:out value="#{clientConfigController.localizedTheme}"/>
-      <tc:out value="#{clientConfigController.localizedLocale}"/>
-      <tc:out value="JSP/JSPX"/>
+      <tc:out value="Theme: #{clientConfigController.localizedTheme}"/>
+      <tc:out value="Locale: #{clientConfigController.localizedLocale}"/>
+      <tc:out value="PDL: JSP/JSPX"/>
       <tc:cell/>
     </tc:panel>
   </tc:panel>
