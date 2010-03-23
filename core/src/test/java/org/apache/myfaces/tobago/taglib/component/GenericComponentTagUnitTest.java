@@ -81,6 +81,7 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
     availableThemes.put(theme1.getName(), theme1);
     tobagoConfig.setAvailableThemes(availableThemes);
     tobagoConfig.resolveThemes();
+    tobagoConfig.initProjectState(servletContext);
     servletContext.setAttribute(TobagoConfig.TOBAGO_CONFIG, tobagoConfig);
     HttpServletRequest request = new MockHttpServletRequest();
     HttpServletResponse response = new MockHttpServletResponse();

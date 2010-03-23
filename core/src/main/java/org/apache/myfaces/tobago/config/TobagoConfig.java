@@ -60,7 +60,7 @@ public class TobagoConfig {
   public void addSupportedThemeName(String name) {
     supportedThemeNames.add(name);
   }
-
+  // TODO one init method
   public void resolveThemes() {
     if (defaultThemeName != null) {
       defaultTheme = availableTheme.get(defaultThemeName);
@@ -181,6 +181,10 @@ public class TobagoConfig {
     this.renderersConfig = renderersConfig;
   }
 
+  public ProjectStage getProjectStage() {
+    return projectStage;
+  }
+  // TODO one init method
   public void initProjectState(ServletContext servletContext) {
     String stageName = null;
     try {
@@ -217,7 +221,7 @@ public class TobagoConfig {
       if (LOG.isInfoEnabled()) {
         LOG.info("Couldn't discover the current project stage, using " + ProjectStage.Production);
       }
-      projectStage = ProjectStage.Production;
+      projectStage = ProjectStage.Development;
     }
   }
 }

@@ -20,7 +20,12 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.*;
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.UIForm;
+import org.apache.myfaces.tobago.component.UIMenuBar;
+import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
@@ -52,20 +57,16 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class PageRenderer extends PageRendererBase {
 
   private static final Log LOG = LogFactory.getLog(PageRenderer.class);
-
-  private static final String XHTML_DOCTYPE =
-      "<!DOCTYPE html "
-          + "     PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\""
-          + "     \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">";
-
-  private static final String HTML_DOCTYPE =
-      "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\""
-          + " \"http://www.w3.org/TR/html4/strict.dtd\">";
 
   private static final String CLIENT_DEBUG_SEVERITY = "clientDebugSeverity";
   private static final String LAST_FOCUS_ID = "lastFocusId";
@@ -136,17 +137,6 @@ public class PageRenderer extends PageRendererBase {
 
     String title = (String) page.getAttributes().get(Attributes.LABEL);
 
-    if (writer.isXml()) {
-      writer.write(XHTML_DOCTYPE);
-    } else {
-      writer.write(HTML_DOCTYPE);
-    }
-    writer.write('\n');
-
-    writer.startElement(HtmlConstants.HTML, null);
-    if (writer.isXml()) {
-      writer.writeAttribute("xmlns", "http://www.w3.org/1999/xhtml", false);
-    }
     writer.startElement(HtmlConstants.HEAD, null);
     final boolean debugMode = VariableResolverUtils.resolveClientProperties(facesContext).isDebugMode();
 
@@ -535,7 +525,6 @@ public class PageRenderer extends PageRendererBase {
     writer.writeJavascript("setTimeout(\"Tobago.init('" + clientId + "')\", 1000)");
 
     writer.endElement(HtmlConstants.BODY);
-    writer.endElement(HtmlConstants.HTML);
 
     if (LOG.isDebugEnabled()) {
       LOG.debug("unused AccessKeys    : "

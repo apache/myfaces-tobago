@@ -58,11 +58,10 @@ public class TobagoServletContextListener implements ServletContextListener {
 
       // prepare themes
       tobagoConfig.resolveThemes();
-
+      tobagoConfig.initProjectState(servletContext);
     } catch (Throwable e) {
       if (LOG.isFatalEnabled()) {
-        String error = "Error while deploy process. Tobago can't be initialized! "
-            + "Application will not run!";
+        String error = "Error while deploy process. Tobago can't be initialized! Application will not run!";
         LOG.fatal(error, e);
         throw new RuntimeException(error, e);
       }

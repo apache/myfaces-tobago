@@ -19,6 +19,9 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.application.ProjectStage;
+import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.internal.webapp.DebugTobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseJsonWriterImpl;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterImpl;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseXmlWriterImpl;
@@ -114,10 +117,9 @@ public class TobagoRenderKit extends RenderKit {
     } else {
       responseWriter = new TobagoResponseWriterImpl(writer, contentType, characterEncoding);
     }
-    /* TODO if ProjectState Development use the Debug Response Writer
-    if (ProjectStage.Development)) {
+    if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).getProjectStage().equals(ProjectStage.Development)) {
       return new DebugTobagoResponseWriterWrapper(responseWriter);
-    } */
+    }
     return responseWriter;
   }
 
