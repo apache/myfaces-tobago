@@ -1021,7 +1021,7 @@ var Tobago = {
       var element = document.forms[0].elements[i];
       if (element.type != "hidden" && !element.disabled) {
         if (element.id) {
-          if (element.id.indexOf(id + ":") != 0) {
+          if (element.id.indexOf(id + ":") != 0) { // not starts with
             element.disabled = true;
             hidden.value += element.id + ",";
           } else {
@@ -1036,7 +1036,7 @@ var Tobago = {
       var anchor = document.anchors[i];
       if (!anchor.disabled) {
         if (anchor.id) {
-          if (anchor.id.indexOf(id + ":") != 0) {
+          if (anchor.id.indexOf(id + ":") != 0) { // not starts with
             anchor.disabled = true;
             hidden.value += anchor.id + ",";
           } else {
