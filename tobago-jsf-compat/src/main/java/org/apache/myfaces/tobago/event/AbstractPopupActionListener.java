@@ -29,6 +29,7 @@ import javax.faces.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 
 public abstract class AbstractPopupActionListener implements ActionListener {
+
   private static final Log LOG = LogFactory.getLog(AbstractPopupActionListener.class);
 
   public void processAction(ActionEvent actionEvent) throws AbortProcessingException {
@@ -38,6 +39,7 @@ public abstract class AbstractPopupActionListener implements ActionListener {
         LOG.debug("activated "
             + actionEvent.getComponent().getClientId(FacesContext.getCurrentInstance()));
       }
+      // XXX this is called via reflection, because the class AbstractUIPopup is not available here.
       try {
         BeanUtils.setProperty(popup, "activated", true);
       } catch (IllegalAccessException e) {
