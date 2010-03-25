@@ -41,11 +41,7 @@ import javax.faces.render.RenderKitFactory;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.EmptyStackException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AjaxResponseRenderer {
   
@@ -136,10 +132,9 @@ public class AjaxResponseRenderer {
     writer.write("\n  }");
   }
 
-  private void saveState(FacesContext facesContext, RenderKit renderKit)
-      throws IOException {
-    ResponseWriter stateWriter =
-        renderKit.createResponseWriter(getPrintWriter(facesContext), contentType, null);
+  private void saveState(FacesContext facesContext, RenderKit renderKit) throws IOException {
+
+    ResponseWriter stateWriter = renderKit.createResponseWriter(getPrintWriter(facesContext), contentType, null);
     facesContext.setResponseWriter(stateWriter);
 
     StateManager stateManager = facesContext.getApplication().getStateManager();
@@ -176,13 +171,6 @@ public class AjaxResponseRenderer {
     writer.write("  \"responseCode\": ");
     writer.write(reloadRequired ? Integer.toString(CODE_RELOAD_REQUIRED) : Integer.toString(CODE_SUCCESS));
 
-    if (!reloadRequired) {
-      writer.write(",\n");
-      writer.write("  \"jsfState\": \"");
-      saveState(facesContext, renderKit);
-      writer.write("\"");
-    }
-
     Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(facesContext);
     int i = 0;
     for (Map.Entry<String, UIComponent> entry : ajaxComponents.entrySet()) {
@@ -196,6 +184,13 @@ public class AjaxResponseRenderer {
         ((TobagoFacesContext) facesContext).setAjaxComponentId(entry.getKey());
       }
       renderComponent(facesContext, renderKit, entry.getKey(), component);
+    }
+
+    if (!reloadRequired) {
+      writer.write(",\n");
+      writer.write("  \"jsfState\": \"");
+      saveState(facesContext, renderKit);
+      writer.write("\"");
     }
 
     writer.write("\n}\n");
