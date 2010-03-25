@@ -17,16 +17,11 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.ComponentTypes;
-import org.apache.myfaces.tobago.component.CreateComponentUtils;
-import org.apache.myfaces.tobago.component.DeprecatedDimension;
-import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.OnComponentPopulated;
-import org.apache.myfaces.tobago.component.Position;
-import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.*;
 import org.apache.myfaces.tobago.internal.ajax.AjaxComponent;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
@@ -45,11 +40,26 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class AbstractUIPopup extends UIPanelBase 
-    implements OnComponentPopulated, NamingContainer, AjaxComponent, InvokeOnComponent,
+public abstract class AbstractUIPopup extends UIPanelBase
+    implements OnComponentCreated, OnComponentPopulated, NamingContainer, AjaxComponent, InvokeOnComponent,
     DeprecatedDimension, Position, LayoutContainer {
 
+  private static final Log LOG = LogFactory.getLog(AbstractUIPopup.class);
+
+  private static final String Z_INDEX = AbstractUIPopup.class.getName() + ".Z_INDEX";
+
   private boolean activated;
+
+  public void onComponentCreated(FacesContext facesContext) {
+    Integer zIndex = (Integer) facesContext.getExternalContext().getRequestMap().get(Z_INDEX);
+    if (zIndex == null) {
+      zIndex = 1;
+    } else {
+      zIndex++;
+    }
+    setZIndex(zIndex);
+    facesContext.getExternalContext().getRequestMap().put(Z_INDEX, zIndex);
+  }
 
   public void onComponentPopulated(FacesContext facesContext) {
     if (getLayoutManager() == null) {
@@ -57,7 +67,7 @@ public abstract class AbstractUIPopup extends UIPanelBase
           facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT));
     }
   }
-  
+
   public List<LayoutComponent> getComponents() {
     return LayoutUtils.findLayoutChildren(this);
   }
@@ -66,6 +76,7 @@ public abstract class AbstractUIPopup extends UIPanelBase
     this.activated = activated;
   }
 
+  @Override
   public void processDecodes(FacesContext facesContext) {
     if (isSubmitted()) {
       for (Iterator it = getFacetsAndChildren(); it.hasNext();) {
@@ -81,6 +92,7 @@ public abstract class AbstractUIPopup extends UIPanelBase
     }
   }
 
+  @Override
   public boolean isRendered() {
     if (FacesUtils.hasValueBindingOrValueExpression(this, "rendered")) {
       return (Boolean)
@@ -114,19 +126,21 @@ public abstract class AbstractUIPopup extends UIPanelBase
   }
 
 
+  @Override
   public void processValidators(FacesContext context) {
     if (isSubmitted()) {
       for (Iterator it = getFacetsAndChildren(); it.hasNext();) {
         UIComponent childOrFacet = (UIComponent) it.next();
         childOrFacet.processValidators(context);
       }
-      //TODO: check if validation has faild and reset rendered if needed
+      //TODO: check if validation has failed and reset rendered if needed
       if (context.getRenderResponse()) {
         setActivated(true);
       }
     }
   }
 
+  @Override
   public void processUpdates(FacesContext context) {
     if (isSubmitted()) {
       for (Iterator it = getFacetsAndChildren(); it.hasNext();) {
@@ -136,6 +150,7 @@ public abstract class AbstractUIPopup extends UIPanelBase
     }
   }
 
+  @Override
   public Object saveState(FacesContext context) {
     Object[] saveState = new Object[2];
     saveState[0] = super.saveState(context);
@@ -143,35 +158,39 @@ public abstract class AbstractUIPopup extends UIPanelBase
     return saveState;
   }
 
+  @Override
   public void restoreState(FacesContext context, Object savedState) {
     Object[] values = (Object[]) savedState;
     super.restoreState(context, values[0]);
     activated = (Boolean) values[1];
   }
 
+  @Override
   public void encodeEnd(FacesContext context) throws IOException {
     super.encodeEnd(context);
     activated = false;
   }
 
+  @Override
   public void encodeAjax(FacesContext facesContext) throws IOException {
     super.encodeAjax(facesContext);
     activated = false;
   }
 
-  public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
+  @Override
+  public boolean invokeOnComponent(FacesContext facesContext, String clientId, ContextCallback callback)
       throws FacesException {
-    return FacesUtils.invokeOnComponent(context, this, clientId, callback);
+    return FacesUtils.invokeOnComponent(facesContext, this, clientId, callback);
   }
 
   public LayoutManager getLayoutManager() {
     return (LayoutManager) getFacet(Facets.LAYOUT);
   }
-  
+
   public void setLayoutManager(LayoutManager layoutManager) {
     getFacets().put(Facets.LAYOUT, (UILayoutBase) layoutManager);
   }
-  
+
   public abstract Measure getWidth();
 
   public abstract void setWidth(Measure width);
@@ -187,4 +206,6 @@ public abstract class AbstractUIPopup extends UIPanelBase
   public abstract Measure getLeft();
 
   public abstract void setLeft(Measure left);
+
+  public abstract void setZIndex(Integer zIndex);
 }

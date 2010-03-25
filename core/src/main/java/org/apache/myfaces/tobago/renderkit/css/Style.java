@@ -41,6 +41,7 @@ public class Style implements Serializable {
   private Measure paddingTop;
   private Measure paddingBottom;
   private String backgroundImage;
+  private Integer zIndex;
 
   public Style() {
   }
@@ -57,6 +58,7 @@ public class Style implements Serializable {
     this.paddingTop = map.paddingTop;
     this.paddingBottom = map.paddingBottom;
     this.backgroundImage = map.backgroundImage;
+    this.zIndex = map.zIndex;
   }
 
   public Style(FacesContext facesContext, LayoutBase layout) {
@@ -158,6 +160,11 @@ public class Style implements Serializable {
       buf.append(backgroundImage);
       buf.append(';');
     }
+    if (zIndex != null) {
+      buf.append("z-index:");
+      buf.append(zIndex);
+      buf.append(';');
+    }
 
     return buf.toString();
   }
@@ -248,5 +255,13 @@ public class Style implements Serializable {
 
   public void setBackgroundImage(String backgroundImage) {
     this.backgroundImage = backgroundImage;
+  }
+
+  public Integer getZIndex() {
+    return zIndex;
+  }
+
+  public void setZIndex(Integer zIndex) {
+    this.zIndex = zIndex;
   }
 }
