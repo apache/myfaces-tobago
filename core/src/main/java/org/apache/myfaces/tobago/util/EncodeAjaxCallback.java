@@ -24,10 +24,11 @@ import org.apache.myfaces.tobago.renderkit.RendererBase;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class EncodeAjaxCallback implements javax.faces.component.ContextCallback {
+public class EncodeAjaxCallback implements TobagoCallback {
 
   public void invokeContextCallback(FacesContext facesContext, UIComponent component) {
     try {
@@ -38,6 +39,9 @@ public class EncodeAjaxCallback implements javax.faces.component.ContextCallback
     }
   }
 
+  public PhaseId getPhaseId() {
+    return PhaseId.RENDER_RESPONSE;
+  }
 
   // TODO merge with RenderUtil.prepareRendererAll
   public static void prepareRendererAll(FacesContext facesContext, UIComponent component) throws IOException {
