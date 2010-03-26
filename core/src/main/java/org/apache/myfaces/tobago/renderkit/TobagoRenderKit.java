@@ -117,7 +117,7 @@ public class TobagoRenderKit extends RenderKit {
     } else {
       responseWriter = new TobagoResponseWriterImpl(writer, contentType, characterEncoding);
     }
-    if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).getProjectStage().equals(ProjectStage.Development)) {
+    if (TobagoConfig.getInstance(FacesContext.getCurrentInstance()).getProjectStage() == ProjectStage.Development) {
       return new DebugTobagoResponseWriterWrapper(responseWriter);
     }
     return responseWriter;
