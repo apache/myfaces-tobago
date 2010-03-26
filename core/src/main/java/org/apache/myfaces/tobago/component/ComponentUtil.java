@@ -17,11 +17,6 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-/*
- * Created 01.07.2003 10:07:23.
- * $Id$
- */
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.logging.Log;
@@ -40,10 +35,17 @@ import org.apache.myfaces.tobago.util.TobagoCallback;
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
-import javax.faces.component.*;
+import javax.faces.component.ActionSource;
+import javax.faces.component.EditableValueHolder;
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UICommand;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIGraphic;
 import javax.faces.component.UIOutput;
+import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectItem;
+import javax.faces.component.UISelectItems;
+import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.el.MethodBinding;
@@ -58,9 +60,42 @@ import javax.faces.render.RenderKitFactory;
 import javax.faces.render.Renderer;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import static org.apache.myfaces.tobago.TobagoConstants.*;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_LINK;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ACTION_ONCLICK;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CONVERTER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_CREATE_SPAN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ESCAPE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOR;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HOVER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_MARKUP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDERED_PARTIALLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RENDER_RANGE_EXTERN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
+import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_NAVIGATE;
+import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_RESET;
+import static org.apache.myfaces.tobago.TobagoConstants.COMMAND_TYPE_SCRIPT;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_ITEMS;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_BOOLEAN_CHECKBOX;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_SELECT_ONE_RADIO;
 
 public class ComponentUtil {
 

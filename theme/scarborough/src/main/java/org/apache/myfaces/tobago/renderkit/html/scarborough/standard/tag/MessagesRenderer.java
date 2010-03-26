@@ -17,15 +17,19 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.TobagoConstants;
-import org.apache.myfaces.tobago.component.*;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIBox;
+import org.apache.myfaces.tobago.component.UIButtonCommand;
+import org.apache.myfaces.tobago.component.UICell;
+import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UIGridLayout;
+import org.apache.myfaces.tobago.component.UIMessages;
+import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIPanel;
+import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.MessageRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -151,7 +155,6 @@ public class MessagesRenderer extends MessageRendererBase {
     okButtonAttributes.put(TobagoConstants.ATTR_LABEL, ResourceManagerUtil.getPropertyNotNull(
         facesContext, "tobago", "tobago.message.confirmation.okay"));
     okButtonAttributes.put("popupClose", "immediate");
-    return;
   }
 
   /*
