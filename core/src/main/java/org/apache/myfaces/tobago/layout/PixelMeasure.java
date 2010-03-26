@@ -66,6 +66,10 @@ public final class PixelMeasure extends Measure {
     return pixelValueOf(pixel * times);
   }
 
+  public Measure divide(int times) {
+    return pixelValueOf(pixel / times);
+  }
+
   public Measure subtractNotNegative(Measure m) {
     if (m == null) {
       return this;

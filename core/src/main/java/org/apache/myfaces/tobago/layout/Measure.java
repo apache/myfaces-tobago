@@ -105,6 +105,8 @@ public abstract class Measure implements Serializable {
 
   public abstract Measure multiply(int times);
 
+  public abstract Measure divide(int times);
+
   /**
    * @deprecated since 1.5.0, please use subtractNotNegative
    */
