@@ -42,9 +42,9 @@ public class StyleClasses implements Serializable {
 
   private static final Log LOG = LogFactory.getLog(StyleClasses.class);
 
-  public static final char SEPERATOR = '-';
-  public static final String PREFIX = "tobago" + SEPERATOR;
-  public static final String MARKUP = SEPERATOR + "markup" + SEPERATOR;
+  public static final char SEPARATOR = '-';
+  public static final String PREFIX = "tobago" + SEPARATOR;
+  public static final String MARKUP = SEPARATOR + "markup" + SEPARATOR;
 
   private ListOrderedSet classes;
 
@@ -96,7 +96,7 @@ public class StyleClasses implements Serializable {
   private String nameOfClass(String renderer, String sub) {
     StringBuilder builder = new StringBuilder(PREFIX);
     builder.append(renderer);
-    builder.append(SEPERATOR);
+    builder.append(SEPARATOR);
     builder.append(sub);
     return builder.toString();
   }
@@ -121,7 +121,7 @@ public class StyleClasses implements Serializable {
     StringBuilder builder = new StringBuilder(PREFIX);
     builder.append(renderer);
     if (sub != null) {
-      builder.append(SEPERATOR);
+      builder.append(SEPARATOR);
       builder.append(sub);
     }
     builder.append(MARKUP);
@@ -177,7 +177,7 @@ public class StyleClasses implements Serializable {
   private String nameOfAspectClass(String renderer, String sub, Aspect aspect) {
     StringBuilder builder = new StringBuilder(PREFIX);
     builder.append(renderer);
-    builder.append(SEPERATOR);
+    builder.append(SEPARATOR);
     builder.append(sub);
     builder.append(aspect);
     return builder.toString();
