@@ -1036,7 +1036,7 @@ var Tobago = {
     var id = jQuery(element).attr("id");
     LOG.debug("Blink: Popup id is '" + id + "'");
     Tobago.addCssClass(id, "tobago-popup-blink");
-    setTimeout("Tobago.removeCssClass('" + id + "', 'tobago-popup-blink')", 30);
+    setTimeout("Tobago.removeCssClass('" + id + "', 'tobago-popup-blink')", 20);
   },
 
   /**
@@ -1044,7 +1044,7 @@ var Tobago = {
    */
   closePopup: function(element) {
     Tobago.unlockBehindPopup();
-    var popup = $(element).parents("div.tobago-popup-default:first");
+    var popup = jQuery(element).parents("div.tobago-popup-default:first");
     popup.remove();
     Tobago.setupPopup();
   },

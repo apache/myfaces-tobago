@@ -215,7 +215,7 @@ function xxx_tobagoMenuInit() {
     jQuery(".tobago-menu-top").click(function(event) {
 
       // e. g. disabled by a popup
-      if($(this).children("a").attr("disabled")) {
+      if(jQuery(this).children("a").attr("disabled")) {
         return;
       }
       // register on click handlers
