@@ -561,21 +561,22 @@ label.tobago-label-inline {
   left: 0;
   overflow: auto;
   position: absolute;
+  z-index: 0;
 }
 
-/* popup-------------------------------------------------------------- */
+/* popup -------------------------------------------------------------- */
 
-.tobago-popup-default {
+.tobago-popup-shield {
   cursor: wait;
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   top: 0;
-  left: 0; /*background: url(../../standard/image/popupBg.png);*/
+  left: 0;
+  z-index: -1;
   opacity: .40;
   background: url( ../image/popupBg.png );
   filter: alpha( opacity = 40 );
-  -moz-opacity: 0.4;
 }
 
 .tobago-popup-blink {
@@ -589,28 +590,6 @@ label.tobago-label-inline {
   top: 0;
   left: 0;
   filter: progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0);
-}
-
-.tobago-popup-content {
-  border-width: 0;
-  background: #bbccdd;
-  position: absolute;
-  cursor: default;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -moz-background-clip: initial;
-  -moz-background-origin: initial;
-  -moz-background-inline-policy: initial;
-}
-
-.tobago-popup-none {
-  display: none;
-}
-
-.tobago-popup-parent {
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 
 /* richTextEditor ---------------------------------------------------------- */
@@ -1101,7 +1080,6 @@ li.tobago-menu-selected {
   position: absolute;
   width: 100%;
   background-color: #aabbcc;
-/*  z-index: 1000; /* todo */
 }
 
 .tobago-page-menuStore {
@@ -1110,7 +1088,7 @@ li.tobago-menu-selected {
   width: 0;
   height: 0;
   position: absolute;
-/*  z-index: 1000; /* todo */
+  z-index: 1000;
 }
 
 .tobago-menuBar-default ol, 

@@ -24,9 +24,12 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.basic}"/>
+
+  <ui:debug/>
+
   <tc:box label="Popups">
     <f:facet name="layout">
-      <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
+      <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
     </f:facet>
 
     <tc:menuBar>
@@ -36,10 +39,6 @@
         </tc:menuCommand>
       </tc:menu>
     </tc:menuBar>
-
-    <ui:debug/>
-    
-    <tc:messages/>
 
     <tc:panel>
       <f:facet name="layout">

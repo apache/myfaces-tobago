@@ -37,13 +37,11 @@ import org.apache.myfaces.tobago.component.UITime;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.PopupActionListener;
-import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
-import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -52,13 +50,9 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TimeZone;
 
-import static javax.faces.convert.DateTimeConverter.CONVERTER_ID;
-
 public class DatePickerRenderer extends LinkRenderer {
 
   private static final Log LOG = LogFactory.getLog(DatePickerRenderer.class);
-
-  public static final String CLOSE_POPUP = "closePopup";
 
   @Override
   public void onComponentCreated(FacesContext context, UIComponent component) {
@@ -70,127 +64,109 @@ public class DatePickerRenderer extends LinkRenderer {
       picker.setFor("@auto");
     }
     picker.setImmediate(true);
-    String linkId = picker.getId();
+    final String linkId = picker.getId();
+
+    final String hiddenId = linkId != null ? linkId + "hidden" : facesContext.getViewRoot().createUniqueId();
     UIHidden hidden = (UIHidden)
-        CreateComponentUtils.createComponent(facesContext, UIHidden.COMPONENT_TYPE, RendererTypes.HIDDEN);
-    if (linkId != null) {
-      hidden.setId(linkId + "hidden");
-    } else {
-      hidden.setId(facesContext.getViewRoot().createUniqueId());
-    }
+        CreateComponentUtils.createComponent(facesContext, UIHidden.COMPONENT_TYPE, RendererTypes.HIDDEN, hiddenId);
     picker.getChildren().add(hidden);
 
     // create popup
-    final AbstractUIPopup popup =
-        (AbstractUIPopup) CreateComponentUtils.createComponent(facesContext, UIPopup.COMPONENT_TYPE,
-            RendererTypes.POPUP);
-    if (linkId != null) {
-      popup.setId(linkId + "popup");
-    } else {
-      popup.setId(facesContext.getViewRoot().createUniqueId());
-    }
+    final String popupId = linkId != null ? linkId + "popup" : facesContext.getViewRoot().createUniqueId();
+    final UIPopup popup = (UIPopup) CreateComponentUtils.createComponent(
+        facesContext, UIPopup.COMPONENT_TYPE, RendererTypes.POPUP, popupId);
     popup.getAttributes().put(Attributes.Z_INDEX, 10);
-
     picker.getFacets().put(Facets.PICKER_POPUP, popup);
 
     popup.setRendered(false);
+    popup.onComponentPopulated(facesContext);
 
-    final UIComponent box = CreateComponentUtils.createComponent(
-        facesContext, UIBox.COMPONENT_TYPE, RendererTypes.BOX);
+    final UIBox box = (UIBox) CreateComponentUtils.createComponent(
+        facesContext, UIBox.COMPONENT_TYPE, RendererTypes.BOX, "box");
     popup.getChildren().add(box);
-    box.setId("box");
     // TODO: set string resources in renderer
-    box.getAttributes().put(Attributes.LABEL, ResourceManagerUtil.getPropertyNotNull(
-        facesContext, "tobago", "datePickerTitle"));
-    UIComponent layout = CreateComponentUtils.createComponent(
-        facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT);
-    box.getFacets().put(Facets.LAYOUT, layout);
-    layout.setId("layout");
-    layout.getAttributes().put(Attributes.ROWS, "*;fixed;fixed");
+    box.setLabel(ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "datePickerTitle"));
+    final UIGridLayout layoutOfBox = (UIGridLayout) CreateComponentUtils.createComponent(
+        facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "layout");
+    box.getFacets().put(Facets.LAYOUT, layoutOfBox);
+    layoutOfBox.setRows("*;fixed;fixed");
 
     final UIComponent calendar = CreateComponentUtils.createComponent(
-        facesContext, javax.faces.component.UIOutput.COMPONENT_TYPE,
-        RendererTypes.CALENDAR);
-
-    calendar.setId("calendar");
+        facesContext, javax.faces.component.UIOutput.COMPONENT_TYPE, RendererTypes.CALENDAR, "calendar");
     box.getChildren().add(calendar);
 
     // add time input
-    final UIComponent timePanel = CreateComponentUtils.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL);
-    timePanel.setId("timePanel");
+    final UIPanel timePanel = (UIPanel) CreateComponentUtils.createComponent(
+        facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL, "timePanel");
     box.getChildren().add(timePanel);
-    layout = CreateComponentUtils.createComponent(
-        facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT);
-    timePanel.getFacets().put(Facets.LAYOUT, layout);
-    layout.setId("timePanelLayout");
-    layout.getAttributes().put(Attributes.COLUMNS, "1*;fixed;1*");
-    UIComponent cell = CreateComponentUtils.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL);
-    cell.setId("cell1");
-    timePanel.getChildren().add(cell);
+    final UIGridLayout layoutOfTime = (UIGridLayout) CreateComponentUtils.createComponent(
+        facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "timePanelLayout");
+    timePanel.getFacets().put(Facets.LAYOUT, layoutOfTime);
+    layoutOfTime.setColumns("1*;fixed;1*");
+    final UIPanel cell1 = (UIPanel) CreateComponentUtils.createComponent(
+        facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL, "cell1");
+    cell1.onComponentPopulated(facesContext);
+    timePanel.getChildren().add(cell1);
 
-    final UIComponent time = CreateComponentUtils.createComponent(
-        facesContext,
-        UITime.COMPONENT_TYPE,
-        RendererTypes.TIME);
+    final UITime time = (UITime) CreateComponentUtils.createComponent(
+        facesContext, UITime.COMPONENT_TYPE, RendererTypes.TIME, "time");
     timePanel.getChildren().add(time);
-    time.setId("time");
 
-    cell = CreateComponentUtils.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL);
-    cell.setId("cell2");
-    timePanel.getChildren().add(cell);
+    final UIPanel cell2 = (UIPanel) CreateComponentUtils.createComponent(
+        facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL, "cell2");
+    cell2.onComponentPopulated(facesContext);
+    timePanel.getChildren().add(cell2);
+
+    timePanel.onComponentPopulated(facesContext);
 
 
-    UIComponent buttonPanel = CreateComponentUtils.createComponent(
-        facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL);
-    buttonPanel.setId("buttonPanel");
-    layout = CreateComponentUtils.createComponent(
-        facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT);
-    layout.setId("buttonPanelLayout");
-    buttonPanel.getFacets().put(Facets.LAYOUT, layout);
-    layout.getAttributes().put(Attributes.COLUMNS, "*;*");
-    layout.getAttributes().put(Attributes.ROWS, "fixed");
+    final UIPanel buttonPanel = (UIPanel) CreateComponentUtils.createComponent(
+        facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL, "buttonPanel");
+    final UIGridLayout layoutOfButtons = (UIGridLayout) CreateComponentUtils.createComponent(
+        facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "buttonPanelLayout");
+    buttonPanel.setLayoutManager(layoutOfButtons);
+    layoutOfButtons.setColumns("*;*");
+    layoutOfButtons.setRows("fixed");
 
     box.getChildren().add(buttonPanel);
+    box.onComponentPopulated(facesContext);
 
-    final UIButton okButton = (UIButton)
-        CreateComponentUtils.createComponent(facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON);
+    final UIButton okButton = (UIButton) CreateComponentUtils.createComponent(
+        facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, "ok");
     buttonPanel.getChildren().add(okButton);
-    okButton.setId("ok" + CLOSE_POPUP);
-    okButton.getAttributes().put(Attributes.LABEL, ResourceManagerUtil.getPropertyNotNull(
-        facesContext, "tobago", "datePickerOk"));
+    okButton.setLabel(ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "datePickerOk"));
+    okButton.setOnclick("writeIntoField2(this);");
+    okButton.getAttributes().put(Attributes.POPUP_CLOSE, "afterSubmit");
 
-    final UIButton cancelButton = (UIButton)
-        CreateComponentUtils.createComponent(facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON);
+    final UIButton cancelButton = (UIButton) CreateComponentUtils.createComponent(
+        facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, "cancel");
     buttonPanel.getChildren().add(cancelButton);
+    cancelButton.setLabel(ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "datePickerCancel"));
+    cancelButton.setOnclick( "writeIntoField2(this);");
+    cancelButton.getAttributes().put(Attributes.POPUP_CLOSE, "immediate");
 
-    cancelButton.getAttributes().put(Attributes.LABEL, ResourceManagerUtil.getPropertyNotNull(
-        facesContext, "tobago", "datePickerCancel"));
-    cancelButton.setId(CLOSE_POPUP);
+    buttonPanel.onComponentPopulated(facesContext);
 
     // create image
-    UIImage image = (UIImage)
-        CreateComponentUtils.createComponent(facesContext, UIImage.COMPONENT_TYPE, RendererTypes.IMAGE);
+    // check the id: its might be better not calling createUniqueId
+    final String imageId = linkId != null ? linkId + "image" : facesContext.getViewRoot().createUniqueId();
+    final UIImage image = (UIImage) CreateComponentUtils.createComponent(
+        facesContext, UIImage.COMPONENT_TYPE, RendererTypes.IMAGE, imageId);
     image.setRendered(true);
-    if (linkId != null) {
-      image.setId(linkId + "image");
-    } else {
-      image.setId(facesContext.getViewRoot().createUniqueId());
-    }
     image.setValue("image/date.gif");
-    image.getAttributes().put(Attributes.ALT, ""); //TODO: i18n
+    image.setAlt(""); //TODO: i18n (write a text)
     StyleClasses.ensureStyleClasses(image).addFullQualifiedClass("tobago-input-picker"); // XXX not a standard name
     picker.getChildren().add(image);
   }
 
 
+  @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     UIDatePicker picker = (UIDatePicker) component;
     // todo: use Measure instead of int
+    // todo: call setWidth ???
     picker.getAttributes().put(
-        Attributes.LAYOUT_WIDTH, 
+        Attributes.LAYOUT_WIDTH,
         getResourceManager().getThemeMeasure(facesContext, picker, "pickerWidth").getPixel());
     if (facesContext instanceof TobagoFacesContext) {
       UIPopup popup = (UIPopup) picker.getFacets().get(Facets.PICKER_POPUP);
@@ -203,6 +179,7 @@ public class DatePickerRenderer extends LinkRenderer {
     super.prepareRender(facesContext, picker);
   }
 
+  @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     UIDatePicker picker = (UIDatePicker) component;
 //    DatePickerController datePickerController = new DatePickerController();
@@ -242,16 +219,6 @@ public class DatePickerRenderer extends LinkRenderer {
       //    + converterPattern);
     }
 
-    UICommand okButton = (UICommand) popup.findComponent("ok" + CLOSE_POPUP);
-    attributes = okButton.getAttributes();
-    attributes.put(Attributes.ONCLICK, "writeIntoField2(this);");
-    attributes.put(Attributes.POPUP_CLOSE, "afterSubmit");
-
-    UICommand cancelButton = (UICommand) popup.findComponent(CLOSE_POPUP);
-    attributes = cancelButton.getAttributes();
-    attributes.put(Attributes.ONCLICK, "writeIntoField2(this);");
-    attributes.put(Attributes.POPUP_CLOSE, "immediate");
-
     applyConverterPattern(facesContext, popup, converterPattern);
 
     if (!ComponentUtils.containsPopupActionListener(picker)) {
@@ -269,7 +236,7 @@ public class DatePickerRenderer extends LinkRenderer {
       popupHeight = popupHeight.add(getResourceManager().getThemeMeasure(facesContext, time, "preferredHeight"));
       popup.setHeight(popupHeight);
       DateTimeConverter dateTimeConverter
-          = (DateTimeConverter) facesContext.getApplication().createConverter(CONVERTER_ID);
+          = (DateTimeConverter) facesContext.getApplication().createConverter(DateTimeConverter.CONVERTER_ID);
       if (converterPattern.indexOf('s') > -1) {
         dateTimeConverter.setPattern("HH:mm:ss");
       } else {
@@ -282,6 +249,7 @@ public class DatePickerRenderer extends LinkRenderer {
     }
   }
 
+  @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     UIDatePicker link = (UIDatePicker) component;
     UIDate dateInput = (UIDate) link.getForComponent();

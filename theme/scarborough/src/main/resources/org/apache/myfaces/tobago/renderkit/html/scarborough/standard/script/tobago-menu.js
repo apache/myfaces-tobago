@@ -214,6 +214,10 @@ function xxx_tobagoMenuInit() {
     // a click on the top menu make the complete menu active or inactive respectively.
     jQuery(".tobago-menu-top").click(function(event) {
 
+      // e. g. disabled by a popup
+      if($(this).children("a").attr("disabled")) {
+        return;
+      }
       // register on click handlers
       var menuBar = jQuery(this).parent();
       var wasActive = 'true' == menuBar.attr('menu-active'); // read state
