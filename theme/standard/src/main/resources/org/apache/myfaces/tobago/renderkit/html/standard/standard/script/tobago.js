@@ -1032,8 +1032,9 @@ var Tobago = {
         }
       }
     }
-    for (i = 0; i < document.anchors.length; i++) {
-      var anchor = document.anchors[i];
+    var anchors = document.getElementsByTagName('a');
+    for (i = 0; i < anchors.length; i++) {
+      var anchor = anchors[i];
       if (!anchor.disabled) {
         if (anchor.id) {
           if (anchor.id.indexOf(id + ":") != 0) { // not starts with
@@ -1148,8 +1149,9 @@ var Tobago = {
          element.disabled = false;
        }
      }
-     for (i = 0; i < document.anchors.length; i++) {
-       var anchor = document.anchors[i];
+      var anchors = document.getElementsByTagName('a');
+      for (i = 0; i < anchors.length; i++) {
+       var anchor = anchors[i];
        if (hidden.value.indexOf("," + anchor.id + ",") >= 0) {
          anchor.disabled = false;
        }

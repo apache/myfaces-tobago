@@ -263,6 +263,16 @@ Tobago.Menu.Item.prototype.openMenu = function() {
   };
 
 Tobago.Menu.Item.prototype.onMouseOver = function() {
+
+  var div = Tobago.element(this.id);
+  // e. g. disabled by a popup
+  for (var i = 0; i < div.childNodes.length; i++) {
+    var child = div.childNodes[i];
+    if (child.tagName == "A" && child.disabled){
+      return;
+    }
+  }
+
     this.mouseOver = true;
     //LOG.debug("onMouseOver " + this.id + " level :" + this.level);
     clearTimeout(this.onBlurTimer);
@@ -298,6 +308,16 @@ Tobago.Menu.Item.prototype.onMouseOut = function(clicked) {
   };
 
 Tobago.Menu.Item.prototype.onFocus = function() {
+
+  var div = Tobago.element(this.id);
+  // e. g. disabled by a popup
+  for (var i = 0; i < div.childNodes.length; i++) {
+    var child = div.childNodes[i];
+    if (child.tagName == "A" && child.disabled){
+      return;
+    }
+  }
+
     this.focus = true;
     Tobago.addCssClass(this.id, "tobago-menu-item-focus");
     if (this.menuButton) {
