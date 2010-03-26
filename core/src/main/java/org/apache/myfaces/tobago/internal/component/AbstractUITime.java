@@ -23,10 +23,9 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
 import java.util.TimeZone;
 
-import static javax.faces.convert.DateTimeConverter.CONVERTER_ID;
-
 public abstract class AbstractUITime extends UIInputBase {
 
+  @Override
   public Converter getConverter() {
     Converter converter = super.getConverter();
     if (converter == null) {
@@ -34,7 +33,7 @@ public abstract class AbstractUITime extends UIInputBase {
       Application application
           = FacesContext.getCurrentInstance().getApplication();
       DateTimeConverter dateTimeConverter
-          = (DateTimeConverter) application.createConverter(CONVERTER_ID);
+          = (DateTimeConverter) application.createConverter(DateTimeConverter.CONVERTER_ID);
       dateTimeConverter.setPattern("HH:mm");
       dateTimeConverter.setTimeZone(TimeZone.getDefault());
       setConverter(dateTimeConverter);

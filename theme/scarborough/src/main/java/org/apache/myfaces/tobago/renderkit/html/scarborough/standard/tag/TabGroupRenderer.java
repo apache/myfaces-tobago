@@ -60,9 +60,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_CLIENT;
-import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_TAB;
-
 public class TabGroupRenderer extends LayoutComponentRendererBase implements AjaxRenderer {
 
   private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
@@ -139,7 +136,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
       if (tab instanceof UIPanelBase) {
         if (tab.isRendered()) {
           currentWidth = currentWidth.add(tabList.getWidthList().get(virtualTab));
-          if (SWITCH_TYPE_CLIENT.equals(switchType) || virtualTab == activeIndex) {
+          if (UITabGroup.SWITCH_TYPE_CLIENT.equals(switchType) || virtualTab == activeIndex) {
             if (virtualTab != activeIndex) {
               tabGroup.setDisplay(Display.NONE);
             } else {
@@ -161,7 +158,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
             writer.endElement(HtmlConstants.DIV);
 
             if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
-                && SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
+                && UITabGroup.SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
               final String[] cmds = {
                   "new Tobago.TabGroup(",
                   "    '" + clientId + "', ",
@@ -323,7 +320,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
         if (tab.isRendered()) {
           String onclick;
           if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
-              && SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
+              && UITabGroup.SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
             onclick = null;
           } else {
             onclick = "tobago_switchTab('"+ switchType + "','" + clientId + "'," + index + ','
@@ -456,20 +453,22 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
       FacesContext facesContext, UITabGroup tabGroup, int virtualTab, String switchType, TabList tabList) {
     final String clientId = tabGroup.getClientId(facesContext);
     Application application = facesContext.getApplication();
+
+    final String clickParameters = "('" + switchType + "','" + clientId + "'," + tabGroup.getChildCount() + ')';
+    // left
     UICommand scrollLeft = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     scrollLeft.setId(tabGroup.getId() + "__" + virtualTab + "__" + "previous");
-    //scrollLeft.setId(facesContext.getViewRoot().createUniqueId());
     scrollLeft.setRendererType(null);
     scrollLeft.getAttributes().put(Attributes.IMAGE, "image/tabPrev.gif");
     if (tabList.isFirst(virtualTab)) {
       scrollLeft.setDisabled(true);
     }
-    if (!(TobagoConfig.getInstance(facesContext).isAjaxEnabled() && SWITCH_TYPE_RELOAD_TAB.equals(switchType))) {
-      scrollLeft.getAttributes().put(Attributes.ONCLICK, "tobago_previousTab('" + switchType + "','" + clientId + "',"
-          + tabGroup.getChildCount() + ')');
+    if (!UITabGroup.SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
+      scrollLeft.setOnclick("tobago_previousTab" + clickParameters);
     } else {
-      scrollLeft.getAttributes().put(Attributes.ONCLICK, "javascript:false");
+      scrollLeft.setOnclick("javascript:false");
     }
+    // right
     UICommand scrollRight = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     scrollRight.setId(tabGroup.getId() + "__" + virtualTab + "__" + "next");
     scrollRight.setRendererType(null);
@@ -477,11 +476,10 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
     if (tabList.isLast(virtualTab)) {
       scrollRight.setDisabled(true);
     }
-    if (!(TobagoConfig.getInstance(facesContext).isAjaxEnabled() && SWITCH_TYPE_RELOAD_TAB.equals(switchType))) {
-      scrollRight.getAttributes().put(Attributes.ONCLICK, "tobago_nextTab('" + switchType + "','" + clientId + "',"
-          + tabGroup.getChildCount() + ')');
+    if (!UITabGroup.SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
+      scrollRight.setOnclick("tobago_nextTab" + clickParameters);
     } else {
-      scrollRight.getAttributes().put(Attributes.ONCLICK, "javascript:false");
+      scrollRight.setOnclick("javascript:false");
     }
     /*UICommand commandList = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     commandList.setId(facesContext.getViewRoot().createUniqueId());
@@ -541,7 +539,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
     int index = ensureRenderedActiveIndex(context, tabGroup);
     Measure currentWidth = getCurrentWidth(tabList, index);
     renderTabGroupView(context, HtmlRendererUtils.getTobagoResponseWriter(context),
-        tabGroup, index, SWITCH_TYPE_RELOAD_TAB,
+        tabGroup, index, UITabGroup.SWITCH_TYPE_RELOAD_TAB,
         ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"),
         getResourceManager().getThemeMeasure(context, tabGroup, "navigationBarWidth"), currentWidth, tabList);
   }

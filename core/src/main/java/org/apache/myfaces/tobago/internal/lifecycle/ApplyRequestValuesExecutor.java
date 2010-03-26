@@ -33,8 +33,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import java.util.Map;
 
-import static javax.faces.event.PhaseId.APPLY_REQUEST_VALUES;
-
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
  * <p/>
@@ -47,14 +45,12 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
 
   private ContextCallback contextCallback;
 
-
   public ApplyRequestValuesExecutor() {
     contextCallback = new ApplyRequestValuesCallback();
   }
 
   public boolean execute(FacesContext facesContext) {
-    Map<String, UIComponent> ajaxComponents
-        = AjaxInternalUtils.parseAndStoreComponents(facesContext);
+    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.parseAndStoreComponents(facesContext);
     if (ajaxComponents != null) {
       // first decode the page
       AbstractUIPage page = ComponentUtils.findPage(facesContext);
@@ -63,7 +59,7 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
       if (facesContext instanceof TobagoFacesContext) {
         ((TobagoFacesContext) facesContext).setAjax(true);
       }
-      // decode the action if actioncomponent not inside one of the ajaxcomponets
+      // decode the action if action component not inside one of the ajax components
       // otherwise it is decoded there
       decodeActionComponent(facesContext, page, ajaxComponents);
 
@@ -76,7 +72,7 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
       }
 
       UIViewRoot viewRoot = ((UIViewRoot) facesContext.getViewRoot());
-      viewRoot.broadcastEventsForPhase(facesContext, APPLY_REQUEST_VALUES);
+      viewRoot.broadcastEventsForPhase(facesContext, PhaseId.APPLY_REQUEST_VALUES);
 
     } else {
       facesContext.getViewRoot().processDecodes(facesContext);
@@ -107,6 +103,6 @@ class ApplyRequestValuesExecutor implements PhaseExecutor {
   }
 
   public PhaseId getPhase() {
-    return APPLY_REQUEST_VALUES;
+    return PhaseId.APPLY_REQUEST_VALUES;
   }
 }

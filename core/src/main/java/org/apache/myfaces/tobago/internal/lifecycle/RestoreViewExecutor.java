@@ -39,9 +39,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import static org.apache.myfaces.tobago.internal.lifecycle.TobagoLifecycle.FACES_MESSAGES_KEY;
-import static org.apache.myfaces.tobago.internal.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
-
 /**
  * Implements the life cycle as described in Spec. 1.0 PFD Chapter 2
  * <p/>
@@ -55,19 +52,18 @@ class RestoreViewExecutor implements PhaseExecutor {
     ExternalContext externalContext = facesContext.getExternalContext();
 
     Map sessionMap = externalContext.getSessionMap();
-    UIViewRoot viewRoot = (UIViewRoot) sessionMap.get(VIEW_ROOT_KEY);
+    UIViewRoot viewRoot = (UIViewRoot) sessionMap.get(TobagoLifecycle.VIEW_ROOT_KEY);
     if (viewRoot != null) {
       facesContext.setViewRoot(viewRoot);
-      sessionMap.remove(VIEW_ROOT_KEY);
+      sessionMap.remove(TobagoLifecycle.VIEW_ROOT_KEY);
       //noinspection unchecked
-      List<Object[]> messageHolders
-          = (List<Object[]>) sessionMap.get(FACES_MESSAGES_KEY);
+      List<Object[]> messageHolders = (List<Object[]>) sessionMap.get(TobagoLifecycle.FACES_MESSAGES_KEY);
       if (messageHolders != null) {
         for (Object[] messageHolder : messageHolders) {
           facesContext.addMessage((String) messageHolder[0], (FacesMessage) messageHolder[1]);
         }
       }
-      sessionMap.remove(FACES_MESSAGES_KEY);
+      sessionMap.remove(TobagoLifecycle.FACES_MESSAGES_KEY);
       facesContext.renderResponse();
       return true;
     }
@@ -121,7 +117,7 @@ class RestoreViewExecutor implements PhaseExecutor {
 
     recursivelyHandleComponentReferencesAndSetValid(facesContext, viewRoot);
     //noinspection unchecked
-    facesContext.getExternalContext().getRequestMap().put(VIEW_ROOT_KEY, viewRoot);
+    facesContext.getExternalContext().getRequestMap().put(TobagoLifecycle.VIEW_ROOT_KEY, viewRoot);
     return false;
   }
 
@@ -204,14 +200,13 @@ class RestoreViewExecutor implements PhaseExecutor {
   /**
    * This is all a hack to work around a spec-bug which will be fixed in JSF2.0
    *
-   * @param parent
    * @return true if this component is bindingAware (e.g. aliasBean)
    */
   private static Method getBindingMethod(UIComponent parent) {
-    Class[] clazzes = parent.getClass().getInterfaces();
+    Class[] interfaces = parent.getClass().getInterfaces();
 
-    for (Class clazz : clazzes) {
-      if (clazz.getName().indexOf("BindingAware") != -1) {
+    for (Class clazz : interfaces) {
+      if (clazz.getName().contains("BindingAware")) {
         try {
           return parent.getClass().getMethod("handleBindings", new Class[]{});
         } catch (NoSuchMethodException e) {

@@ -29,8 +29,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import java.util.Map;
 
-import static javax.faces.event.PhaseId.PROCESS_VALIDATIONS;
-
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
  * Process validations phase (JSF Spec 2.2.3)
@@ -53,7 +51,7 @@ class ProcessValidationsExecutor implements PhaseExecutor {
         FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), entry.getKey(), contextCallback);
       }
       UIViewRoot viewRoot = ((UIViewRoot) facesContext.getViewRoot());
-      viewRoot.broadcastEventsForPhase(facesContext, PROCESS_VALIDATIONS);
+      viewRoot.broadcastEventsForPhase(facesContext, PhaseId.PROCESS_VALIDATIONS);
     } else {
       facesContext.getViewRoot().processValidators(facesContext);
     }
@@ -61,6 +59,6 @@ class ProcessValidationsExecutor implements PhaseExecutor {
   }
 
   public PhaseId getPhase() {
-    return PROCESS_VALIDATIONS;
+    return PhaseId.PROCESS_VALIDATIONS;
   }
 }

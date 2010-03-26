@@ -71,8 +71,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import static org.apache.myfaces.tobago.component.UISheet.NONE;
-
 public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRenderer {
 
   private static final Log LOG = LogFactory.getLog(SheetRenderer.class);
@@ -220,7 +218,7 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     }
     writer.endElement(HtmlConstants.INPUT);
 
-    if (!NONE.equals(selectable)) {
+    if (!UISheet.NONE.equals(selectable)) {
       writer.startElement(HtmlConstants.INPUT, null);
       writer.writeIdAttribute(sheetId + SELECTED_POSTFIX);
       writer.writeNameAttribute(sheetId + SELECTED_POSTFIX);

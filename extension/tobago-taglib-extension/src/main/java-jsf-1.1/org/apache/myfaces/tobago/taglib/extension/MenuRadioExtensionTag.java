@@ -37,21 +37,13 @@ import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-import static org.apache.myfaces.tobago.component.Attributes.RENDERED_PARTIALLY;
-
-/*
- * Date: 09.05.2006
- * Time: 17:41:39
- */
-
 /**
  * Renders a submenu with select one items (like a radio button).
  */
-
 @Tag(name = "menuRadio", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.MenuRadioTag")
-public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCommandTagDeclaration,
-    HasIdBindingAndRendered, HasLabel, IsDisabled, HasValue, HasConverter {
+public class MenuRadioExtensionTag extends BodyTagSupport
+    implements AbstractCommandTagDeclaration, HasIdBindingAndRendered, HasLabel, IsDisabled, HasValue, HasConverter {
 
   private String rendered;
   private String value;
@@ -152,11 +144,11 @@ public class MenuRadioExtensionTag extends BodyTagSupport implements AbstractCom
       // Move attribute renderedPartially from selectOne to menuCommand component
       UIComponent selectOneComponent = selectOneRadio.getComponentInstance();
       UICommandBase command = (UICommandBase) menuCommandTag.getComponentInstance();
-      ValueBinding binding = selectOneComponent.getValueBinding(RENDERED_PARTIALLY);
+      ValueBinding binding = selectOneComponent.getValueBinding(Attributes.RENDERED_PARTIALLY);
       if (binding != null) {
-        command.setValueBinding(RENDERED_PARTIALLY, binding);
+        command.setValueBinding(Attributes.RENDERED_PARTIALLY, binding);
       } else {
-        Object renderedPartially = selectOneComponent.getAttributes().get(RENDERED_PARTIALLY);
+        Object renderedPartially = selectOneComponent.getAttributes().get(Attributes.RENDERED_PARTIALLY);
         command.setRenderedPartially(StringUtils.split((String) renderedPartially, ", "));
       }
     }

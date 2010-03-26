@@ -28,9 +28,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import java.util.Map;
 
-import static javax.faces.event.PhaseId.UPDATE_MODEL_VALUES;
-
-
 /**
  * Implements the lifecycle as described in Spec. 1.0 PFD Chapter 2
  * Update model values phase (JSF Spec 2.2.4)
@@ -50,7 +47,7 @@ class UpdateModelValuesExecutor implements PhaseExecutor {
         FacesUtils.invokeOnComponent(facesContext, facesContext.getViewRoot(), entry.getKey(), contextCallback);
       }
       UIViewRoot viewRoot = ((UIViewRoot) facesContext.getViewRoot());
-      viewRoot.broadcastEventsForPhase(facesContext, UPDATE_MODEL_VALUES);
+      viewRoot.broadcastEventsForPhase(facesContext, PhaseId.UPDATE_MODEL_VALUES);
     } else {
       facesContext.getViewRoot().processUpdates(facesContext);
     }
@@ -58,6 +55,6 @@ class UpdateModelValuesExecutor implements PhaseExecutor {
   }
 
   public PhaseId getPhase() {
-    return UPDATE_MODEL_VALUES;
+    return PhaseId.UPDATE_MODEL_VALUES;
   }
 }

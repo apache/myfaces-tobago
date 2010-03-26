@@ -36,17 +36,9 @@ import javax.faces.webapp.FacetTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
-import static org.apache.myfaces.tobago.component.Attributes.RENDERED_PARTIALLY;
-
-/*
- * Date: 09.05.2006
- * Time: 00:00:49
- */
-
 /**
  * Renders a checkable menuitem.
  */
-
 @Tag(name = "menuCheckbox", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.MenuCheckboxTag")
 public class MenuCheckboxExtensionTag extends BodyTagSupport implements AbstractCommandTagDeclaration,
@@ -145,11 +137,11 @@ public class MenuCheckboxExtensionTag extends BodyTagSupport implements Abstract
       // Move attribute renderedPartially from selectOne to menuCommand component
       UIComponent selectBooleanComponent = selectBooleanCheckbox.getComponentInstance();
       UICommandBase command = (UICommandBase) menuCommandTag.getComponentInstance();
-      ValueBinding binding = selectBooleanComponent.getValueBinding(RENDERED_PARTIALLY);
+      ValueBinding binding = selectBooleanComponent.getValueBinding(Attributes.RENDERED_PARTIALLY);
       if (binding != null) {
-        command.setValueBinding(RENDERED_PARTIALLY, binding);
+        command.setValueBinding(Attributes.RENDERED_PARTIALLY, binding);
       } else {
-        Object renderedPartially = selectBooleanComponent.getAttributes().get(RENDERED_PARTIALLY);
+        Object renderedPartially = selectBooleanComponent.getAttributes().get(Attributes.RENDERED_PARTIALLY);
         command.setRenderedPartially(StringUtils.split((String) renderedPartially, ", "));
       }
     }
