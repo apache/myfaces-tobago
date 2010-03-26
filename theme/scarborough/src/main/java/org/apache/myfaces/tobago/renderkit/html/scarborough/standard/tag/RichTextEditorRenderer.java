@@ -17,14 +17,16 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.component.*;
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.CreateComponentUtils;
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
+import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;

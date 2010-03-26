@@ -37,7 +37,8 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.swing.*;
+import javax.swing.BoundedRangeModel;
+import javax.swing.DefaultBoundedRangeModel;
 import java.io.IOException;
 
 public class ProgressRenderer extends LayoutComponentRendererBase {

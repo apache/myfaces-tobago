@@ -22,7 +22,11 @@ import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.taglib.decl.*;
+import org.apache.myfaces.tobago.taglib.decl.HasId;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponentWithDeprecatedDimension;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
+import org.apache.myfaces.tobago.taglib.decl.IsRendered;
 
 /**
  * Renders a popup panel.

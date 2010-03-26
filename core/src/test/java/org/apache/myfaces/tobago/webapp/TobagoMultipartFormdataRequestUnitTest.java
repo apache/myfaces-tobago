@@ -17,18 +17,19 @@ package org.apache.myfaces.tobago.webapp;
  * limitations under the License.
  */
 
-/*
- * Created 29.06.2004 11:07:07.
- * $Id:TobagoMultipartFormdataRequestUnitTest.java 1300 2005-08-10 16:40:23 +0200 (Mi, 10 Aug 2005) lofwyr $
- */
-
 import junit.framework.TestCase;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
 import org.apache.myfaces.tobago.mock.servlet.MockHttpServletRequest;
 
 import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
 
