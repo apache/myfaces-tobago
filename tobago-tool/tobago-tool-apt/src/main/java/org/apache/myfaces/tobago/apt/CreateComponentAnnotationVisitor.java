@@ -111,27 +111,26 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
   }
 
   public void process() {
-    for (InterfaceDeclaration decl : getCollectedInterfaceDeclarations()) {
-      if (decl.getAnnotation(UIComponentTag.class) != null) {
-        createRenderer(decl);
-        createTagOrComponent(decl);
+    for (InterfaceDeclaration declaration : getCollectedInterfaceDeclarations()) {
+      if (declaration.getAnnotation(UIComponentTag.class) != null) {
+        createRenderer(declaration);
+        createTagOrComponent(declaration);
       }
     }
-    for (ClassDeclaration decl : getCollectedClassDeclarations()) {
-      if (decl.getAnnotation(Tag.class) != null && decl.getAnnotation(TagGeneration.class) != null) {
-        createTag(decl);
+    for (ClassDeclaration declaration : getCollectedClassDeclarations()) {
+      if (declaration.getAnnotation(Tag.class) != null && declaration.getAnnotation(TagGeneration.class) != null) {
+        createTag(declaration);
       }
     }
   }
 
-  private void createTag(ClassDeclaration decl) {
+  private void createTag(ClassDeclaration declaration) {
     List<PropertyInfo> properties = new ArrayList<PropertyInfo>();
-    addPropertiesForTagOnly(decl, properties);
-    Tag tag = decl.getAnnotation(Tag.class);
-    TagGeneration tagGeneration = decl.getAnnotation(TagGeneration.class);
+    addPropertiesForTagOnly(declaration, properties);
+    TagGeneration tagGeneration = declaration.getAnnotation(TagGeneration.class);
 
-    TagInfo tagInfo = new TagInfo(decl.getQualifiedName(), tagGeneration.className());
-    tagInfo.setSuperClass(decl.getQualifiedName());
+    TagInfo tagInfo = new TagInfo(declaration.getQualifiedName(), tagGeneration.className());
+    tagInfo.setSuperClass(declaration.getQualifiedName());
     StringTemplate stringTemplate = tagAbstractStringTemplateGroup.getInstanceOf("tag");
     stringTemplate.setAttribute("tagInfo", tagInfo);
     tagInfo.getProperties().addAll(properties);
@@ -140,15 +139,14 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     writeFile(tagInfo, stringTemplate);
   }
 
-  private void createTagOrComponent(InterfaceDeclaration decl) {
-    UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
-    Tag tag = decl.getAnnotation(Tag.class);
+  private void createTagOrComponent(InterfaceDeclaration declaration) {
+    UIComponentTag componentTag = declaration.getAnnotation(UIComponentTag.class);
+    Tag tag = declaration.getAnnotation(Tag.class);
     Map<String, PropertyInfo> properties = new HashMap<String, PropertyInfo>();
-    addProperties(decl, properties);
+    addProperties(declaration, properties);
     if (tag != null) {
-
       String className = "org.apache.myfaces.tobago.internal.taglib." + StringUtils.capitalize(tag.name()) + "Tag";
-      TagInfo tagInfo = new TagInfo(decl.getQualifiedName(), className, componentTag.rendererType());
+      TagInfo tagInfo = new TagInfo(declaration.getQualifiedName(), className, componentTag.rendererType());
       for (PropertyInfo property : properties.values()) {
         if (property.isTagAttribute()) {
           tagInfo.getProperties().add(property);
@@ -178,7 +176,7 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     if (componentTag.generate()) {
       StringTemplate componentStringTemplate = componentStringTemplateGroup.getInstanceOf("component");
       ComponentInfo componentInfo 
-          = new ComponentInfo(decl.getQualifiedName(), componentTag.uiComponent(), componentTag.rendererType());
+          = new ComponentInfo(declaration.getQualifiedName(), componentTag.uiComponent(), componentTag.rendererType());
       
 /*
       String p = componentTag.uiComponentBaseClass();
@@ -193,8 +191,8 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
       
       componentInfo.setSuperClass(componentTag.uiComponentBaseClass());
       componentInfo.setComponentFamily(componentTag.componentFamily());
-      componentInfo.setDescription(getDescription(decl));
-      componentInfo.setDeprecated(decl.getAnnotation(Deprecated.class) != null);
+      componentInfo.setDescription(getDescription(declaration));
+      componentInfo.setDeprecated(declaration.getAnnotation(Deprecated.class) != null);
       List<String> elMethods = Collections.emptyList();
       if (isUnifiedEL()) {
         elMethods = checkForElMethods(componentInfo, componentTag.interfaces());
@@ -287,12 +285,12 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
   }
 
   private Map<String, PropertyInfo> getBaseClassProperties(String baseClass) {
-    for (InterfaceDeclaration decl : getCollectedInterfaceDeclarations()) {
-      if (decl.getAnnotation(UIComponentTag.class) != null) {
-        if (decl.getAnnotation(UIComponentTag.class).uiComponent().equals(baseClass)
-            && decl.getAnnotation(UIComponentTag.class).generate()) {
+    for (InterfaceDeclaration declaration : getCollectedInterfaceDeclarations()) {
+      if (declaration.getAnnotation(UIComponentTag.class) != null) {
+        if (declaration.getAnnotation(UIComponentTag.class).uiComponent().equals(baseClass)
+            && declaration.getAnnotation(UIComponentTag.class).generate()) {
           Map<String, PropertyInfo> properties = new HashMap<String, PropertyInfo>();
-          addProperties(decl, properties);
+          addProperties(declaration, properties);
           return properties;
         }
       }
@@ -300,10 +298,10 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     throw new IllegalStateException("No UIComponentTag found for componentClass " + baseClass);
   }
 
-  private ComponentPropertyInfo addPropertyToComponent(ComponentInfo componentInfo, PropertyInfo info,
-                                                       int index, boolean methodExpression) {
-    ComponentPropertyInfo componentPropertyInfo =
-        (ComponentPropertyInfo) info.fill(new ComponentPropertyInfo());
+  private ComponentPropertyInfo addPropertyToComponent(
+      ComponentInfo componentInfo, PropertyInfo info, int index, boolean methodExpression) {
+
+    ComponentPropertyInfo componentPropertyInfo = (ComponentPropertyInfo) info.fill(new ComponentPropertyInfo());
     componentPropertyInfo.setIndex(index);
     if (methodExpression) {
       componentPropertyInfo.setType("javax.el.MethodExpression");
@@ -321,19 +319,19 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     return componentPropertyInfo;
   }
 
-  private void createRenderer(TypeDeclaration decl) {
-    UIComponentTag componentTag = decl.getAnnotation(UIComponentTag.class);
+  private void createRenderer(TypeDeclaration declaration) {
 
+    UIComponentTag componentTag = declaration.getAnnotation(UIComponentTag.class);
     String rendererType = componentTag.rendererType();
 
     if (rendererType != null && rendererType.length() > 0) {
       String className = "org.apache.myfaces.tobago.renderkit." + rendererType + "Renderer";
       if (renderer.contains(className)) {
-        // allready created
+        // already created
         return;
       }
       renderer.add(className);
-      RendererInfo info = new RendererInfo(decl.getQualifiedName(), className, rendererType);
+      RendererInfo info = new RendererInfo(declaration.getQualifiedName(), className, rendererType);
       boolean ajaxEnabled =
           Arrays.asList(componentTag.interfaces()).contains("org.apache.myfaces.tobago.internal.ajax.AjaxComponent");
       if (componentTag.isLayout()) {
@@ -355,18 +353,18 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
   }
 
   protected void addPropertiesForTagOnly(ClassDeclaration type, List<PropertyInfo> properties) {
-    for (MethodDeclaration decl : getCollectedMethodDeclarations()) {
-      if (decl.getDeclaringType().equals(type)) {
-        addPropertyForTagOnly(decl, properties);
+    for (MethodDeclaration declaration : getCollectedMethodDeclarations()) {
+      if (declaration.getDeclaringType().equals(type)) {
+        addPropertyForTagOnly(declaration, properties);
       }
     }
   }
 
   protected void addProperties(InterfaceDeclaration type, Map<String, PropertyInfo> properties) {
     addProperties(type.getSuperinterfaces(), properties);
-    for (MethodDeclaration decl : getCollectedMethodDeclarations()) {
-      if (decl.getDeclaringType().equals(type)) {
-        addProperty(decl, properties);
+    for (MethodDeclaration declaration : getCollectedMethodDeclarations()) {
+      if (declaration.getDeclaringType().equals(type)) {
+        addProperty(declaration, properties);
       }
     }
   }
@@ -377,11 +375,11 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     }
   }
 
-  protected void addProperty(MethodDeclaration decl, Map<String, PropertyInfo> properties) {
-    TagAttribute tagAttribute = decl.getAnnotation(TagAttribute.class);
-    UIComponentTagAttribute uiComponentTagAttribute = decl.getAnnotation(UIComponentTagAttribute.class);
+  protected void addProperty(MethodDeclaration declaration, Map<String, PropertyInfo> properties) {
+    TagAttribute tagAttribute = declaration.getAnnotation(TagAttribute.class);
+    UIComponentTagAttribute uiComponentTagAttribute = declaration.getAnnotation(UIComponentTagAttribute.class);
     if (uiComponentTagAttribute != null) {
-      String simpleName = decl.getSimpleName();
+      String simpleName = declaration.getSimpleName();
       if (simpleName.startsWith("set") || simpleName.startsWith("get")) {
         String name = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
         if (ignoredProperties.contains(name)) {
@@ -411,8 +409,8 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
           }
           type = uiComponentTagAttribute.type()[0];
         } else {
-          throw new IllegalArgumentException("Type should be single argument "
-              + Arrays.toString(uiComponentTagAttribute.type()));
+          throw new IllegalArgumentException(
+              "Type should be single argument " + Arrays.toString(uiComponentTagAttribute.type()));
         }
         propertyInfo.setType(type);
         propertyInfo.setDefaultValue(
@@ -420,8 +418,8 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         propertyInfo.setDefaultCode(
             uiComponentTagAttribute.defaultCode().length() > 0 ? uiComponentTagAttribute.defaultCode() : null);
         propertyInfo.setMethodSignature(uiComponentTagAttribute.methodSignature());
-        propertyInfo.setDeprecated(decl.getAnnotation(Deprecated.class) != null);
-        propertyInfo.setDescription(getDescription(decl));
+        propertyInfo.setDeprecated(declaration.getAnnotation(Deprecated.class) != null);
+        propertyInfo.setDescription(getDescription(declaration));
         if (properties.containsKey(name)) {
           getEnv().getMessager().printWarning("Redefinition of attribute '" + name + "'.");
         }
@@ -444,10 +442,10 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     return null;
   }
 
-  protected void addPropertyForTagOnly(MethodDeclaration decl, List<PropertyInfo> properties) {
-    TagAttribute tagAttribute = decl.getAnnotation(TagAttribute.class);
+  protected void addPropertyForTagOnly(MethodDeclaration declaration, List<PropertyInfo> properties) {
+    TagAttribute tagAttribute = declaration.getAnnotation(TagAttribute.class);
     if (tagAttribute != null) {
-      String simpleName = decl.getSimpleName();
+      String simpleName = declaration.getSimpleName();
       if (simpleName.startsWith("set") || simpleName.startsWith("get")) {
         String attributeStr = simpleName.substring(3, 4).toLowerCase(Locale.ENGLISH) + simpleName.substring(4);
         if (tagAttribute.name().length() > 0) {
