@@ -142,7 +142,7 @@ public class DatePickerRenderer extends LinkRenderer {
         facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, "cancel");
     buttonPanel.getChildren().add(cancelButton);
     cancelButton.setLabel(ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "datePickerCancel"));
-    cancelButton.setOnclick( "writeIntoField2(this);");
+    cancelButton.setOnclick("writeIntoField2(this);");
     cancelButton.getAttributes().put(Attributes.POPUP_CLOSE, "immediate");
 
     buttonPanel.onComponentPopulated(facesContext);
