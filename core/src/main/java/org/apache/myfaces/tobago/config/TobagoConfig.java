@@ -221,7 +221,7 @@ public class TobagoConfig {
       if (LOG.isInfoEnabled()) {
         LOG.info("Couldn't discover the current project stage, using " + ProjectStage.Production);
       }
-      projectStage = ProjectStage.Development;
+      projectStage = ProjectStage.Production;
     }
   }
 }
