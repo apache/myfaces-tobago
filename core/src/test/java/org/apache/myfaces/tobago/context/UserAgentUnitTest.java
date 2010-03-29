@@ -43,6 +43,10 @@ public class UserAgentUnitTest {
   private static final String CHROMIUM_5_0_365_UBUNTU_9_10
       = "Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/533.3 (KHTML, like Gecko) Chrome/5.0.365.0 Safari/533.3";
 
+  private static final String CHROME_4_1_WINDOWS_7
+      = "User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/532.5 (KHTML, like Gecko)"
+      + " Chrome/4.1.249.1042 Safari/532.5";
+
   private static final String CHROME_5_0_360_UBUNTO_9_10
       = "Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/533.3 (KHTML, like Gecko) Chrome/5.0.360.0 Safari/533.3";
 
