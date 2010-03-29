@@ -97,7 +97,13 @@ public class UserAgent implements Serializable {
 
   public static final UserAgent GECKO = new UserAgent("gecko", null);
 
-  public static final UserAgent WEBKIT = new UserAgent("webkit", null);
+  public static final UserAgent CHROME = new UserAgent("chrome", null);
+
+  public static final UserAgent CHROME_5_0 = new UserAgent("chrome", "5.0", Capability.PLACEHOLDER);
+
+  public static final UserAgent SAFARI = new UserAgent("safari", null);
+
+  public static final UserAgent SAFARI_4_0 = new UserAgent("safari", "4.0", Capability.PLACEHOLDER);
 
   private String name;
 
@@ -147,62 +153,44 @@ public class UserAgent implements Serializable {
       return DEFAULT;
     }
 
-    // remove .replace('/', ' ')
-    header = header.toLowerCase(Locale.ENGLISH).replace('/', ' ');
-    if (header.contains("opera")) {
-      if (header.contains("opera 5.0")) {
+    if (header.contains("Opera")) {
+      if (header.contains("Opera/5.0")) {
         return OPERA_5_0;
-      } else if (header.contains("opera 6.0")) {
+      } else if (header.contains("Opera/6.0")) {
         return OPERA_6_0;
-      } else if (header.contains("opera 7.11")) {
+      } else if (header.contains("Opera/7.11")) {
         return OPERA_7_11;
-      } else if (header.contains("presto")) {
+      } else if (header.contains("Presto")) {
         return OPERA_PRESTO;
       } else {
         return OPERA;
       }
-    } else if (header.indexOf("chrome") > -1) {
-      /*if (header.indexOf("chrome 5.0") > -1) {
-        return WEBKIT_5_0;
-      } else {*/
-        return WEBKIT;
-      //}
-    } else if (header.contains("msie")) {
-      if (header.contains("msie 5.0")) {
-        if (header.contains("mac")) {
-          return MSIE_5_0_MAC;
-        } else {
-          return MSIE_5_0;
-        }
-      } else if (header.contains("msie 5.5")) {
+    } else if (header.contains("AppleWebKit")) {
+      if (header.contains("Chrome/5.0")) {
+        return CHROME_5_0;
+      } else if (header.contains("Chrome")) {
+        return CHROME;
+      } else if (header.contains("Version/4.")) {
+        return SAFARI_4_0;
+      } else {
+        return SAFARI;
+      }
+    } else if (header.contains("MSIE")) {
+      if (header.contains("MSIE 5.0")) {
+        return MSIE_5_0;
+      } else if (header.contains("MSIE 5.5")) {
         return MSIE_5_5;
-      } else if (header.contains("msie 6.0")) {
-        if (header.contains("mac")) {
-          return MSIE_6_0_MAC;
-        } else {
-          return MSIE_6_0;
-        }
-      } else if (header.contains("msie 7.0")) {
+      } else if (header.contains("MSIE 6.0")) {
+        return MSIE_6_0;
+      } else if (header.contains("MSIE 7.0")) {
         return MSIE_7_0;
-      } else if (header.contains("msie 8.0")) {
+      } else if (header.contains("MSIE 8.0")) {
         return MSIE_8_0;
       } else {
         return MSIE;
       }
-    } else if (header.contains("mozilla")) {
-      if (header.contains("mozilla 4.7")) {
-        return MOZILLA_4_7;
-      } else if (header.contains("mozilla 5.0")) {
-        if (header.contains("rv:1.6")) {
-          return MOZILLA_5_0_R1_6;
-        } else if (header.contains("gecko")) {
-          return GECKO;
-        } else {
-          return MOZILLA_5_0;
-        }
-      } else {
-        return MOZILLA;
-      }
+    } else if (header.contains("Gecko")) {
+       return GECKO;
     }
 
     return DEFAULT;
