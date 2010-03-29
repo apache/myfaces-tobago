@@ -31,6 +31,19 @@ public class UserAgentUnitTest {
   private static final String OPERA_10_10_MACOSX
       = "User-Agent: Opera/9.80 (Macintosh; Intel Mac OS X; U; de) Presto/2.2.15 Version/10.10";
 
+
+  private static final String FIREFOX_3_6_UBUNTU_9_10 =
+      "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.3pre) Gecko/20100328 Ubuntu/9.10 (karmic) Namoroka/3.6.3pre";
+
+  private static final String CHROMIUM_5_0_365_UBUNTU_9_10 =
+      "Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/533.3 (KHTML, like Gecko) Chrome/5.0.365.0 Safari/533.3";
+
+  private static final String CHROME_5_0_360_UBUNTO_9_10 =
+      "Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/533.3 (KHTML, like Gecko) Chrome/5.0.360.0 Safari/533.3";
+
+  private static final String OPERA_10_51_UBUNTU_9_10 =
+      "Opera/9.80 (X11; Linux i686; U; en) Presto/2.5.22 Version/10.51";
+
   @Test
   public void test() {
 
