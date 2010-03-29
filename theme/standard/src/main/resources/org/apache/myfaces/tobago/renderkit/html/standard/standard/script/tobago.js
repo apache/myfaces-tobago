@@ -1079,25 +1079,16 @@ var Tobago = {
   },
 
   openPopupWithAction: function(source, popupId, actionId, options) {
-    var div = Tobago.element(popupId);
-    if (div) {
-      LOG.warn("something is wrong, doing full reload");
-//      LOG.info("id = " + popupId + "  type = " + div.tagName + "  class = " + div.className);
-      Tobago.submitAction(source, actionId);
+
+    // If there is no div, create one.
+    var div = jQuery(Tobago.escapeClientId(popupId));
+    if (div.size() == 0) {
+      jQuery("form:first") // add the new div after the page and the popup divs.
+          .children("(.tobago-page-default,.tobago-popup-default):last")
+          .after("<div id='" + popupId + "'");
     }
 
-    div = document.createElement('div');
-    div.id = popupId + "parentDiv";
-    div.className = "tobago-popup-parent";
-    LOG.debug('adding div');
-    if (Tobago.element(div.id)) {
-      LOG.debug('found element' + div.id);
-    } else {
-      LOG.debug('add element' + div.id);
-      Tobago.form.appendChild(div);
-    }
-
-    Tobago.addAjaxComponent(popupId, div.id);
+    Tobago.addAjaxComponent(popupId);
     Tobago.reloadComponent(source, popupId, actionId, options);
   },
 
