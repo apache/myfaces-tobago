@@ -31,8 +31,6 @@ import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
-import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
-import org.apache.myfaces.tobago.internal.ajax.AjaxRenderer;
 import org.apache.myfaces.tobago.internal.component.UIPanelBase;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.layout.Display;
