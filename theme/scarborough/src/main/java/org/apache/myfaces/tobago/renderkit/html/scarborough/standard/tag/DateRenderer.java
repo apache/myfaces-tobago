@@ -17,14 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -48,6 +42,7 @@ public class DateRenderer extends InRenderer {
       "script/calendar.js"
     };
 
+  @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
     if (facesContext instanceof TobagoFacesContext) {
@@ -55,11 +50,11 @@ public class DateRenderer extends InRenderer {
     }
   }
 
+  @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
-    if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
-      HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, null);
-    }
+    // for AJAX
+    HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, null);
 
     super.encodeEnd(facesContext, component);
 
@@ -78,8 +73,7 @@ public class DateRenderer extends InRenderer {
         writer.writeAttribute(HtmlAttributes.VALUE, pattern, false);
         writer.endElement(HtmlConstants.INPUT);
       } else {
-        LOG.warn("Can't find the pattern for the converter! "
-            + "DatePicker may not work correctly.");
+        LOG.warn("Can't find the pattern for the converter! DatePicker may not work correctly.");
       }
     }
   }

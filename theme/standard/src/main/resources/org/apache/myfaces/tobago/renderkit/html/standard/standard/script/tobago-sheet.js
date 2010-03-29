@@ -40,12 +40,12 @@ Tobago.Sheets = {
 
 };
 
+// XXX: 2nd parameter enableAjax is deprecated
 Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage, selectable, columnSelectorIndex, autoReload,
                         clickActionId, clickReloadComponentId, dblClickActionId, dblClickReloadComponentId) {
   this.startTime = new Date();
   this.id = sheetId;
   Tobago.Sheets.put(this);
-  this.ajaxEnabled = enableAjax;
   this.checkedImage = checkedImage;
   this.uncheckedImage = uncheckedImage;
   this.selectable = selectable;
@@ -392,12 +392,10 @@ Tobago.Sheet.prototype.setup = function() {
         this.updateSelectionView();
       }
 
-      if (this.ajaxEnabled) {
-        this.setupSortHeaders();
-        this.setupPagingLinks();
-        this.setupPagePaging();
-        this.setupRowPaging();
-      }
+      this.setupSortHeaders();
+      this.setupPagingLinks();
+      this.setupPagePaging();
+      this.setupRowPaging();
     }
     this.initReload();
     this.setupEnd = new Date();

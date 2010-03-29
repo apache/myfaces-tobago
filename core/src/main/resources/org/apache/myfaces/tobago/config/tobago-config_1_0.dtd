@@ -45,6 +45,7 @@
 <!ELEMENT key (#PCDATA)>
 <!ELEMENT value (#PCDATA)>
 
+<!-- deprecated -->
 <!ELEMENT ajax-enabled (#PCDATA)>
 
 <!ELEMENT renderers (renderer)*>

@@ -1042,9 +1042,9 @@ var Tobago = {
   /**
    * remove a popup without request
    */
-  closePopup: function(element) {
+  closePopup: function(closeButton) {
     Tobago.unlockBehindPopup();
-    var popup = jQuery(element).parents("div.tobago-popup-default:first");
+    var popup = jQuery(closeButton).parents("div.tobago-popup-default:first");
     popup.remove();
     Tobago.setupPopup();
   },
@@ -1842,16 +1842,15 @@ Tobago.In.prototype.leaveRequired = function (e) {
   }
 };
 
+// XXX: 2nd parameter enableAjax is deprecated
 Tobago.Panel = function(panelId, enableAjax, autoReload) {
   this.startTime = new Date();
   this.id = panelId;
-  this.ajaxEnabled = enableAjax;
   this.autoReload = autoReload;
 
-  if (this.ajaxEnabled) {
-    this.options = {
-    };
-  }
+  this.options = {
+  };
+
   //LOG.debug("Panel setup  " + this.id);
   this.setup();
   Tobago.addAjaxComponent(this.id, this);

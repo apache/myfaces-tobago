@@ -30,7 +30,6 @@
   </theme-config>
 
   <resource-dir>addressbook-resource</resource-dir>
-  <ajax-enabled>true</ajax-enabled>
   <renderers>
     <renderer>
       <name>Progress</name>

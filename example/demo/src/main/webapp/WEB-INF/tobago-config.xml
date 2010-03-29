@@ -30,5 +30,4 @@
   </theme-config>
 
   <resource-dir>tobago-resource</resource-dir>
-  <ajax-enabled>true</ajax-enabled>
 </tobago-config>

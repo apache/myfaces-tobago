@@ -150,7 +150,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         frequency = update.getFrequency();
       }
       final String[] cmds = {
-          "new Tobago.Sheet(\"" + sheetId + "\", " + true
+          "new Tobago.Sheet(\"" + sheetId + "\", " + true // ajaxEnabled=true (deprecated)
               + ", \"" + checked + "\", \"" + unchecked + "\", \"" + sheet.getSelectable()
               + "\", " + columnSelectorIndex + ", " + frequency
               + ",  " + (clickAction != null ? HtmlRendererUtils.getJavascriptString(clickAction.getId()) : null)

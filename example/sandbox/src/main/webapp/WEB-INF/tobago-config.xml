@@ -28,7 +28,4 @@
 
   <resource-dir>tobago-resource</resource-dir>
   <resource-dir>org/apache/myfaces/tobago/renderkit</resource-dir>
-
-  <ajax-enabled>true</ajax-enabled>
-  
 </tobago-config>

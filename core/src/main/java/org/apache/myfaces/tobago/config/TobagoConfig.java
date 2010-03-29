@@ -22,6 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.context.RenderersConfig;
 import org.apache.myfaces.tobago.context.Theme;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.JndiUtils;
 
 import javax.faces.context.FacesContext;
@@ -45,7 +46,6 @@ public class TobagoConfig {
   private Theme defaultTheme;
   private String defaultThemeName;
   private List<String> resourceDirs;
-  private boolean ajaxEnabled;
   private Map<String, Theme> availableTheme;
   private RenderersConfig renderersConfig;
   private ProjectStage projectStage;
@@ -54,7 +54,6 @@ public class TobagoConfig {
     supportedThemeNames = new ArrayList<String>();
     supportedThemes = new ArrayList<Theme>();
     resourceDirs = new ArrayList<String>();
-    ajaxEnabled = true;
   }
 
   public void addSupportedThemeName(String name) {
@@ -157,12 +156,17 @@ public class TobagoConfig {
     return resourceDirs;
   }
 
+  /** @deprecated */
+  @Deprecated
   public boolean isAjaxEnabled() {
-    return ajaxEnabled;
+    Deprecation.LOG.warn("Ajax is always enabled!");
+    return true;
   }
 
+  /** @deprecated */
+  @Deprecated
   public void setAjaxEnabled(String value) {
-    this.ajaxEnabled = Boolean.valueOf(value);
+    Deprecation.LOG.error("Ajax is always enabled!");
   }
 
   public Theme getDefaultTheme() {

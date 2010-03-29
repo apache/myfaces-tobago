@@ -27,7 +27,6 @@ import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.component.UIToolBar;
-import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
@@ -107,9 +106,8 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     final String hiddenId = clientId + TabGroupRenderer.ACTIVE_INDEX_POSTFIX;
     final String switchType = tabGroup.getSwitchType();
 
-    if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()) {
-      HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, ArrayUtils.EMPTY_STRING_ARRAY);
-    }
+    // AJAX
+    HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, ArrayUtils.EMPTY_STRING_ARRAY);
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.INPUT, null);
@@ -155,8 +153,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
                 switchType, image1x1, navigationBarWidth, currentWidth, tabList);
             writer.endElement(HtmlConstants.DIV);
 
-            if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
-                && UITabGroup.SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
+            if (UITabGroup.SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
               final String[] cmds = {
                   "new Tobago.TabGroup(",
                   "    '" + clientId + "', ",
@@ -317,8 +314,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
         UITab tab = (UITab) child;
         if (tab.isRendered()) {
           String onclick;
-          if (TobagoConfig.getInstance(facesContext).isAjaxEnabled()
-              && UITabGroup.SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
+          if (UITabGroup.SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
             onclick = null;
           } else {
             onclick = "tobago_switchTab('"+ switchType + "','" + clientId + "'," + index + ','
