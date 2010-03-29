@@ -25,7 +25,7 @@ import java.util.Locale;
 
 public class UserAgent implements Serializable {
 
-  private static final long serialVersionUID = -3138810465122379395L;
+  private static final long serialVersionUID = 2L;
 
   public static final String DEFAULT_NAME = "standard";
 
@@ -34,35 +34,63 @@ public class UserAgent implements Serializable {
 
   public static final UserAgent MSIE = new UserAgent("msie", null);
 
+  /** @deprecated no longer supported, since Tobago 1.5 */
+  @Deprecated
   public static final UserAgent MSIE_5_0 = new UserAgent("msie", "5_0");
 
+  /** @deprecated no longer supported, since Tobago 1.5 */
+  @Deprecated
   public static final UserAgent MSIE_5_5 = new UserAgent("msie", "5_5");
 
   public static final UserAgent MSIE_6_0 = new UserAgent("msie", "6_0");
 
-  public static final UserAgent MSIE_7_O = new UserAgent("msie", "7_0");
+  public static final UserAgent MSIE_7_0 = new UserAgent("msie", "7_0");
 
+  /** @deprecated no longer supported, since Tobago 1.5. Misspelled */
+  @Deprecated
+  public static final UserAgent MSIE_7_O = MSIE_7_0;
+
+  public static final UserAgent MSIE_8_0 = new UserAgent("msie", "8_0");
+
+  /** @deprecated no longer supported, since Tobago 1.5 */
+  @Deprecated
   public static final UserAgent MSIE_5_0_MAC = new UserAgent("msie", "5_0_mac");
 
+  /** @deprecated no longer supported, since Tobago 1.5 */
+  @Deprecated
   public static final UserAgent MSIE_6_0_MAC = new UserAgent("msie", "6_0_mac");
 
 
   public static final UserAgent OPERA = new UserAgent("opera", null);
 
+  /** @deprecated no longer supported, since Tobago 1.5 */
+  @Deprecated
   public static final UserAgent OPERA_5_0 = new UserAgent("opera", "5_0");
 
+  /** @deprecated no longer supported, since Tobago 1.5 */
+  @Deprecated
   public static final UserAgent OPERA_6_0 = new UserAgent("opera", "6_0");
 
+  /** @deprecated no longer supported, since Tobago 1.5 */
+  @Deprecated
   public static final UserAgent OPERA_7_11 = new UserAgent("opera", "7_11");
 
 
   public static final UserAgent MOZILLA = new UserAgent("mozilla", null);
 
+  /** @deprecated no longer supported, since Tobago 1.5 */
+  @Deprecated
   public static final UserAgent MOZILLA_4_7 = new UserAgent("mozilla", "4_7");
 
+  /** @deprecated no longer supported, since Tobago 1.5 */
+  @Deprecated
   public static final UserAgent MOZILLA_5_0 = new UserAgent("mozilla", "5_0");
 
+  /** @deprecated no longer supported, since Tobago 1.5 */
+  @Deprecated
   public static final UserAgent MOZILLA_5_0_R1_6 = new UserAgent("mozilla", "5_0_r1_6");
+
+  public static final UserAgent GECKO = new UserAgent("gecko", null);
 
 
   private String name;
@@ -108,43 +136,48 @@ public class UserAgent implements Serializable {
       return DEFAULT;
     }
 
+    // remove .replace('/', ' ')
     header = header.toLowerCase(Locale.ENGLISH).replace('/', ' ');
-    if (header.indexOf("opera") > -1) {
-      if (header.indexOf("opera 5.0") > -1) {
+    if (header.contains("opera")) {
+      if (header.contains("opera 5.0")) {
         return OPERA_5_0;
-      } else if (header.indexOf("opera 6.0") > -1) {
+      } else if (header.contains("opera 6.0")) {
         return OPERA_6_0;
-      } else if (header.indexOf("opera 7.11") > -1) {
+      } else if (header.contains("opera 7.11")) {
         return OPERA_7_11;
       } else {
         return OPERA;
       }
-    } else if (header.indexOf("msie") > -1) {
-      if (header.indexOf("msie 5.0") > -1) {
-        if (header.indexOf("mac") > -1) {
+    } else if (header.contains("msie")) {
+      if (header.contains("msie 5.0")) {
+        if (header.contains("mac")) {
           return MSIE_5_0_MAC;
         } else {
           return MSIE_5_0;
         }
-      } else if (header.indexOf("msie 5.5") > -1) {
+      } else if (header.contains("msie 5.5")) {
         return MSIE_5_5;
-      } else if (header.indexOf("msie 6.0") > -1) {
-        if (header.indexOf("mac") > -1) {
+      } else if (header.contains("msie 6.0")) {
+        if (header.contains("mac")) {
           return MSIE_6_0_MAC;
         } else {
           return MSIE_6_0;
         }
-      } else if (header.indexOf("msie 7.0") > -1) {
-        return MSIE_7_O;
+      } else if (header.contains("msie 7.0")) {
+        return MSIE_7_0;
+      } else if (header.contains("msie 8.0")) {
+        return MSIE_8_0;
       } else {
         return MSIE;
       }
-    } else if (header.indexOf("mozilla") > -1) {
-      if (header.indexOf("mozilla 4.7") > -1) {
+    } else if (header.contains("mozilla")) {
+      if (header.contains("mozilla 4.7")) {
         return MOZILLA_4_7;
-      } else if (header.indexOf("mozilla 5.0") > -1) {
-        if (header.indexOf("rv:1.6") > -1) {
+      } else if (header.contains("mozilla 5.0")) {
+        if (header.contains("rv:1.6")) {
           return MOZILLA_5_0_R1_6;
+        } else if (header.contains("gecko")) {
+          return GECKO;
         } else {
           return MOZILLA_5_0;
         }
@@ -156,6 +189,8 @@ public class UserAgent implements Serializable {
     return DEFAULT;
   }
 
+  /** @deprecated no longer supported, since Tobago 1.5 */
+  @Deprecated
   public static UserAgent getInstanceForId(String id) {
     if (id == null) {
       return DEFAULT;
@@ -183,7 +218,7 @@ public class UserAgent implements Serializable {
       } else if (id.equals("msie_6_0_mac")) {
         return MSIE_6_0_MAC;
       } else if (id.equals("msie_7_0")) {
-        return MSIE_7_O;
+        return MSIE_7_0;
       } else {
         return MSIE;
       }
@@ -204,8 +239,9 @@ public class UserAgent implements Serializable {
 
 
   /**
-   * @deprecated don't use toString() functionallity!
+   * @deprecated don't use toString() functionality!
    */
+  @Deprecated
   public String toString() {
     return version != null
         ? name + '_' + version
