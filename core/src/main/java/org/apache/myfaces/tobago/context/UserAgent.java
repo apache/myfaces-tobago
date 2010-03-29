@@ -19,9 +19,12 @@ package org.apache.myfaces.tobago.context;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public class UserAgent implements Serializable {
 
@@ -63,6 +66,8 @@ public class UserAgent implements Serializable {
 
   public static final UserAgent OPERA = new UserAgent("opera", null);
 
+  public static final UserAgent OPERA_PRESTO = new UserAgent("opera", "Presto", Capability.PLACEHOLDER);
+
   /** @deprecated no longer supported, since Tobago 1.5 */
   @Deprecated
   public static final UserAgent OPERA_5_0 = new UserAgent("opera", "5_0");
@@ -92,17 +97,23 @@ public class UserAgent implements Serializable {
 
   public static final UserAgent GECKO = new UserAgent("gecko", null);
 
+  public static final UserAgent WEBKIT = new UserAgent("webkit", null);
 
   private String name;
 
   private String version;
 
+  private Set<Capability> capabilities = new HashSet<Capability>();
 
-  private UserAgent(String name, String version) {
+  private UserAgent(String name, String version, Capability... capabilities) {
     this.name = name;
     this.version = version;
+    this.capabilities.addAll(Arrays.asList(capabilities));
   }
 
+  public boolean hasCapability(Capability capability) {
+     return capabilities.contains(capability);
+  }
 
   public boolean isMsie() {
     return MSIE.name.equals(name);
@@ -145,9 +156,17 @@ public class UserAgent implements Serializable {
         return OPERA_6_0;
       } else if (header.contains("opera 7.11")) {
         return OPERA_7_11;
+      } else if (header.contains("presto")) {
+        return OPERA_PRESTO;
       } else {
         return OPERA;
       }
+    } else if (header.indexOf("chrome") > -1) {
+      /*if (header.indexOf("chrome 5.0") > -1) {
+        return WEBKIT_5_0;
+      } else {*/
+        return WEBKIT;
+      //}
     } else if (header.contains("msie")) {
       if (header.contains("msie 5.0")) {
         if (header.contains("mac")) {
