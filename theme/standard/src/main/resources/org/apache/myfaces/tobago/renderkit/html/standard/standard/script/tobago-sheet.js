@@ -67,7 +67,7 @@ Tobago.Sheet = function(sheetId, enableAjax, checkedImage, uncheckedImage, selec
   this.headerDivId   = this.id + "_header_div";
   this.contentDivId  = this.id + "_data_div";
   this.selectedId    = this.id + Tobago.SUB_COMPONENT_SEP +"selected";
-  this.headerWidthsId = this.id + Tobago.SUB_COMPONENT_SEP + "widths"
+  this.headerWidthsId = this.id + Tobago.SUB_COMPONENT_SEP + "widths";
   this.scrollPositionId = this.id + Tobago.SUB_COMPONENT_SEP + "scrollPosition";
 
   Tobago.addAjaxComponent(this.id, this);
@@ -152,7 +152,7 @@ Tobago.Sheet.prototype.setupPagingLinks = function() {
 Tobago.Sheet.prototype.setupPagePaging = function() {
     linkBox = Tobago.element(idPrefix + "pagingPages");
     if (linkBox) {
-      for (i = 0 ; i < linkBox.childNodes.length ; i++) {
+      for (var i = 0 ; i < linkBox.childNodes.length ; i++) {
         var child = linkBox.childNodes[i];
         if (child.nodeType == 1 && child.tagName.toUpperCase() == "IMG") {
           // first, prev, next and last commands
@@ -340,7 +340,7 @@ Tobago.Sheet.prototype.setupResizer = function() {
       Tobago.addBindEventListener(headerDiv, "mousemove", this, "doResize");
       Tobago.addBindEventListener(headerDiv, "mouseup", this, "endResize");
     }
-    var contentDiv = Tobago.element(this.contentDivId)
+    var contentDiv = Tobago.element(this.contentDivId);
     Tobago.addBindEventListener(contentDiv, "scroll", this, "doScroll");
     var resizer = Tobago.element(this.id + "_header_resizer_" + i++ );
     while (resizer) {
@@ -417,7 +417,7 @@ Tobago.Sheet.prototype.setScrollPosition = function() {
       }
     }
   }
-}
+};
 
 Tobago.Sheet.prototype.initReload = function() {
   if (typeof this.autoReload == "number" && Tobago.element(this.contentDivId)) {
