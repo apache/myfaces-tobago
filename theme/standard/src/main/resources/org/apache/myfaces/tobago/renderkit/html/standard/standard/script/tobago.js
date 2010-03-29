@@ -1647,7 +1647,7 @@ var Tobago = {
       if (typeof arg == 'string') {
 //        LOG.debug("arg is string ");
         return document.getElementById(arg);
-      } else if (typeof arg.currentjTarget == 'object') {
+      } else if (typeof arg.currentTarget == 'object') {
 //        LOG.debug("arg is DOM event ");
         return arg.currentTarget;
       } else if (typeof arg.srcElement == 'object') {
