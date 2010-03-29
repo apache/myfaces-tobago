@@ -60,7 +60,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class TabGroupRenderer extends LayoutComponentRendererBase implements AjaxRenderer {
+public class TabGroupRenderer extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
 
@@ -532,17 +532,6 @@ public class TabGroupRenderer extends LayoutComponentRendererBase implements Aja
     writer.endElement(HtmlConstants.TR);
   }
 
-  public void encodeAjax(FacesContext context, UIComponent component) throws IOException {
-    UITabGroup tabGroup = (UITabGroup) component;
-    AjaxInternalUtils.checkParamValidity(context, tabGroup, UITabGroup.class);
-    TabList tabList = getTabList(context, tabGroup);
-    int index = ensureRenderedActiveIndex(context, tabGroup);
-    Measure currentWidth = getCurrentWidth(tabList, index);
-    renderTabGroupView(context, HtmlRendererUtils.getTobagoResponseWriter(context),
-        tabGroup, index, UITabGroup.SWITCH_TYPE_RELOAD_TAB,
-        ResourceManagerUtil.getImageWithPath(context, "image/1x1.gif"),
-        getResourceManager().getThemeMeasure(context, tabGroup, "navigationBarWidth"), currentWidth, tabList);
-  }
 
   private static class TabList {
     private List<Measure> widthList = new ArrayList<Measure>();

@@ -237,9 +237,11 @@ Tobago.TabGroup.prototype.removeRelatedAcceleratorKeys = function(idPrefix) {
 Tobago.TabGroup.prototype.doUpdate = function(data) {
     if (data.responseCode == Tobago.Updater.CODE_SUCCESS) {
       var container = Tobago.element(this.tabGroupId);
-      container.innerHTML = data.html;
+      Tobago.replaceElement(container, data.html);
       try {
-        data.script();
+        var updateScript;
+        eval("updateScript = " + data.script);
+        updateScript();
       } catch (e) {
         LOG.error(e);
       }

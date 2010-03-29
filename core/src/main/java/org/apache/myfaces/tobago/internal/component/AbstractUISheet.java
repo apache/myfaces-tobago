@@ -29,23 +29,18 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.Sorter;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.event.SheetStateChangeListener;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.event.SortActionSource;
-import org.apache.myfaces.tobago.internal.ajax.AjaxComponent;
-import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
-import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.model.SheetState;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
@@ -57,14 +52,13 @@ import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractUISheet extends javax.faces.component.UIData
-    implements SheetStateChangeSource, SortActionSource, AjaxComponent, InvokeOnComponent, OnComponentPopulated,
+    implements SheetStateChangeSource, SortActionSource, InvokeOnComponent, OnComponentPopulated,
     LayoutContainer, LayoutComponent {
 
   private static final Log LOG = LogFactory.getLog(AbstractUISheet.class);
@@ -366,61 +360,7 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
     this.widthList = widthList;
   }
 
-  @Override
-  public void processDecodes(FacesContext context) {
-    if (context instanceof TobagoFacesContext && ((TobagoFacesContext) context).isAjax()) {
-      final String ajaxId = ((TobagoFacesContext) context).getAjaxComponentId();
-      UIComponent reload = getFacet(Facets.RELOAD);
-      if (ajaxId != null && ajaxId.equals(getClientId(context)) && reload != null && reload.isRendered()
-          && ajaxId.equals(ComponentUtils.findPage(context, this).getActionId())) {
-        Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
-        if (immediate != null && immediate) {
-          Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
-          if (update != null && !update) {
-            if (context.getExternalContext().getResponse() instanceof HttpServletResponse) {
-              ((HttpServletResponse) context.getExternalContext().getResponse())
-                  .setStatus(HttpServletResponse.SC_NOT_MODIFIED);
-            }
-            context.responseComplete();
-            return;
-          }
-        }
-      }
-    }
-    super.processDecodes(context);
-  }
 
-  public void encodeAjax(FacesContext facesContext) throws IOException {
-    // TODO neets more testing!!!
-    //if (!facesContext.getRenderResponse() && !ComponentUtils.hasErrorMessages(facesContext)) {
-    // in encodeBegin of superclass is some logic which clears the DataModel
-    // this must here also done.
-    // in RI and myfaces this could done via setValue(null)
-
-    if (FacesUtils.hasValueBindingOrValueExpression(this, "value")) {
-      setValue(null);
-    } else {
-      setValue(getValue());
-    }
-    //}
-    UIComponent reload = getFacet(Facets.RELOAD);
-    if (reload != null && reload.isRendered()) {
-      Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
-      if (immediate != null && !immediate) {
-        Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
-        if (update != null && !update) {
-          ajaxResponseCode = AjaxResponseRenderer.CODE_NOT_MODIFIED;
-          return;
-        }
-      }
-    }
-    ajaxResponseCode = AjaxResponseRenderer.CODE_SUCCESS;
-    AjaxInternalUtils.encodeAjaxComponent(facesContext, this);
-  }
-
-  public int getAjaxResponseCode() {
-    return ajaxResponseCode;
-  }
 
   public Integer[] getScrollPosition() {
     Integer[] scrollPosition = (Integer[]) getAttributes().get(Attributes.SCROLL_POSITION);

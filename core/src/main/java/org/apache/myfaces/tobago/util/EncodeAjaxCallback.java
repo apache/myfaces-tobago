@@ -18,7 +18,8 @@ package org.apache.myfaces.tobago.util;
  */
 
 
-import org.apache.myfaces.tobago.internal.ajax.AjaxComponent;
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.FacesException;
@@ -32,15 +33,42 @@ public class EncodeAjaxCallback implements TobagoCallback {
 
   public void invokeContextCallback(FacesContext facesContext, UIComponent component) {
     try {
+       UIComponent reload = component.getFacet(Facets.RELOAD);
+       if (reload != null && reload.isRendered()) {
+         Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
+         if (immediate != null && !immediate) {
+           Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
+           if (update != null && !update) {
+             return;
+           }
+         }
+      }
       prepareRendererAll(facesContext, component);
-      ((AjaxComponent) component).encodeAjax(facesContext);
+      encodeAll(facesContext, component);
     } catch (IOException e) {
       throw new FacesException(e);
     }
   }
-
+  
   public PhaseId getPhaseId() {
-    return PhaseId.RENDER_RESPONSE;
+      return PhaseId.RENDER_RESPONSE;
+  }
+  
+
+  // TODO replace with component.encodeAll after removing jsf 1.1 support
+  public static void encodeAll(FacesContext facesContext, UIComponent component) throws IOException {
+     if (component.isRendered()) {
+      component.encodeBegin(facesContext);
+      if (component.getRendersChildren()) {
+        component.encodeChildren(facesContext);
+      } else {
+        for (Object o : component.getChildren()) {
+          UIComponent kid = (UIComponent) o;
+          encodeAll(facesContext, kid);
+        }
+      }
+      component.encodeEnd(facesContext);
+    }
   }
 
   // TODO merge with RenderUtil.prepareRendererAll

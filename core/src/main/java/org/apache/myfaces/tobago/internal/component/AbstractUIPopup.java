@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.Position;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.ajax.AjaxComponent;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
@@ -49,7 +48,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public abstract class AbstractUIPopup extends UIPanelBase
-    implements OnComponentCreated, OnComponentPopulated, NamingContainer, AjaxComponent, InvokeOnComponent,
+    implements OnComponentCreated, OnComponentPopulated, NamingContainer, InvokeOnComponent,
     DeprecatedDimension, Position, LayoutContainer {
 
   private static final Log LOG = LogFactory.getLog(AbstractUIPopup.class);
@@ -176,12 +175,6 @@ public abstract class AbstractUIPopup extends UIPanelBase
   @Override
   public void encodeEnd(FacesContext context) throws IOException {
     super.encodeEnd(context);
-    activated = false;
-  }
-
-  @Override
-  public void encodeAjax(FacesContext facesContext) throws IOException {
-    super.encodeAjax(facesContext);
     activated = false;
   }
 

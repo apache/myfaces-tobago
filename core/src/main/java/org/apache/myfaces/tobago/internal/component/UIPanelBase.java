@@ -19,65 +19,14 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
-import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
-import org.apache.myfaces.tobago.internal.ajax.AjaxComponent;
-import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
-import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 public abstract class UIPanelBase extends javax.faces.component.UIPanel
-    implements AjaxComponent, InvokeOnComponent {
+    implements InvokeOnComponent {
 
-  public void processDecodes(FacesContext context) {
-    if (context instanceof TobagoFacesContext && ((TobagoFacesContext) context).isAjax()) {
-
-      final String ajaxId = ((TobagoFacesContext) context).getAjaxComponentId();
-      UIComponent reload = getFacet(Facets.RELOAD);
-      if (ajaxId != null && ajaxId.equals(getClientId(context)) && reload != null && reload.isRendered()
-          && ajaxId.equals(ComponentUtils.findPage(context, this).getActionId())) {
-        Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
-        if (immediate != null && immediate) {
-          Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
-          if (update != null && !update) {
-            if (context.getExternalContext().getResponse() instanceof HttpServletResponse) {
-              ((HttpServletResponse) context.getExternalContext().getResponse())
-                  .setStatus(HttpServletResponse.SC_NOT_MODIFIED);
-            }
-            context.responseComplete();
-            return;
-          }
-        }
-      }
-    }
-    super.processDecodes(context);
-  }
-
-  public void encodeAjax(FacesContext facesContext) throws IOException {
-    UIComponent reload = getFacet(Facets.RELOAD);
-    if (reload != null && reload.isRendered()) {
-      Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
-      if (immediate != null && !immediate) {
-        Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
-        if (update != null && !update) {
-          return;
-        }
-      }
-    }
-    AjaxInternalUtils.encodeAjaxComponent(facesContext, this);
-  }
-
-  public int getAjaxResponseCode() {
-    return AjaxResponseRenderer.CODE_SUCCESS;
-  }
 
   public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
      throws FacesException {

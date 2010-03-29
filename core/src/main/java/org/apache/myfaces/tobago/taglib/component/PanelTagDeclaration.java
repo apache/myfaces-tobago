@@ -37,8 +37,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
     uiComponent = "org.apache.myfaces.tobago.component.UIPanel",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIPanel",
     rendererType = RendererTypes.PANEL,
-    interfaces = {"org.apache.myfaces.tobago.internal.ajax.AjaxComponent",
-        "org.apache.myfaces.tobago.component.SupportsMarkup"},
+    interfaces = "org.apache.myfaces.tobago.component.SupportsMarkup",
     facets = {
     @Facet(name= Facets.RELOAD, description = "Contains an instance of UIReload",
             allowedChildComponenents = "org.apache.myfaces.tobago.Reload"),

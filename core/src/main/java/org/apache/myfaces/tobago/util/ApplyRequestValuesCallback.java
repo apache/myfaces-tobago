@@ -20,18 +20,41 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.context.TobagoFacesContext;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
+import javax.servlet.http.HttpServletResponse;
 
 public class ApplyRequestValuesCallback implements TobagoCallback {
 
   @SuppressWarnings("UnusedDeclaration")
   private static final Log LOG = LogFactory.getLog(ApplyRequestValuesCallback.class);
 
-  public void invokeContextCallback(FacesContext facesContext, UIComponent component) {
-    component.processDecodes(facesContext);
+  public void invokeContextCallback(FacesContext context, UIComponent component) {
+    if (context instanceof TobagoFacesContext && ((TobagoFacesContext) context).isAjax()) {
+      final String ajaxId = ((TobagoFacesContext) context).getAjaxComponentId();
+      UIComponent reload = component.getFacet(Facets.RELOAD);
+      if (ajaxId != null && ajaxId.equals(component.getClientId(context)) && reload != null && reload.isRendered()
+          && ajaxId.equals(ComponentUtils.findPage(context, component).getActionId())) {
+        Boolean immediate = (Boolean) reload.getAttributes().get(Attributes.IMMEDIATE);
+        if (immediate != null && immediate) {
+          Boolean update = (Boolean) reload.getAttributes().get(Attributes.UPDATE);
+          if (update != null && !update) {
+            if (context.getExternalContext().getResponse() instanceof HttpServletResponse) {
+              ((HttpServletResponse) context.getExternalContext().getResponse())
+                  .setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+            }
+            context.responseComplete();
+            return;
+          }
+        }
+      }
+    }
+    component.processDecodes(context);
   }
 
   public PhaseId getPhaseId() {

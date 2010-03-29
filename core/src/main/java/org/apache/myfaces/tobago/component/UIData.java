@@ -19,11 +19,10 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.SortActionSource2;
-import org.apache.myfaces.tobago.internal.ajax.AjaxComponent;
 
 /**
  * @deprecated Please use UISheet
  */
-public interface UIData extends SortActionSource2, AjaxComponent, SupportsMarkup, SortActionSource {
+public interface UIData extends SortActionSource2, SupportsMarkup, SortActionSource {
 
 }

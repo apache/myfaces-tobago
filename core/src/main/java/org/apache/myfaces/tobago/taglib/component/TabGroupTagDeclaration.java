@@ -42,7 +42,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsImmediateCommand;
     uiComponent = "org.apache.myfaces.tobago.component.UITabGroup",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITabGroup",
     rendererType = RendererTypes.TAB_GROUP,
-    interfaces = { "org.apache.myfaces.tobago.internal.ajax.AjaxComponent", "javax.faces.component.ActionSource"},
+    interfaces = "javax.faces.component.ActionSource",
 //    componentFamily = "org.apache.myfaces.tobago.TabGroup",
     allowedChildComponenents = "org.apache.myfaces.tobago.Tab")
 

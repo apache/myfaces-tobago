@@ -36,7 +36,6 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
     uiComponent = "org.apache.myfaces.tobago.component.UIBox",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UIPanel",
     componentType = "org.apache.myfaces.tobago.Box",
-    interfaces = "org.apache.myfaces.tobago.internal.ajax.AjaxComponent",
     rendererType = RendererTypes.BOX,
     facets = {
     @Facet(name= Facets.TOOL_BAR, description = "Contains an instance of UIToolBar",

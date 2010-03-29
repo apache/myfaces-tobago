@@ -103,7 +103,7 @@ public class AjaxResponseRenderer {
   }
 
   private void renderComponent(FacesContext facesContext, RenderKit renderKit, String clientId,
-      AjaxComponent component) throws IOException {
+      UIComponent component) throws IOException {
     PrintWriter writer = getPrintWriter(facesContext);
     ResponseWriter contentWriter = renderKit.createResponseWriter(writer, contentType, null);
     facesContext.setResponseWriter(contentWriter);
@@ -125,7 +125,7 @@ public class AjaxResponseRenderer {
     writer.write("\",\n");
 
     writer.write("    \"responseCode\": ");
-    writer.write(Integer.toString(component.getAjaxResponseCode()));
+    writer.write(Integer.toString(CODE_SUCCESS));
 
     if (contentWriter instanceof TobagoResponseJsonWriterImpl) {
       writer.write(",\n");
@@ -183,7 +183,7 @@ public class AjaxResponseRenderer {
       writer.write(Integer.toString(i++));
       writer.write("\": ");
 
-      AjaxComponent component = (AjaxComponent) entry.getValue();
+      UIComponent component = entry.getValue();
       if (facesContext instanceof TobagoFacesContext) {
         ((TobagoFacesContext) facesContext).setAjaxComponentId(entry.getKey());
       }

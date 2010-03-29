@@ -26,6 +26,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITextarea;
+import org.apache.myfaces.tobago.context.Capability;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -35,6 +36,7 @@ import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -82,6 +84,20 @@ public class TextAreaRenderer extends InputRendererBase {
     if (onchange != null) {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
     }
+    int maxLength = -1;
+    for (Validator validator : input.getValidators()) {
+      if (validator instanceof LengthValidator) {
+        LengthValidator lengthValidator = (LengthValidator) validator;
+        maxLength = lengthValidator.getMaximum();
+      }
+    }
+    if (maxLength > 0) {
+      writer.writeAttribute(HtmlAttributes.MAXLENGTH, maxLength);
+    }
+    String placeholder = input.getPlaceholder();
+    if (placeholder != null) {
+      writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder, true);
+    }
     String currentValue = RenderUtil.currentValue(input);
     if (currentValue != null) {
       // this is because browsers eat the first CR+LF of <textarea>
@@ -95,24 +111,22 @@ public class TextAreaRenderer extends InputRendererBase {
       writer.writeText(currentValue, null);
     }
     writer.endElement(HtmlConstants.TEXTAREA);
+    if (placeholder != null && !VariableResolverUtils.resolveClientProperties(facesContext)
+        .getUserAgent().hasCapability(Capability.PLACEHOLDER)) {
+      HtmlRendererUtils.createPlaceholderDiv(input, currentValue, placeholder, style, writer);
+    }
 
     HtmlRendererUtils.checkForCommandFacet(input, facesContext, writer);
-    int maxLength = -1;
-    for (Validator validator : input.getValidators()) {
-      if (validator instanceof LengthValidator) {
-        LengthValidator lengthValidator = (LengthValidator) validator;
-        maxLength = lengthValidator.getMaximum();
-      }
-    }
+
     boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
-    if (required || maxLength > 0) {
+    /*if (required || maxLength > 0) {
       String rendererName = HtmlRendererUtils.getRendererName(facesContext, input);
       final String[] cmds = {
           "new Tobago.In(\"" + input.getClientId(facesContext) + "\", true ,\""
                   + StyleClasses.PREFIX + rendererName + "\" " + (maxLength > -1? "," + maxLength: "")  + "  );"
       };
       HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
-    }
+    } */
 
     // focus
     HtmlRendererUtils.renderFocusId(facesContext, input);

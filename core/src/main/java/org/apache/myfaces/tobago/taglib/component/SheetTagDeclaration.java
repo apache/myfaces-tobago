@@ -39,8 +39,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutContainer;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UISheet",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUISheet",
-    interfaces = { "org.apache.myfaces.tobago.internal.ajax.AjaxComponent",
-        "org.apache.myfaces.tobago.event.SortActionSource" },
+    interfaces = "org.apache.myfaces.tobago.event.SortActionSource",
     rendererType = RendererTypes.SHEET,
     allowedChildComponenents = {
         "javax.faces.Column",

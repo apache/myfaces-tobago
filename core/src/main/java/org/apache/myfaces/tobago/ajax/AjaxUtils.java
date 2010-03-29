@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.ajax;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.internal.ajax.AjaxComponent;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 
 import javax.faces.component.UIComponent;
@@ -51,14 +50,9 @@ public class AjaxUtils {
       LOG.warn("Ignore AjaxComponent: null");
       return;
     }
-    if (component instanceof AjaxComponent) {
-      Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(facesContext);
-      if (ajaxComponents != null) {
-        ajaxComponents.put(component.getClientId(facesContext), component);
-      }
-    } else {
-      LOG.warn("Ignore non AjaxComponent: id='"
-          + component.getClientId(facesContext) + "' class=" + component.getClass().getName());
+    Map<String, UIComponent> ajaxComponents = AjaxInternalUtils.getAjaxComponents(facesContext);
+    if (ajaxComponents != null) {
+      ajaxComponents.put(component.getClientId(facesContext), component);
     }
   }
 

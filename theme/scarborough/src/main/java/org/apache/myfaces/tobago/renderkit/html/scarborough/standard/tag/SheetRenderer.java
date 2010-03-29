@@ -71,7 +71,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRenderer {
+public class SheetRenderer extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(SheetRenderer.class);
 
@@ -137,32 +137,34 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     renderSheet(facesContext, sheet, (clickAction != null || dblClickAction != null), style);
 
     writer.endElement(HtmlConstants.DIV);
+    // TODO check ajax id
+    if (facesContext instanceof TobagoFacesContext && !((TobagoFacesContext) facesContext).isAjax()) {
 
-    ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
-    String contextPath = facesContext.getExternalContext().getRequestContextPath();
+      ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
+      String contextPath = facesContext.getExternalContext().getRequestContextPath();
 
-    String unchecked = contextPath + resourceManager.getImage(facesContext, "image/sheetUnchecked.gif");
-    String checked = contextPath + resourceManager.getImage(facesContext, "image/sheetChecked.gif");
-    boolean ajaxEnabled = TobagoConfig.getInstance(facesContext).isAjaxEnabled();
+      String unchecked = contextPath + resourceManager.getImage(facesContext, "image/sheetUnchecked.gif");
+      String checked = contextPath + resourceManager.getImage(facesContext, "image/sheetChecked.gif");
 
-    Integer frequency = null;
-    UIComponent facetReload = sheet.getFacet(Facets.RELOAD);
-    if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
-      UIReload update = (UIReload) facetReload;
-      frequency = update.getFrequency();
-    }
-    final String[] cmds = {
-        "new Tobago.Sheet(\"" + sheetId + "\", " + ajaxEnabled
-            + ", \"" + checked + "\", \"" + unchecked + "\", \"" + sheet.getSelectable()
-            + "\", " + columnSelectorIndex + ", " + frequency
-            + ",  " + (clickAction != null ? HtmlRendererUtils.getJavascriptString(clickAction.getId()) : null)
-            + ",  " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, clickAction)
-            + ",  " + (dblClickAction != null ? HtmlRendererUtils.getJavascriptString(dblClickAction.getId()) : null)
-            + ",  " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, dblClickAction)
-            + ");"
-    };
+      Integer frequency = null;
+      UIComponent facetReload = sheet.getFacet(Facets.RELOAD);
+      if (facetReload != null && facetReload instanceof UIReload && facetReload.isRendered()) {
+        UIReload update = (UIReload) facetReload;
+        frequency = update.getFrequency();
+      }
+      final String[] cmds = {
+          "new Tobago.Sheet(\"" + sheetId + "\", " + true
+              + ", \"" + checked + "\", \"" + unchecked + "\", \"" + sheet.getSelectable()
+              + "\", " + columnSelectorIndex + ", " + frequency
+              + ",  " + (clickAction != null ? HtmlRendererUtils.getJavascriptString(clickAction.getId()) : null)
+              + ",  " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, clickAction)
+              + ",  " + (dblClickAction != null ? HtmlRendererUtils.getJavascriptString(dblClickAction.getId()) : null)
+              + ",  " + HtmlRendererUtils.getRenderedPartiallyJavascriptArray(facesContext, dblClickAction)
+              + ");"
+      };
 
-    HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmds);
+      HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmds);
+  }
   }
 
   private void renderSheet(FacesContext facesContext, UISheet sheet, boolean hasClickAction, Style style)
@@ -1075,36 +1077,6 @@ public class SheetRenderer extends LayoutComponentRendererBase implements AjaxRe
     return getLeftOffset(facesContext, data).add(getRightOffset(facesContext, data));
   }
 
-  public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
-
-    UISheet data = (UISheet) component;
-    Style style = new Style(facesContext, data);
-
-    AjaxInternalUtils.checkParamValidity(facesContext, data, UISheet.class);
-    // TODO find a better way
-    UICommand clickAction = null;
-    UICommand dblClickAction = null;
-    for (UIComponent child : (List<UIComponent>) data.getChildren()) {
-      if (child instanceof UIColumnEvent) {
-        UIColumnEvent columnEvent = (UIColumnEvent) child;
-        if (columnEvent.isRendered()) {
-          UIComponent selectionChild = (UIComponent) child.getChildren().get(0);
-          if (selectionChild != null && selectionChild instanceof UICommand && selectionChild.isRendered()) {
-            UICommand action = (UICommand) selectionChild;
-            if ("click".equals(columnEvent.getEvent())) {
-              clickAction = action;
-            }
-            if ("dblclick".equals(columnEvent.getEvent())) {
-              dblClickAction = action;
-            }
-          }
-        }
-      }
-    }
-    ensureColumnWidthList(facesContext, data, style);
-
-    renderSheet(facesContext, data, (clickAction != null || dblClickAction != null), style);
-  }
 
   @Override
   public void encodeChildren(FacesContext context, UIComponent component) throws IOException {

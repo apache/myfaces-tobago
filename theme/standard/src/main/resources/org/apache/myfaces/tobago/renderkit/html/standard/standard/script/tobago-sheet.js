@@ -196,8 +196,8 @@ Tobago.Sheet.prototype.doSort = function(event) {
     while (element && !element.sorterId) {
       element = element.parentNode;
     }
-//    LOG.debug("element.id = " + element.id);
-//    LOG.debug("sorterId = " + element.sorterId);
+    LOG.debug("element.id = " + element.id);
+    LOG.debug("sorterId = " + element.sorterId);
     this.reloadWithAction(event.srcElement, element.sorterId);
   };
 
@@ -242,9 +242,11 @@ Tobago.Sheet.prototype.reloadWithAction = function(source, action, options) {
 Tobago.Sheet.prototype.doUpdate = function(data) {
     if (data.responseCode == Tobago.Updater.CODE_SUCCESS) {
       var divElement = Tobago.element(this.outerDivId);
-      divElement.innerHTML = data.html;
+      Tobago.replaceElement(divElement, data.html);
       try {
-        data.script();
+        var updateScript;
+        eval("updateScript = " + data.script);
+        updateScript();
       } catch (e) {
         LOG.error(e);
       }

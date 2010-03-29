@@ -21,8 +21,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
-import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
-import org.apache.myfaces.tobago.internal.ajax.AjaxRenderer;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.layout.LayoutContext;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -30,7 +28,6 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -39,7 +36,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
-public class PopupRenderer extends LayoutComponentRendererBase implements AjaxRenderer {
+public class PopupRenderer extends LayoutComponentRendererBase {
 
   private static final Log LOG = LogFactory.getLog(PopupRenderer.class);
 
@@ -63,8 +60,14 @@ public class PopupRenderer extends LayoutComponentRendererBase implements AjaxRe
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    // TODO check ajaxId
+    if (facesContext instanceof TobagoFacesContext && ((TobagoFacesContext) facesContext).isAjax()) {
+      writer.startJavascript();
+      writer.write("Tobago.setupPopup();");
+      writer.endJavascript();
+    }
+    
     UIPopup popup = (UIPopup) component;
 
 // LAYOUT Begin
@@ -109,14 +112,5 @@ public class PopupRenderer extends LayoutComponentRendererBase implements AjaxRe
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.endElement(HtmlConstants.DIV);
-  }
-
-  public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
-    AjaxInternalUtils.checkParamValidity(facesContext, component, UIPopup.class);
-    RenderUtil.encode(facesContext, component);
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.startJavascript();
-    writer.write("Tobago.setupPopup();");
-    writer.endJavascript();
   }
 }

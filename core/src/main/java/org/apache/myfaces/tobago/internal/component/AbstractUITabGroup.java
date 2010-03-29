@@ -29,8 +29,6 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.event.TabChangeSource;
-import org.apache.myfaces.tobago.internal.ajax.AjaxComponent;
-import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
@@ -52,7 +50,7 @@ import java.util.Collection;
 import java.util.List;
 
 public abstract class AbstractUITabGroup extends UIPanelBase
-    implements TabChangeSource, ActionSource, AjaxComponent, LayoutContainer, LayoutComponent, OnComponentPopulated {
+    implements TabChangeSource, ActionSource, LayoutContainer, LayoutComponent, OnComponentPopulated {
 
   private static final Log LOG = LogFactory.getLog(AbstractUITabGroup.class);
 
@@ -239,8 +237,6 @@ public abstract class AbstractUITabGroup extends UIPanelBase
     }
   }
 
-
-
   public void addTabChangeListener(TabChangeListener listener) {
     if (LOG.isWarnEnabled() && isClientType()) {
       LOG.warn("Adding TabChangeListener to Client side Tabgroup!");
@@ -259,11 +255,6 @@ public abstract class AbstractUITabGroup extends UIPanelBase
 
   public TabChangeListener[] getTabChangeListeners() {
     return (TabChangeListener[]) getFacesListeners(TabChangeListener.class);
-  }
-
-  public void encodeAjax(FacesContext facesContext) throws IOException {
-    setRenderedIndex(getSelectedIndex());
-    AjaxInternalUtils.encodeAjaxComponent(facesContext, this);
   }
 
   public abstract Integer getRenderedIndex();
