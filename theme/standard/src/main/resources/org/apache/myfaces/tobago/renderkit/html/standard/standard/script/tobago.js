@@ -1085,7 +1085,7 @@ var Tobago = {
     if (div.size() == 0) {
       jQuery("form:first") // add the new div after the page and the popup divs.
           .children("(.tobago-page-default,.tobago-popup-default):last")
-          .after("<div id='" + popupId + "'");
+          .after("<div id='" + popupId + "' />");
     }
 
     Tobago.addAjaxComponent(popupId);
@@ -2356,20 +2356,13 @@ Tobago.Updater = {
 
   doUpdate: function(data) {
     if (data.responseCode == Tobago.Updater.CODE_SUCCESS) {
-      var container = Tobago.ajaxComponents[data.ajaxId];
-      if (container) {
-// TODO: replace the object instead of replace the content, but for that we have to change the renderers.
-        container = Tobago.element(container);
-        container.innerHTML = data.html;
-        try {
-          var updateScript;
-          eval("updateScript = " + data.script);
-          updateScript();
-        } catch (e) {
-          LOG.error(e);
-        }
-      } else {
-        LOG.warn("can't find container to update");
+      jQuery(Tobago.escapeClientId(data.ajaxId)).replaceWith(data.html);
+      try {
+        var updateScript;
+        eval("updateScript = " + data.script);
+        updateScript();
+      } catch (e) {
+        LOG.error(e);
       }
     } else {
       Tobago.deleteOverlay(Tobago.element(Tobago.ajaxComponents[data.ajaxId]));
