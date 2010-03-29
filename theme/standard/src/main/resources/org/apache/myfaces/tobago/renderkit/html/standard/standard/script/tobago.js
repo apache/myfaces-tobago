@@ -1693,6 +1693,18 @@ var Tobago = {
     return this.browser;
   },
 
+  replaceElement: function(item, newTag) {
+    if (typeof window.Range != 'undefined' && typeof Range.prototype.createContextualFragment == 'function') {
+      var range = document.createRange();
+      range.setStartBefore(item);
+      var fragment = range.createContextualFragment(newTag);
+      item.parentNode.replaceChild(fragment, item);
+    } else {
+      item.insertAdjacentHTML('beforeBegin', newTag);
+      item.parentNode.removeChild(item);
+    }
+  },
+
   parsePartialIds: function(ajaxComponentIds) {
     return ajaxComponentIds.split(",");
   },
@@ -1858,7 +1870,7 @@ Tobago.Panel.prototype.setup = function() {
 Tobago.Panel.prototype.doUpdate = function(data) {
   //LOG.debug("Panel reloaded : " + transport.responseText.substr(0,20));
   if (data.responseCode == Tobago.Updater.CODE_SUCCESS) {
-    Tobago.element(this.id).innerHTML = data.html;
+    Tobago.replaceElement(Tobago.element(this.id), data.html);
     try {
       var updateScript;
       eval("updateScript = " + data.script);
