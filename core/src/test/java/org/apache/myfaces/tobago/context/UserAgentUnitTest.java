@@ -22,6 +22,9 @@ import org.junit.Test;
 
 public class UserAgentUnitTest {
 
+  private static final String SAFARI_4_MACOSX
+      = "User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_2; de-de) AppleWebKit/531.22.7 (KHTML, like Gecko) " 
+      + "Version/4.0.5 Safari/531.22.7";
   private static final String IE_8_WINDOWS_XP
       = "User-Agent: Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727;"
       + " .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)";
