@@ -332,19 +332,12 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
       }
       renderer.add(className);
       RendererInfo info = new RendererInfo(declaration.getQualifiedName(), className, rendererType);
-      boolean ajaxEnabled =
-          Arrays.asList(componentTag.interfaces()).contains("org.apache.myfaces.tobago.internal.ajax.AjaxComponent");
       if (componentTag.isLayout()) {
         info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractLayoutRendererWrapper");
-      } else if (ajaxEnabled) {
-        info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractAjaxRendererBaseWrapper");
       } else if (componentTag.isTransparentForLayout()) {
         info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractRendererBaseWrapper");
       } else {
         info.setSuperClass("org.apache.myfaces.tobago.renderkit.AbstractLayoutableRendererBaseWrapper");
-      }
-      if (ajaxEnabled) {
-        info.addInterface("org.apache.myfaces.tobago.internal.ajax.AjaxRenderer");
       }
       StringTemplate stringTemplate = rendererStringTemplateGroup.getInstanceOf("renderer");
       stringTemplate.setAttribute("renderInfo", info);

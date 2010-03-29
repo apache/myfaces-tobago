@@ -18,31 +18,19 @@ package org.apache.myfaces.tobago.internal.component;
  */
 
 import org.apache.myfaces.tobago.component.SupportsMarkup;
-import org.apache.myfaces.tobago.internal.ajax.AjaxComponent;
-import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
-import org.apache.myfaces.tobago.internal.ajax.AjaxResponseRenderer;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.context.FacesContext;
-import java.io.IOException;
 
 public abstract class UIInputBase extends javax.faces.component.UIInput
-    implements AjaxComponent, SupportsMarkup, LayoutComponent {
+    implements SupportsMarkup, LayoutComponent {
 
   // TODO can this removed?
   public void updateModel(FacesContext facesContext) {
     if (ComponentUtils.mayUpdateModel(this)) {
       super.updateModel(facesContext);
     }
-  }
-
-  public void encodeAjax(FacesContext facesContext) throws IOException {
-    AjaxInternalUtils.encodeAjaxComponent(facesContext, this);
-  }
-
-  public int getAjaxResponseCode() {
-    return AjaxResponseRenderer.CODE_SUCCESS;
   }
 
   public abstract Integer getTabIndex();

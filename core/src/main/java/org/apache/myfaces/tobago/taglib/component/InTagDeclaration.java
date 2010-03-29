@@ -45,8 +45,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsRequired;
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.UIInputBase",
     rendererType = RendererTypes.IN,
     allowedChildComponenents = "NONE",
-    interfaces = { "org.apache.myfaces.tobago.internal.ajax.AjaxComponent", 
-        "org.apache.myfaces.tobago.component.InputSuggest" },
+    interfaces =  "org.apache.myfaces.tobago.component.InputSuggest",
     facets = {
     @Facet(name = Facets.CHANGE,
         description =

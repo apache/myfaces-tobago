@@ -21,8 +21,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIToolBar;
-import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
-import org.apache.myfaces.tobago.internal.ajax.AjaxRenderer;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -38,7 +36,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
 
-public class BoxRenderer extends BoxRendererBase implements AjaxRenderer {
+public class BoxRenderer extends BoxRendererBase {
 
   @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
@@ -164,14 +162,5 @@ without shadow
     toolbar.setRendererType("BoxToolBar");
     RenderUtil.encode(facesContext, toolbar);
     writer.endElement(HtmlConstants.DIV);
-  }
-
-  public void encodeAjax(FacesContext facesContext, UIComponent component) throws IOException {
-    AjaxInternalUtils.checkParamValidity(facesContext, component, UIPanel.class);
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
-    encodeBox(facesContext, writer, (UIBox) component);
-    component.encodeChildren(facesContext);
-    facesContext.responseComplete();
   }
 }

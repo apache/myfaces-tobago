@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
-import org.apache.myfaces.tobago.internal.ajax.AjaxRenderer;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.component.UIInputBase;
 import org.apache.myfaces.tobago.model.AutoSuggestExtensionItem;
@@ -49,7 +48,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class InRenderer extends InputRendererBase implements AjaxRenderer {
+public class InRenderer extends InputRendererBase {
 
   private static final Log LOG = LogFactory.getLog(InRenderer.class);
 
@@ -81,95 +80,103 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
       LOG.error("Wrong type: Need " + UIInputBase.class.getName() + ", but was " + component.getClass().getName());
       return;
     }
-    UIInputBase input = (UIInputBase) component;
 
-    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, input);
+    String clientId = component.getClientId(facesContext);
+    AbstractUIPage page = ComponentUtils.findPage(component);
+    if (clientId.equals(page.getActionId())) {
+      // this is a inputSuggest
+      encodeAjax(facesContext, component);
+    } else {
 
-    String currentValue = getCurrentValue(facesContext, input);
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("currentValue = '" + currentValue + "'");
-    }
-    String type = ComponentUtils.getBooleanAttribute(input,
-        Attributes.PASSWORD) ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;
+      UIInputBase input = (UIInputBase) component;
 
-    // Todo: check for valid binding
-    boolean renderAjaxSuggest = false;
-    if (input instanceof UIInput) {
-     renderAjaxSuggest = ((UIInput) input).getSuggestMethod() != null;
-    }
-    String id = input.getClientId(facesContext);
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlConstants.INPUT, input);
-    writer.writeAttribute(HtmlAttributes.TYPE, type, false);
-    writer.writeNameAttribute(id);
-    writer.writeIdAttribute(id);
-    if (currentValue != null) {
-      writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
-    }
-    if (title != null) {
-      writer.writeAttribute(HtmlAttributes.TITLE, title, true);
-    }
-    int maxLength = 0;
-    for (Validator validator : input.getValidators()) {
-      if (validator instanceof LengthValidator) {
-        LengthValidator lengthValidator = (LengthValidator) validator;
-        maxLength = lengthValidator.getMaximum();
+      String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, input);
+
+      String currentValue = getCurrentValue(facesContext, input);
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("currentValue = '" + currentValue + "'");
       }
-    }
-    if (maxLength > 0) {
-      writer.writeAttribute(HtmlAttributes.MAXLENGTH, maxLength);
-    }
-    writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtils.getBooleanAttribute(input, Attributes.READONLY));
-    writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED));
-    Integer tabIndex = input.getTabIndex();
-    if (tabIndex != null) {
-      writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
-    }
-    Style style = new Style(facesContext, input);
-    writer.writeStyleAttribute(style);
+      String type = ComponentUtils.getBooleanAttribute(input,
+          Attributes.PASSWORD) ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;
 
-    applyExtraStyle(facesContext, input, currentValue);
-    HtmlRendererUtils.renderDojoDndItem(component, writer, true);
-    writer.writeClassAttribute();
-    /*if (component instanceof UIInputBase) {
-      String onchange = HtmlUtils.generateOnchange((UIInputBase) component, facesContext);
-      if (onchange != null) {
-        // TODO: create and use utility method to write attributes without quoting
-    //      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
+      // Todo: check for valid binding
+      boolean renderAjaxSuggest = false;
+      if (input instanceof UIInput) {
+        renderAjaxSuggest = ((UIInput) input).getSuggestMethod() != null;
       }
-    } */
-    writer.endElement(HtmlConstants.INPUT);
+      String id = input.getClientId(facesContext);
+      TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+      writer.startElement(HtmlConstants.INPUT, input);
+      writer.writeAttribute(HtmlAttributes.TYPE, type, false);
+      writer.writeNameAttribute(id);
+      writer.writeIdAttribute(id);
+      if (currentValue != null) {
+        writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
+      }
+      if (title != null) {
+        writer.writeAttribute(HtmlAttributes.TITLE, title, true);
+      }
+      int maxLength = 0;
+      for (Validator validator : input.getValidators()) {
+        if (validator instanceof LengthValidator) {
+          LengthValidator lengthValidator = (LengthValidator) validator;
+          maxLength = lengthValidator.getMaximum();
+        }
+      }
+      if (maxLength > 0) {
+        writer.writeAttribute(HtmlAttributes.MAXLENGTH, maxLength);
+      }
+      writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtils.getBooleanAttribute(input, Attributes.READONLY));
+      writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED));
+      Integer tabIndex = input.getTabIndex();
+      if (tabIndex != null) {
+        writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
+      }
+      Style style = new Style(facesContext, input);
+      writer.writeStyleAttribute(style);
 
-    HtmlRendererUtils.checkForCommandFacet(input, facesContext, writer);
+      applyExtraStyle(facesContext, input, currentValue);
+      HtmlRendererUtils.renderDojoDndItem(component, writer, true);
+      writer.writeClassAttribute();
+      /*if (component instanceof UIInputBase) {
+       String onchange = HtmlUtils.generateOnchange((UIInputBase) component, facesContext);
+       if (onchange != null) {
+         // TODO: create and use utility method to write attributes without quoting
+     //      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
+       }
+     } */
+      writer.endElement(HtmlConstants.INPUT);
 
-    boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
-    String rendererName = HtmlRendererUtils.getRendererName(facesContext, input);
-    if (required && !renderAjaxSuggest) {
-      final String[] cmds = {
-          "new Tobago.In(\"" + id + "\", true ,\"" + StyleClasses.PREFIX + rendererName + "\"  );"
-      };
+      HtmlRendererUtils.checkForCommandFacet(input, facesContext, writer);
 
-      HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
-    }
+      boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
+      String rendererName = HtmlRendererUtils.getRendererName(facesContext, input);
+      if (required && !renderAjaxSuggest) {
+        final String[] cmds = {
+            "new Tobago.In(\"" + id + "\", true ,\"" + StyleClasses.PREFIX + rendererName + "\"  );"
+        };
 
-    // focus
-    HtmlRendererUtils.renderFocusId(facesContext, input);
+        HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
+      }
 
-    // input suggest
-    if (renderAjaxSuggest) {
+      // focus
+      HtmlRendererUtils.renderFocusId(facesContext, input);
 
-      final String[] cmds = {
-          "new Tobago.AutocompleterAjax(",
-          "    '" + id + "',",
-          "    " + required + ",",
-          "    '" + StyleClasses.PREFIX + rendererName + "',",
-          "    { });"
-      };
+      // input suggest
+      if (renderAjaxSuggest) {
+
+        final String[] cmds = {
+            "new Tobago.AutocompleterAjax(",
+            "    '" + id + "',",
+            "    " + required + ",",
+            "    '" + StyleClasses.PREFIX + rendererName + "',",
+            "    { });"
+        };
 
 //      HtmlRendererUtils.writeStyleLoader(facesContext, STYLES);
-      HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmds);
+        HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmds);
+      }
     }
-
   }
 
   protected void applyExtraStyle(FacesContext facesContext, UIInputBase input, String currentValue) {
@@ -181,13 +188,11 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     }
   }
 
-  public void encodeAjax(FacesContext context, UIComponent component) throws IOException {
+  private void encodeAjax(FacesContext context, UIComponent component) throws IOException {
     if (!(component instanceof UIInputBase)) {
       LOG.error("Wrong type: Need " + UIInputBase.class.getName() + ", but was " + component.getClass().getName());
       return;
     }
-
-    AjaxInternalUtils.checkParamValidity(context, component, UIInput.class);
 
     UIInputBase input = (UIInputBase) component;
 
