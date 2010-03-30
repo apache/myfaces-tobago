@@ -25,12 +25,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.taglib.decl.HasMarkup;
+import org.apache.myfaces.tobago.taglib.decl.IsGridLayoutComponent;
 
-/*
- * Created: Aug 6, 2005 3:24:33 PM
- * User: bommel
- * $Id$
- */
 /**
  * Renders a calendar.
  */
@@ -38,8 +35,9 @@ import org.apache.myfaces.tobago.taglib.decl.HasIdBindingAndRendered;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UICalendar",
     uiComponentBaseClass = "javax.faces.component.UIOutput",
+    interfaces = "org.apache.myfaces.tobago.layout.LayoutComponent",
     rendererType = RendererTypes.CALENDAR)
-public interface CalendarTagDeclaration extends HasIdBindingAndRendered {
+public interface CalendarTagDeclaration extends HasIdBindingAndRendered, IsGridLayoutComponent, HasMarkup {
 
   /**
    * The current value of this component.

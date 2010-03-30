@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.component.UIButton;
+import org.apache.myfaces.tobago.component.UICalendar;
 import org.apache.myfaces.tobago.component.UIDate;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 import org.apache.myfaces.tobago.component.UIGridLayout;
@@ -77,7 +78,6 @@ public class DatePickerRenderer extends LinkRenderer {
         facesContext, UIPopup.COMPONENT_TYPE, RendererTypes.POPUP, popupId);
     popup.getAttributes().put(Attributes.Z_INDEX, 10);
     picker.getFacets().put(Facets.PICKER_POPUP, popup);
-
     popup.setRendered(false);
     popup.onComponentPopulated(facesContext);
 
@@ -91,8 +91,8 @@ public class DatePickerRenderer extends LinkRenderer {
     box.getFacets().put(Facets.LAYOUT, layoutOfBox);
     layoutOfBox.setRows("*;fixed;fixed");
 
-    final UIComponent calendar = CreateComponentUtils.createComponent(
-        facesContext, javax.faces.component.UIOutput.COMPONENT_TYPE, RendererTypes.CALENDAR, "calendar");
+    final UICalendar calendar = (UICalendar) CreateComponentUtils.createComponent(
+        facesContext, UICalendar.COMPONENT_TYPE, RendererTypes.CALENDAR, "calendar");
     box.getChildren().add(calendar);
 
     // add time input
@@ -171,8 +171,8 @@ public class DatePickerRenderer extends LinkRenderer {
     if (facesContext instanceof TobagoFacesContext) {
       UIPopup popup = (UIPopup) picker.getFacets().get(Facets.PICKER_POPUP);
       if (popup != null) {
-        popup.setWidth(getResourceManager().getThemeMeasure(facesContext, picker, "CalendarPopupWidth"));
-        popup.setHeight(getResourceManager().getThemeMeasure(facesContext, picker, "CalendarPopupHeight"));
+        popup.setWidth(getResourceManager().getThemeMeasure(facesContext, picker, "calendarPopupWidth"));
+        popup.setHeight(getResourceManager().getThemeMeasure(facesContext, picker, "calendarPopupHeight"));
         ((TobagoFacesContext) facesContext).getPopups().add(popup);
       }
     }

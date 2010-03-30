@@ -17,27 +17,23 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.UICalendar;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.model.CalendarModel;
 import org.apache.myfaces.tobago.model.DateModel;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -56,6 +52,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
         "script/dateConverter.js"
     };
 
+  @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
     if (facesContext instanceof TobagoFacesContext) {
@@ -63,12 +60,11 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     }
   }
 
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent component) throws IOException {
-    UIOutput output = (UIOutput) component;
+  @Override
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
+    UICalendar output = (UICalendar) component;
     String id = output.getClientId(facesContext);
-
     String dateTextBoxId = (String) component.getAttributes().get(Attributes.DATE_INPUT_ID);
 
     if (LOG.isDebugEnabled()) {
@@ -90,14 +86,15 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     }
     CalendarModel model = new CalendarModel(calendar);
 
-    // rendering:
-
+    // rendering
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlConstants.TABLE, component);
     writer.writeIdAttribute(id);
     HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     writer.writeClassAttribute();
+    Style style = new Style(facesContext, output);
+    writer.writeStyleAttribute(style);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
     writer.writeAttribute(HtmlAttributes.CELLPADDING, 3);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
