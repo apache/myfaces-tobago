@@ -17,23 +17,25 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIData;
+import org.apache.myfaces.tobago.util.Deprecation;
+
+import javax.faces.component.UIComponent;
+
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FIRST;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FORCE_VERTICAL_SCROLLBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DIRECT_LINKS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DIRECT_LINKS;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_HEADER;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_PAGE_RANGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROW_RANGE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VALUE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_VAR;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIData;
-
-import javax.faces.component.UIComponent;
 
 
 public class SheetTag extends TobagoTag implements SheetTagDeclaration {
@@ -119,6 +121,8 @@ public class SheetTag extends TobagoTag implements SheetTagDeclaration {
   }
 
   public void setPagingLength(String pagingLength) {
+    Deprecation.LOG.error("The attribute 'pagingLength' of 'UISheet' is deprecated. "
+        + "Please refer the documentation for further information.");
     this.rows = pagingLength;
   }
 
@@ -135,6 +139,8 @@ public class SheetTag extends TobagoTag implements SheetTagDeclaration {
   }
 
   public void setPagingStart(String pagingStart) {
+    Deprecation.LOG.error("The attribute 'pagingStart' of 'UISheet' is deprecated. "
+        + "Please refer the documentation for further information.");
     this.first = pagingStart;
   }
 

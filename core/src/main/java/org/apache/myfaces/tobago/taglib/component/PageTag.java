@@ -17,6 +17,14 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.util.Deprecation;
+
+import javax.faces.component.UIComponent;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.BodyTag;
+
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_APPLICATION_ICON;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DOCTYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOCUS_ID;
@@ -25,12 +33,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_METHOD;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UIPage;
-
-import javax.faces.component.UIComponent;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyTag;
 
 // Some Weblogic versions need explicit 'implements' for BodyTag
 public class PageTag extends TobagoBodyTag
@@ -94,6 +96,8 @@ public class PageTag extends TobagoBodyTag
   }
 
   public void setDoctype(String doctype) {
+    Deprecation.LOG.error("The attribute 'doctype' of 'UIPage' is deprecated. "
+        + "Please refer the documentation for further information.");
     this.doctype = doctype;
   }
 

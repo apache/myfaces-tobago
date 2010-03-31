@@ -56,7 +56,7 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
   /**
    * Please use "rows" instead.
    * The number of rows to display, starting with the one identified by the
-   * "pageingStart" property.
+   * "pagingStart" property.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "100")
@@ -65,7 +65,7 @@ public interface SheetTagDeclaration extends TobagoTagDeclaration, HasIdBindingA
 
   /**
    * The number of rows to display, starting with the one identified by the
-   * "pageingStart/first" property.
+   * "pagingStart/first" property.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "100")

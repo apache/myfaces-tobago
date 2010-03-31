@@ -19,18 +19,20 @@ package org.apache.myfaces.tobago.taglib.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_NAVIGATION_BAR;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_INDEX;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SWITCH_TYPE;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UITabGroup;
-import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_CLIENT;
-import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_PAGE;
+import org.apache.myfaces.tobago.util.Deprecation;
 
+import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.application.Application;
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMMEDIATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_INDEX;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_NAVIGATION_BAR;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SWITCH_TYPE;
+import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_CLIENT;
+import static org.apache.myfaces.tobago.component.UITabGroup.SWITCH_TYPE_RELOAD_PAGE;
 
 public class TabGroupTag extends TobagoTag
     implements TabGroupTagDeclaration {
@@ -77,12 +79,15 @@ public class TabGroupTag extends TobagoTag
   }
 
   public void setServerside(String serverside) {
-    LOG.warn("Attribute 'serverside' is deprecated! Use 'switchType' instead.");
+    Deprecation.LOG.error("The attribute 'serverside' of 'UITabGroup' is deprecated. "
+        + "Please refer the documentation for further information.");
     this.switchType = Boolean.valueOf(serverside)
         ? SWITCH_TYPE_RELOAD_PAGE : SWITCH_TYPE_CLIENT;
   }
 
   public void setState(String state) {
+    Deprecation.LOG.error("The attribute 'state' of 'UITabGroup' is deprecated. "
+        + "Please refer the documentation for further information.");
     this.state = state;
   }
 
