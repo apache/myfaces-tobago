@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.taglib.extension;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.UICommandBase;
 import org.apache.myfaces.tobago.internal.taglib.MenuCommandTag;
