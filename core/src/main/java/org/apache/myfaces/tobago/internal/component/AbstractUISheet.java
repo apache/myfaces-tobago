@@ -392,7 +392,7 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
     return searchId;
   }
 
-  @Override
+  // todo: after removing jsf 1.1: @Override
   public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
       throws FacesException {
     // we may need setRowIndex on UISheet

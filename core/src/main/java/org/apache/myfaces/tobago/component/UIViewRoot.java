@@ -329,7 +329,7 @@ public class UIViewRoot extends javax.faces.component.UIViewRoot implements Invo
     }
   }
 
-  @Override
+  // todo: after removing jsf 1.1: @Override
   public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
       throws FacesException {
     return FacesUtils.invokeOnComponent(context, this, clientId, callback);

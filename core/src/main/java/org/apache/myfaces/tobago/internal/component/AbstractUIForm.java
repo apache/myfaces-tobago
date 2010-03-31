@@ -105,7 +105,7 @@ public abstract class AbstractUIForm extends UIForm implements InvokeOnComponent
     }
   }
 
-  @Override
+  // todo: after removing jsf 1.1: @Override
   public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
       throws FacesException {
     // TODO is this needed?
