@@ -10,13 +10,19 @@
   <tc:page>
     <tc:gridLayoutConstraint width="600px" height="600px"/>
 
-    <tc:sheet value="#{sheet.solarArray}" id="sheet" columns="*;*" var="luminary" rows="5"
+    <tc:sheet value="#{sheet.localeList}" id="sheet" columns="*;*;*;*" var="entry" rows="600"
         showRowRange="left" showPageRange="right" showDirectLinks="center">
-      <tc:column label="Name" id="name" sortable="true">
-        <tc:out value="#{luminary.name}"/>
+      <tc:column label="Locale" id="l" sortable="true">
+        <tc:out value="#{entry.locale}"/>
       </tc:column>
-      <tc:column label="Orbit Of" id="orbit">
-        <tc:out value="#{luminary.orbit}"/>
+      <tc:column label="Display Locale" id="d" sortable="true">
+        <tc:out value="#{entry.displayLocale}"/>
+      </tc:column>
+      <tc:column label="Country" id="c" sortable="true">
+        <tc:out value="#{entry.country}"/>
+      </tc:column>
+      <tc:column label="Language" id="a" sortable="true">
+        <tc:out value="#{entry.language}"/>
       </tc:column>
     </tc:sheet>
 
