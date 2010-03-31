@@ -44,6 +44,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.MethodBindingToMethodExpression;
 import org.apache.myfaces.tobago.component.MethodExpressionToMethodBinding;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.renderkit.SpacingValues;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
 import javax.el.ELException;
@@ -144,6 +145,13 @@ checkDeprecated(property) ::= <<
 <endif>
 >>
 
+logDeprecated(property) ::= <<
+<if(property.deprecated)>
+  Deprecation.LOG.error("The attribute '<property.propertyName>' of '<componentInfo.className>' is deprecated. "
+      + "Please refer the documentation for further information."); 
+<endif>
+>>
+
 allowedValue() ::= <<
 <it>
 >>
@@ -176,6 +184,7 @@ public <property.type> get<property.upperCamelCaseName>() {
 
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+  <logDeprecated(property)>
   this.<property.propertyName> = <property.propertyName>;
 }
 >>
@@ -201,6 +210,7 @@ public <property.type> get<property.upperCamelCaseName>() {
 
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(<property.type> <property.propertyName>) {
+  <logDeprecated(property)>
   this.<property.propertyName> = <property.propertyName>;
 }
 >>
@@ -242,6 +252,7 @@ public String[] get<property.upperCamelCaseName>() {
 
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(String[] <property.propertyName>) {
+  <logDeprecated(property)>
   this.<property.propertyName> = <property.propertyName>;
 }
 >>
@@ -274,6 +285,7 @@ public boolean is<property.upperCamelCaseName>() {
 
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(boolean <property.propertyName>) {
+  <logDeprecated(property)>
   this.<property.propertyName> = <property.propertyName>;
 }
 >>
@@ -306,6 +318,7 @@ public Boolean get<property.upperCamelCaseName>() {
 
 <checkDeprecated(property)>
 public void set<property.upperCamelCaseName>(Boolean <property.propertyName>) {
+  <logDeprecated(property)>
   this.<property.propertyName> = <property.propertyName>;
 }
 >>
