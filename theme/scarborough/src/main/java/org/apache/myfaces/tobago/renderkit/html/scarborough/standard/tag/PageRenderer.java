@@ -283,11 +283,6 @@ public class PageRenderer extends PageRendererBase {
       }
     }
 
-    UIMenuBar menuBar = (UIMenuBar) page.getFacet(Facets.MENUBAR);
-    if (menuBar != null) {
-      facesContext.getOnloadScripts().add("Tobago.setElementWidth('"
-          + menuBar.getClientId(facesContext) + "', Tobago.getBrowserInnerWidth())");
-    }
     writer.startJavascript();
     // onload script
     writeEventFunction(writer, facesContext.getOnloadScripts(), "load", false);
@@ -414,6 +409,7 @@ public class PageRenderer extends PageRendererBase {
     }
 */
 
+    UIMenuBar menuBar = (UIMenuBar) page.getFacet(Facets.MENUBAR);
     if (menuBar != null) {
       menuBar.getAttributes().put(Attributes.PAGE_MENU, Boolean.TRUE);
       RenderUtil.encode(facesContext, menuBar);
