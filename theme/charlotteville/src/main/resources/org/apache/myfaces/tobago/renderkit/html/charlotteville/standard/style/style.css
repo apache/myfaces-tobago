@@ -124,6 +124,7 @@ li.tobago-menu-selected {
 }
 
 /* Sheet ---------------------------------------------------------------------- */
+
 .tobago-sheet-header-div {
   border-bottom: 1px solid #FADC9F;
 }
@@ -163,4 +164,3 @@ li.tobago-menu-selected {
 .tobago-sheet-paging-input {
   border: 1px #660000 solid;
 }
-

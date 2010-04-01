@@ -20,67 +20,15 @@
  * agent: mozilla
  */
 
-/* workaround for tree div problem.
-without a border the div get�s a scrollbar */
-/*
-.tobago-tree-default  {
-  border: 1px solid transparent;
-}
-*/
-
 /* Box ---------------------------------------------------------------- */
 /* fix scrollbar problem in divs without height set*/
 div.tobago-box-no-height {
   padding-bottom: 1px;
 }
 
-/* Tree -------------------------------------------------------------------- */
-
 /* toolBar -------------------------------------------------------------------- */
 
 .tobago-toolBar-button-menu-background-image {
   width: 20px;
   height: 17px;
-}
-
-/* Sheet ------------------------------------------------------------------ */
-.tobago-sheet-header-div {
-	overflow: -moz-scrollbars-none;
-	-moz-box-sizing: border-box;
-	text-align: top;
-}
-
-.tobago-sheet-header-box {
-	display: -moz-inline-box;
-	-moz-box-sizing: border-box;
-	height: 20px;
-}
-
-
-.tobago-sheet-header {
-	-moz-box-sizing: border-box;
-	-moz-box-flex: 1;
-}
-
-.tobago-sheet-header-resize {
-	line-height: 12px;
-	margin-left: -5px;
-	margin-right: -5px;
-	position: relative;
-	/*-moz-box-sizing: border-box;*/
-	z-index: 1000;
-
-}
-
-
-.tobago-sheet-header-sort-div {
-	position: relative;
-	z-index: 1000;
-  margin-top: 6px;
-  margin-left: -13px;
-  margin-right: 5px;
-}
-
-.tobago-sheet-body-div {
-	-moz-box-sizing: border-box;
 }

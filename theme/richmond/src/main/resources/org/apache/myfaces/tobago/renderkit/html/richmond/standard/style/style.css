@@ -415,10 +415,10 @@ li.tobago-menu-selected {
   border-color: #000000;
 }
 
-/* sheet ----------------------------------------------------------------- */
+/* Sheet ----------------------------------------------------------------- */
+
 .tobago-sheet-header-div {
   border-bottom: 1px solid #d6ebff;
-
 }
 
 .tobago-sheet-header  {
@@ -427,7 +427,6 @@ li.tobago-menu-selected {
   color: #3366CC;
   font: bold 13px arial, helvetica, sans-serif;
 }
-
 
 .tobago-sheet-body-div {
   background: #EBEFEB;
@@ -446,7 +445,6 @@ li.tobago-menu-selected {
 	color: highlighttext;
 }
 
-
 .tobago-sheet-footer {
   border-top: 1px dotted #3366CC;
   background: #ffffff;
@@ -458,4 +456,3 @@ li.tobago-menu-selected {
 .tobago-sheet-paging-input {
   border: 1px #3366CC solid;
 }
-

@@ -1152,8 +1152,6 @@ iframe.tobago-menu-ie6bugfix {
 .tobago-sheet-outer-div {
   overflow: hidden;
   position: relative;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
 }
 
 .tobago-sheet-header-div {
@@ -1166,9 +1164,6 @@ iframe.tobago-menu-ie6bugfix {
   top: 0;
   white-space: nowrap;
   z-index: 2;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-
 }
 
 .tobago-sheet-header-table {
@@ -1179,20 +1174,20 @@ iframe.tobago-menu-ie6bugfix {
 
 .tobago-sheet-header-box{
    border-color: #ddeeff #6688aa #6688aa #ddeeff;
-	/*border-color: red black green yellow;*/
 	border-style: solid;
 	border-width: 1px;
-	overflow: hidden;
-	position: relative;
+  /* 20px - borderTop 1px - borderBottom 1px = 18px */
+  height: 18px;
 	vertical-align: top;
-	display: inline;
-	height: 100%;
+  display: inline-block;
+  position: relative;
 	padding: 0;
+  overflow: hidden;
 	text-overflow: ellipsis;
-
+  z-index: 3;
 }
 
-.tobago-sheet-header{
+.tobago-sheet-header {
 	background-color: #bbccdd;
 	height: 100%;
 	overflow: hidden;
@@ -1201,6 +1196,7 @@ iframe.tobago-menu-ie6bugfix {
 	white-space: nowrap;
 	width: 100%;
   text-align: center;
+  display: inline-block;
 }
 
 .tobago-sheet-header-sortable {
@@ -1216,8 +1212,12 @@ iframe.tobago-menu-ie6bugfix {
 }
 
 .tobago-sheet-header-resize{
-	font-size: 100%;
-	height: 100%;
+  display: inline-block;
+  z-index: 4;
+  position: absolute;
+  top: 0;
+  right: -5px;
+  height: 100%;
 	overflow: hidden;
 	right: -5px;
 	top: 0;
@@ -1229,6 +1229,7 @@ iframe.tobago-menu-ie6bugfix {
 }
 
 .tobago-sheet-header-sort-div {
+  display: inline-block;
   cursor: pointer;
 	height: 100%;
 	overflow: hidden;
@@ -1288,14 +1289,11 @@ div.tobago-sheet-cell-inner span {
 }
 
 .tobago-sheet-footer {
-  z-index: 1000;
-  position: absolute;
+  position: relative;
   left: 0;
   top: 0;
   text-align: center;
   overflow: hidden;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
 }
 
 .tobago-sheet-paging-span-left {
@@ -1306,6 +1304,7 @@ div.tobago-sheet-cell-inner span {
 .tobago-sheet-paging-span-center {
 
 }
+
 .tobago-sheet-paging-span-right {
   position : absolute;
   top: 0;
@@ -1313,12 +1312,14 @@ div.tobago-sheet-cell-inner span {
 }
 
 .tobago-sheet-paging-input {
+  position: relative;
   width: 30px;
-  height: 20px;
+  height: 16px;
   padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
   text-align: center;
-  vertical-align: top;
-
 }
 
 .tobago-sheet-paging-pages-span {

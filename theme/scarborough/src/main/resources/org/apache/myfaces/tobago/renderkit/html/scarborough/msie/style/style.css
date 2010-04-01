@@ -84,9 +84,3 @@ textarea.tobago-richTextEditor-body {
 a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:active.tobago-toolBar-button-link {
    color: #000000;
 }
-
-/* Sheet ------------------------------------------------------------------ */
-.tobago-sheet-paging-input {
-  margin-top: -1px;
-  margin-bottom: -1px;
-}

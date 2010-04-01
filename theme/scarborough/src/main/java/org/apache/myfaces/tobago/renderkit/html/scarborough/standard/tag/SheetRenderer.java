@@ -226,51 +226,17 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.endElement(HtmlConstants.INPUT);
     }
 
-
     final boolean showHeader = sheet.isShowHeader();
-    if (showHeader) {
-      // begin rendering header
-      writer.startElement(HtmlConstants.DIV, null);
-      writer.writeIdAttribute(sheetId + "_header_div");
-      writer.writeClassAttribute("tobago-sheet-header-div");
-      // todo: style is empty in the moment
-      writer.writeStyleAttribute(new Style());
-
-      int columnCount = 0;
-      Measure sortMarkerWidth = getAscendingMarkerWidth(facesContext, sheet);
-      String imageAscending = contextPath + resourceManager.getImage(facesContext, "image/ascending.gif");
-      String imageDescending = contextPath + resourceManager.getImage(facesContext, "image/descending.gif");
-      String img = resourceManager.getImage(facesContext, "image/unsorted.gif", true);
-      String imageUnsorted = image1x1;
-      if (img != null) {
-        imageUnsorted = contextPath + img;
-      }
-      for (UIColumn column : renderedColumnList) {
-        renderColumnHeader(facesContext, writer, sheet, columnCount, column,
-            imageAscending, imageDescending, imageUnsorted, image1x1, sortMarkerWidth);
-        columnCount++;
-      }
-      writer.startElement(HtmlConstants.DIV, null);
-      writer.writeIdAttribute(sheetId + "_header_box_filler");
-      writer.writeClassAttribute("tobago-sheet-header-box tobago-sheet-header-filler");
-      writer.writeAttribute(HtmlAttributes.STYLE, "width: 0px", false);
-
-      writer.startElement(HtmlConstants.DIV, null);
-      writer.writeClassAttribute("tobago-sheet-header");
-      writer.flush();
-      writer.write("&nbsp;");
-      writer.endElement(HtmlConstants.DIV);
-
-      writer.endElement(HtmlConstants.DIV);
-      writer.endElement(HtmlConstants.DIV);
-      // end rendering header
-    }
 
 // BEGIN RENDER BODY CONTENT
     Style bodyStyle = new Style();
     bodyStyle.setPosition(Position.RELATIVE);
     bodyStyle.setWidth(sheet.getCurrentWidth());
-    bodyStyle.setHeight(sheetHeight.subtract(footerHeight));
+    sheetHeight = sheetHeight.subtract(footerHeight);
+    if (showHeader) {
+      sheetHeight = sheetHeight.subtract(getResourceManager().getThemeMeasure(facesContext, sheet, "headerHeight"));
+    }
+    bodyStyle.setHeight(sheetHeight);
 
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + "_data_div");
@@ -290,7 +256,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       sheetBodyStyle.setWidth(space);
     }
     sheetBodyStyle.setHeight(null);
-
 
     writer.startElement(HtmlConstants.TABLE, null);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
@@ -423,7 +388,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.writeIdAttribute(
           sheetId + "_data_row_" + visibleIndex + "_column_filler");
       writer.writeClassAttribute("tobago-sheet-cell-outer");
-      writer.writeStyleAttribute("width: 0px;");
+      writer.writeStyleAttribute("width:0px;");
       writer.flush();
       writer.write("&nbsp;");
 
@@ -441,6 +406,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
 // END RENDER BODY CONTENT
 
+    if (showHeader) {
+      renderColumnHeaders(
+          facesContext, sheet, writer, resourceManager, contextPath, sheetId, image1x1, renderedColumnList);
+    }
+
     final String showRowRange
         = getPagingAttribute(sheet, Attributes.SHOW_ROW_RANGE);
     final String showPageRange
@@ -452,9 +422,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         || isValidPagingValue(showPageRange)
         || isValidPagingValue(showDirectLinks)) {
       Style footerStyle = new Style(bodyStyle);
-      footerStyle.setPosition(null); // todo: may be removed later; later the body has not position set.
+      footerStyle.setPosition(null);
       footerStyle.setHeight(footerHeight);
-      footerStyle.setTop(sheetHeight.subtract(footerHeight));
 
       //  "height", MessageFormat.format("{0}px", footerHeight));
       //  + " top: " + (sheetHeight - footerHeight) + "px;";
@@ -627,23 +596,21 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     // estimate need of height-scrollbar on client, if yes we have to consider
     // this when calculating column width's
 
-    final Object forceScroolbar
-        = sheet.getAttributes().get(Attributes.FORCE_VERTICAL_SCROLLBAR);
-    if (forceScroolbar != null) {
-      if ("true".equals(forceScroolbar)) {
+    final Object forceScrollbar = sheet.getAttributes().get(Attributes.FORCE_VERTICAL_SCROLLBAR);
+    if (forceScrollbar != null) {
+      if ("true".equals(forceScrollbar)) {
         return true;
-      } else if ("false".equals(forceScroolbar)) {
+      } else if ("false".equals(forceScrollbar)) {
         return false;
-      } else if (!"auto".equals(forceScroolbar)) {
-        LOG.warn("Illegal value for attibute 'forceVerticalScrollbar' : \""
-            + forceScroolbar + "\"");
+      } else if (!"auto".equals(forceScrollbar)) {
+        LOG.warn("Illegal value for attribute 'forceVerticalScrollbar': '" + forceScrollbar + "'");
       }
     }
 
     if (style.getHeight() != null) {
       int first = sheet.getFirst();
       int rows = Math.min(sheet.getRowCount(), first + sheet.getRows()) - first;
-      LOG.error("20; // FIXME: make dynamic (was removed by changing the layouting");
+      LOG.error("20; // FIXME: make dynamic (was removed by changing the layout");
       Measure heightNeeded = getFooterHeight(facesContext, sheet)
               .add(getRowPadding(facesContext, sheet).add(20/*fixme*/).multiply(rows))
               .add(20); // FIXME: make dynamic (was removed by changing the layouting
@@ -749,6 +716,42 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlConstants.IMG);
   }
 
+  private void renderColumnHeaders(
+      FacesContext facesContext, UISheet sheet, TobagoResponseWriter writer, ResourceManager resourceManager,
+      String contextPath, String sheetId, String image1x1, List<UIColumn> renderedColumnList) throws IOException {
+    // begin rendering header
+    writer.startElement(HtmlConstants.DIV, null);
+    writer.writeIdAttribute(sheetId + "_header_div");
+    writer.writeClassAttribute("tobago-sheet-header-div");
+
+    int columnCount = 0;
+    Measure sortMarkerWidth = getAscendingMarkerWidth(facesContext, sheet);
+    String imageAscending = contextPath + resourceManager.getImage(facesContext, "image/ascending.gif");
+    String imageDescending = contextPath + resourceManager.getImage(facesContext, "image/descending.gif");
+    String img = resourceManager.getImage(facesContext, "image/unsorted.gif", true);
+    String imageUnsorted = image1x1;
+    if (img != null) {
+      imageUnsorted = contextPath + img;
+    }
+    for (UIColumn column : renderedColumnList) {
+      renderColumnHeader(facesContext, writer, sheet, columnCount, column,
+          imageAscending, imageDescending, imageUnsorted, image1x1, sortMarkerWidth);
+      columnCount++;
+    }
+    writer.startElement(HtmlConstants.SPAN, null);
+    writer.writeIdAttribute(sheetId + "_header_box_filler");
+    writer.writeClassAttribute("tobago-sheet-header-box tobago-sheet-header-filler");
+    writer.writeStyleAttribute("width:0px");
+
+    writer.startElement(HtmlConstants.SPAN, null);
+    writer.writeClassAttribute("tobago-sheet-header");
+    writer.endElement(HtmlConstants.SPAN);
+
+    writer.endElement(HtmlConstants.SPAN);
+    writer.endElement(HtmlConstants.DIV);
+    // end rendering header
+  }
+
   private void renderColumnHeader(
       FacesContext facesContext, TobagoResponseWriter writer, UISheet component,
       int columnIndex, UIColumn column, String imageAscending, String imageDescending, String imageUnsorted,
@@ -757,9 +760,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     Application application = facesContext.getApplication();
 
     List<Integer> columnWidths = component.getWidthList();
-    String divWidth = "width: " + columnWidths.get(columnIndex) + "px;";
+    String divWidth = "width:" + columnWidths.get(columnIndex) + "px;";
 
-    writer.startElement(HtmlConstants.DIV, null);
+    writer.startElement(HtmlConstants.SPAN, null);
     writer.writeIdAttribute(sheetId + "_header_box_" + columnIndex);
     writer.writeClassAttribute("tobago-sheet-header-box");
     writer.writeAttribute(HtmlAttributes.STYLE, divWidth, false);
@@ -814,7 +817,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
     String align = (String) column.getAttributes().get(Attributes.ALIGN);
 
-    writer.startElement(HtmlConstants.DIV, null);
+    writer.startElement(HtmlConstants.SPAN, null);
     writer.writeIdAttribute(sheetId + "_header_outer_" + columnIndex);
     //if (columnIndex == 0) {
     //  writer.writeClassAttribute("tobago-sheet-header"+ sorterClass + " tobago-sheet-header-first-column");
@@ -833,21 +836,19 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       resizerClass = "tobago-sheet-header-resize tobago-sheet-header-resize-cursor";
       renderColumnHeaderLabel(facesContext, writer, column, sortMarkerWidth, align, image1x1);
     }
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlConstants.SPAN);
 
-    writer.startElement(HtmlConstants.DIV, null);
+    writer.startElement(HtmlConstants.SPAN, null);
     writer.writeIdAttribute(sheetId + "_header_resizer_" + columnIndex);
     writer.writeClassAttribute(resizerClass);
-    writer.flush();
-    writer.write("&nbsp;");
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlConstants.SPAN);
 // ############################################
 // ############################################
     if (sortable && !(column instanceof UIColumnSelector)) {
       if (sorterImage == null && imageUnsorted != null) {
         sorterImage = imageUnsorted;
       }
-      writer.startElement(HtmlConstants.DIV, null);
+      writer.startElement(HtmlConstants.SPAN, null);
       writer.writeClassAttribute("tobago-sheet-header-sort-div");
       if (sortTitle != null) {
         writer.writeAttribute(HtmlAttributes.TITLE, sortTitle, true);
@@ -861,12 +862,12 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         }
         writer.endElement(HtmlConstants.IMG);
       }
-      writer.endElement(HtmlConstants.DIV);
+      writer.endElement(HtmlConstants.SPAN);
     }
 // ############################################
 // ############################################
 
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlConstants.SPAN);
   }
 
 

@@ -802,8 +802,6 @@ hr.tobago-separator-default {
   left: 1px;
   height: 20px;
   border-bottom: 1px solid #ffffff;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 .tobago-sheet-header-box {
   border-color: #b8b6b6 #ffffff #d7d7d7 #b8b6b6;
@@ -870,10 +868,8 @@ hr.tobago-separator-default {
 }
 
 .tobago-sheet-paging-input {
-  height: 15px;
+  height: 11px;
   width: 25px;
-  margin-top: 0px;
-  margin-bottom: 0px;
   font: bold 10px arial, helvetica, sans-serif;
   border: 1px solid black;
 }
