@@ -14,4 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
-<jsp:forward page="faces/init.jsp"/>
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+
+<f:view locale="#{clientConfigController.locale}">
+  <tc:loadBundle basename="overview" var="overviewBundle"/>
+  <tc:page applicationIcon="icon/favicon.ico" label="#{overviewBundle.pageTitle}" id="page">
+    <f:facet name="layout">
+      <tc:gridLayout marginLeft="100px" marginTop="100px" rows="fixed;fixed"/>
+    </f:facet>
+    <f:facet name="action">
+      <tc:link action="overview/intro"/>
+    </f:facet>
+
+    <tc:image value="image/tobago_head.gif" width="150px" height="83px"/>
+    <tc:out value="Initilizing ..."/>
+
+  </tc:page>
+</f:view>
