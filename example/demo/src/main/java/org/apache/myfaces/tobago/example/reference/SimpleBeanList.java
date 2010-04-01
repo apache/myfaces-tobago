@@ -20,48 +20,19 @@ package org.apache.myfaces.tobago.example.reference;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.util.Date;
+import java.util.ArrayList;
 
-public class SimpleBean {
+public class SimpleBeanList extends ArrayList<SimpleBean> {
 
-  private static final Log LOG = LogFactory.getLog(SimpleBean.class);
+  private static final Log LOG = LogFactory.getLog(SimpleBeanList.class);
 
-  private int number;
-  private String value;
-  private Date date;
-
-  public SimpleBean(int number, String value) {
-    this.number = number;
-    this.value = value;
-    this.date = new Date();
-  }
-
-  public String tick() {
-    LOG.info("SimpleBean was ticked: " + value);
-    return null;
-  }
-  
-  public int getNumber() {
-    return number;
-  }
-
-  public void setNumber(int number) {
-    this.number = number;
-  }
-
-  public String getValue() {
-    return value;
-  }
-
-  public void setValue(String value) {
-    this.value = value;
-  }
-
-  public Date getDate() {
-    return date;
-  }
-
-  public void setDate(Date date) {
-    this.date = date;
+  public SimpleBeanList() {
+    add(new SimpleBean(1, "One"));
+    add(new SimpleBean(2, "Two"));
+    add(new SimpleBean(3, "Three"));
+    add(new SimpleBean(4, "Four"));
+    add(new SimpleBean(5000000, "Five Million"));
+    
+    LOG.info("Created!");
   }
 }

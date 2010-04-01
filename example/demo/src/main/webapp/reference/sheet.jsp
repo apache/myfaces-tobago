@@ -14,23 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 --%>
-<%@ page import="org.apache.myfaces.tobago.example.reference.SimpleBean" %>
-
-<%
-  SimpleBean[] simpleList = (SimpleBean[]) session.getAttribute("simpleList");
-  System.out.println("1" + session.getAttribute("simpleList"));
-  if (simpleList == null) {
-    simpleList = new SimpleBean[]{
-        new SimpleBean(1, "One"),
-        new SimpleBean(2, "Two"),
-        new SimpleBean(3, "Three"),
-        new SimpleBean(4, "Four"),
-        new SimpleBean(5000000, "Five Million")};
-  }
-  session.setAttribute("simpleList", simpleList);
-  System.out.println("2" + session.getAttribute("simpleList"));
-%>
-
 <%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
