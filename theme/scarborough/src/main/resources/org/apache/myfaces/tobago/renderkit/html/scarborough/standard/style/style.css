@@ -1111,6 +1111,9 @@ li.tobago-menu-selected {
   float: left;
   white-space: nowrap;
   padding: 2px 3px 2px 5px;
+  height: 14px;
+  /* TODO: overflow: hidden; is needed for IE6 */
+  overflow: hidden;
 }
 
 .tobago-menu-parent {
