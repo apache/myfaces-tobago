@@ -612,26 +612,6 @@ var Tobago = {
   },
 
   /**
-   * Submit the page with specified actionId and position data for popup.
-   */
-  openPickerPopup: function(event, actionId, hiddenId, popupId) {
-    var hidden = this.element(hiddenId);
-    if (hidden) {
-      // calculate position of command and size of window
-      hidden.value = this.getBrowserInnerWidth() + "x" + this.getBrowserInnerHeight();
-      if (event) {
-        hidden.value = hidden.value + ":" + event.clientX + "x" + event.clientY;
-      }
-    }
-    var source = Tobago.element(event);
-    if (Tobago.Transport.hasTransport()) {
-      Tobago.openPopupWithAction(source, popupId, actionId);
-    } else {
-      this.submitAction(source, actionId);
-    }
-  },
-
-  /**
    * Reset the form element.
    */
   resetForm: function() {
@@ -1580,35 +1560,6 @@ var Tobago = {
       innerTop = window.scrollY;
     }
     return innerTop;
-  },
-
-  /**
-    * Returns the client inner width.
-    */
-  getBrowserInnerWidth: function() {
-    var innerWidth;
-    if (document.all) { // ie
-      innerWidth = document.body.clientWidth;
-    } else {
-      innerWidth = window.innerWidth;
-      if (document.body.scrollHeight > window.innerHeight) {
-        innerWidth -= Tobago.Config.get("Tobago", "scrollbarWidth");
-      }
-    }
-    return innerWidth;
-  },
-
-  /**
-    * Returns the client inner height.
-    */
-  getBrowserInnerHeight: function() {
-    var innerHeight;
-    if (document.all) { // ie
-      innerHeight = document.body.clientHeight;
-    } else {
-      innerHeight = window.innerHeight;
-    }
-    return innerHeight;
   },
 
   // TODO check if this is still ok

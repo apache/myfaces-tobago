@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.component.UICalendar;
 import org.apache.myfaces.tobago.component.UIDate;
 import org.apache.myfaces.tobago.component.UIDatePicker;
 import org.apache.myfaces.tobago.component.UIGridLayout;
-import org.apache.myfaces.tobago.component.UIHidden;
 import org.apache.myfaces.tobago.component.UIImage;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
@@ -66,11 +65,6 @@ public class DatePickerRenderer extends LinkRenderer {
     }
     picker.setImmediate(true);
     final String linkId = picker.getId();
-
-    final String hiddenId = linkId != null ? linkId + "hidden" : facesContext.getViewRoot().createUniqueId();
-    UIHidden hidden = (UIHidden)
-        CreateComponentUtils.createComponent(facesContext, UIHidden.COMPONENT_TYPE, RendererTypes.HIDDEN, hiddenId);
-    picker.getChildren().add(hidden);
 
     // create popup
     final String popupId = linkId != null ? linkId + "popup" : facesContext.getViewRoot().createUniqueId();
@@ -182,7 +176,6 @@ public class DatePickerRenderer extends LinkRenderer {
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     UIDatePicker picker = (UIDatePicker) component;
-//    DatePickerController datePickerController = new DatePickerController();
     UIDate dateInput = (UIDate) picker.getForComponent();
     if (dateInput == null) {
       LOG.error("No required UIDate component found.");
@@ -200,15 +193,11 @@ public class DatePickerRenderer extends LinkRenderer {
       }
     }
     Map<String, Object> attributes = picker.getAttributes();
-//    picker.setActionListener(datePickerController);
-
-    UIComponent hidden = (UIComponent) picker.getChildren().get(0);
     UIPopup popup = (UIPopup) picker.getFacets().get(Facets.PICKER_POPUP);
 
-    attributes.put(Attributes.ONCLICK, "Tobago.openPickerPopup(event, '"
-        + picker.getClientId(facesContext) + "', '"
-        + hidden.getClientId(facesContext) + "', '"
-        + popup.getClientId(facesContext) + "')");
+    attributes.put(Attributes.ONCLICK, "Tobago.openPopupWithAction(Tobago.element(event), '"
+        + popup.getClientId(facesContext) + "', '"
+        + picker.getClientId(facesContext) + "')");
 
     Converter converter = getConverter(facesContext, dateInput);
     String converterPattern = "yyyy-MM-dd"; // from calendar.js  initCalendarParse
