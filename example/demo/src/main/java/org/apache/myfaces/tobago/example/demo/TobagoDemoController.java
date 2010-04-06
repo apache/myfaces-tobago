@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.example.data.Solar;
 import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.model.TreeState;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIColumn;
@@ -345,6 +346,32 @@ public class TobagoDemoController {
     }
     return solarList;
   }
+
+
+  public void selectOrbit(ActionEvent event) {
+    SolarObject clicked = (SolarObject) ComponentUtils.findParameter(event.getComponent(), "luminary");
+    boolean add = false;
+    List<Integer> selectedRows = sheetState.getSelectedRows();
+    for (int i = 0, solarListSize = solarList.size(); i < solarListSize; i++) {
+      if (clicked.getOrbit().equals(solarList.get(i).getOrbit())) {
+        add = !selectedRows.contains(i);
+        LOG.info(" add = " + add);
+        LOG.info(" i = " + i);
+        break;
+      }
+    }
+
+    for (int i = 0, solarListSize = solarList.size(); i < solarListSize; i++) {
+      if (clicked.getOrbit().equals(solarList.get(i).getOrbit())) {
+        if (add && !selectedRows.contains(i)) {
+          selectedRows.add(i);
+        } else {
+          selectedRows.remove((Object) i);
+        }
+      }
+    }
+  }
+
 
   public void setSolarList(List<SolarObject> solarList) {
     this.solarList = solarList;
