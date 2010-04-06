@@ -44,6 +44,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.render.Renderer;
 import java.io.IOException;
 
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_HEIGHT;
@@ -154,6 +155,7 @@ public class PanelRenderer extends LayoutableRendererBase implements AjaxRendere
 
         HtmlRendererUtil.writeScriptLoader(facesContext, null, cmds);
       }
+      checkForCommandFacet(component, facesContext, writer);
     }
   }
 
