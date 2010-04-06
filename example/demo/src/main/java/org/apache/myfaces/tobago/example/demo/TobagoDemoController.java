@@ -562,6 +562,30 @@ public class TobagoDemoController {
   private SelectItem[] orbitItems;
   private static final String SHOW_ALL_ORBITS = "Show all";
 
+  public void selectOrbit(ActionEvent event) {
+    SolarObject clicked = (SolarObject) ComponentUtil.findParameter(event.getComponent(), "luminary");
+    boolean add = false;
+    List<Integer> selectedRows = sheetState.getSelectedRows();
+    for (int i = 0, solarListSize = solarList.size(); i < solarListSize; i++) {
+      if (clicked.getOrbit().equals(solarList.get(i).getOrbit())) {
+        add = !selectedRows.contains(i);
+        LOG.info(" add = " + add);
+        LOG.info(" i = " + i);
+        break;
+      }
+    }
+
+    for (int i = 0, solarListSize = solarList.size(); i < solarListSize; i++) {
+      if (clicked.getOrbit().equals(solarList.get(i).getOrbit())) {
+        if (add && !selectedRows.contains(i)) {
+          selectedRows.add(i);
+        } else {
+          selectedRows.remove((Object) i);
+        }
+      }
+    }
+  }
+  
   public void filterOrbit(ActionEvent event) {
     UISelectOne selectOne = (UISelectOne) event.getComponent().getFacet(FACET_ITEMS);
     if (filteredList == null) {

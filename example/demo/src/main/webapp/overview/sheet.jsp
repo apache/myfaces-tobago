@@ -142,7 +142,15 @@
               </tx:menuRadio>
             </tc:menu>
           </f:facet>
-          <tc:out value="#{luminary.orbit}" id="t_orbit"/>
+          <tc:panel>
+            <f:facet name="click">
+              <tc:command actionListener="#{demo.selectOrbit}" >
+                <f:param value="#{luminary}" name="luminary"/>
+                <tc:attribute name="renderedPartially" value="sheet"/>
+              </tc:command>
+            </f:facet>
+            <tc:out value="#{luminary.orbit}" id="t_orbit"/>            
+          </tc:panel>
         </tc:column>
         <tc:column label="#{overviewBundle.solarArrayPopulation}" sortable="true" id="population">
           <tc:in value="#{luminary.population}" id="t_population"/>
