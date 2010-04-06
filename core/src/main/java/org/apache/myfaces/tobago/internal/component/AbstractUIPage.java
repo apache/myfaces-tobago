@@ -217,6 +217,11 @@ public abstract class AbstractUIPage extends AbstractUIForm
     updatePageState(context);
   }
 
+  /**
+   *
+   * @deprecated PageState is deprecated since 1.5.0
+   */
+  @Deprecated
   public void updatePageState(FacesContext facesContext) {
     PageState state = getPageState(facesContext);
     decodePageState(facesContext, state);
@@ -246,6 +251,11 @@ public abstract class AbstractUIPage extends AbstractUIForm
     }
   }
 
+  /**
+   *
+   * @deprecated PageState is deprecated since 1.5.0
+   */
+  @Deprecated
   public PageState getPageState(FacesContext facesContext) {
     if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.STATE)) {
       PageState state = (PageState)
