@@ -94,6 +94,7 @@ public class PanelRenderer extends LayoutComponentRendererBase {
       };
       HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
     }
+    HtmlRendererUtils.checkForCommandFacet(component, facesContext, writer);
   }
 
   @Override
