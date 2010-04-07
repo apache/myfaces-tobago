@@ -1224,8 +1224,9 @@ iframe.tobago-menu-ie6bugfix {
 	width: 10px;
 }
 
-.tobago-sheet-header-resize-cursor{
-	cursor: e-resize;
+.tobago-sheet-header-resize-cursor {
+	cursor: e-resize; /* todo: CSS3+IE6 */
+	cursor: col-resize;
 }
 
 .tobago-sheet-header-sort-div {
