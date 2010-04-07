@@ -233,8 +233,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
     String value = null;
     try {
       name = getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "form-clientDimension";
-      value = (String) facesContext.getExternalContext()
-          .getRequestParameterMap().get(name);
+      value = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
       if (value != null) {
         StringTokenizer tokenizer = new StringTokenizer(value, ";");
         Measure width = Measure.parse(tokenizer.nextToken());
