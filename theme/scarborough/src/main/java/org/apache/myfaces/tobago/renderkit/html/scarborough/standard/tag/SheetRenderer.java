@@ -163,7 +163,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       };
 
       HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmds);
-  }
+    }
   }
 
   private void renderSheet(FacesContext facesContext, UISheet sheet, boolean hasClickAction, Style style)
@@ -248,15 +248,17 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       bodyStyle.setPaddingTop(Measure.ZERO);
     }
     writer.writeStyleAttribute(bodyStyle);
-    if (bodyStyle.getWidth() != null) {
+//    if (bodyStyle.getWidth() != null) {
 //      intSpace -= columnWidths.get(columnWidths.size() - 1);
-      Measure space = bodyStyle.getWidth();
-      space.subtractNotNegative(getContentBorder(facesContext, sheet));
-      if (needVerticalScrollbar(facesContext, sheet, style)) {
-        space.subtractNotNegative(getVerticalScrollbarWeight(facesContext, sheet));
-      }
-      sheetBodyStyle.setWidth(space);
+    Measure space = bodyStyle.getWidth();
+    final boolean needVerticalScrollbar = needVerticalScrollbar(facesContext, sheet, style);
+    if (needVerticalScrollbar) {
+      space = space.subtractNotNegative(getVerticalScrollbarWeight(facesContext, sheet));
     }
+    Measure headerWidth = space;
+    space = space.subtractNotNegative(getContentBorder(facesContext, sheet));
+    sheetBodyStyle.setWidth(space);
+//    }
     sheetBodyStyle.setHeight(null);
 
     writer.startElement(HtmlConstants.TABLE, null);
@@ -410,7 +412,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
     if (showHeader) {
       renderColumnHeaders(
-          facesContext, sheet, writer, resourceManager, contextPath, sheetId, image1x1, renderedColumnList);
+          facesContext, sheet, writer, resourceManager, contextPath, sheetId, image1x1, renderedColumnList,
+          headerWidth);
     }
 
     final String showRowRange
@@ -726,11 +729,15 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
   private void renderColumnHeaders(
       FacesContext facesContext, UISheet sheet, TobagoResponseWriter writer, ResourceManager resourceManager,
-      String contextPath, String sheetId, String image1x1, List<UIColumn> renderedColumnList) throws IOException {
+      String contextPath, String sheetId, String image1x1, List<UIColumn> renderedColumnList,
+      Measure headerWidth) throws IOException {
     // begin rendering header
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + "_header_div");
     writer.writeClassAttribute("tobago-sheet-header-div");
+    Style style = new Style();
+    style.setWidth(headerWidth);
+    writer.writeStyleAttribute(style);
 
     int columnCount = 0;
     Measure sortMarkerWidth = getAscendingMarkerWidth(facesContext, sheet);
