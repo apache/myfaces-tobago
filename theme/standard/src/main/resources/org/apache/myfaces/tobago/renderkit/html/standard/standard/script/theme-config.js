@@ -54,11 +54,6 @@ Tobago.Config =  {
 Tobago.Config.set("Tobago", "themeConfig", "standard/standard");
 
  /**
-  * scrollbar width, may be browser specific
-  */
-Tobago.Config.set("Tobago", "scrollbarWidth", 15);
-
- /**
   * Additional left offset for toolbar button dropdown menu
   */
 Tobago.Config.set("Menu", "toolbarLeftOffset", 0);

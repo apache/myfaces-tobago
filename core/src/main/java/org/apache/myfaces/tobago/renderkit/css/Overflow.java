@@ -20,7 +20,8 @@ package org.apache.myfaces.tobago.renderkit.css;
 public enum Overflow {
 
   AUTO("auto"),
-  HIDDEN("hidden");
+  HIDDEN("hidden"),
+  SCROLL("scroll");
 
   private String value;
 

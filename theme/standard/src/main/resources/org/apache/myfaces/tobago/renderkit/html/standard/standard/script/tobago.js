@@ -1089,7 +1089,15 @@ var Tobago = {
   escapeClientId : function(id) {
     return "#" + id.replace(/:/g,"\\:");
   },
-  
+
+  calculateScrollbarWeights : function(id) {
+    var hidden = jQuery(Tobago.escapeClientId(id));
+    var outer = hidden.prev();
+    hidden.val(""
+        + (100 - outer.attr("clientWidth")) + ";"
+        + (100 - outer.attr("clientHeight")));
+  },
+
   clickOnElement: function(id) {
     var element = this.element(id);
 //    LOG.debug("id = " + id + "  element = " + typeof element);

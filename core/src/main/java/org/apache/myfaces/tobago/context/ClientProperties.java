@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.context.ClientPropertiesKey;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.component.UIViewRoot;
@@ -58,6 +59,9 @@ public class ClientProperties implements Serializable {
   private boolean debugMode;
 
   private Locale locale;
+
+  private Measure verticalScrollbarWeight;
+  private Measure horizontalScrollbarWeight;
 
   /** 
    * managed bean constructor
@@ -220,5 +224,21 @@ public class ClientProperties implements Serializable {
       this.locale = locale;
       reset();
     }
+  }
+
+  public Measure getVerticalScrollbarWeight() {
+    return verticalScrollbarWeight;
+  }
+
+  public void setVerticalScrollbarWeight(Measure verticalScrollbarWeight) {
+    this.verticalScrollbarWeight = verticalScrollbarWeight;
+  }
+
+  public Measure getHorizontalScrollbarWeight() {
+    return horizontalScrollbarWeight;
+  }
+
+  public void setHorizontalScrollbarWeight(Measure horizontalScrollbarWeight) {
+    this.horizontalScrollbarWeight = horizontalScrollbarWeight;
   }
 }

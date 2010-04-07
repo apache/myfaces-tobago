@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UISheet;
+import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -53,6 +54,7 @@ import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.LayoutInfo;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.application.Application;
@@ -251,7 +253,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       Measure space = bodyStyle.getWidth();
       space.subtractNotNegative(getContentBorder(facesContext, sheet));
       if (needVerticalScrollbar(facesContext, sheet, style)) {
-        space.subtractNotNegative(getScrollbarWidth(facesContext, sheet));
+        space.subtractNotNegative(getVerticalScrollbarWeight(facesContext, sheet));
       }
       sheetBodyStyle.setWidth(space);
     }
@@ -624,8 +626,14 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     return getResourceManager().getThemeMeasure(facesContext, data, "rowPadding");
   }
 
-  private Measure getScrollbarWidth(FacesContext facesContext, UISheet data) {
-    return getResourceManager().getThemeMeasure(facesContext, data, "scrollbarWidth");
+  private Measure getVerticalScrollbarWeight(FacesContext facesContext, UISheet data) {
+    final ClientProperties clientProperties = VariableResolverUtils.resolveClientProperties(facesContext);
+    final Measure weight = clientProperties.getVerticalScrollbarWeight();
+    if (weight != null) {
+      return weight;
+    } else { // default
+      return getResourceManager().getThemeMeasure(facesContext, data, "verticalScrollbarWeight");
+    }
   }
 
   private void storeFooterHeight(FacesContext facesContext, UISheet data) {
@@ -917,13 +925,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     RenderUtil.encode(facesContext, menu);
   }
 
-  private UIMenuCommand createMenuItem(final Application application, String label,
-                                       String action) {
-    UIMenuCommand menuItem
-        = (UIMenuCommand) application.createComponent(UIMenuCommand.COMPONENT_TYPE);
+  private UIMenuCommand createMenuItem(final Application application, String label, String action) {
+    UIMenuCommand menuItem = (UIMenuCommand) application.createComponent(UIMenuCommand.COMPONENT_TYPE);
     menuItem.setRendererType(RendererTypes.MENU_COMMAND);
-    menuItem.getAttributes().put(Attributes.ONCLICK, action);
-    menuItem.getAttributes().put(Attributes.LABEL, label);
+    menuItem.setOnclick(action);
+    menuItem.setLabel(label);
     return menuItem;
   }
 
@@ -1129,8 +1135,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       Measure space = data.getCurrentWidth();
       space = space.subtractNotNegative(getContentBorder(facesContext, data));
       if (needVerticalScrollbar(facesContext, data, style)) {
-        space = space.subtractNotNegative(getScrollbarWidth(facesContext, data));
+        space = space.subtractNotNegative(getVerticalScrollbarWeight(facesContext, data));
       }
+      // todo: not nice: 1 left + 1 right border
+      space = space.subtract(rendererdColumns.size() * 2);
       LayoutInfo layoutInfo =
           new LayoutInfo(newTokens.getSize(), space.getPixel(), newTokens, data.getClientId(facesContext), false);
       parseFixedWidth(facesContext, layoutInfo, rendererdColumns);

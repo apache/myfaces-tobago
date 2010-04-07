@@ -716,7 +716,7 @@ Tobago.Sheet.prototype.adjustHeaderDiv = function () {
     if (clientWidth == 0) {
       clientWidth = Math.min(contentWidth, boxSum);
     }
-    var minWidth = contentWidth - Tobago.Config.get("Sheet", "scrollbarWidth")
+    var minWidth = contentWidth - Tobago.Config.get("Tobago", "horizontalScrollbarWeight")
                    - Tobago.Config.get("Sheet", "contentBorderWidth");
     minWidth = Math.max(minWidth, 0); // not less than 0
     headerDiv.style.width = Math.max(clientWidth, minWidth);

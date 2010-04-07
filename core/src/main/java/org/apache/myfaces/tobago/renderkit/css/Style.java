@@ -38,8 +38,10 @@ public class Style implements Serializable {
   private Position position;
   private Overflow overflow;
   private Measure marginTop;
+  private Measure margin;
   private Measure paddingTop;
   private Measure paddingBottom;
+  private Measure padding;
   private String backgroundImage;
   private Integer zIndex;
 
@@ -55,8 +57,10 @@ public class Style implements Serializable {
     this.position = map.position;
     this.overflow = map.overflow;
     this.marginTop = map.marginTop;
+    this.margin = map.margin;
     this.paddingTop = map.paddingTop;
     this.paddingBottom = map.paddingBottom;
+    this.padding = map.padding;
     this.backgroundImage = map.backgroundImage;
     this.zIndex = map.zIndex;
   }
@@ -145,6 +149,11 @@ public class Style implements Serializable {
       buf.append(marginTop);
       buf.append(';');
     }
+    if (margin != null) {
+      buf.append("margin:");
+      buf.append(margin);
+      buf.append(';');
+    }
     if (paddingTop != null) {
       buf.append("padding-top:");
       buf.append(paddingTop);
@@ -153,6 +162,11 @@ public class Style implements Serializable {
     if (paddingBottom != null) {
       buf.append("padding-bottom:");
       buf.append(paddingBottom);
+      buf.append(';');
+    }
+    if (padding != null) {
+      buf.append("padding:");
+      buf.append(padding);
       buf.append(';');
     }
     if (backgroundImage != null) {
@@ -233,6 +247,14 @@ public class Style implements Serializable {
     this.marginTop = marginTop;
   }
 
+  public Measure getMargin() {
+    return margin;
+  }
+
+  public void setMargin(Measure margin) {
+    this.margin = margin;
+  }
+
   public Measure getPaddingTop() {
     return paddingTop;
   }
@@ -247,6 +269,14 @@ public class Style implements Serializable {
 
   public void setPaddingBottom(Measure paddingBottom) {
     this.paddingBottom = paddingBottom;
+  }
+
+  public Measure getPadding() {
+    return padding;
+  }
+
+  public void setPadding(Measure padding) {
+    this.padding = padding;
   }
 
   public String getBackgroundImage() {

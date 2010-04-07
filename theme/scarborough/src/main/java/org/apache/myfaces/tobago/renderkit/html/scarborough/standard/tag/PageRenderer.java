@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
@@ -37,6 +38,7 @@ import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Overflow;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -63,6 +65,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.StringTokenizer;
 
 public class PageRenderer extends PageRendererBase {
 
@@ -76,15 +79,41 @@ public class PageRenderer extends PageRendererBase {
     super.decode(facesContext, component);
     String clientId = component.getClientId(facesContext);
     ExternalContext externalContext = facesContext.getExternalContext();
-    String severity = (String) 
+
+    // severity
+    String severity = (String)
         externalContext.getRequestParameterMap().get(clientId + ComponentUtils.SUB_SEPARATOR + "clientSeverity");
     if (severity != null) {
       externalContext.getRequestMap().put(CLIENT_DEBUG_SEVERITY, severity);
     }
+
+    // last focus
     String lastFocusId = (String) 
         externalContext.getRequestParameterMap().get(clientId + ComponentUtils.SUB_SEPARATOR + LAST_FOCUS_ID);
     if (lastFocusId != null) {
       component.getAttributes().put(LAST_FOCUS_ID, lastFocusId);
+    }
+
+    // scrollbar weight
+    String name = clientId + ComponentUtils.SUB_SEPARATOR + "scrollbar-weight";
+    String value = null;
+    try {
+      value = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
+      if (value != null) {
+        StringTokenizer tokenizer = new StringTokenizer(value, ";");
+        Measure vertical = Measure.valueOf(tokenizer.nextToken());
+        Measure horizontal = Measure.valueOf(tokenizer.nextToken());
+        if (vertical.greaterThan(Measure.valueOf(30)) || vertical.lessThan(Measure.valueOf(3))
+           || horizontal.greaterThan(Measure.valueOf(30)) || horizontal.lessThan(Measure.valueOf(3))) {
+          LOG.error("Ignoring strange values: vertical=" + vertical + " horizontal=" + horizontal);
+        } else {
+          ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
+          client.setVerticalScrollbarWeight(vertical);
+          client.setHorizontalScrollbarWeight(horizontal);
+        }
+      }
+    } catch (Exception e) {
+      LOG.error("Error in decoding '" + name + "': value='" + value + "'", e);
     }
   }
 
@@ -134,11 +163,12 @@ public class PageRenderer extends PageRendererBase {
     String contentType = writer.getContentTypeWithCharSet();
     ResponseUtils.ensureContentTypeHeader(facesContext, contentType);
     HtmlRendererUtils.renderDojoDndSource(facesContext, component);
+    final ClientProperties client = VariableResolverUtils.resolveClientProperties(facesContext);
+    final boolean debugMode = client.isDebugMode();
 
     String title = (String) page.getAttributes().get(Attributes.LABEL);
 
     writer.startElement(HtmlConstants.HEAD, null);
-    final boolean debugMode = VariableResolverUtils.resolveClientProperties(facesContext).isDebugMode();
 
     if (debugMode) {
       writer.writeJavascript("var TbgHeadStart = new Date();");
@@ -270,7 +300,21 @@ public class PageRenderer extends PageRendererBase {
       }
     }
 
-     if (component.getFacets().containsKey(Facets.RESIZE_ACTION)) {
+    String clientId = page.getClientId(facesContext);
+
+    final boolean calculateScrollbarWeight
+        = client.getVerticalScrollbarWeight() == null || client.getVerticalScrollbarWeight() == null;
+    if (calculateScrollbarWeight) {
+      facesContext.getOnloadScripts().add(
+          "Tobago.calculateScrollbarWeights('" + clientId + ComponentUtils.SUB_SEPARATOR + "scrollbar-weight" + "');");
+    } else {
+      facesContext.getOnloadScripts().add(
+          "Tobago.Config.set('Tobago', 'verticalScrollbarWeight', '" + client.getVerticalScrollbarWeight() + "');");
+      facesContext.getOnloadScripts().add(
+          "Tobago.Config.set('Tobago', 'horizontalScrollbarWeight', '" + client.getHorizontalScrollbarWeight() + "');");
+    }
+
+    if (component.getFacets().containsKey(Facets.RESIZE_ACTION)) {
       UIComponent facet = component.getFacet(Facets.RESIZE_ACTION);
       UIComponent command = null;
       if (facet instanceof UICommand) {
@@ -305,8 +349,6 @@ public class PageRenderer extends PageRendererBase {
       writer.write('\n');
     }
     writer.endJavascript();
-
-    String clientId = page.getClientId(facesContext);
 
     String defaultActionId = page.getDefaultActionId() != null ? page.getDefaultActionId() : "";
     writer.endElement(HtmlConstants.HEAD);
@@ -371,6 +413,32 @@ public class PageRenderer extends PageRendererBase {
     writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "action-position");
     writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "action-position");
     writer.endElement(HtmlConstants.INPUT);
+
+    if (calculateScrollbarWeight) {
+      Style style = new Style();
+      style.setOverflow(Overflow.SCROLL);
+      style.setWidth(Measure.valueOf(100));
+      style.setHeight(Measure.valueOf(100));
+      style.setPadding(Measure.ZERO);
+      style.setMargin(Measure.ZERO);
+      style.setZIndex(-1);
+
+      writer.startElement(HtmlConstants.DIV, null);
+      writer.writeStyleAttribute(style);
+
+      writer.startElement(HtmlConstants.DIV, null);
+      style.setOverflow(null);
+      writer.writeStyleAttribute(style);
+      writer.endElement(HtmlConstants.DIV);
+
+      writer.endElement(HtmlConstants.DIV);
+
+      writer.startElement(HtmlConstants.INPUT, null);
+      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+      writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "scrollbar-weight");
+      writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "scrollbar-weight");
+      writer.endElement(HtmlConstants.INPUT);
+    }
 
     if (debugMode) {
       writer.startElement(HtmlConstants.INPUT, null);

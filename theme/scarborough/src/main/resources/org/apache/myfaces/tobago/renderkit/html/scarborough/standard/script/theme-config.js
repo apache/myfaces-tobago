@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-
 Tobago.Config.set("Tobago", "themeConfig", "scarborough/standard");
 
  /**
@@ -24,23 +23,15 @@ Tobago.Config.set("Tobago", "themeConfig", "scarborough/standard");
   */
 Tobago.Config.set("Popup", "borderWidth", 4);
 
-
 /**
  * Additional top offset for toolbar button dropdown menu
  */
 Tobago.Config.set("Menu", "toolbarTopOffset", -1);
 
 /**
-  * Width of sheets scrollbar
-  */
-Tobago.Config.set("Sheet", "scrollbarWidth",
-    (navigator.userAgent.indexOf("Gecko") != -1) ? 16 : 17);
-
-/**
   * Width of border from sheets content div := style width * 2
   */
 Tobago.Config.set("Sheet", "contentBorderWidth", 2);
-
 
 /**
  * Additional top offset for sheet selector dropdown menu
