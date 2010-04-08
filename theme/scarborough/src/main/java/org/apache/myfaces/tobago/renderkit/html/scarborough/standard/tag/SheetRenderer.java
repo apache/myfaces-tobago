@@ -900,7 +900,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       menu.setTransient(true);
       column.getFacets().put(Facets.MENUPOPUP, menu);
       menu.setImage("image/sheetSelectorMenu.gif");
-      menu.setLabel("vv");//todo remove this after fixing the image above
+      menu.setLabel("vv"); //todo remove this after fixing the image above
 
       String sheetId = column.getParent().getClientId(facesContext);
 
