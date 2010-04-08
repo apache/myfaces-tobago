@@ -29,17 +29,12 @@
       <tc:menuBar>
         <tc:menu label="#{overviewBundle.menu_config}">
           <tc:menu label="#{overviewBundle.menu_themes}">
-            <tc:menuCommand action="#{clientConfigController.submit}">
-              <f:facet name="items">
-                <tc:selectOneRadio value="#{clientConfigController.theme}">
-                  <f:selectItems value="#{clientConfigController.themeItems}"/>
-                </tc:selectOneRadio>
-              </f:facet>
-            </tc:menuCommand>
+            <tx:menuRadio action="#{clientConfigController.submit}" value="#{clientConfigController.theme}">
+              <f:selectItems value="#{clientConfigController.themeItems}"/>
+            </tx:menuRadio>
           </tc:menu>
           <tc:menu label="#{overviewBundle.menu_locale}">
-            <tx:menuRadio action="#{clientConfigController.submit}"
-                          value="#{clientConfigController.locale}">
+            <tx:menuRadio action="#{clientConfigController.submit}" value="#{clientConfigController.locale}">
               <f:selectItems value="#{clientConfigController.localeItems}"/>
             </tx:menuRadio>
           </tc:menu>
