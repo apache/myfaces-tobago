@@ -287,7 +287,7 @@ function tobagoUtil_findSubComponent(element, subId) {
 }
 
 function tobagoUtil_getSubComponentId(id, subId) {
-  return "#" + id.replace(":", "\\:") + "\\:\\:" + subId; 
+  return "#" + id.replace(/:/g, "\\:") + "\\:\\:" + subId; 
 }
 
 function tobagoUtil_findSuperComponent(element) {
@@ -295,7 +295,7 @@ function tobagoUtil_findSuperComponent(element) {
 }
 
 function tobagoUtil_getSuperComponentId(id) {
-  return "#" + id.substring(0, id.lastIndexOf("::")).replace(":", "\\:"); 
+  return "#" + id.substring(0, id.lastIndexOf("::")).replace(/:/g, "\\:"); 
 }
 
 xxx_tobagoMenuInit();
