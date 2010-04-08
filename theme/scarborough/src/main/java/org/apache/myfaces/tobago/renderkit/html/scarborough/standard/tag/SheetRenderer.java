@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIColumnEvent;
@@ -60,7 +61,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -343,8 +343,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         writer.flush();
 
         if (column instanceof UIColumnSelector) {
-          final boolean disabled
-              = ComponentUtils.getBooleanAttribute(column, Attributes.DISABLED);
+          final boolean disabled = ComponentUtils.getBooleanAttribute(column, Attributes.DISABLED);
           writer.startElement(HtmlConstants.IMG, null);
           if (disabled) {
             writer.writeAttribute(HtmlAttributes.SRC, selectorDisabled, false);
@@ -886,58 +885,46 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   }
 
 
-  protected void renderColumnSelectorHeader(FacesContext facesContext,
-                                            TobagoResponseWriter writer, UISheet component, UIColumn column)
+  protected void renderColumnSelectorHeader(
+      FacesContext facesContext, TobagoResponseWriter writer, UISheet component, UIColumn column)
       throws IOException {
-    UIPanel menu = (UIPanel) column.getFacet(Facets.MENUPOPUP);
-    if (menu == null) {
-      final Application application = facesContext.getApplication();
-      menu = (UIPanel) application.createComponent(UIMenu.COMPONENT_TYPE);
-      menu.setId("selectorMenu");
-      //menu.setTransient(true);
-      column.getFacets().put(Facets.MENUPOPUP, menu);
-      menu.setRendererType(RendererTypes.MENU_BAR);
-      menu.getAttributes().put(Attributes.IMAGE, "image/sheetSelectorMenu.gif");
-
-      String sheetId = column.getParent().getClientId(facesContext);
-
-      String action = "Tobago.Sheets.selectAll('" + sheetId + "')";
-      String label = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
-          "sheetMenuSelect");
-      UIMenuCommand menuItem = createMenuItem(application, label, action);
-      menuItem.setId("menuSelectAll");
-      menu.getChildren().add(menuItem);
-
-      action = "Tobago.Sheets.unSelectAll('" + sheetId + "')";
-      label = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
-          "sheetMenuUnselect");
-      menuItem = createMenuItem(application, label, action);
-      menuItem.setId("menuUnselectAll");
-      menu.getChildren().add(menuItem);
-
-      action = "Tobago.Sheets.toggleAllSelections('" + sheetId + "')";
-      label = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
-          "sheetMenuToggleselect");
-      menuItem = createMenuItem(application, label, action);
-      menuItem.setId("menuToggleSelections");
-      menu.getChildren().add(menuItem);
-    }
-
-    menu.setRendered(UISheet.MULTI.equals(component.getSelectable()));
 
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(column.getClientId(facesContext));
     writer.writeClassAttribute("tobago-sheet-selector-menu");
     writer.endElement(HtmlConstants.DIV);
-    RenderUtil.encode(facesContext, menu);
+
+    if (UISheet.MULTI.equals(component.getSelectable())) {
+      UIMenu menu = (UIMenu) CreateComponentUtils.createComponent(
+          facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU, "selectorMenu");
+      menu.setTransient(true);
+      column.getFacets().put(Facets.MENUPOPUP, menu);
+      menu.setImage("image/sheetSelectorMenu.gif");
+      menu.setLabel("vv");//todo remove this after fixing the image above
+
+      String sheetId = column.getParent().getClientId(facesContext);
+
+      createMenuItem(facesContext, menu, "sheetMenuSelect",
+          "Tobago.Sheets.selectAll('" + sheetId + "')", "t_sheetMenuSelect");
+      createMenuItem(facesContext, menu, "sheetMenuUnselect",
+          "Tobago.Sheets.unSelectAll('" + sheetId + "')", "t_sheetMenuUnselect");
+      createMenuItem(facesContext, menu, "sheetMenuToggleselect",
+          "Tobago.Sheets.toggleAllSelections('" + sheetId + "')", "t_sheetMenuToggleselect");
+
+      writer.startElement(HtmlConstants.OL, menu);
+      writer.writeClassAttribute("tobago-menuBar-default");
+      writer.writeStyleAttribute("position:absolute;");  // FIXME: may use a different style class
+      RenderUtil.encode(facesContext, menu);
+      writer.endElement(HtmlConstants.OL);
+    }
   }
 
-  private UIMenuCommand createMenuItem(final Application application, String label, String action) {
-    UIMenuCommand menuItem = (UIMenuCommand) application.createComponent(UIMenuCommand.COMPONENT_TYPE);
-    menuItem.setRendererType(RendererTypes.MENU_COMMAND);
+  private void createMenuItem(final FacesContext facesContext, UIMenu menu, String label, String action, String id) {
+    UIMenuCommand menuItem = (UIMenuCommand) CreateComponentUtils.createComponent(
+        facesContext, UIMenuCommand.COMPONENT_TYPE, RendererTypes.MENU_COMMAND, id);
     menuItem.setOnclick(action);
-    menuItem.setLabel(label);
-    return menuItem;
+    menuItem.setLabel(ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", label));
+    menu.getChildren().add(menuItem);
   }
 
   private void renderColumnHeaderLabel(
@@ -1174,13 +1161,13 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           if (i < rendereredColumns.size()) {
             UIColumn column = rendereredColumns.get(i);
             if (column instanceof UIColumnSelector) {
-              width = 100; // FIXME: make dynamic (was removed by changing the layouting
-              LOG.error("100; // FIXME: make dynamic (was removed by changing the layouting");
+              width = 20; // FIXME: make dynamic (was removed by changing the layout
+              LOG.error("20; // FIXME: make dynamic (was removed by changing the layout");
 
             } else {
               for (UIComponent component : (List<UIComponent>) column.getChildren()) {
-                width += 100; // FIXME: make dynamic (was removed by changing the layouting
-                LOG.error("100; // FIXME: make dynamic (was removed by changing the layouting");
+                width += 100; // FIXME: make dynamic (was removed by changing the layout
+                LOG.error("100; // FIXME: make dynamic (was removed by changing the layout");
               }
             }
             layoutInfo.update(width, i);
