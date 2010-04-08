@@ -309,9 +309,11 @@ public class PageRenderer extends PageRendererBase {
           "Tobago.calculateScrollbarWeights('" + clientId + ComponentUtils.SUB_SEPARATOR + "scrollbar-weight" + "');");
     } else {
       facesContext.getOnloadScripts().add(
-          "Tobago.Config.set('Tobago', 'verticalScrollbarWeight', '" + client.getVerticalScrollbarWeight() + "');");
+          "Tobago.Config.set('Tobago', 'verticalScrollbarWeight', '"
+              + client.getVerticalScrollbarWeight().getPixel() + "');");
       facesContext.getOnloadScripts().add(
-          "Tobago.Config.set('Tobago', 'horizontalScrollbarWeight', '" + client.getHorizontalScrollbarWeight() + "');");
+          "Tobago.Config.set('Tobago', 'horizontalScrollbarWeight', '"
+              + client.getHorizontalScrollbarWeight().getPixel() + "');");
     }
 
     if (component.getFacets().containsKey(Facets.RESIZE_ACTION)) {
