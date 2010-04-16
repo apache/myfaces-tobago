@@ -161,7 +161,7 @@ var Tobago = {
       if (event.altKey) {
         mod += "alt";
       }
-      if (event.ctrlKey) {
+      if (event.ctrlKey || event.metaKey) {
         mod += "ctrl";
       }
       if (event.shiftKey) {
@@ -1765,11 +1765,11 @@ Tobago.In.prototype.checkMaxLength = function(event) {
 
   // If the input is something less than a space (e.g. tab, CR, etc.)
   // return true.
-  // If key was CTRL-v, which will be used to paste some new text,
+  // If key was CTRL-v (or APPLE-v), which will be used to paste some new text,
   // pass it along.
   if (event) {
     if ((event.which < 32)
-        || ((event.which == 118) && (event["ctrlKey"]))) {
+        || ((event.which == 118) && (event.ctrlKey || event.metaKey))) {
       return true;
     }
   }

@@ -465,7 +465,7 @@ Tobago.Sheet.prototype.doSelection = function(event) {
       var selector = this.getSelectorImage(row.get(0));
       var rowIndex = row.index() + this.firstRowIndex;
 
-      if ((!event.ctrlKey && !selector) || this.selectable == "single" ) {
+      if ((!event.ctrlKey && !event.metaKey && !selector) || this.selectable == "single" ) {
         this.deselectAll();
       }
 
