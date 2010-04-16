@@ -105,7 +105,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
     // Outer sheet div
     writer.startElement(HtmlConstants.DIV, sheet);
-    writer.writeIdAttribute(sheetId + "_outer_div");
+    writer.writeIdAttribute(sheetId);
     writer.writeClassAttribute("tobago-sheet-outer-div");
     writer.writeStyleAttribute(style);
     UICommand clickAction = null;
@@ -152,7 +152,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         frequency = update.getFrequency();
       }
       final String[] cmds = {
-          "new Tobago.Sheet(\"" + sheetId + "\", " + true // ajaxEnabled=true (deprecated)
+          "new Tobago.Sheet(\"" + sheetId + "\", " + sheet.getFirst()
               + ", \"" + checked + "\", \"" + unchecked + "\", \"" + sheet.getSelectable()
               + "\", " + columnSelectorIndex + ", " + frequency
               + ",  " + (clickAction != null ? HtmlRendererUtils.getJavascriptString(clickAction.getId()) : null)
@@ -241,7 +241,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     bodyStyle.setHeight(sheetHeight);
 
     writer.startElement(HtmlConstants.DIV, null);
-    writer.writeIdAttribute(sheetId + "_data_div");
+    writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "data_div");
     writer.writeClassAttribute("tobago-sheet-body-div ");
     Style sheetBodyStyle = new Style(bodyStyle);
     if (!showHeader) {
@@ -287,16 +287,14 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     final String var = sheet.getVar();
 
     boolean odd = false;
-    int visibleIndex = -1;
     final int last = sheet.getFirst() + sheet.getRows();
     for (int rowIndex = sheet.getFirst(); rowIndex < last; rowIndex++) {
-      visibleIndex++;
       sheet.setRowIndex(rowIndex);
       if (!sheet.isRowAvailable()) {
         break;
       }
       odd = !odd;
-      final String rowClass = odd ? "tobago-sheet-content-odd " : "tobago-sheet-content-even ";
+      final String rowClass = odd ? "tobago-sheet-row-odd" : "tobago-sheet-row-even";
 
       if (LOG.isDebugEnabled()) {
         LOG.debug("var       " + var);
@@ -305,9 +303,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
       writer.startElement(HtmlConstants.TR, null);
       writer.writeClassAttribute(rowClass);
-      writer.writeIdAttribute(sheetId + "_data_tr_" + rowIndex);
-      writer.flush();
-
+      if (rowIndex == sheet.getFirst()) {
+        writer.writeAttribute("rowIndexInModel", Integer.toString(sheet.getFirst()), false);
+      }
 
       int columnIndex = -1;
       for (UIColumn column : renderedColumnList) {
@@ -332,35 +330,26 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         if (align != null) {
           writer.writeStyleAttribute(HtmlRendererUtils.toStyleString("text-align", align));
         }
-        writer.startElement(HtmlConstants.DIV, null);
-        writer.writeIdAttribute(
-            sheetId + "_data_row_" + visibleIndex + "_column" + columnIndex);
-        writer.writeClassAttribute("tobago-sheet-cell-outer");
-        writer.writeStyleAttribute(HtmlRendererUtils.toStyleString("width", columnWidths.get(columnIndex)));
-
-        writer.startElement(HtmlConstants.DIV, null);
-        writer.writeClassAttribute("tobago-sheet-cell-inner");
-        writer.flush();
 
         if (column instanceof UIColumnSelector) {
           final boolean disabled = ComponentUtils.getBooleanAttribute(column, Attributes.DISABLED);
           writer.startElement(HtmlConstants.IMG, null);
+          writer.writeClassAttribute("tobago-sheet-column-selector");
           if (disabled) {
             writer.writeAttribute(HtmlAttributes.SRC, selectorDisabled, false);
+            writer.writeAttribute("disabled", "true", false);
           } else {
             writer.writeAttribute(HtmlAttributes.SRC, unchecked, false);
           }
-          writer.writeIdAttribute(sheetId + "_data_row_selector_" + rowIndex);
-          writer.writeClassAttribute("tobago-sheet-column-selector");
           writer.endElement(HtmlConstants.IMG);
         } else {
-          List<UIComponent> childs = sheet.getRenderedChildrenOf(column);
-          for (UIComponent grandkid : childs) {
+          List<UIComponent> children = sheet.getRenderedChildrenOf(column);
+          for (UIComponent grandKid : children) {
             // set height to 0 to prevent use of layoutheight from parent
-            grandkid.getAttributes().put(Attributes.LAYOUT_HEIGHT, HEIGHT_0);
+            grandKid.getAttributes().put(Attributes.LAYOUT_HEIGHT, HEIGHT_0);
             // XXX hotfix
-            if (grandkid instanceof LayoutBase) {
-              LayoutBase base = (LayoutBase) grandkid;
+            if (grandKid instanceof LayoutBase) {
+              LayoutBase base = (LayoutBase) grandKid;
               if (base.getLeft() != null) {
                 base.setLeft(null);
               }
@@ -368,34 +357,22 @@ public class SheetRenderer extends LayoutComponentRendererBase {
                 base.setTop(null);
               }
             }
-            RenderUtil.prepareRendererAll(facesContext, grandkid);
-            RenderUtil.encode(facesContext, grandkid);
+            RenderUtil.prepareRendererAll(facesContext, grandKid);
+            RenderUtil.encode(facesContext, grandKid);
           }
-          if (childs.size() > 1) {
+          if (children.size() > 1) {
             if (LOG.isInfoEnabled()) {
-              LOG.info(
-                  "Column should not contain more than one child. Please surround the components with a tc:panel.");
+              LOG.info("Column should contain only one child. Please surround the components with a tc:panel.");
             }
           }
         }
 
-        writer.endElement(HtmlConstants.DIV);
-        writer.endElement(HtmlConstants.DIV);
         writer.endElement(HtmlConstants.TD);
       }
 
       writer.startElement(HtmlConstants.TD, null);
       writer.writeClassAttribute("tobago-sheet-cell-td tobago-sheet-cell-filler");
-
-      writer.startElement(HtmlConstants.DIV, null);
-      writer.writeIdAttribute(
-          sheetId + "_data_row_" + visibleIndex + "_column_filler");
-      writer.writeClassAttribute("tobago-sheet-cell-outer");
-      writer.writeStyleAttribute("width:0px;");
-      writer.flush();
       writer.write("&nbsp;");
-
-      writer.endElement(HtmlConstants.DIV);
       writer.endElement(HtmlConstants.TD);
 
       writer.endElement(HtmlConstants.TR);
@@ -403,9 +380,13 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
     sheet.setRowIndex(-1);
 
-
     writer.endElement(HtmlConstants.TABLE);
     writer.endElement(HtmlConstants.DIV);
+
+/*
+    final String initFirstRowIndex = "Tobago.Sheets.get('" + sheetId + "').firstRowIndex = " + sheet.getFirst() + ";";
+    HtmlRendererUtils.writeScriptLoader(facesContext, null, new String[]{initFirstRowIndex});
+*/
 
 // END RENDER BODY CONTENT
 
@@ -415,12 +396,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           headerWidth);
     }
 
-    final String showRowRange
-        = getPagingAttribute(sheet, Attributes.SHOW_ROW_RANGE);
-    final String showPageRange
-        = getPagingAttribute(sheet, Attributes.SHOW_PAGE_RANGE);
-    final String showDirectLinks
-        = getPagingAttribute(sheet, Attributes.SHOW_DIRECT_LINKS);
+    final String showRowRange = getPagingAttribute(sheet, Attributes.SHOW_ROW_RANGE);
+    final String showPageRange = getPagingAttribute(sheet, Attributes.SHOW_PAGE_RANGE);
+    final String showDirectLinks = getPagingAttribute(sheet, Attributes.SHOW_DIRECT_LINKS);
 
     if (isValidPagingValue(showRowRange)
         || isValidPagingValue(showPageRange)
@@ -428,9 +406,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       Style footerStyle = new Style(bodyStyle);
       footerStyle.setPosition(null);
       footerStyle.setHeight(footerHeight);
-
-      //  "height", MessageFormat.format("{0}px", footerHeight));
-      //  + " top: " + (sheetHeight - footerHeight) + "px;";
 
       writer.startElement(HtmlConstants.DIV, sheet);
       writer.writeClassAttribute("tobago-sheet-footer");
@@ -446,25 +421,22 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         String pagingOnClick = new CommandRendererHelper(facesContext, pagerCommand).getOnclickDoubleQuoted();
         final String pagerCommandId = pagerCommand.getClientId(facesContext);
 
-        final String className = "tobago-sheet-paging-rows-span"
-            + " tobago-sheet-paging-span-" + showRowRange;
+        final String className = "tobago-sheet-paging-rows-span tobago-sheet-paging-span-" + showRowRange;
 
         writer.startElement(HtmlConstants.SPAN, null);
-        writer.writeAttribute(HtmlAttributes.ONCLICK, "tobagoSheetEditPagingRow(this, '"
-            + pagerCommandId + "', '" + pagingOnClick + "')", true);
+        writer.writeAttribute(HtmlAttributes.ONCLICK,
+            "tobagoSheetEditPagingRow(this, '" + pagerCommandId + "', '" + pagingOnClick + "')", true);
         writer.writeClassAttribute(className);
-        writer.writeAttribute(HtmlAttributes.TITLE, ResourceManagerUtil.getPropertyNotNull(
-            facesContext, "tobago", "sheetPagingInfoRowPagingTip"), true);
+        writer.writeAttribute(HtmlAttributes.TITLE,
+            ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoRowPagingTip"), true);
         writer.writeText("");
-        writer.write(createSheetPagingInfo(sheet, facesContext,
-            pagerCommandId, true));
+        writer.write(createSheetPagingInfo(sheet, facesContext, pagerCommandId, true));
         writer.endElement(HtmlConstants.SPAN);
       }
 
 
       if (isValidPagingValue(showDirectLinks)) {
-        final String className = "tobago-sheet-paging-links-span"
-            + " tobago-sheet-paging-span-" + showDirectLinks;
+        final String className = "tobago-sheet-paging-links-span tobago-sheet-paging-span-" + showDirectLinks;
 
         writer.startElement(HtmlConstants.SPAN, null);
         writer.writeClassAttribute(className);
@@ -474,19 +446,14 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
 
       if (isValidPagingValue(showPageRange)) {
-        UICommand pagerCommand
-            = (UICommand) sheet.getFacet(Facets.PAGER_PAGE);
+        UICommand pagerCommand = (UICommand) sheet.getFacet(Facets.PAGER_PAGE);
         if (pagerCommand == null) {
-          pagerCommand = createPagingCommand(
-              application, PageAction.TO_PAGE, false);
+          pagerCommand = createPagingCommand(application, PageAction.TO_PAGE, false);
           sheet.getFacets().put(Facets.PAGER_PAGE, pagerCommand);
         }
         String pagingOnClick = new CommandRendererHelper(facesContext, pagerCommand).getOnclickDoubleQuoted();
         final String pagerCommandId = pagerCommand.getClientId(facesContext);
-
-        final String className = "tobago-sheet-paging-pages-span"
-            + " tobago-sheet-paging-span-" + showPageRange;
-
+        final String className = "tobago-sheet-paging-pages-span tobago-sheet-paging-span-" + showPageRange;
 
         writer.startElement(HtmlConstants.SPAN, null);
         writer.writeClassAttribute(className);
@@ -498,13 +465,12 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         link(facesContext, application, atBeginning, PageAction.PREV, sheet);
         writer.startElement(HtmlConstants.SPAN, null);
         writer.writeClassAttribute("tobago-sheet-paging-pages-text");
-        writer.writeAttribute(HtmlAttributes.ONCLICK, "tobagoSheetEditPagingRow(this, '"
-            + pagerCommandId + "', '" + pagingOnClick + "')", true);
-        writer.writeAttribute(HtmlAttributes.TITLE, ResourceManagerUtil.getPropertyNotNull(
-            facesContext, "tobago", "sheetPagingInfoPagePagingTip"), true);
+        writer.writeAttribute(HtmlAttributes.ONCLICK,
+            "tobagoSheetEditPagingRow(this, '" + pagerCommandId + "', '" + pagingOnClick + "')", true);
+        writer.writeAttribute(HtmlAttributes.TITLE,
+            ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoPagePagingTip"), true);
         writer.writeText("");
-        writer.write(createSheetPagingInfo(
-            sheet, facesContext, pagerCommandId, false));
+        writer.write(createSheetPagingInfo(sheet, facesContext, pagerCommandId, false));
         writer.endElement(HtmlConstants.SPAN);
         boolean atEnd = sheet.isAtEnd();
         link(facesContext, application, atEnd, PageAction.NEXT, sheet);
@@ -732,7 +698,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       Measure headerWidth) throws IOException {
     // begin rendering header
     writer.startElement(HtmlConstants.DIV, null);
-    writer.writeIdAttribute(sheetId + "_header_div");
+    writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "header_div");
     writer.writeClassAttribute("tobago-sheet-header-div");
     Style style = new Style();
     style.setWidth(headerWidth);
@@ -748,12 +714,13 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       imageUnsorted = contextPath + img;
     }
     for (UIColumn column : renderedColumnList) {
-      renderColumnHeader(facesContext, writer, sheet, columnCount, column,
-          imageAscending, imageDescending, imageUnsorted, image1x1, sortMarkerWidth);
+      renderColumnHeader(
+          facesContext, writer, sheet, columnCount, column, imageAscending, imageDescending, imageUnsorted, image1x1,
+          sortMarkerWidth);
       columnCount++;
     }
     writer.startElement(HtmlConstants.SPAN, null);
-    writer.writeIdAttribute(sheetId + "_header_box_filler");
+    writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "header_box_filler");
     writer.writeClassAttribute("tobago-sheet-header-box tobago-sheet-header-filler");
     writer.writeStyleAttribute("width:0px");
 
@@ -842,20 +809,13 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.writeStyleAttribute("text-align: " + align + ";");
     }
 
-    String resizerClass;
     if (column instanceof UIColumnSelector) {
-      resizerClass = "tobago-sheet-header-resize";
       renderColumnSelectorHeader(facesContext, writer, component, column);
     } else {
-      resizerClass = "tobago-sheet-header-resize tobago-sheet-header-resize-cursor";
       renderColumnHeaderLabel(facesContext, writer, column, sortMarkerWidth, align, image1x1);
     }
     writer.endElement(HtmlConstants.SPAN);
 
-    writer.startElement(HtmlConstants.SPAN, null);
-    writer.writeIdAttribute(sheetId + "_header_resizer_" + columnIndex);
-    writer.writeClassAttribute(resizerClass);
-    writer.endElement(HtmlConstants.SPAN);
 // ############################################
 // ############################################
     if (sortable && !(column instanceof UIColumnSelector)) {
@@ -882,6 +842,22 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 // ############################################
 
     writer.endElement(HtmlConstants.SPAN);
+
+    String resizerClass;
+    if (column instanceof UIColumnSelector) {
+      resizerClass = "tobago-sheet-header-resize";
+    } else {
+      resizerClass = "tobago-sheet-header-resize tobago-sheet-header-resize-cursor";
+    }
+
+    writer.startElement(HtmlConstants.SPAN, null);
+    writer.writeClassAttribute("tobago-sheet-header-resize-outer");
+    writer.startElement(HtmlConstants.SPAN, null);
+    writer.writeIdAttribute(sheetId + "_header_resizer_" + columnIndex);
+    writer.writeClassAttribute(resizerClass);
+    writer.write("&nbsp;&nbsp;"); // is needed for IE6
+    writer.endElement(HtmlConstants.SPAN);
+    writer.endElement(HtmlConstants.SPAN);
   }
 
 
@@ -905,11 +881,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       String sheetId = column.getParent().getClientId(facesContext);
 
       createMenuItem(facesContext, menu, "sheetMenuSelect",
-          "Tobago.Sheets.selectAll('" + sheetId + "')", "t_sheetMenuSelect");
+          "Tobago.Sheets.get('" + sheetId + "').selectAll()", "t_selectAll");
       createMenuItem(facesContext, menu, "sheetMenuUnselect",
-          "Tobago.Sheets.unSelectAll('" + sheetId + "')", "t_sheetMenuUnselect");
+          "Tobago.Sheets.get('" + sheetId + "').deselectAll()", "t_deselectAll");
       createMenuItem(facesContext, menu, "sheetMenuToggleselect",
-          "Tobago.Sheets.toggleAllSelections('" + sheetId + "')", "t_sheetMenuToggleselect");
+          "Tobago.Sheets.get('" + sheetId + "').toggleAll()", "t_toggleAll");
 
       writer.startElement(HtmlConstants.OL, menu);
       writer.writeClassAttribute("tobago-menuBar-default");
@@ -1043,8 +1019,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     }
   }
 
-  private UICommand createPagingCommand(Application application,
-                                        PageAction command, boolean disabled) {
+  private UICommand createPagingCommand(Application application, PageAction command, boolean disabled) {
     UICommand link;
     link = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
     link.setRendererType(RendererTypes.SHEET_PAGE_COMMAND);

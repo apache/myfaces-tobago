@@ -38,9 +38,6 @@ h5  {
   padding-bottom: 0px;
 }
 
-
-
-
 /* Styles which are Speyside specific. They are reduced as much as possible,
    but some definitions couldn?t be integrated into the new class system by
    now. */
@@ -815,8 +812,8 @@ hr.tobago-separator-default {
   padding: 2px 2px 0px 3px;
 }
 
-.tobago-sheet-body-table  {
-/* none defined so far, but class attribute is generated */
+.tobago-sheet-body-table {
+  table-layout: fixed;
 }
 
 .tobago-sheet-body-div {
@@ -825,12 +822,12 @@ hr.tobago-separator-default {
   border: 1px solid #CCCCCC;
 }
 
-.tobago-sheet-content-odd {
+.tobago-sheet-row-odd {
   font: 12px arial, helvetica, sans-serif;
   background: #ffffff;
 }
 
-.tobago-sheet-content-even {
+.tobago-sheet-row-even {
   font: 12px arial, helvetica, sans-serif;
   background: #ffffff;
 }
@@ -843,11 +840,6 @@ hr.tobago-separator-default {
 .tobago-sheet-cell-td {
   border-bottom: 1px solid #E2E2E2;
 }
-
-.tobago-sheet-cell-inner {
-  padding: 3px 10px 0px 2px;
-}
-
 
 .tobago-sheet-footer {
   z-index: 1000;

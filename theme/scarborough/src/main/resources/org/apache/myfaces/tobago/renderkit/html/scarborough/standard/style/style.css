@@ -1211,22 +1211,25 @@ iframe.tobago-menu-ie6bugfix {
 	white-space: nowrap;
 }
 
-.tobago-sheet-header-resize{
+.tobago-sheet-header-resize-outer {
   display: inline-block;
+  position: relative;
+	width: 0;
+  height:100%;
   z-index: 4;
+}
+
+.tobago-sheet-header-resize {
   position: absolute;
+  left: -5px;
   top: 0;
-  right: -5px;
+  width: 10px;
   height: 100%;
 	overflow: hidden;
-	right: -5px;
-	top: 0;
-	width: 10px;
 }
 
 .tobago-sheet-header-resize-cursor {
-	cursor: e-resize; /* todo: CSS3+IE6 */
-	cursor: col-resize;
+	cursor: col-resize; /* col-resize is allowed in CSS3+IE6, opera has a separate definition */
 }
 
 .tobago-sheet-header-sort-div {
@@ -1252,35 +1255,18 @@ iframe.tobago-menu-ie6bugfix {
   padding-left: 0;
   padding-right: 0;
   vertical-align: top;
+  overflow: hidden;
 }
 
 .tobago-sheet-cell-clickable {
    cursor: pointer;
 }
 
-.tobago-sheet-cell-outer {
-  overflow: hidden;
-}
-
-.tobago-sheet-cell-inner {
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-div.tobago-sheet-cell-inner img {
-  vertical-align: top;
-}
-
-div.tobago-sheet-cell-inner span {
-  text-align: top;
-}
-
-.tobago-sheet-content-odd {
+.tobago-sheet-row-odd {
   background: #ffffff;
 }
 
-.tobago-sheet-content-even {
+.tobago-sheet-row-even {
   background: #d8e9fb;
 }
 
