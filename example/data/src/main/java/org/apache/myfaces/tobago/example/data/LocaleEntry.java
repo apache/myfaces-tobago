@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.example.data;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.Locale;
 
 public class LocaleEntry {
@@ -31,6 +33,10 @@ public class LocaleEntry {
     this.displayLocale = displayLocale;
     country = locale.getDisplayCountry(displayLocale);
     language = locale.getDisplayLanguage(displayLocale);
+  }
+
+  public boolean isDisabled() {
+    return StringUtils.isBlank(country);
   }
 
   public Locale getLocale() {
