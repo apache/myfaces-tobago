@@ -548,7 +548,11 @@ Tobago.Sheet.prototype.getSiblingRow = function(row, i) {
 };
 
 Tobago.Sheet.prototype.isEnabled = function(image) {
-  return image == null || image.attributes.disabled === undefined || image.attributes.disabled.value != "true";
+  return image == null
+      || image.attributes == null
+      || image.attributes.disabled === undefined
+      || image.attributes.disabled == null
+      || image.attributes.disabled.value != "true";
 };
 
 Tobago.Sheet.prototype.getRows = function() {
