@@ -64,38 +64,20 @@ public interface SheetTagDeclaration
   void setShowHeader(String showHeader);
 
   /**
-   * Please use "rows" instead.
    * The number of rows to display, starting with the one identified by the
-   * "pageingStart" property.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "100")
-  @Deprecated
-  void setPagingLength(String pagingLength);
-
-  /**
-   * The number of rows to display, starting with the one identified by the
-   * "pageingStart/first" property.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "100")
-  void setRows(String pagingLength);
-
-  /**
-   * Please use "first" instead.
-   * Zero-relative row number of the first row to be displayed.
+   * "first" property.
+   * <br/> The default has been changed from 100 to 0 because this is the default of the JSF standard (Tobago 1.5).
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")
-  @Deprecated
-  void setPagingStart(String pagingStart);
+  void setRows(String rows);
 
   /**
    * Zero-relative row number of the first row to be displayed.
    */
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")
-  void setFirst(String pagingStart);
+  void setFirst(String first);
 
   /**
    * The sheet's data.
@@ -114,6 +96,24 @@ public interface SheetTagDeclaration
   @TagAttribute(required = true)
   @UIComponentTagAttribute(expression = DynamicExpression.PROHIBITED)
   void setVar(String var);
+
+  /**
+   * Flag indicating whether or not the paging panel should be display, if it is not needed for paging.<br />
+   * <ul>
+   * <li>showPagingAlways="false" which is the default means, that the paging footer should be displayed,
+   * only when it is needed.</li>
+   * <ul>
+   * <li>When the rows="0" paging is not needed, so the footer will not be rendered,</li>
+   * <li>when rows="N", N > 0 and the size of the data value is <= N paging is not needed
+   * and the footer will not be rendered,</li>
+   * <li>in any other case the paging footer will be displayed.</li>
+   * </ul>
+   * <li>showPagingAlways="true" means, that the paging footer should be displayed in any case.</li>
+   * </ul>
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setShowPagingAlways(String showPagingAlways);
 
   /**
    * The count of rendered direct paging links in the sheet's footer.<br />
@@ -138,43 +138,35 @@ public interface SheetTagDeclaration
 
   /**
    * Flag indicating whether or not a range of direct paging links should be
-   * rendered in the sheet's footer.<br />
-   * Valid values are <strong>left</strong>, <strong>center</strong>,
-   * <strong>right</strong> and <strong>none</strong>.
+   * rendered in the sheet's footer.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none",
+  @UIComponentTagAttribute(defaultValue = "center",
       allowedValues = {"left", "center", "right", "none"})
   void setShowDirectLinks(String showDirectLinks);
 
   /**
    * Flag indicating whether and where the range pages should
    * rendered in the sheet's footer. Rendering this range also offers the
-   * capability to enter the index displayed page directly.<br />
-   * Valid values are <strong>left</strong>, <strong>center</strong>,
-   * <strong>right</strong> and <strong>none</strong>.
+   * capability to enter the index displayed page directly.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none",
+  @UIComponentTagAttribute(defaultValue = "right",
       allowedValues = {"left", "center", "right", "none"})
   void setShowPageRange(String showPageRange);
 
   /**
    * Flag indicating whether or not the range of displayed rows should
    * rendered in the sheet's footer. Rendering this range also offers the
-   * capability to enter the index of the start row directly. <br />
-   * Valid values are <strong>left</strong>, <strong>center</strong>,
-   * <strong>right</strong> and <strong>none</strong>.
+   * capability to enter the index of the start row directly.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultValue = "none",
+  @UIComponentTagAttribute(defaultValue = "left",
       allowedValues = {"left", "center", "right", "none"})
   void setShowRowRange(String showRowRange);
 
   /**
-   * Flag indicating whether or not the sheet should be selectable <br />
-   * Valid values are <strong>none</strong>, <strong>single</strong>,
-   * and <strong>multi</strong>.<br />
+   * Flag indicating whether or not the sheet should be selectable.
    */
   @TagAttribute
   @UIComponentTagAttribute(defaultValue = "multi",

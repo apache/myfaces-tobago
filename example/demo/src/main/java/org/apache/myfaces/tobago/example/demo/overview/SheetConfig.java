@@ -42,6 +42,7 @@ public class SheetConfig {
   };
 
   private boolean sheetShowHeader;
+  private boolean showPagingAlways;
   private int sheetFirst;
   private int sheetRows;
   private int sheetDirectLinkCount;
@@ -60,6 +61,7 @@ public class SheetConfig {
     sheetDirectLinkCount = 5;
     sheetDirectLinkCountItems = createSheetItems(new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15});
     sheetShowHeader = true;
+    showPagingAlways = false;
     sheetRowPagingPosition = SHEET_PAGER_POSITION_KEYS[1];
     sheetDirectPagingPosition = SHEET_PAGER_POSITION_KEYS[2];
     sheetPagePagingPosition = SHEET_PAGER_POSITION_KEYS[3];
@@ -90,6 +92,14 @@ public class SheetConfig {
 
   public void setSheetShowHeader(boolean sheetShowHeader) {
     this.sheetShowHeader = sheetShowHeader;
+  }
+
+  public boolean isShowPagingAlways() {
+    return showPagingAlways;
+  }
+
+  public void setShowPagingAlways(boolean showPagingAlways) {
+    this.showPagingAlways = showPagingAlways;
   }
 
   public int getSheetFirst() {

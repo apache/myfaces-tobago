@@ -43,6 +43,8 @@ Tag Library
 *--+--+--+--+                                                                                                                                                                   
 | tc:menuItem | tc:menuCommand |                                                                 
 *--+--+--+--+                                                                                                                                                                   
+
+   In tc:sheet the default for "rows" has been changed from 100 to 0, which means "unlimited".
    
 UIComponent Classes
   

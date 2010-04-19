@@ -27,17 +27,17 @@
   <ui:param name="title" value="#{overviewBundle.sheet}"/>
   <tc:box label="#{overviewBundle.sheet_sampleTitle}" id="sheetBox">
     <f:facet name="layout">
-      <tc:gridLayout rows="1*;3*"/>
+      <tc:gridLayout rows="1*;auto;3*"/>
     </f:facet>
     <f:facet name="toolBar">
       <tc:toolBar>
         <tc:toolBarCommand label="#" tip="#{overviewBundle.sheet_configTip}">
           <tc:attribute name="renderedPartially" value="sheetConfigPopup"/>
           <f:facet name="popup">
-            <tc:popup width="300px" height="270px" id="sheetConfigPopup">
+            <tc:popup width="300px" height="275px" id="sheetConfigPopup">
               <tc:box label="#{overviewBundle.sheet_configTitle}">
                 <f:facet name="layout">
-                  <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*;fixed"/>
+                  <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;1*;fixed"/>
                 </f:facet>
                 <tx:selectOneChoice label="showHeader"
                                     value="#{overviewController.sheetConfig.sheetShowHeader}"
@@ -45,6 +45,8 @@
                   <f:selectItem itemValue="#{true}" itemLabel="True"/>
                   <f:selectItem itemValue="#{false}" itemLabel="False"/>
                 </tx:selectOneChoice>
+                <tx:selectBooleanCheckbox
+                    label="showPagingAlways" value="#{overviewController.sheetConfig.showPagingAlways}"/>
                 <tx:in label="first"
                        value="#{overviewController.sheetConfig.sheetFirst}"
                        tip="TODO: paging Start Text">
@@ -53,7 +55,7 @@
                 <tx:in label="rows"
                        value="#{overviewController.sheetConfig.sheetRows}"
                        tip="TODO: paging Lenght Text">
-                  <f:validateLongRange minimum="1"/>
+                  <f:validateLongRange minimum="0"/>
                 </tx:in>
 
                 <tx:selectOneChoice label="showRowRange"
@@ -88,20 +90,19 @@
 
                 <tc:cell/>
 
-                <tc:cell>
+                <tc:panel>
                   <f:facet name="layout">
-                    <tc:gridLayout columns="100px;1*;100px"
-                                   marginLeft="10px" marginRight="10px"/>
+                    <tc:gridLayout columns="*;auto;auto"/>
                   </f:facet>
+                  <tc:cell/>
                   <tc:button label="Cancel">
                     <tc:attribute name="popupClose" value="immediate"/>
                   </tc:button>
-                  <tc:cell/>
                   <tc:button label="Ok">
                     <tc:attribute name="popupClose" value="afterSubmit"/>
                     <tc:attribute name="renderedPartially" value=":page:sheetBox"/>
                   </tc:button>
-                </tc:cell>
+                </tc:panel>
 
               </tc:box>
             </tc:popup>
@@ -112,10 +113,22 @@
 
     <tc:out escape="false" value="#{overviewBundle.sheet_text}"/>
 
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="*;auto"/>
+      </f:facet>
+      <tc:cell/>
+      <tc:button label="Sheet Configuration">
+        <tc:attribute name="renderedPartially" value="sheetConfigPopup"/>
+        <tc:popupReference for="sheetConfigPopup"/>
+      </tc:button>
+    </tc:panel>
+
     <tc:sheet value="#{demo.solarList}" id="sheet"
               columns="3*;1*;3*;3*;3*;3*" var="luminary"
               state="#{demo.sheetState}"
               showHeader="#{overviewController.sheetConfig.sheetShowHeader}"
+              showPagingAlways="#{overviewController.sheetConfig.showPagingAlways}"
               showRowRange="#{overviewController.sheetConfig.sheetRowPagingPosition}"
               showPageRange="#{overviewController.sheetConfig.sheetPagePagingPosition}"
               showDirectLinks="#{overviewController.sheetConfig.sheetDirectPagingPosition}"

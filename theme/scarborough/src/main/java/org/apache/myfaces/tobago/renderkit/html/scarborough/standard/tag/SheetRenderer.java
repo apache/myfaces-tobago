@@ -287,7 +287,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     final String var = sheet.getVar();
 
     boolean odd = false;
-    final int last = sheet.getFirst() + sheet.getRows();
+    // rows = 0 means: show all
+    final int last = sheet.hasRows() ? sheet.getFirst() + sheet.getRows() : Integer.MAX_VALUE;
     for (int rowIndex = sheet.getFirst(); rowIndex < last; rowIndex++) {
       sheet.setRowIndex(rowIndex);
       if (!sheet.isRowAvailable()) {
@@ -396,13 +397,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           headerWidth);
     }
 
-    final String showRowRange = getPagingAttribute(sheet, Attributes.SHOW_ROW_RANGE);
-    final String showPageRange = getPagingAttribute(sheet, Attributes.SHOW_PAGE_RANGE);
-    final String showDirectLinks = getPagingAttribute(sheet, Attributes.SHOW_DIRECT_LINKS);
+    final String showRowRange = checkPagingAttribute(sheet.getShowRowRange());
+    final String showPageRange = checkPagingAttribute(sheet.getShowPageRange());
+    final String showDirectLinks = checkPagingAttribute(sheet.getShowDirectLinks());
 
-    if (isValidPagingValue(showRowRange)
-        || isValidPagingValue(showPageRange)
-        || isValidPagingValue(showDirectLinks)) {
+    if (sheet.isPagingVisible()) {
       Style footerStyle = new Style(bodyStyle);
       footerStyle.setPosition(null);
       footerStyle.setHeight(footerHeight);
@@ -412,7 +411,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.writeStyleAttribute(footerStyle);
 
 
-      if (isValidPagingValue(showRowRange)) {
+      if (isNotNone(showRowRange)) {
         UICommand pagerCommand = (UICommand) sheet.getFacet(Facets.PAGER_ROW);
         if (pagerCommand == null) {
           pagerCommand = createPagingCommand(application, PageAction.TO_ROW, false);
@@ -435,7 +434,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
 
 
-      if (isValidPagingValue(showDirectLinks)) {
+      if (isNotNone(showDirectLinks)) {
         final String className = "tobago-sheet-paging-links-span tobago-sheet-paging-span-" + showDirectLinks;
 
         writer.startElement(HtmlConstants.SPAN, null);
@@ -445,7 +444,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         writer.endElement(HtmlConstants.SPAN);
       }
 
-      if (isValidPagingValue(showPageRange)) {
+      if (isNotNone(showPageRange)) {
         UICommand pagerCommand = (UICommand) sheet.getFacet(Facets.PAGER_PAGE);
         if (pagerCommand == null) {
           pagerCommand = createPagingCommand(application, PageAction.TO_PAGE, false);
@@ -577,9 +576,15 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
     }
 
+    if (!sheet.hasRowCount()) {
+      return true;
+    }
+
     if (style.getHeight() != null) {
       int first = sheet.getFirst();
-      int rows = Math.min(sheet.getRowCount(), first + sheet.getRows()) - first;
+      int rows = sheet.hasRows()
+          ? Math.min(sheet.getRowCount(), first + sheet.getRows()) - first
+          : sheet.getRowCount();
       LOG.error("20; // FIXME: make dynamic (was removed by changing the layout");
       Measure heightNeeded = getFooterHeight(facesContext, sheet)
               .add(getRowPadding(facesContext, sheet).add(20/*fixme*/).multiply(rows))
@@ -604,39 +609,24 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     }
   }
 
-  private void storeFooterHeight(FacesContext facesContext, UISheet data) {
-    data.getAttributes().put(Attributes.FOOTER_HEIGHT, getFooterHeight(facesContext, data));
-  }
-
   private Measure getFooterHeight(FacesContext facesContext, UISheet sheet) {
-    return isFooterVisible(sheet) 
+    return sheet.isPagingVisible()
         ? getResourceManager().getThemeMeasure(facesContext, sheet, "footerHeight")
         : Measure.ZERO;
   }
   
-  private boolean isFooterVisible(UISheet sheet) {
-    return isValidPagingAttribute(sheet, Attributes.SHOW_ROW_RANGE)
-        || isValidPagingAttribute(sheet, Attributes.SHOW_PAGE_RANGE)
-        || isValidPagingAttribute(sheet, Attributes.SHOW_DIRECT_LINKS);
-  }
-
-  private boolean isValidPagingAttribute(UISheet component, String name) {
-    return isValidPagingValue(getPagingAttribute(component, name));
-  }
-
-  private String getPagingAttribute(UISheet component, String name) {
-    String value = ComponentUtils.getStringAttribute(component, name);
-    if (isValidPagingValue(value)) {
-      return value;
+  private String checkPagingAttribute(String name) {
+    if (isNotNone(name)) {
+      return name;
     } else {
-      if (!"none".equals(value)) {
-        LOG.warn("Illegal value in sheets paging attribute: '" + value + "'");
+      if (!"none".equals(name)) {
+        LOG.warn("Illegal value in sheets paging attribute: '" + name + "'");
       }
       return "none";
     }
   }
 
-  private boolean isValidPagingValue(String value) {
+  private boolean isNotNone(String value) {
     // todo: use enum type instead of string
     return "left".equals(value) || "center".equals(value) || "right".equals(value);
   }

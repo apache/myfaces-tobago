@@ -187,6 +187,16 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
     return getRowCount() != -1;
   }
 
+  public boolean hasRows() {
+    return getRows() != 0;
+  }
+
+  public boolean isPagingVisible() {
+    return isShowPagingAlways() || hasRows() && (!hasRowCount() || getRowCount() > getRows());
+  }
+
+  public abstract boolean isShowPagingAlways();
+
   public boolean isAtEnd() {
     if (!hasRowCount()) {
       setRowIndex(getFirst() + getRows() + 1);
