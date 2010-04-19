@@ -80,6 +80,7 @@
       <modules>
         <module>addressbook</module>
         <module>blank</module>
+        <module>data</module>
         <module>demo</module>
         <module>nonfacesrequest</module>
         <module>experimental</module>
@@ -91,6 +92,7 @@
       <modules>
         <module>addressbook</module>
         <module>blank</module>
+        <module>data</module>
         <module>demo</module>
         <module>nonfacesrequest</module>
         <module>portlet</module>

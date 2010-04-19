@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:view
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:tcs="http://myfaces.apache.org/tobago/sandbox"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page width="600px" height="600px">
+
+<!--
+    <tcs:simpleSheet value="#{sheet.localeList}" id="sheet" columns="fixed;*;*;*;*" var="entry" rows="1000"
+-->
+    <tc:sheet value="#{sheet.localeList}" id="sheet" columns="fixed;*;*;*;*" var="entry" rows="1000"
+        showRowRange="left" showPageRange="right" showDirectLinks="center">
+      <tc:columnSelector disabled="#{entry.disabled}"/>
+      <tc:column label="Locale" id="l" sortable="true">
+        <tc:out value="#{entry.locale}"/>
+      </tc:column>
+      <tc:column label="Display Locale" id="d" sortable="true">
+        <tc:out value="#{entry.displayLocale}"/>
+      </tc:column>
+      <tc:column label="Country" id="c" sortable="true">
+        <tc:out value="#{entry.country}"/>
+      </tc:column>
+      <tc:column label="Language" id="a" sortable="true">
+        <tc:out value="#{entry.language}"/>
+      </tc:column>
+    </tc:sheet>
+<!--
+    </tcs:simpleSheet>
+-->
+
+    <tc:script file="script/test-utils.js"/>
+    <!--todo-->
+    <!--<tc:script onload="checkLayout('page:todo', 0, 0, 600, 14);"/>-->
+
+  </tc:page>
+</f:view>
