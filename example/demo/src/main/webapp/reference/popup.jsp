@@ -29,8 +29,19 @@
 
 <tc:menuBar>
   <tc:menu label="Menu">
-    <tc:menuItem label="Open Popup">
-      <tc:popupReference for=":page:popup"/>
+    <tc:menuItem label="Open Modal Popup">
+      <tc:popupReference for="modal_popup"/>
+    </tc:menuItem>
+    <tc:menuItem label="Open Non Modal Popup">
+      <tc:popupReference for="non_modal_popup"/>
+    </tc:menuItem>
+    <tc:menuItem label="Open Modal Popup (Partially)">
+      <tc:attribute name="renderedPartially" value="modal_popup"/>
+      <tc:popupReference for="modal_popup"/>
+    </tc:menuItem>
+    <tc:menuItem label="Open Non Modal Popup (Partially)">
+      <tc:attribute name="renderedPartially" value="non_modal_popup"/>
+      <tc:popupReference for="non_modal_popup"/>
     </tc:menuItem>
   </tc:menu>
 </tc:menuBar>
