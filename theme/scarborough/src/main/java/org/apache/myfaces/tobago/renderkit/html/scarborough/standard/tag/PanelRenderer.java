@@ -25,6 +25,7 @@ import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -64,7 +65,7 @@ public class PanelRenderer extends LayoutComponentRendererBase {
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     
-    // UIPanel or UICell
+    // UIPanel or UICell (deprecated)
     AbstractUIPanel panel = (AbstractUIPanel) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
@@ -74,6 +75,10 @@ public class PanelRenderer extends LayoutComponentRendererBase {
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute();
     Style style = new Style(facesContext, panel);
+    // XXX hotfix for panels in sheets
+    if (style.getPosition() == null) {
+      style.setPosition(Position.RELATIVE);
+    }
     writer.writeStyleAttribute(style);
     if (panel instanceof UIPanel && ((UIPanel) panel).getTip() != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, ((UIPanel) panel).getTip(), true);
