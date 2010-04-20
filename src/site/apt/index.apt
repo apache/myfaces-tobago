@@ -38,7 +38,7 @@ Tobago
     as much code is reused for new themes as possible.
 
   * A layout manager is used to arrange the components automatically. This means, no
-    manual layouting with HTML tables or other constructs is needed.
+    manual laying out with HTML tables or other constructs is needed.
 
   []
 
@@ -48,7 +48,7 @@ Tobago
 News
 
   []
-    * <<22-01-10>> - Apache MyFaces Tobago 1.0.24 Released!
+    * <<22-01-10>> - Apache MyFaces Tobago 1.0.24 released!
 
     * <<06-09-09>> - Apache MyFaces Tobago 1.0.23 released!
 
