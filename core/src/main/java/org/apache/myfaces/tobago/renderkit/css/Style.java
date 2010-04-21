@@ -28,7 +28,7 @@ import java.io.Serializable;
 
 public class Style implements Serializable {
 
-  private static final long serialVersionUID = 3L;
+  private static final long serialVersionUID = 4L;
 
   private Measure width;
   private Measure height;
@@ -44,6 +44,7 @@ public class Style implements Serializable {
   private Measure padding;
   private String backgroundImage;
   private Integer zIndex;
+  private String textAlign;
 
   public Style() {
   }
@@ -63,6 +64,7 @@ public class Style implements Serializable {
     this.padding = map.padding;
     this.backgroundImage = map.backgroundImage;
     this.zIndex = map.zIndex;
+    this.textAlign = map.textAlign;
   }
 
   public Style(FacesContext facesContext, LayoutBase layout) {
@@ -179,6 +181,11 @@ public class Style implements Serializable {
       buf.append(zIndex);
       buf.append(';');
     }
+    if (textAlign != null) {
+      buf.append("text-align:");
+      buf.append(textAlign);
+      buf.append(';');
+    }
 
     return buf.toString();
   }
@@ -293,5 +300,13 @@ public class Style implements Serializable {
 
   public void setZIndex(Integer zIndex) {
     this.zIndex = zIndex;
+  }
+
+  public String getTextAlign() {
+    return textAlign;
+  }
+
+  public void setTextAlign(String textAlign) {
+    this.textAlign = textAlign;
   }
 }

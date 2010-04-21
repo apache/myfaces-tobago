@@ -7,11 +7,10 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core">
 
-  <tc:page>
+  <tc:page id="page">
     <tc:gridLayoutConstraint width="600px" height="600px"/>
 
-    <tc:sheet value="#{sheet.solarArray}" id="sheet" columns="*;*" var="luminary" rows="5"
-        showRowRange="left" showPageRange="right" showDirectLinks="center">
+    <tc:sheet value="#{sheet.solarArray}" id="sheet" columns="*;*" var="luminary" rows="5">
       <tc:column label="Name" id="name" sortable="true">
         <tc:out value="#{luminary.name}"/>
       </tc:column>

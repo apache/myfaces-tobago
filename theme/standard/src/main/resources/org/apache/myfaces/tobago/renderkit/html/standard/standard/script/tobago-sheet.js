@@ -89,7 +89,7 @@ Tobago.Sheet.prototype.sortOnclickRegExp
 
 Tobago.Sheet.prototype.setupSortHeaders = function() {
     var i = 0;
-    var idPrefix = this.id + "_header_box_";
+    var idPrefix = this.id + Tobago.SUB_COMPONENT_SEP + "header_box_";
     var headerBox = Tobago.element(idPrefix + i++);
     while (headerBox) {
       if (headerBox.onclick) {
@@ -320,13 +320,13 @@ Tobago.Sheet.prototype.setupResizer = function() {
     }
     var contentDiv = Tobago.element(this.contentDivId);
     Tobago.addBindEventListener(contentDiv, "scroll", this, "doScroll");
-    var resizer = Tobago.element(this.id + "_header_resizer_" + i++ );
+    var resizer = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_resizer_" + i++ );
     while (resizer) {
       if (resizer.className.match(/tobago-sheet-header-resize-cursor/)) {
         Tobago.addEventListener(resizer, "click", Tobago.stopEventPropagation);
         Tobago.addBindEventListener(resizer, "mousedown", this, "beginResize");
       }
-      resizer = Tobago.element(this.id + "_header_resizer_" + i++ );
+      resizer = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_resizer_" + i++ );
     }
   };
 
@@ -656,7 +656,7 @@ Tobago.Sheet.prototype.deselectRow = function(selected, rowIndex, row, image) {
 };
 
 Tobago.Sheet.prototype.setupHeader = function() {
-    var headerBox = Tobago.element(this.id + "_header_box_0");
+    var headerBox = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_box_0");
     if (headerBox) {
 
       if (window.opera) {
@@ -675,13 +675,13 @@ Tobago.Sheet.prototype.adjustResizer = function() {
     if (window.opera) {
       var position = 5;
       var index = 0;
-      var resizer = Tobago.element(this.id + "_header_resizer_" + index);
+      var resizer = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_resizer_" + index);
       while (resizer) {
         resizer.style.right = - position;
-        var headerBox = Tobago.element(this.id + "_header_box_" + index++);
+        var headerBox = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_box_" + index++);
         var width = headerBox.style.width.replace(/px/, "") - 0;
         position += width;
-        resizer = Tobago.element(this.id + "_header_resizer_" + index);
+        resizer = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_resizer_" + index);
       }
     }
   };
@@ -698,10 +698,10 @@ Tobago.Sheet.prototype.adjustHeaderDiv = function () {
     var clientWidth = contentDiv.clientWidth;
     var boxSum = 0;
     var idx = 0;
-    var box = Tobago.element(this.id + "_header_box_" + idx++);
+    var box = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_box_" + idx++);
     while (box) {
       boxSum += (box.style.width.replace(/px/, "") - 0);
-      box = Tobago.element(this.id + "_header_box_" + idx++);
+      box = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_box_" + idx++);
     }
     if (clientWidth == 0) {
       clientWidth = Math.min(contentWidth, boxSum);
@@ -737,12 +737,12 @@ Tobago.Sheet.prototype.beginResize = function(event) {
     if (this.resizerId) {
       this.oldX = event.clientX;
       var elementWidth = this.getHeaderBox().style.width;
-      this.newWidth = elementWidth.substring(0,elementWidth.length-2);
+      this.newWidth = elementWidth.substring(0, elementWidth.length - 2);
     }
   };
 
 Tobago.Sheet.prototype.getHeaderBox = function() {
-    var boxId = this.resizerId.replace(/_header_resizer_/, "_header_box_");
+    var boxId = this.resizerId.replace(/header_resizer_/, "header_box_");
     return Tobago.element(boxId);
   };
 
@@ -753,9 +753,9 @@ Tobago.Sheet.prototype.doResize = function(event) {
     if (this.resizerId) {
       var box = this.getHeaderBox();
       var elementWidth = box.style.width;
-      var elementWidthPx = elementWidth.substring(0,elementWidth.length-2);
+      var elementWidthPx = elementWidth.substring(0, elementWidth.length - 2);
       var divX = event.clientX - this.oldX;
-      this.newWidth = elementWidthPx-0 + divX;
+      this.newWidth = elementWidthPx - 0 + divX;
       if (this.newWidth < 10) {
         this.newWidth = 10;
       } else {
@@ -785,7 +785,7 @@ Tobago.Sheet.prototype.endResize = function(event) {
 
 Tobago.Sheet.prototype.storeSizes = function() {
     var index = 0;
-    var idPrefix = this.id + "_header_box_";
+    var idPrefix = this.id + Tobago.SUB_COMPONENT_SEP + "header_box_";
     var header = Tobago.element(idPrefix + index++);
     var widths = "";
     while (header) {

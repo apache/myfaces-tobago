@@ -173,7 +173,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
     String sheetId = sheet.getClientId(facesContext);
 
-    String image1x1 = contextPath + resourceManager.getImage(facesContext, "image/1x1.gif");
     String selectorDisabled = contextPath + resourceManager.getImage(facesContext, "image/sheetUncheckedDisabled.gif");
     String unchecked = contextPath + resourceManager.getImage(facesContext, "image/sheetUnchecked.gif");
 
@@ -233,7 +232,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 // BEGIN RENDER BODY CONTENT
     Style bodyStyle = new Style();
     bodyStyle.setPosition(Position.RELATIVE);
-    bodyStyle.setWidth(sheet.getCurrentWidth());
+    Measure tableBodyWidth = sheet.getCurrentWidth().subtractNotNegative(getContentBorder(facesContext, sheet));
+    bodyStyle.setWidth(tableBodyWidth);
     sheetHeight = sheetHeight.subtract(footerHeight);
     if (showHeader) {
       sheetHeight = sheetHeight.subtract(getResourceManager().getThemeMeasure(facesContext, sheet, "headerHeight"));
@@ -248,17 +248,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       bodyStyle.setPaddingTop(Measure.ZERO);
     }
     writer.writeStyleAttribute(bodyStyle);
-//    if (bodyStyle.getWidth() != null) {
-//      intSpace -= columnWidths.get(columnWidths.size() - 1);
-    Measure space = bodyStyle.getWidth();
     final boolean needVerticalScrollbar = needVerticalScrollbar(facesContext, sheet, style);
     if (needVerticalScrollbar) {
-      space = space.subtractNotNegative(getVerticalScrollbarWeight(facesContext, sheet));
+      tableBodyWidth = tableBodyWidth.subtractNotNegative(getVerticalScrollbarWeight(facesContext, sheet));
     }
-    Measure headerWidth = space;
-    space = space.subtractNotNegative(getContentBorder(facesContext, sheet));
-    sheetBodyStyle.setWidth(space);
-//    }
+    sheetBodyStyle.setWidth(tableBodyWidth);
     sheetBodyStyle.setHeight(null);
 
     writer.startElement(HtmlConstants.TABLE, null);
@@ -329,7 +323,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         writer.writeClassAttribute(tdClass.toString());
         final String align = (String) column.getAttributes().get(Attributes.ALIGN);
         if (align != null) {
-          writer.writeStyleAttribute(HtmlRendererUtils.toStyleString("text-align", align));
+          Style alignStyle = new Style();
+          alignStyle.setTextAlign(align);
+          writer.writeStyleAttribute(alignStyle);
         }
 
         if (column instanceof UIColumnSelector) {
@@ -393,8 +389,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
     if (showHeader) {
       renderColumnHeaders(
-          facesContext, sheet, writer, resourceManager, contextPath, sheetId, image1x1, renderedColumnList,
-          headerWidth);
+          facesContext, sheet, writer, resourceManager, contextPath, sheetId, renderedColumnList, tableBodyWidth);
     }
 
     final String showRowRange = checkPagingAttribute(sheet.getShowRowRange());
@@ -402,8 +397,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     final String showDirectLinks = checkPagingAttribute(sheet.getShowDirectLinks());
 
     if (sheet.isPagingVisible()) {
-      Style footerStyle = new Style(bodyStyle);
-      footerStyle.setPosition(null);
+      Style footerStyle = new Style();
+      footerStyle.setWidth(sheet.getCurrentWidth());
       footerStyle.setHeight(footerHeight);
 
       writer.startElement(HtmlConstants.DIV, sheet);
@@ -631,10 +626,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     return "left".equals(value) || "center".equals(value) || "right".equals(value);
   }
 
-  private Measure getAscendingMarkerWidth(FacesContext facesContext, UISheet data) {
-    return getResourceManager().getThemeMeasure(facesContext, data, "ascendingMarkerWidth");
-  }
-
   @Override
   public boolean getRendersChildren() {
     return true;
@@ -684,8 +675,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
 
   private void renderColumnHeaders(
       FacesContext facesContext, UISheet sheet, TobagoResponseWriter writer, ResourceManager resourceManager,
-      String contextPath, String sheetId, String image1x1, List<UIColumn> renderedColumnList,
-      Measure headerWidth) throws IOException {
+      String contextPath, String sheetId, List<UIColumn> renderedColumnList, Measure headerWidth) throws IOException {
     // begin rendering header
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "header_div");
@@ -695,28 +685,14 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.writeStyleAttribute(style);
 
     int columnCount = 0;
-    Measure sortMarkerWidth = getAscendingMarkerWidth(facesContext, sheet);
-    String imageAscending = contextPath + resourceManager.getImage(facesContext, "image/ascending.gif");
-    String imageDescending = contextPath + resourceManager.getImage(facesContext, "image/descending.gif");
-    String img = resourceManager.getImage(facesContext, "image/unsorted.gif", true);
-    String imageUnsorted = image1x1;
-    if (img != null) {
-      imageUnsorted = contextPath + img;
-    }
     for (UIColumn column : renderedColumnList) {
-      renderColumnHeader(
-          facesContext, writer, sheet, columnCount, column, imageAscending, imageDescending, imageUnsorted, image1x1,
-          sortMarkerWidth);
+      renderColumnHeader(facesContext, writer, sheet, columnCount, column, resourceManager, contextPath);
       columnCount++;
     }
     writer.startElement(HtmlConstants.SPAN, null);
     writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "header_box_filler");
-    writer.writeClassAttribute("tobago-sheet-header-box tobago-sheet-header-filler");
+    writer.writeClassAttribute("tobago-sheet-header tobago-sheet-header-filler");
     writer.writeStyleAttribute("width:0px");
-
-    writer.startElement(HtmlConstants.SPAN, null);
-    writer.writeClassAttribute("tobago-sheet-header");
-    writer.endElement(HtmlConstants.SPAN);
 
     writer.endElement(HtmlConstants.SPAN);
     writer.endElement(HtmlConstants.DIV);
@@ -724,30 +700,33 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   }
 
   private void renderColumnHeader(
-      FacesContext facesContext, TobagoResponseWriter writer, UISheet component,
-      int columnIndex, UIColumn column, String imageAscending, String imageDescending, String imageUnsorted,
-      String image1x1, Measure sortMarkerWidth) throws IOException {
+      FacesContext facesContext, TobagoResponseWriter writer, UISheet component, int columnIndex, UIColumn column,
+      ResourceManager resourceManager, String contextPath)
+      throws IOException {
     String sheetId = component.getClientId(facesContext);
     Application application = facesContext.getApplication();
 
-    List<Integer> columnWidths = component.getWidthList();
-    String divWidth = "width:" + columnWidths.get(columnIndex) + "px;";
+    Integer divWidth = component.getWidthList().get(columnIndex);
+    Style divStyle = new Style();
+    divWidth = divWidth - 6; // leftBorder + leftPadding + rightPadding + rightBorder = 6, todo: use Style Constructor
+    divStyle.setWidth(Measure.valueOf(divWidth));
+    String align = (String) column.getAttributes().get(Attributes.ALIGN);
+    if (align != null) {
+      divStyle.setTextAlign(align);
+    }
 
     writer.startElement(HtmlConstants.SPAN, null);
-    writer.writeIdAttribute(sheetId + "_header_box_" + columnIndex);
-    writer.writeClassAttribute("tobago-sheet-header-box");
-    writer.writeAttribute(HtmlAttributes.STYLE, divWidth, false);
+    writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "header_box_" + columnIndex);
+    String headerClass = "tobago-sheet-header";
+    writer.writeStyleAttribute(divStyle);
     String tip = (String) column.getAttributes().get(Attributes.TIP);
     if (tip == null) {
       tip = "";
     }
 
-// ############################################
-// ############################################
+    // sorting
 
     String sorterImage = null;
-    String sorterClass = "";
-    String sortTitle = null;
     boolean sortable = ComponentUtils.getBooleanAttribute(column, Attributes.SORTABLE);
     if (sortable && !(column instanceof UIColumnSelector)) {
       UICommand sortCommand = (UICommand) column.getFacet(Facets.SORTER);
@@ -768,70 +747,49 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
       tip += ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "sheetTipSorting");
 
+      headerClass += " tobago-sheet-header-sortable";
+
       SheetState sheetState = component.getSheetState(facesContext);
       if (column.getId().equals(sheetState.getSortedColumnId())) {
+        String sortTitle;
         if (sheetState.isAscending()) {
-          sorterImage = imageAscending;
+          sorterImage = contextPath + resourceManager.getImage(facesContext, "image/ascending.gif");
           sortTitle = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "sheetAscending");
+          headerClass += " tobago-sheet-header-ascending";
         } else {
-          sorterImage = imageDescending;
+          sorterImage = contextPath + resourceManager.getImage(facesContext, "image/descending.gif");
           sortTitle = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "sheetDescending");
+          headerClass += " tobago-sheet-header-descending";
+        }
+        if (sortTitle != null) {
+          tip += " - " + sortTitle;
         }
       }
-      sorterClass = " tobago-sheet-header-sortable";
     }
-
-// ############################################
-// ############################################
-
+    writer.writeClassAttribute(headerClass);
     writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
-
-    String align = (String) column.getAttributes().get(Attributes.ALIGN);
-
-    writer.startElement(HtmlConstants.SPAN, null);
-    writer.writeIdAttribute(sheetId + "_header_outer_" + columnIndex);
-    //if (columnIndex == 0) {
-    //  writer.writeClassAttribute("tobago-sheet-header"+ sorterClass + " tobago-sheet-header-first-column");
-    //} else {
-    writer.writeClassAttribute("tobago-sheet-header" + sorterClass);
-    //}
-    if (align != null) {
-      writer.writeStyleAttribute("text-align: " + align + ";");
-    }
 
     if (column instanceof UIColumnSelector) {
       renderColumnSelectorHeader(facesContext, writer, component, column);
     } else {
-      renderColumnHeaderLabel(facesContext, writer, column, sortMarkerWidth, align, image1x1);
+      String label = (String) column.getAttributes().get(Attributes.LABEL);
+      if (label != null) {
+        writer.startElement(HtmlConstants.SPAN, null);
+        writer.writeText(label);
+        writer.endElement(HtmlConstants.SPAN);
+      }
     }
-    writer.endElement(HtmlConstants.SPAN);
 
-// ############################################
-// ############################################
-    if (sortable && !(column instanceof UIColumnSelector)) {
-      if (sorterImage == null && imageUnsorted != null) {
-        sorterImage = imageUnsorted;
-      }
-      writer.startElement(HtmlConstants.SPAN, null);
-      writer.writeClassAttribute("tobago-sheet-header-sort-div");
-      if (sortTitle != null) {
-        writer.writeAttribute(HtmlAttributes.TITLE, sortTitle, true);
-      }
-      if (sorterImage != null) {
-        writer.startElement(HtmlConstants.IMG, null);
-        writer.writeAttribute(HtmlAttributes.SRC, sorterImage, false);
-        writer.writeAttribute(HtmlAttributes.ALT, "", false);
-        if (sortTitle != null) {
-          writer.writeAttribute(HtmlAttributes.TITLE, sortTitle, true);
-        }
-        writer.endElement(HtmlConstants.IMG);
-      }
-      writer.endElement(HtmlConstants.SPAN);
+    if (sorterImage != null) {
+      writer.startElement(HtmlConstants.IMG, null);
+      writer.writeAttribute(HtmlAttributes.SRC, sorterImage, false);
+      writer.writeAttribute(HtmlAttributes.ALT, "", false);
+      writer.endElement(HtmlConstants.IMG);
     }
-// ############################################
-// ############################################
 
     writer.endElement(HtmlConstants.SPAN);
+
+    // resizing
 
     String resizerClass;
     if (column instanceof UIColumnSelector) {
@@ -843,7 +801,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlConstants.SPAN, null);
     writer.writeClassAttribute("tobago-sheet-header-resize-outer");
     writer.startElement(HtmlConstants.SPAN, null);
-    writer.writeIdAttribute(sheetId + "_header_resizer_" + columnIndex);
+    writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "header_resizer_" + columnIndex);
     writer.writeClassAttribute(resizerClass);
     writer.write("&nbsp;&nbsp;"); // is needed for IE6
     writer.endElement(HtmlConstants.SPAN);
@@ -891,28 +849,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     menuItem.setOnclick(action);
     menuItem.setLabel(ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", label));
     menu.getChildren().add(menuItem);
-  }
-
-  private void renderColumnHeaderLabel(
-      FacesContext facesContext, TobagoResponseWriter writer, UIColumn column,
-      Measure sortMarkerWidth, String align, String image1x1) throws IOException {
-    String label = (String) column.getAttributes().get(Attributes.LABEL);
-    if (label != null) {
-      writer.writeText(label, null);
-      if (ComponentUtils.getBooleanAttribute(column, Attributes.SORTABLE) && "right".equals(align)) {
-        writer.startElement(HtmlConstants.IMG, null);
-        writer.writeAttribute(HtmlAttributes.SRC, image1x1, false);
-        writer.writeAttribute(HtmlAttributes.ALT, "", false);
-        writer.writeAttribute(HtmlAttributes.WIDTH, sortMarkerWidth.toString(), false);
-        writer.writeAttribute(HtmlAttributes.HEIGHT, 1);
-        writer.endElement(HtmlConstants.IMG);
-      }
-    } else {
-      writer.startElement(HtmlConstants.IMG, null);
-      writer.writeAttribute(HtmlAttributes.SRC, image1x1, false);
-      writer.writeAttribute(HtmlAttributes.ALT, "", false);
-      writer.endElement(HtmlConstants.IMG);
-    }
   }
 
   private void writeDirectPagingLinks(
@@ -1096,8 +1032,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       if (needVerticalScrollbar(facesContext, data, style)) {
         space = space.subtractNotNegative(getVerticalScrollbarWeight(facesContext, data));
       }
+/*
       // todo: not nice: 1 left + 1 right border
       space = space.subtract(rendererdColumns.size() * 2);
+*/
       LayoutInfo layoutInfo =
           new LayoutInfo(newTokens.getSize(), space.getPixel(), newTokens, data.getClientId(facesContext), false);
       parseFixedWidth(facesContext, layoutInfo, rendererdColumns);

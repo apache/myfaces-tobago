@@ -131,25 +131,25 @@ li.tobago-menu-selected {
 
 .tobago-sheet-header  {
 	border-color: #FADC9F #FECB66 #FADC9F #FADC9F;
-  background: #FADC9F;
+  background-color: #FADC9F;
   color: #660000;
   font: bold 13px arial, helvetica, sans-serif;
 }
 
 .tobago-sheet-body-div {
-  background: #FFEECF;
+  background-color: #FFEECF;
 }
 
 .tobago-sheet-row-odd {
-  background: #FFEECF;
+  background-color: #FFEECF;
 }
 
 .tobago-sheet-row-even {
-  background: #FADC9F;
+  background-color: #FADC9F;
 }
 
 .tobago-sheet-row-selected {
-	background: highlight;
+	background-color: highlight;
 	color: highlighttext;
 }
 

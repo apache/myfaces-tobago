@@ -1166,49 +1166,36 @@ iframe.tobago-menu-ie6bugfix {
   z-index: 2;
 }
 
-.tobago-sheet-header-table {
-  padding: 0 0 0 0;
-  width: 100%;
-  border: 0 solid black;
-}
-
-.tobago-sheet-header-box{
-   border-color: #ddeeff #6688aa #6688aa #ddeeff;
+.tobago-sheet-header {
+  background-color: #bbccdd;
+  border-color: #ddeeff #6688aa #6688aa #ddeeff;
 	border-style: solid;
 	border-width: 1px;
-  /* 20px - borderTop 1px - borderBottom 1px = 18px */
-  height: 18px;
+  padding: 2px;
+  /* 20px - borderTop 1px - borderBottom 1px - paddingTop 2px - paddingButton 2px = 14px */
+  height: 14px;
 	vertical-align: top;
   display: inline-block;
   position: relative;
-	padding: 0;
   overflow: hidden;
 	text-overflow: ellipsis;
+  white-space: nowrap;
   z-index: 3;
+  text-align: center;
 }
 
-.tobago-sheet-header {
-	background-color: #bbccdd;
-	height: 100%;
-	overflow: hidden;
-	padding: 0 5px;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	width: 100%;
-  text-align: center;
-  display: inline-block;
+.tobago-sheet-header-ascending span, .tobago-sheet-header-descending span {
+  margin-right: 15px;
+}
+
+.tobago-sheet-header-ascending img, .tobago-sheet-header-descending img {
+  position: absolute;
+  right: 5px;
+  top: 6px;
 }
 
 .tobago-sheet-header-sortable {
    cursor: pointer;
-}
-
-.tobago-sheet-header-inner {
-  text-align: center;
-	height: 100%;
-	width: 100%;
-	text-overflow: ellipsis;
-	white-space: nowrap;
 }
 
 .tobago-sheet-header-resize-outer {
@@ -1230,16 +1217,6 @@ iframe.tobago-menu-ie6bugfix {
 
 .tobago-sheet-header-resize-cursor {
 	cursor: col-resize; /* col-resize is allowed in CSS3+IE6, opera has a separate definition */
-}
-
-.tobago-sheet-header-sort-div {
-  display: inline-block;
-  cursor: pointer;
-	height: 100%;
-	overflow: hidden;
-	right: 5px;
-	top: 0;
-	width: 8px;
 }
 
 .tobago-sheet-body-div {
