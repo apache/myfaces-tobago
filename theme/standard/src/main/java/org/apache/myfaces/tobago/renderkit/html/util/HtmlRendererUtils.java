@@ -389,7 +389,11 @@ public final class HtmlRendererUtils {
         writer.endElement(HtmlConstants.OPTGROUP);
       } else {
         writer.startElement(HtmlConstants.OPTION, null);
-        final Object itemValue = item.getValue();
+        Object itemValue = item.getValue();
+        // when using selectItem tag with a literal value: use the converted value
+        if (itemValue instanceof String && values.length > 0 && !(values[0] instanceof String)) {
+          itemValue = ComponentUtils.getConvertedValue(facesContext, component, (String)itemValue);
+        }
         String formattedValue = RenderUtil.getFormattedValue(facesContext, component, itemValue);
         writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
@@ -406,7 +410,7 @@ public final class HtmlRendererUtils {
             writer.writeClassAttribute(optionStyle);
           }
         }
-        if (RenderUtil.contains(values, item.getValue())) {
+        if (RenderUtil.contains(values, itemValue)) {
           writer.writeAttribute(HtmlAttributes.SELECTED, true);
         }
         if (item.isDisabled()) {

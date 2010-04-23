@@ -738,4 +738,32 @@ public class ComponentUtils {
     return StringUtils.split(renderers, LIST_SEPARATOR_CHARS);
   }
 
+  public static Object getConvertedValue(
+      FacesContext facesContext, javax.faces.component.UIInput component, String stringValue) {
+    try {
+      Renderer renderer = getRenderer(facesContext, component);
+      if (renderer != null) {
+        return renderer.getConvertedValue(facesContext, component, stringValue);
+      } else {
+        Converter converter = component.getConverter();
+        if (converter == null) {
+          //Try to find out by value binding
+          ValueBinding vb = component.getValueBinding("value");
+          if (vb != null) {
+            Class valueType = vb.getType(facesContext);
+            if (valueType != null) {
+              converter = facesContext.getApplication().createConverter(valueType);
+            }
+          }
+        }
+        if (converter != null) {
+          converter.getAsObject(facesContext, component, stringValue);
+        }
+      }
+    } catch (Exception e) {
+      LOG.warn("Can't convert string value '" + stringValue + "'", e);
+    }
+    return stringValue;
+  }
+
 }
