@@ -411,11 +411,31 @@
         <groupId>javax.faces</groupId>
         <artifactId>jsf-api</artifactId>
         <version>${sunjsf.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>javax.faces</groupId>
         <artifactId>jsf-impl</artifactId>
         <version>${sunjsf.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>javax.servlet</groupId>
