@@ -38,9 +38,7 @@
         <!-- NOTE The demo and addressbook run only with mvn jetty:run-exploded.
          For the other examples mvn jetty:run should work.
          For Debugging with jetty set following options
-            MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000"
-            or
-            MAVEN_OPTS="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"
+            MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"
          -->
         <groupId>org.mortbay.jetty</groupId>
 <!--    for jetty 7 they have changed the artifactId
@@ -50,6 +48,7 @@
         <artifactId>maven-jetty-plugin</artifactId>
         <!-- to change the port -->
         <configuration>
+          <scanIntervalSeconds>5</scanIntervalSeconds>          
           <connectors>
             <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
               <port>8080</port>
