@@ -20,18 +20,6 @@ package org.apache.myfaces.tobago.renderkit.html;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOCUS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UICommand;
@@ -60,6 +48,19 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FOCUS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_HEIGHT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_BODY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_HEADER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_LAYOUT;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 
 /*
  * Date: Jan 11, 2005
@@ -617,7 +618,11 @@ public final class HtmlRendererUtil {
         writer.endElement(HtmlConstants.OPTGROUP);
       } else {
         writer.startElement(HtmlConstants.OPTION, null);
-        final Object itemValue = item.getValue();
+        Object itemValue = item.getValue();
+        // when using selectItem tag with a literal value: use the converted value
+        if (itemValue instanceof String && values.length > 0 && !(values[0] instanceof String)) {
+          itemValue = ComponentUtil.getConvertedValue(facesContext, component, (String)itemValue);
+        }
         String formattedValue = RenderUtil.getFormattedValue(facesContext, component, itemValue);
         writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
@@ -632,7 +637,7 @@ public final class HtmlRendererUtil {
           optionStyle.addMarkupClass((SupportsMarkup) item, getRendererName(facesContext, component), "option");
           writer.writeClassAttribute(optionStyle);
         }
-        if (RenderUtil.contains(values, item.getValue())) {
+        if (RenderUtil.contains(values, itemValue)) {
           writer.writeAttribute(HtmlAttributes.SELECTED, true);
         }
         if (item.isDisabled()) {

@@ -17,35 +17,63 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
+
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_IMAGE;
 
-import javax.faces.el.ValueBinding;
-import javax.faces.context.FacesContext;
-
-/*
- * User: weber
- * Date: Apr 11, 2005
- * Time: 11:15:35 AM
- */
 public class UISelectItem extends javax.faces.component.UISelectItem implements SupportsMarkup {
+
+  private static final Log LOG = LogFactory.getLog(UISelectItem.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.SelectItem";
 
   private String itemImage;
   private String[] markup;
 
+  private boolean itemValueLiteral;
+
+  @Override
+  public void setItemValue(Object itemValue) {
+    if (itemValue instanceof String) {
+    itemValueLiteral = true;
+    } else if (itemValue == null) {
+      // ignore
+    } else {
+      LOG.warn("Unexpected type of literal for attribute 'itemValue': "
+          + "type=" + itemValue.getClass().getName() + " value='" + itemValue + "'.");
+    }
+    super.setItemValue(itemValue);
+  }
+
+  @Override
+  public Object getItemValue() {
+    Object itemValue = super.getItemValue();
+    if (itemValueLiteral) {
+      // this is to make it possible to use values directly in the page.
+      itemValue = ComponentUtil.getConvertedValue(
+          FacesContext.getCurrentInstance(), (javax.faces.component.UIInput) getParent(), (String)itemValue);
+    }
+    return itemValue;
+  }
+
   public void restoreState(FacesContext context, Object state) {
     Object[] values = (Object[]) state;
     super.restoreState(context, values[0]);
     itemImage = (String) values[1];
     markup = (String[]) values[2];
+    itemValueLiteral = (Boolean) values[3];
   }
 
   public Object saveState(FacesContext context) {
-    Object[] values = new Object[3];
+    Object[] values = new Object[4];
     values[0] = super.saveState(context);
     values[1] = itemImage;
     values[2] = markup;
+    values[3] = itemValueLiteral;
     return values;
   }
 
