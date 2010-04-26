@@ -30,6 +30,7 @@ public class Filter {
   private static final Log LOG = LogFactory.getLog(Filter.class);
 
   public static final List<String> ALLOWED = Arrays.asList(
+      ".*\\/",
       ".*\\.xhtml",
       ".*\\.jsp",
       ".*\\.jspx",
@@ -39,6 +40,8 @@ public class Filter {
   public static final Set<String> FORBIDDEN = new HashSet<String>(Arrays.asList(
       "/META-INF.*",
       "/WEB-INF.*",
+      ".*/\\.svn/.*",
+
       "/index.html",
       "/meta-test/meta-1.*",
       "/meta-test/meta-2.*\\.jspx",

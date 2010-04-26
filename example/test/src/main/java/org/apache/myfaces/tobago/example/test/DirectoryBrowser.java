@@ -56,10 +56,12 @@ public class DirectoryBrowser {
       if (childPath.endsWith("/")) {
         // ignore, because weblogic puts the path directory itself in the Set
         if (!childPath.equals(path)) {
-          if (LOG.isDebugEnabled()) {
-            LOG.debug("childPath dir " + childPath);
+          if (Filter.isValid(childPath)) {
+            if (LOG.isDebugEnabled()) {
+              LOG.debug("childPath dir " + childPath);
+            }
+            locateResourcesInWar(servletContext, list, childPath);
           }
-          locateResourcesInWar(servletContext, list, childPath);
         }
       } else {
         if (Filter.isValid(childPath)) {
