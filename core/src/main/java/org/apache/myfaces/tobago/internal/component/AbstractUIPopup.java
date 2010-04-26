@@ -57,7 +57,7 @@ public abstract class AbstractUIPopup extends UIPanelBase
 
   private boolean activated;
 
-  public void onComponentCreated(FacesContext facesContext) {
+  public void onComponentCreated(FacesContext facesContext, UIComponent parent) {
     Integer zIndex = (Integer) facesContext.getExternalContext().getRequestMap().get(Z_INDEX);
     if (zIndex == null) {
       zIndex = 1;
@@ -68,10 +68,10 @@ public abstract class AbstractUIPopup extends UIPanelBase
     facesContext.getExternalContext().getRequestMap().put(Z_INDEX, zIndex);
   }
 
-  public void onComponentPopulated(FacesContext facesContext) {
+  public void onComponentPopulated(FacesContext facesContext, UIComponent parent) {
     if (getLayoutManager() == null) {
       setLayoutManager(CreateComponentUtils.createAndInitLayout(
-          facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT));
+          facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT, parent));
     }
   }
 

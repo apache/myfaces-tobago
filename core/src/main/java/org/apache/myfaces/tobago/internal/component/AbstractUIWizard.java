@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.event.FacesEventWrapper;
 import org.apache.myfaces.tobago.model.Wizard;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.faces.event.AbortProcessingException;
@@ -94,7 +95,7 @@ public abstract class AbstractUIWizard extends AbstractUIPanel implements OnComp
     }
   }
 
-  public void onComponentCreated(FacesContext context) {
+  public void onComponentCreated(FacesContext context, UIComponent parent) {
     Wizard wizard = getController();
     wizard.register();
     if (getOutcome() != null) {

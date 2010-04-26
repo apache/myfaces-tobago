@@ -92,10 +92,10 @@ public class UIDatePicker extends UILink implements OnComponentCreated {
     super.broadcast(facesEvent);
   }
 
-  public void onComponentCreated(FacesContext context) {
+  public void onComponentCreated(FacesContext context, UIComponent parent) {
     Renderer renderer = getRenderer(getFacesContext());
     if (renderer instanceof RendererBase) {
-      ((RendererBase) renderer).onComponentCreated(context, this);
+      ((RendererBase) renderer).onComponentCreated(context, this, parent);
     }
   }
 }

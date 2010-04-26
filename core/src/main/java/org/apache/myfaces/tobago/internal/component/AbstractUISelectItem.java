@@ -22,6 +22,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
+import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectItem;
 import javax.faces.context.FacesContext;
 
@@ -31,10 +32,10 @@ public class AbstractUISelectItem extends UISelectItem implements OnComponentPop
 
   private boolean itemValueLiteral;
 
-  public void onComponentPopulated(FacesContext facesContext) {
+  public void onComponentPopulated(FacesContext facesContext, UIComponent parent) {
     if (itemValueLiteral) {
       Object converted = ComponentUtils.getConvertedValue(
-          FacesContext.getCurrentInstance(), (javax.faces.component.UIInput) getParent(), (String)getItemValue());
+          FacesContext.getCurrentInstance(), (javax.faces.component.UIInput) parent, (String)getItemValue());
       super.setItemValue(converted);
     }
   }

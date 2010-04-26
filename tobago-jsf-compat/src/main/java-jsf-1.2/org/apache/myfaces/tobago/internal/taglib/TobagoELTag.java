@@ -35,7 +35,7 @@ public abstract class TobagoELTag extends UIComponentELTag {
     if (component instanceof OnComponentCreated
         && component.getAttributes().get(OnComponentCreated.MARKER) == null) {
       component.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
-      ((OnComponentCreated) component).onComponentCreated(getFacesContext());
+      ((OnComponentCreated) component).onComponentCreated(getFacesContext(), component.getParent());
     }
     return result;
   }
@@ -45,9 +45,9 @@ public abstract class TobagoELTag extends UIComponentELTag {
     UIComponent component = getComponentInstance();
     int result = super.doEndTag();
     if (component instanceof OnComponentPopulated
-        && component.getAttributes().get(OnComponentCreated.MARKER) == null) {
+        && component.getAttributes().get(OnComponentPopulated.MARKER) == null) {
       component.getAttributes().put(OnComponentPopulated.MARKER, Boolean.TRUE);
-      ((OnComponentPopulated) component).onComponentPopulated(getFacesContext());
+      ((OnComponentPopulated) component).onComponentPopulated(getFacesContext(), component.getParent());
     }
     return result;
   }

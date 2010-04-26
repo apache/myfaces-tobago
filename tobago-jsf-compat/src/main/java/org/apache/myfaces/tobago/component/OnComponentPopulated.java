@@ -17,11 +17,12 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 public interface OnComponentPopulated {
 
   String MARKER = "org.apache.myfaces.tobago.component.OnComponentPopulated.MARKER";
 
-  void onComponentPopulated(FacesContext facesContext);
+  void onComponentPopulated(FacesContext facesContext, UIComponent parent);
 }

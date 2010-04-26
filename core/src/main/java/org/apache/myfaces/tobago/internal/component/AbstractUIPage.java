@@ -298,10 +298,10 @@ public abstract class AbstractUIPage extends AbstractUIForm
     return FacesUtils.invokeOnComponent(context, this, clientId, callback);
   }
 
-  public void onComponentPopulated(FacesContext facesContext) {
+  public void onComponentPopulated(FacesContext facesContext, UIComponent parent) {
     if (getLayoutManager() == null) {
       setLayoutManager(CreateComponentUtils.createAndInitLayout(
-          facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT));
+          facesContext, ComponentTypes.GRID_LAYOUT, RendererTypes.GRID_LAYOUT, parent));
     }
   }
 

@@ -516,10 +516,10 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
     return LayoutUtils.findLayoutChildren(this);
   }
 
-  public void onComponentPopulated(FacesContext facesContext) {
+  public void onComponentPopulated(FacesContext facesContext, UIComponent parent) {
     if (getLayoutManager() == null) {
       setLayoutManager(CreateComponentUtils.createAndInitLayout(
-          facesContext, ComponentTypes.SHEET_LAYOUT, RendererTypes.SHEET_LAYOUT));
+          facesContext, ComponentTypes.SHEET_LAYOUT, RendererTypes.SHEET_LAYOUT, parent));
     }
   }
   

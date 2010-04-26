@@ -73,7 +73,7 @@ public class TobagoComponentHandler extends ComponentHandler {
     if (component instanceof OnComponentCreated
         && component.getAttributes().get(OnComponentCreated.MARKER) == null) {
       component.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
-      ((OnComponentCreated) component).onComponentCreated(context.getFacesContext());
+      ((OnComponentCreated) component).onComponentCreated(context.getFacesContext(), parent);
     }
   }
 
@@ -81,7 +81,7 @@ public class TobagoComponentHandler extends ComponentHandler {
     if (component instanceof OnComponentPopulated
         && component.getAttributes().get(OnComponentPopulated.MARKER) == null) {
       component.getAttributes().put(OnComponentPopulated.MARKER, Boolean.TRUE);
-      ((OnComponentPopulated) component).onComponentPopulated(context.getFacesContext());
+      ((OnComponentPopulated) component).onComponentPopulated(context.getFacesContext(), parent);
     }
   }
 }

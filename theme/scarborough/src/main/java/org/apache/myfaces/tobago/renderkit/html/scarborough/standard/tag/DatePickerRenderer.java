@@ -55,11 +55,8 @@ public class DatePickerRenderer extends LinkRenderer {
   private static final Log LOG = LogFactory.getLog(DatePickerRenderer.class);
 
   @Override
-  public void onComponentCreated(FacesContext context, UIComponent component) {
-    preparePicker(context, (UIDatePicker) component);
-  }
-
-  public void preparePicker(FacesContext facesContext, UIDatePicker picker) {
+  public void onComponentCreated(FacesContext facesContext, UIComponent component, UIComponent parent) {
+    final UIDatePicker picker = (UIDatePicker) component;
     if (picker.getFor() == null) {
       picker.setFor("@auto");
     }
@@ -73,7 +70,7 @@ public class DatePickerRenderer extends LinkRenderer {
     popup.getAttributes().put(Attributes.Z_INDEX, 10);
     picker.getFacets().put(Facets.PICKER_POPUP, popup);
     popup.setRendered(false);
-    popup.onComponentPopulated(facesContext);
+    popup.onComponentPopulated(facesContext, parent);
 
     final UIBox box = (UIBox) CreateComponentUtils.createComponent(
         facesContext, UIBox.COMPONENT_TYPE, RendererTypes.BOX, "box");
@@ -99,7 +96,7 @@ public class DatePickerRenderer extends LinkRenderer {
     layoutOfTime.setColumns("1*;fixed;1*");
     final UIPanel cell1 = (UIPanel) CreateComponentUtils.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL, "cell1");
-    cell1.onComponentPopulated(facesContext);
+    cell1.onComponentPopulated(facesContext, parent);
     timePanel.getChildren().add(cell1);
 
     final UITime time = (UITime) CreateComponentUtils.createComponent(
@@ -108,10 +105,10 @@ public class DatePickerRenderer extends LinkRenderer {
 
     final UIPanel cell2 = (UIPanel) CreateComponentUtils.createComponent(
         facesContext, UIPanel.COMPONENT_TYPE, RendererTypes.PANEL, "cell2");
-    cell2.onComponentPopulated(facesContext);
+    cell2.onComponentPopulated(facesContext, parent);
     timePanel.getChildren().add(cell2);
 
-    timePanel.onComponentPopulated(facesContext);
+    timePanel.onComponentPopulated(facesContext, parent);
 
 
     final UIPanel buttonPanel = (UIPanel) CreateComponentUtils.createComponent(
@@ -123,7 +120,7 @@ public class DatePickerRenderer extends LinkRenderer {
     layoutOfButtons.setRows("fixed");
 
     box.getChildren().add(buttonPanel);
-    box.onComponentPopulated(facesContext);
+    box.onComponentPopulated(facesContext, parent);
 
     final UIButton okButton = (UIButton) CreateComponentUtils.createComponent(
         facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, "ok");
@@ -139,7 +136,7 @@ public class DatePickerRenderer extends LinkRenderer {
     cancelButton.setOnclick("writeIntoField2(this);");
     cancelButton.getAttributes().put(Attributes.POPUP_CLOSE, "immediate");
 
-    buttonPanel.onComponentPopulated(facesContext);
+    buttonPanel.onComponentPopulated(facesContext, parent);
 
     // create image
     // check the id: its might be better not calling createUniqueId

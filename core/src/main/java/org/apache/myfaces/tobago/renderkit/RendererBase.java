@@ -175,8 +175,8 @@ public class RendererBase extends Renderer {
     return converter;
   }
 
-  public Object getConvertedValue(FacesContext context,
-                                  UIComponent component, Object submittedValue)
+  @Override
+  public Object getConvertedValue(FacesContext context, UIComponent component, Object submittedValue)
       throws ConverterException {
     if (!(submittedValue instanceof String)) {
       return submittedValue;
@@ -189,8 +189,7 @@ public class RendererBase extends Renderer {
     }
   }
 
-  public void onComponentCreated(FacesContext context, UIComponent component) {
-
+  public void onComponentCreated(FacesContext facesContext, UIComponent component, UIComponent parent) {
   }
   
   protected synchronized ResourceManager getResourceManager() {

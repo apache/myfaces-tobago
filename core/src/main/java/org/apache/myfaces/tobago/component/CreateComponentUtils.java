@@ -141,15 +141,16 @@ public class CreateComponentUtils {
     return checkbox;
   }
 
-  public static LayoutManager createAndInitLayout(FacesContext facesContext, String componentType,
-      String rendererType) {
+  public static LayoutManager createAndInitLayout(
+      FacesContext facesContext, String componentType, String rendererType, UIComponent parent) {
+
     LayoutManager layoutManager = (LayoutManager) CreateComponentUtils.createComponent(
         facesContext, componentType, rendererType, facesContext.getViewRoot().createUniqueId());
     if (layoutManager instanceof OnComponentCreated) {
-      ((OnComponentCreated) layoutManager).onComponentCreated(facesContext);
+      ((OnComponentCreated) layoutManager).onComponentCreated(facesContext, parent);
     }
     if (layoutManager instanceof OnComponentPopulated) {
-      ((OnComponentPopulated) layoutManager).onComponentPopulated(facesContext);
+      ((OnComponentPopulated) layoutManager).onComponentPopulated(facesContext, parent);
     }
     return layoutManager;
   }

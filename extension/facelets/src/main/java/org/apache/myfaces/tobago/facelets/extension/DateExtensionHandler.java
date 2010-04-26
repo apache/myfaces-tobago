@@ -53,7 +53,7 @@ public class DateExtensionHandler extends TobagoLabelExtensionHandler {
       picker.setId(root.createUniqueId());
       if (picker.getAttributes().get(OnComponentCreated.MARKER) == null) {
         picker.getAttributes().put(OnComponentCreated.MARKER, Boolean.TRUE);
-        picker.onComponentCreated(faceletContext.getFacesContext());
+        picker.onComponentCreated(faceletContext.getFacesContext(), panel);
       }
       panel.getChildren().add(picker);
     }

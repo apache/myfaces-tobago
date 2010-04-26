@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
@@ -33,10 +34,10 @@ public abstract class AbstractUIMenuBar extends UIPanel implements Configurable,
     return null;
   }
 
-  public void onComponentCreated(FacesContext context) {
+  public void onComponentCreated(FacesContext context, UIComponent parent) {
     Renderer renderer = getRenderer(getFacesContext());
     if (renderer instanceof RendererBase) {
-      ((RendererBase) renderer).onComponentCreated(context, this);
+      ((RendererBase) renderer).onComponentCreated(context, this, parent);
     }
   }
 }
