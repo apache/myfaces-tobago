@@ -63,3 +63,10 @@ function checkLayout(id, left, top, width, height) {
   checkWidth(id, width);
   checkHeight(id, height);
 }
+
+function checkAbsence(id) {
+  var element = document.getElementById(id);
+  if (element != null) {
+    LOG.error("The element with id=" + id + " was found, but should not!");
+  }
+}

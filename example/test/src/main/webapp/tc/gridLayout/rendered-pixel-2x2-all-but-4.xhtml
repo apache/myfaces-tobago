@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:view
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page">
+    <f:facet name="layout">
+      <tc:gridLayout rows="400px;200px" columns="400px;200px"/>
+    </f:facet>
+
+    <tc:image id="i-0" value="pidgeon-point.jpg" rendered="false"/>
+    <tc:image id="i-1" value="pidgeon-point.jpg" rendered="false"/>
+    <tc:image id="i-2" value="pidgeon-point.jpg" rendered="false"/>
+    <tc:image id="i-3" value="pidgeon-point.jpg" rendered="false"/>
+
+    <tc:script file="script/test-utils.js"/>
+    <tc:script onload="checkAbsence('page:i-0');"/>
+    <tc:script onload="checkAbsence('page:i-1');"/>
+    <tc:script onload="checkAbsence('page:i-2');"/>
+    <tc:script onload="checkAbsence('page:i-3');"/>
+
+  </tc:page>
+</f:view>

@@ -191,7 +191,7 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
     // find *
     FactorList list = new FactorList();
     for (BankHead head : heads) {
-      if (head.getToken() instanceof RelativeLayoutToken) {
+      if (head.getToken() instanceof RelativeLayoutToken && head.isRendered()) {
         list.add(((RelativeLayoutToken) head.getToken()).getFactor());
       }
     }
@@ -215,7 +215,7 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
         int i = 0;
         int j = 0;
         for (BankHead head : heads) {
-          if (head.getToken() instanceof RelativeLayoutToken) {
+          if (head.getToken() instanceof RelativeLayoutToken && head.isRendered()) {
             heads[i].setMeasure(partition.get(j));
             j++;
           }
@@ -276,7 +276,7 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
               LOG.warn("Measure is null, should be debugged... i=" + i + " k=" + k + " grid=" + grid,
                   new RuntimeException());
             } else {
-              if (heads[k].getMeasure().greaterThan(Measure.ZERO)) {
+              if (heads[k].isRendered() && heads[k].getMeasure().greaterThan(Measure.ZERO)) {
                 position = position.add(heads[k].getMeasure());
                 position = position.add(getSpacing(orientation));
               }
