@@ -20,14 +20,13 @@ package org.apache.myfaces.tobago.taglib.decl;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/**
- * $Id$
- */
 public interface HasMargin {
+
   /**
-   * Margin between container component and layouted children.
+   * Margin between container component and the children.
    */
   @TagAttribute
-  @UIComponentTagAttribute()
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.Measure")
   void setMargin(String margin);
 }

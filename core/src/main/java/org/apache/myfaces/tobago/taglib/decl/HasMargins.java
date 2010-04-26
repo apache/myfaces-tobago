@@ -20,35 +20,41 @@ package org.apache.myfaces.tobago.taglib.decl;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 
-/**
- * $Id$
- */
 public interface HasMargins {
+
   /**
-   * Top margin between container component and layouted children.
+   * Top margin between container component and the children.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultCode = "getMargin()")
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "getMargin()")
   void setMarginTop(String margin);
 
   /**
-   * Right margin between container component and layouted children.
+   * Right margin between container component and the children.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultCode = "getMargin()")
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "getMargin()")
   void setMarginRight(String margin);
 
   /**
-   * Bottom margin between container component and layouted children.
+   * Bottom margin between container component and the children.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultCode = "getMargin()")
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "getMargin()")
   void setMarginBottom(String margin);
 
   /**
-   * Left margin between container component and layouted children.
+   * Left margin between container component and the children.
    */
   @TagAttribute
-  @UIComponentTagAttribute(defaultCode = "getMargin()")
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "getMargin()")
   void setMarginLeft(String margin);
 }

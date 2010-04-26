@@ -42,6 +42,21 @@ public class GridLayoutRule extends MetaRule {
         if (Attributes.CELLSPACING.equals(name)) {
           return new CellspacingMapper(attribute);
         }
+        if (Attributes.MARGIN_LEFT.equals(name)) {
+          return new MarginLeftMapper(attribute);
+        }
+        if (Attributes.MARGIN_TOP.equals(name)) {
+          return new MarginTopMapper(attribute);
+        }
+        if (Attributes.MARGIN_RIGHT.equals(name)) {
+          return new MarginRightMapper(attribute);
+        }
+        if (Attributes.MARGIN_BOTTOM.equals(name)) {
+          return new MarginBottomMapper(attribute);
+        }
+        if (Attributes.MARGIN.equals(name)) {
+          return new MarginMapper(attribute);
+        }
       }
     }
     return null;
@@ -83,6 +98,71 @@ public class GridLayoutRule extends MetaRule {
     public void applyMetadata(FaceletContext ctx, Object instance) {
       UIGridLayout gridLayout = (UIGridLayout) instance;
       gridLayout.setCellspacing(Measure.parse(attribute.getValue()));
+    }
+  }
+
+  static final class MarginLeftMapper extends Metadata {
+    private final TagAttribute attribute;
+
+    MarginLeftMapper(TagAttribute attribute) {
+      this.attribute = attribute;
+    }
+
+    public void applyMetadata(FaceletContext ctx, Object instance) {
+      UIGridLayout gridLayout = (UIGridLayout) instance;
+      gridLayout.setMarginLeft(Measure.valueOf(attribute.getValue()));
+    }
+  }
+
+  static final class MarginTopMapper extends Metadata {
+    private final TagAttribute attribute;
+
+    MarginTopMapper(TagAttribute attribute) {
+      this.attribute = attribute;
+    }
+
+    public void applyMetadata(FaceletContext ctx, Object instance) {
+      UIGridLayout gridLayout = (UIGridLayout) instance;
+      gridLayout.setMarginTop(Measure.valueOf(attribute.getValue()));
+    }
+  }
+
+  static final class MarginRightMapper extends Metadata {
+    private final TagAttribute attribute;
+
+    MarginRightMapper(TagAttribute attribute) {
+      this.attribute = attribute;
+    }
+
+    public void applyMetadata(FaceletContext ctx, Object instance) {
+      UIGridLayout gridLayout = (UIGridLayout) instance;
+      gridLayout.setMarginRight(Measure.valueOf(attribute.getValue()));
+    }
+  }
+
+  static final class MarginBottomMapper extends Metadata {
+    private final TagAttribute attribute;
+
+    MarginBottomMapper(TagAttribute attribute) {
+      this.attribute = attribute;
+    }
+
+    public void applyMetadata(FaceletContext ctx, Object instance) {
+      UIGridLayout gridLayout = (UIGridLayout) instance;
+      gridLayout.setMarginBottom(Measure.valueOf(attribute.getValue()));
+    }
+  }
+
+  static final class MarginMapper extends Metadata {
+    private final TagAttribute attribute;
+
+    MarginMapper(TagAttribute attribute) {
+      this.attribute = attribute;
+    }
+
+    public void applyMetadata(FaceletContext ctx, Object instance) {
+      UIGridLayout gridLayout = (UIGridLayout) instance;
+      gridLayout.setMargin(Measure.valueOf(attribute.getValue()));
     }
   }
 }

@@ -50,6 +50,9 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
 
   private Grid grid;
 
+  /**
+   * Initialize the grid and remove the current width and height values from the component, recursively.
+   */
   public void init() {
     grid = new Grid(LayoutTokens.parse(getColumns()), LayoutTokens.parse(getRows()));
 
@@ -201,7 +204,9 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
           available = available.subtractNotNegative(head.getMeasure());
         }
         available = available.subtractNotNegative(LayoutUtils.getBeginOffset(orientation, container));
+        available = available.subtractNotNegative(getMarginBegin(orientation));
         available = available.subtractNotNegative(computeSpacing(orientation, 0, heads.length));
+        available = available.subtractNotNegative(getMarginEnd(orientation));
         available = available.subtractNotNegative(LayoutUtils.getEndOffset(orientation, container));
 
         List<Measure> partition = list.partition(available);
@@ -265,6 +270,7 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
 
           // compute the position of the cell
           Measure position = LayoutUtils.getBeginOffset(orientation, getLayoutContainer());
+          position = position.add(getMarginBegin(orientation));
           for (int k = 0; k < i; k++) {
             if (heads[k] == null) {
               LOG.warn("Measure is null, should be debugged... i=" + i + " k=" + k + " grid=" + grid,
@@ -302,6 +308,13 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
     return orientation == Orientation.HORIZONTAL ? getColumnSpacing() : getRowSpacing();
   }
 
+  public Measure getMarginBegin(Orientation orientation) {
+    return orientation == Orientation.HORIZONTAL ? getMarginLeft() : getMarginTop();
+  }
+
+  public Measure getMarginEnd(Orientation orientation) {
+    return orientation == Orientation.HORIZONTAL ? getMarginRight() : getMarginBottom();
+  }
 
   /**
    * Compute the sum of the space between the cells.
@@ -335,6 +348,14 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
   public abstract Measure getRowSpacing();
 
   public abstract Measure getColumnSpacing();
+
+  public abstract Measure getMarginLeft();
+
+  public abstract Measure getMarginTop();
+
+  public abstract Measure getMarginRight();
+
+  public abstract Measure getMarginBottom();
 
   @Override
   public boolean getRendersChildren() {
