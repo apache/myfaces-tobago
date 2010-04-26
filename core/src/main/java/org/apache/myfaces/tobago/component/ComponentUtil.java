@@ -1404,7 +1404,8 @@ public class ComponentUtil {
     uiData.setRowIndex(oldRowIndex);
   }
 
-  public static Object getConvertedValue(FacesContext facesContext, javax.faces.component.UIInput component, String stringValue) {
+  public static Object getConvertedValue(
+      FacesContext facesContext, javax.faces.component.UIInput component, String stringValue) {
     try {
       Renderer renderer = getRenderer(facesContext, component);
       if (renderer != null) {
