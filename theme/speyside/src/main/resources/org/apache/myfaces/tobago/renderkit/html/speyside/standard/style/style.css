@@ -551,6 +551,7 @@ label.tobago-label-error {
 /* selectManyListbox ------------------------------------------------------- */
 
 .tobago-selectManyListbox-default  {
+  border: 1px solid #000000;
   font: 12px arial, helvetica, sans-serif;
   padding-top: -1px;
   color: #000000;
@@ -582,6 +583,7 @@ tobago-selectOneChoice-readonly {
 /* selectOneListbox -------------------------------------------------------- */
 
 .tobago-selectOneListbox-default  {
+  border: 1px solid #000000;
   font-size: 12px;
 }
 

@@ -474,6 +474,7 @@ label.tobago-label-inline {
 
 .tobago-selectManyListbox-default {
   font-family: arial, helvetica, sans-serif;
+  color: #000000;
   background: #ffffff;
   height: 25px;
 }

@@ -11,16 +11,16 @@
     <tc:gridLayoutConstraint width="630px" height="600px"/>
     <f:facet name="layout">
       <!-- fixme: rows="20px" -->
-      <tc:gridLayout columns="*;2*" rows="auto;20px" columnSpacing="30px"/>
+      <tc:gridLayout columns="*;2*" rows="auto;20px;auto;auto;auto;auto;auto;auto" columnSpacing="30px"/>
     </f:facet>
 
     <tc:messages>
       <tc:gridLayoutConstraint columnSpan="2"/>
     </tc:messages>
-    
+
     <tc:label value="tc"/>
     <tc:label value="tx"/>
-    
+
     <tc:selectManyListbox>
       <tc:selectItem itemValue="a" itemLabel="A Value"/>
       <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
@@ -65,8 +65,8 @@
       <tc:selectItem itemValue="a" itemLabel="A Value"/>
       <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
     </tx:selectManyListbox>
-    
+
     <tc:button label="submit"/>
-    
+
   </tc:page>
 </f:view>
