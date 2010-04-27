@@ -44,6 +44,7 @@ public class Filter {
       "/src/.*",
       "/try/.*",
       ".*/\\.svn/.*",
+      ".*-fragment\\.xhtml",
 
       "/index.html",
       "/navigation.xhtml",

@@ -125,7 +125,7 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
     for (BankHead head : heads) {
       LayoutToken token = head.getToken();
       
-      if (token instanceof PixelLayoutToken) {
+      if (token instanceof PixelLayoutToken && head.isRendered()) {
         int pixel = ((PixelLayoutToken) token).getPixel();
         heads[i].setMeasure(Measure.valueOf(pixel)); // XXX refactor
       }
