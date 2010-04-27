@@ -1409,7 +1409,12 @@ public class ComponentUtil {
     try {
       Renderer renderer = getRenderer(facesContext, component);
       if (renderer != null) {
-        return renderer.getConvertedValue(facesContext, component, stringValue);
+        if (component instanceof UISelectMany) {
+          final Object converted = renderer.getConvertedValue(facesContext, component, new String[]{stringValue});
+          return ((Object[])converted)[0];
+        } else {
+          return renderer.getConvertedValue(facesContext, component, stringValue);
+        }
       } else {
         Converter converter = component.getConverter();
         if (converter == null) {
