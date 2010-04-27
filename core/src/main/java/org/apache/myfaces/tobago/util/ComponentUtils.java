@@ -46,6 +46,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIParameter;
+import javax.faces.component.UISelectMany;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -743,7 +744,12 @@ public class ComponentUtils {
     try {
       Renderer renderer = getRenderer(facesContext, component);
       if (renderer != null) {
-        return renderer.getConvertedValue(facesContext, component, stringValue);
+        if (component instanceof UISelectMany) {
+          final Object converted = renderer.getConvertedValue(facesContext, component, new String[]{stringValue});
+          return ((Object[])converted)[0];
+        } else {
+          return renderer.getConvertedValue(facesContext, component, stringValue);
+        }
       } else {
         Converter converter = component.getConverter();
         if (converter == null) {
