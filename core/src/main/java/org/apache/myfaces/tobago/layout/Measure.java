@@ -139,39 +139,51 @@ public abstract class Measure implements Serializable {
 
   public abstract int getPixel();
 
+  /**
+   * Returns the maximum. If all parameters are null, than the result is {@value #ZERO}.
+   */
   public static Measure max(List<Measure> list) {
     Measure max = ZERO;
     for (Measure measure : list) {
-      if (measure.greaterThan(max)) {
+      if (max.lessThan(measure)) {
         max = measure;
       }
     }
     return max;
   }
 
+  /**
+   * Returns the minimum. If all parameters are null, than the result is {@value #MAX}.
+   */
   public static Measure min(List<Measure> list) {
     Measure min = MAX;
     for (Measure measure : list) {
-      if (measure.lessThan(min)) {
+      if (min.greaterThan(measure)) {
         min = measure;
       }
     }
     return min;
   }
 
+  /**
+   * Returns the maximum. If all parameters are null, than the result is {@value #ZERO}.
+   */
   public static Measure max(Measure m1, Measure m2) {
-    if (m1.greaterThan(m2)) {
-      return m1;
+    if (m1 != null) {
+      return m1.lessThan(m2) ? m2 : m1;
     } else {
-      return m2;
+      return m2 != null ? m2 : ZERO;
     }
   }
 
+  /**
+   * Returns the minimum. If all parameters are null, than the result is {@value #MAX}.
+   */
   public static Measure min(Measure m1, Measure m2) {
-    if (m1.lessThan(m2)) {
-      return m1;
+    if (m1 != null) {
+      return m1.greaterThan(m2) ? m2 : m1;
     } else {
-      return m2;
+      return m2 != null ? m2 : MAX;
     }
   }
 }
