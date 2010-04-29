@@ -28,30 +28,34 @@ public class IntervalList extends ArrayList<Interval> {
 
   private static final Log LOG = LogFactory.getLog(IntervalList.class);
 
-  public Measure computeAuto() {
-    Measure auto;
+  private Measure minimum;
+  private Measure current;
+
+  public void evaluate() {
     List<Measure> currentList = collectCurrent();
     List<Measure> minimumList = collectMinimum();
     List<Measure> maximumList = collectMaximum();
+    // minimum
+    minimum = Measure.max(Measure.max(minimumList), Measure.max(currentList));
+    // current
     if (!currentList.isEmpty()) {
-      auto = Measure.max(Measure.max(minimumList), Measure.max(currentList));
+      current = Measure.max(Measure.max(minimumList), Measure.max(currentList));
     } else {
       Measure maximumOfMinimumList = Measure.max(minimumList);
       Measure minimumOfMaximumList = Measure.min(maximumList);
       if (maximumOfMinimumList.greaterThan(minimumOfMaximumList)) {
-        LOG.warn("!");
-        auto = maximumOfMinimumList;
+        LOG.warn("Layout: Found a minimum constraint " + maximumOfMinimumList
+            + " which is greater than a maximum constraint " + minimumOfMaximumList + "!");
+        current = maximumOfMinimumList;
       } else {
         List<Measure> preferredInInterval = findPreferredInInterval(maximumOfMinimumList, minimumOfMaximumList);
         if (!preferredInInterval.isEmpty()) {
-          auto = Measure.max(preferredInInterval);
+          current = Measure.max(preferredInInterval);
         } else {
-          auto = maximumOfMinimumList;
+          current = maximumOfMinimumList;
         }
       }
     }
-
-    return auto;
   }
 
   private List<Measure> collectCurrent() {
@@ -95,4 +99,11 @@ public class IntervalList extends ArrayList<Interval> {
     return result;
   }
 
+  public Measure getMinimum() {
+    return minimum;
+  }
+
+  public Measure getCurrent() {
+    return current;
+  }
 }

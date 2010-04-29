@@ -76,7 +76,8 @@ public abstract class AbstractUITabGroupLayout extends UILayoutBase implements L
     }
 
     if (intervals.size() >= 1) {
-      Measure size = intervals.computeAuto();
+      intervals.evaluate();
+      Measure size = intervals.getCurrent();
       size = size.add(LayoutUtils.getBeginOffset(orientation, getLayoutContainer()));
       size = size.add(LayoutUtils.getEndOffset(orientation, getLayoutContainer()));
       LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), size);

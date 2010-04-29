@@ -32,8 +32,9 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
   @Test
   public void test0() {
     IntervalList list = new IntervalList();
-    Measure auto = list.computeAuto();
-    Assert.assertEquals(Measure.ZERO, auto);
+    list.evaluate();
+    Assert.assertEquals(Measure.ZERO, list.getCurrent());
+    Assert.assertEquals(Measure.ZERO, list.getMinimum());
   }
 
   /**
@@ -43,8 +44,9 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
   public void test1Fixed() {
     IntervalList list = new IntervalList();
     list.add(new Interval(null, null, null, px(100)));
-    Measure auto = list.computeAuto();
-    Assert.assertEquals(px(100), auto);
+    list.evaluate();
+    Assert.assertEquals(px(100), list.getCurrent());
+    Assert.assertEquals(px(100), list.getMinimum());
   }
 
   /**
@@ -58,8 +60,9 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
     list.add(new Interval(null, null, null, px(100)));
     list.add(new Interval(null, null, null, px(200)));
     list.add(new Interval(null, null, null, px(300)));
-    Measure auto = list.computeAuto();
-    Assert.assertEquals(px(300), auto);
+    list.evaluate();
+    Assert.assertEquals(px(300), list.getCurrent());
+    Assert.assertEquals(px(300), list.getMinimum());
   }
 
   /**
@@ -69,8 +72,9 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
   public void test1MinPrefMax() {
     IntervalList list = new IntervalList();
     list.add(new Interval(px(10), px(100), px(1000), null));
-    Measure auto = list.computeAuto();
-    Assert.assertEquals(px(100), auto);
+    list.evaluate();
+    Assert.assertEquals(px(100), list.getCurrent());
+    Assert.assertEquals(px(10), list.getMinimum());
   }
 
   /**
@@ -84,8 +88,9 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
     list.add(new Interval(px(10), px(100), px(1000), null));
     list.add(new Interval(px(20), px(200), px(2000), null));
     list.add(new Interval(px(30), px(300), px(3000), null));
-    Measure auto = list.computeAuto();
-    Assert.assertEquals(px(300), auto);
+    list.evaluate();
+    Assert.assertEquals(px(300), list.getCurrent());
+    Assert.assertEquals(px(30), list.getMinimum());
   }
 
   /**
@@ -97,8 +102,9 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
     IntervalList list = new IntervalList();
     list.add(new Interval(px(10), px(100), px(1000), null));
     list.add(new Interval(px(1000), px(10000), px(100000), null));
-    Measure auto = list.computeAuto();
-    Assert.assertEquals(px(1000), auto);
+    list.evaluate();
+    Assert.assertEquals(px(1000), list.getCurrent());
+    Assert.assertEquals(px(1000), list.getMinimum());
   }
 
   /**
@@ -110,8 +116,9 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
     IntervalList list = new IntervalList();
     list.add(new Interval(px(10), px(100), px(1000), null));
     list.add(new Interval(px(2000), px(20000), px(200000), null));
-    Measure auto = list.computeAuto();
-    Assert.assertEquals(px(2000), auto);
+    list.evaluate();
+    Assert.assertEquals(px(2000), list.getCurrent());
+    Assert.assertEquals(px(2000), list.getMinimum());
   }
 
   /**
@@ -125,8 +132,9 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
     list.add(new Interval(px(10), null, null, null));
     list.add(new Interval(null, px(200), null, null));
     list.add(new Interval(null, null, px(3000), null));
-    Measure auto = list.computeAuto();
-    Assert.assertEquals(px(200), auto);
+    list.evaluate();
+    Assert.assertEquals(px(200), list.getCurrent());
+    Assert.assertEquals(px(10), list.getMinimum());
   }
 
   /**
@@ -146,8 +154,9 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
     list.add(new Interval(px(10), px(111), px(1000), null));
     list.add(new Interval(px(20), px(222), px(2000), null));
     list.add(new Interval(px(30), px(333), px(3000), null));
-    Measure auto = list.computeAuto();
-    Assert.assertEquals(px(300), auto);
+    list.evaluate();
+    Assert.assertEquals(px(300), list.getCurrent());
+    Assert.assertEquals(px(300), list.getMinimum());
   }
 
   /**
@@ -167,8 +176,9 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
     list.add(new Interval(px(10), px(111), px(210), null));
     list.add(new Interval(px(120), px(222), px(220), null));
     list.add(new Interval(px(130), px(333), px(230), null));
-    Measure auto = list.computeAuto();
-    Assert.assertEquals(px(300), auto);
+    list.evaluate();
+    Assert.assertEquals(px(300), list.getCurrent());
+    Assert.assertEquals(px(300), list.getMinimum());
   }
 
   /**
@@ -186,8 +196,9 @@ public class IntervalListUnitTest extends ArrayList<Interval> {
     list.add(new Interval(px(10), px(111), px(210), null));
     list.add(new Interval(px(120), px(222), px(220), null));
     list.add(new Interval(px(130), px(333), px(230), null));
-    Measure auto = list.computeAuto();
-    Assert.assertEquals(px(300), auto);
+    list.evaluate();
+    Assert.assertEquals(px(300), list.getCurrent());
+    Assert.assertEquals(px(300), list.getMinimum());
   }
 
   private Measure px(int pixel) {

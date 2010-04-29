@@ -80,7 +80,8 @@ public abstract class AbstractUISheetLayout extends UILayoutBase implements Layo
     }
 
     if (intervals.size() >= 1) {
-      Measure size = intervals.computeAuto();
+      intervals.evaluate();
+      Measure size = intervals.getCurrent();
       size = size.add(LayoutUtils.getBeginOffset(orientation, getLayoutContainer()));
       size = size.add(LayoutUtils.getEndOffset(orientation, getLayoutContainer()));
 // todo      LayoutUtils.setSize(orientation, getLayoutContainer(), size);

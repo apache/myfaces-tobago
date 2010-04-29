@@ -21,13 +21,14 @@ import org.apache.myfaces.tobago.layout.LayoutToken;
 import org.apache.myfaces.tobago.layout.Measure;
 
 /**
- * BankHead represents the head information of a bank like the token for this bank, the computed measure and if 
- * it will be rendered. A bank is a generalization for columns and rows. 
+ * BankHead represents the head information of a bank like the token for this bank, the computed
+ * "current" and "minimum" measure and if it will be rendered. A bank is a generalization for columns and rows.
  */
 public class BankHead {
 
   private LayoutToken token;
-  private Measure measure;
+  private Measure minimum;
+  private Measure current;
   private boolean rendered;
 
   public BankHead(LayoutToken token) {
@@ -43,12 +44,20 @@ public class BankHead {
     this.token = token;
   }
 
-  public Measure getMeasure() {
-    return measure;
+  public Measure getMinimum() {
+    return minimum;
   }
 
-  public void setMeasure(Measure measure) {
-    this.measure = measure;
+  public void setMinimum(Measure minimum) {
+    this.minimum = minimum;
+  }
+
+  public Measure getCurrent() {
+    return current;
+  }
+
+  public void setCurrent(Measure current) {
+    this.current = current;
   }
 
   public boolean isRendered() {
@@ -62,9 +71,10 @@ public class BankHead {
   @Override
   public String toString() {
     return "BankHead{"
-        + "token='" + token
-        + "', measure='" + measure
-        + "', rendered=" + rendered
+        + token
+        + "," + minimum
+        + "," + current
+        + "," + rendered
         + '}';
   }
 }

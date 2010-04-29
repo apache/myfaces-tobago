@@ -118,16 +118,16 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
 
     final BankHead[] heads = grid.getBankHeads(orientation);
     final BankHead[] heads2 = grid.getBankHeads(orientation.other());
-    
+
     // process auto tokens
     int i = 0;
-    
+
     for (BankHead head : heads) {
       LayoutToken token = head.getToken();
-      
+
       if (token instanceof PixelLayoutToken && head.isRendered()) {
         int pixel = ((PixelLayoutToken) token).getPixel();
-        heads[i].setMeasure(Measure.valueOf(pixel)); // XXX refactor
+        heads[i].setCurrent(Measure.valueOf(pixel)); // XXX refactor
       }
 
       IntervalList intervalList = new IntervalList();
@@ -141,7 +141,7 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
             ((LayoutContainer) component).getLayoutManager().preProcessing(orientation);
           }
 
-          if (token instanceof AutoLayoutToken) {
+          if (token instanceof AutoLayoutToken || token instanceof RelativeLayoutToken) {
             if (origin.getSpan(orientation) == 1 && component.isRendered()) {
               intervalList.add(new Interval(component, orientation));
             } else {
@@ -153,11 +153,20 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
           }
         }
       }
+
+      if (intervalList.size() >= 1) {
+        intervalList.evaluate();
+      }
+      if (token instanceof AutoLayoutToken || token instanceof RelativeLayoutToken) {
+        if (intervalList.size() >= 1) {
+          heads[i].setMinimum(intervalList.getMinimum());
+        }
+      }
       if (token instanceof AutoLayoutToken) {
         if (intervalList.size() >= 1) {
-          heads[i].setMeasure(intervalList.computeAuto());
+          heads[i].setCurrent(intervalList.getCurrent());
         } else {
-          heads[i].setMeasure(Measure.ZERO);
+          heads[i].setCurrent(Measure.ZERO);
 // todo: what when we cannot find a good value for "auto"?
         }
       }
@@ -167,7 +176,7 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
     // set the size if all sizes of the grid are set
     Measure sum = Measure.ZERO;
     for (BankHead head : heads) {
-      Measure size = head.getMeasure();
+      Measure size = head.getCurrent();
       if (size == null) {
         sum = null; // set to invalid
         break;
@@ -189,19 +198,19 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
     final BankHead[] heads2 = grid.getBankHeads(orientation.other());
     
     // find *
-    FactorList list = new FactorList();
+    FactorList factorList = new FactorList();
     for (BankHead head : heads) {
       if (head.getToken() instanceof RelativeLayoutToken && head.isRendered()) {
-        list.add(((RelativeLayoutToken) head.getToken()).getFactor());
+        factorList.add(((RelativeLayoutToken) head.getToken()).getFactor());
       }
     }
-    if (!list.isEmpty()) {
+    if (!factorList.isEmpty()) {
       // find rest
       LayoutContainer container = getLayoutContainer();
       Measure available = LayoutUtils.getCurrentSize(orientation, container);
       if (available != null) {
         for (BankHead head : heads) {
-          available = available.subtractNotNegative(head.getMeasure());
+          available = available.subtractNotNegative(head.getCurrent());
         }
         available = available.subtractNotNegative(LayoutUtils.getBeginOffset(orientation, container));
         available = available.subtractNotNegative(getMarginBegin(orientation));
@@ -209,14 +218,15 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
         available = available.subtractNotNegative(getMarginEnd(orientation));
         available = available.subtractNotNegative(LayoutUtils.getEndOffset(orientation, container));
 
-        List<Measure> partition = list.partition(available);
+        List<Measure> partition = factorList.partition(available);
 
         // write values back into the header
-        int i = 0;
-        int j = 0;
+        int i = 0; // index of head
+        int j = 0; // index of partition
         for (BankHead head : heads) {
           if (head.getToken() instanceof RelativeLayoutToken && head.isRendered()) {
-            heads[i].setMeasure(partition.get(j));
+            // respect the minimum
+            heads[i].setCurrent(Measure.max(partition.get(j), heads[i].getMinimum()));
             j++;
           }
           i++;
@@ -240,7 +250,7 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
           // compute the size of the cell
           Measure size = Measure.ZERO;
           for (int k = 0; k < span; k++) {
-            size = size.add(heads[i + k].getMeasure());
+            size = size.add(heads[i + k].getCurrent());
           }
           size = size.add(computeSpacing(orientation, i, span));
           LayoutUtils.setCurrentSize(orientation, component, size);
@@ -276,8 +286,8 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
               LOG.warn("Measure is null, should be debugged... i=" + i + " k=" + k + " grid=" + grid,
                   new RuntimeException());
             } else {
-              if (heads[k].isRendered() && heads[k].getMeasure().greaterThan(Measure.ZERO)) {
-                position = position.add(heads[k].getMeasure());
+              if (heads[k].isRendered() && heads[k].getCurrent().greaterThan(Measure.ZERO)) {
+                position = position.add(heads[k].getCurrent());
                 position = position.add(getSpacing(orientation));
               }
             }
@@ -327,7 +337,7 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
     int count = 0;
     for (int i = startIndex; i < startIndex + length; i++) {
       if ((heads[i].isRendered())
-          && (heads[i].getMeasure() == null || heads[i].getMeasure().greaterThan(Measure.ZERO))) {
+          && (heads[i].getCurrent() == null || heads[i].getCurrent().greaterThan(Measure.ZERO))) {
         count++;
       }
     }
