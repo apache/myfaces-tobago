@@ -8,7 +8,7 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
   <tc:page id="page">
-    <tc:gridLayoutConstraint width="205px" height="100px"/>
+    <tc:gridLayoutConstraint width="205px" height="205px"/>
     <f:facet name="layout">
       <tc:gridLayout columns="*;*" rows="*" />
     </f:facet>
@@ -20,6 +20,9 @@
 
     <tc:script file="script/test-utils.js"/>
     <tc:script onload="checkLayout('page:i-0', 0, 0, 100, 100);"/>
-    
+    <tc:script onload="checkLayout('page:i-1', 105, 0, 100, 100);"/>
+    <tc:script onload="checkLayout('page:i-2', 0, 105, 100, 100);"/>
+    <tc:script onload="checkLayout('page:i-3', 105, 105, 100, 100);"/>
+
   </tc:page>
 </f:view>
