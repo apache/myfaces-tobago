@@ -93,7 +93,7 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
       for (int j = 0; j < heads2.length; j++) {
         Cell cell = grid.getCell(i, j, orientation);
         // check rendered = false
-        if (neitherRendered && (cell == null || cell.getComponent().isRendered())) {
+        if (cell != null && cell.getComponent().isRendered()) {
           neitherRendered = false;
         }
         // recursion
