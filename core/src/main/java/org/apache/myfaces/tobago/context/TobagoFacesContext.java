@@ -140,4 +140,8 @@ public class TobagoFacesContext extends FacesContextWrapper {
     getPopups().clear();
   }
 
+  @Override
+  public String toString() {
+    return getClass().getName() + " wrapped context=" + getContext();
+  }
 }
