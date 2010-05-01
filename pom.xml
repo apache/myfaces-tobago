@@ -1707,7 +1707,7 @@
   <properties>
     <myfaces11.version>1.1.7</myfaces11.version>
     <myfaces12.version>1.2.8</myfaces12.version>
-    <myfaces20.version>2.0.0-SNAPSHOT</myfaces20.version>
+    <myfaces20.version>2.0.0</myfaces20.version>
     <mojarra11.version>1.1_02</mojarra11.version>
     <mojarra12.version>1.2_14</mojarra12.version>
     <mojarra20.version>2.0.3-SNAPSHOT</mojarra20.version>
