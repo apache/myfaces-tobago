@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.example.test;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 
@@ -29,11 +29,10 @@ import org.apache.myfaces.tobago.event.TabChangeListener;
  */
 public class SimpleTabChangeListener implements TabChangeListener {
 
-  private static final Log LOG = LogFactory
-      .getLog(SimpleTabChangeListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SimpleTabChangeListener.class);
 
   public SimpleTabChangeListener() {
-    LOG.info("new SimpleTabChangeListener " + this);
+    LOG.info("new SimpleTabChangeListener {}",  this);
   }
 
   public void processTabChange(TabChangeEvent tabChangeEvent) {

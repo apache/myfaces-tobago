@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
@@ -59,7 +59,7 @@ import java.util.Map;
 
 public class TabGroupRenderer extends LayoutComponentRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(TabGroupRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TabGroupRenderer.class);
 
   private static final String[] SCRIPTS = new String[]{"script/tab.js", "script/tabgroup.js"};
 

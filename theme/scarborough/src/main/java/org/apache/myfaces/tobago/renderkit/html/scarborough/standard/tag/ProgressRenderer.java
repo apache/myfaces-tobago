@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIProgress;
@@ -43,7 +43,7 @@ import java.io.IOException;
 
 public class ProgressRenderer extends LayoutComponentRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(ProgressRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ProgressRenderer.class);
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent uiComponent) throws IOException {

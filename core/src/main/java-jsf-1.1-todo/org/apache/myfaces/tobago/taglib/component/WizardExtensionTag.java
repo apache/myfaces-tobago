@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -36,7 +36,7 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.taglib.component.WizardExtensionTag")
 public class WizardExtensionTag extends BodyTagSupport {
 
-  private static final Log LOG = LogFactory.getLog(WizardExtensionTag.class);
+  private static final Logger LOG = LoggerFactory.getLogger(WizardExtensionTag.class);
 
   private String controller;
 

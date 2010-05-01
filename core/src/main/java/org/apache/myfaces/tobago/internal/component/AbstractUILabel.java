@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 
@@ -28,7 +28,7 @@ import java.io.IOException;
 
 public abstract class AbstractUILabel extends javax.faces.component.UIOutput implements LayoutComponent {
 
-  private static final Log LOG = LogFactory.getLog(AbstractUILabel.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUILabel.class);
 
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {

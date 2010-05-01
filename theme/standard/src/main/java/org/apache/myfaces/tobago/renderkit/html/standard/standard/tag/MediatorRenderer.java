@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UIMediator;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -32,7 +32,7 @@ import java.io.IOException;
 
 public class MediatorRenderer extends LayoutComponentRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(MediatorRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MediatorRenderer.class);
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {

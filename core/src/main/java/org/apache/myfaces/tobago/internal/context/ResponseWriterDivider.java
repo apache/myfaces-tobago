@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.context;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.util.FastStringWriter;
 
 import javax.faces.context.FacesContext;
@@ -34,7 +34,7 @@ import java.util.Map;
  */
 public class ResponseWriterDivider {
 
-  private static final Log LOG = LogFactory.getLog(ResponseWriterDivider.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ResponseWriterDivider.class);
 
   private List<ResponseWriter> writers;
   private List<FastStringWriter> buffers;
@@ -86,7 +86,7 @@ public class ResponseWriterDivider {
     }
     facesContext.setResponseWriter(writers.get(current));
     if (LOG.isDebugEnabled()) {
-      LOG.debug(this);
+      LOG.debug(this.toString());
     }
     return created;
   }
@@ -106,13 +106,13 @@ public class ResponseWriterDivider {
     if (current >= 0) {
       facesContext.setResponseWriter(writers.get(current));
       if (LOG.isDebugEnabled()) {
-        LOG.debug(this);
+        LOG.debug(this.toString());
       }
       return true;
     } else {
       facesContext.setResponseWriter(original);
       if (LOG.isDebugEnabled()) {
-        LOG.debug(this);
+        LOG.debug(this.toString());
       }
       return false;
     }

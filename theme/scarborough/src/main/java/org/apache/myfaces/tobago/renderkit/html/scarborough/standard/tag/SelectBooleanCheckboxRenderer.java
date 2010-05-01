@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -37,7 +37,7 @@ import java.io.IOException;
 
 public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(SelectBooleanCheckboxRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SelectBooleanCheckboxRenderer.class);
 
   public void decode(FacesContext facesContext, UIComponent component) {
 

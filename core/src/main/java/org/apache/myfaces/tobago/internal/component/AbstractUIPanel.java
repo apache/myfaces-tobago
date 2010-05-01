@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
@@ -37,7 +37,7 @@ import java.util.List;
 public abstract class AbstractUIPanel extends UIPanelBase
     implements OnComponentPopulated, LayoutContainer, LayoutComponent {
 
-  private static final Log LOG = LogFactory.getLog(AbstractUIPanel.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIPanel.class);
 
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {

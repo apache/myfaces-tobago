@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 
 /*
@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
  */
 public class FoRendererBase extends LayoutComponentRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(FoRendererBase.class);
+  private static final Logger LOG = LoggerFactory.getLogger(FoRendererBase.class);
 
 
 }

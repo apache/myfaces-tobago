@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.application;
  * $Id$
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
@@ -39,7 +39,7 @@ import javax.faces.FacesException;
 
 public class ActionListenerImpl implements ActionListener {
 
-  private static final Log LOG = LogFactory.getLog(ActionListenerImpl.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ActionListenerImpl.class);
 
   private ActionListener base;
 

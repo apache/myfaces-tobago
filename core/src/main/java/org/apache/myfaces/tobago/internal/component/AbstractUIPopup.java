@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -51,7 +51,7 @@ public abstract class AbstractUIPopup extends UIPanelBase
     implements OnComponentCreated, OnComponentPopulated, NamingContainer, InvokeOnComponent,
     DeprecatedDimension, Position, LayoutContainer {
 
-  private static final Log LOG = LogFactory.getLog(AbstractUIPopup.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIPopup.class);
 
   private static final String Z_INDEX = AbstractUIPopup.class.getName() + ".Z_INDEX";
 

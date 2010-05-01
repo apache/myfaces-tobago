@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.el;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
 import java.security.Principal;
@@ -28,7 +28,7 @@ import java.util.Set;
 
 public class UserWrapper {
 
-  private static final Log LOG = LogFactory.getLog(UserWrapper.class);
+  private static final Logger LOG = LoggerFactory.getLogger(UserWrapper.class);
 
   private Map roles;
 
@@ -40,7 +40,7 @@ public class UserWrapper {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     Principal principal = facesContext.getExternalContext().getUserPrincipal();
     if (LOG.isDebugEnabled()) {
-      LOG.debug("getPrincipal(): " + principal);
+      LOG.debug("getPrincipal(): {}", principal);
     }
     return principal;
   }
@@ -56,7 +56,7 @@ public class UserWrapper {
       FacesContext facesContext = FacesContext.getCurrentInstance();
       boolean inRole = facesContext.getExternalContext().isUserInRole(role);
       if (LOG.isDebugEnabled()) {
-        LOG.debug("is in role '" + key + "': " + inRole);
+        LOG.debug("is in role '{}': {}", key, inRole);
       }
       return Boolean.valueOf(inRole);
     }

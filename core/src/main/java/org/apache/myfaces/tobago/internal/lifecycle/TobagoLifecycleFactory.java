@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.lifecycle;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.lifecycle.Lifecycle;
 import javax.faces.lifecycle.LifecycleFactory;
@@ -26,7 +26,7 @@ import java.util.Iterator;
 
 public class TobagoLifecycleFactory extends LifecycleFactory {
 
-  private static final Log LOG = LogFactory.getLog(TobagoLifecycleFactory.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoLifecycleFactory.class);
 
   private LifecycleFactory factory;
   private TobagoLifecycle defaultLifecycle;

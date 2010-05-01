@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.util;
  */
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ApplyRequestValuesCallback implements TobagoCallback {
 
   @SuppressWarnings("UnusedDeclaration")
-  private static final Log LOG = LogFactory.getLog(ApplyRequestValuesCallback.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ApplyRequestValuesCallback.class);
 
   public void invokeContextCallback(FacesContext context, UIComponent component) {
     if (context instanceof TobagoFacesContext && ((TobagoFacesContext) context).isAjax()) {

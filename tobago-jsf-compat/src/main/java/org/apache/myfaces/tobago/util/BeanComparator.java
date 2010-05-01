@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.util;
  */
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Comparator;
 import java.io.Serializable;
@@ -32,7 +32,7 @@ public class BeanComparator extends ComparatorBase implements Serializable {
 
   private static final long serialVersionUID = -7450094725566090886L;
 
-  private static final Log LOG = LogFactory.getLog(BeanComparator.class);
+  private static final Logger LOG = LoggerFactory.getLogger(BeanComparator.class);
 
   private String property;
 

@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.example.addressbook;
  * $Id$
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,7 +32,7 @@ import java.util.List;
 
 public class InMemoryAddressDao implements AddressDao {
 
-  private static final Log LOG = LogFactory.getLog(InMemoryAddressDao.class);
+  private static final Logger LOG = LoggerFactory.getLogger(InMemoryAddressDao.class);
 
   private List<Address> addresses;
 

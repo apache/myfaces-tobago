@@ -18,12 +18,11 @@ package org.apache.myfaces.tobago.example.addressbook.web;
  */
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.log4j.Appender;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.example.addressbook.Log4jUtils;
 import org.apache.myfaces.tobago.model.SelectItem;
@@ -52,7 +51,7 @@ import java.util.Set;
 @Scope("session")
 public class LoggingController {
 
-  private static final Log LOG = LogFactory.getLog(LoggingController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(LoggingController.class);
 
   private List<AppenderModel> appenders = new ArrayList<AppenderModel>();
   private List<CategoryModel> categories = new ArrayList<CategoryModel>();
@@ -84,15 +83,15 @@ public class LoggingController {
       categories.clear();
       Enumeration enumeration = LogManager.getCurrentLoggers();
       while (enumeration.hasMoreElements()) {
-          Logger logger = (Logger) enumeration.nextElement();
+          org.apache.log4j.Logger logger = (org.apache.log4j.Logger) enumeration.nextElement();
           categories.add(new CategoryModel(logger));
       }
       categories.add(new CategoryModel(LogManager.getRootLogger()));
 
       Collections.sort(categories, new Comparator<CategoryModel>() {
           public int compare(CategoryModel c1, CategoryModel c2) {
-              Logger l1 = c1.getLogger();
-              Logger l2 = c2.getLogger();
+              org.apache.log4j.Logger l1 = c1.getLogger();
+              org.apache.log4j.Logger l2 = c2.getLogger();
               return l1.getName().compareTo(l2.getName());
           }
       });
@@ -122,7 +121,7 @@ public class LoggingController {
       boolean update = false;
       for (CategoryModel category : categories) {
           if (category.isLevelUpdated()) {
-              Logger logger = getLogger(category.getName());
+              org.apache.log4j.Logger logger = getLogger(category.getName());
               logger.setLevel(Level.toLevel(category.getLevel()));
               update = true;
           }
@@ -136,7 +135,7 @@ public class LoggingController {
   public String addCategory() {
       LOG.debug("debug");
       LOG.trace("trace");
-      Logger logger = getLogger(category);
+      org.apache.log4j.Logger logger = getLogger(category);
       logger.setLevel(Level.toLevel(level));
       initCategories();
       return null;
@@ -148,7 +147,7 @@ public class LoggingController {
       return null;
   }
 
-  private Logger getLogger(String category) {
+  private org.apache.log4j.Logger getLogger(String category) {
       return ("root".equals(category))
               ? LogManager.getRootLogger()
               : LogManager.getLogger(category);

@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.layout.math;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.layout.MathUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 
@@ -84,7 +84,7 @@ import java.util.List;
 
 public class SystemOfEquations {
 
-  private static final Log LOG = LogFactory.getLog(SystemOfEquations.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SystemOfEquations.class);
 
   private int numberOfVariables;
   private List<Equation> equations = new ArrayList<Equation>();

@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 
@@ -28,7 +28,7 @@ import javax.faces.event.ActionEvent;
 
 public class PopupFacetActionListener extends AbstractPopupActionListener {
 
-  private static final Log LOG = LogFactory.getLog(PopupActionListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(PopupActionListener.class);
 
   @Override
   protected UIComponent getPopup(ActionEvent actionEvent) {

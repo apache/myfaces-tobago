@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIForm;
@@ -69,7 +69,7 @@ import java.util.StringTokenizer;
 
 public class PageRenderer extends PageRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(PageRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(PageRenderer.class);
 
   private static final String CLIENT_DEBUG_SEVERITY = "clientDebugSeverity";
   private static final String LAST_FOCUS_ID = "lastFocusId";

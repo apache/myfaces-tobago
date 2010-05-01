@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
@@ -29,7 +29,7 @@ import javax.faces.context.FacesContext;
  */
 public class DebugNavigationHandler extends NavigationHandler {
 
-  private static final Log LOG = LogFactory.getLog(DebugNavigationHandler.class);
+  private static final Logger LOG = LoggerFactory.getLogger(DebugNavigationHandler.class);
 
   private NavigationHandler navigationHandler;
 

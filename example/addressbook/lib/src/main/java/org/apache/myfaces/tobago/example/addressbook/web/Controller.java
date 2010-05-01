@@ -23,8 +23,8 @@ package org.apache.myfaces.tobago.example.addressbook.web;
  */
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UIColumn;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.config.TobagoConfig;
@@ -60,7 +60,7 @@ import java.util.Locale;
 @Scope("session")
 public class Controller {
 
-  private static final Log LOG = LogFactory.getLog(Controller.class);
+  private static final Logger LOG = LoggerFactory.getLogger(Controller.class);
 
   private static final String OUTCOME_LIST = "list";
   private static final String OUTCOME_EDITOR = "editor";

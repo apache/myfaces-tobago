@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.layout;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.List;
@@ -28,7 +28,7 @@ public abstract class Measure implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private static final Log LOG = LogFactory.getLog(Measure.class);
+  private static final Logger LOG = LoggerFactory.getLogger(Measure.class);
 
   public static final Measure ZERO = valueOf(0);
   public static final Measure MAX = valueOf(Integer.MAX_VALUE);

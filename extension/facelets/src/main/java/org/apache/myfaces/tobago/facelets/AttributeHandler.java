@@ -27,8 +27,8 @@ import com.sun.facelets.tag.TagException;
 import com.sun.facelets.tag.TagHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
@@ -48,7 +48,7 @@ import javax.faces.convert.Converter;
 
 public final class AttributeHandler extends TagHandler {
 
-  private static final Log LOG = LogFactory.getLog(AttributeHandler.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AttributeHandler.class);
 
   private final TagAttribute name;
 

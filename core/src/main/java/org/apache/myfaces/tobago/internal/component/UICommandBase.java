@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
@@ -35,7 +35,7 @@ import java.util.Iterator;
 public abstract class UICommandBase extends javax.faces.component.UICommand
     implements InvokeOnComponent, SupportsRenderedPartially {
 
-  private static final Log LOG = LogFactory.getLog(UICommandBase.class);
+  private static final Logger LOG = LoggerFactory.getLogger(UICommandBase.class);
 
   public static final String COMMAND_TYPE_SUBMIT = "submit";
   public static final String COMMAND_TYPE_RESET = "reset";

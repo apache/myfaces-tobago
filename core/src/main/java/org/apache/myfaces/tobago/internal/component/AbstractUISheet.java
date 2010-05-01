@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -61,7 +61,7 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
     implements SheetStateChangeSource, SortActionSource, InvokeOnComponent, OnComponentPopulated,
     LayoutContainer, LayoutComponent {
 
-  private static final Log LOG = LogFactory.getLog(AbstractUISheet.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUISheet.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Data";
 

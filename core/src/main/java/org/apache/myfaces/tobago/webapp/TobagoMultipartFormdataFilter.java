@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.webapp;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
 
 import javax.servlet.Filter;
@@ -66,7 +66,7 @@ import java.util.Locale;
  */
 public class TobagoMultipartFormdataFilter implements Filter {
 
-  private static final Log LOG = LogFactory.getLog(TobagoMultipartFormdataFilter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoMultipartFormdataFilter.class);
 
   private String repositoryPath = System.getProperty("java.io.tmpdir");
   private long maxSize = TobagoMultipartFormdataRequest.ONE_MB;

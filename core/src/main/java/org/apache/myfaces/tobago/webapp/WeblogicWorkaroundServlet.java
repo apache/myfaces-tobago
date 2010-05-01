@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.webapp;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 
 import javax.faces.FactoryFinder;
@@ -40,7 +40,7 @@ public class WeblogicWorkaroundServlet extends HttpServlet {
 
   private static final long serialVersionUID = -8636608446986072719L;
 
-  private static final Log LOG = LogFactory.getLog(WeblogicWorkaroundServlet.class);
+  private static final Logger LOG = LoggerFactory.getLogger(WeblogicWorkaroundServlet.class);
 
   public void init() throws ServletException {
     if (LOG.isDebugEnabled()) {

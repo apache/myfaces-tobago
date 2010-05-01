@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.webapp;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.config.TobagoConfigParser;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
@@ -29,8 +29,8 @@ import javax.servlet.ServletContextListener;
 
 public class TobagoServletContextListener implements ServletContextListener {
 
-  private static final Log LOG
-      = LogFactory.getLog(TobagoServletContextListener.class);
+  private static final Logger LOG
+      = LoggerFactory.getLogger(TobagoServletContextListener.class);
 
   public void contextInitialized(ServletContextEvent event) {
 
@@ -60,9 +60,9 @@ public class TobagoServletContextListener implements ServletContextListener {
       tobagoConfig.resolveThemes();
       tobagoConfig.initProjectState(servletContext);
     } catch (Throwable e) {
-      if (LOG.isFatalEnabled()) {
+      if (LOG.isErrorEnabled()) {
         String error = "Error while deploy process. Tobago can't be initialized! Application will not run!";
-        LOG.fatal(error, e);
+        LOG.error(error, e);
         throw new RuntimeException(error, e);
       }
     }
@@ -80,7 +80,7 @@ public class TobagoServletContextListener implements ServletContextListener {
 
     ResourceManagerFactory.release(servletContext);
 
-    LogFactory.releaseAll();
+    //LogFactory.releaseAll();
 //    LogManager.shutdown();
   }
 

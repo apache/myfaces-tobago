@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.model.TreeState;
 
 import javax.faces.event.ActionEvent;
@@ -28,7 +28,7 @@ import java.util.Date;
 
 public class TreeController {
 
-  private static final Log LOG = LogFactory.getLog(TreeController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TreeController.class);
 
   private static final String STRONG = "strong";
 

@@ -17,12 +17,12 @@ package org.apache.myfaces.tobago.example.demo.bestpractice;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TransitionController {
 
-  private static final Log LOG = LogFactory.getLog(TransitionController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TransitionController.class);
 
   public String sleep5s() throws InterruptedException {
     int sleep = 5000;

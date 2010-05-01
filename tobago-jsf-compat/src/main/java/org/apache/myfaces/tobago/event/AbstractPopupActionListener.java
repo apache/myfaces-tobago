@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.event;
  */
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -30,7 +30,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public abstract class AbstractPopupActionListener implements ActionListener {
 
-  private static final Log LOG = LogFactory.getLog(AbstractPopupActionListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractPopupActionListener.class);
 
   public void processAction(ActionEvent actionEvent) throws AbortProcessingException {
     UIComponent popup = getPopup(actionEvent);

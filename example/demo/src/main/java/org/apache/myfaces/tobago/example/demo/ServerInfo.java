@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
@@ -29,7 +29,7 @@ import java.util.Properties;
 
 public class ServerInfo {
 
-  private static final Log LOG = LogFactory.getLog(ServerInfo.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ServerInfo.class);
 
   private String version;
 

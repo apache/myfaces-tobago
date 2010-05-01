@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Hidden {
 
@@ -26,7 +26,7 @@ public class Hidden {
   private String value2 = "value 2";
   private String value3 = "value 3";
 
-  private static final Log LOG = LogFactory.getLog(Hidden.class);
+  private static final Logger LOG = LoggerFactory.getLogger(Hidden.class);
 
   public String getValue1() {
     return value1;

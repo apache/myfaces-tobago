@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.addressbook;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +34,7 @@ import java.util.List;
 @Service("addressDao")
 public class JpaAddressDao implements AddressDao {
 
-  private static final Log LOG = LogFactory.getLog(JpaAddressDao.class);
+  private static final Logger LOG = LoggerFactory.getLogger(JpaAddressDao.class);
 
   @PersistenceContext(unitName = "addressBook")
   private EntityManager entityManager;

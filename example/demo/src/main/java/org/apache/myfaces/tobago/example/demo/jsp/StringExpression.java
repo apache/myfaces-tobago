@@ -23,8 +23,8 @@ package org.apache.myfaces.tobago.example.demo.jsp;
  */
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.Enumeration;
@@ -34,7 +34,7 @@ import java.util.Vector;
 
 public class StringExpression implements Serializable {
 
-  private static final Log LOG = LogFactory.getLog(StringExpression.class);
+  private static final Logger LOG = LoggerFactory.getLogger(StringExpression.class);
 
   private static final long serialVersionUID = -152894508593519474L;
 

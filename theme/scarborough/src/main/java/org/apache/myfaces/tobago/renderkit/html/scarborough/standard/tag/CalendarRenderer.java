@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICalendar;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -45,7 +45,7 @@ import java.util.Locale;
 
 public class CalendarRenderer extends LayoutComponentRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(CalendarRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(CalendarRenderer.class);
 
   private static final String[] SCRIPTS = {
         "script/calendar.js",

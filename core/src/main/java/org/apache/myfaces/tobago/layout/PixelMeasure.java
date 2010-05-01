@@ -17,15 +17,15 @@ package org.apache.myfaces.tobago.layout;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /*
  * Date: 23.01.2008 20:21:08
  */
 public final class PixelMeasure extends Measure {
 
-  private static final Log LOG = LogFactory.getLog(PixelMeasure.class);
+  private static final Logger LOG = LoggerFactory.getLogger(PixelMeasure.class);
 
   static final Measure[] PIXEL_CACHE;
   static final int PIXEL_CACHE_MAX = 4000;

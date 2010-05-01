@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.layout;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.layout.Measure;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import java.util.List;
 
 public class IntervalList extends ArrayList<Interval> {
 
-  private static final Log LOG = LogFactory.getLog(IntervalList.class);
+  private static final Logger LOG = LoggerFactory.getLogger(IntervalList.class);
 
   private Measure minimum;
   private Measure current;

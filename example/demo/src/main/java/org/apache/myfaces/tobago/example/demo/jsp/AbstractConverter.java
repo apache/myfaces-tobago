@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.example.demo.jsp;
  * $Id$
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.oro.text.perl.Perl5Util;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.MatchResult;
@@ -34,7 +34,7 @@ import org.apache.oro.text.regex.Perl5Matcher;
 
 public abstract class AbstractConverter implements Converter {
 
-  private static final Log LOG = LogFactory.getLog(AbstractConverter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractConverter.class);
 
   private Pattern pattern;
 

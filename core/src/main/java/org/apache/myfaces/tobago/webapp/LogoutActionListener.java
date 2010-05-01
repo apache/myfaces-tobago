@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.webapp;
  * $Id$
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
@@ -36,7 +36,7 @@ import java.io.IOException;
 
 public class LogoutActionListener implements ActionListener {
 
-  private static final Log LOG = LogFactory.getLog(LogoutActionListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(LogoutActionListener.class);
 
   public void processAction(ActionEvent event) throws AbortProcessingException {
     FacesContext facesContext = FacesContext.getCurrentInstance();

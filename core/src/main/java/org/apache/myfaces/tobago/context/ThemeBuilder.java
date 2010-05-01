@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -31,14 +31,14 @@ import java.util.Collections;
  */
 class ThemeBuilder {
 
-  private static final Log LOG = LogFactory.getLog(ThemeBuilder.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ThemeBuilder.class);
 
   private List<ThemeImpl> availableThemes = new ArrayList<ThemeImpl>();
 
   public Map<String, Theme> resolveThemes(RenderersConfig renderersConfig) {
     Map<String, ThemeImpl> map = new HashMap<String, ThemeImpl>();
     for (ThemeImpl theme : availableThemes) {
-      LOG.debug("theme from tobago-theme.xml files:" + theme.getName());
+      LOG.debug("theme from tobago-theme.xml files: {} ", theme.getName());
       map.put(theme.getName(), theme);
     }
     for (ThemeImpl theme : availableThemes) {

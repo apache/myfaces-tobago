@@ -18,13 +18,12 @@ package org.apache.myfaces.tobago.util;
  */
 
 import org.apache.avalon.framework.logger.Logger;
-import org.apache.commons.logging.Log;
 
-public class CommonsLoggingLogger implements Logger {
+public class Slf4jLogger implements Logger {
 
-  private Log log;
+  private org.slf4j.Logger log;
 
-  public CommonsLoggingLogger(Log log) {
+  public Slf4jLogger(org.slf4j.Logger log) {
     this.log = log;
   }
 
@@ -77,15 +76,15 @@ public class CommonsLoggingLogger implements Logger {
   }
 
   public void fatalError(String reference) {
-    log.fatal(reference);
+    log.error(reference);
   }
 
   public void fatalError(String reference, Throwable throwable) {
-    log.fatal(reference, throwable);
+    log.error(reference, throwable);
   }
 
   public boolean isFatalErrorEnabled() {
-    return log.isFatalEnabled();
+    return log.isErrorEnabled();
   }
 
   public Logger getChildLogger(String reference) {

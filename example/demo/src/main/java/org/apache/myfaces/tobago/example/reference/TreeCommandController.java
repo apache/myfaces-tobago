@@ -18,14 +18,14 @@ package org.apache.myfaces.tobago.example.reference;
  */
 
 import org.apache.myfaces.tobago.model.TreeState;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class TreeCommandController {
 
-  private static final Log LOG = LogFactory.getLog(TreeCommandController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TreeCommandController.class);
 
 
   private DefaultMutableTreeNode tree;
@@ -56,7 +56,7 @@ public class TreeCommandController {
   }
 
   public String command() {
-    LOG.info(state.getMarker());
+    LOG.info("{}", state.getMarker());
     return null;
   }
 

@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.example.demo.bestpractice;
  */
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +32,7 @@ import java.util.List;
 
 public class BestPracticeController {
 
-  private static final Log LOG = LogFactory.getLog(BestPracticeController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(BestPracticeController.class);
 
   private List<Bird> birds = new ArrayList<Bird>(Arrays.asList(
       new Bird("Amsel", 25),

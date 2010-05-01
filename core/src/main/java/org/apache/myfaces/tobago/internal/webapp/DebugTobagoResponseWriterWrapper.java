@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.internal.webapp;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -35,7 +35,7 @@ public class DebugTobagoResponseWriterWrapper extends TobagoResponseWriter {
 
   private Stack<String> stack = new Stack<String>();
 
-  private static final Log LOG = LogFactory.getLog(DebugTobagoResponseWriterWrapper.class);
+  private static final Logger LOG = LoggerFactory.getLogger(DebugTobagoResponseWriterWrapper.class);
 
   private final TobagoResponseWriter responseWriter;
 

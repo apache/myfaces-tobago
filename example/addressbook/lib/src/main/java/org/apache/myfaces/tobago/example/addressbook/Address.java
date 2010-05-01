@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.addressbook;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -40,7 +40,7 @@ import java.util.Locale;
 @Entity
 public class Address implements Serializable {
   private static final long serialVersionUID = 1833416321633117657L;
-  private static final Log LOG = LogFactory.getLog(Address.class);
+  private static final Logger LOG = LoggerFactory.getLogger(Address.class);
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;

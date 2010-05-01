@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.util.ComponentFindUtils;
 
 import javax.faces.component.StateHolder;
@@ -30,7 +30,7 @@ import javax.faces.event.ActionEvent;
 
 public class ValueBindingPopupActionListener extends AbstractPopupActionListener implements StateHolder {
 
-  private static final Log LOG = LogFactory.getLog(ValueBindingPopupActionListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ValueBindingPopupActionListener.class);
 
   private ValueBinding popupIdBinding;
 

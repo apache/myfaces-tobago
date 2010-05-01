@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.example.addressbook.web;
  */
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.example.addressbook.Address;
 import org.apache.myfaces.tobago.example.addressbook.Picture;
 import org.apache.myfaces.tobago.servlet.NonFacesRequestServlet;
@@ -32,7 +32,7 @@ import java.io.IOException;
 
 
 public class PictureServlet extends NonFacesRequestServlet {
-  private static final Log LOG = LogFactory.getLog(PictureServlet.class);
+  private static final Logger LOG = LoggerFactory.getLogger(PictureServlet.class);
 
   public String invokeApplication(FacesContext facesContext) {
     Controller controller = (Controller) VariableResolverUtils.resolveVariable(facesContext, "controller");

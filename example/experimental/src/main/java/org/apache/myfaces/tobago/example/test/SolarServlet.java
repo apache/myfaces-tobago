@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.servlet.NonFacesRequestServlet;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
@@ -26,7 +26,7 @@ import javax.faces.context.FacesContext;
 
 public class SolarServlet extends NonFacesRequestServlet {
 
-  private static final Log LOG = LogFactory.getLog(SolarServlet.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SolarServlet.class);
 
   public String invokeApplication(FacesContext facesContext) {
 

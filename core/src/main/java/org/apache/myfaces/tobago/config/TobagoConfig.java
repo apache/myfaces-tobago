@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.config;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.application.ProjectStage;
 import org.apache.myfaces.tobago.context.RenderersConfig;
 import org.apache.myfaces.tobago.context.Theme;
@@ -37,7 +37,7 @@ import java.util.Map;
 
 public class TobagoConfig {
 
-  private static final Log LOG = LogFactory.getLog(TobagoConfig.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoConfig.class);
 
   public static final String TOBAGO_CONFIG = "org.apache.myfaces.tobago.config.TobagoConfig";
 
@@ -65,8 +65,8 @@ public class TobagoConfig {
       defaultTheme = availableTheme.get(defaultThemeName);
       checkThemeIsAvailable(defaultThemeName, defaultTheme);
       if (LOG.isDebugEnabled()) {
-        LOG.debug("name = '" + defaultThemeName + "'");
-        LOG.debug("defaultTheme = '" + defaultTheme + "'");
+        LOG.debug("name = '{}'", defaultThemeName);
+        LOG.debug("defaultTheme = '{}'", defaultTheme);
       }
     } else {
       int deep = 0;
@@ -85,7 +85,7 @@ public class TobagoConfig {
         throw new RuntimeException(error);
       } else {
         if (LOG.isInfoEnabled()) {
-          LOG.info("Using default Theme " + defaultTheme.getName());
+          LOG.info("Using default Theme {}", defaultTheme.getName());
         }
       }
     }
@@ -95,8 +95,8 @@ public class TobagoConfig {
         checkThemeIsAvailable(name, theme);
         supportedThemes.add(theme);
         if (LOG.isDebugEnabled()) {
-          LOG.debug("name = '" + name + "'");
-          LOG.debug("supportedThemes.last() = '" + supportedThemes.get(supportedThemes.size() - 1) + "'");
+          LOG.debug("name = '{}'",  name );
+          LOG.debug("supportedThemes.last() = '{}'", supportedThemes.get(supportedThemes.size() - 1));
         }
       }
     }
@@ -130,8 +130,7 @@ public class TobagoConfig {
         return theme;
       }
     }
-    LOG.debug("searching theme '" + name + "' not found. "
-        + "Using default: " + defaultTheme);
+    LOG.debug("searching theme '{}' not found. Using default: {}", name, defaultTheme);
     return defaultTheme;
   }
 
@@ -146,7 +145,7 @@ public class TobagoConfig {
   public void addResourceDir(String resourceDir) {
     if (!resourceDirs.contains(resourceDir)) {
       if (LOG.isInfoEnabled()) {
-        LOG.info("adding resourceDir = '" + resourceDir + "'");
+        LOG.info("adding resourceDir = '{}'", resourceDir);
       }
       resourceDirs.add(resourceDir);
     }
@@ -198,8 +197,8 @@ public class TobagoConfig {
         if (obj instanceof String) {
           stageName = (String) obj;
         } else {
-          LOG.warn("JNDI lookup for key " + ProjectStage.PROJECT_STAGE_JNDI_NAME
-              + " should return a java.lang.String value");
+          LOG.warn("JNDI lookup for key {} should return a java.lang.String value",
+              ProjectStage.PROJECT_STAGE_JNDI_NAME);
         }
       }
     } catch (NamingException e) {
@@ -223,7 +222,7 @@ public class TobagoConfig {
     }
     if (projectStage == null) {
       if (LOG.isInfoEnabled()) {
-        LOG.info("Couldn't discover the current project stage, using " + ProjectStage.Production);
+        LOG.info("Couldn't discover the current project stage, using {}", ProjectStage.Production);
       }
       projectStage = ProjectStage.Production;
     }

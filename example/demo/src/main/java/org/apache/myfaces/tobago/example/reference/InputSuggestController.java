@@ -26,12 +26,12 @@ import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class InputSuggestController {
 
-  private static final Log LOG = LogFactory.getLog(InputSuggestController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(InputSuggestController.class);
 
   private String simpleValue;
   private String zipValue;

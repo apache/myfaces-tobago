@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.config;
 
 import org.apache.commons.digester.Digester;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.context.MarkupConfig;
 import org.apache.myfaces.tobago.context.RendererConfig;
 import org.apache.myfaces.tobago.context.RenderersConfigImpl;
@@ -34,7 +34,7 @@ import java.net.URL;
 
 public class TobagoConfigParser {
 
-  private static final Log LOG = LogFactory.getLog(TobagoConfigParser.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoConfigParser.class);
 
   private static final String TOBAGO_CONFIG_DTD = "/org/apache/myfaces/tobago/config/tobago-config_1_0.dtd";
 
@@ -92,7 +92,7 @@ public class TobagoConfigParser {
   private void registerDtd(Digester digester) {
     URL url = TobagoConfigParser.class.getResource(TOBAGO_CONFIG_DTD);
     if (LOG.isDebugEnabled()) {
-      LOG.debug("Registering dtd: url=" + url);
+      LOG.debug("Registering dtd: url={}", url);
     }
     if (null != url) {
       digester.register("-//Atanion GmbH//DTD Tobago Config 1.0//EN", url.toString());

@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.internal.layout.Cell;
 import org.apache.myfaces.tobago.internal.layout.Grid;
@@ -42,7 +42,7 @@ import java.util.List;
 public abstract class AbstractUIEquationGridLayout extends UILayout 
     implements EquationLayoutManager, Configurable {
 
-  private static final Log LOG = LogFactory.getLog(AbstractUIEquationGridLayout.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIEquationGridLayout.class);
 
   private Grid grid;
 

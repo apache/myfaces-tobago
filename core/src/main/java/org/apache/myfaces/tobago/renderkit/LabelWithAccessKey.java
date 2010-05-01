@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.renderkit;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.RendererTypes;
 
@@ -28,7 +28,7 @@ import java.util.Locale;
 
 public final class LabelWithAccessKey {
 
-  private static final Log LOG = LogFactory.getLog(LabelWithAccessKey.class);
+  private static final Logger LOG = LoggerFactory.getLogger(LabelWithAccessKey.class);
 
   private String text;
   private Character accessKey;

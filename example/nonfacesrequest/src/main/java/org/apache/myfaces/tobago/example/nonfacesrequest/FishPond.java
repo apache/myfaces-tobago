@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.nonfacesrequest;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -26,7 +26,7 @@ import java.util.Random;
 
 public class FishPond {
 
-  private static final Log LOG = LogFactory.getLog(FishPond.class);
+  private static final Logger LOG = LoggerFactory.getLogger(FishPond.class);
 
   private Map<String, String> fishes;
 

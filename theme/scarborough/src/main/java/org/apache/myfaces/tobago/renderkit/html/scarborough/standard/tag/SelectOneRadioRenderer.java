@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
@@ -43,7 +43,7 @@ import java.util.List;
 
 public class SelectOneRadioRenderer extends SelectOneRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(SelectOneRadioRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SelectOneRadioRenderer.class);
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);

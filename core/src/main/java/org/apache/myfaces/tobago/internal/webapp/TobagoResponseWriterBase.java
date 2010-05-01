@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.webapp;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -34,7 +34,7 @@ import java.util.Set;
 
 public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
 
-  private static final Log LOG = LogFactory.getLog(TobagoResponseWriterBase.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoResponseWriterBase.class);
 
   protected static final Set<String> EMPTY_TAG = new HashSet<String>(Arrays.asList(
       HtmlConstants.BR,

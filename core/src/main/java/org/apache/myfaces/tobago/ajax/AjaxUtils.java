@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.ajax;
  */
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 
 import javax.faces.component.UIComponent;
@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class AjaxUtils {
 
-  private static final Log LOG = LogFactory.getLog(AjaxUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AjaxUtils.class);
 
   public static boolean isAjaxRequest(FacesContext facesContext) {
     return facesContext.getExternalContext().getRequestMap().containsKey(AjaxInternalUtils.AJAX_COMPONENTS);

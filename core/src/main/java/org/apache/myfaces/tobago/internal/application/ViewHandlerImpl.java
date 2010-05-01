@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.application;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
 import org.apache.myfaces.tobago.util.RequestUtils;
@@ -32,7 +32,7 @@ import java.util.Locale;
 
 public class ViewHandlerImpl extends ViewHandler {
 
-  private static final Log LOG = LogFactory.getLog(ViewHandlerImpl.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ViewHandlerImpl.class);
 
   private ViewHandler base;
 
@@ -53,7 +53,7 @@ public class ViewHandlerImpl extends ViewHandler {
 
   public UIViewRoot createView(FacesContext facesContext, String viewId) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("creating new view with viewId:        '" + viewId + "'");
+      LOG.debug("creating new view with viewId:        '{}'", viewId);
     }
     UIViewRoot viewRoot = base.createView(facesContext, viewId);
     // ensure tobago UIViewRoot RI don't create the component via application
@@ -98,7 +98,7 @@ public class ViewHandlerImpl extends ViewHandler {
 
   public UIViewRoot restoreView(FacesContext facesContext, String viewId) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("restore view with viewId:             '" + viewId + "'");
+      LOG.debug("restore view with viewId:             '{}'", viewId);
     }
     // this is only needed in the first request, the later will be handled by faces
     // TODO: maybe find a way to make this unneeded

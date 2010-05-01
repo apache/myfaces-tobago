@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.internal.taglib;
  */
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
@@ -45,7 +45,7 @@ import java.lang.reflect.InvocationTargetException;
 
 
 public class TagUtils {
-  private static final Log LOG = LogFactory.getLog(TagUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TagUtils.class);
 
   public static void setIntegerProperty(UIComponent component, String name, String value) {
     if (value != null) {

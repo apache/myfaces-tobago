@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.bean;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,7 +30,7 @@ import java.util.Properties;
 @Deprecated
 public class ResourceMap extends Properties {
 
-  private static final Log LOG = LogFactory.getLog(ResourceMap.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ResourceMap.class);
   private static final long serialVersionUID = -6696019120255349519L;
 
   public ResourceMap() {
@@ -55,7 +55,7 @@ public class ResourceMap extends Properties {
     if (LOG.isDebugEnabled()) {
       LOG.debug("size() = \"" + size() + "\"");
       for (Object x : keySet()) {
-        LOG.debug(x);
+        LOG.debug("{}", x);
       }
     }
   }

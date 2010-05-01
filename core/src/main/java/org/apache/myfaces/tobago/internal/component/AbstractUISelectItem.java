@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -28,7 +28,7 @@ import javax.faces.context.FacesContext;
 
 public class AbstractUISelectItem extends UISelectItem implements OnComponentPopulated {
 
-  private static final Log LOG = LogFactory.getLog(AbstractUISelectItem.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUISelectItem.class);
 
   private boolean itemValueLiteral;
 

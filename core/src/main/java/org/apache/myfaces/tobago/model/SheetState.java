@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.commons.lang.StringUtils;
 
 import org.apache.myfaces.tobago.event.SortActionEvent;
@@ -31,7 +31,7 @@ import java.util.List;
 // TODO find a better solution for this
 public class SheetState implements Serializable {
   private static final long serialVersionUID = 7765536344426661777L;
-  private static final Log LOG = LogFactory.getLog(SheetState.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SheetState.class);
   public static final String SEPARATOR = ",";
 
   private int first = -1;

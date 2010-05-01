@@ -17,12 +17,12 @@ package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class GridLayoutRenderer extends FoRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(GridLayoutRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(GridLayoutRenderer.class);
 
   public boolean getRendersChildren() {
     return false;

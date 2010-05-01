@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.taglib.extension;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -37,7 +37,7 @@ import javax.servlet.jsp.JspException;
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.LabelTag")
 public class LabelExtensionTag extends TobagoExtensionBodyTagSupport {
 
-  private static final Log LOG = LogFactory.getLog(LabelExtensionTag.class);
+  private static final Logger LOG = LoggerFactory.getLogger(LabelExtensionTag.class);
 
   public static final String DEFAULT_COLUMNS = "fixed;*";
 

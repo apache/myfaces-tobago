@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
@@ -52,7 +52,7 @@ import java.util.TimeZone;
 
 public class DatePickerRenderer extends LinkRenderer {
 
-  private static final Log LOG = LogFactory.getLog(DatePickerRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(DatePickerRenderer.class);
 
   @Override
   public void onComponentCreated(FacesContext facesContext, UIComponent component, UIComponent parent) {

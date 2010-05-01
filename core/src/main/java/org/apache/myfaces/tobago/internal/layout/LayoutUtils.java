@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.layout;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.Form;
@@ -37,7 +37,7 @@ import java.util.regex.Pattern;
 
 public final class LayoutUtils {
 
-  private static final Log LOG = LogFactory.getLog(LayoutUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(LayoutUtils.class);
 
   private static final Pattern TOKEN_PATTERN = Pattern.compile("^(\\d*px|\\d*\\*|\\d*%|fixed)$");
 

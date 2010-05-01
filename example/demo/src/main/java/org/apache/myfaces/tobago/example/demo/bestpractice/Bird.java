@@ -17,15 +17,15 @@ package org.apache.myfaces.tobago.example.demo.bestpractice;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.context.FacesContext;
 
 public class Bird {
 
-  private static final Log LOG = LogFactory.getLog(Bird.class);
+  private static final Logger LOG = LoggerFactory.getLogger(Bird.class);
 
   private String name;
   private int size;

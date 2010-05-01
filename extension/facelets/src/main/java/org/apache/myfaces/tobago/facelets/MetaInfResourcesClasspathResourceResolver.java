@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.facelets;
  */
 
 import com.sun.facelets.impl.DefaultResourceResolver;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 
@@ -42,7 +42,7 @@ import java.net.URL;
  */
 public class MetaInfResourcesClasspathResourceResolver extends DefaultResourceResolver {
 
-  private static final Log LOG = LogFactory.getLog(MetaInfResourcesClasspathResourceResolver.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MetaInfResourcesClasspathResourceResolver.class);
 
   public MetaInfResourcesClasspathResourceResolver() {
     if (LOG.isDebugEnabled()) {

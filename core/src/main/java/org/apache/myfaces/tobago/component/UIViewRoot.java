@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
@@ -51,7 +51,7 @@ import java.util.Map;
 
 public class UIViewRoot extends javax.faces.component.UIViewRoot implements InvokeOnComponent {
 
-  private static final Log LOG = LogFactory.getLog(UIViewRoot.class);
+  private static final Logger LOG = LoggerFactory.getLogger(UIViewRoot.class);
 
   private static final TobagoCallback APPLY_REQUEST_VALUES_CALLBACK = new ApplyRequestValuesCallback();
   private static final ContextCallback PROCESS_VALIDATION_CALLBACK = new ProcessValidationsCallback();

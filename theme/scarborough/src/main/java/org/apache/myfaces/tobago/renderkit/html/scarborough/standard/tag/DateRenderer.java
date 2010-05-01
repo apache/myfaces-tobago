@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -35,7 +35,7 @@ import java.util.Arrays;
 
 public class DateRenderer extends InRenderer {
 
-  private static final Log LOG = LogFactory.getLog(DateRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(DateRenderer.class);
 
   private static final String[] SCRIPTS = {
       "script/dateConverter.js",

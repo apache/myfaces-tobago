@@ -25,8 +25,8 @@ package org.apache.myfaces.tobago.example.demo.clientConfig;
 import org.apache.commons.collections.KeyValue;
 import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.layout.LayoutBase;
@@ -48,7 +48,7 @@ import java.util.Set;
 public class ThemeConfigViewController {
 
 
-  private static final Log LOG = LogFactory.getLog(ThemeConfigViewController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ThemeConfigViewController.class);
 
   private static final String PROPERTY_FILE_PREFIX = "tobago/html/";
 

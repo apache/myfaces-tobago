@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.renderkit.html.util;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UICommand;
@@ -59,7 +59,7 @@ import java.util.Map;
 @Deprecated
 public final class HtmlRendererUtil {
 
-  private static final Log LOG = LogFactory.getLog(HtmlRendererUtil.class);
+  private static final Logger LOG = LoggerFactory.getLogger(HtmlRendererUtil.class);
   private static final String ERROR_FOCUS_KEY = HtmlRendererUtil.class.getName() + ".ErrorFocusId";
 
   private HtmlRendererUtil() {

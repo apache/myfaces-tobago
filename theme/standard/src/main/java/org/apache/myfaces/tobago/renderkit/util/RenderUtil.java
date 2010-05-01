@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.util;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -46,7 +46,7 @@ import java.util.Map;
 
 public class RenderUtil {
 
-  private static final Log LOG = LogFactory.getLog(RenderUtil.class);
+  private static final Logger LOG = LoggerFactory.getLogger(RenderUtil.class);
 
   public static final String COMPONENT_IN_REQUEST = "org.apache.myfaces.tobago.component";
 

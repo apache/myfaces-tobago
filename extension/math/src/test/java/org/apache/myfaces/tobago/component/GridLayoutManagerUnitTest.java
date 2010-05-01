@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.layout.EquationLayoutContext;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.MockComponent;
@@ -30,7 +30,7 @@ import java.util.Arrays;
 
 public class GridLayoutManagerUnitTest {
 
-  private static final Log LOG = LogFactory.getLog(GridLayoutManagerUnitTest.class);
+  private static final Logger LOG = LoggerFactory.getLogger(GridLayoutManagerUnitTest.class);
 
   /**
    * <pre>

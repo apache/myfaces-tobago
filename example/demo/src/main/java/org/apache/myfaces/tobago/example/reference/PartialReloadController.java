@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.reference;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.example.demo.Navigation;
 
@@ -28,7 +28,7 @@ import java.util.Date;
 
 public class PartialReloadController {
 
-  private static final Log LOG = LogFactory.getLog(PartialReloadController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(PartialReloadController.class);
 
   private String navigateAction;
 

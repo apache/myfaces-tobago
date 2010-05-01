@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.example.addressbook.web;
  * $Id$
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.example.addressbook.EmailAddress;
 
 import javax.faces.component.UIComponent;
@@ -33,7 +33,7 @@ import javax.faces.convert.ConverterException;
 
 public class EmailAddressConverter implements Converter {
 
-  private static final Log LOG = LogFactory.getLog(EmailAddressConverter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(EmailAddressConverter.class);
 
   public Object getAsObject(
       FacesContext facesContext, UIComponent component, String reference) {

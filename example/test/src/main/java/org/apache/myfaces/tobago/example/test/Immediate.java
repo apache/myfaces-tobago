@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -37,7 +37,7 @@ public class Immediate {
         new SelectItem(4, "Four"),
     };
 
-  private static final Log LOG = LogFactory.getLog(Immediate.class);
+  private static final Logger LOG = LoggerFactory.getLogger(Immediate.class);
 
   public String test() {
     FacesContext facesContext = FacesContext.getCurrentInstance();

@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.lifecycle;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.portlet.PortletUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -46,7 +46,7 @@ import java.util.Map;
  */
 class RestoreViewExecutor implements PhaseExecutor {
 
-  private static final Log LOG = LogFactory.getLog(RestoreViewExecutor.class);
+  private static final Logger LOG = LoggerFactory.getLogger(RestoreViewExecutor.class);
 
   public boolean execute(FacesContext facesContext) {
     ExternalContext externalContext = facesContext.getExternalContext();

@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.context;
  */
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.util.XmlUtils;
 import org.xml.sax.SAXException;
 
@@ -46,7 +46,7 @@ import java.util.zip.ZipInputStream;
  */
 class ResourceLocator {
 
-  private static final Log LOG = LogFactory.getLog(ResourceLocator.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ResourceLocator.class);
 
   private static final String META_INF_TOBAGO_THEME_XML = "META-INF/tobago-theme.xml";
   private static final String META_INF_RESOURCES = "META-INF/resources";
@@ -84,7 +84,7 @@ class ResourceLocator {
     Set<String> resourcePaths = servletContext.getResourcePaths(path);
     if (resourcePaths == null || resourcePaths.isEmpty()) {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("Skipping empty resource path: path='" + path + "'");
+        LOG.debug("Skipping empty resource path: path='{}'", path);
       }
       return;
     }
@@ -93,7 +93,7 @@ class ResourceLocator {
         // ignore, because weblogic puts the path directory itself in the Set
         if (!childPath.equals(path)) {
           if (LOG.isDebugEnabled()) {
-            LOG.debug("childPath dir " + childPath);
+            LOG.debug("childPath dir {}", childPath);
           }
           locateResourcesInWar(servletContext, resources, childPath);
         }
@@ -344,13 +344,13 @@ class ResourceLocator {
         XmlUtils.load(temp, stream);
         if (LOG.isDebugEnabled()) {
           LOG.debug(childPath);
-          LOG.debug("xml properties: " + temp.size());
+          LOG.debug("xml properties: {}", temp.size());
         }
       } else {
         temp.load(stream);
         if (LOG.isDebugEnabled()) {
           LOG.debug(childPath);
-          LOG.debug("    properties: " + temp.size());
+          LOG.debug("    properties: {}", temp.size());
         }
       }
     } catch (IOException e) {

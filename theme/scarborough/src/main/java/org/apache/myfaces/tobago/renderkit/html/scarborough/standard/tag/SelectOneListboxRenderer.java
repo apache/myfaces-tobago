@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectOneListbox;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
@@ -38,7 +38,7 @@ import java.util.List;
 
 public class SelectOneListboxRenderer extends SelectOneRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(SelectOneListboxRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SelectOneListboxRenderer.class);
 
   public boolean getRendersChildren() {
     return true;

@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -27,7 +27,7 @@ import java.util.Set;
 
 public class Filter {
 
-  private static final Log LOG = LogFactory.getLog(Filter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(Filter.class);
 
   public static final List<String> ALLOWED = Arrays.asList(
       ".*\\/",

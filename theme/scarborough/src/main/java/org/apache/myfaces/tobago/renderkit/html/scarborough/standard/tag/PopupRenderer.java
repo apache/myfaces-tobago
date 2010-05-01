@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
@@ -38,7 +38,7 @@ import java.text.DecimalFormat;
 
 public class PopupRenderer extends LayoutComponentRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(PopupRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(PopupRenderer.class);
 
   @Override
   public boolean getRendersChildren() {

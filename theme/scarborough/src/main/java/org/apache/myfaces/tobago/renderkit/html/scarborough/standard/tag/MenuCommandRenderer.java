@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -52,7 +52,7 @@ import java.util.List;
  */
 public class MenuCommandRenderer extends CommandRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(MenuCommandRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MenuCommandRenderer.class);
 
   private static final String MENU_ACCELERATOR_KEYS = "menuAcceleratorKeys";
 

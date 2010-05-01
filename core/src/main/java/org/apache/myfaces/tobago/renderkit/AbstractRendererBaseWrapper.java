@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.config.ThemeConfig;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 
@@ -31,7 +31,7 @@ import java.io.IOException;
 
 public abstract class AbstractRendererBaseWrapper extends RendererBase {
   
-  private static final Log LOG = LogFactory.getLog(AbstractRendererBaseWrapper.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractRendererBaseWrapper.class);
 
   @Override
   public final void onComponentCreated(FacesContext facesContext, UIComponent component, UIComponent parent) {

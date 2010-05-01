@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.reference;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
@@ -30,7 +30,7 @@ import javax.faces.component.UIComponent;
  */
 public class OnOffConverter implements Converter {
 
-  private static final Log LOG = LogFactory.getLog(OnOffConverter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(OnOffConverter.class);
 
   public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
     LOG.info("getAsObject" + value);

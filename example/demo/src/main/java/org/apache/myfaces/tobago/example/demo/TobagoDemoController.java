@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -50,7 +50,7 @@ import java.util.List;
 
 public class TobagoDemoController {
 
-  private static final Log LOG = LogFactory.getLog(TobagoDemoController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoDemoController.class);
 
   private String[] salutation;
 

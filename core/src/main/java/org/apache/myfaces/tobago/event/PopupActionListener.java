@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
@@ -32,7 +32,7 @@ import javax.faces.event.ActionEvent;
  */
 public class PopupActionListener extends AbstractPopupActionListener implements StateHolder {
 
-  private static final Log LOG = LogFactory.getLog(PopupActionListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(PopupActionListener.class);
 
   private String popupId;
 
@@ -42,7 +42,7 @@ public class PopupActionListener extends AbstractPopupActionListener implements 
   public PopupActionListener(String popupId) {
     this.popupId = popupId;
     if (LOG.isDebugEnabled()) {
-      LOG.debug("Add ActionListener: " + popupId);
+      LOG.debug("Add ActionListener: {}", popupId);
     }
   }
 
@@ -51,9 +51,8 @@ public class PopupActionListener extends AbstractPopupActionListener implements 
     FacesContext facesContext = FacesContext.getCurrentInstance();
     AbstractUIPopup popup = (AbstractUIPopup) ComponentUtils.findComponent(actionEvent.getComponent(), popupId);
     if (popup == null) {
-      LOG.error("Found no popup for \""
-          + popupId + "\"! Search base componentId : "
-          + actionEvent.getComponent().getClientId(facesContext));
+      LOG.error("Found no popup for \"{}\"! Search base componentId : {}"
+          + popupId, actionEvent.getComponent().getClientId(facesContext));
     }
     return popup;
   }

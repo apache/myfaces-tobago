@@ -17,13 +17,13 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.model.Wizard;
 
 public class FilterController {
 
-  private static final Log LOG = LogFactory.getLog(FilterController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(FilterController.class);
 
   private Wizard wizard;
   

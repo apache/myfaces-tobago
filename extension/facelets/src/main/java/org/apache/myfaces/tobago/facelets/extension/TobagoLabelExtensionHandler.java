@@ -24,8 +24,8 @@ import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.InputSuggest;
@@ -55,7 +55,7 @@ import java.util.List;
  * Time: 6:14:34 PM
  */
 public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
-  private static final Log LOG = LogFactory.getLog(TobagoLabelExtensionHandler.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoLabelExtensionHandler.class);
   private static final String DEFAULT_COLUMNS = "fixed;*";
   private TagAttribute labelWidthAttribute;
   private TagAttribute tipAttribute;

@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.internal.component;
  */
 
 import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.TreeModelBuilder;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.model.Node;
@@ -41,7 +41,7 @@ import java.util.Map;
 public abstract class AbstractUITreeData extends javax.faces.component.UIInput
     implements NamingContainer, TreeModelBuilder {
 
-  private static final Log LOG = LogFactory.getLog(AbstractUITreeData.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUITreeData.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TreeData";
 

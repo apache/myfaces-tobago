@@ -21,8 +21,8 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 
 import javax.faces.FacesException;
@@ -39,8 +39,8 @@ import java.util.Map;
 
 public class TobagoMultipartFormdataRequest extends HttpServletRequestWrapper {
 
-  private static final Log LOG
-      = LogFactory.getLog(TobagoMultipartFormdataRequest.class);
+  private static final Logger LOG
+      = LoggerFactory.getLogger(TobagoMultipartFormdataRequest.class);
 
   public static final long ONE_KB = 1024;
   public static final long ONE_MB = ONE_KB * ONE_KB;

@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 
@@ -31,7 +31,7 @@ import java.io.IOException;
  * $Id:TextAreaRenderer.java 472227 2006-11-07 21:05:00 +0100 (Tue, 07 Nov 2006) bommel $
  */
 public class TextAreaRenderer extends InputRendererBase {
-  private static final Log LOG = LogFactory.getLog(TextAreaRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TextAreaRenderer.class);
 
 
   public boolean getRendersChildren() {

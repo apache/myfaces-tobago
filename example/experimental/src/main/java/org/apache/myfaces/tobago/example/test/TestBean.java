@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.example.test;
  */
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UIColumn;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIMenu;
@@ -50,7 +50,7 @@ import java.util.Map;
  * Time: 11:08:45
  */
 public class TestBean {
-  private static final Log LOG = LogFactory.getLog(TestBean.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TestBean.class);
 
   private ResultSet resultSet = null;
   private Connection connection = null;

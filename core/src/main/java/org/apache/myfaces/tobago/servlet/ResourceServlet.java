@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.servlet;
  */
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 
 import javax.servlet.ServletConfig;
@@ -61,7 +61,7 @@ public class ResourceServlet extends HttpServlet {
 
   private static final long serialVersionUID = -4491419290205206466L;
 
-  private static final Log LOG = LogFactory.getLog(ResourceServlet.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ResourceServlet.class);
 
   private Long expires;
   private int bufferSize;

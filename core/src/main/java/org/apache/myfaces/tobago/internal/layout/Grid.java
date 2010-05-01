@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.layout;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Orientation;
 import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
@@ -29,7 +29,7 @@ import java.util.List;
 
 public class Grid {
 
-  private static final Log LOG = LogFactory.getLog(Grid.class);
+  private static final Logger LOG = LoggerFactory.getLogger(Grid.class);
 
   // TODO: check if it is faster with arrays.
   /**

@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.portlet.PortletUtils;
 
 import javax.faces.context.FacesContext;
@@ -31,7 +31,7 @@ import java.io.UnsupportedEncodingException;
  */
 public class RequestUtils {
 
-  private static final Log LOG = LogFactory.getLog(RequestUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(RequestUtils.class);
 
   public static void ensureEncoding(FacesContext facesContext) {
     Object requestObject = facesContext.getExternalContext().getRequest();

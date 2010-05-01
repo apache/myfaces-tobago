@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.internal.taglib;
  * $Id$
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyContent;
@@ -31,7 +31,7 @@ import javax.servlet.jsp.tagext.BodyTag;
 
 public abstract class TobagoBodyTag extends TobagoTag implements BodyTag {
 
-  private static final Log LOG = LogFactory.getLog(TobagoBodyTag.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoBodyTag.class);
 
   private BodyContent bodyContent;
 

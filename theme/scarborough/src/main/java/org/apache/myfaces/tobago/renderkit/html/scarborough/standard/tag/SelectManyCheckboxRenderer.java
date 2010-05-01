@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -42,7 +42,7 @@ import java.util.List;
 
 public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(SelectManyCheckboxRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SelectManyCheckboxRenderer.class);
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     if (!(component instanceof UISelectManyCheckbox)) {

@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ class ThemeImpl implements Theme, Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private static final Log LOG = LogFactory.getLog(ThemeImpl.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ThemeImpl.class);
 
   private String name;
 
@@ -109,7 +109,7 @@ class ThemeImpl implements Theme, Serializable {
     fallbackList = Collections.unmodifiableList(fallbackList);
     if (LOG.isDebugEnabled()) {
       for (Theme theme : fallbackList) {
-        LOG.debug("fallbackList: " + theme.getName());
+        LOG.debug("fallbackList: {}", theme.getName());
       }
     }
   }
@@ -126,7 +126,7 @@ class ThemeImpl implements Theme, Serializable {
         if (fallbackRenderersConfig != null) {
           renderersConfig.merge(fallbackRenderersConfig, false);
           if (LOG.isDebugEnabled()) {
-            LOG.debug("merge markupconfig from " + fallback.getName() + " for " + getName());
+            LOG.debug("merge markupconfig from {} for {}", fallback.getName(), getName());
           }
         }
       }
@@ -135,7 +135,7 @@ class ThemeImpl implements Theme, Serializable {
       }
       renderersConfig.setMerged(true);
       if (LOG.isDebugEnabled()) {
-        LOG.debug(getName() + " " + renderersConfig);
+        LOG.debug("{} {}", getName(), renderersConfig);
       }
     }
   }

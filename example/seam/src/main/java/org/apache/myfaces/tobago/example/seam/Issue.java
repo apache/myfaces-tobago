@@ -19,13 +19,13 @@ package org.apache.myfaces.tobago.example.seam;
 
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.bpm.CreateProcess;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Name("issue")
 public class Issue {
 
-  private static final Log LOG = LogFactory.getLog(Issue.class);
+  private static final Logger LOG = LoggerFactory.getLogger(Issue.class);
 
   private String title;
   private String description;

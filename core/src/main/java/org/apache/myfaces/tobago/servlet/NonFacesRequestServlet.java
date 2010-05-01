@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.servlet;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
@@ -39,7 +39,7 @@ public abstract class NonFacesRequestServlet extends HttpServlet {
 
   private static final long serialVersionUID = -7448621953821447997L;
 
-  private static final Log LOG = LogFactory.getLog(NonFacesRequestServlet.class);
+  private static final Logger LOG = LoggerFactory.getLogger(NonFacesRequestServlet.class);
 
   @Override
   protected void service(HttpServletRequest request, HttpServletResponse response)

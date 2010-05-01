@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
@@ -27,7 +27,7 @@ import javax.faces.context.FacesContext;
 
 public abstract class SelectOneRendererBase extends InputRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(SelectOneRendererBase.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SelectOneRendererBase.class);
 
   public void decode(FacesContext facesContext, UIComponent component) {
     if (ComponentUtils.isOutputOnly(component)) {

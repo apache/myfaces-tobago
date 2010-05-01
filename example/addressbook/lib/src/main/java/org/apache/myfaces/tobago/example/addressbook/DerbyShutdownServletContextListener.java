@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.addressbook;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -31,7 +31,7 @@ import java.sql.DriverManager;
  */
 public class DerbyShutdownServletContextListener implements ServletContextListener {
 
-  private static final Log LOG = LogFactory.getLog(DerbyShutdownServletContextListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(DerbyShutdownServletContextListener.class);
 
   public void contextInitialized(ServletContextEvent servletContextEvent) {
 

@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.internal.component;
  */
 
 import org.apache.commons.collections.KeyValue;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -57,7 +57,7 @@ import java.util.StringTokenizer;
 public abstract class AbstractUIPage extends AbstractUIForm
     implements OnComponentPopulated, InvokeOnComponent, LayoutContainer, DeprecatedDimension {
 
-  private static final Log LOG = LogFactory.getLog(AbstractUIPage.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIPage.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Page";
 
@@ -158,7 +158,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
 
     if (LOG.isTraceEnabled()) {
       LOG.trace(currentActionId);
-      LOG.trace(command);
+      LOG.trace("command:{}", command);
       LOG.trace(DebugUtils.toString(facesContext.getViewRoot(), 0));
     }
 
@@ -167,7 +167,7 @@ public abstract class AbstractUIPage extends AbstractUIForm
       form.setSubmitted(true);
 
       if (LOG.isTraceEnabled()) {
-        LOG.trace(form);
+        LOG.trace("form:{}", form);
         LOG.trace(form.getClientId(facesContext));
       }
     } else {

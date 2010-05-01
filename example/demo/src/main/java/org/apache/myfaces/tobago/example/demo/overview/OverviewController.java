@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.demo.overview;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManager;
@@ -43,7 +43,7 @@ import java.util.List;
 
 public class OverviewController {
 
-  private static final Log LOG = LogFactory.getLog(OverviewController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(OverviewController.class);
 
   private static final String[] TREE_SELECT_MODE_KEYS = {
     "none",

@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.renderkit.html;
  */
 
 import org.apache.commons.collections.set.ListOrderedSet;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.context.Markup;
@@ -40,7 +40,7 @@ public class StyleClasses implements Serializable {
 
   private static final long serialVersionUID = 3738052927067803517L;
 
-  private static final Log LOG = LogFactory.getLog(StyleClasses.class);
+  private static final Logger LOG = LoggerFactory.getLogger(StyleClasses.class);
 
   public static final char SEPARATOR = '-';
   public static final String PREFIX = "tobago" + SEPARATOR;

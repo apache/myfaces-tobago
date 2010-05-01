@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.config.TobagoConfig;
@@ -44,7 +44,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ResourceManagerImpl implements ResourceManager {
 
-  private static final Log LOG = LogFactory.getLog(ResourceManagerImpl.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ResourceManagerImpl.class);
   private static final String PROPERTY = "property";
   private static final String JSP = "jsp";
   private static final String TAG = "tag";
@@ -73,15 +73,14 @@ public class ResourceManagerImpl implements ResourceManager {
 
   public void add(String resourceKey) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("adding resourceKey = '" + resourceKey + "'");
+      LOG.debug("adding resourceKey = '{}'", resourceKey);
     }
     resourceList.put(resourceKey, "");
   }
 
   public void add(String resourceKey, String value) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug(
-          "adding resourceKey = '" + resourceKey + "' value='" + value + "'");
+      LOG.debug("adding resourceKey = '{}' value= '{}'", resourceKey, value);
     }
     resourceList.put(resourceKey, value);
   }
@@ -284,7 +283,7 @@ public class ResourceManagerImpl implements ResourceManager {
       }
       if (LOG.isDebugEnabled()) {
         if (result.getValue() == null) {
-          LOG.debug("Can't find image for \"" + name + "\"");
+          LOG.debug("Can't find image for \"{}\"", name);
         }
       }
 
@@ -367,7 +366,7 @@ public class ResourceManagerImpl implements ResourceManager {
         matches.add(result);
       }
       if (LOG.isTraceEnabled()) {
-        LOG.trace("testing path: " + path + " *"); // match
+        LOG.trace("testing path: {} *", path); // match
       }
 
       if (single) {
@@ -444,7 +443,7 @@ public class ResourceManagerImpl implements ResourceManager {
   private String getRendererClassName(String rendererType) {
     String name;
     if (LOG.isDebugEnabled()) {
-      LOG.debug("rendererType = '" + rendererType + "'");
+      LOG.debug("rendererType = '{}'", rendererType);
     }
     if ("javax.faces.Text".equals(rendererType)) { // TODO: find a better way
       name = RendererTypes.OUT;
@@ -453,9 +452,9 @@ public class ResourceManagerImpl implements ResourceManager {
     }
     name = name + "Renderer";
     if (name.startsWith("javax.faces.")) { // FIXME: this is a hotfix from jsf1.0beta to jsf1.0fr
-      LOG.warn("patching renderer from " + name);
+      LOG.warn("patching renderer from {}", name);
       name = name.substring("javax.faces.".length());
-      LOG.warn("patching renderer to   " + name);
+      LOG.warn("patching renderer to {}", name);
     }
     return name;
   }

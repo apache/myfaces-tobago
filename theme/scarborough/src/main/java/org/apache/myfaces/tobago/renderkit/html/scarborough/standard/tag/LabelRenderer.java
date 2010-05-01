@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
@@ -40,7 +40,7 @@ import java.util.Locale;
 
 public class LabelRenderer extends LayoutComponentRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(LabelRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(LabelRenderer.class);
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 

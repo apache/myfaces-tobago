@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.event.ActionEvent;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import java.util.List;
 
 public class Wizard {
 
-  private static final Log LOG = LogFactory.getLog(Wizard.class);
+  private static final Logger LOG = LoggerFactory.getLogger(Wizard.class);
 
   private int index;
 

@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 
@@ -31,7 +31,7 @@ import java.util.Stack;
  */
 public class MixedTreeModel {
 
-  private static final Log LOG = LogFactory.getLog(MixedTreeModel.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MixedTreeModel.class);
 
   private Node root;
   private Node current;
@@ -40,7 +40,7 @@ public class MixedTreeModel {
 
   public void beginBuildNode(AbstractUITreeNode node) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug(node.getAttributes().get(Attributes.LABEL));
+      LOG.debug("{}", node.getAttributes().get(Attributes.LABEL));
     }
     Node newNode = new Node();
     newNode.setLabel((String) node.getAttributes().get(Attributes.LABEL));
@@ -55,7 +55,7 @@ public class MixedTreeModel {
 
   public void endBuildNode(AbstractUITreeNode node) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug(node.getAttributes().get(Attributes.LABEL));
+      LOG.debug("{}", node.getAttributes().get(Attributes.LABEL));
     }
     current = current.getParent();
   }

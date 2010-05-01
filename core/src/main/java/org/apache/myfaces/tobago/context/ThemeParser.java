@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.context;
 
 import org.apache.commons.digester.Digester;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 import javax.faces.FacesException;
@@ -35,7 +35,7 @@ import java.net.URL;
  */
 class ThemeParser {
 
-  private static final Log LOG = LogFactory.getLog(ThemeParser.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ThemeParser.class);
 
   private Digester digester;
 

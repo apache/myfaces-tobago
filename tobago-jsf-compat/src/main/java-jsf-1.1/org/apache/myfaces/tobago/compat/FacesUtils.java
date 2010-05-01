@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.compat;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.event.ValueBindingPopupActionListener;
 import org.apache.myfaces.tobago.event.ValueBindingTabChangeListener;
@@ -41,7 +41,7 @@ import java.util.Comparator;
 @SuppressWarnings("deprecation")
 public class FacesUtils {
 
-  private static final Log LOG = LogFactory.getLog(FacesUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(FacesUtils.class);
 
   public static final Class[] VALIDATOR_ARGS = {FacesContext.class, UIComponent.class, Object.class};
 

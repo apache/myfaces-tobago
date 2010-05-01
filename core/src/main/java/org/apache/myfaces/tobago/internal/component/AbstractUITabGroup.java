@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ComponentTypes;
@@ -52,7 +52,7 @@ import java.util.List;
 public abstract class AbstractUITabGroup extends UIPanelBase
     implements TabChangeSource, ActionSource, LayoutContainer, LayoutComponent, OnComponentPopulated {
 
-  private static final Log LOG = LogFactory.getLog(AbstractUITabGroup.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUITabGroup.class);
 
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.TabGroup";
 

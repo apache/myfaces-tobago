@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.taglib.extension;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
 import org.apache.myfaces.tobago.apt.annotation.ExtensionTag;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
@@ -169,7 +169,7 @@ public class InExtensionTag extends TobagoExtensionBodyTagSupport {
     return super.doEndTag();
   }
 
-  private static final Log LOG = LogFactory.getLog(InExtensionTag.class);
+  private static final Logger LOG = LoggerFactory.getLogger(InExtensionTag.class);
 
   @Override
   public void release() {

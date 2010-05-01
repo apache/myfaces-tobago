@@ -23,8 +23,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIFileInput;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
@@ -46,7 +46,7 @@ import java.io.IOException;
 
 public class FileRenderer extends InputRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(FileRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(FileRenderer.class);
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);

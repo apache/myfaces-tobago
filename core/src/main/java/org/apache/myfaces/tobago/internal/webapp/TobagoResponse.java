@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.webapp;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +29,7 @@ import java.io.StringWriter;
 
 public class TobagoResponse extends HttpServletResponseWrapper {
 
-  private static final Log LOG = LogFactory.getLog(TobagoResponse.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoResponse.class);
 
   private PrintWriter printWriter = null;
   private StringWriter bufferedWriter = null;

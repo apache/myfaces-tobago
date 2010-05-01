@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.util;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ResponseUtils {
 
-  private static final Log LOG = LogFactory.getLog(ResponseUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ResponseUtils.class);
 
   private ResponseUtils() {
     // utils class

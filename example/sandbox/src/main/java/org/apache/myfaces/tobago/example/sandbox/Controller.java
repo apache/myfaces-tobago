@@ -17,15 +17,15 @@ package org.apache.myfaces.tobago.example.sandbox;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Controller {
 
-  private static final Log LOG = LogFactory.getLog(Controller.class);
+  private static final Logger LOG = LoggerFactory.getLogger(Controller.class);
 
   private int sliderValue;
 

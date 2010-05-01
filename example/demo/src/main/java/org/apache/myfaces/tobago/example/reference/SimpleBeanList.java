@@ -17,14 +17,14 @@ package org.apache.myfaces.tobago.example.reference;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
 public class SimpleBeanList extends ArrayList<SimpleBean> {
 
-  private static final Log LOG = LogFactory.getLog(SimpleBeanList.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SimpleBeanList.class);
 
   public SimpleBeanList() {
     add(new SimpleBean(1, "One"));

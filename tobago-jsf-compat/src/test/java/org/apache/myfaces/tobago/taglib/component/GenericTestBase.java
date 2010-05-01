@@ -22,8 +22,8 @@ import net.sf.maventaglib.checker.TagAttribute;
 import net.sf.maventaglib.checker.Tld;
 import net.sf.maventaglib.checker.TldParser;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.mock.faces.MockExternalContext;
 import org.apache.myfaces.tobago.mock.faces.MockFacesContext;
 import org.apache.myfaces.tobago.mock.servlet.MockHttpServletRequest;
@@ -54,7 +54,7 @@ import java.util.HashMap;
 //import org.apache.myfaces.tobago.mock.servlet.MockPageContext;
 
 public abstract class GenericTestBase extends TestCase {
-  private static final Log LOG = LogFactory.getLog(GenericTestBase.class);
+  private static final Logger LOG = LoggerFactory.getLogger(GenericTestBase.class);
 
   protected Tld[] tlds;
   protected String[] tldPaths;

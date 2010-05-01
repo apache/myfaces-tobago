@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.RenderersConfig;
@@ -55,7 +55,7 @@ import java.util.Map;
 
 public class GenericComponentTagUnitTest extends GenericTestBase {
 
-  private static final Log LOG = LogFactory.getLog(GenericComponentTagUnitTest.class);
+  private static final Logger LOG = LoggerFactory.getLogger(GenericComponentTagUnitTest.class);
 
   private Application application;
   private MockFacesContext facesContext;

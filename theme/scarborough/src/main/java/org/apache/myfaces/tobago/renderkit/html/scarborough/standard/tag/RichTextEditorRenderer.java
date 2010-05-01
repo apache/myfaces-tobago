@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
@@ -48,7 +48,7 @@ import java.io.IOException;
 /** TODO: under construction */
 public class RichTextEditorRenderer extends InputRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(RichTextEditorRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(RichTextEditorRenderer.class);
 
   public static final String CHANGE_BUTTON = "togleState";
 

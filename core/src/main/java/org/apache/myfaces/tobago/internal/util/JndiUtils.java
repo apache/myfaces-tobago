@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.util;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.naming.Binding;
 import javax.naming.Context;
@@ -27,7 +27,7 @@ import javax.naming.NamingException;
 
 public class JndiUtils {
 
-  private static final Log LOG = LogFactory.getLog(JndiUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(JndiUtils.class);
 
   public static Object getJndiProperty(Context ctx, String... path) throws NamingException {
     return getJndiProperty(ctx, null, path);

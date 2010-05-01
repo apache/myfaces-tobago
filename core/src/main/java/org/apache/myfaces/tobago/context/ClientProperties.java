@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.internal.context.ClientPropertiesKey;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -51,7 +51,7 @@ public class ClientProperties implements Serializable {
 
   private static final long serialVersionUID = 2L;
 
-  private static final Log LOG = LogFactory.getLog(ClientProperties.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ClientProperties.class);
 
   private String contentType = "html";
   private Theme theme;

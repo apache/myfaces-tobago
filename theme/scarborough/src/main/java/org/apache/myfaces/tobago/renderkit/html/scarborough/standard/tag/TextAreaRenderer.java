@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITextarea;
 //import org.apache.myfaces.tobago.context.Capability;
@@ -47,7 +47,7 @@ import java.io.IOException;
 
 public class TextAreaRenderer extends InputRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(TextAreaRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TextAreaRenderer.class);
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {

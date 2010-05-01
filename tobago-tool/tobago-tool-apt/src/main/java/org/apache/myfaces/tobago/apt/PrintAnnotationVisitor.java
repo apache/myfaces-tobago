@@ -28,8 +28,8 @@ import com.sun.tools.apt.mirror.declaration.EnumConstantDeclarationImpl;
 import java.util.Collection;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /*
  * Created: Mar 22, 2005 8:10:05 PM
@@ -37,7 +37,7 @@ import org.apache.commons.logging.LogFactory;
  * $Id$
  */
 public class PrintAnnotationVisitor extends AnnotationDeclarationVisitorCollector {
-  private static final Log LOG = LogFactory.getLog(PrintAnnotationVisitor.class);
+  private static final Logger LOG = LoggerFactory.getLogger(PrintAnnotationVisitor.class);
   public void print() {
     for (ClassDeclaration decl : getCollectedClassDeclarations()) {
       printClassDeclaration(decl);

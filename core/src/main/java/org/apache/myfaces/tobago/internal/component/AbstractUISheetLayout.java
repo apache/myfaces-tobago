@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.layout.Interval;
 import org.apache.myfaces.tobago.internal.layout.IntervalList;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.layout.Orientation;
  */
 public abstract class AbstractUISheetLayout extends UILayoutBase implements LayoutManager {
 
-  private static final Log LOG = LogFactory.getLog(AbstractUIGridLayout.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUIGridLayout.class);
 
   private boolean horizontalAuto;
   private boolean verticalAuto;

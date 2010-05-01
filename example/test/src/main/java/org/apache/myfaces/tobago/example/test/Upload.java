@@ -18,12 +18,12 @@ package org.apache.myfaces.tobago.example.test;
  */
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Upload {
 
-  private static final Log LOG = LogFactory.getLog(Upload.class);
+  private static final Logger LOG = LoggerFactory.getLogger(Upload.class);
 
   private FileItem file;
 

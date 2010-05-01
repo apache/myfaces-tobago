@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 
@@ -34,7 +34,7 @@ import java.io.IOException;
  */
 public class PageRenderer extends PageRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(PageRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(PageRenderer.class);
 
   private static final String HEADER = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
   private static final String FO_ROOT = "fo:root";

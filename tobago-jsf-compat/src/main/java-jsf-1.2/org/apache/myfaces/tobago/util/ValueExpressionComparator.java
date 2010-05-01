@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class ValueExpressionComparator extends ComparatorBase {
 
-  private static final Log LOG = LogFactory.getLog(ValueExpressionComparator.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ValueExpressionComparator.class);
 
   private FacesContext facesContext;
 

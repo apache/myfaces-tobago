@@ -192,6 +192,7 @@
             </link>
             <link>http://jakarta.apache.org/commons/io/api-${common-io.version}/</link>
             <link>http://jakarta.apache.org/commons/logging/commons-logging-${commons-logging.version}/apidocs/</link>
+            <link>http://www.slf4j.org/apidocs</link>
             <link>http://junit.sourceforge.net/javadoc/</link>
             <link>http://logging.apache.org/log4j/docs/api/</link>
           </links>
@@ -379,6 +380,31 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jcl-over-slf4j</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <!--dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${logback.version}</version>
+      </dependency-->
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+        <version>${slf4j.version}</version>        
+      </dependency>
       <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
@@ -1687,6 +1713,9 @@
     <mojarra20.version>2.0.3-SNAPSHOT</mojarra20.version>
     <facelets.version>1.1.14</facelets.version>
     <jetty.version>6.1.22</jetty.version>
+    <slf4j.version>1.5.11</slf4j.version>
+    <!--slf4j.version>1.6.0-alpha2</slf4j.version-->
+    <logback.version>0.9.20</logback.version>    
     <commons-io.version>1.1</commons-io.version>
     <commons-lang.version>2.4</commons-lang.version>
     <commons-logging.version>1.1.1</commons-logging.version>

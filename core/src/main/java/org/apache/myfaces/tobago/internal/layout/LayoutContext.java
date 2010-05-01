@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.layout;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.component.AbstractUIGridLayout;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
@@ -54,7 +54,7 @@ todo: describe what happens, when there are too much components (there a rows wi
  */
 public class LayoutContext {
 
-  private static final Log LOG = LogFactory.getLog(LayoutContext.class);
+  private static final Logger LOG = LoggerFactory.getLogger(LayoutContext.class);
 
   private LayoutContainer container;
 
@@ -81,7 +81,7 @@ public class LayoutContext {
   private void log() {
     StringBuffer buffer = new StringBuffer("\n");
     log(buffer, (UIComponent) container, 0);
-    LOG.info(buffer);
+    LOG.info(buffer.toString());
   }
 
   private void log(StringBuffer buffer, UIComponent component, int depth) {

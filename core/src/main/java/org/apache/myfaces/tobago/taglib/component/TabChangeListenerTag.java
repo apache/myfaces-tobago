@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
@@ -43,7 +43,7 @@ public abstract class TabChangeListenerTag extends TagSupport {
 
   private static final long serialVersionUID = -419199086962377873L;
 
-  private static final Log LOG = LogFactory.getLog(TabChangeListenerTag.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TabChangeListenerTag.class);
 
   /**
    * Fully qualified Java class name of a TabChangeListener to be

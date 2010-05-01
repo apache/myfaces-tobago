@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.validator;
  * $Id$
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
@@ -36,8 +36,8 @@ import java.util.StringTokenizer;
 
 public class ClearValidatorsActionListener implements ActionListener {
 
-  private static final Log LOG
-      = LogFactory.getLog(ClearValidatorsActionListener.class);
+  private static final Logger LOG
+      = LoggerFactory.getLogger(ClearValidatorsActionListener.class);
 
   public PhaseId getPhaseId() {
     return PhaseId.APPLY_REQUEST_VALUES;

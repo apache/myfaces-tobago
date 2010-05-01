@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.model.TreeState;
 
 import javax.faces.context.FacesContext;
@@ -30,7 +30,7 @@ import java.util.Set;
 
 public class DirectoryBrowser {
 
-  private static final Log LOG = LogFactory.getLog(DirectoryBrowser.class);
+  private static final Logger LOG = LoggerFactory.getLogger(DirectoryBrowser.class);
 
   private PageItem tree;
   private TreeState state;

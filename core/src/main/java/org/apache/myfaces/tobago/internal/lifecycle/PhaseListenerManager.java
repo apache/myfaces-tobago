@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.lifecycle;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
@@ -35,7 +35,7 @@ import java.util.Map;
  */
 class PhaseListenerManager {
 
-  private static final Log LOG = LogFactory.getLog(PhaseListenerManager.class);
+  private static final Logger LOG = LoggerFactory.getLogger(PhaseListenerManager.class);
 
   private Lifecycle lifecycle;
   private FacesContext facesContext;

@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.example.addressbook.web;
  */
 
 import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
@@ -31,7 +31,7 @@ import java.io.IOException;
 
 public class StartupPhaseListener implements PhaseListener {
 
-  private static final Log LOG = LogFactory.getLog(StartupPhaseListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(StartupPhaseListener.class);
   public static final String LOGGED_IN = StartupPhaseListener.class.getName() + ".LOGGED_IN";
   public static final String PRINCIPAL = StartupPhaseListener.class.getName() + ".PRINCIPAL";
 

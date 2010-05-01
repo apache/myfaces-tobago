@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.ajax;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
@@ -54,7 +54,7 @@ public class AjaxResponseRenderer {
   public static final int CODE_RELOAD_REQUIRED = 309;
   public static final int CODE_ERROR = 500;
 
-  private static final Log LOG = LogFactory.getLog(AjaxResponseRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AjaxResponseRenderer.class);
 
   private EncodeAjaxCallback callback;
   private String contentType = "application/json";
@@ -74,8 +74,8 @@ public class AjaxResponseRenderer {
         facesContext.getExternalContext().getRequestMap().get(TobagoLifecycle.VIEW_ROOT_KEY);
     if (viewRoot != incomingViewRoot) {
       if (LOG.isDebugEnabled()) {
-        LOG.debug("requesting full page reload because of navigation to "
-            + viewRoot.getViewId() + " from " + incomingViewRoot.getViewId());
+        LOG.debug("requesting full page reload because of navigation to {} from {}",
+            viewRoot.getViewId(), incomingViewRoot.getViewId());
       }
       Map sessionMap = facesContext.getExternalContext().getSessionMap();
       //noinspection unchecked
@@ -109,7 +109,7 @@ public class AjaxResponseRenderer {
     facesContext.setResponseWriter(contentWriter);
 
     if (LOG.isDebugEnabled()) {
-      LOG.debug("write ajax response for " + component);
+      LOG.debug("write ajax response for {}", component);
     }
     writer.write("{\n    \"ajaxId\": \"");
     writer.write(clientId);

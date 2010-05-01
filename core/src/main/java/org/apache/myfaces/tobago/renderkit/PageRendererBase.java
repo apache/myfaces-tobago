@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.renderkit;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.layout.Box;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -29,7 +29,7 @@ import javax.faces.context.FacesContext;
 
 public class PageRendererBase extends LayoutComponentRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(PageRendererBase.class);
+  private static final Logger LOG = LoggerFactory.getLogger(PageRendererBase.class);
 
   public void decode(FacesContext facesContext, UIComponent component) {
     if (component instanceof AbstractUIPage) {

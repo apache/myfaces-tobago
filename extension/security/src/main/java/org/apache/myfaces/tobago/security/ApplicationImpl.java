@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.security;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.application.Application;
 import javax.faces.application.NavigationHandler;
@@ -40,7 +40,7 @@ import java.util.Iterator;
 import java.util.Collection;
 
 public class ApplicationImpl extends Application {
-  private static final Log LOG = LogFactory.getLog(ApplicationImpl.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ApplicationImpl.class);
 
   private Application application;
 

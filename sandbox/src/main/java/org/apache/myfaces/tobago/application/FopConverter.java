@@ -17,11 +17,10 @@ package org.apache.myfaces.tobago.application;
  * limitations under the License.
  */
 
-import org.apache.avalon.framework.logger.Logger;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.fop.apps.Driver;
-import org.apache.myfaces.tobago.util.CommonsLoggingLogger;
+import org.apache.myfaces.tobago.util.Slf4jLogger;
 import org.xml.sax.InputSource;
 
 import javax.faces.FacesException;
@@ -31,16 +30,15 @@ import java.io.StringReader;
 
 public class FopConverter {
 
-  private static final Log LOG = LogFactory.getLog(FopConverter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(FopConverter.class);
 
   public static void fo2Pdf(ServletResponse servletResponse, String buffer) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("buffer = '" + buffer + "'");
+      LOG.debug("buffer = '{}'", buffer);
     }
     try {
       Driver driver = new Driver();
-      Logger logger = new CommonsLoggingLogger(LOG);
-      driver.setLogger(logger);
+      driver.setLogger(new Slf4jLogger(LOG));
       driver.setRenderer(Driver.RENDER_PDF);
       driver.setErrorDump(true);
 //      driver.setInputSource(new InputSource(new FileInputStream("C:/simple.fo")));

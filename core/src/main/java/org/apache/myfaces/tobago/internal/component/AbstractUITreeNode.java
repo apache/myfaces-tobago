@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.TreeModelBuilder;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;
@@ -38,7 +38,7 @@ import java.util.List;
 
 public abstract class AbstractUITreeNode extends UICommandBase implements SupportsMarkup, TreeModelBuilder {
 
-  private static final Log LOG = LogFactory.getLog(AbstractUITreeNode.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AbstractUITreeNode.class);
 
   private int depth;
   private boolean folder;

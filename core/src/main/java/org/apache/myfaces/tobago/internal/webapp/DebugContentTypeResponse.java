@@ -17,14 +17,14 @@ package org.apache.myfaces.tobago.internal.webapp;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
 public class DebugContentTypeResponse extends HttpServletResponseWrapper {
-  private static final Log LOG = LogFactory.getLog(DebugContentTypeResponse.class);
+  private static final Logger LOG = LoggerFactory.getLogger(DebugContentTypeResponse.class);
 
   public DebugContentTypeResponse(HttpServletResponse response) {
     super(response);

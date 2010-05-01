@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.convert;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 
 import javax.faces.component.UIComponent;
@@ -34,7 +34,7 @@ import java.util.StringTokenizer;
 @org.apache.myfaces.tobago.apt.annotation.Converter(id = DurationConverter.CONVERTER_ID)
 public class DurationConverter implements Converter {
 
-  private static final Log LOG = LogFactory.getLog(DurationConverter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(DurationConverter.class);
 
   public static final String CONVERTER_ID = "org.apache.myfaces.tobago.Duration";
 
@@ -77,7 +77,7 @@ public class DurationConverter implements Converter {
           + format.format(seconds);
     }
     if (LOG.isDebugEnabled()) {
-      LOG.debug("string = '" + string + "'");
+      LOG.debug("string = '{}'", string);
     }
     return string;
   }

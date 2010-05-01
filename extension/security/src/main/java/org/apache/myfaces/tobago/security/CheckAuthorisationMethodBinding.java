@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.security;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.el.MethodBinding;
 import javax.faces.el.MethodNotFoundException;
@@ -42,7 +42,7 @@ import java.lang.annotation.Annotation;
  * Time: 16:11:43
  */
 public class CheckAuthorisationMethodBinding extends MethodBinding implements StateHolder {
-  private static final Log LOG = LogFactory.getLog(CheckAuthorisationMethodBinding.class);
+  private static final Logger LOG = LoggerFactory.getLogger(CheckAuthorisationMethodBinding.class);
   private static final Map<String, Annotation> AUTHORISATION_CACHE = new HashMap<String, Annotation>();
 
   private MethodBinding methodBinding;

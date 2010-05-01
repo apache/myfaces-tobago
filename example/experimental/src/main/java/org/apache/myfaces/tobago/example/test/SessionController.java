@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.example.test;
  */
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.model.SelectItem;
@@ -41,7 +41,7 @@ import java.util.TimeZone;
 
 public class SessionController {
 
-  private static final Log LOG = LogFactory.getLog(SessionController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SessionController.class);
 
   private TabChangeListener tabChangeListener;
 
@@ -110,12 +110,12 @@ public class SessionController {
     UIComponent component = e.getComponent();
     for (UIComponent child : (List<UIComponent>) component.getChildren()) {
       if (child instanceof UIParameter) {
-        LOG.error(((UIParameter) child).getValue());
+        LOG.error("{}", ((UIParameter) child).getValue());
       }
     }
     while ((component = component.getParent()) != null) {
       if (component instanceof UISheet) {
-        LOG.error(((UISheet) component).getRowIndex());
+        LOG.error("{}", ((UISheet) component).getRowIndex());
       }
     }
   }
@@ -145,12 +145,12 @@ public class SessionController {
   }
 
   public TabChangeListener getTabChangeListener() {
-    LOG.info("getTabChangeListener " + tabChangeListener);
+    LOG.info("getTabChangeListener {}",  tabChangeListener);
     return tabChangeListener;
   }
 
   public void setTabChangeListener(TabChangeListener tabChangeListener) {
-    LOG.info("Setting TabChangeListener " + tabChangeListener);
+    LOG.info("Setting TabChangeListener {}",  tabChangeListener);
     this.tabChangeListener = tabChangeListener;
   }
 

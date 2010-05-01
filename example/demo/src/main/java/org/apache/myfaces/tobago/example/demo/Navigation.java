@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.example.demo.jsp.JspFormatter;
 import org.apache.myfaces.tobago.model.TreePath;
@@ -40,7 +40,7 @@ import java.util.Enumeration;
  */
 public class Navigation {
 
-  private static final Log LOG = LogFactory.getLog(Navigation.class);
+  private static final Logger LOG = LoggerFactory.getLogger(Navigation.class);
 
   private DefaultMutableTreeNode tree;
 

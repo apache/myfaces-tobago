@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.facelets;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.model.SelectItem;
 
@@ -31,7 +31,7 @@ import javax.faces.component.UISelectOne;
  * Time: 8:47:48 AM
  */
 public class BindingRequestBean {
-  private static final Log LOG = LogFactory.getLog(BindingRequestBean.class);
+  private static final Logger LOG = LoggerFactory.getLogger(BindingRequestBean.class);
   private String selectOne;
   private UISelectOne uiSelectOne;
   private UIPanel uiPanel;

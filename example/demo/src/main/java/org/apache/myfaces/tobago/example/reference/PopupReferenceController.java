@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.reference;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UISheet;
 
 import javax.faces.component.UIComponent;
@@ -28,7 +28,7 @@ import java.util.List;
 
 public class PopupReferenceController {
 
-  private static final Log LOG = LogFactory.getLog(PopupReferenceController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(PopupReferenceController.class);
 
   private Entry entry;
 

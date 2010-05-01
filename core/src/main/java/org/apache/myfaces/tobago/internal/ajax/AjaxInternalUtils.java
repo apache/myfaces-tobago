@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.internal.ajax;
 
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.ajax.AjaxUtils;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -34,7 +34,7 @@ import java.util.StringTokenizer;
 
 public class AjaxInternalUtils {
 
-  private static final Log LOG = LogFactory.getLog(AjaxInternalUtils.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AjaxInternalUtils.class);
 
   public static final String AJAX_COMPONENTS = AjaxUtils.class.getName() + ".AJAX_COMPONENTS";
 

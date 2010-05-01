@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 
@@ -34,7 +34,7 @@ import java.io.IOException;
  * Time: 10:59:19
  */
 public class TobagoResponseStateManager extends ResponseStateManager {
-  private static final Log LOG = LogFactory.getLog(TobagoResponseStateManager.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TobagoResponseStateManager.class);
 
   private static final String TREE_PARAM = "jsf_tree";
   private static final String STATE_PARAM = "javax.faces.ViewState";

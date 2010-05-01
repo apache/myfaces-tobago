@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.component;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUISheet;
@@ -50,13 +50,13 @@ import java.util.List;
  */
 public class Sorter {
 
-  private static final Log LOG = LogFactory.getLog(Sorter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(Sorter.class);
 
   private Comparator comparator;
 
   public void perform(SortActionEvent sortEvent) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("sorterId = " + sortEvent.getComponent().getId());
+      LOG.debug("sorterId = {}", sortEvent.getComponent().getId());
     }
     UIColumn column = sortEvent.getColumn();
     AbstractUISheet data = (AbstractUISheet) sortEvent.getComponent();
@@ -94,7 +94,7 @@ public class Sorter {
                   sortProperty, comparator, !sheetState.isAscending());
 
               if (LOG.isDebugEnabled()) {
-                LOG.debug("Sort property is " + sortProperty);
+                LOG.debug("Sort property is {}", sortProperty);
               }
             } else {
 

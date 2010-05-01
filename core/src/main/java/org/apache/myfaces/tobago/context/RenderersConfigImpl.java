@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.context;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -33,7 +33,7 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  private static final Log LOG = LogFactory.getLog(RenderersConfigImpl.class);
+  private static final Logger LOG = LoggerFactory.getLogger(RenderersConfigImpl.class);
 
   private Map<String, RendererConfig> renderer = new HashMap<String, RendererConfig>();
 
@@ -63,13 +63,13 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
 
   public boolean isMarkupSupported(String rendererName, String markup) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("calling isMarkupSupported " + rendererName + " " + markup);
+      LOG.debug("calling isMarkupSupported {} {}", rendererName, markup);
     }
     RendererConfig rendererConfig = renderer.get(rendererName);
     if (rendererConfig != null) {
       return rendererConfig.contains(markup);
     } else {
-      LOG.error("Calling isMarkupSupported " + rendererName + " " + markup + " but no configuration found.");
+      LOG.error("Calling isMarkupSupported {} {} but no configuration found.", rendererName, markup);
       return false;
     }
   }

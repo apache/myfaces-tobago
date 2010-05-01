@@ -23,12 +23,12 @@ package org.apache.myfaces.tobago.renderkit;
  */
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class BoxRendererBase extends LayoutComponentRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(BoxRendererBase.class);
+  private static final Logger LOG = LoggerFactory.getLogger(BoxRendererBase.class);
 
   public boolean getRendersChildren() {
     return true;

@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.example.reference;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.taglib.ButtonTag;
 import org.apache.myfaces.tobago.internal.taglib.LinkTag;
 import org.apache.myfaces.tobago.taglib.extension.InExtensionTag;
@@ -31,7 +31,7 @@ import java.util.List;
 
 public class DynamicController {
   
-  private static final Log LOG = LogFactory.getLog(DynamicController.class);
+  private static final Logger LOG = LoggerFactory.getLogger(DynamicController.class);
 
   private List<TagData> tags;
 

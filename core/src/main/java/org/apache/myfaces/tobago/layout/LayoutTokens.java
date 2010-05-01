@@ -18,8 +18,8 @@ package org.apache.myfaces.tobago.layout;
  */
 
 import org.apache.commons.lang.math.NumberUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,7 +28,7 @@ import java.util.StringTokenizer;
 
 public final class LayoutTokens implements Iterable<LayoutToken> {
 
-  private static final Log LOG = LogFactory.getLog(LayoutTokens.class);
+  private static final Logger LOG = LoggerFactory.getLogger(LayoutTokens.class);
 
   private List<LayoutToken> tokens = new ArrayList<LayoutToken>();
 

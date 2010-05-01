@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.event.PageActionEvent;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -29,7 +29,7 @@ import java.util.Map;
 
 public class SheetPageCommandRenderer extends LinkRenderer {
 
-  private static final Log LOG = LogFactory.getLog(SheetPageCommandRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SheetPageCommandRenderer.class);
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {

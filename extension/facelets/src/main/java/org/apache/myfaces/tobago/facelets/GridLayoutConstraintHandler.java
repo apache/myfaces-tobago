@@ -21,8 +21,8 @@ import com.sun.facelets.FaceletContext;
 import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagHandler;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
@@ -35,7 +35,7 @@ import java.io.IOException;
 
 public class GridLayoutConstraintHandler extends TagHandler {
 
-  private static final Log LOG = LogFactory.getLog(GridLayoutConstraintHandler.class);
+  private static final Logger LOG = LoggerFactory.getLogger(GridLayoutConstraintHandler.class);
 
   private final TagAttribute columnSpan;
   private final TagAttribute rowSpan;

@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
@@ -40,7 +40,7 @@ import java.io.IOException;
 
 public class PanelRenderer extends LayoutComponentRendererBase {
 
-  private static final Log LOG = LogFactory.getLog(PanelRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(PanelRenderer.class);
 
   @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {

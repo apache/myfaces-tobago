@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.internal.util;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public final class Deprecation {
@@ -28,12 +28,12 @@ public final class Deprecation {
   }
 
   /**
-   * This Log object should help to detect the usage of deprecated code.
+   * This Logger object should help to detect the usage of deprecated code.
    * The main reason for this class is the lack of a "deprecated concept"
    * for tag libraries. Thought the designer of a Tobago page cannot see
    * in his IDE that a tag or attribute is deprecated.
    * <p>
-   * The Tobago Java code will log into this Log object, with
+   * The Tobago Java code will log into this Logger object, with
    * <dl>
    *   <dt><code>error</code></dt>
    *   <dd>when the code is deprecated with a loss of function, or</dd>
@@ -41,9 +41,9 @@ public final class Deprecation {
    *   <dd>when the code is deprecated, but still works.</dd>
    * </dl>
    * <p>
-   * This Log category can be switched off, in production environment without
+   * This Logger category can be switched off, in production environment without
    * affecting the normal logging category.
    */
-  public static final Log LOG = LogFactory.getLog(Deprecation.class);
+  public static final Logger LOG = LoggerFactory.getLogger(Deprecation.class);
 
 }

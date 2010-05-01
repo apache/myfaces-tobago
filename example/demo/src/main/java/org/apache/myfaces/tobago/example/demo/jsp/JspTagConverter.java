@@ -22,8 +22,8 @@ package org.apache.myfaces.tobago.example.demo.jsp;
  * $Id$
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.util.XmlUtils;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
@@ -33,7 +33,7 @@ import java.util.Map;
 
 public class JspTagConverter extends AbstractConverter {
 
-  private static final Log LOG = LogFactory.getLog(JspTagConverter.class);
+  private static final Logger LOG = LoggerFactory.getLogger(JspTagConverter.class);
 
   private TagConverter tagConverter = new TagConverter();
   private Map<String, String> tags = new HashMap<String, String>();

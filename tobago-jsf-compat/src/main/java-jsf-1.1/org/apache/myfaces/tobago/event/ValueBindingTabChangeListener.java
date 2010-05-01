@@ -17,8 +17,8 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponentBase;
@@ -32,7 +32,7 @@ import javax.faces.el.ValueBinding;
 
 @SuppressWarnings("deprecation")
 public class ValueBindingTabChangeListener implements TabChangeListener, StateHolder {
-  private static final Log LOG = LogFactory.getLog(ValueBindingTabChangeListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ValueBindingTabChangeListener.class);
   private String type;
   private ValueBinding valueBinding;
 
