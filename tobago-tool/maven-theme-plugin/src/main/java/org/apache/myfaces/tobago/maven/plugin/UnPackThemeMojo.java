@@ -87,7 +87,7 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
         }
       }
     } catch (IOException e) {
-      throw new MojoExecutionException("Error find ThemeDescriptor", e);
+      throw new MojoExecutionException("Error find ThemeDescriptor in " + jarFile, e);
     } finally {
       if (zip != null) {
         try {
