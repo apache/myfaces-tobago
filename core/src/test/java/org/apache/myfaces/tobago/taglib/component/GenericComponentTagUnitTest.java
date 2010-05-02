@@ -68,8 +68,9 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
   }
 
   public void setUp() throws Exception {
-    tldPaths = new String[1];
+    String[] tldPaths = new String[1];
     tldPaths[0] = "META-INF/org/apache/myfaces/tobago/taglib/component/tobago.tld";
+    setTldPaths(tldPaths);
     super.setUp();
 
     MockServletContext servletContext = new MockServletContext();
@@ -126,7 +127,7 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
   }
 
   public void testComponent()
-    throws JspException, IllegalAccessException, InstantiationException, ClassNotFoundException {
+      throws JspException, IllegalAccessException, InstantiationException, ClassNotFoundException {
     // TODO create new test
     /*for (Tld tld : tlds) {
       for (net.sf.maventaglib.checker.Tag tag : tld.getTags()) {
@@ -169,6 +170,7 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
       assertFalse(ComponentUtils.getBooleanAttribute(command, Attributes.HEIGHT));
     }
   }
+
   private static class MockTheme implements Theme {
     private String name;
     private List<Theme> fallbackThemeList;

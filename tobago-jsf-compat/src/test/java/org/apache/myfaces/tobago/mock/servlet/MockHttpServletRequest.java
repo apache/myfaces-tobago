@@ -196,7 +196,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
   }
 
   public String getParameter(String name) {
-    String values[] = (String[]) parameters.get(name);
+    String[] values = (String[]) parameters.get(name);
     if (values != null) {
       return (values[0]);
     } else {
@@ -283,7 +283,7 @@ public class MockHttpServletRequest implements HttpServletRequest {
 
 // ----------------------------------------------------------- business methods
 
-  public void addParameter(String name, String values[]) {
+  public void addParameter(String name, String[] values) {
     parameters.put(name, values);
   }
 

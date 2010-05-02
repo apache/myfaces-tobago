@@ -49,7 +49,7 @@ public class MockRenderKit extends RenderKit {
   private Map<String, Renderer> renderers = new HashMap<String, Renderer>();
 
   public void addRenderer(String family, String rendererType,
-                          Renderer renderer) {
+      Renderer renderer) {
     if ((family == null) || (rendererType == null) || (renderer == null)) {
       throw new NullPointerException();
     }
@@ -65,8 +65,8 @@ public class MockRenderKit extends RenderKit {
 
 
   public ResponseWriter createResponseWriter(Writer writer,
-                                             String contentTypeList,
-                                             String characterEncoding) {
+      String contentTypeList,
+      String characterEncoding) {
     return new MockResponseWriter(writer, characterEncoding);
   }
 
@@ -115,13 +115,10 @@ public class MockRenderKit extends RenderKit {
       }
       UIInput input = (UIInput) component;
       String clientId = input.getClientId(context);
-      // System.err.println("decode(" + clientId + ")");
 
       // Decode incoming request parameters
       Map params = context.getExternalContext().getRequestParameterMap();
       if (params.containsKey(clientId)) {
-        // System.err.println("  '" + input.currentValue(context) +
-        //                    "' --> '" + params.get(clientId) + "'");
         input.setSubmittedValue(params.get(clientId));
       }
 

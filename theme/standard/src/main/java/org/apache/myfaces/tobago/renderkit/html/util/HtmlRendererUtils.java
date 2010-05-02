@@ -53,7 +53,6 @@ import java.util.Locale;
 import java.util.Map;
 
 /*
- * User: weber
  * Date: Jan 11, 2005
  * Time: 4:59:36 PM
  */
@@ -392,7 +391,7 @@ public final class HtmlRendererUtils {
         Object itemValue = item.getValue();
         // when using selectItem tag with a literal value: use the converted value
         if (itemValue instanceof String && values != null && values.length > 0 && !(values[0] instanceof String)) {
-          itemValue = ComponentUtils.getConvertedValue(facesContext, component, (String)itemValue);
+          itemValue = ComponentUtils.getConvertedValue(facesContext, component, (String) itemValue);
         }
         String formattedValue = RenderUtil.getFormattedValue(facesContext, component, itemValue);
         writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);

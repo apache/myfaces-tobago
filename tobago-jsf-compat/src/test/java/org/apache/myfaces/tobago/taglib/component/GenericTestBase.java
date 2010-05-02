@@ -56,9 +56,9 @@ import java.util.HashMap;
 public abstract class GenericTestBase extends TestCase {
   private static final Logger LOG = LoggerFactory.getLogger(GenericTestBase.class);
 
-  protected Tld[] tlds;
-  protected String[] tldPaths;
-   private Application application;
+  private Tld[] tlds;
+  private String[] tldPaths;
+  private Application application;
   private MockFacesContext facesContext;
 
   public GenericTestBase(String name) {
@@ -145,10 +145,18 @@ public abstract class GenericTestBase extends TestCase {
       NoSuchMethodException, InvocationTargetException, ClassNotFoundException {
     PropertyDescriptor propertyDescriptor
         = PropertyUtils.getPropertyDescriptor(tagObject, name);
-    assertNotNull("setter '" + name + "' of class " + tagObject.getClass().getName() + " has " +
-        "property descriptor.", propertyDescriptor);
+    assertNotNull("setter '" + name + "' of class " + tagObject.getClass().getName() + " has "
+        + "property descriptor.", propertyDescriptor);
     //assertNotNull("setter '" + name + "' of class " + tagObject.getClass().getName() + " exists.",
     //    propertyDescriptor.getWriteMethod());
+  }
+
+  public void setTlds(Tld[] tlds) {
+    this.tlds = tlds;
+  }
+
+  public void setTldPaths(String[] tldPaths) {
+    this.tldPaths = tldPaths;
   }
 
   private void checkRelease(javax.servlet.jsp.tagext.Tag tag) throws NoSuchMethodException,
@@ -156,24 +164,24 @@ public abstract class GenericTestBase extends TestCase {
       SAXException {
     tag.setPageContext(new MockPageContext());
 
-    HashMap initialValues = new HashMap();
-    PropertyDescriptor descriptors[] =
+    HashMap<String, Object> initialValues = new HashMap<String, Object>();
+    PropertyDescriptor[] descriptors =
         PropertyUtils.getPropertyDescriptors(tag);
 
     // store initial values
-    for (int i = 0; i < descriptors.length; i++) {
-      if (isTagProperty(descriptors[i])) {
-        String name = descriptors[i].getName();
+    for (PropertyDescriptor descriptor : descriptors) {
+      if (isTagProperty(descriptor)) {
+        String name = descriptor.getName();
         Object value = PropertyUtils.getSimpleProperty(tag, name);
         initialValues.put(name, value);
       }
     }
 
     // set new values
-    for (int i = 0; i < descriptors.length; i++) {
-      if (isTagProperty(descriptors[i])) {
-        String name = descriptors[i].getName();
-        Class propertyType = descriptors[i].getPropertyType();
+    for (PropertyDescriptor descriptor : descriptors) {
+      if (isTagProperty(descriptor)) {
+        String name = descriptor.getName();
+        Class propertyType = descriptor.getPropertyType();
         Object value = null;
         if (propertyType == String.class) {
           value = new String("bla");
@@ -192,11 +200,13 @@ public abstract class GenericTestBase extends TestCase {
     tag.release();
 
     // check released values
-    for (int i = 0; i < descriptors.length; i++) {
-      if (isTagProperty(descriptors[i])) {
-        String name = descriptors[i].getName();
+    for (PropertyDescriptor descriptor : descriptors) {
+      if (isTagProperty(descriptor)) {
+        String name = descriptor.getName();
         // XXX: who releases id?
-        if (name.equals("id")) continue;
+        if (name.equals("id")) {
+          continue;
+        }
         try {
           Object newValue = PropertyUtils.getSimpleProperty(tag, name);
           Object oldValue = initialValues.get(name);
@@ -231,7 +241,8 @@ public abstract class GenericTestBase extends TestCase {
 
   private static class Resolver implements EntityResolver {
     public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
-      InputSource inputSource = new InputSource(GenericTestBase.class.getResourceAsStream("/web-jsptaglibrary_1_2.dtd"));
+      InputSource inputSource =
+          new InputSource(GenericTestBase.class.getResourceAsStream("/web-jsptaglibrary_1_2.dtd"));
       inputSource.setSystemId(systemId);
       return inputSource;
     }

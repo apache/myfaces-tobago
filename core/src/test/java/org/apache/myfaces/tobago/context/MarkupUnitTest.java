@@ -29,7 +29,7 @@ public class MarkupUnitTest {
 
   @Test
   public void testString() {
-    Assert.assertNull(Markup.valueOf((String)null));
+    Assert.assertNull(Markup.valueOf((String) null));
     
     Assert.assertArrayEquals(new String[] {"accent"}, IteratorUtils.toArray(Markup.valueOf("accent").iterator()));
     
@@ -42,7 +42,7 @@ public class MarkupUnitTest {
   
   @Test
   public void testStringArray() {
-    Assert.assertNull(Markup.valueOf((String[])null));
+    Assert.assertNull(Markup.valueOf((String[]) null));
     
     Assert.assertNull(Markup.valueOf(new String[] {}));
     
@@ -53,13 +53,14 @@ public class MarkupUnitTest {
   
   @Test
   public void testObject() {
-    Assert.assertNull(Markup.valueOf((Object)null));
+    Assert.assertNull(Markup.valueOf((Object) null));
 
-    Assert.assertArrayEquals(AB, IteratorUtils.toArray(Markup.valueOf((Object)", \ta , ,\n b ,").iterator()));
+    Assert.assertArrayEquals(AB, IteratorUtils.toArray(Markup.valueOf((Object) ", \ta , ,\n b ,").iterator()));
 
-    Assert.assertArrayEquals(AB, IteratorUtils.toArray(Markup.valueOf((Object)new String[] {"a", "b"}).iterator()));
+    Assert.assertArrayEquals(AB, IteratorUtils.toArray(Markup.valueOf((Object) new String[] {"a", "b"}).iterator()));
     
-    Assert.assertArrayEquals(AB, IteratorUtils.toArray(Markup.valueOf((Object)new String[] {" a ", " b "}).iterator()));
+    Assert.assertArrayEquals(AB,
+        IteratorUtils.toArray(Markup.valueOf((Object) new String[] {" a ", " b "}).iterator()));
     
     Assert.assertArrayEquals(AB, IteratorUtils.toArray(Markup.valueOf(new StringBuilder("a, b")).iterator()));
     
@@ -70,7 +71,7 @@ public class MarkupUnitTest {
   
   @Test
   public void testMarkup() {
-    Assert.assertNull(Markup.valueOf((Markup)null));
+    Assert.assertNull(Markup.valueOf((Markup) null));
     
     Markup accent = Markup.valueOf("accent");
     Assert.assertSame(accent, Markup.valueOf(accent));

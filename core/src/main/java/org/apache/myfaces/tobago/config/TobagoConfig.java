@@ -35,7 +35,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class TobagoConfig {
+public class
+    TobagoConfig {
 
   private static final Logger LOG = LoggerFactory.getLogger(TobagoConfig.class);
 
@@ -95,7 +96,7 @@ public class TobagoConfig {
         checkThemeIsAvailable(name, theme);
         supportedThemes.add(theme);
         if (LOG.isDebugEnabled()) {
-          LOG.debug("name = '{}'",  name );
+          LOG.debug("name = '{}'",  name);
           LOG.debug("supportedThemes.last() = '{}'", supportedThemes.get(supportedThemes.size() - 1));
         }
       }

@@ -40,8 +40,8 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
     LOG.info("outcome='"+  outcome + "'");
 
     if (outcome != null) {
-      PageDeclarationLanguageBean bean
-          = (PageDeclarationLanguageBean) VariableResolverUtils.resolveVariable(facesContext, "pageDeclarationLanguage");
+      PageDeclarationLanguageBean bean = (PageDeclarationLanguageBean)
+          VariableResolverUtils.resolveVariable(facesContext, "pageDeclarationLanguage");
 
       for (PageDeclarationLanguage renderTechnologie : PageDeclarationLanguage.values()) {
         if (outcome.endsWith(renderTechnologie.getExtension())) {

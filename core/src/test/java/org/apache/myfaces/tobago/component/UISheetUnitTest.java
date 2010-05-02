@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UISheetUnitTest {
-  String[] nineRows =
+  private String[] nineRows =
       {"one", "two", "three", "four", "five",
           "six", "seven", "eight", "nine"};
 

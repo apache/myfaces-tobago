@@ -58,7 +58,7 @@ public class MockJspWriter extends JspWriter {
     out.print(d);
   }
 
-  public void print(char s[]) {
+  public void print(char[] s) {
     out.print(s);
   }
 
@@ -98,7 +98,7 @@ public class MockJspWriter extends JspWriter {
     out.println(x);
   }
 
-  public void println(char x[]) {
+  public void println(char[] x) {
     out.println(x);
   }
 
@@ -114,7 +114,7 @@ public class MockJspWriter extends JspWriter {
     out.write(c);
   }
 
-  public void write(char cbuf[]) throws IOException {
+  public void write(char[] cbuf) throws IOException {
     out.write(cbuf);
   }
 
@@ -122,7 +122,7 @@ public class MockJspWriter extends JspWriter {
     out.write(str);
   }
 
-  public void write(char cbuf[], int off, int len) throws IOException {
+  public void write(char[] cbuf, int off, int len) throws IOException {
     out.write(cbuf, off, len);
   }
 

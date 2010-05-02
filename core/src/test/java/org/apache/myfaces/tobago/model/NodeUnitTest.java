@@ -27,7 +27,7 @@ public class NodeUnitTest extends TestCase {
   private Node c;
   private Node x;
   private Node y;
-  private Node π;
+  private Node pi;
 
   /**
    * * --o r (0)
@@ -52,7 +52,7 @@ public class NodeUnitTest extends TestCase {
     c = new Node();
     x = new Node();
     y = new Node();
-    π = new Node();
+    pi = new Node();
 
     r.add(a);
     r.add(b);
@@ -61,7 +61,7 @@ public class NodeUnitTest extends TestCase {
     b.add(x);
     b.add(y);
 
-    y.add(π);
+    y.add(pi);
 
   }
 
@@ -72,7 +72,7 @@ public class NodeUnitTest extends TestCase {
     assertFalse(c.isRoot());
     assertFalse(x.isRoot());
     assertFalse(y.isRoot());
-    assertFalse(π.isRoot());
+    assertFalse(pi.isRoot());
   }
 
   public void testGetChildCount() {
@@ -82,7 +82,7 @@ public class NodeUnitTest extends TestCase {
     assertEquals(0, c.getChildCount());
     assertEquals(0, x.getChildCount());
     assertEquals(1, y.getChildCount());
-    assertEquals(0, π.getChildCount());
+    assertEquals(0, pi.getChildCount());
   }
 
   public void testHasNextSibling() {
@@ -92,7 +92,7 @@ public class NodeUnitTest extends TestCase {
     assertFalse(c.hasNextSibling());
     assertTrue(x.hasNextSibling());
     assertFalse(y.hasNextSibling());
-    assertFalse(π.hasNextSibling());
+    assertFalse(pi.hasNextSibling());
   }
 
 }

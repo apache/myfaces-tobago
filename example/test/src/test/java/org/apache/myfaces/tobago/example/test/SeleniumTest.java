@@ -32,7 +32,7 @@ public abstract class SeleniumTest {
   public static final String HAS_ERROR_SEVERITY = "has error severity";
   public static final String IS_BROKEN = "is broken";
 
-  protected DefaultSelenium selenium;
+  private DefaultSelenium selenium;
 
   @Before
   public void setUp() throws Exception {
@@ -45,9 +45,15 @@ public abstract class SeleniumTest {
     selenium.stop();
   }
 
+  public DefaultSelenium getSelenium() {
+    return selenium;
+  }
+
   protected DefaultSelenium createSeleniumClient() throws Exception {
     return new DefaultSelenium("localhost", 4444, "*firefox", "http://localhost:8080/");
   }
+
+
 
   protected void checkPage() {
     Assert.assertFalse(

@@ -34,13 +34,13 @@ public class MessageFixFacesContextUnitTest extends AbstractJsfTestCase {
   }
 
   public void testFacesContext() {
-    String[] clientIds = { "_id1", "_id2", "_id3", null };
-    FacesMessage [] messages =
-        { new FacesMessage(),
-          new FacesMessage("Test1"),
-          new FacesMessage(FacesMessage.SEVERITY_WARN, "Test2a", "Test2a Detail"),
-          new FacesMessage(FacesMessage.SEVERITY_INFO, "Test2b", "Test2b Detail"),
-          new FacesMessage( "Global Message") };
+    String[] clientIds = {"_id1", "_id2", "_id3", null};
+    FacesMessage[] messages =
+        {new FacesMessage(),
+            new FacesMessage("Test1"),
+            new FacesMessage(FacesMessage.SEVERITY_WARN, "Test2a", "Test2a Detail"),
+            new FacesMessage(FacesMessage.SEVERITY_INFO, "Test2b", "Test2b Detail"),
+            new FacesMessage("Global Message")};
 
     FacesContext facesContext = new MessageFixFacesContext(this.facesContext);
     facesContext.addMessage(clientIds[0], messages[0]);

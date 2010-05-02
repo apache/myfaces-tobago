@@ -352,7 +352,7 @@ public class TobagoDemoController {
     SolarObject clicked = (SolarObject) ComponentUtils.findParameter(event.getComponent(), "luminary");
     boolean add = false;
     List<Integer> selectedRows = sheetState.getSelectedRows();
-    for (int i = 0, solarListSize = solarList.size(); i < solarListSize; i++) {
+    for (int i = 0; i < solarList.size(); i++) {
       if (clicked.getOrbit().equals(solarList.get(i).getOrbit())) {
         add = !selectedRows.contains(i);
         LOG.info(" add = " + add);
@@ -361,7 +361,7 @@ public class TobagoDemoController {
       }
     }
 
-    for (int i = 0, solarListSize = solarList.size(); i < solarListSize; i++) {
+    for (int i = 0; i < solarList.size(); i++) {
       if (clicked.getOrbit().equals(solarList.get(i).getOrbit())) {
         if (add && !selectedRows.contains(i)) {
           selectedRows.add(i);

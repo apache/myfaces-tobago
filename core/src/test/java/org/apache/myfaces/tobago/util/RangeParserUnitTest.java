@@ -24,7 +24,7 @@ public class RangeParserUnitTest extends TestCase {
 
   public void test() {
 
-    int[] ints =  {0,5,10};
+    int[] ints =  {0, 5, 10};
     String s = "0,5,10";
     checkEquals(ints, StringUtils.getIndices(s));
     s = "0, 5, 10";
@@ -32,7 +32,7 @@ public class RangeParserUnitTest extends TestCase {
     s = " 0 , 5 , 10 ";
     checkEquals(ints, StringUtils.getIndices(s));
 
-    ints = new int[] {3,4,5,6,7,15,16,17};
+    ints = new int[] {3, 4, 5, 6, 7, 15, 16, 17};
     s = "3-7,15-17";
     checkEquals(ints, StringUtils.getIndices(s));
     s = "3-5,6,7,15,16-17";
@@ -40,7 +40,7 @@ public class RangeParserUnitTest extends TestCase {
     s = "3-5, 6, 7, 15, 16 - 17 ";
     checkEquals(ints, StringUtils.getIndices(s));
 
-    ints = new int[] {3,4,5,6,7,15,14,13};
+    ints = new int[] {3, 4, 5, 6, 7, 15, 14, 13};
     s = "3-7,15-13";
     checkEquals(ints, StringUtils.getIndices(s));
     s = "3 - 7, 15 - 13";

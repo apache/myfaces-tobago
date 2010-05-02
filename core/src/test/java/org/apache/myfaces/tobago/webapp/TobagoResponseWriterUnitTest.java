@@ -39,9 +39,9 @@ public class TobagoResponseWriterUnitTest extends TestCase {
     writer.startDocument();
     writer.endDocument();
     assertEquals("content expected", 
-        "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n" +
-        "<html\n" +
-        "></html>", stringWriter.toString());
+        "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n" 
+        + "<html\n"
+        + "></html>", stringWriter.toString());
   }
 
   public void testEmptyTag() throws IOException {

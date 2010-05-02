@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard;
  * limitations under the License.
  */
 
-import org.mozilla.javascript.JavaScriptException;
-
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -54,9 +52,8 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
     loadScriptFile("dateConverter.js");
   }
 
-  public void testNumberOnlyDateFormats() throws IOException, JavaScriptException {
-    for (int i = 0; i < DATES.size(); i++) {
-      Date date = DATES.get(i);
+  public void testNumberOnlyDateFormats() throws IOException {
+    for (Date date : DATES) {
       checkFormat("yyyyMMdd", date, YEAR_MONTH_DAY, Locale.ENGLISH);
       checkFormat("ddMMyyyy", date, YEAR_MONTH_DAY, Locale.ENGLISH);
       checkFormat("d.M.yyyy", date, YEAR_MONTH_DAY, Locale.ENGLISH);
@@ -111,7 +108,6 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
 
   private Object evalFormatDate(Date date, String format) {
     // SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-    // System.out.println(simpleDateFormat.format(date) + " -> " + o);
     return eval("new SimpleDateFormat(\"" + format + "\")"
         + ".format(new Date(" + date.getTime() + "))");
   }
@@ -166,8 +162,7 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
     calendar1.setTime(date);
     Calendar calendar2 = evalParseDate(
         simpleDateFormat.format(date), format, locale);
-    for (int i = 0; i < fields.length; i++) {
-      int field = fields[i];
+    for (int field : fields) {
       checkField(calendar1, calendar2, field);
     }
   }

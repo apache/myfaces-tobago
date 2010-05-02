@@ -32,7 +32,7 @@ public class MeasureUnitTest {
   public void testMinList() {
     Assert.assertEquals(px(5), Measure.min(Arrays.asList(px(5), px(10), px(20))));
     Assert.assertEquals(px(5), Measure.min(Arrays.asList(px(5), null, px(20))));
-    Assert.assertEquals(Measure.MAX, Measure.min(Arrays.asList((Measure)null, null, null)));
+    Assert.assertEquals(Measure.MAX, Measure.min(Arrays.asList((Measure) null, null, null)));
     Assert.assertEquals(Measure.MAX, Measure.min(Arrays.<Measure>asList()));
   }
 
@@ -40,7 +40,7 @@ public class MeasureUnitTest {
   public void testMaxList() {
     Assert.assertEquals(px(20), Measure.max(Arrays.asList(px(5), px(10), px(20))));
     Assert.assertEquals(px(20), Measure.max(Arrays.asList(px(5), null, px(20))));
-    Assert.assertEquals(Measure.ZERO, Measure.max(Arrays.asList((Measure)null, null, null)));
+    Assert.assertEquals(Measure.ZERO, Measure.max(Arrays.asList((Measure) null, null, null)));
     Assert.assertEquals(Measure.ZERO, Measure.max(Arrays.<Measure>asList()));
   }
 

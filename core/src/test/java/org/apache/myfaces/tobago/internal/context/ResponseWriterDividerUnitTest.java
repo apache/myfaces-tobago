@@ -1,18 +1,5 @@
 package org.apache.myfaces.tobago.internal.context;
 
-import org.apache.myfaces.test.mock.MockExternalContext;
-import org.apache.myfaces.test.mock.MockFacesContext;
-import org.apache.myfaces.test.mock.MockHttpServletRequest;
-import org.apache.myfaces.tobago.internal.webapp.TobagoResponseXmlWriterImpl;
-import org.junit.Assert;
-import org.junit.Test;
-
-import javax.faces.context.FacesContext;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeNode;
-import java.io.IOException;
-import java.io.StringWriter;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -29,6 +16,19 @@ import java.io.StringWriter;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import org.apache.myfaces.test.mock.MockExternalContext;
+import org.apache.myfaces.test.mock.MockFacesContext;
+import org.apache.myfaces.test.mock.MockHttpServletRequest;
+import org.apache.myfaces.tobago.internal.webapp.TobagoResponseXmlWriterImpl;
+import org.junit.Assert;
+import org.junit.Test;
+
+import javax.faces.context.FacesContext;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
+import java.io.IOException;
+import java.io.StringWriter;
 
 public class ResponseWriterDividerUnitTest {
 

@@ -37,10 +37,10 @@ import java.util.Map;
 
 public class MockPageContext extends PageContext {
 
-  ServletRequest request = null;
-  JspWriter out = new MockJspWriter(new PrintWriter(System.out));
-  ServletContext servletContext = new MockServletContext();
-  Map attributes = new HashMap();
+  private ServletRequest request = null;
+  private JspWriter out = new MockJspWriter(new PrintWriter(System.out));
+  private ServletContext servletContext = new MockServletContext();
+  private Map attributes = new HashMap();
 
 
   public MockPageContext() {
@@ -67,8 +67,9 @@ public class MockPageContext extends PageContext {
       case PageContext.REQUEST_SCOPE:
         return getRequest().getAttribute(name);
       // other not supported
+      default:
+        return null;
     }
-    return null;
   }
 
   public Enumeration getAttributeNamesInScope(int i) {
@@ -120,7 +121,8 @@ public class MockPageContext extends PageContext {
   public void include(String s) throws ServletException, IOException {
   }
 
-  public void initialize(Servlet servlet, ServletRequest request, ServletResponse response, String s, boolean b, int i, boolean b1) throws IOException, IllegalStateException, IllegalArgumentException {
+  public void initialize(Servlet servlet, ServletRequest request, ServletResponse response, String s, boolean b, int i,
+      boolean b1) throws IOException, IllegalStateException, IllegalArgumentException {
   }
 
   public void release() {
@@ -142,12 +144,12 @@ public class MockPageContext extends PageContext {
       case PageContext.REQUEST_SCOPE:
         getRequest().setAttribute(s, o);
         break;
-      // other not supported
+      default:
+        // other not supported
     }
   }
 
-  public void include(String reference, boolean b) throws ServletException,
-      IOException {
+  public void include(String reference, boolean b) throws ServletException, IOException {
   }
 
   public ExpressionEvaluator getExpressionEvaluator() {
@@ -159,6 +161,6 @@ public class MockPageContext extends PageContext {
   }
 
   public ELContext getELContext() {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+    return null;
   }
 }

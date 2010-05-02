@@ -27,13 +27,10 @@ import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
 public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
-
-// ///////////////////////////////////////////// constant
 
   private static final String SNIP = "--";
 
@@ -41,12 +38,7 @@ public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
 
   private static final String NEWLINE = "\r\n";
 
-
-// ///////////////////////////////////////////// attribute
-
   private TobagoMultipartFormdataRequest request;
-
-// ///////////////////////////////////////////// constructor
 
   public TobagoMultipartFormdataRequestUnitTest(String reference)
       throws UnsupportedEncodingException {
@@ -70,8 +62,6 @@ public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
 
     request = new TobagoMultipartFormdataRequest(mockRequest, System.getProperty("java.io.tmpdir"), 1024 * 1024);
   }
-
-// ///////////////////////////////////////////// code
 
   private String parameter(String key, String value) {
     return SNIP + BOUNDARY + NEWLINE
@@ -111,24 +101,18 @@ public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
     Set<String> actualSet;
 
     expectedSet = new HashSet<String>(
-        Arrays.asList(
-            new String[]{
-              "red", "green", "blue", "yellow"}));
+        Arrays.asList("red", "green", "blue", "yellow"));
     actualSet
         = new HashSet<String>(Arrays.asList(request.getParameterValues("color")));
     assertEquals("color", expectedSet, actualSet);
 
     expectedSet = new HashSet<String>(
-        Arrays.asList(
-            new String[]{
-              "Amsterdam", "Bonn", "Pisa"}));
+        Arrays.asList("Amsterdam", "Bonn", "Pisa"));
     actualSet = new HashSet<String>(Arrays.asList(request.getParameterValues("city")));
     assertEquals("city", expectedSet, actualSet);
 
     expectedSet = new HashSet<String>(
-        Arrays.asList(
-            new String[]{
-              "Trinidad & Tobago"}));
+        Arrays.asList("Trinidad & Tobago"));
     actualSet
         = new HashSet<String>(Arrays.asList(request.getParameterValues("country")));
     assertEquals("country", expectedSet, actualSet);
@@ -145,9 +129,7 @@ public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
     }
 
     Set<String> expected = new HashSet<String>(
-        Arrays.asList(
-            new String[]{
-              "color", "city", "country"}));
+        Arrays.asList("color", "city", "country"));
 
     assertEquals(expected, actual);
   }
@@ -156,7 +138,7 @@ public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
 
     Map actual = request.getParameterMap();
 
-    Map<String,String[]> expected = new HashMap<String, String[]>();
+    Map<String, String[]> expected = new HashMap<String, String[]>();
     expected.put("color", new String[]{"red", "green", "blue", "yellow"});
     expected.put("city", new String[]{"Amsterdam", "Bonn", "Pisa"});
     expected.put("country", new String[]{"Trinidad & Tobago"});
@@ -164,8 +146,8 @@ public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
     assertEquals(expected.keySet(), actual.keySet());
 
     Set keys = actual.keySet();
-    for (Iterator iterator = keys.iterator(); iterator.hasNext();) {
-      String key = (String) iterator.next();
+    for (Object key1 : keys) {
+      String key = (String) key1;
       String[] expectedStrings = expected.get(key);
       String[] actualStrings = (String[]) actual.get(key);
       assertEquals(expectedStrings.length, actualStrings.length);

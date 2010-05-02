@@ -39,7 +39,6 @@ import java.util.Locale;
 import java.util.Map;
 
 public class MockApplication extends Application {
-// ----------------------------------------------------------------- attributes
 
   private ViewHandler viewHandler;
   private Map components = new HashMap();
@@ -48,7 +47,6 @@ public class MockApplication extends Application {
 
   private VariableResolver variableResolver = null;
 
-// ----------------------------------------------------------- business methods
 
   public void addComponent(String componentType, String componentClass) {
     components.put(componentType, componentClass);
@@ -66,16 +64,16 @@ public class MockApplication extends Application {
   public UIComponent createComponent(String componentType) throws FacesException {
     String componentClass = (String) components.get(componentType);
     try {
-        Class clazz = Class.forName(componentClass);
-        return ((UIComponent) clazz.newInstance());
+      Class clazz = Class.forName(componentClass);
+      return ((UIComponent) clazz.newInstance());
     } catch (Exception e) {
-        throw new FacesException("componentType=" + componentType, e);
+      throw new FacesException("componentType=" + componentType, e);
     }
   }
 
   public UIComponent createComponent(ValueBinding valueBinding,
       FacesContext facesContext, String reference) throws FacesException {
-   	throw new FacesException(new UnsupportedOperationException());
+    throw new FacesException(new UnsupportedOperationException());
   }
 
   public Converter createConverter(Class aClass) {
@@ -95,12 +93,12 @@ public class MockApplication extends Application {
     return null;
   }
 
-  public ValueBinding createValueBinding(String reference){
-  if (reference == null) {
+  public ValueBinding createValueBinding(String reference) {
+    if (reference == null) {
       throw new NullPointerException();
-  } else {
+    } else {
       return (new MockValueBinding(this, reference));
-  }
+    }
   }
 
   public ActionListener getActionListener() {
@@ -136,10 +134,10 @@ public class MockApplication extends Application {
   }
 
   public PropertyResolver getPropertyResolver() {
-      if (propertyResolver == null) {
-          propertyResolver = new MockPropertyResolver();
-      }
-      return (this.propertyResolver);
+    if (propertyResolver == null) {
+      propertyResolver = new MockPropertyResolver();
+    }
+    return (this.propertyResolver);
   }
 
   public StateManager getStateManager() {
@@ -155,10 +153,10 @@ public class MockApplication extends Application {
   }
 
   public VariableResolver getVariableResolver() {
-      if (variableResolver == null) {
-          variableResolver = new MockVariableResolver();
-      }
-      return (this.variableResolver);
+    if (variableResolver == null) {
+      variableResolver = new MockVariableResolver();
+    }
+    return (this.variableResolver);
   }
 
   public void setActionListener(ActionListener actionListener) {
@@ -182,11 +180,10 @@ public class MockApplication extends Application {
   public void setSupportedLocales(Collection collection) {
   }
 
-// ------------------------------------------------------------ getter + setter
 
   public ViewHandler getViewHandler() {
     if (null == viewHandler) {
-        viewHandler = new MockViewHandler();
+      viewHandler = new MockViewHandler();
     }
     return viewHandler;
   }
@@ -196,11 +193,11 @@ public class MockApplication extends Application {
   }
 
   public void setPropertyResolver(PropertyResolver propertyResolver) {
-      this.propertyResolver = propertyResolver;
+    this.propertyResolver = propertyResolver;
   }
 
   public void setVariableResolver(VariableResolver variableResolver) {
-      this.variableResolver = variableResolver;
+    this.variableResolver = variableResolver;
   }
 }
 

@@ -28,8 +28,8 @@ import java.io.IOException;
 
 public abstract class AbstractJavaScriptTestBase extends TestCase {
 
-  protected Context cx;
-  protected Scriptable scope;
+  private Context cx;
+  private Scriptable scope;
 
   protected void setUp() throws Exception {
     super.setUp();
@@ -43,13 +43,13 @@ public abstract class AbstractJavaScriptTestBase extends TestCase {
 
   public void testDummy() {
 
-}
+  }
 
-  protected Object eval(String script) throws JavaScriptException {
+  protected Object eval(String script) {
     return cx.evaluateString(scope, script, "test", 1, null);
   }
 
-  protected int evalInt(String script) throws JavaScriptException {
+  protected int evalInt(String script) {
     Object o = eval(script);
     if (o instanceof Number) {
       return ((Number) o).intValue();
@@ -58,7 +58,7 @@ public abstract class AbstractJavaScriptTestBase extends TestCase {
         + o.getClass().getName() + " with value " + o, 0);
   }
 
-  protected long evalLong(String script) throws JavaScriptException {
+  protected long evalLong(String script) {
     Object o = eval(script);
     if (o instanceof Number) {
       return ((Number) o).longValue();
@@ -67,7 +67,7 @@ public abstract class AbstractJavaScriptTestBase extends TestCase {
         + o.getClass().getName() + " with value " + o, 0);
   }
 
-  protected boolean evalBoolean(String script) throws JavaScriptException {
+  protected boolean evalBoolean(String script) {
     Object o = eval(script);
     if (o instanceof Boolean) {
       return ((Boolean) o).booleanValue();
@@ -78,7 +78,7 @@ public abstract class AbstractJavaScriptTestBase extends TestCase {
 
   // XXX directory handling +  Maven reactor current dir problem
   protected void loadScriptFile(String jsFile)
-      throws IOException, JavaScriptException {
+      throws IOException {
     String fileName
         = "src/main/resources/org/apache/myfaces/tobago/renderkit/html/scarborough/standard/script/" + jsFile;
     File file = new File(fileName);

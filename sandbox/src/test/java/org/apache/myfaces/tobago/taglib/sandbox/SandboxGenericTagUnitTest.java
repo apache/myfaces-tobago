@@ -1,7 +1,5 @@
 package org.apache.myfaces.tobago.taglib.sandbox;
 
-import org.apache.myfaces.tobago.taglib.component.GenericTestBase;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,6 +17,7 @@ import org.apache.myfaces.tobago.taglib.component.GenericTestBase;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.taglib.component.GenericTestBase;
 
 public class SandboxGenericTagUnitTest extends GenericTestBase {
 
@@ -27,8 +26,9 @@ public class SandboxGenericTagUnitTest extends GenericTestBase {
   }
 
   protected void setUp() throws Exception {
-    tldPaths = new String[1];
-		tldPaths[0] = "META-INF/org/apache/myfaces/tobago/taglib/sandbox/tobago-sandbox.tld";
+    String[] tldPaths = new String[1];
+    tldPaths[0] = "META-INF/org/apache/myfaces/tobago/taglib/sandbox/tobago-sandbox.tld";
+    setTldPaths(tldPaths);
     super.setUp();
   }
 }

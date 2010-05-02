@@ -46,17 +46,22 @@ public class Parameterized extends Suite {
   public static @interface Parameters {
   }
 
-  public Parameterized(Class<?> clazz) throws Throwable {
+  public Parameterized(Class<?> clazz) throws Exception {
     super(clazz, new ArrayList<Runner>());
 
     FrameworkMethod method = findMethod(getTestClass());
-    List<Object[]> parametersList = (List<Object[]>) method.invokeExplosively(null);
+    List<Object[]> parametersList = null;
+    try {
+      parametersList = (List<Object[]>) method.invokeExplosively(null);
+    } catch (Throwable throwable) {
+      throw new Exception(throwable);
+    }
     for (Object[] aParametersList : parametersList) {
       getChildren().add(new ClassRunnerForParameters(getTestClass().getJavaClass(), aParametersList));
     }
   }
 
-  private FrameworkMethod findMethod(TestClass clazz) throws Throwable {
+  private FrameworkMethod findMethod(TestClass clazz) throws Exception {
     List<FrameworkMethod> methods = clazz.getAnnotatedMethods(Parameters.class);
     for (FrameworkMethod method : methods) {
       int modifiers = method.getMethod().getModifiers();

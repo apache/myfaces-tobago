@@ -36,6 +36,9 @@ import java.util.Collections;
 
 public class MockExternalContext extends ExternalContext {
 
+  private ServletContext context = null;
+  private ServletRequest request = null;
+  private ServletResponse response = null;
 
   public MockExternalContext(ServletContext context,
       ServletRequest request,
@@ -45,33 +48,26 @@ public class MockExternalContext extends ExternalContext {
     this.response = response;
   }
 
-
-  private ServletContext context = null;
-  private ServletRequest request = null;
-  private ServletResponse response = null;
-
-
   public Object getSession(boolean create) {
     if (sessionMap == null && create) {
-      sessionMap = new MockSessionMap
-          (((HttpServletRequest) request).getSession(true));
+      sessionMap = new MockSessionMap(((HttpServletRequest) request).getSession(true));
     }
     return sessionMap;
   }
 
 
   public Object getContext() {
-    return (context);
+    return context;
   }
 
 
   public Object getRequest() {
-    return (request);
+    return request;
   }
 
 
   public Object getResponse() {
-    return (response);
+    return response;
   }
 
 
@@ -81,7 +77,7 @@ public class MockExternalContext extends ExternalContext {
     if (applicationMap == null) {
       applicationMap = new MockApplicationMap(context);
     }
-    return (applicationMap);
+    return applicationMap;
   }
 
 
@@ -89,10 +85,9 @@ public class MockExternalContext extends ExternalContext {
 
   public Map getSessionMap() {
     if (sessionMap == null) {
-      sessionMap = new MockSessionMap
-          (((HttpServletRequest) request).getSession(true));
+      sessionMap = new MockSessionMap(((HttpServletRequest) request).getSession(true));
     }
-    return (sessionMap);
+    return sessionMap;
   }
 
 
@@ -102,7 +97,7 @@ public class MockExternalContext extends ExternalContext {
     if (requestMap == null) {
       requestMap = new MockRequestMap(request);
     }
-    return (requestMap);
+    return requestMap;
   }
 
 
@@ -147,12 +142,12 @@ public class MockExternalContext extends ExternalContext {
 
 
   public Locale getRequestLocale() {
-    return (request.getLocale());
+    return request.getLocale();
   }
 
 
   public Iterator getRequestLocales() {
-    return (new LocalesIterator(request.getLocales()));
+    return new LocalesIterator(request.getLocales());
   }
 
 
@@ -233,19 +228,19 @@ public class MockExternalContext extends ExternalContext {
 
 
   public String getAuthType() {
-    return (((HttpServletRequest) request).getAuthType());
+    return ((HttpServletRequest) request).getAuthType();
   }
 
   public String getRemoteUser() {
-    return (((HttpServletRequest) request).getRemoteUser());
+    return ((HttpServletRequest) request).getRemoteUser();
   }
 
   public java.security.Principal getUserPrincipal() {
-    return (((HttpServletRequest) request).getUserPrincipal());
+    return ((HttpServletRequest) request).getUserPrincipal();
   }
 
   public boolean isUserInRole(String role) {
-    return (((HttpServletRequest) request).isUserInRole(role));
+    return ((HttpServletRequest) request).isUserInRole(role);
   }
 
 

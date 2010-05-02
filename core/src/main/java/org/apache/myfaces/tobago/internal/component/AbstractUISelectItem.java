@@ -35,7 +35,7 @@ public class AbstractUISelectItem extends UISelectItem implements OnComponentPop
   public void onComponentPopulated(FacesContext facesContext, UIComponent parent) {
     if (itemValueLiteral) {
       Object converted = ComponentUtils.getConvertedValue(
-          FacesContext.getCurrentInstance(), (javax.faces.component.UIInput) parent, (String)getItemValue());
+          FacesContext.getCurrentInstance(), (javax.faces.component.UIInput) parent, (String) getItemValue());
       super.setItemValue(converted);
     }
   }
