@@ -38,7 +38,7 @@ public class AutomaticSeleniumTest extends SeleniumTest {
 
   @Test
   public void testPageConsistency() {
-    selenium.open(url);
+    getSelenium().open(url);
     checkPage();
   }
 

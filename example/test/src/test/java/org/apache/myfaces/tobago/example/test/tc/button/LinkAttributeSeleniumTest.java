@@ -33,30 +33,30 @@ public class LinkAttributeSeleniumTest extends MultiSuffixSeleniumTest {
   @Test
   public void testInternalLinkWithSlash() {
     open("/tc/button/link-attribute.");
-    selenium.click("page:button-internal-link-with-slash");
+    getSelenium().click("page:button-internal-link-with-slash");
     Assert.assertEquals(
         getHtmlSource(),
-        "A simple page for the resource test (static).", selenium.getText("//html/body"));
+        "A simple page for the resource test (static).", getSelenium().getText("//html/body"));
   }
 
   @Test
   public void testInternalLinkWithoutSlash() {
     open("/tc/button/link-attribute.");
-    selenium.click("page:button-internal-link-without-slash");
+    getSelenium().click("page:button-internal-link-without-slash");
     Assert.assertEquals(
         getHtmlSource(),
-        "A simple page for the resource test (static).", selenium.getText("//html/body"));
+        "A simple page for the resource test (static).", getSelenium().getText("//html/body"));
   }
 
   @Test
   public void testExternalLink() throws InterruptedException {
     open("/tc/button/link-attribute.");
-    selenium.click("page:button-external-link");
+    getSelenium().click("page:button-external-link");
     // XXX This sleep call is not nice...
     sleep();
     // go to the apache home page
     Assert.assertTrue(
         getHtmlSource(),
-        selenium.getText("//html/head/title").contains("Apache Software Foundation"));
+        getSelenium().getText("//html/head/title").contains("Apache Software Foundation"));
   }
 }

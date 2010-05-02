@@ -45,7 +45,7 @@ public abstract class SeleniumTest {
     selenium.stop();
   }
 
-  public DefaultSelenium getSelenium() {
+  protected DefaultSelenium getSelenium() {
     return selenium;
   }
 
