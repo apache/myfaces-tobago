@@ -154,7 +154,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.2</version>
+        <version>2.5</version>
         <configuration>
           <configLocation>
             http://svn.apache.org/repos/asf/myfaces/maven/trunk/build-tools/src/main/resources/org/apache/myfaces/tobago/checkstyle.xml
@@ -164,8 +164,8 @@
           </headerLocation>
           <xrefLocation>xref</xrefLocation>
           <excludes>**/package-info.java</excludes>
-          <minimumTokens>100</minimumTokens>
-          <targetJdk>${maven.compile.source}</targetJdk>
+          <indentSize>2</indentSize>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
         </configuration>
       </plugin>
 
@@ -186,11 +186,11 @@
             <link>http://java.sun.com/j2ee/1.4/docs/api</link>
             <link>http://java.sun.com/javaee/javaserverfaces/1.1_01/docs/api</link>
             <link>http://jakarta.apache.org/commons/collections/api-${commons-collection.version}/</link>
-            <link>http://jakarta.apache.org/commons/lang/api-${common-lang.version}/</link>
+            <link>http://jakarta.apache.org/commons/lang/api-${commons-lang.version}/</link>
             <link>http://jakarta.apache.org/commons/fileupload/apidocs</link>
             <link>http://jakarta.apache.org/commons/digester/commons-digester-${commons-digester.version}/docs/api/
             </link>
-            <link>http://jakarta.apache.org/commons/io/api-${common-io.version}/</link>
+            <link>http://jakarta.apache.org/commons/io/api-${commons-io.version}/</link>
             <link>http://jakarta.apache.org/commons/logging/commons-logging-${commons-logging.version}/apidocs/</link>
             <link>http://www.slf4j.org/apidocs</link>
             <link>http://junit.sourceforge.net/javadoc/</link>
@@ -300,8 +300,8 @@
             <exclude>**/package-info.java</exclude>
             <exclude>org/apache/myfaces/tobago/apt/annotation/*.java</exclude>
           </excludes>
-          <encoding>${maven.compile.encoding}</encoding>
-          <linkXref>true</linkXref>
+          <sourceEncoding>${maven.compile.encoding}</sourceEncoding>
+          <linkXRef>true</linkXRef>
           <targetJdk>${maven.compile.source}</targetJdk>
         </configuration>
       </plugin>                              
@@ -343,8 +343,8 @@
       </plugin>
 
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>rat-maven-plugin</artifactId>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
         <configuration>
           <excludes>
             <exclude>**/javax.faces.lifecycle.LifecycleFactory</exclude>
@@ -658,7 +658,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>2.2</version>
+          <version>2.5</version>
           <configuration>
             <configLocation>
               http://svn.apache.org/repos/asf/myfaces/maven/trunk/build-tools/src/main/resources/org/apache/myfaces/tobago/checkstyle.xml
@@ -668,8 +668,8 @@
             </headerLocation>
             <xrefLocation>xref</xrefLocation>
             <excludes>**/package-info.java</excludes>
-            <minimumTokens>100</minimumTokens>
-            <targetJdk>${maven.compile.source}</targetJdk>
+            <indentSize>2</indentSize>
+            <includeTestSourceDirectory>true</includeTestSourceDirectory>
           </configuration>
         </plugin>
         <plugin>
@@ -829,9 +829,9 @@
         </plugin>
 
         <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>rat-maven-plugin</artifactId>
-          <version>1.0-alpha-3</version>
+          <groupId>org.apache.rat</groupId>
+          <artifactId>apache-rat-plugin</artifactId>
+          <version>0.6</version>
           <configuration>
             <excludes>
               <exclude>**/javax.faces.lifecycle.LifecycleFactory</exclude>
