@@ -32,7 +32,7 @@ public abstract class MultiSuffixSeleniumTest extends SeleniumTest {
   }
 
   public void open(String urlFragment) {
-    selenium.open(createUrl(urlFragment + suffix));
+    getSelenium().open(createUrl(urlFragment + suffix));
   }
 
   protected void sleep() throws InterruptedException {
