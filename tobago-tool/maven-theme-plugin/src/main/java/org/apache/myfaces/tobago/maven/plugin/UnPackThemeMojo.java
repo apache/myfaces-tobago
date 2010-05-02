@@ -110,11 +110,11 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
       }
       Artifact artifact = (Artifact) artifacts.next();
       getLog().debug("Expanding theme "+ artifact);
+      File file = artifact.getFile();
+      if (Artifact.SCOPE_COMPILE.equals(artifact.getScope()) && file.isFile()
+          && "jar".equals(artifact.getType()) && findThemeDescriptor(file)) {
 
-      if (Artifact.SCOPE_COMPILE.equals(artifact.getScope())
-          && "jar".equals(artifact.getType()) && findThemeDescriptor(artifact.getFile())) {
-
-        String name = artifact.getFile().getName();
+        String name = file.getName();
         getLog().debug("Expanding theme "+ name);
         File tempLocation = new File(workDirectory, name.substring(0, name.length() - 4));
         boolean process = false;
@@ -125,7 +125,6 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
           process = true;
         }
         if (process) {
-          File file = artifact.getFile();
           try {
             unpack(file, tempLocation);
             String[] fileNames = getThemeFiles(tempLocation);
@@ -140,7 +139,7 @@ public class UnPackThemeMojo extends AbstractThemeMojo {
               }
             }
           } catch (NoSuchArchiverException e) {
-            this.getLog().info("Skip unpacking dependency file with unknown extension: " + file.getPath());
+            getLog().info("Skip unpacking dependency file with unknown extension: " + file.getPath());
           }
         }
       }
