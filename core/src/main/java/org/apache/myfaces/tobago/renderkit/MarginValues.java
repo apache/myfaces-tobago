@@ -1,3 +1,5 @@
+package org.apache.myfaces.tobago.renderkit;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -15,14 +17,18 @@
  * limitations under the License.
  */
 
-/*
- * theme: scarborough
- * agent: mozilla
- */
+import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.layout.Measure;
 
-/* toolBar -------------------------------------------------------------------- */
+import javax.faces.context.FacesContext;
 
-.tobago-toolBar-button-menu-background-image {
-  width: 20px;
-  height: 17px;
+public interface MarginValues {
+
+  Measure getMarginLeft(FacesContext facesContext, Configurable component);
+
+  Measure getMarginRight(FacesContext facesContext, Configurable component);
+
+  Measure getMarginTop(FacesContext facesContext, Configurable component);
+
+  Measure getMarginBottom(FacesContext facesContext, Configurable component);
 }

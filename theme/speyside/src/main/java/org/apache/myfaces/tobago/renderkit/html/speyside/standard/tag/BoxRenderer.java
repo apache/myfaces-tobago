@@ -142,11 +142,25 @@ without shadow
       // shadow end
       writer.endElement(HtmlConstants.DIV);
     }
+
+    writer.startElement(HtmlConstants.DIV, null);
+    writer.writeClassAttribute("tobago-box-content"); // needed to be scrollable inside of the box
+    final Style style = new Style(facesContext, box);
+    final Measure leftOffset = getLeftOffset(facesContext, box);
+    final Measure rightOffset = getRightOffset(facesContext, box);
+    final Measure topOffset = getTopOffset(facesContext, box);
+    final Measure bottomOffset = getBottomOffset(facesContext, box);
+    style.setWidth(style.getWidth().subtract(leftOffset).subtract(rightOffset));
+    style.setHeight(style.getHeight().subtract(topOffset).subtract(bottomOffset));
+    style.setLeft(leftOffset);
+    style.setTop(topOffset);
+    writer.writeStyleAttribute(style);
   }
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    writer.endElement(HtmlConstants.DIV);
     writer.endElement(HtmlConstants.DIV);
   }
 

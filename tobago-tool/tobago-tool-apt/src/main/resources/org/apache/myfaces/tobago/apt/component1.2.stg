@@ -45,6 +45,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.MethodBindingToMethodExpression;
 import org.apache.myfaces.tobago.component.MethodExpressionToMethodBinding;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
+import org.apache.myfaces.tobago.renderkit.MarginValues;
 import org.apache.myfaces.tobago.renderkit.SpacingValues;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
 import javax.el.ELException;

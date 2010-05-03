@@ -185,8 +185,10 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
     }
     if (sum != null) {
       // adding the space between the cells
-      sum = sum.add(computeSpacing(orientation, 0, heads.length));
       sum = sum.add(LayoutUtils.getBeginOffset(orientation, getLayoutContainer()));
+      sum = sum.add(getMarginBegin(orientation));
+      sum = sum.add(computeSpacing(orientation, 0, heads.length));
+      sum = sum.add(getMarginEnd(orientation));
       sum = sum.add(LayoutUtils.getEndOffset(orientation, getLayoutContainer()));
       LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), sum);
     }
@@ -279,7 +281,7 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
           component.setDisplay(Display.BLOCK);
 
           // compute the position of the cell
-          Measure position = LayoutUtils.getBeginOffset(orientation, getLayoutContainer());
+          Measure position = Measure.ZERO;
           position = position.add(getMarginBegin(orientation));
           for (int k = 0; k < i; k++) {
             if (heads[k] == null) {

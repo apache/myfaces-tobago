@@ -451,11 +451,12 @@ label.tobago-label-error {
   margin-bottom: 0px;
   scrollbar-base-color: #000000;
   scrollbar-3dlight-color: #000000;
-  scrollbar-darkshadow-color: #c0c0c0;
+  scrollbar-darkshadow-color: #CCCCCC;
   scrollbar-arrow-color: #000000;
-  scrollbar-face-color: #c0c0c0;
-  scrollbar-highlight-color: #c0c0c0;
-  scrollbar-shadow-color: #00000;
+  scrollbar-face-color: #E2E2E2;
+  scrollbar-highlight-color: #E2E2E2;
+  scrollbar-shadow-color: #000000;
+  scrollbar-track-color: #CCCCCC;
 }
 
 /* richTextEditor ---------------------------------------------------------- */

@@ -36,6 +36,7 @@ import java.io.IOException;
 
 public class BoxRenderer extends BoxRendererBase {
 
+  @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
     UIBox box = (UIBox) component;
@@ -67,7 +68,7 @@ public class BoxRenderer extends BoxRendererBase {
       writer.endElement(HtmlConstants.LEGEND);
     }
 
-    Style innerStyle = new Style();
+    Style contentStyle = new Style(facesContext, box);
     if (toolbar != null) {
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeClassAttribute("tobago-box-toolbar-div");
@@ -78,22 +79,32 @@ public class BoxRenderer extends BoxRendererBase {
       writer.endElement(HtmlConstants.DIV);
       writer.endElement(HtmlConstants.DIV);
       if (VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
-        innerStyle.setTop(Measure.valueOf(-10));
+// XXX check for what is this, and delete or comment it
+        contentStyle.setTop(Measure.valueOf(-10));
       }
     }
     writer.startElement(HtmlConstants.DIV, box);
-    writer.writeClassAttribute();
-    writer.writeStyleAttribute(innerStyle);
+    writer.writeClassAttribute("tobago-box-content"); // needed to be scrollable inside of the box
+    writer.writeStyleAttribute(contentStyle);
+    final Measure leftOffset = getLeftOffset(facesContext, box);
+    final Measure rightOffset = getRightOffset(facesContext, box);
+    final Measure topOffset = getTopOffset(facesContext, box);
+    final Measure bottomOffset = getBottomOffset(facesContext, box);
+    contentStyle.setWidth(contentStyle.getWidth().subtract(leftOffset).subtract(rightOffset));
+    contentStyle.setHeight(contentStyle.getHeight().subtract(topOffset).subtract(bottomOffset));
+    contentStyle.setLeft(leftOffset);
+    contentStyle.setTop(topOffset);
+    writer.writeStyleAttribute(contentStyle);
   }
 
-  public void encodeEnd(FacesContext facesContext,
-                        UIComponent component) throws IOException {
-
+  @Override
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
     writer.endElement(HtmlConstants.DIV);
     writer.endElement(HtmlConstants.FIELDSET);
   }
 
+  @Override
   public boolean getRendersChildren() {
     return true;
   }

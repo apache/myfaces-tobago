@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.renderkit.MarginValues;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.SpacingValues;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
@@ -30,7 +31,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class GridLayoutRenderer extends RendererBase implements SpacingValues {
+public class GridLayoutRenderer extends RendererBase implements SpacingValues, MarginValues {
 
   private static final Logger LOG = LoggerFactory.getLogger(GridLayoutRenderer.class);
 
@@ -49,7 +50,8 @@ public class GridLayoutRenderer extends RendererBase implements SpacingValues {
   }
 
   @Override
-  public void encodeEnd(FacesContext facesContext,
+  public void encodeEnd(
+      FacesContext facesContext,
       UIComponent component) throws IOException {
 //    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 //    writer.endElement(HtmlConstants.DIV);
@@ -58,9 +60,28 @@ public class GridLayoutRenderer extends RendererBase implements SpacingValues {
   public Measure getColumnSpacing(FacesContext facesContext, Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.COLUMN_SPACING);
   }
-  
+
   public Measure getRowSpacing(FacesContext facesContext, Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.ROW_SPACING);
   }
-  
+
+  public Measure getMarginLeft(FacesContext facesContext, Configurable component) {
+    Configurable parent = (Configurable) ((UIComponent) component).getParent();
+    return getResourceManager().getThemeMeasure(facesContext, parent, Attributes.MARGIN_LEFT);
+  }
+
+  public Measure getMarginRight(FacesContext facesContext, Configurable component) {
+    Configurable parent = (Configurable) ((UIComponent) component).getParent();
+    return getResourceManager().getThemeMeasure(facesContext, parent, Attributes.MARGIN_RIGHT);
+  }
+
+  public Measure getMarginTop(FacesContext facesContext, Configurable component) {
+    Configurable parent = (Configurable) ((UIComponent) component).getParent();
+    return getResourceManager().getThemeMeasure(facesContext, parent, Attributes.MARGIN_TOP);
+  }
+
+  public Measure getMarginBottom(FacesContext facesContext, Configurable component) {
+    Configurable parent = (Configurable) ((UIComponent) component).getParent();
+    return getResourceManager().getThemeMeasure(facesContext, parent, Attributes.MARGIN_BOTTOM);
+  }
 }

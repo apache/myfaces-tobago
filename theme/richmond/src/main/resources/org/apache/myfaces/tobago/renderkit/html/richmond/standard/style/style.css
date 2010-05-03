@@ -112,11 +112,12 @@ img.tobago-progress-color2 {
   margin-bottom: 0px;
   scrollbar-base-color: #3366CC;
   scrollbar-3dlight-color: #3366cc;
-  scrollbar-darkshadow-color: #3366CC;
+  scrollbar-darkshadow-color: #E6E6E6;
   scrollbar-arrow-color: #3366cc;
   scrollbar-face-color: #FFFFFF;
   scrollbar-highlight-color: #FFFFFF;
   scrollbar-shadow-color: #3366CC;
+  scrollbar-track-color: #E6E6E6;
 }
 
 /* box ----------------------------------------------------------------- */
@@ -130,10 +131,6 @@ img.tobago-progress-color2 {
   background: #FFCC66 none;
   color: #3366CC;
   border-bottom: 1px solid #FF9900;
-}
-
-.tobago-box-content {
-  background-color: #E6E6E6;
 }
 
 /* button ------------------------------------------------------------ */

@@ -364,11 +364,16 @@ div.tobago-gridLayout-first-column {
 fieldset.tobago-box-default {
   border: 2px groove #ddeeff;
   margin: 0;
-  padding: 20px 10px 10px 10px;
+/*  padding: 20px 10px 10px 10px;*/
 }
 
 legend.tobago-box-default {
   color: black; /*  font-size: 14px;*/
+}
+
+.tobago-box-content {
+  position: absolute;
+  overflow: auto;
 }
 
 .tobago-box-toolbar-div {

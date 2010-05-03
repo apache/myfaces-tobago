@@ -23,13 +23,15 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 public interface HasMargins {
 
   /**
-   * Top margin between container component and the children.
+   * Left margin between container component and the children.
    */
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "getMargin()")
-  void setMarginTop(String margin);
+      defaultCode = "getMargin() != null\n"
+          + " ? getMargin()\n"
+          + " : ((MarginValues)getRenderer(getFacesContext())).getMarginLeft(getFacesContext(), this)")
+  void setMarginLeft(String margin);
 
   /**
    * Right margin between container component and the children.
@@ -37,8 +39,21 @@ public interface HasMargins {
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "getMargin()")
+      defaultCode = "getMargin() != null\n"
+          + " ? getMargin()\n"
+          + " : ((MarginValues)getRenderer(getFacesContext())).getMarginRight(getFacesContext(), this)")
   void setMarginRight(String margin);
+
+  /**
+   * Top margin between container component and the children.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(
+      type = "org.apache.myfaces.tobago.layout.Measure",
+      defaultCode = "getMargin() != null\n"
+          + " ? getMargin()\n"
+          + " : ((MarginValues)getRenderer(getFacesContext())).getMarginTop(getFacesContext(), this)")
+  void setMarginTop(String margin);
 
   /**
    * Bottom margin between container component and the children.
@@ -46,15 +61,9 @@ public interface HasMargins {
   @TagAttribute
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "getMargin()")
+      defaultCode = "getMargin() != null\n"
+          + " ? getMargin()\n"
+          + " : ((MarginValues)getRenderer(getFacesContext())).getMarginBottom(getFacesContext(), this)")
   void setMarginBottom(String margin);
 
-  /**
-   * Left margin between container component and the children.
-   */
-  @TagAttribute
-  @UIComponentTagAttribute(
-      type = "org.apache.myfaces.tobago.layout.Measure",
-      defaultCode = "getMargin()")
-  void setMarginLeft(String margin);
 }
