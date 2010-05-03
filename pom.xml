@@ -908,7 +908,6 @@
       <modules>
         <module>example</module>
         <module>tobago-assembly</module>
-        <module>sandbox</module>
       </modules>
     </profile>
     <profile>
@@ -1084,7 +1083,6 @@
       <modules>
         <module>tobago-extension</module>
         <module>example</module>
-        <module>sandbox</module>
       </modules>
     </profile>
     <!-- END SNIPPET: release-profile -->
@@ -1310,7 +1308,6 @@
         <module>tobago-extension</module>
         <module>example</module>
         <module>tobago-assembly</module>
-        <module>sandbox</module>
       </modules>
       <build>
         <plugins>
