@@ -33,11 +33,11 @@
   </scm>
 
   <modules>
-    <module>standard</module>
-    <module>scarborough</module>
-    <module>speyside</module>
-    <module>richmond</module>
-    <module>charlotteville</module>
+    <module>tobago-theme-standard</module>
+    <module>tobago-theme-scarborough</module>
+    <module>tobago-theme-speyside</module>
+    <module>tobago-theme-richmond</module>
+    <module>tobago-theme-charlotteville</module>
     <!--    <module>tobago-theme-boccoo</module>-->
   </modules>
 
