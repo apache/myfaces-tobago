@@ -194,22 +194,6 @@
     </dependency>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-message-fix</artifactId>
-      <classifier>jdk14retro</classifier>
-      <version>${project.version}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>sun.jdk</groupId>
-          <artifactId>tools</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.myfaces.tobago</groupId>
-          <artifactId>tobago-core</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
       <artifactId>tobago-fileupload</artifactId>
       <classifier>jdk14retro</classifier>
       <version>${project.version}</version>

@@ -35,7 +35,6 @@
     <module>tobago-facelets</module>
     <module>tobago-fileupload</module>
     <!--module>math</module-->
-    <module>tobago-message-fix</module>
     <module>tobago-sandbox</module>
     <module>tobago-security</module>
     <module>tobago-taglib-extension</module>
