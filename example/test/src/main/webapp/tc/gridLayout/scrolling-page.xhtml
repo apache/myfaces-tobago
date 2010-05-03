@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:view
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:page id="page">
+    <tc:gridLayoutConstraint width="300px" height="600px"/>
+    <f:facet name="layout">
+      <tc:gridLayout rows="auto;auto;auto"/>
+    </f:facet>
+
+    <tc:image id="image-1" value="pidgeon-point.jpg">
+      <tc:gridLayoutConstraint minimumHeight="400px"/>
+    </tc:image>
+    <tc:image id="image-2" value="pidgeon-point.jpg">
+      <tc:gridLayoutConstraint minimumHeight="400px"/>
+    </tc:image>
+    <tc:image id="image-3" value="pidgeon-point.jpg">
+      <tc:gridLayoutConstraint minimumHeight="400px"/>
+    </tc:image>
+
+    <tc:script file="script/test-utils.js"/>
+
+    <tc:script onload="checkLayout('page:image-1', 0, 0, 300, 400);"/>
+    <tc:script onload="checkLayout('page:image-2', 0, 405, 300, 400);"/>
+    <tc:script onload="checkLayout('page:image-3', 0, 810, 300, 400);"/>
+
+  </tc:page>
+</f:view>
