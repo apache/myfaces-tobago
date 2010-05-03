@@ -96,12 +96,12 @@
       <modules>
         <module>tobago-example-addressbook</module>
         <module>tobago-example-addressbook-lib</module>
-        <module>blank</module>
-        <module>data</module>
-        <module>demo</module>
-        <module>nonfacesrequest</module>
-        <module>experimental</module>
-        <module>test</module>
+        <module>tobago-example-blank</module>
+        <module>tobago-example-data</module>
+        <module>tobago-example-demo</module>
+        <module>tobago-example-nonfacesrequest</module>
+        <module>tobago-example-experimental</module>
+        <module>tobago-example-test</module>
       </modules>
     </profile>
     <profile>
@@ -109,40 +109,40 @@
       <modules>
         <module>tobago-example-addressbook</module>
         <module>tobago-example-addressbook-lib</module>
-        <module>blank</module>
-        <module>data</module>
-        <module>demo</module>
-        <module>nonfacesrequest</module>
-        <module>portlet</module>
-        <module>sandbox</module>
-        <module>security</module>
-        <module>experimental</module>
-        <module>test</module>
+        <module>tobago-example-blank</module>
+        <module>tobago-example-data</module>
+        <module>tobago-example-demo</module>
+        <module>tobago-example-nonfacesrequest</module>
+        <module>tobago-example-portlet</module>
+        <module>tobago-example-sandbox</module>
+        <module>tobago-example-security</module>
+        <module>tobago-example-experimental</module>
+        <module>tobago-example-test</module>
         <module>tobago-example-assembly</module>
         <module>tobago-theme-example</module>
-        <module>seam</module>
+        <module>tobago-example-seam</module>
       </modules>
     </profile>
     <profile>
       <id>jdk14retro</id>
       <modules>
-        <module>retro</module>
+        <module>tobago-example-retro</module>
       </modules>
     </profile>
     <profile>
       <id>release</id>
       <modules>
-        <module>blank</module>
-        <module>data</module>
-        <module>demo</module>
+        <module>tobago-example-blank</module>
+        <module>tobago-example-data</module>
+        <module>tobago-example-demo</module>
       </modules>
     </profile>
     <profile>
       <id>generate-assembly</id>
       <modules>
-        <module>blank</module>
-        <module>data</module>
-        <module>demo</module>
+        <module>tobago-example-blank</module>
+        <module>tobago-example-data</module>
+        <module>tobago-example-demo</module>
         <module>tobago-example-assembly</module>
       </modules>
     </profile>

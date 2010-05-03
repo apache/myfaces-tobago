@@ -81,7 +81,8 @@
             <transformationSet>
               <dir>src/main/webapp</dir>
               <outputDir>target/tobago-example-test</outputDir>
-              <stylesheet>../demo/src/main/xslt/facelet2jsp.xsl</stylesheet>
+              <!-- not nice, but works... -->
+              <stylesheet>../tobago-example-demo/src/main/xslt/facelet2jsp.xsl</stylesheet>
               <includes>
                 <include>**/*.xhtml</include>
               </includes>
