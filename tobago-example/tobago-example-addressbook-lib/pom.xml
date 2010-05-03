@@ -19,7 +19,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
-    <artifactId>tobago-example-addressbook</artifactId>
+    <artifactId>tobago-example</artifactId>
     <version>1.5.0-alpha-2-SNAPSHOT</version>
   </parent>
   <artifactId>tobago-example-addressbook-lib</artifactId>
