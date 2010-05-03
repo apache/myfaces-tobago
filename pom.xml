@@ -881,7 +881,7 @@
     <module>tobago-jsf-compat</module>
     <module>core</module>
     <module>tobago-theme</module>
-    <module>extension</module>
+    <module>tobago-extension</module>
   </modules>
 
   <distributionManagement>
@@ -1082,7 +1082,7 @@
         </plugins>
       </build>
       <modules>
-        <module>extension</module>
+        <module>tobago-extension</module>
         <module>example</module>
         <module>sandbox</module>
       </modules>
@@ -1307,7 +1307,7 @@
      <profile>
       <id>generate-assembly</id>
       <modules>
-        <module>extension</module>
+        <module>tobago-extension</module>
         <module>example</module>
         <module>tobago-assembly</module>
         <module>sandbox</module>
