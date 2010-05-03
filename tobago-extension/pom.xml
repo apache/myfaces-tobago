@@ -31,12 +31,12 @@
     <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/extension</url>
   </scm>
   <modules>
-    <module>deprecation</module>
-    <module>facelets</module>
-    <module>fileupload</module>
+    <module>tobago-deprecation</module>
+    <module>tobago-facelets</module>
+    <module>tobago-fileupload</module>
     <!--module>math</module-->
-    <module>message-fix</module>
-    <module>security</module>
+    <module>tobago-message-fix</module>
+    <module>tobago-security</module>
     <module>tobago-taglib-extension</module>
   </modules>
 
