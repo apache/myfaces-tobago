@@ -24,16 +24,28 @@ import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @deprecated please use {@link ResourceManagerUtils}
+ */
+@Deprecated
 public class ResourceManagerUtil {
 
   private ResourceManagerUtil() {
     // no instance
   }
 
+  /**
+   * @deprecated please use {@link ResourceManagerUtils}
+   */
+  @Deprecated
   public static String getProperty(FacesContext facesContext, String bundle, String key) {
     return ResourceManagerFactory.getResourceManager(facesContext).getProperty(facesContext, bundle, key);
   }
 
+  /**
+   * @deprecated please use {@link ResourceManagerUtils}
+   */
+  @Deprecated
   public static String getPropertyNotNull(FacesContext facesContext, String bundle, String key) {
     String result = ResourceManagerFactory.getResourceManager(facesContext).getProperty(facesContext, bundle, key);
     if (result == null) {
@@ -45,6 +57,7 @@ public class ResourceManagerUtil {
 
   /**
    * Searches for an image and return it with the context path
+   * @deprecated please use {@link ResourceManagerUtils}
    */
   public static String getImageWithPath(FacesContext facesContext, String name) {
     return facesContext.getExternalContext().getRequestContextPath()
@@ -53,6 +66,7 @@ public class ResourceManagerUtil {
 
   /**
    * Searches for an image and return it with the context path
+   * @deprecated please use {@link ResourceManagerUtils}
    */
   public static String getImageWithPath(FacesContext facesContext, String name, boolean ignoreMissing) {
     String image = ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name, ignoreMissing);
@@ -63,12 +77,20 @@ public class ResourceManagerUtil {
     }
   }
 
+  /**
+   * @deprecated please use {@link ResourceManagerUtils}
+   */
+  @Deprecated
   public static List<String> getStyles(FacesContext facesContext, String name) {
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
     String[] styles = ResourceManagerFactory.getResourceManager(facesContext).getStyles(facesContext, name);
     return addContextPath(styles, contextPath);
   }
 
+  /**
+   * @deprecated please use {@link ResourceManagerUtils}
+   */
+  @Deprecated
   private static List<String> addContextPath(String[] strings, String contextPath) {
     List<String> withContext = new ArrayList<String>(strings.length);
     for (String string : strings) {
@@ -77,12 +99,20 @@ public class ResourceManagerUtil {
     return withContext;
   }
 
+  /**
+   * @deprecated please use {@link ResourceManagerUtils}
+   */
+  @Deprecated
   public static List<String> getScripts(FacesContext facesContext, String name) {
     String contextPath = facesContext.getExternalContext().getRequestContextPath();
     String[] scripts = ResourceManagerFactory.getResourceManager(facesContext).getScripts(facesContext, name);
     return addContextPath(scripts, contextPath);
   }
 
+  /**
+   * @deprecated please use {@link ResourceManagerUtils}
+   */
+  @Deprecated
   public static String getScriptsAsJSArray(FacesContext facesContext, String[] names) {
     List<String> fileNames = new ArrayList<String>();
     for (String name : names) {
@@ -91,6 +121,10 @@ public class ResourceManagerUtil {
     return toJSArray(fileNames);
   }
 
+  /**
+   * @deprecated please use {@link ResourceManagerUtils}
+   */
+  @Deprecated
   public static String getStylesAsJSArray(FacesContext facesContext, String[] names) {
     List<String> fileNames = new ArrayList<String>();
     for (String name : names) {
@@ -99,6 +133,10 @@ public class ResourceManagerUtil {
     return toJSArray(fileNames);
   }
 
+  /**
+   * @deprecated please use {@link ResourceManagerUtils}
+   */
+  @Deprecated
   public static String toJSArray(List<String> list) {
     StringBuilder sb = new StringBuilder();
     for (String name : list) {
@@ -112,23 +150,39 @@ public class ResourceManagerUtil {
     return "[" + sb.toString() + "]";
   }
 
+  /**
+   * @deprecated please use {@link ResourceManagerUtils}
+   */
+  @Deprecated
   public static String getDisabledImageWithPath(FacesContext facesContext, String image) {
     String filename = ResourceUtils.addPostfixToFilename(image, "Disabled");
     return getImageWithPath(facesContext, filename, true);
   }
 
+  /**
+   * @deprecated please use {@link ResourceManagerUtils}
+   */
+  @Deprecated
   public static String getBlankPage(FacesContext facesContext) {
     return facesContext.getExternalContext().getRequestContextPath()
         + "/org/apache/myfaces/tobago/renderkit/html/standard/blank.html";
   }
 
+  /**
+   * @deprecated please use {@link ResourceManagerUtils}
+   */
+  @Deprecated
   public static String getPageWithoutContextPath(FacesContext facesContext, String name) {
     return ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name);
   }
-  
+
+/**
+ * @deprecated please use {@link ResourceManagerUtils}
+ */
+@Deprecated
   public static Measure getThemeMeasure(FacesContext facesContext, Configurable configurable, String name) {
     return ResourceManagerFactory.getResourceManager(facesContext).getThemeMeasure(
         facesContext, configurable.getRendererType(), configurable.getMarkup(), name);
   }
-  
+
 }

@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIViewRoot;
@@ -83,7 +83,7 @@ public final class MessageFactory {
 
   public static String getMessageText(
       FacesContext facesContext, String bundle, String key) {
-    String message = ResourceManagerUtil.getProperty(facesContext, bundle, key);
+    String message = ResourceManagerUtils.getProperty(facesContext, bundle, key);
     if (message == null || message.length() < 1) {
       try {
         Locale locale = getLocale(facesContext);

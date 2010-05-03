@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
@@ -27,7 +28,7 @@ import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.component.UIToolBar;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
 import org.apache.myfaces.tobago.internal.component.UIPanelBase;
@@ -43,7 +44,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -117,7 +117,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     writer.writeIdAttribute(hiddenId);
     writer.endElement(HtmlConstants.INPUT);
 
-    String image1x1 = ResourceManagerUtil.getImageWithPath(facesContext, "image/1x1.gif");
+    String image1x1 = ResourceManagerUtils.getImageWithPath(facesContext, "image/1x1.gif");
 
     TabList tabList = getTabList(facesContext, tabGroup);
 
@@ -191,10 +191,10 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
         if (tab.isRendered()) {
           LabelWithAccessKey label = new LabelWithAccessKey(tab);
           if (label.getText() != null) {
-            tabs.getWidthList().add(RenderUtil.calculateStringWidth2(facesContext, component, label.getText())
+            tabs.getWidthList().add(RenderUtils.calculateStringWidth2(facesContext, component, label.getText())
                 .add(tabLabelExtraWidth));
           } else {
-            tabs.getWidthList().add(RenderUtil.calculateStringWidth2(facesContext,
+            tabs.getWidthList().add(RenderUtils.calculateStringWidth2(facesContext,
                 component, Integer.toString(index + 1)).add(tabLabelExtraWidth));
           }
           if (first) {
@@ -506,7 +506,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute("tobago-tabnavigationbar");
     toolbar.setRendererType("BoxToolBar");
 
-    RenderUtil.encode(facesContext, toolbar);
+    RenderUtils.encode(facesContext, toolbar);
     writer.endElement(HtmlConstants.DIV);
   }
 
@@ -521,7 +521,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(classes);
     writer.writeStyleAttribute(body);
     writer.flush();
-    RenderUtil.encodeChildren(facesContext, activeTab);
+    RenderUtils.encodeChildren(facesContext, activeTab);
     writer.endElement(HtmlConstants.TD);
     writer.endElement(HtmlConstants.TR);
   }

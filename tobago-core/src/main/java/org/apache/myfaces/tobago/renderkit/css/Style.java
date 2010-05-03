@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.renderkit.css;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
@@ -75,25 +75,25 @@ public class Style implements Serializable {
     if (width != null) {
       // TODO: Make configurable: this is needed if the box-sizing is border-box, not content-box (see CSS3)
       width = width.subtractNotNegative(
-          ResourceManagerUtil.getThemeMeasure(facesContext, layout, "css.border-left-width"));
+          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.border-left-width"));
       width = width.subtractNotNegative(
-          ResourceManagerUtil.getThemeMeasure(facesContext, layout, "css.padding-left"));
+          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.padding-left"));
       width = width.subtractNotNegative(
-          ResourceManagerUtil.getThemeMeasure(facesContext, layout, "css.padding-right"));
+          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.padding-right"));
       width = width.subtractNotNegative(
-          ResourceManagerUtil.getThemeMeasure(facesContext, layout, "css.border-right-width"));
+          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.border-right-width"));
     }
     height = layout.getCurrentHeight();
     if (height != null) {
       // TODO: Make configurable: this is needed if the box-sizing is border-box, not content-box (see CSS3)
       height = height.subtractNotNegative(
-          ResourceManagerUtil.getThemeMeasure(facesContext, layout, "css.border-top-width"));
+          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.border-top-width"));
       height = height.subtractNotNegative(
-          ResourceManagerUtil.getThemeMeasure(facesContext, layout, "css.padding-top"));
+          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.padding-top"));
       height = height.subtractNotNegative(
-          ResourceManagerUtil.getThemeMeasure(facesContext, layout, "css.padding-bottom"));
+          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.padding-bottom"));
       height = height.subtractNotNegative(
-          ResourceManagerUtil.getThemeMeasure(facesContext, layout, "css.border-bottom-width"));
+          ResourceManagerUtils.getThemeMeasure(facesContext, layout, "css.border-bottom-width"));
     }
     this.left = layout.getLeft();
     this.top = layout.getTop();

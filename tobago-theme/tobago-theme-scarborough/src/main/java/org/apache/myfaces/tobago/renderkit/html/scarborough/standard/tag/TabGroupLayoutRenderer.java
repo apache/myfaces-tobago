@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -34,7 +34,7 @@ public class TabGroupLayoutRenderer extends RendererBase {
   public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
     UIComponent container = component.getParent();
     LOG.info("TAB GROUP LAYOUT RENDERER");
-    RenderUtil.encodeChildrenWithoutLayout(facesContext, container);
+    RenderUtils.encodeChildrenWithoutLayout(facesContext, container);
   }
 
 }

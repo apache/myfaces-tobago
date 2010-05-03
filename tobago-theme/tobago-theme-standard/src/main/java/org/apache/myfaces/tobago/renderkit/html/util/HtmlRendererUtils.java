@@ -18,6 +18,8 @@ package org.apache.myfaces.tobago.renderkit.html.util;
  */
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -25,7 +27,6 @@ import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UISheet;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
@@ -35,7 +36,6 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -259,13 +259,13 @@ public final class HtmlRendererUtils {
     writer.write("new Tobago.Image('");
     writer.write(id);
     writer.write("','");
-    String img = ResourceManagerUtil.getImageWithPath(facesContext, src, false);
+    String img = ResourceManagerUtils.getImageWithPath(facesContext, src, false);
     writer.write(img!=null?img:"");
     writer.write("','");
-    String disabled = ResourceManagerUtil.getImageWithPath(facesContext, createSrc(src, "Disabled"), true);
+    String disabled = ResourceManagerUtils.getImageWithPath(facesContext, createSrc(src, "Disabled"), true);
     writer.write(disabled!=null?disabled:"");
     writer.write("','");
-    String hover = ResourceManagerUtil.getImageWithPath(facesContext, createSrc(src, "Hover"), true);
+    String hover = ResourceManagerUtils.getImageWithPath(facesContext, createSrc(src, "Hover"), true);
     writer.write(hover!=null?hover:"");
     writer.write("');");
     writer.endJavascript();
@@ -302,7 +302,7 @@ public final class HtmlRendererUtils {
 
     String allScripts = "[]";
     if (scripts != null) {
-      allScripts = ResourceManagerUtil.getScriptsAsJSArray(facesContext, scripts);
+      allScripts = ResourceManagerUtils.getScriptsAsJSArray(facesContext, scripts);
     }
     boolean ajax = false;
     if (facesContext instanceof TobagoFacesContext) {
@@ -348,7 +348,7 @@ public final class HtmlRendererUtils {
 
     writer.startJavascript();
     writer.write("Tobago.ensureStyleFiles(");
-    writer.write(ResourceManagerUtil.getStylesAsJSArray(facesContext, styles));
+    writer.write(ResourceManagerUtils.getStylesAsJSArray(facesContext, styles));
     writer.write(");");
     writer.endJavascript();
   }
@@ -393,12 +393,12 @@ public final class HtmlRendererUtils {
         if (itemValue instanceof String && values != null && values.length > 0 && !(values[0] instanceof String)) {
           itemValue = ComponentUtils.getConvertedValue(facesContext, component, (String) itemValue);
         }
-        String formattedValue = RenderUtil.getFormattedValue(facesContext, component, itemValue);
+        String formattedValue = RenderUtils.getFormattedValue(facesContext, component, itemValue);
         writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
           String image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
           if (image != null) {
-            String imagePath = ResourceManagerUtil.getImageWithPath(facesContext, image);
+            String imagePath = ResourceManagerUtils.getImageWithPath(facesContext, image);
             writer.writeStyleAttribute("background-image: url('" + imagePath + "')");
           }
         }
@@ -409,7 +409,7 @@ public final class HtmlRendererUtils {
             writer.writeClassAttribute(optionStyle);
           }
         }
-        if (RenderUtil.contains(values, itemValue)) {
+        if (RenderUtils.contains(values, itemValue)) {
           writer.writeAttribute(HtmlAttributes.SELECTED, true);
         }
         if (item.isDisabled()) {

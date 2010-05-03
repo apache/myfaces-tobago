@@ -18,7 +18,7 @@ package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
  */
 
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -34,7 +34,7 @@ public class OutRenderer extends LayoutComponentRendererBase {
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
-    String text = RenderUtil.currentValue(component);
+    String text = RenderUtils.currentValue(component);
     if (text == null) {
       text = "";
     }

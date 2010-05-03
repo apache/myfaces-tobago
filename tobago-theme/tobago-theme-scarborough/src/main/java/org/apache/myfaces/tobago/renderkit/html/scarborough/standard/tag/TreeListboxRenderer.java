@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -110,7 +110,7 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
 
     HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPT);
 
-    RenderUtil.encode(facesContext, root);
+    RenderUtils.encode(facesContext, root);
 
     writer.startElement(HtmlConstants.DIV, tree);
     Style scrollDivStyle = new Style();
@@ -143,7 +143,7 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
     ResponseWriter writer = facesContext.getResponseWriter();
     FastStringWriter stringWriter = new FastStringWriter();
     facesContext.setResponseWriter(writer.cloneWithWriter(stringWriter));
-    RenderUtil.encode(facesContext, root);
+    RenderUtils.encode(facesContext, root);
     facesContext.setResponseWriter(writer);
     return stringWriter.toString();
   }

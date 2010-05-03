@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.JQueryUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -81,7 +81,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
     } else if (menu.getFacet(Facets.RADIO) != null) {
       // radio menu
       UISelectOne radio = (UISelectOne) menu.getFacet(Facets.RADIO);
-      List<SelectItem> items = RenderUtil.getSelectItems(radio);
+      List<SelectItem> items = RenderUtils.getSelectItems(radio);
       String hiddenId = radio.getClientId(facesContext);
       for (SelectItem item : items) {
         boolean checked = item.getValue().equals(radio.getValue());
@@ -97,7 +97,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
         } else {
           LOG.warn("Menu item has label=null where clientId=" + clientId);
         }
-        String formattedValue = RenderUtil.getFormattedValue(facesContext, radio, item.getValue());
+        String formattedValue = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
         String setValue = JQueryUtils.selectId(hiddenId) + ".val('" + JQueryUtils.escapeValue(formattedValue) + "'); ";
         encodeItem(facesContext, writer, null, label, setValue + submit, disabled, firstLevel, image);
       }
@@ -133,7 +133,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
     if (image != null) {
       Style style = new Style();
       style.setBackgroundImage("url(" 
-          + ResourceManagerUtil.getImageWithPath(facesContext, image) 
+          + ResourceManagerUtils.getImageWithPath(facesContext, image)
           + ")");
       writer.writeStyleAttribute(style);
     }

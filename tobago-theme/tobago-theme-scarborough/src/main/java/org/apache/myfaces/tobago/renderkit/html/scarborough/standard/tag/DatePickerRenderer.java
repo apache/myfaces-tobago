@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.component.UIImage;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.component.UITime;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.PopupActionListener;
 import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
@@ -76,7 +76,7 @@ public class DatePickerRenderer extends LinkRenderer {
         facesContext, UIBox.COMPONENT_TYPE, RendererTypes.BOX, "box");
     popup.getChildren().add(box);
     // TODO: set string resources in renderer
-    box.setLabel(ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "datePickerTitle"));
+    box.setLabel(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "datePickerTitle"));
     final UIGridLayout layoutOfBox = (UIGridLayout) CreateComponentUtils.createComponent(
         facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "layout");
     box.getFacets().put(Facets.LAYOUT, layoutOfBox);
@@ -125,14 +125,14 @@ public class DatePickerRenderer extends LinkRenderer {
     final UIButton okButton = (UIButton) CreateComponentUtils.createComponent(
         facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, "ok");
     buttonPanel.getChildren().add(okButton);
-    okButton.setLabel(ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "datePickerOk"));
+    okButton.setLabel(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "datePickerOk"));
     okButton.setOnclick("writeIntoField2(this);");
     okButton.getAttributes().put(Attributes.POPUP_CLOSE, "afterSubmit");
 
     final UIButton cancelButton = (UIButton) CreateComponentUtils.createComponent(
         facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, "cancel");
     buttonPanel.getChildren().add(cancelButton);
-    cancelButton.setLabel(ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "datePickerCancel"));
+    cancelButton.setLabel(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "datePickerCancel"));
     cancelButton.setOnclick("writeIntoField2(this);");
     cancelButton.getAttributes().put(Attributes.POPUP_CLOSE, "immediate");
 

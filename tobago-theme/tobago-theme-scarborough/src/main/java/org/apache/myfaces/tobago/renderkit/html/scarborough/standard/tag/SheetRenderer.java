@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -33,7 +35,6 @@ import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -52,7 +53,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
@@ -354,8 +354,8 @@ public class SheetRenderer extends LayoutComponentRendererBase {
                 base.setTop(null);
               }
             }
-            RenderUtil.prepareRendererAll(facesContext, grandKid);
-            RenderUtil.encode(facesContext, grandKid);
+            RenderUtils.prepareRendererAll(facesContext, grandKid);
+            RenderUtils.encode(facesContext, grandKid);
           }
           if (children.size() > 1) {
             if (LOG.isInfoEnabled()) {
@@ -422,7 +422,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
             "tobagoSheetEditPagingRow(this, '" + pagerCommandId + "', '" + pagingOnClick + "')", true);
         writer.writeClassAttribute(className);
         writer.writeAttribute(HtmlAttributes.TITLE,
-            ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoRowPagingTip"), true);
+            ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoRowPagingTip"), true);
         writer.writeText("");
         writer.write(createSheetPagingInfo(sheet, facesContext, pagerCommandId, true));
         writer.endElement(HtmlConstants.SPAN);
@@ -462,7 +462,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         writer.writeAttribute(HtmlAttributes.ONCLICK,
             "tobagoSheetEditPagingRow(this, '" + pagerCommandId + "', '" + pagingOnClick + "')", true);
         writer.writeAttribute(HtmlAttributes.TITLE,
-            ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoPagePagingTip"), true);
+            ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetPagingInfoPagePagingTip"), true);
         writer.writeText("");
         writer.write(createSheetPagingInfo(sheet, facesContext, pagerCommandId, false));
         writer.endElement(HtmlConstants.SPAN);
@@ -491,10 +491,10 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       }
       String key;
       if (first != last) {
-        key = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
+        key = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago",
             "sheetPagingInfo" + (row ? "Rows" : "Pages"));
       } else {
-        key = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
+        key = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago",
             "sheetPagingInfoSingle" + (row ? "Row" : "Page"));
       }
       MessageFormat detail = new MessageFormat(key, locale);
@@ -507,7 +507,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       sheetPagingInfo = detail.format(args);
     } else {
       sheetPagingInfo =
-          ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
+          ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago",
               "sheetPagingInfoEmpty" + (row ? "Row" : "Page"));
     }
     return sheetPagingInfo;
@@ -651,9 +651,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     data.getFacets().put(command.getToken(), link);
 
 
-    String tip = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago",
+    String tip = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago",
         "sheet" + command.getToken());
-    String image = ResourceManagerUtil.getImageWithPath(facesContext,
+    String image = ResourceManagerUtils.getImageWithPath(facesContext,
         "image/sheet" + command.getToken() + (disabled ? "Disabled" : "") + ".gif");
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
@@ -745,7 +745,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       if (org.apache.commons.lang.StringUtils.isNotEmpty(tip)) {
         tip += " - ";
       }
-      tip += ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "sheetTipSorting");
+      tip += ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetTipSorting");
 
       headerClass += " tobago-sheet-header-sortable";
 
@@ -754,11 +754,11 @@ public class SheetRenderer extends LayoutComponentRendererBase {
         String sortTitle;
         if (sheetState.isAscending()) {
           sorterImage = contextPath + resourceManager.getImage(facesContext, "image/ascending.gif");
-          sortTitle = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "sheetAscending");
+          sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetAscending");
           headerClass += " tobago-sheet-header-ascending";
         } else {
           sorterImage = contextPath + resourceManager.getImage(facesContext, "image/descending.gif");
-          sortTitle = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "sheetDescending");
+          sortTitle = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "sheetDescending");
           headerClass += " tobago-sheet-header-descending";
         }
         if (sortTitle != null) {
@@ -838,7 +838,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       writer.startElement(HtmlConstants.OL, menu);
       writer.writeClassAttribute("tobago-menuBar-default");
       writer.writeStyleAttribute("position:absolute;");  // FIXME: may use a different style class
-      RenderUtil.encode(facesContext, menu);
+      RenderUtils.encode(facesContext, menu);
       writer.endElement(HtmlConstants.OL);
     }
   }
@@ -847,7 +847,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     UIMenuCommand menuItem = (UIMenuCommand) CreateComponentUtils.createComponent(
         facesContext, UIMenuCommand.COMPONENT_TYPE, RendererTypes.MENU_COMMAND, id);
     menuItem.setOnclick(action);
-    menuItem.setLabel(ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", label));
+    menuItem.setLabel(ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", label));
     menu.getChildren().add(menuItem);
   }
 

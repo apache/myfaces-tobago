@@ -17,9 +17,9 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
@@ -53,10 +53,10 @@ public abstract class CommandRendererBase extends LayoutComponentRendererBase {
   public String getImageWithPath(FacesContext facesContext, String image, boolean disabled) {
     String imageWithPath = null;
     if (disabled) {
-      imageWithPath = ResourceManagerUtil.getDisabledImageWithPath(facesContext, image);
+      imageWithPath = ResourceManagerUtils.getDisabledImageWithPath(facesContext, image);
     }
     if (imageWithPath == null) {
-      imageWithPath = ResourceManagerUtil.getImageWithPath(facesContext, image);
+      imageWithPath = ResourceManagerUtils.getImageWithPath(facesContext, image);
     }
     return imageWithPath;
   }

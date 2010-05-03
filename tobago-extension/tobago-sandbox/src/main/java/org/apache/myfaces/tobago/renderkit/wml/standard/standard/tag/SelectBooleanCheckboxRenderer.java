@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -53,7 +53,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
 
     UIComponent label = component.getFacet(Facets.LABEL);
     if (label != null) {
-      RenderUtil.encode(facesContext, label);
+      RenderUtils.encode(facesContext, label);
     }
 
     writer.endElement(HtmlConstants.OPTION);

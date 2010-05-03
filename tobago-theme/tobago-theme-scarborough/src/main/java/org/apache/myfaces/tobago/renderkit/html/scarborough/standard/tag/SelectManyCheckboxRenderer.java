@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UISelectManyCheckbox;
@@ -28,7 +29,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
@@ -55,7 +55,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     String id = select.getClientId(facesContext);
-    List<SelectItem> items = RenderUtil.getItemsToRender(select);
+    List<SelectItem> items = RenderUtils.getItemsToRender(select);
     String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     boolean disabled = select.isDisabled();
     boolean readonly = select.isReadonly();
@@ -78,11 +78,11 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
       writer.startElement(HtmlConstants.LI, select);
       writer.startElement(HtmlConstants.INPUT, select);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
-      boolean checked = RenderUtil.contains(values, item.getValue());
+      boolean checked = RenderUtils.contains(values, item.getValue());
       writer.writeAttribute(HtmlAttributes.CHECKED, checked);
       writer.writeNameAttribute(id);
       writer.writeIdAttribute(itemId);
-      String formattedValue = RenderUtil.getFormattedValue(facesContext, select, item.getValue());
+      String formattedValue = RenderUtils.getFormattedValue(facesContext, select, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
       writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled() || disabled);
       writer.writeAttribute(HtmlAttributes.READONLY, readonly);
@@ -118,7 +118,7 @@ public class SelectManyCheckboxRenderer extends SelectManyRendererBase {
     if (select.isInline()) {
       return heightOfOne;
     } else {
-      List<SelectItem> items = RenderUtil.getItemsToRender((UISelectMany) component);
+      List<SelectItem> items = RenderUtils.getItemsToRender((UISelectMany) component);
       return heightOfOne.multiply(items.size());
     }
   }

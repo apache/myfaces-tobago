@@ -22,12 +22,12 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIProgress;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -57,7 +57,7 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
       model = new DefaultBoundedRangeModel(40, 1, 0, 100);
     }
 
-    String image = ResourceManagerUtil.getImageWithPath(facesContext, "image/1x1.gif");
+    String image = ResourceManagerUtils.getImageWithPath(facesContext, "image/1x1.gif");
 
     String value1 = Integer.toString(model.getValue());
     String value2 = Integer.toString(model.getMaximum() - model.getValue());

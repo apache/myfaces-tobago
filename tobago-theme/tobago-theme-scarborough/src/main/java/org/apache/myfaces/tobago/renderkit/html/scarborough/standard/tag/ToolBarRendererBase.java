@@ -17,6 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -29,7 +31,6 @@ import org.apache.myfaces.tobago.component.UISelectOneCommand;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.internal.component.UICommandBase;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -38,7 +39,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -118,11 +118,11 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
     UIMenuSelectOne radio = (UIMenuSelectOne) command.getFacet(Facets.RADIO);
     if (radio == null) {
-      items = RenderUtil.getSelectItems(command);
+      items = RenderUtils.getSelectItems(command);
       radio = CreateComponentUtils.createUIMenuSelectOneFacet(facesContext, command);
       radio.setId(facesContext.getViewRoot().createUniqueId());
     } else {
-      items = RenderUtil.getSelectItems(radio);
+      items = RenderUtils.getSelectItems(radio);
     }
 
 
@@ -159,7 +159,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
 
         String formattedValue
-            = RenderUtil.getFormattedValue(facesContext, radio, item.getValue());
+            = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
         onclick = onClickPrefix + formattedValue + onClickPostfix;
         final boolean checked;
         if (item.getValue().equals(value) || markFirst) {
@@ -191,7 +191,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     String onClick = createOnClick(facesContext, command);
 
     String clientId = checkbox.getClientId(facesContext);
-    onClick = RenderUtil.addMenuCheckToggle(clientId, onClick);
+    onClick = RenderUtils.addMenuCheckToggle(clientId, onClick);
     if (checked) {
       writer.writeJavascript("    menuCheckToggle('" + clientId + "');\n");
     }
@@ -349,7 +349,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   private String getImage(FacesContext facesContext, String name,
       String iconSize, boolean disabled, boolean selected) {
     if (name == null) {
-      return ResourceManagerUtil.getImageWithPath(facesContext, "image/1x1.gif");
+      return ResourceManagerUtils.getImageWithPath(facesContext, "image/1x1.gif");
     }
     int pos = name.lastIndexOf('.');
     if (pos == -1) {
@@ -440,7 +440,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     }
 
     if (popupMenu != null) {
-      String backgroundImage = ResourceManagerUtil.getImageWithPath(facesContext, "image/1x1.gif");
+      String backgroundImage = ResourceManagerUtils.getImageWithPath(facesContext, "image/1x1.gif");
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeIdAttribute(command.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "popup");
       writer.writeClassAttribute("tobago-toolBar-button-menu");
@@ -454,13 +454,13 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       } else {
         popupMenu.getAttributes().remove(Attributes.LABEL);
       }
-      String image = ResourceManagerUtil.getImageWithPath(facesContext, "image/toolbarButtonMenu.gif");
+      String image = ResourceManagerUtils.getImageWithPath(facesContext, "image/toolbarButtonMenu.gif");
       popupMenu.getAttributes().put(Attributes.IMAGE, image);
       popupMenu.getAttributes().put(Attributes.LABEL, "\u00a0\u00a0"); // non breaking space
       writer.startElement(HtmlConstants.OL, popupMenu);
       writer.writeClassAttribute("tobago-menuBar-default");
       writer.writeStyleAttribute("position:relative;");  // FIXME: use a different style class
-      RenderUtil.encode(facesContext, popupMenu);
+      RenderUtils.encode(facesContext, popupMenu);
       writer.endElement(HtmlConstants.OL);
     }
 

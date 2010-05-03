@@ -34,7 +34,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 //import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -98,7 +98,7 @@ public class TextAreaRenderer extends InputRendererBase {
     if (placeholder != null) {
       writer.writeAttribute(HtmlAttributes.PLACEHOLDER, placeholder, true);
     }*/
-    String currentValue = RenderUtil.currentValue(input);
+    String currentValue = RenderUtils.currentValue(input);
     if (currentValue != null) {
       // this is because browsers eat the first CR+LF of <textarea>
       if (currentValue.startsWith("\r\n")) {

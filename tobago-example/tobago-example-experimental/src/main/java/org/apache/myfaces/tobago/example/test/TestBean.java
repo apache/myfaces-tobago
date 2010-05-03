@@ -105,7 +105,7 @@ public class TestBean {
 
   public String export() throws IOException {
     FacesContext context =  FacesContext.getCurrentInstance();
-    ExportUIDataToWorkbookUtil.writeWorkbook(table, "workbook.xls", context);
+    ExportUIDataToWorkbookUtils.writeWorkbook(table, "workbook.xls", context);
     context.responseComplete();
     return null;
   }

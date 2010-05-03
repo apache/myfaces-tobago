@@ -25,10 +25,10 @@ package org.apache.myfaces.tobago.example.demo.clientConfig;
 import org.apache.commons.collections.KeyValue;
 import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 import org.apache.commons.io.IOUtils;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.Measure;
 
@@ -172,7 +172,7 @@ public class ThemeConfigViewController {
     ArrayList<KeyValue> found  = new ArrayList<KeyValue>();
     for (String propertyName : propertyNames) {
       try {
-        Measure measure = ResourceManagerUtil.getThemeMeasure(facesContext, (LayoutBase) component, propertyName);
+        Measure measure = ResourceManagerUtils.getThemeMeasure(facesContext, (LayoutBase) component, propertyName);
         found.add(new DefaultKeyValue(propertyName, measure.toString()));
       } catch (Exception e) {
         if (LOG.isDebugEnabled()) {

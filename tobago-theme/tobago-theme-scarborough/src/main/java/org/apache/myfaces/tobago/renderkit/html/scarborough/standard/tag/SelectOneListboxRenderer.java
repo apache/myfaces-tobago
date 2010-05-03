@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -55,7 +55,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     String id = select.getClientId(facesContext);
-    List<SelectItem> items = RenderUtil.getSelectItems(select);
+    List<SelectItem> items = RenderUtils.getSelectItems(select);
     boolean disabled = items.size() == 0 || select.isDisabled() || select.isReadonly();
 
     writer.startElement(HtmlConstants.SELECT, select);

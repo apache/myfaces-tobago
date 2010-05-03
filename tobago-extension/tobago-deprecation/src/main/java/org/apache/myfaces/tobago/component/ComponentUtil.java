@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.component;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.DebugUtils;
 
@@ -45,6 +45,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @deprecated please use {@link ComponentUtils}
+ */
 @Deprecated
 public class ComponentUtil {
 
@@ -189,11 +192,11 @@ public class ComponentUtil {
   }
 
   public static String currentValue(UIComponent component) {
-    return RenderUtil.currentValue(component);
+    return RenderUtils.currentValue(component);
   }
 
   public static List<SelectItem> getSelectItems(UIComponent component) {
-    return RenderUtil.getSelectItems(component);
+    return RenderUtils.getSelectItems(component);
   }
 
   public static Object findParameter(UIComponent component, String name) {
@@ -324,11 +327,11 @@ public class ComponentUtil {
   }
 
   public static List<SelectItem> getItemsToRender(javax.faces.component.UISelectOne component) {
-    return RenderUtil.getItemsToRender(component);
+    return RenderUtils.getItemsToRender(component);
   }
 
   public static List<SelectItem> getItemsToRender(javax.faces.component.UISelectMany component) {
-    return RenderUtil.getItemsToRender(component);
+    return RenderUtils.getItemsToRender(component);
   }
 
   public static void setValidator(EditableValueHolder editableValueHolder, String validator) {

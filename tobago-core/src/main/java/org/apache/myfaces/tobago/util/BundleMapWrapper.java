@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 
 import javax.faces.context.FacesContext;
 import java.util.Map;
@@ -44,7 +44,7 @@ public class BundleMapWrapper implements Map {
     if (null == key) {
       return false;
     }
-    String value = ResourceManagerUtil.getPropertyNotNull(
+    String value = ResourceManagerUtils.getPropertyNotNull(
         FacesContext.getCurrentInstance(), basename, key.toString());
     return value != null;
   }
@@ -61,7 +61,7 @@ public class BundleMapWrapper implements Map {
     if (null == key) {
       return null;
     }
-    return ResourceManagerUtil.getPropertyNotNull(
+    return ResourceManagerUtils.getPropertyNotNull(
         FacesContext.getCurrentInstance(), basename, key.toString());
   }
 

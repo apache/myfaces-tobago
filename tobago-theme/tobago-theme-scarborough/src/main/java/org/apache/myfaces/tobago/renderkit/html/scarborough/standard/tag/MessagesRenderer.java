@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -32,7 +33,6 @@ import org.apache.myfaces.tobago.component.UIMessages;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -138,7 +138,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     popup.getChildren().add(box);
     box.setId("box");
     // TODO: set string resources in renderer
-    box.getAttributes().put(Attributes.LABEL, ResourceManagerUtil.getPropertyNotNull(
+    box.getAttributes().put(Attributes.LABEL, ResourceManagerUtils.getPropertyNotNull(
         facesContext, "tobago", "tobago.message.confirmation.title"));
     UIComponent layout = CreateComponentUtils.createComponent(
         facesContext, UIGridLayout.COMPONENT_TYPE, RendererTypes.GRID_LAYOUT, "layout");
@@ -173,7 +173,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
         facesContext, UIButton.COMPONENT_TYPE, RendererTypes.BUTTON, CLOSE_POPUP);
     buttonPanel.getChildren().add(okButton);
     okButtonAttributes = okButton.getAttributes();
-    okButtonAttributes.put(Attributes.LABEL, ResourceManagerUtil.getPropertyNotNull(
+    okButtonAttributes.put(Attributes.LABEL, ResourceManagerUtils.getPropertyNotNull(
         facesContext, "tobago", "tobago.message.confirmation.okay"));
     okButtonAttributes.put("popupClose", "immediate");
     return;

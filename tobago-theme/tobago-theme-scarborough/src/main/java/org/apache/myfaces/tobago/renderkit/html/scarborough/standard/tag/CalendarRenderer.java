@@ -18,11 +18,11 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICalendar;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.model.CalendarModel;
 import org.apache.myfaces.tobago.model.DateModel;
@@ -115,7 +115,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute("tobago-calendar-header");
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.writeAttribute(HtmlAttributes.SRC,
-        ResourceManagerUtil.getImageWithPath(facesContext, "image/calendarFastPrev.gif"), false);
+        ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarFastPrev.gif"), false);
     writer.writeAttribute(HtmlAttributes.ONCLICK, "addMonth('" + id + "', -12)", false);
     writer.endElement(HtmlConstants.IMG);
     writer.endElement(HtmlConstants.TD);
@@ -126,7 +126,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute("tobago-calendar-header");
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.writeAttribute(HtmlAttributes.SRC,
-        ResourceManagerUtil.getImageWithPath(facesContext, "image/calendarPrev.gif"), false);
+        ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarPrev.gif"), false);
     writer.writeAttribute(HtmlAttributes.ONCLICK, "addMonth('" + id + "', -1)", false);
     writer.endElement(HtmlConstants.IMG);
     writer.endElement(HtmlConstants.TD);
@@ -144,7 +144,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute("tobago-calendar-header");
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.writeAttribute(HtmlAttributes.SRC,
-        ResourceManagerUtil.getImageWithPath(facesContext, "image/calendarNext.gif"), false);
+        ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarNext.gif"), false);
     writer.writeAttribute(HtmlAttributes.ONCLICK, "addMonth('" + id + "', 1)", false);
     writer.endElement(HtmlConstants.IMG);
     writer.endElement(HtmlConstants.TD);
@@ -155,7 +155,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute("tobago-calendar-header");
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.writeAttribute(HtmlAttributes.SRC,
-        ResourceManagerUtil.getImageWithPath(facesContext, "image/calendarFastNext.gif"), false);
+        ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarFastNext.gif"), false);
     writer.writeAttribute(HtmlAttributes.ONCLICK, "addMonth('" + id + "', 12)", false);
     writer.endElement(HtmlConstants.IMG);
     writer.endElement(HtmlConstants.TD);

@@ -24,7 +24,7 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
 
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -51,7 +51,7 @@ public class PageRenderer extends PageRendererBase {
     ResponseWriter contentWriter = writer.cloneWithWriter(writer);
     facesContext.setResponseWriter(contentWriter);
 
-    RenderUtil.encodeChildren(facesContext, page);
+    RenderUtils.encodeChildren(facesContext, page);
 
     // reset responseWriter and render page
     facesContext.setResponseWriter(writer);

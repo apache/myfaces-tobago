@@ -17,9 +17,9 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.example.demo.jsp.JspFormatter;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.model.TreeState;
@@ -194,7 +194,7 @@ public class Navigation {
 
 
     public Node(String key, String outcome) {
-      this.title = ResourceManagerUtil.getProperty(
+      this.title = ResourceManagerUtils.getProperty(
           FacesContext.getCurrentInstance(), "overview", key);
       this.id = key;
       this.outcome = outcome;

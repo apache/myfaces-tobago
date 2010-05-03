@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -49,10 +49,10 @@ public class InRenderer extends LayoutComponentRendererBase {
 
     UIComponent label = component.getFacet(Facets.LABEL);
     if (label != null) {
-      RenderUtil.encode(facesContext, label);
+      RenderUtils.encode(facesContext, label);
     }
 
-    String currentValue = RenderUtil.currentValue(component);
+    String currentValue = RenderUtils.currentValue(component);
 
     String type = ComponentUtils.getBooleanAttribute(
         component, Attributes.PASSWORD) ? HtmlInputTypes.PASSWORD : HtmlInputTypes.TEXT;

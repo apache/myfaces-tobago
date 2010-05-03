@@ -17,13 +17,13 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.myfaces.tobago.component.UIColumnSelector;
 import org.apache.myfaces.tobago.component.UICommand;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.commons.lang.StringUtils;
 
 import javax.faces.component.UIComponent;
@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.io.IOException;
 
 
-public class ExportUIDataToWorkbookUtil {
+public class ExportUIDataToWorkbookUtils {
 
   public static void writeWorkbook(UIData data, String attachmentName, FacesContext context) throws IOException {
     HSSFWorkbook workbook = createWorkbook(data, context);
@@ -80,7 +80,7 @@ public class ExportUIDataToWorkbookUtil {
     HSSFCell cell = rowHeader.createCell((short) index);
     cell.setEncoding(HSSFCell.ENCODING_UTF_16);
     if (component instanceof ValueHolder) {
-      String stringValue = RenderUtil.getFormattedValue(context, component);
+      String stringValue = RenderUtils.getFormattedValue(context, component);
       cell.setCellValue(stringValue);
     } else if (component instanceof org.apache.myfaces.tobago.component.UIColumn
         || component instanceof UICommand) {

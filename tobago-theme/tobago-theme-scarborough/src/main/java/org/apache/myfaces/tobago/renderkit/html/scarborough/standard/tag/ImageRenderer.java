@@ -22,12 +22,12 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIImage;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -65,11 +65,11 @@ public class ImageRenderer extends LayoutComponentRendererBase {
       } else {
         src = null;
         if (isDisabled(image)) {
-          src = ResourceManagerUtil.getImageWithPath(
+          src = ResourceManagerUtils.getImageWithPath(
               facesContext, HtmlRendererUtils.createSrc(value, "Disabled"), true);
         }
         if (src == null) {
-          src = ResourceManagerUtil.getImageWithPath(facesContext, value);
+          src = ResourceManagerUtils.getImageWithPath(facesContext, value);
         }
         HtmlRendererUtils.addImageSources(facesContext, writer, image.getUrl(),
             image.getClientId(facesContext));

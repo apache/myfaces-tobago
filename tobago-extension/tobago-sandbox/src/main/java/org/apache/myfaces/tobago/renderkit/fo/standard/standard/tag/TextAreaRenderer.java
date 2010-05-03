@@ -17,10 +17,10 @@ package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -40,7 +40,7 @@ public class TextAreaRenderer extends InputRendererBase {
 
   public void encodeEnd(FacesContext facesContext,
       UIComponent component) throws IOException {
-    String text = RenderUtil.currentValue(component);
+    String text = RenderUtils.currentValue(component);
     if (text == null) {
       text = "";
     }

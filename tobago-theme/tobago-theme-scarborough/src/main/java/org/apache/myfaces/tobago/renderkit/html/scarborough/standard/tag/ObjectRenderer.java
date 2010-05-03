@@ -19,7 +19,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIObject;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -43,13 +43,13 @@ public class ObjectRenderer extends LayoutComponentRendererBase {
     if (src != null) {
       writer.writeAttribute(HtmlAttributes.SRC, String.valueOf(src), true);
     } else {
-      writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getBlankPage(facesContext), false);
+      writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtils.getBlankPage(facesContext), false);
     }
     writer.writeClassAttribute();
     Style style = new Style(facesContext, object);
     writer.writeStyleAttribute(style);
 
-    String noframes = ResourceManagerUtil.getPropertyNotNull(
+    String noframes = ResourceManagerUtils.getPropertyNotNull(
         facesContext, "tobago", "browser.noframe.message.prefix");
     writer.writeText(noframes + " ");
     writer.startElement(HtmlConstants.A, object);
@@ -58,7 +58,7 @@ public class ObjectRenderer extends LayoutComponentRendererBase {
       writer.writeTextFromComponent(Attributes.SRC);
     }
     writer.endElement(HtmlConstants.A);
-    noframes = ResourceManagerUtil.getPropertyNotNull(facesContext, "tobago", "browser.noframe.message.postfix");
+    noframes = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "browser.noframe.message.postfix");
     writer.writeText(" " + noframes);
 
     writer.endElement(HtmlConstants.IFRAME);

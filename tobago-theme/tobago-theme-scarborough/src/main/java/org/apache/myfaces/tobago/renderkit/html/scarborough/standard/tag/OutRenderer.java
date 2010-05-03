@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -37,7 +37,7 @@ public class OutRenderer extends LayoutComponentRendererBase {
 
     UIOut out = (UIOut) component;
 
-    String text = RenderUtil.currentValue(out);
+    String text = RenderUtils.currentValue(out);
     if (text == null) {
       text = "";
     }

@@ -24,7 +24,7 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -43,7 +43,7 @@ public class PanelRenderer extends LayoutComponentRendererBase {
     UIPanel component = (UIPanel) uiComponent;
     for (Iterator i = component.getChildren().iterator(); i.hasNext();) {
       UIComponent child = (UIComponent) i.next();
-      RenderUtil.encode(facesContext, child);
+      RenderUtils.encode(facesContext, child);
     }
   }
 

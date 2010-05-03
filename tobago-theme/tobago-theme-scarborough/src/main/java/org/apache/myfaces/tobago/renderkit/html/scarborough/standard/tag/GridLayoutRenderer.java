@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -25,7 +26,6 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.MarginValues;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.SpacingValues;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -46,7 +46,7 @@ public class GridLayoutRenderer extends RendererBase implements SpacingValues, M
   @Override
   public void encodeChildren(FacesContext facesContext, UIComponent component) throws IOException {
     UIComponent container = component.getParent();
-    RenderUtil.encodeChildrenWithoutLayout(facesContext, container);
+    RenderUtils.encodeChildrenWithoutLayout(facesContext, container);
   }
 
   @Override

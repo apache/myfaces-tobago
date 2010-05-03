@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.renderkit.css.Overflow;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.context.FacesContext;
@@ -65,7 +65,7 @@ public class TabGroupRenderer extends
     }
 
     writer.flush();
-    RenderUtil.encodeChildren(facesContext, activeTab);
+    RenderUtils.encodeChildren(facesContext, activeTab);
 
     writer.endElement(HtmlConstants.DIV);
     writer.endElement(HtmlConstants.DIV);

@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -125,7 +125,7 @@ without shadow
     writer.writeClassAttribute("tobago-box-header");
     String labelString = (String) box.getAttributes().get(Attributes.LABEL);
     if (label != null) {
-      RenderUtil.encode(facesContext, label);
+      RenderUtils.encode(facesContext, label);
     } else if (labelString != null) {
       writer.writeText(labelString);
     }
@@ -174,7 +174,7 @@ without shadow
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute(className);
     toolbar.setRendererType("BoxToolBar");
-    RenderUtil.encode(facesContext, toolbar);
+    RenderUtils.encode(facesContext, toolbar);
     writer.endElement(HtmlConstants.DIV);
   }
 }

@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -380,13 +380,13 @@ public final class HtmlRendererUtil {
     writer.write("new Tobago.Image('");
     writer.write(id);
     writer.write("','");
-    String img = ResourceManagerUtil.getImageWithPath(facesContext, src, false);
+    String img = ResourceManagerUtils.getImageWithPath(facesContext, src, false);
     writer.write(img!=null?img:"");
     writer.write("','");
-    String disabled = ResourceManagerUtil.getImageWithPath(facesContext, createSrc(src, "Disabled"), true);
+    String disabled = ResourceManagerUtils.getImageWithPath(facesContext, createSrc(src, "Disabled"), true);
     writer.write(disabled!=null?disabled:"");
     writer.write("','");
-    String hover = ResourceManagerUtil.getImageWithPath(facesContext, createSrc(src, "Hover"), true);
+    String hover = ResourceManagerUtils.getImageWithPath(facesContext, createSrc(src, "Hover"), true);
     writer.write(hover!=null?hover:"");
     writer.write("');");
     writer.endJavascript();
@@ -468,7 +468,7 @@ public final class HtmlRendererUtil {
 
     String allScripts = "[]";
     if (scripts != null) {
-      allScripts = ResourceManagerUtil.getScriptsAsJSArray(facesContext, scripts);
+      allScripts = ResourceManagerUtils.getScriptsAsJSArray(facesContext, scripts);
     }
     boolean ajax = false;
     if (facesContext instanceof TobagoFacesContext) {
@@ -518,7 +518,7 @@ public final class HtmlRendererUtil {
 
     writer.startJavascript();
     writer.write("Tobago.ensureStyleFiles(");
-    writer.write(ResourceManagerUtil.getStylesAsJSArray(facesContext, styles));
+    writer.write(ResourceManagerUtils.getStylesAsJSArray(facesContext, styles));
     writer.write(");");
     writer.endJavascript();
   }
@@ -571,12 +571,12 @@ public final class HtmlRendererUtil {
       } else {
         writer.startElement(HtmlConstants.OPTION, null);
         final Object itemValue = item.getValue();
-        String formattedValue = RenderUtil.getFormattedValue(facesContext, component, itemValue);
+        String formattedValue = RenderUtils.getFormattedValue(facesContext, component, itemValue);
         writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
         if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
           String image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
           if (image != null) {
-            String imagePath = ResourceManagerUtil.getImageWithPath(facesContext, image);
+            String imagePath = ResourceManagerUtils.getImageWithPath(facesContext, image);
             writer.writeStyleAttribute("background-image: url('" + imagePath + "')");
           }
         }
@@ -587,7 +587,7 @@ public final class HtmlRendererUtil {
             writer.writeClassAttribute(optionStyle);
           }
         }
-        if (RenderUtil.contains(values, item.getValue())) {
+        if (RenderUtils.contains(values, item.getValue())) {
           writer.writeAttribute(HtmlAttributes.SELECTED, true);
         }
         if (item.isDisabled()) {

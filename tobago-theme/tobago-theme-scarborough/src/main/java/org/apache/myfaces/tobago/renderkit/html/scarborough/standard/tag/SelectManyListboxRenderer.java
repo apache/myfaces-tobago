@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
@@ -53,7 +53,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     String id = select.getClientId(facesContext);
-    List<SelectItem> items = RenderUtil.getSelectItems(select);
+    List<SelectItem> items = RenderUtils.getSelectItems(select);
     boolean disabled = items.size() == 0 || select.isDisabled() || select.isReadonly();
 
     String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);

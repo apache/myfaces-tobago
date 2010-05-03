@@ -18,6 +18,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -28,7 +30,6 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ClientProperties;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.context.ResponseWriterDivider;
@@ -44,7 +45,6 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -139,7 +139,7 @@ public class PageRenderer extends PageRendererBase {
 
 // LAYOUT End
 
-    RenderUtil.prepareRendererAll(facesContext, page);
+    RenderUtils.prepareRendererAll(facesContext, page);
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
@@ -188,7 +188,7 @@ public class PageRenderer extends PageRendererBase {
 
     // style files
     for (String styleFile : facesContext.getStyleFiles()) {
-      List<String> styles = ResourceManagerUtil.getStyles(facesContext, styleFile);
+      List<String> styles = ResourceManagerUtils.getStyles(facesContext, styleFile);
       for (String styleString : styles) {
         if (styleString.length() > 0) {
           writer.startElement(HtmlConstants.LINK, null);
@@ -208,7 +208,7 @@ public class PageRenderer extends PageRendererBase {
           || icon.startsWith("/")) {
         // absolute Path to image : nothing to do
       } else {
-        icon = ResourceManagerUtil.getImageWithPath(facesContext, icon);
+        icon = ResourceManagerUtils.getImageWithPath(facesContext, icon);
       }
 
       writer.startElement(HtmlConstants.LINK, null);
@@ -362,13 +362,13 @@ public class PageRenderer extends PageRendererBase {
 
     writer.startJavascript();
     writer.write("Tobago.pngFixBlankImage = '");
-    writer.write(ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif"));
+    writer.write(ResourceManagerUtils.getImageWithPath(facesContext, "image/blank.gif"));
     writer.write("';\n");
     writer.write("Tobago.OVERLAY_BACKGROUND = '");
-    writer.write(ResourceManagerUtil.getImageWithPath(facesContext, "image/tobago-overlay-background.png"));
+    writer.write(ResourceManagerUtils.getImageWithPath(facesContext, "image/tobago-overlay-background.png"));
     writer.write("';\n");
     writer.write("Tobago.OVERLAY_WAIT = '");
-    writer.write(ResourceManagerUtil.getImageWithPath(facesContext, "image/tobago-overlay-wait.gif"));
+    writer.write(ResourceManagerUtils.getImageWithPath(facesContext, "image/tobago-overlay-wait.gif"));
     writer.write("';\n");
     writer.endJavascript();
 /*
@@ -453,7 +453,7 @@ public class PageRenderer extends PageRendererBase {
 
     if (component.getFacet("backButtonDetector") != null) {
       UIComponent hidden = component.getFacet("backButtonDetector");
-      RenderUtil.encode(facesContext, hidden);
+      RenderUtils.encode(facesContext, hidden);
     }
 
     String lastFocusId = (String) component.getAttributes().get(LAST_FOCUS_ID);
@@ -482,7 +482,7 @@ public class PageRenderer extends PageRendererBase {
     UIMenuBar menuBar = (UIMenuBar) page.getFacet(Facets.MENUBAR);
     if (menuBar != null) {
       menuBar.getAttributes().put(Attributes.PAGE_MENU, Boolean.TRUE);
-      RenderUtil.encode(facesContext, menuBar);
+      RenderUtils.encode(facesContext, menuBar);
     }
     // write the proviously rendered page content
 //    UILayoutBase.getLayout(component).encodeChildrenOfComponent(facesContext, component);
@@ -527,7 +527,7 @@ public class PageRenderer extends PageRendererBase {
     // no foreach
     UIPopup[] popupArray = facesContext.getPopups().toArray(new UIPopup[facesContext.getPopups().size()]);
     for (UIPopup popup : popupArray) {
-      RenderUtil.encode(facesContext, popup);
+      RenderUtils.encode(facesContext, popup);
     }
 
     String clientId = page.getClientId(facesContext);
@@ -643,7 +643,7 @@ public class PageRenderer extends PageRendererBase {
       list = new ArrayList<String>();
       list.add(script);
     } else {
-      list = ResourceManagerUtil.getScripts(facesContext, script);
+      list = ResourceManagerUtils.getScripts(facesContext, script);
     }
     for (String src : list) {
       if (StringUtils.isNotBlank(src)) {

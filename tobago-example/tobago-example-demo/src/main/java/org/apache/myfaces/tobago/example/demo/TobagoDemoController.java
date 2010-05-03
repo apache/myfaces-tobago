@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -24,7 +25,6 @@ import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIToolBar;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.example.data.CategoryTree;
 import org.apache.myfaces.tobago.example.data.Solar;
@@ -197,7 +197,7 @@ public class TobagoDemoController {
   public boolean isDoubleDefined() {
     String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
     String name = viewId.substring(1, viewId.lastIndexOf("."));
-    String path = ResourceManagerUtil.getImageWithPath(FacesContext.getCurrentInstance(), name + ".xhtml", true);
+    String path = ResourceManagerUtils.getImageWithPath(FacesContext.getCurrentInstance(), name + ".xhtml", true);
     return path != null;
   }
 
@@ -272,7 +272,7 @@ public class TobagoDemoController {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     SelectItem[] items = new SelectItem[keys.length];
     for (int i = 0; i < items.length; i++) {
-      String label = ResourceManagerUtil.getPropertyNotNull(facesContext, bundle, keys[i]);
+      String label = ResourceManagerUtils.getPropertyNotNull(facesContext, bundle, keys[i]);
       items[i] = new SelectItem(keys[i], label);
     }
     return items;

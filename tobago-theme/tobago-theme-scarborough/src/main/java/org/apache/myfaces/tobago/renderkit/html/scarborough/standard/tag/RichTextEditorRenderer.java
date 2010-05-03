@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.component.UIToolBar;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -35,7 +35,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -112,7 +112,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     facesContext.getExternalContext().getRequestMap().put(
         "tobagoRichtextPreviewState", previewState ? Boolean.TRUE : Boolean.FALSE);
 
-    RenderUtil.encode(facesContext, toolbar);
+    RenderUtils.encode(facesContext, toolbar);
 //    renderToolBar(facesContext, writer, input);
 
     String content = getCurrentValue(facesContext, input);
@@ -177,7 +177,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     command.setValueBinding(Attributes.DISABLED, ComponentUtils.createValueBinding("#{! tobagoRichtextPreviewState}"));
     command.setValueBinding(Attributes.VALUE, ComponentUtils.createValueBinding("#{!tobagoRichtextPreviewState}"));
 
-    String title = ResourceManagerUtil.getPropertyNotNull(
+    String title = ResourceManagerUtils.getPropertyNotNull(
         facesContext, "tobago", "tobago.richtexteditor.edit.title");
     command.getAttributes().put(Attributes.TIP, title);
 
@@ -193,7 +193,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
     command.setValueBinding(Attributes.DISABLED, ComponentUtils.createValueBinding("#{tobagoRichtextPreviewState}"));
     command.setValueBinding(Attributes.VALUE, ComponentUtils.createValueBinding("#{tobagoRichtextPreviewState}"));
 
-    title = ResourceManagerUtil.getPropertyNotNull(
+    title = ResourceManagerUtils.getPropertyNotNull(
         facesContext, "tobago", "tobago.richtexteditor.preview.title");
     command.getAttributes().put(Attributes.TIP, title);
     command.getAttributes().put(Attributes.ONCLICK, onClick);

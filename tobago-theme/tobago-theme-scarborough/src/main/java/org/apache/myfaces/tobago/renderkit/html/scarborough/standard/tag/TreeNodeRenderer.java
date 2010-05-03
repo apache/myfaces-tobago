@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -26,7 +27,6 @@ import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeMenu;
 import org.apache.myfaces.tobago.component.UITreeNode;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.ResourceUtils;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
@@ -43,7 +43,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -215,24 +215,24 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     String image = ComponentUtils.getStringAttribute(node, "image");
     if (image != null) { // application image
-      closedSource = ResourceManagerUtil.getImageWithPath(facesContext, image);
+      closedSource = ResourceManagerUtils.getImageWithPath(facesContext, image);
     } else { // theme image
-      closedSource = ResourceManagerUtil.getImageWithPath(facesContext, CLOSED_FOLDER);
+      closedSource = ResourceManagerUtils.getImageWithPath(facesContext, CLOSED_FOLDER);
     }
     if (folder) {
       if (image != null) { // application image
-        openSource = ResourceManagerUtil.getImageWithPath(facesContext,
+        openSource = ResourceManagerUtils.getImageWithPath(facesContext,
             ResourceUtils.addPostfixToFilename(image, "open"), true);
       } else { // theme image
-        openSource = ResourceManagerUtil.getImageWithPath(facesContext, OPEN_FOLDER);
+        openSource = ResourceManagerUtils.getImageWithPath(facesContext, OPEN_FOLDER);
       }
       source = expanded ? openSource : closedSource;
     } else {
       if (image != null) { // application image
-        source = ResourceManagerUtil.getImageWithPath(facesContext,
+        source = ResourceManagerUtils.getImageWithPath(facesContext,
             ResourceUtils.addPostfixToFilename(image, "leaf"), true);
       } else { // theme image
-        source = ResourceManagerUtil.getImageWithPath(facesContext, LEAF);
+        source = ResourceManagerUtils.getImageWithPath(facesContext, LEAF);
       }
       if (source == null) {
         source = closedSource;
@@ -292,7 +292,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
       UIComponent facet = node.getFacet(Facets.ADDENDUM);
       if (facet != null) {
-        RenderUtil.encode(facesContext, facet);
+        RenderUtils.encode(facesContext, facet);
       }
 
       writer.endElement(HtmlConstants.DIV);
@@ -320,8 +320,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
       FacesContext facesContext, TobagoResponseWriter writer, String treeId, String id, boolean expanded,
       UIComponent node)
       throws IOException {
-    String menuOpen = ResourceManagerUtil.getImageWithPath(facesContext, "image/treeMenuOpen.gif");
-    String menuClose = ResourceManagerUtil.getImageWithPath(facesContext, "image/treeMenuClose.gif");
+    String menuOpen = ResourceManagerUtils.getImageWithPath(facesContext, "image/treeMenuOpen.gif");
+    String menuClose = ResourceManagerUtils.getImageWithPath(facesContext, "image/treeMenuClose.gif");
     String onclick = "tobagoTreeNodeToggle(this.parentNode, '" + treeId + "', null, null, '"
         + menuOpen + "', '" + menuClose + "')";
     Object objOnclick = node.getAttributes().get("onclick");
@@ -342,8 +342,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
       FacesContext facesContext, TobagoResponseWriter writer, boolean menuMode, List<Boolean> junctions)
       throws IOException {
 
-    String blank = ResourceManagerUtil.getImageWithPath(facesContext, "image/blank.gif");
-    String perpendicular = ResourceManagerUtil.getImageWithPath(facesContext, "image/I.gif");
+    String blank = ResourceManagerUtils.getImageWithPath(facesContext, "image/blank.gif");
+    String perpendicular = ResourceManagerUtils.getImageWithPath(facesContext, "image/I.gif");
 
     for (Boolean junction : junctions) {
       writer.startElement(HtmlConstants.IMG, null);
@@ -380,7 +380,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
               : (folder ? "Lplus.gif" : "L.gif")
       );
 
-      String src = ResourceManagerUtil.getImageWithPath(facesContext, "image/" + gif);
+      String src = ResourceManagerUtils.getImageWithPath(facesContext, "image/" + gif);
       writer.writeAttribute("src", src, true);
       if (folder) {
         writer.writeAttribute("onclick", createOnclickForToggle(treeId, openSource, closedSource), true);

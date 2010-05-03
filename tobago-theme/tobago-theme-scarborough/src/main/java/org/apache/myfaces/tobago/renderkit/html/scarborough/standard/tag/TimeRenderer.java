@@ -22,11 +22,11 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITime;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
@@ -138,7 +138,7 @@ public class TimeRenderer extends InputRendererBase {
     writer.writeIdAttribute(imageId);
     writer.writeClassAttribute("tobago-time-inc-image"
         + (hasSeconds ? " tobago-time-image-seconds" : ""));
-    writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getImageWithPath(facesContext, imageSrc), true);
+    writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtils.getImageWithPath(facesContext, imageSrc), true);
     writer.writeAttribute(HtmlAttributes.ALT, "", false); // TODO: tip
 
     if (!(ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED)
@@ -158,7 +158,7 @@ public class TimeRenderer extends InputRendererBase {
     writer.writeIdAttribute(imageId);
     writer.writeClassAttribute("tobago-time-dec-image"
         + (hasSeconds ? " tobago-time-image-seconds" : ""));
-    writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getImageWithPath(facesContext, imageSrc), true);
+    writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtils.getImageWithPath(facesContext, imageSrc), true);
     writer.writeAttribute(HtmlAttributes.ALT, "", false); // TODO: tip
     if (!(ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED)
         || ComponentUtils.getBooleanAttribute(input, Attributes.READONLY))) {

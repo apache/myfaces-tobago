@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.context.ClientProperties;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PopupFacetActionListener;
 import org.apache.myfaces.tobago.internal.component.UICommandBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -175,7 +175,7 @@ public class CommandRendererHelper {
 
     if (component.getResource() != null) {
       boolean jsfResource = component.isJsfResource();
-      url = ResourceManagerUtil.getPageWithoutContextPath(facesContext, component.getResource());
+      url = ResourceManagerUtils.getPageWithoutContextPath(facesContext, component.getResource());
       if (url != null) {
         if (jsfResource) {
           url = viewHandler.getActionURL(facesContext, url);

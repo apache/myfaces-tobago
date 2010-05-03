@@ -17,15 +17,15 @@ package org.apache.myfaces.tobago.renderkit.util;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.Configurable;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -44,6 +44,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @deprecated please use {@link RenderUtils}
+ */
+@Deprecated
 public class RenderUtil {
 
   private static final Logger LOG = LoggerFactory.getLogger(RenderUtil.class);
@@ -199,14 +203,14 @@ public class RenderUtil {
     int defaultCharWidth = 0;
     try {
       // todo: use Measure instead of int
-      defaultCharWidth = ResourceManagerUtil.getThemeMeasure(facesContext, component, "fontWidth").getPixel();
+      defaultCharWidth = ResourceManagerUtils.getThemeMeasure(facesContext, component, "fontWidth").getPixel();
     } catch (NullPointerException e) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("no value for \"fontWidth\" found in theme-config");
       }
     }
 
-    String fontWidths = ResourceManagerUtil.getProperty(facesContext, "tobago", type);
+    String fontWidths = ResourceManagerUtils.getProperty(facesContext, "tobago", type);
 
     for (char c : text.toCharArray()) {
       int charWidth;

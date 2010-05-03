@@ -17,9 +17,9 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.application.NavigationHandler;
@@ -68,7 +68,7 @@ public class MultiplePageDeclarationLanguageNavigationHandler extends Navigation
   }
 
   private boolean pageExists(FacesContext facesContext, String outcome, String extension) {
-    String path = ResourceManagerUtil.getImageWithPath(facesContext, outcome.substring(1) + extension, true);
+    String path = ResourceManagerUtils.getImageWithPath(facesContext, outcome.substring(1) + extension, true);
     return path != null;
   }
 }

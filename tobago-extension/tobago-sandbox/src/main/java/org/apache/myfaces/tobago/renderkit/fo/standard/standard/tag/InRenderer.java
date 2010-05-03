@@ -17,11 +17,11 @@ package org.apache.myfaces.tobago.renderkit.fo.standard.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -53,14 +53,14 @@ public class InRenderer extends InputRendererBase {
         FoUtils.layoutBlockContainer(writer, FoUtils.DEFAULT_HEIGHT,
             layout.getWidth() / 2, layout.getX(), layout.getY());
       }
-      RenderUtil.encode(facesContext, label);
+      RenderUtils.encode(facesContext, label);
       if (!Layout.isInLayout(component)) {
         FoUtils.endBlockContainer(writer);
       }
     }
 
     //in.addMargin(200, 0, 200, 0);
-    String text = RenderUtil.currentValue(component);
+    String text = RenderUtils.currentValue(component);
     if (text == null) {
       text = "";
     }

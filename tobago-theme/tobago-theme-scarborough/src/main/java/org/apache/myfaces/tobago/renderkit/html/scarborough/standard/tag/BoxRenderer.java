@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -61,7 +61,7 @@ public class BoxRenderer extends BoxRendererBase {
       writer.writeClassAttribute();
 
       if (label != null) {
-        RenderUtil.encode(facesContext, label);
+        RenderUtils.encode(facesContext, label);
       } else {
         writer.writeText(labelString);
       }
@@ -75,7 +75,7 @@ public class BoxRenderer extends BoxRendererBase {
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeClassAttribute("tobago-box-toolbar-span");
       toolbar.setRendererType("BoxToolBar");
-      RenderUtil.encode(facesContext, toolbar);
+      RenderUtils.encode(facesContext, toolbar);
       writer.endElement(HtmlConstants.DIV);
       writer.endElement(HtmlConstants.DIV);
       if (VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().isMsie()) {

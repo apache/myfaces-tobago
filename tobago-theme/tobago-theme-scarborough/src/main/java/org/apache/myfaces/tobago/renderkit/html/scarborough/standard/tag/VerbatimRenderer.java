@@ -26,7 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
@@ -45,7 +45,7 @@ public class VerbatimRenderer extends LayoutComponentRendererBase {
 
     ResponseWriter writer = facesContext.getResponseWriter();
 
-    String value = RenderUtil.currentValue(component);
+    String value = RenderUtils.currentValue(component);
     if (value == null) {
       return;
     }

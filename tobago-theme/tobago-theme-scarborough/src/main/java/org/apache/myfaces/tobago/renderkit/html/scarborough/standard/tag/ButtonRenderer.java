@@ -36,7 +36,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -137,7 +137,7 @@ public class ButtonRenderer extends CommandRendererBase {
     LabelWithAccessKey label = new LabelWithAccessKey(button);
 
     if (label.getText() != null) {
-      width = width.add(RenderUtil.calculateStringWidth(facesContext, button, label.getText()));
+      width = width.add(RenderUtils.calculateStringWidth(facesContext, button, label.getText()));
     }
     Measure padding = getResourceManager().getThemeMeasure(facesContext, button, "paddingWidth");
     // left padding, right padding and when an image and an text then a middle padding.

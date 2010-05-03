@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -60,8 +60,8 @@ public class SelectOneChoiceRenderer extends LayoutComponentRendererBase {
     if (label != null) {
       writer.writeText(label.toString());
     }
-    List<SelectItem> items = RenderUtil.getSelectItems(selectOne);
-    String value = RenderUtil.currentValue(selectOne);
+    List<SelectItem> items = RenderUtils.getSelectItems(selectOne);
+    String value = RenderUtils.currentValue(selectOne);
 
     writer.startElement("select", selectOne);
     writer.writeNameAttribute(clientId);
@@ -72,7 +72,7 @@ public class SelectOneChoiceRenderer extends LayoutComponentRendererBase {
     for (SelectItem item : items) {
       writer.startElement("option", selectOne);
       String formattedValue
-          = RenderUtil.getFormattedValue(facesContext, component, item.getValue());
+          = RenderUtils.getFormattedValue(facesContext, component, item.getValue());
       writer.writeAttribute("value", formattedValue, true);
       writer.writeText(item.getLabel());
       writer.endElement("option");

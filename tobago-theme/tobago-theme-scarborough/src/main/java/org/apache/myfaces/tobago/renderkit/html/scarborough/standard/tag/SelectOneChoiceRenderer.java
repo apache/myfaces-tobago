@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UISelectOneChoice;
@@ -26,7 +27,6 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -55,7 +55,7 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     String id = select.getClientId(facesContext);
-    List<SelectItem> items = RenderUtil.getSelectItems(select);
+    List<SelectItem> items = RenderUtils.getSelectItems(select);
     String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     boolean disabled = items.size() == 0 || select.isDisabled() || select.isReadonly();
 

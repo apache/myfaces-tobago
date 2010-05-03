@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.NamingContainer;
@@ -64,7 +64,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     String id = select.getClientId(facesContext);
-    List<SelectItem> items = RenderUtil.getItemsToRender(select);
+    List<SelectItem> items = RenderUtils.getItemsToRender(select);
     boolean inline = select.isInline();
     String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
     boolean disabled = select.isDisabled();
@@ -93,7 +93,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       writer.writeAttribute(HtmlAttributes.CHECKED, checked);
       writer.writeNameAttribute(id);
       writer.writeIdAttribute(itemId);
-      String formattedValue = RenderUtil.getFormattedValue(facesContext, select, item.getValue());
+      String formattedValue = RenderUtils.getFormattedValue(facesContext, select, item.getValue());
       writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
       writer.writeAttribute(HtmlAttributes.DISABLED, item.isDisabled() || disabled);
       writer.writeAttribute(HtmlAttributes.READONLY, readonly);
@@ -130,7 +130,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     if (select.isInline()) {
       return heightOfOne;
     } else {
-      List<SelectItem> items = RenderUtil.getItemsToRender((UISelectOne) component);
+      List<SelectItem> items = RenderUtils.getItemsToRender((UISelectOne) component);
       return heightOfOne.multiply(items.size());
     }
   }
