@@ -906,7 +906,7 @@
     <profile>
       <id>all-modules</id>
       <modules>
-        <module>example</module>
+        <module>tobago-example</module>
         <module>tobago-assembly</module>
       </modules>
     </profile>
@@ -1082,7 +1082,7 @@
       </build>
       <modules>
         <module>tobago-extension</module>
-        <module>example</module>
+        <module>tobago-example</module>
       </modules>
     </profile>
     <!-- END SNIPPET: release-profile -->
@@ -1306,7 +1306,7 @@
       <id>generate-assembly</id>
       <modules>
         <module>tobago-extension</module>
-        <module>example</module>
+        <module>tobago-example</module>
         <module>tobago-assembly</module>
       </modules>
       <build>
