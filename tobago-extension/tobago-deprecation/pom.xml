@@ -25,11 +25,7 @@
   <packaging>jar</packaging>
   <name>Tobago Deprecation</name>
   <artifactId>tobago-deprecation</artifactId>
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/extension/deprecation</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/extension/deprecation</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/extension/deprecation</url>
-  </scm>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>

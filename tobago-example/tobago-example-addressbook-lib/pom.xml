@@ -46,11 +46,6 @@
     </plugins>
   </build>
 
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/addressbook/lib</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/addressbook/lib</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/example/addressbook/lib</url>
-  </scm>
   <dependencies>
     <dependency>
         <groupId>org.tango-project</groupId>

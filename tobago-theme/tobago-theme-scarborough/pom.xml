@@ -26,12 +26,6 @@
   <packaging>jar</packaging>
   <name>Tobago Theme Scarborough</name>
 
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/theme/scarborough</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/theme/scarborough</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/theme/scarborough</url>
-  </scm>
-
   <build>
     <plugins>
       <plugin>

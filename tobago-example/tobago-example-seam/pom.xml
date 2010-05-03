@@ -275,12 +275,6 @@
     </repository>
   </repositories>
 
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/seam</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/seam
-    </developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/example/seam</url>
-  </scm>
   <properties>
     <seam.version>2.1.0.GA</seam.version>
     <!--<seam.version>2.0.0.GA</seam.version>-->

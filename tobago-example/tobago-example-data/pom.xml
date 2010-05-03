@@ -26,12 +26,6 @@
   <packaging>jar</packaging>
   <name>Data for Examples</name>
 
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/data</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/data</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/example/data</url>
-  </scm>
-
   <dependencies>
     <dependency>
       <groupId>commons-lang</groupId>

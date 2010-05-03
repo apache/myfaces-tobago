@@ -25,11 +25,7 @@
   <packaging>jar</packaging>
   <name>Tobago Security</name>
   <artifactId>tobago-security</artifactId>
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/extension/security</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/extension/security</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/extension/security</url>
-  </scm>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>

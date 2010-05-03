@@ -26,12 +26,6 @@
   <packaging>jar</packaging>
   <name>Tobago Theme Speyside</name>
 
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/theme/speyside</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/theme/speyside</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/theme/speyside</url>
-  </scm>
-
   <dependencies>
     <dependency>
       <groupId>org.apache.myfaces.tobago</groupId>

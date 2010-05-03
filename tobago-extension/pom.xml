@@ -25,11 +25,7 @@
   <packaging>pom</packaging>
   <name>Tobago Extensions</name>
   <artifactId>tobago-extension</artifactId>
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/extension</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/extension</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/extension</url>
-  </scm>
+
   <modules>
     <module>tobago-deprecation</module>
     <module>tobago-facelets</module>

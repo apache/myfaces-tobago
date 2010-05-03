@@ -26,12 +26,6 @@
   <name>Tobago Themes</name>
   <artifactId>tobago-theme</artifactId>
 
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/theme</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/theme</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/theme</url>
-  </scm>
-
   <modules>
     <module>tobago-theme-standard</module>
     <module>tobago-theme-scarborough</module>

@@ -504,11 +504,9 @@
   </dependencies>
 
   <scm>
-
     <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk</developerConnection>
     <url>http://svn.eu.apache.org/viewvc/myfaces/tobago/trunk</url>
-
   </scm>
 
   <organization>

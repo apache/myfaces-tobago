@@ -252,12 +252,6 @@
     </plugins>
   </reporting>
 
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/core</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/core</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/core</url>
-  </scm>
-
   <dependencies>
 
     <dependency>

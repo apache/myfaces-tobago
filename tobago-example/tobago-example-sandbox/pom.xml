@@ -70,12 +70,6 @@
       </plugin>
     </plugins>
   </build>
-
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/sandbox</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/sandbox</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/example/sandbox</url>
-  </scm>
   
   <repositories>
     <repository>

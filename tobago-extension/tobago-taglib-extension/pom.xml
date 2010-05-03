@@ -130,12 +130,6 @@
     </plugins>
   </reporting>
 
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/extension/tobago-taglib-extension</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/extension/tobago-taglib-extension</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/extension/tobago-taglib-extension</url>
-  </scm>
-
   <dependencies>
 
     <dependency>

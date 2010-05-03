@@ -51,12 +51,6 @@
     </plugins>
   </build>
 
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/retro</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/retro</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/example/retro</url>
-  </scm>
-
   <repositories>
     <repository>
       <id>java.net</id>

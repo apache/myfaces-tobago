@@ -39,12 +39,6 @@
       </plugin>
     </plugins>
   </build>
-
-  <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/nonfacesrequest</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/trunk/example/nonfacesrequest</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/trunk/example/nonfacesrequest</url>
-  </scm>
   
   <dependencies>
     <dependency>
