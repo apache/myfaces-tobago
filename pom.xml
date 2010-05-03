@@ -880,7 +880,7 @@
     <module>tobago-tool</module>
     <module>tobago-jsf-compat</module>
     <module>core</module>
-    <module>theme</module>
+    <module>tobago-theme</module>
     <module>extension</module>
   </modules>
 
