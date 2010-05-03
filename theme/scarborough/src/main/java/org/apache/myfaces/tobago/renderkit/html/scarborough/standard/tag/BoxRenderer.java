@@ -86,14 +86,14 @@ public class BoxRenderer extends BoxRendererBase {
     writer.startElement(HtmlConstants.DIV, box);
     writer.writeClassAttribute("tobago-box-content"); // needed to be scrollable inside of the box
     writer.writeStyleAttribute(contentStyle);
-    final Measure leftOffset = getLeftOffset(facesContext, box);
-    final Measure rightOffset = getRightOffset(facesContext, box);
-    final Measure topOffset = getTopOffset(facesContext, box);
-    final Measure bottomOffset = getBottomOffset(facesContext, box);
-    contentStyle.setWidth(contentStyle.getWidth().subtract(leftOffset).subtract(rightOffset));
-    contentStyle.setHeight(contentStyle.getHeight().subtract(topOffset).subtract(bottomOffset));
-    contentStyle.setLeft(leftOffset);
-    contentStyle.setTop(topOffset);
+    final Measure offsetLeft = getOffsetLeft(facesContext, box);
+    final Measure offsetRight = getOffsetRight(facesContext, box);
+    final Measure offsetTop = getOffsetTop(facesContext, box);
+    final Measure offsetBottom = getOffsetBottom(facesContext, box);
+    contentStyle.setWidth(contentStyle.getWidth().subtract(offsetLeft).subtract(offsetRight));
+    contentStyle.setHeight(contentStyle.getHeight().subtract(offsetTop).subtract(offsetBottom));
+    contentStyle.setLeft(offsetLeft);
+    contentStyle.setTop(offsetTop);
     writer.writeStyleAttribute(contentStyle);
   }
 

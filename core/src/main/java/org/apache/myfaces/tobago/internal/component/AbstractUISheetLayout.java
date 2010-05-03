@@ -82,8 +82,8 @@ public abstract class AbstractUISheetLayout extends UILayoutBase implements Layo
     if (intervals.size() >= 1) {
       intervals.evaluate();
       Measure size = intervals.getCurrent();
-      size = size.add(LayoutUtils.getBeginOffset(orientation, getLayoutContainer()));
-      size = size.add(LayoutUtils.getEndOffset(orientation, getLayoutContainer()));
+      size = size.add(LayoutUtils.getOffsetBegin(orientation, getLayoutContainer()));
+      size = size.add(LayoutUtils.getOffsetEnd(orientation, getLayoutContainer()));
 // todo      LayoutUtils.setSize(orientation, getLayoutContainer(), size);
     }
   }
@@ -97,8 +97,8 @@ public abstract class AbstractUISheetLayout extends UILayoutBase implements Layo
       LayoutContainer container = getLayoutContainer();
       Measure available = LayoutUtils.getCurrentSize(orientation, container);
       if (available != null) {
-        available = available.subtractNotNegative(LayoutUtils.getBeginOffset(orientation, container));
-        available = available.subtractNotNegative(LayoutUtils.getEndOffset(orientation, container));
+        available = available.subtractNotNegative(LayoutUtils.getOffsetBegin(orientation, container));
+        available = available.subtractNotNegative(LayoutUtils.getOffsetEnd(orientation, container));
 
         for (LayoutComponent component : getLayoutContainer().getComponents()) {
 
@@ -126,7 +126,7 @@ public abstract class AbstractUISheetLayout extends UILayoutBase implements Layo
       component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
 
       // compute the position of the cell
-      Measure position = LayoutUtils.getBeginOffset(orientation, getLayoutContainer());
+      Measure position = LayoutUtils.getOffsetBegin(orientation, getLayoutContainer());
       if (orientation == Orientation.HORIZONTAL) {
         component.setLeft(position);
       } else {

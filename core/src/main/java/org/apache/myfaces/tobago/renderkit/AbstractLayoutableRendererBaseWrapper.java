@@ -58,19 +58,19 @@ public abstract class AbstractLayoutableRendererBaseWrapper extends AbstractRend
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getMaximumHeight(facesContext, component);
   }
 
-  public Measure getLeftOffset(FacesContext facesContext, Configurable component) {
-    return ((LayoutComponentRenderer) getRenderer(facesContext)).getLeftOffset(facesContext, component);
+  public Measure getOffsetLeft(FacesContext facesContext, Configurable component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getOffsetLeft(facesContext, component);
   }
 
-  public Measure getRightOffset(FacesContext facesContext, Configurable component) {
-    return ((LayoutComponentRenderer) getRenderer(facesContext)).getRightOffset(facesContext, component);
+  public Measure getOffsetRight(FacesContext facesContext, Configurable component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getOffsetRight(facesContext, component);
   }
 
-  public Measure getTopOffset(FacesContext facesContext, Configurable component) {
-    return ((LayoutComponentRenderer) getRenderer(facesContext)).getTopOffset(facesContext, component);
+  public Measure getOffsetTop(FacesContext facesContext, Configurable component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getOffsetTop(facesContext, component);
   }
 
-  public Measure getBottomOffset(FacesContext facesContext, Configurable component) {
-    return ((LayoutComponentRenderer) getRenderer(facesContext)).getBottomOffset(facesContext, component);
+  public Measure getOffsetBottom(FacesContext facesContext, Configurable component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getOffsetBottom(facesContext, component);
   }
 }

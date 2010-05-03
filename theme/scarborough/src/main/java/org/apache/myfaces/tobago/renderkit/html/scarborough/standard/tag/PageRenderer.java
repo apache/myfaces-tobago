@@ -495,9 +495,9 @@ public class PageRenderer extends PageRendererBase {
     // XXX position the div, so that the scrollable area is correct.
     // XXX better to take this fact into layout management.
     // XXX is also useful in boxes, etc.
-    Measure topOffset = getBottomOffset(facesContext, page);
-    style.setHeight(page.getCurrentHeight().subtract(topOffset));
-    style.setTop(topOffset);
+    Measure offset = getOffsetBottom(facesContext, page);
+    style.setHeight(page.getCurrentHeight().subtract(offset));
+    style.setTop(offset);
     writer.writeStyleAttribute(style);
   }
 
@@ -698,7 +698,7 @@ public class PageRenderer extends PageRendererBase {
   }
 
   @Override
-  public Measure getBottomOffset(FacesContext facesContext, Configurable component) {
+  public Measure getOffsetBottom(FacesContext facesContext, Configurable component) {
     // XXX this is a hack. correct whould be the top-offset, but this would shift the content, because of the 
     // XXX hack before the code: writer.writeStyleAttribute(style)
     UIPage page = (UIPage) component;

@@ -26,11 +26,11 @@ public interface LayoutContainer extends LayoutBase {
   LayoutManager getLayoutManager();
   void setLayoutManager(LayoutManager layoutManager);
 
-  Measure getLeftOffset();
+  Measure getOffsetLeft();
 
-  Measure getRightOffset();
+  Measure getOffsetRight();
 
-  Measure getTopOffset();
+  Measure getOffsetTop();
 
-  Measure getBottomOffset();
+  Measure getOffsetBottom();
 }

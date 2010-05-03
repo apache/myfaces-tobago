@@ -146,14 +146,14 @@ without shadow
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute("tobago-box-content"); // needed to be scrollable inside of the box
     final Style style = new Style(facesContext, box);
-    final Measure leftOffset = getLeftOffset(facesContext, box);
-    final Measure rightOffset = getRightOffset(facesContext, box);
-    final Measure topOffset = getTopOffset(facesContext, box);
-    final Measure bottomOffset = getBottomOffset(facesContext, box);
-    style.setWidth(style.getWidth().subtract(leftOffset).subtract(rightOffset));
-    style.setHeight(style.getHeight().subtract(topOffset).subtract(bottomOffset));
-    style.setLeft(leftOffset);
-    style.setTop(topOffset);
+    final Measure offsetLeft = getOffsetLeft(facesContext, box);
+    final Measure offsetRight = getOffsetRight(facesContext, box);
+    final Measure offsetTop = getOffsetTop(facesContext, box);
+    final Measure offsetBottom = getOffsetBottom(facesContext, box);
+    style.setWidth(style.getWidth().subtract(offsetLeft).subtract(offsetRight));
+    style.setHeight(style.getHeight().subtract(offsetTop).subtract(offsetBottom));
+    style.setLeft(offsetLeft);
+    style.setTop(offsetTop);
     writer.writeStyleAttribute(style);
   }
 

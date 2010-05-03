@@ -57,19 +57,19 @@ public abstract class LayoutComponentRendererBase extends RendererBase implement
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.MAXIMUM_HEIGHT);
   }
 
-  public Measure getLeftOffset(FacesContext facesContext, Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.LEFT_OFFSET);
+  public Measure getOffsetLeft(FacesContext facesContext, Configurable component) {
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.OFFSET_LEFT);
   }
 
-  public Measure getRightOffset(FacesContext facesContext, Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.RIGHT_OFFSET);
+  public Measure getOffsetRight(FacesContext facesContext, Configurable component) {
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.OFFSET_RIGHT);
   }
 
-  public Measure getTopOffset(FacesContext facesContext, Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.TOP_OFFSET);
+  public Measure getOffsetTop(FacesContext facesContext, Configurable component) {
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.OFFSET_TOP);
   }
 
-  public Measure getBottomOffset(FacesContext facesContext, Configurable component) {
-    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.BOTTOM_OFFSET);
+  public Measure getOffsetBottom(FacesContext facesContext, Configurable component) {
+    return getResourceManager().getThemeMeasure(facesContext, component, Attributes.OFFSET_BOTTOM);
   }
 }

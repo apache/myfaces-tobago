@@ -185,11 +185,11 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
     }
     if (sum != null) {
       // adding the space between the cells
-      sum = sum.add(LayoutUtils.getBeginOffset(orientation, getLayoutContainer()));
+      sum = sum.add(LayoutUtils.getOffsetBegin(orientation, getLayoutContainer()));
       sum = sum.add(getMarginBegin(orientation));
       sum = sum.add(computeSpacing(orientation, 0, heads.length));
       sum = sum.add(getMarginEnd(orientation));
-      sum = sum.add(LayoutUtils.getEndOffset(orientation, getLayoutContainer()));
+      sum = sum.add(LayoutUtils.getOffsetEnd(orientation, getLayoutContainer()));
       LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), sum);
     }
   }
@@ -214,11 +214,11 @@ public abstract class AbstractUIGridLayout extends UILayoutBase implements Layou
         for (BankHead head : heads) {
           available = available.subtractNotNegative(head.getCurrent());
         }
-        available = available.subtractNotNegative(LayoutUtils.getBeginOffset(orientation, container));
+        available = available.subtractNotNegative(LayoutUtils.getOffsetBegin(orientation, container));
         available = available.subtractNotNegative(getMarginBegin(orientation));
         available = available.subtractNotNegative(computeSpacing(orientation, 0, heads.length));
         available = available.subtractNotNegative(getMarginEnd(orientation));
-        available = available.subtractNotNegative(LayoutUtils.getEndOffset(orientation, container));
+        available = available.subtractNotNegative(LayoutUtils.getOffsetEnd(orientation, container));
 
         List<Measure> partition = factorList.partition(available);
 

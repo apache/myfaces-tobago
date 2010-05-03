@@ -40,11 +40,11 @@ public interface LayoutComponentRenderer {
 
   Measure getMaximumHeight(FacesContext facesContext, Configurable component);
 
-  Measure getLeftOffset(FacesContext facesContext, Configurable component);
+  Measure getOffsetLeft(FacesContext facesContext, Configurable component);
 
-  Measure getRightOffset(FacesContext facesContext, Configurable component);
+  Measure getOffsetRight(FacesContext facesContext, Configurable component);
 
-  Measure getTopOffset(FacesContext facesContext, Configurable component);
+  Measure getOffsetTop(FacesContext facesContext, Configurable component);
 
-  Measure getBottomOffset(FacesContext facesContext, Configurable component);
+  Measure getOffsetBottom(FacesContext facesContext, Configurable component);
 }

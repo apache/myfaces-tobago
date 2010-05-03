@@ -129,12 +129,12 @@ public final class LayoutUtils {
     }
   }
 
-  public static Measure getEndOffset(Orientation orientation, LayoutContainer container) {
-    return orientation == Orientation.HORIZONTAL ? container.getRightOffset() : container.getBottomOffset();
+  public static Measure getOffsetEnd(Orientation orientation, LayoutContainer container) {
+    return orientation == Orientation.HORIZONTAL ? container.getOffsetRight() : container.getOffsetBottom();
   }
 
-  public static Measure getBeginOffset(Orientation orientation, LayoutContainer container) {
-    return orientation == Orientation.HORIZONTAL ? container.getLeftOffset() : container.getTopOffset();
+  public static Measure getOffsetBegin(Orientation orientation, LayoutContainer container) {
+    return orientation == Orientation.HORIZONTAL ? container.getOffsetLeft() : container.getOffsetTop();
   }
 
   public static Measure getCurrentSize(Orientation orientation, LayoutContainer container) {

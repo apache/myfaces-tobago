@@ -24,42 +24,42 @@ public interface IsGridLayoutContainer {
   /**
    * This attribute is for internal use only.
    *
-   * @param leftOffset The left offset which is needed by some containers (e. g. a box).
+   * @param offsetLeft The left offset which is needed by some containers (e. g. a box).
    */
   @UIComponentTagAttribute(
       type = "org.apache.myfaces.tobago.layout.Measure",
       defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
-          + "getRenderer(getFacesContext())).getLeftOffset(getFacesContext(), this)")
-  void setLeftOffset(String leftOffset);
+          + "getRenderer(getFacesContext())).getOffsetLeft(getFacesContext(), this)")
+  void setOffsetLeft(String offsetLeft);
 
   /**
    * This attribute is for internal use only.
    *
-   * @param rightOffset The right offset which is needed by some containers (e. g. a box).
+   * @param offsetRight The right offset which is needed by some containers (e. g. a box).
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
       defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
-          + "getRenderer(getFacesContext())).getRightOffset(getFacesContext(), this)")
-  void setRightOffset(String rightOffset);
+          + "getRenderer(getFacesContext())).getOffsetRight(getFacesContext(), this)")
+  void setOffsetRight(String offsetRight);
 
   /**
    * This attribute is for internal use only.
    *
-   * @param topOffset The top offset which is needed by some containers (e. g. a box).
+   * @param offsetTop The top offset which is needed by some containers (e. g. a box).
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
       defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
-          + "getRenderer(getFacesContext())).getTopOffset(getFacesContext(), this)")
-  void setTopOffset(String topOffset);
+          + "getRenderer(getFacesContext())).getOffsetTop(getFacesContext(), this)")
+  void setOffsetTop(String offsetTop);
 
   /**
    * This attribute is for internal use only.
    *
-   * @param bottomOffset The bottom offset which is needed by some containers (e. g. a box).
+   * @param offsetBottom The bottom offset which is needed by some containers (e. g. a box).
    */
   @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.layout.Measure",
       defaultCode = "((org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer)\n"
-          + "getRenderer(getFacesContext())).getBottomOffset(getFacesContext(), this)")
-  void setBottomOffset(String bottomOffset);
+          + "getRenderer(getFacesContext())).getOffsetBottom(getFacesContext(), this)")
+  void setOffsetBottom(String offsetBottom);
 
 }
