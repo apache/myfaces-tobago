@@ -47,7 +47,7 @@ package <tagInfo.packageName>;
  * {@link <tagInfo.sourceClass>}.
  */
 public class <tagInfo.className> extends <tagInfo.superClassName> {
-  private static final Log LOG = LogFactory.getLog(<tagInfo.className>.class);
+  private static final Logger LOG = LoggerFactory.getLogger(<tagInfo.className>.class);
   <tagInfo.properties:field(); separator="\n">
 
   <tagInfo.properties:property(); separator="\n">

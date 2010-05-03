@@ -134,8 +134,8 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
     StringTemplate stringTemplate = tagAbstractStringTemplateGroup.getInstanceOf("tag");
     stringTemplate.setAttribute("tagInfo", tagInfo);
     tagInfo.getProperties().addAll(properties);
-    tagInfo.addImport("org.apache.commons.logging.Log");
-    tagInfo.addImport("org.apache.commons.logging.LogFactory");
+    tagInfo.addImport("org.slf4j.Logger");
+    tagInfo.addImport("org.slf4j.LoggerFactory");
     writeFile(tagInfo, stringTemplate);
   }
 
@@ -162,8 +162,8 @@ public class CreateComponentAnnotationVisitor extends AbstractAnnotationVisitor 
         }
       }
       tagInfo.setComponentClassName(componentTag.uiComponent());
-      tagInfo.addImport("org.apache.commons.logging.Log");
-      tagInfo.addImport("org.apache.commons.logging.LogFactory");
+      tagInfo.addImport("org.slf4j.Logger");
+      tagInfo.addImport("org.slf4j.LoggerFactory");
       tagInfo.addImport("javax.faces.application.Application");
       tagInfo.addImport("javax.faces.component.UIComponent");
       tagInfo.addImport("javax.faces.context.FacesContext");
