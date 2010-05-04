@@ -1208,12 +1208,12 @@ Measure width = style.getWidth();</programlisting>
       support for body content functionality or not. Our action has no body
       content so we want to subclass <classname>UIComponentTag</classname>. Again there is an
       opportunity to save some effort if we extend from
-      <classname>TobagoTag</classname><footnote><para>See <ulink url="http://myfaces.apache.org/tobago/apidocs/org/apache/myfaces/tobago/taglib/component/TobagoTag.html"/></para></footnote> which extends from
+      <classname>TobagoTag</classname><footnote><para>See <ulink url="http://myfaces.apache.org/tobago/apidocs/org/apache/myfaces/tobago/internal/taglib/component/TobagoTag.html"/></para></footnote> which extends from
       <classname>UIComponentTag</classname>. This class already implements the handling for the
       properties <literal>readonly</literal> and <literal>disabled</literal>.</para>
 
       <para>Our tag is named
-      <classname>NumberSliderTag</classname><footnote><para>See <ulink url="http://svn.apache.org/viewvc/myfaces/tobago/trunk/sandbox/src/main/java/org/apache/myfaces/tobago/taglib/sandbox/NumberSliderTag.java?view=markup"/></para></footnote> and
+      <classname>NumberSliderTag</classname><footnote><para>See <ulink url="http://svn.apache.org/viewvc/myfaces/tobago/trunk/sandbox/src/main/java/org/apache/myfaces/tobago/internal/taglib/sandbox/NumberSliderTag.java?view=markup"/></para></footnote> and
       consists of four new properties (<literal>min</literal>, <literal>max</literal>, <literal>value</literal> and
       <literal>valueChangeListener</literal>) with their getter/setters, an implementation of
       <literal>getComponentType</literal>, a <literal>release</literal> method and a <literal>setProperties</literal> method.</para>
@@ -1227,7 +1227,7 @@ Measure width = style.getWidth();</programlisting>
 
       <para>Next thing is the declaration of the tag. Therefore it implements
       an interface
-      <classname>NumberSliderTagDeclaration</classname><footnote><para>See <ulink url="http://svn.apache.org/viewvc/myfaces/tobago/trunk/sandbox/src/main/java/org/apache/myfaces/tobago/taglib/sandbox/NumberSliderTagDeclaration.java?view=markup"/></para></footnote>.
+      <classname>NumberSliderTagDeclaration</classname><footnote><para>See <ulink url="http://svn.apache.org/viewvc/myfaces/tobago/trunk/sandbox/src/main/java/org/apache/myfaces/tobago/internal/taglib/sandbox/NumberSliderTagDeclaration.java?view=markup"/></para></footnote>.
       This interface describes our tag and its attributes with annotations.
       Tobago's build process uses this declaration to generate a
       <filename>faces-config.xml</filename> and a tag library description (TLD) for our component

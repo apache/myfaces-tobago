@@ -64,7 +64,7 @@
                 <version>${project.version}</version>
                 <type>jar</type>
                 <classifier>sources</classifier>
-                <includes>org/apache/myfaces/tobago/taglib/decl/**/*</includes>                  
+                <includes>org/apache/myfaces/tobago/internal/taglib/declaration/**/*</includes>                  
               </artifactItem>
             </artifactItems>
             <outputDirectory>${project.build.directory}/tobago-core-sources</outputDirectory>
@@ -82,13 +82,13 @@
             <phase>generate-resources</phase>
             <configuration>
               <targetFiles>
-                <targetFile>org/apache/myfaces/tobago/taglib/sandbox/tobago-sandbox.tld</targetFile>
+                <targetFile>org/apache/myfaces/tobago/internal/taglib/sandbox/tobago-sandbox.tld</targetFile>
               </targetFiles>
               <excludes>
                 <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
                 <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
-                <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
-                <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
+                <exclude>org/apache/myfaces/tobago/internal/taglib/component/*</exclude>
+                <exclude>org/apache/myfaces/tobago/internal/taglib/extension/*</exclude>
               </excludes>
               <additionalSourceRoots>
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
@@ -111,10 +111,10 @@
               <excludes>
                 <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
                 <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
-                <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
-                <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
-                <exclude>org/apache/myfaces/tobago/taglib/sandbox/package-info.java</exclude>
-                <!--<exclude>org/apache/myfaces/tobago/taglib/sandbox/WizardExtensionTag.java</exclude>-->
+                <exclude>org/apache/myfaces/tobago/internal/taglib/extension/*</exclude>
+                <exclude>org/apache/myfaces/tobago/internal/taglib/component/*</exclude>
+                <exclude>org/apache/myfaces/tobago/internal/taglib/sandbox/package-info.java</exclude>
+                <!--<exclude>org/apache/myfaces/tobago/internal/taglib/sandbox/WizardExtensionTag.java</exclude>-->
               </excludes>
               <additionalSourceRoots>
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
@@ -142,11 +142,11 @@
               <excludes>
                 <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
                 <exclude>org/apache/myfaces/tobago/application/*</exclude>
-                <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
-                <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
+                <exclude>org/apache/myfaces/tobago/internal/taglib/component/*</exclude>
+                <exclude>org/apache/myfaces/tobago/internal/taglib/extension/*</exclude>
                 <exclude>org/apache/myfaces/tobago/validator/*</exclude>
                 <exclude>org/apache/myfaces/tobago/convert/*</exclude>
-                <exclude>org/apache/myfaces/tobago/taglib/sandbox/package-info.java</exclude>
+                <exclude>org/apache/myfaces/tobago/internal/taglib/sandbox/package-info.java</exclude>
               </excludes>
               <additionalSourceRoots>
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
@@ -178,7 +178,7 @@
           <showWarnings>true</showWarnings>
           <excludes>
             <exclude>workaround-because-otherwise-this-will-be-excluded-in-the-next-step</exclude>
-            <!--<exclude>org/apache/myfaces/tobago/taglib/sandbox/WizardExtensionTag.java</exclude>-->
+            <!--<exclude>org/apache/myfaces/tobago/internal/taglib/sandbox/WizardExtensionTag.java</exclude>-->
           </excludes>
         </configuration>
         <executions>
@@ -194,7 +194,7 @@
                 <include>org/apache/myfaces/tobago/internal/taglib/*</include>
                 <include>org/apache/myfaces/tobago/component/*</include>
                 <include>org/apache/myfaces/tobago/renderkit/*</include>
-                <!--<include>org/apache/myfaces/tobago/taglib/sandbox/WizardExtensionTag.java</include>-->
+                <!--<include>org/apache/myfaces/tobago/internal/taglib/sandbox/WizardExtensionTag.java</include>-->
               </includes>
               <excludes>
               </excludes>

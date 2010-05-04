@@ -52,11 +52,11 @@
       </excludes>
     </fileSet>
      <fileSet>
-      <directory>target/tld/META-INF/org/apache/myfaces/tobago/taglib/component/</directory>
+      <directory>target/tld/META-INF/org/apache/myfaces/tobago/internal/taglib/component/</directory>
       <outputDirectory>tld</outputDirectory>
     </fileSet>
      <fileSet>
-      <directory>target/tld/META-INF/org/apache/myfaces/tobago/taglib/extension/</directory>
+      <directory>target/tld/META-INF/org/apache/myfaces/tobago/internal/taglib/extension/</directory>
       <outputDirectory>tld</outputDirectory>
     </fileSet>
     <fileSet>

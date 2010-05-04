@@ -46,7 +46,7 @@
                 <version>${project.version}</version>
                 <type>jar</type>
                 <classifier>sources</classifier>
-                <includes>org/apache/myfaces/tobago/taglib/decl/**/*,org/apache/myfaces/tobago/taglib/component/**/*</includes>
+                <includes>org/apache/myfaces/tobago/internal/taglib/declaration/**/*,org/apache/myfaces/tobago/internal/taglib/component/**/*</includes>
               </artifactItem>
             </artifactItems>
             <outputDirectory>${project.build.directory}/tobago-core-sources</outputDirectory>
@@ -64,7 +64,7 @@
           <encoding>${maven.compile.encoding}</encoding>
           <showWarnings>true</showWarnings>
           <excludes>
-            <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
+            <exclude>org/apache/myfaces/tobago/internal/taglib/component/*</exclude>
           </excludes>
         </configuration>
       </plugin>
@@ -79,10 +79,10 @@
             <phase>compile</phase>
             <configuration>
               <targetFiles>
-                <targetFile>org/apache/myfaces/tobago/taglib/extension/tobago-extension.tld</targetFile>
+                <targetFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.tld</targetFile>
               </targetFiles>
               <excludes>
-                <exclude>org/apache/myfaces/tobago/taglib/component/*</exclude>
+                <exclude>org/apache/myfaces/tobago/internal/taglib/component/*</exclude>
               </excludes>
               <additionalSourceRoots>
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
@@ -182,7 +182,7 @@
                 <goals><goal>execute</goal></goals>
                 <configuration>
                   <targetFiles>
-                    <targetFile>org/apache/myfaces/tobago/taglib/extension/tobago-extension.xml</targetFile>
+                    <targetFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.xml</targetFile>
                   </targetFiles>
                   <outputDirectory>${project.build.directory}/doc</outputDirectory>
                   <factory>org.apache.myfaces.tobago.apt.TobagoAnnotationProcessorFactory</factory>

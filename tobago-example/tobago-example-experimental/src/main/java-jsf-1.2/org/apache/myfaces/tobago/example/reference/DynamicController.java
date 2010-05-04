@@ -17,11 +17,11 @@ package org.apache.myfaces.tobago.example.reference;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.internal.taglib.ButtonTag;
 import org.apache.myfaces.tobago.internal.taglib.LinkTag;
-import org.apache.myfaces.tobago.taglib.extension.InExtensionTag;
+import org.apache.myfaces.tobago.internal.taglib.extension.InExtensionTag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;

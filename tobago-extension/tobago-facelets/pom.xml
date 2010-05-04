@@ -56,7 +56,7 @@
                 <version>${project.version}</version>
                 <type>jar</type>
                 <classifier>sources</classifier>
-                <includes>org/apache/myfaces/tobago/taglib/decl/**/*,org/apache/myfaces/tobago/taglib/component/**/*</includes>
+                <includes>org/apache/myfaces/tobago/internal/taglib/declaration/**/*,org/apache/myfaces/tobago/internal/taglib/component/**/*</includes>
               </artifactItem>
             </artifactItems>
             <outputDirectory>${project.build.directory}/tobago-core-sources</outputDirectory>
@@ -77,8 +77,8 @@
                 <exclude>org/apache/myfaces/tobago/*</exclude>
               </excludes>
               <includes>
-                <include>org/apache/myfaces/tobago/taglib/component/*</include>
-                <include>org/apache/myfaces/tobago/taglib/decl/*</include>
+                <include>org/apache/myfaces/tobago/internal/taglib/component/*</include>
+                <include>org/apache/myfaces/tobago/internal/taglib/declaration/*</include>
               </includes>
               <additionalSourceRoots>
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>

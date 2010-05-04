@@ -58,8 +58,8 @@
             <phase>compile</phase>
             <configuration>
               <targetFiles>
-                <targetFile>org/apache/myfaces/tobago/taglib/component/tobago.tld</targetFile>
-                <targetFile>org/apache/myfaces/tobago/taglib/extension/tobago-extension.tld</targetFile>
+                <targetFile>org/apache/myfaces/tobago/internal/taglib/component/tobago.tld</targetFile>
+                <targetFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.tld</targetFile>
               </targetFiles>
               <resourceTargetPath>META-INF</resourceTargetPath>
               <outputDirectory>target/generated-tld</outputDirectory>
@@ -79,8 +79,8 @@
               <excludes>
                 <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
                 <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
-                <exclude>org/apache/myfaces/tobago/taglib/extension/*</exclude>
-                <exclude>org/apache/myfaces/tobago/taglib/component/package-info.java</exclude>
+                <exclude>org/apache/myfaces/tobago/internal/taglib/extension/*</exclude>
+                <exclude>org/apache/myfaces/tobago/internal/taglib/component/package-info.java</exclude>
               </excludes>
               <resourceTargetPath>META-INF</resourceTargetPath>
               <outputDirectory>target/generated-component</outputDirectory>
@@ -106,8 +106,8 @@
                 <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
                 <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
                 <exclude>org/apache/myfaces/tobago/internal/taglib/*</exclude>
-                <exclude>org/apache/myfaces/tobago/taglib/component/package-info.java</exclude>
-                <exclude>org/apache/myfaces/tobago/taglib/extension/package-info.java</exclude>
+                <exclude>org/apache/myfaces/tobago/internal/taglib/component/package-info.java</exclude>
+                <exclude>org/apache/myfaces/tobago/internal/taglib/extension/package-info.java</exclude>
                 <exclude>org/apache/myfaces/tobago/component/*</exclude>
               </excludes>
               <resourceTargetPath>META-INF</resourceTargetPath>
@@ -201,8 +201,8 @@
         <version>2.2</version>
         <configuration>
           <excludes>
-            <exclude>org/apache/myfaces/tobago/taglib/component/*Declaration.class</exclude>
-            <!--exclude>org/apache/myfaces/tobago/taglib/decl/*.class</exclude-->
+            <exclude>org/apache/myfaces/tobago/internal/taglib/component/*Declaration.class</exclude>
+            <!--exclude>org/apache/myfaces/tobago/internal/taglib/declaration/*.class</exclude-->
           </excludes>
           <archive>
             <manifest>
@@ -389,8 +389,8 @@
                 <goals><goal>execute</goal></goals>
                 <configuration>
                   <targetFiles>
-                    <targetFile>org/apache/myfaces/tobago/taglib/component/tobago.xml</targetFile>
-                    <targetFile>org/apache/myfaces/tobago/taglib/extension/tobago-extension.xml</targetFile>
+                    <targetFile>org/apache/myfaces/tobago/internal/taglib/component/tobago.xml</targetFile>
+                    <targetFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.xml</targetFile>
                   </targetFiles>
                   <generated>${project.build.directory}/doc</generated>
                   <factory>org.apache.myfaces.tobago.apt.TobagoAnnotationProcessorFactory</factory>
