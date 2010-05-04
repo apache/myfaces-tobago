@@ -28,7 +28,7 @@
     </f:facet>
     <tc:box label="InputSlider (problems: scriptaculous was removed, no layout manager)">
       <f:facet name="layout">
-        <tc:gridLayout columns="fixed;*" rows="fixed;*"/>
+        <tc:gridLayout columns="3*;*" rows="fixed;*"/>
       </f:facet>
       <tcs:numberSlider value="#{controller.sliderValue}" min="0" max="200">
       </tcs:numberSlider>
