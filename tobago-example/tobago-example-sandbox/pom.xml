@@ -50,8 +50,8 @@
                 <exclude>org/apache/myfaces/tobago/*</exclude>
               </excludes>
               <includes>
-                <include>org/apache/myfaces/tobago/taglib/component/*</include>
-                <include>org/apache/myfaces/tobago/taglib/decl/*</include>
+                <include>org/apache/myfaces/tobago/internal/taglib/component/*</include>
+                <include>org/apache/myfaces/tobago/internal/taglib/declaration/*</include>
               </includes>
               <additionalSourceRoots>
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
@@ -121,6 +121,10 @@
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
