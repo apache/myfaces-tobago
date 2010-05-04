@@ -80,3 +80,9 @@ Other API Classes
 *--+--+--+--+                                                                                                                                                                   
 | ... |  |                                                                  
 *--+--+--+--+                                                                                                                                                            
+
+CSS style classes
+
+  The default class of an HTML tag has been changed from tobago-<tagName>-default to tobago-<tagName>.
+  This effects your application only, when you've written your own theme, or using this classes in a
+  separate style file.

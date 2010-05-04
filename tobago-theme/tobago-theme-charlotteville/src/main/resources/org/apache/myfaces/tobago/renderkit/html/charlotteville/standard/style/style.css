@@ -22,7 +22,7 @@
 
 /* box ----------------------------------------------------------------- */
 
-.tobago-box-default {
+.tobago-box {
   background: #FFEECF;
   border: 1px solid #FECB66;
 }
@@ -35,7 +35,7 @@
 
 /* button ------------------------------------------------------------------ */
 
-.tobago-button-default  {
+.tobago-button  {
   background: #FADC9F;
   color: #660000;
 }
@@ -46,7 +46,7 @@
 
 /* label ------------------------------------------------------------------- */
 
-div.tobago-label-default  {
+div.tobago-label  {
   background: #FADC9F;
 }
 
@@ -55,7 +55,7 @@ div.tobago-label-default  {
 }
 
 /* page -------------------------------------------------------------------- */
-.tobago-page-default  {
+.tobago-page  {
   background: #FFEECF;
 }
 
@@ -102,7 +102,7 @@ a:link.tab, a:visited.tab, a:active.tab {
 
 /* Menu ---------------------------------------------------------------------- */
 
-.tobago-menuBar-default li {
+.tobago-menuBar li {
   background-color: #FFEECF;
 }
 
@@ -110,12 +110,12 @@ li.tobago-menu-selected {
   background-color: #FADC9F;
 }
 
-.tobago-menuBar-default {
+.tobago-menuBar {
   border-bottom-color: #FECB66;
   background-color: #FFEECF;
 }
 
-.tobago-menuBar-default ol {
+.tobago-menuBar ol {
   border-color: #FECB66;
 }
 

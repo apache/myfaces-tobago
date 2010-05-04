@@ -17,10 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
@@ -35,6 +31,7 @@ import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
@@ -53,10 +50,13 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.LayoutInfo;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
@@ -836,7 +836,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           "Tobago.Sheets.get('" + sheetId + "').toggleAll()", "t_toggleAll");
 
       writer.startElement(HtmlConstants.OL, menu);
-      writer.writeClassAttribute("tobago-menuBar-default");
+      writer.writeClassAttribute("tobago-menuBar");
       writer.writeStyleAttribute("position:absolute;");  // FIXME: may use a different style class
       RenderUtils.encode(facesContext, menu);
       writer.endElement(HtmlConstants.OL);

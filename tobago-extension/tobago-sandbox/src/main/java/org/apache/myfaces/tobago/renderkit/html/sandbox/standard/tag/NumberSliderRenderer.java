@@ -118,10 +118,10 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     // the input field starts here
     writer.startElement(HtmlConstants.TD, null);
     writer.writeAttribute("rowspan", "2", false);
-    writer.writeClassAttribute("tobago-numberSlider-input-default");
+    writer.writeClassAttribute("tobago-numberSlider-input");
 
     writer.startElement(HtmlConstants.INPUT, null);
-    writer.writeClassAttribute("tobago-in-default");
+    writer.writeClassAttribute("tobago-in");
     widthStyle.setWidth(Measure.valueOf(inputWidth));
     writer.writeStyleAttribute(widthStyle);
     String inputIdAndName = getIdForInputField(facesContext, slider);
@@ -143,7 +143,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
 
     //track
     writer.startElement(HtmlConstants.DIV, null);
-    writer.writeClassAttribute("tobago-numberSlider-slider-default");
+    writer.writeClassAttribute("tobago-numberSlider-slider");
     writer.writeIdAttribute(getIdForSliderTrack(facesContext, slider));
 
     // handle

@@ -20,7 +20,7 @@
  * agent: standard
  */
 
-.tobago-link-default {
+.tobago-link {
   font: bold 12px arial, helvetica, sans-serif;
   color: #000000;
   text-decoration: none;
@@ -55,7 +55,7 @@ table {
 }
 
 /*-- Popup ------------------------------------------------------------------ */
-.tobago-popup-default  {
+.tobago-popup  {
   background: #E2E2E2;
 }
 
@@ -242,12 +242,12 @@ reason they are not defined as a:link
   height: 16px;
 }
 
-.tobago-treeNode-default img {
+.tobago-treeNode img {
   vertical-align: top;
 	border: 0px;
 }
 
-.tobago-treeNode-default a {
+.tobago-treeNode a {
   font-size: 12px;
   font-family: arial, helvetica, sans-serif;
 }
@@ -258,7 +258,7 @@ reason they are not defined as a:link
   cursor: pointer;
 }
 
-.tobago-treeNode-default a:hover {
+.tobago-treeNode a:hover {
   color: #000000;
   text-decoration: underline;
 }
@@ -269,7 +269,7 @@ reason they are not defined as a:link
   cursor: pointer;
 }
 
-.tobago-treeNode-default a:focus {
+.tobago-treeNode a:focus {
   background: transparent;
   color: #000000;
 }
@@ -287,7 +287,7 @@ reason they are not defined as a:link
 
 /* button ------------------------------------------------------------------ */
 
-.tobago-button-default  {
+.tobago-button  {
   border: 1px #000000 solid;
   background: #ffffff;
   font: bold 12px arial, helvetica, sans-serif;
@@ -319,7 +319,7 @@ reason they are not defined as a:link
 
 /* selectBooleanCheckbox --------------------------------------------------- */
 
-.tobago-selectBooleanCheckbox-default {
+.tobago-selectBooleanCheckbox {
   margin-top: 0px;
   margin-bottom: 0px;
 }
@@ -330,13 +330,13 @@ reason they are not defined as a:link
 
 /* file  ------------------------------------------------------------------- */
 
-.tobago-file-default  {
+.tobago-file  {
   height: 20px;
 }
 
 /* box ----------------------------------------------------------------- */
 
-.tobago-box-default {
+.tobago-box {
   position: absolute;
 }
 
@@ -381,7 +381,7 @@ reason they are not defined as a:link
 
 /* label ------------------------------------------------------------------- */
 
-div.tobago-label-default  {
+div.tobago-label  {
   background: #E8E8E8;
   border: 0 solid transparent;
   vertical-align: top;
@@ -389,11 +389,11 @@ div.tobago-label-default  {
   margin: 0;
   padding-top: 0;
 }
-a.tobago-label-default  {
+a.tobago-label  {
   padding-top: 3px;
 }
 
-label.tobago-label-default  {
+label.tobago-label  {
   font: bold 12px arial, helvetica, sans-serif;
   /*height: 19px;*/
   /*height: auto;*/
@@ -445,7 +445,7 @@ label.tobago-label-error {
 }
 
 /* page -------------------------------------------------------------------- */
-.tobago-page-default  {
+.tobago-page  {
   background: #E2E2E2;
   font: 12px arial, helvetica, sans-serif;
   margin-bottom: 0px;
@@ -469,14 +469,14 @@ label.tobago-label-error {
 
 /* text -------------------------------------------------------------------- */
 
-.tobago-out-default  {
+.tobago-out  {
   font-family: arial, helvetica, sans-serif;
   font-size: 12px;
 }
 
 /* textArea ---------------------------------------------------------------- */
 
-.tobago-textArea-default  {
+.tobago-textArea  {
   font: 12px arial, helvetica, sans-serif;
   background: #ffffff;
   color: #000000;
@@ -500,7 +500,7 @@ label.tobago-label-error {
 
 /* in ---------------------------------------------------------------------- */
 
-.tobago-in-default  {
+.tobago-in  {
   border: 1px #000000 solid;
   height: 14px;
   font: 12px arial, helvetica, sans-serif;
@@ -522,7 +522,7 @@ label.tobago-label-error {
 
 /* date ---------------------------------------------------------------------- */
 
-.tobago-date-default  {
+.tobago-date  {
   border: 1px #000000 solid;
   height: 20px;
   font: 12px arial, helvetica, sans-serif;
@@ -551,7 +551,7 @@ label.tobago-label-error {
 
 /* selectManyListbox ------------------------------------------------------- */
 
-.tobago-selectManyListbox-default  {
+.tobago-selectManyListbox  {
   border: 1px solid #000000;
   font: 12px arial, helvetica, sans-serif;
   padding-top: -1px;
@@ -571,7 +571,7 @@ label.tobago-label-error {
 
 /* selectOneChoice --------------------------------------------------------- */
 
-.tobago-selectOneChoice-default  {
+.tobago-selectOneChoice  {
   border: 1px solid #000000;
   font: 12px arial, helvetica, sans-serif;
   color: #000000;
@@ -583,7 +583,7 @@ tobago-selectOneChoice-readonly {
 
 /* selectOneListbox -------------------------------------------------------- */
 
-.tobago-selectOneListbox-default  {
+.tobago-selectOneListbox  {
   border: 1px solid #000000;
   font-size: 12px;
 }
@@ -639,7 +639,7 @@ tobago-selectOneChoice-readonly {
 
 /* toolbar ----------------------------------------------------------------- */
 
-.tobago-toolBar-default {
+.tobago-toolBar {
   border: 1px solid #000000;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -769,7 +769,7 @@ tobago-selectOneChoice-readonly {
 
 /* menuBar -------------------------------------------------------- */
 
-.tobago-menuBar-default li,
+.tobago-menuBar li,
 .tobago-page-menuStore li {
   background-color: #dddddd;
 }
@@ -778,20 +778,20 @@ li.tobago-menu-selected {
   background-color: #bbbbbb;
 }
 
-.tobago-menuBar-default,
+.tobago-menuBar,
 .tobago-page-menuStore {
   border-bottom-color: #808080;
   background-color: #dddddd;
 }
 
-.tobago-menuBar-default ol,
+.tobago-menuBar ol,
 .tobago-page-menuStore ol {
   border-color: #888888;
 }
 
 /* separator ------------------------------------------------------------------- */
 
-hr.tobago-separator-default {
+hr.tobago-separator {
   border: 0 solid #000000;
   border-bottom-width: 1px;
 }

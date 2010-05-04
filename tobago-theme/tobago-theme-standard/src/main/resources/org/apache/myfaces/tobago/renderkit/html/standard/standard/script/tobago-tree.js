@@ -52,7 +52,7 @@ Tobago.Tree.updateMarker = function(node, add) {
   if (node) {
     node = node.firstChild;
     while (node) {
-      if (node.className && node.className.indexOf("tobago-treeNode-default") > -1) {
+      if (node.className && node.className.indexOf("tobago-treeNode") > -1) {
         if (add) {
           Tobago.addCssClass(node, "tobago-treeNode-marker");
         } else {
@@ -130,7 +130,7 @@ $(document).ready(function () {
 
   // find all option tags and add the dedicated select tag in its data section.
 
-  $(".tobago-treeListbox-default > div > div > select > option").each(function() {
+  $(".tobago-treeListbox > div > div > select > option").each(function() {
     var option = $(this);
     var optionId = option.attr("id");
     var selectId = optionId + "::select";
@@ -146,7 +146,7 @@ $(document).ready(function () {
   // add on change on all select tag, all options that are not selected hide there dedicated
   // select tag, and the selected option show its dedicated select tag.
 
-  $(".tobago-treeListbox-default > div > div > select").each(function() {
+  $(".tobago-treeListbox > div > div > select").each(function() {
 
     $(this).change(function() {
       $(this).children("option:not(:selected)").each(function() {
@@ -168,11 +168,11 @@ $(document).ready(function () {
   });
 
 /*
-  $(".tobago-treeListbox-default > div > div > select > option:selected").change();
+  $(".tobago-treeListbox > div > div > select > option:selected").change();
 */
 
 /*
-  $(".tobago-treeListbox-default > div > div > select > option:selected").each(function() {
+  $(".tobago-treeListbox > div > div > select > option:selected").each(function() {
     $(this).change();
   });
 */

@@ -21,7 +21,7 @@
  <html>
    <body>
      <form>
-       <ol class="tobago-menuBar-default">
+       <ol class="tobago-menuBar">
          <li class="tobago-menu-top">
            <a id="m1">Menu 1</a>
          </li>
@@ -30,7 +30,7 @@
          </li>
          ...
        </ol>
-       <div class="tobago-page-default">
+       <div class="tobago-page">
          // page content     
        </div>
        <span ... </span>
@@ -164,7 +164,7 @@ function xxx_tobagoMenuOpen(event) {
 }
 
 function xxx_tobagoMenuCloseAll() {
-  jQuery(".tobago-menuBar-default").each(function() {
+  jQuery(".tobago-menuBar").each(function() {
     xxx_tobagoMenuSwitchOff(jQuery(this));
   });
   return false;

@@ -48,7 +48,7 @@ public class BoxRenderer extends BoxRendererBase {
   
 with shadow
   
-<div class="tobago-box-default" style="width: 100px; height: 100px">
+<div class="tobago-box" style="width: 100px; height: 100px">
   <div class="tobago-box-shadow" style="width: 99px; height: 99px">
     <div class="tobago-box-border" style="width: 97px; height: 97px">
       <div class="tobago-box-header">Label</div>
@@ -62,7 +62,7 @@ with shadow
 
 without shadow
 
-<div class="tobago-box-default" style="width: 100px; height: 100px">
+<div class="tobago-box" style="width: 100px; height: 100px">
   <span class="tobago-box-header">Label</span>
 
   <div style="position: absolute; top: 26px; left: 6px; width: 87px; height: 67px; background-color: blue;">

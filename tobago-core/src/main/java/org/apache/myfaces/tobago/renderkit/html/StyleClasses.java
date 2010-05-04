@@ -18,8 +18,6 @@ package org.apache.myfaces.tobago.renderkit.html;
  */
 
 import org.apache.commons.collections.set.ListOrderedSet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.context.Markup;
@@ -27,6 +25,8 @@ import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -260,7 +260,7 @@ public class StyleClasses implements Serializable {
     private String aspect;
 
     Aspect() {
-      aspect = '-' + name().toLowerCase(Locale.ENGLISH);
+      aspect = name().equals("DEFAULT") ? "" : '-' + name().toLowerCase(Locale.ENGLISH);
     }
 
     @Override

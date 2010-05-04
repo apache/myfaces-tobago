@@ -20,7 +20,7 @@
  * agent: msie
  */
 
-fieldset.tobago-box-default {
+fieldset.tobago-box {
   padding: 0px;
   padding-left: 10px;
 }
@@ -40,7 +40,7 @@ fieldset.tobago-box-default {
   padding-bottom: 0px;
 }
 
-.tobago-date-default {
+.tobago-date {
   margin-top: -1px;
   margin-bottom: -1px;
 }
@@ -50,15 +50,15 @@ textarea.tobago-richTextEditor-body {
   margin-bottom: -1px;
 }
 
-.tobago-label-default {
+.tobago-label {
   margin-top: -2px;
 }
 
-.tobago-file-default {
+.tobago-file {
   height: 23px;
 }
 
-.tobago-toolBar-default {
+.tobago-toolBar {
   height: 31px;
 }
 .tobago-toolBar-button-hover-first {

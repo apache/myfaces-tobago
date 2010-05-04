@@ -898,7 +898,7 @@ var Tobago = {
   setupPopup: function() {
 
     // TODO: remove later (after change AJAX, that they replace tags instead of fill them...)
-    jQuery(".tobago-popup-parent > .tobago-popup-default").unwrap();
+    jQuery(".tobago-popup-parent > .tobago-popup").unwrap();
 
     // The shield is a protection against clicking controls, which are not allowed to click in the modal case.
     // The shield also makes an optical effect (alpha blending).
@@ -1024,7 +1024,7 @@ var Tobago = {
    */
   closePopup: function(closeButton) {
     Tobago.unlockBehindPopup();
-    var popup = jQuery(closeButton).parents("div.tobago-popup-default:first");
+    var popup = jQuery(closeButton).parents("div.tobago-popup:first");
     popup.remove();
     Tobago.setupPopup();
   },
@@ -1064,7 +1064,7 @@ var Tobago = {
     var div = jQuery(Tobago.escapeClientId(popupId));
     if (div.size() == 0) {
       jQuery("form:first") // add the new div after the page and the popup divs.
-          .children("(.tobago-page-default,.tobago-popup-default):last")
+          .children("(.tobago-page,.tobago-popup):last")
           .after("<div id='" + popupId + "' />");
     }
 

@@ -17,10 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
@@ -31,6 +27,7 @@ import org.apache.myfaces.tobago.component.UISelectOneCommand;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.UICommandBase;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
@@ -39,8 +36,11 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
@@ -324,7 +324,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   }
 
   protected String getIconClass(String iconSize) {
-    return "tobago-image-default tobago-toolBar-button-image tobago-toolBar-button-image-" + iconSize;
+    return "tobago-image tobago-toolBar-button-image tobago-toolBar-button-image-" + iconSize;
   }
 
   protected abstract String getHoverClasses(boolean first, boolean last);
@@ -458,7 +458,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       popupMenu.getAttributes().put(Attributes.IMAGE, image);
       popupMenu.getAttributes().put(Attributes.LABEL, "\u00a0\u00a0"); // non breaking space
       writer.startElement(HtmlConstants.OL, popupMenu);
-      writer.writeClassAttribute("tobago-menuBar-default");
+      writer.writeClassAttribute("tobago-menuBar");
       writer.writeStyleAttribute("position:relative;");  // FIXME: use a different style class
       RenderUtils.encode(facesContext, popupMenu);
       writer.endElement(HtmlConstants.OL);

@@ -20,7 +20,7 @@
  * agent: standard
  */
 
-.tobago-link-default {
+.tobago-link {
   font: bold 12px arial, helvetica, sans-serif;
   color: #3366cc;
   text-decoration: none;
@@ -30,7 +30,7 @@
   color:#888888
 }
 
-a:link.tobago-link-default, a:visited.tobago-link-default, a:active.tobago-link-default {
+a:link.tobago-link, a:visited.tobago-link, a:active.tobago-link {
   color: #3366cc;
 }
 
@@ -76,12 +76,12 @@ a.tree-folder-label:focus, a.tree-item-label:focus {
 
 /* - Tree ------------------------------------------------------------------- */
 
-a.tobago-treeNode-default a:hover {
+a.tobago-treeNode a:hover {
   color: #6699ff;
   text-decoration: underline;
 }
 
-a.tobago-treeNode-default a:focus {
+a.tobago-treeNode a:focus {
   background: #d6ebff;
   color: #3366cc;
 }
@@ -99,13 +99,13 @@ img.tobago-progress-color2 {
 
 /* - File Upload ------------------------------------------------------------ */
 
-.tobago-file-default  {
+.tobago-file  {
   height: 20px;
 }
 
 
 /* page --------------------------------------------------------------------- */
-.tobago-page-default  {
+.tobago-page  {
   background: #ffffff;
   font: 11px arial, helvetica, sans-serif;
   color: #3366CC;
@@ -122,7 +122,7 @@ img.tobago-progress-color2 {
 
 /* box ----------------------------------------------------------------- */
 
-.tobago-box-default {
+.tobago-box {
   background: #E6E6E6;
   border: 1px solid #FF9900;
 }
@@ -135,7 +135,7 @@ img.tobago-progress-color2 {
 
 /* button ------------------------------------------------------------ */
 
-.tobago-button-default  {
+.tobago-button  {
   border: 1px #FF7D00 solid;
   background: #FFCC66;
   font: 11px arial, helvetica, sans-serif;
@@ -148,7 +148,7 @@ img.tobago-progress-color2 {
 
 /* date ---------------------------------------------------------------------- */
 
-.tobago-date-default  {
+.tobago-date  {
   border: 1px #3366CC solid;
   height: 20px;
   font: 12px arial, helvetica, sans-serif;
@@ -172,11 +172,11 @@ img.tobago-progress-color2 {
 
 /* label ------------------------------------------------------------ */
 
-div.tobago-label-default  {
+div.tobago-label  {
   background: #99ccff;
 }
 
-label.tobago-label-default {
+label.tobago-label {
   color: #3366cc;
 }
 
@@ -253,7 +253,7 @@ a:link.tab, a:visited.tab, a:active.tab {
 
 /* textArea -------------------------------------------------------------- */
 
-.tobago-textArea-default  {
+.tobago-textArea  {
   font: 12px arial, helvetica, sans-serif;
   color: #3366CC;
   border: 1px solid #3366CC;
@@ -274,7 +274,7 @@ a:link.tab, a:visited.tab, a:active.tab {
 
 /* in ---------------------------------------------------------------------- */
 
-.tobago-in-default  {
+.tobago-in  {
   border: 1px #3366CC solid;
   font: 12px arial, helvetica, sans-serif;
   color: #3366CC;
@@ -309,7 +309,7 @@ a:link.tab, a:visited.tab, a:active.tab {
 }
 
 /* toolbar ----------------------------------------------------------------- */
-.tobago-toolBar-default  {
+.tobago-toolBar  {
   height: 20px;
   border: 1px solid #FF9900;
   box-sizing: border-box;
@@ -394,7 +394,7 @@ a:link.tab, a:visited.tab, a:active.tab {
 
 /* menuBar ----------------------------------------------------------------- */
 
-.tobago-menuBar-default li {
+.tobago-menuBar li {
   background-color: #FFCC66;
 }
 
@@ -402,12 +402,12 @@ li.tobago-menu-selected {
   background-color: #FF9900;
 }
 
-.tobago-menuBar-default {
+.tobago-menuBar {
   border-bottom-color: #FF9900;
   background-color: #FFCC66;
 }
 
-.tobago-menuBar-default ol {
+.tobago-menuBar ol {
   border-color: #000000;
 }
 
