@@ -26,7 +26,7 @@
     <f:facet name="layout">
       <tc:gridLayout margin="10px" rows="*"/>
     </f:facet>
-    <tc:box label="InputSlider">
+    <tc:box label="InputSlider (problems: scriptaculous was removed, no layout manager)">
       <f:facet name="layout">
         <tc:gridLayout columns="fixed;*" rows="fixed;*"/>
       </f:facet>

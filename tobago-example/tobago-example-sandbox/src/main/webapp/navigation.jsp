@@ -26,8 +26,6 @@
       <tc:gridLayout margin="5px" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
     </f:facet>
 
-    <tc:link link="separator.jsp" label="separator.jsp" target="View"/>
-
     <tc:link link="inputSlider.jsp" label="inputSlider.jsp" target="View"/>
 
     <tc:cell/>
