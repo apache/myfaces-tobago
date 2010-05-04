@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.renderkit.html.sandbox.standard.tag;
 import org.apache.myfaces.tobago.component.AbstractUINumberSlider;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
-import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Position;
@@ -45,10 +44,12 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
 
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     super.prepareRender(facesContext, component);
+/* todo: use e. g. jQuery
     if (facesContext instanceof TobagoFacesContext) {
       final String[] scripts = new String[]{"script/scriptaculous.js"};
       ((TobagoFacesContext) facesContext).getScriptFiles().add(scripts[0]);
     }
+*/
   }
 
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
