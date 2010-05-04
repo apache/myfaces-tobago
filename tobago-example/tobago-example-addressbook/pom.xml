@@ -24,7 +24,7 @@
   </parent>
   <artifactId>tobago-example-addressbook</artifactId>
   <packaging>war</packaging>
-  <name>Example Addressbook Webapp</name>
+  <name>Tobago Example Addressbook</name>
 
   <build>
     <finalName>tobago-example-addressbook</finalName>

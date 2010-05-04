@@ -24,7 +24,12 @@
   </parent>
   <artifactId>tobago-example-addressbook-lib</artifactId>
   <packaging>jar</packaging>
-  <name>Example Addressbook Library</name>
+  <name>Tobago Example Addressbook Library</name>
+  <description>
+    This package contains the Java logic and the pages (Facelets) for the address book application
+    as a library. This is to demonstrate, how to put logic and view in a library, to use it in different
+    applications.
+  </description>
   <build>
     <plugins>
       <plugin>
