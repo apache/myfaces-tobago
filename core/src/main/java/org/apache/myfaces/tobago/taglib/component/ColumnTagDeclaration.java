@@ -59,6 +59,14 @@ public interface ColumnTagDeclaration extends TobagoTagDeclaration, HasIdBinding
   void setSortable(String sortable);
 
   /**
+   * Flag indicating whether or not the width of this column is resizable.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = {"java.lang.Boolean"},
+      defaultValue = "true")
+  void setResizable(String resizable);
+
+  /**
    * Indicate markup of this component.
    * Possible value is 'none'. But this can be overridden in the theme.
    */

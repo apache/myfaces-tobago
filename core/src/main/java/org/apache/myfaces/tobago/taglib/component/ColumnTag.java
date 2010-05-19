@@ -17,20 +17,22 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIColumn;
 
 import javax.faces.component.UIComponent;
 
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RESIZABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_TIP;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 
 public class ColumnTag extends TobagoTag
     implements ColumnTagDeclaration {
 
   private String sortable;
+  private String resizable;
   private String align;
   private String markup;
   private String tip;
@@ -47,6 +49,7 @@ public class ColumnTag extends TobagoTag
   public void release() {
     super.release();
     sortable = null;
+    resizable = null;
     align = null;
     markup = null;
     tip = null;
@@ -56,6 +59,7 @@ public class ColumnTag extends TobagoTag
   protected void setProperties(UIComponent component) {
     super.setProperties(component);
     ComponentUtil.setBooleanProperty(component, ATTR_SORTABLE, sortable);
+    ComponentUtil.setBooleanProperty(component, ATTR_RESIZABLE, resizable);
     ComponentUtil.setStringProperty(component, ATTR_ALIGN, align);
     ComponentUtil.setMarkup(component, markup);
     ComponentUtil.setStringProperty(component, ATTR_TIP, tip);
@@ -80,6 +84,14 @@ public class ColumnTag extends TobagoTag
 
   public void setSortable(String sortable) {
     this.sortable = sortable;
+  }
+
+  public String getResizable() {
+    return resizable;
+  }
+
+  public void setResizable(String resizable) {
+    this.resizable = resizable;
   }
 
   public void setTip(String tip) {

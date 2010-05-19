@@ -134,6 +134,7 @@ public final class TobagoConstants {
   public static final String ATTR_RENDER_RANGE = "renderRange";
   public static final String ATTR_RENDER_RANGE_EXTERN = "renderRangeExtern";
   public static final String ATTR_REQUIRED = "required";
+  public static final String ATTR_RESIZABLE = "resizable";
   public static final String ATTR_RESOURCE = "resource";
   public static final String ATTR_ROW_ID = "sheetRowId";
   public static final String ATTR_ROWS = "rows";

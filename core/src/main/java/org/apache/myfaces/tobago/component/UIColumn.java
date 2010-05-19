@@ -17,13 +17,14 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
-
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ALIGN;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LABEL;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_RESIZABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SORTABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH;
 
 
 /*
@@ -33,6 +34,7 @@ import javax.faces.el.ValueBinding;
 public class UIColumn extends javax.faces.component.UIColumn implements SupportsMarkup {
   public static final String COMPONENT_TYPE = "org.apache.myfaces.tobago.Column";
   private Boolean sortable;
+  private Boolean resizable;
   private String align;
   private String label;
   private String[] markup;
@@ -43,19 +45,21 @@ public class UIColumn extends javax.faces.component.UIColumn implements Supports
     super.restoreState(context, values[0]);
     align = (String) values[1];
     sortable = (Boolean) values[2];
-    label = (String) values[3];
-    markup = (String[]) values[4];
-    width = (String) values[5];
+    resizable = (Boolean) values[3];
+    label = (String) values[4];
+    markup = (String[]) values[5];
+    width = (String) values[6];
   }
 
   public Object saveState(FacesContext context) {
-    Object[] values = new Object[6];
+    Object[] values = new Object[7];
     values[0] = super.saveState(context);
     values[1] = align;
     values[2] = sortable;
-    values[3] = label;
-    values[4] = markup;
-    values[5] = width;
+    values[3] = resizable;
+    values[4] = label;
+    values[5] = markup;
+    values[6] = width;
     return values;
   }
 
@@ -84,6 +88,22 @@ public class UIColumn extends javax.faces.component.UIColumn implements Supports
 
   public void setSortable(boolean sortable) {
     this.sortable = sortable;
+  }
+
+  public boolean isResizable() {
+    if (resizable != null) {
+      return resizable;
+    }
+    ValueBinding vb = getValueBinding(ATTR_RESIZABLE);
+    if (vb != null) {
+      return (Boolean.TRUE.equals(vb.getValue(getFacesContext())));
+    } else {
+      return true;
+    }
+  }
+
+  public void setResizable(boolean resizable) {
+    this.resizable = resizable;
   }
 
   public String getAlign() {
