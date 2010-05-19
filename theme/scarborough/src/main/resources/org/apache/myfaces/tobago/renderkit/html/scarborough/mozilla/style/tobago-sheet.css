@@ -22,11 +22,9 @@
 }
 
 .tobago-sheet-header-box {
-	display: -moz-inline-box;
-	-moz-box-sizing: border-box;
+	display: inline-block;
 	height: 20px;
 }
-
 
 .tobago-sheet-header {
 	-moz-box-sizing: border-box;
@@ -34,20 +32,26 @@
 }
 
 .tobago-sheet-header-resize {
-	line-height: 12px;
-	margin-left: -5px;
-	margin-right: -5px;
-	position: relative;
-	/*-moz-box-sizing: border-box;*/
-
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 5px;
+  line-height: 12px;
+  -moz-box-sizing: border-box;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
-
 .tobago-sheet-header-sort-div {
-	position: relative;
+	position: absolute;
   margin-top: 6px;
-  margin-left: -13px;
-  margin-right: 5px;
+  margin-left: 0px;
+  margin-right: 0px;
+  right: 5px;
+  top: 0px;
+  width: 8px;
 }
 
 .tobago-sheet-body-div {

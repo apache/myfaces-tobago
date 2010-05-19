@@ -761,6 +761,18 @@ Tobago.Sheet.prototype.adjustHeaderDiv = function () {
     //  LOG.debug("filler      :" + fillBox.clientWidth);
     //  LOG.debug("fillerstyle :" + fillBox.style.width);
     //  LOG.debug("##########################################");
+
+  // XXX fix for Firefox 3.0
+  if (navigator.userAgent.indexOf("Firefox/3.0") > -1) {
+    var length = headerDiv.childNodes.length;
+    for (var i = 0; i < length; i++) {
+      var box2 = Tobago.element(this.id + "_header_box_" + i);
+      var outer = Tobago.element(this.id + "_header_outer_" + i);
+      if (box2 && outer) {
+        outer.style.width = box2.style.width;
+      }
+    }
+  }
   };
 
 Tobago.Sheet.prototype.beginResize = function(event) {
