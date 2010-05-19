@@ -339,7 +339,8 @@ Tobago.Sheet.prototype.setupResizer = function() {
       Tobago.addBindEventListener(headerDiv, "mousemove", this, "doResize");
       Tobago.addBindEventListener(headerDiv, "mouseup", this, "endResize");
 
-      for (var i = 0; i < headerDiv.children.length; i++) {
+      var length = headerDiv.childNodes.length;
+      for (var i = 0; i < length; i++) {
         var resizer = Tobago.element(this.id + "_header_resizer_" + i);
         if (resizer && resizer.className.match(/tobago-sheet-header-resize-cursor/)) {
           Tobago.addEventListener(resizer, "click", Tobago.stopEventPropagation);
