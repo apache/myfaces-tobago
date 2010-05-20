@@ -64,7 +64,7 @@ public class HtmlStyleMap extends HashMap<String, Object> {
       buf.append(style.getKey());
       buf.append(":");
       buf.append(style.getValue());
-      if (style.getValue() instanceof Integer) {
+      if (style.getValue() instanceof Integer && !"z-index".equals(style.getKey())) {
         buf.append("px; ");
       } else {
         buf.append("; ");
