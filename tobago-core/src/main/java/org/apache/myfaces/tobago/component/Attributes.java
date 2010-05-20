@@ -134,6 +134,7 @@ public final class Attributes {
   public static final String RENDER_RANGE = "renderRange";
   public static final String RENDER_RANGE_EXTERN = "renderRangeExtern";
   public static final String REQUIRED = "required";
+  public static final String RESIZABLE = "resizable";
   public static final String RESOURCE = "resource";
   public static final String ROW_ID = "rowId";
   public static final String ROW_SPAN = "rowSpan";

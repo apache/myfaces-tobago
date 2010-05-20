@@ -790,7 +790,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlConstants.SPAN);
 
     // resizing
-
     String resizerClass;
     if (column instanceof UIColumnSelector) {
       resizerClass = "tobago-sheet-header-resize";
@@ -798,14 +797,16 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       resizerClass = "tobago-sheet-header-resize tobago-sheet-header-resize-cursor";
     }
 
-    writer.startElement(HtmlConstants.SPAN, null);
-    writer.writeClassAttribute("tobago-sheet-header-resize-outer");
-    writer.startElement(HtmlConstants.SPAN, null);
-    writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "header_resizer_" + columnIndex);
-    writer.writeClassAttribute(resizerClass);
-    writer.write("&nbsp;&nbsp;"); // is needed for IE6
-    writer.endElement(HtmlConstants.SPAN);
-    writer.endElement(HtmlConstants.SPAN);
+    if (ComponentUtils.getBooleanAttribute(column, Attributes.RESIZABLE)) {
+      writer.startElement(HtmlConstants.SPAN, null);
+      writer.writeClassAttribute("tobago-sheet-header-resize-outer");
+      writer.startElement(HtmlConstants.SPAN, null);
+      writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "header_resizer_" + columnIndex);
+      writer.writeClassAttribute(resizerClass);
+      writer.write("&nbsp;&nbsp;"); // is needed for IE6
+      writer.endElement(HtmlConstants.SPAN);
+      writer.endElement(HtmlConstants.SPAN);
+    }
   }
 
 

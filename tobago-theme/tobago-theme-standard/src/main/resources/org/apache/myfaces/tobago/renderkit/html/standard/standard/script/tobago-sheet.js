@@ -312,22 +312,23 @@ Tobago.Sheet.prototype.doKeyEvent = function(event) {
   };
 
 Tobago.Sheet.prototype.setupResizer = function() {
-    var i = 0;
     var headerDiv = Tobago.element(this.headerDivId);
     if (headerDiv) {
       Tobago.addBindEventListener(headerDiv, "mousemove", this, "doResize");
       Tobago.addBindEventListener(headerDiv, "mouseup", this, "endResize");
+
+      var length = headerDiv.childNodes.length;
+      for (var i = 0; i < length; i++) {
+        var resizer = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_resizer_" + i);
+        if (resizer && resizer.className.match(/tobago-sheet-header-resize-cursor/)) {
+          Tobago.addEventListener(resizer, "click", Tobago.stopEventPropagation);
+          Tobago.addBindEventListener(resizer, "mousedown", this, "beginResize");
+        }
+      }
     }
+
     var contentDiv = Tobago.element(this.contentDivId);
     Tobago.addBindEventListener(contentDiv, "scroll", this, "doScroll");
-    var resizer = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_resizer_" + i++ );
-    while (resizer) {
-      if (resizer.className.match(/tobago-sheet-header-resize-cursor/)) {
-        Tobago.addEventListener(resizer, "click", Tobago.stopEventPropagation);
-        Tobago.addBindEventListener(resizer, "mousedown", this, "beginResize");
-      }
-      resizer = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_resizer_" + i++ );
-    }
   };
 
 Tobago.Sheet.prototype.setup = function() {

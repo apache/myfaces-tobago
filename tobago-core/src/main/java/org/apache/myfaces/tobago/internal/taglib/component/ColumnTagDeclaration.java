@@ -54,6 +54,14 @@ public interface ColumnTagDeclaration extends HasIdBindingAndRendered, HasLabel,
   @UIComponentTagAttribute(type = {"boolean"}, defaultValue = "false")
   void setSortable(String sortable);
 
+
+  /**
+   * Flag indicating whether or not the width of this column in a sheet is resizable, by the user.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = {"boolean"}, defaultValue = "true")
+  void setResizable(String resizable);
+
   /**
    * The layout token for this column.
    * Allowd layout tokens ('*', '&lt;x>*', '&lt;x>px' or '&lt;x>%').
