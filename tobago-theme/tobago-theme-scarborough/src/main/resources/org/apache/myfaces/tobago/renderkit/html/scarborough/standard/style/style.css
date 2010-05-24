@@ -48,36 +48,54 @@ html, body {
   white-space: nowrap;
 }
 
-div.tobago-tab-selected-outer {
-  border-color: #ddeeff #778899 #ddeeff #ddeeff;
-  border-width: 0.13ex 0.13ex 0 0.13ex;
-  border-style: solid;
-  padding: 0.2ex 0.2em;
+.tobago-tab {
+  display: inline-block;
+  height: 100%;
 }
 
-div.tobago-tab-selected-inner {
-  margin: 0 0.7em;
+.tobago-tab-header {
+  position: relative;
+}
+
+.tobago-tab-selected-outer {
+  border-color: #ddeeff #778899 #ddeeff #ddeeff;
+  border-width: 1px 1px 0 1px;
+  border-style: solid;
+  padding: 0 0 0 0;
+  position: relative;
+  height: 18px;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.tobago-tab-selected-inner {
+  margin: 0 1px;
   white-space: nowrap;
 }
 
-div.tobago-tab-unselected-outer {
+.tobago-tab-unselected-outer {
   border-color: #ddeeff #778899 #ddeeff #ddeeff;
-  border-width: 1px;
+  border-width: 1px 1px 1px 1px;
   border-style: solid;
+  position: relative;
+  display: inline-block;
+  vertical-align: bottom;
 }
 
-div.tobago-tab-unselected-inner {
-  margin: 0 0.7em;
+.tobago-tab-unselected-inner {
+  margin: 0 1px;
   white-space: nowrap;
 }
 
-div.tobago-tab-fulfill {
+.tobago-tab-fulfill {
   border-color: #ddeeff;
   border-width: 0 0 1px 0;
+  display: inline-block;
   border-style: solid;
+  vertical-align:bottom;
 }
 
-td.tobago-tab-content {
+.tobago-tab-content {
   border-color: #ddeeff #778899 #778899 #ddeeff;
   border-width: 0 1px 1px 1px;
   border-style: solid;
@@ -90,6 +108,7 @@ div.tobago-tabnavigationbar {
   border-bottom-width: 1px;
   height: 25px;
   top: 0;
+  width: 59px;
   margin-right: 0;
   position: absolute;
 }
@@ -1018,6 +1037,7 @@ hr.tobago-separator {
 }
 
 .tobago-toolBar-button-image {
+  border-width: 0;
 /* vertical-align: bottom;*/
 /* margin-bottom: 2px;*/
 /* background: red;*/

@@ -20,7 +20,9 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UITab;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.css.Overflow;
+import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
@@ -40,16 +42,16 @@ public class TabGroupRenderer extends
       TobagoResponseWriter writer, FacesContext facesContext, UITab activeTab, Style body)
       throws IOException {
 
-    writer.startElement(HtmlConstants.TR, null);
-    writer.startElement(HtmlConstants.TD, null);
-    if (body != null) {
-      writer.writeStyleAttribute(body);
-    }
 
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute("tobago-tab-shadow");
     if (body != null) {
-      writer.writeStyleAttribute(body);
+      Style body1 =body.clone();
+      // TODO get border width
+      body1.setHeight(body1.getHeight().subtract(1));
+      // TODO get border width
+      body1.setWidth(body1.getWidth().subtract(1));
+      writer.writeStyleAttribute(body1);
     }
 
     writer.startElement(HtmlConstants.DIV, null);
@@ -59,9 +61,12 @@ public class TabGroupRenderer extends
     writer.writeClassAttribute(classes);
 
     if (body != null) {
-      body.setHeight(body.getHeight().subtract(1));
-      body.setOverflow(Overflow.AUTO);
-      writer.writeStyleAttribute(body);
+      Style body2 = body.clone();
+      // TODO get
+      body2.setHeight(body.getHeight().subtract(22));
+      body2.setWidth(body.getWidth().subtract(22));
+      body2.setOverflow(Overflow.AUTO);
+      writer.writeStyleAttribute(body2);
     }
 
     writer.flush();
@@ -70,8 +75,6 @@ public class TabGroupRenderer extends
     writer.endElement(HtmlConstants.DIV);
     writer.endElement(HtmlConstants.DIV);
 
-    writer.endElement(HtmlConstants.TD);
-    writer.endElement(HtmlConstants.TR);
 
   }
 

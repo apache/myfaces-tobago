@@ -87,47 +87,52 @@ img.tobago-progress-color2 {
   color: #808080;
 }
 
-div.tobago-tab-selected-outer {
-  border-color: #000000;
-  padding: 2px 0.2em 1px 0.2em;
-  height: 19px;
-  background: url(../image/tab-header-selected-bg.gif) repeat-x top;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+.tobago-tab {
+  display: inline-block;
+  height: 100%;
 }
 
-div.tobago-tab-selected-inner {
+.tobago-tab-header {
+  position: relative;
+}
+
+.tobago-tab-selected-outer {
+  border-color: #000000;
+  padding: 0 0 0 0;
+  display: inline-block;
+  background: url(../image/tab-header-selected-bg.gif) repeat-x top;
+  height: 18px;
+}
+
+.tobago-tab-selected-inner {
   font: 12px arial, helvetica, sans-serif;
   color: #660000;
+  display: inline-block;
 }
 
-div.tobago-tab-unselected-outer {
+.tobago-tab-unselected-outer {
+  display: inline-block;  
   border-color: #000000;
   background: url(../image/tab-header-unselected-bg.gif) repeat-x top;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 
-div.tobago-tab-unselected-inner {
+.tobago-tab-unselected-inner {
   font: 12px arial, helvetica, sans-serif;
   color: #660000;
 }
 
-div.tobago-tab-fulfill {
+span.tobago-tab-fulfill {
   border-color: #000000;
-  margin: 1px;
-  margin-bottom:0px;
-  margin-top:0px;
-  margin-left:0px;
+  display: inline-block;
+  border-bottom: 1px solid;
+  vertical-align: bottom;
 }
 
 .tobago-tab-content {
   border: 1px solid #000000;
-  border-top: 0px solid transparent;
+  border-top: 0 solid transparent;
   padding: 10px 10px 10px 10px;
   background: #FAFAFA;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 
 .tobago-tab-shadow {
@@ -135,8 +140,6 @@ div.tobago-tab-fulfill {
   border: 1px solid #B4B4B4;
   border-top: 0px solid transparent;
   border-left: 0px solid transparent;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 
 div.tobago-tabnavigationbar {
@@ -146,9 +149,7 @@ div.tobago-tabnavigationbar {
   border-bottom-color: #000000;
   border-bottom-style: solid;
   border-bottom-width: 1px;
-  height: 22px;
-  top: -4px;
-  margin-right: 6px;
+  height: 18px;
   position: absolute;
 }
 
