@@ -17,15 +17,15 @@ package org.apache.myfaces.tobago.renderkit.util;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -130,19 +130,6 @@ public class RenderUtils {
     }
   }
 
-  //TODO move to HtmlRendererUtils
-  public static String addMenuCheckToggle(String clientId, String onClick) {
-    if (onClick != null) {
-      onClick = " ; " + onClick;
-    } else {
-      onClick = "";
-    }
-
-    onClick = "menuCheckToggle('" + clientId + "')" + onClick;
-
-    return onClick;
-  }
-
   public static String getFormattedValue(
       FacesContext facesContext, UIComponent component) {
     Object value = null;
@@ -195,6 +182,9 @@ public class RenderUtils {
 
   private static Measure calculateStringWidth(
       FacesContext facesContext, Configurable component, String text, String type) {
+    if (text == null) {
+      return Measure.ZERO;
+    }
     int width = 0;
     int defaultCharWidth = 0;
     try {
@@ -234,11 +224,9 @@ public class RenderUtils {
 
     List<SelectItem> selectItems = getSelectItems(component);
 
-    String renderRange = (String)
-        component.getAttributes().get(Attributes.RENDER_RANGE_EXTERN);
+    String renderRange = (String) component.getAttributes().get(Attributes.RENDER_RANGE_EXTERN);
     if (renderRange == null) {
-      renderRange = (String)
-          component.getAttributes().get(Attributes.RENDER_RANGE);
+      renderRange = (String) component.getAttributes().get(Attributes.RENDER_RANGE);
     }
     if (renderRange == null) {
       return selectItems;
@@ -252,7 +240,7 @@ public class RenderUtils {
         items.add(selectItems.get(indice));
       }
     } else {
-      LOG.warn("No items found! rendering dummys instead!");
+      LOG.warn("No items found! rendering dummies instead!");
       for (int i = 0; i < indices.length; i++) {
         items.add(new SelectItem(Integer.toString(i), "Item " + i, ""));
       }

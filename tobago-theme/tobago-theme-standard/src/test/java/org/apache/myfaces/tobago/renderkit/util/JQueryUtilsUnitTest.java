@@ -64,6 +64,6 @@ public class JQueryUtilsUnitTest {
 
   @Test
   public void selectId() {
-    Assert.assertEquals("$('#test\\\\:test')", JQueryUtils.selectId("test:test"));
+    Assert.assertEquals("jQuery('#test\\\\:test')", JQueryUtils.selectId("test:test"));
   }
 }

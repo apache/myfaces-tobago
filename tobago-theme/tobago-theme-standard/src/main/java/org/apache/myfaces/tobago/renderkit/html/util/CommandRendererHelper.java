@@ -18,8 +18,6 @@ package org.apache.myfaces.tobago.renderkit.html.util;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPopup;
@@ -29,6 +27,8 @@ import org.apache.myfaces.tobago.event.PopupFacetActionListener;
 import org.apache.myfaces.tobago.internal.component.UICommandBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
@@ -100,11 +100,11 @@ public class CommandRendererHelper {
           boolean popupAction = ComponentUtils.containsPopupActionListener(command);
           if (popupAction) {
             if (componentIds.length != 1) {
-              LOG.warn("more than one parially rendered component is not supported for popup! using first one: "
+              LOG.warn("more than one partially rendered component is not supported for popup! using first one: "
               + Arrays.toString(componentIds));
             }
             onclick = "Tobago.openPopupWithAction(this, '"
-                + HtmlRendererUtils.getComponentId(facesContext, command, componentIds[0]) + "', '" + clientId + "')";
+                + HtmlRendererUtils.getComponentId(facesContext, command, componentIds[0]) + "', '" + clientId + "');";
           } else {
             onclick = "Tobago.reloadComponent(this, '"
                 + HtmlRendererUtils.getComponentIds(facesContext, command, componentIds) + "','" + clientId + "', {});";

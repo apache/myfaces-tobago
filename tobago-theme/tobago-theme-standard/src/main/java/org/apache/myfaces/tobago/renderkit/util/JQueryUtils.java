@@ -83,12 +83,12 @@ public class JQueryUtils {
   }
 
   /**
-   * Creates a selector for an id like $('#id').
+   * Creates a selector for an id like jQuery('#id').
    * The id will be escaped if necessary.
    */
   public static String selectId(String id) {
     StringBuilder builder = new StringBuilder();
-    builder.append("$('#");
+    builder.append("jQuery('#");
     builder.append(escapeId(id));
     builder.append("')");
     return builder.toString();
