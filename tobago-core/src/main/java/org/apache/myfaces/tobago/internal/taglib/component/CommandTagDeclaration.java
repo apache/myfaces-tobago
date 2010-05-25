@@ -31,7 +31,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
  * Use this tag only as a facet for click, change in selectOneRadio,
  * selectBooleanCheckbox, selectManyCheckbox and selectOneChoice
  */
-@Tag(name = "command", tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
+@Tag(
+    name = "command", 
+    tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(uiComponent = "org.apache.myfaces.tobago.component.UICommand",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUICommand",
     rendererType = RendererTypes.COMMAND,

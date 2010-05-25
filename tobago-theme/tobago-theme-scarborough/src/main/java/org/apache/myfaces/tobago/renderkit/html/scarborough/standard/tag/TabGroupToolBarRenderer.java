@@ -1,9 +1,5 @@
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.myfaces.tobago.component.UIToolBar;
-
-import javax.faces.component.UIComponent;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -20,6 +16,10 @@ import javax.faces.component.UIComponent;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import org.apache.myfaces.tobago.component.UIToolBar;
+
+import javax.faces.component.UIComponent;
 
 public class TabGroupToolBarRenderer extends ToolBarRendererBase {
 

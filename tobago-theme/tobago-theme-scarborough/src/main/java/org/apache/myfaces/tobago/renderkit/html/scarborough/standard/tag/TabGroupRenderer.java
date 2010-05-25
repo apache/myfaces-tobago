@@ -517,7 +517,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     writer.writeClassAttribute(classes);
 
     if (body != null) {
-      Style body2 = body.clone();
+      Style body2 = new Style(body);
       // TODO get
       body2.setHeight(body.getHeight().subtract(22));
       body2.setWidth(body.getWidth().subtract(22));

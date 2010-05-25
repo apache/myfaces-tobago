@@ -37,7 +37,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 /**
  * Renders a selectable command button within a toolbar.
  */
-@Tag(name = "toolBarCheck", tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
+@Tag(
+    name = "toolBarCheck",
+    tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBarCheck",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",

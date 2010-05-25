@@ -27,14 +27,12 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 
-/*
- * $Id$
- */
-
 /**
- * Renders a submenu with select one items (like a radio button).
+ * Renders a sub menu with select one items (like a radio button).
  */
-@Tag(name = "menuRadio", tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
+@Tag(
+    name = "menuRadio",
+    tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuRadio",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UISelectOneCommand",

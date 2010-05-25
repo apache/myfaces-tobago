@@ -33,7 +33,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
 /**
  * Renders a command button within a toolbar.
  */
-@Tag(name = "toolBarCommand", tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
+@Tag(
+    name = "toolBarCommand",
+    tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBarCommand",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIToolBarCommand",

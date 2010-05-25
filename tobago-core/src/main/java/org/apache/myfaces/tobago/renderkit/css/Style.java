@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.layout.Measure;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 
-public class Style implements Serializable, Cloneable {
+public class Style implements Serializable {
                                           
   private static final long serialVersionUID = 4L;
 
@@ -309,10 +309,4 @@ public class Style implements Serializable, Cloneable {
   public void setTextAlign(String textAlign) {
     this.textAlign = textAlign;
   }
-
-  @Override
-  public Style clone() {
-    return new Style(this);
-  }
-  
 }

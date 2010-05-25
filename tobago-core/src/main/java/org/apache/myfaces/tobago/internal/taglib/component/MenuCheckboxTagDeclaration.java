@@ -30,7 +30,9 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 /**
  * @deprecated Please use tx:menuCheckbox
  */
-@Tag(name = "menuCheckbox", tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
+@Tag(
+    name = "menuCheckbox",
+    tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIMenuCheckbox",
     uiComponentBaseClass = "org.apache.myfaces.tobago.component.UISelectBooleanCommand",

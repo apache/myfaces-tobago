@@ -17,12 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UITab;
-import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.css.Overflow;
-import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
@@ -32,21 +28,18 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
-public class TabGroupRenderer extends
-    org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.TabGroupRenderer{
-
-  private static final Logger LOG = LoggerFactory.getLogger(TabGroupRenderer.class);
+public class TabGroupRenderer
+    extends org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.TabGroupRenderer {
 
   @Override
   protected void encodeContent(
       TobagoResponseWriter writer, FacesContext facesContext, UITab activeTab, Style body)
       throws IOException {
 
-
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeClassAttribute("tobago-tab-shadow");
     if (body != null) {
-      Style body1 =body.clone();
+      Style body1 = new Style(body);
       // TODO get border width
       body1.setHeight(body1.getHeight().subtract(1));
       // TODO get border width
@@ -61,7 +54,7 @@ public class TabGroupRenderer extends
     writer.writeClassAttribute(classes);
 
     if (body != null) {
-      Style body2 = body.clone();
+      Style body2 = new Style(body);
       // TODO get
       body2.setHeight(body.getHeight().subtract(22));
       body2.setWidth(body.getWidth().subtract(22));
@@ -74,9 +67,5 @@ public class TabGroupRenderer extends
 
     writer.endElement(HtmlConstants.DIV);
     writer.endElement(HtmlConstants.DIV);
-
-
   }
-
 }
-

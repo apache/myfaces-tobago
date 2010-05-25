@@ -34,7 +34,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 /**
  * Renders a set of radio command button's within a toolbar.
  */
-@Tag(name = "toolBarSelectOne",
+@Tag(
+    name = "toolBarSelectOne",
     tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBarSelectOne",
