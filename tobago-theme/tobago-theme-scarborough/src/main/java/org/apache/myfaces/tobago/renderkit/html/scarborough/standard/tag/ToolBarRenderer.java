@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -32,9 +33,9 @@ import java.io.IOException;
 public class ToolBarRenderer extends ToolBarRendererBase {
 
   @Override
-  public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UIToolBar toolBar = (UIToolBar) uiComponent;
+    UIToolBar toolBar = (UIToolBar) component;
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
@@ -43,39 +44,58 @@ public class ToolBarRenderer extends ToolBarRendererBase {
     HtmlRendererUtils.renderDojoDndItem(toolBar, writer, true);
     writer.writeClassAttribute();
     Style style = new Style(facesContext, toolBar);
-    writer.writeStyleAttribute(style);
-    writer.startElement(HtmlConstants.DIV, toolBar);
     boolean right = toolBar instanceof UIToolBar && UIToolBar.ORIENTATION_RIGHT.equals(toolBar.getOrientation());
-
-    // TODO use StyleClasses
-    writer.writeClassAttribute("tobago-toolBar-div-inner" + (right ? " tobago-toolBar-orientation-right" : ""));
-
-    super.encodeEnd(facesContext, uiComponent);
-
+    if (right) {
+      style.setTextAlign("right");
+    }
+    writer.writeStyleAttribute(style);
+    super.encodeEnd(facesContext, toolBar);
     writer.endElement(HtmlConstants.DIV);
-    writer.endElement(HtmlConstants.DIV);
-  }
-
-  protected String getHoverClasses(boolean first, boolean last) {
-    return "tobago-toolBar-button-hover" + (first ? " tobago-toolBar-button-hover-first" : "");
-  }
-
-  protected String getTableClasses(boolean selected, boolean disabled) {
-    return "tobago-toolBar-button-table tobago-toolBar-button-table-"
-        + (selected ? "selected-" : "") + (disabled ? "disabled" : "enabled");
-  }
-
-  protected String getDivClasses(boolean selected, boolean disabled) {
-    return "tobago-toolBar-button tobago-toolBar-button-"
-        + (selected ? "selected-" : "") + (disabled ? "disabled" : "enabled");
   }
 
   @Override
-  public Measure getHeight(FacesContext facesContext, Configurable component) {
-    UIToolBar toolBar = (UIToolBar) component;
-    String labelPosition = getLabelPosition(toolBar);
-    String iconSize = getIconSize(toolBar);
-    String key = iconSize + "_" + labelPosition + "_Height";
-    return getResourceManager().getThemeMeasure(facesContext, component, key);
+  public Measure getHeight(FacesContext facesContext, Configurable toolBar) {
+
+    final ResourceManager rm = getResourceManager();
+
+    final String iconSize = getIconSize((UIComponent) toolBar);
+    final String labelPosition = getLabelPosition((UIComponent) toolBar);
+
+    final boolean showIcon = !UIToolBar.ICON_OFF.equals(iconSize);
+    final boolean iconBig = UIToolBar.ICON_BIG.equals(iconSize);
+    final boolean iconSmall = UIToolBar.ICON_SMALL.equals(iconSize);
+    final boolean showLabelBottom = UIToolBar.LABEL_BOTTOM.equals(labelPosition);
+    final boolean showLabelRight = UIToolBar.LABEL_RIGHT.equals(labelPosition);
+    final boolean showLabel = showLabelBottom || showLabelRight;
+
+    final Measure paddingTop = rm.getThemeMeasure(facesContext, toolBar, "custom.padding-top");
+    final Measure paddingMiddle = rm.getThemeMeasure(facesContext, toolBar, "custom.padding-middle");
+    final Measure paddingBottom = rm.getThemeMeasure(facesContext, toolBar, "custom.padding-bottom");
+    final Measure iconHeight = iconBig
+        ? rm.getThemeMeasure(facesContext, toolBar, "custom.icon-big-height")
+        : rm.getThemeMeasure(facesContext, toolBar, "custom.icon-small-height");
+    final Measure labelHeight = rm.getThemeMeasure(facesContext, toolBar, "custom.label-height");
+
+    Measure result = paddingTop;
+    if (showIcon) {
+      result = result.add(iconHeight);
+      if (showLabel && showLabelBottom) {
+        result = result.add(paddingMiddle);
+        result = result.add(labelHeight);
+      }
+    } else {
+      if (showLabel) {
+        result = result.add(labelHeight);
+      } else {
+        // both off: use some reasonable defaults
+        result = result.add(16);
+      }
+    }
+    result = result.add(paddingBottom);
+
+    result = result.add(rm.getThemeMeasure(facesContext, toolBar, "css.border-top-width"));
+    result = result.add(rm.getThemeMeasure(facesContext, toolBar, "css.border-bottom-width"));
+
+    return result;
   }
 }

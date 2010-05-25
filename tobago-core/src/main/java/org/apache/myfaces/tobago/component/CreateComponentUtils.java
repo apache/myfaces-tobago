@@ -101,16 +101,18 @@ public class CreateComponentUtils {
     return createUIMenuSelectOneFacet(facesContext, command, null);
   }
 
-  public static UIMenuSelectOne createUIMenuSelectOneFacet(FacesContext facesContext,
-      javax.faces.component.UICommand command, String clientId) {
-    UIMenuSelectOne radio = null;
+  public static UIMenuSelectOne createUIMenuSelectOneFacet(
+      FacesContext facesContext, javax.faces.component.UICommand command, String clientId) {
+
+    UIMenuSelectOne radio = (UIMenuSelectOne) createComponent(
+        facesContext, UIMenuSelectOne.COMPONENT_TYPE, RendererTypes.SELECT_ONE_RADIO, clientId);
+    //noinspection unchecked
+    command.getFacets().put(Facets.RADIO, radio);
     final ValueBinding valueBinding = command.getValueBinding(Attributes.VALUE);
     if (valueBinding != null) {
-      radio = (UIMenuSelectOne) createComponent(facesContext, UIMenuSelectOne.COMPONENT_TYPE,
-          RendererTypes.SELECT_ONE_RADIO, clientId);
-      //noinspection unchecked
-      command.getFacets().put(Facets.RADIO, radio);
       radio.setValueBinding(Attributes.VALUE, valueBinding);
+    } else {
+      radio.setValue(command.getValue());
     }
     return radio;
   }

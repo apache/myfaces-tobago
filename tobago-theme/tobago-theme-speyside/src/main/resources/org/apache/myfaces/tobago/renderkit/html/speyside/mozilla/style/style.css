@@ -50,10 +50,3 @@ label.tobago-label  {
 .tobago-selectOneChoice  {
   margin-bottom: -1px;
 }
-
-/* toolBar ----------------------------------------------------------------- */
-
-.tobago-toolBar-button-menu-background-image {
-  width: 15px;
-  height: 12px;
-}

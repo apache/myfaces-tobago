@@ -22,8 +22,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIButton;
 import org.apache.myfaces.tobago.config.Configurable;
@@ -39,6 +37,8 @@ import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -136,9 +136,7 @@ public class ButtonRenderer extends CommandRendererBase {
     }
     LabelWithAccessKey label = new LabelWithAccessKey(button);
 
-    if (label.getText() != null) {
-      width = width.add(RenderUtils.calculateStringWidth(facesContext, button, label.getText()));
-    }
+    width = width.add(RenderUtils.calculateStringWidth(facesContext, button, label.getText()));
     Measure padding = getResourceManager().getThemeMeasure(facesContext, button, "paddingWidth");
     // left padding, right padding and when an image and an text then a middle padding.
     width = width.add(padding.multiply(image && label.getText() != null ? 3 : 2));

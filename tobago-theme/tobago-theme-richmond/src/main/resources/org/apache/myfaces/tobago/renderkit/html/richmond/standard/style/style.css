@@ -308,82 +308,26 @@ a:link.tab, a:visited.tab, a:active.tab {
   background: #D6EBFF;
 }
 
-/* toolbar ----------------------------------------------------------------- */
-.tobago-toolBar  {
-  height: 20px;
-  border: 1px solid #FF9900;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
+/* ToolBar ----------------------------------------------------------------- */
+
+.tobago-toolBar {
+  border-color: #FF9900;
 }
 
-
-.tobago-toolBar-div-inner {
-  margin-left: -1px;
-  padding: 0px;
+.tobago-toolBar-item-selected {
+  border-color: #FF9900;
 }
 
-.tobago-toolBar-button-span {
-  font: bold 12px arial, helvetica, sans-serif;
-  color: #3366CC;
-  padding-top: 2px;
-  padding-left: 5px;
-  padding-bottom: 2px;
-  padding-right: 5px;
-  margin: 1px;
-  border: 0px solid black;
+.tobago-toolBar-item-hover {
+  border-color: #3366CC;
 }
 
-.tobago-toolBar-button-table {
-  font: bold 12px arial, helvetica, sans-serif;
-  color: #3366CC;
+.tobago-toolBar-button-selected {
+  background-color: #FFCC66;
 }
 
-.tobago-toolBar-button-table-disabled {
-  color: GrayText;
-}
-
-.tobago-toolBar-button-table-box-facet-disabled {
-  color: GrayText;
-}
-
-.tobago-toolBar-button-box-facet-selected-enabled {
-  cursor: pointer;
-  margin: 0px;
-  border-left: 1px solid #808080;
-  border-right: 1px solid #FFFFFF;
-  background: #FFCC66 url(../image/toolbarButtonBoxFacetSelectEnabled.gif) repeat-x top;
-}
-
-.tobago-toolBar-button-enabled {
-  cursor: pointer;
-}
-
-.tobago-toolBar-button-disabled {
-  color: GrayText;
-}
-
-/*
-  ! css classes tobago-toolBar-button-hover and tobago-toolBar-button-menu-focus
-    should have the same content, but needs different names !
-*/
 .tobago-toolBar-button-hover {
-  border: 1px solid #FF9900;
-  background: #FAB54D;
-  margin: 0px;
-}
-.tobago-toolBar-button-menu-focus {
-  border: 1px solid #FF9900;
-  background: #FF9900;
-  margin: 0px;
-}
-
-.tobago-toolBar-button-image {
- vertical-align: bottom;
- margin-bottom: 0px;
-}
-
-.tobago-toolBar-button-label {
-  padding-left: 5px;
+  background-color: #FAB54D;
 }
 
 /* validation ----------------------------------------------------------------- */

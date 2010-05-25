@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.component.UISelectOneCommand;
@@ -29,9 +28,10 @@ import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.UICommandBase;
-import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
@@ -43,7 +43,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
@@ -69,50 +68,58 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     return (String) component.getAttributes().get(Attributes.ICON_SIZE);
   }
 
+  protected boolean isRightAligned(UIToolBar toolBar) {
+    return UIToolBar.ORIENTATION_RIGHT.equals(toolBar.getOrientation());
+  }
+
   @Override
-  public void encodeEnd(FacesContext context, UIComponent uiComponent) throws IOException {
-    UIPanel toolbar = (UIPanel) uiComponent;
+  public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
+    UIToolBar toolBar = (UIToolBar) component;
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(context);
-    List children = toolbar.getChildren();
+    List children = toolBar.getChildren();
 
+    Measure width = Measure.valueOf(-1);
     boolean first = true;
     for (Iterator iter = children.iterator(); iter.hasNext();) {
-      UIComponent component = (UIComponent) iter.next();
-      if (component instanceof UICommandBase) {
+      UIComponent command = (UIComponent) iter.next();
+      if (command instanceof UICommandBase) {
         boolean last = !iter.hasNext();
-        renderToolbarCommand(context, (UICommandBase) component, writer, first, last);
+        width = renderToolbarCommand(context, toolBar, (UICommandBase) command, writer, first, last, width);
         first = false;
       } else {
-        LOG.error("Illegal UIComponent class in toolbar (not UICommandBase):" + component.getClass().getName());
+        LOG.error("Illegal UIComponent class in toolbar (not UICommandBase):" + command.getClass().getName());
       }
     }
   }
 
-  private void renderToolbarCommand(FacesContext facesContext,
-      final UICommandBase command, TobagoResponseWriter writer, boolean first, boolean last)
+  private Measure renderToolbarCommand(FacesContext facesContext, final UIToolBar toolBar,
+      final UICommandBase command, TobagoResponseWriter writer, boolean first, boolean last, Measure width)
       throws IOException {
     if (command instanceof UISelectBooleanCommand) {
-      renderSelectBoolean(facesContext, command, writer, first, last);
+      return renderSelectBoolean(facesContext, toolBar, command, writer, first, last, width);
     } else if (command instanceof UISelectOneCommand) {
-      renderSelectOne(facesContext, command, writer, first, last);
+      return renderSelectOne(facesContext, toolBar, command, writer, first, last, width);
     } else {
       if (command.getFacet(Facets.RADIO) != null) {
-        renderSelectOne(facesContext, command, writer, first, last);
+        return renderSelectOne(facesContext, toolBar, command, writer, first, last, width);
       } else if (command.getFacet(Facets.CHECKBOX) != null) {
-        renderSelectBoolean(facesContext, command, writer, first, last);
+        return renderSelectBoolean(facesContext, toolBar, command, writer, first, last, width);
       } else {
-        String onClick = createOnClick(facesContext, command);
-        renderToolbarButton(facesContext, command, writer, first, last, false, onClick);
+        String onCommandClick = createCommandOnClick(facesContext, command);
+        String onMenuClick = createMenuOnClick(command);
+        return renderToolbarButton(
+            facesContext, toolBar, command, writer, first, last, false, onCommandClick, onMenuClick, width);
       }
     }
   }
 
-  private void renderSelectOne(FacesContext facesContext, UICommandBase command,
-      TobagoResponseWriter writer, boolean first, boolean last)
+  private Measure renderSelectOne(
+      FacesContext facesContext, UIToolBar toolBar, UICommandBase command,
+      TobagoResponseWriter writer, boolean first, boolean last, Measure width)
       throws IOException {
 
-    String onclick = createOnClick(facesContext, command);
+    String onclick = createCommandOnClick(facesContext, command);
 
     List<SelectItem> items;
 
@@ -125,21 +132,19 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       items = RenderUtils.getSelectItems(radio);
     }
 
-
     if (radio != null) {
       Object value = radio.getValue();
 
       boolean markFirst = !ComponentUtils.hasSelectedValue(items, value);
       String radioId = radio.getClientId(facesContext);
-      String onClickPrefix = "menuSetRadioValue('" + radioId + "', '";
+      String onClickPrefix = "tobago_toolBarSetRadioValue('" + radioId + "', '";
       String onClickPostfix = onclick != null ? "') ; " + onclick : "";
       for (SelectItem item : items) {
         final String labelText = item.getLabel();
         if (labelText != null) {
           command.getAttributes().put(Attributes.LABEL, labelText);
         } else {
-          LOG.warn("Menu item has label=null. UICommand.getClientId()="
-              + command.getClientId(facesContext));
+          LOG.warn("Menu item has label=null. UICommand.getClientId()=" + command.getClientId(facesContext));
         }
 
         String image = null;
@@ -157,9 +162,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
           command.getAttributes().put(Attributes.TIP, item.getDescription());
         }
 
-
-        String formattedValue
-            = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
+        String formattedValue = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
         onclick = onClickPrefix + formattedValue + onClickPostfix;
         final boolean checked;
         if (item.getValue().equals(value) || markFirst) {
@@ -170,15 +173,16 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
           checked = false;
         }
 
-        renderToolbarButton(facesContext, command, writer, first, last, checked, onclick);
+        width = renderToolbarButton(facesContext, toolBar, command, writer, first, last, checked, onclick, null, width);
 
       }
     }
-
+    return width;
   }
 
-  private void renderSelectBoolean(FacesContext facesContext, UICommandBase command,
-      TobagoResponseWriter writer, boolean first, boolean last)
+  private Measure renderSelectBoolean(
+      FacesContext facesContext, UIToolBar toolBar, UICommandBase command, TobagoResponseWriter writer,
+      boolean first, boolean last, Measure width)
       throws IOException {
 
     UIComponent checkbox = command.getFacet(Facets.CHECKBOX);
@@ -187,170 +191,250 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     }
 
     final boolean checked = ComponentUtils.getBooleanAttribute(checkbox, Attributes.VALUE);
+    final String clientId = checkbox.getClientId(facesContext);
 
-    String onClick = createOnClick(facesContext, command);
+    String onClick = createCommandOnClick(facesContext, command);
+    onClick = "tobago_toolBarCheckToggle('" + clientId + "');" + (onClick != null ? onClick : "");
 
-    String clientId = checkbox.getClientId(facesContext);
-    onClick = RenderUtils.addMenuCheckToggle(clientId, onClick);
     if (checked) {
-      writer.writeJavascript("    menuCheckToggle('" + clientId + "');\n");
+      // to initialize the client state
+      writer.writeJavascript("    tobago_toolBarCheckToggle('" + clientId + "');\n");
     }
 
-    renderToolbarButton(facesContext, command, writer, first, last, checked, onClick);
+    return renderToolbarButton(facesContext, toolBar, command, writer, first, last, checked, onClick, null, width);
   }
 
-  private void renderToolbarButton(
-      FacesContext facesContext, UICommandBase command, TobagoResponseWriter writer,
-      boolean first, boolean last, boolean selected, String onClick)
+
+  private Measure renderToolbarButton(
+      FacesContext facesContext, UIToolBar toolBar, UICommandBase command, TobagoResponseWriter writer,
+      boolean first, boolean last, boolean selected, String commandClick, String menuClick, Measure width)
       throws IOException {
     if (!command.isRendered()) {
-      return;
+      return width;
     }
 
     final String clientId = command.getClientId(facesContext);
     final boolean disabled = ComponentUtils.getBooleanAttribute(command, Attributes.DISABLED);
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
     final UIComponent popupMenu = command.getFacet(Facets.MENUPOPUP);
+    final ResourceManager resources = getResourceManager();
 
-    String labelPosition = getLabelPosition(command.getParent());
-    String iconSize = getIconSize(command.getParent());
-
-
-    String iconName = (String) command.getAttributes().get(Attributes.IMAGE);
-    String image = getImage(facesContext, iconName, iconSize, disabled, selected);
-    String graphicId = clientId + ComponentUtils.SUB_SEPARATOR + "icon";
-
-    final String hover = getHoverClasses(first, last);
-    final String mouseOverScript = "Tobago.toolbarMousesover(this, '" + hover + "', '" + graphicId + "');";
-    final String mouseOutScript = "Tobago.toolbarMousesout(this, '" + hover + "', '" + graphicId + "');";
-
-    writer.startElement(HtmlConstants.DIV, null);
-    writer.writeIdAttribute(command.getClientId(facesContext));
-    String divClasses = getDivClasses(selected, disabled);
-
-    writer.writeClassAttribute(divClasses);
-    if (!disabled) {
-      writer.writeAttribute(HtmlAttributes.ONMOUSEOVER, mouseOverScript, null);
-      writer.writeAttribute(HtmlAttributes.ONMOUSEOUT, mouseOutScript, null);
-      writer.writeAttribute(HtmlAttributes.ONCLICK, onClick, null);
+    final String labelPosition = getLabelPosition(command.getParent());
+    final String iconSize = getIconSize(command.getParent());
+    final String iconName = (String) command.getAttributes().get(Attributes.IMAGE);
+    final String image;
+    final boolean lackImage = iconName == null;
+    if (lackImage) {
+      image = ResourceManagerUtils.getImageWithPath(facesContext, "image/1x1.gif");
+    } else {
+      image = getImage(facesContext, iconName, iconSize, disabled, selected);
     }
-    writer.startElement(HtmlConstants.TABLE, null);
-    writer.writeAttribute(HtmlAttributes.CELLPADDING, 0);
-    writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
-    writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-    writer.writeAttribute(HtmlAttributes.BORDER, 0);
-    String tableClasses = getTableClasses(selected, disabled);
-    writer.writeClassAttribute(tableClasses);
-    writer.startElement(HtmlConstants.TR, null);
+    final String graphicId = clientId + ComponentUtils.SUB_SEPARATOR + "icon";
 
-    boolean anchorOnLabel = label.getText() != null && !UIToolBar.LABEL_OFF.equals(labelPosition);
+    final boolean showIcon = !UIToolBar.ICON_OFF.equals(iconSize);
+    final boolean iconBig = UIToolBar.ICON_BIG.equals(iconSize);
 
-    if (!UIToolBar.ICON_OFF.equals(iconSize)) {
-      HtmlRendererUtils.addImageSources(facesContext, writer,
-          iconName != null ? iconName : "image/1x1.gif", graphicId);
+    final boolean showLabelBottom = UIToolBar.LABEL_BOTTOM.equals(labelPosition);
+    final boolean showLabelRight = UIToolBar.LABEL_RIGHT.equals(labelPosition);
+    final boolean showLabel = showLabelBottom || showLabelRight;
+    final boolean separateButtons;
+    if (popupMenu != null && command.getAttributes().get(Attributes.ONCLICK) != null) { // todo: also action, link, etc.
+      // two separate buttons for the command and the sub menu
+      separateButtons = true;
+    } else {
+      separateButtons = false;
+    }
 
-      writer.startElement(HtmlConstants.TD, command);
-      writer.writeAttribute(HtmlAttributes.ALIGN, "center", false);
-      HtmlRendererUtils.renderTip(command, writer);
 
-      boolean render1pxImage = (iconName == null
-          && (!UIToolBar.LABEL_BOTTOM.equals(labelPosition)
-          && label.getText() != null));
+    final Measure paddingTop = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-top");
+    final Measure paddingMiddle = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-middle");
+    final Measure paddingBottom = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-bottom");
+    final Measure paddingLeft = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-left");
+    final Measure paddingCenter = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-center");
+    final Measure paddingRight = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-right");
 
-      if (((!UIToolBar.LABEL_OFF.equals(labelPosition)
-          && label.getText() != null)
-          || popupMenu != null)
-          && !render1pxImage) {
-        writer.writeStyleAttribute("padding-right: 3px;");
-        // TODO: make this '3px' configurable
+    // label style
+    final Style labelStyle;
+    if (showLabel) {
+      labelStyle = new Style();
+      labelStyle.setLeft(paddingLeft);
+      labelStyle.setTop(paddingTop);
+      labelStyle.setWidth(RenderUtils.calculateStringWidth(facesContext, toolBar, label.getText()));
+      labelStyle.setHeight(resources.getThemeMeasure(facesContext, toolBar, "custom.label-height"));
+    } else {
+      labelStyle = null;
+    }
+
+    // button style
+    final Style buttonStyle = new Style();
+    buttonStyle.setLeft(Measure.ZERO);
+    buttonStyle.setTop(Measure.ZERO);
+    buttonStyle.setWidth(paddingLeft.add(paddingRight));
+    buttonStyle.setHeight(paddingBottom.add(paddingTop));
+
+    // icon style
+    final Style iconStyle;
+
+    if (showIcon) {
+      iconStyle = new Style();
+      iconStyle.setLeft(paddingLeft);
+      iconStyle.setTop(paddingTop);
+      iconStyle.setHeight(resources.getThemeMeasure(
+          facesContext, toolBar, iconBig ? "custom.icon-big-height" : "custom.icon-small-height"));
+      if (lackImage) {
+        iconStyle.setWidth(Measure.valueOf(1));
+      } else {
+        iconStyle.setWidth(resources.getThemeMeasure(
+            facesContext, toolBar, iconBig ? "custom.icon-big-width" : "custom.icon-small-width"));
       }
-
-      String className = getIconClass(iconSize);
-
-      if (!anchorOnLabel) {
-        renderAnchorBegin(facesContext, writer, command, label, disabled);
+      if (showLabelBottom) {
+        labelStyle.setTop(labelStyle.getTop().add(iconStyle.getHeight()).add(paddingMiddle));
+        if (labelStyle.getWidth().lessThan(iconStyle.getWidth())) {
+          // label smaller than icon
+          labelStyle.setLeft(labelStyle.getLeft().add(iconStyle.getWidth().subtract(labelStyle.getWidth()).divide(2)));
+          buttonStyle.setWidth(buttonStyle.getWidth().add(iconStyle.getWidth()));
+        } else {
+          // label bigger than icon
+          iconStyle.setLeft(iconStyle.getLeft().add(labelStyle.getWidth().subtract(iconStyle.getWidth()).divide(2)));
+          buttonStyle.setWidth(buttonStyle.getWidth().add(labelStyle.getWidth()));
+        }
+        buttonStyle.setHeight(
+            buttonStyle.getHeight().add(iconStyle.getHeight()).add(paddingMiddle).add(labelStyle.getHeight()));
+      } else if (showLabelRight) {
+        labelStyle.setTop(labelStyle.getTop().add(iconStyle.getHeight().subtract(labelStyle.getHeight()).divide(2)));
+        labelStyle.setLeft(labelStyle.getLeft().add(iconStyle.getWidth()).add(paddingCenter));
+        buttonStyle.setWidth(
+            buttonStyle.getWidth().add(iconStyle.getWidth()).add(paddingCenter).add(labelStyle.getWidth()));
+        buttonStyle.setHeight(buttonStyle.getHeight().add(iconStyle.getHeight()));
+      } else {
+        buttonStyle.setWidth(buttonStyle.getWidth().add(iconStyle.getWidth()));
+        buttonStyle.setHeight(buttonStyle.getHeight().add(iconStyle.getHeight()));
       }
+    } else {
+      iconStyle = null;
+      if (showLabel) {
+        // only label
+        buttonStyle.setWidth(buttonStyle.getWidth().add(labelStyle.getWidth()));
+        buttonStyle.setHeight(buttonStyle.getHeight().add(labelStyle.getHeight()));
+      } else {
+        // both off: use some reasonable defaults
+        buttonStyle.setWidth(buttonStyle.getWidth().add(16));
+        buttonStyle.setHeight(buttonStyle.getHeight().add(16));
+      }
+    }
+
+    // opener style (for menu popup)
+    final Style openerStyle = new Style();
+    openerStyle.setWidth(resources.getThemeMeasure(facesContext, toolBar, "custom.opener-width"));
+    openerStyle.setHeight(resources.getThemeMeasure(facesContext, toolBar, "custom.opener-height"));
+
+    final Style menuStyle = new Style();
+    menuStyle.setLeft(buttonStyle.getWidth());
+    menuStyle.setTop(Measure.ZERO);
+    menuStyle.setWidth(paddingLeft.add(openerStyle.getWidth()).add(paddingRight));
+    menuStyle.setHeight(buttonStyle.getHeight());
+
+    // opener style (for menu popup)
+    openerStyle.setLeft(menuStyle.getWidth().subtract(openerStyle.getWidth()).divide(2));
+    openerStyle.setTop(menuStyle.getHeight().subtract(openerStyle.getHeight()).divide(2));
+
+    // item style
+    final Style itemStyle = new Style();
+    if (isRightAligned(toolBar)) { // overrides the default in the CSS file.
+      itemStyle.setLeft(resources.getThemeMeasure(facesContext, toolBar, "css.border-right-width"));
+    }
+    itemStyle.setWidth(popupMenu != null ? buttonStyle.getWidth().add(menuStyle.getWidth()) : buttonStyle.getWidth());
+    itemStyle.setHeight(buttonStyle.getHeight());
+
+    // change values when only have one button
+    if (popupMenu != null && !separateButtons) {
+      openerStyle.setLeft(openerStyle.getLeft().add(buttonStyle.getWidth()));
+      buttonStyle.setWidth(buttonStyle.getWidth().add(menuStyle.getWidth()));
+    }
+    
+    // start rendering
+    writer.startElement(HtmlConstants.SPAN, command);
+    writer.writeClassAttribute(
+        selected ? "tobago-toolBar-item tobago-toolBar-item-selected" : "tobago-toolBar-item");
+    HtmlRendererUtils.renderTip(command, writer);
+    writer.writeStyleAttribute(itemStyle);
+
+    writer.startElement(HtmlConstants.SPAN, command);
+    writer.writeClassAttribute(
+        selected ? "tobago-toolBar-button tobago-toolBar-button-selected" : "tobago-toolBar-button");
+    writer.writeStyleAttribute(buttonStyle);
+    writer.writeAttribute(HtmlAttributes.ONCLICK, commandClick != null ? commandClick : menuClick, true);
+    // render icon
+    if (showIcon) {
+      HtmlRendererUtils.addImageSources(facesContext, writer, iconName != null ? iconName : "image/1x1.gif", graphicId);
       writer.startElement(HtmlConstants.IMG, command);
-      writer.writeIdAttribute(graphicId);
       writer.writeAttribute(HtmlAttributes.SRC, image, false);
-      writer.writeAttribute(HtmlAttributes.ALT, "", false);
-      HtmlRendererUtils.renderTip(command, writer);
-      writer.writeAttribute(HtmlAttributes.BORDER, 0);
-      writer.writeClassAttribute(className);
-      if (render1pxImage) {
-        writer.writeStyleAttribute("width: 1px;");
-      }
-
+      writer.writeAttribute(HtmlAttributes.ALT, label.getText(), true);
+//      writer.writeClassAttribute("tobago-toolBar-icon");
+      writer.writeStyleAttribute(iconStyle);
       writer.endElement(HtmlConstants.IMG);
-      if (!anchorOnLabel) {
-        writer.endElement(HtmlConstants.A);
-      }
-      writer.endElement(HtmlConstants.TD);
     }
-
-    boolean popupOn2 = UIToolBar.LABEL_BOTTOM.equals(labelPosition)
-        && !UIToolBar.ICON_OFF.equals(iconSize);
-    if (popupOn2) {
-      if (popupMenu != null) {
-        renderPopupTd(facesContext, writer, command, popupMenu, true);
-      }
-      writer.endElement(HtmlConstants.TR);
-      writer.startElement(HtmlConstants.TR, null);
-    }
-
-    if (!UIToolBar.LABEL_OFF.equals(labelPosition)) {
-      writer.startElement(HtmlConstants.TD, null);
-      writer.writeClassAttribute("tobago-toolBar-label-td");
-      writer.writeAttribute(HtmlAttributes.ALIGN, "center", false);
-      if (popupMenu != null) {
-        writer.writeAttribute(HtmlAttributes.STYLE, "padding-right: 3px;", false);
-        // TODO: make this '3px' configurable
-      }
+    // render label
+    if (showLabel) {
+      writer.startElement(HtmlConstants.SPAN, command);
+      writer.writeClassAttribute("tobago-toolBar-label");
+      writer.writeStyleAttribute(labelStyle);
       if (label.getText() != null) {
-        renderAnchorBegin(facesContext, writer, command, label, disabled);
         HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
-        writer.endElement(HtmlConstants.A);
       }
-      writer.endElement(HtmlConstants.TD);
-    }
-    if (!popupOn2 && popupMenu != null) {
-      renderPopupTd(facesContext, writer, command, popupMenu,
-          false);
+      writer.endElement(HtmlConstants.SPAN);
     }
 
-    writer.endElement(HtmlConstants.TR);
-    writer.endElement(HtmlConstants.TABLE);
-    writer.endElement(HtmlConstants.DIV);
+    if (separateButtons) {
+      writer.endElement(HtmlConstants.SPAN);
+
+      writer.startElement(HtmlConstants.SPAN, command);
+      writer.writeClassAttribute("tobago-toolBar-menu");
+      writer.writeStyleAttribute(menuStyle);
+      writer.writeAttribute(HtmlAttributes.TYPE, "button", false);
+      writer.writeAttribute(HtmlAttributes.ONCLICK, menuClick, true);
+    }
+
+    // render sub menu popup button
+    if (popupMenu != null) {
+      writer.startElement(HtmlConstants.IMG, command);
+      String menuImage = ResourceManagerUtils.getImageWithPath(facesContext, "image/toolbarButtonMenu.gif");
+      writer.writeAttribute(HtmlAttributes.SRC, menuImage, false);
+      writer.writeStyleAttribute(openerStyle);
+      writer.endElement(HtmlConstants.IMG);
+      renderPopup(facesContext, writer, popupMenu);
+    }
+    writer.endElement(HtmlConstants.SPAN);
+    writer.endElement(HtmlConstants.SPAN);
+
+    return width.add(itemStyle.getWidth()).add(2); // XXX
+    // computation of the width of the toolBar will not be used in the moment.
   }
 
-  protected String getIconClass(String iconSize) {
-    return "tobago-image tobago-toolBar-button-image tobago-toolBar-button-image-" + iconSize;
-  }
-
-  protected abstract String getHoverClasses(boolean first, boolean last);
-
-  protected abstract String getTableClasses(boolean selected, boolean disabled);
-
-  protected abstract String getDivClasses(boolean selected, boolean disabled);
-
-  private String createOnClick(FacesContext facesContext, UICommandBase command) {
-    if (command.getFacet(Facets.MENUPOPUP) != null
-        && command.getAction() == null
+  private String createCommandOnClick(FacesContext facesContext, UICommandBase command) {
+    if (command.getAction() == null
         && command.getActionListener() == null
-        && command.getActionListeners().length == 0) {
-      String searchId = command.getClientId(facesContext) + MenuBarRenderer.SEARCH_ID_POSTFIX;
-      return "tobagoButtonOpenMenu(this, '" + searchId + "')";
+        && command.getActionListeners().length == 0
+        && command.getLink() == null
+        && command.getAttributes().get(Attributes.ONCLICK) == null
+        && command.getFacet(Facets.MENUPOPUP) != null) {
+      return null;
     } else {
       CommandRendererHelper helper = new CommandRendererHelper(facesContext, command);
       return helper.getOnclick();
     }
   }
 
-  private String getImage(FacesContext facesContext, String name,
-      String iconSize, boolean disabled, boolean selected) {
-    if (name == null) {
-      return ResourceManagerUtils.getImageWithPath(facesContext, "image/1x1.gif");
+  private String createMenuOnClick(UICommandBase command) {
+    if (command.getFacet(Facets.MENUPOPUP) != null) {
+      return "jQuery(this).find('a').click();event.stopPropagation();";
+    } else {
+      return null;
     }
+  }
+
+  private String getImage(
+      FacesContext facesContext, String name, String iconSize, boolean disabled, boolean selected) {
     int pos = name.lastIndexOf('.');
     if (pos == -1) {
       pos = name.length(); // avoid exception if no '.' in name
@@ -368,32 +452,25 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
     UIViewRoot viewRoot = facesContext.getViewRoot();
     if (disabled && selected) {
-      image = resourceManager.getImage(
-          viewRoot, key + "SelectedDisabled" + size + ext, true);
+      image = resourceManager.getImage(viewRoot, key + "SelectedDisabled" + size + ext, true);
       if (image == null) {
-        image = resourceManager.getImage(
-            viewRoot, key + "SelectedDisabled" + ext, true);
+        image = resourceManager.getImage(viewRoot, key + "SelectedDisabled" + ext, true);
       }
     }
     if (image == null && disabled) {
-      image = resourceManager.getImage(
-          viewRoot, key + "Disabled" + size + ext, true);
+      image = resourceManager.getImage(viewRoot, key + "Disabled" + size + ext, true);
       if (image == null) {
-        image = resourceManager.getImage(
-            viewRoot, key + "Disabled" + ext, true);
+        image = resourceManager.getImage(viewRoot, key + "Disabled" + ext, true);
       }
     }
     if (image == null && selected) {
-      image = resourceManager.getImage(
-          viewRoot, key + "Selected" + size + ext, true);
+      image = resourceManager.getImage(viewRoot, key + "Selected" + size + ext, true);
       if (image == null) {
-        image = resourceManager.getImage(
-            viewRoot, key + "Selected" + ext, true);
+        image = resourceManager.getImage(viewRoot, key + "Selected" + ext, true);
       }
     }
     if (image == null) {
-      image
-          = resourceManager.getImage(viewRoot, key + size + ext, true);
+      image = resourceManager.getImage(viewRoot, key + size + ext, true);
       if (image == null) {
         image = resourceManager.getImage(viewRoot, key + ext, true);
       }
@@ -403,68 +480,14 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     return contextPath + image;
   }
 
-  private void renderAnchorBegin(
-      FacesContext facesContext, TobagoResponseWriter writer, UICommandBase command,
-      final LabelWithAccessKey label, final boolean disabled)
+  private void renderPopup(FacesContext facesContext, TobagoResponseWriter writer, UIComponent popupMenu)
       throws IOException {
-    writer.startElement(HtmlConstants.A, command);
-    // TODO use StyleClasses
-    writer.writeClassAttribute(getAnchorClass(disabled));
-    HtmlRendererUtils.renderTip(command, writer);
-    if (!disabled) {
-      writer.writeAttribute(HtmlAttributes.HREF, "#", false);
-      writer.writeAttribute(HtmlAttributes.ONFOCUS, "Tobago.toolbarFocus(this, event)", false);
-      String id = command.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "link";
-      writer.writeIdAttribute(id);
-      if (label.getAccessKey() != null) {
-        if (LOG.isInfoEnabled()
-            && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
-          LOG.info("dublicated accessKey : " + label.getAccessKey());
-        }
-        HtmlRendererUtils.addClickAcceleratorKey(
-            facesContext, id, label.getAccessKey());
-      }
-    }
-  }
-
-  protected String getAnchorClass(boolean disabled) {
-    return "tobago-toolBar-button-link" + (disabled ? " tobago-toolBar-button-link-disabled" : "");
-  }
-
-  private void renderPopupTd(
-      FacesContext facesContext, TobagoResponseWriter writer, UIComponent command, UIComponent popupMenu,
-      boolean labelBottom) throws IOException {
-    writer.startElement(HtmlConstants.TD, null);
-    if (labelBottom) {
-      writer.writeAttribute(HtmlAttributes.ROWSPAN, 2);
-    }
-
-    if (popupMenu != null) {
-      String backgroundImage = ResourceManagerUtils.getImageWithPath(facesContext, "image/1x1.gif");
-      writer.startElement(HtmlConstants.DIV, null);
-      writer.writeIdAttribute(command.getClientId(facesContext) + ComponentUtils.SUB_SEPARATOR + "popup");
-      writer.writeClassAttribute("tobago-toolBar-button-menu");
-      writer.startElement(HtmlConstants.IMG, null);
-      writer.writeAttribute(HtmlAttributes.SRC, backgroundImage, false);
-      writer.writeClassAttribute("tobago-toolBar-button-menu-background-image");
-      writer.endElement(HtmlConstants.IMG);
-      writer.endElement(HtmlConstants.DIV);
-      if (popupMenu instanceof UIMenu)  {
-        ((UIMenu) popupMenu).setLabel(null);
-      } else {
-        popupMenu.getAttributes().remove(Attributes.LABEL);
-      }
-      String image = ResourceManagerUtils.getImageWithPath(facesContext, "image/toolbarButtonMenu.gif");
-      popupMenu.getAttributes().put(Attributes.IMAGE, image);
-      popupMenu.getAttributes().put(Attributes.LABEL, "\u00a0\u00a0"); // non breaking space
-      writer.startElement(HtmlConstants.OL, popupMenu);
-      writer.writeClassAttribute("tobago-menuBar");
-      writer.writeStyleAttribute("position:relative;");  // FIXME: use a different style class
-      RenderUtils.encode(facesContext, popupMenu);
-      writer.endElement(HtmlConstants.OL);
-    }
-
-    writer.endElement(HtmlConstants.TD);
+    writer.startElement(HtmlConstants.OL, popupMenu);
+    writer.writeClassAttribute("tobago-menuBar");
+      // TODO: use a different style class
+    writer.writeStyleAttribute("display:inline;width:0;height:0;position:absolute;visibility:hidden;");
+    RenderUtils.encode(facesContext, popupMenu);
+    writer.endElement(HtmlConstants.OL);
   }
 
   @Override
@@ -476,5 +499,4 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   public boolean getRendersChildren() {
     return true;
   }
-
 }

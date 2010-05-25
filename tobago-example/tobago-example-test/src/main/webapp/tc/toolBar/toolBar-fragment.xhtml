@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+  <tc:toolBarCommand label="with image" image="pidgeon-point.jpg" onclick="alert('Clicked 1!')" tip="on click script"/>
+  <tc:toolBarCommand label="i" image="pidgeon-point.jpg" tip="short lable without explicit action"/>
+  <tc:toolBarCommand label="lack image" action="dummy" tip="lack image with action"/>
+  <tc:toolBarCommand label="link" link="http://myfaces.apache.org" image="pidgeon-point.jpg"
+                     tip="link to an external url"/>
+  <tc:toolBarCommand label="popup" image="pidgeon-point.jpg"
+      tip="a sub menu without any explicit action">
+    <f:facet name="menupopup">
+      <tc:menu>
+        <tc:menuCommand onclick="alert('Menu 1')" label="Menu 1"/>
+        <tc:menuCommand onclick="alert('Menu 2')" label="Menu 2"/>
+      </tc:menu>
+    </f:facet>
+  </tc:toolBarCommand>
+  <tc:toolBarCommand label="command" image="pidgeon-point.jpg" onclick="alert('Clicked 1!')"
+      tip="a command (JavaScript) with a separate sub menu (2 click fields)">
+    <f:facet name="menupopup">
+      <tc:menu>
+        <tc:menuCommand onclick="alert('Menu 1')" label="Menu 1"/>
+        <tc:menuCommand onclick="alert('Menu 2')" label="Menu 2"/>
+      </tc:menu>
+    </f:facet>
+  </tc:toolBarCommand>
+
+</ui:composition>

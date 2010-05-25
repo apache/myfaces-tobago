@@ -1,3 +1,5 @@
+package org.apache.myfaces.tobago.internal.taglib.component;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -15,11 +17,14 @@
  * limitations under the License.
  */
 
-/*
- * theme: richmond
- * agent: mozilla
- */
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.RendererTypes;
 
-.tobago-toolBar-button-popup-span {
-  padding-right: 15px;
+@UIComponentTag(
+    uiComponent = "org.apache.myfaces.tobago.component.UIToolBar",
+    generate = false,
+    rendererType = RendererTypes.TAB_GROUP_TOOL_BAR,
+    allowedChildComponenents = {
+        "org.apache.myfaces.tobago.Command"})
+public interface TabGroupToolBarTagDeclaration extends ToolBarTagDeclaration{
 }

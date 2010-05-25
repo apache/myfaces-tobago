@@ -160,3 +160,25 @@ li.tobago-menu-selected {
 .tobago-sheet-paging-input {
   border: 1px #660000 solid;
 }
+
+/* ToolBar ----------------------------------------------------------------- */
+
+.tobago-toolBar {
+  border-color: #FECB66;
+}
+
+.tobago-toolBar-item-selected {
+  border-color: #FECB66;
+}
+
+.tobago-toolBar-item-hover {
+  border-color: #FECB66;
+}
+
+.tobago-toolBar-button-selected {
+  background-color: #FFEECF;
+}
+
+.tobago-toolBar-button-hover {
+  background-color: #FADC9F;
+}

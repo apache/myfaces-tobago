@@ -19,8 +19,6 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
@@ -35,6 +33,8 @@ import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
 import org.apache.myfaces.tobago.internal.component.UIInputBase;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
@@ -740,7 +740,7 @@ public class ComponentUtils {
   }
 
   public static Object getConvertedValue(
-      FacesContext facesContext, javax.faces.component.UIInput component, String stringValue) {
+      FacesContext facesContext, UIComponent component, String stringValue) {
     try {
       Renderer renderer = getRenderer(facesContext, component);
       if (renderer != null) {
@@ -750,8 +750,8 @@ public class ComponentUtils {
         } else {
           return renderer.getConvertedValue(facesContext, component, stringValue);
         }
-      } else {
-        Converter converter = component.getConverter();
+      } else if (component instanceof ValueHolder) {
+        Converter converter = ((ValueHolder) component).getConverter();
         if (converter == null) {
           //Try to find out by value binding
           ValueBinding vb = component.getValueBinding("value");

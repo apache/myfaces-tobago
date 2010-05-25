@@ -23,23 +23,3 @@
 label.tobago-label  {
   margin-top: 2px;
 }
-
-.tobago-box-header-toolbar-div {
-  top: -1px;
-  right: -2px;
-}
-
-/*
-.tobago-toolBar-div-inner {
-  margin-top: -1px;
-}
-*/
-/*
-
-.tobago-toolBar-button-menu {
-  top: -7px;
-}*/
-
-a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:active.tobago-toolBar-button-link {
-   color: #660000;
-}

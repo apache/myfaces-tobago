@@ -17,13 +17,55 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.model.SelectItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.faces.context.FacesContext;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Currency;
+import java.util.Enumeration;
 
 public class SelectItemModel {
+
+
+  private static final Logger LOG = LoggerFactory.getLogger(SelectItemModel.class);
 
   private int number = 3;
 
   private Currency currency = Currency.getInstance("JPY");
+
+  private boolean switch1;
+  private boolean switch2 = true;
+
+  private SelectItem[] availableCurrencies;
+
+  public SelectItemModel() {
+    availableCurrencies = new SelectItem[]{
+        new SelectItem(Currency.getInstance("JPY")),
+        new SelectItem(Currency.getInstance("TTD")),
+        new SelectItem(Currency.getInstance("USD")),
+        new SelectItem(Currency.getInstance("EUR")),
+    };
+
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+
+    Enumeration<URL> resource = null;
+    try {
+      resource = /*facesContext.getExternalContext().getContext().*/getClass().getClassLoader().getResources("META-INF/faces-config.xml");
+    } catch (IOException e) {
+      LOG.error("XXX", e);
+    }
+    while (resource.hasMoreElements()) {
+      URL url = resource.nextElement();
+      LOG.error("XXX url='" + url + "'");
+    }
+  }
+
+  public SelectItem[] getAvailableCurrencies() {
+    return availableCurrencies;
+  }
 
   public int getNumber() {
     return number;
@@ -57,4 +99,19 @@ public class SelectItemModel {
     return Currency.getInstance("EUR");
   }
 
+  public boolean isSwitch1() {
+    return switch1;
+  }
+
+  public void setSwitch1(boolean switch1) {
+    this.switch1 = switch1;
+  }
+
+  public boolean isSwitch2() {
+    return switch2;
+  }
+
+  public void setSwitch2(boolean switch2) {
+    this.switch2 = switch2;
+  }
 }

@@ -68,6 +68,7 @@ public final class RendererTypes {
   public static final String TAB = "Tab";
   public static final String TAB_GROUP = "TabGroup";
   public static final String TAB_GROUP_LAYOUT = "TabGroupLayout";
+  public static final String TAB_GROUP_TOOL_BAR = "TabGroupToolBar";
   public static final String TIME = "Time";
   public static final String TOOL_BAR = "ToolBar";
   public static final String TREE = "Tree";

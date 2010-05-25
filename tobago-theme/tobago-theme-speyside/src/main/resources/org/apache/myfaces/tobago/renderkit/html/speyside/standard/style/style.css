@@ -142,15 +142,8 @@ span.tobago-tab-fulfill {
   border-left: 0px solid transparent;
 }
 
-div.tobago-tabnavigationbar {
-  border-right-color: transparent;
-  border-right-style: solid;
-  border-right-width: 1px;
-  border-bottom-color: #000000;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  height: 18px;
-  position: absolute;
+div.tobago-tabGroup-toolBar {
+  border-color: #000000;
 }
 
 a:link.tab, a:visited.tab, a:active.tab {
@@ -371,8 +364,7 @@ reason they are not defined as a:link
 
 .tobago-box-header-toolbar-div {
   position: absolute;
-  top: -2px;
-  bottom: -2px;
+  top: 0;
   right: -1px;
 }
 
@@ -626,7 +618,7 @@ tobago-selectOneChoice-readonly {
 .tobago-time-input-selected {
   border-color: #E8E8E8;
   background: #E8E8E8;
-}
+} 
 
 .tobago-time-inc-image {
   left: 60px;
@@ -638,100 +630,39 @@ tobago-selectOneChoice-readonly {
   left: 88px;
 }
 
-/* toolbar ----------------------------------------------------------------- */
+/* ToolBar ----------------------------------------------------------------- */
 
 .tobago-toolBar {
   border: 1px solid #000000;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
+  background-color: #FFFFFF;
+}
+.tobago-toolBar-item {
+  position: relative;
+  display: inline-block;
+  border-width: 0;
+  border-style: solid;
+  margin: 0 1px;
+  left: -1px;
+  top: 0;
+}
+.tobago-toolBar-item-selected {
+  border-width: 0 1px;
+  border-color: #aaaaaa;
+  margin: 0;
 }
 
-.tobago-toolBar-div-inner {
-/*  margin-left: -1px;*/
-  padding: 0px;
+.tobago-toolBar-item-hover {
+  border-width: 0 1px;
+  border-color: #000000;
+  margin: 0;
 }
 
-.tobago-toolBar-button {
-  font: bold 12px arial, helvetica, sans-serif;
-  color: #660000;
+.tobago-toolBar-button-selected {
+  background-color: #EEEEEE;
 }
 
-.tobago-toolBar-button-table {
-  font: bold 12px arial, helvetica, sans-serif;
-  color: #660000;
-}
-
-.tobago-toolBar-button-table-disabled {
-  color: #808080;
-}
-
-.tobago-toolBar-button-table-box-facet-disabled {
-  color: #808080;
-}
-
-.tobago-toolBar-button-span {
-  font: bold 12px arial, helvetica, sans-serif;
-  color: #660000;
-  border: 1px solid #ffffff;
-}
-
-.tobago-toolBar-button-selected-enabled {
-  cursor: pointer;
-  margin: 0px;
-  border-top: 1px solid #808080;
-  border-right: 1px solid #FFFFFF;
-  border-bottom: 1px solid #FFFFFF;
-  border-left: 1px solid #808080;
-  background: #dddddd;
-}
-
-.tobago-toolBar-button-box-facet {
-  padding-top: 1px;
-  padding-bottom: 1px;
-}
-
-.tobago-toolBar-button-box-facet-selected-enabled {
-  cursor: pointer;
-  margin: 0px;
-  border: 1px solid #999999;
-  background: #cccccc url(../image/toolbarButtonBoxFacetSelectEnabled.gif) repeat-x top;
-}
-
-.tobago-toolBar-button-disabled {
-  color: #808080;
-}
-
-.tobago-toolBar-button-selected-disabled {
-  margin: 0px;
-  border-top: 1px solid #808080;
-  border-right: 1px solid #FFFFFF;
-  border-bottom: 1px solid #FFFFFF;
-  border-left: 1px solid #808080;
-  background: #dddddd;
-}
-
-.tobago-toolBar-button-menu {
-  width:  15px;
-  height: 15px;
-}
-
-/*
-  ! css classes tobago-toolBar-button-hover and tobago-toolBar-button-menu-focus
-    should have the same content, but needs different names !
-*/
 .tobago-toolBar-button-hover {
-  border: 1px solid black;
-  background: #c5c5c5;
-  margin: 0px;
-}
-.tobago-toolBar-button-menu-focus {
-  border: 1px solid black;
-  background: #bbbbbb;
-  margin: 0px;
-}
-
-.tobago-toolBar-button-label {
-  padding-left: 5px;
+  background-color: #DDDDDD;
 }
 
 /* Validation --------------------------------------------------------------- */

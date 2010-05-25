@@ -17,10 +17,10 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectItem;
@@ -35,7 +35,7 @@ public class AbstractUISelectItem extends UISelectItem implements OnComponentPop
   public void onComponentPopulated(FacesContext facesContext, UIComponent parent) {
     if (itemValueLiteral) {
       Object converted = ComponentUtils.getConvertedValue(
-          FacesContext.getCurrentInstance(), (javax.faces.component.UIInput) parent, (String) getItemValue());
+          FacesContext.getCurrentInstance(), parent, (String) getItemValue());
       super.setItemValue(converted);
     }
   }

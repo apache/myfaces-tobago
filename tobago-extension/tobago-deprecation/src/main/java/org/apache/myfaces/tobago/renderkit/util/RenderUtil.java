@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.renderkit.util;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
@@ -134,17 +135,9 @@ public class RenderUtil {
     }
   }
 
-  //TODO move to HtmlRendererUtils
   public static String addMenuCheckToggle(String clientId, String onClick) {
-    if (onClick != null) {
-      onClick = " ; " + onClick;
-    } else {
-      onClick = "";
-    }
-
-    onClick = "menuCheckToggle('" + clientId + "')" + onClick;
-
-    return onClick;
+    Deprecation.LOG.error("No longer supported");
+    return "alert('Using deprecated API. Please check log file.');";
   }
 
   public static String getFormattedValue(

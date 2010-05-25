@@ -18,13 +18,14 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UICommand;
+import org.apache.myfaces.tobago.component.UIMenu;
+import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.component.UIToolBar;
@@ -44,12 +45,15 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.util.JQueryUtils;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -137,7 +141,9 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     int virtualTab = 0;
     Measure currentWidth = Measure.ZERO;
 
-    Measure navigationBarWidth = getResourceManager().getThemeMeasure(facesContext, tabGroup, "navigationBarWidth");
+    Measure toolBarContentWidth = getResourceManager().getThemeMeasure(facesContext, tabGroup, "toolBarWidth");
+    Measure toolBarExtra = getResourceManager().getThemeMeasure(facesContext, tabGroup, "toolBarExtra");
+    Measure toolBarWidth = toolBarContentWidth.add(toolBarExtra);
     for (UIComponent tab : (List<UIComponent>) tabGroup.getChildren()) {
       if (tab instanceof UIPanelBase) {
         if (tab.isRendered()) {
@@ -150,7 +156,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
             }
 
             renderTabGroupView(facesContext, writer, tabGroup, virtualTab,
-                switchType, image1x1, navigationBarWidth, currentWidth, tabList);
+                switchType, image1x1, toolBarWidth, toolBarContentWidth, currentWidth, tabList);
 
             if (UITabGroup.SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
               final String[] cmds = {
@@ -190,13 +196,9 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
         UITab tab = (UITab) child;
         if (tab.isRendered()) {
           LabelWithAccessKey label = new LabelWithAccessKey(tab);
-          if (label.getText() != null) {
-            tabs.getWidthList().add(RenderUtils.calculateStringWidth2(facesContext, component, label.getText())
-                .add(tabLabelExtraWidth));
-          } else {
-            tabs.getWidthList().add(RenderUtils.calculateStringWidth2(facesContext,
-                component, Integer.toString(index + 1)).add(tabLabelExtraWidth));
-          }
+          String text = label.getText() != null ? label.getText() : Integer.toString(index + 1);
+          tabs.getWidthList().add(
+              RenderUtils.calculateStringWidth2(facesContext, component, text).add(tabLabelExtraWidth));
           if (first) {
             tabs.firstIndex = index;
             first = false;
@@ -248,7 +250,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
 
   private void renderTabGroupView(
       FacesContext facesContext, TobagoResponseWriter writer, UITabGroup tabGroup,
-      int virtualTab, String switchType, String image1x1, Measure toolbarWidth,
+      int virtualTab, String switchType, String image1x1, Measure toolbarWidth, Measure toolBarContentWidth,
       Measure currentWidth, TabList tabList) throws IOException {
     writer.startElement(HtmlConstants.DIV, tabGroup);
     final String clientId = tabGroup.getClientId(facesContext);
@@ -415,7 +417,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
         
     if (tabGroup.isShowNavigationBar()) {
       UIToolBar toolBar = createToolBar(facesContext, tabGroup, virtualTab, switchType, tabList);
-      renderToolBar(facesContext, writer, toolBar, width.subtract(toolbarWidth), toolbarWidth);
+      renderToolBar(facesContext, writer, toolBar, width.subtract(toolbarWidth), toolBarContentWidth);
     }
 
     Style body = new Style();
@@ -425,7 +427,6 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlConstants.DIV);
     encodeContent(writer, facesContext, activeTab, body);  
     writer.endElement(HtmlConstants.DIV);
-
   }
 
   private UIToolBar createToolBar(
@@ -435,63 +436,74 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
 
     final String clickParameters = "('" + switchType + "','" + clientId + "'," + tabGroup.getChildCount() + ')';
     // left
-    UICommand scrollLeft = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
-    scrollLeft.setId(tabGroup.getId() + "__" + virtualTab + "__" + "previous");
-    scrollLeft.setRendererType(null);
-    scrollLeft.getAttributes().put(Attributes.IMAGE, "image/tabPrev.gif");
+    UICommand previous = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+    previous.setId(tabGroup.getId() + "__" + virtualTab + "__" + "previous");
+    previous.setRendererType(null);
+    previous.getAttributes().put(Attributes.IMAGE, "image/tabPrev.gif");
     if (tabList.isFirst(virtualTab)) {
-      scrollLeft.setDisabled(true);
+      previous.setDisabled(true);
     }
     if (!UITabGroup.SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
-      scrollLeft.setOnclick("tobago_previousTab" + clickParameters);
+      previous.setOnclick("tobago_previousTab" + clickParameters);
     } else {
-      scrollLeft.setOnclick("javascript:false");
+      previous.setOnclick("javascript:false");
     }
     // right
-    UICommand scrollRight = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
-    scrollRight.setId(tabGroup.getId() + "__" + virtualTab + "__" + "next");
-    scrollRight.setRendererType(null);
-    scrollRight.getAttributes().put(Attributes.IMAGE, "image/tabNext.gif");
+    UICommand next = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
+    next.setId(tabGroup.getId() + "__" + virtualTab + "__" + "next");
+    next.setRendererType(null);
+    next.getAttributes().put(Attributes.IMAGE, "image/tabNext.gif");
     if (tabList.isLast(virtualTab)) {
-      scrollRight.setDisabled(true);
+      next.setDisabled(true);
     }
     if (!UITabGroup.SWITCH_TYPE_RELOAD_TAB.equals(switchType)) {
-      scrollRight.setOnclick("tobago_nextTab" + clickParameters);
+      next.setOnclick("tobago_nextTab" + clickParameters);
     } else {
-      scrollRight.setOnclick("javascript:false");
+      next.setOnclick("javascript:false");
     }
-    /*UICommand commandList = (UICommand) application.createComponent(UICommand.COMPONENT_TYPE);
-    commandList.setId(facesContext.getViewRoot().createUniqueId());
-    commandList.setRendererType(null);
-    UIMenu menu = (UIMenu) application.createComponent(UIMenu.COMPONENT_TYPE);
-    menu.setId(facesContext.getViewRoot().createUniqueId());
-    menu.setRendererType(null);
-    commandList.getFacets().put(Facets.MENUPOPUP, menu);*/
+    // all: sub menu to select any tab directly
+    UICommand all = (UICommand) CreateComponentUtils.createComponent(
+        facesContext, UICommand.COMPONENT_TYPE, null, "all");
+    UIMenu menu = (UIMenu) CreateComponentUtils.createComponent(
+        facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU, "menu");
+    all.getFacets().put(Facets.MENUPOPUP, menu);
+    int index = 0;
+    for (UIComponent child : (List<UIComponent>) tabGroup.getChildren()) {
+      if (child instanceof UITab) {
+        UITab tab = (UITab) child;
+        if (tab.isRendered()) {
+          UIMenuCommand entry = (UIMenuCommand) CreateComponentUtils.createComponent(
+              facesContext, UIMenuCommand.COMPONENT_TYPE, RendererTypes.MENU_COMMAND, "entry-" + index);
+          LabelWithAccessKey label = new LabelWithAccessKey(tab);
+          entry.setLabel(label.getText());
+          String tabId = clientId + "__" + virtualTab + "__" + index;
+          entry.setOnclick(JQueryUtils.selectId(tabId) + ".click();event.stopPropagation();");
+          menu.getChildren().add(entry);
+        }
+        index++;
+      }
+    }
     UIToolBar toolBar = (UIToolBar) application.createComponent(UIToolBar.COMPONENT_TYPE);
     toolBar.setId(facesContext.getViewRoot().createUniqueId());
-    //toolBar.setLabelPosition(UIToolBar.LABEL_OFF);
-    toolBar.setRendererType("BoxToolBar");
+    toolBar.setRendererType("TabGroupToolBar");
     toolBar.setTransient(true);
-    //toolBar.setIconSize(AbstractUIToolBar.ICON_OFF);
-    toolBar.getChildren().add(scrollLeft);
-    toolBar.getChildren().add(scrollRight);
-    //toolBar.getChildren().add(commandList);
+    toolBar.getChildren().add(previous);
+    toolBar.getChildren().add(next);
+    toolBar.getChildren().add(all);
     tabGroup.getFacets().put(Facets.TOOL_BAR, toolBar);
     return toolBar;
   }
   
-  // todo: this is quite the same as in ButtonRenderer
-  private void renderToolBar(FacesContext facesContext, TobagoResponseWriter writer, UIPanel toolbar, Measure width,
-      Measure navigationBarWidth) throws IOException {
+  private void renderToolBar(
+      FacesContext facesContext, TobagoResponseWriter writer, UIToolBar toolBar, Measure left, Measure width)
+      throws IOException {
     writer.startElement(HtmlConstants.DIV, null);
-    Style map = new Style();
-    //map.setWidth(navigationBarWidth);
-    map.setLeft(width);
-    writer.writeStyleAttribute(map);
-    writer.writeClassAttribute("tobago-tabnavigationbar");
-    toolbar.setRendererType("BoxToolBar");
-
-    RenderUtils.encode(facesContext, toolbar);
+    Style style = new Style();
+    style.setWidth(width);
+    style.setLeft(left);
+    writer.writeStyleAttribute(style);
+    writer.writeClassAttribute("tobago-tabGroup-toolBar");
+    RenderUtils.encode(facesContext, toolBar);
     writer.endElement(HtmlConstants.DIV);
   }
 

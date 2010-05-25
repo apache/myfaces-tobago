@@ -231,7 +231,14 @@ function xxx_tobagoMenuInit() {
       event.stopPropagation();
 
     });
-    
+
+    // a click on toolBar menu opener -> forward to .tobago-menu-top
+    jQuery(".tobago-toolBar-menu").click(function(event) {
+
+      $(this).next().find('a').click();
+      event.stopPropagation();
+    });
+
     // IE6 select-tag fix
     // put a iframe inside the div, so that a <select> tag doesn't shine through.
     // the iframe must be resized (see above)

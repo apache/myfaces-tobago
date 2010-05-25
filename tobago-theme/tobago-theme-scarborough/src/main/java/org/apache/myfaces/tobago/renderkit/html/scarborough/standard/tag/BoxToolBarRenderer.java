@@ -33,7 +33,6 @@ public class BoxToolBarRenderer extends ToolBarRendererBase {
     } else {
       return attribute;
     }
-
   }
 
   @Override
@@ -46,20 +45,8 @@ public class BoxToolBarRenderer extends ToolBarRendererBase {
     }
   }
 
-
-  protected String getHoverClasses(boolean first, boolean last) {
-    return "tobago-toolBar-button-hover tobago-toolBar-button-box-facet-hover"
-        + (last ? " tobago-box-toolBar-button-hover-last" : "");
-  }
-
-  protected String getTableClasses(boolean selected, boolean disabled) {
-    return
-        "tobago-toolBar-button-table tobago-boxToolbar-button-table-box-facet tobago-toolBar-button-table-box-facet-"
-            + (selected ? "selected-" : "") + (disabled ? "disabled" : "enabled");
-  }
-
-  protected String getDivClasses(boolean selected, boolean disabled) {
-    return "tobago-toolBar-button tobago-toolBar-button-box-facet tobago-toolBar-button-box-facet-"
-        + (selected ? "selected-" : "") + (disabled ? "disabled" : "enabled");
+  @Override
+  protected boolean isRightAligned(UIToolBar toolBar) {
+    return true;
   }
 }

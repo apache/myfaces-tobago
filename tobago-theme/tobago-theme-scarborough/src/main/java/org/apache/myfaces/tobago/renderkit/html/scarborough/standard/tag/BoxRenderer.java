@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
@@ -74,7 +75,7 @@ public class BoxRenderer extends BoxRendererBase {
       writer.writeClassAttribute("tobago-box-toolbar-div");
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeClassAttribute("tobago-box-toolbar-span");
-      toolbar.setRendererType("BoxToolBar");
+      toolbar.setRendererType(RendererTypes.BOX_TOOL_BAR);
       RenderUtils.encode(facesContext, toolbar);
       writer.endElement(HtmlConstants.DIV);
       writer.endElement(HtmlConstants.DIV);

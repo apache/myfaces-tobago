@@ -57,30 +57,3 @@ textarea.tobago-richTextEditor-body {
 .tobago-file {
   height: 23px;
 }
-
-.tobago-toolBar {
-  height: 31px;
-}
-.tobago-toolBar-button-hover-first {
- padding-left: 6px;
-}
-.tobago-box-toolBar-button-hover-last {
- padding-right: 6px;
-}
-
-.tobago-toolBar-button-image {
-  margin-bottom: 0px;
-  position: relative;
-  top: -1px;
-}
-
-.tobago-toolBar-button-popup-span {
-  padding-right: 10px;
-}
-
-.tobago-toolBar-button-menu {
-}
-
-a:link.tobago-toolBar-button-link, a:visited.tobago-toolBar-button-link, a:active.tobago-toolBar-button-link {
-   color: #000000;
-}
