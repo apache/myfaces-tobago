@@ -20,6 +20,8 @@
  * agent: msie
  */
 
+/* box ---------------------------------------------------------------- */
+
 fieldset.tobago-box {
   padding: 0px;
   padding-left: 10px;
@@ -40,6 +42,8 @@ fieldset.tobago-box {
   padding-bottom: 0px;
 }
 
+/* date ---------------------------------------------------------------- */
+
 .tobago-date {
   margin-top: -1px;
   margin-bottom: -1px;
@@ -50,9 +54,13 @@ textarea.tobago-richTextEditor-body {
   margin-bottom: -1px;
 }
 
+/* label ---------------------------------------------------------------- */
+
 .tobago-label {
   margin-top: -2px;
 }
+
+/* file ---------------------------------------------------------------- */
 
 .tobago-file {
   height: 23px;

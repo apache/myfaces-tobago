@@ -20,6 +20,27 @@
  * agent: standard
  */
 
+/* Global settings ------------------------------------------------------------------ */
+
+form {
+  margin: 0;
+}
+
+/*
+  This is to make the menu bar to be always at the top of the page.
+  The "position: fixed;" doesn't work with ie6 and makes
+  on other browsers problems, when clicking the menu (the scroll panel scrolls then).
+*/
+html, body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* in ------------------------------------------------------------ */
+
 .tobago-in-suggest-popup a {
   text-decoration: none;
   color: black;

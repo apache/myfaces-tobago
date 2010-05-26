@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
@@ -41,6 +39,8 @@ import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -146,7 +146,7 @@ public class DatePickerRenderer extends LinkRenderer {
     image.setRendered(true);
     image.setValue("image/date.gif");
     image.setAlt(""); //TODO: i18n (write a text)
-    StyleClasses.ensureStyleClasses(image).addFullQualifiedClass("tobago-input-picker"); // XXX not a standard name
+    StyleClasses.ensureStyleClasses(image).addFullQualifiedClass("tobago-datePicker-icon");
     picker.getChildren().add(image);
   }
 

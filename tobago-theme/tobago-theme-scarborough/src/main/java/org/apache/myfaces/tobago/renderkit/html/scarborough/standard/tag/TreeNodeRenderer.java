@@ -18,15 +18,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeMenu;
 import org.apache.myfaces.tobago.component.UITreeNode;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.ResourceUtils;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
@@ -46,6 +44,8 @@ import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -347,7 +347,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     for (Boolean junction : junctions) {
       writer.startElement(HtmlConstants.IMG, null);
-      writer.writeClassAttribute("tree-junction");
+      writer.writeClassAttribute("tobago-treeNode-junction");
       if (junction && !menuMode) {
         writer.writeAttribute("src", perpendicular, true);
       } else {
@@ -366,7 +366,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
         || !showRootJunction && depth == 0
         || !showRootJunction && !showRoot && depth == 1)) {
       writer.startElement(HtmlConstants.IMG, null);
-      writer.writeClassAttribute("tree-junction");
+      writer.writeClassAttribute("tobago-treeNode-junction");
       writer.writeIdAttribute(id + "-junction");
 
       String gif = folder && expanded

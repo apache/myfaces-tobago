@@ -55,52 +55,12 @@ div.tobago-label  {
 }
 
 /* page -------------------------------------------------------------------- */
+
 .tobago-page  {
   background: #FFEECF;
 }
 
-/* Tab ---------------------------------------------------------------------- */
-.tobago-tab-link {
-  color: #660000;
-}
-
-div.tobago-tab-selected-outer {
-  border-color: #FECB66;
-  background: #FADC9F repeat-x top;
-}
-
-div.tobago-tab-selected-inner {
-  color: #FECB66;
-}
-
-div.tobago-tab-unselected-outer {
-  border-color: #FECB66;
-  background: #FADC9F repeat-x top;
-}
-
-div.tobago-tab-unselected-inner {
-  color: #FECB66;
-}
-
-div.tobago-tab-fulfill {
-  border-color: #FECB66;
-}
-
-.tobago-tab-content {
-  border-color: #FECB66;
-  background: #FFEECF;
-}
-
-.tobago-tab-shadow {
-  background: #FECB66;
-  border-color: #FECB66;
-}
-
-a:link.tab, a:visited.tab, a:active.tab {
-  color: #FECB66;
-}
-
-/* Menu ---------------------------------------------------------------------- */
+/* menu ---------------------------------------------------------------------- */
 
 .tobago-menuBar li {
   background-color: #FFEECF;
@@ -119,7 +79,7 @@ li.tobago-menu-selected {
   border-color: #FECB66;
 }
 
-/* Sheet ---------------------------------------------------------------------- */
+/* sheet ---------------------------------------------------------------------- */
 
 .tobago-sheet-header-div {
   border-bottom: 1px solid #FADC9F;
@@ -161,7 +121,49 @@ li.tobago-menu-selected {
   border: 1px #660000 solid;
 }
 
-/* ToolBar ----------------------------------------------------------------- */
+/* tab ---------------------------------------------------------------------- */
+
+.tobago-tab-link {
+  color: #660000;
+}
+
+div.tobago-tab-selected-outer {
+  border-color: #FECB66;
+  background: #FADC9F repeat-x top;
+}
+
+div.tobago-tab-selected-inner {
+  color: #FECB66;
+}
+
+div.tobago-tab-unselected-outer {
+  border-color: #FECB66;
+  background: #FADC9F repeat-x top;
+}
+
+div.tobago-tab-unselected-inner {
+  color: #FECB66;
+}
+
+div.tobago-tab-fulfill {
+  border-color: #FECB66;
+}
+
+.tobago-tab-content {
+  border-color: #FECB66;
+  background: #FFEECF;
+}
+
+.tobago-tab-shadow {
+  background: #FECB66;
+  border-color: #FECB66;
+}
+
+a:link.tab, a:visited.tab, a:active.tab {
+  color: #FECB66;
+}
+
+/* toolBar ----------------------------------------------------------------- */
 
 .tobago-toolBar {
   border-color: #FECB66;
