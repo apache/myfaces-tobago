@@ -161,9 +161,12 @@ public class OverviewController {
   }
 
   public void resetColumnWidths(ActionEvent event) {
-    FacesContext facesContext = FacesContext.getCurrentInstance();
     final UIData sheet = (UIData) event.getComponent().findComponent("sheet");
-    sheet.resetColumnWidths(facesContext);
+    if (sheet != null) {
+      sheet.resetColumnWidths();
+    } else {
+      LOG.warn("Didn't find sheet component!");
+    }
   }
 
   public void sheetSorter(ActionEvent event) {

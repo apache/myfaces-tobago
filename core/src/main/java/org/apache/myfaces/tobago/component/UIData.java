@@ -102,8 +102,8 @@ public class UIData extends javax.faces.component.UIData
 
   private transient LayoutTokens columnLayout;
 
-  public void resetColumnWidths(FacesContext facesContext) {
-    SheetState state = getSheetState(facesContext);
+  public void resetColumnWidths() {
+    SheetState state = getSheetState(FacesContext.getCurrentInstance());
     if (state != null) {
       state.setColumnWidths(null);
     }
