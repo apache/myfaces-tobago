@@ -19,22 +19,6 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FIRST;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_LIST_STRING;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DIRECT_LINKS;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_HEADER;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_PAGE_RANGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROW_RANGE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
-import static org.apache.myfaces.tobago.TobagoConstants.FACET_RELOAD;
-import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 import org.apache.myfaces.tobago.ajax.api.AjaxComponent;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
@@ -66,6 +50,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_COLUMNS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DIRECT_LINK_COUNT;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_FIRST;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INNER_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_LAYOUT_WIDTH;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ROWS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTABLE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SELECTED_LIST_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_DIRECT_LINKS;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_HEADER;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_PAGE_RANGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_SHOW_ROW_RANGE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STATE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_WIDTH_LIST_STRING;
+import static org.apache.myfaces.tobago.TobagoConstants.FACET_RELOAD;
+import static org.apache.myfaces.tobago.TobagoConstants.RENDERER_TYPE_OUT;
 
 public class UIData extends javax.faces.component.UIData
     implements SheetStateChangeSource, SortActionSource, AjaxComponent {
@@ -100,6 +101,14 @@ public class UIData extends javax.faces.component.UIData
   private String selectable;
 
   private transient LayoutTokens columnLayout;
+
+  public void resetColumnWidths(FacesContext facesContext) {
+    SheetState state = getSheetState(facesContext);
+    if (state != null) {
+      state.setColumnWidths(null);
+    }
+    getAttributes().remove(ATTR_WIDTH_LIST_STRING);
+  }
 
   public void encodeBegin(FacesContext facesContext) throws IOException {
     UILayout.prepareDimension(facesContext, this);

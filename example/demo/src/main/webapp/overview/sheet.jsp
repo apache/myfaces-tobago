@@ -27,6 +27,8 @@
       </f:facet>
       <f:facet name="toolBar">
         <tc:toolBar>
+          <tc:toolBarCommand label="Reset" tip="#{overviewBundle.sheet_resetTip}"
+                             actionListener="#{overviewController.resetColumnWidths}" />
           <tc:toolBarCommand label="#" tip="#{overviewBundle.sheet_configTip}">
             <tc:attribute name="renderedPartially" value="sheetConfigPopup"/>
             <f:facet name="popup">

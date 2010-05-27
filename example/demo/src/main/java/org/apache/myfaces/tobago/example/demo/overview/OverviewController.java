@@ -24,17 +24,17 @@ import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
-import org.apache.myfaces.tobago.example.demo.model.solar.SolarObject;
 import org.apache.myfaces.tobago.example.demo.model.Salutation;
+import org.apache.myfaces.tobago.example.demo.model.solar.SolarObject;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.taglib.component.ToolBarTag;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
-import javax.faces.component.UIComponent;
 import javax.faces.validator.ValidatorException;
-import javax.faces.application.FacesMessage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -160,6 +160,11 @@ public class OverviewController {
     lastAction = actionEvent.getComponent().getId();
   }
 
+  public void resetColumnWidths(ActionEvent event) {
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    final UIData sheet = (UIData) event.getComponent().findComponent("sheet");
+    sheet.resetColumnWidths(facesContext);
+  }
 
   public void sheetSorter(ActionEvent event) {
     if (event instanceof SortActionEvent) {
