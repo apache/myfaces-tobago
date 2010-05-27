@@ -136,6 +136,8 @@
     drag and drop the column border.
     &lt;/ul&gt;
 </entry>
+<entry key="sheet_resetLabel">Reset</entry>
+<entry key="sheet_resetTip">Reset the modified widths of the columns in the sheet.</entry>
 <entry key="sheet_configTip">Click here to edit display attributes of the sheet.</entry>
 <entry key="sheet_configTitle">Sheet configuration</entry>
 

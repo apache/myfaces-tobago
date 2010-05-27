@@ -97,6 +97,7 @@
 <!--  sheet -->
   <entry key="sheet_sampleTitle">Tabellen Beispiel</entry>
   <entry key="sheet_text">Das Sheet-Control bietet eine einfache Möglichkeit tabellarische Daten darzustellen. Die wichtigsten Eigenschaften sind: &lt;ul style="margin-top: 2px;"&gt; &lt;li style="line-height: 130%;"&gt;Paging: Es wird nur ein Teil der Gesamtliste angezeigt.   Über die Pfeilknöpfe kann in der Liste navigiert werden.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Sortierung: Durch Drücken auf die Spaltenüberschrift   kann die entsprechende Spalte sortiert werden.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Inline-Editing: Es können bei Bedarf Werte   direkt in die Tabelle eingegeben werden.&lt;/li&gt; &lt;li style="line-height: 130%;"&gt;Die Spaltenbreite kann direkt mit der Maus   manipuliert werden.&lt;/li&gt; &lt;/ul&gt;</entry>
+  <entry key="sheet_resetTip">Hier klicken um den Orginalzustand der Spaltenbreiten wiederherzustellen.</entry>
   <entry key="sheet_configTip">Hier klicken zum Einstellen der Tabellenkonfiguration.</entry>
   <entry key="sheet_configTitle">Tabelle konfigurieren</entry>
 

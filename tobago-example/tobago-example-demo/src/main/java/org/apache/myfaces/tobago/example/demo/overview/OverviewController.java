@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.example.demo.overview;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManager;
@@ -28,6 +26,8 @@ import org.apache.myfaces.tobago.example.data.Salutation;
 import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.model.SelectItem;
 import org.apache.myfaces.tobago.model.SheetState;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -155,6 +155,14 @@ public class OverviewController {
     lastAction = actionEvent.getComponent().getId();
   }
 
+  public void resetColumnWidths(ActionEvent event) {
+    final UISheet sheet = (UISheet) event.getComponent().findComponent("sheet");
+    if (sheet != null) {
+      sheet.resetColumnWidths();
+    } else {
+      LOG.warn("Didn't find sheet component!");
+    }
+  }
 
   public void sheetSorter(ActionEvent event) {
     if (event instanceof SortActionEvent) {

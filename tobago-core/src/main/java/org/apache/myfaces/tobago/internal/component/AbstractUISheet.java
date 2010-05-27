@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.compat.InvokeOnComponent;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -41,6 +39,8 @@ import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.model.SheetState;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.FacesException;
 import javax.faces.component.ContextCallback;
@@ -139,6 +139,17 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
       }
     }
     return columnLayout;
+  }
+
+  /**
+   * Remove the (by user) resized column widths. An application may provide a button to access it.
+   */
+  public void resetColumnWidths() {
+    SheetState state = getState();
+    if (state != null) {
+      state.setColumnWidths(null);
+    }
+    getAttributes().remove(Attributes.WIDTH_LIST_STRING);
   }
 
   public int getLast() {
