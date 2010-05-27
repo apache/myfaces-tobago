@@ -2445,14 +2445,14 @@ Tobago.Updater = {
 // todo: namespace etc.
 
 $(document).ready(function() {
-  $(".tobago-toolBar-item")
+  $(".tobago-toolBar-item[disabled!=disabled]")
       .mouseenter(function() {
     $(this).addClass("tobago-toolBar-item-hover");
   })
       .mouseleave(function() {
     $(this).removeClass("tobago-toolBar-item-hover");
   });
-  $(".tobago-toolBar-button, .tobago-toolBar-menu")
+  $(".tobago-toolBar-item[disabled!=disabled]").children(".tobago-toolBar-button, .tobago-toolBar-menu")
       .mouseenter(function() {
     $(this).addClass("tobago-toolBar-button-hover");})
       .mouseleave(function() {

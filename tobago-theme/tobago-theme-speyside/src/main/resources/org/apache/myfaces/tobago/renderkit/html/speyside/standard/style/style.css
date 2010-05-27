@@ -658,6 +658,10 @@ a:link.tab, a:visited.tab, a:active.tab {
   margin: 0;
 }
 
+.tobago-toolBar-item-disabled {
+  color: #808080;
+}
+
 .tobago-toolBar-button-selected {
   background-color: #EEEEEE;
 }

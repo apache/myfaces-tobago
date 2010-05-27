@@ -1067,6 +1067,7 @@ span.tobago-progress {
   border: 2px groove #F6FAFF;
   position: relative;
   overflow: hidden;
+  white-space: nowrap;
 }
 
 .tobago-toolBar-item {
@@ -1077,6 +1078,10 @@ span.tobago-progress {
   margin: 0;
   left: 0;
   top: 0;
+}
+
+.tobago-toolBar-item-disabled {
+  color: #778899;
 }
 
 .tobago-toolBar-button, .tobago-toolBar-menu {

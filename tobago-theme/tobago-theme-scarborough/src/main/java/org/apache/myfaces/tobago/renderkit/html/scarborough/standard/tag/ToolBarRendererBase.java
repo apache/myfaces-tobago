@@ -354,10 +354,17 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     
     // start rendering
     writer.startElement(HtmlConstants.SPAN, command);
-    writer.writeClassAttribute(
-        selected ? "tobago-toolBar-item tobago-toolBar-item-selected" : "tobago-toolBar-item");
+    String itemClass = "tobago-toolBar-item";
+    if (selected) {
+      itemClass += " tobago-toolBar-item-selected";
+    }
+    if (disabled) {
+      itemClass += " tobago-toolBar-item-disabled";
+    }
+    writer.writeClassAttribute(itemClass);
     HtmlRendererUtils.renderTip(command, writer);
     writer.writeStyleAttribute(itemStyle);
+    writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
 
     writer.startElement(HtmlConstants.SPAN, command);
     writer.writeClassAttribute(
