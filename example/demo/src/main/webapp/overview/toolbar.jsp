@@ -99,7 +99,7 @@
             <tc:toolBarCommand id="popupButton2"
                                actionListener="#{overviewController.click}"
                                label="#{overviewBundle.toolbar_popupButtonAction}">
-              <tc:popupReference for=":page:popup"/>
+              <tc:popupReference for="popup"/>
               <%--f:facet name="popup">
                 <tc:popup width="200" height="100" id="popup2" >
     
