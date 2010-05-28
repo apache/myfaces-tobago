@@ -26,7 +26,7 @@
   <name>Tobago Tool</name>
   <artifactId>tobago-tool</artifactId>
   <modules>
-    <module>maven-theme-plugin</module>
+    <module>tobago-theme-plugin</module>
     <module>tobago-tool-apt</module>
     <module>tobago-tool-annotation</module>
   </modules>

@@ -31,7 +31,6 @@
       <plugin>
         <groupId>org.apache.myfaces.tobago</groupId>
         <artifactId>maven-theme-plugin</artifactId>
-        <version>${project.version}</version>
         <executions>
           <execution>
             <goals>

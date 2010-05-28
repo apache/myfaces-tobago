@@ -567,7 +567,6 @@
                   <banLatest>true</banLatest>
                   <banRelease>true</banRelease>
                   <unCheckedPlugins>
-                    <unCheckedPlugin>org.apache.myfaces.tobago:maven-theme-plugin</unCheckedPlugin>
                     <unCheckedPlugin>org.apache.maven.plugins:maven-idea-plugin</unCheckedPlugin>
                   </unCheckedPlugins>
                 </requirePluginVersions>
@@ -643,6 +642,11 @@
     </plugins>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.apache.myfaces.tobago</groupId>
+          <artifactId>maven-theme-plugin</artifactId>
+          <version>1.0.25</version>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-pmd-plugin</artifactId>
