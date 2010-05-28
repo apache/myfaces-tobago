@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
@@ -252,6 +253,10 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     final Measure paddingLeft = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-left");
     final Measure paddingCenter = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-center");
     final Measure paddingRight = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-right");
+    final Measure iconBigHeight = resources.getThemeMeasure(facesContext, toolBar, "custom.icon-big-height");
+    final Measure iconSmallHeight = resources.getThemeMeasure(facesContext, toolBar, "custom.icon-small-height");
+    final Measure iconBigWidth = resources.getThemeMeasure(facesContext, toolBar, "custom.icon-big-width");
+    final Measure iconSmallWidth = resources.getThemeMeasure(facesContext, toolBar, "custom.icon-small-width");
 
     // label style
     final Style labelStyle;
@@ -279,13 +284,11 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       iconStyle = new Style();
       iconStyle.setLeft(paddingLeft);
       iconStyle.setTop(paddingTop);
-      iconStyle.setHeight(resources.getThemeMeasure(
-          facesContext, toolBar, iconBig ? "custom.icon-big-height" : "custom.icon-small-height"));
-      if (lackImage) {
+      iconStyle.setHeight(iconBig ? iconBigHeight : iconSmallHeight);
+      if (lackImage && showLabelRight && StringUtils.isNotBlank(label.getText())) {
         iconStyle.setWidth(Measure.valueOf(1));
       } else {
-        iconStyle.setWidth(resources.getThemeMeasure(
-            facesContext, toolBar, iconBig ? "custom.icon-big-width" : "custom.icon-small-width"));
+        iconStyle.setWidth(iconBig ? iconBigWidth : iconSmallWidth);
       }
       if (showLabelBottom) {
         labelStyle.setTop(labelStyle.getTop().add(iconStyle.getHeight()).add(paddingMiddle));
@@ -315,11 +318,14 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       if (showLabel) {
         // only label
         buttonStyle.setWidth(buttonStyle.getWidth().add(labelStyle.getWidth()));
+        if (StringUtils.isBlank(label.getText())) {
+          buttonStyle.setWidth(buttonStyle.getWidth().add(iconSmallWidth));
+        }
         buttonStyle.setHeight(buttonStyle.getHeight().add(labelStyle.getHeight()));
       } else {
         // both off: use some reasonable defaults
-        buttonStyle.setWidth(buttonStyle.getWidth().add(16));
-        buttonStyle.setHeight(buttonStyle.getHeight().add(16));
+        buttonStyle.setWidth(buttonStyle.getWidth().add(iconSmallWidth));
+        buttonStyle.setHeight(buttonStyle.getHeight().add(iconSmallWidth));
       }
     }
 
