@@ -52,8 +52,7 @@
         </tx:in>
       </tc:panel>
 
-      <tx:textarea label="#{overviewBundle.validation_description}"
-                   required="true"/>
+      <tx:textarea label="#{overviewBundle.validation_description}" required="true"/>
 
       <tc:messages/>
 
@@ -62,8 +61,7 @@
           <tc:gridLayout columns="1*;100px"/>
         </f:facet>
         <tc:cell/>
-        <tc:button action="#{clientConfigController.submit}"
-                   label="#{overviewBundle.validation_submit}"/>
+        <tc:button action="#{overviewController.noop}" label="#{overviewBundle.validation_submit}"/>
       </tc:panel>
 
     </tc:box>

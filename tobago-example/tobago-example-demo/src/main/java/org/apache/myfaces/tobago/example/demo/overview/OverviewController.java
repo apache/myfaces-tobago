@@ -412,4 +412,9 @@ public class OverviewController {
     li.add(prefix+6);
     return li;
   }
+
+  public String noop() {
+    LOG.info("noop");
+    return null;
+  }
 }
