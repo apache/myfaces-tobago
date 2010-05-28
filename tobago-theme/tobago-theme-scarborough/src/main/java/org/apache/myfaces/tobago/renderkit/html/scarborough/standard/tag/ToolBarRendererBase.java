@@ -353,7 +353,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     itemStyle.setHeight(buttonStyle.getHeight());
 
     // change values when only have one button
-    if (popupMenu != null && !separateButtons) {
+    if (popupMenu != null && !separateButtons && (!lackImage || StringUtils.isNotBlank(label.getText()))) {
       openerStyle.setLeft(openerStyle.getLeft().add(buttonStyle.getWidth()));
       buttonStyle.setWidth(buttonStyle.getWidth().add(menuStyle.getWidth()));
     }
@@ -378,8 +378,8 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     writer.writeStyleAttribute(buttonStyle);
     writer.writeAttribute(HtmlAttributes.ONCLICK, commandClick != null ? commandClick : menuClick, true);
     // render icon
-    if (showIcon) {
-      HtmlRendererUtils.addImageSources(facesContext, writer, iconName != null ? iconName : "image/1x1.gif", graphicId);
+    if (showIcon && iconName != null) {
+      HtmlRendererUtils.addImageSources(facesContext, writer, iconName, graphicId);
       writer.startElement(HtmlConstants.IMG, command);
       writer.writeAttribute(HtmlAttributes.SRC, image, false);
       writer.writeAttribute(HtmlAttributes.ALT, label.getText(), true);
