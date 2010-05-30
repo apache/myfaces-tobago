@@ -32,7 +32,7 @@ import java.util.Iterator;
 
 /**
  * @author <a href="mailto:jubu@volny.cz">Juraj Burian</a>
- * @version $Id:$
+ * @version $Id$
  * @goal execute
  * @phase generate-sources
  * @requiresProject

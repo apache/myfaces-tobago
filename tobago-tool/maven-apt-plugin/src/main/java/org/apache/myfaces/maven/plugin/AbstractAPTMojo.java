@@ -45,7 +45,7 @@ import org.codehaus.plexus.util.FileUtils;
 
 /**
  * @author <a href="mailto:jubu@volny.cz">Juraj Burian</a>
- * @version $Id:$
+ * @version $Id$
  */
 public abstract class AbstractAPTMojo extends AbstractMojo
 {

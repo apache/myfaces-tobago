@@ -32,7 +32,7 @@ import org.codehaus.plexus.compiler.util.scan.mapping.SingleTargetSourceMapping;
 
 /**
  * @author <a href="mailto:jubu@volny.cz">Juraj Burian</a>
- * @version $Id:$
+ * @version $Id$
  * @goal testExecute
  * @phase generate-sources
  * @requiresDependencyResolution test
