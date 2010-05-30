@@ -55,7 +55,7 @@ public class UISelectItem extends javax.faces.component.UISelectItem implements 
     if (itemValueLiteral) {
       // this is to make it possible to use values directly in the page.
       itemValue = ComponentUtil.getConvertedValue(
-          FacesContext.getCurrentInstance(), (javax.faces.component.UIInput) getParent(), (String)itemValue);
+          FacesContext.getCurrentInstance(), (javax.faces.component.UIInput) getParent(), (String) itemValue);
     }
     return itemValue;
   }
