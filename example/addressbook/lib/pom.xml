@@ -20,7 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-example-addressbook</artifactId>
-    <version>1.0.26-SNAPSHOT</version>
+    <version>1.0.26</version>
   </parent>
   <artifactId>tobago-example-addressbook-lib</artifactId>
   <packaging>jar</packaging>
@@ -47,9 +47,9 @@
   </build>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/example/addressbook/lib</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/example/addressbook/lib</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/branches/tobago-1.0.x/example/addressbook/lib</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.26/example/addressbook/lib</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.26/example/addressbook/lib</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.0.26/example/addressbook/lib</url>
   </scm>
   <dependencies>
     <dependency>

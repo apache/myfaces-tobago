@@ -20,16 +20,16 @@
   <parent>
     <groupId>org.apache.myfaces.tobago</groupId>
     <artifactId>tobago-extension</artifactId>
-    <version>1.0.26-SNAPSHOT</version>
+    <version>1.0.26</version>
   </parent>
   <artifactId>tobago-facelets</artifactId>
   <packaging>jar</packaging>
   <name>Tobago Facelets</name>
   <description>Tobago-facelets contains the facelets TagHandler for the tobago components and the facelets variant(tf) for the tobago extension taglib.</description>
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/extension/facelets</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/branches/tobago-1.0.x/extension/facelets</developerConnection>
-    <url>http://svn.apache.org/viewvc/myfaces/tobago/branches/tobago-1.0.x/extension/facelets</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.26/extension/facelets</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/myfaces/tobago/tags/tobago-1.0.26/extension/facelets</developerConnection>
+    <url>http://svn.apache.org/viewvc/myfaces/tobago/tags/tobago-1.0.26/extension/facelets</url>
   </scm>
 
   <build>
