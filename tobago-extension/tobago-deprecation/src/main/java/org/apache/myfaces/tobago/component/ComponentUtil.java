@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.component;
 
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.SheetStateChangeEvent;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -215,8 +216,12 @@ public class ComponentUtil {
     return ComponentUtils.getFirstGraphicChild(component);
   }
 
-  public static boolean isHoverEnabled(UIComponent component) {
-    return ComponentUtils.isHoverEnabled(component);
+/**
+ * @deprecated
+ */
+@Deprecated  public static boolean isHoverEnabled(UIComponent component) {
+  Deprecation.LOG.error("no longer supported");
+  return ComponentUtils.getBooleanAttribute(component, Attributes.HOVER);
   }
 
   public static UIOutput getFirstNonGraphicChild(UIComponent component) {

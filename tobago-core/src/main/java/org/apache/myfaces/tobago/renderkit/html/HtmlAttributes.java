@@ -17,12 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html;
  * limitations under the License.
  */
 
-/*
- * Created by IntelliJ IDEA.
- * User: bommel
- * Date: Sep 23, 2006
- * Time: 10:01:48 AM
- */
 public final class HtmlAttributes {
   public static final String STYLE = "style";
   public static final String TYPE = "type";
@@ -75,5 +69,16 @@ public final class HtmlAttributes {
   public static final String LABEL = "label";
   public static final String TABINDEX = "tabindex";
   public static final String FRAMEBORDER = "frameborder";
+
+  // Non standard attributes ///////////////////////////////////////////////////////////
+
+  /**
+   * Alternate to the src attribute, to implement a hover effect.
+   */
+  public static final String SRCHOVER = "srchover";
+  /**
+   * Alternate to the src attribute, to implement a hover effect.
+   */
+  public static final String SRCDEFAULT = "srcdefault";
 }
 

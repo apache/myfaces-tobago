@@ -223,13 +223,8 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     final String labelPosition = getLabelPosition(command.getParent());
     final String iconSize = getIconSize(command.getParent());
     final String iconName = (String) command.getAttributes().get(Attributes.IMAGE);
-    final String image;
     final boolean lackImage = iconName == null;
-    if (lackImage) {
-      image = ResourceManagerUtils.getImageWithPath(facesContext, "image/1x1.gif");
-    } else {
-      image = getImage(facesContext, iconName, iconSize, disabled, selected);
-    }
+    final String image = lackImage ? null : getImage(facesContext, iconName, iconSize, disabled, selected);
     final String graphicId = clientId + ComponentUtils.SUB_SEPARATOR + "icon";
 
     final boolean showIcon = !UIToolBar.ICON_OFF.equals(iconSize);
@@ -370,7 +365,6 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     writer.writeClassAttribute(itemClass);
     HtmlRendererUtils.renderTip(command, writer);
     writer.writeStyleAttribute(itemStyle);
-    writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
 
     writer.startElement(HtmlConstants.SPAN, command);
     writer.writeClassAttribute(
@@ -379,11 +373,15 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.ONCLICK, commandClick != null ? commandClick : menuClick, true);
     // render icon
     if (showIcon && iconName != null) {
-      HtmlRendererUtils.addImageSources(facesContext, writer, iconName, graphicId);
       writer.startElement(HtmlConstants.IMG, command);
       writer.writeAttribute(HtmlAttributes.SRC, image, false);
+      String imageHover
+          = ResourceManagerUtils.getImageWithPath(facesContext, HtmlRendererUtils.createSrc(iconName, "Hover"), true);
+      if (imageHover != null) {
+        writer.writeAttribute(HtmlAttributes.SRCDEFAULT, image, false);
+        writer.writeAttribute(HtmlAttributes.SRCHOVER, imageHover, false);
+      }
       writer.writeAttribute(HtmlAttributes.ALT, label.getText(), true);
-//      writer.writeClassAttribute("tobago-toolBar-icon");
       writer.writeStyleAttribute(iconStyle);
       writer.endElement(HtmlConstants.IMG);
     }

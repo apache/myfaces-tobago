@@ -18,8 +18,6 @@ package org.apache.myfaces.tobago.renderkit.html.util;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UICommand;
@@ -38,6 +36,8 @@ import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -371,25 +371,12 @@ public final class HtmlRendererUtil {
   }
 
   /**
-   * @deprecated Please use HtmlRendererUtils
+   * @deprecated
    */
   @Deprecated
   public static void addImageSources(FacesContext facesContext, TobagoResponseWriter writer, String src, String id)
       throws IOException {
-    writer.startJavascript();
-    writer.write("new Tobago.Image('");
-    writer.write(id);
-    writer.write("','");
-    String img = ResourceManagerUtils.getImageWithPath(facesContext, src, false);
-    writer.write(img!=null?img:"");
-    writer.write("','");
-    String disabled = ResourceManagerUtils.getImageWithPath(facesContext, createSrc(src, "Disabled"), true);
-    writer.write(disabled!=null?disabled:"");
-    writer.write("','");
-    String hover = ResourceManagerUtils.getImageWithPath(facesContext, createSrc(src, "Hover"), true);
-    writer.write(hover!=null?hover:"");
-    writer.write("');");
-    writer.endJavascript();
+    Deprecation.LOG.error("using deprecated API");
   }
 
   /**

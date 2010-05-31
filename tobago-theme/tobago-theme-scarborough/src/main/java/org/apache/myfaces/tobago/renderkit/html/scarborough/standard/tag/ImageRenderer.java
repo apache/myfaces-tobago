@@ -22,19 +22,18 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIImage;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -65,14 +64,12 @@ public class ImageRenderer extends LayoutComponentRendererBase {
       } else {
         src = null;
         if (isDisabled(image)) {
-          src = ResourceManagerUtils.getImageWithPath(
-              facesContext, HtmlRendererUtils.createSrc(value, "Disabled"), true);
+          src = ResourceManagerUtils.getImageWithPath(facesContext,
+              HtmlRendererUtils.createSrc(value, "Disabled"), true);
         }
         if (src == null) {
           src = ResourceManagerUtils.getImageWithPath(facesContext, value);
         }
-        HtmlRendererUtils.addImageSources(facesContext, writer, image.getUrl(),
-            image.getClientId(facesContext));
       }
     }
 
@@ -88,12 +85,6 @@ public class ImageRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlConstants.IMG, image);
     final String clientId = image.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
-    if (ComponentUtils.isHoverEnabled(image) && !isDisabled(image)) {
-      writer.writeAttribute(HtmlAttributes.ONMOUSEOVER,
-          "Tobago.imageMouseover('" + clientId + "')", false);
-      writer.writeAttribute(HtmlAttributes.ONMOUSEOUT,
-          "Tobago.imageMouseout('" + clientId + "')", false);
-    }
     if (src != null) {
       writer.writeAttribute(HtmlAttributes.SRC, src, true);
     }
@@ -105,8 +96,6 @@ public class ImageRenderer extends LayoutComponentRendererBase {
     HtmlRendererUtils.renderDojoDndItem(image, writer, true);
     writer.writeClassAttribute();
     writer.endElement(HtmlConstants.IMG);
-
-
   }
 
   private String createSrc(String src, String ext) {

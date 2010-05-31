@@ -18,15 +18,12 @@ package org.apache.myfaces.tobago.renderkit.html.util;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UISheet;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
@@ -36,8 +33,11 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -251,24 +251,6 @@ public final class HtmlRendererUtils {
   @Deprecated
   public static void addMarkupClass(UIComponent component, String rendererName, StyleClasses classes) {
     classes.addMarkupClass(component, rendererName);
-  }
-
-  public static void addImageSources(FacesContext facesContext, TobagoResponseWriter writer, String src, String id)
-      throws IOException {
-    writer.startJavascript();
-    writer.write("new Tobago.Image('");
-    writer.write(id);
-    writer.write("','");
-    String img = ResourceManagerUtils.getImageWithPath(facesContext, src, false);
-    writer.write(img!=null?img:"");
-    writer.write("','");
-    String disabled = ResourceManagerUtils.getImageWithPath(facesContext, createSrc(src, "Disabled"), true);
-    writer.write(disabled!=null?disabled:"");
-    writer.write("','");
-    String hover = ResourceManagerUtils.getImageWithPath(facesContext, createSrc(src, "Hover"), true);
-    writer.write(hover!=null?hover:"");
-    writer.write("');");
-    writer.endJavascript();
   }
 
   public static String createSrc(String src, String ext) {

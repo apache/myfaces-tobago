@@ -125,8 +125,6 @@ var Tobago = {
     return id;
   },
 
-  images: {},
-
   treeNodes: {},
 
   reloadTimer: {},
@@ -777,48 +775,6 @@ var Tobago = {
     } else {
       LOG.warn("Illegal Container for reload:" + (typeof container));
     }
-  },
-
-  /**
-    * Mouseover function for images.
-    */
-  imageMouseover: function(id) {
-    var image = this.element(id);
-    if (image && this.images[id]) {
-      var hover = this.images[id].hover;
-      if (hover != '' && hover != image.src) {
-        image.src = hover;
-      }
-    }
-  },
-
-  /**
-    * Mouseout function for images.
-    */
-  imageMouseout: function(id) {
-    var image = this.element(id);
-    if (image && this.images[id]) {
-      var normal = this.images[id].normal;
-      if (normal != '' && normal != image.src) {
-        image.src = normal;
-      }
-    }
-  },
-
-  /**
-   * Mouseover function for toolbar buttons.
-   */
-  toolbarMousesover: function(element, className, imageId) {
-    this.addCssClass(element, className);
-    this.imageMouseover(imageId);
-  },
-
-  /**
-    * Mouseout function for toolbar buttons.
-    */
-  toolbarMousesout: function(element, className, imageId) {
-    this.removeCssClass(element, className);
-    this.imageMouseout(imageId);
   },
 
   /**
@@ -1680,15 +1636,6 @@ var Tobago = {
   }
 };
 
-
-Tobago.Image = function(id, normal, disabled, hover) {
-  this.id = id;
-  this.normal = normal;
-  this.disabled = disabled;
-  this.hover = hover;
-  Tobago.images[id] = this;
-};
-
 Tobago.In = function(inId, required, cssPrefix, maxLength) {
   this.id = inId;
   this.required = required;
@@ -2444,19 +2391,39 @@ Tobago.Updater = {
 // -------- ToolBar ----------------------------------------------------
 // todo: namespace etc.
 
+// todo: what is with initialisation of elements which are loaded with AJAX?
 $(document).ready(function() {
-  $(".tobago-toolBar-item[disabled!=disabled]")
+  jQuery(".tobago-toolBar-item")
+      .not(".tobago-toolBar-item-disabled")
       .mouseenter(function() {
-    $(this).addClass("tobago-toolBar-item-hover");
+    jQuery(this).addClass("tobago-toolBar-item-hover");
   })
       .mouseleave(function() {
-    $(this).removeClass("tobago-toolBar-item-hover");
-  });
-  $(".tobago-toolBar-item[disabled!=disabled]").children(".tobago-toolBar-button, .tobago-toolBar-menu")
+    jQuery(this).removeClass("tobago-toolBar-item-hover");
+  })
+      .children(".tobago-toolBar-button, .tobago-toolBar-menu")
       .mouseenter(function() {
-    $(this).addClass("tobago-toolBar-button-hover");})
+    jQuery(this)
+        .addClass("tobago-toolBar-button-hover").children("img")
+        .each(function() {
+      // set the src to the hover src url.
+      var hover = jQuery(this).attr("srchover");
+      if (hover) {
+        jQuery(this).attr("src", hover);
+      }
+    });
+  })
       .mouseleave(function() {
-    $(this).removeClass("tobago-toolBar-button-hover");
+    jQuery(this)
+        .removeClass("tobago-toolBar-button-hover")
+        .children("img")
+        .each(function() {
+      // restore the original/normal src url.
+      var normal = jQuery(this).attr("srcdefault");
+      if (normal) {
+        jQuery(this).attr("src", normal);
+      }
+    });
   });
 });
 
