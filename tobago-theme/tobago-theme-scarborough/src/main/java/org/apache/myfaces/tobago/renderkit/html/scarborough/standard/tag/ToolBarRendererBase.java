@@ -48,7 +48,6 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
 public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
@@ -78,46 +77,40 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     UIToolBar toolBar = (UIToolBar) component;
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(context);
-    List children = toolBar.getChildren();
 
     Measure width = Measure.valueOf(-1);
-    boolean first = true;
-    for (Iterator iter = children.iterator(); iter.hasNext();) {
-      UIComponent command = (UIComponent) iter.next();
+    for (UIComponent command : (List<UIComponent>)toolBar.getChildren()) {
       if (command instanceof UICommandBase) {
-        boolean last = !iter.hasNext();
-        width = renderToolbarCommand(context, toolBar, (UICommandBase) command, writer, first, last, width);
-        first = false;
+        width = renderToolbarCommand(context, toolBar, (UICommandBase) command, writer, width);
       } else {
-        LOG.error("Illegal UIComponent class in toolbar (not UICommandBase):" + command.getClass().getName());
+        LOG.error("Illegal UIComponent class in toolbar (not a UICommandBase):" + command.getClass().getName());
       }
     }
   }
 
   private Measure renderToolbarCommand(FacesContext facesContext, final UIToolBar toolBar,
-      final UICommandBase command, TobagoResponseWriter writer, boolean first, boolean last, Measure width)
+      final UICommandBase command, TobagoResponseWriter writer, Measure width)
       throws IOException {
     if (command instanceof UISelectBooleanCommand) {
-      return renderSelectBoolean(facesContext, toolBar, command, writer, first, last, width);
+      return renderSelectBoolean(facesContext, toolBar, command, writer, width);
     } else if (command instanceof UISelectOneCommand) {
-      return renderSelectOne(facesContext, toolBar, command, writer, first, last, width);
+      return renderSelectOne(facesContext, toolBar, command, writer, width);
     } else {
       if (command.getFacet(Facets.RADIO) != null) {
-        return renderSelectOne(facesContext, toolBar, command, writer, first, last, width);
+        return renderSelectOne(facesContext, toolBar, command, writer, width);
       } else if (command.getFacet(Facets.CHECKBOX) != null) {
-        return renderSelectBoolean(facesContext, toolBar, command, writer, first, last, width);
+        return renderSelectBoolean(facesContext, toolBar, command, writer, width);
       } else {
         String onCommandClick = createCommandOnClick(facesContext, command);
         String onMenuClick = createMenuOnClick(command);
         return renderToolbarButton(
-            facesContext, toolBar, command, writer, first, last, false, onCommandClick, onMenuClick, width);
+            facesContext, toolBar, command, writer, false, onCommandClick, onMenuClick, width);
       }
     }
   }
 
   private Measure renderSelectOne(
-      FacesContext facesContext, UIToolBar toolBar, UICommandBase command,
-      TobagoResponseWriter writer, boolean first, boolean last, Measure width)
+      FacesContext facesContext, UIToolBar toolBar, UICommandBase command, TobagoResponseWriter writer, Measure width)
       throws IOException {
 
     String onclick = createCommandOnClick(facesContext, command);
@@ -174,16 +167,14 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
           checked = false;
         }
 
-        width = renderToolbarButton(facesContext, toolBar, command, writer, first, last, checked, onclick, null, width);
-
+        width = renderToolbarButton(facesContext, toolBar, command, writer, checked, onclick, null, width);
       }
     }
     return width;
   }
 
   private Measure renderSelectBoolean(
-      FacesContext facesContext, UIToolBar toolBar, UICommandBase command, TobagoResponseWriter writer,
-      boolean first, boolean last, Measure width)
+      FacesContext facesContext, UIToolBar toolBar, UICommandBase command, TobagoResponseWriter writer, Measure width)
       throws IOException {
 
     UIComponent checkbox = command.getFacet(Facets.CHECKBOX);
@@ -202,13 +193,13 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       writer.writeJavascript("    tobago_toolBarCheckToggle('" + clientId + "');\n");
     }
 
-    return renderToolbarButton(facesContext, toolBar, command, writer, first, last, checked, onClick, null, width);
+    return renderToolbarButton(facesContext, toolBar, command, writer, checked, onClick, null, width);
   }
 
 
   private Measure renderToolbarButton(
       FacesContext facesContext, UIToolBar toolBar, UICommandBase command, TobagoResponseWriter writer,
-      boolean first, boolean last, boolean selected, String commandClick, String menuClick, Measure width)
+      boolean selected, String commandClick, String menuClick, Measure width)
       throws IOException {
     if (!command.isRendered()) {
       return width;
@@ -225,7 +216,6 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     final String iconName = (String) command.getAttributes().get(Attributes.IMAGE);
     final boolean lackImage = iconName == null;
     final String image = lackImage ? null : getImage(facesContext, iconName, iconSize, disabled, selected);
-    final String graphicId = clientId + ComponentUtils.SUB_SEPARATOR + "icon";
 
     final boolean showIcon = !UIToolBar.ICON_OFF.equals(iconSize);
     final boolean iconBig = UIToolBar.ICON_BIG.equals(iconSize);
@@ -233,14 +223,8 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     final boolean showLabelBottom = UIToolBar.LABEL_BOTTOM.equals(labelPosition);
     final boolean showLabelRight = UIToolBar.LABEL_RIGHT.equals(labelPosition);
     final boolean showLabel = showLabelBottom || showLabelRight;
-    final boolean separateButtons;
-    if (popupMenu != null && command.getAttributes().get(Attributes.ONCLICK) != null) { // todo: also action, link, etc.
-      // two separate buttons for the command and the sub menu
-      separateButtons = true;
-    } else {
-      separateButtons = false;
-    }
-
+    // two separate buttons for the command and the sub menu
+    final boolean separateButtons = hasAnyCommand(command) && popupMenu != null;
 
     final Measure paddingTop = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-top");
     final Measure paddingMiddle = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-middle");
@@ -423,17 +407,24 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   }
 
   private String createCommandOnClick(FacesContext facesContext, UICommandBase command) {
-    if (command.getAction() == null
-        && command.getActionListener() == null
-        && command.getActionListeners().length == 0
-        && command.getLink() == null
-        && command.getAttributes().get(Attributes.ONCLICK) == null
-        && command.getFacet(Facets.MENUPOPUP) != null) {
+    if (hasNoCommand(command) && command.getFacet(Facets.MENUPOPUP) != null) {
       return null;
     } else {
       CommandRendererHelper helper = new CommandRendererHelper(facesContext, command);
       return helper.getOnclick();
     }
+  }
+
+  private boolean hasAnyCommand(UICommandBase command) {
+    return !hasNoCommand(command);
+  }
+
+  private boolean hasNoCommand(UICommandBase command) {
+    return command.getAction() == null
+        && command.getActionListener() == null
+        && command.getActionListeners().length == 0
+        && command.getLink() == null
+        && command.getAttributes().get(Attributes.ONCLICK) == null;
   }
 
   private String createMenuOnClick(UICommandBase command) {
