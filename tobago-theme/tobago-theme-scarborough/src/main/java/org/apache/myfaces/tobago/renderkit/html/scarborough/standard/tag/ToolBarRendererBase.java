@@ -44,7 +44,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.io.IOException;
@@ -88,8 +87,8 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     }
   }
 
-  private Measure renderToolbarCommand(FacesContext facesContext, final UIToolBar toolBar,
-      final UICommandBase command, TobagoResponseWriter writer, Measure width)
+  private Measure renderToolbarCommand(
+      FacesContext facesContext, UIToolBar toolBar, UICommandBase command, TobagoResponseWriter writer, Measure width)
       throws IOException {
     if (command instanceof UISelectBooleanCommand) {
       return renderSelectBoolean(facesContext, toolBar, command, writer, width);
@@ -452,34 +451,32 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     }
     String image = null;
     ResourceManager resourceManager = ResourceManagerFactory.getResourceManager(facesContext);
-    UIViewRoot viewRoot = facesContext.getViewRoot();
     if (disabled && selected) {
-      image = resourceManager.getImage(viewRoot, key + "SelectedDisabled" + size + ext, true);
+      image = resourceManager.getImage(facesContext, key + "SelectedDisabled" + size + ext, true);
       if (image == null) {
-        image = resourceManager.getImage(viewRoot, key + "SelectedDisabled" + ext, true);
+        image = resourceManager.getImage(facesContext, key + "SelectedDisabled" + ext, true);
       }
     }
     if (image == null && disabled) {
-      image = resourceManager.getImage(viewRoot, key + "Disabled" + size + ext, true);
+      image = resourceManager.getImage(facesContext, key + "Disabled" + size + ext, true);
       if (image == null) {
-        image = resourceManager.getImage(viewRoot, key + "Disabled" + ext, true);
+        image = resourceManager.getImage(facesContext, key + "Disabled" + ext, true);
       }
     }
     if (image == null && selected) {
-      image = resourceManager.getImage(viewRoot, key + "Selected" + size + ext, true);
+      image = resourceManager.getImage(facesContext, key + "Selected" + size + ext, true);
       if (image == null) {
-        image = resourceManager.getImage(viewRoot, key + "Selected" + ext, true);
+        image = resourceManager.getImage(facesContext, key + "Selected" + ext, true);
       }
     }
     if (image == null) {
-      image = resourceManager.getImage(viewRoot, key + size + ext, true);
+      image = resourceManager.getImage(facesContext, key + size + ext, true);
       if (image == null) {
-        image = resourceManager.getImage(viewRoot, key + ext, true);
+        image = resourceManager.getImage(facesContext, key + ext, true);
       }
     }
-    String contextPath = facesContext.getExternalContext().getRequestContextPath();
-//    LOG.info("getImage for " + name + ", " + iconSize + ", " + disabled + ", " + selected + " = " + image);
-    return contextPath + image;
+
+    return facesContext.getExternalContext().getRequestContextPath() + image;
   }
 
   private void renderPopup(FacesContext facesContext, TobagoResponseWriter writer, UIComponent popupMenu)

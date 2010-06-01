@@ -186,27 +186,22 @@ public class RenderUtils {
       return Measure.ZERO;
     }
     int width = 0;
-    int defaultCharWidth = 0;
+    int defaultCharWidth = 10;
     try {
-      // todo: use Measure instead of int
       defaultCharWidth = ResourceManagerUtils.getThemeMeasure(facesContext, component, "fontWidth").getPixel();
     } catch (NullPointerException e) {
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("no value for \"fontWidth\" found in theme-config");
-      }
+      LOG.warn("no value for 'fontWidth' for type '" + component.getRendererType() + "' found in theme-config");
     }
 
     String fontWidths = ResourceManagerUtils.getProperty(facesContext, "tobago", type);
 
     for (char c : text.toCharArray()) {
-      int charWidth;
-      if (c >= 32 && c < 128) {
+      if (c >= 32 && c < 128) { // "normal" char in precomputed range
         int begin = (c - 32) * 2;
-        charWidth = Integer.parseInt(fontWidths.substring(begin, begin + 2), 16);
+        width += Integer.parseInt(fontWidths.substring(begin, begin + 2), 16);
       } else {
-        charWidth = defaultCharWidth;
+        width += defaultCharWidth;
       }
-      width += charWidth;
     }
 
     return Measure.valueOf(width);
