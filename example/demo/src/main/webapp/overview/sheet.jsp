@@ -97,7 +97,7 @@
                     <tc:cell/>
                     <tc:button label="Ok">
                       <tc:attribute name="popupClose" value="afterSubmit"/>
-                      <tc:attribute name="renderedPartially" value=":page:sheetBox"/>
+                      <tc:attribute name="renderedPartially" value=":page:content:sheetBox"/>
                     </tc:button>
                   </tc:cell>
 
@@ -140,7 +140,7 @@
             <tc:menu>  
               <tx:menuRadio actionListener="#{demo.filterOrbit}" >
                 <f:selectItems value="#{demo.orbitItems}" />
-                <tc:attribute name="renderedPartially" value=":page:sheet"/>
+                <tc:attribute name="renderedPartially" value=":page:content:sheet"/>
               </tx:menuRadio>
             </tc:menu>
           </f:facet>
