@@ -17,22 +17,19 @@ package org.apache.myfaces.tobago.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.validator.SubmittedValueLengthValidator;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
+import org.apache.myfaces.tobago.validator.SubmittedValueLengthValidator;
 
-import javax.faces.webapp.ValidatorTag;
 import javax.faces.validator.Validator;
+import javax.faces.webapp.ValidatorTag;
 import javax.servlet.jsp.JspException;
-
-/*
- * Date: Oct 17, 2006
- * Time: 12:35:01 AM
- */
 
 /**
  * Register an SubmittedValueLengthValidator instance on the UIComponent
  * associated with the closest parent UIComponent custom action.
+ * The standard LengthValidator validate the length on the converted value.toString()
+ * not on the submitted value. Sometime you need to check the length of the submitted value.
  */
 @Tag(name = "validateSubmittedValueLength")
 public class SubmittedValueLengthValidatorTag extends ValidatorTag {
