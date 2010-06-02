@@ -19,12 +19,12 @@ package org.apache.myfaces.tobago.facelets.extension;
 
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.tag.MetaRuleset;
+import com.sun.facelets.tag.Metadata;
 import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.UIMenuCommand;
 
 import javax.el.ELException;
 import javax.faces.FacesException;
@@ -38,6 +38,9 @@ import java.io.IOException;
  * Time: 9:40:24 PM
  */
 public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
+
+  private Class subComponentLastType = Object.class;
+  private Metadata subComponentMapper;
 
   public TobagoMenuExtensionHandler(ComponentConfig config) {
     super(config);
@@ -67,26 +70,38 @@ public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
     UIComponent component = application.createComponent(getSubComponentType());
     component.setId(root.createUniqueId());
     component.setRendererType(getSubRendererType());
-    setAttributes(faceletContext, component);
+    setSubComponentAttributes(faceletContext, component);
     menuCommand.getFacets().put(getFacetName(), component);
+  }
+
+  private void setSubComponentAttributes(FaceletContext ctx, Object instance) {
+    if (instance != null) {
+      Class type = instance.getClass();
+      if (subComponentMapper == null || !subComponentLastType.equals(type)) {
+        subComponentLastType = type;
+        subComponentMapper = createSubComponentMetaRuleset(type).finish();
+      }
+      this.subComponentMapper.applyMetadata(ctx, instance);
+    }
+  }
+
+  protected MetaRuleset createSubComponentMetaRuleset(Class aClass) {
+    MetaRuleset metaRuleset = createMetaRuleset(aClass);
+    TagAttribute [] attrs = tag.getAttributes().getAll();
+    for (int i = 0; i < attrs.length; i++) {
+      TagAttribute attr = attrs[i];
+      if (!(attr.getLocalName().equals(Attributes.CONVERTER)
+          || attr.getLocalName().equals(Attributes.VALUE))) {
+        metaRuleset.ignore(attr.getLocalName());
+      }
+    }
+    return metaRuleset;
   }
 
   protected MetaRuleset createMetaRuleset(Class aClass) {
     MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
-    if (UIMenuCommand.class.isAssignableFrom(aClass)) {
-      metaRuleset.ignore(Attributes.CONVERTER);
-      metaRuleset.ignore(Attributes.VALUE);
-      return metaRuleset;
-    } else {
-      TagAttribute [] attrs = tag.getAttributes().getAll();
-      for (int i = 0; i < attrs.length; i++) {
-        TagAttribute attr = attrs[i];
-        if (!(attr.getLocalName().equals(Attributes.CONVERTER)
-            || attr.getLocalName().equals(Attributes.VALUE))) {
-          metaRuleset.ignore(attr.getLocalName());
-        }
-      }
-      return metaRuleset;
-    }
+    metaRuleset.ignore(Attributes.CONVERTER);
+    metaRuleset.ignore(Attributes.VALUE);
+    return metaRuleset;
   }
 }
