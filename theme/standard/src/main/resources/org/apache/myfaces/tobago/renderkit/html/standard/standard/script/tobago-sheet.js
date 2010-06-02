@@ -380,7 +380,7 @@ Tobago.Sheet.prototype.setup = function() {
         this.setupHeader();
         this.adjustScrollBars();
       }
-
+      this.adjustHeaderDivFirefoxFix();
 
       if (this.firstRowId) {
         this.tobagoLastClickedRowId = this.firstRowId;
@@ -761,8 +761,14 @@ Tobago.Sheet.prototype.adjustHeaderDiv = function () {
     //  LOG.debug("filler      :" + fillBox.clientWidth);
     //  LOG.debug("fillerstyle :" + fillBox.style.width);
     //  LOG.debug("##########################################");
+};
 
-  // XXX fix for Firefox 3.0
+Tobago.Sheet.prototype.adjustHeaderDivFirefoxFix = function () {
+  // XXX fix for Firefox 3.0 (3.5 and 3.6 are working)
+  var headerDiv = Tobago.element(this.headerDivId);
+  if (!headerDiv) {
+    return;
+  }
   if (navigator.userAgent.indexOf("Firefox/3.0") > -1) {
     var length = headerDiv.childNodes.length;
     for (var i = 0; i < length; i++) {
@@ -773,7 +779,7 @@ Tobago.Sheet.prototype.adjustHeaderDiv = function () {
       }
     }
   }
-  };
+};
 
 Tobago.Sheet.prototype.beginResize = function(event) {
     if (! event) {
@@ -832,6 +838,7 @@ Tobago.Sheet.prototype.endResize = function(event) {
       this.adjustHeaderDiv();
       this.adjustResizer();
       this.storeSizes();
+      this.adjustHeaderDivFirefoxFix();
       delete this.resizerId;
     }
   };
