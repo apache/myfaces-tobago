@@ -121,8 +121,8 @@ public class SheetTag extends TobagoTag implements SheetTagDeclaration {
   }
 
   public void setPagingLength(String pagingLength) {
-    Deprecation.LOG.error("The attribute 'pagingLength' of 'UISheet' is deprecated. "
-        + "Please refer the documentation for further information.");
+    Deprecation.LOG.error("The attribute 'pagingLength' of 'UISheet' is deprecated, please use 'rows' instead. "
+        + "Refer the documentation for further information.");
     this.rows = pagingLength;
   }
 
@@ -139,8 +139,8 @@ public class SheetTag extends TobagoTag implements SheetTagDeclaration {
   }
 
   public void setPagingStart(String pagingStart) {
-    Deprecation.LOG.error("The attribute 'pagingStart' of 'UISheet' is deprecated. "
-        + "Please refer the documentation for further information.");
+    Deprecation.LOG.error("The attribute 'pagingStart' of 'UISheet' is deprecated, please use 'first' instead. "
+        + "Refer the documentation for further information.");
     this.first = pagingStart;
   }
 
