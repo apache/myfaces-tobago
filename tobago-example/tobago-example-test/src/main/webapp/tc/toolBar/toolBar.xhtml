@@ -118,10 +118,11 @@
     <tc:label value="Select One"/>
     <f:subview id="t13">
       <tc:toolBar iconSize="big" labelPosition="bottom">
-          <tc:toolBarSelectOne value="a">
-            <tc:selectItem itemValue="a" itemLabel="A Value"/>
-            <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
-          </tc:toolBarSelectOne>
+        <tc:toolBarSelectOne value="a">
+          <tc:selectItem itemValue="a" itemLabel="A Value"/>
+          <tc:selectItem itemValue="b" itemLabel="An Alternative"/>
+        </tc:toolBarSelectOne>
+        <tc:toolBarSeparator/>
         <tc:toolBarSelectOne value="#{selectItemModel.currency}">
           <f:selectItems value="#{selectItemModel.availableCurrencies}"/>
         </tc:toolBarSelectOne>

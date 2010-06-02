@@ -25,6 +25,8 @@ import org.apache.myfaces.tobago.component.UIMenuSelectOne;
 import org.apache.myfaces.tobago.component.UISelectBooleanCommand;
 import org.apache.myfaces.tobago.component.UISelectOneCommand;
 import org.apache.myfaces.tobago.component.UIToolBar;
+import org.apache.myfaces.tobago.component.UIToolBarSeparator;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
@@ -81,6 +83,8 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     for (UIComponent command : (List<UIComponent>)toolBar.getChildren()) {
       if (command instanceof UICommandBase) {
         width = renderToolbarCommand(context, toolBar, (UICommandBase) command, writer, width);
+      } else if (command instanceof UIToolBarSeparator) {
+        width = renderSeparator(context, toolBar, (UIToolBarSeparator) command, writer, width);
       } else {
         LOG.error("Illegal UIComponent class in toolbar (not a UICommandBase):" + command.getClass().getName());
       }
@@ -403,6 +407,71 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
     return width.add(itemStyle.getWidth()).add(2); // XXX
     // computation of the width of the toolBar will not be used in the moment.
+  }
+
+  private Measure renderSeparator(
+      FacesContext facesContext, UIToolBar toolBar, UIToolBarSeparator separator, TobagoResponseWriter writer,
+      Measure width)
+      throws IOException {
+    if (!separator.isRendered()) {
+      return width;
+    }
+
+    writer.startElement(HtmlConstants.SPAN, separator);
+    writer.writeClassAttribute("tobago-toolBar-item tobago-toolBar-item-disabled");
+    Style itemStyle = new Style();
+    itemStyle.setHeight(getItemHeight(facesContext, toolBar));
+    itemStyle.setWidth(Measure.valueOf(10));
+    writer.writeStyleAttribute(itemStyle);
+
+    writer.startElement(HtmlConstants.SPAN, separator);
+    writer.writeClassAttribute("tobago-toolBar-separator");
+    writer.endElement(HtmlConstants.SPAN);
+
+    writer.endElement(HtmlConstants.SPAN);
+
+    return width.add(itemStyle.getWidth()).add(2); // XXX
+    // computation of the width of the toolBar will not be used in the moment.
+  }
+
+  protected Measure getItemHeight(FacesContext facesContext, Configurable toolBar) {
+    final String iconSize = getIconSize((UIComponent) toolBar);
+    final String labelPosition = getLabelPosition((UIComponent) toolBar);
+
+    final boolean showIcon = !UIToolBar.ICON_OFF.equals(iconSize);
+    final boolean iconBig = UIToolBar.ICON_BIG.equals(iconSize);
+    final boolean iconSmall = UIToolBar.ICON_SMALL.equals(iconSize);
+    final boolean showLabelBottom = UIToolBar.LABEL_BOTTOM.equals(labelPosition);
+    final boolean showLabelRight = UIToolBar.LABEL_RIGHT.equals(labelPosition);
+    final boolean showLabel = showLabelBottom || showLabelRight;
+
+    final ResourceManager resources = getResourceManager();
+
+    final Measure paddingTop = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-top");
+    final Measure paddingMiddle = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-middle");
+    final Measure paddingBottom = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-bottom");
+    final Measure iconHeight = iconBig
+        ? resources.getThemeMeasure(facesContext, toolBar, "custom.icon-big-height")
+        : resources.getThemeMeasure(facesContext, toolBar, "custom.icon-small-height");
+    final Measure labelHeight = resources.getThemeMeasure(facesContext, toolBar, "custom.label-height");
+
+    Measure result = paddingTop;
+    if (showIcon) {
+      result = result.add(iconHeight);
+      if (showLabel && showLabelBottom) {
+        result = result.add(paddingMiddle);
+        result = result.add(labelHeight);
+      }
+    } else {
+      if (showLabel) {
+        result = result.add(labelHeight);
+      } else {
+        // both off: use some reasonable defaults
+        result = result.add(16);
+      }
+    }
+    result = result.add(paddingBottom);
+    return result;
   }
 
   private String createCommandOnClick(FacesContext facesContext, UICommandBase command) {

@@ -56,45 +56,12 @@ public class ToolBarRenderer extends ToolBarRendererBase {
   @Override
   public Measure getHeight(FacesContext facesContext, Configurable toolBar) {
 
-    final ResourceManager rm = getResourceManager();
+    final ResourceManager resources = getResourceManager();
 
-    final String iconSize = getIconSize((UIComponent) toolBar);
-    final String labelPosition = getLabelPosition((UIComponent) toolBar);
+    Measure result = getItemHeight(facesContext, toolBar);
 
-    final boolean showIcon = !UIToolBar.ICON_OFF.equals(iconSize);
-    final boolean iconBig = UIToolBar.ICON_BIG.equals(iconSize);
-    final boolean iconSmall = UIToolBar.ICON_SMALL.equals(iconSize);
-    final boolean showLabelBottom = UIToolBar.LABEL_BOTTOM.equals(labelPosition);
-    final boolean showLabelRight = UIToolBar.LABEL_RIGHT.equals(labelPosition);
-    final boolean showLabel = showLabelBottom || showLabelRight;
-
-    final Measure paddingTop = rm.getThemeMeasure(facesContext, toolBar, "custom.padding-top");
-    final Measure paddingMiddle = rm.getThemeMeasure(facesContext, toolBar, "custom.padding-middle");
-    final Measure paddingBottom = rm.getThemeMeasure(facesContext, toolBar, "custom.padding-bottom");
-    final Measure iconHeight = iconBig
-        ? rm.getThemeMeasure(facesContext, toolBar, "custom.icon-big-height")
-        : rm.getThemeMeasure(facesContext, toolBar, "custom.icon-small-height");
-    final Measure labelHeight = rm.getThemeMeasure(facesContext, toolBar, "custom.label-height");
-
-    Measure result = paddingTop;
-    if (showIcon) {
-      result = result.add(iconHeight);
-      if (showLabel && showLabelBottom) {
-        result = result.add(paddingMiddle);
-        result = result.add(labelHeight);
-      }
-    } else {
-      if (showLabel) {
-        result = result.add(labelHeight);
-      } else {
-        // both off: use some reasonable defaults
-        result = result.add(16);
-      }
-    }
-    result = result.add(paddingBottom);
-
-    result = result.add(rm.getThemeMeasure(facesContext, toolBar, "css.border-top-width"));
-    result = result.add(rm.getThemeMeasure(facesContext, toolBar, "css.border-bottom-width"));
+    result = result.add(resources.getThemeMeasure(facesContext, toolBar, "css.border-top-width"));
+    result = result.add(resources.getThemeMeasure(facesContext, toolBar, "css.border-bottom-width"));
 
     return result;
   }
