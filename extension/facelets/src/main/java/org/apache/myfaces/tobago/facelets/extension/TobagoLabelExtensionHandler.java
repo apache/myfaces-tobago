@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.facelets.extension;
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.el.ELAdaptor;
 import com.sun.facelets.tag.MetaRuleset;
+import com.sun.facelets.tag.Metadata;
 import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.jsf.ComponentConfig;
 import com.sun.facelets.tag.jsf.ComponentHandler;
@@ -58,6 +59,8 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
   private TagAttribute labelAttribute;
   private TagAttribute markupAttribute;
   private TagAttribute fieldIdAttribute;
+  private Class subComponentLastType = Object.class;
+  private Metadata subComponentMapper;
 
   public TobagoLabelExtensionHandler(ComponentConfig config) {
     super(config);
@@ -122,7 +125,7 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     input.setRendererType(getSubRendererType());
     input.setId(uid);
 
-    setAttributes(faceletContext, input);
+    setSubComponentAttributes(faceletContext, input);
 
     panel.getChildren().add(input);
   }
@@ -198,27 +201,40 @@ public abstract class TobagoLabelExtensionHandler extends ComponentHandler {
     panel.getFacets().put(TobagoConstants.FACET_LAYOUT, gridLayout);
   }
 
-  protected MetaRuleset createMetaRuleset(Class aClass) {
-    MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
-    if (UIPanel.class.isAssignableFrom(aClass)) {
-      TagAttribute [] attrs = tag.getAttributes().getAll();
-      for (int i = 0; i < attrs.length; i++) {
-        TagAttribute attr = attrs[i];
-        if (!attr.getLocalName().equals("rendered")) {
-          metaRuleset.ignore(attr.getLocalName());
-        }
+  private void setSubComponentAttributes(FaceletContext ctx, Object instance) {
+    if (instance != null) {
+      Class type = instance.getClass();
+      if (subComponentMapper == null || !subComponentLastType.equals(type)) {
+        subComponentLastType = type;
+        subComponentMapper = createSubComponentMetaRuleset(type).finish();
       }
-      return metaRuleset;
-    } else {
-      metaRuleset.ignore(TobagoConstants.ATTR_LABEL);
-      metaRuleset.ignore(TobagoConstants.ATTR_TIP);
-      metaRuleset.ignore("labelWidth");
+      subComponentMapper.applyMetadata(ctx, instance);
     }
+  }
+
+  protected MetaRuleset createSubComponentMetaRuleset(Class aClass) {
+    MetaRuleset metaRuleset = createMetaRuleset(aClass);
+    metaRuleset.ignore(TobagoConstants.ATTR_LABEL);
+    metaRuleset.ignore(TobagoConstants.ATTR_TIP);
+    metaRuleset.ignore("labelWidth");
     if (SupportsMarkup.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SupportsMarkupRule.INSTANCE);
     }
     if (UIInput.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SuggestMethodRule.INSTANCE);
+    }
+    return metaRuleset;
+  }
+
+
+  protected MetaRuleset createMetaRuleset(Class aClass) {
+    MetaRuleset metaRuleset = super.createMetaRuleset(aClass);
+    TagAttribute [] attrs = tag.getAttributes().getAll();
+    for (int i = 0; i < attrs.length; i++) {
+      TagAttribute attr = attrs[i];
+      if (!attr.getLocalName().equals("rendered")) {
+        metaRuleset.ignore(attr.getLocalName());
+      }
     }
     return metaRuleset;
   }
