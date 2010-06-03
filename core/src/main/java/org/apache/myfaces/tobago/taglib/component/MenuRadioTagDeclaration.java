@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
 /**
  * Renders a submenu with select one items (like a radio button).
- * @deprecated Please use tx:menuRadio
+ * @deprecated Since 1.0.24. Please use tx:menuRadio
  */
 @Tag(name = "menuRadio", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(

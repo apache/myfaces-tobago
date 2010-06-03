@@ -28,7 +28,7 @@ import org.apache.myfaces.tobago.taglib.decl.IsDisabled;
 
 /**
  * Renders a checkable menuitem.
- * @deprecated Please use tx:menuCheckbox
+ * @deprecated Since 1.0.24. Please use tx:menuCheckbox
  */
 @Tag(name = "menuCheckbox", tagExtraInfoClassName = "org.apache.myfaces.tobago.taglib.component.CommandTagExtraInfo")
 @UIComponentTag(
