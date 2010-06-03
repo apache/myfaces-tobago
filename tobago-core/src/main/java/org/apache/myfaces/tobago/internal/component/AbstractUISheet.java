@@ -143,6 +143,7 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
 
   /**
    * Remove the (by user) resized column widths. An application may provide a button to access it.
+   * Since 1.0.26.
    */
   public void resetColumnWidths() {
     SheetState state = getState();
