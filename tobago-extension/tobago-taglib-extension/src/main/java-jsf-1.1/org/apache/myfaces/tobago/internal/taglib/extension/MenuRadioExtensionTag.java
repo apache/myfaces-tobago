@@ -39,7 +39,20 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Renders a submenu with select one items (like a radio button).
+ * Renders menu items like radio buttons (select one).
+ * <pre>
+ * &lt;tx:menuRadio>
+ *   &lt;tc:selectItems/> &lt;!-- body -->
+ * &lt;/tx:menuRadio></pre>
+ * is the short form of
+ * <pre>
+ * &lt;tc:menuCommand>
+ *   &lt;f:facet name="radio">
+ *     &lt;tc:selectOneRadio>
+ *       &lt;tc:selectItems/> &lt;!-- body -->
+ *     &lt;/tc:selectOneRadio>
+ *   &lt;/f:facet>
+ * &lt;/tc:menuCommand></pre>
  */
 @Tag(name = "menuRadio", tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.MenuRadioTag")

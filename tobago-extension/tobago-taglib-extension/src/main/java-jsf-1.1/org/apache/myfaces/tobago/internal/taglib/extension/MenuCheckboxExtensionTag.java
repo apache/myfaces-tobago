@@ -38,7 +38,16 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 /**
- * Renders a checkable menuitem.
+ * Renders a menu item like a check box.
+ * <pre>
+ * &lt;tx:menuCheckbox/></pre>
+ * is the short form of
+ * <pre>
+ * &lt;tc:menuCommand>
+ *   &lt;f:facet name="checkbox">
+ *     &lt;tc:selectBooleanCheckbox/>
+ *   &lt;/f:facet>
+ * &lt;/tc:menuCommand></pre>
  */
 @Tag(name = "menuCheckbox", tagExtraInfoClassName = "org.apache.myfaces.tobago.internal.taglib.component.CommandTagExtraInfo")
 @ExtensionTag(baseClassName = "org.apache.myfaces.tobago.internal.taglib.component.MenuCheckboxTag")

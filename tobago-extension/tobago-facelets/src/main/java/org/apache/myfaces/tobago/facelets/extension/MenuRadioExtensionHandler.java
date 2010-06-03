@@ -21,9 +21,21 @@ import com.sun.facelets.tag.jsf.ComponentConfig;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UISelectOneRadio;
 
-/*
- * Date: Aug 10, 2007
- * Time: 10:18:54 PM
+/**
+ * Facelets handler for the <code>&lt;tx:menuRadio></code> extension tag.
+ * <pre>
+ * &lt;tx:menuRadio>
+ *   &lt;tc:selectItems/> &lt;!-- body -->
+ * &lt;/tx:menuRadio></pre>
+ * is the short form of
+ * <pre>
+ * &lt;tc:menuCommand>
+ *   &lt;f:facet name="radio">
+ *     &lt;tc:selectOneRadio>
+ *       &lt;tc:selectItems/> &lt;!-- body -->
+ *     &lt;/tc:selectOneRadio>
+ *   &lt;/f:facet>
+ * &lt;/tc:menuCommand></pre>
  */
 public class MenuRadioExtensionHandler extends TobagoMenuExtensionHandler {
 

@@ -33,9 +33,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import java.io.IOException;
 
-/*
- * Date: Aug 10, 2007
- * Time: 9:40:24 PM
+
+/**
+ * Base class of the Facelets handlers for the &lt;tx:menuXXX /> extension tags.
  */
 public abstract class TobagoMenuExtensionHandler extends ComponentHandler {
 

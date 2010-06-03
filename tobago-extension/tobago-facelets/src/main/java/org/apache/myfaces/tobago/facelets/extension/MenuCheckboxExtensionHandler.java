@@ -21,16 +21,17 @@ import com.sun.facelets.tag.jsf.ComponentConfig;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
 
-// XXX check if this is correct
-// todo: remove the facet
 /**
-  <pre>
-    &lt;tc:menuCommand label="" action="">
-      &lt;f:facet name="items">
-        &lt;tc:selectBooleanCheckbox value=""/>
-      &lt;/f:facet>
-    &lt;/tc:menuCommand>
-  </pre>
+ * Facelets handler for the <code>&lt;tx:menuCheckbox></code> extension tag.
+ * <pre>
+ * &lt;tx:menuCheckbox/></pre>
+ * is the short form of
+ * <pre>
+ * &lt;tc:menuCommand>
+ *   &lt;f:facet name="checkbox">
+ *     &lt;tc:selectBooleanCheckbox/>
+ *   &lt;/f:facet>
+ * &lt;/tc:menuCommand></pre>
  */
 public class MenuCheckboxExtensionHandler extends TobagoMenuExtensionHandler {
 
