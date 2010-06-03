@@ -905,6 +905,7 @@ div.tobago-richTextEditor-body {
   height: 18px;
   display: inline-block;
   vertical-align: bottom;
+  text-align: center;
 }
 
 .tobago-tab-selected-inner {
@@ -919,6 +920,7 @@ div.tobago-richTextEditor-body {
   position: relative;
   display: inline-block;
   vertical-align: bottom;
+  text-align: center;
 }
 
 .tobago-tab-unselected-inner {
