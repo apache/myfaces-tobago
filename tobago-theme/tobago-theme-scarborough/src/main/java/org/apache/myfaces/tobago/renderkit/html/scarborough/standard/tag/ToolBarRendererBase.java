@@ -112,6 +112,8 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     }
   }
 
+  // todo: remove component creation in renderer, for JSF 2.0
+  // todo: One solution is to make <tx:toolBarSelectOne> instead of <tc:toolBarSelectOne>
   private Measure renderSelectOne(
       FacesContext facesContext, UIToolBar toolBar, UICommandBase command, TobagoResponseWriter writer, Measure width)
       throws IOException {
@@ -176,6 +178,9 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     return width;
   }
 
+  // todo: remove component creation in renderer, for JSF 2.0
+  // todo: One solution is to make <tx:toolBarCheck> instead of <tc:toolBarCheck>
+  // may be renamed to toolBarSelectBoolean?
   private Measure renderSelectBoolean(
       FacesContext facesContext, UIToolBar toolBar, UICommandBase command, TobagoResponseWriter writer, Measure width)
       throws IOException {
