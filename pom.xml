@@ -343,22 +343,8 @@
       </plugin>
 
       <plugin>
-        <groupId>org.apache.rat</groupId>
-        <artifactId>apache-rat-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>**/javax.faces.lifecycle.LifecycleFactory</exclude>
-            <exclude>**/*.log</exclude>
-            <exclude>**/*.txt</exclude>
-            <exclude>**/target/**/*</exclude>
-            <exclude>**/blank.html</exclude>
-            <exclude>${basedir}/example/**/*</exclude>
-            <exclude>release.properties</exclude>
-            <exclude>${basedir}/*.iml</exclude>
-            <exclude>${basedir}/*.ipr</exclude>
-            <exclude>${basedir}/*.iws</exclude>
-          </excludes>
-        </configuration>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>rat-maven-plugin</artifactId>
       </plugin>
 
       <plugin>
@@ -831,15 +817,16 @@
         </plugin>
 
         <plugin>
-          <groupId>org.apache.rat</groupId>
-          <artifactId>apache-rat-plugin</artifactId>
-          <version>0.6</version>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>rat-maven-plugin</artifactId>
+          <version>1.0-alpha-3</version>
           <configuration>
             <excludes>
               <exclude>**/javax.faces.lifecycle.LifecycleFactory</exclude>
               <exclude>**/*.log</exclude>
               <exclude>**/*.txt</exclude>
               <exclude>**/target/**/*</exclude>
+              <exclude>**/*.iml</exclude>
               <exclude>**/blank.html</exclude>
               <exclude>${basedir}/example/**/*</exclude>
               <exclude>release.properties</exclude>
