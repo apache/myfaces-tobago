@@ -34,7 +34,7 @@ public class SupportsRenderedPartiallyRule extends MetaRule {
   public static final SupportsRenderedPartiallyRule INSTANCE = new SupportsRenderedPartiallyRule();
 
   public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget metadataTarget) {
-    if (metadataTarget.isTargetInstanceOf(SupportsRenderedPartiallyRule.class)) {
+    if (metadataTarget.isTargetInstanceOf(SupportsRenderedPartially.class)) {
       if (Attributes.RENDERED_PARTIALLY.equals(name)) {
         return new SupportsRenderedPartiallyMapper(attribute);
       }
