@@ -24,39 +24,39 @@ import com.sun.facelets.tag.Metadata;
 import com.sun.facelets.tag.MetadataTarget;
 import com.sun.facelets.tag.TagAttribute;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 
-public class SupportsMarkupRule extends MetaRule {
-  public static final SupportsMarkupRule INSTANCE = new SupportsMarkupRule();
+public class SupportsRenderedPartiallyRule extends MetaRule {
+  public static final SupportsRenderedPartiallyRule INSTANCE = new SupportsRenderedPartiallyRule();
 
-  public Metadata applyRule(String name, TagAttribute attribute,
-      MetadataTarget metadataTarget) {
-    if (metadataTarget.isTargetInstanceOf(SupportsMarkup.class)) {
-      if (Attributes.MARKUP.equals(name)) {
-        return new SupportsMarkupMapper(attribute);
+  public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget metadataTarget) {
+    if (metadataTarget.isTargetInstanceOf(SupportsRenderedPartiallyRule.class)) {
+      if (Attributes.RENDERED_PARTIALLY.equals(name)) {
+        return new SupportsRenderedPartiallyMapper(attribute);
       }
     }
     return null;
   }
 
-  static final class SupportsMarkupMapper extends Metadata {
+  static final class SupportsRenderedPartiallyMapper extends Metadata {
 
     private final TagAttribute attribute;
 
-    public SupportsMarkupMapper(TagAttribute attribute) {
+    public SupportsRenderedPartiallyMapper(TagAttribute attribute) {
       this.attribute = attribute;
     }
 
     public void applyMetadata(FaceletContext ctx, Object instance) {
       if (attribute.isLiteral()) {
-        ComponentUtils.setMarkup((UIComponent) instance, attribute.getValue());
+        String[] components = ComponentUtils.splitList(attribute.getValue());
+        ((SupportsRenderedPartially) instance).setRenderedPartially(components);
       } else {
         ValueExpression expression = attribute.getValueExpression(ctx, Object.class);
-        ELAdaptor.setExpression((UIComponent) instance, Attributes.MARKUP, expression);
+        ELAdaptor.setExpression((UIComponent) instance, Attributes.RENDERED_PARTIALLY, expression);
       }
     }
   }

@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.component.InputSuggest;
 import org.apache.myfaces.tobago.component.OnComponentCreated;
 import org.apache.myfaces.tobago.component.OnComponentPopulated;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
+import org.apache.myfaces.tobago.component.SupportsRenderedPartially;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.TabChangeSource;
@@ -65,6 +66,9 @@ public class TobagoComponentHandler extends ComponentHandler {
     }
     if (InputSuggest.class.isAssignableFrom(aClass)) {
       metaRuleset.addRule(SuggestMethodRule.INSTANCE);
+    }
+    if (SupportsRenderedPartially.class.isAssignableFrom(aClass)) {
+      metaRuleset.addRule(SupportsRenderedPartiallyRule.INSTANCE);
     }
     return metaRuleset;
   }
