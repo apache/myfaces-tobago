@@ -57,10 +57,10 @@
             <goals><goal>process</goal></goals>
             <phase>compile</phase>
             <configuration>
-              <targetFiles>
-                <targetFile>org/apache/myfaces/tobago/internal/taglib/component/tobago.tld</targetFile>
-                <targetFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.tld</targetFile>
-              </targetFiles>
+              <outputFiles>
+                <outputFile>org/apache/myfaces/tobago/internal/taglib/component/tobago.tld</outputFile>
+                <outputFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.tld</outputFile>
+              </outputFiles>
               <resourceTargetPath>META-INF</resourceTargetPath>
               <outputDirectory>target/generated-tld</outputDirectory>
               <factory>org.apache.myfaces.tobago.apt.TaglibAnnotationProcessorFactory</factory>
@@ -99,9 +99,9 @@
             <goals><goal>process</goal></goals>
             <phase>process-classes</phase>
             <configuration>
-              <targetFiles>
-                <targetFile>target/generated-faces-config/faces-config.xml</targetFile>
-              </targetFiles>
+              <outputFiles>
+                <outputFile>target/generated-faces-config/faces-config.xml</outputFile>
+              </outputFiles>
               <excludes>
                 <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
                 <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
@@ -388,10 +388,10 @@
                 <id>tobago-doc</id>
                 <goals><goal>execute</goal></goals>
                 <configuration>
-                  <targetFiles>
-                    <targetFile>org/apache/myfaces/tobago/internal/taglib/component/tobago.xml</targetFile>
-                    <targetFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.xml</targetFile>
-                  </targetFiles>
+                  <outputFiles>
+                    <outputFile>org/apache/myfaces/tobago/internal/taglib/component/tobago.xml</outputFile>
+                    <outputFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.xml</outputFile>
+                  </outputFiles>
                   <generated>${project.build.directory}/doc</generated>
                   <factory>org.apache.myfaces.tobago.apt.TobagoAnnotationProcessorFactory</factory>
                   <nocompile>true</nocompile>

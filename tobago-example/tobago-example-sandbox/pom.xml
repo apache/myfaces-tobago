@@ -56,9 +56,9 @@
               <additionalSourceRoots>
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
               </additionalSourceRoots>
-              <targetFiles>
-                <targetFile>tobago-sandbox.taglib.xml</targetFile>
-              </targetFiles>
+              <outputFiles>
+                <outputFile>tobago-sandbox.taglib.xml</outputFile>
+              </outputFiles>
               <resourceTargetPath>META-INF</resourceTargetPath>
               <outputDirectory>target/generated-sources</outputDirectory>
               <factory>org.apache.myfaces.tobago.apt.FaceletAnnotationProcessorFactory</factory>

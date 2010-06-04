@@ -46,7 +46,7 @@
                 <version>${project.version}</version>
                 <type>jar</type>
                 <classifier>sources</classifier>
-                <includes>org/apache/myfaces/tobago/internal/taglib/declaration/**/*,org/apache/myfaces/tobago/internal/taglib/component/**/*</includes>
+                <includes>org/apache/myfaces/tobago/internal/taglib/declaration/**/*.java,org/apache/myfaces/tobago/internal/taglib/component/**/*.java</includes>
               </artifactItem>
             </artifactItems>
             <outputDirectory>${project.build.directory}/tobago-core-sources</outputDirectory>
@@ -78,9 +78,9 @@
             <goals><goal>process</goal></goals>
             <phase>compile</phase>
             <configuration>
-              <targetFiles>
-                <targetFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.tld</targetFile>
-              </targetFiles>
+              <outputFiles>
+                <outputFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.tld</outputFile>
+              </outputFiles>
               <excludes>
                 <exclude>org/apache/myfaces/tobago/internal/taglib/component/*</exclude>
               </excludes>
@@ -181,9 +181,9 @@
                 <id>tobago-doc</id>
                 <goals><goal>execute</goal></goals>
                 <configuration>
-                  <targetFiles>
-                    <targetFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.xml</targetFile>
-                  </targetFiles>
+                  <outputFiles>
+                    <outputFile>org/apache/myfaces/tobago/internal/taglib/extension/tobago-extension.xml</outputFile>
+                  </outputFiles>
                   <outputDirectory>${project.build.directory}/doc</outputDirectory>
                   <factory>org.apache.myfaces.tobago.apt.TobagoAnnotationProcessorFactory</factory>
                   <nocompile>true</nocompile>

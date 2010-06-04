@@ -81,9 +81,9 @@
             <goals><goal>process</goal></goals>
             <phase>generate-resources</phase>
             <configuration>
-              <targetFiles>
-                <targetFile>org/apache/myfaces/tobago/internal/taglib/sandbox/tobago-sandbox.tld</targetFile>
-              </targetFiles>
+              <outputFiles>
+                <outputFile>org/apache/myfaces/tobago/internal/taglib/sandbox/tobago-sandbox.tld</outputFile>
+              </outputFiles>
               <excludes>
                 <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
                 <exclude>org/apache/myfaces/tobago/application/FopConverter.java</exclude>
@@ -136,9 +136,9 @@
             <goals><goal>process</goal></goals>
               <phase>process-classes</phase>
             <configuration>
-              <targetFiles>
-                <targetFile>target/generated-faces-config/faces-config.xml</targetFile>
-              </targetFiles>
+              <outputFiles>
+                <outputFile>target/generated-faces-config/faces-config.xml</outputFile>
+              </outputFiles>
               <excludes>
                 <exclude>org/apache/myfaces/tobago/util/CommonsLoggingLogger.java</exclude>
                 <exclude>org/apache/myfaces/tobago/application/*</exclude>

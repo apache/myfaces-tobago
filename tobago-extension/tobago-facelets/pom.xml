@@ -56,7 +56,7 @@
                 <version>${project.version}</version>
                 <type>jar</type>
                 <classifier>sources</classifier>
-                <includes>org/apache/myfaces/tobago/internal/taglib/declaration/**/*,org/apache/myfaces/tobago/internal/taglib/component/**/*</includes>
+                <includes>org/apache/myfaces/tobago/internal/taglib/declaration/**/*.java,org/apache/myfaces/tobago/internal/taglib/component/**/*.java</includes>
               </artifactItem>
             </artifactItems>
             <outputDirectory>${project.build.directory}/tobago-core-sources</outputDirectory>
@@ -83,9 +83,9 @@
               <additionalSourceRoots>
                 <additionalSourceRoot>${project.build.directory}/tobago-core-sources</additionalSourceRoot>
               </additionalSourceRoots>
-              <targetFiles>
-                <targetFile>tobago.taglib.xml</targetFile>
-              </targetFiles>
+              <outputFiles>
+                <outputFile>tobago.taglib.xml</outputFile>
+              </outputFiles>
               <resourceTargetPath>META-INF</resourceTargetPath>
               <outputDirectory>target/generated-sources</outputDirectory>
               <factory>org.apache.myfaces.tobago.apt.FaceletAnnotationProcessorFactory</factory>
