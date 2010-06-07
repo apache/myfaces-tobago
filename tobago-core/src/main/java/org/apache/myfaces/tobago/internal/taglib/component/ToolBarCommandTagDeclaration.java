@@ -17,8 +17,11 @@ package org.apache.myfaces.tobago.internal.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.ComponentTypes;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasCommandType;
@@ -40,7 +43,15 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutCompone
     uiComponent = "org.apache.myfaces.tobago.component.UIToolBarCommand",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIToolBarCommand",
     rendererType = RendererTypes.BUTTON,
-    allowedChildComponenents = "NONE")
+    allowedChildComponenents = "NONE",
+    facets = {
+        @Facet(name = Facets.CONFIRMATION, description = "Contains a UIOutput instance with the confirmation message.",
+            allowedChildComponenents = ComponentTypes.OUT),
+        @Facet(name = Facets.POPUP, description = "Contains a UIPopup instance.",
+            allowedChildComponenents = "org.apache.myfaces.tobago.Popup"),
+        @Facet(name = Facets.MENUPOPUP, description = "Contains a UIMenu instance, to render a drop down menu.",
+            allowedChildComponenents = "org.apache.myfaces.tobago.Menu")
+    })
 public interface ToolBarCommandTagDeclaration
     extends AbstractCommandTagDeclaration, HasIdBindingAndRendered, HasMarkup,
     HasLabelAndAccessKey, HasImage, IsDisabled, HasCommandType, HasTip, IsGridLayoutComponent {
