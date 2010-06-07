@@ -18,10 +18,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIForm;
@@ -30,6 +26,7 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.context.ResponseWriterDivider;
@@ -45,9 +42,12 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
@@ -301,7 +301,7 @@ public class PageRenderer extends PageRendererBase {
     String clientId = page.getClientId(facesContext);
 
     final boolean calculateScrollbarWeight
-        = client.getVerticalScrollbarWeight() == null || client.getVerticalScrollbarWeight() == null;
+        = client.getVerticalScrollbarWeight() == null || client.getHorizontalScrollbarWeight() == null;
     if (calculateScrollbarWeight) {
       facesContext.getOnloadScripts().add(
           "Tobago.calculateScrollbarWeights('" + clientId + ComponentUtils.SUB_SEPARATOR + "scrollbar-weight" + "');");
