@@ -24,6 +24,8 @@ import javax.faces.context.FacesContext;
 
 public interface LayoutComponentRenderer {
 
+  Measure getCustomMeasure(FacesContext facesContext, Configurable component, String name);
+
   Measure getWidth(FacesContext facesContext, Configurable component);
 
   Measure getHeight(FacesContext facesContext, Configurable component);
@@ -47,4 +49,6 @@ public interface LayoutComponentRenderer {
   Measure getOffsetTop(FacesContext facesContext, Configurable component);
 
   Measure getOffsetBottom(FacesContext facesContext, Configurable component);
+
+  Measure getVerticalScrollbarWeight(FacesContext facesContext, Configurable component);
 }

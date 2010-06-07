@@ -26,6 +26,10 @@ import javax.faces.context.FacesContext;
 public abstract class AbstractLayoutableRendererBaseWrapper extends AbstractRendererBaseWrapper
     implements LayoutComponentRenderer {
 
+  public Measure getCustomMeasure(FacesContext facesContext, Configurable component, String name) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getCustomMeasure(facesContext, component, name);
+  }
+
   public Measure getWidth(FacesContext facesContext, Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getWidth(facesContext, component);
   }
@@ -72,5 +76,9 @@ public abstract class AbstractLayoutableRendererBaseWrapper extends AbstractRend
 
   public Measure getOffsetBottom(FacesContext facesContext, Configurable component) {
     return ((LayoutComponentRenderer) getRenderer(facesContext)).getOffsetBottom(facesContext, component);
+  }
+
+  public Measure getVerticalScrollbarWeight(FacesContext facesContext, Configurable component) {
+    return ((LayoutComponentRenderer) getRenderer(facesContext)).getVerticalScrollbarWeight(facesContext, component);
   }
 }

@@ -20,4 +20,6 @@ package org.apache.myfaces.tobago.internal.component;
 import javax.faces.component.UIColumn;
 
 public abstract class AbstractUIColumn extends UIColumn {
+
+  public abstract String getWidth();
 }

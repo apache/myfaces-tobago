@@ -33,12 +33,12 @@ import org.apache.myfaces.tobago.event.SheetStateChangeListener;
 import org.apache.myfaces.tobago.event.SheetStateChangeSource;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.event.SortActionSource;
-import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.model.SheetState;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,14 +80,16 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
   public static final String NONE = "none";
   public static final String SINGLE = "single";
   public static final String MULTI = "multi";
-  public static final int DEFAULT_DIRECT_LINK_COUNT = 9;
-  public static final int DEFAULT_ROW_COUNT = 100;
 
   private SheetState sheetState;
   private List<Integer> widthList;
   private transient LayoutTokens columnLayout;
 
   private transient int ajaxResponseCode;
+
+  public LayoutComponentRenderer getLayoutComponentRenderer(FacesContext context) {
+    return (LayoutComponentRenderer) getRenderer(context);
+  }
 
   @Override
   public void encodeBegin(FacesContext facesContext) throws IOException {
@@ -525,7 +527,20 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
 
   // LAYOUT Begin
   public List<LayoutComponent> getComponents() {
-    return LayoutUtils.findLayoutChildren(this);
+    List<LayoutComponent> result = new ArrayList<LayoutComponent>();
+    for (UIComponent column : getChildren()) {
+      if (column instanceof AbstractUIColumnSelector) {
+        result.add(null);// XXX UIColumnSelector is currently not an instance of LayoutComponent
+      } else if (column instanceof UIColumn) {
+        for (UIComponent component : column.getChildren()) {
+          if (component instanceof LayoutComponent) {
+            result.add((LayoutComponent) component);
+            break;
+          }
+        }
+      }
+    }
+    return result;
   }
 
   public void onComponentPopulated(FacesContext facesContext, UIComponent parent) {

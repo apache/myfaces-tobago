@@ -1,4 +1,6 @@
-package org.apache.myfaces.tobago.component;
+package org.apache.myfaces.tobago.internal.component;
+
+import javax.faces.component.UIColumn;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,22 +19,5 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.event.SortActionSource;
-import org.apache.myfaces.tobago.event.SortActionSource2;
-
-/**
- * @deprecated Please use UISheet
- */
-public interface UIData extends SortActionSource2, SupportsMarkup, SortActionSource {
-
-  /**
-   * @deprecated
-   */
-  public static final int DEFAULT_DIRECT_LINK_COUNT = 9;
-
-  /**
-   * @deprecated
-   */
-  public static final int DEFAULT_ROW_COUNT = 100;
-
+public abstract class AbstractUIColumnSelector extends UIColumn {
 }

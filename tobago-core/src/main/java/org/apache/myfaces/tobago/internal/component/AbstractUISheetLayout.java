@@ -17,21 +17,36 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.layout.Interval;
 import org.apache.myfaces.tobago.internal.layout.IntervalList;
 import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
+import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
+import org.apache.myfaces.tobago.layout.LayoutToken;
+import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.layout.Orientation;
+import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
+import org.apache.myfaces.tobago.model.SheetState;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
+import org.apache.myfaces.tobago.util.LayoutInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.faces.component.UIColumn;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import java.util.List;
+import java.util.Map;
 
 /**
- * XXX: Not really implemented yet.
- */
+ * XXX: Not completely implemented yet.
+ */ 
 public abstract class AbstractUISheetLayout extends UILayoutBase implements LayoutManager {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUIGridLayout.class);
@@ -49,6 +64,10 @@ public abstract class AbstractUISheetLayout extends UILayoutBase implements Layo
 
   public void fixRelativeInsideAuto(Orientation orientation, boolean auto) {
 
+    if (orientation.equals(Orientation.VERTICAL)) {
+      return; // do not vertical layout yet.
+    }
+
     if (orientation == Orientation.HORIZONTAL) {
       horizontalAuto = auto;
     } else {
@@ -64,18 +83,24 @@ public abstract class AbstractUISheetLayout extends UILayoutBase implements Layo
 
   public void preProcessing(Orientation orientation) {
 
+    if (orientation.equals(Orientation.VERTICAL)) {
+      return; // do not vertical layout yet.
+    }
+
     // process auto tokens
     int i = 0;
     IntervalList intervals = new IntervalList();
     for (LayoutComponent component : getLayoutContainer().getComponents()) {
 
-      if (component instanceof LayoutContainer) {
-        ((LayoutContainer) component).getLayoutManager().preProcessing(orientation);
-      }
+      if (component != null) {
+        if (component instanceof LayoutContainer) {
+          ((LayoutContainer) component).getLayoutManager().preProcessing(orientation);
+        }
 
-      if (orientation == Orientation.HORIZONTAL && horizontalAuto 
-          || orientation == Orientation.VERTICAL && verticalAuto) {
-        intervals.add(new Interval(component, orientation));
+        if (orientation == Orientation.HORIZONTAL && horizontalAuto
+            || orientation == Orientation.VERTICAL && verticalAuto) {
+          intervals.add(new Interval(component, orientation));
+        }
       }
     }
 
@@ -84,11 +109,15 @@ public abstract class AbstractUISheetLayout extends UILayoutBase implements Layo
       Measure size = intervals.getCurrent();
       size = size.add(LayoutUtils.getOffsetBegin(orientation, getLayoutContainer()));
       size = size.add(LayoutUtils.getOffsetEnd(orientation, getLayoutContainer()));
-// todo      LayoutUtils.setSize(orientation, getLayoutContainer(), size);
+      LayoutUtils.setCurrentSize(orientation, getLayoutContainer(), size);
     }
   }
 
   public void mainProcessing(Orientation orientation) {
+
+    if (orientation.equals(Orientation.VERTICAL)) {
+      return; // do not vertical layout yet.
+    }
 
     // find *
     if (orientation == Orientation.HORIZONTAL && !horizontalAuto 
@@ -102,13 +131,16 @@ public abstract class AbstractUISheetLayout extends UILayoutBase implements Layo
 
         for (LayoutComponent component : getLayoutContainer().getComponents()) {
 
-          component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
-// todo          LayoutUtils.setSize(orientation, component, available);
+          if (component != null) {
+            // XXX incorrect
+            component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
+            LayoutUtils.setCurrentSize(orientation, component, available);
 
 
-          // call sub layout manager
-          if (component instanceof LayoutContainer) {
-            ((LayoutContainer) component).getLayoutManager().mainProcessing(orientation);
+            // call sub layout manager
+            if (component instanceof LayoutContainer) {
+              ((LayoutContainer) component).getLayoutManager().mainProcessing(orientation);
+            }
           }
         }
       } else {
@@ -119,26 +151,46 @@ public abstract class AbstractUISheetLayout extends UILayoutBase implements Layo
 
   public void postProcessing(Orientation orientation) {
 
+    if (orientation.equals(Orientation.VERTICAL)) {
+      return; // do not vertical layout yet.
+    }
+
+    final FacesContext facesContext = FacesContext.getCurrentInstance();
+    final AbstractUISheet sheet = (AbstractUISheet) getLayoutContainer();
+    ensureColumnWidthList(facesContext, sheet);
+
+    final List<Integer> widthList = sheet.getWidthList();
+
     // set positions to all sub-layout-managers
 
-    for (LayoutComponent component : getLayoutContainer().getComponents()) {
+    int index = 0;
+    for (LayoutComponent component : sheet.getComponents()) {
 
-      component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
+      if (component != null) {
+        component.setDisplay(Display.BLOCK); // TODO: use CSS via classes and style.css
 
-      // compute the position of the cell
-      Measure position = LayoutUtils.getOffsetBegin(orientation, getLayoutContainer());
-      if (orientation == Orientation.HORIZONTAL) {
-        component.setLeft(position);
-      } else {
-        component.setTop(position);
+        Measure width = Measure.valueOf(widthList.get(index));
+        width = width.subtractNotNegative(LayoutUtils.getOffsetBegin(orientation, sheet));
+        width = width.subtractNotNegative(LayoutUtils.getOffsetEnd(orientation, sheet));
+        component.setCurrentWidth(width);
+
+        // compute the position of the cell
+        Measure position = LayoutUtils.getOffsetBegin(orientation, sheet);
+        if (orientation == Orientation.HORIZONTAL) {
+          component.setLeft(position);
+        } else {
+          component.setTop(position);
+        }
+
+        // call sub layout manager
+        if (component instanceof LayoutContainer) {
+          ((LayoutContainer) component).getLayoutManager().postProcessing(orientation);
+        }
+
+        // todo: optimize: the AutoLayoutTokens with columnSpan=1 are already called
       }
 
-      // call sub layout manager
-      if (component instanceof LayoutContainer) {
-        ((LayoutContainer) component).getLayoutManager().postProcessing(orientation);
-      }
-
-      // todo: optimize: the AutoLayoutTokens with columnSpan=1 are already called
+      index++;
     }
   }
 
@@ -150,5 +202,154 @@ public abstract class AbstractUISheetLayout extends UILayoutBase implements Layo
   @Override
   public boolean getRendersChildren() {
     return false;
+  }
+
+  private void ensureColumnWidthList(FacesContext facesContext, AbstractUISheet data) {
+    List<Integer> currentWidthList = null;
+    List<UIColumn> renderedColumns = data.getRenderedColumns();
+
+    final Map attributes = data.getAttributes();
+    String widthListString = null;
+    SheetState state = data.getSheetState(facesContext);
+    if (state != null) {
+      widthListString = state.getColumnWidths();
+    }
+    if (widthListString == null) {
+      widthListString = (String) attributes.get(Attributes.WIDTH_LIST_STRING);
+    }
+
+    if (widthListString != null) {
+      currentWidthList = StringUtils.parseIntegerList(widthListString);
+    }
+    if (currentWidthList != null && currentWidthList.size() != renderedColumns.size()) {
+      currentWidthList = null;
+    }
+
+    if (currentWidthList == null) {
+      LayoutTokens tokens = data.getColumnLayout();
+      List<UIColumn> allColumns = data.getAllColumns();
+      LayoutTokens newTokens = new LayoutTokens();
+      for (int i = 0; i < allColumns.size(); i++) {
+        UIColumn column = allColumns.get(i);
+        if (column.isRendered()) {
+          if (tokens == null) {
+            if (column instanceof AbstractUIColumn) {
+              newTokens.addToken(LayoutTokens.parseToken(((AbstractUIColumn) column).getWidth()));
+            } else {
+              newTokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
+            }
+          } else {
+            if (i < tokens.getSize()) {
+              newTokens.addToken(tokens.get(i));
+            } else {
+              newTokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
+            }
+          }
+        }
+      }
+
+      Measure space = data.getCurrentWidth();
+      final LayoutComponentRenderer renderer = data.getLayoutComponentRenderer(facesContext);
+      space = space.subtractNotNegative(renderer.getOffsetLeft(facesContext, data));
+      space = space.subtractNotNegative(renderer.getOffsetRight(facesContext, data));
+      if (needVerticalScrollbar(facesContext, data)) {
+        space = space.subtractNotNegative(renderer.getVerticalScrollbarWeight(facesContext, data));
+      }
+/*
+      // todo: not nice: 1 left + 1 right border
+      space = space.subtract(renderedColumns.size() * 2);
+*/
+      LayoutInfo layoutInfo =
+          new LayoutInfo(newTokens.getSize(), space.getPixel(), newTokens, data.getClientId(facesContext), false);
+      parseFixedWidth(layoutInfo, renderedColumns);
+      layoutInfo.parseColumnLayout(space.getPixel());
+      currentWidthList = layoutInfo.getSpaceList();
+    }
+
+    if (currentWidthList != null) {
+      if (renderedColumns.size() != currentWidthList.size()) {
+        LOG.warn("widthList.size() = " + currentWidthList.size()
+            + " != columns.size() = " + renderedColumns.size() + "  widthList : "
+            + LayoutInfo.listToTokenString(currentWidthList));
+      } else {
+        data.setWidthList(currentWidthList);
+      }
+    }
+  }
+
+  private boolean needVerticalScrollbar(FacesContext facesContext, AbstractUISheet sheet) {
+    // estimate need of height-scrollbar on client, if yes we have to consider
+    // this when calculating column width's
+
+    final Object forceScrollbar = sheet.getAttributes().get(Attributes.FORCE_VERTICAL_SCROLLBAR);
+    if (forceScrollbar != null) {
+      if ("true".equals(forceScrollbar)) {
+        return true;
+      } else if ("false".equals(forceScrollbar)) {
+        return false;
+      } else if (!"auto".equals(forceScrollbar)) {
+        LOG.warn("Illegal value for attribute 'forceVerticalScrollbar': '" + forceScrollbar + "'");
+      }
+    }
+
+    if (!sheet.hasRowCount()) {
+      return true;
+    }
+
+    if (sheet.getCurrentHeight() != null) {
+      int first = sheet.getFirst();
+      int rows = sheet.hasRows()
+          ? Math.min(sheet.getRowCount(), first + sheet.getRows()) - first
+          : sheet.getRowCount();
+      final LayoutComponentRenderer renderer = sheet.getLayoutComponentRenderer(facesContext);
+      final Measure rowPadding = renderer.getCustomMeasure(facesContext, sheet, "rowPadding");
+      LOG.error("20; // FIXME: make dynamic (was removed by changing the layout");
+      Measure heightNeeded = getFooterHeight(facesContext, sheet)
+              .add(rowPadding.add(20/*fixme*/).multiply(rows))
+              .add(20); // FIXME: make dynamic (was removed by changing the layouting
+      return heightNeeded.greaterThan(sheet.getCurrentHeight());
+    } else {
+      return false;
+    }
+  }
+
+  private void parseFixedWidth(LayoutInfo layoutInfo, List<UIColumn> rendereredColumns) {
+    LayoutTokens tokens = layoutInfo.getLayoutTokens();
+    for (int i = 0; i < tokens.getSize(); i++) {
+      LayoutToken token = tokens.get(i);
+      if (token instanceof AutoLayoutToken) {
+        int width = 0;
+        if (!rendereredColumns.isEmpty()) {
+          if (i < rendereredColumns.size()) {
+            UIColumn column = rendereredColumns.get(i);
+            if (column instanceof AbstractUIColumnSelector) {
+              width = 20; // FIXME: make dynamic (was removed by changing the layout
+              LOG.error("20; // FIXME: make dynamic (was removed by changing the layout");
+
+            } else {
+              for (UIComponent component : (List<UIComponent>) column.getChildren()) {
+                width += 100; // FIXME: make dynamic (was removed by changing the layout
+                LOG.error("100; // FIXME: make dynamic (was removed by changing the layout");
+              }
+            }
+            layoutInfo.update(width, i);
+          } else {
+            layoutInfo.update(0, i);
+            if (LOG.isWarnEnabled()) {
+              LOG.warn("More LayoutTokens found than rows! skipping!");
+            }
+          }
+        }
+        if (LOG.isDebugEnabled()) {
+          LOG.debug("set column " + i + " from fixed to with " + width);
+        }
+      }
+    }
+  }
+
+  private Measure getFooterHeight(FacesContext facesContext, AbstractUISheet sheet) {
+    return sheet.isPagingVisible()
+        ? sheet.getLayoutComponentRenderer(facesContext).getCustomMeasure(facesContext, sheet, "footerHeight")
+        : Measure.ZERO;
   }
 }

@@ -19,11 +19,17 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 
 import javax.faces.context.FacesContext;
 
 public abstract class LayoutComponentRendererBase extends RendererBase implements LayoutComponentRenderer {
+
+  public Measure getCustomMeasure(FacesContext facesContext, Configurable component, String name) {
+    return getResourceManager().getThemeMeasure(facesContext, component, name);
+  }
 
   public Measure getWidth(FacesContext facesContext, Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.WIDTH);
@@ -71,5 +77,15 @@ public abstract class LayoutComponentRendererBase extends RendererBase implement
 
   public Measure getOffsetBottom(FacesContext facesContext, Configurable component) {
     return getResourceManager().getThemeMeasure(facesContext, component, Attributes.OFFSET_BOTTOM);
+  }
+
+  public Measure getVerticalScrollbarWeight(FacesContext facesContext, Configurable component) {
+    final ClientProperties clientProperties = VariableResolverUtils.resolveClientProperties(facesContext);
+    final Measure weight = clientProperties.getVerticalScrollbarWeight();
+    if (weight != null) {
+      return weight;
+    } else { // default
+      return getResourceManager().getThemeMeasure(facesContext, component, "verticalScrollbarWeight");
+    }
   }
 }

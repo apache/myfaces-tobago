@@ -25,6 +25,7 @@ public final class ComponentTypes {
   // TODO: make a complete list.
 
   public static final String COLUMN = "org.apache.myfaces.tobago.Column";
+  public static final String COLUMN_SELECTOR = "org.apache.myfaces.tobago.ColumnSelector";
   public static final String GRID_LAYOUT = "org.apache.myfaces.tobago.GridLayout";
   public static final String OUT = "org.apache.myfaces.tobago.Out";
   public static final String SELECT_BOOLEAN_CHECKBOX = "org.apache.myfaces.tobago.SelectBooleanCheckbox";

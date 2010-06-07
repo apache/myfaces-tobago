@@ -28,19 +28,14 @@ import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UISheet;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.PageAction;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
-import org.apache.myfaces.tobago.layout.AutoLayoutToken;
 import org.apache.myfaces.tobago.layout.LayoutBase;
-import org.apache.myfaces.tobago.layout.LayoutToken;
-import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.layout.Measure;
-import org.apache.myfaces.tobago.layout.RelativeLayoutToken;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Position;
@@ -52,8 +47,6 @@ import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.LayoutInfo;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,8 +89,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     UISheet sheet = (UISheet) uiComponent;
 
     Style style = new Style(facesContext, sheet);
-
-    ensureColumnWidthList(facesContext, sheet, style);
 
     final String sheetId = sheet.getClientId(facesContext);
 
@@ -581,26 +572,13 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           ? Math.min(sheet.getRowCount(), first + sheet.getRows()) - first
           : sheet.getRowCount();
       LOG.error("20; // FIXME: make dynamic (was removed by changing the layout");
+      final Measure rowPadding = getCustomMeasure(facesContext, sheet, "rowPadding");
       Measure heightNeeded = getFooterHeight(facesContext, sheet)
-              .add(getRowPadding(facesContext, sheet).add(20/*fixme*/).multiply(rows))
+              .add(rowPadding.add(20/*fixme*/).multiply(rows))
               .add(20); // FIXME: make dynamic (was removed by changing the layouting
       return heightNeeded.greaterThan(style.getHeight());
     } else {
       return false;
-    }
-  }
-
-  private Measure getRowPadding(FacesContext facesContext, UISheet data) {
-    return getResourceManager().getThemeMeasure(facesContext, data, "rowPadding");
-  }
-
-  private Measure getVerticalScrollbarWeight(FacesContext facesContext, UISheet data) {
-    final ClientProperties clientProperties = VariableResolverUtils.resolveClientProperties(facesContext);
-    final Measure weight = clientProperties.getVerticalScrollbarWeight();
-    if (weight != null) {
-      return weight;
-    } else { // default
-      return getResourceManager().getThemeMeasure(facesContext, data, "verticalScrollbarWeight");
     }
   }
 
@@ -981,112 +959,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
   @Override
   public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
     // DO Nothing
-  }
-
-  private void ensureColumnWidthList(FacesContext facesContext, UISheet data, Style style) {
-    List<Integer> currentWidthList = null;
-    List<UIColumn> rendererdColumns = data.getRenderedColumns();
-
-    final Map attributes = data.getAttributes();
-    String widthListString = null;
-    SheetState state = data.getSheetState(facesContext);
-    if (state != null) {
-      widthListString = state.getColumnWidths();
-    }
-    if (widthListString == null) {
-      widthListString = (String) attributes.get(Attributes.WIDTH_LIST_STRING);
-    }
-
-    if (widthListString != null) {
-      currentWidthList = StringUtils.parseIntegerList(widthListString);
-    }
-    if (currentWidthList != null && currentWidthList.size() != rendererdColumns.size()) {
-      currentWidthList = null;
-    }
-
-    if (currentWidthList == null) {
-      LayoutTokens tokens = data.getColumnLayout();
-      List<UIColumn> allColumns = data.getAllColumns();
-      LayoutTokens newTokens = new LayoutTokens();
-      for (int i = 0; i < allColumns.size(); i++) {
-        UIColumn column = allColumns.get(i);
-        if (column.isRendered()) {
-          if (tokens == null) {
-            if (column instanceof org.apache.myfaces.tobago.component.UIColumn) {
-              newTokens.addToken(
-                  LayoutTokens.parseToken(((org.apache.myfaces.tobago.component.UIColumn) column).getWidth()));
-            } else {
-              newTokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
-            }
-          } else {
-            if (i < tokens.getSize()) {
-              newTokens.addToken(tokens.get(i));
-            } else {
-              newTokens.addToken(RelativeLayoutToken.DEFAULT_INSTANCE);
-            }
-          }
-        }
-      }
-
-      Measure space = data.getCurrentWidth();
-      space = space.subtractNotNegative(getContentBorder(facesContext, data));
-      if (needVerticalScrollbar(facesContext, data, style)) {
-        space = space.subtractNotNegative(getVerticalScrollbarWeight(facesContext, data));
-      }
-/*
-      // todo: not nice: 1 left + 1 right border
-      space = space.subtract(rendererdColumns.size() * 2);
-*/
-      LayoutInfo layoutInfo =
-          new LayoutInfo(newTokens.getSize(), space.getPixel(), newTokens, data.getClientId(facesContext), false);
-      parseFixedWidth(facesContext, layoutInfo, rendererdColumns);
-      layoutInfo.parseColumnLayout(space.getPixel());
-      currentWidthList = layoutInfo.getSpaceList();
-    }
-
-    if (currentWidthList != null) {
-      if (rendererdColumns.size() != currentWidthList.size()) {
-        LOG.warn("widthList.size() = " + currentWidthList.size()
-            + " != columns.size() = " + rendererdColumns.size() + "  widthList : "
-            + LayoutInfo.listToTokenString(currentWidthList));
-      } else {
-        data.setWidthList(currentWidthList);
-      }
-    }
-  }
-
-  private void parseFixedWidth(FacesContext facesContext, LayoutInfo layoutInfo, List<UIColumn> rendereredColumns) {
-    LayoutTokens tokens = layoutInfo.getLayoutTokens();
-    for (int i = 0; i < tokens.getSize(); i++) {
-      LayoutToken token = tokens.get(i);
-      if (token instanceof AutoLayoutToken) {
-        int width = 0;
-        if (!rendereredColumns.isEmpty()) {
-          if (i < rendereredColumns.size()) {
-            UIColumn column = rendereredColumns.get(i);
-            if (column instanceof UIColumnSelector) {
-              width = 20; // FIXME: make dynamic (was removed by changing the layout
-              LOG.error("20; // FIXME: make dynamic (was removed by changing the layout");
-
-            } else {
-              for (UIComponent component : (List<UIComponent>) column.getChildren()) {
-                width += 100; // FIXME: make dynamic (was removed by changing the layout
-                LOG.error("100; // FIXME: make dynamic (was removed by changing the layout");
-              }
-            }
-            layoutInfo.update(width, i);
-          } else {
-            layoutInfo.update(0, i);
-            if (LOG.isWarnEnabled()) {
-              LOG.warn("More LayoutTokens found than rows! skipping!");
-            }
-          }
-        }
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("set column " + i + " from fixed to with " + width);
-        }
-      }
-    }
   }
 
   @Override
