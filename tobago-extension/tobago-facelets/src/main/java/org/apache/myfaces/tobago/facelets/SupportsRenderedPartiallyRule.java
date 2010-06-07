@@ -31,6 +31,7 @@ import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 
 public class SupportsRenderedPartiallyRule extends MetaRule {
+
   public static final SupportsRenderedPartiallyRule INSTANCE = new SupportsRenderedPartiallyRule();
 
   public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget metadataTarget) {

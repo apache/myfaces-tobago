@@ -31,10 +31,10 @@ import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 
 public class SupportsMarkupRule extends MetaRule {
+
   public static final SupportsMarkupRule INSTANCE = new SupportsMarkupRule();
 
-  public Metadata applyRule(String name, TagAttribute attribute,
-      MetadataTarget metadataTarget) {
+  public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget metadataTarget) {
     if (metadataTarget.isTargetInstanceOf(SupportsMarkup.class)) {
       if (Attributes.MARKUP.equals(name)) {
         return new SupportsMarkupMapper(attribute);
