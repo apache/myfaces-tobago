@@ -20,6 +20,8 @@ package org.apache.myfaces.tobago.util;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.internal.layout.LayoutContext;
+import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.renderkit.RendererBase;
 
 import javax.faces.FacesException;
@@ -42,6 +44,9 @@ public class EncodeAjaxCallback implements TobagoCallback {
              return;
            }
          }
+      }
+      if (component instanceof LayoutContainer) {
+        new LayoutContext((LayoutContainer) component).layout();
       }
       prepareRendererAll(facesContext, component);
       encodeAll(facesContext, component);
