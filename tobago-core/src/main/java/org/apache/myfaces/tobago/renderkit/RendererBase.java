@@ -17,12 +17,12 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
@@ -42,17 +42,9 @@ public class RendererBase extends Renderer {
 
   private ResourceManager resourceManager;
 
-  @Override
-  public void decode(FacesContext facesContext, UIComponent component) {
-    // nothing to do
-
-    // FIXME later:
-    if (component instanceof UIInput) {
-      LOG.warn("decode() should be overwritten! Renderer: "
-          + this.getClass().getName());
-    }
-  }
-
+  /**
+   * Hook to e. g. register resources, etc.
+   */
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
     final String rendererType = component.getRendererType();
     if (rendererType != null) {
