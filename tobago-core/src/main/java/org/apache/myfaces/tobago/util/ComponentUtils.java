@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TransientStateHolder;
 import org.apache.myfaces.tobago.el.ConstantMethodBinding;
-import org.apache.myfaces.tobago.event.PopupActionListener;
+import org.apache.myfaces.tobago.event.AbstractPopupActionListener;
 import org.apache.myfaces.tobago.internal.component.AbstractUIForm;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPopup;
@@ -99,7 +99,7 @@ public class ComponentUtils {
   public static boolean containsPopupActionListener(UICommand command) {
     ActionListener[] actionListeners = command.getActionListeners();
     for (ActionListener actionListener : actionListeners) {
-      if (actionListener instanceof PopupActionListener) {
+      if (actionListener instanceof AbstractPopupActionListener) {
         return true;
       }
     }
