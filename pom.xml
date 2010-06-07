@@ -822,14 +822,22 @@
           <version>1.0-alpha-3</version>
           <configuration>
             <excludes>
+              <!-- library config -->
               <exclude>**/javax.faces.lifecycle.LifecycleFactory</exclude>
+
+              <!-- jQuery -->
+              <exclude>**/script/jquery/*/*.js</exclude>
+              <exclude>**/script/jquery-ui/*/*.js</exclude>
+
+              <!-- text and logfiles -->
               <exclude>**/*.log</exclude>
               <exclude>**/*.txt</exclude>
+
+              <!-- maven exclude -->
               <exclude>**/target/**/*</exclude>
+
+              <!-- idea exclude -->
               <exclude>**/*.iml</exclude>
-              <exclude>**/blank.html</exclude>
-              <exclude>${basedir}/example/**/*</exclude>
-              <exclude>release.properties</exclude>
               <exclude>${basedir}/*.iml</exclude>
               <exclude>${basedir}/*.ipr</exclude>
               <exclude>${basedir}/*.iws</exclude>
