@@ -239,8 +239,6 @@ public class PageRenderer extends PageRendererBase {
     // jquery.js and tobago.js needs to be first!
 
     int pos = 0;
-//    scriptFiles.add(pos++, debugMode ? "script/jquery/1_3_2/jquery.js" : "script/jquery/1_3_2/jquery.min.js");
-//    scriptFiles.add(pos++, debugMode ? "script/jquery/1_4_1/jquery.js" : "script/jquery/1_4_1/jquery.min.js");
     scriptFiles.add(pos++, debugMode ? "script/jquery/1_4_2/jquery.js" : "script/jquery/1_4_2/jquery.min.js");
     scriptFiles.add(pos++, "script/tobago.js");
     scriptFiles.add(pos++, "script/tobago-menu.js");
