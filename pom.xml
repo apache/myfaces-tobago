@@ -822,7 +822,7 @@
           <version>1.0-alpha-3</version>
           <configuration>
             <excludes>
-              <!-- library config -->
+              <!-- factory config -->
               <exclude>**/javax.faces.lifecycle.LifecycleFactory</exclude>
 
               <!-- jQuery -->
