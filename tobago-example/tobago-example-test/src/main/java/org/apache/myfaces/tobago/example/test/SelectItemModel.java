@@ -18,19 +18,10 @@ package org.apache.myfaces.tobago.example.test;
  */
 
 import org.apache.myfaces.tobago.model.SelectItem;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import javax.faces.context.FacesContext;
-import java.io.IOException;
-import java.net.URL;
 import java.util.Currency;
-import java.util.Enumeration;
 
 public class SelectItemModel {
-
-
-  private static final Logger LOG = LoggerFactory.getLogger(SelectItemModel.class);
 
   private int number = 3;
 
@@ -48,19 +39,6 @@ public class SelectItemModel {
         new SelectItem(Currency.getInstance("USD")),
         new SelectItem(Currency.getInstance("EUR")),
     };
-
-    final FacesContext facesContext = FacesContext.getCurrentInstance();
-
-    Enumeration<URL> resource = null;
-    try {
-      resource = /*facesContext.getExternalContext().getContext().*/getClass().getClassLoader().getResources("META-INF/faces-config.xml");
-    } catch (IOException e) {
-      LOG.error("XXX", e);
-    }
-    while (resource.hasMoreElements()) {
-      URL url = resource.nextElement();
-      LOG.error("XXX url='" + url + "'");
-    }
   }
 
   public SelectItem[] getAvailableCurrencies() {
