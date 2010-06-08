@@ -27,10 +27,15 @@ public final class Facets {
   public static final String COMPLETE = "complete";
   public static final String CONFIRMATION = "confirmation";
   public static final String CONSTRAINTS = "constraints";
+  public static final String DROP_DOWN_MENU = "dropDownMenu";
   public static final String LABEL = "label";
   public static final String LAYOUT = "layout";
   public static final String LAYOUT_DEFAULT = "layoutDefault";
   public static final String MENUBAR = "menuBar";
+  /**
+   * @deprecated since 1.5.0. Please use {@link #DROP_DOWN_MENU}
+   */
+  @Deprecated
   public static final String MENUPOPUP = "menupopup";
   public static final String PAGER_PAGE = "pagerPage";
   public static final String PAGER_ROW = "pagerRow";

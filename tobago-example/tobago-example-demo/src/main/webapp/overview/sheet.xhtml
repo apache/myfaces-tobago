@@ -148,6 +148,10 @@
         <tc:out value="#{luminary.number}" id="t_number"/>
       </tc:column>
       <tc:column label="#{overviewBundle.solarArrayOrbit}" sortable="true" id="orbit">
+        <f:facet name="dropDownMenu">
+          <tc:menuCommand onclick="alert('Not implemented yet!')">
+          </tc:menuCommand>
+        </f:facet>
         <tc:panel>
           <f:facet name="click">
             <tc:command actionListener="#{demo.selectOrbit}" >

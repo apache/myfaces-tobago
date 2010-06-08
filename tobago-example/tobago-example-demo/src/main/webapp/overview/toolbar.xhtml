@@ -73,7 +73,7 @@
 
         <tc:toolBarCommand id="DropDown"
                            label="#{overviewBundle.toolbar_dropDownAction}">
-          <f:facet name="menupopup">
+          <f:facet name="dropDownMenu">
             <tc:menu>
               <tc:menuCommand onclick="alert('test 1')" label="Alert 1"/>
               <tc:menuCommand onclick="alert('test 2')" label="Alert 2"/>
@@ -125,7 +125,7 @@
         <tc:toolBarCommand id="DropDown2" action="overview/toolbar"
                            actionListener="#{overviewController.click}"
                            label="#{overviewBundle.toolbar_dropDownAction}">
-          <f:facet name="menupopup">
+          <f:facet name="dropDownMenu">
             <tc:menu>
               <tc:menuCommand onclick="alert('test 1')" label="Alert 1"/>
               <tc:menuCommand onclick="alert('test 2')" label="Alert 2"/>

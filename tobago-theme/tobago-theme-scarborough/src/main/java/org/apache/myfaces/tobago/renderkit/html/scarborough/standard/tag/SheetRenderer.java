@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.PageAction;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -702,6 +703,13 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       tip = "";
     }
 
+    final UIComponent dropDownMenu = getDropDownMenuFacet(column);
+    if (dropDownMenu != null) {
+      LOG.error("Drop down menu is not implemented in sheets yet!");
+      // Todo: implement it!
+      // Todo: change description in ColumnTagDeclaration after implementing it.
+    }
+
     // sorting
 
     String sorterImage = null;
@@ -801,7 +809,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       UIMenu menu = (UIMenu) CreateComponentUtils.createComponent(
           facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU, "selectorMenu");
       menu.setTransient(true);
-      column.getFacets().put(Facets.MENUPOPUP, menu);
+      column.getFacets().put(Facets.DROP_DOWN_MENU, menu);
       menu.setImage("image/sheetSelectorMenu.gif");
       menu.setLabel("vv"); //todo remove this after fixing the image above
 
@@ -949,6 +957,19 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.flush();
     writer.write(str);
     writer.endElement(type);
+  }
+
+  private UIComponent getDropDownMenuFacet(UIColumn command) {
+    UIComponent result = command.getFacet(Facets.DROP_DOWN_MENU);
+    if (result == null) {
+      result = command.getFacet(Facets.MENUPOPUP);
+      if (result != null) {
+        if (Deprecation.LOG.isWarnEnabled()) {
+          Deprecation.LOG.warn("Facet 'menupopup' was deprecated, please rename to 'dropDownMenu'");
+        }
+      }
+    }
+    return result;
   }
 
   private Measure getContentBorder(FacesContext facesContext, UISheet data) {

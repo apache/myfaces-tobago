@@ -466,7 +466,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
         facesContext, UICommand.COMPONENT_TYPE, null, "all");
     UIMenu menu = (UIMenu) CreateComponentUtils.createComponent(
         facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU, "menu");
-    all.getFacets().put(Facets.MENUPOPUP, menu);
+    all.getFacets().put(Facets.DROP_DOWN_MENU, menu);
     int index = 0;
     for (UIComponent child : (List<UIComponent>) tabGroup.getChildren()) {
       if (child instanceof UITab) {

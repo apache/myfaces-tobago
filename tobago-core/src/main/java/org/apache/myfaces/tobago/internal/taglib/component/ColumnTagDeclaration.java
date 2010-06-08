@@ -17,11 +17,13 @@ package org.apache.myfaces.tobago.internal.taglib.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentTypes;
+import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
@@ -35,8 +37,14 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UIColumn",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIColumn",
-    componentType = ComponentTypes.COLUMN)
-//rendererType = "Column")
+    componentType = ComponentTypes.COLUMN,
+    facets = {
+        @Facet(name = Facets.MENUPOPUP, description = "Deprecated. Please use dropDownMenu facet.",
+            allowedChildComponenents = "org.apache.myfaces.tobago.Menu"),
+        @Facet(name = Facets.DROP_DOWN_MENU, description = "Contains a UIMenu instance to render a drop down menu."
+            + " (not implemented yet, work in progress)", // XXX
+            allowedChildComponenents = "org.apache.myfaces.tobago.Menu")
+    })
 public interface ColumnTagDeclaration extends HasIdBindingAndRendered, HasLabel, HasTip, HasMarkup {
   /**
    * Alignment of this column.

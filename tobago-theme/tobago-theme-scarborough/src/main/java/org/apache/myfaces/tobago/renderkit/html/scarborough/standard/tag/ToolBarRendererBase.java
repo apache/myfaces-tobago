@@ -31,6 +31,7 @@ import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.UICommandBase;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -216,7 +217,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     final String clientId = command.getClientId(facesContext);
     final boolean disabled = ComponentUtils.getBooleanAttribute(command, Attributes.DISABLED);
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
-    final UIComponent popupMenu = command.getFacet(Facets.MENUPOPUP);
+    final UIComponent dropDownMenu = getDropDownMenuFacet(command);
     final ResourceManager resources = getResourceManager();
 
     final String labelPosition = getLabelPosition(command.getParent());
@@ -232,7 +233,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     final boolean showLabelRight = UIToolBar.LABEL_RIGHT.equals(labelPosition);
     final boolean showLabel = showLabelBottom || showLabelRight;
     // two separate buttons for the command and the sub menu
-    final boolean separateButtons = hasAnyCommand(command) && popupMenu != null;
+    final boolean separateButtons = hasAnyCommand(command) && dropDownMenu != null;
 
     final Measure paddingTop = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-top");
     final Measure paddingMiddle = resources.getThemeMeasure(facesContext, toolBar, "custom.padding-middle");
@@ -336,11 +337,11 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     if (isRightAligned(toolBar)) { // overrides the default in the CSS file.
       itemStyle.setLeft(resources.getThemeMeasure(facesContext, toolBar, "css.border-right-width"));
     }
-    itemStyle.setWidth(popupMenu != null ? buttonStyle.getWidth().add(menuStyle.getWidth()) : buttonStyle.getWidth());
+    itemStyle.setWidth(dropDownMenu != null ? buttonStyle.getWidth().add(menuStyle.getWidth()) : buttonStyle.getWidth());
     itemStyle.setHeight(buttonStyle.getHeight());
 
     // change values when only have one button
-    if (popupMenu != null && !separateButtons && (!lackImage || StringUtils.isNotBlank(label.getText()))) {
+    if (dropDownMenu != null && !separateButtons && (!lackImage || StringUtils.isNotBlank(label.getText()))) {
       openerStyle.setLeft(openerStyle.getLeft().add(buttonStyle.getWidth()));
       buttonStyle.setWidth(buttonStyle.getWidth().add(menuStyle.getWidth()));
     }
@@ -399,19 +400,32 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     }
 
     // render sub menu popup button
-    if (popupMenu != null) {
+    if (dropDownMenu != null) {
       writer.startElement(HtmlConstants.IMG, command);
       String menuImage = ResourceManagerUtils.getImageWithPath(facesContext, "image/toolbarButtonMenu.gif");
       writer.writeAttribute(HtmlAttributes.SRC, menuImage, false);
       writer.writeStyleAttribute(openerStyle);
       writer.endElement(HtmlConstants.IMG);
-      renderPopup(facesContext, writer, popupMenu);
+      renderPopup(facesContext, writer, dropDownMenu);
     }
     writer.endElement(HtmlConstants.SPAN);
     writer.endElement(HtmlConstants.SPAN);
 
     return width.add(itemStyle.getWidth()).add(2); // XXX
     // computation of the width of the toolBar will not be used in the moment.
+  }
+
+  private UIComponent getDropDownMenuFacet(UICommandBase command) {
+    UIComponent result = command.getFacet(Facets.DROP_DOWN_MENU);
+    if (result == null) {
+      result = command.getFacet(Facets.MENUPOPUP);
+      if (result != null) {
+        if (Deprecation.LOG.isWarnEnabled()) {
+          Deprecation.LOG.warn("Facet 'menupopup' was deprecated, please rename to 'dropDownMenu'");
+        }
+      }
+    }
+    return result;
   }
 
   private Measure renderSeparator(
@@ -480,7 +494,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   }
 
   private String createCommandOnClick(FacesContext facesContext, UICommandBase command) {
-    if (hasNoCommand(command) && command.getFacet(Facets.MENUPOPUP) != null) {
+    if (hasNoCommand(command) && getDropDownMenuFacet(command) != null) {
       return null;
     } else {
       CommandRendererHelper helper = new CommandRendererHelper(facesContext, command);
@@ -501,7 +515,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   }
 
   private String createMenuOnClick(UICommandBase command) {
-    if (command.getFacet(Facets.MENUPOPUP) != null) {
+    if (getDropDownMenuFacet(command) != null) {
       return "jQuery(this).find('a').click();event.stopPropagation();";
     } else {
       return null;

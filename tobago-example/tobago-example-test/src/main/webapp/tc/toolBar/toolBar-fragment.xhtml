@@ -32,7 +32,7 @@
                      tip="link to an external url"/>
   <tc:toolBarCommand label="popup" image="pidgeon-point.jpg"
       tip="a sub menu without any explicit action">
-    <f:facet name="menupopup">
+    <f:facet name="dropDownMenu">
       <tc:menu>
         <tc:menuCommand onclick="alert('Menu 1')" label="Menu 1"/>
         <tc:menuCommand onclick="alert('Menu 2')" label="Menu 2"/>
@@ -41,7 +41,7 @@
   </tc:toolBarCommand>
   <tc:toolBarCommand label="command" image="pidgeon-point.jpg" onclick="alert('Clicked 1!')"
       tip="a command (JavaScript) with a separate sub menu (2 click fields)">
-    <f:facet name="menupopup">
+    <f:facet name="dropDownMenu">
       <tc:menu>
         <tc:menuCommand onclick="alert('Menu 1')" label="Menu 1"/>
         <tc:menuCommand onclick="alert('Menu 2')" label="Menu 2"/>
