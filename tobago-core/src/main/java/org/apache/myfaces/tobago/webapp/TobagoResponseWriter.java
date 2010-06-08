@@ -181,7 +181,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
   }
 
   /**
-   * Writes a propery as text. The text will be escaped.
+   * Writes a property as text. The text will be escaped.
    */
   public void writeTextFromComponent(String property) throws IOException {
     writeText(null, property);
