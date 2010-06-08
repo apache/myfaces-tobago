@@ -48,6 +48,7 @@ import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.JQueryUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.FacetUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -466,7 +467,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
         facesContext, UICommand.COMPONENT_TYPE, null, "all");
     UIMenu menu = (UIMenu) CreateComponentUtils.createComponent(
         facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU, "menu");
-    all.getFacets().put(Facets.DROP_DOWN_MENU, menu);
+    FacetUtils.setDropDownMenu(all, menu);
     int index = 0;
     for (UIComponent child : (List<UIComponent>) tabGroup.getChildren()) {
       if (child instanceof UITab) {

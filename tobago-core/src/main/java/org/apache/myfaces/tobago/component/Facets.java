@@ -27,6 +27,7 @@ public final class Facets {
   public static final String COMPLETE = "complete";
   public static final String CONFIRMATION = "confirmation";
   public static final String CONSTRAINTS = "constraints";
+  public static final String CONTEXT_MENU = "contextMenu";
   public static final String DROP_DOWN_MENU = "dropDownMenu";
   public static final String LABEL = "label";
   public static final String LAYOUT = "layout";

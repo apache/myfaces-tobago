@@ -46,7 +46,7 @@
         <tc:button action="#{clientConfig.submit}" label="OK"/>
       </tc:panel>
 
-      <tc:tree>
+      <tc:tree showJunctions="true">
         <tc:treeData value="#{browser.tree}" var="node">
           <tc:treeNode link="#{node.resource}" label="#{node.label}" target="page:content"/>
         </tc:treeData>

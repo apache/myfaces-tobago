@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIReload;
@@ -32,6 +30,8 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -83,6 +83,9 @@ public class PanelRenderer extends LayoutComponentRendererBase {
     if (panel instanceof UIPanel && ((UIPanel) panel).getTip() != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, ((UIPanel) panel).getTip(), true);
     }
+
+    HtmlRendererUtils.encodeContextMenu(facesContext, writer, panel);
+
     // TODO check ajax id
     if (facesContext instanceof TobagoFacesContext && !((TobagoFacesContext) facesContext).isAjax()) {
       Integer frequency = null;
@@ -99,7 +102,7 @@ public class PanelRenderer extends LayoutComponentRendererBase {
       };
       HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
     }
-    HtmlRendererUtils.checkForCommandFacet(component, facesContext, writer);
+    HtmlRendererUtils.checkForCommandFacet(panel, facesContext, writer);
   }
 
   @Override

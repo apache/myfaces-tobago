@@ -35,6 +35,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.FacetUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -686,4 +687,16 @@ public final class HtmlRendererUtils {
       }
     }
   }
+
+  public static void encodeContextMenu(FacesContext facesContext, TobagoResponseWriter writer, UIComponent parent)
+      throws IOException {
+    final UIComponent contextMenu = FacetUtils.getContextMenu(parent);
+    if (contextMenu != null) {
+      writer.startElement(HtmlConstants.OL, contextMenu);
+      writer.writeClassAttribute("tobago-menuBar tobago-menu-contextMenu");
+      RenderUtils.encode(facesContext, contextMenu);
+      writer.endElement(HtmlConstants.OL);
+    }
+  }
+
 }

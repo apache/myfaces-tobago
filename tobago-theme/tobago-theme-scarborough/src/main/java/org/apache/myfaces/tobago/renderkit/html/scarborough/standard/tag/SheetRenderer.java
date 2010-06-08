@@ -33,7 +33,6 @@ import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.PageAction;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
 import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.layout.Measure;
@@ -48,6 +47,7 @@ import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.FacetUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -703,7 +703,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       tip = "";
     }
 
-    final UIComponent dropDownMenu = getDropDownMenuFacet(column);
+    final UIComponent dropDownMenu = FacetUtils.getDropDownMenu(column);
     if (dropDownMenu != null) {
       LOG.error("Drop down menu is not implemented in sheets yet!");
       // Todo: implement it!
@@ -809,7 +809,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       UIMenu menu = (UIMenu) CreateComponentUtils.createComponent(
           facesContext, UIMenu.COMPONENT_TYPE, RendererTypes.MENU, "selectorMenu");
       menu.setTransient(true);
-      column.getFacets().put(Facets.DROP_DOWN_MENU, menu);
+      FacetUtils.setDropDownMenu(column, menu);
       menu.setImage("image/sheetSelectorMenu.gif");
       menu.setLabel("vv"); //todo remove this after fixing the image above
 
@@ -957,19 +957,6 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.flush();
     writer.write(str);
     writer.endElement(type);
-  }
-
-  private UIComponent getDropDownMenuFacet(UIColumn command) {
-    UIComponent result = command.getFacet(Facets.DROP_DOWN_MENU);
-    if (result == null) {
-      result = command.getFacet(Facets.MENUPOPUP);
-      if (result != null) {
-        if (Deprecation.LOG.isWarnEnabled()) {
-          Deprecation.LOG.warn("Facet 'menupopup' was deprecated, please rename to 'dropDownMenu'");
-        }
-      }
-    }
-    return result;
   }
 
   private Measure getContentBorder(FacesContext facesContext, UISheet data) {

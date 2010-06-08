@@ -391,6 +391,14 @@ li.tobago-menu-selected {
   border-style: solid;
 }
 
+.tobago-menu-contextMenu, .tobago-menu-dropDownMenu {
+  display: inline;
+  width: 0;
+  height: 0;
+  position: absolute;
+  visibility: hidden;
+}
+
 /* workaround for IE6 */
 iframe.tobago-menu-ie6bugfix {
   position: absolute;

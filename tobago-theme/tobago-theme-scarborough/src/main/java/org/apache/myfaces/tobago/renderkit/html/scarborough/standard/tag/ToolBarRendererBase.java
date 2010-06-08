@@ -30,8 +30,8 @@ import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUIMenu;
 import org.apache.myfaces.tobago.internal.component.UICommandBase;
-import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -42,6 +42,7 @@ import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.FacetUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -217,7 +218,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     final String clientId = command.getClientId(facesContext);
     final boolean disabled = ComponentUtils.getBooleanAttribute(command, Attributes.DISABLED);
     final LabelWithAccessKey label = new LabelWithAccessKey(command);
-    final UIComponent dropDownMenu = getDropDownMenuFacet(command);
+    final AbstractUIMenu dropDownMenu = FacetUtils.getDropDownMenu(command);
     final ResourceManager resources = getResourceManager();
 
     final String labelPosition = getLabelPosition(command.getParent());
@@ -406,26 +407,13 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       writer.writeAttribute(HtmlAttributes.SRC, menuImage, false);
       writer.writeStyleAttribute(openerStyle);
       writer.endElement(HtmlConstants.IMG);
-      renderPopup(facesContext, writer, dropDownMenu);
+      renderDropDownMenu(facesContext, writer, dropDownMenu);
     }
     writer.endElement(HtmlConstants.SPAN);
     writer.endElement(HtmlConstants.SPAN);
 
     return width.add(itemStyle.getWidth()).add(2); // XXX
     // computation of the width of the toolBar will not be used in the moment.
-  }
-
-  private UIComponent getDropDownMenuFacet(UICommandBase command) {
-    UIComponent result = command.getFacet(Facets.DROP_DOWN_MENU);
-    if (result == null) {
-      result = command.getFacet(Facets.MENUPOPUP);
-      if (result != null) {
-        if (Deprecation.LOG.isWarnEnabled()) {
-          Deprecation.LOG.warn("Facet 'menupopup' was deprecated, please rename to 'dropDownMenu'");
-        }
-      }
-    }
-    return result;
   }
 
   private Measure renderSeparator(
@@ -494,7 +482,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   }
 
   private String createCommandOnClick(FacesContext facesContext, UICommandBase command) {
-    if (hasNoCommand(command) && getDropDownMenuFacet(command) != null) {
+    if (hasNoCommand(command) && FacetUtils.getDropDownMenu(command) != null) {
       return null;
     } else {
       CommandRendererHelper helper = new CommandRendererHelper(facesContext, command);
@@ -515,7 +503,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   }
 
   private String createMenuOnClick(UICommandBase command) {
-    if (getDropDownMenuFacet(command) != null) {
+    if (FacetUtils.getDropDownMenu(command) != null) {
       return "jQuery(this).find('a').click();event.stopPropagation();";
     } else {
       return null;
@@ -567,13 +555,11 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     return facesContext.getExternalContext().getRequestContextPath() + image;
   }
 
-  private void renderPopup(FacesContext facesContext, TobagoResponseWriter writer, UIComponent popupMenu)
+  private void renderDropDownMenu(FacesContext facesContext, TobagoResponseWriter writer, AbstractUIMenu dropDownMenu)
       throws IOException {
-    writer.startElement(HtmlConstants.OL, popupMenu);
-    writer.writeClassAttribute("tobago-menuBar");
-      // TODO: use a different style class
-    writer.writeStyleAttribute("display:inline;width:0;height:0;position:absolute;visibility:hidden;");
-    RenderUtils.encode(facesContext, popupMenu);
+    writer.startElement(HtmlConstants.OL, dropDownMenu);
+    writer.writeClassAttribute("tobago-menuBar tobago-menu-dropDownMenu");
+    RenderUtils.encode(facesContext, dropDownMenu);
     writer.endElement(HtmlConstants.OL);
   }
 
