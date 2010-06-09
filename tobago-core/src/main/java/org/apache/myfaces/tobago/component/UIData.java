@@ -25,14 +25,16 @@ import org.apache.myfaces.tobago.event.SortActionSource2;
  */
 public interface UIData extends SortActionSource2, SupportsMarkup, SortActionSource {
 
-  /**
-   * @deprecated
-   */
-  public static final int DEFAULT_DIRECT_LINK_COUNT = 9;
+  int getRowIndex();
 
   /**
    * @deprecated
    */
-  public static final int DEFAULT_ROW_COUNT = 100;
+  int DEFAULT_DIRECT_LINK_COUNT = 9;
+
+  /**
+   * @deprecated
+   */
+  int DEFAULT_ROW_COUNT = 100;
 
 }

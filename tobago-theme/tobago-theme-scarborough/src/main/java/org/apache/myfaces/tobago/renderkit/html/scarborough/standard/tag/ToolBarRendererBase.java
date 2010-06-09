@@ -338,7 +338,8 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     if (isRightAligned(toolBar)) { // overrides the default in the CSS file.
       itemStyle.setLeft(resources.getThemeMeasure(facesContext, toolBar, "css.border-right-width"));
     }
-    itemStyle.setWidth(dropDownMenu != null ? buttonStyle.getWidth().add(menuStyle.getWidth()) : buttonStyle.getWidth());
+    itemStyle.setWidth(
+        dropDownMenu != null ? buttonStyle.getWidth().add(menuStyle.getWidth()) : buttonStyle.getWidth());
     itemStyle.setHeight(buttonStyle.getHeight());
 
     // change values when only have one button
