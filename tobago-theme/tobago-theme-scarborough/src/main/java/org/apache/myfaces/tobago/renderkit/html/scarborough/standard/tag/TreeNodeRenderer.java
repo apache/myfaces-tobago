@@ -122,7 +122,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     boolean folder = node.isFolder();
-    int level = node.getJunctions().size();
+    int level = node.getLevel();
     String id = node.getClientId(facesContext);
     boolean expanded = isExpanded(tree, node);
 
