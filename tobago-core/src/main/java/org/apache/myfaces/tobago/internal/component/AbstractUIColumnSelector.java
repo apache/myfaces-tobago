@@ -1,7 +1,5 @@
 package org.apache.myfaces.tobago.internal.component;
 
-import javax.faces.component.UIColumn;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -18,6 +16,8 @@ import javax.faces.component.UIColumn;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import javax.faces.component.UIColumn;
 
 public abstract class AbstractUIColumnSelector extends UIColumn {
 }
