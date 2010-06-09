@@ -17,14 +17,14 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.TreeModelBuilder;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.event.TreeExpansionListener;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.model.TreePath;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -45,11 +45,6 @@ public abstract class AbstractUITreeNode extends UICommandBase implements Suppor
   private TreePath path;
   private List<Boolean> junctions;
   private boolean hasNextSibling;
-
-  @Override
-  public boolean getRendersChildren() {
-    return true;
-  }
 
   public void buildTreeModelBegin(FacesContext facesContext, MixedTreeModel model) {
     model.beginBuildNode(this);
@@ -91,55 +86,48 @@ public abstract class AbstractUITreeNode extends UICommandBase implements Suppor
     mixedModel.onEncodeEnd();
   }
 
-  private int computeDepth(UIComponent node) {
+  private int computeDepth(UIComponent component) {
     int depth = 0;
-    while (node != null) {
+    while (component != null) {
       depth++;
-      if (node instanceof AbstractUITree) {
+      if (component instanceof AbstractUITree) {
         return depth;
       }
-      if (node instanceof AbstractUITreeData) {
-        Object dataTree = ((AbstractUITreeData) node).getValue();
+      if (component instanceof AbstractUITreeData) {
+        Object dataTree = ((AbstractUITreeData) component).getValue();
         // todo: make independent from impl.
         if (dataTree instanceof DefaultMutableTreeNode) {
-          return ((DefaultMutableTreeNode) dataTree).getDepth();
+          return ((DefaultMutableTreeNode) dataTree).getDepth(); // XXX expensive
         }
         LOG.warn("Tree type not supported");
       }
-      node = node.getParent();
+      component = component.getParent();
     }
     throw new RuntimeException("Not inside of a UITree");
   }
 
   private boolean computeFolder() {
-    if (isInData()) {
-      Object value = getValue();
-      // todo: make independent from impl.
-      if (value instanceof DefaultMutableTreeNode) {
-        return !((DefaultMutableTreeNode) value).isLeaf();
-      }
-      LOG.warn("Tree type not supported");
-      return true;
+    DefaultMutableTreeNode node = getDataNode();
+    if (node != null) {
+      return !node.isLeaf();
     } else {
-      return getChildCount() != 0;
+      for (UIComponent child : getChildren()) {
+        if ((child instanceof AbstractUITreeNode || child instanceof AbstractUITreeData) && child.isRendered()) {
+          return true;
+        }
+      }
+      return false;
     }
   }
 
   private boolean computeHasNextSibling() {
-    if (isInData()) {
-      Object value = getValue();
-      // todo: make independent from impl.
-      if (value instanceof DefaultMutableTreeNode) {
-
-        DefaultMutableTreeNode tree = (DefaultMutableTreeNode) value;
-        if (tree.isRoot()) {
-          return hasSiblingAfter(getParent().getParent(), getParent());
-        } else {
-          return tree.getNextSibling() != null;
-        }
+    DefaultMutableTreeNode node = getDataNode();
+    if (node != null) {
+      if (node.isRoot()) {
+        return hasSiblingAfter(getParent().getParent(), getParent());
+      } else {
+        return node.getNextSibling() != null;
       }
-      LOG.warn("Tree type not supported");
-      return false;
     } else {
       return hasSiblingAfter(getParent(), this);
     }
@@ -159,31 +147,39 @@ public abstract class AbstractUITreeNode extends UICommandBase implements Suppor
     return false;
   }
 
-  private boolean isInData() {
+  /**
+   * Finds the value of the current node via the var attribute of the tree data.
+   * Returns null if it will be called not inside of {@link AbstractUITreeData}
+   */
+  // todo: make independent from impl.: DefaultMutableTreeNode
+  private DefaultMutableTreeNode getDataNode() {
     UIComponent component = this;
     while (component != null) {
       if (component instanceof AbstractUITreeData) {
-        return true;
+        final AbstractUITreeData data = (AbstractUITreeData) component;
+        final Object currentNode
+            = FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(data.getVar());
+        return (DefaultMutableTreeNode) currentNode;
       } else if (component instanceof AbstractUITree) {
-        return false;
+        return null;
       }
       component = component.getParent();
     }
-    return false;
+    return null;
   }
 
   @Override
   public Object getValue() {
-    DefaultMutableTreeNode value = (DefaultMutableTreeNode) super.getValue();
-    if (value == null) { // XXX: hack!
-      value = new DefaultMutableTreeNode();
-      value.setUserObject(System.identityHashCode(value));
-      setValue(value);
-      if (LOG.isInfoEnabled()) {
-        LOG.info("Created temporary Node: " + value.getUserObject());
-      }
-    }
-    return value;
+    LOG.error("XXXXXXXXXXX should not be called!!!!!!!!!!!!");
+    return super.getValue();
+  }
+
+  /**
+   * Returns the level of the tree node inside of the virtual tree. The root node has level 0.
+   * The children of the root note have level 1, and so on. 
+   */
+  public int getLevel() {
+    return path.getLength() - 1;
   }
 
   public String nodeStateId(FacesContext facesContext) {

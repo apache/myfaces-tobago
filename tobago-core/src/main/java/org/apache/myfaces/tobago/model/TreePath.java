@@ -54,6 +54,10 @@ public class TreePath implements Serializable {
     return path;
   }
 
+  public int getLength() {
+    return path.length;
+  }
+
   public String getPathString() {
     StringBuffer buffer = new StringBuffer();
     for (int item : path) {

@@ -28,7 +28,6 @@
         <tc:treeNode label="#{node.userObject.title}"
                      action="#{node.userObject.action}"
                      immediate="true"
-                     value="#{node}"
                      expanded="true"/>
       </tc:treeData>
     </tc:treeMenu>

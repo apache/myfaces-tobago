@@ -41,7 +41,7 @@
           <tc:treeNode label="#{node.userObject.name}" id="template"
                         markup="#{node.userObject.markup}"
                         tip="#{node.userObject.tip}"
-                        action="#{node.userObject.action}" value="#{node}"/>
+                        action="#{node.userObject.action}"/>
         </tc:treeData>
       </tc:treeNode>
     </tc:tree>

@@ -128,7 +128,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     if (level > 0) { // root will not rendered as an option
       writer.startElement(HtmlConstants.OPTION, null);
-      writer.writeAttribute(HtmlAttributes.VALUE, node.getValue().toString(), true); // XXX converter?
+// todo: define where to store the selection of a tree, node.getValue() seems not to be a god place.
+//        writer.writeAttribute(HtmlAttributes.VALUE, node.getValue().toString(), true); // XXX converter?
       writer.writeIdAttribute(id);
       writer.writeAttribute(HtmlAttributes.SELECTED, expanded);
       writer.writeText("(" + level + ") " + node.getLabel());
@@ -186,34 +187,38 @@ public class TreeNodeRenderer extends CommandRendererBase {
   public void encodeBeginMenuAndNormal(FacesContext facesContext, UITreeNode node, AbstractUITree tree, boolean isMenu) 
       throws IOException {
 
-    String treeId = tree.getClientId(facesContext);
-    boolean folder = node.isFolder();
-    boolean marked = node.isMarked();
-    String id = node.getClientId(facesContext);
-    int depth = node.getDepth();
-    boolean hasNextSibling = node.isHasNextSibling();
-    List<Boolean> junctions = node.getJunctions();
+    final String treeId = tree.getClientId(facesContext);
+    final boolean folder = node.isFolder();
+    final boolean marked = node.isMarked();
+    final String id = node.getClientId(facesContext);
+    final int level = node.getLevel();
+    final boolean hasNextSibling = node.isHasNextSibling();
+    final List<Boolean> junctions = node.getJunctions();
 
-    boolean expanded = isExpanded(tree, node);
-    boolean showIcons = false;
-    boolean showJunctions = false;
-    boolean showRootJunction = false;
+    final boolean expanded = isExpanded(tree, node);
+    final boolean showRoot = tree.isShowRoot();
+    final boolean showIcons;
+    final boolean showJunctions;
+    final boolean showRootJunction;
     if (tree instanceof UITree) {
       showIcons = ((UITree) tree).isShowIcons();
       showJunctions = ((UITree) tree).isShowJunctions();
       showRootJunction = ((UITree) tree).isShowRootJunction();
+    } else { // UITreeMenu
+      showIcons = false;
+      showJunctions = false;
+      showRootJunction = false;
     }
-    boolean showRoot = tree.isShowRoot();
 
     if (!showRoot && junctions.size() > 0) {
       junctions.remove(0);
     }
 
     String source;
-    String openSource = null;
-    String closedSource;
+    final String openSource;
+    final String closedSource;
 
-    String image = ComponentUtils.getStringAttribute(node, "image");
+    final String image = ComponentUtils.getStringAttribute(node, "image");
     if (image != null) { // application image
       closedSource = ResourceManagerUtils.getImageWithPath(facesContext, image);
     } else { // theme image
@@ -228,6 +233,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       }
       source = expanded ? openSource : closedSource;
     } else {
+      openSource = null;
       if (image != null) { // application image
         source = ResourceManagerUtils.getImageWithPath(facesContext,
             ResourceUtils.addPostfixToFilename(image, "leaf"), true);
@@ -242,7 +248,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     CommandRendererHelper helper = new CommandRendererHelper(facesContext, node, CommandRendererHelper.Tag.ANCHOR);
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    if (showRoot || depth != 0) {
+    if (showRoot || level != 0) {
       writer.startElement(HtmlConstants.DIV, null);
 
       // div id
@@ -266,7 +272,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       // div style (width)
       Style style = new Style(facesContext, tree);
       String widthString;
-      if (style != null && style.getWidth() != null) {
+      if (style.getWidth() != null) {
         widthString = "width: " + Integer.toString(style.getWidth().getPixel() - 22); // fixme: 4 + 18 for scrollbar
       } else {
         widthString = "100%";
@@ -281,10 +287,10 @@ public class TreeNodeRenderer extends CommandRendererBase {
         encodeMenuIcon(facesContext, writer, treeId, id, expanded, node);
       }
 
-      encodeIndent(facesContext, writer, isMenu, junctions);
+      encodeIndent(facesContext, writer, isMenu, showJunctions, junctions);
 
       encodeTreeJunction(facesContext, writer, id, treeId, showJunctions, showRootJunction, showRoot, expanded,
-          folder, depth, hasNextSibling, openSource, closedSource);
+          folder, level, hasNextSibling, openSource, closedSource);
 
       encodeTreeIcons(writer, id, treeId, showIcons, folder, source, openSource, closedSource);
 
@@ -339,7 +345,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
   }
 
   private void encodeIndent(
-      FacesContext facesContext, TobagoResponseWriter writer, boolean menuMode, List<Boolean> junctions)
+      final FacesContext facesContext, final TobagoResponseWriter writer, final boolean menuMode,
+      final boolean showJunctions, final List<Boolean> junctions)
       throws IOException {
 
     String blank = ResourceManagerUtils.getImageWithPath(facesContext, "image/blank.gif");
@@ -348,7 +355,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     for (Boolean junction : junctions) {
       writer.startElement(HtmlConstants.IMG, null);
       writer.writeClassAttribute("tobago-treeNode-junction");
-      if (junction && !menuMode) {
+      if (junction && !menuMode && showJunctions) {
         writer.writeAttribute("src", perpendicular, true);
       } else {
         writer.writeAttribute("src", blank, true);
@@ -360,20 +367,20 @@ public class TreeNodeRenderer extends CommandRendererBase {
   private void encodeTreeJunction(
       FacesContext facesContext, TobagoResponseWriter writer, String id, String treeId,
       boolean showJunctions, boolean showRootJunction, boolean showRoot, boolean expanded, boolean folder,
-      int depth, boolean hasNextSibling, String openSource, String closedSource)
+      int level, boolean hasNextSibling, String openSource, String closedSource)
       throws IOException {
     if (!(!showJunctions
-        || !showRootJunction && depth == 0
-        || !showRootJunction && !showRoot && depth == 1)) {
+        || !showRootJunction && level == 0
+        || !showRootJunction && !showRoot && level == 1)) {
       writer.startElement(HtmlConstants.IMG, null);
       writer.writeClassAttribute("tobago-treeNode-junction");
       writer.writeIdAttribute(id + "-junction");
 
       String gif = folder && expanded
-          ? (depth == 0
+          ? (level == 0
             ? "Rminus.gif"
             : (hasNextSibling ? "Tminus.gif" : "Lminus.gif"))
-          : ((depth == 0)
+          : ((level == 0)
             ? "Rplus.gif"
             : (hasNextSibling)
               ? (folder ? "Tplus.gif" : "T.gif")
@@ -386,7 +393,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
         writer.writeAttribute("onclick", createOnclickForToggle(treeId, openSource, closedSource), true);
       }
       writer.writeAttribute("alt", "", false);
-//    } else if (( !this.hideRoot && depth >0 ) || (this.hideRoot && depth > 1)) {
+//    } else if (( !this.hideRoot && level >0 ) || (this.hideRoot && level > 1)) {
 //      str += '<img class="tree-junction" id="' + this.id
 //          + '-junction" src="' + this.treeResources.getImage("blank.gif")
 //          + '" alt="">';

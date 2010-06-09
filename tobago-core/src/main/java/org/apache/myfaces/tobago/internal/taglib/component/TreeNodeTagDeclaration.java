@@ -32,7 +32,6 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
 
 /**
@@ -53,7 +52,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
     facets = {
         @Facet(name = Facets.ADDENDUM, description = "Displays an additional component to a node.")})
 public interface TreeNodeTagDeclaration
-    extends HasIdBindingAndRendered, HasLabel, HasValue, HasMarkup, HasTip, HasImage, IsDisabled,
+    extends HasIdBindingAndRendered, HasLabel, HasMarkup, HasTip, HasImage, IsDisabled,
     AbstractCommandTagDeclaration {
 
   /**
