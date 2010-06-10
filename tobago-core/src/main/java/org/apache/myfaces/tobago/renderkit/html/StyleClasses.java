@@ -52,6 +52,15 @@ public class StyleClasses implements Serializable {
     classes = new ListOrderedSet();
   }
 
+  /**
+   * Creates a StyleClasses element and adds one entry for a sub-component with the name of the renderer.
+   * E. g.: UITreeNode + "icon" -> tobago-treeNode-icon
+   */
+  public StyleClasses(UIComponent component, String sub) {
+    this();
+    addClass(toRendererName(component.getRendererType()), sub);
+  }
+
   private StyleClasses(StyleClasses base) {
     this();
     classes.addAll(base.classes);
@@ -230,6 +239,10 @@ public class StyleClasses implements Serializable {
         addAspectClass(rendererName, Aspect.REQUIRED);
       }
     }
+  }
+
+  private String toRendererName(String rendererType) {
+    return rendererType.substring(0, 1).toLowerCase(Locale.ENGLISH) + rendererType.substring(1);
   }
 
   @Override
