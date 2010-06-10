@@ -682,6 +682,12 @@ a:link.tab, a:visited.tab, a:active.tab {
   height: 16px;
 }
 
+.tobago-treeNode-menuIcon {
+	width: 16px;
+	height: 16px;
+  float: right;
+}
+
 .tobago-treeNode img {
   vertical-align: top;
 	border: 0px;
@@ -692,10 +698,9 @@ a:link.tab, a:visited.tab, a:active.tab {
   font-family: arial, helvetica, sans-serif;
 }
 
-.tobago-treeNode-disabled {
+.tobago-treeNode-disabled a {
   color: #888888;
   text-decoration: none;
-  cursor: pointer;
 }
 
 .tobago-treeNode a:hover {
@@ -706,7 +711,6 @@ a:link.tab, a:visited.tab, a:active.tab {
 .tobago-treeNode-disabled a:hover {
   color: #888888;
   text-decoration: none;
-  cursor: pointer;
 }
 
 .tobago-treeNode a:focus {
@@ -717,80 +721,3 @@ a:link.tab, a:visited.tab, a:active.tab {
 .tobago-treeNode-marker, .tobago-treeNode-marker:focus, .tobago-treeNode-marker a, .tobago-treeNode-marker:focus a {
 	background-color: #d3d3d3;
 }
-
-/* XXX old names */
-.tree-menu-item {
-  border: 1px solid #CCCCCC;
-  width: 200px; /* default */
-  height: 16px;
-}
-
-/* XXX old names */
-.tree-item-label  {
-  font: 12px arial, helvetica, sans-serif;
-}
-
-/* XXX old names */
-a.tree-folder-label, .tree-folder-label {
-  font: bold 12px arial, helvetica, sans-serif;
-}
-
-/* XXX old names */
-a.tree-folder-label-disabled, a.tree-item-label-disabled {
-  color: #888888;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-/* XXX old names */
-a.tree-folder-label:hover, a.tree-item-label:hover  {
-  color: #000000;
-  text-decoration: underline;
-}
-/* XXX old names */
-a.tree-folder-label-disabled:hover, a.tree-item-label-disabled:hover  {
-  color: #888888;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-/* XXX old names */
-a.tree-folder-label:focus, a.tree-item-label:focus {
-  background: transparent;
-  color: #000000;
-}
-
-/* XXX old names */
-.tree-item-marker, .tree-item-marker:focus, a.tree-item-marker, a.tree-item-marker:focus {
-	background-color: #d3d3d3;
-}
-
-/* XXX old names */
-.tree-item-label, .tree-item-label:hover  {
-  color: #000000;
-}
-
-/* XXX old names */
-.tree-item-label:hover  {
-  text-decoration: underline;
-}
-
-/* XXX old names */
-.tree-item img {
-	vertical-align: top;
-	border: 0px;
-}
-
-/* XXX old names */
-.tree-icon {
-  width: 16px;
-  height: 16px;
-}
-
-/* XXX old names */
-.tobago-tree-menu-icon {
-	width: 16px;
-	height: 16px;
-  float: right;
-}
-

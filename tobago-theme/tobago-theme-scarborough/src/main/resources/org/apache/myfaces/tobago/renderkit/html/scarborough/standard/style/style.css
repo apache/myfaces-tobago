@@ -1129,55 +1129,6 @@ span.tobago-progress {
   position: absolute;
 }
 
-/* Tree old -------------------------------------------------------------------- */
-
-.tree-folder-label, .tree-item-label, .tree-folder-label:active,
-  .tree-item-label:active, .tree-folder-label:hover, .tree-item-label:hover {
-  margin-left: 3px;
-  padding: 1px 2px 1px 2px;
-}
-
-.tree-folder-label, .tree-item-label {
-  color: black;
-  text-decoration: none;
-}
-
-.tree-folder-label:hover, .tree-item-label:hover {
-  color: blue;
-  text-decoration: underline;
-}
-
-/*.tree-folder-label:active, .tree-item-label:active {
-	background: highlight;
-	color: highlighttext;
-	text-decoration: none;
-}*/
-
-.tree-item-marker, .tree-item-marker:focus, a.tree-item-marker, a.tree-item-marker:focus {
-  background-color: #d8e9fb;
-}
-
-.tree-folder-label:focus, .tree-item-label:focus {
-  background: #445566;
-  color: highlighttext;
-  text-decoration: none;
-}
-
-.tree-item img {
-  vertical-align: middle;
-  border: 0;
-}
-
-.tree-icon {
-  width: 16px;
-  height: 16px;
-}
-
-.tobago-treeNode-junction {
-  width: 19px;
-  height: 16px;
-}
-
 /* Tree ------------------------------------------------------------------- */
 
 .tobago-tree {
@@ -1215,10 +1166,10 @@ span.tobago-progress {
   text-decoration: none;
 }
 
-.tobago-treeNode-disabled, .tobago-treeNode-disabled a:hover {
+.tobago-treeNode-disabled a, .tobago-treeNode-disabled a:hover {
   color: #888888;
   text-decoration: none;
-  cursor: pointer;
+  cursor: default;
 }
 
 .tobago-treeNode-marker, .tobago-treeNode-marker:focus, .tobago-treeNode-marker a, .tobago-treeNode-marker:focus a {
@@ -1227,6 +1178,16 @@ span.tobago-progress {
 
 .tobago-treeNode-markup-strong {
   font-weight: bold;
+}
+
+.tobago-treeNode-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.tobago-treeNode-junction {
+  width: 19px;
+  height: 16px;
 }
 
 /* treeListbox ------------------------------------------------------------------- */

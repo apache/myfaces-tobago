@@ -363,18 +363,6 @@ a:link.tab, a:visited.tab, a:active.tab {
 
 /* tree ------------------------------------------------------------------- */
 
-/* XXX old */
-a.tree-folder-label:hover, a.tree-item-label:hover  {
-  color: #6699ff;
-  text-decoration: underline;
-}
-
-/* XXX old */
-a.tree-folder-label:focus, a.tree-item-label:focus {
-  background: #d6ebff;
-  color: #3366cc;
-}
-
 a.tobago-treeNode a:hover {
   color: #6699ff;
   text-decoration: underline;
