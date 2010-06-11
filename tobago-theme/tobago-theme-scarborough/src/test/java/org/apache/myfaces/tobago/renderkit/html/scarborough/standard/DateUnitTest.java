@@ -17,6 +17,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard;
  * limitations under the License.
  */
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -52,6 +55,7 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
     loadScriptFile("dateConverter.js");
   }
 
+  @Test
   public void testNumberOnlyDateFormats() throws IOException {
     for (Date date : DATES) {
       checkFormat("yyyyMMdd", date, YEAR_MONTH_DAY, Locale.ENGLISH);
@@ -65,6 +69,7 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
     }
   }
 
+  @Test
   public void testEnglishMonths() throws IOException {
     for (int month = 1; month <= 12; ++month) {
       Date date = createDate(2005, month, 10);
@@ -76,11 +81,13 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
     }
   }
 
+  @Test
   public void testTwoDigitYears() throws IOException, ParseException {
     checkTwoDigitYears(Locale.ENGLISH);
     checkTwoDigitYears(Locale.GERMAN);
   }
 
+  @Test
   public void checkTwoDigitYears(Locale locale) throws IOException, ParseException {
     DecimalFormat decimalFormat = new DecimalFormat("00");
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy", locale);
@@ -88,10 +95,11 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
     for (int year = 0; year < 100; ++year) {
       String yearString = decimalFormat.format(year);
       calendar.setTime(simpleDateFormat.parse(yearString));
-      assertEquals(calendar.get(Calendar.YEAR), evalParseDate(yearString, "yy", locale).get(Calendar.YEAR));
+      Assert.assertEquals(calendar.get(Calendar.YEAR), evalParseDate(yearString, "yy", locale).get(Calendar.YEAR));
     }
   }
 
+  @Test
   public void testEnglishWeekDays() throws IOException {
     for (int day = 1; day <= 7; ++day) {
       Calendar calendar = Calendar.getInstance();
@@ -112,9 +120,10 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
         + ".format(new Date(" + date.getTime() + "))");
   }
 
+  @Test
   public void testLocalization() {
-    assertEquals("January", eval("var s = new DateFormatSymbols(); s.months[0]"));
-    assertEquals("Januar", eval(createSymbols("s", Locale.GERMAN) + "s.months[0]"));
+    Assert.assertEquals("January", eval("var s = new DateFormatSymbols(); s.months[0]"));
+    Assert.assertEquals("Januar", eval(createSymbols("s", Locale.GERMAN) + "s.months[0]"));
   }
 
   private String createSymbols(String var, Locale locale) {
@@ -157,7 +166,7 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
   private void checkFormat(String format, Date date, int[] fields,
       Locale locale) {
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format, locale);
-    assertEquals(simpleDateFormat.format(date), evalFormatDate(date, format));
+    Assert.assertEquals(simpleDateFormat.format(date), evalFormatDate(date, format));
     Calendar calendar1 = Calendar.getInstance(locale);
     calendar1.setTime(date);
     Calendar calendar2 = evalParseDate(
@@ -168,7 +177,7 @@ public class DateUnitTest extends AbstractJavaScriptTestBase {
   }
 
   private void checkField(Calendar calendar1, Calendar calendar2, int field) {
-    assertEquals(calendar1.get(field), calendar2.get(field));
+    Assert.assertEquals(calendar1.get(field), calendar2.get(field));
   }
 
 }
