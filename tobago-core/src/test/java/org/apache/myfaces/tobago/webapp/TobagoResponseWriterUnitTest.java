@@ -107,7 +107,8 @@ public class TobagoResponseWriterUnitTest {
     result = result.replace("\"", "&quot;");
     result = result.replace("<", "&lt;");
     result = result.replace(">", "&gt;");
-    Assert.assertEquals("all chars", "<select value=\"" + result + "\"\n>" + result + "</select>", stringWriter.toString());
+    Assert.assertEquals("all chars", "<select value=\"" + result + "\"\n>" + result + "</select>",
+        stringWriter.toString());
   }
 
   @Test
@@ -118,7 +119,8 @@ public class TobagoResponseWriterUnitTest {
     writer1.writeAttribute("readonly", true);
     writer1.endElement("input");
     writer1.close();
-    Assert.assertEquals("<input value=\"Gutschein &uuml;ber 100 &euro;.\" readonly=\"readonly\"\n>", stringWriter.toString());
+    Assert.assertEquals("<input value=\"Gutschein &uuml;ber 100 &euro;.\" readonly=\"readonly\"\n>",
+        stringWriter.toString());
   }
 
   @Test

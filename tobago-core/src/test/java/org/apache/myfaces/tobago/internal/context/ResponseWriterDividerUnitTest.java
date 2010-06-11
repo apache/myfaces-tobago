@@ -34,7 +34,7 @@ public class ResponseWriterDividerUnitTest extends AbstractTobagoTestBase {
   public void test() throws IOException {
 
     StringWriter stringWriter = new StringWriter();
-    facesContext.setResponseWriter(new TobagoResponseXmlWriterImpl(stringWriter, "text/xml", "ISO-8859-1"));
+    getFacesContext().setResponseWriter(new TobagoResponseXmlWriterImpl(stringWriter, "text/xml", "ISO-8859-1"));
 
     DefaultMutableTreeNode root = new DefaultMutableTreeNode("Root");
     DefaultMutableTreeNode colors = new DefaultMutableTreeNode("Colors");
@@ -50,10 +50,10 @@ public class ResponseWriterDividerUnitTest extends AbstractTobagoTestBase {
     doubles.add(new DefaultMutableTreeNode("2.7182"));
     doubles.add(new DefaultMutableTreeNode("3.1415"));
 
-    render(facesContext, root);
+    render(getFacesContext(), root);
 
-    ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, "unit test");
-    divider.writeOutAndCleanUp(facesContext);
+    ResponseWriterDivider divider = ResponseWriterDivider.getInstance(getFacesContext(), "unit test");
+    divider.writeOutAndCleanUp(getFacesContext());
 
     String expected 
         = "(Root)\n"

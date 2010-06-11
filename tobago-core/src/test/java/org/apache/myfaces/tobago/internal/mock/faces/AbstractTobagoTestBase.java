@@ -4,7 +4,7 @@ package org.apache.myfaces.tobago.internal.mock.faces;
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to you under the Apache License, Version 2.0
+ * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
@@ -63,18 +63,18 @@ import java.util.Map;
 public abstract class AbstractTobagoTestBase {
 
   // Mock object instances for our tests
-  protected MockApplication application = null;
-  protected MockServletConfig config = null;
-  protected MockExternalContext externalContext = null;
-  protected MockFacesContext facesContext = null;
-  protected MockFacesContextFactory facesContextFactory = null;
-  protected MockLifecycle lifecycle = null;
-  protected MockLifecycleFactory lifecycleFactory = null;
-  protected MockRenderKit renderKit = null;
-  protected MockHttpServletRequest request = null;
-  protected MockHttpServletResponse response = null;
-  protected MockServletContext servletContext = null;
-  protected MockHttpSession session = null;
+  private MockApplication application = null;
+  private MockServletConfig config = null;
+  private MockExternalContext externalContext = null;
+  private MockFacesContext facesContext = null;
+  private MockFacesContextFactory facesContextFactory = null;
+  private MockLifecycle lifecycle = null;
+  private MockLifecycleFactory lifecycleFactory = null;
+  private MockRenderKit renderKit = null;
+  private MockHttpServletRequest request = null;
+  private MockHttpServletResponse response = null;
+  private MockServletContext servletContext = null;
+  private MockHttpSession session = null;
 
   // Thread context class loader saved and restored after each test
   private ClassLoader threadContextClassLoader = null;
@@ -164,6 +164,14 @@ public abstract class AbstractTobagoTestBase {
     application.addComponent("org.apache.myfaces.tobago.Link", "org.apache.myfaces.tobago.component.UILink");
     application.addComponent("org.apache.myfaces.tobago.Button", "org.apache.myfaces.tobago.component.UIButton");
 
+  }
+
+  public MockFacesContext getFacesContext() {
+    return facesContext;
+  }
+
+  public MockHttpServletRequest getRequest() {
+    return request;
   }
 
   /**

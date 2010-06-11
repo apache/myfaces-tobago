@@ -23,6 +23,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import java.util.List;
 
 public class UIMessagesUnitTest extends AbstractTobagoTestBase {
@@ -30,6 +31,7 @@ public class UIMessagesUnitTest extends AbstractTobagoTestBase {
   @Before
   public void setUp() throws Exception {
     super.setUp();
+    FacesContext facesContext = getFacesContext();
     facesContext.addMessage("id0", new FacesMessage(FacesMessage.SEVERITY_INFO, "test", "a test"));
     facesContext.addMessage("id0", new FacesMessage(FacesMessage.SEVERITY_WARN, "test", "a test"));
     facesContext.addMessage("id1", new FacesMessage(FacesMessage.SEVERITY_ERROR, "test", "a test"));
@@ -41,7 +43,7 @@ public class UIMessagesUnitTest extends AbstractTobagoTestBase {
   public void testCreateMessageListAll() {
 
     UIMessages component = new UIMessages();
-    List<UIMessages.Item> messages = component.createMessageList(facesContext);
+    List<UIMessages.Item> messages = component.createMessageList(getFacesContext());
 
     Assert.assertEquals(5, messages.size());
   }
@@ -51,7 +53,7 @@ public class UIMessagesUnitTest extends AbstractTobagoTestBase {
 
     UIMessages component = new UIMessages();
     component.setGlobalOnly(true);
-    List<UIMessages.Item> messages = component.createMessageList(facesContext);
+    List<UIMessages.Item> messages = component.createMessageList(getFacesContext());
 
     Assert.assertEquals(1, messages.size());
   }
@@ -61,7 +63,7 @@ public class UIMessagesUnitTest extends AbstractTobagoTestBase {
 
     UIMessages component = new UIMessages();
     component.setFor("id0");
-    List<UIMessages.Item> messages = component.createMessageList(facesContext);
+    List<UIMessages.Item> messages = component.createMessageList(getFacesContext());
 
     Assert.assertEquals(2, messages.size());
   }
@@ -71,7 +73,7 @@ public class UIMessagesUnitTest extends AbstractTobagoTestBase {
 
     UIMessages component = new UIMessages();
     component.setMaxSeverity(FacesMessage.SEVERITY_WARN);
-    List<UIMessages.Item> messages = component.createMessageList(facesContext);
+    List<UIMessages.Item> messages = component.createMessageList(getFacesContext());
 
     Assert.assertEquals(2, messages.size());
   }
@@ -82,7 +84,7 @@ public class UIMessagesUnitTest extends AbstractTobagoTestBase {
     UIMessages component = new UIMessages();
     component.setMinSeverity(FacesMessage.SEVERITY_WARN);
     component.setMaxSeverity(FacesMessage.SEVERITY_ERROR);
-    List<UIMessages.Item> messages = component.createMessageList(facesContext);
+    List<UIMessages.Item> messages = component.createMessageList(getFacesContext());
 
     Assert.assertEquals(2, messages.size());
   }
@@ -92,7 +94,7 @@ public class UIMessagesUnitTest extends AbstractTobagoTestBase {
 
     UIMessages component = new UIMessages();
     component.setMinSeverity(FacesMessage.SEVERITY_ERROR);
-    List<UIMessages.Item> messages = component.createMessageList(facesContext);
+    List<UIMessages.Item> messages = component.createMessageList(getFacesContext());
 
     Assert.assertEquals(3, messages.size());
   }
@@ -103,11 +105,11 @@ public class UIMessagesUnitTest extends AbstractTobagoTestBase {
     UIMessages component = new UIMessages();
 
     component.setMaxNumber(3);
-    List<UIMessages.Item> messages = component.createMessageList(facesContext);
+    List<UIMessages.Item> messages = component.createMessageList(getFacesContext());
     Assert.assertEquals(3, messages.size());
 
     component.setMaxNumber(30000);
-    messages = component.createMessageList(facesContext);
+    messages = component.createMessageList(getFacesContext());
     Assert.assertEquals(5, messages.size());
   }
 
@@ -116,7 +118,7 @@ public class UIMessagesUnitTest extends AbstractTobagoTestBase {
 
     UIMessages component = new UIMessages();
     component.setOrderBy(UIMessages.OrderBy.SEVERITY);
-    List<UIMessages.Item> messages = component.createMessageList(facesContext);
+    List<UIMessages.Item> messages = component.createMessageList(getFacesContext());
 
     int mustShrink = FacesMessage.SEVERITY_FATAL.getOrdinal();
     for (UIMessages.Item message : messages) {

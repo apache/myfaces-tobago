@@ -43,8 +43,8 @@ public class GenericComponentTagUnitTest extends GenericTestBase {
     tldPaths[0] = "META-INF/org/apache/myfaces/tobago/internal/taglib/component/tobago.tld";
     setTldPaths(tldPaths);
     super.setUp();
-    request.setAttribute("peter", new DummyBean(true, 20, "Peter"));
-    request.setAttribute("marry", new DummyBean(false, 17, "Marry"));
+    getRequest().setAttribute("peter", new DummyBean(true, 20, "Peter"));
+    getRequest().setAttribute("marry", new DummyBean(false, 17, "Marry"));
   }
 
   @Test
