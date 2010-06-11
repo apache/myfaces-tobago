@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.mock.servlet;
+package org.apache.myfaces.tobago.internal.mock.servlet;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.mock.servlet;
  * limitations under the License.
  */
 
+import javax.el.ELContext;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -28,7 +29,6 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.el.ExpressionEvaluator;
 import javax.servlet.jsp.el.VariableResolver;
-import javax.el.ELContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Enumeration;

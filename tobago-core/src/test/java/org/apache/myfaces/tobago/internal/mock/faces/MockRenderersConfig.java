@@ -1,10 +1,10 @@
-package org.apache.myfaces.tobago.mock.faces;
+package org.apache.myfaces.tobago.internal.mock.faces;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
+ * The ASF licenses this file to you under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
@@ -17,16 +17,21 @@ package org.apache.myfaces.tobago.mock.faces;
  * limitations under the License.
  */
 
-import javax.faces.component.UIViewRoot;
-import javax.faces.webapp.UIComponentTag;
+import org.apache.myfaces.tobago.context.RendererConfig;
+import org.apache.myfaces.tobago.context.RenderersConfig;
 
-public class MockViewTag extends UIComponentTag {
+import java.util.Collection;
 
-  public String getComponentType() {
-    return UIViewRoot.COMPONENT_TYPE;
+public class MockRenderersConfig implements RenderersConfig {
+
+  /**
+   * To keep it simple, we allow every value shorter than 10 characters.
+   */
+  public boolean isMarkupSupported(String rendererName, String markup) {
+    return markup.length() < 10;
   }
 
-  public String getRendererType() {
+  public Collection<RendererConfig> getRendererConfigs() {
     return null;
   }
 }

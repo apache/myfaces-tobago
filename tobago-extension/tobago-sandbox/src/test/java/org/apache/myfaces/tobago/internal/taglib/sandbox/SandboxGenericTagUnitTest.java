@@ -18,14 +18,12 @@ package org.apache.myfaces.tobago.internal.taglib.sandbox;
  */
 
 import org.apache.myfaces.tobago.internal.taglib.component.GenericTestBase;
+import org.junit.Before;
 
 public class SandboxGenericTagUnitTest extends GenericTestBase {
 
-  public SandboxGenericTagUnitTest(String name) {
-    super(name);
-  }
-
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     String[] tldPaths = new String[1];
     tldPaths[0] = "META-INF/org/apache/myfaces/tobago/internal/taglib/sandbox/tobago-sandbox.tld";
     setTldPaths(tldPaths);

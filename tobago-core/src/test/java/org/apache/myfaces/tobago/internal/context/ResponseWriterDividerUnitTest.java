@@ -17,9 +17,7 @@ package org.apache.myfaces.tobago.internal.context;
  * limitations under the License.
  */
 
-import org.apache.myfaces.test.mock.MockExternalContext;
-import org.apache.myfaces.test.mock.MockFacesContext;
-import org.apache.myfaces.test.mock.MockHttpServletRequest;
+import org.apache.myfaces.tobago.internal.mock.faces.AbstractTobagoTestBase;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseXmlWriterImpl;
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,14 +28,11 @@ import javax.swing.tree.TreeNode;
 import java.io.IOException;
 import java.io.StringWriter;
 
-public class ResponseWriterDividerUnitTest {
+public class ResponseWriterDividerUnitTest extends AbstractTobagoTestBase {
 
   @Test
   public void test() throws IOException {
-    // TODO: check how to use this classes
-    MockFacesContext facesContext = new MockFacesContext();
-    MockExternalContext externalContext = new MockExternalContext(null, new MockHttpServletRequest(), null);
-    facesContext.setExternalContext(externalContext);
+
     StringWriter stringWriter = new StringWriter();
     facesContext.setResponseWriter(new TobagoResponseXmlWriterImpl(stringWriter, "text/xml", "ISO-8859-1"));
 

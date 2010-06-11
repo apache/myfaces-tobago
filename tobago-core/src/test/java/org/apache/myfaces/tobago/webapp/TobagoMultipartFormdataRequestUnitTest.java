@@ -19,8 +19,8 @@ package org.apache.myfaces.tobago.webapp;
 
 import junit.framework.TestCase;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.myfaces.tobago.internal.mock.servlet.MockHttpServletRequest;
 import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
-import org.apache.myfaces.tobago.mock.servlet.MockHttpServletRequest;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;

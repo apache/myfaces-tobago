@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.mock.servlet;
+package org.apache.myfaces.tobago.internal.mock.servlet;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -25,9 +25,9 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Enumeration;
-import java.util.Set;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class MockServletContext implements ServletContext {
   private Map attributes = new HashMap();

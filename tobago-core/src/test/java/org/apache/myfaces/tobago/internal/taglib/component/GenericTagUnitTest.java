@@ -17,15 +17,12 @@ package org.apache.myfaces.tobago.internal.taglib.component;
  * limitations under the License.
  */
 
+import org.junit.Before;
 
 public class GenericTagUnitTest extends GenericTestBase {
 
-  public GenericTagUnitTest(String name) {
-    super(name);
-
-  }
-
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     String[] tldPaths = new String[1];
     tldPaths[0] = "META-INF/org/apache/myfaces/tobago/internal/taglib/component/tobago.tld";
     //TODO move to tobago-taglib-extension
@@ -33,6 +30,4 @@ public class GenericTagUnitTest extends GenericTestBase {
     setTldPaths(tldPaths);
     super.setUp();
   }
-
 }
-

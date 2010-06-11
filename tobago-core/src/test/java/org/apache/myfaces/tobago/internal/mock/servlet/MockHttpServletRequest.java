@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.mock.servlet;
+package org.apache.myfaces.tobago.internal.mock.servlet;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more

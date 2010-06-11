@@ -17,22 +17,19 @@ package org.apache.myfaces.tobago.component;
  * limitations under the License.
  */
 
-import org.apache.shale.test.mock.MockFacesContext;
+import org.apache.myfaces.tobago.internal.mock.faces.AbstractTobagoTestBase;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import java.util.List;
 
-public class UIMessagesUnitTest {
-
-  private FacesContext facesContext;
+public class UIMessagesUnitTest extends AbstractTobagoTestBase {
 
   @Before
   public void setUp() throws Exception {
-    facesContext = new MockFacesContext();
+    super.setUp();
     facesContext.addMessage("id0", new FacesMessage(FacesMessage.SEVERITY_INFO, "test", "a test"));
     facesContext.addMessage("id0", new FacesMessage(FacesMessage.SEVERITY_WARN, "test", "a test"));
     facesContext.addMessage("id1", new FacesMessage(FacesMessage.SEVERITY_ERROR, "test", "a test"));

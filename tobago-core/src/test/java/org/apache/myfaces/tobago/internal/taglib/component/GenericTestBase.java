@@ -17,17 +17,15 @@ package org.apache.myfaces.tobago.internal.taglib.component;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
 import net.sf.maventaglib.checker.TagAttribute;
 import net.sf.maventaglib.checker.Tld;
 import net.sf.maventaglib.checker.TldParser;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.myfaces.tobago.mock.faces.MockExternalContext;
-import org.apache.myfaces.tobago.mock.faces.MockFacesContext;
-import org.apache.myfaces.tobago.mock.servlet.MockHttpServletRequest;
-import org.apache.myfaces.tobago.mock.servlet.MockHttpServletResponse;
-import org.apache.myfaces.tobago.mock.servlet.MockPageContext;
-import org.apache.myfaces.tobago.mock.servlet.MockServletContext;
+import org.apache.myfaces.tobago.internal.mock.faces.AbstractTobagoTestBase;
+import org.apache.myfaces.tobago.internal.mock.servlet.MockPageContext;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -35,14 +33,6 @@ import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import javax.faces.FactoryFinder;
-import javax.faces.application.Application;
-import javax.faces.application.ApplicationFactory;
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.ExternalContext;
-import javax.faces.lifecycle.Lifecycle;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.tagext.Tag;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -51,21 +41,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-//import org.apache.myfaces.tobago.mock.servlet.MockPageContext;
 
-public abstract class GenericTestBase extends TestCase {
+public abstract class GenericTestBase extends AbstractTobagoTestBase {
+
   private static final Logger LOG = LoggerFactory.getLogger(GenericTestBase.class);
 
   private Tld[] tlds;
   private String[] tldPaths;
-  private Application application;
-  private MockFacesContext facesContext;
 
-  public GenericTestBase(String name) {
-    super(name);
-  }
-
-  protected void setUp() throws Exception {
+  @Before
+  public void setUp() throws Exception {
     super.setUp();
     tlds = new Tld[tldPaths.length];
     for (int i = 0; i < tldPaths.length; i++) {
@@ -73,39 +58,9 @@ public abstract class GenericTestBase extends TestCase {
       tlds[i] = getTld(tldPaths[i], stream);
       stream.close();
     }
-
-    MockServletContext servletContext = new MockServletContext();
-    HttpServletRequest request = new MockHttpServletRequest();
-    HttpServletResponse response = new MockHttpServletResponse();
-    //pageContext = new MockPageContext(request);
-    ExternalContext externalContext =
-        new MockExternalContext(servletContext, request, response);
-    Lifecycle lifecycle = null;
-    facesContext = new MockFacesContext(externalContext, lifecycle);
-    // Set up Faces API Objects
-    FactoryFinder.setFactory(FactoryFinder.APPLICATION_FACTORY,
-        "org.apache.myfaces.tobago.mock.faces.MockApplicationFactory");
-    FactoryFinder.setFactory(FactoryFinder.RENDER_KIT_FACTORY,
-        "org.apache.myfaces.tobago.mock.faces.MockRenderKitFactory");
-
-    ApplicationFactory applicationFactory = (ApplicationFactory)
-        FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
-    application = applicationFactory.getApplication();
-    application.addComponent("javax.faces.ViewRoot", "org.apache.myfaces.tobago.component.UIViewRoot");
-    application.addComponent("javax.faces.Command", "javax.faces.component.UICommand");
-    application.addComponent("org.apache.myfaces.tobago.Command", "org.apache.myfaces.tobago.component.UICommand");
-    application
-        .addComponent("org.apache.myfaces.tobago.LinkCommand", "org.apache.myfaces.tobago.component.UILinkCommand");
-    application
-        .addComponent("org.apache.myfaces.tobago.ButtonCommand", "org.apache.myfaces.tobago.component.UIButtonCommand");
-
-    facesContext.setApplication(application);
-    UIViewRoot root = facesContext
-        .getApplication().getViewHandler().createView(facesContext, "testViewId");
-    root.setViewId("/viewId");
-    facesContext.setViewRoot(root);
   }
 
+  @Test
   public void testRelease() throws IllegalAccessException,
       NoSuchMethodException, InvocationTargetException, IOException,
       SAXException, ClassNotFoundException, InstantiationException {
@@ -117,6 +72,7 @@ public abstract class GenericTestBase extends TestCase {
     }
   }
 
+  @Test
   public void testSetterExist() throws NoSuchMethodException,
       IllegalAccessException, InvocationTargetException, IOException,
       SAXException, ClassNotFoundException, InstantiationException {
@@ -145,10 +101,8 @@ public abstract class GenericTestBase extends TestCase {
       NoSuchMethodException, InvocationTargetException, ClassNotFoundException {
     PropertyDescriptor propertyDescriptor
         = PropertyUtils.getPropertyDescriptor(tagObject, name);
-    assertNotNull("setter '" + name + "' of class " + tagObject.getClass().getName() + " has "
+    Assert.assertNotNull("setter '" + name + "' of class " + tagObject.getClass().getName() + " has "
         + "property descriptor.", propertyDescriptor);
-    //assertNotNull("setter '" + name + "' of class " + tagObject.getClass().getName() + " exists.",
-    //    propertyDescriptor.getWriteMethod());
   }
 
   public void setTlds(Tld[] tlds) {
@@ -212,7 +166,7 @@ public abstract class GenericTestBase extends TestCase {
           Object oldValue = initialValues.get(name);
           String msg = "release of property '" + name + "' for tag '"
               + tag.getClass().getName() + "' failed.";
-          assertEquals(msg, oldValue, newValue);
+          Assert.assertEquals(msg, oldValue, newValue);
           // XXX: first error stops loop
           // if (newValue != null && !newValue.equals(oldValue)) {
         } catch (NoSuchMethodException e1) {
@@ -248,4 +202,3 @@ public abstract class GenericTestBase extends TestCase {
     }
   }
 }
-

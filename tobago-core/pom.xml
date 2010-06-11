@@ -224,6 +224,17 @@
         </configuration>
       </plugin>
       <plugin>
+       <groupId>org.apache.maven.plugins</groupId>
+       <artifactId>maven-jar-plugin</artifactId>
+       <executions>
+         <execution>
+           <goals>
+             <goal>test-jar</goal>
+           </goals>
+         </execution>
+       </executions>
+     </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
         <executions>
@@ -259,20 +270,6 @@
       <artifactId>tobago-jsf-compat</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <dependency>
-      <groupId>org.apache.myfaces.tobago</groupId>
-      <artifactId>tobago-jsf-compat</artifactId>
-      <version>${project.version}</version>
-      <classifier>tests</classifier>
-      <scope>test</scope>
-    </dependency>
-    <!--dependency>
-      <groupId>org.apache.shale</groupId>
-      <artifactId>shale-test</artifactId>
-      <version>1.0.4</version>
-      <scope>test</scope>
-    </dependency-->
-
     <dependency>
       <groupId>javax.el</groupId>
       <artifactId>el-api</artifactId>
@@ -344,16 +341,9 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.shale</groupId>
-      <artifactId>shale-test</artifactId>
-      <version>1.0.4</version>
-      <!--version>1.1.0-SNAPSHOT</version-->
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.apache.myfaces.test</groupId>
       <artifactId>myfaces-test12</artifactId>
-      <version>1.0.0-alpha</version>
+      <version>1.0.0-beta-3</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
