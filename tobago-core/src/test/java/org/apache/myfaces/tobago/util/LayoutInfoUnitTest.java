@@ -17,19 +17,15 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
+import org.junit.Test;
 
-/*
- * Date: Mar 22, 2007
- * Time: 8:31:04 PM
- */
-public class LayoutInfoUnitTest extends TestCase {
+public class LayoutInfoUnitTest {
 
+  @Test
   public void test() {
     LayoutInfo info = new LayoutInfo(5, 83, LayoutTokens.parse("284px;1*;180px;1*;75px"), "unittest");
     info.getLayoutTokens();
     info.parseColumnLayout(83);
-
   }
 }

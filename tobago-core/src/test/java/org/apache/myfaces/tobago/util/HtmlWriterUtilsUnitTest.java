@@ -17,18 +17,14 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
 import org.apache.myfaces.tobago.internal.util.HtmlWriterUtils;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.io.CharArrayWriter;
 import java.io.IOException;
 
-/**
- * User: weber
- * Date: Jul 11, 2005
- * Time: 11:50:03 AM
- */
-public class HtmlWriterUtilsUnitTest extends TestCase {
+public class HtmlWriterUtilsUnitTest {
 
   // some chars must escaped in attribute values other than in text
   // put them at beginning of raw texts and in both escaped texts
@@ -70,6 +66,7 @@ public class HtmlWriterUtilsUnitTest extends TestCase {
       RAW_TEXTS[2] // no escape needed
   };
 
+  @Test
   public void test() {
     CharArrayWriter writer = new CharArrayWriter();
     HtmlWriterUtils helper = new HtmlWriterUtils(writer, "");
@@ -87,7 +84,7 @@ public class HtmlWriterUtilsUnitTest extends TestCase {
       writer.reset();
       writerUtil.writeText(text);
       String result = String.valueOf(writer.toCharArray());
-      assertEquals(result, escaped);
+      Assert.assertEquals(result, escaped);
 
     } catch (IOException e) {
       // could not occur with CharArrayWriter
@@ -99,7 +96,7 @@ public class HtmlWriterUtilsUnitTest extends TestCase {
       writer.reset();
       writerUtil.writeAttributeValue(text);
       String result = String.valueOf(writer.toCharArray());
-      assertEquals(result, escaped);
+      Assert.assertEquals(result, escaped);
 
     } catch (IOException e) {
       // could not occur with CharArrayWriter

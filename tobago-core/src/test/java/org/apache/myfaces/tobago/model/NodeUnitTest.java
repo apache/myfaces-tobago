@@ -17,9 +17,11 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
-public class NodeUnitTest extends TestCase {
+public class NodeUnitTest {
 
   private Node r;
   private Node a;
@@ -44,6 +46,7 @@ public class NodeUnitTest extends TestCase {
    * *   |
    * *   +--o c (0,1,1,0)
    */
+  @Before
   public void setUp() {
 
     r = new Node();
@@ -65,34 +68,37 @@ public class NodeUnitTest extends TestCase {
 
   }
 
+  @Test
   public void testIsRoot() {
-    assertTrue(r.isRoot());
-    assertFalse(a.isRoot());
-    assertFalse(b.isRoot());
-    assertFalse(c.isRoot());
-    assertFalse(x.isRoot());
-    assertFalse(y.isRoot());
-    assertFalse(pi.isRoot());
+    Assert.assertTrue(r.isRoot());
+    Assert.assertFalse(a.isRoot());
+    Assert.assertFalse(b.isRoot());
+    Assert.assertFalse(c.isRoot());
+    Assert.assertFalse(x.isRoot());
+    Assert.assertFalse(y.isRoot());
+    Assert.assertFalse(pi.isRoot());
   }
 
+  @Test
   public void testGetChildCount() {
-    assertEquals(3, r.getChildCount());
-    assertEquals(0, a.getChildCount());
-    assertEquals(2, b.getChildCount());
-    assertEquals(0, c.getChildCount());
-    assertEquals(0, x.getChildCount());
-    assertEquals(1, y.getChildCount());
-    assertEquals(0, pi.getChildCount());
+    Assert.assertEquals(3, r.getChildCount());
+    Assert.assertEquals(0, a.getChildCount());
+    Assert.assertEquals(2, b.getChildCount());
+    Assert.assertEquals(0, c.getChildCount());
+    Assert.assertEquals(0, x.getChildCount());
+    Assert.assertEquals(1, y.getChildCount());
+    Assert.assertEquals(0, pi.getChildCount());
   }
 
+  @Test
   public void testHasNextSibling() {
-    assertFalse(r.hasNextSibling());
-    assertTrue(a.hasNextSibling());
-    assertTrue(b.hasNextSibling());
-    assertFalse(c.hasNextSibling());
-    assertTrue(x.hasNextSibling());
-    assertFalse(y.hasNextSibling());
-    assertFalse(pi.hasNextSibling());
+    Assert.assertFalse(r.hasNextSibling());
+    Assert.assertTrue(a.hasNextSibling());
+    Assert.assertTrue(b.hasNextSibling());
+    Assert.assertFalse(c.hasNextSibling());
+    Assert.assertTrue(x.hasNextSibling());
+    Assert.assertFalse(y.hasNextSibling());
+    Assert.assertFalse(pi.hasNextSibling());
   }
 
 }

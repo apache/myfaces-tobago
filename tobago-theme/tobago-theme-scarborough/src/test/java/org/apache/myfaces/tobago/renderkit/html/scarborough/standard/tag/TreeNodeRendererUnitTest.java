@@ -17,13 +17,15 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class TreeNodeRendererUnitTest extends TestCase {
+public class TreeNodeRendererUnitTest {
 
+  @Test
   public void testConstants() {
-     assertEquals("image/treeNode-icon-open.gif", TreeNodeRenderer.OPEN_FOLDER);
-     assertEquals("image/treeNode-icon.gif", TreeNodeRenderer.CLOSED_FOLDER);
-     assertEquals("image/treeNode-icon-leaf.gif", TreeNodeRenderer.LEAF);
+     Assert.assertEquals("image/treeNode-icon-open.gif", TreeNodeRenderer.OPEN_FOLDER);
+     Assert.assertEquals("image/treeNode-icon.gif", TreeNodeRenderer.CLOSED_FOLDER);
+     Assert.assertEquals("image/treeNode-icon-leaf.gif", TreeNodeRenderer.LEAF);
   }
 }

@@ -17,27 +17,31 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.Arrays;
 
-public class NodePathUnitTest extends TestCase {
+public class NodePathUnitTest {
 
+  @Test
   public void testGetPath() {
     TreePath nodePath = new TreePath(0, 1, 2);
-    assertTrue(Arrays.equals(new int[]{0, 1, 2}, nodePath.getPath()));
+    Assert.assertTrue(Arrays.equals(new int[]{0, 1, 2}, nodePath.getPath()));
     TreePath nodePath2 = new TreePath(nodePath, 3);
-    assertTrue(Arrays.equals(new int[]{0, 1, 2, 3}, nodePath2.getPath()));
+    Assert.assertTrue(Arrays.equals(new int[]{0, 1, 2, 3}, nodePath2.getPath()));
   }
 
+  @Test
   public void testGetPathString() {
     TreePath nodePath = new TreePath(0, 1, 2);
-    assertEquals("_0_1_2", nodePath.getPathString());
+    Assert.assertEquals("_0_1_2", nodePath.getPathString());
     TreePath nodePath2 = new TreePath(nodePath, 3);
-    assertEquals("_0_1_2_3", nodePath2.getPathString());
+    Assert.assertEquals("_0_1_2_3", nodePath2.getPathString());
   }
 
+  @Test
   public void testGetNode() {
 
     DefaultMutableTreeNode root = new DefaultMutableTreeNode("root");
@@ -48,12 +52,13 @@ public class NodePathUnitTest extends TestCase {
     node2.add(node3);
     root.add(node2);
 
-    assertEquals(root, new TreePath(0).getNode(root));
-    assertEquals(node1, new TreePath(0, 0).getNode(root));
-    assertEquals(node2, new TreePath(0, 1).getNode(root));
-    assertEquals(node3, new TreePath(0, 1, 0).getNode(root));
+    Assert.assertEquals(root, new TreePath(0).getNode(root));
+    Assert.assertEquals(node1, new TreePath(0, 0).getNode(root));
+    Assert.assertEquals(node2, new TreePath(0, 1).getNode(root));
+    Assert.assertEquals(node3, new TreePath(0, 1, 0).getNode(root));
   }
 
+  @Test
   public void testGetNode2() {
 
     DefaultMutableTreeNode tree = new DefaultMutableTreeNode("Category");
@@ -70,9 +75,9 @@ public class NodePathUnitTest extends TestCase {
     tree.add(new DefaultMutableTreeNode("Music"));
     tree.add(new DefaultMutableTreeNode("Games"));
 
-    assertEquals("Category", new TreePath(0).getNode(tree).getUserObject());
-    assertEquals("Sports", new TreePath(0, 0).getNode(tree).getUserObject());
-    assertEquals("Astronomy", new TreePath(0, 2, 2).getNode(tree).getUserObject());
-    assertEquals("Games", new TreePath(0, 4).getNode(tree).getUserObject());
+    Assert.assertEquals("Category", new TreePath(0).getNode(tree).getUserObject());
+    Assert.assertEquals("Sports", new TreePath(0, 0).getNode(tree).getUserObject());
+    Assert.assertEquals("Astronomy", new TreePath(0, 2, 2).getNode(tree).getUserObject());
+    Assert.assertEquals("Games", new TreePath(0, 4).getNode(tree).getUserObject());
   }
 }

@@ -17,14 +17,16 @@ package org.apache.myfaces.tobago.model;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
 import org.apache.myfaces.tobago.component.UITreeData;
 import org.apache.myfaces.tobago.component.UITreeNode;
+import org.junit.Assert;
+import org.junit.Test;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-public class MixedTreeModelUnitTest extends TestCase {
+public class MixedTreeModelUnitTest {
 
+  @Test
   public void testLifecycleSmall() {
 
     MixedTreeModel model = new MixedTreeModel();
@@ -35,10 +37,11 @@ public class MixedTreeModelUnitTest extends TestCase {
     model.endBuildNode(n1);
 
     model.onEncodeBegin();
-    assertEquals(new TreePath(0), model.getPath());
+    Assert.assertEquals(new TreePath(0), model.getPath());
     model.onEncodeEnd();
   }
 
+  @Test
   public void testLifecycleStatic() {
 
     MixedTreeModel model = new MixedTreeModel();
@@ -62,6 +65,7 @@ public class MixedTreeModelUnitTest extends TestCase {
     model.onEncodeEnd();
   }
 
+  @Test
   public void testLifecycleFromModel() {
 
     MixedTreeModel model = new MixedTreeModel();
@@ -83,12 +87,12 @@ public class MixedTreeModelUnitTest extends TestCase {
 //    model.endBuildNodeData(data);
 
     model.onEncodeBegin();
-    assertEquals(new TreePath(0), model.getPath());
+    Assert.assertEquals(new TreePath(0), model.getPath());
     model.onEncodeBegin();
-    assertEquals(new TreePath(0, 0), model.getPath());
+    Assert.assertEquals(new TreePath(0, 0), model.getPath());
     model.onEncodeEnd();
     model.onEncodeBegin();
-    assertEquals(new TreePath(0, 1), model.getPath());
+    Assert.assertEquals(new TreePath(0, 1), model.getPath());
     model.onEncodeEnd();
     model.onEncodeEnd();
   }
@@ -106,6 +110,7 @@ public class MixedTreeModelUnitTest extends TestCase {
    * *         |
    * *         +--o Data Sub Sub Node 3 (0,1,1,0)
    */
+  @Test
   public void testLifecycleMixed() {
 
     MixedTreeModel model = new MixedTreeModel();
@@ -137,27 +142,27 @@ public class MixedTreeModelUnitTest extends TestCase {
     model.endBuildNode(root);
 
     model.onEncodeBegin(); // root
-    assertEquals(new TreePath(0), model.getPath());
+    Assert.assertEquals(new TreePath(0), model.getPath());
     model.onEncodeBegin(); // individual
-    assertEquals(new TreePath(0, 0), model.getPath());
+    Assert.assertEquals(new TreePath(0, 0), model.getPath());
     model.onEncodeEnd(); // individual
-    assertEquals(new TreePath(0), model.getPath());
+    Assert.assertEquals(new TreePath(0), model.getPath());
     model.onEncodeBegin(); // data root node
-    assertEquals(new TreePath(0, 1), model.getPath());
+    Assert.assertEquals(new TreePath(0, 1), model.getPath());
     model.onEncodeBegin(); // data sub node 1
-    assertEquals(new TreePath(0, 1, 0), model.getPath());
+    Assert.assertEquals(new TreePath(0, 1, 0), model.getPath());
     model.onEncodeEnd(); // data sub node 1
-    assertEquals(new TreePath(0, 1), model.getPath());
+    Assert.assertEquals(new TreePath(0, 1), model.getPath());
     model.onEncodeBegin(); // data sub node 2
-    assertEquals(new TreePath(0, 1, 1), model.getPath());
+    Assert.assertEquals(new TreePath(0, 1, 1), model.getPath());
     model.onEncodeBegin(); // data sub node 3
-    assertEquals(new TreePath(0, 1, 1, 0), model.getPath());
+    Assert.assertEquals(new TreePath(0, 1, 1, 0), model.getPath());
     model.onEncodeEnd(); // data sub node 3
-    assertEquals(new TreePath(0, 1, 1), model.getPath());
+    Assert.assertEquals(new TreePath(0, 1, 1), model.getPath());
     model.onEncodeEnd(); // data sub node 2
-    assertEquals(new TreePath(0, 1), model.getPath());
+    Assert.assertEquals(new TreePath(0, 1), model.getPath());
     model.onEncodeEnd();  // data root node
-    assertEquals(new TreePath(0), model.getPath());
+    Assert.assertEquals(new TreePath(0), model.getPath());
     model.onEncodeEnd(); // root
   }
 

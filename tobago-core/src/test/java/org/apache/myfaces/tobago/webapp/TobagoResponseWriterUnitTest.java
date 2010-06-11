@@ -17,71 +17,81 @@ package org.apache.myfaces.tobago.webapp;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterImpl;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseXmlWriterImpl;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.io.StringWriter;
 
-public class TobagoResponseWriterUnitTest extends TestCase {
+public class TobagoResponseWriterUnitTest {
 
   private StringWriter stringWriter;
   private TobagoResponseWriter writer;
 
-  protected void setUp() throws Exception {
-    super.setUp();
+  @Before
+  public void setUp() throws Exception {
     stringWriter = new StringWriter();
     writer = new TobagoResponseWriterImpl(stringWriter, "", "UTF-8");
   }
 
+  @Test
   public void testDocument() throws IOException {
     writer.startDocument();
     writer.endDocument();
-    assertEquals("content expected", 
+    Assert.assertEquals("content expected",
         "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n" 
         + "<html\n"
         + "></html>", stringWriter.toString());
   }
 
+  @Test
   public void testEmptyTag() throws IOException {
     writer.startElement("input", null);
     writer.endElement("input");
-    assertEquals("empty tag", "<input\n>", stringWriter.toString());
+    Assert.assertEquals("empty tag", "<input\n>", stringWriter.toString());
   }
 
+  @Test
   public void testNormalTag() throws IOException {
     writer.startElement("select", null);
     writer.endElement("select");
-    assertEquals("normal tag", "<select\n></select>", stringWriter.toString());
+    Assert.assertEquals("normal tag", "<select\n></select>", stringWriter.toString());
   }
 
+  @Test
   public void testAttribute() throws IOException {
     writer.startElement("select", null);
     writer.writeAttribute("value", "0", null);
     writer.endElement("select");
-    assertEquals("attr tag", "<select value=\"0\"\n></select>", stringWriter.toString());
+    Assert.assertEquals("attr tag", "<select value=\"0\"\n></select>", stringWriter.toString());
   }
 
+  @Test
   public void testAttributeQuoting() throws IOException {
     writer.startElement("select", null);
     writer.writeAttribute("value", "-<->-ü-€-", null);
     writer.endElement("select");
-    assertEquals("attr tag", "<select value=\"-&lt;-&gt;-ü-€-\"\n></select>", stringWriter.toString());
+    Assert.assertEquals("attr tag", "<select value=\"-&lt;-&gt;-ü-€-\"\n></select>", stringWriter.toString());
   }
 
+  @Test
   public void testTextQuoting() throws IOException {
     writer.startElement("textarea", null);
     writer.writeText("-<->-ü-€-", null);
     writer.endElement("textarea");
-    assertEquals("attr tag", "<textarea\n>-&lt;-&gt;-ü-€-</textarea>", stringWriter.toString());
+    Assert.assertEquals("attr tag", "<textarea\n>-&lt;-&gt;-ü-€-</textarea>", stringWriter.toString());
   }
 
-  public void testStringWriter() throws IOException { 
+  @Test
+  public void testStringWriter() throws IOException {
     stringWriter.write("-ü-€-");
-    assertEquals("-ü-€-", stringWriter.toString());
+    Assert.assertEquals("-ü-€-", stringWriter.toString());
   }
 
+  @Test
   public void testManyChars() throws IOException {
     writer.startElement("select", null);
     StringBuffer buffer = new StringBuffer();
@@ -97,9 +107,10 @@ public class TobagoResponseWriterUnitTest extends TestCase {
     result = result.replace("\"", "&quot;");
     result = result.replace("<", "&lt;");
     result = result.replace(">", "&gt;");
-    assertEquals("all chars", "<select value=\"" + result + "\"\n>" + result + "</select>", stringWriter.toString());
+    Assert.assertEquals("all chars", "<select value=\"" + result + "\"\n>" + result + "</select>", stringWriter.toString());
   }
 
+  @Test
   public void testNonUtf8() throws IOException {
     TobagoResponseWriter writer1 = new TobagoResponseWriterImpl(stringWriter, "", "ISO-8859-1");
     writer1.startElement("input", null);
@@ -107,12 +118,13 @@ public class TobagoResponseWriterUnitTest extends TestCase {
     writer1.writeAttribute("readonly", true);
     writer1.endElement("input");
     writer1.close();
-    assertEquals("<input value=\"Gutschein &uuml;ber 100 &euro;.\" readonly=\"readonly\"\n>", stringWriter.toString());
+    Assert.assertEquals("<input value=\"Gutschein &uuml;ber 100 &euro;.\" readonly=\"readonly\"\n>", stringWriter.toString());
   }
 
+  @Test
   public void testCharArray() throws IOException {
     TobagoResponseWriter writer = new TobagoResponseXmlWriterImpl(stringWriter, "text/xml", "ISO-8859-1");
     writer.writeText("123".toCharArray(), 0, 3);
-    assertEquals("123", stringWriter.toString());
+    Assert.assertEquals("123", stringWriter.toString());
   }
 }

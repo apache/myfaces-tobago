@@ -17,10 +17,11 @@ package org.apache.myfaces.tobago.webapp;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.myfaces.tobago.internal.mock.servlet.MockHttpServletRequest;
 import org.apache.myfaces.tobago.internal.webapp.TobagoMultipartFormdataRequest;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
@@ -30,7 +31,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
+public class TobagoMultipartFormdataRequestUnitTest {
 
   private static final String SNIP = "--";
 
@@ -40,9 +41,7 @@ public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
 
   private TobagoMultipartFormdataRequest request;
 
-  public TobagoMultipartFormdataRequestUnitTest(String reference)
-      throws UnsupportedEncodingException {
-    super(reference);
+  public TobagoMultipartFormdataRequestUnitTest() throws UnsupportedEncodingException {
     String body
         = SNIP + BOUNDARY + NEWLINE
         + parameter("color", "red")
@@ -79,22 +78,25 @@ public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
         + value + NEWLINE;
   }
 
+  @Test
   public void testGetFileItem() {
 
     FileItem item = request.getFileItem("file");
-    assertNotNull(item);
-    assertEquals("filename", "hello.txt", item.getName());
-    assertEquals("content", "Hello World!", item.getString());
+    Assert.assertNotNull(item);
+    Assert.assertEquals("filename", "hello.txt", item.getName());
+    Assert.assertEquals("content", "Hello World!", item.getString());
   }
 
+  @Test
   public void testGetParameter() {
 
-    assertEquals("red", request.getParameter("color"));
-    assertEquals("Amsterdam", request.getParameter("city"));
-    assertEquals("Trinidad & Tobago", request.getParameter("country"));
-    assertEquals(null, request.getParameter("empty"));
+    Assert.assertEquals("red", request.getParameter("color"));
+    Assert.assertEquals("Amsterdam", request.getParameter("city"));
+    Assert.assertEquals("Trinidad & Tobago", request.getParameter("country"));
+    Assert.assertEquals(null, request.getParameter("empty"));
   }
 
+  @Test
   public void testGetParameterValues() {
 
     Set<String> expectedSet;
@@ -104,22 +106,23 @@ public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
         Arrays.asList("red", "green", "blue", "yellow"));
     actualSet
         = new HashSet<String>(Arrays.asList(request.getParameterValues("color")));
-    assertEquals("color", expectedSet, actualSet);
+    Assert.assertEquals("color", expectedSet, actualSet);
 
     expectedSet = new HashSet<String>(
         Arrays.asList("Amsterdam", "Bonn", "Pisa"));
     actualSet = new HashSet<String>(Arrays.asList(request.getParameterValues("city")));
-    assertEquals("city", expectedSet, actualSet);
+    Assert.assertEquals("city", expectedSet, actualSet);
 
     expectedSet = new HashSet<String>(
         Arrays.asList("Trinidad & Tobago"));
     actualSet
         = new HashSet<String>(Arrays.asList(request.getParameterValues("country")));
-    assertEquals("country", expectedSet, actualSet);
+    Assert.assertEquals("country", expectedSet, actualSet);
 
-    assertEquals("empty", null, request.getParameterValues("empty"));
+    Assert.assertEquals("empty", null, request.getParameterValues("empty"));
   }
 
+  @Test
   public void testGetParameterNames() {
 
     Set<Object> actual = new HashSet<Object>();
@@ -131,9 +134,10 @@ public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
     Set<String> expected = new HashSet<String>(
         Arrays.asList("color", "city", "country"));
 
-    assertEquals(expected, actual);
+    Assert.assertEquals(expected, actual);
   }
 
+  @Test
   public void testGetParameterMap() {
 
     Map actual = request.getParameterMap();
@@ -143,17 +147,17 @@ public class TobagoMultipartFormdataRequestUnitTest extends TestCase {
     expected.put("city", new String[]{"Amsterdam", "Bonn", "Pisa"});
     expected.put("country", new String[]{"Trinidad & Tobago"});
 
-    assertEquals(expected.keySet(), actual.keySet());
+    Assert.assertEquals(expected.keySet(), actual.keySet());
 
     Set keys = actual.keySet();
     for (Object key1 : keys) {
       String key = (String) key1;
       String[] expectedStrings = expected.get(key);
       String[] actualStrings = (String[]) actual.get(key);
-      assertEquals(expectedStrings.length, actualStrings.length);
+      Assert.assertEquals(expectedStrings.length, actualStrings.length);
       Set<String> expectedSet = new HashSet<String>(Arrays.asList(expectedStrings));
       Set<String> actualSet = new HashSet<String>(Arrays.asList(actualStrings));
-      assertEquals(expectedSet, actualSet);
+      Assert.assertEquals(expectedSet, actualSet);
     }
   }
 }

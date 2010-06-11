@@ -17,11 +17,13 @@ package org.apache.myfaces.tobago.util;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
 import org.apache.myfaces.tobago.internal.util.StringUtils;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class RangeParserUnitTest extends TestCase {
+public class RangeParserUnitTest {
 
+  @Test
   public void test() {
 
     int[] ints =  {0, 5, 10};
@@ -45,14 +47,12 @@ public class RangeParserUnitTest extends TestCase {
     checkEquals(ints, StringUtils.getIndices(s));
     s = "3 - 7, 15 - 13";
     checkEquals(ints, StringUtils.getIndices(s));
-
-
   }
 
   private void checkEquals(int[] ints, int[] indices) {
-    assertTrue(ints.length == indices.length);
+    Assert.assertTrue(ints.length == indices.length);
     for (int i = 0; i < ints.length; i++) {
-      assertTrue(ints[i] == indices[i]);
+       Assert.assertTrue(ints[i] == indices[i]);
     }
   }
 }

@@ -17,7 +17,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.JavaScriptException;
 import org.mozilla.javascript.Scriptable;
@@ -26,21 +28,23 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-public abstract class AbstractJavaScriptTestBase extends TestCase {
+public abstract class AbstractJavaScriptTestBase {
 
   private Context cx;
   private Scriptable scope;
 
+  @Before
   protected void setUp() throws Exception {
-    super.setUp();
     cx = Context.enter();
     scope = cx.initStandardObjects(null);
   }
 
+  @After
   protected void tearDown() throws Exception {
     Context.exit();
   }
 
+  @Test
   public void testDummy() {
 
   }
