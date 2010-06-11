@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.renderkit.html;
  */
 
 import org.apache.commons.collections.set.ListOrderedSet;
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.context.Markup;
@@ -58,7 +59,7 @@ public class StyleClasses implements Serializable {
    */
   public StyleClasses(UIComponent component, String sub) {
     this();
-    addClass(toRendererName(component.getRendererType()), sub);
+    addClass(StringUtils.uncapitalize(component.getRendererType()), sub);
   }
 
   private StyleClasses(StyleClasses base) {
@@ -239,10 +240,6 @@ public class StyleClasses implements Serializable {
         addAspectClass(rendererName, Aspect.REQUIRED);
       }
     }
-  }
-
-  private String toRendererName(String rendererType) {
-    return rendererType.substring(0, 1).toLowerCase(Locale.ENGLISH) + rendererType.substring(1);
   }
 
   @Override
