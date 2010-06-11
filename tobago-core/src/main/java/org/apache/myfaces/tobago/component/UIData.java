@@ -21,7 +21,7 @@ import org.apache.myfaces.tobago.event.SortActionSource;
 import org.apache.myfaces.tobago.event.SortActionSource2;
 
 /**
- * @deprecated Please use UISheet
+ * @deprecated Please use {@link UISheet}
  */
 public interface UIData extends SortActionSource2, SupportsMarkup, SortActionSource {
 

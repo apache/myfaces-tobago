@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @deprecated Please use UILink
+ * @deprecated Please use {@link UILink}
  */
 @Deprecated
 public interface UILinkCommand extends ActionSource, StateHolder {
