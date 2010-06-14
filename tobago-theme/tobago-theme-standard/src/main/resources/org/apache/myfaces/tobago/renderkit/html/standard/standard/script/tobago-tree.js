@@ -126,15 +126,15 @@ function asJQueryId(string) {
   return "#" + string.replace(/:/g, "\\:");
 }
 
-$(document).ready(function () {
+jQuery(document).ready(function () {
 
   // find all option tags and add the dedicated select tag in its data section.
 
-  $(".tobago-treeListbox > div > div > select > option").each(function() {
-    var option = $(this);
+  jQuery(".tobago-treeListbox > div > div > select > option").each(function() {
+    var option = jQuery(this);
     var optionId = option.attr("id");
     var selectId = optionId + "::select";
-    var select = $(asJQueryId(selectId));
+    var select = jQuery(asJQueryId(selectId));
     if (select.length == 1) {
       option.data("select", select);
     } else {
@@ -146,34 +146,34 @@ $(document).ready(function () {
   // add on change on all select tag, all options that are not selected hide there dedicated
   // select tag, and the selected option show its dedicated select tag.
 
-  $(".tobago-treeListbox > div > div > select").each(function() {
+  jQuery(".tobago-treeListbox > div > div > select").each(function() {
 
-    $(this).change(function() {
-      $(this).children("option:not(:selected)").each(function() {
-        $(this).data("select").hide();
+    jQuery(this).change(function() {
+      jQuery(this).children("option:not(:selected)").each(function() {
+        jQuery(this).data("select").hide();
       });
-      $(this).children("option:selected").data("select").show();
+      jQuery(this).children("option:selected").data("select").show();
 
       // Deeper level (2nd and later) should only show the empty select tag.
       // The first child is the empty selection.
-      $(this).parent().nextAll(":not(:first)").children(":not(:first)").hide();
-      $(this).parent().nextAll(":not(:first)").children(":first").show();
+      jQuery(this).parent().nextAll(":not(:first)").children(":not(:first)").hide();
+      jQuery(this).parent().nextAll(":not(:first)").children(":first").show();
 
     });
 
-    $(this).focus(function() {
-      $(this).change();
+    jQuery(this).focus(function() {
+      jQuery(this).change();
     });
 
   });
 
 /*
-  $(".tobago-treeListbox > div > div > select > option:selected").change();
+  jQuery(".tobago-treeListbox > div > div > select > option:selected").change();
 */
 
 /*
-  $(".tobago-treeListbox > div > div > select > option:selected").each(function() {
-    $(this).change();
+  jQuery(".tobago-treeListbox > div > div > select > option:selected").each(function() {
+    jQuery(this).change();
   });
 */
 
