@@ -37,6 +37,10 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * @deprecated since Tobago 1.5.0. Please use {@link org.apache.myfaces.tobago.renderkit.css.Classes}.
+ */
+@Deprecated
 public class StyleClasses implements Serializable {
 
   private static final long serialVersionUID = 3738052927067803517L;
@@ -258,6 +262,10 @@ public class StyleClasses implements Serializable {
     return buffer.toString();
   }
 
+  /**
+   * @deprecated since Tobago 1.5.0. Please use {@link org.apache.myfaces.tobago.renderkit.css.Aspect}.
+   */
+  @Deprecated
   public enum Aspect {
 
     DEFAULT,

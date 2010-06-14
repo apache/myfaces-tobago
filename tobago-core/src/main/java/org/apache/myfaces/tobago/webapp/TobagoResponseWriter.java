@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.webapp;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -131,6 +132,13 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
    */
   public void writeClassAttribute(StyleClasses styleClasses) throws IOException {
     writeAttribute(HtmlAttributes.CLASS, styleClasses.toString(), false);
+  }
+
+  /**
+   * Write the class attribute. The value will not escaped.
+   */
+  public void writeClassAttribute(Classes classes) throws IOException {
+    writeAttribute(HtmlAttributes.CLASS, classes.getStringValue(), false);
   }
 
   /**

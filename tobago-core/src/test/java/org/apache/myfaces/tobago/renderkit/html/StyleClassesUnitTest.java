@@ -17,68 +17,72 @@ package org.apache.myfaces.tobago.renderkit.html;
  * limitations under the License.
  */
 
-import junit.framework.TestCase;
+import org.junit.Assert;
+import org.junit.Test;
 
-/*
- * Date: 2007-05-01
- */
+public class StyleClassesUnitTest {
 
-public class StyleClassesUnitTest extends TestCase {
-
+  @Test
   public void testRemoveOneMatch() {
     StyleClasses c = new StyleClasses();
     c.addFullQualifiedClass("bla");
     c.addFullQualifiedClass("tobago-test-inline");
     c.addFullQualifiedClass("blupp");
     c.removeTobagoClasses("test");
-    assertEquals("bla blupp", c.toString());
+    Assert.assertEquals("bla blupp", c.toString());
   }
 
+  @Test
   public void testRemoveNoMatch() {
     StyleClasses c = new StyleClasses();
     c.addFullQualifiedClass("bla");
     c.addFullQualifiedClass("tobago-test-inline");
     c.addFullQualifiedClass("blupp");
     c.removeTobagoClasses("no");
-    assertEquals("bla tobago-test-inline blupp", c.toString());
+    Assert.assertEquals("bla tobago-test-inline blupp", c.toString());
   }
 
+  @Test
   public void testRemoveEmpty() {
     StyleClasses c = new StyleClasses();
     c.removeTobagoClasses("no");
-    assertEquals(null, c.toString());
+    Assert.assertEquals(null, c.toString());
   }
 
+  @Test
   public void testAddMarkupClass() {
     StyleClasses c = new StyleClasses();
     c.addMarkupClass("myComponent", "big");
-    assertEquals("tobago-myComponent-markup-big", c.toString());
+    Assert.assertEquals("tobago-myComponent-markup-big", c.toString());
     c.removeMarkupClass("myComponent", "big");
-    assertEquals(null, c.toString());
+    Assert.assertEquals(null, c.toString());
   }
 
+  @Test
   public void testAddMarkupClassSub() {
     StyleClasses c = new StyleClasses();
     c.addMarkupClass("myComponent", "mySub", "big");
-    assertEquals("tobago-myComponent-mySub-markup-big", c.toString());
+    Assert.assertEquals("tobago-myComponent-mySub-markup-big", c.toString());
     c.removeMarkupClass("myComponent", "mySub", "big");
-    assertEquals(null, c.toString());
+    Assert.assertEquals(null, c.toString());
   }
 
+  @Test
   public void testAddAspectClass() {
     StyleClasses c = new StyleClasses();
     c.addAspectClass("myComponent", StyleClasses.Aspect.DISABLED);
-    assertEquals("tobago-myComponent-disabled", c.toString());
+    Assert.assertEquals("tobago-myComponent-disabled", c.toString());
     c.removeAspectClass("myComponent", StyleClasses.Aspect.DISABLED);
-    assertEquals(null, c.toString());
+    Assert.assertEquals(null, c.toString());
   }
 
+  @Test
   public void testAddAspectClassSub() {
     StyleClasses c = new StyleClasses();
     c.addAspectClass("myComponent", "mySub", StyleClasses.Aspect.DISABLED);
-    assertEquals("tobago-myComponent-mySub-disabled", c.toString());
+    Assert.assertEquals("tobago-myComponent-mySub-disabled", c.toString());
     c.removeAspectClass("myComponent", "mySub", StyleClasses.Aspect.DISABLED);
-    assertEquals(null, c.toString());
+    Assert.assertEquals(null, c.toString());
   }
 
 }

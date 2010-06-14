@@ -34,10 +34,10 @@ import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -145,9 +145,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
       if (!alreadyExists) {
         writer.startElement(HtmlConstants.DIV, null);
-        StyleClasses levelClass = new StyleClasses();
-        levelClass.addClass("treeListbox", "level");
-        writer.writeClassAttribute(levelClass);
+        writer.writeClassAttribute(Classes.simple(tree, "level"));
         Style levelStyle = new Style();
         levelStyle.setLeft(Measure.valueOf(level * 160)); // xxx 160 should be configurable
         writer.writeStyleAttribute(levelStyle);
@@ -157,18 +155,14 @@ public class TreeNodeRenderer extends CommandRendererBase {
           writer.startElement(HtmlConstants.SELECT, null);
           writer.writeAttribute(HtmlAttributes.DISABLED, true);
           writer.writeAttribute(HtmlAttributes.SIZE, 2); // must be > 1, but the size comes from the layout
-          StyleClasses selectClass = new StyleClasses();
-          selectClass.addClass("treeListbox", "select");
-          writer.writeClassAttribute(selectClass);
+          writer.writeClassAttribute(Classes.simple(tree, "select"));
           writer.endElement(HtmlConstants.SELECT);
         }
       }
 
       writer.startElement(HtmlConstants.SELECT, node);
       writer.writeIdAttribute(id + ComponentUtils.SUB_SEPARATOR + "select");
-      StyleClasses selectClass = new StyleClasses();
-      selectClass.addClass("treeListbox", "select");
-      writer.writeClassAttribute(selectClass);
+      writer.writeClassAttribute(Classes.simple(tree, "select"));
       if (!expanded) {
         Style selectStyle = new Style();
         selectStyle.setDisplay(Display.NONE);
@@ -194,8 +188,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
     final boolean hasNextSibling = node.isHasNextSibling();
     final List<Boolean> junctions = node.getJunctions();
 
-    final boolean expanded = isExpanded(tree, node);
     final boolean showRoot = tree.isShowRoot();
+    final boolean expanded = isExpanded(tree, node) || !showRoot && level == 0;
     final boolean showIcons;
     final boolean showJunctions;
     final boolean showRootJunction;
@@ -257,16 +251,17 @@ public class TreeNodeRenderer extends CommandRendererBase {
       }
 
       // div class (css)
-      StyleClasses styleClasses = StyleClasses.ensureStyleClasses(node);
-      styleClasses.updateClassAttributeAndMarkup(node, "treeNode");
+      final Classes classes;
       if (isMenu) {
-        styleClasses.addClass("treeNode", "menu");
         if (marked) {
-          styleClasses.addClass("treeNode", "marker");
+          classes = Classes.full(node, new String[] {"menu", "marker"});
+        } else {
+          classes = Classes.full(node, "menu");
         }
+      } else {
+        classes = Classes.full(node);
       }
-      styleClasses.addMarkupClass(node, "treeNode");
-      writer.writeClassAttribute(styleClasses);
+      writer.writeClassAttribute(classes);
 
       // div style (width)
       Style style = new Style(facesContext, tree);
@@ -286,9 +281,9 @@ public class TreeNodeRenderer extends CommandRendererBase {
         encodeMenuIcon(facesContext, writer, treeId, id, expanded, node);
       }
 
-      encodeIndent(facesContext, writer, isMenu, showJunctions, junctions);
+      encodeIndent(facesContext, writer, node, isMenu, showJunctions, junctions);
 
-      encodeTreeJunction(facesContext, writer, id, treeId, showJunctions, showRootJunction, showRoot, expanded,
+      encodeTreeJunction(facesContext, writer, node, id, treeId, showJunctions, showRootJunction, showRoot, expanded,
           folder, level, hasNextSibling, openSource, closedSource);
 
       encodeTreeIcons(writer, node, id, treeId, showIcons, folder, source, openSource, closedSource);
@@ -335,7 +330,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     }
     String src = expanded ? menuOpen : menuClose;
     writer.startElement(HtmlConstants.IMG, null);
-    writer.writeClassAttribute(new StyleClasses(node, "menuIcon"));
+    writer.writeClassAttribute(Classes.simple(node, "menuIcon"));
     writer.writeIdAttribute(id + "-menuIcon");
     writer.writeAttribute("src", src, true);
     writer.writeAttribute("onclick", onclick, true);
@@ -344,7 +339,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
   }
 
   private void encodeIndent(
-      final FacesContext facesContext, final TobagoResponseWriter writer, final boolean menuMode,
+      final FacesContext facesContext, final TobagoResponseWriter writer, final UITreeNode node, final boolean menuMode,
       final boolean showJunctions, final List<Boolean> junctions)
       throws IOException {
 
@@ -353,7 +348,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     for (Boolean junction : junctions) {
       writer.startElement(HtmlConstants.IMG, null);
-      writer.writeClassAttribute("tobago-treeNode-junction");
+      writer.writeClassAttribute(Classes.simple(node, "junction"));
       if (junction && !menuMode && showJunctions) {
         writer.writeAttribute("src", perpendicular, true);
       } else {
@@ -364,7 +359,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
   }
 
   private void encodeTreeJunction(
-      FacesContext facesContext, TobagoResponseWriter writer, String id, String treeId,
+      FacesContext facesContext, TobagoResponseWriter writer, UITreeNode node, String id, String treeId,
       boolean showJunctions, boolean showRootJunction, boolean showRoot, boolean expanded, boolean folder,
       int level, boolean hasNextSibling, String openSource, String closedSource)
       throws IOException {
@@ -372,7 +367,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
         || !showRootJunction && level == 0
         || !showRootJunction && !showRoot && level == 1)) {
       writer.startElement(HtmlConstants.IMG, null);
-      writer.writeClassAttribute("tobago-treeNode-junction");
+      writer.writeClassAttribute(Classes.simple(node, "junction"));
       writer.writeIdAttribute(id + "-junction");
 
       String gif = folder && expanded
@@ -403,7 +398,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     if (showIcons) {
       writer.startElement(HtmlConstants.IMG, null);
-      writer.writeClassAttribute(new StyleClasses(node, "icon"));
+      writer.writeClassAttribute(Classes.simple(node, "icon"));
       writer.writeIdAttribute(id + "-icon"); //XXX may not okay with naming conventions
 
       writer.writeAttribute("src", source, true);
@@ -453,7 +448,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       }
     }
     if (marked) {
-      writer.writeClassAttribute(new StyleClasses(node, "marker"));
+      writer.writeClassAttribute(Classes.simple(node, "marker"));
     }
     String tip = node.getTip();
     if (tip != null) {
