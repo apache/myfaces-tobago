@@ -1,4 +1,4 @@
-<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -21,7 +21,7 @@
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <%
-  request.setAttribute("now", new Date(100000000000L));
+  request.setAttribute("now", new SimpleDateFormat("yyyy-MM-dd").parse("1980-03-22"));
 %>
 
 <layout:overview>
@@ -70,7 +70,7 @@
         <tc:cell/>
 
         <tx:date label="Month" value="#{now}">
-          <f:convertDateTime pattern="MMMMM yyyy"/>
+          <f:convertDateTime pattern="MM/yyyy"/>
         </tx:date>
         <tc:cell/>
 
