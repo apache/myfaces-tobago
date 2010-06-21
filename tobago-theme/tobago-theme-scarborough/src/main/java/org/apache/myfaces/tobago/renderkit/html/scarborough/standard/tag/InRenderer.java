@@ -209,26 +209,23 @@ public class InRenderer extends InputRendererBase {
     }
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(context);
-//    int maxSuggestedCount = 25; //input.getMaxSuggestedItems()!=null
-//        ? input.getMaxSuggestedItems().intValue()
-//        : DEFAULT_MAX_SUGGESTED_ITEMS;
 
     Object object = mb.invoke(context, new Object[]{(UIInput) input});
 
-    AutoSuggestItems items;
+    final AutoSuggestItems items;
     if (object instanceof AutoSuggestItems) {
       items = (AutoSuggestItems) object;
     } else {
       items = createAutoSuggestItems(object);
     }
-    List<AutoSuggestItem> suggesteds = items.getItems();
+    List<AutoSuggestItem> suggestItems = items.getItems();
 
 
     writer.startJavascript();
     writer.write("return  {items: [");
 
-    for (int i = 0; i < suggesteds.size() && i < items.getMaxSuggestedCount(); i++) {
-      AutoSuggestItem suggestItem = suggesteds.get(i);
+    for (int i = 0; i < suggestItems.size() && i < items.getMaxSuggestedCount(); i++) {
+      AutoSuggestItem suggestItem = suggestItems.get(i);
       if (i > 0) {
         writer.write(", ");
       }
@@ -253,7 +250,7 @@ public class InRenderer extends InputRendererBase {
         writer.write("]");
       }
       if (suggestItem.getNextFocusId() != null) {
-        writer.write(", nextfocusId: \"");
+        writer.write(", nextFocusId: \"");
         writer.write(AjaxInternalUtils.encodeJavaScriptString(suggestItem.getNextFocusId()));
         writer.write("\"");
       }
