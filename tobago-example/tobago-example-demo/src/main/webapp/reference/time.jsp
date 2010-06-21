@@ -1,4 +1,4 @@
-<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -21,14 +21,14 @@
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 
 <%
-  request.setAttribute("now", new Date(100000000000L));
+  request.setAttribute("now", new SimpleDateFormat("yyyy-MM-dd").parse("1980-03-22"));
 %>
 
 <layout:overview>
   <jsp:body>
       <tc:box label="Time Specific Controls">
         <f:facet name="layout">
-          <tc:gridLayout columns="400px;*" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;250px;*"/>
+          <tc:gridLayout columns="400px;*" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;250px;*"/>
         </f:facet>
         <%-- code-sniplet-start id="date" --%>
         <tx:date label="Date" value="#{now}">
@@ -66,6 +66,16 @@
 
         <tx:date label="Full Style" value="#{now}">
           <f:convertDateTime dateStyle="full" type="both" timeStyle="full" />
+        </tx:date>
+        <tc:cell/>
+
+        <tx:date label="Month" value="#{now}">
+          <f:convertDateTime pattern="MM/yyyy"/>
+        </tx:date>
+        <tc:cell/>
+
+        <tx:date label="Year" value="#{now}">
+          <f:convertDateTime pattern="yyyy"/>
         </tx:date>
         <tc:cell/>
 
