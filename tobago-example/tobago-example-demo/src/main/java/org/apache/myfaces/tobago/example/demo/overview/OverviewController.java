@@ -402,14 +402,11 @@ public class OverviewController {
 
   public List<String> getInputSuggestItems(UIInput component) {
     String prefix = (String) component.getSubmittedValue();
-    LOG.info("createing items for prefix :\"" + prefix + "\"");
+    LOG.info("Creating items for prefix: '" + prefix + "'");
     List<String> li = new ArrayList<String>();
-    li.add(prefix+1);
-    li.add(prefix+2);
-    li.add(prefix+3);
-    li.add(prefix+4);
-    li.add(prefix+5);
-    li.add(prefix+6);
+    for (int i = 1; i <= 6; i++) {
+      li.add(prefix + i);
+    }
     return li;
   }
 

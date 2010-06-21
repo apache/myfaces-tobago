@@ -17,10 +17,9 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIInput;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
@@ -37,6 +36,8 @@ import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -265,6 +266,13 @@ public class InRenderer extends InputRendererBase {
       writer.write(items.getNextFocusId());
       writer.write("\"");
     }
+
+    if (suggestItems.size() > items.getMaxSuggestedCount()) {
+      writer.write(", moreElements: \"");
+      writer.write(ResourceManagerUtils.getPropertyNotNull(context, "tobago", "tobago.in.inputSuggest.moreElements"));
+      writer.write("\"");
+    }
+
     writer.write("};");
     writer.endJavascript();
   }

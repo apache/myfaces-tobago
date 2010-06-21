@@ -166,11 +166,15 @@ Tobago.AutocompleterAjax.prototype.suggest = function(suggestObject) {
     ul.appendChild(li);
   }
 
+  jQuery(div).empty();
 
-  if (div.firstChild) {
-    div.removeChild(div.firstChild);
-  }
   div.appendChild(ul);
+
+  if (suggestObject.moreElements) {
+    var html = "<div title='" + suggestObject.moreElements + "'>…</div>";
+    jQuery(div).append(html);
+  }
+
   if (div.clientWidth < div.scrollWidth) {
     var runtimeStyle = Tobago.getRuntimeStyle(div);
     var leftBorder = runtimeStyle.borderLeftWidth.replace(/\D/g, "") - 0;
