@@ -69,6 +69,9 @@
   <entry key="datePickerOk">OK</entry>
   <entry key="datePickerCancel">Cancel</entry>
 
+  <!-- in - input suggest -->
+  <entry key="tobago.in.inputSuggest.moreElements">There are more matching entries…</entry>
+
   <!-- messages -->
   <entry key="tobago.message.confirmation.title">Messages</entry>
   <entry key="tobago.message.confirmation.okay">OK</entry>

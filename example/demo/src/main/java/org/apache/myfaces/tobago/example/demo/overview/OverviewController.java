@@ -51,17 +51,17 @@ public class OverviewController {
   private static final Log LOG = LogFactory.getLog(OverviewController.class);
 
   private static final String[] TREE_SELECT_MODE_KEYS = {
-    "none",
-    "single",
-    "singleLeafOnly",
-    "multi",
-    "multiLeafOnly"
+      "none",
+      "single",
+      "singleLeafOnly",
+      "multi",
+      "multiLeafOnly"
   };
 
   private static final String[] TREELISTBOX_SELECT_MODE_KEYS = {
-    "single",
-    "singleLeafOnly",
-    "siblingLeafOnly"
+      "single",
+      "singleLeafOnly",
+      "siblingLeafOnly"
   };
 
   private Salutation radioValue;
@@ -252,7 +252,7 @@ public class OverviewController {
   public void processTabChange(TabChangeEvent tabChangeEvent) {
     int oldIndex = tabChangeEvent.getOldTabIndex();
     int newIndex = tabChangeEvent.getNewTabIndex();
-    LOG.error("Tab index changed from Tab " + oldIndex + " to Tab " + newIndex);      
+    LOG.error("Tab index changed from Tab " + oldIndex + " to Tab " + newIndex);
   }
 
   public boolean getShowPopup() {
@@ -379,47 +379,44 @@ public class OverviewController {
     this.sheetConfig = sheetConfig;
   }
 
-    public String getToolbarIconSize() {
-        return toolbarIconSize;
-    }
+  public String getToolbarIconSize() {
+    return toolbarIconSize;
+  }
 
-    public void setToolbarIconSize(String toolbarIconSize) {
-        this.toolbarIconSize = toolbarIconSize;
-    }
+  public void setToolbarIconSize(String toolbarIconSize) {
+    this.toolbarIconSize = toolbarIconSize;
+  }
 
-    public SelectItem[] getToolbarIconItems() {
-        return toolbarIconItems;
-    }
+  public SelectItem[] getToolbarIconItems() {
+    return toolbarIconItems;
+  }
 
-    public void setToolbarIconItems(SelectItem[] toolbarIconItems) {
-        this.toolbarIconItems = toolbarIconItems;
-    }
+  public void setToolbarIconItems(SelectItem[] toolbarIconItems) {
+    this.toolbarIconItems = toolbarIconItems;
+  }
 
-    public String getToolbarTextPosition() {
-        return toolbarTextPosition;
-    }
+  public String getToolbarTextPosition() {
+    return toolbarTextPosition;
+  }
 
-    public void setToolbarTextPosition(String toolbarTextPosition) {
-        this.toolbarTextPosition = toolbarTextPosition;
-    }
+  public void setToolbarTextPosition(String toolbarTextPosition) {
+    this.toolbarTextPosition = toolbarTextPosition;
+  }
 
-    public SelectItem[] getToolbarTextItems() {
-        return toolbarTextItems;
-    }
+  public SelectItem[] getToolbarTextItems() {
+    return toolbarTextItems;
+  }
 
-    public void setToolbarTextItems(SelectItem[] toolbarTextItems) {
-        this.toolbarTextItems = toolbarTextItems;
-    }
+  public void setToolbarTextItems(SelectItem[] toolbarTextItems) {
+    this.toolbarTextItems = toolbarTextItems;
+  }
 
-    public List<String> getInputSuggestItems(String prefix) {
-    LOG.info("createing items for prefix :\"" + prefix + "\"");
+  public List<String> getInputSuggestItems(String prefix) {
+    LOG.info("Creating items for prefix: '" + prefix + "'");
     List<String> li = new ArrayList<String>();
-    li.add(prefix+1);
-    li.add(prefix+2);
-    li.add(prefix+3);
-    li.add(prefix+4);
-    li.add(prefix+5);
-    li.add(prefix+6);
+    for (int i = 1; i <= 6; i++) {
+      li.add(prefix + i);
+    }
     return li;
   }
 }

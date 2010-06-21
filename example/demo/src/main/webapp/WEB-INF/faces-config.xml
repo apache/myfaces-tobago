@@ -34,6 +34,7 @@
       <supported-locale>de_CH</supported-locale>
       <supported-locale>ja_JP</supported-locale>
       <supported-locale>ru_RU</supported-locale>
+      <supported-locale>es</supported-locale>
     </locale-config>
   </application>
 

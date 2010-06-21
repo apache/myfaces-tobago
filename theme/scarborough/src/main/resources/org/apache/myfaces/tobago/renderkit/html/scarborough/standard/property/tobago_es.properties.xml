@@ -69,6 +69,12 @@
   <entry key="datePickerOk">Enviar</entry>
   <entry key="datePickerCancel">Cancelar</entry>
 
+  <!-- in - input suggest -->
+  <entry key="tobago.in.inputSuggest.moreElements">Hay más entradas aparejadas…</entry>
+
+  <!-- messages -->
+  <entry key="tobago.message.confirmation.title">Aviso</entry>
+
   <!-- requiredvalidator -->
   <entry key="tobago.requiredvalidator.message.empty.summary">Campo requerido.</entry>
   <entry key="tobago.requiredvalidator.message.empty.detail">Campo es requerido.</entry>

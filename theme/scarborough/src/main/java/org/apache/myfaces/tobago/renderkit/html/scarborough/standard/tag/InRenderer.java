@@ -24,17 +24,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
-import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 import org.apache.myfaces.tobago.ajax.api.AjaxPhaseListener;
 import org.apache.myfaces.tobago.ajax.api.AjaxRenderer;
 import org.apache.myfaces.tobago.ajax.api.AjaxUtils;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -48,8 +44,13 @@ import javax.faces.el.MethodBinding;
 import javax.faces.validator.LengthValidator;
 import javax.faces.validator.Validator;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
+
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_PASSWORD;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_REQUIRED;
+import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
 
 public class InRenderer extends InputRendererBase implements AjaxRenderer {
   private static final Log LOG = LogFactory.getLog(InRenderer.class);
@@ -195,24 +196,35 @@ public class InRenderer extends InputRendererBase implements AjaxRenderer {
     }
 
     TobagoResponseWriter writer = HtmlRendererUtil.getTobagoResponseWriter(context);
-    int maxSuggestedCount = 25; //input.getMaxSuggestedItems()!=null
-//        ? input.getMaxSuggestedItems().intValue()
-//        : DEFAULT_MAX_SUGGESTED_ITEMS;
+    int maxSuggestedCount = 25;
 
-    List suggesteds = (List) mb.invoke(context, new Object[]{
-        AjaxPhaseListener.getValueForComponent(context, component)});
+    List suggestedList = (List) mb.invoke(
+        context, new Object[]{
+            AjaxPhaseListener.getValueForComponent(context, component)
+        }
+    );
 
     writer.startElement(HtmlConstants.UL, null);
-    int suggestedCount = 0;
-    for (Iterator i = suggesteds.iterator(); i.hasNext(); suggestedCount++) {
-      if (suggestedCount > maxSuggestedCount) {
+    int i = 0;
+    for (Object value : suggestedList) {
+      writer.startElement(HtmlConstants.LI, null);
+      writer.writeText(value, null);
+      writer.endElement(HtmlConstants.LI);
+      i++;
+      if (i >= maxSuggestedCount) {
         break;
       }
-      writer.startElement(HtmlConstants.LI, null);
-      writer.writeText(i.next(), null);
-      writer.endElement(HtmlConstants.LI);
     }
     writer.endElement(HtmlConstants.UL);
+
+    if (suggestedList.size() > maxSuggestedCount) {
+      writer.startElement(HtmlConstants.DIV, null);
+      writer.writeAttribute(HtmlAttributes.TITLE,
+          ResourceManagerUtil.getPropertyNotNull(context, "tobago", "tobago.in.inputSuggest.moreElements"), true);
+      writer.writeText("…");
+      writer.endElement(HtmlConstants.DIV);
+    }
+
     context.responseComplete();
   }
 }
