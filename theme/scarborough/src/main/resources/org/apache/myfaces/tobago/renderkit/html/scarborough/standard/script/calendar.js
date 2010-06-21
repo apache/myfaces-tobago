@@ -209,6 +209,9 @@ function initCalendarParse(id, textBoxId) {
   var date = new Date(getDateFromFormat(string, document.calendar.formatPattern));
   if (date.getTime() == 0) {
     date = new Date();
+  } else if (! document.calendar.formatPattern.match(/d/)) {
+    // XXX Workaround for patterns without day (d) like mm/yyyy (repair the result from parsing)
+    date.setDate(date.getDate() + 1);
   }
   var day = date.getDate();
   var month = date.getMonth() + 1;
