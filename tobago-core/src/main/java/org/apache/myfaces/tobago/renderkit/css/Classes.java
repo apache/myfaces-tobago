@@ -128,10 +128,9 @@ public final class Classes {
         } else if ("none".equals(markupString)) {
           Deprecation.LOG.warn("Markup 'none' is deprecated, please use a NULL pointer instead.");
         } else {
-          LOG.warn("Unknown markup='" + markupString + "'");
+          LOG.warn("Ignoring unknown markup='" + markupString + "' for rendererName='" + rendererName + "'");
         }
       }
-
     }
     if (subs != null) {
       for (String subComponent : subs) {

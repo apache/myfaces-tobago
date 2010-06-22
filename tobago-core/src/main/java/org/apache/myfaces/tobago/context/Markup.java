@@ -31,28 +31,35 @@ import java.util.List;
 
 /**
  * A markup signs a component to be rendered different from the normal.
- * E. g. <code>markup="emphasized"</code> might be rendered bold 
+ * E. g. <code>markup="emphasized"</code> might be rendered bold
  * or a <code>markup="deleted"</code> might be rendered with line-through style.
- * The concrete rendering depends from the theme. 
- * <p>
- * The markup can also hold more than one value, e. g. <code>markup="emphasized, deleted"</code>. 
- * <p>
+ * The concrete rendering depends from the theme.
+ * <p/>
+ * The markup can also hold more than one value, e. g. <code>markup="emphasized, deleted"</code>.
+ * <p/>
  * The value of the markup is unmodifiable.
- * <p>
- * A markup must be registered for a component, before it can be used. 
- * <p>
- * A markup should only contain ASCII characters and digits. 
+ * <p/>
+ * A markup must be registered for a component, before it can be used.
+ * <p/>
+ * A markup should only contain ASCII characters and digits.
  */
 public final class Markup implements Serializable, Iterable<String> {
 
-  public static final Markup NULL = new Markup();
+  public static final Markup NULL = new Markup((String) null);
 
-  /* Just one of values and value must be null */
+  /* Just one of "values" and "value" must be null */
 
-  private String[] values;
-  private String value;
+  private final String[] values;
+  private final String value;
 
-  private Markup() {
+  private Markup(String[] values) {
+    this.values = values;
+    this.value = null;
+  }
+
+  private Markup(String value) {
+    this.values = null;
+    this.value = value;
   }
 
   public static Markup valueOf(String[] values) {
@@ -61,8 +68,7 @@ public final class Markup implements Serializable, Iterable<String> {
     } else if (values.length == 1) {
       return valueOf(values[0]);
     } else {
-      Markup markup = new Markup();
-      markup.values = (String[]) ArrayUtils.clone(values);
+      Markup markup = new Markup((String[]) ArrayUtils.clone(values));
       for (int i = 0; i < markup.values.length; i++) {
         markup.values[i] = markup.values[i].trim();
       }
@@ -76,13 +82,9 @@ public final class Markup implements Serializable, Iterable<String> {
     }
     if (value.contains(",")) {
       String[] strings = StringUtils.split(value, ", \t\n");
-      Markup markup = new Markup();
-      markup.values = strings;
-      return markup;
+      return new Markup(strings);
     } else {
-      Markup markup = new Markup();
-      markup.value = value.trim();
-      return markup;
+      return new Markup(value.trim());
     }
   }
 
@@ -145,5 +147,30 @@ public final class Markup implements Serializable, Iterable<String> {
       return new ObjectArrayIterator(values);
     }
     return EmptyIterator.INSTANCE;
+  }
+
+  public Markup add(String summand) {
+    if (summand == null) {
+      return this;
+    }
+    if (values == null) {
+      if (value == null) {
+        return valueOf(summand);
+      } else {
+        if (summand.equals(value)) {
+          return this;
+        } else {
+          return valueOf(new String[]{value, summand});
+        }
+      }
+    } else {
+      if (ArrayUtils.contains(values, summand)) {
+        return this;
+      } else {
+        final String[] strings = Arrays.copyOf(values, values.length + 1);
+        strings[values.length] = summand;
+        return valueOf(strings);
+      }
+    }
   }
 }

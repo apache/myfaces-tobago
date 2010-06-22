@@ -76,5 +76,16 @@ public class MarkupUnitTest {
     Markup accent = Markup.valueOf("accent");
     Assert.assertSame(accent, Markup.valueOf(accent));
   }
-  
+
+  @Test
+  public void testAdd() {
+    Markup A = Markup.valueOf("a");
+    Markup AB = Markup.valueOf("a,b");
+    Markup ABC = Markup.valueOf("a,b,c");
+    Assert.assertEquals(A, Markup.NULL.add("a"));
+    Assert.assertEquals(AB, A.add("b"));
+    Assert.assertEquals(ABC, AB.add("c"));
+    Assert.assertSame(A, A.add("a"));
+    Assert.assertSame(AB, AB.add("a"));
+  }
 }
