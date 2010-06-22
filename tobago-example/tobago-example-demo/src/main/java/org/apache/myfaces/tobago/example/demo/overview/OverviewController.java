@@ -17,11 +17,14 @@ package org.apache.myfaces.tobago.example.demo.overview;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.UISheet;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.event.SortActionEvent;
+import org.apache.myfaces.tobago.example.data.LocaleEntry;
+import org.apache.myfaces.tobago.example.data.LocaleList;
 import org.apache.myfaces.tobago.example.data.Salutation;
 import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.model.SelectItem;
@@ -66,6 +69,8 @@ public class OverviewController {
   private Salutation[] multiValue;
 
   private String basicInput = "";
+
+  private String suggestInput;
 
   private String basicArea = "";
 
@@ -340,6 +345,14 @@ public class OverviewController {
     this.basicInput = basicInput;
   }
 
+  public String getSuggestInput() {
+    return suggestInput;
+  }
+
+  public void setSuggestInput(String suggestInput) {
+    this.suggestInput = suggestInput;
+  }
+
   public String getBasicArea() {
     return basicArea;
   }
@@ -403,11 +416,16 @@ public class OverviewController {
   public List<String> getInputSuggestItems(UIInput component) {
     String prefix = (String) component.getSubmittedValue();
     LOG.info("Creating items for prefix: '" + prefix + "'");
-    List<String> li = new ArrayList<String>();
-    for (int i = 1; i <= 6; i++) {
-      li.add(prefix + i);
+    List<String> result = new ArrayList<String>();
+    for (String name : LocaleList.COUNTRY_LANGUAGE) {
+      if (StringUtils.startsWithIgnoreCase(name, prefix)) {
+        result.add(name);
+      }
+      if (result.size() > 100) { // this value should be greater than the value of the input control
+        break;
+      }
     }
-    return li;
+    return result;
   }
 
   public String noop() {

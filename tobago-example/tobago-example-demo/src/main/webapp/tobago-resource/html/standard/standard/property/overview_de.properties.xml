@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -84,6 +84,9 @@
   <entry key="basic_itemMr">Herr</entry>
   <entry key="basic_itemMrs">Frau</entry>
   <entry key="basic_textboxLabel">Eingabefeld</entry>
+  <entry key="basic_textboxTip">Ein einfaches Eingabefeld</entry>
+  <entry key="basic_suggestLabel">Vorschlag (AJAX)</entry>
+  <entry key="basic_suggestTip">Bitte geben Sie beispielsweise "po" ein</entry>
   <entry key="basic_dateLabel">Datum</entry>
   <entry key="basic_timeLabel">Uhrzeit</entry>
   <entry key="basic_textareaLabel">Textfeld</entry>

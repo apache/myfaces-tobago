@@ -110,6 +110,9 @@
   <entry key="basic_itemMr">Mr.</entry>
   <entry key="basic_itemMrs">Mrs.</entry>
   <entry key="basic_textboxLabel">Inputfield</entry>
+  <entry key="basic_textboxTip">A simple input field</entry>
+  <entry key="basic_suggestLabel">Suggest (AJAX)</entry>
+  <entry key="basic_suggestTip">Please type in "po" for example</entry>
   <entry key="basic_dateLabel">Date</entry>
   <entry key="basic_timeLabel">Time</entry>
   <entry key="basic_textareaLabel">Textarea</entry>
