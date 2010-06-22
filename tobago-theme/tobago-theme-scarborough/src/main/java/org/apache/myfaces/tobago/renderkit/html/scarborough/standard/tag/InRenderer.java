@@ -47,6 +47,7 @@ import javax.faces.validator.Validator;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class InRenderer extends InputRendererBase {
@@ -295,6 +296,8 @@ public class InRenderer extends InputRendererBase {
       } else {
         throw new IllegalArgumentException("Cant create AutoSuggestItems from " + object);
       }
+    } else {
+      autoSuggestItems.setItems(Collections.<AutoSuggestItem>emptyList());
     }
     return autoSuggestItems;
   }
