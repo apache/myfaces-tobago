@@ -17,16 +17,46 @@ package org.apache.myfaces.tobago.example.data;
  * limitations under the License.
  */
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
-public class LocaleList extends ArrayList<LocaleEntry> {
+public class LocaleList {
 
-  {
+  public static final List<LocaleEntry> DATA;
+
+  public static final List<String> COUNTRY_LANGUAGE;
+
+  static {
+    List<LocaleEntry> init = new ArrayList<LocaleEntry>();
     for (Locale displayLocale : Locale.getAvailableLocales()) {
       for (Locale locale : Locale.getAvailableLocales()) {
-        add(new LocaleEntry(locale, displayLocale));
+        init.add(new LocaleEntry(locale, displayLocale));
       }
     }
+    DATA = Collections.unmodifiableList(init);
+  }
+
+  static {
+    Set<String> init = new HashSet<String>();
+    for (LocaleEntry localeEntry : DATA) {
+      if (StringUtils.isNotBlank(localeEntry.getCountry())
+          && StringUtils.isNotBlank(localeEntry.getLanguage())) {
+        final String name = localeEntry.getCountry() + " (" + localeEntry.getLanguage() + ")";
+        init.add(name);
+      }
+    }
+    final ArrayList<String> list = new ArrayList<String>(init);
+    Collections.sort(list);
+    COUNTRY_LANGUAGE = Collections.unmodifiableList(list);
+  }
+
+  private LocaleList() {
+    // do not call
   }
 }

@@ -52,17 +52,19 @@
 
         <tc:panel>
           <f:facet name="layout">
-            <tc:gridLayout rows="fixed;fixed;fixed" />
+            <tc:gridLayout rows="fixed;fixed;fixed;fixed" />
           </f:facet>
           <tx:in value="#{overviewController.basicInput}" required="true" tabIndex="1"
-              label="#{overviewBundle.basic_textboxLabel}" tip="test"
-              suggestMethod="#{overviewController.getInputSuggestItems}" />
-          <tx:date value="#{overviewController.basicDate}" tabIndex="3"
-              label="#{overviewBundle.basic_dateLabel}" required="true" >
+                 label="#{overviewBundle.basic_textboxLabel}" tip="#{overviewBundle.basic_textboxTip}"/>
+          <tx:in value="#{overviewController.suggestInput}" tabIndex="3"
+                 label="#{overviewBundle.basic_suggestLabel}" tip="#{overviewBundle.basic_suggestTip}"
+                 suggestMethod="#{overviewController.getInputSuggestItems}"/>
+          <tx:date value="#{overviewController.basicDate}" tabIndex="4"
+                   label="#{overviewBundle.basic_dateLabel}" required="true" >
             <f:convertDateTime pattern="dd/MM/yyyy" />
             <tc:validateSubmittedValueLength maximum="10"/>
           </tx:date>
-          <tx:time label="#{overviewBundle.basic_timeLabel}" tabIndex="4"
+          <tx:time label="#{overviewBundle.basic_timeLabel}" tabIndex="5"
               value="#{overviewController.basicTime}" />
         </tc:panel>
 

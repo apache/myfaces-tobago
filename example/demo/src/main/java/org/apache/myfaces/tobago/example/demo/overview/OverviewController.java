@@ -24,6 +24,7 @@ import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.event.SortActionEvent;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
+import org.apache.myfaces.tobago.example.data.LocaleList;
 import org.apache.myfaces.tobago.example.demo.model.Salutation;
 import org.apache.myfaces.tobago.example.demo.model.solar.SolarObject;
 import org.apache.myfaces.tobago.model.SheetState;
@@ -71,6 +72,8 @@ public class OverviewController {
   private Salutation[] multiValue;
 
   private String basicInput = "";
+
+  private String suggestInput;
 
   private String basicArea = "";
 
@@ -351,6 +354,14 @@ public class OverviewController {
     this.basicInput = basicInput;
   }
 
+  public String getSuggestInput() {
+    return suggestInput;
+  }
+
+  public void setSuggestInput(String suggestInput) {
+    this.suggestInput = suggestInput;
+  }
+
   public String getBasicArea() {
     return basicArea;
   }
@@ -413,10 +424,16 @@ public class OverviewController {
 
   public List<String> getInputSuggestItems(String prefix) {
     LOG.info("Creating items for prefix: '" + prefix + "'");
-    List<String> li = new ArrayList<String>();
-    for (int i = 1; i <= 6; i++) {
-      li.add(prefix + i);
+    prefix = prefix.toLowerCase();
+    List<String> result = new ArrayList<String>();
+    for (String name : LocaleList.COUNTRY_LANGUAGE) {
+      if (name.toLowerCase().startsWith(prefix)) {
+        result.add(name);
+      }
+      if (result.size() > 100) { // this value should be greater than the value of the input control
+        break;
+      }
     }
-    return li;
+    return result;
   }
 }

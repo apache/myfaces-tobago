@@ -84,6 +84,9 @@
   <entry key="basic_itemMr">Herr</entry>
   <entry key="basic_itemMrs">Frau</entry>
   <entry key="basic_textboxLabel">Eingabefeld</entry>
+  <entry key="basic_textboxTip">A simple input field</entry>
+  <entry key="basic_suggestLabel">Suggest (AJAX)</entry>
+  <entry key="basic_suggestTip">Please type in "po" for example</entry>
   <entry key="basic_dateLabel">Datum</entry>
   <entry key="basic_timeLabel">Uhrzeit</entry>
   <entry key="basic_textareaLabel">Textfeld</entry>

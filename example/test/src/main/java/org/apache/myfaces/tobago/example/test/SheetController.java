@@ -17,20 +17,25 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.example.data.LocaleEntry;
 import org.apache.myfaces.tobago.example.data.LocaleList;
 import org.apache.myfaces.tobago.example.data.SolarObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SheetController {
   
   private SolarObject[] solarArray = SolarObject.getArray();
 
-  private LocaleList localeList = new LocaleList();
+  // Create a copy for sorting, because the LocaleList.DATA is not modifiable.
+  private List<LocaleEntry> localeList = new ArrayList<LocaleEntry>(LocaleList.DATA);
 
   public SolarObject[] getSolarArray() {
     return solarArray;
   }
 
-  public LocaleList getLocaleList() {
+  public List<LocaleEntry> getLocaleList() {
     return localeList;
   }
 }
