@@ -243,6 +243,14 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
+<!--
+  <managed-bean>
+    <managed-bean-name>validationSeverity</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.overview.ValidationSeverity</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
+  </managed-bean>
+-->
+
   <!--best practice-->
 
   <managed-bean>
@@ -261,6 +269,12 @@
     <managed-bean-name>transitionController</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.demo.bestpractice.TransitionController</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>customizer</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.bestpractice.ToolBarCustomizer</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
   <navigation-rule>
@@ -287,6 +301,10 @@
     <navigation-case>
       <from-outcome>best-practice/non-faces-response</from-outcome>
       <to-view-id>/best-practice/non-faces-response.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>best-practice/tool-bar-customizer</from-outcome>
+      <to-view-id>/best-practice/tool-bar-customizer.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
 
