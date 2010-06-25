@@ -79,13 +79,13 @@ public class MarkupUnitTest {
 
   @Test
   public void testAdd() {
-    Markup A = Markup.valueOf("a");
-    Markup AB = Markup.valueOf("a,b");
-    Markup ABC = Markup.valueOf("a,b,c");
-    Assert.assertEquals(A, Markup.NULL.add("a"));
-    Assert.assertEquals(AB, A.add("b"));
-    Assert.assertEquals(ABC, AB.add("c"));
-    Assert.assertSame(A, A.add("a"));
-    Assert.assertSame(AB, AB.add("a"));
+    Markup a = Markup.valueOf("a");
+    Markup ab = Markup.valueOf("a,b");
+    Markup abc = Markup.valueOf("a,b,c");
+    Assert.assertEquals(a, Markup.NULL.add("a"));
+    Assert.assertEquals(ab, a.add("b"));
+    Assert.assertEquals(abc, ab.add("c"));
+    Assert.assertSame(a, a.add("a"));
+    Assert.assertSame(ab, ab.add("a"));
   }
 }
