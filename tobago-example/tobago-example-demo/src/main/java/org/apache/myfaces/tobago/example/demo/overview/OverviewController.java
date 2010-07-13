@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.event.SortActionEvent;
-import org.apache.myfaces.tobago.example.data.LocaleEntry;
 import org.apache.myfaces.tobago.example.data.LocaleList;
 import org.apache.myfaces.tobago.example.data.Salutation;
 import org.apache.myfaces.tobago.example.data.SolarObject;
