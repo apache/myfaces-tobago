@@ -57,7 +57,9 @@ public class Navigation {
     overview.add(new DefaultMutableTreeNode(new Node("tree", "overview/tree")));
     overview.add(new DefaultMutableTreeNode(new Node("tab", "overview/tab")));
     overview.add(new DefaultMutableTreeNode(new Node("toolbar", "overview/toolbar")));
-    overview.add(new DefaultMutableTreeNode(new Node("validation", "overview/validation")));
+    DefaultMutableTreeNode validation = new DefaultMutableTreeNode(new Node("validation", "overview/validation"));
+    validation.add(new DefaultMutableTreeNode(new Node("validationSeverity", "overview/validation-severity")));
+    overview.add(validation);
     overview.add(new DefaultMutableTreeNode(new Node("form", "overview/form")));
     overview.add(new DefaultMutableTreeNode(new Node("themes", "overview/themes")));
     overview.add(new DefaultMutableTreeNode(new Node("browser", "overview/browser")));

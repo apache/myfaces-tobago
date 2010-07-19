@@ -128,6 +128,10 @@
       <to-view-id>/overview/validation.jsp</to-view-id>
     </navigation-case>
     <navigation-case>
+      <from-outcome>overview/validation-severity</from-outcome>
+      <to-view-id>/overview/validation-severity.jsp</to-view-id>
+    </navigation-case>
+    <navigation-case>
       <from-outcome>overview/form</from-outcome>
       <to-view-id>/overview/form.jsp</to-view-id>
     </navigation-case>
@@ -189,6 +193,12 @@
     <managed-bean-name>clientConfigController2</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.demo.clientConfig.ClientConfigController</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+
+  <managed-bean>
+    <managed-bean-name>validationSeverity</managed-bean-name>
+    <managed-bean-class>org.apache.myfaces.tobago.example.demo.overview.ValidationSeverity</managed-bean-class>
+    <managed-bean-scope>none</managed-bean-scope>
   </managed-bean>
 
   <!--best practice-->

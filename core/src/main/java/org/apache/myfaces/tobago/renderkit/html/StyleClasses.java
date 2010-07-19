@@ -18,18 +18,15 @@ package org.apache.myfaces.tobago.renderkit.html;
  */
 
 import org.apache.commons.collections.set.ListOrderedSet;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
-import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 import org.apache.myfaces.tobago.component.ComponentUtil;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
@@ -38,9 +35,10 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
-/*
- * Date: 2007-05-01
- */
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DISABLED;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_INLINE;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_READONLY;
+import static org.apache.myfaces.tobago.TobagoConstants.ATTR_STYLE_CLASS;
 
 public class StyleClasses implements Serializable {
 
@@ -221,11 +219,29 @@ public class StyleClasses implements Serializable {
     if (ComponentUtil.getBooleanAttribute(component, ATTR_INLINE)) {
       addAspectClass(rendererName, Aspect.INLINE);
     }
+    FacesMessage.Severity severity = ComponentUtil.getMaximumSeverity(component);
+    if (severity != null) {
+      switch (severity.getOrdinal()) {
+        case 4:
+          addMarkupClass(rendererName, "fatal");
+          addAspectClass(rendererName, Aspect.ERROR);
+          break;
+        case 3:
+          addMarkupClass(rendererName, "error");
+          addAspectClass(rendererName, Aspect.ERROR);
+          break;
+        case 2:
+          addMarkupClass(rendererName, "warn");
+          break;
+        case 1:
+          addMarkupClass(rendererName, "info");
+          break;
+        default:
+          assert false : "Ordinal constants may be wrong";
+      }
+    }
     if (component instanceof UIInput) {
       UIInput input = (UIInput) component;
-      if (ComponentUtil.isError(input)) {
-        addAspectClass(rendererName, Aspect.ERROR);
-      }
       if (input.isRequired()) {
         addAspectClass(rendererName, Aspect.REQUIRED);
       }

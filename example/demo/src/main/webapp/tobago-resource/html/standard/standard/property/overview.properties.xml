@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -45,6 +45,7 @@
   <entry key="tab">Tab Control</entry>
   <entry key="toolbar">Toolbar</entry>
   <entry key="validation">Validation</entry>
+  <entry key="validationSeverity">Severity</entry>
   <entry key="form">Forms</entry>
   <entry key="themes">Themes</entry>
   <entry key="browser">Browser</entry>

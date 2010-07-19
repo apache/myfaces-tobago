@@ -311,6 +311,21 @@ public class ComponentUtil {
     return false;
   }
 
+  public static FacesMessage.Severity getMaximumSeverity(UIComponent component) {
+    final boolean invalid = component instanceof javax.faces.component.UIInput
+        && !((javax.faces.component.UIInput)component).isValid();
+    FacesMessage.Severity max = invalid ? FacesMessage.SEVERITY_ERROR : null;
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    final Iterator messages = facesContext.getMessages(component.getClientId(facesContext));
+    while (messages.hasNext()) {
+      FacesMessage message = (FacesMessage) messages.next();
+      if (max == null || message.getSeverity().getOrdinal() > max.getOrdinal()) {
+        max = message.getSeverity();
+      }
+    }
+    return max;
+  }
+
   public static boolean isError(javax.faces.component.UIInput uiInput) {
     FacesContext facesContext = FacesContext.getCurrentInstance();
     return !uiInput.isValid()

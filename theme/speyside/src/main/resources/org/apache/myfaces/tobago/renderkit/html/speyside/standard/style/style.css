@@ -468,6 +468,22 @@ label.tobago-label-error {
   color: #FF0000;
 }
 
+label.tobago-label-markup-fatal {
+  color: #FF00FF;
+}
+
+label.tobago-label-markup-error {
+  color: #FF0000;
+}
+
+label.tobago-label-markup-warn {
+  color: #FFA500;
+}
+
+label.tobago-label-markup-info {
+  color: #000000;
+}
+
 /* page -------------------------------------------------------------------- */
 .tobago-page-default {
   background: #E2E2E2;

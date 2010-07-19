@@ -27,7 +27,7 @@
       </f:facet>
 
       <tc:out escape="false" value="#{overviewBundle.validation_text}" />
-  
+
       <tc:box label="#{overviewBundle.validation_sampleTitle}" >
         <f:facet name="layout">
           <tc:gridLayout rows="fixed;1*;fixed;fixed" />
