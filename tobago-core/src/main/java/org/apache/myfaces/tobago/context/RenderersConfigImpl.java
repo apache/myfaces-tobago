@@ -63,13 +63,13 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
 
   public boolean isMarkupSupported(String rendererName, String markup) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("calling isMarkupSupported {} {}", rendererName, markup);
+      LOG.debug("calling isMarkupSupported('{}', '{}')", rendererName, markup);
     }
     RendererConfig rendererConfig = renderer.get(rendererName);
     if (rendererConfig != null) {
       return rendererConfig.contains(markup);
     } else {
-      LOG.error("Calling isMarkupSupported {} {} but no configuration found.", rendererName, markup);
+      LOG.error("Calling isMarkupSupported('{}', '{}'), but no configuration found.", rendererName, markup);
       return false;
     }
   }
