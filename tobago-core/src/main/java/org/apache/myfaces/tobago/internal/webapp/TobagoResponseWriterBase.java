@@ -252,6 +252,9 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
     writeAttributeInternal(writer, name, value, escape);
   }
 
+  /**
+   * @deprecated since Tobago 1.5.0
+   */
   @Deprecated
   public void writeClassAttribute() throws IOException {
     StyleClasses clazz = (StyleClasses) component.getAttributes().get(Attributes.STYLE_CLASS);

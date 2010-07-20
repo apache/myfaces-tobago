@@ -73,6 +73,9 @@ public class TobagoResponseWriterWrapper extends TobagoResponseWriter {
     responseWriter.writeAttribute(name, value, null);
   }
 
+  /**
+   * @deprecated since Tobago 1.5.0
+   */
   @Deprecated
   public void writeClassAttribute() throws IOException {
     responseWriter.writeAttribute(HtmlAttributes.CLASS, null, Attributes.STYLE_CLASS);

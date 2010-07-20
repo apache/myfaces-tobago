@@ -122,6 +122,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   /**
    * Write the class attribute. The value will not escaped.
+   * @deprecated since Tobago 1.5.0
    */
   @Deprecated
   public void writeClassAttribute(String cssClass) throws IOException {
@@ -130,6 +131,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   /**
    * Write the class attribute. The value will not escaped.
+   * @deprecated since Tobago 1.5.0
    */
   @Deprecated
   public void writeClassAttribute(StyleClasses styleClasses) throws IOException {
@@ -145,6 +147,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   /**
    * Write the class attribute. The value will not escaped.
+   * @deprecated since Tobago 1.5.0
    */
   @Deprecated
   public abstract void writeClassAttribute() throws IOException;
