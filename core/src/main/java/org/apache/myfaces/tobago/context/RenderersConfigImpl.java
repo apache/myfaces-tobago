@@ -20,10 +20,10 @@ package org.apache.myfaces.tobago.context;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Collection;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /*
 * Date: Sep 24, 2006
@@ -62,14 +62,13 @@ public class RenderersConfigImpl implements RenderersConfig, Serializable {
   }
 
   public boolean isMarkupSupported(String rendererName, String markup) {
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("calling isMarkupSupported " + rendererName + " " + markup);
-    }
     RendererConfig rendererConfig = renderer.get(rendererName);
     if (rendererConfig != null) {
       return rendererConfig.contains(markup);
     } else {
-      LOG.error("Calling isMarkupSupported " + rendererName + " " + markup + " but no configuration found.");
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("No config found for renderer '" + rendererName + "'.");
+      }
       return false;
     }
   }

@@ -142,7 +142,7 @@ public class StyleClasses implements Serializable {
         if (theme.getRenderersConfig().isMarkupSupported(rendererName, markup)) {
           addMarkupClass(rendererName, sub, markup);
         } else if (!"none".equals(markup)) {
-          LOG.warn("Unknown markup='" + markup + "'");
+          LOG.warn("Ignoring unknown markup='" + markup + "' for rendererName='" + rendererName + "'");
         }
       }
     }
