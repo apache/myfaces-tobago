@@ -459,7 +459,7 @@ Tobago.Sheet.prototype.addSelectionListener = function() {
     if (row) {
       var i = 0;
       while (row) {
-        //       LOG.debug("rowId = " + row.id + "   next i=" + i);
+        Tobago.addBindEventListener(row, "mousedown", this, "doMouseDownSelect");
         Tobago.addBindEventListener(row, "click", this, "doSelection");
         if (this.dblClickActionId) {
           Tobago.addBindEventListener(row, "dblclick", this, "doDblClick");
@@ -469,6 +469,14 @@ Tobago.Sheet.prototype.addSelectionListener = function() {
       //LOG.debug("preSelected rows = " + Tobago.element(sheetId + "::selected").value);
     }
   };
+
+Tobago.Sheet.prototype.doMouseDownSelect = function(event) {
+  if (!event) {
+    event = window.event;
+  }
+  this.mouseDownX = event.clientX;
+  this.mouseDownY = event.clientY;
+};
 
 Tobago.Sheet.prototype.doSelection = function(event) {
     if (! event) {
@@ -491,6 +499,12 @@ Tobago.Sheet.prototype.doSelection = function(event) {
     //LOG.debug("Actionid " + this.clickActionId);
     //LOG.debug("ID " + this.id);
     if (! Tobago.isInputElement(srcElement.tagName)) {
+
+      if (Math.abs(this.mouseDownX - event.clientX) + Math.abs(this.mouseDownY - event.clientY) > 5) {
+        // The user has moved the mouse. We assume, the user want to select some text inside the sheet,
+        // so we doesn't select the row.
+        return;
+      }
 
       Tobago.clearSelection();
 
