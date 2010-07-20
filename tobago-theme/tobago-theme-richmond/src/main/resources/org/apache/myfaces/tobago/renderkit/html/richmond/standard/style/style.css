@@ -100,6 +100,22 @@ label.tobago-label {
   background: #e6e6e6;
 }
 
+label.tobago-label-markup-fatal {
+  color: #FF00FF;
+}
+
+label.tobago-label-markup-error {
+  color: #FF0000;
+}
+
+label.tobago-label-markup-warn {
+  color: #FFA500;
+}
+
+label.tobago-label-markup-info {
+  color: #000000;
+}
+
 /* in ---------------------------------------------------------------------- */
 
 .tobago-in {
@@ -155,12 +171,6 @@ li.tobago-menu-selected {
 
 .tobago-menuBar ol {
   border-color: #000000;
-}
-
-/* messages ----------------------------------------------------------------- */
-
-.tobago-messages {
-  font: 14px arial, helvetica, sans-serif;
 }
 
 /* page --------------------------------------------------------------------- */

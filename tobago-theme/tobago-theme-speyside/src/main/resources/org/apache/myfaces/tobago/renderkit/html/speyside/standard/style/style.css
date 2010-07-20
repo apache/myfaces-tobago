@@ -229,9 +229,22 @@ label.tobago-label-inline {
   padding-left: 0;
 }
 
+label.tobago-label-markup-fatal {
+  background: url(../image/label-error-bg.gif) no-repeat bottom left;
+  color: #FF00FF;
+}
+
 label.tobago-label-markup-error {
   background: url(../image/label-error-bg.gif) no-repeat bottom left;
   color: #FF0000;
+}
+
+label.tobago-label-markup-warn {
+  color: #FFA500;
+}
+
+label.tobago-label-markup-info {
+  color: #000000;
 }
 
 /* link -------------------------------------------------------- */

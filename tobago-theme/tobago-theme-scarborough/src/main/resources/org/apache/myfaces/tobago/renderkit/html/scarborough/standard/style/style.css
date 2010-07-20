@@ -303,6 +303,22 @@ label.tobago-label-inline {
   padding-left: 0;
 }
 
+label.tobago-label-markup-fatal {
+  color: #FF00FF;
+}
+
+label.tobago-label-markup-error {
+  color: #FF0000;
+}
+
+label.tobago-label-markup-warn {
+  color: #FFA500;
+}
+
+label.tobago-label-markup-info {
+  color: #000000;
+}
+
 /* MenuBar, Menu, etc. ------------------------------------------------------------------ */
 
 .tobago-menuBar, .tobago-menuBar a:link, .tobago-menuBar a:visited, .tobago-menuBar a:active,
@@ -414,8 +430,19 @@ iframe.tobago-menu-ie6bugfix {
 /* messages --------------------------------------------------- */
 
 .tobago-messages {
-  color: #FF0000;
   white-space: nowrap;
+}
+
+.tobago-messages-item-markup-fatal {
+  color: #FF00FF;
+}
+
+.tobago-messages-item-markup-error {
+  color: #FF0000;
+}
+
+.tobago-messages-item-markup-warn {
+  color: #FFA500;
 }
 
 .tobago-messages-item-markup-info {
