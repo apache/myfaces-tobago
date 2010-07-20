@@ -128,7 +128,7 @@ public class ResourceManagerUtils {
   
   public static Measure getThemeMeasure(FacesContext facesContext, Configurable configurable, String name) {
     return ResourceManagerFactory.getResourceManager(facesContext).getThemeMeasure(
-        facesContext, configurable.getRendererType(), configurable.getMarkup(), name);
+        facesContext, configurable.getRendererType(), configurable.getCurrentMarkup(), name);
   }
   
 }

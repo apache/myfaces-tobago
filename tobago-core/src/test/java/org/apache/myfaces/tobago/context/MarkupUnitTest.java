@@ -80,12 +80,36 @@ public class MarkupUnitTest {
   @Test
   public void testAdd() {
     Markup a = Markup.valueOf("a");
+    Markup b = Markup.valueOf("b");
+    Markup c = Markup.valueOf("c");
     Markup ab = Markup.valueOf("a,b");
     Markup abc = Markup.valueOf("a,b,c");
-    Assert.assertEquals(a, Markup.NULL.add("a"));
-    Assert.assertEquals(ab, a.add("b"));
-    Assert.assertEquals(abc, ab.add("c"));
-    Assert.assertSame(a, a.add("a"));
-    Assert.assertSame(ab, ab.add("a"));
+    Assert.assertEquals(a, Markup.NULL.add(a));
+    Assert.assertEquals(ab, a.add(b));
+    Assert.assertEquals(abc, ab.add(c));
+    Assert.assertEquals(abc, ab.add(abc));
+    Assert.assertSame(a, a.add(a));
+    Assert.assertSame(ab, ab.add(a));
+    Assert.assertSame(ab, ab.add(ab));
+  }
+
+  @Test
+  public void testRemove() {
+    Markup a = Markup.valueOf("a");
+    Markup b = Markup.valueOf("b");
+    Markup c = Markup.valueOf("c");
+    Markup ab = Markup.valueOf("a,b");
+    Markup bc = Markup.valueOf("b,c");
+    Markup abc = Markup.valueOf("a,b,c");
+    Assert.assertEquals(Markup.NULL, Markup.NULL.remove(a));
+    Assert.assertEquals(a, a.remove(b));
+    Assert.assertEquals(Markup.NULL, a.remove(a));
+    Assert.assertEquals(b, ab.remove(a));
+    Assert.assertEquals(a, ab.remove(b));
+    Assert.assertEquals(c, abc.remove(ab));
+    Assert.assertEquals(a, ab.remove(bc));
+    Assert.assertEquals(Markup.NULL, abc.remove(abc));
+    Assert.assertSame(b, b.remove(a));
+    Assert.assertSame(ab, ab.remove(c));
   }
 }

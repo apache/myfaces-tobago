@@ -254,7 +254,7 @@ Tobago.Sheet.prototype.insertTarget = function(event, actionId) {
         input.type='text';
         input.id=hiddenId;
         input.name=hiddenId;
-        input.className = "tobago-sheet-paging-input";
+        input.className = "tobago-sheet-pagingInput";
         input.actionId = actionId;
         Tobago.addBindEventListener(input, "blur", this, "delayedHideInput");
         Tobago.addBindEventListener(input, "keydown", this, "doKeyEvent");
@@ -319,8 +319,8 @@ Tobago.Sheet.prototype.setupResizer = function() {
 
       var length = headerDiv.childNodes.length;
       for (var i = 0; i < length; i++) {
-        var resizer = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_resizer_" + i);
-        if (resizer && resizer.className.match(/tobago-sheet-header-resize-cursor/)) {
+        var resizer = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_spacer_" + i);
+        if (resizer && resizer.className.match(/tobago-sheet-headerSpacer-markup-resizable/)) {
           Tobago.addEventListener(resizer, "click", Tobago.stopEventPropagation);
           Tobago.addBindEventListener(resizer, "mousedown", this, "beginResize");
         }
@@ -649,7 +649,7 @@ Tobago.Sheet.prototype.selectRange = function(indexA, indexB, selectDeselected, 
  */
 Tobago.Sheet.prototype.selectRow = function(selected, rowIndex, row, image) {
   selected.value = selected.value + rowIndex + ",";
-  row.className = row.className + " tobago-sheet-row-selected";
+  row.className = row.className + " tobago-sheet-row-markup-selected";
   if (image != null) {
     image.src = this.checkedImage;
   }
@@ -664,7 +664,7 @@ Tobago.Sheet.prototype.selectRow = function(selected, rowIndex, row, image) {
 Tobago.Sheet.prototype.deselectRow = function(selected, rowIndex, row, image) {
   selected.value = selected.value.replace(new RegExp("," + rowIndex + ","), ",");
   var c = " " + row.className + " ";
-  c = c.replace(/ tobago-sheet-row-selected /, " ");
+  c = c.replace(/ tobago-sheet-row-markup-selected /, " ");
   row.className = c.substring(1, c.length - 1);
   if (image != null) {
     image.src = this.uncheckedImage;
@@ -691,13 +691,13 @@ Tobago.Sheet.prototype.adjustResizer = function() {
     if (window.opera) {
       var position = 5;
       var index = 0;
-      var resizer = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_resizer_" + index);
+      var resizer = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_spacer_" + index);
       while (resizer) {
         resizer.style.right = - position;
         var headerBox = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_box_" + index++);
         var width = headerBox.style.width.replace(/px/, "") - 0;
         position += width;
-        resizer = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_resizer_" + index);
+        resizer = Tobago.element(this.id + Tobago.SUB_COMPONENT_SEP + "header_spacer_" + index);
       }
     }
   };
@@ -758,7 +758,7 @@ Tobago.Sheet.prototype.beginResize = function(event) {
   };
 
 Tobago.Sheet.prototype.getHeaderBox = function() {
-    var boxId = this.resizerId.replace(/header_resizer_/, "header_box_");
+    var boxId = this.resizerId.replace(/header_spacer_/, "header_box_");
     return Tobago.element(boxId);
   };
 

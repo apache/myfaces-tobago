@@ -17,16 +17,17 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UISelectManyListbox;
 import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -67,7 +68,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     }
     Style style = new Style(facesContext, select);
     writer.writeStyleAttribute(style);
-    writer.writeClassAttribute();
+    writer.writeClassAttribute(Classes.create(select));
     writer.writeAttribute(HtmlAttributes.MULTIPLE, HtmlAttributes.MULTIPLE, false);
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);

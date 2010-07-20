@@ -150,7 +150,7 @@ public class StyleClasses implements Serializable {
   }
 
   public void addMarkupClass(SupportsMarkup supportsMarkup, String rendererName, String sub) {
-    Markup m = supportsMarkup.getMarkup();
+    Markup m = supportsMarkup.getCurrentMarkup();
     if (m != null) {
       for (String markup : m) {
         Theme theme = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance()).getTheme();
@@ -263,7 +263,7 @@ public class StyleClasses implements Serializable {
   }
 
   /**
-   * @deprecated since Tobago 1.5.0. Please use {@link org.apache.myfaces.tobago.renderkit.css.Aspect}.
+   * @deprecated since Tobago 1.5.0. Please use {@link org.apache.myfaces.tobago.context.Markup}.
    */
   @Deprecated
   public enum Aspect {

@@ -211,7 +211,7 @@ public class ResourceManagerImpl implements ResourceManager {
   }
 
   public Measure getThemeMeasure(FacesContext facesContext, Configurable configurable, String name) {
-    return getThemeMeasure(facesContext, configurable.getRendererType(), configurable.getMarkup(), name);
+    return getThemeMeasure(facesContext, configurable.getRendererType(), configurable.getCurrentMarkup(), name);
   }
 
   public Measure  getThemeMeasure(FacesContext facesContext, String rendererType, Markup markup, String name) {

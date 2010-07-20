@@ -17,23 +17,18 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIProgress;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -45,12 +40,11 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(ProgressRenderer.class);
 
-  public void encodeEnd(FacesContext facesContext,
-      UIComponent uiComponent) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UIProgress component = (UIProgress) uiComponent;
+    UIProgress progress = (UIProgress) component;
 
-    BoundedRangeModel model = (BoundedRangeModel) component.getValue();
+    BoundedRangeModel model = (BoundedRangeModel) progress.getValue();
 
     if (model == null) {
       LOG.warn("'null' value found! Using dummy Model instead!");
@@ -62,7 +56,7 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
     String value1 = Integer.toString(model.getValue());
     String value2 = Integer.toString(model.getMaximum() - model.getValue());
 
-    Object title = component.getAttributes().get(Attributes.TIP);
+    Object title = progress.getAttributes().get(Attributes.TIP);
     if (title == null) {
       title = Integer.toString(100 * model.getValue()
           / (model.getMaximum() - model.getMinimum())) + " %";
@@ -75,7 +69,7 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
     String width2 = value2;
 
     if (width != null) {
-      int value = (width -1) * model.getValue()
+      int value = (width - 1) * model.getValue()
           / (model.getMaximum() - model.getMinimum());
       width1 = Integer.toString(value);
       width2 = Integer.toString((width - 2) - value);
@@ -83,15 +77,12 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlConstants.SPAN, component);
-    writer.writeClassAttribute();
+    writer.startElement(HtmlConstants.SPAN, progress);
+    writer.writeClassAttribute(Classes.create(progress));
     writer.writeAttribute(HtmlAttributes.TITLE, String.valueOf(title), true);
 
     writer.startElement(HtmlConstants.IMG, null);
-    StyleClasses color1Classes = new StyleClasses();
-    color1Classes.addClass("progress", "color1");
-    color1Classes.addMarkupClass(component, "progress", "color1");
-    writer.writeClassAttribute(color1Classes);
+    writer.writeClassAttribute(Classes.create(progress, "color1"));
     writer.writeAttribute(HtmlAttributes.SRC, image, false);
     writer.writeAttribute(HtmlAttributes.ALT, String.valueOf(title), true);
     writer.writeAttribute(HtmlAttributes.WIDTH, width1, false);
@@ -99,10 +90,7 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlConstants.IMG);
 
     writer.startElement(HtmlConstants.IMG, null);
-    StyleClasses color2Classes = new StyleClasses();
-    color2Classes.addClass("progress", "color2");
-    color2Classes.addMarkupClass(component, "progress", "color2");
-    writer.writeClassAttribute(color2Classes);
+    writer.writeClassAttribute(Classes.create(progress, "color2"));
     writer.writeAttribute(HtmlAttributes.SRC, image, false);
     writer.writeAttribute(HtmlAttributes.ALT, String.valueOf(title), true);
     writer.writeAttribute(HtmlAttributes.WIDTH, width2, false);
@@ -110,7 +98,7 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlConstants.IMG);
 
     writer.endElement(HtmlConstants.SPAN);
-    UIComponent facet = component.getFacet("complete");
+    UIComponent facet = progress.getFacet("complete");
     if (model.getValue() == model.getMaximum() && facet != null
         && facet instanceof UICommand) {
       UICommand command = (UICommand) facet;
@@ -120,4 +108,3 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
   }
 
 }
-

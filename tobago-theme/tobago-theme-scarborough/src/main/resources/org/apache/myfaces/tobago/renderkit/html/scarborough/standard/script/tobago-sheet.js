@@ -43,7 +43,7 @@ function tobagoSheetEditPagingRow(span, commandId, onClickCommand, commandName) 
       input.type='text';
       input.id=hiddenId;
       input.name=hiddenId;
-      input.className = "tobago-sheet-paging-input";
+      input.className = "tobago-sheet-pagingInput";
       input.onClickCommand = onClickCommand;
       Tobago.addEventListener(input, 'blur', delayedHideInput);
       //Tobago.addEventListener(input, 'keyup', keyUp);

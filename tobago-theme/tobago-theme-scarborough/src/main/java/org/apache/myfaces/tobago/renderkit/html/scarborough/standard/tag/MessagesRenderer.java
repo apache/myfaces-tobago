@@ -17,9 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
@@ -33,17 +30,21 @@ import org.apache.myfaces.tobago.component.UIMessages;
 import org.apache.myfaces.tobago.component.UIPanel;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -76,9 +77,8 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     }
     if (facesContext.getMessages().hasNext()) { // in ie empty span gets a height
       writer.startElement(HtmlConstants.SPAN, messages);
-      writer.writeClassAttribute("tobago-validation-message");
-      Style style = new Style(facesContext, messages);
-      writer.writeStyleAttribute(style);
+      writer.writeClassAttribute(Classes.create(messages));
+      writer.writeStyleAttribute(new Style(facesContext, messages));
 
       // with id
       String focusId = null;
@@ -176,7 +176,6 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     okButtonAttributes.put(Attributes.LABEL, ResourceManagerUtils.getPropertyNotNull(
         facesContext, "tobago", "tobago.message.confirmation.okay"));
     okButtonAttributes.put("popupClose", "immediate");
-    return;
   }
 
   /*
@@ -202,9 +201,8 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
       writer.writeAttribute(HtmlAttributes.FOR, clientId, false);
     }
     writer.writeAttribute(HtmlAttributes.TITLE, detail, true);
-    StyleClasses classes = new StyleClasses();
-    classes.addMarkupClass("messages", message.getSeverity().toString().toLowerCase());
-    writer.writeClassAttribute(classes);
+    final Markup markup = ComponentUtils.markupOfSeverity(message.getSeverity());
+    writer.writeClassAttribute(Classes.create(messages, "item", markup));
     boolean writeEmptyText = true;
     if (summary != null && messages.isShowSummary()) {
       writer.writeText(summary);

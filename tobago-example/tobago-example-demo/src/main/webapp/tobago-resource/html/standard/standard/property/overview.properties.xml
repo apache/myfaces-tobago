@@ -45,6 +45,7 @@
   <entry key="tab">Tab Control</entry>
   <entry key="toolbar">Toolbar</entry>
   <entry key="validation">Validation</entry>
+  <entry key="validationSeverity">Severity</entry>
   <entry key="form">Forms</entry>
   <entry key="theme">Themes</entry>
   <entry key="browser">Browser</entry>

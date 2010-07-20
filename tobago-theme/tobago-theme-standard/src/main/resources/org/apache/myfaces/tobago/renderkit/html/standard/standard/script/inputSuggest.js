@@ -16,11 +16,11 @@
  */
 
 
-Tobago.AutocompleterAjax = function(elementId, required, cssPrefix, options) {
+Tobago.AutocompleterAjax = function(elementId, required, requiredClass, options) {
   LOG.debug("new Tobago.AutocompleterAjax " + elementId);
   this.id = elementId;
   this.required = required;
-  this.cssPrefix = cssPrefix;
+  this.requiredClass = requiredClass;
   this.setup();
 
   this.options = {
@@ -307,7 +307,7 @@ Tobago.AutocompleterAjax.prototype.createSuggestDiv = function() {
   div.style.top = (Tobago.getAbsoluteTop(input) + Tobago.getHeight(input)) + "px";
   div.style.left = Tobago.getAbsoluteLeft(input) + "px";
   div.style.width = Tobago.getWidth(input) + "px";
-  div.className = "tobago-in-suggest-popup";
+  div.className = "tobago-in-suggestPopup";
   div.id = this.id + "_suggestDiv";
   Tobago.page.appendChild(div);
   return div;

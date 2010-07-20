@@ -19,26 +19,42 @@ package org.apache.myfaces.tobago.renderkit.css;
 
 import org.apache.commons.collections.map.MultiKeyMap;
 import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.Theme;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import java.util.EnumSet;
-import java.util.Set;
 
 /**
  * Builds the CSS class attribute of tags.
  * The names will be generated in a formal way, so generic name (and abbrevation) are possible.
  * The class works like a factory, so caching will be possible.
+ * <p/>
+ * The default naming conventions allow these values:<br/>
+ *
+ * <ul>
+ * <li>tobago-&lt;rendererName></li>
+ * <li>tobago-&lt;rendererName>-markup-&lt;markupName></li>
+ * <li>tobago-&lt;rendererName>-&lt;subElement></li>
+ * <li>tobago-&lt;rendererName>-&lt;subElement>-markup-&lt;markupName></li>
+ * </ul>
+ *
+ * where
+ * <ul>
+ * <li>&lt;rendererName>, &lt;subElement> and &lt;markupName> must only contain ASCII-chars and -numbers</li>
+ * <li>&lt;rendererName> is the rendererType with a lower case char as first char</li>
+ * <li>&lt;subElement> is a sub element of the main tag in the output language (e.g. HTML)</li>
+ * <li>&lt;markupName> is the name of an existing markup</li>
+ * </ul>
+ * If the markup contains more than one name, there will be generated more than one output string.
+ * E.g.: UIIn with Markup [readonly, error] will get the class
+ * "tobago-in tobago-in-markup-readonly tobago-in-markup-error".
+ *
  */
 public final class Classes {
 
@@ -48,80 +64,69 @@ public final class Classes {
 
   private final String stringValue;
 
-  public static Classes simple(UIComponent component, String sub) {
-    return create(component, false, null, sub);
+  public static Classes create(UIComponent component) {
+    return create(component, true, null, null, false);
   }
 
-  public static Classes full(UIComponent component) {
-    return create(component, true, null, null);
+  public static Classes create(UIComponent component, String sub) {
+    return create(component, true, sub, null, false);
   }
 
-  public static Classes full(UIComponent component, String sub) {
-    return create(component, true, null, sub);
+  public static Classes create(UIComponent component, Markup explicit) {
+    return create(component, false, null, explicit, false);
   }
 
-  public static Classes full(UIComponent component, String[] subs) {
-    return create(component, true, subs, null);
+  public static Classes create(UIComponent component, String sub, Markup explicit) {
+    return create(component, false, sub, explicit, false);
   }
 
-  private static Classes create(UIComponent component, boolean full, String[] subs, String sub) {
-    final Object s = sub != null ? sub : subs;
+  /**
+   * Workaround to enforce unregistered markups. (May be removed after finding a better solution)
+   * A solution can be: using a specific renderer to render e. g. the button in the sheet.
+   * @deprecated
+   */
+  @Deprecated
+  public static Classes createIgnoreCheck(UIComponent component, String sub, Markup explicit) {
+    return create(component, false, sub, explicit, true);
+  }
+
+  private static Classes create(
+      UIComponent component, boolean markupFromComponent, String sub, Markup explicit, boolean ignoreCheck) {
     final String rendererName = StringUtils.uncapitalize(component.getRendererType());
-    final Set<Aspect> aspects = full ? evaluateAspects(component) : null;
-    final Markup markup = full ? ((SupportsMarkup) component).getMarkup() : null;
-    Classes value = (Classes) CACHE.get(rendererName, aspects, markup, s);
+    final Markup markup = markupFromComponent ? ((SupportsMarkup) component).getCurrentMarkup() : explicit;
+    Classes value = (Classes) CACHE.get(rendererName, markup, sub);
     if (value == null) {
-      value = new Classes(rendererName, aspects, markup, subs, sub);
-      CACHE.put(rendererName, aspects, markup, s, value);
+      value = new Classes(rendererName, markup, sub, ignoreCheck);
+      CACHE.put(rendererName, markup, sub, value);
       LOG.info("Classes cache size = " + CACHE.size());
     }
     return value;
   }
 
-  private Classes(String rendererName, Set<Aspect> aspects, Markup markup, String[] subs, String sub) {
-    this.stringValue = encode(rendererName, aspects, markup, subs, sub);
-  }
+  private Classes(String rendererName, Markup markup, String sub, boolean ignoreCheck) {
 
-  private static Set<Aspect> evaluateAspects(UIComponent component) {
-    Set<Aspect> aspects = EnumSet.noneOf(Aspect.class);
-    aspects.add(Aspect.DEFAULT);
-    if (ComponentUtils.getBooleanAttribute(component, Attributes.DISABLED)) {
-      aspects.add(Aspect.DISABLED);
+    if (sub != null && !StringUtils.isAlphanumeric(sub)) {
+      throw new IllegalArgumentException("Invalid sub element name: '" + sub + "'");
     }
-    if (ComponentUtils.getBooleanAttribute(component, Attributes.READONLY)) {
-      aspects.add(Aspect.READONLY);
-    }
-    if (ComponentUtils.getBooleanAttribute(component, Attributes.INLINE)) {
-      aspects.add(Aspect.INLINE);
-    }
-    if (component instanceof UIInput) {
-      UIInput input = (UIInput) component;
-      if (ComponentUtils.isError(input)) {
-        aspects.add(Aspect.ERROR);
-      }
-      if (input.isRequired()) {
-        aspects.add(Aspect.REQUIRED);
-      }
-    }
-    return aspects;
-  }
 
-  private String encode(String rendererName, Set<Aspect> aspects, Markup markup, String[] subs, String sub) {
     StringBuilder builder = new StringBuilder();
-    if (aspects != null) {
-      for (Aspect aspect : aspects) {
-        builder.append("tobago-");
-        builder.append(rendererName);
-        builder.append(aspect.getClassSuffix());
-        builder.append(' ');
-      }
+    builder.append("tobago-");
+    builder.append(rendererName);
+    if (sub != null) {
+      builder.append('-');
+      builder.append(sub);
     }
+    builder.append(' ');
     if (markup != null) {
       for (String markupString : markup) {
         Theme theme = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance()).getTheme();
-        if (theme.getRenderersConfig().isMarkupSupported(rendererName, markupString)) {
+        if (ignoreCheck || theme.getRenderersConfig().isMarkupSupported(rendererName, markupString)) {
           builder.append("tobago-");
           builder.append(rendererName);
+          if (sub != null) {
+            builder.append('-');
+            builder.append(sub);
+          }
           builder.append("-markup-");
           builder.append(markupString);
           builder.append(' ');
@@ -132,29 +137,20 @@ public final class Classes {
         }
       }
     }
-    if (subs != null) {
-      for (String subComponent : subs) {
-        builder.append("tobago-");
-        builder.append(rendererName);
-        builder.append("-");
-        builder.append(subComponent);
-        builder.append(' ');
-      }
-    }
-    if (sub != null) {
-      builder.append("tobago-");
-      builder.append(rendererName);
-      builder.append("-");
-      builder.append(sub);
-      builder.append(' ');
-    }
     if (builder.length() > 0) {
       builder.setLength(builder.length() - 1);
     }
-    return builder.toString();
+    this.stringValue = builder.toString();
   }
 
   public String getStringValue() {
     return stringValue;
+  }
+
+  /** @deprecated This workaround will be removed later */
+  @Deprecated
+  public static String required(UIComponent component) {
+    final String rendererName = StringUtils.uncapitalize(component.getRendererType());
+    return "tobago-" + rendererName + "-markup-required";
   }
 }

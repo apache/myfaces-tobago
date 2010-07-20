@@ -24,15 +24,16 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITime;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -71,18 +72,18 @@ public class TimeRenderer extends InputRendererBase {
       return;
     }
 
-    UITime input = (UITime) component;
+    UITime time = (UITime) component;
 
-    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, input);
-    String currentValue = getCurrentValue(facesContext, input);
+    String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, time);
+    String currentValue = getCurrentValue(facesContext, time);
     if (LOG.isDebugEnabled()) {
       LOG.debug("currentValue = '" + currentValue + "'");
     }
 
 
     String converterPattern = "HH:mm";
-    if (input.getConverter() != null) {
-      Converter converter = input.getConverter();
+    if (time.getConverter() != null) {
+      Converter converter = time.getConverter();
       if (converter instanceof DateTimeConverter) {
         String pattern = DateFormatUtils.findPattern((DateTimeConverter) converter);
         if (pattern != null && pattern.indexOf('s') > -1) {
@@ -93,7 +94,7 @@ public class TimeRenderer extends InputRendererBase {
 
     boolean hasSeconds = converterPattern.indexOf('s') > -1;
 
-    Object value = input.getValue();
+    Object value = time.getValue();
     Date date;
     if (value instanceof Date) {
       date = (Date) value;
@@ -107,26 +108,26 @@ public class TimeRenderer extends InputRendererBase {
     String minute = new SimpleDateFormat("mm").format(date);
     String second = new SimpleDateFormat("ss").format(date);
 
-    String id = input.getClientId(facesContext);
+    String id = time.getClientId(facesContext);
     final String idPrefix = id + ComponentUtils.SUB_SEPARATOR;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlConstants.DIV, input);
-    writer.writeClassAttribute();
-    Style style = new Style(facesContext, input);
+    writer.startElement(HtmlConstants.DIV, time);
+    writer.writeClassAttribute(Classes.create(time));
+    Style style = new Style(facesContext, time);
     writer.writeStyleAttribute(style);
 
-    writer.startElement(HtmlConstants.DIV, input);
+    writer.startElement(HtmlConstants.DIV, time);
     writer.writeAttribute(HtmlAttributes.ID, idPrefix + "borderDiv", false);
-    writer.writeClassAttribute("tobago-time-borderDiv"
-        + (hasSeconds ? " tobago-time-borderDiv-seconds" : ""));
+    writer.writeClassAttribute(Classes.createIgnoreCheck(
+        time, "borderDiv", hasSeconds ? Markup.valueOf("seconds") : null));
 
 
-    writeInput(writer, input, idPrefix + "hour", hour, true, title);
-    writeInputSeparator(writer, ":");
-    writeInput(writer, input, idPrefix + "minute", minute, false, title);
+    writeInput(writer, time, idPrefix + "hour", hour, true, title);
+    writeInputSeparator(writer, time, ":");
+    writeInput(writer, time, idPrefix + "minute", minute, false, title);
     if (hasSeconds) {
-      writeInputSeparator(writer, ":");
-      writeInput(writer, input, idPrefix + "second", second, false, title);
+      writeInputSeparator(writer, time, ":");
+      writeInput(writer, time, idPrefix + "second", second, false, title);
     }
 
     writer.endElement(HtmlConstants.DIV);
@@ -135,13 +136,13 @@ public class TimeRenderer extends InputRendererBase {
     String imageSrc = "image/timeIncrement.gif";
     writer.startElement(HtmlConstants.IMG, null);
     writer.writeIdAttribute(imageId);
-    writer.writeClassAttribute("tobago-time-inc-image"
-        + (hasSeconds ? " tobago-time-image-seconds" : ""));
+    writer.writeClassAttribute(Classes.createIgnoreCheck(
+        time, "incImage", hasSeconds ? Markup.valueOf("seconds") : null));
     writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtils.getImageWithPath(facesContext, imageSrc), true);
     writer.writeAttribute(HtmlAttributes.ALT, "", false); // TODO: tip
 
-    if (!(ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED)
-        || ComponentUtils.getBooleanAttribute(input, Attributes.READONLY))) {
+    if (!(ComponentUtils.getBooleanAttribute(time, Attributes.DISABLED)
+        || ComponentUtils.getBooleanAttribute(time, Attributes.READONLY))) {
       writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgIncTime(this)", false);
     }
     writer.endElement(HtmlConstants.IMG);
@@ -150,30 +151,30 @@ public class TimeRenderer extends InputRendererBase {
     imageSrc = "image/timeDecrement.gif";
     writer.startElement(HtmlConstants.IMG, null);
     writer.writeIdAttribute(imageId);
-    writer.writeClassAttribute("tobago-time-dec-image"
-        + (hasSeconds ? " tobago-time-image-seconds" : ""));
+    writer.writeClassAttribute(Classes.createIgnoreCheck(
+        time, "decImage", hasSeconds ? Markup.valueOf("seconds") : null));
     writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtils.getImageWithPath(facesContext, imageSrc), true);
     writer.writeAttribute(HtmlAttributes.ALT, "", false); // TODO: tip
-    if (!(ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED)
-        || ComponentUtils.getBooleanAttribute(input, Attributes.READONLY))) {
+    if (!(ComponentUtils.getBooleanAttribute(time, Attributes.DISABLED)
+        || ComponentUtils.getBooleanAttribute(time, Attributes.READONLY))) {
       writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgDecTime(this)", false);
     }
     writer.endElement(HtmlConstants.IMG);
 
-    writer.startElement(HtmlConstants.INPUT, input);
+    writer.startElement(HtmlConstants.INPUT, time);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeIdAttribute(id + ":converterPattern");
     writer.writeAttribute(HtmlAttributes.VALUE, converterPattern, true);
     writer.endElement(HtmlConstants.INPUT);
 
-    writer.startElement(HtmlConstants.INPUT, input);
+    writer.startElement(HtmlConstants.INPUT, time);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeIdAttribute(id);
     writer.writeNameAttribute(id);
     writer.writeAttribute(HtmlAttributes.VALUE, hour + ":" + minute + ":" + second, false);
     writer.endElement(HtmlConstants.INPUT);
 
-    String dateTextBoxId = (String) input.getAttributes().get(Attributes.DATE_INPUT_ID);
+    String dateTextBoxId = (String) time.getAttributes().get(Attributes.DATE_INPUT_ID);
 
     if (dateTextBoxId != null) {
       String[] cmds = {"tbgInitTimeParse('" + id + "', '" + dateTextBoxId + "');"};
@@ -183,9 +184,9 @@ public class TimeRenderer extends InputRendererBase {
     writer.endElement(HtmlConstants.DIV);
   }
 
-  private void writeInputSeparator(TobagoResponseWriter writer, String sep) throws IOException {
+  private void writeInputSeparator(TobagoResponseWriter writer, UITime time, String sep) throws IOException {
     writer.startElement(HtmlConstants.SPAN, null);
-    writer.writeClassAttribute("tobago-time-sep");
+    writer.writeClassAttribute(Classes.create(time, "sep"));
     writer.writeText(sep);
     writer.endElement(HtmlConstants.SPAN);
   }
@@ -201,10 +202,7 @@ public class TimeRenderer extends InputRendererBase {
     }
     writer.writeAttribute(HtmlAttributes.TITLE, title, true);
 
-    StyleClasses styleClasses = new StyleClasses();
-    //styleClasses.updateClassAttributeAndMarkup(input, "time");
-    styleClasses.addClass("time", "input");
-    writer.writeClassAttribute(styleClasses);
+    writer.writeClassAttribute(Classes.create(input, "input"));
     writer.writeAttribute(HtmlAttributes.READONLY, ComponentUtils.getBooleanAttribute(input, Attributes.READONLY));
     writer.writeAttribute(HtmlAttributes.DISABLED, ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED));
     if (!(ComponentUtils.getBooleanAttribute(input, Attributes.DISABLED)

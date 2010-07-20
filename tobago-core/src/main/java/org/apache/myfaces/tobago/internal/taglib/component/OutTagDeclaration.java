@@ -24,9 +24,9 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasConverter;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
@@ -46,7 +46,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsInline;
     allowedChildComponenents = "NONE")
 
 public interface OutTagDeclaration
-    extends HasIdBindingAndRendered, HasConverter, IsInline, HasTip, HasValue, IsGridLayoutComponent {
+    extends HasIdBindingAndRendered, HasConverter, IsInline, HasTip, HasValue, IsGridLayoutComponent, HasMarkup {
 
   /**
    * Flag indicating that characters that are
@@ -57,15 +57,11 @@ public interface OutTagDeclaration
   void setEscape(String escape);
 
   /**
-   * Indicate markup of this component.
-   * Possible values are 'none'(deprecated), 'strong' and 'deleted'. This can be overridden in the theme.
-   * The value 'none' should not be used any longer. Just leave the attribute empty, or use a NULL pointer. 
+   * Indicates that the renderer should create an element in the output language
+   * (e. g. an span or div tag around the output text).
+   * Use true, if you enable the possibility to apply styles to the output.
+   * Use false, if you want to keep the code small (especially inside of sheets).
    */
-  @TagAttribute
-  @UIComponentTagAttribute(type = "org.apache.myfaces.tobago.context.Markup",
-      allowedValues = {"none", "strong", "deleted"})
-  void setMarkup(Markup markup);
-  
   @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
   void setCreateSpan(String createSpan);
 }

@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.renderkit.html.example.standard.tag;
  */
 
 import org.apache.myfaces.tobago.component.UIInput;
-import org.apache.myfaces.tobago.internal.component.UIInputBase;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 
 import javax.faces.component.UIComponent;
@@ -40,11 +39,6 @@ import java.io.IOException;
  *
  */
 public class InRenderer extends org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag.InRenderer{
-
-  @Override  
-  protected void applyExtraStyle(FacesContext facesContext, UIInputBase input, String currentValue) {
-
-  }
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {

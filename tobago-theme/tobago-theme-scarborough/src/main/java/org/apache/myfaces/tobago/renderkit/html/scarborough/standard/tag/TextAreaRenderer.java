@@ -17,27 +17,20 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITextarea;
-//import org.apache.myfaces.tobago.context.Capability;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-//import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -78,7 +71,7 @@ public class TextAreaRenderer extends InputRendererBase {
     }
     HtmlRendererUtils.renderDojoDndItem(component, writer, true);
 
-    writer.writeClassAttribute();
+    writer.writeClassAttribute(Classes.create(input));
     Style style = new Style(facesContext, input);
     writer.writeStyleAttribute(style);
     if (onchange != null) {
@@ -126,10 +119,9 @@ public class TextAreaRenderer extends InputRendererBase {
     }
     boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
     if (required || maxLength > 0) {
-      String rendererName = HtmlRendererUtils.getRendererName(facesContext, input);
       final String[] cmds = {
           "new Tobago.In(\"" + input.getClientId(facesContext) + "\", true ,\""
-                  + StyleClasses.PREFIX + rendererName + "\" " + (maxLength > -1? "," + maxLength: "")  + "  );"
+              + Classes.required(input) + "\" " + (maxLength > -1 ? "," + maxLength : "") + "  );"
       };
       HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
     }

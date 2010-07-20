@@ -62,6 +62,7 @@ public class UIDatePicker extends UILink implements OnComponentCreated {
     return forComponent;
   }
 
+  // XXX May be better use ComponentUtils.evaluateAutoFor()
   public UIComponent getForComponent() {
     if ("@auto".equals(forComponent)) {
       UIComponent component = getUIDateInput(getParent());

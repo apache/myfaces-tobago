@@ -34,7 +34,7 @@ function tobago_nextTab(type, controlId, size) {
   for (i = selectedIndex + 1; i < size; i++) {
     var tab = document.getElementById(controlId + Tobago.SUB_COMPONENT_SEP2 + selectedIndex + Tobago.SUB_COMPONENT_SEP2 + i);
     //LOG.error("Search " + controlId + Tobago.SUB_COMPONENT_SEP2 + selectedIndex + Tobago.SUB_COMPONENT_SEP2 + i);
-    if (tab && tab.className.indexOf('tobago-tab-disabled') == -1) {
+    if (tab && tab.className.indexOf('tobago-tab-link-markup-disabled') == -1) {
       //LOG.error("Selected Index: " + selectedIndex);
       selectedIndex = i;
       break;
@@ -53,7 +53,7 @@ function tobago_previousTab(type, controlId, size) {
 
   for (i = selectedIndex - 1; i >= 0; i--) {
     var tab = document.getElementById(controlId + Tobago.SUB_COMPONENT_SEP2 + selectedIndex + Tobago.SUB_COMPONENT_SEP2 + i);
-    if (tab && tab.className.indexOf('tobago-tab-disabled') == -1) {
+    if (tab && tab.className.indexOf('tobago-tab-link-markup-disabled') == -1) {
       selectedIndex = i;
       break;
     }

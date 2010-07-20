@@ -20,11 +20,15 @@ package org.apache.myfaces.tobago.renderkit.css;
 import org.apache.myfaces.tobago.component.ComponentTypes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.mock.faces.AbstractTobagoTestBase;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.junit.Assert;
 import org.junit.Test;
+
+import javax.faces.component.UIComponent;
 
 public class ClassesUnitTest extends AbstractTobagoTestBase {
 
@@ -32,14 +36,14 @@ public class ClassesUnitTest extends AbstractTobagoTestBase {
   public void testSimple() {
     final UIInput in = (UIInput) CreateComponentUtils.createComponent(
         getFacesContext(), ComponentTypes.IN, RendererTypes.IN, "in");
-    Assert.assertEquals("tobago-in-simple", Classes.simple(in, "simple").getStringValue());
+    Assert.assertEquals("tobago-in-simple", Classes.create(in, "simple").getStringValue());
   }
 
   @Test
   public void testFull() {
     final UIInput in = (UIInput) CreateComponentUtils.createComponent(
         getFacesContext(), ComponentTypes.IN, RendererTypes.IN, "in");
-    Assert.assertEquals("tobago-in", Classes.full(in).getStringValue());
+    Assert.assertEquals("tobago-in", Classes.create(in).getStringValue());
   }
 
   @Test
@@ -47,7 +51,8 @@ public class ClassesUnitTest extends AbstractTobagoTestBase {
     final UIInput in = (UIInput) CreateComponentUtils.createComponent(
         getFacesContext(), ComponentTypes.IN, RendererTypes.IN, "in");
     in.setDisabled(true);
-    Assert.assertEquals("tobago-in tobago-in-disabled", Classes.full(in).getStringValue());
+    updateCurrentMarkup(in);
+    Assert.assertEquals("tobago-in tobago-in-markup-disabled", Classes.create(in).getStringValue());
   }
 
   @Test
@@ -55,7 +60,8 @@ public class ClassesUnitTest extends AbstractTobagoTestBase {
     final UIInput in = (UIInput) CreateComponentUtils.createComponent(
         getFacesContext(), ComponentTypes.IN, RendererTypes.IN, "in");
     in.setReadonly(true);
-    Assert.assertEquals("tobago-in tobago-in-readonly", Classes.full(in).getStringValue());
+    updateCurrentMarkup(in);
+    Assert.assertEquals("tobago-in tobago-in-markup-readonly", Classes.create(in).getStringValue());
   }
 
   @Test
@@ -64,7 +70,9 @@ public class ClassesUnitTest extends AbstractTobagoTestBase {
         getFacesContext(), ComponentTypes.IN, RendererTypes.IN, "in");
     in.setDisabled(true);
     in.setReadonly(true);
-    Assert.assertEquals("tobago-in tobago-in-disabled tobago-in-readonly", Classes.full(in).getStringValue());
+    updateCurrentMarkup(in);
+    Assert.assertEquals(
+        "tobago-in tobago-in-markup-disabled tobago-in-markup-readonly", Classes.create(in).getStringValue());
   }
 
   @Test
@@ -72,7 +80,8 @@ public class ClassesUnitTest extends AbstractTobagoTestBase {
     final UIInput in = (UIInput) CreateComponentUtils.createComponent(
         getFacesContext(), ComponentTypes.IN, RendererTypes.IN, "in");
     in.setValid(false);
-    Assert.assertEquals("tobago-in tobago-in-error", Classes.full(in).getStringValue());
+    updateCurrentMarkup(in);
+    Assert.assertEquals("tobago-in tobago-in-markup-error", Classes.create(in).getStringValue());
   }
 
   @Test
@@ -80,22 +89,15 @@ public class ClassesUnitTest extends AbstractTobagoTestBase {
     final UIInput in = (UIInput) CreateComponentUtils.createComponent(
         getFacesContext(), ComponentTypes.IN, RendererTypes.IN, "in");
     in.setMarkup(Markup.valueOf("important"));
-    Assert.assertEquals("tobago-in tobago-in-markup-important", Classes.full(in).getStringValue());
+    updateCurrentMarkup(in);
+    Assert.assertEquals("tobago-in tobago-in-markup-important", Classes.create(in).getStringValue());
   }
 
   @Test
   public void testSub() {
     final UIInput in = (UIInput) CreateComponentUtils.createComponent(
         getFacesContext(), ComponentTypes.IN, RendererTypes.IN, "in");
-    Assert.assertEquals("tobago-in tobago-in-sub", Classes.full(in, "sub").getStringValue());
-  }
-
-  @Test
-  public void testSubs() {
-    final UIInput in = (UIInput) CreateComponentUtils.createComponent(
-        getFacesContext(), ComponentTypes.IN, RendererTypes.IN, "in");
-    Assert.assertEquals("tobago-in tobago-in-sub1 tobago-in-sub2",
-        Classes.full(in, new String[]{"sub1", "sub2"}).getStringValue());
+    Assert.assertEquals("tobago-in-sub", Classes.create(in, "sub").getStringValue());
   }
 
   @Test
@@ -106,9 +108,15 @@ public class ClassesUnitTest extends AbstractTobagoTestBase {
     in.setReadonly(true);
     in.setValid(false);
     in.setMarkup(Markup.valueOf("important,deleted"));
-    Assert.assertEquals("tobago-in tobago-in-disabled tobago-in-readonly tobago-in-error "
-        + "tobago-in-markup-important tobago-in-markup-deleted tobago-in-sub",
-        Classes.full(in, "sub").getStringValue());
+    updateCurrentMarkup(in);
+    Assert.assertEquals("tobago-in-sub tobago-in-sub-markup-important tobago-in-sub-markup-deleted "
+        + "tobago-in-sub-markup-disabled tobago-in-sub-markup-readonly tobago-in-sub-markup-error",
+        Classes.create(in, "sub").getStringValue());
+  }
+
+  private void updateCurrentMarkup(UIComponent component) {
+    SupportsMarkup m = (SupportsMarkup) component;
+    m.setCurrentMarkup(ComponentUtils.updateMarkup(component, m.getMarkup()));
   }
 
 }

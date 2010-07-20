@@ -27,18 +27,14 @@ fieldset.tobago-box {
   padding-left: 10px;
 }
 
-.tobago-box-header-toolbar-div {
-  right: -5px;
-}
-
-.tobago-box-toolbar-div {
+.tobago-box-toolbarOuter {
   top: -15px;
   right: -2px;
   height: 31px;
 /*  padding-top: 1px;*/
 }
 
-.tobago-box-toolbar-span {
+.tobago-box-toolbarInner {
   padding-bottom: 0px;
 }
 

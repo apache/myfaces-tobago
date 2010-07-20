@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -75,7 +76,7 @@ public class ButtonRenderer extends CommandRendererBase {
     Style style = new Style(facesContext, button);
     writer.writeStyleAttribute(style);
     HtmlRendererUtils.renderDojoDndItem(component, writer, true);
-    writer.writeClassAttribute();
+    writer.writeClassAttribute(Classes.create(button));
     writer.flush(); // force closing the start tag
 
     String imageName = (String) button.getAttributes().get(Attributes.IMAGE);

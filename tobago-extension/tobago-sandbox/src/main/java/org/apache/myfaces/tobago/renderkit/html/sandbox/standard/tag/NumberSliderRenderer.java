@@ -22,11 +22,11 @@ import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -87,30 +87,24 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     writer.writeStyleAttribute(style);
     //writer.writeAttribute("border","1",false);
 
-    StyleClasses styleClasses = new StyleClasses();
-    styleClasses.addAspectClass("numberSlider", "min", StyleClasses.Aspect.DEFAULT);
-
     writer.startElement(HtmlConstants.TR, null);
     writer.startElement(HtmlConstants.TD, null);
-    writer.writeClassAttribute(styleClasses);
+    writer.writeClassAttribute(Classes.create(slider, "min"));
 
     Style widthStyle = new Style();
     widthStyle.setWidth(Measure.valueOf(sliderWidth / 2));
     writer.writeStyleAttribute(widthStyle);
     writer.startElement(HtmlConstants.SPAN, null);
-    writer.writeClassAttribute(styleClasses);
+    writer.writeClassAttribute(Classes.create(slider, "min"));
     writer.write(Integer.toString(min));
     writer.endElement(HtmlConstants.SPAN);
 
-    styleClasses = new StyleClasses();
-    styleClasses.addAspectClass("numberSlider", "max", StyleClasses.Aspect.DEFAULT);
-
     writer.endElement(HtmlConstants.TD);
     writer.startElement(HtmlConstants.TD, null);
-    writer.writeClassAttribute(styleClasses);
+    writer.writeClassAttribute(Classes.create(slider, "max"));
     writer.writeStyleAttribute(widthStyle);
     writer.startElement(HtmlConstants.SPAN, null);
-    writer.writeClassAttribute(styleClasses);
+    writer.writeClassAttribute(Classes.create(slider, "max"));
     writer.write(Integer.toString(max));
     writer.endElement(HtmlConstants.SPAN);
     writer.endElement(HtmlConstants.TD);
@@ -118,10 +112,10 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     // the input field starts here
     writer.startElement(HtmlConstants.TD, null);
     writer.writeAttribute("rowspan", "2", false);
-    writer.writeClassAttribute("tobago-numberSlider-input");
+    writer.writeClassAttribute(Classes.create(slider, "td"));
 
     writer.startElement(HtmlConstants.INPUT, null);
-    writer.writeClassAttribute("tobago-in");
+    writer.writeClassAttribute(Classes.create(slider, "input"));
     widthStyle.setWidth(Measure.valueOf(inputWidth));
     writer.writeStyleAttribute(widthStyle);
     String inputIdAndName = getIdForInputField(facesContext, slider);
@@ -143,7 +137,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
 
     //track
     writer.startElement(HtmlConstants.DIV, null);
-    writer.writeClassAttribute("tobago-numberSlider-slider");
+    writer.writeClassAttribute(Classes.create(slider, "slider"));
     writer.writeIdAttribute(getIdForSliderTrack(facesContext, slider));
 
     // handle

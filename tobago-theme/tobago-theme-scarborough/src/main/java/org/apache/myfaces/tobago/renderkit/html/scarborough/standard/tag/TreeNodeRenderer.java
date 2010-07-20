@@ -145,7 +145,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
       if (!alreadyExists) {
         writer.startElement(HtmlConstants.DIV, null);
-        writer.writeClassAttribute(Classes.simple(tree, "level"));
+        writer.writeClassAttribute(Classes.create(tree, "level"));
         Style levelStyle = new Style();
         levelStyle.setLeft(Measure.valueOf(level * 160)); // xxx 160 should be configurable
         writer.writeStyleAttribute(levelStyle);
@@ -155,14 +155,14 @@ public class TreeNodeRenderer extends CommandRendererBase {
           writer.startElement(HtmlConstants.SELECT, null);
           writer.writeAttribute(HtmlAttributes.DISABLED, true);
           writer.writeAttribute(HtmlAttributes.SIZE, 2); // must be > 1, but the size comes from the layout
-          writer.writeClassAttribute(Classes.simple(tree, "select"));
+          writer.writeClassAttribute(Classes.create(tree, "select"));
           writer.endElement(HtmlConstants.SELECT);
         }
       }
 
       writer.startElement(HtmlConstants.SELECT, node);
       writer.writeIdAttribute(id + ComponentUtils.SUB_SEPARATOR + "select");
-      writer.writeClassAttribute(Classes.simple(tree, "select"));
+      writer.writeClassAttribute(Classes.create(tree, "select"));
       if (!expanded) {
         Style selectStyle = new Style();
         selectStyle.setDisplay(Display.NONE);
@@ -251,15 +251,13 @@ public class TreeNodeRenderer extends CommandRendererBase {
       }
 
       // div class (css)
-      final Classes classes;
+      String classes;
+      classes = Classes.create(node).getStringValue(); // XXX: not nice, menu may use its own renderer
       if (isMenu) {
+        classes = classes + " " + Classes.create(node, "menu").getStringValue();
         if (marked) {
-          classes = Classes.full(node, new String[] {"menu", "marker"});
-        } else {
-          classes = Classes.full(node, "menu");
+          classes = classes + " " + Classes.create(node, "marker").getStringValue(); // TODO: marker as markup 
         }
-      } else {
-        classes = Classes.full(node);
       }
       writer.writeClassAttribute(classes);
 
@@ -330,7 +328,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     }
     String src = expanded ? menuOpen : menuClose;
     writer.startElement(HtmlConstants.IMG, null);
-    writer.writeClassAttribute(Classes.simple(node, "menuIcon"));
+    writer.writeClassAttribute(Classes.create(node, "menuIcon"));
     writer.writeIdAttribute(id + "-menuIcon");
     writer.writeAttribute("src", src, true);
     writer.writeAttribute("onclick", onclick, true);
@@ -348,7 +346,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     for (Boolean junction : junctions) {
       writer.startElement(HtmlConstants.IMG, null);
-      writer.writeClassAttribute(Classes.simple(node, "junction"));
+      writer.writeClassAttribute(Classes.create(node, "junction"));
       if (junction && !menuMode && showJunctions) {
         writer.writeAttribute("src", perpendicular, true);
       } else {
@@ -367,7 +365,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
         || !showRootJunction && level == 0
         || !showRootJunction && !showRoot && level == 1)) {
       writer.startElement(HtmlConstants.IMG, null);
-      writer.writeClassAttribute(Classes.simple(node, "junction"));
+      writer.writeClassAttribute(Classes.create(node, "junction"));
       writer.writeIdAttribute(id + "-junction");
 
       String gif = folder && expanded
@@ -398,7 +396,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     if (showIcons) {
       writer.startElement(HtmlConstants.IMG, null);
-      writer.writeClassAttribute(Classes.simple(node, "icon"));
+      writer.writeClassAttribute(Classes.create(node, "icon"));
       writer.writeIdAttribute(id + "-icon"); //XXX may not okay with naming conventions
 
       writer.writeAttribute("src", source, true);
@@ -448,7 +446,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       }
     }
     if (marked) {
-      writer.writeClassAttribute(Classes.simple(node, "marker"));
+      writer.writeClassAttribute(Classes.create(node, "marker"));
     }
     String tip = node.getTip();
     if (tip != null) {

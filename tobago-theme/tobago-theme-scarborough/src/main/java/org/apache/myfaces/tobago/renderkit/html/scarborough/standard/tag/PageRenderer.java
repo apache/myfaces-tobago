@@ -36,6 +36,7 @@ import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
 import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Overflow;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -552,7 +553,7 @@ public class PageRenderer extends PageRendererBase {
 
     // todo: check if it is empty
     writer.startElement(HtmlConstants.DIV, page);
-    writer.writeClassAttribute("tobago-page-menuStore");
+    writer.writeClassAttribute(Classes.create(page, "menuStore"));
     ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, MenuBarRenderer.DIVIDER);
     divider.writeOutAndCleanUp(facesContext);
     writer.endElement(HtmlConstants.DIV);

@@ -177,14 +177,14 @@ function initCalendar(id) {
         var monthAfterClick = month;
         if (d <= 0) {
           d = prevMonthLength + d;
-          styleClass = "tobago-calendar-day-disabled";
+          styleClass = "tobago-calendar-day-markup-disabled";
           monthAfterClick = month - 1;
         } else if (d > monthLength) {
-          styleClass = "tobago-calendar-day-disabled";
+          styleClass = "tobago-calendar-day-markup-disabled";
           d -= monthLength;
           monthAfterClick = month + 1;
         } else if (d == day) {
-          styleClass = "tobago-calendar-day-selected";
+          styleClass = "tobago-calendar-day-markup-selected";
         }
         el.className = styleClass;
         el.innerHTML = d;
@@ -350,7 +350,7 @@ function tbgTimerInputFocus(input, hour) {
 //  LOG.debug("focus " + input.id + " hourMode=" + hour);
   input.parentNode.parentNode.selectedId = input.id;
   input.parentNode.parentNode.hourMode = hour;
-  Tobago.addCssClass(input, "tobago-time-input-selected");
+  Tobago.addCssClass(input, "tobago-time-input-markup-selected");
   input.oldValue = input.value;
 }
 
@@ -372,7 +372,7 @@ function tbgTimerInputBlur(input) {
     }
   }
   tbgSetTimeInputValue(input, value)
-  Tobago.removeCssClass(input, "tobago-time-input-selected");
+  Tobago.removeCssClass(input, "tobago-time-input-markup-selected");
 //  LOG.debug("value  4= " + input.value);
 }
 

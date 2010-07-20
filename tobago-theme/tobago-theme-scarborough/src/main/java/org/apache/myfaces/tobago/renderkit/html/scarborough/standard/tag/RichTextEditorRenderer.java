@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.Facets;
@@ -30,14 +28,16 @@ import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
@@ -96,11 +96,8 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    StyleClasses containerClasses = StyleClasses.ensureStyleClassesCopy(input);
-    containerClasses.addClass("richTextEditor", "container");
-
     writer.startElement(HtmlConstants.DIV, input);
-    writer.writeClassAttribute(containerClasses);
+    writer.writeClassAttribute(Classes.create(input, "container"));
     Style style = new Style(facesContext, input);
     writer.writeStyleAttribute(style);
 
@@ -117,9 +114,6 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
     String content = getCurrentValue(facesContext, input);
 
-    StyleClasses bodyClasses = StyleClasses.ensureStyleClassesCopy(input);
-    bodyClasses.addClass("richTextEditor", "body");
-
     if (previewState) {
       writer.startElement(HtmlConstants.INPUT, input);
       writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
@@ -128,7 +122,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
       writer.endElement(HtmlConstants.INPUT);
 
       writer.startElement(HtmlConstants.DIV, input);
-      writer.writeClassAttribute(bodyClasses);
+      writer.writeClassAttribute(Classes.create(input, "body"));
       writer.writeIdAttribute(clientId);
 
       writer.writeStyleAttribute(style);
@@ -138,7 +132,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
       writer.endElement(HtmlConstants.DIV);
     } else {
       writer.startElement(HtmlConstants.TEXTAREA, input);
-      writer.writeClassAttribute(bodyClasses);
+      writer.writeClassAttribute(Classes.create(input, "body"));
       writer.writeNameAttribute(clientId);
       writer.writeIdAttribute(clientId);
       writer.writeStyleAttribute(style);

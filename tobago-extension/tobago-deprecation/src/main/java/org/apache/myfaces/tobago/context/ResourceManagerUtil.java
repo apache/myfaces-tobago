@@ -176,13 +176,12 @@ public class ResourceManagerUtil {
     return ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name);
   }
 
-/**
- * @deprecated please use {@link ResourceManagerUtils}
- */
-@Deprecated
+  /**
+   * @deprecated please use {@link ResourceManagerUtils}
+   */
+  @Deprecated
   public static Measure getThemeMeasure(FacesContext facesContext, Configurable configurable, String name) {
-    return ResourceManagerFactory.getResourceManager(facesContext).getThemeMeasure(
-        facesContext, configurable.getRendererType(), configurable.getMarkup(), name);
+    return ResourceManagerUtils.getThemeMeasure(facesContext, configurable, name);
   }
 
 }

@@ -24,23 +24,193 @@
   <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
   <renderers>
     <renderer>
-      <name>Out</name>
+      <name>Button</name>
       <supported-markup>
-        <markup>strong</markup>
-        <markup>deleted</markup>
-        <markup>number</markup>
+        <markup>disabled</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>Calendar</name>
+      <supported-markup>
+        <markup>disabled</markup>
+        <markup>selected</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>Date</name>
+      <supported-markup>
+        <markup>disabled</markup>
+        <markup>readonly</markup>
+        <markup>fatal</markup>
+        <markup>error</markup>
+        <markup>warn</markup>
+        <markup>info</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>Image</name>
+      <supported-markup>
+        <markup>disabled</markup>
       </supported-markup>
     </renderer>
     <renderer>
       <name>In</name>
       <supported-markup>
+        <markup>disabled</markup>
+        <markup>readonly</markup>
+        <markup>fatal</markup>
+        <markup>error</markup>
+        <markup>warn</markup>
+        <markup>info</markup>
         <markup>number</markup>
       </supported-markup>
     </renderer>
     <renderer>
       <name>Label</name>
       <supported-markup>
+        <markup>disabled</markup>
+        <markup>readonly</markup>
+        <markup>fatal</markup>
+        <markup>error</markup>
+        <markup>warn</markup>
+        <markup>info</markup>
         <markup>number</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>Link</name>
+      <supported-markup>
+        <markup>disabled</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>Messages</name>
+      <supported-markup>
+        <markup>fatal</markup>
+        <markup>error</markup>
+        <markup>warn</markup>
+        <markup>info</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>Out</name>
+      <supported-markup>
+        <markup>deleted</markup>
+        <markup>strong</markup>
+        <markup>number</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>Popup</name>
+      <supported-markup>
+        <markup>modal</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>SelectBooleanCheckbox</name>
+      <supported-markup>
+        <markup>disabled</markup>
+        <markup>readonly</markup>
+        <markup>fatal</markup>
+        <markup>error</markup>
+        <markup>warn</markup>
+        <markup>info</markup>
+        <markup>selected</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>SelectManyCheckbox</name>
+      <supported-markup>
+        <markup>disabled</markup>
+        <markup>readonly</markup>
+        <markup>fatal</markup>
+        <markup>error</markup>
+        <markup>warn</markup>
+        <markup>info</markup>
+        <markup>selected</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>SelectManyListbox</name>
+      <supported-markup>
+        <markup>disabled</markup>
+        <markup>readonly</markup>
+        <markup>fatal</markup>
+        <markup>error</markup>
+        <markup>warn</markup>
+        <markup>info</markup>
+        <markup>selected</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>SelectOneChoice</name>
+      <supported-markup>
+        <markup>disabled</markup>
+        <markup>readonly</markup>
+        <markup>fatal</markup>
+        <markup>error</markup>
+        <markup>warn</markup>
+        <markup>info</markup>
+        <markup>selected</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>SelectOneListbox</name>
+      <supported-markup>
+        <markup>disabled</markup>
+        <markup>readonly</markup>
+        <markup>fatal</markup>
+        <markup>error</markup>
+        <markup>warn</markup>
+        <markup>info</markup>
+        <markup>selected</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>SelectOneRadio</name>
+      <supported-markup>
+        <markup>disabled</markup>
+        <markup>readonly</markup>
+        <markup>fatal</markup>
+        <markup>error</markup>
+        <markup>warn</markup>
+        <markup>info</markup>
+        <markup>selected</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>Tab</name>
+      <supported-markup>
+        <markup>disabled</markup>
+        <markup>selected</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>Sheet</name>
+      <supported-markup>
+        <!-- for the header -->
+        <markup>resizable</markup>
+        <!-- for the rows -->
+        <markup>odd</markup>
+        <markup>even</markup>
+        <!-- for the cells -->
+        <markup>clickable</markup>
+        <markup>first</markup>
+        <!-- for the paging fields -->
+        <markup>left</markup>
+        <markup>center</markup>
+        <markup>right</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>TextArea</name>
+      <supported-markup>
+        <markup>disabled</markup>
+        <markup>readonly</markup>
+        <markup>fatal</markup>
+        <markup>error</markup>
+        <markup>warn</markup>
+        <markup>info</markup>
       </supported-markup>
     </renderer>
     <renderer>

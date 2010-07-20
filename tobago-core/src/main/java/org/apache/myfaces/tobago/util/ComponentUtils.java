@@ -44,6 +44,7 @@ import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
+import javax.faces.component.UIInput;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectMany;
@@ -226,8 +227,7 @@ public class ComponentUtils {
    * If there is no "for" attribute, return the "clientId" of the parent
    * (if it has a parent). This is useful for labels.
    */
-  public static String findClientIdFor(UIComponent component,
-      FacesContext facesContext) {
+  public static String findClientIdFor(UIComponent component, FacesContext facesContext) {
     UIComponent forComponent = findFor(component);
     if (forComponent != null) {
       String clientId = forComponent.getClientId(facesContext);
@@ -250,6 +250,29 @@ public class ComponentUtils {
     return component.findComponent(forValue);
   }
 
+  /**
+   * Looks for the attribute "for" of the component.
+   * In case that the value is equals to "@auto" the children of the parent will be
+   * checked if they are a UIInput. The "id" of the first one will be used to reset the "for"
+   * attribute of the component.
+   */
+  public static void evaluateAutoFor(UIComponent component) {
+    String forComponent = (String) component.getAttributes().get(Attributes.FOR);
+    if (LOG.isDebugEnabled()) {
+      LOG.debug("for = '" + forComponent + "'");
+    }
+    if ("@auto".equals(forComponent)) {
+      for (Object object : component.getParent().getChildren()) {
+        UIComponent child = (UIComponent) object;
+        if (child instanceof UIInput) {
+          forComponent = child.getId();
+          component.getAttributes().put(Attributes.FOR, forComponent);
+          break;
+        }
+      }
+    }
+  }
+
   public static boolean isInActiveForm(UIComponent component) {
     while (component != null) {
       if (component instanceof AbstractUIForm) {
@@ -261,6 +284,21 @@ public class ComponentUtils {
       component = component.getParent();
     }
     return false;
+  }
+
+  public static FacesMessage.Severity getMaximumSeverity(UIComponent component) {
+    final boolean invalid = component instanceof javax.faces.component.UIInput
+        && !((javax.faces.component.UIInput) component).isValid();
+    FacesMessage.Severity max = invalid ? FacesMessage.SEVERITY_ERROR : null;
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    final Iterator messages = facesContext.getMessages(component.getClientId(facesContext));
+    while (messages.hasNext()) {
+      FacesMessage message = (FacesMessage) messages.next();
+      if (max == null || message.getSeverity().getOrdinal() > max.getOrdinal()) {
+        max = message.getSeverity();
+      }
+    }
+    return max;
   }
 
   public static boolean isError(javax.faces.component.UIInput uiInput) {
@@ -320,6 +358,7 @@ public class ComponentUtils {
     return FacesContext.getCurrentInstance().getApplication().createValueBinding(value);
   }
 
+  @Deprecated
   public static void setStyleClasses(UIComponent component, String styleClasses) {
     if (styleClasses != null) {
       if (UIComponentTag.isValueReference(styleClasses)) {
@@ -772,4 +811,39 @@ public class ComponentUtils {
     return stringValue;
   }
 
+  public static Markup updateMarkup(UIComponent component, Markup markup) {
+    if (markup == null) {
+      markup = Markup.NULL;
+    }
+    if (ComponentUtils.getBooleanAttribute(component, Attributes.DISABLED)) {
+      markup = markup.add(Markup.DISABLED);
+    }
+    if (ComponentUtils.getBooleanAttribute(component, Attributes.READONLY)) {
+      markup = markup.add(Markup.READONLY);
+    }
+    if (component instanceof UIInput) {
+      UIInput input = (UIInput) component;
+
+      final FacesMessage.Severity maximumSeverity = ComponentUtils.getMaximumSeverity(input);
+      markup = markup.add(markupOfSeverity(maximumSeverity));
+
+      if (input.isRequired()) {
+        markup = markup.add(Markup.REQUIRED);
+      }
+    }
+    return markup;
+  }
+
+  public static Markup markupOfSeverity(FacesMessage.Severity maximumSeverity) {
+    if (FacesMessage.SEVERITY_FATAL.equals(maximumSeverity)) {
+      return Markup.FATAL;
+    } else if (FacesMessage.SEVERITY_ERROR.equals(maximumSeverity)) {
+      return Markup.ERROR;
+    } else if (FacesMessage.SEVERITY_WARN.equals(maximumSeverity)) {
+      return Markup.WARN;
+    } else if (FacesMessage.SEVERITY_INFO.equals(maximumSeverity)) {
+      return Markup.INFO;
+    }
+    return null;
+  }
 }

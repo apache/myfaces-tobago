@@ -28,5 +28,5 @@ public interface Configurable {
    */
   String getRendererType();  
   
-  Markup getMarkup();
+  Markup getCurrentMarkup();
 }

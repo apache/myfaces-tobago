@@ -176,6 +176,14 @@
       <to-view-id>/overview/validation.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
+      <from-outcome>/overview/validation-severity.jspx</from-outcome>
+      <to-view-id>/overview/validation-severity.jspx</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>/overview/validation-severity.xhtml</from-outcome>
+      <to-view-id>/overview/validation-severity.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
       <from-outcome>/overview/form.jspx</from-outcome>
       <to-view-id>/overview/form.jspx</to-view-id>
     </navigation-case>
@@ -243,13 +251,11 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
-<!--
   <managed-bean>
     <managed-bean-name>validationSeverity</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.demo.overview.ValidationSeverity</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
   </managed-bean>
--->
 
   <!--best practice-->
 

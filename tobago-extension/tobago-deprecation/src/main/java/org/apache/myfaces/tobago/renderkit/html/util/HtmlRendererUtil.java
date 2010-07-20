@@ -19,7 +19,6 @@ package org.apache.myfaces.tobago.renderkit.html.util;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
-import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
@@ -33,7 +32,6 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -46,7 +44,6 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
-import javax.faces.model.SelectItemGroup;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -539,51 +536,10 @@ public final class HtmlRendererUtil {
    * @deprecated Please use HtmlRendererUtils
    */
   @Deprecated
-  public static void renderSelectItems(UIInput component, List<SelectItem> items, Object[] values,
+  public static void renderSelectItems(
+      UIInput component, List<SelectItem> items, Object[] values,
       TobagoResponseWriter writer, FacesContext facesContext) throws IOException {
-
-    if (LOG.isDebugEnabled()) {
-      LOG.debug("value = '" + Arrays.toString(values) + "'");
-    }
-    for (SelectItem item : items) {
-      if (item instanceof SelectItemGroup) {
-        writer.startElement(HtmlConstants.OPTGROUP, null);
-        writer.writeAttribute(HtmlAttributes.LABEL, item.getLabel(), true);
-        if (item.isDisabled()) {
-          writer.writeAttribute(HtmlAttributes.DISABLED, true);
-        }
-        SelectItem[] selectItems = ((SelectItemGroup) item).getSelectItems();
-        renderSelectItems(component, Arrays.asList(selectItems), values, writer, facesContext);
-        writer.endElement(HtmlConstants.OPTGROUP);
-      } else {
-        writer.startElement(HtmlConstants.OPTION, null);
-        final Object itemValue = item.getValue();
-        String formattedValue = RenderUtils.getFormattedValue(facesContext, component, itemValue);
-        writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
-        if (item instanceof org.apache.myfaces.tobago.model.SelectItem) {
-          String image = ((org.apache.myfaces.tobago.model.SelectItem) item).getImage();
-          if (image != null) {
-            String imagePath = ResourceManagerUtils.getImageWithPath(facesContext, image);
-            writer.writeStyleAttribute("background-image: url('" + imagePath + "')");
-          }
-        }
-        if (item instanceof SupportsMarkup) {
-          StyleClasses optionStyle = new StyleClasses();
-          optionStyle.addMarkupClass((SupportsMarkup) item, getRendererName(facesContext, component), "option");
-          if (!optionStyle.isEmpty()) {
-            writer.writeClassAttribute(optionStyle);
-          }
-        }
-        if (RenderUtils.contains(values, item.getValue())) {
-          writer.writeAttribute(HtmlAttributes.SELECTED, true);
-        }
-        if (item.isDisabled()) {
-          writer.writeAttribute(HtmlAttributes.DISABLED, true);
-        }
-        writer.writeText(item.getLabel());
-        writer.endElement(HtmlConstants.OPTION);
-      }
-    }
+    HtmlRendererUtils.renderSelectItems(component, items, values, writer, facesContext);
   }
 
   /**

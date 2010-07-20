@@ -25,4 +25,8 @@ public interface SupportsMarkup {
   Markup getMarkup();
 
   void setMarkup(Markup markup);
+
+  Markup getCurrentMarkup();
+
+  void setCurrentMarkup(Markup markup);
 }

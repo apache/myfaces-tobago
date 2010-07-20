@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.component.UITabGroup;
 import org.apache.myfaces.tobago.component.UIToolBar;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.event.TabChangeEvent;
@@ -38,12 +39,12 @@ import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Overflow;
 import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.JQueryUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -117,10 +118,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(clientId);
-    //HtmlRendererUtils.renderDojoDndItem(tabGroup, writer, false);
-    //TODO writer.writeClassAttribute("dojoDndItem");
-    StyleClasses classes = (StyleClasses) tabGroup.getAttributes().get(Attributes.STYLE_CLASS);
-    writer.writeClassAttribute(classes);
+    writer.writeClassAttribute(Classes.create(tabGroup));
 
     // AJAX
     HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, ArrayUtils.EMPTY_STRING_ARRAY);
@@ -301,7 +299,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
       header.setWidth(map.getWidth());
     }
     writer.writeStyleAttribute(header);
-    writer.writeClassAttribute("tobago-tab-header");
+    writer.writeClassAttribute(Classes.create(tabGroup, "header"));
 
     UITab activeTab = null;
 
@@ -319,18 +317,12 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
           }
 
           LabelWithAccessKey label = new LabelWithAccessKey(tab);
-          StyleClasses outerClass = new StyleClasses();
-          StyleClasses innerClass = new StyleClasses();
           if (virtualTab == index) {
-            outerClass.addClass("tab", "selected-outer");
-            innerClass.addClass("tab", "selected-inner");
+            tab.setCurrentMarkup(tab.getCurrentMarkup().add(Markup.SELECTED));
             activeTab = tab;
           } else {
-            outerClass.addClass("tab", "unselected-outer");
-            innerClass.addClass("tab", "unselected-inner");
+            tab.setCurrentMarkup(tab.getCurrentMarkup().remove(Markup.SELECTED));
           }
-          outerClass.addMarkupClass(tab, "tab", "outer");
-          innerClass.addMarkupClass(tab, "tab", "outer");
           Style labelStyle = new Style();
           int borderWidth = 1;
           labelStyle.setWidth(tabList.getWidthList().get(index).subtract(borderWidth * 2));
@@ -340,22 +332,18 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
           writer.startElement(HtmlConstants.SPAN, tab);
           writer.writeStyleAttribute(labelStyle);
 
-          writer.writeClassAttribute(outerClass);
+          writer.writeClassAttribute(Classes.create(tab, "outer"));
           writer.startElement(HtmlConstants.SPAN, tab);
 
-          writer.writeClassAttribute(innerClass);
+          writer.writeClassAttribute(Classes.create(tab, "inner"));
 
           writer.startElement(HtmlConstants.SPAN, tab);
           String tabId = clientId + "__" + virtualTab + "__" + index;
           writer.writeIdAttribute(tabId);
 
-          if (tab.isDisabled()) {
-            writer.writeClassAttribute("tobago-tab-disabled");
-          } else {
-            writer.writeClassAttribute("tobago-tab-link");
-            if (onclick != null) {
-              writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, true);
-            }
+          writer.writeClassAttribute(Classes.create(tab, "link"));
+          if (!tab.isDisabled() && onclick != null) {
+            writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, true);
           }
           if (label.getText() != null) {
             HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
@@ -408,7 +396,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     styleTabFulFill.setWidth(width.subtract(sumWidth).subtract(toolbarWidth));
 
     writer.startElement(HtmlConstants.SPAN, tabGroup);
-    writer.writeClassAttribute("tobago-tab-fulfill");
+    writer.writeClassAttribute(Classes.create(tabGroup, "fulfill"));
     writer.writeStyleAttribute(styleTabFulFill);
 
     writer.endElement(HtmlConstants.SPAN);
@@ -418,7 +406,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
         
     if (tabGroup.isShowNavigationBar()) {
       UIToolBar toolBar = createToolBar(facesContext, tabGroup, virtualTab, switchType, tabList);
-      renderToolBar(facesContext, writer, toolBar, width.subtract(toolbarWidth), toolBarContentWidth);
+      renderToolBar(facesContext, writer, tabGroup, toolBar, width.subtract(toolbarWidth), toolBarContentWidth);
     }
 
     Style body = new Style();
@@ -496,14 +484,15 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
   }
   
   private void renderToolBar(
-      FacesContext facesContext, TobagoResponseWriter writer, UIToolBar toolBar, Measure left, Measure width)
+      FacesContext facesContext, TobagoResponseWriter writer, UITabGroup tabGroup, UIToolBar toolBar,
+      Measure left, Measure width)
       throws IOException {
     writer.startElement(HtmlConstants.DIV, null);
     Style style = new Style();
     style.setWidth(width);
     style.setLeft(left);
     writer.writeStyleAttribute(style);
-    writer.writeClassAttribute("tobago-tabGroup-toolBar");
+    writer.writeClassAttribute(Classes.create(tabGroup, "toolBar"));
     RenderUtils.encode(facesContext, toolBar);
     writer.endElement(HtmlConstants.DIV);
   }
@@ -512,10 +501,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
       throws IOException {
 
     writer.startElement(HtmlConstants.DIV, null);
-    StyleClasses classes = new StyleClasses();
-    classes.addClass("tab", "content");
-    classes.addMarkupClass(activeTab, "tab", "content");
-    writer.writeClassAttribute(classes);
+    writer.writeClassAttribute(Classes.create(activeTab, "content"));
 
     if (body != null) {
       Style body2 = new Style(body);

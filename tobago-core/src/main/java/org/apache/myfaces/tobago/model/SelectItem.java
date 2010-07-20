@@ -26,6 +26,7 @@ public class SelectItem extends javax.faces.model.SelectItem implements Supports
 
   private String image;
   private Markup markup = Markup.NULL;
+  private Markup currentMarkup = null;
 
   public SelectItem() {
     super();
@@ -86,5 +87,13 @@ public class SelectItem extends javax.faces.model.SelectItem implements Supports
 
   public void setMarkup(Markup markup) {
     this.markup = markup;
+  }
+
+  public Markup getCurrentMarkup() {
+    return currentMarkup;
+  }
+
+  public void setCurrentMarkup(Markup currentMarkup) {
+    this.currentMarkup = currentMarkup;
   }
 }

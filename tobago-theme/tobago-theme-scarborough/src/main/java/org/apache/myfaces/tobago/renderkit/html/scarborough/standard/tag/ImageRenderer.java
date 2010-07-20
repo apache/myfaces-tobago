@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIImage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -49,7 +50,7 @@ public class ImageRenderer extends LayoutComponentRendererBase {
     HtmlRendererUtils.renderDojoDndSource(facesContext, component);
   }
 
-  public void encodeEnd(FacesContext facesContext,      UIComponent component) throws IOException {
+  public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
@@ -94,7 +95,7 @@ public class ImageRenderer extends LayoutComponentRendererBase {
     Style style = new Style(facesContext, image);
     writer.writeStyleAttribute(style);
     HtmlRendererUtils.renderDojoDndItem(image, writer, true);
-    writer.writeClassAttribute();
+    writer.writeClassAttribute(Classes.create(image));
     writer.endElement(HtmlConstants.IMG);
   }
 

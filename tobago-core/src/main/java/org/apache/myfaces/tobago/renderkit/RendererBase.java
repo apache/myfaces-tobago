@@ -17,10 +17,13 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,6 +49,13 @@ public class RendererBase extends Renderer {
    * Hook to e. g. register resources, etc.
    */
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+
+    if (component instanceof SupportsMarkup) {
+      final SupportsMarkup supportsMarkup = (SupportsMarkup) component;
+      Markup markup = ComponentUtils.updateMarkup(component, supportsMarkup.getMarkup());
+      supportsMarkup.setCurrentMarkup(markup);
+    }
+
     final String rendererType = component.getRendererType();
     if (rendererType != null) {
       String rendererName = getRendererName(rendererType);

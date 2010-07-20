@@ -865,7 +865,7 @@ var Tobago = {
     // find highest modal popup
     var maxZIndex = -Infinity;
     var maxModalPopup = null;
-    jQuery(".tobago-popup-modal").each(function() {
+    jQuery(".tobago-popup-markup-modal").each(function() {
       var zIndex = jQuery(this).css("z-index");
       if (zIndex >= maxZIndex) {
         maxZIndex = zIndex;
@@ -1636,10 +1636,10 @@ var Tobago = {
   }
 };
 
-Tobago.In = function(inId, required, cssPrefix, maxLength) {
+Tobago.In = function(inId, required, requiredClass, maxLength) {
   this.id = inId;
   this.required = required;
-  this.cssPrefix = cssPrefix;
+  this.requiredClass = requiredClass;
   this.maxLength = maxLength;
   this.setup();
 };
@@ -1649,7 +1649,7 @@ Tobago.In.prototype.setup = function() {
   if (this.required) {
     ctrl = Tobago.element(this.id);
     if (ctrl.value && ctrl.value.length > 0) {
-      Tobago.removeCssClass(this.id, this.cssPrefix + "-required" );
+      Tobago.removeCssClass(this.id, this.requiredClass);
     }
     Tobago.addBindEventListener(ctrl, "focus", this, "enterRequired");
     Tobago.addBindEventListener(ctrl, "blur", this, "leaveRequired");
@@ -1729,13 +1729,13 @@ Tobago.In.prototype.checkMaxLength = function(event) {
 };
 
 Tobago.In.prototype.enterRequired = function(e) {
-  Tobago.removeCssClass(this.id, this.cssPrefix + "-required");
+  Tobago.removeCssClass(this.id, this.requiredClass);
 };
 
 Tobago.In.prototype.leaveRequired = function (e) {
   var ctrl = Tobago.element(this.id);
   if (!ctrl.value || ctrl.value.length == 0) {
-    Tobago.addCssClass(ctrl.id, this.cssPrefix + "-required");
+    Tobago.addCssClass(ctrl.id, this.requiredClass);
   }
 };
 

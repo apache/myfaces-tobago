@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -72,9 +73,9 @@ public class BoxRenderer extends BoxRendererBase {
     Style contentStyle = new Style(facesContext, box);
     if (toolbar != null) {
       writer.startElement(HtmlConstants.DIV, null);
-      writer.writeClassAttribute("tobago-box-toolbar-div");
+      writer.writeClassAttribute(Classes.create(box, "toolbarOuter"));
       writer.startElement(HtmlConstants.DIV, null);
-      writer.writeClassAttribute("tobago-box-toolbar-span");
+      writer.writeClassAttribute(Classes.create(box, "toolbarInner"));
       toolbar.setRendererType(RendererTypes.BOX_TOOL_BAR);
       RenderUtils.encode(facesContext, toolbar);
       writer.endElement(HtmlConstants.DIV);
@@ -85,7 +86,7 @@ public class BoxRenderer extends BoxRendererBase {
       }
     }
     writer.startElement(HtmlConstants.DIV, box);
-    writer.writeClassAttribute("tobago-box-content"); // needed to be scrollable inside of the box
+    writer.writeClassAttribute(Classes.create(box, "content")); // needed to be scrollable inside of the box
     writer.writeStyleAttribute(contentStyle);
     final Measure offsetLeft = getOffsetLeft(facesContext, box);
     final Measure offsetRight = getOffsetRight(facesContext, box);

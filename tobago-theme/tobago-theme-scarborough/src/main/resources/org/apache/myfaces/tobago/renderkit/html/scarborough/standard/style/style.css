@@ -37,14 +37,14 @@ legend.tobago-box {
   overflow: auto;
 }
 
-.tobago-box-toolbar-div {
+.tobago-box-toolbarOuter {
   position: relative;
   top: -36px;
   right: -12px;
 
 }
 
-.tobago-box-toolbar-span {
+.tobago-box-toolbarInner {
   position: absolute;
   top: 0;
   right: 0;
@@ -69,7 +69,7 @@ legend.tobago-box {
   cursor: pointer;
 }
 
-.tobago-button-disabled {
+.tobago-button-markup-disabled {
   cursor: default;
 }
 
@@ -88,11 +88,11 @@ table.tobago-calendar-header {
   width: 100%;
 }
 
-th.tobago-calendar-header-center {
+th.tobago-calendar-headerCenter {
   width: 100%;
 }
 
-th.tobago-calendar-inner-header {
+th.tobago-calendar-headerInner {
   width: 14%;
 }
 
@@ -100,17 +100,17 @@ img.tobago-calendar-header {
   cursor: pointer;
 }
 
-td.tobago-calendar-day, td.tobago-calendar-day-disabled, td.tobago-calendar-day-selected {
+td.tobago-calendar-day, td.tobago-calendar-day-markup-disabled, td.tobago-calendar-day-markup-selected {
   width: 14%;
   text-align: center;
   cursor: pointer;
 }
 
-td.tobago-calendar-day-disabled {
+td.tobago-calendar-day-markup-disabled {
   color: #999999;
 }
 
-td.tobago-calendar-day-selected {
+td.tobago-calendar-day-markup-selected {
   background-color: #ffffff;
 }
 
@@ -128,22 +128,22 @@ td.tobago-calendar-day-selected {
   margin: 0;
 }
 
-.tobago-date-required {
+.tobago-date-markup-required {
   background-image: url( "../image/required.gif" );
   background-position: 3px 50%;
   background-repeat: no-repeat;
 }
 
-.tobago-date-readonly {
+.tobago-date-markup-readonly {
   background: #bbccdd;
 }
 
-.tobago-date-disabled {
+.tobago-date-markup-disabled {
   color: #778899;
   background: #bbccdd;
 }
 
-.tobago-date-error {
+.tobago-date-markup-error, .tobago-date-markup-fatal {
   border-style: solid;
   border-color: #ff0000;
 }
@@ -160,7 +160,7 @@ td.tobago-calendar-day-selected {
   height: 25px;
 }
 
-.tobago-file-error {
+.tobago-file-markup-error, .tobago-file-markup-fatal {
   border-color: #ff0000;
 }
 
@@ -215,24 +215,24 @@ div.tobago-gridLayout-first-column {
   text-align: right;
 }
 
-.tobago-in-required {
+.tobago-in-markup-required {
   background: url("../image/required.gif") no-repeat 3px 50%;
 }
 
-.tobago-in-readonly {
+.tobago-in-markup-readonly {
   background: #bbccdd;
 }
 
-.tobago-in-disabled {
+.tobago-in-markup-disabled {
   color: #778899;
   background: #bbccdd;
 }
 
-.tobago-in-error {
+.tobago-in-markup-error, .tobago-in-markup-fatal {
   border: 2px solid #ff0000;
 }
 
-.tobago-in-suggest-popup {
+.tobago-in-suggestPopup {
   position: absolute;
   overflow: hidden;
   width: 250px;
@@ -245,15 +245,15 @@ div.tobago-gridLayout-first-column {
   -moz-box-sizing: border-box;
 }
 
-.tobago-in-suggest-popup li {
+.tobago-in-suggestPopup li {
   white-space: nowrap;
 }
 
-.tobago-in-suggest-popup li.selected {
+.tobago-in-suggestPopup li.selected {
   background-color: #ffb;
 }
 
-.tobago-in-suggest-popup ul {
+.tobago-in-suggestPopup ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -290,7 +290,7 @@ label.tobago-label {
 /*  background: #ccddee; */
 }
 
-.tobago-label-disabled {
+.tobago-label-markup-disabled {
   color: #778899;
 }
 
@@ -413,13 +413,13 @@ iframe.tobago-menu-ie6bugfix {
 
 /* messages --------------------------------------------------- */
 
-.tobago-validation-message {
-  color: red;
+.tobago-messages {
+  color: #FF0000;
   white-space: nowrap;
 }
 
-.tobago-messages-markup-info {
-  color: black;
+.tobago-messages-item-markup-info {
+  color: #000000;
 }
 
 /* object ------------------------------------------------------------------ */
@@ -490,6 +490,24 @@ iframe.tobago-menu-ie6bugfix {
   filter: progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0);
 }
 
+/* progress -------------------------------------------------------------- */
+
+img.tobago-progress-color1 {
+  background: #aabbcc;
+  border-width: 1px 0 1px 1px;
+  height: 1.4ex;
+}
+
+img.tobago-progress-color2 {
+  background: #ddeeff;
+  border-width: 1px 1px 1px 0;
+  height: 1.4ex;
+}
+
+span.tobago-progress {
+  white-space: nowrap;
+}
+
 /* selectBooleanCheckbox --------------------------------------------------- */
 
 .tobago-selectBooleanCheckbox {
@@ -498,11 +516,11 @@ iframe.tobago-menu-ie6bugfix {
   margin-bottom: 2px;
 }
 
-.tobago-selectBooleanCheckbox-disabled {
+.tobago-selectBooleanCheckbox-markup-disabled {
   color: #778899;
 }
 
-.tobago-selectBooleanCheckbox-error {
+.tobago-selectBooleanCheckbox-markup-error {
   border: 2px solid #ff0000;
 }
 
@@ -515,7 +533,7 @@ iframe.tobago-menu-ie6bugfix {
   margin: 0;
 }
 
-.tobago-selectManyCheckbox-disabled  {
+.tobago-selectManyCheckbox-markup-disabled  {
   color: #778899;
 }
 
@@ -523,7 +541,7 @@ iframe.tobago-menu-ie6bugfix {
   display: inline;
 }
 
-.tobago-selectManyCheckbox-error label {
+.tobago-selectManyCheckbox-markup-error label {
   border: 1px solid #FF0000;
 }
 
@@ -536,16 +554,16 @@ iframe.tobago-menu-ie6bugfix {
   height: 25px;
 }
 
-.tobago-selectManyListbox-readonly {
+.tobago-selectManyListbox-markup-readonly {
   background-color: #bbccdd;
 }
 
-.tobago-selectManyListbox-disabled {
+.tobago-selectManyListbox-markup-disabled {
   color: #778899;
   background: #bbccdd;
 }
 
-.tobago-selectManyListbox-error {
+.tobago-selectManyListbox-markup-error {
   border-style: solid;
   border-color: #ff0000;
 }
@@ -557,15 +575,15 @@ iframe.tobago-menu-ie6bugfix {
   background: #ffffff;
 }
 
-.tobago-selectOneChoice-disabled {
+.tobago-selectOneChoice-markup-disabled {
   background: #c0c0c0;
 }
 
-.tobago-selectOneChoice-readonly {
+.tobago-selectOneChoice-markup-readonly {
  background-color: #bbccdd;
 }
 
-.tobago-selectOneChoice-error {
+.tobago-selectOneChoice-markup-error {
   border-style: solid;
   border-color: #ff0000;
 }
@@ -577,16 +595,16 @@ iframe.tobago-menu-ie6bugfix {
   color: #000000;
 }
 
-.tobago-selectOneListbox-disabled {
+.tobago-selectOneListbox-markup-disabled {
   color: #778899;
   background: #bbccdd;
 }
 
-.tobago-selectOneListbox-readonly {
+.tobago-selectOneListbox-markup-readonly {
   background-color: #bbccdd;
 }
 
-.tobago-selectOneListbox-error {
+.tobago-selectOneListbox-markup-error {
   border-style: solid;
   border-color: #ff0000;
 }
@@ -600,7 +618,7 @@ iframe.tobago-menu-ie6bugfix {
   margin: 0;
 }
 
-.tobago-selectOneRadio-disabled  {
+.tobago-selectOneRadio-markup-disabled  {
   color: #778899;
 }
 
@@ -608,7 +626,7 @@ iframe.tobago-menu-ie6bugfix {
   display: inline;
 }
 
-.tobago-selectOneRadio-error label {
+.tobago-selectOneRadio-markup-error label {
   border: 1px solid #FF0000;
 }
 
@@ -618,12 +636,12 @@ iframe.tobago-menu-ie6bugfix {
   position: absolute;
 }
 
-hr.tobago-separator {
+.tobago-separator hr {
   border: 1px inset #000000;
   margin: 0;
 }
 
-.tobago-separator-start {
+.tobago-separator-start hr {
   width: 20px;
   position: static;
 }
@@ -642,12 +660,12 @@ hr.tobago-separator {
 
 /* sheet ------------------------------------------------------------------ */
 
-.tobago-sheet-outer-div {
+.tobago-sheet-outer {
   overflow: hidden;
   position: relative;
 }
 
-.tobago-sheet-header-div {
+.tobago-sheet-headerDiv {
   height: 20px;
   width: 100%;
   overflow: hidden;
@@ -677,21 +695,21 @@ hr.tobago-separator {
   text-align: center;
 }
 
-.tobago-sheet-header-ascending span, .tobago-sheet-header-descending span {
+.tobago-sheet-header-markup-ascending span, .tobago-sheet-header-markup-descending span {
   margin-right: 15px;
 }
 
-.tobago-sheet-header-ascending img, .tobago-sheet-header-descending img {
+.tobago-sheet-header-markup-ascending img, .tobago-sheet-header-markup-descending img {
   position: absolute;
   right: 5px;
   top: 6px;
 }
 
-.tobago-sheet-header-sortable {
+.tobago-sheet-header-markup-sortable {
    cursor: pointer;
 }
 
-.tobago-sheet-header-resize-outer {
+.tobago-sheet-headerSpacerOuter {
   display: inline-block;
   position: relative;
 	width: 0;
@@ -699,7 +717,7 @@ hr.tobago-separator {
   z-index: 4;
 }
 
-.tobago-sheet-header-resize {
+.tobago-sheet-headerSpacer {
   position: absolute;
   left: -5px;
   top: 0;
@@ -708,11 +726,11 @@ hr.tobago-separator {
 	overflow: hidden;
 }
 
-.tobago-sheet-header-resize-cursor {
+.tobago-sheet-headerSpacer-markup-resizable {
 	cursor: col-resize; /* col-resize is allowed in CSS3+IE6, opera has a separate definition */
 }
 
-.tobago-sheet-body-div {
+.tobago-sheet-body {
   overflow: auto;
   padding-top: 20px;
   position: absolute;
@@ -721,26 +739,26 @@ hr.tobago-separator {
   background: #ebf4fd;
 }
 
-.tobago-sheet-cell-td {
+.tobago-sheet-cell {
   padding-left: 0;
   padding-right: 0;
   vertical-align: top;
   overflow: hidden;
 }
 
-.tobago-sheet-cell-clickable {
+.tobago-sheet-cell-markup-clickable {
    cursor: pointer;
 }
 
-.tobago-sheet-row-odd {
+.tobago-sheet-row-markup-odd {
   background: #ffffff;
 }
 
-.tobago-sheet-row-even {
+.tobago-sheet-row-markup-even {
   background: #d8e9fb;
 }
 
-.tobago-sheet-row-selected {
+.tobago-sheet-row-markup-selected {
 	background: highlight;
 	color: highlighttext;
 }
@@ -753,22 +771,22 @@ hr.tobago-separator {
   overflow: hidden;
 }
 
-.tobago-sheet-paging-span-left {
+.tobago-sheet-pagingOuter-markup-left {
   position : absolute;
   top: 0;
   left: 0;
 }
-.tobago-sheet-paging-span-center {
+.tobago-sheet-pagingOuter-markup-center {
 
 }
 
-.tobago-sheet-paging-span-right {
+.tobago-sheet-pagingOuter-markup-right {
   position : absolute;
   top: 0;
   right: 0;
 }
 
-.tobago-sheet-paging-input {
+.tobago-sheet-pagingInput {
   position: relative;
   width: 30px;
   height: 16px;
@@ -779,46 +797,38 @@ hr.tobago-separator {
   text-align: center;
 }
 
-.tobago-sheet-paging-pages-span {
+.tobago-sheet-pagingOuter {
   vertical-align: top;
+  cursor: pointer;
 }
 
-.tobago-sheet-paging-pages-text {
+.tobago-sheet-pagingText {
   cursor: pointer;
   padding-right: 5px;
   vertical-align: top;
 }
 
-.tobago-sheet-footer-pager-button {
+.tobago-sheet-footerPagerButton {
   cursor: pointer;
   vertical-align: top;
 }
 
-.tobago-sheet-footer-pager-button-disabled {
+.tobago-sheet-footerPagerButton-markup-disabled {
   cursor: auto;
 }
 
-.tobago-sheet-paging-rows-span {
-  cursor: pointer;
-  vertical-align: top;
-}
-
-.tobago-sheet-paging-links-span {
-  vertical-align: top;
-}
-
-.tobago-sheet-paging-links-link {
+.tobago-sheet-pagingLink {
   padding-left: 2px;
   padding-right: 2px;
   vertical-align: top;
 }
 
-a:link.tobago-sheet-paging-links-link, a:visited.tobago-sheet-paging-links-link,
-a:active.tobago-sheet-paging-links-link {
+a:link.tobago-sheet-pagingLink, a:visited.tobago-sheet-pagingLink,
+a:active.tobago-sheet-pagingLink {
   color: #000000;
 }
 
-.tobago-sheet-selector-menu {
+.tobago-sheet-selectorMenu {
   width: 15px;
   height:15px;
   position: relative;
@@ -900,28 +910,11 @@ div.tobago-richTextEditor-body {
   height: 100%;
 }
 
-.tobago-tab-header {
+.tobago-tabGroup-header {
   position: relative;
 }
 
-.tobago-tab-selected-outer {
-  border-color: #ddeeff #778899 #ddeeff #ddeeff;
-  border-width: 1px 1px 0 1px;
-  border-style: solid;
-  padding: 0 0 0 0;
-  position: relative;
-  height: 18px;
-  display: inline-block;
-  vertical-align: bottom;
-  text-align: center;
-}
-
-.tobago-tab-selected-inner {
-  margin: 0 1px;
-  white-space: nowrap;
-}
-
-.tobago-tab-unselected-outer {
+.tobago-tab-outer {
   border-color: #ddeeff #778899 #ddeeff #ddeeff;
   border-width: 1px 1px 1px 1px;
   border-style: solid;
@@ -931,12 +924,18 @@ div.tobago-richTextEditor-body {
   text-align: center;
 }
 
-.tobago-tab-unselected-inner {
+.tobago-tab-outer-markup-selected {
+  border-width: 1px 1px 0 1px;
+  padding: 0 0 0 0;
+  height: 18px;
+}
+
+.tobago-tab-inner {
   margin: 0 1px;
   white-space: nowrap;
 }
 
-.tobago-tab-fulfill {
+.tobago-tabGroup-fulfill {
   border-color: #ddeeff;
   border-width: 0 0 1px 0;
   display: inline-block;
@@ -964,29 +963,6 @@ div.tobago-tabGroup-toolBar {
   white-space: nowrap;
 }
 
-a:link.tab, a:visited.tab, a:active.tab {
-  font-family: arial, helvetica, sans-serif;
-  color: #000000;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-img.tobago-progress-color1 {
-  background: #aabbcc;
-  border-width: 1px 0 1px 1px;
-  height: 1.4ex;
-}
-
-img.tobago-progress-color2 {
-  background: #ddeeff;
-  border-width: 1px 1px 1px 0;
-  height: 1.4ex;
-}
-
-span.tobago-progress {
-  white-space: nowrap;
-}
-
 /* textArea ---------------------------------------------------------------- */
 
 .tobago-textArea {
@@ -1000,22 +976,22 @@ span.tobago-progress {
   margin: 0;
 }
 
-.tobago-textArea-readonly {
+.tobago-textArea-markup-readonly {
   background: #bbccdd;
 }
 
-.tobago-textArea-disabled {
+.tobago-textArea-markup-disabled {
   color: #778899;
   background: #bbccdd;
 }
 
-/*.tobago-textArea-required {
+/*.tobago-textArea-markup-required {
    background-image: url( "../image/required.gif" );
    background-position: 3px 3px;
    background-repeat: no-repeat;
 } */
 
-.tobago-textArea-error {
+.tobago-textArea-markup-error, .tobago-textArea-markup-fatal {
   border-style: solid;
   border-color: #ff0000;
 }
@@ -1032,7 +1008,7 @@ span.tobago-progress {
   left: 0;
 }
 
-.tobago-time-borderDiv-seconds {
+.tobago-time-borderDiv-markup-seconds {
   width: 87px;
 }
 
@@ -1046,28 +1022,28 @@ span.tobago-progress {
   text-align: center;
 }
 
-.tobago-time-input-selected {
+.tobago-time-input-markup-selected {
   border: 1px solid yellow;
 }
 
 .tobago-time-sep {
 }
 
-.tobago-time-inc-image {
+.tobago-time-incImage, .tobago-time-decImage {
   position: absolute;
+  left: 63px;
+  cursor: pointer;
+}
+
+.tobago-time-incImage {
   top: 1px;
-  left: 63px;
-  cursor: pointer;
 }
 
-.tobago-time-dec-image {
-  position: absolute;
+.tobago-time-decImage {
   top: 11px;
-  left: 63px;
-  cursor: pointer;
 }
 
-.tobago-time-image-seconds {
+.tobago-time-incImage-markup-seconds, .tobago-time-decImage-markup-seconds {
   left: 92px;
 }
 

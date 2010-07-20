@@ -17,19 +17,20 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.internal.layout.LayoutContext;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -47,15 +48,22 @@ public class PopupRenderer extends LayoutComponentRendererBase {
 
   @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+
+    UIPopup popup = (UIPopup) component;
+
     if (facesContext instanceof TobagoFacesContext) {
-      ((TobagoFacesContext) facesContext).getPopups().add((UIPopup) component);
+      ((TobagoFacesContext) facesContext).getPopups().add(popup);
     }
 
     // TODO: where to put this code, it is good here?
     TobagoFacesContext tobagoContext = (TobagoFacesContext) facesContext;
     tobagoContext.getScriptBlocks().add("jQuery(document).ready(function() {Tobago.setupPopup();});");
 
-    super.prepareRender(facesContext, component);
+    super.prepareRender(facesContext, popup);
+
+    if (popup.isModal()) {
+      popup.setCurrentMarkup(popup.getCurrentMarkup().add(Markup.MODAL));
+    }
   }
 
   @Override
@@ -101,11 +109,7 @@ public class PopupRenderer extends LayoutComponentRendererBase {
     }
     style.setZIndex(zIndex);
     writer.writeStyleAttribute(style);
-    StyleClasses styleClasses = StyleClasses.ensureStyleClasses(popup);
-    if (popup.isModal()) {
-      styleClasses.addClass("popup", "modal");
-    }
-    writer.writeClassAttribute(styleClasses);
+    writer.writeClassAttribute(Classes.create(popup));
   }
 
   @Override

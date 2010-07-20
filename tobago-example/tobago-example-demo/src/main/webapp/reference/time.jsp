@@ -28,7 +28,7 @@
   <jsp:body>
       <tc:box label="Time Specific Controls">
         <f:facet name="layout">
-          <tc:gridLayout columns="400px;*" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;250px;*"/>
+          <tc:gridLayout columns="400px;*" rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;fixed;250px;*"/>
         </f:facet>
         <%-- code-sniplet-start id="date" --%>
         <tx:date label="Date" value="#{now}">
@@ -77,6 +77,16 @@
         <tx:date label="Year" value="#{now}">
           <f:convertDateTime pattern="yyyy"/>
         </tx:date>
+        <tc:cell/>
+
+        <tx:time label="Time" value="#{now}">
+          <f:convertDateTime type="time"  pattern="HH:mm"/>
+        </tx:time>
+        <tc:cell/>
+
+        <tx:time label="Time (Seconds)" value="#{now}">
+          <f:convertDateTime type="time" pattern="HH:mm:ss"/>
+        </tx:time>
         <tc:cell/>
 
         <%-- code-sniplet-start id="calendar" --%>

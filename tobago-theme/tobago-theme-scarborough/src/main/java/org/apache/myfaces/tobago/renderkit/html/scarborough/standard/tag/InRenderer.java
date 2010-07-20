@@ -28,11 +28,11 @@ import org.apache.myfaces.tobago.model.AutoSuggestExtensionItem;
 import org.apache.myfaces.tobago.model.AutoSuggestItem;
 import org.apache.myfaces.tobago.model.AutoSuggestItems;
 import org.apache.myfaces.tobago.renderkit.InputRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -137,9 +137,8 @@ public class InRenderer extends InputRendererBase {
       Style style = new Style(facesContext, input);
       writer.writeStyleAttribute(style);
 
-      applyExtraStyle(facesContext, input, currentValue);
       HtmlRendererUtils.renderDojoDndItem(component, writer, true);
-      writer.writeClassAttribute();
+      writer.writeClassAttribute(Classes.create(input));
       /*if (component instanceof UIInputBase) {
        String onchange = HtmlUtils.generateOnchange((UIInputBase) component, facesContext);
        if (onchange != null) {
@@ -152,10 +151,10 @@ public class InRenderer extends InputRendererBase {
       HtmlRendererUtils.checkForCommandFacet(input, facesContext, writer);
 
       boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
-      String rendererName = HtmlRendererUtils.getRendererName(facesContext, input);
+      final String requiredClass = Classes.required(input);
       if (required && !renderAjaxSuggest) {
         final String[] cmds = {
-            "new Tobago.In(\"" + id + "\", true ,\"" + StyleClasses.PREFIX + rendererName + "\"  );"
+            "new Tobago.In(\"" + id + "\", true ,\"" + requiredClass + "\"  );"
         };
 
         HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
@@ -171,22 +170,13 @@ public class InRenderer extends InputRendererBase {
             "new Tobago.AutocompleterAjax(",
             "    '" + id + "',",
             "    " + required + ",",
-            "    '" + StyleClasses.PREFIX + rendererName + "',",
+            "    '" + requiredClass + "',",
             "    { });"
         };
 
 //      HtmlRendererUtils.writeStyleLoader(facesContext, STYLES);
         HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmds);
       }
-    }
-  }
-
-  protected void applyExtraStyle(FacesContext facesContext, UIInputBase input, String currentValue) {
-    if (currentValue != null && currentValue.length() > 0
-        && ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED)) {
-      StyleClasses styleClasses = StyleClasses.ensureStyleClasses(input);
-      String rendererName = HtmlRendererUtils.getRendererName(facesContext, input);
-      styleClasses.removeAspectClass(rendererName, StyleClasses.Aspect.REQUIRED);
     }
   }
 

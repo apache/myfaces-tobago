@@ -26,10 +26,10 @@ import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.HtmlUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -54,7 +54,7 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
 
       writer.startElement(HtmlConstants.TABLE, component);
       writer.writeIdAttribute(separator.getClientId(facesContext));
-      writer.writeClassAttribute();
+      writer.writeClassAttribute(Classes.create(component));
       Style style = new Style(facesContext, separator);
       writer.writeStyleAttribute(style);
 
@@ -63,29 +63,19 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
       writer.startElement(HtmlConstants.TR, component);
 
       writer.startElement(HtmlConstants.TD, component);
-      StyleClasses startClass = new StyleClasses();
-      startClass.addAspectClass("separator", StyleClasses.Aspect.DEFAULT);
-      startClass.addAspectClass("separator", "start", StyleClasses.Aspect.DEFAULT);
-      writer.writeClassAttribute(startClass);
+      writer.writeClassAttribute(Classes.create(component, "start"));
       writer.startElement(HtmlConstants.HR , component);
-      writer.writeClassAttribute(startClass);
       writer.endElement(HtmlConstants.HR);
       writer.endElement(HtmlConstants.TD);
 
       writer.startElement(HtmlConstants.TD, component);
-      StyleClasses labelClass = new StyleClasses();
-      labelClass.addAspectClass("separator", "label", StyleClasses.Aspect.DEFAULT);
-      writer.writeClassAttribute(labelClass);
+      writer.writeClassAttribute(Classes.create(component, "label"));
       writer.writeText(label);
       writer.endElement(HtmlConstants.TD);
 
       writer.startElement(HtmlConstants.TD, component);
-      StyleClasses endClass = new StyleClasses();
-      endClass.addAspectClass("separator", StyleClasses.Aspect.DEFAULT);
-      endClass.addAspectClass("separator", "end", StyleClasses.Aspect.DEFAULT);
-      writer.writeClassAttribute(endClass);
+      writer.writeClassAttribute(Classes.create(component, "end"));
       writer.startElement(HtmlConstants.HR , component);
-      writer.writeClassAttribute(endClass);
       writer.endElement(HtmlConstants.HR);
       writer.endElement(HtmlConstants.TD);
 
@@ -94,7 +84,7 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
     } else {
       writer.startElement(HtmlConstants.HR , component);
       writer.writeIdAttribute(separator.getClientId(facesContext));
-      writer.writeClassAttribute();
+      writer.writeClassAttribute(Classes.create(component));
       Style style = new Style(facesContext, separator);
       writer.writeStyleAttribute(style);
       writer.endElement(HtmlConstants.HR);

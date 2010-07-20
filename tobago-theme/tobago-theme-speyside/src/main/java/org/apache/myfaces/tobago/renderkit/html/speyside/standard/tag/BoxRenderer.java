@@ -21,12 +21,11 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
-import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -35,7 +34,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.Map;
 
 public class BoxRenderer extends BoxRendererBase {
 
@@ -81,7 +79,7 @@ without shadow
     String clientId = box.getClientId(facesContext);
     writer.startElement(HtmlConstants.DIV, box);
     HtmlRendererUtils.renderDojoDndItem(box, writer, true);
-    writer.writeClassAttribute();
+    writer.writeClassAttribute(Classes.create(box));
     writer.writeIdAttribute(clientId);
     writer.writeStyleAttribute(new Style(facesContext, box));
     writer.writeJavascript("Tobago.addAjaxComponent(\"" + clientId + "\");");
@@ -98,10 +96,7 @@ without shadow
     if (hasShadow) {
       // shadow begin
       writer.startElement(HtmlConstants.DIV, box);
-
-      StyleClasses classes = new StyleClasses();
-      classes.addClass("box", "shadow");
-      writer.writeClassAttribute(classes);
+      writer.writeClassAttribute(Classes.create(box, "shadow"));
 
       Style shadow = new Style();
       shadow.setWidth(box.getCurrentWidth().subtract(1));
@@ -110,10 +105,7 @@ without shadow
 
       // border begin
       writer.startElement(HtmlConstants.DIV, box);
-
-      classes = new StyleClasses();
-      classes.addClass("box", "border");
-      writer.writeClassAttribute(classes);
+      writer.writeClassAttribute(Classes.create(box, "border"));
 
       Style border = new Style();
       border.setWidth(box.getCurrentWidth().subtract(3));
@@ -123,7 +115,7 @@ without shadow
 
     UIComponent label = box.getFacet(Facets.LABEL);
     writer.startElement(HtmlConstants.DIV, null);
-    writer.writeClassAttribute("tobago-box-header");
+    writer.writeClassAttribute(Classes.create(box, "header"));
     String labelString = (String) box.getAttributes().get(Attributes.LABEL);
     if (label != null) {
       RenderUtils.encode(facesContext, label);
@@ -134,7 +126,7 @@ without shadow
 
     UIPanel toolbar = (UIPanel) box.getFacet(Facets.TOOL_BAR);
     if (toolbar != null) {
-      renderToolbar(facesContext, writer, toolbar);
+      renderToolbar(facesContext, writer, box, toolbar);
     }
     
     if (hasShadow) {
@@ -145,7 +137,7 @@ without shadow
     }
 
     writer.startElement(HtmlConstants.DIV, null);
-    writer.writeClassAttribute("tobago-box-content"); // needed to be scrollable inside of the box
+    writer.writeClassAttribute(Classes.create(box, "content")); // needed to be scrollable inside of the box
     final Style style = new Style(facesContext, box);
     final Measure offsetLeft = getOffsetLeft(facesContext, box);
     final Measure offsetRight = getOffsetRight(facesContext, box);
@@ -166,14 +158,9 @@ without shadow
   }
 
   protected void renderToolbar(
-      FacesContext facesContext, TobagoResponseWriter writer, UIPanel toolbar) throws IOException {
-    final Map attributes = toolbar.getAttributes();
-    String className = "tobago-box-header-toolbar-div";
-    if (UIToolBar.LABEL_OFF.equals(attributes.get(Attributes.LABEL_POSITION))) {
-      className += " tobago-box-header-toolbar-label_off";
-    }
+      FacesContext facesContext, TobagoResponseWriter writer, UIBox box, UIPanel toolbar) throws IOException {
     writer.startElement(HtmlConstants.DIV, null);
-    writer.writeClassAttribute(className);
+    writer.writeClassAttribute(Classes.create(box, "headerToolbar"));
     toolbar.setRendererType(RendererTypes.BOX_TOOL_BAR);
     RenderUtils.encode(facesContext, toolbar);
     writer.endElement(HtmlConstants.DIV);

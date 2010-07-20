@@ -31,10 +31,10 @@
   background-color: yellow;
 }
 
-.tobago-sheet-row-odd {
+.tobago-sheet-row-markup-odd {
   background: #ffffff;
 }
 
-.tobago-sheet-row-even {
+.tobago-sheet-row-markup-even {
   background: #d8e9fb;
 }

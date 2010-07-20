@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.UICommand;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UISheet;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.ajax.AjaxInternalUtils;
@@ -30,6 +31,7 @@ import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseJsonWriterImpl;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
@@ -385,19 +387,17 @@ public final class HtmlRendererUtils {
             writer.writeStyleAttribute("background-image: url('" + imagePath + "')");
           }
         }
-        if (item instanceof SupportsMarkup) {
-          StyleClasses optionStyle = new StyleClasses();
-          optionStyle.addMarkupClass((SupportsMarkup) item, getRendererName(facesContext, component), "option");
-          if (!optionStyle.isEmpty()) {
-            writer.writeClassAttribute(optionStyle);
-          }
-        }
+        Markup markup = item instanceof SupportsMarkup ? ((SupportsMarkup) item).getMarkup() : Markup.NULL;
         if (RenderUtils.contains(values, itemValue)) {
           writer.writeAttribute(HtmlAttributes.SELECTED, true);
+          markup = markup.add(Markup.SELECTED);
         }
         if (item.isDisabled()) {
           writer.writeAttribute(HtmlAttributes.DISABLED, true);
+          markup = markup.add(Markup.DISABLED);
         }
+        writer.writeClassAttribute(Classes.create(component, "option", markup));
+
         writer.writeText(item.getLabel());
         writer.endElement(HtmlConstants.OPTION);
       }

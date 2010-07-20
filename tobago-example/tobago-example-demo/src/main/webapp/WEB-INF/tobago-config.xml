@@ -30,4 +30,17 @@
   </theme-config>
 
   <resource-dir>tobago-resource</resource-dir>
+
+  <renderers>
+    <renderer>
+      <name>SelectOneChoice</name>
+      <supported-markup>
+        <markup>disabled</markup>
+        <markup>selected</markup>
+        <markup>ok</markup>
+        <markup>warn</markup>
+        <markup>error</markup>
+      </supported-markup>
+    </renderer>
+  </renderers>
 </tobago-config>

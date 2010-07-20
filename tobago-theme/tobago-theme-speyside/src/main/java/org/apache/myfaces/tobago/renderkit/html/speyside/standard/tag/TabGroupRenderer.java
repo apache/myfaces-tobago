@@ -18,10 +18,10 @@ package org.apache.myfaces.tobago.renderkit.html.speyside.standard.tag;
  */
 
 import org.apache.myfaces.tobago.component.UITab;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Overflow;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -37,7 +37,7 @@ public class TabGroupRenderer
       throws IOException {
 
     writer.startElement(HtmlConstants.DIV, null);
-    writer.writeClassAttribute("tobago-tab-shadow");
+    writer.writeClassAttribute(Classes.create(activeTab, "shadow"));
     if (body != null) {
       Style body1 = new Style(body);
       // TODO get border width
@@ -48,10 +48,7 @@ public class TabGroupRenderer
     }
 
     writer.startElement(HtmlConstants.DIV, null);
-    StyleClasses classes = new StyleClasses();
-    classes.addClass("tab", "content");
-    classes.addMarkupClass(activeTab, "tab", "content");
-    writer.writeClassAttribute(classes);
+    writer.writeClassAttribute(Classes.create(activeTab, "content"));
 
     if (body != null) {
       Style body2 = new Style(body);

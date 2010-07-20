@@ -17,11 +17,10 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UISelectOneListbox;
 import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -29,6 +28,8 @@ import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -68,7 +69,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     }
     Style style = new Style(facesContext, select);
     writer.writeStyleAttribute(style);
-    writer.writeClassAttribute();
+    writer.writeClassAttribute(Classes.create(select));
     HtmlRendererUtils.renderTip(select, writer);
     writer.writeAttribute(HtmlAttributes.SIZE, 2); // should be greater 1
     if (!ComponentUtils.getBooleanAttribute(select, Attributes.REQUIRED)) {

@@ -18,20 +18,22 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICalendar;
+import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.model.CalendarModel;
 import org.apache.myfaces.tobago.model.DateModel;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -100,19 +102,19 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
 
     writer.startElement(HtmlConstants.TR, null);
-    writer.writeClassAttribute("tobago-calendar-header-tr");
+    writer.writeClassAttribute(Classes.create(output, "headerRow"));
     writer.startElement(HtmlConstants.TH, null);
     writer.writeAttribute(HtmlAttributes.COLSPAN, 7);
 
     writer.startElement(HtmlConstants.TABLE, null);
     writer.writeAttribute(HtmlAttributes.SUMMARY, "", false);
-    writer.writeClassAttribute("tobago-calendar-header");
+    writer.writeClassAttribute(Classes.create(output, "header"));
     writer.startElement(HtmlConstants.TR, null);
 
     writer.startElement(HtmlConstants.TD, null);
     writer.writeAttribute(HtmlAttributes.ALIGN, "left", false);
     writer.startElement(HtmlConstants.IMG, null);
-    writer.writeClassAttribute("tobago-calendar-header");
+    writer.writeClassAttribute(Classes.create(output, "header"));
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.writeAttribute(HtmlAttributes.SRC,
         ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarFastPrev.gif"), false);
@@ -123,7 +125,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlConstants.TD, null);
     writer.writeAttribute(HtmlAttributes.ALIGN, "left", false);
     writer.startElement(HtmlConstants.IMG, null);
-    writer.writeClassAttribute("tobago-calendar-header");
+    writer.writeClassAttribute(Classes.create(output, "header"));
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.writeAttribute(HtmlAttributes.SRC,
         ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarPrev.gif"), false);
@@ -132,7 +134,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlConstants.TD);
 
     writer.startElement(HtmlConstants.TH, null);
-    writer.writeClassAttribute("tobago-calendar-header-center");
+    writer.writeClassAttribute(Classes.create(output, "headerCenter"));
     writer.writeAttribute(HtmlAttributes.ALIGN, "center", false);
     writer.writeIdAttribute(id + ":title");
     writer.writeText(dateFormat.format(calendar.getTime()));
@@ -141,7 +143,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlConstants.TD, null);
     writer.writeAttribute(HtmlAttributes.ALIGN, "right", false);
     writer.startElement(HtmlConstants.IMG, null);
-    writer.writeClassAttribute("tobago-calendar-header");
+    writer.writeClassAttribute(Classes.create(output, "header"));
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.writeAttribute(HtmlAttributes.SRC,
         ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarNext.gif"), false);
@@ -152,7 +154,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlConstants.TD, null);
     writer.writeAttribute(HtmlAttributes.ALIGN, "right", false);
     writer.startElement(HtmlConstants.IMG, null);
-    writer.writeClassAttribute("tobago-calendar-header");
+    writer.writeClassAttribute(Classes.create(output, "header"));
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.writeAttribute(HtmlAttributes.SRC,
         ResourceManagerUtils.getImageWithPath(facesContext, "image/calendarFastNext.gif"), false);
@@ -175,7 +177,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
       dayName = StringUtils.substring(dayName, 0, 2);
 
       writer.startElement(HtmlConstants.TH, null);
-      writer.writeClassAttribute("tobago-calendar-inner-header");
+      writer.writeClassAttribute(Classes.create(output, "headerInner"));
       writer.writeText(dayName);
       writer.endElement(HtmlConstants.TH);
     }
@@ -198,7 +200,8 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
         writer.startElement(HtmlConstants.TD, null);
         writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, true);
         writer.writeIdAttribute(id + ":" + week + ":" + dayIt);
-        writer.writeClassAttribute(getClass(date, model));
+        writer.writeClassAttribute(
+            Classes.create(output, "day", date.getMonth() == model.getMonth() ? null : Markup.DISABLED));
 
         writer.writeText(dayDescription);
 
@@ -248,12 +251,6 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.writeIdAttribute(id);
     writer.writeAttribute(HtmlAttributes.VALUE, value, true);
     writer.endElement(HtmlConstants.INPUT);
-  }
-
-  private String getClass(DateModel date, CalendarModel model) {
-    return (date.getMonth() == model.getMonth())
-        ? "tobago-calendar-day"
-        : "tobago-calendar-day-disabled";
   }
 
   private String getMonthNames(Locale locale) {

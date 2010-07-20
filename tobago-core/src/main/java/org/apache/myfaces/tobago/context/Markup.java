@@ -47,6 +47,31 @@ public final class Markup implements Serializable, Iterable<String> {
 
   public static final Markup NULL = new Markup((String) null);
 
+  public static final Markup ASCENDING = valueOf("ascending");
+  public static final Markup CENTER = valueOf("center");
+  public static final Markup CLICKABLE = valueOf("clickable");
+  public static final Markup DESCENDING = valueOf("descending");
+  public static final Markup DELETED = valueOf("deleted");
+  public static final Markup DISABLED = valueOf("disabled");
+  public static final Markup ERROR = valueOf("error");
+  public static final Markup EVEN = valueOf("even");
+  public static final Markup FATAL = valueOf("fatal");
+  public static final Markup FIRST = valueOf("first");
+  public static final Markup INFO = valueOf("info");
+  public static final Markup LEFT = valueOf("left");
+  public static final Markup MARKED = valueOf("marked");
+  public static final Markup MODAL = valueOf("modal");
+  public static final Markup NUMBER = valueOf("number");
+  public static final Markup ODD = valueOf("odd");
+  public static final Markup READONLY = valueOf("readonly");
+  public static final Markup REQUIRED = valueOf("required");
+  public static final Markup RESIZABLE = valueOf("resizable");
+  public static final Markup RIGHT = valueOf("right");
+  public static final Markup SELECTED = valueOf("selected");
+  public static final Markup SORTABLE = valueOf("sortable");
+  public static final Markup STRONG = valueOf("strong");
+  public static final Markup WARN = valueOf("warn");
+
   /* Just one of "values" and "value" must be null */
 
   private final String[] values;
@@ -149,7 +174,26 @@ public final class Markup implements Serializable, Iterable<String> {
     return EmptyIterator.INSTANCE;
   }
 
-  public Markup add(String summand) {
+  public Markup add(Markup markup) {
+    if (markup == null) {
+      return this;
+    }
+    if (markup == NULL) {
+      return this;
+    }
+    if (markup.value != null) {
+      return add(markup.value);
+    } else {
+      // this part is not optimized, but it will be used rarely, in the moment...
+      Markup result = this;
+      for (String summand : markup.values) {
+        result = result.add(summand);
+      }
+      return result;
+    }
+  }
+
+  private Markup add(String summand) {
     if (summand == null) {
       return this;
     }
@@ -170,6 +214,50 @@ public final class Markup implements Serializable, Iterable<String> {
         final String[] strings = Arrays.copyOf(values, values.length + 1);
         strings[values.length] = summand;
         return valueOf(strings);
+      }
+    }
+  }
+
+  public Markup remove(Markup markup) {
+    if (markup.value != null) {
+      return remove(markup.value);
+    } else {
+      // this part is not optimized, but it will be used rarely, in the moment...
+      Markup result = this;
+      for (String summand : markup.values) {
+        result = result.remove(summand);
+      }
+      return result;
+    }
+  }
+
+  private Markup remove(String summand) {
+    if (summand == null) {
+      return this;
+    }
+    if (values == null) {
+      if (value == null) {
+        return this;
+      } else {
+        if (summand.equals(value)) {
+          return NULL;
+        } else {
+          return this;
+        }
+      }
+    } else {
+      if (ArrayUtils.contains(values, summand)) {
+        final String[] strings = new String[values.length - 1];
+        int found = 0;
+        for (int i = 0; i < strings.length; i++) {
+          if (values[i].equals(summand)) {
+            found++;
+          }
+          strings[i] = values[i + found];
+        }
+        return valueOf(strings);
+      } else {
+        return this;
       }
     }
   }
