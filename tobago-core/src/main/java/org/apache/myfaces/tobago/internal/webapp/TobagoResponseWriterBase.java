@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.internal.webapp;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -257,6 +258,7 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
    */
   @Deprecated
   public void writeClassAttribute() throws IOException {
+    Deprecation.LOG.warn("Please use writeClassAttribute(org.apache.myfaces.tobago.renderkit.css.Classes)");
     StyleClasses clazz = (StyleClasses) component.getAttributes().get(Attributes.STYLE_CLASS);
     if (clazz != null) {
       writeAttribute(HtmlAttributes.CLASS, clazz.toString(), false);

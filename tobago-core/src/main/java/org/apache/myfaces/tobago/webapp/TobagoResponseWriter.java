@@ -140,6 +140,7 @@ public abstract class TobagoResponseWriter extends ResponseWriter {
 
   /**
    * Write the class attribute. The value will not escaped.
+   * @param classes The abstract representation of the css class string, normally created by the renderer.
    */
   public void writeClassAttribute(Classes classes) throws IOException {
     writeAttribute(HtmlAttributes.CLASS, classes.getStringValue(), false);
