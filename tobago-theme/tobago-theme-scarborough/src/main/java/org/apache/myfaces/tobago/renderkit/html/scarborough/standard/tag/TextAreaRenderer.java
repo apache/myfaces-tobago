@@ -121,7 +121,7 @@ public class TextAreaRenderer extends InputRendererBase {
     if (required || maxLength > 0) {
       final String[] cmds = {
           "new Tobago.In(\"" + input.getClientId(facesContext) + "\", true ,\""
-              + Classes.required(input) + "\" " + (maxLength > -1 ? "," + maxLength : "") + "  );"
+              + Classes.requiredWorkaround(input) + "\" " + (maxLength > -1 ? "," + maxLength : "") + "  );"
       };
       HtmlRendererUtils.writeScriptLoader(facesContext, null, cmds);
     }

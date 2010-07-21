@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.layout.Measure;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -42,7 +43,7 @@ public class ToolBarRenderer extends ToolBarRendererBase {
     writer.startElement(HtmlConstants.DIV, toolBar);
     writer.writeIdAttribute(toolBar.getClientId(facesContext));
     HtmlRendererUtils.renderDojoDndItem(toolBar, writer, true);
-    writer.writeClassAttribute();
+    writer.writeClassAttribute(Classes.create(toolBar));
     Style style = new Style(facesContext, toolBar);
     boolean right = toolBar instanceof UIToolBar && UIToolBar.ORIENTATION_RIGHT.equals(toolBar.getOrientation());
     if (right) {

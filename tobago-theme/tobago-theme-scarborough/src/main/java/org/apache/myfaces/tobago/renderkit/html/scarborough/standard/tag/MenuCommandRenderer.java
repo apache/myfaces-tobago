@@ -17,17 +17,17 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UISelectBooleanCheckbox;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -37,6 +37,8 @@ import org.apache.myfaces.tobago.renderkit.util.JQueryUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectOne;
@@ -126,8 +128,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
       String onclick, boolean disabled, boolean firstLevel, String image) throws IOException {
 
     writer.startElement(HtmlConstants.LI, null);
-    String clazz = (firstLevel ? "tobago-menu-top " : "") + "tobago-menu-parent";
-    writer.writeClassAttribute(clazz);
+    writer.writeClassAttribute(Classes.createWorkaround("menu", firstLevel ? Markup.TOP : null));
     writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, true);
 
     if (image != null) {
@@ -158,15 +159,13 @@ public class MenuCommandRenderer extends CommandRendererBase {
     writer.endElement(HtmlConstants.LI);
   }
 
-  private void addAcceleratorKey(
-      FacesContext facesContext, UIComponent component, Character accessKey) {
+  private void addAcceleratorKey(FacesContext facesContext, UIComponent component, Character accessKey) {
     String clientId = component.getClientId(facesContext);
     while (component != null && !component.getAttributes().containsKey(MENU_ACCELERATOR_KEYS)) {
       component = component.getParent();
     }
     if (component != null) {
-      List<String> keys
-          = (List<String>) component.getAttributes().get(MENU_ACCELERATOR_KEYS);
+      List<String> keys = (List<String>) component.getAttributes().get(MENU_ACCELERATOR_KEYS);
       String jsStatement = HtmlRendererUtils.createOnclickAcceleratorKeyJsStatement(clientId, accessKey, null);
       keys.add(jsStatement);
     } else {

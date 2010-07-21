@@ -80,7 +80,6 @@ public class TimeRenderer extends InputRendererBase {
       LOG.debug("currentValue = '" + currentValue + "'");
     }
 
-
     String converterPattern = "HH:mm";
     if (time.getConverter() != null) {
       Converter converter = time.getConverter();
@@ -118,8 +117,8 @@ public class TimeRenderer extends InputRendererBase {
 
     writer.startElement(HtmlConstants.DIV, time);
     writer.writeAttribute(HtmlAttributes.ID, idPrefix + "borderDiv", false);
-    writer.writeClassAttribute(Classes.createIgnoreCheck(
-        time, "borderDiv", hasSeconds ? Markup.valueOf("seconds") : null));
+    final Markup markup = hasSeconds ? Markup.valueOf("seconds") : null;
+    writer.writeClassAttribute(Classes.create(time, "borderDiv", markup));
 
 
     writeInput(writer, time, idPrefix + "hour", hour, true, title);
@@ -136,8 +135,7 @@ public class TimeRenderer extends InputRendererBase {
     String imageSrc = "image/timeIncrement.gif";
     writer.startElement(HtmlConstants.IMG, null);
     writer.writeIdAttribute(imageId);
-    writer.writeClassAttribute(Classes.createIgnoreCheck(
-        time, "incImage", hasSeconds ? Markup.valueOf("seconds") : null));
+    writer.writeClassAttribute(Classes.create(time, "incImage", markup));
     writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtils.getImageWithPath(facesContext, imageSrc), true);
     writer.writeAttribute(HtmlAttributes.ALT, "", false); // TODO: tip
 
@@ -151,8 +149,7 @@ public class TimeRenderer extends InputRendererBase {
     imageSrc = "image/timeDecrement.gif";
     writer.startElement(HtmlConstants.IMG, null);
     writer.writeIdAttribute(imageId);
-    writer.writeClassAttribute(Classes.createIgnoreCheck(
-        time, "decImage", hasSeconds ? Markup.valueOf("seconds") : null));
+    writer.writeClassAttribute(Classes.create(time, "decImage", markup));
     writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtils.getImageWithPath(facesContext, imageSrc), true);
     writer.writeAttribute(HtmlAttributes.ALT, "", false); // TODO: tip
     if (!(ComponentUtils.getBooleanAttribute(time, Attributes.DISABLED)

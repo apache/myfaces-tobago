@@ -80,17 +80,8 @@ public final class Classes {
     return create(component, false, sub, explicit, false);
   }
 
-  /**
-   * Workaround to enforce unregistered markups. (May be removed after finding a better solution)
-   * A solution can be: using a specific renderer to render e. g. the button in the sheet.
-   * @deprecated
-   */
-  @Deprecated
-  public static Classes createIgnoreCheck(UIComponent component, String sub, Markup explicit) {
-    return create(component, false, sub, explicit, true);
-  }
-
-  private static Classes create(
+  // XXX optimize synchronized
+  private static synchronized Classes create(
       UIComponent component, boolean markupFromComponent, String sub, Markup explicit, boolean ignoreCheck) {
     final String rendererName = StringUtils.uncapitalize(component.getRendererType());
     final Markup markup = markupFromComponent ? ((SupportsMarkup) component).getCurrentMarkup() : explicit;
@@ -103,7 +94,7 @@ public final class Classes {
     return value;
   }
 
-  private Classes(String rendererName, Markup markup, String sub, boolean ignoreCheck) {
+  private Classes(String rendererName, Markup markup, String sub, boolean ignoreMarkupCheck) {
 
     assert sub == null || StringUtils.isAlphanumeric(sub) : "Invalid sub element name: '" + sub + "'";
 
@@ -118,7 +109,7 @@ public final class Classes {
     if (markup != null) {
       for (String markupString : markup) {
         Theme theme = VariableResolverUtils.resolveClientProperties(FacesContext.getCurrentInstance()).getTheme();
-        if (ignoreCheck || theme.getRenderersConfig().isMarkupSupported(rendererName, markupString)) {
+        if (ignoreMarkupCheck || theme.getRenderersConfig().isMarkupSupported(rendererName, markupString)) {
           builder.append("tobago-");
           builder.append(rendererName);
           if (sub != null) {
@@ -147,8 +138,25 @@ public final class Classes {
 
   /** @deprecated This workaround will be removed later */
   @Deprecated
-  public static String required(UIComponent component) {
+  public static String requiredWorkaround(UIComponent component) {
     final String rendererName = StringUtils.uncapitalize(component.getRendererType());
     return "tobago-" + rendererName + "-markup-required";
   }
+
+  /**
+   * @deprecated
+   */
+  @Deprecated
+  public static Classes createWorkaround(String rendererName, String sub, Markup explicit) {
+    return new Classes(rendererName, explicit, sub, false);
+  }
+
+  /**
+   * @deprecated
+   */
+  @Deprecated
+  public static Classes createWorkaround(String rendererName, Markup explicit) {
+    return new Classes(rendererName, explicit, null, false);
+  }
+
 }

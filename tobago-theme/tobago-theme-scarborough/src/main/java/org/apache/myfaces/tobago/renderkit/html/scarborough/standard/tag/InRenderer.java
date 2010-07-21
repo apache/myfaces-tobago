@@ -151,7 +151,7 @@ public class InRenderer extends InputRendererBase {
       HtmlRendererUtils.checkForCommandFacet(input, facesContext, writer);
 
       boolean required = ComponentUtils.getBooleanAttribute(input, Attributes.REQUIRED);
-      final String requiredClass = Classes.required(input);
+      final String requiredClass = Classes.requiredWorkaround(input);
       if (required && !renderAjaxSuggest) {
         final String[] cmds = {
             "new Tobago.In(\"" + id + "\", true ,\"" + requiredClass + "\"  );"

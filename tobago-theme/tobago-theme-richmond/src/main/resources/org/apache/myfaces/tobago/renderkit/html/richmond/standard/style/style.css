@@ -160,7 +160,7 @@ a:link.tobago-link, a:visited.tobago-link, a:active.tobago-link {
   background-color: #FFCC66;
 }
 
-li.tobago-menu-selected {
+li.tobago-menu-markup-selected {
   background-color: #FF9900;
 }
 

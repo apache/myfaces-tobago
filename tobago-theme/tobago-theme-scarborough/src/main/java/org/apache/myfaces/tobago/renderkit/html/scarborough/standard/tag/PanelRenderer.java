@@ -23,6 +23,7 @@ import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPanel;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -73,7 +74,7 @@ public class PanelRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlConstants.DIV, panel);
     HtmlRendererUtils.renderDojoDndItem(panel, writer, true);
     writer.writeIdAttribute(clientId);
-    writer.writeClassAttribute();
+    writer.writeClassAttribute(Classes.create(panel));
     Style style = new Style(facesContext, panel);
     // XXX hotfix for panels in sheets
     if (style.getPosition() == null) {

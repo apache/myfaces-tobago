@@ -646,7 +646,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlConstants.IMG, null);
     writer.writeIdAttribute(data.getClientId(facesContext)
         + ComponentUtils.SUB_SEPARATOR + "pagingPages" + ComponentUtils.SUB_SEPARATOR + command.getToken());
-    Classes pagerClasses = Classes.createIgnoreCheck(data, "footerPagerButton", disabled ? Markup.DISABLED : null);
+    Classes pagerClasses = Classes.create(data, "footerPagerButton", disabled ? Markup.DISABLED : null);
     writer.writeClassAttribute(pagerClasses);
     writer.writeAttribute(HtmlAttributes.SRC, image, false);
     writer.writeAttribute(HtmlAttributes.TITLE, tip, true);
@@ -825,7 +825,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           "Tobago.Sheets.get('" + sheetId + "').toggleAll()", "t_toggleAll");
 
       writer.startElement(HtmlConstants.OL, menu);
-      writer.writeClassAttribute("tobago-menuBar");
+      writer.writeClassAttribute(Classes.create(sheet, "menuBar"));
       writer.writeStyleAttribute("position:absolute;");  // FIXME: may use a different style class
       RenderUtils.encode(facesContext, menu);
       writer.endElement(HtmlConstants.OL);

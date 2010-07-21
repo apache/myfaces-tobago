@@ -341,7 +341,7 @@ label.tobago-label-markup-info {
   list-style: none outside none;
 }
 
-li.tobago-menu-selected {
+li.tobago-menu-markup-selected {
   background-color: #d8e9fb;
 }
 
@@ -379,20 +379,19 @@ li.tobago-menu-selected {
   position: absolute;
 }
 
-.tobago-menu-top {
-  float: left;
-  white-space: nowrap;
-  padding: 2px 3px 2px 5px;
-  height: 14px;
-  /* TODO: overflow: hidden; is needed for IE6 */
-  overflow: hidden;
-}
-
-.tobago-menu-parent {
+.tobago-menu {
   white-space: nowrap;
   padding: 2px 3px 2px 25px;
   background-repeat: no-repeat; /* prepare for images via element style */
   background-position: 5px center;
+}
+
+.tobago-menu-markup-top {
+  float: left;
+  padding: 2px 3px 2px 5px;
+  height: 14px;
+  /* TODO: overflow: hidden; is needed for IE6 */
+  overflow: hidden;
 }
 
 .tobago-menuSeparator {
@@ -491,6 +490,7 @@ iframe.tobago-menu-ie6bugfix {
 
 .tobago-page-content {
   position: absolute;
+  z-index: 0;
 }
 
 .tobago-page-scrollbarWeight {

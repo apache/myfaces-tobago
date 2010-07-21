@@ -22,10 +22,10 @@
    <body>
      <form>
        <ol class="tobago-menuBar">
-         <li class="tobago-menu-top">
+         <li class="tobago-menu-markup-top">
            <a id="m1">Menu 1</a>
          </li>
-         <li class="tobago-menu-top">
+         <li class="tobago-menu-markup-top">
            <a id="m2">Menu 2</a>
          </li>
          ...
@@ -37,11 +37,11 @@
        <div class="tobago-menu-store">  // container for the sub menus.
          <ol id="m1::menu">
 --->         insert iframe here
-           <li class="tobago-menu-parent">
+           <li class="tobago-menu">
              <a>Sub Menu 1.1</a>
                <ol>
 --->         insert iframe here
-                 <li class="tobago-menu-parent">
+                 <li class="tobago-menu">
                    <a>Sub Sub Menu 1.1.1</a>
                  </li>
                  ...
@@ -71,9 +71,9 @@ function xxx_tobagoMenuHandelKey(event) {
       handled = true;
       break;
     case 37: // cursor left
-      if (jQuery(this).parent().hasClass('tobago-menu-top')) {
+      if (jQuery(this).parent().hasClass('tobago-menu-markup-top')) {
         jQuery(this).parent().prev('li').children('a').focus();
-      } else if (jQuery(this).parent().parent().tobagoMenu_findParentMenu().parent().hasClass('tobago-menu-top')) {
+      } else if (jQuery(this).parent().parent().tobagoMenu_findParentMenu().parent().hasClass('tobago-menu-markup-top')) {
         jQuery(this).parent().parent().tobagoMenu_findParentMenu().parent().prev('li').children('a').focus();
       } else {
         jQuery(this).closest('ol').prev('a').focus();
@@ -81,7 +81,7 @@ function xxx_tobagoMenuHandelKey(event) {
       handled = true;
       break;
     case 38: // cursor up
-      if (jQuery(this).parent().hasClass('tobago-menu-top')) {
+      if (jQuery(this).parent().hasClass('tobago-menu-markup-top')) {
         // nothing
       } else {
         jQuery(this).parent().prevAll('li').children('a').eq(0).focus();
@@ -89,7 +89,7 @@ function xxx_tobagoMenuHandelKey(event) {
       handled = true;
       break;
     case 39: // cursor right
-      if (jQuery(this).parent().hasClass('tobago-menu-top')) {
+      if (jQuery(this).parent().hasClass('tobago-menu-markup-top')) {
         jQuery(this).parent().next('li').children('a').focus();
       } else if (jQuery(this).next('ol').size() > 0) {
         jQuery(this).next('ol').children(":nth-child(1)").children('a').focus();
@@ -99,7 +99,7 @@ function xxx_tobagoMenuHandelKey(event) {
       handled = true;
       break;
     case 40: // cursor down
-      if (jQuery(this).parent().hasClass('tobago-menu-top')) {
+      if (jQuery(this).parent().hasClass('tobago-menu-markup-top')) {
         jQuery(this).tobagoMenu_findSubMenu().children(":nth-child(1)").children('a').focus();
       } else {
         jQuery(this).parent().nextAll('li').children('a').eq(0).focus();
@@ -129,7 +129,7 @@ function xxx_tobagoMenuOpen(event) {
   // open sub menu
   if (sub.size() > 0) {
     // compute position
-    if (li.hasClass('tobago-menu-top')) {
+    if (li.hasClass('tobago-menu-markup-top')) {
       // is top menu
       sub.css('left', li.offset().left);
       sub.css('top', li.offset().top + li.outerHeight());
@@ -157,10 +157,10 @@ function xxx_tobagoMenuOpen(event) {
   }
       
   // old "hover" off
-  li.siblings('.tobago-menu-selected').removeClass("tobago-menu-selected");
-  sub.children('.tobago-menu-selected').removeClass("tobago-menu-selected");
+  li.siblings('.tobago-menu-markup-selected').removeClass("tobago-menu-markup-selected");
+  sub.children('.tobago-menu-markup-selected').removeClass("tobago-menu-markup-selected");
   // "hover" on
-  jQuery(this).parents('li').addClass("tobago-menu-selected");
+  jQuery(this).parents('li').addClass("tobago-menu-markup-selected");
 }
 
 function xxx_tobagoMenuCloseAll() {
@@ -204,7 +204,7 @@ function xxx_tobagoMenuSwitchOff(menuBar) {
       .unbind('focus', xxx_tobagoMenuOpen)
       .unbind(compatibleKeyEvent(), xxx_tobagoMenuHandelKey);
   jQuery("body").unbind('click', xxx_tobagoMenuCloseAll);
-  menuBar.find('.tobago-menu-selected').removeClass("tobago-menu-selected");
+  menuBar.find('.tobago-menu-markup-selected').removeClass("tobago-menu-markup-selected");
   menuBar.attr('menu-active', 'false');        // write state back
 }
 
@@ -212,7 +212,7 @@ function xxx_tobagoMenuInit() {
   jQuery(document).ready(function() {
 
     // a click on the top menu make the complete menu active or inactive respectively.
-    jQuery(".tobago-menu-top").click(function(event) {
+    jQuery(".tobago-menu-markup-top").click(function(event) {
 
       // e. g. disabled by a popup
       if(jQuery(this).children("a").attr("disabled")) {
@@ -232,7 +232,7 @@ function xxx_tobagoMenuInit() {
 
     });
 
-    // a click on toolBar menu opener -> forward to .tobago-menu-top
+    // a click on toolBar menu opener -> forward to .tobago-menu-markup-top
     jQuery(".tobago-toolBar-menu").click(function(event) {
 
       $(this).next().find('a').click();

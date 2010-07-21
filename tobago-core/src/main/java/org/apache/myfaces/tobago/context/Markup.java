@@ -70,6 +70,7 @@ public final class Markup implements Serializable, Iterable<String> {
   public static final Markup SELECTED = valueOf("selected");
   public static final Markup SORTABLE = valueOf("sortable");
   public static final Markup STRONG = valueOf("strong");
+  public static final Markup TOP = valueOf("top");
   public static final Markup WARN = valueOf("warn");
 
   /* Just one of "values" and "value" must be null */

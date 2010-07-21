@@ -84,6 +84,15 @@
       </supported-markup>
     </renderer>
     <renderer>
+      <name>Menu</name>
+      <supported-markup>
+        <!-- internal: for the root of the menu -->
+        <markup>top</markup>
+        <!-- internal: to mark "cursor" position in the menu -->
+        <markup>selected</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
       <name>Messages</name>
       <supported-markup>
         <markup>fatal</markup>
@@ -179,16 +188,11 @@
       </supported-markup>
     </renderer>
     <renderer>
-      <name>Tab</name>
-      <supported-markup>
-        <markup>disabled</markup>
-        <markup>selected</markup>
-      </supported-markup>
-    </renderer>
-    <renderer>
       <name>Sheet</name>
       <supported-markup>
-        <!-- for the header -->
+        <!-- internal: for the paging buttons -->
+        <markup>disabled</markup>
+        <!-- internal: for the header -->
         <markup>resizable</markup>
         <!-- for the rows -->
         <markup>odd</markup>
@@ -196,10 +200,17 @@
         <!-- for the cells -->
         <markup>clickable</markup>
         <markup>first</markup>
-        <!-- for the paging fields -->
+        <!-- internal: for the paging fields -->
         <markup>left</markup>
         <markup>center</markup>
         <markup>right</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>Tab</name>
+      <supported-markup>
+        <markup>disabled</markup>
+        <markup>selected</markup>
       </supported-markup>
     </renderer>
     <renderer>
@@ -211,6 +222,13 @@
         <markup>error</markup>
         <markup>warn</markup>
         <markup>info</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>Time</name>
+      <supported-markup>
+        <!-- internal: for the seconds field -->
+        <markup>seconds</markup>
       </supported-markup>
     </renderer>
     <renderer>
