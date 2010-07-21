@@ -105,9 +105,7 @@ public final class Classes {
 
   private Classes(String rendererName, Markup markup, String sub, boolean ignoreCheck) {
 
-    if (sub != null && !StringUtils.isAlphanumeric(sub)) {
-      throw new IllegalArgumentException("Invalid sub element name: '" + sub + "'");
-    }
+    assert sub == null || StringUtils.isAlphanumeric(sub) : "Invalid sub element name: '" + sub + "'";
 
     StringBuilder builder = new StringBuilder();
     builder.append("tobago-");
