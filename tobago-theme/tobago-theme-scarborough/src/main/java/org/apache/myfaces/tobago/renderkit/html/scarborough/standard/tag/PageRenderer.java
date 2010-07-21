@@ -26,6 +26,7 @@ import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIPopup;
 import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
@@ -37,7 +38,6 @@ import org.apache.myfaces.tobago.internal.util.ResponseUtils;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.PageRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.css.Overflow;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -96,7 +96,7 @@ public class PageRenderer extends PageRendererBase {
     }
 
     // scrollbar weight
-    String name = clientId + ComponentUtils.SUB_SEPARATOR + "scrollbar-weight";
+    String name = clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight";
     String value = null;
     try {
       value = (String) facesContext.getExternalContext().getRequestParameterMap().get(name);
@@ -305,7 +305,7 @@ public class PageRenderer extends PageRendererBase {
         = client.getVerticalScrollbarWeight() == null || client.getHorizontalScrollbarWeight() == null;
     if (calculateScrollbarWeight) {
       facesContext.getOnloadScripts().add(
-          "Tobago.calculateScrollbarWeights('" + clientId + ComponentUtils.SUB_SEPARATOR + "scrollbar-weight" + "');");
+          "Tobago.calculateScrollbarWeights('" + clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight" + "');");
     } else {
       facesContext.getOnloadScripts().add(
           "Tobago.Config.set('Tobago', 'verticalScrollbarWeight', '"
@@ -357,7 +357,7 @@ public class PageRenderer extends PageRendererBase {
     writer.writeAttribute(HtmlAttributes.ONLOAD, "Tobago.init('" + clientId + "');", false);
 //    writer.writeAttribute("onunload", "Tobago.onexit();", null);
     writer.writeIdAttribute(clientId);
-    writer.writeClassAttribute();
+    writer.writeClassAttribute(Classes.create(page));
 
     writer.startJavascript();
     writer.write("Tobago.pngFixBlankImage = '");
@@ -416,28 +416,16 @@ public class PageRenderer extends PageRendererBase {
     writer.endElement(HtmlConstants.INPUT);
 
     if (calculateScrollbarWeight) {
-      Style style = new Style();
-      style.setOverflow(Overflow.SCROLL);
-      style.setWidth(Measure.valueOf(100));
-      style.setHeight(Measure.valueOf(100));
-      style.setPadding(Measure.ZERO);
-      style.setMargin(Measure.ZERO);
-      style.setZIndex(-1);
-
       writer.startElement(HtmlConstants.DIV, null);
-      writer.writeStyleAttribute(style);
-
+      writer.writeClassAttribute(Classes.create(page, "scrollbarWeight", Markup.NULL));
       writer.startElement(HtmlConstants.DIV, null);
-      style.setOverflow(null);
-      writer.writeStyleAttribute(style);
       writer.endElement(HtmlConstants.DIV);
-
       writer.endElement(HtmlConstants.DIV);
 
       writer.startElement(HtmlConstants.INPUT, null);
       writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-      writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "scrollbar-weight");
-      writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "scrollbar-weight");
+      writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight");
+      writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "scrollbarWeight");
       writer.endElement(HtmlConstants.INPUT);
     }
 
@@ -489,7 +477,7 @@ public class PageRenderer extends PageRendererBase {
 //    page.encodeLayoutBegin(facesContext);
     
     writer.startElement(HtmlConstants.DIV, page);
-    writer.writeClassAttribute();
+    writer.writeClassAttribute(Classes.create(page, "content"));
     Style style = new Style(facesContext, page);
     // XXX position the div, so that the scrollable area is correct.
     // XXX better to take this fact into layout management.

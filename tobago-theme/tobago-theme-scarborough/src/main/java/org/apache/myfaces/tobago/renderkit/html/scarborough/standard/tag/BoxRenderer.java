@@ -55,12 +55,12 @@ public class BoxRenderer extends BoxRendererBase {
     }
 
     writer.startElement(HtmlConstants.FIELDSET, box);
-    writer.writeClassAttribute();
+    writer.writeClassAttribute(Classes.create(box));
     writer.writeStyleAttribute(style);
 
     if (label != null || labelString != null) {
       writer.startElement(HtmlConstants.LEGEND, box);
-      writer.writeClassAttribute();
+      writer.writeClassAttribute(Classes.create(box, "legend"));
 
       if (label != null) {
         RenderUtils.encode(facesContext, label);

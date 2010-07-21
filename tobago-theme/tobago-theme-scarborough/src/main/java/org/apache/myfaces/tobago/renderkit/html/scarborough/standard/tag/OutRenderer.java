@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -54,7 +55,7 @@ public class OutRenderer extends LayoutComponentRendererBase {
       Style style = new Style(facesContext, out);
       writer.writeStyleAttribute(style);
       HtmlRendererUtils.renderDojoDndItem(out, writer, true);
-      writer.writeClassAttribute();
+      writer.writeClassAttribute(Classes.create(out));
       HtmlRendererUtils.renderTip(out, writer);
     }
     if (escape) {

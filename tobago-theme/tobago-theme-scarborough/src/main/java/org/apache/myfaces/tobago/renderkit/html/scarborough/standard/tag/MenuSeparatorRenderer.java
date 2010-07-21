@@ -17,9 +17,8 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -30,13 +29,11 @@ import java.io.IOException;
 
 public class MenuSeparatorRenderer extends LayoutComponentRendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(MenuSeparatorRenderer.class);
-
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     writer.startElement(HtmlConstants.LI, component);
-    writer.writeClassAttribute();
+    writer.writeClassAttribute(Classes.create(component));
     writer.startElement(HtmlConstants.HR, component);    
     writer.endElement(HtmlConstants.HR);    
     writer.endElement(HtmlConstants.LI);    

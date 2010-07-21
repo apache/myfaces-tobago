@@ -28,7 +28,7 @@ fieldset.tobago-box {
 /*  padding: 20px 10px 10px 10px;*/
 }
 
-legend.tobago-box {
+.tobago-box-legend {
   color: black; /*  font-size: 14px;*/
 }
 
@@ -487,6 +487,20 @@ iframe.tobago-menu-ie6bugfix {
   overflow: auto;
   position: absolute;
   z-index: 0;
+}
+
+.tobago-page-content {
+  position: absolute;
+}
+
+.tobago-page-scrollbarWeight {
+  width: 100px;
+  height: 100px;
+  overflow: scroll;
+  margin: 0;
+  padding: 0;
+  z-index: -1;
+  visibility: hidden;
 }
 
 /* popup -------------------------------------------------------------- */

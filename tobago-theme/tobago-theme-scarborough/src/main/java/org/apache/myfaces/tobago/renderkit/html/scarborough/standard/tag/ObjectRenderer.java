@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UIObject;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -45,7 +46,7 @@ public class ObjectRenderer extends LayoutComponentRendererBase {
     } else {
       writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtils.getBlankPage(facesContext), false);
     }
-    writer.writeClassAttribute();
+    writer.writeClassAttribute(Classes.create(object));
     Style style = new Style(facesContext, object);
     writer.writeStyleAttribute(style);
 

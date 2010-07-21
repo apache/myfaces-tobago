@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 
 /**
 * Renders a menu bar.<br />
@@ -46,5 +47,5 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRend
         "org.apache.myfaces.tobago.MenuSelectOne",
         "org.apache.myfaces.tobago.MenuSeparator"
         })
-public interface MenuBarTagDeclaration extends HasIdBindingAndRendered {
+public interface MenuBarTagDeclaration extends HasIdBindingAndRendered, HasMarkup {
 }

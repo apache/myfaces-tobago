@@ -94,7 +94,7 @@ public class CalendarRenderer extends LayoutComponentRendererBase {
     writer.startElement(HtmlConstants.TABLE, component);
     writer.writeIdAttribute(id);
     HtmlRendererUtils.renderDojoDndItem(component, writer, true);
-    writer.writeClassAttribute();
+    writer.writeClassAttribute(Classes.create(output));
     Style style = new Style(facesContext, output);
     writer.writeStyleAttribute(style);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);

@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasBinding;
+import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
 
 /**
@@ -34,5 +35,5 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRendered;
     rendererType = RendererTypes.MENU_SEPARATOR,
     allowedChildComponenents = "NONE")
 
-public interface MenuSeparatorTagDeclaration extends IsRendered, HasBinding {
+public interface MenuSeparatorTagDeclaration extends IsRendered, HasBinding, HasMarkup {
 }
