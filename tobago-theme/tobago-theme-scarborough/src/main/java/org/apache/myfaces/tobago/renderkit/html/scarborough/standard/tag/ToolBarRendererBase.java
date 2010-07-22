@@ -40,6 +40,7 @@ import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -122,7 +123,10 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       FacesContext facesContext, UIToolBar toolBar, UICommandBase command, TobagoResponseWriter writer, Measure width)
       throws IOException {
 
-    String onclick = createCommandOnClick(facesContext, command);
+    String suffix = createCommandOnClick(facesContext, command);
+    if (suffix == null) {
+      suffix = "";
+    }
 
     List<SelectItem> items;
 
@@ -138,10 +142,9 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     if (radio != null) {
       Object value = radio.getValue();
 
+      String currentValue = "";
       boolean markFirst = !ComponentUtils.hasSelectedValue(items, value);
       String radioId = radio.getClientId(facesContext);
-      String onClickPrefix = "tobago_toolBarSetRadioValue('" + radioId + "', '";
-      String onClickPostfix = onclick != null ? "') ; " + onclick : "";
       for (SelectItem item : items) {
         final String labelText = item.getLabel();
         if (labelText != null) {
@@ -166,18 +169,25 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
         }
 
         String formattedValue = RenderUtils.getFormattedValue(facesContext, radio, item.getValue());
-        onclick = onClickPrefix + formattedValue + onClickPostfix;
         final boolean checked;
         if (item.getValue().equals(value) || markFirst) {
           checked = true;
           markFirst = false;
-          writer.writeJavascript("    " + onClickPrefix + formattedValue + "');");
+          currentValue = formattedValue;
         } else {
           checked = false;
         }
 
-        width = renderToolbarButton(facesContext, toolBar, command, writer, checked, onclick, null, width);
+        String onClick = "tobago_toolBarSetRadioValue('" + radioId + "', '" + formattedValue + "');" + suffix;
+        width = renderToolbarButton(facesContext, toolBar, command, writer, checked, onClick, null, width);
       }
+
+      writer.startElement(HtmlConstants.INPUT, null);
+      writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+      writer.writeIdAttribute(radioId);
+      writer.writeNameAttribute(radioId);
+      writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
+      writer.endElement(HtmlConstants.INPUT);
     }
     return width;
   }
@@ -198,14 +208,21 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     final String clientId = checkbox.getClientId(facesContext);
 
     String onClick = createCommandOnClick(facesContext, command);
-    onClick = "tobago_toolBarCheckToggle('" + clientId + "');" + (onClick != null ? onClick : "");
-
-    if (checked) {
-      // to initialize the client state
-      writer.writeJavascript("    tobago_toolBarCheckToggle('" + clientId + "');\n");
+    if (onClick == null) {
+      onClick = "";
     }
+    onClick = "tobago_toolBarCheckToggle('" + clientId + "');" + onClick;
 
-    return renderToolbarButton(facesContext, toolBar, command, writer, checked, onClick, null, width);
+    width = renderToolbarButton(facesContext, toolBar, command, writer, checked, onClick, null, width);
+
+    writer.startElement(HtmlConstants.INPUT, null);
+    writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
+    writer.writeIdAttribute(clientId);
+    writer.writeNameAttribute(clientId);
+    writer.writeAttribute(HtmlAttributes.VALUE, Boolean.toString(checked), false);
+    writer.endElement(HtmlConstants.INPUT);
+
+    return width;
   }
 
 

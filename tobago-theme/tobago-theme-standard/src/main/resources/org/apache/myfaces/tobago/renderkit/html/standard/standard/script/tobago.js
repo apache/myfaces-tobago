@@ -2435,31 +2435,11 @@ $(document).ready(function() {
 
 function tobago_toolBarCheckToggle(id) {
   var element = document.getElementById(id);
-  var form = document.forms[0];
-  if (element) {
-    //LOG.debug("remove  " + id);
-    form.removeChild(element);
-  }
-  else {
-    //LOG.debug("adding " + id);
-    element = document.createElement('INPUT');
-    element.type = 'hidden';
-    element.name = id;
-    element.id = id;
-    element.value = 'true';
-    form.appendChild(element);
-  }
+  element.value = 'true' == element.value ? 'false' : 'true';
 }
 
 function tobago_toolBarSetRadioValue(id, value) {
   var element = document.getElementById(id);
-  if (! element) {
-    element = document.createElement('INPUT');
-    element.type = 'hidden';
-    element.name = id;
-    element.id = id;
-    document.forms[0].appendChild(element);
-  }
   element.value = value;
 }
 
