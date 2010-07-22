@@ -60,6 +60,53 @@
   right: -1px;
 }
 
+/* boxToolBar ----------------------------------------------------------------- */
+
+/* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"
+   FIXME may be fixed after TOBAGO-900
+*/
+
+.tobago-boxToolBar {
+  border: 1px solid #000000;
+  background-color: #FFFFFF;
+}
+.tobago-boxToolBar-item {
+  position: relative;
+  display: inline-block;
+  border-width: 0;
+  border-style: solid;
+  margin: 0 1px;
+  left: -1px;
+  top: 0;
+}
+.tobago-boxToolBar-item-markup-selected {
+  border-width: 0 1px;
+  border-color: #aaaaaa;
+  margin: 0;
+}
+
+.tobago-boxToolBar-item-markup-hover {
+  border-width: 0 1px;
+  border-color: #000000;
+  margin: 0;
+}
+
+.tobago-boxToolBar-item-markup-disabled {
+  color: #808080;
+}
+
+.tobago-boxToolBar-button-markup-selected {
+  background-color: #EEEEEE;
+}
+
+.tobago-boxToolBar-button-markup-hover {
+  background-color: #DDDDDD;
+}
+
+.tobago-boxToolBar-separator {
+  border: 1px solid #DDDDDD;
+}
+
 /* button ------------------------------------------------------------------ */
 
 .tobago-button  {
@@ -564,6 +611,49 @@ div.tobago-tabGroup-toolBar {
   border-color: #000000;
 }
 
+/* tabGroupToolBar ----------------------------------------------------------------- */
+
+.tobago-tabGroupToolBar {
+  border: 1px solid #000000;
+  background-color: #FFFFFF;
+}
+.tobago-tabGroupToolBar-item {
+  position: relative;
+  display: inline-block;
+  border-width: 0;
+  border-style: solid;
+  margin: 0 1px;
+  left: -1px;
+  top: 0;
+}
+.tobago-tabGroupToolBar-item-markup-selected {
+  border-width: 0 1px;
+  border-color: #aaaaaa;
+  margin: 0;
+}
+
+.tobago-tabGroupToolBar-item-markup-hover {
+  border-width: 0 1px;
+  border-color: #000000;
+  margin: 0;
+}
+
+.tobago-tabGroupToolBar-item-markup-disabled {
+  color: #808080;
+}
+
+.tobago-tabGroupToolBar-button-markup-selected {
+  background-color: #EEEEEE;
+}
+
+.tobago-tabGroupToolBar-button-markup-hover {
+  background-color: #DDDDDD;
+}
+
+.tobago-tabGroupToolBar-separator {
+  border: 1px solid #DDDDDD;
+}
+
 /* textArea ---------------------------------------------------------------- */
 
 .tobago-textArea {
@@ -621,6 +711,10 @@ div.tobago-tabGroup-toolBar {
 
 /* toolBar ----------------------------------------------------------------- */
 
+/* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"
+   FIXME may be fixed after TOBAGO-900
+*/
+
 .tobago-toolBar {
   border: 1px solid #000000;
   background-color: #FFFFFF;
@@ -634,27 +728,27 @@ div.tobago-tabGroup-toolBar {
   left: -1px;
   top: 0;
 }
-.tobago-toolBar-item-selected {
+.tobago-toolBar-item-markup-selected {
   border-width: 0 1px;
   border-color: #aaaaaa;
   margin: 0;
 }
 
-.tobago-toolBar-item-hover {
+.tobago-toolBar-item-markup-hover {
   border-width: 0 1px;
   border-color: #000000;
   margin: 0;
 }
 
-.tobago-toolBar-item-disabled {
+.tobago-toolBar-item-markup-disabled {
   color: #808080;
 }
 
-.tobago-toolBar-button-selected {
+.tobago-toolBar-button-markup-selected {
   background-color: #EEEEEE;
 }
 
-.tobago-toolBar-button-hover {
+.tobago-toolBar-button-markup-hover {
   background-color: #DDDDDD;
 }
 

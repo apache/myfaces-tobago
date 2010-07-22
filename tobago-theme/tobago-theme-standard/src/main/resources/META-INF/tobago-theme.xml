@@ -24,6 +24,13 @@
   <resource-path>org/apache/myfaces/tobago/renderkit</resource-path>
   <renderers>
     <renderer>
+      <name>BoxToolBar</name>
+      <supported-markup>
+        <markup>disabled</markup>
+        <markup>selected</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
       <name>Button</name>
       <supported-markup>
         <markup>disabled</markup>
@@ -214,6 +221,13 @@
       </supported-markup>
     </renderer>
     <renderer>
+      <name>TabGroupToolBar</name>
+      <supported-markup>
+        <markup>disabled</markup>
+        <markup>selected</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
       <name>TextArea</name>
       <supported-markup>
         <markup>disabled</markup>
@@ -229,6 +243,13 @@
       <supported-markup>
         <!-- internal: for the seconds field -->
         <markup>seconds</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>ToolBar</name>
+      <supported-markup>
+        <markup>disabled</markup>
+        <markup>selected</markup>
       </supported-markup>
     </renderer>
     <renderer>

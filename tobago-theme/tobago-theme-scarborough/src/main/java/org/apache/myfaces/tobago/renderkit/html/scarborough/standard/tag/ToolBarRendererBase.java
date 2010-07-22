@@ -27,6 +27,7 @@ import org.apache.myfaces.tobago.component.UISelectOneCommand;
 import org.apache.myfaces.tobago.component.UIToolBar;
 import org.apache.myfaces.tobago.component.UIToolBarSeparator;
 import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
@@ -35,6 +36,7 @@ import org.apache.myfaces.tobago.internal.component.UICommandBase;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
@@ -350,20 +352,19 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     
     // start rendering
     writer.startElement(HtmlConstants.SPAN, command);
-    String itemClass = "tobago-toolBar-item";
+    Markup itemMarkup = Markup.NULL;
     if (selected) {
-      itemClass += " tobago-toolBar-item-selected";
+      itemMarkup = itemMarkup.add(Markup.SELECTED);
     }
     if (disabled) {
-      itemClass += " tobago-toolBar-item-disabled";
+      itemMarkup = itemMarkup.add(Markup.DISABLED);
     }
-    writer.writeClassAttribute(itemClass);
+    writer.writeClassAttribute(Classes.create(toolBar, "item", itemMarkup));
     HtmlRendererUtils.renderTip(command, writer);
     writer.writeStyleAttribute(itemStyle);
 
     writer.startElement(HtmlConstants.SPAN, command);
-    writer.writeClassAttribute(
-        selected ? "tobago-toolBar-button tobago-toolBar-button-selected" : "tobago-toolBar-button");
+    writer.writeClassAttribute(Classes.create(toolBar, "button", selected ? Markup.SELECTED : Markup.NULL));
     writer.writeStyleAttribute(buttonStyle);
     writer.writeAttribute(HtmlAttributes.ONCLICK, commandClick != null ? commandClick : menuClick, true);
     // render icon
@@ -383,7 +384,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     // render label
     if (showLabel) {
       writer.startElement(HtmlConstants.SPAN, command);
-      writer.writeClassAttribute("tobago-toolBar-label");
+      writer.writeClassAttribute(Classes.create(toolBar, "label"));
       writer.writeStyleAttribute(labelStyle);
       if (label.getText() != null) {
         HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
@@ -395,7 +396,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       writer.endElement(HtmlConstants.SPAN);
 
       writer.startElement(HtmlConstants.SPAN, command);
-      writer.writeClassAttribute("tobago-toolBar-menu");
+      writer.writeClassAttribute(Classes.create(toolBar, "menu"));
       writer.writeStyleAttribute(menuStyle);
       writer.writeAttribute(HtmlAttributes.TYPE, "button", false);
       writer.writeAttribute(HtmlAttributes.ONCLICK, menuClick, true);
@@ -426,14 +427,14 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     }
 
     writer.startElement(HtmlConstants.SPAN, separator);
-    writer.writeClassAttribute("tobago-toolBar-item tobago-toolBar-item-disabled");
+    writer.writeClassAttribute(Classes.create(toolBar, "item", Markup.DISABLED));
     Style itemStyle = new Style();
     itemStyle.setHeight(getItemHeight(facesContext, toolBar));
     itemStyle.setWidth(Measure.valueOf(10));
     writer.writeStyleAttribute(itemStyle);
 
     writer.startElement(HtmlConstants.SPAN, separator);
-    writer.writeClassAttribute("tobago-toolBar-separator");
+    writer.writeClassAttribute(Classes.create(toolBar, "separator"));
     writer.endElement(HtmlConstants.SPAN);
 
     writer.endElement(HtmlConstants.SPAN);
@@ -559,6 +560,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
   private void renderDropDownMenu(FacesContext facesContext, TobagoResponseWriter writer, AbstractUIMenu dropDownMenu)
       throws IOException {
     writer.startElement(HtmlConstants.OL, dropDownMenu);
+    // XXX fix naming conventions for CSS classes
     writer.writeClassAttribute("tobago-menuBar tobago-menu-dropDownMenu");
     RenderUtils.encode(facesContext, dropDownMenu);
     writer.endElement(HtmlConstants.OL);

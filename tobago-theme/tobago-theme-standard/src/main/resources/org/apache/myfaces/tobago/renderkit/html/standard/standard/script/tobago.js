@@ -2393,38 +2393,44 @@ Tobago.Updater = {
 
 // todo: what is with initialisation of elements which are loaded with AJAX?
 $(document).ready(function() {
-  jQuery(".tobago-toolBar-item")
-      .not(".tobago-toolBar-item-disabled")
-      .mouseenter(function() {
-    jQuery(this).addClass("tobago-toolBar-item-hover");
-  })
-      .mouseleave(function() {
-    jQuery(this).removeClass("tobago-toolBar-item-hover");
-  })
-      .children(".tobago-toolBar-button, .tobago-toolBar-menu")
-      .mouseenter(function() {
-    jQuery(this)
-        .addClass("tobago-toolBar-button-hover").children("img")
-        .each(function() {
-      // set the src to the hover src url.
-      var hover = jQuery(this).attr("srchover");
-      if (hover) {
-        jQuery(this).attr("src", hover);
-      }
+
+  // doing the same for 3 renderer names
+  var rendererNames = new Array("toolBar", "boxToolBar", "tabGroupToolBar");
+  for (var i = 0; i < rendererNames.length; i++) {
+    var renderer = rendererNames[i];
+    jQuery(".tobago-" + renderer + "-item")
+        .not(".tobago-" + renderer + "-item-markup-disabled")
+        .mouseenter(function() {
+      jQuery(this).addClass("tobago-" + renderer + "-item-markup-hover");
+    })
+        .mouseleave(function() {
+      jQuery(this).removeClass("tobago-" + renderer + "-item-markup-hover");
+    })
+        .children(".tobago-" + renderer + "-button, .tobago-" + renderer + "-menu")
+        .mouseenter(function() {
+      jQuery(this)
+          .addClass("tobago-" + renderer + "-button-markup-hover").children("img")
+          .each(function() {
+        // set the src to the hover src url.
+        var hover = jQuery(this).attr("srchover");
+        if (hover) {
+          jQuery(this).attr("src", hover);
+        }
+      });
+    })
+        .mouseleave(function() {
+      jQuery(this)
+          .removeClass("tobago-" + renderer + "-button-markup-hover")
+          .children("img")
+          .each(function() {
+        // restore the original/normal src url.
+        var normal = jQuery(this).attr("srcdefault");
+        if (normal) {
+          jQuery(this).attr("src", normal);
+        }
+      });
     });
-  })
-      .mouseleave(function() {
-    jQuery(this)
-        .removeClass("tobago-toolBar-button-hover")
-        .children("img")
-        .each(function() {
-      // restore the original/normal src url.
-      var normal = jQuery(this).attr("srcdefault");
-      if (normal) {
-        jQuery(this).attr("src", normal);
-      }
-    });
-  });
+  }
 });
 
 function tobago_toolBarCheckToggle(id) {

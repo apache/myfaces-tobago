@@ -33,6 +33,32 @@
   border-bottom: 1px solid #FECB66;
 }
 
+/* boxToolBar ----------------------------------------------------------------- */
+
+/* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"
+   FIXME may be fixed after TOBAGO-900
+*/
+
+.tobago-boxToolBar {
+  border-color: #FECB66;
+}
+
+.tobago-boxToolBar-item-markup-selected {
+  border-color: #FECB66;
+}
+
+.tobago-boxToolBar-item-markup-hover {
+  border-color: #FECB66;
+}
+
+.tobago-boxToolBar-button-markup-selected {
+  background-color: #FFEECF;
+}
+
+.tobago-boxToolBar-button-markup-hover {
+  background-color: #FADC9F;
+}
+
 /* button ------------------------------------------------------------------ */
 
 .tobago-button  {
@@ -150,24 +176,50 @@ div.tobago-tabGroup-fulfill {
   border-color: #FECB66;
 }
 
+/* tabGroupToolBar ----------------------------------------------------------------- */
+
+/* FIXME this is the same code for "toolBar", "boxToolBar" and "tabGroupToolBar"
+   FIXME may be fixed after TOBAGO-900
+*/
+
+.tobago-tabGroupToolBar {
+  border-color: #FECB66;
+}
+
+.tobago-tabGroupToolBar-item-markup-selected {
+  border-color: #FECB66;
+}
+
+.tobago-tabGroupToolBar-item-markup-hover {
+  border-color: #FECB66;
+}
+
+.tobago-tabGroupToolBar-button-markup-selected {
+  background-color: #FFEECF;
+}
+
+.tobago-tabGroupToolBar-button-markup-hover {
+  background-color: #FADC9F;
+}
+
 /* toolBar ----------------------------------------------------------------- */
 
 .tobago-toolBar {
   border-color: #FECB66;
 }
 
-.tobago-toolBar-item-selected {
+.tobago-toolBar-item-markup-selected {
   border-color: #FECB66;
 }
 
-.tobago-toolBar-item-hover {
+.tobago-toolBar-item-markup-hover {
   border-color: #FECB66;
 }
 
-.tobago-toolBar-button-selected {
+.tobago-toolBar-button-markup-selected {
   background-color: #FFEECF;
 }
 
-.tobago-toolBar-button-hover {
+.tobago-toolBar-button-markup-hover {
   background-color: #FADC9F;
 }

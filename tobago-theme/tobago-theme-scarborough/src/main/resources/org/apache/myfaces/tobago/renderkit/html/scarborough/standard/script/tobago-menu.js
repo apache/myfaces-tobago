@@ -229,12 +229,10 @@ function xxx_tobagoMenuInit() {
       }
 
       event.stopPropagation();
-
     });
 
     // a click on toolBar menu opener -> forward to .tobago-menu-markup-top
-    jQuery(".tobago-toolBar-menu").click(function(event) {
-
+    jQuery(".tobago-toolBar-menu .tobago-boxToolBar-menu .tobago-tabGroupToolBar-menu").click(function(event) {
       $(this).next().find('a').click();
       event.stopPropagation();
     });
