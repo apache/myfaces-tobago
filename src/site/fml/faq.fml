@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-    
+
 <!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -17,7 +17,15 @@
  * limitations under the License.
 -->
 
-<faqs title="Frequently Asked Questions">
+<!--
+  Note: Please use &lt; instead of < in the source tag, when the example is XML.
+  Otherwise you will lost the attributes.
+-->
+
+<faqs xmlns="http://maven.apache.org/FML/1.0.1"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/FML/1.0.1 http://maven.apache.org/xsd/fml-1.0.1.xsd"
+      title="Frequently Asked Questions">
 
   <part id="faq">
     <faq id="howto">
@@ -63,12 +71,12 @@
       <question>Does Tobago supports Facelets?</question>
       <answer>
         <p>Tobago supports Facelets with the tobago-facelets.jar.
-        Note: Please add following context param in your web.xml</p> 
+        Note: Please add following context param in your web.xml</p>
         <source>
-        <context-param>
-          <param-name>facelets.SKIP_COMMENTS</param-name>
-          <param-value>true</param-value>
-        </context-param></source>
+&lt;context-param>
+  &lt;param-name>facelets.SKIP_COMMENTS&lt;/param-name>
+  &lt;param-value>true&lt;/param-value>
+&lt;/context-param></source>
       </answer>
     </faq>
     <faq id="tobago/myfaces extension">
@@ -85,7 +93,7 @@
       <question>How do I use GridLayout in Tobago?</question>
       <answer>
         <source>
-  <tc:gridLayout rows="fixed;100px;1*;2*" /></source>
+&lt;tc:gridLayout rows="fixed;100px;1*;2*" /></source>
         <p>
           The attribute 'fixed' means a theme dependent height of one row (i.e. in Speyside
           a row is typically 20px high.) In a 'fixed' row all one height unit high elements find their place
@@ -97,7 +105,7 @@
           For example rows="1*;2*" gives the first row 1/3 of the available vertical space and the
           second row 2/3. This works fine for columns, too.
         </p>
-        <p> 
+        <p>
           You can group elements with a tc:panel element. Such a panel is interpreted as one
           element regarding layout. The panel itself can have its own layout for multiple elements inside
           the panel.
@@ -150,16 +158,17 @@
         Example layout of a theme jar:
         </p>
          <source>
-  /META-INF/tobago-theme.xml
-  (resource-path/html/theme-name)
-  /org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/style.css (standard styles)
-  /org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago-menu.css (menu styles)
-  /org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago-sheet.css (sheet styles)
-  /org/apache/myfaces/tobago/renderkit/html/xxxxx/msie/style/style.css (different styles for msie)</source>
+/META-INF/tobago-theme.xml
+(resource-path/html/theme-name)
+/org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/style.css (standard styles)
+/org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago-menu.css (menu styles)
+/org/apache/myfaces/tobago/renderkit/html/xxxxx/standard/style/tobago-sheet.css (sheet styles)
+/org/apache/myfaces/tobago/renderkit/html/xxxxx/msie/style/style.css (different styles for msie)</source>
 
            Property and resource loading and renderer loading is done in the following order
            <source>
-  resource-path/content-type/theme/client/[tag(for renderer)|property|style|script|image]_locale.(class|property|property.xml|css|js| gif|png...]</source>
+resource-path/content-type/theme/client/[tag(for renderer)|property|style|script|image]_locale
+    .(class|property|property.xml|css|js|gif|png...]</source>
 
            for example OutRenderer<br/>
 
@@ -229,15 +238,15 @@
           your ~/.m2/settings.xml and add the following lines:
         </p>
         <source>
- <mirrors>
-   <mirror>
-      <id>mirror ID</id>
-      <name>Give it a name</name>
-      <url>The URL of the mirror</url>
-      <mirrorOf>The server ID of the repository being mirrored.
-        This must not match the mirror ID</mirrorOf>
-    </mirror>
-  </mirrors></source>
+&lt;mirrors>
+  &lt;mirror>
+    &lt;id>mirror ID&lt;/id>
+    &lt;name>Give it a name&lt;/name>
+    &lt;url>The URL of the mirror&lt;/url>
+    &lt;mirrorOf>The server ID of the repository being mirrored.
+        This must not match the mirror ID&lt;/mirrorOf>
+  &lt;/mirror>
+&lt;/mirrors></source>
         <p>See:
           <a href="http://maven.apache.org/guides/mini/guide-mirror-settings.html">
             Guide to mirror settings
@@ -259,20 +268,30 @@
           the ones already in your local repository by adding the following to your ~/.m2/settings.xml:
         </p>
         <source>
- <settings>
-    <offline/>
-  </settings></source>
+&lt;settings>
+  &lt;offline/>
+&lt;/settings></source>
         <p>or use the mvn -o switch.</p>
       </answer>
     </faq>
     <faq id="checkstyle">
       <question>How do I perform a local checkstyle check?</question>
       <answer>
-       <source>
-  mvn compile checkstyle:check
-       </source>
+        <source>
+mvn compile checkstyle:check</source>
+      </answer>
+    </faq>
+    <faq id="max-path">
+      <question>Why my Subversion checkout fails on Windows?</question>
+      <answer>
+        One reason is, that the checked out files will have a too long path name.
+        Under Windows the MAX_PATH is set to 260 characters. When you try to checkout in
+        a directory like C:\Dokumente und Einstellungen\MyUser\Apache Projects\
+        the path will be too long. A workaround will be checking out in an other directory
+        or register a new drive letter and check it out in X:
+        <source>
+SUBST X: "C:\Dokumente und Einstellungen\MyUser\Apache Projects\"</source>
       </answer>
     </faq>
   </part>
 </faqs>
-
