@@ -212,7 +212,8 @@ public final class Markup implements Serializable, Iterable<String> {
       if (ArrayUtils.contains(values, summand)) {
         return this;
       } else {
-        final String[] strings = Arrays.copyOf(values, values.length + 1);
+        final String[] strings = new String[values.length + 1];
+        System.arraycopy(values, 0, strings, 0, values.length);
         strings[values.length] = summand;
         return valueOf(strings);
       }
