@@ -83,10 +83,10 @@ public class BindingRequestBean {
   }
 
   public void processValueChange(ValueChangeEvent e) {
-    LOG.error(e);
+    LOG.error("{}", e);
   }
 
   public void actionListener(ActionEvent e) {
-    LOG.error(e);
+    LOG.error("{}", e);
   }
 }
