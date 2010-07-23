@@ -18,19 +18,11 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.myfaces.tobago.internal.util.PagingUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.event.PageAction;
-import org.apache.myfaces.tobago.event.PageActionEvent;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.util.Map;
 
 public class SheetPageCommandRenderer extends LinkRenderer {
-
-  private static final Logger LOG = LoggerFactory.getLogger(SheetPageCommandRenderer.class);
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
