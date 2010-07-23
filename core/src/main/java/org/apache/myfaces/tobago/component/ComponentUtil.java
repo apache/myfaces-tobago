@@ -313,7 +313,7 @@ public class ComponentUtil {
 
   public static FacesMessage.Severity getMaximumSeverity(UIComponent component) {
     final boolean invalid = component instanceof javax.faces.component.UIInput
-        && !((javax.faces.component.UIInput)component).isValid();
+        && !((javax.faces.component.UIInput) component).isValid();
     FacesMessage.Severity max = invalid ? FacesMessage.SEVERITY_ERROR : null;
     FacesContext facesContext = FacesContext.getCurrentInstance();
     final Iterator messages = facesContext.getMessages(component.getClientId(facesContext));
