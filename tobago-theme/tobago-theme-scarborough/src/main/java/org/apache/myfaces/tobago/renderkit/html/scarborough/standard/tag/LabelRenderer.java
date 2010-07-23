@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.component.UILabel;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.internal.util.Deprecation;
+import org.apache.myfaces.tobago.layout.LayoutBase;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -57,15 +58,10 @@ public class LabelRenderer extends LayoutComponentRendererBase {
     }
   }
 
-
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
-    final UILabel output;
     // todo: remove test after 1.5.0, then UILabel is required
-    if (component instanceof UILabel) {
-      output = (UILabel) component;
-    } else {
-      output = null;
+    if (!(component instanceof UILabel)) {
       Deprecation.LOG.warn("LabelRenderer should only render UILabel but got " + component.getClass().getName()
           + " id=" + component.getClientId(facesContext));
     }
@@ -76,39 +72,32 @@ public class LabelRenderer extends LayoutComponentRendererBase {
     String forValue = ComponentUtils.findClientIdFor(component, facesContext);
 
     String clientId = component.getClientId(facesContext);
-    writer.startElement(HtmlConstants.DIV, component);
+    writer.startElement(HtmlConstants.LABEL, component);
     HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     final Classes classes = Classes.create(component);
-    // todo: remove after 1.5.0 (see begin of method)
-    if (output != null) {
-      writer.writeClassAttribute(classes);
-      Style style = new Style(facesContext, output);
+    writer.writeClassAttribute(classes);
+    if (component instanceof LayoutBase) {
+      Style style = new Style(facesContext, (LayoutBase) component);
       writer.writeStyleAttribute(style);
     }
-    writer.startElement(HtmlConstants.A, component);
-    writer.writeClassAttribute(classes);
-    writer.startElement(HtmlConstants.LABEL, component);
     writer.writeIdAttribute(clientId);
     if (forValue != null) {
       writer.writeAttribute(HtmlAttributes.FOR, forValue, false);
     }
-    writer.writeClassAttribute(classes);
 
     HtmlRendererUtils.renderTip(component, writer);
 
     if (label.getText() != null) {
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
     }
-    writer.endElement(HtmlConstants.LABEL);
-    writer.endElement(HtmlConstants.A);
 
     if (label.getAccessKey() != null) {
       if (LOG.isInfoEnabled()
           && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {
         LOG.info("dublicated accessKey : " + label.getAccessKey());
-      }      
+      }
       HtmlRendererUtils.addClickAcceleratorKey(facesContext, clientId, label.getAccessKey());
     }
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlConstants.LABEL);
   }
 }

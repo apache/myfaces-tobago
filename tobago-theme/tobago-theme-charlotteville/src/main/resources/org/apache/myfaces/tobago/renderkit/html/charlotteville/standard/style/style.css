@@ -72,12 +72,8 @@
 
 /* label ------------------------------------------------------------------- */
 
-div.tobago-label  {
-  background: #FADC9F;
-}
-
-.tobago-label-td-underline-label {
-  background: #FADC9F;
+.tobago-label  {
+  background-color: #FADC9F;
 }
 
 /* page -------------------------------------------------------------------- */

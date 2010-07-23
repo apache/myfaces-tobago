@@ -218,79 +218,41 @@
 
 /* label ------------------------------------------------------------------- */
 
-div.tobago-label {
-  background: #E8E8E8;
-  border: 0 solid transparent;
-  vertical-align: top;
-  height: 19px;
-  margin: 0;
-  padding-top: 0;
-}
-a.tobago-label {
-  padding-top: 3px;
-}
-
-label.tobago-label {
+.tobago-label {
+  background-color: #E8E8E8;
+  height: 14px;
   font: bold 12px arial, helvetica, sans-serif;
-  /*height: 19px;*/
-  /*height: auto;*/
-  height: 15px;
-  border: 0 solid transparent;
-  margin-top: 3px;
-  padding-top: 0;
-  padding-left: 8px;
-  color: #000000;
-  background-color: transparent;
 }
 
-.tobago-label-td {
-  border: 0 solid transparent;
- /* border-bottom: 0px solid #E2E2E2;*/ /* see workaround in mozilla style! */
-  vertical-align: top;
-  height: 19px;
-  margin: 0;
-  padding-top: 0;
-}
-
-.tobago-label-td-underline-label {
-  background: #E8E8E8; /*#c0c0c0;*/
-  height: 1px;
-}
-
-.tobago-label-td-underline-spacer {
-  height: 1px;
-}
-
-label.tobago-label-markup-disabled {
+.tobago-label-markup-disabled {
   color: #808080;
 }
 
-.tobago-label-inline {
-  padding-top: 5px; /* see workaround in mozilla style! */
-  padding-left: 0;
-  margin-top: 1px;
-  width: auto;
-}
-
-label.tobago-label-inline {
-  padding-left: 0;
-}
-
-label.tobago-label-markup-fatal {
-  background: url(../image/label-error-bg.gif) no-repeat bottom left;
+.tobago-label-markup-fatal {
+  background-image: url(../image/process-stop.png);
+  background-repeat: no-repeat;
+  background-position: right 2px;
   color: #FF00FF;
 }
 
-label.tobago-label-markup-error {
-  background: url(../image/label-error-bg.gif) no-repeat bottom left;
+.tobago-label-markup-error {
+  background-image: url(../image/dialog-error.png);
+  background-repeat: no-repeat;
+  background-position: right 2px;
   color: #FF0000;
 }
 
-label.tobago-label-markup-warn {
+.tobago-label-markup-warn {
+  background-image: url(../image/dialog-warning.png);
+  background-repeat: no-repeat;
+  background-position: right 2px;
   color: #FFA500;
 }
 
-label.tobago-label-markup-info {
+.tobago-label-markup-info {
+  background-image: url(../image/dialog-information.png);
+  background-repeat: no-repeat;
+  background-position: right 2px;
   color: #000000;
 }
 

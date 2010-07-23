@@ -26,25 +26,6 @@
   margin-top: 0px;
 }
 
-/* label ------------------------------------------------------------------ */
-
-label.tobago-label  {
-  margin-top: 0px;
-}
-
-.tobago-label-td  {
-  border-top: 0px solid transparent;
-  border-bottom: 0px solid transparent;
-}
-
-.tobago-label  {
-  padding-top: 0px;
-}
-
-.tobago-label-inline  {
-  padding-top: 1px;
-}
-
 /* selectOneChoice --------------------------------------------------------- */
 
 .tobago-selectOneChoice  {

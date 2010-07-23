@@ -81,7 +81,6 @@
         <markup>error</markup>
         <markup>warn</markup>
         <markup>info</markup>
-        <markup>number</markup>
       </supported-markup>
     </renderer>
     <renderer>

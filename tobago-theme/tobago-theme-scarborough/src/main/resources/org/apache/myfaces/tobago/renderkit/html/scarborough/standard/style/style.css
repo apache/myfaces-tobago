@@ -323,61 +323,32 @@ div.tobago-gridLayout-first-column {
 
 /* label ------------------------------------------------------------------- */
 
-div.tobago-label-markup-number {
-  text-align: right;
-}
-
-a.tobago-label-markup-number {
-  padding-left: 0;
-  padding-right: 8px;
-  
-}
-
-div.tobago-label {
-
-}
-
-a.tobago-label {
-  padding-top: 4px;
-  display: -moz-box;
-}
-
-label.tobago-label {
-  height: 23px;
-  padding: 0 0 0 2px;
+.tobago-label {
+  height: 19px;
+  padding: 3px 2px 3px 2px;
   margin: 0;
   border: 0 solid transparent;
-  white-space: nowrap; /*  font-size: 14px;*/
-/*  border: 2px solid #ccddee; */
-/*  background: #ccddee; */
+  white-space: nowrap;
+  vertical-align: top;
 }
 
 .tobago-label-markup-disabled {
   color: #778899;
 }
 
-.tobago-label-inline {
-  width: auto;
-}
-
-label.tobago-label-inline {
-  width: auto;
-  padding-left: 0;
-}
-
-label.tobago-label-markup-fatal {
+.tobago-label-markup-fatal {
   color: #FF00FF;
 }
 
-label.tobago-label-markup-error {
+.tobago-label-markup-error {
   color: #FF0000;
 }
 
-label.tobago-label-markup-warn {
+.tobago-label-markup-warn {
   color: #FFA500;
 }
 
-label.tobago-label-markup-info {
+.tobago-label-markup-info {
   color: #000000;
 }
 
