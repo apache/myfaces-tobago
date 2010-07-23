@@ -1,10 +1,5 @@
 package org.apache.myfaces.tobago.example.test;
 
-import org.apache.myfaces.tobago.example.data.CategoryTree;
-import org.apache.myfaces.tobago.model.TreeState;
-
-import javax.swing.tree.DefaultMutableTreeNode;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -21,6 +16,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import org.apache.myfaces.tobago.example.data.CategoryTree;
+import org.apache.myfaces.tobago.model.TreeState;
+
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class TreeController {
 
