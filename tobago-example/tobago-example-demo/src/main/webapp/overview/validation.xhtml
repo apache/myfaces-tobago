@@ -25,45 +25,37 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
   <ui:param name="title" value="#{overviewBundle.validation}"/>
-  <tc:panel>
+  <tc:box label="#{overviewBundle.validation_sampleTitle}">
     <f:facet name="layout">
-      <tc:gridLayout rows="80px;1*"/>
+      <tc:gridLayout rows="80px;fixed;*;fixed"/>
     </f:facet>
 
     <tc:out escape="false" value="#{overviewBundle.validation_text}"/>
 
-    <tc:box label="#{overviewBundle.validation_sampleTitle}">
+    <tc:panel>
       <f:facet name="layout">
-        <tc:gridLayout rows="fixed;1*;fixed;fixed"/>
+        <tc:gridLayout columns="1*;1*"/>
       </f:facet>
+      <tx:in label="#{overviewBundle.validation_number}" markup="number" required="true">
+        <f:validateLength minimum="7" maximum="7"/>
+        <f:validateLongRange maximum="9000000"/>
+      </tx:in>
+      <tx:in label="#{overviewBundle.validation_price}" markup="number">
+        <f:validateDoubleRange minimum="0.01" maximum="1000"/>
+      </tx:in>
+      <tx:in label="#{overviewBundle.validation_custom}" validator="#{overviewController.customValidator}">
+      </tx:in>
+    </tc:panel>
 
-      <tc:panel>
-        <f:facet name="layout">
-          <tc:gridLayout columns="1*;1*"/>
-        </f:facet>
-        <tx:in label="#{overviewBundle.validation_number}" markup="number" required="true">
-          <f:validateLength minimum="7" maximum="7"/>
-          <f:validateLongRange maximum="9000000"/>
-        </tx:in>
-        <tx:in label="#{overviewBundle.validation_price}" markup="number">
-          <f:validateDoubleRange minimum="0.01" maximum="1000"/>
-        </tx:in>
-        <tx:in label="#{overviewBundle.validation_custom}" validator="#{overviewController.customValidator}">
-        </tx:in>
-      </tc:panel>
+    <tx:textarea label="#{overviewBundle.validation_description}" required="true"/>
 
-      <tx:textarea label="#{overviewBundle.validation_description}" required="true"/>
+    <tc:panel>
+      <f:facet name="layout">
+        <tc:gridLayout columns="1*;100px"/>
+      </f:facet>
+      <tc:cell/>
+      <tc:button action="#{overviewController.noop}" label="#{overviewBundle.validation_submit}"/>
+    </tc:panel>
 
-      <tc:messages/>
-
-      <tc:panel>
-        <f:facet name="layout">
-          <tc:gridLayout columns="1*;100px"/>
-        </f:facet>
-        <tc:cell/>
-        <tc:button action="#{overviewController.noop}" label="#{overviewBundle.validation_submit}"/>
-      </tc:panel>
-
-    </tc:box>
-  </tc:panel>
+  </tc:box>
 </ui:composition>
