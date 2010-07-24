@@ -86,7 +86,7 @@ cd tobago
 mvn -Djava14.home=$JAVA14_HOME -Dnon-default-modules -Pgenerate-assembly,jdk14retro -U clean install
 cd tobago-assembly
 mvn -Pgenerate-assembly clean package org.apache.myfaces.maven:wagon-maven-plugin:deploy
-cd ../example/tobago-example-assembly
+cd ../tobago-example/tobago-example-assembly
 mvn -Pgenerate-assembly clean package org.apache.myfaces.maven:wagon-maven-plugin:deploy
 
 cd ../../..
