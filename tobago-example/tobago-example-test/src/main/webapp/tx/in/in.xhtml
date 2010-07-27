@@ -29,10 +29,14 @@
     </f:facet>
     <tc:gridLayoutConstraint width="600px" height="60px"/>
 
-    <tx:in label="Label" value="Some Value"/>
-    <tx:in label="Label" value="Some Value"/>
-    <tx:in label="Label" value="Some Value"/>
-    <tx:in label="Label" value="Some Value"/>
+    <tx:in label="Label 1" value="Some Value 1"/>
+    <tx:in label="Label 2" value="Some Value 2"/>
+    <tx:in label="Label 3" value="Some Value 3"/>
+    <tx:in label="Label 4"  value="Some Value 4"/>
+
+    <tc:script file="script/test-utils.js"/>
+    
+    <tc:script onload="checkLayout(jQuery('#j_id1\\:j_id17'), 0, 75, 120, 20);"/>
 
   </tc:page>
 </f:view>

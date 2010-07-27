@@ -19,49 +19,59 @@
  * Utilities to make client side tests easier.
  */
 
-function checkLeft(id, left) {
-  var element = document.getElementById(id);
+function checkLeft(element, left) {
   var offsetLeft = element.offsetLeft;
-  while (element.offsetParent != null) {
-    element = element.offsetParent;
-    offsetLeft += element.offsetLeft;
+  var parent = element;
+  while (parent.offsetParent != null) {
+    parent = parent.offsetParent;
+    offsetLeft += parent.offsetLeft;
   }
   if (offsetLeft != left) {
-    LOG.error("The element with id=" + id + " has wrong left: expected=" + left + " actual=" + offsetLeft);
+    LOG.error("The element '" + element.tagName + "' with id='" + element.id + "' has wrong left: expected=" + left + " actual=" + offsetLeft);
   }
 }
 
-function checkTop(id, top) {
-  var element = document.getElementById(id);
+function checkTop(element, top) {
   var offsetTop = element.offsetTop;
-  while (element.offsetParent != null) {
-    element = element.offsetParent;
-    offsetTop += element.offsetTop;
+  var parent = element;
+  while (parent.offsetParent != null) {
+    parent = parent.offsetParent;
+    offsetTop += parent.offsetTop;
   }
-  if (offsetTop != top) {
-    LOG.error("The element with id=" + id + " has wrong top: expected=" + top + " actual=" + offsetTop);
+  if (offsetTop != top) { 
+    LOG.error("The element '" + element.tagName + "' with id='" + element.id + "' has wrong top: expected=" + top + " actual=" + offsetTop);
   }
 }
 
-function checkWidth(id, width) {
-  var offsetWidth = document.getElementById(id).offsetWidth;
+function checkWidth(element, width) {
+  var offsetWidth = element.offsetWidth;
   if (offsetWidth != width) {
-    LOG.error("The element with id=" + id + " has wrong width: expected=" + width + " actual=" + offsetWidth);
+    LOG.error("The element '" + element.tagName + "' with id='" + element.id + "' has wrong width: expected=" + width + " actual=" + offsetWidth);
   }
 }
 
-function checkHeight(id, height) {
-  var offsetHeight = document.getElementById(id).offsetHeight;
+function checkHeight(element, height) {
+  var offsetHeight = element.offsetHeight;
   if (offsetHeight != height) {
-    LOG.error("The element with id=" + id + " has wrong height: expected=" + height + " actual=" + offsetHeight);
+    LOG.error("The element '" + element.tagName + "' with id='" + element.id + "' has wrong height: expected=" + height + " actual=" + offsetHeight);
   }
 }
 
-function checkLayout(id, left, top, width, height) {
-  checkLeft(id, left);
-  checkTop(id, top);
-  checkWidth(id, width);
-  checkHeight(id, height);
+function checkLayout(elementOrId, left, top, width, height) {
+  var element;
+  if (typeof elementOrId == "string") {
+    element = document.getElementById(elementOrId);
+    checkLeft(element, left);
+    checkTop(element, top);
+    checkWidth(element, width);
+    checkHeight(element, height);
+  } else { // JQuery Object Array
+    element = elementOrId.get(0);
+    checkLeft(element, left);
+    checkTop(element, top);
+    checkWidth(element, width);
+    checkHeight(element, height);
+  }
 }
 
 function checkAbsence(id) {
