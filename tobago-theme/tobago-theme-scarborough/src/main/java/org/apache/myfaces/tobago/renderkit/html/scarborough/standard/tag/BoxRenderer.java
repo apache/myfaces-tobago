@@ -87,7 +87,6 @@ public class BoxRenderer extends BoxRendererBase {
     }
     writer.startElement(HtmlElements.DIV, box);
     writer.writeClassAttribute(Classes.create(box, "content")); // needed to be scrollable inside of the box
-    writer.writeStyleAttribute(contentStyle);
     final Measure offsetLeft = getOffsetLeft(facesContext, box);
     final Measure offsetRight = getOffsetRight(facesContext, box);
     final Measure offsetTop = getOffsetTop(facesContext, box);
