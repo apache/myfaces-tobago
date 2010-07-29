@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
@@ -54,12 +54,12 @@ public class BoxRenderer extends BoxRendererBase {
       style.setPaddingBottom(Measure.ZERO);
     }
 
-    writer.startElement(HtmlConstants.FIELDSET, box);
+    writer.startElement(HtmlElements.FIELDSET, box);
     writer.writeClassAttribute(Classes.create(box));
     writer.writeStyleAttribute(style);
 
     if (label != null || labelString != null) {
-      writer.startElement(HtmlConstants.LEGEND, box);
+      writer.startElement(HtmlElements.LEGEND, box);
       writer.writeClassAttribute(Classes.create(box, "legend"));
 
       if (label != null) {
@@ -67,25 +67,25 @@ public class BoxRenderer extends BoxRendererBase {
       } else {
         writer.writeText(labelString);
       }
-      writer.endElement(HtmlConstants.LEGEND);
+      writer.endElement(HtmlElements.LEGEND);
     }
 
     Style contentStyle = new Style(facesContext, box);
     if (toolbar != null) {
-      writer.startElement(HtmlConstants.DIV, null);
+      writer.startElement(HtmlElements.DIV, null);
       writer.writeClassAttribute(Classes.create(box, "toolbarOuter"));
-      writer.startElement(HtmlConstants.DIV, null);
+      writer.startElement(HtmlElements.DIV, null);
       writer.writeClassAttribute(Classes.create(box, "toolbarInner"));
       toolbar.setRendererType(RendererTypes.BOX_TOOL_BAR);
       RenderUtils.encode(facesContext, toolbar);
-      writer.endElement(HtmlConstants.DIV);
-      writer.endElement(HtmlConstants.DIV);
+      writer.endElement(HtmlElements.DIV);
+      writer.endElement(HtmlElements.DIV);
       if (VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
 // XXX check for what is this, and delete or comment it
         contentStyle.setTop(Measure.valueOf(-10));
       }
     }
-    writer.startElement(HtmlConstants.DIV, box);
+    writer.startElement(HtmlElements.DIV, box);
     writer.writeClassAttribute(Classes.create(box, "content")); // needed to be scrollable inside of the box
     writer.writeStyleAttribute(contentStyle);
     final Measure offsetLeft = getOffsetLeft(facesContext, box);
@@ -102,8 +102,8 @@ public class BoxRenderer extends BoxRendererBase {
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
-    writer.endElement(HtmlConstants.DIV);
-    writer.endElement(HtmlConstants.FIELDSET);
+    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.FIELDSET);
   }
 
   @Override

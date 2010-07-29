@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -96,7 +96,7 @@ public class RichTextEditorRenderer extends InputRendererBase {
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlConstants.DIV, input);
+    writer.startElement(HtmlElements.DIV, input);
     writer.writeClassAttribute(Classes.create(input, "container"));
     Style style = new Style(facesContext, input);
     writer.writeStyleAttribute(style);
@@ -115,13 +115,13 @@ public class RichTextEditorRenderer extends InputRendererBase {
     String content = getCurrentValue(facesContext, input);
 
     if (previewState) {
-      writer.startElement(HtmlConstants.INPUT, input);
+      writer.startElement(HtmlElements.INPUT, input);
       writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
       writer.writeNameAttribute(clientId);
       writer.writeAttribute(HtmlAttributes.VALUE, content, true);
-      writer.endElement(HtmlConstants.INPUT);
+      writer.endElement(HtmlElements.INPUT);
 
-      writer.startElement(HtmlConstants.DIV, input);
+      writer.startElement(HtmlElements.DIV, input);
       writer.writeClassAttribute(Classes.create(input, "body"));
       writer.writeIdAttribute(clientId);
 
@@ -129,9 +129,9 @@ public class RichTextEditorRenderer extends InputRendererBase {
       writer.writeText("");
       writer.write(RichTextEditorRenderer.contentToHtml(content));
 
-      writer.endElement(HtmlConstants.DIV);
+      writer.endElement(HtmlElements.DIV);
     } else {
-      writer.startElement(HtmlConstants.TEXTAREA, input);
+      writer.startElement(HtmlElements.TEXTAREA, input);
       writer.writeClassAttribute(Classes.create(input, "body"));
       writer.writeNameAttribute(clientId);
       writer.writeIdAttribute(clientId);
@@ -145,9 +145,9 @@ public class RichTextEditorRenderer extends InputRendererBase {
         writer.writeText(content);
       }
 
-      writer.endElement(HtmlConstants.TEXTAREA);
+      writer.endElement(HtmlElements.TEXTAREA);
     }
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
   }
 
   private UIComponent createToolbar(FacesContext facesContext, UIInput component) {

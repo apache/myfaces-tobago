@@ -29,7 +29,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -52,7 +52,7 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
         label = StringUtils.replace(label, " ", HtmlUtils.CHAR_NON_BEAKING_SPACE);
       }
 
-      writer.startElement(HtmlConstants.TABLE, component);
+      writer.startElement(HtmlElements.TABLE, component);
       writer.writeIdAttribute(separator.getClientId(facesContext));
       writer.writeClassAttribute(Classes.create(component));
       Style style = new Style(facesContext, separator);
@@ -60,34 +60,34 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
 
       writer.writeAttribute(HtmlAttributes.CELLPADDING, "0", false);
       writer.writeAttribute(HtmlAttributes.CELLSPACING, "0", false);
-      writer.startElement(HtmlConstants.TR, component);
+      writer.startElement(HtmlElements.TR, component);
 
-      writer.startElement(HtmlConstants.TD, component);
+      writer.startElement(HtmlElements.TD, component);
       writer.writeClassAttribute(Classes.create(component, "start"));
-      writer.startElement(HtmlConstants.HR , component);
-      writer.endElement(HtmlConstants.HR);
-      writer.endElement(HtmlConstants.TD);
+      writer.startElement(HtmlElements.HR , component);
+      writer.endElement(HtmlElements.HR);
+      writer.endElement(HtmlElements.TD);
 
-      writer.startElement(HtmlConstants.TD, component);
+      writer.startElement(HtmlElements.TD, component);
       writer.writeClassAttribute(Classes.create(component, "label"));
       writer.writeText(label);
-      writer.endElement(HtmlConstants.TD);
+      writer.endElement(HtmlElements.TD);
 
-      writer.startElement(HtmlConstants.TD, component);
+      writer.startElement(HtmlElements.TD, component);
       writer.writeClassAttribute(Classes.create(component, "end"));
-      writer.startElement(HtmlConstants.HR , component);
-      writer.endElement(HtmlConstants.HR);
-      writer.endElement(HtmlConstants.TD);
+      writer.startElement(HtmlElements.HR , component);
+      writer.endElement(HtmlElements.HR);
+      writer.endElement(HtmlElements.TD);
 
-      writer.endElement(HtmlConstants.TR);
-      writer.endElement(HtmlConstants.TABLE);
+      writer.endElement(HtmlElements.TR);
+      writer.endElement(HtmlElements.TABLE);
     } else {
-      writer.startElement(HtmlConstants.HR , component);
+      writer.startElement(HtmlElements.HR , component);
       writer.writeIdAttribute(separator.getClientId(facesContext));
       writer.writeClassAttribute(Classes.create(component));
       Style style = new Style(facesContext, separator);
       writer.writeStyleAttribute(style);
-      writer.endElement(HtmlConstants.HR);
+      writer.endElement(HtmlElements.HR);
     }
   }
 

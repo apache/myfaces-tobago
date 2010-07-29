@@ -44,7 +44,7 @@ import org.apache.myfaces.tobago.renderkit.css.Overflow;
 import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.JQueryUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -112,23 +112,23 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     final String hiddenId = clientId + TabGroupRenderer.ACTIVE_INDEX_POSTFIX;
     final String switchType = tabGroup.getSwitchType();
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlConstants.DIV, null);
+    writer.startElement(HtmlElements.DIV, null);
     writer.writeComment("empty div fix problem with mozilla and fieldset");
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
 
-    writer.startElement(HtmlConstants.DIV, null);
+    writer.startElement(HtmlElements.DIV, null);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(tabGroup));
 
     // AJAX
     HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, ArrayUtils.EMPTY_STRING_ARRAY);
 
-    writer.startElement(HtmlConstants.INPUT, null);
+    writer.startElement(HtmlElements.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeAttribute(HtmlAttributes.VALUE, Integer.toString(activeIndex), false);
     writer.writeNameAttribute(hiddenId);
     writer.writeIdAttribute(hiddenId);
-    writer.endElement(HtmlConstants.INPUT);
+    writer.endElement(HtmlElements.INPUT);
 
     String image1x1 = ResourceManagerUtils.getImageWithPath(facesContext, "image/1x1.gif");
 
@@ -171,7 +171,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
         virtualTab++;
       }
     }
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
   }
 
   private Measure getCurrentWidth(TabList tabs, int tabIndex) {
@@ -251,7 +251,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
       FacesContext facesContext, TobagoResponseWriter writer, UITabGroup tabGroup,
       int virtualTab, String switchType, String image1x1, Measure toolbarWidth, Measure toolBarContentWidth,
       Measure currentWidth, TabList tabList) throws IOException {
-    writer.startElement(HtmlConstants.DIV, tabGroup);
+    writer.startElement(HtmlElements.DIV, tabGroup);
     final String clientId = tabGroup.getClientId(facesContext);
     writer.writeIdAttribute(clientId + "__" + virtualTab);
     Style style = new Style(facesContext, tabGroup);
@@ -264,10 +264,10 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     header.setWidth(width);
     header.setHeight(headerHeight);
     writer.writeStyleAttribute(header);
-    writer.startElement(HtmlConstants.DIV, tabGroup);
+    writer.startElement(HtmlElements.DIV, tabGroup);
     writer.writeStyleAttribute(header);
 
-    writer.startElement(HtmlConstants.DIV, tabGroup);
+    writer.startElement(HtmlElements.DIV, tabGroup);
     Style map = new Style();
     if (currentWidth.greaterThan(width)) {
       map.setWidth(currentWidth);
@@ -291,7 +291,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
         }
       }
     }
-    writer.startElement(HtmlConstants.DIV, tabGroup);
+    writer.startElement(HtmlElements.DIV, tabGroup);
     Measure sumWidthMeasure = Measure.valueOf(sumWidth);
     if (sumWidthMeasure.greaterThan(map.getWidth())) {
       header.setWidth(sumWidthMeasure);
@@ -329,15 +329,15 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
 
           //labelStyle.setDisplay(Display.INLINE_BLOCK);
 
-          writer.startElement(HtmlConstants.SPAN, tab);
+          writer.startElement(HtmlElements.SPAN, tab);
           writer.writeStyleAttribute(labelStyle);
 
           writer.writeClassAttribute(Classes.create(tab, "outer"));
-          writer.startElement(HtmlConstants.SPAN, tab);
+          writer.startElement(HtmlElements.SPAN, tab);
 
           writer.writeClassAttribute(Classes.create(tab, "inner"));
 
-          writer.startElement(HtmlConstants.SPAN, tab);
+          writer.startElement(HtmlElements.SPAN, tab);
           String tabId = clientId + "__" + virtualTab + "__" + index;
           writer.writeIdAttribute(tabId);
 
@@ -350,7 +350,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
           } else {
             writer.writeText(Integer.toString(index + 1));
           }
-          writer.endElement(HtmlConstants.SPAN);
+          writer.endElement(HtmlElements.SPAN);
 
           if (label.getAccessKey() != null) {
             if (LOG.isWarnEnabled()
@@ -359,8 +359,8 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
             }
             HtmlRendererUtils.addClickAcceleratorKey(facesContext, tabId, label.getAccessKey());
           }
-          writer.endElement(HtmlConstants.SPAN);
-          writer.endElement(HtmlConstants.SPAN);
+          writer.endElement(HtmlElements.SPAN);
+          writer.endElement(HtmlElements.SPAN);
 
           // tool bar
           /*UIMenuCommand menuItem = (UIMenuCommand) application.createComponent(UIMenuCommand.COMPONENT_TYPE);
@@ -382,10 +382,10 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
       index++;
     }
     //TODO
-    //writer.startElement(HtmlConstants.TD, null);
+    //writer.startElement(HtmlElements.TD, null);
     //writer.writeAttribute(HtmlAttributes.WIDTH, "100%", false);
 
-    /*writer.startElement(HtmlConstants.TD, tabGroup);
+    /*writer.startElement(HtmlElements.TD, tabGroup);
     if (currentWidth.greaterThan(width)) {
       writer.writeAttribute(HtmlAttributes.WIDTH, toolbarWidth.toString(), false);
     } else {
@@ -395,14 +395,14 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     Style styleTabFulFill = new Style();
     styleTabFulFill.setWidth(width.subtract(sumWidth).subtract(toolbarWidth));
 
-    writer.startElement(HtmlConstants.SPAN, tabGroup);
+    writer.startElement(HtmlElements.SPAN, tabGroup);
     writer.writeClassAttribute(Classes.create(tabGroup, "fulfill"));
     writer.writeStyleAttribute(styleTabFulFill);
 
-    writer.endElement(HtmlConstants.SPAN);
+    writer.endElement(HtmlElements.SPAN);
 
-    writer.endElement(HtmlConstants.DIV);
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.DIV);
         
     if (tabGroup.isShowNavigationBar()) {
       UIToolBar toolBar = createToolBar(facesContext, tabGroup, virtualTab, switchType, tabList);
@@ -413,9 +413,9 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     body.setPosition(Position.RELATIVE);
     body.setWidth(width);
     body.setHeight(tabGroup.getCurrentHeight().subtract(headerHeight));
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
     encodeContent(writer, facesContext, activeTab, body);  
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
   }
 
   private UIToolBar createToolBar(
@@ -487,20 +487,20 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
       FacesContext facesContext, TobagoResponseWriter writer, UITabGroup tabGroup, UIToolBar toolBar,
       Measure left, Measure width)
       throws IOException {
-    writer.startElement(HtmlConstants.DIV, null);
+    writer.startElement(HtmlElements.DIV, null);
     Style style = new Style();
     style.setWidth(width);
     style.setLeft(left);
     writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(tabGroup, "toolBar"));
     RenderUtils.encode(facesContext, toolBar);
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
   }
 
   protected void encodeContent(TobagoResponseWriter writer, FacesContext facesContext, UITab activeTab, Style body)
       throws IOException {
 
-    writer.startElement(HtmlConstants.DIV, null);
+    writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(activeTab, "content"));
 
     if (body != null) {
@@ -515,7 +515,7 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
     writer.flush();
     RenderUtils.encodeChildren(facesContext, activeTab);
 
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
   }
 
 

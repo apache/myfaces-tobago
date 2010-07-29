@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -72,7 +72,7 @@ public class LabelRenderer extends LayoutComponentRendererBase {
     String forValue = ComponentUtils.findClientIdFor(component, facesContext);
 
     String clientId = component.getClientId(facesContext);
-    writer.startElement(HtmlConstants.LABEL, component);
+    writer.startElement(HtmlElements.LABEL, component);
     HtmlRendererUtils.renderDojoDndItem(component, writer, true);
     final Classes classes = Classes.create(component);
     writer.writeClassAttribute(classes);
@@ -98,6 +98,6 @@ public class LabelRenderer extends LayoutComponentRendererBase {
       }
       HtmlRendererUtils.addClickAcceleratorKey(facesContext, clientId, label.getAccessKey());
     }
-    writer.endElement(HtmlConstants.LABEL);
+    writer.endElement(HtmlElements.LABEL);
   }
 }

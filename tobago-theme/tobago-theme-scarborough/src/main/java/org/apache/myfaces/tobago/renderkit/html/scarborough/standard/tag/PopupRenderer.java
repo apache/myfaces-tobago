@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.internal.layout.LayoutContext;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -99,7 +99,7 @@ public class PopupRenderer extends LayoutComponentRendererBase {
       popup.setTop(page.getHeight().subtract(popup.getWidth()).divide(2));
     }
 
-    writer.startElement(HtmlConstants.DIV, popup);
+    writer.startElement(HtmlElements.DIV, popup);
     writer.writeIdAttribute(clientId);
     Style style = new Style(facesContext, popup);
     Integer zIndex = popup.getZIndex();
@@ -115,6 +115,6 @@ public class PopupRenderer extends LayoutComponentRendererBase {
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
   }
 }

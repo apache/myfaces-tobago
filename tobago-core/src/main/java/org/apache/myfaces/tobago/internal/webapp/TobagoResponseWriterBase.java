@@ -18,11 +18,11 @@ package org.apache.myfaces.tobago.internal.webapp;
  */
 
 import org.apache.myfaces.tobago.internal.util.Deprecation;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -38,16 +38,16 @@ public abstract class TobagoResponseWriterBase extends TobagoResponseWriter {
   private static final Logger LOG = LoggerFactory.getLogger(TobagoResponseWriterBase.class);
 
   protected static final Set<String> EMPTY_TAG = new HashSet<String>(Arrays.asList(
-      HtmlConstants.BR,
-      HtmlConstants.AREA,
-      HtmlConstants.LINK,
-      HtmlConstants.IMG,
-      HtmlConstants.PARAM,
-      HtmlConstants.HR,
-      HtmlConstants.INPUT,
-      HtmlConstants.COL,
-      HtmlConstants.BASE,
-      HtmlConstants.META));
+      HtmlElements.BR,
+      HtmlElements.AREA,
+      HtmlElements.LINK,
+      HtmlElements.IMG,
+      HtmlElements.PARAM,
+      HtmlElements.HR,
+      HtmlElements.INPUT,
+      HtmlElements.COL,
+      HtmlElements.BASE,
+      HtmlElements.META));
 
   private UIComponent component;
 

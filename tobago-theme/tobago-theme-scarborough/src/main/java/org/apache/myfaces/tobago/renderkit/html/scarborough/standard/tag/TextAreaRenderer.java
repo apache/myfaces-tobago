@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -56,7 +56,7 @@ public class TextAreaRenderer extends InputRendererBase {
     String onchange = HtmlUtils.generateOnchange(input, facesContext);
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlConstants.TEXTAREA, input);
+    writer.startElement(HtmlElements.TEXTAREA, input);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.ROWS, null, Attributes.ROWS);
@@ -103,7 +103,7 @@ public class TextAreaRenderer extends InputRendererBase {
       }
       writer.writeText(currentValue, null);
     }
-    writer.endElement(HtmlConstants.TEXTAREA);
+    writer.endElement(HtmlElements.TEXTAREA);
     /*if (placeholder != null && !VariableResolverUtils.resolveClientProperties(facesContext)
         .getUserAgent().hasCapability(Capability.PLACEHOLDER)) {
       HtmlRendererUtils.createPlaceholderDiv(input, currentValue, placeholder, style, writer);

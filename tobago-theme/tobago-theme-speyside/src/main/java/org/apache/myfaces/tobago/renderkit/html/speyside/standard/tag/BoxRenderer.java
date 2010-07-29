@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -77,7 +77,7 @@ without shadow
     UIBox box = (UIBox) component;
 
     String clientId = box.getClientId(facesContext);
-    writer.startElement(HtmlConstants.DIV, box);
+    writer.startElement(HtmlElements.DIV, box);
     HtmlRendererUtils.renderDojoDndItem(box, writer, true);
     writer.writeClassAttribute(Classes.create(box));
     writer.writeIdAttribute(clientId);
@@ -95,7 +95,7 @@ without shadow
 
     if (hasShadow) {
       // shadow begin
-      writer.startElement(HtmlConstants.DIV, box);
+      writer.startElement(HtmlElements.DIV, box);
       writer.writeClassAttribute(Classes.create(box, "shadow"));
 
       Style shadow = new Style();
@@ -104,7 +104,7 @@ without shadow
       writer.writeStyleAttribute(shadow);
 
       // border begin
-      writer.startElement(HtmlConstants.DIV, box);
+      writer.startElement(HtmlElements.DIV, box);
       writer.writeClassAttribute(Classes.create(box, "border"));
 
       Style border = new Style();
@@ -114,7 +114,7 @@ without shadow
     }
 
     UIComponent label = box.getFacet(Facets.LABEL);
-    writer.startElement(HtmlConstants.DIV, null);
+    writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(box, "header"));
     String labelString = (String) box.getAttributes().get(Attributes.LABEL);
     if (label != null) {
@@ -122,7 +122,7 @@ without shadow
     } else if (labelString != null) {
       writer.writeText(labelString);
     }
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
 
     UIPanel toolbar = (UIPanel) box.getFacet(Facets.TOOL_BAR);
     if (toolbar != null) {
@@ -131,12 +131,12 @@ without shadow
     
     if (hasShadow) {
       // border end
-      writer.endElement(HtmlConstants.DIV);
+      writer.endElement(HtmlElements.DIV);
       // shadow end
-      writer.endElement(HtmlConstants.DIV);
+      writer.endElement(HtmlElements.DIV);
     }
 
-    writer.startElement(HtmlConstants.DIV, null);
+    writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(box, "content")); // needed to be scrollable inside of the box
     final Style style = new Style(facesContext, box);
     final Measure offsetLeft = getOffsetLeft(facesContext, box);
@@ -153,16 +153,16 @@ without shadow
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.endElement(HtmlConstants.DIV);
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.DIV);
   }
 
   protected void renderToolbar(
       FacesContext facesContext, TobagoResponseWriter writer, UIBox box, UIPanel toolbar) throws IOException {
-    writer.startElement(HtmlConstants.DIV, null);
+    writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(box, "headerToolbar"));
     toolbar.setRendererType(RendererTypes.BOX_TOOL_BAR);
     RenderUtils.encode(facesContext, toolbar);
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
   }
 }

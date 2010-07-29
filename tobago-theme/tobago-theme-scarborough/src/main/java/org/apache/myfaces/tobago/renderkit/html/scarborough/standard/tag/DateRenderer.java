@@ -17,12 +17,12 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.util.DateFormatUtils;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -67,11 +67,11 @@ public class DateRenderer extends InRenderer {
       if (pattern != null) {
         TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
         String id = component.getClientId(facesContext);
-        writer.startElement(HtmlConstants.INPUT, component);
+        writer.startElement(HtmlElements.INPUT, component);
         writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
         writer.writeIdAttribute(id + ":converterPattern");
         writer.writeAttribute(HtmlAttributes.VALUE, pattern, false);
-        writer.endElement(HtmlConstants.INPUT);
+        writer.endElement(HtmlElements.INPUT);
       } else {
         LOG.warn("Can't find the pattern for the converter! DatePicker may not work correctly.");
       }

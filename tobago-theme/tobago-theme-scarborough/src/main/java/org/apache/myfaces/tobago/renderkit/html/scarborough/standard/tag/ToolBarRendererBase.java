@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
@@ -182,12 +182,12 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
         width = renderToolbarButton(facesContext, toolBar, command, writer, checked, onClick, null, width);
       }
 
-      writer.startElement(HtmlConstants.INPUT, null);
+      writer.startElement(HtmlElements.INPUT, null);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
       writer.writeIdAttribute(radioId);
       writer.writeNameAttribute(radioId);
       writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
-      writer.endElement(HtmlConstants.INPUT);
+      writer.endElement(HtmlElements.INPUT);
     }
     return width;
   }
@@ -215,12 +215,12 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
     width = renderToolbarButton(facesContext, toolBar, command, writer, checked, onClick, null, width);
 
-    writer.startElement(HtmlConstants.INPUT, null);
+    writer.startElement(HtmlElements.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.HIDDEN, false);
     writer.writeIdAttribute(clientId);
     writer.writeNameAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.VALUE, Boolean.toString(checked), false);
-    writer.endElement(HtmlConstants.INPUT);
+    writer.endElement(HtmlElements.INPUT);
 
     return width;
   }
@@ -368,7 +368,7 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     }
     
     // start rendering
-    writer.startElement(HtmlConstants.SPAN, command);
+    writer.startElement(HtmlElements.SPAN, command);
     Markup itemMarkup = Markup.NULL;
     if (selected) {
       itemMarkup = itemMarkup.add(Markup.SELECTED);
@@ -380,13 +380,13 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
     HtmlRendererUtils.renderTip(command, writer);
     writer.writeStyleAttribute(itemStyle);
 
-    writer.startElement(HtmlConstants.SPAN, command);
+    writer.startElement(HtmlElements.SPAN, command);
     writer.writeClassAttribute(Classes.create(toolBar, "button", selected ? Markup.SELECTED : Markup.NULL));
     writer.writeStyleAttribute(buttonStyle);
     writer.writeAttribute(HtmlAttributes.ONCLICK, commandClick != null ? commandClick : menuClick, true);
     // render icon
     if (showIcon && iconName != null) {
-      writer.startElement(HtmlConstants.IMG, command);
+      writer.startElement(HtmlElements.IMG, command);
       writer.writeAttribute(HtmlAttributes.SRC, image, false);
       String imageHover
           = ResourceManagerUtils.getImageWithPath(facesContext, HtmlRendererUtils.createSrc(iconName, "Hover"), true);
@@ -396,23 +396,23 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       }
       writer.writeAttribute(HtmlAttributes.ALT, label.getText(), true);
       writer.writeStyleAttribute(iconStyle);
-      writer.endElement(HtmlConstants.IMG);
+      writer.endElement(HtmlElements.IMG);
     }
     // render label
     if (showLabel) {
-      writer.startElement(HtmlConstants.SPAN, command);
+      writer.startElement(HtmlElements.SPAN, command);
       writer.writeClassAttribute(Classes.create(toolBar, "label"));
       writer.writeStyleAttribute(labelStyle);
       if (label.getText() != null) {
         HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
       }
-      writer.endElement(HtmlConstants.SPAN);
+      writer.endElement(HtmlElements.SPAN);
     }
 
     if (separateButtons) {
-      writer.endElement(HtmlConstants.SPAN);
+      writer.endElement(HtmlElements.SPAN);
 
-      writer.startElement(HtmlConstants.SPAN, command);
+      writer.startElement(HtmlElements.SPAN, command);
       writer.writeClassAttribute(Classes.create(toolBar, "menu"));
       writer.writeStyleAttribute(menuStyle);
       writer.writeAttribute(HtmlAttributes.TYPE, "button", false);
@@ -421,15 +421,15 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
     // render sub menu popup button
     if (dropDownMenu != null) {
-      writer.startElement(HtmlConstants.IMG, command);
+      writer.startElement(HtmlElements.IMG, command);
       String menuImage = ResourceManagerUtils.getImageWithPath(facesContext, "image/toolbarButtonMenu.gif");
       writer.writeAttribute(HtmlAttributes.SRC, menuImage, false);
       writer.writeStyleAttribute(openerStyle);
-      writer.endElement(HtmlConstants.IMG);
+      writer.endElement(HtmlElements.IMG);
       renderDropDownMenu(facesContext, writer, dropDownMenu);
     }
-    writer.endElement(HtmlConstants.SPAN);
-    writer.endElement(HtmlConstants.SPAN);
+    writer.endElement(HtmlElements.SPAN);
+    writer.endElement(HtmlElements.SPAN);
 
     return width.add(itemStyle.getWidth()).add(2); // XXX
     // computation of the width of the toolBar will not be used in the moment.
@@ -443,18 +443,18 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
       return width;
     }
 
-    writer.startElement(HtmlConstants.SPAN, separator);
+    writer.startElement(HtmlElements.SPAN, separator);
     writer.writeClassAttribute(Classes.create(toolBar, "item", Markup.DISABLED));
     Style itemStyle = new Style();
     itemStyle.setHeight(getItemHeight(facesContext, toolBar));
     itemStyle.setWidth(Measure.valueOf(10));
     writer.writeStyleAttribute(itemStyle);
 
-    writer.startElement(HtmlConstants.SPAN, separator);
+    writer.startElement(HtmlElements.SPAN, separator);
     writer.writeClassAttribute(Classes.create(toolBar, "separator"));
-    writer.endElement(HtmlConstants.SPAN);
+    writer.endElement(HtmlElements.SPAN);
 
-    writer.endElement(HtmlConstants.SPAN);
+    writer.endElement(HtmlElements.SPAN);
 
     return width.add(itemStyle.getWidth()).add(2); // XXX
     // computation of the width of the toolBar will not be used in the moment.
@@ -576,11 +576,11 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
   private void renderDropDownMenu(FacesContext facesContext, TobagoResponseWriter writer, AbstractUIMenu dropDownMenu)
       throws IOException {
-    writer.startElement(HtmlConstants.OL, dropDownMenu);
+    writer.startElement(HtmlElements.OL, dropDownMenu);
     // XXX fix naming conventions for CSS classes
     writer.writeClassAttribute("tobago-menuBar tobago-menu-dropDownMenu");
     RenderUtils.encode(facesContext, dropDownMenu);
-    writer.endElement(HtmlConstants.OL);
+    writer.endElement(HtmlElements.OL);
   }
 
   @Override

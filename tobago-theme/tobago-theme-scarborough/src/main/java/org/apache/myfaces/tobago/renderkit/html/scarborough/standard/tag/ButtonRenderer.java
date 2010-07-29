@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -60,7 +60,7 @@ public class ButtonRenderer extends CommandRendererBase {
 
     LabelWithAccessKey label = new LabelWithAccessKey(button);
 
-    writer.startElement(HtmlConstants.BUTTON, button);
+    writer.startElement(HtmlElements.BUTTON, button);
     writer.writeAttribute(HtmlAttributes.TYPE, createButtonType(button), false);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
@@ -89,10 +89,10 @@ public class ButtonRenderer extends CommandRendererBase {
       } else {
         image = getImageWithPath(facesContext, imageName, helper.isDisabled());
       }
-      writer.startElement(HtmlConstants.IMG, null);
+      writer.startElement(HtmlElements.IMG, null);
       writer.writeAttribute(HtmlAttributes.SRC, image, true);
       HtmlRendererUtils.renderImageTip(component, writer);
-      writer.endElement(HtmlConstants.IMG);
+      writer.endElement(HtmlElements.IMG);
     }
 
     if (label.getText() != null) {
@@ -102,7 +102,7 @@ public class ButtonRenderer extends CommandRendererBase {
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
     }
 
-    writer.endElement(HtmlConstants.BUTTON);
+    writer.endElement(HtmlElements.BUTTON);
     if (label.getAccessKey() != null) {
       if (LOG.isInfoEnabled()
           && !AccessKeyMap.addAccessKey(facesContext, label.getAccessKey())) {

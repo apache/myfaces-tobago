@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -61,9 +61,9 @@ public class LinkRenderer extends CommandRendererBase {
     LabelWithAccessKey label = new LabelWithAccessKey(link);
 
     if (helper.isDisabled()) {
-      writer.startElement(HtmlConstants.SPAN, link);
+      writer.startElement(HtmlElements.SPAN, link);
     } else {
-      writer.startElement(HtmlConstants.A, link);
+      writer.startElement(HtmlElements.A, link);
       writer.writeAttribute(HtmlAttributes.HREF, href, true);
       if (helper.getOnclick() != null) {
         writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true);
@@ -99,12 +99,12 @@ public class LinkRenderer extends CommandRendererBase {
       } else {
         image = getImageWithPath(facesContext, image, helper.isDisabled());
       }
-      writer.startElement(HtmlConstants.IMG, link);
+      writer.startElement(HtmlElements.IMG, link);
       writer.writeAttribute(HtmlAttributes.SRC, image, true);
       writer.writeAttribute(HtmlAttributes.BORDER, 0); // TODO: is border=0 setting via style possible?
       HtmlRendererUtils.renderImageTip(link, writer);
       HtmlRendererUtils.renderTip(link, writer);
-      writer.endElement(HtmlConstants.IMG);
+      writer.endElement(HtmlElements.IMG);
     }
 
 //  label
@@ -134,9 +134,9 @@ public class LinkRenderer extends CommandRendererBase {
 
     ResponseWriter writer = facesContext.getResponseWriter();
     if (ComponentUtils.getBooleanAttribute(component, Attributes.DISABLED)) {
-      writer.endElement(HtmlConstants.SPAN);
+      writer.endElement(HtmlElements.SPAN);
     } else {
-      writer.endElement(HtmlConstants.A);
+      writer.endElement(HtmlElements.A);
     }
   }
 }

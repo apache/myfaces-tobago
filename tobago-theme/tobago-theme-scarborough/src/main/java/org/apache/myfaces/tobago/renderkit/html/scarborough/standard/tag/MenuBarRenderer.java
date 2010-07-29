@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -40,13 +40,13 @@ public class MenuBarRenderer extends LayoutComponentRendererBase {
     UIMenuBar menuBar = (UIMenuBar) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     
-    writer.startElement(HtmlConstants.OL, menuBar);
+    writer.startElement(HtmlElements.OL, menuBar);
     writer.writeClassAttribute(Classes.create(menuBar));
   }
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.endElement(HtmlConstants.OL);
+    writer.endElement(HtmlElements.OL);
   }
 }

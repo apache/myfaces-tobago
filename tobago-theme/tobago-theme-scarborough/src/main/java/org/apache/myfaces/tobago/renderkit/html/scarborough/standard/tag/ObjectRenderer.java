@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -37,7 +37,7 @@ public class ObjectRenderer extends LayoutComponentRendererBase {
     UIObject object = (UIObject) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlConstants.IFRAME, object);
+    writer.startElement(HtmlElements.IFRAME, object);
     writer.writeIdAttribute(object.getClientId(facesContext));
     writer.writeNameAttribute(object.getClientId(facesContext));
     Object src = object.getSrc();
@@ -53,15 +53,15 @@ public class ObjectRenderer extends LayoutComponentRendererBase {
     String noframes = ResourceManagerUtils.getPropertyNotNull(
         facesContext, "tobago", "browser.noframe.message.prefix");
     writer.writeText(noframes + " ");
-    writer.startElement(HtmlConstants.A, object);
+    writer.startElement(HtmlElements.A, object);
     if (src != null) {
       writer.writeAttributeFromComponent(HtmlAttributes.HREF, Attributes.SRC);
       writer.writeTextFromComponent(Attributes.SRC);
     }
-    writer.endElement(HtmlConstants.A);
+    writer.endElement(HtmlElements.A);
     noframes = ResourceManagerUtils.getPropertyNotNull(facesContext, "tobago", "browser.noframe.message.postfix");
     writer.writeText(" " + noframes);
 
-    writer.endElement(HtmlConstants.IFRAME);
+    writer.endElement(HtmlElements.IFRAME);
   }
 }

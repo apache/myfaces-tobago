@@ -21,7 +21,7 @@ import org.apache.myfaces.tobago.component.UIOut;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -50,7 +50,7 @@ public class OutRenderer extends LayoutComponentRendererBase {
 
     if (createSpan) {
       String id = out.getClientId(facesContext);
-      writer.startElement(HtmlConstants.DIV, out);
+      writer.startElement(HtmlElements.DIV, out);
       writer.writeIdAttribute(id);
       Style style = new Style(facesContext, out);
       writer.writeStyleAttribute(style);
@@ -64,8 +64,8 @@ public class OutRenderer extends LayoutComponentRendererBase {
         String token = tokenizer.nextToken();
         writer.writeText(token);
         if (tokenizer.hasMoreTokens()) {
-          writer.startElement(HtmlConstants.BR, null);
-          writer.endElement(HtmlConstants.BR);
+          writer.startElement(HtmlElements.BR, null);
+          writer.endElement(HtmlElements.BR);
         }
       }
     } else {
@@ -73,7 +73,7 @@ public class OutRenderer extends LayoutComponentRendererBase {
       writer.write(text);
     }
     if (createSpan) {
-      writer.endElement(HtmlConstants.DIV);
+      writer.endElement(HtmlElements.DIV);
     }
   }
 }

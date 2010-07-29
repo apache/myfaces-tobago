@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -81,14 +81,14 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
     boolean checked = "true".equals(currentValue);
     String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
 
-    writer.startElement(HtmlConstants.DIV, select);
+    writer.startElement(HtmlElements.DIV, select);
     writer.writeStyleAttribute(new Style(facesContext, select));
     writer.writeClassAttribute(Classes.create(select));
     if (title != null) {
       writer.writeAttribute(HtmlAttributes.TITLE, title, true);
     }
 
-    writer.startElement(HtmlConstants.INPUT, select);
+    writer.startElement(HtmlElements.INPUT, select);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
     writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
     writer.writeNameAttribute(id);
@@ -107,17 +107,17 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
     if (tabIndex != null) {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
-    writer.endElement(HtmlConstants.INPUT);
+    writer.endElement(HtmlElements.INPUT);
 
     String label = select.getLabel();
     if (label != null) {
-      writer.startElement(HtmlConstants.LABEL, select);
+      writer.startElement(HtmlElements.LABEL, select);
       writer.writeAttribute(HtmlAttributes.FOR, id, false);
       writer.writeText(label);
-      writer.endElement(HtmlConstants.LABEL);
+      writer.endElement(HtmlElements.LABEL);
     }
 
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
 
     HtmlRendererUtils.checkForCommandFacet(select, facesContext, writer);
   }

@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -114,7 +114,7 @@ public class FileRenderer extends InputRendererBase {
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlConstants.INPUT, input);
+    writer.startElement(HtmlElements.INPUT, input);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.FILE, false);
     writer.writeClassAttribute(Classes.create(input));
     Style style = new Style(facesContext, input);
@@ -127,7 +127,7 @@ public class FileRenderer extends InputRendererBase {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
     HtmlRendererUtils.renderTip(input, writer);
-    writer.endElement(HtmlConstants.INPUT);
+    writer.endElement(HtmlElements.INPUT);
   }
 }
 

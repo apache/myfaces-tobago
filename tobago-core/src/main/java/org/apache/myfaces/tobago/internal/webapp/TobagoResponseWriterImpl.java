@@ -20,7 +20,7 @@ package org.apache.myfaces.tobago.internal.webapp;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.internal.util.HtmlWriterUtils;
 import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
@@ -90,11 +90,11 @@ public class TobagoResponseWriterImpl extends TobagoResponseWriterBase {
   public void startDocument() throws IOException {
     getWriter().write(HTML_DOCTYPE);
     getWriter().write('\n');
-    startElement(HtmlConstants.HTML, null);
+    startElement(HtmlElements.HTML, null);
   }
 
   @Override
   public void endDocument() throws IOException {
-    endElement(HtmlConstants.HTML);    
+    endElement(HtmlElements.HTML);
   }
 }

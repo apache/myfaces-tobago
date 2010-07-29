@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.JQueryUtils;
@@ -113,21 +113,21 @@ public class MenuCommandRenderer extends CommandRendererBase {
   }
 
   private void encodeHidden(TobagoResponseWriter writer, String hiddenId, Object value) throws IOException {
-    writer.startElement(HtmlConstants.INPUT, null);
+    writer.startElement(HtmlElements.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeIdAttribute(hiddenId);
     writer.writeNameAttribute(hiddenId);
     if (value != null) {
       writer.writeAttribute(HtmlAttributes.VALUE, value.toString(), true);
     }
-    writer.endElement(HtmlConstants.INPUT);
+    writer.endElement(HtmlElements.INPUT);
   }
 
   private void encodeItem(
       FacesContext facesContext, TobagoResponseWriter writer, UIComponent component, LabelWithAccessKey label,
       String onclick, boolean disabled, boolean firstLevel, String image) throws IOException {
 
-    writer.startElement(HtmlConstants.LI, null);
+    writer.startElement(HtmlElements.LI, null);
     writer.writeClassAttribute(Classes.createWorkaround("menu", firstLevel ? Markup.TOP : null));
     writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, true);
 
@@ -139,7 +139,7 @@ public class MenuCommandRenderer extends CommandRendererBase {
       writer.writeStyleAttribute(style);
     }
 
-    writer.startElement(HtmlConstants.A, null);
+    writer.startElement(HtmlElements.A, null);
     writer.writeAttribute(HtmlAttributes.HREF, "#", false);
 //    writer.writeIdAttribute(clientId);
 
@@ -155,8 +155,8 @@ public class MenuCommandRenderer extends CommandRendererBase {
       }
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
     }
-    writer.endElement(HtmlConstants.A);
-    writer.endElement(HtmlConstants.LI);
+    writer.endElement(HtmlElements.A);
+    writer.endElement(HtmlElements.LI);
   }
 
   private void addAcceleratorKey(FacesContext facesContext, UIComponent component, Character accessKey) {

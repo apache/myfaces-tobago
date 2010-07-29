@@ -21,7 +21,7 @@ import org.apache.myfaces.tobago.component.UITab;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Overflow;
 import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -36,7 +36,7 @@ public class TabGroupRenderer
       TobagoResponseWriter writer, FacesContext facesContext, UITab activeTab, Style body)
       throws IOException {
 
-    writer.startElement(HtmlConstants.DIV, null);
+    writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(activeTab, "shadow"));
     if (body != null) {
       Style body1 = new Style(body);
@@ -47,7 +47,7 @@ public class TabGroupRenderer
       writer.writeStyleAttribute(body1);
     }
 
-    writer.startElement(HtmlConstants.DIV, null);
+    writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(activeTab, "content"));
 
     if (body != null) {
@@ -62,7 +62,7 @@ public class TabGroupRenderer
     writer.flush();
     RenderUtils.encodeChildren(facesContext, activeTab);
 
-    writer.endElement(HtmlConstants.DIV);
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.DIV);
   }
 }

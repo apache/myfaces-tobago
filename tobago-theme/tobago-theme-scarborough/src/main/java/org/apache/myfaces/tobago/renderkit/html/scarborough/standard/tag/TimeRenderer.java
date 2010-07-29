@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -110,12 +110,12 @@ public class TimeRenderer extends InputRendererBase {
     String id = time.getClientId(facesContext);
     final String idPrefix = id + ComponentUtils.SUB_SEPARATOR;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlConstants.DIV, time);
+    writer.startElement(HtmlElements.DIV, time);
     writer.writeClassAttribute(Classes.create(time));
     Style style = new Style(facesContext, time);
     writer.writeStyleAttribute(style);
 
-    writer.startElement(HtmlConstants.DIV, time);
+    writer.startElement(HtmlElements.DIV, time);
     writer.writeAttribute(HtmlAttributes.ID, idPrefix + "borderDiv", false);
     final Markup markup = hasSeconds ? Markup.valueOf("seconds") : null;
     writer.writeClassAttribute(Classes.create(time, "borderDiv", markup));
@@ -129,11 +129,11 @@ public class TimeRenderer extends InputRendererBase {
       writeInput(writer, time, idPrefix + "second", second, false, title);
     }
 
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
 
     String imageId = idPrefix + "inc";
     String imageSrc = "image/timeIncrement.gif";
-    writer.startElement(HtmlConstants.IMG, null);
+    writer.startElement(HtmlElements.IMG, null);
     writer.writeIdAttribute(imageId);
     writer.writeClassAttribute(Classes.create(time, "incImage", markup));
     writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtils.getImageWithPath(facesContext, imageSrc), true);
@@ -143,11 +143,11 @@ public class TimeRenderer extends InputRendererBase {
         || ComponentUtils.getBooleanAttribute(time, Attributes.READONLY))) {
       writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgIncTime(this)", false);
     }
-    writer.endElement(HtmlConstants.IMG);
+    writer.endElement(HtmlElements.IMG);
 
     imageId = idPrefix + "dec";
     imageSrc = "image/timeDecrement.gif";
-    writer.startElement(HtmlConstants.IMG, null);
+    writer.startElement(HtmlElements.IMG, null);
     writer.writeIdAttribute(imageId);
     writer.writeClassAttribute(Classes.create(time, "decImage", markup));
     writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtils.getImageWithPath(facesContext, imageSrc), true);
@@ -156,20 +156,20 @@ public class TimeRenderer extends InputRendererBase {
         || ComponentUtils.getBooleanAttribute(time, Attributes.READONLY))) {
       writer.writeAttribute(HtmlAttributes.ONCLICK, "tbgDecTime(this)", false);
     }
-    writer.endElement(HtmlConstants.IMG);
+    writer.endElement(HtmlElements.IMG);
 
-    writer.startElement(HtmlConstants.INPUT, time);
+    writer.startElement(HtmlElements.INPUT, time);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeIdAttribute(id + ":converterPattern");
     writer.writeAttribute(HtmlAttributes.VALUE, converterPattern, true);
-    writer.endElement(HtmlConstants.INPUT);
+    writer.endElement(HtmlElements.INPUT);
 
-    writer.startElement(HtmlConstants.INPUT, time);
+    writer.startElement(HtmlElements.INPUT, time);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeIdAttribute(id);
     writer.writeNameAttribute(id);
     writer.writeAttribute(HtmlAttributes.VALUE, hour + ":" + minute + ":" + second, false);
-    writer.endElement(HtmlConstants.INPUT);
+    writer.endElement(HtmlElements.INPUT);
 
     String dateTextBoxId = (String) time.getAttributes().get(Attributes.DATE_INPUT_ID);
 
@@ -178,20 +178,20 @@ public class TimeRenderer extends InputRendererBase {
       HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPTS, cmds);
     }
 
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
   }
 
   private void writeInputSeparator(TobagoResponseWriter writer, UITime time, String sep) throws IOException {
-    writer.startElement(HtmlConstants.SPAN, null);
+    writer.startElement(HtmlElements.SPAN, null);
     writer.writeClassAttribute(Classes.create(time, "sep"));
     writer.writeText(sep);
-    writer.endElement(HtmlConstants.SPAN);
+    writer.endElement(HtmlElements.SPAN);
   }
 
   private void writeInput(TobagoResponseWriter writer, UITime input, String id, String hour, boolean hourMode,
       String title) throws IOException {
     Integer tabIndex = input.getTabIndex();
-    writer.startElement(HtmlConstants.INPUT, null);
+    writer.startElement(HtmlElements.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.TEXT, false);
     writer.writeIdAttribute(id);
     if (tabIndex != null) {
@@ -209,6 +209,6 @@ public class TimeRenderer extends InputRendererBase {
       writer.writeAttribute(HtmlAttributes.ONKEYUP, "tbgTimerKeyUp(this, event)", false);
     }
     writer.writeAttribute(HtmlAttributes.VALUE, hour, true);
-    writer.endElement(HtmlConstants.INPUT);
+    writer.endElement(HtmlElements.INPUT);
   }
 }

@@ -39,7 +39,7 @@ public class GridLayoutRenderer extends RendererBase implements SpacingValues, M
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 //    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 //    UIGridLayout gridLayout = (UIGridLayout) component;
-//    writer.startElement(HtmlConstants.DIV, gridLayout);
+//    writer.startElement(HtmlElements.DIV, gridLayout);
 //    writer.writeClassAttribute();
   }
 
@@ -54,7 +54,7 @@ public class GridLayoutRenderer extends RendererBase implements SpacingValues, M
       FacesContext facesContext,
       UIComponent component) throws IOException {
 //    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-//    writer.endElement(HtmlConstants.DIV);
+//    writer.endElement(HtmlElements.DIV);
   }
 
   public Measure getColumnSpacing(FacesContext facesContext, Configurable component) {

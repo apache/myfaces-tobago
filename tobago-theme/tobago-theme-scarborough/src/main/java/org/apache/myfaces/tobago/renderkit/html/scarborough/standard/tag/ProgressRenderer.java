@@ -24,7 +24,7 @@ import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -77,27 +77,27 @@ public class ProgressRenderer extends LayoutComponentRendererBase {
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlConstants.SPAN, progress);
+    writer.startElement(HtmlElements.SPAN, progress);
     writer.writeClassAttribute(Classes.create(progress));
     writer.writeAttribute(HtmlAttributes.TITLE, String.valueOf(title), true);
 
-    writer.startElement(HtmlConstants.IMG, null);
+    writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(progress, "color1"));
     writer.writeAttribute(HtmlAttributes.SRC, image, false);
     writer.writeAttribute(HtmlAttributes.ALT, String.valueOf(title), true);
     writer.writeAttribute(HtmlAttributes.WIDTH, width1, false);
     writer.writeAttribute(HtmlAttributes.BORDER, 0);
-    writer.endElement(HtmlConstants.IMG);
+    writer.endElement(HtmlElements.IMG);
 
-    writer.startElement(HtmlConstants.IMG, null);
+    writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(progress, "color2"));
     writer.writeAttribute(HtmlAttributes.SRC, image, false);
     writer.writeAttribute(HtmlAttributes.ALT, String.valueOf(title), true);
     writer.writeAttribute(HtmlAttributes.WIDTH, width2, false);
     writer.writeAttribute(HtmlAttributes.BORDER, 0);
-    writer.endElement(HtmlConstants.IMG);
+    writer.endElement(HtmlElements.IMG);
 
-    writer.endElement(HtmlConstants.SPAN);
+    writer.endElement(HtmlElements.SPAN);
     UIComponent facet = progress.getFacet("complete");
     if (model.getValue() == model.getMaximum() && facet != null
         && facet instanceof UICommand) {

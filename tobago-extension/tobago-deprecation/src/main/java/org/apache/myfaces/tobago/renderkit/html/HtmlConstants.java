@@ -17,7 +17,12 @@ package org.apache.myfaces.tobago.renderkit.html;
  * limitations under the License.
  */
 
+/**
+ * @deprecated please use {@link HtmlElements}
+ */
+@Deprecated
 public final class HtmlConstants {
+
   public static final String A = "a";
   public static final String AREA = "area";
   public static final String B = "b";

@@ -25,7 +25,7 @@ import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -75,7 +75,7 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     // fixme: use CSS, not the Style Attribute for "display"
     style.setDisplay(null);
 
-    writer.startElement(HtmlConstants.OL, select);
+    writer.startElement(HtmlElements.OL, select);
     writer.writeStyleAttribute(style);
     writer.writeClassAttribute(Classes.create(select));
     if (title != null) {
@@ -87,8 +87,8 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
     for (SelectItem item : items) {
       String itemId = id + NamingContainer.SEPARATOR_CHAR + NamingContainer.SEPARATOR_CHAR + item.getValue().toString();
       clientIds.add(itemId);
-      writer.startElement(HtmlConstants.LI, select);
-      writer.startElement(HtmlConstants.INPUT, select);
+      writer.startElement(HtmlElements.LI, select);
+      writer.startElement(HtmlElements.INPUT, select);
       writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.RADIO, false);
       boolean checked = item.getValue().equals(value);
       writer.writeAttribute(HtmlAttributes.CHECKED, checked);
@@ -106,19 +106,19 @@ public class SelectOneRadioRenderer extends SelectOneRendererBase {
       if (tabIndex != null) {
         writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
       }
-      writer.endElement(HtmlConstants.INPUT);
+      writer.endElement(HtmlElements.INPUT);
 
       String label = item.getLabel();
       if (label != null) {
-        writer.startElement(HtmlConstants.LABEL, select);
+        writer.startElement(HtmlElements.LABEL, select);
         writer.writeAttribute(HtmlAttributes.FOR, itemId, false);
         writer.writeText(label);
-        writer.endElement(HtmlConstants.LABEL);
+        writer.endElement(HtmlElements.LABEL);
       }
 
-      writer.endElement(HtmlConstants.LI);
+      writer.endElement(HtmlElements.LI);
     }
-    writer.endElement(HtmlConstants.OL);
+    writer.endElement(HtmlElements.OL);
 
     HtmlRendererUtils.renderFocusId(facesContext, select);
     HtmlRendererUtils.checkForCommandFacet(select, clientIds, facesContext, writer);

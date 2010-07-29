@@ -31,7 +31,7 @@ import org.apache.myfaces.tobago.renderkit.InputRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -108,7 +108,7 @@ public class InRenderer extends InputRendererBase {
       }
       String id = input.getClientId(facesContext);
       TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-      writer.startElement(HtmlConstants.INPUT, input);
+      writer.startElement(HtmlElements.INPUT, input);
       writer.writeAttribute(HtmlAttributes.TYPE, type, false);
       writer.writeNameAttribute(id);
       writer.writeIdAttribute(id);
@@ -146,7 +146,7 @@ public class InRenderer extends InputRendererBase {
      //      writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, null);
        }
      } */
-      writer.endElement(HtmlConstants.INPUT);
+      writer.endElement(HtmlElements.INPUT);
 
       HtmlRendererUtils.checkForCommandFacet(input, facesContext, writer);
 

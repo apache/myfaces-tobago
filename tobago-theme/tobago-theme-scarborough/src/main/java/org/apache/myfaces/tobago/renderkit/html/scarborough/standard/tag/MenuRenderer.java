@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -56,14 +56,14 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     boolean isParentMenu = menu.getChildCount() > 0; // todo: may be not correct
     String clientId = menu.getClientId(facesContext);
 
-    writer.startElement(HtmlConstants.LI, menu);
+    writer.startElement(HtmlElements.LI, menu);
     writer.writeClassAttribute(Classes.create(menu, firstLevel ? Markup.TOP : null));
     if (menu.getImage() != null) {
       Style style = new Style();
       style.setBackgroundImage("url(" + menu.getImage() + ")");
       writer.writeStyleAttribute(style);
     }
-    writer.startElement(HtmlConstants.A, menu);
+    writer.startElement(HtmlElements.A, menu);
     writer.writeAttribute(HtmlAttributes.HREF, "#", false);
     writer.writeIdAttribute(clientId);
 
@@ -80,14 +80,14 @@ public class MenuRenderer extends LayoutComponentRendererBase {
       }
       HtmlRendererUtils.writeLabelWithAccessKey(writer, label);
     }
-    writer.endElement(HtmlConstants.A);
+    writer.endElement(HtmlElements.A);
     if (isParentMenu) {
       if (firstLevel) {
         ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, MenuBarRenderer.DIVIDER);
         divider.activateBranch(facesContext);
         writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
       }
-      writer.startElement(HtmlConstants.OL, menu);
+      writer.startElement(HtmlElements.OL, menu);
       writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "menu");
     }
   }
@@ -101,14 +101,14 @@ public class MenuRenderer extends LayoutComponentRendererBase {
 
     boolean isParentMenu = menu.getChildCount() > 0; // todo: may be not correct
     if (isParentMenu) {
-      writer.endElement(HtmlConstants.OL);
+      writer.endElement(HtmlElements.OL);
       if (firstLevel) {
         ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, MenuBarRenderer.DIVIDER);
         divider.passivateBranch(facesContext);
         writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
       }
     }
-    writer.endElement(HtmlConstants.LI);
+    writer.endElement(HtmlElements.LI);
   }
 
   private void addAcceleratorKey(FacesContext facesContext, UIComponent component, Character accessKey) {

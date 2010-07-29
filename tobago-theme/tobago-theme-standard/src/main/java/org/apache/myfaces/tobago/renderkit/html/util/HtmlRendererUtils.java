@@ -33,7 +33,7 @@ import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -129,9 +129,9 @@ public final class HtmlRendererUtils {
       writer.writeText(text);
     } else {
       writer.writeText(text.substring(0, pos));
-      writer.startElement(HtmlConstants.U, null);
+      writer.startElement(HtmlElements.U, null);
       writer.writeText(Character.toString(text.charAt(pos)));
-      writer.endElement(HtmlConstants.U);
+      writer.endElement(HtmlElements.U);
       writer.writeText(text.substring(pos + 1));
     }
   }
@@ -363,16 +363,16 @@ public final class HtmlRendererUtils {
     }
     for (SelectItem item : items) {
       if (item instanceof SelectItemGroup) {
-        writer.startElement(HtmlConstants.OPTGROUP, null);
+        writer.startElement(HtmlElements.OPTGROUP, null);
         writer.writeAttribute(HtmlAttributes.LABEL, item.getLabel(), true);
         if (item.isDisabled()) {
           writer.writeAttribute(HtmlAttributes.DISABLED, true);
         }
         SelectItem[] selectItems = ((SelectItemGroup) item).getSelectItems();
         renderSelectItems(component, Arrays.asList(selectItems), values, writer, facesContext);
-        writer.endElement(HtmlConstants.OPTGROUP);
+        writer.endElement(HtmlElements.OPTGROUP);
       } else {
-        writer.startElement(HtmlConstants.OPTION, null);
+        writer.startElement(HtmlElements.OPTION, null);
         Object itemValue = item.getValue();
         // when using selectItem tag with a literal value: use the converted value
         if (itemValue instanceof String && values != null && values.length > 0 && !(values[0] instanceof String)) {
@@ -399,7 +399,7 @@ public final class HtmlRendererUtils {
         writer.writeClassAttribute(Classes.create(component, "option", markup));
 
         writer.writeText(item.getLabel());
-        writer.endElement(HtmlConstants.OPTION);
+        writer.endElement(HtmlElements.OPTION);
       }
     }
   }
@@ -692,10 +692,10 @@ public final class HtmlRendererUtils {
       throws IOException {
     final UIComponent contextMenu = FacetUtils.getContextMenu(parent);
     if (contextMenu != null) {
-      writer.startElement(HtmlConstants.OL, contextMenu);
+      writer.startElement(HtmlElements.OL, contextMenu);
       writer.writeClassAttribute("tobago-menuBar tobago-menu-contextMenu");
       RenderUtils.encode(facesContext, contextMenu);
-      writer.endElement(HtmlConstants.OL);
+      writer.endElement(HtmlElements.OL);
     }
   }
 

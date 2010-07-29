@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -71,7 +71,7 @@ public class PanelRenderer extends LayoutComponentRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     String clientId = panel.getClientId(facesContext);
-    writer.startElement(HtmlConstants.DIV, panel);
+    writer.startElement(HtmlElements.DIV, panel);
     HtmlRendererUtils.renderDojoDndItem(panel, writer, true);
     writer.writeIdAttribute(clientId);
     writer.writeClassAttribute(Classes.create(panel));
@@ -109,6 +109,6 @@ public class PanelRenderer extends LayoutComponentRendererBase {
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent uiComponent) throws IOException {
     ResponseWriter writer = facesContext.getResponseWriter();
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
   }
 }

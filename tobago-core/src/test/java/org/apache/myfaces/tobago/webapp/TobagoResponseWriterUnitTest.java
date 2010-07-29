@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.webapp;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterImpl;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseXmlWriterImpl;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,37 +51,37 @@ public class TobagoResponseWriterUnitTest {
 
   @Test
   public void testEmptyTag() throws IOException {
-    writer.startElement("input", null);
-    writer.endElement("input");
+    writer.startElement(HtmlElements.INPUT, null);
+    writer.endElement(HtmlElements.INPUT);
     Assert.assertEquals("empty tag", "<input\n>", stringWriter.toString());
   }
 
   @Test
   public void testNormalTag() throws IOException {
-    writer.startElement("select", null);
-    writer.endElement("select");
+    writer.startElement(HtmlElements.SELECT, null);
+    writer.endElement(HtmlElements.SELECT);
     Assert.assertEquals("normal tag", "<select\n></select>", stringWriter.toString());
   }
 
   @Test
   public void testAttribute() throws IOException {
-    writer.startElement("select", null);
+    writer.startElement(HtmlElements.SELECT, null);
     writer.writeAttribute(HtmlAttributes.VALUE, "0", null);
-    writer.endElement("select");
+    writer.endElement(HtmlElements.SELECT);
     Assert.assertEquals("attr tag", "<select value=\"0\"\n></select>", stringWriter.toString());
   }
 
   @Test
   public void testAttributeQuoting() throws IOException {
-    writer.startElement("select", null);
+    writer.startElement(HtmlElements.SELECT, null);
     writer.writeAttribute(HtmlAttributes.VALUE, "-<->-ü-€-", null);
-    writer.endElement("select");
+    writer.endElement(HtmlElements.SELECT);
     Assert.assertEquals("attr tag", "<select value=\"-&lt;-&gt;-ü-€-\"\n></select>", stringWriter.toString());
   }
 
   @Test
   public void testTextQuoting() throws IOException {
-    writer.startElement("textarea", null);
+    writer.startElement(HtmlElements.TEXTAREA, null);
     writer.writeText("-<->-ü-€-", null);
     writer.endElement("textarea");
     Assert.assertEquals("attr tag", "<textarea\n>-&lt;-&gt;-ü-€-</textarea>", stringWriter.toString());
@@ -94,14 +95,14 @@ public class TobagoResponseWriterUnitTest {
 
   @Test
   public void testManyChars() throws IOException {
-    writer.startElement("select", null);
+    writer.startElement(HtmlElements.SELECT, null);
     StringBuffer buffer = new StringBuffer();
     for (char c = 0x20; c < 0x1ff; c++) {
       buffer.append(c);
     }
     writer.writeAttribute(HtmlAttributes.VALUE, buffer, null);
     writer.writeText(buffer, null);
-    writer.endElement("select");
+    writer.endElement(HtmlElements.SELECT);
 
     String result = buffer.toString(); // all the same but this 4 items
     result = result.replace("&", "&amp;");
@@ -115,10 +116,10 @@ public class TobagoResponseWriterUnitTest {
   @Test
   public void testNonUtf8() throws IOException {
     TobagoResponseWriter writer1 = new TobagoResponseWriterImpl(stringWriter, "", "ISO-8859-1");
-    writer1.startElement("input", null);
+    writer1.startElement(HtmlElements.INPUT, null);
     writer1.writeAttribute(HtmlAttributes.VALUE, "Gutschein über 100 €.", null);
     writer1.writeAttribute(HtmlAttributes.READONLY, true);
-    writer1.endElement("input");
+    writer1.endElement(HtmlElements.INPUT);
     writer1.close();
     Assert.assertEquals("<input value=\"Gutschein &uuml;ber 100 &euro;.\" readonly=\"readonly\"\n>",
         stringWriter.toString());

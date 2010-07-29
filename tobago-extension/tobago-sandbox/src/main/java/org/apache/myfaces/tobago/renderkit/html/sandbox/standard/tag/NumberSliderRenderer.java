@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -81,40 +81,40 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
       inputWidth = (width * (100 - sliderWidthPerc)) / 100;
     }
 
-    writer.startElement(HtmlConstants.TABLE, slider);
+    writer.startElement(HtmlElements.TABLE, slider);
     writer.writeIdAttribute(id);
     writer.writeClassAttribute(Classes.create(slider));
     writer.writeStyleAttribute(style);
     //writer.writeAttribute(HtmlAttributes.BORDER,"1",false);
 
-    writer.startElement(HtmlConstants.TR, null);
-    writer.startElement(HtmlConstants.TD, null);
+    writer.startElement(HtmlElements.TR, null);
+    writer.startElement(HtmlElements.TD, null);
     writer.writeClassAttribute(Classes.create(slider, "min"));
 
     Style widthStyle = new Style();
     widthStyle.setWidth(Measure.valueOf(sliderWidth / 2));
     writer.writeStyleAttribute(widthStyle);
-    writer.startElement(HtmlConstants.SPAN, null);
+    writer.startElement(HtmlElements.SPAN, null);
     writer.writeClassAttribute(Classes.create(slider, "min"));
     writer.write(Integer.toString(min));
-    writer.endElement(HtmlConstants.SPAN);
+    writer.endElement(HtmlElements.SPAN);
 
-    writer.endElement(HtmlConstants.TD);
-    writer.startElement(HtmlConstants.TD, null);
+    writer.endElement(HtmlElements.TD);
+    writer.startElement(HtmlElements.TD, null);
     writer.writeClassAttribute(Classes.create(slider, "max"));
     writer.writeStyleAttribute(widthStyle);
-    writer.startElement(HtmlConstants.SPAN, null);
+    writer.startElement(HtmlElements.SPAN, null);
     writer.writeClassAttribute(Classes.create(slider, "max"));
     writer.write(Integer.toString(max));
-    writer.endElement(HtmlConstants.SPAN);
-    writer.endElement(HtmlConstants.TD);
+    writer.endElement(HtmlElements.SPAN);
+    writer.endElement(HtmlElements.TD);
 
     // the input field starts here
-    writer.startElement(HtmlConstants.TD, null);
+    writer.startElement(HtmlElements.TD, null);
     writer.writeAttribute(HtmlAttributes.ROWSPAN, "2", false);
     writer.writeClassAttribute(Classes.create(slider, "td"));
 
-    writer.startElement(HtmlConstants.INPUT, null);
+    writer.startElement(HtmlElements.INPUT, null);
     writer.writeClassAttribute(Classes.create(slider, "input"));
     widthStyle.setWidth(Measure.valueOf(inputWidth));
     writer.writeStyleAttribute(widthStyle);
@@ -127,21 +127,21 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
     //writer.writeAttribute(HtmlAttributes.STYLE, null, STYLE);
-    writer.endElement(HtmlConstants.INPUT);
-    writer.endElement(HtmlConstants.TD);
+    writer.endElement(HtmlElements.INPUT);
+    writer.endElement(HtmlElements.TD);
 
-    writer.endElement(HtmlConstants.TR);
-    writer.startElement(HtmlConstants.TR, null);
-    writer.startElement(HtmlConstants.TD, null);
+    writer.endElement(HtmlElements.TR);
+    writer.startElement(HtmlElements.TR, null);
+    writer.startElement(HtmlElements.TD, null);
     writer.writeAttribute(HtmlAttributes.COLSPAN, 2);
 
     //track
-    writer.startElement(HtmlConstants.DIV, null);
+    writer.startElement(HtmlElements.DIV, null);
     writer.writeClassAttribute(Classes.create(slider, "slider"));
     writer.writeIdAttribute(getIdForSliderTrack(facesContext, slider));
 
     // handle
-    writer.startElement(HtmlConstants.DIV, null);
+    writer.startElement(HtmlElements.DIV, null);
     writer.writeIdAttribute(getIdForSliderHandle(facesContext, slider));
     Style handleStyle = new Style();
     handleStyle.setPosition(Position.RELATIVE);
@@ -149,14 +149,14 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     handleStyle.setWidth(Measure.valueOf(12));
     handleStyle.setHeight(Measure.valueOf(6));
     writer.writeStyleAttribute(handleStyle); // todo: why not do that via the class?
-    writer.startElement(HtmlConstants.IMG, null);
+    writer.startElement(HtmlElements.IMG, null);
     writer.writeAttribute(HtmlAttributes.SRC, getAbsoluteImagePath(facesContext, "image/sliderTriangle.gif"), true);
-    writer.endElement(HtmlConstants.IMG);
-    writer.endElement(HtmlConstants.DIV);
-    writer.endElement(HtmlConstants.DIV);
-    writer.endElement(HtmlConstants.TD);
-    writer.endElement(HtmlConstants.TR);
-    writer.endElement(HtmlConstants.TABLE);
+    writer.endElement(HtmlElements.IMG);
+    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.DIV);
+    writer.endElement(HtmlElements.TD);
+    writer.endElement(HtmlElements.TR);
+    writer.endElement(HtmlElements.TABLE);
 
     writeSliderJavaScript(facesContext, slider, writer);
     //HtmlRendererUtils.renderFocusId(facesContext, slider);

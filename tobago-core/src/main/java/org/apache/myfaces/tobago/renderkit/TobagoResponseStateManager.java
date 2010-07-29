@@ -17,9 +17,9 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 
 import javax.faces.render.ResponseStateManager;
@@ -65,12 +65,12 @@ public class TobagoResponseStateManager extends ResponseStateManager {
 
     if (treeStruct != null) {
       if (treeStruct instanceof String) {
-        responseWriter.startElement(HtmlConstants.INPUT, null);
+        responseWriter.startElement(HtmlElements.INPUT, null);
         responseWriter.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
         responseWriter.writeAttribute(HtmlAttributes.NAME, TREE_PARAM, null);
         responseWriter.writeAttribute(HtmlAttributes.ID, TREE_PARAM, null);
         responseWriter.writeAttribute(HtmlAttributes.VALUE, treeStruct, null);
-        responseWriter.endElement(HtmlConstants.INPUT);
+        responseWriter.endElement(HtmlElements.INPUT);
       }
     } else {
       if (LOG.isDebugEnabled()) {
@@ -78,7 +78,7 @@ public class TobagoResponseStateManager extends ResponseStateManager {
       }
     }
 
-    responseWriter.startElement(HtmlConstants.INPUT, null);
+    responseWriter.startElement(HtmlElements.INPUT, null);
     responseWriter.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
     responseWriter.writeAttribute(HtmlAttributes.NAME, STATE_PARAM, null);
     responseWriter.writeAttribute(HtmlAttributes.ID, STATE_PARAM, null);
@@ -92,14 +92,14 @@ public class TobagoResponseStateManager extends ResponseStateManager {
         LOG.debug("No component states to be saved in client response!");
       }
     }
-    responseWriter.endElement(HtmlConstants.INPUT);
+    responseWriter.endElement(HtmlElements.INPUT);
 
-    responseWriter.startElement(HtmlConstants.INPUT, null);
+    responseWriter.startElement(HtmlElements.INPUT, null);
     responseWriter.writeAttribute(HtmlAttributes.TYPE, "hidden", null);
     responseWriter.writeAttribute(HtmlAttributes.NAME, VIEWID_PARAM, null);
     responseWriter.writeAttribute(HtmlAttributes.ID, VIEWID_PARAM, null);
     responseWriter.writeAttribute(HtmlAttributes.VALUE, facescontext.getViewRoot().getViewId(), null);
-    responseWriter.endElement(HtmlConstants.INPUT);
+    responseWriter.endElement(HtmlElements.INPUT);
   }
 
 }

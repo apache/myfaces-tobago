@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterWrapper;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.StyleClasses;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -147,9 +147,9 @@ public final class HtmlRendererUtil {
       writer.writeText(text);
     } else {
       writer.writeText(text.substring(0, pos));
-      writer.startElement(HtmlConstants.U, null);
+      writer.startElement(HtmlElements.U, null);
       writer.writeText(Character.toString(text.charAt(pos)));
-      writer.endElement(HtmlConstants.U);
+      writer.endElement(HtmlElements.U);
       writer.writeText(text.substring(pos + 1));
     }
   }
@@ -419,7 +419,7 @@ public final class HtmlRendererUtil {
    */
   @Deprecated
   public static void startJavascript(ResponseWriter writer) throws IOException {
-    writer.startElement(HtmlConstants.SCRIPT, null);
+    writer.startElement(HtmlElements.SCRIPT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, "text/javascript", null);
     writer.write("\n<!--\n");
   }
@@ -430,7 +430,7 @@ public final class HtmlRendererUtil {
   @Deprecated
   public static void endJavascript(ResponseWriter writer) throws IOException {
     writer.write("\n// -->\n");
-    writer.endElement(HtmlConstants.SCRIPT);
+    writer.endElement(HtmlElements.SCRIPT);
   }
 
   /**

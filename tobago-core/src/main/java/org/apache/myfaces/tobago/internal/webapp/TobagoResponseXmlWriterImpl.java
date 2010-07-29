@@ -17,7 +17,7 @@ package org.apache.myfaces.tobago.internal.webapp;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.util.XmlUtils;
 
 import javax.faces.context.ResponseWriter;
@@ -68,13 +68,13 @@ public final class TobagoResponseXmlWriterImpl extends TobagoResponseWriterBase 
   public void startDocument() throws IOException {
     getWriter().write(XHTML_DOCTYPE);
     getWriter().write('\n');
-    startElement(HtmlConstants.HTML, null);
+    startElement(HtmlElements.HTML, null);
     writeAttribute("xmlns", "http://www.w3.org/1999/xhtml", false);
 
   }
 
   @Override
   public void endDocument() throws IOException {
-    endElement(HtmlConstants.HTML);
+    endElement(HtmlElements.HTML);
   }
 }

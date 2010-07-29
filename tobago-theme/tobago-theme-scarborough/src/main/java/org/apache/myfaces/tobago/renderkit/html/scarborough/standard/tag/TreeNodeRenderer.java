@@ -37,7 +37,7 @@ import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.CommandRendererHelper;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -126,7 +126,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     boolean expanded = isExpanded(tree, node);
 
     if (level > 0) { // root will not rendered as an option
-      writer.startElement(HtmlConstants.OPTION, null);
+      writer.startElement(HtmlElements.OPTION, null);
 // todo: define where to store the selection of a tree, node.getValue() seems not to be a god place.
 //        writer.writeAttribute(HtmlAttributes.VALUE, node.getValue().toString(), true); // XXX converter?
       writer.writeIdAttribute(id);
@@ -135,7 +135,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       if (folder) {
         writer.writeText(" \u2192");
       }
-      writer.endElement(HtmlConstants.OPTION);
+      writer.endElement(HtmlElements.OPTION);
     }
 
     if (folder) {
@@ -144,7 +144,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       boolean alreadyExists = divider.activateBranch(facesContext);
       writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
       if (!alreadyExists) {
-        writer.startElement(HtmlConstants.DIV, null);
+        writer.startElement(HtmlElements.DIV, null);
         writer.writeClassAttribute(Classes.create(tree, "level"));
         Style levelStyle = new Style();
         levelStyle.setLeft(Measure.valueOf(level * 160)); // xxx 160 should be configurable
@@ -152,15 +152,15 @@ public class TreeNodeRenderer extends CommandRendererBase {
         // at the start of each div there is an empty and disabled select tag to show empty area.
         // this is not needed for the 1st level.
         if (level > 0) {
-          writer.startElement(HtmlConstants.SELECT, null);
+          writer.startElement(HtmlElements.SELECT, null);
           writer.writeAttribute(HtmlAttributes.DISABLED, true);
           writer.writeAttribute(HtmlAttributes.SIZE, 2); // must be > 1, but the size comes from the layout
           writer.writeClassAttribute(Classes.create(tree, "select"));
-          writer.endElement(HtmlConstants.SELECT);
+          writer.endElement(HtmlElements.SELECT);
         }
       }
 
-      writer.startElement(HtmlConstants.SELECT, node);
+      writer.startElement(HtmlElements.SELECT, node);
       writer.writeIdAttribute(id + ComponentUtils.SUB_SEPARATOR + "select");
       writer.writeClassAttribute(Classes.create(tree, "select"));
       if (!expanded) {
@@ -171,9 +171,9 @@ public class TreeNodeRenderer extends CommandRendererBase {
       writer.writeAttribute(HtmlAttributes.MULTIPLE, siblingMode);
 
 // XXX insert options here
-      writer.startElement(HtmlConstants.OPTGROUP, null);
+      writer.startElement(HtmlElements.OPTGROUP, null);
       writer.writeAttribute(HtmlAttributes.LABEL, node.getLabel(), true);
-      writer.endElement(HtmlConstants.OPTGROUP);
+      writer.endElement(HtmlElements.OPTGROUP);
     }
   }
 
@@ -242,7 +242,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     if (showRoot || level != 0) {
-      writer.startElement(HtmlConstants.DIV, null);
+      writer.startElement(HtmlElements.DIV, null);
 
       // div id
       writer.writeIdAttribute(id);
@@ -293,12 +293,12 @@ public class TreeNodeRenderer extends CommandRendererBase {
         RenderUtils.encode(facesContext, facet);
       }
 
-      writer.endElement(HtmlConstants.DIV);
+      writer.endElement(HtmlElements.DIV);
     }
 
     if (folder) {
       String contentStyle = "display: " + (expanded ? "block" : "none") + ";";
-      writer.startElement(HtmlConstants.DIV, null);
+      writer.startElement(HtmlElements.DIV, null);
       writer.writeIdAttribute(id + "-cont");
       writer.writeStyleAttribute(contentStyle);
     }
@@ -306,12 +306,12 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
   private void encodeExpandedHidden(TobagoResponseWriter writer, UITreeNode node, String clientId,
                                     boolean expanded) throws IOException {
-    writer.startElement(HtmlConstants.INPUT, node);
+    writer.startElement(HtmlElements.INPUT, node);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeNameAttribute(clientId + "-expanded");
     writer.writeIdAttribute(clientId + "-expanded");
     writer.writeAttribute(HtmlAttributes.VALUE, Boolean.toString(expanded), false);
-    writer.endElement(HtmlConstants.INPUT);
+    writer.endElement(HtmlElements.INPUT);
   }
 
   private void encodeMenuIcon(
@@ -327,13 +327,13 @@ public class TreeNodeRenderer extends CommandRendererBase {
       onclick += ";" + objOnclick;
     }
     String src = expanded ? menuOpen : menuClose;
-    writer.startElement(HtmlConstants.IMG, null);
+    writer.startElement(HtmlElements.IMG, null);
     writer.writeClassAttribute(Classes.create(node, "menuIcon"));
     writer.writeIdAttribute(id + "-menuIcon");
     writer.writeAttribute("src", src, true);
     writer.writeAttribute("onclick", onclick, true);
     writer.writeAttribute("alt", "", false);
-    writer.endElement(HtmlConstants.IMG);
+    writer.endElement(HtmlElements.IMG);
   }
 
   private void encodeIndent(
@@ -345,14 +345,14 @@ public class TreeNodeRenderer extends CommandRendererBase {
     String perpendicular = ResourceManagerUtils.getImageWithPath(facesContext, "image/I.gif");
 
     for (Boolean junction : junctions) {
-      writer.startElement(HtmlConstants.IMG, null);
+      writer.startElement(HtmlElements.IMG, null);
       writer.writeClassAttribute(Classes.create(node, "junction"));
       if (junction && !menuMode && showJunctions) {
         writer.writeAttribute("src", perpendicular, true);
       } else {
         writer.writeAttribute("src", blank, true);
       }
-      writer.endElement(HtmlConstants.IMG);
+      writer.endElement(HtmlElements.IMG);
     }
   }
 
@@ -364,7 +364,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     if (!(!showJunctions
         || !showRootJunction && level == 0
         || !showRootJunction && !showRoot && level == 1)) {
-      writer.startElement(HtmlConstants.IMG, null);
+      writer.startElement(HtmlElements.IMG, null);
       writer.writeClassAttribute(Classes.create(node, "junction"));
       writer.writeIdAttribute(id + "-junction");
 
@@ -385,7 +385,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
         writer.writeAttribute("onclick", createOnclickForToggle(treeId, openSource, closedSource), true);
       }
       writer.writeAttribute("alt", "", false);
-      writer.endElement(HtmlConstants.IMG);
+      writer.endElement(HtmlElements.IMG);
     }
   }
 
@@ -395,7 +395,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       throws IOException {
 
     if (showIcons) {
-      writer.startElement(HtmlConstants.IMG, null);
+      writer.startElement(HtmlElements.IMG, null);
       writer.writeClassAttribute(Classes.create(node, "icon"));
       writer.writeIdAttribute(id + "-icon"); //XXX may not okay with naming conventions
 
@@ -404,7 +404,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
         writer.writeAttribute("onclick", createOnclickForToggle(treeId, openSource, closedSource), true);
       }
       writer.writeAttribute("alt", "", false);
-      writer.endElement(HtmlConstants.IMG);
+      writer.endElement(HtmlElements.IMG);
     }
   }
 
@@ -435,7 +435,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       TobagoResponseWriter writer, CommandRendererHelper helper, UITreeNode node, boolean marked, String treeId)
       throws IOException {
 
-    writer.startElement(HtmlConstants.A, null);
+    writer.startElement(HtmlElements.A, null);
     if (!helper.isDisabled()) {
       writer.writeAttribute(HtmlAttributes.HREF, helper.getHref(), true);
       writer.writeAttribute(HtmlAttributes.ONCLICK, helper.getOnclick(), true); // xxx is escaping required?
@@ -457,7 +457,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
       label = "";
     }
     writer.writeText(label);
-    writer.endElement(HtmlConstants.A);
+    writer.endElement(HtmlElements.A);
   }
 
   @Override
@@ -476,7 +476,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     if (folder) {
       TobagoResponseWriterImpl writer 
           = (TobagoResponseWriterImpl) HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-      writer.endElement(HtmlConstants.SELECT);
+      writer.endElement(HtmlElements.SELECT);
       ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, TreeListboxRenderer.DIVIDER);
       divider.passivateBranch(facesContext);
     }
@@ -490,7 +490,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     if (folder) {
-      writer.endElement(HtmlConstants.DIV);
+      writer.endElement(HtmlElements.DIV);
       writer.writeComment("\nend of " + id + "-cont ");
     }
   }

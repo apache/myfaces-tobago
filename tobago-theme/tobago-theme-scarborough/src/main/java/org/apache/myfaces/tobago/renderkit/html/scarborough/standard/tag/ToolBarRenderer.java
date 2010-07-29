@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -40,7 +40,7 @@ public class ToolBarRenderer extends ToolBarRendererBase {
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlConstants.DIV, toolBar);
+    writer.startElement(HtmlElements.DIV, toolBar);
     writer.writeIdAttribute(toolBar.getClientId(facesContext));
     HtmlRendererUtils.renderDojoDndItem(toolBar, writer, true);
     writer.writeClassAttribute(Classes.create(toolBar));
@@ -51,7 +51,7 @@ public class ToolBarRenderer extends ToolBarRendererBase {
     }
     writer.writeStyleAttribute(style);
     super.encodeEnd(facesContext, toolBar);
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
   }
 
   @Override

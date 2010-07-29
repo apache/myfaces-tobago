@@ -27,7 +27,7 @@ import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Position;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -81,39 +81,39 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.startElement(HtmlConstants.DIV, tree);
+    writer.startElement(HtmlElements.DIV, tree);
     writer.writeClassAttribute(Classes.create(tree));
     Style style = new Style(facesContext, tree);
     writer.writeStyleAttribute(style);
 
-    writer.startElement(HtmlConstants.INPUT, tree);
+    writer.startElement(HtmlElements.INPUT, tree);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
     writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
-    writer.endElement(HtmlConstants.INPUT);
+    writer.endElement(HtmlElements.INPUT);
 
-    writer.startElement(HtmlConstants.INPUT, tree);
+    writer.startElement(HtmlElements.INPUT, tree);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeNameAttribute(clientId + AbstractUITree.MARKER);
     writer.writeIdAttribute(clientId + AbstractUITree.MARKER);
     writer.writeAttribute(HtmlAttributes.VALUE, "", false);
-    writer.endElement(HtmlConstants.INPUT);
+    writer.endElement(HtmlElements.INPUT);
 
     if (isSelectable(tree)) {
-      writer.startElement(HtmlConstants.INPUT, tree);
+      writer.startElement(HtmlElements.INPUT, tree);
       writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
       writer.writeNameAttribute(clientId + AbstractUITree.SELECT_STATE);
       writer.writeIdAttribute(clientId + AbstractUITree.SELECT_STATE);
       writer.writeAttribute(HtmlAttributes.VALUE, ";", false);
-      writer.endElement(HtmlConstants.INPUT);
+      writer.endElement(HtmlElements.INPUT);
     }
 
     HtmlRendererUtils.writeScriptLoader(facesContext, SCRIPT);
 
     RenderUtils.encode(facesContext, root);
 
-    writer.startElement(HtmlConstants.DIV, tree);
+    writer.startElement(HtmlElements.DIV, tree);
     Style scrollDivStyle = new Style();
     scrollDivStyle.setWidth(Measure.valueOf(6 * 160)); // todo: depth * width of a select 
     scrollDivStyle.setHeight(style.getHeight() // todo: what, when there is no scrollbar? 
@@ -125,7 +125,7 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
     // write in all open branches the end tag.
     while (divider.activateBranch(facesContext)) {
       writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-      writer.endElement(HtmlConstants.DIV);
+      writer.endElement(HtmlElements.DIV);
     }
     while (divider.passivateBranch(facesContext)) {
     }  
@@ -134,9 +134,9 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
 
     writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
     
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
   }
 
   // XXX can be removed?

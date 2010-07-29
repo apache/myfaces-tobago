@@ -26,7 +26,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -45,11 +45,11 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
 
     boolean value = ComponentUtils.getBooleanAttribute(component, Attributes.VALUE);
 
-    writer.startElement(HtmlConstants.SELECT, component);
+    writer.startElement(HtmlElements.SELECT, component);
     writer.writeNameAttribute(component.getClientId(facesContext));
     writer.writeIdAttribute(component.getClientId(facesContext));
     writer.writeAttribute(HtmlAttributes.MULTIPLE, true);
-    writer.startElement(HtmlConstants.OPTION, null);
+    writer.startElement(HtmlElements.OPTION, null);
     writer.writeAttribute(HtmlAttributes.VALUE, value ? "on" : "off", false);
 
     UIComponent label = component.getFacet(Facets.LABEL);
@@ -57,7 +57,7 @@ public class SelectBooleanCheckboxRenderer extends LayoutComponentRendererBase {
       RenderUtils.encode(facesContext, label);
     }
 
-    writer.endElement(HtmlConstants.OPTION);
-    writer.endElement(HtmlConstants.SELECT);
+    writer.endElement(HtmlElements.OPTION);
+    writer.endElement(HtmlElements.SELECT);
   }
 }

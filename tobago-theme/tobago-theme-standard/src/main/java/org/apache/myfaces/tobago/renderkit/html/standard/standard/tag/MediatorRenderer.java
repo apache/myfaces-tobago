@@ -17,12 +17,12 @@ package org.apache.myfaces.tobago.renderkit.html.standard.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.UIMediator;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Style;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
@@ -39,7 +39,7 @@ public class MediatorRenderer extends LayoutComponentRendererBase {
 
     UIMediator mediator = (UIMediator) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.startElement(HtmlConstants.DIV, mediator);
+    writer.startElement(HtmlElements.DIV, mediator);
     writer.writeStyleAttribute(new Style(facesContext, mediator));
   }
 
@@ -47,6 +47,6 @@ public class MediatorRenderer extends LayoutComponentRendererBase {
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    writer.endElement(HtmlConstants.DIV);
+    writer.endElement(HtmlElements.DIV);
   }
 }

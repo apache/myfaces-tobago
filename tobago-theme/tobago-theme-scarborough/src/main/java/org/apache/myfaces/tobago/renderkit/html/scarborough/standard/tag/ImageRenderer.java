@@ -30,7 +30,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -83,7 +83,7 @@ public class ImageRenderer extends LayoutComponentRendererBase {
       alt = "";
     }
 
-    writer.startElement(HtmlConstants.IMG, image);
+    writer.startElement(HtmlElements.IMG, image);
     final String clientId = image.getClientId(facesContext);
     writer.writeIdAttribute(clientId);
     if (src != null) {
@@ -96,7 +96,7 @@ public class ImageRenderer extends LayoutComponentRendererBase {
     writer.writeStyleAttribute(style);
     HtmlRendererUtils.renderDojoDndItem(image, writer, true);
     writer.writeClassAttribute(Classes.create(image));
-    writer.endElement(HtmlConstants.IMG);
+    writer.endElement(HtmlElements.IMG);
   }
 
   private String createSrc(String src, String ext) {

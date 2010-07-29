@@ -22,7 +22,7 @@ import org.apache.myfaces.tobago.renderkit.SelectManyRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -58,7 +58,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     boolean disabled = items.size() == 0 || select.isDisabled() || select.isReadonly();
 
     String title = HtmlRendererUtils.getTitleFromTipAndMessages(facesContext, select);
-    writer.startElement(HtmlConstants.SELECT, select);
+    writer.startElement(HtmlElements.SELECT, select);
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
@@ -76,7 +76,7 @@ public class SelectManyListboxRenderer extends SelectManyRendererBase {
     Object[] values = select.getSelectedValues();
     HtmlRendererUtils.renderSelectItems(select, items, values, writer, facesContext);
 
-    writer.endElement(HtmlConstants.SELECT);
+    writer.endElement(HtmlElements.SELECT);
     HtmlRendererUtils.renderFocusId(facesContext, select);
     HtmlRendererUtils.checkForCommandFacet(select, facesContext, writer);
   }

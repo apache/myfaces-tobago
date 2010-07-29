@@ -23,7 +23,7 @@ import org.apache.myfaces.tobago.renderkit.SelectOneRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -59,7 +59,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     List<SelectItem> items = RenderUtils.getSelectItems(select);
     boolean disabled = items.size() == 0 || select.isDisabled() || select.isReadonly();
 
-    writer.startElement(HtmlConstants.SELECT, select);
+    writer.startElement(HtmlElements.SELECT, select);
     writer.writeNameAttribute(id);
     writer.writeIdAttribute(id);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
@@ -79,7 +79,7 @@ public class SelectOneListboxRenderer extends SelectOneRendererBase {
     Object[] values = {select.getValue()};
     HtmlRendererUtils.renderSelectItems(select, items, values, writer, facesContext);
 
-    writer.endElement(HtmlConstants.SELECT);
+    writer.endElement(HtmlElements.SELECT);
     super.encodeEnd(facesContext, select);
     HtmlRendererUtils.renderFocusId(facesContext, select);
     HtmlRendererUtils.checkForCommandFacet(select, facesContext, writer);

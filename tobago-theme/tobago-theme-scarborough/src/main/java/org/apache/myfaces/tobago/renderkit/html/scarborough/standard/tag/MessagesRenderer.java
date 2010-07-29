@@ -39,7 +39,7 @@ import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
@@ -76,7 +76,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
       LOG.debug("facesContext is " + facesContext.getClass().getName());
     }
     if (facesContext.getMessages().hasNext()) { // in ie empty span gets a height
-      writer.startElement(HtmlConstants.SPAN, messages);
+      writer.startElement(HtmlElements.SPAN, messages);
       writer.writeClassAttribute(Classes.create(messages));
       writer.writeStyleAttribute(new Style(facesContext, messages));
 
@@ -107,7 +107,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
         ComponentUtils.findPage(facesContext, messages).setFocusId(focusId);
       }
 */
-      writer.endElement(HtmlConstants.SPAN);
+      writer.endElement(HtmlElements.SPAN);
     }
   }
 
@@ -196,7 +196,7 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
 
     String summary = message.getSummary();
     String detail = message.getDetail();
-    writer.startElement(HtmlConstants.LABEL, null);
+    writer.startElement(HtmlElements.LABEL, null);
     if (clientId != null) {
       writer.writeAttribute(HtmlAttributes.FOR, clientId, false);
     }
@@ -218,9 +218,9 @@ public class MessagesRenderer extends LayoutComponentRendererBase {
     if (writeEmptyText) {
       writer.writeText("");
     }
-    writer.endElement(HtmlConstants.LABEL);
-    writer.startElement(HtmlConstants.BR, null);
-    writer.endElement(HtmlConstants.BR);
+    writer.endElement(HtmlElements.LABEL);
+    writer.startElement(HtmlElements.BR, null);
+    writer.endElement(HtmlElements.BR);
   }
 
   @Override
