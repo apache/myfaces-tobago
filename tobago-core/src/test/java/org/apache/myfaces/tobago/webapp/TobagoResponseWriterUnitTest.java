@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.webapp;
 
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseWriterImpl;
 import org.apache.myfaces.tobago.internal.webapp.TobagoResponseXmlWriterImpl;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -64,7 +65,7 @@ public class TobagoResponseWriterUnitTest {
   @Test
   public void testAttribute() throws IOException {
     writer.startElement("select", null);
-    writer.writeAttribute("value", "0", null);
+    writer.writeAttribute(HtmlAttributes.VALUE, "0", null);
     writer.endElement("select");
     Assert.assertEquals("attr tag", "<select value=\"0\"\n></select>", stringWriter.toString());
   }
@@ -72,7 +73,7 @@ public class TobagoResponseWriterUnitTest {
   @Test
   public void testAttributeQuoting() throws IOException {
     writer.startElement("select", null);
-    writer.writeAttribute("value", "-<->-ü-€-", null);
+    writer.writeAttribute(HtmlAttributes.VALUE, "-<->-ü-€-", null);
     writer.endElement("select");
     Assert.assertEquals("attr tag", "<select value=\"-&lt;-&gt;-ü-€-\"\n></select>", stringWriter.toString());
   }
@@ -98,7 +99,7 @@ public class TobagoResponseWriterUnitTest {
     for (char c = 0x20; c < 0x1ff; c++) {
       buffer.append(c);
     }
-    writer.writeAttribute("value", buffer, null);
+    writer.writeAttribute(HtmlAttributes.VALUE, buffer, null);
     writer.writeText(buffer, null);
     writer.endElement("select");
 
@@ -115,8 +116,8 @@ public class TobagoResponseWriterUnitTest {
   public void testNonUtf8() throws IOException {
     TobagoResponseWriter writer1 = new TobagoResponseWriterImpl(stringWriter, "", "ISO-8859-1");
     writer1.startElement("input", null);
-    writer1.writeAttribute("value", "Gutschein über 100 €.", null);
-    writer1.writeAttribute("readonly", true);
+    writer1.writeAttribute(HtmlAttributes.VALUE, "Gutschein über 100 €.", null);
+    writer1.writeAttribute(HtmlAttributes.READONLY, true);
     writer1.endElement("input");
     writer1.close();
     Assert.assertEquals("<input value=\"Gutschein &uuml;ber 100 &euro;.\" readonly=\"readonly\"\n>",

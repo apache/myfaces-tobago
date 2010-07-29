@@ -26,6 +26,7 @@ import org.apache.commons.collections.keyvalue.DefaultKeyValue;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
@@ -66,14 +67,14 @@ public class SelectOneChoiceRenderer extends LayoutComponentRendererBase {
     writer.startElement("select", selectOne);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute("value", value, true);
-    writer.writeAttribute("multiple", Boolean.FALSE.toString(), false);
+    writer.writeAttribute(HtmlAttributes.VALUE, value, true);
+    writer.writeAttribute(HtmlAttributes.MULTIPLE, Boolean.FALSE.toString(), false);
 
     for (SelectItem item : items) {
       writer.startElement("option", selectOne);
       String formattedValue
           = RenderUtils.getFormattedValue(facesContext, component, item.getValue());
-      writer.writeAttribute("value", formattedValue, true);
+      writer.writeAttribute(HtmlAttributes.VALUE, formattedValue, true);
       writer.writeText(item.getLabel());
       writer.endElement("option");
     }

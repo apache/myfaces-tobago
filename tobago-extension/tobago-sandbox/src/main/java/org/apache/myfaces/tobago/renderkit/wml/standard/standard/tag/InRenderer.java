@@ -22,6 +22,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
@@ -60,8 +61,8 @@ public class InRenderer extends LayoutComponentRendererBase {
     writer.startElement("input", component);
     writer.writeNameAttribute(clientId);
     writer.writeIdAttribute(clientId);
-    writer.writeAttribute("value", currentValue, true);
-    writer.writeAttribute("type", type, false);
+    writer.writeAttribute(HtmlAttributes.VALUE, currentValue, true);
+    writer.writeAttribute(HtmlAttributes.TYPE, type, false);
     writer.endElement("input");
 
 

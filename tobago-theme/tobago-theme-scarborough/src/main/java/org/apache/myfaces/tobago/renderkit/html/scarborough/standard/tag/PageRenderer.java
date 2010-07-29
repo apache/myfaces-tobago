@@ -178,8 +178,8 @@ public class PageRenderer extends PageRendererBase {
     // meta
     // this is needed, because websphere 6.0? ignores the setting of the content type on the response
     writer.startElement(HtmlConstants.META, null);
-    writer.writeAttribute("http-equiv", "Content-Type", false);
-    writer.writeAttribute("content", contentType, false);
+    writer.writeAttribute(HtmlAttributes.HTTP_EQUIV, "Content-Type", false);
+    writer.writeAttribute(HtmlAttributes.CONTENT, contentType, false);
     writer.endElement(HtmlConstants.META);
 
     // title

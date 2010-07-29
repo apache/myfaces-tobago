@@ -24,6 +24,7 @@ package org.apache.myfaces.tobago.renderkit.wml.standard.standard.tag;
 
 import org.apache.commons.collections.KeyValue;
 import org.apache.commons.collections.keyvalue.DefaultKeyValue;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
@@ -67,12 +68,12 @@ public class ButtonRenderer extends LayoutComponentRendererBase {
       writer.writeText(label);
 
       writer.startElement("go", command);
-      //writer.writeAttribute("href", action, null);
+      //writer.writeAttribute(HtmlAttributes.HREF, action, null);
 
       for (KeyValue postField : page.getPostfields()) {
         writer.startElement("postfield", command);
-        writer.writeAttribute("name", "" + postField.getKey(), false);
-        writer.writeAttribute("value", "" + postField.getValue(), true);
+        writer.writeAttribute(HtmlAttributes.NAME, "" + postField.getKey(), false);
+        writer.writeAttribute(HtmlAttributes.VALUE, "" + postField.getValue(), true);
         writer.endElement("postfield");
       }
       writer.endElement("go");

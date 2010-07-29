@@ -325,7 +325,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
           writer.writeClassAttribute(Classes.create(sheet, "columnSelector"));
           if (disabled) {
             writer.writeAttribute(HtmlAttributes.SRC, selectorDisabled, false);
-            writer.writeAttribute("disabled", "true", false);
+            writer.writeAttribute(HtmlAttributes.DISABLED, "true", false);
           } else {
             writer.writeAttribute(HtmlAttributes.SRC, unchecked, false);
           }

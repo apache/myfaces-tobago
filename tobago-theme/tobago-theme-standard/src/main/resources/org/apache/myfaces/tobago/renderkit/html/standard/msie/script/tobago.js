@@ -86,6 +86,7 @@ Tobago.fixImage = function(element) {
   }
 };
 
+/* TOBAGO-789 */
 Tobago.fixSelectionOnFocusIn = function() {
   try {
     var src = window.event.srcElement;
@@ -97,6 +98,7 @@ Tobago.fixSelectionOnFocusIn = function() {
   }
 };
 
+/* TOBAGO-789 */
 Tobago.fixSelectionOnFocus = function() {
   try {
     var src = window.event.srcElement;

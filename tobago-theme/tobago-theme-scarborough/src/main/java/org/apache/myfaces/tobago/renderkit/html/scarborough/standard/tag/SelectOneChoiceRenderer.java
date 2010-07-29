@@ -79,9 +79,10 @@ public class SelectOneChoiceRenderer extends SelectOneRendererBase {
       writer.writeAttribute(HtmlAttributes.ONCHANGE, onchange, true);
     }
     
+    // TOBAGO-789
     if (VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().isMsie()) {
-      writer.writeAttribute("onfocusin", "Tobago.fixSelectionOnFocusIn()", false);
-      writer.writeAttribute("onfocus", "Tobago.fixSelectionOnFocus()", false);
+      writer.writeAttribute(HtmlAttributes.ONFOCUSIN, "Tobago.fixSelectionOnFocusIn()", false);
+      writer.writeAttribute(HtmlAttributes.ONFOCUS, "Tobago.fixSelectionOnFocus()", false);
     }
     Object[] values = {select.getValue()};
 

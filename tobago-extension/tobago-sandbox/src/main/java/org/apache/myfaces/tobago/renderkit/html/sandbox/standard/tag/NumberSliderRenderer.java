@@ -85,7 +85,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     writer.writeIdAttribute(id);
     writer.writeClassAttribute(Classes.create(slider));
     writer.writeStyleAttribute(style);
-    //writer.writeAttribute("border","1",false);
+    //writer.writeAttribute(HtmlAttributes.BORDER,"1",false);
 
     writer.startElement(HtmlConstants.TR, null);
     writer.startElement(HtmlConstants.TD, null);
@@ -111,7 +111,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
 
     // the input field starts here
     writer.startElement(HtmlConstants.TD, null);
-    writer.writeAttribute("rowspan", "2", false);
+    writer.writeAttribute(HtmlAttributes.ROWSPAN, "2", false);
     writer.writeClassAttribute(Classes.create(slider, "td"));
 
     writer.startElement(HtmlConstants.INPUT, null);
@@ -133,7 +133,7 @@ public class NumberSliderRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlConstants.TR);
     writer.startElement(HtmlConstants.TR, null);
     writer.startElement(HtmlConstants.TD, null);
-    writer.writeAttribute("colspan", 2);
+    writer.writeAttribute(HtmlAttributes.COLSPAN, 2);
 
     //track
     writer.startElement(HtmlConstants.DIV, null);
