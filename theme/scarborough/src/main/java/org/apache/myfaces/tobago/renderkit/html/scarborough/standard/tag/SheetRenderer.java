@@ -300,10 +300,15 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       writer.endElement(HtmlConstants.DIV);
 
       if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
+        int iframeWidth = 0;
+        for (Integer width : columnWidths) {
+          iframeWidth = iframeWidth + width;
+        }
         writer.startElement(HtmlConstants.IFRAME, null);
         writer.writeIdAttribute(sheetId + "_header_div" + SUBCOMPONENT_SEP + HtmlConstants.IFRAME);
         writer.writeClassAttribute("tobago-sheet-header-iframe");
         headerStyle.put("z-index", zIndex);
+        headerStyle.put("width", iframeWidth);
         writer.writeAttribute(HtmlAttributes.STYLE, headerStyle.toString(), false);
         writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getBlankPage(facesContext), false);
         writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
