@@ -266,9 +266,9 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       writer.writeClassAttribute("tobago-sheet-header-div");
       
       HtmlStyleMap headerStyle = (HtmlStyleMap) attributes.get(ATTR_STYLE_HEADER);
+      Integer zIndex = getZIndex(facesContext);
       if (headerStyle != null) {
-        Integer zIndex = getZIndex(facesContext);
-        headerStyle.put("z-index", zIndex);
+        headerStyle.put("z-index", zIndex+1);
         writer.writeStyleAttribute(headerStyle);
       }
 
@@ -298,22 +298,18 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       writer.endElement(HtmlConstants.DIV);
 
       writer.endElement(HtmlConstants.DIV);
-      writer.endElement(HtmlConstants.DIV);
+
       if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
         writer.startElement(HtmlConstants.IFRAME, null);
         writer.writeIdAttribute(sheetId + "_header_div" + SUBCOMPONENT_SEP + HtmlConstants.IFRAME);
         writer.writeClassAttribute("tobago-sheet-header-iframe");
-        final StringBuilder iFrameStyle = new StringBuilder();
-        Integer zIndex = getZIndex(facesContext);
-        iFrameStyle.append("z-index: ");
-        iFrameStyle.append(zIndex + 2);
-        iFrameStyle.append("; ");
-        iFrameStyle.append(headerStyle);
-        writer.writeAttribute(HtmlAttributes.STYLE, iFrameStyle.toString(), false);
+        headerStyle.put("z-index", zIndex);
+        writer.writeAttribute(HtmlAttributes.STYLE, headerStyle.toString(), false);
         writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getBlankPage(facesContext), false);
         writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
         writer.endElement(HtmlConstants.IFRAME);
       }
+      writer.endElement(HtmlConstants.DIV);
       // end rendering header
     }
 
