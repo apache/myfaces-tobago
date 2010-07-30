@@ -34,6 +34,7 @@ import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.config.TobagoConfig;
+import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
 import org.apache.myfaces.tobago.context.ResourceManagerUtil;
@@ -266,12 +267,7 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       
       HtmlStyleMap headerStyle = (HtmlStyleMap) attributes.get(ATTR_STYLE_HEADER);
       if (headerStyle != null) {
-        Integer zIndex = (Integer) facesContext.getExternalContext().getRequestMap().get(TobagoConstants.ATTR_ZINDEX);
-        if (zIndex == null) {
-          zIndex = 1;
-        } else {
-          zIndex = zIndex + 4;
-        }
+        Integer zIndex = getZIndex(facesContext);
         headerStyle.put("z-index", zIndex);
         writer.writeStyleAttribute(headerStyle);
       }
@@ -303,6 +299,21 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
 
       writer.endElement(HtmlConstants.DIV);
       writer.endElement(HtmlConstants.DIV);
+      if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
+        writer.startElement(HtmlConstants.IFRAME, null);
+        writer.writeIdAttribute(sheetId + "_header_div" + SUBCOMPONENT_SEP + HtmlConstants.IFRAME);
+        writer.writeClassAttribute("tobago-sheet-header-iframe");
+        final StringBuilder iFrameStyle = new StringBuilder();
+        Integer zIndex = getZIndex(facesContext);
+        iFrameStyle.append("z-index: ");
+        iFrameStyle.append(zIndex + 2);
+        iFrameStyle.append("; ");
+        iFrameStyle.append(headerStyle);
+        writer.writeAttribute(HtmlAttributes.STYLE, iFrameStyle.toString(), false);
+        writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getBlankPage(facesContext), false);
+        writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
+        writer.endElement(HtmlConstants.IFRAME);
+      }
       // end rendering header
     }
 
@@ -468,6 +479,17 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
 
 
     renderFooter(facesContext, data, writer, sheetId, sheetHeight, footerHeight, bodyStyle);
+  }
+
+  private Integer getZIndex(FacesContext facesContext) {
+    Integer zIndex = (Integer) facesContext.getExternalContext().getRequestMap().get(TobagoConstants.ATTR_ZINDEX);
+    if (zIndex == null) {
+      zIndex = 1;
+    } else {
+      zIndex = zIndex + 4;
+    }
+    facesContext.getExternalContext().getRequestMap().put(TobagoConstants.ATTR_ZINDEX, zIndex);
+    return zIndex;
   }
 
   protected void renderFooter(FacesContext facesContext, UIData data, TobagoResponseWriter writer,
