@@ -52,7 +52,7 @@
           <tc:popup width="300" height="270" id="modal_popup">
             <tc:box label="Modal text input" id="modal_box">
               <f:facet name="layout">
-                <tc:gridLayout rows="fixed;fixed;fixed;*;fixed"/>
+                <tc:gridLayout rows="fixed;fixed;fixed;fixed;*;fixed"/>
               </f:facet>
 
               <tc:selectBooleanCheckbox value="#{reference.bool}"/>
@@ -60,6 +60,7 @@
               <tx:date>
                 <f:convertDateTime pattern="dd/MM/yyyy"/>
               </tx:date>
+              <tc:image value="image/feather-leaf.png" width="16px" height="16px"/>
               <tc:cell/>
               <tc:panel>
                 <f:facet name="layout">

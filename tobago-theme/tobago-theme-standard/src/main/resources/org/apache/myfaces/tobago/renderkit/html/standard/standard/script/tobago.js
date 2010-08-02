@@ -268,7 +268,6 @@ var Tobago = {
     if (TbgTimer.endBody) {
       TbgTimer.endAppOnload = new Date();
     }
-    this.loadPngFix();
 
     this.addBindEventListener(document, "keypress", this.acceleratorKeys, "observe");
 
@@ -340,16 +339,10 @@ var Tobago = {
     var overlay = Tobago.element(Tobago.page.id + "-overlay");
     if (overlay) {
       var img = document.createElement("IMG");
-      img.style.width = overlay.clientWidth;
-      img.style.height = overlay.clientHeight;
-      if (!Tobago.fixImage) { // is not IE
-        img.src = Tobago.OVERLAY_BACKGROUND;
-      } else {
-        // todo: not needed for IE 7
-        img.src = Tobago.pngFixBlankImage;
-        img.runtimeStyle.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
-            + Tobago.OVERLAY_BACKGROUND + "',sizingMethod='scale')";
-      }
+      img.style.width = "100%";
+      img.style.height = "100%";
+      img.src = Tobago.OVERLAY_BACKGROUND;
+      Tobago.fixPngAlpha(img);
       overlay.appendChild(img);
     }
   },
@@ -794,7 +787,7 @@ var Tobago = {
    // TODO move SelectOne function in Tobago.SelectOne object
 
   /**
-    * Onchange function for SelectOneListbox.
+    *  Onchange function for SelectOneListbox.
     */
   selectOneListboxChange: function(element) {
     if (element.oldValue == undefined) {
@@ -1580,7 +1573,12 @@ var Tobago = {
     return target;
   },
 
-  loadPngFix: function() {
+  fixPngAlphaAll: function() {
+    // we need only an implementation in the IE6 file.
+  },
+
+  fixPngAlpha: function(element) {
+    // we need only an implementation in the IE6 file.
   },
 
   getBrowser: function() {
@@ -2267,8 +2265,9 @@ Tobago.Updater = {
         var updateScript;
         eval("updateScript = " + data.script);
         updateScript();
+        Tobago.fixPngAlphaAll();
       } catch (e) {
-        LOG.error(e);
+        LOG.error("Error in doUpdate: " + e);
       }
     } else {
       Tobago.deleteOverlay(Tobago.element(Tobago.ajaxComponents[data.ajaxId]));
