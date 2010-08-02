@@ -16,17 +16,24 @@
  */
 
 Tobago.loadPngFix = function() {
-  var images = document.getElementsByTagName("img");
-  var supported = /MSIE (5\.5)|[6789]/.test(navigator.userAgent)
-      && navigator.platform == "Win32"
-      && Tobago.isActiveXEnabled();
-  if (! supported) {
-    return;
+  if (this.getBrowser().type == "msie" && this.getBrowser().version <= 6) {
+    var images = document.images;
+    for (var i = 0; i < images.length; i++) {
+      Tobago.fixPngAlpha(images[i]);
+    }
   }
-  for (var i = 0; i < images.length; i++) {
-    var image = images[i];
-    Tobago.fixImage(image);
-    Tobago.addEventListener(image, 'propertyChanged', Tobago.propertyChanged);
+};
+
+Tobago.fixPngAlpha = function(element) {
+  if (element.fixPngAlphaApplied != "applied") {
+    element.fixPngAlphaApplied = "applied";
+    if (this.getBrowser().type == "msie"
+        && this.getBrowser().version <= 6
+        && element.src.toLowerCase().match(/.*png/)
+        && Tobago.isActiveXEnabled()) {
+      Tobago.addEventListener(element, 'propertychange', Tobago.propertyChange);
+      Tobago.fixImage(element);
+    }
   }
 };
 
@@ -39,53 +46,24 @@ Tobago.isActiveXEnabled = function () {
   return true;
 };
 
-Tobago.propertyChanged = function() {
-  var pName = event.propertyName;
-  if (pName != "src") return;
-  // if not set to blank
-  if (! new RegExp(Tobago.pngFixBlankImage).test(src)) {
-    Tobago.fixImage(this);
+Tobago.propertyChange = function() {
+  if (event.propertyName != "src") {
+    return;
+  }
+  // if not set to blank (to avoid endless loop)
+  if (! new RegExp(Tobago.pngFixBlankImage).test(event.srcElement.src)) {
+    Tobago.fixImage(event.srcElement);
   }
 };
 
 Tobago.fixImage = function(element) {
-  // get src
-  var src = element.src;
-  // check for real change
-
-  if (src == element.realSrc) {
-    element.src = Tobago.pngFixBlankImage;
-    return;
-  }
-
-  if (! new RegExp(Tobago.pngFixBlankImage).test(src)) {
-    // backup old src
-    element.realSrc = src;
-  }
-
-  // test for png
-  if (element.realSrc != null &&
-      /\.png$/.test(element.realSrc.toLowerCase())) {
-    // get width and height of old src
-    var origWidth = element.clientWidth;
-    var origHeight = element.clientHeight;
-
-    // set blank image
-    element.src = Tobago.pngFixBlankImage;
-    // set filter
-
-    element.runtimeStyle.filter
-        = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
-        + src + "',sizingMethod='scale')";
-    element.style.width = origWidth + 'px';
-    element.style.height = origHeight + 'px';
-
-  } else {
-    // remove filter
-    element.runtimeStyle.filter = "";
-  }
+  element.runtimeStyle.backgroundImage = "none";
+  element.runtimeStyle.filter
+      = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + element.src + "', sizingMethod='scale')";
+  element.src = Tobago.pngFixBlankImage;
 };
 
+/* TOBAGO-789 */
 Tobago.fixSelectionOnFocusIn = function() {
   try {
     var src = window.event.srcElement;
@@ -93,16 +71,17 @@ Tobago.fixSelectionOnFocusIn = function() {
       src.tmpIndex = src.selectedIndex;
     }
   } catch (e) {
-     // ignore
+    // ignore
   }
 };
 
+/* TOBAGO-789 */
 Tobago.fixSelectionOnFocus = function() {
   try {
     var src = window.event.srcElement;
     if (src) {
       src.selectedIndex = src.tmpIndex;
-     }
+    }
   } catch (e) {
     // ignore
   }

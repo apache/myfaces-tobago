@@ -340,16 +340,10 @@ var Tobago = {
     var overlay = Tobago.element(Tobago.page.id + "-overlay");
     if (overlay) {
       var img = document.createElement("IMG");
-      img.style.width = overlay.clientWidth;
-      img.style.height = overlay.clientHeight;
-      if (!Tobago.fixImage) { // is not IE
-        img.src = Tobago.OVERLAY_BACKGROUND;
-      } else {
-        // todo: not needed for IE 7
-        img.src = Tobago.pngFixBlankImage;
-        img.runtimeStyle.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
-            + Tobago.OVERLAY_BACKGROUND + "',sizingMethod='scale')";
-      }
+      img.style.width = "100%";
+      img.style.height = "100%";
+      img.src = Tobago.OVERLAY_BACKGROUND;
+      Tobago.fixPngAlpha(img);
       overlay.appendChild(img);
     }
   },
@@ -1757,6 +1751,10 @@ var Tobago = {
   loadPngFix: function() {
   },
 
+  fixPngAlpha: function(element) {
+    // we need only an implementation in the IE6 file.
+  },
+
   getBrowser: function() {
     if (!this.browser) {
       var agent = navigator.userAgent.toLowerCase();
@@ -2284,6 +2282,7 @@ Tobago.Updater = {
         if (Tobago.isFunction(onComplete)) {
           try {
             onComplete(transport, json);
+            Tobago.loadPngFix();
           } catch(e) {
             LOG.show();
             LOG.warn(e);
