@@ -22,7 +22,7 @@ Object.extend(new Ajax.Base(), {
   initialize: function(element, page, options) {
 	  this.baseInitialize(element, $(element).id + Tobago.SUB_COMPONENT_SEP + "ajaxPopup", options);
     this.options.asynchronous = true;
-    this.options.onComplete   = this.onComplete.bind(this)
+    this.options.onComplete   = this.onComplete.bind(this);
     this.options.method       = 'post';
     this.page                  = $(page);
     this.options.onShow       =
@@ -31,8 +31,9 @@ Object.extend(new Ajax.Base(), {
           if(!update.style.position || update.style.position=='absolute') {
             update.style.position = 'absolute';
             var offsets = Position.cumulativeOffset(element);
-            update.style.top    = (offsets[1] + element.offsetHeight) + 'px';
-            update.style.left   = offsets[0] + 'px';
+            var scrollOffsets = Position.realOffset(element);
+            update.style.top = (offsets[1] - scrollOffsets[1] + document.body.scrollTop + element.offsetHeight) + 'px';
+            update.style.left = (offsets[0] - scrollOffsets[0] + document.body.scrollLeft) + 'px';
           }
           Effect.Appear(update,{duration:0.15});
         };
