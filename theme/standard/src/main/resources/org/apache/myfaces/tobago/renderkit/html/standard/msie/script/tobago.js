@@ -15,53 +15,10 @@
  * limitations under the License.
  */
 
-Tobago.loadPngFix = function() {
-  if (this.getBrowser().type == "msie" && this.getBrowser().version <= 6) {
-    var images = document.images;
-    for (var i = 0; i < images.length; i++) {
-      Tobago.fixPngAlpha(images[i]);
-    }
-  }
-};
-
-Tobago.fixPngAlpha = function(element) {
-  if (element.fixPngAlphaApplied != "applied") {
-    element.fixPngAlphaApplied = "applied";
-    if (this.getBrowser().type == "msie"
-        && this.getBrowser().version <= 6
-        && element.src.toLowerCase().match(/.*png/)
-        && Tobago.isActiveXEnabled()) {
-      Tobago.addEventListener(element, 'propertychange', Tobago.propertyChange);
-      Tobago.fixImage(element);
-    }
-  }
-};
-
-Tobago.isActiveXEnabled = function () {
-  try {
-    new ActiveXObject("Shell.UIHelper");
-  } catch(e) {
-    return false;
-  }
-  return true;
-};
-
-Tobago.propertyChange = function() {
-  if (event.propertyName != "src") {
-    return;
-  }
-  // if not set to blank (to avoid endless loop)
-  if (! new RegExp(Tobago.pngFixBlankImage).test(event.srcElement.src)) {
-    Tobago.fixImage(event.srcElement);
-  }
-};
-
-Tobago.fixImage = function(element) {
-  element.runtimeStyle.backgroundImage = "none";
-  element.runtimeStyle.filter
-      = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + element.src + "', sizingMethod='scale')";
-  element.src = Tobago.pngFixBlankImage;
-};
+/*
+ * theme: standard
+ * agent: msie
+ */
 
 /* TOBAGO-789 */
 Tobago.fixSelectionOnFocusIn = function() {
