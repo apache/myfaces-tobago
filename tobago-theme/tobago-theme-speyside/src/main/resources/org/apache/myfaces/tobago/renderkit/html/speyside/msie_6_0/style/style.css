@@ -16,30 +16,17 @@
  */
 
 /*
- * theme: standard
- * agent: msie
+ * theme: speyside
+ * agent: msie_6_0
  */
 
-/* TOBAGO-789 */
-Tobago.fixSelectionOnFocusIn = function() {
-  try {
-    var src = window.event.srcElement;
-    if (src) {
-      src.tmpIndex = src.selectedIndex;
-    }
-  } catch (e) {
-    // ignore
-  }
-};
-
-/* TOBAGO-789 */
-Tobago.fixSelectionOnFocus = function() {
-  try {
-    var src = window.event.srcElement;
-    if (src) {
-      src.selectedIndex = src.tmpIndex;
-    }
-  } catch (e) {
-    // ignore
-  }
-};
+.tobago-label-markup-fatal img,
+.tobago-label-markup-error img,
+.tobago-label-markup-warn img,
+.tobago-label-markup-info img {
+  position: absolute;
+  right: 0;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+}
