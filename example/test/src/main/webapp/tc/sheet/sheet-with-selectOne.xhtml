@@ -26,8 +26,8 @@
 
   <tc:page width="600px" height="600px">
 
-    <tc:sheet value="#{sheet.localeList}" id="sheet" columns="fixed;130px;130px;130px;130px;200px" var="entry" rows="100"
-        showRowRange="left" showPageRange="right" showDirectLinks="center">
+    <tc:sheet value="#{sheet.localeList}" id="sheet" columns="fixed;130px;130px;130px;130px;200px" var="entry"
+              rows="100" showRowRange="left" showPageRange="right" showDirectLinks="center">
       <tc:columnSelector disabled="#{entry.disabled}"/>
       <tc:column label="Locale" id="l" sortable="true">
         <tc:out value="#{entry.locale}"/>
@@ -41,11 +41,11 @@
       <tc:column label="Language" id="a" sortable="true">
         <tc:out value="#{entry.language}"/>
       </tc:column>
-      <tc:column label="Select" >
-          <tc:selectOneChoice >
-            <f:selectItem itemValue="test" itemLabel="test"/>
-          </tc:selectOneChoice>
-        </tc:column>
+      <tc:column label="Select">
+        <tc:selectOneChoice>
+          <f:selectItem itemValue="test" itemLabel="test"/>
+        </tc:selectOneChoice>
+      </tc:column>
     </tc:sheet>
 
   </tc:page>

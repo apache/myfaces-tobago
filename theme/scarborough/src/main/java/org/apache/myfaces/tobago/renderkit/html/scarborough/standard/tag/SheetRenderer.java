@@ -258,13 +258,14 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     }
 
 
+    String headerIFrameId = null;
     final boolean showHeader = data.isShowHeader();
     if (showHeader) {
       // begin rendering header
       writer.startElement(HtmlConstants.DIV, null);
       writer.writeIdAttribute(sheetId + "_header_div");
       writer.writeClassAttribute("tobago-sheet-header-div");
-      
+
       HtmlStyleMap headerStyle = (HtmlStyleMap) attributes.get(ATTR_STYLE_HEADER);
       Integer zIndex = getZIndex(facesContext);
       if (headerStyle != null) {
@@ -299,13 +300,14 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
 
       writer.endElement(HtmlConstants.DIV);
 
-      if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie()) {
+      if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie6()) {
         int iframeWidth = 0;
         for (Integer width : columnWidths) {
           iframeWidth = iframeWidth + width;
         }
         writer.startElement(HtmlConstants.IFRAME, null);
-        writer.writeIdAttribute(sheetId + "_header_div" + SUBCOMPONENT_SEP + HtmlConstants.IFRAME);
+        headerIFrameId = sheetId + "_header_div" + SUBCOMPONENT_SEP + HtmlConstants.IFRAME;
+        writer.writeIdAttribute(headerIFrameId);
         writer.writeClassAttribute("tobago-sheet-header-iframe");
         headerStyle.put("z-index", zIndex);
         headerStyle.put("width", iframeWidth);
@@ -324,6 +326,9 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + "_data_div");
     writer.writeClassAttribute("tobago-sheet-body-div ");
+    if (headerIFrameId != null) { // can happen only when ie6
+      writer.writeAttribute("onscroll", "Tobago.refreshIFrame('" + headerIFrameId + "');", false);
+    }
     writer.writeAttribute(HtmlAttributes.STYLE, bodyStyle.toString() + (showHeader?"":" padding-top: 0px;"), false);
     Integer space = HtmlRendererUtil.getStyleAttributeIntValue(bodyStyle, "width");
     HtmlStyleMap sheetBodyStyle = (HtmlStyleMap) bodyStyle.clone();

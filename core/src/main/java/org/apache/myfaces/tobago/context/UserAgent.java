@@ -75,9 +75,12 @@ public class UserAgent implements Serializable {
     this.version = version;
   }
 
-
   public boolean isMsie() {
     return MSIE.name.equals(name);
+  }
+
+  public boolean isMsie6() {
+    return MSIE_6_0.name.equals(name) && MSIE_6_0.version.equals(version);
   }
 
   public boolean isMozilla() {

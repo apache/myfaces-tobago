@@ -68,3 +68,10 @@ Tobago.fixImage = function(element) {
       = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + element.src + "', sizingMethod='scale')";
   element.src = Tobago.pngFixBlankImage;
 };
+
+/* TOBAGO-904 */
+Tobago.refreshIFrame = function(id) {
+  var element = document.getElementById(id);
+  element.style.visibility = "hidden";
+  element.style.visibility = "visible";
+};
