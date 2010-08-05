@@ -112,6 +112,10 @@ public class ComponentUtil {
     return new ArrayList<UIForm>((List) ComponentUtils.findSubForms(component));
   }
 
+  public static <T extends UIComponent> T findDescendant(UIComponent component, Class<T> type) {
+    return ComponentUtils.findDescendant(component, type);
+  }
+
   public static String findClientIdFor(UIComponent component, FacesContext facesContext) {
     return ComponentUtils.findClientIdFor(component, facesContext);
   }
