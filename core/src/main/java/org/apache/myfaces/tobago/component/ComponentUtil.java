@@ -261,6 +261,20 @@ public class ComponentUtil {
     }
   }
 
+  public static <T extends UIComponent> T findDescendant(UIComponent component, Class<T> type) {
+
+    for (UIComponent child : (List<UIComponent>)component.getChildren()) {
+      if (child.getClass().equals(type)) {
+        return (T) component;
+      }
+      final T descendant = findDescendant(child, type);
+      if (descendant != null) {
+        return descendant;
+      }
+    }
+    return null;
+  }
+
   /**
    * Looks for the attribute "for" in the component. If there is any
    * search for the component which is referenced by the "for" attribute,
