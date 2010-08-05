@@ -33,6 +33,7 @@ import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIPage;
 import org.apache.myfaces.tobago.component.UIReload;
+import org.apache.myfaces.tobago.component.UISelectOne;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManager;
@@ -300,7 +301,10 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
 
       writer.endElement(HtmlConstants.DIV);
 
-      if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie6()) {
+      if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie6()
+          && ComponentUtil.findDescendant(data, UISelectOne.class) != null) {
+        // we need this fix only, when there is a <select> tag inside the sheet in IE6
+        // TOBAGO-904
         int iframeWidth = 0;
         for (Integer width : columnWidths) {
           iframeWidth = iframeWidth + width;
