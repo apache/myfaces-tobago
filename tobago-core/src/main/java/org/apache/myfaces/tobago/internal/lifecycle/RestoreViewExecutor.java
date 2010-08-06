@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.internal.lifecycle;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.renderkit.TobagoResponseStateManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.portlet.PortletUtils;
@@ -110,7 +111,7 @@ class RestoreViewExecutor implements PhaseExecutor {
     facesContext.setViewRoot(viewRoot);
     ComponentUtils.resetPage(facesContext);
 
-    if (facesContext.getExternalContext().getRequestParameterMap().isEmpty()) {
+    if (isPostBack(facesContext)) {
       // no POST or query parameters --> set render response flag
       facesContext.renderResponse();
     }
@@ -119,6 +120,11 @@ class RestoreViewExecutor implements PhaseExecutor {
     //noinspection unchecked
     facesContext.getExternalContext().getRequestMap().put(TobagoLifecycle.VIEW_ROOT_KEY, viewRoot);
     return false;
+  }
+
+  private boolean isPostBack(FacesContext facesContext) {
+    Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    return requestParameterMap.containsKey(TobagoResponseStateManager.TREE_PARAM);
   }
 
   public PhaseId getPhase() {

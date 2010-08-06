@@ -36,7 +36,7 @@ import java.io.IOException;
 public class TobagoResponseStateManager extends ResponseStateManager {
   private static final Logger LOG = LoggerFactory.getLogger(TobagoResponseStateManager.class);
 
-  private static final String TREE_PARAM = "jsf_tree";
+  public static final String TREE_PARAM = "jsf_tree";
   private static final String STATE_PARAM = "javax.faces.ViewState";
   private static final String VIEWID_PARAM = "jsf_viewid";
 
