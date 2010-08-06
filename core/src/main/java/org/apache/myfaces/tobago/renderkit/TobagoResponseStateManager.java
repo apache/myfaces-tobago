@@ -19,15 +19,15 @@ package org.apache.myfaces.tobago.renderkit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
 
-import javax.faces.render.ResponseStateManager;
+import javax.faces.application.StateManager;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.application.StateManager;
-import java.util.Map;
+import javax.faces.render.ResponseStateManager;
 import java.io.IOException;
+import java.util.Map;
 
 /*
  * Date: 21.05.2006
@@ -36,7 +36,7 @@ import java.io.IOException;
 public class TobagoResponseStateManager extends ResponseStateManager {
   private static final Log LOG = LogFactory.getLog(TobagoResponseStateManager.class);
 
-  private static final String TREE_PARAM = "jsf_tree";
+  public static final String TREE_PARAM = "jsf_tree";
   private static final String STATE_PARAM = "jsf_state";
   private static final String VIEWID_PARAM = "jsf_viewid";
 

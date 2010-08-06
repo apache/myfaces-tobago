@@ -17,18 +17,15 @@ package org.apache.myfaces.tobago.lifecycle;
  * limitations under the License.
  */
 
-import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.FACES_MESSAGES_KEY;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
 import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.renderkit.TobagoResponseStateManager;
 
 import javax.faces.FacesException;
 import javax.faces.application.Application;
-import javax.faces.application.ViewHandler;
 import javax.faces.application.FacesMessage;
+import javax.faces.application.ViewHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIViewRoot;
@@ -39,8 +36,11 @@ import javax.faces.event.PhaseId;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
+
+import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.FACES_MESSAGES_KEY;
+import static org.apache.myfaces.tobago.lifecycle.TobagoLifecycle.VIEW_ROOT_KEY;
 //import org.apache.myfaces.portlet.MyFacesGenericPortlet;
 //import org.apache.myfaces.portlet.PortletUtil;
 
@@ -116,7 +116,7 @@ class RestoreViewExecutor implements PhaseExecutor {
     facesContext.setViewRoot(viewRoot);
     ComponentUtil.resetPage(facesContext);
 
-    if (facesContext.getExternalContext().getRequestParameterMap().isEmpty()) {
+    if (!isPostBack(facesContext)) {
       // no POST or query parameters --> set render response flag
       facesContext.renderResponse();
     }
@@ -125,6 +125,11 @@ class RestoreViewExecutor implements PhaseExecutor {
     //noinspection unchecked
     facesContext.getExternalContext().getRequestMap().put(VIEW_ROOT_KEY, viewRoot);
     return false;
+  }
+
+  private boolean isPostBack(FacesContext facesContext) {
+    Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    return requestParameterMap.containsKey(TobagoResponseStateManager.TREE_PARAM);
   }
 
   public PhaseId getPhase() {
