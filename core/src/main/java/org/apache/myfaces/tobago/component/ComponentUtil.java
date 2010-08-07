@@ -263,7 +263,7 @@ public class ComponentUtil {
 
   public static <T extends UIComponent> T findDescendant(UIComponent component, Class<T> type) {
 
-    for (UIComponent child : (List<UIComponent>)component.getChildren()) {
+    for (UIComponent child : (List<UIComponent>) component.getChildren()) {
       if (child.getClass().equals(type)) {
         return (T) component;
       }
@@ -708,7 +708,7 @@ public class ComponentUtil {
   }
 
   private static String spaces(int n) {
-    StringBuilder buffer = new StringBuilder();
+    StringBuilder buffer = new StringBuilder(n * 2);
     for (int i = 0; i < n; i++) {
       buffer.append("  ");
     }
