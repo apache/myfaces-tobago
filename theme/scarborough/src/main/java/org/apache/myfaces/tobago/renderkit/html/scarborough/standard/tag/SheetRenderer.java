@@ -259,8 +259,10 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
     }
 
 
-    String headerIFrameId = null;
     final boolean showHeader = data.isShowHeader();
+    final boolean ie6SelectOneFix = showHeader
+        && ClientProperties.getInstance(facesContext).getUserAgent().isMsie6()
+            && ComponentUtil.findDescendant(data, UISelectOne.class) != null;
     if (showHeader) {
       // begin rendering header
       writer.startElement(HtmlConstants.DIV, null);
@@ -268,9 +270,12 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       writer.writeClassAttribute("tobago-sheet-header-div");
 
       HtmlStyleMap headerStyle = (HtmlStyleMap) attributes.get(ATTR_STYLE_HEADER);
-      Integer zIndex = getZIndex(facesContext);
       if (headerStyle != null) {
+        Integer zIndex = getZIndex(facesContext);
         headerStyle.put("z-index", zIndex+1);
+        if (ie6SelectOneFix) {
+          headerStyle.put("position", "relative");
+        }
         writer.writeStyleAttribute(headerStyle);
       }
 
@@ -300,40 +305,33 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       writer.endElement(HtmlConstants.DIV);
 
       writer.endElement(HtmlConstants.DIV);
-
-      if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie6()
-          && ComponentUtil.findDescendant(data, UISelectOne.class) != null) {
-        // we need this fix only, when there is a <select> tag inside the sheet in IE6
-        // TOBAGO-904
-        int iframeWidth = 0;
-        for (Integer width : columnWidths) {
-          iframeWidth = iframeWidth + width;
-        }
-        writer.startElement(HtmlConstants.IFRAME, null);
-        headerIFrameId = sheetId + "_header_div" + SUBCOMPONENT_SEP + HtmlConstants.IFRAME;
-        writer.writeIdAttribute(headerIFrameId);
-        writer.writeClassAttribute("tobago-sheet-header-iframe");
-        headerStyle.put("z-index", zIndex);
-        headerStyle.put("width", iframeWidth);
-        writer.writeAttribute(HtmlAttributes.STYLE, headerStyle.toString(), false);
-        writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtil.getBlankPage(facesContext), false);
-        writer.writeAttribute(HtmlAttributes.FRAMEBORDER, "0", false);
-        writer.endElement(HtmlConstants.IFRAME);
-      }
       writer.endElement(HtmlConstants.DIV);
       // end rendering header
     }
 
 // BEGIN RENDER BODY CONTENT
     HtmlStyleMap bodyStyle = (HtmlStyleMap) attributes.get(ATTR_STYLE_BODY);
-    HtmlRendererUtil.replaceStyleAttribute(data, ATTR_STYLE_BODY, "height", (sheetHeight - footerHeight));
+    int bodyHeight = (sheetHeight - footerHeight);
+    HtmlRendererUtil.replaceStyleAttribute(data, ATTR_STYLE_BODY, "height", bodyHeight);
     writer.startElement(HtmlConstants.DIV, null);
     writer.writeIdAttribute(sheetId + "_data_div");
     writer.writeClassAttribute("tobago-sheet-body-div ");
-    if (headerIFrameId != null) { // can happen only when ie6
-      writer.writeAttribute("onscroll", "Tobago.refreshIFrame('" + headerIFrameId + "');", false);
+    if (ie6SelectOneFix) {
+      int headerHeight = getConfiguredValue(facesContext, data, "headerHeight");
+      bodyStyle.put("height", bodyHeight - headerHeight);
+      bodyStyle.put("position", "relative");
     }
-    writer.writeAttribute(HtmlAttributes.STYLE, bodyStyle.toString() + (showHeader?"":" padding-top: 0px;"), false);
+    if (!showHeader||ie6SelectOneFix) {
+      bodyStyle.put("padding-top", "0");
+    }
+    writer.writeAttribute(HtmlAttributes.STYLE, bodyStyle.toString(), false);
+    if (ie6SelectOneFix) {
+      bodyStyle.remove("position");
+    }
+    if (!showHeader||ie6SelectOneFix) {
+      bodyStyle.remove("padding-top");
+    }
+    bodyStyle.remove("height");
     Integer space = HtmlRendererUtil.getStyleAttributeIntValue(bodyStyle, "width");
     HtmlStyleMap sheetBodyStyle = (HtmlStyleMap) bodyStyle.clone();
     //String sheetBodyStyle;
@@ -345,7 +343,6 @@ public class SheetRenderer extends LayoutableRendererBase implements SheetRender
       }
       sheetBodyStyle.put("width", space);
     }
-    sheetBodyStyle.remove("height");
 
 
 
