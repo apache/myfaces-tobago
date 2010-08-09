@@ -83,6 +83,32 @@ Tobago.workaroundBackgroundPngAlpha = function(element) {
   label.css("background-image", "none");
 };
 
+/* TOBAGO-789 */
+Tobago.fixSelectionOnFocusIn = function() {
+  try {
+    var src = window.event.srcElement;
+    if (src) {
+      src.tmpIndex = src.selectedIndex;
+    }
+  } catch (e) {
+    // ignore
+  }
+};
+
+/* TOBAGO-789 */
+Tobago.fixSelectionOnFocus = function() {
+  try {
+    var src = window.event.srcElement;
+    if (src) {
+      src.selectedIndex = src.tmpIndex;
+    }
+  } catch (e) {
+    // ignore
+  }
+};
+
+// init /////////////////////////////////////////////////////////////////////////////////////////////
+
 $(document).ready(function() {
   Tobago.fixPngAlphaAll();
 });
