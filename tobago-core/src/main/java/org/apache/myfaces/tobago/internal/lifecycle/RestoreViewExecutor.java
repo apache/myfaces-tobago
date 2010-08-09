@@ -111,7 +111,7 @@ class RestoreViewExecutor implements PhaseExecutor {
     facesContext.setViewRoot(viewRoot);
     ComponentUtils.resetPage(facesContext);
 
-    if (isPostBack(facesContext)) {
+    if (!isPostBack(facesContext)) {
       // no POST or query parameters --> set render response flag
       facesContext.renderResponse();
     }
