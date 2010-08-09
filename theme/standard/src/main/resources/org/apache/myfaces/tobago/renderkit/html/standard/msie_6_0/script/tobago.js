@@ -75,3 +75,27 @@ Tobago.refreshIFrame = function(id) {
   element.style.visibility = "hidden";
   element.style.visibility = "visible";
 };
+
+/* TOBAGO-789 */
+Tobago.fixSelectionOnFocusIn = function() {
+  try {
+    var src = window.event.srcElement;
+    if (src) {
+      src.tmpIndex = src.selectedIndex;
+    }
+  } catch (e) {
+    // ignore
+  }
+};
+
+/* TOBAGO-789 */
+Tobago.fixSelectionOnFocus = function() {
+  try {
+    var src = window.event.srcElement;
+    if (src) {
+      src.selectedIndex = src.tmpIndex;
+    }
+  } catch (e) {
+    // ignore
+  }
+};
