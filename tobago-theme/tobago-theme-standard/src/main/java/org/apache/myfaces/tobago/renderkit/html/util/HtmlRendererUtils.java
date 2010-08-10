@@ -390,11 +390,11 @@ public final class HtmlRendererUtils {
         Markup markup = item instanceof SupportsMarkup ? ((SupportsMarkup) item).getMarkup() : Markup.NULL;
         if (RenderUtils.contains(values, itemValue)) {
           writer.writeAttribute(HtmlAttributes.SELECTED, true);
-          markup = markup.add(Markup.SELECTED);
+          markup = Markup.SELECTED.add(markup);
         }
         if (item.isDisabled()) {
           writer.writeAttribute(HtmlAttributes.DISABLED, true);
-          markup = markup.add(Markup.DISABLED);
+          markup = Markup.DISABLED.add(markup);
         }
         writer.writeClassAttribute(Classes.create(component, "option", markup));
 
