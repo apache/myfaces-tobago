@@ -22,12 +22,11 @@ package org.apache.myfaces.tobago.example.demo.clientConfig;
  * $Id$
  */
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.tobago.config.TobagoConfig;
 import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Theme;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
@@ -129,11 +128,20 @@ public class ClientConfigController {
     Locale defaultLocale = application.getDefaultLocale();
     Iterator supportedLocales = application.getSupportedLocales();
 
+    boolean defaultInList = false;
     List<SelectItem> localeItems = new ArrayList<SelectItem>();
-    localeItems.add(createLocaleItem(defaultLocale));
     while (supportedLocales.hasNext()) {
       Locale locale = (Locale) supportedLocales.next();
       localeItems.add(createLocaleItem(locale));
+      if (locale.equals(defaultLocale)) {
+        defaultInList = true;
+      }
+    }
+    // If the default is already in the list, don't add it.
+    // Background: Must the default be in the supported list? Yes or No?
+    // This question is not specified explicit and different implemented in the RI and MyFaces
+    if (! defaultInList) {
+      localeItems.add(0, createLocaleItem(defaultLocale));
     }
     return localeItems;
   }
