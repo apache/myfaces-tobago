@@ -141,7 +141,7 @@ public class ClientConfigController {
     // If the default is already in the list, don't add it.
     // Background: Must the default be in the supported list? Yes or No?
     // This question is not specified explicit and different implemented in the RI and MyFaces
-    if (! defaultInList) {
+    if (!defaultInList) {
       localeItems.add(0, createLocaleItem(defaultLocale));
     }
     return localeItems;
