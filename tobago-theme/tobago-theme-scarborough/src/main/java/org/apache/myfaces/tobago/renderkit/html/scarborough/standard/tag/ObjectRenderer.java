@@ -44,7 +44,7 @@ public class ObjectRenderer extends LayoutComponentRendererBase {
     if (src != null) {
       writer.writeAttribute(HtmlAttributes.SRC, String.valueOf(src), true);
     } else {
-      writer.writeAttribute(HtmlAttributes.SRC, ResourceManagerUtils.getBlankPage(facesContext), false);
+      writer.writeAttribute(HtmlAttributes.SRC, "javascript:'<html></html>';", false);
     }
     writer.writeClassAttribute(Classes.create(object));
     Style style = new Style(facesContext, object);

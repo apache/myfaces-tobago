@@ -117,11 +117,6 @@ public class ResourceManagerUtils {
     return getImageWithPath(facesContext, filename, true);
   }
 
-  public static String getBlankPage(FacesContext facesContext) {
-    return facesContext.getExternalContext().getRequestContextPath()
-        + "/org/apache/myfaces/tobago/renderkit/html/standard/blank.html";
-  }
-
   public static String getPageWithoutContextPath(FacesContext facesContext, String name) {
     return ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name);
   }

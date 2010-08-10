@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.context;
  */
 
 import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.internal.util.Deprecation;
 import org.apache.myfaces.tobago.layout.Measure;
 
 import javax.faces.context.FacesContext;
@@ -164,8 +165,8 @@ public class ResourceManagerUtil {
    */
   @Deprecated
   public static String getBlankPage(FacesContext facesContext) {
-    return facesContext.getExternalContext().getRequestContextPath()
-        + "/org/apache/myfaces/tobago/renderkit/html/standard/blank.html";
+    Deprecation.LOG.error("No longer supported. For iframes src you can use javascript:'<html></html>';");
+    return "javascript:'<html></html>';";
   }
 
   /**
