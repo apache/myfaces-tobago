@@ -248,9 +248,9 @@ function xxx_tobagoMenuInit() {
     // put a iframe inside the div, so that a <select> tag doesn't shine through.
     // the iframe must be resized (see above)
     if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
-      jQuery(".tobago-page-menuStore ol").prepend("<iframe class='tobago-menu-ie6bugfix'></iframe>");
+      jQuery(".tobago-page-menuStore ol").prepend(
+          "<iframe class='tobago-menu-ie6bugfix' src='" + Tobago.blankPage + "'></iframe>");
     }
-    
   });
 }
 
@@ -309,5 +309,3 @@ function tobagoUtil_findSuperComponent(element) {
 function tobagoUtil_getSuperComponentId(id) {
   return "#" + id.substring(0, id.lastIndexOf("::")).replace(/:/g, "\\:"); 
 }
-
-xxx_tobagoMenuInit();

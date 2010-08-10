@@ -117,6 +117,14 @@ public class ResourceManagerUtils {
     return getImageWithPath(facesContext, filename, true);
   }
 
+  /**
+   * Blank page e. g. useful to set src of iframes (to prevent https problems in ie, see TOBAGO-538)
+   */
+  public static String getBlankPage(FacesContext facesContext) {
+    return facesContext.getExternalContext().getRequestContextPath()
+        + "/org/apache/myfaces/tobago/renderkit/html/standard/blank.html";
+  }
+
   public static String getPageWithoutContextPath(FacesContext facesContext, String name) {
     return ResourceManagerFactory.getResourceManager(facesContext).getImage(facesContext, name);
   }

@@ -102,6 +102,11 @@ var Tobago = {
   contextPath: null,
 
   /**
+   * Blank page e. g. useful to set src of iframes (to prevent https problems in ie, see TOBAGO-538)
+   */
+  blankPage: null,
+
+  /**
     * The id of the element which should became the focus after loading.
     * Set via renderer if requested.
     */
@@ -255,10 +260,14 @@ var Tobago = {
     this.addBindEventListener(this.form, "submit", this, "onSubmit");
     this.action = this.element(this.form.id + '-action');
     this.contextPath = this.element(this.page.id + this.SUB_COMPONENT_SEP + "context-path");
+    this.blankPage = this.contextPath.value + "/org/apache/myfaces/tobago/renderkit/html/standard/blank.html";
     this.actionPosition = this.element(this.page.id + this.SUB_COMPONENT_SEP + "action-position");
 
     this.addBindEventListener(window, "unload", this, "onUnload");
 
+    // XXX not nice...
+    xxx_tobagoMenuInit();
+    
     if (TbgTimer.endBody) {
       TbgTimer.startAppOnload = new Date();
     }
@@ -425,6 +434,7 @@ var Tobago = {
     delete this.action;
     delete this.actionPosition;
     delete this.contextPath;
+    delete this.blankPage;
     delete this.lastFocusId;
   },
 
@@ -1276,7 +1286,7 @@ var Tobago = {
       iframe.style.zIndex = 9999;
       iframe.frameBorder = "0";
       iframe.style.position = "absolute";
-      iframe.src = "javascript:'<html></html>';";
+      iframe.src = Tobago.blankPage;
       iframe.style.top = "0px";
       iframe.style.left = "0px";
       iframe.style.width = element.scrollWidth + 'px';
