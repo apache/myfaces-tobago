@@ -52,6 +52,11 @@ public class StyleClasses implements Serializable {
 
   private ListOrderedSet classes;
 
+  private static final int ORDINAL_FATAL = FacesMessage.SEVERITY_FATAL.getOrdinal();
+  private static final int ORDINAL_ERROR = FacesMessage.SEVERITY_ERROR.getOrdinal();
+  private static final int ORDINAL_WARN = FacesMessage.SEVERITY_WARN.getOrdinal();
+  private static final int ORDINAL_INFO = FacesMessage.SEVERITY_INFO.getOrdinal();
+
   public StyleClasses() {
     classes = new ListOrderedSet();
   }
@@ -221,23 +226,19 @@ public class StyleClasses implements Serializable {
     }
     FacesMessage.Severity severity = ComponentUtil.getMaximumSeverity(component);
     if (severity != null) {
-      switch (severity.getOrdinal()) {
-        case 4:
-          addMarkupClass(rendererName, "fatal");
-          addAspectClass(rendererName, Aspect.ERROR);
-          break;
-        case 3:
-          addMarkupClass(rendererName, "error");
-          addAspectClass(rendererName, Aspect.ERROR);
-          break;
-        case 2:
-          addMarkupClass(rendererName, "warn");
-          break;
-        case 1:
-          addMarkupClass(rendererName, "info");
-          break;
-        default:
-          assert false : "Ordinal constants may be wrong";
+      int ordinal = severity.getOrdinal();
+      if (ordinal >= ORDINAL_FATAL) {
+        addMarkupClass(rendererName, "fatal");
+        addAspectClass(rendererName, Aspect.ERROR);
+      } else if (ordinal >= ORDINAL_ERROR) {
+        addMarkupClass(rendererName, "error");
+        addAspectClass(rendererName, Aspect.ERROR);
+      } else if (ordinal >= ORDINAL_WARN) {
+        addMarkupClass(rendererName, "warn");
+      } else if (ordinal >= ORDINAL_INFO) {
+        addMarkupClass(rendererName, "info");
+      } else {
+        assert false : "Ordinal constants may be wrong";
       }
     }
     if (component instanceof UIInput) {
@@ -249,7 +250,7 @@ public class StyleClasses implements Serializable {
   }
 
   public boolean isEmpty() {
-    return classes.isEmpty();  
+    return classes.isEmpty();
   }
 
   @Override
