@@ -523,7 +523,12 @@ public abstract class ToolBarRendererBase extends LayoutComponentRendererBase {
 
   private String createMenuOnClick(UICommandBase command) {
     if (FacetUtils.getDropDownMenu(command) != null) {
-      return "jQuery(this).find('a').click();event.stopPropagation();";
+      return "jQuery(this).find('a').click(); " 
+          + "if (event.stopPropagation === undefined) { "
+          + "  event.cancelBubble = true; " // IE
+          + "} else { "
+          + "  event.stopPropagation(); " // other
+          + "}"; // todo: register a onclick handler with jQuery
     } else {
       return null;
     }

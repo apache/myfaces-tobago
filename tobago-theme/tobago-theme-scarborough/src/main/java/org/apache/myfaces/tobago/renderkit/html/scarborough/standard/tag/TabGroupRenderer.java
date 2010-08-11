@@ -466,7 +466,12 @@ public class TabGroupRenderer extends LayoutComponentRendererBase {
           LabelWithAccessKey label = new LabelWithAccessKey(tab);
           entry.setLabel(label.getText());
           String tabId = clientId + "__" + virtualTab + "__" + index;
-          entry.setOnclick(JQueryUtils.selectId(tabId) + ".click();event.stopPropagation();");
+          entry.setOnclick(JQueryUtils.selectId(tabId) + ".click();"
+              + "if (event.stopPropagation === undefined) { "
+              + "  event.cancelBubble = true; " // IE
+              + "} else { "
+              + "  event.stopPropagation(); " // other
+              + "}"); // todo: register a onclick handler with jQuery
           menu.getChildren().add(entry);
         }
         index++;
