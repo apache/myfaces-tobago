@@ -1006,7 +1006,7 @@ tobago-resource/html/standard/standard/image/empty-portrait_de.png</programlisti
     if (readonly != null) {
       return readonly;
     }
-    ValueBinding vb = getValueBinding(TobagoConstants.ATTR_READONLY);
+    ValueBinding vb = getValueBinding(Attributes.READONLY);
     if (vb == null) {
       return false;
     } else {
@@ -1138,9 +1138,9 @@ public class NumberSliderRenderer extends LayoutableRendererBase {
       throws IOException {
     String currentValue = getCurrentValue(facesContext, component);
     boolean readonly
-        = ComponentUtil.getBooleanAttribute(component, ATTR_READONLY);
+        = ComponentUtil.getBooleanAttribute(component, Attributes.READONLY);
     boolean disabled
-        = ComponentUtil.getBooleanAttribute(component, ATTR_DISABLED);
+        = ComponentUtil.getBooleanAttribute(component, Attributes.DISABLED);
     TobagoResponseWriter writer
         = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     ...
