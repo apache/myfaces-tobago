@@ -52,11 +52,6 @@ public class StyleClasses implements Serializable {
 
   private ListOrderedSet classes;
 
-  private static final int ORDINAL_FATAL = FacesMessage.SEVERITY_FATAL.getOrdinal();
-  private static final int ORDINAL_ERROR = FacesMessage.SEVERITY_ERROR.getOrdinal();
-  private static final int ORDINAL_WARN = FacesMessage.SEVERITY_WARN.getOrdinal();
-  private static final int ORDINAL_INFO = FacesMessage.SEVERITY_INFO.getOrdinal();
-
   public StyleClasses() {
     classes = new ListOrderedSet();
   }
@@ -226,16 +221,15 @@ public class StyleClasses implements Serializable {
     }
     FacesMessage.Severity severity = ComponentUtil.getMaximumSeverity(component);
     if (severity != null) {
-      int ordinal = severity.getOrdinal();
-      if (ordinal >= ORDINAL_FATAL) {
+      if (severity.equals(FacesMessage.SEVERITY_FATAL)) {
         addMarkupClass(rendererName, "fatal");
         addAspectClass(rendererName, Aspect.ERROR);
-      } else if (ordinal >= ORDINAL_ERROR) {
+      } else if (severity.equals(FacesMessage.SEVERITY_ERROR)) {
         addMarkupClass(rendererName, "error");
         addAspectClass(rendererName, Aspect.ERROR);
-      } else if (ordinal >= ORDINAL_WARN) {
+      } else if (severity.equals(FacesMessage.SEVERITY_WARN)) {
         addMarkupClass(rendererName, "warn");
-      } else if (ordinal >= ORDINAL_INFO) {
+      } else if (severity.equals(FacesMessage.SEVERITY_INFO)) {
         addMarkupClass(rendererName, "info");
       } else {
         assert false : "Ordinal constants may be wrong";
