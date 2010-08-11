@@ -1641,6 +1641,19 @@ var Tobago = {
       var evt = document.createEventObject();   
       element.fireEvent('on' + eventType, evt);
     }
+  },
+
+  toString: function(element) {
+    var result = "";
+    for (var property in element) {
+      if (property && element[property]) {
+        var value = "" + element[property];
+        if (value != "") {
+          result += "\r\n" + property + "=" + value;
+        }
+      }
+    }
+    return result;
   }
 };
 
