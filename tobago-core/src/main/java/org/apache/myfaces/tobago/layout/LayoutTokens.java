@@ -113,9 +113,12 @@ public final class LayoutTokens implements Iterable<LayoutToken> {
     try {
       if ("*".equals(token)) {
         return RelativeLayoutToken.DEFAULT_INSTANCE;
-      } else if (token.equals("fixed") || token.equals("auto")) {
+      } else if (token == null) {
+        LOG.error("Empty layout token! Using 'auto' instead.");
         return AutoLayoutToken.INSTANCE;
-      } else if (token.equals("minimum")) {
+      } else if ("fixed".equals(token) || "auto".equals(token)) {
+        return AutoLayoutToken.INSTANCE;
+      } else if ("minimum".equals(token)) {
         return new MinimumLayoutToken();
       } else if (isPixelToken(token)) {
         return new PixelLayoutToken(Integer.parseInt(removeSuffix(token, PixelLayoutToken.SUFFIX)));

@@ -46,6 +46,7 @@ public class LayoutTokensUnitTest {
 
   @Test
   public void testParseToken() {
+    Assert.assertEquals(AutoLayoutToken.INSTANCE, LayoutTokens.parseToken(null));
     Assert.assertEquals(RelativeLayoutToken.DEFAULT_INSTANCE, LayoutTokens.parseToken("*"));
     Assert.assertEquals(new RelativeLayoutToken(3), LayoutTokens.parseToken("3*"));
     Assert.assertEquals(new PercentLayoutToken(33), LayoutTokens.parseToken("33%"));
