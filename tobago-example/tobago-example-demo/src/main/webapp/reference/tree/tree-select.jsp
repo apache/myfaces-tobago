@@ -29,7 +29,6 @@
 
     <tc:tree id="sel"
               showIcons="true"
-              showJunctions="true"
               showRootJunction="true"
               showRoot="true"
               selectable="single">

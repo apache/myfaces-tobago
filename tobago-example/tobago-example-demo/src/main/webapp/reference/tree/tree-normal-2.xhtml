@@ -31,7 +31,7 @@
     </f:facet>
     <tc:out value="A tree with a mixed model of static and dynamic nodes. It uses the tree event mechanism."/>
 
-    <tc:tree id="tree" showRoot="true" showJunctions="true" showIcons="true" showRootJunction="true"> 
+    <tc:tree id="tree" showRoot="true" showIcons="true" showRootJunction="true">
       <tc:treeData value="#{treeController.tree}" var="node" id="data">
         <tc:treeNode id="template"
                      expanded="#{node.userObject.expanded}"

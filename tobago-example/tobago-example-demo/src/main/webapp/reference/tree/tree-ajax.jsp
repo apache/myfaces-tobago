@@ -36,7 +36,6 @@
 
       <tc:tree state="#{controller.state}" id="tree"
                 showIcons="true"
-                showJunctions="true"
                 showRootJunction="true"
                 showRoot="true"
           >
