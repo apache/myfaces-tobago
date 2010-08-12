@@ -30,7 +30,7 @@ Tobago.fixPngAlphaAll = function() {
     // fix png backgrounds of the labels
     jQuery("label.tobago-label-markup-fatal, label.tobago-label-markup-error, "
         + "label.tobago-label-markup-warn, label.tobago-label-markup-info").each(function() {
-      Tobago.workaroundBackgroundPngAlpha(this);
+      Tobago.fixBackgroundPngAlpha(this);
     });
 
   }
@@ -43,8 +43,7 @@ Tobago.fixPngAlpha = function(element) {
         && parseInt(jQuery.browser.version) <= 6
         && element.src.toLowerCase().match(/.*png/)
         && Tobago.isActiveXEnabled()) {
-      Tobago.addEventListener(element, 'propertychange', Tobago.propertyChange);
-      Tobago.fixImage(element);
+      Tobago.fixPngAlphaInternal(element);
     }
   }
 };
@@ -58,28 +57,18 @@ Tobago.isActiveXEnabled = function () {
   return true;
 };
 
-Tobago.propertyChange = function() {
-  if (event.propertyName != "src") {
-    return;
-  }
-  // if not set to blank (to avoid endless loop)
-  if (! new RegExp(Tobago.pngFixBlankImage).test(event.srcElement.src)) {
-    Tobago.fixImage(event.srcElement);
-  }
-};
-
-Tobago.fixImage = function(element) {
+Tobago.fixPngAlphaInternal = function(element) {
   element.runtimeStyle.backgroundImage = "none";
   element.runtimeStyle.filter
       = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + element.src + "', sizingMethod='scale')";
   element.src = Tobago.pngFixBlankImage;
 };
 
-Tobago.workaroundBackgroundPngAlpha = function(element) {
+Tobago.fixBackgroundPngAlpha = function(element) {
   var label = jQuery(element);
   var url = label.css("background-image");
   label.append("<img src='" + url.substring(5, url.length - 2) + "' />");
-  Tobago.fixImage(label.children("img").get(0));
+  Tobago.fixPngAlphaInternal(label.children("img").get(0));
   label.css("background-image", "none");
 };
 
