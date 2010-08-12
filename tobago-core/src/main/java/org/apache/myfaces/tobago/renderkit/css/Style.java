@@ -37,8 +37,13 @@ public class Style implements Serializable {
   private Display display;
   private Position position;
   private Overflow overflow;
+  private Measure marginLeft;
+  private Measure marginRight;
   private Measure marginTop;
+  private Measure marginBottom;
   private Measure margin;
+  private Measure paddingLeft;
+  private Measure paddingRight;
   private Measure paddingTop;
   private Measure paddingBottom;
   private Measure padding;
@@ -57,8 +62,13 @@ public class Style implements Serializable {
     this.display = map.display;
     this.position = map.position;
     this.overflow = map.overflow;
+    this.marginLeft = map.marginLeft;
+    this.marginRight = map.marginRight;
     this.marginTop = map.marginTop;
+    this.marginBottom = map.marginBottom;
     this.margin = map.margin;
+    this.paddingLeft = map.paddingLeft;
+    this.paddingRight = map.paddingRight;
     this.paddingTop = map.paddingTop;
     this.paddingBottom = map.paddingBottom;
     this.padding = map.padding;
@@ -146,14 +156,39 @@ public class Style implements Serializable {
       buf.append(overflow.getValue());
       buf.append(';');
     }
+    if (marginLeft != null) {
+      buf.append("margin-left:");
+      buf.append(marginLeft);
+      buf.append(';');
+    }
+    if (marginRight != null) {
+      buf.append("margin-right:");
+      buf.append(marginRight);
+      buf.append(';');
+    }
     if (marginTop != null) {
       buf.append("margin-top:");
       buf.append(marginTop);
       buf.append(';');
     }
+    if (marginBottom != null) {
+      buf.append("margin-bottom:");
+      buf.append(marginBottom);
+      buf.append(';');
+    }
     if (margin != null) {
       buf.append("margin:");
       buf.append(margin);
+      buf.append(';');
+    }
+    if (paddingLeft != null) {
+      buf.append("padding-left:");
+      buf.append(paddingLeft);
+      buf.append(';');
+    }
+    if (paddingRight != null) {
+      buf.append("padding-right:");
+      buf.append(paddingRight);
       buf.append(';');
     }
     if (paddingTop != null) {
@@ -246,6 +281,22 @@ public class Style implements Serializable {
     this.overflow = overflow;
   }
 
+  public Measure getMarginLeft() {
+    return marginLeft;
+  }
+
+  public void setMarginLeft(Measure marginLeft) {
+    this.marginLeft = marginLeft;
+  }
+
+  public Measure getMarginRight() {
+    return marginRight;
+  }
+
+  public void setMarginRight(Measure marginRight) {
+    this.marginRight = marginRight;
+  }
+
   public Measure getMarginTop() {
     return marginTop;
   }
@@ -254,12 +305,36 @@ public class Style implements Serializable {
     this.marginTop = marginTop;
   }
 
+  public Measure getMarginBottom() {
+    return marginBottom;
+  }
+
+  public void setMarginBottom(Measure marginBottom) {
+    this.marginBottom = marginBottom;
+  }
+
   public Measure getMargin() {
     return margin;
   }
 
   public void setMargin(Measure margin) {
     this.margin = margin;
+  }
+
+  public Measure getPaddingLeft() {
+    return paddingLeft;
+  }
+
+  public void setPaddingLeft(Measure paddingLeft) {
+    this.paddingLeft = paddingLeft;
+  }
+
+  public Measure getPaddingRight() {
+    return paddingRight;
+  }
+
+  public void setPaddingRight(Measure paddingRight) {
+    this.paddingRight = paddingRight;
   }
 
   public Measure getPaddingTop() {
