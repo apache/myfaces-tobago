@@ -152,7 +152,6 @@ public final class Attributes {
   public static final String SELECTABLE = "selectable";
   public static final String SHOW_DIRECT_LINKS = "showDirectLinks";
   public static final String SHOW_HEADER = "showHeader";
-  public static final String SHOW_ICONS = "showIcons";
   public static final String SHOW_JUNCTIONS = "showJunctions";
   public static final String SHOW_NAVIGATION_BAR = "showNavigationBar";
   public static final String SHOW_PAGE_RANGE = "showPageRange";

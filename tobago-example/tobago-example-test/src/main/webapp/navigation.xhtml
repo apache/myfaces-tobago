@@ -46,9 +46,15 @@
         <tc:button action="#{clientConfig.submit}" label="OK"/>
       </tc:panel>
 
-      <tc:tree showIcons="true">
+      <tc:tree>
         <tc:treeData value="#{browser.tree}" var="node">
-          <tc:treeNode link="#{node.resource}" label="#{node.label}" target="page:content"/>
+          <tc:treeNode expanded="#{node.level lt 2}">
+            <tc:treeIndent/>
+            <tc:treeIcon/>
+            <tc:treeCommand link="#{node.resource}" label="#{node.label}" target="page:content"
+                            rendered="#{node.childCount == 0}"/>
+            <tc:treeLabel value="#{node.label}" rendered="#{node.childCount > 0}"/>
+          </tc:treeNode>
         </tc:treeData>
       </tc:tree>
     </tc:panel>

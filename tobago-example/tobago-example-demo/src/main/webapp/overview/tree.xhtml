@@ -40,13 +40,12 @@
           </f:facet>
 
           <tc:tree id="tree"
-                   showIcons="#{demo.showIcons}"
                    showRootJunction="#{demo.showRootJunction}"
                    showRoot="#{demo.showRoot}">
             <tc:treeData value="#{demo.tree}" var="node" id="data">
               <tc:treeNode id="template" expanded="true">
                 <tc:treeIndent showJunctions="#{demo.showJunctions}"/>
-                <tc:treeIcon value="image/feather.png"/>
+                <tc:treeIcon value="image/feather.png" rendered="#{demo.showIcons}"/>
                 <tc:treeLabel value="#{node.userObject.name}"/>
               </tc:treeNode>
               <!--

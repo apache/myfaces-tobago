@@ -71,10 +71,6 @@ public interface TreeTagDeclaration
 
   @TagAttribute
   @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  void setShowIcons(String showIcons);
-
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
   void setShowRoot(String showRoot);
   
   /**

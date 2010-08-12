@@ -35,7 +35,6 @@
       </f:facet>
 
       <tc:tree state="#{controller.state}" id="tree"
-                showIcons="true"
                 showRootJunction="true"
                 showRoot="true"
           >

@@ -28,7 +28,6 @@
     </f:facet>
 
     <tc:tree id="sel"
-              showIcons="true"
               showRootJunction="true"
               showRoot="true"
               selectable="single">
