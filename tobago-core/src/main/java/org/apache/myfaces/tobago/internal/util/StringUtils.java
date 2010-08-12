@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.internal.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.StringTokenizer;
 
 public final class StringUtils {
@@ -79,5 +80,20 @@ public final class StringUtils {
       indices[i] = Integer.parseInt(indexList.get(i));
     }
     return indices;
+  }
+
+  public static String constantToCamelCase(String constant) {
+    final StringBuilder builder = new StringBuilder(constant.length());
+    final char[] chars = constant.toCharArray();
+    for (int i = 0; i < chars.length; i++) {
+      if (i == 0) {
+        builder.append(chars[i]);
+      } else if (chars[i] == '_') {
+        builder.append(chars[++i]);
+      } else {
+        builder.append((((Character) chars[i]).toString().toLowerCase(Locale.ENGLISH)));
+      }
+    }
+    return builder.toString();
   }
 }
