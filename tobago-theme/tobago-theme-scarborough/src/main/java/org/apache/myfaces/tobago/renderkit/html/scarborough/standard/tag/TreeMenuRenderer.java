@@ -1,14 +1,5 @@
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
-import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.component.UITreeCommand;
-import org.apache.myfaces.tobago.component.UITreeLabel;
-import org.apache.myfaces.tobago.component.UITreeNode;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -25,6 +16,15 @@ import java.io.IOException;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.UITreeCommand;
+import org.apache.myfaces.tobago.component.UITreeLabel;
+import org.apache.myfaces.tobago.component.UITreeNode;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
 
 public class TreeMenuRenderer extends TreeRenderer {
 

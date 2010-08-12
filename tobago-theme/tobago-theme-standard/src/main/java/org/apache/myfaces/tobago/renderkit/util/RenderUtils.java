@@ -99,7 +99,7 @@ public class RenderUtils {
       FacesContext facesContext, UIComponent component, List<? extends Class<? extends UIComponent>> only)
       throws IOException {
 
-    if (only != null && ! matchFilter(component, only)) {
+    if (only != null && !matchFilter(component, only)) {
       return;
     }
 

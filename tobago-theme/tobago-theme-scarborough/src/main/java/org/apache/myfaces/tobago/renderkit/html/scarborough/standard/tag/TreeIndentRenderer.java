@@ -107,14 +107,16 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
             open = "Tminus.gif";
             close = "Tplus.gif";
           } else {
-            open = close = "T.gif";
+            open = "T.gif";
+            close = "T.gif";
           }
         } else {
           if (folder) {
             open = "Lminus.gif";
             close = "Lplus.gif";
           } else {
-            open = close = "L.gif";
+            open = "L.gif";
+            close = "L.gif";
           }
         }
       }

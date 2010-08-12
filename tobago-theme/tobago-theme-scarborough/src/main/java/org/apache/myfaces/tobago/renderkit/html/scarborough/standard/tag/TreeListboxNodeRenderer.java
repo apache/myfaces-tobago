@@ -171,7 +171,7 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
   private String getLabel(UITreeNode node) {
     for (UIComponent component : node.getChildren()) {
       if (component instanceof UITreeLabel) {
-        return "" + ((UITreeLabel)component).getValue();
+        return "" + ((UITreeLabel) component).getValue();
       }
     }
     return null;
