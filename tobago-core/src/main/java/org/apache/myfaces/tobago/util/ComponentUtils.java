@@ -197,6 +197,17 @@ public class ComponentUtils {
     return null;
   }
 
+  public static <T> T findAncestor(UIComponent component, Class<T> type) {
+
+    while (component != null) {
+      if (component.getClass().equals(type)) {
+        return (T) component;
+      }
+      component = component.getParent();
+    }
+    return null;
+  }
+
   /**
    * Find all sub forms of a component, and collects it.
    * It does not find sub forms of sub forms.

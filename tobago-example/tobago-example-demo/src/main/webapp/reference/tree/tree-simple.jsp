@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!--
+<%--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,26 +13,32 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
--->
+--%>
 
-<f:subview id="navigator"
-           xmlns:f="http://java.sun.com/jsf/core"
-           xmlns:tc="http://myfaces.apache.org/tobago/component">
-  <tc:panel>
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+
+<f:view>
+  <tc:loadBundle basename="demo" var="bundle"/>
+
+  <tc:page label="Tree" id="page" width="500px" height="1000px">
     <f:facet name="layout">
-      <tc:gridLayout rows="*"/>
+      <tc:gridLayout margin="10px" rows="*;*"/>
     </f:facet>
 
-    <tc:treeMenu id="nav" state="#{navigation.state}">
-      <tc:treeData value="#{navigation.tree}" var="node" id="data">
-        <tc:treeNode rendered="#{not node.root}">
-          <tc:treeCommand
-              label="#{node.userObject.title}"
-              action="#{node.userObject.action}"
-              immediate="true"/>
+    <tc:tree>
+      <tc:treeData value="#{treeController.tree}" var="node" id="data">
+        <tc:treeNode id="template" expanded="true" rendered="#{! node.root}">
+          <tc:treeCommand label="#{node.userObject.name}" action="#{node.userObject.action}"/>
+          <%--
+            <tc:treeCommand label="#{node.userObject.name}" rendered="#{node.childCount == 0}"/>
+            <tc:treeLabel value="#{node.userObject.name}" rendered="#{node.childCount > 0}"/>
+          --%>
         </tc:treeNode>
       </tc:treeData>
-    </tc:treeMenu>
+    </tc:tree>
 
-  </tc:panel>
-</f:subview>
+    <tc:cell/>
+
+  </tc:page>
+</f:view>

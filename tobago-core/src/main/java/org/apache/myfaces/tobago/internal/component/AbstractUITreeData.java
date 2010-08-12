@@ -18,12 +18,12 @@ package org.apache.myfaces.tobago.internal.component;
  */
 
 import org.apache.commons.lang.ObjectUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.TreeModelBuilder;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.model.Node;
 import org.apache.myfaces.tobago.model.TreePath;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
@@ -34,8 +34,11 @@ import javax.faces.event.FacesListener;
 import javax.faces.event.PhaseId;
 import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractUITreeData extends javax.faces.component.UIInput
@@ -52,7 +55,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
   private TreePath rowIndex;
 
   // XXX hack: fix this if there is a Listener
-  private Object marker;
+  private Object marked;
 
   // Holds for each node the states of the child components of this UITreeData.
   private Map<TreePath, Object> pathStates = new HashMap<TreePath, Object>();
@@ -73,7 +76,7 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
 
     // XXX hack: fix this if there is a Listener
     if (templateComponent.isMarked()) {
-      marker = templateComponent.getValue();
+      marked = templateComponent.getValue();
     }
 
     int index = 0;
@@ -100,13 +103,10 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
     }
 
     AbstractUITreeNode template = getTemplateComponent();
-    pathStates.put(this.rowIndex, template.saveState(facesContext));
+    pathStates.put(this.rowIndex, saveStateDeep(facesContext, template));
     if (LOG.isDebugEnabled()) {
       LOG.debug("save   " + this.rowIndex + " ex=" + template.isExpanded());
     }
-
-    // reset the client id (see spec 3.1.6)
-    template.setId(template.getId());
 
     this.rowIndex = rowIndex;
     if (rowIndex != null) {
@@ -120,11 +120,44 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
 
     Object state = pathStates.get(this.rowIndex);
     if (state != null) {
-      template.restoreState(facesContext, state);
+      restoreStateDeep(facesContext, template, state);
       if (LOG.isDebugEnabled()) {
         LOG.debug("restore " + this.rowIndex + " ex=" + template.isExpanded());
       }
     }
+  }
+
+  /**
+   * Restores the state of the component and the state of all facets and children from the state object.
+   */
+  private void restoreStateDeep(FacesContext facesContext, UIComponent template, Object stateObject) {
+    final List<Object> state = (List<Object>) stateObject;
+    int i = 0;
+    template.restoreState(facesContext, state.get(i++));
+
+    // reset the client id (see spec 3.1.6)
+    template.setId(template.getId());
+    
+    final Iterator<UIComponent> facetsAndChildren = template.getFacetsAndChildren();
+    while (facetsAndChildren.hasNext()) {
+      UIComponent component = (UIComponent) facetsAndChildren.next();
+      restoreStateDeep(facesContext, component, state.get(i++));
+    }
+  }
+
+  /**
+   * Put the state of the component and the state of all facets and children into a object.
+   */
+  private Object saveStateDeep(FacesContext facesContext, UIComponent template) {
+    final List<Object> state = new ArrayList<Object>();
+    state.add(template.saveState(facesContext));
+
+    final Iterator<UIComponent> facetsAndChildren = template.getFacetsAndChildren();
+    while (facetsAndChildren.hasNext()) {
+      UIComponent component = (UIComponent) facetsAndChildren.next();
+      state.add(saveStateDeep(facesContext, component));
+    }
+    return state;
   }
 /*
   public void buildTreeModel(MixedTreeModel model) {
@@ -226,8 +259,8 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
 
   @Override
   public void updateModel(FacesContext facesContext) {
-    // nothig to update for tree's
-    // TODO: updateing the model here and *NOT* in the decode phase
+    // nothing to update for tree's
+    // TODO: updating the model here and *NOT* in the decode phase
   }
 
   public AbstractUITreeNode getTemplateComponent() {
@@ -366,6 +399,6 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
 
   // XXX hack: fix this if there is a Listener
   public Object getMarker() {
-    return marker;
+    return marked;
   }
 }

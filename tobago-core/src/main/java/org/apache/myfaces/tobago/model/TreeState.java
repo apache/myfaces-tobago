@@ -28,13 +28,13 @@ import java.util.Set;
  * Manages the state on a Tree:<br />
  * 1. selection: selected tree-nodes<br />
  * 2. expandState: open/close folder state<br />
- * 3. marker: last used action object<br />
+ * 3. marked: last used action object<br />
  */
 public class TreeState {
 
   private Set<TreePath> expanded;
   private Set<TreePath> selected;
-  private Set<TreePath> marked;
+  private Set<TreePath> marked; // XXX Wy a set and not only a TreePath?
 
   @Deprecated
   private Set<DefaultMutableTreeNode> selection;
@@ -46,6 +46,7 @@ public class TreeState {
   private DefaultMutableTreeNode lastMarker;
   @Deprecated
   private String lastCommand;
+  // XXX ???
   private Integer[] scrollPosition;
 
   public TreeState() {
@@ -222,4 +223,3 @@ public class TreeState {
   }
 
 }
-

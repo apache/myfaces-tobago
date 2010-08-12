@@ -18,15 +18,16 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UITree;
-import org.apache.myfaces.tobago.component.UITreeData;
+import org.apache.myfaces.tobago.component.Attributes;
+import org.apache.myfaces.tobago.component.UITreeLabel;
+import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.context.ResourceUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
-import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
+import org.apache.myfaces.tobago.internal.context.ResponseWriterDivider;
 import org.apache.myfaces.tobago.internal.util.TreeUtils;
+import org.apache.myfaces.tobago.layout.Display;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.TreeSelectable;
 import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -34,7 +35,6 @@ import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
-import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
@@ -44,19 +44,13 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
-public class TreeNodeRenderer extends CommandRendererBase {
+public class TreeListboxNodeRenderer extends CommandRendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TreeNodeRenderer.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TreeListboxNodeRenderer.class);
 
-  protected static final String OPEN_FOLDER
-      = ResourceUtils.createString("image", "treeNode", "icon", "open", ResourceUtils.GIF);
-  protected static final String CLOSED_FOLDER
-      = ResourceUtils.createString("image", "treeNode", "icon", ResourceUtils.GIF);
-  protected static final String LEAF
-      = ResourceUtils.createString("image", "treeNode", "icon", "leaf", ResourceUtils.GIF);
+  // TODO cleanup: there might be some stuff to remove after tree refactoring
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
@@ -76,8 +70,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
     String id = node.getClientId(facesContext);
 
     // expand state
-    boolean expanded
-        = Boolean.parseBoolean((String) requestParameterMap.get(id + ComponentUtils.SUB_SEPARATOR + "expanded"));
+    boolean expanded = Boolean.parseBoolean((String) requestParameterMap.get(id + "-expanded"));
     TreeUtils.setExpanded(tree, node, expanded);
 
     // select
@@ -115,95 +108,84 @@ public class TreeNodeRenderer extends CommandRendererBase {
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     UITreeNode node = (UITreeNode) component;
     AbstractUITree tree = node.findTree();
-
-    final String treeId = tree.getClientId(facesContext);
-    final boolean folder = node.isFolder();
-    final boolean marked = node.isMarked();
-    final String id = node.getClientId(facesContext);
-    final int level = node.getLevel();
-    final boolean hasNextSibling = node.isHasNextSibling();
-    final List<Boolean> junctions = node.getJunctions();
-
-    final boolean showRoot = ((UITree) tree).isShowRoot();
-    final boolean expanded = TreeUtils.isExpanded(tree, node) || !showRoot && level == 0;
-
-    if (!showRoot && junctions.size() > 0) {
-      junctions.remove(0);
-    }
-
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    if (showRoot || level != 0) {
-      writer.startElement(HtmlElements.DIV, null);
+    boolean folder = node.isFolder();
+    int level = node.getLevel();
+    String id = node.getClientId(facesContext);
+    boolean expanded = TreeUtils.isExpanded(tree, node);
 
-      // div id
+    if (level > 0) { // root will not rendered as an option
+      writer.startElement(HtmlElements.OPTION, null);
+      // todo: define where to store the selection of a tree, node.getValue() seems not to be a god place.
+      //        writer.writeAttribute(HtmlAttributes.VALUE, node.getValue().toString(), true); // XXX converter?
       writer.writeIdAttribute(id);
-      if (!folder) {
-        HtmlRendererUtils.renderDojoDndItem(node, writer, true);
-      }
-      writer.writeClassAttribute(Classes.create(node));
-      // div style (width)
-      Style style = new Style(facesContext, tree);
-      String widthString;
-      if (style.getWidth() != null) {
-        widthString = "width: " + Integer.toString(style.getWidth().getPixel() - 22); // fixme: 4 + 18 for scrollbar
-      } else {
-        widthString = "100%";
-      }
-      writer.writeStyleAttribute(widthString);
-
+      writer.writeAttribute(HtmlAttributes.SELECTED, expanded);
+      writer.writeText("(" + level + ") " + getLabel(node));
       if (folder) {
-        writer.writeAttribute("onclick", "tobagoTreeNodeToggle(this)", false);
+        writer.writeText(" \u2192");
       }
-
-      if (folder) {
-        encodeExpandedHidden(writer, node, id, expanded);
-      }
-
-      for (UIComponent child : (List<UIComponent>) node.getChildren()) {
-        // encode all content but not the nodes and data.
-        if (!(child instanceof UITreeNode) && !(child instanceof UITreeData)) {
-          RenderUtils.encode(facesContext, child);
-        }
-      }
-
-      UIComponent facet = node.getFacet(Facets.ADDENDUM);
-      if (facet != null) {
-        RenderUtils.encode(facesContext, facet);
-      }
-
-      writer.endElement(HtmlElements.DIV);
+      writer.endElement(HtmlElements.OPTION);
     }
 
     if (folder) {
-      String contentStyle = "display: " + (expanded ? "block" : "none") + ";";
-      writer.startElement(HtmlElements.DIV, null);
-      writer.writeIdAttribute(id + ComponentUtils.SUB_SEPARATOR + "content");
-      writer.writeStyleAttribute(contentStyle);
+      boolean siblingMode = "siblingLeafOnly".equals(((UITreeListbox) tree).getAttributes().get(Attributes.SELECTABLE));
+      ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, TreeListboxRenderer.DIVIDER);
+      boolean alreadyExists = divider.activateBranch(facesContext);
+      writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+      if (!alreadyExists) {
+        writer.startElement(HtmlElements.DIV, null);
+        writer.writeClassAttribute(Classes.create((UITreeListbox) tree, "level"));
+        Style levelStyle = new Style();
+        levelStyle.setLeft(Measure.valueOf(level * 160)); // xxx 160 should be configurable
+        writer.writeStyleAttribute(levelStyle);
+        // at the start of each div there is an empty and disabled select tag to show empty area.
+        // this is not needed for the 1st level.
+        if (level > 0) {
+          writer.startElement(HtmlElements.SELECT, null);
+          writer.writeAttribute(HtmlAttributes.DISABLED, true);
+          writer.writeAttribute(HtmlAttributes.SIZE, 2); // must be > 1, but the size comes from the layout
+          writer.writeClassAttribute(Classes.create((UITreeListbox) tree, "select"));
+          writer.endElement(HtmlElements.SELECT);
+        }
+      }
+
+      writer.startElement(HtmlElements.SELECT, node);
+      writer.writeIdAttribute(id + ComponentUtils.SUB_SEPARATOR + "select");
+      writer.writeClassAttribute(Classes.create((UITreeListbox) tree, "select"));
+      if (!expanded) {
+        Style selectStyle = new Style();
+        selectStyle.setDisplay(Display.NONE);
+      }
+      writer.writeAttribute(HtmlAttributes.SIZE, 2); // must be > 1, but the size comes from the layout
+      writer.writeAttribute(HtmlAttributes.MULTIPLE, siblingMode);
+
+      // XXX insert options here
+      writer.startElement(HtmlElements.OPTGROUP, null);
+      writer.writeAttribute(HtmlAttributes.LABEL, getLabel(node), true);
+      writer.endElement(HtmlElements.OPTGROUP);
     }
   }
 
-  private void encodeExpandedHidden(
-      TobagoResponseWriter writer, AbstractUITreeNode node, String clientId, boolean expanded) throws IOException {
-    writer.startElement(HtmlElements.INPUT, node);
-    writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-    writer.writeClassAttribute(Classes.create(node, "expanded", Markup.NULL));
-    writer.writeNameAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "expanded");
-    writer.writeAttribute(HtmlAttributes.VALUE, Boolean.toString(expanded), false);
-    writer.endElement(HtmlElements.INPUT);
+  // XXX this is a hotfix, may be better calling the renderer?
+  private String getLabel(UITreeNode node) {
+    for (UIComponent component : node.getChildren()) {
+      if (component instanceof UITreeLabel) {
+        return "" + ((UITreeLabel)component).getValue();
+      }
+    }
+    return null;
   }
 
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     UITreeNode node = (UITreeNode) component;
-
     boolean folder = node.isFolder();
-    String id = node.getClientId(facesContext);
-
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
     if (folder) {
-      writer.endElement(HtmlElements.DIV);
+      TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+      writer.endElement(HtmlElements.SELECT);
+      ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, TreeListboxRenderer.DIVIDER);
+      divider.passivateBranch(facesContext);
     }
   }
 }

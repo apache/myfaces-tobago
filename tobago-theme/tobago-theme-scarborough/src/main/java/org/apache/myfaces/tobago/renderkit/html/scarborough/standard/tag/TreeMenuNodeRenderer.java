@@ -17,18 +17,16 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Facets;
-import org.apache.myfaces.tobago.component.UITree;
-import org.apache.myfaces.tobago.component.UITreeData;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.context.ResourceUtils;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.context.UserAgent;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.internal.util.TreeUtils;
-import org.apache.myfaces.tobago.model.TreeSelectable;
-import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
+import org.apache.myfaces.tobago.layout.Display;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -36,6 +34,7 @@ import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
 import org.apache.myfaces.tobago.renderkit.util.RenderUtils;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,24 +43,16 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
-public class TreeNodeRenderer extends CommandRendererBase {
+public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
 
-  private static final Logger LOG = LoggerFactory.getLogger(TreeNodeRenderer.class);
-
-  protected static final String OPEN_FOLDER
-      = ResourceUtils.createString("image", "treeNode", "icon", "open", ResourceUtils.GIF);
-  protected static final String CLOSED_FOLDER
-      = ResourceUtils.createString("image", "treeNode", "icon", ResourceUtils.GIF);
-  protected static final String LEAF
-      = ResourceUtils.createString("image", "treeNode", "icon", "leaf", ResourceUtils.GIF);
+  private static final Logger LOG = LoggerFactory.getLogger(TreeMenuNodeRenderer.class);
 
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
 
-    UITreeNode node = (UITreeNode) component;
+    AbstractUITreeNode node = (AbstractUITreeNode) component;
 
     super.decode(facesContext, node);
 
@@ -72,29 +63,17 @@ public class TreeNodeRenderer extends CommandRendererBase {
     AbstractUITree tree = node.findTree();
     String treeId = tree.getClientId(facesContext);
     String nodeStateId = node.nodeStateId(facesContext);
-    Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     String id = node.getClientId(facesContext);
 
     // expand state
-    boolean expanded
-        = Boolean.parseBoolean((String) requestParameterMap.get(id + ComponentUtils.SUB_SEPARATOR + "expanded"));
+    boolean expanded = Boolean.parseBoolean(requestParameterMap.get(id + ComponentUtils.SUB_SEPARATOR + "expanded"));
     TreeUtils.setExpanded(tree, node, expanded);
 
-    // select
-    String searchString;
-    if (tree.getSelectableAsEnum() != TreeSelectable.OFF) { // selection
-      String selected = (String) requestParameterMap.get(treeId + AbstractUITree.SELECT_STATE);
-      searchString = ";" + nodeStateId + ";";
-      if (StringUtils.contains(selected, searchString)) {
-        // TODO: add selection to Component
-        //state.addSelection((DefaultMutableTreeNode) node.getValue());
-      }
-    }
-
-    // marked
-    String marked = (String) requestParameterMap.get(treeId + AbstractUITree.MARKED);
+    // marker
+    String marked = requestParameterMap.get(treeId + AbstractUITree.MARKED);
     if (marked != null) {
-      searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeStateId;
+      String searchString = treeId + NamingContainer.SEPARATOR_CHAR + nodeStateId;
       node.setMarked(marked.equals(searchString));
     } else {
       LOG.warn("This log message is help clarifying the occurrence of this else case.");
@@ -113,72 +92,58 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    UITreeNode node = (UITreeNode) component;
-    AbstractUITree tree = node.findTree();
 
-    final String treeId = tree.getClientId(facesContext);
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UITreeNode node = (UITreeNode) component;
+    final AbstractUITree tree = node.findTree();
+
     final boolean folder = node.isFolder();
-    final boolean marked = node.isMarked();
     final String id = node.getClientId(facesContext);
     final int level = node.getLevel();
-    final boolean hasNextSibling = node.isHasNextSibling();
-    final List<Boolean> junctions = node.getJunctions();
+    final boolean expanded = TreeUtils.isExpanded(tree, node) || level == 0;
+    final boolean ie6
+        = VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().equals(UserAgent.MSIE_6_0);
 
-    final boolean showRoot = ((UITree) tree).isShowRoot();
-    final boolean expanded = TreeUtils.isExpanded(tree, node) || !showRoot && level == 0;
+    writer.startElement(HtmlElements.DIV, null);
+    writer.writeIdAttribute(id);
+    writer.writeClassAttribute(Classes.create(node));
 
-    if (!showRoot && junctions.size() > 0) {
-      junctions.remove(0);
-    }
-
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
-    if (showRoot || level != 0) {
-      writer.startElement(HtmlElements.DIV, null);
-
-      // div id
-      writer.writeIdAttribute(id);
-      if (!folder) {
-        HtmlRendererUtils.renderDojoDndItem(node, writer, true);
-      }
-      writer.writeClassAttribute(Classes.create(node));
-      // div style (width)
-      Style style = new Style(facesContext, tree);
-      String widthString;
-      if (style.getWidth() != null) {
-        widthString = "width: " + Integer.toString(style.getWidth().getPixel() - 22); // fixme: 4 + 18 for scrollbar
-      } else {
-        widthString = "100%";
-      }
-      writer.writeStyleAttribute(widthString);
-
-      if (folder) {
-        writer.writeAttribute("onclick", "tobagoTreeNodeToggle(this)", false);
-      }
-
-      if (folder) {
-        encodeExpandedHidden(writer, node, id, expanded);
-      }
-
-      for (UIComponent child : (List<UIComponent>) node.getChildren()) {
-        // encode all content but not the nodes and data.
-        if (!(child instanceof UITreeNode) && !(child instanceof UITreeData)) {
-          RenderUtils.encode(facesContext, child);
-        }
-      }
-
-      UIComponent facet = node.getFacet(Facets.ADDENDUM);
-      if (facet != null) {
-        RenderUtils.encode(facesContext, facet);
-      }
-
-      writer.endElement(HtmlElements.DIV);
+    if (folder) {
+      writer.writeAttribute("onclick", "tobagoTreeNodeToggle(this)", false);
     }
 
     if (folder) {
-      String contentStyle = "display: " + (expanded ? "block" : "none") + ";";
+      encodeExpandedHidden(writer, node, id, expanded);
+    }
+
+    if (folder) {
+      encodeIcon(facesContext, writer, expanded, node);
+    }
+
+    if (!folder && ie6) { // XXX IE6: without this hack, we can't click beside the label text. Why?
+      final String src = ResourceManagerUtils.getImageWithPath(facesContext, "image/1x1.gif");
+      writer.startElement(HtmlElements.IMG, null);
+      writer.writeClassAttribute(Classes.create(node, "icon"));
+      writer.writeAttribute(HtmlAttributes.SRC, src, false);
+      writer.writeAttribute(HtmlAttributes.ALT, "", false);
+      writer.writeStyleAttribute("width: 0px");
+      writer.endElement(HtmlElements.IMG);
+    }
+
+    RenderUtils.encodeChildrenWithoutLayout(facesContext, node);
+
+    UIComponent facet = node.getFacet(Facets.ADDENDUM);
+    if (facet != null) {
+      RenderUtils.encode(facesContext, facet);
+    }
+
+    writer.endElement(HtmlElements.DIV);
+
+    if (folder) {
       writer.startElement(HtmlElements.DIV, null);
       writer.writeIdAttribute(id + ComponentUtils.SUB_SEPARATOR + "content");
+      Style contentStyle = new Style();
+      contentStyle.setDisplay(expanded ? Display.BLOCK : Display.NONE);
       writer.writeStyleAttribute(contentStyle);
     }
   }
@@ -193,16 +158,25 @@ public class TreeNodeRenderer extends CommandRendererBase {
     writer.endElement(HtmlElements.INPUT);
   }
 
+  private void encodeIcon(FacesContext facesContext, TobagoResponseWriter writer, boolean expanded, UITreeNode node)
+      throws IOException {
+    final String srcOpen = ResourceManagerUtils.getImageWithPath(facesContext, "image/treeMenuOpen.gif");
+    final String srcClose = ResourceManagerUtils.getImageWithPath(facesContext, "image/treeMenuClose.gif");
+    final String src = expanded ? srcOpen : srcClose;
+    writer.startElement(HtmlElements.IMG, null);
+    writer.writeClassAttribute(Classes.create(node, "toggle"));
+    writer.writeAttribute(HtmlAttributes.SRC, src, false);
+    writer.writeAttribute(HtmlAttributes.SRCOPEN, srcOpen, false);
+    writer.writeAttribute(HtmlAttributes.SRCCLOSE, srcClose, false);
+    writer.writeAttribute(HtmlAttributes.ALT, "", false);
+    writer.endElement(HtmlElements.IMG);
+  }
+
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     UITreeNode node = (UITreeNode) component;
-
-    boolean folder = node.isFolder();
-    String id = node.getClientId(facesContext);
-
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
-    if (folder) {
+    if (node.isFolder()) {
+      TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
       writer.endElement(HtmlElements.DIV);
     }
   }

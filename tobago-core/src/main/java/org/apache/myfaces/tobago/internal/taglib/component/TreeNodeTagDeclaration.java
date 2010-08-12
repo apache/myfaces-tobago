@@ -26,10 +26,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.AbstractCommandTagDeclaration;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasImage;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasLabel;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
@@ -52,8 +49,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
     facets = {
         @Facet(name = Facets.ADDENDUM, description = "Displays an additional component to a node.")})
 public interface TreeNodeTagDeclaration
-    extends HasIdBindingAndRendered, HasLabel, HasMarkup, HasTip, HasImage, IsDisabled,
-    AbstractCommandTagDeclaration {
+    extends HasIdBindingAndRendered, HasMarkup, HasTip, IsDisabled {
 
   /**
    * Flag indicating if the subnodes are to be displayed.
@@ -70,6 +66,13 @@ public interface TreeNodeTagDeclaration
   void setMarked(String marked);
 
   /**
+   * Flag indicating if the node is selected (only possible, when the tree component allows it).
+   */
+  @TagAttribute()
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setSelected(String selected);
+
+  /**
    * Method binding representing a expansionListener method that ....
    */
   @TagAttribute
@@ -77,4 +80,15 @@ public interface TreeNodeTagDeclaration
       expression = DynamicExpression.METHOD_BINDING_REQUIRED,
       methodSignature = "org.apache.myfaces.tobago.event.TreeExpansionEvent")
   void setTreeExpansionListener(String treeExpansionListener);
+
+  /**
+   * Method binding representing a expansionListener method that ....
+   */
+/*
+  @TagAttribute
+  @UIComponentTagAttribute(type = {},
+      expression = DynamicExpression.METHOD_BINDING_REQUIRED,
+      methodSignature = "org.apache.myfaces.tobago.event.TreeSelectionEvent")
+  void setTreeSelectionListener(String treeSelectionListener);
+*/
 }

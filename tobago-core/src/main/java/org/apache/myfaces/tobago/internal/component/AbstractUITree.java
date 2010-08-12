@@ -21,6 +21,7 @@ import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.TreeModelBuilder;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
+import org.apache.myfaces.tobago.model.TreeSelectable;
 import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.application.FacesMessage;
@@ -40,7 +41,7 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
   public static final String SEP = "-";
 
   public static final String SELECT_STATE = SEP + "selectState";
-  public static final String MARKER = SEP + "marker";
+  public static final String MARKED = SEP + "marked";
 
   private MixedTreeModel model;
 
@@ -83,13 +84,11 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
     return true;
   }
 
-  public boolean isSelectableTree() {
-    final Object selectable
-        = ComponentUtils.getAttribute(this, Attributes.SELECTABLE);
-    return selectable != null
-        && (selectable.equals("multi") || selectable.equals("multiLeafOnly")
-        || selectable.equals("single") || selectable.equals("singleLeafOnly")
-        || selectable.equals("sibling") || selectable.equals("siblingLeafOnly"));
+  /**
+   * Will be obsolete later when selectable has the type TreeSelectable.
+   */
+  public TreeSelectable getSelectableAsEnum() {
+    return TreeSelectable.parse(ComponentUtils.getStringAttribute(this, Attributes.SELECTABLE));
   }
 
   @Override
@@ -167,7 +166,4 @@ public abstract class AbstractUITree extends javax.faces.component.UIInput imple
 
   public abstract Object getState();
 
-  public boolean isShowRoot() {
-    return false;
-  }
 }

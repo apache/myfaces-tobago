@@ -17,15 +17,10 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-/*
- * Created 07.02.2003 16:00:00.
- * $Id$
- */
-
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UICommand;
-import org.apache.myfaces.tobago.component.UIImage;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.internal.component.AbstractUIImage;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
@@ -54,7 +49,7 @@ public class ImageRenderer extends LayoutComponentRendererBase {
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    UIImage image = (UIImage) component;
+    AbstractUIImage image = (AbstractUIImage) component;
     final String value = image.getUrl();
     String src = value;
     if (src != null) {
@@ -109,7 +104,7 @@ public class ImageRenderer extends LayoutComponentRendererBase {
     }
   }
 
-  private boolean isDisabled(UIImage graphic) {
+  private boolean isDisabled(AbstractUIImage graphic) {
     return graphic.isDisabled() 
         || (graphic.getParent() instanceof UICommand && ((UICommand) graphic.getParent()).isDisabled());
   }

@@ -17,45 +17,33 @@ package org.apache.myfaces.tobago.internal.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasBorder;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponentWithDeprecatedDimension;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
 /**
- * Renders an image.
+ * Renders a label inside of a tree.
  */
-@Tag(name = "image", bodyContent = BodyContent.JSP)
+@Tag(name = "treeLabel")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIImage",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIImage",
-    rendererType = RendererTypes.IMAGE,
-    allowedChildComponenents = "NONE")
-public interface ImageTagDeclaration
-    extends HasIdBindingAndRendered, HasBorder, HasTip, IsDisabled, HasMarkup,
-    IsGridLayoutComponentWithDeprecatedDimension, IsGridLayoutContainer {
+    uiComponent = "org.apache.myfaces.tobago.component.UITreeLabel",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUILabel",
+    rendererType = RendererTypes.TREE_LABEL,
+    allowedChildComponenents = "NONE"
+)
+public interface TreeLabelTagDeclaration
+    extends HasIdBindingAndRendered, HasTip, HasMarkup, IsGridLayoutComponent {
 
   /**
-   * Absolute url to an image or image name to lookup in tobago resource path
-   */
-  @TagAttribute(required = true)
-  @UIComponentTagAttribute()
-  void setValue(String value);
-
-  /**
-   * Alternate textual description of the image rendered by this component.
+   * Text value to display as label.
    */
   @TagAttribute
   @UIComponentTagAttribute()
-  void setAlt(String alt);
-
+  void setValue(String value);
 }

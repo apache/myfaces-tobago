@@ -407,3 +407,15 @@ a.tobago-treeNode a:focus {
   color: #3366cc;
 }
 
+/* treeMenu ------------------------------------------------------------------- */
+
+a.tobago-treeMenuNode a:hover {
+  color: #6699ff;
+  text-decoration: underline;
+}
+
+a.tobago-treeMenuNode a:focus {
+  background: #d6ebff;
+  color: #3366cc;
+}
+

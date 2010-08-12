@@ -84,5 +84,13 @@ public final class HtmlAttributes {
    * Alternate to the src attribute, to implement a hover effect.
    */
   public static final String SRCDEFAULT = "srcdefault";
+  /**
+   * Alternate to the src attribute, icon open and close.
+   */
+  public static final String SRCCLOSE = "srcclose";
+  /**
+   * Alternate to the src attribute, icon open and close.
+   */
+  public static final String SRCOPEN = "srcopen";
 }
 

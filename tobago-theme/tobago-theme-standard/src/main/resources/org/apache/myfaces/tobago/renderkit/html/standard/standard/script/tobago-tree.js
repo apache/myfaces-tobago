@@ -54,62 +54,45 @@ Tobago.Tree.updateMarker = function(node, add) {
     while (node) {
       if (node.className && node.className.indexOf("tobago-treeNode") > -1) {
         if (add) {
-          Tobago.addCssClass(node, "tobago-treeNode-marker");
+          Tobago.addCssClass(node, "tobago-treeNode-markup-marked");
         } else {
-          Tobago.removeCssClass(node, "tobago-treeNode-marker");
+          Tobago.removeCssClass(node, "tobago-treeNode-markup-marked");
         }
       }
       node = node.nextSibling;
     }
   }
-}
+};
 
 Tobago.Tree.storeMarker = function(node, treeHiddenId) {
-  var markerHidden = document.getElementById(treeHiddenId + '-marker');
+  var markerHidden = document.getElementById(treeHiddenId + '-marked');
   if (markerHidden) {
     Tobago.Tree.updateMarker(markerHidden.value, false);
     markerHidden.value = node.id;
   }
   Tobago.Tree.updateMarker(node.id, true);
-}
+};
 
-function tobagoTreeNodeToggle(node, treeHiddenId, openFolderIcon, folderIcon, openMenuIcon, closeMenuIcon) {
-  LOG.debug("toggle(" + node + ", " + treeHiddenId + ", " + openFolderIcon + ", " + folderIcon + ", "
-      + openMenuIcon + ", " + closeMenuIcon + ")");
-  var content = document.getElementById(node.id + "-cont");
-  if (content) {
-    var expandedState = document.getElementById(node.id + '-expanded');
-    var icon = document.getElementById(node.id + '-icon');
-    var menuIcon = document.getElementById(node.id + '-menuIcon');
-    var junction = document.getElementById(node.id + '-junction');
-    var hidden = document.getElementById(treeHiddenId);
-    if (content.style.display == 'none') {
-      content.style.display = 'block';
-      if (icon) {
-        icon.src = openFolderIcon;
-      }
-      if (menuIcon) {
-        menuIcon.src = openMenuIcon;
-      }
-      if (junction) {
-        junction.src = junction.src.replace(/plus\./, "minus.");
-      }
-      hidden.value = hidden.value + nodeStateId(node) + ";";
-      expandedState.value = "true";
-    } else {
-      content.style.display = 'none';
-      if (icon) {
-        icon.src = folderIcon;
-      }
-      if (menuIcon) {
-        menuIcon.src = closeMenuIcon;
-      }
-      if (junction) {
-        junction.src = junction.src.replace(/minus\./, "plus.");
-      }
-      hidden.value = hidden.value.replace(";" + nodeStateId(node) + ";", ";");
-      expandedState.value = "false";
-    }
+function tobagoTreeNodeToggle(element) {
+  var node = jQuery(element);
+  var content = jQuery(Tobago.escapeClientId(element.id + Tobago.SUB_COMPONENT_SEP + "content"));
+  var expanded = node.find(".tobago-treeMenuNode-expanded, .tobago-treeNode-expanded");
+  var toggle = node.find(".tobago-treeMenuNode-toggle, .tobago-treeNode-toggle");
+  if (content.css("display") == "none") {
+    content.css("display", "block");
+    toggle.each(function() {
+      jQuery(this).attr("src", jQuery(this).attr("srcopen"));
+      Tobago.fixPngAlpha(this);
+    });
+    expanded.attr("value", "true");
+  } else {
+    content.css("display", "none");
+    toggle.each(function() {
+      jQuery(this).attr("src", jQuery(this).attr("srcclose"));
+      debugger;
+      Tobago.fixPngAlpha(this);
+    });
+    expanded.attr("value", "false");
   }
 }
 

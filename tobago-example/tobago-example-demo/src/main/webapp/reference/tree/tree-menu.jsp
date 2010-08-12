@@ -21,60 +21,22 @@
 <f:view>
   <tc:loadBundle basename="demo" var="bundle"/>
 
-  <tc:page label="Sandbox - Tree" id="page" width="500px" height="1000px">
+  <tc:page label="Tree Menu" id="page" width="500px" height="1000px">
     <f:facet name="layout">
-      <tc:gridLayout margin="10px" rows="*;*;*"/>
+      <tc:gridLayout margin="10px" rows="*;*"/>
     </f:facet>
-
-    <tc:treeMenu id="menu" showRoot="true">
-      <tc:treeNode label="Root" id="root" expanded="true">
-        <tc:treeData value="#{treeController.tree}" var="node" id="data">
-          <tc:treeNode label="#{node.userObject.name}"
-                       id="template"
-                       expanded="#{node.userObject.expanded}"
-                       markup="#{node.userObject.markup}"
-                       tip="#{node.userObject.tip}"
-                       action="#{node.userObject.action}"
-                       disabled="#{node.userObject.disabled}"/>
-        </tc:treeData>
-        <tc:treeNode label="2 Action 1" action="#{treeController.action1}" id="action1"/>
-        <tc:treeNode label="3 Action 2" action="#{treeController.action2}" id="action2"/>
-        <tc:treeNode label="4 Action 3" action="#{treeController.action3}" id="action3">
-          <tc:treeNode label="4.1 On Click 1" onclick="alert('On Click 1');" id="click1"/>
-          <tc:treeNode label="4.2 On Click 2" onclick="alert('On Click 2');" id="click2">
-            <tc:treeNode label="4.2.1 On Click 3" onclick="alert('On Click 3');" id="click3"/>
-          </tc:treeNode>
-        </tc:treeNode>
-        <tc:treeNode label="5 Link" link="http://myfaces.apache.org/tobago/" id="link" tip="Subnode Link"/>
-        <tc:treeNode label="6 Target" action="#{treeController.action2}" target="Target Window"/>
-      </tc:treeNode>
-    </tc:treeMenu>
 
     <tc:treeMenu>
       <tc:treeData value="#{treeController.tree}" var="node" id="data">
-        <tc:treeNode label="#{node.userObject.name}"
-                     id="template"
-                     expanded="#{node.userObject.expanded}"
-                     markup="#{node.userObject.markup}"
-                     tip="#{node.userObject.tip}"
-                     action="#{node.userObject.action}"
-                     disabled="#{node.userObject.disabled}"/>
-      </tc:treeData>
-    </tc:treeMenu>
-
-    <tc:treeMenu>
-      <tc:treeNode label="Root" expanded="true">
-        <tc:treeNode label="2 Action 1"/>
-        <tc:treeNode label="3 Action 2"/>
-        <tc:treeNode label="4 Action 3">
-          <tc:treeNode label="4.1 On Click 1" onclick="alert('On Click 1');"/>
-          <tc:treeNode label="4.2 On Click 2" onclick="alert('On Click 2');">
-            <tc:treeNode label="4.2.1 On Click 3" onclick="alert('On Click 3');"/>
-          </tc:treeNode>
+        <tc:treeNode id="template" expanded="true" rendered="#{! node.root}">
+<%--
+          <tc:treeCommand label="#{node.userObject.name}" action="#{node.userObject.action}"/>
+--%>
+            <tc:treeCommand label="#{node.userObject.name}" rendered="#{node.childCount == 0}"
+                            action="#{node.userObject.action}"/>
+            <tc:treeLabel value="#{node.userObject.name}" rendered="#{node.childCount > 0}"/>
         </tc:treeNode>
-        <tc:treeNode label="5 Link" link="http://myfaces.apache.org/tobago/" tip="Subnode Link"/>
-        <tc:treeNode label="6 Target" target="Target Window"/>
-      </tc:treeNode>
+      </tc:treeData>
     </tc:treeMenu>
 
     <tc:cell/>

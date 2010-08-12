@@ -255,6 +255,14 @@
       <name>TreeNode</name>
       <supported-markup>
         <markup>strong</markup>
+        <markup>marked</markup>
+      </supported-markup>
+    </renderer>
+    <renderer>
+      <name>TreeMenuNode</name>
+      <supported-markup>
+        <markup>strong</markup>
+        <markup>marked</markup>
       </supported-markup>
     </renderer>
   </renderers>

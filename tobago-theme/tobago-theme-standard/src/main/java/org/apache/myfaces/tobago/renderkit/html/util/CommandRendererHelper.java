@@ -21,12 +21,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.PopupFacetActionListener;
 import org.apache.myfaces.tobago.internal.component.UICommandBase;
 import org.apache.myfaces.tobago.util.ComponentUtils;
-import org.apache.myfaces.tobago.util.VariableResolverUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,13 +59,12 @@ public class CommandRendererHelper {
   private void initOnclick(FacesContext facesContext, UICommandBase command, Tag tag) {
 
     disabled = ComponentUtils.getBooleanAttribute(command, Attributes.DISABLED);
-    href = getEmptyHref(facesContext);
 
     if (disabled) {
       onclick = "";
       href = "";
     } else {
-
+      href = "#"; // this is to make the link "active", needed for focus, cursor, etc.
       UIPopup popup = (UIPopup) command.getFacet(Facets.POPUP);
       if (popup != null) {
         if (!ComponentUtils.containsPopupActionListener(command)) {
@@ -136,11 +133,6 @@ public class CommandRendererHelper {
       }
       onclick = appendConfirmationScript(onclick, command);
     }
-  }
-
-  private String getEmptyHref(FacesContext facesContext) {
-    ClientProperties clientProperties = VariableResolverUtils.resolveClientProperties(facesContext);
-    return clientProperties.getUserAgent().isMsie() ? "#" : "javascript:;";
   }
 
   private String prepareOnClick(FacesContext facesContext, UIComponent component) {

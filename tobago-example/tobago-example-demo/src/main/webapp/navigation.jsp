@@ -25,10 +25,12 @@
 
     <tc:treeMenu id="nav" state="#{navigation.state}">
       <tc:treeData value="#{navigation.tree}" var="node" id="data">
-        <tc:treeNode label="#{node.userObject.title}"
-                     action="#{node.userObject.action}"
-                     immediate="true"
-                     expanded="true"/>
+        <tc:treeNode rendered="#{not node.root}">
+          <tc:treeCommand
+              label="#{node.userObject.title}"
+              action="#{node.userObject.action}"
+              immediate="true"/>
+        </tc:treeNode>
       </tc:treeData>
     </tc:treeMenu>
 

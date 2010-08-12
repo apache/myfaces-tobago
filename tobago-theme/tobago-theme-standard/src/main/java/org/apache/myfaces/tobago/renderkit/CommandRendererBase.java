@@ -18,9 +18,9 @@ package org.apache.myfaces.tobago.renderkit;
  */
 
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -46,8 +46,12 @@ public abstract class CommandRendererBase extends LayoutComponentRendererBase {
       if (LOG.isDebugEnabled()) {
         LOG.debug("queueEvent = '" + actionId + "'");
       }
-      component.queueEvent(new ActionEvent(component));
+      commandActivated(component);
     }
+  }
+
+  protected void commandActivated(UIComponent component) {
+    component.queueEvent(new ActionEvent(component));
   }
 
   public String getImageWithPath(FacesContext facesContext, String image, boolean disabled) {

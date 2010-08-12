@@ -73,8 +73,16 @@ public final class RendererTypes {
   public static final String TOOL_BAR = "ToolBar";
   public static final String TREE = "Tree";
   public static final String TREE_DATA = "TreeData";
+  public static final String TREE_COMMAND = "TreeCommand";
+  public static final String TREE_ICON = "TreeIcon";
+  public static final String TREE_INDENT = "TreeIndent";
+  public static final String TREE_LABEL = "TreeLabel";
   public static final String TREE_LISTBOX = "TreeListbox";
+  public static final String TREE_LISTBOX_NODE = "TreeListboxNode";
   public static final String TREE_MENU = "TreeMenu";
+  public static final String TREE_MENU_COMMAND = "TreeMenuCommand";
+  public static final String TREE_MENU_LABEL = "TreeMenuLabel";
+  public static final String TREE_MENU_NODE = "TreeMenuNode";
   public static final String TREE_NODE = "TreeNode";
   public static final String SHEET = "Sheet";
   public static final String WIZARD = "Wizard";

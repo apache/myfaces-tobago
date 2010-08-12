@@ -17,12 +17,6 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.DeprecatedDimension;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+public abstract class AbstractUITreeMenuNode extends AbstractUITreeNode {
 
-import javax.faces.component.UIGraphic;
-
-public abstract class AbstractUIImage extends UIGraphic implements LayoutComponent, DeprecatedDimension {
-
-  public abstract boolean isDisabled();
 }

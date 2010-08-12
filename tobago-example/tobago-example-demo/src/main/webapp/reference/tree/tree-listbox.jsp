@@ -1,6 +1,4 @@
-package org.apache.myfaces.tobago.internal.component;
-
-/*
+<%--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,14 +13,28 @@ package org.apache.myfaces.tobago.internal.component;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+--%>
 
-import org.apache.myfaces.tobago.component.DeprecatedDimension;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
-import javax.faces.component.UIGraphic;
+<f:view>
+  <tc:loadBundle basename="demo" var="bundle"/>
 
-public abstract class AbstractUIImage extends UIGraphic implements LayoutComponent, DeprecatedDimension {
+  <tc:page label="Tree Menu" id="page" width="500px" height="1000px">
+    <f:facet name="layout">
+      <tc:gridLayout margin="10px" rows="*;*"/>
+    </f:facet>
 
-  public abstract boolean isDisabled();
-}
+    <tc:treeListbox>
+      <tc:treeData value="#{treeController.tree}" var="node" id="data">
+        <tc:treeNode id="template" expanded="true">
+          <tc:treeLabel value="#{node.userObject.name}"/>
+        </tc:treeNode>
+      </tc:treeData>
+    </tc:treeListbox>
+
+    <tc:cell/>
+
+  </tc:page>
+</f:view>

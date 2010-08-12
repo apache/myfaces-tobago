@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.internal.component;
+package org.apache.myfaces.tobago.internal.taglib.component;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,12 +17,15 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.DeprecatedDimension;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
+import org.apache.myfaces.tobago.component.RendererTypes;
 
-import javax.faces.component.UIGraphic;
-
-public abstract class AbstractUIImage extends UIGraphic implements LayoutComponent, DeprecatedDimension {
-
-  public abstract boolean isDisabled();
+/**
+ * Render a node for a tree as listbox.
+ */
+@UIComponentTag(
+    uiComponent = "org.apache.myfaces.tobago.component.UITreeNode",
+    generate = false,
+    rendererType = RendererTypes.TREE_LISTBOX_NODE)
+public interface TreeListboxNodeTagDeclaration extends TreeNodeTagDeclaration {
 }

@@ -29,40 +29,81 @@
     <f:facet name="layout">
       <tc:gridLayout rows="20px;*"/>
     </f:facet>
-    <tc:out value="A tree with a mixed model of static and dynamic nodes. It uses the tree event mechanism." />
+    <tc:out value="A tree with a mixed model of static and dynamic nodes. It uses the tree event mechanism."/>
+
     <tc:tree id="tree"
              showIcons="true"
              showJunctions="true"
              showRootJunction="true"
              showRoot="true">
-      <tc:treeNode label="Root" id="root" expanded="true">
+      <tc:treeNode id="root" expanded="true">
+        <tc:treeIndent showJunctions="true"/>
+        <tc:treeIcon/>
+        <tc:treeCommand label="Root"/>
+
         <tc:treeData value="#{treeController.tree}" var="node" id="data">
-          <tc:treeNode label="#{node.userObject.name}"
-                       id="template"
+          <tc:treeNode id="template"
                        expanded="#{node.userObject.expanded}"
                        markup="#{node.userObject.markup}"
                        tip="#{node.userObject.tip}"
-                       action="#{node.userObject.action}"
                        disabled="#{node.userObject.disabled}"
-                       image="image/feather.png"
-                       treeExpansionListener="#{node.userObject.expansionListener}"/>
+                       treeExpansionListener="#{node.userObject.expansionListener}">
+            <tc:treeIndent showJunctions="true"/>
+            <tc:treeIcon value="image/feather.png"/>
+            <tc:treeCommand label="#{node.userObject.name}" rendered="#{node.childCount == 0}"
+                            action="#{node.userObject.action}" disabled="#{node.userObject.disabled}"/>
+            <tc:treeLabel value="#{node.userObject.name}" rendered="#{node.childCount > 0}"/>
+          </tc:treeNode>
         </tc:treeData>
-        <tc:treeNode label="2 Action 1" action="#{treeController.action1}" id="action1">
+        <tc:treeNode>
+          <tc:treeIndent showJunctions="true"/>
+          <tc:treeIcon/>
+          <tc:treeCommand label="2 Action 1" action="#{treeController.action1}" id="action1"/>
           <f:facet name="addendum">
             <tc:out value="(Addendum)"/>
           </f:facet>
         </tc:treeNode>
-        <tc:treeNode label="3 Action 2 (with actionListener)" action="#{treeController.action2}"
-                     actionListener="#{treeController.actionListener}" id="action2"/>
-        <tc:treeNode label="4 Action 3" action="#{treeController.action3}" id="action3">
-          <tc:treeNode label="4.1 On Click 1" onclick="alert('On Click 1');" id="click1"/>
-          <tc:treeNode label="4.2 On Click 2" onclick="alert('On Click 2');" id="click2">
-            <tc:treeNode label="4.2.1 On Click 3" onclick="alert('On Click 3');" id="click3"/>
+        <tc:treeNode>
+          <tc:treeIndent showJunctions="true"/>
+          <tc:treeIcon/>
+          <tc:treeCommand label="3 Action 2 (with actionListener)" action="#{treeController.action2}"
+                          actionListener="#{treeController.actionListener}" id="action2"/>
+        </tc:treeNode>
+
+        <tc:treeNode>
+          <tc:treeIndent showJunctions="true"/>
+          <tc:treeIcon/>
+          <tc:treeCommand  label="4 Action 3" action="#{treeController.action3}" id="action3"/>
+
+          <tc:treeNode>
+            <tc:treeIndent showJunctions="true"/>
+            <tc:treeIcon/>
+            <tc:treeCommand label="4.1 On Click 1" onclick="alert('On Click 1');" id="click1"/>
+          </tc:treeNode>
+          <tc:treeNode>
+            <tc:treeIndent showJunctions="true"/>
+            <tc:treeIcon/>
+            <tc:treeCommand  label="4.2 On Click 2" onclick="alert('On Click 2');" id="click2"/>
+
+            <tc:treeNode>
+              <tc:treeIndent showJunctions="true"/>
+              <tc:treeIcon/>
+              <tc:treeCommand label="4.2.1 On Click 3" onclick="alert('On Click 3');" id="click3"/>
+            </tc:treeNode>
           </tc:treeNode>
         </tc:treeNode>
-        <tc:treeNode label="5 Link" link="http://myfaces.apache.org/tobago/" id="link" tip="Subnode Link"/>
-        <tc:treeNode label="6 Target" action="#{treeController.action2}" target="Target Window"/>
+        <tc:treeNode tip="Subnode Link">
+          <tc:treeIndent showJunctions="true"/>
+          <tc:treeIcon/>
+          <tc:treeCommand label="5 Link" link="http://myfaces.apache.org/tobago/" id="link"/>
+        </tc:treeNode>
+        <tc:treeNode>
+          <tc:treeIndent showJunctions="true"/>
+          <tc:treeIcon/>
+          <tc:treeCommand label="6 Target" action="#{treeController.action2}" target="Target Window"/>
+        </tc:treeNode>
       </tc:treeNode>
     </tc:tree>
+
   </tc:box>
 </ui:composition>

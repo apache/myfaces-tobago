@@ -17,45 +17,33 @@ package org.apache.myfaces.tobago.internal.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasBorder;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponentWithDeprecatedDimension;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
+import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
 
 /**
- * Renders an image.
+ * Renders an image beside a tree node.
  */
-@Tag(name = "image", bodyContent = BodyContent.JSP)
+@Tag(name = "treeIcon")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIImage",
+    uiComponent = "org.apache.myfaces.tobago.component.UITreeIcon",
     uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIImage",
-    rendererType = RendererTypes.IMAGE,
+    rendererType = RendererTypes.TREE_ICON,
     allowedChildComponenents = "NONE")
-public interface ImageTagDeclaration
-    extends HasIdBindingAndRendered, HasBorder, HasTip, IsDisabled, HasMarkup,
-    IsGridLayoutComponentWithDeprecatedDimension, IsGridLayoutContainer {
+public interface TreeIconTagDeclaration
+    extends HasIdBindingAndRendered, HasTip, IsDisabled, HasMarkup, IsGridLayoutComponent {
 
   /**
    * Absolute url to an image or image name to lookup in tobago resource path
    */
-  @TagAttribute(required = true)
-  @UIComponentTagAttribute()
-  void setValue(String value);
-
-  /**
-   * Alternate textual description of the image rendered by this component.
-   */
   @TagAttribute
-  @UIComponentTagAttribute()
-  void setAlt(String alt);
-
+  @UIComponentTagAttribute
+  void setValue(String value);
 }

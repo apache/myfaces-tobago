@@ -1,5 +1,14 @@
 package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
+import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.UITreeCommand;
+import org.apache.myfaces.tobago.component.UITreeLabel;
+import org.apache.myfaces.tobago.component.UITreeNode;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import java.io.IOException;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,4 +28,25 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 
 public class TreeMenuRenderer extends TreeRenderer {
 
+  @Override
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+
+    setRendererTypeForCommandsAndNodes(component);
+  }
+
+  protected void setRendererTypeForCommandsAndNodes(UIComponent component) {
+    for (UIComponent child : component.getChildren()) {
+      if (child instanceof UITreeNode) {
+        child.setRendererType(RendererTypes.TREE_MENU_NODE);
+      }
+      if (child instanceof UITreeCommand) {
+        child.setRendererType(RendererTypes.TREE_MENU_COMMAND);
+      }
+      if (child instanceof UITreeLabel) {
+        child.setRendererType(RendererTypes.TREE_MENU_LABEL);
+      }
+      setRendererTypeForCommandsAndNodes(child);
+    }
+  }
 }

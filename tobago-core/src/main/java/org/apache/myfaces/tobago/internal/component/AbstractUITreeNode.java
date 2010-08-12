@@ -19,6 +19,7 @@ package org.apache.myfaces.tobago.internal.component;
 
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.TreeModelBuilder;
+import org.apache.myfaces.tobago.config.Configurable;
 import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.event.TreeExpansionListener;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
@@ -27,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
@@ -36,7 +38,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class AbstractUITreeNode extends UICommandBase implements SupportsMarkup, TreeModelBuilder {
+public abstract class AbstractUITreeNode
+    extends UIOutput implements SupportsMarkup, TreeModelBuilder, Configurable {
 
   private static final Logger LOG = LoggerFactory.getLogger(AbstractUITreeNode.class);
 
@@ -297,12 +300,15 @@ public abstract class AbstractUITreeNode extends UICommandBase implements Suppor
     removeFacesListener(listener);
   }
 
-
-  public abstract void setExpanded(boolean expanded);
+  public abstract boolean isMarked();
 
   public abstract void setMarked(boolean b);
 
-  public abstract boolean isMarked();
-
   public abstract boolean isExpanded();
+
+  public abstract void setExpanded(boolean expanded);
+
+  public abstract boolean isSelected();
+
+  public abstract void setSelected(boolean selected);
 }

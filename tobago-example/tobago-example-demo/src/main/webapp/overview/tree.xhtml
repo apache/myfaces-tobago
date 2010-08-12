@@ -134,5 +134,78 @@
 
     </tc:box>
 
+    <!-- old -->
+    <tc:tree showIcons="true" showJunctions="true" showRootJunction="true" showRoot="true" selectable="single">
+      <tc:treeData value="#{demo.tree}" var="node">
+        <tc:treeNode label="#{node.userObject.name}" expanded="true" image="image/feather.png"/>
+      </tc:treeData>
+    </tc:tree>
+
+    <!-- alternative #2 -->
+    <tc:tree >
+      <tc:treeData value="#{demo.tree}" var="node">
+        <tc:treeNode expanded="true" rendered="#{! node.root}">
+          <tc:treeJunction />
+          <tc:treeIcon value="image/feather.png" />
+          <tc:treeSelect value="#{node.selected}" />
+          <tc:treeLabel value="#{node.userObject.name}" />
+          <!-- or -->
+          <tc:treeCommand action="#{node....}" label="#{node.userObject.name}" />
+        </tc:treeNode>
+      </tc:treeData>
+      <tc:treeSelectValidator mode="single"/>
+    </tc:tree>
+
+    <!-- alternative #3 -->
+    <tc:tree>
+      <f:facet name="template">
+        <tc:panel>
+          <tc:treeJunction/>
+          <tc:treeIcon value="image/feather.png"/>
+        </tc:panel>
+      </f:facet>
+
+      <tc:treeNode rendered="false">
+        <tc:treeData value="#{demo.tree}" var="node">
+          <tc:treeNode expanded="true">
+            <tc:treeSelect value="#{node.selected}"/>
+            <tc:treeLabel value="#{node.userObject.name}"/>
+            <!-- or -->
+            <tc:treeCommand action="#{node....}" label="#{node.userObject.name}"/>
+          </tc:treeNode>
+        </tc:treeData>
+        <tc:treeNode>
+          <tc:treeLabel value="#{node.userObject.name}"/>
+        </tc:treeNode>
+      </tc:treeNode>
+      <tc:treeSelectValidator mode="single"/>
+    </tc:tree>
+
+    <!-- alternative #4 -->
+    <tc:treeListbox>
+      <tc:treeData value="#{demo.tree}" var="node">
+        <tc:treeNode label="#{node.userObject.name}">
+          <tc:treeSelect value="#{node.selected}"/>
+          <tc:treeLabel value="#{node.userObject.name}"/>
+        </tc:treeNode>
+      </tc:treeData>
+    </tc:treeListbox>
+
+    <!-- alternative #5 -->
+    <tc:treeMenu>
+      <tc:treeData value="#{demo.tree}" var="node">
+        <tc:treeNode expanded="">
+          <tc:treeCommand action="#{node....}" label="#{node.userObject.name}"/>
+        </tc:treeNode> 
+      </tc:treeData>
+    </tc:treeMenu>
+
+<!--
+Zu Beachten:
+ * passt das mit treeListbox, treeMenu
+ * passt das mit "von Hand" aufgebauten trees?
+-->
+  
+
   </tc:panel>
 </ui:composition>

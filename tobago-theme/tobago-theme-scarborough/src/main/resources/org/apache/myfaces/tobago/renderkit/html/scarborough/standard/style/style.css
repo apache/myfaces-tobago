@@ -510,7 +510,8 @@ iframe.tobago-menu-ie6bugfix {
 
 .tobago-page {
   background: #bbccdd;
-  font-family: arial, helvetica, sans-serif; /*  font-size: 14px;*/
+  font-family: arial, helvetica, sans-serif;
+  font-size: 14px;
   padding: 0;
   margin: 0;
   width: 100%;
@@ -1245,13 +1246,12 @@ div.tobago-tabGroup-toolBar {
   position: absolute;
 }
 
-/* Tree ------------------------------------------------------------------- */
+/* tree ------------------------------------------------------------------- */
 
 .tobago-tree {
   overflow: auto;
   padding: 0;
   margin: 0;
-  font: icon;
   color: black;
   white-space: nowrap;
 }
@@ -1296,14 +1296,79 @@ div.tobago-tabGroup-toolBar {
   font-weight: bold;
 }
 
+.tobago-treeNode-toggle {
+  width: 16px;
+  height: 16px;
+}
+
+ /*XXX remove? */
 .tobago-treeNode-icon {
   width: 16px;
   height: 16px;
 }
 
+ /*XXX remove? */
 .tobago-treeNode-junction {
   width: 19px;
   height: 16px;
+}
+
+/* treeMenu ------------------------------------------------------------------- */
+
+.tobago-treeMenu {
+  overflow: auto;
+  padding: 0;
+  margin: 0;
+  color: black;
+  white-space: nowrap;
+}
+
+.tobago-treeMenuNode {
+  border: 1px solid #d8e9fb;
+  height: 18px;
+  margin: 0 0 -1px 0;
+}
+
+.tobago-treeMenuNode-toggle {
+  vertical-align: middle;
+  border: 0;
+  float: right;
+}
+
+.tobago-treeMenuNode a, .tobago-treeMenuNode a:active, .tobago-treeMenuNode a:hover {
+  padding: 1px 2px 1px 2px;
+}
+
+.tobago-treeMenuNode a {
+  color: black;
+  text-decoration: none;
+  display: block;
+  left:0;
+}
+
+.tobago-treeMenuNode a:hover {
+  text-decoration: underline;
+}
+
+.tobago-treeMenuNode a:focus {
+  background: #445566;
+  color: highlighttext;
+  text-decoration: none;
+}
+
+.tobago-treeMenuNode-markup-disabled a, .tobago-treeMenuNode-markup-disabled a:hover {
+  color: #888888;
+  text-decoration: none;
+  cursor: default;
+}
+
+.tobago-treeMenuNode-markup-marked, .tobago-treeMenuNode-markup-marked:focus,
+.tobago-treeMenuNode-markup-marked a, .tobago-treeMenuNode-markup-marked:focus a {
+  background-color: #d8e9fb;
+}
+
+.tobago-treeMenuNode-markup-strong {
+  font-weight: bold;
 }
 
 /* treeListbox ------------------------------------------------------------------- */

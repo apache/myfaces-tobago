@@ -26,9 +26,7 @@ import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasTreeNodeValue;
 import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponent;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
 
 /**
  * A tree which will be displayed like a flat menu.
@@ -45,12 +43,8 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsRequired;
         "org.apache.myfaces.tobago.TreeData"
         })
 public interface TreeMenuTagDeclaration
-    extends HasIdBindingAndRendered, HasTreeNodeValue, IsRequired, IsGridLayoutComponent, HasMarkup {
+    extends HasIdBindingAndRendered, IsGridLayoutComponent, HasMarkup {
 
-  @TagAttribute
-  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
-  void setShowRoot(String showRoot);
-  
   /**
    *
    * <strong>ValueBindingExpression</strong> pointing to a object to save the

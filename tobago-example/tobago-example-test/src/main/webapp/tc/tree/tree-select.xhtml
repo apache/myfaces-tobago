@@ -1,6 +1,5 @@
-package org.apache.myfaces.tobago.internal.component;
-
-/*
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,14 +14,25 @@ package org.apache.myfaces.tobago.internal.component;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+-->
 
-import org.apache.myfaces.tobago.component.DeprecatedDimension;
-import org.apache.myfaces.tobago.layout.LayoutComponent;
+<f:view
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:tc="http://myfaces.apache.org/tobago/component"
+    xmlns:tx="http://myfaces.apache.org/tobago/extension"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core">
 
-import javax.faces.component.UIGraphic;
+  <tc:page>
+    <tc:gridLayoutConstraint width="600px" height="300px"/>
 
-public abstract class AbstractUIImage extends UIGraphic implements LayoutComponent, DeprecatedDimension {
+    <tc:tree id="tree" selectable="single" showIcons="true" showJunctions="true" showRoot="true" showRootJunction="true">
+      <tc:treeData value="#{tree.tree}" var="node" id="data">
+        <tc:treeNode label="#{node.userObject.name}"
+                     id="template"
+                     expanded="true"/>
+      </tc:treeData>
+    </tc:tree>
 
-  public abstract boolean isDisabled();
-}
+  </tc:page>
+</f:view>

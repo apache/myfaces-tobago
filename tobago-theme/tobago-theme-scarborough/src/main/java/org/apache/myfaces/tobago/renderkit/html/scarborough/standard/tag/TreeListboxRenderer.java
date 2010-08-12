@@ -17,10 +17,11 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.component.RendererTypes;
+import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.context.ResponseWriterDivider;
-import org.apache.myfaces.tobago.internal.util.FastStringWriter;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -35,7 +36,6 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
 public class TreeListboxRenderer extends LayoutComponentRendererBase {
@@ -50,6 +50,17 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
       // todo: this may be removed, it is twice on the page 1. in the header 2. in the ScriptLoader
       ((TobagoFacesContext) facesContext).getScriptFiles().add(SCRIPT);
     }
+
+    setRendererTypeForCommandsAndNodes(component);
+  }
+
+  protected void setRendererTypeForCommandsAndNodes(UIComponent component) {
+    for (UIComponent child : component.getChildren()) {
+      if (child instanceof UITreeNode) {
+        child.setRendererType(RendererTypes.TREE_LISTBOX_NODE);
+      }
+      setRendererTypeForCommandsAndNodes(child);
+    }
   }
 
   @Override
@@ -60,10 +71,6 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
 
     AbstractUITree tree = (AbstractUITree) component;
     tree.setValid(true);
-  }
-
-  public static boolean isSelectable(AbstractUITree tree) {
-    return tree.isSelectableTree();
   }
 
   @Override
@@ -95,12 +102,12 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
 
     writer.startElement(HtmlElements.INPUT, tree);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
-    writer.writeNameAttribute(clientId + AbstractUITree.MARKER);
-    writer.writeIdAttribute(clientId + AbstractUITree.MARKER);
+    writer.writeNameAttribute(clientId + AbstractUITree.MARKED);
+    writer.writeIdAttribute(clientId + AbstractUITree.MARKED);
     writer.writeAttribute(HtmlAttributes.VALUE, "", false);
     writer.endElement(HtmlElements.INPUT);
 
-    if (isSelectable(tree)) {
+    if (tree.getSelectableAsEnum().isSupportedByTreeListbox()) {
       writer.startElement(HtmlElements.INPUT, tree);
       writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
       writer.writeNameAttribute(clientId + AbstractUITree.SELECT_STATE);
@@ -137,22 +144,5 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
     writer.endElement(HtmlElements.DIV);
     
     writer.endElement(HtmlElements.DIV);
-  }
-
-  // XXX can be removed?
-  protected String getNodesAsJavascript(FacesContext facesContext, UIComponent root) throws IOException {
-    ResponseWriter writer = facesContext.getResponseWriter();
-    FastStringWriter stringWriter = new FastStringWriter();
-    facesContext.setResponseWriter(writer.cloneWithWriter(stringWriter));
-    RenderUtils.encode(facesContext, root);
-    facesContext.setResponseWriter(writer);
-    return stringWriter.toString();
-  }
-
-  // XXX can be removed?
-  protected String nodeStateId(FacesContext facesContext, UIComponent node) {
-    String clientId = node.getClientId(facesContext);
-    int last = clientId.lastIndexOf(':') + 1;
-    return clientId.substring(last);
   }
 }

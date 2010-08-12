@@ -17,45 +17,31 @@ package org.apache.myfaces.tobago.internal.taglib.component;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.apt.annotation.BodyContent;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
 import org.apache.myfaces.tobago.component.RendererTypes;
-import org.apache.myfaces.tobago.internal.taglib.declaration.HasBorder;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutComponentWithDeprecatedDimension;
-import org.apache.myfaces.tobago.internal.taglib.declaration.IsGridLayoutContainer;
 
 /**
- * Renders an image.
+ * Renders an indent beside a tree node.
  */
-@Tag(name = "image", bodyContent = BodyContent.JSP)
+@Tag(name = "treeIndent")
 @UIComponentTag(
-    uiComponent = "org.apache.myfaces.tobago.component.UIImage",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIImage",
-    rendererType = RendererTypes.IMAGE,
+    uiComponent = "org.apache.myfaces.tobago.component.UITreeIndent",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIIndent",
+    rendererType = RendererTypes.TREE_INDENT,
     allowedChildComponenents = "NONE")
-public interface ImageTagDeclaration
-    extends HasIdBindingAndRendered, HasBorder, HasTip, IsDisabled, HasMarkup,
-    IsGridLayoutComponentWithDeprecatedDimension, IsGridLayoutContainer {
+public interface TreeIndentTagDeclaration
+    extends HasIdBindingAndRendered, HasTip, HasMarkup {
 
   /**
-   * Absolute url to an image or image name to lookup in tobago resource path
-   */
-  @TagAttribute(required = true)
-  @UIComponentTagAttribute()
-  void setValue(String value);
-
-  /**
-   * Alternate textual description of the image rendered by this component.
+   * Show the lines and icons which are defining the tree structure.
    */
   @TagAttribute
-  @UIComponentTagAttribute()
-  void setAlt(String alt);
-
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "true")
+  void setShowJunctions(String showJunctions);
 }
