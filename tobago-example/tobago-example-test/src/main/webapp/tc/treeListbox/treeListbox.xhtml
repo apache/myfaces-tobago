@@ -28,10 +28,9 @@
 
     <tc:treeListbox id="tree">
       <tc:treeData value="#{tree.tree}" var="node" id="data">
-        <tc:treeNode label="#{node.userObject.name}"
-                     id="template"
-                     expanded="true"
-                     image="image/feather.png"/>
+        <tc:treeNode id="template" expanded="true">
+          <tc:treeLabel value="#{node.userObject.name}"/>
+        </tc:treeNode>
       </tc:treeData>
     </tc:treeListbox>
 
