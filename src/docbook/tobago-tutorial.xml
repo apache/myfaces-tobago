@@ -1144,7 +1144,7 @@ public class NumberSliderRenderer extends LayoutableRendererBase {
     TobagoResponseWriter writer
         = HtmlRendererUtil.getTobagoResponseWriter(facesContext);
     ...
-    writer.startElement(HtmlConstants.INPUT);
+    writer.startElement(HtmlElements.INPUT);
     String inputIdAndName = getIdForInputField(facesContext, component);
     writer.writeNameAttribute(inputIdAndName);
     writer.writeIdAttribute(inputIdAndName);
@@ -1153,7 +1153,7 @@ public class NumberSliderRenderer extends LayoutableRendererBase {
     }
     writer.writeAttribute(HtmlAttributes.READONLY, readonly);
     writer.writeAttribute(HtmlAttributes.DISABLED, disabled);
-    writer.endElement(HtmlConstants.INPUT);
+    writer.endElement(HtmlElements.INPUT);
     ...
   }
 
