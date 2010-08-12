@@ -92,6 +92,17 @@ public class RenderUtils {
   }
 
   public static void encode(FacesContext facesContext, UIComponent component) throws IOException {
+    encode(facesContext, component, null);
+  }
+
+  public static void encode(
+      FacesContext facesContext, UIComponent component, List<? extends Class<? extends UIComponent>> only)
+      throws IOException {
+
+    if (only != null && ! matchFilter(component, only)) {
+      return;
+    }
+
     if (component.isRendered()) {
       if (LOG.isDebugEnabled()) {
         LOG.debug("rendering " + component.getRendererType() + " " + component);
@@ -102,11 +113,20 @@ public class RenderUtils {
       } else {
         for (Object o : component.getChildren()) {
           UIComponent kid = (UIComponent) o;
-          encode(facesContext, kid);
+          encode(facesContext, kid, only);
         }
       }
       component.encodeEnd(facesContext);
     }
+  }
+
+  private static boolean matchFilter(UIComponent component, List<? extends Class<? extends UIComponent>> only) {
+    for (Class clazz : only) {
+      if (clazz.isAssignableFrom(component.getClass())) {
+        return true;
+      }
+    }
+    return false;
   }
 
   public static void prepareRendererAll(FacesContext facesContext, UIComponent component) throws IOException {
