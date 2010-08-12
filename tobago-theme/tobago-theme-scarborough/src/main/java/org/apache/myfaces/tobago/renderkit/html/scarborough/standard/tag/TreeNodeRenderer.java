@@ -18,7 +18,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UITree;
 import org.apache.myfaces.tobago.component.UITreeData;
 import org.apache.myfaces.tobago.component.UITreeNode;
@@ -165,11 +164,6 @@ public class TreeNodeRenderer extends CommandRendererBase {
         if (!(child instanceof UITreeNode) && !(child instanceof UITreeData)) {
           RenderUtils.encode(facesContext, child);
         }
-      }
-
-      UIComponent facet = node.getFacet(Facets.ADDENDUM);
-      if (facet != null) {
-        RenderUtils.encode(facesContext, facet);
       }
 
       writer.endElement(HtmlElements.DIV);

@@ -19,12 +19,10 @@ package org.apache.myfaces.tobago.internal.taglib.component;
 
 import org.apache.myfaces.tobago.apt.annotation.BodyContentDescription;
 import org.apache.myfaces.tobago.apt.annotation.DynamicExpression;
-import org.apache.myfaces.tobago.apt.annotation.Facet;
 import org.apache.myfaces.tobago.apt.annotation.Tag;
 import org.apache.myfaces.tobago.apt.annotation.TagAttribute;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTag;
 import org.apache.myfaces.tobago.apt.annotation.UIComponentTagAttribute;
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasIdBindingAndRendered;
 import org.apache.myfaces.tobago.internal.taglib.declaration.HasMarkup;
@@ -45,9 +43,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.IsDisabled;
     allowedChildComponenents = {
         "org.apache.myfaces.tobago.TreeNode",
         "org.apache.myfaces.tobago.TreeData"
-    },
-    facets = {
-        @Facet(name = Facets.ADDENDUM, description = "Displays an additional component to a node.")})
+    })
 public interface TreeNodeTagDeclaration
     extends HasIdBindingAndRendered, HasMarkup, HasTip, IsDisabled {
 

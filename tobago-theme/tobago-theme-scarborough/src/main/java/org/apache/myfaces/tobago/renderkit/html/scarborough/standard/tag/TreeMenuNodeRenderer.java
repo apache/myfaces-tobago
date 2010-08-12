@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
@@ -131,11 +130,6 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
     }
 
     RenderUtils.encodeChildrenWithoutLayout(facesContext, node);
-
-    UIComponent facet = node.getFacet(Facets.ADDENDUM);
-    if (facet != null) {
-      RenderUtils.encode(facesContext, facet);
-    }
 
     writer.endElement(HtmlElements.DIV);
 
