@@ -37,14 +37,11 @@ Tobago.fixPngAlphaAll = function() {
 };
 
 Tobago.fixPngAlpha = function(element) {
-  if (element.fixPngAlphaApplied != "applied") {
-    element.fixPngAlphaApplied = "applied";
-    if (jQuery.browser.msie
-        && parseInt(jQuery.browser.version) <= 6
-        && element.src.toLowerCase().match(/.*png/)
-        && Tobago.isActiveXEnabled()) {
-      Tobago.fixPngAlphaInternal(element);
-    }
+  if (jQuery.browser.msie
+      && parseInt(jQuery.browser.version) <= 6
+      && element.src.toLowerCase().match(/.*png/)
+      && Tobago.isActiveXEnabled()) {
+    Tobago.fixPngAlphaInternal(element);
   }
 };
 
