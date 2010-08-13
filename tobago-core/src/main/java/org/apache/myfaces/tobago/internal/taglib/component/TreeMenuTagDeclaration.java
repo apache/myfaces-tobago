@@ -54,4 +54,12 @@ public interface TreeMenuTagDeclaration
   @TagAttribute
   @UIComponentTagAttribute(type = "java.lang.Object", expression = DynamicExpression.VALUE_BINDING_REQUIRED)
   void setState(String state);
+
+  /**
+   * Indicates that the root node should be displayed or not.
+   * Normally the root node of a menu will not be shown, because it has only technical significance.
+   */
+  @TagAttribute
+  @UIComponentTagAttribute(type = "boolean", defaultValue = "false")
+  void setShowRoot(String showRoot);
 }

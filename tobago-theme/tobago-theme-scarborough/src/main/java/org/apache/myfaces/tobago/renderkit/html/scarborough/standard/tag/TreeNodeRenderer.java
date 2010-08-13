@@ -120,11 +120,12 @@ public class TreeNodeRenderer extends CommandRendererBase {
     final boolean marked = node.isMarked();
     final String id = node.getClientId(facesContext);
     final int level = node.getLevel();
+    final boolean root = level == 0;
     final boolean hasNextSibling = node.isHasNextSibling();
     final List<Boolean> junctions = node.getJunctions();
-
     final boolean showRoot = ((UITree) tree).isShowRoot();
-    final boolean expanded = TreeUtils.isExpanded(tree, node) || !showRoot && level == 0;
+    // if the root is hidden, the root node must be expanded (otherwise you will see nothing)
+    final boolean expanded = TreeUtils.isExpanded(tree, node) || !showRoot && root;
 
     if (!showRoot && junctions.size() > 0) {
       junctions.remove(0);
@@ -132,7 +133,7 @@ public class TreeNodeRenderer extends CommandRendererBase {
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    if (showRoot || level != 0) {
+    if (showRoot || !root) {
       writer.startElement(HtmlElements.DIV, null);
 
       // div id

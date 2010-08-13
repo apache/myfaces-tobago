@@ -28,7 +28,7 @@
 
     <tc:treeMenu>
       <tc:treeData value="#{treeController.tree}" var="node" id="data">
-        <tc:treeNode id="template" expanded="true" rendered="#{! node.root}">
+        <tc:treeNode id="template" expanded="true">
 <%--
           <tc:treeCommand label="#{node.userObject.name}" action="#{node.userObject.action}"/>
 --%>

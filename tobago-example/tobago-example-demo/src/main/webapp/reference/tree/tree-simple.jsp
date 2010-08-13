@@ -28,7 +28,9 @@
 
     <tc:tree>
       <tc:treeData value="#{treeController.tree}" var="node" id="data">
-        <tc:treeNode id="template" expanded="true" rendered="#{! node.root}">
+        <tc:treeNode id="template" expanded="true">
+          <tc:treeIndent/>
+          <tc:treeIcon/>
           <tc:treeCommand label="#{node.userObject.name}" action="#{node.userObject.action}"/>
           <%--
             <tc:treeCommand label="#{node.userObject.name}" rendered="#{node.childCount == 0}"/>

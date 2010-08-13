@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.component.UITreeMenu;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
@@ -94,44 +95,48 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
 
     final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
     final UITreeNode node = (UITreeNode) component;
-    final AbstractUITree tree = node.findTree();
+    final UITreeMenu tree = ComponentUtils.findAncestor(node, UITreeMenu.class);
 
     final boolean folder = node.isFolder();
     final String id = node.getClientId(facesContext);
     final int level = node.getLevel();
+    final boolean root = level == 0;
     final boolean expanded = TreeUtils.isExpanded(tree, node) || level == 0;
+    final boolean showRoot = tree.isShowRoot();
     final boolean ie6
         = VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().equals(UserAgent.MSIE_6_0);
 
-    writer.startElement(HtmlElements.DIV, null);
-    writer.writeIdAttribute(id);
-    writer.writeClassAttribute(Classes.create(node));
+    if (showRoot || !root) {
+      writer.startElement(HtmlElements.DIV, null);
+      writer.writeIdAttribute(id);
+      writer.writeClassAttribute(Classes.create(node));
 
-    if (folder) {
-      writer.writeAttribute("onclick", "tobagoTreeNodeToggle(this)", false);
+      if (folder) {
+        writer.writeAttribute("onclick", "tobagoTreeNodeToggle(this)", false);
+      }
+
+      if (folder) {
+        encodeExpandedHidden(writer, node, id, expanded);
+      }
+
+      if (folder) {
+        encodeIcon(facesContext, writer, expanded, node);
+      }
+
+      if (!folder && ie6) { // XXX IE6: without this hack, we can't click beside the label text. Why?
+        final String src = ResourceManagerUtils.getImageWithPath(facesContext, "image/1x1.gif");
+        writer.startElement(HtmlElements.IMG, null);
+        writer.writeClassAttribute(Classes.create(node, "icon"));
+        writer.writeAttribute(HtmlAttributes.SRC, src, false);
+        writer.writeAttribute(HtmlAttributes.ALT, "", false);
+        writer.writeStyleAttribute("width: 0px");
+        writer.endElement(HtmlElements.IMG);
+      }
+
+      RenderUtils.encodeChildrenWithoutLayout(facesContext, node);
+
+      writer.endElement(HtmlElements.DIV);
     }
-
-    if (folder) {
-      encodeExpandedHidden(writer, node, id, expanded);
-    }
-
-    if (folder) {
-      encodeIcon(facesContext, writer, expanded, node);
-    }
-
-    if (!folder && ie6) { // XXX IE6: without this hack, we can't click beside the label text. Why?
-      final String src = ResourceManagerUtils.getImageWithPath(facesContext, "image/1x1.gif");
-      writer.startElement(HtmlElements.IMG, null);
-      writer.writeClassAttribute(Classes.create(node, "icon"));
-      writer.writeAttribute(HtmlAttributes.SRC, src, false);
-      writer.writeAttribute(HtmlAttributes.ALT, "", false);
-      writer.writeStyleAttribute("width: 0px");
-      writer.endElement(HtmlElements.IMG);
-    }
-
-    RenderUtils.encodeChildrenWithoutLayout(facesContext, node);
-
-    writer.endElement(HtmlElements.DIV);
 
     if (folder) {
       writer.startElement(HtmlElements.DIV, null);
