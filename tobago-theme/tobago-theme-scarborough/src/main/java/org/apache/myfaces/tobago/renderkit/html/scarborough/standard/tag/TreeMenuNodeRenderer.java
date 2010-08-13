@@ -22,9 +22,8 @@ import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.UserAgent;
+import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
-import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
-import org.apache.myfaces.tobago.internal.util.TreeUtils;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -52,7 +51,7 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
   @Override
   public void decode(FacesContext facesContext, UIComponent component) {
 
-    AbstractUITreeNode node = (AbstractUITreeNode) component;
+    UITreeNode node = (UITreeNode) component;
 
     super.decode(facesContext, node);
 
@@ -60,7 +59,7 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
       return;
     }
 
-    AbstractUITree tree = node.findTree();
+    UITreeMenu tree = ComponentUtils.findAncestor(node, UITreeMenu.class);
     String treeId = tree.getClientId(facesContext);
     String nodeStateId = node.nodeStateId(facesContext);
     Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
@@ -68,7 +67,9 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
 
     // expand state
     boolean expanded = Boolean.parseBoolean(requestParameterMap.get(id + ComponentUtils.SUB_SEPARATOR + "expanded"));
-    TreeUtils.setExpanded(tree, node, expanded);
+    if (node.isExpanded() != expanded) {
+      new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
+    }
 
     // marker
     String marked = requestParameterMap.get(treeId + AbstractUITree.MARKED);
@@ -101,7 +102,7 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
     final String id = node.getClientId(facesContext);
     final int level = node.getLevel();
     final boolean root = level == 0;
-    final boolean expanded = TreeUtils.isExpanded(tree, node) || level == 0;
+    final boolean expanded = node.isExpanded() || level == 0;
     final boolean showRoot = tree.isShowRoot();
     final boolean ie6
         = VariableResolverUtils.resolveClientProperties(facesContext).getUserAgent().equals(UserAgent.MSIE_6_0);
@@ -148,7 +149,7 @@ public class TreeMenuNodeRenderer extends LayoutComponentRendererBase {
   }
 
   private void encodeExpandedHidden(
-      TobagoResponseWriter writer, AbstractUITreeNode node, String clientId, boolean expanded) throws IOException {
+      TobagoResponseWriter writer, UITreeNode node, String clientId, boolean expanded) throws IOException {
     writer.startElement(HtmlElements.INPUT, node);
     writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
     writer.writeClassAttribute(Classes.create(node, "expanded", Markup.NULL));

@@ -20,26 +20,21 @@ package org.apache.myfaces.tobago.model;
 import org.apache.commons.lang.StringUtils;
 
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Manages the state on a Tree:<br />
  * 1. selection: selected tree-nodes<br />
- * 2. expandState: open/close folder state<br />
  * 3. marked: last used action object<br />
  */
 public class TreeState {
 
-  private Set<TreePath> expanded;
   private Set<TreePath> selected;
-  private Set<TreePath> marked; // XXX Wy a set and not only a TreePath?
+  private Set<TreePath> marked; // XXX Why a set and not only a TreePath?
 
   @Deprecated
   private Set<DefaultMutableTreeNode> selection;
-  @Deprecated
-  private Set<DefaultMutableTreeNode> expandState;
   @Deprecated
   private DefaultMutableTreeNode marker;
   @Deprecated
@@ -51,14 +46,8 @@ public class TreeState {
 
   public TreeState() {
     selection = new HashSet<DefaultMutableTreeNode>();
-    expandState = new HashSet<DefaultMutableTreeNode>();
-    expanded = new HashSet<TreePath>();
     selected = new HashSet<TreePath>();
     marked = new HashSet<TreePath>();
-  }
-
-  public Set<TreePath> getExpanded() {
-    return expanded;
   }
 
   public Set<TreePath> getSelected() {
@@ -70,18 +59,8 @@ public class TreeState {
   }
 
   @Deprecated
-  public void addExpandState(DefaultMutableTreeNode expandStateItem) {
-    expandState.add(expandStateItem);
-  }
-
-  @Deprecated
   public void addSelection(DefaultMutableTreeNode selectItem) {
     selection.add(selectItem);
-  }
-
-  @Deprecated
-  public void clearExpandState() {
-    expandState.clear();
   }
 
   @Deprecated
@@ -100,45 +79,6 @@ public class TreeState {
   }
 
   @Deprecated
-  public void expand(DefaultMutableTreeNode node, int level) {
-    if (level > 0) {
-      if (!expandState.contains(node)) {
-        expandState.add(node);
-      }
-      for (Enumeration i = node.children(); i.hasMoreElements();) {
-        DefaultMutableTreeNode child = (DefaultMutableTreeNode) i.nextElement();
-        expand(child, level - 1);
-      }
-    }
-  }
-
-  /**
-   * Expands all parents which contains selected children.
-   */
-  @Deprecated
-  public void expandSelection() {
-    for (DefaultMutableTreeNode treeNode : selection) {
-      expandTo(treeNode);
-    }
-  }
-
-  @Deprecated
-  public void expandTo(DefaultMutableTreeNode node) {
-    node = (DefaultMutableTreeNode) node.getParent();
-    while (node != null) {
-      if (!expandState.contains(node)) {
-        expandState.add(node);
-      }
-      node = (DefaultMutableTreeNode) node.getParent();
-    }
-  }
-
-  @Deprecated
-  public boolean isExpanded(DefaultMutableTreeNode node) {
-    return expandState.contains(node);
-  }
-
-  @Deprecated
   public boolean isMarked(DefaultMutableTreeNode node) {
     return node != null && node.equals(marker);
   }
@@ -146,16 +86,6 @@ public class TreeState {
   @Deprecated
   public boolean isSelected(DefaultMutableTreeNode node) {
     return selection.contains(node);
-  }
-
-  @Deprecated
-  public Set<DefaultMutableTreeNode> getExpandState() {
-    return expandState;
-  }
-
-  @Deprecated
-  public void setExpandState(Set<DefaultMutableTreeNode> expandState) {
-    this.expandState = expandState;
   }
 
   @Deprecated

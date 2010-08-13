@@ -17,7 +17,6 @@ package org.apache.myfaces.tobago.internal.util;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
 import org.apache.myfaces.tobago.model.TreeState;
@@ -26,32 +25,6 @@ public final class TreeUtils {
 
   private TreeUtils() {
     // utils class
-  }
-
-  public static boolean isExpanded(AbstractUITree tree, AbstractUITreeNode node) {
-    TreeState state = (TreeState) tree.getState();
-    if (state != null) {
-      return state.getExpanded().contains(node.getPath());
-    } else {
-      return node.isExpanded();
-    }
-  }
-
-  public static void setExpanded(AbstractUITree tree, AbstractUITreeNode node, boolean expanded) {
-    boolean oldExpanded = isExpanded(tree, node);
-
-    if (tree.getState() != null) {
-      if (expanded) {
-        ((TreeState) tree.getState()).getExpanded().add(node.getPath());
-      } else {
-        ((TreeState) tree.getState()).getExpanded().remove(node.getPath());
-      }
-    } else {
-      node.setExpanded(expanded);
-    }
-    if (oldExpanded != expanded) {
-      new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
-    }
   }
 
   public static boolean isSelected(AbstractUITree tree, AbstractUITreeNode node) {

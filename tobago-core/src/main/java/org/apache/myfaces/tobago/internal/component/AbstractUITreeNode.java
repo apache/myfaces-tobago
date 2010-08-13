@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.internal.component;
  */
 
 import org.apache.myfaces.tobago.compat.FacesUtils;
+import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.TreeModelBuilder;
 import org.apache.myfaces.tobago.config.Configurable;
@@ -25,6 +26,7 @@ import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.event.TreeExpansionListener;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.model.TreePath;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -72,7 +74,7 @@ public abstract class AbstractUITreeNode
 
   @Override
   public void encodeBegin(FacesContext context) throws IOException {
-    AbstractUITree tree = findTree();
+    AbstractUITree tree = ComponentUtils.findAncestor(this, AbstractUITree.class);
     MixedTreeModel mixedModel = tree.getModel();
     mixedModel.onEncodeBegin();
     setPath(mixedModel.getPath());
@@ -84,7 +86,7 @@ public abstract class AbstractUITreeNode
   @Override
   public void encodeEnd(FacesContext context) throws IOException {
     super.encodeEnd(context);
-    AbstractUITree tree = findTree();
+    AbstractUITree tree = ComponentUtils.findAncestor(this, AbstractUITree.class);
     MixedTreeModel mixedModel = tree.getModel();
     mixedModel.onEncodeEnd();
   }
@@ -187,29 +189,24 @@ public abstract class AbstractUITreeNode
 
   public String nodeStateId(FacesContext facesContext) {
     String clientId = getClientId(facesContext);
-    AbstractUITree tree = findTree(this);
+    AbstractUITree tree = ComponentUtils.findAncestor(this, AbstractUITree.class);
     String treeId = tree.getClientId(facesContext);
     return clientId.substring(treeId.length() + 1);
-  }
-
-  public AbstractUITree findTree() {
-    return findTree(this);
-  }
-
-  private AbstractUITree findTree(UIComponent component) {
-    while (component != null) {
-      if (component instanceof AbstractUITree) {
-        return (AbstractUITree) component;
-      }
-      component = component.getParent();
-    }
-    return null;
   }
 
   @Override
   public void broadcast(FacesEvent event) throws AbortProcessingException {
     super.broadcast(event);
     if (event instanceof TreeExpansionEvent) {
+
+      boolean expanded = ((TreeExpansionEvent) event).isNewExpanded();
+
+      if (FacesUtils.hasValueBindingOrValueExpression(this, Attributes.EXPANDED)) {
+        FacesUtils.setValueOfBindingOrExpression(getFacesContext(), expanded, this, Attributes.EXPANDED);
+      } else {
+        setExpanded(expanded);
+      }
+
       FacesUtils.invokeMethodBinding(getFacesContext(), getTreeExpansionListener(), event);
     }
   }

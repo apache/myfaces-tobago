@@ -23,11 +23,12 @@ import org.apache.myfaces.tobago.component.UITreeData;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceUtils;
+import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.component.AbstractUITreeNode;
-import org.apache.myfaces.tobago.internal.util.TreeUtils;
+import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.model.TreeSelectable;
-import org.apache.myfaces.tobago.renderkit.CommandRendererBase;
+import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -46,7 +47,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class TreeNodeRenderer extends CommandRendererBase {
+public class TreeNodeRenderer extends LayoutComponentRendererBase {
 
   private static final Logger LOG = LoggerFactory.getLogger(TreeNodeRenderer.class);
 
@@ -68,16 +69,17 @@ public class TreeNodeRenderer extends CommandRendererBase {
       return;
     }
 
-    AbstractUITree tree = node.findTree();
+    AbstractUITree tree = ComponentUtils.findAncestor(node, AbstractUITree.class);
     String treeId = tree.getClientId(facesContext);
     String nodeStateId = node.nodeStateId(facesContext);
-    Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
+    Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
     String id = node.getClientId(facesContext);
 
     // expand state
-    boolean expanded
-        = Boolean.parseBoolean((String) requestParameterMap.get(id + ComponentUtils.SUB_SEPARATOR + "expanded"));
-    TreeUtils.setExpanded(tree, node, expanded);
+    boolean expanded = Boolean.parseBoolean(requestParameterMap.get(id + ComponentUtils.SUB_SEPARATOR + "expanded"));
+    if (node.isExpanded() != expanded) {
+      new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
+    }
 
     // select
     String searchString;
@@ -113,19 +115,17 @@ public class TreeNodeRenderer extends CommandRendererBase {
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     UITreeNode node = (UITreeNode) component;
-    AbstractUITree tree = node.findTree();
+    AbstractUITree tree = ComponentUtils.findAncestor(node, AbstractUITree.class);
 
-    final String treeId = tree.getClientId(facesContext);
     final boolean folder = node.isFolder();
     final boolean marked = node.isMarked();
     final String id = node.getClientId(facesContext);
     final int level = node.getLevel();
     final boolean root = level == 0;
-    final boolean hasNextSibling = node.isHasNextSibling();
     final List<Boolean> junctions = node.getJunctions();
     final boolean showRoot = ((UITree) tree).isShowRoot();
     // if the root is hidden, the root node must be expanded (otherwise you will see nothing)
-    final boolean expanded = TreeUtils.isExpanded(tree, node) || !showRoot && root;
+    final boolean expanded = node.isExpanded() || !showRoot && root;
 
     if (!showRoot && junctions.size() > 0) {
       junctions.remove(0);
@@ -171,10 +171,11 @@ public class TreeNodeRenderer extends CommandRendererBase {
     }
 
     if (folder) {
-      String contentStyle = "display: " + (expanded ? "block" : "none") + ";";
       writer.startElement(HtmlElements.DIV, null);
       writer.writeIdAttribute(id + ComponentUtils.SUB_SEPARATOR + "content");
-      writer.writeStyleAttribute(contentStyle);
+      Style style = new Style();
+      style.setDisplay(expanded ? Display.BLOCK : Display.NONE);
+      writer.writeStyleAttribute(style);
     }
   }
 
@@ -191,12 +192,8 @@ public class TreeNodeRenderer extends CommandRendererBase {
   @Override
   public void encodeEnd(FacesContext facesContext, UIComponent component) throws IOException {
     UITreeNode node = (UITreeNode) component;
-
-    boolean folder = node.isFolder();
-    String id = node.getClientId(facesContext);
-
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-
+    boolean folder = node.isFolder();
     if (folder) {
       writer.endElement(HtmlElements.DIV);
     }

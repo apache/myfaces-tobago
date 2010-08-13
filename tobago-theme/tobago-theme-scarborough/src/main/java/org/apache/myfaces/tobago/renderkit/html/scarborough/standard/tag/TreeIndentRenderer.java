@@ -23,7 +23,6 @@ import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
-import org.apache.myfaces.tobago.internal.util.TreeUtils;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
@@ -44,7 +43,7 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
 
     final UITreeIndent indent = (UITreeIndent) component;
     final UITreeNode node = ComponentUtils.findAncestor(indent, UITreeNode.class);
-    final AbstractUITree tree = node.findTree();
+    final AbstractUITree tree = ComponentUtils.findAncestor(indent, AbstractUITree.class);
 
     final boolean folder = node.isFolder();
     final int level = node.getLevel();
@@ -54,7 +53,7 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
     final boolean showRoot = ((UITree) tree).isShowRoot(); //XXX
     final boolean showJunctions = indent.isShowJunctions();
     final boolean showRootJunction = ((UITree) tree).isShowRootJunction(); //XXX
-    final boolean expanded = TreeUtils.isExpanded(tree, node) || !showRoot && level == 0;
+    final boolean expanded = node.isExpanded() || !showRoot && level == 0;
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 

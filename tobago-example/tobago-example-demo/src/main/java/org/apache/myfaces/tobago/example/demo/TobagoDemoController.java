@@ -17,14 +17,12 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.CreateComponentUtils;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIInput;
 import org.apache.myfaces.tobago.component.UIToolBar;
+import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.event.TabChangeListener;
 import org.apache.myfaces.tobago.example.data.CategoryTree;
 import org.apache.myfaces.tobago.example.data.Solar;
@@ -32,6 +30,8 @@ import org.apache.myfaces.tobago.example.data.SolarObject;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.model.TreeState;
 import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIColumn;
@@ -124,16 +124,16 @@ public class TobagoDemoController {
   public TobagoDemoController() {
 
     String[] salutationKeys = {
-      "salutation_unknown",
-      "salutation_mr",
-      "salutation_mrs",
-      "salutation_family"
+        "salutation_unknown",
+        "salutation_mr",
+        "salutation_mrs",
+        "salutation_family"
     };
 
     salutationItems = getSelectItems(salutationKeys, "demo");
     this.salutation = new String[]{"", "", "", ""};
 
-    bool = new Boolean[] {true, false, true, false, true, false, true, false, true, false};
+    bool = new Boolean[]{true, false, true, false, true, false, true, false, true, false};
     boolTest = Boolean.TRUE;
 
     text = new String[11];
@@ -156,10 +156,6 @@ public class TobagoDemoController {
     solarArrayColumnLayout = "3*; 3*; 3*";
 
     tree = CategoryTree.createSample();
-    treeState = new TreeState();
-    treeState.addExpandState(tree);
-    treeState.addSelection((DefaultMutableTreeNode) tree.getChildAt(2).getChildAt(2));
-    treeState.setMarker((DefaultMutableTreeNode) tree.getChildAt(1));
     String[] values = {"none", "single", "singleLeafOnly", "multi", "multiLeafOnly"};
     selectionItems = getSelectItems(values, "demo");
     selectionType = (String) selectionItems[0].getValue();
@@ -399,14 +395,6 @@ public class TobagoDemoController {
 
   public void setTree(DefaultMutableTreeNode tree) {
     this.tree = tree;
-  }
-
-  public TreeState getTreeState() {
-    return treeState;
-  }
-
-  public void setTreeState(TreeState treeState) {
-    this.treeState = treeState;
   }
 
   public boolean isShowJunctions() {

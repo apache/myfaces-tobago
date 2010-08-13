@@ -358,12 +358,6 @@
   </managed-bean>
 
   <managed-bean>
-    <managed-bean-name>treeCommandController</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.tobago.example.reference.TreeCommandController</managed-bean-class>
-    <managed-bean-scope>session</managed-bean-scope>
-  </managed-bean>
-
-  <managed-bean>
     <managed-bean-name>partialReloadController</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.tobago.example.reference.PartialReloadController</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>

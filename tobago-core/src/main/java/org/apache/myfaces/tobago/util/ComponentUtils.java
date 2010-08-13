@@ -200,7 +200,7 @@ public class ComponentUtils {
   public static <T> T findAncestor(UIComponent component, Class<T> type) {
 
     while (component != null) {
-      if (component.getClass().equals(type)) {
+      if (type.isAssignableFrom(component.getClass())) {
         return (T) component;
       }
       component = component.getParent();

@@ -20,12 +20,11 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.commons.lang.StringUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.UITreeLabel;
-import org.apache.myfaces.tobago.component.UITreeListbox;
 import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.context.Markup;
+import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.internal.component.AbstractUITree;
 import org.apache.myfaces.tobago.internal.context.ResponseWriterDivider;
-import org.apache.myfaces.tobago.internal.util.TreeUtils;
 import org.apache.myfaces.tobago.layout.Display;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.model.TreeSelectable;
@@ -63,7 +62,8 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
       return;
     }
 
-    AbstractUITree tree = node.findTree();
+    AbstractUITree tree = ComponentUtils.findAncestor(node, AbstractUITree.class);
+    ;
     String treeId = tree.getClientId(facesContext);
     String nodeStateId = node.nodeStateId(facesContext);
     Map requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
@@ -71,7 +71,9 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
 
     // expand state
     boolean expanded = Boolean.parseBoolean((String) requestParameterMap.get(id + "-expanded"));
-    TreeUtils.setExpanded(tree, node, expanded);
+    if (node.isExpanded() != expanded) {
+      new TreeExpansionEvent(node, node.isExpanded(), expanded).queue();
+    }
 
     // select
     String searchString;
@@ -96,7 +98,7 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
 
   @Override
   public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
-    super.prepareRender(facesContext,        component);
+    super.prepareRender(facesContext, component);
 
     final UITreeNode node = (UITreeNode) component;
     if (node.isMarked()) {
@@ -107,13 +109,13 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     UITreeNode node = (UITreeNode) component;
-    AbstractUITree tree = node.findTree();
+    AbstractUITree tree = ComponentUtils.findAncestor(node, AbstractUITree.class);
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     boolean folder = node.isFolder();
     int level = node.getLevel();
     String id = node.getClientId(facesContext);
-    boolean expanded = TreeUtils.isExpanded(tree, node);
+    boolean expanded = node.isExpanded();
 
     if (level > 0) { // root will not rendered as an option
       writer.startElement(HtmlElements.OPTION, null);
@@ -129,13 +131,13 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
     }
 
     if (folder) {
-      boolean siblingMode = "siblingLeafOnly".equals(((UITreeListbox) tree).getAttributes().get(Attributes.SELECTABLE));
+      boolean siblingMode = "siblingLeafOnly".equals(tree.getAttributes().get(Attributes.SELECTABLE));
       ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, TreeListboxRenderer.DIVIDER);
       boolean alreadyExists = divider.activateBranch(facesContext);
       writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
       if (!alreadyExists) {
         writer.startElement(HtmlElements.DIV, null);
-        writer.writeClassAttribute(Classes.create((UITreeListbox) tree, "level"));
+        writer.writeClassAttribute(Classes.create(tree, "level"));
         Style levelStyle = new Style();
         levelStyle.setLeft(Measure.valueOf(level * 160)); // xxx 160 should be configurable
         writer.writeStyleAttribute(levelStyle);
@@ -145,14 +147,14 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
           writer.startElement(HtmlElements.SELECT, null);
           writer.writeAttribute(HtmlAttributes.DISABLED, true);
           writer.writeAttribute(HtmlAttributes.SIZE, 2); // must be > 1, but the size comes from the layout
-          writer.writeClassAttribute(Classes.create((UITreeListbox) tree, "select"));
+          writer.writeClassAttribute(Classes.create(tree, "select"));
           writer.endElement(HtmlElements.SELECT);
         }
       }
 
       writer.startElement(HtmlElements.SELECT, node);
       writer.writeIdAttribute(id + ComponentUtils.SUB_SEPARATOR + "select");
-      writer.writeClassAttribute(Classes.create((UITreeListbox) tree, "select"));
+      writer.writeClassAttribute(Classes.create(tree, "select"));
       if (!expanded) {
         Style selectStyle = new Style();
         selectStyle.setDisplay(Display.NONE);

@@ -17,9 +17,9 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.model.TreeState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.model.TreeState;
 
 import javax.faces.event.ActionEvent;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -68,12 +68,11 @@ public class TreeController {
       bulk.add(new DefaultMutableTreeNode(new Node("1.6." + (i + 1) + " Some Node")));
     }
     tree.add(bulk);
+    ((Node) tree.getUserObject()).setExpanded(true);
+    ((Node) temp.getUserObject()).setExpanded(true);
 
     // state
-
     state = new TreeState();
-    state.addExpandState(tree);
-    state.addExpandState(temp);
     state.addSelection(temp2);
     state.setMarker(music);
   }

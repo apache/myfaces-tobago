@@ -18,11 +18,11 @@ package org.apache.myfaces.tobago.example.demo;
  */
 
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.example.demo.jsp.JspFormatter;
 import org.apache.myfaces.tobago.model.TreePath;
 import org.apache.myfaces.tobago.model.TreeState;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -34,10 +34,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Enumeration;
 
-/*
- * Date: 09.01.2007
- * Time: 10:41:49
- */
 public class Navigation {
 
   private static final Logger LOG = LoggerFactory.getLogger(Navigation.class);
@@ -95,10 +91,11 @@ public class Navigation {
     reference.add(new DefaultMutableTreeNode(new Node("reference_upload", "reference/upload")));
     tree.add(reference);
 
+    ((Node) tree.getUserObject()).setExpanded(true);
+    ((Node) overview.getUserObject()).setExpanded(true);
+    ((Node) bestPractice.getUserObject()).setExpanded(true);
+
     state = new TreeState();
-    state.getExpanded().add(new TreePath(0));
-    state.getExpanded().add(new TreePath(0, 0));
-    state.getExpanded().add(new TreePath(0, 1));
     state.getMarked().add(new TreePath(0, 0));
   }
 
@@ -194,6 +191,7 @@ public class Navigation {
     private String title;
     private String id;
     private String outcome;
+    private boolean expanded;
 
 
     public Node(String key, String outcome) {
@@ -232,6 +230,14 @@ public class Navigation {
 
     public void setOutcome(String outcome) {
       this.outcome = outcome;
+    }
+
+    public boolean isExpanded() {
+      return expanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+      this.expanded = expanded;
     }
   }
 }
