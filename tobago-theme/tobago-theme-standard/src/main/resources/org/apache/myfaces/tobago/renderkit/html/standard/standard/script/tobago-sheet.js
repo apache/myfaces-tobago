@@ -433,7 +433,7 @@ Tobago.Sheet.prototype.addSelectionListener = function() {
     var row = this;
     Tobago.addBindEventListener(row, "mousedown", currentSheet, "doMouseDownSelect");
     Tobago.addBindEventListener(row, "click", currentSheet, "doSelection");
-    if (this.dblClickActionId) {
+    if (currentSheet.dblClickActionId) {
       Tobago.addBindEventListener(row, "dblclick", currentSheet, "doDblClick");
     }
   });
@@ -527,13 +527,8 @@ Tobago.Sheet.prototype.doDblClick = function(event) {
     //LOG.debug("Actionid " + this.clickActionId);
     //LOG.debug("ID " + this.id);
     if (! Tobago.isInputElement(srcElement.tagName)) {
-      var dataRow = Tobago.element(event);
-      while (dataRow.id.search(new RegExp("_data_tr_\\d+$")) == -1) {
-        dataRow = dataRow.parentNode;
-      }
-      var rowId = dataRow.id;
-      //LOG.debug("rowId = " + rowId);
-      var rowIndex = rowId.substring(rowId.lastIndexOf("_data_tr_") + 9);
+      var row = jQuery(Tobago.element(event)).closest("tr");
+      var rowIndex = row.index() + this.firstRowIndex;
       //LOG.debug("selected rows = " + hidden.value);
       if (this.dblClickActionId) {
         var action = this.id + ":" + rowIndex + ":" + this.dblClickActionId;
