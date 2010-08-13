@@ -106,7 +106,7 @@
       </modules>
     </profile>
      <profile>
-      <id>release</id>
+      <id>apache-release</id>
       <modules>
         <module>blank</module>
         <module>demo</module>
