@@ -17,12 +17,12 @@ package org.apache.myfaces.tobago.compat;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.event.TabChangeSource;
 import org.apache.myfaces.tobago.event.ValueExpressionPopupActionListener;
 import org.apache.myfaces.tobago.event.ValueExpressionTabChangeListener;
 import org.apache.myfaces.tobago.util.ValueExpressionComparator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
@@ -30,10 +30,13 @@ import javax.faces.component.ActionSource;
 import javax.faces.component.ContextCallback;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.NamingContainer;
-import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
+import javax.faces.el.EvaluationException;
+import javax.faces.el.MethodBinding;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
 import javax.faces.validator.MethodExpressionValidator;
 import java.util.Comparator;
 
@@ -41,8 +44,8 @@ public class FacesUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(FacesUtils.class);
 
-  public static boolean invokeOnComponent(FacesContext context, UIComponent component,
-                                          String clientId, ContextCallback callback) {
+  public static boolean invokeOnComponent(
+      FacesContext context, UIComponent component, String clientId, ContextCallback callback) {
     String thisClientId = component.getClientId(context);
 
     if (clientId.equals(thisClientId)) {
@@ -68,8 +71,8 @@ public class FacesUtils {
     return false;
   }
 
-  private static boolean invokeOnComponentFacetsAndChildren(FacesContext context, UIComponent component,
-                                                            String clientId, ContextCallback callback) {
+  private static boolean invokeOnComponentFacetsAndChildren(
+      FacesContext context, UIComponent component, String clientId, ContextCallback callback) {
     for (java.util.Iterator<UIComponent> it = component.getFacetsAndChildren(); it.hasNext();) {
       UIComponent child = it.next();
 
@@ -80,9 +83,35 @@ public class FacesUtils {
     return false;
   }
 
+  public static void invokeMethodBinding(FacesContext facesContext, MethodBinding methodBinding, FacesEvent event) {
+    if (methodBinding != null && event != null) {
+      try {
+        methodBinding.invoke(facesContext, new Object[]{event});
+      } catch (EvaluationException e) {
+        Throwable cause = e.getCause();
+        if (cause instanceof AbortProcessingException) {
+          throw (AbortProcessingException) cause;
+        } else {
+          throw e;
+        }
+      }
+    }
+  }
 
-  public static Object getValueFromValueBindingOrValueExpression(FacesContext context, UIComponent component,
-                                                                 String name) {
+  public static void invokeMethodBinding(
+      FacesContext facesContext, MethodExpression methodExpression, FacesEvent event) {
+
+    if (methodExpression != null && event != null) {
+      try {
+        methodExpression.invoke(facesContext.getELContext(), new Object[]{event});
+      } catch (Exception e) {
+        throw new AbortProcessingException(e);
+      }
+    }
+  }
+
+  public static Object getValueFromValueBindingOrValueExpression(
+      FacesContext context, UIComponent component, String name) {
     return component.getValueExpression(name).getValue(context.getELContext());
   }
 
@@ -91,8 +120,8 @@ public class FacesUtils {
     return component.getValueExpression(name) != null;
   }
 
-  public static boolean isReadonlyValueBindingOrValueExpression(FacesContext context,
-                                                                UIComponent component, String name) {
+  public static boolean isReadonlyValueBindingOrValueExpression(
+      FacesContext context, UIComponent component, String name) {
     return component.getValueExpression(name).isReadOnly(context.getELContext());
   }
 
@@ -101,24 +130,24 @@ public class FacesUtils {
     return component.getValueExpression(name).getExpressionString();
   }
 
-  public static void setValueOfBindingOrExpression(FacesContext context, Object value,
-                                                   UIComponent component, String bindingName) {
+  public static void setValueOfBindingOrExpression(
+      FacesContext context, Object value, UIComponent component, String bindingName) {
     ValueExpression ve = component.getValueExpression(bindingName);
     if (ve != null) {
       ve.setValue(context.getELContext(), value);
     }
   }
 
-  public static void setValueOfBindingOrExpression(FacesContext context, Object value,
-                                                   Object bindingOrExpression) {
+  public static void setValueOfBindingOrExpression(
+      FacesContext context, Object value, Object bindingOrExpression) {
     if (bindingOrExpression instanceof ValueExpression) {
       ValueExpression ve = (ValueExpression) bindingOrExpression;
       ve.setValue(context.getELContext(), value);
     }
   }
 
-  public static void copyValueBindingOrValueExpression(UIComponent fromComponent, String fromName,
-                                                       UIComponent toComponent, String toName) {
+  public static void copyValueBindingOrValueExpression(
+      UIComponent fromComponent, String fromName, UIComponent toComponent, String toName) {
     ValueExpression ve = fromComponent.getValueExpression(fromName);
     if (ve != null) {
       toComponent.setValueExpression(toName, ve);
@@ -157,15 +186,15 @@ public class FacesUtils {
     component.setValueExpression(name, (ValueExpression) valueBindingOrExpression);
   }
 
-  public static void addBindingOrExpressionTabChangeListener(TabChangeSource source, String type,
-                                                             Object bindingOrExpression) {
+  public static void addBindingOrExpressionTabChangeListener(
+      TabChangeSource source, String type, Object bindingOrExpression) {
     if (bindingOrExpression instanceof ValueExpression) {
       source.addTabChangeListener(new ValueExpressionTabChangeListener(type, (ValueExpression) bindingOrExpression));
     }
   }
 
-  public static Comparator getBindingOrExpressionComparator(FacesContext facesContext, UIComponent child, String var,
-                                                            boolean descending, Comparator comparator) {
+  public static Comparator getBindingOrExpressionComparator(
+      FacesContext facesContext, UIComponent child, String var, boolean descending, Comparator comparator) {
     ValueExpression valueBinding = child.getValueExpression("value");
     return new ValueExpressionComparator(facesContext, var, valueBinding, descending, comparator);
   }

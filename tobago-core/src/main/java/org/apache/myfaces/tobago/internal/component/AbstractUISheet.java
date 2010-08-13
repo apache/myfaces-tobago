@@ -39,7 +39,6 @@ import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -331,18 +330,18 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
   public void broadcast(FacesEvent facesEvent) throws AbortProcessingException {
     super.broadcast(facesEvent);
     if (facesEvent instanceof SheetStateChangeEvent) {
-      ComponentUtils.invokeMethodBinding(getFacesContext(), getStateChangeListener(), facesEvent);
+      FacesUtils.invokeMethodBinding(getFacesContext(), getStateChangeListener(), facesEvent);
     } else if (facesEvent instanceof PageActionEvent) {
       if (facesEvent.getComponent() == this) {
         performPaging((PageActionEvent) facesEvent);
-        ComponentUtils.invokeMethodBinding(
+        FacesUtils.invokeMethodBinding(
             getFacesContext(), getStateChangeListener(), new SheetStateChangeEvent(this));
       }
     } else if (facesEvent instanceof SortActionEvent) {
       getSheetState(getFacesContext()).updateSortState((SortActionEvent) facesEvent);
       MethodBinding methodBinding = getSortActionListener();
       if (methodBinding!= null) {
-        ComponentUtils.invokeMethodBinding(getFacesContext(), methodBinding, facesEvent);
+        FacesUtils.invokeMethodBinding(getFacesContext(), methodBinding, facesEvent);
       } else {
         new Sorter().perform((SortActionEvent) facesEvent);
       }

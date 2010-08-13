@@ -17,12 +17,12 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
-import javax.el.ELContext;
+import org.apache.myfaces.tobago.compat.FacesUtils;
+
 import javax.el.MethodExpression;
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
-
 
 public class MethodExpressionStateChangeListener implements SheetStateChangeListener, StateHolder {
 
@@ -38,16 +38,7 @@ public class MethodExpressionStateChangeListener implements SheetStateChangeList
   }
 
   public void processSheetStateChange(SheetStateChangeEvent actionEvent) throws AbortProcessingException {
-    try {
-      Object[] params = new Object[]{actionEvent};
-      methodExpression.invoke(elContext(), params);
-    } catch (Exception e) {
-      throw new AbortProcessingException(e);
-    }
-  }
-
-  private ELContext elContext() {
-    return FacesContext.getCurrentInstance().getELContext();
+    FacesUtils.invokeMethodBinding(FacesContext.getCurrentInstance(), methodExpression, actionEvent);
   }
 
   public void restoreState(FacesContext context, Object state) {

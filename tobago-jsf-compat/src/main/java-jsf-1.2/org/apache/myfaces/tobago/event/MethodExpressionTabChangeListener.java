@@ -17,7 +17,8 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
-import javax.el.ELContext;
+import org.apache.myfaces.tobago.compat.FacesUtils;
+
 import javax.el.MethodExpression;
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
@@ -37,16 +38,7 @@ public class MethodExpressionTabChangeListener implements TabChangeListener, Sta
   }
 
   public void processTabChange(TabChangeEvent actionEvent) throws AbortProcessingException {
-    try {
-      Object[] params = new Object[]{actionEvent};
-      methodExpression.invoke(elContext(), params);
-    } catch (Exception e) {
-      throw new AbortProcessingException(e);
-    }
-  }
-
-  private ELContext elContext() {
-    return FacesContext.getCurrentInstance().getELContext();
+     FacesUtils.invokeMethodBinding(FacesContext.getCurrentInstance(), methodExpression, actionEvent);
   }
 
   public void restoreState(FacesContext context, Object state) {

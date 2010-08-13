@@ -51,13 +51,10 @@ import javax.faces.component.UISelectMany;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
-import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
-import javax.faces.event.FacesEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.render.RenderKit;
@@ -875,18 +872,4 @@ public class ComponentUtils {
     return null;
   }
 
-  public static void invokeMethodBinding(FacesContext facesContext, MethodBinding methodBinding, FacesEvent event) {
-    if (methodBinding != null && event != null) {
-      try {
-        methodBinding.invoke(facesContext, new Object[]{event});
-      } catch (EvaluationException e) {
-        Throwable cause = e.getCause();
-        if (cause instanceof AbortProcessingException) {
-          throw (AbortProcessingException) cause;
-        } else {
-          throw e;
-        }
-      }
-    }
-  }
 }

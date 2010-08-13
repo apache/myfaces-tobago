@@ -17,11 +17,12 @@ package org.apache.myfaces.tobago.event;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.compat.FacesUtils;
+
 import javax.el.ELContext;
 import javax.el.MethodExpression;
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
 
 
 public class MethodExpressionTreeExpansionListener implements TreeExpansionListener, StateHolder {
@@ -38,12 +39,7 @@ public class MethodExpressionTreeExpansionListener implements TreeExpansionListe
   }
 
   public void treeExpanded(TreeExpansionEvent event) {
-    try {
-      Object[] params = new Object[]{event};
-      methodExpression.invoke(elContext(), params);
-    } catch (Exception e) {
-      throw new AbortProcessingException(e);
-    }
+    FacesUtils.invokeMethodBinding(FacesContext.getCurrentInstance(), methodExpression, event);
   }
 
   private ELContext elContext() {
@@ -65,5 +61,4 @@ public class MethodExpressionTreeExpansionListener implements TreeExpansionListe
   public boolean isTransient() {
     return isTransient;
   }
-
 }

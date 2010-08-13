@@ -31,7 +31,6 @@ import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -202,9 +201,9 @@ public abstract class AbstractUITabGroup extends UIPanelBase
         setSelectedIndex(index);
       }
 
-      ComponentUtils.invokeMethodBinding(getFacesContext(), getTabChangeListener(), facesEvent);
+      FacesUtils.invokeMethodBinding(getFacesContext(), getTabChangeListener(), facesEvent);
 
-      ComponentUtils.invokeMethodBinding(getFacesContext(), getActionListener(), facesEvent);
+      FacesUtils.invokeMethodBinding(getFacesContext(), getActionListener(), facesEvent);
 
       ActionListener defaultActionListener = getFacesContext().getApplication().getActionListener();
       if (defaultActionListener != null) {

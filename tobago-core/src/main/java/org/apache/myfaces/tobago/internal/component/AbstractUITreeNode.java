@@ -17,6 +17,7 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.SupportsMarkup;
 import org.apache.myfaces.tobago.component.TreeModelBuilder;
 import org.apache.myfaces.tobago.config.Configurable;
@@ -24,7 +25,6 @@ import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.event.TreeExpansionListener;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.model.TreePath;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -210,7 +210,7 @@ public abstract class AbstractUITreeNode
   public void broadcast(FacesEvent event) throws AbortProcessingException {
     super.broadcast(event);
     if (event instanceof TreeExpansionEvent) {
-      ComponentUtils.invokeMethodBinding(getFacesContext(), getTreeExpansionListener(), event);
+      FacesUtils.invokeMethodBinding(getFacesContext(), getTreeExpansionListener(), event);
     }
   }
 
