@@ -515,6 +515,8 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
     for (UIComponent column : getChildren()) {
       if (column instanceof AbstractUIColumnSelector) {
         result.add(null); // XXX UIColumnSelector is currently not an instance of LayoutComponent
+      } else if (column instanceof ColumnEvent) {
+        // ignore
       } else if (column instanceof UIColumn) {
         for (UIComponent component : column.getChildren()) {
           if (component instanceof LayoutComponent) {
