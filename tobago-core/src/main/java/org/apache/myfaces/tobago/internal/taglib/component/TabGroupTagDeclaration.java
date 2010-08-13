@@ -84,10 +84,14 @@ public interface TabGroupTagDeclaration
    * component's selected Tab.
    *
    */
-  @TagAttribute @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")
+  @TagAttribute
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")
   void setSelectedIndex(String selectedIndex);
 
-  @TagAttribute @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")
+  /**
+   * For internal use. TODO: Check if this long needed
+   */
+  @UIComponentTagAttribute(type = "java.lang.Integer", defaultValue = "0")
   void setRenderedIndex(String renderedIndex);
 
   /**
