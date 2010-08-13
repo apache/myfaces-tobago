@@ -24,13 +24,13 @@ import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.apache.myfaces.tobago.event.TreeExpansionListener;
 import org.apache.myfaces.tobago.model.MixedTreeModel;
 import org.apache.myfaces.tobago.model.TreePath;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
-import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
@@ -210,22 +210,7 @@ public abstract class AbstractUITreeNode
   public void broadcast(FacesEvent event) throws AbortProcessingException {
     super.broadcast(event);
     if (event instanceof TreeExpansionEvent) {
-      invokeMethodBinding(getTreeExpansionListener(), event);
-    }
-  }
-
-  private void invokeMethodBinding(MethodBinding methodBinding, FacesEvent event) {
-    if (methodBinding != null && event != null) {
-      try {
-        methodBinding.invoke(getFacesContext(), new Object[]{event});
-      } catch (EvaluationException e) {
-        Throwable cause = e.getCause();
-        if (cause instanceof AbortProcessingException) {
-          throw (AbortProcessingException) cause;
-        } else {
-          throw e;
-        }
-      }
+      ComponentUtils.invokeMethodBinding(getFacesContext(), getTreeExpansionListener(), event);
     }
   }
 

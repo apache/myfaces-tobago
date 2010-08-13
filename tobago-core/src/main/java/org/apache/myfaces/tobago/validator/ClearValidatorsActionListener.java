@@ -22,9 +22,9 @@ package org.apache.myfaces.tobago.validator;
  * $Id$
  */
 
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.util.ComponentUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -36,15 +36,13 @@ import java.util.StringTokenizer;
 
 public class ClearValidatorsActionListener implements ActionListener {
 
-  private static final Logger LOG
-      = LoggerFactory.getLogger(ClearValidatorsActionListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ClearValidatorsActionListener.class);
 
   public PhaseId getPhaseId() {
     return PhaseId.APPLY_REQUEST_VALUES;
   }
 
-  public void processAction(ActionEvent actionEvent)
-      throws AbortProcessingException {
+  public void processAction(ActionEvent actionEvent) throws AbortProcessingException {
     if (LOG.isDebugEnabled()) {
       LOG.debug("actionEvent = '" + actionEvent + "'");
     }

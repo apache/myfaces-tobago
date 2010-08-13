@@ -39,6 +39,7 @@ import org.apache.myfaces.tobago.layout.LayoutManager;
 import org.apache.myfaces.tobago.layout.LayoutTokens;
 import org.apache.myfaces.tobago.model.SheetState;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRenderer;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +48,6 @@ import javax.faces.component.ContextCallback;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
@@ -331,35 +331,20 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
   public void broadcast(FacesEvent facesEvent) throws AbortProcessingException {
     super.broadcast(facesEvent);
     if (facesEvent instanceof SheetStateChangeEvent) {
-      invokeMethodBinding(getStateChangeListener(), facesEvent);
+      ComponentUtils.invokeMethodBinding(getFacesContext(), getStateChangeListener(), facesEvent);
     } else if (facesEvent instanceof PageActionEvent) {
       if (facesEvent.getComponent() == this) {
         performPaging((PageActionEvent) facesEvent);
-        invokeMethodBinding(getStateChangeListener(), new SheetStateChangeEvent(this));
+        ComponentUtils.invokeMethodBinding(
+            getFacesContext(), getStateChangeListener(), new SheetStateChangeEvent(this));
       }
     } else if (facesEvent instanceof SortActionEvent) {
       getSheetState(getFacesContext()).updateSortState((SortActionEvent) facesEvent);
       MethodBinding methodBinding = getSortActionListener();
       if (methodBinding!= null) {
-        invokeMethodBinding(methodBinding, facesEvent);
+        ComponentUtils.invokeMethodBinding(getFacesContext(), methodBinding, facesEvent);
       } else {
         new Sorter().perform((SortActionEvent) facesEvent);
-      }
-    }
-  }
-
-  private void invokeMethodBinding(MethodBinding methodBinding, FacesEvent event) {
-    if (methodBinding != null && event != null) {
-      try {
-        Object[] objects = new Object[]{event};
-        methodBinding.invoke(getFacesContext(), objects);
-      } catch (EvaluationException e) {
-        Throwable cause = e.getCause();
-        if (cause instanceof AbortProcessingException) {
-          throw (AbortProcessingException) cause;
-        } else {
-          throw e;
-        }
       }
     }
   }

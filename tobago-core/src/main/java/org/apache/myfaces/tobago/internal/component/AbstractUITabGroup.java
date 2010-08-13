@@ -17,8 +17,6 @@ package org.apache.myfaces.tobago.internal.component;
  * limitations under the License.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.myfaces.tobago.compat.FacesUtils;
 import org.apache.myfaces.tobago.component.Attributes;
 import org.apache.myfaces.tobago.component.ComponentTypes;
@@ -33,12 +31,13 @@ import org.apache.myfaces.tobago.internal.layout.LayoutUtils;
 import org.apache.myfaces.tobago.layout.LayoutComponent;
 import org.apache.myfaces.tobago.layout.LayoutContainer;
 import org.apache.myfaces.tobago.layout.LayoutManager;
+import org.apache.myfaces.tobago.util.ComponentUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.el.EvaluationException;
-import javax.faces.el.MethodBinding;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
@@ -202,35 +201,12 @@ public abstract class AbstractUITabGroup extends UIPanelBase
       } else {
         setSelectedIndex(index);
       }
-      MethodBinding tabChangeListenerBinding = getTabChangeListener();
-      if (tabChangeListenerBinding != null) {
-        try {
-          tabChangeListenerBinding.invoke(getFacesContext(), new Object[]{facesEvent});
-        } catch (EvaluationException e) {
-          Throwable cause = e.getCause();
-          if (cause != null && cause instanceof AbortProcessingException) {
-            throw (AbortProcessingException) cause;
-          } else {
-            throw e;
-          }
-        }
-      }
-      MethodBinding actionListenerBinding = getActionListener();
-      if (actionListenerBinding != null) {
-        try {
-          actionListenerBinding.invoke(getFacesContext(), new Object[]{facesEvent});
-        } catch (EvaluationException e) {
-          Throwable cause = e.getCause();
-          if (cause != null && cause instanceof AbortProcessingException) {
-            throw (AbortProcessingException) cause;
-          } else {
-            throw e;
-          }
-        }
-      }
 
-      ActionListener defaultActionListener
-          = getFacesContext().getApplication().getActionListener();
+      ComponentUtils.invokeMethodBinding(getFacesContext(), getTabChangeListener(), facesEvent);
+
+      ComponentUtils.invokeMethodBinding(getFacesContext(), getActionListener(), facesEvent);
+
+      ActionListener defaultActionListener = getFacesContext().getApplication().getActionListener();
       if (defaultActionListener != null) {
         defaultActionListener.processAction((ActionEvent) facesEvent);
       }
