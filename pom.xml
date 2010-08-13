@@ -806,14 +806,14 @@
     <!-- END SNIPPET: staging-profile -->
     <!-- START SNIPPET: release-profile -->
     <profile>
-      <id>release</id>
+      <id>apache-release</id>
       <!--
       NOTE: To use you need to enable this profile and pass in the passphrase:
            mvn -Prelease -Dpassphrase=thephrase
 
            with the release plugin add following profile to your settings.xml
            <profile>
-             <id>release</id>
+             <id>apache-release</id>
              <properties>
                <gpg.passphrase>thephrase</gpg.passphrase>
              </properties>
@@ -893,29 +893,6 @@
                 <goals>
                   <goal>update</goal>
                 </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <!-- Using this plugin configuration to produce a buildable project source distro,
-                 per the discussion on members@ASF regarding what constitutes a valid release.
-             -->
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>make-project-src-distro</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>single</goal>
-                </goals>
-                <configuration>
-                  <descriptorRefs>
-                    <descriptorRef>project</descriptorRef>
-                  </descriptorRefs>
-                  <tarLongFileMode>gnu</tarLongFileMode>
-                  <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
-                </configuration>
               </execution>
             </executions>
           </plugin>
