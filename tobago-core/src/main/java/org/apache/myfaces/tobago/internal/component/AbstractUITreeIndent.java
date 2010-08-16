@@ -21,5 +21,5 @@ import org.apache.myfaces.tobago.config.Configurable;
 
 import javax.faces.component.UIGraphic;
 
-public abstract class AbstractUIIndent extends UIGraphic implements Configurable {
+public abstract class AbstractUITreeIndent extends UIGraphic implements Configurable {
 }

@@ -32,7 +32,7 @@ import org.apache.myfaces.tobago.internal.taglib.declaration.HasTip;
 @Tag(name = "treeIndent")
 @UIComponentTag(
     uiComponent = "org.apache.myfaces.tobago.component.UITreeIndent",
-    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUIIndent",
+    uiComponentBaseClass = "org.apache.myfaces.tobago.internal.component.AbstractUITreeIndent",
     rendererType = RendererTypes.TREE_INDENT,
     allowedChildComponenents = "NONE")
 public interface TreeIndentTagDeclaration
