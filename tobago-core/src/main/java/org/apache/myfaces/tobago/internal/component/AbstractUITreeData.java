@@ -92,6 +92,48 @@ public abstract class AbstractUITreeData extends javax.faces.component.UIInput
 
   }
 
+  @Override
+  public void processValidators(FacesContext facesContext) {
+    validateNodes(facesContext, (DefaultMutableTreeNode) getValue(), new TreePath(0));
+  }
+
+  private void validateNodes(FacesContext facesContext, DefaultMutableTreeNode node, TreePath position) {
+
+    setRowIndex(facesContext, position);
+    LOG.debug("path index (validate) = '" + position + "'");
+    AbstractUITreeNode templateComponent = getTemplateComponent();
+    templateComponent.processValidators(facesContext);
+    setRowIndex(facesContext, null);
+
+    int index = 0;
+    for (Enumeration e = node.children(); e.hasMoreElements();) {
+      DefaultMutableTreeNode sub = (DefaultMutableTreeNode) e.nextElement();
+      validateNodes(facesContext, sub, new TreePath(position, index));
+      index++;
+    }
+  }
+
+  @Override
+  public void processUpdates(FacesContext facesContext) {
+    updateNodes(facesContext, (DefaultMutableTreeNode) getValue(), new TreePath(0));    
+  }
+
+  private void updateNodes(FacesContext facesContext, DefaultMutableTreeNode node, TreePath position) {
+
+    setRowIndex(facesContext, position);
+    LOG.debug("path index (update) = '" + position + "'");
+    AbstractUITreeNode templateComponent = getTemplateComponent();
+    templateComponent.processUpdates(facesContext);
+    setRowIndex(facesContext, null);
+
+    int index = 0;
+    for (Enumeration e = node.children(); e.hasMoreElements();) {
+      DefaultMutableTreeNode sub = (DefaultMutableTreeNode) e.nextElement();
+      updateNodes(facesContext, sub, new TreePath(position, index));
+      index++;
+    }
+  }
+
   public TreePath getRowIndex() {
     return rowIndex;
   }
