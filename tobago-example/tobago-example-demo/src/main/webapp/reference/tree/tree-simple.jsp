@@ -32,10 +32,6 @@
           <tc:treeIndent/>
           <tc:treeIcon/>
           <tc:treeCommand label="#{node.userObject.name}" action="#{node.userObject.action}"/>
-          <%--
-            <tc:treeCommand label="#{node.userObject.name}" rendered="#{node.childCount == 0}"/>
-            <tc:treeLabel value="#{node.userObject.name}" rendered="#{node.childCount > 0}"/>
-          --%>
         </tc:treeNode>
       </tc:treeData>
     </tc:tree>
