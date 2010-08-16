@@ -84,6 +84,7 @@ public final class RendererTypes {
   public static final String TREE_MENU_LABEL = "TreeMenuLabel";
   public static final String TREE_MENU_NODE = "TreeMenuNode";
   public static final String TREE_NODE = "TreeNode";
+  public static final String TREE_SELECT = "TreeSelect";
   public static final String SHEET = "Sheet";
   public static final String WIZARD = "Wizard";
 

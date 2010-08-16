@@ -17,9 +17,9 @@ package org.apache.myfaces.tobago.example.demo;
  * limitations under the License.
  */
 
+import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.myfaces.tobago.event.TreeExpansionEvent;
 
 public class Node {
 
@@ -29,6 +29,7 @@ public class Node {
   private String markup;
   private boolean expanded;
   private boolean disabled;
+  private boolean selected;
 
   public Node(String name) {
     this.name = name;
@@ -88,6 +89,14 @@ public class Node {
 
   public void setDisabled(boolean disabled) {
     this.disabled = disabled;
+  }
+
+  public boolean isSelected() {
+    return selected;
+  }
+
+  public void setSelected(boolean selected) {
+    this.selected = selected;
   }
 
   @Override

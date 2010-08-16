@@ -21,30 +21,20 @@
 <f:view>
   <tc:loadBundle basename="demo" var="bundle"/>
 
-  <tc:page label="Sandbox - Tree" id="page"
-           width="500px" height="800px">
+  <tc:page label="Tree" id="page" width="500px" height="1000px">
     <f:facet name="layout">
-      <tc:gridLayout margin="10px" rows="300px;*"/>
+      <tc:gridLayout margin="10px" rows="*;*"/>
     </f:facet>
 
-    <tc:tree id="sel"
-              showRootJunction="true"
-              showRoot="true"
-              selectable="single">
-      <tc:treeNode label="Root">
-        <tc:treeData value="#{treeController.tree}" var="node">
-          <tc:treeNode label="#{node.userObject.name}"
-                        markup="#{node.userObject.markup}"
-                        tip="#{node.userObject.tip}"/>
-        </tc:treeData>
-        <tc:treeNode label="Sub 1"/>
-        <tc:treeNode label="Sub 2"/>
-        <tc:treeNode label="Sub 3">
-          <tc:treeNode label="Sub 3.1"/>
-          <tc:treeNode label="Sub 3.2"/>
+    <tc:tree>
+      <tc:treeData value="#{treeController.tree}" var="node" id="data">
+        <tc:treeNode id="template" expanded="true">
+          <tc:treeIndent/>
+          <tc:treeIcon/>
+          <tc:treeSelect value="#{node.userObject.selected}"/>
+          <tc:treeCommand label="#{node.userObject.name}" action="#{node.userObject.action}"/>
         </tc:treeNode>
-        <tc:treeNode label="Sub 4" tip="Subnode Number 4"/>
-      </tc:treeNode>
+      </tc:treeData>
     </tc:tree>
 
     <tc:cell/>
