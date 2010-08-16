@@ -18,11 +18,13 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.myfaces.tobago.component.UITreeLabel;
+import org.apache.myfaces.tobago.component.UITreeNode;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.css.Style;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.util.HtmlRendererUtils;
+import org.apache.myfaces.tobago.util.ComponentUtils;
 import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,13 +39,19 @@ public class TreeLabelRenderer extends LayoutComponentRendererBase {
 
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
 
-    UITreeLabel label = (UITreeLabel) component;
-    TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
+    final UITreeLabel label = (UITreeLabel) component;
+    final UITreeNode node = ComponentUtils.findAncestor(label, UITreeNode.class);
+    final boolean folder = node.isFolder();
+
+    final TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
     writer.startElement(HtmlElements.LABEL, label);
     writer.writeClassAttribute(Classes.create(label));
     writer.writeStyleAttribute(createStyle(facesContext, label));
     HtmlRendererUtils.renderTip(label, writer);
+    if (folder) {
+      writer.writeAttribute("onclick", "tobagoTreeNodeToggle(this)", false);
+    }
 
     if (label.getValue() != null) {
       writer.writeText((String) label.getValue());

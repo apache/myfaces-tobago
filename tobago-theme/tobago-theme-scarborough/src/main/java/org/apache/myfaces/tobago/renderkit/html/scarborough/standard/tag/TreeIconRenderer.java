@@ -91,6 +91,8 @@ public class TreeIconRenderer extends LayoutComponentRendererBase {
     if (folder) {
       writer.writeAttribute(HtmlAttributes.SRCOPEN, openSource, true);
       writer.writeAttribute(HtmlAttributes.SRCCLOSE, closedSource, true);
+
+      writer.writeAttribute("onclick", "tobagoTreeNodeToggle(this)", false);
     }
     writer.writeAttribute(HtmlAttributes.ALT, "", false);
     writer.endElement(HtmlElements.IMG);

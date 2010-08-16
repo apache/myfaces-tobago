@@ -31,7 +31,8 @@
         <tc:treeNode id="template" expanded="true">
           <tc:treeIndent/>
           <tc:treeIcon/>
-          <tc:treeSelect value="#{node.userObject.selected}"/>
+          <tc:treeSelect value="#{node.userObject.selected}" label="select"/>
+          <tc:treeLabel value="toggle" rendered="#{not node.leaf}"/>
           <tc:treeCommand label="#{node.userObject.name}" action="#{node.userObject.action}"/>
         </tc:treeNode>
       </tc:treeData>

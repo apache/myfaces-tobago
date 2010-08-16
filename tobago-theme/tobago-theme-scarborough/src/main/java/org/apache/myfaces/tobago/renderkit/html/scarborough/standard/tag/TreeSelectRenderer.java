@@ -18,6 +18,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  */
 
 import org.apache.myfaces.tobago.component.UITreeSelect;
+import org.apache.myfaces.tobago.renderkit.css.Classes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
 import org.apache.myfaces.tobago.renderkit.html.HtmlElements;
 import org.apache.myfaces.tobago.renderkit.html.HtmlInputTypes;
@@ -40,7 +41,7 @@ public class TreeSelectRenderer extends SelectBooleanCheckboxRenderer {
     final boolean checked = "true".equals(currentValue);
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    
+
     writer.startElement(HtmlElements.INPUT, null);
     writer.writeAttribute(HtmlAttributes.TYPE, HtmlInputTypes.CHECKBOX, false);
     writer.writeAttribute(HtmlAttributes.VALUE, "true", false);
@@ -48,6 +49,14 @@ public class TreeSelectRenderer extends SelectBooleanCheckboxRenderer {
     writer.writeIdAttribute(id);
     writer.writeAttribute(HtmlAttributes.CHECKED, checked);
     writer.endElement(HtmlElements.INPUT);
+
+    // label
+    writer.startElement(HtmlElements.LABEL, null);
+    writer.writeClassAttribute(Classes.create(select, "label"));
+    HtmlRendererUtils.renderTip(select, writer);
+    writer.writeAttribute(HtmlAttributes.FOR, id, false);
+    writer.writeText(select.getLabel());
+    writer.endElement(HtmlElements.LABEL);
   }
 
   @Override

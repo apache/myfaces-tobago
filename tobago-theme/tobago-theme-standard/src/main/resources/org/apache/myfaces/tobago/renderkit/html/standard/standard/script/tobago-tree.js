@@ -74,8 +74,8 @@ Tobago.Tree.storeMarker = function(node, treeHiddenId) {
 };
 
 function tobagoTreeNodeToggle(element) {
-  var node = jQuery(element);
-  var content = jQuery(Tobago.escapeClientId(element.id + Tobago.SUB_COMPONENT_SEP + "content"));
+  var node = jQuery(element).closest(".tobago-treeNode");
+  var content = jQuery(Tobago.escapeClientId(node.attr("id") + Tobago.SUB_COMPONENT_SEP + "content"));
   var expanded = node.find(".tobago-treeMenuNode-expanded, .tobago-treeNode-expanded");
   var toggle = node.find(".tobago-treeMenuNode-toggle, .tobago-treeNode-toggle");
   if (content.css("display") == "none") {

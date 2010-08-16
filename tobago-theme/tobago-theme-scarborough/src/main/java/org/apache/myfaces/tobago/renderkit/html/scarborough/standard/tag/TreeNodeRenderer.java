@@ -153,10 +153,6 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
       writer.writeStyleAttribute(widthString);
 
       if (folder) {
-        writer.writeAttribute("onclick", "tobagoTreeNodeToggle(this)", false);
-      }
-
-      if (folder) {
         encodeExpandedHidden(writer, node, id, expanded);
       }
 

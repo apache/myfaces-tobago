@@ -127,6 +127,8 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
       if (folder) {
         writer.writeAttribute(HtmlAttributes.SRCOPEN, srcOpen, true);
         writer.writeAttribute(HtmlAttributes.SRCCLOSE, srcClose, true);
+
+        writer.writeAttribute("onclick", "tobagoTreeNodeToggle(this)", false);
       }
       writer.writeAttribute(HtmlAttributes.ALT, "", false);
       writer.endElement(HtmlElements.IMG);
