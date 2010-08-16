@@ -86,6 +86,7 @@ public class SeparatorRenderer extends LayoutComponentRendererBase {
       writer.writeIdAttribute(separator.getClientId(facesContext));
       writer.writeClassAttribute(Classes.create(component));
       Style style = new Style(facesContext, separator);
+      style.setHeight(Measure.ZERO); // not nice
       writer.writeStyleAttribute(style);
       writer.endElement(HtmlElements.HR);
     }

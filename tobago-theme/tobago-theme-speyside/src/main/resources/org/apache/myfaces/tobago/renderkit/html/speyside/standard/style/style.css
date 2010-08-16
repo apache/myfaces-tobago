@@ -423,9 +423,9 @@ tobago-selectOneChoice-markup-readonly {
 
 /* separator ------------------------------------------------------------------- */
 
-.tobago-separator hr {
-  border: 0 solid #000000;
-  border-bottom-width: 1px;
+hr.tobago-separator, .tobago-separator-start hr, .tobago-separator-end hr {
+  border-top: 1px solid #000000;
+  border-bottom: 0 solid #000000;
 }
 
 /* sheet -------------------------------------------------------- */
