@@ -89,7 +89,6 @@ function tobagoTreeNodeToggle(element) {
     content.css("display", "none");
     toggle.each(function() {
       jQuery(this).attr("src", jQuery(this).attr("srcclose"));
-      debugger;
       Tobago.fixPngAlpha(this);
     });
     expanded.attr("value", "false");
