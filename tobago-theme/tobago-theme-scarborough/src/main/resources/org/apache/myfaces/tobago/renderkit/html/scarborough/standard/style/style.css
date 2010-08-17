@@ -1309,23 +1309,6 @@ div.tobago-tabGroup-toolBar {
   font-weight: bold;
 }
 
-.tobago-treeNode-toggle {
-  width: 16px;
-  height: 16px;
-}
-
- /*XXX remove? */
-.tobago-treeNode-icon {
-  width: 16px;
-  height: 16px;
-}
-
- /*XXX remove? */
-.tobago-treeNode-junction {
-  width: 19px;
-  height: 16px;
-}
-
 /* treeMenu ------------------------------------------------------------------- */
 
 .tobago-treeMenu {
