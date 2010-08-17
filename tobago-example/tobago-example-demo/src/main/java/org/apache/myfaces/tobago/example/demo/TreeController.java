@@ -70,6 +70,8 @@ public class TreeController {
     tree.add(bulk);
     ((Node) tree.getUserObject()).setExpanded(true);
     ((Node) temp.getUserObject()).setExpanded(true);
+    ((Node) tree.getUserObject()).setSelected(true);
+    ((Node) temp.getUserObject()).setSelected(true);
 
     // state
     state = new TreeState();

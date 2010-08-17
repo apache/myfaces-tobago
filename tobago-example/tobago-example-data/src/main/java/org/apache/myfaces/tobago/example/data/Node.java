@@ -1,4 +1,4 @@
-package org.apache.myfaces.tobago.example.test;
+package org.apache.myfaces.tobago.example.data;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,22 +17,34 @@ package org.apache.myfaces.tobago.example.test;
  * limitations under the License.
  */
 
-import org.apache.myfaces.tobago.example.data.CategoryTree;
-import org.apache.myfaces.tobago.example.data.SmallTree;
+public class Node {
 
-import javax.swing.tree.DefaultMutableTreeNode;
+  private String name;
 
-public class TreeController {
-  
-  private DefaultMutableTreeNode tree = CategoryTree.createSample();
+  private String id;
 
-  private DefaultMutableTreeNode small = SmallTree.createSample();
-
-  public DefaultMutableTreeNode getTree() {
-    return tree;
+  public Node(String name, String id) {
+    this.name = name;
+    this.id = id;
   }
 
-  public DefaultMutableTreeNode getSmall() {
-    return small;
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String toString() {
+    return "Node name=" + name + " id=" + id;
   }
 }

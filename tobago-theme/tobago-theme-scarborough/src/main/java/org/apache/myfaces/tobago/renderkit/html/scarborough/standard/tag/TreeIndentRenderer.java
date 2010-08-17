@@ -50,28 +50,29 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
     final boolean hasNextSibling = node.isHasNextSibling();
     final List<Boolean> junctions = node.getJunctions();
 
-    final boolean showRoot = ((UITree) tree).isShowRoot(); //XXX
+    final boolean showRoot = ((UITree) tree).isShowRoot();
     final boolean showJunctions = indent.isShowJunctions();
-    final boolean showRootJunction = ((UITree) tree).isShowRootJunction(); //XXX
+    final boolean showRootJunction = ((UITree) tree).isShowRootJunction();
     final boolean expanded = node.isExpanded() || !showRoot && level == 0;
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    encodeIndent(facesContext, writer, node, showJunctions, junctions);
+    encodeIndent(facesContext, writer, node, showJunctions, !showRoot || !showRootJunction && showJunctions, junctions);
 
-    encodeTreeJunction(facesContext, writer, node, showJunctions, showRootJunction, showRoot, expanded,
-        folder, level, hasNextSibling);
+    encodeTreeJunction(
+        facesContext, writer, node, !showJunctions, !showRootJunction, expanded, folder, level == 0, hasNextSibling);
   }
 
   private void encodeIndent(
       final FacesContext facesContext, final TobagoResponseWriter writer, final UITreeNode node,
-      final boolean showJunctions, final List<Boolean> junctions)
+      final boolean showJunctions, final boolean dropFirst, final List<Boolean> junctions)
       throws IOException {
 
     final String blank = ResourceManagerUtils.getImageWithPath(facesContext, "image/blank.gif");
     final String perpendicular = ResourceManagerUtils.getImageWithPath(facesContext, "image/I.gif");
 
-    for (Boolean junction : junctions) {
+    for (int i = dropFirst ? 1 : 0; i < junctions.size(); i++) {
+      Boolean junction = junctions.get(i);
       writer.startElement(HtmlElements.IMG, null);
       writer.writeClassAttribute(Classes.create(node, "junction"));
       writer.writeAttribute(HtmlAttributes.ALT, "", false);
@@ -86,53 +87,52 @@ public class TreeIndentRenderer extends LayoutComponentRendererBase {
 
   private void encodeTreeJunction(
       FacesContext facesContext, TobagoResponseWriter writer, UITreeNode node,
-      boolean showJunctions, boolean showRootJunction, boolean showRoot, boolean expanded, boolean folder,
-      int level, boolean hasNextSibling)
+      boolean hideJunctions, boolean hideRootJunction, boolean expanded, boolean folder,
+      boolean root, boolean hasNextSibling)
       throws IOException {
-    if (!(!showJunctions
-        || !showRootJunction && level == 0
-        || !showRootJunction && !showRoot && level == 1)) {
-      writer.startElement(HtmlElements.IMG, null);
-      writer.writeClassAttribute(Classes.create(node, "toggle", Markup.NULL));
+    if (hideJunctions || hideRootJunction && root) {
+      return;
+    }
+    writer.startElement(HtmlElements.IMG, null);
+    writer.writeClassAttribute(Classes.create(node, "toggle", Markup.NULL));
 
-      final String open;
-      final String close;
-      if (level == 0) {
-        open = "Rminus.gif";
-        close = "Rplus.gif";
-      } else {
-        if (hasNextSibling) {
-          if (folder) {
-            open = "Tminus.gif";
-            close = "Tplus.gif";
-          } else {
-            open = "T.gif";
-            close = "T.gif";
-          }
+    final String open;
+    final String close;
+    if (root) {
+      open = "Rminus.gif";
+      close = "Rplus.gif";
+    } else {
+      if (hasNextSibling) {
+        if (folder) {
+          open = "Tminus.gif";
+          close = "Tplus.gif";
         } else {
-          if (folder) {
-            open = "Lminus.gif";
-            close = "Lplus.gif";
-          } else {
-            open = "L.gif";
-            close = "L.gif";
-          }
+          open = "T.gif";
+          close = "T.gif";
+        }
+      } else {
+        if (folder) {
+          open = "Lminus.gif";
+          close = "Lplus.gif";
+        } else {
+          open = "L.gif";
+          close = "L.gif";
         }
       }
-
-      final String srcOpen = ResourceManagerUtils.getImageWithPath(facesContext, "image/" + open);
-      final String srcClose = ResourceManagerUtils.getImageWithPath(facesContext, "image/" + close);
-      final String src = expanded ? srcOpen : srcClose;
-      writer.writeAttribute(HtmlAttributes.SRC, src, true);
-      if (folder) {
-        writer.writeAttribute(HtmlAttributes.SRCOPEN, srcOpen, true);
-        writer.writeAttribute(HtmlAttributes.SRCCLOSE, srcClose, true);
-
-        writer.writeAttribute("onclick", "tobagoTreeNodeToggle(this)", false);
-      }
-      writer.writeAttribute(HtmlAttributes.ALT, "", false);
-      writer.endElement(HtmlElements.IMG);
     }
+
+    final String srcOpen = ResourceManagerUtils.getImageWithPath(facesContext, "image/" + open);
+    final String srcClose = ResourceManagerUtils.getImageWithPath(facesContext, "image/" + close);
+    final String src = expanded ? srcOpen : srcClose;
+    writer.writeAttribute(HtmlAttributes.SRC, src, true);
+    if (folder) {
+      writer.writeAttribute(HtmlAttributes.SRCOPEN, srcOpen, true);
+      writer.writeAttribute(HtmlAttributes.SRCCLOSE, srcClose, true);
+
+      writer.writeAttribute("onclick", "tobagoTreeNodeToggle(this)", false);
+    }
+    writer.writeAttribute(HtmlAttributes.ALT, "", false);
+    writer.endElement(HtmlElements.IMG);
   }
 
 }

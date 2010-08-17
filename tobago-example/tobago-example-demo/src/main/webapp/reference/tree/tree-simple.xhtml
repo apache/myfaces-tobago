@@ -24,9 +24,12 @@
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:f="http://java.sun.com/jsf/core">
 
-  <tc:page label="Tree" id="page">
+  <tc:page label="Simple Tree" id="page">
+    <f:facet name="layout">
+      <tc:gridLayout margin="10px"/>
+    </f:facet>
 
-    <tc:tree>
+    <tc:tree showRoot="true" showRootJunction="true">
       <tc:treeData value="#{treeController.tree}" var="node" id="data">
         <tc:treeNode id="template" expanded="true">
           <tc:treeIndent/>

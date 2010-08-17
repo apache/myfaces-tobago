@@ -122,14 +122,9 @@ public class TreeNodeRenderer extends LayoutComponentRendererBase {
     final String id = node.getClientId(facesContext);
     final int level = node.getLevel();
     final boolean root = level == 0;
-    final List<Boolean> junctions = node.getJunctions();
     final boolean showRoot = ((UITree) tree).isShowRoot();
     // if the root is hidden, the root node must be expanded (otherwise you will see nothing)
     final boolean expanded = node.isExpanded() || !showRoot && root;
-
-    if (!showRoot && junctions.size() > 0) {
-      junctions.remove(0);
-    }
 
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
