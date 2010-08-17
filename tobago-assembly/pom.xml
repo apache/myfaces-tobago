@@ -121,14 +121,7 @@
                       <groupId>${project.groupId}</groupId>
                       <artifactId>tobago</artifactId>
                       <version>${project.version}</version>
-                      <classifier>project</classifier>
-                      <type>tar.gz</type>
-                    </artifactItem>
-                     <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>tobago</artifactId>
-                      <version>${project.version}</version>
-                      <classifier>project</classifier>
+                      <classifier>source-release</classifier>
                       <type>zip</type>
                     </artifactItem>
                   </artifactItems>
@@ -395,8 +388,7 @@
                 </goals>
                 <configuration>
                   <tasks>
-                    <move failonerror="false" file="${project.build.directory}/assembly/out/tobago-${project.version}-project.tar.gz" toFile="${project.build.directory}/assembly/out/myfaces-tobago-${project.version}-project.tar.gz" />
-                    <move failonerror="false" file="${project.build.directory}/assembly/out/tobago-${project.version}-project.zip" toFile="${project.build.directory}/assembly/out/myfaces-tobago-${project.version}-project.zip" />
+                    <move failonerror="false" file="${project.build.directory}/assembly/out/tobago-${project.version}-source-release.zip" toFile="${project.build.directory}/assembly/out/myfaces-tobago-${project.version}-source-release.zip" />
 
                   </tasks>
                 </configuration>
