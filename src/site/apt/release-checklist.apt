@@ -39,10 +39,12 @@ Release Checklist
 
   * Prepare the release with mvn release:prepare -Pall-modules
 
-  * Deploy the release to the staging repository with the staging profile and release profile\
+  * Deploy the release to the nexus repository with the apache-release profile\
     cd checkout-of-release\
-    mvn deploy -Prelease,staging,jdk14retro --no-plugin-updates -Dnon-default-modules -Djava14.home=${java14.jre}\
+    mvn deploy -Papache-release,staging,jdk14retro --no-plugin-updates -Dnon-default-modules -Djava14.home=${java14.jre}\
     For more information please consult the poms.
+
+  * "Close" the repository on the nexus instance for stating (you will receive a mail with the staging location). 
 
   * Propose a vote on the dev list with the staging location.
 
@@ -50,9 +52,7 @@ Release Checklist
 
   * Close all resolved jira issuse for the release.
 
-  * Deploy the release to the production repository with the release profile\
-    cd checkout-of-release\
-    mvn deploy -Prelease,jdk14retro --no-plugin-updates -Dnon-default-modules -Djava14.home=${java14.jre}
+  * "release" the staging repository on the apache nexus instance.
 
   * Create the assemblies.\
     cd tobago-assembly\
@@ -63,6 +63,10 @@ Release Checklist
   * Sign the assemblies.
 
   * Upload the assemblies to the Apache Software Foundation Distribution Directory.\
+    in tobago-assembly/target/assembly/out
+    scp *dist* minotaur.apache.org:/www/www.apache.org/dist/myfaces/binaries
+    scp *source-release* minotaur.apache.org:/www/www.apache.org/dist/myfaces/source
+    in tobago-example-assembly/target/assembly/out
     scp * minotaur.apache.org:/www/www.apache.org/dist/myfaces/binaries
 
   * Update the download site after the distribution is on the apache mirrors available.
