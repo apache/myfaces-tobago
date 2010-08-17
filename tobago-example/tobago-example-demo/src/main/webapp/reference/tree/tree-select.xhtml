@@ -1,4 +1,6 @@
-<%--
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -13,17 +15,17 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
---%>
+-->
 
-<%@ taglib uri="http://myfaces.apache.org/tobago/component" prefix="tc" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<f:view xmlns:tc="http://myfaces.apache.org/tobago/component"
+        xmlns:tx="http://myfaces.apache.org/tobago/extension"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core">
 
-<f:view>
-  <tc:loadBundle basename="demo" var="bundle"/>
-
-  <tc:page label="Tree" id="page" width="500px" height="1000px">
+  <tc:page label="Tree" id="page">
     <f:facet name="layout">
-      <tc:gridLayout margin="10px" rows="*;*"/>
+      <tc:gridLayout margin="10px"/>
     </f:facet>
 
     <tc:tree>
@@ -31,12 +33,12 @@
         <tc:treeNode id="template" expanded="true">
           <tc:treeIndent/>
           <tc:treeIcon/>
+          <tc:treeSelect value="#{node.userObject.selected}" label="select"/>
+          <tc:treeLabel value="toggle" rendered="#{not node.leaf}"/>
           <tc:treeCommand label="#{node.userObject.name}" action="#{node.userObject.action}"/>
         </tc:treeNode>
       </tc:treeData>
     </tc:tree>
-
-    <tc:cell/>
 
   </tc:page>
 </f:view>

@@ -453,9 +453,9 @@
 <!--
 tree-ajax.jsp
 tree-editor.jsp
-tree-menu.jsp
+tree-menu.xhtml
 tree-normal.xhtml
-tree-select.jsp
+tree-select.xhtml
 -->
     <navigation-case>
       <from-outcome>reference/upload</from-outcome>
