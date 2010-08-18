@@ -21,6 +21,7 @@
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
     <version>6</version>
+    <!-- TODO update to 9 -->
   </parent>
   <groupId>org.apache.myfaces.tobago</groupId>
   <artifactId>tobago</artifactId>
@@ -29,6 +30,7 @@
   <version>1.5.0-alpha-2-SNAPSHOT</version>
   <description>The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF and run on MyFaces.</description>
   <prerequisites>
+    <!-- TODO update to 2.2.1 -->
     <maven>2.0.6</maven>
   </prerequisites>
   <url>http://myfaces.apache.org/tobago</url>
@@ -766,6 +768,11 @@
           <version>2.2</version>
         </plugin>
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.4</version>
+        </plugin>
+        <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>clirr-maven-plugin</artifactId>
           <version>2.2.2</version>
@@ -882,15 +889,15 @@
 
   <distributionManagement>
     <repository>
-      <id>apache-maven</id>
-      <name>Apache Maven Repository</name>
-      <url>scpexe://minotaur.apache.org/www/people.apache.org/repo/m2-ibiblio-rsync-repository</url>
+      <id>apache.releases.https</id>
+      <name>Apache Release Distribution Repository</name>
+      <url>https://repository.apache.org/service/local/staging/deploy/maven2</url>
     </repository>
     <snapshotRepository>
       <uniqueVersion>false</uniqueVersion>
-      <id>apache-maven-snapshots</id>
-      <name>Apache Maven Snapshot Repository</name>
-      <url>scpexe://minotaur.apache.org/www/people.apache.org/repo/m2-snapshot-repository</url>
+      <id>apache.snapshots.https</id>
+      <name>${distMgmtSnapshotsName}</name>
+      <url>${distMgmtSnapshotsUrl}</url>
     </snapshotRepository>
     <site>
       <id>apache-site</id>
@@ -909,45 +916,16 @@
     <profile>
       <id>jdk14retro</id>
     </profile>
-    <!-- START SNIPPET: staging-profile -->
-    <profile>
-      <id>staging</id>
-      <build>
-        <plugins>
-          <!-- We want to deploy the artifact to a staging location for perusal
-           mvn -Pstaging -Ddeploy.altRepository=scpexe://minotaur.apache.org/www/people.apache.org/builds/myfaces/m2-staging-repository
 
-           with the release plugin add following profile to your settings.xml
-           <profile>
-             <id>staging</id>
-             <properties>
-               <deploy.altRepository>apache.releases::default::scpexe://minotaur.apache.org/www/people.apache.org/builds/myfaces/tobago/m2-staging-repository</deploy.altRepository>
-             </properties>
-           </profile>
-          -->
-          <plugin>
-            <inherited>true</inherited>
-            <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.3</version>
-            <configuration>
-              <altDeploymentRepository>${deploy.altRepository}</altDeploymentRepository>
-              <updateReleaseInfo>true</updateReleaseInfo>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <!-- END SNIPPET: staging-profile -->
-    <!-- START SNIPPET: release-profile -->
     <profile>
-      <id>release</id>
+      <id>apache-release</id>
       <!--
       NOTE: To use you need to enable this profile and pass in the passphrase:
            mvn -Prelease -Dpassphrase=thephrase
 
            with the release plugin add following profile to your settings.xml
            <profile>
-             <id>release</id>
+             <id>apache-release</id>
              <properties>
                <gpg.passphrase>thephrase</gpg.passphrase>
              </properties>
@@ -978,6 +956,7 @@
             <executions>
               <execution>
                 <id>enforce-java</id>
+                <phase>validate</phase>
                 <goals>
                   <goal>enforce</goal>
                 </goals>
@@ -1050,30 +1029,6 @@
               </execution>
             </executions>
           </plugin>
-          <plugin>
-            <!-- Using this plugin configuration to produce a buildable project source distro,
-                 per the discussion on members@ASF regarding what constitutes a valid release.
-             -->
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>make-project-src-distro</id>
-                <phase>package</phase>
-                <goals>
-                  <goal>single</goal>
-                </goals>
-                <configuration>
-                  <descriptorRefs>
-                    <descriptorRef>project</descriptorRef>
-                  </descriptorRefs>
-                  <tarLongFileMode>gnu</tarLongFileMode>
-                  <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-
         </plugins>
       </build>
       <modules>
@@ -1081,7 +1036,6 @@
         <module>tobago-example</module>
       </modules>
     </profile>
-    <!-- END SNIPPET: release-profile -->
     <profile>
       <id>mojodocbook</id>
       <build>

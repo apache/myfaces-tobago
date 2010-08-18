@@ -394,7 +394,7 @@
       </build>
     </profile>
     <profile>
-      <id>release</id>
+      <id>apache-release</id>
       <build>
         <plugins>
           <plugin>

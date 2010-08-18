@@ -124,7 +124,7 @@
       </modules>
     </profile>
     <profile>
-      <id>release</id>
+      <id>apache-release</id>
       <modules>
         <module>tobago-example-blank</module>
         <module>tobago-example-data</module>
