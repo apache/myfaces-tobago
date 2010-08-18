@@ -24,12 +24,7 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
 <tc:page width="800px" height="600px" id="page">
-<f:facet xmlns:f="http://java.sun.com/jsf/core"
-         xmlns:tc="http://myfaces.apache.org/tobago/component"
-         xmlns:tx="http://myfaces.apache.org/tobago/extension"
-         xmlns:tf="http://myfaces.apache.org/tobago/facelet-extension"
-         xmlns:ui="http://java.sun.com/jsf/facelets"
-         name="menuBar">
+<f:facet name="menuBar">
 <tc:menuBar>
 <tc:menu label="space -> space -> space">
 </tc:menu>
@@ -295,10 +290,10 @@
     <f:facet name="layout">
       <tc:gridLayout columns="*;*"/>
     </f:facet>
-  <tx:selectBooleanCheckbox label="1st Popup Modal" value="#{zIndex.modal1}" id="modal1st"/>
-  <tc:cell/>
-  <tx:selectBooleanCheckbox label="2nd Popup Modal" value="#{zIndex.modal2}"/>
-  <tc:cell/>
+    <tx:selectBooleanCheckbox label="1st Popup Modal" value="#{zIndex.modal1}" id="modal1st"/>
+    <tc:cell/>
+    <tx:selectBooleanCheckbox label="2nd Popup Modal" value="#{zIndex.modal2}"/>
+    <tc:cell/>
   </tc:panel>
   <tc:panel>
     <f:facet name="layout">
