@@ -39,7 +39,7 @@ public abstract class BoxRendererBase extends LayoutComponentRendererBase {
   public Measure getOffsetTop(FacesContext facesContext, Configurable component) {
 
     Measure offsetTop = super.getOffsetTop(facesContext, component);
-    if (getMenuBarFacet((UIComponent)component) != null) {
+    if (getMenuBarFacet((UIComponent) component) != null) {
       offsetTop = offsetTop.add(19); // todo: get via theme config
     }
     return offsetTop;
