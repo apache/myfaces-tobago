@@ -234,7 +234,7 @@ public class ComponentUtils {
   public static <T extends UIComponent> T findDescendant(UIComponent component, Class<T> type) {
 
     for (UIComponent child : (List<UIComponent>) component.getChildren()) {
-      if (child.getClass().equals(type)) {
+      if (type.isAssignableFrom(child.getClass())) {
         return (T) component;
       }
       final T descendant = findDescendant(child, type);

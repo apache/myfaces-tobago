@@ -29,6 +29,7 @@ import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.component.UIMenuCommand;
 import org.apache.myfaces.tobago.component.UIReload;
 import org.apache.myfaces.tobago.component.UISheet;
+import org.apache.myfaces.tobago.context.ClientProperties;
 import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManager;
 import org.apache.myfaces.tobago.context.ResourceManagerFactory;
@@ -57,6 +58,7 @@ import org.slf4j.LoggerFactory;
 import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UISelectOne;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -182,6 +184,7 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       sheetHeight = style.getHeight();
     }
     Measure footerHeight = getFooterHeight(facesContext, sheet);
+    Measure headerHeight = getResourceManager().getThemeMeasure(facesContext, sheet, "headerHeight");
     String selectable = sheet.getSelectable();
 
     Application application = facesContext.getApplication();
@@ -222,32 +225,43 @@ public class SheetRenderer extends LayoutComponentRendererBase {
     }
 
     final boolean showHeader = sheet.isShowHeader();
-
+    final boolean ie6SelectOneFix = showHeader
+        && ClientProperties.getInstance(facesContext).getUserAgent().isMsie6()
+            && ComponentUtils.findDescendant(sheet, UISelectOne.class) != null;
+ 
 // BEGIN RENDER BODY CONTENT
     Style bodyStyle = new Style();
     bodyStyle.setPosition(Position.RELATIVE);
     Measure tableBodyWidth = sheet.getCurrentWidth().subtractNotNegative(getContentBorder(facesContext, sheet));
     bodyStyle.setWidth(tableBodyWidth);
-    sheetHeight = sheetHeight.subtract(footerHeight);
+    if (sheet.isPagingVisible()) {
+      sheetHeight = sheetHeight.subtract(footerHeight);
+    }
+    if (ie6SelectOneFix) {
+      bodyStyle.setTop(headerHeight);
+    }
     if (showHeader) {
-      sheetHeight = sheetHeight.subtract(getResourceManager().getThemeMeasure(facesContext, sheet, "headerHeight"));
+      sheetHeight = sheetHeight.subtract(headerHeight);
     }
     bodyStyle.setHeight(sheetHeight);
 
     writer.startElement(HtmlElements.DIV, null);
     writer.writeIdAttribute(sheetId + ComponentUtils.SUB_SEPARATOR + "data_div");
     writer.writeClassAttribute(Classes.create(sheet, "body"));
-    Style sheetBodyStyle = new Style(bodyStyle);
-    if (!showHeader) {
+
+    if (!showHeader || ie6SelectOneFix) {
       bodyStyle.setPaddingTop(Measure.ZERO);
     }
+
     writer.writeStyleAttribute(bodyStyle);
+    bodyStyle.setHeight(null);
+    bodyStyle.setTop(null);
+    Style sheetBodyStyle = new Style(bodyStyle);
     final boolean needVerticalScrollbar = needVerticalScrollbar(facesContext, sheet, style);
     if (needVerticalScrollbar) {
       tableBodyWidth = tableBodyWidth.subtractNotNegative(getVerticalScrollbarWeight(facesContext, sheet));
     }
     sheetBodyStyle.setWidth(tableBodyWidth);
-    sheetBodyStyle.setHeight(null);
 
     writer.startElement(HtmlElements.TABLE, null);
     writer.writeAttribute(HtmlAttributes.CELLSPACING, 0);
@@ -387,7 +401,9 @@ public class SheetRenderer extends LayoutComponentRendererBase {
       Style footerStyle = new Style();
       footerStyle.setWidth(sheet.getCurrentWidth());
       footerStyle.setHeight(footerHeight);
-
+      if (ie6SelectOneFix) {
+        footerStyle.setTop(headerHeight);
+      }
       writer.startElement(HtmlElements.DIV, sheet);
       writer.writeClassAttribute(Classes.create(sheet, "footer"));
       writer.writeStyleAttribute(footerStyle);
