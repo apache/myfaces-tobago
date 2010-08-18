@@ -387,7 +387,7 @@ li.tobago-menu-markup-selected {
   height: 18px;
   left: 0;
   top: 0;
-  position: absolute;
+  position: relative;
   width: 100%;
   background-color: #aabbcc;
 }
@@ -397,6 +397,8 @@ li.tobago-menu-markup-selected {
   margin: 0;
   width: 0;
   height: 0;
+  top: 0;
+  left: 0;
   position: absolute;
   z-index: 1000;
 }
@@ -535,6 +537,7 @@ iframe.tobago-menu-ie6bugfix {
   padding: 0;
   z-index: -1;
   visibility: hidden;
+  position: absolute;
 }
 
 /* popup -------------------------------------------------------------- */
