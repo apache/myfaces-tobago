@@ -19,8 +19,6 @@ package org.apache.myfaces.tobago.example.demo;
 
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.example.demo.jsp.JspFormatter;
-import org.apache.myfaces.tobago.model.TreePath;
-import org.apache.myfaces.tobago.model.TreeState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,132 +36,119 @@ public class Navigation {
 
   private static final Logger LOG = LoggerFactory.getLogger(Navigation.class);
 
-  private DefaultMutableTreeNode tree;
+  private Node tree;
 
-  private TreeState state;
+  private Node currentNode;
 
   public Navigation() {
 
-    tree = new DefaultMutableTreeNode(new Node("Root", null));
+    tree = new Node("Root", null);
 
-    DefaultMutableTreeNode overview = new DefaultMutableTreeNode(new Node("overview", "/overview/intro"));
-//    overview.add(new DefaultMutableTreeNode(new Node("intro", "overview/intro")));
-    overview.add(new DefaultMutableTreeNode(new Node("basic", "/overview/basic")));
-    overview.add(new DefaultMutableTreeNode(new Node("sheet", "/overview/sheet")));
-    overview.add(new DefaultMutableTreeNode(new Node("tree", "/overview/tree")));
-    overview.add(new DefaultMutableTreeNode(new Node("tab", "/overview/tab")));
-    overview.add(new DefaultMutableTreeNode(new Node("toolbar", "/overview/toolbar")));
-    DefaultMutableTreeNode validation = new DefaultMutableTreeNode(new Node("validation", "/overview/validation"));
-    validation.add(new DefaultMutableTreeNode(new Node("validationSeverity", "/overview/validation-severity")));
+    Node overview = new Node("overview", "/overview/intro");
+    overview.add(new Node("basic", "/overview/basic"));
+    overview.add(new Node("sheet", "/overview/sheet"));
+    overview.add(new Node("tree", "/overview/tree"));
+    overview.add(new Node("tab", "/overview/tab"));
+    overview.add(new Node("toolbar", "/overview/toolbar"));
+    Node validation = new Node("validation", "/overview/validation");
+    validation.add(new Node("validationSeverity", "/overview/validation-severity"));
     overview.add(validation);
-    overview.add(new DefaultMutableTreeNode(new Node("form", "/overview/form")));
-    overview.add(new DefaultMutableTreeNode(new Node("theme", "/overview/theme")));
-    overview.add(new DefaultMutableTreeNode(new Node("browser", "/overview/browser")));
-    overview.add(new DefaultMutableTreeNode(new Node("locale", "/overview/locale")));
-    overview.add(new DefaultMutableTreeNode(new Node("layout", "/overview/layout")));
+    overview.add(new Node("form", "/overview/form"));
+    overview.add(new Node("theme", "/overview/theme"));
+    overview.add(new Node("browser", "/overview/browser"));
+    overview.add(new Node("locale", "/overview/locale"));
+    overview.add(new Node("layout", "/overview/layout"));
     tree.add(overview);
 
-    DefaultMutableTreeNode bestPractice = new DefaultMutableTreeNode(new Node("bestPractice", "best-practice/intro"));
-    bestPractice.add(new DefaultMutableTreeNode(new Node("error", "best-practice/error")));
-    bestPractice.add(new DefaultMutableTreeNode(new Node("theme", "best-practice/theme")));
-    bestPractice.add(new DefaultMutableTreeNode(new Node("transition", "best-practice/transition")));
-    bestPractice.add(new DefaultMutableTreeNode(new Node("nonFacesResponse", "best-practice/non-faces-response")));
-    bestPractice.add(new DefaultMutableTreeNode(new Node("toolBarCustomizer", "best-practice/tool-bar-customizer")));
+    Node bestPractice = new Node("bestPractice", "best-practice/intro");
+    bestPractice.add(new Node("error", "best-practice/error"));
+    bestPractice.add(new Node("theme", "best-practice/theme"));
+    bestPractice.add(new Node("transition", "best-practice/transition"));
+    bestPractice.add(new Node("nonFacesResponse", "best-practice/non-faces-response"));
+    bestPractice.add(new Node("toolBarCustomizer", "best-practice/tool-bar-customizer"));
     tree.add(bestPractice);
 
-    DefaultMutableTreeNode reference = new DefaultMutableTreeNode(new Node("reference_intro", "reference/intro"));
-    reference.add(new DefaultMutableTreeNode(new Node("reference_command", "reference/command")));
-    reference.add(new DefaultMutableTreeNode(new Node("reference_container", "reference/container")));
-    reference.add(new DefaultMutableTreeNode(new Node("reference_input", "reference/input")));
-    reference.add(new DefaultMutableTreeNode(new Node("reference_inputSuggest", "reference/inputSuggest")));
-    reference.add(new DefaultMutableTreeNode(new Node("reference_menu", "reference/menu")));
-    reference.add(new DefaultMutableTreeNode(new Node("reference_output", "reference/output")));
-    reference.add(new DefaultMutableTreeNode(new Node("reference_object", "reference/object")));    
-    reference.add(new DefaultMutableTreeNode(new Node("reference_popup", "reference/popup")));
-    reference.add(new DefaultMutableTreeNode(new Node("reference_progress", "reference/progress")));
-    reference.add(new DefaultMutableTreeNode(new Node("reference_select", "reference/select")));
-    reference.add(new DefaultMutableTreeNode(new Node("reference_sheet", "reference/sheet")));
-    reference.add(new DefaultMutableTreeNode(new Node("reference_tab", "reference/tab")));
-    reference.add(new DefaultMutableTreeNode(new Node("reference_time", "reference/time")));
-    reference.add(new DefaultMutableTreeNode(new Node("reference_tree", "/reference/tree/tree-normal")));
-    reference.add(new DefaultMutableTreeNode(new Node("reference_tool", "reference/tool")));
-    reference.add(new DefaultMutableTreeNode(new Node("reference_partial", "reference/partial")));
-    reference.add(new DefaultMutableTreeNode(new Node("reference_upload", "reference/upload")));
+    Node reference = new Node("reference_intro", "reference/intro");
+    reference.add(new Node("reference_command", "reference/command"));
+    reference.add(new Node("reference_container", "reference/container"));
+    reference.add(new Node("reference_input", "reference/input"));
+    reference.add(new Node("reference_inputSuggest", "reference/inputSuggest"));
+    reference.add(new Node("reference_menu", "reference/menu"));
+    reference.add(new Node("reference_output", "reference/output"));
+    reference.add(new Node("reference_object", "reference/object"));
+    reference.add(new Node("reference_popup", "reference/popup"));
+    reference.add(new Node("reference_progress", "reference/progress"));
+    reference.add(new Node("reference_select", "reference/select"));
+    reference.add(new Node("reference_sheet", "reference/sheet"));
+    reference.add(new Node("reference_tab", "reference/tab"));
+    reference.add(new Node("reference_time", "reference/time"));
+    reference.add(new Node("reference_tree", "/reference/tree/tree-normal"));
+    reference.add(new Node("reference_tool", "reference/tool"));
+    reference.add(new Node("reference_partial", "reference/partial"));
+    reference.add(new Node("reference_upload", "reference/upload"));
     tree.add(reference);
 
-    ((Node) tree.getUserObject()).setExpanded(true);
-    ((Node) overview.getUserObject()).setExpanded(true);
-    ((Node) bestPractice.getUserObject()).setExpanded(true);
+    tree.setExpanded(true);
+    overview.setExpanded(true);
+    bestPractice.setExpanded(true);
 
-    state = new TreeState();
-    state.getMarked().add(new TreePath(0, 0));
+    currentNode = overview;
   }
 
-  public String navigate() {
-    Node selected = (Node) state.getMarker().getUserObject();
-    LOG.info("***************************************************************************************************");
-    LOG.info("outcome = '" + selected.getOutcome() + "'");
-    return selected.getOutcome();
-  }
-
-  public void updateMarker(String viewId) {
+  public void selectByViewId(String viewId) {
     Enumeration enumeration = tree.depthFirstEnumeration();
     while (enumeration.hasMoreElements()) {
-      DefaultMutableTreeNode maybeMarker = ((DefaultMutableTreeNode) enumeration.nextElement());
-      Node node = (Node) maybeMarker.getUserObject();
+      Node node = ((Node) enumeration.nextElement());
       if (node.getOutcome() != null && viewId.contains(node.getOutcome())) {
-        state.setMarker(maybeMarker);
+        currentNode = node;
         break;
       }
     }
   }
 
-  public DefaultMutableTreeNode getTree() {
+  public Node getTree() {
     return tree;
   }
 
-  public void setTree(DefaultMutableTreeNode tree) {
-    this.tree = tree;
-  }
-
-  public TreeState getState() {
-    return state;
-  }
-
-  public void setState(TreeState state) {
-    this.state = state;
+  public Node getCurrentNode() {
+    return currentNode;
   }
 
   public String gotoFirst() {
-    DefaultMutableTreeNode first = tree.getNextNode();
-    state.setMarker(first);
-    return ((Node) first.getUserObject()).getOutcome();
+    currentNode = tree.getNextNode();
+    return currentNode.getOutcome();
   }
 
   public String gotoPrevious() {
-    DefaultMutableTreeNode previousNode = state.getMarker().getPreviousNode();
+    final Node previousNode = currentNode.getPreviousNode();
     if (previousNode != null) {
-      state.setMarker(previousNode);
-      return ((Node) previousNode.getUserObject()).getOutcome();
+      currentNode = previousNode;
+      return currentNode.getOutcome();
+    } else {
+      LOG.warn("Strange navigation behavior");
+      return null;
     }
-    return null;
   }
 
-    public String gotoNext() {
-    DefaultMutableTreeNode nextNode = state.getMarker().getNextNode();
+  public String gotoNext() {
+    final Node nextNode = currentNode.getNextNode();
     if (nextNode != null) {
-      state.setMarker(nextNode);
-      return ((Node) nextNode.getUserObject()).getOutcome();
+      currentNode = nextNode;
+      return currentNode.getOutcome();
+    } else {
+      LOG.warn("Strange navigation behavior");
+      return null;
     }
-    return null;
   }
 
   public boolean isFirst() {
-    return state.getMarker() != null && state.getMarker().getPreviousNode().isRoot();
+    final Node previousNode = currentNode.getPreviousNode();
+    return previousNode == null || previousNode.isRoot();
   }
 
   public boolean isLast() {
-    return state.getMarker() != null && state.getMarker().getNextNode() == null;
+    final Node nextNode = currentNode.getNextNode();
+    return nextNode == null;
   }
 
   public String viewSource() {
@@ -186,7 +171,7 @@ public class Navigation {
     return null;
   }
 
-  public static class Node {
+  public class Node extends DefaultMutableTreeNode {
 
     private String title;
     private String id;
@@ -195,10 +180,27 @@ public class Navigation {
 
 
     public Node(String key, String outcome) {
-      this.title = ResourceManagerUtils.getProperty(
-          FacesContext.getCurrentInstance(), "overview", key);
+      this.title = ResourceManagerUtils.getProperty(FacesContext.getCurrentInstance(), "overview", key);
       this.id = key;
       this.outcome = outcome;
+    }
+
+    public String action() {
+      LOG.info("Navigate to '" + outcome + "'");
+      currentNode = this;
+      return outcome;
+    }
+
+    public String getMarkup() {
+      return currentNode == this ? "marked" : null;
+    }
+
+    public Node getNextNode() {
+      return (Node) super.getNextNode();
+    }
+
+    public Node getPreviousNode() {
+      return (Node) super.getPreviousNode();
     }
 
     public String getTitle() {
@@ -215,13 +217,6 @@ public class Navigation {
 
     public void setId(String id) {
       this.id = id;
-    }
-
-    public String action() {
-      LOG.info("***********************************************************************************************");
-      LOG.info(outcome);
-      LOG.info("***********************************************************************************************");
-      return outcome;
     }
 
     public String getOutcome() {

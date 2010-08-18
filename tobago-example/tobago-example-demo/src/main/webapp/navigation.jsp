@@ -23,12 +23,12 @@
       <tc:gridLayout rows="*"/>
     </f:facet>
 
-    <tc:treeMenu id="nav" state="#{navigation.state}">
+    <tc:treeMenu id="nav">
       <tc:treeData value="#{navigation.tree}" var="node" id="data">
-        <tc:treeNode expanded="#{node.userObject.expanded}">
+        <tc:treeNode expanded="#{node.expanded}">
           <tc:treeCommand
-              label="#{node.userObject.title}"
-              action="#{node.userObject.action}"
+              label="#{node.title}"
+              action="#{node.action}"
               immediate="true"/>
         </tc:treeNode>
       </tc:treeData>

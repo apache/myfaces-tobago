@@ -132,33 +132,5 @@
 
     </tc:box>
 
-
-    <!-- some ideas to implement the select feature -->
-    <!--
-        <tc:tree>
-          <f:facet name="template">
-            <tc:panel>
-              <tc:treeIndent/>
-              <tc:treeIcon value="image/feather.png"/>
-            </tc:panel>
-          </f:facet>
-
-          <tc:treeNode rendered="false">
-            <tc:treeData value="#{demo.tree}" var="node">
-              <tc:treeNode expanded="true">
-                <tc:treeSelect value="#{node.selected}"/>
-                <tc:treeLabel value="#{node.userObject.name}"/>
-                &lt;!&ndash; or &ndash;&gt;
-                <tc:treeCommand action="#{node....}" label="#{node.userObject.name}"/>
-              </tc:treeNode>
-            </tc:treeData>
-            <tc:treeNode>
-              <tc:treeLabel value="#{node.userObject.name}"/>
-            </tc:treeNode>
-          </tc:treeNode>
-          <tc:treeSelectValidator mode="single"/>
-        </tc:tree>
-    -->
-
   </tc:panel>
 </ui:composition>

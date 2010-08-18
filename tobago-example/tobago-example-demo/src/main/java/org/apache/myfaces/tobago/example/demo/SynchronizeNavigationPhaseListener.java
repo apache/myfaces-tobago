@@ -37,7 +37,7 @@ public class SynchronizeNavigationPhaseListener implements PhaseListener {
     if (viewRoot.getChildCount() == 0) { // in case of direct links the ViewRoot is empty after "restore view".
       String viewId = viewRoot.getViewId();
       Navigation navigation = (Navigation) VariableResolverUtils.resolveVariable(facesContext, "navigation");
-      navigation.updateMarker(viewId);
+      navigation.selectByViewId(viewId);
     }
   }
 
