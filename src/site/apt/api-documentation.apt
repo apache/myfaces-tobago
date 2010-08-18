@@ -17,34 +17,26 @@
  Documentation
  ------
 
-Tobago Javadoc Documentation
+Tobago API and TLD Documentation
 
-  {{{http://myfaces.apache.org/tobago/apidocs-1.0.28/index.html}1.0.28 Javadoc Documentation}}
+  {{{http://myfaces.apache.org/tobago/apidocs-1.0.28/index.html}1.0.28 Core API Documentation}}\
+  {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc-1.0.28/index.html}1.0.28 Tag Library Documentation}}
 
-  {{{http://myfaces.apache.org/tobago/apidocs/index.html}Latest 1.5.x SVN Javadoc Documentation}}
-
-  {{{oldDocumentation.html}Previous Releases}}
-
-Tobago TLD Documentation
-
-  {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc-1.0.28/index.html}1.0.28 TLD Documentation}}
-
-  {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc/index.html}Latest 1.5.x SVN tc TLD Documentation}}
-
-  {{{http://myfaces.apache.org/tobago/tobago-extension/tobago-taglib-extension/tlddoc/index.html}Latest 1.5.x SVN tx TLD Documentation}}
+  {{{http://myfaces.apache.org/tobago/apidocs/index.html}Latest 1.5.x SVN API Documentation}}\
+  {{{http://myfaces.apache.org/tobago/tobago-core/tlddoc/index.html}Latest 1.5.x SVN \<tc:\> Component Tag Library Documentation}}\
+  {{{http://myfaces.apache.org/tobago/tobago-extension/tobago-taglib-extension/tlddoc/index.html}Latest 1.5.x SVN \<tx:\> Extension Tag Library Documentation}}
 
   {{{oldDocumentation.html}Previous Releases}}
 
 Sun JSF Documentation
 
-  {{{http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html}JSF 1.1 Javadoc}}
-  
-  {{{http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/tlddocs/index.html}JSF 1.1 TLD}}
+  {{{http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/api/index.html}JSF 1.1 API Documentation}}\
+  {{{http://java.sun.com/j2ee/javaserverfaces/1.1_01/docs/tlddocs/index.html}JSF 1.1 Tag Library Documentation}}
 
-  {{{http://java.sun.com/javaee/javaserverfaces/1.2_MR1/docs/api/index.html}JSF 1.2 Javadoc}}
+  {{{http://java.sun.com/javaee/javaserverfaces/1.2_MR1/docs/api/index.html}JSF 1.2 API Documentation}}\
+  {{{http://java.sun.com/javaee/javaserverfaces/1.2_MR1/docs/tlddocs/index.html}JSF 1.2 Tag Library Documentation}}
 
-  {{{http://java.sun.com/javaee/javaserverfaces/1.2_MR1/docs/tlddocs/index.html}JSF 1.2 TLD}}
-
-  {{{http://java.sun.com/javaee/javaserverfaces/2.0/docs/api/index.html}JSF 2.0 Javadoc}}
-
-  {{{http://java.sun.com/javaee/javaserverfaces/2.0/docs/pdldocs/index.html}JSF 1.2 TLD}}
+  {{{http://java.sun.com/javaee/javaserverfaces/2.0/docs/api/index.html}JSF 2.0 API Documentation}}\
+  {{{http://java.sun.com/javaee/javaserverfaces/2.0/docs/managed-bean-api/index.html}JSF 2.0 Managed Bean API Documentation}}\
+  {{{http://java.sun.com/javaee/javaserverfaces/2.0/docs/pdldocs/facelets/index.html}JSF 2.0 Facelets Tag Library Documentation}}\
+  {{{http://java.sun.com/javaee/javaserverfaces/2.0/docs/pdldocs/jsp/index.html}JSF 2.0 JSP Tag Library Documentation}}
