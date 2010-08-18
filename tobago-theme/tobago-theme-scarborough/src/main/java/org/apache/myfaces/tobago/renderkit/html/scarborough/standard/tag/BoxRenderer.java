@@ -20,6 +20,7 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.Facets;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIBox;
+import org.apache.myfaces.tobago.component.UIMenuBar;
 import org.apache.myfaces.tobago.layout.Measure;
 import org.apache.myfaces.tobago.renderkit.BoxRendererBase;
 import org.apache.myfaces.tobago.renderkit.css.Classes;
@@ -85,6 +86,12 @@ public class BoxRenderer extends BoxRendererBase {
         contentStyle.setTop(Measure.valueOf(-10));
       }
     }
+
+    final UIMenuBar menuBar = getMenuBarFacet(box);
+    if (menuBar != null) {
+      RenderUtils.encode(facesContext, menuBar);
+    }
+    
     writer.startElement(HtmlElements.DIV, box);
     writer.writeClassAttribute(Classes.create(box, "content")); // needed to be scrollable inside of the box
     final Measure offsetLeft = getOffsetLeft(facesContext, box);

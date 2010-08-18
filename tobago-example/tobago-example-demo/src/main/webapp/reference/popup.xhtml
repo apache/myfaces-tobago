@@ -32,13 +32,15 @@
       <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
     </f:facet>
 
-    <tc:menuBar>
-      <tc:menu label="Menu">
-        <tc:menuCommand label="Open Popup">
-          <tc:popupReference for=":page:popup"/>
-        </tc:menuCommand>
-      </tc:menu>
-    </tc:menuBar>
+    <f:facet name="menuBar">
+      <tc:menuBar>
+        <tc:menu label="Menu">
+          <tc:menuCommand label="Open Popup">
+            <tc:popupReference for=":page:popup"/>
+          </tc:menuCommand>
+        </tc:menu>
+      </tc:menuBar>
+    </f:facet>
 
     <tc:panel>
       <f:facet name="layout">

@@ -26,45 +26,46 @@
         <tc:gridLayout rows="fixed;*"/>
       </f:facet>
       <%-- code-sniplet-start id="menuBar" --%>
-      <tc:menuBar>
-        <tc:menu label="_File">
-          <tc:menuCommand label="New File"/>
-          <tc:menuCommand label="Open File"/>
-          <tc:menuCommand label="Save"/>
-          <tc:menuCommand label="Print"/>
-          <tc:menuSeparator/>
-          <tc:menuCommand label="Exit">
-            <f:facet name="confirmation">
-              <tc:out value="Are you sure?"/>
-            </f:facet>
-          </tc:menuCommand>
-          <%--<tx:menuCheckbox action="none" label="Administration Mode"/>--%>
-        </tc:menu>
-
-        <%-- code-sniplet-start id="menu" --%>
-        <tc:menu label="_Edit">
-          <tc:menuCommand label="Copy"/>
-          <tc:menuCommand label="Cut"/>
-          <tc:menuCommand label="Paste"/>
-          <%-- code-sniplet-start id="menuItem" --%>
-          <tc:menuCommand label="Delete"/>
-          <%-- code-sniplet-end id="menuItem" --%>
-          <tc:menuSeparator/>
-          <tc:menu label="_Delete">
-            <tc:menuCommand label="As Spam"/>
-            <tc:menuCommand label="As Newsletter"/>
-            <tc:menuCommand label="As Uninteresting"/>
+      <f:facet name="menuBar">
+        <tc:menuBar>
+          <tc:menu label="_File">
+            <tc:menuCommand label="New File"/>
+            <tc:menuCommand label="Open File"/>
+            <tc:menuCommand label="Save"/>
+            <tc:menuCommand label="Print"/>
+            <tc:menuSeparator/>
+            <tc:menuCommand label="Exit">
+              <f:facet name="confirmation">
+                <tc:out value="Are you sure?"/>
+              </f:facet>
+            </tc:menuCommand>
+            <%--<tx:menuCheckbox action="none" label="Administration Mode"/>--%>
           </tc:menu>
-        </tc:menu>
-        <%-- code-sniplet-end id="menu" --%>
 
-        <tc:menu label="_View">
-          <tc:menuCommand label="Snap to Grid"/>
-          <tc:menuCommand label="Show Rulers"/>
-        </tc:menu>
-      </tc:menuBar>
+          <%-- code-sniplet-start id="menu" --%>
+          <tc:menu label="_Edit">
+            <tc:menuCommand label="Copy"/>
+            <tc:menuCommand label="Cut"/>
+            <tc:menuCommand label="Paste"/>
+            <%-- code-sniplet-start id="menuItem" --%>
+            <tc:menuCommand label="Delete"/>
+            <%-- code-sniplet-end id="menuItem" --%>
+            <tc:menuSeparator/>
+            <tc:menu label="_Delete">
+              <tc:menuCommand label="As Spam"/>
+              <tc:menuCommand label="As Newsletter"/>
+              <tc:menuCommand label="As Uninteresting"/>
+            </tc:menu>
+          </tc:menu>
+          <%-- code-sniplet-end id="menu" --%>
+
+          <tc:menu label="_View">
+            <tc:menuCommand label="Snap to Grid"/>
+            <tc:menuCommand label="Show Rulers"/>
+          </tc:menu>
+        </tc:menuBar>
+      </f:facet>
       <%-- code-sniplet-end id="menuBar" --%>
-      <tc:cell/>
     </tc:box>
   </jsp:body>
 </layout:overview>

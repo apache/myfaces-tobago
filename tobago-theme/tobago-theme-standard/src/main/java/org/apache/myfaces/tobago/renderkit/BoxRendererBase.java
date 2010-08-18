@@ -17,14 +17,15 @@ package org.apache.myfaces.tobago.renderkit;
  * limitations under the License.
  */
 
-/*
- * Created 09.03.2004 12:26:39.
- * $Id$
- */
-
-
+import org.apache.myfaces.tobago.component.Facets;
+import org.apache.myfaces.tobago.component.UIMenuBar;
+import org.apache.myfaces.tobago.config.Configurable;
+import org.apache.myfaces.tobago.layout.Measure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 
 public abstract class BoxRendererBase extends LayoutComponentRendererBase {
 
@@ -32,6 +33,20 @@ public abstract class BoxRendererBase extends LayoutComponentRendererBase {
 
   public boolean getRendersChildren() {
     return true;
+  }
+
+  @Override
+  public Measure getOffsetTop(FacesContext facesContext, Configurable component) {
+
+    Measure offsetTop = super.getOffsetTop(facesContext, component);
+    if (getMenuBarFacet((UIComponent)component) != null) {
+      offsetTop = offsetTop.add(19); // todo: get via theme config
+    }
+    return offsetTop;
+  }
+
+  protected UIMenuBar getMenuBarFacet(UIComponent component) {
+    return (UIMenuBar) component.getFacet(Facets.MENUBAR);
   }
 
 }

@@ -163,62 +163,61 @@
       <tc:gridLayout rows="fixed;100px"/>
     </f:facet>
 
-    <tc:menuBar>
+    <f:facet name="menuBar">
+      <tc:menuBar>
 
-      <tc:menu label="Menu 1">
+        <tc:menu label="Menu 1">
 
-        <tc:menuCommand onclick="alert('action 1')" label="alert 1"/>
+          <tc:menuCommand onclick="alert('action 1')" label="alert 1"/>
 
-        <tc:menuCommand label="#{overviewBundle.toolbar_linkClickme}" image="image/config.gif">
-          <f:facet name="confirmation"><tc:out value="Do you really want to click this button?"/></f:facet>
-        </tc:menuCommand>
-
-        <tc:menuCommand link="http://www.atanion.com" disabled="true" label="disabled"/>
-
-        <tx:menuCheckbox action="#{demo.clickButton}" label="#{overviewBundle.toolbar_linkClickme}"
-                         value="#{demo.boolTest}"/>
-      </tc:menu>
-      <tc:menu label="Menu 2">
-
-        <tc:menuCommand onclick="alert('action 1')" label="alert 1"/>
-
-        <tc:menu label="Menu 3">
-
-          <tc:menuCommand onclick="alert('action 1')" label="alert 1" image="image/date.gif"/>
-
-          <tc:menuCommand link="/" label="#{overviewBundle.toolbar_linkClickme}" image="image/config.gif">
-            <f:facet name="confirmation"><tc:out value="Do you really want leave this demo?"/></f:facet>
+          <tc:menuCommand label="#{overviewBundle.toolbar_linkClickme}" image="image/config.gif">
+            <f:facet name="confirmation"><tc:out value="Do you really want to click this button?"/></f:facet>
           </tc:menuCommand>
 
-          <tc:menuCommand link="http://www.atanion.com" disabled="true" label="#{overviewBundle.toolbar_linkClickme}"
-                          image="image/remove.gif"/>
+          <tc:menuCommand link="http://www.atanion.com" disabled="true" label="disabled"/>
 
-          <tc:menu label="#{overviewBundle.toolbar_selectSingleselect}">
+          <tx:menuCheckbox action="#{demo.clickButton}" label="#{overviewBundle.toolbar_linkClickme}"
+                           value="#{demo.boolTest}"/>
+        </tc:menu>
+        <tc:menu label="Menu 2">
 
-            <tx:menuRadio value="#{overviewController.radioValue}" converter="salutationId">
-              <f:selectItems value="#{overviewController.items}"/>
-            </tx:menuRadio>
+          <tc:menuCommand onclick="alert('action 1')" label="alert 1"/>
 
+          <tc:menu label="Menu 3">
+
+            <tc:menuCommand onclick="alert('action 1')" label="alert 1" image="image/date.gif"/>
+
+            <tc:menuCommand link="/" label="#{overviewBundle.toolbar_linkClickme}" image="image/config.gif">
+              <f:facet name="confirmation"><tc:out value="Do you really want leave this demo?"/></f:facet>
+            </tc:menuCommand>
+
+            <tc:menuCommand link="http://www.atanion.com" disabled="true" label="#{overviewBundle.toolbar_linkClickme}"
+                            image="image/remove.gif"/>
+
+            <tc:menu label="#{overviewBundle.toolbar_selectSingleselect}">
+
+              <tx:menuRadio value="#{overviewController.radioValue}" converter="salutationId">
+                <f:selectItems value="#{overviewController.items}"/>
+              </tx:menuRadio>
+
+            </tc:menu>
+
+            <tc:menuCommand action="#{demo.clickButton}" label="#{overviewBundle.toolbar_linkClickme}"/>
           </tc:menu>
 
-          <tc:menuCommand action="#{demo.clickButton}" label="#{overviewBundle.toolbar_linkClickme}"/>
+          <tc:menuSeparator/>
+
+          <tc:menuCommand label="#{overviewBundle.toolbar_linkClickme}">
+            <f:facet name="items">
+              <tc:selectBooleanCheckbox value="#{demo.bool[0]}"/>
+            </f:facet>
+          </tc:menuCommand>
+          <tx:menuCheckbox label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[1]}"/>
+          <tx:menuCheckbox label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[2]}"/>
+
         </tc:menu>
-
-        <tc:menuSeparator/>
-
-        <tc:menuCommand label="#{overviewBundle.toolbar_linkClickme}">
-          <f:facet name="items">
-            <tc:selectBooleanCheckbox value="#{demo.bool[0]}"/>
-          </f:facet>
-        </tc:menuCommand>
-        <tx:menuCheckbox label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[1]}"/>
-        <tx:menuCheckbox label="#{overviewBundle.toolbar_linkClickme}" value="#{demo.bool[2]}"/>
-
-      </tc:menu>
-
-    </tc:menuBar>
-
-    <tc:cell/>
+      </tc:menuBar>
+    </f:facet>
 
   </tc:box>
 </tc:panel>

@@ -19,16 +19,18 @@
 <%@ taglib tagdir="/WEB-INF/tags/layout" prefix="layout" %>
 <%@ taglib uri="http://myfaces.apache.org/tobago/extension" prefix="tx" %>
 
-<f:view >
-  <tc:page applicationIcon="icon/favicon.ico"  id="page" width="1000px" height="700px">
+<f:view>
+  <tc:page applicationIcon="icon/favicon.ico" id="page" width="1000px" height="700px">
 
     <tc:box label="Menu">
       <f:facet name="layout">
         <tc:gridLayout rows="fixed;*"/>
       </f:facet>
-      <tc:menuBar>
-        <tc:menu label="File" binding="#{test.fileMenu}" />
-      </tc:menuBar>
+      <f:facet name="menuBar">
+        <tc:menuBar>
+          <tc:menu label="File" binding="#{test.fileMenu}"/>
+        </tc:menuBar>
+      </f:facet>
       <tc:cell/>
     </tc:box>
   </tc:page>
