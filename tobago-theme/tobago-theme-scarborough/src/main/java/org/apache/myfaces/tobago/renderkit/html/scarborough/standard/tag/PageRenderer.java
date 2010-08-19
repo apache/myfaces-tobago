@@ -30,7 +30,6 @@ import org.apache.myfaces.tobago.context.Markup;
 import org.apache.myfaces.tobago.context.ResourceManagerUtils;
 import org.apache.myfaces.tobago.context.TobagoFacesContext;
 import org.apache.myfaces.tobago.internal.component.AbstractUIPage;
-import org.apache.myfaces.tobago.internal.context.ResponseWriterDivider;
 import org.apache.myfaces.tobago.internal.layout.LayoutContext;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.internal.util.MimeTypeUtils;
@@ -539,11 +538,9 @@ public class PageRenderer extends PageRendererBase {
       writer.endElement(HtmlElements.INPUT);
     }
 
-    // todo: check if it is empty
+    // placeholder for menus
     writer.startElement(HtmlElements.DIV, page);
     writer.writeClassAttribute(Classes.create(page, "menuStore"));
-    ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, MenuBarRenderer.DIVIDER);
-    divider.writeOutAndCleanUp(facesContext);
     writer.endElement(HtmlElements.DIV);
     
     writer.endElement(HtmlElements.FORM);
