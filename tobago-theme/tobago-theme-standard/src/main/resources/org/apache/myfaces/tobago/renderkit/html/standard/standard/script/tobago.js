@@ -1049,6 +1049,18 @@ var Tobago = {
     return "#" + id.replace(/:/g,"\\:");
   },
 
+  /**
+   * Helps to select either elements from the whole DOM or only find in sub trees
+   * (in the case of AJAX partial rendering)
+   * @param elements a jQuery object to initialize (ajax) or null for initializing the whole document (full load).
+   * @param selector a jQuery selector
+   */
+  selectWidthJQuery : function(elements, selector) {
+    return elements == null
+        ? jQuery(selector)
+        : elements.find(selector);
+  },
+
   calculateScrollbarWeights : function(id) {
     var hidden = jQuery(Tobago.escapeClientId(id));
     var outer = hidden.prev();
@@ -2291,7 +2303,6 @@ Tobago.Updater = {
         eval("updateScript = " + data.script);
         updateScript();
         xxx_tobagoInit(newElement);
-        Tobago.fixPngAlphaAll();
       } catch (e) {
         LOG.error("Error in doUpdate: " + e);
       }
@@ -2474,4 +2485,5 @@ TbgTimer.endTbgJs = new Date();
 
 function xxx_tobagoInit(elements) {
   xxx_tobagoMenuInit(elements);
+  Tobago.fixPngAlphaAll(elements);
 }

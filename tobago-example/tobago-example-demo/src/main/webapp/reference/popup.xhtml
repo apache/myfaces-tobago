@@ -68,8 +68,8 @@
                 <f:selectItem itemLabel="B" itemValue="b"/>
               </tc:selectOneChoice>
               <tc:selectBooleanCheckbox value="#{reference.bool}"/>
-              <tc:in value="#{reference.text}" required="true"/>
-              <tx:date>
+              <tx:in label="In" value="#{reference.text}" required="true"/>
+              <tx:date label="Date">
                 <f:convertDateTime pattern="dd/MM/yyyy"/>
               </tx:date>
               <tc:image value="image/feather-leaf.png" width="16px" height="16px"/>

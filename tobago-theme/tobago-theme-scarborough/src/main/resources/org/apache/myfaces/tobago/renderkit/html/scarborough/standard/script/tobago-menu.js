@@ -213,9 +213,7 @@ function xxx_tobagoMenuSwitchOff(menuBar) {
  */
 function xxx_tobagoMenuInit(elements) {
 
-  var menus = elements == null
-      ? jQuery(".tobago-menu-markup-top")
-      : elements.find(".tobago-menu-markup-top");
+  var menus = Tobago.selectWidthJQuery(elements, ".tobago-menu-markup-top");
 
   // a click on the top menu make the complete menu active or inactive respectively.
   menus.click(function(event) {
@@ -247,9 +245,8 @@ function xxx_tobagoMenuInit(elements) {
 
   jQuery(".tobago-page-menuStore").append(menus.children("ol"));
 
-  var toolBarMenu = elements == null
-      ? jQuery(".tobago-toolBar-menu .tobago-boxToolBar-menu .tobago-tabGroupToolBar-menu")
-      : elements.find(".tobago-toolBar-menu .tobago-boxToolBar-menu .tobago-tabGroupToolBar-menu");
+  var toolBarMenu = Tobago.selectWidthJQuery(
+      elements, ".tobago-toolBar-menu .tobago-boxToolBar-menu .tobago-tabGroupToolBar-menu");
   // a click on toolBar menu opener -> forward to .tobago-menu-markup-top
   toolBarMenu.click(function(event) {
     $(this).next().find('a').click();
@@ -257,9 +254,7 @@ function xxx_tobagoMenuInit(elements) {
   });
 
   // init context menus
-  var contextMenu = elements == null
-      ? jQuery(".tobago-menu-contextMenu")
-      : elements.find(".tobago-menu-contextMenu");
+  var contextMenu = Tobago.selectWidthJQuery(elements, ".tobago-menu-contextMenu");
   contextMenu.parent().bind("contextmenu", function(event) {
     jQuery(this).children(".tobago-menu-contextMenu").find('a').click();
     event.stopPropagation();

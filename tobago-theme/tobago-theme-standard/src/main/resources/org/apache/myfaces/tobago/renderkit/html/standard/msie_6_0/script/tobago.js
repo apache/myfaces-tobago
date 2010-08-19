@@ -20,19 +20,20 @@
  * agent: msie_6_0
  */
 
-Tobago.fixPngAlphaAll = function() {
+Tobago.fixPngAlphaAll = function(elements) {
   if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
     // fix png images
-    jQuery("img[src$='.png']").each(function() {
+    var images = Tobago.selectWidthJQuery(elements, "img[src$='.png']");
+    images.each(function() {
       Tobago.fixPngAlpha(this);
     });
 
     // fix png backgrounds of the labels
-    jQuery("label.tobago-label-markup-fatal, label.tobago-label-markup-error, "
-        + "label.tobago-label-markup-warn, label.tobago-label-markup-info").each(function() {
+    Tobago.selectWidthJQuery(elements,
+        "label.tobago-label-markup-fatal, label.tobago-label-markup-error, " +
+        "label.tobago-label-markup-warn, label.tobago-label-markup-info").each(function() {
       Tobago.fixBackgroundPngAlpha(this);
     });
-
   }
 };
 
@@ -92,9 +93,3 @@ Tobago.fixSelectionOnFocus = function() {
     // ignore
   }
 };
-
-// init /////////////////////////////////////////////////////////////////////////////////////////////
-
-$(document).ready(function() {
-  Tobago.fixPngAlphaAll();
-});
