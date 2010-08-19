@@ -208,50 +208,64 @@ function xxx_tobagoMenuSwitchOff(menuBar) {
   menuBar.attr('menu-active', 'false');        // write state back
 }
 
-function xxx_tobagoMenuInit() {
-  jQuery(document).ready(function() {
+/**
+ * @param elements  a jQuery object to initialize (ajax) or null for initializing the whole document (full load).
+ */
+function xxx_tobagoMenuInit(elements) {
 
-    // a click on the top menu make the complete menu active or inactive respectively.
-    jQuery(".tobago-menu-markup-top").click(function(event) {
+  var menus = elements == null
+      ? jQuery(".tobago-menu-markup-top")
+      : elements.find(".tobago-menu-markup-top");
 
-      // e. g. disabled by a popup
-      if(jQuery(this).children("a").attr("disabled")) {
-        return;
-      }
-      // register on click handlers
-      var menuBar = jQuery(this).parent();
-      var wasActive = 'true' == menuBar.attr('menu-active'); // read state
+  // a click on the top menu make the complete menu active or inactive respectively.
+  menus.click(function(event) {
 
-      if (wasActive) {
-        xxx_tobagoMenuSwitchOff(menuBar);
-      } else {
-        xxx_tobagoMenuSwitchOn(menuBar, jQuery(this));
-      }
-
-      event.stopPropagation();
-    });
-
-    // a click on toolBar menu opener -> forward to .tobago-menu-markup-top
-    jQuery(".tobago-toolBar-menu .tobago-boxToolBar-menu .tobago-tabGroupToolBar-menu").click(function(event) {
-      $(this).next().find('a').click();
-      event.stopPropagation();
-    });
-
-    // init context menus
-    jQuery(".tobago-menu-contextMenu").parent().bind("contextmenu", function(event) {
-      jQuery(this).children(".tobago-menu-contextMenu").find('a').click();
-      event.stopPropagation();
-      return false;
-    });
-
-    // IE6 select-tag fix
-    // put a iframe inside the div, so that a <select> tag doesn't shine through.
-    // the iframe must be resized (see above)
-    if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
-      jQuery(".tobago-page-menuStore ol").prepend(
-          "<iframe class='tobago-menu-ie6bugfix' src='" + Tobago.blankPage + "'></iframe>");
+    // e. g. disabled by a popup
+    if (jQuery(this).children("a").attr("disabled")) {
+      return;
     }
+    // register on click handlers
+    var menuBar = jQuery(this).parent();
+    var wasActive = 'true' == menuBar.attr('menu-active'); // read state
+
+    if (wasActive) {
+      xxx_tobagoMenuSwitchOff(menuBar);
+    } else {
+      xxx_tobagoMenuSwitchOn(menuBar, jQuery(this));
+    }
+
+    event.stopPropagation();
   });
+
+  // IE6 select-tag fix
+  // put a iframe inside the div, so that a <select> tag doesn't shine through.
+  // the iframe must be resized (see above)
+  if (jQuery.browser.msie && parseInt(jQuery.browser.version) <= 6) {
+    menus.children("ol").prepend(
+        "<iframe class='tobago-menu-ie6bugfix' src='" + Tobago.blankPage + "'></iframe>");
+  }
+
+  jQuery(".tobago-page-menuStore").append(menus.children("ol"));
+
+  var toolBarMenu = elements == null
+      ? jQuery(".tobago-toolBar-menu .tobago-boxToolBar-menu .tobago-tabGroupToolBar-menu")
+      : elements.find(".tobago-toolBar-menu .tobago-boxToolBar-menu .tobago-tabGroupToolBar-menu");
+  // a click on toolBar menu opener -> forward to .tobago-menu-markup-top
+  toolBarMenu.click(function(event) {
+    $(this).next().find('a').click();
+    event.stopPropagation();
+  });
+
+  // init context menus
+  var contextMenu = elements == null
+      ? jQuery(".tobago-menu-contextMenu")
+      : elements.find(".tobago-menu-contextMenu");
+  contextMenu.parent().bind("contextmenu", function(event) {
+    jQuery(this).children(".tobago-menu-contextMenu").find('a').click();
+    event.stopPropagation();
+    return false;
+  });
+
 }
 
 jQuery.tobagoMenuParent = function(element) {

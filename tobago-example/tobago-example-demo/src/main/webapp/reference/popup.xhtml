@@ -31,7 +31,6 @@
     <f:facet name="layout">
       <tc:gridLayout rows="fixed;fixed;fixed;fixed;fixed;fixed;fixed;*"/>
     </f:facet>
-
     <f:facet name="menuBar">
       <tc:menuBar>
         <tc:menu label="Menu">
@@ -56,7 +55,18 @@
               <f:facet name="layout">
                 <tc:gridLayout rows="fixed;fixed;fixed;fixed;*;fixed"/>
               </f:facet>
+              <f:facet name="menuBar">
+                <tc:menuBar>
+                  <tc:menu label="Menu">
+                    <tc:menuCommand label="Say okay" onclick="alert('okay');"/>
+                  </tc:menu>
+                </tc:menuBar>
+              </f:facet>
 
+              <tc:selectOneChoice>
+                <f:selectItem itemLabel="A" itemValue="a"/>
+                <f:selectItem itemLabel="B" itemValue="b"/>
+              </tc:selectOneChoice>
               <tc:selectBooleanCheckbox value="#{reference.bool}"/>
               <tc:in value="#{reference.text}" required="true"/>
               <tx:date>

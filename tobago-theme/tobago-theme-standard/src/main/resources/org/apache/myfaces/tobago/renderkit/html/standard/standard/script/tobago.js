@@ -266,8 +266,8 @@ var Tobago = {
     this.addBindEventListener(window, "unload", this, "onUnload");
 
     // XXX not nice...
-    xxx_tobagoMenuInit();
-    
+    xxx_tobagoInit();
+
     if (TbgTimer.endBody) {
       TbgTimer.startAppOnload = new Date();
     }
@@ -2283,11 +2283,14 @@ Tobago.Updater = {
 
   doUpdate: function(data) {
     if (data.responseCode == Tobago.Updater.CODE_SUCCESS) {
-      jQuery(Tobago.escapeClientId(data.ajaxId)).replaceWith(data.html);
+      var element = jQuery(Tobago.escapeClientId(data.ajaxId));
+      var newElement = jQuery(data.html);
+      element.replaceWith(newElement);
       try {
         var updateScript;
         eval("updateScript = " + data.script);
         updateScript();
+        xxx_tobagoInit(newElement);
         Tobago.fixPngAlphaAll();
       } catch (e) {
         LOG.error("Error in doUpdate: " + e);
@@ -2466,3 +2469,9 @@ function tobago_toolBarSetRadioValue(id, value) {
 }
 
 TbgTimer.endTbgJs = new Date();
+
+// XXX write initialization
+
+function xxx_tobagoInit(elements) {
+  xxx_tobagoMenuInit(elements);
+}

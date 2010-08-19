@@ -20,7 +20,6 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
 import org.apache.myfaces.tobago.component.RendererTypes;
 import org.apache.myfaces.tobago.component.UIMenu;
 import org.apache.myfaces.tobago.context.Markup;
-import org.apache.myfaces.tobago.internal.context.ResponseWriterDivider;
 import org.apache.myfaces.tobago.internal.util.AccessKeyMap;
 import org.apache.myfaces.tobago.renderkit.LabelWithAccessKey;
 import org.apache.myfaces.tobago.renderkit.LayoutComponentRendererBase;
@@ -58,7 +57,7 @@ public class MenuRenderer extends LayoutComponentRendererBase {
 
   @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    
+
     final UIMenu menu = (UIMenu) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
@@ -93,11 +92,6 @@ public class MenuRenderer extends LayoutComponentRendererBase {
     }
     writer.endElement(HtmlElements.A);
     if (isParentMenu) {
-      if (firstLevel) {
-        ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, MenuBarRenderer.DIVIDER);
-        divider.activateBranch(facesContext);
-        writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-      }
       writer.startElement(HtmlElements.OL, menu);
       writer.writeIdAttribute(clientId + ComponentUtils.SUB_SEPARATOR + "menu");
     }
@@ -108,16 +102,10 @@ public class MenuRenderer extends LayoutComponentRendererBase {
 
     UIMenu menu = (UIMenu) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-    boolean firstLevel = !RendererTypes.MENU.equals(menu.getParent().getRendererType());
 
     boolean isParentMenu = menu.getChildCount() > 0; // todo: may be not correct
     if (isParentMenu) {
       writer.endElement(HtmlElements.OL);
-      if (firstLevel) {
-        ResponseWriterDivider divider = ResponseWriterDivider.getInstance(facesContext, MenuBarRenderer.DIVIDER);
-        divider.passivateBranch(facesContext);
-        writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
-      }
     }
     writer.endElement(HtmlElements.LI);
   }
@@ -135,5 +123,4 @@ public class MenuRenderer extends LayoutComponentRendererBase {
       LOG.warn("Can't find menu root component!");
     }
   }
-  
 }
