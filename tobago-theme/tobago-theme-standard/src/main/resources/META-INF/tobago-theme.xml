@@ -96,6 +96,7 @@
         <markup>top</markup>
         <!-- internal: to mark "cursor" position in the menu -->
         <markup>selected</markup>
+        <markup>disabled</markup>
       </supported-markup>
     </renderer>
     <renderer>

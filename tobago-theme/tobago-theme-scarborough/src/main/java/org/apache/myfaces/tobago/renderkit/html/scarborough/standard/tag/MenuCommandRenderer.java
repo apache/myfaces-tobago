@@ -124,11 +124,18 @@ public class MenuCommandRenderer extends CommandRendererBase {
   }
 
   private void encodeItem(
-      FacesContext facesContext, TobagoResponseWriter writer, UIComponent component, LabelWithAccessKey label,
+      FacesContext facesContext, TobagoResponseWriter writer, UIMenuCommand component, LabelWithAccessKey label,
       String onclick, boolean disabled, boolean firstLevel, String image) throws IOException {
 
     writer.startElement(HtmlElements.LI, null);
-    writer.writeClassAttribute(Classes.createWorkaround("menu", firstLevel ? Markup.TOP : null));
+    Markup markup = null;
+    if (component != null) {
+      markup = component.getCurrentMarkup();
+      if (firstLevel) {
+        markup = Markup.TOP.add(markup);
+      }
+    }
+    writer.writeClassAttribute(Classes.createWorkaround("menu", markup)); // todo: solve workaround
     writer.writeAttribute(HtmlAttributes.ONCLICK, onclick, true);
 
     if (image != null) {

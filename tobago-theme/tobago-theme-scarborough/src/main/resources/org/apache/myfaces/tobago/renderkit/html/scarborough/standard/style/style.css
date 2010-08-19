@@ -354,8 +354,14 @@ div.tobago-gridLayout-first-column {
 
 /* MenuBar, Menu, etc. ------------------------------------------------------------------ */
 
-.tobago-menuBar, .tobago-menuBar a:link, .tobago-menuBar a:visited, .tobago-menuBar a:active,
-.tobago-page-menuStore, .tobago-page-menuStore a:link, .tobago-page-menuStore a:visited, .tobago-page-menuStore a:active {
+.tobago-menuBar,
+.tobago-menuBar a:link,
+.tobago-menuBar a:visited,
+.tobago-menuBar a:active,
+.tobago-page-menuStore,
+.tobago-page-menuStore a:link,
+.tobago-page-menuStore a:visited,
+.tobago-page-menuStore a:active {
   color: black;
   font-family: arial, helvetica, sans-serif;
   font-size: 12px;
@@ -372,6 +378,13 @@ div.tobago-gridLayout-first-column {
 .tobago-page-menuStore li {
   background-color: #aabbcc;
   list-style: none outside none;
+}
+
+li.tobago-menu-markup-disabled a,
+li.tobago-menu-markup-disabled a:link,
+li.tobago-menu-markup-disabled a:visited,
+li.tobago-menu-markup-disabled a:active  {
+  color: #778899;
 }
 
 li.tobago-menu-markup-selected {

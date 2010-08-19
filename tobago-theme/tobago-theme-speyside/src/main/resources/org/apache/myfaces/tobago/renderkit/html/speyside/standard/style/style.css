@@ -275,6 +275,13 @@
   background-color: #dddddd;
 }
 
+li.tobago-menu-markup-disabled a,
+li.tobago-menu-markup-disabled a:link,
+li.tobago-menu-markup-disabled a:visited,
+li.tobago-menu-markup-disabled a:active  {
+  color: #888888;
+}
+
 li.tobago-menu-markup-selected {
   background-color: #bbbbbb;
 }

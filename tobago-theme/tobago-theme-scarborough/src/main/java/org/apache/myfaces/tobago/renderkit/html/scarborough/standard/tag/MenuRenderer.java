@@ -46,15 +46,26 @@ public class MenuRenderer extends LayoutComponentRendererBase {
   private static final String MENU_ACCELERATOR_KEYS = "menuAcceleratorKeys";
 
   @Override
+  public void prepareRender(FacesContext facesContext, UIComponent component) throws IOException {
+    super.prepareRender(facesContext, component);
+
+    final UIMenu menu = (UIMenu) component;
+    final boolean firstLevel = !RendererTypes.MENU.equals(menu.getParent().getRendererType());
+    if (firstLevel) {
+      menu.setCurrentMarkup(menu.getCurrentMarkup().add(Markup.TOP));
+    }
+  }
+
+  @Override
   public void encodeBegin(FacesContext facesContext, UIComponent component) throws IOException {
     
-    UIMenu menu = (UIMenu) component;
+    final UIMenu menu = (UIMenu) component;
     TobagoResponseWriter writer = HtmlRendererUtils.getTobagoResponseWriter(facesContext);
 
-    boolean disabled = menu.isDisabled();
-    boolean firstLevel = !RendererTypes.MENU.equals(menu.getParent().getRendererType());
-    boolean isParentMenu = menu.getChildCount() > 0; // todo: may be not correct
-    String clientId = menu.getClientId(facesContext);
+    final boolean disabled = menu.isDisabled();
+    final boolean firstLevel = !RendererTypes.MENU.equals(menu.getParent().getRendererType());
+    final boolean isParentMenu = menu.getChildCount() > 0; // todo: may be not correct
+    final String clientId = menu.getClientId(facesContext);
 
     writer.startElement(HtmlElements.LI, menu);
     writer.writeClassAttribute(Classes.create(menu, firstLevel ? Markup.TOP : null));
