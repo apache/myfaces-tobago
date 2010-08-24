@@ -267,18 +267,18 @@
       <name>JBoss Repository</name>
       <url>http://repository.jboss.org/maven2</url>
     </repository>
-    <repository>
+    <!--repository>
       <id>java.net.legacy</id>
       <name>java.net Maven 1 Repository</name>
       <url>https://maven-repository.dev.java.net/nonav/repository</url>
       <layout>legacy</layout>
-    </repository>
+    </repository-->
   </repositories>
 
   <properties>
     <seam.version>2.1.0.GA</seam.version>
     <!--<seam.version>2.0.0.GA</seam.version>-->
-    <openjpa.version>1.2.0</openjpa.version>
+    <openjpa.version>1.2.2</openjpa.version>
     <richfaces.version>3.1.2.GA</richfaces.version>
     <spring.version>2.5.2</spring.version>
   </properties>
