@@ -29,7 +29,7 @@
   <version>1.5.0-alpha-2-SNAPSHOT</version>
   <description>The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF and run on MyFaces.</description>
   <prerequisites>
-    <maven>2.0.6</maven>
+    <maven>2.2.1</maven>
   </prerequisites>
   <url>http://myfaces.apache.org/tobago</url>
   <inceptionYear>2002</inceptionYear>
