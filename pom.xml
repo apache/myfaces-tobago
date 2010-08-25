@@ -20,8 +20,7 @@
   <parent>
     <groupId>org.apache.myfaces</groupId>
     <artifactId>myfaces</artifactId>
-    <version>6</version>
-    <!-- TODO update to 9 -->
+    <version>9</version>
   </parent>
   <groupId>org.apache.myfaces.tobago</groupId>
   <artifactId>tobago</artifactId>
@@ -30,7 +29,6 @@
   <version>1.5.0-alpha-2-SNAPSHOT</version>
   <description>The goal of Tobago is to provide the community with a well designed set of user interface components based on JSF and run on MyFaces.</description>
   <prerequisites>
-    <!-- TODO update to 2.2.1 -->
     <maven>2.0.6</maven>
   </prerequisites>
   <url>http://myfaces.apache.org/tobago</url>
@@ -921,7 +919,7 @@
       <id>apache-release</id>
       <!--
       NOTE: To use you need to enable this profile and pass in the passphrase:
-           mvn -Prelease -Dpassphrase=thephrase
+           mvn -Papache-release -Dpassphrase=thephrase
 
            with the release plugin add following profile to your settings.xml
            <profile>
