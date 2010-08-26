@@ -22,9 +22,46 @@ package org.apache.myfaces.tobago.renderkit.html.scarborough.standard.tag;
  * $Id$
  */
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
+import org.apache.myfaces.tobago.component.ComponentUtil;
+import org.apache.myfaces.tobago.component.UIForm;
+import org.apache.myfaces.tobago.component.UILayout;
+import org.apache.myfaces.tobago.component.UIPage;
+import org.apache.myfaces.tobago.component.UIPopup;
+import org.apache.myfaces.tobago.context.ClientProperties;
+import org.apache.myfaces.tobago.context.ResourceManagerUtil;
+import org.apache.myfaces.tobago.model.PageState;
+import org.apache.myfaces.tobago.renderkit.PageRendererBase;
+import org.apache.myfaces.tobago.renderkit.RenderUtil;
+import org.apache.myfaces.tobago.renderkit.TobagoResponseStateManager;
+import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
+import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
+import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
+import org.apache.myfaces.tobago.util.AccessKeyMap;
+import org.apache.myfaces.tobago.util.FastStringWriter;
+import org.apache.myfaces.tobago.util.MimeTypeUtils;
+import org.apache.myfaces.tobago.util.ResponseUtils;
+import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
+
+import javax.faces.application.Application;
+import javax.faces.application.FacesMessage;
+import javax.faces.application.ViewHandler;
+import javax.faces.component.UICommand;
+import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringTokenizer;
+
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DELAY;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_DOCTYPE;
 import static org.apache.myfaces.tobago.TobagoConstants.ATTR_ENCTYPE;
@@ -38,41 +75,6 @@ import static org.apache.myfaces.tobago.TobagoConstants.FACET_MENUBAR;
 import static org.apache.myfaces.tobago.TobagoConstants.FACET_RESIZE_ACTION;
 import static org.apache.myfaces.tobago.TobagoConstants.FORM_ACCEPT_CHARSET;
 import static org.apache.myfaces.tobago.TobagoConstants.SUBCOMPONENT_SEP;
-import org.apache.myfaces.tobago.component.ComponentUtil;
-import org.apache.myfaces.tobago.component.UILayout;
-import org.apache.myfaces.tobago.component.UIPage;
-import org.apache.myfaces.tobago.component.UIPopup;
-import org.apache.myfaces.tobago.component.UIForm;
-import org.apache.myfaces.tobago.context.ClientProperties;
-import org.apache.myfaces.tobago.context.ResourceManagerUtil;
-import org.apache.myfaces.tobago.renderkit.PageRendererBase;
-import org.apache.myfaces.tobago.renderkit.RenderUtil;
-import org.apache.myfaces.tobago.renderkit.html.HtmlAttributes;
-import org.apache.myfaces.tobago.renderkit.html.HtmlConstants;
-import org.apache.myfaces.tobago.renderkit.html.HtmlRendererUtil;
-import org.apache.myfaces.tobago.util.AccessKeyMap;
-import org.apache.myfaces.tobago.util.FastStringWriter;
-import org.apache.myfaces.tobago.util.MimeTypeUtils;
-import org.apache.myfaces.tobago.util.ResponseUtils;
-import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
-import org.apache.myfaces.tobago.model.PageState;
-
-import javax.faces.application.Application;
-import javax.faces.application.FacesMessage;
-import javax.faces.application.ViewHandler;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UICommand;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.StringTokenizer;
 
 public class PageRenderer extends PageRendererBase {
 
@@ -497,7 +499,30 @@ public class PageRenderer extends PageRendererBase {
     writer.startElement(HtmlConstants.SPAN, null);
     writer.writeIdAttribute(clientId + SUBCOMPONENT_SEP + "jsf-state-container");
     writer.flush();
+
+    // catch the next written stuff into a string and look if it is empty (TOBAGO-909)
+    FastStringWriter buffer = new FastStringWriter(40); // usually only the marker...
+    TobagoResponseWriter originalWriter = (TobagoResponseWriter) facesContext.getResponseWriter();
+    writer = (TobagoResponseWriter) writer.cloneWithWriter(buffer);
+    facesContext.setResponseWriter(writer);
     viewHandler.writeState(facesContext);
+    final String stateContent = buffer.toString();
+    writer = originalWriter;
+    facesContext.setResponseWriter(writer);
+
+    if (StringUtils.isBlank(stateContent)) {
+      if (LOG.isDebugEnabled()) {
+        LOG.debug("Writing state will not happen! So we write the hidden field manually.");
+      }
+      writer.startElement(HtmlConstants.INPUT, null);
+      writer.writeAttribute(HtmlAttributes.TYPE, "hidden", false);
+      writer.writeAttribute(HtmlAttributes.NAME, TobagoResponseStateManager.TREE_PARAM, false);
+      writer.writeAttribute(HtmlAttributes.ID, TobagoResponseStateManager.TREE_PARAM, false);
+      writer.writeAttribute(HtmlAttributes.VALUE, "workaround", false);
+      writer.endElement(HtmlConstants.INPUT);
+    } else {
+      writer.write(stateContent);
+    }
     writer.endElement(HtmlConstants.SPAN);
 
 //    facesContext.getApplication().getViewHandler().writeState(facesContext);
