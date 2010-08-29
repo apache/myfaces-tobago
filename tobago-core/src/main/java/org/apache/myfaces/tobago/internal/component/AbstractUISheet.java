@@ -512,13 +512,13 @@ public abstract class AbstractUISheet extends javax.faces.component.UIData
   // LAYOUT Begin
   public List<LayoutComponent> getComponents() {
     List<LayoutComponent> result = new ArrayList<LayoutComponent>();
-    for (UIComponent column : getChildren()) {
+    for (UIComponent column : (List<UIComponent>) getChildren()) {
       if (column instanceof AbstractUIColumnSelector) {
         result.add(null); // XXX UIColumnSelector is currently not an instance of LayoutComponent
       } else if (column instanceof ColumnEvent) {
         // ignore
       } else if (column instanceof UIColumn) {
-        for (UIComponent component : column.getChildren()) {
+        for (UIComponent component : (List<UIComponent>) column.getChildren()) {
           if (component instanceof LayoutComponent) {
             result.add((LayoutComponent) component);
             break;

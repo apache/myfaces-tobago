@@ -116,7 +116,7 @@ public abstract class AbstractUITreeNode
     if (node != null) {
       return !node.isLeaf();
     } else {
-      for (UIComponent child : getChildren()) {
+      for (UIComponent child : (List<UIComponent>) getChildren()) {
         if ((child instanceof AbstractUITreeNode || child instanceof AbstractUITreeData) && child.isRendered()) {
           return true;
         }
