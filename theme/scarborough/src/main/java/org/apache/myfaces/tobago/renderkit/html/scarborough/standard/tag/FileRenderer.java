@@ -133,6 +133,10 @@ public class FileRenderer extends InputRendererBase {
       writer.writeAttribute(HtmlAttributes.TABINDEX, tabIndex);
     }
     HtmlRendererUtil.renderTip(input, writer);
+    if (ClientProperties.getInstance(facesContext).getUserAgent().isMsie6()) {
+      writer.writeAttribute(HtmlAttributes.ONKEYDOWN, "this.blur();return false;", false);
+      writer.writeAttribute("oncontextmenu", "return false;", false);
+    }
     writer.endElement(HtmlConstants.INPUT);
   }
 }
