@@ -43,6 +43,7 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 public class TreeListboxNodeRenderer extends CommandRendererBase {
@@ -171,7 +172,7 @@ public class TreeListboxNodeRenderer extends CommandRendererBase {
 
   // XXX this is a hotfix, may be better calling the renderer?
   private String getLabel(UITreeNode node) {
-    for (UIComponent component : node.getChildren()) {
+    for (UIComponent component : (List<UIComponent>) node.getChildren()) {
       if (component instanceof UITreeLabel) {
         return "" + ((UITreeLabel) component).getValue();
       }

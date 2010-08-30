@@ -37,6 +37,7 @@ import org.apache.myfaces.tobago.webapp.TobagoResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.List;
 
 public class TreeListboxRenderer extends LayoutComponentRendererBase {
 
@@ -55,7 +56,7 @@ public class TreeListboxRenderer extends LayoutComponentRendererBase {
   }
 
   protected void setRendererTypeForCommandsAndNodes(UIComponent component) {
-    for (UIComponent child : component.getChildren()) {
+    for (UIComponent child : (List<UIComponent>) component.getChildren()) {
       if (child instanceof UITreeNode) {
         child.setRendererType(RendererTypes.TREE_LISTBOX_NODE);
       }
