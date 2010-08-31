@@ -64,6 +64,8 @@ public class UserAgent implements Serializable {
 
   public static final UserAgent MOZILLA_5_0_R1_6 = new UserAgent("mozilla", "5_0_r1_6");
 
+  /** Firefox 2 */
+  public static final UserAgent MOZILLA_5_0_FF_2 = new UserAgent("mozilla", "5_0_ff_2");
 
   private String name;
 
@@ -148,6 +150,8 @@ public class UserAgent implements Serializable {
       } else if (header.indexOf("mozilla 5.0") > -1) {
         if (header.indexOf("rv:1.6") > -1) {
           return MOZILLA_5_0_R1_6;
+        } else if (header.indexOf("firefox 2") > -1) {
+          return MOZILLA_5_0_FF_2;
         } else {
           return MOZILLA_5_0;
         }
@@ -197,6 +201,8 @@ public class UserAgent implements Serializable {
         return MOZILLA_5_0;
       } else if (id.equals("mozilla_5_0_r1_6")) {
         return MOZILLA_5_0_R1_6;
+      } else if (id.equals("mozilla_5_0_ff_2")) {
+        return MOZILLA_5_0_FF_2;
       } else {
         return MOZILLA;
       }
